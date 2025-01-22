@@ -2,9 +2,10 @@
 package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /** Package-local implementation of UsageDashboards */
 @Generated
@@ -18,17 +19,27 @@ class UsageDashboardsImpl implements UsageDashboardsService {
   @Override
   public CreateBillingUsageDashboardResponse create(CreateBillingUsageDashboardRequest request) {
     String path = String.format("/api/2.0/accounts/%s/dashboard", apiClient.configuredAccountID());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CreateBillingUsageDashboardResponse.class, headers);
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, CreateBillingUsageDashboardResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public GetBillingUsageDashboardResponse get(GetBillingUsageDashboardRequest request) {
     String path = String.format("/api/2.0/accounts/%s/dashboard", apiClient.configuredAccountID());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetBillingUsageDashboardResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, GetBillingUsageDashboardResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }

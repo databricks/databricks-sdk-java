@@ -11,6 +11,7 @@ import com.databricks.sdk.core.utils.FakeTimer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
@@ -62,12 +63,15 @@ public class ApiClientTest {
   }
 
   private <T> void runApiClientTest(
-      ApiClient client, Request request, Class<? extends T> clazz, T expectedResponse) {
+      ApiClient client, Request request, Class<? extends T> clazz, T expectedResponse)
+      throws IOException {
     T response;
     if (request.getMethod().equals(Request.GET)) {
-      response = client.GET(request.getUri().getPath(), clazz, Collections.emptyMap());
+      response = client.execute(new Request("GET", request.getUri().getPath()), clazz);
     } else if (request.getMethod().equals(Request.POST)) {
-      response = client.POST(request.getUri().getPath(), request, clazz, Collections.emptyMap());
+      response =
+          client.execute(
+              new Request("POST", request.getUri().getPath(), client.serialize(request)), clazz);
     } else {
       throw new IllegalArgumentException("Unsupported method: " + request.getMethod());
     }
@@ -78,13 +82,15 @@ public class ApiClientTest {
       Request request,
       List<ResponseProvider> responses,
       Class<? extends T> clazz,
-      T expectedResponse) {
+      T expectedResponse)
+      throws IOException {
     ApiClient client = getApiClient(request, responses);
     runApiClientTest(client, request, clazz, expectedResponse);
   }
 
   private void runFailingApiClientTest(
-      Request request, List<ResponseProvider> responses, Class<?> clazz, String expectedMessage) {
+      Request request, List<ResponseProvider> responses, Class<?> clazz, String expectedMessage)
+      throws IOException {
     DatabricksException exception =
         runFailingApiClientTest(request, responses, clazz, DatabricksException.class);
     assertEquals(exception.getMessage(), expectedMessage);
@@ -96,11 +102,14 @@ public class ApiClientTest {
     if (request.getMethod().equals(Request.GET)) {
       return assertThrows(
           exceptionClass,
-          () -> client.GET(request.getUri().getPath(), clazz, Collections.emptyMap()));
+          () -> client.execute(new Request("GET", request.getUri().getPath()), clazz));
     } else if (request.getMethod().equals(Request.POST)) {
       return assertThrows(
           exceptionClass,
-          () -> client.POST(request.getUri().getPath(), request, clazz, Collections.emptyMap()));
+          () ->
+              client.execute(
+                  new Request("POST", request.getUri().getPath(), client.serialize(request)),
+                  clazz));
     } else {
       throw new IllegalArgumentException("Unsupported method: " + request.getMethod());
     }
@@ -173,7 +182,7 @@ public class ApiClientTest {
   }
 
   @Test
-  void happyPath() {
+  void happyPath() throws IOException {
     Request req = getBasicRequest();
     runApiClientTest(
         req,
@@ -183,7 +192,7 @@ public class ApiClientTest {
   }
 
   @Test
-  void unknownKey() {
+  void unknownKey() throws IOException {
     Request req = getBasicRequest();
     runApiClientTest(
         req,
@@ -193,7 +202,7 @@ public class ApiClientTest {
   }
 
   @Test
-  void retry429() {
+  void retry429() throws IOException {
     Request req = getBasicRequest();
     runApiClientTest(
         req,
@@ -206,7 +215,7 @@ public class ApiClientTest {
   }
 
   @Test
-  void failAfterTooManyRetries() {
+  void failAfterTooManyRetries() throws IOException {
     Request req = getBasicRequest();
     runFailingApiClientTest(
         req,
@@ -221,7 +230,7 @@ public class ApiClientTest {
   }
 
   @Test
-  void checkExponentialBackoffForRetry() {
+  void checkExponentialBackoffForRetry() throws IOException {
     Request req = getBasicRequest();
     ApiClient client =
         getApiClient(req, Collections.singletonList(getTooManyRequestsResponse(req)));
@@ -234,7 +243,7 @@ public class ApiClientTest {
   }
 
   @Test
-  void failIdempotentRequestAfterTooManyRetries() throws JsonProcessingException {
+  void failIdempotentRequestAfterTooManyRetries() throws IOException {
     Request req = getExampleIdempotentRequest();
 
     runFailingApiClientTest(
@@ -260,7 +269,7 @@ public class ApiClientTest {
   }
 
   @Test
-  void retryDatabricksApi12RetriableError() throws JsonProcessingException {
+  void retryDatabricksApi12RetriableError() throws IOException {
     Request req = getBasicRequest();
 
     runApiClientTest(
@@ -322,7 +331,7 @@ public class ApiClientTest {
   }
 
   @Test
-  void retryDatabricksRetriableError() throws JsonProcessingException {
+  void retryDatabricksRetriableError() throws IOException {
     Request req = getBasicRequest();
 
     runApiClientTest(
@@ -346,7 +355,7 @@ public class ApiClientTest {
   }
 
   @Test
-  void retryUnknownHostException() {
+  void retryUnknownHostException() throws IOException {
     Request req = getBasicRequest();
 
     runApiClientTest(
@@ -379,7 +388,7 @@ public class ApiClientTest {
   }
 
   @Test
-  void populateHostFromCredentialProvider() {
+  void populateHostFromCredentialProvider() throws IOException {
     Request req = getBasicRequest();
     DatabricksConfig config =
         new DatabricksConfig()
@@ -413,8 +422,8 @@ public class ApiClientTest {
         assertThrows(
             PrivateLinkValidationError.class,
             () ->
-                client.GET(
-                    req.getUri().getPath(), MyEndpointResponse.class, Collections.emptyMap()));
+                client.execute(
+                    new Request("GET", req.getUri().getPath()), MyEndpointResponse.class));
     assertTrue(e.getMessage().contains("AWS PrivateLink"));
   }
 }

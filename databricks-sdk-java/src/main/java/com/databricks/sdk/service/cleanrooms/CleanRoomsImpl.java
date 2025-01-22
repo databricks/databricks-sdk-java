@@ -2,9 +2,10 @@
 package com.databricks.sdk.service.cleanrooms;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /** Package-local implementation of CleanRooms */
 @Generated
@@ -18,10 +19,15 @@ class CleanRoomsImpl implements CleanRoomsService {
   @Override
   public CleanRoom create(CreateCleanRoomRequest request) {
     String path = "/api/2.0/clean-rooms";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request.getCleanRoom(), CleanRoom.class, headers);
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request.getCleanRoom()));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, CleanRoom.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -29,43 +35,67 @@ class CleanRoomsImpl implements CleanRoomsService {
       CreateCleanRoomOutputCatalogRequest request) {
     String path =
         String.format("/api/2.0/clean-rooms/%s/output-catalogs", request.getCleanRoomName());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.POST(
-        path, request.getOutputCatalog(), CreateCleanRoomOutputCatalogResponse.class, headers);
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request.getOutputCatalog()));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, CreateCleanRoomOutputCatalogResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public void delete(DeleteCleanRoomRequest request) {
     String path = String.format("/api/2.0/clean-rooms/%s", request.getName());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    try {
+      Request req = new Request("DELETE", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      apiClient.execute(req, DeleteResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public CleanRoom get(GetCleanRoomRequest request) {
     String path = String.format("/api/2.0/clean-rooms/%s", request.getName());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, CleanRoom.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, CleanRoom.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public ListCleanRoomsResponse list(ListCleanRoomsRequest request) {
     String path = "/api/2.0/clean-rooms";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListCleanRoomsResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ListCleanRoomsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public CleanRoom update(UpdateCleanRoomRequest request) {
     String path = String.format("/api/2.0/clean-rooms/%s", request.getName());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, CleanRoom.class, headers);
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, CleanRoom.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }

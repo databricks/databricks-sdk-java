@@ -2,9 +2,10 @@
 package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /** Package-local implementation of AccountAccessControlProxy */
 @Generated
@@ -19,25 +20,40 @@ class AccountAccessControlProxyImpl implements AccountAccessControlProxyService 
   public GetAssignableRolesForResourceResponse getAssignableRolesForResource(
       GetAssignableRolesForResourceRequest request) {
     String path = "/api/2.0/preview/accounts/access-control/assignable-roles";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetAssignableRolesForResourceResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, GetAssignableRolesForResourceResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public RuleSetResponse getRuleSet(GetRuleSetRequest request) {
     String path = "/api/2.0/preview/accounts/access-control/rule-sets";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, RuleSetResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, RuleSetResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public RuleSetResponse updateRuleSet(UpdateRuleSetRequest request) {
     String path = "/api/2.0/preview/accounts/access-control/rule-sets";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, RuleSetResponse.class, headers);
+    try {
+      Request req = new Request("PUT", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, RuleSetResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }

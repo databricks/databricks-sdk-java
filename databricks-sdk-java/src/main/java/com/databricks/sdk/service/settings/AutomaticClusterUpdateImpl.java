@@ -2,9 +2,10 @@
 package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /** Package-local implementation of AutomaticClusterUpdate */
 @Generated
@@ -18,17 +19,27 @@ class AutomaticClusterUpdateImpl implements AutomaticClusterUpdateService {
   @Override
   public AutomaticClusterUpdateSetting get(GetAutomaticClusterUpdateSettingRequest request) {
     String path = "/api/2.0/settings/types/automatic_cluster_update/names/default";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, AutomaticClusterUpdateSetting.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, AutomaticClusterUpdateSetting.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public AutomaticClusterUpdateSetting update(UpdateAutomaticClusterUpdateSettingRequest request) {
     String path = "/api/2.0/settings/types/automatic_cluster_update/names/default";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, AutomaticClusterUpdateSetting.class, headers);
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, AutomaticClusterUpdateSetting.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }

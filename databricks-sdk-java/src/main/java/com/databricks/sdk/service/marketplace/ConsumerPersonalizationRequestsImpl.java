@@ -2,9 +2,10 @@
 package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /** Package-local implementation of ConsumerPersonalizationRequests */
 @Generated
@@ -21,10 +22,15 @@ class ConsumerPersonalizationRequestsImpl implements ConsumerPersonalizationRequ
         String.format(
             "/api/2.1/marketplace-consumer/listings/%s/personalization-requests",
             request.getListingId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CreatePersonalizationRequestResponse.class, headers);
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, CreatePersonalizationRequestResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -33,17 +39,27 @@ class ConsumerPersonalizationRequestsImpl implements ConsumerPersonalizationRequ
         String.format(
             "/api/2.1/marketplace-consumer/listings/%s/personalization-requests",
             request.getListingId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetPersonalizationRequestResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, GetPersonalizationRequestResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public ListAllPersonalizationRequestsResponse list(
       ListAllPersonalizationRequestsRequest request) {
     String path = "/api/2.1/marketplace-consumer/personalization-requests";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListAllPersonalizationRequestsResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ListAllPersonalizationRequestsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }

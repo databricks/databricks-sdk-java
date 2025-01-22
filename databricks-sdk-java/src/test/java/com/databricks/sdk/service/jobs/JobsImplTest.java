@@ -5,6 +5,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.http.Request;
+import java.io.IOException;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -16,74 +18,148 @@ public class JobsImplTest {
    */
 
   @Test
-  public void testJobsCreateUsesApi2_1() {
+  public void testJobsCreateUsesApi2_1() throws IOException {
     ApiClient apiClient = Mockito.mock(ApiClient.class);
     String expectedPath = "/api/2.1/jobs/create";
-    when(apiClient.POST(eq(expectedPath), any(), any(), any())).thenReturn(null);
+    when(apiClient.execute(any(), any())).thenReturn(null);
+    when(apiClient.serialize(any())).thenReturn("");
 
     JobsService jobs = new JobsImpl(apiClient);
     jobs.create(new CreateJob());
 
-    verify(apiClient).POST(eq(expectedPath), any(), any(), any());
+    verify(apiClient)
+        .execute(
+            argThat(
+                (Request req) -> {
+                  if (!req.getMethod().equals("POST")) {
+                    return false;
+                  }
+                  if (!req.getUrl().equals(expectedPath)) {
+                    return false;
+                  }
+                  return true;
+                }),
+            eq(CreateResponse.class));
   }
 
   @Test
-  public void testJobsGetUsesApi2_1() {
+  public void testJobsGetUsesApi2_1() throws IOException {
     ApiClient apiClient = Mockito.mock(ApiClient.class);
     String expectedPath = "/api/2.1/jobs/get";
-    when(apiClient.GET(eq(expectedPath), any(), any(), any())).thenReturn(null);
+    when(apiClient.execute(any(), any())).thenReturn(null);
 
     JobsService jobs = new JobsImpl(apiClient);
     jobs.get(new GetJobRequest());
 
-    verify(apiClient).GET(eq(expectedPath), any(), any(), any());
+    verify(apiClient)
+        .execute(
+            argThat(
+                (Request req) -> {
+                  if (!req.getMethod().equals("GET")) {
+                    return false;
+                  }
+                  if (!req.getUrl().equals(expectedPath)) {
+                    return false;
+                  }
+                  return true;
+                }),
+            eq(Job.class));
   }
 
   @Test
-  public void testJobsListUsesApi2_1() {
+  public void testJobsListUsesApi2_1() throws IOException {
     ApiClient apiClient = Mockito.mock(ApiClient.class);
     String expectedPath = "/api/2.1/jobs/list";
-    when(apiClient.GET(eq(expectedPath), any(), any(), any())).thenReturn(null);
+    when(apiClient.execute(any(), any())).thenReturn(null);
 
     JobsService jobs = new JobsImpl(apiClient);
     jobs.list(new ListJobsRequest());
 
-    verify(apiClient).GET(eq(expectedPath), any(), any(), any());
+    verify(apiClient)
+        .execute(
+            argThat(
+                (Request req) -> {
+                  if (!req.getMethod().equals("GET")) {
+                    return false;
+                  }
+                  if (!req.getUrl().equals(expectedPath)) {
+                    return false;
+                  }
+                  return true;
+                }),
+            eq(ListJobsResponse.class));
   }
 
   @Test
-  public void testJobsUpdateUsesApi2_1() {
+  public void testJobsUpdateUsesApi2_1() throws IOException {
     ApiClient apiClient = Mockito.mock(ApiClient.class);
     String expectedPath = "/api/2.1/jobs/update";
-    when(apiClient.POST(eq(expectedPath), any(), any(), any())).thenReturn(null);
+    when(apiClient.execute(any(), any())).thenReturn(null);
 
     JobsService jobs = new JobsImpl(apiClient);
     jobs.update(new UpdateJob());
 
-    verify(apiClient).POST(eq(expectedPath), any(), any(), any());
+    verify(apiClient)
+        .execute(
+            argThat(
+                (Request req) -> {
+                  if (!req.getMethod().equals("POST")) {
+                    return false;
+                  }
+                  if (!req.getUrl().equals(expectedPath)) {
+                    return false;
+                  }
+                  return true;
+                }),
+            eq(UpdateResponse.class));
   }
 
   @Test
-  public void testJobsResetUsesApi2_1() {
+  public void testJobsResetUsesApi2_1() throws IOException {
     ApiClient apiClient = Mockito.mock(ApiClient.class);
     String expectedPath = "/api/2.1/jobs/reset";
-    when(apiClient.POST(eq(expectedPath), any(), any(), any())).thenReturn(null);
+    when(apiClient.execute(any(), any())).thenReturn(null);
+    when(apiClient.serialize(any())).thenReturn("");
 
     JobsService jobs = new JobsImpl(apiClient);
     jobs.reset(new ResetJob());
 
-    verify(apiClient).POST(eq(expectedPath), any(), any(), any());
+    verify(apiClient)
+        .execute(
+            argThat(
+                (Request req) -> {
+                  if (!req.getMethod().equals("POST")) {
+                    return false;
+                  }
+                  if (!req.getUrl().equals(expectedPath)) {
+                    return false;
+                  }
+                  return true;
+                }),
+            eq(ResetResponse.class));
   }
 
   @Test
-  public void testJobsListRunsUsesApi2_1() {
+  public void testJobsListRunsUsesApi2_1() throws IOException {
     ApiClient apiClient = Mockito.mock(ApiClient.class);
     String expectedPath = "/api/2.1/jobs/runs/list";
-    when(apiClient.GET(eq(expectedPath), any(), any(), any())).thenReturn(null);
+    when(apiClient.execute(any(), any())).thenReturn(null);
 
     JobsService jobs = new JobsImpl(apiClient);
     jobs.listRuns(new ListRunsRequest());
 
-    verify(apiClient).GET(eq(expectedPath), any(), any(), any());
+    verify(apiClient)
+        .execute(
+            argThat(
+                (Request req) -> {
+                  if (!req.getMethod().equals("GET")) {
+                    return false;
+                  }
+                  if (!req.getUrl().equals(expectedPath)) {
+                    return false;
+                  }
+                  return true;
+                }),
+            eq(ListRunsResponse.class));
   }
 }

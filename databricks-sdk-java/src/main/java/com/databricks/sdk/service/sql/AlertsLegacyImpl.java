@@ -2,10 +2,11 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
+import java.io.IOException;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 /** Package-local implementation of AlertsLegacy */
 @Generated
@@ -19,42 +20,62 @@ class AlertsLegacyImpl implements AlertsLegacyService {
   @Override
   public LegacyAlert create(CreateAlert request) {
     String path = "/api/2.0/preview/sql/alerts";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, LegacyAlert.class, headers);
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, LegacyAlert.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public void delete(DeleteAlertsLegacyRequest request) {
     String path = String.format("/api/2.0/preview/sql/alerts/%s", request.getAlertId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    try {
+      Request req = new Request("DELETE", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      apiClient.execute(req, DeleteResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public LegacyAlert get(GetAlertsLegacyRequest request) {
     String path = String.format("/api/2.0/preview/sql/alerts/%s", request.getAlertId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, LegacyAlert.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, LegacyAlert.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public Collection<LegacyAlert> list() {
     String path = "/api/2.0/preview/sql/alerts";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.getCollection(path, null, LegacyAlert.class, headers);
+    Request req = new Request("GET", path);
+    req.withHeader("Accept", "application/json");
+    return apiClient.getCollection(req, LegacyAlert.class);
   }
 
   @Override
   public void update(EditAlert request) {
     String path = String.format("/api/2.0/preview/sql/alerts/%s", request.getAlertId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    apiClient.PUT(path, request, UpdateResponse.class, headers);
+    try {
+      Request req = new Request("PUT", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      apiClient.execute(req, UpdateResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }

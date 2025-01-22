@@ -2,9 +2,10 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /** Package-local implementation of Warehouses */
 @Generated
@@ -18,35 +19,55 @@ class WarehousesImpl implements WarehousesService {
   @Override
   public CreateWarehouseResponse create(CreateWarehouseRequest request) {
     String path = "/api/2.0/sql/warehouses";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CreateWarehouseResponse.class, headers);
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, CreateWarehouseResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public void delete(DeleteWarehouseRequest request) {
     String path = String.format("/api/2.0/sql/warehouses/%s", request.getId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteWarehouseResponse.class, headers);
+    try {
+      Request req = new Request("DELETE", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      apiClient.execute(req, DeleteWarehouseResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public void edit(EditWarehouseRequest request) {
     String path = String.format("/api/2.0/sql/warehouses/%s/edit", request.getId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, EditWarehouseResponse.class, headers);
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      apiClient.execute(req, EditWarehouseResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public GetWarehouseResponse get(GetWarehouseRequest request) {
     String path = String.format("/api/2.0/sql/warehouses/%s", request.getId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetWarehouseResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, GetWarehouseResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -55,75 +76,119 @@ class WarehousesImpl implements WarehousesService {
     String path =
         String.format(
             "/api/2.0/permissions/warehouses/%s/permissionLevels", request.getWarehouseId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetWarehousePermissionLevelsResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, GetWarehousePermissionLevelsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public WarehousePermissions getPermissions(GetWarehousePermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/warehouses/%s", request.getWarehouseId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, WarehousePermissions.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, WarehousePermissions.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public GetWorkspaceWarehouseConfigResponse getWorkspaceWarehouseConfig() {
     String path = "/api/2.0/sql/config/warehouses";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(path, GetWorkspaceWarehouseConfigResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, GetWorkspaceWarehouseConfigResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public ListWarehousesResponse list(ListWarehousesRequest request) {
     String path = "/api/2.0/sql/warehouses";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListWarehousesResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ListWarehousesResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public WarehousePermissions setPermissions(WarehousePermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/warehouses/%s", request.getWarehouseId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, WarehousePermissions.class, headers);
+    try {
+      Request req = new Request("PUT", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, WarehousePermissions.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public void setWorkspaceWarehouseConfig(SetWorkspaceWarehouseConfigRequest request) {
     String path = "/api/2.0/sql/config/warehouses";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    apiClient.PUT(path, request, SetWorkspaceWarehouseConfigResponse.class, headers);
+    try {
+      Request req = new Request("PUT", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      apiClient.execute(req, SetWorkspaceWarehouseConfigResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public void start(StartRequest request) {
     String path = String.format("/api/2.0/sql/warehouses/%s/start", request.getId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    apiClient.POST(path, null, StartWarehouseResponse.class, headers);
+    try {
+      Request req = new Request("POST", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      apiClient.execute(req, StartWarehouseResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public void stop(StopRequest request) {
     String path = String.format("/api/2.0/sql/warehouses/%s/stop", request.getId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    apiClient.POST(path, null, StopWarehouseResponse.class, headers);
+    try {
+      Request req = new Request("POST", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      apiClient.execute(req, StopWarehouseResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public WarehousePermissions updatePermissions(WarehousePermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/warehouses/%s", request.getWarehouseId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, WarehousePermissions.class, headers);
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, WarehousePermissions.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }

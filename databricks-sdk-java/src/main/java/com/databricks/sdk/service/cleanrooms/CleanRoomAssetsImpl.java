@@ -2,9 +2,10 @@
 package com.databricks.sdk.service.cleanrooms;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /** Package-local implementation of CleanRoomAssets */
 @Generated
@@ -18,10 +19,15 @@ class CleanRoomAssetsImpl implements CleanRoomAssetsService {
   @Override
   public CleanRoomAsset create(CreateCleanRoomAssetRequest request) {
     String path = String.format("/api/2.0/clean-rooms/%s/assets", request.getCleanRoomName());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request.getAsset(), CleanRoomAsset.class, headers);
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request.getAsset()));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, CleanRoomAsset.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -30,9 +36,14 @@ class CleanRoomAssetsImpl implements CleanRoomAssetsService {
         String.format(
             "/api/2.0/clean-rooms/%s/assets/%s/%s",
             request.getCleanRoomName(), request.getAssetType(), request.getAssetFullName());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteCleanRoomAssetResponse.class, headers);
+    try {
+      Request req = new Request("DELETE", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      apiClient.execute(req, DeleteCleanRoomAssetResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -41,17 +52,27 @@ class CleanRoomAssetsImpl implements CleanRoomAssetsService {
         String.format(
             "/api/2.0/clean-rooms/%s/assets/%s/%s",
             request.getCleanRoomName(), request.getAssetType(), request.getAssetFullName());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, CleanRoomAsset.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, CleanRoomAsset.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public ListCleanRoomAssetsResponse list(ListCleanRoomAssetsRequest request) {
     String path = String.format("/api/2.0/clean-rooms/%s/assets", request.getCleanRoomName());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListCleanRoomAssetsResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ListCleanRoomAssetsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -60,9 +81,14 @@ class CleanRoomAssetsImpl implements CleanRoomAssetsService {
         String.format(
             "/api/2.0/clean-rooms/%s/assets/%s/%s",
             request.getCleanRoomName(), request.getAssetType(), request.getName());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request.getAsset(), CleanRoomAsset.class, headers);
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request.getAsset()));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, CleanRoomAsset.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }

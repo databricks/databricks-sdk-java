@@ -2,9 +2,10 @@
 package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /** Package-local implementation of GitCredentials */
 @Generated
@@ -18,42 +19,66 @@ class GitCredentialsImpl implements GitCredentialsService {
   @Override
   public CreateCredentialsResponse create(CreateCredentialsRequest request) {
     String path = "/api/2.0/git-credentials";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CreateCredentialsResponse.class, headers);
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, CreateCredentialsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public void delete(DeleteCredentialsRequest request) {
     String path = String.format("/api/2.0/git-credentials/%s", request.getCredentialId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteCredentialsResponse.class, headers);
+    try {
+      Request req = new Request("DELETE", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      apiClient.execute(req, DeleteCredentialsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public GetCredentialsResponse get(GetCredentialsRequest request) {
     String path = String.format("/api/2.0/git-credentials/%s", request.getCredentialId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetCredentialsResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, GetCredentialsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public ListCredentialsResponse list() {
     String path = "/api/2.0/git-credentials";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(path, ListCredentialsResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ListCredentialsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public void update(UpdateCredentialsRequest request) {
     String path = String.format("/api/2.0/git-credentials/%s", request.getCredentialId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    apiClient.PATCH(path, request, UpdateCredentialsResponse.class, headers);
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      apiClient.execute(req, UpdateCredentialsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }

@@ -2,9 +2,10 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /** Package-local implementation of ResourceQuotas */
 @Generated
@@ -21,16 +22,26 @@ class ResourceQuotasImpl implements ResourceQuotasService {
         String.format(
             "/api/2.1/unity-catalog/resource-quotas/%s/%s/%s",
             request.getParentSecurableType(), request.getParentFullName(), request.getQuotaName());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetQuotaResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, GetQuotaResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public ListQuotasResponse listQuotas(ListQuotasRequest request) {
     String path = "/api/2.1/unity-catalog/resource-quotas/all-resource-quotas";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListQuotasResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ListQuotasResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }

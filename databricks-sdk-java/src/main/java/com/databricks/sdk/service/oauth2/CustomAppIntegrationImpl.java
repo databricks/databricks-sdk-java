@@ -2,9 +2,10 @@
 package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /** Package-local implementation of CustomAppIntegration */
 @Generated
@@ -20,10 +21,15 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
     String path =
         String.format(
             "/api/2.0/accounts/%s/oauth2/custom-app-integrations", apiClient.configuredAccountID());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CreateCustomAppIntegrationOutput.class, headers);
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, CreateCustomAppIntegrationOutput.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -32,9 +38,14 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
         String.format(
             "/api/2.0/accounts/%s/oauth2/custom-app-integrations/%s",
             apiClient.configuredAccountID(), request.getIntegrationId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteCustomAppIntegrationOutput.class, headers);
+    try {
+      Request req = new Request("DELETE", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      apiClient.execute(req, DeleteCustomAppIntegrationOutput.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -43,9 +54,14 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
         String.format(
             "/api/2.0/accounts/%s/oauth2/custom-app-integrations/%s",
             apiClient.configuredAccountID(), request.getIntegrationId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetCustomAppIntegrationOutput.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, GetCustomAppIntegrationOutput.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -53,9 +69,14 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
     String path =
         String.format(
             "/api/2.0/accounts/%s/oauth2/custom-app-integrations", apiClient.configuredAccountID());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetCustomAppIntegrationsOutput.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, GetCustomAppIntegrationsOutput.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -64,9 +85,14 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
         String.format(
             "/api/2.0/accounts/%s/oauth2/custom-app-integrations/%s",
             apiClient.configuredAccountID(), request.getIntegrationId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    apiClient.PATCH(path, request, UpdateCustomAppIntegrationOutput.class, headers);
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      apiClient.execute(req, UpdateCustomAppIntegrationOutput.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }

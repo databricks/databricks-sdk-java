@@ -2,9 +2,10 @@
 package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /** Package-local implementation of Tokens */
 @Generated
@@ -18,26 +19,40 @@ class TokensImpl implements TokensService {
   @Override
   public CreateTokenResponse create(CreateTokenRequest request) {
     String path = "/api/2.0/token/create";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CreateTokenResponse.class, headers);
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, CreateTokenResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public void delete(RevokeTokenRequest request) {
     String path = "/api/2.0/token/delete";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, RevokeTokenResponse.class, headers);
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      apiClient.execute(req, RevokeTokenResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public ListPublicTokensResponse list() {
     String path = "/api/2.0/token/list";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(path, ListPublicTokensResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ListPublicTokensResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }

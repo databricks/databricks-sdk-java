@@ -2,9 +2,10 @@
 package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /** Package-local implementation of AibiDashboardEmbeddingApprovedDomains */
 @Generated
@@ -20,30 +21,43 @@ class AibiDashboardEmbeddingApprovedDomainsImpl
   public DeleteAibiDashboardEmbeddingApprovedDomainsSettingResponse delete(
       DeleteAibiDashboardEmbeddingApprovedDomainsSettingRequest request) {
     String path = "/api/2.0/settings/types/aibi_dash_embed_ws_apprvd_domains/names/default";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.DELETE(
-        path, request, DeleteAibiDashboardEmbeddingApprovedDomainsSettingResponse.class, headers);
+    try {
+      Request req = new Request("DELETE", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(
+          req, DeleteAibiDashboardEmbeddingApprovedDomainsSettingResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public AibiDashboardEmbeddingApprovedDomainsSetting get(
       GetAibiDashboardEmbeddingApprovedDomainsSettingRequest request) {
     String path = "/api/2.0/settings/types/aibi_dash_embed_ws_apprvd_domains/names/default";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(
-        path, request, AibiDashboardEmbeddingApprovedDomainsSetting.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, AibiDashboardEmbeddingApprovedDomainsSetting.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public AibiDashboardEmbeddingApprovedDomainsSetting update(
       UpdateAibiDashboardEmbeddingApprovedDomainsSettingRequest request) {
     String path = "/api/2.0/settings/types/aibi_dash_embed_ws_apprvd_domains/names/default";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(
-        path, request, AibiDashboardEmbeddingApprovedDomainsSetting.class, headers);
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, AibiDashboardEmbeddingApprovedDomainsSetting.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }
