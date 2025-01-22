@@ -2,9 +2,10 @@
 package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /** Package-local implementation of Lakeview */
 @Generated
@@ -18,20 +19,30 @@ class LakeviewImpl implements LakeviewService {
   @Override
   public Dashboard create(CreateDashboardRequest request) {
     String path = "/api/2.0/lakeview/dashboards";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.execute("POST", path, request.getDashboard(), Dashboard.class, headers);
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request.getDashboard()));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, Dashboard.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public Schedule createSchedule(CreateScheduleRequest request) {
     String path =
         String.format("/api/2.0/lakeview/dashboards/%s/schedules", request.getDashboardId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.execute("POST", path, request.getSchedule(), Schedule.class, headers);
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request.getSchedule()));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, Schedule.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -40,10 +51,15 @@ class LakeviewImpl implements LakeviewService {
         String.format(
             "/api/2.0/lakeview/dashboards/%s/schedules/%s/subscriptions",
             request.getDashboardId(), request.getScheduleId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.execute("POST", path, request.getSubscription(), Subscription.class, headers);
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request.getSubscription()));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, Subscription.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -52,9 +68,14 @@ class LakeviewImpl implements LakeviewService {
         String.format(
             "/api/2.0/lakeview/dashboards/%s/schedules/%s",
             request.getDashboardId(), request.getScheduleId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    apiClient.execute("DELETE", path, request, DeleteScheduleResponse.class, headers);
+    try {
+      Request req = new Request("DELETE", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      apiClient.execute(req, DeleteScheduleResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -63,26 +84,41 @@ class LakeviewImpl implements LakeviewService {
         String.format(
             "/api/2.0/lakeview/dashboards/%s/schedules/%s/subscriptions/%s",
             request.getDashboardId(), request.getScheduleId(), request.getSubscriptionId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    apiClient.execute("DELETE", path, request, DeleteSubscriptionResponse.class, headers);
+    try {
+      Request req = new Request("DELETE", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      apiClient.execute(req, DeleteSubscriptionResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public Dashboard get(GetDashboardRequest request) {
     String path = String.format("/api/2.0/lakeview/dashboards/%s", request.getDashboardId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.execute("GET", path, request, Dashboard.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, Dashboard.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public PublishedDashboard getPublished(GetPublishedDashboardRequest request) {
     String path =
         String.format("/api/2.0/lakeview/dashboards/%s/published", request.getDashboardId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.execute("GET", path, request, PublishedDashboard.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, PublishedDashboard.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -91,9 +127,14 @@ class LakeviewImpl implements LakeviewService {
         String.format(
             "/api/2.0/lakeview/dashboards/%s/schedules/%s",
             request.getDashboardId(), request.getScheduleId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.execute("GET", path, request, Schedule.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, Schedule.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -102,26 +143,41 @@ class LakeviewImpl implements LakeviewService {
         String.format(
             "/api/2.0/lakeview/dashboards/%s/schedules/%s/subscriptions/%s",
             request.getDashboardId(), request.getScheduleId(), request.getSubscriptionId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.execute("GET", path, request, Subscription.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, Subscription.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public ListDashboardsResponse list(ListDashboardsRequest request) {
     String path = "/api/2.0/lakeview/dashboards";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.execute("GET", path, request, ListDashboardsResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ListDashboardsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public ListSchedulesResponse listSchedules(ListSchedulesRequest request) {
     String path =
         String.format("/api/2.0/lakeview/dashboards/%s/schedules", request.getDashboardId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.execute("GET", path, request, ListSchedulesResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ListSchedulesResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -130,54 +186,84 @@ class LakeviewImpl implements LakeviewService {
         String.format(
             "/api/2.0/lakeview/dashboards/%s/schedules/%s/subscriptions",
             request.getDashboardId(), request.getScheduleId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.execute("GET", path, request, ListSubscriptionsResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ListSubscriptionsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public Dashboard migrate(MigrateDashboardRequest request) {
     String path = "/api/2.0/lakeview/dashboards/migrate";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.execute("POST", path, request, Dashboard.class, headers);
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, Dashboard.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public PublishedDashboard publish(PublishRequest request) {
     String path =
         String.format("/api/2.0/lakeview/dashboards/%s/published", request.getDashboardId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.execute("POST", path, request, PublishedDashboard.class, headers);
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, PublishedDashboard.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public void trash(TrashDashboardRequest request) {
     String path = String.format("/api/2.0/lakeview/dashboards/%s", request.getDashboardId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    apiClient.execute("DELETE", path, request, TrashDashboardResponse.class, headers);
+    try {
+      Request req = new Request("DELETE", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      apiClient.execute(req, TrashDashboardResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public void unpublish(UnpublishDashboardRequest request) {
     String path =
         String.format("/api/2.0/lakeview/dashboards/%s/published", request.getDashboardId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    apiClient.execute("DELETE", path, request, UnpublishDashboardResponse.class, headers);
+    try {
+      Request req = new Request("DELETE", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      apiClient.execute(req, UnpublishDashboardResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public Dashboard update(UpdateDashboardRequest request) {
     String path = String.format("/api/2.0/lakeview/dashboards/%s", request.getDashboardId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.execute("PATCH", path, request.getDashboard(), Dashboard.class, headers);
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request.getDashboard()));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, Dashboard.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -186,9 +272,14 @@ class LakeviewImpl implements LakeviewService {
         String.format(
             "/api/2.0/lakeview/dashboards/%s/schedules/%s",
             request.getDashboardId(), request.getScheduleId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.execute("PUT", path, request.getSchedule(), Schedule.class, headers);
+    try {
+      Request req = new Request("PUT", path, apiClient.serialize(request.getSchedule()));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, Schedule.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }

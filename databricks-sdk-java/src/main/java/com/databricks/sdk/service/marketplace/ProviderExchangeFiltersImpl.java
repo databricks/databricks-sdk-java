@@ -2,9 +2,10 @@
 package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /** Package-local implementation of ProviderExchangeFilters */
 @Generated
@@ -18,34 +19,54 @@ class ProviderExchangeFiltersImpl implements ProviderExchangeFiltersService {
   @Override
   public CreateExchangeFilterResponse create(CreateExchangeFilterRequest request) {
     String path = "/api/2.0/marketplace-exchange/filters";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.execute("POST", path, request, CreateExchangeFilterResponse.class, headers);
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, CreateExchangeFilterResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public void delete(DeleteExchangeFilterRequest request) {
     String path = String.format("/api/2.0/marketplace-exchange/filters/%s", request.getId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    apiClient.execute("DELETE", path, request, DeleteExchangeFilterResponse.class, headers);
+    try {
+      Request req = new Request("DELETE", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      apiClient.execute(req, DeleteExchangeFilterResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public ListExchangeFiltersResponse list(ListExchangeFiltersRequest request) {
     String path = "/api/2.0/marketplace-exchange/filters";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.execute("GET", path, request, ListExchangeFiltersResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ListExchangeFiltersResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public UpdateExchangeFilterResponse update(UpdateExchangeFilterRequest request) {
     String path = String.format("/api/2.0/marketplace-exchange/filters/%s", request.getId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.execute("PUT", path, request, UpdateExchangeFilterResponse.class, headers);
+    try {
+      Request req = new Request("PUT", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, UpdateExchangeFilterResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }

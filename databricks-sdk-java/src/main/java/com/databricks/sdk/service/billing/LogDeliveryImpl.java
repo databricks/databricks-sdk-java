@@ -2,9 +2,10 @@
 package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /** Package-local implementation of LogDelivery */
 @Generated
@@ -19,10 +20,15 @@ class LogDeliveryImpl implements LogDeliveryService {
   public WrappedLogDeliveryConfiguration create(WrappedCreateLogDeliveryConfiguration request) {
     String path =
         String.format("/api/2.0/accounts/%s/log-delivery", apiClient.configuredAccountID());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.execute("POST", path, request, WrappedLogDeliveryConfiguration.class, headers);
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, WrappedLogDeliveryConfiguration.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -31,18 +37,28 @@ class LogDeliveryImpl implements LogDeliveryService {
         String.format(
             "/api/2.0/accounts/%s/log-delivery/%s",
             apiClient.configuredAccountID(), request.getLogDeliveryConfigurationId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.execute("GET", path, request, WrappedLogDeliveryConfiguration.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, WrappedLogDeliveryConfiguration.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public WrappedLogDeliveryConfigurations list(ListLogDeliveryRequest request) {
     String path =
         String.format("/api/2.0/accounts/%s/log-delivery", apiClient.configuredAccountID());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.execute("GET", path, request, WrappedLogDeliveryConfigurations.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, WrappedLogDeliveryConfigurations.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -51,9 +67,14 @@ class LogDeliveryImpl implements LogDeliveryService {
         String.format(
             "/api/2.0/accounts/%s/log-delivery/%s",
             apiClient.configuredAccountID(), request.getLogDeliveryConfigurationId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    apiClient.execute("PATCH", path, request, PatchStatusResponse.class, headers);
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      apiClient.execute(req, PatchStatusResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }

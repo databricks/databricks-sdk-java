@@ -2,9 +2,10 @@
 package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /** Package-local implementation of CurrentUser */
 @Generated
@@ -18,8 +19,13 @@ class CurrentUserImpl implements CurrentUserService {
   @Override
   public User me() {
     String path = "/api/2.0/preview/scim/v2/Me";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.execute("GET", path, null, User.class, headers);
+    try {
+      Request req = new Request("GET", path);
+
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, User.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }

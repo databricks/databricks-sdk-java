@@ -2,9 +2,10 @@
 package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /** Package-local implementation of ServicePrincipalFederationPolicy */
 @Generated
@@ -21,10 +22,15 @@ class ServicePrincipalFederationPolicyImpl implements ServicePrincipalFederation
         String.format(
             "/api/2.0/accounts/%s/servicePrincipals/%s/federationPolicies",
             apiClient.configuredAccountID(), request.getServicePrincipalId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.execute("POST", path, request.getPolicy(), FederationPolicy.class, headers);
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request.getPolicy()));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, FederationPolicy.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -35,9 +41,14 @@ class ServicePrincipalFederationPolicyImpl implements ServicePrincipalFederation
             apiClient.configuredAccountID(),
             request.getServicePrincipalId(),
             request.getPolicyId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    apiClient.execute("DELETE", path, request, DeleteResponse.class, headers);
+    try {
+      Request req = new Request("DELETE", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      apiClient.execute(req, DeleteResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -48,9 +59,14 @@ class ServicePrincipalFederationPolicyImpl implements ServicePrincipalFederation
             apiClient.configuredAccountID(),
             request.getServicePrincipalId(),
             request.getPolicyId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.execute("GET", path, request, FederationPolicy.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, FederationPolicy.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -60,9 +76,14 @@ class ServicePrincipalFederationPolicyImpl implements ServicePrincipalFederation
         String.format(
             "/api/2.0/accounts/%s/servicePrincipals/%s/federationPolicies",
             apiClient.configuredAccountID(), request.getServicePrincipalId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.execute("GET", path, request, ListFederationPoliciesResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ListFederationPoliciesResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -73,9 +94,14 @@ class ServicePrincipalFederationPolicyImpl implements ServicePrincipalFederation
             apiClient.configuredAccountID(),
             request.getServicePrincipalId(),
             request.getPolicyId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.execute("PATCH", path, request.getPolicy(), FederationPolicy.class, headers);
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request.getPolicy()));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, FederationPolicy.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }

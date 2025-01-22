@@ -2,9 +2,10 @@
 package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /** Package-local implementation of PolicyFamilies */
 @Generated
@@ -18,16 +19,26 @@ class PolicyFamiliesImpl implements PolicyFamiliesService {
   @Override
   public PolicyFamily get(GetPolicyFamilyRequest request) {
     String path = String.format("/api/2.0/policy-families/%s", request.getPolicyFamilyId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.execute("GET", path, request, PolicyFamily.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, PolicyFamily.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public ListPolicyFamiliesResponse list(ListPolicyFamiliesRequest request) {
     String path = "/api/2.0/policy-families";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.execute("GET", path, request, ListPolicyFamiliesResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ListPolicyFamiliesResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }

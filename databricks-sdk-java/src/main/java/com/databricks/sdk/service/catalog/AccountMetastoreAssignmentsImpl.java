@@ -2,9 +2,10 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /** Package-local implementation of AccountMetastoreAssignments */
 @Generated
@@ -21,10 +22,15 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s/metastores/%s",
             apiClient.configuredAccountID(), request.getWorkspaceId(), request.getMetastoreId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    apiClient.execute("POST", path, request, CreateResponse.class, headers);
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      apiClient.execute(req, CreateResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -33,9 +39,14 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s/metastores/%s",
             apiClient.configuredAccountID(), request.getWorkspaceId(), request.getMetastoreId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    apiClient.execute("DELETE", path, request, DeleteResponse.class, headers);
+    try {
+      Request req = new Request("DELETE", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      apiClient.execute(req, DeleteResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -44,9 +55,14 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s/metastore",
             apiClient.configuredAccountID(), request.getWorkspaceId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.execute("GET", path, request, AccountsMetastoreAssignment.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, AccountsMetastoreAssignment.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -56,10 +72,14 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
         String.format(
             "/api/2.0/accounts/%s/metastores/%s/workspaces",
             apiClient.configuredAccountID(), request.getMetastoreId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.execute(
-        "GET", path, request, ListAccountMetastoreAssignmentsResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ListAccountMetastoreAssignmentsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -68,9 +88,14 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s/metastores/%s",
             apiClient.configuredAccountID(), request.getWorkspaceId(), request.getMetastoreId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    apiClient.execute("PUT", path, request, UpdateResponse.class, headers);
+    try {
+      Request req = new Request("PUT", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      apiClient.execute(req, UpdateResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }

@@ -2,9 +2,10 @@
 package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /** Package-local implementation of BillableUsage */
 @Generated
@@ -19,8 +20,13 @@ class BillableUsageImpl implements BillableUsageService {
   public DownloadResponse download(DownloadRequest request) {
     String path =
         String.format("/api/2.0/accounts/%s/usage/download", apiClient.configuredAccountID());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "text/plain");
-    return apiClient.execute("GET", path, request, DownloadResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "text/plain");
+      return apiClient.execute(req, DownloadResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }

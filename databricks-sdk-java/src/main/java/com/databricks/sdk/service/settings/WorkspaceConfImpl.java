@@ -2,7 +2,10 @@
 package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,8 +29,13 @@ class WorkspaceConfImpl implements WorkspaceConfService {
   @Override
   public void setStatus(Map<String, String> request) {
     String path = "/api/2.0/workspace-conf";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Content-Type", "application/json");
-    apiClient.execute("PATCH", path, request, SetStatusResponse.class, headers);
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Content-Type", "application/json");
+      apiClient.execute(req, SetStatusResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }

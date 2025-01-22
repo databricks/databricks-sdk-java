@@ -2,9 +2,10 @@
 package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /** Package-local implementation of RestrictWorkspaceAdmins */
 @Generated
@@ -19,27 +20,41 @@ class RestrictWorkspaceAdminsImpl implements RestrictWorkspaceAdminsService {
   public DeleteRestrictWorkspaceAdminsSettingResponse delete(
       DeleteRestrictWorkspaceAdminsSettingRequest request) {
     String path = "/api/2.0/settings/types/restrict_workspace_admins/names/default";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.execute(
-        "DELETE", path, request, DeleteRestrictWorkspaceAdminsSettingResponse.class, headers);
+    try {
+      Request req = new Request("DELETE", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, DeleteRestrictWorkspaceAdminsSettingResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public RestrictWorkspaceAdminsSetting get(GetRestrictWorkspaceAdminsSettingRequest request) {
     String path = "/api/2.0/settings/types/restrict_workspace_admins/names/default";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.execute("GET", path, request, RestrictWorkspaceAdminsSetting.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, RestrictWorkspaceAdminsSetting.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public RestrictWorkspaceAdminsSetting update(
       UpdateRestrictWorkspaceAdminsSettingRequest request) {
     String path = "/api/2.0/settings/types/restrict_workspace_admins/names/default";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.execute("PATCH", path, request, RestrictWorkspaceAdminsSetting.class, headers);
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, RestrictWorkspaceAdminsSetting.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }

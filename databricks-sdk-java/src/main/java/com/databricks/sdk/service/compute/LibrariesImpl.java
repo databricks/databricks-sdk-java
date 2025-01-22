@@ -2,9 +2,10 @@
 package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /** Package-local implementation of Libraries */
 @Generated
@@ -18,35 +19,54 @@ class LibrariesImpl implements LibrariesService {
   @Override
   public ListAllClusterLibraryStatusesResponse allClusterStatuses() {
     String path = "/api/2.0/libraries/all-cluster-statuses";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.execute(
-        "GET", path, null, ListAllClusterLibraryStatusesResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ListAllClusterLibraryStatusesResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public ClusterLibraryStatuses clusterStatus(ClusterStatus request) {
     String path = "/api/2.0/libraries/cluster-status";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.execute("GET", path, request, ClusterLibraryStatuses.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ClusterLibraryStatuses.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public void install(InstallLibraries request) {
     String path = "/api/2.0/libraries/install";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    apiClient.execute("POST", path, request, InstallLibrariesResponse.class, headers);
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      apiClient.execute(req, InstallLibrariesResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public void uninstall(UninstallLibraries request) {
     String path = "/api/2.0/libraries/uninstall";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    apiClient.execute("POST", path, request, UninstallLibrariesResponse.class, headers);
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      apiClient.execute(req, UninstallLibrariesResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }

@@ -2,9 +2,10 @@
 package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /** Package-local implementation of RecipientActivation */
 @Generated
@@ -21,9 +22,14 @@ class RecipientActivationImpl implements RecipientActivationService {
         String.format(
             "/api/2.1/unity-catalog/public/data_sharing_activation_info/%s",
             request.getActivationUrl());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    apiClient.execute("GET", path, request, GetActivationUrlInfoResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      apiClient.execute(req, GetActivationUrlInfoResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -31,8 +37,13 @@ class RecipientActivationImpl implements RecipientActivationService {
     String path =
         String.format(
             "/api/2.1/unity-catalog/public/data_sharing_activation/%s", request.getActivationUrl());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.execute("GET", path, request, RetrieveTokenResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, RetrieveTokenResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }

@@ -151,7 +151,7 @@ public class ApiClient {
     bodyLogger = new BodyLogger(mapper, 1024, debugTruncateBytes);
   }
 
-  private static <I> void setQuery(Request in, I entity) {
+  public static <I> void setQuery(Request in, I entity) {
     if (entity == null) {
       return;
     }
@@ -239,7 +239,7 @@ public class ApiClient {
    * @param target Expected pojo type
    * @return POJO of requested type
    */
-  private <T> T execute(Request in, Class<T> target) throws IOException {
+  public <T> T execute(Request in, Class<T> target) throws IOException {
     Response out = getResponse(in);
     if (target == Void.class) {
       return null;
@@ -478,7 +478,7 @@ public class ApiClient {
     }
   }
 
-  private String serialize(Object body) throws JsonProcessingException {
+  public String serialize(Object body) throws JsonProcessingException {
     if (body == null) {
       return null;
     }

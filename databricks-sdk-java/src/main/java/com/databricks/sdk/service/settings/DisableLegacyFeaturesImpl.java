@@ -2,9 +2,10 @@
 package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /** Package-local implementation of DisableLegacyFeatures */
 @Generated
@@ -21,10 +22,14 @@ class DisableLegacyFeaturesImpl implements DisableLegacyFeaturesService {
         String.format(
             "/api/2.0/accounts/%s/settings/types/disable_legacy_features/names/default",
             apiClient.configuredAccountID());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.execute(
-        "DELETE", path, request, DeleteDisableLegacyFeaturesResponse.class, headers);
+    try {
+      Request req = new Request("DELETE", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, DeleteDisableLegacyFeaturesResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -33,9 +38,14 @@ class DisableLegacyFeaturesImpl implements DisableLegacyFeaturesService {
         String.format(
             "/api/2.0/accounts/%s/settings/types/disable_legacy_features/names/default",
             apiClient.configuredAccountID());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.execute("GET", path, request, DisableLegacyFeatures.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, DisableLegacyFeatures.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -44,9 +54,14 @@ class DisableLegacyFeaturesImpl implements DisableLegacyFeaturesService {
         String.format(
             "/api/2.0/accounts/%s/settings/types/disable_legacy_features/names/default",
             apiClient.configuredAccountID());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.execute("PATCH", path, request, DisableLegacyFeatures.class, headers);
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, DisableLegacyFeatures.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }

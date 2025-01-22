@@ -65,9 +65,12 @@ public class ApiClientTest {
       ApiClient client, Request request, Class<? extends T> clazz, T expectedResponse) {
     T response;
     if (request.getMethod().equals(Request.GET)) {
-      response = client.GET(request.getUri().getPath(), clazz, Collections.emptyMap());
+      response =
+          client.execute("GET", request.getUri().getPath(), null, clazz, Collections.emptyMap());
     } else if (request.getMethod().equals(Request.POST)) {
-      response = client.POST(request.getUri().getPath(), request, clazz, Collections.emptyMap());
+      response =
+          client.execute(
+              "POST", request.getUri().getPath(), request, clazz, Collections.emptyMap());
     } else {
       throw new IllegalArgumentException("Unsupported method: " + request.getMethod());
     }
@@ -96,11 +99,15 @@ public class ApiClientTest {
     if (request.getMethod().equals(Request.GET)) {
       return assertThrows(
           exceptionClass,
-          () -> client.GET(request.getUri().getPath(), clazz, Collections.emptyMap()));
+          () ->
+              client.execute(
+                  "GET", request.getUri().getPath(), null, clazz, Collections.emptyMap()));
     } else if (request.getMethod().equals(Request.POST)) {
       return assertThrows(
           exceptionClass,
-          () -> client.POST(request.getUri().getPath(), request, clazz, Collections.emptyMap()));
+          () ->
+              client.execute(
+                  "POST", request.getUri().getPath(), request, clazz, Collections.emptyMap()));
     } else {
       throw new IllegalArgumentException("Unsupported method: " + request.getMethod());
     }
@@ -413,8 +420,12 @@ public class ApiClientTest {
         assertThrows(
             PrivateLinkValidationError.class,
             () ->
-                client.GET(
-                    req.getUri().getPath(), MyEndpointResponse.class, Collections.emptyMap()));
+                client.execute(
+                    "GET",
+                    req.getUri().getPath(),
+                    null,
+                    MyEndpointResponse.class,
+                    Collections.emptyMap()));
     assertTrue(e.getMessage().contains("AWS PrivateLink"));
   }
 }

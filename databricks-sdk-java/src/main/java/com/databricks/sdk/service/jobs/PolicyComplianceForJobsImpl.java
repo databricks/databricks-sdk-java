@@ -2,9 +2,10 @@
 package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /** Package-local implementation of PolicyComplianceForJobs */
 @Generated
@@ -18,26 +19,40 @@ class PolicyComplianceForJobsImpl implements PolicyComplianceForJobsService {
   @Override
   public EnforcePolicyComplianceResponse enforceCompliance(EnforcePolicyComplianceRequest request) {
     String path = "/api/2.0/policies/jobs/enforce-compliance";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.execute("POST", path, request, EnforcePolicyComplianceResponse.class, headers);
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, EnforcePolicyComplianceResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public GetPolicyComplianceResponse getCompliance(GetPolicyComplianceRequest request) {
     String path = "/api/2.0/policies/jobs/get-compliance";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.execute("GET", path, request, GetPolicyComplianceResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, GetPolicyComplianceResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public ListJobComplianceForPolicyResponse listCompliance(ListJobComplianceRequest request) {
     String path = "/api/2.0/policies/jobs/list-compliance";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.execute(
-        "GET", path, request, ListJobComplianceForPolicyResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ListJobComplianceForPolicyResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }

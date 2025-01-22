@@ -2,9 +2,10 @@
 package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /** Package-local implementation of NetworkConnectivity */
 @Generated
@@ -21,11 +22,15 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
     String path =
         String.format(
             "/api/2.0/accounts/%s/network-connectivity-configs", apiClient.configuredAccountID());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.execute(
-        "POST", path, request, NetworkConnectivityConfiguration.class, headers);
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, NetworkConnectivityConfiguration.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -35,10 +40,15 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
         String.format(
             "/api/2.0/accounts/%s/network-connectivity-configs/%s/private-endpoint-rules",
             apiClient.configuredAccountID(), request.getNetworkConnectivityConfigId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.execute("POST", path, request, NccAzurePrivateEndpointRule.class, headers);
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, NccAzurePrivateEndpointRule.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -48,10 +58,14 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
         String.format(
             "/api/2.0/accounts/%s/network-connectivity-configs/%s",
             apiClient.configuredAccountID(), request.getNetworkConnectivityConfigId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    apiClient.execute(
-        "DELETE", path, request, DeleteNetworkConnectivityConfigurationResponse.class, headers);
+    try {
+      Request req = new Request("DELETE", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      apiClient.execute(req, DeleteNetworkConnectivityConfigurationResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -63,9 +77,14 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
             apiClient.configuredAccountID(),
             request.getNetworkConnectivityConfigId(),
             request.getPrivateEndpointRuleId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.execute("DELETE", path, request, NccAzurePrivateEndpointRule.class, headers);
+    try {
+      Request req = new Request("DELETE", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, NccAzurePrivateEndpointRule.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -75,9 +94,14 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
         String.format(
             "/api/2.0/accounts/%s/network-connectivity-configs/%s",
             apiClient.configuredAccountID(), request.getNetworkConnectivityConfigId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.execute("GET", path, request, NetworkConnectivityConfiguration.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, NetworkConnectivityConfiguration.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -88,9 +112,14 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
             apiClient.configuredAccountID(),
             request.getNetworkConnectivityConfigId(),
             request.getPrivateEndpointRuleId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.execute("GET", path, request, NccAzurePrivateEndpointRule.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, NccAzurePrivateEndpointRule.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -99,10 +128,14 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
     String path =
         String.format(
             "/api/2.0/accounts/%s/network-connectivity-configs", apiClient.configuredAccountID());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.execute(
-        "GET", path, request, ListNetworkConnectivityConfigurationsResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ListNetworkConnectivityConfigurationsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -112,9 +145,13 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
         String.format(
             "/api/2.0/accounts/%s/network-connectivity-configs/%s/private-endpoint-rules",
             apiClient.configuredAccountID(), request.getNetworkConnectivityConfigId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.execute(
-        "GET", path, request, ListNccAzurePrivateEndpointRulesResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ListNccAzurePrivateEndpointRulesResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }
