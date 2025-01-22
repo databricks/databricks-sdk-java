@@ -22,7 +22,6 @@ class ProviderProviderAnalyticsDashboardsImpl
     String path = "/api/2.0/marketplace-provider/analytics_dashboard";
     try {
       Request req = new Request("POST", path);
-
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ProviderAnalyticsDashboard.class);
     } catch (IOException e) {
@@ -35,7 +34,6 @@ class ProviderProviderAnalyticsDashboardsImpl
     String path = "/api/2.0/marketplace-provider/analytics_dashboard";
     try {
       Request req = new Request("GET", path);
-
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListProviderAnalyticsDashboardResponse.class);
     } catch (IOException e) {
@@ -48,7 +46,6 @@ class ProviderProviderAnalyticsDashboardsImpl
     String path = "/api/2.0/marketplace-provider/analytics_dashboard/latest";
     try {
       Request req = new Request("GET", path);
-
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetLatestVersionProviderAnalyticsDashboardResponse.class);
     } catch (IOException e) {

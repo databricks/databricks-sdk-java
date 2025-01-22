@@ -49,7 +49,6 @@ class InstanceProfilesImpl implements InstanceProfilesService {
     String path = "/api/2.0/instance-profiles/list";
     try {
       Request req = new Request("GET", path);
-
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListInstanceProfilesResponse.class);
     } catch (IOException e) {

@@ -60,7 +60,6 @@ class UsersImpl implements UsersService {
     String path = "/api/2.0/permissions/authorization/passwords/permissionLevels";
     try {
       Request req = new Request("GET", path);
-
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetPasswordPermissionLevelsResponse.class);
     } catch (IOException e) {
@@ -73,7 +72,6 @@ class UsersImpl implements UsersService {
     String path = "/api/2.0/permissions/authorization/passwords";
     try {
       Request req = new Request("GET", path);
-
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, PasswordPermissions.class);
     } catch (IOException e) {

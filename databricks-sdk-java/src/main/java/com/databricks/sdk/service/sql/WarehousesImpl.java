@@ -104,7 +104,6 @@ class WarehousesImpl implements WarehousesService {
     String path = "/api/2.0/sql/config/warehouses";
     try {
       Request req = new Request("GET", path);
-
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetWorkspaceWarehouseConfigResponse.class);
     } catch (IOException e) {

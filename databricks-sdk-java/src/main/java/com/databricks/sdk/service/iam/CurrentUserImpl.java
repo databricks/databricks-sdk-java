@@ -21,7 +21,6 @@ class CurrentUserImpl implements CurrentUserService {
     String path = "/api/2.0/preview/scim/v2/Me";
     try {
       Request req = new Request("GET", path);
-
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, User.class);
     } catch (IOException e) {

@@ -7,8 +7,6 @@ import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 /** Package-local implementation of ServingEndpoints */
 @Generated
@@ -137,7 +135,6 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     String path = "/api/2.0/serving-endpoints";
     try {
       Request req = new Request("GET", path);
-
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListEndpointsResponse.class);
     } catch (IOException e) {
@@ -164,10 +161,10 @@ class ServingEndpointsImpl implements ServingEndpointsService {
   @Override
   public Collection<EndpointTag> patch(PatchServingEndpointTags request) {
     String path = String.format("/api/2.0/serving-endpoints/%s/tags", request.getName());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.getCollection(path, null, EndpointTag.class, headers);
+    Request req = new Request("GET", path);
+    req.withHeader("Accept", "application/json");
+    req.withHeader("Content-Type", "application/json");
+    return apiClient.getCollection(req, EndpointTag.class);
   }
 
   @Override

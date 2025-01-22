@@ -67,7 +67,6 @@ class AccountMetastoresImpl implements AccountMetastoresService {
     String path = String.format("/api/2.0/accounts/%s/metastores", apiClient.configuredAccountID());
     try {
       Request req = new Request("GET", path);
-
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListMetastoresResponse.class);
     } catch (IOException e) {

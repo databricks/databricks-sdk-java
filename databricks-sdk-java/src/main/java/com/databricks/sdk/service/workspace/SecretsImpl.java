@@ -116,7 +116,6 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/scopes/list";
     try {
       Request req = new Request("GET", path);
-
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListScopesResponse.class);
     } catch (IOException e) {

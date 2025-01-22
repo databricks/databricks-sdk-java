@@ -7,8 +7,6 @@ import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 /** Package-local implementation of PrivateAccess */
 @Generated
@@ -72,9 +70,9 @@ class PrivateAccessImpl implements PrivateAccessService {
     String path =
         String.format(
             "/api/2.0/accounts/%s/private-access-settings", apiClient.configuredAccountID());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.getCollection(path, null, PrivateAccessSettings.class, headers);
+    Request req = new Request("GET", path);
+    req.withHeader("Accept", "application/json");
+    return apiClient.getCollection(req, PrivateAccessSettings.class);
   }
 
   @Override

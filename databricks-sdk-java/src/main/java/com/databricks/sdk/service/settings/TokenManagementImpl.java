@@ -61,7 +61,6 @@ class TokenManagementImpl implements TokenManagementService {
     String path = "/api/2.0/permissions/authorization/tokens/permissionLevels";
     try {
       Request req = new Request("GET", path);
-
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetTokenPermissionLevelsResponse.class);
     } catch (IOException e) {
@@ -74,7 +73,6 @@ class TokenManagementImpl implements TokenManagementService {
     String path = "/api/2.0/permissions/authorization/tokens";
     try {
       Request req = new Request("GET", path);
-
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, TokenPermissions.class);
     } catch (IOException e) {

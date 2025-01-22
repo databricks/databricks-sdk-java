@@ -161,75 +161,23 @@ public class ApiClient {
     }
   }
 
-  private static <I> void setHeaders(Request in, Map<String, String> headers) {
-    if (headers == null) {
-      return;
-    }
-    for (Map.Entry<String, String> e : headers.entrySet()) {
-      in.withHeader(e.getKey(), e.getValue());
-    }
-  }
-
-  public <I, O> Collection<O> getCollection(
-      String path, I in, Class<O> element, Map<String, String> headers) {
+  public <O> Collection<O> getCollection(Request req, Class<O> element) {
     return withJavaType(
-        path,
-        in,
-        mapper.getTypeFactory().constructCollectionType(Collection.class, element),
-        headers);
+        req, mapper.getTypeFactory().constructCollectionType(Collection.class, element));
   }
 
-  public <I> Map<String, String> getStringMap(String path, I in, Map<String, String> headers) {
+  public Map<String, String> getStringMap(Request req) {
     return withJavaType(
-        path,
-        in,
-        mapper.getTypeFactory().constructMapType(Map.class, String.class, String.class),
-        headers);
+        req, mapper.getTypeFactory().constructMapType(Map.class, String.class, String.class));
   }
 
-  protected <I, O> O withJavaType(
-      String path, I in, JavaType javaType, Map<String, String> headers) {
+  protected <I, O> O withJavaType(Request request, JavaType javaType) {
     try {
-      Request request = prepareRequest("GET", path, in, headers);
       Response response = getResponse(request);
       return deserialize(response.getBody(), javaType);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
-  }
-
-  public <I, O> O execute(
-      String method, String path, I in, Class<O> target, Map<String, String> headers) {
-    try {
-      return execute(prepareRequest(method, path, in, headers), target);
-    } catch (IOException e) {
-      throw new DatabricksException("IO error: " + e.getMessage(), e);
-    }
-  }
-
-  private boolean hasBody(String method) {
-    return !method.equals("GET") && !method.equals("DELETE") && !method.equals("HEAD");
-  }
-
-  private <I> Request prepareBaseRequest(String method, String path, I in)
-      throws JsonProcessingException {
-    if (in == null || !hasBody(method)) {
-      return new Request(method, path);
-    } else if (InputStream.class.isAssignableFrom(in.getClass())) {
-      InputStream body = (InputStream) in;
-      return new Request(method, path, body);
-    } else {
-      String body = (in instanceof String) ? (String) in : serialize(in);
-      return new Request(method, path, body);
-    }
-  }
-
-  private <I> Request prepareRequest(String method, String path, I in, Map<String, String> headers)
-      throws JsonProcessingException {
-    Request req = prepareBaseRequest(method, path, in);
-    setQuery(req, in);
-    setHeaders(req, headers);
-    return req;
   }
 
   /**

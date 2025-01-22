@@ -61,7 +61,6 @@ class GitCredentialsImpl implements GitCredentialsService {
     String path = "/api/2.0/git-credentials";
     try {
       Request req = new Request("GET", path);
-
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListCredentialsResponse.class);
     } catch (IOException e) {

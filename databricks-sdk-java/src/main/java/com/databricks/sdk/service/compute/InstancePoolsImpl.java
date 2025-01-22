@@ -106,7 +106,6 @@ class InstancePoolsImpl implements InstancePoolsService {
     String path = "/api/2.0/instance-pools/list";
     try {
       Request req = new Request("GET", path);
-
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListInstancePools.class);
     } catch (IOException e) {

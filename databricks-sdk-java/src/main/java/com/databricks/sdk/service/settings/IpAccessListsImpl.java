@@ -61,7 +61,6 @@ class IpAccessListsImpl implements IpAccessListsService {
     String path = "/api/2.0/ip-access-lists";
     try {
       Request req = new Request("GET", path);
-
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListIpAccessListResponse.class);
     } catch (IOException e) {

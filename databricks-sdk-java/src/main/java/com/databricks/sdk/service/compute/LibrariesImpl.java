@@ -21,7 +21,6 @@ class LibrariesImpl implements LibrariesService {
     String path = "/api/2.0/libraries/all-cluster-statuses";
     try {
       Request req = new Request("GET", path);
-
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListAllClusterLibraryStatusesResponse.class);
     } catch (IOException e) {

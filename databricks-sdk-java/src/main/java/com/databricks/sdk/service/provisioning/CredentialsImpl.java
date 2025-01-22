@@ -7,8 +7,6 @@ import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 /** Package-local implementation of Credentials */
 @Generated
@@ -70,8 +68,8 @@ class CredentialsImpl implements CredentialsService {
   public Collection<Credential> list() {
     String path =
         String.format("/api/2.0/accounts/%s/credentials", apiClient.configuredAccountID());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.getCollection(path, null, Credential.class, headers);
+    Request req = new Request("GET", path);
+    req.withHeader("Accept", "application/json");
+    return apiClient.getCollection(req, Credential.class);
   }
 }

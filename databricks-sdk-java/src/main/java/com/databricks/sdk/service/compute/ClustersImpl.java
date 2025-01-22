@@ -145,7 +145,6 @@ class ClustersImpl implements ClustersService {
     String path = "/api/2.1/clusters/list-node-types";
     try {
       Request req = new Request("GET", path);
-
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListNodeTypesResponse.class);
     } catch (IOException e) {
@@ -158,7 +157,6 @@ class ClustersImpl implements ClustersService {
     String path = "/api/2.1/clusters/list-zones";
     try {
       Request req = new Request("GET", path);
-
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListAvailableZonesResponse.class);
     } catch (IOException e) {
@@ -241,7 +239,6 @@ class ClustersImpl implements ClustersService {
     String path = "/api/2.1/clusters/spark-versions";
     try {
       Request req = new Request("GET", path);
-
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetSparkVersionsResponse.class);
     } catch (IOException e) {

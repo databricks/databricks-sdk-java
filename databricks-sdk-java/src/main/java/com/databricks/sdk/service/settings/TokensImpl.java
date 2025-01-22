@@ -49,7 +49,6 @@ class TokensImpl implements TokensService {
     String path = "/api/2.0/token/list";
     try {
       Request req = new Request("GET", path);
-
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListPublicTokensResponse.class);
     } catch (IOException e) {

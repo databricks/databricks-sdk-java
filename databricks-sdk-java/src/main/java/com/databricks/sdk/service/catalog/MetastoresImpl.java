@@ -50,7 +50,6 @@ class MetastoresImpl implements MetastoresService {
     String path = "/api/2.1/unity-catalog/current-metastore-assignment";
     try {
       Request req = new Request("GET", path);
-
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, MetastoreAssignment.class);
     } catch (IOException e) {
@@ -89,7 +88,6 @@ class MetastoresImpl implements MetastoresService {
     String path = "/api/2.1/unity-catalog/metastores";
     try {
       Request req = new Request("GET", path);
-
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListMetastoresResponse.class);
     } catch (IOException e) {
@@ -102,7 +100,6 @@ class MetastoresImpl implements MetastoresService {
     String path = "/api/2.1/unity-catalog/metastore_summary";
     try {
       Request req = new Request("GET", path);
-
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetMetastoreSummaryResponse.class);
     } catch (IOException e) {

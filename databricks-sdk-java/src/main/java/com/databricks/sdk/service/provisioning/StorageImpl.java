@@ -7,8 +7,6 @@ import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 /** Package-local implementation of Storage */
 @Generated
@@ -72,8 +70,8 @@ class StorageImpl implements StorageService {
     String path =
         String.format(
             "/api/2.0/accounts/%s/storage-configurations", apiClient.configuredAccountID());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.getCollection(path, null, StorageConfiguration.class, headers);
+    Request req = new Request("GET", path);
+    req.withHeader("Accept", "application/json");
+    return apiClient.getCollection(req, StorageConfiguration.class);
   }
 }

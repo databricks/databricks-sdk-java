@@ -69,7 +69,6 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
         String.format("/api/2.0/accounts/%s/ip-access-lists", apiClient.configuredAccountID());
     try {
       Request req = new Request("GET", path);
-
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetIpAccessListsResponse.class);
     } catch (IOException e) {

@@ -7,8 +7,6 @@ import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 /** Package-local implementation of AlertsLegacy */
 @Generated
@@ -62,9 +60,9 @@ class AlertsLegacyImpl implements AlertsLegacyService {
   @Override
   public Collection<LegacyAlert> list() {
     String path = "/api/2.0/preview/sql/alerts";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.getCollection(path, null, LegacyAlert.class, headers);
+    Request req = new Request("GET", path);
+    req.withHeader("Accept", "application/json");
+    return apiClient.getCollection(req, LegacyAlert.class);
   }
 
   @Override
