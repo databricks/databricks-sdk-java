@@ -4,10 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-import com.databricks.sdk.service.jobs.GetRunRequest;
-import com.databricks.sdk.service.jobs.JobsService;
-import com.databricks.sdk.service.jobs.Run;
-import com.databricks.sdk.service.jobs.RunTask;
+import com.databricks.sdk.service.jobs.*;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import org.junit.jupiter.api.Test;
@@ -21,10 +19,16 @@ public class JobsExtTest {
 
     Run firstPage = new Run().setNextPageToken("tokenToSecondPage");
     addTasks(firstPage, 0L, 1L);
+    addJobClusters(firstPage, "clusterKey1", "clusterKey2");
+    addJobParameters(firstPage, "parameterKey1", "parameterKey2");
     Run secondPage = new Run().setNextPageToken("tokenToThirdPage");
     addTasks(secondPage, 2L, 3L);
+    addJobClusters(secondPage, "clusterKey3");
+    addJobParameters(secondPage, "parameterKey3", "parameterKey4");
     Run thirdPage = new Run();
     addTasks(thirdPage, 4L);
+    addJobParameters(thirdPage, "parameterKey5");
+
 
     when(service.getRun(any())).thenReturn(firstPage).thenReturn(secondPage).thenReturn(thirdPage);
 
@@ -36,6 +40,8 @@ public class JobsExtTest {
 
     Run expectedRun = new Run();
     addTasks(expectedRun, 0L, 1L, 2L, 3L, 4L);
+    addJobClusters(expectedRun, "clusterKey1", "clusterKey2", "clusterKey3");
+    addJobParameters(expectedRun, "parameterKey1", "parameterKey2", "parameterKey3", "parameterKey4", "parameterKey5");
 
     assertEquals(expectedRun, run);
     verify(service, times(3)).getRun(any());
@@ -81,5 +87,21 @@ public class JobsExtTest {
       iterations.add(new RunTask().setRunId(runId));
     }
     run.setIterations(iterations);
+  }
+
+  private void addJobClusters(Run run, String... clusterKeys) {
+    Collection<JobCluster> clusters = new ArrayList<>();
+    for (String clusterKey : clusterKeys) {
+      clusters.add(new JobCluster().setJobClusterKey(clusterKey));
+    }
+    run.setJobClusters(clusters);
+  }
+
+  private void addJobParameters(Run run, String... parameterKeys) {
+    Collection<JobParameter> parameters = new ArrayList<>();
+    for (String parameterKey : parameterKeys) {
+      parameters.add(new JobParameter().setName(parameterKey).setValue(parameterKey));
+    }
+    run.setJobParameters(parameters);
   }
 }

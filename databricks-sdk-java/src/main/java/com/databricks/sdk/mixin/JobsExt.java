@@ -35,10 +35,9 @@ public class JobsExt extends JobsAPI {
     Collection<RunTask> iterations = run.getIterations();
     boolean paginatingIterations = iterations != null && !iterations.isEmpty();
 
-    Run currRun = run;
-    while (currRun.getNextPageToken() != null) {
-      request.setPageToken(currRun.getNextPageToken());
-      currRun = super.getRun(request);
+    while (run.getNextPageToken() != null) {
+      request.setPageToken(run.getNextPageToken());
+      Run currRun = super.getRun(request);
       if (paginatingIterations) {
         Collection<RunTask> newIterations = currRun.getIterations();
         if (newIterations != null) {
@@ -50,10 +49,21 @@ public class JobsExt extends JobsAPI {
           run.getTasks().addAll(newTasks);
         }
       }
-    }
 
-    // now that we've added all pages to the Run, the tokens are useless
-    run.setNextPageToken(null);
+      Collection<JobCluster> newClusters = currRun.getJobClusters();
+      if (newClusters != null) {
+        run.getJobClusters().addAll(newClusters);
+      }
+      Collection<JobParameter> newParameters = currRun.getJobParameters();
+      if (newParameters != null) {
+        run.getJobParameters().addAll(newParameters);
+      }
+      Collection<RepairHistoryItem> newRepairHistory = currRun.getRepairHistory();
+      if (newRepairHistory != null) {
+          run.getRepairHistory().addAll(newRepairHistory);
+      }
+      run.setNextPageToken(currRun.getNextPageToken());
+    }
 
     return run;
   }
