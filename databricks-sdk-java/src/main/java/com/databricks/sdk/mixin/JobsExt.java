@@ -57,4 +57,42 @@ public class JobsExt extends JobsAPI {
 
     return run;
   }
+
+  /**
+   * Wrap the {@code JobsApi.get} operation to retrieve paginated content without breaking the
+   * response contract.
+   *
+   * <p>Depending on the Jobs API version used under the hood, tasks or job_clusters retrieved by
+   * the initial request may be truncated due to high cardinalities. Truncation can happen for jobs
+   * with over 100 tasks, as well as job_clusters with over 100 elements. To avoid returning an
+   * incomplete {@code Job} object to the user, this method performs all the requests required to
+   * collect all tasks and job_clusters into a single {@code Job} object.
+   */
+  public Job get(GetJobRequest request) {
+    Job job = super.get(request);
+
+    while (job.getNextPageToken() != null) {
+      request.setPageToken(job.getNextPageToken());
+      Job currJob = super.get(request);
+      Collection<Task> newTasks = currJob.getSettings().getTasks();
+      if (newTasks != null) {
+        job.getSettings().getTasks().addAll(newTasks);
+      }
+      Collection<JobCluster> newClusters = currJob.getSettings().getJobClusters();
+      if (newClusters != null) {
+        job.getSettings().getJobClusters().addAll(newClusters);
+      }
+      Collection<JobParameterDefinition> newParameters = currJob.getSettings().getParameters();
+      if (newParameters != null) {
+        job.getSettings().getParameters().addAll(newParameters);
+      }
+      Collection<JobEnvironment> newEnvironments = currJob.getSettings().getEnvironments();
+      if (newEnvironments != null) {
+        job.getSettings().getEnvironments().addAll(newEnvironments);
+      }
+      job.setNextPageToken(currJob.getNextPageToken());
+    }
+
+    return job;
+  }
 }
