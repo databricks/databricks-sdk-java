@@ -1,9 +1,13 @@
 package com.databricks.sdk.core;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import java.util.Properties;
+import org.junit.jupiter.api.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class UserAgentTest {
+  private static final Logger log = LoggerFactory.getLogger(UserAgentTest.class);
+
   @Test
   public void testUserAgent() {
     UserAgent.withProduct("product", "productVersion");
@@ -55,5 +59,40 @@ public class UserAgentTest {
     UserAgent.withOtherInfo("key1", "1.0.0-dev+metadata");
     String userAgent = UserAgent.asString();
     Assertions.assertTrue(userAgent.contains("key1/1.0.0-dev+metadata"));
+  }
+
+  private Properties originalProperties;
+
+  @BeforeEach
+  public void clearCICD() {
+    // Save original system properties
+    originalProperties = (Properties) System.getProperties().clone();
+
+    // Clear all system properties
+    System.getProperties().clear();
+  }
+
+  @AfterEach
+  public void restoreProperties() {
+    // Restore original system properties
+    System.setProperties(originalProperties);
+  }
+
+  @Test
+  public void testUserAgentCicdNoProvider() {
+    Assertions.assertEquals("", UserAgent.cicdProvider());
+  }
+
+  @Test
+  public void testUserAgentCicdOneProvider() {
+    System.setProperty("GITHUB_ACTIONS", "true");
+    Assertions.assertEquals("github", UserAgent.cicdProvider());
+  }
+
+  @Test
+  public void testUserAgentCicdMultipleProviders() {
+    System.setProperty("GITHUB_ACTIONS", "true");
+    System.setProperty("GITLAB_CI", "true");
+    Assertions.assertEquals("github", UserAgent.cicdProvider());
   }
 }

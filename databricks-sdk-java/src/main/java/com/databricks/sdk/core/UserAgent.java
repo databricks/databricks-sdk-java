@@ -1,11 +1,18 @@
 package com.databricks.sdk.core;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class UserAgent {
+  private static final Logger log = LoggerFactory.getLogger(UserAgent.class);
   private static String product = "unknown";
   private static String productVersion = "0.0.0";
 
@@ -121,6 +128,10 @@ public class UserAgent {
     segments.add(String.format("databricks-sdk-java/%s", version));
     segments.add(String.format("jvm/%s", jvmVersion()));
     segments.add(String.format("os/%s", osName()));
+    String ciProvider = cicdProvider();
+    if (!ciProvider.isEmpty()) {
+      segments.add(String.format("ci/%s", ciProvider));
+    }
     // Concurrent iteration over ArrayList must be guarded with synchronized.
     synchronized (otherInfo) {
       segments.addAll(
@@ -129,5 +140,61 @@ public class UserAgent {
               .collect(Collectors.toSet()));
     }
     return segments.stream().collect(Collectors.joining(" "));
+  }
+
+  // Map of CI/CD providers that are used to detect them.
+  private static final Map<String, List<EnvVar>> PROVIDERS = new HashMap<>();
+
+  static {
+    PROVIDERS.put("github", Collections.singletonList(new EnvVar("GITHUB_ACTIONS", "true")));
+    PROVIDERS.put("gitlab", Collections.singletonList(new EnvVar("GITLAB_CI", "true")));
+    PROVIDERS.put("jenkins", Collections.singletonList(new EnvVar("JENKINS_URL", "")));
+    PROVIDERS.put("azure-devops", Collections.singletonList(new EnvVar("TF_BUILD", "True")));
+    PROVIDERS.put("circle", Collections.singletonList(new EnvVar("CIRCLECI", "true")));
+    PROVIDERS.put("travis", Collections.singletonList(new EnvVar("TRAVIS", "true")));
+    PROVIDERS.put("bitbucket", Collections.singletonList(new EnvVar("BITBUCKET_BUILD_NUMBER", "")));
+    PROVIDERS.put(
+        "google-cloud-build",
+        Arrays.asList(
+            new EnvVar("PROJECT_ID", ""),
+            new EnvVar("BUILD_ID", ""),
+            new EnvVar("PROJECT_NUMBER", ""),
+            new EnvVar("LOCATION", "")));
+    PROVIDERS.put(
+        "aws-code-build", Collections.singletonList(new EnvVar("CODEBUILD_BUILD_ARN", "")));
+    PROVIDERS.put("tf-cloud", Collections.singletonList(new EnvVar("TFC_RUN_ID", "")));
+  }
+
+  // This is a static private variable to store the CI/CD provider.
+  // This is thread-safe because static initializers are executed
+  // in a thread-safe manner by the Java ClassLoader.
+  private static final String cicdProvider = lookupCiCdProvider();
+
+  private static class EnvVar {
+    private final String name;
+    private final String expectedValue;
+
+    public EnvVar(String name, String expectedValue) {
+      this.name = name;
+      this.expectedValue = expectedValue;
+    }
+
+    public boolean detect() {
+      String value = System.getProperty(name);
+      return value != null && (expectedValue.isEmpty() || value.equals(expectedValue));
+    }
+  }
+
+  private static String lookupCiCdProvider() {
+    for (Map.Entry<String, List<EnvVar>> entry : PROVIDERS.entrySet()) {
+      if (entry.getValue().stream().allMatch(EnvVar::detect)) {
+        return entry.getKey();
+      }
+    }
+    return "";
+  }
+
+  public static String cicdProvider() {
+    return cicdProvider;
   }
 }
