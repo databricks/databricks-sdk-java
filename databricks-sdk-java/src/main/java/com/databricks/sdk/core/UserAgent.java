@@ -180,7 +180,7 @@ public class UserAgent {
     }
 
     public boolean detect() {
-      String value = System.getProperty(name);
+      String value = System.getenv(name);
       return value != null && (expectedValue.isEmpty() || value.equals(expectedValue));
     }
   }
