@@ -64,12 +64,9 @@ public class UserAgentTest {
   private Properties originalProperties;
 
   @BeforeEach
-  public void clearCICD() {
+  public void saveProperties() {
     // Save original system properties
     originalProperties = (Properties) System.getProperties().clone();
-
-    // Clear all system properties
-    System.getProperties().clear();
   }
 
   @AfterEach
