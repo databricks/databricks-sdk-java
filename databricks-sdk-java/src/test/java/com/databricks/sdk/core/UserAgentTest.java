@@ -3,13 +3,10 @@ package com.databricks.sdk.core;
 import com.databricks.sdk.core.utils.Environment;
 import java.util.ArrayList;
 import java.util.HashMap;
-import org.junit.jupiter.api.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class UserAgentTest {
-  private static final Logger log = LoggerFactory.getLogger(UserAgentTest.class);
-
   @Test
   public void testUserAgent() {
     UserAgent.withProduct("product", "productVersion");
