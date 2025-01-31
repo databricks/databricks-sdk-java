@@ -1,18 +1,15 @@
 package com.databricks.sdk.core;
 
+import com.databricks.sdk.core.utils.Environment;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class UserAgent {
-  private static final Logger log = LoggerFactory.getLogger(UserAgent.class);
   private static String product = "unknown";
   private static String productVersion = "0.0.0";
 
@@ -128,9 +125,9 @@ public class UserAgent {
     segments.add(String.format("databricks-sdk-java/%s", version));
     segments.add(String.format("jvm/%s", jvmVersion()));
     segments.add(String.format("os/%s", osName()));
-    String ciProvider = cicdProvider();
-    if (!ciProvider.isEmpty()) {
-      segments.add(String.format("ci/%s", ciProvider));
+    String cicdProvider = cicdProvider();
+    if (!cicdProvider.isEmpty()) {
+      segments.add(String.format("cicd/%s", cicdProvider));
     }
     // Concurrent iteration over ArrayList must be guarded with synchronized.
     synchronized (otherInfo) {
@@ -142,34 +139,35 @@ public class UserAgent {
     return segments.stream().collect(Collectors.joining(" "));
   }
 
-  // Map of CI/CD providers that are used to detect them.
-  private static final Map<String, List<EnvVar>> PROVIDERS = new HashMap<>();
-
-  static {
-    PROVIDERS.put("github", Collections.singletonList(new EnvVar("GITHUB_ACTIONS", "true")));
-    PROVIDERS.put("gitlab", Collections.singletonList(new EnvVar("GITLAB_CI", "true")));
-    PROVIDERS.put("jenkins", Collections.singletonList(new EnvVar("JENKINS_URL", "")));
-    PROVIDERS.put("azure-devops", Collections.singletonList(new EnvVar("TF_BUILD", "True")));
-    PROVIDERS.put("circle", Collections.singletonList(new EnvVar("CIRCLECI", "true")));
-    PROVIDERS.put("travis", Collections.singletonList(new EnvVar("TRAVIS", "true")));
-    PROVIDERS.put("bitbucket", Collections.singletonList(new EnvVar("BITBUCKET_BUILD_NUMBER", "")));
-    PROVIDERS.put(
-        "google-cloud-build",
-        Arrays.asList(
-            new EnvVar("PROJECT_ID", ""),
-            new EnvVar("BUILD_ID", ""),
-            new EnvVar("PROJECT_NUMBER", ""),
-            new EnvVar("LOCATION", "")));
-    PROVIDERS.put(
-        "aws-code-build", Collections.singletonList(new EnvVar("CODEBUILD_BUILD_ARN", "")));
-    PROVIDERS.put("tf-cloud", Collections.singletonList(new EnvVar("TFC_RUN_ID", "")));
+  // List of CI/CD providers and their environment variables for detection
+  private static List<CicdProvider> listCiCdProviders() {
+    return Arrays.asList(
+            new CicdProvider("github", Collections.singletonList(new EnvVar("GITHUB_ACTIONS", "true"))),
+            new CicdProvider("gitlab", Collections.singletonList(new EnvVar("GITLAB_CI", "true"))),
+            new CicdProvider("jenkins", Collections.singletonList(new EnvVar("JENKINS_URL", ""))),
+            new CicdProvider("azure-devops", Collections.singletonList(new EnvVar("TF_BUILD", "True"))),
+            new CicdProvider("circle", Collections.singletonList(new EnvVar("CIRCLECI", "true"))),
+            new CicdProvider("travis", Collections.singletonList(new EnvVar("TRAVIS", "true"))),
+            new CicdProvider("bitbucket", Collections.singletonList(new EnvVar("BITBUCKET_BUILD_NUMBER", ""))),
+            new CicdProvider("google-cloud-build", Arrays.asList(
+                    new EnvVar("PROJECT_ID", ""),
+                    new EnvVar("BUILD_ID", ""),
+                    new EnvVar("PROJECT_NUMBER", ""),
+                    new EnvVar("LOCATION", "")
+            )),
+            new CicdProvider("aws-code-build", Collections.singletonList(new EnvVar("CODEBUILD_BUILD_ARN", ""))),
+            new CicdProvider("tf-cloud", Collections.singletonList(new EnvVar("TFC_RUN_ID", "")))
+    );
   }
 
-  // This is a static private variable to store the CI/CD provider.
-  // This is thread-safe because static initializers are executed
-  // in a thread-safe manner by the Java ClassLoader.
-  private static final String cicdProvider = lookupCiCdProvider();
+  // Volatile fields to ensure thread-safe lazy initialization
+  // The 'volatile' keyword ensures that changes to these variables
+  // are immediately visible to all threads. It prevents instruction
+  // reordering by the compiler.
+  protected static volatile String cicdProvider = null;
+  protected static volatile Environment env = null;
 
+  // Represents an environment variable with its name and expected value
   private static class EnvVar {
     private final String name;
     private final String expectedValue;
@@ -178,23 +176,62 @@ public class UserAgent {
       this.name = name;
       this.expectedValue = expectedValue;
     }
+  }
 
-    public boolean detect() {
-      String value = System.getenv(name);
-      return value != null && (expectedValue.isEmpty() || value.equals(expectedValue));
+  // Represents a CI/CD provider with its name and associated environment variables
+  private static class CicdProvider {
+    private final String name;
+    private final List<EnvVar> envVars;
+
+    public CicdProvider(String name, List<EnvVar> envVars) {
+      this.name = name;
+      this.envVars = envVars;
+    }
+
+    public boolean detect(Environment env) {
+      for (EnvVar envVar : envVars) {
+        String value = env.get(envVar.name);
+        if (value == null) {
+          return false;
+        }
+        if (!envVar.expectedValue.isEmpty() && !value.equals(envVar.expectedValue)) {
+          return false;
+        }
+      }
+      return true;
     }
   }
 
-  private static String lookupCiCdProvider() {
-    for (Map.Entry<String, List<EnvVar>> entry : PROVIDERS.entrySet()) {
-      if (entry.getValue().stream().allMatch(EnvVar::detect)) {
-        return entry.getKey();
+  // Looks up the active CI/CD provider based on environment variables
+  private static String lookupCiCdProvider(Environment env) {
+    for (CicdProvider provider : listCiCdProviders()) {
+      if (provider.detect(env)) {
+        return provider.name;
       }
     }
     return "";
   }
 
-  public static String cicdProvider() {
+  // Thread-safe lazy initialization of CI/CD provider detection
+  private static String cicdProvider() {
+    // First check (not synchronized) to avoid unnecessary synchronization
+    if (cicdProvider == null) {
+      // Synchronize only if cicdProvider is null
+      synchronized (UserAgent.class) {
+        // Second check (synchronized) to ensure only one thread initializes
+        // This is necessary because multiple threads might have passed the first check
+        if (cicdProvider == null) {
+          cicdProvider = lookupCiCdProvider(env());
+        }
+      }
+    }
     return cicdProvider;
+  }
+
+  protected static Environment env() {
+    if (env == null) {
+      env = new Environment(System.getenv(), System.getenv("PATH").split(File.pathSeparator), System.getProperty("os.name"));
+    }
+    return env;
   }
 }

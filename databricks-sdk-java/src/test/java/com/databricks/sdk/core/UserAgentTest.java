@@ -1,6 +1,8 @@
 package com.databricks.sdk.core;
 
-import java.util.Properties;
+import java.util.ArrayList;
+import java.util.HashMap;
+import com.databricks.sdk.core.utils.Environment;
 import org.junit.jupiter.api.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,35 +63,29 @@ public class UserAgentTest {
     Assertions.assertTrue(userAgent.contains("key1/1.0.0-dev+metadata"));
   }
 
-  private Properties originalProperties;
-
-  @BeforeEach
-  public void saveProperties() {
-    // Save original system properties
-    originalProperties = (Properties) System.getProperties().clone();
-  }
-
-  @AfterEach
-  public void restoreProperties() {
-    // Restore original system properties
-    System.setProperties(originalProperties);
-  }
-
   @Test
   public void testUserAgentCicdNoProvider() {
-    Assertions.assertEquals("", UserAgent.cicdProvider());
+    UserAgent.env = new Environment(new HashMap<>(), new ArrayList<>(), System.getProperty("os.name"));
+    Assertions.assertFalse(UserAgent.asString().contains("cicd"));
+    UserAgent.env = null;
   }
 
   @Test
   public void testUserAgentCicdOneProvider() {
-    System.setProperty("GITHUB_ACTIONS", "true");
-    Assertions.assertEquals("github", UserAgent.cicdProvider());
+    UserAgent.env = new Environment(new HashMap<String, String>() {{
+      put("GITHUB_ACTIONS", "true");
+    }}, new ArrayList<>(), System.getProperty("os.name"));
+    Assertions.assertTrue(UserAgent.asString().contains("cicd/github"));
+    UserAgent.env = null;
   }
 
   @Test
-  public void testUserAgentCicdMultipleProviders() {
-    System.setProperty("GITHUB_ACTIONS", "true");
-    System.setProperty("GITLAB_CI", "true");
-    Assertions.assertEquals("github", UserAgent.cicdProvider());
+  public void testUserAgentCicdTwoProvider() {
+    UserAgent.env = new Environment(new HashMap<String, String>() {{
+      put("GITLAB_CI", "true");
+      put("JENKINS_URL", "");
+    }}, new ArrayList<>(), System.getProperty("os.name"));
+    Assertions.assertTrue(UserAgent.asString().contains("cicd/gitlab"));
+    UserAgent.env = null;
   }
 }
