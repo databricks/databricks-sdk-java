@@ -65,6 +65,7 @@ public class UserAgentTest {
 
   @Test
   public void testUserAgentCicdNoProvider() {
+    UserAgent.cicdProvider = null;
     UserAgent.env =
         new Environment(new HashMap<>(), new ArrayList<>(), System.getProperty("os.name"));
     Assertions.assertFalse(UserAgent.asString().contains("cicd"));
@@ -73,6 +74,7 @@ public class UserAgentTest {
 
   @Test
   public void testUserAgentCicdOneProvider() {
+    UserAgent.cicdProvider = null;
     UserAgent.env =
         new Environment(
             new HashMap<String, String>() {
@@ -88,6 +90,7 @@ public class UserAgentTest {
 
   @Test
   public void testUserAgentCicdTwoProvider() {
+    UserAgent.cicdProvider = null;
     UserAgent.env =
         new Environment(
             new HashMap<String, String>() {

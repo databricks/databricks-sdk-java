@@ -166,7 +166,7 @@ public class UserAgent {
   // The 'volatile' keyword ensures that changes to these variables
   // are immediately visible to all threads. It prevents instruction
   // reordering by the compiler.
-  private static volatile String cicdProvider = null;
+  protected static volatile String cicdProvider = null;
 
   protected static Environment env = null;
 
