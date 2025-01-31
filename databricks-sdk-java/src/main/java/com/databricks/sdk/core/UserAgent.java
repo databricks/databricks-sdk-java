@@ -160,12 +160,13 @@ public class UserAgent {
     );
   }
 
-  // Volatile fields to ensure thread-safe lazy initialization
+  // Volatile field to ensure thread-safe lazy initialization
   // The 'volatile' keyword ensures that changes to these variables
   // are immediately visible to all threads. It prevents instruction
   // reordering by the compiler.
-  protected static volatile String cicdProvider = null;
-  protected static volatile Environment env = null;
+  private static volatile String cicdProvider = null;
+
+  protected static Environment env = null;
 
   // Represents an environment variable with its name and expected value
   private static class EnvVar {
@@ -228,7 +229,7 @@ public class UserAgent {
     return cicdProvider;
   }
 
-  protected static Environment env() {
+  private static Environment env() {
     if (env == null) {
       env = new Environment(System.getenv(), System.getenv("PATH").split(File.pathSeparator), System.getProperty("os.name"));
     }
