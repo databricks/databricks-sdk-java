@@ -1,8 +1,8 @@
 package com.databricks.sdk.core;
 
+import com.databricks.sdk.core.utils.Environment;
 import java.util.ArrayList;
 import java.util.HashMap;
-import com.databricks.sdk.core.utils.Environment;
 import org.junit.jupiter.api.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,26 +65,39 @@ public class UserAgentTest {
 
   @Test
   public void testUserAgentCicdNoProvider() {
-    UserAgent.env = new Environment(new HashMap<>(), new ArrayList<>(), System.getProperty("os.name"));
+    UserAgent.env =
+        new Environment(new HashMap<>(), new ArrayList<>(), System.getProperty("os.name"));
     Assertions.assertFalse(UserAgent.asString().contains("cicd"));
     UserAgent.env = null;
   }
 
   @Test
   public void testUserAgentCicdOneProvider() {
-    UserAgent.env = new Environment(new HashMap<String, String>() {{
-      put("GITHUB_ACTIONS", "true");
-    }}, new ArrayList<>(), System.getProperty("os.name"));
+    UserAgent.env =
+        new Environment(
+            new HashMap<String, String>() {
+              {
+                put("GITHUB_ACTIONS", "true");
+              }
+            },
+            new ArrayList<>(),
+            System.getProperty("os.name"));
     Assertions.assertTrue(UserAgent.asString().contains("cicd/github"));
     UserAgent.env = null;
   }
 
   @Test
   public void testUserAgentCicdTwoProvider() {
-    UserAgent.env = new Environment(new HashMap<String, String>() {{
-      put("GITLAB_CI", "true");
-      put("JENKINS_URL", "");
-    }}, new ArrayList<>(), System.getProperty("os.name"));
+    UserAgent.env =
+        new Environment(
+            new HashMap<String, String>() {
+              {
+                put("GITLAB_CI", "true");
+                put("JENKINS_URL", "");
+              }
+            },
+            new ArrayList<>(),
+            System.getProperty("os.name"));
     Assertions.assertTrue(UserAgent.asString().contains("cicd/gitlab"));
     UserAgent.env = null;
   }

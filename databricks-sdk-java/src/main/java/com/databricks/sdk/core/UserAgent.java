@@ -142,22 +142,24 @@ public class UserAgent {
   // List of CI/CD providers and their environment variables for detection
   private static List<CicdProvider> listCiCdProviders() {
     return Arrays.asList(
-            new CicdProvider("github", Collections.singletonList(new EnvVar("GITHUB_ACTIONS", "true"))),
-            new CicdProvider("gitlab", Collections.singletonList(new EnvVar("GITLAB_CI", "true"))),
-            new CicdProvider("jenkins", Collections.singletonList(new EnvVar("JENKINS_URL", ""))),
-            new CicdProvider("azure-devops", Collections.singletonList(new EnvVar("TF_BUILD", "True"))),
-            new CicdProvider("circle", Collections.singletonList(new EnvVar("CIRCLECI", "true"))),
-            new CicdProvider("travis", Collections.singletonList(new EnvVar("TRAVIS", "true"))),
-            new CicdProvider("bitbucket", Collections.singletonList(new EnvVar("BITBUCKET_BUILD_NUMBER", ""))),
-            new CicdProvider("google-cloud-build", Arrays.asList(
-                    new EnvVar("PROJECT_ID", ""),
-                    new EnvVar("BUILD_ID", ""),
-                    new EnvVar("PROJECT_NUMBER", ""),
-                    new EnvVar("LOCATION", "")
-            )),
-            new CicdProvider("aws-code-build", Collections.singletonList(new EnvVar("CODEBUILD_BUILD_ARN", ""))),
-            new CicdProvider("tf-cloud", Collections.singletonList(new EnvVar("TFC_RUN_ID", "")))
-    );
+        new CicdProvider("github", Collections.singletonList(new EnvVar("GITHUB_ACTIONS", "true"))),
+        new CicdProvider("gitlab", Collections.singletonList(new EnvVar("GITLAB_CI", "true"))),
+        new CicdProvider("jenkins", Collections.singletonList(new EnvVar("JENKINS_URL", ""))),
+        new CicdProvider("azure-devops", Collections.singletonList(new EnvVar("TF_BUILD", "True"))),
+        new CicdProvider("circle", Collections.singletonList(new EnvVar("CIRCLECI", "true"))),
+        new CicdProvider("travis", Collections.singletonList(new EnvVar("TRAVIS", "true"))),
+        new CicdProvider(
+            "bitbucket", Collections.singletonList(new EnvVar("BITBUCKET_BUILD_NUMBER", ""))),
+        new CicdProvider(
+            "google-cloud-build",
+            Arrays.asList(
+                new EnvVar("PROJECT_ID", ""),
+                new EnvVar("BUILD_ID", ""),
+                new EnvVar("PROJECT_NUMBER", ""),
+                new EnvVar("LOCATION", ""))),
+        new CicdProvider(
+            "aws-code-build", Collections.singletonList(new EnvVar("CODEBUILD_BUILD_ARN", ""))),
+        new CicdProvider("tf-cloud", Collections.singletonList(new EnvVar("TFC_RUN_ID", ""))));
   }
 
   // Volatile field to ensure thread-safe lazy initialization
@@ -231,7 +233,11 @@ public class UserAgent {
 
   private static Environment env() {
     if (env == null) {
-      env = new Environment(System.getenv(), System.getenv("PATH").split(File.pathSeparator), System.getProperty("os.name"));
+      env =
+          new Environment(
+              System.getenv(),
+              System.getenv("PATH").split(File.pathSeparator),
+              System.getProperty("os.name"));
     }
     return env;
   }
