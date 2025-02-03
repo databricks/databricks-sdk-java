@@ -4,29 +4,39 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.InputStream;
 import java.util.Objects;
 
-/**
- * The response is an OpenAPI spec in JSON format that typically includes fields like openapi, info,
- * servers and paths, etc.
- */
 @Generated
 public class GetOpenApiResponse {
+  /** */
+  @JsonIgnore private InputStream contents;
+
+  public GetOpenApiResponse setContents(InputStream contents) {
+    this.contents = contents;
+    return this;
+  }
+
+  public InputStream getContents() {
+    return contents;
+  }
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    return true;
+    GetOpenApiResponse that = (GetOpenApiResponse) o;
+    return Objects.equals(contents, that.contents);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash();
+    return Objects.hash(contents);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(GetOpenApiResponse.class).toString();
+    return new ToStringer(GetOpenApiResponse.class).add("contents", contents).toString();
   }
 }

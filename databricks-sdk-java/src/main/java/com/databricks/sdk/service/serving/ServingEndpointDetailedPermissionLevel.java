@@ -4,7 +4,6 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 
-/** The permission level of the principal making the request. */
 @Generated
 public enum ServingEndpointDetailedPermissionLevel {
   CAN_MANAGE,

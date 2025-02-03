@@ -7,21 +7,25 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * All fields are not sensitive as they are hard-coded in the system and made available to
+ * customers.
+ */
 @Generated
 public class FoundationModel {
-  /** The description of the foundation model. */
+  /** */
   @JsonProperty("description")
   private String description;
 
-  /** The display name of the foundation model. */
+  /** */
   @JsonProperty("display_name")
   private String displayName;
 
-  /** The URL to the documentation of the foundation model. */
+  /** */
   @JsonProperty("docs")
   private String docs;
 
-  /** The name of the foundation model. */
+  /** */
   @JsonProperty("name")
   private String name;
 

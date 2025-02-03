@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Configs needed to create an OpenAI model route. */
 @Generated
 public class OpenAiConfig {
   /** This field is only required for Azure AD OpenAI and is the Microsoft Entra Client ID. */

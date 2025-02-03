@@ -11,9 +11,9 @@ import java.util.Objects;
 public class AmazonBedrockConfig {
   /**
    * The Databricks secret key reference for an AWS access key ID with permissions to interact with
-   * Bedrock services. If you prefer to paste your API key directly, see `aws_access_key_id`. You
-   * must provide an API key using one of the following fields: `aws_access_key_id` or
-   * `aws_access_key_id_plaintext`.
+   * Bedrock services. If you prefer to paste your API key directly, see
+   * `aws_access_key_id_plaintext`. You must provide an API key using one of the following fields:
+   * `aws_access_key_id` or `aws_access_key_id_plaintext`.
    */
   @JsonProperty("aws_access_key_id")
   private String awsAccessKeyId;

@@ -18,7 +18,7 @@ public class RotateRecipientToken {
   @JsonProperty("existing_token_expire_in_seconds")
   private Long existingTokenExpireInSeconds;
 
-  /** The name of the recipient. */
+  /** The name of the Recipient. */
   @JsonIgnore private String name;
 
   public RotateRecipientToken setExistingTokenExpireInSeconds(Long existingTokenExpireInSeconds) {

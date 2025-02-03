@@ -84,6 +84,14 @@ public class RunNow {
   @JsonProperty("only")
   private Collection<String> only;
 
+  /**
+   * PerformanceTarget defines how performant or cost efficient the execution of run on serverless
+   * compute should be. For RunNow request, the run will execute with this settings instead of ones
+   * defined in job.
+   */
+  @JsonProperty("performance_target")
+  private PerformanceTarget performanceTarget;
+
   /** Controls whether the pipeline should perform a full refresh */
   @JsonProperty("pipeline_params")
   private PipelineParams pipelineParams;
@@ -205,6 +213,15 @@ public class RunNow {
     return only;
   }
 
+  public RunNow setPerformanceTarget(PerformanceTarget performanceTarget) {
+    this.performanceTarget = performanceTarget;
+    return this;
+  }
+
+  public PerformanceTarget getPerformanceTarget() {
+    return performanceTarget;
+  }
+
   public RunNow setPipelineParams(PipelineParams pipelineParams) {
     this.pipelineParams = pipelineParams;
     return this;
@@ -271,6 +288,7 @@ public class RunNow {
         && Objects.equals(jobParameters, that.jobParameters)
         && Objects.equals(notebookParams, that.notebookParams)
         && Objects.equals(only, that.only)
+        && Objects.equals(performanceTarget, that.performanceTarget)
         && Objects.equals(pipelineParams, that.pipelineParams)
         && Objects.equals(pythonNamedParams, that.pythonNamedParams)
         && Objects.equals(pythonParams, that.pythonParams)
@@ -289,6 +307,7 @@ public class RunNow {
         jobParameters,
         notebookParams,
         only,
+        performanceTarget,
         pipelineParams,
         pythonNamedParams,
         pythonParams,
@@ -307,6 +326,7 @@ public class RunNow {
         .add("jobParameters", jobParameters)
         .add("notebookParams", notebookParams)
         .add("only", only)
+        .add("performanceTarget", performanceTarget)
         .add("pipelineParams", pipelineParams)
         .add("pythonNamedParams", pythonNamedParams)
         .add("pythonParams", pythonParams)

@@ -10,6 +10,10 @@ import java.util.Objects;
 /** Run output was retrieved successfully. */
 @Generated
 public class RunOutput {
+  /** The output of a clean rooms notebook task, if available */
+  @JsonProperty("clean_rooms_notebook_output")
+  private CleanRoomsNotebookTaskCleanRoomsNotebookTaskOutput cleanRoomsNotebookOutput;
+
   /** The output of a dbt task, if available. */
   @JsonProperty("dbt_output")
   private DbtOutput dbtOutput;
@@ -68,6 +72,16 @@ public class RunOutput {
   /** The output of a SQL task, if available. */
   @JsonProperty("sql_output")
   private SqlOutput sqlOutput;
+
+  public RunOutput setCleanRoomsNotebookOutput(
+      CleanRoomsNotebookTaskCleanRoomsNotebookTaskOutput cleanRoomsNotebookOutput) {
+    this.cleanRoomsNotebookOutput = cleanRoomsNotebookOutput;
+    return this;
+  }
+
+  public CleanRoomsNotebookTaskCleanRoomsNotebookTaskOutput getCleanRoomsNotebookOutput() {
+    return cleanRoomsNotebookOutput;
+  }
 
   public RunOutput setDbtOutput(DbtOutput dbtOutput) {
     this.dbtOutput = dbtOutput;
@@ -164,7 +178,8 @@ public class RunOutput {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     RunOutput that = (RunOutput) o;
-    return Objects.equals(dbtOutput, that.dbtOutput)
+    return Objects.equals(cleanRoomsNotebookOutput, that.cleanRoomsNotebookOutput)
+        && Objects.equals(dbtOutput, that.dbtOutput)
         && Objects.equals(error, that.error)
         && Objects.equals(errorTrace, that.errorTrace)
         && Objects.equals(info, that.info)
@@ -179,6 +194,7 @@ public class RunOutput {
   @Override
   public int hashCode() {
     return Objects.hash(
+        cleanRoomsNotebookOutput,
         dbtOutput,
         error,
         errorTrace,
@@ -194,6 +210,7 @@ public class RunOutput {
   @Override
   public String toString() {
     return new ToStringer(RunOutput.class)
+        .add("cleanRoomsNotebookOutput", cleanRoomsNotebookOutput)
         .add("dbtOutput", dbtOutput)
         .add("error", error)
         .add("errorTrace", errorTrace)

@@ -9,7 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class AutoCaptureConfigOutput {
-  /** The name of the catalog in Unity Catalog. */
+  /**
+   * The name of the catalog in Unity Catalog. NOTE: On update, you cannot change the catalog name
+   * if the inference table is already enabled.
+   */
   @JsonProperty("catalog_name")
   private String catalogName;
 
@@ -17,7 +20,10 @@ public class AutoCaptureConfigOutput {
   @JsonProperty("enabled")
   private Boolean enabled;
 
-  /** The name of the schema in Unity Catalog. */
+  /**
+   * The name of the schema in Unity Catalog. NOTE: On update, you cannot change the schema name if
+   * the inference table is already enabled.
+   */
   @JsonProperty("schema_name")
   private String schemaName;
 
@@ -25,7 +31,10 @@ public class AutoCaptureConfigOutput {
   @JsonProperty("state")
   private AutoCaptureState state;
 
-  /** The prefix of the table in Unity Catalog. */
+  /**
+   * The prefix of the table in Unity Catalog. NOTE: On update, you cannot change the prefix name if
+   * the inference table is already enabled.
+   */
   @JsonProperty("table_name_prefix")
   private String tableNamePrefix;
 

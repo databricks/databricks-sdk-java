@@ -17,6 +17,8 @@ public class AccountSettingsAPI {
 
   private DisableLegacyFeaturesAPI disableLegacyFeaturesAPI;
 
+  private EnableIpAccessListsAPI enableIpAccessListsAPI;
+
   private EsmEnablementAccountAPI esmEnablementAccountAPI;
 
   private PersonalComputeAPI personalComputeAPI;
@@ -28,6 +30,8 @@ public class AccountSettingsAPI {
     cspEnablementAccountAPI = new CspEnablementAccountAPI(apiClient);
 
     disableLegacyFeaturesAPI = new DisableLegacyFeaturesAPI(apiClient);
+
+    enableIpAccessListsAPI = new EnableIpAccessListsAPI(apiClient);
 
     esmEnablementAccountAPI = new EsmEnablementAccountAPI(apiClient);
 
@@ -50,6 +54,11 @@ public class AccountSettingsAPI {
   /** Disable legacy features for new Databricks workspaces. */
   public DisableLegacyFeaturesAPI DisableLegacyFeatures() {
     return disableLegacyFeaturesAPI;
+  }
+
+  /** Controls the enforcement of IP access lists for accessing the account console. */
+  public EnableIpAccessListsAPI EnableIpAccessLists() {
+    return enableIpAccessListsAPI;
   }
 
   /**

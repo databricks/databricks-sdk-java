@@ -47,7 +47,7 @@ public class RecipientsAPI {
    * Create a share recipient.
    *
    * <p>Creates a new recipient with the delta sharing authentication type in the metastore. The
-   * caller must be a metastore admin or has the **CREATE_RECIPIENT** privilege on the metastore.
+   * caller must be a metastore admin or have the **CREATE_RECIPIENT** privilege on the metastore.
    */
   public RecipientInfo create(CreateRecipient request) {
     return impl.create(request);
@@ -135,8 +135,8 @@ public class RecipientsAPI {
     return impl.sharePermissions(request);
   }
 
-  public void update(String name) {
-    update(new UpdateRecipient().setName(name));
+  public RecipientInfo update(String name) {
+    return update(new UpdateRecipient().setName(name));
   }
 
   /**
@@ -146,8 +146,8 @@ public class RecipientsAPI {
    * owner of the recipient. If the recipient name will be updated, the user must be both a
    * metastore admin and the owner of the recipient.
    */
-  public void update(UpdateRecipient request) {
-    impl.update(request);
+  public RecipientInfo update(UpdateRecipient request) {
+    return impl.update(request);
   }
 
   public RecipientsService impl() {

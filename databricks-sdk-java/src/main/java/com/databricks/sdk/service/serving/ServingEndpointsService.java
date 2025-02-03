@@ -2,7 +2,6 @@
 package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
-import java.util.Collection;
 
 /**
  * The Serving Endpoints API allows you to create, update, and delete model serving endpoints.
@@ -56,7 +55,7 @@ public interface ServingEndpointsService {
    * <p>Get the query schema of the serving endpoint in OpenAPI format. The schema contains
    * information for the supported paths, input and output format and datatypes.
    */
-  void getOpenApi(GetOpenApiRequest getOpenApiRequest);
+  GetOpenApiResponse getOpenApi(GetOpenApiRequest getOpenApiRequest);
 
   /**
    * Get serving endpoint permission levels.
@@ -75,6 +74,9 @@ public interface ServingEndpointsService {
   ServingEndpointPermissions getPermissions(
       GetServingEndpointPermissionsRequest getServingEndpointPermissionsRequest);
 
+  /** Make external services call using the credentials stored in UC Connection. */
+  HttpRequestResponse httpRequest(ExternalFunctionRequest externalFunctionRequest);
+
   /** Get all serving endpoints. */
   ListEndpointsResponse list();
 
@@ -90,7 +92,7 @@ public interface ServingEndpointsService {
    *
    * <p>Used to batch add and delete tags from a serving endpoint with a single API call.
    */
-  Collection<EndpointTag> patch(PatchServingEndpointTags patchServingEndpointTags);
+  EndpointTags patch(PatchServingEndpointTags patchServingEndpointTags);
 
   /**
    * Update rate limits of a serving endpoint.
@@ -103,8 +105,8 @@ public interface ServingEndpointsService {
   /**
    * Update AI Gateway of a serving endpoint.
    *
-   * <p>Used to update the AI Gateway of a serving endpoint. NOTE: Only external model endpoints are
-   * currently supported.
+   * <p>Used to update the AI Gateway of a serving endpoint. NOTE: Only external model and
+   * provisioned throughput endpoints are currently supported.
    */
   PutAiGatewayResponse putAiGateway(PutAiGatewayRequest putAiGatewayRequest);
 

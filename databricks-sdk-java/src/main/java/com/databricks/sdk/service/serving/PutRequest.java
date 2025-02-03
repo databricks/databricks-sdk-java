@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/** Update rate limits of a serving endpoint */
 @Generated
 public class PutRequest {
   /**

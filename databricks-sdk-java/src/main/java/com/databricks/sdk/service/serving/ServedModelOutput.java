@@ -10,72 +10,74 @@ import java.util.Objects;
 
 @Generated
 public class ServedModelOutput {
-  /** The creation timestamp of the served model in Unix time. */
+  /** */
   @JsonProperty("creation_timestamp")
   private Long creationTimestamp;
 
-  /** The email of the user who created the served model. */
+  /** */
   @JsonProperty("creator")
   private String creator;
 
   /**
    * An object containing a set of optional, user-specified environment variable key-value pairs
-   * used for serving this model. Note: this is an experimental feature and subject to change.
-   * Example model environment variables that refer to Databricks secrets: `{"OPENAI_API_KEY":
+   * used for serving this entity. Note: this is an experimental feature and subject to change.
+   * Example entity environment variables that refer to Databricks secrets: `{"OPENAI_API_KEY":
    * "{{secrets/my_scope/my_key}}", "DATABRICKS_TOKEN": "{{secrets/my_scope2/my_key2}}"}`
    */
   @JsonProperty("environment_vars")
   private Map<String, String> environmentVars;
 
-  /** ARN of the instance profile that the served model will use to access AWS resources. */
+  /** ARN of the instance profile that the served entity uses to access AWS resources. */
   @JsonProperty("instance_profile_arn")
   private String instanceProfileArn;
 
-  /**
-   * The name of the model in Databricks Model Registry or the full name of the model in Unity
-   * Catalog.
-   */
+  /** */
   @JsonProperty("model_name")
   private String modelName;
 
-  /** The version of the model in Databricks Model Registry or Unity Catalog to be served. */
+  /** */
   @JsonProperty("model_version")
   private String modelVersion;
 
-  /** The name of the served model. */
+  /**
+   * The name of a served entity. It must be unique across an endpoint. A served entity name can
+   * consist of alphanumeric characters, dashes, and underscores. If not specified for an external
+   * model, this field defaults to external_model.name, with '.' and ':' replaced with '-', and if
+   * not specified for other entities, it defaults to entity_name-entity_version.
+   */
   @JsonProperty("name")
   private String name;
 
-  /** Whether the compute resources for the Served Model should scale down to zero. */
+  /** Whether the compute resources for the served entity should scale down to zero. */
   @JsonProperty("scale_to_zero_enabled")
   private Boolean scaleToZeroEnabled;
 
-  /** Information corresponding to the state of the Served Model. */
+  /** */
   @JsonProperty("state")
   private ServedModelState state;
 
   /**
-   * The workload size of the served model. The workload size corresponds to a range of provisioned
-   * concurrency that the compute will autoscale between. A single unit of provisioned concurrency
-   * can process one request at a time. Valid workload sizes are "Small" (4 - 4 provisioned
+   * The workload size of the served entity. The workload size corresponds to a range of provisioned
+   * concurrency that the compute autoscales between. A single unit of provisioned concurrency can
+   * process one request at a time. Valid workload sizes are "Small" (4 - 4 provisioned
    * concurrency), "Medium" (8 - 16 provisioned concurrency), and "Large" (16 - 64 provisioned
    * concurrency). If scale-to-zero is enabled, the lower bound of the provisioned concurrency for
-   * each workload size will be 0.
+   * each workload size is 0.
    */
   @JsonProperty("workload_size")
   private String workloadSize;
 
   /**
-   * The workload type of the served model. The workload type selects which type of compute to use
+   * The workload type of the served entity. The workload type selects which type of compute to use
    * in the endpoint. The default value for this parameter is "CPU". For deep learning workloads,
    * GPU acceleration is available by selecting workload types like GPU_SMALL and others. See the
    * available [GPU types].
    *
    * <p>[GPU types]:
-   * https://docs.databricks.com/machine-learning/model-serving/create-manage-serving-endpoints.html#gpu-workload-types
+   * https://docs.databricks.com/en/machine-learning/model-serving/create-manage-serving-endpoints.html#gpu-workload-types
    */
   @JsonProperty("workload_type")
-  private String workloadType;
+  private ServingModelWorkloadType workloadType;
 
   public ServedModelOutput setCreationTimestamp(Long creationTimestamp) {
     this.creationTimestamp = creationTimestamp;
@@ -167,12 +169,12 @@ public class ServedModelOutput {
     return workloadSize;
   }
 
-  public ServedModelOutput setWorkloadType(String workloadType) {
+  public ServedModelOutput setWorkloadType(ServingModelWorkloadType workloadType) {
     this.workloadType = workloadType;
     return this;
   }
 
-  public String getWorkloadType() {
+  public ServingModelWorkloadType getWorkloadType() {
     return workloadType;
   }
 

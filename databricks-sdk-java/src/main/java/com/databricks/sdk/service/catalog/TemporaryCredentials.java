@@ -31,6 +31,13 @@ public class TemporaryCredentials {
   @JsonProperty("expiration_time")
   private Long expirationTime;
 
+  /**
+   * GCP temporary credentials for API authentication. Read more at
+   * https://developers.google.com/identity/protocols/oauth2/service-account
+   */
+  @JsonProperty("gcp_oauth_token")
+  private GcpOauthToken gcpOauthToken;
+
   public TemporaryCredentials setAwsTempCredentials(AwsCredentials awsTempCredentials) {
     this.awsTempCredentials = awsTempCredentials;
     return this;
@@ -58,6 +65,15 @@ public class TemporaryCredentials {
     return expirationTime;
   }
 
+  public TemporaryCredentials setGcpOauthToken(GcpOauthToken gcpOauthToken) {
+    this.gcpOauthToken = gcpOauthToken;
+    return this;
+  }
+
+  public GcpOauthToken getGcpOauthToken() {
+    return gcpOauthToken;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -65,12 +81,13 @@ public class TemporaryCredentials {
     TemporaryCredentials that = (TemporaryCredentials) o;
     return Objects.equals(awsTempCredentials, that.awsTempCredentials)
         && Objects.equals(azureAad, that.azureAad)
-        && Objects.equals(expirationTime, that.expirationTime);
+        && Objects.equals(expirationTime, that.expirationTime)
+        && Objects.equals(gcpOauthToken, that.gcpOauthToken);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(awsTempCredentials, azureAad, expirationTime);
+    return Objects.hash(awsTempCredentials, azureAad, expirationTime, gcpOauthToken);
   }
 
   @Override
@@ -79,6 +96,7 @@ public class TemporaryCredentials {
         .add("awsTempCredentials", awsTempCredentials)
         .add("azureAad", azureAad)
         .add("expirationTime", expirationTime)
+        .add("gcpOauthToken", gcpOauthToken)
         .toString();
   }
 }

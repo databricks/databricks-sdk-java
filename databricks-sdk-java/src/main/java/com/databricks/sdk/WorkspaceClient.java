@@ -78,10 +78,16 @@ import com.databricks.sdk.service.compute.PolicyFamiliesService;
 import com.databricks.sdk.service.dashboards.GenieAPI;
 import com.databricks.sdk.service.dashboards.GenieService;
 import com.databricks.sdk.service.dashboards.LakeviewAPI;
+import com.databricks.sdk.service.dashboards.LakeviewEmbeddedAPI;
+import com.databricks.sdk.service.dashboards.LakeviewEmbeddedService;
 import com.databricks.sdk.service.dashboards.LakeviewService;
+import com.databricks.sdk.service.dashboards.QueryExecutionAPI;
+import com.databricks.sdk.service.dashboards.QueryExecutionService;
 import com.databricks.sdk.service.files.DbfsService;
 import com.databricks.sdk.service.files.FilesAPI;
 import com.databricks.sdk.service.files.FilesService;
+import com.databricks.sdk.service.iam.AccessControlAPI;
+import com.databricks.sdk.service.iam.AccessControlService;
 import com.databricks.sdk.service.iam.AccountAccessControlProxyAPI;
 import com.databricks.sdk.service.iam.AccountAccessControlProxyService;
 import com.databricks.sdk.service.iam.CurrentUserAPI;
@@ -176,6 +182,8 @@ import com.databricks.sdk.service.sql.QueryVisualizationsAPI;
 import com.databricks.sdk.service.sql.QueryVisualizationsLegacyAPI;
 import com.databricks.sdk.service.sql.QueryVisualizationsLegacyService;
 import com.databricks.sdk.service.sql.QueryVisualizationsService;
+import com.databricks.sdk.service.sql.RedashConfigAPI;
+import com.databricks.sdk.service.sql.RedashConfigService;
 import com.databricks.sdk.service.sql.StatementExecutionAPI;
 import com.databricks.sdk.service.sql.StatementExecutionService;
 import com.databricks.sdk.service.sql.WarehousesAPI;
@@ -199,6 +207,7 @@ public class WorkspaceClient {
   private final ApiClient apiClient;
   private final DatabricksConfig config;
 
+  private AccessControlAPI accessControlAPI;
   private AccountAccessControlProxyAPI accountAccessControlProxyAPI;
   private AlertsAPI alertsAPI;
   private AlertsLegacyAPI alertsLegacyAPI;
@@ -239,6 +248,7 @@ public class WorkspaceClient {
   private IpAccessListsAPI ipAccessListsAPI;
   private JobsAPI jobsAPI;
   private LakeviewAPI lakeviewAPI;
+  private LakeviewEmbeddedAPI lakeviewEmbeddedAPI;
   private LibrariesAPI librariesAPI;
   private MetastoresAPI metastoresAPI;
   private ModelRegistryAPI modelRegistryAPI;
@@ -262,11 +272,13 @@ public class WorkspaceClient {
   private QualityMonitorsAPI qualityMonitorsAPI;
   private QueriesAPI queriesAPI;
   private QueriesLegacyAPI queriesLegacyAPI;
+  private QueryExecutionAPI queryExecutionAPI;
   private QueryHistoryAPI queryHistoryAPI;
   private QueryVisualizationsAPI queryVisualizationsAPI;
   private QueryVisualizationsLegacyAPI queryVisualizationsLegacyAPI;
   private RecipientActivationAPI recipientActivationAPI;
   private RecipientsAPI recipientsAPI;
+  private RedashConfigAPI redashConfigAPI;
   private RegisteredModelsAPI registeredModelsAPI;
   private ReposAPI reposAPI;
   private ResourceQuotasAPI resourceQuotasAPI;
@@ -301,6 +313,7 @@ public class WorkspaceClient {
     this.config = config;
     apiClient = new ApiClient(config);
 
+    accessControlAPI = new AccessControlAPI(apiClient);
     accountAccessControlProxyAPI = new AccountAccessControlProxyAPI(apiClient);
     alertsAPI = new AlertsAPI(apiClient);
     alertsLegacyAPI = new AlertsLegacyAPI(apiClient);
@@ -341,6 +354,7 @@ public class WorkspaceClient {
     ipAccessListsAPI = new IpAccessListsAPI(apiClient);
     jobsAPI = new JobsAPI(apiClient);
     lakeviewAPI = new LakeviewAPI(apiClient);
+    lakeviewEmbeddedAPI = new LakeviewEmbeddedAPI(apiClient);
     librariesAPI = new LibrariesAPI(apiClient);
     metastoresAPI = new MetastoresAPI(apiClient);
     modelRegistryAPI = new ModelRegistryAPI(apiClient);
@@ -364,11 +378,13 @@ public class WorkspaceClient {
     qualityMonitorsAPI = new QualityMonitorsAPI(apiClient);
     queriesAPI = new QueriesAPI(apiClient);
     queriesLegacyAPI = new QueriesLegacyAPI(apiClient);
+    queryExecutionAPI = new QueryExecutionAPI(apiClient);
     queryHistoryAPI = new QueryHistoryAPI(apiClient);
     queryVisualizationsAPI = new QueryVisualizationsAPI(apiClient);
     queryVisualizationsLegacyAPI = new QueryVisualizationsLegacyAPI(apiClient);
     recipientActivationAPI = new RecipientActivationAPI(apiClient);
     recipientsAPI = new RecipientsAPI(apiClient);
+    redashConfigAPI = new RedashConfigAPI(apiClient);
     registeredModelsAPI = new RegisteredModelsAPI(apiClient);
     reposAPI = new ReposAPI(apiClient);
     resourceQuotasAPI = new ResourceQuotasAPI(apiClient);
@@ -405,6 +421,11 @@ public class WorkspaceClient {
   public WorkspaceClient(boolean mock, ApiClient apiClient) {
     this.apiClient = apiClient;
     this.config = null;
+  }
+
+  /** Rule based Access Control for Databricks Resources. */
+  public AccessControlAPI accessControl() {
+    return accessControlAPI;
   }
 
   /**
@@ -737,9 +758,13 @@ public class WorkspaceClient {
    * /Volumes/&lt;catalog_name&gt;/&lt;schema_name&gt;/&lt;volume_name&gt;/&lt;path_to_file&gt;.
    *
    * <p>The Files API has two distinct endpoints, one for working with files (`/fs/files`) and
-   * another one for working with directories (`/fs/directories`). Both endpoints, use the standard
+   * another one for working with directories (`/fs/directories`). Both endpoints use the standard
    * HTTP methods GET, HEAD, PUT, and DELETE to manage files and directories specified using their
    * URI path. The path is always absolute.
+   *
+   * <p>Some Files API client features are currently experimental. To enable them, set
+   * `enable_experimental_files_api_client = True` in your configuration profile or use the
+   * environment variable `DATABRICKS_ENABLE_EXPERIMENTAL_FILES_API_CLIENT=True`.
    *
    * <p>[Unity Catalog volumes]: https://docs.databricks.com/en/connect/unity-catalog/volumes.html
    */
@@ -909,6 +934,11 @@ public class WorkspaceClient {
    */
   public LakeviewAPI lakeview() {
     return lakeviewAPI;
+  }
+
+  /** Token-based Lakeview APIs for embedding dashboards in external applications. */
+  public LakeviewEmbeddedAPI lakeviewEmbedded() {
+    return lakeviewEmbeddedAPI;
   }
 
   /**
@@ -1214,6 +1244,11 @@ public class WorkspaceClient {
     return queriesLegacyAPI;
   }
 
+  /** Query execution APIs for AI / BI Dashboards */
+  public QueryExecutionAPI queryExecution() {
+    return queryExecutionAPI;
+  }
+
   /**
    * A service responsible for storing and retrieving the list of queries run against SQL endpoints
    * and serverless compute.
@@ -1276,6 +1311,11 @@ public class WorkspaceClient {
    */
   public RecipientsAPI recipients() {
     return recipientsAPI;
+  }
+
+  /** Redash V2 service for workspace configurations (internal) */
+  public RedashConfigAPI redashConfig() {
+    return redashConfigAPI;
   }
 
   /**
@@ -1685,6 +1725,17 @@ public class WorkspaceClient {
   /** This API allows updating known workspace settings for advanced users. */
   public WorkspaceConfAPI workspaceConf() {
     return workspaceConfAPI;
+  }
+
+  /** Replace the default AccessControlService with a custom implementation. */
+  public WorkspaceClient withAccessControlImpl(AccessControlService accessControl) {
+    return this.withAccessControlAPI(new AccessControlAPI(accessControl));
+  }
+
+  /** Replace the default AccessControlAPI with a custom implementation. */
+  public WorkspaceClient withAccessControlAPI(AccessControlAPI accessControl) {
+    this.accessControlAPI = accessControl;
+    return this;
   }
 
   /** Replace the default AccountAccessControlProxyService with a custom implementation. */
@@ -2136,6 +2187,17 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default LakeviewEmbeddedService with a custom implementation. */
+  public WorkspaceClient withLakeviewEmbeddedImpl(LakeviewEmbeddedService lakeviewEmbedded) {
+    return this.withLakeviewEmbeddedAPI(new LakeviewEmbeddedAPI(lakeviewEmbedded));
+  }
+
+  /** Replace the default LakeviewEmbeddedAPI with a custom implementation. */
+  public WorkspaceClient withLakeviewEmbeddedAPI(LakeviewEmbeddedAPI lakeviewEmbedded) {
+    this.lakeviewEmbeddedAPI = lakeviewEmbedded;
+    return this;
+  }
+
   /** Replace the default LibrariesService with a custom implementation. */
   public WorkspaceClient withLibrariesImpl(LibrariesService libraries) {
     return this.withLibrariesAPI(new LibrariesAPI(libraries));
@@ -2410,6 +2472,17 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default QueryExecutionService with a custom implementation. */
+  public WorkspaceClient withQueryExecutionImpl(QueryExecutionService queryExecution) {
+    return this.withQueryExecutionAPI(new QueryExecutionAPI(queryExecution));
+  }
+
+  /** Replace the default QueryExecutionAPI with a custom implementation. */
+  public WorkspaceClient withQueryExecutionAPI(QueryExecutionAPI queryExecution) {
+    this.queryExecutionAPI = queryExecution;
+    return this;
+  }
+
   /** Replace the default QueryHistoryService with a custom implementation. */
   public WorkspaceClient withQueryHistoryImpl(QueryHistoryService queryHistory) {
     return this.withQueryHistoryAPI(new QueryHistoryAPI(queryHistory));
@@ -2467,6 +2540,17 @@ public class WorkspaceClient {
   /** Replace the default RecipientsAPI with a custom implementation. */
   public WorkspaceClient withRecipientsAPI(RecipientsAPI recipients) {
     this.recipientsAPI = recipients;
+    return this;
+  }
+
+  /** Replace the default RedashConfigService with a custom implementation. */
+  public WorkspaceClient withRedashConfigImpl(RedashConfigService redashConfig) {
+    return this.withRedashConfigAPI(new RedashConfigAPI(redashConfig));
+  }
+
+  /** Replace the default RedashConfigAPI with a custom implementation. */
+  public WorkspaceClient withRedashConfigAPI(RedashConfigAPI redashConfig) {
+    this.redashConfigAPI = redashConfig;
     return this;
   }
 

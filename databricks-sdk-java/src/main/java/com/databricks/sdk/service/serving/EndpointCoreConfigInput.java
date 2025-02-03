@@ -13,7 +13,9 @@ import java.util.Objects;
 public class EndpointCoreConfigInput {
   /**
    * Configuration for Inference Tables which automatically logs requests and responses to Unity
-   * Catalog.
+   * Catalog. Note: this field is deprecated for creating new provisioned throughput endpoints, or
+   * updating existing provisioned throughput endpoints that never have inference table configured;
+   * in these cases please use AI Gateway to manage inference tables.
    */
   @JsonProperty("auto_capture_config")
   private AutoCaptureConfigInput autoCaptureConfig;
@@ -21,21 +23,18 @@ public class EndpointCoreConfigInput {
   /** The name of the serving endpoint to update. This field is required. */
   @JsonIgnore private String name;
 
-  /**
-   * A list of served entities for the endpoint to serve. A serving endpoint can have up to 15
-   * served entities.
-   */
+  /** The list of served entities under the serving endpoint config. */
   @JsonProperty("served_entities")
   private Collection<ServedEntityInput> servedEntities;
 
   /**
-   * (Deprecated, use served_entities instead) A list of served models for the endpoint to serve. A
-   * serving endpoint can have up to 15 served models.
+   * (Deprecated, use served_entities instead) The list of served models under the serving endpoint
+   * config.
    */
   @JsonProperty("served_models")
   private Collection<ServedModelInput> servedModels;
 
-  /** The traffic config defining how invocations to the serving endpoint should be routed. */
+  /** The traffic configuration associated with the serving endpoint config. */
   @JsonProperty("traffic_config")
   private TrafficConfig trafficConfig;
 

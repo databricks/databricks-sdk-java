@@ -9,15 +9,15 @@ import java.util.Objects;
 
 @Generated
 public class PayloadTable {
-  /** The name of the payload table. */
+  /** */
   @JsonProperty("name")
   private String name;
 
-  /** The status of the payload table. */
+  /** */
   @JsonProperty("status")
   private String status;
 
-  /** The status message of the payload table. */
+  /** */
   @JsonProperty("status_message")
   private String statusMessage;
 

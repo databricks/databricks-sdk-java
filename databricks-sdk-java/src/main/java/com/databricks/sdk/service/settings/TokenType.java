@@ -8,5 +8,6 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum TokenType {
   ARCLIGHT_AZURE_EXCHANGE_TOKEN,
+  ARCLIGHT_AZURE_EXCHANGE_TOKEN_WITH_USER_DELEGATION_KEY,
   AZURE_ACTIVE_DIRECTORY_TOKEN,
 }

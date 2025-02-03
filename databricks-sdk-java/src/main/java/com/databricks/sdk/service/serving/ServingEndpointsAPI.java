@@ -104,9 +104,8 @@ public class ServingEndpointsAPI {
     return impl.buildLogs(request);
   }
 
-  public Wait<ServingEndpointDetailed, ServingEndpointDetailed> create(
-      String name, EndpointCoreConfigInput config) {
-    return create(new CreateServingEndpoint().setName(name).setConfig(config));
+  public Wait<ServingEndpointDetailed, ServingEndpointDetailed> create(String name) {
+    return create(new CreateServingEndpoint().setName(name));
   }
 
   /** Create a new serving endpoint. */
@@ -155,8 +154,8 @@ public class ServingEndpointsAPI {
     return impl.get(request);
   }
 
-  public void getOpenApi(String name) {
-    getOpenApi(new GetOpenApiRequest().setName(name));
+  public GetOpenApiResponse getOpenApi(String name) {
+    return getOpenApi(new GetOpenApiRequest().setName(name));
   }
 
   /**
@@ -165,8 +164,8 @@ public class ServingEndpointsAPI {
    * <p>Get the query schema of the serving endpoint in OpenAPI format. The schema contains
    * information for the supported paths, input and output format and datatypes.
    */
-  public void getOpenApi(GetOpenApiRequest request) {
-    impl.getOpenApi(request);
+  public GetOpenApiResponse getOpenApi(GetOpenApiRequest request) {
+    return impl.getOpenApi(request);
   }
 
   public GetServingEndpointPermissionLevelsResponse getPermissionLevels(String servingEndpointId) {
@@ -199,6 +198,20 @@ public class ServingEndpointsAPI {
     return impl.getPermissions(request);
   }
 
+  public HttpRequestResponse httpRequest(
+      String connectionName, ExternalFunctionRequestHttpMethod method, String path) {
+    return httpRequest(
+        new ExternalFunctionRequest()
+            .setConnectionName(connectionName)
+            .setMethod(method)
+            .setPath(path));
+  }
+
+  /** Make external services call using the credentials stored in UC Connection. */
+  public HttpRequestResponse httpRequest(ExternalFunctionRequest request) {
+    return impl.httpRequest(request);
+  }
+
   /** Get all serving endpoints. */
   public Iterable<ServingEndpoint> list() {
     return new Paginator<>(
@@ -218,7 +231,7 @@ public class ServingEndpointsAPI {
     return impl.logs(request);
   }
 
-  public Iterable<EndpointTag> patch(String name) {
+  public EndpointTags patch(String name) {
     return patch(new PatchServingEndpointTags().setName(name));
   }
 
@@ -227,7 +240,7 @@ public class ServingEndpointsAPI {
    *
    * <p>Used to batch add and delete tags from a serving endpoint with a single API call.
    */
-  public Iterable<EndpointTag> patch(PatchServingEndpointTags request) {
+  public EndpointTags patch(PatchServingEndpointTags request) {
     return impl.patch(request);
   }
 
@@ -252,8 +265,8 @@ public class ServingEndpointsAPI {
   /**
    * Update AI Gateway of a serving endpoint.
    *
-   * <p>Used to update the AI Gateway of a serving endpoint. NOTE: Only external model endpoints are
-   * currently supported.
+   * <p>Used to update the AI Gateway of a serving endpoint. NOTE: Only external model and
+   * provisioned throughput endpoints are currently supported.
    */
   public PutAiGatewayResponse putAiGateway(PutAiGatewayRequest request) {
     return impl.putAiGateway(request);
