@@ -29,7 +29,7 @@ public interface RecipientsService {
    * Create a share recipient.
    *
    * <p>Creates a new recipient with the delta sharing authentication type in the metastore. The
-   * caller must be a metastore admin or has the **CREATE_RECIPIENT** privilege on the metastore.
+   * caller must be a metastore admin or have the **CREATE_RECIPIENT** privilege on the metastore.
    */
   RecipientInfo create(CreateRecipient createRecipient);
 
@@ -84,5 +84,5 @@ public interface RecipientsService {
    * owner of the recipient. If the recipient name will be updated, the user must be both a
    * metastore admin and the owner of the recipient.
    */
-  void update(UpdateRecipient updateRecipient);
+  RecipientInfo update(UpdateRecipient updateRecipient);
 }

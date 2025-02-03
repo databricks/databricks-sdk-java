@@ -7,6 +7,10 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * A representation of all DataPlaneInfo for operations that can be done on a model through Data
+ * Plane APIs.
+ */
 @Generated
 public class ModelDataPlaneInfo {
   /** Information required to query DataPlane API 'query' endpoint. */

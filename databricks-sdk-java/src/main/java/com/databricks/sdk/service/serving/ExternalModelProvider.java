@@ -5,11 +5,6 @@ package com.databricks.sdk.service.serving;
 import com.databricks.sdk.support.Generated;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * The name of the provider for the external model. Currently, the supported providers are
- * 'ai21labs', 'anthropic', 'amazon-bedrock', 'cohere', 'databricks-model-serving',
- * 'google-cloud-vertex-ai', 'openai', and 'palm'.",
- */
 @Generated
 public enum ExternalModelProvider {
   @JsonProperty("ai21labs")

@@ -13,7 +13,7 @@ public class EndpointState {
    * The state of an endpoint's config update. This informs the user if the pending_config is in
    * progress, if the update failed, or if there is no update in progress. Note that if the
    * endpoint's config_update state value is IN_PROGRESS, another update can not be made until the
-   * update completes or fails."
+   * update completes or fails.
    */
   @JsonProperty("config_update")
   private EndpointStateConfigUpdate configUpdate;

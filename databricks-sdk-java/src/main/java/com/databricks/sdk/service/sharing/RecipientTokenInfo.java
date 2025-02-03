@@ -16,7 +16,7 @@ public class RecipientTokenInfo {
   @JsonProperty("activation_url")
   private String activationUrl;
 
-  /** Time at which this recipient Token was created, in epoch milliseconds. */
+  /** Time at which this recipient token was created, in epoch milliseconds. */
   @JsonProperty("created_at")
   private Long createdAt;
 
@@ -32,11 +32,11 @@ public class RecipientTokenInfo {
   @JsonProperty("id")
   private String id;
 
-  /** Time at which this recipient Token was updated, in epoch milliseconds. */
+  /** Time at which this recipient token was updated, in epoch milliseconds. */
   @JsonProperty("updated_at")
   private Long updatedAt;
 
-  /** Username of recipient Token updater. */
+  /** Username of recipient token updater. */
   @JsonProperty("updated_by")
   private String updatedBy;
 

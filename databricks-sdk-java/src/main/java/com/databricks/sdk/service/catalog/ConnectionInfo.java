@@ -66,10 +66,6 @@ public class ConnectionInfo {
   @JsonProperty("read_only")
   private Boolean readOnly;
 
-  /** Kind of connection securable. */
-  @JsonProperty("securable_kind")
-  private ConnectionInfoSecurableKind securableKind;
-
   /** */
   @JsonProperty("securable_type")
   private String securableType;
@@ -212,15 +208,6 @@ public class ConnectionInfo {
     return readOnly;
   }
 
-  public ConnectionInfo setSecurableKind(ConnectionInfoSecurableKind securableKind) {
-    this.securableKind = securableKind;
-    return this;
-  }
-
-  public ConnectionInfoSecurableKind getSecurableKind() {
-    return securableKind;
-  }
-
   public ConnectionInfo setSecurableType(String securableType) {
     this.securableType = securableType;
     return this;
@@ -276,7 +263,6 @@ public class ConnectionInfo {
         && Objects.equals(properties, that.properties)
         && Objects.equals(provisioningInfo, that.provisioningInfo)
         && Objects.equals(readOnly, that.readOnly)
-        && Objects.equals(securableKind, that.securableKind)
         && Objects.equals(securableType, that.securableType)
         && Objects.equals(updatedAt, that.updatedAt)
         && Objects.equals(updatedBy, that.updatedBy)
@@ -300,7 +286,6 @@ public class ConnectionInfo {
         properties,
         provisioningInfo,
         readOnly,
-        securableKind,
         securableType,
         updatedAt,
         updatedBy,
@@ -324,7 +309,6 @@ public class ConnectionInfo {
         .add("properties", properties)
         .add("provisioningInfo", provisioningInfo)
         .add("readOnly", readOnly)
-        .add("securableKind", securableKind)
         .add("securableType", securableType)
         .add("updatedAt", updatedAt)
         .add("updatedBy", updatedBy)

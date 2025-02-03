@@ -25,7 +25,7 @@ public class UpdateRecipient {
   /** Name of the recipient. */
   @JsonIgnore private String name;
 
-  /** New name for the recipient. */
+  /** New name for the recipient. . */
   @JsonProperty("new_name")
   private String newName;
 

@@ -33,8 +33,9 @@ public class CleanRoomsAPI {
    *
    * <p>Create a new clean room with the specified collaborators. This method is asynchronous; the
    * returned name field inside the clean_room field can be used to poll the clean room status,
-   * using the :method:cleanrooms/get method. When this method returns, the cluster will be in a
-   * PROVISIONING state. The cluster will be usable once it enters an ACTIVE state.
+   * using the :method:cleanrooms/get method. When this method returns, the clean room will be in a
+   * PROVISIONING state, with only name, owner, comment, created_at and status populated. The clean
+   * room will be usable once it enters an ACTIVE state.
    *
    * <p>The caller must be a metastore admin or have the **CREATE_CLEAN_ROOM** privilege on the
    * metastore.

@@ -128,6 +128,13 @@ public class CreateJob {
   @JsonProperty("parameters")
   private Collection<JobParameterDefinition> parameters;
 
+  /**
+   * PerformanceTarget defines how performant or cost efficient the execution of run on serverless
+   * should be.
+   */
+  @JsonProperty("performance_target")
+  private PerformanceTarget performanceTarget;
+
   /** The queue settings of the job. */
   @JsonProperty("queue")
   private QueueSettings queue;
@@ -325,6 +332,15 @@ public class CreateJob {
     return parameters;
   }
 
+  public CreateJob setPerformanceTarget(PerformanceTarget performanceTarget) {
+    this.performanceTarget = performanceTarget;
+    return this;
+  }
+
+  public PerformanceTarget getPerformanceTarget() {
+    return performanceTarget;
+  }
+
   public CreateJob setQueue(QueueSettings queue) {
     this.queue = queue;
     return this;
@@ -418,6 +434,7 @@ public class CreateJob {
         && Objects.equals(name, that.name)
         && Objects.equals(notificationSettings, that.notificationSettings)
         && Objects.equals(parameters, that.parameters)
+        && Objects.equals(performanceTarget, that.performanceTarget)
         && Objects.equals(queue, that.queue)
         && Objects.equals(runAs, that.runAs)
         && Objects.equals(schedule, that.schedule)
@@ -447,6 +464,7 @@ public class CreateJob {
         name,
         notificationSettings,
         parameters,
+        performanceTarget,
         queue,
         runAs,
         schedule,
@@ -476,6 +494,7 @@ public class CreateJob {
         .add("name", name)
         .add("notificationSettings", notificationSettings)
         .add("parameters", parameters)
+        .add("performanceTarget", performanceTarget)
         .add("queue", queue)
         .add("runAs", runAs)
         .add("schedule", schedule)

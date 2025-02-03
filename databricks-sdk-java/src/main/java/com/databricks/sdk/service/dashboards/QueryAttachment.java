@@ -40,6 +40,10 @@ public class QueryAttachment {
   @JsonProperty("query")
   private String query;
 
+  /** */
+  @JsonProperty("statement_id")
+  private String statementId;
+
   /** Name of the query */
   @JsonProperty("title")
   private String title;
@@ -107,6 +111,15 @@ public class QueryAttachment {
     return query;
   }
 
+  public QueryAttachment setStatementId(String statementId) {
+    this.statementId = statementId;
+    return this;
+  }
+
+  public String getStatementId() {
+    return statementId;
+  }
+
   public QueryAttachment setTitle(String title) {
     this.title = title;
     return this;
@@ -128,6 +141,7 @@ public class QueryAttachment {
         && Objects.equals(instructionTitle, that.instructionTitle)
         && Objects.equals(lastUpdatedTimestamp, that.lastUpdatedTimestamp)
         && Objects.equals(query, that.query)
+        && Objects.equals(statementId, that.statementId)
         && Objects.equals(title, that.title);
   }
 
@@ -141,6 +155,7 @@ public class QueryAttachment {
         instructionTitle,
         lastUpdatedTimestamp,
         query,
+        statementId,
         title);
   }
 
@@ -154,6 +169,7 @@ public class QueryAttachment {
         .add("instructionTitle", instructionTitle)
         .add("lastUpdatedTimestamp", lastUpdatedTimestamp)
         .add("query", query)
+        .add("statementId", statementId)
         .add("title", title)
         .toString();
   }

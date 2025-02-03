@@ -11,8 +11,8 @@ import java.util.Objects;
 @Generated
 public class ServingEndpoint {
   /**
-   * The AI Gateway configuration for the serving endpoint. NOTE: Only external model endpoints are
-   * currently supported.
+   * The AI Gateway configuration for the serving endpoint. NOTE: Only external model and
+   * provisioned throughput endpoints are currently supported.
    */
   @JsonProperty("ai_gateway")
   private AiGatewayConfig aiGateway;
@@ -29,10 +29,7 @@ public class ServingEndpoint {
   @JsonProperty("creator")
   private String creator;
 
-  /**
-   * System-generated ID of the endpoint. This is used to refer to the endpoint in the Permissions
-   * API
-   */
+  /** System-generated ID of the endpoint, included to be used by the Permissions API. */
   @JsonProperty("id")
   private String id;
 

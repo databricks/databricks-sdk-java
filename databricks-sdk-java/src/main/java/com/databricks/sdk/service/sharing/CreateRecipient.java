@@ -18,8 +18,8 @@ public class CreateRecipient {
   private String comment;
 
   /**
-   * The global Unity Catalog metastore id provided by the data recipient. This field is required
-   * when the __authentication_type__ is **DATABRICKS**. The identifier is of format
+   * The global Unity Catalog metastore id provided by the data recipient. This field is only
+   * present when the __authentication_type__ is **DATABRICKS**. The identifier is of format
    * __cloud__:__region__:__metastore-uuid__.
    */
   @JsonProperty("data_recipient_global_metastore_id")
@@ -41,12 +41,16 @@ public class CreateRecipient {
   @JsonProperty("owner")
   private String owner;
 
-  /** Recipient properties as map of string key-value pairs. */
+  /**
+   * Recipient properties as map of string key-value pairs. When provided in update request, the
+   * specified properties will override the existing properties. To add and remove properties, one
+   * would need to perform a read-modify-write.
+   */
   @JsonProperty("properties_kvpairs")
   private SecurablePropertiesKvPairs propertiesKvpairs;
 
   /**
-   * The one-time sharing code provided by the data recipient. This field is required when the
+   * The one-time sharing code provided by the data recipient. This field is only present when the
    * __authentication_type__ is **DATABRICKS**.
    */
   @JsonProperty("sharing_code")

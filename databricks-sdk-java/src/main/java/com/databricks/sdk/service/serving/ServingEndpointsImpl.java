@@ -6,7 +6,6 @@ import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
 import java.io.IOException;
-import java.util.Collection;
 
 /** Package-local implementation of ServingEndpoints */
 @Generated
@@ -87,13 +86,13 @@ class ServingEndpointsImpl implements ServingEndpointsService {
   }
 
   @Override
-  public void getOpenApi(GetOpenApiRequest request) {
+  public GetOpenApiResponse getOpenApi(GetOpenApiRequest request) {
     String path = String.format("/api/2.0/serving-endpoints/%s/openapi", request.getName());
     try {
       Request req = new Request("GET", path);
       ApiClient.setQuery(req, request);
-      req.withHeader("Accept", "application/json");
-      apiClient.execute(req, GetOpenApiResponse.class);
+      req.withHeader("Accept", "text/plain");
+      return apiClient.execute(req, GetOpenApiResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -131,6 +130,20 @@ class ServingEndpointsImpl implements ServingEndpointsService {
   }
 
   @Override
+  public HttpRequestResponse httpRequest(ExternalFunctionRequest request) {
+    String path = "/api/2.0/external-function";
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "text/plain");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, HttpRequestResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public ListEndpointsResponse list() {
     String path = "/api/2.0/serving-endpoints";
     try {
@@ -159,12 +172,17 @@ class ServingEndpointsImpl implements ServingEndpointsService {
   }
 
   @Override
-  public Collection<EndpointTag> patch(PatchServingEndpointTags request) {
+  public EndpointTags patch(PatchServingEndpointTags request) {
     String path = String.format("/api/2.0/serving-endpoints/%s/tags", request.getName());
-    Request req = new Request("GET", path);
-    req.withHeader("Accept", "application/json");
-    req.withHeader("Content-Type", "application/json");
-    return apiClient.getCollection(req, EndpointTag.class);
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, EndpointTags.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override

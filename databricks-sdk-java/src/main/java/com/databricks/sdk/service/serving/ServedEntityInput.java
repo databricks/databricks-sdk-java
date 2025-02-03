@@ -14,15 +14,12 @@ public class ServedEntityInput {
    * The name of the entity to be served. The entity may be a model in the Databricks Model
    * Registry, a model in the Unity Catalog (UC), or a function of type FEATURE_SPEC in the UC. If
    * it is a UC object, the full name of the object should be given in the form of
-   * __catalog_name__.__schema_name__.__model_name__.
+   * **catalog_name.schema_name.model_name**.
    */
   @JsonProperty("entity_name")
   private String entityName;
 
-  /**
-   * The version of the model in Databricks Model Registry to be served or empty if the entity is a
-   * FEATURE_SPEC.
-   */
+  /** */
   @JsonProperty("entity_version")
   private String entityVersion;
 
@@ -63,7 +60,7 @@ public class ServedEntityInput {
    * The name of a served entity. It must be unique across an endpoint. A served entity name can
    * consist of alphanumeric characters, dashes, and underscores. If not specified for an external
    * model, this field defaults to external_model.name, with '.' and ':' replaced with '-', and if
-   * not specified for other entities, it defaults to <entity-name>-<entity-version>.
+   * not specified for other entities, it defaults to entity_name-entity_version.
    */
   @JsonProperty("name")
   private String name;
@@ -90,10 +87,10 @@ public class ServedEntityInput {
    * available [GPU types].
    *
    * <p>[GPU types]:
-   * https://docs.databricks.com/machine-learning/model-serving/create-manage-serving-endpoints.html#gpu-workload-types
+   * https://docs.databricks.com/en/machine-learning/model-serving/create-manage-serving-endpoints.html#gpu-workload-types
    */
   @JsonProperty("workload_type")
-  private String workloadType;
+  private ServingModelWorkloadType workloadType;
 
   public ServedEntityInput setEntityName(String entityName) {
     this.entityName = entityName;
@@ -185,12 +182,12 @@ public class ServedEntityInput {
     return workloadSize;
   }
 
-  public ServedEntityInput setWorkloadType(String workloadType) {
+  public ServedEntityInput setWorkloadType(ServingModelWorkloadType workloadType) {
     this.workloadType = workloadType;
     return this;
   }
 
-  public String getWorkloadType() {
+  public ServingModelWorkloadType getWorkloadType() {
     return workloadType;
   }
 

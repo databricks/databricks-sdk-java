@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/** Update AI Gateway of a serving endpoint */
 @Generated
 public class PutAiGatewayRequest {
   /**
