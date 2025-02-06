@@ -71,9 +71,12 @@ public class JobsExt extends JobsAPI {
   public Job get(GetJobRequest request) {
     Job job = super.get(request);
 
+    // jobs/get response includes next_page_token as long as there are more pages to fetch.
     while (job.getNextPageToken() != null) {
       request.setPageToken(job.getNextPageToken());
       Job currJob = super.get(request);
+      // Each new page of jobs/get response includes the next page of the tasks, job_clusters,
+      // job_parameters, and environments.
       Collection<Task> newTasks = currJob.getSettings().getTasks();
       if (newTasks != null) {
         job.getSettings().getTasks().addAll(newTasks);
