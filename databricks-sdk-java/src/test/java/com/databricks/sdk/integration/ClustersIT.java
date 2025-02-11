@@ -54,7 +54,7 @@ public class ClustersIT {
     assertThrowsExactly(
         ResourceDoesNotExist.class,
         () -> {
-          w.clusters().get("does-not-exist");
+          w.clusters().get("123-does-not-exist");
         });
   }
 }

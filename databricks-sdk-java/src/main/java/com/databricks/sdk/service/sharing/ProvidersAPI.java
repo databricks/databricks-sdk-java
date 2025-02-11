@@ -77,6 +77,10 @@ public class ProvidersAPI {
    * response. There is no guarantee of a specific ordering of the elements in the array.
    */
   public Iterable<ProviderInfo> list(ListProvidersRequest request) {
+
+    if (request.getMaxResults() == null) {
+      request.setMaxResults(0L);
+    }
     return new Paginator<>(
         request,
         impl::list,
@@ -102,8 +106,21 @@ public class ProvidersAPI {
    * <p>* the caller is a metastore admin, or * the caller is the owner.
    */
   public Iterable<ProviderShare> listShares(ListSharesRequest request) {
+
+    if (request.getMaxResults() == null) {
+      request.setMaxResults(0L);
+    }
     return new Paginator<>(
-        request, impl::listShares, ListProviderSharesResponse::getShares, response -> null);
+        request,
+        impl::listShares,
+        ListProviderSharesResponse::getShares,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public ProviderInfo update(String name) {

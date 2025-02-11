@@ -1,5 +1,18 @@
 # Version changelog
 
+## [Release] Release v0.41.0
+
+### API Changes:
+
+ * Added `getMessageQueryResultByAttachment()` method for `workspaceClient.genie()` service.
+ * Added `id` field for `com.databricks.sdk.service.apps.App`.
+ * Added `limitConfig` field for `com.databricks.sdk.service.billing.UpdateBudgetPolicyRequest`.
+ * Added `volumes` field for `com.databricks.sdk.service.compute.ClusterLogConf`.
+ * Removed `reviewState`, `reviews` and `runnerCollaborators` fields for `com.databricks.sdk.service.cleanrooms.CleanRoomAssetNotebook`.
+
+OpenAPI SHA: 99f644e72261ef5ecf8d74db20f4b7a1e09723cc, Date: 2025-02-11
+
+
 ## [Release] Release v0.40.0
 
 ### Bug Fixes

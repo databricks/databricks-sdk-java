@@ -88,6 +88,10 @@ public class ExternalLocationsAPI {
    * elements in the array.
    */
   public Iterable<ExternalLocationInfo> list(ListExternalLocationsRequest request) {
+
+    if (request.getMaxResults() == null) {
+      request.setMaxResults(0L);
+    }
     return new Paginator<>(
         request,
         impl::list,

@@ -91,6 +91,10 @@ public class RecipientsAPI {
    * specific ordering of the elements in the array.
    */
   public Iterable<RecipientInfo> list(ListRecipientsRequest request) {
+
+    if (request.getMaxResults() == null) {
+      request.setMaxResults(0L);
+    }
     return new Paginator<>(
         request,
         impl::list,

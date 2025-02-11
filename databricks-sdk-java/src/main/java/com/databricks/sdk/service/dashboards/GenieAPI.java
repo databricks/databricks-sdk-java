@@ -177,6 +177,27 @@ public class GenieAPI {
     return impl.getMessageQueryResult(request);
   }
 
+  public GenieGetMessageQueryResultResponse getMessageQueryResultByAttachment(
+      String spaceId, String conversationId, String messageId, String attachmentId) {
+    return getMessageQueryResultByAttachment(
+        new GenieGetQueryResultByAttachmentRequest()
+            .setSpaceId(spaceId)
+            .setConversationId(conversationId)
+            .setMessageId(messageId)
+            .setAttachmentId(attachmentId));
+  }
+
+  /**
+   * Get conversation message SQL query result by attachment id.
+   *
+   * <p>Get the result of SQL query by attachment id This is only available if a message has a query
+   * attachment and the message status is `EXECUTING_QUERY`.
+   */
+  public GenieGetMessageQueryResultResponse getMessageQueryResultByAttachment(
+      GenieGetQueryResultByAttachmentRequest request) {
+    return impl.getMessageQueryResultByAttachment(request);
+  }
+
   public Wait<GenieMessage, GenieStartConversationResponse> startConversation(
       String spaceId, String content) {
     return startConversation(

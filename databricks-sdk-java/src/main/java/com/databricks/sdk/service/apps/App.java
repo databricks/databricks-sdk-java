@@ -44,6 +44,10 @@ public class App {
   @JsonProperty("description")
   private String description;
 
+  /** The unique identifier of the app. */
+  @JsonProperty("id")
+  private String id;
+
   /**
    * The name of the app. The name must contain only lowercase alphanumeric characters and hyphens.
    * It must be unique within the workspace.
@@ -149,6 +153,15 @@ public class App {
     return description;
   }
 
+  public App setId(String id) {
+    this.id = id;
+    return this;
+  }
+
+  public String getId() {
+    return id;
+  }
+
   public App setName(String name) {
     this.name = name;
     return this;
@@ -242,6 +255,7 @@ public class App {
         && Objects.equals(creator, that.creator)
         && Objects.equals(defaultSourceCodePath, that.defaultSourceCodePath)
         && Objects.equals(description, that.description)
+        && Objects.equals(id, that.id)
         && Objects.equals(name, that.name)
         && Objects.equals(pendingDeployment, that.pendingDeployment)
         && Objects.equals(resources, that.resources)
@@ -263,6 +277,7 @@ public class App {
         creator,
         defaultSourceCodePath,
         description,
+        id,
         name,
         pendingDeployment,
         resources,
@@ -284,6 +299,7 @@ public class App {
         .add("creator", creator)
         .add("defaultSourceCodePath", defaultSourceCodePath)
         .add("description", description)
+        .add("id", id)
         .add("name", name)
         .add("pendingDeployment", pendingDeployment)
         .add("resources", resources)
