@@ -50,7 +50,7 @@ public class ExternalModel {
   /**
    * The name of the provider for the external model. Currently, the supported providers are
    * 'ai21labs', 'anthropic', 'amazon-bedrock', 'cohere', 'databricks-model-serving',
-   * 'google-cloud-vertex-ai', 'openai', and 'palm'.
+   * 'google-cloud-vertex-ai', 'openai', 'palm', and 'custom'.
    */
   @JsonProperty("provider")
   private ExternalModelProvider provider;

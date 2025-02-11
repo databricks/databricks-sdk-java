@@ -112,6 +112,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/GetBudgetCo
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/GetBudgetConfigurationResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/GetBudgetPolicyRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/GetLogDeliveryRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/LimitConfig.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/ListBudgetConfigurationsRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/ListBudgetConfigurationsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/ListBudgetPoliciesRequest.java linguist-generated=true
@@ -514,8 +515,6 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoo
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomAssetsImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomAssetsService.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomCollaborator.java linguist-generated=true
-databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomNotebookReview.java linguist-generated=true
-databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomNotebookReviewNotebookReviewState.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomNotebookTaskRun.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomOutputCatalog.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/cleanrooms/CleanRoomOutputCatalogOutputCatalogStatus.java linguist-generated=true
@@ -813,6 +812,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieExe
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieGetConversationMessageRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieGetMessageQueryResultRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieGetMessageQueryResultResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieGetQueryResultByAttachmentRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieMessage.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieService.java linguist-generated=true

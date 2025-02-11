@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class VolumesStorageInfo {
-  /** Unity Catalog Volumes file destination, e.g. `/Volumes/my-init.sh` */
+  /** Unity Catalog volumes file destination, e.g. `/Volumes/catalog/schema/volume/dir/file` */
   @JsonProperty("destination")
   private String destination;
 

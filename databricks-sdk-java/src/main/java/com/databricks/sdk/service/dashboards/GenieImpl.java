@@ -84,6 +84,26 @@ class GenieImpl implements GenieService {
   }
 
   @Override
+  public GenieGetMessageQueryResultResponse getMessageQueryResultByAttachment(
+      GenieGetQueryResultByAttachmentRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/genie/spaces/%s/conversations/%s/messages/%s/query-result/%s",
+            request.getSpaceId(),
+            request.getConversationId(),
+            request.getMessageId(),
+            request.getAttachmentId());
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, GenieGetMessageQueryResultResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public GenieStartConversationResponse startConversation(
       GenieStartConversationMessageRequest request) {
     String path =
