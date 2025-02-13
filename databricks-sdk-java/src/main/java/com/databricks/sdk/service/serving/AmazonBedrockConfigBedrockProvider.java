@@ -5,10 +5,6 @@ package com.databricks.sdk.service.serving;
 import com.databricks.sdk.support.Generated;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * The underlying provider in Amazon Bedrock. Supported values (case insensitive) include:
- * Anthropic, Cohere, AI21Labs, Amazon.
- */
 @Generated
 public enum AmazonBedrockConfigBedrockProvider {
   @JsonProperty("ai21labs")

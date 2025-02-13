@@ -6,6 +6,10 @@ import com.databricks.sdk.support.Generated;
 
 @Generated
 public enum EventType {
+  ADD_NODES_FAILED,
+  AUTOMATIC_CLUSTER_UPDATE,
+  AUTOSCALING_BACKOFF,
+  AUTOSCALING_FAILED,
   AUTOSCALING_STATS_REPORT,
   CREATING,
   DBFS_DOWN,

@@ -2,9 +2,10 @@
 package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /** Package-local implementation of Genie */
 @Generated
@@ -21,10 +22,15 @@ class GenieImpl implements GenieService {
         String.format(
             "/api/2.0/genie/spaces/%s/conversations/%s/messages",
             request.getSpaceId(), request.getConversationId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, GenieMessage.class, headers);
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, GenieMessage.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -34,9 +40,14 @@ class GenieImpl implements GenieService {
         String.format(
             "/api/2.0/genie/spaces/%s/conversations/%s/messages/%s/execute-query",
             request.getSpaceId(), request.getConversationId(), request.getMessageId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.POST(path, null, GenieGetMessageQueryResultResponse.class, headers);
+    try {
+      Request req = new Request("POST", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, GenieGetMessageQueryResultResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -45,9 +56,14 @@ class GenieImpl implements GenieService {
         String.format(
             "/api/2.0/genie/spaces/%s/conversations/%s/messages/%s",
             request.getSpaceId(), request.getConversationId(), request.getMessageId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GenieMessage.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, GenieMessage.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -57,9 +73,34 @@ class GenieImpl implements GenieService {
         String.format(
             "/api/2.0/genie/spaces/%s/conversations/%s/messages/%s/query-result",
             request.getSpaceId(), request.getConversationId(), request.getMessageId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GenieGetMessageQueryResultResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, GenieGetMessageQueryResultResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public GenieGetMessageQueryResultResponse getMessageQueryResultByAttachment(
+      GenieGetQueryResultByAttachmentRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/genie/spaces/%s/conversations/%s/messages/%s/query-result/%s",
+            request.getSpaceId(),
+            request.getConversationId(),
+            request.getMessageId(),
+            request.getAttachmentId());
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, GenieGetMessageQueryResultResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -67,9 +108,14 @@ class GenieImpl implements GenieService {
       GenieStartConversationMessageRequest request) {
     String path =
         String.format("/api/2.0/genie/spaces/%s/start-conversation", request.getSpaceId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, GenieStartConversationResponse.class, headers);
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, GenieStartConversationResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }

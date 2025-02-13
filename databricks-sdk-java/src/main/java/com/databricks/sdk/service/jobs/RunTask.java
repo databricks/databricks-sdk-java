@@ -73,6 +73,22 @@ public class RunTask {
   private String description;
 
   /**
+   * Denotes whether or not the task was disabled by the user. Disabled tasks do not execute and are
+   * immediately skipped as soon as they are unblocked.
+   */
+  @JsonProperty("disabled")
+  private Boolean disabled;
+
+  /**
+   * effective_performance_target is the actual performance target used by the run during execution.
+   * effective_performance_target can differ from performance_target depending on if the job was
+   * eligible to be cost-optimized (e.g. contains at least 1 serverless task) or if an override was
+   * provided for the run (ex. RunNow).
+   */
+  @JsonProperty("effective_performance_target")
+  private PerformanceTarget effectivePerformanceTarget;
+
+  /**
    * An optional set of email addresses notified when the task run begins or completes. The default
    * behavior is to not send any emails.
    */
@@ -352,6 +368,24 @@ public class RunTask {
 
   public String getDescription() {
     return description;
+  }
+
+  public RunTask setDisabled(Boolean disabled) {
+    this.disabled = disabled;
+    return this;
+  }
+
+  public Boolean getDisabled() {
+    return disabled;
+  }
+
+  public RunTask setEffectivePerformanceTarget(PerformanceTarget effectivePerformanceTarget) {
+    this.effectivePerformanceTarget = effectivePerformanceTarget;
+    return this;
+  }
+
+  public PerformanceTarget getEffectivePerformanceTarget() {
+    return effectivePerformanceTarget;
   }
 
   public RunTask setEmailNotifications(JobEmailNotifications emailNotifications) {
@@ -655,6 +689,8 @@ public class RunTask {
         && Objects.equals(dbtTask, that.dbtTask)
         && Objects.equals(dependsOn, that.dependsOn)
         && Objects.equals(description, that.description)
+        && Objects.equals(disabled, that.disabled)
+        && Objects.equals(effectivePerformanceTarget, that.effectivePerformanceTarget)
         && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(endTime, that.endTime)
         && Objects.equals(environmentKey, that.environmentKey)
@@ -700,6 +736,8 @@ public class RunTask {
         dbtTask,
         dependsOn,
         description,
+        disabled,
+        effectivePerformanceTarget,
         emailNotifications,
         endTime,
         environmentKey,
@@ -745,6 +783,8 @@ public class RunTask {
         .add("dbtTask", dbtTask)
         .add("dependsOn", dependsOn)
         .add("description", description)
+        .add("disabled", disabled)
+        .add("effectivePerformanceTarget", effectivePerformanceTarget)
         .add("emailNotifications", emailNotifications)
         .add("endTime", endTime)
         .add("environmentKey", environmentKey)

@@ -29,8 +29,8 @@ public class RecipientInfo {
   private AuthenticationType authenticationType;
 
   /**
-   * Cloud vendor of the recipient's Unity Catalog Metstore. This field is only present when the
-   * __authentication_type__ is **DATABRICKS**`.
+   * Cloud vendor of the recipient's Unity Catalog Metastore. This field is only present when the
+   * __authentication_type__ is **DATABRICKS**.
    */
   @JsonProperty("cloud")
   private String cloud;
@@ -55,13 +55,17 @@ public class RecipientInfo {
   @JsonProperty("data_recipient_global_metastore_id")
   private String dataRecipientGlobalMetastoreId;
 
+  /** Expiration timestamp of the token, in epoch milliseconds. */
+  @JsonProperty("expiration_time")
+  private Long expirationTime;
+
   /** IP Access List */
   @JsonProperty("ip_access_list")
   private IpAccessList ipAccessList;
 
   /**
-   * Unique identifier of recipient's Unity Catalog metastore. This field is only present when the
-   * __authentication_type__ is **DATABRICKS**
+   * Unique identifier of recipient's Unity Catalog Metastore. This field is only present when the
+   * __authentication_type__ is **DATABRICKS**.
    */
   @JsonProperty("metastore_id")
   private String metastoreId;
@@ -74,12 +78,16 @@ public class RecipientInfo {
   @JsonProperty("owner")
   private String owner;
 
-  /** Recipient properties as map of string key-value pairs. */
+  /**
+   * Recipient properties as map of string key-value pairs. When provided in update request, the
+   * specified properties will override the existing properties. To add and remove properties, one
+   * would need to perform a read-modify-write.
+   */
   @JsonProperty("properties_kvpairs")
   private SecurablePropertiesKvPairs propertiesKvpairs;
 
   /**
-   * Cloud region of the recipient's Unity Catalog Metstore. This field is only present when the
+   * Cloud region of the recipient's Unity Catalog Metastore. This field is only present when the
    * __authentication_type__ is **DATABRICKS**.
    */
   @JsonProperty("region")
@@ -174,6 +182,15 @@ public class RecipientInfo {
 
   public String getDataRecipientGlobalMetastoreId() {
     return dataRecipientGlobalMetastoreId;
+  }
+
+  public RecipientInfo setExpirationTime(Long expirationTime) {
+    this.expirationTime = expirationTime;
+    return this;
+  }
+
+  public Long getExpirationTime() {
+    return expirationTime;
   }
 
   public RecipientInfo setIpAccessList(IpAccessList ipAccessList) {
@@ -279,6 +296,7 @@ public class RecipientInfo {
         && Objects.equals(createdAt, that.createdAt)
         && Objects.equals(createdBy, that.createdBy)
         && Objects.equals(dataRecipientGlobalMetastoreId, that.dataRecipientGlobalMetastoreId)
+        && Objects.equals(expirationTime, that.expirationTime)
         && Objects.equals(ipAccessList, that.ipAccessList)
         && Objects.equals(metastoreId, that.metastoreId)
         && Objects.equals(name, that.name)
@@ -302,6 +320,7 @@ public class RecipientInfo {
         createdAt,
         createdBy,
         dataRecipientGlobalMetastoreId,
+        expirationTime,
         ipAccessList,
         metastoreId,
         name,
@@ -325,6 +344,7 @@ public class RecipientInfo {
         .add("createdAt", createdAt)
         .add("createdBy", createdBy)
         .add("dataRecipientGlobalMetastoreId", dataRecipientGlobalMetastoreId)
+        .add("expirationTime", expirationTime)
         .add("ipAccessList", ipAccessList)
         .add("metastoreId", metastoreId)
         .add("name", name)

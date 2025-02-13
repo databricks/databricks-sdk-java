@@ -2,9 +2,10 @@
 package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /** Package-local implementation of ServingEndpointsDataPlane */
 @Generated
@@ -18,9 +19,14 @@ class ServingEndpointsDataPlaneImpl implements ServingEndpointsDataPlaneService 
   @Override
   public QueryEndpointResponse query(QueryEndpointInput request) {
     String path = String.format("/serving-endpoints/%s/invocations", request.getName());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, QueryEndpointResponse.class, headers);
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, QueryEndpointResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }

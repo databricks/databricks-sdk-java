@@ -586,10 +586,13 @@ public class DatabricksConfig {
             .withHttpClient(getHttpClient())
             .withGetHostFunc(v -> getHost())
             .build();
-    return apiClient.GET(
-        "/oidc/.well-known/oauth-authorization-server",
-        OpenIDConnectEndpoints.class,
-        new HashMap<>());
+    try {
+      return apiClient.execute(
+          new Request("GET", "/oidc/.well-known/oauth-authorization-server"),
+          OpenIDConnectEndpoints.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override

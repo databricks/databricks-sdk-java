@@ -2,9 +2,10 @@
 package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /** Package-local implementation of ConsumerFulfillments */
 @Generated
@@ -19,9 +20,14 @@ class ConsumerFulfillmentsImpl implements ConsumerFulfillmentsService {
   public GetListingContentMetadataResponse get(GetListingContentMetadataRequest request) {
     String path =
         String.format("/api/2.1/marketplace-consumer/listings/%s/content", request.getListingId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetListingContentMetadataResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, GetListingContentMetadataResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -29,8 +35,13 @@ class ConsumerFulfillmentsImpl implements ConsumerFulfillmentsService {
     String path =
         String.format(
             "/api/2.1/marketplace-consumer/listings/%s/fulfillments", request.getListingId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListFulfillmentsResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ListFulfillmentsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }

@@ -19,7 +19,7 @@ public class PutAiGatewayResponse {
 
   /**
    * Configuration for payload logging using inference tables. Use these tables to monitor and audit
-   * data being sent to and received from model APIs and to improve model quality .
+   * data being sent to and received from model APIs and to improve model quality.
    */
   @JsonProperty("inference_table_config")
   private AiGatewayInferenceTableConfig inferenceTableConfig;

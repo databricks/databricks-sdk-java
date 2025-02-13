@@ -10,7 +10,7 @@ import java.util.Objects;
 /** Delete a serving endpoint */
 @Generated
 public class DeleteServingEndpointRequest {
-  /** The name of the serving endpoint. This field is required. */
+  /** */
   @JsonIgnore private String name;
 
   public DeleteServingEndpointRequest setName(String name) {

@@ -1,5 +1,80 @@
 # Version changelog
 
+## [Release] Release v0.41.0
+
+### API Changes:
+
+ * Added `getMessageQueryResultByAttachment()` method for `workspaceClient.genie()` service.
+ * Added `id` field for `com.databricks.sdk.service.apps.App`.
+ * Added `limitConfig` field for `com.databricks.sdk.service.billing.UpdateBudgetPolicyRequest`.
+ * Added `volumes` field for `com.databricks.sdk.service.compute.ClusterLogConf`.
+ * Removed `reviewState`, `reviews` and `runnerCollaborators` fields for `com.databricks.sdk.service.cleanrooms.CleanRoomAssetNotebook`.
+
+OpenAPI SHA: 99f644e72261ef5ecf8d74db20f4b7a1e09723cc, Date: 2025-02-11
+
+
+## [Release] Release v0.40.0
+
+### Bug Fixes
+
+ * Correctly include query parameters for APIs whose request objects contain the body as a field ([#401](https://github.com/databricks/databricks-sdk-java/pull/401)).
+
+
+### Internal Changes
+
+ * Add CICD environment to User Agent ([#404](https://github.com/databricks/databricks-sdk-java/pull/404)).
+
+
+### API Changes:
+
+ * Added `accountClient.budgetPolicy()` service.
+ * Added `accountClient.enableIpAccessLists()` service.
+ * Added `workspaceClient.accessControl()` service.
+ * Added `workspaceClient.lakeviewEmbedded()` service and `workspaceClient.queryExecution()` service.
+ * Added `workspaceClient.redashConfig()` service.
+ * Added `httpRequest()` method for `workspaceClient.servingEndpoints()` service.
+ * Added `gcpOauthToken` field for `com.databricks.sdk.service.catalog.TemporaryCredentials`.
+ * Added `options` field for `com.databricks.sdk.service.catalog.UpdateCatalog`.
+ * Added `reviewState`, `reviews` and `runnerCollaborators` fields for `com.databricks.sdk.service.cleanrooms.CleanRoomAssetNotebook`.
+ * Added `statementId` field for `com.databricks.sdk.service.dashboards.QueryAttachment`.
+ * Added `effectivePerformanceTarget` field for `com.databricks.sdk.service.jobs.BaseRun`.
+ * Added `performanceTarget` field for `com.databricks.sdk.service.jobs.CreateJob`.
+ * Added `performanceTarget` field for `com.databricks.sdk.service.jobs.JobSettings`.
+ * Added `effectivePerformanceTarget` field for `com.databricks.sdk.service.jobs.Run`.
+ * Added `performanceTarget` field for `com.databricks.sdk.service.jobs.RunNow`.
+ * Added `cleanRoomsNotebookOutput` field for `com.databricks.sdk.service.jobs.RunOutput`.
+ * Added `disabled` and `effectivePerformanceTarget` fields for `com.databricks.sdk.service.jobs.RunTask`.
+ * Added `runAsRepl` field for `com.databricks.sdk.service.jobs.SparkJarTask`.
+ * Added `userAuthorizedScopes` field for `com.databricks.sdk.service.oauth2.CreateCustomAppIntegration`.
+ * Added `userAuthorizedScopes` field for `com.databricks.sdk.service.oauth2.GetCustomAppIntegrationOutput`.
+ * Added `scopes` and `userAuthorizedScopes` fields for `com.databricks.sdk.service.oauth2.UpdateCustomAppIntegration`.
+ * Added `contents` field for `com.databricks.sdk.service.serving.GetOpenApiResponse`.
+ * Added `activated`, `activationUrl`, `authenticationType`, `cloud`, `comment`, `createdAt`, `createdBy`, `dataRecipientGlobalMetastoreId`, `ipAccessList`, `metastoreId`, `name`, `owner`, `propertiesKvpairs`, `region`, `sharingCode`, `tokens`, `updatedAt` and `updatedBy` fields for `com.databricks.sdk.service.sharing.RecipientInfo`.
+ * Added `expirationTime` field for `com.databricks.sdk.service.sharing.RecipientInfo`.
+ * Changed `update()` method for `workspaceClient.recipients()` service to return `com.databricks.sdk.service.sharing.RecipientInfo` class.
+ * Changed `update()` method for `workspaceClient.recipients()` service to type `update()` method for `workspaceClient.recipients()` service.
+ * Changed `update()` method for `workspaceClient.recipients()` service return type to become non-empty.
+ * Changed `create()` method for `workspaceClient.servingEndpoints()` service with new required argument order.
+ * Changed `getOpenApi()` method for `workspaceClient.servingEndpoints()` service return type to become non-empty.
+ * Changed `patch()` method for `workspaceClient.servingEndpoints()` service to return `com.databricks.sdk.service.serving.EndpointTags` class.
+ * Changed `patch()` method for `workspaceClient.servingEndpoints()` service to type `patch()` method for `workspaceClient.servingEndpoints()` service.
+ * Changed `com.databricks.sdk.service.serving.EndpointTagList` class to.
+ * Changed `collaboratorAlias` field for `com.databricks.sdk.service.cleanrooms.CleanRoomCollaborator` to be required.
+ * Changed `collaboratorAlias` field for `com.databricks.sdk.service.cleanrooms.CleanRoomCollaborator` to be required.
+ * Changed `behavior` field for `com.databricks.sdk.service.serving.AiGatewayGuardrailPiiBehavior` to no longer be required.
+ * Changed `behavior` field for `com.databricks.sdk.service.serving.AiGatewayGuardrailPiiBehavior` to no longer be required.
+ * Changed `config` field for `com.databricks.sdk.service.serving.CreateServingEndpoint` to no longer be required.
+ * Changed `projectId` and `region` fields for `com.databricks.sdk.service.serving.GoogleCloudVertexAiConfig` to be required.
+ * Changed `projectId` and `region` fields for `com.databricks.sdk.service.serving.GoogleCloudVertexAiConfig` to be required.
+ * Changed `workloadType` field for `com.databricks.sdk.service.serving.ServedEntityInput` to type `com.databricks.sdk.service.serving.ServingModelWorkloadType` class.
+ * Changed `workloadType` field for `com.databricks.sdk.service.serving.ServedEntityOutput` to type `com.databricks.sdk.service.serving.ServingModelWorkloadType` class.
+ * Changed `workloadType` field for `com.databricks.sdk.service.serving.ServedModelOutput` to type `com.databricks.sdk.service.serving.ServingModelWorkloadType` class.
+ * Removed `securableKind` field for `com.databricks.sdk.service.catalog.CatalogInfo`.
+ * Removed `securableKind` field for `com.databricks.sdk.service.catalog.ConnectionInfo`.
+
+OpenAPI SHA: c72c58f97b950fcb924a90ef164bcb10cfcd5ece, Date: 2025-02-03
+
+
 ## [Release] Release v0.39.0
 
 ### Internal Changes

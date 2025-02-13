@@ -8,6 +8,8 @@ import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.utils.AzureUtils;
 import com.databricks.sdk.service.billing.BillableUsageAPI;
 import com.databricks.sdk.service.billing.BillableUsageService;
+import com.databricks.sdk.service.billing.BudgetPolicyAPI;
+import com.databricks.sdk.service.billing.BudgetPolicyService;
 import com.databricks.sdk.service.billing.BudgetsAPI;
 import com.databricks.sdk.service.billing.BudgetsService;
 import com.databricks.sdk.service.billing.LogDeliveryAPI;
@@ -73,6 +75,7 @@ public class AccountClient {
 
   private AccountAccessControlAPI accessControlAPI;
   private BillableUsageAPI billableUsageAPI;
+  private BudgetPolicyAPI budgetPolicyAPI;
   private CredentialsAPI credentialsAPI;
   private CustomAppIntegrationAPI customAppIntegrationAPI;
   private EncryptionKeysAPI encryptionKeysAPI;
@@ -110,6 +113,7 @@ public class AccountClient {
 
     accessControlAPI = new AccountAccessControlAPI(apiClient);
     billableUsageAPI = new BillableUsageAPI(apiClient);
+    budgetPolicyAPI = new BudgetPolicyAPI(apiClient);
     credentialsAPI = new CredentialsAPI(apiClient);
     customAppIntegrationAPI = new CustomAppIntegrationAPI(apiClient);
     encryptionKeysAPI = new EncryptionKeysAPI(apiClient);
@@ -159,6 +163,11 @@ public class AccountClient {
    */
   public BillableUsageAPI billableUsage() {
     return billableUsageAPI;
+  }
+
+  /** A service serves REST API about Budget policies */
+  public BudgetPolicyAPI budgetPolicy() {
+    return budgetPolicyAPI;
   }
 
   /**
@@ -578,6 +587,17 @@ public class AccountClient {
   /** Replace the default BillableUsageAPI with a custom implementation. */
   public AccountClient withBillableUsageAPI(BillableUsageAPI billableUsage) {
     this.billableUsageAPI = billableUsage;
+    return this;
+  }
+
+  /** Replace the default BudgetPolicyService with a custom implementation. */
+  public AccountClient withBudgetPolicyImpl(BudgetPolicyService budgetPolicy) {
+    return this.withBudgetPolicyAPI(new BudgetPolicyAPI(budgetPolicy));
+  }
+
+  /** Replace the default BudgetPolicyAPI with a custom implementation. */
+  public AccountClient withBudgetPolicyAPI(BudgetPolicyAPI budgetPolicy) {
+    this.budgetPolicyAPI = budgetPolicy;
     return this;
   }
 

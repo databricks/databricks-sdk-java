@@ -2,9 +2,10 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /** Package-local implementation of AccountStorageCredentials */
 @Generated
@@ -21,10 +22,15 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
         String.format(
             "/api/2.0/accounts/%s/metastores/%s/storage-credentials",
             apiClient.configuredAccountID(), request.getMetastoreId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, AccountsStorageCredentialInfo.class, headers);
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, AccountsStorageCredentialInfo.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -35,9 +41,14 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
             apiClient.configuredAccountID(),
             request.getMetastoreId(),
             request.getStorageCredentialName());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    try {
+      Request req = new Request("DELETE", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      apiClient.execute(req, DeleteResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -48,9 +59,14 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
             apiClient.configuredAccountID(),
             request.getMetastoreId(),
             request.getStorageCredentialName());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, AccountsStorageCredentialInfo.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, AccountsStorageCredentialInfo.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -59,9 +75,14 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
         String.format(
             "/api/2.0/accounts/%s/metastores/%s/storage-credentials",
             apiClient.configuredAccountID(), request.getMetastoreId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListAccountStorageCredentialsResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ListAccountStorageCredentialsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -72,9 +93,14 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
             apiClient.configuredAccountID(),
             request.getMetastoreId(),
             request.getStorageCredentialName());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, AccountsStorageCredentialInfo.class, headers);
+    try {
+      Request req = new Request("PUT", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, AccountsStorageCredentialInfo.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }

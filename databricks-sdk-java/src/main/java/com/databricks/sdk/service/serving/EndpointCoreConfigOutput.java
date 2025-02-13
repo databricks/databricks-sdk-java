@@ -12,7 +12,9 @@ import java.util.Objects;
 public class EndpointCoreConfigOutput {
   /**
    * Configuration for Inference Tables which automatically logs requests and responses to Unity
-   * Catalog.
+   * Catalog. Note: this field is deprecated for creating new provisioned throughput endpoints, or
+   * updating existing provisioned throughput endpoints that never have inference table configured;
+   * in these cases please use AI Gateway to manage inference tables.
    */
   @JsonProperty("auto_capture_config")
   private AutoCaptureConfigOutput autoCaptureConfig;

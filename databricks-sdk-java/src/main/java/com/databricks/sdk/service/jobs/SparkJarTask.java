@@ -37,6 +37,10 @@ public class SparkJarTask {
   @JsonProperty("parameters")
   private Collection<String> parameters;
 
+  /** Deprecated. A value of `false` is no longer supported. */
+  @JsonProperty("run_as_repl")
+  private Boolean runAsRepl;
+
   public SparkJarTask setJarUri(String jarUri) {
     this.jarUri = jarUri;
     return this;
@@ -64,6 +68,15 @@ public class SparkJarTask {
     return parameters;
   }
 
+  public SparkJarTask setRunAsRepl(Boolean runAsRepl) {
+    this.runAsRepl = runAsRepl;
+    return this;
+  }
+
+  public Boolean getRunAsRepl() {
+    return runAsRepl;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -71,12 +84,13 @@ public class SparkJarTask {
     SparkJarTask that = (SparkJarTask) o;
     return Objects.equals(jarUri, that.jarUri)
         && Objects.equals(mainClassName, that.mainClassName)
-        && Objects.equals(parameters, that.parameters);
+        && Objects.equals(parameters, that.parameters)
+        && Objects.equals(runAsRepl, that.runAsRepl);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(jarUri, mainClassName, parameters);
+    return Objects.hash(jarUri, mainClassName, parameters, runAsRepl);
   }
 
   @Override
@@ -85,6 +99,7 @@ public class SparkJarTask {
         .add("jarUri", jarUri)
         .add("mainClassName", mainClassName)
         .add("parameters", parameters)
+        .add("runAsRepl", runAsRepl)
         .toString();
   }
 }

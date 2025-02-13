@@ -44,6 +44,7 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public enum TerminationCodeCode {
+  BUDGET_POLICY_LIMIT_EXCEEDED,
   CANCELED, // The run was canceled during execution by the <Databricks> platform; for
   // example, if the maximum run duration was exceeded.
   CLOUD_FAILURE, // The run failed due to a cloud provider issue. Refer to the state message for

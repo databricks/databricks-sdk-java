@@ -49,6 +49,15 @@ public interface GenieService {
       GenieGetMessageQueryResultRequest genieGetMessageQueryResultRequest);
 
   /**
+   * Get conversation message SQL query result by attachment id.
+   *
+   * <p>Get the result of SQL query by attachment id This is only available if a message has a query
+   * attachment and the message status is `EXECUTING_QUERY`.
+   */
+  GenieGetMessageQueryResultResponse getMessageQueryResultByAttachment(
+      GenieGetQueryResultByAttachmentRequest genieGetQueryResultByAttachmentRequest);
+
+  /**
    * Start conversation.
    *
    * <p>Start a new conversation.

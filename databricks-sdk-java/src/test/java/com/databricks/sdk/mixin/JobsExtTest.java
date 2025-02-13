@@ -19,10 +19,15 @@ public class JobsExtTest {
 
     Run firstPage = new Run().setNextPageToken("tokenToSecondPage");
     addTasks(firstPage, 0L, 1L);
+    addJobClusters(firstPage, "clusterKey1", "clusterKey2");
+    addJobParameters(firstPage, "parameterKey1", "parameterKey2");
     Run secondPage = new Run().setNextPageToken("tokenToThirdPage");
     addTasks(secondPage, 2L, 3L);
+    addJobClusters(secondPage, "clusterKey3");
+    addJobParameters(secondPage, "parameterKey3", "parameterKey4");
     Run thirdPage = new Run();
     addTasks(thirdPage, 4L);
+    addJobParameters(thirdPage, "parameterKey5");
 
     when(service.getRun(any())).thenReturn(firstPage).thenReturn(secondPage).thenReturn(thirdPage);
 
@@ -34,6 +39,14 @@ public class JobsExtTest {
 
     Run expectedRun = new Run();
     addTasks(expectedRun, 0L, 1L, 2L, 3L, 4L);
+    addJobClusters(expectedRun, "clusterKey1", "clusterKey2", "clusterKey3");
+    addJobParameters(
+        expectedRun,
+        "parameterKey1",
+        "parameterKey2",
+        "parameterKey3",
+        "parameterKey4",
+        "parameterKey5");
 
     assertEquals(expectedRun, run);
     verify(service, times(3)).getRun(any());

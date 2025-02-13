@@ -2,9 +2,10 @@
 package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /** Package-local implementation of DefaultNamespace */
 @Generated
@@ -19,25 +20,40 @@ class DefaultNamespaceImpl implements DefaultNamespaceService {
   public DeleteDefaultNamespaceSettingResponse delete(
       DeleteDefaultNamespaceSettingRequest request) {
     String path = "/api/2.0/settings/types/default_namespace_ws/names/default";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, DeleteDefaultNamespaceSettingResponse.class, headers);
+    try {
+      Request req = new Request("DELETE", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, DeleteDefaultNamespaceSettingResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public DefaultNamespaceSetting get(GetDefaultNamespaceSettingRequest request) {
     String path = "/api/2.0/settings/types/default_namespace_ws/names/default";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, DefaultNamespaceSetting.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, DefaultNamespaceSetting.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
   public DefaultNamespaceSetting update(UpdateDefaultNamespaceSettingRequest request) {
     String path = "/api/2.0/settings/types/default_namespace_ws/names/default";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, DefaultNamespaceSetting.class, headers);
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, DefaultNamespaceSetting.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }

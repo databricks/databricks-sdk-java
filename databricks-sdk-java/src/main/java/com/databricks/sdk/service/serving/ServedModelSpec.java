@@ -9,18 +9,15 @@ import java.util.Objects;
 
 @Generated
 public class ServedModelSpec {
-  /**
-   * The name of the model in Databricks Model Registry or the full name of the model in Unity
-   * Catalog.
-   */
+  /** Only one of model_name and entity_name should be populated */
   @JsonProperty("model_name")
   private String modelName;
 
-  /** The version of the model in Databricks Model Registry or Unity Catalog to be served. */
+  /** Only one of model_version and entity_version should be populated */
   @JsonProperty("model_version")
   private String modelVersion;
 
-  /** The name of the served model. */
+  /** */
   @JsonProperty("name")
   private String name;
 

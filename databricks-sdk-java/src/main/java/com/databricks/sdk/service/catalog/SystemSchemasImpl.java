@@ -2,9 +2,10 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /** Package-local implementation of SystemSchemas */
 @Generated
@@ -21,9 +22,14 @@ class SystemSchemasImpl implements SystemSchemasService {
         String.format(
             "/api/2.1/unity-catalog/metastores/%s/systemschemas/%s",
             request.getMetastoreId(), request.getSchemaName());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DisableResponse.class, headers);
+    try {
+      Request req = new Request("DELETE", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      apiClient.execute(req, DisableResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -32,9 +38,14 @@ class SystemSchemasImpl implements SystemSchemasService {
         String.format(
             "/api/2.1/unity-catalog/metastores/%s/systemschemas/%s",
             request.getMetastoreId(), request.getSchemaName());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    apiClient.PUT(path, null, EnableResponse.class, headers);
+    try {
+      Request req = new Request("PUT", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      apiClient.execute(req, EnableResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 
   @Override
@@ -42,8 +53,13 @@ class SystemSchemasImpl implements SystemSchemasService {
     String path =
         String.format(
             "/api/2.1/unity-catalog/metastores/%s/systemschemas", request.getMetastoreId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListSystemSchemasResponse.class, headers);
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ListSystemSchemasResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }

@@ -151,7 +151,7 @@ public class ApiClient {
     bodyLogger = new BodyLogger(mapper, 1024, debugTruncateBytes);
   }
 
-  private static <I> void setQuery(Request in, I entity) {
+  public static <I> void setQuery(Request in, I entity) {
     if (entity == null) {
       return;
     }
@@ -161,130 +161,23 @@ public class ApiClient {
     }
   }
 
-  private static <I> void setHeaders(Request in, Map<String, String> headers) {
-    if (headers == null) {
-      return;
-    }
-    for (Map.Entry<String, String> e : headers.entrySet()) {
-      in.withHeader(e.getKey(), e.getValue());
-    }
-  }
-
-  public <I, O> Collection<O> getCollection(
-      String path, I in, Class<O> element, Map<String, String> headers) {
+  public <O> Collection<O> getCollection(Request req, Class<O> element) {
     return withJavaType(
-        path,
-        in,
-        mapper.getTypeFactory().constructCollectionType(Collection.class, element),
-        headers);
+        req, mapper.getTypeFactory().constructCollectionType(Collection.class, element));
   }
 
-  public <I> Map<String, String> getStringMap(String path, I in, Map<String, String> headers) {
+  public Map<String, String> getStringMap(Request req) {
     return withJavaType(
-        path,
-        in,
-        mapper.getTypeFactory().constructMapType(Map.class, String.class, String.class),
-        headers);
+        req, mapper.getTypeFactory().constructMapType(Map.class, String.class, String.class));
   }
 
-  protected <I, O> O withJavaType(
-      String path, I in, JavaType javaType, Map<String, String> headers) {
+  protected <I, O> O withJavaType(Request request, JavaType javaType) {
     try {
-      Request request = prepareRequest("GET", path, in, headers);
       Response response = getResponse(request);
       return deserialize(response.getBody(), javaType);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
-  }
-
-  public <O> O HEAD(String path, Class<O> target, Map<String, String> headers) {
-    return HEAD(path, null, target, headers);
-  }
-
-  public <I, O> O HEAD(String path, I in, Class<O> target, Map<String, String> headers) {
-    try {
-      return execute(prepareRequest("HEAD", path, in, headers), target);
-    } catch (IOException e) {
-      throw new DatabricksException("IO error: " + e.getMessage(), e);
-    }
-  }
-
-  public <O> O GET(String path, Class<O> target, Map<String, String> headers) {
-    return GET(path, null, target, headers);
-  }
-
-  public <I, O> O GET(String path, I in, Class<O> target, Map<String, String> headers) {
-    try {
-      return execute(prepareRequest("GET", path, in, headers), target);
-    } catch (IOException e) {
-      throw new DatabricksException("IO error: " + e.getMessage(), e);
-    }
-  }
-
-  public <O> O POST(String path, Class<O> target, Map<String, String> headers) {
-    try {
-      return execute(prepareRequest("POST", path, null, headers), target);
-    } catch (IOException e) {
-      throw new DatabricksException("IO error: " + e.getMessage(), e);
-    }
-  }
-
-  public <I, O> O POST(String path, I in, Class<O> target, Map<String, String> headers) {
-    try {
-      return execute(prepareRequest("POST", path, in, headers), target);
-    } catch (IOException e) {
-      throw new DatabricksException("IO error: " + e.getMessage(), e);
-    }
-  }
-
-  public <I, O> O PUT(String path, I in, Class<O> target, Map<String, String> headers) {
-    try {
-      return execute(prepareRequest("PUT", path, in, headers), target);
-    } catch (IOException e) {
-      throw new DatabricksException("IO error: " + e.getMessage(), e);
-    }
-  }
-
-  public <I, O> O PATCH(String path, I in, Class<O> target, Map<String, String> headers) {
-    try {
-      return execute(prepareRequest("PATCH", path, in, headers), target);
-    } catch (IOException e) {
-      throw new DatabricksException("IO error: " + e.getMessage(), e);
-    }
-  }
-
-  public <I, O> O DELETE(String path, I in, Class<O> target, Map<String, String> headers) {
-    try {
-      return execute(prepareRequest("DELETE", path, in, headers), target);
-    } catch (IOException e) {
-      throw new DatabricksException("IO error: " + e.getMessage(), e);
-    }
-  }
-
-  private boolean hasBody(String method) {
-    return !method.equals("GET") && !method.equals("DELETE") && !method.equals("HEAD");
-  }
-
-  private <I> Request prepareBaseRequest(String method, String path, I in)
-      throws JsonProcessingException {
-    if (in == null || !hasBody(method)) {
-      return new Request(method, path);
-    } else if (InputStream.class.isAssignableFrom(in.getClass())) {
-      InputStream body = (InputStream) in;
-      return new Request(method, path, body);
-    } else {
-      String body = (in instanceof String) ? (String) in : serialize(in);
-      return new Request(method, path, body);
-    }
-  }
-
-  private <I> Request prepareRequest(String method, String path, I in, Map<String, String> headers)
-      throws JsonProcessingException {
-    Request req = prepareBaseRequest(method, path, in);
-    setQuery(req, in);
-    setHeaders(req, headers);
-    return req;
   }
 
   /**
@@ -294,7 +187,7 @@ public class ApiClient {
    * @param target Expected pojo type
    * @return POJO of requested type
    */
-  private <T> T execute(Request in, Class<T> target) throws IOException {
+  public <T> T execute(Request in, Class<T> target) throws IOException {
     Response out = getResponse(in);
     if (target == Void.class) {
       return null;
@@ -533,7 +426,7 @@ public class ApiClient {
     }
   }
 
-  private String serialize(Object body) throws JsonProcessingException {
+  public String serialize(Object body) throws JsonProcessingException {
     if (body == null) {
       return null;
     }

@@ -4,11 +4,6 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 
-/**
- * The state of an endpoint, indicating whether or not the endpoint is queryable. An endpoint is
- * READY if all of the served entities in its active configuration are ready. If any of the actively
- * served entities are in a non-ready state, the endpoint state will be NOT_READY.
- */
 @Generated
 public enum EndpointStateReady {
   NOT_READY,

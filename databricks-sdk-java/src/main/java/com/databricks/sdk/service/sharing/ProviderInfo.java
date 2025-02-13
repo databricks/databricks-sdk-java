@@ -35,7 +35,7 @@ public class ProviderInfo {
   /**
    * The global UC metastore id of the data provider. This field is only present when the
    * __authentication_type__ is **DATABRICKS**. The identifier is of format
-   * <cloud>:<region>:<metastore-uuid>.
+   * __cloud__:__region__:__metastore-uuid__.
    */
   @JsonProperty("data_provider_global_metastore_id")
   private String dataProviderGlobalMetastoreId;
@@ -55,11 +55,17 @@ public class ProviderInfo {
   @JsonProperty("owner")
   private String owner;
 
-  /** The recipient profile. This field is only present when the authentication_type is `TOKEN`. */
+  /**
+   * The recipient profile. This field is only present when the authentication_type is `TOKEN` or
+   * `OAUTH_CLIENT_CREDENTIALS`.
+   */
   @JsonProperty("recipient_profile")
   private RecipientProfile recipientProfile;
 
-  /** This field is only present when the authentication_type is `TOKEN` or not provided. */
+  /**
+   * This field is required when the __authentication_type__ is **TOKEN**,
+   * **OAUTH_CLIENT_CREDENTIALS** or not provided.
+   */
   @JsonProperty("recipient_profile_str")
   private String recipientProfileStr;
 
@@ -74,7 +80,7 @@ public class ProviderInfo {
   @JsonProperty("updated_at")
   private Long updatedAt;
 
-  /** Username of user who last modified Share. */
+  /** Username of user who last modified Provider. */
   @JsonProperty("updated_by")
   private String updatedBy;
 

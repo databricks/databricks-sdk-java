@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Details necessary to query this object's API through the DataPlane APIs. */
 @Generated
 public class DataPlaneInfo {
   /** Authorization details as a string. */

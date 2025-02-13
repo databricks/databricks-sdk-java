@@ -5,7 +5,6 @@ package com.databricks.sdk.service.serving;
 import com.databricks.sdk.support.Generated;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/** Renewal period field for a rate limit. Currently, only 'minute' is supported. */
 @Generated
 public enum AiGatewayRateLimitRenewalPeriod {
   @JsonProperty("minute")

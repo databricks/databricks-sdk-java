@@ -79,6 +79,10 @@ public class SharesAPI {
    * array.
    */
   public Iterable<ShareInfo> list(ListSharesRequest request) {
+
+    if (request.getMaxResults() == null) {
+      request.setMaxResults(0L);
+    }
     return new Paginator<>(
         request,
         impl::list,

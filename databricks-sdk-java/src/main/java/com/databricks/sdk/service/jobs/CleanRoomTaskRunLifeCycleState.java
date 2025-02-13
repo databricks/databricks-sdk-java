@@ -15,6 +15,7 @@ public enum CleanRoomTaskRunLifeCycleState {
   PENDING,
   QUEUED,
   RUNNING,
+  RUN_LIFE_CYCLE_STATE_UNSPECIFIED,
   SKIPPED,
   TERMINATED,
   TERMINATING,

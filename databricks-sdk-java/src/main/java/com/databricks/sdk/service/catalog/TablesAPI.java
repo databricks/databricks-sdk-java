@@ -99,6 +99,10 @@ public class TablesAPI {
    * no guarantee of a specific ordering of the elements in the array.
    */
   public Iterable<TableInfo> list(ListTablesRequest request) {
+
+    if (request.getMaxResults() == null) {
+      request.setMaxResults(0L);
+    }
     return new Paginator<>(
         request,
         impl::list,
@@ -131,6 +135,10 @@ public class TablesAPI {
    * <p>There is no guarantee of a specific ordering of the elements in the array.
    */
   public Iterable<TableSummary> listSummaries(ListSummariesRequest request) {
+
+    if (request.getMaxResults() == null) {
+      request.setMaxResults(0L);
+    }
     return new Paginator<>(
         request,
         impl::listSummaries,

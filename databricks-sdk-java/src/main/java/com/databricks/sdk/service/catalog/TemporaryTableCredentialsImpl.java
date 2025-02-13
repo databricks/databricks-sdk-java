@@ -2,9 +2,10 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.IOException;
 
 /** Package-local implementation of TemporaryTableCredentials */
 @Generated
@@ -19,9 +20,14 @@ class TemporaryTableCredentialsImpl implements TemporaryTableCredentialsService 
   public GenerateTemporaryTableCredentialResponse generateTemporaryTableCredentials(
       GenerateTemporaryTableCredentialRequest request) {
     String path = "/api/2.0/unity-catalog/temporary-table-credentials";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, GenerateTemporaryTableCredentialResponse.class, headers);
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, GenerateTemporaryTableCredentialResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
   }
 }

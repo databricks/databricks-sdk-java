@@ -11,8 +11,8 @@ import java.util.Objects;
 @Generated
 public class ServingEndpointDetailed {
   /**
-   * The AI Gateway configuration for the serving endpoint. NOTE: Only external model endpoints are
-   * currently supported.
+   * The AI Gateway configuration for the serving endpoint. NOTE: Only external model and
+   * provisioned throughput endpoints are currently supported.
    */
   @JsonProperty("ai_gateway")
   private AiGatewayConfig aiGateway;

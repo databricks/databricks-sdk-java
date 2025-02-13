@@ -89,10 +89,6 @@ public class CatalogInfo {
   @JsonProperty("provisioning_info")
   private ProvisioningInfo provisioningInfo;
 
-  /** Kind of catalog securable. */
-  @JsonProperty("securable_kind")
-  private CatalogInfoSecurableKind securableKind;
-
   /** */
   @JsonProperty("securable_type")
   private String securableType;
@@ -272,15 +268,6 @@ public class CatalogInfo {
     return provisioningInfo;
   }
 
-  public CatalogInfo setSecurableKind(CatalogInfoSecurableKind securableKind) {
-    this.securableKind = securableKind;
-    return this;
-  }
-
-  public CatalogInfoSecurableKind getSecurableKind() {
-    return securableKind;
-  }
-
   public CatalogInfo setSecurableType(String securableType) {
     this.securableType = securableType;
     return this;
@@ -358,7 +345,6 @@ public class CatalogInfo {
         && Objects.equals(properties, that.properties)
         && Objects.equals(providerName, that.providerName)
         && Objects.equals(provisioningInfo, that.provisioningInfo)
-        && Objects.equals(securableKind, that.securableKind)
         && Objects.equals(securableType, that.securableType)
         && Objects.equals(shareName, that.shareName)
         && Objects.equals(storageLocation, that.storageLocation)
@@ -387,7 +373,6 @@ public class CatalogInfo {
         properties,
         providerName,
         provisioningInfo,
-        securableKind,
         securableType,
         shareName,
         storageLocation,
@@ -416,7 +401,6 @@ public class CatalogInfo {
         .add("properties", properties)
         .add("providerName", providerName)
         .add("provisioningInfo", provisioningInfo)
-        .add("securableKind", securableKind)
         .add("securableType", securableType)
         .add("shareName", shareName)
         .add("storageLocation", storageLocation)

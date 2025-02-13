@@ -52,6 +52,13 @@ public class GetCustomAppIntegrationOutput {
   @JsonProperty("token_access_policy")
   private TokenAccessPolicy tokenAccessPolicy;
 
+  /**
+   * Scopes that will need to be consented by end user to mint the access token. If the user does
+   * not authorize the access token will not be minted. Must be a subset of scopes.
+   */
+  @JsonProperty("user_authorized_scopes")
+  private Collection<String> userAuthorizedScopes;
+
   public GetCustomAppIntegrationOutput setClientId(String clientId) {
     this.clientId = clientId;
     return this;
@@ -142,6 +149,16 @@ public class GetCustomAppIntegrationOutput {
     return tokenAccessPolicy;
   }
 
+  public GetCustomAppIntegrationOutput setUserAuthorizedScopes(
+      Collection<String> userAuthorizedScopes) {
+    this.userAuthorizedScopes = userAuthorizedScopes;
+    return this;
+  }
+
+  public Collection<String> getUserAuthorizedScopes() {
+    return userAuthorizedScopes;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -156,7 +173,8 @@ public class GetCustomAppIntegrationOutput {
         && Objects.equals(name, that.name)
         && Objects.equals(redirectUrls, that.redirectUrls)
         && Objects.equals(scopes, that.scopes)
-        && Objects.equals(tokenAccessPolicy, that.tokenAccessPolicy);
+        && Objects.equals(tokenAccessPolicy, that.tokenAccessPolicy)
+        && Objects.equals(userAuthorizedScopes, that.userAuthorizedScopes);
   }
 
   @Override
@@ -171,7 +189,8 @@ public class GetCustomAppIntegrationOutput {
         name,
         redirectUrls,
         scopes,
-        tokenAccessPolicy);
+        tokenAccessPolicy,
+        userAuthorizedScopes);
   }
 
   @Override
@@ -187,6 +206,7 @@ public class GetCustomAppIntegrationOutput {
         .add("redirectUrls", redirectUrls)
         .add("scopes", scopes)
         .add("tokenAccessPolicy", tokenAccessPolicy)
+        .add("userAuthorizedScopes", userAuthorizedScopes)
         .toString();
   }
 }

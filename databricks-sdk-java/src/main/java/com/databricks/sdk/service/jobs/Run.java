@@ -53,6 +53,15 @@ public class Run {
   private String description;
 
   /**
+   * effective_performance_target is the actual performance target used by the run during execution.
+   * effective_performance_target can differ from performance_target depending on if the job was
+   * eligible to be cost-optimized (e.g. contains at least 1 serverless task) or if we specifically
+   * override the value for the run (ex. RunNow).
+   */
+  @JsonProperty("effective_performance_target")
+  private PerformanceTarget effectivePerformanceTarget;
+
+  /**
    * The time at which this run ended in epoch milliseconds (milliseconds since 1/1/1970 UTC). This
    * field is set to 0 if the job is still running.
    */
@@ -284,6 +293,15 @@ public class Run {
 
   public String getDescription() {
     return description;
+  }
+
+  public Run setEffectivePerformanceTarget(PerformanceTarget effectivePerformanceTarget) {
+    this.effectivePerformanceTarget = effectivePerformanceTarget;
+    return this;
+  }
+
+  public PerformanceTarget getEffectivePerformanceTarget() {
+    return effectivePerformanceTarget;
   }
 
   public Run setEndTime(Long endTime) {
@@ -549,6 +567,7 @@ public class Run {
         && Objects.equals(clusterSpec, that.clusterSpec)
         && Objects.equals(creatorUserName, that.creatorUserName)
         && Objects.equals(description, that.description)
+        && Objects.equals(effectivePerformanceTarget, that.effectivePerformanceTarget)
         && Objects.equals(endTime, that.endTime)
         && Objects.equals(executionDuration, that.executionDuration)
         && Objects.equals(gitSource, that.gitSource)
@@ -588,6 +607,7 @@ public class Run {
         clusterSpec,
         creatorUserName,
         description,
+        effectivePerformanceTarget,
         endTime,
         executionDuration,
         gitSource,
@@ -627,6 +647,7 @@ public class Run {
         .add("clusterSpec", clusterSpec)
         .add("creatorUserName", creatorUserName)
         .add("description", description)
+        .add("effectivePerformanceTarget", effectivePerformanceTarget)
         .add("endTime", endTime)
         .add("executionDuration", executionDuration)
         .add("gitSource", gitSource)

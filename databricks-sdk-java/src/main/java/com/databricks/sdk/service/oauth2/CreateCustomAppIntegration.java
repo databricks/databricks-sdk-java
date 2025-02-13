@@ -35,6 +35,13 @@ public class CreateCustomAppIntegration {
   @JsonProperty("token_access_policy")
   private TokenAccessPolicy tokenAccessPolicy;
 
+  /**
+   * Scopes that will need to be consented by end user to mint the access token. If the user does
+   * not authorize the access token will not be minted. Must be a subset of scopes.
+   */
+  @JsonProperty("user_authorized_scopes")
+  private Collection<String> userAuthorizedScopes;
+
   public CreateCustomAppIntegration setConfidential(Boolean confidential) {
     this.confidential = confidential;
     return this;
@@ -80,6 +87,16 @@ public class CreateCustomAppIntegration {
     return tokenAccessPolicy;
   }
 
+  public CreateCustomAppIntegration setUserAuthorizedScopes(
+      Collection<String> userAuthorizedScopes) {
+    this.userAuthorizedScopes = userAuthorizedScopes;
+    return this;
+  }
+
+  public Collection<String> getUserAuthorizedScopes() {
+    return userAuthorizedScopes;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -89,12 +106,14 @@ public class CreateCustomAppIntegration {
         && Objects.equals(name, that.name)
         && Objects.equals(redirectUrls, that.redirectUrls)
         && Objects.equals(scopes, that.scopes)
-        && Objects.equals(tokenAccessPolicy, that.tokenAccessPolicy);
+        && Objects.equals(tokenAccessPolicy, that.tokenAccessPolicy)
+        && Objects.equals(userAuthorizedScopes, that.userAuthorizedScopes);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(confidential, name, redirectUrls, scopes, tokenAccessPolicy);
+    return Objects.hash(
+        confidential, name, redirectUrls, scopes, tokenAccessPolicy, userAuthorizedScopes);
   }
 
   @Override
@@ -105,6 +124,7 @@ public class CreateCustomAppIntegration {
         .add("redirectUrls", redirectUrls)
         .add("scopes", scopes)
         .add("tokenAccessPolicy", tokenAccessPolicy)
+        .add("userAuthorizedScopes", userAuthorizedScopes)
         .toString();
   }
 }

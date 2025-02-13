@@ -4,6 +4,7 @@ import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.FormRequest;
 import com.databricks.sdk.core.http.HttpClient;
+import com.databricks.sdk.core.http.Request;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Base64;
@@ -61,12 +62,11 @@ public abstract class RefreshableTokenSource implements TokenSource {
         break;
     }
     headers.put("Content-Type", "application/x-www-form-urlencoded");
+    Request req = new Request("POST", tokenUrl, FormRequest.wrapValuesInList(params));
+    req.withHeaders(headers);
     try {
       ApiClient apiClient = new ApiClient.Builder().withHttpClient(hc).build();
-
-      OAuthResponse resp =
-          apiClient.POST(
-              tokenUrl, FormRequest.wrapValuesInList(params), OAuthResponse.class, headers);
+      OAuthResponse resp = apiClient.execute(req, OAuthResponse.class);
       if (resp.getErrorCode() != null) {
         throw new IllegalArgumentException(resp.getErrorCode() + ": " + resp.getErrorSummary());
       }

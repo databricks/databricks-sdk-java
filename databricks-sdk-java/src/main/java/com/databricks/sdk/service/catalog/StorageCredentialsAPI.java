@@ -86,6 +86,10 @@ public class StorageCredentialsAPI {
    * specific ordering of the elements in the array.
    */
   public Iterable<StorageCredentialInfo> list(ListStorageCredentialsRequest request) {
+
+    if (request.getMaxResults() == null) {
+      request.setMaxResults(0L);
+    }
     return new Paginator<>(
         request,
         impl::list,

@@ -67,6 +67,10 @@ public class SystemSchemasAPI {
    * metastore admin.
    */
   public Iterable<SystemSchemaInfo> list(ListSystemSchemasRequest request) {
+
+    if (request.getMaxResults() == null) {
+      request.setMaxResults(0L);
+    }
     return new Paginator<>(
         request,
         impl::list,

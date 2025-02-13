@@ -9,37 +9,26 @@ import java.util.Objects;
 
 @Generated
 public class ServedEntitySpec {
-  /**
-   * The name of the entity served. The entity may be a model in the Databricks Model Registry, a
-   * model in the Unity Catalog (UC), or a function of type FEATURE_SPEC in the UC. If it is a UC
-   * object, the full name of the object is given in the form of
-   * __catalog_name__.__schema_name__.__model_name__.
-   */
+  /** */
   @JsonProperty("entity_name")
   private String entityName;
 
-  /**
-   * The version of the served entity in Databricks Model Registry or empty if the entity is a
-   * FEATURE_SPEC.
-   */
+  /** */
   @JsonProperty("entity_version")
   private String entityVersion;
 
-  /**
-   * The external model that is served. NOTE: Only one of external_model, foundation_model, and
-   * (entity_name, entity_version) is returned based on the endpoint type.
-   */
+  /** */
   @JsonProperty("external_model")
   private ExternalModel externalModel;
 
   /**
-   * The foundation model that is served. NOTE: Only one of foundation_model, external_model, and
-   * (entity_name, entity_version) is returned based on the endpoint type.
+   * All fields are not sensitive as they are hard-coded in the system and made available to
+   * customers.
    */
   @JsonProperty("foundation_model")
   private FoundationModel foundationModel;
 
-  /** The name of the served entity. */
+  /** */
   @JsonProperty("name")
   private String name;
 
