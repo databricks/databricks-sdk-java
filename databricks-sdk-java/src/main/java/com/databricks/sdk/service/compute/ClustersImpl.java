@@ -1,11 +1,13 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
+
 package com.databricks.sdk.service.compute;
+
+import java.io.IOException;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
-import java.io.IOException;
 
 /** Package-local implementation of Clusters */
 @Generated
@@ -18,7 +20,7 @@ class ClustersImpl implements ClustersService {
 
   @Override
   public void changeOwner(ChangeClusterOwner request) {
-    String path = "/api/2.1/clusters/change-owner";
+    String path = "/api/2.2/clusters/change-owner";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
@@ -32,7 +34,7 @@ class ClustersImpl implements ClustersService {
 
   @Override
   public CreateClusterResponse create(CreateCluster request) {
-    String path = "/api/2.1/clusters/create";
+    String path = "/api/2.2/clusters/create";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
@@ -46,7 +48,7 @@ class ClustersImpl implements ClustersService {
 
   @Override
   public void delete(DeleteCluster request) {
-    String path = "/api/2.1/clusters/delete";
+    String path = "/api/2.2/clusters/delete";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
@@ -60,7 +62,7 @@ class ClustersImpl implements ClustersService {
 
   @Override
   public void edit(EditCluster request) {
-    String path = "/api/2.1/clusters/edit";
+    String path = "/api/2.2/clusters/edit";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
@@ -74,7 +76,7 @@ class ClustersImpl implements ClustersService {
 
   @Override
   public GetEventsResponse events(GetEvents request) {
-    String path = "/api/2.1/clusters/events";
+    String path = "/api/2.2/clusters/events";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
@@ -88,7 +90,7 @@ class ClustersImpl implements ClustersService {
 
   @Override
   public ClusterDetails get(GetClusterRequest request) {
-    String path = "/api/2.1/clusters/get";
+    String path = "/api/2.2/clusters/get";
     try {
       Request req = new Request("GET", path);
       ApiClient.setQuery(req, request);
@@ -129,7 +131,7 @@ class ClustersImpl implements ClustersService {
 
   @Override
   public ListClustersResponse list(ListClustersRequest request) {
-    String path = "/api/2.1/clusters/list";
+    String path = "/api/2.2/clusters/list";
     try {
       Request req = new Request("GET", path);
       ApiClient.setQuery(req, request);
@@ -142,7 +144,7 @@ class ClustersImpl implements ClustersService {
 
   @Override
   public ListNodeTypesResponse listNodeTypes() {
-    String path = "/api/2.1/clusters/list-node-types";
+    String path = "/api/2.2/clusters/list-node-types";
     try {
       Request req = new Request("GET", path);
       req.withHeader("Accept", "application/json");
@@ -154,7 +156,7 @@ class ClustersImpl implements ClustersService {
 
   @Override
   public ListAvailableZonesResponse listZones() {
-    String path = "/api/2.1/clusters/list-zones";
+    String path = "/api/2.2/clusters/list-zones";
     try {
       Request req = new Request("GET", path);
       req.withHeader("Accept", "application/json");
@@ -166,7 +168,7 @@ class ClustersImpl implements ClustersService {
 
   @Override
   public void permanentDelete(PermanentDeleteCluster request) {
-    String path = "/api/2.1/clusters/permanent-delete";
+    String path = "/api/2.2/clusters/permanent-delete";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
@@ -180,7 +182,7 @@ class ClustersImpl implements ClustersService {
 
   @Override
   public void pin(PinCluster request) {
-    String path = "/api/2.1/clusters/pin";
+    String path = "/api/2.2/clusters/pin";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
@@ -194,7 +196,7 @@ class ClustersImpl implements ClustersService {
 
   @Override
   public void resize(ResizeCluster request) {
-    String path = "/api/2.1/clusters/resize";
+    String path = "/api/2.2/clusters/resize";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
@@ -208,7 +210,7 @@ class ClustersImpl implements ClustersService {
 
   @Override
   public void restart(RestartCluster request) {
-    String path = "/api/2.1/clusters/restart";
+    String path = "/api/2.2/clusters/restart";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
@@ -236,7 +238,7 @@ class ClustersImpl implements ClustersService {
 
   @Override
   public GetSparkVersionsResponse sparkVersions() {
-    String path = "/api/2.1/clusters/spark-versions";
+    String path = "/api/2.2/clusters/spark-versions";
     try {
       Request req = new Request("GET", path);
       req.withHeader("Accept", "application/json");
@@ -248,7 +250,7 @@ class ClustersImpl implements ClustersService {
 
   @Override
   public void start(StartCluster request) {
-    String path = "/api/2.1/clusters/start";
+    String path = "/api/2.2/clusters/start";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
@@ -262,7 +264,7 @@ class ClustersImpl implements ClustersService {
 
   @Override
   public void unpin(UnpinCluster request) {
-    String path = "/api/2.1/clusters/unpin";
+    String path = "/api/2.2/clusters/unpin";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
@@ -276,7 +278,7 @@ class ClustersImpl implements ClustersService {
 
   @Override
   public void update(UpdateCluster request) {
-    String path = "/api/2.1/clusters/update";
+    String path = "/api/2.2/clusters/update";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
