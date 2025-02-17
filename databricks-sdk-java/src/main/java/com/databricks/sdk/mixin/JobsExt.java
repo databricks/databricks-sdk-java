@@ -3,6 +3,7 @@ package com.databricks.sdk.mixin;
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.service.jobs.*;
 import java.util.Collection;
+import java.util.Iterator;
 
 public class JobsExt extends JobsAPI {
 
@@ -12,6 +13,34 @@ public class JobsExt extends JobsAPI {
 
   public JobsExt(JobsService mock) {
     super(mock);
+  }
+
+  public Iterable<BaseJob> list(ListJobsRequest request) {
+    Iterable<BaseJob> jobsList =  super.list(request);
+
+    if (!request.getExpandTasks()) {
+      return jobsList;
+    }
+
+    Iterator<BaseJob> iterator = jobsList.iterator();
+    return () -> new Iterator<BaseJob>() {
+      @Override
+      public boolean hasNext() {
+        return iterator.hasNext();
+      }
+
+      @Override
+      public BaseJob next() {
+        BaseJob job = iterator.next();
+        GetJobRequest getJobRequest = new GetJobRequest().setJobId(job.getJobId());
+        Job fullJob = get(getJobRequest);
+        job.getSettings().setTasks(fullJob.getSettings().getTasks());
+        job.getSettings().setJobClusters(fullJob.getSettings().getJobClusters());
+        job.getSettings().setParameters(fullJob.getSettings().getParameters());
+        job.getSettings().setEnvironments(fullJob.getSettings().getEnvironments());
+        return job;
+      }
+    };
   }
 
   /**
