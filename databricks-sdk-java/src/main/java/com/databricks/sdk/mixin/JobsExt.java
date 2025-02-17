@@ -3,6 +3,7 @@ package com.databricks.sdk.mixin;
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.service.jobs.*;
 import java.util.Collection;
+import java.util.Iterator;
 
 public class JobsExt extends JobsAPI {
 
@@ -12,6 +13,44 @@ public class JobsExt extends JobsAPI {
 
   public JobsExt(JobsService mock) {
     super(mock);
+  }
+
+  /**
+   * List job runs.
+   *
+   * <p>Retrieve a list of runs. If the run has multiple pages of tasks, job_clusters, parameters or
+   * repair_history, it will paginate through all pages and aggregate the results.
+   */
+  public Iterable<BaseRun> listRuns(ListRunsRequest request) {
+    // fetch runs with limited elements in top level arrays
+    Iterable<BaseRun> runsList = super.listRuns(request);
+
+    if (!request.getExpandTasks()) {
+      return runsList;
+    }
+
+    Iterator<BaseRun> iterator = runsList.iterator();
+    return () ->
+        new Iterator<BaseRun>() {
+          @Override
+          public boolean hasNext() {
+            return iterator.hasNext();
+          }
+
+          @Override
+          public BaseRun next() {
+            BaseRun run = iterator.next();
+            // fully fetch all top level arrays for the run
+            GetRunRequest getRunRequest = new GetRunRequest().setRunId(run.getRunId());
+            Run fullRun = getRun(getRunRequest);
+            run.setTasks(fullRun.getTasks());
+            run.setJobClusters(fullRun.getJobClusters());
+            run.setJobParameters(fullRun.getJobParameters());
+            run.setRepairHistory(fullRun.getRepairHistory());
+            run.setHasMore(false);
+            return run;
+          }
+        };
   }
 
   /**
