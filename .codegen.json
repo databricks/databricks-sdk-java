@@ -1,6 +1,6 @@
 {
   "mode": "java_v0",
-  "changelog_config": ".codegen/changelog_config.yml",
+  "api_changelog": true,
   "version": {
     "pom.xml": "<artifactId>databricks-sdk-parent</artifactId>\n  <version>$VERSION</version>",
     "databricks-sdk-java/pom.xml": "<artifactId>databricks-sdk-parent</artifactId>\n    <version>$VERSION</version>",
