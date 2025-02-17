@@ -244,9 +244,17 @@ public class JobsExtTest {
   @Test
   public void testListJobs() {
     JobsService service = Mockito.mock(JobsService.class);
-    BaseJob job1 = new BaseJob().setJobId(100L).setSettings(new JobSettings().setName("job1"));
+    BaseJob job1 =
+        new BaseJob()
+            .setJobId(100L)
+            .setSettings(new JobSettings().setName("job1"))
+            .setHasMore(true);
     addTasks(job1, "job1_taskKey1", "job1_taskKey2");
-    BaseJob job2 = new BaseJob().setJobId(200L).setSettings(new JobSettings().setName("job2"));
+    BaseJob job2 =
+        new BaseJob()
+            .setJobId(200L)
+            .setSettings(new JobSettings().setName("job2"))
+            .setHasMore(true);
     addTasks(job2, "job2_taskKey1", "job2_taskKey2");
 
     Job getJob1_page1 =
@@ -311,10 +319,16 @@ public class JobsExtTest {
     Iterable<BaseJob> jobsList = jobsExt.list(request);
 
     BaseJob expectedJob1 =
-        new BaseJob().setJobId(100L).setSettings(new JobSettings().setName("job1"));
+        new BaseJob()
+            .setJobId(100L)
+            .setSettings(new JobSettings().setName("job1"))
+            .setHasMore(false);
     addTasks(expectedJob1, "job1_taskKey1", "job1_taskKey2", "job1_taskKey3", "job1_taskKey4");
     BaseJob expectedJob2 =
-        new BaseJob().setJobId(200L).setSettings(new JobSettings().setName("job2"));
+        new BaseJob()
+            .setJobId(200L)
+            .setSettings(new JobSettings().setName("job2"))
+            .setHasMore(false);
     addTasks(expectedJob2, "job2_taskKey1", "job2_taskKey2", "job2_taskKey3", "job2_taskKey4");
     List<BaseJob> expectedJobsList = new ArrayList<>();
     expectedJobsList.add(expectedJob1);

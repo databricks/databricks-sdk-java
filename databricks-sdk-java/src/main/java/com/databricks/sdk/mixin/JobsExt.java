@@ -47,6 +47,7 @@ public class JobsExt extends JobsAPI {
             job.getSettings().setJobClusters(fullJob.getSettings().getJobClusters());
             job.getSettings().setParameters(fullJob.getSettings().getParameters());
             job.getSettings().setEnvironments(fullJob.getSettings().getEnvironments());
+            job.setHasMore(false);
             return job;
           }
         };
