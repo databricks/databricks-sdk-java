@@ -218,8 +218,8 @@ public class JobsExtTest {
     jobsOnSecondPage.add(job3);
     jobsOnSecondPage.add(job4);
     when(service.list(any()))
-            .thenReturn(new ListJobsResponse().setJobs(jobsOnFirstPage))
-            .thenReturn(new ListJobsResponse().setJobs(jobsOnSecondPage));
+        .thenReturn(new ListJobsResponse().setJobs(jobsOnFirstPage))
+        .thenReturn(new ListJobsResponse().setJobs(jobsOnSecondPage));
     JobsExt jobsExt = new JobsExt(service);
 
     ListJobsRequest request = new ListJobsRequest().setExpandTasks(false);
@@ -231,7 +231,8 @@ public class JobsExtTest {
     expectedJobsList.add(job3);
     expectedJobsList.add(job4);
     for (BaseJob job : jobsList) {
-      BaseJob expectedJob = expectedJobsList.stream()
+      BaseJob expectedJob =
+          expectedJobsList.stream()
               .filter(e -> e.getJobId().equals(job.getJobId()))
               .findFirst()
               .orElse(null);
@@ -248,30 +249,56 @@ public class JobsExtTest {
     BaseJob job2 = new BaseJob().setJobId(200L).setSettings(new JobSettings().setName("job2"));
     addTasks(job2, "job2_taskKey1", "job2_taskKey2");
 
-    Job getJob1_page1 = new Job()
+    Job getJob1_page1 =
+        new Job()
             .setJobId(100L)
             .setNextPageToken("job1_page2token")
             .setSettings(new JobSettings().setName("job1"));
     addTasks(getJob1_page1, "job1_taskKey1", "job1_taskKey2");
-    Job getJob1_page2 = new Job()
-            .setJobId(100L)
-            .setSettings(new JobSettings().setName("job1"));
+    Job getJob1_page2 = new Job().setJobId(100L).setSettings(new JobSettings().setName("job1"));
     addTasks(getJob1_page2, "job1_taskKey3", "job1_taskKey4");
 
-    Job getJob2_page1 = new Job()
+    Job getJob2_page1 =
+        new Job()
             .setJobId(200L)
             .setNextPageToken("job2_page2token")
             .setSettings(new JobSettings().setName("job2"));
     addTasks(getJob2_page1, "job2_taskKey1", "job2_taskKey2");
-    Job getJob2_page2 = new Job()
-            .setJobId(200L)
-            .setSettings(new JobSettings().setName("job2"));
+    Job getJob2_page2 = new Job().setJobId(200L).setSettings(new JobSettings().setName("job2"));
     addTasks(getJob2_page2, "job2_taskKey3", "job2_taskKey4");
 
-    doReturn(getJob1_page1).when(service).get(argThat(request -> request != null && request.getJobId() == 100L && request.getPageToken() == null));
-    doReturn(getJob1_page2).when(service).get(argThat(request -> request != null && request.getJobId() == 100L && "job1_page2token".equals(request.getPageToken())));
-    doReturn(getJob2_page1).when(service).get(argThat(request -> request != null && request.getJobId() == 200L && request.getPageToken() == null));
-    doReturn(getJob2_page2).when(service).get(argThat(request -> request != null && request.getJobId() == 200L && "job2_page2token".equals(request.getPageToken())));
+    doReturn(getJob1_page1)
+        .when(service)
+        .get(
+            argThat(
+                request ->
+                    request != null
+                        && request.getJobId() == 100L
+                        && request.getPageToken() == null));
+    doReturn(getJob1_page2)
+        .when(service)
+        .get(
+            argThat(
+                request ->
+                    request != null
+                        && request.getJobId() == 100L
+                        && "job1_page2token".equals(request.getPageToken())));
+    doReturn(getJob2_page1)
+        .when(service)
+        .get(
+            argThat(
+                request ->
+                    request != null
+                        && request.getJobId() == 200L
+                        && request.getPageToken() == null));
+    doReturn(getJob2_page2)
+        .when(service)
+        .get(
+            argThat(
+                request ->
+                    request != null
+                        && request.getJobId() == 200L
+                        && "job2_page2token".equals(request.getPageToken())));
 
     List<BaseJob> jobsOnFirstPage = new ArrayList<>();
     jobsOnFirstPage.add(job1);
@@ -283,15 +310,18 @@ public class JobsExtTest {
     ListJobsRequest request = new ListJobsRequest().setExpandTasks(true);
     Iterable<BaseJob> jobsList = jobsExt.list(request);
 
-    BaseJob expectedJob1 = new BaseJob().setJobId(100L).setSettings(new JobSettings().setName("job1"));
+    BaseJob expectedJob1 =
+        new BaseJob().setJobId(100L).setSettings(new JobSettings().setName("job1"));
     addTasks(expectedJob1, "job1_taskKey1", "job1_taskKey2", "job1_taskKey3", "job1_taskKey4");
-    BaseJob expectedJob2 = new BaseJob().setJobId(200L).setSettings(new JobSettings().setName("job2"));
+    BaseJob expectedJob2 =
+        new BaseJob().setJobId(200L).setSettings(new JobSettings().setName("job2"));
     addTasks(expectedJob2, "job2_taskKey1", "job2_taskKey2", "job2_taskKey3", "job2_taskKey4");
     List<BaseJob> expectedJobsList = new ArrayList<>();
     expectedJobsList.add(expectedJob1);
     expectedJobsList.add(expectedJob2);
     for (BaseJob job : jobsList) {
-      BaseJob expectedJob = expectedJobsList.stream()
+      BaseJob expectedJob =
+          expectedJobsList.stream()
               .filter(e -> e.getJobId().equals(job.getJobId()))
               .findFirst()
               .orElse(null);

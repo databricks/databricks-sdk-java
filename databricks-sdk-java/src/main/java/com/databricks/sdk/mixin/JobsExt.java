@@ -18,37 +18,38 @@ public class JobsExt extends JobsAPI {
   /**
    * List jobs.
    *
-   * <p>Retrieves a list of jobs. If the job has multiple pages of tasks, job_clusters, parameters or environments,
-   *         it will paginate through all pages and aggregate the results.
+   * <p>Retrieves a list of jobs. If the job has multiple pages of tasks, job_clusters, parameters
+   * or environments, it will paginate through all pages and aggregate the results.
    */
   public Iterable<BaseJob> list(ListJobsRequest request) {
     // fetch jobs with limited elements in top level arrays
-    Iterable<BaseJob> jobsList =  super.list(request);
+    Iterable<BaseJob> jobsList = super.list(request);
 
     if (!request.getExpandTasks()) {
       return jobsList;
     }
 
     Iterator<BaseJob> iterator = jobsList.iterator();
-    return () -> new Iterator<BaseJob>() {
-      @Override
-      public boolean hasNext() {
-        return iterator.hasNext();
-      }
+    return () ->
+        new Iterator<BaseJob>() {
+          @Override
+          public boolean hasNext() {
+            return iterator.hasNext();
+          }
 
-      @Override
-      public BaseJob next() {
-        BaseJob job = iterator.next();
-        // fully fetch all top level arrays for the job
-        GetJobRequest getJobRequest = new GetJobRequest().setJobId(job.getJobId());
-        Job fullJob = get(getJobRequest);
-        job.getSettings().setTasks(fullJob.getSettings().getTasks());
-        job.getSettings().setJobClusters(fullJob.getSettings().getJobClusters());
-        job.getSettings().setParameters(fullJob.getSettings().getParameters());
-        job.getSettings().setEnvironments(fullJob.getSettings().getEnvironments());
-        return job;
-      }
-    };
+          @Override
+          public BaseJob next() {
+            BaseJob job = iterator.next();
+            // fully fetch all top level arrays for the job
+            GetJobRequest getJobRequest = new GetJobRequest().setJobId(job.getJobId());
+            Job fullJob = get(getJobRequest);
+            job.getSettings().setTasks(fullJob.getSettings().getTasks());
+            job.getSettings().setJobClusters(fullJob.getSettings().getJobClusters());
+            job.getSettings().setParameters(fullJob.getSettings().getParameters());
+            job.getSettings().setEnvironments(fullJob.getSettings().getEnvironments());
+            return job;
+          }
+        };
   }
 
   /**
