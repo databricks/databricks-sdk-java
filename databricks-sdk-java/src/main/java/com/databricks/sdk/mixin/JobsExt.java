@@ -15,7 +15,14 @@ public class JobsExt extends JobsAPI {
     super(mock);
   }
 
+  /**
+   * List jobs.
+   *
+   * <p>Retrieves a list of jobs. If the job has multiple pages of tasks, job_clusters, parameters or environments,
+   *         it will paginate through all pages and aggregate the results.
+   */
   public Iterable<BaseJob> list(ListJobsRequest request) {
+    // fetch jobs with limited elements in top level arrays
     Iterable<BaseJob> jobsList =  super.list(request);
 
     if (!request.getExpandTasks()) {
@@ -32,6 +39,7 @@ public class JobsExt extends JobsAPI {
       @Override
       public BaseJob next() {
         BaseJob job = iterator.next();
+        // fully fetch all top level arrays for the job
         GetJobRequest getJobRequest = new GetJobRequest().setJobId(job.getJobId());
         Job fullJob = get(getJobRequest);
         job.getSettings().setTasks(fullJob.getSettings().getTasks());
