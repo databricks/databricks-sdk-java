@@ -52,8 +52,10 @@ public class JobsExt extends JobsAPI {
               run.setJobParameters(fullRun.getJobParameters());
               run.setRepairHistory(fullRun.getRepairHistory());
             }
-            // Set the has_more field to false to indicate that there are no more tasks and other fields to fetch.
-            run.setHasMore(false);
+            // Set the has_more fields to null.
+            // This field in Jobs API 2.2 is useful for pagination. It indicates if there are more than 100 tasks or job_clusters in the run.
+            // This function hides pagination details from the user. So the field does not play useful role here.
+            run.setHasMore(null);
             return run;
           }
         };

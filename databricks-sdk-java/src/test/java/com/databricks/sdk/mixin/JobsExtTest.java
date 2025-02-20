@@ -358,13 +358,13 @@ public class JobsExtTest {
     ListRunsRequest request = new ListRunsRequest().setExpandTasks(true);
     Iterable<BaseRun> runsList = jobsExt.listRuns(request);
 
-    BaseRun expectedRun1 = new BaseRun().setRunId(100L).setJobId(1L).setHasMore(false);
+    BaseRun expectedRun1 = new BaseRun().setRunId(100L).setJobId(1L);
     addTasks(expectedRun1, 101L, 102L, 103L, 104L, 105L);
-    BaseRun expectedRun2 = new BaseRun().setRunId(200L).setJobId(2L).setHasMore(false);
+    BaseRun expectedRun2 = new BaseRun().setRunId(200L).setJobId(2L);
     addTasks(expectedRun2, 201L, 202L, 203L);
-    BaseRun expectedRun3 = new BaseRun().setRunId(300L).setJobId(3L).setHasMore(false);
+    BaseRun expectedRun3 = new BaseRun().setRunId(300L).setJobId(3L);
     addTasks(expectedRun3, 301L);
-    BaseRun expectedRun4 = new BaseRun().setRunId(400L).setJobId(4L).setHasMore(false);
+    BaseRun expectedRun4 = new BaseRun().setRunId(400L).setJobId(4L);
     addTasks(expectedRun4, 401L, 402L, 403L, 404L);
     List<BaseRun> expectedRunsList = new ArrayList<>();
     expectedRunsList.add(expectedRun1);
