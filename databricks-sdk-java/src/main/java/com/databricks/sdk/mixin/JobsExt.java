@@ -40,14 +40,22 @@ public class JobsExt extends JobsAPI {
           @Override
           public BaseJob next() {
             BaseJob job = iterator.next();
-            // fully fetch all top level arrays for the job
-            GetJobRequest getJobRequest = new GetJobRequest().setJobId(job.getJobId());
-            Job fullJob = get(getJobRequest);
-            job.getSettings().setTasks(fullJob.getSettings().getTasks());
-            job.getSettings().setJobClusters(fullJob.getSettings().getJobClusters());
-            job.getSettings().setParameters(fullJob.getSettings().getParameters());
-            job.getSettings().setEnvironments(fullJob.getSettings().getEnvironments());
-            job.setHasMore(false);
+
+            // The has_more field is only present in jobs with 100+ tasks, that is served from Jobs
+            // API 2.2.
+            // Extra tasks and other fields need to be fetched only when has_more is true.
+            if (job.getHasMore() != null && job.getHasMore()) {
+              // fully fetch all top level arrays for the job
+              GetJobRequest getJobRequest = new GetJobRequest().setJobId(job.getJobId());
+              Job fullJob = get(getJobRequest);
+              job.getSettings().setTasks(fullJob.getSettings().getTasks());
+              job.getSettings().setJobClusters(fullJob.getSettings().getJobClusters());
+              job.getSettings().setParameters(fullJob.getSettings().getParameters());
+              job.getSettings().setEnvironments(fullJob.getSettings().getEnvironments());
+            }
+            // Set the has_more field to false to indicate that there are no more tasks and other
+            // fields to fetch.
+            job.setHasMore(null);
             return job;
           }
         };

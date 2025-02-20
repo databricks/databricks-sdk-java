@@ -1,6 +1,7 @@
 package com.databricks.sdk.mixin;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -256,6 +257,8 @@ public class JobsExtTest {
             .setSettings(new JobSettings().setName("job2"))
             .setHasMore(true);
     addTasks(job2, "job2_taskKey1", "job2_taskKey2");
+    BaseJob job3 = new BaseJob().setJobId(300L).setSettings(new JobSettings().setName("job3"));
+    addTasks(job3, "job3_taskKey1", "job3_taskKey2");
 
     Job getJob1_page1 =
         new Job()
@@ -311,28 +314,31 @@ public class JobsExtTest {
     List<BaseJob> jobsOnFirstPage = new ArrayList<>();
     jobsOnFirstPage.add(job1);
     jobsOnFirstPage.add(job2);
-    ListJobsResponse response = new ListJobsResponse().setJobs(jobsOnFirstPage);
-    when(service.list(any())).thenReturn(response);
+    ListJobsResponse responsePage1 =
+        new ListJobsResponse().setJobs(jobsOnFirstPage).setNextPageToken("page2token");
+    List<BaseJob> jobsOnSecondPage = new ArrayList<>();
+    jobsOnSecondPage.add(job3);
+    ListJobsResponse responsePage2 = new ListJobsResponse().setJobs(jobsOnSecondPage);
+
     JobsExt jobsExt = new JobsExt(service);
+    when(service.list(any())).thenReturn(responsePage1).thenReturn(responsePage2);
 
     ListJobsRequest request = new ListJobsRequest().setExpandTasks(true);
     Iterable<BaseJob> jobsList = jobsExt.list(request);
 
     BaseJob expectedJob1 =
-        new BaseJob()
-            .setJobId(100L)
-            .setSettings(new JobSettings().setName("job1"))
-            .setHasMore(false);
+        new BaseJob().setJobId(100L).setSettings(new JobSettings().setName("job1"));
     addTasks(expectedJob1, "job1_taskKey1", "job1_taskKey2", "job1_taskKey3", "job1_taskKey4");
     BaseJob expectedJob2 =
-        new BaseJob()
-            .setJobId(200L)
-            .setSettings(new JobSettings().setName("job2"))
-            .setHasMore(false);
+        new BaseJob().setJobId(200L).setSettings(new JobSettings().setName("job2"));
     addTasks(expectedJob2, "job2_taskKey1", "job2_taskKey2", "job2_taskKey3", "job2_taskKey4");
+    BaseJob expectedJob3 =
+        new BaseJob().setJobId(300L).setSettings(new JobSettings().setName("job3"));
+    addTasks(expectedJob3, "job3_taskKey1", "job3_taskKey2");
     List<BaseJob> expectedJobsList = new ArrayList<>();
     expectedJobsList.add(expectedJob1);
     expectedJobsList.add(expectedJob2);
+    expectedJobsList.add(expectedJob3);
     for (BaseJob job : jobsList) {
       BaseJob expectedJob =
           expectedJobsList.stream()
@@ -340,7 +346,9 @@ public class JobsExtTest {
               .findFirst()
               .orElse(null);
       assertEquals(expectedJob, job);
+      assertNull(expectedJob.getHasMore());
     }
+    // 2 getRun calls for job1, 2 getRun calls for job2, 0 getRun call for job3
     verify(service, times(4)).get(any());
   }
 
