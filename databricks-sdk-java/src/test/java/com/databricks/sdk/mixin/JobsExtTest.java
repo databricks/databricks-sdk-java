@@ -379,9 +379,9 @@ public class JobsExtTest {
               .orElse(null);
       assertEquals(expectedRun, run);
     }
-    // 3 getRun calls for run 100, 2 getRun calls for run 200, 1 getRun call for run 300, 2 getRun
+    // 3 getRun calls for run 100, 2 getRun calls for run 200, 0 getRun call for run 300, 2 getRun
     // calls for run 400
-    verify(service, times(8)).getRun(any());
+    verify(service, times(7)).getRun(any());
   }
 
   private void addTasks(BaseRun run, long... taskRunIds) {
