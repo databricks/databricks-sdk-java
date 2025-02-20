@@ -41,7 +41,8 @@ public class JobsExt extends JobsAPI {
           public BaseRun next() {
             BaseRun run = iterator.next();
 
-            // The has_more field is only present in run with 100+ tasks, that is served from Jobs API 2.2.
+            // The has_more field is only present in run with 100+ tasks, that is served from Jobs
+            // API 2.2.
             // Extra tasks and other fields need to be fetched only when has_more is true.
             if (run.getHasMore() != null && run.getHasMore()) {
               // fully fetch all top level arrays for the run
@@ -53,8 +54,10 @@ public class JobsExt extends JobsAPI {
               run.setRepairHistory(fullRun.getRepairHistory());
             }
             // Set the has_more fields to null.
-            // This field in Jobs API 2.2 is useful for pagination. It indicates if there are more than 100 tasks or job_clusters in the run.
-            // This function hides pagination details from the user. So the field does not play useful role here.
+            // This field in Jobs API 2.2 is useful for pagination. It indicates if there are more
+            // than 100 tasks or job_clusters in the run.
+            // This function hides pagination details from the user. So the field does not play
+            // useful role here.
             run.setHasMore(null);
             return run;
           }
