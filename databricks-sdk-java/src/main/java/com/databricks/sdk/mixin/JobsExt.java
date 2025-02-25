@@ -62,6 +62,55 @@ public class JobsExt extends JobsAPI {
   }
 
   /**
+   * List job runs.
+   *
+   * <p>Retrieve a list of runs. If the run has multiple pages of tasks, job_clusters, parameters or
+   * repair_history, it will paginate through all pages and aggregate the results.
+   */
+  public Iterable<BaseRun> listRuns(ListRunsRequest request) {
+    // fetch runs with limited elements in top level arrays
+    Iterable<BaseRun> runsList = super.listRuns(request);
+
+    if (!request.getExpandTasks()) {
+      return runsList;
+    }
+
+    Iterator<BaseRun> iterator = runsList.iterator();
+    return () ->
+        new Iterator<BaseRun>() {
+          @Override
+          public boolean hasNext() {
+            return iterator.hasNext();
+          }
+
+          @Override
+          public BaseRun next() {
+            BaseRun run = iterator.next();
+
+            // The has_more field is only present in run with 100+ tasks, that is served from Jobs
+            // API 2.2.
+            // Extra tasks and other fields need to be fetched only when has_more is true.
+            if (run.getHasMore() != null && run.getHasMore()) {
+              // fully fetch all top level arrays for the run
+              GetRunRequest getRunRequest = new GetRunRequest().setRunId(run.getRunId());
+              Run fullRun = getRun(getRunRequest);
+              run.setTasks(fullRun.getTasks());
+              run.setJobClusters(fullRun.getJobClusters());
+              run.setJobParameters(fullRun.getJobParameters());
+              run.setRepairHistory(fullRun.getRepairHistory());
+            }
+            // Set the has_more fields to null.
+            // This field in Jobs API 2.2 is useful for pagination. It indicates if there are more
+            // than 100 tasks or job_clusters in the run.
+            // This function hides pagination details from the user. So the field does not play
+            // useful role here.
+            run.setHasMore(null);
+            return run;
+          }
+        };
+  }
+
+  /**
    * Wrap the {@code JobsApi.getRun} operation to retrieve paginated content without breaking the
    * response contract.
    *
