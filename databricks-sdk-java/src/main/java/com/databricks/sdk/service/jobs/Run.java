@@ -54,9 +54,8 @@ public class Run {
 
   /**
    * effective_performance_target is the actual performance target used by the run during execution.
-   * effective_performance_target can differ from performance_target depending on if the job was
-   * eligible to be cost-optimized (e.g. contains at least 1 serverless task) or if we specifically
-   * override the value for the run (ex. RunNow).
+   * effective_performance_target can differ from the client-set performance_target depending on if
+   * the job was eligible to be cost-optimized.
    */
   @JsonProperty("effective_performance_target")
   private PerformanceTarget effectivePerformanceTarget;

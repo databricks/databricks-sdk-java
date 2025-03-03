@@ -18,8 +18,8 @@ public interface GenieService {
   /**
    * Create conversation message.
    *
-   * <p>Create new message in [conversation](:method:genie/startconversation). The AI response uses
-   * all previously created messages in the conversation to respond.
+   * <p>Create new message in a [conversation](:method:genie/startconversation). The AI response
+   * uses all previously created messages in the conversation to respond.
    */
   GenieMessage createMessage(
       GenieCreateConversationMessageRequest genieCreateConversationMessageRequest);
@@ -40,7 +40,7 @@ public interface GenieService {
   GenieMessage getMessage(GenieGetConversationMessageRequest genieGetConversationMessageRequest);
 
   /**
-   * Get conversation message SQL query result.
+   * [Deprecated] Get conversation message SQL query result.
    *
    * <p>Get the result of SQL query if the message has a query attachment. This is only available if
    * a message has a query attachment and the message status is `EXECUTING_QUERY`.
@@ -49,13 +49,20 @@ public interface GenieService {
       GenieGetMessageQueryResultRequest genieGetMessageQueryResultRequest);
 
   /**
-   * Get conversation message SQL query result by attachment id.
+   * Get conversation message SQL query result.
    *
-   * <p>Get the result of SQL query by attachment id This is only available if a message has a query
-   * attachment and the message status is `EXECUTING_QUERY`.
+   * <p>Get the result of SQL query if the message has a query attachment. This is only available if
+   * a message has a query attachment and the message status is `EXECUTING_QUERY` OR `COMPLETED`.
    */
   GenieGetMessageQueryResultResponse getMessageQueryResultByAttachment(
       GenieGetQueryResultByAttachmentRequest genieGetQueryResultByAttachmentRequest);
+
+  /**
+   * Get details of a Genie Space.
+   *
+   * <p>Get a Genie Space.
+   */
+  GenieSpace getSpace(GenieGetSpaceRequest genieGetSpaceRequest);
 
   /**
    * Start conversation.

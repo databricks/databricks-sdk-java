@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/** An experiment and its metadata. */
 @Generated
 public class Experiment {
   /** Location where artifacts for the experiment are stored. */

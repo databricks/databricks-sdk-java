@@ -104,8 +104,8 @@ public class GenieAPI {
   /**
    * Create conversation message.
    *
-   * <p>Create new message in [conversation](:method:genie/startconversation). The AI response uses
-   * all previously created messages in the conversation to respond.
+   * <p>Create new message in a [conversation](:method:genie/startconversation). The AI response
+   * uses all previously created messages in the conversation to respond.
    */
   public Wait<GenieMessage, GenieMessage> createMessage(
       GenieCreateConversationMessageRequest request) {
@@ -167,7 +167,7 @@ public class GenieAPI {
   }
 
   /**
-   * Get conversation message SQL query result.
+   * [Deprecated] Get conversation message SQL query result.
    *
    * <p>Get the result of SQL query if the message has a query attachment. This is only available if
    * a message has a query attachment and the message status is `EXECUTING_QUERY`.
@@ -188,14 +188,27 @@ public class GenieAPI {
   }
 
   /**
-   * Get conversation message SQL query result by attachment id.
+   * Get conversation message SQL query result.
    *
-   * <p>Get the result of SQL query by attachment id This is only available if a message has a query
-   * attachment and the message status is `EXECUTING_QUERY`.
+   * <p>Get the result of SQL query if the message has a query attachment. This is only available if
+   * a message has a query attachment and the message status is `EXECUTING_QUERY` OR `COMPLETED`.
    */
   public GenieGetMessageQueryResultResponse getMessageQueryResultByAttachment(
       GenieGetQueryResultByAttachmentRequest request) {
     return impl.getMessageQueryResultByAttachment(request);
+  }
+
+  public GenieSpace getSpace(String spaceId) {
+    return getSpace(new GenieGetSpaceRequest().setSpaceId(spaceId));
+  }
+
+  /**
+   * Get details of a Genie Space.
+   *
+   * <p>Get a Genie Space.
+   */
+  public GenieSpace getSpace(GenieGetSpaceRequest request) {
+    return impl.getSpace(request);
   }
 
   public Wait<GenieMessage, GenieStartConversationResponse> startConversation(

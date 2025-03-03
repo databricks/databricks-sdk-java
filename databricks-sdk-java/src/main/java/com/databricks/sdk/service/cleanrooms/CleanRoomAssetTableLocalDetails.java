@@ -19,7 +19,7 @@ public class CleanRoomAssetTableLocalDetails {
 
   /** Partition filtering specification for a shared table. */
   @JsonProperty("partitions")
-  private Collection<com.databricks.sdk.service.sharing.PartitionSpecificationPartition> partitions;
+  private Collection<com.databricks.sdk.service.sharing.Partition> partitions;
 
   public CleanRoomAssetTableLocalDetails setLocalName(String localName) {
     this.localName = localName;
@@ -31,13 +31,12 @@ public class CleanRoomAssetTableLocalDetails {
   }
 
   public CleanRoomAssetTableLocalDetails setPartitions(
-      Collection<com.databricks.sdk.service.sharing.PartitionSpecificationPartition> partitions) {
+      Collection<com.databricks.sdk.service.sharing.Partition> partitions) {
     this.partitions = partitions;
     return this;
   }
 
-  public Collection<com.databricks.sdk.service.sharing.PartitionSpecificationPartition>
-      getPartitions() {
+  public Collection<com.databricks.sdk.service.sharing.Partition> getPartitions() {
     return partitions;
   }
 
