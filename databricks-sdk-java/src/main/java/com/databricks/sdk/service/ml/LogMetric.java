@@ -18,7 +18,7 @@ public class LogMetric {
   private String runId;
 
   /**
-   * [Deprecated, use run_id instead] ID of the run under which to log the metric. This field will
+   * [Deprecated, use `run_id` instead] ID of the run under which to log the metric. This field will
    * be removed in a future MLflow version.
    */
   @JsonProperty("run_uuid")

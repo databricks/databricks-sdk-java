@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** A tag for an experiment. */
 @Generated
 public class ExperimentTag {
   /** The tag key. */

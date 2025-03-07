@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Metric associated with a run, represented as a key-value pair. */
 @Generated
 public class Metric {
   /** Key identifying this metric. */

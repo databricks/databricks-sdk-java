@@ -7,12 +7,13 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Metadata of a single run. */
 @Generated
 public class RunInfo {
   /**
    * URI of the directory where artifacts should be uploaded. This can be a local path (starting
-   * with "/"), or a distributed file system (DFS) path, like `s3://bucket/directory` or
-   * `dbfs:/my/directory`. If not set, the local `./mlruns` directory is chosen.
+   * with "/"), or a distributed file system (DFS) path, like ``s3://bucket/directory`` or
+   * ``dbfs:/my/directory``. If not set, the local ``./mlruns`` directory is chosen.
    */
   @JsonProperty("artifact_uri")
   private String artifactUri;
@@ -32,6 +33,10 @@ public class RunInfo {
   /** Unique identifier for the run. */
   @JsonProperty("run_id")
   private String runId;
+
+  /** The name of the run. */
+  @JsonProperty("run_name")
+  private String runName;
 
   /**
    * [Deprecated, use run_id instead] Unique identifier for the run. This field will be removed in a
@@ -100,6 +105,15 @@ public class RunInfo {
     return runId;
   }
 
+  public RunInfo setRunName(String runName) {
+    this.runName = runName;
+    return this;
+  }
+
+  public String getRunName() {
+    return runName;
+  }
+
   public RunInfo setRunUuid(String runUuid) {
     this.runUuid = runUuid;
     return this;
@@ -146,6 +160,7 @@ public class RunInfo {
         && Objects.equals(experimentId, that.experimentId)
         && Objects.equals(lifecycleStage, that.lifecycleStage)
         && Objects.equals(runId, that.runId)
+        && Objects.equals(runName, that.runName)
         && Objects.equals(runUuid, that.runUuid)
         && Objects.equals(startTime, that.startTime)
         && Objects.equals(status, that.status)
@@ -160,6 +175,7 @@ public class RunInfo {
         experimentId,
         lifecycleStage,
         runId,
+        runName,
         runUuid,
         startTime,
         status,
@@ -174,6 +190,7 @@ public class RunInfo {
         .add("experimentId", experimentId)
         .add("lifecycleStage", lifecycleStage)
         .add("runId", runId)
+        .add("runName", runName)
         .add("runUuid", runUuid)
         .add("startTime", startTime)
         .add("status", status)

@@ -7,10 +7,10 @@ import com.databricks.sdk.support.Generated;
 /**
  * Data security mode decides what data governance model to use when accessing data from a cluster.
  *
- * <p>The following modes can only be used with `kind`. * `DATA_SECURITY_MODE_AUTO`: Databricks will
- * choose the most appropriate access mode depending on your compute configuration. *
- * `DATA_SECURITY_MODE_STANDARD`: Alias for `USER_ISOLATION`. * `DATA_SECURITY_MODE_DEDICATED`:
- * Alias for `SINGLE_USER`.
+ * <p>The following modes can only be used when `kind = CLASSIC_PREVIEW`. *
+ * `DATA_SECURITY_MODE_AUTO`: Databricks will choose the most appropriate access mode depending on
+ * your compute configuration. * `DATA_SECURITY_MODE_STANDARD`: Alias for `USER_ISOLATION`. *
+ * `DATA_SECURITY_MODE_DEDICATED`: Alias for `SINGLE_USER`.
  *
  * <p>The following modes can be used regardless of `kind`. * `NONE`: No security isolation for
  * multiple users sharing the cluster. Data governance features are not available in this mode. *

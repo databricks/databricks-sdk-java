@@ -21,6 +21,10 @@ public class ValidateCredentialRequest {
   @JsonProperty("credential_name")
   private String credentialName;
 
+  /** GCP long-lived credential. Databricks-created Google Cloud Storage service account. */
+  @JsonProperty("databricks_gcp_service_account")
+  private DatabricksGcpServiceAccount databricksGcpServiceAccount;
+
   /**
    * The name of an existing external location to validate. Only applicable for storage credentials
    * (purpose is **STORAGE**.)
@@ -71,6 +75,16 @@ public class ValidateCredentialRequest {
     return credentialName;
   }
 
+  public ValidateCredentialRequest setDatabricksGcpServiceAccount(
+      DatabricksGcpServiceAccount databricksGcpServiceAccount) {
+    this.databricksGcpServiceAccount = databricksGcpServiceAccount;
+    return this;
+  }
+
+  public DatabricksGcpServiceAccount getDatabricksGcpServiceAccount() {
+    return databricksGcpServiceAccount;
+  }
+
   public ValidateCredentialRequest setExternalLocationName(String externalLocationName) {
     this.externalLocationName = externalLocationName;
     return this;
@@ -115,6 +129,7 @@ public class ValidateCredentialRequest {
     return Objects.equals(awsIamRole, that.awsIamRole)
         && Objects.equals(azureManagedIdentity, that.azureManagedIdentity)
         && Objects.equals(credentialName, that.credentialName)
+        && Objects.equals(databricksGcpServiceAccount, that.databricksGcpServiceAccount)
         && Objects.equals(externalLocationName, that.externalLocationName)
         && Objects.equals(purpose, that.purpose)
         && Objects.equals(readOnly, that.readOnly)
@@ -127,6 +142,7 @@ public class ValidateCredentialRequest {
         awsIamRole,
         azureManagedIdentity,
         credentialName,
+        databricksGcpServiceAccount,
         externalLocationName,
         purpose,
         readOnly,
@@ -139,6 +155,7 @@ public class ValidateCredentialRequest {
         .add("awsIamRole", awsIamRole)
         .add("azureManagedIdentity", azureManagedIdentity)
         .add("credentialName", credentialName)
+        .add("databricksGcpServiceAccount", databricksGcpServiceAccount)
         .add("externalLocationName", externalLocationName)
         .add("purpose", purpose)
         .add("readOnly", readOnly)

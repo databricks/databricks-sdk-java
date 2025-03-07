@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class GenieMessage {
-  /** AI produced response to the message */
+  /** AI-generated response to the message */
   @JsonProperty("attachments")
   private Collection<GenieAttachment> attachments;
 
@@ -26,11 +26,11 @@ public class GenieMessage {
   @JsonProperty("created_timestamp")
   private Long createdTimestamp;
 
-  /** Error message if AI failed to respond to the message */
+  /** Error message if Genie failed to respond to the message */
   @JsonProperty("error")
   private MessageError error;
 
-  /** Message ID */
+  /** Message ID. Legacy identifier, use message_id instead */
   @JsonProperty("id")
   private String id;
 
@@ -38,7 +38,14 @@ public class GenieMessage {
   @JsonProperty("last_updated_timestamp")
   private Long lastUpdatedTimestamp;
 
-  /** The result of SQL query if the message has a query attachment */
+  /** Message ID */
+  @JsonProperty("message_id")
+  private String messageId;
+
+  /**
+   * The result of SQL query if the message includes a query attachment. Deprecated. Use
+   * `query_result_metadata` in `GenieQueryAttachment` instead.
+   */
   @JsonProperty("query_result")
   private Result queryResult;
 
@@ -47,19 +54,17 @@ public class GenieMessage {
   private String spaceId;
 
   /**
-   * MesssageStatus. The possible values are: * `FETCHING_METADATA`: Fetching metadata from the data
+   * MessageStatus. The possible values are: * `FETCHING_METADATA`: Fetching metadata from the data
    * sources. * `FILTERING_CONTEXT`: Running smart context step to determine relevant context. *
-   * `ASKING_AI`: Waiting for the LLM to respond to the users question. * `PENDING_WAREHOUSE`:
+   * `ASKING_AI`: Waiting for the LLM to respond to the user's question. * `PENDING_WAREHOUSE`:
    * Waiting for warehouse before the SQL query can start executing. * `EXECUTING_QUERY`: Executing
-   * AI provided SQL query. Get the SQL query result by calling
-   * [getMessageQueryResult](:method:genie/getMessageQueryResult) API. **Important: The message
-   * status will stay in the `EXECUTING_QUERY` until a client calls
-   * [getMessageQueryResult](:method:genie/getMessageQueryResult)**. * `FAILED`: Generating a
-   * response or the executing the query failed. Please see `error` field. * `COMPLETED`: Message
-   * processing is completed. Results are in the `attachments` field. Get the SQL query result by
-   * calling [getMessageQueryResult](:method:genie/getMessageQueryResult) API. * `SUBMITTED`:
-   * Message has been submitted. * `QUERY_RESULT_EXPIRED`: SQL result is not available anymore. The
-   * user needs to execute the query again. * `CANCELLED`: Message has been cancelled.
+   * a generated SQL query. Get the SQL query result by calling
+   * [getMessageQueryResult](:method:genie/getMessageQueryResult) API. * `FAILED`: The response
+   * generation or query execution failed. See `error` field. * `COMPLETED`: Message processing is
+   * completed. Results are in the `attachments` field. Get the SQL query result by calling
+   * [getMessageQueryResult](:method:genie/getMessageQueryResult) API. * `SUBMITTED`: Message has
+   * been submitted. * `QUERY_RESULT_EXPIRED`: SQL result is not available anymore. The user needs
+   * to rerun the query. * `CANCELLED`: Message has been cancelled.
    */
   @JsonProperty("status")
   private MessageStatus status;
@@ -131,6 +136,15 @@ public class GenieMessage {
     return lastUpdatedTimestamp;
   }
 
+  public GenieMessage setMessageId(String messageId) {
+    this.messageId = messageId;
+    return this;
+  }
+
+  public String getMessageId() {
+    return messageId;
+  }
+
   public GenieMessage setQueryResult(Result queryResult) {
     this.queryResult = queryResult;
     return this;
@@ -179,6 +193,7 @@ public class GenieMessage {
         && Objects.equals(error, that.error)
         && Objects.equals(id, that.id)
         && Objects.equals(lastUpdatedTimestamp, that.lastUpdatedTimestamp)
+        && Objects.equals(messageId, that.messageId)
         && Objects.equals(queryResult, that.queryResult)
         && Objects.equals(spaceId, that.spaceId)
         && Objects.equals(status, that.status)
@@ -195,6 +210,7 @@ public class GenieMessage {
         error,
         id,
         lastUpdatedTimestamp,
+        messageId,
         queryResult,
         spaceId,
         status,
@@ -211,6 +227,7 @@ public class GenieMessage {
         .add("error", error)
         .add("id", id)
         .add("lastUpdatedTimestamp", lastUpdatedTimestamp)
+        .add("messageId", messageId)
         .add("queryResult", queryResult)
         .add("spaceId", spaceId)
         .add("status", status)

@@ -94,6 +94,23 @@ public class ProvidersAPI {
         });
   }
 
+  public ListProviderShareAssetsResponse listProviderShareAssets(
+      String providerName, String shareName) {
+    return listProviderShareAssets(
+        new ListProviderShareAssetsRequest().setProviderName(providerName).setShareName(shareName));
+  }
+
+  /**
+   * List assets by provider share.
+   *
+   * <p>Get arrays of assets associated with a specified provider's share. The caller is the
+   * recipient of the share.
+   */
+  public ListProviderShareAssetsResponse listProviderShareAssets(
+      ListProviderShareAssetsRequest request) {
+    return impl.listProviderShareAssets(request);
+  }
+
   public Iterable<ProviderShare> listShares(String name) {
     return listShares(new ListSharesRequest().setName(name));
   }

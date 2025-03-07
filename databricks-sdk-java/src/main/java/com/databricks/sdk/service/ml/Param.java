@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Param associated with a run. */
 @Generated
 public class Param {
   /** Key identifying this param. */

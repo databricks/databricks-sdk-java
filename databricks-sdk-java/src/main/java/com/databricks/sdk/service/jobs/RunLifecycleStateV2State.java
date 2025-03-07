@@ -13,4 +13,5 @@ public enum RunLifecycleStateV2State {
   RUNNING,
   TERMINATED,
   TERMINATING,
+  WAITING,
 }

@@ -13,9 +13,11 @@ public enum ConnectionType {
   HIVE_METASTORE,
   HTTP,
   MYSQL,
+  ORACLE,
   POSTGRESQL,
   REDSHIFT,
   SNOWFLAKE,
   SQLDW,
   SQLSERVER,
+  TERADATA,
 }

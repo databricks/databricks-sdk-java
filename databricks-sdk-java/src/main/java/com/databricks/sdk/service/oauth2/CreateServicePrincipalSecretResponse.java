@@ -13,6 +13,12 @@ public class CreateServicePrincipalSecretResponse {
   @JsonProperty("create_time")
   private String createTime;
 
+  /**
+   * UTC time when the secret will expire. If the field is not present, the secret does not expire.
+   */
+  @JsonProperty("expire_time")
+  private String expireTime;
+
   /** ID of the secret */
   @JsonProperty("id")
   private String id;
@@ -40,6 +46,15 @@ public class CreateServicePrincipalSecretResponse {
 
   public String getCreateTime() {
     return createTime;
+  }
+
+  public CreateServicePrincipalSecretResponse setExpireTime(String expireTime) {
+    this.expireTime = expireTime;
+    return this;
+  }
+
+  public String getExpireTime() {
+    return expireTime;
   }
 
   public CreateServicePrincipalSecretResponse setId(String id) {
@@ -93,6 +108,7 @@ public class CreateServicePrincipalSecretResponse {
     if (o == null || getClass() != o.getClass()) return false;
     CreateServicePrincipalSecretResponse that = (CreateServicePrincipalSecretResponse) o;
     return Objects.equals(createTime, that.createTime)
+        && Objects.equals(expireTime, that.expireTime)
         && Objects.equals(id, that.id)
         && Objects.equals(secret, that.secret)
         && Objects.equals(secretHash, that.secretHash)
@@ -102,13 +118,14 @@ public class CreateServicePrincipalSecretResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(createTime, id, secret, secretHash, status, updateTime);
+    return Objects.hash(createTime, expireTime, id, secret, secretHash, status, updateTime);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CreateServicePrincipalSecretResponse.class)
         .add("createTime", createTime)
+        .add("expireTime", expireTime)
         .add("id", id)
         .add("secret", secret)
         .add("secretHash", secretHash)

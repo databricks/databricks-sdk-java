@@ -47,6 +47,15 @@ public interface ProvidersService {
   ListProvidersResponse list(ListProvidersRequest listProvidersRequest);
 
   /**
+   * List assets by provider share.
+   *
+   * <p>Get arrays of assets associated with a specified provider's share. The caller is the
+   * recipient of the share.
+   */
+  ListProviderShareAssetsResponse listProviderShareAssets(
+      ListProviderShareAssetsRequest listProviderShareAssetsRequest);
+
+  /**
    * List shares by Provider.
    *
    * <p>Gets an array of a specified provider's shares within the metastore where:

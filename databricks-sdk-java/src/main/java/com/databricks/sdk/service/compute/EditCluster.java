@@ -85,10 +85,10 @@ public class EditCluster {
    * Data security mode decides what data governance model to use when accessing data from a
    * cluster.
    *
-   * <p>The following modes can only be used with `kind`. * `DATA_SECURITY_MODE_AUTO`: Databricks
-   * will choose the most appropriate access mode depending on your compute configuration. *
-   * `DATA_SECURITY_MODE_STANDARD`: Alias for `USER_ISOLATION`. * `DATA_SECURITY_MODE_DEDICATED`:
-   * Alias for `SINGLE_USER`.
+   * <p>The following modes can only be used when `kind = CLASSIC_PREVIEW`. *
+   * `DATA_SECURITY_MODE_AUTO`: Databricks will choose the most appropriate access mode depending on
+   * your compute configuration. * `DATA_SECURITY_MODE_STANDARD`: Alias for `USER_ISOLATION`. *
+   * `DATA_SECURITY_MODE_DEDICATED`: Alias for `SINGLE_USER`.
    *
    * <p>The following modes can be used regardless of `kind`. * `NONE`: No security isolation for
    * multiple users sharing the cluster. Data governance features are not available in this mode. *
@@ -161,7 +161,7 @@ public class EditCluster {
   private String instancePoolId;
 
   /**
-   * This field can only be used with `kind`.
+   * This field can only be used when `kind = CLASSIC_PREVIEW`.
    *
    * <p>When set to true, Databricks will automatically set single node related `custom_tags`,
    * `spark_conf`, and `num_workers`
@@ -174,8 +174,15 @@ public class EditCluster {
    *
    * <p>Depending on `kind`, different validations and default values will be applied.
    *
-   * <p>The first usage of this value is for the simple cluster form where it sets `kind =
-   * CLASSIC_PREVIEW`.
+   * <p>Clusters with `kind = CLASSIC_PREVIEW` support the following fields, whereas clusters with
+   * no specified `kind` do not. * [is_single_node](/api/workspace/clusters/create#is_single_node) *
+   * [use_ml_runtime](/api/workspace/clusters/create#use_ml_runtime) *
+   * [data_security_mode](/api/workspace/clusters/create#data_security_mode) set to
+   * `DATA_SECURITY_MODE_AUTO`, `DATA_SECURITY_MODE_DEDICATED`, or `DATA_SECURITY_MODE_STANDARD`
+   *
+   * <p>By using the [simple form], your clusters are automatically using `kind = CLASSIC_PREVIEW`.
+   *
+   * <p>[simple form]: https://docs.databricks.com/compute/simple-form.html
    */
   @JsonProperty("kind")
   private Kind kind;
@@ -262,7 +269,7 @@ public class EditCluster {
   private Collection<String> sshPublicKeys;
 
   /**
-   * This field can only be used with `kind`.
+   * This field can only be used when `kind = CLASSIC_PREVIEW`.
    *
    * <p>`effective_spark_version` is determined by `spark_version` (DBR release), this field
    * `use_ml_runtime`, and whether `node_type_id` is gpu node or not.

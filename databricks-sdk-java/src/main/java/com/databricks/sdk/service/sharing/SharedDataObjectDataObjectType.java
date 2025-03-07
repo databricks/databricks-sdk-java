@@ -4,7 +4,6 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 
-/** The type of the data object. */
 @Generated
 public enum SharedDataObjectDataObjectType {
   FEATURE_SPEC,

@@ -86,8 +86,8 @@ public class RunNow {
 
   /**
    * PerformanceTarget defines how performant or cost efficient the execution of run on serverless
-   * compute should be. For RunNow request, the run will execute with this settings instead of ones
-   * defined in job.
+   * compute should be. For RunNow, this performance target will override the target defined on the
+   * job-level.
    */
   @JsonProperty("performance_target")
   private PerformanceTarget performanceTarget;

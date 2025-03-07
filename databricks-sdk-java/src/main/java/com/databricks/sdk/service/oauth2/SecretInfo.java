@@ -13,6 +13,12 @@ public class SecretInfo {
   @JsonProperty("create_time")
   private String createTime;
 
+  /**
+   * UTC time when the secret will expire. If the field is not present, the secret does not expire.
+   */
+  @JsonProperty("expire_time")
+  private String expireTime;
+
   /** ID of the secret */
   @JsonProperty("id")
   private String id;
@@ -36,6 +42,15 @@ public class SecretInfo {
 
   public String getCreateTime() {
     return createTime;
+  }
+
+  public SecretInfo setExpireTime(String expireTime) {
+    this.expireTime = expireTime;
+    return this;
+  }
+
+  public String getExpireTime() {
+    return expireTime;
   }
 
   public SecretInfo setId(String id) {
@@ -80,6 +95,7 @@ public class SecretInfo {
     if (o == null || getClass() != o.getClass()) return false;
     SecretInfo that = (SecretInfo) o;
     return Objects.equals(createTime, that.createTime)
+        && Objects.equals(expireTime, that.expireTime)
         && Objects.equals(id, that.id)
         && Objects.equals(secretHash, that.secretHash)
         && Objects.equals(status, that.status)
@@ -88,13 +104,14 @@ public class SecretInfo {
 
   @Override
   public int hashCode() {
-    return Objects.hash(createTime, id, secretHash, status, updateTime);
+    return Objects.hash(createTime, expireTime, id, secretHash, status, updateTime);
   }
 
   @Override
   public String toString() {
     return new ToStringer(SecretInfo.class)
         .add("createTime", createTime)
+        .add("expireTime", expireTime)
         .add("id", id)
         .add("secretHash", secretHash)
         .add("status", status)

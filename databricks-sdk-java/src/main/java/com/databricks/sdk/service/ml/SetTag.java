@@ -9,10 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class SetTag {
-  /**
-   * Name of the tag. Maximum size depends on storage backend. All storage backends are guaranteed
-   * to support key values up to 250 bytes in size.
-   */
+  /** Name of the tag. Keys up to 250 bytes in size are supported. */
   @JsonProperty("key")
   private String key;
 
@@ -21,16 +18,13 @@ public class SetTag {
   private String runId;
 
   /**
-   * [Deprecated, use run_id instead] ID of the run under which to log the tag. This field will be
+   * [Deprecated, use `run_id` instead] ID of the run under which to log the tag. This field will be
    * removed in a future MLflow version.
    */
   @JsonProperty("run_uuid")
   private String runUuid;
 
-  /**
-   * String value of the tag being logged. Maximum size depends on storage backend. All storage
-   * backends are guaranteed to support key values up to 5000 bytes in size.
-   */
+  /** String value of the tag being logged. Values up to 64KB in size are supported. */
   @JsonProperty("value")
   private String value;
 

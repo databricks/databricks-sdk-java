@@ -7,6 +7,10 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * The request field `direct_download` determines whether a JSON response or binary contents are
+ * returned by this endpoint.
+ */
 @Generated
 public class ExportResponse {
   /**

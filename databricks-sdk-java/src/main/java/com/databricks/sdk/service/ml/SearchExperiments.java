@@ -35,7 +35,7 @@ public class SearchExperiments {
    * experiments.
    */
   @JsonProperty("view_type")
-  private SearchExperimentsViewType viewType;
+  private ViewType viewType;
 
   public SearchExperiments setFilter(String filter) {
     this.filter = filter;
@@ -73,12 +73,12 @@ public class SearchExperiments {
     return pageToken;
   }
 
-  public SearchExperiments setViewType(SearchExperimentsViewType viewType) {
+  public SearchExperiments setViewType(ViewType viewType) {
     this.viewType = viewType;
     return this;
   }
 
-  public SearchExperimentsViewType getViewType() {
+  public ViewType getViewType() {
     return viewType;
   }
 

@@ -8,5 +8,6 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum AuthenticationType {
   DATABRICKS,
+  OAUTH_CLIENT_CREDENTIALS,
   TOKEN,
 }

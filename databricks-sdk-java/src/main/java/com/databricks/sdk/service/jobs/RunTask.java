@@ -81,9 +81,8 @@ public class RunTask {
 
   /**
    * effective_performance_target is the actual performance target used by the run during execution.
-   * effective_performance_target can differ from performance_target depending on if the job was
-   * eligible to be cost-optimized (e.g. contains at least 1 serverless task) or if an override was
-   * provided for the run (ex. RunNow).
+   * effective_performance_target can differ from the client-set performance_target depending on if
+   * the job was eligible to be cost-optimized.
    */
   @JsonProperty("effective_performance_target")
   private PerformanceTarget effectivePerformanceTarget;
@@ -133,6 +132,10 @@ public class RunTask {
    */
   @JsonProperty("for_each_task")
   private RunForEachTask forEachTask;
+
+  /** Next field: 9 */
+  @JsonProperty("gen_ai_compute_task")
+  private GenAiComputeTask genAiComputeTask;
 
   /**
    * An optional specification for a remote Git repository containing the source code used by tasks.
@@ -442,6 +445,15 @@ public class RunTask {
     return forEachTask;
   }
 
+  public RunTask setGenAiComputeTask(GenAiComputeTask genAiComputeTask) {
+    this.genAiComputeTask = genAiComputeTask;
+    return this;
+  }
+
+  public GenAiComputeTask getGenAiComputeTask() {
+    return genAiComputeTask;
+  }
+
   public RunTask setGitSource(GitSource gitSource) {
     this.gitSource = gitSource;
     return this;
@@ -697,6 +709,7 @@ public class RunTask {
         && Objects.equals(executionDuration, that.executionDuration)
         && Objects.equals(existingClusterId, that.existingClusterId)
         && Objects.equals(forEachTask, that.forEachTask)
+        && Objects.equals(genAiComputeTask, that.genAiComputeTask)
         && Objects.equals(gitSource, that.gitSource)
         && Objects.equals(jobClusterKey, that.jobClusterKey)
         && Objects.equals(libraries, that.libraries)
@@ -744,6 +757,7 @@ public class RunTask {
         executionDuration,
         existingClusterId,
         forEachTask,
+        genAiComputeTask,
         gitSource,
         jobClusterKey,
         libraries,
@@ -791,6 +805,7 @@ public class RunTask {
         .add("executionDuration", executionDuration)
         .add("existingClusterId", existingClusterId)
         .add("forEachTask", forEachTask)
+        .add("genAiComputeTask", genAiComputeTask)
         .add("gitSource", gitSource)
         .add("jobClusterKey", jobClusterKey)
         .add("libraries", libraries)

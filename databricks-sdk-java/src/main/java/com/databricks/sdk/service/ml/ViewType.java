@@ -4,9 +4,9 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 
-/** Whether to display only active, only deleted, or all runs. Defaults to only active runs. */
+/** Qualifier for the view type. */
 @Generated
-public enum SearchRunsRunViewType {
+public enum ViewType {
   ACTIVE_ONLY,
   ALL,
   DELETED_ONLY,

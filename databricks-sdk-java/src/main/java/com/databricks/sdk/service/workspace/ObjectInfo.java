@@ -7,13 +7,16 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * The information of the object in workspace. It will be returned by ``list`` and ``get-status``.
+ */
 @Generated
 public class ObjectInfo {
   /** Only applicable to files. The creation UTC timestamp. */
   @JsonProperty("created_at")
   private Long createdAt;
 
-  /** The language of the object. This value is set only if the object type is `NOTEBOOK`. */
+  /** The language of the object. This value is set only if the object type is ``NOTEBOOK``. */
   @JsonProperty("language")
   private Language language;
 

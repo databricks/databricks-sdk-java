@@ -7,6 +7,10 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * Dataset. Represents a reference to data used for training, testing, or evaluation during the
+ * model development process.
+ */
 @Generated
 public class Dataset {
   /**
@@ -34,14 +38,14 @@ public class Dataset {
   @JsonProperty("schema")
   private String schema;
 
-  /** The type of the dataset source, e.g. ‘databricks-uc-table’, ‘DBFS’, ‘S3’, ... */
-  @JsonProperty("source")
-  private String source;
-
   /**
    * Source information for the dataset. Note that the source may not exactly reproduce the dataset
    * if it was transformed / modified before use with MLflow.
    */
+  @JsonProperty("source")
+  private String source;
+
+  /** The type of the dataset source, e.g. ‘databricks-uc-table’, ‘DBFS’, ‘S3’, ... */
   @JsonProperty("source_type")
   private String sourceType;
 

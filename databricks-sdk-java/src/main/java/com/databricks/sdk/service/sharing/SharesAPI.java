@@ -96,7 +96,7 @@ public class SharesAPI {
         });
   }
 
-  public com.databricks.sdk.service.catalog.PermissionsList sharePermissions(String name) {
+  public GetSharePermissionsResponse sharePermissions(String name) {
     return sharePermissions(new SharePermissionsRequest().setName(name));
   }
 
@@ -106,8 +106,7 @@ public class SharesAPI {
    * <p>Gets the permissions for a data share from the metastore. The caller must be a metastore
    * admin or the owner of the share.
    */
-  public com.databricks.sdk.service.catalog.PermissionsList sharePermissions(
-      SharePermissionsRequest request) {
+  public GetSharePermissionsResponse sharePermissions(SharePermissionsRequest request) {
     return impl.sharePermissions(request);
   }
 
@@ -138,8 +137,8 @@ public class SharesAPI {
     return impl.update(request);
   }
 
-  public void updatePermissions(String name) {
-    updatePermissions(new UpdateSharePermissions().setName(name));
+  public UpdateSharePermissionsResponse updatePermissions(String name) {
+    return updatePermissions(new UpdateSharePermissions().setName(name));
   }
 
   /**
@@ -148,11 +147,11 @@ public class SharesAPI {
    * <p>Updates the permissions for a data share in the metastore. The caller must be a metastore
    * admin or an owner of the share.
    *
-   * <p>For new recipient grants, the user must also be the owner of the recipients. recipient
-   * revocations do not require additional privileges.
+   * <p>For new recipient grants, the user must also be the recipient owner or metastore admin.
+   * recipient revocations do not require additional privileges.
    */
-  public void updatePermissions(UpdateSharePermissions request) {
-    impl.updatePermissions(request);
+  public UpdateSharePermissionsResponse updatePermissions(UpdateSharePermissions request) {
+    return impl.updatePermissions(request);
   }
 
   public SharesService impl() {

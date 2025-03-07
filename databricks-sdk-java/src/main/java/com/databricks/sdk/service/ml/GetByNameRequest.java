@@ -8,7 +8,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get metadata */
+/** Get an experiment by name */
 @Generated
 public class GetByNameRequest {
   /** Name of the associated experiment. */

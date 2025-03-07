@@ -10,11 +10,18 @@ import java.util.Objects;
 
 @Generated
 public class GetMetricHistoryResponse {
-  /** All logged values for this metric. */
+  /**
+   * All logged values for this metric if `max_results` is not specified in the request or if the
+   * total count of metrics returned is less than the service level pagination threshold. Otherwise,
+   * this is one page of results.
+   */
   @JsonProperty("metrics")
   private Collection<Metric> metrics;
 
-  /** Token that can be used to retrieve the next page of metric history results */
+  /**
+   * A token that can be used to issue a query for the next page of metric history values. A missing
+   * token indicates that no additional metrics are available to fetch.
+   */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 

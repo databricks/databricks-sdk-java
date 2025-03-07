@@ -56,6 +56,15 @@ public class AmazonBedrockConfig {
   @JsonProperty("bedrock_provider")
   private AmazonBedrockConfigBedrockProvider bedrockProvider;
 
+  /**
+   * ARN of the instance profile that the external model will use to access AWS resources. You must
+   * authenticate using an instance profile or access keys. If you prefer to authenticate using
+   * access keys, see `aws_access_key_id`, `aws_access_key_id_plaintext`, `aws_secret_access_key`
+   * and `aws_secret_access_key_plaintext`.
+   */
+  @JsonProperty("instance_profile_arn")
+  private String instanceProfileArn;
+
   public AmazonBedrockConfig setAwsAccessKeyId(String awsAccessKeyId) {
     this.awsAccessKeyId = awsAccessKeyId;
     return this;
@@ -111,6 +120,15 @@ public class AmazonBedrockConfig {
     return bedrockProvider;
   }
 
+  public AmazonBedrockConfig setInstanceProfileArn(String instanceProfileArn) {
+    this.instanceProfileArn = instanceProfileArn;
+    return this;
+  }
+
+  public String getInstanceProfileArn() {
+    return instanceProfileArn;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -121,7 +139,8 @@ public class AmazonBedrockConfig {
         && Objects.equals(awsRegion, that.awsRegion)
         && Objects.equals(awsSecretAccessKey, that.awsSecretAccessKey)
         && Objects.equals(awsSecretAccessKeyPlaintext, that.awsSecretAccessKeyPlaintext)
-        && Objects.equals(bedrockProvider, that.bedrockProvider);
+        && Objects.equals(bedrockProvider, that.bedrockProvider)
+        && Objects.equals(instanceProfileArn, that.instanceProfileArn);
   }
 
   @Override
@@ -132,7 +151,8 @@ public class AmazonBedrockConfig {
         awsRegion,
         awsSecretAccessKey,
         awsSecretAccessKeyPlaintext,
-        bedrockProvider);
+        bedrockProvider,
+        instanceProfileArn);
   }
 
   @Override
@@ -144,6 +164,7 @@ public class AmazonBedrockConfig {
         .add("awsSecretAccessKey", awsSecretAccessKey)
         .add("awsSecretAccessKeyPlaintext", awsSecretAccessKeyPlaintext)
         .add("bedrockProvider", bedrockProvider)
+        .add("instanceProfileArn", instanceProfileArn)
         .toString();
   }
 }

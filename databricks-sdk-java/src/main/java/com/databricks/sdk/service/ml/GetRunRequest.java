@@ -17,8 +17,8 @@ public class GetRunRequest {
   private String runId;
 
   /**
-   * [Deprecated, use run_id instead] ID of the run to fetch. This field will be removed in a future
-   * MLflow version.
+   * [Deprecated, use `run_id` instead] ID of the run to fetch. This field will be removed in a
+   * future MLflow version.
    */
   @JsonIgnore
   @QueryParam("run_uuid")

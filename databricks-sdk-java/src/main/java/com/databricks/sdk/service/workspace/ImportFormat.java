@@ -4,26 +4,14 @@ package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.support.Generated;
 
-/**
- * This specifies the format of the file to be imported.
- *
- * <p>The value is case sensitive.
- *
- * <p>- `AUTO`: The item is imported depending on an analysis of the item's extension and the header
- * content provided in the request. If the item is imported as a notebook, then the item's extension
- * is automatically removed. - `SOURCE`: The notebook or directory is imported as source code. -
- * `HTML`: The notebook is imported as an HTML file. - `JUPYTER`: The notebook is imported as a
- * Jupyter/IPython Notebook file. - `DBC`: The notebook is imported in Databricks archive format.
- * Required for directories. - `R_MARKDOWN`: The notebook is imported from R Markdown format.
- */
+/** The format for workspace import and export. */
 @Generated
 public enum ImportFormat {
-  AUTO, // The item is imported depending on an analysis of the item's extension and
-  DBC, // The notebook is imported in <Databricks> archive format. Required for
-  // directories.
-  HTML, // The notebook is imported as an HTML file.
-  JUPYTER, // The notebook is imported as a Jupyter/IPython Notebook file.
+  AUTO,
+  DBC,
+  HTML,
+  JUPYTER,
   RAW,
-  R_MARKDOWN, // The notebook is imported from R Markdown format.
-  SOURCE, // The notebook or directory is imported as source code.
+  R_MARKDOWN,
+  SOURCE,
 }

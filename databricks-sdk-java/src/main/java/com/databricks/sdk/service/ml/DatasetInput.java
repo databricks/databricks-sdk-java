@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/** DatasetInput. Represents a dataset and input tags. */
 @Generated
 public class DatasetInput {
   /** The dataset being used as a Run input. */

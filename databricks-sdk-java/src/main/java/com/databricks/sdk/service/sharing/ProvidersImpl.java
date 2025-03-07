@@ -70,6 +70,23 @@ class ProvidersImpl implements ProvidersService {
   }
 
   @Override
+  public ListProviderShareAssetsResponse listProviderShareAssets(
+      ListProviderShareAssetsRequest request) {
+    String path =
+        String.format(
+            "/api/2.1/data-sharing/providers/%s/shares/%s",
+            request.getProviderName(), request.getShareName());
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ListProviderShareAssetsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public ListProviderSharesResponse listShares(ListSharesRequest request) {
     String path = String.format("/api/2.1/unity-catalog/providers/%s/shares", request.getName());
     try {

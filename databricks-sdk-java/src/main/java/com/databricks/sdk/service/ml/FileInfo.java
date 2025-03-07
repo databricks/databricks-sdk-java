@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Metadata of a single artifact file or directory. */
 @Generated
 public class FileInfo {
   /** Size in bytes. Unset for directories. */
