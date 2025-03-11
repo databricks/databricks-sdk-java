@@ -7,19 +7,18 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Attributes set during instance pool creation which are related to Azure. */
 @Generated
 public class InstancePoolAzureAttributes {
-  /**
-   * Shows the Availability type used for the spot nodes.
-   *
-   * <p>The default value is defined by InstancePoolConf.instancePoolDefaultAzureAvailability
-   */
+  /** Availability type used for the spot nodes. */
   @JsonProperty("availability")
   private InstancePoolAzureAttributesAvailability availability;
 
   /**
-   * The default value and documentation here should be kept consistent with
-   * CommonConf.defaultSpotBidMaxPrice.
+   * With variable pricing, you have option to set a max price, in US dollars (USD) For example, the
+   * value 2 would be a max price of $2.00 USD per hour. If you set the max price to be -1, the VM
+   * won't be evicted based on price. The price for the VM will be the current price for spot or the
+   * price for a standard VM, which ever is less, as long as there is capacity and quota available.
    */
   @JsonProperty("spot_bid_max_price")
   private Double spotBidMaxPrice;

@@ -13,17 +13,11 @@ public class SetExperimentTag {
   @JsonProperty("experiment_id")
   private String experimentId;
 
-  /**
-   * Name of the tag. Maximum size depends on storage backend. All storage backends are guaranteed
-   * to support key values up to 250 bytes in size.
-   */
+  /** Name of the tag. Keys up to 250 bytes in size are supported. */
   @JsonProperty("key")
   private String key;
 
-  /**
-   * String value of the tag being logged. Maximum size depends on storage backend. All storage
-   * backends are guaranteed to support key values up to 5000 bytes in size.
-   */
+  /** String value of the tag being logged. Values up to 64KB in size are supported. */
   @JsonProperty("value")
   private String value;
 

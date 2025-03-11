@@ -36,7 +36,6 @@ class TokenManagementImpl implements TokenManagementService {
     try {
       Request req = new Request("DELETE", path);
       ApiClient.setQuery(req, request);
-      req.withHeader("Accept", "application/json");
       apiClient.execute(req, DeleteResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);

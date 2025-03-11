@@ -4,11 +4,9 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 
-/**
- * Qualifier for type of experiments to be returned. If unspecified, return only active experiments.
- */
+/** Qualifier for the view type. */
 @Generated
-public enum SearchExperimentsViewType {
+public enum ViewType {
   ACTIVE_ONLY,
   ALL,
   DELETED_ONLY,

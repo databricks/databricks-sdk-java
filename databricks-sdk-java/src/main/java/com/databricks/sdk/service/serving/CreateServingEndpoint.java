@@ -17,6 +17,10 @@ public class CreateServingEndpoint {
   @JsonProperty("ai_gateway")
   private AiGatewayConfig aiGateway;
 
+  /** The budget policy to be applied to the serving endpoint. */
+  @JsonProperty("budget_policy_id")
+  private String budgetPolicyId;
+
   /** The core config of the serving endpoint. */
   @JsonProperty("config")
   private EndpointCoreConfigInput config;
@@ -50,6 +54,15 @@ public class CreateServingEndpoint {
 
   public AiGatewayConfig getAiGateway() {
     return aiGateway;
+  }
+
+  public CreateServingEndpoint setBudgetPolicyId(String budgetPolicyId) {
+    this.budgetPolicyId = budgetPolicyId;
+    return this;
+  }
+
+  public String getBudgetPolicyId() {
+    return budgetPolicyId;
   }
 
   public CreateServingEndpoint setConfig(EndpointCoreConfigInput config) {
@@ -103,6 +116,7 @@ public class CreateServingEndpoint {
     if (o == null || getClass() != o.getClass()) return false;
     CreateServingEndpoint that = (CreateServingEndpoint) o;
     return Objects.equals(aiGateway, that.aiGateway)
+        && Objects.equals(budgetPolicyId, that.budgetPolicyId)
         && Objects.equals(config, that.config)
         && Objects.equals(name, that.name)
         && Objects.equals(rateLimits, that.rateLimits)
@@ -112,13 +126,14 @@ public class CreateServingEndpoint {
 
   @Override
   public int hashCode() {
-    return Objects.hash(aiGateway, config, name, rateLimits, routeOptimized, tags);
+    return Objects.hash(aiGateway, budgetPolicyId, config, name, rateLimits, routeOptimized, tags);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CreateServingEndpoint.class)
         .add("aiGateway", aiGateway)
+        .add("budgetPolicyId", budgetPolicyId)
         .add("config", config)
         .add("name", name)
         .add("rateLimits", rateLimits)

@@ -14,6 +14,10 @@ public class CreateRun {
   @JsonProperty("experiment_id")
   private String experimentId;
 
+  /** The name of the run. */
+  @JsonProperty("run_name")
+  private String runName;
+
   /** Unix timestamp in milliseconds of when the run started. */
   @JsonProperty("start_time")
   private Long startTime;
@@ -36,6 +40,15 @@ public class CreateRun {
 
   public String getExperimentId() {
     return experimentId;
+  }
+
+  public CreateRun setRunName(String runName) {
+    this.runName = runName;
+    return this;
+  }
+
+  public String getRunName() {
+    return runName;
   }
 
   public CreateRun setStartTime(Long startTime) {
@@ -71,6 +84,7 @@ public class CreateRun {
     if (o == null || getClass() != o.getClass()) return false;
     CreateRun that = (CreateRun) o;
     return Objects.equals(experimentId, that.experimentId)
+        && Objects.equals(runName, that.runName)
         && Objects.equals(startTime, that.startTime)
         && Objects.equals(tags, that.tags)
         && Objects.equals(userId, that.userId);
@@ -78,13 +92,14 @@ public class CreateRun {
 
   @Override
   public int hashCode() {
-    return Objects.hash(experimentId, startTime, tags, userId);
+    return Objects.hash(experimentId, runName, startTime, tags, userId);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CreateRun.class)
         .add("experimentId", experimentId)
+        .add("runName", runName)
         .add("startTime", startTime)
         .add("tags", tags)
         .add("userId", userId)

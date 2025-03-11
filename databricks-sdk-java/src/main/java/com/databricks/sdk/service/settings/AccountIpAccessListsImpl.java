@@ -40,7 +40,6 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
     try {
       Request req = new Request("DELETE", path);
       ApiClient.setQuery(req, request);
-      req.withHeader("Accept", "application/json");
       apiClient.execute(req, DeleteResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -85,7 +84,6 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
-      req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, ReplaceResponse.class);
     } catch (IOException e) {
@@ -102,7 +100,6 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
-      req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, UpdateResponse.class);
     } catch (IOException e) {

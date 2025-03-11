@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Error message of a failed pending instances */
 @Generated
 public class PendingInstanceError {
   /** */

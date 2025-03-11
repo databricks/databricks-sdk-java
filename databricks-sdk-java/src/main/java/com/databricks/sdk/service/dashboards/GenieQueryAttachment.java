@@ -8,11 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 @Generated
-public class QueryAttachment {
-  /** */
-  @JsonProperty("cached_query_schema")
-  private QuerySchema cachedQuerySchema;
-
+public class GenieQueryAttachment {
   /** Description of the query */
   @JsonProperty("description")
   private String description;
@@ -20,17 +16,6 @@ public class QueryAttachment {
   /** */
   @JsonProperty("id")
   private String id;
-
-  /** If the query was created on an instruction (trusted asset) we link to the id */
-  @JsonProperty("instruction_id")
-  private String instructionId;
-
-  /**
-   * Always store the title next to the id in case the original instruction title changes or the
-   * instruction is deleted.
-   */
-  @JsonProperty("instruction_title")
-  private String instructionTitle;
 
   /** Time when the user updated the query last */
   @JsonProperty("last_updated_timestamp")
@@ -40,7 +25,14 @@ public class QueryAttachment {
   @JsonProperty("query")
   private String query;
 
-  /** */
+  /** Metadata associated with the query result. */
+  @JsonProperty("query_result_metadata")
+  private GenieResultMetadata queryResultMetadata;
+
+  /**
+   * Statement Execution API statement id. Use [Get status, manifest, and result first
+   * chunk](:method:statementexecution/getstatement) to get the full result data.
+   */
   @JsonProperty("statement_id")
   private String statementId;
 
@@ -48,16 +40,7 @@ public class QueryAttachment {
   @JsonProperty("title")
   private String title;
 
-  public QueryAttachment setCachedQuerySchema(QuerySchema cachedQuerySchema) {
-    this.cachedQuerySchema = cachedQuerySchema;
-    return this;
-  }
-
-  public QuerySchema getCachedQuerySchema() {
-    return cachedQuerySchema;
-  }
-
-  public QueryAttachment setDescription(String description) {
+  public GenieQueryAttachment setDescription(String description) {
     this.description = description;
     return this;
   }
@@ -66,7 +49,7 @@ public class QueryAttachment {
     return description;
   }
 
-  public QueryAttachment setId(String id) {
+  public GenieQueryAttachment setId(String id) {
     this.id = id;
     return this;
   }
@@ -75,25 +58,7 @@ public class QueryAttachment {
     return id;
   }
 
-  public QueryAttachment setInstructionId(String instructionId) {
-    this.instructionId = instructionId;
-    return this;
-  }
-
-  public String getInstructionId() {
-    return instructionId;
-  }
-
-  public QueryAttachment setInstructionTitle(String instructionTitle) {
-    this.instructionTitle = instructionTitle;
-    return this;
-  }
-
-  public String getInstructionTitle() {
-    return instructionTitle;
-  }
-
-  public QueryAttachment setLastUpdatedTimestamp(Long lastUpdatedTimestamp) {
+  public GenieQueryAttachment setLastUpdatedTimestamp(Long lastUpdatedTimestamp) {
     this.lastUpdatedTimestamp = lastUpdatedTimestamp;
     return this;
   }
@@ -102,7 +67,7 @@ public class QueryAttachment {
     return lastUpdatedTimestamp;
   }
 
-  public QueryAttachment setQuery(String query) {
+  public GenieQueryAttachment setQuery(String query) {
     this.query = query;
     return this;
   }
@@ -111,7 +76,16 @@ public class QueryAttachment {
     return query;
   }
 
-  public QueryAttachment setStatementId(String statementId) {
+  public GenieQueryAttachment setQueryResultMetadata(GenieResultMetadata queryResultMetadata) {
+    this.queryResultMetadata = queryResultMetadata;
+    return this;
+  }
+
+  public GenieResultMetadata getQueryResultMetadata() {
+    return queryResultMetadata;
+  }
+
+  public GenieQueryAttachment setStatementId(String statementId) {
     this.statementId = statementId;
     return this;
   }
@@ -120,7 +94,7 @@ public class QueryAttachment {
     return statementId;
   }
 
-  public QueryAttachment setTitle(String title) {
+  public GenieQueryAttachment setTitle(String title) {
     this.title = title;
     return this;
   }
@@ -133,14 +107,12 @@ public class QueryAttachment {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    QueryAttachment that = (QueryAttachment) o;
-    return Objects.equals(cachedQuerySchema, that.cachedQuerySchema)
-        && Objects.equals(description, that.description)
+    GenieQueryAttachment that = (GenieQueryAttachment) o;
+    return Objects.equals(description, that.description)
         && Objects.equals(id, that.id)
-        && Objects.equals(instructionId, that.instructionId)
-        && Objects.equals(instructionTitle, that.instructionTitle)
         && Objects.equals(lastUpdatedTimestamp, that.lastUpdatedTimestamp)
         && Objects.equals(query, that.query)
+        && Objects.equals(queryResultMetadata, that.queryResultMetadata)
         && Objects.equals(statementId, that.statementId)
         && Objects.equals(title, that.title);
   }
@@ -148,27 +120,17 @@ public class QueryAttachment {
   @Override
   public int hashCode() {
     return Objects.hash(
-        cachedQuerySchema,
-        description,
-        id,
-        instructionId,
-        instructionTitle,
-        lastUpdatedTimestamp,
-        query,
-        statementId,
-        title);
+        description, id, lastUpdatedTimestamp, query, queryResultMetadata, statementId, title);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(QueryAttachment.class)
-        .add("cachedQuerySchema", cachedQuerySchema)
+    return new ToStringer(GenieQueryAttachment.class)
         .add("description", description)
         .add("id", id)
-        .add("instructionId", instructionId)
-        .add("instructionTitle", instructionTitle)
         .add("lastUpdatedTimestamp", lastUpdatedTimestamp)
         .add("query", query)
+        .add("queryResultMetadata", queryResultMetadata)
         .add("statementId", statementId)
         .add("title", title)
         .toString();

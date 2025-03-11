@@ -4,7 +4,7 @@ package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.support.Generated;
 
-/** The language of the object. This value is set only if the object type is `NOTEBOOK`. */
+/** The language of notebook. */
 @Generated
 public enum Language {
   PYTHON,

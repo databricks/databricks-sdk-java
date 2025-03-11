@@ -7,13 +7,10 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Attributes set during instance pool creation which are related to Amazon Web Services. */
 @Generated
 public class InstancePoolAwsAttributes {
-  /**
-   * Availability type used for the spot nodes.
-   *
-   * <p>The default value is defined by InstancePoolConf.instancePoolDefaultAwsAvailability
-   */
+  /** Availability type used for the spot nodes. */
   @JsonProperty("availability")
   private InstancePoolAwsAttributesAvailability availability;
 
@@ -26,9 +23,6 @@ public class InstancePoolAwsAttributes {
    * instances are requested for this cluster, only spot instances whose bid price percentage
    * matches this field will be considered. Note that, for safety, we enforce this field to be no
    * more than 10000.
-   *
-   * <p>The default value and documentation here should be kept consistent with
-   * CommonConf.defaultSpotBidPricePercent and CommonConf.maxSpotBidPricePercent.
    */
   @JsonProperty("spot_bid_price_percent")
   private Long spotBidPricePercent;

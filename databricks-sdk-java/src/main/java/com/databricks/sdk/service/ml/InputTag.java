@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Tag for a dataset input. */
 @Generated
 public class InputTag {
   /** The tag key. */

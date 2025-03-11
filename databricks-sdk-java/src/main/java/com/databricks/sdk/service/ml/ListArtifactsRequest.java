@@ -8,7 +8,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get all artifacts */
+/** List artifacts */
 @Generated
 public class ListArtifactsRequest {
   /**
@@ -33,7 +33,7 @@ public class ListArtifactsRequest {
   private String runId;
 
   /**
-   * [Deprecated, use run_id instead] ID of the run whose artifacts to list. This field will be
+   * [Deprecated, use `run_id` instead] ID of the run whose artifacts to list. This field will be
    * removed in a future MLflow version.
    */
   @JsonIgnore

@@ -36,7 +36,6 @@ class SharesImpl implements SharesService {
     try {
       Request req = new Request("DELETE", path);
       ApiClient.setQuery(req, request);
-      req.withHeader("Accept", "application/json");
       apiClient.execute(req, DeleteResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -70,14 +69,13 @@ class SharesImpl implements SharesService {
   }
 
   @Override
-  public com.databricks.sdk.service.catalog.PermissionsList sharePermissions(
-      SharePermissionsRequest request) {
+  public GetSharePermissionsResponse sharePermissions(SharePermissionsRequest request) {
     String path = String.format("/api/2.1/unity-catalog/shares/%s/permissions", request.getName());
     try {
       Request req = new Request("GET", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
-      return apiClient.execute(req, com.databricks.sdk.service.catalog.PermissionsList.class);
+      return apiClient.execute(req, GetSharePermissionsResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -98,14 +96,14 @@ class SharesImpl implements SharesService {
   }
 
   @Override
-  public void updatePermissions(UpdateSharePermissions request) {
+  public UpdateSharePermissionsResponse updatePermissions(UpdateSharePermissions request) {
     String path = String.format("/api/2.1/unity-catalog/shares/%s/permissions", request.getName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
-      apiClient.execute(req, UpdatePermissionsResponse.class);
+      return apiClient.execute(req, UpdateSharePermissionsResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
