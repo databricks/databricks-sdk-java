@@ -32,7 +32,7 @@ public class ListExperimentsRequest {
    */
   @JsonIgnore
   @QueryParam("view_type")
-  private String viewType;
+  private ViewType viewType;
 
   public ListExperimentsRequest setMaxResults(Long maxResults) {
     this.maxResults = maxResults;
@@ -52,12 +52,12 @@ public class ListExperimentsRequest {
     return pageToken;
   }
 
-  public ListExperimentsRequest setViewType(String viewType) {
+  public ListExperimentsRequest setViewType(ViewType viewType) {
     this.viewType = viewType;
     return this;
   }
 
-  public String getViewType() {
+  public ViewType getViewType() {
     return viewType;
   }
 

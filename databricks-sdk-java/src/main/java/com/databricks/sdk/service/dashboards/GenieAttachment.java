@@ -10,20 +10,33 @@ import java.util.Objects;
 /** Genie AI Response */
 @Generated
 public class GenieAttachment {
-  /** */
-  @JsonProperty("query")
-  private QueryAttachment query;
+  /** Attachment ID */
+  @JsonProperty("attachment_id")
+  private String attachmentId;
 
-  /** */
+  /** Query Attachment if Genie responds with a SQL query */
+  @JsonProperty("query")
+  private GenieQueryAttachment query;
+
+  /** Text Attachment if Genie responds with text */
   @JsonProperty("text")
   private TextAttachment text;
 
-  public GenieAttachment setQuery(QueryAttachment query) {
+  public GenieAttachment setAttachmentId(String attachmentId) {
+    this.attachmentId = attachmentId;
+    return this;
+  }
+
+  public String getAttachmentId() {
+    return attachmentId;
+  }
+
+  public GenieAttachment setQuery(GenieQueryAttachment query) {
     this.query = query;
     return this;
   }
 
-  public QueryAttachment getQuery() {
+  public GenieQueryAttachment getQuery() {
     return query;
   }
 
@@ -41,16 +54,22 @@ public class GenieAttachment {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GenieAttachment that = (GenieAttachment) o;
-    return Objects.equals(query, that.query) && Objects.equals(text, that.text);
+    return Objects.equals(attachmentId, that.attachmentId)
+        && Objects.equals(query, that.query)
+        && Objects.equals(text, that.text);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(query, text);
+    return Objects.hash(attachmentId, query, text);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(GenieAttachment.class).add("query", query).add("text", text).toString();
+    return new ToStringer(GenieAttachment.class)
+        .add("attachmentId", attachmentId)
+        .add("query", query)
+        .add("text", text)
+        .toString();
   }
 }

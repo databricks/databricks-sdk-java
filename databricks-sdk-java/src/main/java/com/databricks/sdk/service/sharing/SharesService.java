@@ -54,8 +54,7 @@ public interface SharesService {
    * <p>Gets the permissions for a data share from the metastore. The caller must be a metastore
    * admin or the owner of the share.
    */
-  com.databricks.sdk.service.catalog.PermissionsList sharePermissions(
-      SharePermissionsRequest sharePermissionsRequest);
+  GetSharePermissionsResponse sharePermissions(SharePermissionsRequest sharePermissionsRequest);
 
   /**
    * Update a share.
@@ -84,8 +83,8 @@ public interface SharesService {
    * <p>Updates the permissions for a data share in the metastore. The caller must be a metastore
    * admin or an owner of the share.
    *
-   * <p>For new recipient grants, the user must also be the owner of the recipients. recipient
-   * revocations do not require additional privileges.
+   * <p>For new recipient grants, the user must also be the recipient owner or metastore admin.
+   * recipient revocations do not require additional privileges.
    */
-  void updatePermissions(UpdateSharePermissions updateSharePermissions);
+  UpdateSharePermissionsResponse updatePermissions(UpdateSharePermissions updateSharePermissions);
 }

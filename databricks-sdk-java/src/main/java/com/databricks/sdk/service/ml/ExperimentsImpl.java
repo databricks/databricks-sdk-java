@@ -101,13 +101,13 @@ class ExperimentsImpl implements ExperimentsService {
   }
 
   @Override
-  public GetExperimentResponse getByName(GetByNameRequest request) {
+  public GetExperimentByNameResponse getByName(GetByNameRequest request) {
     String path = "/api/2.0/mlflow/experiments/get-by-name";
     try {
       Request req = new Request("GET", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
-      return apiClient.execute(req, GetExperimentResponse.class);
+      return apiClient.execute(req, GetExperimentByNameResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

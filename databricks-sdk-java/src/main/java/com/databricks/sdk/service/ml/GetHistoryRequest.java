@@ -8,7 +8,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get history of a given metric within a run */
+/** Get metric history for a run */
 @Generated
 public class GetHistoryRequest {
   /**
@@ -35,7 +35,7 @@ public class GetHistoryRequest {
   private String runId;
 
   /**
-   * [Deprecated, use run_id instead] ID of the run from which to fetch metric values. This field
+   * [Deprecated, use `run_id` instead] ID of the run from which to fetch metric values. This field
    * will be removed in a future MLflow version.
    */
   @JsonIgnore

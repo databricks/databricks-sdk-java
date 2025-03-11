@@ -4,7 +4,12 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 
-/** Current state of the instance pool. */
+/**
+ * The state of a Cluster. The current allowable state transitions are as follows:
+ *
+ * <p>- ``ACTIVE`` -> ``STOPPED`` - ``ACTIVE`` -> ``DELETED`` - ``STOPPED`` -> ``ACTIVE`` -
+ * ``STOPPED`` -> ``DELETED``
+ */
 @Generated
 public enum InstancePoolState {
   ACTIVE,

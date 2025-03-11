@@ -74,6 +74,10 @@ public class SubmitTask {
   @JsonProperty("for_each_task")
   private ForEachTask forEachTask;
 
+  /** Next field: 9 */
+  @JsonProperty("gen_ai_compute_task")
+  private GenAiComputeTask genAiComputeTask;
+
   /** An optional set of health rules that can be defined for this job. */
   @JsonProperty("health")
   private JobsHealthRules health;
@@ -259,6 +263,15 @@ public class SubmitTask {
     return forEachTask;
   }
 
+  public SubmitTask setGenAiComputeTask(GenAiComputeTask genAiComputeTask) {
+    this.genAiComputeTask = genAiComputeTask;
+    return this;
+  }
+
+  public GenAiComputeTask getGenAiComputeTask() {
+    return genAiComputeTask;
+  }
+
   public SubmitTask setHealth(JobsHealthRules health) {
     this.health = health;
     return this;
@@ -417,6 +430,7 @@ public class SubmitTask {
         && Objects.equals(environmentKey, that.environmentKey)
         && Objects.equals(existingClusterId, that.existingClusterId)
         && Objects.equals(forEachTask, that.forEachTask)
+        && Objects.equals(genAiComputeTask, that.genAiComputeTask)
         && Objects.equals(health, that.health)
         && Objects.equals(libraries, that.libraries)
         && Objects.equals(newCluster, that.newCluster)
@@ -447,6 +461,7 @@ public class SubmitTask {
         environmentKey,
         existingClusterId,
         forEachTask,
+        genAiComputeTask,
         health,
         libraries,
         newCluster,
@@ -477,6 +492,7 @@ public class SubmitTask {
         .add("environmentKey", environmentKey)
         .add("existingClusterId", existingClusterId)
         .add("forEachTask", forEachTask)
+        .add("genAiComputeTask", genAiComputeTask)
         .add("health", health)
         .add("libraries", libraries)
         .add("newCluster", newCluster)

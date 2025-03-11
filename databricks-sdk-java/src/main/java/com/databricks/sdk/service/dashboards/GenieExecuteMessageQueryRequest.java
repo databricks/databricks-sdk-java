@@ -7,7 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Execute SQL query in a conversation message */
+/** [Deprecated] Execute SQL query in a conversation message */
 @Generated
 public class GenieExecuteMessageQueryRequest {
   /** Conversation ID */

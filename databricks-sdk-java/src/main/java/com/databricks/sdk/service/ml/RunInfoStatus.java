@@ -4,7 +4,7 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 
-/** Current status of the run. */
+/** Status of a run. */
 @Generated
 public enum RunInfoStatus {
   FAILED,

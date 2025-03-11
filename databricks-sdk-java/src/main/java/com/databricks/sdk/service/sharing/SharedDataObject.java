@@ -22,7 +22,7 @@ public class SharedDataObject {
   @JsonProperty("cdf_enabled")
   private Boolean cdfEnabled;
 
-  /** A user-provided comment when adding the data object to the share. [Update:OPT] */
+  /** A user-provided comment when adding the data object to the share. */
   @JsonProperty("comment")
   private String comment;
 
@@ -46,10 +46,9 @@ public class SharedDataObject {
   private SharedDataObjectHistoryDataSharingStatus historyDataSharingStatus;
 
   /**
-   * A fully qualified name that uniquely identifies a data object.
-   *
-   * For example, a table's fully qualified name is in the format of
-   * `<catalog>.<schema>.<table>`.
+   * A fully qualified name that uniquely identifies a data object. For example,
+   * a table's fully qualified name is in the format of
+   * `<catalog>.<schema>.<table>`,
    */
   @JsonProperty("name")
   private String name;
@@ -83,10 +82,10 @@ public class SharedDataObject {
   private SharedDataObjectStatus status;
 
   /**
-   * A user-provided new name for the data object within the share. If this new name is not
+   * A user-provided new name for the shared object within the share. If this new name is not not
    * provided, the object's original name will be used as the `string_shared_as` name. The
-   * `string_shared_as` name must be unique within a share. For notebooks, the new name should be
-   * the new notebook file name.
+   * `string_shared_as` name must be unique for objects of the same type within a Share. For
+   * notebooks, the new name should be the new notebook file name.
    */
   @JsonProperty("string_shared_as")
   private String stringSharedAs;

@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class GetMetadataResponse {
-  /** */
+  /** The length of the HTTP response body in bytes. */
   @JsonIgnore
   @Header("content-length")
   private Long contentLength;
@@ -20,7 +20,7 @@ public class GetMetadataResponse {
   @Header("content-type")
   private String contentType;
 
-  /** */
+  /** The last modified time of the file in HTTP-date (RFC 7231) format. */
   @JsonIgnore
   @Header("last-modified")
   private String lastModified;

@@ -4,11 +4,7 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 
-/**
- * Availability type used for the spot nodes.
- *
- * <p>The default value is defined by InstancePoolConf.instancePoolDefaultAwsAvailability
- */
+/** The set of AWS availability types supported when setting up nodes for a cluster. */
 @Generated
 public enum InstancePoolAwsAttributesAvailability {
   ON_DEMAND,
