@@ -7,13 +7,20 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Describes the disk type. */
 @Generated
 public class DiskType {
-  /** */
+  /**
+   * All Azure Disk types that Databricks supports. See
+   * https://docs.microsoft.com/en-us/azure/storage/storage-about-disks-and-vhds-linux#types-of-disks
+   */
   @JsonProperty("azure_disk_volume_type")
   private DiskTypeAzureDiskVolumeType azureDiskVolumeType;
 
-  /** */
+  /**
+   * All EBS volume types that Databricks supports. See https://aws.amazon.com/ebs/details/ for
+   * details.
+   */
   @JsonProperty("ebs_volume_type")
   private DiskTypeEbsVolumeType ebsVolumeType;
 

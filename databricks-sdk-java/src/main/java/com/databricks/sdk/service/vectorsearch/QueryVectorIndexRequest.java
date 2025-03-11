@@ -15,6 +15,10 @@ public class QueryVectorIndexRequest {
   @JsonProperty("columns")
   private Collection<String> columns;
 
+  /** Column names used to retrieve data to send to the reranker. */
+  @JsonProperty("columns_to_rerank")
+  private Collection<String> columnsToRerank;
+
   /**
    * JSON string representing query filters.
    *
@@ -58,6 +62,15 @@ public class QueryVectorIndexRequest {
 
   public Collection<String> getColumns() {
     return columns;
+  }
+
+  public QueryVectorIndexRequest setColumnsToRerank(Collection<String> columnsToRerank) {
+    this.columnsToRerank = columnsToRerank;
+    return this;
+  }
+
+  public Collection<String> getColumnsToRerank() {
+    return columnsToRerank;
   }
 
   public QueryVectorIndexRequest setFiltersJson(String filtersJson) {
@@ -129,6 +142,7 @@ public class QueryVectorIndexRequest {
     if (o == null || getClass() != o.getClass()) return false;
     QueryVectorIndexRequest that = (QueryVectorIndexRequest) o;
     return Objects.equals(columns, that.columns)
+        && Objects.equals(columnsToRerank, that.columnsToRerank)
         && Objects.equals(filtersJson, that.filtersJson)
         && Objects.equals(indexName, that.indexName)
         && Objects.equals(numResults, that.numResults)
@@ -142,6 +156,7 @@ public class QueryVectorIndexRequest {
   public int hashCode() {
     return Objects.hash(
         columns,
+        columnsToRerank,
         filtersJson,
         indexName,
         numResults,
@@ -155,6 +170,7 @@ public class QueryVectorIndexRequest {
   public String toString() {
     return new ToStringer(QueryVectorIndexRequest.class)
         .add("columns", columns)
+        .add("columnsToRerank", columnsToRerank)
         .add("filtersJson", filtersJson)
         .add("indexName", indexName)
         .add("numResults", numResults)

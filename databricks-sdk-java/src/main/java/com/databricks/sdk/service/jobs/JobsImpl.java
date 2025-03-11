@@ -18,11 +18,10 @@ class JobsImpl implements JobsService {
 
   @Override
   public void cancelAllRuns(CancelAllRuns request) {
-    String path = "/api/2.1/jobs/runs/cancel-all";
+    String path = "/api/2.2/jobs/runs/cancel-all";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
-      req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, CancelAllRunsResponse.class);
     } catch (IOException e) {
@@ -32,11 +31,10 @@ class JobsImpl implements JobsService {
 
   @Override
   public void cancelRun(CancelRun request) {
-    String path = "/api/2.1/jobs/runs/cancel";
+    String path = "/api/2.2/jobs/runs/cancel";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
-      req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, CancelRunResponse.class);
     } catch (IOException e) {
@@ -46,7 +44,7 @@ class JobsImpl implements JobsService {
 
   @Override
   public CreateResponse create(CreateJob request) {
-    String path = "/api/2.1/jobs/create";
+    String path = "/api/2.2/jobs/create";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
@@ -60,11 +58,10 @@ class JobsImpl implements JobsService {
 
   @Override
   public void delete(DeleteJob request) {
-    String path = "/api/2.1/jobs/delete";
+    String path = "/api/2.2/jobs/delete";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
-      req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, DeleteResponse.class);
     } catch (IOException e) {
@@ -74,11 +71,10 @@ class JobsImpl implements JobsService {
 
   @Override
   public void deleteRun(DeleteRun request) {
-    String path = "/api/2.1/jobs/runs/delete";
+    String path = "/api/2.2/jobs/runs/delete";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
-      req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, DeleteRunResponse.class);
     } catch (IOException e) {
@@ -88,7 +84,7 @@ class JobsImpl implements JobsService {
 
   @Override
   public ExportRunOutput exportRun(ExportRunRequest request) {
-    String path = "/api/2.1/jobs/runs/export";
+    String path = "/api/2.2/jobs/runs/export";
     try {
       Request req = new Request("GET", path);
       ApiClient.setQuery(req, request);
@@ -101,7 +97,7 @@ class JobsImpl implements JobsService {
 
   @Override
   public Job get(GetJobRequest request) {
-    String path = "/api/2.1/jobs/get";
+    String path = "/api/2.2/jobs/get";
     try {
       Request req = new Request("GET", path);
       ApiClient.setQuery(req, request);
@@ -141,7 +137,7 @@ class JobsImpl implements JobsService {
 
   @Override
   public Run getRun(GetRunRequest request) {
-    String path = "/api/2.1/jobs/runs/get";
+    String path = "/api/2.2/jobs/runs/get";
     try {
       Request req = new Request("GET", path);
       ApiClient.setQuery(req, request);
@@ -154,7 +150,7 @@ class JobsImpl implements JobsService {
 
   @Override
   public RunOutput getRunOutput(GetRunOutputRequest request) {
-    String path = "/api/2.1/jobs/runs/get-output";
+    String path = "/api/2.2/jobs/runs/get-output";
     try {
       Request req = new Request("GET", path);
       ApiClient.setQuery(req, request);
@@ -167,7 +163,7 @@ class JobsImpl implements JobsService {
 
   @Override
   public ListJobsResponse list(ListJobsRequest request) {
-    String path = "/api/2.1/jobs/list";
+    String path = "/api/2.2/jobs/list";
     try {
       Request req = new Request("GET", path);
       ApiClient.setQuery(req, request);
@@ -180,7 +176,7 @@ class JobsImpl implements JobsService {
 
   @Override
   public ListRunsResponse listRuns(ListRunsRequest request) {
-    String path = "/api/2.1/jobs/runs/list";
+    String path = "/api/2.2/jobs/runs/list";
     try {
       Request req = new Request("GET", path);
       ApiClient.setQuery(req, request);
@@ -193,7 +189,7 @@ class JobsImpl implements JobsService {
 
   @Override
   public RepairRunResponse repairRun(RepairRun request) {
-    String path = "/api/2.1/jobs/runs/repair";
+    String path = "/api/2.2/jobs/runs/repair";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
@@ -207,11 +203,10 @@ class JobsImpl implements JobsService {
 
   @Override
   public void reset(ResetJob request) {
-    String path = "/api/2.1/jobs/reset";
+    String path = "/api/2.2/jobs/reset";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
-      req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, ResetResponse.class);
     } catch (IOException e) {
@@ -221,7 +216,7 @@ class JobsImpl implements JobsService {
 
   @Override
   public RunNowResponse runNow(RunNow request) {
-    String path = "/api/2.1/jobs/run-now";
+    String path = "/api/2.2/jobs/run-now";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
@@ -249,7 +244,7 @@ class JobsImpl implements JobsService {
 
   @Override
   public SubmitRunResponse submit(SubmitRun request) {
-    String path = "/api/2.1/jobs/runs/submit";
+    String path = "/api/2.2/jobs/runs/submit";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
@@ -263,11 +258,10 @@ class JobsImpl implements JobsService {
 
   @Override
   public void update(UpdateJob request) {
-    String path = "/api/2.1/jobs/update";
+    String path = "/api/2.2/jobs/update";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
-      req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, UpdateResponse.class);
     } catch (IOException e) {

@@ -35,10 +35,10 @@ public class SearchRuns {
 
   /**
    * List of columns to be ordered by, including attributes, params, metrics, and tags with an
-   * optional "DESC" or "ASC" annotation, where "ASC" is the default. Example: ["params.input DESC",
-   * "metrics.alpha ASC", "metrics.rmse"] Tiebreaks are done by start_time DESC followed by run_id
-   * for runs with the same start time (and this is the default ordering criterion if order_by is
-   * not provided).
+   * optional `"DESC"` or `"ASC"` annotation, where `"ASC"` is the default. Example: `["params.input
+   * DESC", "metrics.alpha ASC", "metrics.rmse"]`. Tiebreaks are done by start_time `DESC` followed
+   * by `run_id` for runs with the same start time (and this is the default ordering criterion if
+   * order_by is not provided).
    */
   @JsonProperty("order_by")
   private Collection<String> orderBy;
@@ -49,7 +49,7 @@ public class SearchRuns {
 
   /** Whether to display only active, only deleted, or all runs. Defaults to only active runs. */
   @JsonProperty("run_view_type")
-  private SearchRunsRunViewType runViewType;
+  private ViewType runViewType;
 
   public SearchRuns setExperimentIds(Collection<String> experimentIds) {
     this.experimentIds = experimentIds;
@@ -96,12 +96,12 @@ public class SearchRuns {
     return pageToken;
   }
 
-  public SearchRuns setRunViewType(SearchRunsRunViewType runViewType) {
+  public SearchRuns setRunViewType(ViewType runViewType) {
     this.runViewType = runViewType;
     return this;
   }
 
-  public SearchRunsRunViewType getRunViewType() {
+  public ViewType getRunViewType() {
     return runViewType;
   }
 

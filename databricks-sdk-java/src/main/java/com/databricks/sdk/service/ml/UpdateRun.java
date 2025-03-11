@@ -17,8 +17,12 @@ public class UpdateRun {
   @JsonProperty("run_id")
   private String runId;
 
+  /** Updated name of the run. */
+  @JsonProperty("run_name")
+  private String runName;
+
   /**
-   * [Deprecated, use run_id instead] ID of the run to update.. This field will be removed in a
+   * [Deprecated, use `run_id` instead] ID of the run to update. This field will be removed in a
    * future MLflow version.
    */
   @JsonProperty("run_uuid")
@@ -46,6 +50,15 @@ public class UpdateRun {
     return runId;
   }
 
+  public UpdateRun setRunName(String runName) {
+    this.runName = runName;
+    return this;
+  }
+
+  public String getRunName() {
+    return runName;
+  }
+
   public UpdateRun setRunUuid(String runUuid) {
     this.runUuid = runUuid;
     return this;
@@ -71,13 +84,14 @@ public class UpdateRun {
     UpdateRun that = (UpdateRun) o;
     return Objects.equals(endTime, that.endTime)
         && Objects.equals(runId, that.runId)
+        && Objects.equals(runName, that.runName)
         && Objects.equals(runUuid, that.runUuid)
         && Objects.equals(status, that.status);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(endTime, runId, runUuid, status);
+    return Objects.hash(endTime, runId, runName, runUuid, status);
   }
 
   @Override
@@ -85,6 +99,7 @@ public class UpdateRun {
     return new ToStringer(UpdateRun.class)
         .add("endTime", endTime)
         .add("runId", runId)
+        .add("runName", runName)
         .add("runUuid", runUuid)
         .add("status", status)
         .toString();

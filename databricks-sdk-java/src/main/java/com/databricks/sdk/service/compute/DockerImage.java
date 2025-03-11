@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class DockerImage {
-  /** */
+  /** Basic auth with username and password */
   @JsonProperty("basic_auth")
   private DockerBasicAuth basicAuth;
 

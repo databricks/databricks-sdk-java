@@ -35,7 +35,7 @@ public class GetInstancePool {
   private Map<String, String> customTags;
 
   /**
-   * Tags that are added by Databricks regardless of any `custom_tags`, including:
+   * Tags that are added by Databricks regardless of any ``custom_tags``, including:
    *
    * <p>- Vendor: Databricks
    *

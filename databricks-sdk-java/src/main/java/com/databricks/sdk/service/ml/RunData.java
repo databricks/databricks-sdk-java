@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/** Run data (metrics, params, and tags). */
 @Generated
 public class RunData {
   /** Run metrics. */

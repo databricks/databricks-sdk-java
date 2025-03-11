@@ -18,8 +18,8 @@ public class LogParam {
   private String runId;
 
   /**
-   * [Deprecated, use run_id instead] ID of the run under which to log the param. This field will be
-   * removed in a future MLflow version.
+   * [Deprecated, use `run_id` instead] ID of the run under which to log the param. This field will
+   * be removed in a future MLflow version.
    */
   @JsonProperty("run_uuid")
   private String runUuid;
