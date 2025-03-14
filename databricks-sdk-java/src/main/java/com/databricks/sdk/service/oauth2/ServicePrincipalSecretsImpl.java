@@ -23,9 +23,10 @@ class ServicePrincipalSecretsImpl implements ServicePrincipalSecretsService {
             "/api/2.0/accounts/%s/servicePrincipals/%s/credentials/secrets",
             apiClient.configuredAccountID(), request.getServicePrincipalId());
     try {
-      Request req = new Request("POST", path);
+      Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, CreateServicePrincipalSecretResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);

@@ -19,7 +19,7 @@ public class ListCleanRoomNotebookTaskRunsRequest {
   @QueryParam("notebook_name")
   private String notebookName;
 
-  /** The maximum number of task runs to return */
+  /** The maximum number of task runs to return. Currently ignored - all runs will be returned. */
   @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;

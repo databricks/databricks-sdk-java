@@ -9,11 +9,15 @@ import java.util.Objects;
 
 @Generated
 public class GenieConversation {
+  /** Conversation ID */
+  @JsonProperty("conversation_id")
+  private String conversationId;
+
   /** Timestamp when the message was created */
   @JsonProperty("created_timestamp")
   private Long createdTimestamp;
 
-  /** Conversation ID */
+  /** Conversation ID. Legacy identifier, use conversation_id instead */
   @JsonProperty("id")
   private String id;
 
@@ -32,6 +36,15 @@ public class GenieConversation {
   /** ID of the user who created the conversation */
   @JsonProperty("user_id")
   private Long userId;
+
+  public GenieConversation setConversationId(String conversationId) {
+    this.conversationId = conversationId;
+    return this;
+  }
+
+  public String getConversationId() {
+    return conversationId;
+  }
 
   public GenieConversation setCreatedTimestamp(Long createdTimestamp) {
     this.createdTimestamp = createdTimestamp;
@@ -92,7 +105,8 @@ public class GenieConversation {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GenieConversation that = (GenieConversation) o;
-    return Objects.equals(createdTimestamp, that.createdTimestamp)
+    return Objects.equals(conversationId, that.conversationId)
+        && Objects.equals(createdTimestamp, that.createdTimestamp)
         && Objects.equals(id, that.id)
         && Objects.equals(lastUpdatedTimestamp, that.lastUpdatedTimestamp)
         && Objects.equals(spaceId, that.spaceId)
@@ -102,12 +116,14 @@ public class GenieConversation {
 
   @Override
   public int hashCode() {
-    return Objects.hash(createdTimestamp, id, lastUpdatedTimestamp, spaceId, title, userId);
+    return Objects.hash(
+        conversationId, createdTimestamp, id, lastUpdatedTimestamp, spaceId, title, userId);
   }
 
   @Override
   public String toString() {
     return new ToStringer(GenieConversation.class)
+        .add("conversationId", conversationId)
         .add("createdTimestamp", createdTimestamp)
         .add("id", id)
         .add("lastUpdatedTimestamp", lastUpdatedTimestamp)

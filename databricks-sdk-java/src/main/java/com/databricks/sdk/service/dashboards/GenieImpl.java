@@ -34,6 +34,26 @@ class GenieImpl implements GenieService {
   }
 
   @Override
+  public GenieGetMessageQueryResultResponse executeMessageAttachmentQuery(
+      GenieExecuteMessageAttachmentQueryRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/genie/spaces/%s/conversations/%s/messages/%s/attachments/%s/execute-query",
+            request.getSpaceId(),
+            request.getConversationId(),
+            request.getMessageId(),
+            request.getAttachmentId());
+    try {
+      Request req = new Request("POST", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, GenieGetMessageQueryResultResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public GenieGetMessageQueryResultResponse executeMessageQuery(
       GenieExecuteMessageQueryRequest request) {
     String path =
@@ -61,6 +81,26 @@ class GenieImpl implements GenieService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GenieMessage.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public GenieGetMessageQueryResultResponse getMessageAttachmentQueryResult(
+      GenieGetMessageAttachmentQueryResultRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/genie/spaces/%s/conversations/%s/messages/%s/attachments/%s/query-result",
+            request.getSpaceId(),
+            request.getConversationId(),
+            request.getMessageId(),
+            request.getAttachmentId());
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, GenieGetMessageQueryResultResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -98,6 +138,19 @@ class GenieImpl implements GenieService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GenieGetMessageQueryResultResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public GenieSpace getSpace(GenieGetSpaceRequest request) {
+    String path = String.format("/api/2.0/genie/spaces/%s", request.getSpaceId());
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, GenieSpace.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

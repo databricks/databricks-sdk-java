@@ -4,10 +4,11 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 
-/** Whether to display only active, only deleted, or all runs. Defaults to only active runs. */
 @Generated
-public enum SearchRunsRunViewType {
-  ACTIVE_ONLY,
-  ALL,
-  DELETED_ONLY,
+public enum ForecastingExperimentState {
+  CANCELLED,
+  FAILED,
+  PENDING,
+  RUNNING,
+  SUCCEEDED,
 }

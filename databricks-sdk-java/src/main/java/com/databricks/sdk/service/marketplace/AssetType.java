@@ -6,6 +6,7 @@ import com.databricks.sdk.support.Generated;
 
 @Generated
 public enum AssetType {
+  ASSET_TYPE_APP,
   ASSET_TYPE_DATA_TABLE,
   ASSET_TYPE_GIT_REPO,
   ASSET_TYPE_MEDIA,

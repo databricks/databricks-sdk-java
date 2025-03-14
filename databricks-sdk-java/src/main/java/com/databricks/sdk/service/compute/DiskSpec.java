@@ -7,6 +7,11 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * Describes the disks that are launched for each instance in the spark cluster. For example, if the
+ * cluster has 3 instances, each instance is configured to launch 2 disks, 100 GiB each, then
+ * Databricks will launch a total of 6 disks, 100 GiB each, for this cluster.
+ */
 @Generated
 public class DiskSpec {
   /**

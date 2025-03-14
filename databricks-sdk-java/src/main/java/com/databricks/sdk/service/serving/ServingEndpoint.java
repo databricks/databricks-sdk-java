@@ -17,6 +17,10 @@ public class ServingEndpoint {
   @JsonProperty("ai_gateway")
   private AiGatewayConfig aiGateway;
 
+  /** The budget policy associated with the endpoint. */
+  @JsonProperty("budget_policy_id")
+  private String budgetPolicyId;
+
   /** The config that is currently being served by the endpoint. */
   @JsonProperty("config")
   private EndpointCoreConfigSummary config;
@@ -60,6 +64,15 @@ public class ServingEndpoint {
 
   public AiGatewayConfig getAiGateway() {
     return aiGateway;
+  }
+
+  public ServingEndpoint setBudgetPolicyId(String budgetPolicyId) {
+    this.budgetPolicyId = budgetPolicyId;
+    return this;
+  }
+
+  public String getBudgetPolicyId() {
+    return budgetPolicyId;
   }
 
   public ServingEndpoint setConfig(EndpointCoreConfigSummary config) {
@@ -149,6 +162,7 @@ public class ServingEndpoint {
     if (o == null || getClass() != o.getClass()) return false;
     ServingEndpoint that = (ServingEndpoint) o;
     return Objects.equals(aiGateway, that.aiGateway)
+        && Objects.equals(budgetPolicyId, that.budgetPolicyId)
         && Objects.equals(config, that.config)
         && Objects.equals(creationTimestamp, that.creationTimestamp)
         && Objects.equals(creator, that.creator)
@@ -164,6 +178,7 @@ public class ServingEndpoint {
   public int hashCode() {
     return Objects.hash(
         aiGateway,
+        budgetPolicyId,
         config,
         creationTimestamp,
         creator,
@@ -179,6 +194,7 @@ public class ServingEndpoint {
   public String toString() {
     return new ToStringer(ServingEndpoint.class)
         .add("aiGateway", aiGateway)
+        .add("budgetPolicyId", budgetPolicyId)
         .add("config", config)
         .add("creationTimestamp", creationTimestamp)
         .add("creator", creator)

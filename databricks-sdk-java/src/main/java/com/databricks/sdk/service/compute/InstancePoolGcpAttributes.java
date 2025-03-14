@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Attributes set during instance pool creation which are related to GCP. */
 @Generated
 public class InstancePoolGcpAttributes {
   /**

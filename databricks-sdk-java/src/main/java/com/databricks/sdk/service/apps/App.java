@@ -22,6 +22,10 @@ public class App {
   private ApplicationStatus appStatus;
 
   /** */
+  @JsonProperty("budget_policy_id")
+  private String budgetPolicyId;
+
+  /** */
   @JsonProperty("compute_status")
   private ComputeStatus computeStatus;
 
@@ -43,6 +47,10 @@ public class App {
   /** The description of the app. */
   @JsonProperty("description")
   private String description;
+
+  /** */
+  @JsonProperty("effective_budget_policy_id")
+  private String effectiveBudgetPolicyId;
 
   /** The unique identifier of the app. */
   @JsonProperty("id")
@@ -108,6 +116,15 @@ public class App {
     return appStatus;
   }
 
+  public App setBudgetPolicyId(String budgetPolicyId) {
+    this.budgetPolicyId = budgetPolicyId;
+    return this;
+  }
+
+  public String getBudgetPolicyId() {
+    return budgetPolicyId;
+  }
+
   public App setComputeStatus(ComputeStatus computeStatus) {
     this.computeStatus = computeStatus;
     return this;
@@ -151,6 +168,15 @@ public class App {
 
   public String getDescription() {
     return description;
+  }
+
+  public App setEffectiveBudgetPolicyId(String effectiveBudgetPolicyId) {
+    this.effectiveBudgetPolicyId = effectiveBudgetPolicyId;
+    return this;
+  }
+
+  public String getEffectiveBudgetPolicyId() {
+    return effectiveBudgetPolicyId;
   }
 
   public App setId(String id) {
@@ -250,11 +276,13 @@ public class App {
     App that = (App) o;
     return Objects.equals(activeDeployment, that.activeDeployment)
         && Objects.equals(appStatus, that.appStatus)
+        && Objects.equals(budgetPolicyId, that.budgetPolicyId)
         && Objects.equals(computeStatus, that.computeStatus)
         && Objects.equals(createTime, that.createTime)
         && Objects.equals(creator, that.creator)
         && Objects.equals(defaultSourceCodePath, that.defaultSourceCodePath)
         && Objects.equals(description, that.description)
+        && Objects.equals(effectiveBudgetPolicyId, that.effectiveBudgetPolicyId)
         && Objects.equals(id, that.id)
         && Objects.equals(name, that.name)
         && Objects.equals(pendingDeployment, that.pendingDeployment)
@@ -272,11 +300,13 @@ public class App {
     return Objects.hash(
         activeDeployment,
         appStatus,
+        budgetPolicyId,
         computeStatus,
         createTime,
         creator,
         defaultSourceCodePath,
         description,
+        effectiveBudgetPolicyId,
         id,
         name,
         pendingDeployment,
@@ -294,11 +324,13 @@ public class App {
     return new ToStringer(App.class)
         .add("activeDeployment", activeDeployment)
         .add("appStatus", appStatus)
+        .add("budgetPolicyId", budgetPolicyId)
         .add("computeStatus", computeStatus)
         .add("createTime", createTime)
         .add("creator", creator)
         .add("defaultSourceCodePath", defaultSourceCodePath)
         .add("description", description)
+        .add("effectiveBudgetPolicyId", effectiveBudgetPolicyId)
         .add("id", id)
         .add("name", name)
         .add("pendingDeployment", pendingDeployment)

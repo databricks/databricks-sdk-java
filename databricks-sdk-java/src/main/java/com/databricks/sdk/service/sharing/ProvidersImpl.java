@@ -36,7 +36,6 @@ class ProvidersImpl implements ProvidersService {
     try {
       Request req = new Request("DELETE", path);
       ApiClient.setQuery(req, request);
-      req.withHeader("Accept", "application/json");
       apiClient.execute(req, DeleteResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -64,6 +63,23 @@ class ProvidersImpl implements ProvidersService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListProvidersResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public ListProviderShareAssetsResponse listProviderShareAssets(
+      ListProviderShareAssetsRequest request) {
+    String path =
+        String.format(
+            "/api/2.1/data-sharing/providers/%s/shares/%s",
+            request.getProviderName(), request.getShareName());
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ListProviderShareAssetsResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
