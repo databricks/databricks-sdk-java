@@ -3,6 +3,7 @@ package com.databricks.sdk.core.oauth;
 import com.databricks.sdk.core.commons.CommonsHttpClient;
 import com.databricks.sdk.core.http.HttpClient;
 import java.util.*;
+import java.util.function.Supplier;
 
 /**
  * An implementation of RefreshableTokenSource implementing the client_credentials OAuth grant type.
@@ -18,7 +19,10 @@ public class ClientCredentials extends RefreshableTokenSource {
     private String clientSecret;
     private String tokenUrl;
     private HttpClient hc = new CommonsHttpClient.Builder().withTimeoutSeconds(30).build();
-    private Map<String, String> endpointParams = Collections.emptyMap();
+    // Endpoint parameters can include tokens with expiration which
+    // may need to be refreshed. This supplier will be called each time
+    // that the credentials are refreshed.
+    private Supplier<Map<String, String>> endpointParamsSupplier = null;
     private List<String> scopes = Collections.emptyList();
     private AuthParameterPosition position = AuthParameterPosition.BODY;
 
@@ -32,13 +36,14 @@ public class ClientCredentials extends RefreshableTokenSource {
       return this;
     }
 
-    public Builder withTokenUrl(String tokenUrl) {
-      this.tokenUrl = tokenUrl;
+    public Builder withEndpointParametersSupplier(
+        Supplier<Map<String, String>> endpointParamsSupplier) {
+      this.endpointParamsSupplier = endpointParamsSupplier;
       return this;
     }
 
-    public Builder withEndpointParameters(Map<String, String> params) {
-      this.endpointParams = params;
+    public Builder withTokenUrl(String tokenUrl) {
+      this.tokenUrl = tokenUrl;
       return this;
     }
 
@@ -59,10 +64,9 @@ public class ClientCredentials extends RefreshableTokenSource {
 
     public ClientCredentials build() {
       Objects.requireNonNull(this.clientId, "clientId must be specified");
-      Objects.requireNonNull(this.clientSecret, "clientSecret must be specified");
       Objects.requireNonNull(this.tokenUrl, "tokenUrl must be specified");
       return new ClientCredentials(
-          hc, clientId, clientSecret, tokenUrl, endpointParams, scopes, position);
+          hc, clientId, clientSecret, tokenUrl, endpointParamsSupplier, scopes, position);
     }
   }
 
@@ -70,23 +74,23 @@ public class ClientCredentials extends RefreshableTokenSource {
   private String clientId;
   private String clientSecret;
   private String tokenUrl;
-  private Map<String, String> endpointParams;
   private List<String> scopes;
   private AuthParameterPosition position;
+  private Supplier<Map<String, String>> endpointParamsSupplier;
 
   private ClientCredentials(
       HttpClient hc,
       String clientId,
       String clientSecret,
       String tokenUrl,
-      Map<String, String> endpointParams,
+      Supplier<Map<String, String>> endpointParamsSupplier,
       List<String> scopes,
       AuthParameterPosition position) {
     this.hc = hc;
     this.clientId = clientId;
     this.clientSecret = clientSecret;
     this.tokenUrl = tokenUrl;
-    this.endpointParams = endpointParams;
+    this.endpointParamsSupplier = endpointParamsSupplier;
     this.scopes = scopes;
     this.position = position;
   }
@@ -98,8 +102,8 @@ public class ClientCredentials extends RefreshableTokenSource {
     if (scopes != null) {
       params.put("scope", String.join(" ", scopes));
     }
-    if (endpointParams != null) {
-      params.putAll(endpointParams);
+    if (endpointParamsSupplier != null) {
+      params.putAll(endpointParamsSupplier.get());
     }
     return retrieveToken(hc, clientId, clientSecret, tokenUrl, params, new HashMap<>(), position);
   }
