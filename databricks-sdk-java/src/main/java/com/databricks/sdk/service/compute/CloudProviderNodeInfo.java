@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class CloudProviderNodeInfo {
-  /** */
+  /** Status as reported by the cloud provider */
   @JsonProperty("status")
   private Collection<CloudProviderNodeStatus> status;
 

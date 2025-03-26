@@ -9,15 +9,15 @@ import java.util.Objects;
 
 @Generated
 public class ClusterEvent {
-  /** <needs content added> */
+  /** */
   @JsonProperty("cluster_id")
   private String clusterId;
 
-  /** <needs content added> */
+  /** */
   @JsonProperty("data_plane_event_details")
   private DataPlaneEventDetails dataPlaneEventDetails;
 
-  /** <needs content added> */
+  /** */
   @JsonProperty("details")
   private EventDetails details;
 

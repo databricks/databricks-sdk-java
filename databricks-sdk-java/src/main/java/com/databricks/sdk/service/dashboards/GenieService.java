@@ -42,6 +42,15 @@ public interface GenieService {
       GenieExecuteMessageQueryRequest genieExecuteMessageQueryRequest);
 
   /**
+   * Generate full query result download.
+   *
+   * <p>Initiate full SQL query result download and obtain a transient ID for tracking the download
+   * progress. This call initiates a new SQL execution to generate the query result.
+   */
+  GenieGenerateDownloadFullQueryResultResponse generateDownloadFullQueryResult(
+      GenieGenerateDownloadFullQueryResultRequest genieGenerateDownloadFullQueryResultRequest);
+
+  /**
    * Get conversation message.
    *
    * <p>Get message from conversation.

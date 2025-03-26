@@ -52,6 +52,10 @@ public class App {
   @JsonProperty("effective_budget_policy_id")
   private String effectiveBudgetPolicyId;
 
+  /** The effective api scopes granted to the user access token. */
+  @JsonProperty("effective_user_api_scopes")
+  private Collection<String> effectiveUserApiScopes;
+
   /** The unique identifier of the app. */
   @JsonProperty("id")
   private String id;
@@ -62,6 +66,14 @@ public class App {
    */
   @JsonProperty("name")
   private String name;
+
+  /** */
+  @JsonProperty("oauth2_app_client_id")
+  private String oauth2AppClientId;
+
+  /** */
+  @JsonProperty("oauth2_app_integration_id")
+  private String oauth2AppIntegrationId;
 
   /**
    * The pending deployment of the app. A deployment is considered pending when it is being prepared
@@ -97,6 +109,10 @@ public class App {
   /** The URL of the app once it is deployed. */
   @JsonProperty("url")
   private String url;
+
+  /** */
+  @JsonProperty("user_api_scopes")
+  private Collection<String> userApiScopes;
 
   public App setActiveDeployment(AppDeployment activeDeployment) {
     this.activeDeployment = activeDeployment;
@@ -179,6 +195,15 @@ public class App {
     return effectiveBudgetPolicyId;
   }
 
+  public App setEffectiveUserApiScopes(Collection<String> effectiveUserApiScopes) {
+    this.effectiveUserApiScopes = effectiveUserApiScopes;
+    return this;
+  }
+
+  public Collection<String> getEffectiveUserApiScopes() {
+    return effectiveUserApiScopes;
+  }
+
   public App setId(String id) {
     this.id = id;
     return this;
@@ -195,6 +220,24 @@ public class App {
 
   public String getName() {
     return name;
+  }
+
+  public App setOauth2AppClientId(String oauth2AppClientId) {
+    this.oauth2AppClientId = oauth2AppClientId;
+    return this;
+  }
+
+  public String getOauth2AppClientId() {
+    return oauth2AppClientId;
+  }
+
+  public App setOauth2AppIntegrationId(String oauth2AppIntegrationId) {
+    this.oauth2AppIntegrationId = oauth2AppIntegrationId;
+    return this;
+  }
+
+  public String getOauth2AppIntegrationId() {
+    return oauth2AppIntegrationId;
   }
 
   public App setPendingDeployment(AppDeployment pendingDeployment) {
@@ -269,6 +312,15 @@ public class App {
     return url;
   }
 
+  public App setUserApiScopes(Collection<String> userApiScopes) {
+    this.userApiScopes = userApiScopes;
+    return this;
+  }
+
+  public Collection<String> getUserApiScopes() {
+    return userApiScopes;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -283,8 +335,11 @@ public class App {
         && Objects.equals(defaultSourceCodePath, that.defaultSourceCodePath)
         && Objects.equals(description, that.description)
         && Objects.equals(effectiveBudgetPolicyId, that.effectiveBudgetPolicyId)
+        && Objects.equals(effectiveUserApiScopes, that.effectiveUserApiScopes)
         && Objects.equals(id, that.id)
         && Objects.equals(name, that.name)
+        && Objects.equals(oauth2AppClientId, that.oauth2AppClientId)
+        && Objects.equals(oauth2AppIntegrationId, that.oauth2AppIntegrationId)
         && Objects.equals(pendingDeployment, that.pendingDeployment)
         && Objects.equals(resources, that.resources)
         && Objects.equals(servicePrincipalClientId, that.servicePrincipalClientId)
@@ -292,7 +347,8 @@ public class App {
         && Objects.equals(servicePrincipalName, that.servicePrincipalName)
         && Objects.equals(updateTime, that.updateTime)
         && Objects.equals(updater, that.updater)
-        && Objects.equals(url, that.url);
+        && Objects.equals(url, that.url)
+        && Objects.equals(userApiScopes, that.userApiScopes);
   }
 
   @Override
@@ -307,8 +363,11 @@ public class App {
         defaultSourceCodePath,
         description,
         effectiveBudgetPolicyId,
+        effectiveUserApiScopes,
         id,
         name,
+        oauth2AppClientId,
+        oauth2AppIntegrationId,
         pendingDeployment,
         resources,
         servicePrincipalClientId,
@@ -316,7 +375,8 @@ public class App {
         servicePrincipalName,
         updateTime,
         updater,
-        url);
+        url,
+        userApiScopes);
   }
 
   @Override
@@ -331,8 +391,11 @@ public class App {
         .add("defaultSourceCodePath", defaultSourceCodePath)
         .add("description", description)
         .add("effectiveBudgetPolicyId", effectiveBudgetPolicyId)
+        .add("effectiveUserApiScopes", effectiveUserApiScopes)
         .add("id", id)
         .add("name", name)
+        .add("oauth2AppClientId", oauth2AppClientId)
+        .add("oauth2AppIntegrationId", oauth2AppIntegrationId)
         .add("pendingDeployment", pendingDeployment)
         .add("resources", resources)
         .add("servicePrincipalClientId", servicePrincipalClientId)
@@ -341,6 +404,7 @@ public class App {
         .add("updateTime", updateTime)
         .add("updater", updater)
         .add("url", url)
+        .add("userApiScopes", userApiScopes)
         .toString();
   }
 }

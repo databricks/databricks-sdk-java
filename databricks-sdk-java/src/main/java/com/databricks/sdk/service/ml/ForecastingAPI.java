@@ -82,14 +82,14 @@ public class ForecastingAPI {
       String trainDataPath,
       String targetColumn,
       String timeColumn,
-      String dataGranularityUnit,
+      String forecastGranularity,
       long forecastHorizon) {
     return createExperiment(
         new CreateForecastingExperimentRequest()
             .setTrainDataPath(trainDataPath)
             .setTargetColumn(targetColumn)
             .setTimeColumn(timeColumn)
-            .setDataGranularityUnit(dataGranularityUnit)
+            .setForecastGranularity(forecastGranularity)
             .setForecastHorizon(forecastHorizon));
   }
 

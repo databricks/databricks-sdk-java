@@ -12,6 +12,13 @@ import java.util.Objects;
 @Generated
 public class PutAiGatewayRequest {
   /**
+   * Configuration for traffic fallback which auto fallbacks to other served entities if the request
+   * to a served entity fails with certain error codes, to increase availability.
+   */
+  @JsonProperty("fallback_config")
+  private FallbackConfig fallbackConfig;
+
+  /**
    * Configuration for AI Guardrails to prevent unwanted data and unsafe data in requests and
    * responses.
    */
@@ -38,6 +45,15 @@ public class PutAiGatewayRequest {
    */
   @JsonProperty("usage_tracking_config")
   private AiGatewayUsageTrackingConfig usageTrackingConfig;
+
+  public PutAiGatewayRequest setFallbackConfig(FallbackConfig fallbackConfig) {
+    this.fallbackConfig = fallbackConfig;
+    return this;
+  }
+
+  public FallbackConfig getFallbackConfig() {
+    return fallbackConfig;
+  }
 
   public PutAiGatewayRequest setGuardrails(AiGatewayGuardrails guardrails) {
     this.guardrails = guardrails;
@@ -91,7 +107,8 @@ public class PutAiGatewayRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     PutAiGatewayRequest that = (PutAiGatewayRequest) o;
-    return Objects.equals(guardrails, that.guardrails)
+    return Objects.equals(fallbackConfig, that.fallbackConfig)
+        && Objects.equals(guardrails, that.guardrails)
         && Objects.equals(inferenceTableConfig, that.inferenceTableConfig)
         && Objects.equals(name, that.name)
         && Objects.equals(rateLimits, that.rateLimits)
@@ -100,12 +117,14 @@ public class PutAiGatewayRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(guardrails, inferenceTableConfig, name, rateLimits, usageTrackingConfig);
+    return Objects.hash(
+        fallbackConfig, guardrails, inferenceTableConfig, name, rateLimits, usageTrackingConfig);
   }
 
   @Override
   public String toString() {
     return new ToStringer(PutAiGatewayRequest.class)
+        .add("fallbackConfig", fallbackConfig)
         .add("guardrails", guardrails)
         .add("inferenceTableConfig", inferenceTableConfig)
         .add("name", name)

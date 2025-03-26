@@ -58,6 +58,10 @@ public class EditPipeline {
   @JsonProperty("edition")
   private String edition;
 
+  /** Event log configuration for this pipeline */
+  @JsonProperty("event_log")
+  private EventLogSpec eventLog;
+
   /**
    * If present, the last-modified time of the pipeline settings before the edit. If the settings
    * were modified after that time, then the request will fail with a conflict.
@@ -79,7 +83,7 @@ public class EditPipeline {
 
   /**
    * The configuration for a managed ingestion pipeline. These settings cannot be used with the
-   * 'libraries', 'target' or 'catalog' settings.
+   * 'libraries', 'schema', 'target', or 'catalog' settings.
    */
   @JsonProperty("ingestion_definition")
   private IngestionPipelineDefinition ingestionDefinition;
@@ -119,10 +123,7 @@ public class EditPipeline {
   @JsonProperty("run_as")
   private RunAs runAs;
 
-  /**
-   * The default schema (database) where tables are read from or published to. The presence of this
-   * field implies that the pipeline is in direct publishing mode.
-   */
+  /** The default schema (database) where tables are read from or published to. */
   @JsonProperty("schema")
   private String schema;
 
@@ -135,9 +136,9 @@ public class EditPipeline {
   private String storage;
 
   /**
-   * Target schema (database) to add tables in this pipeline to. If not specified, no data is
-   * published to the Hive metastore or Unity Catalog. To publish to Unity Catalog, also specify
-   * `catalog`.
+   * Target schema (database) to add tables in this pipeline to. Exactly one of `schema` or `target`
+   * must be specified. To publish to Unity Catalog, also specify `catalog`. This legacy field is
+   * deprecated for pipeline creation in favor of the `schema` field.
    */
   @JsonProperty("target")
   private String target;
@@ -234,6 +235,15 @@ public class EditPipeline {
 
   public String getEdition() {
     return edition;
+  }
+
+  public EditPipeline setEventLog(EventLogSpec eventLog) {
+    this.eventLog = eventLog;
+    return this;
+  }
+
+  public EventLogSpec getEventLog() {
+    return eventLog;
   }
 
   public EditPipeline setExpectedLastModified(Long expectedLastModified) {
@@ -404,6 +414,7 @@ public class EditPipeline {
         && Objects.equals(deployment, that.deployment)
         && Objects.equals(development, that.development)
         && Objects.equals(edition, that.edition)
+        && Objects.equals(eventLog, that.eventLog)
         && Objects.equals(expectedLastModified, that.expectedLastModified)
         && Objects.equals(filters, that.filters)
         && Objects.equals(gatewayDefinition, that.gatewayDefinition)
@@ -436,6 +447,7 @@ public class EditPipeline {
         deployment,
         development,
         edition,
+        eventLog,
         expectedLastModified,
         filters,
         gatewayDefinition,
@@ -468,6 +480,7 @@ public class EditPipeline {
         .add("deployment", deployment)
         .add("development", development)
         .add("edition", edition)
+        .add("eventLog", eventLog)
         .add("expectedLastModified", expectedLastModified)
         .add("filters", filters)
         .add("gatewayDefinition", gatewayDefinition)

@@ -17,7 +17,7 @@ public class Listing {
   @JsonProperty("id")
   private String id;
 
-  /** Next Number: 26 */
+  /** */
   @JsonProperty("summary")
   private ListingSummary summary;
 

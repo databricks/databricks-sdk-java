@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Generated
-public class Function {
+public class DeltaSharingFunction {
   /** The aliass of registered model. */
   @JsonProperty("aliases")
   private Collection<RegisteredModelAlias> aliases;
@@ -74,7 +74,7 @@ public class Function {
   @JsonProperty("tags")
   private Collection<com.databricks.sdk.service.catalog.TagKeyValue> tags;
 
-  public Function setAliases(Collection<RegisteredModelAlias> aliases) {
+  public DeltaSharingFunction setAliases(Collection<RegisteredModelAlias> aliases) {
     this.aliases = aliases;
     return this;
   }
@@ -83,7 +83,7 @@ public class Function {
     return aliases;
   }
 
-  public Function setComment(String comment) {
+  public DeltaSharingFunction setComment(String comment) {
     this.comment = comment;
     return this;
   }
@@ -92,7 +92,7 @@ public class Function {
     return comment;
   }
 
-  public Function setDataType(ColumnTypeName dataType) {
+  public DeltaSharingFunction setDataType(ColumnTypeName dataType) {
     this.dataType = dataType;
     return this;
   }
@@ -101,7 +101,7 @@ public class Function {
     return dataType;
   }
 
-  public Function setDependencyList(DeltaSharingDependencyList dependencyList) {
+  public DeltaSharingFunction setDependencyList(DeltaSharingDependencyList dependencyList) {
     this.dependencyList = dependencyList;
     return this;
   }
@@ -110,7 +110,7 @@ public class Function {
     return dependencyList;
   }
 
-  public Function setFullDataType(String fullDataType) {
+  public DeltaSharingFunction setFullDataType(String fullDataType) {
     this.fullDataType = fullDataType;
     return this;
   }
@@ -119,7 +119,7 @@ public class Function {
     return fullDataType;
   }
 
-  public Function setId(String id) {
+  public DeltaSharingFunction setId(String id) {
     this.id = id;
     return this;
   }
@@ -128,7 +128,7 @@ public class Function {
     return id;
   }
 
-  public Function setInputParams(FunctionParameterInfos inputParams) {
+  public DeltaSharingFunction setInputParams(FunctionParameterInfos inputParams) {
     this.inputParams = inputParams;
     return this;
   }
@@ -137,7 +137,7 @@ public class Function {
     return inputParams;
   }
 
-  public Function setName(String name) {
+  public DeltaSharingFunction setName(String name) {
     this.name = name;
     return this;
   }
@@ -146,7 +146,7 @@ public class Function {
     return name;
   }
 
-  public Function setProperties(String properties) {
+  public DeltaSharingFunction setProperties(String properties) {
     this.properties = properties;
     return this;
   }
@@ -155,7 +155,7 @@ public class Function {
     return properties;
   }
 
-  public Function setRoutineDefinition(String routineDefinition) {
+  public DeltaSharingFunction setRoutineDefinition(String routineDefinition) {
     this.routineDefinition = routineDefinition;
     return this;
   }
@@ -164,7 +164,7 @@ public class Function {
     return routineDefinition;
   }
 
-  public Function setSchema(String schema) {
+  public DeltaSharingFunction setSchema(String schema) {
     this.schema = schema;
     return this;
   }
@@ -173,7 +173,7 @@ public class Function {
     return schema;
   }
 
-  public Function setSecurableKind(SharedSecurableKind securableKind) {
+  public DeltaSharingFunction setSecurableKind(SharedSecurableKind securableKind) {
     this.securableKind = securableKind;
     return this;
   }
@@ -182,7 +182,7 @@ public class Function {
     return securableKind;
   }
 
-  public Function setShare(String share) {
+  public DeltaSharingFunction setShare(String share) {
     this.share = share;
     return this;
   }
@@ -191,7 +191,7 @@ public class Function {
     return share;
   }
 
-  public Function setShareId(String shareId) {
+  public DeltaSharingFunction setShareId(String shareId) {
     this.shareId = shareId;
     return this;
   }
@@ -200,7 +200,7 @@ public class Function {
     return shareId;
   }
 
-  public Function setStorageLocation(String storageLocation) {
+  public DeltaSharingFunction setStorageLocation(String storageLocation) {
     this.storageLocation = storageLocation;
     return this;
   }
@@ -209,7 +209,8 @@ public class Function {
     return storageLocation;
   }
 
-  public Function setTags(Collection<com.databricks.sdk.service.catalog.TagKeyValue> tags) {
+  public DeltaSharingFunction setTags(
+      Collection<com.databricks.sdk.service.catalog.TagKeyValue> tags) {
     this.tags = tags;
     return this;
   }
@@ -222,7 +223,7 @@ public class Function {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    Function that = (Function) o;
+    DeltaSharingFunction that = (DeltaSharingFunction) o;
     return Objects.equals(aliases, that.aliases)
         && Objects.equals(comment, that.comment)
         && Objects.equals(dataType, that.dataType)
@@ -264,7 +265,7 @@ public class Function {
 
   @Override
   public String toString() {
-    return new ToStringer(Function.class)
+    return new ToStringer(DeltaSharingFunction.class)
         .add("aliases", aliases)
         .add("comment", comment)
         .add("dataType", dataType)

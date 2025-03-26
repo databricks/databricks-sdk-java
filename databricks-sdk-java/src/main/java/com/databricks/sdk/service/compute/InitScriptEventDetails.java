@@ -10,15 +10,21 @@ import java.util.Objects;
 
 @Generated
 public class InitScriptEventDetails {
-  /** The cluster scoped init scripts associated with this cluster event */
+  /** The cluster scoped init scripts associated with this cluster event. */
   @JsonProperty("cluster")
   private Collection<InitScriptInfoAndExecutionDetails> cluster;
 
-  /** The global init scripts associated with this cluster event */
+  /** The global init scripts associated with this cluster event. */
   @JsonProperty("global")
   private Collection<InitScriptInfoAndExecutionDetails> global;
 
-  /** The private ip address of the node where the init scripts were run. */
+  /**
+   * The private ip of the node we are reporting init script execution details for (we will select
+   * the execution details from only one node rather than reporting the execution details from every
+   * node to keep these event details small)
+   *
+   * <p>This should only be defined for the INIT_SCRIPTS_FINISHED event
+   */
   @JsonProperty("reported_for_node")
   private String reportedForNode;
 

@@ -7,7 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete a user */
+/** Delete a user. */
 @Generated
 public class DeleteUserRequest {
   /** Unique ID for a user in the Databricks workspace. */

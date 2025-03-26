@@ -7,9 +7,16 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * A description of a Spark node type including both the dimensions of the node and the instance
+ * type on which it will be hosted.
+ */
 @Generated
 public class NodeType {
-  /** */
+  /**
+   * A descriptive category for this node type. Examples include "Memory Optimized" and "Compute
+   * Optimized".
+   */
   @JsonProperty("category")
   private String category;
 
@@ -17,7 +24,10 @@ public class NodeType {
   @JsonProperty("description")
   private String description;
 
-  /** */
+  /**
+   * An optional hint at the display order of node types in the UI. Within a node type category,
+   * lowest numbers come first.
+   */
   @JsonProperty("display_order")
   private Long displayOrder;
 
@@ -36,15 +46,15 @@ public class NodeType {
   @JsonProperty("is_encrypted_in_transit")
   private Boolean isEncryptedInTransit;
 
-  /** */
+  /** Whether this is an Arm-based instance. */
   @JsonProperty("is_graviton")
   private Boolean isGraviton;
 
-  /** */
+  /** Whether this node is hidden from presentation in the UI. */
   @JsonProperty("is_hidden")
   private Boolean isHidden;
 
-  /** */
+  /** Whether this node comes with IO cache enabled by default. */
   @JsonProperty("is_io_cache_enabled")
   private Boolean isIoCacheEnabled;
 
@@ -52,11 +62,11 @@ public class NodeType {
   @JsonProperty("memory_mb")
   private Long memoryMb;
 
-  /** */
+  /** A collection of node type info reported by the cloud provider */
   @JsonProperty("node_info")
   private CloudProviderNodeInfo nodeInfo;
 
-  /** */
+  /** The NodeInstanceType object corresponding to instance_type_id */
   @JsonProperty("node_instance_type")
   private NodeInstanceType nodeInstanceType;
 
@@ -72,7 +82,7 @@ public class NodeType {
   @JsonProperty("num_cores")
   private Double numCores;
 
-  /** */
+  /** Number of GPUs available for this node type. */
   @JsonProperty("num_gpus")
   private Long numGpus;
 
@@ -84,24 +94,20 @@ public class NodeType {
   @JsonProperty("photon_worker_capable")
   private Boolean photonWorkerCapable;
 
-  /** */
+  /** Whether this node type support cluster tags. */
   @JsonProperty("support_cluster_tags")
   private Boolean supportClusterTags;
 
-  /** */
+  /**
+   * Whether this node type support EBS volumes. EBS volumes is disabled for node types that we
+   * could place multiple corresponding containers on the same hosting instance.
+   */
   @JsonProperty("support_ebs_volumes")
   private Boolean supportEbsVolumes;
 
-  /** */
+  /** Whether this node type supports port forwarding. */
   @JsonProperty("support_port_forwarding")
   private Boolean supportPortForwarding;
-
-  /**
-   * Indicates if this node type can be used for an instance pool or cluster with elastic disk
-   * enabled. This is true for most node types.
-   */
-  @JsonProperty("supports_elastic_disk")
-  private Boolean supportsElasticDisk;
 
   public NodeType setCategory(String category) {
     this.category = category;
@@ -283,15 +289,6 @@ public class NodeType {
     return supportPortForwarding;
   }
 
-  public NodeType setSupportsElasticDisk(Boolean supportsElasticDisk) {
-    this.supportsElasticDisk = supportsElasticDisk;
-    return this;
-  }
-
-  public Boolean getSupportsElasticDisk() {
-    return supportsElasticDisk;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -316,8 +313,7 @@ public class NodeType {
         && Objects.equals(photonWorkerCapable, that.photonWorkerCapable)
         && Objects.equals(supportClusterTags, that.supportClusterTags)
         && Objects.equals(supportEbsVolumes, that.supportEbsVolumes)
-        && Objects.equals(supportPortForwarding, that.supportPortForwarding)
-        && Objects.equals(supportsElasticDisk, that.supportsElasticDisk);
+        && Objects.equals(supportPortForwarding, that.supportPortForwarding);
   }
 
   @Override
@@ -342,8 +338,7 @@ public class NodeType {
         photonWorkerCapable,
         supportClusterTags,
         supportEbsVolumes,
-        supportPortForwarding,
-        supportsElasticDisk);
+        supportPortForwarding);
   }
 
   @Override
@@ -369,7 +364,6 @@ public class NodeType {
         .add("supportClusterTags", supportClusterTags)
         .add("supportEbsVolumes", supportEbsVolumes)
         .add("supportPortForwarding", supportPortForwarding)
-        .add("supportsElasticDisk", supportsElasticDisk)
         .toString();
   }
 }

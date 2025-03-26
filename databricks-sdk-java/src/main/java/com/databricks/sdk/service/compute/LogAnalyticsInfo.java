@@ -9,11 +9,11 @@ import java.util.Objects;
 
 @Generated
 public class LogAnalyticsInfo {
-  /** <needs content added> */
+  /** */
   @JsonProperty("log_analytics_primary_key")
   private String logAnalyticsPrimaryKey;
 
-  /** <needs content added> */
+  /** */
   @JsonProperty("log_analytics_workspace_id")
   private String logAnalyticsWorkspaceId;
 

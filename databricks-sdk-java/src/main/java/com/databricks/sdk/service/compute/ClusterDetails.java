@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 
+/** Describes all of the metadata about a single Spark cluster in Databricks. */
 @Generated
 public class ClusterDetails {
   /**
@@ -83,7 +84,7 @@ public class ClusterDetails {
 
   /**
    * Determines whether the cluster was created by a user through the UI, created by the Databricks
-   * Jobs Scheduler, or through an API request. This is the same as cluster_creator, but read only.
+   * Jobs Scheduler, or through an API request.
    */
   @JsonProperty("cluster_source")
   private ClusterSource clusterSource;
@@ -153,7 +154,7 @@ public class ClusterDetails {
   @JsonProperty("default_tags")
   private Map<String, String> defaultTags;
 
-  /** */
+  /** Custom docker image BYOC */
   @JsonProperty("docker_image")
   private DockerImage dockerImage;
 
@@ -174,6 +175,10 @@ public class ClusterDetails {
   /**
    * The node type of the Spark driver. Note that this field is optional; if unset, the driver node
    * type will be set as the same value as `node_type_id` defined above.
+   *
+   * <p>This field, along with node_type_id, should not be set if virtual_cluster_size is set. If
+   * both driver_node_type_id, node_type_id, and virtual_cluster_size are specified,
+   * driver_node_type_id and node_type_id take precedence.
    */
   @JsonProperty("driver_node_type_id")
   private String driverNodeTypeId;
@@ -337,10 +342,8 @@ public class ClusterDetails {
   private String sparkVersion;
 
   /**
-   * `spec` contains a snapshot of the field values that were used to create or edit this cluster.
-   * The contents of `spec` can be used in the body of a create cluster request. This field might
-   * not be populated for older clusters. Note: not included in the response of the ListClusters
-   * API.
+   * The spec contains a snapshot of the latest user specified settings that were used to
+   * create/edit the cluster. Note: not included in the response of the ListClusters API.
    */
   @JsonProperty("spec")
   private ClusterSpec spec;
@@ -391,7 +394,7 @@ public class ClusterDetails {
   @JsonProperty("use_ml_runtime")
   private Boolean useMlRuntime;
 
-  /** */
+  /** Cluster Attributes showing for clusters workload types. */
   @JsonProperty("workload_type")
   private WorkloadType workloadType;
 

@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Cluster log delivery config */
 @Generated
 public class ClusterLogConf {
   /**
@@ -26,7 +27,7 @@ public class ClusterLogConf {
   private S3StorageInfo s3;
 
   /**
-   * destination needs to be provided. e.g. `{ "volumes" : { "destination" :
+   * destination needs to be provided, e.g. `{ "volumes": { "destination":
    * "/Volumes/catalog/schema/volume/cluster_log" } }`
    */
   @JsonProperty("volumes")

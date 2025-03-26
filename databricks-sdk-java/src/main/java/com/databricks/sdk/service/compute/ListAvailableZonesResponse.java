@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class ListAvailableZonesResponse {
-  /** The availability zone if no `zone_id` is provided in the cluster creation request. */
+  /** The availability zone if no ``zone_id`` is provided in the cluster creation request. */
   @JsonProperty("default_zone")
   private String defaultZone;
 

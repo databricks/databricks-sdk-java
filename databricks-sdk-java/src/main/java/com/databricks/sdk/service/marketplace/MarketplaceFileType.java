@@ -6,6 +6,7 @@ import com.databricks.sdk.support.Generated;
 
 @Generated
 public enum MarketplaceFileType {
+  APP,
   EMBEDDED_NOTEBOOK,
   PROVIDER_ICON,
 }

@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** A storage location in Google Cloud Platform's GCS */
 @Generated
 public class GcsStorageInfo {
   /** GCS destination/URI, e.g. `gs://my-bucket/some-prefix` */

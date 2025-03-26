@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class PinCluster {
-  /** <needs content added> */
+  /** */
   @JsonProperty("cluster_id")
   private String clusterId;
 

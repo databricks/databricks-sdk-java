@@ -60,6 +60,10 @@ public class CreatePipeline {
   @JsonProperty("edition")
   private String edition;
 
+  /** Event log configuration for this pipeline */
+  @JsonProperty("event_log")
+  private EventLogSpec eventLog;
+
   /** Filters on which Pipeline packages to include in the deployed graph. */
   @JsonProperty("filters")
   private Filters filters;
@@ -74,7 +78,7 @@ public class CreatePipeline {
 
   /**
    * The configuration for a managed ingestion pipeline. These settings cannot be used with the
-   * 'libraries', 'target' or 'catalog' settings.
+   * 'libraries', 'schema', 'target', or 'catalog' settings.
    */
   @JsonProperty("ingestion_definition")
   private IngestionPipelineDefinition ingestionDefinition;
@@ -110,10 +114,7 @@ public class CreatePipeline {
   @JsonProperty("run_as")
   private RunAs runAs;
 
-  /**
-   * The default schema (database) where tables are read from or published to. The presence of this
-   * field implies that the pipeline is in direct publishing mode.
-   */
+  /** The default schema (database) where tables are read from or published to. */
   @JsonProperty("schema")
   private String schema;
 
@@ -126,9 +127,9 @@ public class CreatePipeline {
   private String storage;
 
   /**
-   * Target schema (database) to add tables in this pipeline to. If not specified, no data is
-   * published to the Hive metastore or Unity Catalog. To publish to Unity Catalog, also specify
-   * `catalog`.
+   * Target schema (database) to add tables in this pipeline to. Exactly one of `schema` or `target`
+   * must be specified. To publish to Unity Catalog, also specify `catalog`. This legacy field is
+   * deprecated for pipeline creation in favor of the `schema` field.
    */
   @JsonProperty("target")
   private String target;
@@ -234,6 +235,15 @@ public class CreatePipeline {
 
   public String getEdition() {
     return edition;
+  }
+
+  public CreatePipeline setEventLog(EventLogSpec eventLog) {
+    this.eventLog = eventLog;
+    return this;
+  }
+
+  public EventLogSpec getEventLog() {
+    return eventLog;
   }
 
   public CreatePipeline setFilters(Filters filters) {
@@ -387,6 +397,7 @@ public class CreatePipeline {
         && Objects.equals(development, that.development)
         && Objects.equals(dryRun, that.dryRun)
         && Objects.equals(edition, that.edition)
+        && Objects.equals(eventLog, that.eventLog)
         && Objects.equals(filters, that.filters)
         && Objects.equals(gatewayDefinition, that.gatewayDefinition)
         && Objects.equals(id, that.id)
@@ -418,6 +429,7 @@ public class CreatePipeline {
         development,
         dryRun,
         edition,
+        eventLog,
         filters,
         gatewayDefinition,
         id,
@@ -449,6 +461,7 @@ public class CreatePipeline {
         .add("development", development)
         .add("dryRun", dryRun)
         .add("edition", edition)
+        .add("eventLog", eventLog)
         .add("filters", filters)
         .add("gatewayDefinition", gatewayDefinition)
         .add("id", id)

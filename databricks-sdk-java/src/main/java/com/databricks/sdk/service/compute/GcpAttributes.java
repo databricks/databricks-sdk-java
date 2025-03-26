@@ -7,16 +7,18 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Attributes set during cluster creation which are related to GCP. */
 @Generated
 public class GcpAttributes {
   /**
-   * This field determines whether the instance pool will contain preemptible VMs, on-demand VMs, or
-   * preemptible VMs with a fallback to on-demand VMs if the former is unavailable.
+   * This field determines whether the spark executors will be scheduled to run on preemptible VMs,
+   * on-demand VMs, or preemptible VMs with a fallback to on-demand VMs if the former is
+   * unavailable.
    */
   @JsonProperty("availability")
   private GcpAvailability availability;
 
-  /** boot disk size in GB */
+  /** Boot disk size in GB */
   @JsonProperty("boot_disk_size")
   private Long bootDiskSize;
 
@@ -42,7 +44,7 @@ public class GcpAttributes {
   /**
    * This field determines whether the spark executors will be scheduled to run on preemptible VMs
    * (when set to true) versus standard compute engine VMs (when set to false; default). Note: Soon
-   * to be deprecated, use the availability field instead.
+   * to be deprecated, use the 'availability' field instead.
    */
   @JsonProperty("use_preemptible_executors")
   private Boolean usePreemptibleExecutors;
@@ -50,7 +52,7 @@ public class GcpAttributes {
   /**
    * Identifier for the availability zone in which the cluster resides. This can be one of the
    * following: - "HA" => High availability, spread nodes across availability zones for a Databricks
-   * deployment region [default] - "AUTO" => Databricks picks an availability zone to schedule the
+   * deployment region [default]. - "AUTO" => Databricks picks an availability zone to schedule the
    * cluster on. - A GCP availability zone => Pick One of the available zones for (machine type +
    * region) from https://cloud.google.com/compute/docs/regions-zones.
    */

@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class GetEventsResponse {
-  /** <content needs to be added> */
+  /** */
   @JsonProperty("events")
   private Collection<ClusterEvent> events;
 

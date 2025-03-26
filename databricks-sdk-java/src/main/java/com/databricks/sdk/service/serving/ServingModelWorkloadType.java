@@ -4,6 +4,7 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 
+/** Please keep this in sync with with workload types in InferenceEndpointEntities.scala */
 @Generated
 public enum ServingModelWorkloadType {
   CPU,
