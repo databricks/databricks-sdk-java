@@ -25,6 +25,10 @@ public class ExternalModel {
   @JsonProperty("cohere_config")
   private CohereConfig cohereConfig;
 
+  /** Custom Provider Config. Only required if the provider is 'custom'. */
+  @JsonProperty("custom_provider_config")
+  private CustomProviderConfig customProviderConfig;
+
   /**
    * Databricks Model Serving Config. Only required if the provider is 'databricks-model-serving'.
    */
@@ -93,6 +97,15 @@ public class ExternalModel {
 
   public CohereConfig getCohereConfig() {
     return cohereConfig;
+  }
+
+  public ExternalModel setCustomProviderConfig(CustomProviderConfig customProviderConfig) {
+    this.customProviderConfig = customProviderConfig;
+    return this;
+  }
+
+  public CustomProviderConfig getCustomProviderConfig() {
+    return customProviderConfig;
   }
 
   public ExternalModel setDatabricksModelServingConfig(
@@ -169,6 +182,7 @@ public class ExternalModel {
         && Objects.equals(amazonBedrockConfig, that.amazonBedrockConfig)
         && Objects.equals(anthropicConfig, that.anthropicConfig)
         && Objects.equals(cohereConfig, that.cohereConfig)
+        && Objects.equals(customProviderConfig, that.customProviderConfig)
         && Objects.equals(databricksModelServingConfig, that.databricksModelServingConfig)
         && Objects.equals(googleCloudVertexAiConfig, that.googleCloudVertexAiConfig)
         && Objects.equals(name, that.name)
@@ -185,6 +199,7 @@ public class ExternalModel {
         amazonBedrockConfig,
         anthropicConfig,
         cohereConfig,
+        customProviderConfig,
         databricksModelServingConfig,
         googleCloudVertexAiConfig,
         name,
@@ -201,6 +216,7 @@ public class ExternalModel {
         .add("amazonBedrockConfig", amazonBedrockConfig)
         .add("anthropicConfig", anthropicConfig)
         .add("cohereConfig", cohereConfig)
+        .add("customProviderConfig", customProviderConfig)
         .add("databricksModelServingConfig", databricksModelServingConfig)
         .add("googleCloudVertexAiConfig", googleCloudVertexAiConfig)
         .add("name", name)

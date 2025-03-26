@@ -18,10 +18,18 @@ public class UpdateCluster {
   private String clusterId;
 
   /**
-   * Specifies which fields of the cluster will be updated. This is required in the POST request.
-   * The update mask should be supplied as a single string. To specify multiple fields, separate
-   * them with commas (no spaces). To delete a field from a cluster configuration, add it to the
-   * `update_mask` string but omit it from the `cluster` object.
+   * Used to specify which cluster attributes and size fields to update. See
+   * https://google.aip.dev/161 for more details.
+   *
+   * <p>The field mask must be a single string, with multiple fields separated by commas (no
+   * spaces). The field path is relative to the resource object, using a dot (`.`) to navigate
+   * sub-fields (e.g., `author.given_name`). Specification of elements in sequence or map fields is
+   * not allowed, as only the entire collection field can be specified. Field names must exactly
+   * match the resource field names.
+   *
+   * <p>A field mask of `*` indicates full replacement. It’s recommended to always explicitly list
+   * the fields being updated and avoid using `*` wildcards, as it can lead to unintended results if
+   * the API changes in the future.
    */
   @JsonProperty("update_mask")
   private String updateMask;

@@ -9,6 +9,10 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * Common set of attributes set during cluster creation. These attributes cannot be changed over the
+ * lifetime of a cluster.
+ */
 @Generated
 public class ClusterAttributes {
   /**
@@ -93,7 +97,7 @@ public class ClusterAttributes {
   @JsonProperty("data_security_mode")
   private DataSecurityMode dataSecurityMode;
 
-  /** */
+  /** Custom docker image BYOC */
   @JsonProperty("docker_image")
   private DockerImage dockerImage;
 
@@ -107,6 +111,10 @@ public class ClusterAttributes {
   /**
    * The node type of the Spark driver. Note that this field is optional; if unset, the driver node
    * type will be set as the same value as `node_type_id` defined above.
+   *
+   * <p>This field, along with node_type_id, should not be set if virtual_cluster_size is set. If
+   * both driver_node_type_id, node_type_id, and virtual_cluster_size are specified,
+   * driver_node_type_id and node_type_id take precedence.
    */
   @JsonProperty("driver_node_type_id")
   private String driverNodeTypeId;
@@ -246,7 +254,7 @@ public class ClusterAttributes {
   @JsonProperty("use_ml_runtime")
   private Boolean useMlRuntime;
 
-  /** */
+  /** Cluster Attributes showing for clusters workload types. */
   @JsonProperty("workload_type")
   private WorkloadType workloadType;
 

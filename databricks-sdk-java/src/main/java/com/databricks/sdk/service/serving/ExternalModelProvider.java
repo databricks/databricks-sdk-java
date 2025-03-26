@@ -19,6 +19,9 @@ public enum ExternalModelProvider {
   @JsonProperty("cohere")
   COHERE,
 
+  @JsonProperty("custom")
+  CUSTOM,
+
   @JsonProperty("databricks-model-serving")
   DATABRICKS_MODEL_SERVING,
 

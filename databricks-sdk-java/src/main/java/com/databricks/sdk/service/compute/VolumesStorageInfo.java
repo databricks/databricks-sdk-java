@@ -7,9 +7,13 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** A storage location back by UC Volumes. */
 @Generated
 public class VolumesStorageInfo {
-  /** Unity Catalog volumes file destination, e.g. `/Volumes/catalog/schema/volume/dir/file` */
+  /**
+   * UC Volumes destination, e.g. `/Volumes/catalog/schema/vol1/init-scripts/setup-datadog.sh` or
+   * `dbfs:/Volumes/catalog/schema/vol1/init-scripts/setup-datadog.sh`
+   */
   @JsonProperty("destination")
   private String destination;
 

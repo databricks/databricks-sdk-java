@@ -11,6 +11,13 @@ import java.util.Objects;
 @Generated
 public class AiGatewayConfig {
   /**
+   * Configuration for traffic fallback which auto fallbacks to other served entities if the request
+   * to a served entity fails with certain error codes, to increase availability.
+   */
+  @JsonProperty("fallback_config")
+  private FallbackConfig fallbackConfig;
+
+  /**
    * Configuration for AI Guardrails to prevent unwanted data and unsafe data in requests and
    * responses.
    */
@@ -34,6 +41,15 @@ public class AiGatewayConfig {
    */
   @JsonProperty("usage_tracking_config")
   private AiGatewayUsageTrackingConfig usageTrackingConfig;
+
+  public AiGatewayConfig setFallbackConfig(FallbackConfig fallbackConfig) {
+    this.fallbackConfig = fallbackConfig;
+    return this;
+  }
+
+  public FallbackConfig getFallbackConfig() {
+    return fallbackConfig;
+  }
 
   public AiGatewayConfig setGuardrails(AiGatewayGuardrails guardrails) {
     this.guardrails = guardrails;
@@ -77,7 +93,8 @@ public class AiGatewayConfig {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     AiGatewayConfig that = (AiGatewayConfig) o;
-    return Objects.equals(guardrails, that.guardrails)
+    return Objects.equals(fallbackConfig, that.fallbackConfig)
+        && Objects.equals(guardrails, that.guardrails)
         && Objects.equals(inferenceTableConfig, that.inferenceTableConfig)
         && Objects.equals(rateLimits, that.rateLimits)
         && Objects.equals(usageTrackingConfig, that.usageTrackingConfig);
@@ -85,12 +102,14 @@ public class AiGatewayConfig {
 
   @Override
   public int hashCode() {
-    return Objects.hash(guardrails, inferenceTableConfig, rateLimits, usageTrackingConfig);
+    return Objects.hash(
+        fallbackConfig, guardrails, inferenceTableConfig, rateLimits, usageTrackingConfig);
   }
 
   @Override
   public String toString() {
     return new ToStringer(AiGatewayConfig.class)
+        .add("fallbackConfig", fallbackConfig)
         .add("guardrails", guardrails)
         .add("inferenceTableConfig", inferenceTableConfig)
         .add("rateLimits", rateLimits)

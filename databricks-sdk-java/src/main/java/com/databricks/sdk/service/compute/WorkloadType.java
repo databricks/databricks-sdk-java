@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Cluster Attributes showing for clusters workload types. */
 @Generated
 public class WorkloadType {
   /** defined what type of clients can use the cluster. E.g. Notebooks, Jobs */

@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** A storage location in Amazon S3 */
 @Generated
 public class S3StorageInfo {
   /**

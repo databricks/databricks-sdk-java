@@ -13,7 +13,7 @@ public class RestartCluster {
   @JsonProperty("cluster_id")
   private String clusterId;
 
-  /** <needs content added> */
+  /** */
   @JsonProperty("restart_user")
   private String restartUser;
 

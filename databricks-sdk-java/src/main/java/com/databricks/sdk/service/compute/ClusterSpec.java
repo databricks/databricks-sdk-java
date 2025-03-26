@@ -9,6 +9,10 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * Contains a snapshot of the latest user specified settings that were used to create/edit the
+ * cluster.
+ */
 @Generated
 public class ClusterSpec {
   /**
@@ -107,7 +111,7 @@ public class ClusterSpec {
   @JsonProperty("data_security_mode")
   private DataSecurityMode dataSecurityMode;
 
-  /** */
+  /** Custom docker image BYOC */
   @JsonProperty("docker_image")
   private DockerImage dockerImage;
 
@@ -121,6 +125,10 @@ public class ClusterSpec {
   /**
    * The node type of the Spark driver. Note that this field is optional; if unset, the driver node
    * type will be set as the same value as `node_type_id` defined above.
+   *
+   * <p>This field, along with node_type_id, should not be set if virtual_cluster_size is set. If
+   * both driver_node_type_id, node_type_id, and virtual_cluster_size are specified,
+   * driver_node_type_id and node_type_id take precedence.
    */
   @JsonProperty("driver_node_type_id")
   private String driverNodeTypeId;
@@ -273,7 +281,7 @@ public class ClusterSpec {
   @JsonProperty("use_ml_runtime")
   private Boolean useMlRuntime;
 
-  /** */
+  /** Cluster Attributes showing for clusters workload types. */
   @JsonProperty("workload_type")
   private WorkloadType workloadType;
 

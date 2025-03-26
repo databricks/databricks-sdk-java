@@ -11,7 +11,7 @@ import java.util.Objects;
 
 @Generated
 public class PartialUpdate {
-  /** Unique ID for a user in the Databricks workspace. */
+  /** Unique ID in the Databricks workspace. */
   @JsonIgnore private String id;
 
   /** */

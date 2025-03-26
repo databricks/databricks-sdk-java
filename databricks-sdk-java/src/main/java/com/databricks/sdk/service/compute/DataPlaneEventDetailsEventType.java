@@ -4,7 +4,6 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 
-/** <needs content added> */
 @Generated
 public enum DataPlaneEventDetailsEventType {
   NODE_BLACKLISTED,

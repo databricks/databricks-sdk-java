@@ -4,11 +4,12 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 
-/** The current status of the script */
+/** Result of attempted script execution */
 @Generated
-public enum InitScriptExecutionDetailsStatus {
+public enum InitScriptExecutionDetailsInitScriptExecutionStatus {
   FAILED_EXECUTION,
   FAILED_FETCH,
+  FUSE_MOUNT_FAILED,
   NOT_EXECUTED,
   SKIPPED,
   SUCCEEDED,

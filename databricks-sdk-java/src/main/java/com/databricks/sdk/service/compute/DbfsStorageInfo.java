@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** A storage location in DBFS */
 @Generated
 public class DbfsStorageInfo {
   /** dbfs destination, e.g. `dbfs:/my/path` */

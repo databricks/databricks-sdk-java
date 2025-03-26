@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Attributes specific to AWS for a Spark node. */
 @Generated
 public class SparkNodeAwsAttributes {
   /** Whether this node is on an Amazon spot instance. */

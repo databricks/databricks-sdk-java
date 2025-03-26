@@ -98,7 +98,6 @@ class UsersImpl implements UsersService {
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
-      req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, PatchResponse.class);
     } catch (IOException e) {
@@ -126,7 +125,6 @@ class UsersImpl implements UsersService {
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
-      req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, UpdateResponse.class);
     } catch (IOException e) {
