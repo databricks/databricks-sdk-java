@@ -22,8 +22,6 @@ import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import org.apache.http.impl.EnglishReasonPhraseCatalog;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.crypto.Data;
-
 public class ApiClientTest {
   private final ObjectMapper mapper = new ObjectMapper();
 
