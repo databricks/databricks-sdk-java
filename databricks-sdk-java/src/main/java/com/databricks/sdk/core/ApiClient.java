@@ -22,6 +22,8 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.function.Function;
+
+import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -219,7 +221,7 @@ public class ApiClient {
       // after the first invocation to config.authenticate()
       String userAgent = UserAgent.asString();
       String authType = getAuthTypeFunc.apply(null);
-      if (authType != "") {
+      if (!Strings.isNullOrEmpty(authType)) {
         userAgent += String.format(" auth/%s", authType);
       }
       in.withHeader("User-Agent", userAgent);
@@ -247,12 +249,12 @@ public class ApiClient {
       }
       if (attemptNumber == maxAttempts) {
         throw new DatabricksException(
-            String.format("Request %s failed after %d retries", in, maxAttempts), err);
+            String.format("Request %s failed after %d retries", in, maxAttempts), databricksError);
       }
 
       // Retry after a backoff.
       long sleepMillis = getBackoffMillis(out, attemptNumber);
-      LOG.debug(String.format("Retry %s in %dms", in.getRequestLine(), sleepMillis));
+      LOG.debug(String.format("Retry %s in %dms", in.getRequestLine(), sleepMillis), databricksError);
       try {
         timer.sleep(sleepMillis);
       } catch (InterruptedException ex) {
