@@ -17,8 +17,12 @@ import java.net.URL;
 import java.net.UnknownHostException;
 import java.time.*;
 import java.util.*;
+
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import org.apache.http.impl.EnglishReasonPhraseCatalog;
 import org.junit.jupiter.api.Test;
+
+import javax.xml.crypto.Data;
 
 public class ApiClientTest {
   private final ObjectMapper mapper = new ObjectMapper();
@@ -88,12 +92,13 @@ public class ApiClientTest {
     runApiClientTest(client, request, clazz, expectedResponse);
   }
 
-  private void runFailingApiClientTest(
-      Request request, List<ResponseProvider> responses, Class<?> clazz, String expectedMessage)
-      throws IOException {
+  @CanIgnoreReturnValue
+  private DatabricksException runFailingApiClientTest(
+      Request request, List<ResponseProvider> responses, Class<?> clazz, String expectedMessage) {
     DatabricksException exception =
         runFailingApiClientTest(request, responses, clazz, DatabricksException.class);
     assertEquals(exception.getMessage(), expectedMessage);
+    return exception;
   }
 
   private <T extends Throwable> T runFailingApiClientTest(
@@ -217,7 +222,7 @@ public class ApiClientTest {
   @Test
   void failAfterTooManyRetries() throws IOException {
     Request req = getBasicRequest();
-    runFailingApiClientTest(
+    DatabricksException exception = runFailingApiClientTest(
         req,
         Arrays.asList(
             getTooManyRequestsResponseWithRetryAfterDateHeader(req),
@@ -227,6 +232,10 @@ public class ApiClientTest {
             getSuccessResponse(req)),
         MyEndpointResponse.class,
         "Request GET /api/my/endpoint failed after 4 retries");
+    assertInstanceOf(DatabricksError.class, exception.getCause());
+    DatabricksError cause = (DatabricksError) exception.getCause();
+    assertEquals(cause.getErrorCode(), "TOO_MANY_REQUESTS");
+    assertEquals(cause.getStatusCode(), 429);
   }
 
   @Test
