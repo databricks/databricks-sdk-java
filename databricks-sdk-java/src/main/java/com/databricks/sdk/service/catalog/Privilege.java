@@ -9,6 +9,7 @@ public enum Privilege {
   ACCESS,
   ALL_PRIVILEGES,
   APPLY_TAG,
+  BROWSE,
   CREATE,
   CREATE_CATALOG,
   CREATE_CONNECTION,

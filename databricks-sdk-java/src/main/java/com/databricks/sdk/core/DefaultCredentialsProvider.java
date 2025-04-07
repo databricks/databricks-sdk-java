@@ -15,7 +15,7 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
           PatCredentialsProvider.class,
           BasicCredentialsProvider.class,
           OAuthM2MServicePrincipalCredentialsProvider.class,
-          DatabricksWifCredentialsProvider.class,
+          GithubOidcCredentialsProvider.class,
           AzureGithubOidcCredentialsProvider.class,
           AzureServicePrincipalCredentialsProvider.class,
           AzureCliCredentialsProvider.class,

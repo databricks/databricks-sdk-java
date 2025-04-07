@@ -13,7 +13,7 @@ import java.util.Objects;
 public class ListProviderShareAssetsResponse {
   /** The list of functions in the share. */
   @JsonProperty("functions")
-  private Collection<Function> functions;
+  private Collection<DeltaSharingFunction> functions;
 
   /** The list of notebooks in the share. */
   @JsonProperty("notebooks")
@@ -27,12 +27,12 @@ public class ListProviderShareAssetsResponse {
   @JsonProperty("volumes")
   private Collection<Volume> volumes;
 
-  public ListProviderShareAssetsResponse setFunctions(Collection<Function> functions) {
+  public ListProviderShareAssetsResponse setFunctions(Collection<DeltaSharingFunction> functions) {
     this.functions = functions;
     return this;
   }
 
-  public Collection<Function> getFunctions() {
+  public Collection<DeltaSharingFunction> getFunctions() {
     return functions;
   }
 

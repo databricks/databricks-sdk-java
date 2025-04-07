@@ -36,6 +36,16 @@ public class OidcFederationPolicy {
   private String jwksJson;
 
   /**
+   * URL of the public keys used to validate the signature of federated tokens, in JWKS format. Most
+   * use cases should not need to specify this field. If jwks_uri and jwks_json are both unspecified
+   * (recommended), Databricks automatically fetches the public keys from your issuer’s well known
+   * endpoint. Databricks strongly recommends relying on your issuer’s well known endpoint for
+   * discovering public keys.
+   */
+  @JsonProperty("jwks_uri")
+  private String jwksUri;
+
+  /**
    * The required token subject, as specified in the subject claim of federated tokens. Must be
    * specified for service principal federation policies. Must not be specified for account
    * federation policies.
@@ -76,6 +86,15 @@ public class OidcFederationPolicy {
     return jwksJson;
   }
 
+  public OidcFederationPolicy setJwksUri(String jwksUri) {
+    this.jwksUri = jwksUri;
+    return this;
+  }
+
+  public String getJwksUri() {
+    return jwksUri;
+  }
+
   public OidcFederationPolicy setSubject(String subject) {
     this.subject = subject;
     return this;
@@ -102,13 +121,14 @@ public class OidcFederationPolicy {
     return Objects.equals(audiences, that.audiences)
         && Objects.equals(issuer, that.issuer)
         && Objects.equals(jwksJson, that.jwksJson)
+        && Objects.equals(jwksUri, that.jwksUri)
         && Objects.equals(subject, that.subject)
         && Objects.equals(subjectClaim, that.subjectClaim);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(audiences, issuer, jwksJson, subject, subjectClaim);
+    return Objects.hash(audiences, issuer, jwksJson, jwksUri, subject, subjectClaim);
   }
 
   @Override
@@ -117,6 +137,7 @@ public class OidcFederationPolicy {
         .add("audiences", audiences)
         .add("issuer", issuer)
         .add("jwksJson", jwksJson)
+        .add("jwksUri", jwksUri)
         .add("subject", subject)
         .add("subjectClaim", subjectClaim)
         .toString();

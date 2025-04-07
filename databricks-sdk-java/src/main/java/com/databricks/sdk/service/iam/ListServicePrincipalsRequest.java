@@ -8,7 +8,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** List service principals */
+/** List service principals. */
 @Generated
 public class ListServicePrincipalsRequest {
   /** Comma-separated list of attributes to return in response. */

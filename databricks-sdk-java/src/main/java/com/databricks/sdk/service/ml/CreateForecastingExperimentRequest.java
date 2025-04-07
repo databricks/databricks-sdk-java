@@ -18,24 +18,6 @@ public class CreateForecastingExperimentRequest {
   private String customWeightsColumn;
 
   /**
-   * The quantity of the input data granularity. Together with data_granularity_unit field, this
-   * defines the time interval between consecutive rows in the time series data. For now, only 1
-   * second, 1/5/10/15/30 minutes, 1 hour, 1 day, 1 week, 1 month, 1 quarter, 1 year are supported.
-   */
-  @JsonProperty("data_granularity_quantity")
-  private Long dataGranularityQuantity;
-
-  /**
-   * The time unit of the input data granularity. Together with data_granularity_quantity field,
-   * this defines the time interval between consecutive rows in the time series data. Possible
-   * values: * 'W' (weeks) * 'D' / 'days' / 'day' * 'hours' / 'hour' / 'hr' / 'h' * 'm' / 'minute' /
-   * 'min' / 'minutes' / 'T' * 'S' / 'seconds' / 'sec' / 'second' * 'M' / 'month' / 'months' * 'Q' /
-   * 'quarter' / 'quarters' * 'Y' / 'year' / 'years'
-   */
-  @JsonProperty("data_granularity_unit")
-  private String dataGranularityUnit;
-
-  /**
    * The path to the created experiment. This is the path where the experiment will be stored in the
    * workspace.
    */
@@ -43,9 +25,17 @@ public class CreateForecastingExperimentRequest {
   private String experimentPath;
 
   /**
+   * The granularity of the forecast. This defines the time interval between consecutive rows in the
+   * time series data. Possible values: '1 second', '1 minute', '5 minutes', '10 minutes', '15
+   * minutes', '30 minutes', 'Hourly', 'Daily', 'Weekly', 'Monthly', 'Quarterly', 'Yearly'.
+   */
+  @JsonProperty("forecast_granularity")
+  private String forecastGranularity;
+
+  /**
    * The number of time steps into the future for which predictions should be made. This value
-   * represents a multiple of data_granularity_unit and data_granularity_quantity determining how
-   * far ahead the model will forecast.
+   * represents a multiple of forecast_granularity determining how far ahead the model will
+   * forecast.
    */
   @JsonProperty("forecast_horizon")
   private Long forecastHorizon;
@@ -130,25 +120,6 @@ public class CreateForecastingExperimentRequest {
     return customWeightsColumn;
   }
 
-  public CreateForecastingExperimentRequest setDataGranularityQuantity(
-      Long dataGranularityQuantity) {
-    this.dataGranularityQuantity = dataGranularityQuantity;
-    return this;
-  }
-
-  public Long getDataGranularityQuantity() {
-    return dataGranularityQuantity;
-  }
-
-  public CreateForecastingExperimentRequest setDataGranularityUnit(String dataGranularityUnit) {
-    this.dataGranularityUnit = dataGranularityUnit;
-    return this;
-  }
-
-  public String getDataGranularityUnit() {
-    return dataGranularityUnit;
-  }
-
   public CreateForecastingExperimentRequest setExperimentPath(String experimentPath) {
     this.experimentPath = experimentPath;
     return this;
@@ -156,6 +127,15 @@ public class CreateForecastingExperimentRequest {
 
   public String getExperimentPath() {
     return experimentPath;
+  }
+
+  public CreateForecastingExperimentRequest setForecastGranularity(String forecastGranularity) {
+    this.forecastGranularity = forecastGranularity;
+    return this;
+  }
+
+  public String getForecastGranularity() {
+    return forecastGranularity;
   }
 
   public CreateForecastingExperimentRequest setForecastHorizon(Long forecastHorizon) {
@@ -274,9 +254,8 @@ public class CreateForecastingExperimentRequest {
     if (o == null || getClass() != o.getClass()) return false;
     CreateForecastingExperimentRequest that = (CreateForecastingExperimentRequest) o;
     return Objects.equals(customWeightsColumn, that.customWeightsColumn)
-        && Objects.equals(dataGranularityQuantity, that.dataGranularityQuantity)
-        && Objects.equals(dataGranularityUnit, that.dataGranularityUnit)
         && Objects.equals(experimentPath, that.experimentPath)
+        && Objects.equals(forecastGranularity, that.forecastGranularity)
         && Objects.equals(forecastHorizon, that.forecastHorizon)
         && Objects.equals(holidayRegions, that.holidayRegions)
         && Objects.equals(maxRuntime, that.maxRuntime)
@@ -295,9 +274,8 @@ public class CreateForecastingExperimentRequest {
   public int hashCode() {
     return Objects.hash(
         customWeightsColumn,
-        dataGranularityQuantity,
-        dataGranularityUnit,
         experimentPath,
+        forecastGranularity,
         forecastHorizon,
         holidayRegions,
         maxRuntime,
@@ -316,9 +294,8 @@ public class CreateForecastingExperimentRequest {
   public String toString() {
     return new ToStringer(CreateForecastingExperimentRequest.class)
         .add("customWeightsColumn", customWeightsColumn)
-        .add("dataGranularityQuantity", dataGranularityQuantity)
-        .add("dataGranularityUnit", dataGranularityUnit)
         .add("experimentPath", experimentPath)
+        .add("forecastGranularity", forecastGranularity)
         .add("forecastHorizon", forecastHorizon)
         .add("holidayRegions", holidayRegions)
         .add("maxRuntime", maxRuntime)

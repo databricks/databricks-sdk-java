@@ -11,19 +11,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * DatabricksWIFCredentials uses a Token Supplier to get a JWT Token and exchanges it for a
- * Databricks Token. Supported suppliers: - GitHub OIDC
+ * GithubOidcCredentialsProvider uses a Token Supplier to get a GitHub OIDC JWT Token and exchanges
+ * it for a Databricks Token.
  */
-public class DatabricksWifCredentialsProvider implements CredentialsProvider {
+public class GithubOidcCredentialsProvider implements CredentialsProvider {
 
   @Override
   public String authType() {
-    return "databricks-wif";
+    return "github-oidc";
   }
 
   @Override
   public HeaderFactory configure(DatabricksConfig config) throws DatabricksException {
-    GitHubOidcTokenSupplier idTokenProvider = new GitHubOidcTokenSupplier(config);
+    GitHubOidcTokenSupplier idTokenProvider =
+        new GitHubOidcTokenSupplier(
+            config.getHttpClient(),
+            config.getActionsIdTokenRequestUrl(),
+            config.getActionsIdTokenRequestToken(),
+            config.getTokenAudience());
 
     if (!idTokenProvider.enabled() || config.getHost() == null || config.getClientId() == null) {
       return null;

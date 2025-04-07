@@ -4,7 +4,10 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 
-/** The type of EBS volumes that will be launched with this cluster. */
+/**
+ * All EBS volume types that Databricks supports. See https://aws.amazon.com/ebs/details/ for
+ * details.
+ */
 @Generated
 public enum EbsVolumeType {
   GENERAL_PURPOSE_SSD,

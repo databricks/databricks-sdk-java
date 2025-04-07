@@ -19,9 +19,10 @@ public class ClientCredentials extends RefreshableTokenSource {
     private String clientSecret;
     private String tokenUrl;
     private HttpClient hc = new CommonsHttpClient.Builder().withTimeoutSeconds(30).build();
+
     // Endpoint parameters can include tokens with expiration which
     // may need to be refreshed. This supplier will be called each time
-    // that the credentials are refreshed.
+    // the credentials are refreshed.
     private Supplier<Map<String, String>> endpointParamsSupplier = null;
     private List<String> scopes = Collections.emptyList();
     private AuthParameterPosition position = AuthParameterPosition.BODY;

@@ -1,7 +1,7 @@
 package com.databricks.sdk.core.oauth;
 
-import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,17 +11,25 @@ import java.io.IOException;
 public class GitHubOidcTokenSupplier {
 
   private final ObjectMapper mapper = new ObjectMapper();
+  private final HttpClient httpClient;
+  private final String idTokenRequestUrl;
+  private final String idTokenRequestToken;
+  private final String tokenAudience;
 
-  private final DatabricksConfig config;
-
-  public GitHubOidcTokenSupplier(DatabricksConfig config) {
-    this.config = config;
+  public GitHubOidcTokenSupplier(
+      HttpClient httpClient,
+      String idTokenRequestUrl,
+      String idTokenRequestToken,
+      String tokenAudience) {
+    this.httpClient = httpClient;
+    this.idTokenRequestUrl = idTokenRequestUrl;
+    this.idTokenRequestToken = idTokenRequestToken;
+    this.tokenAudience = tokenAudience;
   }
 
   /** Checks if the required parameters are present to request a GitHub's OIDC token. */
   public Boolean enabled() {
-    return config.getActionsIdTokenRequestUrl() != null
-        && config.getActionsIdTokenRequestToken() != null;
+    return idTokenRequestUrl != null && idTokenRequestToken != null;
   }
 
   /**
@@ -34,18 +42,17 @@ public class GitHubOidcTokenSupplier {
       throw new DatabricksException("Failed to request ID token: missing required parameters");
     }
 
-    String requestUrl = config.getActionsIdTokenRequestUrl();
-    if (config.getTokenAudience() != null) {
-      requestUrl += "&audience=" + config.getTokenAudience();
+    String requestUrl = idTokenRequestUrl;
+    if (tokenAudience != null) {
+      requestUrl += "&audience=" + tokenAudience;
     }
 
     Request req =
-        new Request("GET", requestUrl)
-            .withHeader("Authorization", "Bearer " + config.getActionsIdTokenRequestToken());
+        new Request("GET", requestUrl).withHeader("Authorization", "Bearer " + idTokenRequestToken);
 
     Response resp;
     try {
-      resp = config.getHttpClient().execute(req);
+      resp = httpClient.execute(req);
     } catch (IOException e) {
       throw new DatabricksException(
           "Failed to request ID token from " + requestUrl + ":" + e.getMessage(), e);

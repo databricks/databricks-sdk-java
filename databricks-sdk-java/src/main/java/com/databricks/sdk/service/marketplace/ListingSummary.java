@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/** Next Number: 26 */
 @Generated
 public class ListingSummary {
   /** */

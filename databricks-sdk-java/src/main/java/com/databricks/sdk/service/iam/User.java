@@ -47,10 +47,7 @@ public class User {
   @JsonProperty("groups")
   private Collection<ComplexValue> groups;
 
-  /**
-   * Databricks user ID. This is automatically set by Databricks. Any value provided by the client
-   * will be ignored.
-   */
+  /** Databricks user ID. */
   @JsonProperty("id")
   private String id;
 

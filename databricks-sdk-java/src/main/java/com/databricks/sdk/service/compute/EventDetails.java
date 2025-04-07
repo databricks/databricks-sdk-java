@@ -32,7 +32,7 @@ public class EventDetails {
   @JsonProperty("current_num_workers")
   private Long currentNumWorkers;
 
-  /** <needs content added> */
+  /** */
   @JsonProperty("did_not_expand_reason")
   private String didNotExpandReason;
 
@@ -50,7 +50,7 @@ public class EventDetails {
   @JsonProperty("enable_termination_for_node_blocklisted")
   private Boolean enableTerminationForNodeBlocklisted;
 
-  /** <needs content added> */
+  /** */
   @JsonProperty("free_space")
   private Long freeSpace;
 

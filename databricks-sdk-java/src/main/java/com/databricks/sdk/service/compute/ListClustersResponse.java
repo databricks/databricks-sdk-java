@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class ListClustersResponse {
-  /** <needs content added> */
+  /** */
   @JsonProperty("clusters")
   private Collection<ClusterDetails> clusters;
 

@@ -58,7 +58,7 @@ public class DatabricksWifIT {
         new DatabricksConfig()
             .setHost(workspaceUrl)
             .setClientId(sp.getApplicationId())
-            .setAuthType("databricks-wif")
+            .setAuthType("github-oidc")
             .setTokenAudience("https://github.com/databricks-eng");
 
     WorkspaceClient ws = new WorkspaceClient(config);
@@ -101,7 +101,7 @@ public class DatabricksWifIT {
             .setHost(a.config().getHost())
             .setAccountId(a.config().getAccountId())
             .setClientId(sp.getApplicationId())
-            .setAuthType("databricks-wif")
+            .setAuthType("github-oidc")
             .setTokenAudience("https://github.com/databricks-eng");
 
     AccountClient ac = new AccountClient(config);

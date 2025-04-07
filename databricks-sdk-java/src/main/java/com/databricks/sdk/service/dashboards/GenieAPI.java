@@ -161,6 +161,27 @@ public class GenieAPI {
     return impl.executeMessageQuery(request);
   }
 
+  public GenieGenerateDownloadFullQueryResultResponse generateDownloadFullQueryResult(
+      String spaceId, String conversationId, String messageId, String attachmentId) {
+    return generateDownloadFullQueryResult(
+        new GenieGenerateDownloadFullQueryResultRequest()
+            .setSpaceId(spaceId)
+            .setConversationId(conversationId)
+            .setMessageId(messageId)
+            .setAttachmentId(attachmentId));
+  }
+
+  /**
+   * Generate full query result download.
+   *
+   * <p>Initiate full SQL query result download and obtain a transient ID for tracking the download
+   * progress. This call initiates a new SQL execution to generate the query result.
+   */
+  public GenieGenerateDownloadFullQueryResultResponse generateDownloadFullQueryResult(
+      GenieGenerateDownloadFullQueryResultRequest request) {
+    return impl.generateDownloadFullQueryResult(request);
+  }
+
   public GenieMessage getMessage(String spaceId, String conversationId, String messageId) {
     return getMessage(
         new GenieGetConversationMessageRequest()

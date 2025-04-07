@@ -7,9 +7,10 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** A storage location in Workspace Filesystem (WSFS) */
 @Generated
 public class WorkspaceStorageInfo {
-  /** workspace files destination, e.g. `/Users/user1@databricks.com/my-init.sh` */
+  /** wsfs destination, e.g. `workspace:/cluster-init-scripts/setup-datadog.sh` */
   @JsonProperty("destination")
   private String destination;
 

@@ -9,19 +9,19 @@ import java.util.Objects;
 
 @Generated
 public class DataPlaneEventDetails {
-  /** <needs content added> */
+  /** */
   @JsonProperty("event_type")
   private DataPlaneEventDetailsEventType eventType;
 
-  /** <needs content added> */
+  /** */
   @JsonProperty("executor_failures")
   private Long executorFailures;
 
-  /** <needs content added> */
+  /** */
   @JsonProperty("host_id")
   private String hostId;
 
-  /** <needs content added> */
+  /** */
   @JsonProperty("timestamp")
   private Long timestamp;
 

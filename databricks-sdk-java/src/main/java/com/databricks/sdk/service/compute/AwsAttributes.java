@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Attributes set during cluster creation which are related to Amazon Web Services. */
 @Generated
 public class AwsAttributes {
   /**
@@ -83,8 +84,6 @@ public class AwsAttributes {
    * administrator.
    *
    * <p>This feature may only be available to certain customer plans.
-   *
-   * <p>If this field is ommitted, we will pull in the default from the conf if it exists.
    */
   @JsonProperty("instance_profile_arn")
   private String instanceProfileArn;
@@ -98,9 +97,6 @@ public class AwsAttributes {
    * instances are requested for this cluster, only spot instances whose bid price percentage
    * matches this field will be considered. Note that, for safety, we enforce this field to be no
    * more than 10000.
-   *
-   * <p>The default value and documentation here should be kept consistent with
-   * CommonConf.defaultSpotBidPricePercent and CommonConf.maxSpotBidPricePercent.
    */
   @JsonProperty("spot_bid_price_percent")
   private Long spotBidPricePercent;
@@ -112,8 +108,10 @@ public class AwsAttributes {
    * deployment resides in the "us-east-1" region. This is an optional field at cluster creation,
    * and if not specified, a default zone will be used. If the zone specified is "auto", will try to
    * place cluster in a zone with high availability, and will retry placement in a different AZ if
-   * there is not enough capacity. The list of available zones as well as the default value can be
-   * found by using the `List Zones` method.
+   * there is not enough capacity.
+   *
+   * <p>The list of available zones as well as the default value can be found by using the `List
+   * Zones` method.
    */
   @JsonProperty("zone_id")
   private String zoneId;
