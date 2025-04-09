@@ -15,6 +15,7 @@ import com.databricks.sdk.support.Header;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Strings;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
@@ -22,8 +23,6 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.function.Function;
-
-import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -254,7 +253,8 @@ public class ApiClient {
 
       // Retry after a backoff.
       long sleepMillis = getBackoffMillis(out, attemptNumber);
-      LOG.debug(String.format("Retry %s in %dms", in.getRequestLine(), sleepMillis), databricksError);
+      LOG.debug(
+          String.format("Retry %s in %dms", in.getRequestLine(), sleepMillis), databricksError);
       try {
         timer.sleep(sleepMillis);
       } catch (InterruptedException ex) {

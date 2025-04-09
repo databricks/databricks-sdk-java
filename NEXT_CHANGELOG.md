@@ -10,5 +10,6 @@
 ### Documentation
 
 ### Internal Changes
+* Capture DatabricksError when retrying API calls ([#427](https://github.com/databricks/databricks-sdk-java/pull/427)).
 
 ### API Changes
