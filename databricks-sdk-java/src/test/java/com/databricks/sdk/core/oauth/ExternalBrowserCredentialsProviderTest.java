@@ -13,13 +13,13 @@ import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import java.nio.file.Files;
 
 public class ExternalBrowserCredentialsProviderTest {
   @Test
@@ -211,9 +211,11 @@ public class ExternalBrowserCredentialsProviderTest {
     // Create mock HTTP client for token refresh
     HttpClient mockHttpClient = Mockito.mock(HttpClient.class);
     String refreshResponse =
-            "{\"access_token\": \"refreshed_access_token\", \"token_type\": \"Bearer\", \"expires_in\": \"3600\", \"refresh_token\": \"new_refresh_token\"}";
+        "{\"access_token\": \"refreshed_access_token\", \"token_type\": \"Bearer\", \"expires_in\": \"3600\", \"refresh_token\": \"new_refresh_token\"}";
     URL url = new URL("https://test.databricks.com/");
-    Mockito.doReturn(new Response(refreshResponse, url)).when(mockHttpClient).execute(any(Request.class));
+    Mockito.doReturn(new Response(refreshResponse, url))
+        .when(mockHttpClient)
+        .execute(any(Request.class));
 
     // Create an valid token with valid refresh token
     LocalDateTime futureTime = LocalDateTime.now().plusHours(1);
@@ -224,19 +226,21 @@ public class ExternalBrowserCredentialsProviderTest {
     Mockito.when(mockTokenCache.load()).thenReturn(validToken);
 
     // Create config with HTTP client and mock token cache
-    DatabricksConfig config = new DatabricksConfig()
+    DatabricksConfig config =
+        new DatabricksConfig()
             .setAuthType("external-browser")
             .setHost("https://test.databricks.com")
             .setClientId("test-client-id")
             .setHttpClient(mockHttpClient);
 
     // We need to provide OIDC endpoints for token refresh
-    OpenIDConnectEndpoints endpoints = new OpenIDConnectEndpoints(
-            "https://test.databricks.com/token",
-            "https://test.databricks.com/authorize");
+    OpenIDConnectEndpoints endpoints =
+        new OpenIDConnectEndpoints(
+            "https://test.databricks.com/token", "https://test.databricks.com/authorize");
 
     // Create our provider and mock the browser auth method
-    ExternalBrowserCredentialsProvider provider = Mockito.spy(new ExternalBrowserCredentialsProvider());
+    ExternalBrowserCredentialsProvider provider =
+        Mockito.spy(new ExternalBrowserCredentialsProvider());
 
     // Spy on the config to inject the mock token cache and endpoints
     DatabricksConfig spyConfig = Mockito.spy(config);
@@ -262,44 +266,49 @@ public class ExternalBrowserCredentialsProviderTest {
     // Verify token was saved back to cache
     Mockito.verify(mockTokenCache, Mockito.times(1)).save(any(Token.class));
   }
-  
+
   @Test
   void cacheWithInvalidAccessTokenValidRefreshTest() throws IOException {
     // Create mock HTTP client for token refresh
     HttpClient mockHttpClient = Mockito.mock(HttpClient.class);
-    String refreshResponse = 
+    String refreshResponse =
         "{\"access_token\": \"refreshed_access_token\", \"token_type\": \"Bearer\", \"expires_in\": \"3600\", \"refresh_token\": \"new_refresh_token\"}";
     URL url = new URL("https://test.databricks.com/");
-    Mockito.doReturn(new Response(refreshResponse, url)).when(mockHttpClient).execute(any(Request.class));
-    
+    Mockito.doReturn(new Response(refreshResponse, url))
+        .when(mockHttpClient)
+        .execute(any(Request.class));
+
     // Create an expired token with valid refresh token
     LocalDateTime pastTime = LocalDateTime.now().minusHours(1);
-    Token expiredToken = new Token("expired_access_token", "Bearer", "valid_refresh_token", pastTime);
-    
+    Token expiredToken =
+        new Token("expired_access_token", "Bearer", "valid_refresh_token", pastTime);
+
     // Create mock token cache that returns the expired token
     TokenCache mockTokenCache = Mockito.mock(TokenCache.class);
     Mockito.when(mockTokenCache.load()).thenReturn(expiredToken);
-    
+
     // Create config with HTTP client and mock token cache
-    DatabricksConfig config = new DatabricksConfig()
-        .setAuthType("external-browser")
-        .setHost("https://test.databricks.com")
-        .setClientId("test-client-id")
-        .setHttpClient(mockHttpClient);
-    
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setAuthType("external-browser")
+            .setHost("https://test.databricks.com")
+            .setClientId("test-client-id")
+            .setHttpClient(mockHttpClient);
+
     // We need to provide OIDC endpoints for token refresh
-    OpenIDConnectEndpoints endpoints = new OpenIDConnectEndpoints(
-        "https://test.databricks.com/token", 
-        "https://test.databricks.com/authorize");
-    
+    OpenIDConnectEndpoints endpoints =
+        new OpenIDConnectEndpoints(
+            "https://test.databricks.com/token", "https://test.databricks.com/authorize");
+
     // Create our provider and mock the browser auth method
-    ExternalBrowserCredentialsProvider provider = Mockito.spy(new ExternalBrowserCredentialsProvider());
+    ExternalBrowserCredentialsProvider provider =
+        Mockito.spy(new ExternalBrowserCredentialsProvider());
 
     // Spy on the config to inject the mock token cache and endpoints
     DatabricksConfig spyConfig = Mockito.spy(config);
     Mockito.when(spyConfig.getTokenCache()).thenReturn(mockTokenCache);
     Mockito.doReturn(endpoints).when(spyConfig).getOidcEndpoints();
-    
+
     // Configure provider
     HeaderFactory headerFactory = provider.configure(spyConfig);
 
@@ -309,13 +318,13 @@ public class ExternalBrowserCredentialsProviderTest {
 
     // Verify token was loaded from cache
     Mockito.verify(mockTokenCache, Mockito.times(1)).load();
-    
+
     // Verify HTTP call was made to refresh the token
     Mockito.verify(mockHttpClient, Mockito.times(1)).execute(any(Request.class));
-    
+
     // Verify performBrowserAuth was NOT called since refresh succeeded
     Mockito.verify(provider, Mockito.never()).performBrowserAuth(any(DatabricksConfig.class));
-    
+
     // Verify token was saved back to cache
     Mockito.verify(mockTokenCache, Mockito.times(1)).save(any(Token.class));
   }
@@ -324,44 +333,52 @@ public class ExternalBrowserCredentialsProviderTest {
   void cacheWithInvalidAccessTokenRefreshFailingTest() throws IOException {
     // Create HTTP client that fails when refreshing token
     HttpClient mockHttpClient = Mockito.mock(HttpClient.class);
-    Mockito.when(mockHttpClient.execute(any(Request.class))).thenThrow(new IOException("Failed to refresh token"));
+    Mockito.when(mockHttpClient.execute(any(Request.class)))
+        .thenThrow(new IOException("Failed to refresh token"));
 
     // Create an expired token with invalid refresh token
     LocalDateTime pastTime = LocalDateTime.now().minusHours(1);
-    Token expiredToken = new Token("expired_access_token", "Bearer", "invalid_refresh_token", pastTime);
+    Token expiredToken =
+        new Token("expired_access_token", "Bearer", "invalid_refresh_token", pastTime);
 
     // Create mock token cache that returns the expired token
     TokenCache mockTokenCache = Mockito.mock(TokenCache.class);
     Mockito.when(mockTokenCache.load()).thenReturn(expiredToken);
 
     // Setup browser auth result (should be used as fallback)
-    Token browserAuthToken = new Token(
-        "browser_access_token",
-        "Bearer",
-        "browser_refresh_token",
-        LocalDateTime.now().plusHours(1));
+    Token browserAuthToken =
+        new Token(
+            "browser_access_token",
+            "Bearer",
+            "browser_refresh_token",
+            LocalDateTime.now().plusHours(1));
 
-    SessionCredentials browserAuthCreds = new SessionCredentials.Builder()
-        .withToken(browserAuthToken)
-        .withClientId("test-client-id")
-        .withTokenUrl("https://test-token-url")
-        .build();
+    SessionCredentials browserAuthCreds =
+        new SessionCredentials.Builder()
+            .withToken(browserAuthToken)
+            .withClientId("test-client-id")
+            .withTokenUrl("https://test-token-url")
+            .build();
 
     // Create config with failing HTTP client and mock token cache
-    DatabricksConfig config = new DatabricksConfig()
-        .setAuthType("external-browser")
-        .setHost("https://test.databricks.com")
-        .setClientId("test-client-id")
-        .setHttpClient(mockHttpClient);
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setAuthType("external-browser")
+            .setHost("https://test.databricks.com")
+            .setClientId("test-client-id")
+            .setHttpClient(mockHttpClient);
 
     // We need to provide OIDC endpoints for token refresh attempt
-    OpenIDConnectEndpoints endpoints = new OpenIDConnectEndpoints(
-        "https://test.databricks.com/token",
-        "https://test.databricks.com/authorize");
+    OpenIDConnectEndpoints endpoints =
+        new OpenIDConnectEndpoints(
+            "https://test.databricks.com/token", "https://test.databricks.com/authorize");
 
     // Create our provider and mock the browser auth method
-    ExternalBrowserCredentialsProvider provider = Mockito.spy(new ExternalBrowserCredentialsProvider());
-    Mockito.doReturn(browserAuthCreds).when(provider).performBrowserAuth(any(DatabricksConfig.class));
+    ExternalBrowserCredentialsProvider provider =
+        Mockito.spy(new ExternalBrowserCredentialsProvider());
+    Mockito.doReturn(browserAuthCreds)
+        .when(provider)
+        .performBrowserAuth(any(DatabricksConfig.class));
 
     // Spy on the config to inject the mock token cache and endpoints
     DatabricksConfig spyConfig = Mockito.spy(config);
@@ -384,44 +401,50 @@ public class ExternalBrowserCredentialsProviderTest {
     // Verify token was saved after browser auth (for the new token)
     Mockito.verify(mockTokenCache, Mockito.times(1)).save(any(Token.class));
   }
-  
+
   @Test
   void cacheWithInvalidTokensTest() throws IOException {
     // Create completely invalid token (no refresh token)
     LocalDateTime pastTime = LocalDateTime.now().minusHours(1);
     Token invalidToken = new Token("expired_access_token", "Bearer", null, pastTime);
-    
+
     // Create mock token cache that returns the invalid token
     TokenCache mockTokenCache = Mockito.mock(TokenCache.class);
     Mockito.when(mockTokenCache.load()).thenReturn(invalidToken);
-    
+
     // Setup browser auth result (should be used as fallback)
-    Token browserAuthToken = new Token(
-        "browser_access_token", 
-        "Bearer", 
-        "browser_refresh_token", 
-        LocalDateTime.now().plusHours(1));
-    
-    SessionCredentials browserAuthCreds = new SessionCredentials.Builder()
-        .withToken(browserAuthToken)
-        .withClientId("test-client-id")
-        .withTokenUrl("https://test-token-url")
-        .build();
-    
+    Token browserAuthToken =
+        new Token(
+            "browser_access_token",
+            "Bearer",
+            "browser_refresh_token",
+            LocalDateTime.now().plusHours(1));
+
+    SessionCredentials browserAuthCreds =
+        new SessionCredentials.Builder()
+            .withToken(browserAuthToken)
+            .withClientId("test-client-id")
+            .withTokenUrl("https://test-token-url")
+            .build();
+
     // Create simple config
-    DatabricksConfig config = new DatabricksConfig()
-        .setAuthType("external-browser")
-        .setHost("https://test.databricks.com")
-        .setClientId("test-client-id");
-    
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setAuthType("external-browser")
+            .setHost("https://test.databricks.com")
+            .setClientId("test-client-id");
+
     // Create our provider and mock the browser auth method
-    ExternalBrowserCredentialsProvider provider = Mockito.spy(new ExternalBrowserCredentialsProvider());
-    Mockito.doReturn(browserAuthCreds).when(provider).performBrowserAuth(any(DatabricksConfig.class));
-    
+    ExternalBrowserCredentialsProvider provider =
+        Mockito.spy(new ExternalBrowserCredentialsProvider());
+    Mockito.doReturn(browserAuthCreds)
+        .when(provider)
+        .performBrowserAuth(any(DatabricksConfig.class));
+
     // Spy on the config to inject the mock token cache
     DatabricksConfig spyConfig = Mockito.spy(config);
     Mockito.when(spyConfig.getTokenCache()).thenReturn(mockTokenCache);
-    
+
     // Configure provider
     HeaderFactory headerFactory = provider.configure(spyConfig);
     // Verify headers contain the browser auth token (fallback)
@@ -430,75 +453,83 @@ public class ExternalBrowserCredentialsProviderTest {
 
     // Verify token was loaded from cache
     Mockito.verify(mockTokenCache, Mockito.times(1)).load();
-    
+
     // Verify performBrowserAuth was called since we had an invalid token
     Mockito.verify(provider, Mockito.times(1)).performBrowserAuth(any(DatabricksConfig.class));
-    
+
     // Verify token was saved after browser auth (for the new token)
     Mockito.verify(mockTokenCache, Mockito.times(1)).save(any(Token.class));
   }
-  
+
   @Test
   void disabledTokenCacheTest() throws IOException {
     // Create mock HTTP client for token operations
     HttpClient mockHttpClient = Mockito.mock(HttpClient.class);
-    
+
     // Setup browser auth result
-    Token browserAuthToken = new Token(
-        "browser_access_token", 
-        "Bearer", 
-        "browser_refresh_token", 
-        LocalDateTime.now().plusHours(1));
-    
-    SessionCredentials browserAuthCreds = new SessionCredentials.Builder()
-        .withToken(browserAuthToken)
-        .withClientId("test-client-id")
-        .withTokenUrl("https://test-token-url")
-        .build();
-    
+    Token browserAuthToken =
+        new Token(
+            "browser_access_token",
+            "Bearer",
+            "browser_refresh_token",
+            LocalDateTime.now().plusHours(1));
+
+    SessionCredentials browserAuthCreds =
+        new SessionCredentials.Builder()
+            .withToken(browserAuthToken)
+            .withClientId("test-client-id")
+            .withTokenUrl("https://test-token-url")
+            .build();
+
     // Create config with caching explicitly disabled
-    DatabricksConfig config = new DatabricksConfig()
-        .setAuthType("external-browser")
-        .setHost("https://test.databricks.com")
-        .setClientId("test-client-id")
-        .setHttpClient(mockHttpClient)
-        .setTokenCacheEnabled(false);
-    
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setAuthType("external-browser")
+            .setHost("https://test.databricks.com")
+            .setClientId("test-client-id")
+            .setHttpClient(mockHttpClient)
+            .setTokenCacheEnabled(false);
+
     // We need to provide OIDC endpoints
-    OpenIDConnectEndpoints endpoints = new OpenIDConnectEndpoints(
-        "https://test.databricks.com/token", 
-        "https://test.databricks.com/authorize");
-    
+    OpenIDConnectEndpoints endpoints =
+        new OpenIDConnectEndpoints(
+            "https://test.databricks.com/token", "https://test.databricks.com/authorize");
+
     // Create our provider and mock the browser auth method
-    ExternalBrowserCredentialsProvider provider = Mockito.spy(new ExternalBrowserCredentialsProvider());
-    Mockito.doReturn(browserAuthCreds).when(provider).performBrowserAuth(any(DatabricksConfig.class));
-    
+    ExternalBrowserCredentialsProvider provider =
+        Mockito.spy(new ExternalBrowserCredentialsProvider());
+    Mockito.doReturn(browserAuthCreds)
+        .when(provider)
+        .performBrowserAuth(any(DatabricksConfig.class));
+
     // Create a real token cache with caching disabled
-    TokenCache tokenCache = new TokenCache(
-        "https://test.databricks.com",
-        "test-client-id",
-        Arrays.asList("offline_access"),
-        "test-passphrase",
-        false);
-    
+    TokenCache tokenCache =
+        new TokenCache(
+            "https://test.databricks.com",
+            "test-client-id",
+            Arrays.asList("offline_access"),
+            "test-passphrase",
+            false);
+
     // Spy on the config to inject the token cache and endpoints
     DatabricksConfig spyConfig = Mockito.spy(config);
     Mockito.doReturn(tokenCache).when(spyConfig).getTokenCache();
     Mockito.doReturn(endpoints).when(spyConfig).getOidcEndpoints();
-    
+
     // Configure provider
     HeaderFactory headerFactory = provider.configure(spyConfig);
-    
+
     // Verify headers contain the browser auth token
     Map<String, String> headers = headerFactory.headers();
     assertEquals("Bearer browser_access_token", headers.get("Authorization"));
-    
+
     // Verify performBrowserAuth was called immediately (no attempt to use cache)
     Mockito.verify(provider, Mockito.times(1)).performBrowserAuth(any(DatabricksConfig.class));
-    
+
     // The save operation should be called but be a no-op
     // We can't easily verify the no-op behavior in this test, but we can
     // verify that the cache file doesn't exist
-    assertFalse(Files.exists(tokenCache.getFilename()), "Cache file should not be created when disabled");
+    assertFalse(
+        Files.exists(tokenCache.getFilename()), "Cache file should not be created when disabled");
   }
 }

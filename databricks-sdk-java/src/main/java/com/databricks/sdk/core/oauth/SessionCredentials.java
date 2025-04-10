@@ -119,8 +119,9 @@ public class SessionCredentials extends RefreshableTokenSource
       // cross-origin requests
       headers.put("Origin", redirectUrl);
     }
-    Token newToken = retrieveToken(
-        hc, clientId, clientSecret, tokenUrl, params, headers, AuthParameterPosition.BODY);
+    Token newToken =
+        retrieveToken(
+            hc, clientId, clientSecret, tokenUrl, params, headers, AuthParameterPosition.BODY);
 
     // Save the refreshed token directly to cache
     if (tokenCache != null) {
@@ -131,7 +132,7 @@ public class SessionCredentials extends RefreshableTokenSource
         LOGGER.warn("Failed to save token to cache: {}", e.getMessage());
       }
     }
-    
+
     return newToken;
   }
 }

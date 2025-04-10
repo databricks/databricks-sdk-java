@@ -5,7 +5,6 @@ import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.oauth.OpenIDConnectEndpoints;
-import com.databricks.sdk.core.oauth.Token;
 import com.databricks.sdk.core.oauth.TokenCache;
 import com.databricks.sdk.core.utils.Cloud;
 import com.databricks.sdk.core.utils.Environment;
@@ -41,15 +40,18 @@ public class DatabricksConfig {
   private String redirectUrl;
 
   /**
-   * The passphrase used to encrypt the OAuth token cache.
-   * This is optional and only used with token caching.
+   * The passphrase used to encrypt the OAuth token cache. This is optional and only used with token
+   * caching.
    */
-  @ConfigAttribute(env = "DATABRICKS_OAUTH_TOKEN_CACHE_PASSPHRASE", auth = "oauth", sensitive = true)
+  @ConfigAttribute(
+      env = "DATABRICKS_OAUTH_TOKEN_CACHE_PASSPHRASE",
+      auth = "oauth",
+      sensitive = true)
   private String oAuthTokenCachePassphrase;
 
   /**
-   * Controls whether OAuth token caching is enabled.
-   * When set to false, tokens will not be cached or loaded from cache.
+   * Controls whether OAuth token caching is enabled. When set to false, tokens will not be cached
+   * or loaded from cache.
    */
   @ConfigAttribute(env = "DATABRICKS_OAUTH_TOKEN_CACHE_ENABLED", auth = "oauth")
   private Boolean isTokenCacheEnabled;
@@ -699,9 +701,8 @@ public class DatabricksConfig {
   }
 
   /**
-   * Gets whether OAuth token caching is enabled.
-   * Default is true.
-   * 
+   * Gets whether OAuth token caching is enabled. Default is true.
+   *
    * @return true if token caching is enabled, false otherwise
    */
   public boolean isTokenCacheEnabled() {
@@ -710,7 +711,7 @@ public class DatabricksConfig {
 
   /**
    * Sets whether OAuth token caching is enabled.
-   * 
+   *
    * @param enabled true to enable token caching, false to disable
    * @return this config instance
    */
@@ -720,25 +721,30 @@ public class DatabricksConfig {
   }
 
   /**
-   * Gets the default OAuth redirect URL.
-   * If one is not provided explicitly, uses http://localhost:8080/callback
-   * 
+   * Gets the default OAuth redirect URL. If one is not provided explicitly, uses
+   * http://localhost:8080/callback
+   *
    * @return The OAuth redirect URL to use
    */
   public String getEffectiveOAuthRedirectUrl() {
     return redirectUrl != null ? redirectUrl : "http://localhost:8080/callback";
   }
-  
+
   /**
-   * Gets the TokenCache instance for the current configuration.
-   * Creates it if it doesn't exist yet.
+   * Gets the TokenCache instance for the current configuration. Creates it if it doesn't exist yet.
    * When token caching is disabled, the TokenCache will be created but operations will be no-ops.
-   * 
+   *
    * @return A TokenCache instance for the current host, client ID, and scopes
    */
   public synchronized TokenCache getTokenCache() {
     if (tokenCache == null) {
-      tokenCache = new TokenCache(getHost(), getClientId(), getScopes(), getOAuthTokenCachePassphrase(), isTokenCacheEnabled());
+      tokenCache =
+          new TokenCache(
+              getHost(),
+              getClientId(),
+              getScopes(),
+              getOAuthTokenCachePassphrase(),
+              isTokenCacheEnabled());
     }
     return tokenCache;
   }

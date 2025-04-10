@@ -40,9 +40,9 @@ public class Token {
   /** Constructor for refreshable tokens. */
   @JsonCreator
   public Token(
-      @JsonProperty("accessToken") String accessToken, 
-      @JsonProperty("tokenType") String tokenType, 
-      @JsonProperty("refreshToken") String refreshToken, 
+      @JsonProperty("accessToken") String accessToken,
+      @JsonProperty("tokenType") String tokenType,
+      @JsonProperty("refreshToken") String refreshToken,
       @JsonProperty("expiry") LocalDateTime expiry) {
     this(accessToken, tokenType, refreshToken, expiry, new SystemClockSupplier());
   }

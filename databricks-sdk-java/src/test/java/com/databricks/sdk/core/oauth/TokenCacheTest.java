@@ -1,25 +1,25 @@
 package com.databricks.sdk.core.oauth;
 
-import com.databricks.sdk.core.DatabricksConfig;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.spy;
 
+import com.databricks.sdk.core.DatabricksConfig;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.spy;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 public class TokenCacheTest {
   private static final String TEST_HOST = "https://test-host.cloud.databricks.com";
   private static final String TEST_CLIENT_ID = "test-client-id";
-  private static final List<String> TEST_SCOPES = Arrays.asList("offline_access", "clusters", "sql");
+  private static final List<String> TEST_SCOPES =
+      Arrays.asList("offline_access", "clusters", "sql");
   private static final String TEST_PASS = "test-passphrase";
   private Path cacheFile;
   private TokenCache tokenCache;
@@ -44,15 +44,16 @@ public class TokenCacheTest {
   void testSaveAndLoadToken() throws IOException {
     LocalDateTime expiry = LocalDateTime.now().plusHours(1);
     Token token = new Token("access-token", "Bearer", "refresh-token", expiry);
-    
+
     tokenCache.save(token);
-    
+
     Token loadedToken = tokenCache.load();
     assertNotNull(loadedToken, "Loaded token should not be null");
     assertEquals("access-token", loadedToken.getAccessToken());
     assertEquals("Bearer", loadedToken.getTokenType());
     assertEquals("refresh-token", loadedToken.getRefreshToken());
-    // No direct way to compare expiry times exactly, but we can compare if they're both in the future
+    // No direct way to compare expiry times exactly, but we can compare if they're both in the
+    // future
     assertFalse(loadedToken.isExpired(), "Token should not be expired");
   }
 
@@ -61,9 +62,9 @@ public class TokenCacheTest {
     LocalDateTime now = LocalDateTime.now();
     LocalDateTime expiry = now.plusMinutes(30);
     Token token = new Token("access-token", "Bearer", "refresh-token", expiry);
-    
+
     tokenCache.save(token);
-    
+
     Token loadedToken = tokenCache.load();
     assertNotNull(loadedToken, "Loaded token should not be null");
     assertFalse(loadedToken.isExpired(), "Token should not be expired");
@@ -75,7 +76,9 @@ public class TokenCacheTest {
 
   @Test
   void testInvalidPassphrase() {
-    assertThrows(NullPointerException.class, () -> new TokenCache(null, TEST_CLIENT_ID, TEST_SCOPES, TEST_PASS, true));
+    assertThrows(
+        NullPointerException.class,
+        () -> new TokenCache(null, TEST_CLIENT_ID, TEST_SCOPES, TEST_PASS, true));
   }
 
   @Test
@@ -98,114 +101,117 @@ public class TokenCacheTest {
     TokenCache cache = spy(new TokenCache(TEST_HOST, TEST_CLIENT_ID, TEST_SCOPES, TEST_PASS, true));
 
     // Create test token
-    Token testToken = new Token(
-        "test-access-token", 
-        "Bearer", 
-        "test-refresh-token", 
-        LocalDateTime.now().plusHours(1));
-    
+    Token testToken =
+        new Token(
+            "test-access-token", "Bearer", "test-refresh-token", LocalDateTime.now().plusHours(1));
+
     // Save to cache
     cache.save(testToken);
 
     // Load from cache
     Token loadedToken = cache.load();
     assertNotNull(loadedToken, "Should load token from cache");
-    
+
     // Verify token details
     assertEquals("test-access-token", loadedToken.getAccessToken());
     assertEquals("Bearer", loadedToken.getTokenType());
     assertEquals("test-refresh-token", loadedToken.getRefreshToken());
   }
-  
+
   @Test
   void testDatabricksConfigTokenCache() throws IOException {
     // Create a DatabricksConfig with the test values
-    DatabricksConfig config = new DatabricksConfig()
-        .setHost(TEST_HOST)
-        .setClientId(TEST_CLIENT_ID)
-        .setScopes(TEST_SCOPES)
-        .setOAuthTokenCachePassphrase(TEST_PASS)
-        .setTokenCacheEnabled(true);
-    
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setHost(TEST_HOST)
+            .setClientId(TEST_CLIENT_ID)
+            .setScopes(TEST_SCOPES)
+            .setOAuthTokenCachePassphrase(TEST_PASS)
+            .setTokenCacheEnabled(true);
+
     // Get TokenCache from config
     TokenCache cache = config.getTokenCache();
     assertNotNull(cache, "TokenCache from config should not be null");
-    
+
     // Create test token
-    Token testToken = new Token(
-        "config-access-token", 
-        "Bearer", 
-        "config-refresh-token", 
-        LocalDateTime.now().plusHours(1));
-    
+    Token testToken =
+        new Token(
+            "config-access-token",
+            "Bearer",
+            "config-refresh-token",
+            LocalDateTime.now().plusHours(1));
+
     // Save to cache directly
     cache.save(testToken);
-    
+
     // Load from cache directly
     Token loadedToken = cache.load();
     assertNotNull(loadedToken, "Should load token from cache directly");
-    
+
     // Verify token details
     assertEquals("config-access-token", loadedToken.getAccessToken());
     assertEquals("Bearer", loadedToken.getTokenType());
     assertEquals("config-refresh-token", loadedToken.getRefreshToken());
-    
+
     // Clean up
     Files.deleteIfExists(cache.getFilename());
   }
-  
+
   @Test
   void testDisabledTokenCache() throws IOException {
     // Create a disabled token cache
-    TokenCache disabledCache = new TokenCache(TEST_HOST, TEST_CLIENT_ID, TEST_SCOPES, TEST_PASS, false);
-    
+    TokenCache disabledCache =
+        new TokenCache(TEST_HOST, TEST_CLIENT_ID, TEST_SCOPES, TEST_PASS, false);
+
     // Create test token
-    Token testToken = new Token(
-        "disabled-token", 
-        "Bearer", 
-        "disabled-refresh", 
-        LocalDateTime.now().plusHours(1));
-    
+    Token testToken =
+        new Token("disabled-token", "Bearer", "disabled-refresh", LocalDateTime.now().plusHours(1));
+
     // Try to save to cache - should be a no-op
     disabledCache.save(testToken);
-    
+
     // Load from cache - should return null
     Token loadedToken = disabledCache.load();
     assertNull(loadedToken, "Disabled cache should not load a token");
-    
+
     // Verify the file wasn't created
-    assertFalse(Files.exists(disabledCache.getFilename()), "Cache file should not be created when disabled");
+    assertFalse(
+        Files.exists(disabledCache.getFilename()),
+        "Cache file should not be created when disabled");
   }
-  
+
   @Test
   void testDatabricksConfigDisabledTokenCache() throws IOException {
     // Create a DatabricksConfig with caching disabled
-    DatabricksConfig config = new DatabricksConfig()
-        .setHost(TEST_HOST)
-        .setClientId(TEST_CLIENT_ID)
-        .setScopes(TEST_SCOPES)
-        .setOAuthTokenCachePassphrase(TEST_PASS)
-        .setTokenCacheEnabled(false);
-    
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setHost(TEST_HOST)
+            .setClientId(TEST_CLIENT_ID)
+            .setScopes(TEST_SCOPES)
+            .setOAuthTokenCachePassphrase(TEST_PASS)
+            .setTokenCacheEnabled(false);
+
     // Get TokenCache from config
     TokenCache cache = config.getTokenCache();
     assertNotNull(cache, "TokenCache should still be created even when disabled");
-    
+
     // Create test token
-    Token testToken = new Token(
-        "disabled-config-token", 
-        "Bearer", 
-        "disabled-config-refresh", 
-        LocalDateTime.now().plusHours(1));
-    
+    Token testToken =
+        new Token(
+            "disabled-config-token",
+            "Bearer",
+            "disabled-config-refresh",
+            LocalDateTime.now().plusHours(1));
+
     // Try to save to cache - should be a no-op
     cache.save(testToken);
-    
+
     // Load from cache - should return null
     Token loadedToken = cache.load();
     assertNull(loadedToken, "Disabled cache should not load a token");
-    
+
     // Verify the file wasn't created
-    assertFalse(Files.exists(cache.getFilename()), "Cache file should not be created when disabled");
+    assertFalse(
+        Files.exists(cache.getFilename()), "Cache file should not be created when disabled");
   }
 }
