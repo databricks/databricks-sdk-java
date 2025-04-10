@@ -20,13 +20,18 @@ import javax.crypto.spec.SecretKeySpec;
 import com.databricks.sdk.core.utils.SerDeUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.annotations.VisibleForTesting;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * TokenCache stores OAuth tokens on disk to avoid repeated authentication.
  * It generates a unique cache filename based on the host, client ID, and scopes.
  * If a passphrase is provided, the token data is encrypted for added security.
+ * Cache operations can be disabled by setting isEnabled to false.
  */
 public class TokenCache {
+  private static final Logger LOGGER = LoggerFactory.getLogger(TokenCache.class);
+  
   // Base path for token cache files, aligned with Python implementation
   private static final String BASE_PATH = ".config/databricks-sdk-java/oauth";
   
@@ -43,6 +48,7 @@ public class TokenCache {
   private final Path cacheFile;
   private final String passphrase;
   private final ObjectMapper mapper;
+  private final boolean isEnabled;
 
   /**
    * Constructs a new TokenCache instance for OAuth token caching
@@ -51,17 +57,20 @@ public class TokenCache {
    * @param clientId The OAuth client ID
    * @param scopes The OAuth scopes requested (optional)
    * @param passphrase The passphrase used to encrypt/decrypt the token cache (optional)
+   * @param isEnabled Whether token caching is enabled
    */
   public TokenCache(
       String host,
       String clientId,
       List<String> scopes,
-      String passphrase) {
+      String passphrase,
+      boolean isEnabled) {
     this.host = Objects.requireNonNull(host, "host must be defined");
     this.clientId = Objects.requireNonNull(clientId, "clientId must be defined");
     this.scopes = scopes != null ? scopes : new ArrayList<>();
     this.passphrase = passphrase; // Can be null or empty, encryption will be skipped in that case
     this.mapper = SerDeUtils.createMapper();
+    this.isEnabled = isEnabled;
     
     this.cacheFile = getFilename();
   }
@@ -113,11 +122,17 @@ public class TokenCache {
 
   /**
    * Saves a Token to the cache file, encrypting if a passphrase is provided
+   * Does nothing if caching is disabled
    *
    * @param token The Token to save
    * @throws IOException If an error occurs writing to the file
    */
   public void save(Token token) throws IOException {
+    if (!isEnabled) {
+      LOGGER.debug("Token caching is disabled, skipping save operation");
+      return;
+    }
+    
     try {
       Files.createDirectories(cacheFile.getParent());
       
@@ -138,6 +153,8 @@ public class TokenCache {
       cacheFile.toFile().setReadable(true, true);
       cacheFile.toFile().setWritable(false, false);
       cacheFile.toFile().setWritable(true, true);
+      
+      LOGGER.debug("Successfully saved token to cache: {}", cacheFile);
     } catch (Exception e) {
       throw new IOException("Failed to save token cache: " + e.getMessage(), e);
     }
@@ -145,12 +162,19 @@ public class TokenCache {
 
   /**
    * Loads a Token from the cache file, decrypting if a passphrase was provided
+   * Returns null if caching is disabled
    *
-   * @return The Token from the cache or null if the cache file doesn't exist or is invalid
+   * @return The Token from the cache or null if the cache file doesn't exist, is invalid, or caching is disabled
    */
   public Token load() {
+    if (!isEnabled) {
+      LOGGER.debug("Token caching is disabled, skipping load operation");
+      return null;
+    }
+    
     try {
       if (!Files.exists(cacheFile)) {
+        LOGGER.debug("No token cache file found at: {}", cacheFile);
         return null;
       }
       
@@ -163,6 +187,7 @@ public class TokenCache {
         } catch (Exception e) {
           // If decryption fails, it might be because the file was saved without encryption
           // or the passphrase is incorrect
+          LOGGER.debug("Failed to decrypt token cache: {}", e.getMessage());
           return null;
         }
       } else {
@@ -171,10 +196,13 @@ public class TokenCache {
       
       // Deserialize token from JSON
       String json = new String(decodedContent, StandardCharsets.UTF_8);
-      return mapper.readValue(json, Token.class);
+      Token token = mapper.readValue(json, Token.class);
+      LOGGER.debug("Successfully loaded token from cache: {}", cacheFile);
+      return token;
     } catch (Exception e) {
       // If there's any issue loading the token, return null
       // to allow a fresh token to be obtained
+      LOGGER.debug("Failed to load token from cache: {}", e.getMessage());
       return null;
     }
   }

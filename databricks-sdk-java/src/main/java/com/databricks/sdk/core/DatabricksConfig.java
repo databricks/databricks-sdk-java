@@ -48,6 +48,13 @@ public class DatabricksConfig {
   private String oAuthTokenCachePassphrase;
 
   /**
+   * Controls whether OAuth token caching is enabled.
+   * When set to false, tokens will not be cached or loaded from cache.
+   */
+  @ConfigAttribute(env = "DATABRICKS_OAUTH_TOKEN_CACHE_ENABLED", auth = "oauth")
+  private Boolean isTokenCacheEnabled;
+
+  /**
    * The OpenID Connect discovery URL used to retrieve OIDC configuration and endpoints.
    *
    * <p><b>Note:</b> This API is experimental and may change or be removed in future releases
@@ -682,12 +689,33 @@ public class DatabricksConfig {
     return clone(fieldsToSkip).setHost(host);
   }
 
-  public String getOAuthPassphrase() {
+  public String getOAuthTokenCachePassphrase() {
     return oAuthTokenCachePassphrase;
   }
 
-  public DatabricksConfig setOAuthPassphrase(String oAuthPassphrase) {
+  public DatabricksConfig setOAuthTokenCachePassphrase(String oAuthPassphrase) {
     this.oAuthTokenCachePassphrase = oAuthPassphrase;
+    return this;
+  }
+
+  /**
+   * Gets whether OAuth token caching is enabled.
+   * Default is true.
+   * 
+   * @return true if token caching is enabled, false otherwise
+   */
+  public boolean isTokenCacheEnabled() {
+    return isTokenCacheEnabled == null || isTokenCacheEnabled;
+  }
+
+  /**
+   * Sets whether OAuth token caching is enabled.
+   * 
+   * @param enabled true to enable token caching, false to disable
+   * @return this config instance
+   */
+  public DatabricksConfig setTokenCacheEnabled(boolean enabled) {
+    this.isTokenCacheEnabled = enabled;
     return this;
   }
 
@@ -704,40 +732,14 @@ public class DatabricksConfig {
   /**
    * Gets the TokenCache instance for the current configuration.
    * Creates it if it doesn't exist yet.
+   * When token caching is disabled, the TokenCache will be created but operations will be no-ops.
    * 
    * @return A TokenCache instance for the current host, client ID, and scopes
    */
   public synchronized TokenCache getTokenCache() {
-    if (tokenCache == null && getHost() != null && getClientId() != null) {
-      tokenCache = new TokenCache(getHost(), getClientId(), getScopes(), getOAuthPassphrase());
+    if (tokenCache == null) {
+      tokenCache = new TokenCache(getHost(), getClientId(), getScopes(), getOAuthTokenCachePassphrase(), isTokenCacheEnabled());
     }
     return tokenCache;
-  }
-  
-  /**
-   * Loads a cached token if one exists for the current configuration.
-   * 
-   * @return The cached token, or null if no valid token is cached
-   */
-  public Token loadCachedToken() {
-    TokenCache cache = getTokenCache();
-    if (cache == null) {
-      return null;
-    }
-    return cache.load();
-  }
-  
-  /**
-   * Saves a token to the cache for the current configuration.
-   * 
-   * @param token The token to cache
-   * @throws IOException If there is an error saving the token
-   */
-  public void saveTokenToCache(Token token) throws IOException {
-    TokenCache cache = getTokenCache();
-    if (cache == null) {
-      return;
-    }
-    cache.save(token);
   }
 }

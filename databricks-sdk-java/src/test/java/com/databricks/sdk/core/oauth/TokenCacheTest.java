@@ -24,9 +24,9 @@ public class TokenCacheTest {
   private Path cacheFile;
   private TokenCache tokenCache;
 
-    @BeforeEach
+  @BeforeEach
   void setUp() {
-    tokenCache = new TokenCache(TEST_HOST, TEST_CLIENT_ID, TEST_SCOPES, TEST_PASS);
+    tokenCache = new TokenCache(TEST_HOST, TEST_CLIENT_ID, TEST_SCOPES, TEST_PASS, true);
     cacheFile = tokenCache.getFilename();
   }
 
@@ -75,7 +75,7 @@ public class TokenCacheTest {
 
   @Test
   void testInvalidPassphrase() {
-    assertThrows(NullPointerException.class, () -> new TokenCache(null, TEST_CLIENT_ID, TEST_SCOPES, TEST_PASS));
+    assertThrows(NullPointerException.class, () -> new TokenCache(null, TEST_CLIENT_ID, TEST_SCOPES, TEST_PASS, true));
   }
 
   @Test
@@ -95,7 +95,7 @@ public class TokenCacheTest {
   @Test
   void testTokenCacheSaveLoad(@TempDir Path tempDir) throws IOException {
     // Create a token cache that uses a temp directory
-    TokenCache cache = spy(new TokenCache(TEST_HOST, TEST_CLIENT_ID, TEST_SCOPES, TEST_PASS));
+    TokenCache cache = spy(new TokenCache(TEST_HOST, TEST_CLIENT_ID, TEST_SCOPES, TEST_PASS, true));
 
     // Create test token
     Token testToken = new Token(
@@ -124,7 +124,8 @@ public class TokenCacheTest {
         .setHost(TEST_HOST)
         .setClientId(TEST_CLIENT_ID)
         .setScopes(TEST_SCOPES)
-        .setOAuthPassphrase(TEST_PASS);
+        .setOAuthTokenCachePassphrase(TEST_PASS)
+        .setTokenCacheEnabled(true);
     
     // Get TokenCache from config
     TokenCache cache = config.getTokenCache();
@@ -151,5 +152,60 @@ public class TokenCacheTest {
     
     // Clean up
     Files.deleteIfExists(cache.getFilename());
+  }
+  
+  @Test
+  void testDisabledTokenCache() throws IOException {
+    // Create a disabled token cache
+    TokenCache disabledCache = new TokenCache(TEST_HOST, TEST_CLIENT_ID, TEST_SCOPES, TEST_PASS, false);
+    
+    // Create test token
+    Token testToken = new Token(
+        "disabled-token", 
+        "Bearer", 
+        "disabled-refresh", 
+        LocalDateTime.now().plusHours(1));
+    
+    // Try to save to cache - should be a no-op
+    disabledCache.save(testToken);
+    
+    // Load from cache - should return null
+    Token loadedToken = disabledCache.load();
+    assertNull(loadedToken, "Disabled cache should not load a token");
+    
+    // Verify the file wasn't created
+    assertFalse(Files.exists(disabledCache.getFilename()), "Cache file should not be created when disabled");
+  }
+  
+  @Test
+  void testDatabricksConfigDisabledTokenCache() throws IOException {
+    // Create a DatabricksConfig with caching disabled
+    DatabricksConfig config = new DatabricksConfig()
+        .setHost(TEST_HOST)
+        .setClientId(TEST_CLIENT_ID)
+        .setScopes(TEST_SCOPES)
+        .setOAuthTokenCachePassphrase(TEST_PASS)
+        .setTokenCacheEnabled(false);
+    
+    // Get TokenCache from config
+    TokenCache cache = config.getTokenCache();
+    assertNotNull(cache, "TokenCache should still be created even when disabled");
+    
+    // Create test token
+    Token testToken = new Token(
+        "disabled-config-token", 
+        "Bearer", 
+        "disabled-config-refresh", 
+        LocalDateTime.now().plusHours(1));
+    
+    // Try to save to cache - should be a no-op
+    cache.save(testToken);
+    
+    // Load from cache - should return null
+    Token loadedToken = cache.load();
+    assertNull(loadedToken, "Disabled cache should not load a token");
+    
+    // Verify the file wasn't created
+    assertFalse(Files.exists(cache.getFilename()), "Cache file should not be created when disabled");
   }
 }

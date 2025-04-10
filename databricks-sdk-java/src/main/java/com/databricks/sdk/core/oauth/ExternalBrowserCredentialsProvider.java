@@ -11,7 +11,8 @@ import org.slf4j.LoggerFactory;
 /**
  * A {@code CredentialsProvider} which implements the Authorization Code + PKCE flow by opening a
  * browser for the user to authorize the application. When cache support is enabled with 
- * {@link DatabricksConfig#setOAuthPassphrase}, tokens will be cached to avoid repeated authentication.
+ * {@link DatabricksConfig#setOAuthTokenCachePassphrase} and {@link DatabricksConfig#setTokenCacheEnabled(boolean)},
+ * tokens will be cached to avoid repeated authentication.
  */
 public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
   private static final Logger LOGGER = LoggerFactory.getLogger(ExternalBrowserCredentialsProvider.class);
@@ -31,7 +32,7 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
       // Get the token cache from config
       TokenCache tokenCache = config.getTokenCache();
 
-      // First try to use the cached token if available
+      // First try to use the cached token if available (will return null if disabled)
       Token cachedToken = tokenCache.load();
       if (cachedToken != null && cachedToken.getRefreshToken() != null) {
         LOGGER.debug("Found cached token for {}:{}", config.getHost(), config.getClientId());
@@ -47,7 +48,9 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
               .withRedirectUrl(config.getEffectiveOAuthRedirectUrl())
               .build();
               
-          LOGGER.debug("Using cached token (will refresh if needed)");
+          LOGGER.debug("Using cached token, will immediately refresh");
+          cachedCreds.token = cachedCreds.refresh();
+          tokenCache.save(cachedToken);
           return cachedCreds.configure(config);
         } catch (Exception e) {
           // If token refresh fails, log and continue to browser auth
@@ -58,7 +61,6 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
       // If no cached token or refresh failed, perform browser auth
       SessionCredentials credentials = performBrowserAuth(config);
       tokenCache.save(credentials.getToken());
-      LOGGER.debug("Saved browser auth token to cache");
       return credentials.configure(config);
     } catch (IOException | DatabricksException e) {
       LOGGER.error("Failed to authenticate: {}", e.getMessage());
