@@ -9,6 +9,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.http.HttpHeaders;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * An implementation of RefreshableTokenSource implementing the refresh_token OAuth grant type.
@@ -20,6 +22,7 @@ import org.apache.http.HttpHeaders;
 public class SessionCredentials extends RefreshableTokenSource
     implements CredentialsProvider, Serializable {
   private static final long serialVersionUID = 3083941540130596650L;
+  private static final Logger LOGGER = LoggerFactory.getLogger(SessionCredentials.class);
 
   @Override
   public String authType() {
@@ -28,6 +31,8 @@ public class SessionCredentials extends RefreshableTokenSource
 
   @Override
   public HeaderFactory configure(DatabricksConfig config) {
+    this.tokenCache = config.getTokenCache();
+
     return () -> {
       Map<String, String> headers = new HashMap<>();
       headers.put(
@@ -84,6 +89,7 @@ public class SessionCredentials extends RefreshableTokenSource
   private final String redirectUrl;
   private final String clientId;
   private final String clientSecret;
+  private transient TokenCache tokenCache;
 
   private SessionCredentials(Builder b) {
     super(b.token);
@@ -113,7 +119,19 @@ public class SessionCredentials extends RefreshableTokenSource
       // cross-origin requests
       headers.put("Origin", redirectUrl);
     }
-    return retrieveToken(
+    Token newToken = retrieveToken(
         hc, clientId, clientSecret, tokenUrl, params, headers, AuthParameterPosition.BODY);
+
+    // Save the refreshed token directly to cache
+    if (tokenCache != null) {
+      try {
+        tokenCache.save(newToken);
+        LOGGER.debug("Saved refreshed token to cache");
+      } catch (Exception e) {
+        LOGGER.warn("Failed to save token to cache: {}", e.getMessage());
+      }
+    }
+    
+    return newToken;
   }
 }

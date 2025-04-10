@@ -2,6 +2,7 @@ package com.databricks.sdk.core.oauth;
 
 import com.databricks.sdk.core.utils.ClockSupplier;
 import com.databricks.sdk.core.utils.SystemClockSupplier;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -37,7 +38,12 @@ public class Token {
   }
 
   /** Constructor for refreshable tokens. */
-  public Token(String accessToken, String tokenType, String refreshToken, LocalDateTime expiry) {
+  @JsonCreator
+  public Token(
+      @JsonProperty("accessToken") String accessToken, 
+      @JsonProperty("tokenType") String tokenType, 
+      @JsonProperty("refreshToken") String refreshToken, 
+      @JsonProperty("expiry") LocalDateTime expiry) {
     this(accessToken, tokenType, refreshToken, expiry, new SystemClockSupplier());
   }
 

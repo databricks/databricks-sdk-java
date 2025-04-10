@@ -5,6 +5,8 @@ import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.oauth.OpenIDConnectEndpoints;
+import com.databricks.sdk.core.oauth.Token;
+import com.databricks.sdk.core.oauth.TokenCache;
 import com.databricks.sdk.core.utils.Cloud;
 import com.databricks.sdk.core.utils.Environment;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -37,6 +39,13 @@ public class DatabricksConfig {
 
   @ConfigAttribute(env = "DATABRICKS_REDIRECT_URL", auth = "oauth")
   private String redirectUrl;
+
+  /**
+   * The passphrase used to encrypt the OAuth token cache.
+   * This is optional and only used with token caching.
+   */
+  @ConfigAttribute(env = "DATABRICKS_OAUTH_TOKEN_CACHE_PASSPHRASE", auth = "oauth", sensitive = true)
+  private String oAuthTokenCachePassphrase;
 
   /**
    * The OpenID Connect discovery URL used to retrieve OIDC configuration and endpoints.
@@ -140,6 +149,9 @@ public class DatabricksConfig {
   private Environment env;
 
   private DatabricksEnvironment databricksEnvironment;
+
+  // Lazily initialized OAuth token cache
+  private transient TokenCache tokenCache;
 
   public Environment getEnv() {
     return env;
@@ -668,5 +680,64 @@ public class DatabricksConfig {
                 // header factory.
                 "headerFactory"));
     return clone(fieldsToSkip).setHost(host);
+  }
+
+  public String getOAuthPassphrase() {
+    return oAuthTokenCachePassphrase;
+  }
+
+  public DatabricksConfig setOAuthPassphrase(String oAuthPassphrase) {
+    this.oAuthTokenCachePassphrase = oAuthPassphrase;
+    return this;
+  }
+
+  /**
+   * Gets the default OAuth redirect URL.
+   * If one is not provided explicitly, uses http://localhost:8080/callback
+   * 
+   * @return The OAuth redirect URL to use
+   */
+  public String getEffectiveOAuthRedirectUrl() {
+    return redirectUrl != null ? redirectUrl : "http://localhost:8080/callback";
+  }
+  
+  /**
+   * Gets the TokenCache instance for the current configuration.
+   * Creates it if it doesn't exist yet.
+   * 
+   * @return A TokenCache instance for the current host, client ID, and scopes
+   */
+  public synchronized TokenCache getTokenCache() {
+    if (tokenCache == null && getHost() != null && getClientId() != null) {
+      tokenCache = new TokenCache(getHost(), getClientId(), getScopes(), getOAuthPassphrase());
+    }
+    return tokenCache;
+  }
+  
+  /**
+   * Loads a cached token if one exists for the current configuration.
+   * 
+   * @return The cached token, or null if no valid token is cached
+   */
+  public Token loadCachedToken() {
+    TokenCache cache = getTokenCache();
+    if (cache == null) {
+      return null;
+    }
+    return cache.load();
+  }
+  
+  /**
+   * Saves a token to the cache for the current configuration.
+   * 
+   * @param token The token to cache
+   * @throws IOException If there is an error saving the token
+   */
+  public void saveTokenToCache(Token token) throws IOException {
+    TokenCache cache = getTokenCache();
+    if (cache == null) {
+      return;
+    }
+    cache.save(token);
   }
 }
