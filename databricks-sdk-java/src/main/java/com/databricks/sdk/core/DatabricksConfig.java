@@ -4,14 +4,17 @@ import com.databricks.sdk.core.commons.CommonsHttpClient;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
+import com.databricks.sdk.core.oauth.FileTokenCache;
 import com.databricks.sdk.core.oauth.OpenIDConnectEndpoints;
 import com.databricks.sdk.core.oauth.TokenCache;
+import com.databricks.sdk.core.oauth.TokenCacheUtils;
 import com.databricks.sdk.core.utils.Cloud;
 import com.databricks.sdk.core.utils.Environment;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.nio.file.Path;
 import java.util.*;
 import org.apache.http.HttpMessage;
 
@@ -38,23 +41,6 @@ public class DatabricksConfig {
 
   @ConfigAttribute(env = "DATABRICKS_REDIRECT_URL", auth = "oauth")
   private String redirectUrl;
-
-  /**
-   * The passphrase used to encrypt the OAuth token cache. This is optional and only used with token
-   * caching.
-   */
-  @ConfigAttribute(
-      env = "DATABRICKS_OAUTH_TOKEN_CACHE_PASSPHRASE",
-      auth = "oauth",
-      sensitive = true)
-  private String oAuthTokenCachePassphrase;
-
-  /**
-   * Controls whether OAuth token caching is enabled. When set to false, tokens will not be cached
-   * or loaded from cache.
-   */
-  @ConfigAttribute(env = "DATABRICKS_OAUTH_TOKEN_CACHE_ENABLED", auth = "oauth")
-  private Boolean isTokenCacheEnabled;
 
   /**
    * The OpenID Connect discovery URL used to retrieve OIDC configuration and endpoints.
@@ -395,13 +381,17 @@ public class DatabricksConfig {
     return this;
   }
 
-  /** @deprecated Use {@link #getAzureUseMsi()} instead. */
+  /**
+   * @deprecated Use {@link #getAzureUseMsi()} instead.
+   */
   @Deprecated()
   public boolean getAzureUseMSI() {
     return azureUseMsi;
   }
 
-  /** @deprecated Use {@link #setAzureUseMsi(boolean)} instead. */
+  /**
+   * @deprecated Use {@link #setAzureUseMsi(boolean)} instead.
+   */
   @Deprecated
   public DatabricksConfig setAzureUseMSI(boolean azureUseMsi) {
     this.azureUseMsi = azureUseMsi;
@@ -691,32 +681,14 @@ public class DatabricksConfig {
     return clone(fieldsToSkip).setHost(host);
   }
 
-  public String getOAuthTokenCachePassphrase() {
-    return oAuthTokenCachePassphrase;
-  }
-
-  public DatabricksConfig setOAuthTokenCachePassphrase(String oAuthPassphrase) {
-    this.oAuthTokenCachePassphrase = oAuthPassphrase;
-    return this;
-  }
-
   /**
-   * Gets whether OAuth token caching is enabled. Default is true.
+   * Sets a custom TokenCache implementation.
    *
-   * @return true if token caching is enabled, false otherwise
-   */
-  public boolean isTokenCacheEnabled() {
-    return isTokenCacheEnabled == null || isTokenCacheEnabled;
-  }
-
-  /**
-   * Sets whether OAuth token caching is enabled.
-   *
-   * @param enabled true to enable token caching, false to disable
+   * @param tokenCache the TokenCache implementation to use
    * @return this config instance
    */
-  public DatabricksConfig setTokenCacheEnabled(boolean enabled) {
-    this.isTokenCacheEnabled = enabled;
+  public DatabricksConfig setTokenCache(TokenCache tokenCache) {
+    this.tokenCache = tokenCache;
     return this;
   }
 
@@ -731,20 +703,17 @@ public class DatabricksConfig {
   }
 
   /**
-   * Gets the TokenCache instance for the current configuration. Creates it if it doesn't exist yet.
-   * When token caching is disabled, the TokenCache will be created but operations will be no-ops.
+   * Gets the TokenCache instance for the current configuration.
    *
-   * @return A TokenCache instance for the current host, client ID, and scopes
+   * <p>If a custom TokenCache has been set, it will be returned. Otherwise, a SimpleFileTokenCache
+   * will be created based on the configuration properties.
+   *
+   * @return A TokenCache instance
    */
   public synchronized TokenCache getTokenCache() {
     if (tokenCache == null) {
-      tokenCache =
-          new TokenCache(
-              getHost(),
-              getClientId(),
-              getScopes(),
-              getOAuthTokenCachePassphrase(),
-              isTokenCacheEnabled());
+      Path cachePath = TokenCacheUtils.getCacheFilePath(getHost(), getClientId(), getScopes());
+      tokenCache = new FileTokenCache(cachePath);
     }
     return tokenCache;
   }

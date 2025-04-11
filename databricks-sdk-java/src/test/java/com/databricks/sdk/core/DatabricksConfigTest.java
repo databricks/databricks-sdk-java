@@ -3,14 +3,18 @@ package com.databricks.sdk.core;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.databricks.sdk.core.commons.CommonsHttpClient;
+import com.databricks.sdk.core.oauth.FileTokenCache;
 import com.databricks.sdk.core.oauth.OpenIDConnectEndpoints;
+import com.databricks.sdk.core.oauth.TokenCache;
 import com.databricks.sdk.core.utils.Environment;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 public class DatabricksConfigTest {
   @Test
@@ -194,5 +198,44 @@ public class DatabricksConfigTest {
     assert newWorkspaceConfig.getAuthType().equals("oauth-m2m");
     assert newWorkspaceConfig.getClientId().equals("my-client-id");
     assert newWorkspaceConfig.getClientSecret().equals("my-client-secret");
+  }
+
+  @Test
+  public void testGetTokenCache() {
+    // Test that getTokenCache returns a FileTokenCache by default
+    String testHost = "https://test-host.cloud.databricks.com";
+    String testClientId = "test-client-id";
+    List<String> testScopes = Arrays.asList("offline_access", "clusters", "sql");
+
+    DatabricksConfig config =
+        new DatabricksConfig().setHost(testHost).setClientId(testClientId).setScopes(testScopes);
+
+    TokenCache cache = config.getTokenCache();
+
+    assertNotNull(cache, "TokenCache from config should not be null");
+    assertInstanceOf(
+        FileTokenCache.class, cache, "Default cache should be a FileTokenCache instance");
+  }
+
+  @Test
+  public void testSetTokenCache() {
+    // Test that a custom token cache can be set and is returned by getTokenCache
+    String testHost = "https://test-host.cloud.databricks.com";
+    String testClientId = "test-client-id";
+    List<String> testScopes = Arrays.asList("offline_access", "clusters", "sql");
+    
+    // Create a mock token cache
+    TokenCache mockCache = Mockito.mock(TokenCache.class);
+
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setHost(testHost)
+            .setClientId(testClientId)
+            .setScopes(testScopes)
+            .setTokenCache(mockCache);
+
+    // Verify the custom cache is returned
+    TokenCache returnedCache = config.getTokenCache();
+    assertSame(mockCache, returnedCache, "Should return the custom token cache");
   }
 }

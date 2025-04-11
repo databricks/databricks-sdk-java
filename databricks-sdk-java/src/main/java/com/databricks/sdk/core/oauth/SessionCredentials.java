@@ -125,14 +125,9 @@ public class SessionCredentials extends RefreshableTokenSource
 
     // Save the refreshed token directly to cache
     if (tokenCache != null) {
-      try {
-        tokenCache.save(newToken);
-        LOGGER.debug("Saved refreshed token to cache");
-      } catch (Exception e) {
-        LOGGER.warn("Failed to save token to cache: {}", e.getMessage());
-      }
+      tokenCache.save(newToken);
+      LOGGER.debug("Saved refreshed token to cache");
     }
-
     return newToken;
   }
 }

@@ -10,10 +10,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * A {@code CredentialsProvider} which implements the Authorization Code + PKCE flow by opening a
- * browser for the user to authorize the application. When cache support is enabled with {@link
- * DatabricksConfig#setOAuthTokenCachePassphrase} and {@link
- * DatabricksConfig#setTokenCacheEnabled(boolean)}, tokens will be cached to avoid repeated
- * authentication.
+ * browser for the user to authorize the application. Uses the cache from {@link
+ * DatabricksConfig#getTokenCache()}, tokens will be cached to avoid repeated authentication.
  */
 public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
   private static final Logger LOGGER =
