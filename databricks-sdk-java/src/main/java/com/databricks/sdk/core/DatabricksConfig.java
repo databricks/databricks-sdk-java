@@ -4,13 +4,17 @@ import com.databricks.sdk.core.commons.CommonsHttpClient;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
+import com.databricks.sdk.core.oauth.FileTokenCache;
 import com.databricks.sdk.core.oauth.OpenIDConnectEndpoints;
+import com.databricks.sdk.core.oauth.TokenCache;
+import com.databricks.sdk.core.oauth.TokenCacheUtils;
 import com.databricks.sdk.core.utils.Cloud;
 import com.databricks.sdk.core.utils.Environment;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.nio.file.Path;
 import java.util.*;
 import org.apache.http.HttpMessage;
 
@@ -140,6 +144,9 @@ public class DatabricksConfig {
   private Environment env;
 
   private DatabricksEnvironment databricksEnvironment;
+
+  // Lazily initialized OAuth token cache
+  private transient TokenCache tokenCache;
 
   public Environment getEnv() {
     return env;
@@ -668,5 +675,42 @@ public class DatabricksConfig {
                 // header factory.
                 "headerFactory"));
     return clone(fieldsToSkip).setHost(host);
+  }
+
+  /**
+   * Sets a custom TokenCache implementation.
+   *
+   * @param tokenCache the TokenCache implementation to use
+   * @return this config instance
+   */
+  public DatabricksConfig setTokenCache(TokenCache tokenCache) {
+    this.tokenCache = tokenCache;
+    return this;
+  }
+
+  /**
+   * Gets the default OAuth redirect URL. If one is not provided explicitly, uses
+   * http://localhost:8080/callback
+   *
+   * @return The OAuth redirect URL to use
+   */
+  public String getEffectiveOAuthRedirectUrl() {
+    return redirectUrl != null ? redirectUrl : "http://localhost:8080/callback";
+  }
+
+  /**
+   * Gets the TokenCache instance for the current configuration.
+   *
+   * <p>If a custom TokenCache has been set, it will be returned. Otherwise, a SimpleFileTokenCache
+   * will be created based on the configuration properties.
+   *
+   * @return A TokenCache instance
+   */
+  public synchronized TokenCache getTokenCache() {
+    if (tokenCache == null) {
+      Path cachePath = TokenCacheUtils.getCacheFilePath(getHost(), getClientId(), getScopes());
+      tokenCache = new FileTokenCache(cachePath);
+    }
+    return tokenCache;
   }
 }
