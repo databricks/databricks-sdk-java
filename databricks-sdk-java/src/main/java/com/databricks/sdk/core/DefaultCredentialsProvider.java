@@ -58,12 +58,12 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
       if (config.getAuthType() != null
           && !config.getAuthType().isEmpty()
           && !provider.authType().equals(config.getAuthType())) {
-        LOG.info(
+        LOG.debug(
             "Ignoring {} auth, because {} is preferred", provider.authType(), config.getAuthType());
         continue;
       }
       try {
-        LOG.info("Trying {} auth", provider.authType());
+        LOG.debug("Trying {} auth", provider.authType());
         HeaderFactory headerFactory = provider.configure(config);
         if (headerFactory == null) {
           continue;
