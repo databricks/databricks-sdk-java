@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
 public class ExternalBrowserCredentialsProviderTest {
@@ -264,6 +265,21 @@ public class ExternalBrowserCredentialsProviderTest {
 
     // Verify token was saved back to cache
     Mockito.verify(mockTokenCache, Mockito.times(1)).save(any(Token.class));
+
+    // Capture the token that was saved to cache to verify it's the refreshed token
+    ArgumentCaptor<Token> tokenCaptor = ArgumentCaptor.forClass(Token.class);
+    Mockito.verify(mockTokenCache).save(tokenCaptor.capture());
+    Token savedToken = tokenCaptor.getValue();
+
+    // Verify the saved token contains the refreshed values from the HTTP response
+    assertEquals(
+        "refreshed_access_token",
+        savedToken.getAccessToken(),
+        "Should save refreshed access token to cache");
+    assertEquals(
+        "new_refresh_token",
+        savedToken.getRefreshToken(),
+        "Should save new refresh token to cache");
   }
 
   @Test
@@ -326,6 +342,21 @@ public class ExternalBrowserCredentialsProviderTest {
 
     // Verify token was saved back to cache
     Mockito.verify(mockTokenCache, Mockito.times(1)).save(any(Token.class));
+
+    // Capture the token that was saved to cache to verify it's the refreshed token
+    ArgumentCaptor<Token> tokenCaptor = ArgumentCaptor.forClass(Token.class);
+    Mockito.verify(mockTokenCache).save(tokenCaptor.capture());
+    Token savedToken = tokenCaptor.getValue();
+
+    // Verify the saved token contains the refreshed values from the HTTP response
+    assertEquals(
+        "refreshed_access_token",
+        savedToken.getAccessToken(),
+        "Should save refreshed access token to cache");
+    assertEquals(
+        "new_refresh_token",
+        savedToken.getRefreshToken(),
+        "Should save new refresh token to cache");
   }
 
   @Test

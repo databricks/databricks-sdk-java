@@ -53,7 +53,7 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
 
           LOGGER.debug("Using cached token, will immediately refresh");
           cachedCreds.token = cachedCreds.refresh();
-          tokenCache.save(cachedToken);
+          tokenCache.save(cachedCreds.getToken());
           return cachedCreds.configure(config);
         } catch (Exception e) {
           // If token refresh fails, log and continue to browser auth
