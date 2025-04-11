@@ -223,7 +223,7 @@ public class DatabricksConfigTest {
     String testHost = "https://test-host.cloud.databricks.com";
     String testClientId = "test-client-id";
     List<String> testScopes = Arrays.asList("offline_access", "clusters", "sql");
-    
+
     // Create a mock token cache
     TokenCache mockCache = Mockito.mock(TokenCache.class);
 

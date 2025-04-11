@@ -2,6 +2,7 @@ package com.databricks.sdk.core.oauth;
 
 import com.databricks.sdk.core.utils.SerDeUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -39,10 +40,11 @@ public class FileTokenCache implements TokenCache {
 
       Files.write(cacheFile, dataToWrite);
       // Set file permissions to be readable only by the owner (equivalent to 0600)
-      cacheFile.toFile().setReadable(false, false);
-      cacheFile.toFile().setReadable(true, true);
-      cacheFile.toFile().setWritable(false, false);
-      cacheFile.toFile().setWritable(true, true);
+      File file = cacheFile.toFile();
+      file.setReadable(false, false);
+      file.setReadable(true, true);
+      file.setWritable(false, false);
+      file.setWritable(true, true);
 
       LOGGER.debug("Successfully saved token to cache: {}", cacheFile);
     } catch (Exception e) {
