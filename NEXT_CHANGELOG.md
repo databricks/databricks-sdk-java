@@ -36,7 +36,4 @@
 * [Breaking] Changed waiter for `workspaceClient.commandExecution().execute()` method.
 * [Breaking] Removed `error`, `status` and `transientStatementId` fields for `com.databricks.sdk.service.dashboards.GenieGenerateDownloadFullQueryResultResponse`.
 * [Breaking] Removed `BALANCED` and `COST_OPTIMIZED` enum values for `com.databricks.sdk.service.jobs.PerformanceTarget`.
-* [Breaking] Removed waiter for `workspaceClient.clusters().get()` method.
-* [Breaking] Removed waiter for `workspaceClient.jobs().getRun()` method.
 * [Breaking] Removed waiter for `workspaceClient.pipelines().get()` method.
-* [Breaking] Removed waiter for `workspaceClient.warehouses().get()` method.
