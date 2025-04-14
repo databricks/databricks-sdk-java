@@ -22,8 +22,8 @@ public class GetRunRequest {
   private Boolean includeResolvedValues;
 
   /**
-   * Use `next_page_token` returned from the previous GetRun to request the next page of the run's
-   * sub-resources.
+   * Use `next_page_token` returned from the previous GetRun response to request the next page of
+   * the run's array properties.
    */
   @JsonIgnore
   @QueryParam("page_token")

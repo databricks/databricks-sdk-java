@@ -53,6 +53,10 @@ public class RunTask {
   @JsonProperty("condition_task")
   private RunConditionTask conditionTask;
 
+  /** The task runs a DashboardTask when the `dashboard_task` field is present. */
+  @JsonProperty("dashboard_task")
+  private DashboardTask dashboardTask;
+
   /**
    * The task runs one or more dbt commands when the `dbt_task` field is present. The dbt task
    * requires both Databricks SQL and the ability to use a serverless or a pro SQL warehouse.
@@ -72,17 +76,18 @@ public class RunTask {
   @JsonProperty("description")
   private String description;
 
-  /**
-   * Denotes whether or not the task was disabled by the user. Disabled tasks do not execute and are
-   * immediately skipped as soon as they are unblocked.
-   */
+  /** Deprecated, field was never used in production. */
   @JsonProperty("disabled")
   private Boolean disabled;
 
   /**
-   * effective_performance_target is the actual performance target used by the run during execution.
-   * effective_performance_target can differ from the client-set performance_target depending on if
-   * the job was eligible to be cost-optimized.
+   * The actual performance target used by the serverless run during execution. This can differ from
+   * the client-set performance target on the request depending on whether the performance mode is
+   * supported by the job type.
+   *
+   * <p>* `STANDARD`: Enables cost-efficient execution of serverless workloads. *
+   * `PERFORMANCE_OPTIMIZED`: Prioritizes fast startup and execution times through rapid scaling and
+   * optimized cluster performance.
    */
   @JsonProperty("effective_performance_target")
   private PerformanceTarget effectivePerformanceTarget;
@@ -133,7 +138,7 @@ public class RunTask {
   @JsonProperty("for_each_task")
   private RunForEachTask forEachTask;
 
-  /** Next field: 9 */
+  /** */
   @JsonProperty("gen_ai_compute_task")
   private GenAiComputeTask genAiComputeTask;
 
@@ -183,6 +188,12 @@ public class RunTask {
    */
   @JsonProperty("pipeline_task")
   private PipelineTask pipelineTask;
+
+  /**
+   * The task triggers a Power BI semantic model update when the `power_bi_task` field is present.
+   */
+  @JsonProperty("power_bi_task")
+  private PowerBiTask powerBiTask;
 
   /** The task runs a Python wheel when the `python_wheel_task` field is present. */
   @JsonProperty("python_wheel_task")
@@ -344,6 +355,15 @@ public class RunTask {
 
   public RunConditionTask getConditionTask() {
     return conditionTask;
+  }
+
+  public RunTask setDashboardTask(DashboardTask dashboardTask) {
+    this.dashboardTask = dashboardTask;
+    return this;
+  }
+
+  public DashboardTask getDashboardTask() {
+    return dashboardTask;
   }
 
   public RunTask setDbtTask(DbtTask dbtTask) {
@@ -515,6 +535,15 @@ public class RunTask {
 
   public PipelineTask getPipelineTask() {
     return pipelineTask;
+  }
+
+  public RunTask setPowerBiTask(PowerBiTask powerBiTask) {
+    this.powerBiTask = powerBiTask;
+    return this;
+  }
+
+  public PowerBiTask getPowerBiTask() {
+    return powerBiTask;
   }
 
   public RunTask setPythonWheelTask(PythonWheelTask pythonWheelTask) {
@@ -698,6 +727,7 @@ public class RunTask {
         && Objects.equals(cleanupDuration, that.cleanupDuration)
         && Objects.equals(clusterInstance, that.clusterInstance)
         && Objects.equals(conditionTask, that.conditionTask)
+        && Objects.equals(dashboardTask, that.dashboardTask)
         && Objects.equals(dbtTask, that.dbtTask)
         && Objects.equals(dependsOn, that.dependsOn)
         && Objects.equals(description, that.description)
@@ -717,6 +747,7 @@ public class RunTask {
         && Objects.equals(notebookTask, that.notebookTask)
         && Objects.equals(notificationSettings, that.notificationSettings)
         && Objects.equals(pipelineTask, that.pipelineTask)
+        && Objects.equals(powerBiTask, that.powerBiTask)
         && Objects.equals(pythonWheelTask, that.pythonWheelTask)
         && Objects.equals(queueDuration, that.queueDuration)
         && Objects.equals(resolvedValues, that.resolvedValues)
@@ -746,6 +777,7 @@ public class RunTask {
         cleanupDuration,
         clusterInstance,
         conditionTask,
+        dashboardTask,
         dbtTask,
         dependsOn,
         description,
@@ -765,6 +797,7 @@ public class RunTask {
         notebookTask,
         notificationSettings,
         pipelineTask,
+        powerBiTask,
         pythonWheelTask,
         queueDuration,
         resolvedValues,
@@ -794,6 +827,7 @@ public class RunTask {
         .add("cleanupDuration", cleanupDuration)
         .add("clusterInstance", clusterInstance)
         .add("conditionTask", conditionTask)
+        .add("dashboardTask", dashboardTask)
         .add("dbtTask", dbtTask)
         .add("dependsOn", dependsOn)
         .add("description", description)
@@ -813,6 +847,7 @@ public class RunTask {
         .add("notebookTask", notebookTask)
         .add("notificationSettings", notificationSettings)
         .add("pipelineTask", pipelineTask)
+        .add("powerBiTask", powerBiTask)
         .add("pythonWheelTask", pythonWheelTask)
         .add("queueDuration", queueDuration)
         .add("resolvedValues", resolvedValues)
