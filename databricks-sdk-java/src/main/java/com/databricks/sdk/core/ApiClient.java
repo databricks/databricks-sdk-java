@@ -15,6 +15,7 @@ import com.databricks.sdk.support.Header;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Strings;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
@@ -219,7 +220,7 @@ public class ApiClient {
       // after the first invocation to config.authenticate()
       String userAgent = UserAgent.asString();
       String authType = getAuthTypeFunc.apply(null);
-      if (authType != "") {
+      if (!Strings.isNullOrEmpty(authType)) {
         userAgent += String.format(" auth/%s", authType);
       }
       in.withHeader("User-Agent", userAgent);
@@ -247,12 +248,13 @@ public class ApiClient {
       }
       if (attemptNumber == maxAttempts) {
         throw new DatabricksException(
-            String.format("Request %s failed after %d retries", in, maxAttempts), err);
+            String.format("Request %s failed after %d retries", in, maxAttempts), databricksError);
       }
 
       // Retry after a backoff.
       long sleepMillis = getBackoffMillis(out, attemptNumber);
-      LOG.debug(String.format("Retry %s in %dms", in.getRequestLine(), sleepMillis));
+      LOG.debug(
+          String.format("Retry %s in %dms", in.getRequestLine(), sleepMillis), databricksError);
       try {
         timer.sleep(sleepMillis);
       } catch (InterruptedException ex) {

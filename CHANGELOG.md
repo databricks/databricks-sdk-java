@@ -1,5 +1,11 @@
 # Version changelog
 
+## Release v0.44.0
+
+### Bug Fixes
+* Fix issue deserializing HTTP responses with an empty body ([#426](https://github.com/databricks/databricks-sdk-java/pull/426)).
+
+
 ## Release v0.43.0
 
 ### API Changes
