@@ -9,9 +9,27 @@ import java.util.Objects;
 
 @Generated
 public class LogMetric {
+  /**
+   * Dataset digest of the dataset associated with the metric, e.g. an md5 hash of the dataset that
+   * uniquely identifies it within datasets of the same name.
+   */
+  @JsonProperty("dataset_digest")
+  private String datasetDigest;
+
+  /**
+   * The name of the dataset associated with the metric. E.g. “my.uc.table@2” “nyc-taxi-dataset”,
+   * “fantastic-elk-3”
+   */
+  @JsonProperty("dataset_name")
+  private String datasetName;
+
   /** Name of the metric. */
   @JsonProperty("key")
   private String key;
+
+  /** ID of the logged model associated with the metric, if applicable */
+  @JsonProperty("model_id")
+  private String modelId;
 
   /** ID of the run under which to log the metric. Must be provided. */
   @JsonProperty("run_id")
@@ -36,6 +54,24 @@ public class LogMetric {
   @JsonProperty("value")
   private Double value;
 
+  public LogMetric setDatasetDigest(String datasetDigest) {
+    this.datasetDigest = datasetDigest;
+    return this;
+  }
+
+  public String getDatasetDigest() {
+    return datasetDigest;
+  }
+
+  public LogMetric setDatasetName(String datasetName) {
+    this.datasetName = datasetName;
+    return this;
+  }
+
+  public String getDatasetName() {
+    return datasetName;
+  }
+
   public LogMetric setKey(String key) {
     this.key = key;
     return this;
@@ -43,6 +79,15 @@ public class LogMetric {
 
   public String getKey() {
     return key;
+  }
+
+  public LogMetric setModelId(String modelId) {
+    this.modelId = modelId;
+    return this;
+  }
+
+  public String getModelId() {
+    return modelId;
   }
 
   public LogMetric setRunId(String runId) {
@@ -95,7 +140,10 @@ public class LogMetric {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     LogMetric that = (LogMetric) o;
-    return Objects.equals(key, that.key)
+    return Objects.equals(datasetDigest, that.datasetDigest)
+        && Objects.equals(datasetName, that.datasetName)
+        && Objects.equals(key, that.key)
+        && Objects.equals(modelId, that.modelId)
         && Objects.equals(runId, that.runId)
         && Objects.equals(runUuid, that.runUuid)
         && Objects.equals(step, that.step)
@@ -105,13 +153,17 @@ public class LogMetric {
 
   @Override
   public int hashCode() {
-    return Objects.hash(key, runId, runUuid, step, timestamp, value);
+    return Objects.hash(
+        datasetDigest, datasetName, key, modelId, runId, runUuid, step, timestamp, value);
   }
 
   @Override
   public String toString() {
     return new ToStringer(LogMetric.class)
+        .add("datasetDigest", datasetDigest)
+        .add("datasetName", datasetName)
         .add("key", key)
+        .add("modelId", modelId)
         .add("runId", runId)
         .add("runUuid", runUuid)
         .add("step", step)

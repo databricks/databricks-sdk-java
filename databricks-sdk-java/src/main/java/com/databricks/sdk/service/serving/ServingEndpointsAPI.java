@@ -251,8 +251,7 @@ public class ServingEndpointsAPI {
   /**
    * Update rate limits of a serving endpoint.
    *
-   * <p>Used to update the rate limits of a serving endpoint. NOTE: Only foundation model endpoints
-   * are currently supported. For external models, use AI Gateway to manage rate limits.
+   * <p>Deprecated: Please use AI Gateway to manage rate limits instead.
    */
   public PutResponse put(PutRequest request) {
     return impl.put(request);
@@ -265,8 +264,9 @@ public class ServingEndpointsAPI {
   /**
    * Update AI Gateway of a serving endpoint.
    *
-   * <p>Used to update the AI Gateway of a serving endpoint. NOTE: Only external model and
-   * provisioned throughput endpoints are currently supported.
+   * <p>Used to update the AI Gateway of a serving endpoint. NOTE: External model, provisioned
+   * throughput, and pay-per-token endpoints are fully supported; agent endpoints currently only
+   * support inference tables.
    */
   public PutAiGatewayResponse putAiGateway(PutAiGatewayRequest request) {
     return impl.putAiGateway(request);
