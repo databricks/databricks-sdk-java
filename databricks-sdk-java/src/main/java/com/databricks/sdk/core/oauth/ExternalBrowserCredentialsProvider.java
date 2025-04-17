@@ -6,6 +6,7 @@ import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.HeaderFactory;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,8 +45,11 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
 
   @Override
   public HeaderFactory configure(DatabricksConfig config) {
-    if (config.getHost() == null || config.getAuthType() != "external-browser") {
+    if (config.getHost() == null || !Objects.equals(config.getAuthType(), "external-browser")) {
       return null;
+    }
+    if (config.getClientId() == null && config.getAzureClientId() == null) {
+      config.setClientId("databricks-cli");
     }
     try {
       if (tokenCache == null) {
