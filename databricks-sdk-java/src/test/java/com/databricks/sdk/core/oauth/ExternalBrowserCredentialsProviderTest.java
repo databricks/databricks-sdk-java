@@ -238,13 +238,12 @@ public class ExternalBrowserCredentialsProviderTest {
         new OpenIDConnectEndpoints(
             "https://test.databricks.com/token", "https://test.databricks.com/authorize");
 
-    // Create our provider and mock the browser auth method
+    // Create our provider with the mock token cache and mock the browser auth method
     ExternalBrowserCredentialsProvider provider =
-        Mockito.spy(new ExternalBrowserCredentialsProvider());
+        Mockito.spy(new ExternalBrowserCredentialsProvider(mockTokenCache));
 
-    // Spy on the config to inject the mock token cache and endpoints
+    // Spy on the config to inject the endpoints
     DatabricksConfig spyConfig = Mockito.spy(config);
-    Mockito.doReturn(mockTokenCache).when(spyConfig).getTokenCache();
     Mockito.doReturn(endpoints).when(spyConfig).getOidcEndpoints();
 
     // Configure provider
@@ -261,7 +260,8 @@ public class ExternalBrowserCredentialsProviderTest {
     Mockito.verify(mockHttpClient, Mockito.times(1)).execute(any(Request.class));
 
     // Verify performBrowserAuth was NOT called since refresh succeeded
-    Mockito.verify(provider, Mockito.never()).performBrowserAuth(any(DatabricksConfig.class));
+    Mockito.verify(provider, Mockito.never())
+        .performBrowserAuth(any(DatabricksConfig.class), any(TokenCache.class));
 
     // Verify token was saved back to cache
     Mockito.verify(mockTokenCache, Mockito.times(1)).save(any(Token.class));
@@ -315,13 +315,12 @@ public class ExternalBrowserCredentialsProviderTest {
         new OpenIDConnectEndpoints(
             "https://test.databricks.com/token", "https://test.databricks.com/authorize");
 
-    // Create our provider and mock the browser auth method
+    // Create our provider with the mock token cache
     ExternalBrowserCredentialsProvider provider =
-        Mockito.spy(new ExternalBrowserCredentialsProvider());
+        Mockito.spy(new ExternalBrowserCredentialsProvider(mockTokenCache));
 
-    // Spy on the config to inject the mock token cache and endpoints
+    // Spy on the config to inject the endpoints
     DatabricksConfig spyConfig = Mockito.spy(config);
-    Mockito.doReturn(mockTokenCache).when(spyConfig).getTokenCache();
     Mockito.doReturn(endpoints).when(spyConfig).getOidcEndpoints();
 
     // Configure provider
@@ -338,7 +337,8 @@ public class ExternalBrowserCredentialsProviderTest {
     Mockito.verify(mockHttpClient, Mockito.times(1)).execute(any(Request.class));
 
     // Verify performBrowserAuth was NOT called since refresh succeeded
-    Mockito.verify(provider, Mockito.never()).performBrowserAuth(any(DatabricksConfig.class));
+    Mockito.verify(provider, Mockito.never())
+        .performBrowserAuth(any(DatabricksConfig.class), any(TokenCache.class));
 
     // Verify token was saved back to cache
     Mockito.verify(mockTokenCache, Mockito.times(1)).save(any(Token.class));
@@ -406,14 +406,13 @@ public class ExternalBrowserCredentialsProviderTest {
 
     // Create our provider and mock the browser auth method
     ExternalBrowserCredentialsProvider provider =
-        Mockito.spy(new ExternalBrowserCredentialsProvider());
+        Mockito.spy(new ExternalBrowserCredentialsProvider(mockTokenCache));
     Mockito.doReturn(browserAuthCreds)
         .when(provider)
-        .performBrowserAuth(any(DatabricksConfig.class));
+        .performBrowserAuth(any(DatabricksConfig.class), any(TokenCache.class));
 
-    // Spy on the config to inject the mock token cache and endpoints
+    // Spy on the config to inject the endpoints
     DatabricksConfig spyConfig = Mockito.spy(config);
-    Mockito.doReturn(mockTokenCache).when(spyConfig).getTokenCache();
     Mockito.doReturn(endpoints).when(spyConfig).getOidcEndpoints();
 
     // Configure provider
@@ -427,7 +426,8 @@ public class ExternalBrowserCredentialsProviderTest {
     Mockito.verify(mockTokenCache, Mockito.times(1)).load();
 
     // Verify performBrowserAuth was called since refresh failed
-    Mockito.verify(provider, Mockito.times(1)).performBrowserAuth(any(DatabricksConfig.class));
+    Mockito.verify(provider, Mockito.times(1))
+        .performBrowserAuth(any(DatabricksConfig.class), any(TokenCache.class));
 
     // Verify token was saved after browser auth (for the new token)
     Mockito.verify(mockTokenCache, Mockito.times(1)).save(any(Token.class));
@@ -467,17 +467,13 @@ public class ExternalBrowserCredentialsProviderTest {
 
     // Create our provider and mock the browser auth method
     ExternalBrowserCredentialsProvider provider =
-        Mockito.spy(new ExternalBrowserCredentialsProvider());
+        Mockito.spy(new ExternalBrowserCredentialsProvider(mockTokenCache));
     Mockito.doReturn(browserAuthCreds)
         .when(provider)
-        .performBrowserAuth(any(DatabricksConfig.class));
-
-    // Spy on the config to inject the mock token cache
-    DatabricksConfig spyConfig = Mockito.spy(config);
-    Mockito.doReturn(mockTokenCache).when(spyConfig).getTokenCache();
+        .performBrowserAuth(any(DatabricksConfig.class), any(TokenCache.class));
 
     // Configure provider
-    HeaderFactory headerFactory = provider.configure(spyConfig);
+    HeaderFactory headerFactory = provider.configure(config);
     // Verify headers contain the browser auth token (fallback)
     Map<String, String> headers = headerFactory.headers();
     assertEquals("Bearer browser_access_token", headers.get("Authorization"));
@@ -486,7 +482,8 @@ public class ExternalBrowserCredentialsProviderTest {
     Mockito.verify(mockTokenCache, Mockito.times(1)).load();
 
     // Verify performBrowserAuth was called since we had an invalid token
-    Mockito.verify(provider, Mockito.times(1)).performBrowserAuth(any(DatabricksConfig.class));
+    Mockito.verify(provider, Mockito.times(1))
+        .performBrowserAuth(any(DatabricksConfig.class), any(TokenCache.class));
 
     // Verify token was saved after browser auth (for the new token)
     Mockito.verify(mockTokenCache, Mockito.times(1)).save(any(Token.class));
@@ -525,20 +522,19 @@ public class ExternalBrowserCredentialsProviderTest {
         new OpenIDConnectEndpoints(
             "https://test.databricks.com/token", "https://test.databricks.com/authorize");
 
-    // Create our provider and mock the browser auth method
-    ExternalBrowserCredentialsProvider provider =
-        Mockito.spy(new ExternalBrowserCredentialsProvider());
-    Mockito.doReturn(browserAuthCreds)
-        .when(provider)
-        .performBrowserAuth(any(DatabricksConfig.class));
-
     // Create a mock token cache that simulates being disabled by returning null on load
     TokenCache mockTokenCache = Mockito.mock(TokenCache.class);
     Mockito.doReturn(null).when(mockTokenCache).load();
 
-    // Spy on the config to inject the mock token cache and endpoints
+    // Create our provider with the disabled token cache and mock the browser auth method
+    ExternalBrowserCredentialsProvider provider =
+        Mockito.spy(new ExternalBrowserCredentialsProvider(mockTokenCache));
+    Mockito.doReturn(browserAuthCreds)
+        .when(provider)
+        .performBrowserAuth(any(DatabricksConfig.class), any(TokenCache.class));
+
+    // Spy on the config to inject the endpoints
     DatabricksConfig spyConfig = Mockito.spy(config);
-    Mockito.doReturn(mockTokenCache).when(spyConfig).getTokenCache();
     Mockito.doReturn(endpoints).when(spyConfig).getOidcEndpoints();
 
     // Configure provider
@@ -549,7 +545,8 @@ public class ExternalBrowserCredentialsProviderTest {
     assertEquals("Bearer browser_access_token", headers.get("Authorization"));
 
     // Verify performBrowserAuth was called immediately (no attempt to use cache)
-    Mockito.verify(provider, Mockito.times(1)).performBrowserAuth(any(DatabricksConfig.class));
+    Mockito.verify(provider, Mockito.times(1))
+        .performBrowserAuth(any(DatabricksConfig.class), any(TokenCache.class));
 
     // Verify token was saved to cache
     Mockito.verify(mockTokenCache, Mockito.times(1)).save(any(Token.class));

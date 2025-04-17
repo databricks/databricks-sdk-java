@@ -31,8 +31,6 @@ public class SessionCredentials extends RefreshableTokenSource
 
   @Override
   public HeaderFactory configure(DatabricksConfig config) {
-    this.tokenCache = config.getTokenCache();
-
     return () -> {
       Map<String, String> headers = new HashMap<>();
       headers.put(
@@ -48,6 +46,7 @@ public class SessionCredentials extends RefreshableTokenSource
     private String redirectUrl;
     private String clientId;
     private String clientSecret;
+    private TokenCache tokenCache;
 
     public Builder withHttpClient(HttpClient hc) {
       this.hc = hc;
@@ -79,6 +78,11 @@ public class SessionCredentials extends RefreshableTokenSource
       return this;
     }
 
+    public Builder withTokenCache(TokenCache tokenCache) {
+      this.tokenCache = tokenCache;
+      return this;
+    }
+
     public SessionCredentials build() {
       return new SessionCredentials(this);
     }
@@ -89,7 +93,7 @@ public class SessionCredentials extends RefreshableTokenSource
   private final String redirectUrl;
   private final String clientId;
   private final String clientSecret;
-  private transient TokenCache tokenCache;
+  private final TokenCache tokenCache;
 
   private SessionCredentials(Builder b) {
     super(b.token);
@@ -98,6 +102,7 @@ public class SessionCredentials extends RefreshableTokenSource
     this.redirectUrl = b.redirectUrl;
     this.clientId = b.clientId;
     this.clientSecret = b.clientSecret;
+    this.tokenCache = b.tokenCache;
   }
 
   @Override
