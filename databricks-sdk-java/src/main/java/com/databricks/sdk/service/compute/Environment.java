@@ -33,6 +33,13 @@ public class Environment {
   @JsonProperty("dependencies")
   private Collection<String> dependencies;
 
+  /**
+   * List of jar dependencies, should be string representing volume paths. For example:
+   * `/Volumes/path/to/test.jar`.
+   */
+  @JsonProperty("jar_dependencies")
+  private Collection<String> jarDependencies;
+
   public Environment setClient(String client) {
     this.client = client;
     return this;
@@ -51,17 +58,28 @@ public class Environment {
     return dependencies;
   }
 
+  public Environment setJarDependencies(Collection<String> jarDependencies) {
+    this.jarDependencies = jarDependencies;
+    return this;
+  }
+
+  public Collection<String> getJarDependencies() {
+    return jarDependencies;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Environment that = (Environment) o;
-    return Objects.equals(client, that.client) && Objects.equals(dependencies, that.dependencies);
+    return Objects.equals(client, that.client)
+        && Objects.equals(dependencies, that.dependencies)
+        && Objects.equals(jarDependencies, that.jarDependencies);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(client, dependencies);
+    return Objects.hash(client, dependencies, jarDependencies);
   }
 
   @Override
@@ -69,6 +87,7 @@ public class Environment {
     return new ToStringer(Environment.class)
         .add("client", client)
         .add("dependencies", dependencies)
+        .add("jarDependencies", jarDependencies)
         .toString();
   }
 }

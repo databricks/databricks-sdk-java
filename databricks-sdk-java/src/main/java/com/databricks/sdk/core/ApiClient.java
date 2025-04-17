@@ -421,7 +421,8 @@ public class ApiClient {
           field.setAccessible(false);
         }
       }
-    } else if (response.getBody() != null) {
+      // mapper does support empty JSON "{}", but not empty body ""
+    } else if (response.getBody() != null && response.getBody().available() != 0) {
       mapper.readerForUpdating(object).readValue(response.getBody());
     }
   }

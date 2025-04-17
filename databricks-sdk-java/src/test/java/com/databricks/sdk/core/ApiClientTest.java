@@ -269,6 +269,17 @@ public class ApiClientTest {
   }
 
   @Test
+  void testEmptyBody() throws IOException {
+    MyEndpointResponse response = new MyEndpointResponse();
+    Request request = getBasicRequest();
+    Response rawResponse = new Response(request, 200, "OK", Collections.emptyMap(), "");
+    ApiClient client =
+        getApiClient(request, Collections.singletonList(new SuccessfulResponse(rawResponse)));
+
+    client.deserialize(rawResponse, response);
+  }
+
+  @Test
   void retryDatabricksApi12RetriableError() throws IOException {
     Request req = getBasicRequest();
 

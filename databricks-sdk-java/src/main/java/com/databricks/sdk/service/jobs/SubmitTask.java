@@ -26,6 +26,10 @@ public class SubmitTask {
   @JsonProperty("condition_task")
   private ConditionTask conditionTask;
 
+  /** The task runs a DashboardTask when the `dashboard_task` field is present. */
+  @JsonProperty("dashboard_task")
+  private DashboardTask dashboardTask;
+
   /**
    * The task runs one or more dbt commands when the `dbt_task` field is present. The dbt task
    * requires both Databricks SQL and the ability to use a serverless or a pro SQL warehouse.
@@ -74,7 +78,7 @@ public class SubmitTask {
   @JsonProperty("for_each_task")
   private ForEachTask forEachTask;
 
-  /** Next field: 9 */
+  /** */
   @JsonProperty("gen_ai_compute_task")
   private GenAiComputeTask genAiComputeTask;
 
@@ -110,6 +114,12 @@ public class SubmitTask {
    */
   @JsonProperty("pipeline_task")
   private PipelineTask pipelineTask;
+
+  /**
+   * The task triggers a Power BI semantic model update when the `power_bi_task` field is present.
+   */
+  @JsonProperty("power_bi_task")
+  private PowerBiTask powerBiTask;
 
   /** The task runs a Python wheel when the `python_wheel_task` field is present. */
   @JsonProperty("python_wheel_task")
@@ -198,6 +208,15 @@ public class SubmitTask {
 
   public ConditionTask getConditionTask() {
     return conditionTask;
+  }
+
+  public SubmitTask setDashboardTask(DashboardTask dashboardTask) {
+    this.dashboardTask = dashboardTask;
+    return this;
+  }
+
+  public DashboardTask getDashboardTask() {
+    return dashboardTask;
   }
 
   public SubmitTask setDbtTask(DbtTask dbtTask) {
@@ -326,6 +345,15 @@ public class SubmitTask {
     return pipelineTask;
   }
 
+  public SubmitTask setPowerBiTask(PowerBiTask powerBiTask) {
+    this.powerBiTask = powerBiTask;
+    return this;
+  }
+
+  public PowerBiTask getPowerBiTask() {
+    return powerBiTask;
+  }
+
   public SubmitTask setPythonWheelTask(PythonWheelTask pythonWheelTask) {
     this.pythonWheelTask = pythonWheelTask;
     return this;
@@ -423,6 +451,7 @@ public class SubmitTask {
     SubmitTask that = (SubmitTask) o;
     return Objects.equals(cleanRoomsNotebookTask, that.cleanRoomsNotebookTask)
         && Objects.equals(conditionTask, that.conditionTask)
+        && Objects.equals(dashboardTask, that.dashboardTask)
         && Objects.equals(dbtTask, that.dbtTask)
         && Objects.equals(dependsOn, that.dependsOn)
         && Objects.equals(description, that.description)
@@ -437,6 +466,7 @@ public class SubmitTask {
         && Objects.equals(notebookTask, that.notebookTask)
         && Objects.equals(notificationSettings, that.notificationSettings)
         && Objects.equals(pipelineTask, that.pipelineTask)
+        && Objects.equals(powerBiTask, that.powerBiTask)
         && Objects.equals(pythonWheelTask, that.pythonWheelTask)
         && Objects.equals(runIf, that.runIf)
         && Objects.equals(runJobTask, that.runJobTask)
@@ -454,6 +484,7 @@ public class SubmitTask {
     return Objects.hash(
         cleanRoomsNotebookTask,
         conditionTask,
+        dashboardTask,
         dbtTask,
         dependsOn,
         description,
@@ -468,6 +499,7 @@ public class SubmitTask {
         notebookTask,
         notificationSettings,
         pipelineTask,
+        powerBiTask,
         pythonWheelTask,
         runIf,
         runJobTask,
@@ -485,6 +517,7 @@ public class SubmitTask {
     return new ToStringer(SubmitTask.class)
         .add("cleanRoomsNotebookTask", cleanRoomsNotebookTask)
         .add("conditionTask", conditionTask)
+        .add("dashboardTask", dashboardTask)
         .add("dbtTask", dbtTask)
         .add("dependsOn", dependsOn)
         .add("description", description)
@@ -499,6 +532,7 @@ public class SubmitTask {
         .add("notebookTask", notebookTask)
         .add("notificationSettings", notificationSettings)
         .add("pipelineTask", pipelineTask)
+        .add("powerBiTask", powerBiTask)
         .add("pythonWheelTask", pythonWheelTask)
         .add("runIf", runIf)
         .add("runJobTask", runJobTask)

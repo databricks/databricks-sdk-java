@@ -10,5 +10,6 @@ public enum WarehousePermissionLevel {
   CAN_MANAGE,
   CAN_MONITOR,
   CAN_USE,
+  CAN_VIEW,
   IS_OWNER,
 }

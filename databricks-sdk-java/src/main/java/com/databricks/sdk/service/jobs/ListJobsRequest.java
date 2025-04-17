@@ -12,9 +12,8 @@ import java.util.Objects;
 @Generated
 public class ListJobsRequest {
   /**
-   * Whether to include task and cluster details in the response. Note that in API 2.2, only the
-   * first 100 elements will be shown. Use :method:jobs/get to paginate through all tasks and
-   * clusters.
+   * Whether to include task and cluster details in the response. Note that only the first 100
+   * elements will be shown. Use :method:jobs/get to paginate through all tasks and clusters.
    */
   @JsonIgnore
   @QueryParam("expand_tasks")

@@ -10,15 +10,15 @@ import java.util.Objects;
 
 @Generated
 public class ListArtifactsResponse {
-  /** File location and metadata for artifacts. */
+  /** The file location and metadata for artifacts. */
   @JsonProperty("files")
   private Collection<FileInfo> files;
 
-  /** Token that can be used to retrieve the next page of artifact results */
+  /** The token that can be used to retrieve the next page of artifact results. */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 
-  /** Root artifact directory for the run. */
+  /** The root artifact directory for the run. */
   @JsonProperty("root_uri")
   private String rootUri;
 

@@ -114,6 +114,38 @@ class ExperimentsImpl implements ExperimentsService {
   }
 
   @Override
+  public GetCredentialsForTraceDataDownloadResponse getCredentialsForTraceDataDownload(
+      GetCredentialsForTraceDataDownloadRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/mlflow/traces/%s/credentials-for-data-download", request.getRequestId());
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, GetCredentialsForTraceDataDownloadResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public GetCredentialsForTraceDataUploadResponse getCredentialsForTraceDataUpload(
+      GetCredentialsForTraceDataUploadRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/mlflow/traces/%s/credentials-for-data-upload", request.getRequestId());
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, GetCredentialsForTraceDataUploadResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public GetExperimentResponse getExperiment(GetExperimentRequest request) {
     String path = "/api/2.0/mlflow/experiments/get";
     try {

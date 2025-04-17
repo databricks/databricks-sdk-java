@@ -10,7 +10,7 @@ import java.util.Objects;
 /** Metadata of a single artifact file or directory. */
 @Generated
 public class FileInfo {
-  /** Size in bytes. Unset for directories. */
+  /** The size in bytes of the file. Unset for directories. */
   @JsonProperty("file_size")
   private Long fileSize;
 
@@ -18,7 +18,7 @@ public class FileInfo {
   @JsonProperty("is_dir")
   private Boolean isDir;
 
-  /** Path relative to the root artifact directory run. */
+  /** The path relative to the root artifact directory run. */
   @JsonProperty("path")
   private String path;
 

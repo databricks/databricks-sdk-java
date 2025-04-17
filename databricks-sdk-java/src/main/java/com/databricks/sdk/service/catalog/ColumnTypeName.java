@@ -15,6 +15,8 @@ public enum ColumnTypeName {
   DECIMAL,
   DOUBLE,
   FLOAT,
+  GEOGRAPHY,
+  GEOMETRY,
   INT,
   INTERVAL,
   LONG,
