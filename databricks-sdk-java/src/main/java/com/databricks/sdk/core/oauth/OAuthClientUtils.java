@@ -2,19 +2,15 @@ package com.databricks.sdk.core.oauth;
 
 import com.databricks.sdk.core.DatabricksConfig;
 
-/**
- * Utility methods for OAuth client credentials resolution.
- */
+/** Utility methods for OAuth client credentials resolution. */
 public class OAuthClientUtils {
 
-  /**
-   * Default client ID to use when no client ID is specified.
-   */
+  /** Default client ID to use when no client ID is specified. */
   private static final String DEFAULT_CLIENT_ID = "databricks-cli";
 
   /**
-   * Resolves the OAuth client ID from the configuration.
-   * Prioritizes regular OAuth client ID, then Azure client ID, and falls back to default client ID.
+   * Resolves the OAuth client ID from the configuration. Prioritizes regular OAuth client ID, then
+   * Azure client ID, and falls back to default client ID.
    *
    * @param config The Databricks configuration
    * @return The resolved client ID
@@ -29,8 +25,8 @@ public class OAuthClientUtils {
   }
 
   /**
-   * Resolves the OAuth client secret from the configuration.
-   * Prioritizes regular OAuth client secret, then Azure client secret.
+   * Resolves the OAuth client secret from the configuration. Prioritizes regular OAuth client
+   * secret, then Azure client secret.
    *
    * @param config The Databricks configuration
    * @return The resolved client secret, or null if not present
@@ -46,13 +42,13 @@ public class OAuthClientUtils {
 
   /**
    * Resolves both client ID and client secret from the configuration.
-   * 
+   *
    * @param config The Databricks configuration
    * @return An array containing the client ID and client secret (may be null)
    */
   public static String[] resolveClientCredentials(DatabricksConfig config) {
     String clientId = resolveClientId(config);
     String clientSecret = resolveClientSecret(config);
-    return new String[]{clientId, clientSecret};
+    return new String[] {clientId, clientSecret};
   }
-} 
+}

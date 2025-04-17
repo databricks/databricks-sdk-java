@@ -48,12 +48,12 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
     if (config.getHost() == null || !Objects.equals(config.getAuthType(), "external-browser")) {
       return null;
     }
-    
+
     // Use the utility class to resolve client ID and client secret
     String[] clientCreds = OAuthClientUtils.resolveClientCredentials(config);
     String clientId = clientCreds[0];
     String clientSecret = clientCreds[1];
-    
+
     try {
       if (tokenCache == null) {
         // Create a default FileTokenCache based on config
