@@ -50,9 +50,8 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
     }
 
     // Use the utility class to resolve client ID and client secret
-    String[] clientCreds = OAuthClientUtils.resolveClientCredentials(config);
-    String clientId = clientCreds[0];
-    String clientSecret = clientCreds[1];
+    String clientId = OAuthClientUtils.resolveClientId(config);
+    String clientSecret = OAuthClientUtils.resolveClientSecret(config);
 
     try {
       if (tokenCache == null) {

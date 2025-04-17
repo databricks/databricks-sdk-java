@@ -39,16 +39,4 @@ public class OAuthClientUtils {
     }
     return null;
   }
-
-  /**
-   * Resolves both client ID and client secret from the configuration.
-   *
-   * @param config The Databricks configuration
-   * @return An array containing the client ID and client secret (may be null)
-   */
-  public static String[] resolveClientCredentials(DatabricksConfig config) {
-    String clientId = resolveClientId(config);
-    String clientSecret = resolveClientSecret(config);
-    return new String[] {clientId, clientSecret};
-  }
 }
