@@ -48,22 +48,24 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
     if (config.getHost() == null || !Objects.equals(config.getAuthType(), "external-browser")) {
       return null;
     }
-    if (config.getClientId() == null && config.getAzureClientId() == null) {
-      config.setClientId("databricks-cli");
-    }
+    
+    // Use the utility class to resolve client ID and client secret
+    String[] clientCreds = OAuthClientUtils.resolveClientCredentials(config);
+    String clientId = clientCreds[0];
+    String clientSecret = clientCreds[1];
+    
     try {
       if (tokenCache == null) {
         // Create a default FileTokenCache based on config
         Path cachePath =
-            TokenCacheUtils.getCacheFilePath(
-                config.getHost(), config.getClientId(), config.getScopes());
+            TokenCacheUtils.getCacheFilePath(config.getHost(), clientId, config.getScopes());
         tokenCache = new FileTokenCache(cachePath);
       }
 
       // First try to use the cached token if available (will return null if disabled)
       Token cachedToken = tokenCache.load();
       if (cachedToken != null && cachedToken.getRefreshToken() != null) {
-        LOGGER.debug("Found cached token for {}:{}", config.getHost(), config.getClientId());
+        LOGGER.debug("Found cached token for {}:{}", config.getHost(), clientId);
 
         try {
           // Create SessionCredentials with the cached token and try to refresh if needed
@@ -71,8 +73,8 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
               new SessionCredentials.Builder()
                   .withToken(cachedToken)
                   .withHttpClient(config.getHttpClient())
-                  .withClientId(config.getClientId())
-                  .withClientSecret(config.getClientSecret())
+                  .withClientId(clientId)
+                  .withClientSecret(clientSecret)
                   .withTokenUrl(config.getOidcEndpoints().getTokenEndpoint())
                   .withRedirectUrl(config.getEffectiveOAuthRedirectUrl())
                   .withTokenCache(tokenCache)
@@ -88,7 +90,8 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
       }
 
       // If no cached token or refresh failed, perform browser auth
-      SessionCredentials credentials = performBrowserAuth(config, tokenCache);
+      SessionCredentials credentials =
+          performBrowserAuth(config, clientId, clientSecret, tokenCache);
       tokenCache.save(credentials.getToken());
       return credentials.configure(config);
     } catch (IOException | DatabricksException e) {
@@ -97,10 +100,19 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
     }
   }
 
-  SessionCredentials performBrowserAuth(DatabricksConfig config, TokenCache tokenCache)
+  SessionCredentials performBrowserAuth(
+      DatabricksConfig config, String clientId, String clientSecret, TokenCache tokenCache)
       throws IOException {
     LOGGER.debug("Performing browser authentication");
-    OAuthClient client = new OAuthClient(config);
+    OAuthClient client =
+        new OAuthClient.Builder()
+            .withHttpClient(config.getHttpClient())
+            .withClientId(clientId)
+            .withClientSecret(clientSecret)
+            .withHost(config.getHost())
+            .withRedirectUrl(config.getEffectiveOAuthRedirectUrl())
+            .withScopes(config.getScopes())
+            .build();
     Consent consent = client.initiateConsent();
 
     // Use the existing browser flow to get credentials
