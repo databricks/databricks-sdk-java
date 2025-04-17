@@ -97,5 +97,11 @@
       <artifactId>google-auth-library-oauth2-http</artifactId>
       <version>1.20.0</version>
     </dependency>
+    <!-- Jackson JSR310 module needed to serialize/deserialize java.time classes in TokenCache -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-jsr310</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
   </dependencies>
 </project>
