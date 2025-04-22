@@ -37,6 +37,26 @@ public class LakeviewEmbeddedAPI {
     impl.getPublishedDashboardEmbedded(request);
   }
 
+  public GetPublishedDashboardTokenInfoResponse getPublishedDashboardTokenInfo(String dashboardId) {
+    return getPublishedDashboardTokenInfo(
+        new GetPublishedDashboardTokenInfoRequest().setDashboardId(dashboardId));
+  }
+
+  /**
+   * Read an information of a published dashboard to mint an OAuth token.
+   *
+   * <p>Get a required authorization details and scopes of a published dashboard to mint an OAuth
+   * token. The `authorization_details` can be enriched to apply additional restriction.
+   *
+   * <p>Example: Adding the following `authorization_details` object to downscope the viewer
+   * permission to specific table ``` { type: "unity_catalog_privileges", privileges: ["SELECT"],
+   * object_type: "TABLE", object_full_path: "main.default.testdata" } ```
+   */
+  public GetPublishedDashboardTokenInfoResponse getPublishedDashboardTokenInfo(
+      GetPublishedDashboardTokenInfoRequest request) {
+    return impl.getPublishedDashboardTokenInfo(request);
+  }
+
   public LakeviewEmbeddedService impl() {
     return impl;
   }

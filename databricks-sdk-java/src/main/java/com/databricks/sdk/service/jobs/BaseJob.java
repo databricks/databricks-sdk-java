@@ -32,8 +32,8 @@ public class BaseJob {
   private String effectiveBudgetPolicyId;
 
   /**
-   * Indicates if the job has more sub-resources (`tasks`, `job_clusters`) that are not shown. They
-   * can be accessed via :method:jobs/get endpoint. It is only relevant for API 2.2
+   * Indicates if the job has more array properties (`tasks`, `job_clusters`) that are not shown.
+   * They can be accessed via :method:jobs/get endpoint. It is only relevant for API 2.2
    * :method:jobs/list requests with `expand_tasks=true`.
    */
   @JsonProperty("has_more")

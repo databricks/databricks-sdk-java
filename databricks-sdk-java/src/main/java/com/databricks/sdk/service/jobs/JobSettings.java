@@ -90,8 +90,7 @@ public class JobSettings {
   /**
    * A list of job cluster specifications that can be shared and reused by tasks of this job.
    * Libraries cannot be declared in a shared job cluster. You must declare dependent libraries in
-   * task settings. If more than 100 job clusters are available, you can paginate through them using
-   * :method:jobs/get.
+   * task settings.
    */
   @JsonProperty("job_clusters")
   private Collection<JobCluster> jobClusters;
@@ -125,8 +124,12 @@ public class JobSettings {
   private Collection<JobParameterDefinition> parameters;
 
   /**
-   * PerformanceTarget defines how performant or cost efficient the execution of run on serverless
-   * should be.
+   * The performance mode on a serverless job. The performance target determines the level of
+   * compute performance or cost-efficiency for the run.
+   *
+   * <p>* `STANDARD`: Enables cost-efficient execution of serverless workloads. *
+   * `PERFORMANCE_OPTIMIZED`: Prioritizes fast startup and execution times through rapid scaling and
+   * optimized cluster performance.
    */
   @JsonProperty("performance_target")
   private PerformanceTarget performanceTarget;
@@ -161,9 +164,11 @@ public class JobSettings {
   private Map<String, String> tags;
 
   /**
-   * A list of task specifications to be executed by this job. If more than 100 tasks are available,
-   * you can paginate through them using :method:jobs/get. Use the `next_page_token` field at the
-   * object root to determine if more results are available.
+   * A list of task specifications to be executed by this job. It supports up to 1000 elements in
+   * write endpoints (:method:jobs/create, :method:jobs/reset, :method:jobs/update,
+   * :method:jobs/submit). Read endpoints return only 100 tasks. If more than 100 tasks are
+   * available, you can paginate through them using :method:jobs/get. Use the `next_page_token`
+   * field at the object root to determine if more results are available.
    */
   @JsonProperty("tasks")
   private Collection<Task> tasks;

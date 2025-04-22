@@ -15,6 +15,15 @@ public class RunInputs {
   @JsonProperty("dataset_inputs")
   private Collection<DatasetInput> datasetInputs;
 
+  /**
+   * **NOTE**: Experimental: This API field may change or be removed in a future release without
+   * warning.
+   *
+   * <p>Model inputs to the Run.
+   */
+  @JsonProperty("model_inputs")
+  private Collection<ModelInput> modelInputs;
+
   public RunInputs setDatasetInputs(Collection<DatasetInput> datasetInputs) {
     this.datasetInputs = datasetInputs;
     return this;
@@ -24,21 +33,34 @@ public class RunInputs {
     return datasetInputs;
   }
 
+  public RunInputs setModelInputs(Collection<ModelInput> modelInputs) {
+    this.modelInputs = modelInputs;
+    return this;
+  }
+
+  public Collection<ModelInput> getModelInputs() {
+    return modelInputs;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     RunInputs that = (RunInputs) o;
-    return Objects.equals(datasetInputs, that.datasetInputs);
+    return Objects.equals(datasetInputs, that.datasetInputs)
+        && Objects.equals(modelInputs, that.modelInputs);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(datasetInputs);
+    return Objects.hash(datasetInputs, modelInputs);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(RunInputs.class).add("datasetInputs", datasetInputs).toString();
+    return new ToStringer(RunInputs.class)
+        .add("datasetInputs", datasetInputs)
+        .add("modelInputs", modelInputs)
+        .toString();
   }
 }

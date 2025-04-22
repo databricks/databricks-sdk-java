@@ -14,6 +14,10 @@ public class RunOutput {
   @JsonProperty("clean_rooms_notebook_output")
   private CleanRoomsNotebookTaskCleanRoomsNotebookTaskOutput cleanRoomsNotebookOutput;
 
+  /** The output of a dashboard task, if available */
+  @JsonProperty("dashboard_output")
+  private DashboardTaskOutput dashboardOutput;
+
   /** The output of a dbt task, if available. */
   @JsonProperty("dbt_output")
   private DbtOutput dbtOutput;
@@ -81,6 +85,15 @@ public class RunOutput {
 
   public CleanRoomsNotebookTaskCleanRoomsNotebookTaskOutput getCleanRoomsNotebookOutput() {
     return cleanRoomsNotebookOutput;
+  }
+
+  public RunOutput setDashboardOutput(DashboardTaskOutput dashboardOutput) {
+    this.dashboardOutput = dashboardOutput;
+    return this;
+  }
+
+  public DashboardTaskOutput getDashboardOutput() {
+    return dashboardOutput;
   }
 
   public RunOutput setDbtOutput(DbtOutput dbtOutput) {
@@ -179,6 +192,7 @@ public class RunOutput {
     if (o == null || getClass() != o.getClass()) return false;
     RunOutput that = (RunOutput) o;
     return Objects.equals(cleanRoomsNotebookOutput, that.cleanRoomsNotebookOutput)
+        && Objects.equals(dashboardOutput, that.dashboardOutput)
         && Objects.equals(dbtOutput, that.dbtOutput)
         && Objects.equals(error, that.error)
         && Objects.equals(errorTrace, that.errorTrace)
@@ -195,6 +209,7 @@ public class RunOutput {
   public int hashCode() {
     return Objects.hash(
         cleanRoomsNotebookOutput,
+        dashboardOutput,
         dbtOutput,
         error,
         errorTrace,
@@ -211,6 +226,7 @@ public class RunOutput {
   public String toString() {
     return new ToStringer(RunOutput.class)
         .add("cleanRoomsNotebookOutput", cleanRoomsNotebookOutput)
+        .add("dashboardOutput", dashboardOutput)
         .add("dbtOutput", dbtOutput)
         .add("error", error)
         .add("errorTrace", errorTrace)

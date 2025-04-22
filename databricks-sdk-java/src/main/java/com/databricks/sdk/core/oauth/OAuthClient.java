@@ -85,20 +85,6 @@ public class OAuthClient {
   private final boolean isAws;
   private final boolean isAzure;
 
-  public OAuthClient(DatabricksConfig config) throws IOException {
-    this(
-        new Builder()
-            .withHttpClient(config.getHttpClient())
-            .withClientId(config.getClientId())
-            .withClientSecret(config.getClientSecret())
-            .withHost(config.getHost())
-            .withRedirectUrl(
-                config.getOAuthRedirectUrl() != null
-                    ? config.getOAuthRedirectUrl()
-                    : "http://localhost:8080/callback")
-            .withScopes(config.getScopes()));
-  }
-
   private OAuthClient(Builder b) throws IOException {
     this.clientId = Objects.requireNonNull(b.clientId);
     this.clientSecret = b.clientSecret;

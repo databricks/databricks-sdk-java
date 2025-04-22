@@ -75,7 +75,7 @@ class GenieImpl implements GenieService {
       GenieGenerateDownloadFullQueryResultRequest request) {
     String path =
         String.format(
-            "/api/2.0/genie/spaces/%s/conversations/%s/messages/%s/attachments/%s/generate-download",
+            "/api/2.0/genie/spaces/%s/conversations/%s/messages/%s/attachments/%s/downloads",
             request.getSpaceId(),
             request.getConversationId(),
             request.getMessageId(),
@@ -85,6 +85,27 @@ class GenieImpl implements GenieService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GenieGenerateDownloadFullQueryResultResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public GenieGetDownloadFullQueryResultResponse getDownloadFullQueryResult(
+      GenieGetDownloadFullQueryResultRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/genie/spaces/%s/conversations/%s/messages/%s/attachments/%s/downloads/%s",
+            request.getSpaceId(),
+            request.getConversationId(),
+            request.getMessageId(),
+            request.getAttachmentId(),
+            request.getDownloadId());
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, GenieGetDownloadFullQueryResultResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

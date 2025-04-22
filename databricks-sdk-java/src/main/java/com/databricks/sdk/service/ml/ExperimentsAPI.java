@@ -136,6 +136,30 @@ public class ExperimentsAPI {
     return impl.getByName(request);
   }
 
+  public GetCredentialsForTraceDataDownloadResponse getCredentialsForTraceDataDownload(
+      String requestId) {
+    return getCredentialsForTraceDataDownload(
+        new GetCredentialsForTraceDataDownloadRequest().setRequestId(requestId));
+  }
+
+  /** Get credentials to download trace data. */
+  public GetCredentialsForTraceDataDownloadResponse getCredentialsForTraceDataDownload(
+      GetCredentialsForTraceDataDownloadRequest request) {
+    return impl.getCredentialsForTraceDataDownload(request);
+  }
+
+  public GetCredentialsForTraceDataUploadResponse getCredentialsForTraceDataUpload(
+      String requestId) {
+    return getCredentialsForTraceDataUpload(
+        new GetCredentialsForTraceDataUploadRequest().setRequestId(requestId));
+  }
+
+  /** Get credentials to upload trace data. */
+  public GetCredentialsForTraceDataUploadResponse getCredentialsForTraceDataUpload(
+      GetCredentialsForTraceDataUploadRequest request) {
+    return impl.getCredentialsForTraceDataUpload(request);
+  }
+
   public GetExperimentResponse getExperiment(String experimentId) {
     return getExperiment(new GetExperimentRequest().setExperimentId(experimentId));
   }
