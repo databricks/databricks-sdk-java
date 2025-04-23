@@ -2,7 +2,7 @@ package com.databricks.sdk.core.oauth;
 
 /**
  * Represents an ID Token provided by an identity provider from an OAuth flow.
- * IDToken is a token that can be exchanged for an access token.
+ * This token can later be exchanged for an access token.
  */
 public class IDToken {
     // The string value of the ID Token
