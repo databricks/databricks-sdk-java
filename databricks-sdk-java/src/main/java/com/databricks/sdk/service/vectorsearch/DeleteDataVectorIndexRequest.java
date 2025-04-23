@@ -3,20 +3,21 @@
 package com.databricks.sdk.service.vectorsearch;
 
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/** Request payload for deleting data from a vector index. */
+/** Delete data from index */
 @Generated
 public class DeleteDataVectorIndexRequest {
   /** Name of the vector index where data is to be deleted. Must be a Direct Vector Access Index. */
   @JsonIgnore private String indexName;
 
   /** List of primary keys for the data to be deleted. */
-  @JsonProperty("primary_keys")
+  @JsonIgnore
+  @QueryParam("primary_keys")
   private Collection<String> primaryKeys;
 
   public DeleteDataVectorIndexRequest setIndexName(String indexName) {

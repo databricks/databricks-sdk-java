@@ -54,6 +54,10 @@ public class QueryEndpointResponse {
   @JsonProperty("object")
   private QueryEndpointResponseObject object;
 
+  /** The outputs returned by the feature serving endpoint. */
+  @JsonProperty("outputs")
+  private Collection<Object> outputs;
+
   /** The predictions returned by the serving endpoint. */
   @JsonProperty("predictions")
   private Collection<Object> predictions;
@@ -127,6 +131,15 @@ public class QueryEndpointResponse {
     return object;
   }
 
+  public QueryEndpointResponse setOutputs(Collection<Object> outputs) {
+    this.outputs = outputs;
+    return this;
+  }
+
+  public Collection<Object> getOutputs() {
+    return outputs;
+  }
+
   public QueryEndpointResponse setPredictions(Collection<Object> predictions) {
     this.predictions = predictions;
     return this;
@@ -165,6 +178,7 @@ public class QueryEndpointResponse {
         && Objects.equals(id, that.id)
         && Objects.equals(model, that.model)
         && Objects.equals(object, that.object)
+        && Objects.equals(outputs, that.outputs)
         && Objects.equals(predictions, that.predictions)
         && Objects.equals(servedModelName, that.servedModelName)
         && Objects.equals(usage, that.usage);
@@ -173,7 +187,7 @@ public class QueryEndpointResponse {
   @Override
   public int hashCode() {
     return Objects.hash(
-        choices, created, data, id, model, object, predictions, servedModelName, usage);
+        choices, created, data, id, model, object, outputs, predictions, servedModelName, usage);
   }
 
   @Override
@@ -185,6 +199,7 @@ public class QueryEndpointResponse {
         .add("id", id)
         .add("model", model)
         .add("object", object)
+        .add("outputs", outputs)
         .add("predictions", predictions)
         .add("servedModelName", servedModelName)
         .add("usage", usage)
