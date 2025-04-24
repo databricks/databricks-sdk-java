@@ -10,7 +10,7 @@ import java.util.Objects;
 /** Delete an endpoint */
 @Generated
 public class DeleteEndpointRequest {
-  /** Name of the endpoint */
+  /** Name of the vector search endpoint */
   @JsonIgnore private String endpointName;
 
   public DeleteEndpointRequest setEndpointName(String endpointName) {

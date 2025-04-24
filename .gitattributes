@@ -742,6 +742,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/LogSyncStat
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/MavenLibrary.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/NodeInstanceType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/NodeType.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/NodeTypeFlexibility.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/PendingInstanceError.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/PermanentDeleteCluster.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/PermanentDeleteClusterResponse.java linguist-generated=true
@@ -2504,7 +2505,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/WidgetPosition.
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/ColumnInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/CreateEndpoint.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/CreateVectorIndexRequest.java linguist-generated=true
-databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/CreateVectorIndexResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/CustomTag.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/DeleteDataResult.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/DeleteDataStatus.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/DeleteDataVectorIndexRequest.java linguist-generated=true
@@ -2531,6 +2532,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/ListVa
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/ListVectorIndexesResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/MapStringValueEntry.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/MiniVectorIndex.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/PatchEndpointBudgetPolicyRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/PatchEndpointBudgetPolicyResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/PipelineType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/QueryVectorIndexNextPageRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/QueryVectorIndexRequest.java linguist-generated=true
@@ -2542,6 +2545,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/ScanVe
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/Struct.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/SyncIndexRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/SyncIndexResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/UpdateEndpointCustomTagsRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/UpdateEndpointCustomTagsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/UpsertDataResult.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/UpsertDataStatus.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/UpsertDataVectorIndexRequest.java linguist-generated=true

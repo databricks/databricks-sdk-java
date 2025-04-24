@@ -19,7 +19,7 @@ public class GenieGenerateDownloadFullQueryResultRequest {
   /** Message ID */
   @JsonIgnore private String messageId;
 
-  /** Space ID */
+  /** Genie space ID */
   @JsonIgnore private String spaceId;
 
   public GenieGenerateDownloadFullQueryResultRequest setAttachmentId(String attachmentId) {

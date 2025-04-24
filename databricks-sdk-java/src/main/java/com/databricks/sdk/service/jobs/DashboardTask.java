@@ -10,15 +10,18 @@ import java.util.Objects;
 /** Configures the Lakeview Dashboard job task type. */
 @Generated
 public class DashboardTask {
-  /** */
+  /** The identifier of the dashboard to refresh. */
   @JsonProperty("dashboard_id")
   private String dashboardId;
 
-  /** */
+  /** Optional: subscription configuration for sending the dashboard snapshot. */
   @JsonProperty("subscription")
   private Subscription subscription;
 
-  /** The warehouse id to execute the dashboard with for the schedule */
+  /**
+   * Optional: The warehouse id to execute the dashboard with for the schedule. If not specified,
+   * the default warehouse of the dashboard will be used.
+   */
   @JsonProperty("warehouse_id")
   private String warehouseId;
 

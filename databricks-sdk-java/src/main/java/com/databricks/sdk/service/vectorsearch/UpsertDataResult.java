@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/** Result of the upsert or delete operation. */
 @Generated
 public class UpsertDataResult {
   /** List of primary keys for rows that failed to process. */

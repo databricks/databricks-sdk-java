@@ -22,9 +22,11 @@ public class QueryVectorIndexRequest {
   /**
    * JSON string representing query filters.
    *
-   * <p>Example filters: - `{"id <": 5}`: Filter for id less than 5. - `{"id >": 5}`: Filter for id
-   * greater than 5. - `{"id <=": 5}`: Filter for id less than equal to 5. - `{"id >=": 5}`: Filter
-   * for id greater than equal to 5. - `{"id": 5}`: Filter for id equal to 5.
+   * <p>Example filters:
+   *
+   * <p>- `{"id <": 5}`: Filter for id less than 5. - `{"id >": 5}`: Filter for id greater than 5. -
+   * `{"id <=": 5}`: Filter for id less than equal to 5. - `{"id >=": 5}`: Filter for id greater
+   * than equal to 5. - `{"id": 5}`: Filter for id equal to 5.
    */
   @JsonProperty("filters_json")
   private String filtersJson;
