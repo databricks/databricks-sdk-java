@@ -27,9 +27,9 @@ public class EnableNotebookTableClipboardAPI {
   }
 
   /**
-   * Get the Enable Notebook Table Clipboard setting.
+   * Get the Results Table Clipboard features setting.
    *
-   * <p>Gets the Enable Notebook Table Clipboard setting.
+   * <p>Gets the Results Table Clipboard features setting.
    */
   public EnableNotebookTableClipboard getEnableNotebookTableClipboard() {
     return impl.getEnableNotebookTableClipboard();
@@ -45,10 +45,11 @@ public class EnableNotebookTableClipboardAPI {
   }
 
   /**
-   * Update the Enable Notebook Table Clipboard setting.
+   * Update the Results Table Clipboard features setting.
    *
-   * <p>Updates the Enable Notebook Table Clipboard setting. The model follows eventual consistency,
-   * which means the get after the update operation might receive stale values for some time.
+   * <p>Updates the Results Table Clipboard features setting. The model follows eventual
+   * consistency, which means the get after the update operation might receive stale values for some
+   * time.
    */
   public EnableNotebookTableClipboard patchEnableNotebookTableClipboard(
       UpdateEnableNotebookTableClipboardRequest request) {

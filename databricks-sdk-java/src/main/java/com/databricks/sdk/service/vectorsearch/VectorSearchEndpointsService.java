@@ -19,12 +19,36 @@ public interface VectorSearchEndpointsService {
    */
   EndpointInfo createEndpoint(CreateEndpoint createEndpoint);
 
-  /** Delete an endpoint. */
+  /**
+   * Delete an endpoint.
+   *
+   * <p>Delete a vector search endpoint.
+   */
   void deleteEndpoint(DeleteEndpointRequest deleteEndpointRequest);
 
-  /** Get an endpoint. */
+  /**
+   * Get an endpoint.
+   *
+   * <p>Get details for a single vector search endpoint.
+   */
   EndpointInfo getEndpoint(GetEndpointRequest getEndpointRequest);
 
-  /** List all endpoints. */
+  /**
+   * List all endpoints.
+   *
+   * <p>List all vector search endpoints in the workspace.
+   */
   ListEndpointResponse listEndpoints(ListEndpointsRequest listEndpointsRequest);
+
+  /**
+   * Update the budget policy of an endpoint.
+   *
+   * <p>Update the budget policy of an endpoint
+   */
+  PatchEndpointBudgetPolicyResponse updateEndpointBudgetPolicy(
+      PatchEndpointBudgetPolicyRequest patchEndpointBudgetPolicyRequest);
+
+  /** Update the custom tags of an endpoint. */
+  UpdateEndpointCustomTagsResponse updateEndpointCustomTags(
+      UpdateEndpointCustomTagsRequest updateEndpointCustomTagsRequest);
 }

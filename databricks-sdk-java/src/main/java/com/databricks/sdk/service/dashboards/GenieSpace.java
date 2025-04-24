@@ -13,7 +13,7 @@ public class GenieSpace {
   @JsonProperty("description")
   private String description;
 
-  /** Space ID */
+  /** Genie space ID */
   @JsonProperty("space_id")
   private String spaceId;
 
