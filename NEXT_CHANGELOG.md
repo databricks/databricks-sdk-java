@@ -9,5 +9,6 @@
 ### Documentation
 
 ### Internal Changes
+Added support for .cloud.databricks.mil domains
 
 ### API Changes
