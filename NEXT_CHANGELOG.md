@@ -25,7 +25,6 @@
 * [Breaking] Changed `createIndex()` method for `workspaceClient.vectorSearchIndexes()` service to return `com.databricks.sdk.service.vectorsearch.VectorIndex` class.
 * [Breaking] Changed `deleteDataVectorIndex()` method for `workspaceClient.vectorSearchIndexes()` service . HTTP method/verb has changed.
 * [Breaking] Changed `deleteDataVectorIndex()` method for `workspaceClient.vectorSearchIndexes()` service with new required argument order.
-* [Breaking] Changed `com.databricks.sdk.service.vectorsearch.List` class to.
 * [Breaking] Changed `dataArray` field for `com.databricks.sdk.service.vectorsearch.ResultData` to type `com.databricks.sdk.service.vectorsearch.ListValueList` class.
 * [Breaking] Changed waiter for `workspaceClient.vectorSearchEndpoints().createEndpoint()` method.
 * [Breaking] Removed `nullValue` field for `com.databricks.sdk.service.vectorsearch.Value`.
