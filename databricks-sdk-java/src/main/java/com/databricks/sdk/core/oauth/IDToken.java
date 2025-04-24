@@ -14,6 +14,9 @@ public class IDToken {
    * @param value The ID Token string.
    */
   public IDToken(String value) {
+    if (value == null || value.isEmpty()) {
+        throw new IllegalArgumentException("ID Token value cannot be null or empty");
+    }
     this.value = value;
   }
 
