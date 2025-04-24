@@ -15,11 +15,16 @@ public class IDToken {
    */
   public IDToken(String value) {
     if (value == null || value.isEmpty()) {
-        throw new IllegalArgumentException("ID Token value cannot be null or empty");
+      throw new IllegalArgumentException("ID Token value cannot be null or empty");
     }
     this.value = value;
   }
 
+  /**
+   * Returns the value of the ID Token.
+   *
+   * @return The string representation of the ID Token.
+   */
   public String getValue() {
     return value;
   }
