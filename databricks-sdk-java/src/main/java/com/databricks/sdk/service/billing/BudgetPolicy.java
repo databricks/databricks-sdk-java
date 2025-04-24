@@ -11,6 +11,13 @@ import java.util.Objects;
 /** Contains the BudgetPolicy details. */
 @Generated
 public class BudgetPolicy {
+  /**
+   * List of workspaces that this budget policy will be exclusively bound to. An empty binding
+   * implies that this budget policy is open to any workspace in the account.
+   */
+  @JsonProperty("binding_workspace_ids")
+  private Collection<Long> bindingWorkspaceIds;
+
   /** A list of tags defined by the customer. At most 20 entries are allowed per policy. */
   @JsonProperty("custom_tags")
   private Collection<com.databricks.sdk.service.compute.CustomPolicyTag> customTags;
@@ -26,6 +33,15 @@ public class BudgetPolicy {
    */
   @JsonProperty("policy_name")
   private String policyName;
+
+  public BudgetPolicy setBindingWorkspaceIds(Collection<Long> bindingWorkspaceIds) {
+    this.bindingWorkspaceIds = bindingWorkspaceIds;
+    return this;
+  }
+
+  public Collection<Long> getBindingWorkspaceIds() {
+    return bindingWorkspaceIds;
+  }
 
   public BudgetPolicy setCustomTags(
       Collection<com.databricks.sdk.service.compute.CustomPolicyTag> customTags) {
@@ -60,19 +76,21 @@ public class BudgetPolicy {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     BudgetPolicy that = (BudgetPolicy) o;
-    return Objects.equals(customTags, that.customTags)
+    return Objects.equals(bindingWorkspaceIds, that.bindingWorkspaceIds)
+        && Objects.equals(customTags, that.customTags)
         && Objects.equals(policyId, that.policyId)
         && Objects.equals(policyName, that.policyName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(customTags, policyId, policyName);
+    return Objects.hash(bindingWorkspaceIds, customTags, policyId, policyName);
   }
 
   @Override
   public String toString() {
     return new ToStringer(BudgetPolicy.class)
+        .add("bindingWorkspaceIds", bindingWorkspaceIds)
         .add("customTags", customTags)
         .add("policyId", policyId)
         .add("policyName", policyName)

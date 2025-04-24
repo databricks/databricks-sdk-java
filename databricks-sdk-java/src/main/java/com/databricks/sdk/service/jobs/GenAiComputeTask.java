@@ -7,14 +7,13 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Next field: 9 */
 @Generated
 public class GenAiComputeTask {
   /** Command launcher to run the actual script, e.g. bash, python etc. */
   @JsonProperty("command")
   private String command;
 
-  /** Next field: 4 */
+  /** */
   @JsonProperty("compute")
   private ComputeConfig compute;
 

@@ -13,6 +13,14 @@ public class QueryInfo {
   @JsonProperty("channel_used")
   private ChannelInfo channelUsed;
 
+  /**
+   * Client application that ran the statement. For example: Databricks SQL Editor, Tableau, and
+   * Power BI. This field is derived from information provided by client applications. While values
+   * are expected to remain static over time, this cannot be guaranteed.
+   */
+  @JsonProperty("client_application")
+  private String clientApplication;
+
   /** Total execution time of the statement ( excluding result fetch time ). */
   @JsonProperty("duration")
   private Long duration;
@@ -118,6 +126,15 @@ public class QueryInfo {
 
   public ChannelInfo getChannelUsed() {
     return channelUsed;
+  }
+
+  public QueryInfo setClientApplication(String clientApplication) {
+    this.clientApplication = clientApplication;
+    return this;
+  }
+
+  public String getClientApplication() {
+    return clientApplication;
   }
 
   public QueryInfo setDuration(Long duration) {
@@ -324,6 +341,7 @@ public class QueryInfo {
     if (o == null || getClass() != o.getClass()) return false;
     QueryInfo that = (QueryInfo) o;
     return Objects.equals(channelUsed, that.channelUsed)
+        && Objects.equals(clientApplication, that.clientApplication)
         && Objects.equals(duration, that.duration)
         && Objects.equals(endpointId, that.endpointId)
         && Objects.equals(errorMessage, that.errorMessage)
@@ -352,6 +370,7 @@ public class QueryInfo {
   public int hashCode() {
     return Objects.hash(
         channelUsed,
+        clientApplication,
         duration,
         endpointId,
         errorMessage,
@@ -380,6 +399,7 @@ public class QueryInfo {
   public String toString() {
     return new ToStringer(QueryInfo.class)
         .add("channelUsed", channelUsed)
+        .add("clientApplication", clientApplication)
         .add("duration", duration)
         .add("endpointId", endpointId)
         .add("errorMessage", errorMessage)

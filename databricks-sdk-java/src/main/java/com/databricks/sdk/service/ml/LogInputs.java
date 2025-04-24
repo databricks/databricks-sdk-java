@@ -14,6 +14,10 @@ public class LogInputs {
   @JsonProperty("datasets")
   private Collection<DatasetInput> datasets;
 
+  /** Model inputs */
+  @JsonProperty("models")
+  private Collection<ModelInput> models;
+
   /** ID of the run to log under */
   @JsonProperty("run_id")
   private String runId;
@@ -25,6 +29,15 @@ public class LogInputs {
 
   public Collection<DatasetInput> getDatasets() {
     return datasets;
+  }
+
+  public LogInputs setModels(Collection<ModelInput> models) {
+    this.models = models;
+    return this;
+  }
+
+  public Collection<ModelInput> getModels() {
+    return models;
   }
 
   public LogInputs setRunId(String runId) {
@@ -41,16 +54,22 @@ public class LogInputs {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     LogInputs that = (LogInputs) o;
-    return Objects.equals(datasets, that.datasets) && Objects.equals(runId, that.runId);
+    return Objects.equals(datasets, that.datasets)
+        && Objects.equals(models, that.models)
+        && Objects.equals(runId, that.runId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(datasets, runId);
+    return Objects.hash(datasets, models, runId);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(LogInputs.class).add("datasets", datasets).add("runId", runId).toString();
+    return new ToStringer(LogInputs.class)
+        .add("datasets", datasets)
+        .add("models", models)
+        .add("runId", runId)
+        .toString();
   }
 }

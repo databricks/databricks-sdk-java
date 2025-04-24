@@ -11,7 +11,6 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public enum PerformanceTarget {
-  BALANCED,
-  COST_OPTIMIZED,
   PERFORMANCE_OPTIMIZED,
+  STANDARD,
 }

@@ -669,4 +669,14 @@ public class DatabricksConfig {
                 "headerFactory"));
     return clone(fieldsToSkip).setHost(host);
   }
+
+  /**
+   * Gets the default OAuth redirect URL. If one is not provided explicitly, uses
+   * http://localhost:8080/callback
+   *
+   * @return The OAuth redirect URL to use
+   */
+  public String getEffectiveOAuthRedirectUrl() {
+    return redirectUrl != null ? redirectUrl : "http://localhost:8080/callback";
+  }
 }

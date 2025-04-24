@@ -9,46 +9,17 @@ import java.util.Objects;
 
 @Generated
 public class GenieGenerateDownloadFullQueryResultResponse {
-  /** Error message if Genie failed to download the result */
-  @JsonProperty("error")
-  private String error;
+  /** Download ID. Use this ID to track the download request in subsequent polling calls */
+  @JsonProperty("download_id")
+  private String downloadId;
 
-  /** Download result status */
-  @JsonProperty("status")
-  private MessageStatus status;
-
-  /**
-   * Transient Statement ID. Use this ID to track the download request in subsequent polling calls
-   */
-  @JsonProperty("transient_statement_id")
-  private String transientStatementId;
-
-  public GenieGenerateDownloadFullQueryResultResponse setError(String error) {
-    this.error = error;
+  public GenieGenerateDownloadFullQueryResultResponse setDownloadId(String downloadId) {
+    this.downloadId = downloadId;
     return this;
   }
 
-  public String getError() {
-    return error;
-  }
-
-  public GenieGenerateDownloadFullQueryResultResponse setStatus(MessageStatus status) {
-    this.status = status;
-    return this;
-  }
-
-  public MessageStatus getStatus() {
-    return status;
-  }
-
-  public GenieGenerateDownloadFullQueryResultResponse setTransientStatementId(
-      String transientStatementId) {
-    this.transientStatementId = transientStatementId;
-    return this;
-  }
-
-  public String getTransientStatementId() {
-    return transientStatementId;
+  public String getDownloadId() {
+    return downloadId;
   }
 
   @Override
@@ -57,22 +28,18 @@ public class GenieGenerateDownloadFullQueryResultResponse {
     if (o == null || getClass() != o.getClass()) return false;
     GenieGenerateDownloadFullQueryResultResponse that =
         (GenieGenerateDownloadFullQueryResultResponse) o;
-    return Objects.equals(error, that.error)
-        && Objects.equals(status, that.status)
-        && Objects.equals(transientStatementId, that.transientStatementId);
+    return Objects.equals(downloadId, that.downloadId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(error, status, transientStatementId);
+    return Objects.hash(downloadId);
   }
 
   @Override
   public String toString() {
     return new ToStringer(GenieGenerateDownloadFullQueryResultResponse.class)
-        .add("error", error)
-        .add("status", status)
-        .add("transientStatementId", transientStatementId)
+        .add("downloadId", downloadId)
         .toString();
   }
 }

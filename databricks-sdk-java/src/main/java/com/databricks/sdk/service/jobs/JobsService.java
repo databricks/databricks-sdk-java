@@ -77,10 +77,13 @@ public interface JobsService {
    *
    * <p>Retrieves the details for a single job.
    *
-   * <p>In Jobs API 2.2, requests for a single job support pagination of `tasks` and `job_clusters`
-   * when either exceeds 100 elements. Use the `next_page_token` field to check for more results and
-   * pass its value as the `page_token` in subsequent requests. Arrays with fewer than 100 elements
-   * in a page will be empty on later pages.
+   * <p>Large arrays in the results will be paginated when they exceed 100 elements. A request for a
+   * single job will return all properties for that job, and the first 100 elements of array
+   * properties (`tasks`, `job_clusters`, `environments` and `parameters`). Use the
+   * `next_page_token` field to check for more results and pass its value as the `page_token` in
+   * subsequent requests. If any array properties have more than 100 elements, additional results
+   * will be returned on subsequent requests. Arrays without additional results will be empty on
+   * later pages.
    */
   Job get(GetJobRequest getJobRequest);
 
@@ -104,10 +107,13 @@ public interface JobsService {
    *
    * <p>Retrieves the metadata of a run.
    *
-   * <p>In Jobs API 2.2, requests for a single job run support pagination of `tasks` and
-   * `job_clusters` when either exceeds 100 elements. Use the `next_page_token` field to check for
-   * more results and pass its value as the `page_token` in subsequent requests. Arrays with fewer
-   * than 100 elements in a page will be empty on later pages.
+   * <p>Large arrays in the results will be paginated when they exceed 100 elements. A request for a
+   * single run will return all properties for that run, and the first 100 elements of array
+   * properties (`tasks`, `job_clusters`, `job_parameters` and `repair_history`). Use the
+   * next_page_token field to check for more results and pass its value as the page_token in
+   * subsequent requests. If any array properties have more than 100 elements, additional results
+   * will be returned on subsequent requests. Arrays without additional results will be empty on
+   * later pages.
    */
   Run getRun(GetRunRequest getRunRequest);
 

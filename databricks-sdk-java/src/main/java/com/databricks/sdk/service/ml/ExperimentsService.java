@@ -83,6 +83,14 @@ public interface ExperimentsService {
    */
   GetExperimentByNameResponse getByName(GetByNameRequest getByNameRequest);
 
+  /** Get credentials to download trace data. */
+  GetCredentialsForTraceDataDownloadResponse getCredentialsForTraceDataDownload(
+      GetCredentialsForTraceDataDownloadRequest getCredentialsForTraceDataDownloadRequest);
+
+  /** Get credentials to upload trace data. */
+  GetCredentialsForTraceDataUploadResponse getCredentialsForTraceDataUpload(
+      GetCredentialsForTraceDataUploadRequest getCredentialsForTraceDataUploadRequest);
+
   /**
    * Get an experiment.
    *

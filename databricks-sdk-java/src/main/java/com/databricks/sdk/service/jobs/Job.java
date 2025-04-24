@@ -33,8 +33,8 @@ public class Job {
   private String effectiveBudgetPolicyId;
 
   /**
-   * Indicates if the job has more sub-resources (`tasks`, `job_clusters`) that are not shown. They
-   * can be accessed via :method:jobs/get endpoint. It is only relevant for API 2.2
+   * Indicates if the job has more array properties (`tasks`, `job_clusters`) that are not shown.
+   * They can be accessed via :method:jobs/get endpoint. It is only relevant for API 2.2
    * :method:jobs/list requests with `expand_tasks=true`.
    */
   @JsonProperty("has_more")
@@ -44,7 +44,7 @@ public class Job {
   @JsonProperty("job_id")
   private Long jobId;
 
-  /** A token that can be used to list the next page of sub-resources. */
+  /** A token that can be used to list the next page of array properties. */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 

@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.databricks</groupId>
     <artifactId>databricks-sdk-parent</artifactId>
-    <version>0.44.0</version>
+    <version>0.46.0</version>
   </parent>
   <artifactId>databricks-sdk-java</artifactId>
   <properties>
@@ -96,6 +96,12 @@
       <groupId>com.google.auth</groupId>
       <artifactId>google-auth-library-oauth2-http</artifactId>
       <version>1.20.0</version>
+    </dependency>
+    <!-- Jackson JSR310 module needed to serialize/deserialize java.time classes in TokenCache -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-jsr310</artifactId>
+      <version>${jackson.version}</version>
     </dependency>
   </dependencies>
 </project>

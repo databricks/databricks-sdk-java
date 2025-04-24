@@ -52,9 +52,13 @@ public class BaseRun {
   private String description;
 
   /**
-   * effective_performance_target is the actual performance target used by the run during execution.
-   * effective_performance_target can differ from the client-set performance_target depending on if
-   * the job was eligible to be cost-optimized.
+   * The actual performance target used by the serverless run during execution. This can differ from
+   * the client-set performance target on the request depending on whether the performance mode is
+   * supported by the job type.
+   *
+   * <p>* `STANDARD`: Enables cost-efficient execution of serverless workloads. *
+   * `PERFORMANCE_OPTIMIZED`: Prioritizes fast startup and execution times through rapid scaling and
+   * optimized cluster performance.
    */
   @JsonProperty("effective_performance_target")
   private PerformanceTarget effectivePerformanceTarget;
@@ -91,8 +95,8 @@ public class BaseRun {
   private GitSource gitSource;
 
   /**
-   * Indicates if the run has more sub-resources (`tasks`, `job_clusters`) that are not shown. They
-   * can be accessed via :method:jobs/getrun endpoint. It is only relevant for API 2.2
+   * Indicates if the run has more array properties (`tasks`, `job_clusters`) that are not shown.
+   * They can be accessed via :method:jobs/getrun endpoint. It is only relevant for API 2.2
    * :method:jobs/listruns requests with `expand_tasks=true`.
    */
   @JsonProperty("has_more")

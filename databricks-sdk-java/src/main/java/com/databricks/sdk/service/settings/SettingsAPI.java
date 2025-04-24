@@ -27,6 +27,12 @@ public class SettingsAPI {
 
   private DisableLegacyDbfsAPI disableLegacyDbfsAPI;
 
+  private EnableExportNotebookAPI enableExportNotebookAPI;
+
+  private EnableNotebookTableClipboardAPI enableNotebookTableClipboardAPI;
+
+  private EnableResultsDownloadingAPI enableResultsDownloadingAPI;
+
   private EnhancedSecurityMonitoringAPI enhancedSecurityMonitoringAPI;
 
   private RestrictWorkspaceAdminsAPI restrictWorkspaceAdminsAPI;
@@ -49,6 +55,12 @@ public class SettingsAPI {
     disableLegacyAccessAPI = new DisableLegacyAccessAPI(apiClient);
 
     disableLegacyDbfsAPI = new DisableLegacyDbfsAPI(apiClient);
+
+    enableExportNotebookAPI = new EnableExportNotebookAPI(apiClient);
+
+    enableNotebookTableClipboardAPI = new EnableNotebookTableClipboardAPI(apiClient);
+
+    enableResultsDownloadingAPI = new EnableResultsDownloadingAPI(apiClient);
 
     enhancedSecurityMonitoringAPI = new EnhancedSecurityMonitoringAPI(apiClient);
 
@@ -102,6 +114,21 @@ public class SettingsAPI {
    */
   public DisableLegacyDbfsAPI DisableLegacyDbfs() {
     return disableLegacyDbfsAPI;
+  }
+
+  /** Controls whether users can export notebooks and files from the Workspace. */
+  public EnableExportNotebookAPI EnableExportNotebook() {
+    return enableExportNotebookAPI;
+  }
+
+  /** Controls whether users can copy tabular data to the clipboard via the UI. */
+  public EnableNotebookTableClipboardAPI EnableNotebookTableClipboard() {
+    return enableNotebookTableClipboardAPI;
+  }
+
+  /** Controls whether users can download notebook results. */
+  public EnableResultsDownloadingAPI EnableResultsDownloading() {
+    return enableResultsDownloadingAPI;
   }
 
   /** Controls whether enhanced security monitoring is enabled for the current workspace. */
