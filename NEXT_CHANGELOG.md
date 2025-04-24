@@ -11,3 +11,4 @@
 ### Internal Changes
 
 ### API Changes
+* Added `outputs` field to `QueryEndpointResponseObject` to support feature serving endpoints responses.
