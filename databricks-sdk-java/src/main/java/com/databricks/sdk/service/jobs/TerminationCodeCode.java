@@ -37,7 +37,7 @@ import com.databricks.sdk.support.Generated;
  * invalid configuration. Refer to the state message for further details. * `CLOUD_FAILURE`: The run
  * failed due to a cloud provider issue. Refer to the state message for further details. *
  * `MAX_JOB_QUEUE_SIZE_EXCEEDED`: The run was skipped due to reaching the job level queue size
- * limit.
+ * limit. * `DISABLED`: The run was never executed because it was disabled explicitly by the user.
  *
  * <p>[Link]:
  * https://kb.databricks.com/en_US/notebooks/too-many-execution-contexts-are-open-right-now
@@ -55,6 +55,7 @@ public enum TerminationCodeCode {
   // exceeded the
   // allotted rate limit. Consider spreading the run execution over a larger time
   // frame.
+  DISABLED, // The run was never executed because it was disabled explicitly by the user.
   DRIVER_ERROR, // The run encountered an error while communicating with the Spark Driver.
   FEATURE_DISABLED, // The run failed because it tried to access a feature unavailable for the
   // workspace.

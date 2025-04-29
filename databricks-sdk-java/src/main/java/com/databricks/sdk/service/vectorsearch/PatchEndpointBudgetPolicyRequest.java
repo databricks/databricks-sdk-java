@@ -4,24 +4,20 @@ package com.databricks.sdk.service.vectorsearch;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 @Generated
-public class CreateEndpoint {
+public class PatchEndpointBudgetPolicyRequest {
   /** The budget policy id to be applied */
   @JsonProperty("budget_policy_id")
   private String budgetPolicyId;
 
-  /** Type of endpoint */
-  @JsonProperty("endpoint_type")
-  private EndpointType endpointType;
-
   /** Name of the vector search endpoint */
-  @JsonProperty("name")
-  private String name;
+  @JsonIgnore private String endpointName;
 
-  public CreateEndpoint setBudgetPolicyId(String budgetPolicyId) {
+  public PatchEndpointBudgetPolicyRequest setBudgetPolicyId(String budgetPolicyId) {
     this.budgetPolicyId = budgetPolicyId;
     return this;
   }
@@ -30,45 +26,34 @@ public class CreateEndpoint {
     return budgetPolicyId;
   }
 
-  public CreateEndpoint setEndpointType(EndpointType endpointType) {
-    this.endpointType = endpointType;
+  public PatchEndpointBudgetPolicyRequest setEndpointName(String endpointName) {
+    this.endpointName = endpointName;
     return this;
   }
 
-  public EndpointType getEndpointType() {
-    return endpointType;
-  }
-
-  public CreateEndpoint setName(String name) {
-    this.name = name;
-    return this;
-  }
-
-  public String getName() {
-    return name;
+  public String getEndpointName() {
+    return endpointName;
   }
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    CreateEndpoint that = (CreateEndpoint) o;
+    PatchEndpointBudgetPolicyRequest that = (PatchEndpointBudgetPolicyRequest) o;
     return Objects.equals(budgetPolicyId, that.budgetPolicyId)
-        && Objects.equals(endpointType, that.endpointType)
-        && Objects.equals(name, that.name);
+        && Objects.equals(endpointName, that.endpointName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(budgetPolicyId, endpointType, name);
+    return Objects.hash(budgetPolicyId, endpointName);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(CreateEndpoint.class)
+    return new ToStringer(PatchEndpointBudgetPolicyRequest.class)
         .add("budgetPolicyId", budgetPolicyId)
-        .add("endpointType", endpointType)
-        .add("name", name)
+        .add("endpointName", endpointName)
         .toString();
   }
 }

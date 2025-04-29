@@ -24,9 +24,9 @@ public class EnableResultsDownloadingAPI {
   }
 
   /**
-   * Get the Enable Results Downloading setting.
+   * Get the Notebook results download setting.
    *
-   * <p>Gets the Enable Results Downloading setting.
+   * <p>Gets the Notebook results download setting.
    */
   public EnableResultsDownloading getEnableResultsDownloading() {
     return impl.getEnableResultsDownloading();
@@ -42,10 +42,10 @@ public class EnableResultsDownloadingAPI {
   }
 
   /**
-   * Update the Enable Results Downloading setting.
+   * Update the Notebook results download setting.
    *
-   * <p>Updates the Enable Results Downloading setting. The model follows eventual consistency,
-   * which means the get after the update operation might receive stale values for some time.
+   * <p>Updates the Notebook results download setting. The model follows eventual consistency, which
+   * means the get after the update operation might receive stale values for some time.
    */
   public EnableResultsDownloading patchEnableResultsDownloading(
       UpdateEnableResultsDownloadingRequest request) {
