@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Properties of the new network connectivity configuration. */
 @Generated
 public class NetworkConnectivityConfiguration {
   /** The Databricks account ID that hosts the credential. */
@@ -27,7 +28,7 @@ public class NetworkConnectivityConfiguration {
   /**
    * The name of the network connectivity configuration. The name can contain alphanumeric
    * characters, hyphens, and underscores. The length must be between 3 and 30 characters. The name
-   * must match the regular expression `^[0-9a-zA-Z-_]{3,30}$`.
+   * must match the regular expression ^[0-9a-zA-Z-_]{3,30}$
    */
   @JsonProperty("name")
   private String name;

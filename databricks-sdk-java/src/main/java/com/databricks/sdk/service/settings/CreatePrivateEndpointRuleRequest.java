@@ -8,31 +8,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Create a private endpoint rule */
 @Generated
 public class CreatePrivateEndpointRuleRequest {
-  /**
-   * The sub-resource type (group ID) of the target resource. Note that to connect to workspace root
-   * storage (root DBFS), you need two endpoints, one for `blob` and one for `dfs`.
-   */
-  @JsonProperty("group_id")
-  private CreatePrivateEndpointRuleRequestGroupId groupId;
-
-  /** Your Network Connectvity Configuration ID. */
+  /** Your Network Connectivity Configuration ID. */
   @JsonIgnore private String networkConnectivityConfigId;
 
-  /** The Azure resource ID of the target resource. */
-  @JsonProperty("resource_id")
-  private String resourceId;
-
-  public CreatePrivateEndpointRuleRequest setGroupId(
-      CreatePrivateEndpointRuleRequestGroupId groupId) {
-    this.groupId = groupId;
-    return this;
-  }
-
-  public CreatePrivateEndpointRuleRequestGroupId getGroupId() {
-    return groupId;
-  }
+  /**
+   * Properties of the new private endpoint rule. Note that you must approve the endpoint in Azure
+   * portal after initialization.
+   */
+  @JsonProperty("private_endpoint_rule")
+  private CreatePrivateEndpointRule privateEndpointRule;
 
   public CreatePrivateEndpointRuleRequest setNetworkConnectivityConfigId(
       String networkConnectivityConfigId) {
@@ -44,13 +31,14 @@ public class CreatePrivateEndpointRuleRequest {
     return networkConnectivityConfigId;
   }
 
-  public CreatePrivateEndpointRuleRequest setResourceId(String resourceId) {
-    this.resourceId = resourceId;
+  public CreatePrivateEndpointRuleRequest setPrivateEndpointRule(
+      CreatePrivateEndpointRule privateEndpointRule) {
+    this.privateEndpointRule = privateEndpointRule;
     return this;
   }
 
-  public String getResourceId() {
-    return resourceId;
+  public CreatePrivateEndpointRule getPrivateEndpointRule() {
+    return privateEndpointRule;
   }
 
   @Override
@@ -58,22 +46,20 @@ public class CreatePrivateEndpointRuleRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CreatePrivateEndpointRuleRequest that = (CreatePrivateEndpointRuleRequest) o;
-    return Objects.equals(groupId, that.groupId)
-        && Objects.equals(networkConnectivityConfigId, that.networkConnectivityConfigId)
-        && Objects.equals(resourceId, that.resourceId);
+    return Objects.equals(networkConnectivityConfigId, that.networkConnectivityConfigId)
+        && Objects.equals(privateEndpointRule, that.privateEndpointRule);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(groupId, networkConnectivityConfigId, resourceId);
+    return Objects.hash(networkConnectivityConfigId, privateEndpointRule);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CreatePrivateEndpointRuleRequest.class)
-        .add("groupId", groupId)
         .add("networkConnectivityConfigId", networkConnectivityConfigId)
-        .add("resourceId", resourceId)
+        .add("privateEndpointRule", privateEndpointRule)
         .toString();
   }
 }

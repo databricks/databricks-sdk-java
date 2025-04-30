@@ -27,8 +27,9 @@ public class CleanRoomAssetsAPI {
     impl = mock;
   }
 
-  public CleanRoomAsset create(String cleanRoomName) {
-    return create(new CreateCleanRoomAssetRequest().setCleanRoomName(cleanRoomName));
+  public CleanRoomAsset create(String cleanRoomName, CleanRoomAsset asset) {
+    return create(
+        new CreateCleanRoomAssetRequest().setCleanRoomName(cleanRoomName).setAsset(asset));
   }
 
   /**
@@ -100,12 +101,13 @@ public class CleanRoomAssetsAPI {
   }
 
   public CleanRoomAsset update(
-      String cleanRoomName, CleanRoomAssetAssetType assetType, String name) {
+      String cleanRoomName, CleanRoomAssetAssetType assetType, String name, CleanRoomAsset asset) {
     return update(
         new UpdateCleanRoomAssetRequest()
             .setCleanRoomName(cleanRoomName)
             .setAssetType(assetType)
-            .setName(name));
+            .setName(name)
+            .setAsset(asset));
   }
 
   /**

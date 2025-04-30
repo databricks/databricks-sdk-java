@@ -5,21 +5,25 @@ package com.databricks.sdk.service.settings;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * Properties of the new private endpoint rule. Note that you must approve the endpoint in Azure
+ * portal after initialization.
+ */
 @Generated
 public class NccAzurePrivateEndpointRule {
   /**
    * The current status of this private endpoint. The private endpoint rules are effective only if
-   * the connection state is `ESTABLISHED`. Remember that you must approve new endpoints on your
-   * resources in the Azure portal before they take effect.
-   *
-   * <p>The possible values are: - INIT: (deprecated) The endpoint has been created and pending
-   * approval. - PENDING: The endpoint has been created and pending approval. - ESTABLISHED: The
-   * endpoint has been approved and is ready to use in your serverless compute resources. -
-   * REJECTED: Connection was rejected by the private link resource owner. - DISCONNECTED:
-   * Connection was removed by the private link resource owner, the private endpoint becomes
-   * informative and should be deleted for clean-up.
+   * the connection state is ESTABLISHED. Remember that you must approve new endpoints on your
+   * resources in the Azure portal before they take effect. The possible values are: - INIT:
+   * (deprecated) The endpoint has been created and pending approval. - PENDING: The endpoint has
+   * been created and pending approval. - ESTABLISHED: The endpoint has been approved and is ready
+   * to use in your serverless compute resources. - REJECTED: Connection was rejected by the private
+   * link resource owner. - DISCONNECTED: Connection was removed by the private link resource owner,
+   * the private endpoint becomes informative and should be deleted for clean-up. - EXPIRED: If the
+   * endpoint was created but not approved in 14 days, it will be EXPIRED.
    */
   @JsonProperty("connection_state")
   private NccAzurePrivateEndpointRuleConnectionState connectionState;
@@ -36,16 +40,28 @@ public class NccAzurePrivateEndpointRule {
   @JsonProperty("deactivated_at")
   private Long deactivatedAt;
 
+  /**
+   * Only used by private endpoints to customer-managed resources.
+   *
+   * <p>Domain names of target private link service. When updating this field, the full list of
+   * target domain_names must be specified.
+   */
+  @JsonProperty("domain_names")
+  private Collection<String> domainNames;
+
   /** The name of the Azure private endpoint resource. */
   @JsonProperty("endpoint_name")
   private String endpointName;
 
   /**
-   * The sub-resource type (group ID) of the target resource. Note that to connect to workspace root
-   * storage (root DBFS), you need two endpoints, one for `blob` and one for `dfs`.
+   * Only used by private endpoints to Azure first-party services. Enum: blob | dfs | sqlServer |
+   * mysqlServer
+   *
+   * <p>The sub-resource type (group ID) of the target resource. Note that to connect to workspace
+   * root storage (root DBFS), you need two endpoints, one for blob and one for dfs.
    */
   @JsonProperty("group_id")
-  private NccAzurePrivateEndpointRuleGroupId groupId;
+  private String groupId;
 
   /**
    * The ID of a network connectivity configuration, which is the parent resource of this private
@@ -103,6 +119,15 @@ public class NccAzurePrivateEndpointRule {
     return deactivatedAt;
   }
 
+  public NccAzurePrivateEndpointRule setDomainNames(Collection<String> domainNames) {
+    this.domainNames = domainNames;
+    return this;
+  }
+
+  public Collection<String> getDomainNames() {
+    return domainNames;
+  }
+
   public NccAzurePrivateEndpointRule setEndpointName(String endpointName) {
     this.endpointName = endpointName;
     return this;
@@ -112,12 +137,12 @@ public class NccAzurePrivateEndpointRule {
     return endpointName;
   }
 
-  public NccAzurePrivateEndpointRule setGroupId(NccAzurePrivateEndpointRuleGroupId groupId) {
+  public NccAzurePrivateEndpointRule setGroupId(String groupId) {
     this.groupId = groupId;
     return this;
   }
 
-  public NccAzurePrivateEndpointRuleGroupId getGroupId() {
+  public String getGroupId() {
     return groupId;
   }
 
@@ -167,6 +192,7 @@ public class NccAzurePrivateEndpointRule {
         && Objects.equals(creationTime, that.creationTime)
         && Objects.equals(deactivated, that.deactivated)
         && Objects.equals(deactivatedAt, that.deactivatedAt)
+        && Objects.equals(domainNames, that.domainNames)
         && Objects.equals(endpointName, that.endpointName)
         && Objects.equals(groupId, that.groupId)
         && Objects.equals(networkConnectivityConfigId, that.networkConnectivityConfigId)
@@ -182,6 +208,7 @@ public class NccAzurePrivateEndpointRule {
         creationTime,
         deactivated,
         deactivatedAt,
+        domainNames,
         endpointName,
         groupId,
         networkConnectivityConfigId,
@@ -197,6 +224,7 @@ public class NccAzurePrivateEndpointRule {
         .add("creationTime", creationTime)
         .add("deactivated", deactivated)
         .add("deactivatedAt", deactivatedAt)
+        .add("domainNames", domainNames)
         .add("endpointName", endpointName)
         .add("groupId", groupId)
         .add("networkConnectivityConfigId", networkConnectivityConfigId)

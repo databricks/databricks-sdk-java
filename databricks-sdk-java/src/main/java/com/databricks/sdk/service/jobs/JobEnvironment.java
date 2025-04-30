@@ -14,8 +14,11 @@ public class JobEnvironment {
   private String environmentKey;
 
   /**
-   * The environment entity used to preserve serverless environment side panel and jobs' environment
-   * for non-notebook task. In this minimal environment spec, only pip dependencies are supported.
+   * The environment entity used to preserve serverless environment side panel, jobs' environment
+   * for non-notebook task, and DLT's environment for classic and serverless pipelines. (Note: DLT
+   * uses a copied version of the Environment proto below, at
+   * //spark/pipelines/api/protos/copied/libraries-environments-copy.proto) In this minimal
+   * environment spec, only pip dependencies are supported.
    */
   @JsonProperty("spec")
   private com.databricks.sdk.service.compute.Environment spec;
