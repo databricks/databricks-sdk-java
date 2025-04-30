@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/** The network connectivity configuration list was successfully retrieved. */
 @Generated
 public class ListNetworkConnectivityConfigurationsResponse {
   /** */

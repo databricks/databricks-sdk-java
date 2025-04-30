@@ -10,7 +10,7 @@ import java.util.Objects;
 /** Delete a network connectivity configuration */
 @Generated
 public class DeleteNetworkConnectivityConfigurationRequest {
-  /** Your Network Connectvity Configuration ID. */
+  /** Your Network Connectivity Configuration ID. */
   @JsonIgnore private String networkConnectivityConfigId;
 
   public DeleteNetworkConnectivityConfigurationRequest setNetworkConnectivityConfigId(

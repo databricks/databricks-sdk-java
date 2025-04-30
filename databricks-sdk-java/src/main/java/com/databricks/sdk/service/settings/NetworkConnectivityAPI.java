@@ -9,7 +9,14 @@ import org.slf4j.LoggerFactory;
 
 /**
  * These APIs provide configurations for the network connectivity of your workspaces for serverless
- * compute resources.
+ * compute resources. This API provides stable subnets for your workspace so that you can configure
+ * your firewalls on your Azure Storage accounts to allow access from Databricks. You can also use
+ * the API to provision private endpoints for Databricks to privately connect serverless compute
+ * resources to your Azure resources using Azure Private Link. See [configure serverless secure
+ * connectivity].
+ *
+ * <p>[configure serverless secure connectivity]:
+ * https://learn.microsoft.com/azure/databricks/security/network/serverless-network-security
  */
 @Generated
 public class NetworkConnectivityAPI {
@@ -28,26 +35,39 @@ public class NetworkConnectivityAPI {
   }
 
   public NetworkConnectivityConfiguration createNetworkConnectivityConfiguration(
-      String name, String region) {
+      CreateNetworkConnectivityConfiguration networkConnectivityConfig) {
     return createNetworkConnectivityConfiguration(
-        new CreateNetworkConnectivityConfigRequest().setName(name).setRegion(region));
+        new CreateNetworkConnectivityConfigRequest()
+            .setNetworkConnectivityConfig(networkConnectivityConfig));
   }
 
-  /** Create a network connectivity configuration. */
+  /**
+   * Create a network connectivity configuration.
+   *
+   * <p>Creates a network connectivity configuration (NCC), which provides stable Azure service
+   * subnets when accessing your Azure Storage accounts. You can also use a network connectivity
+   * configuration to create Databricks managed private endpoints so that Databricks serverless
+   * compute resources privately access your resources.
+   *
+   * <p>**IMPORTANT**: After you create the network connectivity configuration, you must assign one
+   * or more workspaces to the new network connectivity configuration. You can share one network
+   * connectivity configuration with multiple workspaces from the same Azure region within the same
+   * Databricks account. See [configure serverless secure connectivity].
+   *
+   * <p>[configure serverless secure connectivity]:
+   * https://learn.microsoft.com/azure/databricks/security/network/serverless-network-security
+   */
   public NetworkConnectivityConfiguration createNetworkConnectivityConfiguration(
       CreateNetworkConnectivityConfigRequest request) {
     return impl.createNetworkConnectivityConfiguration(request);
   }
 
   public NccAzurePrivateEndpointRule createPrivateEndpointRule(
-      String networkConnectivityConfigId,
-      String resourceId,
-      CreatePrivateEndpointRuleRequestGroupId groupId) {
+      String networkConnectivityConfigId, CreatePrivateEndpointRule privateEndpointRule) {
     return createPrivateEndpointRule(
         new CreatePrivateEndpointRuleRequest()
             .setNetworkConnectivityConfigId(networkConnectivityConfigId)
-            .setResourceId(resourceId)
-            .setGroupId(groupId));
+            .setPrivateEndpointRule(privateEndpointRule));
   }
 
   /**
@@ -133,7 +153,7 @@ public class NetworkConnectivityAPI {
   }
 
   /**
-   * Get a private endpoint rule.
+   * Gets a private endpoint rule.
    *
    * <p>Gets the private endpoint rule.
    */
@@ -186,6 +206,30 @@ public class NetworkConnectivityAPI {
           }
           return request.setPageToken(token);
         });
+  }
+
+  public NccAzurePrivateEndpointRule updateNccAzurePrivateEndpointRulePublic(
+      String networkConnectivityConfigId,
+      String privateEndpointRuleId,
+      UpdatePrivateEndpointRule privateEndpointRule,
+      String updateMask) {
+    return updateNccAzurePrivateEndpointRulePublic(
+        new UpdateNccAzurePrivateEndpointRulePublicRequest()
+            .setNetworkConnectivityConfigId(networkConnectivityConfigId)
+            .setPrivateEndpointRuleId(privateEndpointRuleId)
+            .setPrivateEndpointRule(privateEndpointRule)
+            .setUpdateMask(updateMask));
+  }
+
+  /**
+   * Update a private endpoint rule.
+   *
+   * <p>Updates a private endpoint rule. Currently only a private endpoint rule to customer-managed
+   * resources is allowed to be updated.
+   */
+  public NccAzurePrivateEndpointRule updateNccAzurePrivateEndpointRulePublic(
+      UpdateNccAzurePrivateEndpointRulePublicRequest request) {
+    return impl.updateNccAzurePrivateEndpointRulePublic(request);
   }
 
   public NetworkConnectivityService impl() {
