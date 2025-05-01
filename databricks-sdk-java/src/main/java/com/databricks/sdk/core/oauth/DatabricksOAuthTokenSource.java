@@ -16,18 +16,29 @@ import java.util.Map;
  * This class manages the OAuth token exchange flow using ID tokens to obtain access tokens.
  */
 public class DatabricksOAuthTokenSource implements TokenSource {
-  /** OAuth client ID used for token exchange */
+  /** OAuth client ID used for token exchange. */
   private final String clientId;
-  /** Databricks account ID, used as audience if provided */
+  /** Databricks account ID, used as audience if provided. */
   private final String accountId;
-  /** OpenID Connect endpoints configuration */
+  /** OpenID Connect endpoints configuration. */
   private final OpenIDConnectEndpoints endpoints;
-  /** Custom audience value for token exchange */
+  /** Custom audience value for token exchange. */
   private final String audience;
-  /** Source of ID tokens used in token exchange */
+  /** Source of ID tokens used in token exchange. */
   private final IDTokenSource idTokenSource;
-  /** HTTP client for making token exchange requests */
+  /** HTTP client for making token exchange requests. */
   private final HttpClient httpClient;
+
+  private static final String GRANT_TYPE = "urn:ietf:params:oauth:grant-type:token-exchange";
+  private static final String SUBJECT_TOKEN_TYPE = "urn:ietf:params:oauth:token-type:jwt";
+  private static final String SCOPE = "all-apis";
+  private static final String GRANT_TYPE_PARAM = "grant_type";
+  private static final String SUBJECT_TOKEN_PARAM = "subject_token";
+  private static final String SUBJECT_TOKEN_TYPE_PARAM = "subject_token_type";
+  private static final String SCOPE_PARAM = "scope";
+  private static final String CLIENT_ID_PARAM = "client_id";
+
+  private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
   private DatabricksOAuthTokenSource(Builder builder) {
     this.clientId = builder.clientId;
@@ -52,11 +63,12 @@ public class DatabricksOAuthTokenSource implements TokenSource {
     private String audience;
 
     /**
-     * Validates that a value is non-empty and non-null for required fields.
+     * Validates that a value is non-null for required fields. If the value is a string, it also
+     * checks that it is non-empty.
      *
-     * @param value The value to validate
-     * @param fieldName The name of the field being validated
-     * @throws IllegalArgumentException if validation fails
+     * @param value The value to validate.
+     * @param fieldName The name of the field being validated.
+     * @throws IllegalArgumentException if validation fails.
      */
     private static void validate(Object value, String fieldName) {
       if (value == null) {
@@ -70,11 +82,12 @@ public class DatabricksOAuthTokenSource implements TokenSource {
     /**
      * Creates a new Builder with required parameters.
      *
-     * @param clientId OAuth client ID
-     * @param host Databricks host URL
-     * @param endpoints OpenID Connect endpoints configuration
-     * @param idTokenSource Source of ID tokens
-     * @param httpClient HTTP client for making requests
+     * @param clientId OAuth client ID.
+     * @param host Databricks host URL.
+     * @param endpoints OpenID Connect endpoints configuration.
+     * @param idTokenSource Source of ID tokens.
+     * @param httpClient HTTP client for making requests.
+     * @throws IllegalArgumentException if any required parameter is null or empty.
      */
     public Builder(
         String clientId,
@@ -98,8 +111,9 @@ public class DatabricksOAuthTokenSource implements TokenSource {
     /**
      * Sets the Databricks account ID.
      *
-     * @param accountId The account ID
-     * @return This builder instance
+     * @param accountId The account ID.
+     * @return This builder instance.
+     * @throws IllegalArgumentException if the account ID is null or empty.
      */
     public Builder accountId(String accountId) {
       validate(accountId, "AccountID");
@@ -122,7 +136,8 @@ public class DatabricksOAuthTokenSource implements TokenSource {
     /**
      * Builds a new DatabricksOAuthTokenSource instance.
      *
-     * @return A new DatabricksOAuthTokenSource
+     * @return A new DatabricksOAuthTokenSource.
+     * @throws IllegalArgumentException if any required parameters are null or empty.
      */
     public DatabricksOAuthTokenSource build() {
       return new DatabricksOAuthTokenSource(this);
@@ -133,8 +148,9 @@ public class DatabricksOAuthTokenSource implements TokenSource {
    * Retrieves an OAuth token by exchanging an ID token. Implements the OAuth token exchange flow to
    * obtain an access token.
    *
-   * @return A Token containing the access token and related information
-   * @throws DatabricksException if token exchange fails
+   * @return A Token containing the access token and related information.
+   * @throws DatabricksException when the token exchange fails.
+   * @throws IllegalArgumentException when there is an error code in the response.
    */
   @Override
   public Token getToken() {
@@ -142,11 +158,11 @@ public class DatabricksOAuthTokenSource implements TokenSource {
     IDToken idToken = idTokenSource.getIDToken(effectiveAudience);
 
     Map<String, String> params = new HashMap<>();
-    params.put("grant_type", "urn:ietf:params:oauth:grant-type:token-exchange");
-    params.put("subject_token", idToken.getValue());
-    params.put("subject_token_type", "urn:ietf:params:oauth:token-type:jwt");
-    params.put("scope", "all-apis");
-    params.put("client_id", clientId);
+    params.put(GRANT_TYPE_PARAM, GRANT_TYPE);
+    params.put(SUBJECT_TOKEN_PARAM, idToken.getValue());
+    params.put(SUBJECT_TOKEN_TYPE_PARAM, SUBJECT_TOKEN_TYPE);
+    params.put(SCOPE_PARAM, SCOPE);
+    params.put(CLIENT_ID_PARAM, clientId);
 
     Response rawResponse;
     try {
@@ -161,7 +177,7 @@ public class DatabricksOAuthTokenSource implements TokenSource {
 
     OAuthResponse response;
     try {
-      response = new ObjectMapper().readValue(rawResponse.getBody(), OAuthResponse.class);
+      response = OBJECT_MAPPER.readValue(rawResponse.getBody(), OAuthResponse.class);
     } catch (IOException e) {
       throw new DatabricksException(
           String.format(

@@ -56,7 +56,7 @@ class DatabricksOAuthTokenSourceTest {
     final String expectedAudience; // Expected audience used in token exchange
     final boolean expectError; // Whether this case should result in an error
     final int statusCode; // HTTP status code for the response
-    final String responseBody; // Response body from the token endpoint
+    final Object responseBody; // Response body from the token endpoint
 
     TestCase(
         String name,
@@ -65,7 +65,7 @@ class DatabricksOAuthTokenSourceTest {
         String expectedAudience,
         boolean expectError,
         int statusCode,
-        String responseBody) {
+        Object responseBody) {
       this.name = name;
       this.audience = audience;
       this.accountId = accountId;
@@ -99,10 +99,8 @@ class DatabricksOAuthTokenSourceTest {
     errorResponse.put("error_description", "Invalid client ID");
 
     ObjectMapper mapper = new ObjectMapper();
-    String successJson;
     String errorJson;
     try {
-      successJson = mapper.writeValueAsString(successResponse);
       errorJson = mapper.writeValueAsString(errorResponse);
     } catch (IOException e) {
       throw new RuntimeException(e);
@@ -117,7 +115,7 @@ class DatabricksOAuthTokenSourceTest {
             TEST_TOKEN_ENDPOINT,
             false,
             200,
-            successJson),
+            successResponse),
         new TestCase(
             "Custom audience provided",
             TEST_AUDIENCE,
@@ -125,7 +123,7 @@ class DatabricksOAuthTokenSourceTest {
             TEST_AUDIENCE,
             false,
             200,
-            successJson),
+            successResponse),
         new TestCase(
             "Custom audience takes precedence over account ID",
             TEST_AUDIENCE,
@@ -133,7 +131,7 @@ class DatabricksOAuthTokenSourceTest {
             TEST_AUDIENCE,
             false,
             200,
-            successJson),
+            successResponse),
         new TestCase(
             "Account ID used as audience when no custom audience",
             null,
@@ -141,7 +139,7 @@ class DatabricksOAuthTokenSourceTest {
             TEST_ACCOUNT_ID,
             false,
             200,
-            successJson),
+            successResponse),
         // Error cases
         new TestCase(
             "Invalid request returns 400", null, null, TEST_TOKEN_ENDPOINT, true, 400, errorJson),
@@ -166,6 +164,8 @@ class DatabricksOAuthTokenSourceTest {
   void testTokenSource(TestCase testCase) throws IOException {
     // Mock HTTP client with test case specific behavior
     HttpClient mockHttpClient = Mockito.mock(HttpClient.class);
+    ObjectMapper mapper = new ObjectMapper();
+
     if (testCase.expectError) {
       if (testCase.statusCode == 0) {
         when(mockHttpClient.execute(any())).thenThrow(new IOException("Network error"));
@@ -173,11 +173,15 @@ class DatabricksOAuthTokenSourceTest {
         when(mockHttpClient.execute(any()))
             .thenReturn(
                 new Response(
-                    testCase.responseBody, testCase.statusCode, "Bad Request", new URL(TEST_HOST)));
+                    testCase.responseBody.toString(),
+                    testCase.statusCode,
+                    "Bad Request",
+                    new URL(TEST_HOST)));
       }
     } else {
+      String responseJson = mapper.writeValueAsString(testCase.responseBody);
       when(mockHttpClient.execute(any()))
-          .thenReturn(new Response(testCase.responseBody, new URL(TEST_HOST)));
+          .thenReturn(new Response(responseJson, new URL(TEST_HOST)));
     }
 
     // Create token source with test configuration
