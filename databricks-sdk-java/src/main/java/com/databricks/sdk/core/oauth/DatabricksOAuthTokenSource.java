@@ -126,6 +126,7 @@ public class DatabricksOAuthTokenSource implements TokenSource {
      *
      * @param audience The audience value
      * @return This builder instance
+     * @throws IllegalArgumentException if the audience is null or empty.
      */
     public Builder audience(String audience) {
       validate(audience, "Audience");
