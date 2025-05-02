@@ -16,7 +16,7 @@ public class ListAlertsV2Response {
 
   /** */
   @JsonProperty("results")
-  private Collection<ListAlertsV2ResponseAlert> results;
+  private Collection<AlertV2> results;
 
   public ListAlertsV2Response setNextPageToken(String nextPageToken) {
     this.nextPageToken = nextPageToken;
@@ -27,12 +27,12 @@ public class ListAlertsV2Response {
     return nextPageToken;
   }
 
-  public ListAlertsV2Response setResults(Collection<ListAlertsV2ResponseAlert> results) {
+  public ListAlertsV2Response setResults(Collection<AlertV2> results) {
     this.results = results;
     return this;
   }
 
-  public Collection<ListAlertsV2ResponseAlert> getResults() {
+  public Collection<AlertV2> getResults() {
     return results;
   }
 

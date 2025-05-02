@@ -18,7 +18,10 @@ public class UploadRequest {
   /** The absolute path of the file. */
   @JsonIgnore private String filePath;
 
-  /** If true, an existing file will be overwritten. */
+  /**
+   * If true or unspecified, an existing file will be overwritten. If false, an error will be
+   * returned if the path points to an existing file.
+   */
   @JsonIgnore
   @QueryParam("overwrite")
   private Boolean overwrite;
