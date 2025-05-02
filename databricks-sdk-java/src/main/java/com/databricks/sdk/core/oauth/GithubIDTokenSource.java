@@ -32,6 +32,15 @@ public class GithubIDTokenSource implements IDTokenSource {
      String actionsIDTokenRequestURL,
      String actionsIDTokenRequestToken,
      HttpClient httpClient) {
+   if (Strings.isNullOrEmpty(actionsIDTokenRequestURL)) {
+     throw new DatabricksException("Missing ActionsIDTokenRequestURL");
+   }
+   if (Strings.isNullOrEmpty(actionsIDTokenRequestToken)) {
+     throw new DatabricksException("Missing ActionsIDTokenRequestToken");
+   }
+   if (httpClient == null) {
+     throw new DatabricksException("HttpClient cannot be null");
+   }
    this.actionsIDTokenRequestURL = actionsIDTokenRequestURL;
    this.actionsIDTokenRequestToken = actionsIDTokenRequestToken;
    this.httpClient = httpClient;
@@ -40,14 +49,6 @@ public class GithubIDTokenSource implements IDTokenSource {
 
  @Override
  public IDToken getIDToken(String audience) {
-   if (Strings.isNullOrEmpty(actionsIDTokenRequestURL)) {
-     throw new DatabricksException("missing ActionsIDTokenRequestURL");
-   }
-   if (Strings.isNullOrEmpty(actionsIDTokenRequestToken)) {
-     throw new DatabricksException("missing ActionsIDTokenRequestToken");
-   }
-
-
    String requestUrl = actionsIDTokenRequestURL;
    if (!Strings.isNullOrEmpty(audience)) {
      requestUrl = String.format("%s&audience=%s", requestUrl, audience);
@@ -84,6 +85,9 @@ public class GithubIDTokenSource implements IDTokenSource {
      throw new DatabricksException("Failed to request ID token: corrupted token: " + e.getMessage());
    }
 
+   if (!jsonResp.has("value")) {
+     throw new DatabricksException("ID token response missing 'value' field");
+   }
 
    String tokenValue = jsonResp.get("value").textValue();
    if (Strings.isNullOrEmpty(tokenValue)) {
