@@ -2404,7 +2404,6 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/ListAlertsRespo
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/ListAlertsResponseAlert.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/ListAlertsV2Request.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/ListAlertsV2Response.java linguist-generated=true
-databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/ListAlertsV2ResponseAlert.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/ListDashboardsRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/ListOrder.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/ListQueriesLegacyRequest.java linguist-generated=true

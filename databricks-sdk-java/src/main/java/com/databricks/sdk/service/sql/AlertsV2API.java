@@ -51,7 +51,7 @@ public class AlertsV2API {
    *
    * <p>Gets a list of alerts accessible to the user, ordered by creation time.
    */
-  public Iterable<ListAlertsV2ResponseAlert> listAlerts(ListAlertsV2Request request) {
+  public Iterable<AlertV2> listAlerts(ListAlertsV2Request request) {
     return new Paginator<>(
         request,
         impl::listAlerts,

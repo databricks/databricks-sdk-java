@@ -114,7 +114,7 @@ public class GenieAPI {
         (timeout, callback) ->
             waitGetMessageGenieCompleted(
                 request.getConversationId(),
-                response.getId(),
+                response.getMessageId(),
                 request.getSpaceId(),
                 timeout,
                 callback),

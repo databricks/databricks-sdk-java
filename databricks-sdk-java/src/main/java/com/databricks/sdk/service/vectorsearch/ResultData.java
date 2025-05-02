@@ -13,18 +13,18 @@ import java.util.Objects;
 public class ResultData {
   /** Data rows returned in the query. */
   @JsonProperty("data_array")
-  private Collection<ListValue> dataArray;
+  private Collection<Collection<String>> dataArray;
 
   /** Number of rows in the result set. */
   @JsonProperty("row_count")
   private Long rowCount;
 
-  public ResultData setDataArray(Collection<ListValue> dataArray) {
+  public ResultData setDataArray(Collection<Collection<String>> dataArray) {
     this.dataArray = dataArray;
     return this;
   }
 
-  public Collection<ListValue> getDataArray() {
+  public Collection<Collection<String>> getDataArray() {
     return dataArray;
   }
 
