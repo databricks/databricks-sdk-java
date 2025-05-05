@@ -10,14 +10,20 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Implementation of TokenSource that handles OAuth token exchange for Databricks authentication.
  * This class manages the OAuth token exchange flow using ID tokens to obtain access tokens.
  */
 public class DatabricksOAuthTokenSource implements TokenSource {
+  private static final Logger LOG = LoggerFactory.getLogger(DatabricksOAuthTokenSource.class);
+
   /** OAuth client ID used for token exchange. */
   private final String clientId;
+  /** Databricks host URL. */
+  private final String host;
   /** Databricks account ID, used as audience if provided. */
   private final String accountId;
   /** OpenID Connect endpoints configuration. */
@@ -42,6 +48,7 @@ public class DatabricksOAuthTokenSource implements TokenSource {
 
   private DatabricksOAuthTokenSource(Builder builder) {
     this.clientId = builder.clientId;
+    this.host = builder.host;
     this.accountId = builder.accountId;
     this.endpoints = builder.endpoints;
     this.audience = builder.audience;
@@ -63,23 +70,6 @@ public class DatabricksOAuthTokenSource implements TokenSource {
     private String audience;
 
     /**
-     * Validates that a value is non-null for required fields. If the value is a string, it also
-     * checks that it is non-empty.
-     *
-     * @param value The value to validate.
-     * @param fieldName The name of the field being validated.
-     * @throws IllegalArgumentException if validation fails.
-     */
-    private static void validate(Object value, String fieldName) {
-      if (value == null) {
-        throw new IllegalArgumentException(fieldName + " must be non-null");
-      }
-      if (value instanceof String && ((String) value).isEmpty()) {
-        throw new IllegalArgumentException(fieldName + " must be non-empty");
-      }
-    }
-
-    /**
      * Creates a new Builder with required parameters.
      *
      * @param clientId OAuth client ID.
@@ -87,7 +77,6 @@ public class DatabricksOAuthTokenSource implements TokenSource {
      * @param endpoints OpenID Connect endpoints configuration.
      * @param idTokenSource Source of ID tokens.
      * @param httpClient HTTP client for making requests.
-     * @throws IllegalArgumentException if any required parameter is null or empty.
      */
     public Builder(
         String clientId,
@@ -95,12 +84,6 @@ public class DatabricksOAuthTokenSource implements TokenSource {
         OpenIDConnectEndpoints endpoints,
         IDTokenSource idTokenSource,
         HttpClient httpClient) {
-      validate(clientId, "ClientID");
-      validate(host, "Host");
-      validate(endpoints, "Endpoints");
-      validate(idTokenSource, "IDTokenSource");
-      validate(httpClient, "HttpClient");
-
       this.clientId = clientId;
       this.host = host;
       this.endpoints = endpoints;
@@ -113,10 +96,8 @@ public class DatabricksOAuthTokenSource implements TokenSource {
      *
      * @param accountId The account ID.
      * @return This builder instance.
-     * @throws IllegalArgumentException if the account ID is null or empty.
      */
     public Builder accountId(String accountId) {
-      validate(accountId, "AccountID");
       this.accountId = accountId;
       return this;
     }
@@ -126,10 +107,8 @@ public class DatabricksOAuthTokenSource implements TokenSource {
      *
      * @param audience The audience value
      * @return This builder instance
-     * @throws IllegalArgumentException if the audience is null or empty.
      */
     public Builder audience(String audience) {
-      validate(audience, "Audience");
       this.audience = audience;
       return this;
     }
@@ -138,11 +117,28 @@ public class DatabricksOAuthTokenSource implements TokenSource {
      * Builds a new DatabricksOAuthTokenSource instance.
      *
      * @return A new DatabricksOAuthTokenSource.
-     * @throws IllegalArgumentException if any required parameters are null or empty.
      */
     public DatabricksOAuthTokenSource build() {
       return new DatabricksOAuthTokenSource(this);
     }
+  }
+
+  /**
+   * Validates that a value is non-null for required fields. If the value is a string, it also
+   * checks that it is non-empty.
+   *
+   * @param value The value to validate.
+   * @param fieldName The name of the field being validated.
+   * @return true if validation passes, false otherwise
+   */
+  private static boolean validate(Object value, String fieldName) {
+    if (value == null) {
+      return false;
+    }
+    if (value instanceof String && ((String) value).isEmpty()) {
+      return false;
+    }
+    return true;
   }
 
   /**
@@ -151,10 +147,21 @@ public class DatabricksOAuthTokenSource implements TokenSource {
    *
    * @return A Token containing the access token and related information.
    * @throws DatabricksException when the token exchange fails.
-   * @throws IllegalArgumentException when there is an error code in the response.
+   * @throws IllegalArgumentException when there is an error code in the response or when required
+   *     parameters are missing.
    */
   @Override
   public Token getToken() {
+    // Validate all required parameters
+    if (!validate(clientId, "ClientID")
+        || !validate(host, "Host")
+        || !validate(endpoints, "Endpoints")
+        || !validate(idTokenSource, "IDTokenSource")
+        || !validate(httpClient, "HttpClient")) {
+      LOG.error("Missing required parameters for token exchange");
+      throw new IllegalArgumentException("Missing required parameters for token exchange.");
+    }
+
     String effectiveAudience = determineAudience();
     IDToken idToken = idTokenSource.getIDToken(effectiveAudience);
 
@@ -169,6 +176,11 @@ public class DatabricksOAuthTokenSource implements TokenSource {
     try {
       rawResponse = httpClient.execute(new FormRequest(endpoints.getTokenEndpoint(), params));
     } catch (IOException e) {
+      LOG.error(
+          "Failed to exchange ID token for access token at {}: {}",
+          endpoints.getTokenEndpoint(),
+          e.getMessage(),
+          e);
       throw new DatabricksException(
           String.format(
               "Failed to exchange ID token for access token at %s: %s",
@@ -180,6 +192,11 @@ public class DatabricksOAuthTokenSource implements TokenSource {
     try {
       response = OBJECT_MAPPER.readValue(rawResponse.getBody(), OAuthResponse.class);
     } catch (IOException e) {
+      LOG.error(
+          "Failed to parse OAuth response from token endpoint {}: {}",
+          endpoints.getTokenEndpoint(),
+          e.getMessage(),
+          e);
       throw new DatabricksException(
           String.format(
               "Failed to parse OAuth response from token endpoint %s: %s",
@@ -187,6 +204,10 @@ public class DatabricksOAuthTokenSource implements TokenSource {
     }
 
     if (response.getErrorCode() != null) {
+      LOG.error(
+          "Token exchange failed with error: {} - {}",
+          response.getErrorCode(),
+          response.getErrorSummary());
       throw new IllegalArgumentException(
           String.format(
               "Token exchange failed with error: %s - %s",
