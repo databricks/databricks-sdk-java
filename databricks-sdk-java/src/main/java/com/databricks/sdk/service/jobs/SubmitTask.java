@@ -26,7 +26,7 @@ public class SubmitTask {
   @JsonProperty("condition_task")
   private ConditionTask conditionTask;
 
-  /** The task runs a DashboardTask when the `dashboard_task` field is present. */
+  /** The task refreshes a dashboard and sends a snapshot to subscribers. */
   @JsonProperty("dashboard_task")
   private DashboardTask dashboardTask;
 

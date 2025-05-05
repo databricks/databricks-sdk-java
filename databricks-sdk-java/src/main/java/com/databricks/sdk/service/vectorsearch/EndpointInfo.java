@@ -5,6 +5,7 @@ package com.databricks.sdk.service.vectorsearch;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 @Generated
@@ -17,11 +18,19 @@ public class EndpointInfo {
   @JsonProperty("creator")
   private String creator;
 
+  /** The custom tags assigned to the endpoint */
+  @JsonProperty("custom_tags")
+  private Collection<CustomTag> customTags;
+
+  /** The budget policy id applied to the endpoint */
+  @JsonProperty("effective_budget_policy_id")
+  private String effectiveBudgetPolicyId;
+
   /** Current status of the endpoint */
   @JsonProperty("endpoint_status")
   private EndpointStatus endpointStatus;
 
-  /** Type of endpoint. */
+  /** Type of endpoint */
   @JsonProperty("endpoint_type")
   private EndpointType endpointType;
 
@@ -37,7 +46,7 @@ public class EndpointInfo {
   @JsonProperty("last_updated_user")
   private String lastUpdatedUser;
 
-  /** Name of endpoint */
+  /** Name of the vector search endpoint */
   @JsonProperty("name")
   private String name;
 
@@ -61,6 +70,24 @@ public class EndpointInfo {
 
   public String getCreator() {
     return creator;
+  }
+
+  public EndpointInfo setCustomTags(Collection<CustomTag> customTags) {
+    this.customTags = customTags;
+    return this;
+  }
+
+  public Collection<CustomTag> getCustomTags() {
+    return customTags;
+  }
+
+  public EndpointInfo setEffectiveBudgetPolicyId(String effectiveBudgetPolicyId) {
+    this.effectiveBudgetPolicyId = effectiveBudgetPolicyId;
+    return this;
+  }
+
+  public String getEffectiveBudgetPolicyId() {
+    return effectiveBudgetPolicyId;
   }
 
   public EndpointInfo setEndpointStatus(EndpointStatus endpointStatus) {
@@ -133,6 +160,8 @@ public class EndpointInfo {
     EndpointInfo that = (EndpointInfo) o;
     return Objects.equals(creationTimestamp, that.creationTimestamp)
         && Objects.equals(creator, that.creator)
+        && Objects.equals(customTags, that.customTags)
+        && Objects.equals(effectiveBudgetPolicyId, that.effectiveBudgetPolicyId)
         && Objects.equals(endpointStatus, that.endpointStatus)
         && Objects.equals(endpointType, that.endpointType)
         && Objects.equals(id, that.id)
@@ -147,6 +176,8 @@ public class EndpointInfo {
     return Objects.hash(
         creationTimestamp,
         creator,
+        customTags,
+        effectiveBudgetPolicyId,
         endpointStatus,
         endpointType,
         id,
@@ -161,6 +192,8 @@ public class EndpointInfo {
     return new ToStringer(EndpointInfo.class)
         .add("creationTimestamp", creationTimestamp)
         .add("creator", creator)
+        .add("customTags", customTags)
+        .add("effectiveBudgetPolicyId", effectiveBudgetPolicyId)
         .add("endpointStatus", endpointStatus)
         .add("endpointType", endpointType)
         .add("id", id)

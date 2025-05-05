@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Controls whether users can export notebooks and files from the Workspace. By default, this
+ * Controls whether users can export notebooks and files from the Workspace UI. By default, this
  * setting is enabled.
  */
 @Generated
@@ -27,9 +27,9 @@ public class EnableExportNotebookAPI {
   }
 
   /**
-   * Get the Enable Export Notebook setting.
+   * Get the Notebook and File exporting setting.
    *
-   * <p>Gets the Enable Export Notebook setting.
+   * <p>Gets the Notebook and File exporting setting.
    */
   public EnableExportNotebook getEnableExportNotebook() {
     return impl.getEnableExportNotebook();
@@ -45,10 +45,10 @@ public class EnableExportNotebookAPI {
   }
 
   /**
-   * Update the Enable Export Notebook setting.
+   * Update the Notebook and File exporting setting.
    *
-   * <p>Updates the Enable Export Notebook setting. The model follows eventual consistency, which
-   * means the get after the update operation might receive stale values for some time.
+   * <p>Updates the Notebook and File exporting setting. The model follows eventual consistency,
+   * which means the get after the update operation might receive stale values for some time.
    */
   public EnableExportNotebook patchEnableExportNotebook(UpdateEnableExportNotebookRequest request) {
     return impl.patchEnableExportNotebook(request);

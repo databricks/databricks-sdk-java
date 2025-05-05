@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class FileLibrary {
-  /** The absolute path of the file. */
+  /** The absolute path of the source code. */
   @JsonProperty("path")
   private String path;
 

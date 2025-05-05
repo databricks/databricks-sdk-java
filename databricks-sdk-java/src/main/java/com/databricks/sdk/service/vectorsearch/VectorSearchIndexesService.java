@@ -7,9 +7,9 @@ import com.databricks.sdk.support.Generated;
  * **Index**: An efficient representation of your embedding vectors that supports real-time and
  * efficient approximate nearest neighbor (ANN) search queries.
  *
- * <p>There are 2 types of Vector Search indexes: * **Delta Sync Index**: An index that
+ * <p>There are 2 types of Vector Search indexes: - **Delta Sync Index**: An index that
  * automatically syncs with a source Delta Table, automatically and incrementally updating the index
- * as the underlying data in the Delta Table changes. * **Direct Vector Access Index**: An index
+ * as the underlying data in the Delta Table changes. - **Direct Vector Access Index**: An index
  * that supports direct read and write of vectors and metadata through our REST and SDK APIs. With
  * this model, the user manages index updates.
  *
@@ -24,7 +24,7 @@ public interface VectorSearchIndexesService {
    *
    * <p>Create a new index.
    */
-  CreateVectorIndexResponse createIndex(CreateVectorIndexRequest createVectorIndexRequest);
+  VectorIndex createIndex(CreateVectorIndexRequest createVectorIndexRequest);
 
   /**
    * Delete data from index.

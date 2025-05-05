@@ -8,10 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/**
- * The network connectivity rules that configured for each destinations. These rules override
- * default rules.
- */
+/** Target rule controls the egress rules that are dedicated to specific resources. */
 @Generated
 public class NccEgressTargetRules {
   /** */

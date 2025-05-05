@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Request payload for upserting data into a vector index. */
 @Generated
 public class UpsertDataVectorIndexRequest {
   /**

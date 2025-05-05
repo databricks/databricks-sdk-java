@@ -17,6 +17,7 @@ public enum ComplianceStandard {
   IRAP_PROTECTED,
   ISMAP,
   ITAR_EAR,
+  K_FSI,
   NONE,
   PCI_DSS,
 }

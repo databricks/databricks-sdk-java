@@ -9,11 +9,17 @@ import java.util.Objects;
 
 @Generated
 public class SubscriptionSubscriber {
-  /** */
+  /**
+   * A snapshot of the dashboard will be sent to the destination when the `destination_id` field is
+   * present.
+   */
   @JsonProperty("destination_id")
   private String destinationId;
 
-  /** */
+  /**
+   * A snapshot of the dashboard will be sent to the user's email when the `user_name` field is
+   * present.
+   */
   @JsonProperty("user_name")
   private String userName;
 

@@ -4,7 +4,6 @@ package com.databricks.sdk.service.vectorsearch;
 
 import com.databricks.sdk.support.Generated;
 
-/** Status of the delete operation. */
 @Generated
 public enum DeleteDataStatus {
   FAILURE,

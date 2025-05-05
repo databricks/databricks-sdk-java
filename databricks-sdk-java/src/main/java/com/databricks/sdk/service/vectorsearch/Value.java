@@ -13,13 +13,15 @@ public class Value {
   @JsonProperty("bool_value")
   private Boolean boolValue;
 
-  /** */
+  /**
+   * copied from proto3 / Google Well Known Types, source:
+   * https://github.com/protocolbuffers/protobuf/blob/450d24ca820750c5db5112a6f0b0c2efb9758021/src/google/protobuf/struct.proto
+   * `ListValue` is a wrapper around a repeated field of values.
+   *
+   * <p>The JSON representation for `ListValue` is JSON array.
+   */
   @JsonProperty("list_value")
   private ListValue listValue;
-
-  /** */
-  @JsonProperty("null_value")
-  private String nullValue;
 
   /** */
   @JsonProperty("number_value")
@@ -29,7 +31,16 @@ public class Value {
   @JsonProperty("string_value")
   private String stringValue;
 
-  /** */
+  /**
+   * copied from proto3 / Google Well Known Types, source:
+   * https://github.com/protocolbuffers/protobuf/blob/450d24ca820750c5db5112a6f0b0c2efb9758021/src/google/protobuf/struct.proto
+   * `Struct` represents a structured data value, consisting of fields which map to dynamically
+   * typed values. In some languages, `Struct` might be supported by a native representation. For
+   * example, in scripting languages like JS a struct is represented as an object. The details of
+   * that representation are described together with the proto support for the language.
+   *
+   * <p>The JSON representation for `Struct` is JSON object.
+   */
   @JsonProperty("struct_value")
   private Struct structValue;
 
@@ -49,15 +60,6 @@ public class Value {
 
   public ListValue getListValue() {
     return listValue;
-  }
-
-  public Value setNullValue(String nullValue) {
-    this.nullValue = nullValue;
-    return this;
-  }
-
-  public String getNullValue() {
-    return nullValue;
   }
 
   public Value setNumberValue(Double numberValue) {
@@ -94,7 +96,6 @@ public class Value {
     Value that = (Value) o;
     return Objects.equals(boolValue, that.boolValue)
         && Objects.equals(listValue, that.listValue)
-        && Objects.equals(nullValue, that.nullValue)
         && Objects.equals(numberValue, that.numberValue)
         && Objects.equals(stringValue, that.stringValue)
         && Objects.equals(structValue, that.structValue);
@@ -102,7 +103,7 @@ public class Value {
 
   @Override
   public int hashCode() {
-    return Objects.hash(boolValue, listValue, nullValue, numberValue, stringValue, structValue);
+    return Objects.hash(boolValue, listValue, numberValue, stringValue, structValue);
   }
 
   @Override
@@ -110,7 +111,6 @@ public class Value {
     return new ToStringer(Value.class)
         .add("boolValue", boolValue)
         .add("listValue", listValue)
-        .add("nullValue", nullValue)
         .add("numberValue", numberValue)
         .add("stringValue", stringValue)
         .add("structValue", structValue)

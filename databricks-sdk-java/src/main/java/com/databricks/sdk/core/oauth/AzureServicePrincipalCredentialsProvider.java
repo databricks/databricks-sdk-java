@@ -63,7 +63,7 @@ public class AzureServicePrincipalCredentialsProvider implements CredentialsProv
         .withClientId(config.getAzureClientId())
         .withClientSecret(config.getAzureClientSecret())
         .withTokenUrl(tokenUrl)
-        .withEndpointParameters(endpointParams)
+        .withEndpointParametersSupplier(() -> endpointParams)
         .withAuthParameterPosition(AuthParameterPosition.BODY)
         .build();
   }

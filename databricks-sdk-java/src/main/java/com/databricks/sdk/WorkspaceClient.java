@@ -166,6 +166,8 @@ import com.databricks.sdk.service.sql.AlertsAPI;
 import com.databricks.sdk.service.sql.AlertsLegacyAPI;
 import com.databricks.sdk.service.sql.AlertsLegacyService;
 import com.databricks.sdk.service.sql.AlertsService;
+import com.databricks.sdk.service.sql.AlertsV2API;
+import com.databricks.sdk.service.sql.AlertsV2Service;
 import com.databricks.sdk.service.sql.DashboardWidgetsAPI;
 import com.databricks.sdk.service.sql.DashboardWidgetsService;
 import com.databricks.sdk.service.sql.DashboardsAPI;
@@ -213,6 +215,7 @@ public class WorkspaceClient {
   private AccountAccessControlProxyAPI accountAccessControlProxyAPI;
   private AlertsAPI alertsAPI;
   private AlertsLegacyAPI alertsLegacyAPI;
+  private AlertsV2API alertsV2API;
   private AppsAPI appsAPI;
   private ArtifactAllowlistsAPI artifactAllowlistsAPI;
   private CatalogsAPI catalogsAPI;
@@ -320,6 +323,7 @@ public class WorkspaceClient {
     accountAccessControlProxyAPI = new AccountAccessControlProxyAPI(apiClient);
     alertsAPI = new AlertsAPI(apiClient);
     alertsLegacyAPI = new AlertsLegacyAPI(apiClient);
+    alertsV2API = new AlertsV2API(apiClient);
     appsAPI = new AppsAPI(apiClient);
     artifactAllowlistsAPI = new ArtifactAllowlistsAPI(apiClient);
     catalogsAPI = new CatalogsAPI(apiClient);
@@ -465,6 +469,11 @@ public class WorkspaceClient {
    */
   public AlertsLegacyAPI alertsLegacy() {
     return alertsLegacyAPI;
+  }
+
+  /** TODO: Add description */
+  public AlertsV2API alertsV2() {
+    return alertsV2API;
   }
 
   /**
@@ -1661,9 +1670,9 @@ public class WorkspaceClient {
    * **Index**: An efficient representation of your embedding vectors that supports real-time and
    * efficient approximate nearest neighbor (ANN) search queries.
    *
-   * <p>There are 2 types of Vector Search indexes: * **Delta Sync Index**: An index that
+   * <p>There are 2 types of Vector Search indexes: - **Delta Sync Index**: An index that
    * automatically syncs with a source Delta Table, automatically and incrementally updating the
-   * index as the underlying data in the Delta Table changes. * **Direct Vector Access Index**: An
+   * index as the underlying data in the Delta Table changes. - **Direct Vector Access Index**: An
    * index that supports direct read and write of vectors and metadata through our REST and SDK
    * APIs. With this model, the user manages index updates.
    */
@@ -1780,6 +1789,17 @@ public class WorkspaceClient {
   /** Replace the default AlertsLegacyAPI with a custom implementation. */
   public WorkspaceClient withAlertsLegacyAPI(AlertsLegacyAPI alertsLegacy) {
     this.alertsLegacyAPI = alertsLegacy;
+    return this;
+  }
+
+  /** Replace the default AlertsV2Service with a custom implementation. */
+  public WorkspaceClient withAlertsV2Impl(AlertsV2Service alertsV2) {
+    return this.withAlertsV2API(new AlertsV2API(alertsV2));
+  }
+
+  /** Replace the default AlertsV2API with a custom implementation. */
+  public WorkspaceClient withAlertsV2API(AlertsV2API alertsV2) {
+    this.alertsV2API = alertsV2;
     return this;
   }
 
