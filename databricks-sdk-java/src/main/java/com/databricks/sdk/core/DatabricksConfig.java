@@ -35,6 +35,9 @@ public class DatabricksConfig {
   @ConfigAttribute(env = "DATABRICKS_SCOPES", auth = "oauth")
   private List<String> scopes;
 
+  @ConfigAttribute(env = "DATABRICKS_TOKEN_AUDIENCE", auth = "oauth")
+  private String audience;
+
   @ConfigAttribute(env = "DATABRICKS_REDIRECT_URL", auth = "oauth")
   private String redirectUrl;
 
@@ -302,6 +305,15 @@ public class DatabricksConfig {
     return this;
   }
 
+  public String getAudience() {
+    return audience;
+  }
+
+  public DatabricksConfig setAudience(String audience) {
+    this.audience = audience;
+    return this;
+  }
+
   public String getOAuthRedirectUrl() {
     return redirectUrl;
   }
@@ -374,13 +386,17 @@ public class DatabricksConfig {
     return this;
   }
 
-  /** @deprecated Use {@link #getAzureUseMsi()} instead. */
+  /**
+   * @deprecated Use {@link #getAzureUseMsi()} instead.
+   */
   @Deprecated()
   public boolean getAzureUseMSI() {
     return azureUseMsi;
   }
 
-  /** @deprecated Use {@link #setAzureUseMsi(boolean)} instead. */
+  /**
+   * @deprecated Use {@link #setAzureUseMsi(boolean)} instead.
+   */
   @Deprecated
   public DatabricksConfig setAzureUseMSI(boolean azureUseMsi) {
     this.azureUseMsi = azureUseMsi;
