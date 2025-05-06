@@ -16,7 +16,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mockito;
@@ -35,6 +34,10 @@ class DatabricksOAuthTokenSourceTest {
   private static final String TEST_ID_TOKEN = "test-id-token";
   private static final String TEST_AUDIENCE = "test-audience";
   private static final String TEST_ACCOUNT_ID = "test-account-id";
+
+  // Error message constants
+  private static final String ERROR_NULL = "Required parameter '%s' cannot be null";
+  private static final String ERROR_EMPTY = "Required parameter '%s' cannot be empty";
 
   private IDTokenSource mockIdTokenSource;
 
@@ -244,53 +247,144 @@ class DatabricksOAuthTokenSourceTest {
   }
 
   /**
-   * Tests validation of required fields in the token source. Verifies that null or empty values for
-   * required fields cause getToken() to throw IllegalArgumentException.
+   * Test case data for parameter validation tests. Each case defines a specific validation
+   * scenario.
    */
-  @Test
-  void testParameterValidation() {
-    OpenIDConnectEndpoints validEndpoints;
-    try {
-      validEndpoints = new OpenIDConnectEndpoints(TEST_TOKEN_ENDPOINT, TEST_AUTHORIZATION_ENDPOINT);
-    } catch (MalformedURLException e) {
-      fail("Failed to create valid endpoints: " + e.getMessage());
-      return;
+  private static class ValidationTestCase {
+    final String name;
+    final String clientId;
+    final String host;
+    final OpenIDConnectEndpoints endpoints;
+    final IDTokenSource idTokenSource;
+    final HttpClient httpClient;
+    final String expectedFieldName;
+    final boolean isNullTest;
+
+    ValidationTestCase(
+        String name,
+        String clientId,
+        String host,
+        OpenIDConnectEndpoints endpoints,
+        IDTokenSource idTokenSource,
+        HttpClient httpClient,
+        String expectedFieldName,
+        boolean isNullTest) {
+      this.name = name;
+      this.clientId = clientId;
+      this.host = host;
+      this.endpoints = endpoints;
+      this.idTokenSource = idTokenSource;
+      this.httpClient = httpClient;
+      this.expectedFieldName = expectedFieldName;
+      this.isNullTest = isNullTest;
     }
+
+    @Override
+    public String toString() {
+      return name;
+    }
+  }
+
+  private static Stream<ValidationTestCase> provideValidationTestCases()
+      throws MalformedURLException {
+    OpenIDConnectEndpoints validEndpoints =
+        new OpenIDConnectEndpoints(TEST_TOKEN_ENDPOINT, TEST_AUTHORIZATION_ENDPOINT);
     HttpClient validHttpClient = Mockito.mock(HttpClient.class);
+    IDTokenSource validIdTokenSource = Mockito.mock(IDTokenSource.class);
 
-    // Test null client ID
-    final DatabricksOAuthTokenSource tokenSource1 =
-        new DatabricksOAuthTokenSource.Builder(
-                null, TEST_HOST, validEndpoints, mockIdTokenSource, validHttpClient)
-            .build();
-    assertThrows(IllegalArgumentException.class, () -> tokenSource1.getToken());
+    return Stream.of(
+        // Client ID validation
+        new ValidationTestCase(
+            "Null client ID",
+            null,
+            TEST_HOST,
+            validEndpoints,
+            validIdTokenSource,
+            validHttpClient,
+            "ClientID",
+            true),
+        new ValidationTestCase(
+            "Empty client ID",
+            "",
+            TEST_HOST,
+            validEndpoints,
+            validIdTokenSource,
+            validHttpClient,
+            "ClientID",
+            false),
+        // Host validation
+        new ValidationTestCase(
+            "Null host",
+            TEST_CLIENT_ID,
+            null,
+            validEndpoints,
+            validIdTokenSource,
+            validHttpClient,
+            "Host",
+            true),
+        new ValidationTestCase(
+            "Empty host",
+            TEST_CLIENT_ID,
+            "",
+            validEndpoints,
+            validIdTokenSource,
+            validHttpClient,
+            "Host",
+            false),
+        // Endpoints validation
+        new ValidationTestCase(
+            "Null endpoints",
+            TEST_CLIENT_ID,
+            TEST_HOST,
+            null,
+            validIdTokenSource,
+            validHttpClient,
+            "Endpoints",
+            true),
+        // IDTokenSource validation
+        new ValidationTestCase(
+            "Null IDTokenSource",
+            TEST_CLIENT_ID,
+            TEST_HOST,
+            validEndpoints,
+            null,
+            validHttpClient,
+            "IDTokenSource",
+            true),
+        // HttpClient validation
+        new ValidationTestCase(
+            "Null HttpClient",
+            TEST_CLIENT_ID,
+            TEST_HOST,
+            validEndpoints,
+            validIdTokenSource,
+            null,
+            "HttpClient",
+            true));
+  }
 
-    // Test empty client ID
-    final DatabricksOAuthTokenSource tokenSource2 =
+  /**
+   * Tests validation of required fields in the token source using parameterized test cases.
+   * Verifies that null or empty values for required fields cause getToken() to throw
+   * IllegalArgumentException with specific error messages.
+   */
+  @ParameterizedTest(name = "testParameterValidation: {0}")
+  @MethodSource("provideValidationTestCases")
+  void testParameterValidation(ValidationTestCase testCase) {
+    DatabricksOAuthTokenSource tokenSource =
         new DatabricksOAuthTokenSource.Builder(
-                "", TEST_HOST, validEndpoints, mockIdTokenSource, validHttpClient)
+                testCase.clientId,
+                testCase.host,
+                testCase.endpoints,
+                testCase.idTokenSource,
+                testCase.httpClient)
             .build();
-    assertThrows(IllegalArgumentException.class, () -> tokenSource2.getToken());
 
-    // Test null endpoints
-    final DatabricksOAuthTokenSource tokenSource3 =
-        new DatabricksOAuthTokenSource.Builder(
-                TEST_CLIENT_ID, TEST_HOST, null, mockIdTokenSource, validHttpClient)
-            .build();
-    assertThrows(IllegalArgumentException.class, () -> tokenSource3.getToken());
+    IllegalArgumentException exception =
+        assertThrows(IllegalArgumentException.class, () -> tokenSource.getToken());
 
-    // Test null IDTokenSource
-    final DatabricksOAuthTokenSource tokenSource4 =
-        new DatabricksOAuthTokenSource.Builder(
-                TEST_CLIENT_ID, TEST_HOST, validEndpoints, null, validHttpClient)
-            .build();
-    assertThrows(IllegalArgumentException.class, () -> tokenSource4.getToken());
-
-    // Test null HttpClient
-    final DatabricksOAuthTokenSource tokenSource5 =
-        new DatabricksOAuthTokenSource.Builder(
-                TEST_CLIENT_ID, TEST_HOST, validEndpoints, mockIdTokenSource, null)
-            .build();
-    assertThrows(IllegalArgumentException.class, () -> tokenSource5.getToken());
+    String expectedMessage =
+        String.format(testCase.isNullTest ? ERROR_NULL : ERROR_EMPTY, testCase.expectedFieldName);
+    assertEquals(expectedMessage, exception.getMessage());
   }
 }

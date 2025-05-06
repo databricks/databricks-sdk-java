@@ -129,16 +129,19 @@ public class DatabricksOAuthTokenSource implements TokenSource {
    *
    * @param value The value to validate.
    * @param fieldName The name of the field being validated.
-   * @return true if validation passes, false otherwise
+   * @throws IllegalArgumentException when the value is null or an empty string.
    */
-  private static boolean validate(Object value, String fieldName) {
+  private static void validate(Object value, String fieldName) {
     if (value == null) {
-      return false;
+      LOG.error("Required parameter '{}' is null", fieldName);
+      throw new IllegalArgumentException(
+          String.format("Required parameter '%s' cannot be null", fieldName));
     }
     if (value instanceof String && ((String) value).isEmpty()) {
-      return false;
+      LOG.error("Required parameter '{}' is empty", fieldName);
+      throw new IllegalArgumentException(
+          String.format("Required parameter '%s' cannot be empty", fieldName));
     }
-    return true;
   }
 
   /**
@@ -153,14 +156,11 @@ public class DatabricksOAuthTokenSource implements TokenSource {
   @Override
   public Token getToken() {
     // Validate all required parameters
-    if (!validate(clientId, "ClientID")
-        || !validate(host, "Host")
-        || !validate(endpoints, "Endpoints")
-        || !validate(idTokenSource, "IDTokenSource")
-        || !validate(httpClient, "HttpClient")) {
-      LOG.error("Missing required parameters for token exchange");
-      throw new IllegalArgumentException("Missing required parameters for token exchange.");
-    }
+    validate(clientId, "ClientID");
+    validate(host, "Host");
+    validate(endpoints, "Endpoints");
+    validate(idTokenSource, "IDTokenSource");
+    validate(httpClient, "HttpClient");
 
     String effectiveAudience = determineAudience();
     IDToken idToken = idTokenSource.getIDToken(effectiveAudience);
