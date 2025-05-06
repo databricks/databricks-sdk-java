@@ -57,8 +57,8 @@ public class DatabricksOAuthTokenSource implements TokenSource {
   }
 
   /**
-   * Builder class for constructing DatabricksOAuthTokenSource instances. Provides a fluent
-   * interface for setting required and optional parameters.
+   * Builder class for constructing DatabricksOAuthTokenSource instances. Provides a flexible way to
+   * set required and optional parameters.
    */
   public static class Builder {
     private final String clientId;
