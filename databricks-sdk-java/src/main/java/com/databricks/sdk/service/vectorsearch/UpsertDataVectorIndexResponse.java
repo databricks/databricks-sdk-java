@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Response to an upsert data vector index request. */
 @Generated
 public class UpsertDataVectorIndexResponse {
   /** Result of the upsert or delete operation. */

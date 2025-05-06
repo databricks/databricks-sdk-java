@@ -1,5 +1,82 @@
 # Version changelog
 
+## Release v0.49.0
+
+### Bug Fixes
+* Fixed the deserialization of responses in VectorSearchAPI's `queryIndex()` method ([#440](https://github.com/databricks/databricks-sdk-java/pull/440)).
+
+### API Changes
+* Added `futureFeatureDataPath` field for `com.databricks.sdk.service.ml.CreateForecastingExperimentRequest`.
+* Added `excludeColumns` and `includeColumns` fields for `com.databricks.sdk.service.pipelines.TableSpecificConfig`.
+* Added `NETWORK_CHECK_CONTROL_PLANE_FAILURE`, `NETWORK_CHECK_DNS_SERVER_FAILURE`, `NETWORK_CHECK_METADATA_ENDPOINT_FAILURE`, `NETWORK_CHECK_MULTIPLE_COMPONENTS_FAILURE`, `NETWORK_CHECK_NIC_FAILURE`, `NETWORK_CHECK_STORAGE_FAILURE` and `SECRET_PERMISSION_DENIED` enum values for `com.databricks.sdk.service.compute.TerminationReasonCode`.
+* [Breaking] Changed `pipelineId` field for `com.databricks.sdk.service.pipelines.EditPipeline` to be required.
+* [Breaking] Changed `connectionName`, `gatewayStorageCatalog` and `gatewayStorageSchema` fields for `com.databricks.sdk.service.pipelines.IngestionGatewayPipelineDefinition` to be required.
+* Changed `connectionName`, `gatewayStorageCatalog` and `gatewayStorageSchema` fields for `com.databricks.sdk.service.pipelines.IngestionGatewayPipelineDefinition` to be required.
+* [Breaking] Changed `kind` field for `com.databricks.sdk.service.pipelines.PipelineDeployment` to be required.
+* Changed `kind` field for `com.databricks.sdk.service.pipelines.PipelineDeployment` to be required.
+* Changed `destinationCatalog`, `destinationSchema` and `sourceUrl` fields for `com.databricks.sdk.service.pipelines.ReportSpec` to be required.
+* [Breaking] Changed `destinationCatalog`, `destinationSchema` and `sourceUrl` fields for `com.databricks.sdk.service.pipelines.ReportSpec` to be required.
+* Changed `destinationCatalog`, `destinationSchema` and `sourceSchema` fields for `com.databricks.sdk.service.pipelines.SchemaSpec` to be required.
+* [Breaking] Changed `destinationCatalog`, `destinationSchema` and `sourceSchema` fields for `com.databricks.sdk.service.pipelines.SchemaSpec` to be required.
+* [Breaking] Changed `destinationCatalog`, `destinationSchema` and `sourceTable` fields for `com.databricks.sdk.service.pipelines.TableSpec` to be required.
+* Changed `destinationCatalog`, `destinationSchema` and `sourceTable` fields for `com.databricks.sdk.service.pipelines.TableSpec` to be required.
+* [Breaking] Changed `results` field for `com.databricks.sdk.service.sql.ListAlertsV2Response` to type `com.databricks.sdk.service.sql.AlertV2List` class.
+* [Breaking] Changed pagination for `workspaceClient.alertsV2().listAlerts()` method.
+* [Breaking] Changed waiter for `workspaceClient.genie().createMessage()` method.
+
+
+## Release v0.48.0
+
+### New Features and Improvements
+ * Introduce support for Databricks Workload Identity Federation in GitHub workflows ([423](https://github.com/databricks/databricks-sdk-java/pull/423)).
+   See README.md for instructions.
+ * [Breaking] Users running their workflows in GitHub Actions, which use Cloud native authentication and also have a `DATABRICKS_CLIENT_ID` and `DATABRICKS_HOST`
+   environment variables set may see their authentication start failing due to the order in which the SDK tries different authentication methods.
+
+### API Changes
+* Added `workspaceClient.alertsV2()` service.
+* Added `updateNccAzurePrivateEndpointRulePublic()` method for `accountClient.networkConnectivity()` service.
+* Added `createdAt`, `createdBy` and `metastoreId` fields for `com.databricks.sdk.service.catalog.SetArtifactAllowlist`.
+* [Breaking] Added `networkConnectivityConfig` field for `com.databricks.sdk.service.settings.CreateNetworkConnectivityConfigRequest`.
+* [Breaking] Added `privateEndpointRule` field for `com.databricks.sdk.service.settings.CreatePrivateEndpointRuleRequest`.
+* Added `domainNames` field for `com.databricks.sdk.service.settings.NccAzurePrivateEndpointRule`.
+* Added `autoResolveDisplayName` field for `com.databricks.sdk.service.sql.CreateAlertRequest`.
+* Added `autoResolveDisplayName` field for `com.databricks.sdk.service.sql.CreateQueryRequest`.
+* Added `CREATE_CLEAN_ROOM`, `EXECUTE_CLEAN_ROOM_TASK` and `MODIFY_CLEAN_ROOM` enum values for `com.databricks.sdk.service.catalog.Privilege`.
+* Added `DNS_RESOLUTION_ERROR` and `GCP_DENIED_BY_ORG_POLICY` enum values for `com.databricks.sdk.service.compute.TerminationReasonCode`.
+* Added `EXPIRED` enum value for `com.databricks.sdk.service.settings.NccAzurePrivateEndpointRuleConnectionState`.
+* [Breaking] Changed `createNetworkConnectivityConfiguration()` and `createPrivateEndpointRule()` methods for `accountClient.networkConnectivity()` service with new required argument order.
+* [Breaking] Changed `workloadSize` field for `com.databricks.sdk.service.serving.ServedModelInput` to type `String` class.
+* [Breaking] Changed `groupId` field for `com.databricks.sdk.service.settings.NccAzurePrivateEndpointRule` to type `String` class.
+* [Breaking] Changed `targetServices` field for `com.databricks.sdk.service.settings.NccAzureServiceEndpointRule` to type `com.databricks.sdk.service.settings.EgressResourceTypeList` class.
+* [Breaking] Removed `name` and `region` fields for `com.databricks.sdk.service.settings.CreateNetworkConnectivityConfigRequest`.
+* [Breaking] Removed `groupId` and `resourceId` fields for `com.databricks.sdk.service.settings.CreatePrivateEndpointRuleRequest`.
+* [Breaking] Removed `LARGE`, `MEDIUM` and `SMALL` enum values for `com.databricks.sdk.service.serving.ServedModelInputWorkloadSize`.
+* [Breaking] Removed `BLOB`, `DFS`, `MYSQL_SERVER` and `SQL_SERVER` enum values for `com.databricks.sdk.service.settings.NccAzurePrivateEndpointRuleGroupId`.
+
+
+## Release v0.47.0
+
+### API Changes
+* Added `updateEndpointBudgetPolicy()` and `updateEndpointCustomTags()` methods for `workspaceClient.vectorSearchEndpoints()` service.
+* Added `nodeTypeFlexibility` field for `com.databricks.sdk.service.compute.EditInstancePool`.
+* Added `pageSize` and `pageToken` fields for `com.databricks.sdk.service.compute.GetEvents`.
+* Added `nextPageToken` and `prevPageToken` fields for `com.databricks.sdk.service.compute.GetEventsResponse`.
+* Added `nodeTypeFlexibility` field for `com.databricks.sdk.service.compute.GetInstancePool`.
+* Added `nodeTypeFlexibility` field for `com.databricks.sdk.service.compute.InstancePoolAndStats`.
+* Added `effectivePerformanceTarget` field for `com.databricks.sdk.service.jobs.RepairHistoryItem`.
+* Added `performanceTarget` field for `com.databricks.sdk.service.jobs.RepairRun`.
+* Added `budgetPolicyId` field for `com.databricks.sdk.service.vectorsearch.CreateEndpoint`.
+* Added `customTags` and `effectiveBudgetPolicyId` fields for `com.databricks.sdk.service.vectorsearch.EndpointInfo`.
+* Added `DISABLED` enum value for `com.databricks.sdk.service.jobs.TerminationCodeCode`.
+* [Breaking] Changed `createIndex()` method for `workspaceClient.vectorSearchIndexes()` service to return `com.databricks.sdk.service.vectorsearch.VectorIndex` class.
+* [Breaking] Changed `deleteDataVectorIndex()` method for `workspaceClient.vectorSearchIndexes()` service . HTTP method/verb has changed.
+* [Breaking] Changed `deleteDataVectorIndex()` method for `workspaceClient.vectorSearchIndexes()` service with new required argument order.
+* [Breaking] Changed `dataArray` field for `com.databricks.sdk.service.vectorsearch.ResultData` to type `com.databricks.sdk.service.vectorsearch.ListValueList` class.
+* [Breaking] Changed waiter for `workspaceClient.vectorSearchEndpoints().createEndpoint()` method.
+* [Breaking] Removed `nullValue` field for `com.databricks.sdk.service.vectorsearch.Value`.
+
+
 ## Release v0.46.0
 
 ### New Features and Improvements

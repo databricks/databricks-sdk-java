@@ -9,13 +9,26 @@ import java.util.Objects;
 
 @Generated
 public class CreateEndpoint {
-  /** Type of endpoint. */
+  /** The budget policy id to be applied */
+  @JsonProperty("budget_policy_id")
+  private String budgetPolicyId;
+
+  /** Type of endpoint */
   @JsonProperty("endpoint_type")
   private EndpointType endpointType;
 
-  /** Name of endpoint */
+  /** Name of the vector search endpoint */
   @JsonProperty("name")
   private String name;
+
+  public CreateEndpoint setBudgetPolicyId(String budgetPolicyId) {
+    this.budgetPolicyId = budgetPolicyId;
+    return this;
+  }
+
+  public String getBudgetPolicyId() {
+    return budgetPolicyId;
+  }
 
   public CreateEndpoint setEndpointType(EndpointType endpointType) {
     this.endpointType = endpointType;
@@ -40,17 +53,20 @@ public class CreateEndpoint {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CreateEndpoint that = (CreateEndpoint) o;
-    return Objects.equals(endpointType, that.endpointType) && Objects.equals(name, that.name);
+    return Objects.equals(budgetPolicyId, that.budgetPolicyId)
+        && Objects.equals(endpointType, that.endpointType)
+        && Objects.equals(name, that.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(endpointType, name);
+    return Objects.hash(budgetPolicyId, endpointType, name);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CreateEndpoint.class)
+        .add("budgetPolicyId", budgetPolicyId)
         .add("endpointType", endpointType)
         .add("name", name)
         .toString();

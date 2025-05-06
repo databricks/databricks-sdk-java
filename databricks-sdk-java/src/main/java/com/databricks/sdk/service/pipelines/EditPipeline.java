@@ -4,6 +4,7 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Map;
@@ -105,8 +106,7 @@ public class EditPipeline {
   private Boolean photon;
 
   /** Unique identifier for this pipeline. */
-  @JsonProperty("pipeline_id")
-  private String pipelineId;
+  @JsonIgnore private String pipelineId;
 
   /** Restart window of this pipeline. */
   @JsonProperty("restart_window")

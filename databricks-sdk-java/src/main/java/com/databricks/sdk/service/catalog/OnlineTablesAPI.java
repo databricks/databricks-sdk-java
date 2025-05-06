@@ -75,6 +75,10 @@ public class OnlineTablesAPI {
     throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
   }
 
+  public Wait<OnlineTable, OnlineTable> create(OnlineTable table) {
+    return create(new CreateOnlineTableRequest().setTable(table));
+  }
+
   /**
    * Create an Online Table.
    *

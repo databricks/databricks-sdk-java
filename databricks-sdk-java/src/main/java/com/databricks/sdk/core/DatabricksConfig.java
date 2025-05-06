@@ -144,6 +144,13 @@ public class DatabricksConfig {
 
   private DatabricksEnvironment databricksEnvironment;
 
+  /**
+   * When using Workload Identity Federation, the audience to specify when fetching an ID token from
+   * the ID token supplier.
+   */
+  @ConfigAttribute(env = "TOKEN_AUDIENCE")
+  private String tokenAudience;
+
   public Environment getEnv() {
     return env;
   }
@@ -525,6 +532,15 @@ public class DatabricksConfig {
 
   public DatabricksConfig setHttpClient(HttpClient httpClient) {
     this.httpClient = httpClient;
+    return this;
+  }
+
+  public String getTokenAudience() {
+    return tokenAudience;
+  }
+
+  public DatabricksConfig setTokenAudience(String tokenAudience) {
+    this.tokenAudience = tokenAudience;
     return this;
   }
 

@@ -1,0 +1,105 @@
+// Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
+
+package com.databricks.sdk.service.settings;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
+
+/** Update a private endpoint rule */
+@Generated
+public class UpdateNccAzurePrivateEndpointRulePublicRequest {
+  /** Your Network Connectivity Configuration ID. */
+  @JsonIgnore private String networkConnectivityConfigId;
+
+  /**
+   * Properties of the new private endpoint rule. Note that you must approve the endpoint in Azure
+   * portal after initialization.
+   */
+  @JsonProperty("private_endpoint_rule")
+  private UpdatePrivateEndpointRule privateEndpointRule;
+
+  /** Your private endpoint rule ID. */
+  @JsonIgnore private String privateEndpointRuleId;
+
+  /**
+   * The field mask must be a single string, with multiple fields separated by commas (no spaces).
+   * The field path is relative to the resource object, using a dot (`.`) to navigate sub-fields
+   * (e.g., `author.given_name`). Specification of elements in sequence or map fields is not
+   * allowed, as only the entire collection field can be specified. Field names must exactly match
+   * the resource field names.
+   */
+  @JsonIgnore
+  @QueryParam("update_mask")
+  private String updateMask;
+
+  public UpdateNccAzurePrivateEndpointRulePublicRequest setNetworkConnectivityConfigId(
+      String networkConnectivityConfigId) {
+    this.networkConnectivityConfigId = networkConnectivityConfigId;
+    return this;
+  }
+
+  public String getNetworkConnectivityConfigId() {
+    return networkConnectivityConfigId;
+  }
+
+  public UpdateNccAzurePrivateEndpointRulePublicRequest setPrivateEndpointRule(
+      UpdatePrivateEndpointRule privateEndpointRule) {
+    this.privateEndpointRule = privateEndpointRule;
+    return this;
+  }
+
+  public UpdatePrivateEndpointRule getPrivateEndpointRule() {
+    return privateEndpointRule;
+  }
+
+  public UpdateNccAzurePrivateEndpointRulePublicRequest setPrivateEndpointRuleId(
+      String privateEndpointRuleId) {
+    this.privateEndpointRuleId = privateEndpointRuleId;
+    return this;
+  }
+
+  public String getPrivateEndpointRuleId() {
+    return privateEndpointRuleId;
+  }
+
+  public UpdateNccAzurePrivateEndpointRulePublicRequest setUpdateMask(String updateMask) {
+    this.updateMask = updateMask;
+    return this;
+  }
+
+  public String getUpdateMask() {
+    return updateMask;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    UpdateNccAzurePrivateEndpointRulePublicRequest that =
+        (UpdateNccAzurePrivateEndpointRulePublicRequest) o;
+    return Objects.equals(networkConnectivityConfigId, that.networkConnectivityConfigId)
+        && Objects.equals(privateEndpointRule, that.privateEndpointRule)
+        && Objects.equals(privateEndpointRuleId, that.privateEndpointRuleId)
+        && Objects.equals(updateMask, that.updateMask);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        networkConnectivityConfigId, privateEndpointRule, privateEndpointRuleId, updateMask);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(UpdateNccAzurePrivateEndpointRulePublicRequest.class)
+        .add("networkConnectivityConfigId", networkConnectivityConfigId)
+        .add("privateEndpointRule", privateEndpointRule)
+        .add("privateEndpointRuleId", privateEndpointRuleId)
+        .add("updateMask", updateMask)
+        .toString();
+  }
+}

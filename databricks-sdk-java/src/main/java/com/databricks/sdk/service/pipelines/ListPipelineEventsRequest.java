@@ -50,7 +50,7 @@ public class ListPipelineEventsRequest {
   @QueryParam("page_token")
   private String pageToken;
 
-  /** */
+  /** The pipeline to return events for. */
   @JsonIgnore private String pipelineId;
 
   public ListPipelineEventsRequest setFilter(String filter) {

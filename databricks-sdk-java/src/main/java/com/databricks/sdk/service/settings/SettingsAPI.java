@@ -116,7 +116,7 @@ public class SettingsAPI {
     return disableLegacyDbfsAPI;
   }
 
-  /** Controls whether users can export notebooks and files from the Workspace. */
+  /** Controls whether users can export notebooks and files from the Workspace UI. */
   public EnableExportNotebookAPI EnableExportNotebook() {
     return enableExportNotebookAPI;
   }

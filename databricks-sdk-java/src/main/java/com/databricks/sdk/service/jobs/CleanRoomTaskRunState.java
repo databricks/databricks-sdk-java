@@ -12,14 +12,14 @@ import java.util.Objects;
 public class CleanRoomTaskRunState {
   /**
    * A value indicating the run's current lifecycle state. This field is always available in the
-   * response.
+   * response. Note: Additional states might be introduced in future releases.
    */
   @JsonProperty("life_cycle_state")
   private CleanRoomTaskRunLifeCycleState lifeCycleState;
 
   /**
    * A value indicating the run's result. This field is only available for terminal lifecycle
-   * states.
+   * states. Note: Additional states might be introduced in future releases.
    */
   @JsonProperty("result_state")
   private CleanRoomTaskRunResultState resultState;

@@ -22,26 +22,23 @@ public class DeltaSyncVectorIndexSpecRequest {
   @JsonProperty("embedding_source_columns")
   private Collection<EmbeddingSourceColumn> embeddingSourceColumns;
 
-  /** The columns that contain the embedding vectors. The format should be array[double]. */
+  /** The columns that contain the embedding vectors. */
   @JsonProperty("embedding_vector_columns")
   private Collection<EmbeddingVectorColumn> embeddingVectorColumns;
 
   /**
-   * [Optional] Automatically sync the vector index contents and computed embeddings to the
-   * specified Delta table. The only supported table name is the index name with the suffix
-   * `_writeback_table`.
+   * [Optional] Name of the Delta table to sync the vector index contents and computed embeddings
+   * to.
    */
   @JsonProperty("embedding_writeback_table")
   private String embeddingWritebackTable;
 
   /**
-   * Pipeline execution mode.
-   *
-   * <p>- `TRIGGERED`: If the pipeline uses the triggered execution mode, the system stops
-   * processing after successfully refreshing the source table in the pipeline once, ensuring the
-   * table is updated based on the data available when the update started. - `CONTINUOUS`: If the
-   * pipeline uses continuous execution, the pipeline processes new data as it arrives in the source
-   * table to keep vector index fresh.
+   * Pipeline execution mode. - `TRIGGERED`: If the pipeline uses the triggered execution mode, the
+   * system stops processing after successfully refreshing the source table in the pipeline once,
+   * ensuring the table is updated based on the data available when the update started. -
+   * `CONTINUOUS`: If the pipeline uses continuous execution, the pipeline processes new data as it
+   * arrives in the source table to keep vector index fresh.
    */
   @JsonProperty("pipeline_type")
   private PipelineType pipelineType;

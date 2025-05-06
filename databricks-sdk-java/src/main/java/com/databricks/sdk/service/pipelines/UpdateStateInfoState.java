@@ -4,6 +4,7 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
 
+/** The update state. */
 @Generated
 public enum UpdateStateInfoState {
   CANCELED,

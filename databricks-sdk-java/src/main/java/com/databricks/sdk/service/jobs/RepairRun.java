@@ -63,6 +63,18 @@ public class RepairRun {
   @JsonProperty("notebook_params")
   private Map<String, String> notebookParams;
 
+  /**
+   * The performance mode on a serverless job. The performance target determines the level of
+   * compute performance or cost-efficiency for the run. This field overrides the performance target
+   * defined on the job level.
+   *
+   * <p>* `STANDARD`: Enables cost-efficient execution of serverless workloads. *
+   * `PERFORMANCE_OPTIMIZED`: Prioritizes fast startup and execution times through rapid scaling and
+   * optimized cluster performance.
+   */
+  @JsonProperty("performance_target")
+  private PerformanceTarget performanceTarget;
+
   /** Controls whether the pipeline should perform a full refresh */
   @JsonProperty("pipeline_params")
   private PipelineParams pipelineParams;
@@ -184,6 +196,15 @@ public class RepairRun {
     return notebookParams;
   }
 
+  public RepairRun setPerformanceTarget(PerformanceTarget performanceTarget) {
+    this.performanceTarget = performanceTarget;
+    return this;
+  }
+
+  public PerformanceTarget getPerformanceTarget() {
+    return performanceTarget;
+  }
+
   public RepairRun setPipelineParams(PipelineParams pipelineParams) {
     this.pipelineParams = pipelineParams;
     return this;
@@ -275,6 +296,7 @@ public class RepairRun {
         && Objects.equals(jobParameters, that.jobParameters)
         && Objects.equals(latestRepairId, that.latestRepairId)
         && Objects.equals(notebookParams, that.notebookParams)
+        && Objects.equals(performanceTarget, that.performanceTarget)
         && Objects.equals(pipelineParams, that.pipelineParams)
         && Objects.equals(pythonNamedParams, that.pythonNamedParams)
         && Objects.equals(pythonParams, that.pythonParams)
@@ -294,6 +316,7 @@ public class RepairRun {
         jobParameters,
         latestRepairId,
         notebookParams,
+        performanceTarget,
         pipelineParams,
         pythonNamedParams,
         pythonParams,
@@ -313,6 +336,7 @@ public class RepairRun {
         .add("jobParameters", jobParameters)
         .add("latestRepairId", latestRepairId)
         .add("notebookParams", notebookParams)
+        .add("performanceTarget", performanceTarget)
         .add("pipelineParams", pipelineParams)
         .add("pythonNamedParams", pythonNamedParams)
         .add("pythonParams", pythonParams)

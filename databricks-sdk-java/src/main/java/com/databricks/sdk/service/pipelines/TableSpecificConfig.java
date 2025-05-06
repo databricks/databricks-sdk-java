@@ -10,6 +10,24 @@ import java.util.Objects;
 
 @Generated
 public class TableSpecificConfig {
+  /**
+   * A list of column names to be excluded for the ingestion. When not specified, include_columns
+   * fully controls what columns to be ingested. When specified, all other columns including future
+   * ones will be automatically included for ingestion. This field in mutually exclusive with
+   * `include_columns`.
+   */
+  @JsonProperty("exclude_columns")
+  private Collection<String> excludeColumns;
+
+  /**
+   * A list of column names to be included for the ingestion. When not specified, all columns except
+   * ones in exclude_columns will be included. Future columns will be automatically included. When
+   * specified, all other future columns will be automatically excluded from ingestion. This field
+   * in mutually exclusive with `exclude_columns`.
+   */
+  @JsonProperty("include_columns")
+  private Collection<String> includeColumns;
+
   /** The primary key of the table used to apply changes. */
   @JsonProperty("primary_keys")
   private Collection<String> primaryKeys;
@@ -31,6 +49,24 @@ public class TableSpecificConfig {
    */
   @JsonProperty("sequence_by")
   private Collection<String> sequenceBy;
+
+  public TableSpecificConfig setExcludeColumns(Collection<String> excludeColumns) {
+    this.excludeColumns = excludeColumns;
+    return this;
+  }
+
+  public Collection<String> getExcludeColumns() {
+    return excludeColumns;
+  }
+
+  public TableSpecificConfig setIncludeColumns(Collection<String> includeColumns) {
+    this.includeColumns = includeColumns;
+    return this;
+  }
+
+  public Collection<String> getIncludeColumns() {
+    return includeColumns;
+  }
 
   public TableSpecificConfig setPrimaryKeys(Collection<String> primaryKeys) {
     this.primaryKeys = primaryKeys;
@@ -74,7 +110,9 @@ public class TableSpecificConfig {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     TableSpecificConfig that = (TableSpecificConfig) o;
-    return Objects.equals(primaryKeys, that.primaryKeys)
+    return Objects.equals(excludeColumns, that.excludeColumns)
+        && Objects.equals(includeColumns, that.includeColumns)
+        && Objects.equals(primaryKeys, that.primaryKeys)
         && Objects.equals(salesforceIncludeFormulaFields, that.salesforceIncludeFormulaFields)
         && Objects.equals(scdType, that.scdType)
         && Objects.equals(sequenceBy, that.sequenceBy);
@@ -82,12 +120,20 @@ public class TableSpecificConfig {
 
   @Override
   public int hashCode() {
-    return Objects.hash(primaryKeys, salesforceIncludeFormulaFields, scdType, sequenceBy);
+    return Objects.hash(
+        excludeColumns,
+        includeColumns,
+        primaryKeys,
+        salesforceIncludeFormulaFields,
+        scdType,
+        sequenceBy);
   }
 
   @Override
   public String toString() {
     return new ToStringer(TableSpecificConfig.class)
+        .add("excludeColumns", excludeColumns)
+        .add("includeColumns", includeColumns)
         .add("primaryKeys", primaryKeys)
         .add("salesforceIncludeFormulaFields", salesforceIncludeFormulaFields)
         .add("scdType", scdType)
