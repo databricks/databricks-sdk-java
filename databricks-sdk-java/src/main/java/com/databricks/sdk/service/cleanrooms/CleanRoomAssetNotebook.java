@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class CleanRoomAssetNotebook {
-  /** Server generated checksum that represents the notebook version. */
+  /** Server generated etag that represents the notebook version. */
   @JsonProperty("etag")
   private String etag;
 

@@ -21,13 +21,13 @@ public class NccAzureServiceEndpointRule {
   @JsonProperty("subnets")
   private Collection<String> subnets;
 
-  /** The Azure region in which this service endpoint rule applies. */
+  /** The Azure region in which this service endpoint rule applies.. */
   @JsonProperty("target_region")
   private String targetRegion;
 
   /** The Azure services to which this service endpoint rule applies to. */
   @JsonProperty("target_services")
-  private Collection<String> targetServices;
+  private Collection<EgressResourceType> targetServices;
 
   public NccAzureServiceEndpointRule setSubnets(Collection<String> subnets) {
     this.subnets = subnets;
@@ -47,12 +47,13 @@ public class NccAzureServiceEndpointRule {
     return targetRegion;
   }
 
-  public NccAzureServiceEndpointRule setTargetServices(Collection<String> targetServices) {
+  public NccAzureServiceEndpointRule setTargetServices(
+      Collection<EgressResourceType> targetServices) {
     this.targetServices = targetServices;
     return this;
   }
 
-  public Collection<String> getTargetServices() {
+  public Collection<EgressResourceType> getTargetServices() {
     return targetServices;
   }
 

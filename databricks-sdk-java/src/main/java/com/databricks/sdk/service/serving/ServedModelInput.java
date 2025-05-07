@@ -57,11 +57,12 @@ public class ServedModelInput {
    * concurrency that the compute autoscales between. A single unit of provisioned concurrency can
    * process one request at a time. Valid workload sizes are "Small" (4 - 4 provisioned
    * concurrency), "Medium" (8 - 16 provisioned concurrency), and "Large" (16 - 64 provisioned
-   * concurrency). If scale-to-zero is enabled, the lower bound of the provisioned concurrency for
-   * each workload size is 0.
+   * concurrency). Additional custom workload sizes can also be used when available in the
+   * workspace. If scale-to-zero is enabled, the lower bound of the provisioned concurrency for each
+   * workload size is 0.
    */
   @JsonProperty("workload_size")
-  private ServedModelInputWorkloadSize workloadSize;
+  private String workloadSize;
 
   /**
    * The workload type of the served entity. The workload type selects which type of compute to use
@@ -147,12 +148,12 @@ public class ServedModelInput {
     return scaleToZeroEnabled;
   }
 
-  public ServedModelInput setWorkloadSize(ServedModelInputWorkloadSize workloadSize) {
+  public ServedModelInput setWorkloadSize(String workloadSize) {
     this.workloadSize = workloadSize;
     return this;
   }
 
-  public ServedModelInputWorkloadSize getWorkloadSize() {
+  public String getWorkloadSize() {
     return workloadSize;
   }
 

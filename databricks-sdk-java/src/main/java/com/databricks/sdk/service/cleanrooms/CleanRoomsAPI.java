@@ -28,6 +28,10 @@ public class CleanRoomsAPI {
     impl = mock;
   }
 
+  public CleanRoom create(CleanRoom cleanRoom) {
+    return create(new CreateCleanRoomRequest().setCleanRoom(cleanRoom));
+  }
+
   /**
    * Create a clean room.
    *
@@ -44,9 +48,12 @@ public class CleanRoomsAPI {
     return impl.create(request);
   }
 
-  public CreateCleanRoomOutputCatalogResponse createOutputCatalog(String cleanRoomName) {
+  public CreateCleanRoomOutputCatalogResponse createOutputCatalog(
+      String cleanRoomName, CleanRoomOutputCatalog outputCatalog) {
     return createOutputCatalog(
-        new CreateCleanRoomOutputCatalogRequest().setCleanRoomName(cleanRoomName));
+        new CreateCleanRoomOutputCatalogRequest()
+            .setCleanRoomName(cleanRoomName)
+            .setOutputCatalog(outputCatalog));
   }
 
   /**

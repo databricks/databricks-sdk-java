@@ -79,8 +79,8 @@ public class BudgetPolicyAPI {
         });
   }
 
-  public BudgetPolicy update(String policyId) {
-    return update(new UpdateBudgetPolicyRequest().setPolicyId(policyId));
+  public BudgetPolicy update(String policyId, BudgetPolicy policy) {
+    return update(new UpdateBudgetPolicyRequest().setPolicyId(policyId).setPolicy(policy));
   }
 
   /**

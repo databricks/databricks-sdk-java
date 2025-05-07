@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class NotebookLibrary {
-  /** The absolute path of the notebook. */
+  /** The absolute path of the source code. */
   @JsonProperty("path")
   private String path;
 

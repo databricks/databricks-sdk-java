@@ -23,7 +23,8 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
         String.format(
             "/api/2.0/accounts/%s/network-connectivity-configs", apiClient.configuredAccountID());
     try {
-      Request req = new Request("POST", path, apiClient.serialize(request));
+      Request req =
+          new Request("POST", path, apiClient.serialize(request.getNetworkConnectivityConfig()));
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -41,7 +42,8 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
             "/api/2.0/accounts/%s/network-connectivity-configs/%s/private-endpoint-rules",
             apiClient.configuredAccountID(), request.getNetworkConnectivityConfigId());
     try {
-      Request req = new Request("POST", path, apiClient.serialize(request));
+      Request req =
+          new Request("POST", path, apiClient.serialize(request.getPrivateEndpointRule()));
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -150,6 +152,27 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListNccAzurePrivateEndpointRulesResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public NccAzurePrivateEndpointRule updateNccAzurePrivateEndpointRulePublic(
+      UpdateNccAzurePrivateEndpointRulePublicRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/accounts/%s/network-connectivity-configs/%s/private-endpoint-rules/%s",
+            apiClient.configuredAccountID(),
+            request.getNetworkConnectivityConfigId(),
+            request.getPrivateEndpointRuleId());
+    try {
+      Request req =
+          new Request("PATCH", path, apiClient.serialize(request.getPrivateEndpointRule()));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, NccAzurePrivateEndpointRule.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

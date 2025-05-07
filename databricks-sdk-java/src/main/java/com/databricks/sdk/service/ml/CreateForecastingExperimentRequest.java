@@ -34,6 +34,13 @@ public class CreateForecastingExperimentRequest {
   private Long forecastHorizon;
 
   /**
+   * The fully qualified path of a Unity Catalog table, formatted as
+   * catalog_name.schema_name.table_name, used to store future feature data for predictions.
+   */
+  @JsonProperty("future_feature_data_path")
+  private String futureFeatureDataPath;
+
+  /**
    * The region code(s) to automatically add holiday features. Currently supports only one region.
    */
   @JsonProperty("holiday_regions")
@@ -100,7 +107,7 @@ public class CreateForecastingExperimentRequest {
   private Collection<String> timeseriesIdentifierColumns;
 
   /**
-   * The fully qualified name of a Unity Catalog table, formatted as
+   * The fully qualified path of a Unity Catalog table, formatted as
    * catalog_name.schema_name.table_name, used as training data for the forecasting model.
    */
   @JsonProperty("train_data_path")
@@ -147,6 +154,15 @@ public class CreateForecastingExperimentRequest {
 
   public Long getForecastHorizon() {
     return forecastHorizon;
+  }
+
+  public CreateForecastingExperimentRequest setFutureFeatureDataPath(String futureFeatureDataPath) {
+    this.futureFeatureDataPath = futureFeatureDataPath;
+    return this;
+  }
+
+  public String getFutureFeatureDataPath() {
+    return futureFeatureDataPath;
   }
 
   public CreateForecastingExperimentRequest setHolidayRegions(Collection<String> holidayRegions) {
@@ -268,6 +284,7 @@ public class CreateForecastingExperimentRequest {
         && Objects.equals(experimentPath, that.experimentPath)
         && Objects.equals(forecastGranularity, that.forecastGranularity)
         && Objects.equals(forecastHorizon, that.forecastHorizon)
+        && Objects.equals(futureFeatureDataPath, that.futureFeatureDataPath)
         && Objects.equals(holidayRegions, that.holidayRegions)
         && Objects.equals(includeFeatures, that.includeFeatures)
         && Objects.equals(maxRuntime, that.maxRuntime)
@@ -289,6 +306,7 @@ public class CreateForecastingExperimentRequest {
         experimentPath,
         forecastGranularity,
         forecastHorizon,
+        futureFeatureDataPath,
         holidayRegions,
         includeFeatures,
         maxRuntime,
@@ -310,6 +328,7 @@ public class CreateForecastingExperimentRequest {
         .add("experimentPath", experimentPath)
         .add("forecastGranularity", forecastGranularity)
         .add("forecastHorizon", forecastHorizon)
+        .add("futureFeatureDataPath", futureFeatureDataPath)
         .add("holidayRegions", holidayRegions)
         .add("includeFeatures", includeFeatures)
         .add("maxRuntime", maxRuntime)

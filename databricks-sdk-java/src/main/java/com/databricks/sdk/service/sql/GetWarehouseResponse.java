@@ -98,7 +98,7 @@ public class GetWarehouseResponse {
   @JsonProperty("name")
   private String name;
 
-  /** current number of active sessions for the warehouse */
+  /** Deprecated. current number of active sessions for the warehouse */
   @JsonProperty("num_active_sessions")
   private Long numActiveSessions;
 

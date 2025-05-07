@@ -7,11 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/**
- * The network connectivity rules that are applied by default without resource specific
- * configurations. You can find the stable network information of your serverless compute resources
- * here.
- */
+/** Default rules don't have specific targets. */
 @Generated
 public class NccEgressDefaultRules {
   /**

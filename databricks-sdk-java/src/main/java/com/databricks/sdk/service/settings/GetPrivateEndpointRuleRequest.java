@@ -7,7 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get a private endpoint rule */
+/** Gets a private endpoint rule */
 @Generated
 public class GetPrivateEndpointRuleRequest {
   /** Your Network Connectvity Configuration ID. */

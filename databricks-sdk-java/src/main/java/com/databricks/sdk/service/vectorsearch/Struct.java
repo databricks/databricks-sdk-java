@@ -8,6 +8,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * copied from proto3 / Google Well Known Types, source:
+ * https://github.com/protocolbuffers/protobuf/blob/450d24ca820750c5db5112a6f0b0c2efb9758021/src/google/protobuf/struct.proto
+ * `Struct` represents a structured data value, consisting of fields which map to dynamically typed
+ * values. In some languages, `Struct` might be supported by a native representation. For example,
+ * in scripting languages like JS a struct is represented as an object. The details of that
+ * representation are described together with the proto support for the language.
+ *
+ * <p>The JSON representation for `Struct` is JSON object.
+ */
 @Generated
 public class Struct {
   /** Data entry, corresponding to a row in a vector index. */

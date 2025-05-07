@@ -10,21 +10,18 @@ import java.util.Objects;
 
 @Generated
 public class DirectAccessVectorIndexSpec {
-  /** Contains the optional model endpoint to use during query time. */
+  /** The columns that contain the embedding source. The format should be array[double]. */
   @JsonProperty("embedding_source_columns")
   private Collection<EmbeddingSourceColumn> embeddingSourceColumns;
 
-  /** */
+  /** The columns that contain the embedding vectors. The format should be array[double]. */
   @JsonProperty("embedding_vector_columns")
   private Collection<EmbeddingVectorColumn> embeddingVectorColumns;
 
   /**
-   * The schema of the index in JSON format.
-   *
-   * <p>Supported types are `integer`, `long`, `float`, `double`, `boolean`, `string`, `date`,
-   * `timestamp`.
-   *
-   * <p>Supported types for vector column: `array<float>`, `array<double>`,`.
+   * The schema of the index in JSON format. Supported types are `integer`, `long`, `float`,
+   * `double`, `boolean`, `string`, `date`, `timestamp`. Supported types for vector column:
+   * `array<float>`, `array<double>`,`.
    */
   @JsonProperty("schema_json")
   private String schemaJson;

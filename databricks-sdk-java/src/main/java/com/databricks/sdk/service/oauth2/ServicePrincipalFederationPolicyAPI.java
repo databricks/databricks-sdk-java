@@ -69,10 +69,11 @@ public class ServicePrincipalFederationPolicyAPI {
     impl = mock;
   }
 
-  public FederationPolicy create(long servicePrincipalId) {
+  public FederationPolicy create(long servicePrincipalId, FederationPolicy policy) {
     return create(
         new CreateServicePrincipalFederationPolicyRequest()
-            .setServicePrincipalId(servicePrincipalId));
+            .setServicePrincipalId(servicePrincipalId)
+            .setPolicy(policy));
   }
 
   /** Create service principal federation policy. */
@@ -125,11 +126,13 @@ public class ServicePrincipalFederationPolicyAPI {
         });
   }
 
-  public FederationPolicy update(long servicePrincipalId, String policyId) {
+  public FederationPolicy update(
+      long servicePrincipalId, String policyId, FederationPolicy policy) {
     return update(
         new UpdateServicePrincipalFederationPolicyRequest()
             .setServicePrincipalId(servicePrincipalId)
-            .setPolicyId(policyId));
+            .setPolicyId(policyId)
+            .setPolicy(policy));
   }
 
   /** Update service principal federation policy. */
