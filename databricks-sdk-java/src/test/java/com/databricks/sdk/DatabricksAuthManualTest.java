@@ -2,12 +2,17 @@ package com.databricks.sdk;
 
 import com.databricks.sdk.core.ConfigResolving;
 import com.databricks.sdk.core.DatabricksConfig;
+import com.databricks.sdk.core.DummyHttpClient;
 import com.databricks.sdk.core.utils.TestOSUtils;
 import java.util.Map;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class DatabricksAuthManualTest implements ConfigResolving {
+  private DatabricksConfig createConfigWithMockClient() {
+    return new DatabricksConfig().setHttpClient(new DummyHttpClient());
+  }
+
   @Test
   void azureCliWorkspaceHeaderPresent() {
     StaticEnv env =
@@ -18,7 +23,7 @@ public class DatabricksAuthManualTest implements ConfigResolving {
     String azureWorkspaceResourceId =
         "/subscriptions/123/resourceGroups/abc/providers/Microsoft.Databricks/workspaces/abc123";
     DatabricksConfig config =
-        new DatabricksConfig()
+        createConfigWithMockClient()
             .setAuthType("azure-cli")
             .setHost("https://x")
             .setAzureWorkspaceResourceId(azureWorkspaceResourceId);
@@ -38,7 +43,7 @@ public class DatabricksAuthManualTest implements ConfigResolving {
     String azureWorkspaceResourceId =
         "/subscriptions/123/resourceGroups/abc/providers/Microsoft.Databricks/workspaces/abc123";
     DatabricksConfig config =
-        new DatabricksConfig()
+        createConfigWithMockClient()
             .setAuthType("azure-cli")
             .setHost("https://x")
             .setAzureWorkspaceResourceId(azureWorkspaceResourceId);
@@ -58,7 +63,7 @@ public class DatabricksAuthManualTest implements ConfigResolving {
     String azureWorkspaceResourceId =
         "/subscriptions/123/resourceGroups/abc/providers/Microsoft.Databricks/workspaces/abc123";
     DatabricksConfig config =
-        new DatabricksConfig()
+        createConfigWithMockClient()
             .setAuthType("azure-cli")
             .setHost("https://x")
             .setAzureWorkspaceResourceId(azureWorkspaceResourceId);
