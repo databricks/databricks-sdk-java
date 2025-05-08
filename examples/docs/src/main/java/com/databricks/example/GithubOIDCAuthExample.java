@@ -2,6 +2,7 @@ package com.databricks.sdk.examples;
 
 import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.WorkspaceClient;
+import com.databricks.sdk.service.iam.User;
 
 /**
  * Example demonstrating how to use GitHub OIDC authentication with Databricks.
@@ -25,8 +26,8 @@ public class GithubOIDCAuthExample {
         WorkspaceClient workspace = new WorkspaceClient(config);
 
         try {
-            // Test the authentication by getting the current user
-            var currentUser = workspace.currentUser().me();
+            // Test the authentication by getting the current User
+            User currentUser = workspace.currentUser().me();
             System.out.println("Successfully authenticated as: " + currentUser.getUserName());
             
             // You can add more API calls here to test other functionality
