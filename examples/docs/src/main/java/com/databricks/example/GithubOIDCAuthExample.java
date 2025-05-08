@@ -1,7 +1,7 @@
 package com.databricks.sdk.examples;
 
 import com.databricks.sdk.core.DatabricksConfig;
-import com.databricks.sdk.service.workspace.WorkspaceClient;
+import com.databricks.sdk.WorkspaceClient;
 
 /**
  * Example demonstrating how to use GitHub OIDC authentication with Databricks.
