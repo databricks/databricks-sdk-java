@@ -11,6 +11,7 @@ import com.databricks.sdk.core.utils.FakeTimer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -88,12 +89,14 @@ public class ApiClientTest {
     runApiClientTest(client, request, clazz, expectedResponse);
   }
 
-  private void runFailingApiClientTest(
+  @CanIgnoreReturnValue
+  private DatabricksException runFailingApiClientTest(
       Request request, List<ResponseProvider> responses, Class<?> clazz, String expectedMessage)
       throws IOException {
     DatabricksException exception =
         runFailingApiClientTest(request, responses, clazz, DatabricksException.class);
     assertEquals(exception.getMessage(), expectedMessage);
+    return exception;
   }
 
   private <T extends Throwable> T runFailingApiClientTest(
@@ -217,16 +220,21 @@ public class ApiClientTest {
   @Test
   void failAfterTooManyRetries() throws IOException {
     Request req = getBasicRequest();
-    runFailingApiClientTest(
-        req,
-        Arrays.asList(
-            getTooManyRequestsResponseWithRetryAfterDateHeader(req),
-            getTooManyRequestsResponse(req),
-            getTooManyRequestsResponse(req),
-            getTooManyRequestsResponse(req),
-            getSuccessResponse(req)),
-        MyEndpointResponse.class,
-        "Request GET /api/my/endpoint failed after 4 retries");
+    DatabricksException exception =
+        runFailingApiClientTest(
+            req,
+            Arrays.asList(
+                getTooManyRequestsResponseWithRetryAfterDateHeader(req),
+                getTooManyRequestsResponse(req),
+                getTooManyRequestsResponse(req),
+                getTooManyRequestsResponse(req),
+                getSuccessResponse(req)),
+            MyEndpointResponse.class,
+            "Request GET /api/my/endpoint failed after 4 retries");
+    assertInstanceOf(DatabricksError.class, exception.getCause());
+    DatabricksError cause = (DatabricksError) exception.getCause();
+    assertEquals(cause.getErrorCode(), "TOO_MANY_REQUESTS");
+    assertEquals(cause.getStatusCode(), 429);
   }
 
   @Test

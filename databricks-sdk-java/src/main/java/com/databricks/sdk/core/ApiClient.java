@@ -247,12 +247,13 @@ public class ApiClient {
       }
       if (attemptNumber == maxAttempts) {
         throw new DatabricksException(
-            String.format("Request %s failed after %d retries", in, maxAttempts), err);
+            String.format("Request %s failed after %d retries", in, maxAttempts), databricksError);
       }
 
       // Retry after a backoff.
       long sleepMillis = getBackoffMillis(out, attemptNumber);
-      LOG.debug(String.format("Retry %s in %dms", in.getRequestLine(), sleepMillis));
+      LOG.debug(
+          String.format("Retry %s in %dms", in.getRequestLine(), sleepMillis), databricksError);
       try {
         timer.sleep(sleepMillis);
       } catch (InterruptedException ex) {
