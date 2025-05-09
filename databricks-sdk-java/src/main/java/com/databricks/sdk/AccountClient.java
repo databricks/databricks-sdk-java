@@ -371,7 +371,14 @@ public class AccountClient {
 
   /**
    * These APIs provide configurations for the network connectivity of your workspaces for
-   * serverless compute resources.
+   * serverless compute resources. This API provides stable subnets for your workspace so that you
+   * can configure your firewalls on your Azure Storage accounts to allow access from Databricks.
+   * You can also use the API to provision private endpoints for Databricks to privately connect
+   * serverless compute resources to your Azure resources using Azure Private Link. See [configure
+   * serverless secure connectivity].
+   *
+   * <p>[configure serverless secure connectivity]:
+   * https://learn.microsoft.com/azure/databricks/security/network/serverless-network-security
    */
   public NetworkConnectivityAPI networkConnectivity() {
     return networkConnectivityAPI;

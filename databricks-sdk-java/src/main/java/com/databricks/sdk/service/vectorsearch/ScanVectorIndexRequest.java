@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Request payload for scanning data from a vector index. */
 @Generated
 public class ScanVectorIndexRequest {
   /** Name of the vector index to scan. */

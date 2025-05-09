@@ -12,7 +12,7 @@ import java.util.Objects;
 public class RunState {
   /**
    * A value indicating the run's current lifecycle state. This field is always available in the
-   * response.
+   * response. Note: Additional states might be introduced in future releases.
    */
   @JsonProperty("life_cycle_state")
   private RunLifeCycleState lifeCycleState;
@@ -23,7 +23,7 @@ public class RunState {
 
   /**
    * A value indicating the run's result. This field is only available for terminal lifecycle
-   * states.
+   * states. Note: Additional states might be introduced in future releases.
    */
   @JsonProperty("result_state")
   private RunResultState resultState;

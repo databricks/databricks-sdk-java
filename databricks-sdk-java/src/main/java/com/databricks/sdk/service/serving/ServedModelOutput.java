@@ -61,8 +61,9 @@ public class ServedModelOutput {
    * concurrency that the compute autoscales between. A single unit of provisioned concurrency can
    * process one request at a time. Valid workload sizes are "Small" (4 - 4 provisioned
    * concurrency), "Medium" (8 - 16 provisioned concurrency), and "Large" (16 - 64 provisioned
-   * concurrency). If scale-to-zero is enabled, the lower bound of the provisioned concurrency for
-   * each workload size is 0.
+   * concurrency). Additional custom workload sizes can also be used when available in the
+   * workspace. If scale-to-zero is enabled, the lower bound of the provisioned concurrency for each
+   * workload size is 0.
    */
   @JsonProperty("workload_size")
   private String workloadSize;

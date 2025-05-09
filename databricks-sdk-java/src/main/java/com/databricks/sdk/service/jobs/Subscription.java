@@ -18,7 +18,7 @@ public class Subscription {
   @JsonProperty("paused")
   private Boolean paused;
 
-  /** */
+  /** The list of subscribers to send the snapshot of the dashboard to. */
   @JsonProperty("subscribers")
   private Collection<SubscriptionSubscriber> subscribers;
 

@@ -23,14 +23,18 @@ public class GetEvents {
   private Collection<EventType> eventTypes;
 
   /**
-   * The maximum number of events to include in a page of events. Defaults to 50, and maximum
+   * Deprecated: use page_token in combination with page_size instead.
+   *
+   * <p>The maximum number of events to include in a page of events. Defaults to 50, and maximum
    * allowed value is 500.
    */
   @JsonProperty("limit")
   private Long limit;
 
   /**
-   * The offset in the result set. Defaults to 0 (no offset). When an offset is specified and the
+   * Deprecated: use page_token in combination with page_size instead.
+   *
+   * <p>The offset in the result set. Defaults to 0 (no offset). When an offset is specified and the
    * results are requested in descending order, the end_time field is required.
    */
   @JsonProperty("offset")
@@ -39,6 +43,22 @@ public class GetEvents {
   /** The order to list events in; either "ASC" or "DESC". Defaults to "DESC". */
   @JsonProperty("order")
   private GetEventsOrder order;
+
+  /**
+   * The maximum number of events to include in a page of events. The server may further constrain
+   * the maximum number of results returned in a single page. If the page_size is empty or 0, the
+   * server will decide the number of results to be returned. The field has to be in the range
+   * [0,500]. If the value is outside the range, the server enforces 0 or 500.
+   */
+  @JsonProperty("page_size")
+  private Long pageSize;
+
+  /**
+   * Use next_page_token or prev_page_token returned from the previous request to list the next or
+   * previous page of events respectively. If page_token is empty, the first page is returned.
+   */
+  @JsonProperty("page_token")
+  private String pageToken;
 
   /**
    * The start time in epoch milliseconds. If empty, returns events starting from the beginning of
@@ -101,6 +121,24 @@ public class GetEvents {
     return order;
   }
 
+  public GetEvents setPageSize(Long pageSize) {
+    this.pageSize = pageSize;
+    return this;
+  }
+
+  public Long getPageSize() {
+    return pageSize;
+  }
+
+  public GetEvents setPageToken(String pageToken) {
+    this.pageToken = pageToken;
+    return this;
+  }
+
+  public String getPageToken() {
+    return pageToken;
+  }
+
   public GetEvents setStartTime(Long startTime) {
     this.startTime = startTime;
     return this;
@@ -121,12 +159,15 @@ public class GetEvents {
         && Objects.equals(limit, that.limit)
         && Objects.equals(offset, that.offset)
         && Objects.equals(order, that.order)
+        && Objects.equals(pageSize, that.pageSize)
+        && Objects.equals(pageToken, that.pageToken)
         && Objects.equals(startTime, that.startTime);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(clusterId, endTime, eventTypes, limit, offset, order, startTime);
+    return Objects.hash(
+        clusterId, endTime, eventTypes, limit, offset, order, pageSize, pageToken, startTime);
   }
 
   @Override
@@ -138,6 +179,8 @@ public class GetEvents {
         .add("limit", limit)
         .add("offset", offset)
         .add("order", order)
+        .add("pageSize", pageSize)
+        .add("pageToken", pageToken)
         .add("startTime", startTime)
         .toString();
   }

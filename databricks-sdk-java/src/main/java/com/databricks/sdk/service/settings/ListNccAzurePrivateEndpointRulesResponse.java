@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/** The private endpoint rule list was successfully retrieved. */
 @Generated
 public class ListNccAzurePrivateEndpointRulesResponse {
   /** */

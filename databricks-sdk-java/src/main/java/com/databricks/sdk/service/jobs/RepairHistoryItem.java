@@ -10,6 +10,18 @@ import java.util.Objects;
 
 @Generated
 public class RepairHistoryItem {
+  /**
+   * The actual performance target used by the serverless run during execution. This can differ from
+   * the client-set performance target on the request depending on whether the performance mode is
+   * supported by the job type.
+   *
+   * <p>* `STANDARD`: Enables cost-efficient execution of serverless workloads. *
+   * `PERFORMANCE_OPTIMIZED`: Prioritizes fast startup and execution times through rapid scaling and
+   * optimized cluster performance.
+   */
+  @JsonProperty("effective_performance_target")
+  private PerformanceTarget effectivePerformanceTarget;
+
   /** The end time of the (repaired) run. */
   @JsonProperty("end_time")
   private Long endTime;
@@ -39,6 +51,16 @@ public class RepairHistoryItem {
   /** The repair history item type. Indicates whether a run is the original run or a repair run. */
   @JsonProperty("type")
   private RepairHistoryItemType typeValue;
+
+  public RepairHistoryItem setEffectivePerformanceTarget(
+      PerformanceTarget effectivePerformanceTarget) {
+    this.effectivePerformanceTarget = effectivePerformanceTarget;
+    return this;
+  }
+
+  public PerformanceTarget getEffectivePerformanceTarget() {
+    return effectivePerformanceTarget;
+  }
 
   public RepairHistoryItem setEndTime(Long endTime) {
     this.endTime = endTime;
@@ -108,7 +130,8 @@ public class RepairHistoryItem {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     RepairHistoryItem that = (RepairHistoryItem) o;
-    return Objects.equals(endTime, that.endTime)
+    return Objects.equals(effectivePerformanceTarget, that.effectivePerformanceTarget)
+        && Objects.equals(endTime, that.endTime)
         && Objects.equals(id, that.id)
         && Objects.equals(startTime, that.startTime)
         && Objects.equals(state, that.state)
@@ -119,12 +142,14 @@ public class RepairHistoryItem {
 
   @Override
   public int hashCode() {
-    return Objects.hash(endTime, id, startTime, state, status, taskRunIds, typeValue);
+    return Objects.hash(
+        effectivePerformanceTarget, endTime, id, startTime, state, status, taskRunIds, typeValue);
   }
 
   @Override
   public String toString() {
     return new ToStringer(RepairHistoryItem.class)
+        .add("effectivePerformanceTarget", effectivePerformanceTarget)
         .add("endTime", endTime)
         .add("id", id)
         .add("startTime", startTime)

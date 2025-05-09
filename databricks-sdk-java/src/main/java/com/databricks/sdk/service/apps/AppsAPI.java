@@ -179,6 +179,10 @@ public class AppsAPI {
     throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
   }
 
+  public Wait<App, App> create(App app) {
+    return create(new CreateAppRequest().setApp(app));
+  }
+
   /**
    * Create an app.
    *
@@ -203,8 +207,9 @@ public class AppsAPI {
     return impl.delete(request);
   }
 
-  public Wait<AppDeployment, AppDeployment> deploy(String appName) {
-    return deploy(new CreateAppDeploymentRequest().setAppName(appName));
+  public Wait<AppDeployment, AppDeployment> deploy(String appName, AppDeployment appDeployment) {
+    return deploy(
+        new CreateAppDeploymentRequest().setAppName(appName).setAppDeployment(appDeployment));
   }
 
   /**
@@ -361,8 +366,8 @@ public class AppsAPI {
         (timeout, callback) -> waitGetAppStopped(response.getName(), timeout, callback), response);
   }
 
-  public App update(String name) {
-    return update(new UpdateAppRequest().setName(name));
+  public App update(String name, App app) {
+    return update(new UpdateAppRequest().setName(name).setApp(app));
   }
 
   /**
