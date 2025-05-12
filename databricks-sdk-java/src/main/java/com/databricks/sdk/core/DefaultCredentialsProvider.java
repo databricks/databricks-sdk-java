@@ -15,10 +15,10 @@ import org.slf4j.LoggerFactory;
 public class DefaultCredentialsProvider implements CredentialsProvider {
   private static final Logger LOG = LoggerFactory.getLogger(DefaultCredentialsProvider.class);
 
-  // List of credential providers that will be tried in sequence
-  private List<CredentialsProvider> providers = new ArrayList<>();
+  /* List of credential providers that will be tried in sequence */
+  private List<CredentialsProvider> providers;
 
-  // The currently selected authentication type
+  /* The currently selected authentication type */
   private String authType = "default";
 
   /**
@@ -143,6 +143,7 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
    * @param config The Databricks configuration to use for provider initialization
    */
   private void addDefaultCredentialsProviders(DatabricksConfig config) {
+    providers = new ArrayList<>();
     providers.add(new PatCredentialsProvider());
     providers.add(new BasicCredentialsProvider());
     providers.add(new OAuthM2MServicePrincipalCredentialsProvider());

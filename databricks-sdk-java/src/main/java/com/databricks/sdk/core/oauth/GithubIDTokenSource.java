@@ -15,14 +15,14 @@ import java.io.IOException;
  * Actions environment.
  */
 public class GithubIDTokenSource implements IDTokenSource {
-  // URL endpoint for requesting ID tokens from GitHub Actions
+  /* URL endpoint for requesting ID tokens from GitHub Actions */
   private final String actionsIDTokenRequestURL;
-  // Authentication token required to request ID tokens from GitHub Actions
+  /* Authentication token required to request ID tokens from GitHub Actions */
   private final String actionsIDTokenRequestToken;
-  // HTTP client for making requests to GitHub Actions
+  /* HTTP client for making requests to GitHub Actions */
   private final HttpClient httpClient;
-  // JSON mapper for parsing response data
-  private final ObjectMapper mapper = new ObjectMapper();
+  /* JSON mapper for parsing response data */
+  private static final ObjectMapper mapper = new ObjectMapper();
 
   /**
    * Constructs a new GithubIDTokenSource.
@@ -100,11 +100,11 @@ public class GithubIDTokenSource implements IDTokenSource {
       throw new DatabricksException("ID token response missing 'value' field");
     }
 
-    String tokenValue = jsonResp.get("value").textValue();
-    if (Strings.isNullOrEmpty(tokenValue)) {
+    try {
+      String tokenValue = jsonResp.get("value").textValue();
+      return new IDToken(tokenValue);
+    } catch (IllegalArgumentException e) {
       throw new DatabricksException("Received empty ID token from GitHub Actions");
     }
-
-    return new IDToken(tokenValue);
   }
 }
