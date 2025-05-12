@@ -56,12 +56,13 @@ public class FileIDTokenSource implements IDTokenSource {
         throw new DatabricksException("File " + filePath + " is empty");
       }
 
-      String token = lines.get(0).trim();
-      if (Strings.isNullOrEmpty(token)) {
-        throw new DatabricksException("File " + filePath + " is empty");
+      try {
+        String token = lines.get(0).trim();
+        return new IDToken(token);
+      } catch (IllegalArgumentException e) {
+        throw new DatabricksException("Received empty ID token from file " + filePath);
       }
 
-      return new IDToken(token);
     } catch (IOException e) {
       throw new DatabricksException(
           "Failed to read ID token from file " + filePath + ": " + e.getMessage(), e);

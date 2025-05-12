@@ -41,10 +41,12 @@ public class EnvVarIDTokenSource implements IDTokenSource {
       throw new IllegalArgumentException("Environment cannot be null");
     }
 
-    String token = env.get(envVarName);
-    if (Strings.isNullOrEmpty(token)) {
-      throw new DatabricksException("Missing environment variable: " + envVarName);
+    try {
+      String token = env.get(envVarName);
+      return new IDToken(token);
+    } catch (IllegalArgumentException e) {
+      throw new DatabricksException(
+          "Received empty ID token from environment variable " + envVarName);
     }
-    return new IDToken(token);
   }
 }
