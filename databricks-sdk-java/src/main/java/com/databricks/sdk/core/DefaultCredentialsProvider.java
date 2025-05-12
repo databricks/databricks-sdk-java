@@ -100,9 +100,9 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
    * @param config The Databricks configuration containing OIDC settings
    */
   private void addOIDCCredentialsProviders(DatabricksConfig config) {
-    // TODO: refactor the code so that the IdTokenSources are created within the 
+    // TODO: refactor the code so that the IdTokenSources are created within the
     // configure call of their corresponding CredentialsProvider. This will allow
-    // us to simplify the code by validating IdTokenSources when they are created. 
+    // us to simplify the code by validating IdTokenSources when they are created.
     OpenIDConnectEndpoints endpoints = null;
     try {
       endpoints = config.getOidcEndpoints();
