@@ -30,6 +30,7 @@ public class EnvVarIDTokenSource implements IDTokenSource {
    * @throws IllegalArgumentException if the environment variable name is null or empty, or the
    *     environment is null.
    * @throws DatabricksException if the environment variable is not set or is empty.
+   * @throws ClassCastException if the environment variable is not valid type.
    */
   @Override
   public IDToken getIDToken(String audience) {
@@ -47,9 +48,9 @@ public class EnvVarIDTokenSource implements IDTokenSource {
     } catch (IllegalArgumentException e) {
       throw new DatabricksException(
           "Received empty ID token from environment variable " + envVarName);
-    } catch (RuntimeException e) {
+    } catch (ClassCastException e) {
       throw new DatabricksException(
-          "Failed to read environment variable " + envVarName + ": " + e.getMessage(), e);
+          "Environment variable " + envVarName + " has invalid type: " + e.getMessage(), e);
     }
   }
 }
