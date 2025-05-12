@@ -4,22 +4,26 @@
 package com.databricks.sdk;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 
 import com.databricks.sdk.core.ConfigResolving;
 import com.databricks.sdk.core.DatabricksConfig;
-import com.databricks.sdk.core.DummyHttpClient;
+import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.utils.GitHubUtils;
 import com.databricks.sdk.core.utils.TestOSUtils;
 import java.io.File;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 public class DatabricksAuthTest implements GitHubUtils, ConfigResolving {
 
   private String errorMessageBase =
       "default auth: cannot configure default credentials, please check https://docs.databricks.com/en/dev-tools/auth.html#databricks-client-unified-authentication to configure credentials for your preferred authentication method";
 
   private DatabricksConfig createConfigWithMockClient() {
-    return new DatabricksConfig().setHttpClient(new DummyHttpClient());
+    return new DatabricksConfig().setHttpClient(mock(HttpClient.class));
   }
 
   public DatabricksAuthTest() {
