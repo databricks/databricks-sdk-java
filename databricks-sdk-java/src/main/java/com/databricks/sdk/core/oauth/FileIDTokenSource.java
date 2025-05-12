@@ -5,6 +5,7 @@ import com.google.common.base.Strings;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -37,7 +38,8 @@ public class FileIDTokenSource implements IDTokenSource {
    * @param audience The intended recipient of the ID Token (not used).
    * @return An {@link IDToken} containing the token value from the file.
    * @throws IllegalArgumentException if the file path is null or empty.
-   * @throws DatabricksException if the file does not exist, is empty, or contains only whitespace.
+   * @throws DatabricksException if the file path is invalid, the file does not exist, is empty, or
+   *     contains only whitespace.
    */
   @Override
   public IDToken getIDToken(String audience) {
@@ -45,27 +47,39 @@ public class FileIDTokenSource implements IDTokenSource {
       throw new IllegalArgumentException("File path cannot be null or empty");
     }
 
+    Path path;
     try {
-      Path path = Paths.get(filePath);
-      if (!Files.exists(path)) {
-        throw new DatabricksException("File " + filePath + " does not exist");
-      }
+      path = Paths.get(filePath);
+    } catch (InvalidPathException e) {
+      throw new DatabricksException("Invalid file path: " + filePath, e);
+    }
 
-      List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
-      if (lines.isEmpty()) {
-        throw new DatabricksException("File " + filePath + " is empty");
-      }
+    if (!Files.exists(path)) {
+      throw new DatabricksException("File " + filePath + " does not exist");
+    }
 
-      try {
-        String token = lines.get(0).trim();
-        return new IDToken(token);
-      } catch (IllegalArgumentException e) {
-        throw new DatabricksException("Received empty ID token from file " + filePath);
-      }
-
+    List<String> lines;
+    try {
+      lines = Files.readAllLines(path, StandardCharsets.UTF_8);
     } catch (IOException e) {
       throw new DatabricksException(
           "Failed to read ID token from file " + filePath + ": " + e.getMessage(), e);
+    }
+
+    if (lines.isEmpty()) {
+      throw new DatabricksException("File " + filePath + " is empty");
+    }
+
+    try {
+      String token;
+      try {
+        token = lines.get(0).trim();
+      } catch (IndexOutOfBoundsException | NullPointerException e) {
+        throw new DatabricksException("Invalid token format in file " + filePath);
+      }
+      return new IDToken(token);
+    } catch (IllegalArgumentException e) {
+      throw new DatabricksException("Received empty ID token from file " + filePath);
     }
   }
 }

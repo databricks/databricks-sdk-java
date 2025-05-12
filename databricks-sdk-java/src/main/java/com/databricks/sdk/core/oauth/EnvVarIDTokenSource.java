@@ -47,6 +47,9 @@ public class EnvVarIDTokenSource implements IDTokenSource {
     } catch (IllegalArgumentException e) {
       throw new DatabricksException(
           "Received empty ID token from environment variable " + envVarName);
+    } catch (RuntimeException e) {
+      throw new DatabricksException(
+          "Failed to read environment variable " + envVarName + ": " + e.getMessage(), e);
     }
   }
 }
