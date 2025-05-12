@@ -6,7 +6,9 @@ import com.google.common.base.Strings;
 
 /** Implementation of {@link IDTokenSource} that reads the ID token from an environment variable. */
 public class EnvVarIDTokenSource implements IDTokenSource {
+  /* The name of the environment variable to read the ID token from. */
   private final String envVarName;
+  /* The environment to read variables from. */
   private final Environment env;
 
   /**

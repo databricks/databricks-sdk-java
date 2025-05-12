@@ -16,6 +16,7 @@ import java.util.List;
  * @see IDTokenSource
  */
 public class FileIDTokenSource implements IDTokenSource {
+  /* The path to the file containing the ID token. */
   private final String filePath;
 
   /**
