@@ -41,6 +41,7 @@ class TokenSourceCredentialsProviderTest {
       assertEquals(expectedAuthHeader, headers.get("Authorization"));
     }
 
+    verify(mockTokenSource, atLeastOnce()).getToken();
     assertEquals(TEST_AUTH_TYPE, provider.authType());
   }
 
