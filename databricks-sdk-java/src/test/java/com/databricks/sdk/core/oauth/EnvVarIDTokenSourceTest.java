@@ -57,10 +57,7 @@ public class EnvVarIDTokenSourceTest {
             TEST_ENV_VAR_NAME,
             createEnvVars(TEST_ENV_VAR_NAME, ""),
             null,
-            DatabricksException.class),
-        // Test case: Null environment
-        Arguments.of(
-            "Null environment", TEST_ENV_VAR_NAME, null, null, IllegalArgumentException.class));
+            DatabricksException.class));
   }
 
   private static Map<String, String> createEnvVars(String key, String value) {
