@@ -1,16 +1,21 @@
 package com.databricks.sdk;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.Mockito.mock;
+
 import com.databricks.sdk.core.ConfigResolving;
 import com.databricks.sdk.core.DatabricksConfig;
-import com.databricks.sdk.core.DummyHttpClient;
+import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.utils.TestOSUtils;
 import java.util.Map;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class DatabricksAuthManualTest implements ConfigResolving {
+
   private DatabricksConfig createConfigWithMockClient() {
-    return new DatabricksConfig().setHttpClient(new DummyHttpClient());
+    HttpClient mockClient = mock(HttpClient.class);
+    return new DatabricksConfig().setHttpClient(mockClient);
   }
 
   @Test
@@ -29,7 +34,7 @@ public class DatabricksAuthManualTest implements ConfigResolving {
             .setAzureWorkspaceResourceId(azureWorkspaceResourceId);
     resolveConfig(config, env);
     Map<String, String> headers = config.authenticate();
-    Assertions.assertEquals(
+    assertEquals(
         azureWorkspaceResourceId, headers.get("X-Databricks-Azure-Workspace-Resource-Id"));
   }
 
@@ -49,7 +54,7 @@ public class DatabricksAuthManualTest implements ConfigResolving {
             .setAzureWorkspaceResourceId(azureWorkspaceResourceId);
     resolveConfig(config, env);
     Map<String, String> headers = config.authenticate();
-    Assertions.assertEquals("...", headers.get("X-Databricks-Azure-SP-Management-Token"));
+    assertEquals("...", headers.get("X-Databricks-Azure-SP-Management-Token"));
   }
 
   @Test
@@ -69,6 +74,6 @@ public class DatabricksAuthManualTest implements ConfigResolving {
             .setAzureWorkspaceResourceId(azureWorkspaceResourceId);
     resolveConfig(config, env);
     Map<String, String> headers = config.authenticate();
-    Assertions.assertNull(headers.get("X-Databricks-Azure-SP-Management-Token"));
+    assertNull(headers.get("X-Databricks-Azure-SP-Management-Token"));
   }
 }
