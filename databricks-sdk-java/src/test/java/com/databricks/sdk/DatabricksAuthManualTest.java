@@ -34,8 +34,7 @@ public class DatabricksAuthManualTest implements ConfigResolving {
             .setAzureWorkspaceResourceId(azureWorkspaceResourceId);
     resolveConfig(config, env);
     Map<String, String> headers = config.authenticate();
-    assertEquals(
-        azureWorkspaceResourceId, headers.get("X-Databricks-Azure-Workspace-Resource-Id"));
+    assertEquals(azureWorkspaceResourceId, headers.get("X-Databricks-Azure-Workspace-Resource-Id"));
   }
 
   @Test
