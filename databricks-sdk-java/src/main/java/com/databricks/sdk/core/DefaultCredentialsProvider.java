@@ -118,7 +118,7 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
             new EnvVarIDTokenSource(
                 // Use configured environment variable name if set, otherwise default to
                 // DATABRICKS_OIDC_TOKEN
-                (Strings.isNullOrEmpty(config.getOidcTokenEnv()))
+                Strings.isNullOrEmpty(config.getOidcTokenEnv())
                     ? "DATABRICKS_OIDC_TOKEN"
                     : config.getOidcTokenEnv(),
                 config.getEnv())));

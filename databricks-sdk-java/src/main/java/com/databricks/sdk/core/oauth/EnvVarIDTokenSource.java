@@ -38,10 +38,6 @@ public class EnvVarIDTokenSource implements IDTokenSource {
       throw new IllegalArgumentException("Environment variable name cannot be null or empty");
     }
 
-    if (env == null) {
-      throw new IllegalArgumentException("Environment cannot be null");
-    }
-
     try {
       String token = env.get(envVarName);
       return new IDToken(token);
