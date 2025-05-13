@@ -41,12 +41,14 @@ public class TokenSourceCredentialsProvider implements CredentialsProvider {
   @Override
   public HeaderFactory configure(DatabricksConfig config) {
     try {
-      // Validate that we can get a token before returning the HeaderFactory
-      String accessToken = tokenSource.getToken().getAccessToken();
+      // Validate that we can get a token before returning a HeaderFactory
+      tokenSource.getToken().getAccessToken();
 
       return () -> {
         Map<String, String> headers = new HashMap<>();
-        headers.put("Authorization", "Bearer " + accessToken);
+        // Some TokenSource implementations cache tokens internally, so an additional getToken()
+        // call is not costly
+        headers.put("Authorization", "Bearer " + tokenSource.getToken().getAccessToken());
         return headers;
       };
     } catch (Exception e) {
