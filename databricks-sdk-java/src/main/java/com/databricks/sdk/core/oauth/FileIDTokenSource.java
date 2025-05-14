@@ -76,13 +76,16 @@ public class FileIDTokenSource implements IDTokenSource {
       throw new DatabricksException("Invalid file path: " + filePath, e);
     }
 
+    boolean isFileExists;
     try {
-      if (!Files.exists(path)) {
-        throw new DatabricksException(String.format(ERROR_FILE_NOT_FOUND, filePath));
-      }
+      isFileExists = Files.exists(path);
     } catch (SecurityException e) {
       throw new DatabricksException(
           String.format(ERROR_SECURITY_CHECK, filePath, e.getMessage()), e);
+    }
+
+    if (!isFileExists) {
+      throw new DatabricksException(String.format(ERROR_FILE_NOT_FOUND, filePath));
     }
 
     List<String> rawLines;

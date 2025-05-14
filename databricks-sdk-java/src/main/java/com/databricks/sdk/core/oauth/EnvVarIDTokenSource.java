@@ -35,6 +35,8 @@ public class EnvVarIDTokenSource implements IDTokenSource {
    * @throws IllegalArgumentException if the environment variable name is null or empty, or the
    *     environment is null.
    * @throws DatabricksException if the environment variable is not set or is empty.
+   * @throws NullPointerException if the environment variable name is null.
+   * @throws ClassCastException if the environment variable name is not a String.
    */
   @Override
   public IDToken getIDToken(String audience) {
