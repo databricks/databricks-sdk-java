@@ -1,12 +1,8 @@
 package com.databricks.sdk.core.oauth;
 
 import com.databricks.sdk.core.DatabricksException;
-import com.databricks.sdk.core.http.FormRequest;
 import com.databricks.sdk.core.http.HttpClient;
-import com.databricks.sdk.core.http.Response;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Strings;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,8 +39,6 @@ public class DatabricksOAuthTokenSource extends RefreshableTokenSource {
   private static final String SUBJECT_TOKEN_TYPE_PARAM = "subject_token_type";
   private static final String SCOPE_PARAM = "scope";
   private static final String CLIENT_ID_PARAM = "client_id";
-
-  private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
   private DatabricksOAuthTokenSource(Builder builder) {
     this.clientId = builder.clientId;
@@ -172,47 +166,22 @@ public class DatabricksOAuthTokenSource extends RefreshableTokenSource {
     params.put(SCOPE_PARAM, SCOPE);
     params.put(CLIENT_ID_PARAM, clientId);
 
-    Response rawResponse;
-    try {
-      rawResponse = httpClient.execute(new FormRequest(endpoints.getTokenEndpoint(), params));
-    } catch (IOException e) {
-      LOG.error(
-          "Failed to exchange ID token for access token at {}: {}",
-          endpoints.getTokenEndpoint(),
-          e.getMessage(),
-          e);
-      throw new DatabricksException(
-          String.format(
-              "Failed to exchange ID token for access token at %s: %s",
-              endpoints.getTokenEndpoint(), e.getMessage()),
-          e);
-    }
-
     OAuthResponse response;
     try {
-      response = OBJECT_MAPPER.readValue(rawResponse.getBody(), OAuthResponse.class);
-    } catch (IOException e) {
+      response =
+          TokenEndpointClient.requestToken(this.httpClient, endpoints.getTokenEndpoint(), params);
+    } catch (DatabricksException e) {
+      // Log specifically for DatabricksOAuthTokenSource context if needed,
+      // or rely on TokenEndpointClient's logging and just rethrow.
       LOG.error(
-          "Failed to parse OAuth response from token endpoint {}: {}",
+          "OAuth token exchange failed for client ID '{}' at {}: {}",
+          this.clientId,
           endpoints.getTokenEndpoint(),
           e.getMessage(),
           e);
-      throw new DatabricksException(
-          String.format(
-              "Failed to parse OAuth response from token endpoint %s: %s",
-              endpoints.getTokenEndpoint(), e.getMessage()));
+      throw e; // Re-throw the exception from TokenEndpointClient
     }
 
-    if (response.getErrorCode() != null) {
-      LOG.error(
-          "Token exchange failed with error: {} - {}",
-          response.getErrorCode(),
-          response.getErrorSummary());
-      throw new IllegalArgumentException(
-          String.format(
-              "Token exchange failed with error: %s - %s",
-              response.getErrorCode(), response.getErrorSummary()));
-    }
     LocalDateTime expiry = LocalDateTime.now().plusSeconds(response.getExpiresIn());
     return new Token(
         response.getAccessToken(), response.getTokenType(), response.getRefreshToken(), expiry);

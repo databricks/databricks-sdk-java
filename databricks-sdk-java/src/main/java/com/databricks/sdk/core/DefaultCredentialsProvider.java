@@ -33,14 +33,6 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
       this.name = name;
       this.idTokenSource = idTokenSource;
     }
-
-    public String getName() {
-      return name;
-    }
-
-    public IDTokenSource getIdTokenSource() {
-      return idTokenSource;
-    }
   }
 
   public DefaultCredentialsProvider() {}
@@ -128,14 +120,13 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
                   config.getClientId(),
                   config.getHost(),
                   endpoints,
-                  namedIdTokenSource.getIdTokenSource(),
+                  namedIdTokenSource.idTokenSource,
                   config.getHttpClient())
               .audience(config.getTokenAudience())
               .accountId(config.isAccountClient() ? config.getAccountId() : null)
               .build();
 
-      providers.add(
-          new TokenSourceCredentialsProvider(oauthTokenSource, namedIdTokenSource.getName()));
+      providers.add(new TokenSourceCredentialsProvider(oauthTokenSource, namedIdTokenSource.name));
     }
   }
 

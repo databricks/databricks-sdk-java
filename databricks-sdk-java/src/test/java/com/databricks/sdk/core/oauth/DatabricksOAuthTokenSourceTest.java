@@ -161,7 +161,7 @@ class DatabricksOAuthTokenSourceTest {
               400,
               errorJson,
               createMockHttpClient(expectedRequest, 400, errorJson),
-              IllegalArgumentException.class),
+              DatabricksException.class),
           new TestCase(
               "Network error during token exchange",
               null,
