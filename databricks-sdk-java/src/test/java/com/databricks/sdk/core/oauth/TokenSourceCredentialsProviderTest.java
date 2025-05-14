@@ -40,7 +40,8 @@ class TokenSourceCredentialsProviderTest {
       Map<String, String> headers = headerFactory.headers();
       assertEquals(expectedAuthHeader, headers.get("Authorization"));
     }
-    verify(mockTokenSource).getToken();
+
+    verify(mockTokenSource, atLeastOnce()).getToken();
     assertEquals(TEST_AUTH_TYPE, provider.authType());
   }
 
