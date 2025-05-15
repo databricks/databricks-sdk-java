@@ -20,46 +20,49 @@ public class FileIDTokenSourceTest {
 
   @TempDir Path tempDir;
 
-  private Path createTestFile(String content) throws IOException {
-    Path file = tempDir.resolve("test-token.txt");
-    Files.write(file, content.getBytes(StandardCharsets.UTF_8));
-    return file;
-  }
-
   private static Stream<Arguments> provideTestCases() {
     return Stream.of(
-        // Test case name, file path (null means create temp file), file content, expected token,
-        // expected exception
-        Arguments.of("Valid token file", null, TEST_TOKEN, TEST_TOKEN, null),
-        Arguments.of("Token with whitespace", null, "  " + TEST_TOKEN + "  ", TEST_TOKEN, null),
-        Arguments.of("Empty file", null, "", null, DatabricksException.class),
-        Arguments.of("File with only whitespace", null, "   ", null, DatabricksException.class),
-        Arguments.of("Null file path", null, null, null, IllegalArgumentException.class),
-        Arguments.of("Empty file path", "", null, null, IllegalArgumentException.class),
+        // Test case name, fileContent, fileToReadFrom, expected token, expected exception
+        Arguments.of("Valid token file", TEST_TOKEN, "token.txt", TEST_TOKEN, null),
         Arguments.of(
-            "Non-existent file",
-            "/path/to/nonexistent/file.txt",
-            null,
-            null,
-            DatabricksException.class));
+            "Token with whitespace", "  " + TEST_TOKEN + "  ", "token.txt", TEST_TOKEN, null),
+        Arguments.of("Empty file", "", "token.txt", null, DatabricksException.class),
+        Arguments.of(
+            "File with only whitespace", "   ", "token.txt", null, DatabricksException.class),
+        Arguments.of("Null file path", TEST_TOKEN, null, null, IllegalArgumentException.class),
+        Arguments.of("Empty file path", TEST_TOKEN, "", null, IllegalArgumentException.class),
+        Arguments.of(
+            "Non-existent file", TEST_TOKEN, "nonexistent.txt", null, DatabricksException.class));
   }
 
   @ParameterizedTest(name = "{0}")
   @MethodSource("provideTestCases")
   void testGetIDToken(
       String testName,
-      String filePath,
       String fileContent,
+      String fileToReadFrom,
       String expectedToken,
       Class<? extends Exception> expectedException)
       throws IOException {
-    // If filePath is null, create a temporary test file
-    String actualFilePath = filePath;
-    if (filePath == null && fileContent != null) {
-      actualFilePath = createTestFile(fileContent).toString();
+    // Always create token.txt with the specified content
+    Path tokenFile = tempDir.resolve("token.txt");
+    Files.write(tokenFile, fileContent.getBytes(StandardCharsets.UTF_8));
+
+    String filePathToRead = null;
+    // If fileToReadFrom is null, we want to simulate passing a null path to FileIDTokenSource (for
+    // error cases).
+    // If fileToReadFrom is an empty string, we want to simulate passing an empty path (also for
+    // error cases).
+    // Otherwise, resolve the file name relative to the temp directory to get the full path.
+    if (fileToReadFrom != null) {
+      if (fileToReadFrom.equals("")) {
+        filePathToRead = "";
+      } else {
+        filePathToRead = tempDir.resolve(fileToReadFrom).toString();
+      }
     }
 
-    FileIDTokenSource source = new FileIDTokenSource(actualFilePath);
+    FileIDTokenSource source = new FileIDTokenSource(filePathToRead);
 
     if (expectedException != null) {
       assertThrows(expectedException, () -> source.getIDToken(TEST_AUDIENCE));
