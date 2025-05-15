@@ -48,7 +48,7 @@ public class FileIDTokenSourceTest {
     Path tokenFile = tempDir.resolve("token.txt");
     Files.write(tokenFile, fileContent.getBytes(StandardCharsets.UTF_8));
 
-    String filePathToRead = null;
+    String testPathToRead = null;
     // If fileToReadFrom is null, we want to simulate passing a null path to FileIDTokenSource (for
     // error cases).
     // If fileToReadFrom is an empty string, we want to simulate passing an empty path (also for
@@ -56,13 +56,13 @@ public class FileIDTokenSourceTest {
     // Otherwise, resolve the file name relative to the temp directory to get the full path.
     if (fileToReadFrom != null) {
       if (fileToReadFrom.equals("")) {
-        filePathToRead = "";
+        testPathToRead = "";
       } else {
-        filePathToRead = tempDir.resolve(fileToReadFrom).toString();
+        testPathToRead = tempDir.resolve(fileToReadFrom).toString();
       }
     }
 
-    FileIDTokenSource source = new FileIDTokenSource(filePathToRead);
+    FileIDTokenSource source = new FileIDTokenSource(testPathToRead);
 
     if (expectedException != null) {
       assertThrows(expectedException, () -> source.getIDToken(TEST_AUDIENCE));
