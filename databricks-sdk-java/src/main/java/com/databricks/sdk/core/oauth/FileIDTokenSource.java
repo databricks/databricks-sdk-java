@@ -20,17 +20,6 @@ import java.util.stream.Collectors;
  * @see IDTokenSource
  */
 public class FileIDTokenSource implements IDTokenSource {
-  private static final String ERROR_FILE_NOT_FOUND = "File %s does not exist";
-  private static final String ERROR_SECURITY_CHECK =
-      "Security permission denied when checking if file %s exists: %s";
-  private static final String ERROR_READ_FAILED = "Failed to read ID token from file %s: %s";
-  private static final String ERROR_SECURITY_READ =
-      "Security permission denied when reading file %s: %s";
-  private static final String ERROR_EMPTY_FILE = "File %s contains only empty lines";
-  private static final String ERROR_MULTIPLE_LINES =
-      "The token should be a single line but the file %s contains %d non-empty lines";
-  private static final String ERROR_EMPTY_TOKEN = "Received empty ID token from file %s";
-
   /* The path to the file containing the ID token. */
   private final String filePath;
 
@@ -81,21 +70,27 @@ public class FileIDTokenSource implements IDTokenSource {
       isFileExists = Files.exists(path);
     } catch (SecurityException e) {
       throw new DatabricksException(
-          String.format(ERROR_SECURITY_CHECK, filePath, e.getMessage()), e);
+          String.format(
+              "Security permission denied when checking if file %s exists: %s",
+              filePath, e.getMessage()),
+          e);
     }
 
     if (!isFileExists) {
-      throw new DatabricksException(String.format(ERROR_FILE_NOT_FOUND, filePath));
+      throw new DatabricksException(String.format("File %s does not exist", filePath));
     }
 
     List<String> rawLines;
     try {
       rawLines = Files.readAllLines(path, StandardCharsets.UTF_8);
     } catch (IOException e) {
-      throw new DatabricksException(String.format(ERROR_READ_FAILED, filePath, e.getMessage()), e);
+      throw new DatabricksException(
+          String.format("Failed to read ID token from file %s: %s", filePath, e.getMessage()), e);
     } catch (SecurityException e) {
       throw new DatabricksException(
-          String.format(ERROR_SECURITY_READ, filePath, e.getMessage()), e);
+          String.format(
+              "Security permission denied when reading file %s: %s", filePath, e.getMessage()),
+          e);
     }
 
     // Filter out empty lines
@@ -106,12 +101,14 @@ public class FileIDTokenSource implements IDTokenSource {
             .collect(Collectors.toList());
 
     if (nonEmptyLines.isEmpty()) {
-      throw new DatabricksException(String.format(ERROR_EMPTY_FILE, filePath));
+      throw new DatabricksException(String.format("File %s contains only empty lines", filePath));
     }
 
     if (nonEmptyLines.size() > 1) {
       throw new DatabricksException(
-          String.format(ERROR_MULTIPLE_LINES, filePath, nonEmptyLines.size()));
+          String.format(
+              "The token should be a single line but the file %s contains %d non-empty lines",
+              filePath, nonEmptyLines.size()));
     }
 
     String token = nonEmptyLines.get(0);
@@ -119,7 +116,8 @@ public class FileIDTokenSource implements IDTokenSource {
     try {
       return new IDToken(token);
     } catch (IllegalArgumentException e) {
-      throw new DatabricksException(String.format(ERROR_EMPTY_TOKEN, filePath));
+      throw new DatabricksException(
+          String.format("Received empty ID token from file %s", filePath));
     }
   }
 }
