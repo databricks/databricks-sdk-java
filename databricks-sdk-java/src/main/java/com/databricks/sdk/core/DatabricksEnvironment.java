@@ -50,6 +50,7 @@ public class DatabricksEnvironment {
           new DatabricksEnvironment(Cloud.AWS, ".dev.databricks.com"),
           new DatabricksEnvironment(Cloud.AWS, ".staging.cloud.databricks.com"),
           new DatabricksEnvironment(Cloud.AWS, ".cloud.databricks.us"),
+          new DatabricksEnvironment(Cloud.AWS, ".cloud.databricks.mil"),
           DEFAULT_ENVIRONMENT,
           new DatabricksEnvironment(
               Cloud.AZURE,
