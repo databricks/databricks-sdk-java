@@ -1,6 +1,7 @@
 package com.databricks.sdk.core.oauth;
 
 import com.databricks.sdk.core.http.HttpClient;
+import com.google.common.base.Strings;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -75,6 +76,12 @@ public class DataPlaneTokenSource {
    * @return The dataplane {@link Token}.
    */
   public Token getToken(String endpoint, String authDetails) {
+    if (Strings.isNullOrEmpty(endpoint)) {
+      throw new IllegalArgumentException("Endpoint must not be null or empty");
+    }
+    if (Strings.isNullOrEmpty(authDetails)) {
+      throw new IllegalArgumentException("AuthDetails must not be null or empty");
+    }
     TokenSourceKey key = new TokenSourceKey(endpoint, authDetails);
 
     EndpointTokenSource specificSource =

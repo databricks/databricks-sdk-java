@@ -5,8 +5,10 @@ import com.databricks.sdk.core.http.FormRequest;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Strings;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,22 +38,18 @@ public final class TokenEndpointClient {
   public static OAuthResponse requestToken(
       HttpClient httpClient, String tokenEndpointUrl, Map<String, String> params)
       throws DatabricksException {
-    if (httpClient == null) {
-      LOG.error("HttpClient cannot be null for requestToken");
-      throw new IllegalArgumentException("HttpClient cannot be null");
-    }
-    if (tokenEndpointUrl == null || tokenEndpointUrl.isEmpty()) {
-      LOG.error("Token endpoint URL cannot be null or empty");
-      throw new IllegalArgumentException("Token endpoint URL cannot be null or empty");
-    }
-    if (params == null) {
-      LOG.error("Request parameters map cannot be null");
-      throw new IllegalArgumentException("Request parameters map cannot be null");
+    Objects.requireNonNull(httpClient, "HttpClient cannot be null");
+    Objects.requireNonNull(params, "Request parameters map cannot be null");
+    Objects.requireNonNull(tokenEndpointUrl, "Token endpoint URL cannot be null");
+    
+    if (tokenEndpointUrl.isEmpty()) {
+      LOG.error("Token endpoint URL cannot be empty");
+      throw new IllegalArgumentException("Token endpoint URL cannot be empty");
     }
 
     Response rawResponse;
     try {
-      LOG.debug("Requesting token from endpoint: {} via static client method", tokenEndpointUrl);
+      LOG.debug("Requesting token from endpoint: {}", tokenEndpointUrl);
       rawResponse = httpClient.execute(new FormRequest(tokenEndpointUrl, params));
     } catch (IOException e) {
       LOG.error("Failed to request token from {}: {}", tokenEndpointUrl, e.getMessage(), e);

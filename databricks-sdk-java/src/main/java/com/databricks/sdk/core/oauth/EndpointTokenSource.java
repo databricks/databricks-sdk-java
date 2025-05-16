@@ -5,6 +5,7 @@ import com.databricks.sdk.core.http.HttpClient;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,44 +30,21 @@ public class EndpointTokenSource extends RefreshableTokenSource {
    * Constructs a new EndpointTokenSource.
    *
    * @param cpTokenSource The {@link DatabricksOAuthTokenSource} used to obtain the control plane
-   *     token. Cannot be null.
-   * @param authDetails The authorization details required for the token exchange. Cannot be null or
-   *     empty.
-   * @param httpClient The {@link HttpClient} used to make the token exchange request. Cannot be
-   *     null.
-   * @throws IllegalArgumentException if any of the parameters are null or invalid.
+   *     token.
+   * @param authDetails The authorization details required for the token exchange.
+   * @param httpClient The {@link HttpClient} used to make the token exchange request.
+   * @throws IllegalArgumentException if authDetails is empty.
+   * @throws NullPointerException if any of the parameters are null.
    */
   public EndpointTokenSource(
       DatabricksOAuthTokenSource cpTokenSource, String authDetails, HttpClient httpClient) {
 
-    validate(cpTokenSource, "ControlPlaneTokenSource");
-    validate(authDetails, "AuthDetails");
-    validate(httpClient, "HttpClient");
-
-    this.cpTokenSource = cpTokenSource;
-    this.authDetails = authDetails;
-    this.httpClient = httpClient;
-  }
-
-  /**
-   * Validates that a given parameter value is not null, and if it's a String, not empty. This is a
-   * helper method used to ensure constructor and method arguments meet preconditions.
-   *
-   * @param value The parameter value to validate.
-   * @param fieldName The name of the parameter, used for logging and error messages.
-   * @throws IllegalArgumentException if the value is null, or if it is a String and is empty.
-   */
-  private static void validate(Object value, String fieldName) {
-    if (value == null) {
-      LOG.error("Required parameter '{}' is null", fieldName);
-      throw new IllegalArgumentException(
-          String.format("Required parameter '%s' cannot be null", fieldName));
+    this.cpTokenSource = Objects.requireNonNull(cpTokenSource, "ControlPlaneTokenSource cannot be null");
+    this.authDetails = Objects.requireNonNull(authDetails, "AuthDetails cannot be null");
+    if (authDetails.isEmpty()) {
+      throw new IllegalArgumentException("AuthDetails cannot be empty");
     }
-    if (value instanceof String && ((String) value).isEmpty()) {
-      LOG.error("Required parameter '{}' is empty", fieldName);
-      throw new IllegalArgumentException(
-          String.format("Required parameter '%s' cannot be empty", fieldName));
-    }
+    this.httpClient = Objects.requireNonNull(httpClient, "HttpClient cannot be null");
   }
 
   /**
@@ -80,6 +58,7 @@ public class EndpointTokenSource extends RefreshableTokenSource {
    * @return A new {@link Token} containing the exchanged dataplane access token, its type, any
    *     accompanying refresh token, and its expiry time.
    * @throws DatabricksException if the token exchange with the OAuth endpoint fails.
+   * @throws IllegalArgumentException if the control pl
    */
   @Override
   protected Token refresh() {
@@ -93,9 +72,9 @@ public class EndpointTokenSource extends RefreshableTokenSource {
     OAuthResponse oauthResponse;
     try {
       oauthResponse = TokenEndpointClient.requestToken(this.httpClient, TOKEN_ENDPOINT, params);
-    } catch (DatabricksException e) {
+    } catch (DatabricksException | IllegalArgumentException e) {
       LOG.error(
-          "Failed to fetch token for endpoint source using {}: {}",
+          "Failed to fetch dataplane token for endpoint source using {}: {}",
           TOKEN_ENDPOINT,
           e.getMessage(),
           e);
