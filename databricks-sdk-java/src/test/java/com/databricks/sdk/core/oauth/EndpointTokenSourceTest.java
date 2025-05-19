@@ -10,13 +10,10 @@ import com.databricks.sdk.core.http.Response;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.mockito.Mockito;
 
 class EndpointTokenSourceTest {
   private static final String TEST_AUTH_DETAILS = "{\"aud\":\"test-audience\"}";
@@ -25,19 +22,28 @@ class EndpointTokenSourceTest {
   private static final String TEST_TOKEN_TYPE = "Bearer";
   private static final String TEST_REFRESH_TOKEN = "refresh-token";
   private static final int TEST_EXPIRES_IN = 3600;
-  private static final String TOKEN_ENDPOINT = "/oidc/v1/token";
 
   private static Stream<Arguments> provideEndpointTokenScenarios() throws Exception {
     // Success response JSON
-    String successJson = "{" +
-        "\"access_token\":\"" + TEST_DP_TOKEN + "\"," +
-        "\"token_type\":\"" + TEST_TOKEN_TYPE + "\"," +
-        "\"expires_in\":" + TEST_EXPIRES_IN + "," +
-        "\"refresh_token\":\"" + TEST_REFRESH_TOKEN + "\"}";
+    String successJson =
+        "{"
+            + "\"access_token\":\""
+            + TEST_DP_TOKEN
+            + "\","
+            + "\"token_type\":\""
+            + TEST_TOKEN_TYPE
+            + "\","
+            + "\"expires_in\":"
+            + TEST_EXPIRES_IN
+            + ","
+            + "\"refresh_token\":\""
+            + TEST_REFRESH_TOKEN
+            + "\"}";
     // Error response JSON
-    String errorJson = "{" +
-        "\"error\":\"invalid_client\"," +
-        "\"error_description\":\"Client authentication failed\"}";
+    String errorJson =
+        "{"
+            + "\"error\":\"invalid_client\","
+            + "\"error_description\":\"Client authentication failed\"}";
     // Malformed JSON
     String malformedJson = "{not valid json}";
 
@@ -48,15 +54,20 @@ class EndpointTokenSourceTest {
 
     // Mock HttpClient for success
     HttpClient mockSuccessClient = mock(HttpClient.class);
-    when(mockSuccessClient.execute(any())).thenReturn(new Response(successJson, 200, "OK", new URL("https://test.databricks.com/")));
+    when(mockSuccessClient.execute(any()))
+        .thenReturn(new Response(successJson, 200, "OK", new URL("https://test.databricks.com/")));
 
     // Mock HttpClient for error response
     HttpClient mockErrorClient = mock(HttpClient.class);
-    when(mockErrorClient.execute(any())).thenReturn(new Response(errorJson, 400, "Bad Request", new URL("https://test.databricks.com/")));
+    when(mockErrorClient.execute(any()))
+        .thenReturn(
+            new Response(errorJson, 400, "Bad Request", new URL("https://test.databricks.com/")));
 
     // Mock HttpClient for malformed JSON
     HttpClient mockMalformedClient = mock(HttpClient.class);
-    when(mockMalformedClient.execute(any())).thenReturn(new Response(malformedJson, 200, "OK", new URL("https://test.databricks.com/")));
+    when(mockMalformedClient.execute(any()))
+        .thenReturn(
+            new Response(malformedJson, 200, "OK", new URL("https://test.databricks.com/")));
 
     // Mock HttpClient for IOException
     HttpClient mockIOExceptionClient = mock(HttpClient.class);
@@ -72,8 +83,7 @@ class EndpointTokenSourceTest {
             TEST_DP_TOKEN,
             TEST_TOKEN_TYPE,
             TEST_REFRESH_TOKEN,
-            TEST_EXPIRES_IN
-        ),
+            TEST_EXPIRES_IN),
         Arguments.of(
             "OAuth error response",
             mockCpTokenSource,
@@ -83,8 +93,7 @@ class EndpointTokenSourceTest {
             null,
             null,
             null,
-            0
-        ),
+            0),
         Arguments.of(
             "Malformed JSON response",
             mockCpTokenSource,
@@ -94,8 +103,7 @@ class EndpointTokenSourceTest {
             null,
             null,
             null,
-            0
-        ),
+            0),
         Arguments.of(
             "IOException from HttpClient",
             mockCpTokenSource,
@@ -105,30 +113,27 @@ class EndpointTokenSourceTest {
             null,
             null,
             null,
-            0
-        ),
+            0),
         Arguments.of(
             "Null cpTokenSource",
             null,
             TEST_AUTH_DETAILS,
             mockSuccessClient,
-            IllegalArgumentException.class,
+            NullPointerException.class,
             null,
             null,
             null,
-            0
-        ),
+            0),
         Arguments.of(
             "Null authDetails",
             mockCpTokenSource,
             null,
             mockSuccessClient,
-            IllegalArgumentException.class,
+            NullPointerException.class,
             null,
             null,
             null,
-            0
-        ),
+            0),
         Arguments.of(
             "Empty authDetails",
             mockCpTokenSource,
@@ -138,20 +143,17 @@ class EndpointTokenSourceTest {
             null,
             null,
             null,
-            0
-        ),
+            0),
         Arguments.of(
             "Null httpClient",
             mockCpTokenSource,
             TEST_AUTH_DETAILS,
             null,
-            IllegalArgumentException.class,
+            NullPointerException.class,
             null,
             null,
             null,
-            0
-        )
-    );
+            0));
   }
 
   @ParameterizedTest(name = "{0}")
@@ -165,13 +167,15 @@ class EndpointTokenSourceTest {
       String expectedAccessToken,
       String expectedTokenType,
       String expectedRefreshToken,
-      int expectedExpiresIn
-  ) {
+      int expectedExpiresIn) {
     if (expectedException != null) {
-      assertThrows(expectedException, () -> {
-        EndpointTokenSource source = new EndpointTokenSource(cpTokenSource, authDetails, httpClient);
-        source.getToken();
-      });
+      assertThrows(
+          expectedException,
+          () -> {
+            EndpointTokenSource source =
+                new EndpointTokenSource(cpTokenSource, authDetails, httpClient);
+            source.getToken();
+          });
     } else {
       EndpointTokenSource source = new EndpointTokenSource(cpTokenSource, authDetails, httpClient);
       Token token = source.getToken();

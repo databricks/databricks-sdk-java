@@ -1,7 +1,6 @@
 package com.databricks.sdk.core.oauth;
 
 import com.databricks.sdk.core.http.HttpClient;
-import com.google.common.base.Strings;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -16,13 +15,17 @@ import java.util.concurrent.ConcurrentHashMap;
 public class DataPlaneTokenSource {
   private final HttpClient httpClient;
   private final DatabricksOAuthTokenSource cpTokenSource;
-  private ConcurrentHashMap<TokenSourceKey, EndpointTokenSource> sourcesCache;
+  private final ConcurrentHashMap<TokenSourceKey, EndpointTokenSource> sourcesCache;
 
-  /** Caching key for {@link EndpointTokenSource}, based on endpoint and authorization details. */
+  /**
+   * Caching key for {@link EndpointTokenSource}, based on endpoint and authorization details. This
+   * is a value object that uniquely identifies a token source configuration.
+   */
   private static final class TokenSourceKey {
     /** The target service endpoint URL. */
     private final String endpoint;
-    /** Specific authorization details (e.g., scope) for the endpoint. */
+
+    /** Specific authorization details for the endpoint. */
     private final String authDetails;
 
     /**
@@ -60,10 +63,12 @@ public class DataPlaneTokenSource {
    *
    * @param httpClient The {@link HttpClient} for token requests.
    * @param cpTokenSource The {@link DatabricksOAuthTokenSource} for control plane tokens.
+   * @throws NullPointerException if either parameter is null
    */
   public DataPlaneTokenSource(HttpClient httpClient, DatabricksOAuthTokenSource cpTokenSource) {
-    this.httpClient = httpClient;
-    this.cpTokenSource = cpTokenSource;
+    this.httpClient = Objects.requireNonNull(httpClient, "HTTP client cannot be null");
+    this.cpTokenSource =
+        Objects.requireNonNull(cpTokenSource, "Control plane token source cannot be null");
     this.sourcesCache = new ConcurrentHashMap<>();
   }
 
@@ -74,13 +79,17 @@ public class DataPlaneTokenSource {
    * @param endpoint The target data plane service endpoint.
    * @param authDetails Authorization details for the endpoint.
    * @return The dataplane {@link Token}.
+   * @throws NullPointerException if either parameter is null
+   * @throws IllegalArgumentException if either parameter is empty
    */
   public Token getToken(String endpoint, String authDetails) {
-    if (Strings.isNullOrEmpty(endpoint)) {
-      throw new IllegalArgumentException("Endpoint must not be null or empty");
+    Objects.requireNonNull(endpoint, "Data plane endpoint URL cannot be null");
+    Objects.requireNonNull(authDetails, "Authorization details cannot be null");
+    if (endpoint.isEmpty()) {
+      throw new IllegalArgumentException("Data plane endpoint URL cannot be empty");
     }
-    if (Strings.isNullOrEmpty(authDetails)) {
-      throw new IllegalArgumentException("AuthDetails must not be null or empty");
+    if (authDetails.isEmpty()) {
+      throw new IllegalArgumentException("Authorization details cannot be empty");
     }
     TokenSourceKey key = new TokenSourceKey(endpoint, authDetails);
 

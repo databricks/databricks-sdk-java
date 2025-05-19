@@ -5,7 +5,6 @@ import com.databricks.sdk.core.http.FormRequest;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.Strings;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
@@ -33,7 +32,8 @@ public final class TokenEndpointClient {
    * @param params A map of parameters to include in the token request.
    * @return An {@link OAuthResponse} containing the token information.
    * @throws DatabricksException if an error occurs during the token request or response parsing.
-   * @throws IllegalArgumentException if any of the required parameters are null or empty.
+   * @throws IllegalArgumentException if the token endpoint URL is empty.
+   * @throws NullPointerException if any of the parameters are null.
    */
   public static OAuthResponse requestToken(
       HttpClient httpClient, String tokenEndpointUrl, Map<String, String> params)
@@ -41,9 +41,8 @@ public final class TokenEndpointClient {
     Objects.requireNonNull(httpClient, "HttpClient cannot be null");
     Objects.requireNonNull(params, "Request parameters map cannot be null");
     Objects.requireNonNull(tokenEndpointUrl, "Token endpoint URL cannot be null");
-    
+
     if (tokenEndpointUrl.isEmpty()) {
-      LOG.error("Token endpoint URL cannot be empty");
       throw new IllegalArgumentException("Token endpoint URL cannot be empty");
     }
 

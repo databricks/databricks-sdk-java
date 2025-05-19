@@ -23,15 +23,17 @@ class TokenEndpointClientTest {
 
   private static Stream<Arguments> provideTokenScenarios() throws Exception {
     // Success response JSON
-    String successJson = "{" +
-        "\"access_token\":\"test-access-token\"," +
-        "\"token_type\":\"Bearer\"," +
-        "\"expires_in\":3600," +
-        "\"refresh_token\":\"test-refresh-token\"}";
+    String successJson =
+        "{"
+            + "\"access_token\":\"test-access-token\","
+            + "\"token_type\":\"Bearer\","
+            + "\"expires_in\":3600,"
+            + "\"refresh_token\":\"test-refresh-token\"}";
     // Error response JSON
-    String errorJson = "{" +
-        "\"error\":\"invalid_client\"," +
-        "\"error_description\":\"Client authentication failed\"}";
+    String errorJson =
+        "{"
+            + "\"error\":\"invalid_client\","
+            + "\"error_description\":\"Client authentication failed\"}";
     // Malformed JSON
     String malformedJson = "{not valid json}";
 
@@ -43,12 +45,14 @@ class TokenEndpointClientTest {
     // Mock HttpClient for error response
     HttpClient mockErrorClient = mock(HttpClient.class);
     when(mockErrorClient.execute(any(FormRequest.class)))
-        .thenReturn(new Response(errorJson, 400, "Bad Request", new URL("https://test.databricks.com/")));
+        .thenReturn(
+            new Response(errorJson, 400, "Bad Request", new URL("https://test.databricks.com/")));
 
     // Mock HttpClient for malformed JSON
     HttpClient mockMalformedClient = mock(HttpClient.class);
     when(mockMalformedClient.execute(any(FormRequest.class)))
-        .thenReturn(new Response(malformedJson, 200, "OK", new URL("https://test.databricks.com/")));
+        .thenReturn(
+            new Response(malformedJson, 200, "OK", new URL("https://test.databricks.com/")));
 
     // Mock HttpClient for IOException
     HttpClient mockIOExceptionClient = mock(HttpClient.class);
@@ -65,8 +69,7 @@ class TokenEndpointClientTest {
             "test-access-token",
             "Bearer",
             3600,
-            "test-refresh-token"
-        ),
+            "test-refresh-token"),
         Arguments.of(
             "OAuth error response",
             mockErrorClient,
@@ -76,8 +79,7 @@ class TokenEndpointClientTest {
             null,
             null,
             0,
-            null
-        ),
+            null),
         Arguments.of(
             "Malformed JSON response",
             mockMalformedClient,
@@ -87,8 +89,7 @@ class TokenEndpointClientTest {
             null,
             null,
             0,
-            null
-        ),
+            null),
         Arguments.of(
             "IOException from HttpClient",
             mockIOExceptionClient,
@@ -98,30 +99,27 @@ class TokenEndpointClientTest {
             null,
             null,
             0,
-            null
-        ),
+            null),
         Arguments.of(
             "Null HttpClient",
             null,
             TOKEN_ENDPOINT_URL,
             PARAMS,
-            IllegalArgumentException.class,
+            NullPointerException.class,
             null,
             null,
             0,
-            null
-        ),
+            null),
         Arguments.of(
             "Null tokenEndpointUrl",
             mockSuccessClient,
             null,
             PARAMS,
-            IllegalArgumentException.class,
+            NullPointerException.class,
             null,
             null,
             0,
-            null
-        ),
+            null),
         Arguments.of(
             "Empty tokenEndpointUrl",
             mockSuccessClient,
@@ -131,20 +129,17 @@ class TokenEndpointClientTest {
             null,
             null,
             0,
-            null
-        ),
+            null),
         Arguments.of(
             "Null params",
             mockSuccessClient,
             TOKEN_ENDPOINT_URL,
             null,
-            IllegalArgumentException.class,
+            NullPointerException.class,
             null,
             null,
             0,
-            null
-        )
-    );
+            null));
   }
 
   @ParameterizedTest(name = "{0}")
@@ -158,13 +153,14 @@ class TokenEndpointClientTest {
       String expectedAccessToken,
       String expectedTokenType,
       int expectedExpiresIn,
-      String expectedRefreshToken
-  ) {
+      String expectedRefreshToken) {
     if (expectedException != null) {
-      assertThrows(expectedException, () ->
-          TokenEndpointClient.requestToken(httpClient, tokenEndpointUrl, params));
+      assertThrows(
+          expectedException,
+          () -> TokenEndpointClient.requestToken(httpClient, tokenEndpointUrl, params));
     } else {
-      OAuthResponse response = TokenEndpointClient.requestToken(httpClient, tokenEndpointUrl, params);
+      OAuthResponse response =
+          TokenEndpointClient.requestToken(httpClient, tokenEndpointUrl, params);
       assertNotNull(response);
       assertEquals(expectedAccessToken, response.getAccessToken());
       assertEquals(expectedTokenType, response.getTokenType());

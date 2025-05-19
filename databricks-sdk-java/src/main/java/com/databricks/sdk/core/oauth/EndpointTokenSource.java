@@ -38,27 +38,28 @@ public class EndpointTokenSource extends RefreshableTokenSource {
    */
   public EndpointTokenSource(
       DatabricksOAuthTokenSource cpTokenSource, String authDetails, HttpClient httpClient) {
-
-    this.cpTokenSource = Objects.requireNonNull(cpTokenSource, "ControlPlaneTokenSource cannot be null");
-    this.authDetails = Objects.requireNonNull(authDetails, "AuthDetails cannot be null");
+    this.cpTokenSource =
+        Objects.requireNonNull(cpTokenSource, "Control plane token source cannot be null");
+    this.authDetails = Objects.requireNonNull(authDetails, "Authorization details cannot be null");
     if (authDetails.isEmpty()) {
-      throw new IllegalArgumentException("AuthDetails cannot be empty");
+      throw new IllegalArgumentException("Authorization details cannot be empty");
     }
-    this.httpClient = Objects.requireNonNull(httpClient, "HttpClient cannot be null");
+    this.httpClient = Objects.requireNonNull(httpClient, "HTTP client cannot be null");
   }
 
   /**
    * Fetches an endpoint-specific dataplane token by exchanging a control plane token.
    *
    * <p>This method first obtains a control plane token from the configured {@code cpTokenSource}.
-   * It then uses this token (as an assertion) along with the provided {@code authDetails} to
-   * request a new, more scoped dataplane token from the Databricks OAuth token endpoint ({@value
+   * It then uses this token as an assertion along with the provided {@code authDetails} to request
+   * a new, more scoped dataplane token from the Databricks OAuth token endpoint ({@value
    * #TOKEN_ENDPOINT}).
    *
    * @return A new {@link Token} containing the exchanged dataplane access token, its type, any
    *     accompanying refresh token, and its expiry time.
    * @throws DatabricksException if the token exchange with the OAuth endpoint fails.
-   * @throws IllegalArgumentException if the control pl
+   * @throws IllegalArgumentException if the token endpoint url is empty.
+   * @throws NullPointerException if any of the parameters are null.
    */
   @Override
   protected Token refresh() {
@@ -72,9 +73,9 @@ public class EndpointTokenSource extends RefreshableTokenSource {
     OAuthResponse oauthResponse;
     try {
       oauthResponse = TokenEndpointClient.requestToken(this.httpClient, TOKEN_ENDPOINT, params);
-    } catch (DatabricksException | IllegalArgumentException e) {
+    } catch (DatabricksException | IllegalArgumentException | NullPointerException e) {
       LOG.error(
-          "Failed to fetch dataplane token for endpoint source using {}: {}",
+          "Failed to exchange control plane token for dataplane token at endpoint {}: {}",
           TOKEN_ENDPOINT,
           e.getMessage(),
           e);

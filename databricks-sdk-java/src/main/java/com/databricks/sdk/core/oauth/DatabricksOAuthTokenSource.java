@@ -6,6 +6,7 @@ import com.google.common.base.Strings;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -118,43 +119,28 @@ public class DatabricksOAuthTokenSource extends RefreshableTokenSource {
   }
 
   /**
-   * Validates that a value is non-null for required fields. If the value is a string, it also
-   * checks that it is non-empty.
-   *
-   * @param value The value to validate.
-   * @param fieldName The name of the field being validated.
-   * @throws IllegalArgumentException when the value is null or an empty string.
-   */
-  private static void validate(Object value, String fieldName) {
-    if (value == null) {
-      LOG.error("Required parameter '{}' is null", fieldName);
-      throw new IllegalArgumentException(
-          String.format("Required parameter '%s' cannot be null", fieldName));
-    }
-    if (value instanceof String && ((String) value).isEmpty()) {
-      LOG.error("Required parameter '{}' is empty", fieldName);
-      throw new IllegalArgumentException(
-          String.format("Required parameter '%s' cannot be empty", fieldName));
-    }
-  }
-
-  /**
    * Retrieves an OAuth token by exchanging an ID token. Implements the OAuth token exchange flow to
    * obtain an access token.
    *
    * @return A Token containing the access token and related information.
    * @throws DatabricksException when the token exchange fails.
-   * @throws IllegalArgumentException when there is an error code in the response or when required
-   *     parameters are missing.
+   * @throws IllegalArgumentException when the required string parameters are empty.
+   * @throws NullPointerException when any of the required parameters are null.
    */
   @Override
   public Token refresh() {
-    // Validate all required parameters
-    validate(clientId, "ClientID");
-    validate(host, "Host");
-    validate(endpoints, "Endpoints");
-    validate(idTokenSource, "IDTokenSource");
-    validate(httpClient, "HttpClient");
+    Objects.requireNonNull(clientId, "ClientID cannot be null");
+    Objects.requireNonNull(host, "Host cannot be null");
+    Objects.requireNonNull(endpoints, "Endpoints cannot be null");
+    Objects.requireNonNull(idTokenSource, "IDTokenSource cannot be null");
+    Objects.requireNonNull(httpClient, "HttpClient cannot be null");
+
+    if (clientId.isEmpty()) {
+      throw new IllegalArgumentException("ClientID cannot be empty");
+    }
+    if (host.isEmpty()) {
+      throw new IllegalArgumentException("Host cannot be empty");
+    }
 
     String effectiveAudience = determineAudience();
     IDToken idToken = idTokenSource.getIDToken(effectiveAudience);
@@ -171,15 +157,13 @@ public class DatabricksOAuthTokenSource extends RefreshableTokenSource {
       response =
           TokenEndpointClient.requestToken(this.httpClient, endpoints.getTokenEndpoint(), params);
     } catch (DatabricksException e) {
-      // Log specifically for DatabricksOAuthTokenSource context if needed,
-      // or rely on TokenEndpointClient's logging and just rethrow.
       LOG.error(
           "OAuth token exchange failed for client ID '{}' at {}: {}",
           this.clientId,
           endpoints.getTokenEndpoint(),
           e.getMessage(),
           e);
-      throw e; // Re-throw the exception from TokenEndpointClient
+      throw e;
     }
 
     LocalDateTime expiry = LocalDateTime.now().plusSeconds(response.getExpiresIn());
