@@ -15,10 +15,11 @@ public class SystemSchemaInfo {
 
   /**
    * The current state of enablement for the system schema. An empty string means the system schema
-   * is available and ready for opt-in.
+   * is available and ready for opt-in. Possible values: AVAILABLE | ENABLE_INITIALIZED |
+   * ENABLE_COMPLETED | DISABLE_INITIALIZED | UNAVAILABLE
    */
   @JsonProperty("state")
-  private SystemSchemaInfoState state;
+  private String state;
 
   public SystemSchemaInfo setSchema(String schema) {
     this.schema = schema;
@@ -29,12 +30,12 @@ public class SystemSchemaInfo {
     return schema;
   }
 
-  public SystemSchemaInfo setState(SystemSchemaInfoState state) {
+  public SystemSchemaInfo setState(String state) {
     this.state = state;
     return this;
   }
 
-  public SystemSchemaInfoState getState() {
+  public String getState() {
     return state;
   }
 

@@ -8,14 +8,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/** Currently assigned workspaces */
 @Generated
-public class CurrentWorkspaceBindings {
-  /** A list of workspace IDs. */
+public class GetCatalogWorkspaceBindingsResponse {
+  /** A list of workspace IDs */
   @JsonProperty("workspaces")
   private Collection<Long> workspaces;
 
-  public CurrentWorkspaceBindings setWorkspaces(Collection<Long> workspaces) {
+  public GetCatalogWorkspaceBindingsResponse setWorkspaces(Collection<Long> workspaces) {
     this.workspaces = workspaces;
     return this;
   }
@@ -28,7 +27,7 @@ public class CurrentWorkspaceBindings {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    CurrentWorkspaceBindings that = (CurrentWorkspaceBindings) o;
+    GetCatalogWorkspaceBindingsResponse that = (GetCatalogWorkspaceBindingsResponse) o;
     return Objects.equals(workspaces, that.workspaces);
   }
 
@@ -39,6 +38,8 @@ public class CurrentWorkspaceBindings {
 
   @Override
   public String toString() {
-    return new ToStringer(CurrentWorkspaceBindings.class).add("workspaces", workspaces).toString();
+    return new ToStringer(GetCatalogWorkspaceBindingsResponse.class)
+        .add("workspaces", workspaces)
+        .toString();
   }
 }

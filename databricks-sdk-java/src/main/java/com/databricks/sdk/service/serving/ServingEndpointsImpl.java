@@ -47,6 +47,21 @@ class ServingEndpointsImpl implements ServingEndpointsService {
   }
 
   @Override
+  public ServingEndpointDetailed createProvisionedThroughputEndpoint(
+      CreatePtEndpointRequest request) {
+    String path = "/api/2.0/serving-endpoints/pt";
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, ServingEndpointDetailed.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public void delete(DeleteServingEndpointRequest request) {
     String path = String.format("/api/2.0/serving-endpoints/%s", request.getName());
     try {
@@ -265,6 +280,21 @@ class ServingEndpointsImpl implements ServingEndpointsService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, ServingEndpointPermissions.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public ServingEndpointDetailed updateProvisionedThroughputEndpointConfig(
+      UpdateProvisionedThroughputEndpointConfigRequest request) {
+    String path = String.format("/api/2.0/serving-endpoints/pt/%s/config", request.getName());
+    try {
+      Request req = new Request("PUT", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, ServingEndpointDetailed.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

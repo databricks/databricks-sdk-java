@@ -48,6 +48,10 @@ public class ServedModelInput {
   @JsonProperty("name")
   private String name;
 
+  /** The number of model units provisioned. */
+  @JsonProperty("provisioned_model_units")
+  private Long provisionedModelUnits;
+
   /** Whether the compute resources for the served entity should scale down to zero. */
   @JsonProperty("scale_to_zero_enabled")
   private Boolean scaleToZeroEnabled;
@@ -139,6 +143,15 @@ public class ServedModelInput {
     return name;
   }
 
+  public ServedModelInput setProvisionedModelUnits(Long provisionedModelUnits) {
+    this.provisionedModelUnits = provisionedModelUnits;
+    return this;
+  }
+
+  public Long getProvisionedModelUnits() {
+    return provisionedModelUnits;
+  }
+
   public ServedModelInput setScaleToZeroEnabled(Boolean scaleToZeroEnabled) {
     this.scaleToZeroEnabled = scaleToZeroEnabled;
     return this;
@@ -178,6 +191,7 @@ public class ServedModelInput {
         && Objects.equals(modelName, that.modelName)
         && Objects.equals(modelVersion, that.modelVersion)
         && Objects.equals(name, that.name)
+        && Objects.equals(provisionedModelUnits, that.provisionedModelUnits)
         && Objects.equals(scaleToZeroEnabled, that.scaleToZeroEnabled)
         && Objects.equals(workloadSize, that.workloadSize)
         && Objects.equals(workloadType, that.workloadType);
@@ -193,6 +207,7 @@ public class ServedModelInput {
         modelName,
         modelVersion,
         name,
+        provisionedModelUnits,
         scaleToZeroEnabled,
         workloadSize,
         workloadType);
@@ -208,6 +223,7 @@ public class ServedModelInput {
         .add("modelName", modelName)
         .add("modelVersion", modelVersion)
         .add("name", name)
+        .add("provisionedModelUnits", provisionedModelUnits)
         .add("scaleToZeroEnabled", scaleToZeroEnabled)
         .add("workloadSize", workloadSize)
         .add("workloadType", workloadType)

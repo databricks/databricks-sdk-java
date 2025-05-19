@@ -31,6 +31,10 @@ public interface ServingEndpointsService {
   /** Create a new serving endpoint. */
   ServingEndpointDetailed create(CreateServingEndpoint createServingEndpoint);
 
+  /** Create a new PT serving endpoint. */
+  ServingEndpointDetailed createProvisionedThroughputEndpoint(
+      CreatePtEndpointRequest createPtEndpointRequest);
+
   /** Delete a serving endpoint. */
   void delete(DeleteServingEndpointRequest deleteServingEndpointRequest);
 
@@ -140,4 +144,15 @@ public interface ServingEndpointsService {
    */
   ServingEndpointPermissions updatePermissions(
       ServingEndpointPermissionsRequest servingEndpointPermissionsRequest);
+
+  /**
+   * Update config of a PT serving endpoint.
+   *
+   * <p>Updates any combination of the pt endpoint's served entities, the compute configuration of
+   * those served entities, and the endpoint's traffic config. Updates are instantaneous and
+   * endpoint should be updated instantly
+   */
+  ServingEndpointDetailed updateProvisionedThroughputEndpointConfig(
+      UpdateProvisionedThroughputEndpointConfigRequest
+          updateProvisionedThroughputEndpointConfigRequest);
 }

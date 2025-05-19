@@ -1,18 +1,13 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 
-package com.databricks.sdk.service.compute;
+package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/**
- * For Fleet-V2 using classic clusters, this object contains the information about the alternate
- * node type ids to use when attempting to launch a cluster. It can be used with both the driver and
- * worker node types.
- */
 @Generated
-public class NodeTypeFlexibility {
+public class DeleteSyncedDatabaseTableResponse {
 
   @Override
   public boolean equals(Object o) {
@@ -28,6 +23,6 @@ public class NodeTypeFlexibility {
 
   @Override
   public String toString() {
-    return new ToStringer(NodeTypeFlexibility.class).toString();
+    return new ToStringer(DeleteSyncedDatabaseTableResponse.class).toString();
   }
 }

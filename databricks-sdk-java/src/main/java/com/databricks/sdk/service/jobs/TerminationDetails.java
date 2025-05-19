@@ -11,7 +11,8 @@ import java.util.Objects;
 public class TerminationDetails {
   /**
    * The code indicates why the run was terminated. Additional codes might be introduced in future
-   * releases. * `SUCCESS`: The run was completed successfully. * `USER_CANCELED`: The run was
+   * releases. * `SUCCESS`: The run was completed successfully. * `SUCCESS_WITH_FAILURES`: The run
+   * was completed successfully but some child runs failed. * `USER_CANCELED`: The run was
    * successfully canceled during execution by a user. * `CANCELED`: The run was canceled during
    * execution by the Databricks platform; for example, if the maximum run duration was exceeded. *
    * `SKIPPED`: Run was never executed, for example, if the upstream task run failed, the dependency

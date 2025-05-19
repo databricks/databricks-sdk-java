@@ -11,19 +11,22 @@ import java.util.Objects;
 
 @Generated
 public class UpdateWorkspaceBindingsParameters {
-  /** List of workspace bindings */
+  /** List of workspace bindings. */
   @JsonProperty("add")
   private Collection<WorkspaceBinding> add;
 
-  /** List of workspace bindings */
+  /** List of workspace bindings. */
   @JsonProperty("remove")
   private Collection<WorkspaceBinding> remove;
 
   /** The name of the securable. */
   @JsonIgnore private String securableName;
 
-  /** The type of the securable to bind to a workspace. */
-  @JsonIgnore private UpdateBindingsSecurableType securableType;
+  /**
+   * The type of the securable to bind to a workspace (catalog, storage_credential, credential, or
+   * external_location).
+   */
+  @JsonIgnore private String securableType;
 
   public UpdateWorkspaceBindingsParameters setAdd(Collection<WorkspaceBinding> add) {
     this.add = add;
@@ -52,13 +55,12 @@ public class UpdateWorkspaceBindingsParameters {
     return securableName;
   }
 
-  public UpdateWorkspaceBindingsParameters setSecurableType(
-      UpdateBindingsSecurableType securableType) {
+  public UpdateWorkspaceBindingsParameters setSecurableType(String securableType) {
     this.securableType = securableType;
     return this;
   }
 
-  public UpdateBindingsSecurableType getSecurableType() {
+  public String getSecurableType() {
     return securableType;
   }
 
