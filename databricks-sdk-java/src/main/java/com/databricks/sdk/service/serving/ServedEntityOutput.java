@@ -80,6 +80,10 @@ public class ServedEntityOutput {
   @JsonProperty("name")
   private String name;
 
+  /** The number of model units provisioned. */
+  @JsonProperty("provisioned_model_units")
+  private Long provisionedModelUnits;
+
   /** Whether the compute resources for the served entity should scale down to zero. */
   @JsonProperty("scale_to_zero_enabled")
   private Boolean scaleToZeroEnabled;
@@ -211,6 +215,15 @@ public class ServedEntityOutput {
     return name;
   }
 
+  public ServedEntityOutput setProvisionedModelUnits(Long provisionedModelUnits) {
+    this.provisionedModelUnits = provisionedModelUnits;
+    return this;
+  }
+
+  public Long getProvisionedModelUnits() {
+    return provisionedModelUnits;
+  }
+
   public ServedEntityOutput setScaleToZeroEnabled(Boolean scaleToZeroEnabled) {
     this.scaleToZeroEnabled = scaleToZeroEnabled;
     return this;
@@ -263,6 +276,7 @@ public class ServedEntityOutput {
         && Objects.equals(maxProvisionedThroughput, that.maxProvisionedThroughput)
         && Objects.equals(minProvisionedThroughput, that.minProvisionedThroughput)
         && Objects.equals(name, that.name)
+        && Objects.equals(provisionedModelUnits, that.provisionedModelUnits)
         && Objects.equals(scaleToZeroEnabled, that.scaleToZeroEnabled)
         && Objects.equals(state, that.state)
         && Objects.equals(workloadSize, that.workloadSize)
@@ -283,6 +297,7 @@ public class ServedEntityOutput {
         maxProvisionedThroughput,
         minProvisionedThroughput,
         name,
+        provisionedModelUnits,
         scaleToZeroEnabled,
         state,
         workloadSize,
@@ -303,6 +318,7 @@ public class ServedEntityOutput {
         .add("maxProvisionedThroughput", maxProvisionedThroughput)
         .add("minProvisionedThroughput", minProvisionedThroughput)
         .add("name", name)
+        .add("provisionedModelUnits", provisionedModelUnits)
         .add("scaleToZeroEnabled", scaleToZeroEnabled)
         .add("state", state)
         .add("workloadSize", workloadSize)

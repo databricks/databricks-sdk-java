@@ -9,11 +9,11 @@ import java.util.Objects;
 
 @Generated
 public class WorkspaceBinding {
-  /** */
+  /** One of READ_WRITE/READ_ONLY. Default is READ_WRITE. */
   @JsonProperty("binding_type")
   private WorkspaceBindingBindingType bindingType;
 
-  /** */
+  /** Required */
   @JsonProperty("workspace_id")
   private Long workspaceId;
 

@@ -19,7 +19,8 @@ import com.databricks.sdk.support.Generated;
  * Please use the new path (/api/2.1/unity-catalog/bindings/{securable_type}/{securable_name}) which
  * introduces the ability to bind a securable in READ_ONLY mode (catalogs only).
  *
- * <p>Securable types that support binding: - catalog - storage_credential - external_location
+ * <p>Securable types that support binding: - catalog - storage_credential - credential -
+ * external_location
  *
  * <p>This is the high-level interface, that contains generated methods.
  *
@@ -33,7 +34,7 @@ public interface WorkspaceBindingsService {
    * <p>Gets workspace bindings of the catalog. The caller must be a metastore admin or an owner of
    * the catalog.
    */
-  CurrentWorkspaceBindings get(GetWorkspaceBindingRequest getWorkspaceBindingRequest);
+  GetCatalogWorkspaceBindingsResponse get(GetWorkspaceBindingRequest getWorkspaceBindingRequest);
 
   /**
    * Get securable workspace bindings.
@@ -41,7 +42,7 @@ public interface WorkspaceBindingsService {
    * <p>Gets workspace bindings of the securable. The caller must be a metastore admin or an owner
    * of the securable.
    */
-  WorkspaceBindingsResponse getBindings(GetBindingsRequest getBindingsRequest);
+  GetWorkspaceBindingsResponse getBindings(GetBindingsRequest getBindingsRequest);
 
   /**
    * Update catalog workspace bindings.
@@ -49,7 +50,7 @@ public interface WorkspaceBindingsService {
    * <p>Updates workspace bindings of the catalog. The caller must be a metastore admin or an owner
    * of the catalog.
    */
-  CurrentWorkspaceBindings update(UpdateWorkspaceBindings updateWorkspaceBindings);
+  UpdateCatalogWorkspaceBindingsResponse update(UpdateWorkspaceBindings updateWorkspaceBindings);
 
   /**
    * Update securable workspace bindings.
@@ -57,6 +58,6 @@ public interface WorkspaceBindingsService {
    * <p>Updates workspace bindings of the securable. The caller must be a metastore admin or an
    * owner of the securable.
    */
-  WorkspaceBindingsResponse updateBindings(
+  UpdateWorkspaceBindingsResponse updateBindings(
       UpdateWorkspaceBindingsParameters updateWorkspaceBindingsParameters);
 }

@@ -118,6 +118,22 @@ public class ServingEndpointsAPI {
         response);
   }
 
+  public Wait<ServingEndpointDetailed, ServingEndpointDetailed> createProvisionedThroughputEndpoint(
+      String name, PtEndpointCoreConfig config) {
+    return createProvisionedThroughputEndpoint(
+        new CreatePtEndpointRequest().setName(name).setConfig(config));
+  }
+
+  /** Create a new PT serving endpoint. */
+  public Wait<ServingEndpointDetailed, ServingEndpointDetailed> createProvisionedThroughputEndpoint(
+      CreatePtEndpointRequest request) {
+    ServingEndpointDetailed response = impl.createProvisionedThroughputEndpoint(request);
+    return new Wait<>(
+        (timeout, callback) ->
+            waitGetServingEndpointNotUpdating(response.getName(), timeout, callback),
+        response);
+  }
+
   public void delete(String name) {
     delete(new DeleteServingEndpointRequest().setName(name));
   }
@@ -330,6 +346,29 @@ public class ServingEndpointsAPI {
    */
   public ServingEndpointPermissions updatePermissions(ServingEndpointPermissionsRequest request) {
     return impl.updatePermissions(request);
+  }
+
+  public Wait<ServingEndpointDetailed, ServingEndpointDetailed>
+      updateProvisionedThroughputEndpointConfig(String name, PtEndpointCoreConfig config) {
+    return updateProvisionedThroughputEndpointConfig(
+        new UpdateProvisionedThroughputEndpointConfigRequest().setName(name).setConfig(config));
+  }
+
+  /**
+   * Update config of a PT serving endpoint.
+   *
+   * <p>Updates any combination of the pt endpoint's served entities, the compute configuration of
+   * those served entities, and the endpoint's traffic config. Updates are instantaneous and
+   * endpoint should be updated instantly
+   */
+  public Wait<ServingEndpointDetailed, ServingEndpointDetailed>
+      updateProvisionedThroughputEndpointConfig(
+          UpdateProvisionedThroughputEndpointConfigRequest request) {
+    ServingEndpointDetailed response = impl.updateProvisionedThroughputEndpointConfig(request);
+    return new Wait<>(
+        (timeout, callback) ->
+            waitGetServingEndpointNotUpdating(response.getName(), timeout, callback),
+        response);
   }
 
   public ServingEndpointsService impl() {

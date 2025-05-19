@@ -30,8 +30,11 @@ public class GetBindingsRequest {
   /** The name of the securable. */
   @JsonIgnore private String securableName;
 
-  /** The type of the securable to bind to a workspace. */
-  @JsonIgnore private GetBindingsSecurableType securableType;
+  /**
+   * The type of the securable to bind to a workspace (catalog, storage_credential, credential, or
+   * external_location).
+   */
+  @JsonIgnore private String securableType;
 
   public GetBindingsRequest setMaxResults(Long maxResults) {
     this.maxResults = maxResults;
@@ -60,12 +63,12 @@ public class GetBindingsRequest {
     return securableName;
   }
 
-  public GetBindingsRequest setSecurableType(GetBindingsSecurableType securableType) {
+  public GetBindingsRequest setSecurableType(String securableType) {
     this.securableType = securableType;
     return this;
   }
 
-  public GetBindingsSecurableType getSecurableType() {
+  public String getSecurableType() {
     return securableType;
   }
 
