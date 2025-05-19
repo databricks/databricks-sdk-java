@@ -21,6 +21,10 @@ public class AccountSettingsAPI {
 
   private EsmEnablementAccountAPI esmEnablementAccountAPI;
 
+  private LlmProxyPartnerPoweredAccountAPI llmProxyPartnerPoweredAccountAPI;
+
+  private LlmProxyPartnerPoweredEnforceAPI llmProxyPartnerPoweredEnforceAPI;
+
   private PersonalComputeAPI personalComputeAPI;
 
   /** Regular-use constructor */
@@ -34,6 +38,10 @@ public class AccountSettingsAPI {
     enableIpAccessListsAPI = new EnableIpAccessListsAPI(apiClient);
 
     esmEnablementAccountAPI = new EsmEnablementAccountAPI(apiClient);
+
+    llmProxyPartnerPoweredAccountAPI = new LlmProxyPartnerPoweredAccountAPI(apiClient);
+
+    llmProxyPartnerPoweredEnforceAPI = new LlmProxyPartnerPoweredEnforceAPI(apiClient);
 
     personalComputeAPI = new PersonalComputeAPI(apiClient);
   }
@@ -67,6 +75,19 @@ public class AccountSettingsAPI {
    */
   public EsmEnablementAccountAPI EsmEnablementAccount() {
     return esmEnablementAccountAPI;
+  }
+
+  /** Determines if partner powered models are enabled or not for a specific account. */
+  public LlmProxyPartnerPoweredAccountAPI LlmProxyPartnerPoweredAccount() {
+    return llmProxyPartnerPoweredAccountAPI;
+  }
+
+  /**
+   * Determines if the account-level partner-powered setting value is enforced upon the
+   * workspace-level partner-powered setting.
+   */
+  public LlmProxyPartnerPoweredEnforceAPI LlmProxyPartnerPoweredEnforce() {
+    return llmProxyPartnerPoweredEnforceAPI;
   }
 
   /**

@@ -23,7 +23,8 @@ import org.slf4j.LoggerFactory;
  * Please use the new path (/api/2.1/unity-catalog/bindings/{securable_type}/{securable_name}) which
  * introduces the ability to bind a securable in READ_ONLY mode (catalogs only).
  *
- * <p>Securable types that support binding: - catalog - storage_credential - external_location
+ * <p>Securable types that support binding: - catalog - storage_credential - credential -
+ * external_location
  */
 @Generated
 public class WorkspaceBindingsAPI {
@@ -41,7 +42,7 @@ public class WorkspaceBindingsAPI {
     impl = mock;
   }
 
-  public CurrentWorkspaceBindings get(String name) {
+  public GetCatalogWorkspaceBindingsResponse get(String name) {
     return get(new GetWorkspaceBindingRequest().setName(name));
   }
 
@@ -51,12 +52,11 @@ public class WorkspaceBindingsAPI {
    * <p>Gets workspace bindings of the catalog. The caller must be a metastore admin or an owner of
    * the catalog.
    */
-  public CurrentWorkspaceBindings get(GetWorkspaceBindingRequest request) {
+  public GetCatalogWorkspaceBindingsResponse get(GetWorkspaceBindingRequest request) {
     return impl.get(request);
   }
 
-  public Iterable<WorkspaceBinding> getBindings(
-      GetBindingsSecurableType securableType, String securableName) {
+  public Iterable<WorkspaceBinding> getBindings(String securableType, String securableName) {
     return getBindings(
         new GetBindingsRequest().setSecurableType(securableType).setSecurableName(securableName));
   }
@@ -71,7 +71,7 @@ public class WorkspaceBindingsAPI {
     return new Paginator<>(
         request,
         impl::getBindings,
-        WorkspaceBindingsResponse::getBindings,
+        GetWorkspaceBindingsResponse::getBindings,
         response -> {
           String token = response.getNextPageToken();
           if (token == null || token.isEmpty()) {
@@ -81,7 +81,7 @@ public class WorkspaceBindingsAPI {
         });
   }
 
-  public CurrentWorkspaceBindings update(String name) {
+  public UpdateCatalogWorkspaceBindingsResponse update(String name) {
     return update(new UpdateWorkspaceBindings().setName(name));
   }
 
@@ -91,12 +91,12 @@ public class WorkspaceBindingsAPI {
    * <p>Updates workspace bindings of the catalog. The caller must be a metastore admin or an owner
    * of the catalog.
    */
-  public CurrentWorkspaceBindings update(UpdateWorkspaceBindings request) {
+  public UpdateCatalogWorkspaceBindingsResponse update(UpdateWorkspaceBindings request) {
     return impl.update(request);
   }
 
-  public WorkspaceBindingsResponse updateBindings(
-      UpdateBindingsSecurableType securableType, String securableName) {
+  public UpdateWorkspaceBindingsResponse updateBindings(
+      String securableType, String securableName) {
     return updateBindings(
         new UpdateWorkspaceBindingsParameters()
             .setSecurableType(securableType)
@@ -109,7 +109,7 @@ public class WorkspaceBindingsAPI {
    * <p>Updates workspace bindings of the securable. The caller must be a metastore admin or an
    * owner of the securable.
    */
-  public WorkspaceBindingsResponse updateBindings(UpdateWorkspaceBindingsParameters request) {
+  public UpdateWorkspaceBindingsResponse updateBindings(UpdateWorkspaceBindingsParameters request) {
     return impl.updateBindings(request);
   }
 

@@ -49,7 +49,7 @@ class PermissionsImpl implements PermissionsService {
   }
 
   @Override
-  public ObjectPermissions set(PermissionsRequest request) {
+  public ObjectPermissions set(SetObjectPermissions request) {
     String path =
         String.format(
             "/api/2.0/permissions/%s/%s",
@@ -66,7 +66,7 @@ class PermissionsImpl implements PermissionsService {
   }
 
   @Override
-  public ObjectPermissions update(PermissionsRequest request) {
+  public ObjectPermissions update(UpdateObjectPermissions request) {
     String path =
         String.format(
             "/api/2.0/permissions/%s/%s",

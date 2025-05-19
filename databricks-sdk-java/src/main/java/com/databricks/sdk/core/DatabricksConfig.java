@@ -148,6 +148,14 @@ public class DatabricksConfig {
   @ConfigAttribute(env = "TOKEN_AUDIENCE")
   private String tokenAudience;
 
+  /** Path to the file containing an OIDC ID token. */
+  @ConfigAttribute(env = "DATABRICKS_OIDC_TOKEN_FILEPATH", auth = "file-oidc")
+  private String oidcTokenFilepath;
+
+  /** Environment variable name that contains an OIDC ID token. */
+  @ConfigAttribute(env = "DATABRICKS_OIDC_TOKEN_ENV", auth = "env-oidc")
+  private String oidcTokenEnv;
+
   public Environment getEnv() {
     return env;
   }
@@ -525,6 +533,24 @@ public class DatabricksConfig {
 
   public DatabricksConfig setTokenAudience(String tokenAudience) {
     this.tokenAudience = tokenAudience;
+    return this;
+  }
+
+  public String getOidcTokenFilepath() {
+    return oidcTokenFilepath;
+  }
+
+  public DatabricksConfig setOidcTokenFilepath(String oidcTokenFilepath) {
+    this.oidcTokenFilepath = oidcTokenFilepath;
+    return this;
+  }
+
+  public String getOidcTokenEnv() {
+    return oidcTokenEnv;
+  }
+
+  public DatabricksConfig setOidcTokenEnv(String oidcTokenEnv) {
+    this.oidcTokenEnv = oidcTokenEnv;
     return this;
   }
 

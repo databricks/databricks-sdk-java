@@ -18,6 +18,8 @@ import com.databricks.sdk.service.catalog.ConnectionsAPI;
 import com.databricks.sdk.service.catalog.ConnectionsService;
 import com.databricks.sdk.service.catalog.CredentialsAPI;
 import com.databricks.sdk.service.catalog.CredentialsService;
+import com.databricks.sdk.service.catalog.DatabaseInstancesAPI;
+import com.databricks.sdk.service.catalog.DatabaseInstancesService;
 import com.databricks.sdk.service.catalog.ExternalLocationsAPI;
 import com.databricks.sdk.service.catalog.ExternalLocationsService;
 import com.databricks.sdk.service.catalog.FunctionsAPI;
@@ -237,6 +239,7 @@ public class WorkspaceClient {
   private DashboardWidgetsAPI dashboardWidgetsAPI;
   private DashboardsAPI dashboardsAPI;
   private DataSourcesAPI dataSourcesAPI;
+  private DatabaseInstancesAPI databaseInstancesAPI;
   private DbfsExt dbfsAPI;
   private DbsqlPermissionsAPI dbsqlPermissionsAPI;
   private ExperimentsAPI experimentsAPI;
@@ -345,6 +348,7 @@ public class WorkspaceClient {
     dashboardWidgetsAPI = new DashboardWidgetsAPI(apiClient);
     dashboardsAPI = new DashboardsAPI(apiClient);
     dataSourcesAPI = new DataSourcesAPI(apiClient);
+    databaseInstancesAPI = new DatabaseInstancesAPI(apiClient);
     dbfsAPI = new DbfsExt(apiClient);
     dbsqlPermissionsAPI = new DbsqlPermissionsAPI(apiClient);
     experimentsAPI = new ExperimentsAPI(apiClient);
@@ -701,6 +705,11 @@ public class WorkspaceClient {
     return dataSourcesAPI;
   }
 
+  /** Database Instances provide access to a database via REST API or direct SQL. */
+  public DatabaseInstancesAPI databaseInstances() {
+    return databaseInstancesAPI;
+  }
+
   /**
    * DBFS API makes it simple to interact with various data sources without having to include a
    * users credentials every time to read a file.
@@ -1044,52 +1053,27 @@ public class WorkspaceClient {
 
   /**
    * Permissions API are used to create read, write, edit, update and manage access for various
-   * users on different objects and endpoints.
-   *
-   * <p>* **[Apps permissions](:service:apps)** — Manage which users can manage or use apps.
-   *
-   * <p>* **[Cluster permissions](:service:clusters)** — Manage which users can manage, restart, or
-   * attach to clusters.
-   *
-   * <p>* **[Cluster policy permissions](:service:clusterpolicies)** — Manage which users can use
-   * cluster policies.
-   *
-   * <p>* **[Delta Live Tables pipeline permissions](:service:pipelines)** — Manage which users can
-   * view, manage, run, cancel, or own a Delta Live Tables pipeline.
-   *
-   * <p>* **[Job permissions](:service:jobs)** — Manage which users can view, manage, trigger,
-   * cancel, or own a job.
-   *
-   * <p>* **[MLflow experiment permissions](:service:experiments)** — Manage which users can read,
-   * edit, or manage MLflow experiments.
-   *
-   * <p>* **[MLflow registered model permissions](:service:modelregistry)** — Manage which users can
-   * read, edit, or manage MLflow registered models.
-   *
-   * <p>* **[Password permissions](:service:users)** — Manage which users can use password login
-   * when SSO is enabled.
-   *
-   * <p>* **[Instance Pool permissions](:service:instancepools)** — Manage which users can manage or
-   * attach to pools.
-   *
-   * <p>* **[Repo permissions](repos)** — Manage which users can read, run, edit, or manage a repo.
-   *
-   * <p>* **[Serving endpoint permissions](:service:servingendpoints)** — Manage which users can
-   * view, query, or manage a serving endpoint.
-   *
-   * <p>* **[SQL warehouse permissions](:service:warehouses)** — Manage which users can use or
-   * manage SQL warehouses.
-   *
-   * <p>* **[Token permissions](:service:tokenmanagement)** — Manage which users can create or use
-   * tokens.
-   *
-   * <p>* **[Workspace object permissions](:service:workspace)** — Manage which users can read, run,
-   * edit, or manage alerts, dbsql-dashboards, directories, files, notebooks and queries.
-   *
-   * <p>For the mapping of the required permissions for specific actions or abilities and other
-   * important information, see [Access Control].
-   *
-   * <p>Note that to manage access control on service principals, use **[Account Access Control
+   * users on different objects and endpoints. * **[Apps permissions](:service:apps)** — Manage
+   * which users can manage or use apps. * **[Cluster permissions](:service:clusters)** — Manage
+   * which users can manage, restart, or attach to clusters. * **[Cluster policy
+   * permissions](:service:clusterpolicies)** — Manage which users can use cluster policies. *
+   * **[Delta Live Tables pipeline permissions](:service:pipelines)** — Manage which users can view,
+   * manage, run, cancel, or own a Delta Live Tables pipeline. * **[Job
+   * permissions](:service:jobs)** — Manage which users can view, manage, trigger, cancel, or own a
+   * job. * **[MLflow experiment permissions](:service:experiments)** — Manage which users can read,
+   * edit, or manage MLflow experiments. * **[MLflow registered model
+   * permissions](:service:modelregistry)** — Manage which users can read, edit, or manage MLflow
+   * registered models. * **[Instance Pool permissions](:service:instancepools)** — Manage which
+   * users can manage or attach to pools. * **[Repo permissions](repos)** — Manage which users can
+   * read, run, edit, or manage a repo. * **[Serving endpoint
+   * permissions](:service:servingendpoints)** — Manage which users can view, query, or manage a
+   * serving endpoint. * **[SQL warehouse permissions](:service:warehouses)** — Manage which users
+   * can use or manage SQL warehouses. * **[Token permissions](:service:tokenmanagement)** — Manage
+   * which users can create or use tokens. * **[Workspace object permissions](:service:workspace)**
+   * — Manage which users can read, run, edit, or manage alerts, dbsql-dashboards, directories,
+   * files, notebooks and queries. For the mapping of the required permissions for specific actions
+   * or abilities and other important information, see [Access Control]. Note that to manage access
+   * control on service principals, use **[Account Access Control
    * Proxy](:service:accountaccesscontrolproxy)**.
    *
    * <p>[Access Control]: https://docs.databricks.com/security/auth-authz/access-control/index.html
@@ -1729,7 +1713,8 @@ public class WorkspaceClient {
    * Please use the new path (/api/2.1/unity-catalog/bindings/{securable_type}/{securable_name})
    * which introduces the ability to bind a securable in READ_ONLY mode (catalogs only).
    *
-   * <p>Securable types that support binding: - catalog - storage_credential - external_location
+   * <p>Securable types that support binding: - catalog - storage_credential - credential -
+   * external_location
    */
   public WorkspaceBindingsAPI workspaceBindings() {
     return workspaceBindingsAPI;
@@ -2037,6 +2022,17 @@ public class WorkspaceClient {
   /** Replace the default DataSourcesAPI with a custom implementation. */
   public WorkspaceClient withDataSourcesAPI(DataSourcesAPI dataSources) {
     this.dataSourcesAPI = dataSources;
+    return this;
+  }
+
+  /** Replace the default DatabaseInstancesService with a custom implementation. */
+  public WorkspaceClient withDatabaseInstancesImpl(DatabaseInstancesService databaseInstances) {
+    return this.withDatabaseInstancesAPI(new DatabaseInstancesAPI(databaseInstances));
+  }
+
+  /** Replace the default DatabaseInstancesAPI with a custom implementation. */
+  public WorkspaceClient withDatabaseInstancesAPI(DatabaseInstancesAPI databaseInstances) {
+    this.databaseInstancesAPI = databaseInstances;
     return this;
   }
 

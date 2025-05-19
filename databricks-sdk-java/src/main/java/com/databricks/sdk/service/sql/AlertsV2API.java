@@ -24,6 +24,10 @@ public class AlertsV2API {
     impl = mock;
   }
 
+  public AlertV2 createAlert(AlertV2 alert) {
+    return createAlert(new CreateAlertV2Request().setAlert(alert));
+  }
+
   /**
    * Create an alert.
    *
@@ -80,8 +84,9 @@ public class AlertsV2API {
     impl.trashAlert(request);
   }
 
-  public AlertV2 updateAlert(String id, String updateMask) {
-    return updateAlert(new UpdateAlertV2Request().setId(id).setUpdateMask(updateMask));
+  public AlertV2 updateAlert(String id, AlertV2 alert, String updateMask) {
+    return updateAlert(
+        new UpdateAlertV2Request().setId(id).setAlert(alert).setUpdateMask(updateMask));
   }
 
   /**

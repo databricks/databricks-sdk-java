@@ -8,9 +8,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/** Currently assigned workspace bindings */
 @Generated
-public class WorkspaceBindingsResponse {
+public class GetWorkspaceBindingsResponse {
   /** List of workspace bindings */
   @JsonProperty("bindings")
   private Collection<WorkspaceBinding> bindings;
@@ -22,7 +21,7 @@ public class WorkspaceBindingsResponse {
   @JsonProperty("next_page_token")
   private String nextPageToken;
 
-  public WorkspaceBindingsResponse setBindings(Collection<WorkspaceBinding> bindings) {
+  public GetWorkspaceBindingsResponse setBindings(Collection<WorkspaceBinding> bindings) {
     this.bindings = bindings;
     return this;
   }
@@ -31,7 +30,7 @@ public class WorkspaceBindingsResponse {
     return bindings;
   }
 
-  public WorkspaceBindingsResponse setNextPageToken(String nextPageToken) {
+  public GetWorkspaceBindingsResponse setNextPageToken(String nextPageToken) {
     this.nextPageToken = nextPageToken;
     return this;
   }
@@ -44,7 +43,7 @@ public class WorkspaceBindingsResponse {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    WorkspaceBindingsResponse that = (WorkspaceBindingsResponse) o;
+    GetWorkspaceBindingsResponse that = (GetWorkspaceBindingsResponse) o;
     return Objects.equals(bindings, that.bindings)
         && Objects.equals(nextPageToken, that.nextPageToken);
   }
@@ -56,7 +55,7 @@ public class WorkspaceBindingsResponse {
 
   @Override
   public String toString() {
-    return new ToStringer(WorkspaceBindingsResponse.class)
+    return new ToStringer(GetWorkspaceBindingsResponse.class)
         .add("bindings", bindings)
         .add("nextPageToken", nextPageToken)
         .toString();
