@@ -95,6 +95,14 @@ public class PipelineSpec {
   @JsonProperty("restart_window")
   private RestartWindow restartWindow;
 
+  /**
+   * Root path for this pipeline. This is used as the root directory when editing the pipeline in
+   * the Databricks user interface and it is added to sys.path when executing Python sources during
+   * pipeline execution.
+   */
+  @JsonProperty("root_path")
+  private String rootPath;
+
   /** The default schema (database) where tables are read from or published to. */
   @JsonProperty("schema")
   private String schema;
@@ -290,6 +298,15 @@ public class PipelineSpec {
     return restartWindow;
   }
 
+  public PipelineSpec setRootPath(String rootPath) {
+    this.rootPath = rootPath;
+    return this;
+  }
+
+  public String getRootPath() {
+    return rootPath;
+  }
+
   public PipelineSpec setSchema(String schema) {
     this.schema = schema;
     return this;
@@ -359,6 +376,7 @@ public class PipelineSpec {
         && Objects.equals(notifications, that.notifications)
         && Objects.equals(photon, that.photon)
         && Objects.equals(restartWindow, that.restartWindow)
+        && Objects.equals(rootPath, that.rootPath)
         && Objects.equals(schema, that.schema)
         && Objects.equals(serverless, that.serverless)
         && Objects.equals(storage, that.storage)
@@ -388,6 +406,7 @@ public class PipelineSpec {
         notifications,
         photon,
         restartWindow,
+        rootPath,
         schema,
         serverless,
         storage,
@@ -417,6 +436,7 @@ public class PipelineSpec {
         .add("notifications", notifications)
         .add("photon", photon)
         .add("restartWindow", restartWindow)
+        .add("rootPath", rootPath)
         .add("schema", schema)
         .add("serverless", serverless)
         .add("storage", storage)

@@ -160,6 +160,8 @@ import com.databricks.sdk.service.sharing.ProvidersAPI;
 import com.databricks.sdk.service.sharing.ProvidersService;
 import com.databricks.sdk.service.sharing.RecipientActivationAPI;
 import com.databricks.sdk.service.sharing.RecipientActivationService;
+import com.databricks.sdk.service.sharing.RecipientFederationPoliciesAPI;
+import com.databricks.sdk.service.sharing.RecipientFederationPoliciesService;
 import com.databricks.sdk.service.sharing.RecipientsAPI;
 import com.databricks.sdk.service.sharing.RecipientsService;
 import com.databricks.sdk.service.sharing.SharesAPI;
@@ -285,6 +287,7 @@ public class WorkspaceClient {
   private QueryVisualizationsAPI queryVisualizationsAPI;
   private QueryVisualizationsLegacyAPI queryVisualizationsLegacyAPI;
   private RecipientActivationAPI recipientActivationAPI;
+  private RecipientFederationPoliciesAPI recipientFederationPoliciesAPI;
   private RecipientsAPI recipientsAPI;
   private RedashConfigAPI redashConfigAPI;
   private RegisteredModelsAPI registeredModelsAPI;
@@ -394,6 +397,7 @@ public class WorkspaceClient {
     queryVisualizationsAPI = new QueryVisualizationsAPI(apiClient);
     queryVisualizationsLegacyAPI = new QueryVisualizationsLegacyAPI(apiClient);
     recipientActivationAPI = new RecipientActivationAPI(apiClient);
+    recipientFederationPoliciesAPI = new RecipientFederationPoliciesAPI(apiClient);
     recipientsAPI = new RecipientsAPI(apiClient);
     redashConfigAPI = new RedashConfigAPI(apiClient);
     registeredModelsAPI = new RegisteredModelsAPI(apiClient);
@@ -444,7 +448,7 @@ public class WorkspaceClient {
    * These APIs manage access rules on resources in an account. Currently, only grant rules are
    * supported. A grant rule specifies a role assigned to a set of principals. A list of rules
    * attached to a resource is called a rule set. A workspace must belong to an account for these
-   * APIs to work.
+   * APIs to work
    */
   public AccountAccessControlProxyAPI accountAccessControlProxy() {
     return accountAccessControlProxyAPI;
@@ -1287,6 +1291,33 @@ public class WorkspaceClient {
    */
   public RecipientActivationAPI recipientActivation() {
     return recipientActivationAPI;
+  }
+
+  /**
+   * The Recipient Federation Policies APIs are only applicable in the open sharing model where the
+   * recipient object has the authentication type of `OIDC_RECIPIENT`, enabling data sharing from
+   * Databricks to non-Databricks recipients. OIDC Token Federation enables secure, secret-less
+   * authentication for accessing Delta Sharing servers. Users and applications authenticate using
+   * short-lived OIDC tokens issued by their own Identity Provider (IdP), such as Azure Entra ID or
+   * Okta, without the need for managing static credentials or client secrets. A federation policy
+   * defines how non-Databricks recipients authenticate using OIDC tokens. It validates the OIDC
+   * claims in federated tokens and is set at the recipient level. The caller must be the owner of
+   * the recipient to create or manage a federation policy. Federation policies support the
+   * following scenarios: - User-to-Machine (U2M) flow: A user accesses Delta Shares using their own
+   * identity, such as connecting through PowerBI Delta Sharing Client. - Machine-to-Machine (M2M)
+   * flow: An application accesses Delta Shares using its own identity, typically for automation
+   * tasks like nightly jobs through Python Delta Sharing Client. OIDC Token Federation enables
+   * fine-grained access control, supports Multi-Factor Authentication (MFA), and enhances security
+   * by minimizing the risk of credential leakage through the use of short-lived, expiring tokens.
+   * It is designed for strong identity governance, secure cross-platform data sharing, and reduced
+   * operational overhead for credential management.
+   *
+   * <p>For more information, see
+   * https://www.databricks.com/blog/announcing-oidc-token-federation-enhanced-delta-sharing-security
+   * and https://docs.databricks.com/en/delta-sharing/create-recipient-oidc-fed
+   */
+  public RecipientFederationPoliciesAPI recipientFederationPolicies() {
+    return recipientFederationPoliciesAPI;
   }
 
   /**
@@ -2554,6 +2585,20 @@ public class WorkspaceClient {
   /** Replace the default RecipientActivationAPI with a custom implementation. */
   public WorkspaceClient withRecipientActivationAPI(RecipientActivationAPI recipientActivation) {
     this.recipientActivationAPI = recipientActivation;
+    return this;
+  }
+
+  /** Replace the default RecipientFederationPoliciesService with a custom implementation. */
+  public WorkspaceClient withRecipientFederationPoliciesImpl(
+      RecipientFederationPoliciesService recipientFederationPolicies) {
+    return this.withRecipientFederationPoliciesAPI(
+        new RecipientFederationPoliciesAPI(recipientFederationPolicies));
+  }
+
+  /** Replace the default RecipientFederationPoliciesAPI with a custom implementation. */
+  public WorkspaceClient withRecipientFederationPoliciesAPI(
+      RecipientFederationPoliciesAPI recipientFederationPolicies) {
+    this.recipientFederationPoliciesAPI = recipientFederationPolicies;
     return this;
   }
 

@@ -11,7 +11,14 @@ import java.util.Objects;
 /** Get assignable roles for a resource */
 @Generated
 public class GetAssignableRolesForResourceRequest {
-  /** The resource name for which assignable roles will be listed. */
+  /**
+   * The resource name for which assignable roles will be listed.
+   *
+   * <p>Examples | Summary :--- | :--- `resource=accounts/<ACCOUNT_ID>` | A resource name for the
+   * account. `resource=accounts/<ACCOUNT_ID>/groups/<GROUP_ID>` | A resource name for the group.
+   * `resource=accounts/<ACCOUNT_ID>/servicePrincipals/<SP_ID>` | A resource name for the service
+   * principal.
+   */
   @JsonIgnore
   @QueryParam("resource")
   private String resource;

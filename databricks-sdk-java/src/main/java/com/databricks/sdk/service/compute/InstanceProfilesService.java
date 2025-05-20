@@ -20,8 +20,10 @@ public interface InstanceProfilesService {
   /**
    * Register an instance profile.
    *
-   * <p>In the UI, you can select the instance profile when launching clusters. This API is only
-   * available to admin users.
+   * <p>Registers an instance profile in Databricks. In the UI, you can then give users the
+   * permission to use this instance profile when launching clusters.
+   *
+   * <p>This API is only available to admin users.
    */
   void add(AddInstanceProfile addInstanceProfile);
 
