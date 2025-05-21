@@ -11,8 +11,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Represents a token source that exchanges a control plane token for an endpoint-specific dataplane
- * token. It utilizes an underlying {@link DatabricksOAuthTokenSource} to obtain the initial control
- * plane token.
+ * token. It utilizes an underlying {@link TokenSource} to obtain the initial control plane token.
  */
 public class EndpointTokenSource extends RefreshableTokenSource {
   private static final Logger LOG = LoggerFactory.getLogger(EndpointTokenSource.class);
@@ -22,22 +21,20 @@ public class EndpointTokenSource extends RefreshableTokenSource {
   private static final String ASSERTION_PARAM = "assertion";
   private static final String TOKEN_ENDPOINT = "/oidc/v1/token";
 
-  private final DatabricksOAuthTokenSource cpTokenSource;
+  private final TokenSource cpTokenSource;
   private final String authDetails;
   private final HttpClient httpClient;
 
   /**
    * Constructs a new EndpointTokenSource.
    *
-   * @param cpTokenSource The {@link DatabricksOAuthTokenSource} used to obtain the control plane
-   *     token.
+   * @param cpTokenSource The {@link TokenSource} used to obtain the control plane token.
    * @param authDetails The authorization details required for the token exchange.
    * @param httpClient The {@link HttpClient} used to make the token exchange request.
    * @throws IllegalArgumentException if authDetails is empty.
    * @throws NullPointerException if any of the parameters are null.
    */
-  public EndpointTokenSource(
-      DatabricksOAuthTokenSource cpTokenSource, String authDetails, HttpClient httpClient) {
+  public EndpointTokenSource(TokenSource cpTokenSource, String authDetails, HttpClient httpClient) {
     this.cpTokenSource =
         Objects.requireNonNull(cpTokenSource, "Control plane token source cannot be null");
     this.authDetails = Objects.requireNonNull(authDetails, "Authorization details cannot be null");

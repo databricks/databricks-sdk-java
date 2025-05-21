@@ -4,7 +4,10 @@ import com.databricks.sdk.core.commons.CommonsHttpClient;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
+import com.databricks.sdk.core.oauth.ErrorTokenSource;
+import com.databricks.sdk.core.oauth.OAuthHeaderFactory;
 import com.databricks.sdk.core.oauth.OpenIDConnectEndpoints;
+import com.databricks.sdk.core.oauth.TokenSource;
 import com.databricks.sdk.core.utils.Cloud;
 import com.databricks.sdk.core.utils.Environment;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -209,6 +212,23 @@ public class DatabricksConfig {
     }
   }
 
+  public TokenSource getTokenSource() {
+    try {
+      if (headerFactory == null) {
+        ConfigLoader.fixHostIfNeeded(this);
+        headerFactory = credentialsProvider.configure(this);
+        setAuthType(credentialsProvider.authType());
+      }
+      if (headerFactory instanceof OAuthHeaderFactory) {
+        return (TokenSource) headerFactory;
+      }
+      return new ErrorTokenSource(
+          String.format("OAuth Token not supported for current auth type %s", authType));
+    } catch (Exception e) {
+      return new ErrorTokenSource("Failed to get token source: " + e.getMessage());
+    }
+  }
+
   public CredentialsProvider getCredentialsProvider() {
     return this.credentialsProvider;
   }
@@ -389,13 +409,17 @@ public class DatabricksConfig {
     return this;
   }
 
-  /** @deprecated Use {@link #getAzureUseMsi()} instead. */
+  /**
+   * @deprecated Use {@link #getAzureUseMsi()} instead.
+   */
   @Deprecated()
   public boolean getAzureUseMSI() {
     return azureUseMsi;
   }
 
-  /** @deprecated Use {@link #setAzureUseMsi(boolean)} instead. */
+  /**
+   * @deprecated Use {@link #setAzureUseMsi(boolean)} instead.
+   */
   @Deprecated
   public DatabricksConfig setAzureUseMSI(boolean azureUseMsi) {
     this.azureUseMsi = azureUseMsi;

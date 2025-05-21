@@ -5,6 +5,7 @@ package com.databricks.sdk;
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.core.ConfigLoader;
 import com.databricks.sdk.core.DatabricksConfig;
+import com.databricks.sdk.core.oauth.DataPlaneTokenSource;
 import com.databricks.sdk.mixin.ClustersExt;
 import com.databricks.sdk.mixin.DbfsExt;
 import com.databricks.sdk.mixin.SecretsExt;
@@ -139,6 +140,7 @@ import com.databricks.sdk.service.ml.ModelRegistryService;
 import com.databricks.sdk.service.pipelines.PipelinesAPI;
 import com.databricks.sdk.service.pipelines.PipelinesService;
 import com.databricks.sdk.service.serving.ServingEndpointsAPI;
+import com.databricks.sdk.service.serving.ServingEndpointsDataPlaneAPI;
 import com.databricks.sdk.service.serving.ServingEndpointsService;
 import com.databricks.sdk.service.settings.CredentialsManagerAPI;
 import com.databricks.sdk.service.settings.CredentialsManagerService;
@@ -291,6 +293,7 @@ public class WorkspaceClient {
   private SecretsExt secretsAPI;
   private ServicePrincipalsAPI servicePrincipalsAPI;
   private ServingEndpointsAPI servingEndpointsAPI;
+  private ServingEndpointsDataPlaneAPI servingEndpointsDataPlaneAPI;
   private SettingsAPI settingsAPI;
   private SharesAPI sharesAPI;
   private StatementExecutionAPI statementExecutionAPI;
@@ -399,6 +402,11 @@ public class WorkspaceClient {
     secretsAPI = new SecretsExt(apiClient);
     servicePrincipalsAPI = new ServicePrincipalsAPI(apiClient);
     servingEndpointsAPI = new ServingEndpointsAPI(apiClient);
+    servingEndpointsDataPlaneAPI =
+        new ServingEndpointsDataPlaneAPI(
+            apiClient,
+            servingEndpointsAPI,
+            new DataPlaneTokenSource(apiClient.getHttpClient(), config.getTokenSource()));
     settingsAPI = new SettingsAPI(apiClient);
     sharesAPI = new SharesAPI(apiClient);
     statementExecutionAPI = new StatementExecutionAPI(apiClient);
@@ -1441,6 +1449,14 @@ public class WorkspaceClient {
    */
   public ServingEndpointsAPI servingEndpoints() {
     return servingEndpointsAPI;
+  }
+
+  /**
+   * The Serving Endpoints Data Plane API allows you to create, update, and delete model serving
+   * endpoints.
+   */
+  public ServingEndpointsDataPlaneAPI servingEndpointsDataPlane() {
+    return servingEndpointsDataPlaneAPI;
   }
 
   /** Workspace Settings API allows users to manage settings at the workspace level. */

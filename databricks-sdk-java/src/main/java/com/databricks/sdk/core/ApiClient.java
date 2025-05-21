@@ -50,7 +50,6 @@ public class ApiClient {
       this.accountId = config.getAccountId();
       this.retryStrategyPicker = new RequestBasedRetryStrategyPicker(config.getHost());
       this.isDebugHeaders = config.isDebugHeaders();
-
       return this;
     }
 
@@ -433,5 +432,9 @@ public class ApiClient {
       return null;
     }
     return mapper.writeValueAsString(body);
+  }
+
+  public HttpClient getHttpClient() {
+    return httpClient;
   }
 }

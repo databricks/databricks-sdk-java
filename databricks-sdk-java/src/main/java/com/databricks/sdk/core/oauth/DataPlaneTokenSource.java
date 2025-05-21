@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class DataPlaneTokenSource {
   private final HttpClient httpClient;
-  private final DatabricksOAuthTokenSource cpTokenSource;
+  private final TokenSource cpTokenSource;
   private final ConcurrentHashMap<TokenSourceKey, EndpointTokenSource> sourcesCache;
 
   /**
@@ -62,10 +62,10 @@ public class DataPlaneTokenSource {
    * Constructs a DataPlaneTokenSource.
    *
    * @param httpClient The {@link HttpClient} for token requests.
-   * @param cpTokenSource The {@link DatabricksOAuthTokenSource} for control plane tokens.
+   * @param cpTokenSource The {@link TokenSource} for control plane tokens.
    * @throws NullPointerException if either parameter is null
    */
-  public DataPlaneTokenSource(HttpClient httpClient, DatabricksOAuthTokenSource cpTokenSource) {
+  public DataPlaneTokenSource(HttpClient httpClient, TokenSource cpTokenSource) {
     this.httpClient = Objects.requireNonNull(httpClient, "HTTP client cannot be null");
     this.cpTokenSource =
         Objects.requireNonNull(cpTokenSource, "Control plane token source cannot be null");
