@@ -113,6 +113,14 @@ public class EditPipeline {
   private RestartWindow restartWindow;
 
   /**
+   * Root path for this pipeline. This is used as the root directory when editing the pipeline in
+   * the Databricks user interface and it is added to sys.path when executing Python sources during
+   * pipeline execution.
+   */
+  @JsonProperty("root_path")
+  private String rootPath;
+
+  /**
    * Write-only setting, available only in Create/Update calls. Specifies the user or service
    * principal that the pipeline runs as. If not specified, the pipeline runs as the user who
    * created the pipeline.
@@ -345,6 +353,15 @@ public class EditPipeline {
     return restartWindow;
   }
 
+  public EditPipeline setRootPath(String rootPath) {
+    this.rootPath = rootPath;
+    return this;
+  }
+
+  public String getRootPath() {
+    return rootPath;
+  }
+
   public EditPipeline setRunAs(RunAs runAs) {
     this.runAs = runAs;
     return this;
@@ -426,6 +443,7 @@ public class EditPipeline {
         && Objects.equals(photon, that.photon)
         && Objects.equals(pipelineId, that.pipelineId)
         && Objects.equals(restartWindow, that.restartWindow)
+        && Objects.equals(rootPath, that.rootPath)
         && Objects.equals(runAs, that.runAs)
         && Objects.equals(schema, that.schema)
         && Objects.equals(serverless, that.serverless)
@@ -459,6 +477,7 @@ public class EditPipeline {
         photon,
         pipelineId,
         restartWindow,
+        rootPath,
         runAs,
         schema,
         serverless,
@@ -492,6 +511,7 @@ public class EditPipeline {
         .add("photon", photon)
         .add("pipelineId", pipelineId)
         .add("restartWindow", restartWindow)
+        .add("rootPath", rootPath)
         .add("runAs", runAs)
         .add("schema", schema)
         .add("serverless", serverless)

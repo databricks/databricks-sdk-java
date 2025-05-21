@@ -9,10 +9,6 @@ import java.util.Objects;
 
 @Generated
 public class CreateExternalLocation {
-  /** The AWS access point to use when accesing s3 for this external location. */
-  @JsonProperty("access_point")
-  private String accessPoint;
-
   /** User-provided free-form text description. */
   @JsonProperty("comment")
   private String comment;
@@ -20,6 +16,10 @@ public class CreateExternalLocation {
   /** Name of the storage credential used with this location. */
   @JsonProperty("credential_name")
   private String credentialName;
+
+  /** [Create:OPT Update:OPT] Whether to enable file events on this external location. */
+  @JsonProperty("enable_file_events")
+  private Boolean enableFileEvents;
 
   /** Encryption options that apply to clients connecting to cloud storage. */
   @JsonProperty("encryption_details")
@@ -32,6 +32,10 @@ public class CreateExternalLocation {
    */
   @JsonProperty("fallback")
   private Boolean fallback;
+
+  /** [Create:OPT Update:OPT] File event queue settings. */
+  @JsonProperty("file_event_queue")
+  private FileEventQueue fileEventQueue;
 
   /** Name of the external location. */
   @JsonProperty("name")
@@ -48,15 +52,6 @@ public class CreateExternalLocation {
   /** Path URL of the external location. */
   @JsonProperty("url")
   private String url;
-
-  public CreateExternalLocation setAccessPoint(String accessPoint) {
-    this.accessPoint = accessPoint;
-    return this;
-  }
-
-  public String getAccessPoint() {
-    return accessPoint;
-  }
 
   public CreateExternalLocation setComment(String comment) {
     this.comment = comment;
@@ -76,6 +71,15 @@ public class CreateExternalLocation {
     return credentialName;
   }
 
+  public CreateExternalLocation setEnableFileEvents(Boolean enableFileEvents) {
+    this.enableFileEvents = enableFileEvents;
+    return this;
+  }
+
+  public Boolean getEnableFileEvents() {
+    return enableFileEvents;
+  }
+
   public CreateExternalLocation setEncryptionDetails(EncryptionDetails encryptionDetails) {
     this.encryptionDetails = encryptionDetails;
     return this;
@@ -92,6 +96,15 @@ public class CreateExternalLocation {
 
   public Boolean getFallback() {
     return fallback;
+  }
+
+  public CreateExternalLocation setFileEventQueue(FileEventQueue fileEventQueue) {
+    this.fileEventQueue = fileEventQueue;
+    return this;
+  }
+
+  public FileEventQueue getFileEventQueue() {
+    return fileEventQueue;
   }
 
   public CreateExternalLocation setName(String name) {
@@ -135,11 +148,12 @@ public class CreateExternalLocation {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CreateExternalLocation that = (CreateExternalLocation) o;
-    return Objects.equals(accessPoint, that.accessPoint)
-        && Objects.equals(comment, that.comment)
+    return Objects.equals(comment, that.comment)
         && Objects.equals(credentialName, that.credentialName)
+        && Objects.equals(enableFileEvents, that.enableFileEvents)
         && Objects.equals(encryptionDetails, that.encryptionDetails)
         && Objects.equals(fallback, that.fallback)
+        && Objects.equals(fileEventQueue, that.fileEventQueue)
         && Objects.equals(name, that.name)
         && Objects.equals(readOnly, that.readOnly)
         && Objects.equals(skipValidation, that.skipValidation)
@@ -149,11 +163,12 @@ public class CreateExternalLocation {
   @Override
   public int hashCode() {
     return Objects.hash(
-        accessPoint,
         comment,
         credentialName,
+        enableFileEvents,
         encryptionDetails,
         fallback,
+        fileEventQueue,
         name,
         readOnly,
         skipValidation,
@@ -163,11 +178,12 @@ public class CreateExternalLocation {
   @Override
   public String toString() {
     return new ToStringer(CreateExternalLocation.class)
-        .add("accessPoint", accessPoint)
         .add("comment", comment)
         .add("credentialName", credentialName)
+        .add("enableFileEvents", enableFileEvents)
         .add("encryptionDetails", encryptionDetails)
         .add("fallback", fallback)
+        .add("fileEventQueue", fileEventQueue)
         .add("name", name)
         .add("readOnly", readOnly)
         .add("skipValidation", skipValidation)

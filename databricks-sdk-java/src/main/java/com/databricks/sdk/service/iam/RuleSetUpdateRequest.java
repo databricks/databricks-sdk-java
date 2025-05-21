@@ -11,8 +11,13 @@ import java.util.Objects;
 @Generated
 public class RuleSetUpdateRequest {
   /**
-   * The expected etag of the rule set to update. The update will fail if the value does not match
-   * the value that is stored in account access control service.
+   * Identifies the version of the rule set returned. Etag used for versioning. The response is at
+   * least as fresh as the eTag provided. Etag is used for optimistic concurrency control as a way
+   * to help prevent simultaneous updates of a rule set from overwriting each other. It is strongly
+   * suggested that systems make use of the etag in the read -> modify -> write pattern to perform
+   * rule set updates in order to avoid race conditions that is get an etag from a GET rule set
+   * request, and pass it with the PUT update request to identify the rule set version you are
+   * updating.
    */
   @JsonProperty("etag")
   private String etag;

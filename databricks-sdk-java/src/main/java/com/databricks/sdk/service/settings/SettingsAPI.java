@@ -112,10 +112,7 @@ public class SettingsAPI {
     return disableLegacyAccessAPI;
   }
 
-  /**
-   * When this setting is on, access to DBFS root and DBFS mounts is disallowed (as well as creation
-   * of new mounts).
-   */
+  /** Disabling legacy DBFS has the following implications: 1. */
   public DisableLegacyDbfsAPI DisableLegacyDbfs() {
     return disableLegacyDbfsAPI;
   }

@@ -14,6 +14,13 @@ public class UpdateAlertRequest {
   @JsonProperty("alert")
   private UpdateAlertRequestAlert alert;
 
+  /**
+   * If true, automatically resolve alert display name conflicts. Otherwise, fail the request if the
+   * alert's display name conflicts with an existing alert's display name.
+   */
+  @JsonProperty("auto_resolve_display_name")
+  private Boolean autoResolveDisplayName;
+
   /** */
   @JsonIgnore private String id;
 
@@ -40,6 +47,15 @@ public class UpdateAlertRequest {
     return alert;
   }
 
+  public UpdateAlertRequest setAutoResolveDisplayName(Boolean autoResolveDisplayName) {
+    this.autoResolveDisplayName = autoResolveDisplayName;
+    return this;
+  }
+
+  public Boolean getAutoResolveDisplayName() {
+    return autoResolveDisplayName;
+  }
+
   public UpdateAlertRequest setId(String id) {
     this.id = id;
     return this;
@@ -64,19 +80,21 @@ public class UpdateAlertRequest {
     if (o == null || getClass() != o.getClass()) return false;
     UpdateAlertRequest that = (UpdateAlertRequest) o;
     return Objects.equals(alert, that.alert)
+        && Objects.equals(autoResolveDisplayName, that.autoResolveDisplayName)
         && Objects.equals(id, that.id)
         && Objects.equals(updateMask, that.updateMask);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(alert, id, updateMask);
+    return Objects.hash(alert, autoResolveDisplayName, id, updateMask);
   }
 
   @Override
   public String toString() {
     return new ToStringer(UpdateAlertRequest.class)
         .add("alert", alert)
+        .add("autoResolveDisplayName", autoResolveDisplayName)
         .add("id", id)
         .add("updateMask", updateMask)
         .toString();

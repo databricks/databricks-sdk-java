@@ -10,7 +10,12 @@ import java.util.Objects;
 
 @Generated
 public class GrantRule {
-  /** Principals this grant rule applies to. */
+  /**
+   * Principals this grant rule applies to. A principal can be a user (for end users), a service
+   * principal (for applications and compute workloads), or an account group. Each principal has its
+   * own identifier format: * users/<USERNAME> * groups/<GROUP_NAME> *
+   * servicePrincipals/<SERVICE_PRINCIPAL_APPLICATION_ID>
+   */
   @JsonProperty("principals")
   private Collection<String> principals;
 

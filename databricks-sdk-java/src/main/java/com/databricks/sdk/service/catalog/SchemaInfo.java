@@ -41,7 +41,7 @@ public class SchemaInfo {
   @JsonProperty("effective_predictive_optimization_flag")
   private EffectivePredictiveOptimizationFlag effectivePredictiveOptimizationFlag;
 
-  /** Whether predictive optimization should be enabled for this object and objects under it. */
+  /** */
   @JsonProperty("enable_predictive_optimization")
   private EnablePredictiveOptimization enablePredictiveOptimization;
 

@@ -65,6 +65,10 @@ import com.databricks.sdk.service.settings.AccountSettingsAPI;
 import com.databricks.sdk.service.settings.AccountSettingsService;
 import com.databricks.sdk.service.settings.NetworkConnectivityAPI;
 import com.databricks.sdk.service.settings.NetworkConnectivityService;
+import com.databricks.sdk.service.settings.NetworkPoliciesAPI;
+import com.databricks.sdk.service.settings.NetworkPoliciesService;
+import com.databricks.sdk.service.settings.WorkspaceNetworkConfigurationAPI;
+import com.databricks.sdk.service.settings.WorkspaceNetworkConfigurationService;
 import com.databricks.sdk.support.Generated;
 
 /** Entry point for accessing Databricks account-level APIs */
@@ -86,6 +90,7 @@ public class AccountClient {
   private AccountMetastoreAssignmentsAPI metastoreAssignmentsAPI;
   private AccountMetastoresAPI metastoresAPI;
   private NetworkConnectivityAPI networkConnectivityAPI;
+  private NetworkPoliciesAPI networkPoliciesAPI;
   private NetworksAPI networksAPI;
   private OAuthPublishedAppsAPI oAuthPublishedAppsAPI;
   private PrivateAccessAPI privateAccessAPI;
@@ -100,6 +105,7 @@ public class AccountClient {
   private AccountUsersAPI usersAPI;
   private VpcEndpointsAPI vpcEndpointsAPI;
   private WorkspaceAssignmentAPI workspaceAssignmentAPI;
+  private WorkspaceNetworkConfigurationAPI workspaceNetworkConfigurationAPI;
   private WorkspacesAPI workspacesAPI;
   private BudgetsAPI budgetsAPI;
 
@@ -124,6 +130,7 @@ public class AccountClient {
     metastoreAssignmentsAPI = new AccountMetastoreAssignmentsAPI(apiClient);
     metastoresAPI = new AccountMetastoresAPI(apiClient);
     networkConnectivityAPI = new NetworkConnectivityAPI(apiClient);
+    networkPoliciesAPI = new NetworkPoliciesAPI(apiClient);
     networksAPI = new NetworksAPI(apiClient);
     oAuthPublishedAppsAPI = new OAuthPublishedAppsAPI(apiClient);
     privateAccessAPI = new PrivateAccessAPI(apiClient);
@@ -138,6 +145,7 @@ public class AccountClient {
     usersAPI = new AccountUsersAPI(apiClient);
     vpcEndpointsAPI = new VpcEndpointsAPI(apiClient);
     workspaceAssignmentAPI = new WorkspaceAssignmentAPI(apiClient);
+    workspaceNetworkConfigurationAPI = new WorkspaceNetworkConfigurationAPI(apiClient);
     workspacesAPI = new WorkspacesAPI(apiClient);
     budgetsAPI = new BudgetsAPI(apiClient);
   }
@@ -385,6 +393,18 @@ public class AccountClient {
   }
 
   /**
+   * These APIs manage network policies for this account. Network policies control which network
+   * destinations can be accessed from the Databricks environment. Each Databricks account includes
+   * a default policy named 'default-policy'. 'default-policy' is associated with any workspace
+   * lacking an explicit network policy assignment, and is automatically associated with each newly
+   * created workspace. 'default-policy' is reserved and cannot be deleted, but it can be updated to
+   * customize the default network access rules for your account.
+   */
+  public NetworkPoliciesAPI networkPolicies() {
+    return networkPoliciesAPI;
+  }
+
+  /**
    * These APIs manage network configurations for customer-managed VPCs (optional). Its ID is used
    * when creating a new workspace if you use customer-managed VPCs.
    */
@@ -551,6 +571,17 @@ public class AccountClient {
    */
   public WorkspaceAssignmentAPI workspaceAssignment() {
     return workspaceAssignmentAPI;
+  }
+
+  /**
+   * These APIs allow configuration of network settings for Databricks workspaces. Each workspace is
+   * always associated with exactly one network policy that controls which network destinations can
+   * be accessed from the Databricks environment. By default, workspaces are associated with the
+   * 'default-policy' network policy. You cannot create or delete a workspace's network
+   * configuration, only update it to associate the workspace with a different policy.
+   */
+  public WorkspaceNetworkConfigurationAPI workspaceNetworkConfiguration() {
+    return workspaceNetworkConfigurationAPI;
   }
 
   /**
@@ -723,6 +754,17 @@ public class AccountClient {
     return this;
   }
 
+  /** Replace the default NetworkPoliciesService with a custom implementation. */
+  public AccountClient withNetworkPoliciesImpl(NetworkPoliciesService networkPolicies) {
+    return this.withNetworkPoliciesAPI(new NetworkPoliciesAPI(networkPolicies));
+  }
+
+  /** Replace the default NetworkPoliciesAPI with a custom implementation. */
+  public AccountClient withNetworkPoliciesAPI(NetworkPoliciesAPI networkPolicies) {
+    this.networkPoliciesAPI = networkPolicies;
+    return this;
+  }
+
   /** Replace the default NetworksService with a custom implementation. */
   public AccountClient withNetworksImpl(NetworksService networks) {
     return this.withNetworksAPI(new NetworksAPI(networks));
@@ -888,6 +930,20 @@ public class AccountClient {
   /** Replace the default WorkspaceAssignmentAPI with a custom implementation. */
   public AccountClient withWorkspaceAssignmentAPI(WorkspaceAssignmentAPI workspaceAssignment) {
     this.workspaceAssignmentAPI = workspaceAssignment;
+    return this;
+  }
+
+  /** Replace the default WorkspaceNetworkConfigurationService with a custom implementation. */
+  public AccountClient withWorkspaceNetworkConfigurationImpl(
+      WorkspaceNetworkConfigurationService workspaceNetworkConfiguration) {
+    return this.withWorkspaceNetworkConfigurationAPI(
+        new WorkspaceNetworkConfigurationAPI(workspaceNetworkConfiguration));
+  }
+
+  /** Replace the default WorkspaceNetworkConfigurationAPI with a custom implementation. */
+  public AccountClient withWorkspaceNetworkConfigurationAPI(
+      WorkspaceNetworkConfigurationAPI workspaceNetworkConfiguration) {
+    this.workspaceNetworkConfigurationAPI = workspaceNetworkConfiguration;
     return this;
   }
 

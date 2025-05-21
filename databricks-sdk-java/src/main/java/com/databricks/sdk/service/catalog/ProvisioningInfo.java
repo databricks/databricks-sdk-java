@@ -10,7 +10,7 @@ import java.util.Objects;
 /** Status of an asynchronously provisioned resource. */
 @Generated
 public class ProvisioningInfo {
-  /** */
+  /** The provisioning state of the resource. */
   @JsonProperty("state")
   private ProvisioningInfoState state;
 

@@ -9,6 +9,9 @@ import com.databricks.sdk.support.Generated;
 public enum CatalogType {
   DELTASHARING_CATALOG,
   FOREIGN_CATALOG,
+  INTERNAL_CATALOG,
   MANAGED_CATALOG,
+  MANAGED_ONLINE_CATALOG,
   SYSTEM_CATALOG,
+  UNKNOWN_CATALOG_TYPE,
 }

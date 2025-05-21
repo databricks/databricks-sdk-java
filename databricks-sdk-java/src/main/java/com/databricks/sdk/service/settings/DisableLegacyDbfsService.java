@@ -4,8 +4,14 @@ package com.databricks.sdk.service.settings;
 import com.databricks.sdk.support.Generated;
 
 /**
- * When this setting is on, access to DBFS root and DBFS mounts is disallowed (as well as creation
- * of new mounts). When the setting is off, all DBFS functionality is enabled
+ * Disabling legacy DBFS has the following implications:
+ *
+ * <p>1. Access to DBFS root and DBFS mounts is disallowed (as well as the creation of new mounts).
+ * 2. Disables Databricks Runtime versions prior to 13.3LTS.
+ *
+ * <p>When the setting is off, all DBFS functionality is enabled and no restrictions are imposed on
+ * Databricks Runtime versions. This setting can take up to 20 minutes to take effect and requires a
+ * manual restart of all-purpose compute clusters and SQL warehouses.
  *
  * <p>This is the high-level interface, that contains generated methods.
  *

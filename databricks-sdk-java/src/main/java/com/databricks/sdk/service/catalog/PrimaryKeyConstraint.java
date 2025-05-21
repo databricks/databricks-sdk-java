@@ -18,6 +18,10 @@ public class PrimaryKeyConstraint {
   @JsonProperty("name")
   private String name;
 
+  /** Column names that represent a timeseries. */
+  @JsonProperty("timeseries_columns")
+  private Collection<String> timeseriesColumns;
+
   public PrimaryKeyConstraint setChildColumns(Collection<String> childColumns) {
     this.childColumns = childColumns;
     return this;
@@ -36,17 +40,28 @@ public class PrimaryKeyConstraint {
     return name;
   }
 
+  public PrimaryKeyConstraint setTimeseriesColumns(Collection<String> timeseriesColumns) {
+    this.timeseriesColumns = timeseriesColumns;
+    return this;
+  }
+
+  public Collection<String> getTimeseriesColumns() {
+    return timeseriesColumns;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     PrimaryKeyConstraint that = (PrimaryKeyConstraint) o;
-    return Objects.equals(childColumns, that.childColumns) && Objects.equals(name, that.name);
+    return Objects.equals(childColumns, that.childColumns)
+        && Objects.equals(name, that.name)
+        && Objects.equals(timeseriesColumns, that.timeseriesColumns);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(childColumns, name);
+    return Objects.hash(childColumns, name, timeseriesColumns);
   }
 
   @Override
@@ -54,6 +69,7 @@ public class PrimaryKeyConstraint {
     return new ToStringer(PrimaryKeyConstraint.class)
         .add("childColumns", childColumns)
         .add("name", name)
+        .add("timeseriesColumns", timeseriesColumns)
         .toString();
   }
 }

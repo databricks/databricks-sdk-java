@@ -10,11 +10,14 @@ import java.util.Objects;
 /** Server-Side Encryption properties for clients communicating with AWS s3. */
 @Generated
 public class SseEncryptionDetails {
-  /** The type of key encryption to use (affects headers from s3 client). */
+  /** Sets the value of the 'x-amz-server-side-encryption' header in S3 request. */
   @JsonProperty("algorithm")
   private SseEncryptionDetailsAlgorithm algorithm;
 
-  /** When algorithm is **AWS_SSE_KMS** this field specifies the ARN of the SSE key to use. */
+  /**
+   * Optional. The ARN of the SSE-KMS key used with the S3 location, when algorithm = "SSE-KMS".
+   * Sets the value of the 'x-amz-server-side-encryption-aws-kms-key-id' header.
+   */
   @JsonProperty("aws_kms_key_arn")
   private String awsKmsKeyArn;
 
