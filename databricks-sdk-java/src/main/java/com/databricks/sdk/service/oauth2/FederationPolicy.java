@@ -33,6 +33,17 @@ public class FederationPolicy {
   @JsonProperty("oidc_policy")
   private OidcFederationPolicy oidcPolicy;
 
+  /** The ID of the federation policy. */
+  @JsonProperty("policy_id")
+  private String policyId;
+
+  /**
+   * The service principal ID that this federation policy applies to. Only set for service principal
+   * federation policies.
+   */
+  @JsonProperty("service_principal_id")
+  private Long servicePrincipalId;
+
   /** Unique, immutable id of the federation policy. */
   @JsonProperty("uid")
   private String uid;
@@ -77,6 +88,24 @@ public class FederationPolicy {
     return oidcPolicy;
   }
 
+  public FederationPolicy setPolicyId(String policyId) {
+    this.policyId = policyId;
+    return this;
+  }
+
+  public String getPolicyId() {
+    return policyId;
+  }
+
+  public FederationPolicy setServicePrincipalId(Long servicePrincipalId) {
+    this.servicePrincipalId = servicePrincipalId;
+    return this;
+  }
+
+  public Long getServicePrincipalId() {
+    return servicePrincipalId;
+  }
+
   public FederationPolicy setUid(String uid) {
     this.uid = uid;
     return this;
@@ -104,13 +133,16 @@ public class FederationPolicy {
         && Objects.equals(description, that.description)
         && Objects.equals(name, that.name)
         && Objects.equals(oidcPolicy, that.oidcPolicy)
+        && Objects.equals(policyId, that.policyId)
+        && Objects.equals(servicePrincipalId, that.servicePrincipalId)
         && Objects.equals(uid, that.uid)
         && Objects.equals(updateTime, that.updateTime);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(createTime, description, name, oidcPolicy, uid, updateTime);
+    return Objects.hash(
+        createTime, description, name, oidcPolicy, policyId, servicePrincipalId, uid, updateTime);
   }
 
   @Override
@@ -120,6 +152,8 @@ public class FederationPolicy {
         .add("description", description)
         .add("name", name)
         .add("oidcPolicy", oidcPolicy)
+        .add("policyId", policyId)
+        .add("servicePrincipalId", servicePrincipalId)
         .add("uid", uid)
         .add("updateTime", updateTime)
         .toString();

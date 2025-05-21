@@ -9,10 +9,6 @@ import java.util.Objects;
 
 @Generated
 public class ExternalLocationInfo {
-  /** The AWS access point to use when accesing s3 for this external location. */
-  @JsonProperty("access_point")
-  private String accessPoint;
-
   /**
    * Indicates whether the principal is limited to retrieving metadata for the associated object
    * through the BROWSE privilege when include_browse is enabled in the request.
@@ -40,6 +36,10 @@ public class ExternalLocationInfo {
   @JsonProperty("credential_name")
   private String credentialName;
 
+  /** [Create:OPT Update:OPT] Whether to enable file events on this external location. */
+  @JsonProperty("enable_file_events")
+  private Boolean enableFileEvents;
+
   /** Encryption options that apply to clients connecting to cloud storage. */
   @JsonProperty("encryption_details")
   private EncryptionDetails encryptionDetails;
@@ -51,6 +51,10 @@ public class ExternalLocationInfo {
    */
   @JsonProperty("fallback")
   private Boolean fallback;
+
+  /** [Create:OPT Update:OPT] File event queue settings. */
+  @JsonProperty("file_event_queue")
+  private FileEventQueue fileEventQueue;
 
   /** */
   @JsonProperty("isolation_mode")
@@ -83,15 +87,6 @@ public class ExternalLocationInfo {
   /** Path URL of the external location. */
   @JsonProperty("url")
   private String url;
-
-  public ExternalLocationInfo setAccessPoint(String accessPoint) {
-    this.accessPoint = accessPoint;
-    return this;
-  }
-
-  public String getAccessPoint() {
-    return accessPoint;
-  }
 
   public ExternalLocationInfo setBrowseOnly(Boolean browseOnly) {
     this.browseOnly = browseOnly;
@@ -147,6 +142,15 @@ public class ExternalLocationInfo {
     return credentialName;
   }
 
+  public ExternalLocationInfo setEnableFileEvents(Boolean enableFileEvents) {
+    this.enableFileEvents = enableFileEvents;
+    return this;
+  }
+
+  public Boolean getEnableFileEvents() {
+    return enableFileEvents;
+  }
+
   public ExternalLocationInfo setEncryptionDetails(EncryptionDetails encryptionDetails) {
     this.encryptionDetails = encryptionDetails;
     return this;
@@ -163,6 +167,15 @@ public class ExternalLocationInfo {
 
   public Boolean getFallback() {
     return fallback;
+  }
+
+  public ExternalLocationInfo setFileEventQueue(FileEventQueue fileEventQueue) {
+    this.fileEventQueue = fileEventQueue;
+    return this;
+  }
+
+  public FileEventQueue getFileEventQueue() {
+    return fileEventQueue;
   }
 
   public ExternalLocationInfo setIsolationMode(IsolationMode isolationMode) {
@@ -242,15 +255,16 @@ public class ExternalLocationInfo {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ExternalLocationInfo that = (ExternalLocationInfo) o;
-    return Objects.equals(accessPoint, that.accessPoint)
-        && Objects.equals(browseOnly, that.browseOnly)
+    return Objects.equals(browseOnly, that.browseOnly)
         && Objects.equals(comment, that.comment)
         && Objects.equals(createdAt, that.createdAt)
         && Objects.equals(createdBy, that.createdBy)
         && Objects.equals(credentialId, that.credentialId)
         && Objects.equals(credentialName, that.credentialName)
+        && Objects.equals(enableFileEvents, that.enableFileEvents)
         && Objects.equals(encryptionDetails, that.encryptionDetails)
         && Objects.equals(fallback, that.fallback)
+        && Objects.equals(fileEventQueue, that.fileEventQueue)
         && Objects.equals(isolationMode, that.isolationMode)
         && Objects.equals(metastoreId, that.metastoreId)
         && Objects.equals(name, that.name)
@@ -264,15 +278,16 @@ public class ExternalLocationInfo {
   @Override
   public int hashCode() {
     return Objects.hash(
-        accessPoint,
         browseOnly,
         comment,
         createdAt,
         createdBy,
         credentialId,
         credentialName,
+        enableFileEvents,
         encryptionDetails,
         fallback,
+        fileEventQueue,
         isolationMode,
         metastoreId,
         name,
@@ -286,15 +301,16 @@ public class ExternalLocationInfo {
   @Override
   public String toString() {
     return new ToStringer(ExternalLocationInfo.class)
-        .add("accessPoint", accessPoint)
         .add("browseOnly", browseOnly)
         .add("comment", comment)
         .add("createdAt", createdAt)
         .add("createdBy", createdBy)
         .add("credentialId", credentialId)
         .add("credentialName", credentialName)
+        .add("enableFileEvents", enableFileEvents)
         .add("encryptionDetails", encryptionDetails)
         .add("fallback", fallback)
+        .add("fileEventQueue", fileEventQueue)
         .add("isolationMode", isolationMode)
         .add("metastoreId", metastoreId)
         .add("name", name)

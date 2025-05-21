@@ -30,3 +30,10 @@
 * Added `CATALOG`, `CLEAN_ROOM`, `CONNECTION`, `CREDENTIAL`, `EXTERNAL_LOCATION`, `EXTERNAL_METADATA`, `FUNCTION`, `METASTORE`, `PIPELINE`, `PROVIDER`, `RECIPIENT`, `SCHEMA`, `SHARE`, `STAGING_TABLE`, `STORAGE_CREDENTIAL`, `TABLE`, `UNKNOWN_SECURABLE_TYPE` and `VOLUME` enum values for `com.databricks.sdk.service.catalog.SecurableType`.
 * [Breaking] Changed `securableType` field for `com.databricks.sdk.service.catalog.CatalogInfo` to type `com.databricks.sdk.service.catalog.SecurableType` class.
 * Changed `etag` and `name` fields for `com.databricks.sdk.service.iam.RuleSetResponse` to be required.
+* Added `enableFileEvents` and `fileEventQueue` fields for `com.databricks.sdk.service.catalog.CreateExternalLocation`.
+* Added `enableFileEvents` and `fileEventQueue` fields for `com.databricks.sdk.service.catalog.ExternalLocationInfo`.
+* Added `enableFileEvents` and `fileEventQueue` fields for `com.databricks.sdk.service.catalog.UpdateExternalLocation`.
+* Added `policyId` and `servicePrincipalId` fields for `com.databricks.sdk.service.oauth2.FederationPolicy`.
+* [Breaking] Removed `accessPoint` field for `com.databricks.sdk.service.catalog.CreateExternalLocation`.
+* [Breaking] Removed `accessPoint` field for `com.databricks.sdk.service.catalog.ExternalLocationInfo`.
+* [Breaking] Removed `accessPoint` field for `com.databricks.sdk.service.catalog.UpdateExternalLocation`.

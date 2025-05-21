@@ -173,10 +173,12 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/AwsCredenti
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/AwsIamRole.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/AwsIamRoleRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/AwsIamRoleResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/AwsSqsQueue.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/AzureActiveDirectoryToken.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/AzureManagedIdentity.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/AzureManagedIdentityRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/AzureManagedIdentityResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/AzureQueueStorage.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/AzureServicePrincipal.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/AzureUserDelegationSas.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/CancelRefreshRequest.java linguist-generated=true
@@ -285,6 +287,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ExternalLoc
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ExternalLocationsImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ExternalLocationsService.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/FailedStatus.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/FileEventQueue.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/FindDatabaseInstanceByUidRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ForeignKeyConstraint.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/FunctionDependency.java linguist-generated=true
@@ -301,6 +304,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/FunctionsAP
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/FunctionsImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/FunctionsService.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/GcpOauthToken.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/GcpPubsub.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/GenerateTemporaryServiceCredentialAzureOptions.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/GenerateTemporaryServiceCredentialGcpOptions.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/GenerateTemporaryServiceCredentialRequest.java linguist-generated=true

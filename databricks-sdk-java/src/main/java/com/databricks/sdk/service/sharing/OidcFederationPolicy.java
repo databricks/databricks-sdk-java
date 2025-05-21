@@ -28,24 +28,25 @@ public class OidcFederationPolicy {
   private String issuer;
 
   /**
-   * The required token subject, as specified in the subject claim of federated tokens. The value of
-   * subject claim identifies the identity of the user or machine that is accessing the resource.
-   * For example for Entra ID (AAD) - For U2M flow, when allowing a group of users to access a
-   * resource and the subject claim is `groups`, this must be the Object ID of the group in Entra ID
-   * - For U2M flow, when allowing a user to access a resource and the subject claim is `oid`, this
-   * must be the Object ID of the user in Entra Id. - For M2M flow, when allowing an OAuth App
-   * registered to access a resource and the subject claim is `azp`, this must be the client-id of
-   * the oauth app registered in Entra ID.
+   * The required token subject, as specified in the subject claim of federated tokens. The subject
+   * claim identifies the identity of the user or machine accessing the resource. Examples for Entra
+   * ID (AAD): - U2M flow (group access): If the subject claim is `groups`, this must be the Object
+   * ID of the group in Entra ID. - U2M flow (user access): If the subject claim is `oid`, this must
+   * be the Object ID of the user in Entra ID. - M2M flow (OAuth App access): If the subject claim
+   * is `azp`, this must be the client ID of the OAuth app registered in Entra ID.
    */
   @JsonProperty("subject")
   private String subject;
 
   /**
    * The claim that contains the subject of the token. Depending on the identity provider and the
-   * use case U2M or M2M, this can be different. For example for Entra ID (AAD) - For U2M flow, when
-   * allowing a group of users to access a resource, this must be `groups` - For U2M flow, when
-   * allowing a user to access a resource, this must be `oid` - For M2M flow, when allowing an OAuth
-   * App registered to access a resource, this must be `azp`
+   * use case (U2M or M2M), this can vary: - For Entra ID (AAD): * U2M flow (group access): Use
+   * `groups`. * U2M flow (user access): Use `oid`. * M2M flow (OAuth App access): Use `azp`. - For
+   * other IdPs, refer to the specific IdP documentation.
+   *
+   * <p>Supported `subject_claim` values are: - `oid`: Object ID of the user. - `azp`: Client ID of
+   * the OAuth app. - `groups`: Object ID of the group. - `sub`: Subject identifier for other use
+   * cases.
    */
   @JsonProperty("subject_claim")
   private String subjectClaim;

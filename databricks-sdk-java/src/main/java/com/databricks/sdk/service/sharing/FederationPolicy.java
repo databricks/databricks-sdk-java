@@ -21,7 +21,10 @@ public class FederationPolicy {
   @JsonProperty("id")
   private String id;
 
-  /** Name of the federation policy. A recipient can have multiple policies with different names. */
+  /**
+   * Name of the federation policy. A recipient can have multiple policies with different names. The
+   * name must contain only lowercase alphanumeric characters, numbers, and hyphens.
+   */
   @JsonProperty("name")
   private String name;
 
