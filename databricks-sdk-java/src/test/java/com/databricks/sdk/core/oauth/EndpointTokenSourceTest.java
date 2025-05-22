@@ -73,12 +73,17 @@ class EndpointTokenSourceTest {
     HttpClient mockIOExceptionClient = mock(HttpClient.class);
     when(mockIOExceptionClient.execute(any())).thenThrow(new IOException("Network error"));
 
+    // Mock OpenIDConnectEndpoints
+    OpenIDConnectEndpoints mockEndpoints = mock(OpenIDConnectEndpoints.class);
+    when(mockEndpoints.getTokenEndpoint()).thenReturn("https://test.databricks.com/oidc/v1/token");
+
     return Stream.of(
         Arguments.of(
             "Success response",
             mockCpTokenSource,
             TEST_AUTH_DETAILS,
             mockSuccessClient,
+            mockEndpoints,
             null, // No exception expected
             TEST_DP_TOKEN,
             TEST_TOKEN_TYPE,
@@ -89,6 +94,7 @@ class EndpointTokenSourceTest {
             mockCpTokenSource,
             TEST_AUTH_DETAILS,
             mockErrorClient,
+            mockEndpoints,
             DatabricksException.class,
             null,
             null,
@@ -99,6 +105,7 @@ class EndpointTokenSourceTest {
             mockCpTokenSource,
             TEST_AUTH_DETAILS,
             mockMalformedClient,
+            mockEndpoints,
             DatabricksException.class,
             null,
             null,
@@ -109,6 +116,7 @@ class EndpointTokenSourceTest {
             mockCpTokenSource,
             TEST_AUTH_DETAILS,
             mockIOExceptionClient,
+            mockEndpoints,
             DatabricksException.class,
             null,
             null,
@@ -119,6 +127,7 @@ class EndpointTokenSourceTest {
             null,
             TEST_AUTH_DETAILS,
             mockSuccessClient,
+            mockEndpoints,
             NullPointerException.class,
             null,
             null,
@@ -129,6 +138,7 @@ class EndpointTokenSourceTest {
             mockCpTokenSource,
             null,
             mockSuccessClient,
+            mockEndpoints,
             NullPointerException.class,
             null,
             null,
@@ -139,6 +149,7 @@ class EndpointTokenSourceTest {
             mockCpTokenSource,
             "",
             mockSuccessClient,
+            mockEndpoints,
             IllegalArgumentException.class,
             null,
             null,
@@ -149,6 +160,7 @@ class EndpointTokenSourceTest {
             mockCpTokenSource,
             TEST_AUTH_DETAILS,
             null,
+            mockEndpoints,
             NullPointerException.class,
             null,
             null,
@@ -163,6 +175,7 @@ class EndpointTokenSourceTest {
       DatabricksOAuthTokenSource cpTokenSource,
       String authDetails,
       HttpClient httpClient,
+      OpenIDConnectEndpoints endpoints,
       Class<? extends Exception> expectedException,
       String expectedAccessToken,
       String expectedTokenType,
@@ -173,11 +186,12 @@ class EndpointTokenSourceTest {
           expectedException,
           () -> {
             EndpointTokenSource source =
-                new EndpointTokenSource(cpTokenSource, authDetails, httpClient);
+                new EndpointTokenSource(cpTokenSource, authDetails, httpClient, endpoints);
             source.getToken();
           });
     } else {
-      EndpointTokenSource source = new EndpointTokenSource(cpTokenSource, authDetails, httpClient);
+      EndpointTokenSource source =
+          new EndpointTokenSource(cpTokenSource, authDetails, httpClient, endpoints);
       Token token = source.getToken();
       assertNotNull(token);
       assertEquals(expectedAccessToken, token.getAccessToken());

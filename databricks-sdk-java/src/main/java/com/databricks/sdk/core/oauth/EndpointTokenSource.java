@@ -24,7 +24,7 @@ public class EndpointTokenSource extends RefreshableTokenSource {
   private final TokenSource cpTokenSource;
   private final String authDetails;
   private final HttpClient httpClient;
-
+  private final OpenIDConnectEndpoints endpoints;
   /**
    * Constructs a new EndpointTokenSource.
    *
@@ -34,7 +34,11 @@ public class EndpointTokenSource extends RefreshableTokenSource {
    * @throws IllegalArgumentException if authDetails is empty.
    * @throws NullPointerException if any of the parameters are null.
    */
-  public EndpointTokenSource(TokenSource cpTokenSource, String authDetails, HttpClient httpClient) {
+  public EndpointTokenSource(
+      TokenSource cpTokenSource,
+      String authDetails,
+      HttpClient httpClient,
+      OpenIDConnectEndpoints endpoints) {
     this.cpTokenSource =
         Objects.requireNonNull(cpTokenSource, "Control plane token source cannot be null");
     this.authDetails = Objects.requireNonNull(authDetails, "Authorization details cannot be null");
@@ -42,6 +46,7 @@ public class EndpointTokenSource extends RefreshableTokenSource {
       throw new IllegalArgumentException("Authorization details cannot be empty");
     }
     this.httpClient = Objects.requireNonNull(httpClient, "HTTP client cannot be null");
+    this.endpoints = Objects.requireNonNull(endpoints, "OpenID Connect endpoints cannot be null");
   }
 
   /**
@@ -61,15 +66,17 @@ public class EndpointTokenSource extends RefreshableTokenSource {
   @Override
   protected Token refresh() {
     Token cpToken = cpTokenSource.getToken();
-
+    System.out.println("Fetched CP Token: " + cpToken.getAccessToken());
     Map<String, String> params = new HashMap<>();
     params.put(GRANT_TYPE_PARAM, JWT_GRANT_TYPE);
     params.put(AUTHORIZATION_DETAILS_PARAM, authDetails);
     params.put(ASSERTION_PARAM, cpToken.getAccessToken());
 
+    System.out.println("Params: " + params);
+
     OAuthResponse oauthResponse;
     try {
-      oauthResponse = TokenEndpointClient.requestToken(this.httpClient, TOKEN_ENDPOINT, params);
+      oauthResponse = TokenEndpointClient.requestToken(this.httpClient, endpoints.getTokenEndpoint(), params);
     } catch (DatabricksException | IllegalArgumentException | NullPointerException e) {
       LOG.error(
           "Failed to exchange control plane token for dataplane token at endpoint {}: {}",
@@ -78,6 +85,8 @@ public class EndpointTokenSource extends RefreshableTokenSource {
           e);
       throw e;
     }
+
+    System.out.println("Successfully fetched Dataplane Token: " + oauthResponse.getAccessToken());
 
     LocalDateTime expiry = LocalDateTime.now().plusSeconds(oauthResponse.getExpiresIn());
     return new Token(

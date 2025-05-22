@@ -48,6 +48,8 @@ class ServingEndpointsDataPlaneImpl implements ServingEndpointsDataPlaneService 
         dataPlaneTokenSource.getToken(
             dataPlaneInfo.getEndpointUrl(), dataPlaneInfo.getAuthorizationDetails());
 
+    System.out.println("DP Token: " + token.getAccessToken());
+
     try {
       Request req =
           new Request("POST", dataPlaneInfo.getEndpointUrl(), apiClient.serialize(request));

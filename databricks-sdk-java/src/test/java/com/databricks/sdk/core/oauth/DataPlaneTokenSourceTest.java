@@ -73,6 +73,10 @@ public class DataPlaneTokenSourceTest {
     // For null httpClient
     HttpClient nullHttpClient = null;
 
+    // Mock OpenIDConnectEndpoints
+    OpenIDConnectEndpoints mockEndpoints = mock(OpenIDConnectEndpoints.class);
+    when(mockEndpoints.getTokenEndpoint()).thenReturn("https://test.databricks.com/oidc/v1/token");
+
     // For null/empty endpoint or authDetails
     return Stream.of(
         Arguments.of(
@@ -81,6 +85,7 @@ public class DataPlaneTokenSourceTest {
             TEST_AUTH_DETAILS_1,
             mockSuccessClient1,
             mockCpTokenSource,
+            mockEndpoints,
             new Token(
                 "dp-access-token1",
                 TEST_TOKEN_TYPE,
@@ -94,6 +99,7 @@ public class DataPlaneTokenSourceTest {
             TEST_AUTH_DETAILS_2,
             mockSuccessClient2,
             mockCpTokenSource,
+            mockEndpoints,
             new Token(
                 "dp-access-token2",
                 TEST_TOKEN_TYPE,
@@ -106,6 +112,7 @@ public class DataPlaneTokenSourceTest {
             TEST_AUTH_DETAILS_1,
             mockErrorClient,
             mockCpTokenSource,
+            mockEndpoints,
             null,
             com.databricks.sdk.core.DatabricksException.class),
         Arguments.of(
@@ -114,6 +121,7 @@ public class DataPlaneTokenSourceTest {
             TEST_AUTH_DETAILS_1,
             mockIOExceptionClient,
             mockCpTokenSource,
+            mockEndpoints,
             null,
             com.databricks.sdk.core.DatabricksException.class),
         Arguments.of(
@@ -122,6 +130,7 @@ public class DataPlaneTokenSourceTest {
             TEST_AUTH_DETAILS_1,
             mockSuccessClient1,
             nullCpTokenSource,
+            mockEndpoints,
             null,
             NullPointerException.class),
         Arguments.of(
@@ -130,6 +139,7 @@ public class DataPlaneTokenSourceTest {
             TEST_AUTH_DETAILS_1,
             nullHttpClient,
             mockCpTokenSource,
+            mockEndpoints,
             null,
             NullPointerException.class),
         Arguments.of(
@@ -138,6 +148,7 @@ public class DataPlaneTokenSourceTest {
             TEST_AUTH_DETAILS_1,
             mockSuccessClient1,
             mockCpTokenSource,
+            mockEndpoints,
             null,
             NullPointerException.class),
         Arguments.of(
@@ -146,6 +157,7 @@ public class DataPlaneTokenSourceTest {
             null,
             mockSuccessClient1,
             mockCpTokenSource,
+            mockEndpoints,
             null,
             NullPointerException.class));
   }
@@ -158,17 +170,19 @@ public class DataPlaneTokenSourceTest {
       String authDetails,
       HttpClient httpClient,
       DatabricksOAuthTokenSource cpTokenSource,
+      OpenIDConnectEndpoints endpoints,
       Token expectedToken,
       Class<? extends Exception> expectedException) {
     if (expectedException != null) {
       assertThrows(
           expectedException,
           () -> {
-            DataPlaneTokenSource source = new DataPlaneTokenSource(httpClient, cpTokenSource);
+            DataPlaneTokenSource source =
+                new DataPlaneTokenSource(httpClient, cpTokenSource, endpoints);
             source.getToken(endpoint, authDetails);
           });
     } else {
-      DataPlaneTokenSource source = new DataPlaneTokenSource(httpClient, cpTokenSource);
+      DataPlaneTokenSource source = new DataPlaneTokenSource(httpClient, cpTokenSource, endpoints);
       Token token = source.getToken(endpoint, authDetails);
       assertNotNull(token);
       assertEquals(expectedToken.getAccessToken(), token.getAccessToken());

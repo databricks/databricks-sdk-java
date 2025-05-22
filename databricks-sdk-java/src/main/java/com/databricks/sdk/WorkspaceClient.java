@@ -5,6 +5,7 @@ package com.databricks.sdk;
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.core.ConfigLoader;
 import com.databricks.sdk.core.DatabricksConfig;
+import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.oauth.DataPlaneTokenSource;
 import com.databricks.sdk.mixin.ClustersExt;
 import com.databricks.sdk.mixin.DbfsExt;
@@ -206,6 +207,7 @@ import com.databricks.sdk.service.workspace.SecretsService;
 import com.databricks.sdk.service.workspace.WorkspaceAPI;
 import com.databricks.sdk.service.workspace.WorkspaceService;
 import com.databricks.sdk.support.Generated;
+import java.io.IOException;
 
 /** Entry point for accessing Databricks workspace-level APIs */
 @Generated
@@ -404,9 +406,7 @@ public class WorkspaceClient {
     servingEndpointsAPI = new ServingEndpointsAPI(apiClient);
     servingEndpointsDataPlaneAPI =
         new ServingEndpointsDataPlaneAPI(
-            apiClient,
-            servingEndpointsAPI,
-            new DataPlaneTokenSource(apiClient.getHttpClient(), config.getTokenSource()));
+            apiClient, servingEndpointsAPI, createDataPlaneTokenSource(apiClient, config));
     settingsAPI = new SettingsAPI(apiClient);
     sharesAPI = new SharesAPI(apiClient);
     statementExecutionAPI = new StatementExecutionAPI(apiClient);
@@ -485,7 +485,7 @@ public class WorkspaceClient {
   }
 
   /**
-   * Apps run directly on a customer’s Databricks instance, integrate with their data, use and
+   * Apps run directly on a customer's Databricks instance, integrate with their data, use and
    * extend Databricks services, and enable users to interact through single sign-on.
    */
   public AppsAPI apps() {
@@ -501,7 +501,7 @@ public class WorkspaceClient {
   }
 
   /**
-   * A catalog is the first layer of Unity Catalog’s three-level namespace. It’s used to organize
+   * A catalog is the first layer of Unity Catalog's three-level namespace. It's used to organize
    * your data assets. Users can see all catalogs on which they have been assigned the USE_CATALOG
    * data permission.
    *
@@ -529,7 +529,7 @@ public class WorkspaceClient {
   /**
    * A clean room uses Delta Sharing and serverless compute to provide a secure and
    * privacy-protecting environment where multiple parties can work together on sensitive enterprise
-   * data without direct access to each other’s data.
+   * data without direct access to each other's data.
    */
   public CleanRoomsAPI cleanRooms() {
     return cleanRoomsAPI;
@@ -757,7 +757,7 @@ public class WorkspaceClient {
    * that authorizes access to the cloud storage path. Each external location is subject to Unity
    * Catalog access-control policies that control which users and groups can access the credential.
    * If a user does not have access to an external location in Unity Catalog, the request fails and
-   * Unity Catalog does not attempt to authenticate to your cloud tenant on the user’s behalf.
+   * Unity Catalog does not attempt to authenticate to your cloud tenant on the user's behalf.
    *
    * <p>Databricks recommends using external locations rather than using storage credentials
    * directly.
@@ -874,10 +874,10 @@ public class WorkspaceClient {
    *
    * <p>Databricks pools reduce cluster start and auto-scaling times by maintaining a set of idle,
    * ready-to-use instances. When a cluster is attached to a pool, cluster nodes are created using
-   * the pool’s idle instances. If the pool has no idle instances, the pool expands by allocating a
-   * new instance from the instance provider in order to accommodate the cluster’s request. When a
+   * the pool's idle instances. If the pool has no idle instances, the pool expands by allocating a
+   * new instance from the instance provider in order to accommodate the cluster's request. When a
    * cluster releases an instance, it returns to the pool and is free for another cluster to use.
-   * Only clusters attached to a pool can use that pool’s idle instances.
+   * Only clusters attached to a pool can use that pool's idle instances.
    *
    * <p>You can specify a different pool for the driver node and worker nodes, or use the same pool
    * for both.
@@ -1344,7 +1344,7 @@ public class WorkspaceClient {
    * Catalog provide centralized access control, auditing, lineage, and discovery of ML models
    * across Databricks workspaces.
    *
-   * <p>An MLflow registered model resides in the third layer of Unity Catalog’s three-level
+   * <p>An MLflow registered model resides in the third layer of Unity Catalog's three-level
    * namespace. Registered models contain model versions, which correspond to actual ML models
    * (MLflow models). Creating new model versions currently requires use of the MLflow Python
    * client. Once model versions are created, you can load them for batch inference using MLflow
@@ -1400,7 +1400,7 @@ public class WorkspaceClient {
   }
 
   /**
-   * A schema (also called a database) is the second layer of Unity Catalog’s three-level namespace.
+   * A schema (also called a database) is the second layer of Unity Catalog's three-level namespace.
    * A schema organizes tables, views and functions. To access (or list) a table or view in a
    * schema, users must have the USE_SCHEMA data permission on the schema and its parent catalog,
    * and they must have the SELECT permission on the table or view.
@@ -1575,7 +1575,7 @@ public class WorkspaceClient {
    * data stored on your cloud tenant. Each storage credential is subject to Unity Catalog
    * access-control policies that control which users and groups can access the credential. If a
    * user does not have access to a storage credential in Unity Catalog, the request fails and Unity
-   * Catalog does not attempt to authenticate to your cloud tenant on the user’s behalf.
+   * Catalog does not attempt to authenticate to your cloud tenant on the user's behalf.
    *
    * <p>Databricks recommends using external locations rather than using storage credentials
    * directly.
@@ -1614,7 +1614,7 @@ public class WorkspaceClient {
   }
 
   /**
-   * A table resides in the third layer of Unity Catalog’s three-level namespace. It contains rows
+   * A table resides in the third layer of Unity Catalog's three-level namespace. It contains rows
    * of data. To create a table, users must have CREATE_TABLE and USE_SCHEMA permissions on the
    * schema, and they must have the USE_CATALOG permission on its parent catalog. To query a table,
    * users must have the SELECT permission on the table, and they must have the USE_CATALOG
@@ -1670,7 +1670,7 @@ public class WorkspaceClient {
    * or team by using your identity provider to create users and groups in Databricks workspace and
    * give them the proper level of access. When a user leaves your organization or no longer needs
    * access to Databricks workspace, admins can terminate the user in your identity provider and
-   * that user’s account will also be removed from Databricks workspace. This ensures a consistent
+   * that user's account will also be removed from Databricks workspace. This ensures a consistent
    * offboarding process and prevents unauthorized users from accessing sensitive data.
    */
   public UsersAPI users() {
@@ -2897,5 +2897,15 @@ public class WorkspaceClient {
 
   public DatabricksConfig config() {
     return config;
+  }
+
+  private DataPlaneTokenSource createDataPlaneTokenSource(
+      ApiClient apiClient, DatabricksConfig config) {
+    try {
+      return new DataPlaneTokenSource(
+          apiClient.getHttpClient(), config.getTokenSource(), config.getOidcEndpoints());
+    } catch (IOException e) {
+      throw new DatabricksException("Failed to create DataPlaneTokenSource", e);
+    }
   }
 }

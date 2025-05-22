@@ -207,12 +207,19 @@ public class ApiClient {
       IOException err = null;
       Response out = null;
 
-      // Authenticate the request. Failures should not be retried.
-      in.withHeaders(authenticateFunc.apply(null));
+      // Only apply authentication headers if Authorization header is not already set
+      if (!in.getHeaders().containsKey("Authorization")) {
+        in.withHeaders(authenticateFunc.apply(null));
+      }
 
-      // Prepend host to URL only after config.authenticate().
-      // This call may configure the host (e.g. in case of notebook native auth).
-      in.withUrl(getHostFunc.apply(null) + path);
+      // Only prepend host if the path is not an absolute URL
+      if (!path.startsWith("http://") && !path.startsWith("https://")) {
+        // Prepend host to URL only after config.authenticate().
+        // This call may configure the host (e.g. in case of notebook native auth).
+        in.withUrl(getHostFunc.apply(null) + path);
+      } else {
+        in.withUrl(path);
+      }
 
       // Set User-Agent with auth type info, which is available only
       // after the first invocation to config.authenticate()
