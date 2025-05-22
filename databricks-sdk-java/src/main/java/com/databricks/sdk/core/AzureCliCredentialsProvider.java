@@ -1,5 +1,6 @@
 package com.databricks.sdk.core;
 
+import com.databricks.sdk.core.oauth.OAuthHeaderFactory;
 import com.databricks.sdk.core.oauth.Token;
 import com.databricks.sdk.core.utils.AzureUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -68,7 +69,7 @@ public class AzureCliCredentialsProvider implements CredentialsProvider {
   }
 
   @Override
-  public HeaderFactory configure(DatabricksConfig config) {
+  public OAuthHeaderFactory configure(DatabricksConfig config) {
     if (!config.isAzure()) {
       return null;
     }
@@ -86,15 +87,17 @@ public class AzureCliCredentialsProvider implements CredentialsProvider {
         mgmtTokenSource = null;
       }
       CliTokenSource finalMgmtTokenSource = mgmtTokenSource;
-      return () -> {
-        Token token = tokenSource.getToken();
-        Map<String, String> headers = new HashMap<>();
-        headers.put("Authorization", token.getTokenType() + " " + token.getAccessToken());
-        if (finalMgmtTokenSource != null) {
-          AzureUtils.addSpManagementToken(finalMgmtTokenSource, headers);
-        }
-        return AzureUtils.addWorkspaceResourceId(config, headers);
-      };
+      return OAuthHeaderFactory.fromSuppliers(
+          tokenSource::getToken,
+          () -> {
+            Token token = tokenSource.getToken();
+            Map<String, String> headers = new HashMap<>();
+            headers.put("Authorization", token.getTokenType() + " " + token.getAccessToken());
+            if (finalMgmtTokenSource != null) {
+              AzureUtils.addSpManagementToken(finalMgmtTokenSource, headers);
+            }
+            return AzureUtils.addWorkspaceResourceId(config, headers);
+          });
     } catch (DatabricksException e) {
       String stderr = e.getMessage();
       if (stderr.contains("not found")) {

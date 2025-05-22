@@ -2,7 +2,6 @@ package com.databricks.sdk.core.oauth;
 
 import com.databricks.sdk.core.CredentialsProvider;
 import com.databricks.sdk.core.DatabricksConfig;
-import com.databricks.sdk.core.HeaderFactory;
 
 /**
  * A credentials provider that uses a TokenSource to obtain and manage authentication tokens. This
@@ -37,12 +36,12 @@ public class TokenSourceCredentialsProvider implements CredentialsProvider {
    *     acquisition fails.
    */
   @Override
-  public HeaderFactory configure(DatabricksConfig config) {
+  public OAuthHeaderFactory configure(DatabricksConfig config) {
     try {
       // Validate that we can get a token before returning a HeaderFactory
       tokenSource.getToken().getAccessToken();
 
-      return new OAuthHeaderFactory(tokenSource);
+      return OAuthHeaderFactory.fromTokenSource(tokenSource);
     } catch (Exception e) {
       return null;
     }

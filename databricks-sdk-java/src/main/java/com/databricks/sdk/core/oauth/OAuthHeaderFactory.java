@@ -1,25 +1,24 @@
 package com.databricks.sdk.core.oauth;
 
 import com.databricks.sdk.core.HeaderFactory;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 
-public class OAuthHeaderFactory implements HeaderFactory, TokenSource {
-  private final TokenSource tokenSource;
-
-  public OAuthHeaderFactory(TokenSource tokenSource) {
-    this.tokenSource = tokenSource;
+public interface OAuthHeaderFactory extends HeaderFactory, TokenSource {
+  /**
+   * Creates an OAuthHeaderFactory from separate token and header suppliers. This allows for custom
+   * header generation beyond just the Authorization header.
+   */
+  static OAuthHeaderFactory fromSuppliers(
+      Supplier<Token> tokenSupplier, Supplier<Map<String, String>> headerSupplier) {
+    return new OAuthHeaderFactoryFromSuppliers(tokenSupplier, headerSupplier);
   }
 
-  @Override
-  public Token getToken() {
-    return tokenSource.getToken();
-  }
-
-  @Override
-  public Map<String, String> headers() {
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Authorization", "Bearer " + tokenSource.getToken().getAccessToken());
-    return headers;
+  /**
+   * Creates an OAuthHeaderFactory from a TokenSource. This is a convenience method for the common
+   * case where headers are derived from the token.
+   */
+  static OAuthHeaderFactory fromTokenSource(TokenSource tokenSource) {
+    return new OAuthHeaderFactoryFromTokenSource(tokenSource);
   }
 }

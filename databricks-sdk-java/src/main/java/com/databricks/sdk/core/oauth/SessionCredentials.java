@@ -3,12 +3,10 @@ package com.databricks.sdk.core.oauth;
 import com.databricks.sdk.core.CredentialsProvider;
 import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.DatabricksException;
-import com.databricks.sdk.core.HeaderFactory;
 import com.databricks.sdk.core.http.HttpClient;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.http.HttpHeaders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,13 +28,8 @@ public class SessionCredentials extends RefreshableTokenSource
   }
 
   @Override
-  public HeaderFactory configure(DatabricksConfig config) {
-    return () -> {
-      Map<String, String> headers = new HashMap<>();
-      headers.put(
-          HttpHeaders.AUTHORIZATION, getToken().getTokenType() + " " + getToken().getAccessToken());
-      return headers;
-    };
+  public OAuthHeaderFactory configure(DatabricksConfig config) {
+    return OAuthHeaderFactory.fromTokenSource(this);
   }
 
   static class Builder {
