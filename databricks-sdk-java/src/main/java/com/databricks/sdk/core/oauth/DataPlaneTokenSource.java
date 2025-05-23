@@ -14,9 +14,9 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class DataPlaneTokenSource {
   private final HttpClient httpClient;
-  private final DatabricksOAuthTokenSource cpTokenSource;
+  private final TokenSource cpTokenSource;
+  private final String host;
   private final ConcurrentHashMap<TokenSourceKey, EndpointTokenSource> sourcesCache;
-
   /**
    * Caching key for {@link EndpointTokenSource}, based on endpoint and authorization details. This
    * is a value object that uniquely identifies a token source configuration.
@@ -62,13 +62,19 @@ public class DataPlaneTokenSource {
    * Constructs a DataPlaneTokenSource.
    *
    * @param httpClient The {@link HttpClient} for token requests.
-   * @param cpTokenSource The {@link DatabricksOAuthTokenSource} for control plane tokens.
+   * @param cpTokenSource The {@link TokenSource} for control plane tokens.
+   * @param host The host for the token exchange request.
    * @throws NullPointerException if either parameter is null
    */
-  public DataPlaneTokenSource(HttpClient httpClient, DatabricksOAuthTokenSource cpTokenSource) {
+  public DataPlaneTokenSource(HttpClient httpClient, TokenSource cpTokenSource, String host) {
     this.httpClient = Objects.requireNonNull(httpClient, "HTTP client cannot be null");
     this.cpTokenSource =
         Objects.requireNonNull(cpTokenSource, "Control plane token source cannot be null");
+    this.host = Objects.requireNonNull(host, "Host cannot be null");
+
+    if (host.isEmpty()) {
+      throw new IllegalArgumentException("Host cannot be empty");
+    }
     this.sourcesCache = new ConcurrentHashMap<>();
   }
 
@@ -85,17 +91,22 @@ public class DataPlaneTokenSource {
   public Token getToken(String endpoint, String authDetails) {
     Objects.requireNonNull(endpoint, "Data plane endpoint URL cannot be null");
     Objects.requireNonNull(authDetails, "Authorization details cannot be null");
+
     if (endpoint.isEmpty()) {
       throw new IllegalArgumentException("Data plane endpoint URL cannot be empty");
     }
     if (authDetails.isEmpty()) {
       throw new IllegalArgumentException("Authorization details cannot be empty");
     }
+
     TokenSourceKey key = new TokenSourceKey(endpoint, authDetails);
 
     EndpointTokenSource specificSource =
         sourcesCache.computeIfAbsent(
-            key, k -> new EndpointTokenSource(this.cpTokenSource, k.authDetails, this.httpClient));
+            key,
+            k ->
+                new EndpointTokenSource(
+                    this.cpTokenSource, k.authDetails, this.httpClient, this.host));
 
     return specificSource.getToken();
   }

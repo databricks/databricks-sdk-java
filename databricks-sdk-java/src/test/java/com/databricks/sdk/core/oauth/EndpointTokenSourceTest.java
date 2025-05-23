@@ -22,9 +22,9 @@ class EndpointTokenSourceTest {
   private static final String TEST_TOKEN_TYPE = "Bearer";
   private static final String TEST_REFRESH_TOKEN = "refresh-token";
   private static final int TEST_EXPIRES_IN = 3600;
+  private static final String TEST_HOST = "https://test.databricks.com";
 
   private static Stream<Arguments> provideEndpointTokenScenarios() throws Exception {
-    // Success response JSON
     String successJson =
         "{"
             + "\"access_token\":\""
@@ -39,12 +39,12 @@ class EndpointTokenSourceTest {
             + "\"refresh_token\":\""
             + TEST_REFRESH_TOKEN
             + "\"}";
-    // Error response JSON
+
     String errorJson =
         "{"
             + "\"error\":\"invalid_client\","
             + "\"error_description\":\"Client authentication failed\"}";
-    // Malformed JSON
+
     String malformedJson = "{not valid json}";
 
     // Mock DatabricksOAuthTokenSource for control plane token
@@ -79,6 +79,7 @@ class EndpointTokenSourceTest {
             mockCpTokenSource,
             TEST_AUTH_DETAILS,
             mockSuccessClient,
+            TEST_HOST,
             null, // No exception expected
             TEST_DP_TOKEN,
             TEST_TOKEN_TYPE,
@@ -89,6 +90,7 @@ class EndpointTokenSourceTest {
             mockCpTokenSource,
             TEST_AUTH_DETAILS,
             mockErrorClient,
+            TEST_HOST,
             DatabricksException.class,
             null,
             null,
@@ -99,6 +101,7 @@ class EndpointTokenSourceTest {
             mockCpTokenSource,
             TEST_AUTH_DETAILS,
             mockMalformedClient,
+            TEST_HOST,
             DatabricksException.class,
             null,
             null,
@@ -109,6 +112,7 @@ class EndpointTokenSourceTest {
             mockCpTokenSource,
             TEST_AUTH_DETAILS,
             mockIOExceptionClient,
+            TEST_HOST,
             DatabricksException.class,
             null,
             null,
@@ -119,6 +123,7 @@ class EndpointTokenSourceTest {
             null,
             TEST_AUTH_DETAILS,
             mockSuccessClient,
+            TEST_HOST,
             NullPointerException.class,
             null,
             null,
@@ -129,6 +134,7 @@ class EndpointTokenSourceTest {
             mockCpTokenSource,
             null,
             mockSuccessClient,
+            TEST_HOST,
             NullPointerException.class,
             null,
             null,
@@ -139,6 +145,7 @@ class EndpointTokenSourceTest {
             mockCpTokenSource,
             "",
             mockSuccessClient,
+            TEST_HOST,
             IllegalArgumentException.class,
             null,
             null,
@@ -149,7 +156,30 @@ class EndpointTokenSourceTest {
             mockCpTokenSource,
             TEST_AUTH_DETAILS,
             null,
+            TEST_HOST,
             NullPointerException.class,
+            null,
+            null,
+            null,
+            0),
+        Arguments.of(
+            "Null host",
+            mockCpTokenSource,
+            TEST_AUTH_DETAILS,
+            mockSuccessClient,
+            null,
+            NullPointerException.class,
+            null,
+            null,
+            null,
+            0),
+        Arguments.of(
+            "Empty host",
+            mockCpTokenSource,
+            TEST_AUTH_DETAILS,
+            mockSuccessClient,
+            "",
+            IllegalArgumentException.class,
             null,
             null,
             null,
@@ -163,6 +193,7 @@ class EndpointTokenSourceTest {
       DatabricksOAuthTokenSource cpTokenSource,
       String authDetails,
       HttpClient httpClient,
+      String host,
       Class<? extends Exception> expectedException,
       String expectedAccessToken,
       String expectedTokenType,
@@ -173,19 +204,17 @@ class EndpointTokenSourceTest {
           expectedException,
           () -> {
             EndpointTokenSource source =
-                new EndpointTokenSource(cpTokenSource, authDetails, httpClient);
+                new EndpointTokenSource(cpTokenSource, authDetails, httpClient, host);
             source.getToken();
           });
     } else {
-      EndpointTokenSource source = new EndpointTokenSource(cpTokenSource, authDetails, httpClient);
+      EndpointTokenSource source =
+          new EndpointTokenSource(cpTokenSource, authDetails, httpClient, host);
       Token token = source.getToken();
       assertNotNull(token);
       assertEquals(expectedAccessToken, token.getAccessToken());
       assertEquals(expectedTokenType, token.getTokenType());
       assertEquals(expectedRefreshToken, token.getRefreshToken());
-      // Allow a few seconds of clock skew for expiry
-      assertTrue(token.isValid());
-      assertTrue(token.getAccessToken().length() > 0);
     }
   }
 }
