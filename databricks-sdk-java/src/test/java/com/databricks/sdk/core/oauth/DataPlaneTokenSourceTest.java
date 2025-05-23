@@ -201,7 +201,7 @@ public class DataPlaneTokenSourceTest {
   }
 
   @Test
-  void testEndpointTokenSourceConstructionCount() throws Exception {
+  void testEndpointTokenSourceCaching() throws Exception {
     Token cpToken = new Token(TEST_CP_TOKEN, TEST_TOKEN_TYPE, null, LocalDateTime.now().plusSeconds(3600));
     DatabricksOAuthTokenSource mockCpTokenSource = mock(DatabricksOAuthTokenSource.class);
     when(mockCpTokenSource.getToken()).thenReturn(cpToken);
