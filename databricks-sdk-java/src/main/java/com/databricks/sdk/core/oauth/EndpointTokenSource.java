@@ -24,7 +24,7 @@ public class EndpointTokenSource extends RefreshableTokenSource {
   private final TokenSource cpTokenSource;
   private final String authDetails;
   private final HttpClient httpClient;
-  private final OpenIDConnectEndpoints endpoints;
+  private final String host;
   /**
    * Constructs a new EndpointTokenSource.
    *
@@ -38,7 +38,7 @@ public class EndpointTokenSource extends RefreshableTokenSource {
       TokenSource cpTokenSource,
       String authDetails,
       HttpClient httpClient,
-      OpenIDConnectEndpoints endpoints) {
+      String host) {
     this.cpTokenSource =
         Objects.requireNonNull(cpTokenSource, "Control plane token source cannot be null");
     this.authDetails = Objects.requireNonNull(authDetails, "Authorization details cannot be null");
@@ -46,7 +46,7 @@ public class EndpointTokenSource extends RefreshableTokenSource {
       throw new IllegalArgumentException("Authorization details cannot be empty");
     }
     this.httpClient = Objects.requireNonNull(httpClient, "HTTP client cannot be null");
-    this.endpoints = Objects.requireNonNull(endpoints, "OpenID Connect endpoints cannot be null");
+    this.host = Objects.requireNonNull(host, "Host cannot be null");
   }
 
   /**
@@ -76,7 +76,7 @@ public class EndpointTokenSource extends RefreshableTokenSource {
 
     OAuthResponse oauthResponse;
     try {
-      oauthResponse = TokenEndpointClient.requestToken(this.httpClient, endpoints.getTokenEndpoint(), params);
+      oauthResponse = TokenEndpointClient.requestToken(this.httpClient, this.host + TOKEN_ENDPOINT, params);
     } catch (DatabricksException | IllegalArgumentException | NullPointerException e) {
       LOG.error(
           "Failed to exchange control plane token for dataplane token at endpoint {}: {}",

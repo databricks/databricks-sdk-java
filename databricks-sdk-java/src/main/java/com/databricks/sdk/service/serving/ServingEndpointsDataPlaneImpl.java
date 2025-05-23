@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.oauth.DataPlaneTokenSource;
@@ -20,11 +21,11 @@ class ServingEndpointsDataPlaneImpl implements ServingEndpointsDataPlaneService 
 
   public ServingEndpointsDataPlaneImpl(
       ApiClient apiClient,
-      ServingEndpointsAPI controlPlane,
-      DataPlaneTokenSource dataPlaneTokenSource) {
+      DatabricksConfig config,
+      ServingEndpointsAPI controlPlane) {
     this.apiClient = apiClient;
     this.controlPlane = controlPlane;
-    this.dataPlaneTokenSource = dataPlaneTokenSource;
+    this.dataPlaneTokenSource = new DataPlaneTokenSource(apiClient.getHttpClient(), config.getTokenSource(), config.getHost());
     this.infos = new ConcurrentHashMap<>();
   }
 
@@ -55,9 +56,12 @@ class ServingEndpointsDataPlaneImpl implements ServingEndpointsDataPlaneService 
           new Request("POST", dataPlaneInfo.getEndpointUrl(), apiClient.serialize(request));
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
-      req.withHeader("Authorization", "Bearer " + token.getAccessToken());
 
-      return apiClient.execute(req, QueryEndpointResponse.class);
+      return apiClient.execute(req, QueryEndpointResponse.class, r -> {
+        r.withHeader("Authorization", "Bearer " + token.getAccessToken());
+        r.withUrl(dataPlaneInfo.getEndpointUrl());
+        return r;
+      });
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

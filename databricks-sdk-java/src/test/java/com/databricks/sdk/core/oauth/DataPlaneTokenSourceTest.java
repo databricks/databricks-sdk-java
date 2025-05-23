@@ -23,6 +23,7 @@ public class DataPlaneTokenSourceTest {
   private static final String TEST_TOKEN_TYPE = "Bearer";
   private static final String TEST_REFRESH_TOKEN = "refresh-token";
   private static final int TEST_EXPIRES_IN = 3600;
+  private static final String TEST_HOST = "https://test.databricks.com";
 
   private static Stream<Arguments> provideDataPlaneTokenScenarios() throws Exception {
     // Mock DatabricksOAuthTokenSource for control plane token
@@ -178,11 +179,11 @@ public class DataPlaneTokenSourceTest {
           expectedException,
           () -> {
             DataPlaneTokenSource source =
-                new DataPlaneTokenSource(httpClient, cpTokenSource, endpoints);
+                new DataPlaneTokenSource(httpClient, cpTokenSource, TEST_HOST);
             source.getToken(endpoint, authDetails);
           });
     } else {
-      DataPlaneTokenSource source = new DataPlaneTokenSource(httpClient, cpTokenSource, endpoints);
+      DataPlaneTokenSource source = new DataPlaneTokenSource(httpClient, cpTokenSource, TEST_HOST);
       Token token = source.getToken(endpoint, authDetails);
       assertNotNull(token);
       assertEquals(expectedToken.getAccessToken(), token.getAccessToken());

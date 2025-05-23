@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.oauth.DataPlaneTokenSource;
 import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
@@ -20,10 +21,10 @@ public class ServingEndpointsDataPlaneAPI {
   /** Regular-use constructor */
   public ServingEndpointsDataPlaneAPI(
       ApiClient apiClient,
-      ServingEndpointsAPI servingEndpointsAPI,
-      DataPlaneTokenSource dataPlaneTokenSource) {
+      DatabricksConfig config,
+      ServingEndpointsAPI servingEndpointsAPI) {
 
-    impl = new ServingEndpointsDataPlaneImpl(apiClient, servingEndpointsAPI, dataPlaneTokenSource);
+    impl = new ServingEndpointsDataPlaneImpl(apiClient, config, servingEndpointsAPI);
   }
 
   /** Constructor for mocks */

@@ -15,8 +15,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class DataPlaneTokenSource {
   private final HttpClient httpClient;
   private final TokenSource cpTokenSource;
+  private final String host;
   private final ConcurrentHashMap<TokenSourceKey, EndpointTokenSource> sourcesCache;
-  private final OpenIDConnectEndpoints endpoints;
   /**
    * Caching key for {@link EndpointTokenSource}, based on endpoint and authorization details. This
    * is a value object that uniquely identifies a token source configuration.
@@ -66,12 +66,12 @@ public class DataPlaneTokenSource {
    * @throws NullPointerException if either parameter is null
    */
   public DataPlaneTokenSource(
-      HttpClient httpClient, TokenSource cpTokenSource, OpenIDConnectEndpoints endpoints) {
+      HttpClient httpClient, TokenSource cpTokenSource, String host) {
     this.httpClient = Objects.requireNonNull(httpClient, "HTTP client cannot be null");
     this.cpTokenSource =
         Objects.requireNonNull(cpTokenSource, "Control plane token source cannot be null");
+    this.host = Objects.requireNonNull(host, "Host cannot be null");
     this.sourcesCache = new ConcurrentHashMap<>();
-    this.endpoints = Objects.requireNonNull(endpoints, "OpenID Connect endpoints cannot be null");
   }
 
   /**
@@ -98,7 +98,7 @@ public class DataPlaneTokenSource {
     EndpointTokenSource specificSource =
         sourcesCache.computeIfAbsent(
             key,
-            k -> new EndpointTokenSource(this.cpTokenSource, k.authDetails, this.httpClient, this.endpoints));
+            k -> new EndpointTokenSource(this.cpTokenSource, k.authDetails, this.httpClient, this.host));
 
     return specificSource.getToken();
   }

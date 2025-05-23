@@ -4,6 +4,7 @@ import com.databricks.sdk.core.error.ApiErrors;
 import com.databricks.sdk.core.error.PrivateLinkInfo;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
+import com.databricks.sdk.core.http.RequestModifier;
 import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.retry.RequestBasedRetryStrategyPicker;
 import com.databricks.sdk.core.retry.RetryStrategy;
@@ -179,26 +180,7 @@ public class ApiClient {
     }
   }
 
-  /**
-   * Executes HTTP request with retries and converts it to proper POJO
-   *
-   * @param in Commons HTTP request
-   * @param target Expected pojo type
-   * @return POJO of requested type
-   */
-  public <T> T execute(Request in, Class<T> target) throws IOException {
-    Response out = getResponse(in);
-    if (target == Void.class) {
-      return null;
-    }
-    return deserialize(out, target);
-  }
-
-  private Response getResponse(Request in) {
-    return executeInner(in, in.getUrl());
-  }
-
-  private Response executeInner(Request in, String path) {
+  private Response executeInner(Request in, String path, Optional<RequestModifier> modifier) {
     RetryStrategy retryStrategy = retryStrategyPicker.getRetryStrategy(in);
     int attemptNumber = 0;
     while (true) {
@@ -207,19 +189,12 @@ public class ApiClient {
       IOException err = null;
       Response out = null;
 
-      // Only apply authentication headers if Authorization header is not already set
-      if (!in.getHeaders().containsKey("Authorization")) {
-        in.withHeaders(authenticateFunc.apply(null));
-      }
+      // Authenticate the request. Failures should not be retried.
+      in.withHeaders(authenticateFunc.apply(null));
 
-      // Only prepend host if the path is not an absolute URL
-      if (!path.startsWith("http://") && !path.startsWith("https://")) {
-        // Prepend host to URL only after config.authenticate().
-        // This call may configure the host (e.g. in case of notebook native auth).
-        in.withUrl(getHostFunc.apply(null) + path);
-      } else {
-        in.withUrl(path);
-      }
+      // Prepend host to URL only after config.authenticate().
+      // This call may configure the host (e.g. in case of notebook native auth).
+      in.withUrl(getHostFunc.apply(null) + path);
 
       // Set User-Agent with auth type info, which is available only
       // after the first invocation to config.authenticate()
@@ -229,6 +204,11 @@ public class ApiClient {
         userAgent += String.format(" auth/%s", authType);
       }
       in.withHeader("User-Agent", userAgent);
+
+      if (modifier.isPresent()) {
+        System.out.println("Modifier is present");
+        in = modifier.get().modify(in);
+      }
 
       // Make the request, catching any exceptions, as we may want to retry.
       try {
@@ -267,6 +247,39 @@ public class ApiClient {
         throw new DatabricksException("Current thread was interrupted", ex);
       }
     }
+  }
+
+  /**
+   * Executes HTTP request with retries and converts it to proper POJO, using custom request modifier
+   *
+   * @param in Commons HTTP request
+   * @param target Expected pojo type
+   * @param modifier Optional request modifier to customize request behavior
+   * @return POJO of requested type
+   */
+  public <T> T execute(Request in, Class<T> target) throws IOException {
+    Response out = getResponse(in);
+    if (target == Void.class) {
+      return null;
+    }
+    return deserialize(out, target);
+  }
+
+
+  public <T> T execute(Request in, Class<T> target, RequestModifier modifier) throws IOException {
+    Response out = getResponse(in, modifier);
+    if (target == Void.class) {
+      return null;
+    }
+    return deserialize(out, target);
+  }
+
+  private Response getResponse(Request in) {
+    return executeInner(in, in.getUrl(), Optional.empty());
+  }
+
+  private Response getResponse(Request in, RequestModifier modifier) {
+    return executeInner(in, in.getUrl(), Optional.of(modifier));
   }
 
   private boolean isRequestSuccessful(Response response, Exception e) {

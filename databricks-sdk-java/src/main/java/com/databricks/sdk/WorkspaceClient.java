@@ -5,8 +5,6 @@ package com.databricks.sdk;
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.core.ConfigLoader;
 import com.databricks.sdk.core.DatabricksConfig;
-import com.databricks.sdk.core.DatabricksException;
-import com.databricks.sdk.core.oauth.DataPlaneTokenSource;
 import com.databricks.sdk.mixin.ClustersExt;
 import com.databricks.sdk.mixin.DbfsExt;
 import com.databricks.sdk.mixin.SecretsExt;
@@ -207,7 +205,6 @@ import com.databricks.sdk.service.workspace.SecretsService;
 import com.databricks.sdk.service.workspace.WorkspaceAPI;
 import com.databricks.sdk.service.workspace.WorkspaceService;
 import com.databricks.sdk.support.Generated;
-import java.io.IOException;
 
 /** Entry point for accessing Databricks workspace-level APIs */
 @Generated
@@ -406,7 +403,7 @@ public class WorkspaceClient {
     servingEndpointsAPI = new ServingEndpointsAPI(apiClient);
     servingEndpointsDataPlaneAPI =
         new ServingEndpointsDataPlaneAPI(
-            apiClient, servingEndpointsAPI, createDataPlaneTokenSource(apiClient, config));
+            apiClient, config, servingEndpointsAPI);
     settingsAPI = new SettingsAPI(apiClient);
     sharesAPI = new SharesAPI(apiClient);
     statementExecutionAPI = new StatementExecutionAPI(apiClient);
@@ -2897,15 +2894,5 @@ public class WorkspaceClient {
 
   public DatabricksConfig config() {
     return config;
-  }
-
-  private DataPlaneTokenSource createDataPlaneTokenSource(
-      ApiClient apiClient, DatabricksConfig config) {
-    try {
-      return new DataPlaneTokenSource(
-          apiClient.getHttpClient(), config.getTokenSource(), config.getOidcEndpoints());
-    } catch (IOException e) {
-      throw new DatabricksException("Failed to create DataPlaneTokenSource", e);
-    }
   }
 }

@@ -22,6 +22,7 @@ class EndpointTokenSourceTest {
   private static final String TEST_TOKEN_TYPE = "Bearer";
   private static final String TEST_REFRESH_TOKEN = "refresh-token";
   private static final int TEST_EXPIRES_IN = 3600;
+  private static final String TEST_HOST = "https://test.databricks.com";
 
   private static Stream<Arguments> provideEndpointTokenScenarios() throws Exception {
     // Success response JSON
@@ -186,12 +187,12 @@ class EndpointTokenSourceTest {
           expectedException,
           () -> {
             EndpointTokenSource source =
-                new EndpointTokenSource(cpTokenSource, authDetails, httpClient, endpoints);
+                new EndpointTokenSource(cpTokenSource, authDetails, httpClient, TEST_HOST);
             source.getToken();
           });
     } else {
       EndpointTokenSource source =
-          new EndpointTokenSource(cpTokenSource, authDetails, httpClient, endpoints);
+          new EndpointTokenSource(cpTokenSource, authDetails, httpClient, TEST_HOST);
       Token token = source.getToken();
       assertNotNull(token);
       assertEquals(expectedAccessToken, token.getAccessToken());
