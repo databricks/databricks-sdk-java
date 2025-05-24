@@ -4,7 +4,7 @@ import com.databricks.sdk.core.error.ApiErrors;
 import com.databricks.sdk.core.error.PrivateLinkInfo;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
-import com.databricks.sdk.core.http.RequestModifier;
+import com.databricks.sdk.core.http.RequestOptions;
 import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.retry.RequestBasedRetryStrategyPicker;
 import com.databricks.sdk.core.retry.RetryStrategy;
@@ -180,7 +180,7 @@ public class ApiClient {
     }
   }
 
-  private Response executeInner(Request in, String path, Optional<RequestModifier> modifier) {
+  private Response executeInner(Request in, String path, Optional<RequestOptions> options) {
     RetryStrategy retryStrategy = retryStrategyPicker.getRetryStrategy(in);
     int attemptNumber = 0;
     while (true) {
@@ -205,9 +205,8 @@ public class ApiClient {
       }
       in.withHeader("User-Agent", userAgent);
 
-      if (modifier.isPresent()) {
-        System.out.println("Modifier is present");
-        in = modifier.get().modify(in);
+      if (options.isPresent()) {
+        in = options.get().applyOptions(in);
       }
 
       // Make the request, catching any exceptions, as we may want to retry.
@@ -266,7 +265,7 @@ public class ApiClient {
     return deserialize(out, target);
   }
 
-  public <T> T execute(Request in, Class<T> target, RequestModifier modifier) throws IOException {
+  public <T> T execute(Request in, Class<T> target, RequestOptions modifier) throws IOException {
     Response out = getResponse(in, modifier);
     if (target == Void.class) {
       return null;
@@ -278,7 +277,7 @@ public class ApiClient {
     return executeInner(in, in.getUrl(), Optional.empty());
   }
 
-  private Response getResponse(Request in, RequestModifier modifier) {
+  private Response getResponse(Request in, RequestOptions modifier) {
     return executeInner(in, in.getUrl(), Optional.of(modifier));
   }
 

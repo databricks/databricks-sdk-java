@@ -5,6 +5,7 @@ import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.Request;
+import com.databricks.sdk.core.http.RequestOptions;
 import com.databricks.sdk.core.oauth.DataPlaneTokenSource;
 import com.databricks.sdk.core.oauth.Token;
 import com.databricks.sdk.support.Generated;
@@ -49,22 +50,18 @@ class ServingEndpointsDataPlaneImpl implements ServingEndpointsDataPlaneService 
         dataPlaneTokenSource.getToken(
             dataPlaneInfo.getEndpointUrl(), dataPlaneInfo.getAuthorizationDetails());
 
-    System.out.println("DP Token: " + token.getAccessToken());
-
     try {
       Request req =
           new Request("POST", dataPlaneInfo.getEndpointUrl(), apiClient.serialize(request));
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
 
-      return apiClient.execute(
-          req,
-          QueryEndpointResponse.class,
-          r -> {
-            r.withHeader("Authorization", "Bearer " + token.getAccessToken());
-            r.withUrl(dataPlaneInfo.getEndpointUrl());
-            return r;
-          });
+      RequestOptions options =
+          new RequestOptions()
+              .withAuthorization("Bearer " + token.getAccessToken())
+              .withUrl(dataPlaneInfo.getEndpointUrl());
+
+      return apiClient.execute(req, QueryEndpointResponse.class, options);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
