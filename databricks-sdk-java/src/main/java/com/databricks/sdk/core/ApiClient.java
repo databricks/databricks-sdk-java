@@ -250,7 +250,8 @@ public class ApiClient {
   }
 
   /**
-   * Executes HTTP request with retries and converts it to proper POJO, using custom request modifier
+   * Executes HTTP request with retries and converts it to proper POJO, using custom request
+   * modifier
    *
    * @param in Commons HTTP request
    * @param target Expected pojo type
@@ -264,7 +265,6 @@ public class ApiClient {
     }
     return deserialize(out, target);
   }
-
 
   public <T> T execute(Request in, Class<T> target, RequestModifier modifier) throws IOException {
     Response out = getResponse(in, modifier);

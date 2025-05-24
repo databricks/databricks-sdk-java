@@ -20,12 +20,12 @@ class ServingEndpointsDataPlaneImpl implements ServingEndpointsDataPlaneService 
   private final ConcurrentHashMap<String, DataPlaneInfo> infos;
 
   public ServingEndpointsDataPlaneImpl(
-      ApiClient apiClient,
-      DatabricksConfig config,
-      ServingEndpointsAPI controlPlane) {
+      ApiClient apiClient, DatabricksConfig config, ServingEndpointsAPI controlPlane) {
     this.apiClient = apiClient;
     this.controlPlane = controlPlane;
-    this.dataPlaneTokenSource = new DataPlaneTokenSource(apiClient.getHttpClient(), config.getTokenSource(), config.getHost());
+    this.dataPlaneTokenSource =
+        new DataPlaneTokenSource(
+            apiClient.getHttpClient(), config.getTokenSource(), config.getHost());
     this.infos = new ConcurrentHashMap<>();
   }
 
@@ -57,11 +57,14 @@ class ServingEndpointsDataPlaneImpl implements ServingEndpointsDataPlaneService 
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
 
-      return apiClient.execute(req, QueryEndpointResponse.class, r -> {
-        r.withHeader("Authorization", "Bearer " + token.getAccessToken());
-        r.withUrl(dataPlaneInfo.getEndpointUrl());
-        return r;
-      });
+      return apiClient.execute(
+          req,
+          QueryEndpointResponse.class,
+          r -> {
+            r.withHeader("Authorization", "Bearer " + token.getAccessToken());
+            r.withUrl(dataPlaneInfo.getEndpointUrl());
+            return r;
+          });
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

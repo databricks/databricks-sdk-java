@@ -402,8 +402,7 @@ public class WorkspaceClient {
     servicePrincipalsAPI = new ServicePrincipalsAPI(apiClient);
     servingEndpointsAPI = new ServingEndpointsAPI(apiClient);
     servingEndpointsDataPlaneAPI =
-        new ServingEndpointsDataPlaneAPI(
-            apiClient, config, servingEndpointsAPI);
+        new ServingEndpointsDataPlaneAPI(apiClient, config, servingEndpointsAPI);
     settingsAPI = new SettingsAPI(apiClient);
     sharesAPI = new SharesAPI(apiClient);
     statementExecutionAPI = new StatementExecutionAPI(apiClient);

@@ -16,10 +16,11 @@ public class ServingDataplaneExample {
   @Test
   void testQueryModelEndpoint() {
     // Use Databricks CLI authentication with required scopes
-    DatabricksConfig config = new DatabricksConfig()
-        .setAuthType("databricks-cli")
-        .setHost("https://e2-dogfood.staging.cloud.databricks.com")
-        .setDebugHeaders(true);
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setAuthType("databricks-cli")
+            .setHost("https://e2-dogfood.staging.cloud.databricks.com")
+            .setDebugHeaders(true);
 
     LOG.info("Creating WorkspaceClient with config: {}", config);
     WorkspaceClient client = new WorkspaceClient(config);
@@ -42,9 +43,7 @@ public class ServingDataplaneExample {
 
       // Create the query input object
       QueryEndpointInput queryInput =
-          new QueryEndpointInput()
-              .setName(endpointName)
-              .setInputs(new Map[]{inputData});
+          new QueryEndpointInput().setName(endpointName).setInputs(new Map[] {inputData});
 
       LOG.info("Querying endpoint {} with input: {}", endpointName, queryInput);
 

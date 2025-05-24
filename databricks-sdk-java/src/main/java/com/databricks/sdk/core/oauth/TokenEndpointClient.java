@@ -58,7 +58,8 @@ public final class TokenEndpointClient {
         encodedParams.put("authorization_details", encodedAuthDetails);
       } catch (IOException e) {
         LOG.error("Failed to encode authorization details", e);
-        throw new DatabricksException("Failed to encode authorization details: " + e.getMessage(), e);
+        throw new DatabricksException(
+            "Failed to encode authorization details: " + e.getMessage(), e);
       }
     }
 

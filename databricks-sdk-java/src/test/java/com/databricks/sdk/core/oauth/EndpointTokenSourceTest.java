@@ -73,10 +73,6 @@ class EndpointTokenSourceTest {
     HttpClient mockIOExceptionClient = mock(HttpClient.class);
     when(mockIOExceptionClient.execute(any())).thenThrow(new IOException("Network error"));
 
-    // Mock OpenIDConnectEndpoints
-    OpenIDConnectEndpoints mockEndpoints = mock(OpenIDConnectEndpoints.class);
-    when(mockEndpoints.getTokenEndpoint()).thenReturn("https://test.databricks.com/oidc/v1/token");
-
     return Stream.of(
         Arguments.of(
             "Success response",
