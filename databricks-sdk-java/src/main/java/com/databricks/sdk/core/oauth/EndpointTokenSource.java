@@ -31,22 +31,24 @@ public class EndpointTokenSource extends RefreshableTokenSource {
    * @param cpTokenSource The {@link TokenSource} used to obtain the control plane token.
    * @param authDetails The authorization details required for the token exchange.
    * @param httpClient The {@link HttpClient} used to make the token exchange request.
-   * @throws IllegalArgumentException if authDetails is empty.
+   * @param host The host for the token exchange request.
+   * @throws IllegalArgumentException if authDetails is empty or host is empty.
    * @throws NullPointerException if any of the parameters are null.
    */
   public EndpointTokenSource(
-      TokenSource cpTokenSource,
-      String authDetails,
-      HttpClient httpClient,
-      String host) {
+      TokenSource cpTokenSource, String authDetails, HttpClient httpClient, String host) {
     this.cpTokenSource =
         Objects.requireNonNull(cpTokenSource, "Control plane token source cannot be null");
     this.authDetails = Objects.requireNonNull(authDetails, "Authorization details cannot be null");
+    this.httpClient = Objects.requireNonNull(httpClient, "HTTP client cannot be null");
+    this.host = Objects.requireNonNull(host, "Host cannot be null");
+
     if (authDetails.isEmpty()) {
       throw new IllegalArgumentException("Authorization details cannot be empty");
     }
-    this.httpClient = Objects.requireNonNull(httpClient, "HTTP client cannot be null");
-    this.host = Objects.requireNonNull(host, "Host cannot be null");
+    if (host.isEmpty()) {
+      throw new IllegalArgumentException("Host cannot be empty");
+    }
   }
 
   /**
@@ -66,7 +68,6 @@ public class EndpointTokenSource extends RefreshableTokenSource {
   @Override
   protected Token refresh() {
     Token cpToken = cpTokenSource.getToken();
-    System.out.println("Fetched CP Token: " + cpToken.getAccessToken());
     Map<String, String> params = new HashMap<>();
     params.put(GRANT_TYPE_PARAM, JWT_GRANT_TYPE);
     params.put(AUTHORIZATION_DETAILS_PARAM, authDetails);
@@ -76,7 +77,8 @@ public class EndpointTokenSource extends RefreshableTokenSource {
 
     OAuthResponse oauthResponse;
     try {
-      oauthResponse = TokenEndpointClient.requestToken(this.httpClient, this.host + TOKEN_ENDPOINT, params);
+      oauthResponse =
+          TokenEndpointClient.requestToken(this.httpClient, this.host + TOKEN_ENDPOINT, params);
     } catch (DatabricksException | IllegalArgumentException | NullPointerException e) {
       LOG.error(
           "Failed to exchange control plane token for dataplane token at endpoint {}: {}",
