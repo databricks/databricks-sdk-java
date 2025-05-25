@@ -202,35 +202,55 @@ public class DataPlaneTokenSourceTest {
 
   @Test
   void testEndpointTokenSourceCaching() throws Exception {
-    Token cpToken = new Token(TEST_CP_TOKEN, TEST_TOKEN_TYPE, null, LocalDateTime.now().plusSeconds(3600));
+    Token cpToken =
+        new Token(TEST_CP_TOKEN, TEST_TOKEN_TYPE, null, LocalDateTime.now().plusSeconds(3600));
     DatabricksOAuthTokenSource mockCpTokenSource = mock(DatabricksOAuthTokenSource.class);
     when(mockCpTokenSource.getToken()).thenReturn(cpToken);
 
-    String successJson = "{\"access_token\":\"dp-access-token\",\"token_type\":\"Bearer\",\"refresh_token\":\"refresh-token\",\"expires_in\":3600}";
+    String successJson =
+        "{\"access_token\":\"dp-access-token\",\"token_type\":\"Bearer\",\"refresh_token\":\"refresh-token\",\"expires_in\":3600}";
     HttpClient mockHttpClient = mock(HttpClient.class);
-    when(mockHttpClient.execute(any())).thenReturn(new Response(successJson, 200, "OK", new URL(TEST_ENDPOINT_1)));
+    when(mockHttpClient.execute(any()))
+        .thenReturn(new Response(successJson, 200, "OK", new URL(TEST_ENDPOINT_1)));
 
-    try (MockedConstruction<EndpointTokenSource> mockedConstruction = mockConstruction(EndpointTokenSource.class)) {
-      DataPlaneTokenSource source = new DataPlaneTokenSource(mockHttpClient, mockCpTokenSource, TEST_HOST);
+    try (MockedConstruction<EndpointTokenSource> mockedConstruction =
+        mockConstruction(EndpointTokenSource.class)) {
+      DataPlaneTokenSource source =
+          new DataPlaneTokenSource(mockHttpClient, mockCpTokenSource, TEST_HOST);
 
       // First call - should create new EndpointTokenSource
       source.getToken(TEST_ENDPOINT_1, TEST_AUTH_DETAILS_1);
-      assertEquals(1, mockedConstruction.constructed().size(), "First call should create one EndpointTokenSource");
+      assertEquals(
+          1,
+          mockedConstruction.constructed().size(),
+          "First call should create one EndpointTokenSource");
 
       // Second call with same endpoint and auth details - should reuse existing EndpointTokenSource
       source.getToken(TEST_ENDPOINT_1, TEST_AUTH_DETAILS_1);
-      assertEquals(1, mockedConstruction.constructed().size(), "This call should reuse the existing EndpointTokenSource");
+      assertEquals(
+          1,
+          mockedConstruction.constructed().size(),
+          "This call should reuse the existing EndpointTokenSource");
 
       // Call with different endpoint - should create new EndpointTokenSource
       source.getToken(TEST_ENDPOINT_2, TEST_AUTH_DETAILS_2);
-      assertEquals(2, mockedConstruction.constructed().size(), "Different endpoint should create new EndpointTokenSource");
+      assertEquals(
+          2,
+          mockedConstruction.constructed().size(),
+          "Different endpoint should create new EndpointTokenSource");
 
       // Call with different auth details - should create new EndpointTokenSource
       source.getToken(TEST_ENDPOINT_1, TEST_AUTH_DETAILS_2);
-      assertEquals(3, mockedConstruction.constructed().size(), "Different auth details should create new EndpointTokenSource");
+      assertEquals(
+          3,
+          mockedConstruction.constructed().size(),
+          "Different auth details should create new EndpointTokenSource");
 
       source.getToken(TEST_ENDPOINT_2, TEST_AUTH_DETAILS_2);
-      assertEquals(3, mockedConstruction.constructed().size(), "This call should reuse the existing EndpointTokenSource");
+      assertEquals(
+          3,
+          mockedConstruction.constructed().size(),
+          "This call should reuse the existing EndpointTokenSource");
     }
   }
 }
