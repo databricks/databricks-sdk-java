@@ -3,7 +3,7 @@
 ## Release v0.52.0
 
 ### New Features and Improvements
-* Added Direct-to-Dataplane API support, allowing users query route optimized model serving endpoints ([#453](https://github.com/databricks/databricks-sdk-java/pull/453)).
+* Added Direct-to-Dataplane API support, allowing users to query route optimized model serving endpoints ([#453](https://github.com/databricks/databricks-sdk-java/pull/453)).
 
 ### Bug Fixes
 
