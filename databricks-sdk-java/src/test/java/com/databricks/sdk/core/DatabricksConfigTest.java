@@ -1,11 +1,18 @@
 package com.databricks.sdk.core;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 import com.databricks.sdk.core.commons.CommonsHttpClient;
+import com.databricks.sdk.core.http.HttpClient;
+import com.databricks.sdk.core.oauth.ErrorTokenSource;
 import com.databricks.sdk.core.oauth.OpenIDConnectEndpoints;
+import com.databricks.sdk.core.oauth.OAuthHeaderFactory;
+import com.databricks.sdk.core.oauth.Token;
+import com.databricks.sdk.core.oauth.TokenSource;
 import com.databricks.sdk.core.utils.Environment;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -194,5 +201,53 @@ public class DatabricksConfigTest {
     assert newWorkspaceConfig.getAuthType().equals("oauth-m2m");
     assert newWorkspaceConfig.getClientId().equals("my-client-id");
     assert newWorkspaceConfig.getClientSecret().equals("my-client-secret");
+  }
+
+  @Test
+  public void testGetTokenSourceWithNonOAuth() {
+    HttpClient httpClient = mock(HttpClient.class);
+    HeaderFactory mockHeaderFactory = mock(HeaderFactory.class);
+    CredentialsProvider mockProvider = mock(CredentialsProvider.class);
+    when(mockProvider.authType()).thenReturn("test");
+    when(mockProvider.configure(any())).thenReturn(mockHeaderFactory);
+    
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setHost("https://test.databricks.com")
+            .setHttpClient(httpClient)
+            .setCredentialsProvider(mockProvider);
+
+    // This will set the headerFactory internally
+    config.authenticate();
+    
+    TokenSource tokenSource = config.getTokenSource();
+    assertTrue(tokenSource instanceof ErrorTokenSource);
+    DatabricksException exception = assertThrows(DatabricksException.class, () -> tokenSource.getToken());
+    assertEquals("OAuth Token not supported for current auth type test", exception.getMessage());
+  }
+
+
+  @Test
+  public void testGetTokenSourceWithOAuth() {
+    HttpClient httpClient = mock(HttpClient.class);
+    TokenSource mockTokenSource = mock(TokenSource.class);
+    when(mockTokenSource.getToken()).thenReturn(new Token("test-token", "Bearer", LocalDateTime.now().plusHours(1)));
+    OAuthHeaderFactory mockHeaderFactory = OAuthHeaderFactory.fromTokenSource(mockTokenSource);
+    CredentialsProvider mockProvider = mock(CredentialsProvider.class);
+    when(mockProvider.authType()).thenReturn("test");
+    when(mockProvider.configure(any())).thenReturn(mockHeaderFactory);
+    
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setHost("https://test.databricks.com")
+            .setHttpClient(httpClient)
+            .setCredentialsProvider(mockProvider);
+
+    // This will set the headerFactory internally
+    config.authenticate();
+    
+    TokenSource tokenSource = config.getTokenSource();
+    assertFalse(tokenSource instanceof ErrorTokenSource);
+    assertEquals(tokenSource.getToken().getAccessToken(), "test-token");
   }
 }
