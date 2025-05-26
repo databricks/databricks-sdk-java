@@ -35,6 +35,8 @@ public class SettingsAPI {
 
   private EnhancedSecurityMonitoringAPI enhancedSecurityMonitoringAPI;
 
+  private LlmProxyPartnerPoweredWorkspaceAPI llmProxyPartnerPoweredWorkspaceAPI;
+
   private RestrictWorkspaceAdminsAPI restrictWorkspaceAdminsAPI;
 
   /** Regular-use constructor */
@@ -63,6 +65,8 @@ public class SettingsAPI {
     enableResultsDownloadingAPI = new EnableResultsDownloadingAPI(apiClient);
 
     enhancedSecurityMonitoringAPI = new EnhancedSecurityMonitoringAPI(apiClient);
+
+    llmProxyPartnerPoweredWorkspaceAPI = new LlmProxyPartnerPoweredWorkspaceAPI(apiClient);
 
     restrictWorkspaceAdminsAPI = new RestrictWorkspaceAdminsAPI(apiClient);
   }
@@ -108,10 +112,7 @@ public class SettingsAPI {
     return disableLegacyAccessAPI;
   }
 
-  /**
-   * When this setting is on, access to DBFS root and DBFS mounts is disallowed (as well as creation
-   * of new mounts).
-   */
+  /** Disabling legacy DBFS has the following implications: 1. */
   public DisableLegacyDbfsAPI DisableLegacyDbfs() {
     return disableLegacyDbfsAPI;
   }
@@ -134,6 +135,11 @@ public class SettingsAPI {
   /** Controls whether enhanced security monitoring is enabled for the current workspace. */
   public EnhancedSecurityMonitoringAPI EnhancedSecurityMonitoring() {
     return enhancedSecurityMonitoringAPI;
+  }
+
+  /** Determines if partner powered models are enabled or not for a specific workspace. */
+  public LlmProxyPartnerPoweredWorkspaceAPI LlmProxyPartnerPoweredWorkspace() {
+    return llmProxyPartnerPoweredWorkspaceAPI;
   }
 
   /**

@@ -29,6 +29,9 @@ public interface ExperimentsService {
    */
   CreateExperimentResponse createExperiment(CreateExperiment createExperiment);
 
+  /** Create a logged model. */
+  CreateLoggedModelResponse createLoggedModel(CreateLoggedModelRequest createLoggedModelRequest);
+
   /**
    * Create a run.
    *
@@ -45,6 +48,12 @@ public interface ExperimentsService {
    * If the experiment uses FileStore, artifacts associated with the experiment are also deleted.
    */
   void deleteExperiment(DeleteExperiment deleteExperiment);
+
+  /** Delete a logged model. */
+  void deleteLoggedModel(DeleteLoggedModelRequest deleteLoggedModelRequest);
+
+  /** Delete a tag on a logged model. */
+  void deleteLoggedModelTag(DeleteLoggedModelTagRequest deleteLoggedModelTagRequest);
 
   /**
    * Delete a run.
@@ -69,6 +78,10 @@ public interface ExperimentsService {
    * run completes.
    */
   void deleteTag(DeleteTag deleteTag);
+
+  /** Finalize a logged model. */
+  FinalizeLoggedModelResponse finalizeLoggedModel(
+      FinalizeLoggedModelRequest finalizeLoggedModelRequest);
 
   /**
    * Get an experiment by name.
@@ -104,6 +117,9 @@ public interface ExperimentsService {
    * <p>Gets a list of all values for the specified metric for a given run.
    */
   GetMetricHistoryResponse getHistory(GetHistoryRequest getHistoryRequest);
+
+  /** Get a logged model. */
+  GetLoggedModelResponse getLoggedModel(GetLoggedModelRequest getLoggedModelRequest);
 
   /**
    * Get experiment permission levels.
@@ -149,6 +165,15 @@ public interface ExperimentsService {
    * <p>Gets a list of all experiments.
    */
   ListExperimentsResponse listExperiments(ListExperimentsRequest listExperimentsRequest);
+
+  /**
+   * List artifacts for a logged model.
+   *
+   * <p>List artifacts for a logged model. Takes an optional ``artifact_directory_path`` prefix
+   * which if specified, the response contains only artifacts with the specified prefix.
+   */
+  ListLoggedModelArtifactsResponse listLoggedModelArtifacts(
+      ListLoggedModelArtifactsRequest listLoggedModelArtifactsRequest);
 
   /**
    * Log a batch of metrics/params/tags for a run.
@@ -209,6 +234,16 @@ public interface ExperimentsService {
   void logInputs(LogInputs logInputs);
 
   /**
+   * Log params for a logged model.
+   *
+   * <p>Logs params for a logged model. A param is a key-value pair (string key, string value).
+   * Examples include hyperparameters used for ML model training. A param can be logged only once
+   * for a logged model, and attempting to overwrite an existing param with a different value will
+   * result in an error
+   */
+  void logLoggedModelParams(LogLoggedModelParamsRequest logLoggedModelParamsRequest);
+
+  /**
    * Log a metric for a run.
    *
    * <p>Log a metric for a run. A metric is a key-value pair (string key, float value) with an
@@ -224,6 +259,16 @@ public interface ExperimentsService {
    * warning.
    */
   void logModel(LogModel logModel);
+
+  /**
+   * Log outputs from a run.
+   *
+   * <p>**NOTE**: Experimental: This API may change or be removed in a future release without
+   * warning.
+   *
+   * <p>Logs outputs, such as models, from an MLflow Run.
+   */
+  void logOutputs(LogOutputsRequest logOutputsRequest);
 
   /**
    * Log a param for a run.
@@ -272,6 +317,14 @@ public interface ExperimentsService {
   SearchExperimentsResponse searchExperiments(SearchExperiments searchExperiments);
 
   /**
+   * Search logged models.
+   *
+   * <p>Search for Logged Models that satisfy specified search criteria.
+   */
+  SearchLoggedModelsResponse searchLoggedModels(
+      SearchLoggedModelsRequest searchLoggedModelsRequest);
+
+  /**
    * Search for runs.
    *
    * <p>Searches for runs that satisfy expressions.
@@ -286,6 +339,9 @@ public interface ExperimentsService {
    * <p>Sets a tag on an experiment. Experiment tags are metadata that can be updated.
    */
   void setExperimentTag(SetExperimentTag setExperimentTag);
+
+  /** Set a tag for a logged model. */
+  void setLoggedModelTags(SetLoggedModelTagsRequest setLoggedModelTagsRequest);
 
   /**
    * Set experiment permissions.

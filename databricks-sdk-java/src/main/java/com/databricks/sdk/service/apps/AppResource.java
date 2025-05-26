@@ -33,6 +33,10 @@ public class AppResource {
   @JsonProperty("sql_warehouse")
   private AppResourceSqlWarehouse sqlWarehouse;
 
+  /** */
+  @JsonProperty("uc_securable")
+  private AppResourceUcSecurable ucSecurable;
+
   public AppResource setDescription(String description) {
     this.description = description;
     return this;
@@ -87,6 +91,15 @@ public class AppResource {
     return sqlWarehouse;
   }
 
+  public AppResource setUcSecurable(AppResourceUcSecurable ucSecurable) {
+    this.ucSecurable = ucSecurable;
+    return this;
+  }
+
+  public AppResourceUcSecurable getUcSecurable() {
+    return ucSecurable;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -97,12 +110,13 @@ public class AppResource {
         && Objects.equals(name, that.name)
         && Objects.equals(secret, that.secret)
         && Objects.equals(servingEndpoint, that.servingEndpoint)
-        && Objects.equals(sqlWarehouse, that.sqlWarehouse);
+        && Objects.equals(sqlWarehouse, that.sqlWarehouse)
+        && Objects.equals(ucSecurable, that.ucSecurable);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(description, job, name, secret, servingEndpoint, sqlWarehouse);
+    return Objects.hash(description, job, name, secret, servingEndpoint, sqlWarehouse, ucSecurable);
   }
 
   @Override
@@ -114,6 +128,7 @@ public class AppResource {
         .add("secret", secret)
         .add("servingEndpoint", servingEndpoint)
         .add("sqlWarehouse", sqlWarehouse)
+        .add("ucSecurable", ucSecurable)
         .toString();
   }
 }

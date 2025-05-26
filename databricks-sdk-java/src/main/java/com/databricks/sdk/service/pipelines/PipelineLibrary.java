@@ -13,6 +13,13 @@ public class PipelineLibrary {
   @JsonProperty("file")
   private FileLibrary file;
 
+  /**
+   * The unified field to include source codes. Each entry can be a notebook path, a file path, or a
+   * folder path that ends `/**`. This field cannot be used together with `notebook` or `file`.
+   */
+  @JsonProperty("glob")
+  private PathPattern glob;
+
   /** URI of the jar to be installed. Currently only DBFS is supported. */
   @JsonProperty("jar")
   private String jar;
@@ -36,6 +43,15 @@ public class PipelineLibrary {
 
   public FileLibrary getFile() {
     return file;
+  }
+
+  public PipelineLibrary setGlob(PathPattern glob) {
+    this.glob = glob;
+    return this;
+  }
+
+  public PathPattern getGlob() {
+    return glob;
   }
 
   public PipelineLibrary setJar(String jar) {
@@ -80,6 +96,7 @@ public class PipelineLibrary {
     if (o == null || getClass() != o.getClass()) return false;
     PipelineLibrary that = (PipelineLibrary) o;
     return Objects.equals(file, that.file)
+        && Objects.equals(glob, that.glob)
         && Objects.equals(jar, that.jar)
         && Objects.equals(maven, that.maven)
         && Objects.equals(notebook, that.notebook)
@@ -88,13 +105,14 @@ public class PipelineLibrary {
 
   @Override
   public int hashCode() {
-    return Objects.hash(file, jar, maven, notebook, whl);
+    return Objects.hash(file, glob, jar, maven, notebook, whl);
   }
 
   @Override
   public String toString() {
     return new ToStringer(PipelineLibrary.class)
         .add("file", file)
+        .add("glob", glob)
         .add("jar", jar)
         .add("maven", maven)
         .add("notebook", notebook)

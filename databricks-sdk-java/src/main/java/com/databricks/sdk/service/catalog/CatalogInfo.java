@@ -89,9 +89,9 @@ public class CatalogInfo {
   @JsonProperty("provisioning_info")
   private ProvisioningInfo provisioningInfo;
 
-  /** */
+  /** The type of Unity Catalog securable. */
   @JsonProperty("securable_type")
-  private String securableType;
+  private SecurableType securableType;
 
   /** The name of the share under the share provider. */
   @JsonProperty("share_name")
@@ -268,12 +268,12 @@ public class CatalogInfo {
     return provisioningInfo;
   }
 
-  public CatalogInfo setSecurableType(String securableType) {
+  public CatalogInfo setSecurableType(SecurableType securableType) {
     this.securableType = securableType;
     return this;
   }
 
-  public String getSecurableType() {
+  public SecurableType getSecurableType() {
     return securableType;
   }
 

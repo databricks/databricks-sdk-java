@@ -6,7 +6,6 @@ import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import org.slf4j.Logger;
@@ -47,27 +46,10 @@ public final class TokenEndpointClient {
       throw new IllegalArgumentException("Token endpoint URL cannot be empty");
     }
 
-    // Create a new map with properly encoded JSON values
-    Map<String, String> encodedParams = new HashMap<>(params);
-    String authDetails = params.get("authorization_details");
-    if (authDetails != null) {
-      try {
-        // Parse and re-serialize the authorization details to ensure it's valid JSON
-        Object authDetailsJson = OBJECT_MAPPER.readValue(authDetails, Object.class);
-        String encodedAuthDetails = OBJECT_MAPPER.writeValueAsString(authDetailsJson);
-        encodedParams.put("authorization_details", encodedAuthDetails);
-      } catch (IOException e) {
-        LOG.error("Failed to encode authorization details", e);
-        throw new DatabricksException(
-            "Failed to encode authorization details: " + e.getMessage(), e);
-      }
-    }
-
     Response rawResponse;
     try {
       LOG.debug("Requesting token from endpoint: {}", tokenEndpointUrl);
-      LOG.debug("Token request parameters: {}", encodedParams);
-      rawResponse = httpClient.execute(new FormRequest(tokenEndpointUrl, encodedParams));
+      rawResponse = httpClient.execute(new FormRequest(tokenEndpointUrl, params));
     } catch (IOException e) {
       LOG.error("Failed to request token from {}: {}", tokenEndpointUrl, e.getMessage(), e);
       throw new DatabricksException(

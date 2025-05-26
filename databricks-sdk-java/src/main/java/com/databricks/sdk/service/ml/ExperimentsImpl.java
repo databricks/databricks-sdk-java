@@ -31,6 +31,20 @@ class ExperimentsImpl implements ExperimentsService {
   }
 
   @Override
+  public CreateLoggedModelResponse createLoggedModel(CreateLoggedModelRequest request) {
+    String path = "/api/2.0/mlflow/logged-models";
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, CreateLoggedModelResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public CreateRunResponse createRun(CreateRun request) {
     String path = "/api/2.0/mlflow/runs/create";
     try {
@@ -53,6 +67,34 @@ class ExperimentsImpl implements ExperimentsService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, DeleteExperimentResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public void deleteLoggedModel(DeleteLoggedModelRequest request) {
+    String path = String.format("/api/2.0/mlflow/logged-models/%s", request.getModelId());
+    try {
+      Request req = new Request("DELETE", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      apiClient.execute(req, DeleteLoggedModelResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public void deleteLoggedModelTag(DeleteLoggedModelTagRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/mlflow/logged-models/%s/tags/%s", request.getModelId(), request.getTagKey());
+    try {
+      Request req = new Request("DELETE", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      apiClient.execute(req, DeleteLoggedModelTagResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -95,6 +137,20 @@ class ExperimentsImpl implements ExperimentsService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, DeleteTagResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public FinalizeLoggedModelResponse finalizeLoggedModel(FinalizeLoggedModelRequest request) {
+    String path = String.format("/api/2.0/mlflow/logged-models/%s", request.getModelId());
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, FinalizeLoggedModelResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -172,6 +228,19 @@ class ExperimentsImpl implements ExperimentsService {
   }
 
   @Override
+  public GetLoggedModelResponse getLoggedModel(GetLoggedModelRequest request) {
+    String path = String.format("/api/2.0/mlflow/logged-models/%s", request.getModelId());
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, GetLoggedModelResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public GetExperimentPermissionLevelsResponse getPermissionLevels(
       GetExperimentPermissionLevelsRequest request) {
     String path =
@@ -240,6 +309,22 @@ class ExperimentsImpl implements ExperimentsService {
   }
 
   @Override
+  public ListLoggedModelArtifactsResponse listLoggedModelArtifacts(
+      ListLoggedModelArtifactsRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/mlflow/logged-models/%s/artifacts/directories", request.getModelId());
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ListLoggedModelArtifactsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public void logBatch(LogBatch request) {
     String path = "/api/2.0/mlflow/runs/log-batch";
     try {
@@ -268,6 +353,20 @@ class ExperimentsImpl implements ExperimentsService {
   }
 
   @Override
+  public void logLoggedModelParams(LogLoggedModelParamsRequest request) {
+    String path = String.format("/api/2.0/mlflow/logged-models/%s/params", request.getModelId());
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      apiClient.execute(req, LogLoggedModelParamsRequestResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public void logMetric(LogMetric request) {
     String path = "/api/2.0/mlflow/runs/log-metric";
     try {
@@ -290,6 +389,20 @@ class ExperimentsImpl implements ExperimentsService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, LogModelResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public void logOutputs(LogOutputsRequest request) {
+    String path = "/api/2.0/mlflow/runs/outputs";
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      apiClient.execute(req, LogOutputsResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -366,6 +479,20 @@ class ExperimentsImpl implements ExperimentsService {
   }
 
   @Override
+  public SearchLoggedModelsResponse searchLoggedModels(SearchLoggedModelsRequest request) {
+    String path = "/api/2.0/mlflow/logged-models/search";
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, SearchLoggedModelsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public SearchRunsResponse searchRuns(SearchRuns request) {
     String path = "/api/2.0/mlflow/runs/search";
     try {
@@ -388,6 +515,20 @@ class ExperimentsImpl implements ExperimentsService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, SetExperimentTagResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public void setLoggedModelTags(SetLoggedModelTagsRequest request) {
+    String path = String.format("/api/2.0/mlflow/logged-models/%s/tags", request.getModelId());
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      apiClient.execute(req, SetLoggedModelTagsResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

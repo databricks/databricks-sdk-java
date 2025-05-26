@@ -3,11 +3,13 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Update an alert */
 @Generated
 public class UpdateAlertV2Request {
   /** */
@@ -28,7 +30,8 @@ public class UpdateAlertV2Request {
    * the fields being updated and avoid using `*` wildcards, as it can lead to unintended results if
    * the API changes in the future.
    */
-  @JsonProperty("update_mask")
+  @JsonIgnore
+  @QueryParam("update_mask")
   private String updateMask;
 
   public UpdateAlertV2Request setAlert(AlertV2 alert) {

@@ -10,6 +10,13 @@ import java.util.Objects;
 
 @Generated
 public class UpdateQueryRequest {
+  /**
+   * If true, automatically resolve alert display name conflicts. Otherwise, fail the request if the
+   * alert's display name conflicts with an existing alert's display name.
+   */
+  @JsonProperty("auto_resolve_display_name")
+  private Boolean autoResolveDisplayName;
+
   /** */
   @JsonIgnore private String id;
 
@@ -30,6 +37,15 @@ public class UpdateQueryRequest {
    */
   @JsonProperty("update_mask")
   private String updateMask;
+
+  public UpdateQueryRequest setAutoResolveDisplayName(Boolean autoResolveDisplayName) {
+    this.autoResolveDisplayName = autoResolveDisplayName;
+    return this;
+  }
+
+  public Boolean getAutoResolveDisplayName() {
+    return autoResolveDisplayName;
+  }
 
   public UpdateQueryRequest setId(String id) {
     this.id = id;
@@ -63,19 +79,21 @@ public class UpdateQueryRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     UpdateQueryRequest that = (UpdateQueryRequest) o;
-    return Objects.equals(id, that.id)
+    return Objects.equals(autoResolveDisplayName, that.autoResolveDisplayName)
+        && Objects.equals(id, that.id)
         && Objects.equals(query, that.query)
         && Objects.equals(updateMask, that.updateMask);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, query, updateMask);
+    return Objects.hash(autoResolveDisplayName, id, query, updateMask);
   }
 
   @Override
   public String toString() {
     return new ToStringer(UpdateQueryRequest.class)
+        .add("autoResolveDisplayName", autoResolveDisplayName)
         .add("id", id)
         .add("query", query)
         .add("updateMask", updateMask)

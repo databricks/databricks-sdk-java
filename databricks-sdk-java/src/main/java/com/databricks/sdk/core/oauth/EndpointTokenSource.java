@@ -25,6 +25,7 @@ public class EndpointTokenSource extends RefreshableTokenSource {
   private final String authDetails;
   private final HttpClient httpClient;
   private final String host;
+
   /**
    * Constructs a new EndpointTokenSource.
    *
@@ -73,8 +74,6 @@ public class EndpointTokenSource extends RefreshableTokenSource {
     params.put(AUTHORIZATION_DETAILS_PARAM, authDetails);
     params.put(ASSERTION_PARAM, cpToken.getAccessToken());
 
-    System.out.println("Params: " + params);
-
     OAuthResponse oauthResponse;
     try {
       oauthResponse =
@@ -87,8 +86,6 @@ public class EndpointTokenSource extends RefreshableTokenSource {
           e);
       throw e;
     }
-
-    System.out.println("Successfully fetched Dataplane Token: " + oauthResponse.getAccessToken());
 
     LocalDateTime expiry = LocalDateTime.now().plusSeconds(oauthResponse.getExpiresIn());
     return new Token(

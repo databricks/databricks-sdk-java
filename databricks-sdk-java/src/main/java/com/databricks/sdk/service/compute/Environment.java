@@ -10,9 +10,7 @@ import java.util.Objects;
 
 /**
  * The environment entity used to preserve serverless environment side panel, jobs' environment for
- * non-notebook task, and DLT's environment for classic and serverless pipelines. (Note: DLT uses a
- * copied version of the Environment proto below, at
- * //spark/pipelines/api/protos/copied/libraries-environments-copy.proto) In this minimal
+ * non-notebook task, and DLT's environment for classic and serverless pipelines. In this minimal
  * environment spec, only pip dependencies are supported.
  */
 @Generated
@@ -35,6 +33,16 @@ public class Environment {
    */
   @JsonProperty("dependencies")
   private Collection<String> dependencies;
+
+  /**
+   * We renamed `client` to `environment_version` in notebook exports. This field is meant solely so
+   * that imported notebooks with `environment_version` can be deserialized correctly, in a
+   * backwards-compatible way (i.e. if `client` is specified instead of `environment_version`, it
+   * will be deserialized correctly). Do NOT use this field for any other purpose, e.g. notebook
+   * storage. This field is not yet exposed to customers (e.g. in the jobs API).
+   */
+  @JsonProperty("environment_version")
+  private String environmentVersion;
 
   /**
    * List of jar dependencies, should be string representing volume paths. For example:
@@ -61,6 +69,15 @@ public class Environment {
     return dependencies;
   }
 
+  public Environment setEnvironmentVersion(String environmentVersion) {
+    this.environmentVersion = environmentVersion;
+    return this;
+  }
+
+  public String getEnvironmentVersion() {
+    return environmentVersion;
+  }
+
   public Environment setJarDependencies(Collection<String> jarDependencies) {
     this.jarDependencies = jarDependencies;
     return this;
@@ -77,12 +94,13 @@ public class Environment {
     Environment that = (Environment) o;
     return Objects.equals(client, that.client)
         && Objects.equals(dependencies, that.dependencies)
+        && Objects.equals(environmentVersion, that.environmentVersion)
         && Objects.equals(jarDependencies, that.jarDependencies);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(client, dependencies, jarDependencies);
+    return Objects.hash(client, dependencies, environmentVersion, jarDependencies);
   }
 
   @Override
@@ -90,6 +108,7 @@ public class Environment {
     return new ToStringer(Environment.class)
         .add("client", client)
         .add("dependencies", dependencies)
+        .add("environmentVersion", environmentVersion)
         .add("jarDependencies", jarDependencies)
         .toString();
   }

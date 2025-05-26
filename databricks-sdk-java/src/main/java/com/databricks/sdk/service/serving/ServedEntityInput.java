@@ -65,6 +65,10 @@ public class ServedEntityInput {
   @JsonProperty("name")
   private String name;
 
+  /** The number of model units provisioned. */
+  @JsonProperty("provisioned_model_units")
+  private Long provisionedModelUnits;
+
   /** Whether the compute resources for the served entity should scale down to zero. */
   @JsonProperty("scale_to_zero_enabled")
   private Boolean scaleToZeroEnabled;
@@ -165,6 +169,15 @@ public class ServedEntityInput {
     return name;
   }
 
+  public ServedEntityInput setProvisionedModelUnits(Long provisionedModelUnits) {
+    this.provisionedModelUnits = provisionedModelUnits;
+    return this;
+  }
+
+  public Long getProvisionedModelUnits() {
+    return provisionedModelUnits;
+  }
+
   public ServedEntityInput setScaleToZeroEnabled(Boolean scaleToZeroEnabled) {
     this.scaleToZeroEnabled = scaleToZeroEnabled;
     return this;
@@ -205,6 +218,7 @@ public class ServedEntityInput {
         && Objects.equals(maxProvisionedThroughput, that.maxProvisionedThroughput)
         && Objects.equals(minProvisionedThroughput, that.minProvisionedThroughput)
         && Objects.equals(name, that.name)
+        && Objects.equals(provisionedModelUnits, that.provisionedModelUnits)
         && Objects.equals(scaleToZeroEnabled, that.scaleToZeroEnabled)
         && Objects.equals(workloadSize, that.workloadSize)
         && Objects.equals(workloadType, that.workloadType);
@@ -221,6 +235,7 @@ public class ServedEntityInput {
         maxProvisionedThroughput,
         minProvisionedThroughput,
         name,
+        provisionedModelUnits,
         scaleToZeroEnabled,
         workloadSize,
         workloadType);
@@ -237,6 +252,7 @@ public class ServedEntityInput {
         .add("maxProvisionedThroughput", maxProvisionedThroughput)
         .add("minProvisionedThroughput", minProvisionedThroughput)
         .add("name", name)
+        .add("provisionedModelUnits", provisionedModelUnits)
         .add("scaleToZeroEnabled", scaleToZeroEnabled)
         .add("workloadSize", workloadSize)
         .add("workloadType", workloadType)

@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Generated
-public class PermissionsRequest {
+public class SetObjectPermissions {
   /** */
   @JsonProperty("access_control_list")
   private Collection<AccessControlRequest> accessControlList;
@@ -26,7 +26,7 @@ public class PermissionsRequest {
    */
   @JsonIgnore private String requestObjectType;
 
-  public PermissionsRequest setAccessControlList(
+  public SetObjectPermissions setAccessControlList(
       Collection<AccessControlRequest> accessControlList) {
     this.accessControlList = accessControlList;
     return this;
@@ -36,7 +36,7 @@ public class PermissionsRequest {
     return accessControlList;
   }
 
-  public PermissionsRequest setRequestObjectId(String requestObjectId) {
+  public SetObjectPermissions setRequestObjectId(String requestObjectId) {
     this.requestObjectId = requestObjectId;
     return this;
   }
@@ -45,7 +45,7 @@ public class PermissionsRequest {
     return requestObjectId;
   }
 
-  public PermissionsRequest setRequestObjectType(String requestObjectType) {
+  public SetObjectPermissions setRequestObjectType(String requestObjectType) {
     this.requestObjectType = requestObjectType;
     return this;
   }
@@ -58,7 +58,7 @@ public class PermissionsRequest {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    PermissionsRequest that = (PermissionsRequest) o;
+    SetObjectPermissions that = (SetObjectPermissions) o;
     return Objects.equals(accessControlList, that.accessControlList)
         && Objects.equals(requestObjectId, that.requestObjectId)
         && Objects.equals(requestObjectType, that.requestObjectType);
@@ -71,7 +71,7 @@ public class PermissionsRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(PermissionsRequest.class)
+    return new ToStringer(SetObjectPermissions.class)
         .add("accessControlList", accessControlList)
         .add("requestObjectId", requestObjectId)
         .add("requestObjectType", requestObjectType)

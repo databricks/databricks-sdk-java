@@ -64,7 +64,8 @@ public class DataPlaneTokenSource {
    * @param httpClient The {@link HttpClient} for token requests.
    * @param cpTokenSource The {@link TokenSource} for control plane tokens.
    * @param host The host for the token exchange request.
-   * @throws NullPointerException if either parameter is null
+   * @throws NullPointerException if any parameter is null.
+   * @throws IllegalArgumentException if the host is empty.
    */
   public DataPlaneTokenSource(HttpClient httpClient, TokenSource cpTokenSource, String host) {
     this.httpClient = Objects.requireNonNull(httpClient, "HTTP client cannot be null");
@@ -85,8 +86,9 @@ public class DataPlaneTokenSource {
    * @param endpoint The target data plane service endpoint.
    * @param authDetails Authorization details for the endpoint.
    * @return The dataplane {@link Token}.
-   * @throws NullPointerException if either parameter is null
-   * @throws IllegalArgumentException if either parameter is empty
+   * @throws NullPointerException if either parameter is null.
+   * @throws IllegalArgumentException if either parameter is empty.
+   * @throws DatabricksException if the token request fails.
    */
   public Token getToken(String endpoint, String authDetails) {
     Objects.requireNonNull(endpoint, "Data plane endpoint URL cannot be null");
