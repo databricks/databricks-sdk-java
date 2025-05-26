@@ -7,7 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get workspace network configuration */
+/** Get workspace network option */
 @Generated
 public class GetWorkspaceNetworkOptionRequest {
   /** The workspace ID. */
