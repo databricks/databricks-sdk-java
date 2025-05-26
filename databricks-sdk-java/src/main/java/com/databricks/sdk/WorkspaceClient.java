@@ -140,8 +140,6 @@ import com.databricks.sdk.service.ml.ModelRegistryAPI;
 import com.databricks.sdk.service.ml.ModelRegistryService;
 import com.databricks.sdk.service.pipelines.PipelinesAPI;
 import com.databricks.sdk.service.pipelines.PipelinesService;
-import com.databricks.sdk.service.qualitymonitorv2.QualityMonitorsV2API;
-import com.databricks.sdk.service.qualitymonitorv2.QualityMonitorsV2Service;
 import com.databricks.sdk.service.serving.ServingEndpointsAPI;
 import com.databricks.sdk.service.serving.ServingEndpointsDataPlaneAPI;
 import com.databricks.sdk.service.serving.ServingEndpointsDataPlaneService;
@@ -284,7 +282,6 @@ public class WorkspaceClient {
   private ProviderProvidersAPI providerProvidersAPI;
   private ProvidersAPI providersAPI;
   private QualityMonitorsAPI qualityMonitorsAPI;
-  private QualityMonitorsV2API qualityMonitorsV2API;
   private QueriesAPI queriesAPI;
   private QueriesLegacyAPI queriesLegacyAPI;
   private QueryExecutionAPI queryExecutionAPI;
@@ -330,212 +327,108 @@ public class WorkspaceClient {
   public WorkspaceClient(DatabricksConfig config) {
     this.config = config;
     apiClient = new ApiClient(config);
-
     accessControlAPI = new AccessControlAPI(apiClient);
-
     accountAccessControlProxyAPI = new AccountAccessControlProxyAPI(apiClient);
-
     alertsAPI = new AlertsAPI(apiClient);
-
     alertsLegacyAPI = new AlertsLegacyAPI(apiClient);
-
     alertsV2API = new AlertsV2API(apiClient);
-
     appsAPI = new AppsAPI(apiClient);
-
     artifactAllowlistsAPI = new ArtifactAllowlistsAPI(apiClient);
-
     catalogsAPI = new CatalogsAPI(apiClient);
-
     cleanRoomAssetsAPI = new CleanRoomAssetsAPI(apiClient);
-
     cleanRoomTaskRunsAPI = new CleanRoomTaskRunsAPI(apiClient);
-
     cleanRoomsAPI = new CleanRoomsAPI(apiClient);
-
     clusterPoliciesAPI = new ClusterPoliciesAPI(apiClient);
-
     clustersAPI = new ClustersExt(apiClient);
-
     commandExecutionAPI = new CommandExecutionAPI(apiClient);
-
     connectionsAPI = new ConnectionsAPI(apiClient);
-
     consumerFulfillmentsAPI = new ConsumerFulfillmentsAPI(apiClient);
-
     consumerInstallationsAPI = new ConsumerInstallationsAPI(apiClient);
-
     consumerListingsAPI = new ConsumerListingsAPI(apiClient);
-
     consumerPersonalizationRequestsAPI = new ConsumerPersonalizationRequestsAPI(apiClient);
-
     consumerProvidersAPI = new ConsumerProvidersAPI(apiClient);
-
     credentialsAPI = new CredentialsAPI(apiClient);
-
     credentialsManagerAPI = new CredentialsManagerAPI(apiClient);
-
     currentUserAPI = new CurrentUserAPI(apiClient);
-
     dashboardWidgetsAPI = new DashboardWidgetsAPI(apiClient);
-
     dashboardsAPI = new DashboardsAPI(apiClient);
-
     dataSourcesAPI = new DataSourcesAPI(apiClient);
-
     databaseInstancesAPI = new DatabaseInstancesAPI(apiClient);
-
     dbfsAPI = new DbfsExt(apiClient);
-
     dbsqlPermissionsAPI = new DbsqlPermissionsAPI(apiClient);
-
     experimentsAPI = new ExperimentsAPI(apiClient);
-
     externalLocationsAPI = new ExternalLocationsAPI(apiClient);
-
     filesAPI = new FilesAPI(apiClient);
-
     functionsAPI = new FunctionsAPI(apiClient);
-
     genieAPI = new GenieAPI(apiClient);
-
     gitCredentialsAPI = new GitCredentialsAPI(apiClient);
-
     globalInitScriptsAPI = new GlobalInitScriptsAPI(apiClient);
-
     grantsAPI = new GrantsAPI(apiClient);
-
     groupsAPI = new GroupsAPI(apiClient);
-
     instancePoolsAPI = new InstancePoolsAPI(apiClient);
-
     instanceProfilesAPI = new InstanceProfilesAPI(apiClient);
-
     ipAccessListsAPI = new IpAccessListsAPI(apiClient);
-
     jobsAPI = new JobsAPI(apiClient);
-
     lakeviewAPI = new LakeviewAPI(apiClient);
-
     lakeviewEmbeddedAPI = new LakeviewEmbeddedAPI(apiClient);
-
     librariesAPI = new LibrariesAPI(apiClient);
-
     metastoresAPI = new MetastoresAPI(apiClient);
-
     modelRegistryAPI = new ModelRegistryAPI(apiClient);
-
     modelVersionsAPI = new ModelVersionsAPI(apiClient);
-
     notificationDestinationsAPI = new NotificationDestinationsAPI(apiClient);
-
     onlineTablesAPI = new OnlineTablesAPI(apiClient);
-
     permissionMigrationAPI = new PermissionMigrationAPI(apiClient);
-
     permissionsAPI = new PermissionsAPI(apiClient);
-
     pipelinesAPI = new PipelinesAPI(apiClient);
-
     policyComplianceForClustersAPI = new PolicyComplianceForClustersAPI(apiClient);
-
     policyComplianceForJobsAPI = new PolicyComplianceForJobsAPI(apiClient);
-
     policyFamiliesAPI = new PolicyFamiliesAPI(apiClient);
-
     providerExchangeFiltersAPI = new ProviderExchangeFiltersAPI(apiClient);
-
     providerExchangesAPI = new ProviderExchangesAPI(apiClient);
-
     providerFilesAPI = new ProviderFilesAPI(apiClient);
-
     providerListingsAPI = new ProviderListingsAPI(apiClient);
-
     providerPersonalizationRequestsAPI = new ProviderPersonalizationRequestsAPI(apiClient);
-
     providerProviderAnalyticsDashboardsAPI = new ProviderProviderAnalyticsDashboardsAPI(apiClient);
-
     providerProvidersAPI = new ProviderProvidersAPI(apiClient);
-
     providersAPI = new ProvidersAPI(apiClient);
-
     qualityMonitorsAPI = new QualityMonitorsAPI(apiClient);
-
-    qualityMonitorsV2API = new QualityMonitorsV2API(apiClient);
-
     queriesAPI = new QueriesAPI(apiClient);
-
     queriesLegacyAPI = new QueriesLegacyAPI(apiClient);
-
     queryExecutionAPI = new QueryExecutionAPI(apiClient);
-
     queryHistoryAPI = new QueryHistoryAPI(apiClient);
-
     queryVisualizationsAPI = new QueryVisualizationsAPI(apiClient);
-
     queryVisualizationsLegacyAPI = new QueryVisualizationsLegacyAPI(apiClient);
-
     recipientActivationAPI = new RecipientActivationAPI(apiClient);
-
     recipientFederationPoliciesAPI = new RecipientFederationPoliciesAPI(apiClient);
-
     recipientsAPI = new RecipientsAPI(apiClient);
-
     redashConfigAPI = new RedashConfigAPI(apiClient);
-
     registeredModelsAPI = new RegisteredModelsAPI(apiClient);
-
     reposAPI = new ReposAPI(apiClient);
-
     resourceQuotasAPI = new ResourceQuotasAPI(apiClient);
-
     schemasAPI = new SchemasAPI(apiClient);
-
     secretsAPI = new SecretsExt(apiClient);
-
     servicePrincipalsAPI = new ServicePrincipalsAPI(apiClient);
-
     servingEndpointsAPI = new ServingEndpointsAPI(apiClient);
-
     servingEndpointsDataPlaneAPI =
         new ServingEndpointsDataPlaneAPI(apiClient, config, servingEndpointsAPI);
-
     settingsAPI = new SettingsAPI(apiClient);
-
     sharesAPI = new SharesAPI(apiClient);
-
     statementExecutionAPI = new StatementExecutionAPI(apiClient);
-
     storageCredentialsAPI = new StorageCredentialsAPI(apiClient);
-
     systemSchemasAPI = new SystemSchemasAPI(apiClient);
-
     tableConstraintsAPI = new TableConstraintsAPI(apiClient);
-
     tablesAPI = new TablesAPI(apiClient);
-
     temporaryTableCredentialsAPI = new TemporaryTableCredentialsAPI(apiClient);
-
     tokenManagementAPI = new TokenManagementAPI(apiClient);
-
     tokensAPI = new TokensAPI(apiClient);
-
     usersAPI = new UsersAPI(apiClient);
-
     vectorSearchEndpointsAPI = new VectorSearchEndpointsAPI(apiClient);
-
     vectorSearchIndexesAPI = new VectorSearchIndexesAPI(apiClient);
-
     volumesAPI = new VolumesAPI(apiClient);
-
     warehousesAPI = new WarehousesAPI(apiClient);
-
     workspaceAPI = new WorkspaceAPI(apiClient);
-
     workspaceBindingsAPI = new WorkspaceBindingsAPI(apiClient);
-
     workspaceConfAPI = new WorkspaceConfAPI(apiClient);
-
     forecastingAPI = new ForecastingAPI(apiClient);
   }
 
@@ -1330,11 +1223,6 @@ public class WorkspaceClient {
    */
   public QualityMonitorsAPI qualityMonitors() {
     return qualityMonitorsAPI;
-  }
-
-  /** Manage data quality of UC objects (currently support `schema`) */
-  public QualityMonitorsV2API qualityMonitorsV2() {
-    return qualityMonitorsV2API;
   }
 
   /**
@@ -2627,17 +2515,6 @@ public class WorkspaceClient {
   /** Replace the default QualityMonitorsAPI with a custom implementation. */
   public WorkspaceClient withQualityMonitorsAPI(QualityMonitorsAPI qualityMonitors) {
     this.qualityMonitorsAPI = qualityMonitors;
-    return this;
-  }
-
-  /** Replace the default QualityMonitorsV2Service with a custom implementation. */
-  public WorkspaceClient withQualityMonitorsV2Impl(QualityMonitorsV2Service qualityMonitorsV2) {
-    return this.withQualityMonitorsV2API(new QualityMonitorsV2API(qualityMonitorsV2));
-  }
-
-  /** Replace the default QualityMonitorsV2API with a custom implementation. */
-  public WorkspaceClient withQualityMonitorsV2API(QualityMonitorsV2API qualityMonitorsV2) {
-    this.qualityMonitorsV2API = qualityMonitorsV2;
     return this;
   }
 

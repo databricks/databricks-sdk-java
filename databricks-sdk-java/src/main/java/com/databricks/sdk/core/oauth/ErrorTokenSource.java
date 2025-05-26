@@ -12,7 +12,7 @@ public class ErrorTokenSource implements TokenSource {
 
   /**
    * Constructs a new ErrorTokenSource with the specified error message.
-   * 
+   *
    * @param errorMessage The error message that will be thrown when attempting to get a token
    * @throws NullPointerException if errorMessage is null
    */
@@ -22,7 +22,7 @@ public class ErrorTokenSource implements TokenSource {
 
   /**
    * Always throws a DatabricksException with the configured error message.
-   * 
+   *
    * @return never returns normally, always throws an exception
    * @throws DatabricksException with the configured error message
    */
