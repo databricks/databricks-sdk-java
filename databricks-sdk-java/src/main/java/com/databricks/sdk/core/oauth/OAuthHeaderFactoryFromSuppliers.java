@@ -4,13 +4,18 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 /**
- * A concrete implementation of OAuthHeaderFactory that uses suppliers for both token and header
- * generation. This allows for custom header generation beyond just the Authorization header.
+ * Implementation of {@link OAuthHeaderFactory} that uses separate suppliers for token and header generation.
  */
 public class OAuthHeaderFactoryFromSuppliers implements OAuthHeaderFactory {
   private final Supplier<Token> tokenSupplier;
   private final Supplier<Map<String, String>> headerSupplier;
 
+  /**
+   * Creates a new instance with the specified token and header suppliers.
+   *
+   * @param tokenSupplier Supplier for OAuth tokens.
+   * @param headerSupplier Supplier for headers.
+   */
   public OAuthHeaderFactoryFromSuppliers(
       Supplier<Token> tokenSupplier, Supplier<Map<String, String>> headerSupplier) {
     this.tokenSupplier = tokenSupplier;
