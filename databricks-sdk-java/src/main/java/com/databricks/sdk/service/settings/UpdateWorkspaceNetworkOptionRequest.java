@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Update workspace network configuration */
+/** Update workspace network option */
 @Generated
 public class UpdateWorkspaceNetworkOptionRequest {
   /** The workspace ID. */

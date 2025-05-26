@@ -21,6 +21,8 @@ public class SettingsAPI {
 
   private ComplianceSecurityProfileAPI complianceSecurityProfileAPI;
 
+  private DashboardEmailSubscriptionsAPI dashboardEmailSubscriptionsAPI;
+
   private DefaultNamespaceAPI defaultNamespaceAPI;
 
   private DisableLegacyAccessAPI disableLegacyAccessAPI;
@@ -39,6 +41,8 @@ public class SettingsAPI {
 
   private RestrictWorkspaceAdminsAPI restrictWorkspaceAdminsAPI;
 
+  private SqlResultsDownloadAPI sqlResultsDownloadAPI;
+
   /** Regular-use constructor */
   public SettingsAPI(ApiClient apiClient) {
     impl = new SettingsImpl(apiClient);
@@ -51,6 +55,8 @@ public class SettingsAPI {
     automaticClusterUpdateAPI = new AutomaticClusterUpdateAPI(apiClient);
 
     complianceSecurityProfileAPI = new ComplianceSecurityProfileAPI(apiClient);
+
+    dashboardEmailSubscriptionsAPI = new DashboardEmailSubscriptionsAPI(apiClient);
 
     defaultNamespaceAPI = new DefaultNamespaceAPI(apiClient);
 
@@ -69,6 +75,8 @@ public class SettingsAPI {
     llmProxyPartnerPoweredWorkspaceAPI = new LlmProxyPartnerPoweredWorkspaceAPI(apiClient);
 
     restrictWorkspaceAdminsAPI = new RestrictWorkspaceAdminsAPI(apiClient);
+
+    sqlResultsDownloadAPI = new SqlResultsDownloadAPI(apiClient);
   }
 
   /** Constructor for mocks */
@@ -97,6 +105,14 @@ public class SettingsAPI {
   /** Controls whether to enable the compliance security profile for the current workspace. */
   public ComplianceSecurityProfileAPI ComplianceSecurityProfile() {
     return complianceSecurityProfileAPI;
+  }
+
+  /**
+   * Controls whether schedules or workload tasks for refreshing AI/BI Dashboards in the workspace
+   * can send subscription emails containing PDFs and/or images of the dashboard.
+   */
+  public DashboardEmailSubscriptionsAPI DashboardEmailSubscriptions() {
+    return dashboardEmailSubscriptionsAPI;
   }
 
   /**
@@ -147,6 +163,14 @@ public class SettingsAPI {
    */
   public RestrictWorkspaceAdminsAPI RestrictWorkspaceAdmins() {
     return restrictWorkspaceAdminsAPI;
+  }
+
+  /**
+   * Controls whether users within the workspace are allowed to download results from the SQL Editor
+   * and AI/BI Dashboards UIs.
+   */
+  public SqlResultsDownloadAPI SqlResultsDownload() {
+    return sqlResultsDownloadAPI;
   }
 
   public SettingsService impl() {
