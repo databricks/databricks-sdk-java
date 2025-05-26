@@ -2050,6 +2050,10 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/CspEnablem
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/CspEnablementAccountImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/CspEnablementAccountService.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/CspEnablementAccountSetting.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/DashboardEmailSubscriptions.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/DashboardEmailSubscriptionsAPI.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/DashboardEmailSubscriptionsImpl.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/DashboardEmailSubscriptionsService.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/DefaultNamespaceAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/DefaultNamespaceImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/DefaultNamespaceService.java linguist-generated=true
@@ -2061,6 +2065,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/DeleteAibi
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/DeleteAibiDashboardEmbeddingAccessPolicySettingResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/DeleteAibiDashboardEmbeddingApprovedDomainsSettingRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/DeleteAibiDashboardEmbeddingApprovedDomainsSettingResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/DeleteDashboardEmailSubscriptionsRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/DeleteDashboardEmailSubscriptionsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/DeleteDefaultNamespaceSettingRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/DeleteDefaultNamespaceSettingResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/DeleteDisableLegacyAccessRequest.java linguist-generated=true
@@ -2083,6 +2089,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/DeletePriv
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/DeleteResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/DeleteRestrictWorkspaceAdminsSettingRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/DeleteRestrictWorkspaceAdminsSettingResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/DeleteSqlResultsDownloadRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/DeleteSqlResultsDownloadResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/DeleteTokenManagementRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/DestinationType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/DisableLegacyAccess.java linguist-generated=true
@@ -2157,6 +2165,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/GetAibiDas
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/GetAutomaticClusterUpdateSettingRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/GetComplianceSecurityProfileSettingRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/GetCspEnablementAccountSettingRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/GetDashboardEmailSubscriptionsRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/GetDefaultNamespaceSettingRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/GetDisableLegacyAccessRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/GetDisableLegacyDbfsRequest.java linguist-generated=true
@@ -2175,6 +2184,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/GetNotific
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/GetPersonalComputeSettingRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/GetPrivateEndpointRuleRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/GetRestrictWorkspaceAdminsSettingRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/GetSqlResultsDownloadRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/GetStatusRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/GetTokenManagementRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/GetTokenPermissionLevelsResponse.java linguist-generated=true
@@ -2254,6 +2264,10 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/SettingsAP
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/SettingsImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/SettingsService.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/SlackConfig.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/SqlResultsDownload.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/SqlResultsDownloadAPI.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/SqlResultsDownloadImpl.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/SqlResultsDownloadService.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/StringMessage.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/TokenAccessControlRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/TokenAccessControlResponse.java linguist-generated=true
@@ -2276,6 +2290,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/UpdateAibi
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/UpdateAutomaticClusterUpdateSettingRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/UpdateComplianceSecurityProfileSettingRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/UpdateCspEnablementAccountSettingRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/UpdateDashboardEmailSubscriptionsRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/UpdateDefaultNamespaceSettingRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/UpdateDisableLegacyAccessRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/UpdateDisableLegacyDbfsRequest.java linguist-generated=true
@@ -2296,6 +2311,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/UpdatePers
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/UpdatePrivateEndpointRule.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/UpdateResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/UpdateRestrictWorkspaceAdminsSettingRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/UpdateSqlResultsDownloadRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/UpdateWorkspaceNetworkOptionRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/WorkspaceConfAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/WorkspaceConfImpl.java linguist-generated=true

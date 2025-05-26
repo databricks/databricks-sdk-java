@@ -26,7 +26,7 @@ public class CreateConnection {
   @JsonProperty("options")
   private Map<String, String> options;
 
-  /** An object containing map of key-value properties attached to the connection. */
+  /** A map of key-value properties attached to the securable. */
   @JsonProperty("properties")
   private Map<String, String> properties;
 

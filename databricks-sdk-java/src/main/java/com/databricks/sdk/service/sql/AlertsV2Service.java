@@ -4,7 +4,7 @@ package com.databricks.sdk.service.sql;
 import com.databricks.sdk.support.Generated;
 
 /**
- * TODO: Add description
+ * New version of SQL Alerts
  *
  * <p>This is the high-level interface, that contains generated methods.
  *

@@ -287,6 +287,14 @@ public class ClusterDetails {
   @JsonProperty("policy_id")
   private String policyId;
 
+  /** If set, what the configurable IOPS for the remote shuffle disk is. */
+  @JsonProperty("remote_shuffle_disk_iops")
+  private Long remoteShuffleDiskIops;
+
+  /** If set, what the configurable throughput (in Mb/s) for the remote shuffle disk is. */
+  @JsonProperty("remote_shuffle_disk_throughput")
+  private Long remoteShuffleDiskThroughput;
+
   /**
    * Determines the cluster's runtime engine, either standard or Photon.
    *
@@ -385,6 +393,10 @@ public class ClusterDetails {
    */
   @JsonProperty("termination_reason")
   private TerminationReason terminationReason;
+
+  /** If set, what the total initial volume size (in GB) of the remote shuffle disks should be. */
+  @JsonProperty("total_initial_remote_shuffle_disk_size")
+  private Long totalInitialRemoteShuffleDiskSize;
 
   /**
    * This field can only be used when `kind = CLASSIC_PREVIEW`.
@@ -696,6 +708,24 @@ public class ClusterDetails {
     return policyId;
   }
 
+  public ClusterDetails setRemoteShuffleDiskIops(Long remoteShuffleDiskIops) {
+    this.remoteShuffleDiskIops = remoteShuffleDiskIops;
+    return this;
+  }
+
+  public Long getRemoteShuffleDiskIops() {
+    return remoteShuffleDiskIops;
+  }
+
+  public ClusterDetails setRemoteShuffleDiskThroughput(Long remoteShuffleDiskThroughput) {
+    this.remoteShuffleDiskThroughput = remoteShuffleDiskThroughput;
+    return this;
+  }
+
+  public Long getRemoteShuffleDiskThroughput() {
+    return remoteShuffleDiskThroughput;
+  }
+
   public ClusterDetails setRuntimeEngine(RuntimeEngine runtimeEngine) {
     this.runtimeEngine = runtimeEngine;
     return this;
@@ -813,6 +843,16 @@ public class ClusterDetails {
     return terminationReason;
   }
 
+  public ClusterDetails setTotalInitialRemoteShuffleDiskSize(
+      Long totalInitialRemoteShuffleDiskSize) {
+    this.totalInitialRemoteShuffleDiskSize = totalInitialRemoteShuffleDiskSize;
+    return this;
+  }
+
+  public Long getTotalInitialRemoteShuffleDiskSize() {
+    return totalInitialRemoteShuffleDiskSize;
+  }
+
   public ClusterDetails setUseMlRuntime(Boolean useMlRuntime) {
     this.useMlRuntime = useMlRuntime;
     return this;
@@ -869,6 +909,8 @@ public class ClusterDetails {
         && Objects.equals(nodeTypeId, that.nodeTypeId)
         && Objects.equals(numWorkers, that.numWorkers)
         && Objects.equals(policyId, that.policyId)
+        && Objects.equals(remoteShuffleDiskIops, that.remoteShuffleDiskIops)
+        && Objects.equals(remoteShuffleDiskThroughput, that.remoteShuffleDiskThroughput)
         && Objects.equals(runtimeEngine, that.runtimeEngine)
         && Objects.equals(singleUserName, that.singleUserName)
         && Objects.equals(sparkConf, that.sparkConf)
@@ -882,6 +924,7 @@ public class ClusterDetails {
         && Objects.equals(stateMessage, that.stateMessage)
         && Objects.equals(terminatedTime, that.terminatedTime)
         && Objects.equals(terminationReason, that.terminationReason)
+        && Objects.equals(totalInitialRemoteShuffleDiskSize, that.totalInitialRemoteShuffleDiskSize)
         && Objects.equals(useMlRuntime, that.useMlRuntime)
         && Objects.equals(workloadType, that.workloadType);
   }
@@ -922,6 +965,8 @@ public class ClusterDetails {
         nodeTypeId,
         numWorkers,
         policyId,
+        remoteShuffleDiskIops,
+        remoteShuffleDiskThroughput,
         runtimeEngine,
         singleUserName,
         sparkConf,
@@ -935,6 +980,7 @@ public class ClusterDetails {
         stateMessage,
         terminatedTime,
         terminationReason,
+        totalInitialRemoteShuffleDiskSize,
         useMlRuntime,
         workloadType);
   }
@@ -975,6 +1021,8 @@ public class ClusterDetails {
         .add("nodeTypeId", nodeTypeId)
         .add("numWorkers", numWorkers)
         .add("policyId", policyId)
+        .add("remoteShuffleDiskIops", remoteShuffleDiskIops)
+        .add("remoteShuffleDiskThroughput", remoteShuffleDiskThroughput)
         .add("runtimeEngine", runtimeEngine)
         .add("singleUserName", singleUserName)
         .add("sparkConf", sparkConf)
@@ -988,6 +1036,7 @@ public class ClusterDetails {
         .add("stateMessage", stateMessage)
         .add("terminatedTime", terminatedTime)
         .add("terminationReason", terminationReason)
+        .add("totalInitialRemoteShuffleDiskSize", totalInitialRemoteShuffleDiskSize)
         .add("useMlRuntime", useMlRuntime)
         .add("workloadType", workloadType)
         .toString();
