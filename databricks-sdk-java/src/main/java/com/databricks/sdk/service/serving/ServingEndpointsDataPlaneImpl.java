@@ -53,6 +53,7 @@ class ServingEndpointsDataPlaneImpl implements ServingEndpointsDataPlaneService 
     try {
       Request req =
           new Request("POST", dataPlaneInfo.getEndpointUrl(), apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
 
