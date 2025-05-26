@@ -173,7 +173,7 @@ public class ApiClient {
 
   protected <I, O> O withJavaType(Request request, JavaType javaType) {
     try {
-      Response response = getResponse(request);
+      Response response = getResponse(request, new RequestOptions());
       return deserialize(response.getBody(), javaType);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -188,11 +188,7 @@ public class ApiClient {
    * @return POJO of requested type
    */
   public <T> T execute(Request in, Class<T> target) throws IOException {
-    Response out = getResponse(in);
-    if (target == Void.class) {
-      return null;
-    }
-    return deserialize(out, target);
+    return execute(in, target, new RequestOptions());
   }
 
   /**
@@ -212,15 +208,11 @@ public class ApiClient {
     return deserialize(out, target);
   }
 
-  private Response getResponse(Request in) {
-    return executeInner(in, in.getUrl(), Optional.empty());
-  }
-
   private Response getResponse(Request in, RequestOptions options) {
-    return executeInner(in, in.getUrl(), Optional.of(options));
+    return executeInner(in, in.getUrl(), options);
   }
 
-  private Response executeInner(Request in, String path, Optional<RequestOptions> options) {
+  private Response executeInner(Request in, String path, RequestOptions options) {
     RetryStrategy retryStrategy = retryStrategyPicker.getRetryStrategy(in);
     int attemptNumber = 0;
     while (true) {
@@ -245,9 +237,7 @@ public class ApiClient {
       }
       in.withHeader("User-Agent", userAgent);
 
-      if (options.isPresent()) {
-        in = options.get().applyOptions(in);
-      }
+      options.applyOptions(in);
 
       // Make the request, catching any exceptions, as we may want to retry.
       try {
