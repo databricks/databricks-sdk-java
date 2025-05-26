@@ -16,14 +16,14 @@ import java.util.concurrent.ConcurrentHashMap;
 @Generated
 class ServingEndpointsDataPlaneImpl implements ServingEndpointsDataPlaneService {
   private final ApiClient apiClient;
-  private final ServingEndpointsAPI controlPlane;
+  private final ServingEndpointsAPI servingEndpointsAPI;
   private final DataPlaneTokenSource dataPlaneTokenSource;
   private final ConcurrentHashMap<String, DataPlaneInfo> infos;
 
   public ServingEndpointsDataPlaneImpl(
-      ApiClient apiClient, DatabricksConfig config, ServingEndpointsAPI controlPlane) {
+      ApiClient apiClient, DatabricksConfig config, ServingEndpointsAPI servingEndpointsAPI) {
     this.apiClient = apiClient;
-    this.controlPlane = controlPlane;
+    this.servingEndpointsAPI = servingEndpointsAPI;
     this.dataPlaneTokenSource =
         new DataPlaneTokenSource(
             apiClient.getHttpClient(), config.getTokenSource(), config.getHost());
@@ -37,7 +37,7 @@ class ServingEndpointsDataPlaneImpl implements ServingEndpointsDataPlaneService 
         key,
         k -> {
           ServingEndpointDetailed response =
-              controlPlane.get(new GetServingEndpointRequest().setName(request.getName()));
+              servingEndpointsAPI.get(new GetServingEndpointRequest().setName(request.getName()));
           return response.getDataPlaneInfo().getQueryInfo();
         });
   }

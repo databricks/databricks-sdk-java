@@ -140,8 +140,11 @@ import com.databricks.sdk.service.ml.ModelRegistryAPI;
 import com.databricks.sdk.service.ml.ModelRegistryService;
 import com.databricks.sdk.service.pipelines.PipelinesAPI;
 import com.databricks.sdk.service.pipelines.PipelinesService;
+import com.databricks.sdk.service.qualitymonitorv2.QualityMonitorsV2API;
+import com.databricks.sdk.service.qualitymonitorv2.QualityMonitorsV2Service;
 import com.databricks.sdk.service.serving.ServingEndpointsAPI;
 import com.databricks.sdk.service.serving.ServingEndpointsDataPlaneAPI;
+import com.databricks.sdk.service.serving.ServingEndpointsDataPlaneService;
 import com.databricks.sdk.service.serving.ServingEndpointsService;
 import com.databricks.sdk.service.settings.CredentialsManagerAPI;
 import com.databricks.sdk.service.settings.CredentialsManagerService;
@@ -281,6 +284,7 @@ public class WorkspaceClient {
   private ProviderProvidersAPI providerProvidersAPI;
   private ProvidersAPI providersAPI;
   private QualityMonitorsAPI qualityMonitorsAPI;
+  private QualityMonitorsV2API qualityMonitorsV2API;
   private QueriesAPI queriesAPI;
   private QueriesLegacyAPI queriesLegacyAPI;
   private QueryExecutionAPI queryExecutionAPI;
@@ -328,107 +332,210 @@ public class WorkspaceClient {
     apiClient = new ApiClient(config);
 
     accessControlAPI = new AccessControlAPI(apiClient);
+
     accountAccessControlProxyAPI = new AccountAccessControlProxyAPI(apiClient);
+
     alertsAPI = new AlertsAPI(apiClient);
+
     alertsLegacyAPI = new AlertsLegacyAPI(apiClient);
+
     alertsV2API = new AlertsV2API(apiClient);
+
     appsAPI = new AppsAPI(apiClient);
+
     artifactAllowlistsAPI = new ArtifactAllowlistsAPI(apiClient);
+
     catalogsAPI = new CatalogsAPI(apiClient);
+
     cleanRoomAssetsAPI = new CleanRoomAssetsAPI(apiClient);
+
     cleanRoomTaskRunsAPI = new CleanRoomTaskRunsAPI(apiClient);
+
     cleanRoomsAPI = new CleanRoomsAPI(apiClient);
+
     clusterPoliciesAPI = new ClusterPoliciesAPI(apiClient);
+
     clustersAPI = new ClustersExt(apiClient);
+
     commandExecutionAPI = new CommandExecutionAPI(apiClient);
+
     connectionsAPI = new ConnectionsAPI(apiClient);
+
     consumerFulfillmentsAPI = new ConsumerFulfillmentsAPI(apiClient);
+
     consumerInstallationsAPI = new ConsumerInstallationsAPI(apiClient);
+
     consumerListingsAPI = new ConsumerListingsAPI(apiClient);
+
     consumerPersonalizationRequestsAPI = new ConsumerPersonalizationRequestsAPI(apiClient);
+
     consumerProvidersAPI = new ConsumerProvidersAPI(apiClient);
+
     credentialsAPI = new CredentialsAPI(apiClient);
+
     credentialsManagerAPI = new CredentialsManagerAPI(apiClient);
+
     currentUserAPI = new CurrentUserAPI(apiClient);
+
     dashboardWidgetsAPI = new DashboardWidgetsAPI(apiClient);
+
     dashboardsAPI = new DashboardsAPI(apiClient);
+
     dataSourcesAPI = new DataSourcesAPI(apiClient);
+
     databaseInstancesAPI = new DatabaseInstancesAPI(apiClient);
+
     dbfsAPI = new DbfsExt(apiClient);
+
     dbsqlPermissionsAPI = new DbsqlPermissionsAPI(apiClient);
+
     experimentsAPI = new ExperimentsAPI(apiClient);
+
     externalLocationsAPI = new ExternalLocationsAPI(apiClient);
+
     filesAPI = new FilesAPI(apiClient);
+
     functionsAPI = new FunctionsAPI(apiClient);
+
     genieAPI = new GenieAPI(apiClient);
+
     gitCredentialsAPI = new GitCredentialsAPI(apiClient);
+
     globalInitScriptsAPI = new GlobalInitScriptsAPI(apiClient);
+
     grantsAPI = new GrantsAPI(apiClient);
+
     groupsAPI = new GroupsAPI(apiClient);
+
     instancePoolsAPI = new InstancePoolsAPI(apiClient);
+
     instanceProfilesAPI = new InstanceProfilesAPI(apiClient);
+
     ipAccessListsAPI = new IpAccessListsAPI(apiClient);
+
     jobsAPI = new JobsAPI(apiClient);
+
     lakeviewAPI = new LakeviewAPI(apiClient);
+
     lakeviewEmbeddedAPI = new LakeviewEmbeddedAPI(apiClient);
+
     librariesAPI = new LibrariesAPI(apiClient);
+
     metastoresAPI = new MetastoresAPI(apiClient);
+
     modelRegistryAPI = new ModelRegistryAPI(apiClient);
+
     modelVersionsAPI = new ModelVersionsAPI(apiClient);
+
     notificationDestinationsAPI = new NotificationDestinationsAPI(apiClient);
+
     onlineTablesAPI = new OnlineTablesAPI(apiClient);
+
     permissionMigrationAPI = new PermissionMigrationAPI(apiClient);
+
     permissionsAPI = new PermissionsAPI(apiClient);
+
     pipelinesAPI = new PipelinesAPI(apiClient);
+
     policyComplianceForClustersAPI = new PolicyComplianceForClustersAPI(apiClient);
+
     policyComplianceForJobsAPI = new PolicyComplianceForJobsAPI(apiClient);
+
     policyFamiliesAPI = new PolicyFamiliesAPI(apiClient);
+
     providerExchangeFiltersAPI = new ProviderExchangeFiltersAPI(apiClient);
+
     providerExchangesAPI = new ProviderExchangesAPI(apiClient);
+
     providerFilesAPI = new ProviderFilesAPI(apiClient);
+
     providerListingsAPI = new ProviderListingsAPI(apiClient);
+
     providerPersonalizationRequestsAPI = new ProviderPersonalizationRequestsAPI(apiClient);
+
     providerProviderAnalyticsDashboardsAPI = new ProviderProviderAnalyticsDashboardsAPI(apiClient);
+
     providerProvidersAPI = new ProviderProvidersAPI(apiClient);
+
     providersAPI = new ProvidersAPI(apiClient);
+
     qualityMonitorsAPI = new QualityMonitorsAPI(apiClient);
+
+    qualityMonitorsV2API = new QualityMonitorsV2API(apiClient);
+
     queriesAPI = new QueriesAPI(apiClient);
+
     queriesLegacyAPI = new QueriesLegacyAPI(apiClient);
+
     queryExecutionAPI = new QueryExecutionAPI(apiClient);
+
     queryHistoryAPI = new QueryHistoryAPI(apiClient);
+
     queryVisualizationsAPI = new QueryVisualizationsAPI(apiClient);
+
     queryVisualizationsLegacyAPI = new QueryVisualizationsLegacyAPI(apiClient);
+
     recipientActivationAPI = new RecipientActivationAPI(apiClient);
+
     recipientFederationPoliciesAPI = new RecipientFederationPoliciesAPI(apiClient);
+
     recipientsAPI = new RecipientsAPI(apiClient);
+
     redashConfigAPI = new RedashConfigAPI(apiClient);
+
     registeredModelsAPI = new RegisteredModelsAPI(apiClient);
+
     reposAPI = new ReposAPI(apiClient);
+
     resourceQuotasAPI = new ResourceQuotasAPI(apiClient);
+
     schemasAPI = new SchemasAPI(apiClient);
+
     secretsAPI = new SecretsExt(apiClient);
+
     servicePrincipalsAPI = new ServicePrincipalsAPI(apiClient);
+
     servingEndpointsAPI = new ServingEndpointsAPI(apiClient);
+
     servingEndpointsDataPlaneAPI =
         new ServingEndpointsDataPlaneAPI(apiClient, config, servingEndpointsAPI);
+
     settingsAPI = new SettingsAPI(apiClient);
+
     sharesAPI = new SharesAPI(apiClient);
+
     statementExecutionAPI = new StatementExecutionAPI(apiClient);
+
     storageCredentialsAPI = new StorageCredentialsAPI(apiClient);
+
     systemSchemasAPI = new SystemSchemasAPI(apiClient);
+
     tableConstraintsAPI = new TableConstraintsAPI(apiClient);
+
     tablesAPI = new TablesAPI(apiClient);
+
     temporaryTableCredentialsAPI = new TemporaryTableCredentialsAPI(apiClient);
+
     tokenManagementAPI = new TokenManagementAPI(apiClient);
+
     tokensAPI = new TokensAPI(apiClient);
+
     usersAPI = new UsersAPI(apiClient);
+
     vectorSearchEndpointsAPI = new VectorSearchEndpointsAPI(apiClient);
+
     vectorSearchIndexesAPI = new VectorSearchIndexesAPI(apiClient);
+
     volumesAPI = new VolumesAPI(apiClient);
+
     warehousesAPI = new WarehousesAPI(apiClient);
+
     workspaceAPI = new WorkspaceAPI(apiClient);
+
     workspaceBindingsAPI = new WorkspaceBindingsAPI(apiClient);
+
     workspaceConfAPI = new WorkspaceConfAPI(apiClient);
+
     forecastingAPI = new ForecastingAPI(apiClient);
   }
 
@@ -489,7 +596,7 @@ public class WorkspaceClient {
   }
 
   /**
-   * Apps run directly on a customer's Databricks instance, integrate with their data, use and
+   * Apps run directly on a customer’s Databricks instance, integrate with their data, use and
    * extend Databricks services, and enable users to interact through single sign-on.
    */
   public AppsAPI apps() {
@@ -505,7 +612,7 @@ public class WorkspaceClient {
   }
 
   /**
-   * A catalog is the first layer of Unity Catalog's three-level namespace. It's used to organize
+   * A catalog is the first layer of Unity Catalog’s three-level namespace. It’s used to organize
    * your data assets. Users can see all catalogs on which they have been assigned the USE_CATALOG
    * data permission.
    *
@@ -533,7 +640,7 @@ public class WorkspaceClient {
   /**
    * A clean room uses Delta Sharing and serverless compute to provide a secure and
    * privacy-protecting environment where multiple parties can work together on sensitive enterprise
-   * data without direct access to each other's data.
+   * data without direct access to each other’s data.
    */
   public CleanRoomsAPI cleanRooms() {
     return cleanRoomsAPI;
@@ -766,7 +873,7 @@ public class WorkspaceClient {
    * that authorizes access to the cloud storage path. Each external location is subject to Unity
    * Catalog access-control policies that control which users and groups can access the credential.
    * If a user does not have access to an external location in Unity Catalog, the request fails and
-   * Unity Catalog does not attempt to authenticate to your cloud tenant on the user's behalf.
+   * Unity Catalog does not attempt to authenticate to your cloud tenant on the user’s behalf.
    *
    * <p>Databricks recommends using external locations rather than using storage credentials
    * directly.
@@ -883,10 +990,10 @@ public class WorkspaceClient {
    *
    * <p>Databricks pools reduce cluster start and auto-scaling times by maintaining a set of idle,
    * ready-to-use instances. When a cluster is attached to a pool, cluster nodes are created using
-   * the pool's idle instances. If the pool has no idle instances, the pool expands by allocating a
-   * new instance from the instance provider in order to accommodate the cluster's request. When a
+   * the pool’s idle instances. If the pool has no idle instances, the pool expands by allocating a
+   * new instance from the instance provider in order to accommodate the cluster’s request. When a
    * cluster releases an instance, it returns to the pool and is free for another cluster to use.
-   * Only clusters attached to a pool can use that pool's idle instances.
+   * Only clusters attached to a pool can use that pool’s idle instances.
    *
    * <p>You can specify a different pool for the driver node and worker nodes, or use the same pool
    * for both.
@@ -1225,6 +1332,11 @@ public class WorkspaceClient {
     return qualityMonitorsAPI;
   }
 
+  /** Manage data quality of UC objects (currently support `schema`) */
+  public QualityMonitorsV2API qualityMonitorsV2() {
+    return qualityMonitorsV2API;
+  }
+
   /**
    * The queries API can be used to perform CRUD operations on queries. A query is a Databricks SQL
    * object that includes the target SQL warehouse, query text, name, description, tags, and
@@ -1355,7 +1467,7 @@ public class WorkspaceClient {
    * Catalog provide centralized access control, auditing, lineage, and discovery of ML models
    * across Databricks workspaces.
    *
-   * <p>An MLflow registered model resides in the third layer of Unity Catalog's three-level
+   * <p>An MLflow registered model resides in the third layer of Unity Catalog’s three-level
    * namespace. Registered models contain model versions, which correspond to actual ML models
    * (MLflow models). Creating new model versions currently requires use of the MLflow Python
    * client. Once model versions are created, you can load them for batch inference using MLflow
@@ -1411,7 +1523,7 @@ public class WorkspaceClient {
   }
 
   /**
-   * A schema (also called a database) is the second layer of Unity Catalog's three-level namespace.
+   * A schema (also called a database) is the second layer of Unity Catalog’s three-level namespace.
    * A schema organizes tables, views and functions. To access (or list) a table or view in a
    * schema, users must have the USE_SCHEMA data permission on the schema and its parent catalog,
    * and they must have the SELECT permission on the table or view.
@@ -1463,8 +1575,8 @@ public class WorkspaceClient {
   }
 
   /**
-   * The Serving Endpoints Data Plane API allows you to create, update, and delete model serving
-   * endpoints.
+   * Serving endpoints DataPlane provides a set of operations to interact with data plane endpoints
+   * for Serving endpoints service.
    */
   public ServingEndpointsDataPlaneAPI servingEndpointsDataPlane() {
     return servingEndpointsDataPlaneAPI;
@@ -1586,7 +1698,7 @@ public class WorkspaceClient {
    * data stored on your cloud tenant. Each storage credential is subject to Unity Catalog
    * access-control policies that control which users and groups can access the credential. If a
    * user does not have access to a storage credential in Unity Catalog, the request fails and Unity
-   * Catalog does not attempt to authenticate to your cloud tenant on the user's behalf.
+   * Catalog does not attempt to authenticate to your cloud tenant on the user’s behalf.
    *
    * <p>Databricks recommends using external locations rather than using storage credentials
    * directly.
@@ -1625,7 +1737,7 @@ public class WorkspaceClient {
   }
 
   /**
-   * A table resides in the third layer of Unity Catalog's three-level namespace. It contains rows
+   * A table resides in the third layer of Unity Catalog’s three-level namespace. It contains rows
    * of data. To create a table, users must have CREATE_TABLE and USE_SCHEMA permissions on the
    * schema, and they must have the USE_CATALOG permission on its parent catalog. To query a table,
    * users must have the SELECT permission on the table, and they must have the USE_CATALOG
@@ -1681,7 +1793,7 @@ public class WorkspaceClient {
    * or team by using your identity provider to create users and groups in Databricks workspace and
    * give them the proper level of access. When a user leaves your organization or no longer needs
    * access to Databricks workspace, admins can terminate the user in your identity provider and
-   * that user's account will also be removed from Databricks workspace. This ensures a consistent
+   * that user’s account will also be removed from Databricks workspace. This ensures a consistent
    * offboarding process and prevents unauthorized users from accessing sensitive data.
    */
   public UsersAPI users() {
@@ -2518,6 +2630,17 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default QualityMonitorsV2Service with a custom implementation. */
+  public WorkspaceClient withQualityMonitorsV2Impl(QualityMonitorsV2Service qualityMonitorsV2) {
+    return this.withQualityMonitorsV2API(new QualityMonitorsV2API(qualityMonitorsV2));
+  }
+
+  /** Replace the default QualityMonitorsV2API with a custom implementation. */
+  public WorkspaceClient withQualityMonitorsV2API(QualityMonitorsV2API qualityMonitorsV2) {
+    this.qualityMonitorsV2API = qualityMonitorsV2;
+    return this;
+  }
+
   /** Replace the default QueriesService with a custom implementation. */
   public WorkspaceClient withQueriesImpl(QueriesService queries) {
     return this.withQueriesAPI(new QueriesAPI(queries));
@@ -2710,6 +2833,20 @@ public class WorkspaceClient {
   /** Replace the default ServingEndpointsAPI with a custom implementation. */
   public WorkspaceClient withServingEndpointsAPI(ServingEndpointsAPI servingEndpoints) {
     this.servingEndpointsAPI = servingEndpoints;
+    return this;
+  }
+
+  /** Replace the default ServingEndpointsDataPlaneService with a custom implementation. */
+  public WorkspaceClient withServingEndpointsDataPlaneImpl(
+      ServingEndpointsDataPlaneService servingEndpointsDataPlane) {
+    return this.withServingEndpointsDataPlaneAPI(
+        new ServingEndpointsDataPlaneAPI(servingEndpointsDataPlane));
+  }
+
+  /** Replace the default ServingEndpointsDataPlaneAPI with a custom implementation. */
+  public WorkspaceClient withServingEndpointsDataPlaneAPI(
+      ServingEndpointsDataPlaneAPI servingEndpointsDataPlane) {
+    this.servingEndpointsDataPlaneAPI = servingEndpointsDataPlane;
     return this;
   }
 

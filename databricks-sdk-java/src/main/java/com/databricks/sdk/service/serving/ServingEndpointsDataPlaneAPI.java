@@ -20,7 +20,6 @@ public class ServingEndpointsDataPlaneAPI {
   /** Regular-use constructor */
   public ServingEndpointsDataPlaneAPI(
       ApiClient apiClient, DatabricksConfig config, ServingEndpointsAPI servingEndpointsAPI) {
-
     impl = new ServingEndpointsDataPlaneImpl(apiClient, config, servingEndpointsAPI);
   }
 
