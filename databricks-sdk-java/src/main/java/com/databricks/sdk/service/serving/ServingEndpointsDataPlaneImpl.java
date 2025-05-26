@@ -31,7 +31,9 @@ class ServingEndpointsDataPlaneImpl implements ServingEndpointsDataPlaneService 
   }
 
   private DataPlaneInfo dataPlaneInfoQuery(QueryEndpointInput request) {
-    String key = String.format("Query/%s", request.getName());
+    String key =
+        String.format(
+            "Query/%s", String.join("/", new String[] {String.valueOf(request.getName())}));
 
     return infos.computeIfAbsent(
         key,
@@ -45,22 +47,21 @@ class ServingEndpointsDataPlaneImpl implements ServingEndpointsDataPlaneService 
   @Override
   public QueryEndpointResponse query(QueryEndpointInput request) {
     DataPlaneInfo dataPlaneInfo = dataPlaneInfoQuery(request);
-
+    String path = dataPlaneInfo.getEndpointUrl();
     Token token =
         dataPlaneTokenSource.getToken(
             dataPlaneInfo.getEndpointUrl(), dataPlaneInfo.getAuthorizationDetails());
 
     try {
-      Request req =
-          new Request("POST", dataPlaneInfo.getEndpointUrl(), apiClient.serialize(request));
+      Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
 
       RequestOptions options =
           new RequestOptions()
-              .withAuthorization("Bearer " + token.getAccessToken())
-              .withUrl(dataPlaneInfo.getEndpointUrl());
+              .withAuthorization(token.getTokenType() + " " + token.getAccessToken())
+              .withUrl(path);
 
       return apiClient.execute(req, QueryEndpointResponse.class, options);
     } catch (IOException e) {
