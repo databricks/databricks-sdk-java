@@ -5,8 +5,8 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 /**
- * Factory interface for creating OAuth authentication headers.
- * This interface combines the functionality of {@link HeaderFactory} and {@link TokenSource}.
+ * Factory interface for creating OAuth authentication headers. This interface combines the
+ * functionality of {@link HeaderFactory} and {@link TokenSource}.
  */
 public interface OAuthHeaderFactory extends HeaderFactory, TokenSource {
   /**

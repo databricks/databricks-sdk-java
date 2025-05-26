@@ -3,8 +3,8 @@ package com.databricks.sdk.core.http;
 import java.util.function.Function;
 
 /**
- * A builder class for configuring HTTP request transformations including authentication,
- * URL, and user agent headers.
+ * A builder class for configuring HTTP request transformations including authentication, URL, and
+ * user agent headers.
  */
 public class RequestOptions {
   private Function<Request, Request> authenticateFunc;
@@ -12,8 +12,8 @@ public class RequestOptions {
   private Function<Request, Request> userAgentFunc;
 
   /**
-   * Constructs a new RequestOptions instance with default identity functions.
-   * Initially, all transformations are set to pass through the request unchanged.
+   * Constructs a new RequestOptions instance with default identity functions. Initially, all
+   * transformations are set to pass through the request unchanged.
    */
   public RequestOptions() {
     // Default to identity functions
@@ -56,11 +56,8 @@ public class RequestOptions {
   }
 
   /**
-   * Applies all configured transformations to the given request.
-   * The transformations are applied in the following order:
-   * 1. Authentication
-   * 2. URL
-   * 3. User-Agent
+   * Applies all configured transformations to the given request. The transformations are applied in
+   * the following order: 1. Authentication 2. URL 3. User-Agent
    *
    * @param request The original request to be transformed
    * @return A new Request instance with all transformations applied

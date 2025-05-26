@@ -249,12 +249,10 @@ public class ApiClient {
   }
 
   /**
-   * Executes HTTP request with retries and converts it to proper POJO, using custom request
-   * modifier
+   * Executes HTTP request with retries and converts it to proper POJO.
    *
    * @param in Commons HTTP request
    * @param target Expected pojo type
-   * @param modifier Optional request modifier to customize request behavior
    * @return POJO of requested type
    */
   public <T> T execute(Request in, Class<T> target) throws IOException {
@@ -265,8 +263,17 @@ public class ApiClient {
     return deserialize(out, target);
   }
 
-  public <T> T execute(Request in, Class<T> target, RequestOptions modifier) throws IOException {
-    Response out = getResponse(in, modifier);
+  /**
+   * Executes HTTP request with retries and converts it to proper POJO, using custom request
+   * options.
+   *
+   * @param in Commons HTTP request
+   * @param target Expected pojo type
+   * @param options Optional request options to customize request behavior
+   * @return POJO of requested type
+   */
+  public <T> T execute(Request in, Class<T> target, RequestOptions options) throws IOException {
+    Response out = getResponse(in, options);
     if (target == Void.class) {
       return null;
     }
@@ -277,8 +284,8 @@ public class ApiClient {
     return executeInner(in, in.getUrl(), Optional.empty());
   }
 
-  private Response getResponse(Request in, RequestOptions modifier) {
-    return executeInner(in, in.getUrl(), Optional.of(modifier));
+  private Response getResponse(Request in, RequestOptions options) {
+    return executeInner(in, in.getUrl(), Optional.of(options));
   }
 
   private boolean isRequestSuccessful(Response response, Exception e) {

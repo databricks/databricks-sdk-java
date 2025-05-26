@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Implementation of {@link OAuthHeaderFactory} that generates Authorization headers from a token source.
+ * Implementation of {@link OAuthHeaderFactory} that generates Authorization headers from a token
+ * source.
  */
 public class OAuthHeaderFactoryFromTokenSource implements OAuthHeaderFactory {
   private final TokenSource tokenSource;

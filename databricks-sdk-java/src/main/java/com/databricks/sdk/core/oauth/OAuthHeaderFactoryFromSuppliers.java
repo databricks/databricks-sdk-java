@@ -4,7 +4,8 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 /**
- * Implementation of {@link OAuthHeaderFactory} that uses separate suppliers for token and header generation.
+ * Implementation of {@link OAuthHeaderFactory} that uses separate suppliers for token and header
+ * generation.
  */
 public class OAuthHeaderFactoryFromSuppliers implements OAuthHeaderFactory {
   private final Supplier<Token> tokenSupplier;
