@@ -173,7 +173,7 @@ public class ApiClient {
 
   protected <I, O> O withJavaType(Request request, JavaType javaType) {
     try {
-      Response response = getResponse(request, new RequestOptions());
+      Response response = executeInner(request, request.getUrl(), new RequestOptions());
       return deserialize(response.getBody(), javaType);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -201,15 +201,11 @@ public class ApiClient {
    * @return POJO of requested type
    */
   public <T> T execute(Request in, Class<T> target, RequestOptions options) throws IOException {
-    Response out = getResponse(in, options);
+    Response out = executeInner(in, in.getUrl(), options);
     if (target == Void.class) {
       return null;
     }
     return deserialize(out, target);
-  }
-
-  private Response getResponse(Request in, RequestOptions options) {
-    return executeInner(in, in.getUrl(), options);
   }
 
   private Response executeInner(Request in, String path, RequestOptions options) {
