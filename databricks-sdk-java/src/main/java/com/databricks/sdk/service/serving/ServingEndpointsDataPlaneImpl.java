@@ -2,29 +2,65 @@
 package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.Request;
+import com.databricks.sdk.core.http.RequestOptions;
+import com.databricks.sdk.core.oauth.DataPlaneTokenSource;
+import com.databricks.sdk.core.oauth.Token;
 import com.databricks.sdk.support.Generated;
 import java.io.IOException;
+import java.util.concurrent.ConcurrentHashMap;
 
 /** Package-local implementation of ServingEndpointsDataPlane */
 @Generated
 class ServingEndpointsDataPlaneImpl implements ServingEndpointsDataPlaneService {
   private final ApiClient apiClient;
+  private final ServingEndpointsAPI servingEndpointsAPI;
+  private final DataPlaneTokenSource dataPlaneTokenSource;
+  private final ConcurrentHashMap<String, DataPlaneInfo> infos;
 
-  public ServingEndpointsDataPlaneImpl(ApiClient apiClient) {
+  public ServingEndpointsDataPlaneImpl(
+      ApiClient apiClient, DatabricksConfig config, ServingEndpointsAPI servingEndpointsAPI) {
     this.apiClient = apiClient;
+    this.servingEndpointsAPI = servingEndpointsAPI;
+    this.dataPlaneTokenSource =
+        new DataPlaneTokenSource(
+            apiClient.getHttpClient(), config.getTokenSource(), config.getHost());
+    this.infos = new ConcurrentHashMap<>();
+  }
+
+  private DataPlaneInfo dataPlaneInfoQuery(QueryEndpointInput request) {
+    String key =
+        String.format(
+            "Query/%s", String.join("/", new String[] {String.valueOf(request.getName())}));
+
+    return infos.computeIfAbsent(
+        key,
+        k -> {
+          ServingEndpointDetailed response =
+              servingEndpointsAPI.get(new GetServingEndpointRequest().setName(request.getName()));
+          return response.getDataPlaneInfo().getQueryInfo();
+        });
   }
 
   @Override
   public QueryEndpointResponse query(QueryEndpointInput request) {
-    String path = String.format("/serving-endpoints/%s/invocations", request.getName());
+    DataPlaneInfo dataPlaneInfo = dataPlaneInfoQuery(request);
+    String path = dataPlaneInfo.getEndpointUrl();
+    Token token = dataPlaneTokenSource.getToken(path, dataPlaneInfo.getAuthorizationDetails());
+
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
-      return apiClient.execute(req, QueryEndpointResponse.class);
+      RequestOptions options =
+          new RequestOptions()
+              .withAuthorization(token.getTokenType() + " " + token.getAccessToken())
+              .withUrl(path);
+
+      return apiClient.execute(req, QueryEndpointResponse.class, options);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

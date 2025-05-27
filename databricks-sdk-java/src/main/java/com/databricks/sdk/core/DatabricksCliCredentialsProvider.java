@@ -1,6 +1,6 @@
 package com.databricks.sdk.core;
 
-import com.databricks.sdk.core.oauth.Token;
+import com.databricks.sdk.core.oauth.OAuthHeaderFactory;
 import com.databricks.sdk.core.utils.OSUtils;
 import java.util.*;
 import org.slf4j.Logger;
@@ -36,7 +36,7 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
   }
 
   @Override
-  public HeaderFactory configure(DatabricksConfig config) {
+  public OAuthHeaderFactory configure(DatabricksConfig config) {
     String host = config.getHost();
     if (host == null) {
       return null;
@@ -48,12 +48,7 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
         return null;
       }
       tokenSource.getToken(); // We need this for checking if databricks CLI is installed.
-      return () -> {
-        Token token = tokenSource.getToken();
-        Map<String, String> headers = new HashMap<>();
-        headers.put("Authorization", token.getTokenType() + " " + token.getAccessToken());
-        return headers;
-      };
+      return OAuthHeaderFactory.fromTokenSource(tokenSource);
     } catch (DatabricksException e) {
       String stderr = e.getMessage();
       if (stderr.contains("not found")) {

@@ -4,6 +4,7 @@ import com.databricks.sdk.core.error.ApiErrors;
 import com.databricks.sdk.core.error.PrivateLinkInfo;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
+import com.databricks.sdk.core.http.RequestOptions;
 import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.retry.RequestBasedRetryStrategyPicker;
 import com.databricks.sdk.core.retry.RetryStrategy;
@@ -50,7 +51,6 @@ public class ApiClient {
       this.accountId = config.getAccountId();
       this.retryStrategyPicker = new RequestBasedRetryStrategyPicker(config.getHost());
       this.isDebugHeaders = config.isDebugHeaders();
-
       return this;
     }
 
@@ -173,7 +173,7 @@ public class ApiClient {
 
   protected <I, O> O withJavaType(Request request, JavaType javaType) {
     try {
-      Response response = getResponse(request);
+      Response response = executeInner(request, request.getUrl(), new RequestOptions());
       return deserialize(response.getBody(), javaType);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -181,25 +181,34 @@ public class ApiClient {
   }
 
   /**
-   * Executes HTTP request with retries and converts it to proper POJO
+   * Executes HTTP request with retries and converts it to proper POJO.
    *
    * @param in Commons HTTP request
    * @param target Expected pojo type
    * @return POJO of requested type
    */
   public <T> T execute(Request in, Class<T> target) throws IOException {
-    Response out = getResponse(in);
+    return execute(in, target, new RequestOptions());
+  }
+
+  /**
+   * Executes HTTP request with retries and converts it to proper POJO, using custom request
+   * options.
+   *
+   * @param in Commons HTTP request
+   * @param target Expected pojo type
+   * @param options Optional request options to customize request behavior
+   * @return POJO of requested type
+   */
+  public <T> T execute(Request in, Class<T> target, RequestOptions options) throws IOException {
+    Response out = executeInner(in, in.getUrl(), options);
     if (target == Void.class) {
       return null;
     }
     return deserialize(out, target);
   }
 
-  private Response getResponse(Request in) {
-    return executeInner(in, in.getUrl());
-  }
-
-  private Response executeInner(Request in, String path) {
+  private Response executeInner(Request in, String path, RequestOptions options) {
     RetryStrategy retryStrategy = retryStrategyPicker.getRetryStrategy(in);
     int attemptNumber = 0;
     while (true) {
@@ -223,6 +232,8 @@ public class ApiClient {
         userAgent += String.format(" auth/%s", authType);
       }
       in.withHeader("User-Agent", userAgent);
+
+      options.applyOptions(in);
 
       // Make the request, catching any exceptions, as we may want to retry.
       try {
@@ -433,5 +444,9 @@ public class ApiClient {
       return null;
     }
     return mapper.writeValueAsString(body);
+  }
+
+  public HttpClient getHttpClient() {
+    return httpClient;
   }
 }

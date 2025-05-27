@@ -141,6 +141,8 @@ import com.databricks.sdk.service.ml.ModelRegistryService;
 import com.databricks.sdk.service.pipelines.PipelinesAPI;
 import com.databricks.sdk.service.pipelines.PipelinesService;
 import com.databricks.sdk.service.serving.ServingEndpointsAPI;
+import com.databricks.sdk.service.serving.ServingEndpointsDataPlaneAPI;
+import com.databricks.sdk.service.serving.ServingEndpointsDataPlaneService;
 import com.databricks.sdk.service.serving.ServingEndpointsService;
 import com.databricks.sdk.service.settings.CredentialsManagerAPI;
 import com.databricks.sdk.service.settings.CredentialsManagerService;
@@ -297,6 +299,7 @@ public class WorkspaceClient {
   private SecretsExt secretsAPI;
   private ServicePrincipalsAPI servicePrincipalsAPI;
   private ServingEndpointsAPI servingEndpointsAPI;
+  private ServingEndpointsDataPlaneAPI servingEndpointsDataPlaneAPI;
   private SettingsAPI settingsAPI;
   private SharesAPI sharesAPI;
   private StatementExecutionAPI statementExecutionAPI;
@@ -324,7 +327,6 @@ public class WorkspaceClient {
   public WorkspaceClient(DatabricksConfig config) {
     this.config = config;
     apiClient = new ApiClient(config);
-
     accessControlAPI = new AccessControlAPI(apiClient);
     accountAccessControlProxyAPI = new AccountAccessControlProxyAPI(apiClient);
     alertsAPI = new AlertsAPI(apiClient);
@@ -407,6 +409,8 @@ public class WorkspaceClient {
     secretsAPI = new SecretsExt(apiClient);
     servicePrincipalsAPI = new ServicePrincipalsAPI(apiClient);
     servingEndpointsAPI = new ServingEndpointsAPI(apiClient);
+    servingEndpointsDataPlaneAPI =
+        new ServingEndpointsDataPlaneAPI(apiClient, config, servingEndpointsAPI);
     settingsAPI = new SettingsAPI(apiClient);
     sharesAPI = new SharesAPI(apiClient);
     statementExecutionAPI = new StatementExecutionAPI(apiClient);
@@ -1456,6 +1460,14 @@ public class WorkspaceClient {
    */
   public ServingEndpointsAPI servingEndpoints() {
     return servingEndpointsAPI;
+  }
+
+  /**
+   * Serving endpoints DataPlane provides a set of operations to interact with data plane endpoints
+   * for Serving endpoints service.
+   */
+  public ServingEndpointsDataPlaneAPI servingEndpointsDataPlane() {
+    return servingEndpointsDataPlaneAPI;
   }
 
   /** Workspace Settings API allows users to manage settings at the workspace level. */
@@ -2698,6 +2710,20 @@ public class WorkspaceClient {
   /** Replace the default ServingEndpointsAPI with a custom implementation. */
   public WorkspaceClient withServingEndpointsAPI(ServingEndpointsAPI servingEndpoints) {
     this.servingEndpointsAPI = servingEndpoints;
+    return this;
+  }
+
+  /** Replace the default ServingEndpointsDataPlaneService with a custom implementation. */
+  public WorkspaceClient withServingEndpointsDataPlaneImpl(
+      ServingEndpointsDataPlaneService servingEndpointsDataPlane) {
+    return this.withServingEndpointsDataPlaneAPI(
+        new ServingEndpointsDataPlaneAPI(servingEndpointsDataPlane));
+  }
+
+  /** Replace the default ServingEndpointsDataPlaneAPI with a custom implementation. */
+  public WorkspaceClient withServingEndpointsDataPlaneAPI(
+      ServingEndpointsDataPlaneAPI servingEndpointsDataPlane) {
+    this.servingEndpointsDataPlaneAPI = servingEndpointsDataPlane;
     return this;
   }
 

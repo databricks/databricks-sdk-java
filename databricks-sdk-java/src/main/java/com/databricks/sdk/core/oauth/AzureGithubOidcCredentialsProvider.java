@@ -6,8 +6,6 @@ import com.databricks.sdk.core.http.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -25,7 +23,7 @@ public class AzureGithubOidcCredentialsProvider implements CredentialsProvider {
   }
 
   @Override
-  public HeaderFactory configure(DatabricksConfig config) {
+  public OAuthHeaderFactory configure(DatabricksConfig config) {
     if (!config.isAzure()
         || config.getAzureClientId() == null
         || config.getAzureTenantId() == null
@@ -49,11 +47,7 @@ public class AzureGithubOidcCredentialsProvider implements CredentialsProvider {
             idToken.get(),
             "urn:ietf:params:oauth:client-assertion-type:jwt-bearer");
 
-    return () -> {
-      Map<String, String> headers = new HashMap<>();
-      headers.put("Authorization", "Bearer " + tokenSource.getToken().getAccessToken());
-      return headers;
-    };
+    return OAuthHeaderFactory.fromTokenSource(tokenSource);
   }
 
   /**

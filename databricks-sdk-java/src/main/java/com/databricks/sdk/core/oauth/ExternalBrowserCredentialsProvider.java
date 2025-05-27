@@ -3,7 +3,6 @@ package com.databricks.sdk.core.oauth;
 import com.databricks.sdk.core.CredentialsProvider;
 import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.DatabricksException;
-import com.databricks.sdk.core.HeaderFactory;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Objects;
@@ -44,7 +43,7 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
   }
 
   @Override
-  public HeaderFactory configure(DatabricksConfig config) {
+  public OAuthHeaderFactory configure(DatabricksConfig config) {
     if (config.getHost() == null || !Objects.equals(config.getAuthType(), "external-browser")) {
       return null;
     }

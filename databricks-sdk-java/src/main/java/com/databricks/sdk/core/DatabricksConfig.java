@@ -4,7 +4,10 @@ import com.databricks.sdk.core.commons.CommonsHttpClient;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
+import com.databricks.sdk.core.oauth.ErrorTokenSource;
+import com.databricks.sdk.core.oauth.OAuthHeaderFactory;
 import com.databricks.sdk.core.oauth.OpenIDConnectEndpoints;
+import com.databricks.sdk.core.oauth.TokenSource;
 import com.databricks.sdk.core.utils.Cloud;
 import com.databricks.sdk.core.utils.Environment;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -207,6 +210,24 @@ public class DatabricksConfig {
       DatabricksException wrapperException = new DatabricksException(msg, e);
       throw ConfigLoader.makeNicerError(wrapperException.getMessage(), wrapperException, this);
     }
+  }
+
+  public TokenSource getTokenSource() {
+    if (headerFactory == null) {
+      try {
+        ConfigLoader.fixHostIfNeeded(this);
+        headerFactory = credentialsProvider.configure(this);
+      } catch (Exception e) {
+        return new ErrorTokenSource("Failed to get token source: " + e.getMessage());
+      }
+      setAuthType(credentialsProvider.authType());
+    }
+
+    if (headerFactory instanceof OAuthHeaderFactory) {
+      return (TokenSource) headerFactory;
+    }
+    return new ErrorTokenSource(
+        String.format("OAuth Token not supported for current auth type %s", authType));
   }
 
   public CredentialsProvider getCredentialsProvider() {
