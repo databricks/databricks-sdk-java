@@ -48,16 +48,13 @@ class ServingEndpointsDataPlaneImpl implements ServingEndpointsDataPlaneService 
   public QueryEndpointResponse query(QueryEndpointInput request) {
     DataPlaneInfo dataPlaneInfo = dataPlaneInfoQuery(request);
     String path = dataPlaneInfo.getEndpointUrl();
-    Token token =
-        dataPlaneTokenSource.getToken(
-            dataPlaneInfo.getEndpointUrl(), dataPlaneInfo.getAuthorizationDetails());
+    Token token = dataPlaneTokenSource.getToken(path, dataPlaneInfo.getAuthorizationDetails());
 
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
-
       RequestOptions options =
           new RequestOptions()
               .withAuthorization(token.getTokenType() + " " + token.getAccessToken())
