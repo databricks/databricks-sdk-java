@@ -6,7 +6,7 @@ import java.util.function.Function;
  * A builder class for configuring HTTP request transformations including authentication, URL, and
  * user agent headers.
  *
- * Experimental: this class is experimental and subject to change in backward incompatible ways. 
+ * <p>Experimental: this class is experimental and subject to change in backward incompatible ways.
  */
 public class RequestOptions {
   private Function<Request, Request> authenticateFunc;

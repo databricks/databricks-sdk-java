@@ -1,6 +1,7 @@
 package com.databricks.sdk.core.oauth;
 
 import com.databricks.sdk.core.HeaderFactory;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -19,7 +20,17 @@ public interface OAuthHeaderFactory extends HeaderFactory, TokenSource {
    */
   static OAuthHeaderFactory fromSuppliers(
       Supplier<Token> tokenSupplier, Supplier<Map<String, String>> headerSupplier) {
-    return new OAuthHeaderFactoryFromSuppliers(tokenSupplier, headerSupplier);
+    return new OAuthHeaderFactory() {
+      @Override
+      public Map<String, String> headers() {
+        return headerSupplier.get();
+      }
+
+      @Override
+      public Token getToken() {
+        return tokenSupplier.get();
+      }
+    };
   }
 
   /**
@@ -30,6 +41,19 @@ public interface OAuthHeaderFactory extends HeaderFactory, TokenSource {
    * @return A new OAuthHeaderFactory instance that uses the provided token source
    */
   static OAuthHeaderFactory fromTokenSource(TokenSource tokenSource) {
-    return new OAuthHeaderFactoryFromTokenSource(tokenSource);
+    return new OAuthHeaderFactory() {
+      @Override
+      public Token getToken() {
+        return tokenSource.getToken();
+      }
+
+      @Override
+      public Map<String, String> headers() {
+        Token token = tokenSource.getToken();
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Authorization", token.getTokenType() + " " + token.getAccessToken());
+        return headers;
+      }
+    };
   }
 }

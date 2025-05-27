@@ -213,20 +213,21 @@ public class DatabricksConfig {
   }
 
   public TokenSource getTokenSource() {
-    try {
-      if (headerFactory == null) {
+    if (headerFactory == null) {
+      try {
         ConfigLoader.fixHostIfNeeded(this);
         headerFactory = credentialsProvider.configure(this);
-        setAuthType(credentialsProvider.authType());
+      } catch (Exception e) {
+        return new ErrorTokenSource("Failed to get token source: " + e.getMessage());
       }
-      if (headerFactory instanceof OAuthHeaderFactory) {
-        return (TokenSource) headerFactory;
-      }
-      return new ErrorTokenSource(
-          String.format("OAuth Token not supported for current auth type %s", authType));
-    } catch (Exception e) {
-      return new ErrorTokenSource("Failed to get token source: " + e.getMessage());
+      setAuthType(credentialsProvider.authType());
     }
+
+    if (headerFactory instanceof OAuthHeaderFactory) {
+      return (TokenSource) headerFactory;
+    }
+    return new ErrorTokenSource(
+        String.format("OAuth Token not supported for current auth type %s", authType));
   }
 
   public CredentialsProvider getCredentialsProvider() {
