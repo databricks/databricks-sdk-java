@@ -1435,6 +1435,9 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ActivityAction.j
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ActivityType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ApproveTransitionRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ApproveTransitionRequestResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ArtifactCredentialInfo.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ArtifactCredentialInfoHttpHeader.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ArtifactCredentialType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CommentActivityAction.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CommentObject.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CreateComment.java linguist-generated=true
@@ -1505,6 +1508,10 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ForecastingExper
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ForecastingImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ForecastingService.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/GetByNameRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/GetCredentialsForTraceDataDownloadRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/GetCredentialsForTraceDataDownloadResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/GetCredentialsForTraceDataUploadRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/GetCredentialsForTraceDataUploadResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/GetExperimentByNameResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/GetExperimentPermissionLevelsRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/GetExperimentPermissionLevelsResponse.java linguist-generated=true

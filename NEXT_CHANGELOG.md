@@ -34,4 +34,3 @@
 * Added `OIDC_FEDERATION` enum value for `com.databricks.sdk.service.sharing.AuthenticationType`.
 * [Breaking] Changed `securableType` field for `com.databricks.sdk.service.catalog.ConnectionInfo` to type `com.databricks.sdk.service.catalog.SecurableType` class.
 * [Breaking] Changed `catalogType` field for `com.databricks.sdk.service.catalog.SchemaInfo` to type `com.databricks.sdk.service.catalog.CatalogType` class.
-* [Breaking] Removed `getCredentialsForTraceDataDownload()` and `getCredentialsForTraceDataUpload()` methods for `workspaceClient.experiments()` service.
