@@ -5,10 +5,12 @@ import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.FormRequest;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Base64;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import org.apache.http.HttpHeaders;
 
 /**
@@ -18,12 +20,30 @@ import org.apache.http.HttpHeaders;
  * at least 10 seconds until expiry). If not, refresh() is called first to refresh the token.
  */
 public abstract class RefreshableTokenSource implements TokenSource {
+
+  private enum TokenState {
+    FRESH, // The token is valid.
+    STALE, // The token is valid but will expire soon.
+    EXPIRED // The token has expired and cannot be used without refreshing.
+  }
+
+  private static final Duration DEFAULT_STALE_DURATION = Duration.ofMinutes(3);
+
   protected Token token;
+  private boolean asyncEnabled = false;
+  private Duration staleDuration = DEFAULT_STALE_DURATION;
+  private boolean refreshInProgress = false;
+  private boolean lastRefreshSucceeded = true;
 
   public RefreshableTokenSource() {}
 
   public RefreshableTokenSource(Token token) {
     this.token = token;
+  }
+
+  public RefreshableTokenSource enableAsyncRefresh(boolean enabled) {
+    this.asyncEnabled = enabled;
+    return this;
   }
 
   /**
@@ -80,9 +100,79 @@ public abstract class RefreshableTokenSource implements TokenSource {
   protected abstract Token refresh();
 
   public synchronized Token getToken() {
-    if (token == null || !token.isValid()) {
-      token = refresh();
+    if (!asyncEnabled) {
+      return getTokenBlocking();
     }
-    return token;
+    return getTokenAsync();
+  }
+
+  protected TokenState getTokenState() {
+    if (token == null) {
+      return TokenState.EXPIRED;
+    }
+    Duration lifeTime = token.getLifetime();
+    if (lifeTime.compareTo(Duration.ZERO) <= 0) {
+      return TokenState.EXPIRED;
+    }
+    if (lifeTime.compareTo(staleDuration) <= 0) {
+      return TokenState.STALE;
+    }
+    return TokenState.FRESH;
+  }
+
+  protected synchronized Token getTokenBlocking() {
+    refreshInProgress = false;
+    TokenState state = getTokenState();
+    if (state != TokenState.EXPIRED) {
+      return token;
+    }
+    try {
+      Token newToken = refresh();
+      token = newToken;
+      return newToken;
+    } catch (Exception e) {
+      lastRefreshSucceeded = false;
+      throw e;
+    }
+  }
+
+  protected Token getTokenAsync() {
+    TokenState state;
+    Token currentToken;
+    synchronized (this) {
+      state = getTokenState();
+      currentToken = token;
+    }
+    if (state == TokenState.FRESH) {
+      return currentToken;
+    }
+    if (state == TokenState.STALE) {
+      triggerAsyncRefresh();
+      return token;
+    } else {
+      return getTokenBlocking();
+    }
+  }
+
+  protected synchronized void triggerAsyncRefresh() {
+    if (!refreshInProgress && lastRefreshSucceeded) {
+      refreshInProgress = true;
+      CompletableFuture.runAsync(
+          () -> {
+            try {
+              Token newToken = refresh();
+              synchronized (this) {
+                token = newToken;
+                lastRefreshSucceeded = true;
+                refreshInProgress = false;
+              }
+            } catch (Exception e) {
+              synchronized (this) {
+                lastRefreshSucceeded = false;
+                refreshInProgress = false;
+              }
+            }
+          });
+    }
   }
 }

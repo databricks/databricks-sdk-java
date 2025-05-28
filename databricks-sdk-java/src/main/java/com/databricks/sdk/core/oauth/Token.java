@@ -4,6 +4,7 @@ import com.databricks.sdk.core.utils.ClockSupplier;
 import com.databricks.sdk.core.utils.SystemClockSupplier;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
@@ -90,5 +91,13 @@ public class Token {
 
   public String getAccessToken() {
     return accessToken;
+  }
+
+  public LocalDateTime getExpiry() {
+    return this.expiry;
+  }
+
+  public Duration getLifetime() {
+    return Duration.between(LocalDateTime.now(clockSupplier.getClock()), this.expiry);
   }
 }
