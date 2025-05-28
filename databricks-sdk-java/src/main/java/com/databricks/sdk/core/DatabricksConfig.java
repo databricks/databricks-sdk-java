@@ -628,7 +628,8 @@ public class DatabricksConfig {
     if (getHost() == null) {
       return null;
     }
-    if (isAzure() && getAzureClientId() != null) {
+
+    if (isAzure() && shouldUseAzureOidcEndpoints()) {
       Request request = new Request("GET", getHost() + "/oidc/oauth2/v2.0/authorize");
       request.setRedirectionBehavior(false);
       Response resp = getHttpClient().execute(request);
@@ -741,5 +742,15 @@ public class DatabricksConfig {
    */
   public String getEffectiveOAuthRedirectUrl() {
     return redirectUrl != null ? redirectUrl : "http://localhost:8080/callback";
+  }
+
+  /**
+   * Determines if Azure-specific OIDC endpoints should be used.
+   * This is true in two cases:
+   * 1. When auth type is not specified (this is only in case of external browser auth)
+   * 2. When Azure client ID is present (service principal auth)
+   */
+  private boolean shouldUseAzureOidcEndpoints() {
+    return Objects.equals(getAuthType(), null) || getAzureClientId() != null;
   }
 }
