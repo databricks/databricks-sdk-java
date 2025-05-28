@@ -251,4 +251,35 @@ public class DatabricksConfigTest {
     assertFalse(tokenSource instanceof ErrorTokenSource);
     assertEquals(tokenSource.getToken().getAccessToken(), "test-token");
   }
+
+  @Test
+  public void testShouldUseAzureOidcEndpointsForExternalBrowserAuth() {
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setHost("https://adb-1234567890.0.azuredatabricks.net/")
+            .setAuthType(null);
+    assertTrue(config.shouldUseAzureOidcEndpoints());
+  }
+
+  @Test
+  public void testShouldUseAzureOidcEndpointsForServicePrincipal() {
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setHost("https://adb-1234567890.0.azuredatabricks.net/")
+            .setAzureClientId("test-client-id")
+            .setAzureClientSecret("test-client-secret")
+            .setAzureTenantId("test-tenant-id");
+    assertTrue(config.shouldUseAzureOidcEndpoints());
+  }
+
+  @Test
+  public void testShouldNotUseAzureOidcEndpointsForAzureM2M() {
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setHost("https://adb-1234567890.0.azuredatabricks.net/")
+            .setAuthType("oauth-m2m")
+            .setClientId("test-client-id")
+            .setClientSecret("test-client-secret");
+    assertFalse(config.shouldUseAzureOidcEndpoints());
+  }
 }

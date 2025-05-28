@@ -410,13 +410,17 @@ public class DatabricksConfig {
     return this;
   }
 
-  /** @deprecated Use {@link #getAzureUseMsi()} instead. */
+  /**
+   * @deprecated Use {@link #getAzureUseMsi()} instead.
+   */
   @Deprecated()
   public boolean getAzureUseMSI() {
     return azureUseMsi;
   }
 
-  /** @deprecated Use {@link #setAzureUseMsi(boolean)} instead. */
+  /**
+   * @deprecated Use {@link #setAzureUseMsi(boolean)} instead.
+   */
   @Deprecated
   public DatabricksConfig setAzureUseMSI(boolean azureUseMsi) {
     this.azureUseMsi = azureUseMsi;
@@ -745,12 +749,11 @@ public class DatabricksConfig {
   }
 
   /**
-   * Determines if Azure-specific OIDC endpoints should be used.
-   * This is true in two cases:
-   * 1. When auth type is not specified (this is only in case of external browser auth)
-   * 2. When Azure client ID is present (service principal auth)
+   * Determines if Azure-specific OIDC endpoints should be used. This is true in two cases: 1. When
+   * auth type is not specified (this is only in case of external browser auth) 2. When Azure client
+   * ID is present (service principal auth)
    */
-  private boolean shouldUseAzureOidcEndpoints() {
+  boolean shouldUseAzureOidcEndpoints() {
     return Objects.equals(getAuthType(), null) || getAzureClientId() != null;
   }
 }
