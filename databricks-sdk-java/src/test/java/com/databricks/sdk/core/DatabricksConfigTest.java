@@ -30,7 +30,7 @@ public class DatabricksConfigTest {
   public void testIsAccountHostDod() {
     assertTrue(
         new DatabricksConfig()
-            .setHost("https://accounts-dod.cloud.databricks.us")
+            .setHost("https://accounts-dod.cloud.databricks.mil")
             .isAccountClient());
   }
 
