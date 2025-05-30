@@ -24,7 +24,8 @@ public abstract class RefreshableTokenSource implements TokenSource {
 
   /**
    * Enum representing the state of the token. FRESH: Token is valid and not close to expiry. STALE:
-   * Token is valid but will expire soon. EXPIRED: Token has expired and must be refreshed.
+   * Token is valid but will expire soon - an async refresh will be triggered if enabled. EXPIRED:
+   * Token has expired and must be refreshed using a blocking call.
    */
   private enum TokenState {
     FRESH,
@@ -70,63 +71,21 @@ public abstract class RefreshableTokenSource implements TokenSource {
   }
 
   /**
-   * Helper method implementing OAuth token refresh.
+   * Refresh the OAuth token. Subclasses must implement this to define how the token is refreshed.
    *
-   * @param hc The HTTP client to use for the request.
-   * @param clientId The client ID to authenticate with.
-   * @param clientSecret The client secret to authenticate with.
-   * @param tokenUrl The authorization URL for fetching tokens.
-   * @param params Additional request parameters.
-   * @param headers Additional headers.
-   * @param position The position of the authentication parameters in the request.
-   * @return The newly fetched Token.
-   * @throws DatabricksException if the refresh fails
+   * <p>This method may throw an exception if the token cannot be refreshed. The specific exception
+   * type depends on the implementation.
+   *
+   * @return The newly refreshed Token.
    */
-  protected static Token retrieveToken(
-      HttpClient hc,
-      String clientId,
-      String clientSecret,
-      String tokenUrl,
-      Map<String, String> params,
-      Map<String, String> headers,
-      AuthParameterPosition position) {
-    switch (position) {
-      case BODY:
-        if (clientId != null) {
-          params.put("client_id", clientId);
-        }
-        if (clientSecret != null) {
-          params.put("client_secret", clientSecret);
-        }
-        break;
-      case HEADER:
-        String authHeaderValue =
-            "Basic "
-                + Base64.getEncoder().encodeToString((clientId + ":" + clientSecret).getBytes());
-        headers.put(HttpHeaders.AUTHORIZATION, authHeaderValue);
-        break;
-    }
-    headers.put("Content-Type", "application/x-www-form-urlencoded");
-    Request req = new Request("POST", tokenUrl, FormRequest.wrapValuesInList(params));
-    req.withHeaders(headers);
-    try {
-      ApiClient apiClient = new ApiClient.Builder().withHttpClient(hc).build();
-      OAuthResponse resp = apiClient.execute(req, OAuthResponse.class);
-      if (resp.getErrorCode() != null) {
-        throw new IllegalArgumentException(resp.getErrorCode() + ": " + resp.getErrorSummary());
-      }
-      LocalDateTime expiry = LocalDateTime.now().plus(resp.getExpiresIn(), ChronoUnit.SECONDS);
-      return new Token(resp.getAccessToken(), resp.getTokenType(), resp.getRefreshToken(), expiry);
-    } catch (Exception e) {
-      throw new DatabricksException("Failed to refresh credentials: " + e.getMessage(), e);
-    }
-  }
-
   protected abstract Token refresh();
 
   /**
-   * Get the current token, refreshing if necessary. If async refresh is enabled, may return a stale
-   * token while a refresh is in progress.
+   * Gets the current token, refreshing if necessary. If async refresh is enabled, may return a
+   * stale token while a refresh is in progress.
+   *
+   * <p>This method may throw an exception if the token cannot be refreshed, depending on the
+   * implementation of {@link #refresh()}.
    *
    * @return The current valid token
    */
@@ -159,6 +118,9 @@ public abstract class RefreshableTokenSource implements TokenSource {
   /**
    * Get the current token, blocking to refresh if expired.
    *
+   * <p>This method may throw an exception if the token cannot be refreshed, depending on the
+   * implementation of {@link #refresh()}.
+   *
    * @return The current valid token
    */
   protected synchronized Token getTokenBlocking() {
@@ -181,6 +143,9 @@ public abstract class RefreshableTokenSource implements TokenSource {
   /**
    * Get the current token, possibly triggering an async refresh if stale. If the token is expired,
    * blocks to refresh.
+   *
+   * <p>This method may throw an exception if the token cannot be refreshed, depending on the
+   * implementation of {@link #refresh()}.
    *
    * @return The current valid or stale token
    */
@@ -227,6 +192,60 @@ public abstract class RefreshableTokenSource implements TokenSource {
               }
             }
           });
+    }
+  }
+
+  /**
+   * Helper method implementing OAuth token refresh.
+   *
+   * @param hc The HTTP client to use for the request.
+   * @param clientId The client ID to authenticate with.
+   * @param clientSecret The client secret to authenticate with.
+   * @param tokenUrl The authorization URL for fetching tokens.
+   * @param params Additional request parameters.
+   * @param headers Additional headers.
+   * @param position The position of the authentication parameters in the request.
+   * @return The newly fetched Token.
+   * @throws DatabricksException if the refresh fails
+   * @throws IllegalArgumentException if the OAuth response contains an error
+   */
+  protected static Token retrieveToken(
+      HttpClient hc,
+      String clientId,
+      String clientSecret,
+      String tokenUrl,
+      Map<String, String> params,
+      Map<String, String> headers,
+      AuthParameterPosition position) {
+    switch (position) {
+      case BODY:
+        if (clientId != null) {
+          params.put("client_id", clientId);
+        }
+        if (clientSecret != null) {
+          params.put("client_secret", clientSecret);
+        }
+        break;
+      case HEADER:
+        String authHeaderValue =
+            "Basic "
+                + Base64.getEncoder().encodeToString((clientId + ":" + clientSecret).getBytes());
+        headers.put(HttpHeaders.AUTHORIZATION, authHeaderValue);
+        break;
+    }
+    headers.put("Content-Type", "application/x-www-form-urlencoded");
+    Request req = new Request("POST", tokenUrl, FormRequest.wrapValuesInList(params));
+    req.withHeaders(headers);
+    try {
+      ApiClient apiClient = new ApiClient.Builder().withHttpClient(hc).build();
+      OAuthResponse resp = apiClient.execute(req, OAuthResponse.class);
+      if (resp.getErrorCode() != null) {
+        throw new IllegalArgumentException(resp.getErrorCode() + ": " + resp.getErrorSummary());
+      }
+      LocalDateTime expiry = LocalDateTime.now().plus(resp.getExpiresIn(), ChronoUnit.SECONDS);
+      return new Token(resp.getAccessToken(), resp.getTokenType(), resp.getRefreshToken(), expiry);
+    } catch (Exception e) {
+      throw new DatabricksException("Failed to refresh credentials: " + e.getMessage(), e);
     }
   }
 }

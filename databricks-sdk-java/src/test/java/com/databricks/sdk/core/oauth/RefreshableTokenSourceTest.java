@@ -86,9 +86,11 @@ public class RefreshableTokenSourceTest {
   }
 
   /**
-   * This test verifies that if an asynchronous token refresh fails, the next refresh attempt is forced to be synchronous.
-   * It ensures that after an async failure, the system does not repeatedly attempt async refreshes while the token is stale,
-   * and only performs a synchronous refresh when the token is expired. After a successful sync refresh, async refreshes resume as normal.
+   * This test verifies that if an asynchronous token refresh fails, the next refresh attempt is
+   * forced to be synchronous. It ensures that after an async failure, the system does not
+   * repeatedly attempt async refreshes while the token is stale, and only performs a synchronous
+   * refresh when the token is expired. After a successful sync refresh, async refreshes resume as
+   * normal.
    */
   @Test
   void testAsyncRefreshFailureFallback() throws Exception {
