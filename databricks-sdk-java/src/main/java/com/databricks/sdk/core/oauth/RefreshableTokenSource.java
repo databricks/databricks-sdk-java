@@ -16,31 +16,54 @@ import org.apache.http.HttpHeaders;
 /**
  * An OAuth TokenSource which can be refreshed.
  *
- * <p>Calls to getToken() will first check if the token is still valid (currently defined by having
- * at least 10 seconds until expiry). If not, refresh() is called first to refresh the token.
+ * <p>This class supports both synchronous and asynchronous token refresh. When async is enabled,
+ * stale tokens will trigger a background refresh, while expired tokens will block until a new token
+ * is fetched.
  */
 public abstract class RefreshableTokenSource implements TokenSource {
 
+  /**
+   * Enum representing the state of the token. FRESH: Token is valid and not close to expiry. STALE:
+   * Token is valid but will expire soon. EXPIRED: Token has expired and must be refreshed.
+   */
   private enum TokenState {
-    FRESH, // The token is valid.
-    STALE, // The token is valid but will expire soon.
-    EXPIRED // The token has expired and cannot be used without refreshing.
+    FRESH,
+    STALE,
+    EXPIRED
   }
 
+  // Default duration before expiry to consider a token as 'stale'.
   private static final Duration DEFAULT_STALE_DURATION = Duration.ofMinutes(3);
 
+  /** The current OAuth token. May be null if not yet fetched. */
   protected Token token;
+  /** Whether asynchronous refresh is enabled. */
   private boolean asyncEnabled = false;
+  /** Duration before expiry to consider a token as 'stale'. */
   private Duration staleDuration = DEFAULT_STALE_DURATION;
+  /** Whether a refresh is currently in progress (for async refresh). */
   private boolean refreshInProgress = false;
+  /** Whether the last refresh attempt succeeded. */
   private boolean lastRefreshSucceeded = true;
 
+  /** Default constructor. */
   public RefreshableTokenSource() {}
 
+  /**
+   * Constructor with initial token.
+   *
+   * @param token The initial token to use.
+   */
   public RefreshableTokenSource(Token token) {
     this.token = token;
   }
 
+  /**
+   * Enable or disable asynchronous token refresh.
+   *
+   * @param enabled true to enable async refresh, false to disable
+   * @return this instance for chaining
+   */
   public RefreshableTokenSource enableAsyncRefresh(boolean enabled) {
     this.asyncEnabled = enabled;
     return this;
@@ -49,6 +72,7 @@ public abstract class RefreshableTokenSource implements TokenSource {
   /**
    * Helper method implementing OAuth token refresh.
    *
+   * @param hc The HTTP client to use for the request.
    * @param clientId The client ID to authenticate with.
    * @param clientSecret The client secret to authenticate with.
    * @param tokenUrl The authorization URL for fetching tokens.
@@ -56,6 +80,7 @@ public abstract class RefreshableTokenSource implements TokenSource {
    * @param headers Additional headers.
    * @param position The position of the authentication parameters in the request.
    * @return The newly fetched Token.
+   * @throws DatabricksException if the refresh fails
    */
   protected static Token retrieveToken(
       HttpClient hc,
@@ -99,6 +124,12 @@ public abstract class RefreshableTokenSource implements TokenSource {
 
   protected abstract Token refresh();
 
+  /**
+   * Get the current token, refreshing if necessary. If async refresh is enabled, may return a stale
+   * token while a refresh is in progress.
+   *
+   * @return The current valid token
+   */
   public synchronized Token getToken() {
     if (!asyncEnabled) {
       return getTokenBlocking();
@@ -106,6 +137,11 @@ public abstract class RefreshableTokenSource implements TokenSource {
     return getTokenAsync();
   }
 
+  /**
+   * Determine the state of the current token (fresh, stale, or expired).
+   *
+   * @return The token state
+   */
   protected TokenState getTokenState() {
     if (token == null) {
       return TokenState.EXPIRED;
@@ -120,6 +156,11 @@ public abstract class RefreshableTokenSource implements TokenSource {
     return TokenState.FRESH;
   }
 
+  /**
+   * Get the current token, blocking to refresh if expired.
+   *
+   * @return The current valid token
+   */
   protected synchronized Token getTokenBlocking() {
     refreshInProgress = false;
     TokenState state = getTokenState();
@@ -129,6 +170,7 @@ public abstract class RefreshableTokenSource implements TokenSource {
     try {
       Token newToken = refresh();
       token = newToken;
+      lastRefreshSucceeded = true;
       return newToken;
     } catch (Exception e) {
       lastRefreshSucceeded = false;
@@ -136,6 +178,12 @@ public abstract class RefreshableTokenSource implements TokenSource {
     }
   }
 
+  /**
+   * Get the current token, possibly triggering an async refresh if stale. If the token is expired,
+   * blocks to refresh.
+   *
+   * @return The current valid or stale token
+   */
   protected Token getTokenAsync() {
     TokenState state;
     Token currentToken;
@@ -147,23 +195,29 @@ public abstract class RefreshableTokenSource implements TokenSource {
       return currentToken;
     }
     if (state == TokenState.STALE) {
+      // Trigger background refresh, return current token
       triggerAsyncRefresh();
       return token;
     } else {
+      // Token is expired, block to refresh
       return getTokenBlocking();
     }
   }
 
+  /**
+   * Trigger an asynchronous refresh of the token if not already in progress and last refresh
+   * succeeded.
+   */
   protected synchronized void triggerAsyncRefresh() {
     if (!refreshInProgress && lastRefreshSucceeded) {
       refreshInProgress = true;
       CompletableFuture.runAsync(
           () -> {
             try {
+              // Attempt to refresh the token in the background
               Token newToken = refresh();
               synchronized (this) {
                 token = newToken;
-                lastRefreshSucceeded = true;
                 refreshInProgress = false;
               }
             } catch (Exception e) {
