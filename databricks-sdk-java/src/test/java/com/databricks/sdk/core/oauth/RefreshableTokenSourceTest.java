@@ -50,7 +50,7 @@ public class RefreshableTokenSourceTest {
             refreshCalled.countDown();
             return refreshedToken;
           }
-        }.enableAsyncRefresh(asyncEnabled);
+        }.withAsyncRefresh(asyncEnabled);
 
     Token token1 = source.getToken();
     if (expectRefresh) {
@@ -124,7 +124,7 @@ public class RefreshableTokenSourceTest {
     }
 
     TestSource source = new TestSource(staleToken);
-    source.enableAsyncRefresh(true);
+    source.withAsyncRefresh(true);
 
     // First call triggers async refresh, which fails
     source.getToken();

@@ -42,6 +42,8 @@ public abstract class RefreshableTokenSource implements TokenSource {
   private boolean asyncEnabled = false;
   /** Duration before expiry to consider a token as 'stale'. */
   private Duration staleDuration = DEFAULT_STALE_DURATION;
+  /** Additional buffer before expiry to consider a token as expired. */
+  private Duration expiryBuffer = Duration.ZERO;
   /** Whether a refresh is currently in progress (for async refresh). */
   private boolean refreshInProgress = false;
   /** Whether the last refresh attempt succeeded. */
@@ -65,8 +67,20 @@ public abstract class RefreshableTokenSource implements TokenSource {
    * @param enabled true to enable async refresh, false to disable
    * @return this instance for chaining
    */
-  public RefreshableTokenSource enableAsyncRefresh(boolean enabled) {
+  public RefreshableTokenSource withAsyncRefresh(boolean enabled) {
     this.asyncEnabled = enabled;
+    return this;
+  }
+
+  /**
+   * Set the expiry buffer. If the token's lifetime is less than this buffer, it is considered
+   * expired.
+   *
+   * @param buffer the expiry buffer duration
+   * @return this instance for chaining
+   */
+  public RefreshableTokenSource withExpiryBuffer(Duration buffer) {
+    this.expiryBuffer = buffer;
     return this;
   }
 
@@ -106,7 +120,7 @@ public abstract class RefreshableTokenSource implements TokenSource {
       return TokenState.EXPIRED;
     }
     Duration lifeTime = token.getLifetime();
-    if (lifeTime.compareTo(Duration.ZERO) <= 0) {
+    if (lifeTime.compareTo(expiryBuffer) <= 0) {
       return TokenState.EXPIRED;
     }
     if (lifeTime.compareTo(staleDuration) <= 0) {
