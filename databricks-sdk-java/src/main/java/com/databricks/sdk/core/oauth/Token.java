@@ -66,6 +66,12 @@ public class Token {
     this.clockSupplier = clockSupplier;
   }
 
+  /**
+   * Checks if the token is expired. Tokens are considered expired 40 seconds before their actual
+   * expiry time to account for Azure Databricks rejecting tokens that expire in 30 seconds or less.
+   *
+   * @return true if the token is expired or about to expire, false otherwise
+   */
   public boolean isExpired() {
     if (expiry == null) {
       return false;
@@ -77,26 +83,57 @@ public class Token {
     return potentiallyExpired.isBefore(now);
   }
 
+  /**
+   * Checks if the token is valid. A token is valid if it has a non-null access token and is not
+   * expired.
+   *
+   * @return true if the token is valid, false otherwise
+   */
   public boolean isValid() {
     return accessToken != null && !isExpired();
   }
 
+  /**
+   * Returns the type of the token (e.g., "Bearer").
+   *
+   * @return the token type
+   */
   public String getTokenType() {
     return tokenType;
   }
 
+  /**
+   * Returns the refresh token, if available. May be null for non-refreshable tokens.
+   *
+   * @return the refresh token or null
+   */
   public String getRefreshToken() {
     return refreshToken;
   }
 
+  /**
+   * Returns the access token string.
+   *
+   * @return the access token
+   */
   public String getAccessToken() {
     return accessToken;
   }
 
+  /**
+   * Returns the expiry time of the token as a LocalDateTime.
+   *
+   * @return the expiry time
+   */
   public LocalDateTime getExpiry() {
     return this.expiry;
   }
 
+  /**
+   * Returns the remaining lifetime of the token as a Duration.
+   *
+   * @return the duration between now and the token's expiry
+   */
   public Duration getLifetime() {
     return Duration.between(LocalDateTime.now(clockSupplier.getClock()), this.expiry);
   }

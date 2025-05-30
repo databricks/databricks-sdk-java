@@ -71,4 +71,24 @@ class TokenTest {
     assertTrue(token.isExpired());
     assertFalse(token.isValid());
   }
+
+  @Test
+  void tokenLifetimeInFuture() {
+    Token token =
+        new Token(accessToken, tokenType, currentLocalDateTime.plusMinutes(10), fakeClockSupplier);
+    assertEquals(java.time.Duration.ofMinutes(10), token.getLifetime());
+  }
+
+  @Test
+  void tokenLifetimeExpired() {
+    Token token =
+        new Token(accessToken, tokenType, currentLocalDateTime.minusMinutes(2), fakeClockSupplier);
+    assertEquals(java.time.Duration.ofMinutes(-2), token.getLifetime());
+  }
+
+  @Test
+  void tokenLifetimeZero() {
+    Token token = new Token(accessToken, tokenType, currentLocalDateTime, fakeClockSupplier);
+    assertEquals(java.time.Duration.ZERO, token.getLifetime());
+  }
 }
