@@ -330,7 +330,6 @@ class DatabricksOAuthTokenSourceTest {
       assertEquals(TOKEN, token.getAccessToken());
       assertEquals(TOKEN_TYPE, token.getTokenType());
       assertEquals(REFRESH_TOKEN, token.getRefreshToken());
-      assertFalse(token.isExpired());
 
       // Verify correct audience was used
       verify(testCase.idTokenSource, atLeastOnce()).getIDToken(testCase.expectedAudience);

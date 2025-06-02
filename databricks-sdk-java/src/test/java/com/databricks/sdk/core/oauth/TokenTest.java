@@ -30,7 +30,6 @@ class TokenTest {
     assertEquals(accessToken, token.getAccessToken());
     assertEquals(tokenType, token.getTokenType());
     assertNull(token.getRefreshToken());
-    assertTrue(token.isValid());
   }
 
   @Test
@@ -45,31 +44,6 @@ class TokenTest {
     assertEquals(accessToken, token.getAccessToken());
     assertEquals(tokenType, token.getTokenType());
     assertEquals(refreshToken, token.getRefreshToken());
-    assertTrue(token.isValid());
-  }
-
-  @Test
-  void tokenExpiryMoreThan40Seconds() {
-    Token token =
-        new Token(accessToken, tokenType, currentLocalDateTime.plusSeconds(50), fakeClockSupplier);
-    assertFalse(token.isExpired());
-    assertTrue(token.isValid());
-  }
-
-  @Test
-  void tokenExpiryLessThan40Seconds() {
-    Token token =
-        new Token(accessToken, tokenType, currentLocalDateTime.plusSeconds(30), fakeClockSupplier);
-    assertTrue(token.isExpired());
-    assertFalse(token.isValid());
-  }
-
-  @Test
-  void expiredToken() {
-    Token token =
-        new Token(accessToken, tokenType, currentLocalDateTime.minusSeconds(10), fakeClockSupplier);
-    assertTrue(token.isExpired());
-    assertFalse(token.isValid());
   }
 
   @Test

@@ -36,20 +36,20 @@ public abstract class RefreshableTokenSource implements TokenSource {
   // Default duration before expiry to consider a token as 'stale'.
   private static final Duration DEFAULT_STALE_DURATION = Duration.ofMinutes(3);
 
-  /** The current OAuth token. May be null if not yet fetched. */
+  // The current OAuth token. May be null if not yet fetched.
   protected Token token;
-  /** Whether asynchronous refresh is enabled. */
+  // Whether asynchronous refresh is enabled.
   private boolean asyncEnabled = false;
-  /** Duration before expiry to consider a token as 'stale'. */
+  // Duration before expiry to consider a token as 'stale'.
   private Duration staleDuration = DEFAULT_STALE_DURATION;
-  /** Additional buffer before expiry to consider a token as expired. */
-  private Duration expiryBuffer = Duration.ZERO;
-  /** Whether a refresh is currently in progress (for async refresh). */
+  // Additional buffer before expiry to consider a token as expired.
+  private Duration expiryBuffer = Duration.ofSeconds(40);
+  // Whether a refresh is currently in progress (for async refresh).
   private boolean refreshInProgress = false;
-  /** Whether the last refresh attempt succeeded. */
+  // Whether the last refresh attempt succeeded.
   private boolean lastRefreshSucceeded = true;
 
-  /** Default constructor. */
+  /** Constructs a new {@code RefreshableTokenSource} with no initial token. */
   public RefreshableTokenSource() {}
 
   /**
@@ -103,7 +103,7 @@ public abstract class RefreshableTokenSource implements TokenSource {
    *
    * @return The current valid token
    */
-  public synchronized Token getToken() {
+  public Token getToken() {
     if (!asyncEnabled) {
       return getTokenBlocking();
     }
@@ -143,15 +143,10 @@ public abstract class RefreshableTokenSource implements TokenSource {
     if (state != TokenState.EXPIRED) {
       return token;
     }
-    try {
-      Token newToken = refresh();
-      token = newToken;
-      lastRefreshSucceeded = true;
-      return newToken;
-    } catch (Exception e) {
-      lastRefreshSucceeded = false;
-      throw e;
-    }
+    lastRefreshSucceeded = false;
+    token = refresh(); // May throw an exception
+    lastRefreshSucceeded = true;
+    return token;
   }
 
   /**
@@ -170,16 +165,15 @@ public abstract class RefreshableTokenSource implements TokenSource {
       state = getTokenState();
       currentToken = token;
     }
-    if (state == TokenState.FRESH) {
-      return currentToken;
-    }
-    if (state == TokenState.STALE) {
-      // Trigger background refresh, return current token
-      triggerAsyncRefresh();
-      return token;
-    } else {
-      // Token is expired, block to refresh
-      return getTokenBlocking();
+    switch (state) {
+      case FRESH:
+        return currentToken;
+      case STALE:
+        triggerAsyncRefresh();
+        return currentToken;
+      case EXPIRED:
+      default:
+        return getTokenBlocking();
     }
   }
 

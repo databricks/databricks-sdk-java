@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 public class Token {
@@ -64,33 +63,6 @@ public class Token {
     this.refreshToken = refreshToken;
     this.expiry = expiry;
     this.clockSupplier = clockSupplier;
-  }
-
-  /**
-   * Checks if the token is expired. Tokens are considered expired 40 seconds before their actual
-   * expiry time to account for Azure Databricks rejecting tokens that expire in 30 seconds or less.
-   *
-   * @return true if the token is expired or about to expire, false otherwise
-   */
-  public boolean isExpired() {
-    if (expiry == null) {
-      return false;
-    }
-    // Azure Databricks rejects tokens that expire in 30 seconds or less,
-    // so we refresh the token 40 seconds before it expires.
-    LocalDateTime potentiallyExpired = expiry.minus(40, ChronoUnit.SECONDS);
-    LocalDateTime now = LocalDateTime.now(clockSupplier.getClock());
-    return potentiallyExpired.isBefore(now);
-  }
-
-  /**
-   * Checks if the token is valid. A token is valid if it has a non-null access token and is not
-   * expired.
-   *
-   * @return true if the token is valid, false otherwise
-   */
-  public boolean isValid() {
-    return accessToken != null && !isExpired();
   }
 
   /**
