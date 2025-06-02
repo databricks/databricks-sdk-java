@@ -1,6 +1,7 @@
 package com.databricks.sdk.core.oauth;
 
 import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.http.FormRequest;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Response;
@@ -14,36 +15,52 @@ import org.slf4j.LoggerFactory;
 /**
  * Client for interacting with an OAuth token endpoint.
  *
- * <p>This class provides a method to request an OAuth token from a specified token endpoint URL
- * using the provided HTTP client and request parameters. It handles the HTTP request and parses the
- * JSON response into an {@link OAuthResponse} object.
+ * <p>This class provides a method to request an OAuth token from a token endpoint URL
+ * discovered via the DatabricksConfig using the provided HTTP client and request parameters.
+ * It handles the HTTP request and parses the JSON response into an {@link OAuthResponse} object.
  */
 public final class TokenEndpointClient {
   private static final Logger LOG = LoggerFactory.getLogger(TokenEndpointClient.class);
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
-  private TokenEndpointClient() {}
+  private final HttpClient httpClient;
+  private final DatabricksConfig config;
+  private OpenIDConnectEndpoints cachedOidcEndpoints;
 
   /**
-   * Requests an OAuth token from the specified token endpoint.
+   * Constructs a TokenEndpointClient using the provided DatabricksConfig.
    *
-   * @param httpClient The {@link HttpClient} to use for making the request.
-   * @param tokenEndpointUrl The URL of the token endpoint.
+   * @param config The {@link DatabricksConfig} to resolve the OIDC endpoints and provide the HttpClient.
+   * @throws NullPointerException if the config or the HttpClient from config is null.
+   */
+  public TokenEndpointClient(DatabricksConfig config) {
+    this.config = Objects.requireNonNull(config, "DatabricksConfig cannot be null");
+    this.httpClient = Objects.requireNonNull(config.getHttpClient(), "HttpClient from config cannot be null");
+  }
+
+  private synchronized OpenIDConnectEndpoints getCachedOidcEndpoints() throws IOException {
+    if (cachedOidcEndpoints == null) {
+      cachedOidcEndpoints = Objects.requireNonNull(config.getOidcEndpoints(), "OIDC endpoints cannot be null");
+    }
+    return cachedOidcEndpoints;
+  }
+
+  /**
+   * Requests an OAuth token from the resolved token endpoint at request-time (cached after first fetch).
+   *
    * @param params A map of parameters to include in the token request.
    * @return An {@link OAuthResponse} containing the token information.
    * @throws DatabricksException if an error occurs during the token request or response parsing.
-   * @throws IllegalArgumentException if the token endpoint URL is empty.
-   * @throws NullPointerException if any of the parameters are null.
+   * @throws NullPointerException if the parameters map is null.
    */
-  public static OAuthResponse requestToken(
-      HttpClient httpClient, String tokenEndpointUrl, Map<String, String> params)
-      throws DatabricksException {
-    Objects.requireNonNull(httpClient, "HttpClient cannot be null");
+  public OAuthResponse requestToken(Map<String, String> params) throws DatabricksException {
     Objects.requireNonNull(params, "Request parameters map cannot be null");
-    Objects.requireNonNull(tokenEndpointUrl, "Token endpoint URL cannot be null");
-
-    if (tokenEndpointUrl.isEmpty()) {
-      throw new IllegalArgumentException("Token endpoint URL cannot be empty");
+    String tokenEndpointUrl;
+    try {
+      OpenIDConnectEndpoints oidcEndpoints = getCachedOidcEndpoints();
+      tokenEndpointUrl = Objects.requireNonNull(oidcEndpoints.getTokenEndpoint(), "Token endpoint cannot be null");
+    } catch (IOException e) {
+      throw new DatabricksException("Failed to resolve OIDC endpoints: " + e.getMessage(), e);
     }
 
     Response rawResponse;
