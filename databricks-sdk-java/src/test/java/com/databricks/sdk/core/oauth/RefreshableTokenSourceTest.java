@@ -21,12 +21,16 @@ public class RefreshableTokenSourceTest {
 
   private static Stream<Arguments> provideAsyncRefreshScenarios() {
     return Stream.of(
-        Arguments.of("Fresh token, async enabled", FRESH_TIME_MINUTES, true, false, false),
-        Arguments.of("Stale token, async enabled", STALE_TIME_MINUTES, true, true, false),
-        Arguments.of("Expired token, async enabled", EXPIRED_TIME_MINUTES, true, true, true),
-        Arguments.of("Fresh token, async disabled", FRESH_TIME_MINUTES, false, false, false),
-        Arguments.of("Stale token, async disabled", STALE_TIME_MINUTES, false, false, false),
-        Arguments.of("Expired token, async disabled", EXPIRED_TIME_MINUTES, false, true, true));
+        Arguments.of("Fresh token, async enabled", FRESH_TIME_MINUTES, true, false, INITIAL_TOKEN),
+        Arguments.of("Stale token, async enabled", STALE_TIME_MINUTES, true, true, INITIAL_TOKEN),
+        Arguments.of(
+            "Expired token, async enabled", EXPIRED_TIME_MINUTES, true, true, REFRESH_TOKEN),
+        Arguments.of(
+            "Fresh token, async disabled", FRESH_TIME_MINUTES, false, false, INITIAL_TOKEN),
+        Arguments.of(
+            "Stale token, async disabled", STALE_TIME_MINUTES, false, false, INITIAL_TOKEN),
+        Arguments.of(
+            "Expired token, async disabled", EXPIRED_TIME_MINUTES, false, true, REFRESH_TOKEN));
   }
 
   @ParameterizedTest(name = "{0}")
@@ -36,7 +40,7 @@ public class RefreshableTokenSourceTest {
       long minutesUntilExpiry,
       boolean asyncEnabled,
       boolean expectRefresh,
-      boolean expectRefreshedToken)
+      String expectedToken)
       throws Exception {
 
     Token initialToken =
@@ -64,12 +68,7 @@ public class RefreshableTokenSourceTest {
 
     boolean refreshed = refreshCalled.await(1, TimeUnit.SECONDS);
     assertEquals(expectRefresh, refreshed, "Refresh should have been triggered");
-
-    if (expectRefreshedToken) {
-      assertEquals(REFRESH_TOKEN, token.getAccessToken(), "Token was not refreshed as expected");
-    } else {
-      assertEquals(INITIAL_TOKEN, token.getAccessToken(), "Should return the initial token");
-    }
+    assertEquals(expectedToken, token.getAccessToken(), "Token value did not match expected");
   }
 
   /**
