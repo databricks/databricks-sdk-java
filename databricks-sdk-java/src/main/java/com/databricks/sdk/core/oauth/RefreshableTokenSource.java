@@ -5,6 +5,8 @@ import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.FormRequest;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
+import com.databricks.sdk.core.utils.ClockSupplier;
+import com.databricks.sdk.core.utils.SystemClockSupplier;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -48,6 +50,8 @@ public abstract class RefreshableTokenSource implements TokenSource {
   private boolean refreshInProgress = false;
   // Whether the last refresh attempt succeeded.
   private boolean lastRefreshSucceeded = true;
+  // Clock supplier for current time, for testing purposes.
+  private ClockSupplier clockSupplier = new SystemClockSupplier();
 
   /** Constructs a new {@code RefreshableTokenSource} with no initial token. */
   public RefreshableTokenSource() {}
@@ -59,6 +63,17 @@ public abstract class RefreshableTokenSource implements TokenSource {
    */
   public RefreshableTokenSource(Token token) {
     this.token = token;
+  }
+
+  /**
+   * Set the clock supplier for current time.
+   *
+   * @param clockSupplier The clock supplier to use.
+   * @return this instance for chaining
+   */
+  public RefreshableTokenSource withClockSupplier(ClockSupplier clockSupplier) {
+    this.clockSupplier = clockSupplier;
+    return this;
   }
 
   /**
@@ -119,7 +134,8 @@ public abstract class RefreshableTokenSource implements TokenSource {
     if (token == null) {
       return TokenState.EXPIRED;
     }
-    Duration lifeTime = token.getLifetime();
+    Duration lifeTime =
+        Duration.between(LocalDateTime.now(clockSupplier.getClock()), token.getExpiry());
     if (lifeTime.compareTo(expiryBuffer) <= 0) {
       return TokenState.EXPIRED;
     }
@@ -138,7 +154,6 @@ public abstract class RefreshableTokenSource implements TokenSource {
    * @return The current valid token
    */
   protected synchronized Token getTokenBlocking() {
-    refreshInProgress = false;
     TokenState state = getTokenState();
     if (state != TokenState.EXPIRED) {
       return token;
@@ -160,7 +175,7 @@ public abstract class RefreshableTokenSource implements TokenSource {
    */
   protected Token getTokenAsync() {
     TokenState state;
-    Token currentToken;
+    Token currentToken = token;
     synchronized (this) {
       state = getTokenState();
       currentToken = token;
@@ -172,8 +187,9 @@ public abstract class RefreshableTokenSource implements TokenSource {
         triggerAsyncRefresh();
         return currentToken;
       case EXPIRED:
-      default:
         return getTokenBlocking();
+      default:
+        throw new IllegalStateException("Invalid token state: " + state);
     }
   }
 

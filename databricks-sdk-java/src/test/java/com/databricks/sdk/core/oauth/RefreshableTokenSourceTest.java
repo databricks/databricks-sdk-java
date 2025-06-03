@@ -2,10 +2,7 @@ package com.databricks.sdk.core.oauth;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.databricks.sdk.core.utils.FakeClockSupplier;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
@@ -17,9 +14,20 @@ import org.junit.jupiter.params.provider.MethodSource;
 public class RefreshableTokenSourceTest {
   private static final String TOKEN_TYPE = "Bearer";
   private static final String INITIAL_TOKEN = "initial-token";
-  private static final String REFRESHED_TOKEN = "refreshed-token";
-  private static final Instant FIXED_INSTANT = Instant.parse("2023-10-18T12:00:00.00Z");
-  private static final ZoneId ZONE_ID = ZoneId.of("UTC");
+  private static final String REFRESH_TOKEN = "refreshed-token";
+  private static final long FRESH_TIME_MINUTES = 10;
+  private static final long STALE_TIME_MINUTES = 1;
+  private static final long EXPIRED_TIME_MINUTES = -1;
+
+  private static Stream<Arguments> provideAsyncRefreshScenarios() {
+    return Stream.of(
+        Arguments.of("Fresh token, async enabled", FRESH_TIME_MINUTES, true, false, false),
+        Arguments.of("Stale token, async enabled", STALE_TIME_MINUTES, true, true, false),
+        Arguments.of("Expired token, async enabled", EXPIRED_TIME_MINUTES, true, true, true),
+        Arguments.of("Fresh token, async disabled", FRESH_TIME_MINUTES, false, false, false),
+        Arguments.of("Stale token, async disabled", STALE_TIME_MINUTES, false, false, false),
+        Arguments.of("Expired token, async disabled", EXPIRED_TIME_MINUTES, false, true, true));
+  }
 
   @ParameterizedTest(name = "{0}")
   @MethodSource("provideAsyncRefreshScenarios")
@@ -30,17 +38,12 @@ public class RefreshableTokenSourceTest {
       boolean expectRefresh,
       boolean expectRefreshedToken)
       throws Exception {
-    FakeClockSupplier fakeClock = new FakeClockSupplier(FIXED_INSTANT, ZONE_ID);
-    LocalDateTime currentTime = LocalDateTime.now(fakeClock.getClock());
+
     Token initialToken =
         new Token(
-            INITIAL_TOKEN,
-            TOKEN_TYPE,
-            null,
-            currentTime.plusMinutes(minutesUntilExpiry),
-            fakeClock);
+            INITIAL_TOKEN, TOKEN_TYPE, null, LocalDateTime.now().plusMinutes(minutesUntilExpiry));
     Token refreshedToken =
-        new Token(REFRESHED_TOKEN, TOKEN_TYPE, null, currentTime.plusMinutes(10), fakeClock);
+        new Token(REFRESH_TOKEN, TOKEN_TYPE, null, LocalDateTime.now().plusMinutes(10));
     CountDownLatch refreshCalled = new CountDownLatch(1);
 
     RefreshableTokenSource source =
@@ -48,41 +51,25 @@ public class RefreshableTokenSourceTest {
           @Override
           protected Token refresh() {
             refreshCalled.countDown();
+            try {
+              Thread.sleep(500);
+            } catch (InterruptedException e) {
+              Thread.currentThread().interrupt();
+            }
             return refreshedToken;
           }
         }.withAsyncRefresh(asyncEnabled);
 
-    Token token1 = source.getToken();
-    if (expectRefresh) {
-      // Wait for async refresh if enabled, otherwise refresh is sync
-      boolean refreshed = refreshCalled.await(2, TimeUnit.SECONDS);
-      assertTrue(refreshed, "Refresh should have been triggered");
-    } else {
-      assertEquals(1, refreshCalled.getCount(), "Refresh should NOT have been triggered");
-    }
-    if (expectRefreshedToken) {
-      // Wait for async to complete if needed
-      for (int i = 0; i < 10; i++) {
-        Token token2 = source.getToken();
-        if (REFRESHED_TOKEN.equals(token2.getAccessToken())) {
-          return; // Success
-        }
-        Thread.sleep(100);
-      }
-      fail("Token was not refreshed as expected");
-    } else {
-      assertEquals(INITIAL_TOKEN, token1.getAccessToken(), "Should return the initial token");
-    }
-  }
+    Token token = source.getToken();
 
-  private static Stream<Arguments> provideAsyncRefreshScenarios() {
-    return Stream.of(
-        Arguments.of("Fresh token, async enabled", 10, true, false, false),
-        Arguments.of("Stale token, async enabled", 1, true, true, true),
-        Arguments.of("Expired token, async enabled", -1, true, true, true),
-        Arguments.of("Fresh token, async disabled", 10, false, false, false),
-        Arguments.of("Stale token, async disabled", 1, false, false, false),
-        Arguments.of("Expired token, async disabled", -1, false, true, true));
+    boolean refreshed = refreshCalled.await(1, TimeUnit.SECONDS);
+    assertEquals(expectRefresh, refreshed, "Refresh should have been triggered");
+
+    if (expectRefreshedToken) {
+      assertEquals(REFRESH_TOKEN, token.getAccessToken(), "Token was not refreshed as expected");
+    } else {
+      assertEquals(INITIAL_TOKEN, token.getAccessToken(), "Should return the initial token");
+    }
   }
 
   /**
@@ -94,10 +81,8 @@ public class RefreshableTokenSourceTest {
    */
   @Test
   void testAsyncRefreshFailureFallback() throws Exception {
-    FakeClockSupplier fakeClock = new FakeClockSupplier(FIXED_INSTANT, ZONE_ID);
-    LocalDateTime currentTime = LocalDateTime.now(fakeClock.getClock());
     Token staleToken =
-        new Token(INITIAL_TOKEN, TOKEN_TYPE, null, currentTime.plusMinutes(2), fakeClock);
+        new Token(INITIAL_TOKEN, TOKEN_TYPE, null, LocalDateTime.now().plusMinutes(2));
 
     class TestSource extends RefreshableTokenSource {
       int refreshCallCount = 0;
@@ -114,12 +99,7 @@ public class RefreshableTokenSourceTest {
           isFirstRefresh = false;
           throw new RuntimeException("Simulated async failure");
         }
-        return new Token(
-            REFRESHED_TOKEN,
-            TOKEN_TYPE,
-            null,
-            LocalDateTime.now(fakeClock.getClock()).plusMinutes(10),
-            fakeClock);
+        return new Token(REFRESH_TOKEN, TOKEN_TYPE, null, LocalDateTime.now().plusMinutes(10));
       }
     }
 
@@ -142,21 +122,19 @@ public class RefreshableTokenSourceTest {
         "refresh() should NOT be called again while stale after async failure");
 
     // Advance the clock so the token is now expired
-    source.token =
-        new Token(INITIAL_TOKEN, TOKEN_TYPE, null, currentTime.minusMinutes(1), fakeClock);
+    source.token = new Token(INITIAL_TOKEN, TOKEN_TYPE, null, LocalDateTime.now().minusMinutes(1));
 
     // Now getToken() should call refresh synchronously and return the refreshed token
     Token token = source.getToken();
     assertEquals(
-        REFRESHED_TOKEN,
+        REFRESH_TOKEN,
         token.getAccessToken(),
         "Should return the refreshed token after sync refresh");
     assertEquals(
         2, source.refreshCallCount, "refresh() should have been called synchronously after expiry");
 
     // Make the token stale again and trigger async refresh since the last sync refresh succeeded
-    source.token =
-        new Token(INITIAL_TOKEN, TOKEN_TYPE, null, currentTime.plusMinutes(2), fakeClock);
+    source.token = new Token(INITIAL_TOKEN, TOKEN_TYPE, null, LocalDateTime.now().plusMinutes(2));
     source.getToken();
     Thread.sleep(300);
     assertEquals(

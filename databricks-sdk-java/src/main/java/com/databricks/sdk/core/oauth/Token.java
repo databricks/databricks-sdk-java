@@ -1,10 +1,7 @@
 package com.databricks.sdk.core.oauth;
 
-import com.databricks.sdk.core.utils.ClockSupplier;
-import com.databricks.sdk.core.utils.SystemClockSupplier;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -24,17 +21,9 @@ public class Token {
    */
   @JsonProperty private LocalDateTime expiry;
 
-  private final ClockSupplier clockSupplier;
-
   /** Constructor for non-refreshable tokens (e.g. M2M). */
   public Token(String accessToken, String tokenType, LocalDateTime expiry) {
-    this(accessToken, tokenType, null, expiry, new SystemClockSupplier());
-  }
-
-  /** Constructor for non-refreshable tokens (e.g. M2M) with ClockSupplier */
-  public Token(
-      String accessToken, String tokenType, LocalDateTime expiry, ClockSupplier clockSupplier) {
-    this(accessToken, tokenType, null, expiry, clockSupplier);
+    this(accessToken, tokenType, null, expiry);
   }
 
   /** Constructor for refreshable tokens. */
@@ -44,25 +33,13 @@ public class Token {
       @JsonProperty("tokenType") String tokenType,
       @JsonProperty("refreshToken") String refreshToken,
       @JsonProperty("expiry") LocalDateTime expiry) {
-    this(accessToken, tokenType, refreshToken, expiry, new SystemClockSupplier());
-  }
-
-  /** Constructor for refreshable tokens with ClockSupplier. */
-  public Token(
-      String accessToken,
-      String tokenType,
-      String refreshToken,
-      LocalDateTime expiry,
-      ClockSupplier clockSupplier) {
     Objects.requireNonNull(accessToken, "accessToken must be defined");
     Objects.requireNonNull(tokenType, "tokenType must be defined");
     Objects.requireNonNull(expiry, "expiry must be defined");
-    Objects.requireNonNull(clockSupplier, "clockSupplier must be defined");
     this.accessToken = accessToken;
     this.tokenType = tokenType;
     this.refreshToken = refreshToken;
     this.expiry = expiry;
-    this.clockSupplier = clockSupplier;
   }
 
   /**
@@ -99,14 +76,5 @@ public class Token {
    */
   public LocalDateTime getExpiry() {
     return this.expiry;
-  }
-
-  /**
-   * Returns the remaining lifetime of the token as a Duration.
-   *
-   * @return the duration between now and the token's expiry
-   */
-  public Duration getLifetime() {
-    return Duration.between(LocalDateTime.now(clockSupplier.getClock()), this.expiry);
   }
 }
