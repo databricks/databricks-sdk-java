@@ -14,6 +14,8 @@ import java.util.Base64;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import org.apache.http.HttpHeaders;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * An OAuth TokenSource which can be refreshed.
@@ -35,6 +37,7 @@ public abstract class RefreshableTokenSource implements TokenSource {
     EXPIRED
   }
 
+  private static final Logger logger = LoggerFactory.getLogger(RefreshableTokenSource.class);
   // Default duration before expiry to consider a token as 'stale'.
   private static final Duration DEFAULT_STALE_DURATION = Duration.ofMinutes(3);
 
@@ -159,7 +162,12 @@ public abstract class RefreshableTokenSource implements TokenSource {
       return token;
     }
     lastRefreshSucceeded = false;
-    token = refresh(); // May throw an exception
+    try {
+      token = refresh(); // May throw an exception
+    } catch (Exception e) {
+      logger.error("Failed to refresh token synchronously", e);
+      throw e;
+    }
     lastRefreshSucceeded = true;
     return token;
   }
@@ -213,6 +221,7 @@ public abstract class RefreshableTokenSource implements TokenSource {
               synchronized (this) {
                 lastRefreshSucceeded = false;
                 refreshInProgress = false;
+                logger.error("Async token refresh failed", e);
               }
             }
           });

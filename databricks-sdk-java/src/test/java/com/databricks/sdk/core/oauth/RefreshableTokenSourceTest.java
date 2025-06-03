@@ -15,22 +15,18 @@ public class RefreshableTokenSourceTest {
   private static final String TOKEN_TYPE = "Bearer";
   private static final String INITIAL_TOKEN = "initial-token";
   private static final String REFRESH_TOKEN = "refreshed-token";
-  private static final long FRESH_TIME_MINUTES = 10;
-  private static final long STALE_TIME_MINUTES = 1;
-  private static final long EXPIRED_TIME_MINUTES = -1;
+  private static final long FRESH_MINUTES = 10;
+  private static final long STALE_MINUTES = 1;
+  private static final long EXPIRED_MINUTES = -1;
 
   private static Stream<Arguments> provideAsyncRefreshScenarios() {
     return Stream.of(
-        Arguments.of("Fresh token, async enabled", FRESH_TIME_MINUTES, true, false, INITIAL_TOKEN),
-        Arguments.of("Stale token, async enabled", STALE_TIME_MINUTES, true, true, INITIAL_TOKEN),
-        Arguments.of(
-            "Expired token, async enabled", EXPIRED_TIME_MINUTES, true, true, REFRESH_TOKEN),
-        Arguments.of(
-            "Fresh token, async disabled", FRESH_TIME_MINUTES, false, false, INITIAL_TOKEN),
-        Arguments.of(
-            "Stale token, async disabled", STALE_TIME_MINUTES, false, false, INITIAL_TOKEN),
-        Arguments.of(
-            "Expired token, async disabled", EXPIRED_TIME_MINUTES, false, true, REFRESH_TOKEN));
+        Arguments.of("Fresh token, async enabled", FRESH_MINUTES, true, false, INITIAL_TOKEN),
+        Arguments.of("Stale token, async enabled", STALE_MINUTES, true, true, INITIAL_TOKEN),
+        Arguments.of("Expired token, async enabled", EXPIRED_MINUTES, true, true, REFRESH_TOKEN),
+        Arguments.of("Fresh token, async disabled", FRESH_MINUTES, false, false, INITIAL_TOKEN),
+        Arguments.of("Stale token, async disabled", STALE_MINUTES, false, false, INITIAL_TOKEN),
+        Arguments.of("Expired token, async disabled", EXPIRED_MINUTES, false, true, REFRESH_TOKEN));
   }
 
   @ParameterizedTest(name = "{0}")
