@@ -42,7 +42,7 @@ public abstract class RefreshableTokenSource implements TokenSource {
   private static final Duration DEFAULT_STALE_DURATION = Duration.ofMinutes(3);
 
   // The current OAuth token. May be null if not yet fetched.
-  protected Token token;
+  protected volatile Token token;
   // Whether asynchronous refresh is enabled.
   private boolean asyncEnabled = false;
   // Duration before expiry to consider a token as 'stale'.
@@ -133,12 +133,12 @@ public abstract class RefreshableTokenSource implements TokenSource {
    *
    * @return The token state
    */
-  protected TokenState getTokenState() {
-    if (token == null) {
+  protected TokenState getTokenState(Token t) {
+    if (t == null) {
       return TokenState.EXPIRED;
     }
     Duration lifeTime =
-        Duration.between(LocalDateTime.now(clockSupplier.getClock()), token.getExpiry());
+        Duration.between(LocalDateTime.now(clockSupplier.getClock()), t.getExpiry());
     if (lifeTime.compareTo(expiryBuffer) <= 0) {
       return TokenState.EXPIRED;
     }
@@ -157,13 +157,12 @@ public abstract class RefreshableTokenSource implements TokenSource {
    * @return The current valid token
    */
   protected synchronized Token getTokenBlocking() {
-    TokenState state = getTokenState();
-    if (state != TokenState.EXPIRED) {
+    if (getTokenState(token) != TokenState.EXPIRED) {
       return token;
     }
     lastRefreshSucceeded = false;
     try {
-      token = refresh(); // May throw an exception
+      token = refresh();
     } catch (Exception e) {
       logger.error("Failed to refresh token synchronously", e);
       throw e;
@@ -182,13 +181,9 @@ public abstract class RefreshableTokenSource implements TokenSource {
    * @return The current valid or stale token
    */
   protected Token getTokenAsync() {
-    TokenState state;
     Token currentToken = token;
-    synchronized (this) {
-      state = getTokenState();
-      currentToken = token;
-    }
-    switch (state) {
+
+    switch (getTokenState(currentToken)) {
       case FRESH:
         return currentToken;
       case STALE:
@@ -197,7 +192,7 @@ public abstract class RefreshableTokenSource implements TokenSource {
       case EXPIRED:
         return getTokenBlocking();
       default:
-        throw new IllegalStateException("Invalid token state: " + state);
+        throw new IllegalStateException("Invalid token state.");
     }
   }
 
