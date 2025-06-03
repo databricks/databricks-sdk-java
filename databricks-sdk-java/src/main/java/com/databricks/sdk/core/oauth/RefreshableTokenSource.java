@@ -216,7 +216,8 @@ public abstract class RefreshableTokenSource implements TokenSource {
    * succeeded.
    */
   protected synchronized void triggerAsyncRefresh() {
-    if (!refreshInProgress && lastRefreshSucceeded) {
+    // Check token state to avoid triggering a refresh if another thread has already refreshed it
+    if (!refreshInProgress && lastRefreshSucceeded && getTokenState(token) != TokenState.FRESH) {
       refreshInProgress = true;
       CompletableFuture.runAsync(
           () -> {
