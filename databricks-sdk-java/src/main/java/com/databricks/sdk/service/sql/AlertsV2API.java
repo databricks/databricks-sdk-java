@@ -7,7 +7,7 @@ import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** New version of SQL Alerts */
+/** TODO: Add description */
 @Generated
 public class AlertsV2API {
   private static final Logger LOG = LoggerFactory.getLogger(AlertsV2API.class);

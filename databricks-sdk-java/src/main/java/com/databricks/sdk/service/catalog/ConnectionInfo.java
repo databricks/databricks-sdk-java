@@ -54,7 +54,7 @@ public class ConnectionInfo {
   @JsonProperty("owner")
   private String owner;
 
-  /** A map of key-value properties attached to the securable. */
+  /** An object containing map of key-value properties attached to the connection. */
   @JsonProperty("properties")
   private Map<String, String> properties;
 
@@ -66,9 +66,9 @@ public class ConnectionInfo {
   @JsonProperty("read_only")
   private Boolean readOnly;
 
-  /** The type of Unity Catalog securable. */
+  /** */
   @JsonProperty("securable_type")
-  private SecurableType securableType;
+  private String securableType;
 
   /** Time at which this connection was updated, in epoch milliseconds. */
   @JsonProperty("updated_at")
@@ -208,12 +208,12 @@ public class ConnectionInfo {
     return readOnly;
   }
 
-  public ConnectionInfo setSecurableType(SecurableType securableType) {
+  public ConnectionInfo setSecurableType(String securableType) {
     this.securableType = securableType;
     return this;
   }
 
-  public SecurableType getSecurableType() {
+  public String getSecurableType() {
     return securableType;
   }
 

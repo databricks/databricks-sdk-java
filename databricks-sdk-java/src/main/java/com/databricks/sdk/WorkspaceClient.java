@@ -483,7 +483,7 @@ public class WorkspaceClient {
     return alertsLegacyAPI;
   }
 
-  /** New version of SQL Alerts */
+  /** TODO: Add description */
   public AlertsV2API alertsV2() {
     return alertsV2API;
   }

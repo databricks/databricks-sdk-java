@@ -9,6 +9,5 @@ import com.databricks.sdk.support.Generated;
 public enum AuthenticationType {
   DATABRICKS,
   OAUTH_CLIENT_CREDENTIALS,
-  OIDC_FEDERATION,
   TOKEN,
 }

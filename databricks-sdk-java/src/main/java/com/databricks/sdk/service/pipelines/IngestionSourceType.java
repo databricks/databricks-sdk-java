@@ -17,6 +17,5 @@ public enum IngestionSourceType {
   SERVICENOW,
   SHAREPOINT,
   SQLSERVER,
-  TERADATA,
   WORKDAY_RAAS,
 }

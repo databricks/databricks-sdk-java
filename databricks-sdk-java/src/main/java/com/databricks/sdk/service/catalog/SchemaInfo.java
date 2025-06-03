@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 import java.util.Objects;
 
-/** Next ID: 40 */
 @Generated
 public class SchemaInfo {
   /**
@@ -24,7 +23,7 @@ public class SchemaInfo {
 
   /** The type of the parent catalog. */
   @JsonProperty("catalog_type")
-  private CatalogType catalogType;
+  private String catalogType;
 
   /** User-provided free-form text description. */
   @JsonProperty("comment")
@@ -42,7 +41,7 @@ public class SchemaInfo {
   @JsonProperty("effective_predictive_optimization_flag")
   private EffectivePredictiveOptimizationFlag effectivePredictiveOptimizationFlag;
 
-  /** Whether predictive optimization should be enabled for this object and objects under it. */
+  /** */
   @JsonProperty("enable_predictive_optimization")
   private EnablePredictiveOptimization enablePredictiveOptimization;
 
@@ -104,12 +103,12 @@ public class SchemaInfo {
     return catalogName;
   }
 
-  public SchemaInfo setCatalogType(CatalogType catalogType) {
+  public SchemaInfo setCatalogType(String catalogType) {
     this.catalogType = catalogType;
     return this;
   }
 
-  public CatalogType getCatalogType() {
+  public String getCatalogType() {
     return catalogType;
   }
 

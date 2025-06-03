@@ -7,12 +7,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * These APIs allow configuration of network settings for Databricks workspaces by selecting which
- * network policy to associate with the workspace. Each workspace is always associated with exactly
- * one network policy that controls which network destinations can be accessed from the Databricks
- * environment. By default, workspaces are associated with the 'default-policy' network policy. You
- * cannot create or delete a workspace's network option, only update it to associate the workspace
- * with a different policy
+ * These APIs allow configuration of network settings for Databricks workspaces. Each workspace is
+ * always associated with exactly one network policy that controls which network destinations can be
+ * accessed from the Databricks environment. By default, workspaces are associated with the
+ * 'default-policy' network policy. You cannot create or delete a workspace's network configuration,
+ * only update it to associate the workspace with a different policy.
  */
 @Generated
 public class WorkspaceNetworkConfigurationAPI {
@@ -36,10 +35,10 @@ public class WorkspaceNetworkConfigurationAPI {
   }
 
   /**
-   * Get workspace network option.
+   * Get workspace network configuration.
    *
-   * <p>Gets the network option for a workspace. Every workspace has exactly one network policy
-   * binding, with 'default-policy' used if no explicit assignment exists.
+   * <p>Gets the network configuration for a workspace. Every workspace has exactly one network
+   * policy binding, with 'default-policy' used if no explicit assignment exists.
    */
   public WorkspaceNetworkOption getWorkspaceNetworkOptionRpc(
       GetWorkspaceNetworkOptionRequest request) {
@@ -55,11 +54,11 @@ public class WorkspaceNetworkConfigurationAPI {
   }
 
   /**
-   * Update workspace network option.
+   * Update workspace network configuration.
    *
-   * <p>Updates the network option for a workspace. This operation associates the workspace with the
-   * specified network policy. To revert to the default policy, specify 'default-policy' as the
-   * network_policy_id.
+   * <p>Updates the network configuration for a workspace. This operation associates the workspace
+   * with the specified network policy. To revert to the default policy, specify 'default-policy' as
+   * the network_policy_id.
    */
   public WorkspaceNetworkOption updateWorkspaceNetworkOptionRpc(
       UpdateWorkspaceNetworkOptionRequest request) {

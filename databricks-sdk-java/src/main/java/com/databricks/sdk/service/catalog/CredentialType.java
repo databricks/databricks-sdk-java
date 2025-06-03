@@ -4,19 +4,9 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** Next Id: 12 */
+/** The type of credential. */
 @Generated
 public enum CredentialType {
   BEARER_TOKEN,
-  OAUTH_ACCESS_TOKEN,
-  OAUTH_M2M,
-  OAUTH_REFRESH_TOKEN,
-  OAUTH_RESOURCE_OWNER_PASSWORD,
-  OAUTH_U2M,
-  OAUTH_U2M_MAPPING,
-  OIDC_TOKEN,
-  PEM_PRIVATE_KEY,
-  SERVICE_CREDENTIAL,
-  UNKNOWN_CREDENTIAL_TYPE,
   USERNAME_PASSWORD,
 }

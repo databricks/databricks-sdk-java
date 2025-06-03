@@ -135,14 +135,6 @@ public class CreatePipeline {
   private String storage;
 
   /**
-   * A map of tags associated with the pipeline. These are forwarded to the cluster as cluster tags,
-   * and are therefore subject to the same limitations. A maximum of 25 tags can be added to the
-   * pipeline.
-   */
-  @JsonProperty("tags")
-  private Map<String, String> tags;
-
-  /**
    * Target schema (database) to add tables in this pipeline to. Exactly one of `schema` or `target`
    * must be specified. To publish to Unity Catalog, also specify `catalog`. This legacy field is
    * deprecated for pipeline creation in favor of the `schema` field.
@@ -388,15 +380,6 @@ public class CreatePipeline {
     return storage;
   }
 
-  public CreatePipeline setTags(Map<String, String> tags) {
-    this.tags = tags;
-    return this;
-  }
-
-  public Map<String, String> getTags() {
-    return tags;
-  }
-
   public CreatePipeline setTarget(String target) {
     this.target = target;
     return this;
@@ -446,7 +429,6 @@ public class CreatePipeline {
         && Objects.equals(schema, that.schema)
         && Objects.equals(serverless, that.serverless)
         && Objects.equals(storage, that.storage)
-        && Objects.equals(tags, that.tags)
         && Objects.equals(target, that.target)
         && Objects.equals(trigger, that.trigger);
   }
@@ -480,7 +462,6 @@ public class CreatePipeline {
         schema,
         serverless,
         storage,
-        tags,
         target,
         trigger);
   }
@@ -514,7 +495,6 @@ public class CreatePipeline {
         .add("schema", schema)
         .add("serverless", serverless)
         .add("storage", storage)
-        .add("tags", tags)
         .add("target", target)
         .add("trigger", trigger)
         .toString();

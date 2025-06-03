@@ -31,20 +31,6 @@ public class ServedModelOutput {
   @JsonProperty("instance_profile_arn")
   private String instanceProfileArn;
 
-  /**
-   * The maximum provisioned concurrency that the endpoint can scale up to. Do not use if
-   * workload_size is specified.
-   */
-  @JsonProperty("max_provisioned_concurrency")
-  private Long maxProvisionedConcurrency;
-
-  /**
-   * The minimum provisioned concurrency that the endpoint can scale down to. Do not use if
-   * workload_size is specified.
-   */
-  @JsonProperty("min_provisioned_concurrency")
-  private Long minProvisionedConcurrency;
-
   /** */
   @JsonProperty("model_name")
   private String modelName;
@@ -81,8 +67,7 @@ public class ServedModelOutput {
    * concurrency), "Medium" (8 - 16 provisioned concurrency), and "Large" (16 - 64 provisioned
    * concurrency). Additional custom workload sizes can also be used when available in the
    * workspace. If scale-to-zero is enabled, the lower bound of the provisioned concurrency for each
-   * workload size is 0. Do not use if min_provisioned_concurrency and max_provisioned_concurrency
-   * are specified.
+   * workload size is 0.
    */
   @JsonProperty("workload_size")
   private String workloadSize;
@@ -133,24 +118,6 @@ public class ServedModelOutput {
 
   public String getInstanceProfileArn() {
     return instanceProfileArn;
-  }
-
-  public ServedModelOutput setMaxProvisionedConcurrency(Long maxProvisionedConcurrency) {
-    this.maxProvisionedConcurrency = maxProvisionedConcurrency;
-    return this;
-  }
-
-  public Long getMaxProvisionedConcurrency() {
-    return maxProvisionedConcurrency;
-  }
-
-  public ServedModelOutput setMinProvisionedConcurrency(Long minProvisionedConcurrency) {
-    this.minProvisionedConcurrency = minProvisionedConcurrency;
-    return this;
-  }
-
-  public Long getMinProvisionedConcurrency() {
-    return minProvisionedConcurrency;
   }
 
   public ServedModelOutput setModelName(String modelName) {
@@ -234,8 +201,6 @@ public class ServedModelOutput {
         && Objects.equals(creator, that.creator)
         && Objects.equals(environmentVars, that.environmentVars)
         && Objects.equals(instanceProfileArn, that.instanceProfileArn)
-        && Objects.equals(maxProvisionedConcurrency, that.maxProvisionedConcurrency)
-        && Objects.equals(minProvisionedConcurrency, that.minProvisionedConcurrency)
         && Objects.equals(modelName, that.modelName)
         && Objects.equals(modelVersion, that.modelVersion)
         && Objects.equals(name, that.name)
@@ -253,8 +218,6 @@ public class ServedModelOutput {
         creator,
         environmentVars,
         instanceProfileArn,
-        maxProvisionedConcurrency,
-        minProvisionedConcurrency,
         modelName,
         modelVersion,
         name,
@@ -272,8 +235,6 @@ public class ServedModelOutput {
         .add("creator", creator)
         .add("environmentVars", environmentVars)
         .add("instanceProfileArn", instanceProfileArn)
-        .add("maxProvisionedConcurrency", maxProvisionedConcurrency)
-        .add("minProvisionedConcurrency", minProvisionedConcurrency)
         .add("modelName", modelName)
         .add("modelVersion", modelVersion)
         .add("name", name)
