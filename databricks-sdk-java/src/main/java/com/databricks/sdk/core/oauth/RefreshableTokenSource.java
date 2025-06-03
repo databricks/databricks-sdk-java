@@ -71,6 +71,8 @@ public abstract class RefreshableTokenSource implements TokenSource {
   /**
    * Set the clock supplier for current time.
    *
+   * <p><b>Experimental:</b> This method may change or be removed in future releases.
+   *
    * @param clockSupplier The clock supplier to use.
    * @return this instance for chaining
    */
@@ -81,6 +83,8 @@ public abstract class RefreshableTokenSource implements TokenSource {
 
   /**
    * Enable or disable asynchronous token refresh.
+   *
+   * <p><b>Experimental:</b> This method may change or be removed in future releases.
    *
    * @param enabled true to enable async refresh, false to disable
    * @return this instance for chaining
@@ -93,6 +97,8 @@ public abstract class RefreshableTokenSource implements TokenSource {
   /**
    * Set the expiry buffer. If the token's lifetime is less than this buffer, it is considered
    * expired.
+   *
+   * <p><b>Experimental:</b> This method may change or be removed in future releases.
    *
    * @param buffer the expiry buffer duration
    * @return this instance for chaining
@@ -156,19 +162,28 @@ public abstract class RefreshableTokenSource implements TokenSource {
    *
    * @return The current valid token
    */
-  protected synchronized Token getTokenBlocking() {
+  protected Token getTokenBlocking() {
+    // Use double-checked locking to minimize synchronization overhead on reads:
+    // 1. Check if the token is expired without locking.
+    // 2. If expired, synchronize and check again (another thread may have refreshed it).
+    // 3. If still expired, perform the refresh.
     if (getTokenState(token) != TokenState.EXPIRED) {
       return token;
     }
-    lastRefreshSucceeded = false;
-    try {
-      token = refresh();
-    } catch (Exception e) {
-      logger.error("Failed to refresh token synchronously", e);
-      throw e;
+    synchronized (this) {
+      if (getTokenState(token) != TokenState.EXPIRED) {
+        return token;
+      }
+      lastRefreshSucceeded = false;
+      try {
+        token = refresh();
+      } catch (Exception e) {
+        logger.error("Failed to refresh token synchronously", e);
+        throw e;
+      }
+      lastRefreshSucceeded = true;
+      return token;
     }
-    lastRefreshSucceeded = true;
-    return token;
   }
 
   /**
