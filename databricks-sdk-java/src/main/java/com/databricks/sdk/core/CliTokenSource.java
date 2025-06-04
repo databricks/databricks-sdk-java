@@ -49,7 +49,7 @@ public class CliTokenSource extends RefreshableTokenSource {
    *
    * @param expiry the expiry time string to parse, which must represent a UTC time
    * @return the parsed {@link Instant} representing the expiry time in UTC
-   * @throws DateTimeParseException if the input string cannot be parsed as a valid date-time
+   * @throws DateTimeParseException if the input string cannot be parsed
    */
   static Instant parseExpiry(String expiry) {
     DateTimeParseException lastException = null;
