@@ -48,7 +48,7 @@ public class CliTokenSource extends RefreshableTokenSource {
    * ISO-8601 and patterns with varying sub-second precision.
    *
    * @param expiry the expiry time string to parse, which must represent a UTC time
-   * @return the parsed {@link Instant} representing the expiry time in UTC
+   * @return the parsed {@link Instant}
    * @throws DateTimeParseException if the input string cannot be parsed
    */
   static Instant parseExpiry(String expiry) {
