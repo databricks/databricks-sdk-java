@@ -41,8 +41,8 @@ public class CliTokenSource extends RefreshableTokenSource {
   /**
    * Parses an expiry time string and returns the corresponding {@link Instant}.
    *
-   * <p>The expiry time string is verified to always be in UTC. Any time zone or offset information
-   * present in the input is ignored, and the value is parsed as a UTC time.
+   * <p>The expiry time string is always in UTC. Any time zone or offset information present in the
+   * input is ignored.
    *
    * <p>The method attempts to parse the input using several common date-time formats, including
    * ISO-8601 and patterns with varying sub-second precision.
@@ -53,6 +53,7 @@ public class CliTokenSource extends RefreshableTokenSource {
    */
   static Instant parseExpiry(String expiry) {
     DateTimeParseException lastException = null;
+    // Try to parse the expiry as an ISO-8601 string in UTC first
     try {
       return Instant.parse(expiry);
     } catch (DateTimeParseException e) {
