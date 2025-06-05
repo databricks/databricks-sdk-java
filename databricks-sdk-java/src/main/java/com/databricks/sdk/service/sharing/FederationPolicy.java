@@ -4,36 +4,41 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = FederationPolicy.FederationPolicySerializer.class)
+@JsonDeserialize(using = FederationPolicy.FederationPolicyDeserializer.class)
 public class FederationPolicy {
   /** Description of the policy. This is a user-provided description. */
-  @JsonProperty("comment")
   private String comment;
 
   /** System-generated timestamp indicating when the policy was created. */
-  @JsonProperty("create_time")
   private String createTime;
 
   /** Unique, immutable system-generated identifier for the federation policy. */
-  @JsonProperty("id")
   private String id;
 
   /**
    * Name of the federation policy. A recipient can have multiple policies with different names. The
    * name must contain only lowercase alphanumeric characters, numbers, and hyphens.
    */
-  @JsonProperty("name")
   private String name;
 
   /** Specifies the policy to use for validating OIDC claims in the federated tokens. */
-  @JsonProperty("oidc_policy")
   private OidcFederationPolicy oidcPolicy;
 
   /** System-generated timestamp indicating when the policy was last updated. */
-  @JsonProperty("update_time")
   private String updateTime;
 
   public FederationPolicy setComment(String comment) {
@@ -118,5 +123,48 @@ public class FederationPolicy {
         .add("oidcPolicy", oidcPolicy)
         .add("updateTime", updateTime)
         .toString();
+  }
+
+  FederationPolicyPb toPb() {
+    FederationPolicyPb pb = new FederationPolicyPb();
+    pb.setComment(comment);
+    pb.setCreateTime(createTime);
+    pb.setId(id);
+    pb.setName(name);
+    pb.setOidcPolicy(oidcPolicy);
+    pb.setUpdateTime(updateTime);
+
+    return pb;
+  }
+
+  static FederationPolicy fromPb(FederationPolicyPb pb) {
+    FederationPolicy model = new FederationPolicy();
+    model.setComment(pb.getComment());
+    model.setCreateTime(pb.getCreateTime());
+    model.setId(pb.getId());
+    model.setName(pb.getName());
+    model.setOidcPolicy(pb.getOidcPolicy());
+    model.setUpdateTime(pb.getUpdateTime());
+
+    return model;
+  }
+
+  public static class FederationPolicySerializer extends JsonSerializer<FederationPolicy> {
+    @Override
+    public void serialize(FederationPolicy value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      FederationPolicyPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class FederationPolicyDeserializer extends JsonDeserializer<FederationPolicy> {
+    @Override
+    public FederationPolicy deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      FederationPolicyPb pb = mapper.readValue(p, FederationPolicyPb.class);
+      return FederationPolicy.fromPb(pb);
+    }
   }
 }

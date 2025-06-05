@@ -4,22 +4,30 @@ package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = RepoPermissions.RepoPermissionsSerializer.class)
+@JsonDeserialize(using = RepoPermissions.RepoPermissionsDeserializer.class)
 public class RepoPermissions {
   /** */
-  @JsonProperty("access_control_list")
   private Collection<RepoAccessControlResponse> accessControlList;
 
   /** */
-  @JsonProperty("object_id")
   private String objectId;
 
   /** */
-  @JsonProperty("object_type")
   private String objectType;
 
   public RepoPermissions setAccessControlList(
@@ -72,5 +80,42 @@ public class RepoPermissions {
         .add("objectId", objectId)
         .add("objectType", objectType)
         .toString();
+  }
+
+  RepoPermissionsPb toPb() {
+    RepoPermissionsPb pb = new RepoPermissionsPb();
+    pb.setAccessControlList(accessControlList);
+    pb.setObjectId(objectId);
+    pb.setObjectType(objectType);
+
+    return pb;
+  }
+
+  static RepoPermissions fromPb(RepoPermissionsPb pb) {
+    RepoPermissions model = new RepoPermissions();
+    model.setAccessControlList(pb.getAccessControlList());
+    model.setObjectId(pb.getObjectId());
+    model.setObjectType(pb.getObjectType());
+
+    return model;
+  }
+
+  public static class RepoPermissionsSerializer extends JsonSerializer<RepoPermissions> {
+    @Override
+    public void serialize(RepoPermissions value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      RepoPermissionsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class RepoPermissionsDeserializer extends JsonDeserializer<RepoPermissions> {
+    @Override
+    public RepoPermissions deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      RepoPermissionsPb pb = mapper.readValue(p, RepoPermissionsPb.class);
+      return RepoPermissions.fromPb(pb);
+    }
   }
 }

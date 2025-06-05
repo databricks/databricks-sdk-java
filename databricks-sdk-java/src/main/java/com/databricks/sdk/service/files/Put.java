@@ -4,21 +4,29 @@ package com.databricks.sdk.service.files;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = Put.PutSerializer.class)
+@JsonDeserialize(using = Put.PutDeserializer.class)
 public class Put {
   /** This parameter might be absent, and instead a posted file will be used. */
-  @JsonProperty("contents")
   private String contents;
 
   /** The flag that specifies whether to overwrite existing file/files. */
-  @JsonProperty("overwrite")
   private Boolean overwrite;
 
   /** The path of the new file. The path should be the absolute DBFS path. */
-  @JsonProperty("path")
   private String path;
 
   public Put setContents(String contents) {
@@ -70,5 +78,41 @@ public class Put {
         .add("overwrite", overwrite)
         .add("path", path)
         .toString();
+  }
+
+  PutPb toPb() {
+    PutPb pb = new PutPb();
+    pb.setContents(contents);
+    pb.setOverwrite(overwrite);
+    pb.setPath(path);
+
+    return pb;
+  }
+
+  static Put fromPb(PutPb pb) {
+    Put model = new Put();
+    model.setContents(pb.getContents());
+    model.setOverwrite(pb.getOverwrite());
+    model.setPath(pb.getPath());
+
+    return model;
+  }
+
+  public static class PutSerializer extends JsonSerializer<Put> {
+    @Override
+    public void serialize(Put value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PutPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PutDeserializer extends JsonDeserializer<Put> {
+    @Override
+    public Put deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PutPb pb = mapper.readValue(p, PutPb.class);
+      return Put.fromPb(pb);
+    }
   }
 }

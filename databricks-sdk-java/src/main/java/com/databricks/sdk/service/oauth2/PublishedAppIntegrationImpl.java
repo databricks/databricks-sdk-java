@@ -24,7 +24,7 @@ class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
             apiClient.configuredAccountID());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, CreatePublishedAppIntegrationOutput.class);
@@ -41,7 +41,7 @@ class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
             apiClient.configuredAccountID(), request.getIntegrationId());
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, DeletePublishedAppIntegrationOutput.class);
     } catch (IOException e) {
@@ -57,7 +57,7 @@ class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
             apiClient.configuredAccountID(), request.getIntegrationId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetPublishedAppIntegrationOutput.class);
     } catch (IOException e) {
@@ -73,7 +73,7 @@ class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
             apiClient.configuredAccountID());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetPublishedAppIntegrationsOutput.class);
     } catch (IOException e) {
@@ -89,7 +89,7 @@ class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
             apiClient.configuredAccountID(), request.getIntegrationId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, UpdatePublishedAppIntegrationOutput.class);

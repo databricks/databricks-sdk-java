@@ -3,27 +3,33 @@
 package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 /** Search models */
 @Generated
+@JsonSerialize(using = SearchModelsRequest.SearchModelsRequestSerializer.class)
+@JsonDeserialize(using = SearchModelsRequest.SearchModelsRequestDeserializer.class)
 public class SearchModelsRequest {
   /**
    * String filter condition, like "name LIKE 'my-model-name'". Interpreted in the backend
    * automatically as "name LIKE '%my-model-name%'". Single boolean condition, with string values
    * wrapped in single quotes.
    */
-  @JsonIgnore
-  @QueryParam("filter")
   private String filter;
 
   /** Maximum number of models desired. Default is 100. Max threshold is 1000. */
-  @JsonIgnore
-  @QueryParam("max_results")
   private Long maxResults;
 
   /**
@@ -31,13 +37,9 @@ public class SearchModelsRequest {
    * timestamp with an optional "DESC" or "ASC" annotation, where "ASC" is the default. Tiebreaks
    * are done by model name ASC.
    */
-  @JsonIgnore
-  @QueryParam("order_by")
   private Collection<String> orderBy;
 
   /** Pagination token to go to the next page based on a previous search query. */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   public SearchModelsRequest setFilter(String filter) {
@@ -100,5 +102,45 @@ public class SearchModelsRequest {
         .add("orderBy", orderBy)
         .add("pageToken", pageToken)
         .toString();
+  }
+
+  SearchModelsRequestPb toPb() {
+    SearchModelsRequestPb pb = new SearchModelsRequestPb();
+    pb.setFilter(filter);
+    pb.setMaxResults(maxResults);
+    pb.setOrderBy(orderBy);
+    pb.setPageToken(pageToken);
+
+    return pb;
+  }
+
+  static SearchModelsRequest fromPb(SearchModelsRequestPb pb) {
+    SearchModelsRequest model = new SearchModelsRequest();
+    model.setFilter(pb.getFilter());
+    model.setMaxResults(pb.getMaxResults());
+    model.setOrderBy(pb.getOrderBy());
+    model.setPageToken(pb.getPageToken());
+
+    return model;
+  }
+
+  public static class SearchModelsRequestSerializer extends JsonSerializer<SearchModelsRequest> {
+    @Override
+    public void serialize(SearchModelsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SearchModelsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SearchModelsRequestDeserializer
+      extends JsonDeserializer<SearchModelsRequest> {
+    @Override
+    public SearchModelsRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SearchModelsRequestPb pb = mapper.readValue(p, SearchModelsRequestPb.class);
+      return SearchModelsRequest.fromPb(pb);
+    }
   }
 }

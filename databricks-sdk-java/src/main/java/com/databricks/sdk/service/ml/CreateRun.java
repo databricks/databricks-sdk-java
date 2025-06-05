@@ -4,33 +4,39 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateRun.CreateRunSerializer.class)
+@JsonDeserialize(using = CreateRun.CreateRunDeserializer.class)
 public class CreateRun {
   /** ID of the associated experiment. */
-  @JsonProperty("experiment_id")
   private String experimentId;
 
   /** The name of the run. */
-  @JsonProperty("run_name")
   private String runName;
 
   /** Unix timestamp in milliseconds of when the run started. */
-  @JsonProperty("start_time")
   private Long startTime;
 
   /** Additional metadata for run. */
-  @JsonProperty("tags")
   private Collection<RunTag> tags;
 
   /**
    * ID of the user executing the run. This field is deprecated as of MLflow 1.0, and will be
    * removed in a future MLflow release. Use 'mlflow.user' tag instead.
    */
-  @JsonProperty("user_id")
   private String userId;
 
   public CreateRun setExperimentId(String experimentId) {
@@ -104,5 +110,45 @@ public class CreateRun {
         .add("tags", tags)
         .add("userId", userId)
         .toString();
+  }
+
+  CreateRunPb toPb() {
+    CreateRunPb pb = new CreateRunPb();
+    pb.setExperimentId(experimentId);
+    pb.setRunName(runName);
+    pb.setStartTime(startTime);
+    pb.setTags(tags);
+    pb.setUserId(userId);
+
+    return pb;
+  }
+
+  static CreateRun fromPb(CreateRunPb pb) {
+    CreateRun model = new CreateRun();
+    model.setExperimentId(pb.getExperimentId());
+    model.setRunName(pb.getRunName());
+    model.setStartTime(pb.getStartTime());
+    model.setTags(pb.getTags());
+    model.setUserId(pb.getUserId());
+
+    return model;
+  }
+
+  public static class CreateRunSerializer extends JsonSerializer<CreateRun> {
+    @Override
+    public void serialize(CreateRun value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateRunPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateRunDeserializer extends JsonDeserializer<CreateRun> {
+    @Override
+    public CreateRun deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateRunPb pb = mapper.readValue(p, CreateRunPb.class);
+      return CreateRun.fromPb(pb);
+    }
   }
 }

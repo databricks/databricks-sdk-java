@@ -4,20 +4,33 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** [Deprecated] Execute SQL query in a conversation message */
 @Generated
+@JsonSerialize(
+    using = GenieExecuteMessageQueryRequest.GenieExecuteMessageQueryRequestSerializer.class)
+@JsonDeserialize(
+    using = GenieExecuteMessageQueryRequest.GenieExecuteMessageQueryRequestDeserializer.class)
 public class GenieExecuteMessageQueryRequest {
   /** Conversation ID */
-  @JsonIgnore private String conversationId;
+  private String conversationId;
 
   /** Message ID */
-  @JsonIgnore private String messageId;
+  private String messageId;
 
   /** Genie space ID */
-  @JsonIgnore private String spaceId;
+  private String spaceId;
 
   public GenieExecuteMessageQueryRequest setConversationId(String conversationId) {
     this.conversationId = conversationId;
@@ -68,5 +81,46 @@ public class GenieExecuteMessageQueryRequest {
         .add("messageId", messageId)
         .add("spaceId", spaceId)
         .toString();
+  }
+
+  GenieExecuteMessageQueryRequestPb toPb() {
+    GenieExecuteMessageQueryRequestPb pb = new GenieExecuteMessageQueryRequestPb();
+    pb.setConversationId(conversationId);
+    pb.setMessageId(messageId);
+    pb.setSpaceId(spaceId);
+
+    return pb;
+  }
+
+  static GenieExecuteMessageQueryRequest fromPb(GenieExecuteMessageQueryRequestPb pb) {
+    GenieExecuteMessageQueryRequest model = new GenieExecuteMessageQueryRequest();
+    model.setConversationId(pb.getConversationId());
+    model.setMessageId(pb.getMessageId());
+    model.setSpaceId(pb.getSpaceId());
+
+    return model;
+  }
+
+  public static class GenieExecuteMessageQueryRequestSerializer
+      extends JsonSerializer<GenieExecuteMessageQueryRequest> {
+    @Override
+    public void serialize(
+        GenieExecuteMessageQueryRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GenieExecuteMessageQueryRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GenieExecuteMessageQueryRequestDeserializer
+      extends JsonDeserializer<GenieExecuteMessageQueryRequest> {
+    @Override
+    public GenieExecuteMessageQueryRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GenieExecuteMessageQueryRequestPb pb =
+          mapper.readValue(p, GenieExecuteMessageQueryRequestPb.class);
+      return GenieExecuteMessageQueryRequest.fromPb(pb);
+    }
   }
 }

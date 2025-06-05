@@ -4,17 +4,28 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get a pipeline update */
 @Generated
+@JsonSerialize(using = GetUpdateRequest.GetUpdateRequestSerializer.class)
+@JsonDeserialize(using = GetUpdateRequest.GetUpdateRequestDeserializer.class)
 public class GetUpdateRequest {
   /** The ID of the pipeline. */
-  @JsonIgnore private String pipelineId;
+  private String pipelineId;
 
   /** The ID of the update. */
-  @JsonIgnore private String updateId;
+  private String updateId;
 
   public GetUpdateRequest setPipelineId(String pipelineId) {
     this.pipelineId = pipelineId;
@@ -53,5 +64,40 @@ public class GetUpdateRequest {
         .add("pipelineId", pipelineId)
         .add("updateId", updateId)
         .toString();
+  }
+
+  GetUpdateRequestPb toPb() {
+    GetUpdateRequestPb pb = new GetUpdateRequestPb();
+    pb.setPipelineId(pipelineId);
+    pb.setUpdateId(updateId);
+
+    return pb;
+  }
+
+  static GetUpdateRequest fromPb(GetUpdateRequestPb pb) {
+    GetUpdateRequest model = new GetUpdateRequest();
+    model.setPipelineId(pb.getPipelineId());
+    model.setUpdateId(pb.getUpdateId());
+
+    return model;
+  }
+
+  public static class GetUpdateRequestSerializer extends JsonSerializer<GetUpdateRequest> {
+    @Override
+    public void serialize(GetUpdateRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetUpdateRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetUpdateRequestDeserializer extends JsonDeserializer<GetUpdateRequest> {
+    @Override
+    public GetUpdateRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetUpdateRequestPb pb = mapper.readValue(p, GetUpdateRequestPb.class);
+      return GetUpdateRequest.fromPb(pb);
+    }
   }
 }

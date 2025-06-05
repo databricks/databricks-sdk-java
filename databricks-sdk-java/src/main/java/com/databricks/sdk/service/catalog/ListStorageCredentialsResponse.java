@@ -4,21 +4,32 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = ListStorageCredentialsResponse.ListStorageCredentialsResponseSerializer.class)
+@JsonDeserialize(
+    using = ListStorageCredentialsResponse.ListStorageCredentialsResponseDeserializer.class)
 public class ListStorageCredentialsResponse {
   /**
    * Opaque token to retrieve the next page of results. Absent if there are no more pages.
    * __page_token__ should be set to this value for the next request (for the next page of results).
    */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   /** */
-  @JsonProperty("storage_credentials")
   private Collection<StorageCredentialInfo> storageCredentials;
 
   public ListStorageCredentialsResponse setNextPageToken(String nextPageToken) {
@@ -60,5 +71,44 @@ public class ListStorageCredentialsResponse {
         .add("nextPageToken", nextPageToken)
         .add("storageCredentials", storageCredentials)
         .toString();
+  }
+
+  ListStorageCredentialsResponsePb toPb() {
+    ListStorageCredentialsResponsePb pb = new ListStorageCredentialsResponsePb();
+    pb.setNextPageToken(nextPageToken);
+    pb.setStorageCredentials(storageCredentials);
+
+    return pb;
+  }
+
+  static ListStorageCredentialsResponse fromPb(ListStorageCredentialsResponsePb pb) {
+    ListStorageCredentialsResponse model = new ListStorageCredentialsResponse();
+    model.setNextPageToken(pb.getNextPageToken());
+    model.setStorageCredentials(pb.getStorageCredentials());
+
+    return model;
+  }
+
+  public static class ListStorageCredentialsResponseSerializer
+      extends JsonSerializer<ListStorageCredentialsResponse> {
+    @Override
+    public void serialize(
+        ListStorageCredentialsResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListStorageCredentialsResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListStorageCredentialsResponseDeserializer
+      extends JsonDeserializer<ListStorageCredentialsResponse> {
+    @Override
+    public ListStorageCredentialsResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListStorageCredentialsResponsePb pb =
+          mapper.readValue(p, ListStorageCredentialsResponsePb.class);
+      return ListStorageCredentialsResponse.fromPb(pb);
+    }
   }
 }

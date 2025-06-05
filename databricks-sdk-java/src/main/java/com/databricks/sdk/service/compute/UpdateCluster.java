@@ -4,17 +4,26 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = UpdateCluster.UpdateClusterSerializer.class)
+@JsonDeserialize(using = UpdateCluster.UpdateClusterDeserializer.class)
 public class UpdateCluster {
   /** The cluster to be updated. */
-  @JsonProperty("cluster")
   private UpdateClusterResource cluster;
 
   /** ID of the cluster. */
-  @JsonProperty("cluster_id")
   private String clusterId;
 
   /**
@@ -31,7 +40,6 @@ public class UpdateCluster {
    * the fields being updated and avoid using `*` wildcards, as it can lead to unintended results if
    * the API changes in the future.
    */
-  @JsonProperty("update_mask")
   private String updateMask;
 
   public UpdateCluster setCluster(UpdateClusterResource cluster) {
@@ -83,5 +91,41 @@ public class UpdateCluster {
         .add("clusterId", clusterId)
         .add("updateMask", updateMask)
         .toString();
+  }
+
+  UpdateClusterPb toPb() {
+    UpdateClusterPb pb = new UpdateClusterPb();
+    pb.setCluster(cluster);
+    pb.setClusterId(clusterId);
+    pb.setUpdateMask(updateMask);
+
+    return pb;
+  }
+
+  static UpdateCluster fromPb(UpdateClusterPb pb) {
+    UpdateCluster model = new UpdateCluster();
+    model.setCluster(pb.getCluster());
+    model.setClusterId(pb.getClusterId());
+    model.setUpdateMask(pb.getUpdateMask());
+
+    return model;
+  }
+
+  public static class UpdateClusterSerializer extends JsonSerializer<UpdateCluster> {
+    @Override
+    public void serialize(UpdateCluster value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateClusterPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateClusterDeserializer extends JsonDeserializer<UpdateCluster> {
+    @Override
+    public UpdateCluster deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateClusterPb pb = mapper.readValue(p, UpdateClusterPb.class);
+      return UpdateCluster.fromPb(pb);
+    }
   }
 }

@@ -4,20 +4,33 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using =
+        CreateNotificationDestinationRequest.CreateNotificationDestinationRequestSerializer.class)
+@JsonDeserialize(
+    using =
+        CreateNotificationDestinationRequest.CreateNotificationDestinationRequestDeserializer.class)
 public class CreateNotificationDestinationRequest {
   /**
    * The configuration for the notification destination. Must wrap EXACTLY one of the nested
    * configs.
    */
-  @JsonProperty("config")
   private Config config;
 
   /** The display name for the notification destination. */
-  @JsonProperty("display_name")
   private String displayName;
 
   public CreateNotificationDestinationRequest setConfig(Config config) {
@@ -57,5 +70,44 @@ public class CreateNotificationDestinationRequest {
         .add("config", config)
         .add("displayName", displayName)
         .toString();
+  }
+
+  CreateNotificationDestinationRequestPb toPb() {
+    CreateNotificationDestinationRequestPb pb = new CreateNotificationDestinationRequestPb();
+    pb.setConfig(config);
+    pb.setDisplayName(displayName);
+
+    return pb;
+  }
+
+  static CreateNotificationDestinationRequest fromPb(CreateNotificationDestinationRequestPb pb) {
+    CreateNotificationDestinationRequest model = new CreateNotificationDestinationRequest();
+    model.setConfig(pb.getConfig());
+    model.setDisplayName(pb.getDisplayName());
+
+    return model;
+  }
+
+  public static class CreateNotificationDestinationRequestSerializer
+      extends JsonSerializer<CreateNotificationDestinationRequest> {
+    @Override
+    public void serialize(
+        CreateNotificationDestinationRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateNotificationDestinationRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateNotificationDestinationRequestDeserializer
+      extends JsonDeserializer<CreateNotificationDestinationRequest> {
+    @Override
+    public CreateNotificationDestinationRequest deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateNotificationDestinationRequestPb pb =
+          mapper.readValue(p, CreateNotificationDestinationRequestPb.class);
+      return CreateNotificationDestinationRequest.fromPb(pb);
+    }
   }
 }

@@ -3,23 +3,31 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get Model Version By Alias */
 @Generated
+@JsonSerialize(using = GetByAliasRequest.GetByAliasRequestSerializer.class)
+@JsonDeserialize(using = GetByAliasRequest.GetByAliasRequestDeserializer.class)
 public class GetByAliasRequest {
   /** The name of the alias */
-  @JsonIgnore private String alias;
+  private String alias;
 
   /** The three-level (fully qualified) name of the registered model */
-  @JsonIgnore private String fullName;
+  private String fullName;
 
   /** Whether to include aliases associated with the model version in the response */
-  @JsonIgnore
-  @QueryParam("include_aliases")
   private Boolean includeAliases;
 
   public GetByAliasRequest setAlias(String alias) {
@@ -71,5 +79,42 @@ public class GetByAliasRequest {
         .add("fullName", fullName)
         .add("includeAliases", includeAliases)
         .toString();
+  }
+
+  GetByAliasRequestPb toPb() {
+    GetByAliasRequestPb pb = new GetByAliasRequestPb();
+    pb.setAlias(alias);
+    pb.setFullName(fullName);
+    pb.setIncludeAliases(includeAliases);
+
+    return pb;
+  }
+
+  static GetByAliasRequest fromPb(GetByAliasRequestPb pb) {
+    GetByAliasRequest model = new GetByAliasRequest();
+    model.setAlias(pb.getAlias());
+    model.setFullName(pb.getFullName());
+    model.setIncludeAliases(pb.getIncludeAliases());
+
+    return model;
+  }
+
+  public static class GetByAliasRequestSerializer extends JsonSerializer<GetByAliasRequest> {
+    @Override
+    public void serialize(GetByAliasRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetByAliasRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetByAliasRequestDeserializer extends JsonDeserializer<GetByAliasRequest> {
+    @Override
+    public GetByAliasRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetByAliasRequestPb pb = mapper.readValue(p, GetByAliasRequestPb.class);
+      return GetByAliasRequest.fromPb(pb);
+    }
   }
 }

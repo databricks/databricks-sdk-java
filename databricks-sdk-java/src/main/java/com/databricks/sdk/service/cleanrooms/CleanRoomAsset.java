@@ -4,32 +4,39 @@ package com.databricks.sdk.service.cleanrooms;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Metadata of the clean room asset */
 @Generated
+@JsonSerialize(using = CleanRoomAsset.CleanRoomAssetSerializer.class)
+@JsonDeserialize(using = CleanRoomAsset.CleanRoomAssetDeserializer.class)
 public class CleanRoomAsset {
   /** When the asset is added to the clean room, in epoch milliseconds. */
-  @JsonProperty("added_at")
   private Long addedAt;
 
   /** The type of the asset. */
-  @JsonProperty("asset_type")
   private CleanRoomAssetAssetType assetType;
 
   /**
    * Foreign table details available to all collaborators of the clean room. Present if and only if
    * **asset_type** is **FOREIGN_TABLE**
    */
-  @JsonProperty("foreign_table")
   private CleanRoomAssetForeignTable foreignTable;
 
   /**
    * Local details for a foreign that are only available to its owner. Present if and only if
    * **asset_type** is **FOREIGN_TABLE**
    */
-  @JsonProperty("foreign_table_local_details")
   private CleanRoomAssetForeignTableLocalDetails foreignTableLocalDetails;
 
   /**
@@ -41,57 +48,48 @@ public class CleanRoomAsset {
    *
    * <p>For notebooks, the name is the notebook file name.
    */
-  @JsonProperty("name")
   private String name;
 
   /**
    * Notebook details available to all collaborators of the clean room. Present if and only if
    * **asset_type** is **NOTEBOOK_FILE**
    */
-  @JsonProperty("notebook")
   private CleanRoomAssetNotebook notebook;
 
   /** The alias of the collaborator who owns this asset */
-  @JsonProperty("owner_collaborator_alias")
   private String ownerCollaboratorAlias;
 
   /** Status of the asset */
-  @JsonProperty("status")
   private CleanRoomAssetStatusEnum status;
 
   /**
    * Table details available to all collaborators of the clean room. Present if and only if
    * **asset_type** is **TABLE**
    */
-  @JsonProperty("table")
   private CleanRoomAssetTable table;
 
   /**
    * Local details for a table that are only available to its owner. Present if and only if
    * **asset_type** is **TABLE**
    */
-  @JsonProperty("table_local_details")
   private CleanRoomAssetTableLocalDetails tableLocalDetails;
 
   /**
    * View details available to all collaborators of the clean room. Present if and only if
    * **asset_type** is **VIEW**
    */
-  @JsonProperty("view")
   private CleanRoomAssetView view;
 
   /**
    * Local details for a view that are only available to its owner. Present if and only if
    * **asset_type** is **VIEW**
    */
-  @JsonProperty("view_local_details")
   private CleanRoomAssetViewLocalDetails viewLocalDetails;
 
   /**
    * Local details for a volume that are only available to its owner. Present if and only if
    * **asset_type** is **VOLUME**
    */
-  @JsonProperty("volume_local_details")
   private CleanRoomAssetVolumeLocalDetails volumeLocalDetails;
 
   public CleanRoomAsset setAddedAt(Long addedAt) {
@@ -267,5 +265,62 @@ public class CleanRoomAsset {
         .add("viewLocalDetails", viewLocalDetails)
         .add("volumeLocalDetails", volumeLocalDetails)
         .toString();
+  }
+
+  CleanRoomAssetPb toPb() {
+    CleanRoomAssetPb pb = new CleanRoomAssetPb();
+    pb.setAddedAt(addedAt);
+    pb.setAssetType(assetType);
+    pb.setForeignTable(foreignTable);
+    pb.setForeignTableLocalDetails(foreignTableLocalDetails);
+    pb.setName(name);
+    pb.setNotebook(notebook);
+    pb.setOwnerCollaboratorAlias(ownerCollaboratorAlias);
+    pb.setStatus(status);
+    pb.setTable(table);
+    pb.setTableLocalDetails(tableLocalDetails);
+    pb.setView(view);
+    pb.setViewLocalDetails(viewLocalDetails);
+    pb.setVolumeLocalDetails(volumeLocalDetails);
+
+    return pb;
+  }
+
+  static CleanRoomAsset fromPb(CleanRoomAssetPb pb) {
+    CleanRoomAsset model = new CleanRoomAsset();
+    model.setAddedAt(pb.getAddedAt());
+    model.setAssetType(pb.getAssetType());
+    model.setForeignTable(pb.getForeignTable());
+    model.setForeignTableLocalDetails(pb.getForeignTableLocalDetails());
+    model.setName(pb.getName());
+    model.setNotebook(pb.getNotebook());
+    model.setOwnerCollaboratorAlias(pb.getOwnerCollaboratorAlias());
+    model.setStatus(pb.getStatus());
+    model.setTable(pb.getTable());
+    model.setTableLocalDetails(pb.getTableLocalDetails());
+    model.setView(pb.getView());
+    model.setViewLocalDetails(pb.getViewLocalDetails());
+    model.setVolumeLocalDetails(pb.getVolumeLocalDetails());
+
+    return model;
+  }
+
+  public static class CleanRoomAssetSerializer extends JsonSerializer<CleanRoomAsset> {
+    @Override
+    public void serialize(CleanRoomAsset value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CleanRoomAssetPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CleanRoomAssetDeserializer extends JsonDeserializer<CleanRoomAsset> {
+    @Override
+    public CleanRoomAsset deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CleanRoomAssetPb pb = mapper.readValue(p, CleanRoomAssetPb.class);
+      return CleanRoomAsset.fromPb(pb);
+    }
   }
 }

@@ -4,51 +4,52 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ExternalModel.ExternalModelSerializer.class)
+@JsonDeserialize(using = ExternalModel.ExternalModelDeserializer.class)
 public class ExternalModel {
   /** AI21Labs Config. Only required if the provider is 'ai21labs'. */
-  @JsonProperty("ai21labs_config")
   private Ai21LabsConfig ai21labsConfig;
 
   /** Amazon Bedrock Config. Only required if the provider is 'amazon-bedrock'. */
-  @JsonProperty("amazon_bedrock_config")
   private AmazonBedrockConfig amazonBedrockConfig;
 
   /** Anthropic Config. Only required if the provider is 'anthropic'. */
-  @JsonProperty("anthropic_config")
   private AnthropicConfig anthropicConfig;
 
   /** Cohere Config. Only required if the provider is 'cohere'. */
-  @JsonProperty("cohere_config")
   private CohereConfig cohereConfig;
 
   /** Custom Provider Config. Only required if the provider is 'custom'. */
-  @JsonProperty("custom_provider_config")
   private CustomProviderConfig customProviderConfig;
 
   /**
    * Databricks Model Serving Config. Only required if the provider is 'databricks-model-serving'.
    */
-  @JsonProperty("databricks_model_serving_config")
   private DatabricksModelServingConfig databricksModelServingConfig;
 
   /** Google Cloud Vertex AI Config. Only required if the provider is 'google-cloud-vertex-ai'. */
-  @JsonProperty("google_cloud_vertex_ai_config")
   private GoogleCloudVertexAiConfig googleCloudVertexAiConfig;
 
   /** The name of the external model. */
-  @JsonProperty("name")
   private String name;
 
   /** OpenAI Config. Only required if the provider is 'openai'. */
-  @JsonProperty("openai_config")
   private OpenAiConfig openaiConfig;
 
   /** PaLM Config. Only required if the provider is 'palm'. */
-  @JsonProperty("palm_config")
   private PaLmConfig palmConfig;
 
   /**
@@ -56,11 +57,9 @@ public class ExternalModel {
    * 'ai21labs', 'anthropic', 'amazon-bedrock', 'cohere', 'databricks-model-serving',
    * 'google-cloud-vertex-ai', 'openai', 'palm', and 'custom'.
    */
-  @JsonProperty("provider")
   private ExternalModelProvider provider;
 
   /** The task type of the external model. */
-  @JsonProperty("task")
   private String task;
 
   public ExternalModel setAi21labsConfig(Ai21LabsConfig ai21labsConfig) {
@@ -225,5 +224,59 @@ public class ExternalModel {
         .add("provider", provider)
         .add("task", task)
         .toString();
+  }
+
+  ExternalModelPb toPb() {
+    ExternalModelPb pb = new ExternalModelPb();
+    pb.setAi21labsConfig(ai21labsConfig);
+    pb.setAmazonBedrockConfig(amazonBedrockConfig);
+    pb.setAnthropicConfig(anthropicConfig);
+    pb.setCohereConfig(cohereConfig);
+    pb.setCustomProviderConfig(customProviderConfig);
+    pb.setDatabricksModelServingConfig(databricksModelServingConfig);
+    pb.setGoogleCloudVertexAiConfig(googleCloudVertexAiConfig);
+    pb.setName(name);
+    pb.setOpenaiConfig(openaiConfig);
+    pb.setPalmConfig(palmConfig);
+    pb.setProvider(provider);
+    pb.setTask(task);
+
+    return pb;
+  }
+
+  static ExternalModel fromPb(ExternalModelPb pb) {
+    ExternalModel model = new ExternalModel();
+    model.setAi21labsConfig(pb.getAi21labsConfig());
+    model.setAmazonBedrockConfig(pb.getAmazonBedrockConfig());
+    model.setAnthropicConfig(pb.getAnthropicConfig());
+    model.setCohereConfig(pb.getCohereConfig());
+    model.setCustomProviderConfig(pb.getCustomProviderConfig());
+    model.setDatabricksModelServingConfig(pb.getDatabricksModelServingConfig());
+    model.setGoogleCloudVertexAiConfig(pb.getGoogleCloudVertexAiConfig());
+    model.setName(pb.getName());
+    model.setOpenaiConfig(pb.getOpenaiConfig());
+    model.setPalmConfig(pb.getPalmConfig());
+    model.setProvider(pb.getProvider());
+    model.setTask(pb.getTask());
+
+    return model;
+  }
+
+  public static class ExternalModelSerializer extends JsonSerializer<ExternalModel> {
+    @Override
+    public void serialize(ExternalModel value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ExternalModelPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ExternalModelDeserializer extends JsonDeserializer<ExternalModel> {
+    @Override
+    public ExternalModel deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ExternalModelPb pb = mapper.readValue(p, ExternalModelPb.class);
+      return ExternalModel.fromPb(pb);
+    }
   }
 }

@@ -4,10 +4,21 @@ package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = Import.ImportSerializer.class)
+@JsonDeserialize(using = Import.ImportDeserializer.class)
 public class Import {
   /**
    * The base64-encoded content. This has a limit of 10 MB.
@@ -15,7 +26,6 @@ public class Import {
    * <p>If the limit (10MB) is exceeded, exception with error code **MAX_NOTEBOOK_SIZE_EXCEEDED** is
    * thrown. This parameter might be absent, and instead a posted file is used.
    */
-  @JsonProperty("content")
   private String content;
 
   /**
@@ -31,25 +41,21 @@ public class Import {
    * format. Required for directories. - `R_MARKDOWN`: The notebook is imported from R Markdown
    * format.
    */
-  @JsonProperty("format")
   private ImportFormat format;
 
   /** The language of the object. This value is set only if the object type is `NOTEBOOK`. */
-  @JsonProperty("language")
   private Language language;
 
   /**
    * The flag that specifies whether to overwrite existing object. It is `false` by default. For
    * `DBC` format, `overwrite` is not supported since it may contain a directory.
    */
-  @JsonProperty("overwrite")
   private Boolean overwrite;
 
   /**
    * The absolute path of the object or directory. Importing a directory is only supported for the
    * `DBC` and `SOURCE` formats.
    */
-  @JsonProperty("path")
   private String path;
 
   public Import setContent(String content) {
@@ -123,5 +129,45 @@ public class Import {
         .add("overwrite", overwrite)
         .add("path", path)
         .toString();
+  }
+
+  ImportPb toPb() {
+    ImportPb pb = new ImportPb();
+    pb.setContent(content);
+    pb.setFormat(format);
+    pb.setLanguage(language);
+    pb.setOverwrite(overwrite);
+    pb.setPath(path);
+
+    return pb;
+  }
+
+  static Import fromPb(ImportPb pb) {
+    Import model = new Import();
+    model.setContent(pb.getContent());
+    model.setFormat(pb.getFormat());
+    model.setLanguage(pb.getLanguage());
+    model.setOverwrite(pb.getOverwrite());
+    model.setPath(pb.getPath());
+
+    return model;
+  }
+
+  public static class ImportSerializer extends JsonSerializer<Import> {
+    @Override
+    public void serialize(Import value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ImportPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ImportDeserializer extends JsonDeserializer<Import> {
+    @Override
+    public Import deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ImportPb pb = mapper.readValue(p, ImportPb.class);
+      return Import.fromPb(pb);
+    }
   }
 }

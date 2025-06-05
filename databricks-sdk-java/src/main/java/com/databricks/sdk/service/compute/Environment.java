@@ -4,7 +4,16 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -14,9 +23,10 @@ import java.util.Objects;
  * environment spec, only pip dependencies are supported.
  */
 @Generated
+@JsonSerialize(using = Environment.EnvironmentSerializer.class)
+@JsonDeserialize(using = Environment.EnvironmentDeserializer.class)
 public class Environment {
   /** Use `environment_version` instead. */
-  @JsonProperty("client")
   private String client;
 
   /**
@@ -26,21 +36,18 @@ public class Environment {
    * a requirement specifier, an archive URL, a local project path (such as WSFS or UC Volumes in
    * Databricks), or a VCS project URL.
    */
-  @JsonProperty("dependencies")
   private Collection<String> dependencies;
 
   /**
    * Required. Environment version used by the environment. Each version comes with a specific
    * Python version and a set of Python packages. The version is a string, consisting of an integer.
    */
-  @JsonProperty("environment_version")
   private String environmentVersion;
 
   /**
    * List of jar dependencies, should be string representing volume paths. For example:
    * `/Volumes/path/to/test.jar`.
    */
-  @JsonProperty("jar_dependencies")
   private Collection<String> jarDependencies;
 
   public Environment setClient(String client) {
@@ -103,5 +110,43 @@ public class Environment {
         .add("environmentVersion", environmentVersion)
         .add("jarDependencies", jarDependencies)
         .toString();
+  }
+
+  EnvironmentPb toPb() {
+    EnvironmentPb pb = new EnvironmentPb();
+    pb.setClient(client);
+    pb.setDependencies(dependencies);
+    pb.setEnvironmentVersion(environmentVersion);
+    pb.setJarDependencies(jarDependencies);
+
+    return pb;
+  }
+
+  static Environment fromPb(EnvironmentPb pb) {
+    Environment model = new Environment();
+    model.setClient(pb.getClient());
+    model.setDependencies(pb.getDependencies());
+    model.setEnvironmentVersion(pb.getEnvironmentVersion());
+    model.setJarDependencies(pb.getJarDependencies());
+
+    return model;
+  }
+
+  public static class EnvironmentSerializer extends JsonSerializer<Environment> {
+    @Override
+    public void serialize(Environment value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      EnvironmentPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class EnvironmentDeserializer extends JsonDeserializer<Environment> {
+    @Override
+    public Environment deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      EnvironmentPb pb = mapper.readValue(p, EnvironmentPb.class);
+      return Environment.fromPb(pb);
+    }
   }
 }

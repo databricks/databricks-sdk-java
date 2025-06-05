@@ -4,30 +4,38 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = ClusterPolicyAccessControlResponse.ClusterPolicyAccessControlResponseSerializer.class)
+@JsonDeserialize(
+    using = ClusterPolicyAccessControlResponse.ClusterPolicyAccessControlResponseDeserializer.class)
 public class ClusterPolicyAccessControlResponse {
   /** All permissions. */
-  @JsonProperty("all_permissions")
   private Collection<ClusterPolicyPermission> allPermissions;
 
   /** Display name of the user or service principal. */
-  @JsonProperty("display_name")
   private String displayName;
 
   /** name of the group */
-  @JsonProperty("group_name")
   private String groupName;
 
   /** Name of the service principal. */
-  @JsonProperty("service_principal_name")
   private String servicePrincipalName;
 
   /** name of the user */
-  @JsonProperty("user_name")
   private String userName;
 
   public ClusterPolicyAccessControlResponse setAllPermissions(
@@ -102,5 +110,50 @@ public class ClusterPolicyAccessControlResponse {
         .add("servicePrincipalName", servicePrincipalName)
         .add("userName", userName)
         .toString();
+  }
+
+  ClusterPolicyAccessControlResponsePb toPb() {
+    ClusterPolicyAccessControlResponsePb pb = new ClusterPolicyAccessControlResponsePb();
+    pb.setAllPermissions(allPermissions);
+    pb.setDisplayName(displayName);
+    pb.setGroupName(groupName);
+    pb.setServicePrincipalName(servicePrincipalName);
+    pb.setUserName(userName);
+
+    return pb;
+  }
+
+  static ClusterPolicyAccessControlResponse fromPb(ClusterPolicyAccessControlResponsePb pb) {
+    ClusterPolicyAccessControlResponse model = new ClusterPolicyAccessControlResponse();
+    model.setAllPermissions(pb.getAllPermissions());
+    model.setDisplayName(pb.getDisplayName());
+    model.setGroupName(pb.getGroupName());
+    model.setServicePrincipalName(pb.getServicePrincipalName());
+    model.setUserName(pb.getUserName());
+
+    return model;
+  }
+
+  public static class ClusterPolicyAccessControlResponseSerializer
+      extends JsonSerializer<ClusterPolicyAccessControlResponse> {
+    @Override
+    public void serialize(
+        ClusterPolicyAccessControlResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ClusterPolicyAccessControlResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ClusterPolicyAccessControlResponseDeserializer
+      extends JsonDeserializer<ClusterPolicyAccessControlResponse> {
+    @Override
+    public ClusterPolicyAccessControlResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ClusterPolicyAccessControlResponsePb pb =
+          mapper.readValue(p, ClusterPolicyAccessControlResponsePb.class);
+      return ClusterPolicyAccessControlResponse.fromPb(pb);
+    }
   }
 }

@@ -4,17 +4,27 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Attributes set during instance pool creation which are related to GCP. */
 @Generated
+@JsonSerialize(using = InstancePoolGcpAttributes.InstancePoolGcpAttributesSerializer.class)
+@JsonDeserialize(using = InstancePoolGcpAttributes.InstancePoolGcpAttributesDeserializer.class)
 public class InstancePoolGcpAttributes {
   /**
    * This field determines whether the instance pool will contain preemptible VMs, on-demand VMs, or
    * preemptible VMs with a fallback to on-demand VMs if the former is unavailable.
    */
-  @JsonProperty("gcp_availability")
   private GcpAvailability gcpAvailability;
 
   /**
@@ -25,7 +35,6 @@ public class InstancePoolGcpAttributes {
    * <p>[GCP documentation]:
    * https://cloud.google.com/compute/docs/disks/local-ssd#choose_number_local_ssds
    */
-  @JsonProperty("local_ssd_count")
   private Long localSsdCount;
 
   /**
@@ -42,7 +51,6 @@ public class InstancePoolGcpAttributes {
    *
    * <p>If empty, Databricks picks an availability zone to schedule the cluster on.
    */
-  @JsonProperty("zone_id")
   private String zoneId;
 
   public InstancePoolGcpAttributes setGcpAvailability(GcpAvailability gcpAvailability) {
@@ -94,5 +102,45 @@ public class InstancePoolGcpAttributes {
         .add("localSsdCount", localSsdCount)
         .add("zoneId", zoneId)
         .toString();
+  }
+
+  InstancePoolGcpAttributesPb toPb() {
+    InstancePoolGcpAttributesPb pb = new InstancePoolGcpAttributesPb();
+    pb.setGcpAvailability(gcpAvailability);
+    pb.setLocalSsdCount(localSsdCount);
+    pb.setZoneId(zoneId);
+
+    return pb;
+  }
+
+  static InstancePoolGcpAttributes fromPb(InstancePoolGcpAttributesPb pb) {
+    InstancePoolGcpAttributes model = new InstancePoolGcpAttributes();
+    model.setGcpAvailability(pb.getGcpAvailability());
+    model.setLocalSsdCount(pb.getLocalSsdCount());
+    model.setZoneId(pb.getZoneId());
+
+    return model;
+  }
+
+  public static class InstancePoolGcpAttributesSerializer
+      extends JsonSerializer<InstancePoolGcpAttributes> {
+    @Override
+    public void serialize(
+        InstancePoolGcpAttributes value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      InstancePoolGcpAttributesPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class InstancePoolGcpAttributesDeserializer
+      extends JsonDeserializer<InstancePoolGcpAttributes> {
+    @Override
+    public InstancePoolGcpAttributes deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      InstancePoolGcpAttributesPb pb = mapper.readValue(p, InstancePoolGcpAttributesPb.class);
+      return InstancePoolGcpAttributes.fromPb(pb);
+    }
   }
 }

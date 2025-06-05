@@ -4,7 +4,16 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -12,24 +21,22 @@ import java.util.Objects;
  * https://docs.aws.amazon.com/STS/latest/APIReference/API_Credentials.html.
  */
 @Generated
+@JsonSerialize(using = AwsCredentials.AwsCredentialsSerializer.class)
+@JsonDeserialize(using = AwsCredentials.AwsCredentialsDeserializer.class)
 public class AwsCredentials {
   /** The access key ID that identifies the temporary credentials. */
-  @JsonProperty("access_key_id")
   private String accessKeyId;
 
   /**
    * The Amazon Resource Name (ARN) of the S3 access point for temporary credentials related the
    * external location.
    */
-  @JsonProperty("access_point")
   private String accessPoint;
 
   /** The secret access key that can be used to sign AWS API requests. */
-  @JsonProperty("secret_access_key")
   private String secretAccessKey;
 
   /** The token that users must pass to AWS API to use the temporary credentials. */
-  @JsonProperty("session_token")
   private String sessionToken;
 
   public AwsCredentials setAccessKeyId(String accessKeyId) {
@@ -92,5 +99,44 @@ public class AwsCredentials {
         .add("secretAccessKey", secretAccessKey)
         .add("sessionToken", sessionToken)
         .toString();
+  }
+
+  AwsCredentialsPb toPb() {
+    AwsCredentialsPb pb = new AwsCredentialsPb();
+    pb.setAccessKeyId(accessKeyId);
+    pb.setAccessPoint(accessPoint);
+    pb.setSecretAccessKey(secretAccessKey);
+    pb.setSessionToken(sessionToken);
+
+    return pb;
+  }
+
+  static AwsCredentials fromPb(AwsCredentialsPb pb) {
+    AwsCredentials model = new AwsCredentials();
+    model.setAccessKeyId(pb.getAccessKeyId());
+    model.setAccessPoint(pb.getAccessPoint());
+    model.setSecretAccessKey(pb.getSecretAccessKey());
+    model.setSessionToken(pb.getSessionToken());
+
+    return model;
+  }
+
+  public static class AwsCredentialsSerializer extends JsonSerializer<AwsCredentials> {
+    @Override
+    public void serialize(AwsCredentials value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      AwsCredentialsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class AwsCredentialsDeserializer extends JsonDeserializer<AwsCredentials> {
+    @Override
+    public AwsCredentials deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      AwsCredentialsPb pb = mapper.readValue(p, AwsCredentialsPb.class);
+      return AwsCredentials.fromPb(pb);
+    }
   }
 }

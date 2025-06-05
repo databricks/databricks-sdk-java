@@ -4,22 +4,30 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ServingEndpointPermission.ServingEndpointPermissionSerializer.class)
+@JsonDeserialize(using = ServingEndpointPermission.ServingEndpointPermissionDeserializer.class)
 public class ServingEndpointPermission {
   /** */
-  @JsonProperty("inherited")
   private Boolean inherited;
 
   /** */
-  @JsonProperty("inherited_from_object")
   private Collection<String> inheritedFromObject;
 
   /** Permission level */
-  @JsonProperty("permission_level")
   private ServingEndpointPermissionLevel permissionLevel;
 
   public ServingEndpointPermission setInherited(Boolean inherited) {
@@ -72,5 +80,45 @@ public class ServingEndpointPermission {
         .add("inheritedFromObject", inheritedFromObject)
         .add("permissionLevel", permissionLevel)
         .toString();
+  }
+
+  ServingEndpointPermissionPb toPb() {
+    ServingEndpointPermissionPb pb = new ServingEndpointPermissionPb();
+    pb.setInherited(inherited);
+    pb.setInheritedFromObject(inheritedFromObject);
+    pb.setPermissionLevel(permissionLevel);
+
+    return pb;
+  }
+
+  static ServingEndpointPermission fromPb(ServingEndpointPermissionPb pb) {
+    ServingEndpointPermission model = new ServingEndpointPermission();
+    model.setInherited(pb.getInherited());
+    model.setInheritedFromObject(pb.getInheritedFromObject());
+    model.setPermissionLevel(pb.getPermissionLevel());
+
+    return model;
+  }
+
+  public static class ServingEndpointPermissionSerializer
+      extends JsonSerializer<ServingEndpointPermission> {
+    @Override
+    public void serialize(
+        ServingEndpointPermission value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ServingEndpointPermissionPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ServingEndpointPermissionDeserializer
+      extends JsonDeserializer<ServingEndpointPermission> {
+    @Override
+    public ServingEndpointPermission deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ServingEndpointPermissionPb pb = mapper.readValue(p, ServingEndpointPermissionPb.class);
+      return ServingEndpointPermission.fromPb(pb);
+    }
   }
 }

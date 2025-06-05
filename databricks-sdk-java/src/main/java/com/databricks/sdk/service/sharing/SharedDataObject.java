@@ -4,26 +4,33 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = SharedDataObject.SharedDataObjectSerializer.class)
+@JsonDeserialize(using = SharedDataObject.SharedDataObjectDeserializer.class)
 public class SharedDataObject {
   /** The time when this data object is added to the share, in epoch milliseconds. */
-  @JsonProperty("added_at")
   private Long addedAt;
 
   /** Username of the sharer. */
-  @JsonProperty("added_by")
   private String addedBy;
 
   /** Whether to enable cdf or indicate if cdf is enabled on the shared object. */
-  @JsonProperty("cdf_enabled")
   private Boolean cdfEnabled;
 
   /** A user-provided comment when adding the data object to the share. */
-  @JsonProperty("comment")
   private String comment;
 
   /**
@@ -31,18 +38,15 @@ public class SharedDataObject {
    * base64 encoded. Required for adding a NOTEBOOK_FILE, optional for updating, ignored for other
    * types.
    */
-  @JsonProperty("content")
   private String content;
 
   /** The type of the data object. */
-  @JsonProperty("data_object_type")
   private SharedDataObjectDataObjectType dataObjectType;
 
   /**
    * Whether to enable or disable sharing of data history. If not specified, the default is
    * **DISABLED**.
    */
-  @JsonProperty("history_data_sharing_status")
   private SharedDataObjectHistoryDataSharingStatus historyDataSharingStatus;
 
   /**
@@ -50,11 +54,9 @@ public class SharedDataObject {
    * a table's fully qualified name is in the format of
    * `<catalog>.<schema>.<table>`,
    */
-  @JsonProperty("name")
   private String name;
 
   /** Array of partitions for the shared data. */
-  @JsonProperty("partitions")
   private Collection<Partition> partitions;
 
   /**
@@ -63,7 +65,6 @@ public class SharedDataObject {
    * `shared_as` name. The `shared_as` name must be unique within a share. For
    * tables, the new name must follow the format of `<schema>.<table>`.
    */
-  @JsonProperty("shared_as")
   private String sharedAs;
 
   /**
@@ -74,11 +75,9 @@ public class SharedDataObject {
    *
    * <p>NOTE: The start_version should be <= the `current` version of the object.
    */
-  @JsonProperty("start_version")
   private Long startVersion;
 
   /** One of: **ACTIVE**, **PERMISSION_DENIED**. */
-  @JsonProperty("status")
   private SharedDataObjectStatus status;
 
   /**
@@ -87,7 +86,6 @@ public class SharedDataObject {
    * `string_shared_as` name must be unique for objects of the same type within a Share. For
    * notebooks, the new name should be the new notebook file name.
    */
-  @JsonProperty("string_shared_as")
   private String stringSharedAs;
 
   public SharedDataObject setAddedAt(Long addedAt) {
@@ -263,5 +261,62 @@ public class SharedDataObject {
         .add("status", status)
         .add("stringSharedAs", stringSharedAs)
         .toString();
+  }
+
+  SharedDataObjectPb toPb() {
+    SharedDataObjectPb pb = new SharedDataObjectPb();
+    pb.setAddedAt(addedAt);
+    pb.setAddedBy(addedBy);
+    pb.setCdfEnabled(cdfEnabled);
+    pb.setComment(comment);
+    pb.setContent(content);
+    pb.setDataObjectType(dataObjectType);
+    pb.setHistoryDataSharingStatus(historyDataSharingStatus);
+    pb.setName(name);
+    pb.setPartitions(partitions);
+    pb.setSharedAs(sharedAs);
+    pb.setStartVersion(startVersion);
+    pb.setStatus(status);
+    pb.setStringSharedAs(stringSharedAs);
+
+    return pb;
+  }
+
+  static SharedDataObject fromPb(SharedDataObjectPb pb) {
+    SharedDataObject model = new SharedDataObject();
+    model.setAddedAt(pb.getAddedAt());
+    model.setAddedBy(pb.getAddedBy());
+    model.setCdfEnabled(pb.getCdfEnabled());
+    model.setComment(pb.getComment());
+    model.setContent(pb.getContent());
+    model.setDataObjectType(pb.getDataObjectType());
+    model.setHistoryDataSharingStatus(pb.getHistoryDataSharingStatus());
+    model.setName(pb.getName());
+    model.setPartitions(pb.getPartitions());
+    model.setSharedAs(pb.getSharedAs());
+    model.setStartVersion(pb.getStartVersion());
+    model.setStatus(pb.getStatus());
+    model.setStringSharedAs(pb.getStringSharedAs());
+
+    return model;
+  }
+
+  public static class SharedDataObjectSerializer extends JsonSerializer<SharedDataObject> {
+    @Override
+    public void serialize(SharedDataObject value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SharedDataObjectPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SharedDataObjectDeserializer extends JsonDeserializer<SharedDataObject> {
+    @Override
+    public SharedDataObject deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SharedDataObjectPb pb = mapper.readValue(p, SharedDataObjectPb.class);
+      return SharedDataObject.fromPb(pb);
+    }
   }
 }

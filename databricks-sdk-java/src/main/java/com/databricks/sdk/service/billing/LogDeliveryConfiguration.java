@@ -4,26 +4,33 @@ package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = LogDeliveryConfiguration.LogDeliveryConfigurationSerializer.class)
+@JsonDeserialize(using = LogDeliveryConfiguration.LogDeliveryConfigurationDeserializer.class)
 public class LogDeliveryConfiguration {
   /** The Databricks account ID that hosts the log delivery configuration. */
-  @JsonProperty("account_id")
   private String accountId;
 
   /** Databricks log delivery configuration ID. */
-  @JsonProperty("config_id")
   private String configId;
 
   /** The optional human-readable name of the log delivery configuration. Defaults to empty. */
-  @JsonProperty("config_name")
   private String configName;
 
   /** Time in epoch milliseconds when the log delivery configuration was created. */
-  @JsonProperty("creation_time")
   private Long creationTime;
 
   /**
@@ -34,7 +41,6 @@ public class LogDeliveryConfiguration {
    * <p>[Configure billable usage delivery]:
    * https://docs.databricks.com/administration-guide/account-settings/billable-usage-delivery.html
    */
-  @JsonProperty("credentials_id")
   private String credentialsId;
 
   /**
@@ -42,7 +48,6 @@ public class LogDeliveryConfiguration {
    * logs are delivered to the root of the bucket. This must be a valid S3 object key. This must not
    * start or end with a slash character.
    */
-  @JsonProperty("delivery_path_prefix")
   private String deliveryPathPrefix;
 
   /**
@@ -50,11 +55,9 @@ public class LogDeliveryConfiguration {
    * year for delivery, specified in `YYYY-MM` format. Defaults to current year and month.
    * `BILLABLE_USAGE` logs are not available for usage before March 2019 (`2019-03`).
    */
-  @JsonProperty("delivery_start_time")
   private String deliveryStartTime;
 
   /** Databricks log delivery status. */
-  @JsonProperty("log_delivery_status")
   private LogDeliveryStatus logDeliveryStatus;
 
   /**
@@ -74,7 +77,6 @@ public class LogDeliveryConfiguration {
    * usage log delivery]:
    * https://docs.databricks.com/administration-guide/account-settings/billable-usage-delivery.html
    */
-  @JsonProperty("log_type")
   private LogType logType;
 
   /**
@@ -89,7 +91,6 @@ public class LogDeliveryConfiguration {
    * https://docs.databricks.com/administration-guide/account-settings/audit-logs.html [View
    * billable usage]: https://docs.databricks.com/administration-guide/account-settings/usage.html
    */
-  @JsonProperty("output_format")
   private OutputFormat outputFormat;
 
   /**
@@ -98,7 +99,6 @@ public class LogDeliveryConfiguration {
    * configuration](#operation/patch-log-delivery-config-status) later. Deletion of a configuration
    * is not supported, so disable a log delivery configuration that is no longer needed.
    */
-  @JsonProperty("status")
   private LogDeliveryConfigStatus status;
 
   /**
@@ -109,11 +109,9 @@ public class LogDeliveryConfiguration {
    * <p>[Configure billable usage delivery]:
    * https://docs.databricks.com/administration-guide/account-settings/billable-usage-delivery.html
    */
-  @JsonProperty("storage_configuration_id")
   private String storageConfigurationId;
 
   /** Time in epoch milliseconds when the log delivery configuration was updated. */
-  @JsonProperty("update_time")
   private Long updateTime;
 
   /**
@@ -128,7 +126,6 @@ public class LogDeliveryConfiguration {
    * types of Databricks deployments there is only one workspace per account ID, so this field is
    * unnecessary.
    */
-  @JsonProperty("workspace_ids_filter")
   private Collection<Long> workspaceIdsFilter;
 
   public LogDeliveryConfiguration setAccountId(String accountId) {
@@ -315,5 +312,67 @@ public class LogDeliveryConfiguration {
         .add("updateTime", updateTime)
         .add("workspaceIdsFilter", workspaceIdsFilter)
         .toString();
+  }
+
+  LogDeliveryConfigurationPb toPb() {
+    LogDeliveryConfigurationPb pb = new LogDeliveryConfigurationPb();
+    pb.setAccountId(accountId);
+    pb.setConfigId(configId);
+    pb.setConfigName(configName);
+    pb.setCreationTime(creationTime);
+    pb.setCredentialsId(credentialsId);
+    pb.setDeliveryPathPrefix(deliveryPathPrefix);
+    pb.setDeliveryStartTime(deliveryStartTime);
+    pb.setLogDeliveryStatus(logDeliveryStatus);
+    pb.setLogType(logType);
+    pb.setOutputFormat(outputFormat);
+    pb.setStatus(status);
+    pb.setStorageConfigurationId(storageConfigurationId);
+    pb.setUpdateTime(updateTime);
+    pb.setWorkspaceIdsFilter(workspaceIdsFilter);
+
+    return pb;
+  }
+
+  static LogDeliveryConfiguration fromPb(LogDeliveryConfigurationPb pb) {
+    LogDeliveryConfiguration model = new LogDeliveryConfiguration();
+    model.setAccountId(pb.getAccountId());
+    model.setConfigId(pb.getConfigId());
+    model.setConfigName(pb.getConfigName());
+    model.setCreationTime(pb.getCreationTime());
+    model.setCredentialsId(pb.getCredentialsId());
+    model.setDeliveryPathPrefix(pb.getDeliveryPathPrefix());
+    model.setDeliveryStartTime(pb.getDeliveryStartTime());
+    model.setLogDeliveryStatus(pb.getLogDeliveryStatus());
+    model.setLogType(pb.getLogType());
+    model.setOutputFormat(pb.getOutputFormat());
+    model.setStatus(pb.getStatus());
+    model.setStorageConfigurationId(pb.getStorageConfigurationId());
+    model.setUpdateTime(pb.getUpdateTime());
+    model.setWorkspaceIdsFilter(pb.getWorkspaceIdsFilter());
+
+    return model;
+  }
+
+  public static class LogDeliveryConfigurationSerializer
+      extends JsonSerializer<LogDeliveryConfiguration> {
+    @Override
+    public void serialize(
+        LogDeliveryConfiguration value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      LogDeliveryConfigurationPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class LogDeliveryConfigurationDeserializer
+      extends JsonDeserializer<LogDeliveryConfiguration> {
+    @Override
+    public LogDeliveryConfiguration deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      LogDeliveryConfigurationPb pb = mapper.readValue(p, LogDeliveryConfigurationPb.class);
+      return LogDeliveryConfiguration.fromPb(pb);
+    }
   }
 }

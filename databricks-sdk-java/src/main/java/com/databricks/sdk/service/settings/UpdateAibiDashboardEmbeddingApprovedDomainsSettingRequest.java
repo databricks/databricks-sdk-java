@@ -4,14 +4,30 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Details required to update a setting. */
 @Generated
+@JsonSerialize(
+    using =
+        UpdateAibiDashboardEmbeddingApprovedDomainsSettingRequest
+            .UpdateAibiDashboardEmbeddingApprovedDomainsSettingRequestSerializer.class)
+@JsonDeserialize(
+    using =
+        UpdateAibiDashboardEmbeddingApprovedDomainsSettingRequest
+            .UpdateAibiDashboardEmbeddingApprovedDomainsSettingRequestDeserializer.class)
 public class UpdateAibiDashboardEmbeddingApprovedDomainsSettingRequest {
   /** This should always be set to true for Settings API. Added for AIP compliance. */
-  @JsonProperty("allow_missing")
   private Boolean allowMissing;
 
   /**
@@ -25,11 +41,9 @@ public class UpdateAibiDashboardEmbeddingApprovedDomainsSettingRequest {
    * the fields being updated and avoid using `*` wildcards, as it can lead to unintended results if
    * the API changes in the future.
    */
-  @JsonProperty("field_mask")
   private String fieldMask;
 
   /** */
-  @JsonProperty("setting")
   private AibiDashboardEmbeddingApprovedDomainsSetting setting;
 
   public UpdateAibiDashboardEmbeddingApprovedDomainsSettingRequest setAllowMissing(
@@ -84,5 +98,51 @@ public class UpdateAibiDashboardEmbeddingApprovedDomainsSettingRequest {
         .add("fieldMask", fieldMask)
         .add("setting", setting)
         .toString();
+  }
+
+  UpdateAibiDashboardEmbeddingApprovedDomainsSettingRequestPb toPb() {
+    UpdateAibiDashboardEmbeddingApprovedDomainsSettingRequestPb pb =
+        new UpdateAibiDashboardEmbeddingApprovedDomainsSettingRequestPb();
+    pb.setAllowMissing(allowMissing);
+    pb.setFieldMask(fieldMask);
+    pb.setSetting(setting);
+
+    return pb;
+  }
+
+  static UpdateAibiDashboardEmbeddingApprovedDomainsSettingRequest fromPb(
+      UpdateAibiDashboardEmbeddingApprovedDomainsSettingRequestPb pb) {
+    UpdateAibiDashboardEmbeddingApprovedDomainsSettingRequest model =
+        new UpdateAibiDashboardEmbeddingApprovedDomainsSettingRequest();
+    model.setAllowMissing(pb.getAllowMissing());
+    model.setFieldMask(pb.getFieldMask());
+    model.setSetting(pb.getSetting());
+
+    return model;
+  }
+
+  public static class UpdateAibiDashboardEmbeddingApprovedDomainsSettingRequestSerializer
+      extends JsonSerializer<UpdateAibiDashboardEmbeddingApprovedDomainsSettingRequest> {
+    @Override
+    public void serialize(
+        UpdateAibiDashboardEmbeddingApprovedDomainsSettingRequest value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      UpdateAibiDashboardEmbeddingApprovedDomainsSettingRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateAibiDashboardEmbeddingApprovedDomainsSettingRequestDeserializer
+      extends JsonDeserializer<UpdateAibiDashboardEmbeddingApprovedDomainsSettingRequest> {
+    @Override
+    public UpdateAibiDashboardEmbeddingApprovedDomainsSettingRequest deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateAibiDashboardEmbeddingApprovedDomainsSettingRequestPb pb =
+          mapper.readValue(p, UpdateAibiDashboardEmbeddingApprovedDomainsSettingRequestPb.class);
+      return UpdateAibiDashboardEmbeddingApprovedDomainsSettingRequest.fromPb(pb);
+    }
   }
 }

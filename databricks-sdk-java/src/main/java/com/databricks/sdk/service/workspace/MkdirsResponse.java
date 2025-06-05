@@ -4,9 +4,21 @@ package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = MkdirsResponse.MkdirsResponseSerializer.class)
+@JsonDeserialize(using = MkdirsResponse.MkdirsResponseDeserializer.class)
 public class MkdirsResponse {
 
   @Override
@@ -24,5 +36,36 @@ public class MkdirsResponse {
   @Override
   public String toString() {
     return new ToStringer(MkdirsResponse.class).toString();
+  }
+
+  MkdirsResponsePb toPb() {
+    MkdirsResponsePb pb = new MkdirsResponsePb();
+
+    return pb;
+  }
+
+  static MkdirsResponse fromPb(MkdirsResponsePb pb) {
+    MkdirsResponse model = new MkdirsResponse();
+
+    return model;
+  }
+
+  public static class MkdirsResponseSerializer extends JsonSerializer<MkdirsResponse> {
+    @Override
+    public void serialize(MkdirsResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      MkdirsResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class MkdirsResponseDeserializer extends JsonDeserializer<MkdirsResponse> {
+    @Override
+    public MkdirsResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      MkdirsResponsePb pb = mapper.readValue(p, MkdirsResponsePb.class);
+      return MkdirsResponse.fromPb(pb);
+    }
   }
 }

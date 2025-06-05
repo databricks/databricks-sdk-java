@@ -4,20 +4,29 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 /** Target rule controls the egress rules that are dedicated to specific resources. */
 @Generated
+@JsonSerialize(using = NccEgressTargetRules.NccEgressTargetRulesSerializer.class)
+@JsonDeserialize(using = NccEgressTargetRules.NccEgressTargetRulesDeserializer.class)
 public class NccEgressTargetRules {
   /** AWS private endpoint rule controls the AWS private endpoint based egress rules. */
-  @JsonProperty("aws_private_endpoint_rules")
   private Collection<CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRule>
       awsPrivateEndpointRules;
 
   /** */
-  @JsonProperty("azure_private_endpoint_rules")
   private Collection<NccAzurePrivateEndpointRule> azurePrivateEndpointRules;
 
   public NccEgressTargetRules setAwsPrivateEndpointRules(
@@ -62,5 +71,42 @@ public class NccEgressTargetRules {
         .add("awsPrivateEndpointRules", awsPrivateEndpointRules)
         .add("azurePrivateEndpointRules", azurePrivateEndpointRules)
         .toString();
+  }
+
+  NccEgressTargetRulesPb toPb() {
+    NccEgressTargetRulesPb pb = new NccEgressTargetRulesPb();
+    pb.setAwsPrivateEndpointRules(awsPrivateEndpointRules);
+    pb.setAzurePrivateEndpointRules(azurePrivateEndpointRules);
+
+    return pb;
+  }
+
+  static NccEgressTargetRules fromPb(NccEgressTargetRulesPb pb) {
+    NccEgressTargetRules model = new NccEgressTargetRules();
+    model.setAwsPrivateEndpointRules(pb.getAwsPrivateEndpointRules());
+    model.setAzurePrivateEndpointRules(pb.getAzurePrivateEndpointRules());
+
+    return model;
+  }
+
+  public static class NccEgressTargetRulesSerializer extends JsonSerializer<NccEgressTargetRules> {
+    @Override
+    public void serialize(
+        NccEgressTargetRules value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      NccEgressTargetRulesPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class NccEgressTargetRulesDeserializer
+      extends JsonDeserializer<NccEgressTargetRules> {
+    @Override
+    public NccEgressTargetRules deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      NccEgressTargetRulesPb pb = mapper.readValue(p, NccEgressTargetRulesPb.class);
+      return NccEgressTargetRules.fromPb(pb);
+    }
   }
 }

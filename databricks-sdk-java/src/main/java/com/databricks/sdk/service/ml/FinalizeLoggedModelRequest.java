@@ -4,20 +4,29 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = FinalizeLoggedModelRequest.FinalizeLoggedModelRequestSerializer.class)
+@JsonDeserialize(using = FinalizeLoggedModelRequest.FinalizeLoggedModelRequestDeserializer.class)
 public class FinalizeLoggedModelRequest {
   /** The ID of the logged model to finalize. */
-  @JsonIgnore private String modelId;
+  private String modelId;
 
   /**
    * Whether or not the model is ready for use. ``"LOGGED_MODEL_UPLOAD_FAILED"`` indicates that
    * something went wrong when logging the model weights / agent code.
    */
-  @JsonProperty("status")
   private LoggedModelStatus status;
 
   public FinalizeLoggedModelRequest setModelId(String modelId) {
@@ -57,5 +66,43 @@ public class FinalizeLoggedModelRequest {
         .add("modelId", modelId)
         .add("status", status)
         .toString();
+  }
+
+  FinalizeLoggedModelRequestPb toPb() {
+    FinalizeLoggedModelRequestPb pb = new FinalizeLoggedModelRequestPb();
+    pb.setModelId(modelId);
+    pb.setStatus(status);
+
+    return pb;
+  }
+
+  static FinalizeLoggedModelRequest fromPb(FinalizeLoggedModelRequestPb pb) {
+    FinalizeLoggedModelRequest model = new FinalizeLoggedModelRequest();
+    model.setModelId(pb.getModelId());
+    model.setStatus(pb.getStatus());
+
+    return model;
+  }
+
+  public static class FinalizeLoggedModelRequestSerializer
+      extends JsonSerializer<FinalizeLoggedModelRequest> {
+    @Override
+    public void serialize(
+        FinalizeLoggedModelRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      FinalizeLoggedModelRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class FinalizeLoggedModelRequestDeserializer
+      extends JsonDeserializer<FinalizeLoggedModelRequest> {
+    @Override
+    public FinalizeLoggedModelRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      FinalizeLoggedModelRequestPb pb = mapper.readValue(p, FinalizeLoggedModelRequestPb.class);
+      return FinalizeLoggedModelRequest.fromPb(pb);
+    }
   }
 }

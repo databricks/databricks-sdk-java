@@ -4,25 +4,32 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateExternalLocation.CreateExternalLocationSerializer.class)
+@JsonDeserialize(using = CreateExternalLocation.CreateExternalLocationDeserializer.class)
 public class CreateExternalLocation {
   /** User-provided free-form text description. */
-  @JsonProperty("comment")
   private String comment;
 
   /** Name of the storage credential used with this location. */
-  @JsonProperty("credential_name")
   private String credentialName;
 
   /** [Create:OPT Update:OPT] Whether to enable file events on this external location. */
-  @JsonProperty("enable_file_events")
   private Boolean enableFileEvents;
 
   /** Encryption options that apply to clients connecting to cloud storage. */
-  @JsonProperty("encryption_details")
   private EncryptionDetails encryptionDetails;
 
   /**
@@ -30,27 +37,21 @@ public class CreateExternalLocation {
    * enabled, the access to the location falls back to cluster credentials if UC credentials are not
    * sufficient.
    */
-  @JsonProperty("fallback")
   private Boolean fallback;
 
   /** [Create:OPT Update:OPT] File event queue settings. */
-  @JsonProperty("file_event_queue")
   private FileEventQueue fileEventQueue;
 
   /** Name of the external location. */
-  @JsonProperty("name")
   private String name;
 
   /** Indicates whether the external location is read-only. */
-  @JsonProperty("read_only")
   private Boolean readOnly;
 
   /** Skips validation of the storage credential associated with the external location. */
-  @JsonProperty("skip_validation")
   private Boolean skipValidation;
 
   /** Path URL of the external location. */
-  @JsonProperty("url")
   private String url;
 
   public CreateExternalLocation setComment(String comment) {
@@ -189,5 +190,59 @@ public class CreateExternalLocation {
         .add("skipValidation", skipValidation)
         .add("url", url)
         .toString();
+  }
+
+  CreateExternalLocationPb toPb() {
+    CreateExternalLocationPb pb = new CreateExternalLocationPb();
+    pb.setComment(comment);
+    pb.setCredentialName(credentialName);
+    pb.setEnableFileEvents(enableFileEvents);
+    pb.setEncryptionDetails(encryptionDetails);
+    pb.setFallback(fallback);
+    pb.setFileEventQueue(fileEventQueue);
+    pb.setName(name);
+    pb.setReadOnly(readOnly);
+    pb.setSkipValidation(skipValidation);
+    pb.setUrl(url);
+
+    return pb;
+  }
+
+  static CreateExternalLocation fromPb(CreateExternalLocationPb pb) {
+    CreateExternalLocation model = new CreateExternalLocation();
+    model.setComment(pb.getComment());
+    model.setCredentialName(pb.getCredentialName());
+    model.setEnableFileEvents(pb.getEnableFileEvents());
+    model.setEncryptionDetails(pb.getEncryptionDetails());
+    model.setFallback(pb.getFallback());
+    model.setFileEventQueue(pb.getFileEventQueue());
+    model.setName(pb.getName());
+    model.setReadOnly(pb.getReadOnly());
+    model.setSkipValidation(pb.getSkipValidation());
+    model.setUrl(pb.getUrl());
+
+    return model;
+  }
+
+  public static class CreateExternalLocationSerializer
+      extends JsonSerializer<CreateExternalLocation> {
+    @Override
+    public void serialize(
+        CreateExternalLocation value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateExternalLocationPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateExternalLocationDeserializer
+      extends JsonDeserializer<CreateExternalLocation> {
+    @Override
+    public CreateExternalLocation deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateExternalLocationPb pb = mapper.readValue(p, CreateExternalLocationPb.class);
+      return CreateExternalLocation.fromPb(pb);
+    }
   }
 }

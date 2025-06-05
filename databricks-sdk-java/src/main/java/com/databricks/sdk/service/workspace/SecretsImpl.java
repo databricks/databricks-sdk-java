@@ -21,7 +21,7 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/scopes/create";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, CreateScopeResponse.class);
@@ -35,7 +35,7 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/acls/delete";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, DeleteAclResponse.class);
@@ -49,7 +49,7 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/scopes/delete";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, DeleteScopeResponse.class);
@@ -63,7 +63,7 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/delete";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, DeleteSecretResponse.class);
@@ -77,7 +77,7 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/acls/get";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, AclItem.class);
     } catch (IOException e) {
@@ -90,7 +90,7 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/get";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetSecretResponse.class);
     } catch (IOException e) {
@@ -103,7 +103,7 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/acls/list";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListAclsResponse.class);
     } catch (IOException e) {
@@ -128,7 +128,7 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/list";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListSecretsResponse.class);
     } catch (IOException e) {
@@ -141,7 +141,7 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/acls/put";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, PutAclResponse.class);
@@ -155,7 +155,7 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/put";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, PutSecretResponse.class);

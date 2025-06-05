@@ -4,17 +4,26 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateContext.CreateContextSerializer.class)
+@JsonDeserialize(using = CreateContext.CreateContextDeserializer.class)
 public class CreateContext {
   /** Running cluster id */
-  @JsonProperty("clusterId")
   private String clusterId;
 
   /** */
-  @JsonProperty("language")
   private Language language;
 
   public CreateContext setClusterId(String clusterId) {
@@ -54,5 +63,39 @@ public class CreateContext {
         .add("clusterId", clusterId)
         .add("language", language)
         .toString();
+  }
+
+  CreateContextPb toPb() {
+    CreateContextPb pb = new CreateContextPb();
+    pb.setClusterId(clusterId);
+    pb.setLanguage(language);
+
+    return pb;
+  }
+
+  static CreateContext fromPb(CreateContextPb pb) {
+    CreateContext model = new CreateContext();
+    model.setClusterId(pb.getClusterId());
+    model.setLanguage(pb.getLanguage());
+
+    return model;
+  }
+
+  public static class CreateContextSerializer extends JsonSerializer<CreateContext> {
+    @Override
+    public void serialize(CreateContext value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateContextPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateContextDeserializer extends JsonDeserializer<CreateContext> {
+    @Override
+    public CreateContext deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateContextPb pb = mapper.readValue(p, CreateContextPb.class);
+      return CreateContext.fromPb(pb);
+    }
   }
 }

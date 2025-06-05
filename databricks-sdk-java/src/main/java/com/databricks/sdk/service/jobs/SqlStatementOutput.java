@@ -4,13 +4,23 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = SqlStatementOutput.SqlStatementOutputSerializer.class)
+@JsonDeserialize(using = SqlStatementOutput.SqlStatementOutputDeserializer.class)
 public class SqlStatementOutput {
   /** A key that can be used to look up query details. */
-  @JsonProperty("lookup_key")
   private String lookupKey;
 
   public SqlStatementOutput setLookupKey(String lookupKey) {
@@ -38,5 +48,38 @@ public class SqlStatementOutput {
   @Override
   public String toString() {
     return new ToStringer(SqlStatementOutput.class).add("lookupKey", lookupKey).toString();
+  }
+
+  SqlStatementOutputPb toPb() {
+    SqlStatementOutputPb pb = new SqlStatementOutputPb();
+    pb.setLookupKey(lookupKey);
+
+    return pb;
+  }
+
+  static SqlStatementOutput fromPb(SqlStatementOutputPb pb) {
+    SqlStatementOutput model = new SqlStatementOutput();
+    model.setLookupKey(pb.getLookupKey());
+
+    return model;
+  }
+
+  public static class SqlStatementOutputSerializer extends JsonSerializer<SqlStatementOutput> {
+    @Override
+    public void serialize(SqlStatementOutput value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SqlStatementOutputPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SqlStatementOutputDeserializer extends JsonDeserializer<SqlStatementOutput> {
+    @Override
+    public SqlStatementOutput deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SqlStatementOutputPb pb = mapper.readValue(p, SqlStatementOutputPb.class);
+      return SqlStatementOutput.fromPb(pb);
+    }
   }
 }

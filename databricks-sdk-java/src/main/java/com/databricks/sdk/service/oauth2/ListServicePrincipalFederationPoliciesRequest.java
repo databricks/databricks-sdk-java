@@ -3,26 +3,38 @@
 package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List service principal federation policies */
 @Generated
+@JsonSerialize(
+    using =
+        ListServicePrincipalFederationPoliciesRequest
+            .ListServicePrincipalFederationPoliciesRequestSerializer.class)
+@JsonDeserialize(
+    using =
+        ListServicePrincipalFederationPoliciesRequest
+            .ListServicePrincipalFederationPoliciesRequestDeserializer.class)
 public class ListServicePrincipalFederationPoliciesRequest {
   /** */
-  @JsonIgnore
-  @QueryParam("page_size")
   private Long pageSize;
 
   /** */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   /** The service principal id for the federation policy. */
-  @JsonIgnore private Long servicePrincipalId;
+  private Long servicePrincipalId;
 
   public ListServicePrincipalFederationPoliciesRequest setPageSize(Long pageSize) {
     this.pageSize = pageSize;
@@ -75,5 +87,51 @@ public class ListServicePrincipalFederationPoliciesRequest {
         .add("pageToken", pageToken)
         .add("servicePrincipalId", servicePrincipalId)
         .toString();
+  }
+
+  ListServicePrincipalFederationPoliciesRequestPb toPb() {
+    ListServicePrincipalFederationPoliciesRequestPb pb =
+        new ListServicePrincipalFederationPoliciesRequestPb();
+    pb.setPageSize(pageSize);
+    pb.setPageToken(pageToken);
+    pb.setServicePrincipalId(servicePrincipalId);
+
+    return pb;
+  }
+
+  static ListServicePrincipalFederationPoliciesRequest fromPb(
+      ListServicePrincipalFederationPoliciesRequestPb pb) {
+    ListServicePrincipalFederationPoliciesRequest model =
+        new ListServicePrincipalFederationPoliciesRequest();
+    model.setPageSize(pb.getPageSize());
+    model.setPageToken(pb.getPageToken());
+    model.setServicePrincipalId(pb.getServicePrincipalId());
+
+    return model;
+  }
+
+  public static class ListServicePrincipalFederationPoliciesRequestSerializer
+      extends JsonSerializer<ListServicePrincipalFederationPoliciesRequest> {
+    @Override
+    public void serialize(
+        ListServicePrincipalFederationPoliciesRequest value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      ListServicePrincipalFederationPoliciesRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListServicePrincipalFederationPoliciesRequestDeserializer
+      extends JsonDeserializer<ListServicePrincipalFederationPoliciesRequest> {
+    @Override
+    public ListServicePrincipalFederationPoliciesRequest deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListServicePrincipalFederationPoliciesRequestPb pb =
+          mapper.readValue(p, ListServicePrincipalFederationPoliciesRequestPb.class);
+      return ListServicePrincipalFederationPoliciesRequest.fromPb(pb);
+    }
   }
 }

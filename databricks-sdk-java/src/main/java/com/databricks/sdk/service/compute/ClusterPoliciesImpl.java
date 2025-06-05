@@ -21,7 +21,7 @@ class ClusterPoliciesImpl implements ClusterPoliciesService {
     String path = "/api/2.0/policies/clusters/create";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, CreatePolicyResponse.class);
@@ -35,7 +35,7 @@ class ClusterPoliciesImpl implements ClusterPoliciesService {
     String path = "/api/2.0/policies/clusters/delete";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, DeletePolicyResponse.class);
@@ -49,7 +49,7 @@ class ClusterPoliciesImpl implements ClusterPoliciesService {
     String path = "/api/2.0/policies/clusters/edit";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, EditPolicyResponse.class);
@@ -63,7 +63,7 @@ class ClusterPoliciesImpl implements ClusterPoliciesService {
     String path = "/api/2.0/policies/clusters/get";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, Policy.class);
     } catch (IOException e) {
@@ -80,7 +80,7 @@ class ClusterPoliciesImpl implements ClusterPoliciesService {
             request.getClusterPolicyId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetClusterPolicyPermissionLevelsResponse.class);
     } catch (IOException e) {
@@ -94,7 +94,7 @@ class ClusterPoliciesImpl implements ClusterPoliciesService {
         String.format("/api/2.0/permissions/cluster-policies/%s", request.getClusterPolicyId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ClusterPolicyPermissions.class);
     } catch (IOException e) {
@@ -107,7 +107,7 @@ class ClusterPoliciesImpl implements ClusterPoliciesService {
     String path = "/api/2.0/policies/clusters/list";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListPoliciesResponse.class);
     } catch (IOException e) {
@@ -121,7 +121,7 @@ class ClusterPoliciesImpl implements ClusterPoliciesService {
         String.format("/api/2.0/permissions/cluster-policies/%s", request.getClusterPolicyId());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, ClusterPolicyPermissions.class);
@@ -136,7 +136,7 @@ class ClusterPoliciesImpl implements ClusterPoliciesService {
         String.format("/api/2.0/permissions/cluster-policies/%s", request.getClusterPolicyId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, ClusterPolicyPermissions.class);

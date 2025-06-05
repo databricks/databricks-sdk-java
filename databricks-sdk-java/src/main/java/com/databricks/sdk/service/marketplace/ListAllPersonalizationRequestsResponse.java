@@ -4,18 +4,33 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using =
+        ListAllPersonalizationRequestsResponse.ListAllPersonalizationRequestsResponseSerializer
+            .class)
+@JsonDeserialize(
+    using =
+        ListAllPersonalizationRequestsResponse.ListAllPersonalizationRequestsResponseDeserializer
+            .class)
 public class ListAllPersonalizationRequestsResponse {
   /** */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   /** */
-  @JsonProperty("personalization_requests")
   private Collection<PersonalizationRequest> personalizationRequests;
 
   public ListAllPersonalizationRequestsResponse setNextPageToken(String nextPageToken) {
@@ -57,5 +72,47 @@ public class ListAllPersonalizationRequestsResponse {
         .add("nextPageToken", nextPageToken)
         .add("personalizationRequests", personalizationRequests)
         .toString();
+  }
+
+  ListAllPersonalizationRequestsResponsePb toPb() {
+    ListAllPersonalizationRequestsResponsePb pb = new ListAllPersonalizationRequestsResponsePb();
+    pb.setNextPageToken(nextPageToken);
+    pb.setPersonalizationRequests(personalizationRequests);
+
+    return pb;
+  }
+
+  static ListAllPersonalizationRequestsResponse fromPb(
+      ListAllPersonalizationRequestsResponsePb pb) {
+    ListAllPersonalizationRequestsResponse model = new ListAllPersonalizationRequestsResponse();
+    model.setNextPageToken(pb.getNextPageToken());
+    model.setPersonalizationRequests(pb.getPersonalizationRequests());
+
+    return model;
+  }
+
+  public static class ListAllPersonalizationRequestsResponseSerializer
+      extends JsonSerializer<ListAllPersonalizationRequestsResponse> {
+    @Override
+    public void serialize(
+        ListAllPersonalizationRequestsResponse value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      ListAllPersonalizationRequestsResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListAllPersonalizationRequestsResponseDeserializer
+      extends JsonDeserializer<ListAllPersonalizationRequestsResponse> {
+    @Override
+    public ListAllPersonalizationRequestsResponse deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListAllPersonalizationRequestsResponsePb pb =
+          mapper.readValue(p, ListAllPersonalizationRequestsResponsePb.class);
+      return ListAllPersonalizationRequestsResponse.fromPb(pb);
+    }
   }
 }

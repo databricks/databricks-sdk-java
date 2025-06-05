@@ -24,7 +24,7 @@ class GrantsImpl implements GrantsService {
             request.getSecurableType(), request.getFullName());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, PermissionsList.class);
     } catch (IOException e) {
@@ -40,7 +40,7 @@ class GrantsImpl implements GrantsService {
             request.getSecurableType(), request.getFullName());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, EffectivePermissionsList.class);
     } catch (IOException e) {
@@ -56,7 +56,7 @@ class GrantsImpl implements GrantsService {
             request.getSecurableType(), request.getFullName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, PermissionsList.class);

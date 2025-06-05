@@ -4,13 +4,23 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = SchemaSpec.SchemaSpecSerializer.class)
+@JsonDeserialize(using = SchemaSpec.SchemaSpecDeserializer.class)
 public class SchemaSpec {
   /** Required. Destination catalog to store tables. */
-  @JsonProperty("destination_catalog")
   private String destinationCatalog;
 
   /**
@@ -18,15 +28,12 @@ public class SchemaSpec {
    * are created in this destination schema. The pipeline fails If a table with the same name
    * already exists.
    */
-  @JsonProperty("destination_schema")
   private String destinationSchema;
 
   /** The source catalog name. Might be optional depending on the type of source. */
-  @JsonProperty("source_catalog")
   private String sourceCatalog;
 
   /** Required. Schema name in the source database. */
-  @JsonProperty("source_schema")
   private String sourceSchema;
 
   /**
@@ -34,7 +41,6 @@ public class SchemaSpec {
    * tables in this schema and override the table_configuration defined in the
    * IngestionPipelineDefinition object.
    */
-  @JsonProperty("table_configuration")
   private TableSpecificConfig tableConfiguration;
 
   public SchemaSpec setDestinationCatalog(String destinationCatalog) {
@@ -109,5 +115,45 @@ public class SchemaSpec {
         .add("sourceSchema", sourceSchema)
         .add("tableConfiguration", tableConfiguration)
         .toString();
+  }
+
+  SchemaSpecPb toPb() {
+    SchemaSpecPb pb = new SchemaSpecPb();
+    pb.setDestinationCatalog(destinationCatalog);
+    pb.setDestinationSchema(destinationSchema);
+    pb.setSourceCatalog(sourceCatalog);
+    pb.setSourceSchema(sourceSchema);
+    pb.setTableConfiguration(tableConfiguration);
+
+    return pb;
+  }
+
+  static SchemaSpec fromPb(SchemaSpecPb pb) {
+    SchemaSpec model = new SchemaSpec();
+    model.setDestinationCatalog(pb.getDestinationCatalog());
+    model.setDestinationSchema(pb.getDestinationSchema());
+    model.setSourceCatalog(pb.getSourceCatalog());
+    model.setSourceSchema(pb.getSourceSchema());
+    model.setTableConfiguration(pb.getTableConfiguration());
+
+    return model;
+  }
+
+  public static class SchemaSpecSerializer extends JsonSerializer<SchemaSpec> {
+    @Override
+    public void serialize(SchemaSpec value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SchemaSpecPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SchemaSpecDeserializer extends JsonDeserializer<SchemaSpec> {
+    @Override
+    public SchemaSpec deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SchemaSpecPb pb = mapper.readValue(p, SchemaSpecPb.class);
+      return SchemaSpec.fromPb(pb);
+    }
   }
 }

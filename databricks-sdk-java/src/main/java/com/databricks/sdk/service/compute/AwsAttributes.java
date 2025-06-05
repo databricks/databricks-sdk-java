@@ -4,11 +4,22 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Attributes set during cluster creation which are related to Amazon Web Services. */
 @Generated
+@JsonSerialize(using = AwsAttributes.AwsAttributesSerializer.class)
+@JsonDeserialize(using = AwsAttributes.AwsAttributesDeserializer.class)
 public class AwsAttributes {
   /**
    * Availability type used for all subsequent nodes past the `first_on_demand` ones.
@@ -16,7 +27,6 @@ public class AwsAttributes {
    * <p>Note: If `first_on_demand` is zero, this availability type will be used for the entire
    * cluster.
    */
-  @JsonProperty("availability")
   private AwsAvailability availability;
 
   /**
@@ -36,14 +46,12 @@ public class AwsAttributes {
    * <p>Please note that if EBS volumes are specified, then the Spark configuration
    * `spark.local.dir` will be overridden.
    */
-  @JsonProperty("ebs_volume_count")
   private Long ebsVolumeCount;
 
   /**
    * If using gp3 volumes, what IOPS to use for the disk. If this is not set, the maximum
    * performance of a gp2 volume with the same volume size will be used.
    */
-  @JsonProperty("ebs_volume_iops")
   private Long ebsVolumeIops;
 
   /**
@@ -51,18 +59,15 @@ public class AwsAttributes {
    * value must be within the range 100 - 4096. For throughput optimized HDD, this value must be
    * within the range 500 - 4096.
    */
-  @JsonProperty("ebs_volume_size")
   private Long ebsVolumeSize;
 
   /**
    * If using gp3 volumes, what throughput to use for the disk. If this is not set, the maximum
    * performance of a gp2 volume with the same volume size will be used.
    */
-  @JsonProperty("ebs_volume_throughput")
   private Long ebsVolumeThroughput;
 
   /** The type of EBS volumes that will be launched with this cluster. */
-  @JsonProperty("ebs_volume_type")
   private EbsVolumeType ebsVolumeType;
 
   /**
@@ -74,7 +79,6 @@ public class AwsAttributes {
    * on `availability` instances. Note that this value does not affect cluster size and cannot
    * currently be mutated over the lifetime of a cluster.
    */
-  @JsonProperty("first_on_demand")
   private Long firstOnDemand;
 
   /**
@@ -85,7 +89,6 @@ public class AwsAttributes {
    *
    * <p>This feature may only be available to certain customer plans.
    */
-  @JsonProperty("instance_profile_arn")
   private String instanceProfileArn;
 
   /**
@@ -98,7 +101,6 @@ public class AwsAttributes {
    * matches this field will be considered. Note that, for safety, we enforce this field to be no
    * more than 10000.
    */
-  @JsonProperty("spot_bid_price_percent")
   private Long spotBidPricePercent;
 
   /**
@@ -113,7 +115,6 @@ public class AwsAttributes {
    * <p>The list of available zones as well as the default value can be found by using the `List
    * Zones` method.
    */
-  @JsonProperty("zone_id")
   private String zoneId;
 
   public AwsAttributes setAvailability(AwsAvailability availability) {
@@ -252,5 +253,55 @@ public class AwsAttributes {
         .add("spotBidPricePercent", spotBidPricePercent)
         .add("zoneId", zoneId)
         .toString();
+  }
+
+  AwsAttributesPb toPb() {
+    AwsAttributesPb pb = new AwsAttributesPb();
+    pb.setAvailability(availability);
+    pb.setEbsVolumeCount(ebsVolumeCount);
+    pb.setEbsVolumeIops(ebsVolumeIops);
+    pb.setEbsVolumeSize(ebsVolumeSize);
+    pb.setEbsVolumeThroughput(ebsVolumeThroughput);
+    pb.setEbsVolumeType(ebsVolumeType);
+    pb.setFirstOnDemand(firstOnDemand);
+    pb.setInstanceProfileArn(instanceProfileArn);
+    pb.setSpotBidPricePercent(spotBidPricePercent);
+    pb.setZoneId(zoneId);
+
+    return pb;
+  }
+
+  static AwsAttributes fromPb(AwsAttributesPb pb) {
+    AwsAttributes model = new AwsAttributes();
+    model.setAvailability(pb.getAvailability());
+    model.setEbsVolumeCount(pb.getEbsVolumeCount());
+    model.setEbsVolumeIops(pb.getEbsVolumeIops());
+    model.setEbsVolumeSize(pb.getEbsVolumeSize());
+    model.setEbsVolumeThroughput(pb.getEbsVolumeThroughput());
+    model.setEbsVolumeType(pb.getEbsVolumeType());
+    model.setFirstOnDemand(pb.getFirstOnDemand());
+    model.setInstanceProfileArn(pb.getInstanceProfileArn());
+    model.setSpotBidPricePercent(pb.getSpotBidPricePercent());
+    model.setZoneId(pb.getZoneId());
+
+    return model;
+  }
+
+  public static class AwsAttributesSerializer extends JsonSerializer<AwsAttributes> {
+    @Override
+    public void serialize(AwsAttributes value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      AwsAttributesPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class AwsAttributesDeserializer extends JsonDeserializer<AwsAttributes> {
+    @Override
+    public AwsAttributes deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      AwsAttributesPb pb = mapper.readValue(p, AwsAttributesPb.class);
+      return AwsAttributes.fromPb(pb);
+    }
   }
 }

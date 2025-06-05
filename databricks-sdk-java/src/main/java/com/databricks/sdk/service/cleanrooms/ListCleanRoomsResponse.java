@@ -4,21 +4,30 @@ package com.databricks.sdk.service.cleanrooms;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ListCleanRoomsResponse.ListCleanRoomsResponseSerializer.class)
+@JsonDeserialize(using = ListCleanRoomsResponse.ListCleanRoomsResponseDeserializer.class)
 public class ListCleanRoomsResponse {
   /** */
-  @JsonProperty("clean_rooms")
   private Collection<CleanRoom> cleanRooms;
 
   /**
    * Opaque token to retrieve the next page of results. Absent if there are no more pages.
    * page_token should be set to this value for the next request (for the next page of results).
    */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   public ListCleanRoomsResponse setCleanRooms(Collection<CleanRoom> cleanRooms) {
@@ -59,5 +68,43 @@ public class ListCleanRoomsResponse {
         .add("cleanRooms", cleanRooms)
         .add("nextPageToken", nextPageToken)
         .toString();
+  }
+
+  ListCleanRoomsResponsePb toPb() {
+    ListCleanRoomsResponsePb pb = new ListCleanRoomsResponsePb();
+    pb.setCleanRooms(cleanRooms);
+    pb.setNextPageToken(nextPageToken);
+
+    return pb;
+  }
+
+  static ListCleanRoomsResponse fromPb(ListCleanRoomsResponsePb pb) {
+    ListCleanRoomsResponse model = new ListCleanRoomsResponse();
+    model.setCleanRooms(pb.getCleanRooms());
+    model.setNextPageToken(pb.getNextPageToken());
+
+    return model;
+  }
+
+  public static class ListCleanRoomsResponseSerializer
+      extends JsonSerializer<ListCleanRoomsResponse> {
+    @Override
+    public void serialize(
+        ListCleanRoomsResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListCleanRoomsResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListCleanRoomsResponseDeserializer
+      extends JsonDeserializer<ListCleanRoomsResponse> {
+    @Override
+    public ListCleanRoomsResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListCleanRoomsResponsePb pb = mapper.readValue(p, ListCleanRoomsResponsePb.class);
+      return ListCleanRoomsResponse.fromPb(pb);
+    }
   }
 }

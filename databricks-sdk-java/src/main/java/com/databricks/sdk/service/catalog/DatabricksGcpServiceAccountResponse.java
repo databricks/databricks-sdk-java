@@ -4,19 +4,31 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = DatabricksGcpServiceAccountResponse.DatabricksGcpServiceAccountResponseSerializer.class)
+@JsonDeserialize(
+    using =
+        DatabricksGcpServiceAccountResponse.DatabricksGcpServiceAccountResponseDeserializer.class)
 public class DatabricksGcpServiceAccountResponse {
   /**
    * The Databricks internal ID that represents this service account. This is an output-only field.
    */
-  @JsonProperty("credential_id")
   private String credentialId;
 
   /** The email of the service account. This is an output-only field. */
-  @JsonProperty("email")
   private String email;
 
   public DatabricksGcpServiceAccountResponse setCredentialId(String credentialId) {
@@ -56,5 +68,44 @@ public class DatabricksGcpServiceAccountResponse {
         .add("credentialId", credentialId)
         .add("email", email)
         .toString();
+  }
+
+  DatabricksGcpServiceAccountResponsePb toPb() {
+    DatabricksGcpServiceAccountResponsePb pb = new DatabricksGcpServiceAccountResponsePb();
+    pb.setCredentialId(credentialId);
+    pb.setEmail(email);
+
+    return pb;
+  }
+
+  static DatabricksGcpServiceAccountResponse fromPb(DatabricksGcpServiceAccountResponsePb pb) {
+    DatabricksGcpServiceAccountResponse model = new DatabricksGcpServiceAccountResponse();
+    model.setCredentialId(pb.getCredentialId());
+    model.setEmail(pb.getEmail());
+
+    return model;
+  }
+
+  public static class DatabricksGcpServiceAccountResponseSerializer
+      extends JsonSerializer<DatabricksGcpServiceAccountResponse> {
+    @Override
+    public void serialize(
+        DatabricksGcpServiceAccountResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DatabricksGcpServiceAccountResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DatabricksGcpServiceAccountResponseDeserializer
+      extends JsonDeserializer<DatabricksGcpServiceAccountResponse> {
+    @Override
+    public DatabricksGcpServiceAccountResponse deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DatabricksGcpServiceAccountResponsePb pb =
+          mapper.readValue(p, DatabricksGcpServiceAccountResponsePb.class);
+      return DatabricksGcpServiceAccountResponse.fromPb(pb);
+    }
   }
 }

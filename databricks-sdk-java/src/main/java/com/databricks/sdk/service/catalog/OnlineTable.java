@@ -4,26 +4,33 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Online Table information. */
 @Generated
+@JsonSerialize(using = OnlineTable.OnlineTableSerializer.class)
+@JsonDeserialize(using = OnlineTable.OnlineTableDeserializer.class)
 public class OnlineTable {
   /** Full three-part (catalog, schema, table) name of the table. */
-  @JsonProperty("name")
   private String name;
 
   /** Specification of the online table. */
-  @JsonProperty("spec")
   private OnlineTableSpec spec;
 
   /** Online Table data synchronization status */
-  @JsonProperty("status")
   private OnlineTableStatus status;
 
   /** Data serving REST API URL for this table */
-  @JsonProperty("table_serving_url")
   private String tableServingUrl;
 
   /**
@@ -31,7 +38,6 @@ public class OnlineTable {
    * state of the data synchronization pipeline (i.e. the table may be in "ACTIVE" but the pipeline
    * may be in "PROVISIONING" as it runs asynchronously).
    */
-  @JsonProperty("unity_catalog_provisioning_state")
   private ProvisioningInfoState unityCatalogProvisioningState;
 
   public OnlineTable setName(String name) {
@@ -106,5 +112,45 @@ public class OnlineTable {
         .add("tableServingUrl", tableServingUrl)
         .add("unityCatalogProvisioningState", unityCatalogProvisioningState)
         .toString();
+  }
+
+  OnlineTablePb toPb() {
+    OnlineTablePb pb = new OnlineTablePb();
+    pb.setName(name);
+    pb.setSpec(spec);
+    pb.setStatus(status);
+    pb.setTableServingUrl(tableServingUrl);
+    pb.setUnityCatalogProvisioningState(unityCatalogProvisioningState);
+
+    return pb;
+  }
+
+  static OnlineTable fromPb(OnlineTablePb pb) {
+    OnlineTable model = new OnlineTable();
+    model.setName(pb.getName());
+    model.setSpec(pb.getSpec());
+    model.setStatus(pb.getStatus());
+    model.setTableServingUrl(pb.getTableServingUrl());
+    model.setUnityCatalogProvisioningState(pb.getUnityCatalogProvisioningState());
+
+    return model;
+  }
+
+  public static class OnlineTableSerializer extends JsonSerializer<OnlineTable> {
+    @Override
+    public void serialize(OnlineTable value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      OnlineTablePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class OnlineTableDeserializer extends JsonDeserializer<OnlineTable> {
+    @Override
+    public OnlineTable deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      OnlineTablePb pb = mapper.readValue(p, OnlineTablePb.class);
+      return OnlineTable.fromPb(pb);
+    }
   }
 }

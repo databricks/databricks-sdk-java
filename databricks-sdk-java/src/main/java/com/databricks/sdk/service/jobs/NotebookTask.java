@@ -4,11 +4,22 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = NotebookTask.NotebookTaskSerializer.class)
+@JsonDeserialize(using = NotebookTask.NotebookTaskDeserializer.class)
 public class NotebookTask {
   /**
    * Base parameters to be used for each run of this job. If the run is initiated by a call to
@@ -27,7 +38,6 @@ public class NotebookTask {
    * [dbutils.widgets.get]:
    * https://docs.databricks.com/dev-tools/databricks-utils.html#dbutils-widgets
    */
-  @JsonProperty("base_parameters")
   private Map<String, String> baseParameters;
 
   /**
@@ -35,7 +45,6 @@ public class NotebookTask {
    * notebooks stored in the Databricks workspace, the path must be absolute and begin with a slash.
    * For notebooks stored in a remote repository, the path must be relative. This field is required.
    */
-  @JsonProperty("notebook_path")
   private String notebookPath;
 
   /**
@@ -45,7 +54,6 @@ public class NotebookTask {
    * `git_source` is defined and `WORKSPACE` otherwise. * `WORKSPACE`: Notebook is located in
    * Databricks workspace. * `GIT`: Notebook is located in cloud Git provider.
    */
-  @JsonProperty("source")
   private Source source;
 
   /**
@@ -55,7 +63,6 @@ public class NotebookTask {
    * <p>Note that SQL warehouses only support SQL cells; if the notebook contains non-SQL cells, the
    * run will fail.
    */
-  @JsonProperty("warehouse_id")
   private String warehouseId;
 
   public NotebookTask setBaseParameters(Map<String, String> baseParameters) {
@@ -118,5 +125,43 @@ public class NotebookTask {
         .add("source", source)
         .add("warehouseId", warehouseId)
         .toString();
+  }
+
+  NotebookTaskPb toPb() {
+    NotebookTaskPb pb = new NotebookTaskPb();
+    pb.setBaseParameters(baseParameters);
+    pb.setNotebookPath(notebookPath);
+    pb.setSource(source);
+    pb.setWarehouseId(warehouseId);
+
+    return pb;
+  }
+
+  static NotebookTask fromPb(NotebookTaskPb pb) {
+    NotebookTask model = new NotebookTask();
+    model.setBaseParameters(pb.getBaseParameters());
+    model.setNotebookPath(pb.getNotebookPath());
+    model.setSource(pb.getSource());
+    model.setWarehouseId(pb.getWarehouseId());
+
+    return model;
+  }
+
+  public static class NotebookTaskSerializer extends JsonSerializer<NotebookTask> {
+    @Override
+    public void serialize(NotebookTask value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      NotebookTaskPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class NotebookTaskDeserializer extends JsonDeserializer<NotebookTask> {
+    @Override
+    public NotebookTask deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      NotebookTaskPb pb = mapper.readValue(p, NotebookTaskPb.class);
+      return NotebookTask.fromPb(pb);
+    }
   }
 }

@@ -4,18 +4,27 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = PrivilegeAssignment.PrivilegeAssignmentSerializer.class)
+@JsonDeserialize(using = PrivilegeAssignment.PrivilegeAssignmentDeserializer.class)
 public class PrivilegeAssignment {
   /** The principal (user email address or group name). */
-  @JsonProperty("principal")
   private String principal;
 
   /** The privileges assigned to the principal. */
-  @JsonProperty("privileges")
   private Collection<Privilege> privileges;
 
   public PrivilegeAssignment setPrincipal(String principal) {
@@ -55,5 +64,41 @@ public class PrivilegeAssignment {
         .add("principal", principal)
         .add("privileges", privileges)
         .toString();
+  }
+
+  PrivilegeAssignmentPb toPb() {
+    PrivilegeAssignmentPb pb = new PrivilegeAssignmentPb();
+    pb.setPrincipal(principal);
+    pb.setPrivileges(privileges);
+
+    return pb;
+  }
+
+  static PrivilegeAssignment fromPb(PrivilegeAssignmentPb pb) {
+    PrivilegeAssignment model = new PrivilegeAssignment();
+    model.setPrincipal(pb.getPrincipal());
+    model.setPrivileges(pb.getPrivileges());
+
+    return model;
+  }
+
+  public static class PrivilegeAssignmentSerializer extends JsonSerializer<PrivilegeAssignment> {
+    @Override
+    public void serialize(PrivilegeAssignment value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PrivilegeAssignmentPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PrivilegeAssignmentDeserializer
+      extends JsonDeserializer<PrivilegeAssignment> {
+    @Override
+    public PrivilegeAssignment deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PrivilegeAssignmentPb pb = mapper.readValue(p, PrivilegeAssignmentPb.class);
+      return PrivilegeAssignment.fromPb(pb);
+    }
   }
 }

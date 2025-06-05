@@ -4,32 +4,38 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = SqlQueryOutput.SqlQueryOutputSerializer.class)
+@JsonDeserialize(using = SqlQueryOutput.SqlQueryOutputDeserializer.class)
 public class SqlQueryOutput {
   /** */
-  @JsonProperty("endpoint_id")
   private String endpointId;
 
   /** The link to find the output results. */
-  @JsonProperty("output_link")
   private String outputLink;
 
   /**
    * The text of the SQL query. Can Run permission of the SQL query is required to view this field.
    */
-  @JsonProperty("query_text")
   private String queryText;
 
   /** Information about SQL statements executed in the run. */
-  @JsonProperty("sql_statements")
   private Collection<SqlStatementOutput> sqlStatements;
 
   /** The canonical identifier of the SQL warehouse. */
-  @JsonProperty("warehouse_id")
   private String warehouseId;
 
   public SqlQueryOutput setEndpointId(String endpointId) {
@@ -103,5 +109,46 @@ public class SqlQueryOutput {
         .add("sqlStatements", sqlStatements)
         .add("warehouseId", warehouseId)
         .toString();
+  }
+
+  SqlQueryOutputPb toPb() {
+    SqlQueryOutputPb pb = new SqlQueryOutputPb();
+    pb.setEndpointId(endpointId);
+    pb.setOutputLink(outputLink);
+    pb.setQueryText(queryText);
+    pb.setSqlStatements(sqlStatements);
+    pb.setWarehouseId(warehouseId);
+
+    return pb;
+  }
+
+  static SqlQueryOutput fromPb(SqlQueryOutputPb pb) {
+    SqlQueryOutput model = new SqlQueryOutput();
+    model.setEndpointId(pb.getEndpointId());
+    model.setOutputLink(pb.getOutputLink());
+    model.setQueryText(pb.getQueryText());
+    model.setSqlStatements(pb.getSqlStatements());
+    model.setWarehouseId(pb.getWarehouseId());
+
+    return model;
+  }
+
+  public static class SqlQueryOutputSerializer extends JsonSerializer<SqlQueryOutput> {
+    @Override
+    public void serialize(SqlQueryOutput value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SqlQueryOutputPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SqlQueryOutputDeserializer extends JsonDeserializer<SqlQueryOutput> {
+    @Override
+    public SqlQueryOutput deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SqlQueryOutputPb pb = mapper.readValue(p, SqlQueryOutputPb.class);
+      return SqlQueryOutput.fromPb(pb);
+    }
   }
 }

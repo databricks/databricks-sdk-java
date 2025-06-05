@@ -4,23 +4,40 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Generate full query result download */
 @Generated
+@JsonSerialize(
+    using =
+        GenieGenerateDownloadFullQueryResultRequest
+            .GenieGenerateDownloadFullQueryResultRequestSerializer.class)
+@JsonDeserialize(
+    using =
+        GenieGenerateDownloadFullQueryResultRequest
+            .GenieGenerateDownloadFullQueryResultRequestDeserializer.class)
 public class GenieGenerateDownloadFullQueryResultRequest {
   /** Attachment ID */
-  @JsonIgnore private String attachmentId;
+  private String attachmentId;
 
   /** Conversation ID */
-  @JsonIgnore private String conversationId;
+  private String conversationId;
 
   /** Message ID */
-  @JsonIgnore private String messageId;
+  private String messageId;
 
   /** Genie space ID */
-  @JsonIgnore private String spaceId;
+  private String spaceId;
 
   public GenieGenerateDownloadFullQueryResultRequest setAttachmentId(String attachmentId) {
     this.attachmentId = attachmentId;
@@ -83,5 +100,53 @@ public class GenieGenerateDownloadFullQueryResultRequest {
         .add("messageId", messageId)
         .add("spaceId", spaceId)
         .toString();
+  }
+
+  GenieGenerateDownloadFullQueryResultRequestPb toPb() {
+    GenieGenerateDownloadFullQueryResultRequestPb pb =
+        new GenieGenerateDownloadFullQueryResultRequestPb();
+    pb.setAttachmentId(attachmentId);
+    pb.setConversationId(conversationId);
+    pb.setMessageId(messageId);
+    pb.setSpaceId(spaceId);
+
+    return pb;
+  }
+
+  static GenieGenerateDownloadFullQueryResultRequest fromPb(
+      GenieGenerateDownloadFullQueryResultRequestPb pb) {
+    GenieGenerateDownloadFullQueryResultRequest model =
+        new GenieGenerateDownloadFullQueryResultRequest();
+    model.setAttachmentId(pb.getAttachmentId());
+    model.setConversationId(pb.getConversationId());
+    model.setMessageId(pb.getMessageId());
+    model.setSpaceId(pb.getSpaceId());
+
+    return model;
+  }
+
+  public static class GenieGenerateDownloadFullQueryResultRequestSerializer
+      extends JsonSerializer<GenieGenerateDownloadFullQueryResultRequest> {
+    @Override
+    public void serialize(
+        GenieGenerateDownloadFullQueryResultRequest value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      GenieGenerateDownloadFullQueryResultRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GenieGenerateDownloadFullQueryResultRequestDeserializer
+      extends JsonDeserializer<GenieGenerateDownloadFullQueryResultRequest> {
+    @Override
+    public GenieGenerateDownloadFullQueryResultRequest deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GenieGenerateDownloadFullQueryResultRequestPb pb =
+          mapper.readValue(p, GenieGenerateDownloadFullQueryResultRequestPb.class);
+      return GenieGenerateDownloadFullQueryResultRequest.fromPb(pb);
+    }
   }
 }

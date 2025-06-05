@@ -4,21 +4,30 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ListSharesResponse.ListSharesResponseSerializer.class)
+@JsonDeserialize(using = ListSharesResponse.ListSharesResponseDeserializer.class)
 public class ListSharesResponse {
   /**
    * Opaque token to retrieve the next page of results. Absent if there are no more pages.
    * __page_token__ should be set to this value for the next request (for the next page of results).
    */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   /** An array of data share information objects. */
-  @JsonProperty("shares")
   private Collection<ShareInfo> shares;
 
   public ListSharesResponse setNextPageToken(String nextPageToken) {
@@ -58,5 +67,40 @@ public class ListSharesResponse {
         .add("nextPageToken", nextPageToken)
         .add("shares", shares)
         .toString();
+  }
+
+  ListSharesResponsePb toPb() {
+    ListSharesResponsePb pb = new ListSharesResponsePb();
+    pb.setNextPageToken(nextPageToken);
+    pb.setShares(shares);
+
+    return pb;
+  }
+
+  static ListSharesResponse fromPb(ListSharesResponsePb pb) {
+    ListSharesResponse model = new ListSharesResponse();
+    model.setNextPageToken(pb.getNextPageToken());
+    model.setShares(pb.getShares());
+
+    return model;
+  }
+
+  public static class ListSharesResponseSerializer extends JsonSerializer<ListSharesResponse> {
+    @Override
+    public void serialize(ListSharesResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListSharesResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListSharesResponseDeserializer extends JsonDeserializer<ListSharesResponse> {
+    @Override
+    public ListSharesResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListSharesResponsePb pb = mapper.readValue(p, ListSharesResponsePb.class);
+      return ListSharesResponse.fromPb(pb);
+    }
   }
 }

@@ -4,18 +4,28 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = GetPolicyComplianceResponse.GetPolicyComplianceResponseSerializer.class)
+@JsonDeserialize(using = GetPolicyComplianceResponse.GetPolicyComplianceResponseDeserializer.class)
 public class GetPolicyComplianceResponse {
   /**
    * Whether the job is compliant with its policies or not. Jobs could be out of compliance if a
    * policy they are using was updated after the job was last edited and some of its job clusters no
    * longer comply with their updated policies.
    */
-  @JsonProperty("is_compliant")
   private Boolean isCompliant;
 
   /**
@@ -24,7 +34,6 @@ public class GetPolicyComplianceResponse {
    * the job cluster is prepended to the path. The values indicate an error message describing the
    * policy validation error.
    */
-  @JsonProperty("violations")
   private Map<String, String> violations;
 
   public GetPolicyComplianceResponse setIsCompliant(Boolean isCompliant) {
@@ -65,5 +74,43 @@ public class GetPolicyComplianceResponse {
         .add("isCompliant", isCompliant)
         .add("violations", violations)
         .toString();
+  }
+
+  GetPolicyComplianceResponsePb toPb() {
+    GetPolicyComplianceResponsePb pb = new GetPolicyComplianceResponsePb();
+    pb.setIsCompliant(isCompliant);
+    pb.setViolations(violations);
+
+    return pb;
+  }
+
+  static GetPolicyComplianceResponse fromPb(GetPolicyComplianceResponsePb pb) {
+    GetPolicyComplianceResponse model = new GetPolicyComplianceResponse();
+    model.setIsCompliant(pb.getIsCompliant());
+    model.setViolations(pb.getViolations());
+
+    return model;
+  }
+
+  public static class GetPolicyComplianceResponseSerializer
+      extends JsonSerializer<GetPolicyComplianceResponse> {
+    @Override
+    public void serialize(
+        GetPolicyComplianceResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetPolicyComplianceResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetPolicyComplianceResponseDeserializer
+      extends JsonDeserializer<GetPolicyComplianceResponse> {
+    @Override
+    public GetPolicyComplianceResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetPolicyComplianceResponsePb pb = mapper.readValue(p, GetPolicyComplianceResponsePb.class);
+      return GetPolicyComplianceResponse.fromPb(pb);
+    }
   }
 }

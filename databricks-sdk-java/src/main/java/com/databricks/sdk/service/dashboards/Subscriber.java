@@ -4,23 +4,32 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = Subscriber.SubscriberSerializer.class)
+@JsonDeserialize(using = Subscriber.SubscriberDeserializer.class)
 public class Subscriber {
   /**
    * The destination to receive the subscription email. This parameter is mutually exclusive with
    * `user_subscriber`.
    */
-  @JsonProperty("destination_subscriber")
   private SubscriptionSubscriberDestination destinationSubscriber;
 
   /**
    * The user to receive the subscription email. This parameter is mutually exclusive with
    * `destination_subscriber`.
    */
-  @JsonProperty("user_subscriber")
   private SubscriptionSubscriberUser userSubscriber;
 
   public Subscriber setDestinationSubscriber(
@@ -62,5 +71,39 @@ public class Subscriber {
         .add("destinationSubscriber", destinationSubscriber)
         .add("userSubscriber", userSubscriber)
         .toString();
+  }
+
+  SubscriberPb toPb() {
+    SubscriberPb pb = new SubscriberPb();
+    pb.setDestinationSubscriber(destinationSubscriber);
+    pb.setUserSubscriber(userSubscriber);
+
+    return pb;
+  }
+
+  static Subscriber fromPb(SubscriberPb pb) {
+    Subscriber model = new Subscriber();
+    model.setDestinationSubscriber(pb.getDestinationSubscriber());
+    model.setUserSubscriber(pb.getUserSubscriber());
+
+    return model;
+  }
+
+  public static class SubscriberSerializer extends JsonSerializer<Subscriber> {
+    @Override
+    public void serialize(Subscriber value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SubscriberPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SubscriberDeserializer extends JsonDeserializer<Subscriber> {
+    @Override
+    public Subscriber deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SubscriberPb pb = mapper.readValue(p, SubscriberPb.class);
+      return Subscriber.fromPb(pb);
+    }
   }
 }

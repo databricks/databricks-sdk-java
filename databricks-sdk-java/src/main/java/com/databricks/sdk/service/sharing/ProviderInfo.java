@@ -4,32 +4,38 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ProviderInfo.ProviderInfoSerializer.class)
+@JsonDeserialize(using = ProviderInfo.ProviderInfoDeserializer.class)
 public class ProviderInfo {
   /** The delta sharing authentication type. */
-  @JsonProperty("authentication_type")
   private AuthenticationType authenticationType;
 
   /**
    * Cloud vendor of the provider's UC metastore. This field is only present when the
    * __authentication_type__ is **DATABRICKS**.
    */
-  @JsonProperty("cloud")
   private String cloud;
 
   /** Description about the provider. */
-  @JsonProperty("comment")
   private String comment;
 
   /** Time at which this Provider was created, in epoch milliseconds. */
-  @JsonProperty("created_at")
   private Long createdAt;
 
   /** Username of Provider creator. */
-  @JsonProperty("created_by")
   private String createdBy;
 
   /**
@@ -37,51 +43,42 @@ public class ProviderInfo {
    * __authentication_type__ is **DATABRICKS**. The identifier is of format
    * __cloud__:__region__:__metastore-uuid__.
    */
-  @JsonProperty("data_provider_global_metastore_id")
   private String dataProviderGlobalMetastoreId;
 
   /**
    * UUID of the provider's UC metastore. This field is only present when the
    * __authentication_type__ is **DATABRICKS**.
    */
-  @JsonProperty("metastore_id")
   private String metastoreId;
 
   /** The name of the Provider. */
-  @JsonProperty("name")
   private String name;
 
   /** Username of Provider owner. */
-  @JsonProperty("owner")
   private String owner;
 
   /**
    * The recipient profile. This field is only present when the authentication_type is `TOKEN` or
    * `OAUTH_CLIENT_CREDENTIALS`.
    */
-  @JsonProperty("recipient_profile")
   private RecipientProfile recipientProfile;
 
   /**
    * This field is required when the __authentication_type__ is **TOKEN**,
    * **OAUTH_CLIENT_CREDENTIALS** or not provided.
    */
-  @JsonProperty("recipient_profile_str")
   private String recipientProfileStr;
 
   /**
    * Cloud region of the provider's UC metastore. This field is only present when the
    * __authentication_type__ is **DATABRICKS**.
    */
-  @JsonProperty("region")
   private String region;
 
   /** Time at which this Provider was created, in epoch milliseconds. */
-  @JsonProperty("updated_at")
   private Long updatedAt;
 
   /** Username of user who last modified Provider. */
-  @JsonProperty("updated_by")
   private String updatedBy;
 
   public ProviderInfo setAuthenticationType(AuthenticationType authenticationType) {
@@ -268,5 +265,63 @@ public class ProviderInfo {
         .add("updatedAt", updatedAt)
         .add("updatedBy", updatedBy)
         .toString();
+  }
+
+  ProviderInfoPb toPb() {
+    ProviderInfoPb pb = new ProviderInfoPb();
+    pb.setAuthenticationType(authenticationType);
+    pb.setCloud(cloud);
+    pb.setComment(comment);
+    pb.setCreatedAt(createdAt);
+    pb.setCreatedBy(createdBy);
+    pb.setDataProviderGlobalMetastoreId(dataProviderGlobalMetastoreId);
+    pb.setMetastoreId(metastoreId);
+    pb.setName(name);
+    pb.setOwner(owner);
+    pb.setRecipientProfile(recipientProfile);
+    pb.setRecipientProfileStr(recipientProfileStr);
+    pb.setRegion(region);
+    pb.setUpdatedAt(updatedAt);
+    pb.setUpdatedBy(updatedBy);
+
+    return pb;
+  }
+
+  static ProviderInfo fromPb(ProviderInfoPb pb) {
+    ProviderInfo model = new ProviderInfo();
+    model.setAuthenticationType(pb.getAuthenticationType());
+    model.setCloud(pb.getCloud());
+    model.setComment(pb.getComment());
+    model.setCreatedAt(pb.getCreatedAt());
+    model.setCreatedBy(pb.getCreatedBy());
+    model.setDataProviderGlobalMetastoreId(pb.getDataProviderGlobalMetastoreId());
+    model.setMetastoreId(pb.getMetastoreId());
+    model.setName(pb.getName());
+    model.setOwner(pb.getOwner());
+    model.setRecipientProfile(pb.getRecipientProfile());
+    model.setRecipientProfileStr(pb.getRecipientProfileStr());
+    model.setRegion(pb.getRegion());
+    model.setUpdatedAt(pb.getUpdatedAt());
+    model.setUpdatedBy(pb.getUpdatedBy());
+
+    return model;
+  }
+
+  public static class ProviderInfoSerializer extends JsonSerializer<ProviderInfo> {
+    @Override
+    public void serialize(ProviderInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ProviderInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ProviderInfoDeserializer extends JsonDeserializer<ProviderInfo> {
+    @Override
+    public ProviderInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ProviderInfoPb pb = mapper.readValue(p, ProviderInfoPb.class);
+      return ProviderInfo.fromPb(pb);
+    }
   }
 }

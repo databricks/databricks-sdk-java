@@ -4,7 +4,16 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -14,9 +23,16 @@ import java.util.Objects;
  * after initialization.
  */
 @Generated
+@JsonSerialize(
+    using =
+        CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRule
+            .CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRuleSerializer.class)
+@JsonDeserialize(
+    using =
+        CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRule
+            .CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRuleDeserializer.class)
 public class CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRule {
   /** Databricks account ID. You can find your account ID from the Accounts Console. */
-  @JsonProperty("account_id")
   private String accountId;
 
   /**
@@ -29,20 +45,16 @@ public class CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRule {
    * resource owner, the private endpoint becomes informative and should be deleted for clean-up. -
    * EXPIRED: If the endpoint is created but not approved in 14 days, it is EXPIRED.
    */
-  @JsonProperty("connection_state")
   private CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRulePrivateLinkConnectionState
       connectionState;
 
   /** Time in epoch milliseconds when this object was created. */
-  @JsonProperty("creation_time")
   private Long creationTime;
 
   /** Whether this private endpoint is deactivated. */
-  @JsonProperty("deactivated")
   private Boolean deactivated;
 
   /** Time in epoch milliseconds when this object was deactivated. */
-  @JsonProperty("deactivated_at")
   private Long deactivatedAt;
 
   /**
@@ -53,7 +65,6 @@ public class CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRule {
    * field, we perform full update on this field. Please ensure a full list of desired domain_names
    * is provided.
    */
-  @JsonProperty("domain_names")
   private Collection<String> domainNames;
 
   /**
@@ -62,21 +73,18 @@ public class CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRule {
    * <p>Update this field to activate/deactivate this private endpoint to allow egress access from
    * serverless compute resources.
    */
-  @JsonProperty("enabled")
   private Boolean enabled;
 
   /**
    * The full target AWS endpoint service name that connects to the destination resources of the
    * private endpoint.
    */
-  @JsonProperty("endpoint_service")
   private String endpointService;
 
   /**
    * The ID of a network connectivity configuration, which is the parent resource of this private
    * endpoint rule object.
    */
-  @JsonProperty("network_connectivity_config_id")
   private String networkConnectivityConfigId;
 
   /**
@@ -87,21 +95,17 @@ public class CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRule {
    * perform full update on this field. Please ensure a full list of desired resource_names is
    * provided.
    */
-  @JsonProperty("resource_names")
   private Collection<String> resourceNames;
 
   /** The ID of a private endpoint rule. */
-  @JsonProperty("rule_id")
   private String ruleId;
 
   /** Time in epoch milliseconds when this object was updated. */
-  @JsonProperty("updated_time")
   private Long updatedTime;
 
   /**
    * The AWS VPC endpoint ID. You can use this ID to identify VPC endpoint created by Databricks.
    */
-  @JsonProperty("vpc_endpoint_id")
   private String vpcEndpointId;
 
   public CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRule setAccountId(
@@ -290,5 +294,72 @@ public class CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRule {
         .add("updatedTime", updatedTime)
         .add("vpcEndpointId", vpcEndpointId)
         .toString();
+  }
+
+  CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRulePb toPb() {
+    CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRulePb pb =
+        new CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRulePb();
+    pb.setAccountId(accountId);
+    pb.setConnectionState(connectionState);
+    pb.setCreationTime(creationTime);
+    pb.setDeactivated(deactivated);
+    pb.setDeactivatedAt(deactivatedAt);
+    pb.setDomainNames(domainNames);
+    pb.setEnabled(enabled);
+    pb.setEndpointService(endpointService);
+    pb.setNetworkConnectivityConfigId(networkConnectivityConfigId);
+    pb.setResourceNames(resourceNames);
+    pb.setRuleId(ruleId);
+    pb.setUpdatedTime(updatedTime);
+    pb.setVpcEndpointId(vpcEndpointId);
+
+    return pb;
+  }
+
+  static CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRule fromPb(
+      CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRulePb pb) {
+    CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRule model =
+        new CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRule();
+    model.setAccountId(pb.getAccountId());
+    model.setConnectionState(pb.getConnectionState());
+    model.setCreationTime(pb.getCreationTime());
+    model.setDeactivated(pb.getDeactivated());
+    model.setDeactivatedAt(pb.getDeactivatedAt());
+    model.setDomainNames(pb.getDomainNames());
+    model.setEnabled(pb.getEnabled());
+    model.setEndpointService(pb.getEndpointService());
+    model.setNetworkConnectivityConfigId(pb.getNetworkConnectivityConfigId());
+    model.setResourceNames(pb.getResourceNames());
+    model.setRuleId(pb.getRuleId());
+    model.setUpdatedTime(pb.getUpdatedTime());
+    model.setVpcEndpointId(pb.getVpcEndpointId());
+
+    return model;
+  }
+
+  public static class CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRuleSerializer
+      extends JsonSerializer<CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRule> {
+    @Override
+    public void serialize(
+        CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRule value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRulePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRuleDeserializer
+      extends JsonDeserializer<CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRule> {
+    @Override
+    public CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRule deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRulePb pb =
+          mapper.readValue(
+              p, CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRulePb.class);
+      return CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRule.fromPb(pb);
+    }
   }
 }

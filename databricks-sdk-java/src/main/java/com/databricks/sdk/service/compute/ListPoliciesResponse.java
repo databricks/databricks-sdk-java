@@ -4,14 +4,24 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ListPoliciesResponse.ListPoliciesResponseSerializer.class)
+@JsonDeserialize(using = ListPoliciesResponse.ListPoliciesResponseDeserializer.class)
 public class ListPoliciesResponse {
   /** List of policies. */
-  @JsonProperty("policies")
   private Collection<Policy> policies;
 
   public ListPoliciesResponse setPolicies(Collection<Policy> policies) {
@@ -39,5 +49,40 @@ public class ListPoliciesResponse {
   @Override
   public String toString() {
     return new ToStringer(ListPoliciesResponse.class).add("policies", policies).toString();
+  }
+
+  ListPoliciesResponsePb toPb() {
+    ListPoliciesResponsePb pb = new ListPoliciesResponsePb();
+    pb.setPolicies(policies);
+
+    return pb;
+  }
+
+  static ListPoliciesResponse fromPb(ListPoliciesResponsePb pb) {
+    ListPoliciesResponse model = new ListPoliciesResponse();
+    model.setPolicies(pb.getPolicies());
+
+    return model;
+  }
+
+  public static class ListPoliciesResponseSerializer extends JsonSerializer<ListPoliciesResponse> {
+    @Override
+    public void serialize(
+        ListPoliciesResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListPoliciesResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListPoliciesResponseDeserializer
+      extends JsonDeserializer<ListPoliciesResponse> {
+    @Override
+    public ListPoliciesResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListPoliciesResponsePb pb = mapper.readValue(p, ListPoliciesResponsePb.class);
+      return ListPoliciesResponse.fromPb(pb);
+    }
   }
 }

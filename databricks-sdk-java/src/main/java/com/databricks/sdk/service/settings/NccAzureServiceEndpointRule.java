@@ -4,7 +4,16 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -13,20 +22,19 @@ import java.util.Objects;
  * allow traffic from your Databricks serverless compute resources.
  */
 @Generated
+@JsonSerialize(using = NccAzureServiceEndpointRule.NccAzureServiceEndpointRuleSerializer.class)
+@JsonDeserialize(using = NccAzureServiceEndpointRule.NccAzureServiceEndpointRuleDeserializer.class)
 public class NccAzureServiceEndpointRule {
   /**
    * The list of subnets from which Databricks network traffic originates when accessing your Azure
    * resources.
    */
-  @JsonProperty("subnets")
   private Collection<String> subnets;
 
   /** The Azure region in which this service endpoint rule applies.. */
-  @JsonProperty("target_region")
   private String targetRegion;
 
   /** The Azure services to which this service endpoint rule applies to. */
-  @JsonProperty("target_services")
   private Collection<EgressResourceType> targetServices;
 
   public NccAzureServiceEndpointRule setSubnets(Collection<String> subnets) {
@@ -79,5 +87,45 @@ public class NccAzureServiceEndpointRule {
         .add("targetRegion", targetRegion)
         .add("targetServices", targetServices)
         .toString();
+  }
+
+  NccAzureServiceEndpointRulePb toPb() {
+    NccAzureServiceEndpointRulePb pb = new NccAzureServiceEndpointRulePb();
+    pb.setSubnets(subnets);
+    pb.setTargetRegion(targetRegion);
+    pb.setTargetServices(targetServices);
+
+    return pb;
+  }
+
+  static NccAzureServiceEndpointRule fromPb(NccAzureServiceEndpointRulePb pb) {
+    NccAzureServiceEndpointRule model = new NccAzureServiceEndpointRule();
+    model.setSubnets(pb.getSubnets());
+    model.setTargetRegion(pb.getTargetRegion());
+    model.setTargetServices(pb.getTargetServices());
+
+    return model;
+  }
+
+  public static class NccAzureServiceEndpointRuleSerializer
+      extends JsonSerializer<NccAzureServiceEndpointRule> {
+    @Override
+    public void serialize(
+        NccAzureServiceEndpointRule value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      NccAzureServiceEndpointRulePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class NccAzureServiceEndpointRuleDeserializer
+      extends JsonDeserializer<NccAzureServiceEndpointRule> {
+    @Override
+    public NccAzureServiceEndpointRule deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      NccAzureServiceEndpointRulePb pb = mapper.readValue(p, NccAzureServiceEndpointRulePb.class);
+      return NccAzureServiceEndpointRule.fromPb(pb);
+    }
   }
 }

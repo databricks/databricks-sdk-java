@@ -4,24 +4,33 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = RestartWindow.RestartWindowSerializer.class)
+@JsonDeserialize(using = RestartWindow.RestartWindowDeserializer.class)
 public class RestartWindow {
   /**
    * Days of week in which the restart is allowed to happen (within a five-hour window starting at
    * start_hour). If not specified all days of the week will be used.
    */
-  @JsonProperty("days_of_week")
   private Collection<DayOfWeek> daysOfWeek;
 
   /**
    * An integer between 0 and 23 denoting the start hour for the restart window in the 24-hour day.
    * Continuous pipeline restart is triggered only within a five-hour window starting at this hour.
    */
-  @JsonProperty("start_hour")
   private Long startHour;
 
   /**
@@ -29,7 +38,6 @@ public class RestartWindow {
    * https://docs.databricks.com/sql/language-manual/sql-ref-syntax-aux-conf-mgmt-set-timezone.html
    * for details. If not specified, UTC will be used.
    */
-  @JsonProperty("time_zone_id")
   private String timeZoneId;
 
   public RestartWindow setDaysOfWeek(Collection<DayOfWeek> daysOfWeek) {
@@ -81,5 +89,41 @@ public class RestartWindow {
         .add("startHour", startHour)
         .add("timeZoneId", timeZoneId)
         .toString();
+  }
+
+  RestartWindowPb toPb() {
+    RestartWindowPb pb = new RestartWindowPb();
+    pb.setDaysOfWeek(daysOfWeek);
+    pb.setStartHour(startHour);
+    pb.setTimeZoneId(timeZoneId);
+
+    return pb;
+  }
+
+  static RestartWindow fromPb(RestartWindowPb pb) {
+    RestartWindow model = new RestartWindow();
+    model.setDaysOfWeek(pb.getDaysOfWeek());
+    model.setStartHour(pb.getStartHour());
+    model.setTimeZoneId(pb.getTimeZoneId());
+
+    return model;
+  }
+
+  public static class RestartWindowSerializer extends JsonSerializer<RestartWindow> {
+    @Override
+    public void serialize(RestartWindow value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      RestartWindowPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class RestartWindowDeserializer extends JsonDeserializer<RestartWindow> {
+    @Override
+    public RestartWindow deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      RestartWindowPb pb = mapper.readValue(p, RestartWindowPb.class);
+      return RestartWindow.fromPb(pb);
+    }
   }
 }

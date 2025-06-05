@@ -4,80 +4,75 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ListingDetail.ListingDetailSerializer.class)
+@JsonDeserialize(using = ListingDetail.ListingDetailDeserializer.class)
 public class ListingDetail {
   /** Type of assets included in the listing. eg. GIT_REPO, DATA_TABLE, MODEL, NOTEBOOK */
-  @JsonProperty("assets")
   private Collection<AssetType> assets;
 
   /** The ending date timestamp for when the data spans */
-  @JsonProperty("collection_date_end")
   private Long collectionDateEnd;
 
   /** The starting date timestamp for when the data spans */
-  @JsonProperty("collection_date_start")
   private Long collectionDateStart;
 
   /** Smallest unit of time in the dataset */
-  @JsonProperty("collection_granularity")
   private DataRefreshInfo collectionGranularity;
 
   /** Whether the dataset is free or paid */
-  @JsonProperty("cost")
   private Cost cost;
 
   /** Where/how the data is sourced */
-  @JsonProperty("data_source")
   private String dataSource;
 
   /** */
-  @JsonProperty("description")
   private String description;
 
   /** */
-  @JsonProperty("documentation_link")
   private String documentationLink;
 
   /** */
-  @JsonProperty("embedded_notebook_file_infos")
   private Collection<FileInfo> embeddedNotebookFileInfos;
 
   /** */
-  @JsonProperty("file_ids")
   private Collection<String> fileIds;
 
   /** Which geo region the listing data is collected from */
-  @JsonProperty("geographical_coverage")
   private String geographicalCoverage;
 
   /**
    * ID 20, 21 removed don't use License of the data asset - Required for listings with model based
    * assets
    */
-  @JsonProperty("license")
   private String license;
 
   /**
    * What the pricing model is (e.g. paid, subscription, paid upfront); should only be present if
    * cost is paid TODO: Not used yet, should deprecate if we will never use it
    */
-  @JsonProperty("pricing_model")
   private String pricingModel;
 
   /** */
-  @JsonProperty("privacy_policy_link")
   private String privacyPolicyLink;
 
   /** size of the dataset in GB */
-  @JsonProperty("size")
   private Double size;
 
   /** */
-  @JsonProperty("support_link")
   private String supportLink;
 
   /**
@@ -88,15 +83,12 @@ public class ListingDetail {
    * fairly fixed, static and low cardinality (eg. enums). 3. The value won't be used in filters or
    * joins with other tables.
    */
-  @JsonProperty("tags")
   private Collection<ListingTag> tags;
 
   /** */
-  @JsonProperty("terms_of_service")
   private String termsOfService;
 
   /** How often data is updated */
-  @JsonProperty("update_frequency")
   private DataRefreshInfo updateFrequency;
 
   public ListingDetail setAssets(Collection<AssetType> assets) {
@@ -344,5 +336,73 @@ public class ListingDetail {
         .add("termsOfService", termsOfService)
         .add("updateFrequency", updateFrequency)
         .toString();
+  }
+
+  ListingDetailPb toPb() {
+    ListingDetailPb pb = new ListingDetailPb();
+    pb.setAssets(assets);
+    pb.setCollectionDateEnd(collectionDateEnd);
+    pb.setCollectionDateStart(collectionDateStart);
+    pb.setCollectionGranularity(collectionGranularity);
+    pb.setCost(cost);
+    pb.setDataSource(dataSource);
+    pb.setDescription(description);
+    pb.setDocumentationLink(documentationLink);
+    pb.setEmbeddedNotebookFileInfos(embeddedNotebookFileInfos);
+    pb.setFileIds(fileIds);
+    pb.setGeographicalCoverage(geographicalCoverage);
+    pb.setLicense(license);
+    pb.setPricingModel(pricingModel);
+    pb.setPrivacyPolicyLink(privacyPolicyLink);
+    pb.setSize(size);
+    pb.setSupportLink(supportLink);
+    pb.setTags(tags);
+    pb.setTermsOfService(termsOfService);
+    pb.setUpdateFrequency(updateFrequency);
+
+    return pb;
+  }
+
+  static ListingDetail fromPb(ListingDetailPb pb) {
+    ListingDetail model = new ListingDetail();
+    model.setAssets(pb.getAssets());
+    model.setCollectionDateEnd(pb.getCollectionDateEnd());
+    model.setCollectionDateStart(pb.getCollectionDateStart());
+    model.setCollectionGranularity(pb.getCollectionGranularity());
+    model.setCost(pb.getCost());
+    model.setDataSource(pb.getDataSource());
+    model.setDescription(pb.getDescription());
+    model.setDocumentationLink(pb.getDocumentationLink());
+    model.setEmbeddedNotebookFileInfos(pb.getEmbeddedNotebookFileInfos());
+    model.setFileIds(pb.getFileIds());
+    model.setGeographicalCoverage(pb.getGeographicalCoverage());
+    model.setLicense(pb.getLicense());
+    model.setPricingModel(pb.getPricingModel());
+    model.setPrivacyPolicyLink(pb.getPrivacyPolicyLink());
+    model.setSize(pb.getSize());
+    model.setSupportLink(pb.getSupportLink());
+    model.setTags(pb.getTags());
+    model.setTermsOfService(pb.getTermsOfService());
+    model.setUpdateFrequency(pb.getUpdateFrequency());
+
+    return model;
+  }
+
+  public static class ListingDetailSerializer extends JsonSerializer<ListingDetail> {
+    @Override
+    public void serialize(ListingDetail value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListingDetailPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListingDetailDeserializer extends JsonDeserializer<ListingDetail> {
+    @Override
+    public ListingDetail deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListingDetailPb pb = mapper.readValue(p, ListingDetailPb.class);
+      return ListingDetail.fromPb(pb);
+    }
   }
 }

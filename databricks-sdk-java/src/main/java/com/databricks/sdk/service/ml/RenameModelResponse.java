@@ -4,13 +4,23 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = RenameModelResponse.RenameModelResponseSerializer.class)
+@JsonDeserialize(using = RenameModelResponse.RenameModelResponseDeserializer.class)
 public class RenameModelResponse {
   /** */
-  @JsonProperty("registered_model")
   private Model registeredModel;
 
   public RenameModelResponse setRegisteredModel(Model registeredModel) {
@@ -40,5 +50,39 @@ public class RenameModelResponse {
     return new ToStringer(RenameModelResponse.class)
         .add("registeredModel", registeredModel)
         .toString();
+  }
+
+  RenameModelResponsePb toPb() {
+    RenameModelResponsePb pb = new RenameModelResponsePb();
+    pb.setRegisteredModel(registeredModel);
+
+    return pb;
+  }
+
+  static RenameModelResponse fromPb(RenameModelResponsePb pb) {
+    RenameModelResponse model = new RenameModelResponse();
+    model.setRegisteredModel(pb.getRegisteredModel());
+
+    return model;
+  }
+
+  public static class RenameModelResponseSerializer extends JsonSerializer<RenameModelResponse> {
+    @Override
+    public void serialize(RenameModelResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      RenameModelResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class RenameModelResponseDeserializer
+      extends JsonDeserializer<RenameModelResponse> {
+    @Override
+    public RenameModelResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      RenameModelResponsePb pb = mapper.readValue(p, RenameModelResponsePb.class);
+      return RenameModelResponse.fromPb(pb);
+    }
   }
 }

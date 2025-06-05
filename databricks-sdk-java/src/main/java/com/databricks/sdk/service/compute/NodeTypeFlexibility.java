@@ -4,6 +4,16 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -12,6 +22,8 @@ import java.util.Objects;
  * worker node types.
  */
 @Generated
+@JsonSerialize(using = NodeTypeFlexibility.NodeTypeFlexibilitySerializer.class)
+@JsonDeserialize(using = NodeTypeFlexibility.NodeTypeFlexibilityDeserializer.class)
 public class NodeTypeFlexibility {
 
   @Override
@@ -29,5 +41,37 @@ public class NodeTypeFlexibility {
   @Override
   public String toString() {
     return new ToStringer(NodeTypeFlexibility.class).toString();
+  }
+
+  NodeTypeFlexibilityPb toPb() {
+    NodeTypeFlexibilityPb pb = new NodeTypeFlexibilityPb();
+
+    return pb;
+  }
+
+  static NodeTypeFlexibility fromPb(NodeTypeFlexibilityPb pb) {
+    NodeTypeFlexibility model = new NodeTypeFlexibility();
+
+    return model;
+  }
+
+  public static class NodeTypeFlexibilitySerializer extends JsonSerializer<NodeTypeFlexibility> {
+    @Override
+    public void serialize(NodeTypeFlexibility value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      NodeTypeFlexibilityPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class NodeTypeFlexibilityDeserializer
+      extends JsonDeserializer<NodeTypeFlexibility> {
+    @Override
+    public NodeTypeFlexibility deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      NodeTypeFlexibilityPb pb = mapper.readValue(p, NodeTypeFlexibilityPb.class);
+      return NodeTypeFlexibility.fromPb(pb);
+    }
   }
 }

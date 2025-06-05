@@ -4,22 +4,32 @@ package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = CreateCustomerManagedKeyRequest.CreateCustomerManagedKeyRequestSerializer.class)
+@JsonDeserialize(
+    using = CreateCustomerManagedKeyRequest.CreateCustomerManagedKeyRequestDeserializer.class)
 public class CreateCustomerManagedKeyRequest {
   /** */
-  @JsonProperty("aws_key_info")
   private CreateAwsKeyInfo awsKeyInfo;
 
   /** */
-  @JsonProperty("gcp_key_info")
   private CreateGcpKeyInfo gcpKeyInfo;
 
   /** The cases that the key can be used for. */
-  @JsonProperty("use_cases")
   private Collection<KeyUseCase> useCases;
 
   public CreateCustomerManagedKeyRequest setAwsKeyInfo(CreateAwsKeyInfo awsKeyInfo) {
@@ -71,5 +81,46 @@ public class CreateCustomerManagedKeyRequest {
         .add("gcpKeyInfo", gcpKeyInfo)
         .add("useCases", useCases)
         .toString();
+  }
+
+  CreateCustomerManagedKeyRequestPb toPb() {
+    CreateCustomerManagedKeyRequestPb pb = new CreateCustomerManagedKeyRequestPb();
+    pb.setAwsKeyInfo(awsKeyInfo);
+    pb.setGcpKeyInfo(gcpKeyInfo);
+    pb.setUseCases(useCases);
+
+    return pb;
+  }
+
+  static CreateCustomerManagedKeyRequest fromPb(CreateCustomerManagedKeyRequestPb pb) {
+    CreateCustomerManagedKeyRequest model = new CreateCustomerManagedKeyRequest();
+    model.setAwsKeyInfo(pb.getAwsKeyInfo());
+    model.setGcpKeyInfo(pb.getGcpKeyInfo());
+    model.setUseCases(pb.getUseCases());
+
+    return model;
+  }
+
+  public static class CreateCustomerManagedKeyRequestSerializer
+      extends JsonSerializer<CreateCustomerManagedKeyRequest> {
+    @Override
+    public void serialize(
+        CreateCustomerManagedKeyRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateCustomerManagedKeyRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateCustomerManagedKeyRequestDeserializer
+      extends JsonDeserializer<CreateCustomerManagedKeyRequest> {
+    @Override
+    public CreateCustomerManagedKeyRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateCustomerManagedKeyRequestPb pb =
+          mapper.readValue(p, CreateCustomerManagedKeyRequestPb.class);
+      return CreateCustomerManagedKeyRequest.fromPb(pb);
+    }
   }
 }

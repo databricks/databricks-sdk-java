@@ -4,24 +4,33 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = NccEgressConfig.NccEgressConfigSerializer.class)
+@JsonDeserialize(using = NccEgressConfig.NccEgressConfigDeserializer.class)
 public class NccEgressConfig {
   /**
    * The network connectivity rules that are applied by default without resource specific
    * configurations. You can find the stable network information of your serverless compute
    * resources here.
    */
-  @JsonProperty("default_rules")
   private NccEgressDefaultRules defaultRules;
 
   /**
    * The network connectivity rules that configured for each destinations. These rules override
    * default rules.
    */
-  @JsonProperty("target_rules")
   private NccEgressTargetRules targetRules;
 
   public NccEgressConfig setDefaultRules(NccEgressDefaultRules defaultRules) {
@@ -62,5 +71,40 @@ public class NccEgressConfig {
         .add("defaultRules", defaultRules)
         .add("targetRules", targetRules)
         .toString();
+  }
+
+  NccEgressConfigPb toPb() {
+    NccEgressConfigPb pb = new NccEgressConfigPb();
+    pb.setDefaultRules(defaultRules);
+    pb.setTargetRules(targetRules);
+
+    return pb;
+  }
+
+  static NccEgressConfig fromPb(NccEgressConfigPb pb) {
+    NccEgressConfig model = new NccEgressConfig();
+    model.setDefaultRules(pb.getDefaultRules());
+    model.setTargetRules(pb.getTargetRules());
+
+    return model;
+  }
+
+  public static class NccEgressConfigSerializer extends JsonSerializer<NccEgressConfig> {
+    @Override
+    public void serialize(NccEgressConfig value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      NccEgressConfigPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class NccEgressConfigDeserializer extends JsonDeserializer<NccEgressConfig> {
+    @Override
+    public NccEgressConfig deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      NccEgressConfigPb pb = mapper.readValue(p, NccEgressConfigPb.class);
+      return NccEgressConfig.fromPb(pb);
+    }
   }
 }

@@ -22,7 +22,7 @@ class LogDeliveryImpl implements LogDeliveryService {
         String.format("/api/2.0/accounts/%s/log-delivery", apiClient.configuredAccountID());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, WrappedLogDeliveryConfiguration.class);
@@ -39,7 +39,7 @@ class LogDeliveryImpl implements LogDeliveryService {
             apiClient.configuredAccountID(), request.getLogDeliveryConfigurationId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, WrappedLogDeliveryConfiguration.class);
     } catch (IOException e) {
@@ -53,7 +53,7 @@ class LogDeliveryImpl implements LogDeliveryService {
         String.format("/api/2.0/accounts/%s/log-delivery", apiClient.configuredAccountID());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, WrappedLogDeliveryConfigurations.class);
     } catch (IOException e) {
@@ -69,7 +69,7 @@ class LogDeliveryImpl implements LogDeliveryService {
             apiClient.configuredAccountID(), request.getLogDeliveryConfigurationId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, PatchStatusResponse.class);

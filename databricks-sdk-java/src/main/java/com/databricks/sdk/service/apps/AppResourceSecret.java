@@ -4,24 +4,32 @@ package com.databricks.sdk.service.apps;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = AppResourceSecret.AppResourceSecretSerializer.class)
+@JsonDeserialize(using = AppResourceSecret.AppResourceSecretDeserializer.class)
 public class AppResourceSecret {
   /** Key of the secret to grant permission on. */
-  @JsonProperty("key")
   private String key;
 
   /**
    * Permission to grant on the secret scope. For secrets, only one permission is allowed.
    * Permission must be one of: "READ", "WRITE", "MANAGE".
    */
-  @JsonProperty("permission")
   private AppResourceSecretSecretPermission permission;
 
   /** Scope of the secret to grant permission on. */
-  @JsonProperty("scope")
   private String scope;
 
   public AppResourceSecret setKey(String key) {
@@ -73,5 +81,42 @@ public class AppResourceSecret {
         .add("permission", permission)
         .add("scope", scope)
         .toString();
+  }
+
+  AppResourceSecretPb toPb() {
+    AppResourceSecretPb pb = new AppResourceSecretPb();
+    pb.setKey(key);
+    pb.setPermission(permission);
+    pb.setScope(scope);
+
+    return pb;
+  }
+
+  static AppResourceSecret fromPb(AppResourceSecretPb pb) {
+    AppResourceSecret model = new AppResourceSecret();
+    model.setKey(pb.getKey());
+    model.setPermission(pb.getPermission());
+    model.setScope(pb.getScope());
+
+    return model;
+  }
+
+  public static class AppResourceSecretSerializer extends JsonSerializer<AppResourceSecret> {
+    @Override
+    public void serialize(AppResourceSecret value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      AppResourceSecretPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class AppResourceSecretDeserializer extends JsonDeserializer<AppResourceSecret> {
+    @Override
+    public AppResourceSecret deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      AppResourceSecretPb pb = mapper.readValue(p, AppResourceSecretPb.class);
+      return AppResourceSecret.fromPb(pb);
+    }
   }
 }

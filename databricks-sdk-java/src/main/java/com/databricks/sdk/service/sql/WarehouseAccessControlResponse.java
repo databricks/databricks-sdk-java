@@ -4,30 +4,38 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = WarehouseAccessControlResponse.WarehouseAccessControlResponseSerializer.class)
+@JsonDeserialize(
+    using = WarehouseAccessControlResponse.WarehouseAccessControlResponseDeserializer.class)
 public class WarehouseAccessControlResponse {
   /** All permissions. */
-  @JsonProperty("all_permissions")
   private Collection<WarehousePermission> allPermissions;
 
   /** Display name of the user or service principal. */
-  @JsonProperty("display_name")
   private String displayName;
 
   /** name of the group */
-  @JsonProperty("group_name")
   private String groupName;
 
   /** Name of the service principal. */
-  @JsonProperty("service_principal_name")
   private String servicePrincipalName;
 
   /** name of the user */
-  @JsonProperty("user_name")
   private String userName;
 
   public WarehouseAccessControlResponse setAllPermissions(
@@ -102,5 +110,50 @@ public class WarehouseAccessControlResponse {
         .add("servicePrincipalName", servicePrincipalName)
         .add("userName", userName)
         .toString();
+  }
+
+  WarehouseAccessControlResponsePb toPb() {
+    WarehouseAccessControlResponsePb pb = new WarehouseAccessControlResponsePb();
+    pb.setAllPermissions(allPermissions);
+    pb.setDisplayName(displayName);
+    pb.setGroupName(groupName);
+    pb.setServicePrincipalName(servicePrincipalName);
+    pb.setUserName(userName);
+
+    return pb;
+  }
+
+  static WarehouseAccessControlResponse fromPb(WarehouseAccessControlResponsePb pb) {
+    WarehouseAccessControlResponse model = new WarehouseAccessControlResponse();
+    model.setAllPermissions(pb.getAllPermissions());
+    model.setDisplayName(pb.getDisplayName());
+    model.setGroupName(pb.getGroupName());
+    model.setServicePrincipalName(pb.getServicePrincipalName());
+    model.setUserName(pb.getUserName());
+
+    return model;
+  }
+
+  public static class WarehouseAccessControlResponseSerializer
+      extends JsonSerializer<WarehouseAccessControlResponse> {
+    @Override
+    public void serialize(
+        WarehouseAccessControlResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      WarehouseAccessControlResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class WarehouseAccessControlResponseDeserializer
+      extends JsonDeserializer<WarehouseAccessControlResponse> {
+    @Override
+    public WarehouseAccessControlResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      WarehouseAccessControlResponsePb pb =
+          mapper.readValue(p, WarehouseAccessControlResponsePb.class);
+      return WarehouseAccessControlResponse.fromPb(pb);
+    }
   }
 }

@@ -4,19 +4,30 @@ package com.databricks.sdk.service.database;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Create a role for a Database Instance */
 @Generated
+@JsonSerialize(
+    using = CreateDatabaseInstanceRoleRequest.CreateDatabaseInstanceRoleRequestSerializer.class)
+@JsonDeserialize(
+    using = CreateDatabaseInstanceRoleRequest.CreateDatabaseInstanceRoleRequestDeserializer.class)
 public class CreateDatabaseInstanceRoleRequest {
   /** A DatabaseInstanceRole represents a Postgres role in a database instance. */
-  @JsonProperty("database_instance_role")
   private DatabaseInstanceRole databaseInstanceRole;
 
   /** */
-  @JsonIgnore private String instanceName;
+  private String instanceName;
 
   public CreateDatabaseInstanceRoleRequest setDatabaseInstanceRole(
       DatabaseInstanceRole databaseInstanceRole) {
@@ -57,5 +68,44 @@ public class CreateDatabaseInstanceRoleRequest {
         .add("databaseInstanceRole", databaseInstanceRole)
         .add("instanceName", instanceName)
         .toString();
+  }
+
+  CreateDatabaseInstanceRoleRequestPb toPb() {
+    CreateDatabaseInstanceRoleRequestPb pb = new CreateDatabaseInstanceRoleRequestPb();
+    pb.setDatabaseInstanceRole(databaseInstanceRole);
+    pb.setInstanceName(instanceName);
+
+    return pb;
+  }
+
+  static CreateDatabaseInstanceRoleRequest fromPb(CreateDatabaseInstanceRoleRequestPb pb) {
+    CreateDatabaseInstanceRoleRequest model = new CreateDatabaseInstanceRoleRequest();
+    model.setDatabaseInstanceRole(pb.getDatabaseInstanceRole());
+    model.setInstanceName(pb.getInstanceName());
+
+    return model;
+  }
+
+  public static class CreateDatabaseInstanceRoleRequestSerializer
+      extends JsonSerializer<CreateDatabaseInstanceRoleRequest> {
+    @Override
+    public void serialize(
+        CreateDatabaseInstanceRoleRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateDatabaseInstanceRoleRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateDatabaseInstanceRoleRequestDeserializer
+      extends JsonDeserializer<CreateDatabaseInstanceRoleRequest> {
+    @Override
+    public CreateDatabaseInstanceRoleRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateDatabaseInstanceRoleRequestPb pb =
+          mapper.readValue(p, CreateDatabaseInstanceRoleRequestPb.class);
+      return CreateDatabaseInstanceRoleRequest.fromPb(pb);
+    }
   }
 }

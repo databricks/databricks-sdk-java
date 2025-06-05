@@ -4,18 +4,27 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ResolvedRunJobTaskValues.ResolvedRunJobTaskValuesSerializer.class)
+@JsonDeserialize(using = ResolvedRunJobTaskValues.ResolvedRunJobTaskValuesDeserializer.class)
 public class ResolvedRunJobTaskValues {
   /** */
-  @JsonProperty("job_parameters")
   private Map<String, String> jobParameters;
 
   /** */
-  @JsonProperty("parameters")
   private Map<String, String> parameters;
 
   public ResolvedRunJobTaskValues setJobParameters(Map<String, String> jobParameters) {
@@ -56,5 +65,43 @@ public class ResolvedRunJobTaskValues {
         .add("jobParameters", jobParameters)
         .add("parameters", parameters)
         .toString();
+  }
+
+  ResolvedRunJobTaskValuesPb toPb() {
+    ResolvedRunJobTaskValuesPb pb = new ResolvedRunJobTaskValuesPb();
+    pb.setJobParameters(jobParameters);
+    pb.setParameters(parameters);
+
+    return pb;
+  }
+
+  static ResolvedRunJobTaskValues fromPb(ResolvedRunJobTaskValuesPb pb) {
+    ResolvedRunJobTaskValues model = new ResolvedRunJobTaskValues();
+    model.setJobParameters(pb.getJobParameters());
+    model.setParameters(pb.getParameters());
+
+    return model;
+  }
+
+  public static class ResolvedRunJobTaskValuesSerializer
+      extends JsonSerializer<ResolvedRunJobTaskValues> {
+    @Override
+    public void serialize(
+        ResolvedRunJobTaskValues value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ResolvedRunJobTaskValuesPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ResolvedRunJobTaskValuesDeserializer
+      extends JsonDeserializer<ResolvedRunJobTaskValues> {
+    @Override
+    public ResolvedRunJobTaskValues deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ResolvedRunJobTaskValuesPb pb = mapper.readValue(p, ResolvedRunJobTaskValuesPb.class);
+      return ResolvedRunJobTaskValues.fromPb(pb);
+    }
   }
 }

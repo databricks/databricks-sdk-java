@@ -4,13 +4,23 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateClusterResponse.CreateClusterResponseSerializer.class)
+@JsonDeserialize(using = CreateClusterResponse.CreateClusterResponseDeserializer.class)
 public class CreateClusterResponse {
   /** */
-  @JsonProperty("cluster_id")
   private String clusterId;
 
   public CreateClusterResponse setClusterId(String clusterId) {
@@ -38,5 +48,41 @@ public class CreateClusterResponse {
   @Override
   public String toString() {
     return new ToStringer(CreateClusterResponse.class).add("clusterId", clusterId).toString();
+  }
+
+  CreateClusterResponsePb toPb() {
+    CreateClusterResponsePb pb = new CreateClusterResponsePb();
+    pb.setClusterId(clusterId);
+
+    return pb;
+  }
+
+  static CreateClusterResponse fromPb(CreateClusterResponsePb pb) {
+    CreateClusterResponse model = new CreateClusterResponse();
+    model.setClusterId(pb.getClusterId());
+
+    return model;
+  }
+
+  public static class CreateClusterResponseSerializer
+      extends JsonSerializer<CreateClusterResponse> {
+    @Override
+    public void serialize(
+        CreateClusterResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateClusterResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateClusterResponseDeserializer
+      extends JsonDeserializer<CreateClusterResponse> {
+    @Override
+    public CreateClusterResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateClusterResponsePb pb = mapper.readValue(p, CreateClusterResponsePb.class);
+      return CreateClusterResponse.fromPb(pb);
+    }
   }
 }

@@ -3,37 +3,39 @@
 package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get a single job run */
 @Generated
+@JsonSerialize(using = GetRunRequest.GetRunRequestSerializer.class)
+@JsonDeserialize(using = GetRunRequest.GetRunRequestDeserializer.class)
 public class GetRunRequest {
   /** Whether to include the repair history in the response. */
-  @JsonIgnore
-  @QueryParam("include_history")
   private Boolean includeHistory;
 
   /** Whether to include resolved parameter values in the response. */
-  @JsonIgnore
-  @QueryParam("include_resolved_values")
   private Boolean includeResolvedValues;
 
   /**
    * Use `next_page_token` returned from the previous GetRun response to request the next page of
    * the run's array properties.
    */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   /**
    * The canonical identifier of the run for which to retrieve the metadata. This field is required.
    */
-  @JsonIgnore
-  @QueryParam("run_id")
   private Long runId;
 
   public GetRunRequest setIncludeHistory(Boolean includeHistory) {
@@ -96,5 +98,43 @@ public class GetRunRequest {
         .add("pageToken", pageToken)
         .add("runId", runId)
         .toString();
+  }
+
+  GetRunRequestPb toPb() {
+    GetRunRequestPb pb = new GetRunRequestPb();
+    pb.setIncludeHistory(includeHistory);
+    pb.setIncludeResolvedValues(includeResolvedValues);
+    pb.setPageToken(pageToken);
+    pb.setRunId(runId);
+
+    return pb;
+  }
+
+  static GetRunRequest fromPb(GetRunRequestPb pb) {
+    GetRunRequest model = new GetRunRequest();
+    model.setIncludeHistory(pb.getIncludeHistory());
+    model.setIncludeResolvedValues(pb.getIncludeResolvedValues());
+    model.setPageToken(pb.getPageToken());
+    model.setRunId(pb.getRunId());
+
+    return model;
+  }
+
+  public static class GetRunRequestSerializer extends JsonSerializer<GetRunRequest> {
+    @Override
+    public void serialize(GetRunRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetRunRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetRunRequestDeserializer extends JsonDeserializer<GetRunRequest> {
+    @Override
+    public GetRunRequest deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetRunRequestPb pb = mapper.readValue(p, GetRunRequestPb.class);
+      return GetRunRequest.fromPb(pb);
+    }
   }
 }

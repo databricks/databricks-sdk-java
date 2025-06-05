@@ -4,14 +4,28 @@ package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using =
+        CreateLogDeliveryConfigurationParams.CreateLogDeliveryConfigurationParamsSerializer.class)
+@JsonDeserialize(
+    using =
+        CreateLogDeliveryConfigurationParams.CreateLogDeliveryConfigurationParamsDeserializer.class)
 public class CreateLogDeliveryConfigurationParams {
   /** The optional human-readable name of the log delivery configuration. Defaults to empty. */
-  @JsonProperty("config_name")
   private String configName;
 
   /**
@@ -22,7 +36,6 @@ public class CreateLogDeliveryConfigurationParams {
    * <p>[Configure billable usage delivery]:
    * https://docs.databricks.com/administration-guide/account-settings/billable-usage-delivery.html
    */
-  @JsonProperty("credentials_id")
   private String credentialsId;
 
   /**
@@ -30,7 +43,6 @@ public class CreateLogDeliveryConfigurationParams {
    * logs are delivered to the root of the bucket. This must be a valid S3 object key. This must not
    * start or end with a slash character.
    */
-  @JsonProperty("delivery_path_prefix")
   private String deliveryPathPrefix;
 
   /**
@@ -38,7 +50,6 @@ public class CreateLogDeliveryConfigurationParams {
    * year for delivery, specified in `YYYY-MM` format. Defaults to current year and month.
    * `BILLABLE_USAGE` logs are not available for usage before March 2019 (`2019-03`).
    */
-  @JsonProperty("delivery_start_time")
   private String deliveryStartTime;
 
   /**
@@ -58,7 +69,6 @@ public class CreateLogDeliveryConfigurationParams {
    * usage log delivery]:
    * https://docs.databricks.com/administration-guide/account-settings/billable-usage-delivery.html
    */
-  @JsonProperty("log_type")
   private LogType logType;
 
   /**
@@ -73,7 +83,6 @@ public class CreateLogDeliveryConfigurationParams {
    * https://docs.databricks.com/administration-guide/account-settings/audit-logs.html [View
    * billable usage]: https://docs.databricks.com/administration-guide/account-settings/usage.html
    */
-  @JsonProperty("output_format")
   private OutputFormat outputFormat;
 
   /**
@@ -82,7 +91,6 @@ public class CreateLogDeliveryConfigurationParams {
    * configuration](#operation/patch-log-delivery-config-status) later. Deletion of a configuration
    * is not supported, so disable a log delivery configuration that is no longer needed.
    */
-  @JsonProperty("status")
   private LogDeliveryConfigStatus status;
 
   /**
@@ -93,7 +101,6 @@ public class CreateLogDeliveryConfigurationParams {
    * <p>[Configure billable usage delivery]:
    * https://docs.databricks.com/administration-guide/account-settings/billable-usage-delivery.html
    */
-  @JsonProperty("storage_configuration_id")
   private String storageConfigurationId;
 
   /**
@@ -108,7 +115,6 @@ public class CreateLogDeliveryConfigurationParams {
    * types of Databricks deployments there is only one workspace per account ID, so this field is
    * unnecessary.
    */
-  @JsonProperty("workspace_ids_filter")
   private Collection<Long> workspaceIdsFilter;
 
   public CreateLogDeliveryConfigurationParams setConfigName(String configName) {
@@ -237,5 +243,58 @@ public class CreateLogDeliveryConfigurationParams {
         .add("storageConfigurationId", storageConfigurationId)
         .add("workspaceIdsFilter", workspaceIdsFilter)
         .toString();
+  }
+
+  CreateLogDeliveryConfigurationParamsPb toPb() {
+    CreateLogDeliveryConfigurationParamsPb pb = new CreateLogDeliveryConfigurationParamsPb();
+    pb.setConfigName(configName);
+    pb.setCredentialsId(credentialsId);
+    pb.setDeliveryPathPrefix(deliveryPathPrefix);
+    pb.setDeliveryStartTime(deliveryStartTime);
+    pb.setLogType(logType);
+    pb.setOutputFormat(outputFormat);
+    pb.setStatus(status);
+    pb.setStorageConfigurationId(storageConfigurationId);
+    pb.setWorkspaceIdsFilter(workspaceIdsFilter);
+
+    return pb;
+  }
+
+  static CreateLogDeliveryConfigurationParams fromPb(CreateLogDeliveryConfigurationParamsPb pb) {
+    CreateLogDeliveryConfigurationParams model = new CreateLogDeliveryConfigurationParams();
+    model.setConfigName(pb.getConfigName());
+    model.setCredentialsId(pb.getCredentialsId());
+    model.setDeliveryPathPrefix(pb.getDeliveryPathPrefix());
+    model.setDeliveryStartTime(pb.getDeliveryStartTime());
+    model.setLogType(pb.getLogType());
+    model.setOutputFormat(pb.getOutputFormat());
+    model.setStatus(pb.getStatus());
+    model.setStorageConfigurationId(pb.getStorageConfigurationId());
+    model.setWorkspaceIdsFilter(pb.getWorkspaceIdsFilter());
+
+    return model;
+  }
+
+  public static class CreateLogDeliveryConfigurationParamsSerializer
+      extends JsonSerializer<CreateLogDeliveryConfigurationParams> {
+    @Override
+    public void serialize(
+        CreateLogDeliveryConfigurationParams value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateLogDeliveryConfigurationParamsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateLogDeliveryConfigurationParamsDeserializer
+      extends JsonDeserializer<CreateLogDeliveryConfigurationParams> {
+    @Override
+    public CreateLogDeliveryConfigurationParams deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateLogDeliveryConfigurationParamsPb pb =
+          mapper.readValue(p, CreateLogDeliveryConfigurationParamsPb.class);
+      return CreateLogDeliveryConfigurationParams.fromPb(pb);
+    }
   }
 }

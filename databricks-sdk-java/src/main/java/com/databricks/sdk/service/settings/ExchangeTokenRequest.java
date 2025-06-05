@@ -4,23 +4,31 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 /** Exchange a token with the IdP */
 @Generated
+@JsonSerialize(using = ExchangeTokenRequest.ExchangeTokenRequestSerializer.class)
+@JsonDeserialize(using = ExchangeTokenRequest.ExchangeTokenRequestDeserializer.class)
 public class ExchangeTokenRequest {
   /** The partition of Credentials store */
-  @JsonProperty("partitionId")
   private PartitionId partitionId;
 
   /** Array of scopes for the token request. */
-  @JsonProperty("scopes")
   private Collection<String> scopes;
 
   /** A list of token types being requested */
-  @JsonProperty("tokenType")
   private Collection<TokenType> tokenType;
 
   public ExchangeTokenRequest setPartitionId(PartitionId partitionId) {
@@ -72,5 +80,44 @@ public class ExchangeTokenRequest {
         .add("scopes", scopes)
         .add("tokenType", tokenType)
         .toString();
+  }
+
+  ExchangeTokenRequestPb toPb() {
+    ExchangeTokenRequestPb pb = new ExchangeTokenRequestPb();
+    pb.setPartitionId(partitionId);
+    pb.setScopes(scopes);
+    pb.setTokenType(tokenType);
+
+    return pb;
+  }
+
+  static ExchangeTokenRequest fromPb(ExchangeTokenRequestPb pb) {
+    ExchangeTokenRequest model = new ExchangeTokenRequest();
+    model.setPartitionId(pb.getPartitionId());
+    model.setScopes(pb.getScopes());
+    model.setTokenType(pb.getTokenType());
+
+    return model;
+  }
+
+  public static class ExchangeTokenRequestSerializer extends JsonSerializer<ExchangeTokenRequest> {
+    @Override
+    public void serialize(
+        ExchangeTokenRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ExchangeTokenRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ExchangeTokenRequestDeserializer
+      extends JsonDeserializer<ExchangeTokenRequest> {
+    @Override
+    public ExchangeTokenRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ExchangeTokenRequestPb pb = mapper.readValue(p, ExchangeTokenRequestPb.class);
+      return ExchangeTokenRequest.fromPb(pb);
+    }
   }
 }

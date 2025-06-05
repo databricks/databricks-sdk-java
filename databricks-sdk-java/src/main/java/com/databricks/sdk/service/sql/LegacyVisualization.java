@@ -4,7 +4,16 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -14,40 +23,34 @@ import java.util.Objects;
  * constructing ad-hoc visualizations entirely in JSON.
  */
 @Generated
+@JsonSerialize(using = LegacyVisualization.LegacyVisualizationSerializer.class)
+@JsonDeserialize(using = LegacyVisualization.LegacyVisualizationDeserializer.class)
 public class LegacyVisualization {
   /** */
-  @JsonProperty("created_at")
   private String createdAt;
 
   /** A short description of this visualization. This is not displayed in the UI. */
-  @JsonProperty("description")
   private String description;
 
   /** The UUID for this visualization. */
-  @JsonProperty("id")
   private String id;
 
   /** The name of the visualization that appears on dashboards and the query screen. */
-  @JsonProperty("name")
   private String name;
 
   /**
    * The options object varies widely from one visualization type to the next and is unsupported.
    * Databricks does not recommend modifying visualization settings in JSON.
    */
-  @JsonProperty("options")
   private Object options;
 
   /** */
-  @JsonProperty("query")
   private LegacyQuery query;
 
   /** The type of visualization: chart, table, pivot table, and so on. */
-  @JsonProperty("type")
   private String typeValue;
 
   /** */
-  @JsonProperty("updated_at")
   private String updatedAt;
 
   public LegacyVisualization setCreatedAt(String createdAt) {
@@ -154,5 +157,53 @@ public class LegacyVisualization {
         .add("typeValue", typeValue)
         .add("updatedAt", updatedAt)
         .toString();
+  }
+
+  LegacyVisualizationPb toPb() {
+    LegacyVisualizationPb pb = new LegacyVisualizationPb();
+    pb.setCreatedAt(createdAt);
+    pb.setDescription(description);
+    pb.setId(id);
+    pb.setName(name);
+    pb.setOptions(options);
+    pb.setQuery(query);
+    pb.setType(typeValue);
+    pb.setUpdatedAt(updatedAt);
+
+    return pb;
+  }
+
+  static LegacyVisualization fromPb(LegacyVisualizationPb pb) {
+    LegacyVisualization model = new LegacyVisualization();
+    model.setCreatedAt(pb.getCreatedAt());
+    model.setDescription(pb.getDescription());
+    model.setId(pb.getId());
+    model.setName(pb.getName());
+    model.setOptions(pb.getOptions());
+    model.setQuery(pb.getQuery());
+    model.setType(pb.getType());
+    model.setUpdatedAt(pb.getUpdatedAt());
+
+    return model;
+  }
+
+  public static class LegacyVisualizationSerializer extends JsonSerializer<LegacyVisualization> {
+    @Override
+    public void serialize(LegacyVisualization value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      LegacyVisualizationPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class LegacyVisualizationDeserializer
+      extends JsonDeserializer<LegacyVisualization> {
+    @Override
+    public LegacyVisualization deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      LegacyVisualizationPb pb = mapper.readValue(p, LegacyVisualizationPb.class);
+      return LegacyVisualization.fromPb(pb);
+    }
   }
 }

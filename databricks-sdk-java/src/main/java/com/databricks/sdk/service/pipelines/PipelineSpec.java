@@ -4,15 +4,25 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = PipelineSpec.PipelineSpecSerializer.class)
+@JsonDeserialize(using = PipelineSpec.PipelineSpecDeserializer.class)
 public class PipelineSpec {
   /** Budget policy of this pipeline. */
-  @JsonProperty("budget_policy_id")
   private String budgetPolicyId;
 
   /**
@@ -21,78 +31,60 @@ public class PipelineSpec {
    * `catalog`.`target`.`table`). If `target` is not specified, no data is published to Unity
    * Catalog.
    */
-  @JsonProperty("catalog")
   private String catalog;
 
   /** DLT Release Channel that specifies which version to use. */
-  @JsonProperty("channel")
   private String channel;
 
   /** Cluster settings for this pipeline deployment. */
-  @JsonProperty("clusters")
   private Collection<PipelineCluster> clusters;
 
   /** String-String configuration for this pipeline execution. */
-  @JsonProperty("configuration")
   private Map<String, String> configuration;
 
   /** Whether the pipeline is continuous or triggered. This replaces `trigger`. */
-  @JsonProperty("continuous")
   private Boolean continuous;
 
   /** Deployment type of this pipeline. */
-  @JsonProperty("deployment")
   private PipelineDeployment deployment;
 
   /** Whether the pipeline is in Development mode. Defaults to false. */
-  @JsonProperty("development")
   private Boolean development;
 
   /** Pipeline product edition. */
-  @JsonProperty("edition")
   private String edition;
 
   /** Event log configuration for this pipeline */
-  @JsonProperty("event_log")
   private EventLogSpec eventLog;
 
   /** Filters on which Pipeline packages to include in the deployed graph. */
-  @JsonProperty("filters")
   private Filters filters;
 
   /** The definition of a gateway pipeline to support change data capture. */
-  @JsonProperty("gateway_definition")
   private IngestionGatewayPipelineDefinition gatewayDefinition;
 
   /** Unique identifier for this pipeline. */
-  @JsonProperty("id")
   private String id;
 
   /**
    * The configuration for a managed ingestion pipeline. These settings cannot be used with the
    * 'libraries', 'schema', 'target', or 'catalog' settings.
    */
-  @JsonProperty("ingestion_definition")
   private IngestionPipelineDefinition ingestionDefinition;
 
   /** Libraries or code needed by this deployment. */
-  @JsonProperty("libraries")
   private Collection<PipelineLibrary> libraries;
 
   /** Friendly identifier for this pipeline. */
-  @JsonProperty("name")
   private String name;
 
   /** List of notification settings for this pipeline. */
-  @JsonProperty("notifications")
   private Collection<Notifications> notifications;
 
   /** Whether Photon is enabled for this pipeline. */
-  @JsonProperty("photon")
   private Boolean photon;
 
   /** Restart window of this pipeline. */
-  @JsonProperty("restart_window")
   private RestartWindow restartWindow;
 
   /**
@@ -100,19 +92,15 @@ public class PipelineSpec {
    * the Databricks user interface and it is added to sys.path when executing Python sources during
    * pipeline execution.
    */
-  @JsonProperty("root_path")
   private String rootPath;
 
   /** The default schema (database) where tables are read from or published to. */
-  @JsonProperty("schema")
   private String schema;
 
   /** Whether serverless compute is enabled for this pipeline. */
-  @JsonProperty("serverless")
   private Boolean serverless;
 
   /** DBFS root directory for storing checkpoints and tables. */
-  @JsonProperty("storage")
   private String storage;
 
   /**
@@ -120,7 +108,6 @@ public class PipelineSpec {
    * and are therefore subject to the same limitations. A maximum of 25 tags can be added to the
    * pipeline.
    */
-  @JsonProperty("tags")
   private Map<String, String> tags;
 
   /**
@@ -128,11 +115,9 @@ public class PipelineSpec {
    * must be specified. To publish to Unity Catalog, also specify `catalog`. This legacy field is
    * deprecated for pipeline creation in favor of the `schema` field.
    */
-  @JsonProperty("target")
   private String target;
 
   /** Which pipeline trigger to use. Deprecated: Use `continuous` instead. */
-  @JsonProperty("trigger")
   private PipelineTrigger trigger;
 
   public PipelineSpec setBudgetPolicyId(String budgetPolicyId) {
@@ -463,5 +448,87 @@ public class PipelineSpec {
         .add("target", target)
         .add("trigger", trigger)
         .toString();
+  }
+
+  PipelineSpecPb toPb() {
+    PipelineSpecPb pb = new PipelineSpecPb();
+    pb.setBudgetPolicyId(budgetPolicyId);
+    pb.setCatalog(catalog);
+    pb.setChannel(channel);
+    pb.setClusters(clusters);
+    pb.setConfiguration(configuration);
+    pb.setContinuous(continuous);
+    pb.setDeployment(deployment);
+    pb.setDevelopment(development);
+    pb.setEdition(edition);
+    pb.setEventLog(eventLog);
+    pb.setFilters(filters);
+    pb.setGatewayDefinition(gatewayDefinition);
+    pb.setId(id);
+    pb.setIngestionDefinition(ingestionDefinition);
+    pb.setLibraries(libraries);
+    pb.setName(name);
+    pb.setNotifications(notifications);
+    pb.setPhoton(photon);
+    pb.setRestartWindow(restartWindow);
+    pb.setRootPath(rootPath);
+    pb.setSchema(schema);
+    pb.setServerless(serverless);
+    pb.setStorage(storage);
+    pb.setTags(tags);
+    pb.setTarget(target);
+    pb.setTrigger(trigger);
+
+    return pb;
+  }
+
+  static PipelineSpec fromPb(PipelineSpecPb pb) {
+    PipelineSpec model = new PipelineSpec();
+    model.setBudgetPolicyId(pb.getBudgetPolicyId());
+    model.setCatalog(pb.getCatalog());
+    model.setChannel(pb.getChannel());
+    model.setClusters(pb.getClusters());
+    model.setConfiguration(pb.getConfiguration());
+    model.setContinuous(pb.getContinuous());
+    model.setDeployment(pb.getDeployment());
+    model.setDevelopment(pb.getDevelopment());
+    model.setEdition(pb.getEdition());
+    model.setEventLog(pb.getEventLog());
+    model.setFilters(pb.getFilters());
+    model.setGatewayDefinition(pb.getGatewayDefinition());
+    model.setId(pb.getId());
+    model.setIngestionDefinition(pb.getIngestionDefinition());
+    model.setLibraries(pb.getLibraries());
+    model.setName(pb.getName());
+    model.setNotifications(pb.getNotifications());
+    model.setPhoton(pb.getPhoton());
+    model.setRestartWindow(pb.getRestartWindow());
+    model.setRootPath(pb.getRootPath());
+    model.setSchema(pb.getSchema());
+    model.setServerless(pb.getServerless());
+    model.setStorage(pb.getStorage());
+    model.setTags(pb.getTags());
+    model.setTarget(pb.getTarget());
+    model.setTrigger(pb.getTrigger());
+
+    return model;
+  }
+
+  public static class PipelineSpecSerializer extends JsonSerializer<PipelineSpec> {
+    @Override
+    public void serialize(PipelineSpec value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PipelineSpecPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PipelineSpecDeserializer extends JsonDeserializer<PipelineSpec> {
+    @Override
+    public PipelineSpec deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PipelineSpecPb pb = mapper.readValue(p, PipelineSpecPb.class);
+      return PipelineSpec.fromPb(pb);
+    }
   }
 }

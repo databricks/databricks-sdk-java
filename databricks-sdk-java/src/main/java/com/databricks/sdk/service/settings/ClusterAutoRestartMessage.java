@@ -4,17 +4,26 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ClusterAutoRestartMessage.ClusterAutoRestartMessageSerializer.class)
+@JsonDeserialize(using = ClusterAutoRestartMessage.ClusterAutoRestartMessageDeserializer.class)
 public class ClusterAutoRestartMessage {
   /** */
-  @JsonProperty("can_toggle")
   private Boolean canToggle;
 
   /** */
-  @JsonProperty("enabled")
   private Boolean enabled;
 
   /**
@@ -24,15 +33,12 @@ public class ClusterAutoRestartMessage {
    * message to the customer with the additional details. For example, using these details we can
    * check why exactly the feature is disabled for this customer.
    */
-  @JsonProperty("enablement_details")
   private ClusterAutoRestartMessageEnablementDetails enablementDetails;
 
   /** */
-  @JsonProperty("maintenance_window")
   private ClusterAutoRestartMessageMaintenanceWindow maintenanceWindow;
 
   /** */
-  @JsonProperty("restart_even_if_no_updates_available")
   private Boolean restartEvenIfNoUpdatesAvailable;
 
   public ClusterAutoRestartMessage setCanToggle(Boolean canToggle) {
@@ -110,5 +116,49 @@ public class ClusterAutoRestartMessage {
         .add("maintenanceWindow", maintenanceWindow)
         .add("restartEvenIfNoUpdatesAvailable", restartEvenIfNoUpdatesAvailable)
         .toString();
+  }
+
+  ClusterAutoRestartMessagePb toPb() {
+    ClusterAutoRestartMessagePb pb = new ClusterAutoRestartMessagePb();
+    pb.setCanToggle(canToggle);
+    pb.setEnabled(enabled);
+    pb.setEnablementDetails(enablementDetails);
+    pb.setMaintenanceWindow(maintenanceWindow);
+    pb.setRestartEvenIfNoUpdatesAvailable(restartEvenIfNoUpdatesAvailable);
+
+    return pb;
+  }
+
+  static ClusterAutoRestartMessage fromPb(ClusterAutoRestartMessagePb pb) {
+    ClusterAutoRestartMessage model = new ClusterAutoRestartMessage();
+    model.setCanToggle(pb.getCanToggle());
+    model.setEnabled(pb.getEnabled());
+    model.setEnablementDetails(pb.getEnablementDetails());
+    model.setMaintenanceWindow(pb.getMaintenanceWindow());
+    model.setRestartEvenIfNoUpdatesAvailable(pb.getRestartEvenIfNoUpdatesAvailable());
+
+    return model;
+  }
+
+  public static class ClusterAutoRestartMessageSerializer
+      extends JsonSerializer<ClusterAutoRestartMessage> {
+    @Override
+    public void serialize(
+        ClusterAutoRestartMessage value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ClusterAutoRestartMessagePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ClusterAutoRestartMessageDeserializer
+      extends JsonDeserializer<ClusterAutoRestartMessage> {
+    @Override
+    public ClusterAutoRestartMessage deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ClusterAutoRestartMessagePb pb = mapper.readValue(p, ClusterAutoRestartMessagePb.class);
+      return ClusterAutoRestartMessage.fromPb(pb);
+    }
   }
 }

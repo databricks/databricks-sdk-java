@@ -3,13 +3,28 @@
 package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get the compliance security profile setting for new workspaces */
 @Generated
+@JsonSerialize(
+    using =
+        GetCspEnablementAccountSettingRequest.GetCspEnablementAccountSettingRequestSerializer.class)
+@JsonDeserialize(
+    using =
+        GetCspEnablementAccountSettingRequest.GetCspEnablementAccountSettingRequestDeserializer
+            .class)
 public class GetCspEnablementAccountSettingRequest {
   /**
    * etag used for versioning. The response is at least as fresh as the eTag provided. This is used
@@ -19,8 +34,6 @@ public class GetCspEnablementAccountSettingRequest {
    * an etag from a GET request, and pass it with the DELETE request to identify the rule set
    * version you are deleting.
    */
-  @JsonIgnore
-  @QueryParam("etag")
   private String etag;
 
   public GetCspEnablementAccountSettingRequest setEtag(String etag) {
@@ -48,5 +61,42 @@ public class GetCspEnablementAccountSettingRequest {
   @Override
   public String toString() {
     return new ToStringer(GetCspEnablementAccountSettingRequest.class).add("etag", etag).toString();
+  }
+
+  GetCspEnablementAccountSettingRequestPb toPb() {
+    GetCspEnablementAccountSettingRequestPb pb = new GetCspEnablementAccountSettingRequestPb();
+    pb.setEtag(etag);
+
+    return pb;
+  }
+
+  static GetCspEnablementAccountSettingRequest fromPb(GetCspEnablementAccountSettingRequestPb pb) {
+    GetCspEnablementAccountSettingRequest model = new GetCspEnablementAccountSettingRequest();
+    model.setEtag(pb.getEtag());
+
+    return model;
+  }
+
+  public static class GetCspEnablementAccountSettingRequestSerializer
+      extends JsonSerializer<GetCspEnablementAccountSettingRequest> {
+    @Override
+    public void serialize(
+        GetCspEnablementAccountSettingRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetCspEnablementAccountSettingRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetCspEnablementAccountSettingRequestDeserializer
+      extends JsonDeserializer<GetCspEnablementAccountSettingRequest> {
+    @Override
+    public GetCspEnablementAccountSettingRequest deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetCspEnablementAccountSettingRequestPb pb =
+          mapper.readValue(p, GetCspEnablementAccountSettingRequestPb.class);
+      return GetCspEnablementAccountSettingRequest.fromPb(pb);
+    }
   }
 }

@@ -4,28 +4,38 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = ListClusterCompliancesResponse.ListClusterCompliancesResponseSerializer.class)
+@JsonDeserialize(
+    using = ListClusterCompliancesResponse.ListClusterCompliancesResponseDeserializer.class)
 public class ListClusterCompliancesResponse {
   /** A list of clusters and their policy compliance statuses. */
-  @JsonProperty("clusters")
   private Collection<ClusterCompliance> clusters;
 
   /**
    * This field represents the pagination token to retrieve the next page of results. If the value
    * is "", it means no further results for the request.
    */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   /**
    * This field represents the pagination token to retrieve the previous page of results. If the
    * value is "", it means no further results for the request.
    */
-  @JsonProperty("prev_page_token")
   private String prevPageToken;
 
   public ListClusterCompliancesResponse setClusters(Collection<ClusterCompliance> clusters) {
@@ -77,5 +87,46 @@ public class ListClusterCompliancesResponse {
         .add("nextPageToken", nextPageToken)
         .add("prevPageToken", prevPageToken)
         .toString();
+  }
+
+  ListClusterCompliancesResponsePb toPb() {
+    ListClusterCompliancesResponsePb pb = new ListClusterCompliancesResponsePb();
+    pb.setClusters(clusters);
+    pb.setNextPageToken(nextPageToken);
+    pb.setPrevPageToken(prevPageToken);
+
+    return pb;
+  }
+
+  static ListClusterCompliancesResponse fromPb(ListClusterCompliancesResponsePb pb) {
+    ListClusterCompliancesResponse model = new ListClusterCompliancesResponse();
+    model.setClusters(pb.getClusters());
+    model.setNextPageToken(pb.getNextPageToken());
+    model.setPrevPageToken(pb.getPrevPageToken());
+
+    return model;
+  }
+
+  public static class ListClusterCompliancesResponseSerializer
+      extends JsonSerializer<ListClusterCompliancesResponse> {
+    @Override
+    public void serialize(
+        ListClusterCompliancesResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListClusterCompliancesResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListClusterCompliancesResponseDeserializer
+      extends JsonDeserializer<ListClusterCompliancesResponse> {
+    @Override
+    public ListClusterCompliancesResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListClusterCompliancesResponsePb pb =
+          mapper.readValue(p, ListClusterCompliancesResponsePb.class);
+      return ListClusterCompliancesResponse.fromPb(pb);
+    }
   }
 }

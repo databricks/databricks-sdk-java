@@ -4,34 +4,39 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = UpdateSchema.UpdateSchemaSerializer.class)
+@JsonDeserialize(using = UpdateSchema.UpdateSchemaDeserializer.class)
 public class UpdateSchema {
   /** User-provided free-form text description. */
-  @JsonProperty("comment")
   private String comment;
 
   /** Whether predictive optimization should be enabled for this object and objects under it. */
-  @JsonProperty("enable_predictive_optimization")
   private EnablePredictiveOptimization enablePredictiveOptimization;
 
   /** Full name of the schema. */
-  @JsonIgnore private String fullName;
+  private String fullName;
 
   /** New name for the schema. */
-  @JsonProperty("new_name")
   private String newName;
 
   /** Username of current owner of schema. */
-  @JsonProperty("owner")
   private String owner;
 
   /** A map of key-value properties attached to the securable. */
-  @JsonProperty("properties")
   private Map<String, String> properties;
 
   public UpdateSchema setComment(String comment) {
@@ -118,5 +123,47 @@ public class UpdateSchema {
         .add("owner", owner)
         .add("properties", properties)
         .toString();
+  }
+
+  UpdateSchemaPb toPb() {
+    UpdateSchemaPb pb = new UpdateSchemaPb();
+    pb.setComment(comment);
+    pb.setEnablePredictiveOptimization(enablePredictiveOptimization);
+    pb.setFullName(fullName);
+    pb.setNewName(newName);
+    pb.setOwner(owner);
+    pb.setProperties(properties);
+
+    return pb;
+  }
+
+  static UpdateSchema fromPb(UpdateSchemaPb pb) {
+    UpdateSchema model = new UpdateSchema();
+    model.setComment(pb.getComment());
+    model.setEnablePredictiveOptimization(pb.getEnablePredictiveOptimization());
+    model.setFullName(pb.getFullName());
+    model.setNewName(pb.getNewName());
+    model.setOwner(pb.getOwner());
+    model.setProperties(pb.getProperties());
+
+    return model;
+  }
+
+  public static class UpdateSchemaSerializer extends JsonSerializer<UpdateSchema> {
+    @Override
+    public void serialize(UpdateSchema value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateSchemaPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateSchemaDeserializer extends JsonDeserializer<UpdateSchema> {
+    @Override
+    public UpdateSchema deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateSchemaPb pb = mapper.readValue(p, UpdateSchemaPb.class);
+      return UpdateSchema.fromPb(pb);
+    }
   }
 }

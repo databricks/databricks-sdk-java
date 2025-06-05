@@ -4,14 +4,26 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get published dashboard */
 @Generated
+@JsonSerialize(using = GetPublishedDashboardRequest.GetPublishedDashboardRequestSerializer.class)
+@JsonDeserialize(
+    using = GetPublishedDashboardRequest.GetPublishedDashboardRequestDeserializer.class)
 public class GetPublishedDashboardRequest {
   /** UUID identifying the published dashboard. */
-  @JsonIgnore private String dashboardId;
+  private String dashboardId;
 
   public GetPublishedDashboardRequest setDashboardId(String dashboardId) {
     this.dashboardId = dashboardId;
@@ -40,5 +52,41 @@ public class GetPublishedDashboardRequest {
     return new ToStringer(GetPublishedDashboardRequest.class)
         .add("dashboardId", dashboardId)
         .toString();
+  }
+
+  GetPublishedDashboardRequestPb toPb() {
+    GetPublishedDashboardRequestPb pb = new GetPublishedDashboardRequestPb();
+    pb.setDashboardId(dashboardId);
+
+    return pb;
+  }
+
+  static GetPublishedDashboardRequest fromPb(GetPublishedDashboardRequestPb pb) {
+    GetPublishedDashboardRequest model = new GetPublishedDashboardRequest();
+    model.setDashboardId(pb.getDashboardId());
+
+    return model;
+  }
+
+  public static class GetPublishedDashboardRequestSerializer
+      extends JsonSerializer<GetPublishedDashboardRequest> {
+    @Override
+    public void serialize(
+        GetPublishedDashboardRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetPublishedDashboardRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetPublishedDashboardRequestDeserializer
+      extends JsonDeserializer<GetPublishedDashboardRequest> {
+    @Override
+    public GetPublishedDashboardRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetPublishedDashboardRequestPb pb = mapper.readValue(p, GetPublishedDashboardRequestPb.class);
+      return GetPublishedDashboardRequest.fromPb(pb);
+    }
   }
 }

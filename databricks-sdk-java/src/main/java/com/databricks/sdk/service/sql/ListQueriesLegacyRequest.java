@@ -3,13 +3,23 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get a list of queries */
 @Generated
+@JsonSerialize(using = ListQueriesLegacyRequest.ListQueriesLegacyRequestSerializer.class)
+@JsonDeserialize(using = ListQueriesLegacyRequest.ListQueriesLegacyRequestDeserializer.class)
 public class ListQueriesLegacyRequest {
   /**
    * Name of query attribute to order by. Default sort order is ascending. Append a dash (`-`) to
@@ -26,23 +36,15 @@ public class ListQueriesLegacyRequest {
    *
    * <p>- `created_by`: The user name of the user that created the query.
    */
-  @JsonIgnore
-  @QueryParam("order")
   private String order;
 
   /** Page number to retrieve. */
-  @JsonIgnore
-  @QueryParam("page")
   private Long page;
 
   /** Number of queries to return per page. */
-  @JsonIgnore
-  @QueryParam("page_size")
   private Long pageSize;
 
   /** Full text search term */
-  @JsonIgnore
-  @QueryParam("q")
   private String q;
 
   public ListQueriesLegacyRequest setOrder(String order) {
@@ -105,5 +107,47 @@ public class ListQueriesLegacyRequest {
         .add("pageSize", pageSize)
         .add("q", q)
         .toString();
+  }
+
+  ListQueriesLegacyRequestPb toPb() {
+    ListQueriesLegacyRequestPb pb = new ListQueriesLegacyRequestPb();
+    pb.setOrder(order);
+    pb.setPage(page);
+    pb.setPageSize(pageSize);
+    pb.setQ(q);
+
+    return pb;
+  }
+
+  static ListQueriesLegacyRequest fromPb(ListQueriesLegacyRequestPb pb) {
+    ListQueriesLegacyRequest model = new ListQueriesLegacyRequest();
+    model.setOrder(pb.getOrder());
+    model.setPage(pb.getPage());
+    model.setPageSize(pb.getPageSize());
+    model.setQ(pb.getQ());
+
+    return model;
+  }
+
+  public static class ListQueriesLegacyRequestSerializer
+      extends JsonSerializer<ListQueriesLegacyRequest> {
+    @Override
+    public void serialize(
+        ListQueriesLegacyRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListQueriesLegacyRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListQueriesLegacyRequestDeserializer
+      extends JsonDeserializer<ListQueriesLegacyRequest> {
+    @Override
+    public ListQueriesLegacyRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListQueriesLegacyRequestPb pb = mapper.readValue(p, ListQueriesLegacyRequestPb.class);
+      return ListQueriesLegacyRequest.fromPb(pb);
+    }
   }
 }

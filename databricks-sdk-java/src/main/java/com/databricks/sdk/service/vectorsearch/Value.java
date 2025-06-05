@@ -4,29 +4,35 @@ package com.databricks.sdk.service.vectorsearch;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = Value.ValueSerializer.class)
+@JsonDeserialize(using = Value.ValueDeserializer.class)
 public class Value {
   /** */
-  @JsonProperty("bool_value")
   private Boolean boolValue;
 
   /** */
-  @JsonProperty("list_value")
   private ListValue listValue;
 
   /** */
-  @JsonProperty("number_value")
   private Double numberValue;
 
   /** */
-  @JsonProperty("string_value")
   private String stringValue;
 
   /** */
-  @JsonProperty("struct_value")
   private Struct structValue;
 
   public Value setBoolValue(Boolean boolValue) {
@@ -100,5 +106,45 @@ public class Value {
         .add("stringValue", stringValue)
         .add("structValue", structValue)
         .toString();
+  }
+
+  ValuePb toPb() {
+    ValuePb pb = new ValuePb();
+    pb.setBoolValue(boolValue);
+    pb.setListValue(listValue);
+    pb.setNumberValue(numberValue);
+    pb.setStringValue(stringValue);
+    pb.setStructValue(structValue);
+
+    return pb;
+  }
+
+  static Value fromPb(ValuePb pb) {
+    Value model = new Value();
+    model.setBoolValue(pb.getBoolValue());
+    model.setListValue(pb.getListValue());
+    model.setNumberValue(pb.getNumberValue());
+    model.setStringValue(pb.getStringValue());
+    model.setStructValue(pb.getStructValue());
+
+    return model;
+  }
+
+  public static class ValueSerializer extends JsonSerializer<Value> {
+    @Override
+    public void serialize(Value value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ValuePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ValueDeserializer extends JsonDeserializer<Value> {
+    @Override
+    public Value deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ValuePb pb = mapper.readValue(p, ValuePb.class);
+      return Value.fromPb(pb);
+    }
   }
 }

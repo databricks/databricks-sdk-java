@@ -4,10 +4,21 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ClusterInstance.ClusterInstanceSerializer.class)
+@JsonDeserialize(using = ClusterInstance.ClusterInstanceDeserializer.class)
 public class ClusterInstance {
   /**
    * The canonical identifier for the cluster used by a run. This field is always available for runs
@@ -18,7 +29,6 @@ public class ClusterInstance {
    *
    * <p>The response won’t include this field if the identifier is not available yet.
    */
-  @JsonProperty("cluster_id")
   private String clusterId;
 
   /**
@@ -29,7 +39,6 @@ public class ClusterInstance {
    *
    * <p>The response won’t include this field if the identifier is not available yet.
    */
-  @JsonProperty("spark_context_id")
   private String sparkContextId;
 
   public ClusterInstance setClusterId(String clusterId) {
@@ -70,5 +79,40 @@ public class ClusterInstance {
         .add("clusterId", clusterId)
         .add("sparkContextId", sparkContextId)
         .toString();
+  }
+
+  ClusterInstancePb toPb() {
+    ClusterInstancePb pb = new ClusterInstancePb();
+    pb.setClusterId(clusterId);
+    pb.setSparkContextId(sparkContextId);
+
+    return pb;
+  }
+
+  static ClusterInstance fromPb(ClusterInstancePb pb) {
+    ClusterInstance model = new ClusterInstance();
+    model.setClusterId(pb.getClusterId());
+    model.setSparkContextId(pb.getSparkContextId());
+
+    return model;
+  }
+
+  public static class ClusterInstanceSerializer extends JsonSerializer<ClusterInstance> {
+    @Override
+    public void serialize(ClusterInstance value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ClusterInstancePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ClusterInstanceDeserializer extends JsonDeserializer<ClusterInstance> {
+    @Override
+    public ClusterInstance deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ClusterInstancePb pb = mapper.readValue(p, ClusterInstancePb.class);
+      return ClusterInstance.fromPb(pb);
+    }
   }
 }

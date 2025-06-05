@@ -4,22 +4,30 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = DbtCloudTaskOutput.DbtCloudTaskOutputSerializer.class)
+@JsonDeserialize(using = DbtCloudTaskOutput.DbtCloudTaskOutputDeserializer.class)
 public class DbtCloudTaskOutput {
   /** Id of the job run in dbt Cloud */
-  @JsonProperty("dbt_cloud_job_run_id")
   private Long dbtCloudJobRunId;
 
   /** Steps of the job run as received from dbt Cloud */
-  @JsonProperty("dbt_cloud_job_run_output")
   private Collection<DbtCloudJobRunStep> dbtCloudJobRunOutput;
 
   /** Url where full run details can be viewed */
-  @JsonProperty("dbt_cloud_job_run_url")
   private String dbtCloudJobRunUrl;
 
   public DbtCloudTaskOutput setDbtCloudJobRunId(Long dbtCloudJobRunId) {
@@ -72,5 +80,42 @@ public class DbtCloudTaskOutput {
         .add("dbtCloudJobRunOutput", dbtCloudJobRunOutput)
         .add("dbtCloudJobRunUrl", dbtCloudJobRunUrl)
         .toString();
+  }
+
+  DbtCloudTaskOutputPb toPb() {
+    DbtCloudTaskOutputPb pb = new DbtCloudTaskOutputPb();
+    pb.setDbtCloudJobRunId(dbtCloudJobRunId);
+    pb.setDbtCloudJobRunOutput(dbtCloudJobRunOutput);
+    pb.setDbtCloudJobRunUrl(dbtCloudJobRunUrl);
+
+    return pb;
+  }
+
+  static DbtCloudTaskOutput fromPb(DbtCloudTaskOutputPb pb) {
+    DbtCloudTaskOutput model = new DbtCloudTaskOutput();
+    model.setDbtCloudJobRunId(pb.getDbtCloudJobRunId());
+    model.setDbtCloudJobRunOutput(pb.getDbtCloudJobRunOutput());
+    model.setDbtCloudJobRunUrl(pb.getDbtCloudJobRunUrl());
+
+    return model;
+  }
+
+  public static class DbtCloudTaskOutputSerializer extends JsonSerializer<DbtCloudTaskOutput> {
+    @Override
+    public void serialize(DbtCloudTaskOutput value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DbtCloudTaskOutputPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DbtCloudTaskOutputDeserializer extends JsonDeserializer<DbtCloudTaskOutput> {
+    @Override
+    public DbtCloudTaskOutput deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DbtCloudTaskOutputPb pb = mapper.readValue(p, DbtCloudTaskOutputPb.class);
+      return DbtCloudTaskOutput.fromPb(pb);
+    }
   }
 }

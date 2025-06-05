@@ -3,13 +3,25 @@
 package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get the disable legacy features setting */
 @Generated
+@JsonSerialize(
+    using = GetDisableLegacyFeaturesRequest.GetDisableLegacyFeaturesRequestSerializer.class)
+@JsonDeserialize(
+    using = GetDisableLegacyFeaturesRequest.GetDisableLegacyFeaturesRequestDeserializer.class)
 public class GetDisableLegacyFeaturesRequest {
   /**
    * etag used for versioning. The response is at least as fresh as the eTag provided. This is used
@@ -19,8 +31,6 @@ public class GetDisableLegacyFeaturesRequest {
    * an etag from a GET request, and pass it with the DELETE request to identify the rule set
    * version you are deleting.
    */
-  @JsonIgnore
-  @QueryParam("etag")
   private String etag;
 
   public GetDisableLegacyFeaturesRequest setEtag(String etag) {
@@ -48,5 +58,42 @@ public class GetDisableLegacyFeaturesRequest {
   @Override
   public String toString() {
     return new ToStringer(GetDisableLegacyFeaturesRequest.class).add("etag", etag).toString();
+  }
+
+  GetDisableLegacyFeaturesRequestPb toPb() {
+    GetDisableLegacyFeaturesRequestPb pb = new GetDisableLegacyFeaturesRequestPb();
+    pb.setEtag(etag);
+
+    return pb;
+  }
+
+  static GetDisableLegacyFeaturesRequest fromPb(GetDisableLegacyFeaturesRequestPb pb) {
+    GetDisableLegacyFeaturesRequest model = new GetDisableLegacyFeaturesRequest();
+    model.setEtag(pb.getEtag());
+
+    return model;
+  }
+
+  public static class GetDisableLegacyFeaturesRequestSerializer
+      extends JsonSerializer<GetDisableLegacyFeaturesRequest> {
+    @Override
+    public void serialize(
+        GetDisableLegacyFeaturesRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetDisableLegacyFeaturesRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetDisableLegacyFeaturesRequestDeserializer
+      extends JsonDeserializer<GetDisableLegacyFeaturesRequest> {
+    @Override
+    public GetDisableLegacyFeaturesRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetDisableLegacyFeaturesRequestPb pb =
+          mapper.readValue(p, GetDisableLegacyFeaturesRequestPb.class);
+      return GetDisableLegacyFeaturesRequest.fromPb(pb);
+    }
   }
 }

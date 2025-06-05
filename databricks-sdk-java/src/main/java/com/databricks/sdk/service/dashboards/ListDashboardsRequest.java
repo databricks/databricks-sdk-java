@@ -3,38 +3,40 @@
 package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List dashboards */
 @Generated
+@JsonSerialize(using = ListDashboardsRequest.ListDashboardsRequestSerializer.class)
+@JsonDeserialize(using = ListDashboardsRequest.ListDashboardsRequestDeserializer.class)
 public class ListDashboardsRequest {
   /** The number of dashboards to return per page. */
-  @JsonIgnore
-  @QueryParam("page_size")
   private Long pageSize;
 
   /**
    * A page token, received from a previous `ListDashboards` call. This token can be used to
    * retrieve the subsequent page.
    */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   /**
    * The flag to include dashboards located in the trash. If unspecified, only active dashboards
    * will be returned.
    */
-  @JsonIgnore
-  @QueryParam("show_trashed")
   private Boolean showTrashed;
 
   /** `DASHBOARD_VIEW_BASIC`only includes summary metadata from the dashboard. */
-  @JsonIgnore
-  @QueryParam("view")
   private DashboardView view;
 
   public ListDashboardsRequest setPageSize(Long pageSize) {
@@ -97,5 +99,47 @@ public class ListDashboardsRequest {
         .add("showTrashed", showTrashed)
         .add("view", view)
         .toString();
+  }
+
+  ListDashboardsRequestPb toPb() {
+    ListDashboardsRequestPb pb = new ListDashboardsRequestPb();
+    pb.setPageSize(pageSize);
+    pb.setPageToken(pageToken);
+    pb.setShowTrashed(showTrashed);
+    pb.setView(view);
+
+    return pb;
+  }
+
+  static ListDashboardsRequest fromPb(ListDashboardsRequestPb pb) {
+    ListDashboardsRequest model = new ListDashboardsRequest();
+    model.setPageSize(pb.getPageSize());
+    model.setPageToken(pb.getPageToken());
+    model.setShowTrashed(pb.getShowTrashed());
+    model.setView(pb.getView());
+
+    return model;
+  }
+
+  public static class ListDashboardsRequestSerializer
+      extends JsonSerializer<ListDashboardsRequest> {
+    @Override
+    public void serialize(
+        ListDashboardsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListDashboardsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListDashboardsRequestDeserializer
+      extends JsonDeserializer<ListDashboardsRequest> {
+    @Override
+    public ListDashboardsRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListDashboardsRequestPb pb = mapper.readValue(p, ListDashboardsRequestPb.class);
+      return ListDashboardsRequest.fromPb(pb);
+    }
   }
 }

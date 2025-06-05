@@ -4,17 +4,26 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = TagKeyValue.TagKeyValueSerializer.class)
+@JsonDeserialize(using = TagKeyValue.TagKeyValueDeserializer.class)
 public class TagKeyValue {
   /** name of the tag */
-  @JsonProperty("key")
   private String key;
 
   /** value of the tag associated with the key, could be optional */
-  @JsonProperty("value")
   private String value;
 
   public TagKeyValue setKey(String key) {
@@ -51,5 +60,39 @@ public class TagKeyValue {
   @Override
   public String toString() {
     return new ToStringer(TagKeyValue.class).add("key", key).add("value", value).toString();
+  }
+
+  TagKeyValuePb toPb() {
+    TagKeyValuePb pb = new TagKeyValuePb();
+    pb.setKey(key);
+    pb.setValue(value);
+
+    return pb;
+  }
+
+  static TagKeyValue fromPb(TagKeyValuePb pb) {
+    TagKeyValue model = new TagKeyValue();
+    model.setKey(pb.getKey());
+    model.setValue(pb.getValue());
+
+    return model;
+  }
+
+  public static class TagKeyValueSerializer extends JsonSerializer<TagKeyValue> {
+    @Override
+    public void serialize(TagKeyValue value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      TagKeyValuePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class TagKeyValueDeserializer extends JsonDeserializer<TagKeyValue> {
+    @Override
+    public TagKeyValue deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      TagKeyValuePb pb = mapper.readValue(p, TagKeyValuePb.class);
+      return TagKeyValue.fromPb(pb);
+    }
   }
 }

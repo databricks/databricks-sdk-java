@@ -4,22 +4,33 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 /** The private endpoint rule list was successfully retrieved. */
 @Generated
+@JsonSerialize(
+    using = ListPrivateEndpointRulesResponse.ListPrivateEndpointRulesResponseSerializer.class)
+@JsonDeserialize(
+    using = ListPrivateEndpointRulesResponse.ListPrivateEndpointRulesResponseDeserializer.class)
 public class ListPrivateEndpointRulesResponse {
   /** */
-  @JsonProperty("items")
   private Collection<NccPrivateEndpointRule> items;
 
   /**
    * A token that can be used to get the next page of results. If null, there are no more results to
    * show.
    */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   public ListPrivateEndpointRulesResponse setItems(Collection<NccPrivateEndpointRule> items) {
@@ -59,5 +70,44 @@ public class ListPrivateEndpointRulesResponse {
         .add("items", items)
         .add("nextPageToken", nextPageToken)
         .toString();
+  }
+
+  ListPrivateEndpointRulesResponsePb toPb() {
+    ListPrivateEndpointRulesResponsePb pb = new ListPrivateEndpointRulesResponsePb();
+    pb.setItems(items);
+    pb.setNextPageToken(nextPageToken);
+
+    return pb;
+  }
+
+  static ListPrivateEndpointRulesResponse fromPb(ListPrivateEndpointRulesResponsePb pb) {
+    ListPrivateEndpointRulesResponse model = new ListPrivateEndpointRulesResponse();
+    model.setItems(pb.getItems());
+    model.setNextPageToken(pb.getNextPageToken());
+
+    return model;
+  }
+
+  public static class ListPrivateEndpointRulesResponseSerializer
+      extends JsonSerializer<ListPrivateEndpointRulesResponse> {
+    @Override
+    public void serialize(
+        ListPrivateEndpointRulesResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListPrivateEndpointRulesResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListPrivateEndpointRulesResponseDeserializer
+      extends JsonDeserializer<ListPrivateEndpointRulesResponse> {
+    @Override
+    public ListPrivateEndpointRulesResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListPrivateEndpointRulesResponsePb pb =
+          mapper.readValue(p, ListPrivateEndpointRulesResponsePb.class);
+      return ListPrivateEndpointRulesResponse.fromPb(pb);
+    }
   }
 }

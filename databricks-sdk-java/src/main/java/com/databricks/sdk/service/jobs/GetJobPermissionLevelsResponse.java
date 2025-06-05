@@ -4,14 +4,26 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = GetJobPermissionLevelsResponse.GetJobPermissionLevelsResponseSerializer.class)
+@JsonDeserialize(
+    using = GetJobPermissionLevelsResponse.GetJobPermissionLevelsResponseDeserializer.class)
 public class GetJobPermissionLevelsResponse {
   /** Specific permission levels */
-  @JsonProperty("permission_levels")
   private Collection<JobPermissionsDescription> permissionLevels;
 
   public GetJobPermissionLevelsResponse setPermissionLevels(
@@ -42,5 +54,42 @@ public class GetJobPermissionLevelsResponse {
     return new ToStringer(GetJobPermissionLevelsResponse.class)
         .add("permissionLevels", permissionLevels)
         .toString();
+  }
+
+  GetJobPermissionLevelsResponsePb toPb() {
+    GetJobPermissionLevelsResponsePb pb = new GetJobPermissionLevelsResponsePb();
+    pb.setPermissionLevels(permissionLevels);
+
+    return pb;
+  }
+
+  static GetJobPermissionLevelsResponse fromPb(GetJobPermissionLevelsResponsePb pb) {
+    GetJobPermissionLevelsResponse model = new GetJobPermissionLevelsResponse();
+    model.setPermissionLevels(pb.getPermissionLevels());
+
+    return model;
+  }
+
+  public static class GetJobPermissionLevelsResponseSerializer
+      extends JsonSerializer<GetJobPermissionLevelsResponse> {
+    @Override
+    public void serialize(
+        GetJobPermissionLevelsResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetJobPermissionLevelsResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetJobPermissionLevelsResponseDeserializer
+      extends JsonDeserializer<GetJobPermissionLevelsResponse> {
+    @Override
+    public GetJobPermissionLevelsResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetJobPermissionLevelsResponsePb pb =
+          mapper.readValue(p, GetJobPermissionLevelsResponsePb.class);
+      return GetJobPermissionLevelsResponse.fromPb(pb);
+    }
   }
 }

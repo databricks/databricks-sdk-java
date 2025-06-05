@@ -4,17 +4,26 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ServiceError.ServiceErrorSerializer.class)
+@JsonDeserialize(using = ServiceError.ServiceErrorDeserializer.class)
 public class ServiceError {
   /** */
-  @JsonProperty("error_code")
   private ServiceErrorCode errorCode;
 
   /** A brief summary of the error condition. */
-  @JsonProperty("message")
   private String message;
 
   public ServiceError setErrorCode(ServiceErrorCode errorCode) {
@@ -54,5 +63,39 @@ public class ServiceError {
         .add("errorCode", errorCode)
         .add("message", message)
         .toString();
+  }
+
+  ServiceErrorPb toPb() {
+    ServiceErrorPb pb = new ServiceErrorPb();
+    pb.setErrorCode(errorCode);
+    pb.setMessage(message);
+
+    return pb;
+  }
+
+  static ServiceError fromPb(ServiceErrorPb pb) {
+    ServiceError model = new ServiceError();
+    model.setErrorCode(pb.getErrorCode());
+    model.setMessage(pb.getMessage());
+
+    return model;
+  }
+
+  public static class ServiceErrorSerializer extends JsonSerializer<ServiceError> {
+    @Override
+    public void serialize(ServiceError value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ServiceErrorPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ServiceErrorDeserializer extends JsonDeserializer<ServiceError> {
+    @Override
+    public ServiceError deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ServiceErrorPb pb = mapper.readValue(p, ServiceErrorPb.class);
+      return ServiceError.fromPb(pb);
+    }
   }
 }

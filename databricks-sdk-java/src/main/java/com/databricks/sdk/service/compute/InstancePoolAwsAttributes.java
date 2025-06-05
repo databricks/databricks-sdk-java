@@ -4,14 +4,24 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Attributes set during instance pool creation which are related to Amazon Web Services. */
 @Generated
+@JsonSerialize(using = InstancePoolAwsAttributes.InstancePoolAwsAttributesSerializer.class)
+@JsonDeserialize(using = InstancePoolAwsAttributes.InstancePoolAwsAttributesDeserializer.class)
 public class InstancePoolAwsAttributes {
   /** Availability type used for the spot nodes. */
-  @JsonProperty("availability")
   private InstancePoolAwsAttributesAvailability availability;
 
   /**
@@ -24,7 +34,6 @@ public class InstancePoolAwsAttributes {
    * matches this field will be considered. Note that, for safety, we enforce this field to be no
    * more than 10000.
    */
-  @JsonProperty("spot_bid_price_percent")
   private Long spotBidPricePercent;
 
   /**
@@ -35,7 +44,6 @@ public class InstancePoolAwsAttributes {
    * and if not specified, a default zone will be used. The list of available zones as well as the
    * default value can be found by using the `List Zones` method.
    */
-  @JsonProperty("zone_id")
   private String zoneId;
 
   public InstancePoolAwsAttributes setAvailability(
@@ -88,5 +96,45 @@ public class InstancePoolAwsAttributes {
         .add("spotBidPricePercent", spotBidPricePercent)
         .add("zoneId", zoneId)
         .toString();
+  }
+
+  InstancePoolAwsAttributesPb toPb() {
+    InstancePoolAwsAttributesPb pb = new InstancePoolAwsAttributesPb();
+    pb.setAvailability(availability);
+    pb.setSpotBidPricePercent(spotBidPricePercent);
+    pb.setZoneId(zoneId);
+
+    return pb;
+  }
+
+  static InstancePoolAwsAttributes fromPb(InstancePoolAwsAttributesPb pb) {
+    InstancePoolAwsAttributes model = new InstancePoolAwsAttributes();
+    model.setAvailability(pb.getAvailability());
+    model.setSpotBidPricePercent(pb.getSpotBidPricePercent());
+    model.setZoneId(pb.getZoneId());
+
+    return model;
+  }
+
+  public static class InstancePoolAwsAttributesSerializer
+      extends JsonSerializer<InstancePoolAwsAttributes> {
+    @Override
+    public void serialize(
+        InstancePoolAwsAttributes value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      InstancePoolAwsAttributesPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class InstancePoolAwsAttributesDeserializer
+      extends JsonDeserializer<InstancePoolAwsAttributes> {
+    @Override
+    public InstancePoolAwsAttributes deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      InstancePoolAwsAttributesPb pb = mapper.readValue(p, InstancePoolAwsAttributesPb.class);
+      return InstancePoolAwsAttributes.fromPb(pb);
+    }
   }
 }

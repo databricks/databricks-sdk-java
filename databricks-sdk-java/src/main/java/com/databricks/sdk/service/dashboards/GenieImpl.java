@@ -24,7 +24,7 @@ class GenieImpl implements GenieService {
             request.getSpaceId(), request.getConversationId());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, GenieMessage.class);
@@ -45,7 +45,7 @@ class GenieImpl implements GenieService {
             request.getAttachmentId());
     try {
       Request req = new Request("POST", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GenieGetMessageQueryResultResponse.class);
     } catch (IOException e) {
@@ -62,7 +62,7 @@ class GenieImpl implements GenieService {
             request.getSpaceId(), request.getConversationId(), request.getMessageId());
     try {
       Request req = new Request("POST", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GenieGetMessageQueryResultResponse.class);
     } catch (IOException e) {
@@ -82,7 +82,7 @@ class GenieImpl implements GenieService {
             request.getAttachmentId());
     try {
       Request req = new Request("POST", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GenieGenerateDownloadFullQueryResultResponse.class);
     } catch (IOException e) {
@@ -103,7 +103,7 @@ class GenieImpl implements GenieService {
             request.getDownloadId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GenieGetDownloadFullQueryResultResponse.class);
     } catch (IOException e) {
@@ -119,7 +119,7 @@ class GenieImpl implements GenieService {
             request.getSpaceId(), request.getConversationId(), request.getMessageId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GenieMessage.class);
     } catch (IOException e) {
@@ -139,7 +139,7 @@ class GenieImpl implements GenieService {
             request.getAttachmentId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GenieGetMessageQueryResultResponse.class);
     } catch (IOException e) {
@@ -156,7 +156,7 @@ class GenieImpl implements GenieService {
             request.getSpaceId(), request.getConversationId(), request.getMessageId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GenieGetMessageQueryResultResponse.class);
     } catch (IOException e) {
@@ -176,7 +176,7 @@ class GenieImpl implements GenieService {
             request.getAttachmentId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GenieGetMessageQueryResultResponse.class);
     } catch (IOException e) {
@@ -189,7 +189,7 @@ class GenieImpl implements GenieService {
     String path = String.format("/api/2.0/genie/spaces/%s", request.getSpaceId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GenieSpace.class);
     } catch (IOException e) {
@@ -202,7 +202,7 @@ class GenieImpl implements GenieService {
     String path = "/api/2.0/genie/spaces";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GenieListSpacesResponse.class);
     } catch (IOException e) {
@@ -217,7 +217,7 @@ class GenieImpl implements GenieService {
         String.format("/api/2.0/genie/spaces/%s/start-conversation", request.getSpaceId());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, GenieStartConversationResponse.class);

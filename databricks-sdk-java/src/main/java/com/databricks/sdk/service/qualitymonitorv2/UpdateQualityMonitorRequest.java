@@ -4,21 +4,30 @@ package com.databricks.sdk.service.qualitymonitorv2;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Update a quality monitor */
 @Generated
+@JsonSerialize(using = UpdateQualityMonitorRequest.UpdateQualityMonitorRequestSerializer.class)
+@JsonDeserialize(using = UpdateQualityMonitorRequest.UpdateQualityMonitorRequestDeserializer.class)
 public class UpdateQualityMonitorRequest {
   /** The uuid of the request object. For example, schema id. */
-  @JsonIgnore private String objectId;
+  private String objectId;
 
   /** The type of the monitored object. Can be one of the following: schema. */
-  @JsonIgnore private String objectType;
+  private String objectType;
 
   /** */
-  @JsonProperty("quality_monitor")
   private QualityMonitor qualityMonitor;
 
   public UpdateQualityMonitorRequest setObjectId(String objectId) {
@@ -70,5 +79,45 @@ public class UpdateQualityMonitorRequest {
         .add("objectType", objectType)
         .add("qualityMonitor", qualityMonitor)
         .toString();
+  }
+
+  UpdateQualityMonitorRequestPb toPb() {
+    UpdateQualityMonitorRequestPb pb = new UpdateQualityMonitorRequestPb();
+    pb.setObjectId(objectId);
+    pb.setObjectType(objectType);
+    pb.setQualityMonitor(qualityMonitor);
+
+    return pb;
+  }
+
+  static UpdateQualityMonitorRequest fromPb(UpdateQualityMonitorRequestPb pb) {
+    UpdateQualityMonitorRequest model = new UpdateQualityMonitorRequest();
+    model.setObjectId(pb.getObjectId());
+    model.setObjectType(pb.getObjectType());
+    model.setQualityMonitor(pb.getQualityMonitor());
+
+    return model;
+  }
+
+  public static class UpdateQualityMonitorRequestSerializer
+      extends JsonSerializer<UpdateQualityMonitorRequest> {
+    @Override
+    public void serialize(
+        UpdateQualityMonitorRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateQualityMonitorRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateQualityMonitorRequestDeserializer
+      extends JsonDeserializer<UpdateQualityMonitorRequest> {
+    @Override
+    public UpdateQualityMonitorRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateQualityMonitorRequestPb pb = mapper.readValue(p, UpdateQualityMonitorRequestPb.class);
+      return UpdateQualityMonitorRequest.fromPb(pb);
+    }
   }
 }

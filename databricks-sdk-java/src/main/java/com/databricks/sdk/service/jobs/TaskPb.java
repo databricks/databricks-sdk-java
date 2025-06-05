@@ -1,0 +1,540 @@
+// Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
+
+package com.databricks.sdk.service.jobs;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
+
+@Generated
+class TaskPb {
+  @JsonProperty("clean_rooms_notebook_task")
+  private CleanRoomsNotebookTask cleanRoomsNotebookTask;
+
+  @JsonProperty("condition_task")
+  private ConditionTask conditionTask;
+
+  @JsonProperty("dashboard_task")
+  private DashboardTask dashboardTask;
+
+  @JsonProperty("dbt_cloud_task")
+  private DbtCloudTask dbtCloudTask;
+
+  @JsonProperty("dbt_task")
+  private DbtTask dbtTask;
+
+  @JsonProperty("depends_on")
+  private Collection<TaskDependency> dependsOn;
+
+  @JsonProperty("description")
+  private String description;
+
+  @JsonProperty("disable_auto_optimization")
+  private Boolean disableAutoOptimization;
+
+  @JsonProperty("email_notifications")
+  private TaskEmailNotifications emailNotifications;
+
+  @JsonProperty("environment_key")
+  private String environmentKey;
+
+  @JsonProperty("existing_cluster_id")
+  private String existingClusterId;
+
+  @JsonProperty("for_each_task")
+  private ForEachTask forEachTask;
+
+  @JsonProperty("gen_ai_compute_task")
+  private GenAiComputeTask genAiComputeTask;
+
+  @JsonProperty("health")
+  private JobsHealthRules health;
+
+  @JsonProperty("job_cluster_key")
+  private String jobClusterKey;
+
+  @JsonProperty("libraries")
+  private Collection<com.databricks.sdk.service.compute.Library> libraries;
+
+  @JsonProperty("max_retries")
+  private Long maxRetries;
+
+  @JsonProperty("min_retry_interval_millis")
+  private Long minRetryIntervalMillis;
+
+  @JsonProperty("new_cluster")
+  private com.databricks.sdk.service.compute.ClusterSpec newCluster;
+
+  @JsonProperty("notebook_task")
+  private NotebookTask notebookTask;
+
+  @JsonProperty("notification_settings")
+  private TaskNotificationSettings notificationSettings;
+
+  @JsonProperty("pipeline_task")
+  private PipelineTask pipelineTask;
+
+  @JsonProperty("power_bi_task")
+  private PowerBiTask powerBiTask;
+
+  @JsonProperty("python_wheel_task")
+  private PythonWheelTask pythonWheelTask;
+
+  @JsonProperty("retry_on_timeout")
+  private Boolean retryOnTimeout;
+
+  @JsonProperty("run_if")
+  private RunIf runIf;
+
+  @JsonProperty("run_job_task")
+  private RunJobTask runJobTask;
+
+  @JsonProperty("spark_jar_task")
+  private SparkJarTask sparkJarTask;
+
+  @JsonProperty("spark_python_task")
+  private SparkPythonTask sparkPythonTask;
+
+  @JsonProperty("spark_submit_task")
+  private SparkSubmitTask sparkSubmitTask;
+
+  @JsonProperty("sql_task")
+  private SqlTask sqlTask;
+
+  @JsonProperty("task_key")
+  private String taskKey;
+
+  @JsonProperty("timeout_seconds")
+  private Long timeoutSeconds;
+
+  @JsonProperty("webhook_notifications")
+  private WebhookNotifications webhookNotifications;
+
+  public TaskPb setCleanRoomsNotebookTask(CleanRoomsNotebookTask cleanRoomsNotebookTask) {
+    this.cleanRoomsNotebookTask = cleanRoomsNotebookTask;
+    return this;
+  }
+
+  public CleanRoomsNotebookTask getCleanRoomsNotebookTask() {
+    return cleanRoomsNotebookTask;
+  }
+
+  public TaskPb setConditionTask(ConditionTask conditionTask) {
+    this.conditionTask = conditionTask;
+    return this;
+  }
+
+  public ConditionTask getConditionTask() {
+    return conditionTask;
+  }
+
+  public TaskPb setDashboardTask(DashboardTask dashboardTask) {
+    this.dashboardTask = dashboardTask;
+    return this;
+  }
+
+  public DashboardTask getDashboardTask() {
+    return dashboardTask;
+  }
+
+  public TaskPb setDbtCloudTask(DbtCloudTask dbtCloudTask) {
+    this.dbtCloudTask = dbtCloudTask;
+    return this;
+  }
+
+  public DbtCloudTask getDbtCloudTask() {
+    return dbtCloudTask;
+  }
+
+  public TaskPb setDbtTask(DbtTask dbtTask) {
+    this.dbtTask = dbtTask;
+    return this;
+  }
+
+  public DbtTask getDbtTask() {
+    return dbtTask;
+  }
+
+  public TaskPb setDependsOn(Collection<TaskDependency> dependsOn) {
+    this.dependsOn = dependsOn;
+    return this;
+  }
+
+  public Collection<TaskDependency> getDependsOn() {
+    return dependsOn;
+  }
+
+  public TaskPb setDescription(String description) {
+    this.description = description;
+    return this;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public TaskPb setDisableAutoOptimization(Boolean disableAutoOptimization) {
+    this.disableAutoOptimization = disableAutoOptimization;
+    return this;
+  }
+
+  public Boolean getDisableAutoOptimization() {
+    return disableAutoOptimization;
+  }
+
+  public TaskPb setEmailNotifications(TaskEmailNotifications emailNotifications) {
+    this.emailNotifications = emailNotifications;
+    return this;
+  }
+
+  public TaskEmailNotifications getEmailNotifications() {
+    return emailNotifications;
+  }
+
+  public TaskPb setEnvironmentKey(String environmentKey) {
+    this.environmentKey = environmentKey;
+    return this;
+  }
+
+  public String getEnvironmentKey() {
+    return environmentKey;
+  }
+
+  public TaskPb setExistingClusterId(String existingClusterId) {
+    this.existingClusterId = existingClusterId;
+    return this;
+  }
+
+  public String getExistingClusterId() {
+    return existingClusterId;
+  }
+
+  public TaskPb setForEachTask(ForEachTask forEachTask) {
+    this.forEachTask = forEachTask;
+    return this;
+  }
+
+  public ForEachTask getForEachTask() {
+    return forEachTask;
+  }
+
+  public TaskPb setGenAiComputeTask(GenAiComputeTask genAiComputeTask) {
+    this.genAiComputeTask = genAiComputeTask;
+    return this;
+  }
+
+  public GenAiComputeTask getGenAiComputeTask() {
+    return genAiComputeTask;
+  }
+
+  public TaskPb setHealth(JobsHealthRules health) {
+    this.health = health;
+    return this;
+  }
+
+  public JobsHealthRules getHealth() {
+    return health;
+  }
+
+  public TaskPb setJobClusterKey(String jobClusterKey) {
+    this.jobClusterKey = jobClusterKey;
+    return this;
+  }
+
+  public String getJobClusterKey() {
+    return jobClusterKey;
+  }
+
+  public TaskPb setLibraries(Collection<com.databricks.sdk.service.compute.Library> libraries) {
+    this.libraries = libraries;
+    return this;
+  }
+
+  public Collection<com.databricks.sdk.service.compute.Library> getLibraries() {
+    return libraries;
+  }
+
+  public TaskPb setMaxRetries(Long maxRetries) {
+    this.maxRetries = maxRetries;
+    return this;
+  }
+
+  public Long getMaxRetries() {
+    return maxRetries;
+  }
+
+  public TaskPb setMinRetryIntervalMillis(Long minRetryIntervalMillis) {
+    this.minRetryIntervalMillis = minRetryIntervalMillis;
+    return this;
+  }
+
+  public Long getMinRetryIntervalMillis() {
+    return minRetryIntervalMillis;
+  }
+
+  public TaskPb setNewCluster(com.databricks.sdk.service.compute.ClusterSpec newCluster) {
+    this.newCluster = newCluster;
+    return this;
+  }
+
+  public com.databricks.sdk.service.compute.ClusterSpec getNewCluster() {
+    return newCluster;
+  }
+
+  public TaskPb setNotebookTask(NotebookTask notebookTask) {
+    this.notebookTask = notebookTask;
+    return this;
+  }
+
+  public NotebookTask getNotebookTask() {
+    return notebookTask;
+  }
+
+  public TaskPb setNotificationSettings(TaskNotificationSettings notificationSettings) {
+    this.notificationSettings = notificationSettings;
+    return this;
+  }
+
+  public TaskNotificationSettings getNotificationSettings() {
+    return notificationSettings;
+  }
+
+  public TaskPb setPipelineTask(PipelineTask pipelineTask) {
+    this.pipelineTask = pipelineTask;
+    return this;
+  }
+
+  public PipelineTask getPipelineTask() {
+    return pipelineTask;
+  }
+
+  public TaskPb setPowerBiTask(PowerBiTask powerBiTask) {
+    this.powerBiTask = powerBiTask;
+    return this;
+  }
+
+  public PowerBiTask getPowerBiTask() {
+    return powerBiTask;
+  }
+
+  public TaskPb setPythonWheelTask(PythonWheelTask pythonWheelTask) {
+    this.pythonWheelTask = pythonWheelTask;
+    return this;
+  }
+
+  public PythonWheelTask getPythonWheelTask() {
+    return pythonWheelTask;
+  }
+
+  public TaskPb setRetryOnTimeout(Boolean retryOnTimeout) {
+    this.retryOnTimeout = retryOnTimeout;
+    return this;
+  }
+
+  public Boolean getRetryOnTimeout() {
+    return retryOnTimeout;
+  }
+
+  public TaskPb setRunIf(RunIf runIf) {
+    this.runIf = runIf;
+    return this;
+  }
+
+  public RunIf getRunIf() {
+    return runIf;
+  }
+
+  public TaskPb setRunJobTask(RunJobTask runJobTask) {
+    this.runJobTask = runJobTask;
+    return this;
+  }
+
+  public RunJobTask getRunJobTask() {
+    return runJobTask;
+  }
+
+  public TaskPb setSparkJarTask(SparkJarTask sparkJarTask) {
+    this.sparkJarTask = sparkJarTask;
+    return this;
+  }
+
+  public SparkJarTask getSparkJarTask() {
+    return sparkJarTask;
+  }
+
+  public TaskPb setSparkPythonTask(SparkPythonTask sparkPythonTask) {
+    this.sparkPythonTask = sparkPythonTask;
+    return this;
+  }
+
+  public SparkPythonTask getSparkPythonTask() {
+    return sparkPythonTask;
+  }
+
+  public TaskPb setSparkSubmitTask(SparkSubmitTask sparkSubmitTask) {
+    this.sparkSubmitTask = sparkSubmitTask;
+    return this;
+  }
+
+  public SparkSubmitTask getSparkSubmitTask() {
+    return sparkSubmitTask;
+  }
+
+  public TaskPb setSqlTask(SqlTask sqlTask) {
+    this.sqlTask = sqlTask;
+    return this;
+  }
+
+  public SqlTask getSqlTask() {
+    return sqlTask;
+  }
+
+  public TaskPb setTaskKey(String taskKey) {
+    this.taskKey = taskKey;
+    return this;
+  }
+
+  public String getTaskKey() {
+    return taskKey;
+  }
+
+  public TaskPb setTimeoutSeconds(Long timeoutSeconds) {
+    this.timeoutSeconds = timeoutSeconds;
+    return this;
+  }
+
+  public Long getTimeoutSeconds() {
+    return timeoutSeconds;
+  }
+
+  public TaskPb setWebhookNotifications(WebhookNotifications webhookNotifications) {
+    this.webhookNotifications = webhookNotifications;
+    return this;
+  }
+
+  public WebhookNotifications getWebhookNotifications() {
+    return webhookNotifications;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    TaskPb that = (TaskPb) o;
+    return Objects.equals(cleanRoomsNotebookTask, that.cleanRoomsNotebookTask)
+        && Objects.equals(conditionTask, that.conditionTask)
+        && Objects.equals(dashboardTask, that.dashboardTask)
+        && Objects.equals(dbtCloudTask, that.dbtCloudTask)
+        && Objects.equals(dbtTask, that.dbtTask)
+        && Objects.equals(dependsOn, that.dependsOn)
+        && Objects.equals(description, that.description)
+        && Objects.equals(disableAutoOptimization, that.disableAutoOptimization)
+        && Objects.equals(emailNotifications, that.emailNotifications)
+        && Objects.equals(environmentKey, that.environmentKey)
+        && Objects.equals(existingClusterId, that.existingClusterId)
+        && Objects.equals(forEachTask, that.forEachTask)
+        && Objects.equals(genAiComputeTask, that.genAiComputeTask)
+        && Objects.equals(health, that.health)
+        && Objects.equals(jobClusterKey, that.jobClusterKey)
+        && Objects.equals(libraries, that.libraries)
+        && Objects.equals(maxRetries, that.maxRetries)
+        && Objects.equals(minRetryIntervalMillis, that.minRetryIntervalMillis)
+        && Objects.equals(newCluster, that.newCluster)
+        && Objects.equals(notebookTask, that.notebookTask)
+        && Objects.equals(notificationSettings, that.notificationSettings)
+        && Objects.equals(pipelineTask, that.pipelineTask)
+        && Objects.equals(powerBiTask, that.powerBiTask)
+        && Objects.equals(pythonWheelTask, that.pythonWheelTask)
+        && Objects.equals(retryOnTimeout, that.retryOnTimeout)
+        && Objects.equals(runIf, that.runIf)
+        && Objects.equals(runJobTask, that.runJobTask)
+        && Objects.equals(sparkJarTask, that.sparkJarTask)
+        && Objects.equals(sparkPythonTask, that.sparkPythonTask)
+        && Objects.equals(sparkSubmitTask, that.sparkSubmitTask)
+        && Objects.equals(sqlTask, that.sqlTask)
+        && Objects.equals(taskKey, that.taskKey)
+        && Objects.equals(timeoutSeconds, that.timeoutSeconds)
+        && Objects.equals(webhookNotifications, that.webhookNotifications);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        cleanRoomsNotebookTask,
+        conditionTask,
+        dashboardTask,
+        dbtCloudTask,
+        dbtTask,
+        dependsOn,
+        description,
+        disableAutoOptimization,
+        emailNotifications,
+        environmentKey,
+        existingClusterId,
+        forEachTask,
+        genAiComputeTask,
+        health,
+        jobClusterKey,
+        libraries,
+        maxRetries,
+        minRetryIntervalMillis,
+        newCluster,
+        notebookTask,
+        notificationSettings,
+        pipelineTask,
+        powerBiTask,
+        pythonWheelTask,
+        retryOnTimeout,
+        runIf,
+        runJobTask,
+        sparkJarTask,
+        sparkPythonTask,
+        sparkSubmitTask,
+        sqlTask,
+        taskKey,
+        timeoutSeconds,
+        webhookNotifications);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(TaskPb.class)
+        .add("cleanRoomsNotebookTask", cleanRoomsNotebookTask)
+        .add("conditionTask", conditionTask)
+        .add("dashboardTask", dashboardTask)
+        .add("dbtCloudTask", dbtCloudTask)
+        .add("dbtTask", dbtTask)
+        .add("dependsOn", dependsOn)
+        .add("description", description)
+        .add("disableAutoOptimization", disableAutoOptimization)
+        .add("emailNotifications", emailNotifications)
+        .add("environmentKey", environmentKey)
+        .add("existingClusterId", existingClusterId)
+        .add("forEachTask", forEachTask)
+        .add("genAiComputeTask", genAiComputeTask)
+        .add("health", health)
+        .add("jobClusterKey", jobClusterKey)
+        .add("libraries", libraries)
+        .add("maxRetries", maxRetries)
+        .add("minRetryIntervalMillis", minRetryIntervalMillis)
+        .add("newCluster", newCluster)
+        .add("notebookTask", notebookTask)
+        .add("notificationSettings", notificationSettings)
+        .add("pipelineTask", pipelineTask)
+        .add("powerBiTask", powerBiTask)
+        .add("pythonWheelTask", pythonWheelTask)
+        .add("retryOnTimeout", retryOnTimeout)
+        .add("runIf", runIf)
+        .add("runJobTask", runJobTask)
+        .add("sparkJarTask", sparkJarTask)
+        .add("sparkPythonTask", sparkPythonTask)
+        .add("sparkSubmitTask", sparkSubmitTask)
+        .add("sqlTask", sqlTask)
+        .add("taskKey", taskKey)
+        .add("timeoutSeconds", timeoutSeconds)
+        .add("webhookNotifications", webhookNotifications)
+        .toString();
+  }
+}

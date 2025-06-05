@@ -24,7 +24,7 @@ class ModelVersionsImpl implements ModelVersionsService {
             request.getFullName(), request.getVersion());
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       apiClient.execute(req, DeleteResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -39,7 +39,7 @@ class ModelVersionsImpl implements ModelVersionsService {
             request.getFullName(), request.getVersion());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ModelVersionInfo.class);
     } catch (IOException e) {
@@ -55,7 +55,7 @@ class ModelVersionsImpl implements ModelVersionsService {
             request.getFullName(), request.getAlias());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ModelVersionInfo.class);
     } catch (IOException e) {
@@ -68,7 +68,7 @@ class ModelVersionsImpl implements ModelVersionsService {
     String path = String.format("/api/2.1/unity-catalog/models/%s/versions", request.getFullName());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListModelVersionsResponse.class);
     } catch (IOException e) {
@@ -84,7 +84,7 @@ class ModelVersionsImpl implements ModelVersionsService {
             request.getFullName(), request.getVersion());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, ModelVersionInfo.class);

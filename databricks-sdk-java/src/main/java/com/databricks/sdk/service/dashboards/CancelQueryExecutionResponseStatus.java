@@ -4,30 +4,40 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = CancelQueryExecutionResponseStatus.CancelQueryExecutionResponseStatusSerializer.class)
+@JsonDeserialize(
+    using = CancelQueryExecutionResponseStatus.CancelQueryExecutionResponseStatusDeserializer.class)
 public class CancelQueryExecutionResponseStatus {
   /**
    * The token to poll for result asynchronously Example:
    * EC0A..ChAB7WCEn_4Qo4vkLqEbXsxxEgh3Y2pbWw45WhoQXgZSQo9aS5q2ZvFcbvbx9CgA-PAEAQ
    */
-  @JsonProperty("data_token")
   private String dataToken;
 
   /**
    * Represents an empty message, similar to google.protobuf.Empty, which is not available in the
    * firm right now.
    */
-  @JsonProperty("pending")
   private Empty pending;
 
   /**
    * Represents an empty message, similar to google.protobuf.Empty, which is not available in the
    * firm right now.
    */
-  @JsonProperty("success")
   private Empty success;
 
   public CancelQueryExecutionResponseStatus setDataToken(String dataToken) {
@@ -79,5 +89,46 @@ public class CancelQueryExecutionResponseStatus {
         .add("pending", pending)
         .add("success", success)
         .toString();
+  }
+
+  CancelQueryExecutionResponseStatusPb toPb() {
+    CancelQueryExecutionResponseStatusPb pb = new CancelQueryExecutionResponseStatusPb();
+    pb.setDataToken(dataToken);
+    pb.setPending(pending);
+    pb.setSuccess(success);
+
+    return pb;
+  }
+
+  static CancelQueryExecutionResponseStatus fromPb(CancelQueryExecutionResponseStatusPb pb) {
+    CancelQueryExecutionResponseStatus model = new CancelQueryExecutionResponseStatus();
+    model.setDataToken(pb.getDataToken());
+    model.setPending(pb.getPending());
+    model.setSuccess(pb.getSuccess());
+
+    return model;
+  }
+
+  public static class CancelQueryExecutionResponseStatusSerializer
+      extends JsonSerializer<CancelQueryExecutionResponseStatus> {
+    @Override
+    public void serialize(
+        CancelQueryExecutionResponseStatus value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CancelQueryExecutionResponseStatusPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CancelQueryExecutionResponseStatusDeserializer
+      extends JsonDeserializer<CancelQueryExecutionResponseStatus> {
+    @Override
+    public CancelQueryExecutionResponseStatus deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CancelQueryExecutionResponseStatusPb pb =
+          mapper.readValue(p, CancelQueryExecutionResponseStatusPb.class);
+      return CancelQueryExecutionResponseStatus.fromPb(pb);
+    }
   }
 }

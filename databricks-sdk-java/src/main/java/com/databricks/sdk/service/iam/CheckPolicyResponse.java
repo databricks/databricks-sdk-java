@@ -4,17 +4,26 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CheckPolicyResponse.CheckPolicyResponseSerializer.class)
+@JsonDeserialize(using = CheckPolicyResponse.CheckPolicyResponseDeserializer.class)
 public class CheckPolicyResponse {
   /** */
-  @JsonProperty("consistency_token")
   private ConsistencyToken consistencyToken;
 
   /** */
-  @JsonProperty("is_permitted")
   private Boolean isPermitted;
 
   public CheckPolicyResponse setConsistencyToken(ConsistencyToken consistencyToken) {
@@ -55,5 +64,41 @@ public class CheckPolicyResponse {
         .add("consistencyToken", consistencyToken)
         .add("isPermitted", isPermitted)
         .toString();
+  }
+
+  CheckPolicyResponsePb toPb() {
+    CheckPolicyResponsePb pb = new CheckPolicyResponsePb();
+    pb.setConsistencyToken(consistencyToken);
+    pb.setIsPermitted(isPermitted);
+
+    return pb;
+  }
+
+  static CheckPolicyResponse fromPb(CheckPolicyResponsePb pb) {
+    CheckPolicyResponse model = new CheckPolicyResponse();
+    model.setConsistencyToken(pb.getConsistencyToken());
+    model.setIsPermitted(pb.getIsPermitted());
+
+    return model;
+  }
+
+  public static class CheckPolicyResponseSerializer extends JsonSerializer<CheckPolicyResponse> {
+    @Override
+    public void serialize(CheckPolicyResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CheckPolicyResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CheckPolicyResponseDeserializer
+      extends JsonDeserializer<CheckPolicyResponse> {
+    @Override
+    public CheckPolicyResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CheckPolicyResponsePb pb = mapper.readValue(p, CheckPolicyResponsePb.class);
+      return CheckPolicyResponse.fromPb(pb);
+    }
   }
 }

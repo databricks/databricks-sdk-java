@@ -4,17 +4,27 @@ package com.databricks.sdk.service.vectorsearch;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = UpsertDataVectorIndexResponse.UpsertDataVectorIndexResponseSerializer.class)
+@JsonDeserialize(
+    using = UpsertDataVectorIndexResponse.UpsertDataVectorIndexResponseDeserializer.class)
 public class UpsertDataVectorIndexResponse {
   /** Result of the upsert or delete operation. */
-  @JsonProperty("result")
   private UpsertDataResult result;
 
   /** Status of the upsert operation. */
-  @JsonProperty("status")
   private UpsertDataStatus status;
 
   public UpsertDataVectorIndexResponse setResult(UpsertDataResult result) {
@@ -54,5 +64,44 @@ public class UpsertDataVectorIndexResponse {
         .add("result", result)
         .add("status", status)
         .toString();
+  }
+
+  UpsertDataVectorIndexResponsePb toPb() {
+    UpsertDataVectorIndexResponsePb pb = new UpsertDataVectorIndexResponsePb();
+    pb.setResult(result);
+    pb.setStatus(status);
+
+    return pb;
+  }
+
+  static UpsertDataVectorIndexResponse fromPb(UpsertDataVectorIndexResponsePb pb) {
+    UpsertDataVectorIndexResponse model = new UpsertDataVectorIndexResponse();
+    model.setResult(pb.getResult());
+    model.setStatus(pb.getStatus());
+
+    return model;
+  }
+
+  public static class UpsertDataVectorIndexResponseSerializer
+      extends JsonSerializer<UpsertDataVectorIndexResponse> {
+    @Override
+    public void serialize(
+        UpsertDataVectorIndexResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpsertDataVectorIndexResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpsertDataVectorIndexResponseDeserializer
+      extends JsonDeserializer<UpsertDataVectorIndexResponse> {
+    @Override
+    public UpsertDataVectorIndexResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpsertDataVectorIndexResponsePb pb =
+          mapper.readValue(p, UpsertDataVectorIndexResponsePb.class);
+      return UpsertDataVectorIndexResponse.fromPb(pb);
+    }
   }
 }

@@ -4,58 +4,58 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = UpdateQueryRequestQuery.UpdateQueryRequestQuerySerializer.class)
+@JsonDeserialize(using = UpdateQueryRequestQuery.UpdateQueryRequestQueryDeserializer.class)
 public class UpdateQueryRequestQuery {
   /** Whether to apply a 1000 row limit to the query result. */
-  @JsonProperty("apply_auto_limit")
   private Boolean applyAutoLimit;
 
   /** Name of the catalog where this query will be executed. */
-  @JsonProperty("catalog")
   private String catalog;
 
   /**
    * General description that conveys additional information about this query such as usage notes.
    */
-  @JsonProperty("description")
   private String description;
 
   /**
    * Display name of the query that appears in list views, widget headings, and on the query page.
    */
-  @JsonProperty("display_name")
   private String displayName;
 
   /** Username of the user that owns the query. */
-  @JsonProperty("owner_user_name")
   private String ownerUserName;
 
   /** List of query parameter definitions. */
-  @JsonProperty("parameters")
   private Collection<QueryParameter> parameters;
 
   /** Text of the query to be run. */
-  @JsonProperty("query_text")
   private String queryText;
 
   /** Sets the "Run as" role for the object. */
-  @JsonProperty("run_as_mode")
   private RunAsMode runAsMode;
 
   /** Name of the schema where this query will be executed. */
-  @JsonProperty("schema")
   private String schema;
 
   /** */
-  @JsonProperty("tags")
   private Collection<String> tags;
 
   /** ID of the SQL warehouse attached to the query. */
-  @JsonProperty("warehouse_id")
   private String warehouseId;
 
   public UpdateQueryRequestQuery setApplyAutoLimit(Boolean applyAutoLimit) {
@@ -206,5 +206,61 @@ public class UpdateQueryRequestQuery {
         .add("tags", tags)
         .add("warehouseId", warehouseId)
         .toString();
+  }
+
+  UpdateQueryRequestQueryPb toPb() {
+    UpdateQueryRequestQueryPb pb = new UpdateQueryRequestQueryPb();
+    pb.setApplyAutoLimit(applyAutoLimit);
+    pb.setCatalog(catalog);
+    pb.setDescription(description);
+    pb.setDisplayName(displayName);
+    pb.setOwnerUserName(ownerUserName);
+    pb.setParameters(parameters);
+    pb.setQueryText(queryText);
+    pb.setRunAsMode(runAsMode);
+    pb.setSchema(schema);
+    pb.setTags(tags);
+    pb.setWarehouseId(warehouseId);
+
+    return pb;
+  }
+
+  static UpdateQueryRequestQuery fromPb(UpdateQueryRequestQueryPb pb) {
+    UpdateQueryRequestQuery model = new UpdateQueryRequestQuery();
+    model.setApplyAutoLimit(pb.getApplyAutoLimit());
+    model.setCatalog(pb.getCatalog());
+    model.setDescription(pb.getDescription());
+    model.setDisplayName(pb.getDisplayName());
+    model.setOwnerUserName(pb.getOwnerUserName());
+    model.setParameters(pb.getParameters());
+    model.setQueryText(pb.getQueryText());
+    model.setRunAsMode(pb.getRunAsMode());
+    model.setSchema(pb.getSchema());
+    model.setTags(pb.getTags());
+    model.setWarehouseId(pb.getWarehouseId());
+
+    return model;
+  }
+
+  public static class UpdateQueryRequestQuerySerializer
+      extends JsonSerializer<UpdateQueryRequestQuery> {
+    @Override
+    public void serialize(
+        UpdateQueryRequestQuery value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateQueryRequestQueryPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateQueryRequestQueryDeserializer
+      extends JsonDeserializer<UpdateQueryRequestQuery> {
+    @Override
+    public UpdateQueryRequestQuery deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateQueryRequestQueryPb pb = mapper.readValue(p, UpdateQueryRequestQueryPb.class);
+      return UpdateQueryRequestQuery.fromPb(pb);
+    }
   }
 }

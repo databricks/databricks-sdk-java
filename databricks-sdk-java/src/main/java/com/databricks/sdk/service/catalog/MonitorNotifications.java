@@ -4,17 +4,26 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = MonitorNotifications.MonitorNotificationsSerializer.class)
+@JsonDeserialize(using = MonitorNotifications.MonitorNotificationsDeserializer.class)
 public class MonitorNotifications {
   /** Who to send notifications to on monitor failure. */
-  @JsonProperty("on_failure")
   private MonitorDestination onFailure;
 
   /** Who to send notifications to when new data classification tags are detected. */
-  @JsonProperty("on_new_classification_tag_detected")
   private MonitorDestination onNewClassificationTagDetected;
 
   public MonitorNotifications setOnFailure(MonitorDestination onFailure) {
@@ -56,5 +65,42 @@ public class MonitorNotifications {
         .add("onFailure", onFailure)
         .add("onNewClassificationTagDetected", onNewClassificationTagDetected)
         .toString();
+  }
+
+  MonitorNotificationsPb toPb() {
+    MonitorNotificationsPb pb = new MonitorNotificationsPb();
+    pb.setOnFailure(onFailure);
+    pb.setOnNewClassificationTagDetected(onNewClassificationTagDetected);
+
+    return pb;
+  }
+
+  static MonitorNotifications fromPb(MonitorNotificationsPb pb) {
+    MonitorNotifications model = new MonitorNotifications();
+    model.setOnFailure(pb.getOnFailure());
+    model.setOnNewClassificationTagDetected(pb.getOnNewClassificationTagDetected());
+
+    return model;
+  }
+
+  public static class MonitorNotificationsSerializer extends JsonSerializer<MonitorNotifications> {
+    @Override
+    public void serialize(
+        MonitorNotifications value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      MonitorNotificationsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class MonitorNotificationsDeserializer
+      extends JsonDeserializer<MonitorNotifications> {
+    @Override
+    public MonitorNotifications deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      MonitorNotificationsPb pb = mapper.readValue(p, MonitorNotificationsPb.class);
+      return MonitorNotifications.fromPb(pb);
+    }
   }
 }

@@ -4,14 +4,24 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Create a network policy */
 @Generated
+@JsonSerialize(using = CreateNetworkPolicyRequest.CreateNetworkPolicyRequestSerializer.class)
+@JsonDeserialize(using = CreateNetworkPolicyRequest.CreateNetworkPolicyRequestDeserializer.class)
 public class CreateNetworkPolicyRequest {
   /** */
-  @JsonProperty("network_policy")
   private AccountNetworkPolicy networkPolicy;
 
   public CreateNetworkPolicyRequest setNetworkPolicy(AccountNetworkPolicy networkPolicy) {
@@ -41,5 +51,41 @@ public class CreateNetworkPolicyRequest {
     return new ToStringer(CreateNetworkPolicyRequest.class)
         .add("networkPolicy", networkPolicy)
         .toString();
+  }
+
+  CreateNetworkPolicyRequestPb toPb() {
+    CreateNetworkPolicyRequestPb pb = new CreateNetworkPolicyRequestPb();
+    pb.setNetworkPolicy(networkPolicy);
+
+    return pb;
+  }
+
+  static CreateNetworkPolicyRequest fromPb(CreateNetworkPolicyRequestPb pb) {
+    CreateNetworkPolicyRequest model = new CreateNetworkPolicyRequest();
+    model.setNetworkPolicy(pb.getNetworkPolicy());
+
+    return model;
+  }
+
+  public static class CreateNetworkPolicyRequestSerializer
+      extends JsonSerializer<CreateNetworkPolicyRequest> {
+    @Override
+    public void serialize(
+        CreateNetworkPolicyRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateNetworkPolicyRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateNetworkPolicyRequestDeserializer
+      extends JsonDeserializer<CreateNetworkPolicyRequest> {
+    @Override
+    public CreateNetworkPolicyRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateNetworkPolicyRequestPb pb = mapper.readValue(p, CreateNetworkPolicyRequestPb.class);
+      return CreateNetworkPolicyRequest.fromPb(pb);
+    }
   }
 }

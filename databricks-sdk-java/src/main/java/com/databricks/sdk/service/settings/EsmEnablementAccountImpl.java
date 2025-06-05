@@ -24,7 +24,7 @@ class EsmEnablementAccountImpl implements EsmEnablementAccountService {
             apiClient.configuredAccountID());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, EsmEnablementAccountSetting.class);
     } catch (IOException e) {
@@ -40,7 +40,7 @@ class EsmEnablementAccountImpl implements EsmEnablementAccountService {
             apiClient.configuredAccountID());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, EsmEnablementAccountSetting.class);

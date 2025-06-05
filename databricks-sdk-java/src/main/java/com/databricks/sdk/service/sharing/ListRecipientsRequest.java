@@ -3,20 +3,28 @@
 package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List share recipients */
 @Generated
+@JsonSerialize(using = ListRecipientsRequest.ListRecipientsRequestSerializer.class)
+@JsonDeserialize(using = ListRecipientsRequest.ListRecipientsRequestDeserializer.class)
 public class ListRecipientsRequest {
   /**
    * If not provided, all recipients will be returned. If no recipients exist with this ID, no
    * results will be returned.
    */
-  @JsonIgnore
-  @QueryParam("data_recipient_global_metastore_id")
   private String dataRecipientGlobalMetastoreId;
 
   /**
@@ -28,13 +36,9 @@ public class ListRecipientsRequest {
    * max_results size, even zero. The only definitive indication that no further recipients can be
    * fetched is when the next_page_token is unset from the response.
    */
-  @JsonIgnore
-  @QueryParam("max_results")
   private Long maxResults;
 
   /** Opaque pagination token to go to next page based on previous query. */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   public ListRecipientsRequest setDataRecipientGlobalMetastoreId(
@@ -87,5 +91,45 @@ public class ListRecipientsRequest {
         .add("maxResults", maxResults)
         .add("pageToken", pageToken)
         .toString();
+  }
+
+  ListRecipientsRequestPb toPb() {
+    ListRecipientsRequestPb pb = new ListRecipientsRequestPb();
+    pb.setDataRecipientGlobalMetastoreId(dataRecipientGlobalMetastoreId);
+    pb.setMaxResults(maxResults);
+    pb.setPageToken(pageToken);
+
+    return pb;
+  }
+
+  static ListRecipientsRequest fromPb(ListRecipientsRequestPb pb) {
+    ListRecipientsRequest model = new ListRecipientsRequest();
+    model.setDataRecipientGlobalMetastoreId(pb.getDataRecipientGlobalMetastoreId());
+    model.setMaxResults(pb.getMaxResults());
+    model.setPageToken(pb.getPageToken());
+
+    return model;
+  }
+
+  public static class ListRecipientsRequestSerializer
+      extends JsonSerializer<ListRecipientsRequest> {
+    @Override
+    public void serialize(
+        ListRecipientsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListRecipientsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListRecipientsRequestDeserializer
+      extends JsonDeserializer<ListRecipientsRequest> {
+    @Override
+    public ListRecipientsRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListRecipientsRequestPb pb = mapper.readValue(p, ListRecipientsRequestPb.class);
+      return ListRecipientsRequest.fromPb(pb);
+    }
   }
 }

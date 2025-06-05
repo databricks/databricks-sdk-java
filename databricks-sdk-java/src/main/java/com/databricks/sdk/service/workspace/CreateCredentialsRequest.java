@@ -4,17 +4,27 @@ package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateCredentialsRequest.CreateCredentialsRequestSerializer.class)
+@JsonDeserialize(using = CreateCredentialsRequest.CreateCredentialsRequestDeserializer.class)
 public class CreateCredentialsRequest {
   /**
    * Git provider. This field is case-insensitive. The available Git providers are `gitHub`,
    * `bitbucketCloud`, `gitLab`, `azureDevOpsServices`, `gitHubEnterprise`, `bitbucketServer`,
    * `gitLabEnterpriseEdition` and `awsCodeCommit`.
    */
-  @JsonProperty("git_provider")
   private String gitProvider;
 
   /**
@@ -25,7 +35,6 @@ public class CreateCredentialsRequest {
    * please see your provider's Personal Access Token authentication documentation to see what is
    * supported.
    */
-  @JsonProperty("git_username")
   private String gitUsername;
 
   /**
@@ -34,7 +43,6 @@ public class CreateCredentialsRequest {
    *
    * <p>[Learn more]: https://docs.databricks.com/repos/get-access-tokens-from-git-provider.html
    */
-  @JsonProperty("personal_access_token")
   private String personalAccessToken;
 
   public CreateCredentialsRequest setGitProvider(String gitProvider) {
@@ -86,5 +94,45 @@ public class CreateCredentialsRequest {
         .add("gitUsername", gitUsername)
         .add("personalAccessToken", personalAccessToken)
         .toString();
+  }
+
+  CreateCredentialsRequestPb toPb() {
+    CreateCredentialsRequestPb pb = new CreateCredentialsRequestPb();
+    pb.setGitProvider(gitProvider);
+    pb.setGitUsername(gitUsername);
+    pb.setPersonalAccessToken(personalAccessToken);
+
+    return pb;
+  }
+
+  static CreateCredentialsRequest fromPb(CreateCredentialsRequestPb pb) {
+    CreateCredentialsRequest model = new CreateCredentialsRequest();
+    model.setGitProvider(pb.getGitProvider());
+    model.setGitUsername(pb.getGitUsername());
+    model.setPersonalAccessToken(pb.getPersonalAccessToken());
+
+    return model;
+  }
+
+  public static class CreateCredentialsRequestSerializer
+      extends JsonSerializer<CreateCredentialsRequest> {
+    @Override
+    public void serialize(
+        CreateCredentialsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateCredentialsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateCredentialsRequestDeserializer
+      extends JsonDeserializer<CreateCredentialsRequest> {
+    @Override
+    public CreateCredentialsRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateCredentialsRequestPb pb = mapper.readValue(p, CreateCredentialsRequestPb.class);
+      return CreateCredentialsRequest.fromPb(pb);
+    }
   }
 }

@@ -3,26 +3,30 @@
 package com.databricks.sdk.service.files;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.Header;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = GetMetadataResponse.GetMetadataResponseSerializer.class)
+@JsonDeserialize(using = GetMetadataResponse.GetMetadataResponseDeserializer.class)
 public class GetMetadataResponse {
   /** The length of the HTTP response body in bytes. */
-  @JsonIgnore
-  @Header("content-length")
   private Long contentLength;
 
   /** */
-  @JsonIgnore
-  @Header("content-type")
   private String contentType;
 
   /** The last modified time of the file in HTTP-date (RFC 7231) format. */
-  @JsonIgnore
-  @Header("last-modified")
   private String lastModified;
 
   public GetMetadataResponse setContentLength(Long contentLength) {
@@ -74,5 +78,43 @@ public class GetMetadataResponse {
         .add("contentType", contentType)
         .add("lastModified", lastModified)
         .toString();
+  }
+
+  GetMetadataResponsePb toPb() {
+    GetMetadataResponsePb pb = new GetMetadataResponsePb();
+    pb.setContentLength(contentLength);
+    pb.setContentType(contentType);
+    pb.setLastModified(lastModified);
+
+    return pb;
+  }
+
+  static GetMetadataResponse fromPb(GetMetadataResponsePb pb) {
+    GetMetadataResponse model = new GetMetadataResponse();
+    model.setContentLength(pb.getContentLength());
+    model.setContentType(pb.getContentType());
+    model.setLastModified(pb.getLastModified());
+
+    return model;
+  }
+
+  public static class GetMetadataResponseSerializer extends JsonSerializer<GetMetadataResponse> {
+    @Override
+    public void serialize(GetMetadataResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetMetadataResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetMetadataResponseDeserializer
+      extends JsonDeserializer<GetMetadataResponse> {
+    @Override
+    public GetMetadataResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetMetadataResponsePb pb = mapper.readValue(p, GetMetadataResponsePb.class);
+      return GetMetadataResponse.fromPb(pb);
+    }
   }
 }

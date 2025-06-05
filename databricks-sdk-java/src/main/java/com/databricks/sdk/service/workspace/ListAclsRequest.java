@@ -3,17 +3,25 @@
 package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Lists ACLs */
 @Generated
+@JsonSerialize(using = ListAclsRequest.ListAclsRequestSerializer.class)
+@JsonDeserialize(using = ListAclsRequest.ListAclsRequestDeserializer.class)
 public class ListAclsRequest {
   /** The name of the scope to fetch ACL information from. */
-  @JsonIgnore
-  @QueryParam("scope")
   private String scope;
 
   public ListAclsRequest setScope(String scope) {
@@ -41,5 +49,38 @@ public class ListAclsRequest {
   @Override
   public String toString() {
     return new ToStringer(ListAclsRequest.class).add("scope", scope).toString();
+  }
+
+  ListAclsRequestPb toPb() {
+    ListAclsRequestPb pb = new ListAclsRequestPb();
+    pb.setScope(scope);
+
+    return pb;
+  }
+
+  static ListAclsRequest fromPb(ListAclsRequestPb pb) {
+    ListAclsRequest model = new ListAclsRequest();
+    model.setScope(pb.getScope());
+
+    return model;
+  }
+
+  public static class ListAclsRequestSerializer extends JsonSerializer<ListAclsRequest> {
+    @Override
+    public void serialize(ListAclsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListAclsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListAclsRequestDeserializer extends JsonDeserializer<ListAclsRequest> {
+    @Override
+    public ListAclsRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListAclsRequestPb pb = mapper.readValue(p, ListAclsRequestPb.class);
+      return ListAclsRequest.fromPb(pb);
+    }
   }
 }

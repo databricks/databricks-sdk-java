@@ -4,22 +4,30 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateModelRequest.CreateModelRequestSerializer.class)
+@JsonDeserialize(using = CreateModelRequest.CreateModelRequestDeserializer.class)
 public class CreateModelRequest {
   /** Optional description for registered model. */
-  @JsonProperty("description")
   private String description;
 
   /** Register models under this name */
-  @JsonProperty("name")
   private String name;
 
   /** Additional metadata for registered model. */
-  @JsonProperty("tags")
   private Collection<ModelTag> tags;
 
   public CreateModelRequest setDescription(String description) {
@@ -71,5 +79,42 @@ public class CreateModelRequest {
         .add("name", name)
         .add("tags", tags)
         .toString();
+  }
+
+  CreateModelRequestPb toPb() {
+    CreateModelRequestPb pb = new CreateModelRequestPb();
+    pb.setDescription(description);
+    pb.setName(name);
+    pb.setTags(tags);
+
+    return pb;
+  }
+
+  static CreateModelRequest fromPb(CreateModelRequestPb pb) {
+    CreateModelRequest model = new CreateModelRequest();
+    model.setDescription(pb.getDescription());
+    model.setName(pb.getName());
+    model.setTags(pb.getTags());
+
+    return model;
+  }
+
+  public static class CreateModelRequestSerializer extends JsonSerializer<CreateModelRequest> {
+    @Override
+    public void serialize(CreateModelRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateModelRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateModelRequestDeserializer extends JsonDeserializer<CreateModelRequest> {
+    @Override
+    public CreateModelRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateModelRequestPb pb = mapper.readValue(p, CreateModelRequestPb.class);
+      return CreateModelRequest.fromPb(pb);
+    }
   }
 }

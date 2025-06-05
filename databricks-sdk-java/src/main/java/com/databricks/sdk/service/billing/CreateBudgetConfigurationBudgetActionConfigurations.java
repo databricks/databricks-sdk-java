@@ -4,17 +4,32 @@ package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using =
+        CreateBudgetConfigurationBudgetActionConfigurations
+            .CreateBudgetConfigurationBudgetActionConfigurationsSerializer.class)
+@JsonDeserialize(
+    using =
+        CreateBudgetConfigurationBudgetActionConfigurations
+            .CreateBudgetConfigurationBudgetActionConfigurationsDeserializer.class)
 public class CreateBudgetConfigurationBudgetActionConfigurations {
   /** The type of the action. */
-  @JsonProperty("action_type")
   private ActionConfigurationType actionType;
 
   /** Target for the action. For example, an email address. */
-  @JsonProperty("target")
   private String target;
 
   public CreateBudgetConfigurationBudgetActionConfigurations setActionType(
@@ -56,5 +71,49 @@ public class CreateBudgetConfigurationBudgetActionConfigurations {
         .add("actionType", actionType)
         .add("target", target)
         .toString();
+  }
+
+  CreateBudgetConfigurationBudgetActionConfigurationsPb toPb() {
+    CreateBudgetConfigurationBudgetActionConfigurationsPb pb =
+        new CreateBudgetConfigurationBudgetActionConfigurationsPb();
+    pb.setActionType(actionType);
+    pb.setTarget(target);
+
+    return pb;
+  }
+
+  static CreateBudgetConfigurationBudgetActionConfigurations fromPb(
+      CreateBudgetConfigurationBudgetActionConfigurationsPb pb) {
+    CreateBudgetConfigurationBudgetActionConfigurations model =
+        new CreateBudgetConfigurationBudgetActionConfigurations();
+    model.setActionType(pb.getActionType());
+    model.setTarget(pb.getTarget());
+
+    return model;
+  }
+
+  public static class CreateBudgetConfigurationBudgetActionConfigurationsSerializer
+      extends JsonSerializer<CreateBudgetConfigurationBudgetActionConfigurations> {
+    @Override
+    public void serialize(
+        CreateBudgetConfigurationBudgetActionConfigurations value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      CreateBudgetConfigurationBudgetActionConfigurationsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateBudgetConfigurationBudgetActionConfigurationsDeserializer
+      extends JsonDeserializer<CreateBudgetConfigurationBudgetActionConfigurations> {
+    @Override
+    public CreateBudgetConfigurationBudgetActionConfigurations deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateBudgetConfigurationBudgetActionConfigurationsPb pb =
+          mapper.readValue(p, CreateBudgetConfigurationBudgetActionConfigurationsPb.class);
+      return CreateBudgetConfigurationBudgetActionConfigurations.fromPb(pb);
+    }
   }
 }

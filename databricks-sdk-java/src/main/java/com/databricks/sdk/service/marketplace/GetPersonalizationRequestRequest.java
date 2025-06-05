@@ -4,14 +4,27 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get the personalization request for a listing */
 @Generated
+@JsonSerialize(
+    using = GetPersonalizationRequestRequest.GetPersonalizationRequestRequestSerializer.class)
+@JsonDeserialize(
+    using = GetPersonalizationRequestRequest.GetPersonalizationRequestRequestDeserializer.class)
 public class GetPersonalizationRequestRequest {
   /** */
-  @JsonIgnore private String listingId;
+  private String listingId;
 
   public GetPersonalizationRequestRequest setListingId(String listingId) {
     this.listingId = listingId;
@@ -40,5 +53,42 @@ public class GetPersonalizationRequestRequest {
     return new ToStringer(GetPersonalizationRequestRequest.class)
         .add("listingId", listingId)
         .toString();
+  }
+
+  GetPersonalizationRequestRequestPb toPb() {
+    GetPersonalizationRequestRequestPb pb = new GetPersonalizationRequestRequestPb();
+    pb.setListingId(listingId);
+
+    return pb;
+  }
+
+  static GetPersonalizationRequestRequest fromPb(GetPersonalizationRequestRequestPb pb) {
+    GetPersonalizationRequestRequest model = new GetPersonalizationRequestRequest();
+    model.setListingId(pb.getListingId());
+
+    return model;
+  }
+
+  public static class GetPersonalizationRequestRequestSerializer
+      extends JsonSerializer<GetPersonalizationRequestRequest> {
+    @Override
+    public void serialize(
+        GetPersonalizationRequestRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetPersonalizationRequestRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetPersonalizationRequestRequestDeserializer
+      extends JsonDeserializer<GetPersonalizationRequestRequest> {
+    @Override
+    public GetPersonalizationRequestRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetPersonalizationRequestRequestPb pb =
+          mapper.readValue(p, GetPersonalizationRequestRequestPb.class);
+      return GetPersonalizationRequestRequest.fromPb(pb);
+    }
   }
 }

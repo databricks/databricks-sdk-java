@@ -4,7 +4,16 @@ package com.databricks.sdk.service.database;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -12,23 +21,24 @@ import java.util.Objects;
  * the SYNCED_NO_PENDING_UPDATE state.
  */
 @Generated
+@JsonSerialize(
+    using = SyncedTableTriggeredUpdateStatus.SyncedTableTriggeredUpdateStatusSerializer.class)
+@JsonDeserialize(
+    using = SyncedTableTriggeredUpdateStatus.SyncedTableTriggeredUpdateStatusDeserializer.class)
 public class SyncedTableTriggeredUpdateStatus {
   /**
    * The last source table Delta version that was synced to the synced table. Note that this Delta
    * version may not be completely synced to the synced table yet.
    */
-  @JsonProperty("last_processed_commit_version")
   private Long lastProcessedCommitVersion;
 
   /**
    * The timestamp of the last time any data was synchronized from the source table to the synced
    * table.
    */
-  @JsonProperty("timestamp")
   private String timestamp;
 
   /** Progress of the active data synchronization pipeline. */
-  @JsonProperty("triggered_update_progress")
   private SyncedTablePipelineProgress triggeredUpdateProgress;
 
   public SyncedTableTriggeredUpdateStatus setLastProcessedCommitVersion(
@@ -82,5 +92,46 @@ public class SyncedTableTriggeredUpdateStatus {
         .add("timestamp", timestamp)
         .add("triggeredUpdateProgress", triggeredUpdateProgress)
         .toString();
+  }
+
+  SyncedTableTriggeredUpdateStatusPb toPb() {
+    SyncedTableTriggeredUpdateStatusPb pb = new SyncedTableTriggeredUpdateStatusPb();
+    pb.setLastProcessedCommitVersion(lastProcessedCommitVersion);
+    pb.setTimestamp(timestamp);
+    pb.setTriggeredUpdateProgress(triggeredUpdateProgress);
+
+    return pb;
+  }
+
+  static SyncedTableTriggeredUpdateStatus fromPb(SyncedTableTriggeredUpdateStatusPb pb) {
+    SyncedTableTriggeredUpdateStatus model = new SyncedTableTriggeredUpdateStatus();
+    model.setLastProcessedCommitVersion(pb.getLastProcessedCommitVersion());
+    model.setTimestamp(pb.getTimestamp());
+    model.setTriggeredUpdateProgress(pb.getTriggeredUpdateProgress());
+
+    return model;
+  }
+
+  public static class SyncedTableTriggeredUpdateStatusSerializer
+      extends JsonSerializer<SyncedTableTriggeredUpdateStatus> {
+    @Override
+    public void serialize(
+        SyncedTableTriggeredUpdateStatus value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SyncedTableTriggeredUpdateStatusPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SyncedTableTriggeredUpdateStatusDeserializer
+      extends JsonDeserializer<SyncedTableTriggeredUpdateStatus> {
+    @Override
+    public SyncedTableTriggeredUpdateStatus deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SyncedTableTriggeredUpdateStatusPb pb =
+          mapper.readValue(p, SyncedTableTriggeredUpdateStatusPb.class);
+      return SyncedTableTriggeredUpdateStatus.fromPb(pb);
+    }
   }
 }

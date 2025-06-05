@@ -4,7 +4,16 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -12,23 +21,22 @@ import java.util.Objects;
  * or the ONLINE_NO_PENDING_UPDATE state.
  */
 @Generated
+@JsonSerialize(using = TriggeredUpdateStatus.TriggeredUpdateStatusSerializer.class)
+@JsonDeserialize(using = TriggeredUpdateStatus.TriggeredUpdateStatusDeserializer.class)
 public class TriggeredUpdateStatus {
   /**
    * The last source table Delta version that was synced to the online table. Note that this Delta
    * version may not be completely synced to the online table yet.
    */
-  @JsonProperty("last_processed_commit_version")
   private Long lastProcessedCommitVersion;
 
   /**
    * The timestamp of the last time any data was synchronized from the source table to the online
    * table.
    */
-  @JsonProperty("timestamp")
   private String timestamp;
 
   /** Progress of the active data synchronization pipeline. */
-  @JsonProperty("triggered_update_progress")
   private PipelineProgress triggeredUpdateProgress;
 
   public TriggeredUpdateStatus setLastProcessedCommitVersion(Long lastProcessedCommitVersion) {
@@ -81,5 +89,45 @@ public class TriggeredUpdateStatus {
         .add("timestamp", timestamp)
         .add("triggeredUpdateProgress", triggeredUpdateProgress)
         .toString();
+  }
+
+  TriggeredUpdateStatusPb toPb() {
+    TriggeredUpdateStatusPb pb = new TriggeredUpdateStatusPb();
+    pb.setLastProcessedCommitVersion(lastProcessedCommitVersion);
+    pb.setTimestamp(timestamp);
+    pb.setTriggeredUpdateProgress(triggeredUpdateProgress);
+
+    return pb;
+  }
+
+  static TriggeredUpdateStatus fromPb(TriggeredUpdateStatusPb pb) {
+    TriggeredUpdateStatus model = new TriggeredUpdateStatus();
+    model.setLastProcessedCommitVersion(pb.getLastProcessedCommitVersion());
+    model.setTimestamp(pb.getTimestamp());
+    model.setTriggeredUpdateProgress(pb.getTriggeredUpdateProgress());
+
+    return model;
+  }
+
+  public static class TriggeredUpdateStatusSerializer
+      extends JsonSerializer<TriggeredUpdateStatus> {
+    @Override
+    public void serialize(
+        TriggeredUpdateStatus value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      TriggeredUpdateStatusPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class TriggeredUpdateStatusDeserializer
+      extends JsonDeserializer<TriggeredUpdateStatus> {
+    @Override
+    public TriggeredUpdateStatus deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      TriggeredUpdateStatusPb pb = mapper.readValue(p, TriggeredUpdateStatusPb.class);
+      return TriggeredUpdateStatus.fromPb(pb);
+    }
   }
 }

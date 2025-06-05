@@ -4,47 +4,50 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = Subscription.SubscriptionSerializer.class)
+@JsonDeserialize(using = Subscription.SubscriptionDeserializer.class)
 public class Subscription {
   /** A timestamp indicating when the subscription was created. */
-  @JsonProperty("create_time")
   private String createTime;
 
   /**
    * UserId of the user who adds subscribers (users or notification destinations) to the dashboard's
    * schedule.
    */
-  @JsonProperty("created_by_user_id")
   private Long createdByUserId;
 
   /** UUID identifying the dashboard to which the subscription belongs. */
-  @JsonProperty("dashboard_id")
   private String dashboardId;
 
   /**
    * The etag for the subscription. Must be left empty on create, can be optionally provided on
    * delete to ensure that the subscription has not been deleted since the last read.
    */
-  @JsonProperty("etag")
   private String etag;
 
   /** UUID identifying the schedule to which the subscription belongs. */
-  @JsonProperty("schedule_id")
   private String scheduleId;
 
   /** Subscriber details for users and destinations to be added as subscribers to the schedule. */
-  @JsonProperty("subscriber")
   private Subscriber subscriber;
 
   /** UUID identifying the subscription. */
-  @JsonProperty("subscription_id")
   private String subscriptionId;
 
   /** A timestamp indicating when the subscription was last updated. */
-  @JsonProperty("update_time")
   private String updateTime;
 
   public Subscription setCreateTime(String createTime) {
@@ -159,5 +162,51 @@ public class Subscription {
         .add("subscriptionId", subscriptionId)
         .add("updateTime", updateTime)
         .toString();
+  }
+
+  SubscriptionPb toPb() {
+    SubscriptionPb pb = new SubscriptionPb();
+    pb.setCreateTime(createTime);
+    pb.setCreatedByUserId(createdByUserId);
+    pb.setDashboardId(dashboardId);
+    pb.setEtag(etag);
+    pb.setScheduleId(scheduleId);
+    pb.setSubscriber(subscriber);
+    pb.setSubscriptionId(subscriptionId);
+    pb.setUpdateTime(updateTime);
+
+    return pb;
+  }
+
+  static Subscription fromPb(SubscriptionPb pb) {
+    Subscription model = new Subscription();
+    model.setCreateTime(pb.getCreateTime());
+    model.setCreatedByUserId(pb.getCreatedByUserId());
+    model.setDashboardId(pb.getDashboardId());
+    model.setEtag(pb.getEtag());
+    model.setScheduleId(pb.getScheduleId());
+    model.setSubscriber(pb.getSubscriber());
+    model.setSubscriptionId(pb.getSubscriptionId());
+    model.setUpdateTime(pb.getUpdateTime());
+
+    return model;
+  }
+
+  public static class SubscriptionSerializer extends JsonSerializer<Subscription> {
+    @Override
+    public void serialize(Subscription value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SubscriptionPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SubscriptionDeserializer extends JsonDeserializer<Subscription> {
+    @Override
+    public Subscription deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SubscriptionPb pb = mapper.readValue(p, SubscriptionPb.class);
+      return Subscription.fromPb(pb);
+    }
   }
 }

@@ -4,14 +4,26 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = GetTokenPermissionLevelsResponse.GetTokenPermissionLevelsResponseSerializer.class)
+@JsonDeserialize(
+    using = GetTokenPermissionLevelsResponse.GetTokenPermissionLevelsResponseDeserializer.class)
 public class GetTokenPermissionLevelsResponse {
   /** Specific permission levels */
-  @JsonProperty("permission_levels")
   private Collection<TokenPermissionsDescription> permissionLevels;
 
   public GetTokenPermissionLevelsResponse setPermissionLevels(
@@ -42,5 +54,42 @@ public class GetTokenPermissionLevelsResponse {
     return new ToStringer(GetTokenPermissionLevelsResponse.class)
         .add("permissionLevels", permissionLevels)
         .toString();
+  }
+
+  GetTokenPermissionLevelsResponsePb toPb() {
+    GetTokenPermissionLevelsResponsePb pb = new GetTokenPermissionLevelsResponsePb();
+    pb.setPermissionLevels(permissionLevels);
+
+    return pb;
+  }
+
+  static GetTokenPermissionLevelsResponse fromPb(GetTokenPermissionLevelsResponsePb pb) {
+    GetTokenPermissionLevelsResponse model = new GetTokenPermissionLevelsResponse();
+    model.setPermissionLevels(pb.getPermissionLevels());
+
+    return model;
+  }
+
+  public static class GetTokenPermissionLevelsResponseSerializer
+      extends JsonSerializer<GetTokenPermissionLevelsResponse> {
+    @Override
+    public void serialize(
+        GetTokenPermissionLevelsResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetTokenPermissionLevelsResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetTokenPermissionLevelsResponseDeserializer
+      extends JsonDeserializer<GetTokenPermissionLevelsResponse> {
+    @Override
+    public GetTokenPermissionLevelsResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetTokenPermissionLevelsResponsePb pb =
+          mapper.readValue(p, GetTokenPermissionLevelsResponsePb.class);
+      return GetTokenPermissionLevelsResponse.fromPb(pb);
+    }
   }
 }

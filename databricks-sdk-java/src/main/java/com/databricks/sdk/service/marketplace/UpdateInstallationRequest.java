@@ -4,24 +4,32 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = UpdateInstallationRequest.UpdateInstallationRequestSerializer.class)
+@JsonDeserialize(using = UpdateInstallationRequest.UpdateInstallationRequestDeserializer.class)
 public class UpdateInstallationRequest {
   /** */
-  @JsonProperty("installation")
   private InstallationDetail installation;
 
   /** */
-  @JsonIgnore private String installationId;
+  private String installationId;
 
   /** */
-  @JsonIgnore private String listingId;
+  private String listingId;
 
   /** */
-  @JsonProperty("rotate_token")
   private Boolean rotateToken;
 
   public UpdateInstallationRequest setInstallation(InstallationDetail installation) {
@@ -84,5 +92,47 @@ public class UpdateInstallationRequest {
         .add("listingId", listingId)
         .add("rotateToken", rotateToken)
         .toString();
+  }
+
+  UpdateInstallationRequestPb toPb() {
+    UpdateInstallationRequestPb pb = new UpdateInstallationRequestPb();
+    pb.setInstallation(installation);
+    pb.setInstallationId(installationId);
+    pb.setListingId(listingId);
+    pb.setRotateToken(rotateToken);
+
+    return pb;
+  }
+
+  static UpdateInstallationRequest fromPb(UpdateInstallationRequestPb pb) {
+    UpdateInstallationRequest model = new UpdateInstallationRequest();
+    model.setInstallation(pb.getInstallation());
+    model.setInstallationId(pb.getInstallationId());
+    model.setListingId(pb.getListingId());
+    model.setRotateToken(pb.getRotateToken());
+
+    return model;
+  }
+
+  public static class UpdateInstallationRequestSerializer
+      extends JsonSerializer<UpdateInstallationRequest> {
+    @Override
+    public void serialize(
+        UpdateInstallationRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateInstallationRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateInstallationRequestDeserializer
+      extends JsonDeserializer<UpdateInstallationRequest> {
+    @Override
+    public UpdateInstallationRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateInstallationRequestPb pb = mapper.readValue(p, UpdateInstallationRequestPb.class);
+      return UpdateInstallationRequest.fromPb(pb);
+    }
   }
 }

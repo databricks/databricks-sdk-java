@@ -4,13 +4,23 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ProviderAnalyticsDashboard.ProviderAnalyticsDashboardSerializer.class)
+@JsonDeserialize(using = ProviderAnalyticsDashboard.ProviderAnalyticsDashboardDeserializer.class)
 public class ProviderAnalyticsDashboard {
   /** */
-  @JsonProperty("id")
   private String id;
 
   public ProviderAnalyticsDashboard setId(String id) {
@@ -38,5 +48,41 @@ public class ProviderAnalyticsDashboard {
   @Override
   public String toString() {
     return new ToStringer(ProviderAnalyticsDashboard.class).add("id", id).toString();
+  }
+
+  ProviderAnalyticsDashboardPb toPb() {
+    ProviderAnalyticsDashboardPb pb = new ProviderAnalyticsDashboardPb();
+    pb.setId(id);
+
+    return pb;
+  }
+
+  static ProviderAnalyticsDashboard fromPb(ProviderAnalyticsDashboardPb pb) {
+    ProviderAnalyticsDashboard model = new ProviderAnalyticsDashboard();
+    model.setId(pb.getId());
+
+    return model;
+  }
+
+  public static class ProviderAnalyticsDashboardSerializer
+      extends JsonSerializer<ProviderAnalyticsDashboard> {
+    @Override
+    public void serialize(
+        ProviderAnalyticsDashboard value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ProviderAnalyticsDashboardPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ProviderAnalyticsDashboardDeserializer
+      extends JsonDeserializer<ProviderAnalyticsDashboard> {
+    @Override
+    public ProviderAnalyticsDashboard deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ProviderAnalyticsDashboardPb pb = mapper.readValue(p, ProviderAnalyticsDashboardPb.class);
+      return ProviderAnalyticsDashboard.fromPb(pb);
+    }
   }
 }

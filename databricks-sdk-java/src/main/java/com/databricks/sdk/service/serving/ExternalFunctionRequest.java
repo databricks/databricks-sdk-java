@@ -4,37 +4,42 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Simple Proto message for testing */
 @Generated
+@JsonSerialize(using = ExternalFunctionRequest.ExternalFunctionRequestSerializer.class)
+@JsonDeserialize(using = ExternalFunctionRequest.ExternalFunctionRequestDeserializer.class)
 public class ExternalFunctionRequest {
   /** The connection name to use. This is required to identify the external connection. */
-  @JsonProperty("connection_name")
   private String connectionName;
 
   /**
    * Additional headers for the request. If not provided, only auth headers from connections would
    * be passed.
    */
-  @JsonProperty("headers")
   private String headers;
 
   /** The JSON payload to send in the request body. */
-  @JsonProperty("json")
   private String json;
 
   /** The HTTP method to use (e.g., 'GET', 'POST'). */
-  @JsonProperty("method")
   private ExternalFunctionRequestHttpMethod method;
 
   /** Query parameters for the request. */
-  @JsonProperty("params")
   private String params;
 
   /** The relative path for the API endpoint. This is required. */
-  @JsonProperty("path")
   private String path;
 
   public ExternalFunctionRequest setConnectionName(String connectionName) {
@@ -119,5 +124,51 @@ public class ExternalFunctionRequest {
         .add("params", params)
         .add("path", path)
         .toString();
+  }
+
+  ExternalFunctionRequestPb toPb() {
+    ExternalFunctionRequestPb pb = new ExternalFunctionRequestPb();
+    pb.setConnectionName(connectionName);
+    pb.setHeaders(headers);
+    pb.setJson(json);
+    pb.setMethod(method);
+    pb.setParams(params);
+    pb.setPath(path);
+
+    return pb;
+  }
+
+  static ExternalFunctionRequest fromPb(ExternalFunctionRequestPb pb) {
+    ExternalFunctionRequest model = new ExternalFunctionRequest();
+    model.setConnectionName(pb.getConnectionName());
+    model.setHeaders(pb.getHeaders());
+    model.setJson(pb.getJson());
+    model.setMethod(pb.getMethod());
+    model.setParams(pb.getParams());
+    model.setPath(pb.getPath());
+
+    return model;
+  }
+
+  public static class ExternalFunctionRequestSerializer
+      extends JsonSerializer<ExternalFunctionRequest> {
+    @Override
+    public void serialize(
+        ExternalFunctionRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ExternalFunctionRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ExternalFunctionRequestDeserializer
+      extends JsonDeserializer<ExternalFunctionRequest> {
+    @Override
+    public ExternalFunctionRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ExternalFunctionRequestPb pb = mapper.readValue(p, ExternalFunctionRequestPb.class);
+      return ExternalFunctionRequest.fromPb(pb);
+    }
   }
 }

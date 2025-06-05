@@ -4,29 +4,35 @@ package com.databricks.sdk.service.cleanrooms;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CleanRoomNotebookReview.CleanRoomNotebookReviewSerializer.class)
+@JsonDeserialize(using = CleanRoomNotebookReview.CleanRoomNotebookReviewDeserializer.class)
 public class CleanRoomNotebookReview {
   /** review comment */
-  @JsonProperty("comment")
   private String comment;
 
   /** timestamp of when the review was submitted */
-  @JsonProperty("created_at_millis")
   private Long createdAtMillis;
 
   /** review outcome */
-  @JsonProperty("review_state")
   private CleanRoomNotebookReviewNotebookReviewState reviewState;
 
   /** specified when the review was not explicitly made by a user */
-  @JsonProperty("review_sub_reason")
   private CleanRoomNotebookReviewNotebookReviewSubReason reviewSubReason;
 
   /** collaborator alias of the reviewer */
-  @JsonProperty("reviewer_collaborator_alias")
   private String reviewerCollaboratorAlias;
 
   public CleanRoomNotebookReview setComment(String comment) {
@@ -103,5 +109,49 @@ public class CleanRoomNotebookReview {
         .add("reviewSubReason", reviewSubReason)
         .add("reviewerCollaboratorAlias", reviewerCollaboratorAlias)
         .toString();
+  }
+
+  CleanRoomNotebookReviewPb toPb() {
+    CleanRoomNotebookReviewPb pb = new CleanRoomNotebookReviewPb();
+    pb.setComment(comment);
+    pb.setCreatedAtMillis(createdAtMillis);
+    pb.setReviewState(reviewState);
+    pb.setReviewSubReason(reviewSubReason);
+    pb.setReviewerCollaboratorAlias(reviewerCollaboratorAlias);
+
+    return pb;
+  }
+
+  static CleanRoomNotebookReview fromPb(CleanRoomNotebookReviewPb pb) {
+    CleanRoomNotebookReview model = new CleanRoomNotebookReview();
+    model.setComment(pb.getComment());
+    model.setCreatedAtMillis(pb.getCreatedAtMillis());
+    model.setReviewState(pb.getReviewState());
+    model.setReviewSubReason(pb.getReviewSubReason());
+    model.setReviewerCollaboratorAlias(pb.getReviewerCollaboratorAlias());
+
+    return model;
+  }
+
+  public static class CleanRoomNotebookReviewSerializer
+      extends JsonSerializer<CleanRoomNotebookReview> {
+    @Override
+    public void serialize(
+        CleanRoomNotebookReview value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CleanRoomNotebookReviewPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CleanRoomNotebookReviewDeserializer
+      extends JsonDeserializer<CleanRoomNotebookReview> {
+    @Override
+    public CleanRoomNotebookReview deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CleanRoomNotebookReviewPb pb = mapper.readValue(p, CleanRoomNotebookReviewPb.class);
+      return CleanRoomNotebookReview.fromPb(pb);
+    }
   }
 }

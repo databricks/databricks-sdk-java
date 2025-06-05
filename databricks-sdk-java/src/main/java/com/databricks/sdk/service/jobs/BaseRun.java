@@ -4,11 +4,22 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = BaseRun.BaseRunSerializer.class)
+@JsonDeserialize(using = BaseRun.BaseRunDeserializer.class)
 public class BaseRun {
   /**
    * The sequence number of this run attempt for a triggered job run. The initial attempt of a run
@@ -17,7 +28,6 @@ public class BaseRun {
    * original attempt’s ID and an incrementing `attempt_number`. Runs are retried only until they
    * succeed, and the maximum `attempt_number` is the same as the `max_retries` value for the job.
    */
-  @JsonProperty("attempt_number")
   private Long attemptNumber;
 
   /**
@@ -26,29 +36,24 @@ public class BaseRun {
    * and the `cleanup_duration`. The `cleanup_duration` field is set to 0 for multitask job runs.
    * The total duration of a multitask job run is the value of the `run_duration` field.
    */
-  @JsonProperty("cleanup_duration")
   private Long cleanupDuration;
 
   /**
    * The cluster used for this run. If the run is specified to use a new cluster, this field is set
    * once the Jobs service has requested a cluster for the run.
    */
-  @JsonProperty("cluster_instance")
   private ClusterInstance clusterInstance;
 
   /** A snapshot of the job’s cluster specification when this run was created. */
-  @JsonProperty("cluster_spec")
   private ClusterSpec clusterSpec;
 
   /**
    * The creator user name. This field won’t be included in the response if the user has already
    * been deleted.
    */
-  @JsonProperty("creator_user_name")
   private String creatorUserName;
 
   /** Description of the run */
-  @JsonProperty("description")
   private String description;
 
   /**
@@ -60,14 +65,12 @@ public class BaseRun {
    * `PERFORMANCE_OPTIMIZED`: Prioritizes fast startup and execution times through rapid scaling and
    * optimized cluster performance.
    */
-  @JsonProperty("effective_performance_target")
   private PerformanceTarget effectivePerformanceTarget;
 
   /**
    * The time at which this run ended in epoch milliseconds (milliseconds since 1/1/1970 UTC). This
    * field is set to 0 if the job is still running.
    */
-  @JsonProperty("end_time")
   private Long endTime;
 
   /**
@@ -77,7 +80,6 @@ public class BaseRun {
    * `cleanup_duration`. The `execution_duration` field is set to 0 for multitask job runs. The
    * total duration of a multitask job run is the value of the `run_duration` field.
    */
-  @JsonProperty("execution_duration")
   private Long executionDuration;
 
   /**
@@ -91,7 +93,6 @@ public class BaseRun {
    * <p>Note: dbt and SQL File tasks support only version-controlled sources. If dbt or SQL File
    * tasks are used, `git_source` must be defined on the job.
    */
-  @JsonProperty("git_source")
   private GitSource gitSource;
 
   /**
@@ -99,7 +100,6 @@ public class BaseRun {
    * They can be accessed via :method:jobs/getrun endpoint. It is only relevant for API 2.2
    * :method:jobs/listruns requests with `expand_tasks=true`.
    */
-  @JsonProperty("has_more")
   private Boolean hasMore;
 
   /**
@@ -108,15 +108,12 @@ public class BaseRun {
    * task settings. If more than 100 job clusters are available, you can paginate through them using
    * :method:jobs/getrun.
    */
-  @JsonProperty("job_clusters")
   private Collection<JobCluster> jobClusters;
 
   /** The canonical identifier of the job that contains this run. */
-  @JsonProperty("job_id")
   private Long jobId;
 
   /** Job-level parameters used in the run */
-  @JsonProperty("job_parameters")
   private Collection<JobParameter> jobParameters;
 
   /**
@@ -124,46 +121,36 @@ public class BaseRun {
    * populated with the job run ID. For task runs, the field is populated with the ID of the job run
    * that the task run belongs to.
    */
-  @JsonProperty("job_run_id")
   private Long jobRunId;
 
   /** A unique identifier for this job run. This is set to the same value as `run_id`. */
-  @JsonProperty("number_in_job")
   private Long numberInJob;
 
   /**
    * If this run is a retry of a prior run attempt, this field contains the run_id of the original
    * attempt; otherwise, it is the same as the run_id.
    */
-  @JsonProperty("original_attempt_run_id")
   private Long originalAttemptRunId;
 
   /** The parameters used for this run. */
-  @JsonProperty("overriding_parameters")
   private RunParameters overridingParameters;
 
   /** The time in milliseconds that the run has spent in the queue. */
-  @JsonProperty("queue_duration")
   private Long queueDuration;
 
   /** The repair history of the run. */
-  @JsonProperty("repair_history")
   private Collection<RepairHistoryItem> repairHistory;
 
   /** The time in milliseconds it took the job run and all of its repairs to finish. */
-  @JsonProperty("run_duration")
   private Long runDuration;
 
   /** The canonical identifier of the run. This ID is unique across all runs of all jobs. */
-  @JsonProperty("run_id")
   private Long runId;
 
   /** An optional name for the run. The maximum length is 4096 bytes in UTF-8 encoding. */
-  @JsonProperty("run_name")
   private String runName;
 
   /** The URL to the detail page of the run. */
-  @JsonProperty("run_page_url")
   private String runPageUrl;
 
   /**
@@ -174,11 +161,9 @@ public class BaseRun {
    * <p>[dbutils.notebook.run]:
    * https://docs.databricks.com/dev-tools/databricks-utils.html#dbutils-workflow
    */
-  @JsonProperty("run_type")
   private RunType runType;
 
   /** The cron schedule that triggered this run if it was triggered by the periodic scheduler. */
-  @JsonProperty("schedule")
   private CronSchedule schedule;
 
   /**
@@ -188,7 +173,6 @@ public class BaseRun {
    * the `cleanup_duration`. The `setup_duration` field is set to 0 for multitask job runs. The
    * total duration of a multitask job run is the value of the `run_duration` field.
    */
-  @JsonProperty("setup_duration")
   private Long setupDuration;
 
   /**
@@ -196,15 +180,12 @@ public class BaseRun {
    * This may not be the time when the job task starts executing, for example, if the job is
    * scheduled to run on a new cluster, this is the time the cluster creation call is issued.
    */
-  @JsonProperty("start_time")
   private Long startTime;
 
   /** Deprecated. Please use the `status` field instead. */
-  @JsonProperty("state")
   private RunState state;
 
   /** The current status of the run */
-  @JsonProperty("status")
   private RunStatus status;
 
   /**
@@ -213,7 +194,6 @@ public class BaseRun {
    * paginate through them using :method:jobs/getrun. Use the `next_page_token` field at the object
    * root to determine if more results are available.
    */
-  @JsonProperty("tasks")
   private Collection<RunTask> tasks;
 
   /**
@@ -228,11 +208,9 @@ public class BaseRun {
    * triggered by a table update. * `CONTINUOUS_RESTART`: Indicates a run created by user to
    * manually restart a continuous job run.
    */
-  @JsonProperty("trigger")
   private TriggerType trigger;
 
   /** Additional details about what triggered the run */
-  @JsonProperty("trigger_info")
   private TriggerInfo triggerInfo;
 
   public BaseRun setAttemptNumber(Long attemptNumber) {
@@ -647,5 +625,101 @@ public class BaseRun {
         .add("trigger", trigger)
         .add("triggerInfo", triggerInfo)
         .toString();
+  }
+
+  BaseRunPb toPb() {
+    BaseRunPb pb = new BaseRunPb();
+    pb.setAttemptNumber(attemptNumber);
+    pb.setCleanupDuration(cleanupDuration);
+    pb.setClusterInstance(clusterInstance);
+    pb.setClusterSpec(clusterSpec);
+    pb.setCreatorUserName(creatorUserName);
+    pb.setDescription(description);
+    pb.setEffectivePerformanceTarget(effectivePerformanceTarget);
+    pb.setEndTime(endTime);
+    pb.setExecutionDuration(executionDuration);
+    pb.setGitSource(gitSource);
+    pb.setHasMore(hasMore);
+    pb.setJobClusters(jobClusters);
+    pb.setJobId(jobId);
+    pb.setJobParameters(jobParameters);
+    pb.setJobRunId(jobRunId);
+    pb.setNumberInJob(numberInJob);
+    pb.setOriginalAttemptRunId(originalAttemptRunId);
+    pb.setOverridingParameters(overridingParameters);
+    pb.setQueueDuration(queueDuration);
+    pb.setRepairHistory(repairHistory);
+    pb.setRunDuration(runDuration);
+    pb.setRunId(runId);
+    pb.setRunName(runName);
+    pb.setRunPageUrl(runPageUrl);
+    pb.setRunType(runType);
+    pb.setSchedule(schedule);
+    pb.setSetupDuration(setupDuration);
+    pb.setStartTime(startTime);
+    pb.setState(state);
+    pb.setStatus(status);
+    pb.setTasks(tasks);
+    pb.setTrigger(trigger);
+    pb.setTriggerInfo(triggerInfo);
+
+    return pb;
+  }
+
+  static BaseRun fromPb(BaseRunPb pb) {
+    BaseRun model = new BaseRun();
+    model.setAttemptNumber(pb.getAttemptNumber());
+    model.setCleanupDuration(pb.getCleanupDuration());
+    model.setClusterInstance(pb.getClusterInstance());
+    model.setClusterSpec(pb.getClusterSpec());
+    model.setCreatorUserName(pb.getCreatorUserName());
+    model.setDescription(pb.getDescription());
+    model.setEffectivePerformanceTarget(pb.getEffectivePerformanceTarget());
+    model.setEndTime(pb.getEndTime());
+    model.setExecutionDuration(pb.getExecutionDuration());
+    model.setGitSource(pb.getGitSource());
+    model.setHasMore(pb.getHasMore());
+    model.setJobClusters(pb.getJobClusters());
+    model.setJobId(pb.getJobId());
+    model.setJobParameters(pb.getJobParameters());
+    model.setJobRunId(pb.getJobRunId());
+    model.setNumberInJob(pb.getNumberInJob());
+    model.setOriginalAttemptRunId(pb.getOriginalAttemptRunId());
+    model.setOverridingParameters(pb.getOverridingParameters());
+    model.setQueueDuration(pb.getQueueDuration());
+    model.setRepairHistory(pb.getRepairHistory());
+    model.setRunDuration(pb.getRunDuration());
+    model.setRunId(pb.getRunId());
+    model.setRunName(pb.getRunName());
+    model.setRunPageUrl(pb.getRunPageUrl());
+    model.setRunType(pb.getRunType());
+    model.setSchedule(pb.getSchedule());
+    model.setSetupDuration(pb.getSetupDuration());
+    model.setStartTime(pb.getStartTime());
+    model.setState(pb.getState());
+    model.setStatus(pb.getStatus());
+    model.setTasks(pb.getTasks());
+    model.setTrigger(pb.getTrigger());
+    model.setTriggerInfo(pb.getTriggerInfo());
+
+    return model;
+  }
+
+  public static class BaseRunSerializer extends JsonSerializer<BaseRun> {
+    @Override
+    public void serialize(BaseRun value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      BaseRunPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class BaseRunDeserializer extends JsonDeserializer<BaseRun> {
+    @Override
+    public BaseRun deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      BaseRunPb pb = mapper.readValue(p, BaseRunPb.class);
+      return BaseRun.fromPb(pb);
+    }
   }
 }

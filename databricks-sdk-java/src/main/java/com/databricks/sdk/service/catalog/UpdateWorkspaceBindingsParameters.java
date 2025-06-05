@@ -4,29 +4,39 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = UpdateWorkspaceBindingsParameters.UpdateWorkspaceBindingsParametersSerializer.class)
+@JsonDeserialize(
+    using = UpdateWorkspaceBindingsParameters.UpdateWorkspaceBindingsParametersDeserializer.class)
 public class UpdateWorkspaceBindingsParameters {
   /** List of workspace bindings. */
-  @JsonProperty("add")
   private Collection<WorkspaceBinding> add;
 
   /** List of workspace bindings. */
-  @JsonProperty("remove")
   private Collection<WorkspaceBinding> remove;
 
   /** The name of the securable. */
-  @JsonIgnore private String securableName;
+  private String securableName;
 
   /**
    * The type of the securable to bind to a workspace (catalog, storage_credential, credential, or
    * external_location).
    */
-  @JsonIgnore private String securableType;
+  private String securableType;
 
   public UpdateWorkspaceBindingsParameters setAdd(Collection<WorkspaceBinding> add) {
     this.add = add;
@@ -88,5 +98,48 @@ public class UpdateWorkspaceBindingsParameters {
         .add("securableName", securableName)
         .add("securableType", securableType)
         .toString();
+  }
+
+  UpdateWorkspaceBindingsParametersPb toPb() {
+    UpdateWorkspaceBindingsParametersPb pb = new UpdateWorkspaceBindingsParametersPb();
+    pb.setAdd(add);
+    pb.setRemove(remove);
+    pb.setSecurableName(securableName);
+    pb.setSecurableType(securableType);
+
+    return pb;
+  }
+
+  static UpdateWorkspaceBindingsParameters fromPb(UpdateWorkspaceBindingsParametersPb pb) {
+    UpdateWorkspaceBindingsParameters model = new UpdateWorkspaceBindingsParameters();
+    model.setAdd(pb.getAdd());
+    model.setRemove(pb.getRemove());
+    model.setSecurableName(pb.getSecurableName());
+    model.setSecurableType(pb.getSecurableType());
+
+    return model;
+  }
+
+  public static class UpdateWorkspaceBindingsParametersSerializer
+      extends JsonSerializer<UpdateWorkspaceBindingsParameters> {
+    @Override
+    public void serialize(
+        UpdateWorkspaceBindingsParameters value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateWorkspaceBindingsParametersPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateWorkspaceBindingsParametersDeserializer
+      extends JsonDeserializer<UpdateWorkspaceBindingsParameters> {
+    @Override
+    public UpdateWorkspaceBindingsParameters deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateWorkspaceBindingsParametersPb pb =
+          mapper.readValue(p, UpdateWorkspaceBindingsParametersPb.class);
+      return UpdateWorkspaceBindingsParameters.fromPb(pb);
+    }
   }
 }

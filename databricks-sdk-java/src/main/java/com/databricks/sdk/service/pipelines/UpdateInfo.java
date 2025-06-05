@@ -4,33 +4,39 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = UpdateInfo.UpdateInfoSerializer.class)
+@JsonDeserialize(using = UpdateInfo.UpdateInfoDeserializer.class)
 public class UpdateInfo {
   /** What triggered this update. */
-  @JsonProperty("cause")
   private UpdateInfoCause cause;
 
   /** The ID of the cluster that the update is running on. */
-  @JsonProperty("cluster_id")
   private String clusterId;
 
   /**
    * The pipeline configuration with system defaults applied where unspecified by the user. Not
    * returned by ListUpdates.
    */
-  @JsonProperty("config")
   private PipelineSpec config;
 
   /** The time when this update was created. */
-  @JsonProperty("creation_time")
   private Long creationTime;
 
   /** If true, this update will reset all tables before running. */
-  @JsonProperty("full_refresh")
   private Boolean fullRefresh;
 
   /**
@@ -38,11 +44,9 @@ public class UpdateInfo {
    * full_refresh_selection are empty, this is a full graph update. Full Refresh on a table means
    * that the states of the table will be reset before the refresh.
    */
-  @JsonProperty("full_refresh_selection")
   private Collection<String> fullRefreshSelection;
 
   /** The ID of the pipeline. */
-  @JsonProperty("pipeline_id")
   private String pipelineId;
 
   /**
@@ -50,22 +54,18 @@ public class UpdateInfo {
    * full_refresh_selection are empty, this is a full graph update. Full Refresh on a table means
    * that the states of the table will be reset before the refresh.
    */
-  @JsonProperty("refresh_selection")
   private Collection<String> refreshSelection;
 
   /** The update state. */
-  @JsonProperty("state")
   private UpdateInfoState state;
 
   /** The ID of this update. */
-  @JsonProperty("update_id")
   private String updateId;
 
   /**
    * If true, this update only validates the correctness of pipeline source code but does not
    * materialize or publish any datasets.
    */
-  @JsonProperty("validate_only")
   private Boolean validateOnly;
 
   public UpdateInfo setCause(UpdateInfoCause cause) {
@@ -216,5 +216,57 @@ public class UpdateInfo {
         .add("updateId", updateId)
         .add("validateOnly", validateOnly)
         .toString();
+  }
+
+  UpdateInfoPb toPb() {
+    UpdateInfoPb pb = new UpdateInfoPb();
+    pb.setCause(cause);
+    pb.setClusterId(clusterId);
+    pb.setConfig(config);
+    pb.setCreationTime(creationTime);
+    pb.setFullRefresh(fullRefresh);
+    pb.setFullRefreshSelection(fullRefreshSelection);
+    pb.setPipelineId(pipelineId);
+    pb.setRefreshSelection(refreshSelection);
+    pb.setState(state);
+    pb.setUpdateId(updateId);
+    pb.setValidateOnly(validateOnly);
+
+    return pb;
+  }
+
+  static UpdateInfo fromPb(UpdateInfoPb pb) {
+    UpdateInfo model = new UpdateInfo();
+    model.setCause(pb.getCause());
+    model.setClusterId(pb.getClusterId());
+    model.setConfig(pb.getConfig());
+    model.setCreationTime(pb.getCreationTime());
+    model.setFullRefresh(pb.getFullRefresh());
+    model.setFullRefreshSelection(pb.getFullRefreshSelection());
+    model.setPipelineId(pb.getPipelineId());
+    model.setRefreshSelection(pb.getRefreshSelection());
+    model.setState(pb.getState());
+    model.setUpdateId(pb.getUpdateId());
+    model.setValidateOnly(pb.getValidateOnly());
+
+    return model;
+  }
+
+  public static class UpdateInfoSerializer extends JsonSerializer<UpdateInfo> {
+    @Override
+    public void serialize(UpdateInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateInfoDeserializer extends JsonDeserializer<UpdateInfo> {
+    @Override
+    public UpdateInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateInfoPb pb = mapper.readValue(p, UpdateInfoPb.class);
+      return UpdateInfo.fromPb(pb);
+    }
   }
 }

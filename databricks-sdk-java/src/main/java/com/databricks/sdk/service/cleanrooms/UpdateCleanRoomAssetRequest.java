@@ -4,22 +4,31 @@ package com.databricks.sdk.service.cleanrooms;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Update an asset */
 @Generated
+@JsonSerialize(using = UpdateCleanRoomAssetRequest.UpdateCleanRoomAssetRequestSerializer.class)
+@JsonDeserialize(using = UpdateCleanRoomAssetRequest.UpdateCleanRoomAssetRequestDeserializer.class)
 public class UpdateCleanRoomAssetRequest {
   /** Metadata of the clean room asset */
-  @JsonProperty("asset")
   private CleanRoomAsset asset;
 
   /** The type of the asset. */
-  @JsonIgnore private CleanRoomAssetAssetType assetType;
+  private CleanRoomAssetAssetType assetType;
 
   /** Name of the clean room. */
-  @JsonIgnore private String cleanRoomName;
+  private String cleanRoomName;
 
   /**
    * A fully qualified name that uniquely identifies the asset within the clean room. This is also
@@ -30,7 +39,7 @@ public class UpdateCleanRoomAssetRequest {
    *
    * <p>For notebooks, the name is the notebook file name.
    */
-  @JsonIgnore private String name;
+  private String name;
 
   public UpdateCleanRoomAssetRequest setAsset(CleanRoomAsset asset) {
     this.asset = asset;
@@ -92,5 +101,47 @@ public class UpdateCleanRoomAssetRequest {
         .add("cleanRoomName", cleanRoomName)
         .add("name", name)
         .toString();
+  }
+
+  UpdateCleanRoomAssetRequestPb toPb() {
+    UpdateCleanRoomAssetRequestPb pb = new UpdateCleanRoomAssetRequestPb();
+    pb.setAsset(asset);
+    pb.setAssetType(assetType);
+    pb.setCleanRoomName(cleanRoomName);
+    pb.setName(name);
+
+    return pb;
+  }
+
+  static UpdateCleanRoomAssetRequest fromPb(UpdateCleanRoomAssetRequestPb pb) {
+    UpdateCleanRoomAssetRequest model = new UpdateCleanRoomAssetRequest();
+    model.setAsset(pb.getAsset());
+    model.setAssetType(pb.getAssetType());
+    model.setCleanRoomName(pb.getCleanRoomName());
+    model.setName(pb.getName());
+
+    return model;
+  }
+
+  public static class UpdateCleanRoomAssetRequestSerializer
+      extends JsonSerializer<UpdateCleanRoomAssetRequest> {
+    @Override
+    public void serialize(
+        UpdateCleanRoomAssetRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateCleanRoomAssetRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateCleanRoomAssetRequestDeserializer
+      extends JsonDeserializer<UpdateCleanRoomAssetRequest> {
+    @Override
+    public UpdateCleanRoomAssetRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateCleanRoomAssetRequestPb pb = mapper.readValue(p, UpdateCleanRoomAssetRequestPb.class);
+      return UpdateCleanRoomAssetRequest.fromPb(pb);
+    }
   }
 }

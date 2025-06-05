@@ -4,22 +4,31 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Attributes set during cluster creation which are related to GCP. */
 @Generated
+@JsonSerialize(using = GcpAttributes.GcpAttributesSerializer.class)
+@JsonDeserialize(using = GcpAttributes.GcpAttributesDeserializer.class)
 public class GcpAttributes {
   /**
    * This field determines whether the spark executors will be scheduled to run on preemptible VMs,
    * on-demand VMs, or preemptible VMs with a fallback to on-demand VMs if the former is
    * unavailable.
    */
-  @JsonProperty("availability")
   private GcpAvailability availability;
 
   /** Boot disk size in GB */
-  @JsonProperty("boot_disk_size")
   private Long bootDiskSize;
 
   /**
@@ -27,7 +36,6 @@ public class GcpAttributes {
    * services (like GCS). The google service account must have previously been added to the
    * Databricks environment by an account administrator.
    */
-  @JsonProperty("google_service_account")
   private String googleServiceAccount;
 
   /**
@@ -38,7 +46,6 @@ public class GcpAttributes {
    * <p>[GCP documentation]:
    * https://cloud.google.com/compute/docs/disks/local-ssd#choose_number_local_ssds
    */
-  @JsonProperty("local_ssd_count")
   private Long localSsdCount;
 
   /**
@@ -46,7 +53,6 @@ public class GcpAttributes {
    * (when set to true) versus standard compute engine VMs (when set to false; default). Note: Soon
    * to be deprecated, use the 'availability' field instead.
    */
-  @JsonProperty("use_preemptible_executors")
   private Boolean usePreemptibleExecutors;
 
   /**
@@ -56,7 +62,6 @@ public class GcpAttributes {
    * cluster on. - A GCP availability zone => Pick One of the available zones for (machine type +
    * region) from https://cloud.google.com/compute/docs/regions-zones.
    */
-  @JsonProperty("zone_id")
   private String zoneId;
 
   public GcpAttributes setAvailability(GcpAvailability availability) {
@@ -147,5 +152,47 @@ public class GcpAttributes {
         .add("usePreemptibleExecutors", usePreemptibleExecutors)
         .add("zoneId", zoneId)
         .toString();
+  }
+
+  GcpAttributesPb toPb() {
+    GcpAttributesPb pb = new GcpAttributesPb();
+    pb.setAvailability(availability);
+    pb.setBootDiskSize(bootDiskSize);
+    pb.setGoogleServiceAccount(googleServiceAccount);
+    pb.setLocalSsdCount(localSsdCount);
+    pb.setUsePreemptibleExecutors(usePreemptibleExecutors);
+    pb.setZoneId(zoneId);
+
+    return pb;
+  }
+
+  static GcpAttributes fromPb(GcpAttributesPb pb) {
+    GcpAttributes model = new GcpAttributes();
+    model.setAvailability(pb.getAvailability());
+    model.setBootDiskSize(pb.getBootDiskSize());
+    model.setGoogleServiceAccount(pb.getGoogleServiceAccount());
+    model.setLocalSsdCount(pb.getLocalSsdCount());
+    model.setUsePreemptibleExecutors(pb.getUsePreemptibleExecutors());
+    model.setZoneId(pb.getZoneId());
+
+    return model;
+  }
+
+  public static class GcpAttributesSerializer extends JsonSerializer<GcpAttributes> {
+    @Override
+    public void serialize(GcpAttributes value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GcpAttributesPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GcpAttributesDeserializer extends JsonDeserializer<GcpAttributes> {
+    @Override
+    public GcpAttributes deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GcpAttributesPb pb = mapper.readValue(p, GcpAttributesPb.class);
+      return GcpAttributes.fromPb(pb);
+    }
   }
 }

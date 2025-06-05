@@ -4,22 +4,30 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = PasswordPermissions.PasswordPermissionsSerializer.class)
+@JsonDeserialize(using = PasswordPermissions.PasswordPermissionsDeserializer.class)
 public class PasswordPermissions {
   /** */
-  @JsonProperty("access_control_list")
   private Collection<PasswordAccessControlResponse> accessControlList;
 
   /** */
-  @JsonProperty("object_id")
   private String objectId;
 
   /** */
-  @JsonProperty("object_type")
   private String objectType;
 
   public PasswordPermissions setAccessControlList(
@@ -72,5 +80,43 @@ public class PasswordPermissions {
         .add("objectId", objectId)
         .add("objectType", objectType)
         .toString();
+  }
+
+  PasswordPermissionsPb toPb() {
+    PasswordPermissionsPb pb = new PasswordPermissionsPb();
+    pb.setAccessControlList(accessControlList);
+    pb.setObjectId(objectId);
+    pb.setObjectType(objectType);
+
+    return pb;
+  }
+
+  static PasswordPermissions fromPb(PasswordPermissionsPb pb) {
+    PasswordPermissions model = new PasswordPermissions();
+    model.setAccessControlList(pb.getAccessControlList());
+    model.setObjectId(pb.getObjectId());
+    model.setObjectType(pb.getObjectType());
+
+    return model;
+  }
+
+  public static class PasswordPermissionsSerializer extends JsonSerializer<PasswordPermissions> {
+    @Override
+    public void serialize(PasswordPermissions value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PasswordPermissionsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PasswordPermissionsDeserializer
+      extends JsonDeserializer<PasswordPermissions> {
+    @Override
+    public PasswordPermissions deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PasswordPermissionsPb pb = mapper.readValue(p, PasswordPermissionsPb.class);
+      return PasswordPermissions.fromPb(pb);
+    }
   }
 }

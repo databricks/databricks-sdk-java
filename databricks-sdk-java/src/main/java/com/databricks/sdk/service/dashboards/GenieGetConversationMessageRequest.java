@@ -4,20 +4,33 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get conversation message */
 @Generated
+@JsonSerialize(
+    using = GenieGetConversationMessageRequest.GenieGetConversationMessageRequestSerializer.class)
+@JsonDeserialize(
+    using = GenieGetConversationMessageRequest.GenieGetConversationMessageRequestDeserializer.class)
 public class GenieGetConversationMessageRequest {
   /** The ID associated with the target conversation. */
-  @JsonIgnore private String conversationId;
+  private String conversationId;
 
   /** The ID associated with the target message from the identified conversation. */
-  @JsonIgnore private String messageId;
+  private String messageId;
 
   /** The ID associated with the Genie space where the target conversation is located. */
-  @JsonIgnore private String spaceId;
+  private String spaceId;
 
   public GenieGetConversationMessageRequest setConversationId(String conversationId) {
     this.conversationId = conversationId;
@@ -68,5 +81,46 @@ public class GenieGetConversationMessageRequest {
         .add("messageId", messageId)
         .add("spaceId", spaceId)
         .toString();
+  }
+
+  GenieGetConversationMessageRequestPb toPb() {
+    GenieGetConversationMessageRequestPb pb = new GenieGetConversationMessageRequestPb();
+    pb.setConversationId(conversationId);
+    pb.setMessageId(messageId);
+    pb.setSpaceId(spaceId);
+
+    return pb;
+  }
+
+  static GenieGetConversationMessageRequest fromPb(GenieGetConversationMessageRequestPb pb) {
+    GenieGetConversationMessageRequest model = new GenieGetConversationMessageRequest();
+    model.setConversationId(pb.getConversationId());
+    model.setMessageId(pb.getMessageId());
+    model.setSpaceId(pb.getSpaceId());
+
+    return model;
+  }
+
+  public static class GenieGetConversationMessageRequestSerializer
+      extends JsonSerializer<GenieGetConversationMessageRequest> {
+    @Override
+    public void serialize(
+        GenieGetConversationMessageRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GenieGetConversationMessageRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GenieGetConversationMessageRequestDeserializer
+      extends JsonDeserializer<GenieGetConversationMessageRequest> {
+    @Override
+    public GenieGetConversationMessageRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GenieGetConversationMessageRequestPb pb =
+          mapper.readValue(p, GenieGetConversationMessageRequestPb.class);
+      return GenieGetConversationMessageRequest.fromPb(pb);
+    }
   }
 }

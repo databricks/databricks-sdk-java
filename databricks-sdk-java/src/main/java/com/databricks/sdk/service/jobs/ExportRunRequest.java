@@ -3,22 +3,28 @@
 package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Export and retrieve a job run */
 @Generated
+@JsonSerialize(using = ExportRunRequest.ExportRunRequestSerializer.class)
+@JsonDeserialize(using = ExportRunRequest.ExportRunRequestDeserializer.class)
 public class ExportRunRequest {
   /** The canonical identifier for the run. This field is required. */
-  @JsonIgnore
-  @QueryParam("run_id")
   private Long runId;
 
   /** Which views to export (CODE, DASHBOARDS, or ALL). Defaults to CODE. */
-  @JsonIgnore
-  @QueryParam("views_to_export")
   private ViewsToExport viewsToExport;
 
   public ExportRunRequest setRunId(Long runId) {
@@ -58,5 +64,40 @@ public class ExportRunRequest {
         .add("runId", runId)
         .add("viewsToExport", viewsToExport)
         .toString();
+  }
+
+  ExportRunRequestPb toPb() {
+    ExportRunRequestPb pb = new ExportRunRequestPb();
+    pb.setRunId(runId);
+    pb.setViewsToExport(viewsToExport);
+
+    return pb;
+  }
+
+  static ExportRunRequest fromPb(ExportRunRequestPb pb) {
+    ExportRunRequest model = new ExportRunRequest();
+    model.setRunId(pb.getRunId());
+    model.setViewsToExport(pb.getViewsToExport());
+
+    return model;
+  }
+
+  public static class ExportRunRequestSerializer extends JsonSerializer<ExportRunRequest> {
+    @Override
+    public void serialize(ExportRunRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ExportRunRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ExportRunRequestDeserializer extends JsonDeserializer<ExportRunRequest> {
+    @Override
+    public ExportRunRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ExportRunRequestPb pb = mapper.readValue(p, ExportRunRequestPb.class);
+      return ExportRunRequest.fromPb(pb);
+    }
   }
 }

@@ -4,13 +4,23 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = SubscriptionSubscriberUser.SubscriptionSubscriberUserSerializer.class)
+@JsonDeserialize(using = SubscriptionSubscriberUser.SubscriptionSubscriberUserDeserializer.class)
 public class SubscriptionSubscriberUser {
   /** UserId of the subscriber. */
-  @JsonProperty("user_id")
   private Long userId;
 
   public SubscriptionSubscriberUser setUserId(Long userId) {
@@ -38,5 +48,41 @@ public class SubscriptionSubscriberUser {
   @Override
   public String toString() {
     return new ToStringer(SubscriptionSubscriberUser.class).add("userId", userId).toString();
+  }
+
+  SubscriptionSubscriberUserPb toPb() {
+    SubscriptionSubscriberUserPb pb = new SubscriptionSubscriberUserPb();
+    pb.setUserId(userId);
+
+    return pb;
+  }
+
+  static SubscriptionSubscriberUser fromPb(SubscriptionSubscriberUserPb pb) {
+    SubscriptionSubscriberUser model = new SubscriptionSubscriberUser();
+    model.setUserId(pb.getUserId());
+
+    return model;
+  }
+
+  public static class SubscriptionSubscriberUserSerializer
+      extends JsonSerializer<SubscriptionSubscriberUser> {
+    @Override
+    public void serialize(
+        SubscriptionSubscriberUser value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SubscriptionSubscriberUserPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SubscriptionSubscriberUserDeserializer
+      extends JsonDeserializer<SubscriptionSubscriberUser> {
+    @Override
+    public SubscriptionSubscriberUser deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SubscriptionSubscriberUserPb pb = mapper.readValue(p, SubscriptionSubscriberUserPb.class);
+      return SubscriptionSubscriberUser.fromPb(pb);
+    }
   }
 }

@@ -4,17 +4,28 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Delete a tag on a logged model */
 @Generated
+@JsonSerialize(using = DeleteLoggedModelTagRequest.DeleteLoggedModelTagRequestSerializer.class)
+@JsonDeserialize(using = DeleteLoggedModelTagRequest.DeleteLoggedModelTagRequestDeserializer.class)
 public class DeleteLoggedModelTagRequest {
   /** The ID of the logged model to delete the tag from. */
-  @JsonIgnore private String modelId;
+  private String modelId;
 
   /** The tag key. */
-  @JsonIgnore private String tagKey;
+  private String tagKey;
 
   public DeleteLoggedModelTagRequest setModelId(String modelId) {
     this.modelId = modelId;
@@ -53,5 +64,43 @@ public class DeleteLoggedModelTagRequest {
         .add("modelId", modelId)
         .add("tagKey", tagKey)
         .toString();
+  }
+
+  DeleteLoggedModelTagRequestPb toPb() {
+    DeleteLoggedModelTagRequestPb pb = new DeleteLoggedModelTagRequestPb();
+    pb.setModelId(modelId);
+    pb.setTagKey(tagKey);
+
+    return pb;
+  }
+
+  static DeleteLoggedModelTagRequest fromPb(DeleteLoggedModelTagRequestPb pb) {
+    DeleteLoggedModelTagRequest model = new DeleteLoggedModelTagRequest();
+    model.setModelId(pb.getModelId());
+    model.setTagKey(pb.getTagKey());
+
+    return model;
+  }
+
+  public static class DeleteLoggedModelTagRequestSerializer
+      extends JsonSerializer<DeleteLoggedModelTagRequest> {
+    @Override
+    public void serialize(
+        DeleteLoggedModelTagRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DeleteLoggedModelTagRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DeleteLoggedModelTagRequestDeserializer
+      extends JsonDeserializer<DeleteLoggedModelTagRequest> {
+    @Override
+    public DeleteLoggedModelTagRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DeleteLoggedModelTagRequestPb pb = mapper.readValue(p, DeleteLoggedModelTagRequestPb.class);
+      return DeleteLoggedModelTagRequest.fromPb(pb);
+    }
   }
 }

@@ -21,7 +21,7 @@ class WarehousesImpl implements WarehousesService {
     String path = "/api/2.0/sql/warehouses";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, CreateWarehouseResponse.class);
@@ -35,7 +35,7 @@ class WarehousesImpl implements WarehousesService {
     String path = String.format("/api/2.0/sql/warehouses/%s", request.getId());
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, DeleteWarehouseResponse.class);
     } catch (IOException e) {
@@ -48,7 +48,7 @@ class WarehousesImpl implements WarehousesService {
     String path = String.format("/api/2.0/sql/warehouses/%s/edit", request.getId());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, EditWarehouseResponse.class);
@@ -62,7 +62,7 @@ class WarehousesImpl implements WarehousesService {
     String path = String.format("/api/2.0/sql/warehouses/%s", request.getId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetWarehouseResponse.class);
     } catch (IOException e) {
@@ -78,7 +78,7 @@ class WarehousesImpl implements WarehousesService {
             "/api/2.0/permissions/warehouses/%s/permissionLevels", request.getWarehouseId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetWarehousePermissionLevelsResponse.class);
     } catch (IOException e) {
@@ -91,7 +91,7 @@ class WarehousesImpl implements WarehousesService {
     String path = String.format("/api/2.0/permissions/warehouses/%s", request.getWarehouseId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, WarehousePermissions.class);
     } catch (IOException e) {
@@ -116,7 +116,7 @@ class WarehousesImpl implements WarehousesService {
     String path = "/api/2.0/sql/warehouses";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListWarehousesResponse.class);
     } catch (IOException e) {
@@ -129,7 +129,7 @@ class WarehousesImpl implements WarehousesService {
     String path = String.format("/api/2.0/permissions/warehouses/%s", request.getWarehouseId());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, WarehousePermissions.class);
@@ -143,7 +143,7 @@ class WarehousesImpl implements WarehousesService {
     String path = "/api/2.0/sql/config/warehouses";
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, SetWorkspaceWarehouseConfigResponse.class);
@@ -157,7 +157,7 @@ class WarehousesImpl implements WarehousesService {
     String path = String.format("/api/2.0/sql/warehouses/%s/start", request.getId());
     try {
       Request req = new Request("POST", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, StartWarehouseResponse.class);
     } catch (IOException e) {
@@ -170,7 +170,7 @@ class WarehousesImpl implements WarehousesService {
     String path = String.format("/api/2.0/sql/warehouses/%s/stop", request.getId());
     try {
       Request req = new Request("POST", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, StopWarehouseResponse.class);
     } catch (IOException e) {
@@ -183,7 +183,7 @@ class WarehousesImpl implements WarehousesService {
     String path = String.format("/api/2.0/permissions/warehouses/%s", request.getWarehouseId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, WarehousePermissions.class);

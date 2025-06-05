@@ -4,7 +4,16 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -15,20 +24,25 @@ import java.util.Objects;
  * the feature is disabled for this customer.
  */
 @Generated
+@JsonSerialize(
+    using =
+        ClusterAutoRestartMessageEnablementDetails
+            .ClusterAutoRestartMessageEnablementDetailsSerializer.class)
+@JsonDeserialize(
+    using =
+        ClusterAutoRestartMessageEnablementDetails
+            .ClusterAutoRestartMessageEnablementDetailsDeserializer.class)
 public class ClusterAutoRestartMessageEnablementDetails {
   /** The feature is force enabled if compliance mode is active */
-  @JsonProperty("forced_for_compliance_mode")
   private Boolean forcedForComplianceMode;
 
   /**
    * The feature is unavailable if the corresponding entitlement disabled (see
    * getShieldEntitlementEnable)
    */
-  @JsonProperty("unavailable_for_disabled_entitlement")
   private Boolean unavailableForDisabledEntitlement;
 
   /** The feature is unavailable if the customer doesn't have enterprise tier */
-  @JsonProperty("unavailable_for_non_enterprise_tier")
   private Boolean unavailableForNonEnterpriseTier;
 
   public ClusterAutoRestartMessageEnablementDetails setForcedForComplianceMode(
@@ -87,5 +101,51 @@ public class ClusterAutoRestartMessageEnablementDetails {
         .add("unavailableForDisabledEntitlement", unavailableForDisabledEntitlement)
         .add("unavailableForNonEnterpriseTier", unavailableForNonEnterpriseTier)
         .toString();
+  }
+
+  ClusterAutoRestartMessageEnablementDetailsPb toPb() {
+    ClusterAutoRestartMessageEnablementDetailsPb pb =
+        new ClusterAutoRestartMessageEnablementDetailsPb();
+    pb.setForcedForComplianceMode(forcedForComplianceMode);
+    pb.setUnavailableForDisabledEntitlement(unavailableForDisabledEntitlement);
+    pb.setUnavailableForNonEnterpriseTier(unavailableForNonEnterpriseTier);
+
+    return pb;
+  }
+
+  static ClusterAutoRestartMessageEnablementDetails fromPb(
+      ClusterAutoRestartMessageEnablementDetailsPb pb) {
+    ClusterAutoRestartMessageEnablementDetails model =
+        new ClusterAutoRestartMessageEnablementDetails();
+    model.setForcedForComplianceMode(pb.getForcedForComplianceMode());
+    model.setUnavailableForDisabledEntitlement(pb.getUnavailableForDisabledEntitlement());
+    model.setUnavailableForNonEnterpriseTier(pb.getUnavailableForNonEnterpriseTier());
+
+    return model;
+  }
+
+  public static class ClusterAutoRestartMessageEnablementDetailsSerializer
+      extends JsonSerializer<ClusterAutoRestartMessageEnablementDetails> {
+    @Override
+    public void serialize(
+        ClusterAutoRestartMessageEnablementDetails value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      ClusterAutoRestartMessageEnablementDetailsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ClusterAutoRestartMessageEnablementDetailsDeserializer
+      extends JsonDeserializer<ClusterAutoRestartMessageEnablementDetails> {
+    @Override
+    public ClusterAutoRestartMessageEnablementDetails deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ClusterAutoRestartMessageEnablementDetailsPb pb =
+          mapper.readValue(p, ClusterAutoRestartMessageEnablementDetailsPb.class);
+      return ClusterAutoRestartMessageEnablementDetails.fromPb(pb);
+    }
   }
 }

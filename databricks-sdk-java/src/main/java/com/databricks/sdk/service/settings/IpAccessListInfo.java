@@ -4,39 +4,43 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 /** Definition of an IP Access list */
 @Generated
+@JsonSerialize(using = IpAccessListInfo.IpAccessListInfoSerializer.class)
+@JsonDeserialize(using = IpAccessListInfo.IpAccessListInfoDeserializer.class)
 public class IpAccessListInfo {
   /** Total number of IP or CIDR values. */
-  @JsonProperty("address_count")
   private Long addressCount;
 
   /** Creation timestamp in milliseconds. */
-  @JsonProperty("created_at")
   private Long createdAt;
 
   /** User ID of the user who created this list. */
-  @JsonProperty("created_by")
   private Long createdBy;
 
   /** Specifies whether this IP access list is enabled. */
-  @JsonProperty("enabled")
   private Boolean enabled;
 
   /** */
-  @JsonProperty("ip_addresses")
   private Collection<String> ipAddresses;
 
   /** Label for the IP access list. This **cannot** be empty. */
-  @JsonProperty("label")
   private String label;
 
   /** Universally unique identifier (UUID) of the IP access list. */
-  @JsonProperty("list_id")
   private String listId;
 
   /**
@@ -46,15 +50,12 @@ public class IpAccessListInfo {
    * or range. IP addresses in the block list are excluded even if they are included in an allow
    * list.
    */
-  @JsonProperty("list_type")
   private ListType listType;
 
   /** Update timestamp in milliseconds. */
-  @JsonProperty("updated_at")
   private Long updatedAt;
 
   /** User ID of the user who updated this list. */
-  @JsonProperty("updated_by")
   private Long updatedBy;
 
   public IpAccessListInfo setAddressCount(Long addressCount) {
@@ -193,5 +194,56 @@ public class IpAccessListInfo {
         .add("updatedAt", updatedAt)
         .add("updatedBy", updatedBy)
         .toString();
+  }
+
+  IpAccessListInfoPb toPb() {
+    IpAccessListInfoPb pb = new IpAccessListInfoPb();
+    pb.setAddressCount(addressCount);
+    pb.setCreatedAt(createdAt);
+    pb.setCreatedBy(createdBy);
+    pb.setEnabled(enabled);
+    pb.setIpAddresses(ipAddresses);
+    pb.setLabel(label);
+    pb.setListId(listId);
+    pb.setListType(listType);
+    pb.setUpdatedAt(updatedAt);
+    pb.setUpdatedBy(updatedBy);
+
+    return pb;
+  }
+
+  static IpAccessListInfo fromPb(IpAccessListInfoPb pb) {
+    IpAccessListInfo model = new IpAccessListInfo();
+    model.setAddressCount(pb.getAddressCount());
+    model.setCreatedAt(pb.getCreatedAt());
+    model.setCreatedBy(pb.getCreatedBy());
+    model.setEnabled(pb.getEnabled());
+    model.setIpAddresses(pb.getIpAddresses());
+    model.setLabel(pb.getLabel());
+    model.setListId(pb.getListId());
+    model.setListType(pb.getListType());
+    model.setUpdatedAt(pb.getUpdatedAt());
+    model.setUpdatedBy(pb.getUpdatedBy());
+
+    return model;
+  }
+
+  public static class IpAccessListInfoSerializer extends JsonSerializer<IpAccessListInfo> {
+    @Override
+    public void serialize(IpAccessListInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      IpAccessListInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class IpAccessListInfoDeserializer extends JsonDeserializer<IpAccessListInfo> {
+    @Override
+    public IpAccessListInfo deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      IpAccessListInfoPb pb = mapper.readValue(p, IpAccessListInfoPb.class);
+      return IpAccessListInfo.fromPb(pb);
+    }
   }
 }

@@ -4,21 +4,32 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Create a private endpoint rule */
 @Generated
+@JsonSerialize(
+    using = CreatePrivateEndpointRuleRequest.CreatePrivateEndpointRuleRequestSerializer.class)
+@JsonDeserialize(
+    using = CreatePrivateEndpointRuleRequest.CreatePrivateEndpointRuleRequestDeserializer.class)
 public class CreatePrivateEndpointRuleRequest {
   /** Your Network Connectivity Configuration ID. */
-  @JsonIgnore private String networkConnectivityConfigId;
+  private String networkConnectivityConfigId;
 
   /**
    * Properties of the new private endpoint rule. Note that you must approve the endpoint in Azure
    * portal after initialization.
    */
-  @JsonProperty("private_endpoint_rule")
   private CreatePrivateEndpointRule privateEndpointRule;
 
   public CreatePrivateEndpointRuleRequest setNetworkConnectivityConfigId(
@@ -61,5 +72,44 @@ public class CreatePrivateEndpointRuleRequest {
         .add("networkConnectivityConfigId", networkConnectivityConfigId)
         .add("privateEndpointRule", privateEndpointRule)
         .toString();
+  }
+
+  CreatePrivateEndpointRuleRequestPb toPb() {
+    CreatePrivateEndpointRuleRequestPb pb = new CreatePrivateEndpointRuleRequestPb();
+    pb.setNetworkConnectivityConfigId(networkConnectivityConfigId);
+    pb.setPrivateEndpointRule(privateEndpointRule);
+
+    return pb;
+  }
+
+  static CreatePrivateEndpointRuleRequest fromPb(CreatePrivateEndpointRuleRequestPb pb) {
+    CreatePrivateEndpointRuleRequest model = new CreatePrivateEndpointRuleRequest();
+    model.setNetworkConnectivityConfigId(pb.getNetworkConnectivityConfigId());
+    model.setPrivateEndpointRule(pb.getPrivateEndpointRule());
+
+    return model;
+  }
+
+  public static class CreatePrivateEndpointRuleRequestSerializer
+      extends JsonSerializer<CreatePrivateEndpointRuleRequest> {
+    @Override
+    public void serialize(
+        CreatePrivateEndpointRuleRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreatePrivateEndpointRuleRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreatePrivateEndpointRuleRequestDeserializer
+      extends JsonDeserializer<CreatePrivateEndpointRuleRequest> {
+    @Override
+    public CreatePrivateEndpointRuleRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreatePrivateEndpointRuleRequestPb pb =
+          mapper.readValue(p, CreatePrivateEndpointRuleRequestPb.class);
+      return CreatePrivateEndpointRuleRequest.fromPb(pb);
+    }
   }
 }

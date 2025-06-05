@@ -4,13 +4,23 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreatePolicyResponse.CreatePolicyResponseSerializer.class)
+@JsonDeserialize(using = CreatePolicyResponse.CreatePolicyResponseDeserializer.class)
 public class CreatePolicyResponse {
   /** Canonical unique identifier for the cluster policy. */
-  @JsonProperty("policy_id")
   private String policyId;
 
   public CreatePolicyResponse setPolicyId(String policyId) {
@@ -38,5 +48,40 @@ public class CreatePolicyResponse {
   @Override
   public String toString() {
     return new ToStringer(CreatePolicyResponse.class).add("policyId", policyId).toString();
+  }
+
+  CreatePolicyResponsePb toPb() {
+    CreatePolicyResponsePb pb = new CreatePolicyResponsePb();
+    pb.setPolicyId(policyId);
+
+    return pb;
+  }
+
+  static CreatePolicyResponse fromPb(CreatePolicyResponsePb pb) {
+    CreatePolicyResponse model = new CreatePolicyResponse();
+    model.setPolicyId(pb.getPolicyId());
+
+    return model;
+  }
+
+  public static class CreatePolicyResponseSerializer extends JsonSerializer<CreatePolicyResponse> {
+    @Override
+    public void serialize(
+        CreatePolicyResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreatePolicyResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreatePolicyResponseDeserializer
+      extends JsonDeserializer<CreatePolicyResponse> {
+    @Override
+    public CreatePolicyResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreatePolicyResponsePb pb = mapper.readValue(p, CreatePolicyResponsePb.class);
+      return CreatePolicyResponse.fromPb(pb);
+    }
   }
 }

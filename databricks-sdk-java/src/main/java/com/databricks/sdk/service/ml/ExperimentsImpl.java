@@ -21,7 +21,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/experiments/create";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, CreateExperimentResponse.class);
@@ -35,7 +35,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/logged-models";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, CreateLoggedModelResponse.class);
@@ -49,7 +49,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/runs/create";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, CreateRunResponse.class);
@@ -63,7 +63,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/experiments/delete";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, DeleteExperimentResponse.class);
@@ -77,7 +77,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = String.format("/api/2.0/mlflow/logged-models/%s", request.getModelId());
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, DeleteLoggedModelResponse.class);
     } catch (IOException e) {
@@ -92,7 +92,7 @@ class ExperimentsImpl implements ExperimentsService {
             "/api/2.0/mlflow/logged-models/%s/tags/%s", request.getModelId(), request.getTagKey());
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, DeleteLoggedModelTagResponse.class);
     } catch (IOException e) {
@@ -105,7 +105,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/runs/delete";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, DeleteRunResponse.class);
@@ -119,7 +119,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/databricks/runs/delete-runs";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, DeleteRunsResponse.class);
@@ -133,7 +133,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/runs/delete-tag";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, DeleteTagResponse.class);
@@ -147,7 +147,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = String.format("/api/2.0/mlflow/logged-models/%s", request.getModelId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, FinalizeLoggedModelResponse.class);
@@ -161,7 +161,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/experiments/get-by-name";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetExperimentByNameResponse.class);
     } catch (IOException e) {
@@ -174,7 +174,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/experiments/get";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetExperimentResponse.class);
     } catch (IOException e) {
@@ -187,7 +187,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/metrics/get-history";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetMetricHistoryResponse.class);
     } catch (IOException e) {
@@ -200,7 +200,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = String.format("/api/2.0/mlflow/logged-models/%s", request.getModelId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetLoggedModelResponse.class);
     } catch (IOException e) {
@@ -216,7 +216,7 @@ class ExperimentsImpl implements ExperimentsService {
             "/api/2.0/permissions/experiments/%s/permissionLevels", request.getExperimentId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetExperimentPermissionLevelsResponse.class);
     } catch (IOException e) {
@@ -229,7 +229,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = String.format("/api/2.0/permissions/experiments/%s", request.getExperimentId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ExperimentPermissions.class);
     } catch (IOException e) {
@@ -242,7 +242,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/runs/get";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetRunResponse.class);
     } catch (IOException e) {
@@ -255,7 +255,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/artifacts/list";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListArtifactsResponse.class);
     } catch (IOException e) {
@@ -268,7 +268,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/experiments/list";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListExperimentsResponse.class);
     } catch (IOException e) {
@@ -284,7 +284,7 @@ class ExperimentsImpl implements ExperimentsService {
             "/api/2.0/mlflow/logged-models/%s/artifacts/directories", request.getModelId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListLoggedModelArtifactsResponse.class);
     } catch (IOException e) {
@@ -297,7 +297,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/runs/log-batch";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, LogBatchResponse.class);
@@ -311,7 +311,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/runs/log-inputs";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, LogInputsResponse.class);
@@ -325,7 +325,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = String.format("/api/2.0/mlflow/logged-models/%s/params", request.getModelId());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, LogLoggedModelParamsRequestResponse.class);
@@ -339,7 +339,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/runs/log-metric";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, LogMetricResponse.class);
@@ -353,7 +353,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/runs/log-model";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, LogModelResponse.class);
@@ -367,7 +367,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/runs/outputs";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, LogOutputsResponse.class);
@@ -381,7 +381,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/runs/log-parameter";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, LogParamResponse.class);
@@ -395,7 +395,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/experiments/restore";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, RestoreExperimentResponse.class);
@@ -409,7 +409,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/runs/restore";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, RestoreRunResponse.class);
@@ -423,7 +423,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/databricks/runs/restore-runs";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, RestoreRunsResponse.class);
@@ -437,7 +437,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/experiments/search";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, SearchExperimentsResponse.class);
@@ -451,7 +451,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/logged-models/search";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, SearchLoggedModelsResponse.class);
@@ -465,7 +465,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/runs/search";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, SearchRunsResponse.class);
@@ -479,7 +479,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/experiments/set-experiment-tag";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, SetExperimentTagResponse.class);
@@ -493,7 +493,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = String.format("/api/2.0/mlflow/logged-models/%s/tags", request.getModelId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, SetLoggedModelTagsResponse.class);
@@ -507,7 +507,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = String.format("/api/2.0/permissions/experiments/%s", request.getExperimentId());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, ExperimentPermissions.class);
@@ -521,7 +521,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/runs/set-tag";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, SetTagResponse.class);
@@ -535,7 +535,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/experiments/update";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, UpdateExperimentResponse.class);
@@ -549,7 +549,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = String.format("/api/2.0/permissions/experiments/%s", request.getExperimentId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, ExperimentPermissions.class);
@@ -563,7 +563,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/runs/update";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, UpdateRunResponse.class);

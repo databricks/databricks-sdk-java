@@ -4,13 +4,23 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = AutoCaptureState.AutoCaptureStateSerializer.class)
+@JsonDeserialize(using = AutoCaptureState.AutoCaptureStateDeserializer.class)
 public class AutoCaptureState {
   /** */
-  @JsonProperty("payload_table")
   private PayloadTable payloadTable;
 
   public AutoCaptureState setPayloadTable(PayloadTable payloadTable) {
@@ -38,5 +48,38 @@ public class AutoCaptureState {
   @Override
   public String toString() {
     return new ToStringer(AutoCaptureState.class).add("payloadTable", payloadTable).toString();
+  }
+
+  AutoCaptureStatePb toPb() {
+    AutoCaptureStatePb pb = new AutoCaptureStatePb();
+    pb.setPayloadTable(payloadTable);
+
+    return pb;
+  }
+
+  static AutoCaptureState fromPb(AutoCaptureStatePb pb) {
+    AutoCaptureState model = new AutoCaptureState();
+    model.setPayloadTable(pb.getPayloadTable());
+
+    return model;
+  }
+
+  public static class AutoCaptureStateSerializer extends JsonSerializer<AutoCaptureState> {
+    @Override
+    public void serialize(AutoCaptureState value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      AutoCaptureStatePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class AutoCaptureStateDeserializer extends JsonDeserializer<AutoCaptureState> {
+    @Override
+    public AutoCaptureState deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      AutoCaptureStatePb pb = mapper.readValue(p, AutoCaptureStatePb.class);
+      return AutoCaptureState.fromPb(pb);
+    }
   }
 }

@@ -4,13 +4,23 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = QueryInfo.QueryInfoSerializer.class)
+@JsonDeserialize(using = QueryInfo.QueryInfoDeserializer.class)
 public class QueryInfo {
   /** SQL Warehouse channel information at the time of query execution */
-  @JsonProperty("channel_used")
   private ChannelInfo channelUsed;
 
   /**
@@ -18,55 +28,42 @@ public class QueryInfo {
    * Power BI. This field is derived from information provided by client applications. While values
    * are expected to remain static over time, this cannot be guaranteed.
    */
-  @JsonProperty("client_application")
   private String clientApplication;
 
   /** Total execution time of the statement ( excluding result fetch time ). */
-  @JsonProperty("duration")
   private Long duration;
 
   /** Alias for `warehouse_id`. */
-  @JsonProperty("endpoint_id")
   private String endpointId;
 
   /** Message describing why the query could not complete. */
-  @JsonProperty("error_message")
   private String errorMessage;
 
   /** The ID of the user whose credentials were used to run the query. */
-  @JsonProperty("executed_as_user_id")
   private Long executedAsUserId;
 
   /** The email address or username of the user whose credentials were used to run the query. */
-  @JsonProperty("executed_as_user_name")
   private String executedAsUserName;
 
   /** The time execution of the query ended. */
-  @JsonProperty("execution_end_time_ms")
   private Long executionEndTimeMs;
 
   /** Whether more updates for the query are expected. */
-  @JsonProperty("is_final")
   private Boolean isFinal;
 
   /** A key that can be used to look up query details. */
-  @JsonProperty("lookup_key")
   private String lookupKey;
 
   /** Metrics about query execution. */
-  @JsonProperty("metrics")
   private QueryMetrics metrics;
 
   /** Whether plans exist for the execution, or the reason why they are missing */
-  @JsonProperty("plans_state")
   private PlansState plansState;
 
   /** The time the query ended. */
-  @JsonProperty("query_end_time_ms")
   private Long queryEndTimeMs;
 
   /** The query ID. */
-  @JsonProperty("query_id")
   private String queryId;
 
   /**
@@ -74,27 +71,21 @@ public class QueryInfo {
    * the execution of this statement, such as jobs, notebooks, or dashboards. This field only
    * records Databricks entities.
    */
-  @JsonProperty("query_source")
   private ExternalQuerySource querySource;
 
   /** The time the query started. */
-  @JsonProperty("query_start_time_ms")
   private Long queryStartTimeMs;
 
   /** The text of the query. */
-  @JsonProperty("query_text")
   private String queryText;
 
   /** The number of results returned by the query. */
-  @JsonProperty("rows_produced")
   private Long rowsProduced;
 
   /** URL to the Spark UI query plan. */
-  @JsonProperty("spark_ui_url")
   private String sparkUiUrl;
 
   /** Type of statement for this query */
-  @JsonProperty("statement_type")
   private QueryStatementType statementType;
 
   /**
@@ -104,19 +95,15 @@ public class QueryInfo {
    * `CANCELED`: Query has been cancelled by the user. - `FAILED`: Query has failed. - `FINISHED`:
    * Query has completed.
    */
-  @JsonProperty("status")
   private QueryStatus status;
 
   /** The ID of the user who ran the query. */
-  @JsonProperty("user_id")
   private Long userId;
 
   /** The email address or username of the user who ran the query. */
-  @JsonProperty("user_name")
   private String userName;
 
   /** Warehouse ID. */
-  @JsonProperty("warehouse_id")
   private String warehouseId;
 
   public QueryInfo setChannelUsed(ChannelInfo channelUsed) {
@@ -423,5 +410,83 @@ public class QueryInfo {
         .add("userName", userName)
         .add("warehouseId", warehouseId)
         .toString();
+  }
+
+  QueryInfoPb toPb() {
+    QueryInfoPb pb = new QueryInfoPb();
+    pb.setChannelUsed(channelUsed);
+    pb.setClientApplication(clientApplication);
+    pb.setDuration(duration);
+    pb.setEndpointId(endpointId);
+    pb.setErrorMessage(errorMessage);
+    pb.setExecutedAsUserId(executedAsUserId);
+    pb.setExecutedAsUserName(executedAsUserName);
+    pb.setExecutionEndTimeMs(executionEndTimeMs);
+    pb.setIsFinal(isFinal);
+    pb.setLookupKey(lookupKey);
+    pb.setMetrics(metrics);
+    pb.setPlansState(plansState);
+    pb.setQueryEndTimeMs(queryEndTimeMs);
+    pb.setQueryId(queryId);
+    pb.setQuerySource(querySource);
+    pb.setQueryStartTimeMs(queryStartTimeMs);
+    pb.setQueryText(queryText);
+    pb.setRowsProduced(rowsProduced);
+    pb.setSparkUiUrl(sparkUiUrl);
+    pb.setStatementType(statementType);
+    pb.setStatus(status);
+    pb.setUserId(userId);
+    pb.setUserName(userName);
+    pb.setWarehouseId(warehouseId);
+
+    return pb;
+  }
+
+  static QueryInfo fromPb(QueryInfoPb pb) {
+    QueryInfo model = new QueryInfo();
+    model.setChannelUsed(pb.getChannelUsed());
+    model.setClientApplication(pb.getClientApplication());
+    model.setDuration(pb.getDuration());
+    model.setEndpointId(pb.getEndpointId());
+    model.setErrorMessage(pb.getErrorMessage());
+    model.setExecutedAsUserId(pb.getExecutedAsUserId());
+    model.setExecutedAsUserName(pb.getExecutedAsUserName());
+    model.setExecutionEndTimeMs(pb.getExecutionEndTimeMs());
+    model.setIsFinal(pb.getIsFinal());
+    model.setLookupKey(pb.getLookupKey());
+    model.setMetrics(pb.getMetrics());
+    model.setPlansState(pb.getPlansState());
+    model.setQueryEndTimeMs(pb.getQueryEndTimeMs());
+    model.setQueryId(pb.getQueryId());
+    model.setQuerySource(pb.getQuerySource());
+    model.setQueryStartTimeMs(pb.getQueryStartTimeMs());
+    model.setQueryText(pb.getQueryText());
+    model.setRowsProduced(pb.getRowsProduced());
+    model.setSparkUiUrl(pb.getSparkUiUrl());
+    model.setStatementType(pb.getStatementType());
+    model.setStatus(pb.getStatus());
+    model.setUserId(pb.getUserId());
+    model.setUserName(pb.getUserName());
+    model.setWarehouseId(pb.getWarehouseId());
+
+    return model;
+  }
+
+  public static class QueryInfoSerializer extends JsonSerializer<QueryInfo> {
+    @Override
+    public void serialize(QueryInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      QueryInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class QueryInfoDeserializer extends JsonDeserializer<QueryInfo> {
+    @Override
+    public QueryInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      QueryInfoPb pb = mapper.readValue(p, QueryInfoPb.class);
+      return QueryInfo.fromPb(pb);
+    }
   }
 }

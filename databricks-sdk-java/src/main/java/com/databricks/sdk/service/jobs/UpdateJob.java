@@ -4,21 +4,30 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = UpdateJob.UpdateJobSerializer.class)
+@JsonDeserialize(using = UpdateJob.UpdateJobDeserializer.class)
 public class UpdateJob {
   /**
    * Remove top-level fields in the job settings. Removing nested fields is not supported, except
    * for tasks and job clusters (`tasks/task_1`). This field is optional.
    */
-  @JsonProperty("fields_to_remove")
   private Collection<String> fieldsToRemove;
 
   /** The canonical identifier of the job to update. This field is required. */
-  @JsonProperty("job_id")
   private Long jobId;
 
   /**
@@ -33,7 +42,6 @@ public class UpdateJob {
    * <p>Changes to the field `JobSettings.timeout_seconds` are applied to active runs. Changes to
    * other fields are applied to future runs only.
    */
-  @JsonProperty("new_settings")
   private JobSettings newSettings;
 
   public UpdateJob setFieldsToRemove(Collection<String> fieldsToRemove) {
@@ -85,5 +93,41 @@ public class UpdateJob {
         .add("jobId", jobId)
         .add("newSettings", newSettings)
         .toString();
+  }
+
+  UpdateJobPb toPb() {
+    UpdateJobPb pb = new UpdateJobPb();
+    pb.setFieldsToRemove(fieldsToRemove);
+    pb.setJobId(jobId);
+    pb.setNewSettings(newSettings);
+
+    return pb;
+  }
+
+  static UpdateJob fromPb(UpdateJobPb pb) {
+    UpdateJob model = new UpdateJob();
+    model.setFieldsToRemove(pb.getFieldsToRemove());
+    model.setJobId(pb.getJobId());
+    model.setNewSettings(pb.getNewSettings());
+
+    return model;
+  }
+
+  public static class UpdateJobSerializer extends JsonSerializer<UpdateJob> {
+    @Override
+    public void serialize(UpdateJob value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateJobPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateJobDeserializer extends JsonDeserializer<UpdateJob> {
+    @Override
+    public UpdateJob deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateJobPb pb = mapper.readValue(p, UpdateJobPb.class);
+      return UpdateJob.fromPb(pb);
+    }
   }
 }

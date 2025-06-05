@@ -3,27 +3,31 @@
 package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get all log delivery configurations */
 @Generated
+@JsonSerialize(using = ListLogDeliveryRequest.ListLogDeliveryRequestSerializer.class)
+@JsonDeserialize(using = ListLogDeliveryRequest.ListLogDeliveryRequestDeserializer.class)
 public class ListLogDeliveryRequest {
   /** Filter by credential configuration ID. */
-  @JsonIgnore
-  @QueryParam("credentials_id")
   private String credentialsId;
 
   /** Filter by status `ENABLED` or `DISABLED`. */
-  @JsonIgnore
-  @QueryParam("status")
   private LogDeliveryConfigStatus status;
 
   /** Filter by storage configuration ID. */
-  @JsonIgnore
-  @QueryParam("storage_configuration_id")
   private String storageConfigurationId;
 
   public ListLogDeliveryRequest setCredentialsId(String credentialsId) {
@@ -75,5 +79,45 @@ public class ListLogDeliveryRequest {
         .add("status", status)
         .add("storageConfigurationId", storageConfigurationId)
         .toString();
+  }
+
+  ListLogDeliveryRequestPb toPb() {
+    ListLogDeliveryRequestPb pb = new ListLogDeliveryRequestPb();
+    pb.setCredentialsId(credentialsId);
+    pb.setStatus(status);
+    pb.setStorageConfigurationId(storageConfigurationId);
+
+    return pb;
+  }
+
+  static ListLogDeliveryRequest fromPb(ListLogDeliveryRequestPb pb) {
+    ListLogDeliveryRequest model = new ListLogDeliveryRequest();
+    model.setCredentialsId(pb.getCredentialsId());
+    model.setStatus(pb.getStatus());
+    model.setStorageConfigurationId(pb.getStorageConfigurationId());
+
+    return model;
+  }
+
+  public static class ListLogDeliveryRequestSerializer
+      extends JsonSerializer<ListLogDeliveryRequest> {
+    @Override
+    public void serialize(
+        ListLogDeliveryRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListLogDeliveryRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListLogDeliveryRequestDeserializer
+      extends JsonDeserializer<ListLogDeliveryRequest> {
+    @Override
+    public ListLogDeliveryRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListLogDeliveryRequestPb pb = mapper.readValue(p, ListLogDeliveryRequestPb.class);
+      return ListLogDeliveryRequest.fromPb(pb);
+    }
   }
 }

@@ -3,21 +3,27 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = TimeRange.TimeRangeSerializer.class)
+@JsonDeserialize(using = TimeRange.TimeRangeDeserializer.class)
 public class TimeRange {
   /** The end time in milliseconds. */
-  @JsonProperty("end_time_ms")
-  @QueryParam("end_time_ms")
   private Long endTimeMs;
 
   /** The start time in milliseconds. */
-  @JsonProperty("start_time_ms")
-  @QueryParam("start_time_ms")
   private Long startTimeMs;
 
   public TimeRange setEndTimeMs(Long endTimeMs) {
@@ -58,5 +64,39 @@ public class TimeRange {
         .add("endTimeMs", endTimeMs)
         .add("startTimeMs", startTimeMs)
         .toString();
+  }
+
+  TimeRangePb toPb() {
+    TimeRangePb pb = new TimeRangePb();
+    pb.setEndTimeMs(endTimeMs);
+    pb.setStartTimeMs(startTimeMs);
+
+    return pb;
+  }
+
+  static TimeRange fromPb(TimeRangePb pb) {
+    TimeRange model = new TimeRange();
+    model.setEndTimeMs(pb.getEndTimeMs());
+    model.setStartTimeMs(pb.getStartTimeMs());
+
+    return model;
+  }
+
+  public static class TimeRangeSerializer extends JsonSerializer<TimeRange> {
+    @Override
+    public void serialize(TimeRange value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      TimeRangePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class TimeRangeDeserializer extends JsonDeserializer<TimeRange> {
+    @Override
+    public TimeRange deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      TimeRangePb pb = mapper.readValue(p, TimeRangePb.class);
+      return TimeRange.fromPb(pb);
+    }
   }
 }

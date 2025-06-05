@@ -22,7 +22,7 @@ class BudgetPolicyImpl implements BudgetPolicyService {
         String.format("/api/2.1/accounts/%s/budget-policies", apiClient.configuredAccountID());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, BudgetPolicy.class);
@@ -39,7 +39,7 @@ class BudgetPolicyImpl implements BudgetPolicyService {
             apiClient.configuredAccountID(), request.getPolicyId());
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, DeleteResponse.class);
     } catch (IOException e) {
@@ -55,7 +55,7 @@ class BudgetPolicyImpl implements BudgetPolicyService {
             apiClient.configuredAccountID(), request.getPolicyId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, BudgetPolicy.class);
     } catch (IOException e) {
@@ -69,7 +69,7 @@ class BudgetPolicyImpl implements BudgetPolicyService {
         String.format("/api/2.1/accounts/%s/budget-policies", apiClient.configuredAccountID());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListBudgetPoliciesResponse.class);
     } catch (IOException e) {
@@ -85,7 +85,7 @@ class BudgetPolicyImpl implements BudgetPolicyService {
             apiClient.configuredAccountID(), request.getPolicyId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getPolicy()));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, BudgetPolicy.class);

@@ -4,7 +4,16 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -12,25 +21,22 @@ import java.util.Objects;
  * unsupported.
  */
 @Generated
+@JsonSerialize(using = WidgetPosition.WidgetPositionSerializer.class)
+@JsonDeserialize(using = WidgetPosition.WidgetPositionDeserializer.class)
 public class WidgetPosition {
   /** reserved for internal use */
-  @JsonProperty("autoHeight")
   private Boolean autoHeight;
 
   /** column in the dashboard grid. Values start with 0 */
-  @JsonProperty("col")
   private Long col;
 
   /** row in the dashboard grid. Values start with 0 */
-  @JsonProperty("row")
   private Long row;
 
   /** width of the widget measured in dashboard grid cells */
-  @JsonProperty("sizeX")
   private Long sizeX;
 
   /** height of the widget measured in dashboard grid cells */
-  @JsonProperty("sizeY")
   private Long sizeY;
 
   public WidgetPosition setAutoHeight(Boolean autoHeight) {
@@ -104,5 +110,46 @@ public class WidgetPosition {
         .add("sizeX", sizeX)
         .add("sizeY", sizeY)
         .toString();
+  }
+
+  WidgetPositionPb toPb() {
+    WidgetPositionPb pb = new WidgetPositionPb();
+    pb.setAutoHeight(autoHeight);
+    pb.setCol(col);
+    pb.setRow(row);
+    pb.setSizeX(sizeX);
+    pb.setSizeY(sizeY);
+
+    return pb;
+  }
+
+  static WidgetPosition fromPb(WidgetPositionPb pb) {
+    WidgetPosition model = new WidgetPosition();
+    model.setAutoHeight(pb.getAutoHeight());
+    model.setCol(pb.getCol());
+    model.setRow(pb.getRow());
+    model.setSizeX(pb.getSizeX());
+    model.setSizeY(pb.getSizeY());
+
+    return model;
+  }
+
+  public static class WidgetPositionSerializer extends JsonSerializer<WidgetPosition> {
+    @Override
+    public void serialize(WidgetPosition value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      WidgetPositionPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class WidgetPositionDeserializer extends JsonDeserializer<WidgetPosition> {
+    @Override
+    public WidgetPosition deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      WidgetPositionPb pb = mapper.readValue(p, WidgetPositionPb.class);
+      return WidgetPosition.fromPb(pb);
+    }
   }
 }

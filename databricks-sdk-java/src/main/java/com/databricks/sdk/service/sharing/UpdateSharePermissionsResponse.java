@@ -4,14 +4,26 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = UpdateSharePermissionsResponse.UpdateSharePermissionsResponseSerializer.class)
+@JsonDeserialize(
+    using = UpdateSharePermissionsResponse.UpdateSharePermissionsResponseDeserializer.class)
 public class UpdateSharePermissionsResponse {
   /** The privileges assigned to each principal */
-  @JsonProperty("privilege_assignments")
   private Collection<PrivilegeAssignment> privilegeAssignments;
 
   public UpdateSharePermissionsResponse setPrivilegeAssignments(
@@ -42,5 +54,42 @@ public class UpdateSharePermissionsResponse {
     return new ToStringer(UpdateSharePermissionsResponse.class)
         .add("privilegeAssignments", privilegeAssignments)
         .toString();
+  }
+
+  UpdateSharePermissionsResponsePb toPb() {
+    UpdateSharePermissionsResponsePb pb = new UpdateSharePermissionsResponsePb();
+    pb.setPrivilegeAssignments(privilegeAssignments);
+
+    return pb;
+  }
+
+  static UpdateSharePermissionsResponse fromPb(UpdateSharePermissionsResponsePb pb) {
+    UpdateSharePermissionsResponse model = new UpdateSharePermissionsResponse();
+    model.setPrivilegeAssignments(pb.getPrivilegeAssignments());
+
+    return model;
+  }
+
+  public static class UpdateSharePermissionsResponseSerializer
+      extends JsonSerializer<UpdateSharePermissionsResponse> {
+    @Override
+    public void serialize(
+        UpdateSharePermissionsResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateSharePermissionsResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateSharePermissionsResponseDeserializer
+      extends JsonDeserializer<UpdateSharePermissionsResponse> {
+    @Override
+    public UpdateSharePermissionsResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateSharePermissionsResponsePb pb =
+          mapper.readValue(p, UpdateSharePermissionsResponsePb.class);
+      return UpdateSharePermissionsResponse.fromPb(pb);
+    }
   }
 }

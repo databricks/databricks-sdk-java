@@ -22,7 +22,7 @@ class QueryExecutionImpl implements QueryExecutionService {
     String path = "/api/2.0/lakeview-query/query/published";
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, CancelQueryExecutionResponse.class);
     } catch (IOException e) {
@@ -35,7 +35,7 @@ class QueryExecutionImpl implements QueryExecutionService {
     String path = "/api/2.0/lakeview-query/query/published";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, ExecuteQueryResponse.class);
@@ -49,7 +49,7 @@ class QueryExecutionImpl implements QueryExecutionService {
     String path = "/api/2.0/lakeview-query/query/published";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, PollQueryStatusResponse.class);
     } catch (IOException e) {

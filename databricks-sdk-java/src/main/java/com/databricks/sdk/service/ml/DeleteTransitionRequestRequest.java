@@ -3,30 +3,36 @@
 package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Delete a transition request */
 @Generated
+@JsonSerialize(
+    using = DeleteTransitionRequestRequest.DeleteTransitionRequestRequestSerializer.class)
+@JsonDeserialize(
+    using = DeleteTransitionRequestRequest.DeleteTransitionRequestRequestDeserializer.class)
 public class DeleteTransitionRequestRequest {
   /** User-provided comment on the action. */
-  @JsonIgnore
-  @QueryParam("comment")
   private String comment;
 
   /**
    * Username of the user who created this request. Of the transition requests matching the
    * specified details, only the one transition created by this user will be deleted.
    */
-  @JsonIgnore
-  @QueryParam("creator")
   private String creator;
 
   /** Name of the model. */
-  @JsonIgnore
-  @QueryParam("name")
   private String name;
 
   /**
@@ -40,13 +46,9 @@ public class DeleteTransitionRequestRequest {
    *
    * <p>* `Archived`: Archived stage.
    */
-  @JsonIgnore
-  @QueryParam("stage")
   private DeleteTransitionRequestStage stage;
 
   /** Version of the model. */
-  @JsonIgnore
-  @QueryParam("version")
   private String version;
 
   public DeleteTransitionRequestRequest setComment(String comment) {
@@ -120,5 +122,50 @@ public class DeleteTransitionRequestRequest {
         .add("stage", stage)
         .add("version", version)
         .toString();
+  }
+
+  DeleteTransitionRequestRequestPb toPb() {
+    DeleteTransitionRequestRequestPb pb = new DeleteTransitionRequestRequestPb();
+    pb.setComment(comment);
+    pb.setCreator(creator);
+    pb.setName(name);
+    pb.setStage(stage);
+    pb.setVersion(version);
+
+    return pb;
+  }
+
+  static DeleteTransitionRequestRequest fromPb(DeleteTransitionRequestRequestPb pb) {
+    DeleteTransitionRequestRequest model = new DeleteTransitionRequestRequest();
+    model.setComment(pb.getComment());
+    model.setCreator(pb.getCreator());
+    model.setName(pb.getName());
+    model.setStage(pb.getStage());
+    model.setVersion(pb.getVersion());
+
+    return model;
+  }
+
+  public static class DeleteTransitionRequestRequestSerializer
+      extends JsonSerializer<DeleteTransitionRequestRequest> {
+    @Override
+    public void serialize(
+        DeleteTransitionRequestRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DeleteTransitionRequestRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DeleteTransitionRequestRequestDeserializer
+      extends JsonDeserializer<DeleteTransitionRequestRequest> {
+    @Override
+    public DeleteTransitionRequestRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DeleteTransitionRequestRequestPb pb =
+          mapper.readValue(p, DeleteTransitionRequestRequestPb.class);
+      return DeleteTransitionRequestRequest.fromPb(pb);
+    }
   }
 }

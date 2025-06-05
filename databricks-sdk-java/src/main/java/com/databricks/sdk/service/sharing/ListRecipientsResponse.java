@@ -4,21 +4,30 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ListRecipientsResponse.ListRecipientsResponseSerializer.class)
+@JsonDeserialize(using = ListRecipientsResponse.ListRecipientsResponseDeserializer.class)
 public class ListRecipientsResponse {
   /**
    * Opaque token to retrieve the next page of results. Absent if there are no more pages.
    * __page_token__ should be set to this value for the next request (for the next page of results).
    */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   /** An array of recipient information objects. */
-  @JsonProperty("recipients")
   private Collection<RecipientInfo> recipients;
 
   public ListRecipientsResponse setNextPageToken(String nextPageToken) {
@@ -59,5 +68,43 @@ public class ListRecipientsResponse {
         .add("nextPageToken", nextPageToken)
         .add("recipients", recipients)
         .toString();
+  }
+
+  ListRecipientsResponsePb toPb() {
+    ListRecipientsResponsePb pb = new ListRecipientsResponsePb();
+    pb.setNextPageToken(nextPageToken);
+    pb.setRecipients(recipients);
+
+    return pb;
+  }
+
+  static ListRecipientsResponse fromPb(ListRecipientsResponsePb pb) {
+    ListRecipientsResponse model = new ListRecipientsResponse();
+    model.setNextPageToken(pb.getNextPageToken());
+    model.setRecipients(pb.getRecipients());
+
+    return model;
+  }
+
+  public static class ListRecipientsResponseSerializer
+      extends JsonSerializer<ListRecipientsResponse> {
+    @Override
+    public void serialize(
+        ListRecipientsResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListRecipientsResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListRecipientsResponseDeserializer
+      extends JsonDeserializer<ListRecipientsResponse> {
+    @Override
+    public ListRecipientsResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListRecipientsResponsePb pb = mapper.readValue(p, ListRecipientsResponsePb.class);
+      return ListRecipientsResponse.fromPb(pb);
+    }
   }
 }

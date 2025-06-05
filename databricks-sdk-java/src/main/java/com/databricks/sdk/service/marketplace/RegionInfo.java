@@ -4,17 +4,26 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = RegionInfo.RegionInfoSerializer.class)
+@JsonDeserialize(using = RegionInfo.RegionInfoDeserializer.class)
 public class RegionInfo {
   /** */
-  @JsonProperty("cloud")
   private String cloud;
 
   /** */
-  @JsonProperty("region")
   private String region;
 
   public RegionInfo setCloud(String cloud) {
@@ -51,5 +60,39 @@ public class RegionInfo {
   @Override
   public String toString() {
     return new ToStringer(RegionInfo.class).add("cloud", cloud).add("region", region).toString();
+  }
+
+  RegionInfoPb toPb() {
+    RegionInfoPb pb = new RegionInfoPb();
+    pb.setCloud(cloud);
+    pb.setRegion(region);
+
+    return pb;
+  }
+
+  static RegionInfo fromPb(RegionInfoPb pb) {
+    RegionInfo model = new RegionInfo();
+    model.setCloud(pb.getCloud());
+    model.setRegion(pb.getRegion());
+
+    return model;
+  }
+
+  public static class RegionInfoSerializer extends JsonSerializer<RegionInfo> {
+    @Override
+    public void serialize(RegionInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      RegionInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class RegionInfoDeserializer extends JsonDeserializer<RegionInfo> {
+    @Override
+    public RegionInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      RegionInfoPb pb = mapper.readValue(p, RegionInfoPb.class);
+      return RegionInfo.fromPb(pb);
+    }
   }
 }

@@ -3,30 +3,38 @@
 package com.databricks.sdk.service.cleanrooms;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List notebook task runs */
 @Generated
+@JsonSerialize(
+    using =
+        ListCleanRoomNotebookTaskRunsRequest.ListCleanRoomNotebookTaskRunsRequestSerializer.class)
+@JsonDeserialize(
+    using =
+        ListCleanRoomNotebookTaskRunsRequest.ListCleanRoomNotebookTaskRunsRequestDeserializer.class)
 public class ListCleanRoomNotebookTaskRunsRequest {
   /** Name of the clean room. */
-  @JsonIgnore private String cleanRoomName;
+  private String cleanRoomName;
 
   /** Notebook name */
-  @JsonIgnore
-  @QueryParam("notebook_name")
   private String notebookName;
 
   /** The maximum number of task runs to return. Currently ignored - all runs will be returned. */
-  @JsonIgnore
-  @QueryParam("page_size")
   private Long pageSize;
 
   /** Opaque pagination token to go to next page based on previous query. */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   public ListCleanRoomNotebookTaskRunsRequest setCleanRoomName(String cleanRoomName) {
@@ -89,5 +97,48 @@ public class ListCleanRoomNotebookTaskRunsRequest {
         .add("pageSize", pageSize)
         .add("pageToken", pageToken)
         .toString();
+  }
+
+  ListCleanRoomNotebookTaskRunsRequestPb toPb() {
+    ListCleanRoomNotebookTaskRunsRequestPb pb = new ListCleanRoomNotebookTaskRunsRequestPb();
+    pb.setCleanRoomName(cleanRoomName);
+    pb.setNotebookName(notebookName);
+    pb.setPageSize(pageSize);
+    pb.setPageToken(pageToken);
+
+    return pb;
+  }
+
+  static ListCleanRoomNotebookTaskRunsRequest fromPb(ListCleanRoomNotebookTaskRunsRequestPb pb) {
+    ListCleanRoomNotebookTaskRunsRequest model = new ListCleanRoomNotebookTaskRunsRequest();
+    model.setCleanRoomName(pb.getCleanRoomName());
+    model.setNotebookName(pb.getNotebookName());
+    model.setPageSize(pb.getPageSize());
+    model.setPageToken(pb.getPageToken());
+
+    return model;
+  }
+
+  public static class ListCleanRoomNotebookTaskRunsRequestSerializer
+      extends JsonSerializer<ListCleanRoomNotebookTaskRunsRequest> {
+    @Override
+    public void serialize(
+        ListCleanRoomNotebookTaskRunsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListCleanRoomNotebookTaskRunsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListCleanRoomNotebookTaskRunsRequestDeserializer
+      extends JsonDeserializer<ListCleanRoomNotebookTaskRunsRequest> {
+    @Override
+    public ListCleanRoomNotebookTaskRunsRequest deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListCleanRoomNotebookTaskRunsRequestPb pb =
+          mapper.readValue(p, ListCleanRoomNotebookTaskRunsRequestPb.class);
+      return ListCleanRoomNotebookTaskRunsRequest.fromPb(pb);
+    }
   }
 }

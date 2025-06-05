@@ -4,61 +4,59 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = UpdateStorageCredential.UpdateStorageCredentialSerializer.class)
+@JsonDeserialize(using = UpdateStorageCredential.UpdateStorageCredentialDeserializer.class)
 public class UpdateStorageCredential {
   /** The AWS IAM role configuration. */
-  @JsonProperty("aws_iam_role")
   private AwsIamRoleRequest awsIamRole;
 
   /** The Azure managed identity configuration. */
-  @JsonProperty("azure_managed_identity")
   private AzureManagedIdentityResponse azureManagedIdentity;
 
   /** The Azure service principal configuration. */
-  @JsonProperty("azure_service_principal")
   private AzureServicePrincipal azureServicePrincipal;
 
   /** The Cloudflare API token configuration. */
-  @JsonProperty("cloudflare_api_token")
   private CloudflareApiToken cloudflareApiToken;
 
   /** Comment associated with the credential. */
-  @JsonProperty("comment")
   private String comment;
 
   /** The Databricks managed GCP service account configuration. */
-  @JsonProperty("databricks_gcp_service_account")
   private DatabricksGcpServiceAccountRequest databricksGcpServiceAccount;
 
   /** Force update even if there are dependent external locations or external tables. */
-  @JsonProperty("force")
   private Boolean force;
 
   /** */
-  @JsonProperty("isolation_mode")
   private IsolationMode isolationMode;
 
   /** Name of the storage credential. */
-  @JsonIgnore private String name;
+  private String name;
 
   /** New name for the storage credential. */
-  @JsonProperty("new_name")
   private String newName;
 
   /** Username of current owner of credential. */
-  @JsonProperty("owner")
   private String owner;
 
   /** Whether the storage credential is only usable for read operations. */
-  @JsonProperty("read_only")
   private Boolean readOnly;
 
   /** Supplying true to this argument skips validation of the updated credential. */
-  @JsonProperty("skip_validation")
   private Boolean skipValidation;
 
   public UpdateStorageCredential setAwsIamRole(AwsIamRoleRequest awsIamRole) {
@@ -236,5 +234,65 @@ public class UpdateStorageCredential {
         .add("readOnly", readOnly)
         .add("skipValidation", skipValidation)
         .toString();
+  }
+
+  UpdateStorageCredentialPb toPb() {
+    UpdateStorageCredentialPb pb = new UpdateStorageCredentialPb();
+    pb.setAwsIamRole(awsIamRole);
+    pb.setAzureManagedIdentity(azureManagedIdentity);
+    pb.setAzureServicePrincipal(azureServicePrincipal);
+    pb.setCloudflareApiToken(cloudflareApiToken);
+    pb.setComment(comment);
+    pb.setDatabricksGcpServiceAccount(databricksGcpServiceAccount);
+    pb.setForce(force);
+    pb.setIsolationMode(isolationMode);
+    pb.setName(name);
+    pb.setNewName(newName);
+    pb.setOwner(owner);
+    pb.setReadOnly(readOnly);
+    pb.setSkipValidation(skipValidation);
+
+    return pb;
+  }
+
+  static UpdateStorageCredential fromPb(UpdateStorageCredentialPb pb) {
+    UpdateStorageCredential model = new UpdateStorageCredential();
+    model.setAwsIamRole(pb.getAwsIamRole());
+    model.setAzureManagedIdentity(pb.getAzureManagedIdentity());
+    model.setAzureServicePrincipal(pb.getAzureServicePrincipal());
+    model.setCloudflareApiToken(pb.getCloudflareApiToken());
+    model.setComment(pb.getComment());
+    model.setDatabricksGcpServiceAccount(pb.getDatabricksGcpServiceAccount());
+    model.setForce(pb.getForce());
+    model.setIsolationMode(pb.getIsolationMode());
+    model.setName(pb.getName());
+    model.setNewName(pb.getNewName());
+    model.setOwner(pb.getOwner());
+    model.setReadOnly(pb.getReadOnly());
+    model.setSkipValidation(pb.getSkipValidation());
+
+    return model;
+  }
+
+  public static class UpdateStorageCredentialSerializer
+      extends JsonSerializer<UpdateStorageCredential> {
+    @Override
+    public void serialize(
+        UpdateStorageCredential value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateStorageCredentialPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateStorageCredentialDeserializer
+      extends JsonDeserializer<UpdateStorageCredential> {
+    @Override
+    public UpdateStorageCredential deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateStorageCredentialPb pb = mapper.readValue(p, UpdateStorageCredentialPb.class);
+      return UpdateStorageCredential.fromPb(pb);
+    }
   }
 }

@@ -4,35 +4,41 @@ package com.databricks.sdk.service.database;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Progress information of the Synced Table data synchronization pipeline. */
 @Generated
+@JsonSerialize(using = SyncedTablePipelineProgress.SyncedTablePipelineProgressSerializer.class)
+@JsonDeserialize(using = SyncedTablePipelineProgress.SyncedTablePipelineProgressDeserializer.class)
 public class SyncedTablePipelineProgress {
   /** The estimated time remaining to complete this update in seconds. */
-  @JsonProperty("estimated_completion_time_seconds")
   private Double estimatedCompletionTimeSeconds;
 
   /**
    * The source table Delta version that was last processed by the pipeline. The pipeline may not
    * have completely processed this version yet.
    */
-  @JsonProperty("latest_version_currently_processing")
   private Long latestVersionCurrentlyProcessing;
 
   /** The completion ratio of this update. This is a number between 0 and 1. */
-  @JsonProperty("sync_progress_completion")
   private Double syncProgressCompletion;
 
   /** The number of rows that have been synced in this update. */
-  @JsonProperty("synced_row_count")
   private Long syncedRowCount;
 
   /**
    * The total number of rows that need to be synced in this update. This number may be an estimate.
    */
-  @JsonProperty("total_row_count")
   private Long totalRowCount;
 
   public SyncedTablePipelineProgress setEstimatedCompletionTimeSeconds(
@@ -113,5 +119,49 @@ public class SyncedTablePipelineProgress {
         .add("syncedRowCount", syncedRowCount)
         .add("totalRowCount", totalRowCount)
         .toString();
+  }
+
+  SyncedTablePipelineProgressPb toPb() {
+    SyncedTablePipelineProgressPb pb = new SyncedTablePipelineProgressPb();
+    pb.setEstimatedCompletionTimeSeconds(estimatedCompletionTimeSeconds);
+    pb.setLatestVersionCurrentlyProcessing(latestVersionCurrentlyProcessing);
+    pb.setSyncProgressCompletion(syncProgressCompletion);
+    pb.setSyncedRowCount(syncedRowCount);
+    pb.setTotalRowCount(totalRowCount);
+
+    return pb;
+  }
+
+  static SyncedTablePipelineProgress fromPb(SyncedTablePipelineProgressPb pb) {
+    SyncedTablePipelineProgress model = new SyncedTablePipelineProgress();
+    model.setEstimatedCompletionTimeSeconds(pb.getEstimatedCompletionTimeSeconds());
+    model.setLatestVersionCurrentlyProcessing(pb.getLatestVersionCurrentlyProcessing());
+    model.setSyncProgressCompletion(pb.getSyncProgressCompletion());
+    model.setSyncedRowCount(pb.getSyncedRowCount());
+    model.setTotalRowCount(pb.getTotalRowCount());
+
+    return model;
+  }
+
+  public static class SyncedTablePipelineProgressSerializer
+      extends JsonSerializer<SyncedTablePipelineProgress> {
+    @Override
+    public void serialize(
+        SyncedTablePipelineProgress value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SyncedTablePipelineProgressPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SyncedTablePipelineProgressDeserializer
+      extends JsonDeserializer<SyncedTablePipelineProgress> {
+    @Override
+    public SyncedTablePipelineProgress deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SyncedTablePipelineProgressPb pb = mapper.readValue(p, SyncedTablePipelineProgressPb.class);
+      return SyncedTablePipelineProgress.fromPb(pb);
+    }
   }
 }

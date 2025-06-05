@@ -3,14 +3,24 @@
 package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 /** List pipelines */
 @Generated
+@JsonSerialize(using = ListPipelinesRequest.ListPipelinesRequestSerializer.class)
+@JsonDeserialize(using = ListPipelinesRequest.ListPipelinesRequestDeserializer.class)
 public class ListPipelinesRequest {
   /**
    * Select a subset of results based on the specified criteria. The supported filters are:
@@ -21,8 +31,6 @@ public class ListPipelinesRequest {
    *
    * <p>Composite filters are not supported. This field is optional.
    */
-  @JsonIgnore
-  @QueryParam("filter")
   private String filter;
 
   /**
@@ -31,21 +39,15 @@ public class ListPipelinesRequest {
    * optional. The default value is 25. The maximum value is 100. An error is returned if the value
    * of max_results is greater than 100.
    */
-  @JsonIgnore
-  @QueryParam("max_results")
   private Long maxResults;
 
   /**
    * A list of strings specifying the order of results. Supported order_by fields are id and name.
    * The default is id asc. This field is optional.
    */
-  @JsonIgnore
-  @QueryParam("order_by")
   private Collection<String> orderBy;
 
   /** Page token returned by previous call */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   public ListPipelinesRequest setFilter(String filter) {
@@ -108,5 +110,46 @@ public class ListPipelinesRequest {
         .add("orderBy", orderBy)
         .add("pageToken", pageToken)
         .toString();
+  }
+
+  ListPipelinesRequestPb toPb() {
+    ListPipelinesRequestPb pb = new ListPipelinesRequestPb();
+    pb.setFilter(filter);
+    pb.setMaxResults(maxResults);
+    pb.setOrderBy(orderBy);
+    pb.setPageToken(pageToken);
+
+    return pb;
+  }
+
+  static ListPipelinesRequest fromPb(ListPipelinesRequestPb pb) {
+    ListPipelinesRequest model = new ListPipelinesRequest();
+    model.setFilter(pb.getFilter());
+    model.setMaxResults(pb.getMaxResults());
+    model.setOrderBy(pb.getOrderBy());
+    model.setPageToken(pb.getPageToken());
+
+    return model;
+  }
+
+  public static class ListPipelinesRequestSerializer extends JsonSerializer<ListPipelinesRequest> {
+    @Override
+    public void serialize(
+        ListPipelinesRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListPipelinesRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListPipelinesRequestDeserializer
+      extends JsonDeserializer<ListPipelinesRequest> {
+    @Override
+    public ListPipelinesRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListPipelinesRequestPb pb = mapper.readValue(p, ListPipelinesRequestPb.class);
+      return ListPipelinesRequest.fromPb(pb);
+    }
   }
 }

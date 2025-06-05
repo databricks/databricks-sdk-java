@@ -4,14 +4,25 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get an init script */
 @Generated
+@JsonSerialize(using = GetGlobalInitScriptRequest.GetGlobalInitScriptRequestSerializer.class)
+@JsonDeserialize(using = GetGlobalInitScriptRequest.GetGlobalInitScriptRequestDeserializer.class)
 public class GetGlobalInitScriptRequest {
   /** The ID of the global init script. */
-  @JsonIgnore private String scriptId;
+  private String scriptId;
 
   public GetGlobalInitScriptRequest setScriptId(String scriptId) {
     this.scriptId = scriptId;
@@ -38,5 +49,41 @@ public class GetGlobalInitScriptRequest {
   @Override
   public String toString() {
     return new ToStringer(GetGlobalInitScriptRequest.class).add("scriptId", scriptId).toString();
+  }
+
+  GetGlobalInitScriptRequestPb toPb() {
+    GetGlobalInitScriptRequestPb pb = new GetGlobalInitScriptRequestPb();
+    pb.setScriptId(scriptId);
+
+    return pb;
+  }
+
+  static GetGlobalInitScriptRequest fromPb(GetGlobalInitScriptRequestPb pb) {
+    GetGlobalInitScriptRequest model = new GetGlobalInitScriptRequest();
+    model.setScriptId(pb.getScriptId());
+
+    return model;
+  }
+
+  public static class GetGlobalInitScriptRequestSerializer
+      extends JsonSerializer<GetGlobalInitScriptRequest> {
+    @Override
+    public void serialize(
+        GetGlobalInitScriptRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetGlobalInitScriptRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetGlobalInitScriptRequestDeserializer
+      extends JsonDeserializer<GetGlobalInitScriptRequest> {
+    @Override
+    public GetGlobalInitScriptRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetGlobalInitScriptRequestPb pb = mapper.readValue(p, GetGlobalInitScriptRequestPb.class);
+      return GetGlobalInitScriptRequest.fromPb(pb);
+    }
   }
 }

@@ -4,17 +4,29 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = ClusterPolicyPermissionsDescription.ClusterPolicyPermissionsDescriptionSerializer.class)
+@JsonDeserialize(
+    using =
+        ClusterPolicyPermissionsDescription.ClusterPolicyPermissionsDescriptionDeserializer.class)
 public class ClusterPolicyPermissionsDescription {
   /** */
-  @JsonProperty("description")
   private String description;
 
   /** Permission level */
-  @JsonProperty("permission_level")
   private ClusterPolicyPermissionLevel permissionLevel;
 
   public ClusterPolicyPermissionsDescription setDescription(String description) {
@@ -56,5 +68,44 @@ public class ClusterPolicyPermissionsDescription {
         .add("description", description)
         .add("permissionLevel", permissionLevel)
         .toString();
+  }
+
+  ClusterPolicyPermissionsDescriptionPb toPb() {
+    ClusterPolicyPermissionsDescriptionPb pb = new ClusterPolicyPermissionsDescriptionPb();
+    pb.setDescription(description);
+    pb.setPermissionLevel(permissionLevel);
+
+    return pb;
+  }
+
+  static ClusterPolicyPermissionsDescription fromPb(ClusterPolicyPermissionsDescriptionPb pb) {
+    ClusterPolicyPermissionsDescription model = new ClusterPolicyPermissionsDescription();
+    model.setDescription(pb.getDescription());
+    model.setPermissionLevel(pb.getPermissionLevel());
+
+    return model;
+  }
+
+  public static class ClusterPolicyPermissionsDescriptionSerializer
+      extends JsonSerializer<ClusterPolicyPermissionsDescription> {
+    @Override
+    public void serialize(
+        ClusterPolicyPermissionsDescription value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ClusterPolicyPermissionsDescriptionPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ClusterPolicyPermissionsDescriptionDeserializer
+      extends JsonDeserializer<ClusterPolicyPermissionsDescription> {
+    @Override
+    public ClusterPolicyPermissionsDescription deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ClusterPolicyPermissionsDescriptionPb pb =
+          mapper.readValue(p, ClusterPolicyPermissionsDescriptionPb.class);
+      return ClusterPolicyPermissionsDescription.fromPb(pb);
+    }
   }
 }

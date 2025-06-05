@@ -4,33 +4,40 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = MonitorInferenceLog.MonitorInferenceLogSerializer.class)
+@JsonDeserialize(using = MonitorInferenceLog.MonitorInferenceLogDeserializer.class)
 public class MonitorInferenceLog {
   /**
    * Granularities for aggregating data into time windows based on their timestamp. Currently the
    * following static granularities are supported: {``"5 minutes"``, ``"30 minutes"``, ``"1 hour"``,
    * ``"1 day"``, ``"<n> week(s)"``, ``"1 month"``, ``"1 year"``}.
    */
-  @JsonProperty("granularities")
   private Collection<String> granularities;
 
   /** Optional column that contains the ground truth for the prediction. */
-  @JsonProperty("label_col")
   private String labelCol;
 
   /**
    * Column that contains the id of the model generating the predictions. Metrics will be computed
    * per model id by default, and also across all model ids.
    */
-  @JsonProperty("model_id_col")
   private String modelIdCol;
 
   /** Column that contains the output/prediction from the model. */
-  @JsonProperty("prediction_col")
   private String predictionCol;
 
   /**
@@ -38,14 +45,12 @@ public class MonitorInferenceLog {
    * problem type. The values in this column should be a map, mapping each class label to the
    * prediction probability for a given sample. The map should be of PySpark MapType().
    */
-  @JsonProperty("prediction_proba_col")
   private String predictionProbaCol;
 
   /**
    * Problem type the model aims to solve. Determines the type of model-quality metrics that will be
    * computed.
    */
-  @JsonProperty("problem_type")
   private MonitorInferenceLogProblemType problemType;
 
   /**
@@ -56,7 +61,6 @@ public class MonitorInferenceLog {
    * <p>[function]:
    * https://spark.apache.org/docs/latest/api/python/reference/pyspark.sql/api/pyspark.sql.functions.to_timestamp.html
    */
-  @JsonProperty("timestamp_col")
   private String timestampCol;
 
   public MonitorInferenceLog setGranularities(Collection<String> granularities) {
@@ -159,5 +163,51 @@ public class MonitorInferenceLog {
         .add("problemType", problemType)
         .add("timestampCol", timestampCol)
         .toString();
+  }
+
+  MonitorInferenceLogPb toPb() {
+    MonitorInferenceLogPb pb = new MonitorInferenceLogPb();
+    pb.setGranularities(granularities);
+    pb.setLabelCol(labelCol);
+    pb.setModelIdCol(modelIdCol);
+    pb.setPredictionCol(predictionCol);
+    pb.setPredictionProbaCol(predictionProbaCol);
+    pb.setProblemType(problemType);
+    pb.setTimestampCol(timestampCol);
+
+    return pb;
+  }
+
+  static MonitorInferenceLog fromPb(MonitorInferenceLogPb pb) {
+    MonitorInferenceLog model = new MonitorInferenceLog();
+    model.setGranularities(pb.getGranularities());
+    model.setLabelCol(pb.getLabelCol());
+    model.setModelIdCol(pb.getModelIdCol());
+    model.setPredictionCol(pb.getPredictionCol());
+    model.setPredictionProbaCol(pb.getPredictionProbaCol());
+    model.setProblemType(pb.getProblemType());
+    model.setTimestampCol(pb.getTimestampCol());
+
+    return model;
+  }
+
+  public static class MonitorInferenceLogSerializer extends JsonSerializer<MonitorInferenceLog> {
+    @Override
+    public void serialize(MonitorInferenceLog value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      MonitorInferenceLogPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class MonitorInferenceLogDeserializer
+      extends JsonDeserializer<MonitorInferenceLog> {
+    @Override
+    public MonitorInferenceLog deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      MonitorInferenceLogPb pb = mapper.readValue(p, MonitorInferenceLogPb.class);
+      return MonitorInferenceLog.fromPb(pb);
+    }
   }
 }

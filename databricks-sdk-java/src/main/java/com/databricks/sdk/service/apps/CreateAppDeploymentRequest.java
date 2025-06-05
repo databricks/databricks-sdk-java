@@ -4,19 +4,28 @@ package com.databricks.sdk.service.apps;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Create an app deployment */
 @Generated
+@JsonSerialize(using = CreateAppDeploymentRequest.CreateAppDeploymentRequestSerializer.class)
+@JsonDeserialize(using = CreateAppDeploymentRequest.CreateAppDeploymentRequestDeserializer.class)
 public class CreateAppDeploymentRequest {
   /** */
-  @JsonProperty("app_deployment")
   private AppDeployment appDeployment;
 
   /** The name of the app. */
-  @JsonIgnore private String appName;
+  private String appName;
 
   public CreateAppDeploymentRequest setAppDeployment(AppDeployment appDeployment) {
     this.appDeployment = appDeployment;
@@ -56,5 +65,43 @@ public class CreateAppDeploymentRequest {
         .add("appDeployment", appDeployment)
         .add("appName", appName)
         .toString();
+  }
+
+  CreateAppDeploymentRequestPb toPb() {
+    CreateAppDeploymentRequestPb pb = new CreateAppDeploymentRequestPb();
+    pb.setAppDeployment(appDeployment);
+    pb.setAppName(appName);
+
+    return pb;
+  }
+
+  static CreateAppDeploymentRequest fromPb(CreateAppDeploymentRequestPb pb) {
+    CreateAppDeploymentRequest model = new CreateAppDeploymentRequest();
+    model.setAppDeployment(pb.getAppDeployment());
+    model.setAppName(pb.getAppName());
+
+    return model;
+  }
+
+  public static class CreateAppDeploymentRequestSerializer
+      extends JsonSerializer<CreateAppDeploymentRequest> {
+    @Override
+    public void serialize(
+        CreateAppDeploymentRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateAppDeploymentRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateAppDeploymentRequestDeserializer
+      extends JsonDeserializer<CreateAppDeploymentRequest> {
+    @Override
+    public CreateAppDeploymentRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateAppDeploymentRequestPb pb = mapper.readValue(p, CreateAppDeploymentRequestPb.class);
+      return CreateAppDeploymentRequest.fromPb(pb);
+    }
   }
 }

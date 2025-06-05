@@ -4,34 +4,40 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ReportSpec.ReportSpecSerializer.class)
+@JsonDeserialize(using = ReportSpec.ReportSpecDeserializer.class)
 public class ReportSpec {
   /** Required. Destination catalog to store table. */
-  @JsonProperty("destination_catalog")
   private String destinationCatalog;
 
   /** Required. Destination schema to store table. */
-  @JsonProperty("destination_schema")
   private String destinationSchema;
 
   /**
    * Required. Destination table name. The pipeline fails if a table with that name already exists.
    */
-  @JsonProperty("destination_table")
   private String destinationTable;
 
   /** Required. Report URL in the source system. */
-  @JsonProperty("source_url")
   private String sourceUrl;
 
   /**
    * Configuration settings to control the ingestion of tables. These settings override the
    * table_configuration defined in the IngestionPipelineDefinition object.
    */
-  @JsonProperty("table_configuration")
   private TableSpecificConfig tableConfiguration;
 
   public ReportSpec setDestinationCatalog(String destinationCatalog) {
@@ -106,5 +112,45 @@ public class ReportSpec {
         .add("sourceUrl", sourceUrl)
         .add("tableConfiguration", tableConfiguration)
         .toString();
+  }
+
+  ReportSpecPb toPb() {
+    ReportSpecPb pb = new ReportSpecPb();
+    pb.setDestinationCatalog(destinationCatalog);
+    pb.setDestinationSchema(destinationSchema);
+    pb.setDestinationTable(destinationTable);
+    pb.setSourceUrl(sourceUrl);
+    pb.setTableConfiguration(tableConfiguration);
+
+    return pb;
+  }
+
+  static ReportSpec fromPb(ReportSpecPb pb) {
+    ReportSpec model = new ReportSpec();
+    model.setDestinationCatalog(pb.getDestinationCatalog());
+    model.setDestinationSchema(pb.getDestinationSchema());
+    model.setDestinationTable(pb.getDestinationTable());
+    model.setSourceUrl(pb.getSourceUrl());
+    model.setTableConfiguration(pb.getTableConfiguration());
+
+    return model;
+  }
+
+  public static class ReportSpecSerializer extends JsonSerializer<ReportSpec> {
+    @Override
+    public void serialize(ReportSpec value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ReportSpecPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ReportSpecDeserializer extends JsonDeserializer<ReportSpec> {
+    @Override
+    public ReportSpec deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ReportSpecPb pb = mapper.readValue(p, ReportSpecPb.class);
+      return ReportSpec.fromPb(pb);
+    }
   }
 }

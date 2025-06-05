@@ -4,17 +4,27 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = PeriodicTriggerConfiguration.PeriodicTriggerConfigurationSerializer.class)
+@JsonDeserialize(
+    using = PeriodicTriggerConfiguration.PeriodicTriggerConfigurationDeserializer.class)
 public class PeriodicTriggerConfiguration {
   /** The interval at which the trigger should run. */
-  @JsonProperty("interval")
   private Long interval;
 
   /** The unit of time for the interval. */
-  @JsonProperty("unit")
   private PeriodicTriggerConfigurationTimeUnit unit;
 
   public PeriodicTriggerConfiguration setInterval(Long interval) {
@@ -54,5 +64,43 @@ public class PeriodicTriggerConfiguration {
         .add("interval", interval)
         .add("unit", unit)
         .toString();
+  }
+
+  PeriodicTriggerConfigurationPb toPb() {
+    PeriodicTriggerConfigurationPb pb = new PeriodicTriggerConfigurationPb();
+    pb.setInterval(interval);
+    pb.setUnit(unit);
+
+    return pb;
+  }
+
+  static PeriodicTriggerConfiguration fromPb(PeriodicTriggerConfigurationPb pb) {
+    PeriodicTriggerConfiguration model = new PeriodicTriggerConfiguration();
+    model.setInterval(pb.getInterval());
+    model.setUnit(pb.getUnit());
+
+    return model;
+  }
+
+  public static class PeriodicTriggerConfigurationSerializer
+      extends JsonSerializer<PeriodicTriggerConfiguration> {
+    @Override
+    public void serialize(
+        PeriodicTriggerConfiguration value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PeriodicTriggerConfigurationPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PeriodicTriggerConfigurationDeserializer
+      extends JsonDeserializer<PeriodicTriggerConfiguration> {
+    @Override
+    public PeriodicTriggerConfiguration deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PeriodicTriggerConfigurationPb pb = mapper.readValue(p, PeriodicTriggerConfigurationPb.class);
+      return PeriodicTriggerConfiguration.fromPb(pb);
+    }
   }
 }

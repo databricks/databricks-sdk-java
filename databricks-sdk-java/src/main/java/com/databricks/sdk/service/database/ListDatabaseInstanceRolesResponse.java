@@ -4,18 +4,29 @@ package com.databricks.sdk.service.database;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = ListDatabaseInstanceRolesResponse.ListDatabaseInstanceRolesResponseSerializer.class)
+@JsonDeserialize(
+    using = ListDatabaseInstanceRolesResponse.ListDatabaseInstanceRolesResponseDeserializer.class)
 public class ListDatabaseInstanceRolesResponse {
   /** List of database instance roles. */
-  @JsonProperty("database_instance_roles")
   private Collection<DatabaseInstanceRole> databaseInstanceRoles;
 
   /** Pagination token to request the next page of instances. */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   public ListDatabaseInstanceRolesResponse setDatabaseInstanceRoles(
@@ -57,5 +68,44 @@ public class ListDatabaseInstanceRolesResponse {
         .add("databaseInstanceRoles", databaseInstanceRoles)
         .add("nextPageToken", nextPageToken)
         .toString();
+  }
+
+  ListDatabaseInstanceRolesResponsePb toPb() {
+    ListDatabaseInstanceRolesResponsePb pb = new ListDatabaseInstanceRolesResponsePb();
+    pb.setDatabaseInstanceRoles(databaseInstanceRoles);
+    pb.setNextPageToken(nextPageToken);
+
+    return pb;
+  }
+
+  static ListDatabaseInstanceRolesResponse fromPb(ListDatabaseInstanceRolesResponsePb pb) {
+    ListDatabaseInstanceRolesResponse model = new ListDatabaseInstanceRolesResponse();
+    model.setDatabaseInstanceRoles(pb.getDatabaseInstanceRoles());
+    model.setNextPageToken(pb.getNextPageToken());
+
+    return model;
+  }
+
+  public static class ListDatabaseInstanceRolesResponseSerializer
+      extends JsonSerializer<ListDatabaseInstanceRolesResponse> {
+    @Override
+    public void serialize(
+        ListDatabaseInstanceRolesResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListDatabaseInstanceRolesResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListDatabaseInstanceRolesResponseDeserializer
+      extends JsonDeserializer<ListDatabaseInstanceRolesResponse> {
+    @Override
+    public ListDatabaseInstanceRolesResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListDatabaseInstanceRolesResponsePb pb =
+          mapper.readValue(p, ListDatabaseInstanceRolesResponsePb.class);
+      return ListDatabaseInstanceRolesResponse.fromPb(pb);
+    }
   }
 }

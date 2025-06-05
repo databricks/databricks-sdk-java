@@ -3,32 +3,38 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get a Model Version */
 @Generated
+@JsonSerialize(using = GetModelVersionRequest.GetModelVersionRequestSerializer.class)
+@JsonDeserialize(using = GetModelVersionRequest.GetModelVersionRequestDeserializer.class)
 public class GetModelVersionRequest {
   /** The three-level (fully qualified) name of the model version */
-  @JsonIgnore private String fullName;
+  private String fullName;
 
   /** Whether to include aliases associated with the model version in the response */
-  @JsonIgnore
-  @QueryParam("include_aliases")
   private Boolean includeAliases;
 
   /**
    * Whether to include model versions in the response for which the principal can only access
    * selective metadata for
    */
-  @JsonIgnore
-  @QueryParam("include_browse")
   private Boolean includeBrowse;
 
   /** The integer version number of the model version */
-  @JsonIgnore private Long version;
+  private Long version;
 
   public GetModelVersionRequest setFullName(String fullName) {
     this.fullName = fullName;
@@ -90,5 +96,47 @@ public class GetModelVersionRequest {
         .add("includeBrowse", includeBrowse)
         .add("version", version)
         .toString();
+  }
+
+  GetModelVersionRequestPb toPb() {
+    GetModelVersionRequestPb pb = new GetModelVersionRequestPb();
+    pb.setFullName(fullName);
+    pb.setIncludeAliases(includeAliases);
+    pb.setIncludeBrowse(includeBrowse);
+    pb.setVersion(version);
+
+    return pb;
+  }
+
+  static GetModelVersionRequest fromPb(GetModelVersionRequestPb pb) {
+    GetModelVersionRequest model = new GetModelVersionRequest();
+    model.setFullName(pb.getFullName());
+    model.setIncludeAliases(pb.getIncludeAliases());
+    model.setIncludeBrowse(pb.getIncludeBrowse());
+    model.setVersion(pb.getVersion());
+
+    return model;
+  }
+
+  public static class GetModelVersionRequestSerializer
+      extends JsonSerializer<GetModelVersionRequest> {
+    @Override
+    public void serialize(
+        GetModelVersionRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetModelVersionRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetModelVersionRequestDeserializer
+      extends JsonDeserializer<GetModelVersionRequest> {
+    @Override
+    public GetModelVersionRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetModelVersionRequestPb pb = mapper.readValue(p, GetModelVersionRequestPb.class);
+      return GetModelVersionRequest.fromPb(pb);
+    }
   }
 }

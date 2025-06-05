@@ -3,25 +3,31 @@
 package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get a run */
 @Generated
+@JsonSerialize(using = GetRunRequest.GetRunRequestSerializer.class)
+@JsonDeserialize(using = GetRunRequest.GetRunRequestDeserializer.class)
 public class GetRunRequest {
   /** ID of the run to fetch. Must be provided. */
-  @JsonIgnore
-  @QueryParam("run_id")
   private String runId;
 
   /**
    * [Deprecated, use `run_id` instead] ID of the run to fetch. This field will be removed in a
    * future MLflow version.
    */
-  @JsonIgnore
-  @QueryParam("run_uuid")
   private String runUuid;
 
   public GetRunRequest setRunId(String runId) {
@@ -61,5 +67,39 @@ public class GetRunRequest {
         .add("runId", runId)
         .add("runUuid", runUuid)
         .toString();
+  }
+
+  GetRunRequestPb toPb() {
+    GetRunRequestPb pb = new GetRunRequestPb();
+    pb.setRunId(runId);
+    pb.setRunUuid(runUuid);
+
+    return pb;
+  }
+
+  static GetRunRequest fromPb(GetRunRequestPb pb) {
+    GetRunRequest model = new GetRunRequest();
+    model.setRunId(pb.getRunId());
+    model.setRunUuid(pb.getRunUuid());
+
+    return model;
+  }
+
+  public static class GetRunRequestSerializer extends JsonSerializer<GetRunRequest> {
+    @Override
+    public void serialize(GetRunRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetRunRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetRunRequestDeserializer extends JsonDeserializer<GetRunRequest> {
+    @Override
+    public GetRunRequest deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetRunRequestPb pb = mapper.readValue(p, GetRunRequestPb.class);
+      return GetRunRequest.fromPb(pb);
+    }
   }
 }

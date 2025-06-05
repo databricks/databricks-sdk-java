@@ -3,13 +3,29 @@
 package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get the enhanced security monitoring setting */
 @Generated
+@JsonSerialize(
+    using =
+        GetEnhancedSecurityMonitoringSettingRequest
+            .GetEnhancedSecurityMonitoringSettingRequestSerializer.class)
+@JsonDeserialize(
+    using =
+        GetEnhancedSecurityMonitoringSettingRequest
+            .GetEnhancedSecurityMonitoringSettingRequestDeserializer.class)
 public class GetEnhancedSecurityMonitoringSettingRequest {
   /**
    * etag used for versioning. The response is at least as fresh as the eTag provided. This is used
@@ -19,8 +35,6 @@ public class GetEnhancedSecurityMonitoringSettingRequest {
    * an etag from a GET request, and pass it with the DELETE request to identify the rule set
    * version you are deleting.
    */
-  @JsonIgnore
-  @QueryParam("etag")
   private String etag;
 
   public GetEnhancedSecurityMonitoringSettingRequest setEtag(String etag) {
@@ -51,5 +65,47 @@ public class GetEnhancedSecurityMonitoringSettingRequest {
     return new ToStringer(GetEnhancedSecurityMonitoringSettingRequest.class)
         .add("etag", etag)
         .toString();
+  }
+
+  GetEnhancedSecurityMonitoringSettingRequestPb toPb() {
+    GetEnhancedSecurityMonitoringSettingRequestPb pb =
+        new GetEnhancedSecurityMonitoringSettingRequestPb();
+    pb.setEtag(etag);
+
+    return pb;
+  }
+
+  static GetEnhancedSecurityMonitoringSettingRequest fromPb(
+      GetEnhancedSecurityMonitoringSettingRequestPb pb) {
+    GetEnhancedSecurityMonitoringSettingRequest model =
+        new GetEnhancedSecurityMonitoringSettingRequest();
+    model.setEtag(pb.getEtag());
+
+    return model;
+  }
+
+  public static class GetEnhancedSecurityMonitoringSettingRequestSerializer
+      extends JsonSerializer<GetEnhancedSecurityMonitoringSettingRequest> {
+    @Override
+    public void serialize(
+        GetEnhancedSecurityMonitoringSettingRequest value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      GetEnhancedSecurityMonitoringSettingRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetEnhancedSecurityMonitoringSettingRequestDeserializer
+      extends JsonDeserializer<GetEnhancedSecurityMonitoringSettingRequest> {
+    @Override
+    public GetEnhancedSecurityMonitoringSettingRequest deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetEnhancedSecurityMonitoringSettingRequestPb pb =
+          mapper.readValue(p, GetEnhancedSecurityMonitoringSettingRequestPb.class);
+      return GetEnhancedSecurityMonitoringSettingRequest.fromPb(pb);
+    }
   }
 }

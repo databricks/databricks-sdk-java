@@ -4,26 +4,33 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ForeignKeyConstraint.ForeignKeyConstraintSerializer.class)
+@JsonDeserialize(using = ForeignKeyConstraint.ForeignKeyConstraintDeserializer.class)
 public class ForeignKeyConstraint {
   /** Column names for this constraint. */
-  @JsonProperty("child_columns")
   private Collection<String> childColumns;
 
   /** The name of the constraint. */
-  @JsonProperty("name")
   private String name;
 
   /** Column names for this constraint. */
-  @JsonProperty("parent_columns")
   private Collection<String> parentColumns;
 
   /** The full name of the parent constraint. */
-  @JsonProperty("parent_table")
   private String parentTable;
 
   public ForeignKeyConstraint setChildColumns(Collection<String> childColumns) {
@@ -86,5 +93,46 @@ public class ForeignKeyConstraint {
         .add("parentColumns", parentColumns)
         .add("parentTable", parentTable)
         .toString();
+  }
+
+  ForeignKeyConstraintPb toPb() {
+    ForeignKeyConstraintPb pb = new ForeignKeyConstraintPb();
+    pb.setChildColumns(childColumns);
+    pb.setName(name);
+    pb.setParentColumns(parentColumns);
+    pb.setParentTable(parentTable);
+
+    return pb;
+  }
+
+  static ForeignKeyConstraint fromPb(ForeignKeyConstraintPb pb) {
+    ForeignKeyConstraint model = new ForeignKeyConstraint();
+    model.setChildColumns(pb.getChildColumns());
+    model.setName(pb.getName());
+    model.setParentColumns(pb.getParentColumns());
+    model.setParentTable(pb.getParentTable());
+
+    return model;
+  }
+
+  public static class ForeignKeyConstraintSerializer extends JsonSerializer<ForeignKeyConstraint> {
+    @Override
+    public void serialize(
+        ForeignKeyConstraint value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ForeignKeyConstraintPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ForeignKeyConstraintDeserializer
+      extends JsonDeserializer<ForeignKeyConstraint> {
+    @Override
+    public ForeignKeyConstraint deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ForeignKeyConstraintPb pb = mapper.readValue(p, ForeignKeyConstraintPb.class);
+      return ForeignKeyConstraint.fromPb(pb);
+    }
   }
 }

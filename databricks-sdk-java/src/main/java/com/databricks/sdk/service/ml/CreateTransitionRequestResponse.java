@@ -4,13 +4,25 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = CreateTransitionRequestResponse.CreateTransitionRequestResponseSerializer.class)
+@JsonDeserialize(
+    using = CreateTransitionRequestResponse.CreateTransitionRequestResponseDeserializer.class)
 public class CreateTransitionRequestResponse {
   /** Transition request details. */
-  @JsonProperty("request")
   private TransitionRequest request;
 
   public CreateTransitionRequestResponse setRequest(TransitionRequest request) {
@@ -38,5 +50,42 @@ public class CreateTransitionRequestResponse {
   @Override
   public String toString() {
     return new ToStringer(CreateTransitionRequestResponse.class).add("request", request).toString();
+  }
+
+  CreateTransitionRequestResponsePb toPb() {
+    CreateTransitionRequestResponsePb pb = new CreateTransitionRequestResponsePb();
+    pb.setRequest(request);
+
+    return pb;
+  }
+
+  static CreateTransitionRequestResponse fromPb(CreateTransitionRequestResponsePb pb) {
+    CreateTransitionRequestResponse model = new CreateTransitionRequestResponse();
+    model.setRequest(pb.getRequest());
+
+    return model;
+  }
+
+  public static class CreateTransitionRequestResponseSerializer
+      extends JsonSerializer<CreateTransitionRequestResponse> {
+    @Override
+    public void serialize(
+        CreateTransitionRequestResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateTransitionRequestResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateTransitionRequestResponseDeserializer
+      extends JsonDeserializer<CreateTransitionRequestResponse> {
+    @Override
+    public CreateTransitionRequestResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateTransitionRequestResponsePb pb =
+          mapper.readValue(p, CreateTransitionRequestResponsePb.class);
+      return CreateTransitionRequestResponse.fromPb(pb);
+    }
   }
 }

@@ -4,45 +4,47 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ValidateStorageCredential.ValidateStorageCredentialSerializer.class)
+@JsonDeserialize(using = ValidateStorageCredential.ValidateStorageCredentialDeserializer.class)
 public class ValidateStorageCredential {
   /** The AWS IAM role configuration. */
-  @JsonProperty("aws_iam_role")
   private AwsIamRoleRequest awsIamRole;
 
   /** The Azure managed identity configuration. */
-  @JsonProperty("azure_managed_identity")
   private AzureManagedIdentityRequest azureManagedIdentity;
 
   /** The Azure service principal configuration. */
-  @JsonProperty("azure_service_principal")
   private AzureServicePrincipal azureServicePrincipal;
 
   /** The Cloudflare API token configuration. */
-  @JsonProperty("cloudflare_api_token")
   private CloudflareApiToken cloudflareApiToken;
 
   /** The Databricks created GCP service account configuration. */
-  @JsonProperty("databricks_gcp_service_account")
   private DatabricksGcpServiceAccountRequest databricksGcpServiceAccount;
 
   /** The name of an existing external location to validate. */
-  @JsonProperty("external_location_name")
   private String externalLocationName;
 
   /** Whether the storage credential is only usable for read operations. */
-  @JsonProperty("read_only")
   private Boolean readOnly;
 
   /** The name of the storage credential to validate. */
-  @JsonProperty("storage_credential_name")
   private String storageCredentialName;
 
   /** The external location url to validate. */
-  @JsonProperty("url")
   private String url;
 
   public ValidateStorageCredential setAwsIamRole(AwsIamRoleRequest awsIamRole) {
@@ -172,5 +174,57 @@ public class ValidateStorageCredential {
         .add("storageCredentialName", storageCredentialName)
         .add("url", url)
         .toString();
+  }
+
+  ValidateStorageCredentialPb toPb() {
+    ValidateStorageCredentialPb pb = new ValidateStorageCredentialPb();
+    pb.setAwsIamRole(awsIamRole);
+    pb.setAzureManagedIdentity(azureManagedIdentity);
+    pb.setAzureServicePrincipal(azureServicePrincipal);
+    pb.setCloudflareApiToken(cloudflareApiToken);
+    pb.setDatabricksGcpServiceAccount(databricksGcpServiceAccount);
+    pb.setExternalLocationName(externalLocationName);
+    pb.setReadOnly(readOnly);
+    pb.setStorageCredentialName(storageCredentialName);
+    pb.setUrl(url);
+
+    return pb;
+  }
+
+  static ValidateStorageCredential fromPb(ValidateStorageCredentialPb pb) {
+    ValidateStorageCredential model = new ValidateStorageCredential();
+    model.setAwsIamRole(pb.getAwsIamRole());
+    model.setAzureManagedIdentity(pb.getAzureManagedIdentity());
+    model.setAzureServicePrincipal(pb.getAzureServicePrincipal());
+    model.setCloudflareApiToken(pb.getCloudflareApiToken());
+    model.setDatabricksGcpServiceAccount(pb.getDatabricksGcpServiceAccount());
+    model.setExternalLocationName(pb.getExternalLocationName());
+    model.setReadOnly(pb.getReadOnly());
+    model.setStorageCredentialName(pb.getStorageCredentialName());
+    model.setUrl(pb.getUrl());
+
+    return model;
+  }
+
+  public static class ValidateStorageCredentialSerializer
+      extends JsonSerializer<ValidateStorageCredential> {
+    @Override
+    public void serialize(
+        ValidateStorageCredential value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ValidateStorageCredentialPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ValidateStorageCredentialDeserializer
+      extends JsonDeserializer<ValidateStorageCredential> {
+    @Override
+    public ValidateStorageCredential deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ValidateStorageCredentialPb pb = mapper.readValue(p, ValidateStorageCredentialPb.class);
+      return ValidateStorageCredential.fromPb(pb);
+    }
   }
 }

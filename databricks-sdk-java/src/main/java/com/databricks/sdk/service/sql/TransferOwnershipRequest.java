@@ -4,22 +4,31 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Transfer object ownership */
 @Generated
+@JsonSerialize(using = TransferOwnershipRequest.TransferOwnershipRequestSerializer.class)
+@JsonDeserialize(using = TransferOwnershipRequest.TransferOwnershipRequestDeserializer.class)
 public class TransferOwnershipRequest {
   /** Email address for the new owner, who must exist in the workspace. */
-  @JsonProperty("new_owner")
   private String newOwner;
 
   /** The ID of the object on which to change ownership. */
-  @JsonIgnore private TransferOwnershipObjectId objectId;
+  private TransferOwnershipObjectId objectId;
 
   /** The type of object on which to change ownership. */
-  @JsonIgnore private OwnableObjectType objectType;
+  private OwnableObjectType objectType;
 
   public TransferOwnershipRequest setNewOwner(String newOwner) {
     this.newOwner = newOwner;
@@ -70,5 +79,45 @@ public class TransferOwnershipRequest {
         .add("objectId", objectId)
         .add("objectType", objectType)
         .toString();
+  }
+
+  TransferOwnershipRequestPb toPb() {
+    TransferOwnershipRequestPb pb = new TransferOwnershipRequestPb();
+    pb.setNewOwner(newOwner);
+    pb.setObjectId(objectId);
+    pb.setObjectType(objectType);
+
+    return pb;
+  }
+
+  static TransferOwnershipRequest fromPb(TransferOwnershipRequestPb pb) {
+    TransferOwnershipRequest model = new TransferOwnershipRequest();
+    model.setNewOwner(pb.getNewOwner());
+    model.setObjectId(pb.getObjectId());
+    model.setObjectType(pb.getObjectType());
+
+    return model;
+  }
+
+  public static class TransferOwnershipRequestSerializer
+      extends JsonSerializer<TransferOwnershipRequest> {
+    @Override
+    public void serialize(
+        TransferOwnershipRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      TransferOwnershipRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class TransferOwnershipRequestDeserializer
+      extends JsonDeserializer<TransferOwnershipRequest> {
+    @Override
+    public TransferOwnershipRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      TransferOwnershipRequestPb pb = mapper.readValue(p, TransferOwnershipRequestPb.class);
+      return TransferOwnershipRequest.fromPb(pb);
+    }
   }
 }

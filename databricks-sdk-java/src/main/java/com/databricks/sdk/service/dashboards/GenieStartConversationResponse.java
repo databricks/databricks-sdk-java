@@ -4,25 +4,34 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = GenieStartConversationResponse.GenieStartConversationResponseSerializer.class)
+@JsonDeserialize(
+    using = GenieStartConversationResponse.GenieStartConversationResponseDeserializer.class)
 public class GenieStartConversationResponse {
   /** */
-  @JsonProperty("conversation")
   private GenieConversation conversation;
 
   /** Conversation ID */
-  @JsonProperty("conversation_id")
   private String conversationId;
 
   /** */
-  @JsonProperty("message")
   private GenieMessage message;
 
   /** Message ID */
-  @JsonProperty("message_id")
   private String messageId;
 
   public GenieStartConversationResponse setConversation(GenieConversation conversation) {
@@ -85,5 +94,48 @@ public class GenieStartConversationResponse {
         .add("message", message)
         .add("messageId", messageId)
         .toString();
+  }
+
+  GenieStartConversationResponsePb toPb() {
+    GenieStartConversationResponsePb pb = new GenieStartConversationResponsePb();
+    pb.setConversation(conversation);
+    pb.setConversationId(conversationId);
+    pb.setMessage(message);
+    pb.setMessageId(messageId);
+
+    return pb;
+  }
+
+  static GenieStartConversationResponse fromPb(GenieStartConversationResponsePb pb) {
+    GenieStartConversationResponse model = new GenieStartConversationResponse();
+    model.setConversation(pb.getConversation());
+    model.setConversationId(pb.getConversationId());
+    model.setMessage(pb.getMessage());
+    model.setMessageId(pb.getMessageId());
+
+    return model;
+  }
+
+  public static class GenieStartConversationResponseSerializer
+      extends JsonSerializer<GenieStartConversationResponse> {
+    @Override
+    public void serialize(
+        GenieStartConversationResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GenieStartConversationResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GenieStartConversationResponseDeserializer
+      extends JsonDeserializer<GenieStartConversationResponse> {
+    @Override
+    public GenieStartConversationResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GenieStartConversationResponsePb pb =
+          mapper.readValue(p, GenieStartConversationResponsePb.class);
+      return GenieStartConversationResponse.fromPb(pb);
+    }
   }
 }

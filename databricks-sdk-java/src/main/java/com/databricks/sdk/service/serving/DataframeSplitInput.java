@@ -4,22 +4,30 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = DataframeSplitInput.DataframeSplitInputSerializer.class)
+@JsonDeserialize(using = DataframeSplitInput.DataframeSplitInputDeserializer.class)
 public class DataframeSplitInput {
   /** */
-  @JsonProperty("columns")
   private Collection<Object> columns;
 
   /** */
-  @JsonProperty("data")
   private Collection<Object> data;
 
   /** */
-  @JsonProperty("index")
   private Collection<Long> index;
 
   public DataframeSplitInput setColumns(Collection<Object> columns) {
@@ -71,5 +79,43 @@ public class DataframeSplitInput {
         .add("data", data)
         .add("index", index)
         .toString();
+  }
+
+  DataframeSplitInputPb toPb() {
+    DataframeSplitInputPb pb = new DataframeSplitInputPb();
+    pb.setColumns(columns);
+    pb.setData(data);
+    pb.setIndex(index);
+
+    return pb;
+  }
+
+  static DataframeSplitInput fromPb(DataframeSplitInputPb pb) {
+    DataframeSplitInput model = new DataframeSplitInput();
+    model.setColumns(pb.getColumns());
+    model.setData(pb.getData());
+    model.setIndex(pb.getIndex());
+
+    return model;
+  }
+
+  public static class DataframeSplitInputSerializer extends JsonSerializer<DataframeSplitInput> {
+    @Override
+    public void serialize(DataframeSplitInput value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DataframeSplitInputPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DataframeSplitInputDeserializer
+      extends JsonDeserializer<DataframeSplitInput> {
+    @Override
+    public DataframeSplitInput deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DataframeSplitInputPb pb = mapper.readValue(p, DataframeSplitInputPb.class);
+      return DataframeSplitInput.fromPb(pb);
+    }
   }
 }

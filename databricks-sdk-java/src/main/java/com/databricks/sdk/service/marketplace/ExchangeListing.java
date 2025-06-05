@@ -4,37 +4,41 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ExchangeListing.ExchangeListingSerializer.class)
+@JsonDeserialize(using = ExchangeListing.ExchangeListingDeserializer.class)
 public class ExchangeListing {
   /** */
-  @JsonProperty("created_at")
   private Long createdAt;
 
   /** */
-  @JsonProperty("created_by")
   private String createdBy;
 
   /** */
-  @JsonProperty("exchange_id")
   private String exchangeId;
 
   /** */
-  @JsonProperty("exchange_name")
   private String exchangeName;
 
   /** */
-  @JsonProperty("id")
   private String id;
 
   /** */
-  @JsonProperty("listing_id")
   private String listingId;
 
   /** */
-  @JsonProperty("listing_name")
   private String listingName;
 
   public ExchangeListing setCreatedAt(Long createdAt) {
@@ -130,5 +134,50 @@ public class ExchangeListing {
         .add("listingId", listingId)
         .add("listingName", listingName)
         .toString();
+  }
+
+  ExchangeListingPb toPb() {
+    ExchangeListingPb pb = new ExchangeListingPb();
+    pb.setCreatedAt(createdAt);
+    pb.setCreatedBy(createdBy);
+    pb.setExchangeId(exchangeId);
+    pb.setExchangeName(exchangeName);
+    pb.setId(id);
+    pb.setListingId(listingId);
+    pb.setListingName(listingName);
+
+    return pb;
+  }
+
+  static ExchangeListing fromPb(ExchangeListingPb pb) {
+    ExchangeListing model = new ExchangeListing();
+    model.setCreatedAt(pb.getCreatedAt());
+    model.setCreatedBy(pb.getCreatedBy());
+    model.setExchangeId(pb.getExchangeId());
+    model.setExchangeName(pb.getExchangeName());
+    model.setId(pb.getId());
+    model.setListingId(pb.getListingId());
+    model.setListingName(pb.getListingName());
+
+    return model;
+  }
+
+  public static class ExchangeListingSerializer extends JsonSerializer<ExchangeListing> {
+    @Override
+    public void serialize(ExchangeListing value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ExchangeListingPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ExchangeListingDeserializer extends JsonDeserializer<ExchangeListing> {
+    @Override
+    public ExchangeListing deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ExchangeListingPb pb = mapper.readValue(p, ExchangeListingPb.class);
+      return ExchangeListing.fromPb(pb);
+    }
   }
 }

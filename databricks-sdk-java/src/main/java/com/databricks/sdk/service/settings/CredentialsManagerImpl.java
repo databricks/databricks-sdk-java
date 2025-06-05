@@ -21,7 +21,7 @@ class CredentialsManagerImpl implements CredentialsManagerService {
     String path = "/api/2.0/credentials-manager/exchange-tokens/token";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, ExchangeTokenResponse.class);

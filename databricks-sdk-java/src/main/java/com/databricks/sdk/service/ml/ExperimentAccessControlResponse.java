@@ -4,30 +4,38 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = ExperimentAccessControlResponse.ExperimentAccessControlResponseSerializer.class)
+@JsonDeserialize(
+    using = ExperimentAccessControlResponse.ExperimentAccessControlResponseDeserializer.class)
 public class ExperimentAccessControlResponse {
   /** All permissions. */
-  @JsonProperty("all_permissions")
   private Collection<ExperimentPermission> allPermissions;
 
   /** Display name of the user or service principal. */
-  @JsonProperty("display_name")
   private String displayName;
 
   /** name of the group */
-  @JsonProperty("group_name")
   private String groupName;
 
   /** Name of the service principal. */
-  @JsonProperty("service_principal_name")
   private String servicePrincipalName;
 
   /** name of the user */
-  @JsonProperty("user_name")
   private String userName;
 
   public ExperimentAccessControlResponse setAllPermissions(
@@ -102,5 +110,50 @@ public class ExperimentAccessControlResponse {
         .add("servicePrincipalName", servicePrincipalName)
         .add("userName", userName)
         .toString();
+  }
+
+  ExperimentAccessControlResponsePb toPb() {
+    ExperimentAccessControlResponsePb pb = new ExperimentAccessControlResponsePb();
+    pb.setAllPermissions(allPermissions);
+    pb.setDisplayName(displayName);
+    pb.setGroupName(groupName);
+    pb.setServicePrincipalName(servicePrincipalName);
+    pb.setUserName(userName);
+
+    return pb;
+  }
+
+  static ExperimentAccessControlResponse fromPb(ExperimentAccessControlResponsePb pb) {
+    ExperimentAccessControlResponse model = new ExperimentAccessControlResponse();
+    model.setAllPermissions(pb.getAllPermissions());
+    model.setDisplayName(pb.getDisplayName());
+    model.setGroupName(pb.getGroupName());
+    model.setServicePrincipalName(pb.getServicePrincipalName());
+    model.setUserName(pb.getUserName());
+
+    return model;
+  }
+
+  public static class ExperimentAccessControlResponseSerializer
+      extends JsonSerializer<ExperimentAccessControlResponse> {
+    @Override
+    public void serialize(
+        ExperimentAccessControlResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ExperimentAccessControlResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ExperimentAccessControlResponseDeserializer
+      extends JsonDeserializer<ExperimentAccessControlResponse> {
+    @Override
+    public ExperimentAccessControlResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ExperimentAccessControlResponsePb pb =
+          mapper.readValue(p, ExperimentAccessControlResponsePb.class);
+      return ExperimentAccessControlResponse.fromPb(pb);
+    }
   }
 }

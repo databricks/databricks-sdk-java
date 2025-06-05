@@ -4,7 +4,16 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -12,17 +21,16 @@ import java.util.Objects;
  * https://developers.cloudflare.com/r2/api/s3/tokens/.
  */
 @Generated
+@JsonSerialize(using = R2Credentials.R2CredentialsSerializer.class)
+@JsonDeserialize(using = R2Credentials.R2CredentialsDeserializer.class)
 public class R2Credentials {
   /** The access key ID that identifies the temporary credentials. */
-  @JsonProperty("access_key_id")
   private String accessKeyId;
 
   /** The secret access key associated with the access key. */
-  @JsonProperty("secret_access_key")
   private String secretAccessKey;
 
   /** The generated JWT that users must pass to use the temporary credentials. */
-  @JsonProperty("session_token")
   private String sessionToken;
 
   public R2Credentials setAccessKeyId(String accessKeyId) {
@@ -74,5 +82,41 @@ public class R2Credentials {
         .add("secretAccessKey", secretAccessKey)
         .add("sessionToken", sessionToken)
         .toString();
+  }
+
+  R2CredentialsPb toPb() {
+    R2CredentialsPb pb = new R2CredentialsPb();
+    pb.setAccessKeyId(accessKeyId);
+    pb.setSecretAccessKey(secretAccessKey);
+    pb.setSessionToken(sessionToken);
+
+    return pb;
+  }
+
+  static R2Credentials fromPb(R2CredentialsPb pb) {
+    R2Credentials model = new R2Credentials();
+    model.setAccessKeyId(pb.getAccessKeyId());
+    model.setSecretAccessKey(pb.getSecretAccessKey());
+    model.setSessionToken(pb.getSessionToken());
+
+    return model;
+  }
+
+  public static class R2CredentialsSerializer extends JsonSerializer<R2Credentials> {
+    @Override
+    public void serialize(R2Credentials value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      R2CredentialsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class R2CredentialsDeserializer extends JsonDeserializer<R2Credentials> {
+    @Override
+    public R2Credentials deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      R2CredentialsPb pb = mapper.readValue(p, R2CredentialsPb.class);
+      return R2Credentials.fromPb(pb);
+    }
   }
 }

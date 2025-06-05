@@ -4,33 +4,38 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateInstallationRequest.CreateInstallationRequestSerializer.class)
+@JsonDeserialize(using = CreateInstallationRequest.CreateInstallationRequestDeserializer.class)
 public class CreateInstallationRequest {
   /** */
-  @JsonProperty("accepted_consumer_terms")
   private ConsumerTerms acceptedConsumerTerms;
 
   /** */
-  @JsonProperty("catalog_name")
   private String catalogName;
 
   /** */
-  @JsonIgnore private String listingId;
+  private String listingId;
 
   /** */
-  @JsonProperty("recipient_type")
   private DeltaSharingRecipientType recipientType;
 
   /** for git repo installations */
-  @JsonProperty("repo_detail")
   private RepoInstallation repoDetail;
 
   /** */
-  @JsonProperty("share_name")
   private String shareName;
 
   public CreateInstallationRequest setAcceptedConsumerTerms(ConsumerTerms acceptedConsumerTerms) {
@@ -116,5 +121,51 @@ public class CreateInstallationRequest {
         .add("repoDetail", repoDetail)
         .add("shareName", shareName)
         .toString();
+  }
+
+  CreateInstallationRequestPb toPb() {
+    CreateInstallationRequestPb pb = new CreateInstallationRequestPb();
+    pb.setAcceptedConsumerTerms(acceptedConsumerTerms);
+    pb.setCatalogName(catalogName);
+    pb.setListingId(listingId);
+    pb.setRecipientType(recipientType);
+    pb.setRepoDetail(repoDetail);
+    pb.setShareName(shareName);
+
+    return pb;
+  }
+
+  static CreateInstallationRequest fromPb(CreateInstallationRequestPb pb) {
+    CreateInstallationRequest model = new CreateInstallationRequest();
+    model.setAcceptedConsumerTerms(pb.getAcceptedConsumerTerms());
+    model.setCatalogName(pb.getCatalogName());
+    model.setListingId(pb.getListingId());
+    model.setRecipientType(pb.getRecipientType());
+    model.setRepoDetail(pb.getRepoDetail());
+    model.setShareName(pb.getShareName());
+
+    return model;
+  }
+
+  public static class CreateInstallationRequestSerializer
+      extends JsonSerializer<CreateInstallationRequest> {
+    @Override
+    public void serialize(
+        CreateInstallationRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateInstallationRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateInstallationRequestDeserializer
+      extends JsonDeserializer<CreateInstallationRequest> {
+    @Override
+    public CreateInstallationRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateInstallationRequestPb pb = mapper.readValue(p, CreateInstallationRequestPb.class);
+      return CreateInstallationRequest.fromPb(pb);
+    }
   }
 }

@@ -4,9 +4,24 @@ package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = DeletePublishedAppIntegrationOutput.DeletePublishedAppIntegrationOutputSerializer.class)
+@JsonDeserialize(
+    using =
+        DeletePublishedAppIntegrationOutput.DeletePublishedAppIntegrationOutputDeserializer.class)
 public class DeletePublishedAppIntegrationOutput {
 
   @Override
@@ -24,5 +39,40 @@ public class DeletePublishedAppIntegrationOutput {
   @Override
   public String toString() {
     return new ToStringer(DeletePublishedAppIntegrationOutput.class).toString();
+  }
+
+  DeletePublishedAppIntegrationOutputPb toPb() {
+    DeletePublishedAppIntegrationOutputPb pb = new DeletePublishedAppIntegrationOutputPb();
+
+    return pb;
+  }
+
+  static DeletePublishedAppIntegrationOutput fromPb(DeletePublishedAppIntegrationOutputPb pb) {
+    DeletePublishedAppIntegrationOutput model = new DeletePublishedAppIntegrationOutput();
+
+    return model;
+  }
+
+  public static class DeletePublishedAppIntegrationOutputSerializer
+      extends JsonSerializer<DeletePublishedAppIntegrationOutput> {
+    @Override
+    public void serialize(
+        DeletePublishedAppIntegrationOutput value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DeletePublishedAppIntegrationOutputPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DeletePublishedAppIntegrationOutputDeserializer
+      extends JsonDeserializer<DeletePublishedAppIntegrationOutput> {
+    @Override
+    public DeletePublishedAppIntegrationOutput deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DeletePublishedAppIntegrationOutputPb pb =
+          mapper.readValue(p, DeletePublishedAppIntegrationOutputPb.class);
+      return DeletePublishedAppIntegrationOutput.fromPb(pb);
+    }
   }
 }

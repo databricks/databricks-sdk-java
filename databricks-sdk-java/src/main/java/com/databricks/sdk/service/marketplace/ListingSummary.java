@@ -4,89 +4,81 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ListingSummary.ListingSummarySerializer.class)
+@JsonDeserialize(using = ListingSummary.ListingSummaryDeserializer.class)
 public class ListingSummary {
   /** */
-  @JsonProperty("categories")
   private Collection<Category> categories;
 
   /** */
-  @JsonProperty("created_at")
   private Long createdAt;
 
   /** */
-  @JsonProperty("created_by")
   private String createdBy;
 
   /** */
-  @JsonProperty("created_by_id")
   private Long createdById;
 
   /** */
-  @JsonProperty("exchange_ids")
   private Collection<String> exchangeIds;
 
   /**
    * if a git repo is being created, a listing will be initialized with this field as opposed to a
    * share
    */
-  @JsonProperty("git_repo")
   private RepoInfo gitRepo;
 
   /** */
-  @JsonProperty("listingType")
   private ListingType listingType;
 
   /** */
-  @JsonProperty("name")
   private String name;
 
   /** */
-  @JsonProperty("provider_id")
   private String providerId;
 
   /** */
-  @JsonProperty("provider_region")
   private RegionInfo providerRegion;
 
   /** */
-  @JsonProperty("published_at")
   private Long publishedAt;
 
   /** */
-  @JsonProperty("published_by")
   private String publishedBy;
 
   /** */
-  @JsonProperty("setting")
   private ListingSetting setting;
 
   /** */
-  @JsonProperty("share")
   private ShareInfo share;
 
   /** Enums */
-  @JsonProperty("status")
   private ListingStatus status;
 
   /** */
-  @JsonProperty("subtitle")
   private String subtitle;
 
   /** */
-  @JsonProperty("updated_at")
   private Long updatedAt;
 
   /** */
-  @JsonProperty("updated_by")
   private String updatedBy;
 
   /** */
-  @JsonProperty("updated_by_id")
   private Long updatedById;
 
   public ListingSummary setCategories(Collection<Category> categories) {
@@ -333,5 +325,74 @@ public class ListingSummary {
         .add("updatedBy", updatedBy)
         .add("updatedById", updatedById)
         .toString();
+  }
+
+  ListingSummaryPb toPb() {
+    ListingSummaryPb pb = new ListingSummaryPb();
+    pb.setCategories(categories);
+    pb.setCreatedAt(createdAt);
+    pb.setCreatedBy(createdBy);
+    pb.setCreatedById(createdById);
+    pb.setExchangeIds(exchangeIds);
+    pb.setGitRepo(gitRepo);
+    pb.setListingType(listingType);
+    pb.setName(name);
+    pb.setProviderId(providerId);
+    pb.setProviderRegion(providerRegion);
+    pb.setPublishedAt(publishedAt);
+    pb.setPublishedBy(publishedBy);
+    pb.setSetting(setting);
+    pb.setShare(share);
+    pb.setStatus(status);
+    pb.setSubtitle(subtitle);
+    pb.setUpdatedAt(updatedAt);
+    pb.setUpdatedBy(updatedBy);
+    pb.setUpdatedById(updatedById);
+
+    return pb;
+  }
+
+  static ListingSummary fromPb(ListingSummaryPb pb) {
+    ListingSummary model = new ListingSummary();
+    model.setCategories(pb.getCategories());
+    model.setCreatedAt(pb.getCreatedAt());
+    model.setCreatedBy(pb.getCreatedBy());
+    model.setCreatedById(pb.getCreatedById());
+    model.setExchangeIds(pb.getExchangeIds());
+    model.setGitRepo(pb.getGitRepo());
+    model.setListingType(pb.getListingType());
+    model.setName(pb.getName());
+    model.setProviderId(pb.getProviderId());
+    model.setProviderRegion(pb.getProviderRegion());
+    model.setPublishedAt(pb.getPublishedAt());
+    model.setPublishedBy(pb.getPublishedBy());
+    model.setSetting(pb.getSetting());
+    model.setShare(pb.getShare());
+    model.setStatus(pb.getStatus());
+    model.setSubtitle(pb.getSubtitle());
+    model.setUpdatedAt(pb.getUpdatedAt());
+    model.setUpdatedBy(pb.getUpdatedBy());
+    model.setUpdatedById(pb.getUpdatedById());
+
+    return model;
+  }
+
+  public static class ListingSummarySerializer extends JsonSerializer<ListingSummary> {
+    @Override
+    public void serialize(ListingSummary value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListingSummaryPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListingSummaryDeserializer extends JsonDeserializer<ListingSummary> {
+    @Override
+    public ListingSummary deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListingSummaryPb pb = mapper.readValue(p, ListingSummaryPb.class);
+      return ListingSummary.fromPb(pb);
+    }
   }
 }

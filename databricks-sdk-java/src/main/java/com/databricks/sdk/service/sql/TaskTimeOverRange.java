@@ -4,21 +4,30 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = TaskTimeOverRange.TaskTimeOverRangeSerializer.class)
+@JsonDeserialize(using = TaskTimeOverRange.TaskTimeOverRangeDeserializer.class)
 public class TaskTimeOverRange {
   /** */
-  @JsonProperty("entries")
   private Collection<TaskTimeOverRangeEntry> entries;
 
   /**
    * interval length for all entries (difference in start time and end time of an entry range) the
    * same for all entries start time of first interval is query_start_time_ms
    */
-  @JsonProperty("interval")
   private Long interval;
 
   public TaskTimeOverRange setEntries(Collection<TaskTimeOverRangeEntry> entries) {
@@ -58,5 +67,40 @@ public class TaskTimeOverRange {
         .add("entries", entries)
         .add("interval", interval)
         .toString();
+  }
+
+  TaskTimeOverRangePb toPb() {
+    TaskTimeOverRangePb pb = new TaskTimeOverRangePb();
+    pb.setEntries(entries);
+    pb.setInterval(interval);
+
+    return pb;
+  }
+
+  static TaskTimeOverRange fromPb(TaskTimeOverRangePb pb) {
+    TaskTimeOverRange model = new TaskTimeOverRange();
+    model.setEntries(pb.getEntries());
+    model.setInterval(pb.getInterval());
+
+    return model;
+  }
+
+  public static class TaskTimeOverRangeSerializer extends JsonSerializer<TaskTimeOverRange> {
+    @Override
+    public void serialize(TaskTimeOverRange value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      TaskTimeOverRangePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class TaskTimeOverRangeDeserializer extends JsonDeserializer<TaskTimeOverRange> {
+    @Override
+    public TaskTimeOverRange deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      TaskTimeOverRangePb pb = mapper.readValue(p, TaskTimeOverRangePb.class);
+      return TaskTimeOverRange.fromPb(pb);
+    }
   }
 }

@@ -4,7 +4,16 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -12,21 +21,19 @@ import java.util.Objects;
  * customers.
  */
 @Generated
+@JsonSerialize(using = FoundationModel.FoundationModelSerializer.class)
+@JsonDeserialize(using = FoundationModel.FoundationModelDeserializer.class)
 public class FoundationModel {
   /** */
-  @JsonProperty("description")
   private String description;
 
   /** */
-  @JsonProperty("display_name")
   private String displayName;
 
   /** */
-  @JsonProperty("docs")
   private String docs;
 
   /** */
-  @JsonProperty("name")
   private String name;
 
   public FoundationModel setDescription(String description) {
@@ -89,5 +96,44 @@ public class FoundationModel {
         .add("docs", docs)
         .add("name", name)
         .toString();
+  }
+
+  FoundationModelPb toPb() {
+    FoundationModelPb pb = new FoundationModelPb();
+    pb.setDescription(description);
+    pb.setDisplayName(displayName);
+    pb.setDocs(docs);
+    pb.setName(name);
+
+    return pb;
+  }
+
+  static FoundationModel fromPb(FoundationModelPb pb) {
+    FoundationModel model = new FoundationModel();
+    model.setDescription(pb.getDescription());
+    model.setDisplayName(pb.getDisplayName());
+    model.setDocs(pb.getDocs());
+    model.setName(pb.getName());
+
+    return model;
+  }
+
+  public static class FoundationModelSerializer extends JsonSerializer<FoundationModel> {
+    @Override
+    public void serialize(FoundationModel value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      FoundationModelPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class FoundationModelDeserializer extends JsonDeserializer<FoundationModel> {
+    @Override
+    public FoundationModel deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      FoundationModelPb pb = mapper.readValue(p, FoundationModelPb.class);
+      return FoundationModel.fromPb(pb);
+    }
   }
 }

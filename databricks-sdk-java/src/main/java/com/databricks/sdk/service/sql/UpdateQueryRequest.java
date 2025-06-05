@@ -4,24 +4,32 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = UpdateQueryRequest.UpdateQueryRequestSerializer.class)
+@JsonDeserialize(using = UpdateQueryRequest.UpdateQueryRequestDeserializer.class)
 public class UpdateQueryRequest {
   /**
    * If true, automatically resolve alert display name conflicts. Otherwise, fail the request if the
    * alert's display name conflicts with an existing alert's display name.
    */
-  @JsonProperty("auto_resolve_display_name")
   private Boolean autoResolveDisplayName;
 
   /** */
-  @JsonIgnore private String id;
+  private String id;
 
   /** */
-  @JsonProperty("query")
   private UpdateQueryRequestQuery query;
 
   /**
@@ -35,7 +43,6 @@ public class UpdateQueryRequest {
    * the fields being updated and avoid using `*` wildcards, as it can lead to unintended results if
    * the API changes in the future.
    */
-  @JsonProperty("update_mask")
   private String updateMask;
 
   public UpdateQueryRequest setAutoResolveDisplayName(Boolean autoResolveDisplayName) {
@@ -98,5 +105,44 @@ public class UpdateQueryRequest {
         .add("query", query)
         .add("updateMask", updateMask)
         .toString();
+  }
+
+  UpdateQueryRequestPb toPb() {
+    UpdateQueryRequestPb pb = new UpdateQueryRequestPb();
+    pb.setAutoResolveDisplayName(autoResolveDisplayName);
+    pb.setId(id);
+    pb.setQuery(query);
+    pb.setUpdateMask(updateMask);
+
+    return pb;
+  }
+
+  static UpdateQueryRequest fromPb(UpdateQueryRequestPb pb) {
+    UpdateQueryRequest model = new UpdateQueryRequest();
+    model.setAutoResolveDisplayName(pb.getAutoResolveDisplayName());
+    model.setId(pb.getId());
+    model.setQuery(pb.getQuery());
+    model.setUpdateMask(pb.getUpdateMask());
+
+    return model;
+  }
+
+  public static class UpdateQueryRequestSerializer extends JsonSerializer<UpdateQueryRequest> {
+    @Override
+    public void serialize(UpdateQueryRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateQueryRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateQueryRequestDeserializer extends JsonDeserializer<UpdateQueryRequest> {
+    @Override
+    public UpdateQueryRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateQueryRequestPb pb = mapper.readValue(p, UpdateQueryRequestPb.class);
+      return UpdateQueryRequest.fromPb(pb);
+    }
   }
 }

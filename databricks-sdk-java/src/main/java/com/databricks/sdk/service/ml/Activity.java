@@ -4,11 +4,22 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Activity recorded for the action. */
 @Generated
+@JsonSerialize(using = Activity.ActivitySerializer.class)
+@JsonDeserialize(using = Activity.ActivityDeserializer.class)
 public class Activity {
   /**
    * Type of activity. Valid values are: * `APPLIED_TRANSITION`: User applied the corresponding
@@ -25,15 +36,12 @@ public class Activity {
    * <p>* `SYSTEM_TRANSITION`: For events performed as a side effect, such as archiving existing
    * model versions in a stage.
    */
-  @JsonProperty("activity_type")
   private ActivityType activityType;
 
   /** User-provided comment associated with the activity. */
-  @JsonProperty("comment")
   private String comment;
 
   /** Creation time of the object, as a Unix timestamp in milliseconds. */
-  @JsonProperty("creation_timestamp")
   private Long creationTimestamp;
 
   /**
@@ -47,15 +55,12 @@ public class Activity {
    *
    * <p>* `Archived`: Archived stage.
    */
-  @JsonProperty("from_stage")
   private Stage fromStage;
 
   /** Unique identifier for the object. */
-  @JsonProperty("id")
   private String id;
 
   /** Time of the object at last update, as a Unix timestamp in milliseconds. */
-  @JsonProperty("last_updated_timestamp")
   private Long lastUpdatedTimestamp;
 
   /**
@@ -63,7 +68,6 @@ public class Activity {
    * usually describes a side effect, such as a version being archived as part of another version's
    * stage transition, and may not be returned for some activity types.
    */
-  @JsonProperty("system_comment")
   private String systemComment;
 
   /**
@@ -77,11 +81,9 @@ public class Activity {
    *
    * <p>* `Archived`: Archived stage.
    */
-  @JsonProperty("to_stage")
   private Stage toStage;
 
   /** The username of the user that created the object. */
-  @JsonProperty("user_id")
   private String userId;
 
   public Activity setActivityType(ActivityType activityType) {
@@ -208,5 +210,53 @@ public class Activity {
         .add("toStage", toStage)
         .add("userId", userId)
         .toString();
+  }
+
+  ActivityPb toPb() {
+    ActivityPb pb = new ActivityPb();
+    pb.setActivityType(activityType);
+    pb.setComment(comment);
+    pb.setCreationTimestamp(creationTimestamp);
+    pb.setFromStage(fromStage);
+    pb.setId(id);
+    pb.setLastUpdatedTimestamp(lastUpdatedTimestamp);
+    pb.setSystemComment(systemComment);
+    pb.setToStage(toStage);
+    pb.setUserId(userId);
+
+    return pb;
+  }
+
+  static Activity fromPb(ActivityPb pb) {
+    Activity model = new Activity();
+    model.setActivityType(pb.getActivityType());
+    model.setComment(pb.getComment());
+    model.setCreationTimestamp(pb.getCreationTimestamp());
+    model.setFromStage(pb.getFromStage());
+    model.setId(pb.getId());
+    model.setLastUpdatedTimestamp(pb.getLastUpdatedTimestamp());
+    model.setSystemComment(pb.getSystemComment());
+    model.setToStage(pb.getToStage());
+    model.setUserId(pb.getUserId());
+
+    return model;
+  }
+
+  public static class ActivitySerializer extends JsonSerializer<Activity> {
+    @Override
+    public void serialize(Activity value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ActivityPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ActivityDeserializer extends JsonDeserializer<Activity> {
+    @Override
+    public Activity deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ActivityPb pb = mapper.readValue(p, ActivityPb.class);
+      return Activity.fromPb(pb);
+    }
   }
 }

@@ -4,43 +4,47 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ColumnInfo.ColumnInfoSerializer.class)
+@JsonDeserialize(using = ColumnInfo.ColumnInfoDeserializer.class)
 public class ColumnInfo {
   /** The name of the column. */
-  @JsonProperty("name")
   private String name;
 
   /** The ordinal position of the column (starting at position 0). */
-  @JsonProperty("position")
   private Long position;
 
   /** The format of the interval type. */
-  @JsonProperty("type_interval_type")
   private String typeIntervalType;
 
   /**
    * The name of the base data type. This doesn't include details for complex types such as STRUCT,
    * MAP or ARRAY.
    */
-  @JsonProperty("type_name")
   private ColumnInfoTypeName typeName;
 
   /** Specifies the number of digits in a number. This applies to the DECIMAL type. */
-  @JsonProperty("type_precision")
   private Long typePrecision;
 
   /**
    * Specifies the number of digits to the right of the decimal point in a number. This applies to
    * the DECIMAL type.
    */
-  @JsonProperty("type_scale")
   private Long typeScale;
 
   /** The full SQL type specification. */
-  @JsonProperty("type_text")
   private String typeText;
 
   public ColumnInfo setName(String name) {
@@ -137,5 +141,49 @@ public class ColumnInfo {
         .add("typeScale", typeScale)
         .add("typeText", typeText)
         .toString();
+  }
+
+  ColumnInfoPb toPb() {
+    ColumnInfoPb pb = new ColumnInfoPb();
+    pb.setName(name);
+    pb.setPosition(position);
+    pb.setTypeIntervalType(typeIntervalType);
+    pb.setTypeName(typeName);
+    pb.setTypePrecision(typePrecision);
+    pb.setTypeScale(typeScale);
+    pb.setTypeText(typeText);
+
+    return pb;
+  }
+
+  static ColumnInfo fromPb(ColumnInfoPb pb) {
+    ColumnInfo model = new ColumnInfo();
+    model.setName(pb.getName());
+    model.setPosition(pb.getPosition());
+    model.setTypeIntervalType(pb.getTypeIntervalType());
+    model.setTypeName(pb.getTypeName());
+    model.setTypePrecision(pb.getTypePrecision());
+    model.setTypeScale(pb.getTypeScale());
+    model.setTypeText(pb.getTypeText());
+
+    return model;
+  }
+
+  public static class ColumnInfoSerializer extends JsonSerializer<ColumnInfo> {
+    @Override
+    public void serialize(ColumnInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ColumnInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ColumnInfoDeserializer extends JsonDeserializer<ColumnInfo> {
+    @Override
+    public ColumnInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ColumnInfoPb pb = mapper.readValue(p, ColumnInfoPb.class);
+      return ColumnInfo.fromPb(pb);
+    }
   }
 }

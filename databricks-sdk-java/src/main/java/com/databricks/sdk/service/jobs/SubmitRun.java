@@ -4,32 +4,39 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = SubmitRun.SubmitRunSerializer.class)
+@JsonDeserialize(using = SubmitRun.SubmitRunDeserializer.class)
 public class SubmitRun {
   /** List of permissions to set on the job. */
-  @JsonProperty("access_control_list")
   private Collection<JobAccessControlRequest> accessControlList;
 
   /**
    * The user specified id of the budget policy to use for this one-time run. If not specified, the
    * run will be not be attributed to any budget policy.
    */
-  @JsonProperty("budget_policy_id")
   private String budgetPolicyId;
 
   /** An optional set of email addresses notified when the run begins or completes. */
-  @JsonProperty("email_notifications")
   private JobEmailNotifications emailNotifications;
 
   /**
    * A list of task execution environment specifications that can be referenced by tasks of this
    * run.
    */
-  @JsonProperty("environments")
   private Collection<JobEnvironment> environments;
 
   /**
@@ -43,11 +50,9 @@ public class SubmitRun {
    * <p>Note: dbt and SQL File tasks support only version-controlled sources. If dbt or SQL File
    * tasks are used, `git_source` must be defined on the job.
    */
-  @JsonProperty("git_source")
   private GitSource gitSource;
 
   /** An optional set of health rules that can be defined for this job. */
-  @JsonProperty("health")
   private JobsHealthRules health;
 
   /**
@@ -65,41 +70,33 @@ public class SubmitRun {
    *
    * <p>[How to ensure idempotency for jobs]: https://kb.databricks.com/jobs/jobs-idempotency.html
    */
-  @JsonProperty("idempotency_token")
   private String idempotencyToken;
 
   /**
    * Optional notification settings that are used when sending notifications to each of the
    * `email_notifications` and `webhook_notifications` for this run.
    */
-  @JsonProperty("notification_settings")
   private JobNotificationSettings notificationSettings;
 
   /** The queue settings of the one-time run. */
-  @JsonProperty("queue")
   private QueueSettings queue;
 
   /**
    * Specifies the user or service principal that the job runs as. If not specified, the job runs as
    * the user who submits the request.
    */
-  @JsonProperty("run_as")
   private JobRunAs runAs;
 
   /** An optional name for the run. The default value is `Untitled`. */
-  @JsonProperty("run_name")
   private String runName;
 
   /** */
-  @JsonProperty("tasks")
   private Collection<SubmitTask> tasks;
 
   /** An optional timeout applied to each run of this job. A value of `0` means no timeout. */
-  @JsonProperty("timeout_seconds")
   private Long timeoutSeconds;
 
   /** A collection of system notification IDs to notify when the run begins or completes. */
-  @JsonProperty("webhook_notifications")
   private WebhookNotifications webhookNotifications;
 
   public SubmitRun setAccessControlList(Collection<JobAccessControlRequest> accessControlList) {
@@ -286,5 +283,63 @@ public class SubmitRun {
         .add("timeoutSeconds", timeoutSeconds)
         .add("webhookNotifications", webhookNotifications)
         .toString();
+  }
+
+  SubmitRunPb toPb() {
+    SubmitRunPb pb = new SubmitRunPb();
+    pb.setAccessControlList(accessControlList);
+    pb.setBudgetPolicyId(budgetPolicyId);
+    pb.setEmailNotifications(emailNotifications);
+    pb.setEnvironments(environments);
+    pb.setGitSource(gitSource);
+    pb.setHealth(health);
+    pb.setIdempotencyToken(idempotencyToken);
+    pb.setNotificationSettings(notificationSettings);
+    pb.setQueue(queue);
+    pb.setRunAs(runAs);
+    pb.setRunName(runName);
+    pb.setTasks(tasks);
+    pb.setTimeoutSeconds(timeoutSeconds);
+    pb.setWebhookNotifications(webhookNotifications);
+
+    return pb;
+  }
+
+  static SubmitRun fromPb(SubmitRunPb pb) {
+    SubmitRun model = new SubmitRun();
+    model.setAccessControlList(pb.getAccessControlList());
+    model.setBudgetPolicyId(pb.getBudgetPolicyId());
+    model.setEmailNotifications(pb.getEmailNotifications());
+    model.setEnvironments(pb.getEnvironments());
+    model.setGitSource(pb.getGitSource());
+    model.setHealth(pb.getHealth());
+    model.setIdempotencyToken(pb.getIdempotencyToken());
+    model.setNotificationSettings(pb.getNotificationSettings());
+    model.setQueue(pb.getQueue());
+    model.setRunAs(pb.getRunAs());
+    model.setRunName(pb.getRunName());
+    model.setTasks(pb.getTasks());
+    model.setTimeoutSeconds(pb.getTimeoutSeconds());
+    model.setWebhookNotifications(pb.getWebhookNotifications());
+
+    return model;
+  }
+
+  public static class SubmitRunSerializer extends JsonSerializer<SubmitRun> {
+    @Override
+    public void serialize(SubmitRun value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SubmitRunPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SubmitRunDeserializer extends JsonDeserializer<SubmitRun> {
+    @Override
+    public SubmitRun deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SubmitRunPb pb = mapper.readValue(p, SubmitRunPb.class);
+      return SubmitRun.fromPb(pb);
+    }
   }
 }

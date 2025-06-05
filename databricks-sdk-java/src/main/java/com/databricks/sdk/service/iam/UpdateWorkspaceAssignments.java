@@ -4,12 +4,22 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = UpdateWorkspaceAssignments.UpdateWorkspaceAssignmentsSerializer.class)
+@JsonDeserialize(using = UpdateWorkspaceAssignments.UpdateWorkspaceAssignmentsDeserializer.class)
 public class UpdateWorkspaceAssignments {
   /**
    * Array of permissions assignments to update on the workspace. Valid values are "USER" and
@@ -18,14 +28,13 @@ public class UpdateWorkspaceAssignments {
    * will have the same effect as providing an empty list, which will result in the deletion of all
    * permissions for the principal.
    */
-  @JsonProperty("permissions")
   private Collection<WorkspacePermission> permissions;
 
   /** The ID of the user, service principal, or group. */
-  @JsonIgnore private Long principalId;
+  private Long principalId;
 
   /** The workspace ID. */
-  @JsonIgnore private Long workspaceId;
+  private Long workspaceId;
 
   public UpdateWorkspaceAssignments setPermissions(Collection<WorkspacePermission> permissions) {
     this.permissions = permissions;
@@ -76,5 +85,45 @@ public class UpdateWorkspaceAssignments {
         .add("principalId", principalId)
         .add("workspaceId", workspaceId)
         .toString();
+  }
+
+  UpdateWorkspaceAssignmentsPb toPb() {
+    UpdateWorkspaceAssignmentsPb pb = new UpdateWorkspaceAssignmentsPb();
+    pb.setPermissions(permissions);
+    pb.setPrincipalId(principalId);
+    pb.setWorkspaceId(workspaceId);
+
+    return pb;
+  }
+
+  static UpdateWorkspaceAssignments fromPb(UpdateWorkspaceAssignmentsPb pb) {
+    UpdateWorkspaceAssignments model = new UpdateWorkspaceAssignments();
+    model.setPermissions(pb.getPermissions());
+    model.setPrincipalId(pb.getPrincipalId());
+    model.setWorkspaceId(pb.getWorkspaceId());
+
+    return model;
+  }
+
+  public static class UpdateWorkspaceAssignmentsSerializer
+      extends JsonSerializer<UpdateWorkspaceAssignments> {
+    @Override
+    public void serialize(
+        UpdateWorkspaceAssignments value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateWorkspaceAssignmentsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateWorkspaceAssignmentsDeserializer
+      extends JsonDeserializer<UpdateWorkspaceAssignments> {
+    @Override
+    public UpdateWorkspaceAssignments deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateWorkspaceAssignmentsPb pb = mapper.readValue(p, UpdateWorkspaceAssignmentsPb.class);
+      return UpdateWorkspaceAssignments.fromPb(pb);
+    }
   }
 }

@@ -4,12 +4,23 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 /** Used when outputting a child run, in GetRun or ListRuns. */
 @Generated
+@JsonSerialize(using = RunTask.RunTaskSerializer.class)
+@JsonDeserialize(using = RunTask.RunTaskDeserializer.class)
 public class RunTask {
   /**
    * The sequence number of this run attempt for a triggered job run. The initial attempt of a run
@@ -18,7 +29,6 @@ public class RunTask {
    * original attempt’s ID and an incrementing `attempt_number`. Runs are retried only until they
    * succeed, and the maximum `attempt_number` is the same as the `max_retries` value for the job.
    */
-  @JsonProperty("attempt_number")
   private Long attemptNumber;
 
   /**
@@ -26,7 +36,6 @@ public class RunTask {
    *
    * <p>[clean rooms]: https://docs.databricks.com/en/clean-rooms/index.html
    */
-  @JsonProperty("clean_rooms_notebook_task")
   private CleanRoomsNotebookTask cleanRoomsNotebookTask;
 
   /**
@@ -35,14 +44,12 @@ public class RunTask {
    * and the `cleanup_duration`. The `cleanup_duration` field is set to 0 for multitask job runs.
    * The total duration of a multitask job run is the value of the `run_duration` field.
    */
-  @JsonProperty("cleanup_duration")
   private Long cleanupDuration;
 
   /**
    * The cluster used for this run. If the run is specified to use a new cluster, this field is set
    * once the Jobs service has requested a cluster for the run.
    */
-  @JsonProperty("cluster_instance")
   private ClusterInstance clusterInstance;
 
   /**
@@ -50,22 +57,18 @@ public class RunTask {
    * the `condition_task` field is present. The condition task does not require a cluster to execute
    * and does not support retries or notifications.
    */
-  @JsonProperty("condition_task")
   private RunConditionTask conditionTask;
 
   /** The task refreshes a dashboard and sends a snapshot to subscribers. */
-  @JsonProperty("dashboard_task")
   private DashboardTask dashboardTask;
 
   /** Task type for dbt cloud */
-  @JsonProperty("dbt_cloud_task")
   private DbtCloudTask dbtCloudTask;
 
   /**
    * The task runs one or more dbt commands when the `dbt_task` field is present. The dbt task
    * requires both Databricks SQL and the ability to use a serverless or a pro SQL warehouse.
    */
-  @JsonProperty("dbt_task")
   private DbtTask dbtTask;
 
   /**
@@ -73,15 +76,12 @@ public class RunTask {
    * in this field must complete successfully before executing this task. The key is `task_key`, and
    * the value is the name assigned to the dependent task.
    */
-  @JsonProperty("depends_on")
   private Collection<TaskDependency> dependsOn;
 
   /** An optional description for this task. */
-  @JsonProperty("description")
   private String description;
 
   /** Deprecated, field was never used in production. */
-  @JsonProperty("disabled")
   private Boolean disabled;
 
   /**
@@ -93,28 +93,24 @@ public class RunTask {
    * `PERFORMANCE_OPTIMIZED`: Prioritizes fast startup and execution times through rapid scaling and
    * optimized cluster performance.
    */
-  @JsonProperty("effective_performance_target")
   private PerformanceTarget effectivePerformanceTarget;
 
   /**
    * An optional set of email addresses notified when the task run begins or completes. The default
    * behavior is to not send any emails.
    */
-  @JsonProperty("email_notifications")
   private JobEmailNotifications emailNotifications;
 
   /**
    * The time at which this run ended in epoch milliseconds (milliseconds since 1/1/1970 UTC). This
    * field is set to 0 if the job is still running.
    */
-  @JsonProperty("end_time")
   private Long endTime;
 
   /**
    * The key that references an environment spec in a job. This field is required for Python script,
    * Python wheel and dbt tasks when using serverless compute.
    */
-  @JsonProperty("environment_key")
   private String environmentKey;
 
   /**
@@ -124,7 +120,6 @@ public class RunTask {
    * `cleanup_duration`. The `execution_duration` field is set to 0 for multitask job runs. The
    * total duration of a multitask job run is the value of the `run_duration` field.
    */
-  @JsonProperty("execution_duration")
   private Long executionDuration;
 
   /**
@@ -132,18 +127,15 @@ public class RunTask {
    * jobs or tasks on an existing cluster, you may need to manually restart the cluster if it stops
    * responding. We suggest running jobs and tasks on new clusters for greater reliability
    */
-  @JsonProperty("existing_cluster_id")
   private String existingClusterId;
 
   /**
    * The task executes a nested task for every input provided when the `for_each_task` field is
    * present.
    */
-  @JsonProperty("for_each_task")
   private RunForEachTask forEachTask;
 
   /** */
-  @JsonProperty("gen_ai_compute_task")
   private GenAiComputeTask genAiComputeTask;
 
   /**
@@ -154,69 +146,56 @@ public class RunTask {
    * task. Note: dbt and SQL File tasks support only version-controlled sources. If dbt or SQL File
    * tasks are used, `git_source` must be defined on the job.
    */
-  @JsonProperty("git_source")
   private GitSource gitSource;
 
   /**
    * If job_cluster_key, this task is executed reusing the cluster specified in
    * `job.settings.job_clusters`.
    */
-  @JsonProperty("job_cluster_key")
   private String jobClusterKey;
 
   /**
    * An optional list of libraries to be installed on the cluster. The default value is an empty
    * list.
    */
-  @JsonProperty("libraries")
   private Collection<com.databricks.sdk.service.compute.Library> libraries;
 
   /** If new_cluster, a description of a new cluster that is created for each run. */
-  @JsonProperty("new_cluster")
   private com.databricks.sdk.service.compute.ClusterSpec newCluster;
 
   /** The task runs a notebook when the `notebook_task` field is present. */
-  @JsonProperty("notebook_task")
   private NotebookTask notebookTask;
 
   /**
    * Optional notification settings that are used when sending notifications to each of the
    * `email_notifications` and `webhook_notifications` for this task run.
    */
-  @JsonProperty("notification_settings")
   private TaskNotificationSettings notificationSettings;
 
   /**
    * The task triggers a pipeline update when the `pipeline_task` field is present. Only pipelines
    * configured to use triggered more are supported.
    */
-  @JsonProperty("pipeline_task")
   private PipelineTask pipelineTask;
 
   /**
    * The task triggers a Power BI semantic model update when the `power_bi_task` field is present.
    */
-  @JsonProperty("power_bi_task")
   private PowerBiTask powerBiTask;
 
   /** The task runs a Python wheel when the `python_wheel_task` field is present. */
-  @JsonProperty("python_wheel_task")
   private PythonWheelTask pythonWheelTask;
 
   /** The time in milliseconds that the run has spent in the queue. */
-  @JsonProperty("queue_duration")
   private Long queueDuration;
 
   /** Parameter values including resolved references */
-  @JsonProperty("resolved_values")
   private ResolvedValues resolvedValues;
 
   /** The time in milliseconds it took the job run and all of its repairs to finish. */
-  @JsonProperty("run_duration")
   private Long runDuration;
 
   /** The ID of the task run. */
-  @JsonProperty("run_id")
   private Long runId;
 
   /**
@@ -224,15 +203,12 @@ public class RunTask {
    * its dependencies have been completed. When omitted, defaults to `ALL_SUCCESS`. See
    * :method:jobs/create for a list of possible values.
    */
-  @JsonProperty("run_if")
   private RunIf runIf;
 
   /** The task triggers another job when the `run_job_task` field is present. */
-  @JsonProperty("run_job_task")
   private RunJobTask runJobTask;
 
   /** */
-  @JsonProperty("run_page_url")
   private String runPageUrl;
 
   /**
@@ -242,15 +218,12 @@ public class RunTask {
    * the `cleanup_duration`. The `setup_duration` field is set to 0 for multitask job runs. The
    * total duration of a multitask job run is the value of the `run_duration` field.
    */
-  @JsonProperty("setup_duration")
   private Long setupDuration;
 
   /** The task runs a JAR when the `spark_jar_task` field is present. */
-  @JsonProperty("spark_jar_task")
   private SparkJarTask sparkJarTask;
 
   /** The task runs a Python file when the `spark_python_task` field is present. */
-  @JsonProperty("spark_python_task")
   private SparkPythonTask sparkPythonTask;
 
   /**
@@ -270,14 +243,12 @@ public class RunTask {
    *
    * <p>The `--jars`, `--py-files`, `--files` arguments support DBFS and S3 paths.
    */
-  @JsonProperty("spark_submit_task")
   private SparkSubmitTask sparkSubmitTask;
 
   /**
    * The task runs a SQL query or file, or it refreshes a SQL alert or a legacy SQL dashboard when
    * the `sql_task` field is present.
    */
-  @JsonProperty("sql_task")
   private SqlTask sqlTask;
 
   /**
@@ -285,15 +256,12 @@ public class RunTask {
    * This may not be the time when the job task starts executing, for example, if the job is
    * scheduled to run on a new cluster, this is the time the cluster creation call is issued.
    */
-  @JsonProperty("start_time")
   private Long startTime;
 
   /** Deprecated. Please use the `status` field instead. */
-  @JsonProperty("state")
   private RunState state;
 
   /** The current status of the run */
-  @JsonProperty("status")
   private RunStatus status;
 
   /**
@@ -301,11 +269,9 @@ public class RunTask {
    * field is required and must be unique within its parent job. On Update or Reset, this field is
    * used to reference the tasks to be updated or reset.
    */
-  @JsonProperty("task_key")
   private String taskKey;
 
   /** An optional timeout applied to each run of this job task. A value of `0` means no timeout. */
-  @JsonProperty("timeout_seconds")
   private Long timeoutSeconds;
 
   /**
@@ -313,7 +279,6 @@ public class RunTask {
    * behavior is to not send any system notifications. Task webhooks respect the task notification
    * settings.
    */
-  @JsonProperty("webhook_notifications")
   private WebhookNotifications webhookNotifications;
 
   public RunTask setAttemptNumber(Long attemptNumber) {
@@ -884,5 +849,127 @@ public class RunTask {
         .add("timeoutSeconds", timeoutSeconds)
         .add("webhookNotifications", webhookNotifications)
         .toString();
+  }
+
+  RunTaskPb toPb() {
+    RunTaskPb pb = new RunTaskPb();
+    pb.setAttemptNumber(attemptNumber);
+    pb.setCleanRoomsNotebookTask(cleanRoomsNotebookTask);
+    pb.setCleanupDuration(cleanupDuration);
+    pb.setClusterInstance(clusterInstance);
+    pb.setConditionTask(conditionTask);
+    pb.setDashboardTask(dashboardTask);
+    pb.setDbtCloudTask(dbtCloudTask);
+    pb.setDbtTask(dbtTask);
+    pb.setDependsOn(dependsOn);
+    pb.setDescription(description);
+    pb.setDisabled(disabled);
+    pb.setEffectivePerformanceTarget(effectivePerformanceTarget);
+    pb.setEmailNotifications(emailNotifications);
+    pb.setEndTime(endTime);
+    pb.setEnvironmentKey(environmentKey);
+    pb.setExecutionDuration(executionDuration);
+    pb.setExistingClusterId(existingClusterId);
+    pb.setForEachTask(forEachTask);
+    pb.setGenAiComputeTask(genAiComputeTask);
+    pb.setGitSource(gitSource);
+    pb.setJobClusterKey(jobClusterKey);
+    pb.setLibraries(libraries);
+    pb.setNewCluster(newCluster);
+    pb.setNotebookTask(notebookTask);
+    pb.setNotificationSettings(notificationSettings);
+    pb.setPipelineTask(pipelineTask);
+    pb.setPowerBiTask(powerBiTask);
+    pb.setPythonWheelTask(pythonWheelTask);
+    pb.setQueueDuration(queueDuration);
+    pb.setResolvedValues(resolvedValues);
+    pb.setRunDuration(runDuration);
+    pb.setRunId(runId);
+    pb.setRunIf(runIf);
+    pb.setRunJobTask(runJobTask);
+    pb.setRunPageUrl(runPageUrl);
+    pb.setSetupDuration(setupDuration);
+    pb.setSparkJarTask(sparkJarTask);
+    pb.setSparkPythonTask(sparkPythonTask);
+    pb.setSparkSubmitTask(sparkSubmitTask);
+    pb.setSqlTask(sqlTask);
+    pb.setStartTime(startTime);
+    pb.setState(state);
+    pb.setStatus(status);
+    pb.setTaskKey(taskKey);
+    pb.setTimeoutSeconds(timeoutSeconds);
+    pb.setWebhookNotifications(webhookNotifications);
+
+    return pb;
+  }
+
+  static RunTask fromPb(RunTaskPb pb) {
+    RunTask model = new RunTask();
+    model.setAttemptNumber(pb.getAttemptNumber());
+    model.setCleanRoomsNotebookTask(pb.getCleanRoomsNotebookTask());
+    model.setCleanupDuration(pb.getCleanupDuration());
+    model.setClusterInstance(pb.getClusterInstance());
+    model.setConditionTask(pb.getConditionTask());
+    model.setDashboardTask(pb.getDashboardTask());
+    model.setDbtCloudTask(pb.getDbtCloudTask());
+    model.setDbtTask(pb.getDbtTask());
+    model.setDependsOn(pb.getDependsOn());
+    model.setDescription(pb.getDescription());
+    model.setDisabled(pb.getDisabled());
+    model.setEffectivePerformanceTarget(pb.getEffectivePerformanceTarget());
+    model.setEmailNotifications(pb.getEmailNotifications());
+    model.setEndTime(pb.getEndTime());
+    model.setEnvironmentKey(pb.getEnvironmentKey());
+    model.setExecutionDuration(pb.getExecutionDuration());
+    model.setExistingClusterId(pb.getExistingClusterId());
+    model.setForEachTask(pb.getForEachTask());
+    model.setGenAiComputeTask(pb.getGenAiComputeTask());
+    model.setGitSource(pb.getGitSource());
+    model.setJobClusterKey(pb.getJobClusterKey());
+    model.setLibraries(pb.getLibraries());
+    model.setNewCluster(pb.getNewCluster());
+    model.setNotebookTask(pb.getNotebookTask());
+    model.setNotificationSettings(pb.getNotificationSettings());
+    model.setPipelineTask(pb.getPipelineTask());
+    model.setPowerBiTask(pb.getPowerBiTask());
+    model.setPythonWheelTask(pb.getPythonWheelTask());
+    model.setQueueDuration(pb.getQueueDuration());
+    model.setResolvedValues(pb.getResolvedValues());
+    model.setRunDuration(pb.getRunDuration());
+    model.setRunId(pb.getRunId());
+    model.setRunIf(pb.getRunIf());
+    model.setRunJobTask(pb.getRunJobTask());
+    model.setRunPageUrl(pb.getRunPageUrl());
+    model.setSetupDuration(pb.getSetupDuration());
+    model.setSparkJarTask(pb.getSparkJarTask());
+    model.setSparkPythonTask(pb.getSparkPythonTask());
+    model.setSparkSubmitTask(pb.getSparkSubmitTask());
+    model.setSqlTask(pb.getSqlTask());
+    model.setStartTime(pb.getStartTime());
+    model.setState(pb.getState());
+    model.setStatus(pb.getStatus());
+    model.setTaskKey(pb.getTaskKey());
+    model.setTimeoutSeconds(pb.getTimeoutSeconds());
+    model.setWebhookNotifications(pb.getWebhookNotifications());
+
+    return model;
+  }
+
+  public static class RunTaskSerializer extends JsonSerializer<RunTask> {
+    @Override
+    public void serialize(RunTask value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      RunTaskPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class RunTaskDeserializer extends JsonDeserializer<RunTask> {
+    @Override
+    public RunTask deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      RunTaskPb pb = mapper.readValue(p, RunTaskPb.class);
+      return RunTask.fromPb(pb);
+    }
   }
 }

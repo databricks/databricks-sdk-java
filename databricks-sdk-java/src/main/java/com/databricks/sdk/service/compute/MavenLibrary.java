@@ -4,14 +4,24 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = MavenLibrary.MavenLibrarySerializer.class)
+@JsonDeserialize(using = MavenLibrary.MavenLibraryDeserializer.class)
 public class MavenLibrary {
   /** Gradle-style maven coordinates. For example: "org.jsoup:jsoup:1.7.2". */
-  @JsonProperty("coordinates")
   private String coordinates;
 
   /**
@@ -20,14 +30,12 @@ public class MavenLibrary {
    * <p>Maven dependency exclusions:
    * https://maven.apache.org/guides/introduction/introduction-to-optional-and-excludes-dependencies.html.
    */
-  @JsonProperty("exclusions")
   private Collection<String> exclusions;
 
   /**
    * Maven repo to install the Maven package from. If omitted, both Maven Central Repository and
    * Spark Packages are searched.
    */
-  @JsonProperty("repo")
   private String repo;
 
   public MavenLibrary setCoordinates(String coordinates) {
@@ -79,5 +87,41 @@ public class MavenLibrary {
         .add("exclusions", exclusions)
         .add("repo", repo)
         .toString();
+  }
+
+  MavenLibraryPb toPb() {
+    MavenLibraryPb pb = new MavenLibraryPb();
+    pb.setCoordinates(coordinates);
+    pb.setExclusions(exclusions);
+    pb.setRepo(repo);
+
+    return pb;
+  }
+
+  static MavenLibrary fromPb(MavenLibraryPb pb) {
+    MavenLibrary model = new MavenLibrary();
+    model.setCoordinates(pb.getCoordinates());
+    model.setExclusions(pb.getExclusions());
+    model.setRepo(pb.getRepo());
+
+    return model;
+  }
+
+  public static class MavenLibrarySerializer extends JsonSerializer<MavenLibrary> {
+    @Override
+    public void serialize(MavenLibrary value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      MavenLibraryPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class MavenLibraryDeserializer extends JsonDeserializer<MavenLibrary> {
+    @Override
+    public MavenLibrary deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      MavenLibraryPb pb = mapper.readValue(p, MavenLibraryPb.class);
+      return MavenLibrary.fromPb(pb);
+    }
   }
 }

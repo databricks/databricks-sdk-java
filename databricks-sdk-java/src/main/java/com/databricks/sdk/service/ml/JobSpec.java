@@ -4,24 +4,32 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = JobSpec.JobSpecSerializer.class)
+@JsonDeserialize(using = JobSpec.JobSpecDeserializer.class)
 public class JobSpec {
   /** The personal access token used to authorize webhook's job runs. */
-  @JsonProperty("access_token")
   private String accessToken;
 
   /** ID of the job that the webhook runs. */
-  @JsonProperty("job_id")
   private String jobId;
 
   /**
    * URL of the workspace containing the job that this webhook runs. If not specified, the job’s
    * workspace URL is assumed to be the same as the workspace where the webhook is created.
    */
-  @JsonProperty("workspace_url")
   private String workspaceUrl;
 
   public JobSpec setAccessToken(String accessToken) {
@@ -73,5 +81,41 @@ public class JobSpec {
         .add("jobId", jobId)
         .add("workspaceUrl", workspaceUrl)
         .toString();
+  }
+
+  JobSpecPb toPb() {
+    JobSpecPb pb = new JobSpecPb();
+    pb.setAccessToken(accessToken);
+    pb.setJobId(jobId);
+    pb.setWorkspaceUrl(workspaceUrl);
+
+    return pb;
+  }
+
+  static JobSpec fromPb(JobSpecPb pb) {
+    JobSpec model = new JobSpec();
+    model.setAccessToken(pb.getAccessToken());
+    model.setJobId(pb.getJobId());
+    model.setWorkspaceUrl(pb.getWorkspaceUrl());
+
+    return model;
+  }
+
+  public static class JobSpecSerializer extends JsonSerializer<JobSpec> {
+    @Override
+    public void serialize(JobSpec value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      JobSpecPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class JobSpecDeserializer extends JsonDeserializer<JobSpec> {
+    @Override
+    public JobSpec deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      JobSpecPb pb = mapper.readValue(p, JobSpecPb.class);
+      return JobSpec.fromPb(pb);
+    }
   }
 }

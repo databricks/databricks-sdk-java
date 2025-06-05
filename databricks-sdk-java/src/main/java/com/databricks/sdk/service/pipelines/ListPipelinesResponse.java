@@ -4,18 +4,27 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ListPipelinesResponse.ListPipelinesResponseSerializer.class)
+@JsonDeserialize(using = ListPipelinesResponse.ListPipelinesResponseDeserializer.class)
 public class ListPipelinesResponse {
   /** If present, a token to fetch the next page of events. */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   /** The list of events matching the request criteria. */
-  @JsonProperty("statuses")
   private Collection<PipelineStateInfo> statuses;
 
   public ListPipelinesResponse setNextPageToken(String nextPageToken) {
@@ -56,5 +65,43 @@ public class ListPipelinesResponse {
         .add("nextPageToken", nextPageToken)
         .add("statuses", statuses)
         .toString();
+  }
+
+  ListPipelinesResponsePb toPb() {
+    ListPipelinesResponsePb pb = new ListPipelinesResponsePb();
+    pb.setNextPageToken(nextPageToken);
+    pb.setStatuses(statuses);
+
+    return pb;
+  }
+
+  static ListPipelinesResponse fromPb(ListPipelinesResponsePb pb) {
+    ListPipelinesResponse model = new ListPipelinesResponse();
+    model.setNextPageToken(pb.getNextPageToken());
+    model.setStatuses(pb.getStatuses());
+
+    return model;
+  }
+
+  public static class ListPipelinesResponseSerializer
+      extends JsonSerializer<ListPipelinesResponse> {
+    @Override
+    public void serialize(
+        ListPipelinesResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListPipelinesResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListPipelinesResponseDeserializer
+      extends JsonDeserializer<ListPipelinesResponse> {
+    @Override
+    public ListPipelinesResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListPipelinesResponsePb pb = mapper.readValue(p, ListPipelinesResponsePb.class);
+      return ListPipelinesResponse.fromPb(pb);
+    }
   }
 }

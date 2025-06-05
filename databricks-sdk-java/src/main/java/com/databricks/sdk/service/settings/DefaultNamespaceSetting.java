@@ -4,7 +4,16 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -17,6 +26,8 @@ import java.util.Objects;
  * applies when using Unity Catalog-enabled compute.
  */
 @Generated
+@JsonSerialize(using = DefaultNamespaceSetting.DefaultNamespaceSettingSerializer.class)
+@JsonDeserialize(using = DefaultNamespaceSetting.DefaultNamespaceSettingDeserializer.class)
 public class DefaultNamespaceSetting {
   /**
    * etag used for versioning. The response is at least as fresh as the eTag provided. This is used
@@ -26,11 +37,9 @@ public class DefaultNamespaceSetting {
    * etag from a GET request, and pass it with the PATCH request to identify the setting version you
    * are updating.
    */
-  @JsonProperty("etag")
   private String etag;
 
   /** */
-  @JsonProperty("namespace")
   private StringMessage namespace;
 
   /**
@@ -39,7 +48,6 @@ public class DefaultNamespaceSetting {
    * respected instead. Setting name is required to be 'default' if the setting only has one
    * instance per workspace.
    */
-  @JsonProperty("setting_name")
   private String settingName;
 
   public DefaultNamespaceSetting setEtag(String etag) {
@@ -91,5 +99,45 @@ public class DefaultNamespaceSetting {
         .add("namespace", namespace)
         .add("settingName", settingName)
         .toString();
+  }
+
+  DefaultNamespaceSettingPb toPb() {
+    DefaultNamespaceSettingPb pb = new DefaultNamespaceSettingPb();
+    pb.setEtag(etag);
+    pb.setNamespace(namespace);
+    pb.setSettingName(settingName);
+
+    return pb;
+  }
+
+  static DefaultNamespaceSetting fromPb(DefaultNamespaceSettingPb pb) {
+    DefaultNamespaceSetting model = new DefaultNamespaceSetting();
+    model.setEtag(pb.getEtag());
+    model.setNamespace(pb.getNamespace());
+    model.setSettingName(pb.getSettingName());
+
+    return model;
+  }
+
+  public static class DefaultNamespaceSettingSerializer
+      extends JsonSerializer<DefaultNamespaceSetting> {
+    @Override
+    public void serialize(
+        DefaultNamespaceSetting value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DefaultNamespaceSettingPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DefaultNamespaceSettingDeserializer
+      extends JsonDeserializer<DefaultNamespaceSetting> {
+    @Override
+    public DefaultNamespaceSetting deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DefaultNamespaceSettingPb pb = mapper.readValue(p, DefaultNamespaceSettingPb.class);
+      return DefaultNamespaceSetting.fromPb(pb);
+    }
   }
 }

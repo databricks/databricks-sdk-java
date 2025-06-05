@@ -4,18 +4,29 @@ package com.databricks.sdk.service.vectorsearch;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = PatchEndpointBudgetPolicyRequest.PatchEndpointBudgetPolicyRequestSerializer.class)
+@JsonDeserialize(
+    using = PatchEndpointBudgetPolicyRequest.PatchEndpointBudgetPolicyRequestDeserializer.class)
 public class PatchEndpointBudgetPolicyRequest {
   /** The budget policy id to be applied */
-  @JsonProperty("budget_policy_id")
   private String budgetPolicyId;
 
   /** Name of the vector search endpoint */
-  @JsonIgnore private String endpointName;
+  private String endpointName;
 
   public PatchEndpointBudgetPolicyRequest setBudgetPolicyId(String budgetPolicyId) {
     this.budgetPolicyId = budgetPolicyId;
@@ -55,5 +66,44 @@ public class PatchEndpointBudgetPolicyRequest {
         .add("budgetPolicyId", budgetPolicyId)
         .add("endpointName", endpointName)
         .toString();
+  }
+
+  PatchEndpointBudgetPolicyRequestPb toPb() {
+    PatchEndpointBudgetPolicyRequestPb pb = new PatchEndpointBudgetPolicyRequestPb();
+    pb.setBudgetPolicyId(budgetPolicyId);
+    pb.setEndpointName(endpointName);
+
+    return pb;
+  }
+
+  static PatchEndpointBudgetPolicyRequest fromPb(PatchEndpointBudgetPolicyRequestPb pb) {
+    PatchEndpointBudgetPolicyRequest model = new PatchEndpointBudgetPolicyRequest();
+    model.setBudgetPolicyId(pb.getBudgetPolicyId());
+    model.setEndpointName(pb.getEndpointName());
+
+    return model;
+  }
+
+  public static class PatchEndpointBudgetPolicyRequestSerializer
+      extends JsonSerializer<PatchEndpointBudgetPolicyRequest> {
+    @Override
+    public void serialize(
+        PatchEndpointBudgetPolicyRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PatchEndpointBudgetPolicyRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PatchEndpointBudgetPolicyRequestDeserializer
+      extends JsonDeserializer<PatchEndpointBudgetPolicyRequest> {
+    @Override
+    public PatchEndpointBudgetPolicyRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PatchEndpointBudgetPolicyRequestPb pb =
+          mapper.readValue(p, PatchEndpointBudgetPolicyRequestPb.class);
+      return PatchEndpointBudgetPolicyRequest.fromPb(pb);
+    }
   }
 }

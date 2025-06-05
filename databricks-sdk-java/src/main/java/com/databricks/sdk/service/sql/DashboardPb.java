@@ -1,0 +1,286 @@
+// Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
+
+package com.databricks.sdk.service.sql;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
+
+/** A JSON representing a dashboard containing widgets of visualizations and text boxes. */
+@Generated
+class DashboardPb {
+  @JsonProperty("can_edit")
+  private Boolean canEdit;
+
+  @JsonProperty("created_at")
+  private String createdAt;
+
+  @JsonProperty("dashboard_filters_enabled")
+  private Boolean dashboardFiltersEnabled;
+
+  @JsonProperty("id")
+  private String id;
+
+  @JsonProperty("is_archived")
+  private Boolean isArchived;
+
+  @JsonProperty("is_draft")
+  private Boolean isDraft;
+
+  @JsonProperty("is_favorite")
+  private Boolean isFavorite;
+
+  @JsonProperty("name")
+  private String name;
+
+  @JsonProperty("options")
+  private DashboardOptions options;
+
+  @JsonProperty("parent")
+  private String parent;
+
+  @JsonProperty("permission_tier")
+  private PermissionLevel permissionTier;
+
+  @JsonProperty("slug")
+  private String slug;
+
+  @JsonProperty("tags")
+  private Collection<String> tags;
+
+  @JsonProperty("updated_at")
+  private String updatedAt;
+
+  @JsonProperty("user")
+  private User user;
+
+  @JsonProperty("user_id")
+  private Long userId;
+
+  @JsonProperty("widgets")
+  private Collection<Widget> widgets;
+
+  public DashboardPb setCanEdit(Boolean canEdit) {
+    this.canEdit = canEdit;
+    return this;
+  }
+
+  public Boolean getCanEdit() {
+    return canEdit;
+  }
+
+  public DashboardPb setCreatedAt(String createdAt) {
+    this.createdAt = createdAt;
+    return this;
+  }
+
+  public String getCreatedAt() {
+    return createdAt;
+  }
+
+  public DashboardPb setDashboardFiltersEnabled(Boolean dashboardFiltersEnabled) {
+    this.dashboardFiltersEnabled = dashboardFiltersEnabled;
+    return this;
+  }
+
+  public Boolean getDashboardFiltersEnabled() {
+    return dashboardFiltersEnabled;
+  }
+
+  public DashboardPb setId(String id) {
+    this.id = id;
+    return this;
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public DashboardPb setIsArchived(Boolean isArchived) {
+    this.isArchived = isArchived;
+    return this;
+  }
+
+  public Boolean getIsArchived() {
+    return isArchived;
+  }
+
+  public DashboardPb setIsDraft(Boolean isDraft) {
+    this.isDraft = isDraft;
+    return this;
+  }
+
+  public Boolean getIsDraft() {
+    return isDraft;
+  }
+
+  public DashboardPb setIsFavorite(Boolean isFavorite) {
+    this.isFavorite = isFavorite;
+    return this;
+  }
+
+  public Boolean getIsFavorite() {
+    return isFavorite;
+  }
+
+  public DashboardPb setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public DashboardPb setOptions(DashboardOptions options) {
+    this.options = options;
+    return this;
+  }
+
+  public DashboardOptions getOptions() {
+    return options;
+  }
+
+  public DashboardPb setParent(String parent) {
+    this.parent = parent;
+    return this;
+  }
+
+  public String getParent() {
+    return parent;
+  }
+
+  public DashboardPb setPermissionTier(PermissionLevel permissionTier) {
+    this.permissionTier = permissionTier;
+    return this;
+  }
+
+  public PermissionLevel getPermissionTier() {
+    return permissionTier;
+  }
+
+  public DashboardPb setSlug(String slug) {
+    this.slug = slug;
+    return this;
+  }
+
+  public String getSlug() {
+    return slug;
+  }
+
+  public DashboardPb setTags(Collection<String> tags) {
+    this.tags = tags;
+    return this;
+  }
+
+  public Collection<String> getTags() {
+    return tags;
+  }
+
+  public DashboardPb setUpdatedAt(String updatedAt) {
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+  public String getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public DashboardPb setUser(User user) {
+    this.user = user;
+    return this;
+  }
+
+  public User getUser() {
+    return user;
+  }
+
+  public DashboardPb setUserId(Long userId) {
+    this.userId = userId;
+    return this;
+  }
+
+  public Long getUserId() {
+    return userId;
+  }
+
+  public DashboardPb setWidgets(Collection<Widget> widgets) {
+    this.widgets = widgets;
+    return this;
+  }
+
+  public Collection<Widget> getWidgets() {
+    return widgets;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    DashboardPb that = (DashboardPb) o;
+    return Objects.equals(canEdit, that.canEdit)
+        && Objects.equals(createdAt, that.createdAt)
+        && Objects.equals(dashboardFiltersEnabled, that.dashboardFiltersEnabled)
+        && Objects.equals(id, that.id)
+        && Objects.equals(isArchived, that.isArchived)
+        && Objects.equals(isDraft, that.isDraft)
+        && Objects.equals(isFavorite, that.isFavorite)
+        && Objects.equals(name, that.name)
+        && Objects.equals(options, that.options)
+        && Objects.equals(parent, that.parent)
+        && Objects.equals(permissionTier, that.permissionTier)
+        && Objects.equals(slug, that.slug)
+        && Objects.equals(tags, that.tags)
+        && Objects.equals(updatedAt, that.updatedAt)
+        && Objects.equals(user, that.user)
+        && Objects.equals(userId, that.userId)
+        && Objects.equals(widgets, that.widgets);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        canEdit,
+        createdAt,
+        dashboardFiltersEnabled,
+        id,
+        isArchived,
+        isDraft,
+        isFavorite,
+        name,
+        options,
+        parent,
+        permissionTier,
+        slug,
+        tags,
+        updatedAt,
+        user,
+        userId,
+        widgets);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(DashboardPb.class)
+        .add("canEdit", canEdit)
+        .add("createdAt", createdAt)
+        .add("dashboardFiltersEnabled", dashboardFiltersEnabled)
+        .add("id", id)
+        .add("isArchived", isArchived)
+        .add("isDraft", isDraft)
+        .add("isFavorite", isFavorite)
+        .add("name", name)
+        .add("options", options)
+        .add("parent", parent)
+        .add("permissionTier", permissionTier)
+        .add("slug", slug)
+        .add("tags", tags)
+        .add("updatedAt", updatedAt)
+        .add("user", user)
+        .add("userId", userId)
+        .add("widgets", widgets)
+        .toString();
+  }
+}

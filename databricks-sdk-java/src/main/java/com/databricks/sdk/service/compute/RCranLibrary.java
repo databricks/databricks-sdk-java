@@ -4,19 +4,28 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = RCranLibrary.RCranLibrarySerializer.class)
+@JsonDeserialize(using = RCranLibrary.RCranLibraryDeserializer.class)
 public class RCranLibrary {
   /** The name of the CRAN package to install. */
-  @JsonProperty("package")
   private String packageValue;
 
   /**
    * The repository where the package can be found. If not specified, the default CRAN repo is used.
    */
-  @JsonProperty("repo")
   private String repo;
 
   public RCranLibrary setPackage(String packageValue) {
@@ -56,5 +65,39 @@ public class RCranLibrary {
         .add("packageValue", packageValue)
         .add("repo", repo)
         .toString();
+  }
+
+  RCranLibraryPb toPb() {
+    RCranLibraryPb pb = new RCranLibraryPb();
+    pb.setPackage(packageValue);
+    pb.setRepo(repo);
+
+    return pb;
+  }
+
+  static RCranLibrary fromPb(RCranLibraryPb pb) {
+    RCranLibrary model = new RCranLibrary();
+    model.setPackage(pb.getPackage());
+    model.setRepo(pb.getRepo());
+
+    return model;
+  }
+
+  public static class RCranLibrarySerializer extends JsonSerializer<RCranLibrary> {
+    @Override
+    public void serialize(RCranLibrary value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      RCranLibraryPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class RCranLibraryDeserializer extends JsonDeserializer<RCranLibrary> {
+    @Override
+    public RCranLibrary deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      RCranLibraryPb pb = mapper.readValue(p, RCranLibraryPb.class);
+      return RCranLibrary.fromPb(pb);
+    }
   }
 }

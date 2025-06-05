@@ -4,18 +4,27 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = SearchExperiments.SearchExperimentsSerializer.class)
+@JsonDeserialize(using = SearchExperiments.SearchExperimentsDeserializer.class)
 public class SearchExperiments {
   /** String representing a SQL filter condition (e.g. "name ILIKE 'my-experiment%'") */
-  @JsonProperty("filter")
   private String filter;
 
   /** Maximum number of experiments desired. Max threshold is 3000. */
-  @JsonProperty("max_results")
   private Long maxResults;
 
   /**
@@ -23,18 +32,15 @@ public class SearchExperiments {
    * timestamp with an optional "DESC" or "ASC" annotation, where "ASC" is the default. Tiebreaks
    * are done by experiment id DESC.
    */
-  @JsonProperty("order_by")
   private Collection<String> orderBy;
 
   /** Token indicating the page of experiments to fetch */
-  @JsonProperty("page_token")
   private String pageToken;
 
   /**
    * Qualifier for type of experiments to be returned. If unspecified, return only active
    * experiments.
    */
-  @JsonProperty("view_type")
   private ViewType viewType;
 
   public SearchExperiments setFilter(String filter) {
@@ -108,5 +114,46 @@ public class SearchExperiments {
         .add("pageToken", pageToken)
         .add("viewType", viewType)
         .toString();
+  }
+
+  SearchExperimentsPb toPb() {
+    SearchExperimentsPb pb = new SearchExperimentsPb();
+    pb.setFilter(filter);
+    pb.setMaxResults(maxResults);
+    pb.setOrderBy(orderBy);
+    pb.setPageToken(pageToken);
+    pb.setViewType(viewType);
+
+    return pb;
+  }
+
+  static SearchExperiments fromPb(SearchExperimentsPb pb) {
+    SearchExperiments model = new SearchExperiments();
+    model.setFilter(pb.getFilter());
+    model.setMaxResults(pb.getMaxResults());
+    model.setOrderBy(pb.getOrderBy());
+    model.setPageToken(pb.getPageToken());
+    model.setViewType(pb.getViewType());
+
+    return model;
+  }
+
+  public static class SearchExperimentsSerializer extends JsonSerializer<SearchExperiments> {
+    @Override
+    public void serialize(SearchExperiments value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SearchExperimentsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SearchExperimentsDeserializer extends JsonDeserializer<SearchExperiments> {
+    @Override
+    public SearchExperiments deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SearchExperimentsPb pb = mapper.readValue(p, SearchExperimentsPb.class);
+      return SearchExperiments.fromPb(pb);
+    }
   }
 }

@@ -3,17 +3,25 @@
 package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Return billable usage logs */
 @Generated
+@JsonSerialize(using = DownloadRequest.DownloadRequestSerializer.class)
+@JsonDeserialize(using = DownloadRequest.DownloadRequestDeserializer.class)
 public class DownloadRequest {
   /** Format: `YYYY-MM`. Last month to return billable usage logs for. This field is required. */
-  @JsonIgnore
-  @QueryParam("end_month")
   private String endMonth;
 
   /**
@@ -21,13 +29,9 @@ public class DownloadRequest {
    * example the email addresses of cluster creators. Handle this information with care. Defaults to
    * false.
    */
-  @JsonIgnore
-  @QueryParam("personal_data")
   private Boolean personalData;
 
   /** Format: `YYYY-MM`. First month to return billable usage logs for. This field is required. */
-  @JsonIgnore
-  @QueryParam("start_month")
   private String startMonth;
 
   public DownloadRequest setEndMonth(String endMonth) {
@@ -79,5 +83,42 @@ public class DownloadRequest {
         .add("personalData", personalData)
         .add("startMonth", startMonth)
         .toString();
+  }
+
+  DownloadRequestPb toPb() {
+    DownloadRequestPb pb = new DownloadRequestPb();
+    pb.setEndMonth(endMonth);
+    pb.setPersonalData(personalData);
+    pb.setStartMonth(startMonth);
+
+    return pb;
+  }
+
+  static DownloadRequest fromPb(DownloadRequestPb pb) {
+    DownloadRequest model = new DownloadRequest();
+    model.setEndMonth(pb.getEndMonth());
+    model.setPersonalData(pb.getPersonalData());
+    model.setStartMonth(pb.getStartMonth());
+
+    return model;
+  }
+
+  public static class DownloadRequestSerializer extends JsonSerializer<DownloadRequest> {
+    @Override
+    public void serialize(DownloadRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DownloadRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DownloadRequestDeserializer extends JsonDeserializer<DownloadRequest> {
+    @Override
+    public DownloadRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DownloadRequestPb pb = mapper.readValue(p, DownloadRequestPb.class);
+      return DownloadRequest.fromPb(pb);
+    }
   }
 }

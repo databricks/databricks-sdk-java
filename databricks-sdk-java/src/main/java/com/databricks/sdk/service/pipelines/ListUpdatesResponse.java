@@ -4,25 +4,33 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ListUpdatesResponse.ListUpdatesResponseSerializer.class)
+@JsonDeserialize(using = ListUpdatesResponse.ListUpdatesResponseDeserializer.class)
 public class ListUpdatesResponse {
   /**
    * If present, then there are more results, and this a token to be used in a subsequent request to
    * fetch the next page.
    */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   /** If present, then this token can be used in a subsequent request to fetch the previous page. */
-  @JsonProperty("prev_page_token")
   private String prevPageToken;
 
   /** */
-  @JsonProperty("updates")
   private Collection<UpdateInfo> updates;
 
   public ListUpdatesResponse setNextPageToken(String nextPageToken) {
@@ -74,5 +82,43 @@ public class ListUpdatesResponse {
         .add("prevPageToken", prevPageToken)
         .add("updates", updates)
         .toString();
+  }
+
+  ListUpdatesResponsePb toPb() {
+    ListUpdatesResponsePb pb = new ListUpdatesResponsePb();
+    pb.setNextPageToken(nextPageToken);
+    pb.setPrevPageToken(prevPageToken);
+    pb.setUpdates(updates);
+
+    return pb;
+  }
+
+  static ListUpdatesResponse fromPb(ListUpdatesResponsePb pb) {
+    ListUpdatesResponse model = new ListUpdatesResponse();
+    model.setNextPageToken(pb.getNextPageToken());
+    model.setPrevPageToken(pb.getPrevPageToken());
+    model.setUpdates(pb.getUpdates());
+
+    return model;
+  }
+
+  public static class ListUpdatesResponseSerializer extends JsonSerializer<ListUpdatesResponse> {
+    @Override
+    public void serialize(ListUpdatesResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListUpdatesResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListUpdatesResponseDeserializer
+      extends JsonDeserializer<ListUpdatesResponse> {
+    @Override
+    public ListUpdatesResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListUpdatesResponsePb pb = mapper.readValue(p, ListUpdatesResponsePb.class);
+      return ListUpdatesResponse.fromPb(pb);
+    }
   }
 }

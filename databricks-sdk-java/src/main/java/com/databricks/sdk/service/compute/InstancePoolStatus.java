@@ -4,18 +4,28 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = InstancePoolStatus.InstancePoolStatusSerializer.class)
+@JsonDeserialize(using = InstancePoolStatus.InstancePoolStatusDeserializer.class)
 public class InstancePoolStatus {
   /**
    * List of error messages for the failed pending instances. The pending_instance_errors follows
    * FIFO with maximum length of the min_idle of the pool. The pending_instance_errors is emptied
    * once the number of exiting available instances reaches the min_idle of the pool.
    */
-  @JsonProperty("pending_instance_errors")
   private Collection<PendingInstanceError> pendingInstanceErrors;
 
   public InstancePoolStatus setPendingInstanceErrors(
@@ -46,5 +56,38 @@ public class InstancePoolStatus {
     return new ToStringer(InstancePoolStatus.class)
         .add("pendingInstanceErrors", pendingInstanceErrors)
         .toString();
+  }
+
+  InstancePoolStatusPb toPb() {
+    InstancePoolStatusPb pb = new InstancePoolStatusPb();
+    pb.setPendingInstanceErrors(pendingInstanceErrors);
+
+    return pb;
+  }
+
+  static InstancePoolStatus fromPb(InstancePoolStatusPb pb) {
+    InstancePoolStatus model = new InstancePoolStatus();
+    model.setPendingInstanceErrors(pb.getPendingInstanceErrors());
+
+    return model;
+  }
+
+  public static class InstancePoolStatusSerializer extends JsonSerializer<InstancePoolStatus> {
+    @Override
+    public void serialize(InstancePoolStatus value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      InstancePoolStatusPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class InstancePoolStatusDeserializer extends JsonDeserializer<InstancePoolStatus> {
+    @Override
+    public InstancePoolStatus deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      InstancePoolStatusPb pb = mapper.readValue(p, InstancePoolStatusPb.class);
+      return InstancePoolStatus.fromPb(pb);
+    }
   }
 }

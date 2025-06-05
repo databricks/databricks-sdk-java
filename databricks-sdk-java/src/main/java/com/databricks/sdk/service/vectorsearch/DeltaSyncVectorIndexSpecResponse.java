@@ -4,29 +4,38 @@ package com.databricks.sdk.service.vectorsearch;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = DeltaSyncVectorIndexSpecResponse.DeltaSyncVectorIndexSpecResponseSerializer.class)
+@JsonDeserialize(
+    using = DeltaSyncVectorIndexSpecResponse.DeltaSyncVectorIndexSpecResponseDeserializer.class)
 public class DeltaSyncVectorIndexSpecResponse {
   /** The columns that contain the embedding source. */
-  @JsonProperty("embedding_source_columns")
   private Collection<EmbeddingSourceColumn> embeddingSourceColumns;
 
   /** The columns that contain the embedding vectors. */
-  @JsonProperty("embedding_vector_columns")
   private Collection<EmbeddingVectorColumn> embeddingVectorColumns;
 
   /**
    * [Optional] Name of the Delta table to sync the vector index contents and computed embeddings
    * to.
    */
-  @JsonProperty("embedding_writeback_table")
   private String embeddingWritebackTable;
 
   /** The ID of the pipeline that is used to sync the index. */
-  @JsonProperty("pipeline_id")
   private String pipelineId;
 
   /**
@@ -36,11 +45,9 @@ public class DeltaSyncVectorIndexSpecResponse {
    * `CONTINUOUS`: If the pipeline uses continuous execution, the pipeline processes new data as it
    * arrives in the source table to keep vector index fresh.
    */
-  @JsonProperty("pipeline_type")
   private PipelineType pipelineType;
 
   /** The name of the source table. */
-  @JsonProperty("source_table")
   private String sourceTable;
 
   public DeltaSyncVectorIndexSpecResponse setEmbeddingSourceColumns(
@@ -134,5 +141,52 @@ public class DeltaSyncVectorIndexSpecResponse {
         .add("pipelineType", pipelineType)
         .add("sourceTable", sourceTable)
         .toString();
+  }
+
+  DeltaSyncVectorIndexSpecResponsePb toPb() {
+    DeltaSyncVectorIndexSpecResponsePb pb = new DeltaSyncVectorIndexSpecResponsePb();
+    pb.setEmbeddingSourceColumns(embeddingSourceColumns);
+    pb.setEmbeddingVectorColumns(embeddingVectorColumns);
+    pb.setEmbeddingWritebackTable(embeddingWritebackTable);
+    pb.setPipelineId(pipelineId);
+    pb.setPipelineType(pipelineType);
+    pb.setSourceTable(sourceTable);
+
+    return pb;
+  }
+
+  static DeltaSyncVectorIndexSpecResponse fromPb(DeltaSyncVectorIndexSpecResponsePb pb) {
+    DeltaSyncVectorIndexSpecResponse model = new DeltaSyncVectorIndexSpecResponse();
+    model.setEmbeddingSourceColumns(pb.getEmbeddingSourceColumns());
+    model.setEmbeddingVectorColumns(pb.getEmbeddingVectorColumns());
+    model.setEmbeddingWritebackTable(pb.getEmbeddingWritebackTable());
+    model.setPipelineId(pb.getPipelineId());
+    model.setPipelineType(pb.getPipelineType());
+    model.setSourceTable(pb.getSourceTable());
+
+    return model;
+  }
+
+  public static class DeltaSyncVectorIndexSpecResponseSerializer
+      extends JsonSerializer<DeltaSyncVectorIndexSpecResponse> {
+    @Override
+    public void serialize(
+        DeltaSyncVectorIndexSpecResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DeltaSyncVectorIndexSpecResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DeltaSyncVectorIndexSpecResponseDeserializer
+      extends JsonDeserializer<DeltaSyncVectorIndexSpecResponse> {
+    @Override
+    public DeltaSyncVectorIndexSpecResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DeltaSyncVectorIndexSpecResponsePb pb =
+          mapper.readValue(p, DeltaSyncVectorIndexSpecResponsePb.class);
+      return DeltaSyncVectorIndexSpecResponse.fromPb(pb);
+    }
   }
 }

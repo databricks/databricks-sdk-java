@@ -4,11 +4,22 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** A JSON object representing a DBSQL data source / SQL warehouse. */
 @Generated
+@JsonSerialize(using = DataSource.DataSourceSerializer.class)
+@JsonDeserialize(using = DataSource.DataSourceDeserializer.class)
 public class DataSource {
   /**
    * Data source ID maps to the ID of the data source used by the resource and is distinct from the
@@ -16,42 +27,33 @@ public class DataSource {
    *
    * <p>[Learn more]: https://docs.databricks.com/api/workspace/datasources/list
    */
-  @JsonProperty("id")
   private String id;
 
   /**
    * The string name of this data source / SQL warehouse as it appears in the Databricks SQL web
    * application.
    */
-  @JsonProperty("name")
   private String name;
 
   /** Reserved for internal use. */
-  @JsonProperty("pause_reason")
   private String pauseReason;
 
   /** Reserved for internal use. */
-  @JsonProperty("paused")
   private Long paused;
 
   /** Reserved for internal use. */
-  @JsonProperty("supports_auto_limit")
   private Boolean supportsAutoLimit;
 
   /** Reserved for internal use. */
-  @JsonProperty("syntax")
   private String syntax;
 
   /** The type of data source. For SQL warehouses, this will be `databricks_internal`. */
-  @JsonProperty("type")
   private String typeValue;
 
   /** Reserved for internal use. */
-  @JsonProperty("view_only")
   private Boolean viewOnly;
 
   /** The ID of the associated SQL warehouse, if this data source is backed by a SQL warehouse. */
-  @JsonProperty("warehouse_id")
   private String warehouseId;
 
   public DataSource setId(String id) {
@@ -170,5 +172,53 @@ public class DataSource {
         .add("viewOnly", viewOnly)
         .add("warehouseId", warehouseId)
         .toString();
+  }
+
+  DataSourcePb toPb() {
+    DataSourcePb pb = new DataSourcePb();
+    pb.setId(id);
+    pb.setName(name);
+    pb.setPauseReason(pauseReason);
+    pb.setPaused(paused);
+    pb.setSupportsAutoLimit(supportsAutoLimit);
+    pb.setSyntax(syntax);
+    pb.setType(typeValue);
+    pb.setViewOnly(viewOnly);
+    pb.setWarehouseId(warehouseId);
+
+    return pb;
+  }
+
+  static DataSource fromPb(DataSourcePb pb) {
+    DataSource model = new DataSource();
+    model.setId(pb.getId());
+    model.setName(pb.getName());
+    model.setPauseReason(pb.getPauseReason());
+    model.setPaused(pb.getPaused());
+    model.setSupportsAutoLimit(pb.getSupportsAutoLimit());
+    model.setSyntax(pb.getSyntax());
+    model.setType(pb.getType());
+    model.setViewOnly(pb.getViewOnly());
+    model.setWarehouseId(pb.getWarehouseId());
+
+    return model;
+  }
+
+  public static class DataSourceSerializer extends JsonSerializer<DataSource> {
+    @Override
+    public void serialize(DataSource value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DataSourcePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DataSourceDeserializer extends JsonDeserializer<DataSource> {
+    @Override
+    public DataSource deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DataSourcePb pb = mapper.readValue(p, DataSourcePb.class);
+      return DataSource.fromPb(pb);
+    }
   }
 }

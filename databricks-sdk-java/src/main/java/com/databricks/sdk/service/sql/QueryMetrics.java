@@ -4,7 +4,16 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -12,31 +21,28 @@ import java.util.Objects;
  * driver and are stored in the history service database.
  */
 @Generated
+@JsonSerialize(using = QueryMetrics.QueryMetricsSerializer.class)
+@JsonDeserialize(using = QueryMetrics.QueryMetricsDeserializer.class)
 public class QueryMetrics {
   /** Time spent loading metadata and optimizing the query, in milliseconds. */
-  @JsonProperty("compilation_time_ms")
   private Long compilationTimeMs;
 
   /** Time spent executing the query, in milliseconds. */
-  @JsonProperty("execution_time_ms")
   private Long executionTimeMs;
 
   /** Total amount of data sent over the network between executor nodes during shuffle, in bytes. */
-  @JsonProperty("network_sent_bytes")
   private Long networkSentBytes;
 
   /**
    * Timestamp of when the query was enqueued waiting while the warehouse was at max load. This
    * field is optional and will not appear if the query skipped the overloading queue.
    */
-  @JsonProperty("overloading_queue_start_timestamp")
   private Long overloadingQueueStartTimestamp;
 
   /**
    * Total execution time for all individual Photon query engine tasks in the query, in
    * milliseconds.
    */
-  @JsonProperty("photon_total_time_ms")
   private Long photonTotalTimeMs;
 
   /**
@@ -44,78 +50,60 @@ public class QueryMetrics {
    * warehouse. This field is optional and will not appear if the query skipped the provisioning
    * queue.
    */
-  @JsonProperty("provisioning_queue_start_timestamp")
   private Long provisioningQueueStartTimestamp;
 
   /** Total number of bytes in all tables not read due to pruning */
-  @JsonProperty("pruned_bytes")
   private Long prunedBytes;
 
   /** Total number of files from all tables not read due to pruning */
-  @JsonProperty("pruned_files_count")
   private Long prunedFilesCount;
 
   /** Timestamp of when the underlying compute started compilation of the query. */
-  @JsonProperty("query_compilation_start_timestamp")
   private Long queryCompilationStartTimestamp;
 
   /** Total size of data read by the query, in bytes. */
-  @JsonProperty("read_bytes")
   private Long readBytes;
 
   /** Size of persistent data read from the cache, in bytes. */
-  @JsonProperty("read_cache_bytes")
   private Long readCacheBytes;
 
   /** Number of files read after pruning */
-  @JsonProperty("read_files_count")
   private Long readFilesCount;
 
   /** Number of partitions read after pruning. */
-  @JsonProperty("read_partitions_count")
   private Long readPartitionsCount;
 
   /** Size of persistent data read from cloud object storage on your cloud tenant, in bytes. */
-  @JsonProperty("read_remote_bytes")
   private Long readRemoteBytes;
 
   /** Time spent fetching the query results after the execution finished, in milliseconds. */
-  @JsonProperty("result_fetch_time_ms")
   private Long resultFetchTimeMs;
 
   /** `true` if the query result was fetched from cache, `false` otherwise. */
-  @JsonProperty("result_from_cache")
   private Boolean resultFromCache;
 
   /** Total number of rows returned by the query. */
-  @JsonProperty("rows_produced_count")
   private Long rowsProducedCount;
 
   /** Total number of rows read by the query. */
-  @JsonProperty("rows_read_count")
   private Long rowsReadCount;
 
   /** Size of data temporarily written to disk while executing the query, in bytes. */
-  @JsonProperty("spill_to_disk_bytes")
   private Long spillToDiskBytes;
 
   /**
    * sum of task times completed in a range of wall clock time, approximated to a configurable
    * number of points aggregated over all stages and jobs in the query (based on task_total_time_ms)
    */
-  @JsonProperty("task_time_over_time_range")
   private TaskTimeOverRange taskTimeOverTimeRange;
 
   /** Sum of execution time for all of the query’s tasks, in milliseconds. */
-  @JsonProperty("task_total_time_ms")
   private Long taskTotalTimeMs;
 
   /** Total execution time of the query from the client’s point of view, in milliseconds. */
-  @JsonProperty("total_time_ms")
   private Long totalTimeMs;
 
   /** Size pf persistent data written to cloud object storage in your cloud tenant, in bytes. */
-  @JsonProperty("write_remote_bytes")
   private Long writeRemoteBytes;
 
   public QueryMetrics setCompilationTimeMs(Long compilationTimeMs) {
@@ -410,5 +398,81 @@ public class QueryMetrics {
         .add("totalTimeMs", totalTimeMs)
         .add("writeRemoteBytes", writeRemoteBytes)
         .toString();
+  }
+
+  QueryMetricsPb toPb() {
+    QueryMetricsPb pb = new QueryMetricsPb();
+    pb.setCompilationTimeMs(compilationTimeMs);
+    pb.setExecutionTimeMs(executionTimeMs);
+    pb.setNetworkSentBytes(networkSentBytes);
+    pb.setOverloadingQueueStartTimestamp(overloadingQueueStartTimestamp);
+    pb.setPhotonTotalTimeMs(photonTotalTimeMs);
+    pb.setProvisioningQueueStartTimestamp(provisioningQueueStartTimestamp);
+    pb.setPrunedBytes(prunedBytes);
+    pb.setPrunedFilesCount(prunedFilesCount);
+    pb.setQueryCompilationStartTimestamp(queryCompilationStartTimestamp);
+    pb.setReadBytes(readBytes);
+    pb.setReadCacheBytes(readCacheBytes);
+    pb.setReadFilesCount(readFilesCount);
+    pb.setReadPartitionsCount(readPartitionsCount);
+    pb.setReadRemoteBytes(readRemoteBytes);
+    pb.setResultFetchTimeMs(resultFetchTimeMs);
+    pb.setResultFromCache(resultFromCache);
+    pb.setRowsProducedCount(rowsProducedCount);
+    pb.setRowsReadCount(rowsReadCount);
+    pb.setSpillToDiskBytes(spillToDiskBytes);
+    pb.setTaskTimeOverTimeRange(taskTimeOverTimeRange);
+    pb.setTaskTotalTimeMs(taskTotalTimeMs);
+    pb.setTotalTimeMs(totalTimeMs);
+    pb.setWriteRemoteBytes(writeRemoteBytes);
+
+    return pb;
+  }
+
+  static QueryMetrics fromPb(QueryMetricsPb pb) {
+    QueryMetrics model = new QueryMetrics();
+    model.setCompilationTimeMs(pb.getCompilationTimeMs());
+    model.setExecutionTimeMs(pb.getExecutionTimeMs());
+    model.setNetworkSentBytes(pb.getNetworkSentBytes());
+    model.setOverloadingQueueStartTimestamp(pb.getOverloadingQueueStartTimestamp());
+    model.setPhotonTotalTimeMs(pb.getPhotonTotalTimeMs());
+    model.setProvisioningQueueStartTimestamp(pb.getProvisioningQueueStartTimestamp());
+    model.setPrunedBytes(pb.getPrunedBytes());
+    model.setPrunedFilesCount(pb.getPrunedFilesCount());
+    model.setQueryCompilationStartTimestamp(pb.getQueryCompilationStartTimestamp());
+    model.setReadBytes(pb.getReadBytes());
+    model.setReadCacheBytes(pb.getReadCacheBytes());
+    model.setReadFilesCount(pb.getReadFilesCount());
+    model.setReadPartitionsCount(pb.getReadPartitionsCount());
+    model.setReadRemoteBytes(pb.getReadRemoteBytes());
+    model.setResultFetchTimeMs(pb.getResultFetchTimeMs());
+    model.setResultFromCache(pb.getResultFromCache());
+    model.setRowsProducedCount(pb.getRowsProducedCount());
+    model.setRowsReadCount(pb.getRowsReadCount());
+    model.setSpillToDiskBytes(pb.getSpillToDiskBytes());
+    model.setTaskTimeOverTimeRange(pb.getTaskTimeOverTimeRange());
+    model.setTaskTotalTimeMs(pb.getTaskTotalTimeMs());
+    model.setTotalTimeMs(pb.getTotalTimeMs());
+    model.setWriteRemoteBytes(pb.getWriteRemoteBytes());
+
+    return model;
+  }
+
+  public static class QueryMetricsSerializer extends JsonSerializer<QueryMetrics> {
+    @Override
+    public void serialize(QueryMetrics value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      QueryMetricsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class QueryMetricsDeserializer extends JsonDeserializer<QueryMetrics> {
+    @Override
+    public QueryMetrics deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      QueryMetricsPb pb = mapper.readValue(p, QueryMetricsPb.class);
+      return QueryMetrics.fromPb(pb);
+    }
   }
 }

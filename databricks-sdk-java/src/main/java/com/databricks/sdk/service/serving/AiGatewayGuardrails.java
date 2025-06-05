@@ -4,17 +4,26 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = AiGatewayGuardrails.AiGatewayGuardrailsSerializer.class)
+@JsonDeserialize(using = AiGatewayGuardrails.AiGatewayGuardrailsDeserializer.class)
 public class AiGatewayGuardrails {
   /** Configuration for input guardrail filters. */
-  @JsonProperty("input")
   private AiGatewayGuardrailParameters input;
 
   /** Configuration for output guardrail filters. */
-  @JsonProperty("output")
   private AiGatewayGuardrailParameters output;
 
   public AiGatewayGuardrails setInput(AiGatewayGuardrailParameters input) {
@@ -54,5 +63,41 @@ public class AiGatewayGuardrails {
         .add("input", input)
         .add("output", output)
         .toString();
+  }
+
+  AiGatewayGuardrailsPb toPb() {
+    AiGatewayGuardrailsPb pb = new AiGatewayGuardrailsPb();
+    pb.setInput(input);
+    pb.setOutput(output);
+
+    return pb;
+  }
+
+  static AiGatewayGuardrails fromPb(AiGatewayGuardrailsPb pb) {
+    AiGatewayGuardrails model = new AiGatewayGuardrails();
+    model.setInput(pb.getInput());
+    model.setOutput(pb.getOutput());
+
+    return model;
+  }
+
+  public static class AiGatewayGuardrailsSerializer extends JsonSerializer<AiGatewayGuardrails> {
+    @Override
+    public void serialize(AiGatewayGuardrails value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      AiGatewayGuardrailsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class AiGatewayGuardrailsDeserializer
+      extends JsonDeserializer<AiGatewayGuardrails> {
+    @Override
+    public AiGatewayGuardrails deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      AiGatewayGuardrailsPb pb = mapper.readValue(p, AiGatewayGuardrailsPb.class);
+      return AiGatewayGuardrails.fromPb(pb);
+    }
   }
 }

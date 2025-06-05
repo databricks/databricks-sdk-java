@@ -24,7 +24,7 @@ class PrivateAccessImpl implements PrivateAccessService {
             "/api/2.0/accounts/%s/private-access-settings", apiClient.configuredAccountID());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, PrivateAccessSettings.class);
@@ -41,7 +41,7 @@ class PrivateAccessImpl implements PrivateAccessService {
             apiClient.configuredAccountID(), request.getPrivateAccessSettingsId());
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, DeleteResponse.class);
     } catch (IOException e) {
@@ -57,7 +57,7 @@ class PrivateAccessImpl implements PrivateAccessService {
             apiClient.configuredAccountID(), request.getPrivateAccessSettingsId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, PrivateAccessSettings.class);
     } catch (IOException e) {
@@ -83,7 +83,7 @@ class PrivateAccessImpl implements PrivateAccessService {
             apiClient.configuredAccountID(), request.getPrivateAccessSettingsId());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, ReplaceResponse.class);

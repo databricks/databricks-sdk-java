@@ -4,22 +4,30 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = EnumValue.EnumValueSerializer.class)
+@JsonDeserialize(using = EnumValue.EnumValueDeserializer.class)
 public class EnumValue {
   /** List of valid query parameter values, newline delimited. */
-  @JsonProperty("enum_options")
   private String enumOptions;
 
   /** If specified, allows multiple values to be selected for this parameter. */
-  @JsonProperty("multi_values_options")
   private MultiValuesOptions multiValuesOptions;
 
   /** List of selected query parameter values. */
-  @JsonProperty("values")
   private Collection<String> values;
 
   public EnumValue setEnumOptions(String enumOptions) {
@@ -71,5 +79,41 @@ public class EnumValue {
         .add("multiValuesOptions", multiValuesOptions)
         .add("values", values)
         .toString();
+  }
+
+  EnumValuePb toPb() {
+    EnumValuePb pb = new EnumValuePb();
+    pb.setEnumOptions(enumOptions);
+    pb.setMultiValuesOptions(multiValuesOptions);
+    pb.setValues(values);
+
+    return pb;
+  }
+
+  static EnumValue fromPb(EnumValuePb pb) {
+    EnumValue model = new EnumValue();
+    model.setEnumOptions(pb.getEnumOptions());
+    model.setMultiValuesOptions(pb.getMultiValuesOptions());
+    model.setValues(pb.getValues());
+
+    return model;
+  }
+
+  public static class EnumValueSerializer extends JsonSerializer<EnumValue> {
+    @Override
+    public void serialize(EnumValue value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      EnumValuePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class EnumValueDeserializer extends JsonDeserializer<EnumValue> {
+    @Override
+    public EnumValue deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      EnumValuePb pb = mapper.readValue(p, EnumValuePb.class);
+      return EnumValue.fromPb(pb);
+    }
   }
 }

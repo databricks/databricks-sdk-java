@@ -4,51 +4,52 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = Results.ResultsSerializer.class)
+@JsonDeserialize(using = Results.ResultsDeserializer.class)
 public class Results {
   /** The cause of the error */
-  @JsonProperty("cause")
   private String cause;
 
   /** */
-  @JsonProperty("data")
   private Object data;
 
   /** The image filename */
-  @JsonProperty("fileName")
   private String fileName;
 
   /** */
-  @JsonProperty("fileNames")
   private Collection<String> fileNames;
 
   /** true if a JSON schema is returned instead of a string representation of the Hive type. */
-  @JsonProperty("isJsonSchema")
   private Boolean isJsonSchema;
 
   /** internal field used by SDK */
-  @JsonProperty("pos")
   private Long pos;
 
   /** */
-  @JsonProperty("resultType")
   private ResultType resultType;
 
   /** The table schema */
-  @JsonProperty("schema")
   private Collection<Map<String, Object>> schema;
 
   /** The summary of the error */
-  @JsonProperty("summary")
   private String summary;
 
   /** true if partial results are returned. */
-  @JsonProperty("truncated")
   private Boolean truncated;
 
   public Results setCause(String cause) {
@@ -187,5 +188,55 @@ public class Results {
         .add("summary", summary)
         .add("truncated", truncated)
         .toString();
+  }
+
+  ResultsPb toPb() {
+    ResultsPb pb = new ResultsPb();
+    pb.setCause(cause);
+    pb.setData(data);
+    pb.setFileName(fileName);
+    pb.setFileNames(fileNames);
+    pb.setIsJsonSchema(isJsonSchema);
+    pb.setPos(pos);
+    pb.setResultType(resultType);
+    pb.setSchema(schema);
+    pb.setSummary(summary);
+    pb.setTruncated(truncated);
+
+    return pb;
+  }
+
+  static Results fromPb(ResultsPb pb) {
+    Results model = new Results();
+    model.setCause(pb.getCause());
+    model.setData(pb.getData());
+    model.setFileName(pb.getFileName());
+    model.setFileNames(pb.getFileNames());
+    model.setIsJsonSchema(pb.getIsJsonSchema());
+    model.setPos(pb.getPos());
+    model.setResultType(pb.getResultType());
+    model.setSchema(pb.getSchema());
+    model.setSummary(pb.getSummary());
+    model.setTruncated(pb.getTruncated());
+
+    return model;
+  }
+
+  public static class ResultsSerializer extends JsonSerializer<Results> {
+    @Override
+    public void serialize(Results value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ResultsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ResultsDeserializer extends JsonDeserializer<Results> {
+    @Override
+    public Results deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ResultsPb pb = mapper.readValue(p, ResultsPb.class);
+      return Results.fromPb(pb);
+    }
   }
 }

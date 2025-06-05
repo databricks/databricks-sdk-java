@@ -4,18 +4,27 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ListListingsResponse.ListListingsResponseSerializer.class)
+@JsonDeserialize(using = ListListingsResponse.ListListingsResponseDeserializer.class)
 public class ListListingsResponse {
   /** */
-  @JsonProperty("listings")
   private Collection<Listing> listings;
 
   /** */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   public ListListingsResponse setListings(Collection<Listing> listings) {
@@ -56,5 +65,42 @@ public class ListListingsResponse {
         .add("listings", listings)
         .add("nextPageToken", nextPageToken)
         .toString();
+  }
+
+  ListListingsResponsePb toPb() {
+    ListListingsResponsePb pb = new ListListingsResponsePb();
+    pb.setListings(listings);
+    pb.setNextPageToken(nextPageToken);
+
+    return pb;
+  }
+
+  static ListListingsResponse fromPb(ListListingsResponsePb pb) {
+    ListListingsResponse model = new ListListingsResponse();
+    model.setListings(pb.getListings());
+    model.setNextPageToken(pb.getNextPageToken());
+
+    return model;
+  }
+
+  public static class ListListingsResponseSerializer extends JsonSerializer<ListListingsResponse> {
+    @Override
+    public void serialize(
+        ListListingsResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListListingsResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListListingsResponseDeserializer
+      extends JsonDeserializer<ListListingsResponse> {
+    @Override
+    public ListListingsResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListListingsResponsePb pb = mapper.readValue(p, ListListingsResponsePb.class);
+      return ListListingsResponse.fromPb(pb);
+    }
   }
 }

@@ -4,81 +4,76 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ServingEndpointDetailed.ServingEndpointDetailedSerializer.class)
+@JsonDeserialize(using = ServingEndpointDetailed.ServingEndpointDetailedDeserializer.class)
 public class ServingEndpointDetailed {
   /**
    * The AI Gateway configuration for the serving endpoint. NOTE: External model, provisioned
    * throughput, and pay-per-token endpoints are fully supported; agent endpoints currently only
    * support inference tables.
    */
-  @JsonProperty("ai_gateway")
   private AiGatewayConfig aiGateway;
 
   /** The budget policy associated with the endpoint. */
-  @JsonProperty("budget_policy_id")
   private String budgetPolicyId;
 
   /** The config that is currently being served by the endpoint. */
-  @JsonProperty("config")
   private EndpointCoreConfigOutput config;
 
   /** The timestamp when the endpoint was created in Unix time. */
-  @JsonProperty("creation_timestamp")
   private Long creationTimestamp;
 
   /** The email of the user who created the serving endpoint. */
-  @JsonProperty("creator")
   private String creator;
 
   /** Information required to query DataPlane APIs. */
-  @JsonProperty("data_plane_info")
   private ModelDataPlaneInfo dataPlaneInfo;
 
   /** Endpoint invocation url if route optimization is enabled for endpoint */
-  @JsonProperty("endpoint_url")
   private String endpointUrl;
 
   /**
    * System-generated ID of the endpoint. This is used to refer to the endpoint in the Permissions
    * API
    */
-  @JsonProperty("id")
   private String id;
 
   /** The timestamp when the endpoint was last updated by a user in Unix time. */
-  @JsonProperty("last_updated_timestamp")
   private Long lastUpdatedTimestamp;
 
   /** The name of the serving endpoint. */
-  @JsonProperty("name")
   private String name;
 
   /** The config that the endpoint is attempting to update to. */
-  @JsonProperty("pending_config")
   private EndpointPendingConfig pendingConfig;
 
   /** The permission level of the principal making the request. */
-  @JsonProperty("permission_level")
   private ServingEndpointDetailedPermissionLevel permissionLevel;
 
   /** Boolean representing if route optimization has been enabled for the endpoint */
-  @JsonProperty("route_optimized")
   private Boolean routeOptimized;
 
   /** Information corresponding to the state of the serving endpoint. */
-  @JsonProperty("state")
   private EndpointState state;
 
   /** Tags attached to the serving endpoint. */
-  @JsonProperty("tags")
   private Collection<EndpointTag> tags;
 
   /** The task type of the serving endpoint. */
-  @JsonProperty("task")
   private String task;
 
   public ServingEndpointDetailed setAiGateway(AiGatewayConfig aiGateway) {
@@ -290,5 +285,71 @@ public class ServingEndpointDetailed {
         .add("tags", tags)
         .add("task", task)
         .toString();
+  }
+
+  ServingEndpointDetailedPb toPb() {
+    ServingEndpointDetailedPb pb = new ServingEndpointDetailedPb();
+    pb.setAiGateway(aiGateway);
+    pb.setBudgetPolicyId(budgetPolicyId);
+    pb.setConfig(config);
+    pb.setCreationTimestamp(creationTimestamp);
+    pb.setCreator(creator);
+    pb.setDataPlaneInfo(dataPlaneInfo);
+    pb.setEndpointUrl(endpointUrl);
+    pb.setId(id);
+    pb.setLastUpdatedTimestamp(lastUpdatedTimestamp);
+    pb.setName(name);
+    pb.setPendingConfig(pendingConfig);
+    pb.setPermissionLevel(permissionLevel);
+    pb.setRouteOptimized(routeOptimized);
+    pb.setState(state);
+    pb.setTags(tags);
+    pb.setTask(task);
+
+    return pb;
+  }
+
+  static ServingEndpointDetailed fromPb(ServingEndpointDetailedPb pb) {
+    ServingEndpointDetailed model = new ServingEndpointDetailed();
+    model.setAiGateway(pb.getAiGateway());
+    model.setBudgetPolicyId(pb.getBudgetPolicyId());
+    model.setConfig(pb.getConfig());
+    model.setCreationTimestamp(pb.getCreationTimestamp());
+    model.setCreator(pb.getCreator());
+    model.setDataPlaneInfo(pb.getDataPlaneInfo());
+    model.setEndpointUrl(pb.getEndpointUrl());
+    model.setId(pb.getId());
+    model.setLastUpdatedTimestamp(pb.getLastUpdatedTimestamp());
+    model.setName(pb.getName());
+    model.setPendingConfig(pb.getPendingConfig());
+    model.setPermissionLevel(pb.getPermissionLevel());
+    model.setRouteOptimized(pb.getRouteOptimized());
+    model.setState(pb.getState());
+    model.setTags(pb.getTags());
+    model.setTask(pb.getTask());
+
+    return model;
+  }
+
+  public static class ServingEndpointDetailedSerializer
+      extends JsonSerializer<ServingEndpointDetailed> {
+    @Override
+    public void serialize(
+        ServingEndpointDetailed value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ServingEndpointDetailedPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ServingEndpointDetailedDeserializer
+      extends JsonDeserializer<ServingEndpointDetailed> {
+    @Override
+    public ServingEndpointDetailed deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ServingEndpointDetailedPb pb = mapper.readValue(p, ServingEndpointDetailedPb.class);
+      return ServingEndpointDetailed.fromPb(pb);
+    }
   }
 }

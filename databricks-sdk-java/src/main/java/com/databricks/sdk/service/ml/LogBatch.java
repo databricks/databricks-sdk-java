@@ -4,35 +4,42 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = LogBatch.LogBatchSerializer.class)
+@JsonDeserialize(using = LogBatch.LogBatchDeserializer.class)
 public class LogBatch {
   /**
    * Metrics to log. A single request can contain up to 1000 metrics, and up to 1000 metrics,
    * params, and tags in total.
    */
-  @JsonProperty("metrics")
   private Collection<Metric> metrics;
 
   /**
    * Params to log. A single request can contain up to 100 params, and up to 1000 metrics, params,
    * and tags in total.
    */
-  @JsonProperty("params")
   private Collection<Param> params;
 
   /** ID of the run to log under */
-  @JsonProperty("run_id")
   private String runId;
 
   /**
    * Tags to log. A single request can contain up to 100 tags, and up to 1000 metrics, params, and
    * tags in total.
    */
-  @JsonProperty("tags")
   private Collection<RunTag> tags;
 
   public LogBatch setMetrics(Collection<Metric> metrics) {
@@ -95,5 +102,43 @@ public class LogBatch {
         .add("runId", runId)
         .add("tags", tags)
         .toString();
+  }
+
+  LogBatchPb toPb() {
+    LogBatchPb pb = new LogBatchPb();
+    pb.setMetrics(metrics);
+    pb.setParams(params);
+    pb.setRunId(runId);
+    pb.setTags(tags);
+
+    return pb;
+  }
+
+  static LogBatch fromPb(LogBatchPb pb) {
+    LogBatch model = new LogBatch();
+    model.setMetrics(pb.getMetrics());
+    model.setParams(pb.getParams());
+    model.setRunId(pb.getRunId());
+    model.setTags(pb.getTags());
+
+    return model;
+  }
+
+  public static class LogBatchSerializer extends JsonSerializer<LogBatch> {
+    @Override
+    public void serialize(LogBatch value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      LogBatchPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class LogBatchDeserializer extends JsonDeserializer<LogBatch> {
+    @Override
+    public LogBatch deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      LogBatchPb pb = mapper.readValue(p, LogBatchPb.class);
+      return LogBatch.fromPb(pb);
+    }
   }
 }

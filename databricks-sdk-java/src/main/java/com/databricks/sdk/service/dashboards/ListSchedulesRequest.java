@@ -3,28 +3,34 @@
 package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List dashboard schedules */
 @Generated
+@JsonSerialize(using = ListSchedulesRequest.ListSchedulesRequestSerializer.class)
+@JsonDeserialize(using = ListSchedulesRequest.ListSchedulesRequestDeserializer.class)
 public class ListSchedulesRequest {
   /** UUID identifying the dashboard to which the schedules belongs. */
-  @JsonIgnore private String dashboardId;
+  private String dashboardId;
 
   /** The number of schedules to return per page. */
-  @JsonIgnore
-  @QueryParam("page_size")
   private Long pageSize;
 
   /**
    * A page token, received from a previous `ListSchedules` call. Use this to retrieve the
    * subsequent page.
    */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   public ListSchedulesRequest setDashboardId(String dashboardId) {
@@ -76,5 +82,44 @@ public class ListSchedulesRequest {
         .add("pageSize", pageSize)
         .add("pageToken", pageToken)
         .toString();
+  }
+
+  ListSchedulesRequestPb toPb() {
+    ListSchedulesRequestPb pb = new ListSchedulesRequestPb();
+    pb.setDashboardId(dashboardId);
+    pb.setPageSize(pageSize);
+    pb.setPageToken(pageToken);
+
+    return pb;
+  }
+
+  static ListSchedulesRequest fromPb(ListSchedulesRequestPb pb) {
+    ListSchedulesRequest model = new ListSchedulesRequest();
+    model.setDashboardId(pb.getDashboardId());
+    model.setPageSize(pb.getPageSize());
+    model.setPageToken(pb.getPageToken());
+
+    return model;
+  }
+
+  public static class ListSchedulesRequestSerializer extends JsonSerializer<ListSchedulesRequest> {
+    @Override
+    public void serialize(
+        ListSchedulesRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListSchedulesRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListSchedulesRequestDeserializer
+      extends JsonDeserializer<ListSchedulesRequest> {
+    @Override
+    public ListSchedulesRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListSchedulesRequestPb pb = mapper.readValue(p, ListSchedulesRequestPb.class);
+      return ListSchedulesRequest.fromPb(pb);
+    }
   }
 }

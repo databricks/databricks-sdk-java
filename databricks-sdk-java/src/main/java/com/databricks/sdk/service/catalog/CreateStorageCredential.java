@@ -4,45 +4,47 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateStorageCredential.CreateStorageCredentialSerializer.class)
+@JsonDeserialize(using = CreateStorageCredential.CreateStorageCredentialDeserializer.class)
 public class CreateStorageCredential {
   /** The AWS IAM role configuration. */
-  @JsonProperty("aws_iam_role")
   private AwsIamRoleRequest awsIamRole;
 
   /** The Azure managed identity configuration. */
-  @JsonProperty("azure_managed_identity")
   private AzureManagedIdentityRequest azureManagedIdentity;
 
   /** The Azure service principal configuration. */
-  @JsonProperty("azure_service_principal")
   private AzureServicePrincipal azureServicePrincipal;
 
   /** The Cloudflare API token configuration. */
-  @JsonProperty("cloudflare_api_token")
   private CloudflareApiToken cloudflareApiToken;
 
   /** Comment associated with the credential. */
-  @JsonProperty("comment")
   private String comment;
 
   /** The Databricks managed GCP service account configuration. */
-  @JsonProperty("databricks_gcp_service_account")
   private DatabricksGcpServiceAccountRequest databricksGcpServiceAccount;
 
   /** The credential name. The name must be unique within the metastore. */
-  @JsonProperty("name")
   private String name;
 
   /** Whether the storage credential is only usable for read operations. */
-  @JsonProperty("read_only")
   private Boolean readOnly;
 
   /** Supplying true to this argument skips validation of the created credential. */
-  @JsonProperty("skip_validation")
   private Boolean skipValidation;
 
   public CreateStorageCredential setAwsIamRole(AwsIamRoleRequest awsIamRole) {
@@ -172,5 +174,57 @@ public class CreateStorageCredential {
         .add("readOnly", readOnly)
         .add("skipValidation", skipValidation)
         .toString();
+  }
+
+  CreateStorageCredentialPb toPb() {
+    CreateStorageCredentialPb pb = new CreateStorageCredentialPb();
+    pb.setAwsIamRole(awsIamRole);
+    pb.setAzureManagedIdentity(azureManagedIdentity);
+    pb.setAzureServicePrincipal(azureServicePrincipal);
+    pb.setCloudflareApiToken(cloudflareApiToken);
+    pb.setComment(comment);
+    pb.setDatabricksGcpServiceAccount(databricksGcpServiceAccount);
+    pb.setName(name);
+    pb.setReadOnly(readOnly);
+    pb.setSkipValidation(skipValidation);
+
+    return pb;
+  }
+
+  static CreateStorageCredential fromPb(CreateStorageCredentialPb pb) {
+    CreateStorageCredential model = new CreateStorageCredential();
+    model.setAwsIamRole(pb.getAwsIamRole());
+    model.setAzureManagedIdentity(pb.getAzureManagedIdentity());
+    model.setAzureServicePrincipal(pb.getAzureServicePrincipal());
+    model.setCloudflareApiToken(pb.getCloudflareApiToken());
+    model.setComment(pb.getComment());
+    model.setDatabricksGcpServiceAccount(pb.getDatabricksGcpServiceAccount());
+    model.setName(pb.getName());
+    model.setReadOnly(pb.getReadOnly());
+    model.setSkipValidation(pb.getSkipValidation());
+
+    return model;
+  }
+
+  public static class CreateStorageCredentialSerializer
+      extends JsonSerializer<CreateStorageCredential> {
+    @Override
+    public void serialize(
+        CreateStorageCredential value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateStorageCredentialPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateStorageCredentialDeserializer
+      extends JsonDeserializer<CreateStorageCredential> {
+    @Override
+    public CreateStorageCredential deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateStorageCredentialPb pb = mapper.readValue(p, CreateStorageCredentialPb.class);
+      return CreateStorageCredential.fromPb(pb);
+    }
   }
 }

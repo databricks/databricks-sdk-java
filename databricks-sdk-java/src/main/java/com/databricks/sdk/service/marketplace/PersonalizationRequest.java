@@ -4,73 +4,68 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = PersonalizationRequest.PersonalizationRequestSerializer.class)
+@JsonDeserialize(using = PersonalizationRequest.PersonalizationRequestDeserializer.class)
 public class PersonalizationRequest {
   /** */
-  @JsonProperty("comment")
   private String comment;
 
   /** */
-  @JsonProperty("consumer_region")
   private RegionInfo consumerRegion;
 
   /** contact info for the consumer requesting data or performing a listing installation */
-  @JsonProperty("contact_info")
   private ContactInfo contactInfo;
 
   /** */
-  @JsonProperty("created_at")
   private Long createdAt;
 
   /** */
-  @JsonProperty("id")
   private String id;
 
   /** */
-  @JsonProperty("intended_use")
   private String intendedUse;
 
   /** */
-  @JsonProperty("is_from_lighthouse")
   private Boolean isFromLighthouse;
 
   /** */
-  @JsonProperty("listing_id")
   private String listingId;
 
   /** */
-  @JsonProperty("listing_name")
   private String listingName;
 
   /** */
-  @JsonProperty("metastore_id")
   private String metastoreId;
 
   /** */
-  @JsonProperty("provider_id")
   private String providerId;
 
   /** */
-  @JsonProperty("recipient_type")
   private DeltaSharingRecipientType recipientType;
 
   /** */
-  @JsonProperty("share")
   private ShareInfo share;
 
   /** */
-  @JsonProperty("status")
   private PersonalizationRequestStatus status;
 
   /** */
-  @JsonProperty("status_message")
   private String statusMessage;
 
   /** */
-  @JsonProperty("updated_at")
   private Long updatedAt;
 
   public PersonalizationRequest setComment(String comment) {
@@ -281,5 +276,71 @@ public class PersonalizationRequest {
         .add("statusMessage", statusMessage)
         .add("updatedAt", updatedAt)
         .toString();
+  }
+
+  PersonalizationRequestPb toPb() {
+    PersonalizationRequestPb pb = new PersonalizationRequestPb();
+    pb.setComment(comment);
+    pb.setConsumerRegion(consumerRegion);
+    pb.setContactInfo(contactInfo);
+    pb.setCreatedAt(createdAt);
+    pb.setId(id);
+    pb.setIntendedUse(intendedUse);
+    pb.setIsFromLighthouse(isFromLighthouse);
+    pb.setListingId(listingId);
+    pb.setListingName(listingName);
+    pb.setMetastoreId(metastoreId);
+    pb.setProviderId(providerId);
+    pb.setRecipientType(recipientType);
+    pb.setShare(share);
+    pb.setStatus(status);
+    pb.setStatusMessage(statusMessage);
+    pb.setUpdatedAt(updatedAt);
+
+    return pb;
+  }
+
+  static PersonalizationRequest fromPb(PersonalizationRequestPb pb) {
+    PersonalizationRequest model = new PersonalizationRequest();
+    model.setComment(pb.getComment());
+    model.setConsumerRegion(pb.getConsumerRegion());
+    model.setContactInfo(pb.getContactInfo());
+    model.setCreatedAt(pb.getCreatedAt());
+    model.setId(pb.getId());
+    model.setIntendedUse(pb.getIntendedUse());
+    model.setIsFromLighthouse(pb.getIsFromLighthouse());
+    model.setListingId(pb.getListingId());
+    model.setListingName(pb.getListingName());
+    model.setMetastoreId(pb.getMetastoreId());
+    model.setProviderId(pb.getProviderId());
+    model.setRecipientType(pb.getRecipientType());
+    model.setShare(pb.getShare());
+    model.setStatus(pb.getStatus());
+    model.setStatusMessage(pb.getStatusMessage());
+    model.setUpdatedAt(pb.getUpdatedAt());
+
+    return model;
+  }
+
+  public static class PersonalizationRequestSerializer
+      extends JsonSerializer<PersonalizationRequest> {
+    @Override
+    public void serialize(
+        PersonalizationRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PersonalizationRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PersonalizationRequestDeserializer
+      extends JsonDeserializer<PersonalizationRequest> {
+    @Override
+    public PersonalizationRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PersonalizationRequestPb pb = mapper.readValue(p, PersonalizationRequestPb.class);
+      return PersonalizationRequest.fromPb(pb);
+    }
   }
 }

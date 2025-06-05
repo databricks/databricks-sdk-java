@@ -4,30 +4,36 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = AccessControlResponse.AccessControlResponseSerializer.class)
+@JsonDeserialize(using = AccessControlResponse.AccessControlResponseDeserializer.class)
 public class AccessControlResponse {
   /** All permissions. */
-  @JsonProperty("all_permissions")
   private Collection<Permission> allPermissions;
 
   /** Display name of the user or service principal. */
-  @JsonProperty("display_name")
   private String displayName;
 
   /** name of the group */
-  @JsonProperty("group_name")
   private String groupName;
 
   /** Name of the service principal. */
-  @JsonProperty("service_principal_name")
   private String servicePrincipalName;
 
   /** name of the user */
-  @JsonProperty("user_name")
   private String userName;
 
   public AccessControlResponse setAllPermissions(Collection<Permission> allPermissions) {
@@ -101,5 +107,49 @@ public class AccessControlResponse {
         .add("servicePrincipalName", servicePrincipalName)
         .add("userName", userName)
         .toString();
+  }
+
+  AccessControlResponsePb toPb() {
+    AccessControlResponsePb pb = new AccessControlResponsePb();
+    pb.setAllPermissions(allPermissions);
+    pb.setDisplayName(displayName);
+    pb.setGroupName(groupName);
+    pb.setServicePrincipalName(servicePrincipalName);
+    pb.setUserName(userName);
+
+    return pb;
+  }
+
+  static AccessControlResponse fromPb(AccessControlResponsePb pb) {
+    AccessControlResponse model = new AccessControlResponse();
+    model.setAllPermissions(pb.getAllPermissions());
+    model.setDisplayName(pb.getDisplayName());
+    model.setGroupName(pb.getGroupName());
+    model.setServicePrincipalName(pb.getServicePrincipalName());
+    model.setUserName(pb.getUserName());
+
+    return model;
+  }
+
+  public static class AccessControlResponseSerializer
+      extends JsonSerializer<AccessControlResponse> {
+    @Override
+    public void serialize(
+        AccessControlResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      AccessControlResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class AccessControlResponseDeserializer
+      extends JsonDeserializer<AccessControlResponse> {
+    @Override
+    public AccessControlResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      AccessControlResponsePb pb = mapper.readValue(p, AccessControlResponsePb.class);
+      return AccessControlResponse.fromPb(pb);
+    }
   }
 }

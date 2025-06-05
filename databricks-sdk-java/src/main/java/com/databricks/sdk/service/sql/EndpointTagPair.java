@@ -4,17 +4,26 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = EndpointTagPair.EndpointTagPairSerializer.class)
+@JsonDeserialize(using = EndpointTagPair.EndpointTagPairDeserializer.class)
 public class EndpointTagPair {
   /** */
-  @JsonProperty("key")
   private String key;
 
   /** */
-  @JsonProperty("value")
   private String value;
 
   public EndpointTagPair setKey(String key) {
@@ -51,5 +60,40 @@ public class EndpointTagPair {
   @Override
   public String toString() {
     return new ToStringer(EndpointTagPair.class).add("key", key).add("value", value).toString();
+  }
+
+  EndpointTagPairPb toPb() {
+    EndpointTagPairPb pb = new EndpointTagPairPb();
+    pb.setKey(key);
+    pb.setValue(value);
+
+    return pb;
+  }
+
+  static EndpointTagPair fromPb(EndpointTagPairPb pb) {
+    EndpointTagPair model = new EndpointTagPair();
+    model.setKey(pb.getKey());
+    model.setValue(pb.getValue());
+
+    return model;
+  }
+
+  public static class EndpointTagPairSerializer extends JsonSerializer<EndpointTagPair> {
+    @Override
+    public void serialize(EndpointTagPair value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      EndpointTagPairPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class EndpointTagPairDeserializer extends JsonDeserializer<EndpointTagPair> {
+    @Override
+    public EndpointTagPair deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      EndpointTagPairPb pb = mapper.readValue(p, EndpointTagPairPb.class);
+      return EndpointTagPair.fromPb(pb);
+    }
   }
 }

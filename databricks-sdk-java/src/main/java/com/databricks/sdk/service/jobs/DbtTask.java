@@ -4,25 +4,34 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = DbtTask.DbtTaskSerializer.class)
+@JsonDeserialize(using = DbtTask.DbtTaskDeserializer.class)
 public class DbtTask {
   /**
    * Optional name of the catalog to use. The value is the top level in the 3-level namespace of
    * Unity Catalog (catalog / schema / relation). The catalog value can only be specified if a
    * warehouse_id is specified. Requires dbt-databricks >= 1.1.1.
    */
-  @JsonProperty("catalog")
   private String catalog;
 
   /**
    * A list of dbt commands to execute. All commands must start with `dbt`. This parameter must not
    * be empty. A maximum of up to 10 commands can be provided.
    */
-  @JsonProperty("commands")
   private Collection<String> commands;
 
   /**
@@ -30,21 +39,18 @@ public class DbtTask {
    * specified. If no warehouse_id is specified and this folder is unset, the root directory is
    * used.
    */
-  @JsonProperty("profiles_directory")
   private String profilesDirectory;
 
   /**
    * Path to the project directory. Optional for Git sourced tasks, in which case if no value is
    * provided, the root of the Git repository is used.
    */
-  @JsonProperty("project_directory")
   private String projectDirectory;
 
   /**
    * Optional schema to write to. This parameter is only used when a warehouse_id is also provided.
    * If not provided, the `default` schema is used.
    */
-  @JsonProperty("schema")
   private String schema;
 
   /**
@@ -56,7 +62,6 @@ public class DbtTask {
    * <p>* `WORKSPACE`: Project is located in Databricks workspace. * `GIT`: Project is located in
    * cloud Git provider.
    */
-  @JsonProperty("source")
   private Source source;
 
   /**
@@ -64,7 +69,6 @@ public class DbtTask {
    * profile and connection details to dbt. It can be overridden on a per-command basis by using the
    * `--profiles-dir` command line argument.
    */
-  @JsonProperty("warehouse_id")
   private String warehouseId;
 
   public DbtTask setCatalog(String catalog) {
@@ -161,5 +165,49 @@ public class DbtTask {
         .add("source", source)
         .add("warehouseId", warehouseId)
         .toString();
+  }
+
+  DbtTaskPb toPb() {
+    DbtTaskPb pb = new DbtTaskPb();
+    pb.setCatalog(catalog);
+    pb.setCommands(commands);
+    pb.setProfilesDirectory(profilesDirectory);
+    pb.setProjectDirectory(projectDirectory);
+    pb.setSchema(schema);
+    pb.setSource(source);
+    pb.setWarehouseId(warehouseId);
+
+    return pb;
+  }
+
+  static DbtTask fromPb(DbtTaskPb pb) {
+    DbtTask model = new DbtTask();
+    model.setCatalog(pb.getCatalog());
+    model.setCommands(pb.getCommands());
+    model.setProfilesDirectory(pb.getProfilesDirectory());
+    model.setProjectDirectory(pb.getProjectDirectory());
+    model.setSchema(pb.getSchema());
+    model.setSource(pb.getSource());
+    model.setWarehouseId(pb.getWarehouseId());
+
+    return model;
+  }
+
+  public static class DbtTaskSerializer extends JsonSerializer<DbtTask> {
+    @Override
+    public void serialize(DbtTask value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DbtTaskPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DbtTaskDeserializer extends JsonDeserializer<DbtTask> {
+    @Override
+    public DbtTask deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DbtTaskPb pb = mapper.readValue(p, DbtTaskPb.class);
+      return DbtTask.fromPb(pb);
+    }
   }
 }

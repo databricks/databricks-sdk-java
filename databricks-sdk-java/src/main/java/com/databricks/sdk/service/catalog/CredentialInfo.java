@@ -4,93 +4,86 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CredentialInfo.CredentialInfoSerializer.class)
+@JsonDeserialize(using = CredentialInfo.CredentialInfoDeserializer.class)
 public class CredentialInfo {
   /** The AWS IAM role configuration */
-  @JsonProperty("aws_iam_role")
   private AwsIamRole awsIamRole;
 
   /** The Azure managed identity configuration. */
-  @JsonProperty("azure_managed_identity")
   private AzureManagedIdentity azureManagedIdentity;
 
   /** The Azure service principal configuration. Only applicable when purpose is **STORAGE**. */
-  @JsonProperty("azure_service_principal")
   private AzureServicePrincipal azureServicePrincipal;
 
   /** Comment associated with the credential. */
-  @JsonProperty("comment")
   private String comment;
 
   /** Time at which this credential was created, in epoch milliseconds. */
-  @JsonProperty("created_at")
   private Long createdAt;
 
   /** Username of credential creator. */
-  @JsonProperty("created_by")
   private String createdBy;
 
   /** GCP long-lived credential. Databricks-created Google Cloud Storage service account. */
-  @JsonProperty("databricks_gcp_service_account")
   private DatabricksGcpServiceAccount databricksGcpServiceAccount;
 
   /** The full name of the credential. */
-  @JsonProperty("full_name")
   private String fullName;
 
   /** The unique identifier of the credential. */
-  @JsonProperty("id")
   private String id;
 
   /**
    * Whether the current securable is accessible from all workspaces or a specific set of
    * workspaces.
    */
-  @JsonProperty("isolation_mode")
   private IsolationMode isolationMode;
 
   /** Unique identifier of the parent metastore. */
-  @JsonProperty("metastore_id")
   private String metastoreId;
 
   /**
    * The credential name. The name must be unique among storage and service credentials within the
    * metastore.
    */
-  @JsonProperty("name")
   private String name;
 
   /** Username of current owner of credential. */
-  @JsonProperty("owner")
   private String owner;
 
   /** Indicates the purpose of the credential. */
-  @JsonProperty("purpose")
   private CredentialPurpose purpose;
 
   /**
    * Whether the credential is usable only for read operations. Only applicable when purpose is
    * **STORAGE**.
    */
-  @JsonProperty("read_only")
   private Boolean readOnly;
 
   /** Time at which this credential was last modified, in epoch milliseconds. */
-  @JsonProperty("updated_at")
   private Long updatedAt;
 
   /** Username of user who last modified the credential. */
-  @JsonProperty("updated_by")
   private String updatedBy;
 
   /**
    * Whether this credential is the current metastore's root storage credential. Only applicable
    * when purpose is **STORAGE**.
    */
-  @JsonProperty("used_for_managed_storage")
   private Boolean usedForManagedStorage;
 
   public CredentialInfo setAwsIamRole(AwsIamRole awsIamRole) {
@@ -326,5 +319,72 @@ public class CredentialInfo {
         .add("updatedBy", updatedBy)
         .add("usedForManagedStorage", usedForManagedStorage)
         .toString();
+  }
+
+  CredentialInfoPb toPb() {
+    CredentialInfoPb pb = new CredentialInfoPb();
+    pb.setAwsIamRole(awsIamRole);
+    pb.setAzureManagedIdentity(azureManagedIdentity);
+    pb.setAzureServicePrincipal(azureServicePrincipal);
+    pb.setComment(comment);
+    pb.setCreatedAt(createdAt);
+    pb.setCreatedBy(createdBy);
+    pb.setDatabricksGcpServiceAccount(databricksGcpServiceAccount);
+    pb.setFullName(fullName);
+    pb.setId(id);
+    pb.setIsolationMode(isolationMode);
+    pb.setMetastoreId(metastoreId);
+    pb.setName(name);
+    pb.setOwner(owner);
+    pb.setPurpose(purpose);
+    pb.setReadOnly(readOnly);
+    pb.setUpdatedAt(updatedAt);
+    pb.setUpdatedBy(updatedBy);
+    pb.setUsedForManagedStorage(usedForManagedStorage);
+
+    return pb;
+  }
+
+  static CredentialInfo fromPb(CredentialInfoPb pb) {
+    CredentialInfo model = new CredentialInfo();
+    model.setAwsIamRole(pb.getAwsIamRole());
+    model.setAzureManagedIdentity(pb.getAzureManagedIdentity());
+    model.setAzureServicePrincipal(pb.getAzureServicePrincipal());
+    model.setComment(pb.getComment());
+    model.setCreatedAt(pb.getCreatedAt());
+    model.setCreatedBy(pb.getCreatedBy());
+    model.setDatabricksGcpServiceAccount(pb.getDatabricksGcpServiceAccount());
+    model.setFullName(pb.getFullName());
+    model.setId(pb.getId());
+    model.setIsolationMode(pb.getIsolationMode());
+    model.setMetastoreId(pb.getMetastoreId());
+    model.setName(pb.getName());
+    model.setOwner(pb.getOwner());
+    model.setPurpose(pb.getPurpose());
+    model.setReadOnly(pb.getReadOnly());
+    model.setUpdatedAt(pb.getUpdatedAt());
+    model.setUpdatedBy(pb.getUpdatedBy());
+    model.setUsedForManagedStorage(pb.getUsedForManagedStorage());
+
+    return model;
+  }
+
+  public static class CredentialInfoSerializer extends JsonSerializer<CredentialInfo> {
+    @Override
+    public void serialize(CredentialInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CredentialInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CredentialInfoDeserializer extends JsonDeserializer<CredentialInfo> {
+    @Override
+    public CredentialInfo deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CredentialInfoPb pb = mapper.readValue(p, CredentialInfoPb.class);
+      return CredentialInfo.fromPb(pb);
+    }
   }
 }

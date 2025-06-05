@@ -4,18 +4,27 @@ package com.databricks.sdk.service.cleanrooms;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = UpdateCleanRoomRequest.UpdateCleanRoomRequestSerializer.class)
+@JsonDeserialize(using = UpdateCleanRoomRequest.UpdateCleanRoomRequestDeserializer.class)
 public class UpdateCleanRoomRequest {
   /** */
-  @JsonProperty("clean_room")
   private CleanRoom cleanRoom;
 
   /** Name of the clean room. */
-  @JsonIgnore private String name;
+  private String name;
 
   public UpdateCleanRoomRequest setCleanRoom(CleanRoom cleanRoom) {
     this.cleanRoom = cleanRoom;
@@ -54,5 +63,43 @@ public class UpdateCleanRoomRequest {
         .add("cleanRoom", cleanRoom)
         .add("name", name)
         .toString();
+  }
+
+  UpdateCleanRoomRequestPb toPb() {
+    UpdateCleanRoomRequestPb pb = new UpdateCleanRoomRequestPb();
+    pb.setCleanRoom(cleanRoom);
+    pb.setName(name);
+
+    return pb;
+  }
+
+  static UpdateCleanRoomRequest fromPb(UpdateCleanRoomRequestPb pb) {
+    UpdateCleanRoomRequest model = new UpdateCleanRoomRequest();
+    model.setCleanRoom(pb.getCleanRoom());
+    model.setName(pb.getName());
+
+    return model;
+  }
+
+  public static class UpdateCleanRoomRequestSerializer
+      extends JsonSerializer<UpdateCleanRoomRequest> {
+    @Override
+    public void serialize(
+        UpdateCleanRoomRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateCleanRoomRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateCleanRoomRequestDeserializer
+      extends JsonDeserializer<UpdateCleanRoomRequest> {
+    @Override
+    public UpdateCleanRoomRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateCleanRoomRequestPb pb = mapper.readValue(p, UpdateCleanRoomRequestPb.class);
+      return UpdateCleanRoomRequest.fromPb(pb);
+    }
   }
 }

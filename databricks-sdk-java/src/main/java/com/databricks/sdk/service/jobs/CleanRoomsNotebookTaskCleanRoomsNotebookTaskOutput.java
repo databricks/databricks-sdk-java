@@ -4,21 +4,35 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using =
+        CleanRoomsNotebookTaskCleanRoomsNotebookTaskOutput
+            .CleanRoomsNotebookTaskCleanRoomsNotebookTaskOutputSerializer.class)
+@JsonDeserialize(
+    using =
+        CleanRoomsNotebookTaskCleanRoomsNotebookTaskOutput
+            .CleanRoomsNotebookTaskCleanRoomsNotebookTaskOutputDeserializer.class)
 public class CleanRoomsNotebookTaskCleanRoomsNotebookTaskOutput {
   /** The run state of the clean rooms notebook task. */
-  @JsonProperty("clean_room_job_run_state")
   private CleanRoomTaskRunState cleanRoomJobRunState;
 
   /** The notebook output for the clean room run */
-  @JsonProperty("notebook_output")
   private NotebookOutput notebookOutput;
 
   /** Information on how to access the output schema for the clean room run */
-  @JsonProperty("output_schema_info")
   private OutputSchemaInfo outputSchemaInfo;
 
   public CleanRoomsNotebookTaskCleanRoomsNotebookTaskOutput setCleanRoomJobRunState(
@@ -74,5 +88,51 @@ public class CleanRoomsNotebookTaskCleanRoomsNotebookTaskOutput {
         .add("notebookOutput", notebookOutput)
         .add("outputSchemaInfo", outputSchemaInfo)
         .toString();
+  }
+
+  CleanRoomsNotebookTaskCleanRoomsNotebookTaskOutputPb toPb() {
+    CleanRoomsNotebookTaskCleanRoomsNotebookTaskOutputPb pb =
+        new CleanRoomsNotebookTaskCleanRoomsNotebookTaskOutputPb();
+    pb.setCleanRoomJobRunState(cleanRoomJobRunState);
+    pb.setNotebookOutput(notebookOutput);
+    pb.setOutputSchemaInfo(outputSchemaInfo);
+
+    return pb;
+  }
+
+  static CleanRoomsNotebookTaskCleanRoomsNotebookTaskOutput fromPb(
+      CleanRoomsNotebookTaskCleanRoomsNotebookTaskOutputPb pb) {
+    CleanRoomsNotebookTaskCleanRoomsNotebookTaskOutput model =
+        new CleanRoomsNotebookTaskCleanRoomsNotebookTaskOutput();
+    model.setCleanRoomJobRunState(pb.getCleanRoomJobRunState());
+    model.setNotebookOutput(pb.getNotebookOutput());
+    model.setOutputSchemaInfo(pb.getOutputSchemaInfo());
+
+    return model;
+  }
+
+  public static class CleanRoomsNotebookTaskCleanRoomsNotebookTaskOutputSerializer
+      extends JsonSerializer<CleanRoomsNotebookTaskCleanRoomsNotebookTaskOutput> {
+    @Override
+    public void serialize(
+        CleanRoomsNotebookTaskCleanRoomsNotebookTaskOutput value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      CleanRoomsNotebookTaskCleanRoomsNotebookTaskOutputPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CleanRoomsNotebookTaskCleanRoomsNotebookTaskOutputDeserializer
+      extends JsonDeserializer<CleanRoomsNotebookTaskCleanRoomsNotebookTaskOutput> {
+    @Override
+    public CleanRoomsNotebookTaskCleanRoomsNotebookTaskOutput deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CleanRoomsNotebookTaskCleanRoomsNotebookTaskOutputPb pb =
+          mapper.readValue(p, CleanRoomsNotebookTaskCleanRoomsNotebookTaskOutputPb.class);
+      return CleanRoomsNotebookTaskCleanRoomsNotebookTaskOutput.fromPb(pb);
+    }
   }
 }

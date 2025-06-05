@@ -4,33 +4,38 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = FileEventQueue.FileEventQueueSerializer.class)
+@JsonDeserialize(using = FileEventQueue.FileEventQueueDeserializer.class)
 public class FileEventQueue {
   /** */
-  @JsonProperty("managed_aqs")
   private AzureQueueStorage managedAqs;
 
   /** */
-  @JsonProperty("managed_pubsub")
   private GcpPubsub managedPubsub;
 
   /** */
-  @JsonProperty("managed_sqs")
   private AwsSqsQueue managedSqs;
 
   /** */
-  @JsonProperty("provided_aqs")
   private AzureQueueStorage providedAqs;
 
   /** */
-  @JsonProperty("provided_pubsub")
   private GcpPubsub providedPubsub;
 
   /** */
-  @JsonProperty("provided_sqs")
   private AwsSqsQueue providedSqs;
 
   public FileEventQueue setManagedAqs(AzureQueueStorage managedAqs) {
@@ -116,5 +121,48 @@ public class FileEventQueue {
         .add("providedPubsub", providedPubsub)
         .add("providedSqs", providedSqs)
         .toString();
+  }
+
+  FileEventQueuePb toPb() {
+    FileEventQueuePb pb = new FileEventQueuePb();
+    pb.setManagedAqs(managedAqs);
+    pb.setManagedPubsub(managedPubsub);
+    pb.setManagedSqs(managedSqs);
+    pb.setProvidedAqs(providedAqs);
+    pb.setProvidedPubsub(providedPubsub);
+    pb.setProvidedSqs(providedSqs);
+
+    return pb;
+  }
+
+  static FileEventQueue fromPb(FileEventQueuePb pb) {
+    FileEventQueue model = new FileEventQueue();
+    model.setManagedAqs(pb.getManagedAqs());
+    model.setManagedPubsub(pb.getManagedPubsub());
+    model.setManagedSqs(pb.getManagedSqs());
+    model.setProvidedAqs(pb.getProvidedAqs());
+    model.setProvidedPubsub(pb.getProvidedPubsub());
+    model.setProvidedSqs(pb.getProvidedSqs());
+
+    return model;
+  }
+
+  public static class FileEventQueueSerializer extends JsonSerializer<FileEventQueue> {
+    @Override
+    public void serialize(FileEventQueue value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      FileEventQueuePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class FileEventQueueDeserializer extends JsonDeserializer<FileEventQueue> {
+    @Override
+    public FileEventQueue deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      FileEventQueuePb pb = mapper.readValue(p, FileEventQueuePb.class);
+      return FileEventQueue.fromPb(pb);
+    }
   }
 }

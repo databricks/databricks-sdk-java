@@ -4,32 +4,39 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ExternalLink.ExternalLinkSerializer.class)
+@JsonDeserialize(using = ExternalLink.ExternalLinkDeserializer.class)
 public class ExternalLink {
   /**
    * The number of bytes in the result chunk. This field is not available when using `INLINE`
    * disposition.
    */
-  @JsonProperty("byte_count")
   private Long byteCount;
 
   /** The position within the sequence of result set chunks. */
-  @JsonProperty("chunk_index")
   private Long chunkIndex;
 
   /**
    * Indicates the date-time that the given external link will expire and becomes invalid, after
    * which point a new `external_link` must be requested.
    */
-  @JsonProperty("expiration")
   private String expiration;
 
   /** */
-  @JsonProperty("external_link")
   private String externalLink;
 
   /**
@@ -38,7 +45,6 @@ public class ExternalLink {
    * external service. The values of these headers should be considered sensitive and the client
    * should not expose these values in a log.
    */
-  @JsonProperty("http_headers")
   private Map<String, String> httpHeaders;
 
   /**
@@ -46,7 +52,6 @@ public class ExternalLink {
    * no more chunks. The next chunk can be fetched with a
    * :method:statementexecution/getStatementResultChunkN request.
    */
-  @JsonProperty("next_chunk_index")
   private Long nextChunkIndex;
 
   /**
@@ -54,15 +59,12 @@ public class ExternalLink {
    * more chunks. This link is an absolute `path` to be joined with your `$DATABRICKS_HOST`, and
    * should be treated as an opaque link. This is an alternative to using `next_chunk_index`.
    */
-  @JsonProperty("next_chunk_internal_link")
   private String nextChunkInternalLink;
 
   /** The number of rows within the result chunk. */
-  @JsonProperty("row_count")
   private Long rowCount;
 
   /** The starting row offset within the result set. */
-  @JsonProperty("row_offset")
   private Long rowOffset;
 
   public ExternalLink setByteCount(Long byteCount) {
@@ -189,5 +191,53 @@ public class ExternalLink {
         .add("rowCount", rowCount)
         .add("rowOffset", rowOffset)
         .toString();
+  }
+
+  ExternalLinkPb toPb() {
+    ExternalLinkPb pb = new ExternalLinkPb();
+    pb.setByteCount(byteCount);
+    pb.setChunkIndex(chunkIndex);
+    pb.setExpiration(expiration);
+    pb.setExternalLink(externalLink);
+    pb.setHttpHeaders(httpHeaders);
+    pb.setNextChunkIndex(nextChunkIndex);
+    pb.setNextChunkInternalLink(nextChunkInternalLink);
+    pb.setRowCount(rowCount);
+    pb.setRowOffset(rowOffset);
+
+    return pb;
+  }
+
+  static ExternalLink fromPb(ExternalLinkPb pb) {
+    ExternalLink model = new ExternalLink();
+    model.setByteCount(pb.getByteCount());
+    model.setChunkIndex(pb.getChunkIndex());
+    model.setExpiration(pb.getExpiration());
+    model.setExternalLink(pb.getExternalLink());
+    model.setHttpHeaders(pb.getHttpHeaders());
+    model.setNextChunkIndex(pb.getNextChunkIndex());
+    model.setNextChunkInternalLink(pb.getNextChunkInternalLink());
+    model.setRowCount(pb.getRowCount());
+    model.setRowOffset(pb.getRowOffset());
+
+    return model;
+  }
+
+  public static class ExternalLinkSerializer extends JsonSerializer<ExternalLink> {
+    @Override
+    public void serialize(ExternalLink value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ExternalLinkPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ExternalLinkDeserializer extends JsonDeserializer<ExternalLink> {
+    @Override
+    public ExternalLink deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ExternalLinkPb pb = mapper.readValue(p, ExternalLinkPb.class);
+      return ExternalLink.fromPb(pb);
+    }
   }
 }

@@ -21,7 +21,7 @@ class ProviderListingsImpl implements ProviderListingsService {
     String path = "/api/2.0/marketplace-provider/listing";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, CreateListingResponse.class);
@@ -35,7 +35,7 @@ class ProviderListingsImpl implements ProviderListingsService {
     String path = String.format("/api/2.0/marketplace-provider/listings/%s", request.getId());
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, DeleteListingResponse.class);
     } catch (IOException e) {
@@ -48,7 +48,7 @@ class ProviderListingsImpl implements ProviderListingsService {
     String path = String.format("/api/2.0/marketplace-provider/listings/%s", request.getId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetListingResponse.class);
     } catch (IOException e) {
@@ -61,7 +61,7 @@ class ProviderListingsImpl implements ProviderListingsService {
     String path = "/api/2.0/marketplace-provider/listings";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetListingsResponse.class);
     } catch (IOException e) {
@@ -74,7 +74,7 @@ class ProviderListingsImpl implements ProviderListingsService {
     String path = String.format("/api/2.0/marketplace-provider/listings/%s", request.getId());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, UpdateListingResponse.class);

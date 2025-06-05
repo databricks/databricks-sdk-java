@@ -4,45 +4,48 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = UpdateCatalog.UpdateCatalogSerializer.class)
+@JsonDeserialize(using = UpdateCatalog.UpdateCatalogDeserializer.class)
 public class UpdateCatalog {
   /** User-provided free-form text description. */
-  @JsonProperty("comment")
   private String comment;
 
   /** Whether predictive optimization should be enabled for this object and objects under it. */
-  @JsonProperty("enable_predictive_optimization")
   private EnablePredictiveOptimization enablePredictiveOptimization;
 
   /**
    * Whether the current securable is accessible from all workspaces or a specific set of
    * workspaces.
    */
-  @JsonProperty("isolation_mode")
   private CatalogIsolationMode isolationMode;
 
   /** The name of the catalog. */
-  @JsonIgnore private String name;
+  private String name;
 
   /** New name for the catalog. */
-  @JsonProperty("new_name")
   private String newName;
 
   /** A map of key-value properties attached to the securable. */
-  @JsonProperty("options")
   private Map<String, String> options;
 
   /** Username of current owner of catalog. */
-  @JsonProperty("owner")
   private String owner;
 
   /** A map of key-value properties attached to the securable. */
-  @JsonProperty("properties")
   private Map<String, String> properties;
 
   public UpdateCatalog setComment(String comment) {
@@ -158,5 +161,51 @@ public class UpdateCatalog {
         .add("owner", owner)
         .add("properties", properties)
         .toString();
+  }
+
+  UpdateCatalogPb toPb() {
+    UpdateCatalogPb pb = new UpdateCatalogPb();
+    pb.setComment(comment);
+    pb.setEnablePredictiveOptimization(enablePredictiveOptimization);
+    pb.setIsolationMode(isolationMode);
+    pb.setName(name);
+    pb.setNewName(newName);
+    pb.setOptions(options);
+    pb.setOwner(owner);
+    pb.setProperties(properties);
+
+    return pb;
+  }
+
+  static UpdateCatalog fromPb(UpdateCatalogPb pb) {
+    UpdateCatalog model = new UpdateCatalog();
+    model.setComment(pb.getComment());
+    model.setEnablePredictiveOptimization(pb.getEnablePredictiveOptimization());
+    model.setIsolationMode(pb.getIsolationMode());
+    model.setName(pb.getName());
+    model.setNewName(pb.getNewName());
+    model.setOptions(pb.getOptions());
+    model.setOwner(pb.getOwner());
+    model.setProperties(pb.getProperties());
+
+    return model;
+  }
+
+  public static class UpdateCatalogSerializer extends JsonSerializer<UpdateCatalog> {
+    @Override
+    public void serialize(UpdateCatalog value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateCatalogPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateCatalogDeserializer extends JsonDeserializer<UpdateCatalog> {
+    @Override
+    public UpdateCatalog deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateCatalogPb pb = mapper.readValue(p, UpdateCatalogPb.class);
+      return UpdateCatalog.fromPb(pb);
+    }
   }
 }

@@ -21,7 +21,7 @@ class PipelinesImpl implements PipelinesService {
     String path = "/api/2.0/pipelines";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, CreatePipelineResponse.class);
@@ -35,7 +35,7 @@ class PipelinesImpl implements PipelinesService {
     String path = String.format("/api/2.0/pipelines/%s", request.getPipelineId());
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, DeletePipelineResponse.class);
     } catch (IOException e) {
@@ -48,7 +48,7 @@ class PipelinesImpl implements PipelinesService {
     String path = String.format("/api/2.0/pipelines/%s", request.getPipelineId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetPipelineResponse.class);
     } catch (IOException e) {
@@ -64,7 +64,7 @@ class PipelinesImpl implements PipelinesService {
             "/api/2.0/permissions/pipelines/%s/permissionLevels", request.getPipelineId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetPipelinePermissionLevelsResponse.class);
     } catch (IOException e) {
@@ -77,7 +77,7 @@ class PipelinesImpl implements PipelinesService {
     String path = String.format("/api/2.0/permissions/pipelines/%s", request.getPipelineId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, PipelinePermissions.class);
     } catch (IOException e) {
@@ -92,7 +92,7 @@ class PipelinesImpl implements PipelinesService {
             "/api/2.0/pipelines/%s/updates/%s", request.getPipelineId(), request.getUpdateId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetUpdateResponse.class);
     } catch (IOException e) {
@@ -105,7 +105,7 @@ class PipelinesImpl implements PipelinesService {
     String path = String.format("/api/2.0/pipelines/%s/events", request.getPipelineId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListPipelineEventsResponse.class);
     } catch (IOException e) {
@@ -118,7 +118,7 @@ class PipelinesImpl implements PipelinesService {
     String path = "/api/2.0/pipelines";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListPipelinesResponse.class);
     } catch (IOException e) {
@@ -131,7 +131,7 @@ class PipelinesImpl implements PipelinesService {
     String path = String.format("/api/2.0/pipelines/%s/updates", request.getPipelineId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListUpdatesResponse.class);
     } catch (IOException e) {
@@ -144,7 +144,7 @@ class PipelinesImpl implements PipelinesService {
     String path = String.format("/api/2.0/permissions/pipelines/%s", request.getPipelineId());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, PipelinePermissions.class);
@@ -158,7 +158,7 @@ class PipelinesImpl implements PipelinesService {
     String path = String.format("/api/2.0/pipelines/%s/updates", request.getPipelineId());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, StartUpdateResponse.class);
@@ -172,7 +172,7 @@ class PipelinesImpl implements PipelinesService {
     String path = String.format("/api/2.0/pipelines/%s/stop", request.getPipelineId());
     try {
       Request req = new Request("POST", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, StopPipelineResponse.class);
     } catch (IOException e) {
@@ -185,7 +185,7 @@ class PipelinesImpl implements PipelinesService {
     String path = String.format("/api/2.0/pipelines/%s", request.getPipelineId());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, EditPipelineResponse.class);
@@ -199,7 +199,7 @@ class PipelinesImpl implements PipelinesService {
     String path = String.format("/api/2.0/permissions/pipelines/%s", request.getPipelineId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, PipelinePermissions.class);

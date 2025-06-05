@@ -3,9 +3,17 @@
 package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -13,26 +21,22 @@ import java.util.Objects;
  * will be applied in conjunction.
  */
 @Generated
+@JsonSerialize(using = Filter.FilterSerializer.class)
+@JsonDeserialize(using = Filter.FilterDeserializer.class)
 public class Filter {
   /**
    * The policy creator user id to be filtered on. If unspecified, all policies will be returned.
    */
-  @JsonProperty("creator_user_id")
-  @QueryParam("creator_user_id")
   private Long creatorUserId;
 
   /**
    * The policy creator user name to be filtered on. If unspecified, all policies will be returned.
    */
-  @JsonProperty("creator_user_name")
-  @QueryParam("creator_user_name")
   private String creatorUserName;
 
   /**
    * The partial name of policies to be filtered on. If unspecified, all policies will be returned.
    */
-  @JsonProperty("policy_name")
-  @QueryParam("policy_name")
   private String policyName;
 
   public Filter setCreatorUserId(Long creatorUserId) {
@@ -84,5 +88,41 @@ public class Filter {
         .add("creatorUserName", creatorUserName)
         .add("policyName", policyName)
         .toString();
+  }
+
+  FilterPb toPb() {
+    FilterPb pb = new FilterPb();
+    pb.setCreatorUserId(creatorUserId);
+    pb.setCreatorUserName(creatorUserName);
+    pb.setPolicyName(policyName);
+
+    return pb;
+  }
+
+  static Filter fromPb(FilterPb pb) {
+    Filter model = new Filter();
+    model.setCreatorUserId(pb.getCreatorUserId());
+    model.setCreatorUserName(pb.getCreatorUserName());
+    model.setPolicyName(pb.getPolicyName());
+
+    return model;
+  }
+
+  public static class FilterSerializer extends JsonSerializer<Filter> {
+    @Override
+    public void serialize(Filter value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      FilterPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class FilterDeserializer extends JsonDeserializer<Filter> {
+    @Override
+    public Filter deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      FilterPb pb = mapper.readValue(p, FilterPb.class);
+      return Filter.fromPb(pb);
+    }
   }
 }

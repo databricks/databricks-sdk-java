@@ -4,31 +4,38 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = PartitionValue.PartitionValueSerializer.class)
+@JsonDeserialize(using = PartitionValue.PartitionValueDeserializer.class)
 public class PartitionValue {
   /** The name of the partition column. */
-  @JsonProperty("name")
   private String name;
 
   /** The operator to apply for the value. */
-  @JsonProperty("op")
   private PartitionValueOp op;
 
   /**
    * The key of a Delta Sharing recipient's property. For example "databricks-account-id". When this
    * field is set, field `value` can not be set.
    */
-  @JsonProperty("recipient_property_key")
   private String recipientPropertyKey;
 
   /**
    * The value of the partition column. When this value is not set, it means `null` value. When this
    * field is set, field `recipient_property_key` can not be set.
    */
-  @JsonProperty("value")
   private String value;
 
   public PartitionValue setName(String name) {
@@ -91,5 +98,44 @@ public class PartitionValue {
         .add("recipientPropertyKey", recipientPropertyKey)
         .add("value", value)
         .toString();
+  }
+
+  PartitionValuePb toPb() {
+    PartitionValuePb pb = new PartitionValuePb();
+    pb.setName(name);
+    pb.setOp(op);
+    pb.setRecipientPropertyKey(recipientPropertyKey);
+    pb.setValue(value);
+
+    return pb;
+  }
+
+  static PartitionValue fromPb(PartitionValuePb pb) {
+    PartitionValue model = new PartitionValue();
+    model.setName(pb.getName());
+    model.setOp(pb.getOp());
+    model.setRecipientPropertyKey(pb.getRecipientPropertyKey());
+    model.setValue(pb.getValue());
+
+    return model;
+  }
+
+  public static class PartitionValueSerializer extends JsonSerializer<PartitionValue> {
+    @Override
+    public void serialize(PartitionValue value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PartitionValuePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PartitionValueDeserializer extends JsonDeserializer<PartitionValue> {
+    @Override
+    public PartitionValue deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PartitionValuePb pb = mapper.readValue(p, PartitionValuePb.class);
+      return PartitionValue.fromPb(pb);
+    }
   }
 }

@@ -3,30 +3,35 @@
 package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Delete a model version tag */
 @Generated
+@JsonSerialize(using = DeleteModelVersionTagRequest.DeleteModelVersionTagRequestSerializer.class)
+@JsonDeserialize(
+    using = DeleteModelVersionTagRequest.DeleteModelVersionTagRequestDeserializer.class)
 public class DeleteModelVersionTagRequest {
   /**
    * Name of the tag. The name must be an exact match; wild-card deletion is not supported. Maximum
    * size is 250 bytes.
    */
-  @JsonIgnore
-  @QueryParam("key")
   private String key;
 
   /** Name of the registered model that the tag was logged under. */
-  @JsonIgnore
-  @QueryParam("name")
   private String name;
 
   /** Model version number that the tag was logged under. */
-  @JsonIgnore
-  @QueryParam("version")
   private String version;
 
   public DeleteModelVersionTagRequest setKey(String key) {
@@ -78,5 +83,45 @@ public class DeleteModelVersionTagRequest {
         .add("name", name)
         .add("version", version)
         .toString();
+  }
+
+  DeleteModelVersionTagRequestPb toPb() {
+    DeleteModelVersionTagRequestPb pb = new DeleteModelVersionTagRequestPb();
+    pb.setKey(key);
+    pb.setName(name);
+    pb.setVersion(version);
+
+    return pb;
+  }
+
+  static DeleteModelVersionTagRequest fromPb(DeleteModelVersionTagRequestPb pb) {
+    DeleteModelVersionTagRequest model = new DeleteModelVersionTagRequest();
+    model.setKey(pb.getKey());
+    model.setName(pb.getName());
+    model.setVersion(pb.getVersion());
+
+    return model;
+  }
+
+  public static class DeleteModelVersionTagRequestSerializer
+      extends JsonSerializer<DeleteModelVersionTagRequest> {
+    @Override
+    public void serialize(
+        DeleteModelVersionTagRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DeleteModelVersionTagRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DeleteModelVersionTagRequestDeserializer
+      extends JsonDeserializer<DeleteModelVersionTagRequest> {
+    @Override
+    public DeleteModelVersionTagRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DeleteModelVersionTagRequestPb pb = mapper.readValue(p, DeleteModelVersionTagRequestPb.class);
+      return DeleteModelVersionTagRequest.fromPb(pb);
+    }
   }
 }

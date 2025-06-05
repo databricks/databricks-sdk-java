@@ -4,18 +4,28 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = RepairRun.RepairRunSerializer.class)
+@JsonDeserialize(using = RepairRun.RepairRunDeserializer.class)
 public class RepairRun {
   /**
    * An array of commands to execute for jobs with the dbt task, for example `"dbt_commands": ["dbt
    * deps", "dbt seed", "dbt deps", "dbt seed", "dbt run"]`
    */
-  @JsonProperty("dbt_commands")
   private Collection<String> dbtCommands;
 
   /**
@@ -29,18 +39,15 @@ public class RepairRun {
    *
    * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
    */
-  @JsonProperty("jar_params")
   private Collection<String> jarParams;
 
   /** Job-level parameters used in the run. for example `"param": "overriding_val"` */
-  @JsonProperty("job_parameters")
   private Map<String, String> jobParameters;
 
   /**
    * The ID of the latest repair. This parameter is not required when repairing a run for the first
    * time, but must be provided on subsequent requests to repair the same run.
    */
-  @JsonProperty("latest_repair_id")
   private Long latestRepairId;
 
   /**
@@ -60,7 +67,6 @@ public class RepairRun {
    * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
    * [dbutils.widgets.get]: https://docs.databricks.com/dev-tools/databricks-utils.html
    */
-  @JsonProperty("notebook_params")
   private Map<String, String> notebookParams;
 
   /**
@@ -72,15 +78,12 @@ public class RepairRun {
    * `PERFORMANCE_OPTIMIZED`: Prioritizes fast startup and execution times through rapid scaling and
    * optimized cluster performance.
    */
-  @JsonProperty("performance_target")
   private PerformanceTarget performanceTarget;
 
   /** Controls whether the pipeline should perform a full refresh */
-  @JsonProperty("pipeline_params")
   private PipelineParams pipelineParams;
 
   /** */
-  @JsonProperty("python_named_params")
   private Map<String, String> pythonNamedParams;
 
   /**
@@ -99,29 +102,24 @@ public class RepairRun {
    *
    * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
    */
-  @JsonProperty("python_params")
   private Collection<String> pythonParams;
 
   /**
    * If true, repair all failed tasks. Only one of `rerun_tasks` or `rerun_all_failed_tasks` can be
    * used.
    */
-  @JsonProperty("rerun_all_failed_tasks")
   private Boolean rerunAllFailedTasks;
 
   /**
    * If true, repair all tasks that depend on the tasks in `rerun_tasks`, even if they were
    * previously successful. Can be also used in combination with `rerun_all_failed_tasks`.
    */
-  @JsonProperty("rerun_dependent_tasks")
   private Boolean rerunDependentTasks;
 
   /** The task keys of the task runs to repair. */
-  @JsonProperty("rerun_tasks")
   private Collection<String> rerunTasks;
 
   /** The job run ID of the run to repair. The run must not be in progress. */
-  @JsonProperty("run_id")
   private Long runId;
 
   /**
@@ -141,14 +139,12 @@ public class RepairRun {
    *
    * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
    */
-  @JsonProperty("spark_submit_params")
   private Collection<String> sparkSubmitParams;
 
   /**
    * A map from keys to values for jobs with SQL task, for example `"sql_params": {"name": "john
    * doe", "age": "35"}`. The SQL alert task does not support custom parameters.
    */
-  @JsonProperty("sql_params")
   private Map<String, String> sqlParams;
 
   public RepairRun setDbtCommands(Collection<String> dbtCommands) {
@@ -347,5 +343,65 @@ public class RepairRun {
         .add("sparkSubmitParams", sparkSubmitParams)
         .add("sqlParams", sqlParams)
         .toString();
+  }
+
+  RepairRunPb toPb() {
+    RepairRunPb pb = new RepairRunPb();
+    pb.setDbtCommands(dbtCommands);
+    pb.setJarParams(jarParams);
+    pb.setJobParameters(jobParameters);
+    pb.setLatestRepairId(latestRepairId);
+    pb.setNotebookParams(notebookParams);
+    pb.setPerformanceTarget(performanceTarget);
+    pb.setPipelineParams(pipelineParams);
+    pb.setPythonNamedParams(pythonNamedParams);
+    pb.setPythonParams(pythonParams);
+    pb.setRerunAllFailedTasks(rerunAllFailedTasks);
+    pb.setRerunDependentTasks(rerunDependentTasks);
+    pb.setRerunTasks(rerunTasks);
+    pb.setRunId(runId);
+    pb.setSparkSubmitParams(sparkSubmitParams);
+    pb.setSqlParams(sqlParams);
+
+    return pb;
+  }
+
+  static RepairRun fromPb(RepairRunPb pb) {
+    RepairRun model = new RepairRun();
+    model.setDbtCommands(pb.getDbtCommands());
+    model.setJarParams(pb.getJarParams());
+    model.setJobParameters(pb.getJobParameters());
+    model.setLatestRepairId(pb.getLatestRepairId());
+    model.setNotebookParams(pb.getNotebookParams());
+    model.setPerformanceTarget(pb.getPerformanceTarget());
+    model.setPipelineParams(pb.getPipelineParams());
+    model.setPythonNamedParams(pb.getPythonNamedParams());
+    model.setPythonParams(pb.getPythonParams());
+    model.setRerunAllFailedTasks(pb.getRerunAllFailedTasks());
+    model.setRerunDependentTasks(pb.getRerunDependentTasks());
+    model.setRerunTasks(pb.getRerunTasks());
+    model.setRunId(pb.getRunId());
+    model.setSparkSubmitParams(pb.getSparkSubmitParams());
+    model.setSqlParams(pb.getSqlParams());
+
+    return model;
+  }
+
+  public static class RepairRunSerializer extends JsonSerializer<RepairRun> {
+    @Override
+    public void serialize(RepairRun value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      RepairRunPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class RepairRunDeserializer extends JsonDeserializer<RepairRun> {
+    @Override
+    public RepairRun deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      RepairRunPb pb = mapper.readValue(p, RepairRunPb.class);
+      return RepairRun.fromPb(pb);
+    }
   }
 }

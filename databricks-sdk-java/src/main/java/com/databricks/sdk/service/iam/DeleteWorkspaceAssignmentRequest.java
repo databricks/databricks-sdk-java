@@ -4,17 +4,30 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Delete permissions assignment */
 @Generated
+@JsonSerialize(
+    using = DeleteWorkspaceAssignmentRequest.DeleteWorkspaceAssignmentRequestSerializer.class)
+@JsonDeserialize(
+    using = DeleteWorkspaceAssignmentRequest.DeleteWorkspaceAssignmentRequestDeserializer.class)
 public class DeleteWorkspaceAssignmentRequest {
   /** The ID of the user, service principal, or group. */
-  @JsonIgnore private Long principalId;
+  private Long principalId;
 
   /** The workspace ID for the account. */
-  @JsonIgnore private Long workspaceId;
+  private Long workspaceId;
 
   public DeleteWorkspaceAssignmentRequest setPrincipalId(Long principalId) {
     this.principalId = principalId;
@@ -54,5 +67,44 @@ public class DeleteWorkspaceAssignmentRequest {
         .add("principalId", principalId)
         .add("workspaceId", workspaceId)
         .toString();
+  }
+
+  DeleteWorkspaceAssignmentRequestPb toPb() {
+    DeleteWorkspaceAssignmentRequestPb pb = new DeleteWorkspaceAssignmentRequestPb();
+    pb.setPrincipalId(principalId);
+    pb.setWorkspaceId(workspaceId);
+
+    return pb;
+  }
+
+  static DeleteWorkspaceAssignmentRequest fromPb(DeleteWorkspaceAssignmentRequestPb pb) {
+    DeleteWorkspaceAssignmentRequest model = new DeleteWorkspaceAssignmentRequest();
+    model.setPrincipalId(pb.getPrincipalId());
+    model.setWorkspaceId(pb.getWorkspaceId());
+
+    return model;
+  }
+
+  public static class DeleteWorkspaceAssignmentRequestSerializer
+      extends JsonSerializer<DeleteWorkspaceAssignmentRequest> {
+    @Override
+    public void serialize(
+        DeleteWorkspaceAssignmentRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DeleteWorkspaceAssignmentRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DeleteWorkspaceAssignmentRequestDeserializer
+      extends JsonDeserializer<DeleteWorkspaceAssignmentRequest> {
+    @Override
+    public DeleteWorkspaceAssignmentRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DeleteWorkspaceAssignmentRequestPb pb =
+          mapper.readValue(p, DeleteWorkspaceAssignmentRequestPb.class);
+      return DeleteWorkspaceAssignmentRequest.fromPb(pb);
+    }
   }
 }

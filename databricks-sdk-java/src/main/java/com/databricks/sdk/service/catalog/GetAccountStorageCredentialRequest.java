@@ -4,17 +4,30 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Gets the named storage credential */
 @Generated
+@JsonSerialize(
+    using = GetAccountStorageCredentialRequest.GetAccountStorageCredentialRequestSerializer.class)
+@JsonDeserialize(
+    using = GetAccountStorageCredentialRequest.GetAccountStorageCredentialRequestDeserializer.class)
 public class GetAccountStorageCredentialRequest {
   /** Unity Catalog metastore ID */
-  @JsonIgnore private String metastoreId;
+  private String metastoreId;
 
   /** Name of the storage credential. */
-  @JsonIgnore private String storageCredentialName;
+  private String storageCredentialName;
 
   public GetAccountStorageCredentialRequest setMetastoreId(String metastoreId) {
     this.metastoreId = metastoreId;
@@ -54,5 +67,44 @@ public class GetAccountStorageCredentialRequest {
         .add("metastoreId", metastoreId)
         .add("storageCredentialName", storageCredentialName)
         .toString();
+  }
+
+  GetAccountStorageCredentialRequestPb toPb() {
+    GetAccountStorageCredentialRequestPb pb = new GetAccountStorageCredentialRequestPb();
+    pb.setMetastoreId(metastoreId);
+    pb.setStorageCredentialName(storageCredentialName);
+
+    return pb;
+  }
+
+  static GetAccountStorageCredentialRequest fromPb(GetAccountStorageCredentialRequestPb pb) {
+    GetAccountStorageCredentialRequest model = new GetAccountStorageCredentialRequest();
+    model.setMetastoreId(pb.getMetastoreId());
+    model.setStorageCredentialName(pb.getStorageCredentialName());
+
+    return model;
+  }
+
+  public static class GetAccountStorageCredentialRequestSerializer
+      extends JsonSerializer<GetAccountStorageCredentialRequest> {
+    @Override
+    public void serialize(
+        GetAccountStorageCredentialRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetAccountStorageCredentialRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetAccountStorageCredentialRequestDeserializer
+      extends JsonDeserializer<GetAccountStorageCredentialRequest> {
+    @Override
+    public GetAccountStorageCredentialRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetAccountStorageCredentialRequestPb pb =
+          mapper.readValue(p, GetAccountStorageCredentialRequestPb.class);
+      return GetAccountStorageCredentialRequest.fromPb(pb);
+    }
   }
 }

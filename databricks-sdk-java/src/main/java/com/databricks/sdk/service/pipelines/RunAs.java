@@ -4,7 +4,16 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -16,16 +25,16 @@ import java.util.Objects;
  * is thrown.
  */
 @Generated
+@JsonSerialize(using = RunAs.RunAsSerializer.class)
+@JsonDeserialize(using = RunAs.RunAsDeserializer.class)
 public class RunAs {
   /**
    * Application ID of an active service principal. Setting this field requires the
    * `servicePrincipal/user` role.
    */
-  @JsonProperty("service_principal_name")
   private String servicePrincipalName;
 
   /** The email of an active workspace user. Users can only set this field to their own email. */
-  @JsonProperty("user_name")
   private String userName;
 
   public RunAs setServicePrincipalName(String servicePrincipalName) {
@@ -66,5 +75,39 @@ public class RunAs {
         .add("servicePrincipalName", servicePrincipalName)
         .add("userName", userName)
         .toString();
+  }
+
+  RunAsPb toPb() {
+    RunAsPb pb = new RunAsPb();
+    pb.setServicePrincipalName(servicePrincipalName);
+    pb.setUserName(userName);
+
+    return pb;
+  }
+
+  static RunAs fromPb(RunAsPb pb) {
+    RunAs model = new RunAs();
+    model.setServicePrincipalName(pb.getServicePrincipalName());
+    model.setUserName(pb.getUserName());
+
+    return model;
+  }
+
+  public static class RunAsSerializer extends JsonSerializer<RunAs> {
+    @Override
+    public void serialize(RunAs value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      RunAsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class RunAsDeserializer extends JsonDeserializer<RunAs> {
+    @Override
+    public RunAs deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      RunAsPb pb = mapper.readValue(p, RunAsPb.class);
+      return RunAs.fromPb(pb);
+    }
   }
 }

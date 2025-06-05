@@ -4,14 +4,25 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get a pipeline */
 @Generated
+@JsonSerialize(using = GetPipelineRequest.GetPipelineRequestSerializer.class)
+@JsonDeserialize(using = GetPipelineRequest.GetPipelineRequestDeserializer.class)
 public class GetPipelineRequest {
   /** */
-  @JsonIgnore private String pipelineId;
+  private String pipelineId;
 
   public GetPipelineRequest setPipelineId(String pipelineId) {
     this.pipelineId = pipelineId;
@@ -38,5 +49,38 @@ public class GetPipelineRequest {
   @Override
   public String toString() {
     return new ToStringer(GetPipelineRequest.class).add("pipelineId", pipelineId).toString();
+  }
+
+  GetPipelineRequestPb toPb() {
+    GetPipelineRequestPb pb = new GetPipelineRequestPb();
+    pb.setPipelineId(pipelineId);
+
+    return pb;
+  }
+
+  static GetPipelineRequest fromPb(GetPipelineRequestPb pb) {
+    GetPipelineRequest model = new GetPipelineRequest();
+    model.setPipelineId(pb.getPipelineId());
+
+    return model;
+  }
+
+  public static class GetPipelineRequestSerializer extends JsonSerializer<GetPipelineRequest> {
+    @Override
+    public void serialize(GetPipelineRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetPipelineRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetPipelineRequestDeserializer extends JsonDeserializer<GetPipelineRequest> {
+    @Override
+    public GetPipelineRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetPipelineRequestPb pb = mapper.readValue(p, GetPipelineRequestPb.class);
+      return GetPipelineRequest.fromPb(pb);
+    }
   }
 }

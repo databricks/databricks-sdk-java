@@ -4,44 +4,47 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = GlobalInitScriptDetails.GlobalInitScriptDetailsSerializer.class)
+@JsonDeserialize(using = GlobalInitScriptDetails.GlobalInitScriptDetailsDeserializer.class)
 public class GlobalInitScriptDetails {
   /** Time when the script was created, represented as a Unix timestamp in milliseconds. */
-  @JsonProperty("created_at")
   private Long createdAt;
 
   /** The username of the user who created the script. */
-  @JsonProperty("created_by")
   private String createdBy;
 
   /** Specifies whether the script is enabled. The script runs only if enabled. */
-  @JsonProperty("enabled")
   private Boolean enabled;
 
   /** The name of the script */
-  @JsonProperty("name")
   private String name;
 
   /**
    * The position of a script, where 0 represents the first script to run, 1 is the second script to
    * run, in ascending order.
    */
-  @JsonProperty("position")
   private Long position;
 
   /** The global init script ID. */
-  @JsonProperty("script_id")
   private String scriptId;
 
   /** Time when the script was updated, represented as a Unix timestamp in milliseconds. */
-  @JsonProperty("updated_at")
   private Long updatedAt;
 
   /** The username of the user who last updated the script */
-  @JsonProperty("updated_by")
   private String updatedBy;
 
   public GlobalInitScriptDetails setCreatedAt(Long createdAt) {
@@ -149,5 +152,55 @@ public class GlobalInitScriptDetails {
         .add("updatedAt", updatedAt)
         .add("updatedBy", updatedBy)
         .toString();
+  }
+
+  GlobalInitScriptDetailsPb toPb() {
+    GlobalInitScriptDetailsPb pb = new GlobalInitScriptDetailsPb();
+    pb.setCreatedAt(createdAt);
+    pb.setCreatedBy(createdBy);
+    pb.setEnabled(enabled);
+    pb.setName(name);
+    pb.setPosition(position);
+    pb.setScriptId(scriptId);
+    pb.setUpdatedAt(updatedAt);
+    pb.setUpdatedBy(updatedBy);
+
+    return pb;
+  }
+
+  static GlobalInitScriptDetails fromPb(GlobalInitScriptDetailsPb pb) {
+    GlobalInitScriptDetails model = new GlobalInitScriptDetails();
+    model.setCreatedAt(pb.getCreatedAt());
+    model.setCreatedBy(pb.getCreatedBy());
+    model.setEnabled(pb.getEnabled());
+    model.setName(pb.getName());
+    model.setPosition(pb.getPosition());
+    model.setScriptId(pb.getScriptId());
+    model.setUpdatedAt(pb.getUpdatedAt());
+    model.setUpdatedBy(pb.getUpdatedBy());
+
+    return model;
+  }
+
+  public static class GlobalInitScriptDetailsSerializer
+      extends JsonSerializer<GlobalInitScriptDetails> {
+    @Override
+    public void serialize(
+        GlobalInitScriptDetails value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GlobalInitScriptDetailsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GlobalInitScriptDetailsDeserializer
+      extends JsonDeserializer<GlobalInitScriptDetails> {
+    @Override
+    public GlobalInitScriptDetails deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GlobalInitScriptDetailsPb pb = mapper.readValue(p, GlobalInitScriptDetailsPb.class);
+      return GlobalInitScriptDetails.fromPb(pb);
+    }
   }
 }

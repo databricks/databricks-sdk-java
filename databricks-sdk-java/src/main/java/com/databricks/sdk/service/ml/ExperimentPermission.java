@@ -4,22 +4,30 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ExperimentPermission.ExperimentPermissionSerializer.class)
+@JsonDeserialize(using = ExperimentPermission.ExperimentPermissionDeserializer.class)
 public class ExperimentPermission {
   /** */
-  @JsonProperty("inherited")
   private Boolean inherited;
 
   /** */
-  @JsonProperty("inherited_from_object")
   private Collection<String> inheritedFromObject;
 
   /** Permission level */
-  @JsonProperty("permission_level")
   private ExperimentPermissionLevel permissionLevel;
 
   public ExperimentPermission setInherited(Boolean inherited) {
@@ -71,5 +79,44 @@ public class ExperimentPermission {
         .add("inheritedFromObject", inheritedFromObject)
         .add("permissionLevel", permissionLevel)
         .toString();
+  }
+
+  ExperimentPermissionPb toPb() {
+    ExperimentPermissionPb pb = new ExperimentPermissionPb();
+    pb.setInherited(inherited);
+    pb.setInheritedFromObject(inheritedFromObject);
+    pb.setPermissionLevel(permissionLevel);
+
+    return pb;
+  }
+
+  static ExperimentPermission fromPb(ExperimentPermissionPb pb) {
+    ExperimentPermission model = new ExperimentPermission();
+    model.setInherited(pb.getInherited());
+    model.setInheritedFromObject(pb.getInheritedFromObject());
+    model.setPermissionLevel(pb.getPermissionLevel());
+
+    return model;
+  }
+
+  public static class ExperimentPermissionSerializer extends JsonSerializer<ExperimentPermission> {
+    @Override
+    public void serialize(
+        ExperimentPermission value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ExperimentPermissionPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ExperimentPermissionDeserializer
+      extends JsonDeserializer<ExperimentPermission> {
+    @Override
+    public ExperimentPermission deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ExperimentPermissionPb pb = mapper.readValue(p, ExperimentPermissionPb.class);
+      return ExperimentPermission.fromPb(pb);
+    }
   }
 }

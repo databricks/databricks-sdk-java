@@ -4,7 +4,16 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
@@ -14,6 +23,8 @@ import java.util.Objects;
  * lifetime of a cluster.
  */
 @Generated
+@JsonSerialize(using = ClusterAttributes.ClusterAttributesSerializer.class)
+@JsonDeserialize(using = ClusterAttributes.ClusterAttributesDeserializer.class)
 public class ClusterAttributes {
   /**
    * Automatically terminates the cluster after it is inactive for this time in minutes. If not set,
@@ -21,21 +32,18 @@ public class ClusterAttributes {
    * 10 and 10000 minutes. Users can also set this value to 0 to explicitly disable automatic
    * termination.
    */
-  @JsonProperty("autotermination_minutes")
   private Long autoterminationMinutes;
 
   /**
    * Attributes related to clusters running on Amazon Web Services. If not specified at cluster
    * creation, a set of default values will be used.
    */
-  @JsonProperty("aws_attributes")
   private AwsAttributes awsAttributes;
 
   /**
    * Attributes related to clusters running on Microsoft Azure. If not specified at cluster
    * creation, a set of default values will be used.
    */
-  @JsonProperty("azure_attributes")
   private AzureAttributes azureAttributes;
 
   /**
@@ -45,7 +53,6 @@ public class ClusterAttributes {
    * every `5 mins`. The destination of driver logs is `$destination/$clusterId/driver`, while the
    * destination of executor logs is `$destination/$clusterId/executor`.
    */
-  @JsonProperty("cluster_log_conf")
   private ClusterLogConf clusterLogConf;
 
   /**
@@ -53,7 +60,6 @@ public class ClusterAttributes {
    * creation, the cluster name will be an empty string. For job clusters, the cluster name is
    * automatically set based on the job and job run IDs.
    */
-  @JsonProperty("cluster_name")
   private String clusterName;
 
   /**
@@ -65,7 +71,6 @@ public class ClusterAttributes {
    * <p>- Clusters can only reuse cloud resources if the resources' tags are a subset of the cluster
    * tags
    */
-  @JsonProperty("custom_tags")
   private Map<String, String> customTags;
 
   /**
@@ -95,18 +100,15 @@ public class ClusterAttributes {
    * Passthrough on standard clusters. * `LEGACY_SINGLE_USER_STANDARD`: This mode provides a way
    * that doesn’t have UC nor passthrough enabled.
    */
-  @JsonProperty("data_security_mode")
   private DataSecurityMode dataSecurityMode;
 
   /** Custom docker image BYOC */
-  @JsonProperty("docker_image")
   private DockerImage dockerImage;
 
   /**
    * The optional ID of the instance pool for the driver of the cluster belongs. The pool cluster
    * uses the instance pool with id (instance_pool_id) if the driver pool is not assigned.
    */
-  @JsonProperty("driver_instance_pool_id")
   private String driverInstancePoolId;
 
   /**
@@ -117,7 +119,6 @@ public class ClusterAttributes {
    * both driver_node_type_id, node_type_id, and virtual_cluster_size are specified,
    * driver_node_type_id and node_type_id take precedence.
    */
-  @JsonProperty("driver_node_type_id")
   private String driverNodeTypeId;
 
   /**
@@ -125,18 +126,15 @@ public class ClusterAttributes {
    * space when its Spark workers are running low on disk space. This feature requires specific AWS
    * permissions to function correctly - refer to the User Guide for more details.
    */
-  @JsonProperty("enable_elastic_disk")
   private Boolean enableElasticDisk;
 
   /** Whether to enable LUKS on cluster VMs' local disks */
-  @JsonProperty("enable_local_disk_encryption")
   private Boolean enableLocalDiskEncryption;
 
   /**
    * Attributes related to clusters running on Google Cloud Platform. If not specified at cluster
    * creation, a set of default values will be used.
    */
-  @JsonProperty("gcp_attributes")
   private GcpAttributes gcpAttributes;
 
   /**
@@ -144,11 +142,9 @@ public class ClusterAttributes {
    * scripts are executed sequentially in the order provided. If `cluster_log_conf` is specified,
    * init script logs are sent to `<destination>/<cluster-ID>/init_scripts`.
    */
-  @JsonProperty("init_scripts")
   private Collection<InitScriptInfo> initScripts;
 
   /** The optional ID of the instance pool to which the cluster belongs. */
-  @JsonProperty("instance_pool_id")
   private String instancePoolId;
 
   /**
@@ -157,7 +153,6 @@ public class ClusterAttributes {
    * <p>When set to true, Databricks will automatically set single node related `custom_tags`,
    * `spark_conf`, and `num_workers`
    */
-  @JsonProperty("is_single_node")
   private Boolean isSingleNode;
 
   /**
@@ -175,7 +170,6 @@ public class ClusterAttributes {
    *
    * <p>[simple form]: https://docs.databricks.com/compute/simple-form.html
    */
-  @JsonProperty("kind")
   private Kind kind;
 
   /**
@@ -184,18 +178,15 @@ public class ClusterAttributes {
    * compute intensive workloads. A list of available node types can be retrieved by using the
    * :method:clusters/listNodeTypes API call.
    */
-  @JsonProperty("node_type_id")
   private String nodeTypeId;
 
   /** The ID of the cluster policy used to create the cluster if applicable. */
-  @JsonProperty("policy_id")
   private String policyId;
 
   /**
    * If set, what the configurable throughput (in Mb/s) for the remote disk is. Currently only
    * supported for GCP HYPERDISK_BALANCED disks.
    */
-  @JsonProperty("remote_disk_throughput")
   private Long remoteDiskThroughput;
 
   /**
@@ -207,11 +198,9 @@ public class ClusterAttributes {
    * <p>If left unspecified, the runtime engine defaults to standard unless the spark_version
    * contains -photon-, in which case Photon will be used.
    */
-  @JsonProperty("runtime_engine")
   private RuntimeEngine runtimeEngine;
 
   /** Single user name if data_security_mode is `SINGLE_USER` */
-  @JsonProperty("single_user_name")
   private String singleUserName;
 
   /**
@@ -219,7 +208,6 @@ public class ClusterAttributes {
    * Users can also pass in a string of extra JVM options to the driver and the executors via
    * `spark.driver.extraJavaOptions` and `spark.executor.extraJavaOptions` respectively.
    */
-  @JsonProperty("spark_conf")
   private Map<String, String> sparkConf;
 
   /**
@@ -235,14 +223,12 @@ public class ClusterAttributes {
    * "/local_disk0"}` or `{"SPARK_DAEMON_JAVA_OPTS": "$SPARK_DAEMON_JAVA_OPTS
    * -Dspark.shuffle.service.enabled=true"}`
    */
-  @JsonProperty("spark_env_vars")
   private Map<String, String> sparkEnvVars;
 
   /**
    * The Spark version of the cluster, e.g. `3.3.x-scala2.11`. A list of available Spark versions
    * can be retrieved by using the :method:clusters/sparkVersions API call.
    */
-  @JsonProperty("spark_version")
   private String sparkVersion;
 
   /**
@@ -250,14 +236,12 @@ public class ClusterAttributes {
    * corresponding private keys can be used to login with the user name `ubuntu` on port `2200`. Up
    * to 10 keys can be specified.
    */
-  @JsonProperty("ssh_public_keys")
   private Collection<String> sshPublicKeys;
 
   /**
    * If set, what the total initial volume size (in GB) of the remote disks should be. Currently
    * only supported for GCP HYPERDISK_BALANCED disks.
    */
-  @JsonProperty("total_initial_remote_disk_size")
   private Long totalInitialRemoteDiskSize;
 
   /**
@@ -266,11 +250,9 @@ public class ClusterAttributes {
    * <p>`effective_spark_version` is determined by `spark_version` (DBR release), this field
    * `use_ml_runtime`, and whether `node_type_id` is gpu node or not.
    */
-  @JsonProperty("use_ml_runtime")
   private Boolean useMlRuntime;
 
   /** Cluster Attributes showing for clusters workload types. */
-  @JsonProperty("workload_type")
   private WorkloadType workloadType;
 
   public ClusterAttributes setAutoterminationMinutes(Long autoterminationMinutes) {
@@ -637,5 +619,94 @@ public class ClusterAttributes {
         .add("useMlRuntime", useMlRuntime)
         .add("workloadType", workloadType)
         .toString();
+  }
+
+  ClusterAttributesPb toPb() {
+    ClusterAttributesPb pb = new ClusterAttributesPb();
+    pb.setAutoterminationMinutes(autoterminationMinutes);
+    pb.setAwsAttributes(awsAttributes);
+    pb.setAzureAttributes(azureAttributes);
+    pb.setClusterLogConf(clusterLogConf);
+    pb.setClusterName(clusterName);
+    pb.setCustomTags(customTags);
+    pb.setDataSecurityMode(dataSecurityMode);
+    pb.setDockerImage(dockerImage);
+    pb.setDriverInstancePoolId(driverInstancePoolId);
+    pb.setDriverNodeTypeId(driverNodeTypeId);
+    pb.setEnableElasticDisk(enableElasticDisk);
+    pb.setEnableLocalDiskEncryption(enableLocalDiskEncryption);
+    pb.setGcpAttributes(gcpAttributes);
+    pb.setInitScripts(initScripts);
+    pb.setInstancePoolId(instancePoolId);
+    pb.setIsSingleNode(isSingleNode);
+    pb.setKind(kind);
+    pb.setNodeTypeId(nodeTypeId);
+    pb.setPolicyId(policyId);
+    pb.setRemoteDiskThroughput(remoteDiskThroughput);
+    pb.setRuntimeEngine(runtimeEngine);
+    pb.setSingleUserName(singleUserName);
+    pb.setSparkConf(sparkConf);
+    pb.setSparkEnvVars(sparkEnvVars);
+    pb.setSparkVersion(sparkVersion);
+    pb.setSshPublicKeys(sshPublicKeys);
+    pb.setTotalInitialRemoteDiskSize(totalInitialRemoteDiskSize);
+    pb.setUseMlRuntime(useMlRuntime);
+    pb.setWorkloadType(workloadType);
+
+    return pb;
+  }
+
+  static ClusterAttributes fromPb(ClusterAttributesPb pb) {
+    ClusterAttributes model = new ClusterAttributes();
+    model.setAutoterminationMinutes(pb.getAutoterminationMinutes());
+    model.setAwsAttributes(pb.getAwsAttributes());
+    model.setAzureAttributes(pb.getAzureAttributes());
+    model.setClusterLogConf(pb.getClusterLogConf());
+    model.setClusterName(pb.getClusterName());
+    model.setCustomTags(pb.getCustomTags());
+    model.setDataSecurityMode(pb.getDataSecurityMode());
+    model.setDockerImage(pb.getDockerImage());
+    model.setDriverInstancePoolId(pb.getDriverInstancePoolId());
+    model.setDriverNodeTypeId(pb.getDriverNodeTypeId());
+    model.setEnableElasticDisk(pb.getEnableElasticDisk());
+    model.setEnableLocalDiskEncryption(pb.getEnableLocalDiskEncryption());
+    model.setGcpAttributes(pb.getGcpAttributes());
+    model.setInitScripts(pb.getInitScripts());
+    model.setInstancePoolId(pb.getInstancePoolId());
+    model.setIsSingleNode(pb.getIsSingleNode());
+    model.setKind(pb.getKind());
+    model.setNodeTypeId(pb.getNodeTypeId());
+    model.setPolicyId(pb.getPolicyId());
+    model.setRemoteDiskThroughput(pb.getRemoteDiskThroughput());
+    model.setRuntimeEngine(pb.getRuntimeEngine());
+    model.setSingleUserName(pb.getSingleUserName());
+    model.setSparkConf(pb.getSparkConf());
+    model.setSparkEnvVars(pb.getSparkEnvVars());
+    model.setSparkVersion(pb.getSparkVersion());
+    model.setSshPublicKeys(pb.getSshPublicKeys());
+    model.setTotalInitialRemoteDiskSize(pb.getTotalInitialRemoteDiskSize());
+    model.setUseMlRuntime(pb.getUseMlRuntime());
+    model.setWorkloadType(pb.getWorkloadType());
+
+    return model;
+  }
+
+  public static class ClusterAttributesSerializer extends JsonSerializer<ClusterAttributes> {
+    @Override
+    public void serialize(ClusterAttributes value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ClusterAttributesPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ClusterAttributesDeserializer extends JsonDeserializer<ClusterAttributes> {
+    @Override
+    public ClusterAttributes deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ClusterAttributesPb pb = mapper.readValue(p, ClusterAttributesPb.class);
+      return ClusterAttributes.fromPb(pb);
+    }
   }
 }

@@ -4,33 +4,39 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Describes a specific Spark driver or executor. */
 @Generated
+@JsonSerialize(using = SparkNode.SparkNodeSerializer.class)
+@JsonDeserialize(using = SparkNode.SparkNodeDeserializer.class)
 public class SparkNode {
   /** The private IP address of the host instance. */
-  @JsonProperty("host_private_ip")
   private String hostPrivateIp;
 
   /** Globally unique identifier for the host instance from the cloud provider. */
-  @JsonProperty("instance_id")
   private String instanceId;
 
   /** Attributes specific to AWS for a Spark node. */
-  @JsonProperty("node_aws_attributes")
   private SparkNodeAwsAttributes nodeAwsAttributes;
 
   /** Globally unique identifier for this node. */
-  @JsonProperty("node_id")
   private String nodeId;
 
   /**
    * Private IP address (typically a 10.x.x.x address) of the Spark node. Note that this is
    * different from the private IP address of the host instance.
    */
-  @JsonProperty("private_ip")
   private String privateIp;
 
   /**
@@ -38,11 +44,9 @@ public class SparkNode {
    * the driver node. To communicate with the JDBC server, traffic must be manually authorized by
    * adding security group rules to the "worker-unmanaged" security group via the AWS console.
    */
-  @JsonProperty("public_dns")
   private String publicDns;
 
   /** The timestamp (in millisecond) when the Spark node is launched. */
-  @JsonProperty("start_timestamp")
   private Long startTimestamp;
 
   public SparkNode setHostPrivateIp(String hostPrivateIp) {
@@ -139,5 +143,49 @@ public class SparkNode {
         .add("publicDns", publicDns)
         .add("startTimestamp", startTimestamp)
         .toString();
+  }
+
+  SparkNodePb toPb() {
+    SparkNodePb pb = new SparkNodePb();
+    pb.setHostPrivateIp(hostPrivateIp);
+    pb.setInstanceId(instanceId);
+    pb.setNodeAwsAttributes(nodeAwsAttributes);
+    pb.setNodeId(nodeId);
+    pb.setPrivateIp(privateIp);
+    pb.setPublicDns(publicDns);
+    pb.setStartTimestamp(startTimestamp);
+
+    return pb;
+  }
+
+  static SparkNode fromPb(SparkNodePb pb) {
+    SparkNode model = new SparkNode();
+    model.setHostPrivateIp(pb.getHostPrivateIp());
+    model.setInstanceId(pb.getInstanceId());
+    model.setNodeAwsAttributes(pb.getNodeAwsAttributes());
+    model.setNodeId(pb.getNodeId());
+    model.setPrivateIp(pb.getPrivateIp());
+    model.setPublicDns(pb.getPublicDns());
+    model.setStartTimestamp(pb.getStartTimestamp());
+
+    return model;
+  }
+
+  public static class SparkNodeSerializer extends JsonSerializer<SparkNode> {
+    @Override
+    public void serialize(SparkNode value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SparkNodePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SparkNodeDeserializer extends JsonDeserializer<SparkNode> {
+    @Override
+    public SparkNode deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SparkNodePb pb = mapper.readValue(p, SparkNodePb.class);
+      return SparkNode.fromPb(pb);
+    }
   }
 }

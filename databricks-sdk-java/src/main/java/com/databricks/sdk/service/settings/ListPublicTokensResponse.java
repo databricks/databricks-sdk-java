@@ -4,14 +4,24 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ListPublicTokensResponse.ListPublicTokensResponseSerializer.class)
+@JsonDeserialize(using = ListPublicTokensResponse.ListPublicTokensResponseDeserializer.class)
 public class ListPublicTokensResponse {
   /** The information for each token. */
-  @JsonProperty("token_infos")
   private Collection<PublicTokenInfo> tokenInfos;
 
   public ListPublicTokensResponse setTokenInfos(Collection<PublicTokenInfo> tokenInfos) {
@@ -39,5 +49,41 @@ public class ListPublicTokensResponse {
   @Override
   public String toString() {
     return new ToStringer(ListPublicTokensResponse.class).add("tokenInfos", tokenInfos).toString();
+  }
+
+  ListPublicTokensResponsePb toPb() {
+    ListPublicTokensResponsePb pb = new ListPublicTokensResponsePb();
+    pb.setTokenInfos(tokenInfos);
+
+    return pb;
+  }
+
+  static ListPublicTokensResponse fromPb(ListPublicTokensResponsePb pb) {
+    ListPublicTokensResponse model = new ListPublicTokensResponse();
+    model.setTokenInfos(pb.getTokenInfos());
+
+    return model;
+  }
+
+  public static class ListPublicTokensResponseSerializer
+      extends JsonSerializer<ListPublicTokensResponse> {
+    @Override
+    public void serialize(
+        ListPublicTokensResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListPublicTokensResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListPublicTokensResponseDeserializer
+      extends JsonDeserializer<ListPublicTokensResponse> {
+    @Override
+    public ListPublicTokensResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListPublicTokensResponsePb pb = mapper.readValue(p, ListPublicTokensResponsePb.class);
+      return ListPublicTokensResponse.fromPb(pb);
+    }
   }
 }

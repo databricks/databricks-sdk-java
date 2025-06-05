@@ -3,13 +3,25 @@
 package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get Personal Compute setting */
 @Generated
+@JsonSerialize(
+    using = GetPersonalComputeSettingRequest.GetPersonalComputeSettingRequestSerializer.class)
+@JsonDeserialize(
+    using = GetPersonalComputeSettingRequest.GetPersonalComputeSettingRequestDeserializer.class)
 public class GetPersonalComputeSettingRequest {
   /**
    * etag used for versioning. The response is at least as fresh as the eTag provided. This is used
@@ -19,8 +31,6 @@ public class GetPersonalComputeSettingRequest {
    * an etag from a GET request, and pass it with the DELETE request to identify the rule set
    * version you are deleting.
    */
-  @JsonIgnore
-  @QueryParam("etag")
   private String etag;
 
   public GetPersonalComputeSettingRequest setEtag(String etag) {
@@ -48,5 +58,42 @@ public class GetPersonalComputeSettingRequest {
   @Override
   public String toString() {
     return new ToStringer(GetPersonalComputeSettingRequest.class).add("etag", etag).toString();
+  }
+
+  GetPersonalComputeSettingRequestPb toPb() {
+    GetPersonalComputeSettingRequestPb pb = new GetPersonalComputeSettingRequestPb();
+    pb.setEtag(etag);
+
+    return pb;
+  }
+
+  static GetPersonalComputeSettingRequest fromPb(GetPersonalComputeSettingRequestPb pb) {
+    GetPersonalComputeSettingRequest model = new GetPersonalComputeSettingRequest();
+    model.setEtag(pb.getEtag());
+
+    return model;
+  }
+
+  public static class GetPersonalComputeSettingRequestSerializer
+      extends JsonSerializer<GetPersonalComputeSettingRequest> {
+    @Override
+    public void serialize(
+        GetPersonalComputeSettingRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetPersonalComputeSettingRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetPersonalComputeSettingRequestDeserializer
+      extends JsonDeserializer<GetPersonalComputeSettingRequest> {
+    @Override
+    public GetPersonalComputeSettingRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetPersonalComputeSettingRequestPb pb =
+          mapper.readValue(p, GetPersonalComputeSettingRequestPb.class);
+      return GetPersonalComputeSettingRequest.fromPb(pb);
+    }
   }
 }

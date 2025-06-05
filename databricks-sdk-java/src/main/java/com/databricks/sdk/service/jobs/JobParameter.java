@@ -4,21 +4,29 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = JobParameter.JobParameterSerializer.class)
+@JsonDeserialize(using = JobParameter.JobParameterDeserializer.class)
 public class JobParameter {
   /** The optional default value of the parameter */
-  @JsonProperty("default")
   private String defaultValue;
 
   /** The name of the parameter */
-  @JsonProperty("name")
   private String name;
 
   /** The value used in the run */
-  @JsonProperty("value")
   private String value;
 
   public JobParameter setDefault(String defaultValue) {
@@ -70,5 +78,41 @@ public class JobParameter {
         .add("name", name)
         .add("value", value)
         .toString();
+  }
+
+  JobParameterPb toPb() {
+    JobParameterPb pb = new JobParameterPb();
+    pb.setDefault(defaultValue);
+    pb.setName(name);
+    pb.setValue(value);
+
+    return pb;
+  }
+
+  static JobParameter fromPb(JobParameterPb pb) {
+    JobParameter model = new JobParameter();
+    model.setDefault(pb.getDefault());
+    model.setName(pb.getName());
+    model.setValue(pb.getValue());
+
+    return model;
+  }
+
+  public static class JobParameterSerializer extends JsonSerializer<JobParameter> {
+    @Override
+    public void serialize(JobParameter value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      JobParameterPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class JobParameterDeserializer extends JsonDeserializer<JobParameter> {
+    @Override
+    public JobParameter deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      JobParameterPb pb = mapper.readValue(p, JobParameterPb.class);
+      return JobParameter.fromPb(pb);
+    }
   }
 }

@@ -4,17 +4,28 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Disable a system schema */
 @Generated
+@JsonSerialize(using = DisableRequest.DisableRequestSerializer.class)
+@JsonDeserialize(using = DisableRequest.DisableRequestDeserializer.class)
 public class DisableRequest {
   /** The metastore ID under which the system schema lives. */
-  @JsonIgnore private String metastoreId;
+  private String metastoreId;
 
   /** Full name of the system schema. */
-  @JsonIgnore private String schemaName;
+  private String schemaName;
 
   public DisableRequest setMetastoreId(String metastoreId) {
     this.metastoreId = metastoreId;
@@ -54,5 +65,40 @@ public class DisableRequest {
         .add("metastoreId", metastoreId)
         .add("schemaName", schemaName)
         .toString();
+  }
+
+  DisableRequestPb toPb() {
+    DisableRequestPb pb = new DisableRequestPb();
+    pb.setMetastoreId(metastoreId);
+    pb.setSchemaName(schemaName);
+
+    return pb;
+  }
+
+  static DisableRequest fromPb(DisableRequestPb pb) {
+    DisableRequest model = new DisableRequest();
+    model.setMetastoreId(pb.getMetastoreId());
+    model.setSchemaName(pb.getSchemaName());
+
+    return model;
+  }
+
+  public static class DisableRequestSerializer extends JsonSerializer<DisableRequest> {
+    @Override
+    public void serialize(DisableRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DisableRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DisableRequestDeserializer extends JsonDeserializer<DisableRequest> {
+    @Override
+    public DisableRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DisableRequestPb pb = mapper.readValue(p, DisableRequestPb.class);
+      return DisableRequest.fromPb(pb);
+    }
   }
 }

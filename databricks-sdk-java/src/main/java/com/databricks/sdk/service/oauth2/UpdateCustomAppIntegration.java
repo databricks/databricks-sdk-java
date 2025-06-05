@@ -4,36 +4,42 @@ package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = UpdateCustomAppIntegration.UpdateCustomAppIntegrationSerializer.class)
+@JsonDeserialize(using = UpdateCustomAppIntegration.UpdateCustomAppIntegrationDeserializer.class)
 public class UpdateCustomAppIntegration {
   /** */
-  @JsonIgnore private String integrationId;
+  private String integrationId;
 
   /** List of OAuth redirect urls to be updated in the custom OAuth app integration */
-  @JsonProperty("redirect_urls")
   private Collection<String> redirectUrls;
 
   /**
    * List of OAuth scopes to be updated in the custom OAuth app integration, similar to redirect
    * URIs this will fully replace the existing values instead of appending
    */
-  @JsonProperty("scopes")
   private Collection<String> scopes;
 
   /** Token access policy to be updated in the custom OAuth app integration */
-  @JsonProperty("token_access_policy")
   private TokenAccessPolicy tokenAccessPolicy;
 
   /**
    * Scopes that will need to be consented by end user to mint the access token. If the user does
    * not authorize the access token will not be minted. Must be a subset of scopes.
    */
-  @JsonProperty("user_authorized_scopes")
   private Collection<String> userAuthorizedScopes;
 
   public UpdateCustomAppIntegration setIntegrationId(String integrationId) {
@@ -109,5 +115,49 @@ public class UpdateCustomAppIntegration {
         .add("tokenAccessPolicy", tokenAccessPolicy)
         .add("userAuthorizedScopes", userAuthorizedScopes)
         .toString();
+  }
+
+  UpdateCustomAppIntegrationPb toPb() {
+    UpdateCustomAppIntegrationPb pb = new UpdateCustomAppIntegrationPb();
+    pb.setIntegrationId(integrationId);
+    pb.setRedirectUrls(redirectUrls);
+    pb.setScopes(scopes);
+    pb.setTokenAccessPolicy(tokenAccessPolicy);
+    pb.setUserAuthorizedScopes(userAuthorizedScopes);
+
+    return pb;
+  }
+
+  static UpdateCustomAppIntegration fromPb(UpdateCustomAppIntegrationPb pb) {
+    UpdateCustomAppIntegration model = new UpdateCustomAppIntegration();
+    model.setIntegrationId(pb.getIntegrationId());
+    model.setRedirectUrls(pb.getRedirectUrls());
+    model.setScopes(pb.getScopes());
+    model.setTokenAccessPolicy(pb.getTokenAccessPolicy());
+    model.setUserAuthorizedScopes(pb.getUserAuthorizedScopes());
+
+    return model;
+  }
+
+  public static class UpdateCustomAppIntegrationSerializer
+      extends JsonSerializer<UpdateCustomAppIntegration> {
+    @Override
+    public void serialize(
+        UpdateCustomAppIntegration value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateCustomAppIntegrationPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateCustomAppIntegrationDeserializer
+      extends JsonDeserializer<UpdateCustomAppIntegration> {
+    @Override
+    public UpdateCustomAppIntegration deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateCustomAppIntegrationPb pb = mapper.readValue(p, UpdateCustomAppIntegrationPb.class);
+      return UpdateCustomAppIntegration.fromPb(pb);
+    }
   }
 }

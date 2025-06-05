@@ -3,22 +3,28 @@
 package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get secret ACL details */
 @Generated
+@JsonSerialize(using = GetAclRequest.GetAclRequestSerializer.class)
+@JsonDeserialize(using = GetAclRequest.GetAclRequestDeserializer.class)
 public class GetAclRequest {
   /** The principal to fetch ACL information for. */
-  @JsonIgnore
-  @QueryParam("principal")
   private String principal;
 
   /** The name of the scope to fetch ACL information from. */
-  @JsonIgnore
-  @QueryParam("scope")
   private String scope;
 
   public GetAclRequest setPrincipal(String principal) {
@@ -58,5 +64,39 @@ public class GetAclRequest {
         .add("principal", principal)
         .add("scope", scope)
         .toString();
+  }
+
+  GetAclRequestPb toPb() {
+    GetAclRequestPb pb = new GetAclRequestPb();
+    pb.setPrincipal(principal);
+    pb.setScope(scope);
+
+    return pb;
+  }
+
+  static GetAclRequest fromPb(GetAclRequestPb pb) {
+    GetAclRequest model = new GetAclRequest();
+    model.setPrincipal(pb.getPrincipal());
+    model.setScope(pb.getScope());
+
+    return model;
+  }
+
+  public static class GetAclRequestSerializer extends JsonSerializer<GetAclRequest> {
+    @Override
+    public void serialize(GetAclRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetAclRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetAclRequestDeserializer extends JsonDeserializer<GetAclRequest> {
+    @Override
+    public GetAclRequest deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetAclRequestPb pb = mapper.readValue(p, GetAclRequestPb.class);
+      return GetAclRequest.fromPb(pb);
+    }
   }
 }

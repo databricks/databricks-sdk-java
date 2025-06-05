@@ -4,69 +4,66 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = RegisteredModelInfo.RegisteredModelInfoSerializer.class)
+@JsonDeserialize(using = RegisteredModelInfo.RegisteredModelInfoDeserializer.class)
 public class RegisteredModelInfo {
   /** List of aliases associated with the registered model */
-  @JsonProperty("aliases")
   private Collection<RegisteredModelAlias> aliases;
 
   /**
    * Indicates whether the principal is limited to retrieving metadata for the associated object
    * through the BROWSE privilege when include_browse is enabled in the request.
    */
-  @JsonProperty("browse_only")
   private Boolean browseOnly;
 
   /** The name of the catalog where the schema and the registered model reside */
-  @JsonProperty("catalog_name")
   private String catalogName;
 
   /** The comment attached to the registered model */
-  @JsonProperty("comment")
   private String comment;
 
   /** Creation timestamp of the registered model in milliseconds since the Unix epoch */
-  @JsonProperty("created_at")
   private Long createdAt;
 
   /** The identifier of the user who created the registered model */
-  @JsonProperty("created_by")
   private String createdBy;
 
   /** The three-level (fully qualified) name of the registered model */
-  @JsonProperty("full_name")
   private String fullName;
 
   /** The unique identifier of the metastore */
-  @JsonProperty("metastore_id")
   private String metastoreId;
 
   /** The name of the registered model */
-  @JsonProperty("name")
   private String name;
 
   /** The identifier of the user who owns the registered model */
-  @JsonProperty("owner")
   private String owner;
 
   /** The name of the schema where the registered model resides */
-  @JsonProperty("schema_name")
   private String schemaName;
 
   /** The storage location on the cloud under which model version data files are stored */
-  @JsonProperty("storage_location")
   private String storageLocation;
 
   /** Last-update timestamp of the registered model in milliseconds since the Unix epoch */
-  @JsonProperty("updated_at")
   private Long updatedAt;
 
   /** The identifier of the user who updated the registered model last time */
-  @JsonProperty("updated_by")
   private String updatedBy;
 
   public RegisteredModelInfo setAliases(Collection<RegisteredModelAlias> aliases) {
@@ -253,5 +250,65 @@ public class RegisteredModelInfo {
         .add("updatedAt", updatedAt)
         .add("updatedBy", updatedBy)
         .toString();
+  }
+
+  RegisteredModelInfoPb toPb() {
+    RegisteredModelInfoPb pb = new RegisteredModelInfoPb();
+    pb.setAliases(aliases);
+    pb.setBrowseOnly(browseOnly);
+    pb.setCatalogName(catalogName);
+    pb.setComment(comment);
+    pb.setCreatedAt(createdAt);
+    pb.setCreatedBy(createdBy);
+    pb.setFullName(fullName);
+    pb.setMetastoreId(metastoreId);
+    pb.setName(name);
+    pb.setOwner(owner);
+    pb.setSchemaName(schemaName);
+    pb.setStorageLocation(storageLocation);
+    pb.setUpdatedAt(updatedAt);
+    pb.setUpdatedBy(updatedBy);
+
+    return pb;
+  }
+
+  static RegisteredModelInfo fromPb(RegisteredModelInfoPb pb) {
+    RegisteredModelInfo model = new RegisteredModelInfo();
+    model.setAliases(pb.getAliases());
+    model.setBrowseOnly(pb.getBrowseOnly());
+    model.setCatalogName(pb.getCatalogName());
+    model.setComment(pb.getComment());
+    model.setCreatedAt(pb.getCreatedAt());
+    model.setCreatedBy(pb.getCreatedBy());
+    model.setFullName(pb.getFullName());
+    model.setMetastoreId(pb.getMetastoreId());
+    model.setName(pb.getName());
+    model.setOwner(pb.getOwner());
+    model.setSchemaName(pb.getSchemaName());
+    model.setStorageLocation(pb.getStorageLocation());
+    model.setUpdatedAt(pb.getUpdatedAt());
+    model.setUpdatedBy(pb.getUpdatedBy());
+
+    return model;
+  }
+
+  public static class RegisteredModelInfoSerializer extends JsonSerializer<RegisteredModelInfo> {
+    @Override
+    public void serialize(RegisteredModelInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      RegisteredModelInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class RegisteredModelInfoDeserializer
+      extends JsonDeserializer<RegisteredModelInfo> {
+    @Override
+    public RegisteredModelInfo deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      RegisteredModelInfoPb pb = mapper.readValue(p, RegisteredModelInfoPb.class);
+      return RegisteredModelInfo.fromPb(pb);
+    }
   }
 }

@@ -4,22 +4,31 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ListVolumesResponseContent.ListVolumesResponseContentSerializer.class)
+@JsonDeserialize(using = ListVolumesResponseContent.ListVolumesResponseContentDeserializer.class)
 public class ListVolumesResponseContent {
   /**
    * Opaque token to retrieve the next page of results. Absent if there are no more pages.
    * __page_token__ should be set to this value for the next request to retrieve the next page of
    * results.
    */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   /** */
-  @JsonProperty("volumes")
   private Collection<VolumeInfo> volumes;
 
   public ListVolumesResponseContent setNextPageToken(String nextPageToken) {
@@ -60,5 +69,43 @@ public class ListVolumesResponseContent {
         .add("nextPageToken", nextPageToken)
         .add("volumes", volumes)
         .toString();
+  }
+
+  ListVolumesResponseContentPb toPb() {
+    ListVolumesResponseContentPb pb = new ListVolumesResponseContentPb();
+    pb.setNextPageToken(nextPageToken);
+    pb.setVolumes(volumes);
+
+    return pb;
+  }
+
+  static ListVolumesResponseContent fromPb(ListVolumesResponseContentPb pb) {
+    ListVolumesResponseContent model = new ListVolumesResponseContent();
+    model.setNextPageToken(pb.getNextPageToken());
+    model.setVolumes(pb.getVolumes());
+
+    return model;
+  }
+
+  public static class ListVolumesResponseContentSerializer
+      extends JsonSerializer<ListVolumesResponseContent> {
+    @Override
+    public void serialize(
+        ListVolumesResponseContent value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListVolumesResponseContentPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListVolumesResponseContentDeserializer
+      extends JsonDeserializer<ListVolumesResponseContent> {
+    @Override
+    public ListVolumesResponseContent deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListVolumesResponseContentPb pb = mapper.readValue(p, ListVolumesResponseContentPb.class);
+      return ListVolumesResponseContent.fromPb(pb);
+    }
   }
 }

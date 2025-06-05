@@ -4,21 +4,29 @@ package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = PutAcl.PutAclSerializer.class)
+@JsonDeserialize(using = PutAcl.PutAclDeserializer.class)
 public class PutAcl {
   /** The permission level applied to the principal. */
-  @JsonProperty("permission")
   private AclPermission permission;
 
   /** The principal in which the permission is applied. */
-  @JsonProperty("principal")
   private String principal;
 
   /** The name of the scope to apply permissions to. */
-  @JsonProperty("scope")
   private String scope;
 
   public PutAcl setPermission(AclPermission permission) {
@@ -70,5 +78,41 @@ public class PutAcl {
         .add("principal", principal)
         .add("scope", scope)
         .toString();
+  }
+
+  PutAclPb toPb() {
+    PutAclPb pb = new PutAclPb();
+    pb.setPermission(permission);
+    pb.setPrincipal(principal);
+    pb.setScope(scope);
+
+    return pb;
+  }
+
+  static PutAcl fromPb(PutAclPb pb) {
+    PutAcl model = new PutAcl();
+    model.setPermission(pb.getPermission());
+    model.setPrincipal(pb.getPrincipal());
+    model.setScope(pb.getScope());
+
+    return model;
+  }
+
+  public static class PutAclSerializer extends JsonSerializer<PutAcl> {
+    @Override
+    public void serialize(PutAcl value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PutAclPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PutAclDeserializer extends JsonDeserializer<PutAcl> {
+    @Override
+    public PutAcl deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PutAclPb pb = mapper.readValue(p, PutAclPb.class);
+      return PutAcl.fromPb(pb);
+    }
   }
 }

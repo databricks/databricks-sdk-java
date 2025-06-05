@@ -4,29 +4,37 @@ package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 /** A list of policies. */
 @Generated
+@JsonSerialize(using = ListBudgetPoliciesResponse.ListBudgetPoliciesResponseSerializer.class)
+@JsonDeserialize(using = ListBudgetPoliciesResponse.ListBudgetPoliciesResponseDeserializer.class)
 public class ListBudgetPoliciesResponse {
   /**
    * A token that can be sent as `page_token` to retrieve the next page. If this field is omitted,
    * there are no subsequent pages.
    */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   /** */
-  @JsonProperty("policies")
   private Collection<BudgetPolicy> policies;
 
   /**
    * A token that can be sent as `page_token` to retrieve the previous page. In this field is
    * omitted, there are no previous pages.
    */
-  @JsonProperty("previous_page_token")
   private String previousPageToken;
 
   public ListBudgetPoliciesResponse setNextPageToken(String nextPageToken) {
@@ -78,5 +86,45 @@ public class ListBudgetPoliciesResponse {
         .add("policies", policies)
         .add("previousPageToken", previousPageToken)
         .toString();
+  }
+
+  ListBudgetPoliciesResponsePb toPb() {
+    ListBudgetPoliciesResponsePb pb = new ListBudgetPoliciesResponsePb();
+    pb.setNextPageToken(nextPageToken);
+    pb.setPolicies(policies);
+    pb.setPreviousPageToken(previousPageToken);
+
+    return pb;
+  }
+
+  static ListBudgetPoliciesResponse fromPb(ListBudgetPoliciesResponsePb pb) {
+    ListBudgetPoliciesResponse model = new ListBudgetPoliciesResponse();
+    model.setNextPageToken(pb.getNextPageToken());
+    model.setPolicies(pb.getPolicies());
+    model.setPreviousPageToken(pb.getPreviousPageToken());
+
+    return model;
+  }
+
+  public static class ListBudgetPoliciesResponseSerializer
+      extends JsonSerializer<ListBudgetPoliciesResponse> {
+    @Override
+    public void serialize(
+        ListBudgetPoliciesResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListBudgetPoliciesResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListBudgetPoliciesResponseDeserializer
+      extends JsonDeserializer<ListBudgetPoliciesResponse> {
+    @Override
+    public ListBudgetPoliciesResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListBudgetPoliciesResponsePb pb = mapper.readValue(p, ListBudgetPoliciesResponsePb.class);
+      return ListBudgetPoliciesResponse.fromPb(pb);
+    }
   }
 }

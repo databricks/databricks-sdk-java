@@ -3,33 +3,37 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get a table */
 @Generated
+@JsonSerialize(using = GetTableRequest.GetTableRequestSerializer.class)
+@JsonDeserialize(using = GetTableRequest.GetTableRequestDeserializer.class)
 public class GetTableRequest {
   /** Full name of the table. */
-  @JsonIgnore private String fullName;
+  private String fullName;
 
   /**
    * Whether to include tables in the response for which the principal can only access selective
    * metadata for
    */
-  @JsonIgnore
-  @QueryParam("include_browse")
   private Boolean includeBrowse;
 
   /** Whether delta metadata should be included in the response. */
-  @JsonIgnore
-  @QueryParam("include_delta_metadata")
   private Boolean includeDeltaMetadata;
 
   /** Whether to include a manifest containing capabilities the table has. */
-  @JsonIgnore
-  @QueryParam("include_manifest_capabilities")
   private Boolean includeManifestCapabilities;
 
   public GetTableRequest setFullName(String fullName) {
@@ -92,5 +96,44 @@ public class GetTableRequest {
         .add("includeDeltaMetadata", includeDeltaMetadata)
         .add("includeManifestCapabilities", includeManifestCapabilities)
         .toString();
+  }
+
+  GetTableRequestPb toPb() {
+    GetTableRequestPb pb = new GetTableRequestPb();
+    pb.setFullName(fullName);
+    pb.setIncludeBrowse(includeBrowse);
+    pb.setIncludeDeltaMetadata(includeDeltaMetadata);
+    pb.setIncludeManifestCapabilities(includeManifestCapabilities);
+
+    return pb;
+  }
+
+  static GetTableRequest fromPb(GetTableRequestPb pb) {
+    GetTableRequest model = new GetTableRequest();
+    model.setFullName(pb.getFullName());
+    model.setIncludeBrowse(pb.getIncludeBrowse());
+    model.setIncludeDeltaMetadata(pb.getIncludeDeltaMetadata());
+    model.setIncludeManifestCapabilities(pb.getIncludeManifestCapabilities());
+
+    return model;
+  }
+
+  public static class GetTableRequestSerializer extends JsonSerializer<GetTableRequest> {
+    @Override
+    public void serialize(GetTableRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetTableRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetTableRequestDeserializer extends JsonDeserializer<GetTableRequest> {
+    @Override
+    public GetTableRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetTableRequestPb pb = mapper.readValue(p, GetTableRequestPb.class);
+      return GetTableRequest.fromPb(pb);
+    }
   }
 }

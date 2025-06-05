@@ -4,32 +4,39 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ResultData.ResultDataSerializer.class)
+@JsonDeserialize(using = ResultData.ResultDataDeserializer.class)
 public class ResultData {
   /**
    * The number of bytes in the result chunk. This field is not available when using `INLINE`
    * disposition.
    */
-  @JsonProperty("byte_count")
   private Long byteCount;
 
   /** The position within the sequence of result set chunks. */
-  @JsonProperty("chunk_index")
   private Long chunkIndex;
 
   /**
    * The `JSON_ARRAY` format is an array of arrays of values, where each non-null value is formatted
    * as a string. Null values are encoded as JSON `null`.
    */
-  @JsonProperty("data_array")
   private Collection<Collection<String>> dataArray;
 
   /** */
-  @JsonProperty("external_links")
   private Collection<ExternalLink> externalLinks;
 
   /**
@@ -37,7 +44,6 @@ public class ResultData {
    * no more chunks. The next chunk can be fetched with a
    * :method:statementexecution/getStatementResultChunkN request.
    */
-  @JsonProperty("next_chunk_index")
   private Long nextChunkIndex;
 
   /**
@@ -45,15 +51,12 @@ public class ResultData {
    * more chunks. This link is an absolute `path` to be joined with your `$DATABRICKS_HOST`, and
    * should be treated as an opaque link. This is an alternative to using `next_chunk_index`.
    */
-  @JsonProperty("next_chunk_internal_link")
   private String nextChunkInternalLink;
 
   /** The number of rows within the result chunk. */
-  @JsonProperty("row_count")
   private Long rowCount;
 
   /** The starting row offset within the result set. */
-  @JsonProperty("row_offset")
   private Long rowOffset;
 
   public ResultData setByteCount(Long byteCount) {
@@ -168,5 +171,51 @@ public class ResultData {
         .add("rowCount", rowCount)
         .add("rowOffset", rowOffset)
         .toString();
+  }
+
+  ResultDataPb toPb() {
+    ResultDataPb pb = new ResultDataPb();
+    pb.setByteCount(byteCount);
+    pb.setChunkIndex(chunkIndex);
+    pb.setDataArray(dataArray);
+    pb.setExternalLinks(externalLinks);
+    pb.setNextChunkIndex(nextChunkIndex);
+    pb.setNextChunkInternalLink(nextChunkInternalLink);
+    pb.setRowCount(rowCount);
+    pb.setRowOffset(rowOffset);
+
+    return pb;
+  }
+
+  static ResultData fromPb(ResultDataPb pb) {
+    ResultData model = new ResultData();
+    model.setByteCount(pb.getByteCount());
+    model.setChunkIndex(pb.getChunkIndex());
+    model.setDataArray(pb.getDataArray());
+    model.setExternalLinks(pb.getExternalLinks());
+    model.setNextChunkIndex(pb.getNextChunkIndex());
+    model.setNextChunkInternalLink(pb.getNextChunkInternalLink());
+    model.setRowCount(pb.getRowCount());
+    model.setRowOffset(pb.getRowOffset());
+
+    return model;
+  }
+
+  public static class ResultDataSerializer extends JsonSerializer<ResultData> {
+    @Override
+    public void serialize(ResultData value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ResultDataPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ResultDataDeserializer extends JsonDeserializer<ResultData> {
+    @Override
+    public ResultData deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ResultDataPb pb = mapper.readValue(p, ResultDataPb.class);
+      return ResultData.fromPb(pb);
+    }
   }
 }

@@ -4,10 +4,21 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateWarehouseRequest.CreateWarehouseRequestSerializer.class)
+@JsonDeserialize(using = CreateWarehouseRequest.CreateWarehouseRequestDeserializer.class)
 public class CreateWarehouseRequest {
   /**
    * The amount of time in minutes that a SQL warehouse must be idle (i.e., no RUNNING queries)
@@ -18,11 +29,9 @@ public class CreateWarehouseRequest {
    *
    * <p>Defaults to 120 mins
    */
-  @JsonProperty("auto_stop_mins")
   private Long autoStopMins;
 
   /** Channel Details */
-  @JsonProperty("channel")
   private Channel channel;
 
   /**
@@ -33,11 +42,9 @@ public class CreateWarehouseRequest {
    * <p>Supported values: - 2X-Small - X-Small - Small - Medium - Large - X-Large - 2X-Large -
    * 3X-Large - 4X-Large
    */
-  @JsonProperty("cluster_size")
   private String clusterSize;
 
   /** warehouse creator name */
-  @JsonProperty("creator_name")
   private String creatorName;
 
   /**
@@ -45,15 +52,12 @@ public class CreateWarehouseRequest {
    *
    * <p>Defaults to false.
    */
-  @JsonProperty("enable_photon")
   private Boolean enablePhoton;
 
   /** Configures whether the warehouse should use serverless compute */
-  @JsonProperty("enable_serverless_compute")
   private Boolean enableServerlessCompute;
 
   /** Deprecated. Instance profile used to pass IAM role to the cluster */
-  @JsonProperty("instance_profile_arn")
   private String instanceProfileArn;
 
   /**
@@ -63,7 +67,6 @@ public class CreateWarehouseRequest {
    *
    * <p>Defaults to min_clusters if unset.
    */
-  @JsonProperty("max_num_clusters")
   private Long maxNumClusters;
 
   /**
@@ -76,7 +79,6 @@ public class CreateWarehouseRequest {
    *
    * <p>Defaults to 1
    */
-  @JsonProperty("min_num_clusters")
   private Long minNumClusters;
 
   /**
@@ -84,11 +86,9 @@ public class CreateWarehouseRequest {
    *
    * <p>Supported values: - Must be unique within an org. - Must be less than 100 characters.
    */
-  @JsonProperty("name")
   private String name;
 
   /** Configurations whether the warehouse should use spot instances. */
-  @JsonProperty("spot_instance_policy")
   private SpotInstancePolicy spotInstancePolicy;
 
   /**
@@ -97,14 +97,12 @@ public class CreateWarehouseRequest {
    *
    * <p>Supported values: - Number of tags < 45.
    */
-  @JsonProperty("tags")
   private EndpointTags tags;
 
   /**
    * Warehouse type: `PRO` or `CLASSIC`. If you want to use serverless compute, you must set to
    * `PRO` and also set the field `enable_serverless_compute` to `true`.
    */
-  @JsonProperty("warehouse_type")
   private CreateWarehouseRequestWarehouseType warehouseType;
 
   public CreateWarehouseRequest setAutoStopMins(Long autoStopMins) {
@@ -280,5 +278,65 @@ public class CreateWarehouseRequest {
         .add("tags", tags)
         .add("warehouseType", warehouseType)
         .toString();
+  }
+
+  CreateWarehouseRequestPb toPb() {
+    CreateWarehouseRequestPb pb = new CreateWarehouseRequestPb();
+    pb.setAutoStopMins(autoStopMins);
+    pb.setChannel(channel);
+    pb.setClusterSize(clusterSize);
+    pb.setCreatorName(creatorName);
+    pb.setEnablePhoton(enablePhoton);
+    pb.setEnableServerlessCompute(enableServerlessCompute);
+    pb.setInstanceProfileArn(instanceProfileArn);
+    pb.setMaxNumClusters(maxNumClusters);
+    pb.setMinNumClusters(minNumClusters);
+    pb.setName(name);
+    pb.setSpotInstancePolicy(spotInstancePolicy);
+    pb.setTags(tags);
+    pb.setWarehouseType(warehouseType);
+
+    return pb;
+  }
+
+  static CreateWarehouseRequest fromPb(CreateWarehouseRequestPb pb) {
+    CreateWarehouseRequest model = new CreateWarehouseRequest();
+    model.setAutoStopMins(pb.getAutoStopMins());
+    model.setChannel(pb.getChannel());
+    model.setClusterSize(pb.getClusterSize());
+    model.setCreatorName(pb.getCreatorName());
+    model.setEnablePhoton(pb.getEnablePhoton());
+    model.setEnableServerlessCompute(pb.getEnableServerlessCompute());
+    model.setInstanceProfileArn(pb.getInstanceProfileArn());
+    model.setMaxNumClusters(pb.getMaxNumClusters());
+    model.setMinNumClusters(pb.getMinNumClusters());
+    model.setName(pb.getName());
+    model.setSpotInstancePolicy(pb.getSpotInstancePolicy());
+    model.setTags(pb.getTags());
+    model.setWarehouseType(pb.getWarehouseType());
+
+    return model;
+  }
+
+  public static class CreateWarehouseRequestSerializer
+      extends JsonSerializer<CreateWarehouseRequest> {
+    @Override
+    public void serialize(
+        CreateWarehouseRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateWarehouseRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateWarehouseRequestDeserializer
+      extends JsonDeserializer<CreateWarehouseRequest> {
+    @Override
+    public CreateWarehouseRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateWarehouseRequestPb pb = mapper.readValue(p, CreateWarehouseRequestPb.class);
+      return CreateWarehouseRequest.fromPb(pb);
+    }
   }
 }

@@ -4,7 +4,16 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -13,6 +22,8 @@ import java.util.Objects;
  * portal after initialization.
  */
 @Generated
+@JsonSerialize(using = UpdatePrivateEndpointRule.UpdatePrivateEndpointRuleSerializer.class)
+@JsonDeserialize(using = UpdatePrivateEndpointRule.UpdatePrivateEndpointRuleDeserializer.class)
 public class UpdatePrivateEndpointRule {
   /**
    * Only used by private endpoints to customer-managed private endpoint services.
@@ -20,7 +31,6 @@ public class UpdatePrivateEndpointRule {
    * <p>Domain names of target private link service. When updating this field, the full list of
    * target domain_names must be specified.
    */
-  @JsonProperty("domain_names")
   private Collection<String> domainNames;
 
   /**
@@ -29,7 +39,6 @@ public class UpdatePrivateEndpointRule {
    * <p>Update this field to activate/deactivate this private endpoint to allow egress access from
    * serverless compute resources.
    */
-  @JsonProperty("enabled")
   private Boolean enabled;
 
   /**
@@ -40,7 +49,6 @@ public class UpdatePrivateEndpointRule {
    * perform full update on this field. Please ensure a full list of desired resource_names is
    * provided.
    */
-  @JsonProperty("resource_names")
   private Collection<String> resourceNames;
 
   public UpdatePrivateEndpointRule setDomainNames(Collection<String> domainNames) {
@@ -92,5 +100,45 @@ public class UpdatePrivateEndpointRule {
         .add("enabled", enabled)
         .add("resourceNames", resourceNames)
         .toString();
+  }
+
+  UpdatePrivateEndpointRulePb toPb() {
+    UpdatePrivateEndpointRulePb pb = new UpdatePrivateEndpointRulePb();
+    pb.setDomainNames(domainNames);
+    pb.setEnabled(enabled);
+    pb.setResourceNames(resourceNames);
+
+    return pb;
+  }
+
+  static UpdatePrivateEndpointRule fromPb(UpdatePrivateEndpointRulePb pb) {
+    UpdatePrivateEndpointRule model = new UpdatePrivateEndpointRule();
+    model.setDomainNames(pb.getDomainNames());
+    model.setEnabled(pb.getEnabled());
+    model.setResourceNames(pb.getResourceNames());
+
+    return model;
+  }
+
+  public static class UpdatePrivateEndpointRuleSerializer
+      extends JsonSerializer<UpdatePrivateEndpointRule> {
+    @Override
+    public void serialize(
+        UpdatePrivateEndpointRule value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdatePrivateEndpointRulePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdatePrivateEndpointRuleDeserializer
+      extends JsonDeserializer<UpdatePrivateEndpointRule> {
+    @Override
+    public UpdatePrivateEndpointRule deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdatePrivateEndpointRulePb pb = mapper.readValue(p, UpdatePrivateEndpointRulePb.class);
+      return UpdatePrivateEndpointRule.fromPb(pb);
+    }
   }
 }

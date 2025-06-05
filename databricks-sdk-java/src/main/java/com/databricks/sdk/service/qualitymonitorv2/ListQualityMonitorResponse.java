@@ -4,18 +4,27 @@ package com.databricks.sdk.service.qualitymonitorv2;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ListQualityMonitorResponse.ListQualityMonitorResponseSerializer.class)
+@JsonDeserialize(using = ListQualityMonitorResponse.ListQualityMonitorResponseDeserializer.class)
 public class ListQualityMonitorResponse {
   /** */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   /** */
-  @JsonProperty("quality_monitors")
   private Collection<QualityMonitor> qualityMonitors;
 
   public ListQualityMonitorResponse setNextPageToken(String nextPageToken) {
@@ -56,5 +65,43 @@ public class ListQualityMonitorResponse {
         .add("nextPageToken", nextPageToken)
         .add("qualityMonitors", qualityMonitors)
         .toString();
+  }
+
+  ListQualityMonitorResponsePb toPb() {
+    ListQualityMonitorResponsePb pb = new ListQualityMonitorResponsePb();
+    pb.setNextPageToken(nextPageToken);
+    pb.setQualityMonitors(qualityMonitors);
+
+    return pb;
+  }
+
+  static ListQualityMonitorResponse fromPb(ListQualityMonitorResponsePb pb) {
+    ListQualityMonitorResponse model = new ListQualityMonitorResponse();
+    model.setNextPageToken(pb.getNextPageToken());
+    model.setQualityMonitors(pb.getQualityMonitors());
+
+    return model;
+  }
+
+  public static class ListQualityMonitorResponseSerializer
+      extends JsonSerializer<ListQualityMonitorResponse> {
+    @Override
+    public void serialize(
+        ListQualityMonitorResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListQualityMonitorResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListQualityMonitorResponseDeserializer
+      extends JsonDeserializer<ListQualityMonitorResponse> {
+    @Override
+    public ListQualityMonitorResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListQualityMonitorResponsePb pb = mapper.readValue(p, ListQualityMonitorResponsePb.class);
+      return ListQualityMonitorResponse.fromPb(pb);
+    }
   }
 }

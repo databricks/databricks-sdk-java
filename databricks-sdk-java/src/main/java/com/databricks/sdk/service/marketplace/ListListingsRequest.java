@@ -3,58 +3,50 @@
 package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 /** List listings */
 @Generated
+@JsonSerialize(using = ListListingsRequest.ListListingsRequestSerializer.class)
+@JsonDeserialize(using = ListListingsRequest.ListListingsRequestDeserializer.class)
 public class ListListingsRequest {
   /** Matches any of the following asset types */
-  @JsonIgnore
-  @QueryParam("assets")
   private Collection<AssetType> assets;
 
   /** Matches any of the following categories */
-  @JsonIgnore
-  @QueryParam("categories")
   private Collection<Category> categories;
 
   /** Filters each listing based on if it is free. */
-  @JsonIgnore
-  @QueryParam("is_free")
   private Boolean isFree;
 
   /** Filters each listing based on if it is a private exchange. */
-  @JsonIgnore
-  @QueryParam("is_private_exchange")
   private Boolean isPrivateExchange;
 
   /** Filters each listing based on whether it is a staff pick. */
-  @JsonIgnore
-  @QueryParam("is_staff_pick")
   private Boolean isStaffPick;
 
   /** */
-  @JsonIgnore
-  @QueryParam("page_size")
   private Long pageSize;
 
   /** */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   /** Matches any of the following provider ids */
-  @JsonIgnore
-  @QueryParam("provider_ids")
   private Collection<String> providerIds;
 
   /** Matches any of the following tags */
-  @JsonIgnore
-  @QueryParam("tags")
   private Collection<ListingTag> tags;
 
   public ListListingsRequest setAssets(Collection<AssetType> assets) {
@@ -181,5 +173,55 @@ public class ListListingsRequest {
         .add("providerIds", providerIds)
         .add("tags", tags)
         .toString();
+  }
+
+  ListListingsRequestPb toPb() {
+    ListListingsRequestPb pb = new ListListingsRequestPb();
+    pb.setAssets(assets);
+    pb.setCategories(categories);
+    pb.setIsFree(isFree);
+    pb.setIsPrivateExchange(isPrivateExchange);
+    pb.setIsStaffPick(isStaffPick);
+    pb.setPageSize(pageSize);
+    pb.setPageToken(pageToken);
+    pb.setProviderIds(providerIds);
+    pb.setTags(tags);
+
+    return pb;
+  }
+
+  static ListListingsRequest fromPb(ListListingsRequestPb pb) {
+    ListListingsRequest model = new ListListingsRequest();
+    model.setAssets(pb.getAssets());
+    model.setCategories(pb.getCategories());
+    model.setIsFree(pb.getIsFree());
+    model.setIsPrivateExchange(pb.getIsPrivateExchange());
+    model.setIsStaffPick(pb.getIsStaffPick());
+    model.setPageSize(pb.getPageSize());
+    model.setPageToken(pb.getPageToken());
+    model.setProviderIds(pb.getProviderIds());
+    model.setTags(pb.getTags());
+
+    return model;
+  }
+
+  public static class ListListingsRequestSerializer extends JsonSerializer<ListListingsRequest> {
+    @Override
+    public void serialize(ListListingsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListListingsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListListingsRequestDeserializer
+      extends JsonDeserializer<ListListingsRequest> {
+    @Override
+    public ListListingsRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListListingsRequestPb pb = mapper.readValue(p, ListListingsRequestPb.class);
+      return ListListingsRequest.fromPb(pb);
+    }
   }
 }

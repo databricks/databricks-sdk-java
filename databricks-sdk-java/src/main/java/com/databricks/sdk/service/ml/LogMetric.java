@@ -4,54 +4,56 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = LogMetric.LogMetricSerializer.class)
+@JsonDeserialize(using = LogMetric.LogMetricDeserializer.class)
 public class LogMetric {
   /**
    * Dataset digest of the dataset associated with the metric, e.g. an md5 hash of the dataset that
    * uniquely identifies it within datasets of the same name.
    */
-  @JsonProperty("dataset_digest")
   private String datasetDigest;
 
   /**
    * The name of the dataset associated with the metric. E.g. “my.uc.table@2” “nyc-taxi-dataset”,
    * “fantastic-elk-3”
    */
-  @JsonProperty("dataset_name")
   private String datasetName;
 
   /** Name of the metric. */
-  @JsonProperty("key")
   private String key;
 
   /** ID of the logged model associated with the metric, if applicable */
-  @JsonProperty("model_id")
   private String modelId;
 
   /** ID of the run under which to log the metric. Must be provided. */
-  @JsonProperty("run_id")
   private String runId;
 
   /**
    * [Deprecated, use `run_id` instead] ID of the run under which to log the metric. This field will
    * be removed in a future MLflow version.
    */
-  @JsonProperty("run_uuid")
   private String runUuid;
 
   /** Step at which to log the metric */
-  @JsonProperty("step")
   private Long step;
 
   /** Unix timestamp in milliseconds at the time metric was logged. */
-  @JsonProperty("timestamp")
   private Long timestamp;
 
   /** Double value of the metric being logged. */
-  @JsonProperty("value")
   private Double value;
 
   public LogMetric setDatasetDigest(String datasetDigest) {
@@ -170,5 +172,53 @@ public class LogMetric {
         .add("timestamp", timestamp)
         .add("value", value)
         .toString();
+  }
+
+  LogMetricPb toPb() {
+    LogMetricPb pb = new LogMetricPb();
+    pb.setDatasetDigest(datasetDigest);
+    pb.setDatasetName(datasetName);
+    pb.setKey(key);
+    pb.setModelId(modelId);
+    pb.setRunId(runId);
+    pb.setRunUuid(runUuid);
+    pb.setStep(step);
+    pb.setTimestamp(timestamp);
+    pb.setValue(value);
+
+    return pb;
+  }
+
+  static LogMetric fromPb(LogMetricPb pb) {
+    LogMetric model = new LogMetric();
+    model.setDatasetDigest(pb.getDatasetDigest());
+    model.setDatasetName(pb.getDatasetName());
+    model.setKey(pb.getKey());
+    model.setModelId(pb.getModelId());
+    model.setRunId(pb.getRunId());
+    model.setRunUuid(pb.getRunUuid());
+    model.setStep(pb.getStep());
+    model.setTimestamp(pb.getTimestamp());
+    model.setValue(pb.getValue());
+
+    return model;
+  }
+
+  public static class LogMetricSerializer extends JsonSerializer<LogMetric> {
+    @Override
+    public void serialize(LogMetric value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      LogMetricPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class LogMetricDeserializer extends JsonDeserializer<LogMetric> {
+    @Override
+    public LogMetric deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      LogMetricPb pb = mapper.readValue(p, LogMetricPb.class);
+      return LogMetric.fromPb(pb);
+    }
   }
 }

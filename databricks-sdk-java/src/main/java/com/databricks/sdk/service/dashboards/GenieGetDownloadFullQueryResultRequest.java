@@ -4,29 +4,46 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get download full query result */
 @Generated
+@JsonSerialize(
+    using =
+        GenieGetDownloadFullQueryResultRequest.GenieGetDownloadFullQueryResultRequestSerializer
+            .class)
+@JsonDeserialize(
+    using =
+        GenieGetDownloadFullQueryResultRequest.GenieGetDownloadFullQueryResultRequestDeserializer
+            .class)
 public class GenieGetDownloadFullQueryResultRequest {
   /** Attachment ID */
-  @JsonIgnore private String attachmentId;
+  private String attachmentId;
 
   /** Conversation ID */
-  @JsonIgnore private String conversationId;
+  private String conversationId;
 
   /**
    * Download ID. This ID is provided by the [Generate Download
    * endpoint](:method:genie/generateDownloadFullQueryResult)
    */
-  @JsonIgnore private String downloadId;
+  private String downloadId;
 
   /** Message ID */
-  @JsonIgnore private String messageId;
+  private String messageId;
 
   /** Genie space ID */
-  @JsonIgnore private String spaceId;
+  private String spaceId;
 
   public GenieGetDownloadFullQueryResultRequest setAttachmentId(String attachmentId) {
     this.attachmentId = attachmentId;
@@ -99,5 +116,53 @@ public class GenieGetDownloadFullQueryResultRequest {
         .add("messageId", messageId)
         .add("spaceId", spaceId)
         .toString();
+  }
+
+  GenieGetDownloadFullQueryResultRequestPb toPb() {
+    GenieGetDownloadFullQueryResultRequestPb pb = new GenieGetDownloadFullQueryResultRequestPb();
+    pb.setAttachmentId(attachmentId);
+    pb.setConversationId(conversationId);
+    pb.setDownloadId(downloadId);
+    pb.setMessageId(messageId);
+    pb.setSpaceId(spaceId);
+
+    return pb;
+  }
+
+  static GenieGetDownloadFullQueryResultRequest fromPb(
+      GenieGetDownloadFullQueryResultRequestPb pb) {
+    GenieGetDownloadFullQueryResultRequest model = new GenieGetDownloadFullQueryResultRequest();
+    model.setAttachmentId(pb.getAttachmentId());
+    model.setConversationId(pb.getConversationId());
+    model.setDownloadId(pb.getDownloadId());
+    model.setMessageId(pb.getMessageId());
+    model.setSpaceId(pb.getSpaceId());
+
+    return model;
+  }
+
+  public static class GenieGetDownloadFullQueryResultRequestSerializer
+      extends JsonSerializer<GenieGetDownloadFullQueryResultRequest> {
+    @Override
+    public void serialize(
+        GenieGetDownloadFullQueryResultRequest value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      GenieGetDownloadFullQueryResultRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GenieGetDownloadFullQueryResultRequestDeserializer
+      extends JsonDeserializer<GenieGetDownloadFullQueryResultRequest> {
+    @Override
+    public GenieGetDownloadFullQueryResultRequest deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GenieGetDownloadFullQueryResultRequestPb pb =
+          mapper.readValue(p, GenieGetDownloadFullQueryResultRequestPb.class);
+      return GenieGetDownloadFullQueryResultRequest.fromPb(pb);
+    }
   }
 }

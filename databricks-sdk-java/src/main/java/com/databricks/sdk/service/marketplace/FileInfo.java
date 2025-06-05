@@ -4,49 +4,50 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = FileInfo.FileInfoSerializer.class)
+@JsonDeserialize(using = FileInfo.FileInfoDeserializer.class)
 public class FileInfo {
   /** */
-  @JsonProperty("created_at")
   private Long createdAt;
 
   /** Name displayed to users for applicable files, e.g. embedded notebooks */
-  @JsonProperty("display_name")
   private String displayName;
 
   /** */
-  @JsonProperty("download_link")
   private String downloadLink;
 
   /** */
-  @JsonProperty("file_parent")
   private FileParent fileParent;
 
   /** */
-  @JsonProperty("id")
   private String id;
 
   /** */
-  @JsonProperty("marketplace_file_type")
   private MarketplaceFileType marketplaceFileType;
 
   /** */
-  @JsonProperty("mime_type")
   private String mimeType;
 
   /** */
-  @JsonProperty("status")
   private FileStatus status;
 
   /** Populated if status is in a failed state with more information on reason for the failure. */
-  @JsonProperty("status_message")
   private String statusMessage;
 
   /** */
-  @JsonProperty("updated_at")
   private Long updatedAt;
 
   public FileInfo setCreatedAt(Long createdAt) {
@@ -185,5 +186,55 @@ public class FileInfo {
         .add("statusMessage", statusMessage)
         .add("updatedAt", updatedAt)
         .toString();
+  }
+
+  FileInfoPb toPb() {
+    FileInfoPb pb = new FileInfoPb();
+    pb.setCreatedAt(createdAt);
+    pb.setDisplayName(displayName);
+    pb.setDownloadLink(downloadLink);
+    pb.setFileParent(fileParent);
+    pb.setId(id);
+    pb.setMarketplaceFileType(marketplaceFileType);
+    pb.setMimeType(mimeType);
+    pb.setStatus(status);
+    pb.setStatusMessage(statusMessage);
+    pb.setUpdatedAt(updatedAt);
+
+    return pb;
+  }
+
+  static FileInfo fromPb(FileInfoPb pb) {
+    FileInfo model = new FileInfo();
+    model.setCreatedAt(pb.getCreatedAt());
+    model.setDisplayName(pb.getDisplayName());
+    model.setDownloadLink(pb.getDownloadLink());
+    model.setFileParent(pb.getFileParent());
+    model.setId(pb.getId());
+    model.setMarketplaceFileType(pb.getMarketplaceFileType());
+    model.setMimeType(pb.getMimeType());
+    model.setStatus(pb.getStatus());
+    model.setStatusMessage(pb.getStatusMessage());
+    model.setUpdatedAt(pb.getUpdatedAt());
+
+    return model;
+  }
+
+  public static class FileInfoSerializer extends JsonSerializer<FileInfo> {
+    @Override
+    public void serialize(FileInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      FileInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class FileInfoDeserializer extends JsonDeserializer<FileInfo> {
+    @Override
+    public FileInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      FileInfoPb pb = mapper.readValue(p, FileInfoPb.class);
+      return FileInfo.fromPb(pb);
+    }
   }
 }

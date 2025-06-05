@@ -4,34 +4,42 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = AiGatewayInferenceTableConfig.AiGatewayInferenceTableConfigSerializer.class)
+@JsonDeserialize(
+    using = AiGatewayInferenceTableConfig.AiGatewayInferenceTableConfigDeserializer.class)
 public class AiGatewayInferenceTableConfig {
   /**
    * The name of the catalog in Unity Catalog. Required when enabling inference tables. NOTE: On
    * update, you have to disable inference table first in order to change the catalog name.
    */
-  @JsonProperty("catalog_name")
   private String catalogName;
 
   /** Indicates whether the inference table is enabled. */
-  @JsonProperty("enabled")
   private Boolean enabled;
 
   /**
    * The name of the schema in Unity Catalog. Required when enabling inference tables. NOTE: On
    * update, you have to disable inference table first in order to change the schema name.
    */
-  @JsonProperty("schema_name")
   private String schemaName;
 
   /**
    * The prefix of the table in Unity Catalog. NOTE: On update, you have to disable inference table
    * first in order to change the prefix name.
    */
-  @JsonProperty("table_name_prefix")
   private String tableNamePrefix;
 
   public AiGatewayInferenceTableConfig setCatalogName(String catalogName) {
@@ -94,5 +102,48 @@ public class AiGatewayInferenceTableConfig {
         .add("schemaName", schemaName)
         .add("tableNamePrefix", tableNamePrefix)
         .toString();
+  }
+
+  AiGatewayInferenceTableConfigPb toPb() {
+    AiGatewayInferenceTableConfigPb pb = new AiGatewayInferenceTableConfigPb();
+    pb.setCatalogName(catalogName);
+    pb.setEnabled(enabled);
+    pb.setSchemaName(schemaName);
+    pb.setTableNamePrefix(tableNamePrefix);
+
+    return pb;
+  }
+
+  static AiGatewayInferenceTableConfig fromPb(AiGatewayInferenceTableConfigPb pb) {
+    AiGatewayInferenceTableConfig model = new AiGatewayInferenceTableConfig();
+    model.setCatalogName(pb.getCatalogName());
+    model.setEnabled(pb.getEnabled());
+    model.setSchemaName(pb.getSchemaName());
+    model.setTableNamePrefix(pb.getTableNamePrefix());
+
+    return model;
+  }
+
+  public static class AiGatewayInferenceTableConfigSerializer
+      extends JsonSerializer<AiGatewayInferenceTableConfig> {
+    @Override
+    public void serialize(
+        AiGatewayInferenceTableConfig value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      AiGatewayInferenceTableConfigPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class AiGatewayInferenceTableConfigDeserializer
+      extends JsonDeserializer<AiGatewayInferenceTableConfig> {
+    @Override
+    public AiGatewayInferenceTableConfig deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      AiGatewayInferenceTableConfigPb pb =
+          mapper.readValue(p, AiGatewayInferenceTableConfigPb.class);
+      return AiGatewayInferenceTableConfig.fromPb(pb);
+    }
   }
 }

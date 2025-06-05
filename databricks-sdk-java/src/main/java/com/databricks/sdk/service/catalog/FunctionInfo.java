@@ -4,92 +4,83 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = FunctionInfo.FunctionInfoSerializer.class)
+@JsonDeserialize(using = FunctionInfo.FunctionInfoDeserializer.class)
 public class FunctionInfo {
   /**
    * Indicates whether the principal is limited to retrieving metadata for the associated object
    * through the BROWSE privilege when include_browse is enabled in the request.
    */
-  @JsonProperty("browse_only")
   private Boolean browseOnly;
 
   /** Name of parent catalog. */
-  @JsonProperty("catalog_name")
   private String catalogName;
 
   /** User-provided free-form text description. */
-  @JsonProperty("comment")
   private String comment;
 
   /** Time at which this function was created, in epoch milliseconds. */
-  @JsonProperty("created_at")
   private Long createdAt;
 
   /** Username of function creator. */
-  @JsonProperty("created_by")
   private String createdBy;
 
   /** Scalar function return data type. */
-  @JsonProperty("data_type")
   private ColumnTypeName dataType;
 
   /** External function language. */
-  @JsonProperty("external_language")
   private String externalLanguage;
 
   /** External function name. */
-  @JsonProperty("external_name")
   private String externalName;
 
   /** Pretty printed function data type. */
-  @JsonProperty("full_data_type")
   private String fullDataType;
 
   /** Full name of function, in form of __catalog_name__.__schema_name__.__function__name__ */
-  @JsonProperty("full_name")
   private String fullName;
 
   /** Id of Function, relative to parent schema. */
-  @JsonProperty("function_id")
   private String functionId;
 
   /** */
-  @JsonProperty("input_params")
   private FunctionParameterInfos inputParams;
 
   /** Whether the function is deterministic. */
-  @JsonProperty("is_deterministic")
   private Boolean isDeterministic;
 
   /** Function null call. */
-  @JsonProperty("is_null_call")
   private Boolean isNullCall;
 
   /** Unique identifier of parent metastore. */
-  @JsonProperty("metastore_id")
   private String metastoreId;
 
   /** Name of function, relative to parent schema. */
-  @JsonProperty("name")
   private String name;
 
   /** Username of current owner of function. */
-  @JsonProperty("owner")
   private String owner;
 
   /** Function parameter style. **S** is the value for SQL. */
-  @JsonProperty("parameter_style")
   private FunctionInfoParameterStyle parameterStyle;
 
   /** JSON-serialized key-value pair map, encoded (escaped) as a string. */
-  @JsonProperty("properties")
   private String properties;
 
   /** Table function return parameters. */
-  @JsonProperty("return_params")
   private FunctionParameterInfos returnParams;
 
   /**
@@ -98,43 +89,33 @@ public class FunctionInfo {
    * be used (as **TABLE** return type is not supported), and the __sql_data_access__ field must be
    * **NO_SQL**.
    */
-  @JsonProperty("routine_body")
   private FunctionInfoRoutineBody routineBody;
 
   /** Function body. */
-  @JsonProperty("routine_definition")
   private String routineDefinition;
 
   /** Function dependencies. */
-  @JsonProperty("routine_dependencies")
   private DependencyList routineDependencies;
 
   /** Name of parent schema relative to its parent catalog. */
-  @JsonProperty("schema_name")
   private String schemaName;
 
   /** Function security type. */
-  @JsonProperty("security_type")
   private FunctionInfoSecurityType securityType;
 
   /** Specific name of the function; Reserved for future use. */
-  @JsonProperty("specific_name")
   private String specificName;
 
   /** Function SQL data access. */
-  @JsonProperty("sql_data_access")
   private FunctionInfoSqlDataAccess sqlDataAccess;
 
   /** List of schemes whose objects can be referenced without qualification. */
-  @JsonProperty("sql_path")
   private String sqlPath;
 
   /** Time at which this function was created, in epoch milliseconds. */
-  @JsonProperty("updated_at")
   private Long updatedAt;
 
   /** Username of user who last modified function. */
-  @JsonProperty("updated_by")
   private String updatedBy;
 
   public FunctionInfo setBrowseOnly(Boolean browseOnly) {
@@ -513,5 +494,95 @@ public class FunctionInfo {
         .add("updatedAt", updatedAt)
         .add("updatedBy", updatedBy)
         .toString();
+  }
+
+  FunctionInfoPb toPb() {
+    FunctionInfoPb pb = new FunctionInfoPb();
+    pb.setBrowseOnly(browseOnly);
+    pb.setCatalogName(catalogName);
+    pb.setComment(comment);
+    pb.setCreatedAt(createdAt);
+    pb.setCreatedBy(createdBy);
+    pb.setDataType(dataType);
+    pb.setExternalLanguage(externalLanguage);
+    pb.setExternalName(externalName);
+    pb.setFullDataType(fullDataType);
+    pb.setFullName(fullName);
+    pb.setFunctionId(functionId);
+    pb.setInputParams(inputParams);
+    pb.setIsDeterministic(isDeterministic);
+    pb.setIsNullCall(isNullCall);
+    pb.setMetastoreId(metastoreId);
+    pb.setName(name);
+    pb.setOwner(owner);
+    pb.setParameterStyle(parameterStyle);
+    pb.setProperties(properties);
+    pb.setReturnParams(returnParams);
+    pb.setRoutineBody(routineBody);
+    pb.setRoutineDefinition(routineDefinition);
+    pb.setRoutineDependencies(routineDependencies);
+    pb.setSchemaName(schemaName);
+    pb.setSecurityType(securityType);
+    pb.setSpecificName(specificName);
+    pb.setSqlDataAccess(sqlDataAccess);
+    pb.setSqlPath(sqlPath);
+    pb.setUpdatedAt(updatedAt);
+    pb.setUpdatedBy(updatedBy);
+
+    return pb;
+  }
+
+  static FunctionInfo fromPb(FunctionInfoPb pb) {
+    FunctionInfo model = new FunctionInfo();
+    model.setBrowseOnly(pb.getBrowseOnly());
+    model.setCatalogName(pb.getCatalogName());
+    model.setComment(pb.getComment());
+    model.setCreatedAt(pb.getCreatedAt());
+    model.setCreatedBy(pb.getCreatedBy());
+    model.setDataType(pb.getDataType());
+    model.setExternalLanguage(pb.getExternalLanguage());
+    model.setExternalName(pb.getExternalName());
+    model.setFullDataType(pb.getFullDataType());
+    model.setFullName(pb.getFullName());
+    model.setFunctionId(pb.getFunctionId());
+    model.setInputParams(pb.getInputParams());
+    model.setIsDeterministic(pb.getIsDeterministic());
+    model.setIsNullCall(pb.getIsNullCall());
+    model.setMetastoreId(pb.getMetastoreId());
+    model.setName(pb.getName());
+    model.setOwner(pb.getOwner());
+    model.setParameterStyle(pb.getParameterStyle());
+    model.setProperties(pb.getProperties());
+    model.setReturnParams(pb.getReturnParams());
+    model.setRoutineBody(pb.getRoutineBody());
+    model.setRoutineDefinition(pb.getRoutineDefinition());
+    model.setRoutineDependencies(pb.getRoutineDependencies());
+    model.setSchemaName(pb.getSchemaName());
+    model.setSecurityType(pb.getSecurityType());
+    model.setSpecificName(pb.getSpecificName());
+    model.setSqlDataAccess(pb.getSqlDataAccess());
+    model.setSqlPath(pb.getSqlPath());
+    model.setUpdatedAt(pb.getUpdatedAt());
+    model.setUpdatedBy(pb.getUpdatedBy());
+
+    return model;
+  }
+
+  public static class FunctionInfoSerializer extends JsonSerializer<FunctionInfo> {
+    @Override
+    public void serialize(FunctionInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      FunctionInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class FunctionInfoDeserializer extends JsonDeserializer<FunctionInfo> {
+    @Override
+    public FunctionInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      FunctionInfoPb pb = mapper.readValue(p, FunctionInfoPb.class);
+      return FunctionInfo.fromPb(pb);
+    }
   }
 }

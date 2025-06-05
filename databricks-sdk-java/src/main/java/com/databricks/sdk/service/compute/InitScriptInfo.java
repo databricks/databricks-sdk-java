@@ -4,37 +4,44 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Config for an individual init script Next ID: 11 */
 @Generated
+@JsonSerialize(using = InitScriptInfo.InitScriptInfoSerializer.class)
+@JsonDeserialize(using = InitScriptInfo.InitScriptInfoDeserializer.class)
 public class InitScriptInfo {
   /**
    * destination needs to be provided, e.g.
    * `abfss://<container-name>@<storage-account-name>.dfs.core.windows.net/<directory-name>`
    */
-  @JsonProperty("abfss")
   private Adlsgen2Info abfss;
 
   /**
    * destination needs to be provided. e.g. `{ "dbfs": { "destination" : "dbfs:/home/cluster_log" }
    * }`
    */
-  @JsonProperty("dbfs")
   private DbfsStorageInfo dbfs;
 
   /**
    * destination needs to be provided, e.g. `{ "file": { "destination": "file:/my/local/file.sh" }
    * }`
    */
-  @JsonProperty("file")
   private LocalFileInfo file;
 
   /**
    * destination needs to be provided, e.g. `{ "gcs": { "destination": "gs://my-bucket/file.sh" } }`
    */
-  @JsonProperty("gcs")
   private GcsStorageInfo gcs;
 
   /**
@@ -43,21 +50,18 @@ public class InitScriptInfo {
    * role is used to access s3, please make sure the cluster iam role in `instance_profile_arn` has
    * permission to write data to the s3 destination.
    */
-  @JsonProperty("s3")
   private S3StorageInfo s3;
 
   /**
    * destination needs to be provided. e.g. `{ \"volumes\" : { \"destination\" :
    * \"/Volumes/my-init.sh\" } }`
    */
-  @JsonProperty("volumes")
   private VolumesStorageInfo volumes;
 
   /**
    * destination needs to be provided, e.g. `{ "workspace": { "destination":
    * "/cluster-init-scripts/setup-datadog.sh" } }`
    */
-  @JsonProperty("workspace")
   private WorkspaceStorageInfo workspace;
 
   public InitScriptInfo setAbfss(Adlsgen2Info abfss) {
@@ -153,5 +157,50 @@ public class InitScriptInfo {
         .add("volumes", volumes)
         .add("workspace", workspace)
         .toString();
+  }
+
+  InitScriptInfoPb toPb() {
+    InitScriptInfoPb pb = new InitScriptInfoPb();
+    pb.setAbfss(abfss);
+    pb.setDbfs(dbfs);
+    pb.setFile(file);
+    pb.setGcs(gcs);
+    pb.setS3(s3);
+    pb.setVolumes(volumes);
+    pb.setWorkspace(workspace);
+
+    return pb;
+  }
+
+  static InitScriptInfo fromPb(InitScriptInfoPb pb) {
+    InitScriptInfo model = new InitScriptInfo();
+    model.setAbfss(pb.getAbfss());
+    model.setDbfs(pb.getDbfs());
+    model.setFile(pb.getFile());
+    model.setGcs(pb.getGcs());
+    model.setS3(pb.getS3());
+    model.setVolumes(pb.getVolumes());
+    model.setWorkspace(pb.getWorkspace());
+
+    return model;
+  }
+
+  public static class InitScriptInfoSerializer extends JsonSerializer<InitScriptInfo> {
+    @Override
+    public void serialize(InitScriptInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      InitScriptInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class InitScriptInfoDeserializer extends JsonDeserializer<InitScriptInfo> {
+    @Override
+    public InitScriptInfo deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      InitScriptInfoPb pb = mapper.readValue(p, InitScriptInfoPb.class);
+      return InitScriptInfo.fromPb(pb);
+    }
   }
 }

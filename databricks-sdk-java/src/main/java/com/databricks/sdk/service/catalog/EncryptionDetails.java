@@ -4,14 +4,24 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Encryption options that apply to clients connecting to cloud storage. */
 @Generated
+@JsonSerialize(using = EncryptionDetails.EncryptionDetailsSerializer.class)
+@JsonDeserialize(using = EncryptionDetails.EncryptionDetailsDeserializer.class)
 public class EncryptionDetails {
   /** Server-Side Encryption properties for clients communicating with AWS s3. */
-  @JsonProperty("sse_encryption_details")
   private SseEncryptionDetails sseEncryptionDetails;
 
   public EncryptionDetails setSseEncryptionDetails(SseEncryptionDetails sseEncryptionDetails) {
@@ -41,5 +51,38 @@ public class EncryptionDetails {
     return new ToStringer(EncryptionDetails.class)
         .add("sseEncryptionDetails", sseEncryptionDetails)
         .toString();
+  }
+
+  EncryptionDetailsPb toPb() {
+    EncryptionDetailsPb pb = new EncryptionDetailsPb();
+    pb.setSseEncryptionDetails(sseEncryptionDetails);
+
+    return pb;
+  }
+
+  static EncryptionDetails fromPb(EncryptionDetailsPb pb) {
+    EncryptionDetails model = new EncryptionDetails();
+    model.setSseEncryptionDetails(pb.getSseEncryptionDetails());
+
+    return model;
+  }
+
+  public static class EncryptionDetailsSerializer extends JsonSerializer<EncryptionDetails> {
+    @Override
+    public void serialize(EncryptionDetails value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      EncryptionDetailsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class EncryptionDetailsDeserializer extends JsonDeserializer<EncryptionDetails> {
+    @Override
+    public EncryptionDetails deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      EncryptionDetailsPb pb = mapper.readValue(p, EncryptionDetailsPb.class);
+      return EncryptionDetails.fromPb(pb);
+    }
   }
 }

@@ -4,28 +4,38 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = UpdatePersonalizationRequestRequest.UpdatePersonalizationRequestRequestSerializer.class)
+@JsonDeserialize(
+    using =
+        UpdatePersonalizationRequestRequest.UpdatePersonalizationRequestRequestDeserializer.class)
 public class UpdatePersonalizationRequestRequest {
   /** */
-  @JsonIgnore private String listingId;
+  private String listingId;
 
   /** */
-  @JsonProperty("reason")
   private String reason;
 
   /** */
-  @JsonIgnore private String requestId;
+  private String requestId;
 
   /** */
-  @JsonProperty("share")
   private ShareInfo share;
 
   /** */
-  @JsonProperty("status")
   private PersonalizationRequestStatus status;
 
   public UpdatePersonalizationRequestRequest setListingId(String listingId) {
@@ -99,5 +109,50 @@ public class UpdatePersonalizationRequestRequest {
         .add("share", share)
         .add("status", status)
         .toString();
+  }
+
+  UpdatePersonalizationRequestRequestPb toPb() {
+    UpdatePersonalizationRequestRequestPb pb = new UpdatePersonalizationRequestRequestPb();
+    pb.setListingId(listingId);
+    pb.setReason(reason);
+    pb.setRequestId(requestId);
+    pb.setShare(share);
+    pb.setStatus(status);
+
+    return pb;
+  }
+
+  static UpdatePersonalizationRequestRequest fromPb(UpdatePersonalizationRequestRequestPb pb) {
+    UpdatePersonalizationRequestRequest model = new UpdatePersonalizationRequestRequest();
+    model.setListingId(pb.getListingId());
+    model.setReason(pb.getReason());
+    model.setRequestId(pb.getRequestId());
+    model.setShare(pb.getShare());
+    model.setStatus(pb.getStatus());
+
+    return model;
+  }
+
+  public static class UpdatePersonalizationRequestRequestSerializer
+      extends JsonSerializer<UpdatePersonalizationRequestRequest> {
+    @Override
+    public void serialize(
+        UpdatePersonalizationRequestRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdatePersonalizationRequestRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdatePersonalizationRequestRequestDeserializer
+      extends JsonDeserializer<UpdatePersonalizationRequestRequest> {
+    @Override
+    public UpdatePersonalizationRequestRequest deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdatePersonalizationRequestRequestPb pb =
+          mapper.readValue(p, UpdatePersonalizationRequestRequestPb.class);
+      return UpdatePersonalizationRequestRequest.fromPb(pb);
+    }
   }
 }

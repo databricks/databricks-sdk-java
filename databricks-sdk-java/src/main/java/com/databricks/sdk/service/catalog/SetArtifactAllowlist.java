@@ -4,30 +4,36 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = SetArtifactAllowlist.SetArtifactAllowlistSerializer.class)
+@JsonDeserialize(using = SetArtifactAllowlist.SetArtifactAllowlistDeserializer.class)
 public class SetArtifactAllowlist {
   /** A list of allowed artifact match patterns. */
-  @JsonProperty("artifact_matchers")
   private Collection<ArtifactMatcher> artifactMatchers;
 
   /** The artifact type of the allowlist. */
-  @JsonIgnore private ArtifactType artifactType;
+  private ArtifactType artifactType;
 
   /** Time at which this artifact allowlist was set, in epoch milliseconds. */
-  @JsonProperty("created_at")
   private Long createdAt;
 
   /** Username of the user who set the artifact allowlist. */
-  @JsonProperty("created_by")
   private String createdBy;
 
   /** Unique identifier of parent metastore. */
-  @JsonProperty("metastore_id")
   private String metastoreId;
 
   public SetArtifactAllowlist setArtifactMatchers(Collection<ArtifactMatcher> artifactMatchers) {
@@ -101,5 +107,48 @@ public class SetArtifactAllowlist {
         .add("createdBy", createdBy)
         .add("metastoreId", metastoreId)
         .toString();
+  }
+
+  SetArtifactAllowlistPb toPb() {
+    SetArtifactAllowlistPb pb = new SetArtifactAllowlistPb();
+    pb.setArtifactMatchers(artifactMatchers);
+    pb.setArtifactType(artifactType);
+    pb.setCreatedAt(createdAt);
+    pb.setCreatedBy(createdBy);
+    pb.setMetastoreId(metastoreId);
+
+    return pb;
+  }
+
+  static SetArtifactAllowlist fromPb(SetArtifactAllowlistPb pb) {
+    SetArtifactAllowlist model = new SetArtifactAllowlist();
+    model.setArtifactMatchers(pb.getArtifactMatchers());
+    model.setArtifactType(pb.getArtifactType());
+    model.setCreatedAt(pb.getCreatedAt());
+    model.setCreatedBy(pb.getCreatedBy());
+    model.setMetastoreId(pb.getMetastoreId());
+
+    return model;
+  }
+
+  public static class SetArtifactAllowlistSerializer extends JsonSerializer<SetArtifactAllowlist> {
+    @Override
+    public void serialize(
+        SetArtifactAllowlist value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SetArtifactAllowlistPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SetArtifactAllowlistDeserializer
+      extends JsonDeserializer<SetArtifactAllowlist> {
+    @Override
+    public SetArtifactAllowlist deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SetArtifactAllowlistPb pb = mapper.readValue(p, SetArtifactAllowlistPb.class);
+      return SetArtifactAllowlist.fromPb(pb);
+    }
   }
 }

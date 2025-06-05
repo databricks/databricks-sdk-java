@@ -4,37 +4,41 @@ package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = GetRepoResponse.GetRepoResponseSerializer.class)
+@JsonDeserialize(using = GetRepoResponse.GetRepoResponseDeserializer.class)
 public class GetRepoResponse {
   /** Branch that the local version of the repo is checked out to. */
-  @JsonProperty("branch")
   private String branch;
 
   /** SHA-1 hash representing the commit ID of the current HEAD of the repo. */
-  @JsonProperty("head_commit_id")
   private String headCommitId;
 
   /** ID of the Git folder (repo) object in the workspace. */
-  @JsonProperty("id")
   private Long id;
 
   /** Path of the Git folder (repo) in the workspace. */
-  @JsonProperty("path")
   private String path;
 
   /** Git provider of the linked Git repository. */
-  @JsonProperty("provider")
   private String provider;
 
   /** Sparse checkout settings for the Git folder (repo). */
-  @JsonProperty("sparse_checkout")
   private SparseCheckout sparseCheckout;
 
   /** URL of the linked Git repository. */
-  @JsonProperty("url")
   private String url;
 
   public GetRepoResponse setBranch(String branch) {
@@ -130,5 +134,50 @@ public class GetRepoResponse {
         .add("sparseCheckout", sparseCheckout)
         .add("url", url)
         .toString();
+  }
+
+  GetRepoResponsePb toPb() {
+    GetRepoResponsePb pb = new GetRepoResponsePb();
+    pb.setBranch(branch);
+    pb.setHeadCommitId(headCommitId);
+    pb.setId(id);
+    pb.setPath(path);
+    pb.setProvider(provider);
+    pb.setSparseCheckout(sparseCheckout);
+    pb.setUrl(url);
+
+    return pb;
+  }
+
+  static GetRepoResponse fromPb(GetRepoResponsePb pb) {
+    GetRepoResponse model = new GetRepoResponse();
+    model.setBranch(pb.getBranch());
+    model.setHeadCommitId(pb.getHeadCommitId());
+    model.setId(pb.getId());
+    model.setPath(pb.getPath());
+    model.setProvider(pb.getProvider());
+    model.setSparseCheckout(pb.getSparseCheckout());
+    model.setUrl(pb.getUrl());
+
+    return model;
+  }
+
+  public static class GetRepoResponseSerializer extends JsonSerializer<GetRepoResponse> {
+    @Override
+    public void serialize(GetRepoResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetRepoResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetRepoResponseDeserializer extends JsonDeserializer<GetRepoResponse> {
+    @Override
+    public GetRepoResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetRepoResponsePb pb = mapper.readValue(p, GetRepoResponsePb.class);
+      return GetRepoResponse.fromPb(pb);
+    }
   }
 }

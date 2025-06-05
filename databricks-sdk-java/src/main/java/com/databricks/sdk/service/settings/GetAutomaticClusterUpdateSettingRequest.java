@@ -3,13 +3,29 @@
 package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get the automatic cluster update setting */
 @Generated
+@JsonSerialize(
+    using =
+        GetAutomaticClusterUpdateSettingRequest.GetAutomaticClusterUpdateSettingRequestSerializer
+            .class)
+@JsonDeserialize(
+    using =
+        GetAutomaticClusterUpdateSettingRequest.GetAutomaticClusterUpdateSettingRequestDeserializer
+            .class)
 public class GetAutomaticClusterUpdateSettingRequest {
   /**
    * etag used for versioning. The response is at least as fresh as the eTag provided. This is used
@@ -19,8 +35,6 @@ public class GetAutomaticClusterUpdateSettingRequest {
    * an etag from a GET request, and pass it with the DELETE request to identify the rule set
    * version you are deleting.
    */
-  @JsonIgnore
-  @QueryParam("etag")
   private String etag;
 
   public GetAutomaticClusterUpdateSettingRequest setEtag(String etag) {
@@ -50,5 +64,45 @@ public class GetAutomaticClusterUpdateSettingRequest {
     return new ToStringer(GetAutomaticClusterUpdateSettingRequest.class)
         .add("etag", etag)
         .toString();
+  }
+
+  GetAutomaticClusterUpdateSettingRequestPb toPb() {
+    GetAutomaticClusterUpdateSettingRequestPb pb = new GetAutomaticClusterUpdateSettingRequestPb();
+    pb.setEtag(etag);
+
+    return pb;
+  }
+
+  static GetAutomaticClusterUpdateSettingRequest fromPb(
+      GetAutomaticClusterUpdateSettingRequestPb pb) {
+    GetAutomaticClusterUpdateSettingRequest model = new GetAutomaticClusterUpdateSettingRequest();
+    model.setEtag(pb.getEtag());
+
+    return model;
+  }
+
+  public static class GetAutomaticClusterUpdateSettingRequestSerializer
+      extends JsonSerializer<GetAutomaticClusterUpdateSettingRequest> {
+    @Override
+    public void serialize(
+        GetAutomaticClusterUpdateSettingRequest value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      GetAutomaticClusterUpdateSettingRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetAutomaticClusterUpdateSettingRequestDeserializer
+      extends JsonDeserializer<GetAutomaticClusterUpdateSettingRequest> {
+    @Override
+    public GetAutomaticClusterUpdateSettingRequest deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetAutomaticClusterUpdateSettingRequestPb pb =
+          mapper.readValue(p, GetAutomaticClusterUpdateSettingRequestPb.class);
+      return GetAutomaticClusterUpdateSettingRequest.fromPb(pb);
+    }
   }
 }

@@ -4,17 +4,26 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = MicrosoftTeamsConfig.MicrosoftTeamsConfigSerializer.class)
+@JsonDeserialize(using = MicrosoftTeamsConfig.MicrosoftTeamsConfigDeserializer.class)
 public class MicrosoftTeamsConfig {
   /** [Input-Only] URL for Microsoft Teams. */
-  @JsonProperty("url")
   private String url;
 
   /** [Output-Only] Whether URL is set. */
-  @JsonProperty("url_set")
   private Boolean urlSet;
 
   public MicrosoftTeamsConfig setUrl(String url) {
@@ -54,5 +63,42 @@ public class MicrosoftTeamsConfig {
         .add("url", url)
         .add("urlSet", urlSet)
         .toString();
+  }
+
+  MicrosoftTeamsConfigPb toPb() {
+    MicrosoftTeamsConfigPb pb = new MicrosoftTeamsConfigPb();
+    pb.setUrl(url);
+    pb.setUrlSet(urlSet);
+
+    return pb;
+  }
+
+  static MicrosoftTeamsConfig fromPb(MicrosoftTeamsConfigPb pb) {
+    MicrosoftTeamsConfig model = new MicrosoftTeamsConfig();
+    model.setUrl(pb.getUrl());
+    model.setUrlSet(pb.getUrlSet());
+
+    return model;
+  }
+
+  public static class MicrosoftTeamsConfigSerializer extends JsonSerializer<MicrosoftTeamsConfig> {
+    @Override
+    public void serialize(
+        MicrosoftTeamsConfig value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      MicrosoftTeamsConfigPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class MicrosoftTeamsConfigDeserializer
+      extends JsonDeserializer<MicrosoftTeamsConfig> {
+    @Override
+    public MicrosoftTeamsConfig deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      MicrosoftTeamsConfigPb pb = mapper.readValue(p, MicrosoftTeamsConfigPb.class);
+      return MicrosoftTeamsConfig.fromPb(pb);
+    }
   }
 }

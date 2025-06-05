@@ -4,17 +4,26 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = LogAnalyticsInfo.LogAnalyticsInfoSerializer.class)
+@JsonDeserialize(using = LogAnalyticsInfo.LogAnalyticsInfoDeserializer.class)
 public class LogAnalyticsInfo {
   /** */
-  @JsonProperty("log_analytics_primary_key")
   private String logAnalyticsPrimaryKey;
 
   /** */
-  @JsonProperty("log_analytics_workspace_id")
   private String logAnalyticsWorkspaceId;
 
   public LogAnalyticsInfo setLogAnalyticsPrimaryKey(String logAnalyticsPrimaryKey) {
@@ -55,5 +64,40 @@ public class LogAnalyticsInfo {
         .add("logAnalyticsPrimaryKey", logAnalyticsPrimaryKey)
         .add("logAnalyticsWorkspaceId", logAnalyticsWorkspaceId)
         .toString();
+  }
+
+  LogAnalyticsInfoPb toPb() {
+    LogAnalyticsInfoPb pb = new LogAnalyticsInfoPb();
+    pb.setLogAnalyticsPrimaryKey(logAnalyticsPrimaryKey);
+    pb.setLogAnalyticsWorkspaceId(logAnalyticsWorkspaceId);
+
+    return pb;
+  }
+
+  static LogAnalyticsInfo fromPb(LogAnalyticsInfoPb pb) {
+    LogAnalyticsInfo model = new LogAnalyticsInfo();
+    model.setLogAnalyticsPrimaryKey(pb.getLogAnalyticsPrimaryKey());
+    model.setLogAnalyticsWorkspaceId(pb.getLogAnalyticsWorkspaceId());
+
+    return model;
+  }
+
+  public static class LogAnalyticsInfoSerializer extends JsonSerializer<LogAnalyticsInfo> {
+    @Override
+    public void serialize(LogAnalyticsInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      LogAnalyticsInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class LogAnalyticsInfoDeserializer extends JsonDeserializer<LogAnalyticsInfo> {
+    @Override
+    public LogAnalyticsInfo deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      LogAnalyticsInfoPb pb = mapper.readValue(p, LogAnalyticsInfoPb.class);
+      return LogAnalyticsInfo.fromPb(pb);
+    }
   }
 }

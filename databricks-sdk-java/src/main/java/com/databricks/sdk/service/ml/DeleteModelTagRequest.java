@@ -3,25 +3,31 @@
 package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Delete a model tag */
 @Generated
+@JsonSerialize(using = DeleteModelTagRequest.DeleteModelTagRequestSerializer.class)
+@JsonDeserialize(using = DeleteModelTagRequest.DeleteModelTagRequestDeserializer.class)
 public class DeleteModelTagRequest {
   /**
    * Name of the tag. The name must be an exact match; wild-card deletion is not supported. Maximum
    * size is 250 bytes.
    */
-  @JsonIgnore
-  @QueryParam("key")
   private String key;
 
   /** Name of the registered model that the tag was logged under. */
-  @JsonIgnore
-  @QueryParam("name")
   private String name;
 
   public DeleteModelTagRequest setKey(String key) {
@@ -58,5 +64,43 @@ public class DeleteModelTagRequest {
   @Override
   public String toString() {
     return new ToStringer(DeleteModelTagRequest.class).add("key", key).add("name", name).toString();
+  }
+
+  DeleteModelTagRequestPb toPb() {
+    DeleteModelTagRequestPb pb = new DeleteModelTagRequestPb();
+    pb.setKey(key);
+    pb.setName(name);
+
+    return pb;
+  }
+
+  static DeleteModelTagRequest fromPb(DeleteModelTagRequestPb pb) {
+    DeleteModelTagRequest model = new DeleteModelTagRequest();
+    model.setKey(pb.getKey());
+    model.setName(pb.getName());
+
+    return model;
+  }
+
+  public static class DeleteModelTagRequestSerializer
+      extends JsonSerializer<DeleteModelTagRequest> {
+    @Override
+    public void serialize(
+        DeleteModelTagRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DeleteModelTagRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DeleteModelTagRequestDeserializer
+      extends JsonDeserializer<DeleteModelTagRequest> {
+    @Override
+    public DeleteModelTagRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DeleteModelTagRequestPb pb = mapper.readValue(p, DeleteModelTagRequestPb.class);
+      return DeleteModelTagRequest.fromPb(pb);
+    }
   }
 }

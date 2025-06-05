@@ -4,13 +4,25 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = ComplianceSecurityProfileSetting.ComplianceSecurityProfileSettingSerializer.class)
+@JsonDeserialize(
+    using = ComplianceSecurityProfileSetting.ComplianceSecurityProfileSettingDeserializer.class)
 public class ComplianceSecurityProfileSetting {
   /** SHIELD feature: CSP */
-  @JsonProperty("compliance_security_profile_workspace")
   private ComplianceSecurityProfile complianceSecurityProfileWorkspace;
 
   /**
@@ -21,7 +33,6 @@ public class ComplianceSecurityProfileSetting {
    * etag from a GET request, and pass it with the PATCH request to identify the setting version you
    * are updating.
    */
-  @JsonProperty("etag")
   private String etag;
 
   /**
@@ -30,7 +41,6 @@ public class ComplianceSecurityProfileSetting {
    * respected instead. Setting name is required to be 'default' if the setting only has one
    * instance per workspace.
    */
-  @JsonProperty("setting_name")
   private String settingName;
 
   public ComplianceSecurityProfileSetting setComplianceSecurityProfileWorkspace(
@@ -84,5 +94,46 @@ public class ComplianceSecurityProfileSetting {
         .add("etag", etag)
         .add("settingName", settingName)
         .toString();
+  }
+
+  ComplianceSecurityProfileSettingPb toPb() {
+    ComplianceSecurityProfileSettingPb pb = new ComplianceSecurityProfileSettingPb();
+    pb.setComplianceSecurityProfileWorkspace(complianceSecurityProfileWorkspace);
+    pb.setEtag(etag);
+    pb.setSettingName(settingName);
+
+    return pb;
+  }
+
+  static ComplianceSecurityProfileSetting fromPb(ComplianceSecurityProfileSettingPb pb) {
+    ComplianceSecurityProfileSetting model = new ComplianceSecurityProfileSetting();
+    model.setComplianceSecurityProfileWorkspace(pb.getComplianceSecurityProfileWorkspace());
+    model.setEtag(pb.getEtag());
+    model.setSettingName(pb.getSettingName());
+
+    return model;
+  }
+
+  public static class ComplianceSecurityProfileSettingSerializer
+      extends JsonSerializer<ComplianceSecurityProfileSetting> {
+    @Override
+    public void serialize(
+        ComplianceSecurityProfileSetting value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ComplianceSecurityProfileSettingPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ComplianceSecurityProfileSettingDeserializer
+      extends JsonDeserializer<ComplianceSecurityProfileSetting> {
+    @Override
+    public ComplianceSecurityProfileSetting deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ComplianceSecurityProfileSettingPb pb =
+          mapper.readValue(p, ComplianceSecurityProfileSettingPb.class);
+      return ComplianceSecurityProfileSetting.fromPb(pb);
+    }
   }
 }

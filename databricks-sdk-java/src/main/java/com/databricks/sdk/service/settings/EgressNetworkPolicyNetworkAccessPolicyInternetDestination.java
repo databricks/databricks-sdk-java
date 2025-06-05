@@ -4,7 +4,16 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -13,16 +22,22 @@ import java.util.Objects;
  * support to host names and IP addresses.
  */
 @Generated
+@JsonSerialize(
+    using =
+        EgressNetworkPolicyNetworkAccessPolicyInternetDestination
+            .EgressNetworkPolicyNetworkAccessPolicyInternetDestinationSerializer.class)
+@JsonDeserialize(
+    using =
+        EgressNetworkPolicyNetworkAccessPolicyInternetDestination
+            .EgressNetworkPolicyNetworkAccessPolicyInternetDestinationDeserializer.class)
 public class EgressNetworkPolicyNetworkAccessPolicyInternetDestination {
   /**
    * The internet destination to which access will be allowed. Format dependent on the destination
    * type.
    */
-  @JsonProperty("destination")
   private String destination;
 
   /** The type of internet destination. Currently only DNS_NAME is supported. */
-  @JsonProperty("internet_destination_type")
   private EgressNetworkPolicyNetworkAccessPolicyInternetDestinationInternetDestinationType
       internetDestinationType;
 
@@ -69,5 +84,49 @@ public class EgressNetworkPolicyNetworkAccessPolicyInternetDestination {
         .add("destination", destination)
         .add("internetDestinationType", internetDestinationType)
         .toString();
+  }
+
+  EgressNetworkPolicyNetworkAccessPolicyInternetDestinationPb toPb() {
+    EgressNetworkPolicyNetworkAccessPolicyInternetDestinationPb pb =
+        new EgressNetworkPolicyNetworkAccessPolicyInternetDestinationPb();
+    pb.setDestination(destination);
+    pb.setInternetDestinationType(internetDestinationType);
+
+    return pb;
+  }
+
+  static EgressNetworkPolicyNetworkAccessPolicyInternetDestination fromPb(
+      EgressNetworkPolicyNetworkAccessPolicyInternetDestinationPb pb) {
+    EgressNetworkPolicyNetworkAccessPolicyInternetDestination model =
+        new EgressNetworkPolicyNetworkAccessPolicyInternetDestination();
+    model.setDestination(pb.getDestination());
+    model.setInternetDestinationType(pb.getInternetDestinationType());
+
+    return model;
+  }
+
+  public static class EgressNetworkPolicyNetworkAccessPolicyInternetDestinationSerializer
+      extends JsonSerializer<EgressNetworkPolicyNetworkAccessPolicyInternetDestination> {
+    @Override
+    public void serialize(
+        EgressNetworkPolicyNetworkAccessPolicyInternetDestination value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      EgressNetworkPolicyNetworkAccessPolicyInternetDestinationPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class EgressNetworkPolicyNetworkAccessPolicyInternetDestinationDeserializer
+      extends JsonDeserializer<EgressNetworkPolicyNetworkAccessPolicyInternetDestination> {
+    @Override
+    public EgressNetworkPolicyNetworkAccessPolicyInternetDestination deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      EgressNetworkPolicyNetworkAccessPolicyInternetDestinationPb pb =
+          mapper.readValue(p, EgressNetworkPolicyNetworkAccessPolicyInternetDestinationPb.class);
+      return EgressNetworkPolicyNetworkAccessPolicyInternetDestination.fromPb(pb);
+    }
   }
 }

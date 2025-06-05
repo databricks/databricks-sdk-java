@@ -4,46 +4,49 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Data request messages also creates a lead (maybe) */
 @Generated
+@JsonSerialize(using = CreatePersonalizationRequest.CreatePersonalizationRequestSerializer.class)
+@JsonDeserialize(
+    using = CreatePersonalizationRequest.CreatePersonalizationRequestDeserializer.class)
 public class CreatePersonalizationRequest {
   /** */
-  @JsonProperty("accepted_consumer_terms")
   private ConsumerTerms acceptedConsumerTerms;
 
   /** */
-  @JsonProperty("comment")
   private String comment;
 
   /** */
-  @JsonProperty("company")
   private String company;
 
   /** */
-  @JsonProperty("first_name")
   private String firstName;
 
   /** */
-  @JsonProperty("intended_use")
   private String intendedUse;
 
   /** */
-  @JsonProperty("is_from_lighthouse")
   private Boolean isFromLighthouse;
 
   /** */
-  @JsonProperty("last_name")
   private String lastName;
 
   /** */
-  @JsonIgnore private String listingId;
+  private String listingId;
 
   /** */
-  @JsonProperty("recipient_type")
   private DeltaSharingRecipientType recipientType;
 
   public CreatePersonalizationRequest setAcceptedConsumerTerms(
@@ -171,5 +174,57 @@ public class CreatePersonalizationRequest {
         .add("listingId", listingId)
         .add("recipientType", recipientType)
         .toString();
+  }
+
+  CreatePersonalizationRequestPb toPb() {
+    CreatePersonalizationRequestPb pb = new CreatePersonalizationRequestPb();
+    pb.setAcceptedConsumerTerms(acceptedConsumerTerms);
+    pb.setComment(comment);
+    pb.setCompany(company);
+    pb.setFirstName(firstName);
+    pb.setIntendedUse(intendedUse);
+    pb.setIsFromLighthouse(isFromLighthouse);
+    pb.setLastName(lastName);
+    pb.setListingId(listingId);
+    pb.setRecipientType(recipientType);
+
+    return pb;
+  }
+
+  static CreatePersonalizationRequest fromPb(CreatePersonalizationRequestPb pb) {
+    CreatePersonalizationRequest model = new CreatePersonalizationRequest();
+    model.setAcceptedConsumerTerms(pb.getAcceptedConsumerTerms());
+    model.setComment(pb.getComment());
+    model.setCompany(pb.getCompany());
+    model.setFirstName(pb.getFirstName());
+    model.setIntendedUse(pb.getIntendedUse());
+    model.setIsFromLighthouse(pb.getIsFromLighthouse());
+    model.setLastName(pb.getLastName());
+    model.setListingId(pb.getListingId());
+    model.setRecipientType(pb.getRecipientType());
+
+    return model;
+  }
+
+  public static class CreatePersonalizationRequestSerializer
+      extends JsonSerializer<CreatePersonalizationRequest> {
+    @Override
+    public void serialize(
+        CreatePersonalizationRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreatePersonalizationRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreatePersonalizationRequestDeserializer
+      extends JsonDeserializer<CreatePersonalizationRequest> {
+    @Override
+    public CreatePersonalizationRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreatePersonalizationRequestPb pb = mapper.readValue(p, CreatePersonalizationRequestPb.class);
+      return CreatePersonalizationRequest.fromPb(pb);
+    }
   }
 }

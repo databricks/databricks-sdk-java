@@ -4,21 +4,35 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using =
+        ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedSchedule
+            .ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedScheduleSerializer.class)
+@JsonDeserialize(
+    using =
+        ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedSchedule
+            .ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedScheduleDeserializer.class)
 public class ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedSchedule {
   /** */
-  @JsonProperty("day_of_week")
   private ClusterAutoRestartMessageMaintenanceWindowDayOfWeek dayOfWeek;
 
   /** */
-  @JsonProperty("frequency")
   private ClusterAutoRestartMessageMaintenanceWindowWeekDayFrequency frequency;
 
   /** */
-  @JsonProperty("window_start_time")
   private ClusterAutoRestartMessageMaintenanceWindowWindowStartTime windowStartTime;
 
   public ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedSchedule setDayOfWeek(
@@ -74,5 +88,52 @@ public class ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedSchedule {
         .add("frequency", frequency)
         .add("windowStartTime", windowStartTime)
         .toString();
+  }
+
+  ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedSchedulePb toPb() {
+    ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedSchedulePb pb =
+        new ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedSchedulePb();
+    pb.setDayOfWeek(dayOfWeek);
+    pb.setFrequency(frequency);
+    pb.setWindowStartTime(windowStartTime);
+
+    return pb;
+  }
+
+  static ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedSchedule fromPb(
+      ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedSchedulePb pb) {
+    ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedSchedule model =
+        new ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedSchedule();
+    model.setDayOfWeek(pb.getDayOfWeek());
+    model.setFrequency(pb.getFrequency());
+    model.setWindowStartTime(pb.getWindowStartTime());
+
+    return model;
+  }
+
+  public static class ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedScheduleSerializer
+      extends JsonSerializer<ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedSchedule> {
+    @Override
+    public void serialize(
+        ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedSchedule value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedSchedulePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedScheduleDeserializer
+      extends JsonDeserializer<ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedSchedule> {
+    @Override
+    public ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedSchedule deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedSchedulePb pb =
+          mapper.readValue(
+              p, ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedSchedulePb.class);
+      return ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedSchedule.fromPb(pb);
+    }
   }
 }

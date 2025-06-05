@@ -4,17 +4,26 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = DataPlaneId.DataPlaneIdSerializer.class)
+@JsonDeserialize(using = DataPlaneId.DataPlaneIdDeserializer.class)
 public class DataPlaneId {
   /** The instance name of the data plane emitting an event. */
-  @JsonProperty("instance")
   private String instance;
 
   /** A sequence number, unique and increasing within the data plane instance. */
-  @JsonProperty("seq_no")
   private Long seqNo;
 
   public DataPlaneId setInstance(String instance) {
@@ -54,5 +63,39 @@ public class DataPlaneId {
         .add("instance", instance)
         .add("seqNo", seqNo)
         .toString();
+  }
+
+  DataPlaneIdPb toPb() {
+    DataPlaneIdPb pb = new DataPlaneIdPb();
+    pb.setInstance(instance);
+    pb.setSeqNo(seqNo);
+
+    return pb;
+  }
+
+  static DataPlaneId fromPb(DataPlaneIdPb pb) {
+    DataPlaneId model = new DataPlaneId();
+    model.setInstance(pb.getInstance());
+    model.setSeqNo(pb.getSeqNo());
+
+    return model;
+  }
+
+  public static class DataPlaneIdSerializer extends JsonSerializer<DataPlaneId> {
+    @Override
+    public void serialize(DataPlaneId value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DataPlaneIdPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DataPlaneIdDeserializer extends JsonDeserializer<DataPlaneId> {
+    @Override
+    public DataPlaneId deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DataPlaneIdPb pb = mapper.readValue(p, DataPlaneIdPb.class);
+      return DataPlaneId.fromPb(pb);
+    }
   }
 }

@@ -1,0 +1,57 @@
+// Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
+
+package com.databricks.sdk.service.sharing;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
+
+@Generated
+class ListSharesResponsePb {
+  @JsonProperty("next_page_token")
+  private String nextPageToken;
+
+  @JsonProperty("shares")
+  private Collection<ShareInfo> shares;
+
+  public ListSharesResponsePb setNextPageToken(String nextPageToken) {
+    this.nextPageToken = nextPageToken;
+    return this;
+  }
+
+  public String getNextPageToken() {
+    return nextPageToken;
+  }
+
+  public ListSharesResponsePb setShares(Collection<ShareInfo> shares) {
+    this.shares = shares;
+    return this;
+  }
+
+  public Collection<ShareInfo> getShares() {
+    return shares;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ListSharesResponsePb that = (ListSharesResponsePb) o;
+    return Objects.equals(nextPageToken, that.nextPageToken) && Objects.equals(shares, that.shares);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(nextPageToken, shares);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ListSharesResponsePb.class)
+        .add("nextPageToken", nextPageToken)
+        .add("shares", shares)
+        .toString();
+  }
+}

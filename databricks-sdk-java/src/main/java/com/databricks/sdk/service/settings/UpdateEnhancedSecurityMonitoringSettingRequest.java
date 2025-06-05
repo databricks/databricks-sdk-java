@@ -4,14 +4,30 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Details required to update a setting. */
 @Generated
+@JsonSerialize(
+    using =
+        UpdateEnhancedSecurityMonitoringSettingRequest
+            .UpdateEnhancedSecurityMonitoringSettingRequestSerializer.class)
+@JsonDeserialize(
+    using =
+        UpdateEnhancedSecurityMonitoringSettingRequest
+            .UpdateEnhancedSecurityMonitoringSettingRequestDeserializer.class)
 public class UpdateEnhancedSecurityMonitoringSettingRequest {
   /** This should always be set to true for Settings API. Added for AIP compliance. */
-  @JsonProperty("allow_missing")
   private Boolean allowMissing;
 
   /**
@@ -25,11 +41,9 @@ public class UpdateEnhancedSecurityMonitoringSettingRequest {
    * the fields being updated and avoid using `*` wildcards, as it can lead to unintended results if
    * the API changes in the future.
    */
-  @JsonProperty("field_mask")
   private String fieldMask;
 
   /** */
-  @JsonProperty("setting")
   private EnhancedSecurityMonitoringSetting setting;
 
   public UpdateEnhancedSecurityMonitoringSettingRequest setAllowMissing(Boolean allowMissing) {
@@ -83,5 +97,51 @@ public class UpdateEnhancedSecurityMonitoringSettingRequest {
         .add("fieldMask", fieldMask)
         .add("setting", setting)
         .toString();
+  }
+
+  UpdateEnhancedSecurityMonitoringSettingRequestPb toPb() {
+    UpdateEnhancedSecurityMonitoringSettingRequestPb pb =
+        new UpdateEnhancedSecurityMonitoringSettingRequestPb();
+    pb.setAllowMissing(allowMissing);
+    pb.setFieldMask(fieldMask);
+    pb.setSetting(setting);
+
+    return pb;
+  }
+
+  static UpdateEnhancedSecurityMonitoringSettingRequest fromPb(
+      UpdateEnhancedSecurityMonitoringSettingRequestPb pb) {
+    UpdateEnhancedSecurityMonitoringSettingRequest model =
+        new UpdateEnhancedSecurityMonitoringSettingRequest();
+    model.setAllowMissing(pb.getAllowMissing());
+    model.setFieldMask(pb.getFieldMask());
+    model.setSetting(pb.getSetting());
+
+    return model;
+  }
+
+  public static class UpdateEnhancedSecurityMonitoringSettingRequestSerializer
+      extends JsonSerializer<UpdateEnhancedSecurityMonitoringSettingRequest> {
+    @Override
+    public void serialize(
+        UpdateEnhancedSecurityMonitoringSettingRequest value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      UpdateEnhancedSecurityMonitoringSettingRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateEnhancedSecurityMonitoringSettingRequestDeserializer
+      extends JsonDeserializer<UpdateEnhancedSecurityMonitoringSettingRequest> {
+    @Override
+    public UpdateEnhancedSecurityMonitoringSettingRequest deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateEnhancedSecurityMonitoringSettingRequestPb pb =
+          mapper.readValue(p, UpdateEnhancedSecurityMonitoringSettingRequestPb.class);
+      return UpdateEnhancedSecurityMonitoringSettingRequest.fromPb(pb);
+    }
   }
 }

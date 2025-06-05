@@ -3,35 +3,39 @@
 package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 /** List registry webhooks */
 @Generated
+@JsonSerialize(using = ListWebhooksRequest.ListWebhooksRequestSerializer.class)
+@JsonDeserialize(using = ListWebhooksRequest.ListWebhooksRequestDeserializer.class)
 public class ListWebhooksRequest {
   /**
    * If `events` is specified, any webhook with one or more of the specified trigger events is
    * included in the output. If `events` is not specified, webhooks of all event types are included
    * in the output.
    */
-  @JsonIgnore
-  @QueryParam("events")
   private Collection<RegistryWebhookEvent> events;
 
   /**
    * If not specified, all webhooks associated with the specified events are listed, regardless of
    * their associated model.
    */
-  @JsonIgnore
-  @QueryParam("model_name")
   private String modelName;
 
   /** Token indicating the page of artifact results to fetch */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   public ListWebhooksRequest setEvents(Collection<RegistryWebhookEvent> events) {
@@ -83,5 +87,43 @@ public class ListWebhooksRequest {
         .add("modelName", modelName)
         .add("pageToken", pageToken)
         .toString();
+  }
+
+  ListWebhooksRequestPb toPb() {
+    ListWebhooksRequestPb pb = new ListWebhooksRequestPb();
+    pb.setEvents(events);
+    pb.setModelName(modelName);
+    pb.setPageToken(pageToken);
+
+    return pb;
+  }
+
+  static ListWebhooksRequest fromPb(ListWebhooksRequestPb pb) {
+    ListWebhooksRequest model = new ListWebhooksRequest();
+    model.setEvents(pb.getEvents());
+    model.setModelName(pb.getModelName());
+    model.setPageToken(pb.getPageToken());
+
+    return model;
+  }
+
+  public static class ListWebhooksRequestSerializer extends JsonSerializer<ListWebhooksRequest> {
+    @Override
+    public void serialize(ListWebhooksRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListWebhooksRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListWebhooksRequestDeserializer
+      extends JsonDeserializer<ListWebhooksRequest> {
+    @Override
+    public ListWebhooksRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListWebhooksRequestPb pb = mapper.readValue(p, ListWebhooksRequestPb.class);
+      return ListWebhooksRequest.fromPb(pb);
+    }
   }
 }

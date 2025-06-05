@@ -21,7 +21,7 @@ class ProviderExchangeFiltersImpl implements ProviderExchangeFiltersService {
     String path = "/api/2.0/marketplace-exchange/filters";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, CreateExchangeFilterResponse.class);
@@ -35,7 +35,7 @@ class ProviderExchangeFiltersImpl implements ProviderExchangeFiltersService {
     String path = String.format("/api/2.0/marketplace-exchange/filters/%s", request.getId());
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, DeleteExchangeFilterResponse.class);
     } catch (IOException e) {
@@ -48,7 +48,7 @@ class ProviderExchangeFiltersImpl implements ProviderExchangeFiltersService {
     String path = "/api/2.0/marketplace-exchange/filters";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListExchangeFiltersResponse.class);
     } catch (IOException e) {
@@ -61,7 +61,7 @@ class ProviderExchangeFiltersImpl implements ProviderExchangeFiltersService {
     String path = String.format("/api/2.0/marketplace-exchange/filters/%s", request.getId());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, UpdateExchangeFilterResponse.class);

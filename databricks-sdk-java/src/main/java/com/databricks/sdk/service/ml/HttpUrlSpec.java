@@ -4,17 +4,27 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = HttpUrlSpec.HttpUrlSpecSerializer.class)
+@JsonDeserialize(using = HttpUrlSpec.HttpUrlSpecDeserializer.class)
 public class HttpUrlSpec {
   /**
    * Value of the authorization header that should be sent in the request sent by the wehbook. It
    * should be of the form `"<auth type> <credentials>"`. If set to an empty string, no
    * authorization header will be included in the request.
    */
-  @JsonProperty("authorization")
   private String authorization;
 
   /**
@@ -24,18 +34,15 @@ public class HttpUrlSpec {
    * of the payload and acknowledge the risk associated with disabling hostname validation whereby
    * it becomes more likely that requests can be maliciously routed to an unintended host.
    */
-  @JsonProperty("enable_ssl_verification")
   private Boolean enableSslVerification;
 
   /**
    * Shared secret required for HMAC encoding payload. The HMAC-encoded payload will be sent in the
    * header as: { "X-Databricks-Signature": $encoded_payload }.
    */
-  @JsonProperty("secret")
   private String secret;
 
   /** External HTTPS URL called on event trigger (by using a POST request). */
-  @JsonProperty("url")
   private String url;
 
   public HttpUrlSpec setAuthorization(String authorization) {
@@ -98,5 +105,43 @@ public class HttpUrlSpec {
         .add("secret", secret)
         .add("url", url)
         .toString();
+  }
+
+  HttpUrlSpecPb toPb() {
+    HttpUrlSpecPb pb = new HttpUrlSpecPb();
+    pb.setAuthorization(authorization);
+    pb.setEnableSslVerification(enableSslVerification);
+    pb.setSecret(secret);
+    pb.setUrl(url);
+
+    return pb;
+  }
+
+  static HttpUrlSpec fromPb(HttpUrlSpecPb pb) {
+    HttpUrlSpec model = new HttpUrlSpec();
+    model.setAuthorization(pb.getAuthorization());
+    model.setEnableSslVerification(pb.getEnableSslVerification());
+    model.setSecret(pb.getSecret());
+    model.setUrl(pb.getUrl());
+
+    return model;
+  }
+
+  public static class HttpUrlSpecSerializer extends JsonSerializer<HttpUrlSpec> {
+    @Override
+    public void serialize(HttpUrlSpec value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      HttpUrlSpecPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class HttpUrlSpecDeserializer extends JsonDeserializer<HttpUrlSpec> {
+    @Override
+    public HttpUrlSpec deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      HttpUrlSpecPb pb = mapper.readValue(p, HttpUrlSpecPb.class);
+      return HttpUrlSpec.fromPb(pb);
+    }
   }
 }

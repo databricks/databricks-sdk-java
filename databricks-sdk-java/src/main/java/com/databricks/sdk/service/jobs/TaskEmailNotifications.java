@@ -4,17 +4,27 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = TaskEmailNotifications.TaskEmailNotificationsSerializer.class)
+@JsonDeserialize(using = TaskEmailNotifications.TaskEmailNotificationsDeserializer.class)
 public class TaskEmailNotifications {
   /**
    * If true, do not send email to recipients specified in `on_failure` if the run is skipped. This
    * field is `deprecated`. Please use the `notification_settings.no_alert_for_skipped_runs` field.
    */
-  @JsonProperty("no_alert_for_skipped_runs")
   private Boolean noAlertForSkippedRuns;
 
   /**
@@ -23,7 +33,6 @@ public class TaskEmailNotifications {
    * `RUN_DURATION_SECONDS` metric is specified in the `health` field for the job, notifications are
    * not sent.
    */
-  @JsonProperty("on_duration_warning_threshold_exceeded")
   private Collection<String> onDurationWarningThresholdExceeded;
 
   /**
@@ -32,14 +41,12 @@ public class TaskEmailNotifications {
    * `life_cycle_state` or a `FAILED`, or `TIMED_OUT` result_state. If this is not specified on job
    * creation, reset, or update the list is empty, and notifications are not sent.
    */
-  @JsonProperty("on_failure")
   private Collection<String> onFailure;
 
   /**
    * A list of email addresses to be notified when a run begins. If not specified on job creation,
    * reset, or update, the list is empty, and notifications are not sent.
    */
-  @JsonProperty("on_start")
   private Collection<String> onStart;
 
   /**
@@ -49,7 +56,6 @@ public class TaskEmailNotifications {
    * or `STREAMING_BACKLOG_FILES`. Alerting is based on the 10-minute average of these metrics. If
    * the issue persists, notifications are resent every 30 minutes.
    */
-  @JsonProperty("on_streaming_backlog_exceeded")
   private Collection<String> onStreamingBacklogExceeded;
 
   /**
@@ -58,7 +64,6 @@ public class TaskEmailNotifications {
    * `SUCCESS` result_state. If not specified on job creation, reset, or update, the list is empty,
    * and notifications are not sent.
    */
-  @JsonProperty("on_success")
   private Collection<String> onSuccess;
 
   public TaskEmailNotifications setNoAlertForSkippedRuns(Boolean noAlertForSkippedRuns) {
@@ -152,5 +157,51 @@ public class TaskEmailNotifications {
         .add("onStreamingBacklogExceeded", onStreamingBacklogExceeded)
         .add("onSuccess", onSuccess)
         .toString();
+  }
+
+  TaskEmailNotificationsPb toPb() {
+    TaskEmailNotificationsPb pb = new TaskEmailNotificationsPb();
+    pb.setNoAlertForSkippedRuns(noAlertForSkippedRuns);
+    pb.setOnDurationWarningThresholdExceeded(onDurationWarningThresholdExceeded);
+    pb.setOnFailure(onFailure);
+    pb.setOnStart(onStart);
+    pb.setOnStreamingBacklogExceeded(onStreamingBacklogExceeded);
+    pb.setOnSuccess(onSuccess);
+
+    return pb;
+  }
+
+  static TaskEmailNotifications fromPb(TaskEmailNotificationsPb pb) {
+    TaskEmailNotifications model = new TaskEmailNotifications();
+    model.setNoAlertForSkippedRuns(pb.getNoAlertForSkippedRuns());
+    model.setOnDurationWarningThresholdExceeded(pb.getOnDurationWarningThresholdExceeded());
+    model.setOnFailure(pb.getOnFailure());
+    model.setOnStart(pb.getOnStart());
+    model.setOnStreamingBacklogExceeded(pb.getOnStreamingBacklogExceeded());
+    model.setOnSuccess(pb.getOnSuccess());
+
+    return model;
+  }
+
+  public static class TaskEmailNotificationsSerializer
+      extends JsonSerializer<TaskEmailNotifications> {
+    @Override
+    public void serialize(
+        TaskEmailNotifications value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      TaskEmailNotificationsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class TaskEmailNotificationsDeserializer
+      extends JsonDeserializer<TaskEmailNotifications> {
+    @Override
+    public TaskEmailNotifications deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      TaskEmailNotificationsPb pb = mapper.readValue(p, TaskEmailNotificationsPb.class);
+      return TaskEmailNotifications.fromPb(pb);
+    }
   }
 }

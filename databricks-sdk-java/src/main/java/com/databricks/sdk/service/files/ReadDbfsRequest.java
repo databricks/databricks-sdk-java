@@ -3,30 +3,34 @@
 package com.databricks.sdk.service.files;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get the contents of a file */
 @Generated
+@JsonSerialize(using = ReadDbfsRequest.ReadDbfsRequestSerializer.class)
+@JsonDeserialize(using = ReadDbfsRequest.ReadDbfsRequestDeserializer.class)
 public class ReadDbfsRequest {
   /**
    * The number of bytes to read starting from the offset. This has a limit of 1 MB, and a default
    * value of 0.5 MB.
    */
-  @JsonIgnore
-  @QueryParam("length")
   private Long length;
 
   /** The offset to read from in bytes. */
-  @JsonIgnore
-  @QueryParam("offset")
   private Long offset;
 
   /** The path of the file to read. The path should be the absolute DBFS path. */
-  @JsonIgnore
-  @QueryParam("path")
   private String path;
 
   public ReadDbfsRequest setLength(Long length) {
@@ -78,5 +82,42 @@ public class ReadDbfsRequest {
         .add("offset", offset)
         .add("path", path)
         .toString();
+  }
+
+  ReadDbfsRequestPb toPb() {
+    ReadDbfsRequestPb pb = new ReadDbfsRequestPb();
+    pb.setLength(length);
+    pb.setOffset(offset);
+    pb.setPath(path);
+
+    return pb;
+  }
+
+  static ReadDbfsRequest fromPb(ReadDbfsRequestPb pb) {
+    ReadDbfsRequest model = new ReadDbfsRequest();
+    model.setLength(pb.getLength());
+    model.setOffset(pb.getOffset());
+    model.setPath(pb.getPath());
+
+    return model;
+  }
+
+  public static class ReadDbfsRequestSerializer extends JsonSerializer<ReadDbfsRequest> {
+    @Override
+    public void serialize(ReadDbfsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ReadDbfsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ReadDbfsRequestDeserializer extends JsonDeserializer<ReadDbfsRequest> {
+    @Override
+    public ReadDbfsRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ReadDbfsRequestPb pb = mapper.readValue(p, ReadDbfsRequestPb.class);
+      return ReadDbfsRequest.fromPb(pb);
+    }
   }
 }

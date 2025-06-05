@@ -4,86 +4,79 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
 
 /** Next ID: 40 */
 @Generated
+@JsonSerialize(using = SchemaInfo.SchemaInfoSerializer.class)
+@JsonDeserialize(using = SchemaInfo.SchemaInfoDeserializer.class)
 public class SchemaInfo {
   /**
    * Indicates whether the principal is limited to retrieving metadata for the associated object
    * through the BROWSE privilege when include_browse is enabled in the request.
    */
-  @JsonProperty("browse_only")
   private Boolean browseOnly;
 
   /** Name of parent catalog. */
-  @JsonProperty("catalog_name")
   private String catalogName;
 
   /** The type of the parent catalog. */
-  @JsonProperty("catalog_type")
   private CatalogType catalogType;
 
   /** User-provided free-form text description. */
-  @JsonProperty("comment")
   private String comment;
 
   /** Time at which this schema was created, in epoch milliseconds. */
-  @JsonProperty("created_at")
   private Long createdAt;
 
   /** Username of schema creator. */
-  @JsonProperty("created_by")
   private String createdBy;
 
   /** */
-  @JsonProperty("effective_predictive_optimization_flag")
   private EffectivePredictiveOptimizationFlag effectivePredictiveOptimizationFlag;
 
   /** Whether predictive optimization should be enabled for this object and objects under it. */
-  @JsonProperty("enable_predictive_optimization")
   private EnablePredictiveOptimization enablePredictiveOptimization;
 
   /** Full name of schema, in form of __catalog_name__.__schema_name__. */
-  @JsonProperty("full_name")
   private String fullName;
 
   /** Unique identifier of parent metastore. */
-  @JsonProperty("metastore_id")
   private String metastoreId;
 
   /** Name of schema, relative to parent catalog. */
-  @JsonProperty("name")
   private String name;
 
   /** Username of current owner of schema. */
-  @JsonProperty("owner")
   private String owner;
 
   /** A map of key-value properties attached to the securable. */
-  @JsonProperty("properties")
   private Map<String, String> properties;
 
   /** The unique identifier of the schema. */
-  @JsonProperty("schema_id")
   private String schemaId;
 
   /** Storage location for managed tables within schema. */
-  @JsonProperty("storage_location")
   private String storageLocation;
 
   /** Storage root URL for managed tables within schema. */
-  @JsonProperty("storage_root")
   private String storageRoot;
 
   /** Time at which this schema was created, in epoch milliseconds. */
-  @JsonProperty("updated_at")
   private Long updatedAt;
 
   /** Username of user who last modified schema. */
-  @JsonProperty("updated_by")
   private String updatedBy;
 
   public SchemaInfo setBrowseOnly(Boolean browseOnly) {
@@ -321,5 +314,71 @@ public class SchemaInfo {
         .add("updatedAt", updatedAt)
         .add("updatedBy", updatedBy)
         .toString();
+  }
+
+  SchemaInfoPb toPb() {
+    SchemaInfoPb pb = new SchemaInfoPb();
+    pb.setBrowseOnly(browseOnly);
+    pb.setCatalogName(catalogName);
+    pb.setCatalogType(catalogType);
+    pb.setComment(comment);
+    pb.setCreatedAt(createdAt);
+    pb.setCreatedBy(createdBy);
+    pb.setEffectivePredictiveOptimizationFlag(effectivePredictiveOptimizationFlag);
+    pb.setEnablePredictiveOptimization(enablePredictiveOptimization);
+    pb.setFullName(fullName);
+    pb.setMetastoreId(metastoreId);
+    pb.setName(name);
+    pb.setOwner(owner);
+    pb.setProperties(properties);
+    pb.setSchemaId(schemaId);
+    pb.setStorageLocation(storageLocation);
+    pb.setStorageRoot(storageRoot);
+    pb.setUpdatedAt(updatedAt);
+    pb.setUpdatedBy(updatedBy);
+
+    return pb;
+  }
+
+  static SchemaInfo fromPb(SchemaInfoPb pb) {
+    SchemaInfo model = new SchemaInfo();
+    model.setBrowseOnly(pb.getBrowseOnly());
+    model.setCatalogName(pb.getCatalogName());
+    model.setCatalogType(pb.getCatalogType());
+    model.setComment(pb.getComment());
+    model.setCreatedAt(pb.getCreatedAt());
+    model.setCreatedBy(pb.getCreatedBy());
+    model.setEffectivePredictiveOptimizationFlag(pb.getEffectivePredictiveOptimizationFlag());
+    model.setEnablePredictiveOptimization(pb.getEnablePredictiveOptimization());
+    model.setFullName(pb.getFullName());
+    model.setMetastoreId(pb.getMetastoreId());
+    model.setName(pb.getName());
+    model.setOwner(pb.getOwner());
+    model.setProperties(pb.getProperties());
+    model.setSchemaId(pb.getSchemaId());
+    model.setStorageLocation(pb.getStorageLocation());
+    model.setStorageRoot(pb.getStorageRoot());
+    model.setUpdatedAt(pb.getUpdatedAt());
+    model.setUpdatedBy(pb.getUpdatedBy());
+
+    return model;
+  }
+
+  public static class SchemaInfoSerializer extends JsonSerializer<SchemaInfo> {
+    @Override
+    public void serialize(SchemaInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SchemaInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SchemaInfoDeserializer extends JsonDeserializer<SchemaInfo> {
+    @Override
+    public SchemaInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SchemaInfoPb pb = mapper.readValue(p, SchemaInfoPb.class);
+      return SchemaInfo.fromPb(pb);
+    }
   }
 }

@@ -4,22 +4,30 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = EditPipeline.EditPipelineSerializer.class)
+@JsonDeserialize(using = EditPipeline.EditPipelineDeserializer.class)
 public class EditPipeline {
   /**
    * If false, deployment will fail if name has changed and conflicts the name of another pipeline.
    */
-  @JsonProperty("allow_duplicate_names")
   private Boolean allowDuplicateNames;
 
   /** Budget policy of this pipeline. */
-  @JsonProperty("budget_policy_id")
   private String budgetPolicyId;
 
   /**
@@ -28,88 +36,69 @@ public class EditPipeline {
    * `catalog`.`target`.`table`). If `target` is not specified, no data is published to Unity
    * Catalog.
    */
-  @JsonProperty("catalog")
   private String catalog;
 
   /** DLT Release Channel that specifies which version to use. */
-  @JsonProperty("channel")
   private String channel;
 
   /** Cluster settings for this pipeline deployment. */
-  @JsonProperty("clusters")
   private Collection<PipelineCluster> clusters;
 
   /** String-String configuration for this pipeline execution. */
-  @JsonProperty("configuration")
   private Map<String, String> configuration;
 
   /** Whether the pipeline is continuous or triggered. This replaces `trigger`. */
-  @JsonProperty("continuous")
   private Boolean continuous;
 
   /** Deployment type of this pipeline. */
-  @JsonProperty("deployment")
   private PipelineDeployment deployment;
 
   /** Whether the pipeline is in Development mode. Defaults to false. */
-  @JsonProperty("development")
   private Boolean development;
 
   /** Pipeline product edition. */
-  @JsonProperty("edition")
   private String edition;
 
   /** Event log configuration for this pipeline */
-  @JsonProperty("event_log")
   private EventLogSpec eventLog;
 
   /**
    * If present, the last-modified time of the pipeline settings before the edit. If the settings
    * were modified after that time, then the request will fail with a conflict.
    */
-  @JsonProperty("expected_last_modified")
   private Long expectedLastModified;
 
   /** Filters on which Pipeline packages to include in the deployed graph. */
-  @JsonProperty("filters")
   private Filters filters;
 
   /** The definition of a gateway pipeline to support change data capture. */
-  @JsonProperty("gateway_definition")
   private IngestionGatewayPipelineDefinition gatewayDefinition;
 
   /** Unique identifier for this pipeline. */
-  @JsonProperty("id")
   private String id;
 
   /**
    * The configuration for a managed ingestion pipeline. These settings cannot be used with the
    * 'libraries', 'schema', 'target', or 'catalog' settings.
    */
-  @JsonProperty("ingestion_definition")
   private IngestionPipelineDefinition ingestionDefinition;
 
   /** Libraries or code needed by this deployment. */
-  @JsonProperty("libraries")
   private Collection<PipelineLibrary> libraries;
 
   /** Friendly identifier for this pipeline. */
-  @JsonProperty("name")
   private String name;
 
   /** List of notification settings for this pipeline. */
-  @JsonProperty("notifications")
   private Collection<Notifications> notifications;
 
   /** Whether Photon is enabled for this pipeline. */
-  @JsonProperty("photon")
   private Boolean photon;
 
   /** Unique identifier for this pipeline. */
-  @JsonIgnore private String pipelineId;
+  private String pipelineId;
 
   /** Restart window of this pipeline. */
-  @JsonProperty("restart_window")
   private RestartWindow restartWindow;
 
   /**
@@ -117,7 +106,6 @@ public class EditPipeline {
    * the Databricks user interface and it is added to sys.path when executing Python sources during
    * pipeline execution.
    */
-  @JsonProperty("root_path")
   private String rootPath;
 
   /**
@@ -128,19 +116,15 @@ public class EditPipeline {
    * <p>Only `user_name` or `service_principal_name` can be specified. If both are specified, an
    * error is thrown.
    */
-  @JsonProperty("run_as")
   private RunAs runAs;
 
   /** The default schema (database) where tables are read from or published to. */
-  @JsonProperty("schema")
   private String schema;
 
   /** Whether serverless compute is enabled for this pipeline. */
-  @JsonProperty("serverless")
   private Boolean serverless;
 
   /** DBFS root directory for storing checkpoints and tables. */
-  @JsonProperty("storage")
   private String storage;
 
   /**
@@ -148,7 +132,6 @@ public class EditPipeline {
    * and are therefore subject to the same limitations. A maximum of 25 tags can be added to the
    * pipeline.
    */
-  @JsonProperty("tags")
   private Map<String, String> tags;
 
   /**
@@ -156,11 +139,9 @@ public class EditPipeline {
    * must be specified. To publish to Unity Catalog, also specify `catalog`. This legacy field is
    * deprecated for pipeline creation in favor of the `schema` field.
    */
-  @JsonProperty("target")
   private String target;
 
   /** Which pipeline trigger to use. Deprecated: Use `continuous` instead. */
-  @JsonProperty("trigger")
   private PipelineTrigger trigger;
 
   public EditPipeline setAllowDuplicateNames(Boolean allowDuplicateNames) {
@@ -539,5 +520,95 @@ public class EditPipeline {
         .add("target", target)
         .add("trigger", trigger)
         .toString();
+  }
+
+  EditPipelinePb toPb() {
+    EditPipelinePb pb = new EditPipelinePb();
+    pb.setAllowDuplicateNames(allowDuplicateNames);
+    pb.setBudgetPolicyId(budgetPolicyId);
+    pb.setCatalog(catalog);
+    pb.setChannel(channel);
+    pb.setClusters(clusters);
+    pb.setConfiguration(configuration);
+    pb.setContinuous(continuous);
+    pb.setDeployment(deployment);
+    pb.setDevelopment(development);
+    pb.setEdition(edition);
+    pb.setEventLog(eventLog);
+    pb.setExpectedLastModified(expectedLastModified);
+    pb.setFilters(filters);
+    pb.setGatewayDefinition(gatewayDefinition);
+    pb.setId(id);
+    pb.setIngestionDefinition(ingestionDefinition);
+    pb.setLibraries(libraries);
+    pb.setName(name);
+    pb.setNotifications(notifications);
+    pb.setPhoton(photon);
+    pb.setPipelineId(pipelineId);
+    pb.setRestartWindow(restartWindow);
+    pb.setRootPath(rootPath);
+    pb.setRunAs(runAs);
+    pb.setSchema(schema);
+    pb.setServerless(serverless);
+    pb.setStorage(storage);
+    pb.setTags(tags);
+    pb.setTarget(target);
+    pb.setTrigger(trigger);
+
+    return pb;
+  }
+
+  static EditPipeline fromPb(EditPipelinePb pb) {
+    EditPipeline model = new EditPipeline();
+    model.setAllowDuplicateNames(pb.getAllowDuplicateNames());
+    model.setBudgetPolicyId(pb.getBudgetPolicyId());
+    model.setCatalog(pb.getCatalog());
+    model.setChannel(pb.getChannel());
+    model.setClusters(pb.getClusters());
+    model.setConfiguration(pb.getConfiguration());
+    model.setContinuous(pb.getContinuous());
+    model.setDeployment(pb.getDeployment());
+    model.setDevelopment(pb.getDevelopment());
+    model.setEdition(pb.getEdition());
+    model.setEventLog(pb.getEventLog());
+    model.setExpectedLastModified(pb.getExpectedLastModified());
+    model.setFilters(pb.getFilters());
+    model.setGatewayDefinition(pb.getGatewayDefinition());
+    model.setId(pb.getId());
+    model.setIngestionDefinition(pb.getIngestionDefinition());
+    model.setLibraries(pb.getLibraries());
+    model.setName(pb.getName());
+    model.setNotifications(pb.getNotifications());
+    model.setPhoton(pb.getPhoton());
+    model.setPipelineId(pb.getPipelineId());
+    model.setRestartWindow(pb.getRestartWindow());
+    model.setRootPath(pb.getRootPath());
+    model.setRunAs(pb.getRunAs());
+    model.setSchema(pb.getSchema());
+    model.setServerless(pb.getServerless());
+    model.setStorage(pb.getStorage());
+    model.setTags(pb.getTags());
+    model.setTarget(pb.getTarget());
+    model.setTrigger(pb.getTrigger());
+
+    return model;
+  }
+
+  public static class EditPipelineSerializer extends JsonSerializer<EditPipeline> {
+    @Override
+    public void serialize(EditPipeline value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      EditPipelinePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class EditPipelineDeserializer extends JsonDeserializer<EditPipeline> {
+    @Override
+    public EditPipeline deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      EditPipelinePb pb = mapper.readValue(p, EditPipelinePb.class);
+      return EditPipeline.fromPb(pb);
+    }
   }
 }

@@ -4,30 +4,36 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ListGroupsResponse.ListGroupsResponseSerializer.class)
+@JsonDeserialize(using = ListGroupsResponse.ListGroupsResponseDeserializer.class)
 public class ListGroupsResponse {
   /** Total results returned in the response. */
-  @JsonProperty("itemsPerPage")
   private Long itemsPerPage;
 
   /** User objects returned in the response. */
-  @JsonProperty("Resources")
   private Collection<Group> resources;
 
   /** The schema of the service principal. */
-  @JsonProperty("schemas")
   private Collection<ListResponseSchema> schemas;
 
   /** Starting index of all the results that matched the request filters. First item is number 1. */
-  @JsonProperty("startIndex")
   private Long startIndex;
 
   /** Total results that match the request filters. */
-  @JsonProperty("totalResults")
   private Long totalResults;
 
   public ListGroupsResponse setItemsPerPage(Long itemsPerPage) {
@@ -101,5 +107,46 @@ public class ListGroupsResponse {
         .add("startIndex", startIndex)
         .add("totalResults", totalResults)
         .toString();
+  }
+
+  ListGroupsResponsePb toPb() {
+    ListGroupsResponsePb pb = new ListGroupsResponsePb();
+    pb.setItemsPerPage(itemsPerPage);
+    pb.setResources(resources);
+    pb.setSchemas(schemas);
+    pb.setStartIndex(startIndex);
+    pb.setTotalResults(totalResults);
+
+    return pb;
+  }
+
+  static ListGroupsResponse fromPb(ListGroupsResponsePb pb) {
+    ListGroupsResponse model = new ListGroupsResponse();
+    model.setItemsPerPage(pb.getItemsPerPage());
+    model.setResources(pb.getResources());
+    model.setSchemas(pb.getSchemas());
+    model.setStartIndex(pb.getStartIndex());
+    model.setTotalResults(pb.getTotalResults());
+
+    return model;
+  }
+
+  public static class ListGroupsResponseSerializer extends JsonSerializer<ListGroupsResponse> {
+    @Override
+    public void serialize(ListGroupsResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListGroupsResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListGroupsResponseDeserializer extends JsonDeserializer<ListGroupsResponse> {
+    @Override
+    public ListGroupsResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListGroupsResponsePb pb = mapper.readValue(p, ListGroupsResponsePb.class);
+      return ListGroupsResponse.fromPb(pb);
+    }
   }
 }

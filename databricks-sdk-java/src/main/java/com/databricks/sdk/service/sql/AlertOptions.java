@@ -4,14 +4,24 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Alert configuration options. */
 @Generated
+@JsonSerialize(using = AlertOptions.AlertOptionsSerializer.class)
+@JsonDeserialize(using = AlertOptions.AlertOptionsDeserializer.class)
 public class AlertOptions {
   /** Name of column in the query result to compare in alert evaluation. */
-  @JsonProperty("column")
   private String column;
 
   /**
@@ -19,7 +29,6 @@ public class AlertOptions {
    *
    * <p>[here]: https://docs.databricks.com/sql/user/alerts/index.html
    */
-  @JsonProperty("custom_body")
   private String customBody;
 
   /**
@@ -28,29 +37,24 @@ public class AlertOptions {
    *
    * <p>[here]: https://docs.databricks.com/sql/user/alerts/index.html
    */
-  @JsonProperty("custom_subject")
   private String customSubject;
 
   /** State that alert evaluates to when query result is empty. */
-  @JsonProperty("empty_result_state")
   private AlertOptionsEmptyResultState emptyResultState;
 
   /**
    * Whether or not the alert is muted. If an alert is muted, it will not notify users and
    * notification destinations when triggered.
    */
-  @JsonProperty("muted")
   private Boolean muted;
 
   /** Operator used to compare in alert evaluation: `>`, `>=`, `<`, `<=`, `==`, `!=` */
-  @JsonProperty("op")
   private String op;
 
   /**
    * Value used to compare in alert evaluation. Supported types include strings (eg. 'foobar'),
    * floats (eg. 123.4), and booleans (true).
    */
-  @JsonProperty("value")
   private Object value;
 
   public AlertOptions setColumn(String column) {
@@ -146,5 +150,49 @@ public class AlertOptions {
         .add("op", op)
         .add("value", value)
         .toString();
+  }
+
+  AlertOptionsPb toPb() {
+    AlertOptionsPb pb = new AlertOptionsPb();
+    pb.setColumn(column);
+    pb.setCustomBody(customBody);
+    pb.setCustomSubject(customSubject);
+    pb.setEmptyResultState(emptyResultState);
+    pb.setMuted(muted);
+    pb.setOp(op);
+    pb.setValue(value);
+
+    return pb;
+  }
+
+  static AlertOptions fromPb(AlertOptionsPb pb) {
+    AlertOptions model = new AlertOptions();
+    model.setColumn(pb.getColumn());
+    model.setCustomBody(pb.getCustomBody());
+    model.setCustomSubject(pb.getCustomSubject());
+    model.setEmptyResultState(pb.getEmptyResultState());
+    model.setMuted(pb.getMuted());
+    model.setOp(pb.getOp());
+    model.setValue(pb.getValue());
+
+    return model;
+  }
+
+  public static class AlertOptionsSerializer extends JsonSerializer<AlertOptions> {
+    @Override
+    public void serialize(AlertOptions value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      AlertOptionsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class AlertOptionsDeserializer extends JsonDeserializer<AlertOptions> {
+    @Override
+    public AlertOptions deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      AlertOptionsPb pb = mapper.readValue(p, AlertOptionsPb.class);
+      return AlertOptions.fromPb(pb);
+    }
   }
 }

@@ -4,10 +4,21 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = InstanceProfile.InstanceProfileSerializer.class)
+@JsonDeserialize(using = InstanceProfile.InstanceProfileDeserializer.class)
 public class InstanceProfile {
   /**
    * The AWS IAM role ARN of the role associated with the instance profile. This field is required
@@ -18,11 +29,9 @@ public class InstanceProfile {
    *
    * <p>[Databricks SQL Serverless]: https://docs.databricks.com/sql/admin/serverless.html
    */
-  @JsonProperty("iam_role_arn")
   private String iamRoleArn;
 
   /** The AWS ARN of the instance profile to register with Databricks. This field is required. */
-  @JsonProperty("instance_profile_arn")
   private String instanceProfileArn;
 
   /**
@@ -31,7 +40,6 @@ public class InstanceProfile {
    * could assume a wide range of roles. Therefore it should always be used with authorization. This
    * field is optional, the default value is `false`.
    */
-  @JsonProperty("is_meta_instance_profile")
   private Boolean isMetaInstanceProfile;
 
   public InstanceProfile setIamRoleArn(String iamRoleArn) {
@@ -83,5 +91,42 @@ public class InstanceProfile {
         .add("instanceProfileArn", instanceProfileArn)
         .add("isMetaInstanceProfile", isMetaInstanceProfile)
         .toString();
+  }
+
+  InstanceProfilePb toPb() {
+    InstanceProfilePb pb = new InstanceProfilePb();
+    pb.setIamRoleArn(iamRoleArn);
+    pb.setInstanceProfileArn(instanceProfileArn);
+    pb.setIsMetaInstanceProfile(isMetaInstanceProfile);
+
+    return pb;
+  }
+
+  static InstanceProfile fromPb(InstanceProfilePb pb) {
+    InstanceProfile model = new InstanceProfile();
+    model.setIamRoleArn(pb.getIamRoleArn());
+    model.setInstanceProfileArn(pb.getInstanceProfileArn());
+    model.setIsMetaInstanceProfile(pb.getIsMetaInstanceProfile());
+
+    return model;
+  }
+
+  public static class InstanceProfileSerializer extends JsonSerializer<InstanceProfile> {
+    @Override
+    public void serialize(InstanceProfile value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      InstanceProfilePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class InstanceProfileDeserializer extends JsonDeserializer<InstanceProfile> {
+    @Override
+    public InstanceProfile deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      InstanceProfilePb pb = mapper.readValue(p, InstanceProfilePb.class);
+      return InstanceProfile.fromPb(pb);
+    }
   }
 }

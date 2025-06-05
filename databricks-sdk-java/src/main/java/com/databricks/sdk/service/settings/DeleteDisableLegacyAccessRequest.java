@@ -3,13 +3,25 @@
 package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Delete Legacy Access Disablement Status */
 @Generated
+@JsonSerialize(
+    using = DeleteDisableLegacyAccessRequest.DeleteDisableLegacyAccessRequestSerializer.class)
+@JsonDeserialize(
+    using = DeleteDisableLegacyAccessRequest.DeleteDisableLegacyAccessRequestDeserializer.class)
 public class DeleteDisableLegacyAccessRequest {
   /**
    * etag used for versioning. The response is at least as fresh as the eTag provided. This is used
@@ -19,8 +31,6 @@ public class DeleteDisableLegacyAccessRequest {
    * an etag from a GET request, and pass it with the DELETE request to identify the rule set
    * version you are deleting.
    */
-  @JsonIgnore
-  @QueryParam("etag")
   private String etag;
 
   public DeleteDisableLegacyAccessRequest setEtag(String etag) {
@@ -48,5 +58,42 @@ public class DeleteDisableLegacyAccessRequest {
   @Override
   public String toString() {
     return new ToStringer(DeleteDisableLegacyAccessRequest.class).add("etag", etag).toString();
+  }
+
+  DeleteDisableLegacyAccessRequestPb toPb() {
+    DeleteDisableLegacyAccessRequestPb pb = new DeleteDisableLegacyAccessRequestPb();
+    pb.setEtag(etag);
+
+    return pb;
+  }
+
+  static DeleteDisableLegacyAccessRequest fromPb(DeleteDisableLegacyAccessRequestPb pb) {
+    DeleteDisableLegacyAccessRequest model = new DeleteDisableLegacyAccessRequest();
+    model.setEtag(pb.getEtag());
+
+    return model;
+  }
+
+  public static class DeleteDisableLegacyAccessRequestSerializer
+      extends JsonSerializer<DeleteDisableLegacyAccessRequest> {
+    @Override
+    public void serialize(
+        DeleteDisableLegacyAccessRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DeleteDisableLegacyAccessRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DeleteDisableLegacyAccessRequestDeserializer
+      extends JsonDeserializer<DeleteDisableLegacyAccessRequest> {
+    @Override
+    public DeleteDisableLegacyAccessRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DeleteDisableLegacyAccessRequestPb pb =
+          mapper.readValue(p, DeleteDisableLegacyAccessRequestPb.class);
+      return DeleteDisableLegacyAccessRequest.fromPb(pb);
+    }
   }
 }

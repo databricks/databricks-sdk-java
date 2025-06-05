@@ -4,7 +4,16 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -12,24 +21,22 @@ import java.util.Objects;
  * within a manifest, and when fetching individual chunk data or links.
  */
 @Generated
+@JsonSerialize(using = BaseChunkInfo.BaseChunkInfoSerializer.class)
+@JsonDeserialize(using = BaseChunkInfo.BaseChunkInfoDeserializer.class)
 public class BaseChunkInfo {
   /**
    * The number of bytes in the result chunk. This field is not available when using `INLINE`
    * disposition.
    */
-  @JsonProperty("byte_count")
   private Long byteCount;
 
   /** The position within the sequence of result set chunks. */
-  @JsonProperty("chunk_index")
   private Long chunkIndex;
 
   /** The number of rows within the result chunk. */
-  @JsonProperty("row_count")
   private Long rowCount;
 
   /** The starting row offset within the result set. */
-  @JsonProperty("row_offset")
   private Long rowOffset;
 
   public BaseChunkInfo setByteCount(Long byteCount) {
@@ -92,5 +99,43 @@ public class BaseChunkInfo {
         .add("rowCount", rowCount)
         .add("rowOffset", rowOffset)
         .toString();
+  }
+
+  BaseChunkInfoPb toPb() {
+    BaseChunkInfoPb pb = new BaseChunkInfoPb();
+    pb.setByteCount(byteCount);
+    pb.setChunkIndex(chunkIndex);
+    pb.setRowCount(rowCount);
+    pb.setRowOffset(rowOffset);
+
+    return pb;
+  }
+
+  static BaseChunkInfo fromPb(BaseChunkInfoPb pb) {
+    BaseChunkInfo model = new BaseChunkInfo();
+    model.setByteCount(pb.getByteCount());
+    model.setChunkIndex(pb.getChunkIndex());
+    model.setRowCount(pb.getRowCount());
+    model.setRowOffset(pb.getRowOffset());
+
+    return model;
+  }
+
+  public static class BaseChunkInfoSerializer extends JsonSerializer<BaseChunkInfo> {
+    @Override
+    public void serialize(BaseChunkInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      BaseChunkInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class BaseChunkInfoDeserializer extends JsonDeserializer<BaseChunkInfo> {
+    @Override
+    public BaseChunkInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      BaseChunkInfoPb pb = mapper.readValue(p, BaseChunkInfoPb.class);
+      return BaseChunkInfo.fromPb(pb);
+    }
   }
 }

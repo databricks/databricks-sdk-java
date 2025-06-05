@@ -4,11 +4,22 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = SearchLoggedModelsRequest.SearchLoggedModelsRequestSerializer.class)
+@JsonDeserialize(using = SearchLoggedModelsRequest.SearchLoggedModelsRequestDeserializer.class)
 public class SearchLoggedModelsRequest {
   /**
    * List of datasets on which to apply the metrics filter clauses. For example, a filter with
@@ -17,11 +28,9 @@ public class SearchLoggedModelsRequest {
    * the criteria are considered. If no datasets are specified, then metrics across all datasets are
    * considered in the filter.
    */
-  @JsonProperty("datasets")
   private Collection<SearchLoggedModelsDataset> datasets;
 
   /** The IDs of the experiments in which to search for logged models. */
-  @JsonProperty("experiment_ids")
   private Collection<String> experimentIds;
 
   /**
@@ -30,19 +39,15 @@ public class SearchLoggedModelsRequest {
    *
    * <p>Example: ``params.alpha < 0.3 AND metrics.accuracy > 0.9``.
    */
-  @JsonProperty("filter")
   private String filter;
 
   /** The maximum number of Logged Models to return. The maximum limit is 50. */
-  @JsonProperty("max_results")
   private Long maxResults;
 
   /** The list of columns for ordering the results, with additional fields for sorting criteria. */
-  @JsonProperty("order_by")
   private Collection<SearchLoggedModelsOrderBy> orderBy;
 
   /** The token indicating the page of logged models to fetch. */
-  @JsonProperty("page_token")
   private String pageToken;
 
   public SearchLoggedModelsRequest setDatasets(Collection<SearchLoggedModelsDataset> datasets) {
@@ -127,5 +132,51 @@ public class SearchLoggedModelsRequest {
         .add("orderBy", orderBy)
         .add("pageToken", pageToken)
         .toString();
+  }
+
+  SearchLoggedModelsRequestPb toPb() {
+    SearchLoggedModelsRequestPb pb = new SearchLoggedModelsRequestPb();
+    pb.setDatasets(datasets);
+    pb.setExperimentIds(experimentIds);
+    pb.setFilter(filter);
+    pb.setMaxResults(maxResults);
+    pb.setOrderBy(orderBy);
+    pb.setPageToken(pageToken);
+
+    return pb;
+  }
+
+  static SearchLoggedModelsRequest fromPb(SearchLoggedModelsRequestPb pb) {
+    SearchLoggedModelsRequest model = new SearchLoggedModelsRequest();
+    model.setDatasets(pb.getDatasets());
+    model.setExperimentIds(pb.getExperimentIds());
+    model.setFilter(pb.getFilter());
+    model.setMaxResults(pb.getMaxResults());
+    model.setOrderBy(pb.getOrderBy());
+    model.setPageToken(pb.getPageToken());
+
+    return model;
+  }
+
+  public static class SearchLoggedModelsRequestSerializer
+      extends JsonSerializer<SearchLoggedModelsRequest> {
+    @Override
+    public void serialize(
+        SearchLoggedModelsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SearchLoggedModelsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SearchLoggedModelsRequestDeserializer
+      extends JsonDeserializer<SearchLoggedModelsRequest> {
+    @Override
+    public SearchLoggedModelsRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SearchLoggedModelsRequestPb pb = mapper.readValue(p, SearchLoggedModelsRequestPb.class);
+      return SearchLoggedModelsRequest.fromPb(pb);
+    }
   }
 }

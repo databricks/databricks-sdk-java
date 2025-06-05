@@ -24,7 +24,7 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
             apiClient.configuredAccountID(), request.getMetastoreId());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, AccountsStorageCredentialInfo.class);
@@ -43,7 +43,7 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
             request.getStorageCredentialName());
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, DeleteResponse.class);
     } catch (IOException e) {
@@ -61,7 +61,7 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
             request.getStorageCredentialName());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, AccountsStorageCredentialInfo.class);
     } catch (IOException e) {
@@ -77,7 +77,7 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
             apiClient.configuredAccountID(), request.getMetastoreId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListAccountStorageCredentialsResponse.class);
     } catch (IOException e) {
@@ -95,7 +95,7 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
             request.getStorageCredentialName());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, AccountsStorageCredentialInfo.class);

@@ -4,18 +4,27 @@ package com.databricks.sdk.service.apps;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ListAppDeploymentsResponse.ListAppDeploymentsResponseSerializer.class)
+@JsonDeserialize(using = ListAppDeploymentsResponse.ListAppDeploymentsResponseDeserializer.class)
 public class ListAppDeploymentsResponse {
   /** Deployment history of the app. */
-  @JsonProperty("app_deployments")
   private Collection<AppDeployment> appDeployments;
 
   /** Pagination token to request the next page of apps. */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   public ListAppDeploymentsResponse setAppDeployments(Collection<AppDeployment> appDeployments) {
@@ -56,5 +65,43 @@ public class ListAppDeploymentsResponse {
         .add("appDeployments", appDeployments)
         .add("nextPageToken", nextPageToken)
         .toString();
+  }
+
+  ListAppDeploymentsResponsePb toPb() {
+    ListAppDeploymentsResponsePb pb = new ListAppDeploymentsResponsePb();
+    pb.setAppDeployments(appDeployments);
+    pb.setNextPageToken(nextPageToken);
+
+    return pb;
+  }
+
+  static ListAppDeploymentsResponse fromPb(ListAppDeploymentsResponsePb pb) {
+    ListAppDeploymentsResponse model = new ListAppDeploymentsResponse();
+    model.setAppDeployments(pb.getAppDeployments());
+    model.setNextPageToken(pb.getNextPageToken());
+
+    return model;
+  }
+
+  public static class ListAppDeploymentsResponseSerializer
+      extends JsonSerializer<ListAppDeploymentsResponse> {
+    @Override
+    public void serialize(
+        ListAppDeploymentsResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListAppDeploymentsResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListAppDeploymentsResponseDeserializer
+      extends JsonDeserializer<ListAppDeploymentsResponse> {
+    @Override
+    public ListAppDeploymentsResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListAppDeploymentsResponsePb pb = mapper.readValue(p, ListAppDeploymentsResponsePb.class);
+      return ListAppDeploymentsResponse.fromPb(pb);
+    }
   }
 }

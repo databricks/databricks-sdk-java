@@ -4,37 +4,41 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = AlertV2Evaluation.AlertV2EvaluationSerializer.class)
+@JsonDeserialize(using = AlertV2Evaluation.AlertV2EvaluationDeserializer.class)
 public class AlertV2Evaluation {
   /** Operator used for comparison in alert evaluation. */
-  @JsonProperty("comparison_operator")
   private ComparisonOperator comparisonOperator;
 
   /** Alert state if result is empty. */
-  @JsonProperty("empty_result_state")
   private AlertEvaluationState emptyResultState;
 
   /** Timestamp of the last evaluation. */
-  @JsonProperty("last_evaluated_at")
   private String lastEvaluatedAt;
 
   /** User or Notification Destination to notify when alert is triggered. */
-  @JsonProperty("notification")
   private AlertV2Notification notification;
 
   /** Source column from result to use to evaluate alert */
-  @JsonProperty("source")
   private AlertV2OperandColumn source;
 
   /** Latest state of alert evaluation. */
-  @JsonProperty("state")
   private AlertEvaluationState state;
 
   /** Threshold to user for alert evaluation, can be a column or a value. */
-  @JsonProperty("threshold")
   private AlertV2Operand threshold;
 
   public AlertV2Evaluation setComparisonOperator(ComparisonOperator comparisonOperator) {
@@ -137,5 +141,50 @@ public class AlertV2Evaluation {
         .add("state", state)
         .add("threshold", threshold)
         .toString();
+  }
+
+  AlertV2EvaluationPb toPb() {
+    AlertV2EvaluationPb pb = new AlertV2EvaluationPb();
+    pb.setComparisonOperator(comparisonOperator);
+    pb.setEmptyResultState(emptyResultState);
+    pb.setLastEvaluatedAt(lastEvaluatedAt);
+    pb.setNotification(notification);
+    pb.setSource(source);
+    pb.setState(state);
+    pb.setThreshold(threshold);
+
+    return pb;
+  }
+
+  static AlertV2Evaluation fromPb(AlertV2EvaluationPb pb) {
+    AlertV2Evaluation model = new AlertV2Evaluation();
+    model.setComparisonOperator(pb.getComparisonOperator());
+    model.setEmptyResultState(pb.getEmptyResultState());
+    model.setLastEvaluatedAt(pb.getLastEvaluatedAt());
+    model.setNotification(pb.getNotification());
+    model.setSource(pb.getSource());
+    model.setState(pb.getState());
+    model.setThreshold(pb.getThreshold());
+
+    return model;
+  }
+
+  public static class AlertV2EvaluationSerializer extends JsonSerializer<AlertV2Evaluation> {
+    @Override
+    public void serialize(AlertV2Evaluation value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      AlertV2EvaluationPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class AlertV2EvaluationDeserializer extends JsonDeserializer<AlertV2Evaluation> {
+    @Override
+    public AlertV2Evaluation deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      AlertV2EvaluationPb pb = mapper.readValue(p, AlertV2EvaluationPb.class);
+      return AlertV2Evaluation.fromPb(pb);
+    }
   }
 }

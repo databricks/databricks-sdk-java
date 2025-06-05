@@ -4,14 +4,24 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = MonitorRefreshListResponse.MonitorRefreshListResponseSerializer.class)
+@JsonDeserialize(using = MonitorRefreshListResponse.MonitorRefreshListResponseDeserializer.class)
 public class MonitorRefreshListResponse {
   /** List of refreshes. */
-  @JsonProperty("refreshes")
   private Collection<MonitorRefreshInfo> refreshes;
 
   public MonitorRefreshListResponse setRefreshes(Collection<MonitorRefreshInfo> refreshes) {
@@ -39,5 +49,41 @@ public class MonitorRefreshListResponse {
   @Override
   public String toString() {
     return new ToStringer(MonitorRefreshListResponse.class).add("refreshes", refreshes).toString();
+  }
+
+  MonitorRefreshListResponsePb toPb() {
+    MonitorRefreshListResponsePb pb = new MonitorRefreshListResponsePb();
+    pb.setRefreshes(refreshes);
+
+    return pb;
+  }
+
+  static MonitorRefreshListResponse fromPb(MonitorRefreshListResponsePb pb) {
+    MonitorRefreshListResponse model = new MonitorRefreshListResponse();
+    model.setRefreshes(pb.getRefreshes());
+
+    return model;
+  }
+
+  public static class MonitorRefreshListResponseSerializer
+      extends JsonSerializer<MonitorRefreshListResponse> {
+    @Override
+    public void serialize(
+        MonitorRefreshListResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      MonitorRefreshListResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class MonitorRefreshListResponseDeserializer
+      extends JsonDeserializer<MonitorRefreshListResponse> {
+    @Override
+    public MonitorRefreshListResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      MonitorRefreshListResponsePb pb = mapper.readValue(p, MonitorRefreshListResponsePb.class);
+      return MonitorRefreshListResponse.fromPb(pb);
+    }
   }
 }

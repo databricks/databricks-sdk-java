@@ -4,13 +4,23 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = MonitorCronSchedule.MonitorCronScheduleSerializer.class)
+@JsonDeserialize(using = MonitorCronSchedule.MonitorCronScheduleDeserializer.class)
 public class MonitorCronSchedule {
   /** Read only field that indicates whether a schedule is paused or not. */
-  @JsonProperty("pause_status")
   private MonitorCronSchedulePauseStatus pauseStatus;
 
   /**
@@ -19,11 +29,9 @@ public class MonitorCronSchedule {
    * <p>[examples]:
    * https://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html
    */
-  @JsonProperty("quartz_cron_expression")
   private String quartzCronExpression;
 
   /** The timezone id (e.g., ``"PST"``) in which to evaluate the quartz expression. */
-  @JsonProperty("timezone_id")
   private String timezoneId;
 
   public MonitorCronSchedule setPauseStatus(MonitorCronSchedulePauseStatus pauseStatus) {
@@ -75,5 +83,43 @@ public class MonitorCronSchedule {
         .add("quartzCronExpression", quartzCronExpression)
         .add("timezoneId", timezoneId)
         .toString();
+  }
+
+  MonitorCronSchedulePb toPb() {
+    MonitorCronSchedulePb pb = new MonitorCronSchedulePb();
+    pb.setPauseStatus(pauseStatus);
+    pb.setQuartzCronExpression(quartzCronExpression);
+    pb.setTimezoneId(timezoneId);
+
+    return pb;
+  }
+
+  static MonitorCronSchedule fromPb(MonitorCronSchedulePb pb) {
+    MonitorCronSchedule model = new MonitorCronSchedule();
+    model.setPauseStatus(pb.getPauseStatus());
+    model.setQuartzCronExpression(pb.getQuartzCronExpression());
+    model.setTimezoneId(pb.getTimezoneId());
+
+    return model;
+  }
+
+  public static class MonitorCronScheduleSerializer extends JsonSerializer<MonitorCronSchedule> {
+    @Override
+    public void serialize(MonitorCronSchedule value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      MonitorCronSchedulePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class MonitorCronScheduleDeserializer
+      extends JsonDeserializer<MonitorCronSchedule> {
+    @Override
+    public MonitorCronSchedule deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      MonitorCronSchedulePb pb = mapper.readValue(p, MonitorCronSchedulePb.class);
+      return MonitorCronSchedule.fromPb(pb);
+    }
   }
 }

@@ -21,7 +21,7 @@ class CommandExecutionImpl implements CommandExecutionService {
     String path = "/api/1.2/commands/cancel";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, CancelResponse.class);
@@ -35,7 +35,7 @@ class CommandExecutionImpl implements CommandExecutionService {
     String path = "/api/1.2/commands/status";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, CommandStatusResponse.class);
     } catch (IOException e) {
@@ -48,7 +48,7 @@ class CommandExecutionImpl implements CommandExecutionService {
     String path = "/api/1.2/contexts/status";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ContextStatusResponse.class);
     } catch (IOException e) {
@@ -61,7 +61,7 @@ class CommandExecutionImpl implements CommandExecutionService {
     String path = "/api/1.2/contexts/create";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, Created.class);
@@ -75,7 +75,7 @@ class CommandExecutionImpl implements CommandExecutionService {
     String path = "/api/1.2/contexts/destroy";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, DestroyResponse.class);
@@ -89,7 +89,7 @@ class CommandExecutionImpl implements CommandExecutionService {
     String path = "/api/1.2/commands/execute";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, Created.class);

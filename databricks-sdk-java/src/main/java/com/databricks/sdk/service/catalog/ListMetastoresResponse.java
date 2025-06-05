@@ -4,21 +4,30 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ListMetastoresResponse.ListMetastoresResponseSerializer.class)
+@JsonDeserialize(using = ListMetastoresResponse.ListMetastoresResponseDeserializer.class)
 public class ListMetastoresResponse {
   /** An array of metastore information objects. */
-  @JsonProperty("metastores")
   private Collection<MetastoreInfo> metastores;
 
   /**
    * Opaque token to retrieve the next page of results. Absent if there are no more pages.
    * __page_token__ should be set to this value for the next request (for the next page of results).
    */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   public ListMetastoresResponse setMetastores(Collection<MetastoreInfo> metastores) {
@@ -59,5 +68,43 @@ public class ListMetastoresResponse {
         .add("metastores", metastores)
         .add("nextPageToken", nextPageToken)
         .toString();
+  }
+
+  ListMetastoresResponsePb toPb() {
+    ListMetastoresResponsePb pb = new ListMetastoresResponsePb();
+    pb.setMetastores(metastores);
+    pb.setNextPageToken(nextPageToken);
+
+    return pb;
+  }
+
+  static ListMetastoresResponse fromPb(ListMetastoresResponsePb pb) {
+    ListMetastoresResponse model = new ListMetastoresResponse();
+    model.setMetastores(pb.getMetastores());
+    model.setNextPageToken(pb.getNextPageToken());
+
+    return model;
+  }
+
+  public static class ListMetastoresResponseSerializer
+      extends JsonSerializer<ListMetastoresResponse> {
+    @Override
+    public void serialize(
+        ListMetastoresResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListMetastoresResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListMetastoresResponseDeserializer
+      extends JsonDeserializer<ListMetastoresResponse> {
+    @Override
+    public ListMetastoresResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListMetastoresResponsePb pb = mapper.readValue(p, ListMetastoresResponsePb.class);
+      return ListMetastoresResponse.fromPb(pb);
+    }
   }
 }

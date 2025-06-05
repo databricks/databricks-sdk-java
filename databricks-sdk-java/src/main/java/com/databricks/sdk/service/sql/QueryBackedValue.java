@@ -4,22 +4,30 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = QueryBackedValue.QueryBackedValueSerializer.class)
+@JsonDeserialize(using = QueryBackedValue.QueryBackedValueDeserializer.class)
 public class QueryBackedValue {
   /** If specified, allows multiple values to be selected for this parameter. */
-  @JsonProperty("multi_values_options")
   private MultiValuesOptions multiValuesOptions;
 
   /** UUID of the query that provides the parameter values. */
-  @JsonProperty("query_id")
   private String queryId;
 
   /** List of selected query parameter values. */
-  @JsonProperty("values")
   private Collection<String> values;
 
   public QueryBackedValue setMultiValuesOptions(MultiValuesOptions multiValuesOptions) {
@@ -71,5 +79,42 @@ public class QueryBackedValue {
         .add("queryId", queryId)
         .add("values", values)
         .toString();
+  }
+
+  QueryBackedValuePb toPb() {
+    QueryBackedValuePb pb = new QueryBackedValuePb();
+    pb.setMultiValuesOptions(multiValuesOptions);
+    pb.setQueryId(queryId);
+    pb.setValues(values);
+
+    return pb;
+  }
+
+  static QueryBackedValue fromPb(QueryBackedValuePb pb) {
+    QueryBackedValue model = new QueryBackedValue();
+    model.setMultiValuesOptions(pb.getMultiValuesOptions());
+    model.setQueryId(pb.getQueryId());
+    model.setValues(pb.getValues());
+
+    return model;
+  }
+
+  public static class QueryBackedValueSerializer extends JsonSerializer<QueryBackedValue> {
+    @Override
+    public void serialize(QueryBackedValue value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      QueryBackedValuePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class QueryBackedValueDeserializer extends JsonDeserializer<QueryBackedValue> {
+    @Override
+    public QueryBackedValue deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      QueryBackedValuePb pb = mapper.readValue(p, QueryBackedValuePb.class);
+      return QueryBackedValue.fromPb(pb);
+    }
   }
 }

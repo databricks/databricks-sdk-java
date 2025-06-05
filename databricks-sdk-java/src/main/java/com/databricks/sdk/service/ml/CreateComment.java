@@ -4,21 +4,29 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateComment.CreateCommentSerializer.class)
+@JsonDeserialize(using = CreateComment.CreateCommentDeserializer.class)
 public class CreateComment {
   /** User-provided comment on the action. */
-  @JsonProperty("comment")
   private String comment;
 
   /** Name of the model. */
-  @JsonProperty("name")
   private String name;
 
   /** Version of the model. */
-  @JsonProperty("version")
   private String version;
 
   public CreateComment setComment(String comment) {
@@ -70,5 +78,41 @@ public class CreateComment {
         .add("name", name)
         .add("version", version)
         .toString();
+  }
+
+  CreateCommentPb toPb() {
+    CreateCommentPb pb = new CreateCommentPb();
+    pb.setComment(comment);
+    pb.setName(name);
+    pb.setVersion(version);
+
+    return pb;
+  }
+
+  static CreateComment fromPb(CreateCommentPb pb) {
+    CreateComment model = new CreateComment();
+    model.setComment(pb.getComment());
+    model.setName(pb.getName());
+    model.setVersion(pb.getVersion());
+
+    return model;
+  }
+
+  public static class CreateCommentSerializer extends JsonSerializer<CreateComment> {
+    @Override
+    public void serialize(CreateComment value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateCommentPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateCommentDeserializer extends JsonDeserializer<CreateComment> {
+    @Override
+    public CreateComment deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateCommentPb pb = mapper.readValue(p, CreateCommentPb.class);
+      return CreateComment.fromPb(pb);
+    }
   }
 }

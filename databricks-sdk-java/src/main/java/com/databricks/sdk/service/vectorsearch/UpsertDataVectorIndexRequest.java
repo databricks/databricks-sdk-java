@@ -4,19 +4,29 @@ package com.databricks.sdk.service.vectorsearch;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = UpsertDataVectorIndexRequest.UpsertDataVectorIndexRequestSerializer.class)
+@JsonDeserialize(
+    using = UpsertDataVectorIndexRequest.UpsertDataVectorIndexRequestDeserializer.class)
 public class UpsertDataVectorIndexRequest {
   /**
    * Name of the vector index where data is to be upserted. Must be a Direct Vector Access Index.
    */
-  @JsonIgnore private String indexName;
+  private String indexName;
 
   /** JSON string representing the data to be upserted. */
-  @JsonProperty("inputs_json")
   private String inputsJson;
 
   public UpsertDataVectorIndexRequest setIndexName(String indexName) {
@@ -56,5 +66,43 @@ public class UpsertDataVectorIndexRequest {
         .add("indexName", indexName)
         .add("inputsJson", inputsJson)
         .toString();
+  }
+
+  UpsertDataVectorIndexRequestPb toPb() {
+    UpsertDataVectorIndexRequestPb pb = new UpsertDataVectorIndexRequestPb();
+    pb.setIndexName(indexName);
+    pb.setInputsJson(inputsJson);
+
+    return pb;
+  }
+
+  static UpsertDataVectorIndexRequest fromPb(UpsertDataVectorIndexRequestPb pb) {
+    UpsertDataVectorIndexRequest model = new UpsertDataVectorIndexRequest();
+    model.setIndexName(pb.getIndexName());
+    model.setInputsJson(pb.getInputsJson());
+
+    return model;
+  }
+
+  public static class UpsertDataVectorIndexRequestSerializer
+      extends JsonSerializer<UpsertDataVectorIndexRequest> {
+    @Override
+    public void serialize(
+        UpsertDataVectorIndexRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpsertDataVectorIndexRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpsertDataVectorIndexRequestDeserializer
+      extends JsonDeserializer<UpsertDataVectorIndexRequest> {
+    @Override
+    public UpsertDataVectorIndexRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpsertDataVectorIndexRequestPb pb = mapper.readValue(p, UpsertDataVectorIndexRequestPb.class);
+      return UpsertDataVectorIndexRequest.fromPb(pb);
+    }
   }
 }

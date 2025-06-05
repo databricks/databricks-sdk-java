@@ -4,18 +4,27 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = LogOutputsRequest.LogOutputsRequestSerializer.class)
+@JsonDeserialize(using = LogOutputsRequest.LogOutputsRequestDeserializer.class)
 public class LogOutputsRequest {
   /** The model outputs from the Run. */
-  @JsonProperty("models")
   private Collection<ModelOutput> models;
 
   /** The ID of the Run from which to log outputs. */
-  @JsonProperty("run_id")
   private String runId;
 
   public LogOutputsRequest setModels(Collection<ModelOutput> models) {
@@ -55,5 +64,40 @@ public class LogOutputsRequest {
         .add("models", models)
         .add("runId", runId)
         .toString();
+  }
+
+  LogOutputsRequestPb toPb() {
+    LogOutputsRequestPb pb = new LogOutputsRequestPb();
+    pb.setModels(models);
+    pb.setRunId(runId);
+
+    return pb;
+  }
+
+  static LogOutputsRequest fromPb(LogOutputsRequestPb pb) {
+    LogOutputsRequest model = new LogOutputsRequest();
+    model.setModels(pb.getModels());
+    model.setRunId(pb.getRunId());
+
+    return model;
+  }
+
+  public static class LogOutputsRequestSerializer extends JsonSerializer<LogOutputsRequest> {
+    @Override
+    public void serialize(LogOutputsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      LogOutputsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class LogOutputsRequestDeserializer extends JsonDeserializer<LogOutputsRequest> {
+    @Override
+    public LogOutputsRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      LogOutputsRequestPb pb = mapper.readValue(p, LogOutputsRequestPb.class);
+      return LogOutputsRequest.fromPb(pb);
+    }
   }
 }

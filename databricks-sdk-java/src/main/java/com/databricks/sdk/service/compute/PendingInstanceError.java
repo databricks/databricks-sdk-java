@@ -4,18 +4,27 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Error message of a failed pending instances */
 @Generated
+@JsonSerialize(using = PendingInstanceError.PendingInstanceErrorSerializer.class)
+@JsonDeserialize(using = PendingInstanceError.PendingInstanceErrorDeserializer.class)
 public class PendingInstanceError {
   /** */
-  @JsonProperty("instance_id")
   private String instanceId;
 
   /** */
-  @JsonProperty("message")
   private String message;
 
   public PendingInstanceError setInstanceId(String instanceId) {
@@ -55,5 +64,42 @@ public class PendingInstanceError {
         .add("instanceId", instanceId)
         .add("message", message)
         .toString();
+  }
+
+  PendingInstanceErrorPb toPb() {
+    PendingInstanceErrorPb pb = new PendingInstanceErrorPb();
+    pb.setInstanceId(instanceId);
+    pb.setMessage(message);
+
+    return pb;
+  }
+
+  static PendingInstanceError fromPb(PendingInstanceErrorPb pb) {
+    PendingInstanceError model = new PendingInstanceError();
+    model.setInstanceId(pb.getInstanceId());
+    model.setMessage(pb.getMessage());
+
+    return model;
+  }
+
+  public static class PendingInstanceErrorSerializer extends JsonSerializer<PendingInstanceError> {
+    @Override
+    public void serialize(
+        PendingInstanceError value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PendingInstanceErrorPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PendingInstanceErrorDeserializer
+      extends JsonDeserializer<PendingInstanceError> {
+    @Override
+    public PendingInstanceError deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PendingInstanceErrorPb pb = mapper.readValue(p, PendingInstanceErrorPb.class);
+      return PendingInstanceError.fromPb(pb);
+    }
   }
 }

@@ -4,28 +4,35 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = MigrateDashboardRequest.MigrateDashboardRequestSerializer.class)
+@JsonDeserialize(using = MigrateDashboardRequest.MigrateDashboardRequestDeserializer.class)
 public class MigrateDashboardRequest {
   /** Display name for the new Lakeview dashboard. */
-  @JsonProperty("display_name")
   private String displayName;
 
   /** The workspace path of the folder to contain the migrated Lakeview dashboard. */
-  @JsonProperty("parent_path")
   private String parentPath;
 
   /** UUID of the dashboard to be migrated. */
-  @JsonProperty("source_dashboard_id")
   private String sourceDashboardId;
 
   /**
    * Flag to indicate if mustache parameter syntax ({{ param }}) should be auto-updated to named
    * syntax (:param) when converting datasets in the dashboard.
    */
-  @JsonProperty("update_parameter_syntax")
   private Boolean updateParameterSyntax;
 
   public MigrateDashboardRequest setDisplayName(String displayName) {
@@ -88,5 +95,47 @@ public class MigrateDashboardRequest {
         .add("sourceDashboardId", sourceDashboardId)
         .add("updateParameterSyntax", updateParameterSyntax)
         .toString();
+  }
+
+  MigrateDashboardRequestPb toPb() {
+    MigrateDashboardRequestPb pb = new MigrateDashboardRequestPb();
+    pb.setDisplayName(displayName);
+    pb.setParentPath(parentPath);
+    pb.setSourceDashboardId(sourceDashboardId);
+    pb.setUpdateParameterSyntax(updateParameterSyntax);
+
+    return pb;
+  }
+
+  static MigrateDashboardRequest fromPb(MigrateDashboardRequestPb pb) {
+    MigrateDashboardRequest model = new MigrateDashboardRequest();
+    model.setDisplayName(pb.getDisplayName());
+    model.setParentPath(pb.getParentPath());
+    model.setSourceDashboardId(pb.getSourceDashboardId());
+    model.setUpdateParameterSyntax(pb.getUpdateParameterSyntax());
+
+    return model;
+  }
+
+  public static class MigrateDashboardRequestSerializer
+      extends JsonSerializer<MigrateDashboardRequest> {
+    @Override
+    public void serialize(
+        MigrateDashboardRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      MigrateDashboardRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class MigrateDashboardRequestDeserializer
+      extends JsonDeserializer<MigrateDashboardRequest> {
+    @Override
+    public MigrateDashboardRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      MigrateDashboardRequestPb pb = mapper.readValue(p, MigrateDashboardRequestPb.class);
+      return MigrateDashboardRequest.fromPb(pb);
+    }
   }
 }

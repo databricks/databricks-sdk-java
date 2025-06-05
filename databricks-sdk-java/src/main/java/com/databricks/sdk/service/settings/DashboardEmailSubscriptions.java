@@ -4,13 +4,23 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = DashboardEmailSubscriptions.DashboardEmailSubscriptionsSerializer.class)
+@JsonDeserialize(using = DashboardEmailSubscriptions.DashboardEmailSubscriptionsDeserializer.class)
 public class DashboardEmailSubscriptions {
   /** */
-  @JsonProperty("boolean_val")
   private BooleanMessage booleanVal;
 
   /**
@@ -21,7 +31,6 @@ public class DashboardEmailSubscriptions {
    * etag from a GET request, and pass it with the PATCH request to identify the setting version you
    * are updating.
    */
-  @JsonProperty("etag")
   private String etag;
 
   /**
@@ -30,7 +39,6 @@ public class DashboardEmailSubscriptions {
    * respected instead. Setting name is required to be 'default' if the setting only has one
    * instance per workspace.
    */
-  @JsonProperty("setting_name")
   private String settingName;
 
   public DashboardEmailSubscriptions setBooleanVal(BooleanMessage booleanVal) {
@@ -82,5 +90,45 @@ public class DashboardEmailSubscriptions {
         .add("etag", etag)
         .add("settingName", settingName)
         .toString();
+  }
+
+  DashboardEmailSubscriptionsPb toPb() {
+    DashboardEmailSubscriptionsPb pb = new DashboardEmailSubscriptionsPb();
+    pb.setBooleanVal(booleanVal);
+    pb.setEtag(etag);
+    pb.setSettingName(settingName);
+
+    return pb;
+  }
+
+  static DashboardEmailSubscriptions fromPb(DashboardEmailSubscriptionsPb pb) {
+    DashboardEmailSubscriptions model = new DashboardEmailSubscriptions();
+    model.setBooleanVal(pb.getBooleanVal());
+    model.setEtag(pb.getEtag());
+    model.setSettingName(pb.getSettingName());
+
+    return model;
+  }
+
+  public static class DashboardEmailSubscriptionsSerializer
+      extends JsonSerializer<DashboardEmailSubscriptions> {
+    @Override
+    public void serialize(
+        DashboardEmailSubscriptions value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DashboardEmailSubscriptionsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DashboardEmailSubscriptionsDeserializer
+      extends JsonDeserializer<DashboardEmailSubscriptions> {
+    @Override
+    public DashboardEmailSubscriptions deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DashboardEmailSubscriptionsPb pb = mapper.readValue(p, DashboardEmailSubscriptionsPb.class);
+      return DashboardEmailSubscriptions.fromPb(pb);
+    }
   }
 }

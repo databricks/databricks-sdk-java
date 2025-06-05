@@ -4,22 +4,30 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Genie AI Response */
 @Generated
+@JsonSerialize(using = GenieAttachment.GenieAttachmentSerializer.class)
+@JsonDeserialize(using = GenieAttachment.GenieAttachmentDeserializer.class)
 public class GenieAttachment {
   /** Attachment ID */
-  @JsonProperty("attachment_id")
   private String attachmentId;
 
   /** Query Attachment if Genie responds with a SQL query */
-  @JsonProperty("query")
   private GenieQueryAttachment query;
 
   /** Text Attachment if Genie responds with text */
-  @JsonProperty("text")
   private TextAttachment text;
 
   public GenieAttachment setAttachmentId(String attachmentId) {
@@ -71,5 +79,42 @@ public class GenieAttachment {
         .add("query", query)
         .add("text", text)
         .toString();
+  }
+
+  GenieAttachmentPb toPb() {
+    GenieAttachmentPb pb = new GenieAttachmentPb();
+    pb.setAttachmentId(attachmentId);
+    pb.setQuery(query);
+    pb.setText(text);
+
+    return pb;
+  }
+
+  static GenieAttachment fromPb(GenieAttachmentPb pb) {
+    GenieAttachment model = new GenieAttachment();
+    model.setAttachmentId(pb.getAttachmentId());
+    model.setQuery(pb.getQuery());
+    model.setText(pb.getText());
+
+    return model;
+  }
+
+  public static class GenieAttachmentSerializer extends JsonSerializer<GenieAttachment> {
+    @Override
+    public void serialize(GenieAttachment value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GenieAttachmentPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GenieAttachmentDeserializer extends JsonDeserializer<GenieAttachment> {
+    @Override
+    public GenieAttachment deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GenieAttachmentPb pb = mapper.readValue(p, GenieAttachmentPb.class);
+      return GenieAttachment.fromPb(pb);
+    }
   }
 }

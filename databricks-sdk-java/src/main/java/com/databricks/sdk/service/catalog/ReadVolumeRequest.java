@@ -3,24 +3,32 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get a Volume */
 @Generated
+@JsonSerialize(using = ReadVolumeRequest.ReadVolumeRequestSerializer.class)
+@JsonDeserialize(using = ReadVolumeRequest.ReadVolumeRequestDeserializer.class)
 public class ReadVolumeRequest {
   /**
    * Whether to include volumes in the response for which the principal can only access selective
    * metadata for
    */
-  @JsonIgnore
-  @QueryParam("include_browse")
   private Boolean includeBrowse;
 
   /** The three-level (fully qualified) name of the volume */
-  @JsonIgnore private String name;
+  private String name;
 
   public ReadVolumeRequest setIncludeBrowse(Boolean includeBrowse) {
     this.includeBrowse = includeBrowse;
@@ -59,5 +67,40 @@ public class ReadVolumeRequest {
         .add("includeBrowse", includeBrowse)
         .add("name", name)
         .toString();
+  }
+
+  ReadVolumeRequestPb toPb() {
+    ReadVolumeRequestPb pb = new ReadVolumeRequestPb();
+    pb.setIncludeBrowse(includeBrowse);
+    pb.setName(name);
+
+    return pb;
+  }
+
+  static ReadVolumeRequest fromPb(ReadVolumeRequestPb pb) {
+    ReadVolumeRequest model = new ReadVolumeRequest();
+    model.setIncludeBrowse(pb.getIncludeBrowse());
+    model.setName(pb.getName());
+
+    return model;
+  }
+
+  public static class ReadVolumeRequestSerializer extends JsonSerializer<ReadVolumeRequest> {
+    @Override
+    public void serialize(ReadVolumeRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ReadVolumeRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ReadVolumeRequestDeserializer extends JsonDeserializer<ReadVolumeRequest> {
+    @Override
+    public ReadVolumeRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ReadVolumeRequestPb pb = mapper.readValue(p, ReadVolumeRequestPb.class);
+      return ReadVolumeRequest.fromPb(pb);
+    }
   }
 }

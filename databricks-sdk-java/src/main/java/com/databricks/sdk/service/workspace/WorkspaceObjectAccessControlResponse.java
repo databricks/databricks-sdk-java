@@ -4,30 +4,40 @@ package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using =
+        WorkspaceObjectAccessControlResponse.WorkspaceObjectAccessControlResponseSerializer.class)
+@JsonDeserialize(
+    using =
+        WorkspaceObjectAccessControlResponse.WorkspaceObjectAccessControlResponseDeserializer.class)
 public class WorkspaceObjectAccessControlResponse {
   /** All permissions. */
-  @JsonProperty("all_permissions")
   private Collection<WorkspaceObjectPermission> allPermissions;
 
   /** Display name of the user or service principal. */
-  @JsonProperty("display_name")
   private String displayName;
 
   /** name of the group */
-  @JsonProperty("group_name")
   private String groupName;
 
   /** Name of the service principal. */
-  @JsonProperty("service_principal_name")
   private String servicePrincipalName;
 
   /** name of the user */
-  @JsonProperty("user_name")
   private String userName;
 
   public WorkspaceObjectAccessControlResponse setAllPermissions(
@@ -102,5 +112,50 @@ public class WorkspaceObjectAccessControlResponse {
         .add("servicePrincipalName", servicePrincipalName)
         .add("userName", userName)
         .toString();
+  }
+
+  WorkspaceObjectAccessControlResponsePb toPb() {
+    WorkspaceObjectAccessControlResponsePb pb = new WorkspaceObjectAccessControlResponsePb();
+    pb.setAllPermissions(allPermissions);
+    pb.setDisplayName(displayName);
+    pb.setGroupName(groupName);
+    pb.setServicePrincipalName(servicePrincipalName);
+    pb.setUserName(userName);
+
+    return pb;
+  }
+
+  static WorkspaceObjectAccessControlResponse fromPb(WorkspaceObjectAccessControlResponsePb pb) {
+    WorkspaceObjectAccessControlResponse model = new WorkspaceObjectAccessControlResponse();
+    model.setAllPermissions(pb.getAllPermissions());
+    model.setDisplayName(pb.getDisplayName());
+    model.setGroupName(pb.getGroupName());
+    model.setServicePrincipalName(pb.getServicePrincipalName());
+    model.setUserName(pb.getUserName());
+
+    return model;
+  }
+
+  public static class WorkspaceObjectAccessControlResponseSerializer
+      extends JsonSerializer<WorkspaceObjectAccessControlResponse> {
+    @Override
+    public void serialize(
+        WorkspaceObjectAccessControlResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      WorkspaceObjectAccessControlResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class WorkspaceObjectAccessControlResponseDeserializer
+      extends JsonDeserializer<WorkspaceObjectAccessControlResponse> {
+    @Override
+    public WorkspaceObjectAccessControlResponse deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      WorkspaceObjectAccessControlResponsePb pb =
+          mapper.readValue(p, WorkspaceObjectAccessControlResponsePb.class);
+      return WorkspaceObjectAccessControlResponse.fromPb(pb);
+    }
   }
 }

@@ -22,7 +22,7 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
         String.format("/api/2.0/accounts/%s/ip-access-lists", apiClient.configuredAccountID());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, CreateIpAccessListResponse.class);
@@ -39,7 +39,7 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
             apiClient.configuredAccountID(), request.getIpAccessListId());
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       apiClient.execute(req, DeleteResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -54,7 +54,7 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
             apiClient.configuredAccountID(), request.getIpAccessListId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetIpAccessListResponse.class);
     } catch (IOException e) {
@@ -83,7 +83,7 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
             apiClient.configuredAccountID(), request.getIpAccessListId());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, ReplaceResponse.class);
     } catch (IOException e) {
@@ -99,7 +99,7 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
             apiClient.configuredAccountID(), request.getIpAccessListId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, UpdateResponse.class);
     } catch (IOException e) {

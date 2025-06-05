@@ -4,28 +4,35 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = LogParam.LogParamSerializer.class)
+@JsonDeserialize(using = LogParam.LogParamDeserializer.class)
 public class LogParam {
   /** Name of the param. Maximum size is 255 bytes. */
-  @JsonProperty("key")
   private String key;
 
   /** ID of the run under which to log the param. Must be provided. */
-  @JsonProperty("run_id")
   private String runId;
 
   /**
    * [Deprecated, use `run_id` instead] ID of the run under which to log the param. This field will
    * be removed in a future MLflow version.
    */
-  @JsonProperty("run_uuid")
   private String runUuid;
 
   /** String value of the param being logged. Maximum size is 500 bytes. */
-  @JsonProperty("value")
   private String value;
 
   public LogParam setKey(String key) {
@@ -88,5 +95,43 @@ public class LogParam {
         .add("runUuid", runUuid)
         .add("value", value)
         .toString();
+  }
+
+  LogParamPb toPb() {
+    LogParamPb pb = new LogParamPb();
+    pb.setKey(key);
+    pb.setRunId(runId);
+    pb.setRunUuid(runUuid);
+    pb.setValue(value);
+
+    return pb;
+  }
+
+  static LogParam fromPb(LogParamPb pb) {
+    LogParam model = new LogParam();
+    model.setKey(pb.getKey());
+    model.setRunId(pb.getRunId());
+    model.setRunUuid(pb.getRunUuid());
+    model.setValue(pb.getValue());
+
+    return model;
+  }
+
+  public static class LogParamSerializer extends JsonSerializer<LogParam> {
+    @Override
+    public void serialize(LogParam value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      LogParamPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class LogParamDeserializer extends JsonDeserializer<LogParam> {
+    @Override
+    public LogParam deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      LogParamPb pb = mapper.readValue(p, LogParamPb.class);
+      return LogParam.fromPb(pb);
+    }
   }
 }

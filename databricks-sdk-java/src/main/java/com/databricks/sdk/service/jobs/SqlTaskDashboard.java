@@ -4,26 +4,33 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = SqlTaskDashboard.SqlTaskDashboardSerializer.class)
+@JsonDeserialize(using = SqlTaskDashboard.SqlTaskDashboardDeserializer.class)
 public class SqlTaskDashboard {
   /** Subject of the email sent to subscribers of this task. */
-  @JsonProperty("custom_subject")
   private String customSubject;
 
   /** The canonical identifier of the SQL dashboard. */
-  @JsonProperty("dashboard_id")
   private String dashboardId;
 
   /** If true, the dashboard snapshot is not taken, and emails are not sent to subscribers. */
-  @JsonProperty("pause_subscriptions")
   private Boolean pauseSubscriptions;
 
   /** If specified, dashboard snapshots are sent to subscriptions. */
-  @JsonProperty("subscriptions")
   private Collection<SqlTaskSubscription> subscriptions;
 
   public SqlTaskDashboard setCustomSubject(String customSubject) {
@@ -86,5 +93,44 @@ public class SqlTaskDashboard {
         .add("pauseSubscriptions", pauseSubscriptions)
         .add("subscriptions", subscriptions)
         .toString();
+  }
+
+  SqlTaskDashboardPb toPb() {
+    SqlTaskDashboardPb pb = new SqlTaskDashboardPb();
+    pb.setCustomSubject(customSubject);
+    pb.setDashboardId(dashboardId);
+    pb.setPauseSubscriptions(pauseSubscriptions);
+    pb.setSubscriptions(subscriptions);
+
+    return pb;
+  }
+
+  static SqlTaskDashboard fromPb(SqlTaskDashboardPb pb) {
+    SqlTaskDashboard model = new SqlTaskDashboard();
+    model.setCustomSubject(pb.getCustomSubject());
+    model.setDashboardId(pb.getDashboardId());
+    model.setPauseSubscriptions(pb.getPauseSubscriptions());
+    model.setSubscriptions(pb.getSubscriptions());
+
+    return model;
+  }
+
+  public static class SqlTaskDashboardSerializer extends JsonSerializer<SqlTaskDashboard> {
+    @Override
+    public void serialize(SqlTaskDashboard value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SqlTaskDashboardPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SqlTaskDashboardDeserializer extends JsonDeserializer<SqlTaskDashboard> {
+    @Override
+    public SqlTaskDashboard deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SqlTaskDashboardPb pb = mapper.readValue(p, SqlTaskDashboardPb.class);
+      return SqlTaskDashboard.fromPb(pb);
+    }
   }
 }

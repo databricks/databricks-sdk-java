@@ -4,13 +4,23 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateTokenRequest.CreateTokenRequestSerializer.class)
+@JsonDeserialize(using = CreateTokenRequest.CreateTokenRequestDeserializer.class)
 public class CreateTokenRequest {
   /** Optional description to attach to the token. */
-  @JsonProperty("comment")
   private String comment;
 
   /**
@@ -18,7 +28,6 @@ public class CreateTokenRequest {
    *
    * <p>If the lifetime is not specified, this token remains valid indefinitely.
    */
-  @JsonProperty("lifetime_seconds")
   private Long lifetimeSeconds;
 
   public CreateTokenRequest setComment(String comment) {
@@ -59,5 +68,40 @@ public class CreateTokenRequest {
         .add("comment", comment)
         .add("lifetimeSeconds", lifetimeSeconds)
         .toString();
+  }
+
+  CreateTokenRequestPb toPb() {
+    CreateTokenRequestPb pb = new CreateTokenRequestPb();
+    pb.setComment(comment);
+    pb.setLifetimeSeconds(lifetimeSeconds);
+
+    return pb;
+  }
+
+  static CreateTokenRequest fromPb(CreateTokenRequestPb pb) {
+    CreateTokenRequest model = new CreateTokenRequest();
+    model.setComment(pb.getComment());
+    model.setLifetimeSeconds(pb.getLifetimeSeconds());
+
+    return model;
+  }
+
+  public static class CreateTokenRequestSerializer extends JsonSerializer<CreateTokenRequest> {
+    @Override
+    public void serialize(CreateTokenRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateTokenRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateTokenRequestDeserializer extends JsonDeserializer<CreateTokenRequest> {
+    @Override
+    public CreateTokenRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateTokenRequestPb pb = mapper.readValue(p, CreateTokenRequestPb.class);
+      return CreateTokenRequest.fromPb(pb);
+    }
   }
 }

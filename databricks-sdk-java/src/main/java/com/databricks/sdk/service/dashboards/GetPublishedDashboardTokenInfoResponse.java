@@ -4,29 +4,43 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using =
+        GetPublishedDashboardTokenInfoResponse.GetPublishedDashboardTokenInfoResponseSerializer
+            .class)
+@JsonDeserialize(
+    using =
+        GetPublishedDashboardTokenInfoResponse.GetPublishedDashboardTokenInfoResponseDeserializer
+            .class)
 public class GetPublishedDashboardTokenInfoResponse {
   /**
    * Authorization constraints for accessing the published dashboard. Currently includes
    * `workspace_rule_set` and could be enriched with `unity_catalog_privileges` before oAuth token
    * generation.
    */
-  @JsonProperty("authorization_details")
   private Collection<AuthorizationDetails> authorizationDetails;
 
   /**
    * Custom claim generated from external_value and external_viewer_id. Format:
    * `urn:aibi:external_data:<external_value>:<external_viewer_id>:<dashboard_id>`
    */
-  @JsonProperty("custom_claim")
   private String customClaim;
 
   /** Scope defining access permissions. */
-  @JsonProperty("scope")
   private String scope;
 
   public GetPublishedDashboardTokenInfoResponse setAuthorizationDetails(
@@ -79,5 +93,49 @@ public class GetPublishedDashboardTokenInfoResponse {
         .add("customClaim", customClaim)
         .add("scope", scope)
         .toString();
+  }
+
+  GetPublishedDashboardTokenInfoResponsePb toPb() {
+    GetPublishedDashboardTokenInfoResponsePb pb = new GetPublishedDashboardTokenInfoResponsePb();
+    pb.setAuthorizationDetails(authorizationDetails);
+    pb.setCustomClaim(customClaim);
+    pb.setScope(scope);
+
+    return pb;
+  }
+
+  static GetPublishedDashboardTokenInfoResponse fromPb(
+      GetPublishedDashboardTokenInfoResponsePb pb) {
+    GetPublishedDashboardTokenInfoResponse model = new GetPublishedDashboardTokenInfoResponse();
+    model.setAuthorizationDetails(pb.getAuthorizationDetails());
+    model.setCustomClaim(pb.getCustomClaim());
+    model.setScope(pb.getScope());
+
+    return model;
+  }
+
+  public static class GetPublishedDashboardTokenInfoResponseSerializer
+      extends JsonSerializer<GetPublishedDashboardTokenInfoResponse> {
+    @Override
+    public void serialize(
+        GetPublishedDashboardTokenInfoResponse value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      GetPublishedDashboardTokenInfoResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetPublishedDashboardTokenInfoResponseDeserializer
+      extends JsonDeserializer<GetPublishedDashboardTokenInfoResponse> {
+    @Override
+    public GetPublishedDashboardTokenInfoResponse deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetPublishedDashboardTokenInfoResponsePb pb =
+          mapper.readValue(p, GetPublishedDashboardTokenInfoResponsePb.class);
+      return GetPublishedDashboardTokenInfoResponse.fromPb(pb);
+    }
   }
 }

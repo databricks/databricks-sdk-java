@@ -21,7 +21,7 @@ class TokenManagementImpl implements TokenManagementService {
     String path = "/api/2.0/token-management/on-behalf-of/tokens";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, CreateOboTokenResponse.class);
@@ -35,7 +35,7 @@ class TokenManagementImpl implements TokenManagementService {
     String path = String.format("/api/2.0/token-management/tokens/%s", request.getTokenId());
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       apiClient.execute(req, DeleteResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -47,7 +47,7 @@ class TokenManagementImpl implements TokenManagementService {
     String path = String.format("/api/2.0/token-management/tokens/%s", request.getTokenId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetTokenResponse.class);
     } catch (IOException e) {
@@ -84,7 +84,7 @@ class TokenManagementImpl implements TokenManagementService {
     String path = "/api/2.0/token-management/tokens";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListTokensResponse.class);
     } catch (IOException e) {
@@ -97,7 +97,7 @@ class TokenManagementImpl implements TokenManagementService {
     String path = "/api/2.0/permissions/authorization/tokens";
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, TokenPermissions.class);
@@ -111,7 +111,7 @@ class TokenManagementImpl implements TokenManagementService {
     String path = "/api/2.0/permissions/authorization/tokens";
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, TokenPermissions.class);

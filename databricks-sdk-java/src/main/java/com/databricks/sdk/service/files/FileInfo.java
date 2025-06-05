@@ -4,25 +4,32 @@ package com.databricks.sdk.service.files;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = FileInfo.FileInfoSerializer.class)
+@JsonDeserialize(using = FileInfo.FileInfoDeserializer.class)
 public class FileInfo {
   /** The length of the file in bytes. This field is omitted for directories. */
-  @JsonProperty("file_size")
   private Long fileSize;
 
   /** True if the path is a directory. */
-  @JsonProperty("is_dir")
   private Boolean isDir;
 
   /** Last modification time of given file in milliseconds since epoch. */
-  @JsonProperty("modification_time")
   private Long modificationTime;
 
   /** The absolute path of the file or directory. */
-  @JsonProperty("path")
   private String path;
 
   public FileInfo setFileSize(Long fileSize) {
@@ -85,5 +92,43 @@ public class FileInfo {
         .add("modificationTime", modificationTime)
         .add("path", path)
         .toString();
+  }
+
+  FileInfoPb toPb() {
+    FileInfoPb pb = new FileInfoPb();
+    pb.setFileSize(fileSize);
+    pb.setIsDir(isDir);
+    pb.setModificationTime(modificationTime);
+    pb.setPath(path);
+
+    return pb;
+  }
+
+  static FileInfo fromPb(FileInfoPb pb) {
+    FileInfo model = new FileInfo();
+    model.setFileSize(pb.getFileSize());
+    model.setIsDir(pb.getIsDir());
+    model.setModificationTime(pb.getModificationTime());
+    model.setPath(pb.getPath());
+
+    return model;
+  }
+
+  public static class FileInfoSerializer extends JsonSerializer<FileInfo> {
+    @Override
+    public void serialize(FileInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      FileInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class FileInfoDeserializer extends JsonDeserializer<FileInfo> {
+    @Override
+    public FileInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      FileInfoPb pb = mapper.readValue(p, FileInfoPb.class);
+      return FileInfo.fromPb(pb);
+    }
   }
 }

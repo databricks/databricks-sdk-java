@@ -4,19 +4,28 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Update a network policy */
 @Generated
+@JsonSerialize(using = UpdateNetworkPolicyRequest.UpdateNetworkPolicyRequestSerializer.class)
+@JsonDeserialize(using = UpdateNetworkPolicyRequest.UpdateNetworkPolicyRequestDeserializer.class)
 public class UpdateNetworkPolicyRequest {
   /** */
-  @JsonProperty("network_policy")
   private AccountNetworkPolicy networkPolicy;
 
   /** The unique identifier for the network policy. */
-  @JsonIgnore private String networkPolicyId;
+  private String networkPolicyId;
 
   public UpdateNetworkPolicyRequest setNetworkPolicy(AccountNetworkPolicy networkPolicy) {
     this.networkPolicy = networkPolicy;
@@ -56,5 +65,43 @@ public class UpdateNetworkPolicyRequest {
         .add("networkPolicy", networkPolicy)
         .add("networkPolicyId", networkPolicyId)
         .toString();
+  }
+
+  UpdateNetworkPolicyRequestPb toPb() {
+    UpdateNetworkPolicyRequestPb pb = new UpdateNetworkPolicyRequestPb();
+    pb.setNetworkPolicy(networkPolicy);
+    pb.setNetworkPolicyId(networkPolicyId);
+
+    return pb;
+  }
+
+  static UpdateNetworkPolicyRequest fromPb(UpdateNetworkPolicyRequestPb pb) {
+    UpdateNetworkPolicyRequest model = new UpdateNetworkPolicyRequest();
+    model.setNetworkPolicy(pb.getNetworkPolicy());
+    model.setNetworkPolicyId(pb.getNetworkPolicyId());
+
+    return model;
+  }
+
+  public static class UpdateNetworkPolicyRequestSerializer
+      extends JsonSerializer<UpdateNetworkPolicyRequest> {
+    @Override
+    public void serialize(
+        UpdateNetworkPolicyRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateNetworkPolicyRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateNetworkPolicyRequestDeserializer
+      extends JsonDeserializer<UpdateNetworkPolicyRequest> {
+    @Override
+    public UpdateNetworkPolicyRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateNetworkPolicyRequestPb pb = mapper.readValue(p, UpdateNetworkPolicyRequestPb.class);
+      return UpdateNetworkPolicyRequest.fromPb(pb);
+    }
   }
 }

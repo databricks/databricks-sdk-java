@@ -4,13 +4,23 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = GetUpdateResponse.GetUpdateResponseSerializer.class)
+@JsonDeserialize(using = GetUpdateResponse.GetUpdateResponseDeserializer.class)
 public class GetUpdateResponse {
   /** The current update info. */
-  @JsonProperty("update")
   private UpdateInfo update;
 
   public GetUpdateResponse setUpdate(UpdateInfo update) {
@@ -38,5 +48,38 @@ public class GetUpdateResponse {
   @Override
   public String toString() {
     return new ToStringer(GetUpdateResponse.class).add("update", update).toString();
+  }
+
+  GetUpdateResponsePb toPb() {
+    GetUpdateResponsePb pb = new GetUpdateResponsePb();
+    pb.setUpdate(update);
+
+    return pb;
+  }
+
+  static GetUpdateResponse fromPb(GetUpdateResponsePb pb) {
+    GetUpdateResponse model = new GetUpdateResponse();
+    model.setUpdate(pb.getUpdate());
+
+    return model;
+  }
+
+  public static class GetUpdateResponseSerializer extends JsonSerializer<GetUpdateResponse> {
+    @Override
+    public void serialize(GetUpdateResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetUpdateResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetUpdateResponseDeserializer extends JsonDeserializer<GetUpdateResponse> {
+    @Override
+    public GetUpdateResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetUpdateResponsePb pb = mapper.readValue(p, GetUpdateResponsePb.class);
+      return GetUpdateResponse.fromPb(pb);
+    }
   }
 }

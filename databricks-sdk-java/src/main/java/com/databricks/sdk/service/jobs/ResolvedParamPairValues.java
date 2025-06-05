@@ -4,14 +4,24 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ResolvedParamPairValues.ResolvedParamPairValuesSerializer.class)
+@JsonDeserialize(using = ResolvedParamPairValues.ResolvedParamPairValuesDeserializer.class)
 public class ResolvedParamPairValues {
   /** */
-  @JsonProperty("parameters")
   private Map<String, String> parameters;
 
   public ResolvedParamPairValues setParameters(Map<String, String> parameters) {
@@ -39,5 +49,41 @@ public class ResolvedParamPairValues {
   @Override
   public String toString() {
     return new ToStringer(ResolvedParamPairValues.class).add("parameters", parameters).toString();
+  }
+
+  ResolvedParamPairValuesPb toPb() {
+    ResolvedParamPairValuesPb pb = new ResolvedParamPairValuesPb();
+    pb.setParameters(parameters);
+
+    return pb;
+  }
+
+  static ResolvedParamPairValues fromPb(ResolvedParamPairValuesPb pb) {
+    ResolvedParamPairValues model = new ResolvedParamPairValues();
+    model.setParameters(pb.getParameters());
+
+    return model;
+  }
+
+  public static class ResolvedParamPairValuesSerializer
+      extends JsonSerializer<ResolvedParamPairValues> {
+    @Override
+    public void serialize(
+        ResolvedParamPairValues value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ResolvedParamPairValuesPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ResolvedParamPairValuesDeserializer
+      extends JsonDeserializer<ResolvedParamPairValues> {
+    @Override
+    public ResolvedParamPairValues deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ResolvedParamPairValuesPb pb = mapper.readValue(p, ResolvedParamPairValuesPb.class);
+      return ResolvedParamPairValues.fromPb(pb);
+    }
   }
 }

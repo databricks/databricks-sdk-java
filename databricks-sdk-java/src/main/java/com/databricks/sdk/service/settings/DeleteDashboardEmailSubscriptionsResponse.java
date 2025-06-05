@@ -4,11 +4,28 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** The etag is returned. */
 @Generated
+@JsonSerialize(
+    using =
+        DeleteDashboardEmailSubscriptionsResponse
+            .DeleteDashboardEmailSubscriptionsResponseSerializer.class)
+@JsonDeserialize(
+    using =
+        DeleteDashboardEmailSubscriptionsResponse
+            .DeleteDashboardEmailSubscriptionsResponseDeserializer.class)
 public class DeleteDashboardEmailSubscriptionsResponse {
   /**
    * etag used for versioning. The response is at least as fresh as the eTag provided. This is used
@@ -18,7 +35,6 @@ public class DeleteDashboardEmailSubscriptionsResponse {
    * an etag from a GET request, and pass it with the DELETE request to identify the rule set
    * version you are deleting.
    */
-  @JsonProperty("etag")
   private String etag;
 
   public DeleteDashboardEmailSubscriptionsResponse setEtag(String etag) {
@@ -48,5 +64,47 @@ public class DeleteDashboardEmailSubscriptionsResponse {
     return new ToStringer(DeleteDashboardEmailSubscriptionsResponse.class)
         .add("etag", etag)
         .toString();
+  }
+
+  DeleteDashboardEmailSubscriptionsResponsePb toPb() {
+    DeleteDashboardEmailSubscriptionsResponsePb pb =
+        new DeleteDashboardEmailSubscriptionsResponsePb();
+    pb.setEtag(etag);
+
+    return pb;
+  }
+
+  static DeleteDashboardEmailSubscriptionsResponse fromPb(
+      DeleteDashboardEmailSubscriptionsResponsePb pb) {
+    DeleteDashboardEmailSubscriptionsResponse model =
+        new DeleteDashboardEmailSubscriptionsResponse();
+    model.setEtag(pb.getEtag());
+
+    return model;
+  }
+
+  public static class DeleteDashboardEmailSubscriptionsResponseSerializer
+      extends JsonSerializer<DeleteDashboardEmailSubscriptionsResponse> {
+    @Override
+    public void serialize(
+        DeleteDashboardEmailSubscriptionsResponse value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      DeleteDashboardEmailSubscriptionsResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DeleteDashboardEmailSubscriptionsResponseDeserializer
+      extends JsonDeserializer<DeleteDashboardEmailSubscriptionsResponse> {
+    @Override
+    public DeleteDashboardEmailSubscriptionsResponse deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DeleteDashboardEmailSubscriptionsResponsePb pb =
+          mapper.readValue(p, DeleteDashboardEmailSubscriptionsResponsePb.class);
+      return DeleteDashboardEmailSubscriptionsResponse.fromPb(pb);
+    }
   }
 }

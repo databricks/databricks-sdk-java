@@ -4,21 +4,30 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ListTablesResponse.ListTablesResponseSerializer.class)
+@JsonDeserialize(using = ListTablesResponse.ListTablesResponseDeserializer.class)
 public class ListTablesResponse {
   /**
    * Opaque token to retrieve the next page of results. Absent if there are no more pages.
    * __page_token__ should be set to this value for the next request (for the next page of results).
    */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   /** An array of table information objects. */
-  @JsonProperty("tables")
   private Collection<TableInfo> tables;
 
   public ListTablesResponse setNextPageToken(String nextPageToken) {
@@ -58,5 +67,40 @@ public class ListTablesResponse {
         .add("nextPageToken", nextPageToken)
         .add("tables", tables)
         .toString();
+  }
+
+  ListTablesResponsePb toPb() {
+    ListTablesResponsePb pb = new ListTablesResponsePb();
+    pb.setNextPageToken(nextPageToken);
+    pb.setTables(tables);
+
+    return pb;
+  }
+
+  static ListTablesResponse fromPb(ListTablesResponsePb pb) {
+    ListTablesResponse model = new ListTablesResponse();
+    model.setNextPageToken(pb.getNextPageToken());
+    model.setTables(pb.getTables());
+
+    return model;
+  }
+
+  public static class ListTablesResponseSerializer extends JsonSerializer<ListTablesResponse> {
+    @Override
+    public void serialize(ListTablesResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListTablesResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListTablesResponseDeserializer extends JsonDeserializer<ListTablesResponse> {
+    @Override
+    public ListTablesResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListTablesResponsePb pb = mapper.readValue(p, ListTablesResponsePb.class);
+      return ListTablesResponse.fromPb(pb);
+    }
   }
 }

@@ -4,17 +4,26 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = UpdateListingRequest.UpdateListingRequestSerializer.class)
+@JsonDeserialize(using = UpdateListingRequest.UpdateListingRequestDeserializer.class)
 public class UpdateListingRequest {
   /** */
-  @JsonIgnore private String id;
+  private String id;
 
   /** */
-  @JsonProperty("listing")
   private Listing listing;
 
   public UpdateListingRequest setId(String id) {
@@ -54,5 +63,42 @@ public class UpdateListingRequest {
         .add("id", id)
         .add("listing", listing)
         .toString();
+  }
+
+  UpdateListingRequestPb toPb() {
+    UpdateListingRequestPb pb = new UpdateListingRequestPb();
+    pb.setId(id);
+    pb.setListing(listing);
+
+    return pb;
+  }
+
+  static UpdateListingRequest fromPb(UpdateListingRequestPb pb) {
+    UpdateListingRequest model = new UpdateListingRequest();
+    model.setId(pb.getId());
+    model.setListing(pb.getListing());
+
+    return model;
+  }
+
+  public static class UpdateListingRequestSerializer extends JsonSerializer<UpdateListingRequest> {
+    @Override
+    public void serialize(
+        UpdateListingRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateListingRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateListingRequestDeserializer
+      extends JsonDeserializer<UpdateListingRequest> {
+    @Override
+    public UpdateListingRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateListingRequestPb pb = mapper.readValue(p, UpdateListingRequestPb.class);
+      return UpdateListingRequest.fromPb(pb);
+    }
   }
 }

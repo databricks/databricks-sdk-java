@@ -4,21 +4,30 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Create schedule subscription */
 @Generated
+@JsonSerialize(using = CreateSubscriptionRequest.CreateSubscriptionRequestSerializer.class)
+@JsonDeserialize(using = CreateSubscriptionRequest.CreateSubscriptionRequestDeserializer.class)
 public class CreateSubscriptionRequest {
   /** UUID identifying the dashboard to which the subscription belongs. */
-  @JsonIgnore private String dashboardId;
+  private String dashboardId;
 
   /** UUID identifying the schedule to which the subscription belongs. */
-  @JsonIgnore private String scheduleId;
+  private String scheduleId;
 
   /** */
-  @JsonProperty("subscription")
   private Subscription subscription;
 
   public CreateSubscriptionRequest setDashboardId(String dashboardId) {
@@ -70,5 +79,45 @@ public class CreateSubscriptionRequest {
         .add("scheduleId", scheduleId)
         .add("subscription", subscription)
         .toString();
+  }
+
+  CreateSubscriptionRequestPb toPb() {
+    CreateSubscriptionRequestPb pb = new CreateSubscriptionRequestPb();
+    pb.setDashboardId(dashboardId);
+    pb.setScheduleId(scheduleId);
+    pb.setSubscription(subscription);
+
+    return pb;
+  }
+
+  static CreateSubscriptionRequest fromPb(CreateSubscriptionRequestPb pb) {
+    CreateSubscriptionRequest model = new CreateSubscriptionRequest();
+    model.setDashboardId(pb.getDashboardId());
+    model.setScheduleId(pb.getScheduleId());
+    model.setSubscription(pb.getSubscription());
+
+    return model;
+  }
+
+  public static class CreateSubscriptionRequestSerializer
+      extends JsonSerializer<CreateSubscriptionRequest> {
+    @Override
+    public void serialize(
+        CreateSubscriptionRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateSubscriptionRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateSubscriptionRequestDeserializer
+      extends JsonDeserializer<CreateSubscriptionRequest> {
+    @Override
+    public CreateSubscriptionRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateSubscriptionRequestPb pb = mapper.readValue(p, CreateSubscriptionRequestPb.class);
+      return CreateSubscriptionRequest.fromPb(pb);
+    }
   }
 }

@@ -3,24 +3,33 @@
 package com.databricks.sdk.service.database;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Delete a Database Instance */
 @Generated
+@JsonSerialize(using = DeleteDatabaseInstanceRequest.DeleteDatabaseInstanceRequestSerializer.class)
+@JsonDeserialize(
+    using = DeleteDatabaseInstanceRequest.DeleteDatabaseInstanceRequestDeserializer.class)
 public class DeleteDatabaseInstanceRequest {
   /**
    * By default, a instance cannot be deleted if it has descendant instances created via PITR. If
    * this flag is specified as true, all descendent instances will be deleted as well.
    */
-  @JsonIgnore
-  @QueryParam("force")
   private Boolean force;
 
   /** Name of the instance to delete. */
-  @JsonIgnore private String name;
+  private String name;
 
   /**
    * If false, the database instance is soft deleted. Soft deleted instances behave as if they are
@@ -28,8 +37,6 @@ public class DeleteDatabaseInstanceRequest {
    * by calling the undelete API for a limited time. If true, the database instance is hard deleted
    * and cannot be undeleted.
    */
-  @JsonIgnore
-  @QueryParam("purge")
   private Boolean purge;
 
   public DeleteDatabaseInstanceRequest setForce(Boolean force) {
@@ -81,5 +88,46 @@ public class DeleteDatabaseInstanceRequest {
         .add("name", name)
         .add("purge", purge)
         .toString();
+  }
+
+  DeleteDatabaseInstanceRequestPb toPb() {
+    DeleteDatabaseInstanceRequestPb pb = new DeleteDatabaseInstanceRequestPb();
+    pb.setForce(force);
+    pb.setName(name);
+    pb.setPurge(purge);
+
+    return pb;
+  }
+
+  static DeleteDatabaseInstanceRequest fromPb(DeleteDatabaseInstanceRequestPb pb) {
+    DeleteDatabaseInstanceRequest model = new DeleteDatabaseInstanceRequest();
+    model.setForce(pb.getForce());
+    model.setName(pb.getName());
+    model.setPurge(pb.getPurge());
+
+    return model;
+  }
+
+  public static class DeleteDatabaseInstanceRequestSerializer
+      extends JsonSerializer<DeleteDatabaseInstanceRequest> {
+    @Override
+    public void serialize(
+        DeleteDatabaseInstanceRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DeleteDatabaseInstanceRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DeleteDatabaseInstanceRequestDeserializer
+      extends JsonDeserializer<DeleteDatabaseInstanceRequest> {
+    @Override
+    public DeleteDatabaseInstanceRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DeleteDatabaseInstanceRequestPb pb =
+          mapper.readValue(p, DeleteDatabaseInstanceRequestPb.class);
+      return DeleteDatabaseInstanceRequest.fromPb(pb);
+    }
   }
 }

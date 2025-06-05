@@ -4,18 +4,29 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = ListVisualizationsForQueryResponse.ListVisualizationsForQueryResponseSerializer.class)
+@JsonDeserialize(
+    using = ListVisualizationsForQueryResponse.ListVisualizationsForQueryResponseDeserializer.class)
 public class ListVisualizationsForQueryResponse {
   /** */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   /** */
-  @JsonProperty("results")
   private Collection<Visualization> results;
 
   public ListVisualizationsForQueryResponse setNextPageToken(String nextPageToken) {
@@ -56,5 +67,44 @@ public class ListVisualizationsForQueryResponse {
         .add("nextPageToken", nextPageToken)
         .add("results", results)
         .toString();
+  }
+
+  ListVisualizationsForQueryResponsePb toPb() {
+    ListVisualizationsForQueryResponsePb pb = new ListVisualizationsForQueryResponsePb();
+    pb.setNextPageToken(nextPageToken);
+    pb.setResults(results);
+
+    return pb;
+  }
+
+  static ListVisualizationsForQueryResponse fromPb(ListVisualizationsForQueryResponsePb pb) {
+    ListVisualizationsForQueryResponse model = new ListVisualizationsForQueryResponse();
+    model.setNextPageToken(pb.getNextPageToken());
+    model.setResults(pb.getResults());
+
+    return model;
+  }
+
+  public static class ListVisualizationsForQueryResponseSerializer
+      extends JsonSerializer<ListVisualizationsForQueryResponse> {
+    @Override
+    public void serialize(
+        ListVisualizationsForQueryResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListVisualizationsForQueryResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListVisualizationsForQueryResponseDeserializer
+      extends JsonDeserializer<ListVisualizationsForQueryResponse> {
+    @Override
+    public ListVisualizationsForQueryResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListVisualizationsForQueryResponsePb pb =
+          mapper.readValue(p, ListVisualizationsForQueryResponsePb.class);
+      return ListVisualizationsForQueryResponse.fromPb(pb);
+    }
   }
 }

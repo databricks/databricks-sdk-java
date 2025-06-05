@@ -4,9 +4,21 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = MonitorSnapshot.MonitorSnapshotSerializer.class)
+@JsonDeserialize(using = MonitorSnapshot.MonitorSnapshotDeserializer.class)
 public class MonitorSnapshot {
 
   @Override
@@ -24,5 +36,36 @@ public class MonitorSnapshot {
   @Override
   public String toString() {
     return new ToStringer(MonitorSnapshot.class).toString();
+  }
+
+  MonitorSnapshotPb toPb() {
+    MonitorSnapshotPb pb = new MonitorSnapshotPb();
+
+    return pb;
+  }
+
+  static MonitorSnapshot fromPb(MonitorSnapshotPb pb) {
+    MonitorSnapshot model = new MonitorSnapshot();
+
+    return model;
+  }
+
+  public static class MonitorSnapshotSerializer extends JsonSerializer<MonitorSnapshot> {
+    @Override
+    public void serialize(MonitorSnapshot value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      MonitorSnapshotPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class MonitorSnapshotDeserializer extends JsonDeserializer<MonitorSnapshot> {
+    @Override
+    public MonitorSnapshot deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      MonitorSnapshotPb pb = mapper.readValue(p, MonitorSnapshotPb.class);
+      return MonitorSnapshot.fromPb(pb);
+    }
   }
 }

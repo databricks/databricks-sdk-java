@@ -3,49 +3,49 @@
 package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List jobs */
 @Generated
+@JsonSerialize(using = ListJobsRequest.ListJobsRequestSerializer.class)
+@JsonDeserialize(using = ListJobsRequest.ListJobsRequestDeserializer.class)
 public class ListJobsRequest {
   /**
    * Whether to include task and cluster details in the response. Note that only the first 100
    * elements will be shown. Use :method:jobs/get to paginate through all tasks and clusters.
    */
-  @JsonIgnore
-  @QueryParam("expand_tasks")
   private Boolean expandTasks;
 
   /**
    * The number of jobs to return. This value must be greater than 0 and less or equal to 100. The
    * default value is 20.
    */
-  @JsonIgnore
-  @QueryParam("limit")
   private Long limit;
 
   /** A filter on the list based on the exact (case insensitive) job name. */
-  @JsonIgnore
-  @QueryParam("name")
   private String name;
 
   /**
    * The offset of the first job to return, relative to the most recently created job. Deprecated
    * since June 2023. Use `page_token` to iterate through the pages instead.
    */
-  @JsonIgnore
-  @QueryParam("offset")
   private Long offset;
 
   /**
    * Use `next_page_token` or `prev_page_token` returned from the previous request to list the next
    * or previous page of jobs respectively.
    */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   public ListJobsRequest setExpandTasks(Boolean expandTasks) {
@@ -119,5 +119,46 @@ public class ListJobsRequest {
         .add("offset", offset)
         .add("pageToken", pageToken)
         .toString();
+  }
+
+  ListJobsRequestPb toPb() {
+    ListJobsRequestPb pb = new ListJobsRequestPb();
+    pb.setExpandTasks(expandTasks);
+    pb.setLimit(limit);
+    pb.setName(name);
+    pb.setOffset(offset);
+    pb.setPageToken(pageToken);
+
+    return pb;
+  }
+
+  static ListJobsRequest fromPb(ListJobsRequestPb pb) {
+    ListJobsRequest model = new ListJobsRequest();
+    model.setExpandTasks(pb.getExpandTasks());
+    model.setLimit(pb.getLimit());
+    model.setName(pb.getName());
+    model.setOffset(pb.getOffset());
+    model.setPageToken(pb.getPageToken());
+
+    return model;
+  }
+
+  public static class ListJobsRequestSerializer extends JsonSerializer<ListJobsRequest> {
+    @Override
+    public void serialize(ListJobsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListJobsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListJobsRequestDeserializer extends JsonDeserializer<ListJobsRequest> {
+    @Override
+    public ListJobsRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListJobsRequestPb pb = mapper.readValue(p, ListJobsRequestPb.class);
+      return ListJobsRequest.fromPb(pb);
+    }
   }
 }

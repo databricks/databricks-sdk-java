@@ -4,22 +4,32 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = ListLoggedModelArtifactsResponse.ListLoggedModelArtifactsResponseSerializer.class)
+@JsonDeserialize(
+    using = ListLoggedModelArtifactsResponse.ListLoggedModelArtifactsResponseDeserializer.class)
 public class ListLoggedModelArtifactsResponse {
   /** File location and metadata for artifacts. */
-  @JsonProperty("files")
   private Collection<FileInfo> files;
 
   /** Token that can be used to retrieve the next page of artifact results */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   /** Root artifact directory for the logged model. */
-  @JsonProperty("root_uri")
   private String rootUri;
 
   public ListLoggedModelArtifactsResponse setFiles(Collection<FileInfo> files) {
@@ -71,5 +81,46 @@ public class ListLoggedModelArtifactsResponse {
         .add("nextPageToken", nextPageToken)
         .add("rootUri", rootUri)
         .toString();
+  }
+
+  ListLoggedModelArtifactsResponsePb toPb() {
+    ListLoggedModelArtifactsResponsePb pb = new ListLoggedModelArtifactsResponsePb();
+    pb.setFiles(files);
+    pb.setNextPageToken(nextPageToken);
+    pb.setRootUri(rootUri);
+
+    return pb;
+  }
+
+  static ListLoggedModelArtifactsResponse fromPb(ListLoggedModelArtifactsResponsePb pb) {
+    ListLoggedModelArtifactsResponse model = new ListLoggedModelArtifactsResponse();
+    model.setFiles(pb.getFiles());
+    model.setNextPageToken(pb.getNextPageToken());
+    model.setRootUri(pb.getRootUri());
+
+    return model;
+  }
+
+  public static class ListLoggedModelArtifactsResponseSerializer
+      extends JsonSerializer<ListLoggedModelArtifactsResponse> {
+    @Override
+    public void serialize(
+        ListLoggedModelArtifactsResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListLoggedModelArtifactsResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListLoggedModelArtifactsResponseDeserializer
+      extends JsonDeserializer<ListLoggedModelArtifactsResponse> {
+    @Override
+    public ListLoggedModelArtifactsResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListLoggedModelArtifactsResponsePb pb =
+          mapper.readValue(p, ListLoggedModelArtifactsResponsePb.class);
+      return ListLoggedModelArtifactsResponse.fromPb(pb);
+    }
   }
 }

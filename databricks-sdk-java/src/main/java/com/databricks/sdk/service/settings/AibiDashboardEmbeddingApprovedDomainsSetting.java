@@ -4,13 +4,29 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using =
+        AibiDashboardEmbeddingApprovedDomainsSetting
+            .AibiDashboardEmbeddingApprovedDomainsSettingSerializer.class)
+@JsonDeserialize(
+    using =
+        AibiDashboardEmbeddingApprovedDomainsSetting
+            .AibiDashboardEmbeddingApprovedDomainsSettingDeserializer.class)
 public class AibiDashboardEmbeddingApprovedDomainsSetting {
   /** */
-  @JsonProperty("aibi_dashboard_embedding_approved_domains")
   private AibiDashboardEmbeddingApprovedDomains aibiDashboardEmbeddingApprovedDomains;
 
   /**
@@ -21,7 +37,6 @@ public class AibiDashboardEmbeddingApprovedDomainsSetting {
    * etag from a GET request, and pass it with the PATCH request to identify the setting version you
    * are updating.
    */
-  @JsonProperty("etag")
   private String etag;
 
   /**
@@ -30,7 +45,6 @@ public class AibiDashboardEmbeddingApprovedDomainsSetting {
    * respected instead. Setting name is required to be 'default' if the setting only has one
    * instance per workspace.
    */
-  @JsonProperty("setting_name")
   private String settingName;
 
   public AibiDashboardEmbeddingApprovedDomainsSetting setAibiDashboardEmbeddingApprovedDomains(
@@ -85,5 +99,51 @@ public class AibiDashboardEmbeddingApprovedDomainsSetting {
         .add("etag", etag)
         .add("settingName", settingName)
         .toString();
+  }
+
+  AibiDashboardEmbeddingApprovedDomainsSettingPb toPb() {
+    AibiDashboardEmbeddingApprovedDomainsSettingPb pb =
+        new AibiDashboardEmbeddingApprovedDomainsSettingPb();
+    pb.setAibiDashboardEmbeddingApprovedDomains(aibiDashboardEmbeddingApprovedDomains);
+    pb.setEtag(etag);
+    pb.setSettingName(settingName);
+
+    return pb;
+  }
+
+  static AibiDashboardEmbeddingApprovedDomainsSetting fromPb(
+      AibiDashboardEmbeddingApprovedDomainsSettingPb pb) {
+    AibiDashboardEmbeddingApprovedDomainsSetting model =
+        new AibiDashboardEmbeddingApprovedDomainsSetting();
+    model.setAibiDashboardEmbeddingApprovedDomains(pb.getAibiDashboardEmbeddingApprovedDomains());
+    model.setEtag(pb.getEtag());
+    model.setSettingName(pb.getSettingName());
+
+    return model;
+  }
+
+  public static class AibiDashboardEmbeddingApprovedDomainsSettingSerializer
+      extends JsonSerializer<AibiDashboardEmbeddingApprovedDomainsSetting> {
+    @Override
+    public void serialize(
+        AibiDashboardEmbeddingApprovedDomainsSetting value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      AibiDashboardEmbeddingApprovedDomainsSettingPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class AibiDashboardEmbeddingApprovedDomainsSettingDeserializer
+      extends JsonDeserializer<AibiDashboardEmbeddingApprovedDomainsSetting> {
+    @Override
+    public AibiDashboardEmbeddingApprovedDomainsSetting deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      AibiDashboardEmbeddingApprovedDomainsSettingPb pb =
+          mapper.readValue(p, AibiDashboardEmbeddingApprovedDomainsSettingPb.class);
+      return AibiDashboardEmbeddingApprovedDomainsSetting.fromPb(pb);
+    }
   }
 }

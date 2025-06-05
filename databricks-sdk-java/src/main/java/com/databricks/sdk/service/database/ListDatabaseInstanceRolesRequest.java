@@ -3,27 +3,35 @@
 package com.databricks.sdk.service.database;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List roles for a Database Instance */
 @Generated
+@JsonSerialize(
+    using = ListDatabaseInstanceRolesRequest.ListDatabaseInstanceRolesRequestSerializer.class)
+@JsonDeserialize(
+    using = ListDatabaseInstanceRolesRequest.ListDatabaseInstanceRolesRequestDeserializer.class)
 public class ListDatabaseInstanceRolesRequest {
   /** */
-  @JsonIgnore private String instanceName;
+  private String instanceName;
 
   /** Upper bound for items returned. */
-  @JsonIgnore
-  @QueryParam("page_size")
   private Long pageSize;
 
   /**
    * Pagination token to go to the next page of Database Instances. Requests first page if absent.
    */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   public ListDatabaseInstanceRolesRequest setInstanceName(String instanceName) {
@@ -75,5 +83,46 @@ public class ListDatabaseInstanceRolesRequest {
         .add("pageSize", pageSize)
         .add("pageToken", pageToken)
         .toString();
+  }
+
+  ListDatabaseInstanceRolesRequestPb toPb() {
+    ListDatabaseInstanceRolesRequestPb pb = new ListDatabaseInstanceRolesRequestPb();
+    pb.setInstanceName(instanceName);
+    pb.setPageSize(pageSize);
+    pb.setPageToken(pageToken);
+
+    return pb;
+  }
+
+  static ListDatabaseInstanceRolesRequest fromPb(ListDatabaseInstanceRolesRequestPb pb) {
+    ListDatabaseInstanceRolesRequest model = new ListDatabaseInstanceRolesRequest();
+    model.setInstanceName(pb.getInstanceName());
+    model.setPageSize(pb.getPageSize());
+    model.setPageToken(pb.getPageToken());
+
+    return model;
+  }
+
+  public static class ListDatabaseInstanceRolesRequestSerializer
+      extends JsonSerializer<ListDatabaseInstanceRolesRequest> {
+    @Override
+    public void serialize(
+        ListDatabaseInstanceRolesRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListDatabaseInstanceRolesRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListDatabaseInstanceRolesRequestDeserializer
+      extends JsonDeserializer<ListDatabaseInstanceRolesRequest> {
+    @Override
+    public ListDatabaseInstanceRolesRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListDatabaseInstanceRolesRequestPb pb =
+          mapper.readValue(p, ListDatabaseInstanceRolesRequestPb.class);
+      return ListDatabaseInstanceRolesRequest.fromPb(pb);
+    }
   }
 }

@@ -4,25 +4,32 @@ package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = RepoAccessControlRequest.RepoAccessControlRequestSerializer.class)
+@JsonDeserialize(using = RepoAccessControlRequest.RepoAccessControlRequestDeserializer.class)
 public class RepoAccessControlRequest {
   /** name of the group */
-  @JsonProperty("group_name")
   private String groupName;
 
   /** Permission level */
-  @JsonProperty("permission_level")
   private RepoPermissionLevel permissionLevel;
 
   /** application ID of a service principal */
-  @JsonProperty("service_principal_name")
   private String servicePrincipalName;
 
   /** name of the user */
-  @JsonProperty("user_name")
   private String userName;
 
   public RepoAccessControlRequest setGroupName(String groupName) {
@@ -85,5 +92,47 @@ public class RepoAccessControlRequest {
         .add("servicePrincipalName", servicePrincipalName)
         .add("userName", userName)
         .toString();
+  }
+
+  RepoAccessControlRequestPb toPb() {
+    RepoAccessControlRequestPb pb = new RepoAccessControlRequestPb();
+    pb.setGroupName(groupName);
+    pb.setPermissionLevel(permissionLevel);
+    pb.setServicePrincipalName(servicePrincipalName);
+    pb.setUserName(userName);
+
+    return pb;
+  }
+
+  static RepoAccessControlRequest fromPb(RepoAccessControlRequestPb pb) {
+    RepoAccessControlRequest model = new RepoAccessControlRequest();
+    model.setGroupName(pb.getGroupName());
+    model.setPermissionLevel(pb.getPermissionLevel());
+    model.setServicePrincipalName(pb.getServicePrincipalName());
+    model.setUserName(pb.getUserName());
+
+    return model;
+  }
+
+  public static class RepoAccessControlRequestSerializer
+      extends JsonSerializer<RepoAccessControlRequest> {
+    @Override
+    public void serialize(
+        RepoAccessControlRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      RepoAccessControlRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class RepoAccessControlRequestDeserializer
+      extends JsonDeserializer<RepoAccessControlRequest> {
+    @Override
+    public RepoAccessControlRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      RepoAccessControlRequestPb pb = mapper.readValue(p, RepoAccessControlRequestPb.class);
+      return RepoAccessControlRequest.fromPb(pb);
+    }
   }
 }

@@ -4,18 +4,27 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = SearchLoggedModelsResponse.SearchLoggedModelsResponseSerializer.class)
+@JsonDeserialize(using = SearchLoggedModelsResponse.SearchLoggedModelsResponseDeserializer.class)
 public class SearchLoggedModelsResponse {
   /** Logged models that match the search criteria. */
-  @JsonProperty("models")
   private Collection<LoggedModel> models;
 
   /** The token that can be used to retrieve the next page of logged models. */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   public SearchLoggedModelsResponse setModels(Collection<LoggedModel> models) {
@@ -55,5 +64,43 @@ public class SearchLoggedModelsResponse {
         .add("models", models)
         .add("nextPageToken", nextPageToken)
         .toString();
+  }
+
+  SearchLoggedModelsResponsePb toPb() {
+    SearchLoggedModelsResponsePb pb = new SearchLoggedModelsResponsePb();
+    pb.setModels(models);
+    pb.setNextPageToken(nextPageToken);
+
+    return pb;
+  }
+
+  static SearchLoggedModelsResponse fromPb(SearchLoggedModelsResponsePb pb) {
+    SearchLoggedModelsResponse model = new SearchLoggedModelsResponse();
+    model.setModels(pb.getModels());
+    model.setNextPageToken(pb.getNextPageToken());
+
+    return model;
+  }
+
+  public static class SearchLoggedModelsResponseSerializer
+      extends JsonSerializer<SearchLoggedModelsResponse> {
+    @Override
+    public void serialize(
+        SearchLoggedModelsResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SearchLoggedModelsResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SearchLoggedModelsResponseDeserializer
+      extends JsonDeserializer<SearchLoggedModelsResponse> {
+    @Override
+    public SearchLoggedModelsResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SearchLoggedModelsResponsePb pb = mapper.readValue(p, SearchLoggedModelsResponsePb.class);
+      return SearchLoggedModelsResponse.fromPb(pb);
+    }
   }
 }

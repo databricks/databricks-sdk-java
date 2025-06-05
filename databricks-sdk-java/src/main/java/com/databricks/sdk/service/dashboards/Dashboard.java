@@ -4,46 +4,50 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = Dashboard.DashboardSerializer.class)
+@JsonDeserialize(using = Dashboard.DashboardDeserializer.class)
 public class Dashboard {
   /** The timestamp of when the dashboard was created. */
-  @JsonProperty("create_time")
   private String createTime;
 
   /** UUID identifying the dashboard. */
-  @JsonProperty("dashboard_id")
   private String dashboardId;
 
   /** The display name of the dashboard. */
-  @JsonProperty("display_name")
   private String displayName;
 
   /**
    * The etag for the dashboard. Can be optionally provided on updates to ensure that the dashboard
    * has not been modified since the last read. This field is excluded in List Dashboards responses.
    */
-  @JsonProperty("etag")
   private String etag;
 
   /** The state of the dashboard resource. Used for tracking trashed status. */
-  @JsonProperty("lifecycle_state")
   private LifecycleState lifecycleState;
 
   /**
    * The workspace path of the folder containing the dashboard. Includes leading slash and no
    * trailing slash. This field is excluded in List Dashboards responses.
    */
-  @JsonProperty("parent_path")
   private String parentPath;
 
   /**
    * The workspace path of the dashboard asset, including the file name. Exported dashboards always
    * have the file extension `.lvdash.json`. This field is excluded in List Dashboards responses.
    */
-  @JsonProperty("path")
   private String path;
 
   /**
@@ -54,18 +58,15 @@ public class Dashboard {
    *
    * <p>[get dashboard API]: https://docs.databricks.com/api/workspace/lakeview/get
    */
-  @JsonProperty("serialized_dashboard")
   private String serializedDashboard;
 
   /**
    * The timestamp of when the dashboard was last updated by the user. This field is excluded in
    * List Dashboards responses.
    */
-  @JsonProperty("update_time")
   private String updateTime;
 
   /** The warehouse ID used to run the dashboard. */
-  @JsonProperty("warehouse_id")
   private String warehouseId;
 
   public Dashboard setCreateTime(String createTime) {
@@ -204,5 +205,55 @@ public class Dashboard {
         .add("updateTime", updateTime)
         .add("warehouseId", warehouseId)
         .toString();
+  }
+
+  DashboardPb toPb() {
+    DashboardPb pb = new DashboardPb();
+    pb.setCreateTime(createTime);
+    pb.setDashboardId(dashboardId);
+    pb.setDisplayName(displayName);
+    pb.setEtag(etag);
+    pb.setLifecycleState(lifecycleState);
+    pb.setParentPath(parentPath);
+    pb.setPath(path);
+    pb.setSerializedDashboard(serializedDashboard);
+    pb.setUpdateTime(updateTime);
+    pb.setWarehouseId(warehouseId);
+
+    return pb;
+  }
+
+  static Dashboard fromPb(DashboardPb pb) {
+    Dashboard model = new Dashboard();
+    model.setCreateTime(pb.getCreateTime());
+    model.setDashboardId(pb.getDashboardId());
+    model.setDisplayName(pb.getDisplayName());
+    model.setEtag(pb.getEtag());
+    model.setLifecycleState(pb.getLifecycleState());
+    model.setParentPath(pb.getParentPath());
+    model.setPath(pb.getPath());
+    model.setSerializedDashboard(pb.getSerializedDashboard());
+    model.setUpdateTime(pb.getUpdateTime());
+    model.setWarehouseId(pb.getWarehouseId());
+
+    return model;
+  }
+
+  public static class DashboardSerializer extends JsonSerializer<Dashboard> {
+    @Override
+    public void serialize(Dashboard value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DashboardPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DashboardDeserializer extends JsonDeserializer<Dashboard> {
+    @Override
+    public Dashboard deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DashboardPb pb = mapper.readValue(p, DashboardPb.class);
+      return Dashboard.fromPb(pb);
+    }
   }
 }

@@ -4,17 +4,28 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = ExperimentPermissionsDescription.ExperimentPermissionsDescriptionSerializer.class)
+@JsonDeserialize(
+    using = ExperimentPermissionsDescription.ExperimentPermissionsDescriptionDeserializer.class)
 public class ExperimentPermissionsDescription {
   /** */
-  @JsonProperty("description")
   private String description;
 
   /** Permission level */
-  @JsonProperty("permission_level")
   private ExperimentPermissionLevel permissionLevel;
 
   public ExperimentPermissionsDescription setDescription(String description) {
@@ -56,5 +67,44 @@ public class ExperimentPermissionsDescription {
         .add("description", description)
         .add("permissionLevel", permissionLevel)
         .toString();
+  }
+
+  ExperimentPermissionsDescriptionPb toPb() {
+    ExperimentPermissionsDescriptionPb pb = new ExperimentPermissionsDescriptionPb();
+    pb.setDescription(description);
+    pb.setPermissionLevel(permissionLevel);
+
+    return pb;
+  }
+
+  static ExperimentPermissionsDescription fromPb(ExperimentPermissionsDescriptionPb pb) {
+    ExperimentPermissionsDescription model = new ExperimentPermissionsDescription();
+    model.setDescription(pb.getDescription());
+    model.setPermissionLevel(pb.getPermissionLevel());
+
+    return model;
+  }
+
+  public static class ExperimentPermissionsDescriptionSerializer
+      extends JsonSerializer<ExperimentPermissionsDescription> {
+    @Override
+    public void serialize(
+        ExperimentPermissionsDescription value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ExperimentPermissionsDescriptionPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ExperimentPermissionsDescriptionDeserializer
+      extends JsonDeserializer<ExperimentPermissionsDescription> {
+    @Override
+    public ExperimentPermissionsDescription deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ExperimentPermissionsDescriptionPb pb =
+          mapper.readValue(p, ExperimentPermissionsDescriptionPb.class);
+      return ExperimentPermissionsDescription.fromPb(pb);
+    }
   }
 }

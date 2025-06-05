@@ -4,19 +4,27 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = StartUpdate.StartUpdateSerializer.class)
+@JsonDeserialize(using = StartUpdate.StartUpdateDeserializer.class)
 public class StartUpdate {
   /** What triggered this update. */
-  @JsonProperty("cause")
   private StartUpdateCause cause;
 
   /** If true, this update will reset all tables before running. */
-  @JsonProperty("full_refresh")
   private Boolean fullRefresh;
 
   /**
@@ -24,25 +32,22 @@ public class StartUpdate {
    * full_refresh_selection are empty, this is a full graph update. Full Refresh on a table means
    * that the states of the table will be reset before the refresh.
    */
-  @JsonProperty("full_refresh_selection")
   private Collection<String> fullRefreshSelection;
 
   /** */
-  @JsonIgnore private String pipelineId;
+  private String pipelineId;
 
   /**
    * A list of tables to update without fullRefresh. If both refresh_selection and
    * full_refresh_selection are empty, this is a full graph update. Full Refresh on a table means
    * that the states of the table will be reset before the refresh.
    */
-  @JsonProperty("refresh_selection")
   private Collection<String> refreshSelection;
 
   /**
    * If true, this update only validates the correctness of pipeline source code but does not
    * materialize or publish any datasets.
    */
-  @JsonProperty("validate_only")
   private Boolean validateOnly;
 
   public StartUpdate setCause(StartUpdateCause cause) {
@@ -128,5 +133,47 @@ public class StartUpdate {
         .add("refreshSelection", refreshSelection)
         .add("validateOnly", validateOnly)
         .toString();
+  }
+
+  StartUpdatePb toPb() {
+    StartUpdatePb pb = new StartUpdatePb();
+    pb.setCause(cause);
+    pb.setFullRefresh(fullRefresh);
+    pb.setFullRefreshSelection(fullRefreshSelection);
+    pb.setPipelineId(pipelineId);
+    pb.setRefreshSelection(refreshSelection);
+    pb.setValidateOnly(validateOnly);
+
+    return pb;
+  }
+
+  static StartUpdate fromPb(StartUpdatePb pb) {
+    StartUpdate model = new StartUpdate();
+    model.setCause(pb.getCause());
+    model.setFullRefresh(pb.getFullRefresh());
+    model.setFullRefreshSelection(pb.getFullRefreshSelection());
+    model.setPipelineId(pb.getPipelineId());
+    model.setRefreshSelection(pb.getRefreshSelection());
+    model.setValidateOnly(pb.getValidateOnly());
+
+    return model;
+  }
+
+  public static class StartUpdateSerializer extends JsonSerializer<StartUpdate> {
+    @Override
+    public void serialize(StartUpdate value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      StartUpdatePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class StartUpdateDeserializer extends JsonDeserializer<StartUpdate> {
+    @Override
+    public StartUpdate deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      StartUpdatePb pb = mapper.readValue(p, StartUpdatePb.class);
+      return StartUpdate.fromPb(pb);
+    }
   }
 }

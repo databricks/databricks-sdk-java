@@ -4,19 +4,28 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = JobPermissionsRequest.JobPermissionsRequestSerializer.class)
+@JsonDeserialize(using = JobPermissionsRequest.JobPermissionsRequestDeserializer.class)
 public class JobPermissionsRequest {
   /** */
-  @JsonProperty("access_control_list")
   private Collection<JobAccessControlRequest> accessControlList;
 
   /** The job for which to get or manage permissions. */
-  @JsonIgnore private String jobId;
+  private String jobId;
 
   public JobPermissionsRequest setAccessControlList(
       Collection<JobAccessControlRequest> accessControlList) {
@@ -57,5 +66,43 @@ public class JobPermissionsRequest {
         .add("accessControlList", accessControlList)
         .add("jobId", jobId)
         .toString();
+  }
+
+  JobPermissionsRequestPb toPb() {
+    JobPermissionsRequestPb pb = new JobPermissionsRequestPb();
+    pb.setAccessControlList(accessControlList);
+    pb.setJobId(jobId);
+
+    return pb;
+  }
+
+  static JobPermissionsRequest fromPb(JobPermissionsRequestPb pb) {
+    JobPermissionsRequest model = new JobPermissionsRequest();
+    model.setAccessControlList(pb.getAccessControlList());
+    model.setJobId(pb.getJobId());
+
+    return model;
+  }
+
+  public static class JobPermissionsRequestSerializer
+      extends JsonSerializer<JobPermissionsRequest> {
+    @Override
+    public void serialize(
+        JobPermissionsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      JobPermissionsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class JobPermissionsRequestDeserializer
+      extends JsonDeserializer<JobPermissionsRequest> {
+    @Override
+    public JobPermissionsRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      JobPermissionsRequestPb pb = mapper.readValue(p, JobPermissionsRequestPb.class);
+      return JobPermissionsRequest.fromPb(pb);
+    }
   }
 }

@@ -4,17 +4,33 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using =
+        EgressNetworkPolicyNetworkAccessPolicy.EgressNetworkPolicyNetworkAccessPolicySerializer
+            .class)
+@JsonDeserialize(
+    using =
+        EgressNetworkPolicyNetworkAccessPolicy.EgressNetworkPolicyNetworkAccessPolicyDeserializer
+            .class)
 public class EgressNetworkPolicyNetworkAccessPolicy {
   /**
    * List of internet destinations that serverless workloads are allowed to access when in
    * RESTRICTED_ACCESS mode.
    */
-  @JsonProperty("allowed_internet_destinations")
   private Collection<EgressNetworkPolicyNetworkAccessPolicyInternetDestination>
       allowedInternetDestinations;
 
@@ -22,16 +38,13 @@ public class EgressNetworkPolicyNetworkAccessPolicy {
    * List of storage destinations that serverless workloads are allowed to access when in
    * RESTRICTED_ACCESS mode.
    */
-  @JsonProperty("allowed_storage_destinations")
   private Collection<EgressNetworkPolicyNetworkAccessPolicyStorageDestination>
       allowedStorageDestinations;
 
   /** Optional. When policy_enforcement is not provided, we default to ENFORCE_MODE_ALL_SERVICES */
-  @JsonProperty("policy_enforcement")
   private EgressNetworkPolicyNetworkAccessPolicyPolicyEnforcement policyEnforcement;
 
   /** The restriction mode that controls how serverless workloads can access the internet. */
-  @JsonProperty("restriction_mode")
   private EgressNetworkPolicyNetworkAccessPolicyRestrictionMode restrictionMode;
 
   public EgressNetworkPolicyNetworkAccessPolicy setAllowedInternetDestinations(
@@ -106,5 +119,51 @@ public class EgressNetworkPolicyNetworkAccessPolicy {
         .add("policyEnforcement", policyEnforcement)
         .add("restrictionMode", restrictionMode)
         .toString();
+  }
+
+  EgressNetworkPolicyNetworkAccessPolicyPb toPb() {
+    EgressNetworkPolicyNetworkAccessPolicyPb pb = new EgressNetworkPolicyNetworkAccessPolicyPb();
+    pb.setAllowedInternetDestinations(allowedInternetDestinations);
+    pb.setAllowedStorageDestinations(allowedStorageDestinations);
+    pb.setPolicyEnforcement(policyEnforcement);
+    pb.setRestrictionMode(restrictionMode);
+
+    return pb;
+  }
+
+  static EgressNetworkPolicyNetworkAccessPolicy fromPb(
+      EgressNetworkPolicyNetworkAccessPolicyPb pb) {
+    EgressNetworkPolicyNetworkAccessPolicy model = new EgressNetworkPolicyNetworkAccessPolicy();
+    model.setAllowedInternetDestinations(pb.getAllowedInternetDestinations());
+    model.setAllowedStorageDestinations(pb.getAllowedStorageDestinations());
+    model.setPolicyEnforcement(pb.getPolicyEnforcement());
+    model.setRestrictionMode(pb.getRestrictionMode());
+
+    return model;
+  }
+
+  public static class EgressNetworkPolicyNetworkAccessPolicySerializer
+      extends JsonSerializer<EgressNetworkPolicyNetworkAccessPolicy> {
+    @Override
+    public void serialize(
+        EgressNetworkPolicyNetworkAccessPolicy value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      EgressNetworkPolicyNetworkAccessPolicyPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class EgressNetworkPolicyNetworkAccessPolicyDeserializer
+      extends JsonDeserializer<EgressNetworkPolicyNetworkAccessPolicy> {
+    @Override
+    public EgressNetworkPolicyNetworkAccessPolicy deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      EgressNetworkPolicyNetworkAccessPolicyPb pb =
+          mapper.readValue(p, EgressNetworkPolicyNetworkAccessPolicyPb.class);
+      return EgressNetworkPolicyNetworkAccessPolicy.fromPb(pb);
+    }
   }
 }

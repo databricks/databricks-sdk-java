@@ -4,17 +4,26 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = UpdateRuleSetRequest.UpdateRuleSetRequestSerializer.class)
+@JsonDeserialize(using = UpdateRuleSetRequest.UpdateRuleSetRequestDeserializer.class)
 public class UpdateRuleSetRequest {
   /** Name of the rule set. */
-  @JsonProperty("name")
   private String name;
 
   /** */
-  @JsonProperty("rule_set")
   private RuleSetUpdateRequest ruleSet;
 
   public UpdateRuleSetRequest setName(String name) {
@@ -54,5 +63,42 @@ public class UpdateRuleSetRequest {
         .add("name", name)
         .add("ruleSet", ruleSet)
         .toString();
+  }
+
+  UpdateRuleSetRequestPb toPb() {
+    UpdateRuleSetRequestPb pb = new UpdateRuleSetRequestPb();
+    pb.setName(name);
+    pb.setRuleSet(ruleSet);
+
+    return pb;
+  }
+
+  static UpdateRuleSetRequest fromPb(UpdateRuleSetRequestPb pb) {
+    UpdateRuleSetRequest model = new UpdateRuleSetRequest();
+    model.setName(pb.getName());
+    model.setRuleSet(pb.getRuleSet());
+
+    return model;
+  }
+
+  public static class UpdateRuleSetRequestSerializer extends JsonSerializer<UpdateRuleSetRequest> {
+    @Override
+    public void serialize(
+        UpdateRuleSetRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateRuleSetRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateRuleSetRequestDeserializer
+      extends JsonDeserializer<UpdateRuleSetRequest> {
+    @Override
+    public UpdateRuleSetRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateRuleSetRequestPb pb = mapper.readValue(p, UpdateRuleSetRequestPb.class);
+      return UpdateRuleSetRequest.fromPb(pb);
+    }
   }
 }

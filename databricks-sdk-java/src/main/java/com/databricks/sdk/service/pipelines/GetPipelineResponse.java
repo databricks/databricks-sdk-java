@@ -4,58 +4,57 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = GetPipelineResponse.GetPipelineResponseSerializer.class)
+@JsonDeserialize(using = GetPipelineResponse.GetPipelineResponseDeserializer.class)
 public class GetPipelineResponse {
   /** An optional message detailing the cause of the pipeline state. */
-  @JsonProperty("cause")
   private String cause;
 
   /** The ID of the cluster that the pipeline is running on. */
-  @JsonProperty("cluster_id")
   private String clusterId;
 
   /** The username of the pipeline creator. */
-  @JsonProperty("creator_user_name")
   private String creatorUserName;
 
   /** Serverless budget policy ID of this pipeline. */
-  @JsonProperty("effective_budget_policy_id")
   private String effectiveBudgetPolicyId;
 
   /** The health of a pipeline. */
-  @JsonProperty("health")
   private GetPipelineResponseHealth health;
 
   /** The last time the pipeline settings were modified or created. */
-  @JsonProperty("last_modified")
   private Long lastModified;
 
   /** Status of the latest updates for the pipeline. Ordered with the newest update first. */
-  @JsonProperty("latest_updates")
   private Collection<UpdateStateInfo> latestUpdates;
 
   /** A human friendly identifier for the pipeline, taken from the `spec`. */
-  @JsonProperty("name")
   private String name;
 
   /** The ID of the pipeline. */
-  @JsonProperty("pipeline_id")
   private String pipelineId;
 
   /** Username of the user that the pipeline will run on behalf of. */
-  @JsonProperty("run_as_user_name")
   private String runAsUserName;
 
   /** The pipeline specification. This field is not returned when called by `ListPipelines`. */
-  @JsonProperty("spec")
   private PipelineSpec spec;
 
   /** The pipeline state. */
-  @JsonProperty("state")
   private PipelineState state;
 
   public GetPipelineResponse setCause(String cause) {
@@ -218,5 +217,61 @@ public class GetPipelineResponse {
         .add("spec", spec)
         .add("state", state)
         .toString();
+  }
+
+  GetPipelineResponsePb toPb() {
+    GetPipelineResponsePb pb = new GetPipelineResponsePb();
+    pb.setCause(cause);
+    pb.setClusterId(clusterId);
+    pb.setCreatorUserName(creatorUserName);
+    pb.setEffectiveBudgetPolicyId(effectiveBudgetPolicyId);
+    pb.setHealth(health);
+    pb.setLastModified(lastModified);
+    pb.setLatestUpdates(latestUpdates);
+    pb.setName(name);
+    pb.setPipelineId(pipelineId);
+    pb.setRunAsUserName(runAsUserName);
+    pb.setSpec(spec);
+    pb.setState(state);
+
+    return pb;
+  }
+
+  static GetPipelineResponse fromPb(GetPipelineResponsePb pb) {
+    GetPipelineResponse model = new GetPipelineResponse();
+    model.setCause(pb.getCause());
+    model.setClusterId(pb.getClusterId());
+    model.setCreatorUserName(pb.getCreatorUserName());
+    model.setEffectiveBudgetPolicyId(pb.getEffectiveBudgetPolicyId());
+    model.setHealth(pb.getHealth());
+    model.setLastModified(pb.getLastModified());
+    model.setLatestUpdates(pb.getLatestUpdates());
+    model.setName(pb.getName());
+    model.setPipelineId(pb.getPipelineId());
+    model.setRunAsUserName(pb.getRunAsUserName());
+    model.setSpec(pb.getSpec());
+    model.setState(pb.getState());
+
+    return model;
+  }
+
+  public static class GetPipelineResponseSerializer extends JsonSerializer<GetPipelineResponse> {
+    @Override
+    public void serialize(GetPipelineResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetPipelineResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetPipelineResponseDeserializer
+      extends JsonDeserializer<GetPipelineResponse> {
+    @Override
+    public GetPipelineResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetPipelineResponsePb pb = mapper.readValue(p, GetPipelineResponsePb.class);
+      return GetPipelineResponse.fromPb(pb);
+    }
   }
 }

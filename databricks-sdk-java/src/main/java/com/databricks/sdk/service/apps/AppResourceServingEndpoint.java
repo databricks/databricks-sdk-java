@@ -4,20 +4,29 @@ package com.databricks.sdk.service.apps;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = AppResourceServingEndpoint.AppResourceServingEndpointSerializer.class)
+@JsonDeserialize(using = AppResourceServingEndpoint.AppResourceServingEndpointDeserializer.class)
 public class AppResourceServingEndpoint {
   /** Name of the serving endpoint to grant permission on. */
-  @JsonProperty("name")
   private String name;
 
   /**
    * Permission to grant on the serving endpoint. Supported permissions are: "CAN_MANAGE",
    * "CAN_QUERY", "CAN_VIEW".
    */
-  @JsonProperty("permission")
   private AppResourceServingEndpointServingEndpointPermission permission;
 
   public AppResourceServingEndpoint setName(String name) {
@@ -58,5 +67,43 @@ public class AppResourceServingEndpoint {
         .add("name", name)
         .add("permission", permission)
         .toString();
+  }
+
+  AppResourceServingEndpointPb toPb() {
+    AppResourceServingEndpointPb pb = new AppResourceServingEndpointPb();
+    pb.setName(name);
+    pb.setPermission(permission);
+
+    return pb;
+  }
+
+  static AppResourceServingEndpoint fromPb(AppResourceServingEndpointPb pb) {
+    AppResourceServingEndpoint model = new AppResourceServingEndpoint();
+    model.setName(pb.getName());
+    model.setPermission(pb.getPermission());
+
+    return model;
+  }
+
+  public static class AppResourceServingEndpointSerializer
+      extends JsonSerializer<AppResourceServingEndpoint> {
+    @Override
+    public void serialize(
+        AppResourceServingEndpoint value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      AppResourceServingEndpointPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class AppResourceServingEndpointDeserializer
+      extends JsonDeserializer<AppResourceServingEndpoint> {
+    @Override
+    public AppResourceServingEndpoint deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      AppResourceServingEndpointPb pb = mapper.readValue(p, AppResourceServingEndpointPb.class);
+      return AppResourceServingEndpoint.fromPb(pb);
+    }
   }
 }

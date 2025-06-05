@@ -4,17 +4,28 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get refresh */
 @Generated
+@JsonSerialize(using = GetRefreshRequest.GetRefreshRequestSerializer.class)
+@JsonDeserialize(using = GetRefreshRequest.GetRefreshRequestDeserializer.class)
 public class GetRefreshRequest {
   /** ID of the refresh. */
-  @JsonIgnore private String refreshId;
+  private String refreshId;
 
   /** Full name of the table. */
-  @JsonIgnore private String tableName;
+  private String tableName;
 
   public GetRefreshRequest setRefreshId(String refreshId) {
     this.refreshId = refreshId;
@@ -53,5 +64,40 @@ public class GetRefreshRequest {
         .add("refreshId", refreshId)
         .add("tableName", tableName)
         .toString();
+  }
+
+  GetRefreshRequestPb toPb() {
+    GetRefreshRequestPb pb = new GetRefreshRequestPb();
+    pb.setRefreshId(refreshId);
+    pb.setTableName(tableName);
+
+    return pb;
+  }
+
+  static GetRefreshRequest fromPb(GetRefreshRequestPb pb) {
+    GetRefreshRequest model = new GetRefreshRequest();
+    model.setRefreshId(pb.getRefreshId());
+    model.setTableName(pb.getTableName());
+
+    return model;
+  }
+
+  public static class GetRefreshRequestSerializer extends JsonSerializer<GetRefreshRequest> {
+    @Override
+    public void serialize(GetRefreshRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetRefreshRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetRefreshRequestDeserializer extends JsonDeserializer<GetRefreshRequest> {
+    @Override
+    public GetRefreshRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetRefreshRequestPb pb = mapper.readValue(p, GetRefreshRequestPb.class);
+      return GetRefreshRequest.fromPb(pb);
+    }
   }
 }

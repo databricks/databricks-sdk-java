@@ -4,30 +4,36 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateCatalog.CreateCatalogSerializer.class)
+@JsonDeserialize(using = CreateCatalog.CreateCatalogDeserializer.class)
 public class CreateCatalog {
   /** User-provided free-form text description. */
-  @JsonProperty("comment")
   private String comment;
 
   /** The name of the connection to an external data source. */
-  @JsonProperty("connection_name")
   private String connectionName;
 
   /** Name of catalog. */
-  @JsonProperty("name")
   private String name;
 
   /** A map of key-value properties attached to the securable. */
-  @JsonProperty("options")
   private Map<String, String> options;
 
   /** A map of key-value properties attached to the securable. */
-  @JsonProperty("properties")
   private Map<String, String> properties;
 
   /**
@@ -36,15 +42,12 @@ public class CreateCatalog {
    * <p>A Delta Sharing catalog is a catalog that is based on a Delta share on a remote sharing
    * server.
    */
-  @JsonProperty("provider_name")
   private String providerName;
 
   /** The name of the share under the share provider. */
-  @JsonProperty("share_name")
   private String shareName;
 
   /** Storage root URL for managed tables within catalog. */
-  @JsonProperty("storage_root")
   private String storageRoot;
 
   public CreateCatalog setComment(String comment) {
@@ -152,5 +155,51 @@ public class CreateCatalog {
         .add("shareName", shareName)
         .add("storageRoot", storageRoot)
         .toString();
+  }
+
+  CreateCatalogPb toPb() {
+    CreateCatalogPb pb = new CreateCatalogPb();
+    pb.setComment(comment);
+    pb.setConnectionName(connectionName);
+    pb.setName(name);
+    pb.setOptions(options);
+    pb.setProperties(properties);
+    pb.setProviderName(providerName);
+    pb.setShareName(shareName);
+    pb.setStorageRoot(storageRoot);
+
+    return pb;
+  }
+
+  static CreateCatalog fromPb(CreateCatalogPb pb) {
+    CreateCatalog model = new CreateCatalog();
+    model.setComment(pb.getComment());
+    model.setConnectionName(pb.getConnectionName());
+    model.setName(pb.getName());
+    model.setOptions(pb.getOptions());
+    model.setProperties(pb.getProperties());
+    model.setProviderName(pb.getProviderName());
+    model.setShareName(pb.getShareName());
+    model.setStorageRoot(pb.getStorageRoot());
+
+    return model;
+  }
+
+  public static class CreateCatalogSerializer extends JsonSerializer<CreateCatalog> {
+    @Override
+    public void serialize(CreateCatalog value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateCatalogPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateCatalogDeserializer extends JsonDeserializer<CreateCatalog> {
+    @Override
+    public CreateCatalog deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateCatalogPb pb = mapper.readValue(p, CreateCatalogPb.class);
+      return CreateCatalog.fromPb(pb);
+    }
   }
 }

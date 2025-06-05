@@ -4,21 +4,30 @@ package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ListReposResponse.ListReposResponseSerializer.class)
+@JsonDeserialize(using = ListReposResponse.ListReposResponseDeserializer.class)
 public class ListReposResponse {
   /**
    * Token that can be specified as a query parameter to the `GET /repos` endpoint to retrieve the
    * next page of results.
    */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   /** List of Git folders (repos). */
-  @JsonProperty("repos")
   private Collection<RepoInfo> repos;
 
   public ListReposResponse setNextPageToken(String nextPageToken) {
@@ -58,5 +67,40 @@ public class ListReposResponse {
         .add("nextPageToken", nextPageToken)
         .add("repos", repos)
         .toString();
+  }
+
+  ListReposResponsePb toPb() {
+    ListReposResponsePb pb = new ListReposResponsePb();
+    pb.setNextPageToken(nextPageToken);
+    pb.setRepos(repos);
+
+    return pb;
+  }
+
+  static ListReposResponse fromPb(ListReposResponsePb pb) {
+    ListReposResponse model = new ListReposResponse();
+    model.setNextPageToken(pb.getNextPageToken());
+    model.setRepos(pb.getRepos());
+
+    return model;
+  }
+
+  public static class ListReposResponseSerializer extends JsonSerializer<ListReposResponse> {
+    @Override
+    public void serialize(ListReposResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListReposResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListReposResponseDeserializer extends JsonDeserializer<ListReposResponse> {
+    @Override
+    public ListReposResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListReposResponsePb pb = mapper.readValue(p, ListReposResponsePb.class);
+      return ListReposResponse.fromPb(pb);
+    }
   }
 }

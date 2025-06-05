@@ -4,16 +4,26 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ConditionTask.ConditionTaskSerializer.class)
+@JsonDeserialize(using = ConditionTask.ConditionTaskDeserializer.class)
 public class ConditionTask {
   /**
    * The left operand of the condition task. Can be either a string value or a job state or
    * parameter reference.
    */
-  @JsonProperty("left")
   private String left;
 
   /**
@@ -26,14 +36,12 @@ public class ConditionTask {
    * `NOT_EQUAL`. If a task value was set to a boolean value, it will be serialized to `“true”` or
    * `“false”` for the comparison.
    */
-  @JsonProperty("op")
   private ConditionTaskOp op;
 
   /**
    * The right operand of the condition task. Can be either a string value or a job state or
    * parameter reference.
    */
-  @JsonProperty("right")
   private String right;
 
   public ConditionTask setLeft(String left) {
@@ -85,5 +93,41 @@ public class ConditionTask {
         .add("op", op)
         .add("right", right)
         .toString();
+  }
+
+  ConditionTaskPb toPb() {
+    ConditionTaskPb pb = new ConditionTaskPb();
+    pb.setLeft(left);
+    pb.setOp(op);
+    pb.setRight(right);
+
+    return pb;
+  }
+
+  static ConditionTask fromPb(ConditionTaskPb pb) {
+    ConditionTask model = new ConditionTask();
+    model.setLeft(pb.getLeft());
+    model.setOp(pb.getOp());
+    model.setRight(pb.getRight());
+
+    return model;
+  }
+
+  public static class ConditionTaskSerializer extends JsonSerializer<ConditionTask> {
+    @Override
+    public void serialize(ConditionTask value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ConditionTaskPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ConditionTaskDeserializer extends JsonDeserializer<ConditionTask> {
+    @Override
+    public ConditionTask deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ConditionTaskPb pb = mapper.readValue(p, ConditionTaskPb.class);
+      return ConditionTask.fromPb(pb);
+    }
   }
 }

@@ -4,18 +4,27 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Tag for a run. */
 @Generated
+@JsonSerialize(using = RunTag.RunTagSerializer.class)
+@JsonDeserialize(using = RunTag.RunTagDeserializer.class)
 public class RunTag {
   /** The tag key. */
-  @JsonProperty("key")
   private String key;
 
   /** The tag value. */
-  @JsonProperty("value")
   private String value;
 
   public RunTag setKey(String key) {
@@ -52,5 +61,39 @@ public class RunTag {
   @Override
   public String toString() {
     return new ToStringer(RunTag.class).add("key", key).add("value", value).toString();
+  }
+
+  RunTagPb toPb() {
+    RunTagPb pb = new RunTagPb();
+    pb.setKey(key);
+    pb.setValue(value);
+
+    return pb;
+  }
+
+  static RunTag fromPb(RunTagPb pb) {
+    RunTag model = new RunTag();
+    model.setKey(pb.getKey());
+    model.setValue(pb.getValue());
+
+    return model;
+  }
+
+  public static class RunTagSerializer extends JsonSerializer<RunTag> {
+    @Override
+    public void serialize(RunTag value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      RunTagPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class RunTagDeserializer extends JsonDeserializer<RunTag> {
+    @Override
+    public RunTag deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      RunTagPb pb = mapper.readValue(p, RunTagPb.class);
+      return RunTag.fromPb(pb);
+    }
   }
 }

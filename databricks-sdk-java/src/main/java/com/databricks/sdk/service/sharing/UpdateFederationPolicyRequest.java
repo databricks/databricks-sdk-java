@@ -3,26 +3,35 @@
 package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Update recipient federation policy */
 @Generated
+@JsonSerialize(using = UpdateFederationPolicyRequest.UpdateFederationPolicyRequestSerializer.class)
+@JsonDeserialize(
+    using = UpdateFederationPolicyRequest.UpdateFederationPolicyRequestDeserializer.class)
 public class UpdateFederationPolicyRequest {
   /** Name of the policy. This is the name of the current name of the policy. */
-  @JsonIgnore private String name;
+  private String name;
 
   /** */
-  @JsonProperty("policy")
   private FederationPolicy policy;
 
   /**
    * Name of the recipient. This is the name of the recipient for which the policy is being updated.
    */
-  @JsonIgnore private String recipientName;
+  private String recipientName;
 
   /**
    * The field mask specifies which fields of the policy to update. To specify multiple fields in
@@ -31,8 +40,6 @@ public class UpdateFederationPolicyRequest {
    * policy provided in the update request will overwrite the corresponding fields in the existing
    * policy. Example value: 'comment,oidc_policy.audiences'.
    */
-  @JsonIgnore
-  @QueryParam("update_mask")
   private String updateMask;
 
   public UpdateFederationPolicyRequest setName(String name) {
@@ -95,5 +102,48 @@ public class UpdateFederationPolicyRequest {
         .add("recipientName", recipientName)
         .add("updateMask", updateMask)
         .toString();
+  }
+
+  UpdateFederationPolicyRequestPb toPb() {
+    UpdateFederationPolicyRequestPb pb = new UpdateFederationPolicyRequestPb();
+    pb.setName(name);
+    pb.setPolicy(policy);
+    pb.setRecipientName(recipientName);
+    pb.setUpdateMask(updateMask);
+
+    return pb;
+  }
+
+  static UpdateFederationPolicyRequest fromPb(UpdateFederationPolicyRequestPb pb) {
+    UpdateFederationPolicyRequest model = new UpdateFederationPolicyRequest();
+    model.setName(pb.getName());
+    model.setPolicy(pb.getPolicy());
+    model.setRecipientName(pb.getRecipientName());
+    model.setUpdateMask(pb.getUpdateMask());
+
+    return model;
+  }
+
+  public static class UpdateFederationPolicyRequestSerializer
+      extends JsonSerializer<UpdateFederationPolicyRequest> {
+    @Override
+    public void serialize(
+        UpdateFederationPolicyRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateFederationPolicyRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateFederationPolicyRequestDeserializer
+      extends JsonDeserializer<UpdateFederationPolicyRequest> {
+    @Override
+    public UpdateFederationPolicyRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateFederationPolicyRequestPb pb =
+          mapper.readValue(p, UpdateFederationPolicyRequestPb.class);
+      return UpdateFederationPolicyRequest.fromPb(pb);
+    }
   }
 }

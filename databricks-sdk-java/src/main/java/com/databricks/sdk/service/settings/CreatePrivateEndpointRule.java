@@ -4,7 +4,16 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -13,6 +22,8 @@ import java.util.Objects;
  * portal after initialization.
  */
 @Generated
+@JsonSerialize(using = CreatePrivateEndpointRule.CreatePrivateEndpointRuleSerializer.class)
+@JsonDeserialize(using = CreatePrivateEndpointRule.CreatePrivateEndpointRuleDeserializer.class)
 public class CreatePrivateEndpointRule {
   /**
    * Only used by private endpoints to customer-managed private endpoint services.
@@ -20,14 +31,12 @@ public class CreatePrivateEndpointRule {
    * <p>Domain names of target private link service. When updating this field, the full list of
    * target domain_names must be specified.
    */
-  @JsonProperty("domain_names")
   private Collection<String> domainNames;
 
   /**
    * The full target AWS endpoint service name that connects to the destination resources of the
    * private endpoint.
    */
-  @JsonProperty("endpoint_service")
   private String endpointService;
 
   /**
@@ -36,11 +45,9 @@ public class CreatePrivateEndpointRule {
    * <p>The sub-resource type (group ID) of the target resource. Note that to connect to workspace
    * root storage (root DBFS), you need two endpoints, one for blob and one for dfs.
    */
-  @JsonProperty("group_id")
   private String groupId;
 
   /** The Azure resource ID of the target resource. */
-  @JsonProperty("resource_id")
   private String resourceId;
 
   /**
@@ -51,7 +58,6 @@ public class CreatePrivateEndpointRule {
    * perform full update on this field. Please ensure a full list of desired resource_names is
    * provided.
    */
-  @JsonProperty("resource_names")
   private Collection<String> resourceNames;
 
   public CreatePrivateEndpointRule setDomainNames(Collection<String> domainNames) {
@@ -125,5 +131,49 @@ public class CreatePrivateEndpointRule {
         .add("resourceId", resourceId)
         .add("resourceNames", resourceNames)
         .toString();
+  }
+
+  CreatePrivateEndpointRulePb toPb() {
+    CreatePrivateEndpointRulePb pb = new CreatePrivateEndpointRulePb();
+    pb.setDomainNames(domainNames);
+    pb.setEndpointService(endpointService);
+    pb.setGroupId(groupId);
+    pb.setResourceId(resourceId);
+    pb.setResourceNames(resourceNames);
+
+    return pb;
+  }
+
+  static CreatePrivateEndpointRule fromPb(CreatePrivateEndpointRulePb pb) {
+    CreatePrivateEndpointRule model = new CreatePrivateEndpointRule();
+    model.setDomainNames(pb.getDomainNames());
+    model.setEndpointService(pb.getEndpointService());
+    model.setGroupId(pb.getGroupId());
+    model.setResourceId(pb.getResourceId());
+    model.setResourceNames(pb.getResourceNames());
+
+    return model;
+  }
+
+  public static class CreatePrivateEndpointRuleSerializer
+      extends JsonSerializer<CreatePrivateEndpointRule> {
+    @Override
+    public void serialize(
+        CreatePrivateEndpointRule value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreatePrivateEndpointRulePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreatePrivateEndpointRuleDeserializer
+      extends JsonDeserializer<CreatePrivateEndpointRule> {
+    @Override
+    public CreatePrivateEndpointRule deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreatePrivateEndpointRulePb pb = mapper.readValue(p, CreatePrivateEndpointRulePb.class);
+      return CreatePrivateEndpointRule.fromPb(pb);
+    }
   }
 }

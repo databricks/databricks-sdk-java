@@ -3,21 +3,29 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Update an alert */
 @Generated
+@JsonSerialize(using = UpdateAlertV2Request.UpdateAlertV2RequestSerializer.class)
+@JsonDeserialize(using = UpdateAlertV2Request.UpdateAlertV2RequestDeserializer.class)
 public class UpdateAlertV2Request {
   /** */
-  @JsonProperty("alert")
   private AlertV2 alert;
 
   /** UUID identifying the alert. */
-  @JsonIgnore private String id;
+  private String id;
 
   /**
    * The field mask must be a single string, with multiple fields separated by commas (no spaces).
@@ -30,8 +38,6 @@ public class UpdateAlertV2Request {
    * the fields being updated and avoid using `*` wildcards, as it can lead to unintended results if
    * the API changes in the future.
    */
-  @JsonIgnore
-  @QueryParam("update_mask")
   private String updateMask;
 
   public UpdateAlertV2Request setAlert(AlertV2 alert) {
@@ -83,5 +89,44 @@ public class UpdateAlertV2Request {
         .add("id", id)
         .add("updateMask", updateMask)
         .toString();
+  }
+
+  UpdateAlertV2RequestPb toPb() {
+    UpdateAlertV2RequestPb pb = new UpdateAlertV2RequestPb();
+    pb.setAlert(alert);
+    pb.setId(id);
+    pb.setUpdateMask(updateMask);
+
+    return pb;
+  }
+
+  static UpdateAlertV2Request fromPb(UpdateAlertV2RequestPb pb) {
+    UpdateAlertV2Request model = new UpdateAlertV2Request();
+    model.setAlert(pb.getAlert());
+    model.setId(pb.getId());
+    model.setUpdateMask(pb.getUpdateMask());
+
+    return model;
+  }
+
+  public static class UpdateAlertV2RequestSerializer extends JsonSerializer<UpdateAlertV2Request> {
+    @Override
+    public void serialize(
+        UpdateAlertV2Request value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateAlertV2RequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateAlertV2RequestDeserializer
+      extends JsonDeserializer<UpdateAlertV2Request> {
+    @Override
+    public UpdateAlertV2Request deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateAlertV2RequestPb pb = mapper.readValue(p, UpdateAlertV2RequestPb.class);
+      return UpdateAlertV2Request.fromPb(pb);
+    }
   }
 }

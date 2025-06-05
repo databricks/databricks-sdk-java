@@ -4,18 +4,27 @@ package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = PrivateAccessSettings.PrivateAccessSettingsSerializer.class)
+@JsonDeserialize(using = PrivateAccessSettings.PrivateAccessSettingsDeserializer.class)
 public class PrivateAccessSettings {
   /** The Databricks account ID that hosts the credential. */
-  @JsonProperty("account_id")
   private String accountId;
 
   /** An array of Databricks VPC endpoint IDs. */
-  @JsonProperty("allowed_vpc_endpoint_ids")
   private Collection<String> allowedVpcEndpointIds;
 
   /**
@@ -25,15 +34,12 @@ public class PrivateAccessSettings {
    * your workspace. * `ENDPOINT` level access allows only specified VPC endpoints connect to your
    * workspace. For details, see `allowed_vpc_endpoint_ids`.
    */
-  @JsonProperty("private_access_level")
   private PrivateAccessLevel privateAccessLevel;
 
   /** Databricks private access settings ID. */
-  @JsonProperty("private_access_settings_id")
   private String privateAccessSettingsId;
 
   /** The human-readable name of the private access settings object. */
-  @JsonProperty("private_access_settings_name")
   private String privateAccessSettingsName;
 
   /**
@@ -42,11 +48,9 @@ public class PrivateAccessSettings {
    * back-end PrivateLink connections. Otherwise, specify `true`, which means that public access is
    * enabled.
    */
-  @JsonProperty("public_access_enabled")
   private Boolean publicAccessEnabled;
 
   /** The cloud region for workspaces attached to this private access settings object. */
-  @JsonProperty("region")
   private String region;
 
   public PrivateAccessSettings setAccountId(String accountId) {
@@ -149,5 +153,53 @@ public class PrivateAccessSettings {
         .add("publicAccessEnabled", publicAccessEnabled)
         .add("region", region)
         .toString();
+  }
+
+  PrivateAccessSettingsPb toPb() {
+    PrivateAccessSettingsPb pb = new PrivateAccessSettingsPb();
+    pb.setAccountId(accountId);
+    pb.setAllowedVpcEndpointIds(allowedVpcEndpointIds);
+    pb.setPrivateAccessLevel(privateAccessLevel);
+    pb.setPrivateAccessSettingsId(privateAccessSettingsId);
+    pb.setPrivateAccessSettingsName(privateAccessSettingsName);
+    pb.setPublicAccessEnabled(publicAccessEnabled);
+    pb.setRegion(region);
+
+    return pb;
+  }
+
+  static PrivateAccessSettings fromPb(PrivateAccessSettingsPb pb) {
+    PrivateAccessSettings model = new PrivateAccessSettings();
+    model.setAccountId(pb.getAccountId());
+    model.setAllowedVpcEndpointIds(pb.getAllowedVpcEndpointIds());
+    model.setPrivateAccessLevel(pb.getPrivateAccessLevel());
+    model.setPrivateAccessSettingsId(pb.getPrivateAccessSettingsId());
+    model.setPrivateAccessSettingsName(pb.getPrivateAccessSettingsName());
+    model.setPublicAccessEnabled(pb.getPublicAccessEnabled());
+    model.setRegion(pb.getRegion());
+
+    return model;
+  }
+
+  public static class PrivateAccessSettingsSerializer
+      extends JsonSerializer<PrivateAccessSettings> {
+    @Override
+    public void serialize(
+        PrivateAccessSettings value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PrivateAccessSettingsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PrivateAccessSettingsDeserializer
+      extends JsonDeserializer<PrivateAccessSettings> {
+    @Override
+    public PrivateAccessSettings deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PrivateAccessSettingsPb pb = mapper.readValue(p, PrivateAccessSettingsPb.class);
+      return PrivateAccessSettings.fromPb(pb);
+    }
   }
 }

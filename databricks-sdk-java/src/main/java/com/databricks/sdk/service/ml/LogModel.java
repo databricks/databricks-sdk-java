@@ -4,17 +4,26 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = LogModel.LogModelSerializer.class)
+@JsonDeserialize(using = LogModel.LogModelDeserializer.class)
 public class LogModel {
   /** MLmodel file in json format. */
-  @JsonProperty("model_json")
   private String modelJson;
 
   /** ID of the run to log under */
-  @JsonProperty("run_id")
   private String runId;
 
   public LogModel setModelJson(String modelJson) {
@@ -54,5 +63,39 @@ public class LogModel {
         .add("modelJson", modelJson)
         .add("runId", runId)
         .toString();
+  }
+
+  LogModelPb toPb() {
+    LogModelPb pb = new LogModelPb();
+    pb.setModelJson(modelJson);
+    pb.setRunId(runId);
+
+    return pb;
+  }
+
+  static LogModel fromPb(LogModelPb pb) {
+    LogModel model = new LogModel();
+    model.setModelJson(pb.getModelJson());
+    model.setRunId(pb.getRunId());
+
+    return model;
+  }
+
+  public static class LogModelSerializer extends JsonSerializer<LogModel> {
+    @Override
+    public void serialize(LogModel value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      LogModelPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class LogModelDeserializer extends JsonDeserializer<LogModel> {
+    @Override
+    public LogModel deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      LogModelPb pb = mapper.readValue(p, LogModelPb.class);
+      return LogModel.fromPb(pb);
+    }
   }
 }

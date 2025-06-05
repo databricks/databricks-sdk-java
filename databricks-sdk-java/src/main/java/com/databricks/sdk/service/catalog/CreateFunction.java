@@ -4,61 +4,59 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateFunction.CreateFunctionSerializer.class)
+@JsonDeserialize(using = CreateFunction.CreateFunctionDeserializer.class)
 public class CreateFunction {
   /** Name of parent catalog. */
-  @JsonProperty("catalog_name")
   private String catalogName;
 
   /** User-provided free-form text description. */
-  @JsonProperty("comment")
   private String comment;
 
   /** Scalar function return data type. */
-  @JsonProperty("data_type")
   private ColumnTypeName dataType;
 
   /** External function language. */
-  @JsonProperty("external_language")
   private String externalLanguage;
 
   /** External function name. */
-  @JsonProperty("external_name")
   private String externalName;
 
   /** Pretty printed function data type. */
-  @JsonProperty("full_data_type")
   private String fullDataType;
 
   /** */
-  @JsonProperty("input_params")
   private FunctionParameterInfos inputParams;
 
   /** Whether the function is deterministic. */
-  @JsonProperty("is_deterministic")
   private Boolean isDeterministic;
 
   /** Function null call. */
-  @JsonProperty("is_null_call")
   private Boolean isNullCall;
 
   /** Name of function, relative to parent schema. */
-  @JsonProperty("name")
   private String name;
 
   /** Function parameter style. **S** is the value for SQL. */
-  @JsonProperty("parameter_style")
   private CreateFunctionParameterStyle parameterStyle;
 
   /** JSON-serialized key-value pair map, encoded (escaped) as a string. */
-  @JsonProperty("properties")
   private String properties;
 
   /** Table function return parameters. */
-  @JsonProperty("return_params")
   private FunctionParameterInfos returnParams;
 
   /**
@@ -67,35 +65,27 @@ public class CreateFunction {
    * be used (as **TABLE** return type is not supported), and the __sql_data_access__ field must be
    * **NO_SQL**.
    */
-  @JsonProperty("routine_body")
   private CreateFunctionRoutineBody routineBody;
 
   /** Function body. */
-  @JsonProperty("routine_definition")
   private String routineDefinition;
 
   /** Function dependencies. */
-  @JsonProperty("routine_dependencies")
   private DependencyList routineDependencies;
 
   /** Name of parent schema relative to its parent catalog. */
-  @JsonProperty("schema_name")
   private String schemaName;
 
   /** Function security type. */
-  @JsonProperty("security_type")
   private CreateFunctionSecurityType securityType;
 
   /** Specific name of the function; Reserved for future use. */
-  @JsonProperty("specific_name")
   private String specificName;
 
   /** Function SQL data access. */
-  @JsonProperty("sql_data_access")
   private CreateFunctionSqlDataAccess sqlDataAccess;
 
   /** List of schemes whose objects can be referenced without qualification. */
-  @JsonProperty("sql_path")
   private String sqlPath;
 
   public CreateFunction setCatalogName(String catalogName) {
@@ -366,5 +356,78 @@ public class CreateFunction {
         .add("sqlDataAccess", sqlDataAccess)
         .add("sqlPath", sqlPath)
         .toString();
+  }
+
+  CreateFunctionPb toPb() {
+    CreateFunctionPb pb = new CreateFunctionPb();
+    pb.setCatalogName(catalogName);
+    pb.setComment(comment);
+    pb.setDataType(dataType);
+    pb.setExternalLanguage(externalLanguage);
+    pb.setExternalName(externalName);
+    pb.setFullDataType(fullDataType);
+    pb.setInputParams(inputParams);
+    pb.setIsDeterministic(isDeterministic);
+    pb.setIsNullCall(isNullCall);
+    pb.setName(name);
+    pb.setParameterStyle(parameterStyle);
+    pb.setProperties(properties);
+    pb.setReturnParams(returnParams);
+    pb.setRoutineBody(routineBody);
+    pb.setRoutineDefinition(routineDefinition);
+    pb.setRoutineDependencies(routineDependencies);
+    pb.setSchemaName(schemaName);
+    pb.setSecurityType(securityType);
+    pb.setSpecificName(specificName);
+    pb.setSqlDataAccess(sqlDataAccess);
+    pb.setSqlPath(sqlPath);
+
+    return pb;
+  }
+
+  static CreateFunction fromPb(CreateFunctionPb pb) {
+    CreateFunction model = new CreateFunction();
+    model.setCatalogName(pb.getCatalogName());
+    model.setComment(pb.getComment());
+    model.setDataType(pb.getDataType());
+    model.setExternalLanguage(pb.getExternalLanguage());
+    model.setExternalName(pb.getExternalName());
+    model.setFullDataType(pb.getFullDataType());
+    model.setInputParams(pb.getInputParams());
+    model.setIsDeterministic(pb.getIsDeterministic());
+    model.setIsNullCall(pb.getIsNullCall());
+    model.setName(pb.getName());
+    model.setParameterStyle(pb.getParameterStyle());
+    model.setProperties(pb.getProperties());
+    model.setReturnParams(pb.getReturnParams());
+    model.setRoutineBody(pb.getRoutineBody());
+    model.setRoutineDefinition(pb.getRoutineDefinition());
+    model.setRoutineDependencies(pb.getRoutineDependencies());
+    model.setSchemaName(pb.getSchemaName());
+    model.setSecurityType(pb.getSecurityType());
+    model.setSpecificName(pb.getSpecificName());
+    model.setSqlDataAccess(pb.getSqlDataAccess());
+    model.setSqlPath(pb.getSqlPath());
+
+    return model;
+  }
+
+  public static class CreateFunctionSerializer extends JsonSerializer<CreateFunction> {
+    @Override
+    public void serialize(CreateFunction value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateFunctionPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateFunctionDeserializer extends JsonDeserializer<CreateFunction> {
+    @Override
+    public CreateFunction deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateFunctionPb pb = mapper.readValue(p, CreateFunctionPb.class);
+      return CreateFunction.fromPb(pb);
+    }
   }
 }

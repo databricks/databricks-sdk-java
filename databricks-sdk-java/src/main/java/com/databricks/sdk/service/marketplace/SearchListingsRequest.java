@@ -3,53 +3,47 @@
 package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 /** Search listings */
 @Generated
+@JsonSerialize(using = SearchListingsRequest.SearchListingsRequestSerializer.class)
+@JsonDeserialize(using = SearchListingsRequest.SearchListingsRequestDeserializer.class)
 public class SearchListingsRequest {
   /** Matches any of the following asset types */
-  @JsonIgnore
-  @QueryParam("assets")
   private Collection<AssetType> assets;
 
   /** Matches any of the following categories */
-  @JsonIgnore
-  @QueryParam("categories")
   private Collection<Category> categories;
 
   /** */
-  @JsonIgnore
-  @QueryParam("is_free")
   private Boolean isFree;
 
   /** */
-  @JsonIgnore
-  @QueryParam("is_private_exchange")
   private Boolean isPrivateExchange;
 
   /** */
-  @JsonIgnore
-  @QueryParam("page_size")
   private Long pageSize;
 
   /** */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   /** Matches any of the following provider ids */
-  @JsonIgnore
-  @QueryParam("provider_ids")
   private Collection<String> providerIds;
 
   /** Fuzzy matches query */
-  @JsonIgnore
-  @QueryParam("query")
   private String query;
 
   public SearchListingsRequest setAssets(Collection<AssetType> assets) {
@@ -157,5 +151,55 @@ public class SearchListingsRequest {
         .add("providerIds", providerIds)
         .add("query", query)
         .toString();
+  }
+
+  SearchListingsRequestPb toPb() {
+    SearchListingsRequestPb pb = new SearchListingsRequestPb();
+    pb.setAssets(assets);
+    pb.setCategories(categories);
+    pb.setIsFree(isFree);
+    pb.setIsPrivateExchange(isPrivateExchange);
+    pb.setPageSize(pageSize);
+    pb.setPageToken(pageToken);
+    pb.setProviderIds(providerIds);
+    pb.setQuery(query);
+
+    return pb;
+  }
+
+  static SearchListingsRequest fromPb(SearchListingsRequestPb pb) {
+    SearchListingsRequest model = new SearchListingsRequest();
+    model.setAssets(pb.getAssets());
+    model.setCategories(pb.getCategories());
+    model.setIsFree(pb.getIsFree());
+    model.setIsPrivateExchange(pb.getIsPrivateExchange());
+    model.setPageSize(pb.getPageSize());
+    model.setPageToken(pb.getPageToken());
+    model.setProviderIds(pb.getProviderIds());
+    model.setQuery(pb.getQuery());
+
+    return model;
+  }
+
+  public static class SearchListingsRequestSerializer
+      extends JsonSerializer<SearchListingsRequest> {
+    @Override
+    public void serialize(
+        SearchListingsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SearchListingsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SearchListingsRequestDeserializer
+      extends JsonDeserializer<SearchListingsRequest> {
+    @Override
+    public SearchListingsRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SearchListingsRequestPb pb = mapper.readValue(p, SearchListingsRequestPb.class);
+      return SearchListingsRequest.fromPb(pb);
+    }
   }
 }

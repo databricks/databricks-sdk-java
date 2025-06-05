@@ -4,18 +4,29 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = CreateForecastingExperimentRequest.CreateForecastingExperimentRequestSerializer.class)
+@JsonDeserialize(
+    using = CreateForecastingExperimentRequest.CreateForecastingExperimentRequestDeserializer.class)
 public class CreateForecastingExperimentRequest {
   /** The column in the training table used to customize weights for each time series. */
-  @JsonProperty("custom_weights_column")
   private String customWeightsColumn;
 
   /** The path in the workspace to store the created experiment. */
-  @JsonProperty("experiment_path")
   private String experimentPath;
 
   /**
@@ -23,27 +34,23 @@ public class CreateForecastingExperimentRequest {
    * second', '1 minute', '5 minutes', '10 minutes', '15 minutes', '30 minutes', 'Hourly', 'Daily',
    * 'Weekly', 'Monthly', 'Quarterly', 'Yearly'.
    */
-  @JsonProperty("forecast_granularity")
   private String forecastGranularity;
 
   /**
    * The number of time steps into the future to make predictions, calculated as a multiple of
    * forecast_granularity. This value represents how far ahead the model should forecast.
    */
-  @JsonProperty("forecast_horizon")
   private Long forecastHorizon;
 
   /**
    * The fully qualified path of a Unity Catalog table, formatted as
    * catalog_name.schema_name.table_name, used to store future feature data for predictions.
    */
-  @JsonProperty("future_feature_data_path")
   private String futureFeatureDataPath;
 
   /**
    * The region code(s) to automatically add holiday features. Currently supports only one region.
    */
-  @JsonProperty("holiday_regions")
   private Collection<String> holidayRegions;
 
   /**
@@ -53,71 +60,60 @@ public class CreateForecastingExperimentRequest {
    * excluded: split_column, target_column, custom_weights_column. - Automatically included:
    * time_column.
    */
-  @JsonProperty("include_features")
   private Collection<String> includeFeatures;
 
   /**
    * The maximum duration for the experiment in minutes. The experiment stops automatically if it
    * exceeds this limit.
    */
-  @JsonProperty("max_runtime")
   private Long maxRuntime;
 
   /**
    * The fully qualified path of a Unity Catalog table, formatted as
    * catalog_name.schema_name.table_name, used to store predictions.
    */
-  @JsonProperty("prediction_data_path")
   private String predictionDataPath;
 
   /** The evaluation metric used to optimize the forecasting model. */
-  @JsonProperty("primary_metric")
   private String primaryMetric;
 
   /**
    * The fully qualified path of a Unity Catalog model, formatted as
    * catalog_name.schema_name.model_name, used to store the best model.
    */
-  @JsonProperty("register_to")
   private String registerTo;
 
   /**
    * // The column in the training table used for custom data splits. Values must be 'train',
    * 'validate', or 'test'.
    */
-  @JsonProperty("split_column")
   private String splitColumn;
 
   /**
    * The column in the input training table used as the prediction target for model training. The
    * values in this column are used as the ground truth for model training.
    */
-  @JsonProperty("target_column")
   private String targetColumn;
 
   /** The column in the input training table that represents each row's timestamp. */
-  @JsonProperty("time_column")
   private String timeColumn;
 
   /**
    * The column in the training table used to group the dataset for predicting individual time
    * series.
    */
-  @JsonProperty("timeseries_identifier_columns")
   private Collection<String> timeseriesIdentifierColumns;
 
   /**
    * The fully qualified path of a Unity Catalog table, formatted as
    * catalog_name.schema_name.table_name, used as training data for the forecasting model.
    */
-  @JsonProperty("train_data_path")
   private String trainDataPath;
 
   /**
    * List of frameworks to include for model tuning. Possible values are 'Prophet', 'ARIMA',
    * 'DeepAR'. An empty list includes all supported frameworks.
    */
-  @JsonProperty("training_frameworks")
   private Collection<String> trainingFrameworks;
 
   public CreateForecastingExperimentRequest setCustomWeightsColumn(String customWeightsColumn) {
@@ -342,5 +338,74 @@ public class CreateForecastingExperimentRequest {
         .add("trainDataPath", trainDataPath)
         .add("trainingFrameworks", trainingFrameworks)
         .toString();
+  }
+
+  CreateForecastingExperimentRequestPb toPb() {
+    CreateForecastingExperimentRequestPb pb = new CreateForecastingExperimentRequestPb();
+    pb.setCustomWeightsColumn(customWeightsColumn);
+    pb.setExperimentPath(experimentPath);
+    pb.setForecastGranularity(forecastGranularity);
+    pb.setForecastHorizon(forecastHorizon);
+    pb.setFutureFeatureDataPath(futureFeatureDataPath);
+    pb.setHolidayRegions(holidayRegions);
+    pb.setIncludeFeatures(includeFeatures);
+    pb.setMaxRuntime(maxRuntime);
+    pb.setPredictionDataPath(predictionDataPath);
+    pb.setPrimaryMetric(primaryMetric);
+    pb.setRegisterTo(registerTo);
+    pb.setSplitColumn(splitColumn);
+    pb.setTargetColumn(targetColumn);
+    pb.setTimeColumn(timeColumn);
+    pb.setTimeseriesIdentifierColumns(timeseriesIdentifierColumns);
+    pb.setTrainDataPath(trainDataPath);
+    pb.setTrainingFrameworks(trainingFrameworks);
+
+    return pb;
+  }
+
+  static CreateForecastingExperimentRequest fromPb(CreateForecastingExperimentRequestPb pb) {
+    CreateForecastingExperimentRequest model = new CreateForecastingExperimentRequest();
+    model.setCustomWeightsColumn(pb.getCustomWeightsColumn());
+    model.setExperimentPath(pb.getExperimentPath());
+    model.setForecastGranularity(pb.getForecastGranularity());
+    model.setForecastHorizon(pb.getForecastHorizon());
+    model.setFutureFeatureDataPath(pb.getFutureFeatureDataPath());
+    model.setHolidayRegions(pb.getHolidayRegions());
+    model.setIncludeFeatures(pb.getIncludeFeatures());
+    model.setMaxRuntime(pb.getMaxRuntime());
+    model.setPredictionDataPath(pb.getPredictionDataPath());
+    model.setPrimaryMetric(pb.getPrimaryMetric());
+    model.setRegisterTo(pb.getRegisterTo());
+    model.setSplitColumn(pb.getSplitColumn());
+    model.setTargetColumn(pb.getTargetColumn());
+    model.setTimeColumn(pb.getTimeColumn());
+    model.setTimeseriesIdentifierColumns(pb.getTimeseriesIdentifierColumns());
+    model.setTrainDataPath(pb.getTrainDataPath());
+    model.setTrainingFrameworks(pb.getTrainingFrameworks());
+
+    return model;
+  }
+
+  public static class CreateForecastingExperimentRequestSerializer
+      extends JsonSerializer<CreateForecastingExperimentRequest> {
+    @Override
+    public void serialize(
+        CreateForecastingExperimentRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateForecastingExperimentRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateForecastingExperimentRequestDeserializer
+      extends JsonDeserializer<CreateForecastingExperimentRequest> {
+    @Override
+    public CreateForecastingExperimentRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateForecastingExperimentRequestPb pb =
+          mapper.readValue(p, CreateForecastingExperimentRequestPb.class);
+      return CreateForecastingExperimentRequest.fromPb(pb);
+    }
   }
 }

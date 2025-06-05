@@ -4,57 +4,56 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ColumnInfo.ColumnInfoSerializer.class)
+@JsonDeserialize(using = ColumnInfo.ColumnInfoDeserializer.class)
 public class ColumnInfo {
   /** User-provided free-form text description. */
-  @JsonProperty("comment")
   private String comment;
 
   /** */
-  @JsonProperty("mask")
   private ColumnMask mask;
 
   /** Name of Column. */
-  @JsonProperty("name")
   private String name;
 
   /** Whether field may be Null (default: true). */
-  @JsonProperty("nullable")
   private Boolean nullable;
 
   /** Partition index for column. */
-  @JsonProperty("partition_index")
   private Long partitionIndex;
 
   /** Ordinal position of column (starting at position 0). */
-  @JsonProperty("position")
   private Long position;
 
   /** Format of IntervalType. */
-  @JsonProperty("type_interval_type")
   private String typeIntervalType;
 
   /** Full data type specification, JSON-serialized. */
-  @JsonProperty("type_json")
   private String typeJson;
 
   /** */
-  @JsonProperty("type_name")
   private ColumnTypeName typeName;
 
   /** Digits of precision; required for DecimalTypes. */
-  @JsonProperty("type_precision")
   private Long typePrecision;
 
   /** Digits to right of decimal; Required for DecimalTypes. */
-  @JsonProperty("type_scale")
   private Long typeScale;
 
   /** Full data type specification as SQL/catalogString text. */
-  @JsonProperty("type_text")
   private String typeText;
 
   public ColumnInfo setComment(String comment) {
@@ -217,5 +216,59 @@ public class ColumnInfo {
         .add("typeScale", typeScale)
         .add("typeText", typeText)
         .toString();
+  }
+
+  ColumnInfoPb toPb() {
+    ColumnInfoPb pb = new ColumnInfoPb();
+    pb.setComment(comment);
+    pb.setMask(mask);
+    pb.setName(name);
+    pb.setNullable(nullable);
+    pb.setPartitionIndex(partitionIndex);
+    pb.setPosition(position);
+    pb.setTypeIntervalType(typeIntervalType);
+    pb.setTypeJson(typeJson);
+    pb.setTypeName(typeName);
+    pb.setTypePrecision(typePrecision);
+    pb.setTypeScale(typeScale);
+    pb.setTypeText(typeText);
+
+    return pb;
+  }
+
+  static ColumnInfo fromPb(ColumnInfoPb pb) {
+    ColumnInfo model = new ColumnInfo();
+    model.setComment(pb.getComment());
+    model.setMask(pb.getMask());
+    model.setName(pb.getName());
+    model.setNullable(pb.getNullable());
+    model.setPartitionIndex(pb.getPartitionIndex());
+    model.setPosition(pb.getPosition());
+    model.setTypeIntervalType(pb.getTypeIntervalType());
+    model.setTypeJson(pb.getTypeJson());
+    model.setTypeName(pb.getTypeName());
+    model.setTypePrecision(pb.getTypePrecision());
+    model.setTypeScale(pb.getTypeScale());
+    model.setTypeText(pb.getTypeText());
+
+    return model;
+  }
+
+  public static class ColumnInfoSerializer extends JsonSerializer<ColumnInfo> {
+    @Override
+    public void serialize(ColumnInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ColumnInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ColumnInfoDeserializer extends JsonDeserializer<ColumnInfo> {
+    @Override
+    public ColumnInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ColumnInfoPb pb = mapper.readValue(p, ColumnInfoPb.class);
+      return ColumnInfo.fromPb(pb);
+    }
   }
 }

@@ -4,17 +4,26 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = RenameModelRequest.RenameModelRequestSerializer.class)
+@JsonDeserialize(using = RenameModelRequest.RenameModelRequestDeserializer.class)
 public class RenameModelRequest {
   /** Registered model unique name identifier. */
-  @JsonProperty("name")
   private String name;
 
   /** If provided, updates the name for this `registered_model`. */
-  @JsonProperty("new_name")
   private String newName;
 
   public RenameModelRequest setName(String name) {
@@ -54,5 +63,40 @@ public class RenameModelRequest {
         .add("name", name)
         .add("newName", newName)
         .toString();
+  }
+
+  RenameModelRequestPb toPb() {
+    RenameModelRequestPb pb = new RenameModelRequestPb();
+    pb.setName(name);
+    pb.setNewName(newName);
+
+    return pb;
+  }
+
+  static RenameModelRequest fromPb(RenameModelRequestPb pb) {
+    RenameModelRequest model = new RenameModelRequest();
+    model.setName(pb.getName());
+    model.setNewName(pb.getNewName());
+
+    return model;
+  }
+
+  public static class RenameModelRequestSerializer extends JsonSerializer<RenameModelRequest> {
+    @Override
+    public void serialize(RenameModelRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      RenameModelRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class RenameModelRequestDeserializer extends JsonDeserializer<RenameModelRequest> {
+    @Override
+    public RenameModelRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      RenameModelRequestPb pb = mapper.readValue(p, RenameModelRequestPb.class);
+      return RenameModelRequest.fromPb(pb);
+    }
   }
 }

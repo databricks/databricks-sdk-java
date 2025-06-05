@@ -4,11 +4,26 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** The etag is returned. */
 @Generated
+@JsonSerialize(
+    using =
+        DeletePersonalComputeSettingResponse.DeletePersonalComputeSettingResponseSerializer.class)
+@JsonDeserialize(
+    using =
+        DeletePersonalComputeSettingResponse.DeletePersonalComputeSettingResponseDeserializer.class)
 public class DeletePersonalComputeSettingResponse {
   /**
    * etag used for versioning. The response is at least as fresh as the eTag provided. This is used
@@ -18,7 +33,6 @@ public class DeletePersonalComputeSettingResponse {
    * an etag from a GET request, and pass it with the DELETE request to identify the rule set
    * version you are deleting.
    */
-  @JsonProperty("etag")
   private String etag;
 
   public DeletePersonalComputeSettingResponse setEtag(String etag) {
@@ -46,5 +60,42 @@ public class DeletePersonalComputeSettingResponse {
   @Override
   public String toString() {
     return new ToStringer(DeletePersonalComputeSettingResponse.class).add("etag", etag).toString();
+  }
+
+  DeletePersonalComputeSettingResponsePb toPb() {
+    DeletePersonalComputeSettingResponsePb pb = new DeletePersonalComputeSettingResponsePb();
+    pb.setEtag(etag);
+
+    return pb;
+  }
+
+  static DeletePersonalComputeSettingResponse fromPb(DeletePersonalComputeSettingResponsePb pb) {
+    DeletePersonalComputeSettingResponse model = new DeletePersonalComputeSettingResponse();
+    model.setEtag(pb.getEtag());
+
+    return model;
+  }
+
+  public static class DeletePersonalComputeSettingResponseSerializer
+      extends JsonSerializer<DeletePersonalComputeSettingResponse> {
+    @Override
+    public void serialize(
+        DeletePersonalComputeSettingResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DeletePersonalComputeSettingResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DeletePersonalComputeSettingResponseDeserializer
+      extends JsonDeserializer<DeletePersonalComputeSettingResponse> {
+    @Override
+    public DeletePersonalComputeSettingResponse deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DeletePersonalComputeSettingResponsePb pb =
+          mapper.readValue(p, DeletePersonalComputeSettingResponsePb.class);
+      return DeletePersonalComputeSettingResponse.fromPb(pb);
+    }
   }
 }

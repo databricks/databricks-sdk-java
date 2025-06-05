@@ -4,21 +4,29 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = Patch.PatchSerializer.class)
+@JsonDeserialize(using = Patch.PatchDeserializer.class)
 public class Patch {
   /** Type of patch operation. */
-  @JsonProperty("op")
   private PatchOp op;
 
   /** Selection of patch operation */
-  @JsonProperty("path")
   private String path;
 
   /** Value to modify */
-  @JsonProperty("value")
   private Object value;
 
   public Patch setOp(PatchOp op) {
@@ -70,5 +78,41 @@ public class Patch {
         .add("path", path)
         .add("value", value)
         .toString();
+  }
+
+  PatchPb toPb() {
+    PatchPb pb = new PatchPb();
+    pb.setOp(op);
+    pb.setPath(path);
+    pb.setValue(value);
+
+    return pb;
+  }
+
+  static Patch fromPb(PatchPb pb) {
+    Patch model = new Patch();
+    model.setOp(pb.getOp());
+    model.setPath(pb.getPath());
+    model.setValue(pb.getValue());
+
+    return model;
+  }
+
+  public static class PatchSerializer extends JsonSerializer<Patch> {
+    @Override
+    public void serialize(Patch value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PatchPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PatchDeserializer extends JsonDeserializer<Patch> {
+    @Override
+    public Patch deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PatchPb pb = mapper.readValue(p, PatchPb.class);
+      return Patch.fromPb(pb);
+    }
   }
 }

@@ -21,7 +21,7 @@ class DbfsImpl implements DbfsService {
     String path = "/api/2.0/dbfs/add-block";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, AddBlockResponse.class);
@@ -35,7 +35,7 @@ class DbfsImpl implements DbfsService {
     String path = "/api/2.0/dbfs/close";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, CloseResponse.class);
@@ -49,7 +49,7 @@ class DbfsImpl implements DbfsService {
     String path = "/api/2.0/dbfs/create";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, CreateResponse.class);
@@ -63,7 +63,7 @@ class DbfsImpl implements DbfsService {
     String path = "/api/2.0/dbfs/delete";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, DeleteResponse.class);
@@ -77,7 +77,7 @@ class DbfsImpl implements DbfsService {
     String path = "/api/2.0/dbfs/get-status";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, FileInfo.class);
     } catch (IOException e) {
@@ -90,7 +90,7 @@ class DbfsImpl implements DbfsService {
     String path = "/api/2.0/dbfs/list";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListStatusResponse.class);
     } catch (IOException e) {
@@ -103,7 +103,7 @@ class DbfsImpl implements DbfsService {
     String path = "/api/2.0/dbfs/mkdirs";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, MkDirsResponse.class);
@@ -117,7 +117,7 @@ class DbfsImpl implements DbfsService {
     String path = "/api/2.0/dbfs/move";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, MoveResponse.class);
@@ -131,7 +131,7 @@ class DbfsImpl implements DbfsService {
     String path = "/api/2.0/dbfs/put";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, PutResponse.class);
@@ -145,7 +145,7 @@ class DbfsImpl implements DbfsService {
     String path = "/api/2.0/dbfs/read";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ReadResponse.class);
     } catch (IOException e) {

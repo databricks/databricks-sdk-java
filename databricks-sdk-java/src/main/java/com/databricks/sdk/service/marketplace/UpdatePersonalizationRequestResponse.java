@@ -4,13 +4,27 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using =
+        UpdatePersonalizationRequestResponse.UpdatePersonalizationRequestResponseSerializer.class)
+@JsonDeserialize(
+    using =
+        UpdatePersonalizationRequestResponse.UpdatePersonalizationRequestResponseDeserializer.class)
 public class UpdatePersonalizationRequestResponse {
   /** */
-  @JsonProperty("request")
   private PersonalizationRequest request;
 
   public UpdatePersonalizationRequestResponse setRequest(PersonalizationRequest request) {
@@ -40,5 +54,42 @@ public class UpdatePersonalizationRequestResponse {
     return new ToStringer(UpdatePersonalizationRequestResponse.class)
         .add("request", request)
         .toString();
+  }
+
+  UpdatePersonalizationRequestResponsePb toPb() {
+    UpdatePersonalizationRequestResponsePb pb = new UpdatePersonalizationRequestResponsePb();
+    pb.setRequest(request);
+
+    return pb;
+  }
+
+  static UpdatePersonalizationRequestResponse fromPb(UpdatePersonalizationRequestResponsePb pb) {
+    UpdatePersonalizationRequestResponse model = new UpdatePersonalizationRequestResponse();
+    model.setRequest(pb.getRequest());
+
+    return model;
+  }
+
+  public static class UpdatePersonalizationRequestResponseSerializer
+      extends JsonSerializer<UpdatePersonalizationRequestResponse> {
+    @Override
+    public void serialize(
+        UpdatePersonalizationRequestResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdatePersonalizationRequestResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdatePersonalizationRequestResponseDeserializer
+      extends JsonDeserializer<UpdatePersonalizationRequestResponse> {
+    @Override
+    public UpdatePersonalizationRequestResponse deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdatePersonalizationRequestResponsePb pb =
+          mapper.readValue(p, UpdatePersonalizationRequestResponsePb.class);
+      return UpdatePersonalizationRequestResponse.fromPb(pb);
+    }
   }
 }

@@ -4,22 +4,30 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = SerializedException.SerializedExceptionSerializer.class)
+@JsonDeserialize(using = SerializedException.SerializedExceptionDeserializer.class)
 public class SerializedException {
   /** Runtime class of the exception */
-  @JsonProperty("class_name")
   private String className;
 
   /** Exception message */
-  @JsonProperty("message")
   private String message;
 
   /** Stack trace consisting of a list of stack frames */
-  @JsonProperty("stack")
   private Collection<StackFrame> stack;
 
   public SerializedException setClassName(String className) {
@@ -71,5 +79,43 @@ public class SerializedException {
         .add("message", message)
         .add("stack", stack)
         .toString();
+  }
+
+  SerializedExceptionPb toPb() {
+    SerializedExceptionPb pb = new SerializedExceptionPb();
+    pb.setClassName(className);
+    pb.setMessage(message);
+    pb.setStack(stack);
+
+    return pb;
+  }
+
+  static SerializedException fromPb(SerializedExceptionPb pb) {
+    SerializedException model = new SerializedException();
+    model.setClassName(pb.getClassName());
+    model.setMessage(pb.getMessage());
+    model.setStack(pb.getStack());
+
+    return model;
+  }
+
+  public static class SerializedExceptionSerializer extends JsonSerializer<SerializedException> {
+    @Override
+    public void serialize(SerializedException value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SerializedExceptionPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SerializedExceptionDeserializer
+      extends JsonDeserializer<SerializedException> {
+    @Override
+    public SerializedException deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SerializedExceptionPb pb = mapper.readValue(p, SerializedExceptionPb.class);
+      return SerializedException.fromPb(pb);
+    }
   }
 }

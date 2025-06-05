@@ -4,25 +4,33 @@ package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Databricks log delivery status. */
 @Generated
+@JsonSerialize(using = LogDeliveryStatus.LogDeliveryStatusSerializer.class)
+@JsonDeserialize(using = LogDeliveryStatus.LogDeliveryStatusDeserializer.class)
 public class LogDeliveryStatus {
   /** The UTC time for the latest log delivery attempt. */
-  @JsonProperty("last_attempt_time")
   private String lastAttemptTime;
 
   /** The UTC time for the latest successful log delivery. */
-  @JsonProperty("last_successful_attempt_time")
   private String lastSuccessfulAttemptTime;
 
   /**
    * Informative message about the latest log delivery attempt. If the log delivery fails with
    * USER_FAILURE, error details will be provided for fixing misconfigurations in cloud permissions.
    */
-  @JsonProperty("message")
   private String message;
 
   /**
@@ -35,7 +43,6 @@ public class LogDeliveryStatus {
    * the configuration has been disabled since the release of this feature or there are no
    * workspaces in the account.
    */
-  @JsonProperty("status")
   private DeliveryStatus status;
 
   public LogDeliveryStatus setLastAttemptTime(String lastAttemptTime) {
@@ -98,5 +105,44 @@ public class LogDeliveryStatus {
         .add("message", message)
         .add("status", status)
         .toString();
+  }
+
+  LogDeliveryStatusPb toPb() {
+    LogDeliveryStatusPb pb = new LogDeliveryStatusPb();
+    pb.setLastAttemptTime(lastAttemptTime);
+    pb.setLastSuccessfulAttemptTime(lastSuccessfulAttemptTime);
+    pb.setMessage(message);
+    pb.setStatus(status);
+
+    return pb;
+  }
+
+  static LogDeliveryStatus fromPb(LogDeliveryStatusPb pb) {
+    LogDeliveryStatus model = new LogDeliveryStatus();
+    model.setLastAttemptTime(pb.getLastAttemptTime());
+    model.setLastSuccessfulAttemptTime(pb.getLastSuccessfulAttemptTime());
+    model.setMessage(pb.getMessage());
+    model.setStatus(pb.getStatus());
+
+    return model;
+  }
+
+  public static class LogDeliveryStatusSerializer extends JsonSerializer<LogDeliveryStatus> {
+    @Override
+    public void serialize(LogDeliveryStatus value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      LogDeliveryStatusPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class LogDeliveryStatusDeserializer extends JsonDeserializer<LogDeliveryStatus> {
+    @Override
+    public LogDeliveryStatus deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      LogDeliveryStatusPb pb = mapper.readValue(p, LogDeliveryStatusPb.class);
+      return LogDeliveryStatus.fromPb(pb);
+    }
   }
 }

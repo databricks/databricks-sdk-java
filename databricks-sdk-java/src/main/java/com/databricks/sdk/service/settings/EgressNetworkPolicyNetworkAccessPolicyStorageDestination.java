@@ -4,30 +4,42 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Users can specify accessible storage destinations. */
 @Generated
+@JsonSerialize(
+    using =
+        EgressNetworkPolicyNetworkAccessPolicyStorageDestination
+            .EgressNetworkPolicyNetworkAccessPolicyStorageDestinationSerializer.class)
+@JsonDeserialize(
+    using =
+        EgressNetworkPolicyNetworkAccessPolicyStorageDestination
+            .EgressNetworkPolicyNetworkAccessPolicyStorageDestinationDeserializer.class)
 public class EgressNetworkPolicyNetworkAccessPolicyStorageDestination {
   /** The Azure storage account name. */
-  @JsonProperty("azure_storage_account")
   private String azureStorageAccount;
 
   /** The Azure storage service type (blob, dfs, etc.). */
-  @JsonProperty("azure_storage_service")
   private String azureStorageService;
 
   /** */
-  @JsonProperty("bucket_name")
   private String bucketName;
 
   /** The region of the S3 bucket. */
-  @JsonProperty("region")
   private String region;
 
   /** The type of storage destination. */
-  @JsonProperty("storage_destination_type")
   private EgressNetworkPolicyNetworkAccessPolicyStorageDestinationStorageDestinationType
       storageDestinationType;
 
@@ -109,5 +121,55 @@ public class EgressNetworkPolicyNetworkAccessPolicyStorageDestination {
         .add("region", region)
         .add("storageDestinationType", storageDestinationType)
         .toString();
+  }
+
+  EgressNetworkPolicyNetworkAccessPolicyStorageDestinationPb toPb() {
+    EgressNetworkPolicyNetworkAccessPolicyStorageDestinationPb pb =
+        new EgressNetworkPolicyNetworkAccessPolicyStorageDestinationPb();
+    pb.setAzureStorageAccount(azureStorageAccount);
+    pb.setAzureStorageService(azureStorageService);
+    pb.setBucketName(bucketName);
+    pb.setRegion(region);
+    pb.setStorageDestinationType(storageDestinationType);
+
+    return pb;
+  }
+
+  static EgressNetworkPolicyNetworkAccessPolicyStorageDestination fromPb(
+      EgressNetworkPolicyNetworkAccessPolicyStorageDestinationPb pb) {
+    EgressNetworkPolicyNetworkAccessPolicyStorageDestination model =
+        new EgressNetworkPolicyNetworkAccessPolicyStorageDestination();
+    model.setAzureStorageAccount(pb.getAzureStorageAccount());
+    model.setAzureStorageService(pb.getAzureStorageService());
+    model.setBucketName(pb.getBucketName());
+    model.setRegion(pb.getRegion());
+    model.setStorageDestinationType(pb.getStorageDestinationType());
+
+    return model;
+  }
+
+  public static class EgressNetworkPolicyNetworkAccessPolicyStorageDestinationSerializer
+      extends JsonSerializer<EgressNetworkPolicyNetworkAccessPolicyStorageDestination> {
+    @Override
+    public void serialize(
+        EgressNetworkPolicyNetworkAccessPolicyStorageDestination value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      EgressNetworkPolicyNetworkAccessPolicyStorageDestinationPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class EgressNetworkPolicyNetworkAccessPolicyStorageDestinationDeserializer
+      extends JsonDeserializer<EgressNetworkPolicyNetworkAccessPolicyStorageDestination> {
+    @Override
+    public EgressNetworkPolicyNetworkAccessPolicyStorageDestination deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      EgressNetworkPolicyNetworkAccessPolicyStorageDestinationPb pb =
+          mapper.readValue(p, EgressNetworkPolicyNetworkAccessPolicyStorageDestinationPb.class);
+      return EgressNetworkPolicyNetworkAccessPolicyStorageDestination.fromPb(pb);
+    }
   }
 }

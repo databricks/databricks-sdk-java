@@ -4,14 +4,24 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = Partition.PartitionSerializer.class)
+@JsonDeserialize(using = Partition.PartitionDeserializer.class)
 public class Partition {
   /** An array of partition values. */
-  @JsonProperty("values")
   private Collection<PartitionValue> values;
 
   public Partition setValues(Collection<PartitionValue> values) {
@@ -39,5 +49,37 @@ public class Partition {
   @Override
   public String toString() {
     return new ToStringer(Partition.class).add("values", values).toString();
+  }
+
+  PartitionPb toPb() {
+    PartitionPb pb = new PartitionPb();
+    pb.setValues(values);
+
+    return pb;
+  }
+
+  static Partition fromPb(PartitionPb pb) {
+    Partition model = new Partition();
+    model.setValues(pb.getValues());
+
+    return model;
+  }
+
+  public static class PartitionSerializer extends JsonSerializer<Partition> {
+    @Override
+    public void serialize(Partition value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PartitionPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PartitionDeserializer extends JsonDeserializer<Partition> {
+    @Override
+    public Partition deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PartitionPb pb = mapper.readValue(p, PartitionPb.class);
+      return Partition.fromPb(pb);
+    }
   }
 }

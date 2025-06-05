@@ -4,20 +4,29 @@ package com.databricks.sdk.service.files;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ReadResponse.ReadResponseSerializer.class)
+@JsonDeserialize(using = ReadResponse.ReadResponseDeserializer.class)
 public class ReadResponse {
   /**
    * The number of bytes read (could be less than ``length`` if we hit end of file). This refers to
    * number of bytes read in unencoded version (response data is base64-encoded).
    */
-  @JsonProperty("bytes_read")
   private Long bytesRead;
 
   /** The base64-encoded contents of the file read. */
-  @JsonProperty("data")
   private String data;
 
   public ReadResponse setBytesRead(Long bytesRead) {
@@ -57,5 +66,39 @@ public class ReadResponse {
         .add("bytesRead", bytesRead)
         .add("data", data)
         .toString();
+  }
+
+  ReadResponsePb toPb() {
+    ReadResponsePb pb = new ReadResponsePb();
+    pb.setBytesRead(bytesRead);
+    pb.setData(data);
+
+    return pb;
+  }
+
+  static ReadResponse fromPb(ReadResponsePb pb) {
+    ReadResponse model = new ReadResponse();
+    model.setBytesRead(pb.getBytesRead());
+    model.setData(pb.getData());
+
+    return model;
+  }
+
+  public static class ReadResponseSerializer extends JsonSerializer<ReadResponse> {
+    @Override
+    public void serialize(ReadResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ReadResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ReadResponseDeserializer extends JsonDeserializer<ReadResponse> {
+    @Override
+    public ReadResponse deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ReadResponsePb pb = mapper.readValue(p, ReadResponsePb.class);
+      return ReadResponse.fromPb(pb);
+    }
   }
 }

@@ -4,15 +4,25 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateJob.CreateJobSerializer.class)
+@JsonDeserialize(using = CreateJob.CreateJobDeserializer.class)
 public class CreateJob {
   /** List of permissions to set on the job. */
-  @JsonProperty("access_control_list")
   private Collection<JobAccessControlRequest> accessControlList;
 
   /**
@@ -20,24 +30,20 @@ public class CreateJob {
    * budget policy may be applied when creating or modifying the job. See
    * `effective_budget_policy_id` for the budget policy used by this workload.
    */
-  @JsonProperty("budget_policy_id")
   private String budgetPolicyId;
 
   /**
    * An optional continuous property for this job. The continuous property will ensure that there is
    * always one run executing. Only one of `schedule` and `continuous` can be used.
    */
-  @JsonProperty("continuous")
   private Continuous continuous;
 
   /** Deployment information for jobs managed by external sources. */
-  @JsonProperty("deployment")
   private JobDeployment deployment;
 
   /**
    * An optional description for the job. The maximum length is 27700 characters in UTF-8 encoding.
    */
-  @JsonProperty("description")
   private String description;
 
   /**
@@ -46,14 +52,12 @@ public class CreateJob {
    * <p>* `UI_LOCKED`: The job is in a locked UI state and cannot be modified. * `EDITABLE`: The job
    * is in an editable state and can be modified.
    */
-  @JsonProperty("edit_mode")
   private JobEditMode editMode;
 
   /**
    * An optional set of email addresses that is notified when runs of this job begin or complete as
    * well as when this job is deleted.
    */
-  @JsonProperty("email_notifications")
   private JobEmailNotifications emailNotifications;
 
   /**
@@ -63,14 +67,12 @@ public class CreateJob {
    * serverless tasks, the task environment is required to be specified using environment_key in the
    * task settings.
    */
-  @JsonProperty("environments")
   private Collection<JobEnvironment> environments;
 
   /**
    * Used to tell what is the format of the job. This field is ignored in Create/Update/Reset calls.
    * When using the Jobs API 2.1 this value is always set to `"MULTI_TASK"`.
    */
-  @JsonProperty("format")
   private Format format;
 
   /**
@@ -84,11 +86,9 @@ public class CreateJob {
    * <p>Note: dbt and SQL File tasks support only version-controlled sources. If dbt or SQL File
    * tasks are used, `git_source` must be defined on the job.
    */
-  @JsonProperty("git_source")
   private GitSource gitSource;
 
   /** An optional set of health rules that can be defined for this job. */
-  @JsonProperty("health")
   private JobsHealthRules health;
 
   /**
@@ -96,7 +96,6 @@ public class CreateJob {
    * Libraries cannot be declared in a shared job cluster. You must declare dependent libraries in
    * task settings.
    */
-  @JsonProperty("job_clusters")
   private Collection<JobCluster> jobClusters;
 
   /**
@@ -109,22 +108,18 @@ public class CreateJob {
    * runs. However, from then on, new runs are skipped unless there are fewer than 3 active runs.
    * This value cannot exceed 1000. Setting this value to `0` causes all new runs to be skipped.
    */
-  @JsonProperty("max_concurrent_runs")
   private Long maxConcurrentRuns;
 
   /** An optional name for the job. The maximum length is 4096 bytes in UTF-8 encoding. */
-  @JsonProperty("name")
   private String name;
 
   /**
    * Optional notification settings that are used when sending notifications to each of the
    * `email_notifications` and `webhook_notifications` for this job.
    */
-  @JsonProperty("notification_settings")
   private JobNotificationSettings notificationSettings;
 
   /** Job-level parameter definitions */
-  @JsonProperty("parameters")
   private Collection<JobParameterDefinition> parameters;
 
   /**
@@ -135,11 +130,9 @@ public class CreateJob {
    * `PERFORMANCE_OPTIMIZED`: Prioritizes fast startup and execution times through rapid scaling and
    * optimized cluster performance.
    */
-  @JsonProperty("performance_target")
   private PerformanceTarget performanceTarget;
 
   /** The queue settings of the job. */
-  @JsonProperty("queue")
   private QueueSettings queue;
 
   /**
@@ -149,14 +142,12 @@ public class CreateJob {
    * <p>Either `user_name` or `service_principal_name` should be specified. If not, an error is
    * thrown.
    */
-  @JsonProperty("run_as")
   private JobRunAs runAs;
 
   /**
    * An optional periodic schedule for this job. The default behavior is that the job only runs when
    * triggered by clicking “Run Now” in the Jobs UI or sending an API request to `runNow`.
    */
-  @JsonProperty("schedule")
   private CronSchedule schedule;
 
   /**
@@ -164,7 +155,6 @@ public class CreateJob {
    * jobs clusters, and are subject to the same limitations as cluster tags. A maximum of 25 tags
    * can be added to the job.
    */
-  @JsonProperty("tags")
   private Map<String, String> tags;
 
   /**
@@ -174,11 +164,9 @@ public class CreateJob {
    * available, you can paginate through them using :method:jobs/get. Use the `next_page_token`
    * field at the object root to determine if more results are available.
    */
-  @JsonProperty("tasks")
   private Collection<Task> tasks;
 
   /** An optional timeout applied to each run of this job. A value of `0` means no timeout. */
-  @JsonProperty("timeout_seconds")
   private Long timeoutSeconds;
 
   /**
@@ -186,15 +174,12 @@ public class CreateJob {
    * the job runs only when triggered by clicking “Run Now” in the Jobs UI or sending an API request
    * to `runNow`.
    */
-  @JsonProperty("trigger")
   private TriggerSettings trigger;
 
   /** A collection of system notification IDs to notify when runs of this job begin or complete. */
-  @JsonProperty("webhook_notifications")
   private WebhookNotifications webhookNotifications;
 
   /** */
-  @JsonProperty("well_known")
   private AllWellKnown wellKnown;
 
   public CreateJob setAccessControlList(Collection<JobAccessControlRequest> accessControlList) {
@@ -525,5 +510,87 @@ public class CreateJob {
         .add("webhookNotifications", webhookNotifications)
         .add("wellKnown", wellKnown)
         .toString();
+  }
+
+  CreateJobPb toPb() {
+    CreateJobPb pb = new CreateJobPb();
+    pb.setAccessControlList(accessControlList);
+    pb.setBudgetPolicyId(budgetPolicyId);
+    pb.setContinuous(continuous);
+    pb.setDeployment(deployment);
+    pb.setDescription(description);
+    pb.setEditMode(editMode);
+    pb.setEmailNotifications(emailNotifications);
+    pb.setEnvironments(environments);
+    pb.setFormat(format);
+    pb.setGitSource(gitSource);
+    pb.setHealth(health);
+    pb.setJobClusters(jobClusters);
+    pb.setMaxConcurrentRuns(maxConcurrentRuns);
+    pb.setName(name);
+    pb.setNotificationSettings(notificationSettings);
+    pb.setParameters(parameters);
+    pb.setPerformanceTarget(performanceTarget);
+    pb.setQueue(queue);
+    pb.setRunAs(runAs);
+    pb.setSchedule(schedule);
+    pb.setTags(tags);
+    pb.setTasks(tasks);
+    pb.setTimeoutSeconds(timeoutSeconds);
+    pb.setTrigger(trigger);
+    pb.setWebhookNotifications(webhookNotifications);
+    pb.setWellKnown(wellKnown);
+
+    return pb;
+  }
+
+  static CreateJob fromPb(CreateJobPb pb) {
+    CreateJob model = new CreateJob();
+    model.setAccessControlList(pb.getAccessControlList());
+    model.setBudgetPolicyId(pb.getBudgetPolicyId());
+    model.setContinuous(pb.getContinuous());
+    model.setDeployment(pb.getDeployment());
+    model.setDescription(pb.getDescription());
+    model.setEditMode(pb.getEditMode());
+    model.setEmailNotifications(pb.getEmailNotifications());
+    model.setEnvironments(pb.getEnvironments());
+    model.setFormat(pb.getFormat());
+    model.setGitSource(pb.getGitSource());
+    model.setHealth(pb.getHealth());
+    model.setJobClusters(pb.getJobClusters());
+    model.setMaxConcurrentRuns(pb.getMaxConcurrentRuns());
+    model.setName(pb.getName());
+    model.setNotificationSettings(pb.getNotificationSettings());
+    model.setParameters(pb.getParameters());
+    model.setPerformanceTarget(pb.getPerformanceTarget());
+    model.setQueue(pb.getQueue());
+    model.setRunAs(pb.getRunAs());
+    model.setSchedule(pb.getSchedule());
+    model.setTags(pb.getTags());
+    model.setTasks(pb.getTasks());
+    model.setTimeoutSeconds(pb.getTimeoutSeconds());
+    model.setTrigger(pb.getTrigger());
+    model.setWebhookNotifications(pb.getWebhookNotifications());
+    model.setWellKnown(pb.getWellKnown());
+
+    return model;
+  }
+
+  public static class CreateJobSerializer extends JsonSerializer<CreateJob> {
+    @Override
+    public void serialize(CreateJob value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateJobPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateJobDeserializer extends JsonDeserializer<CreateJob> {
+    @Override
+    public CreateJob deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateJobPb pb = mapper.readValue(p, CreateJobPb.class);
+      return CreateJob.fromPb(pb);
+    }
   }
 }

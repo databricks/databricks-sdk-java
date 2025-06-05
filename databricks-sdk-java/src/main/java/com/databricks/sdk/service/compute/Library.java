@@ -4,20 +4,29 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = Library.LibrarySerializer.class)
+@JsonDeserialize(using = Library.LibraryDeserializer.class)
 public class Library {
   /** Specification of a CRAN library to be installed as part of the library */
-  @JsonProperty("cran")
   private RCranLibrary cran;
 
   /**
    * Deprecated. URI of the egg library to install. Installing Python egg files is deprecated and is
    * not supported in Databricks Runtime 14.0 and above.
    */
-  @JsonProperty("egg")
   private String egg;
 
   /**
@@ -27,18 +36,15 @@ public class Library {
    * is used, please make sure the cluster has read access on the library. You may need to launch
    * the cluster with an IAM role to access the S3 URI.
    */
-  @JsonProperty("jar")
   private String jar;
 
   /**
    * Specification of a maven library to be installed. For example: `{ "coordinates":
    * "org.jsoup:jsoup:1.7.2" }`
    */
-  @JsonProperty("maven")
   private MavenLibrary maven;
 
   /** Specification of a PyPi library to be installed. For example: `{ "package": "simplejson" }` */
-  @JsonProperty("pypi")
   private PythonPyPiLibrary pypi;
 
   /**
@@ -46,7 +52,6 @@ public class Library {
    * paths are supported. For example: `{ "requirements": "/Workspace/path/to/requirements.txt" }`
    * or `{ "requirements" : "/Volumes/path/to/requirements.txt" }`
    */
-  @JsonProperty("requirements")
   private String requirements;
 
   /**
@@ -56,7 +61,6 @@ public class Library {
    * is used, please make sure the cluster has read access on the library. You may need to launch
    * the cluster with an IAM role to access the S3 URI.
    */
-  @JsonProperty("whl")
   private String whl;
 
   public Library setCran(RCranLibrary cran) {
@@ -152,5 +156,49 @@ public class Library {
         .add("requirements", requirements)
         .add("whl", whl)
         .toString();
+  }
+
+  LibraryPb toPb() {
+    LibraryPb pb = new LibraryPb();
+    pb.setCran(cran);
+    pb.setEgg(egg);
+    pb.setJar(jar);
+    pb.setMaven(maven);
+    pb.setPypi(pypi);
+    pb.setRequirements(requirements);
+    pb.setWhl(whl);
+
+    return pb;
+  }
+
+  static Library fromPb(LibraryPb pb) {
+    Library model = new Library();
+    model.setCran(pb.getCran());
+    model.setEgg(pb.getEgg());
+    model.setJar(pb.getJar());
+    model.setMaven(pb.getMaven());
+    model.setPypi(pb.getPypi());
+    model.setRequirements(pb.getRequirements());
+    model.setWhl(pb.getWhl());
+
+    return model;
+  }
+
+  public static class LibrarySerializer extends JsonSerializer<Library> {
+    @Override
+    public void serialize(Library value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      LibraryPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class LibraryDeserializer extends JsonDeserializer<Library> {
+    @Override
+    public Library deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      LibraryPb pb = mapper.readValue(p, LibraryPb.class);
+      return Library.fromPb(pb);
+    }
   }
 }

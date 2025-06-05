@@ -4,9 +4,21 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = DeleteModelTagResponse.DeleteModelTagResponseSerializer.class)
+@JsonDeserialize(using = DeleteModelTagResponse.DeleteModelTagResponseDeserializer.class)
 public class DeleteModelTagResponse {
 
   @Override
@@ -24,5 +36,39 @@ public class DeleteModelTagResponse {
   @Override
   public String toString() {
     return new ToStringer(DeleteModelTagResponse.class).toString();
+  }
+
+  DeleteModelTagResponsePb toPb() {
+    DeleteModelTagResponsePb pb = new DeleteModelTagResponsePb();
+
+    return pb;
+  }
+
+  static DeleteModelTagResponse fromPb(DeleteModelTagResponsePb pb) {
+    DeleteModelTagResponse model = new DeleteModelTagResponse();
+
+    return model;
+  }
+
+  public static class DeleteModelTagResponseSerializer
+      extends JsonSerializer<DeleteModelTagResponse> {
+    @Override
+    public void serialize(
+        DeleteModelTagResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DeleteModelTagResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DeleteModelTagResponseDeserializer
+      extends JsonDeserializer<DeleteModelTagResponse> {
+    @Override
+    public DeleteModelTagResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DeleteModelTagResponsePb pb = mapper.readValue(p, DeleteModelTagResponsePb.class);
+      return DeleteModelTagResponse.fromPb(pb);
+    }
   }
 }

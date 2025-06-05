@@ -4,152 +4,132 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = TableInfo.TableInfoSerializer.class)
+@JsonDeserialize(using = TableInfo.TableInfoDeserializer.class)
 public class TableInfo {
   /** The AWS access point to use when accesing s3 for this external location. */
-  @JsonProperty("access_point")
   private String accessPoint;
 
   /**
    * Indicates whether the principal is limited to retrieving metadata for the associated object
    * through the BROWSE privilege when include_browse is enabled in the request.
    */
-  @JsonProperty("browse_only")
   private Boolean browseOnly;
 
   /** Name of parent catalog. */
-  @JsonProperty("catalog_name")
   private String catalogName;
 
   /** The array of __ColumnInfo__ definitions of the table's columns. */
-  @JsonProperty("columns")
   private Collection<ColumnInfo> columns;
 
   /** User-provided free-form text description. */
-  @JsonProperty("comment")
   private String comment;
 
   /** Time at which this table was created, in epoch milliseconds. */
-  @JsonProperty("created_at")
   private Long createdAt;
 
   /** Username of table creator. */
-  @JsonProperty("created_by")
   private String createdBy;
 
   /** Unique ID of the Data Access Configuration to use with the table data. */
-  @JsonProperty("data_access_configuration_id")
   private String dataAccessConfigurationId;
 
   /** Data source format */
-  @JsonProperty("data_source_format")
   private DataSourceFormat dataSourceFormat;
 
   /**
    * Time at which this table was deleted, in epoch milliseconds. Field is omitted if table is not
    * deleted.
    */
-  @JsonProperty("deleted_at")
   private Long deletedAt;
 
   /** Information pertaining to current state of the delta table. */
-  @JsonProperty("delta_runtime_properties_kvpairs")
   private DeltaRuntimePropertiesKvPairs deltaRuntimePropertiesKvpairs;
 
   /** */
-  @JsonProperty("effective_predictive_optimization_flag")
   private EffectivePredictiveOptimizationFlag effectivePredictiveOptimizationFlag;
 
   /** */
-  @JsonProperty("enable_predictive_optimization")
   private EnablePredictiveOptimization enablePredictiveOptimization;
 
   /** Encryption options that apply to clients connecting to cloud storage. */
-  @JsonProperty("encryption_details")
   private EncryptionDetails encryptionDetails;
 
   /** Full name of table, in form of __catalog_name__.__schema_name__.__table_name__ */
-  @JsonProperty("full_name")
   private String fullName;
 
   /** Unique identifier of parent metastore. */
-  @JsonProperty("metastore_id")
   private String metastoreId;
 
   /** Name of table, relative to parent schema. */
-  @JsonProperty("name")
   private String name;
 
   /** Username of current owner of table. */
-  @JsonProperty("owner")
   private String owner;
 
   /**
    * The pipeline ID of the table. Applicable for tables created by pipelines (Materialized View,
    * Streaming Table, etc.).
    */
-  @JsonProperty("pipeline_id")
   private String pipelineId;
 
   /** A map of key-value properties attached to the securable. */
-  @JsonProperty("properties")
   private Map<String, String> properties;
 
   /** */
-  @JsonProperty("row_filter")
   private TableRowFilter rowFilter;
 
   /** Name of parent schema relative to its parent catalog. */
-  @JsonProperty("schema_name")
   private String schemaName;
 
   /** List of schemes whose objects can be referenced without qualification. */
-  @JsonProperty("sql_path")
   private String sqlPath;
 
   /**
    * Name of the storage credential, when a storage credential is configured for use with this
    * table.
    */
-  @JsonProperty("storage_credential_name")
   private String storageCredentialName;
 
   /** Storage root URL for table (for **MANAGED**, **EXTERNAL** tables) */
-  @JsonProperty("storage_location")
   private String storageLocation;
 
   /**
    * List of table constraints. Note: this field is not set in the output of the __listTables__ API.
    */
-  @JsonProperty("table_constraints")
   private Collection<TableConstraint> tableConstraints;
 
   /** The unique identifier of the table. */
-  @JsonProperty("table_id")
   private String tableId;
 
   /** */
-  @JsonProperty("table_type")
   private TableType tableType;
 
   /** Time at which this table was last modified, in epoch milliseconds. */
-  @JsonProperty("updated_at")
   private Long updatedAt;
 
   /** Username of user who last modified the table. */
-  @JsonProperty("updated_by")
   private String updatedBy;
 
   /**
    * View definition SQL (when __table_type__ is **VIEW**, **MATERIALIZED_VIEW**, or
    * **STREAMING_TABLE**)
    */
-  @JsonProperty("view_definition")
   private String viewDefinition;
 
   /**
@@ -158,7 +138,6 @@ public class TableInfo {
    * list, the dependency is provided but is empty; - when DependencyList is not an empty list,
    * dependencies are provided and recorded.
    */
-  @JsonProperty("view_dependencies")
   private DependencyList viewDependencies;
 
   public TableInfo setAccessPoint(String accessPoint) {
@@ -565,5 +544,99 @@ public class TableInfo {
         .add("viewDefinition", viewDefinition)
         .add("viewDependencies", viewDependencies)
         .toString();
+  }
+
+  TableInfoPb toPb() {
+    TableInfoPb pb = new TableInfoPb();
+    pb.setAccessPoint(accessPoint);
+    pb.setBrowseOnly(browseOnly);
+    pb.setCatalogName(catalogName);
+    pb.setColumns(columns);
+    pb.setComment(comment);
+    pb.setCreatedAt(createdAt);
+    pb.setCreatedBy(createdBy);
+    pb.setDataAccessConfigurationId(dataAccessConfigurationId);
+    pb.setDataSourceFormat(dataSourceFormat);
+    pb.setDeletedAt(deletedAt);
+    pb.setDeltaRuntimePropertiesKvpairs(deltaRuntimePropertiesKvpairs);
+    pb.setEffectivePredictiveOptimizationFlag(effectivePredictiveOptimizationFlag);
+    pb.setEnablePredictiveOptimization(enablePredictiveOptimization);
+    pb.setEncryptionDetails(encryptionDetails);
+    pb.setFullName(fullName);
+    pb.setMetastoreId(metastoreId);
+    pb.setName(name);
+    pb.setOwner(owner);
+    pb.setPipelineId(pipelineId);
+    pb.setProperties(properties);
+    pb.setRowFilter(rowFilter);
+    pb.setSchemaName(schemaName);
+    pb.setSqlPath(sqlPath);
+    pb.setStorageCredentialName(storageCredentialName);
+    pb.setStorageLocation(storageLocation);
+    pb.setTableConstraints(tableConstraints);
+    pb.setTableId(tableId);
+    pb.setTableType(tableType);
+    pb.setUpdatedAt(updatedAt);
+    pb.setUpdatedBy(updatedBy);
+    pb.setViewDefinition(viewDefinition);
+    pb.setViewDependencies(viewDependencies);
+
+    return pb;
+  }
+
+  static TableInfo fromPb(TableInfoPb pb) {
+    TableInfo model = new TableInfo();
+    model.setAccessPoint(pb.getAccessPoint());
+    model.setBrowseOnly(pb.getBrowseOnly());
+    model.setCatalogName(pb.getCatalogName());
+    model.setColumns(pb.getColumns());
+    model.setComment(pb.getComment());
+    model.setCreatedAt(pb.getCreatedAt());
+    model.setCreatedBy(pb.getCreatedBy());
+    model.setDataAccessConfigurationId(pb.getDataAccessConfigurationId());
+    model.setDataSourceFormat(pb.getDataSourceFormat());
+    model.setDeletedAt(pb.getDeletedAt());
+    model.setDeltaRuntimePropertiesKvpairs(pb.getDeltaRuntimePropertiesKvpairs());
+    model.setEffectivePredictiveOptimizationFlag(pb.getEffectivePredictiveOptimizationFlag());
+    model.setEnablePredictiveOptimization(pb.getEnablePredictiveOptimization());
+    model.setEncryptionDetails(pb.getEncryptionDetails());
+    model.setFullName(pb.getFullName());
+    model.setMetastoreId(pb.getMetastoreId());
+    model.setName(pb.getName());
+    model.setOwner(pb.getOwner());
+    model.setPipelineId(pb.getPipelineId());
+    model.setProperties(pb.getProperties());
+    model.setRowFilter(pb.getRowFilter());
+    model.setSchemaName(pb.getSchemaName());
+    model.setSqlPath(pb.getSqlPath());
+    model.setStorageCredentialName(pb.getStorageCredentialName());
+    model.setStorageLocation(pb.getStorageLocation());
+    model.setTableConstraints(pb.getTableConstraints());
+    model.setTableId(pb.getTableId());
+    model.setTableType(pb.getTableType());
+    model.setUpdatedAt(pb.getUpdatedAt());
+    model.setUpdatedBy(pb.getUpdatedBy());
+    model.setViewDefinition(pb.getViewDefinition());
+    model.setViewDependencies(pb.getViewDependencies());
+
+    return model;
+  }
+
+  public static class TableInfoSerializer extends JsonSerializer<TableInfo> {
+    @Override
+    public void serialize(TableInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      TableInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class TableInfoDeserializer extends JsonDeserializer<TableInfo> {
+    @Override
+    public TableInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      TableInfoPb pb = mapper.readValue(p, TableInfoPb.class);
+      return TableInfo.fromPb(pb);
+    }
   }
 }

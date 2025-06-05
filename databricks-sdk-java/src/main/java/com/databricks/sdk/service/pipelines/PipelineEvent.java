@@ -4,45 +4,47 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = PipelineEvent.PipelineEventSerializer.class)
+@JsonDeserialize(using = PipelineEvent.PipelineEventDeserializer.class)
 public class PipelineEvent {
   /** Information about an error captured by the event. */
-  @JsonProperty("error")
   private ErrorDetail error;
 
   /** The event type. Should always correspond to the details */
-  @JsonProperty("event_type")
   private String eventType;
 
   /** A time-based, globally unique id. */
-  @JsonProperty("id")
   private String id;
 
   /** The severity level of the event. */
-  @JsonProperty("level")
   private EventLevel level;
 
   /** Maturity level for event_type. */
-  @JsonProperty("maturity_level")
   private MaturityLevel maturityLevel;
 
   /** The display message associated with the event. */
-  @JsonProperty("message")
   private String message;
 
   /** Describes where the event originates from. */
-  @JsonProperty("origin")
   private Origin origin;
 
   /** A sequencing object to identify and order events. */
-  @JsonProperty("sequence")
   private Sequencing sequence;
 
   /** The time of the event. */
-  @JsonProperty("timestamp")
   private String timestamp;
 
   public PipelineEvent setError(ErrorDetail error) {
@@ -161,5 +163,53 @@ public class PipelineEvent {
         .add("sequence", sequence)
         .add("timestamp", timestamp)
         .toString();
+  }
+
+  PipelineEventPb toPb() {
+    PipelineEventPb pb = new PipelineEventPb();
+    pb.setError(error);
+    pb.setEventType(eventType);
+    pb.setId(id);
+    pb.setLevel(level);
+    pb.setMaturityLevel(maturityLevel);
+    pb.setMessage(message);
+    pb.setOrigin(origin);
+    pb.setSequence(sequence);
+    pb.setTimestamp(timestamp);
+
+    return pb;
+  }
+
+  static PipelineEvent fromPb(PipelineEventPb pb) {
+    PipelineEvent model = new PipelineEvent();
+    model.setError(pb.getError());
+    model.setEventType(pb.getEventType());
+    model.setId(pb.getId());
+    model.setLevel(pb.getLevel());
+    model.setMaturityLevel(pb.getMaturityLevel());
+    model.setMessage(pb.getMessage());
+    model.setOrigin(pb.getOrigin());
+    model.setSequence(pb.getSequence());
+    model.setTimestamp(pb.getTimestamp());
+
+    return model;
+  }
+
+  public static class PipelineEventSerializer extends JsonSerializer<PipelineEvent> {
+    @Override
+    public void serialize(PipelineEvent value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PipelineEventPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PipelineEventDeserializer extends JsonDeserializer<PipelineEvent> {
+    @Override
+    public PipelineEvent deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PipelineEventPb pb = mapper.readValue(p, PipelineEventPb.class);
+      return PipelineEvent.fromPb(pb);
+    }
   }
 }

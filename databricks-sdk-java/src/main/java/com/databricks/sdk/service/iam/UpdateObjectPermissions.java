@@ -4,19 +4,28 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = UpdateObjectPermissions.UpdateObjectPermissionsSerializer.class)
+@JsonDeserialize(using = UpdateObjectPermissions.UpdateObjectPermissionsDeserializer.class)
 public class UpdateObjectPermissions {
   /** */
-  @JsonProperty("access_control_list")
   private Collection<AccessControlRequest> accessControlList;
 
   /** The id of the request object. */
-  @JsonIgnore private String requestObjectId;
+  private String requestObjectId;
 
   /**
    * The type of the request object. Can be one of the following: alerts, authorization, clusters,
@@ -24,7 +33,7 @@ public class UpdateObjectPermissions {
    * instance-pools, jobs, notebooks, pipelines, queries, registered-models, repos,
    * serving-endpoints, or warehouses.
    */
-  @JsonIgnore private String requestObjectType;
+  private String requestObjectType;
 
   public UpdateObjectPermissions setAccessControlList(
       Collection<AccessControlRequest> accessControlList) {
@@ -76,5 +85,45 @@ public class UpdateObjectPermissions {
         .add("requestObjectId", requestObjectId)
         .add("requestObjectType", requestObjectType)
         .toString();
+  }
+
+  UpdateObjectPermissionsPb toPb() {
+    UpdateObjectPermissionsPb pb = new UpdateObjectPermissionsPb();
+    pb.setAccessControlList(accessControlList);
+    pb.setRequestObjectId(requestObjectId);
+    pb.setRequestObjectType(requestObjectType);
+
+    return pb;
+  }
+
+  static UpdateObjectPermissions fromPb(UpdateObjectPermissionsPb pb) {
+    UpdateObjectPermissions model = new UpdateObjectPermissions();
+    model.setAccessControlList(pb.getAccessControlList());
+    model.setRequestObjectId(pb.getRequestObjectId());
+    model.setRequestObjectType(pb.getRequestObjectType());
+
+    return model;
+  }
+
+  public static class UpdateObjectPermissionsSerializer
+      extends JsonSerializer<UpdateObjectPermissions> {
+    @Override
+    public void serialize(
+        UpdateObjectPermissions value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateObjectPermissionsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateObjectPermissionsDeserializer
+      extends JsonDeserializer<UpdateObjectPermissions> {
+    @Override
+    public UpdateObjectPermissions deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateObjectPermissionsPb pb = mapper.readValue(p, UpdateObjectPermissionsPb.class);
+      return UpdateObjectPermissions.fromPb(pb);
+    }
   }
 }

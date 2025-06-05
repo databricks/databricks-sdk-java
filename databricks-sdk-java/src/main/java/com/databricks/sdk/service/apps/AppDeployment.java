@@ -4,29 +4,35 @@ package com.databricks.sdk.service.apps;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = AppDeployment.AppDeploymentSerializer.class)
+@JsonDeserialize(using = AppDeployment.AppDeploymentDeserializer.class)
 public class AppDeployment {
   /** The creation time of the deployment. Formatted timestamp in ISO 6801. */
-  @JsonProperty("create_time")
   private String createTime;
 
   /** The email of the user creates the deployment. */
-  @JsonProperty("creator")
   private String creator;
 
   /** The deployment artifacts for an app. */
-  @JsonProperty("deployment_artifacts")
   private AppDeploymentArtifacts deploymentArtifacts;
 
   /** The unique id of the deployment. */
-  @JsonProperty("deployment_id")
   private String deploymentId;
 
   /** The mode of which the deployment will manage the source code. */
-  @JsonProperty("mode")
   private AppDeploymentMode mode;
 
   /**
@@ -36,15 +42,12 @@ public class AppDeployment {
    * deployment creation, whereas the latter provides a system generated stable snapshotted source
    * code path used by the deployment.
    */
-  @JsonProperty("source_code_path")
   private String sourceCodePath;
 
   /** Status and status message of the deployment */
-  @JsonProperty("status")
   private AppDeploymentStatus status;
 
   /** The update time of the deployment. Formatted timestamp in ISO 6801. */
-  @JsonProperty("update_time")
   private String updateTime;
 
   public AppDeployment setCreateTime(String createTime) {
@@ -159,5 +162,51 @@ public class AppDeployment {
         .add("status", status)
         .add("updateTime", updateTime)
         .toString();
+  }
+
+  AppDeploymentPb toPb() {
+    AppDeploymentPb pb = new AppDeploymentPb();
+    pb.setCreateTime(createTime);
+    pb.setCreator(creator);
+    pb.setDeploymentArtifacts(deploymentArtifacts);
+    pb.setDeploymentId(deploymentId);
+    pb.setMode(mode);
+    pb.setSourceCodePath(sourceCodePath);
+    pb.setStatus(status);
+    pb.setUpdateTime(updateTime);
+
+    return pb;
+  }
+
+  static AppDeployment fromPb(AppDeploymentPb pb) {
+    AppDeployment model = new AppDeployment();
+    model.setCreateTime(pb.getCreateTime());
+    model.setCreator(pb.getCreator());
+    model.setDeploymentArtifacts(pb.getDeploymentArtifacts());
+    model.setDeploymentId(pb.getDeploymentId());
+    model.setMode(pb.getMode());
+    model.setSourceCodePath(pb.getSourceCodePath());
+    model.setStatus(pb.getStatus());
+    model.setUpdateTime(pb.getUpdateTime());
+
+    return model;
+  }
+
+  public static class AppDeploymentSerializer extends JsonSerializer<AppDeployment> {
+    @Override
+    public void serialize(AppDeployment value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      AppDeploymentPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class AppDeploymentDeserializer extends JsonDeserializer<AppDeployment> {
+    @Override
+    public AppDeployment deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      AppDeploymentPb pb = mapper.readValue(p, AppDeploymentPb.class);
+      return AppDeployment.fromPb(pb);
+    }
   }
 }

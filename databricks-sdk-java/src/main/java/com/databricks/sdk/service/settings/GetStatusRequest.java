@@ -3,17 +3,25 @@
 package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Check configuration status */
 @Generated
+@JsonSerialize(using = GetStatusRequest.GetStatusRequestSerializer.class)
+@JsonDeserialize(using = GetStatusRequest.GetStatusRequestDeserializer.class)
 public class GetStatusRequest {
   /** */
-  @JsonIgnore
-  @QueryParam("keys")
   private String keys;
 
   public GetStatusRequest setKeys(String keys) {
@@ -41,5 +49,38 @@ public class GetStatusRequest {
   @Override
   public String toString() {
     return new ToStringer(GetStatusRequest.class).add("keys", keys).toString();
+  }
+
+  GetStatusRequestPb toPb() {
+    GetStatusRequestPb pb = new GetStatusRequestPb();
+    pb.setKeys(keys);
+
+    return pb;
+  }
+
+  static GetStatusRequest fromPb(GetStatusRequestPb pb) {
+    GetStatusRequest model = new GetStatusRequest();
+    model.setKeys(pb.getKeys());
+
+    return model;
+  }
+
+  public static class GetStatusRequestSerializer extends JsonSerializer<GetStatusRequest> {
+    @Override
+    public void serialize(GetStatusRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetStatusRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetStatusRequestDeserializer extends JsonDeserializer<GetStatusRequest> {
+    @Override
+    public GetStatusRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetStatusRequestPb pb = mapper.readValue(p, GetStatusRequestPb.class);
+      return GetStatusRequest.fromPb(pb);
+    }
   }
 }

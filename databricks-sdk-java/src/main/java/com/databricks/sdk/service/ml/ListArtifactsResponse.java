@@ -4,22 +4,30 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ListArtifactsResponse.ListArtifactsResponseSerializer.class)
+@JsonDeserialize(using = ListArtifactsResponse.ListArtifactsResponseDeserializer.class)
 public class ListArtifactsResponse {
   /** The file location and metadata for artifacts. */
-  @JsonProperty("files")
   private Collection<FileInfo> files;
 
   /** The token that can be used to retrieve the next page of artifact results. */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   /** The root artifact directory for the run. */
-  @JsonProperty("root_uri")
   private String rootUri;
 
   public ListArtifactsResponse setFiles(Collection<FileInfo> files) {
@@ -71,5 +79,45 @@ public class ListArtifactsResponse {
         .add("nextPageToken", nextPageToken)
         .add("rootUri", rootUri)
         .toString();
+  }
+
+  ListArtifactsResponsePb toPb() {
+    ListArtifactsResponsePb pb = new ListArtifactsResponsePb();
+    pb.setFiles(files);
+    pb.setNextPageToken(nextPageToken);
+    pb.setRootUri(rootUri);
+
+    return pb;
+  }
+
+  static ListArtifactsResponse fromPb(ListArtifactsResponsePb pb) {
+    ListArtifactsResponse model = new ListArtifactsResponse();
+    model.setFiles(pb.getFiles());
+    model.setNextPageToken(pb.getNextPageToken());
+    model.setRootUri(pb.getRootUri());
+
+    return model;
+  }
+
+  public static class ListArtifactsResponseSerializer
+      extends JsonSerializer<ListArtifactsResponse> {
+    @Override
+    public void serialize(
+        ListArtifactsResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListArtifactsResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListArtifactsResponseDeserializer
+      extends JsonDeserializer<ListArtifactsResponse> {
+    @Override
+    public ListArtifactsResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListArtifactsResponsePb pb = mapper.readValue(p, ListArtifactsResponsePb.class);
+      return ListArtifactsResponse.fromPb(pb);
+    }
   }
 }

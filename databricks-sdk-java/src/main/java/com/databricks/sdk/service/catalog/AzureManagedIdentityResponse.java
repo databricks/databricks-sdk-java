@@ -4,20 +4,30 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = AzureManagedIdentityResponse.AzureManagedIdentityResponseSerializer.class)
+@JsonDeserialize(
+    using = AzureManagedIdentityResponse.AzureManagedIdentityResponseDeserializer.class)
 public class AzureManagedIdentityResponse {
   /**
    * The Azure resource ID of the Azure Databricks Access Connector. Use the format
    * /subscriptions/{guid}/resourceGroups/{rg-name}/providers/Microsoft.Databricks/accessConnectors/{connector-name}.
    */
-  @JsonProperty("access_connector_id")
   private String accessConnectorId;
 
   /** The Databricks internal ID that represents this managed identity. */
-  @JsonProperty("credential_id")
   private String credentialId;
 
   /**
@@ -27,7 +37,6 @@ public class AzureManagedIdentityResponse {
    * access_connector_id is used to identify the identity. If this field is not provided, then we
    * assume the AzureManagedIdentity is for a system-assigned identity.
    */
-  @JsonProperty("managed_identity_id")
   private String managedIdentityId;
 
   public AzureManagedIdentityResponse setAccessConnectorId(String accessConnectorId) {
@@ -79,5 +88,45 @@ public class AzureManagedIdentityResponse {
         .add("credentialId", credentialId)
         .add("managedIdentityId", managedIdentityId)
         .toString();
+  }
+
+  AzureManagedIdentityResponsePb toPb() {
+    AzureManagedIdentityResponsePb pb = new AzureManagedIdentityResponsePb();
+    pb.setAccessConnectorId(accessConnectorId);
+    pb.setCredentialId(credentialId);
+    pb.setManagedIdentityId(managedIdentityId);
+
+    return pb;
+  }
+
+  static AzureManagedIdentityResponse fromPb(AzureManagedIdentityResponsePb pb) {
+    AzureManagedIdentityResponse model = new AzureManagedIdentityResponse();
+    model.setAccessConnectorId(pb.getAccessConnectorId());
+    model.setCredentialId(pb.getCredentialId());
+    model.setManagedIdentityId(pb.getManagedIdentityId());
+
+    return model;
+  }
+
+  public static class AzureManagedIdentityResponseSerializer
+      extends JsonSerializer<AzureManagedIdentityResponse> {
+    @Override
+    public void serialize(
+        AzureManagedIdentityResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      AzureManagedIdentityResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class AzureManagedIdentityResponseDeserializer
+      extends JsonDeserializer<AzureManagedIdentityResponse> {
+    @Override
+    public AzureManagedIdentityResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      AzureManagedIdentityResponsePb pb = mapper.readValue(p, AzureManagedIdentityResponsePb.class);
+      return AzureManagedIdentityResponse.fromPb(pb);
+    }
   }
 }

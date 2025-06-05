@@ -4,25 +4,33 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Configures the Lakeview Dashboard job task type. */
 @Generated
+@JsonSerialize(using = DashboardTask.DashboardTaskSerializer.class)
+@JsonDeserialize(using = DashboardTask.DashboardTaskDeserializer.class)
 public class DashboardTask {
   /** The identifier of the dashboard to refresh. */
-  @JsonProperty("dashboard_id")
   private String dashboardId;
 
   /** Optional: subscription configuration for sending the dashboard snapshot. */
-  @JsonProperty("subscription")
   private Subscription subscription;
 
   /**
    * Optional: The warehouse id to execute the dashboard with for the schedule. If not specified,
    * the default warehouse of the dashboard will be used.
    */
-  @JsonProperty("warehouse_id")
   private String warehouseId;
 
   public DashboardTask setDashboardId(String dashboardId) {
@@ -74,5 +82,41 @@ public class DashboardTask {
         .add("subscription", subscription)
         .add("warehouseId", warehouseId)
         .toString();
+  }
+
+  DashboardTaskPb toPb() {
+    DashboardTaskPb pb = new DashboardTaskPb();
+    pb.setDashboardId(dashboardId);
+    pb.setSubscription(subscription);
+    pb.setWarehouseId(warehouseId);
+
+    return pb;
+  }
+
+  static DashboardTask fromPb(DashboardTaskPb pb) {
+    DashboardTask model = new DashboardTask();
+    model.setDashboardId(pb.getDashboardId());
+    model.setSubscription(pb.getSubscription());
+    model.setWarehouseId(pb.getWarehouseId());
+
+    return model;
+  }
+
+  public static class DashboardTaskSerializer extends JsonSerializer<DashboardTask> {
+    @Override
+    public void serialize(DashboardTask value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DashboardTaskPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DashboardTaskDeserializer extends JsonDeserializer<DashboardTask> {
+    @Override
+    public DashboardTask deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DashboardTaskPb pb = mapper.readValue(p, DashboardTaskPb.class);
+      return DashboardTask.fromPb(pb);
+    }
   }
 }

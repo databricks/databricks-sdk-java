@@ -3,38 +3,40 @@
 package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List clusters */
 @Generated
+@JsonSerialize(using = ListClustersRequest.ListClustersRequestSerializer.class)
+@JsonDeserialize(using = ListClustersRequest.ListClustersRequestDeserializer.class)
 public class ListClustersRequest {
   /** Filters to apply to the list of clusters. */
-  @JsonIgnore
-  @QueryParam("filter_by")
   private ListClustersFilterBy filterBy;
 
   /**
    * Use this field to specify the maximum number of results to be returned by the server. The
    * server may further constrain the maximum number of results returned in a single page.
    */
-  @JsonIgnore
-  @QueryParam("page_size")
   private Long pageSize;
 
   /**
    * Use next_page_token or prev_page_token returned from the previous request to list the next or
    * previous page of clusters respectively.
    */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   /** Sort the list of clusters by a specific criteria. */
-  @JsonIgnore
-  @QueryParam("sort_by")
   private ListClustersSortBy sortBy;
 
   public ListClustersRequest setFilterBy(ListClustersFilterBy filterBy) {
@@ -97,5 +99,45 @@ public class ListClustersRequest {
         .add("pageToken", pageToken)
         .add("sortBy", sortBy)
         .toString();
+  }
+
+  ListClustersRequestPb toPb() {
+    ListClustersRequestPb pb = new ListClustersRequestPb();
+    pb.setFilterBy(filterBy);
+    pb.setPageSize(pageSize);
+    pb.setPageToken(pageToken);
+    pb.setSortBy(sortBy);
+
+    return pb;
+  }
+
+  static ListClustersRequest fromPb(ListClustersRequestPb pb) {
+    ListClustersRequest model = new ListClustersRequest();
+    model.setFilterBy(pb.getFilterBy());
+    model.setPageSize(pb.getPageSize());
+    model.setPageToken(pb.getPageToken());
+    model.setSortBy(pb.getSortBy());
+
+    return model;
+  }
+
+  public static class ListClustersRequestSerializer extends JsonSerializer<ListClustersRequest> {
+    @Override
+    public void serialize(ListClustersRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListClustersRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListClustersRequestDeserializer
+      extends JsonDeserializer<ListClustersRequest> {
+    @Override
+    public ListClustersRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListClustersRequestPb pb = mapper.readValue(p, ListClustersRequestPb.class);
+      return ListClustersRequest.fromPb(pb);
+    }
   }
 }

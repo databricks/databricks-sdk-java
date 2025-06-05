@@ -4,7 +4,16 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -12,66 +21,55 @@ import java.util.Objects;
  * type on which it will be hosted.
  */
 @Generated
+@JsonSerialize(using = NodeType.NodeTypeSerializer.class)
+@JsonDeserialize(using = NodeType.NodeTypeDeserializer.class)
 public class NodeType {
   /**
    * A descriptive category for this node type. Examples include "Memory Optimized" and "Compute
    * Optimized".
    */
-  @JsonProperty("category")
   private String category;
 
   /** A string description associated with this node type, e.g., "r3.xlarge". */
-  @JsonProperty("description")
   private String description;
 
   /**
    * An optional hint at the display order of node types in the UI. Within a node type category,
    * lowest numbers come first.
    */
-  @JsonProperty("display_order")
   private Long displayOrder;
 
   /** An identifier for the type of hardware that this node runs on, e.g., "r3.2xlarge" in AWS. */
-  @JsonProperty("instance_type_id")
   private String instanceTypeId;
 
   /** Whether the node type is deprecated. Non-deprecated node types offer greater performance. */
-  @JsonProperty("is_deprecated")
   private Boolean isDeprecated;
 
   /**
    * AWS specific, whether this instance supports encryption in transit, used for hipaa and pci
    * workloads.
    */
-  @JsonProperty("is_encrypted_in_transit")
   private Boolean isEncryptedInTransit;
 
   /** Whether this is an Arm-based instance. */
-  @JsonProperty("is_graviton")
   private Boolean isGraviton;
 
   /** Whether this node is hidden from presentation in the UI. */
-  @JsonProperty("is_hidden")
   private Boolean isHidden;
 
   /** Whether this node comes with IO cache enabled by default. */
-  @JsonProperty("is_io_cache_enabled")
   private Boolean isIoCacheEnabled;
 
   /** Memory (in MB) available for this node type. */
-  @JsonProperty("memory_mb")
   private Long memoryMb;
 
   /** A collection of node type info reported by the cloud provider */
-  @JsonProperty("node_info")
   private CloudProviderNodeInfo nodeInfo;
 
   /** The NodeInstanceType object corresponding to instance_type_id */
-  @JsonProperty("node_instance_type")
   private NodeInstanceType nodeInstanceType;
 
   /** Unique identifier for this node type. */
-  @JsonProperty("node_type_id")
   private String nodeTypeId;
 
   /**
@@ -79,34 +77,27 @@ public class NodeType {
    * cores, if the the number of cores on a machine instance is not divisible by the number of Spark
    * nodes on that machine.
    */
-  @JsonProperty("num_cores")
   private Double numCores;
 
   /** Number of GPUs available for this node type. */
-  @JsonProperty("num_gpus")
   private Long numGpus;
 
   /** */
-  @JsonProperty("photon_driver_capable")
   private Boolean photonDriverCapable;
 
   /** */
-  @JsonProperty("photon_worker_capable")
   private Boolean photonWorkerCapable;
 
   /** Whether this node type support cluster tags. */
-  @JsonProperty("support_cluster_tags")
   private Boolean supportClusterTags;
 
   /**
    * Whether this node type support EBS volumes. EBS volumes is disabled for node types that we
    * could place multiple corresponding containers on the same hosting instance.
    */
-  @JsonProperty("support_ebs_volumes")
   private Boolean supportEbsVolumes;
 
   /** Whether this node type supports port forwarding. */
-  @JsonProperty("support_port_forwarding")
   private Boolean supportPortForwarding;
 
   public NodeType setCategory(String category) {
@@ -365,5 +356,75 @@ public class NodeType {
         .add("supportEbsVolumes", supportEbsVolumes)
         .add("supportPortForwarding", supportPortForwarding)
         .toString();
+  }
+
+  NodeTypePb toPb() {
+    NodeTypePb pb = new NodeTypePb();
+    pb.setCategory(category);
+    pb.setDescription(description);
+    pb.setDisplayOrder(displayOrder);
+    pb.setInstanceTypeId(instanceTypeId);
+    pb.setIsDeprecated(isDeprecated);
+    pb.setIsEncryptedInTransit(isEncryptedInTransit);
+    pb.setIsGraviton(isGraviton);
+    pb.setIsHidden(isHidden);
+    pb.setIsIoCacheEnabled(isIoCacheEnabled);
+    pb.setMemoryMb(memoryMb);
+    pb.setNodeInfo(nodeInfo);
+    pb.setNodeInstanceType(nodeInstanceType);
+    pb.setNodeTypeId(nodeTypeId);
+    pb.setNumCores(numCores);
+    pb.setNumGpus(numGpus);
+    pb.setPhotonDriverCapable(photonDriverCapable);
+    pb.setPhotonWorkerCapable(photonWorkerCapable);
+    pb.setSupportClusterTags(supportClusterTags);
+    pb.setSupportEbsVolumes(supportEbsVolumes);
+    pb.setSupportPortForwarding(supportPortForwarding);
+
+    return pb;
+  }
+
+  static NodeType fromPb(NodeTypePb pb) {
+    NodeType model = new NodeType();
+    model.setCategory(pb.getCategory());
+    model.setDescription(pb.getDescription());
+    model.setDisplayOrder(pb.getDisplayOrder());
+    model.setInstanceTypeId(pb.getInstanceTypeId());
+    model.setIsDeprecated(pb.getIsDeprecated());
+    model.setIsEncryptedInTransit(pb.getIsEncryptedInTransit());
+    model.setIsGraviton(pb.getIsGraviton());
+    model.setIsHidden(pb.getIsHidden());
+    model.setIsIoCacheEnabled(pb.getIsIoCacheEnabled());
+    model.setMemoryMb(pb.getMemoryMb());
+    model.setNodeInfo(pb.getNodeInfo());
+    model.setNodeInstanceType(pb.getNodeInstanceType());
+    model.setNodeTypeId(pb.getNodeTypeId());
+    model.setNumCores(pb.getNumCores());
+    model.setNumGpus(pb.getNumGpus());
+    model.setPhotonDriverCapable(pb.getPhotonDriverCapable());
+    model.setPhotonWorkerCapable(pb.getPhotonWorkerCapable());
+    model.setSupportClusterTags(pb.getSupportClusterTags());
+    model.setSupportEbsVolumes(pb.getSupportEbsVolumes());
+    model.setSupportPortForwarding(pb.getSupportPortForwarding());
+
+    return model;
+  }
+
+  public static class NodeTypeSerializer extends JsonSerializer<NodeType> {
+    @Override
+    public void serialize(NodeType value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      NodeTypePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class NodeTypeDeserializer extends JsonDeserializer<NodeType> {
+    @Override
+    public NodeType deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      NodeTypePb pb = mapper.readValue(p, NodeTypePb.class);
+      return NodeType.fromPb(pb);
+    }
   }
 }

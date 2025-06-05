@@ -4,17 +4,27 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ClusterPermissionsDescription.ClusterPermissionsDescriptionSerializer.class)
+@JsonDeserialize(
+    using = ClusterPermissionsDescription.ClusterPermissionsDescriptionDeserializer.class)
 public class ClusterPermissionsDescription {
   /** */
-  @JsonProperty("description")
   private String description;
 
   /** Permission level */
-  @JsonProperty("permission_level")
   private ClusterPermissionLevel permissionLevel;
 
   public ClusterPermissionsDescription setDescription(String description) {
@@ -55,5 +65,44 @@ public class ClusterPermissionsDescription {
         .add("description", description)
         .add("permissionLevel", permissionLevel)
         .toString();
+  }
+
+  ClusterPermissionsDescriptionPb toPb() {
+    ClusterPermissionsDescriptionPb pb = new ClusterPermissionsDescriptionPb();
+    pb.setDescription(description);
+    pb.setPermissionLevel(permissionLevel);
+
+    return pb;
+  }
+
+  static ClusterPermissionsDescription fromPb(ClusterPermissionsDescriptionPb pb) {
+    ClusterPermissionsDescription model = new ClusterPermissionsDescription();
+    model.setDescription(pb.getDescription());
+    model.setPermissionLevel(pb.getPermissionLevel());
+
+    return model;
+  }
+
+  public static class ClusterPermissionsDescriptionSerializer
+      extends JsonSerializer<ClusterPermissionsDescription> {
+    @Override
+    public void serialize(
+        ClusterPermissionsDescription value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ClusterPermissionsDescriptionPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ClusterPermissionsDescriptionDeserializer
+      extends JsonDeserializer<ClusterPermissionsDescription> {
+    @Override
+    public ClusterPermissionsDescription deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ClusterPermissionsDescriptionPb pb =
+          mapper.readValue(p, ClusterPermissionsDescriptionPb.class);
+      return ClusterPermissionsDescription.fromPb(pb);
+    }
   }
 }

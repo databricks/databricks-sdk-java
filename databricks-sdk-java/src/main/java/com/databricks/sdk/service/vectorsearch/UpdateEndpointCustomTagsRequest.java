@@ -4,19 +4,30 @@ package com.databricks.sdk.service.vectorsearch;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = UpdateEndpointCustomTagsRequest.UpdateEndpointCustomTagsRequestSerializer.class)
+@JsonDeserialize(
+    using = UpdateEndpointCustomTagsRequest.UpdateEndpointCustomTagsRequestDeserializer.class)
 public class UpdateEndpointCustomTagsRequest {
   /** The new custom tags for the vector search endpoint */
-  @JsonProperty("custom_tags")
   private Collection<CustomTag> customTags;
 
   /** Name of the vector search endpoint */
-  @JsonIgnore private String endpointName;
+  private String endpointName;
 
   public UpdateEndpointCustomTagsRequest setCustomTags(Collection<CustomTag> customTags) {
     this.customTags = customTags;
@@ -56,5 +67,44 @@ public class UpdateEndpointCustomTagsRequest {
         .add("customTags", customTags)
         .add("endpointName", endpointName)
         .toString();
+  }
+
+  UpdateEndpointCustomTagsRequestPb toPb() {
+    UpdateEndpointCustomTagsRequestPb pb = new UpdateEndpointCustomTagsRequestPb();
+    pb.setCustomTags(customTags);
+    pb.setEndpointName(endpointName);
+
+    return pb;
+  }
+
+  static UpdateEndpointCustomTagsRequest fromPb(UpdateEndpointCustomTagsRequestPb pb) {
+    UpdateEndpointCustomTagsRequest model = new UpdateEndpointCustomTagsRequest();
+    model.setCustomTags(pb.getCustomTags());
+    model.setEndpointName(pb.getEndpointName());
+
+    return model;
+  }
+
+  public static class UpdateEndpointCustomTagsRequestSerializer
+      extends JsonSerializer<UpdateEndpointCustomTagsRequest> {
+    @Override
+    public void serialize(
+        UpdateEndpointCustomTagsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateEndpointCustomTagsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateEndpointCustomTagsRequestDeserializer
+      extends JsonDeserializer<UpdateEndpointCustomTagsRequest> {
+    @Override
+    public UpdateEndpointCustomTagsRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateEndpointCustomTagsRequestPb pb =
+          mapper.readValue(p, UpdateEndpointCustomTagsRequestPb.class);
+      return UpdateEndpointCustomTagsRequest.fromPb(pb);
+    }
   }
 }

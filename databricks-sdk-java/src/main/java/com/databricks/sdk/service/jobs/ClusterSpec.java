@@ -4,36 +4,43 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ClusterSpec.ClusterSpecSerializer.class)
+@JsonDeserialize(using = ClusterSpec.ClusterSpecDeserializer.class)
 public class ClusterSpec {
   /**
    * If existing_cluster_id, the ID of an existing cluster that is used for all runs. When running
    * jobs or tasks on an existing cluster, you may need to manually restart the cluster if it stops
    * responding. We suggest running jobs and tasks on new clusters for greater reliability
    */
-  @JsonProperty("existing_cluster_id")
   private String existingClusterId;
 
   /**
    * If job_cluster_key, this task is executed reusing the cluster specified in
    * `job.settings.job_clusters`.
    */
-  @JsonProperty("job_cluster_key")
   private String jobClusterKey;
 
   /**
    * An optional list of libraries to be installed on the cluster. The default value is an empty
    * list.
    */
-  @JsonProperty("libraries")
   private Collection<com.databricks.sdk.service.compute.Library> libraries;
 
   /** If new_cluster, a description of a new cluster that is created for each run. */
-  @JsonProperty("new_cluster")
   private com.databricks.sdk.service.compute.ClusterSpec newCluster;
 
   public ClusterSpec setExistingClusterId(String existingClusterId) {
@@ -97,5 +104,43 @@ public class ClusterSpec {
         .add("libraries", libraries)
         .add("newCluster", newCluster)
         .toString();
+  }
+
+  ClusterSpecPb toPb() {
+    ClusterSpecPb pb = new ClusterSpecPb();
+    pb.setExistingClusterId(existingClusterId);
+    pb.setJobClusterKey(jobClusterKey);
+    pb.setLibraries(libraries);
+    pb.setNewCluster(newCluster);
+
+    return pb;
+  }
+
+  static ClusterSpec fromPb(ClusterSpecPb pb) {
+    ClusterSpec model = new ClusterSpec();
+    model.setExistingClusterId(pb.getExistingClusterId());
+    model.setJobClusterKey(pb.getJobClusterKey());
+    model.setLibraries(pb.getLibraries());
+    model.setNewCluster(pb.getNewCluster());
+
+    return model;
+  }
+
+  public static class ClusterSpecSerializer extends JsonSerializer<ClusterSpec> {
+    @Override
+    public void serialize(ClusterSpec value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ClusterSpecPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ClusterSpecDeserializer extends JsonDeserializer<ClusterSpec> {
+    @Override
+    public ClusterSpec deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ClusterSpecPb pb = mapper.readValue(p, ClusterSpecPb.class);
+      return ClusterSpec.fromPb(pb);
+    }
   }
 }

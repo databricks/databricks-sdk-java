@@ -4,59 +4,58 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 /** A LoggedModelInfo includes logged model attributes, tags, and registration info. */
 @Generated
+@JsonSerialize(using = LoggedModelInfo.LoggedModelInfoSerializer.class)
+@JsonDeserialize(using = LoggedModelInfo.LoggedModelInfoDeserializer.class)
 public class LoggedModelInfo {
   /** The URI of the directory where model artifacts are stored. */
-  @JsonProperty("artifact_uri")
   private String artifactUri;
 
   /** The timestamp when the model was created in milliseconds since the UNIX epoch. */
-  @JsonProperty("creation_timestamp_ms")
   private Long creationTimestampMs;
 
   /** The ID of the user or principal that created the model. */
-  @JsonProperty("creator_id")
   private Long creatorId;
 
   /** The ID of the experiment that owns the model. */
-  @JsonProperty("experiment_id")
   private String experimentId;
 
   /** The timestamp when the model was last updated in milliseconds since the UNIX epoch. */
-  @JsonProperty("last_updated_timestamp_ms")
   private Long lastUpdatedTimestampMs;
 
   /** The unique identifier for the logged model. */
-  @JsonProperty("model_id")
   private String modelId;
 
   /** The type of model, such as ``"Agent"``, ``"Classifier"``, ``"LLM"``. */
-  @JsonProperty("model_type")
   private String modelType;
 
   /** The name of the model. */
-  @JsonProperty("name")
   private String name;
 
   /** The ID of the run that created the model. */
-  @JsonProperty("source_run_id")
   private String sourceRunId;
 
   /** The status of whether or not the model is ready for use. */
-  @JsonProperty("status")
   private LoggedModelStatus status;
 
   /** Details on the current model status. */
-  @JsonProperty("status_message")
   private String statusMessage;
 
   /** Mutable string key-value pairs set on the model. */
-  @JsonProperty("tags")
   private Collection<LoggedModelTag> tags;
 
   public LoggedModelInfo setArtifactUri(String artifactUri) {
@@ -219,5 +218,60 @@ public class LoggedModelInfo {
         .add("statusMessage", statusMessage)
         .add("tags", tags)
         .toString();
+  }
+
+  LoggedModelInfoPb toPb() {
+    LoggedModelInfoPb pb = new LoggedModelInfoPb();
+    pb.setArtifactUri(artifactUri);
+    pb.setCreationTimestampMs(creationTimestampMs);
+    pb.setCreatorId(creatorId);
+    pb.setExperimentId(experimentId);
+    pb.setLastUpdatedTimestampMs(lastUpdatedTimestampMs);
+    pb.setModelId(modelId);
+    pb.setModelType(modelType);
+    pb.setName(name);
+    pb.setSourceRunId(sourceRunId);
+    pb.setStatus(status);
+    pb.setStatusMessage(statusMessage);
+    pb.setTags(tags);
+
+    return pb;
+  }
+
+  static LoggedModelInfo fromPb(LoggedModelInfoPb pb) {
+    LoggedModelInfo model = new LoggedModelInfo();
+    model.setArtifactUri(pb.getArtifactUri());
+    model.setCreationTimestampMs(pb.getCreationTimestampMs());
+    model.setCreatorId(pb.getCreatorId());
+    model.setExperimentId(pb.getExperimentId());
+    model.setLastUpdatedTimestampMs(pb.getLastUpdatedTimestampMs());
+    model.setModelId(pb.getModelId());
+    model.setModelType(pb.getModelType());
+    model.setName(pb.getName());
+    model.setSourceRunId(pb.getSourceRunId());
+    model.setStatus(pb.getStatus());
+    model.setStatusMessage(pb.getStatusMessage());
+    model.setTags(pb.getTags());
+
+    return model;
+  }
+
+  public static class LoggedModelInfoSerializer extends JsonSerializer<LoggedModelInfo> {
+    @Override
+    public void serialize(LoggedModelInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      LoggedModelInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class LoggedModelInfoDeserializer extends JsonDeserializer<LoggedModelInfo> {
+    @Override
+    public LoggedModelInfo deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      LoggedModelInfoPb pb = mapper.readValue(p, LoggedModelInfoPb.class);
+      return LoggedModelInfo.fromPb(pb);
+    }
   }
 }

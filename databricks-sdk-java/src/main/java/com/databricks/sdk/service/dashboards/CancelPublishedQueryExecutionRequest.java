@@ -3,28 +3,36 @@
 package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 /** Cancel the results for the a query for a published, embedded dashboard */
 @Generated
+@JsonSerialize(
+    using =
+        CancelPublishedQueryExecutionRequest.CancelPublishedQueryExecutionRequestSerializer.class)
+@JsonDeserialize(
+    using =
+        CancelPublishedQueryExecutionRequest.CancelPublishedQueryExecutionRequestDeserializer.class)
 public class CancelPublishedQueryExecutionRequest {
   /** */
-  @JsonIgnore
-  @QueryParam("dashboard_name")
   private String dashboardName;
 
   /** */
-  @JsonIgnore
-  @QueryParam("dashboard_revision_id")
   private String dashboardRevisionId;
 
   /** Example: EC0A..ChAB7WCEn_4Qo4vkLqEbXsxxEgh3Y2pbWw45WhoQXgZSQo9aS5q2ZvFcbvbx9CgA-PAEAQ */
-  @JsonIgnore
-  @QueryParam("tokens")
   private Collection<String> tokens;
 
   public CancelPublishedQueryExecutionRequest setDashboardName(String dashboardName) {
@@ -76,5 +84,46 @@ public class CancelPublishedQueryExecutionRequest {
         .add("dashboardRevisionId", dashboardRevisionId)
         .add("tokens", tokens)
         .toString();
+  }
+
+  CancelPublishedQueryExecutionRequestPb toPb() {
+    CancelPublishedQueryExecutionRequestPb pb = new CancelPublishedQueryExecutionRequestPb();
+    pb.setDashboardName(dashboardName);
+    pb.setDashboardRevisionId(dashboardRevisionId);
+    pb.setTokens(tokens);
+
+    return pb;
+  }
+
+  static CancelPublishedQueryExecutionRequest fromPb(CancelPublishedQueryExecutionRequestPb pb) {
+    CancelPublishedQueryExecutionRequest model = new CancelPublishedQueryExecutionRequest();
+    model.setDashboardName(pb.getDashboardName());
+    model.setDashboardRevisionId(pb.getDashboardRevisionId());
+    model.setTokens(pb.getTokens());
+
+    return model;
+  }
+
+  public static class CancelPublishedQueryExecutionRequestSerializer
+      extends JsonSerializer<CancelPublishedQueryExecutionRequest> {
+    @Override
+    public void serialize(
+        CancelPublishedQueryExecutionRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CancelPublishedQueryExecutionRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CancelPublishedQueryExecutionRequestDeserializer
+      extends JsonDeserializer<CancelPublishedQueryExecutionRequest> {
+    @Override
+    public CancelPublishedQueryExecutionRequest deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CancelPublishedQueryExecutionRequestPb pb =
+          mapper.readValue(p, CancelPublishedQueryExecutionRequestPb.class);
+      return CancelPublishedQueryExecutionRequest.fromPb(pb);
+    }
   }
 }

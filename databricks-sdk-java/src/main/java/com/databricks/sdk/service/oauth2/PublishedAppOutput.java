@@ -4,41 +4,45 @@ package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = PublishedAppOutput.PublishedAppOutputSerializer.class)
+@JsonDeserialize(using = PublishedAppOutput.PublishedAppOutputDeserializer.class)
 public class PublishedAppOutput {
   /** Unique ID of the published OAuth app. */
-  @JsonProperty("app_id")
   private String appId;
 
   /** Client ID of the published OAuth app. It is the client_id in the OAuth flow */
-  @JsonProperty("client_id")
   private String clientId;
 
   /** Description of the published OAuth app. */
-  @JsonProperty("description")
   private String description;
 
   /**
    * Whether the published OAuth app is a confidential client. It is always false for published
    * OAuth apps.
    */
-  @JsonProperty("is_confidential_client")
   private Boolean isConfidentialClient;
 
   /** The display name of the published OAuth app. */
-  @JsonProperty("name")
   private String name;
 
   /** Redirect URLs of the published OAuth app. */
-  @JsonProperty("redirect_urls")
   private Collection<String> redirectUrls;
 
   /** Required scopes for the published OAuth app. */
-  @JsonProperty("scopes")
   private Collection<String> scopes;
 
   public PublishedAppOutput setAppId(String appId) {
@@ -135,5 +139,50 @@ public class PublishedAppOutput {
         .add("redirectUrls", redirectUrls)
         .add("scopes", scopes)
         .toString();
+  }
+
+  PublishedAppOutputPb toPb() {
+    PublishedAppOutputPb pb = new PublishedAppOutputPb();
+    pb.setAppId(appId);
+    pb.setClientId(clientId);
+    pb.setDescription(description);
+    pb.setIsConfidentialClient(isConfidentialClient);
+    pb.setName(name);
+    pb.setRedirectUrls(redirectUrls);
+    pb.setScopes(scopes);
+
+    return pb;
+  }
+
+  static PublishedAppOutput fromPb(PublishedAppOutputPb pb) {
+    PublishedAppOutput model = new PublishedAppOutput();
+    model.setAppId(pb.getAppId());
+    model.setClientId(pb.getClientId());
+    model.setDescription(pb.getDescription());
+    model.setIsConfidentialClient(pb.getIsConfidentialClient());
+    model.setName(pb.getName());
+    model.setRedirectUrls(pb.getRedirectUrls());
+    model.setScopes(pb.getScopes());
+
+    return model;
+  }
+
+  public static class PublishedAppOutputSerializer extends JsonSerializer<PublishedAppOutput> {
+    @Override
+    public void serialize(PublishedAppOutput value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PublishedAppOutputPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PublishedAppOutputDeserializer extends JsonDeserializer<PublishedAppOutput> {
+    @Override
+    public PublishedAppOutput deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PublishedAppOutputPb pb = mapper.readValue(p, PublishedAppOutputPb.class);
+      return PublishedAppOutput.fromPb(pb);
+    }
   }
 }

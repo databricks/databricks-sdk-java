@@ -21,7 +21,7 @@ class VolumesImpl implements VolumesService {
     String path = "/api/2.1/unity-catalog/volumes";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, VolumeInfo.class);
@@ -35,7 +35,7 @@ class VolumesImpl implements VolumesService {
     String path = String.format("/api/2.1/unity-catalog/volumes/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       apiClient.execute(req, DeleteResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -47,7 +47,7 @@ class VolumesImpl implements VolumesService {
     String path = "/api/2.1/unity-catalog/volumes";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListVolumesResponseContent.class);
     } catch (IOException e) {
@@ -60,7 +60,7 @@ class VolumesImpl implements VolumesService {
     String path = String.format("/api/2.1/unity-catalog/volumes/%s", request.getName());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, VolumeInfo.class);
     } catch (IOException e) {
@@ -73,7 +73,7 @@ class VolumesImpl implements VolumesService {
     String path = String.format("/api/2.1/unity-catalog/volumes/%s", request.getName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, VolumeInfo.class);

@@ -4,14 +4,27 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get SQL warehouse permissions */
 @Generated
+@JsonSerialize(
+    using = GetWarehousePermissionsRequest.GetWarehousePermissionsRequestSerializer.class)
+@JsonDeserialize(
+    using = GetWarehousePermissionsRequest.GetWarehousePermissionsRequestDeserializer.class)
 public class GetWarehousePermissionsRequest {
   /** The SQL warehouse for which to get or manage permissions. */
-  @JsonIgnore private String warehouseId;
+  private String warehouseId;
 
   public GetWarehousePermissionsRequest setWarehouseId(String warehouseId) {
     this.warehouseId = warehouseId;
@@ -40,5 +53,42 @@ public class GetWarehousePermissionsRequest {
     return new ToStringer(GetWarehousePermissionsRequest.class)
         .add("warehouseId", warehouseId)
         .toString();
+  }
+
+  GetWarehousePermissionsRequestPb toPb() {
+    GetWarehousePermissionsRequestPb pb = new GetWarehousePermissionsRequestPb();
+    pb.setWarehouseId(warehouseId);
+
+    return pb;
+  }
+
+  static GetWarehousePermissionsRequest fromPb(GetWarehousePermissionsRequestPb pb) {
+    GetWarehousePermissionsRequest model = new GetWarehousePermissionsRequest();
+    model.setWarehouseId(pb.getWarehouseId());
+
+    return model;
+  }
+
+  public static class GetWarehousePermissionsRequestSerializer
+      extends JsonSerializer<GetWarehousePermissionsRequest> {
+    @Override
+    public void serialize(
+        GetWarehousePermissionsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetWarehousePermissionsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetWarehousePermissionsRequestDeserializer
+      extends JsonDeserializer<GetWarehousePermissionsRequest> {
+    @Override
+    public GetWarehousePermissionsRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetWarehousePermissionsRequestPb pb =
+          mapper.readValue(p, GetWarehousePermissionsRequestPb.class);
+      return GetWarehousePermissionsRequest.fromPb(pb);
+    }
   }
 }

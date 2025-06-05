@@ -3,21 +3,33 @@
 package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Update account federation policy */
 @Generated
+@JsonSerialize(
+    using =
+        UpdateAccountFederationPolicyRequest.UpdateAccountFederationPolicyRequestSerializer.class)
+@JsonDeserialize(
+    using =
+        UpdateAccountFederationPolicyRequest.UpdateAccountFederationPolicyRequestDeserializer.class)
 public class UpdateAccountFederationPolicyRequest {
   /** */
-  @JsonProperty("policy")
   private FederationPolicy policy;
 
   /** The identifier for the federation policy. */
-  @JsonIgnore private String policyId;
+  private String policyId;
 
   /**
    * The field mask specifies which fields of the policy to update. To specify multiple fields in
@@ -26,8 +38,6 @@ public class UpdateAccountFederationPolicyRequest {
    * policy provided in the update request will overwrite the corresponding fields in the existing
    * policy. Example value: 'description,oidc_policy.audiences'.
    */
-  @JsonIgnore
-  @QueryParam("update_mask")
   private String updateMask;
 
   public UpdateAccountFederationPolicyRequest setPolicy(FederationPolicy policy) {
@@ -79,5 +89,46 @@ public class UpdateAccountFederationPolicyRequest {
         .add("policyId", policyId)
         .add("updateMask", updateMask)
         .toString();
+  }
+
+  UpdateAccountFederationPolicyRequestPb toPb() {
+    UpdateAccountFederationPolicyRequestPb pb = new UpdateAccountFederationPolicyRequestPb();
+    pb.setPolicy(policy);
+    pb.setPolicyId(policyId);
+    pb.setUpdateMask(updateMask);
+
+    return pb;
+  }
+
+  static UpdateAccountFederationPolicyRequest fromPb(UpdateAccountFederationPolicyRequestPb pb) {
+    UpdateAccountFederationPolicyRequest model = new UpdateAccountFederationPolicyRequest();
+    model.setPolicy(pb.getPolicy());
+    model.setPolicyId(pb.getPolicyId());
+    model.setUpdateMask(pb.getUpdateMask());
+
+    return model;
+  }
+
+  public static class UpdateAccountFederationPolicyRequestSerializer
+      extends JsonSerializer<UpdateAccountFederationPolicyRequest> {
+    @Override
+    public void serialize(
+        UpdateAccountFederationPolicyRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateAccountFederationPolicyRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateAccountFederationPolicyRequestDeserializer
+      extends JsonDeserializer<UpdateAccountFederationPolicyRequest> {
+    @Override
+    public UpdateAccountFederationPolicyRequest deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateAccountFederationPolicyRequestPb pb =
+          mapper.readValue(p, UpdateAccountFederationPolicyRequestPb.class);
+      return UpdateAccountFederationPolicyRequest.fromPb(pb);
+    }
   }
 }

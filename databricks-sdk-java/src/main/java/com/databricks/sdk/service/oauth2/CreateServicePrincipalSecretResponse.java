@@ -4,39 +4,47 @@ package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using =
+        CreateServicePrincipalSecretResponse.CreateServicePrincipalSecretResponseSerializer.class)
+@JsonDeserialize(
+    using =
+        CreateServicePrincipalSecretResponse.CreateServicePrincipalSecretResponseDeserializer.class)
 public class CreateServicePrincipalSecretResponse {
   /** UTC time when the secret was created */
-  @JsonProperty("create_time")
   private String createTime;
 
   /**
    * UTC time when the secret will expire. If the field is not present, the secret does not expire.
    */
-  @JsonProperty("expire_time")
   private String expireTime;
 
   /** ID of the secret */
-  @JsonProperty("id")
   private String id;
 
   /** Secret Value */
-  @JsonProperty("secret")
   private String secret;
 
   /** Secret Hash */
-  @JsonProperty("secret_hash")
   private String secretHash;
 
   /** Status of the secret */
-  @JsonProperty("status")
   private String status;
 
   /** UTC time when the secret was updated */
-  @JsonProperty("update_time")
   private String updateTime;
 
   public CreateServicePrincipalSecretResponse setCreateTime(String createTime) {
@@ -132,5 +140,54 @@ public class CreateServicePrincipalSecretResponse {
         .add("status", status)
         .add("updateTime", updateTime)
         .toString();
+  }
+
+  CreateServicePrincipalSecretResponsePb toPb() {
+    CreateServicePrincipalSecretResponsePb pb = new CreateServicePrincipalSecretResponsePb();
+    pb.setCreateTime(createTime);
+    pb.setExpireTime(expireTime);
+    pb.setId(id);
+    pb.setSecret(secret);
+    pb.setSecretHash(secretHash);
+    pb.setStatus(status);
+    pb.setUpdateTime(updateTime);
+
+    return pb;
+  }
+
+  static CreateServicePrincipalSecretResponse fromPb(CreateServicePrincipalSecretResponsePb pb) {
+    CreateServicePrincipalSecretResponse model = new CreateServicePrincipalSecretResponse();
+    model.setCreateTime(pb.getCreateTime());
+    model.setExpireTime(pb.getExpireTime());
+    model.setId(pb.getId());
+    model.setSecret(pb.getSecret());
+    model.setSecretHash(pb.getSecretHash());
+    model.setStatus(pb.getStatus());
+    model.setUpdateTime(pb.getUpdateTime());
+
+    return model;
+  }
+
+  public static class CreateServicePrincipalSecretResponseSerializer
+      extends JsonSerializer<CreateServicePrincipalSecretResponse> {
+    @Override
+    public void serialize(
+        CreateServicePrincipalSecretResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateServicePrincipalSecretResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateServicePrincipalSecretResponseDeserializer
+      extends JsonDeserializer<CreateServicePrincipalSecretResponse> {
+    @Override
+    public CreateServicePrincipalSecretResponse deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateServicePrincipalSecretResponsePb pb =
+          mapper.readValue(p, CreateServicePrincipalSecretResponsePb.class);
+      return CreateServicePrincipalSecretResponse.fromPb(pb);
+    }
   }
 }

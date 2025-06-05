@@ -4,21 +4,29 @@ package com.databricks.sdk.service.apps;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = AppResourceUcSecurable.AppResourceUcSecurableSerializer.class)
+@JsonDeserialize(using = AppResourceUcSecurable.AppResourceUcSecurableDeserializer.class)
 public class AppResourceUcSecurable {
   /** */
-  @JsonProperty("permission")
   private AppResourceUcSecurableUcSecurablePermission permission;
 
   /** */
-  @JsonProperty("securable_full_name")
   private String securableFullName;
 
   /** */
-  @JsonProperty("securable_type")
   private AppResourceUcSecurableUcSecurableType securableType;
 
   public AppResourceUcSecurable setPermission(
@@ -72,5 +80,45 @@ public class AppResourceUcSecurable {
         .add("securableFullName", securableFullName)
         .add("securableType", securableType)
         .toString();
+  }
+
+  AppResourceUcSecurablePb toPb() {
+    AppResourceUcSecurablePb pb = new AppResourceUcSecurablePb();
+    pb.setPermission(permission);
+    pb.setSecurableFullName(securableFullName);
+    pb.setSecurableType(securableType);
+
+    return pb;
+  }
+
+  static AppResourceUcSecurable fromPb(AppResourceUcSecurablePb pb) {
+    AppResourceUcSecurable model = new AppResourceUcSecurable();
+    model.setPermission(pb.getPermission());
+    model.setSecurableFullName(pb.getSecurableFullName());
+    model.setSecurableType(pb.getSecurableType());
+
+    return model;
+  }
+
+  public static class AppResourceUcSecurableSerializer
+      extends JsonSerializer<AppResourceUcSecurable> {
+    @Override
+    public void serialize(
+        AppResourceUcSecurable value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      AppResourceUcSecurablePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class AppResourceUcSecurableDeserializer
+      extends JsonDeserializer<AppResourceUcSecurable> {
+    @Override
+    public AppResourceUcSecurable deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      AppResourceUcSecurablePb pb = mapper.readValue(p, AppResourceUcSecurablePb.class);
+      return AppResourceUcSecurable.fromPb(pb);
+    }
   }
 }

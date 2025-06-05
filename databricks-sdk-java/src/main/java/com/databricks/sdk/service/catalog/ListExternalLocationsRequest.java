@@ -3,20 +3,29 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List external locations */
 @Generated
+@JsonSerialize(using = ListExternalLocationsRequest.ListExternalLocationsRequestSerializer.class)
+@JsonDeserialize(
+    using = ListExternalLocationsRequest.ListExternalLocationsRequestDeserializer.class)
 public class ListExternalLocationsRequest {
   /**
    * Whether to include external locations in the response for which the principal can only access
    * selective metadata for
    */
-  @JsonIgnore
-  @QueryParam("include_browse")
   private Boolean includeBrowse;
 
   /**
@@ -26,13 +35,9 @@ public class ListExternalLocationsRequest {
    * a server configured value (recommended); - when set to a value less than 0, an invalid
    * parameter error is returned;
    */
-  @JsonIgnore
-  @QueryParam("max_results")
   private Long maxResults;
 
   /** Opaque pagination token to go to next page based on previous query. */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   public ListExternalLocationsRequest setIncludeBrowse(Boolean includeBrowse) {
@@ -84,5 +89,45 @@ public class ListExternalLocationsRequest {
         .add("maxResults", maxResults)
         .add("pageToken", pageToken)
         .toString();
+  }
+
+  ListExternalLocationsRequestPb toPb() {
+    ListExternalLocationsRequestPb pb = new ListExternalLocationsRequestPb();
+    pb.setIncludeBrowse(includeBrowse);
+    pb.setMaxResults(maxResults);
+    pb.setPageToken(pageToken);
+
+    return pb;
+  }
+
+  static ListExternalLocationsRequest fromPb(ListExternalLocationsRequestPb pb) {
+    ListExternalLocationsRequest model = new ListExternalLocationsRequest();
+    model.setIncludeBrowse(pb.getIncludeBrowse());
+    model.setMaxResults(pb.getMaxResults());
+    model.setPageToken(pb.getPageToken());
+
+    return model;
+  }
+
+  public static class ListExternalLocationsRequestSerializer
+      extends JsonSerializer<ListExternalLocationsRequest> {
+    @Override
+    public void serialize(
+        ListExternalLocationsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListExternalLocationsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListExternalLocationsRequestDeserializer
+      extends JsonDeserializer<ListExternalLocationsRequest> {
+    @Override
+    public ListExternalLocationsRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListExternalLocationsRequestPb pb = mapper.readValue(p, ListExternalLocationsRequestPb.class);
+      return ListExternalLocationsRequest.fromPb(pb);
+    }
   }
 }

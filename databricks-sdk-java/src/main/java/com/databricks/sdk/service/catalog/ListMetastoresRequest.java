@@ -3,13 +3,23 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List metastores */
 @Generated
+@JsonSerialize(using = ListMetastoresRequest.ListMetastoresRequestSerializer.class)
+@JsonDeserialize(using = ListMetastoresRequest.ListMetastoresRequestDeserializer.class)
 public class ListMetastoresRequest {
   /**
    * Maximum number of metastores to return. - when set to a value greater than 0, the page length
@@ -20,13 +30,9 @@ public class ListMetastoresRequest {
    * zero. The only definitive indication that no further metastores can be fetched is when the
    * next_page_token is unset from the response.
    */
-  @JsonIgnore
-  @QueryParam("max_results")
   private Long maxResults;
 
   /** Opaque pagination token to go to next page based on previous query. */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   public ListMetastoresRequest setMaxResults(Long maxResults) {
@@ -66,5 +72,43 @@ public class ListMetastoresRequest {
         .add("maxResults", maxResults)
         .add("pageToken", pageToken)
         .toString();
+  }
+
+  ListMetastoresRequestPb toPb() {
+    ListMetastoresRequestPb pb = new ListMetastoresRequestPb();
+    pb.setMaxResults(maxResults);
+    pb.setPageToken(pageToken);
+
+    return pb;
+  }
+
+  static ListMetastoresRequest fromPb(ListMetastoresRequestPb pb) {
+    ListMetastoresRequest model = new ListMetastoresRequest();
+    model.setMaxResults(pb.getMaxResults());
+    model.setPageToken(pb.getPageToken());
+
+    return model;
+  }
+
+  public static class ListMetastoresRequestSerializer
+      extends JsonSerializer<ListMetastoresRequest> {
+    @Override
+    public void serialize(
+        ListMetastoresRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListMetastoresRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListMetastoresRequestDeserializer
+      extends JsonDeserializer<ListMetastoresRequest> {
+    @Override
+    public ListMetastoresRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListMetastoresRequestPb pb = mapper.readValue(p, ListMetastoresRequestPb.class);
+      return ListMetastoresRequest.fromPb(pb);
+    }
   }
 }

@@ -4,11 +4,22 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = TableSpecificConfig.TableSpecificConfigSerializer.class)
+@JsonDeserialize(using = TableSpecificConfig.TableSpecificConfigDeserializer.class)
 public class TableSpecificConfig {
   /**
    * A list of column names to be excluded for the ingestion. When not specified, include_columns
@@ -16,7 +27,6 @@ public class TableSpecificConfig {
    * ones will be automatically included for ingestion. This field in mutually exclusive with
    * `include_columns`.
    */
-  @JsonProperty("exclude_columns")
   private Collection<String> excludeColumns;
 
   /**
@@ -25,29 +35,24 @@ public class TableSpecificConfig {
    * specified, all other future columns will be automatically excluded from ingestion. This field
    * in mutually exclusive with `exclude_columns`.
    */
-  @JsonProperty("include_columns")
   private Collection<String> includeColumns;
 
   /** The primary key of the table used to apply changes. */
-  @JsonProperty("primary_keys")
   private Collection<String> primaryKeys;
 
   /**
    * If true, formula fields defined in the table are included in the ingestion. This setting is
    * only valid for the Salesforce connector
    */
-  @JsonProperty("salesforce_include_formula_fields")
   private Boolean salesforceIncludeFormulaFields;
 
   /** The SCD type to use to ingest the table. */
-  @JsonProperty("scd_type")
   private TableSpecificConfigScdType scdType;
 
   /**
    * The column names specifying the logical order of events in the source data. Delta Live Tables
    * uses this sequencing to handle change events that arrive out of order.
    */
-  @JsonProperty("sequence_by")
   private Collection<String> sequenceBy;
 
   public TableSpecificConfig setExcludeColumns(Collection<String> excludeColumns) {
@@ -139,5 +144,49 @@ public class TableSpecificConfig {
         .add("scdType", scdType)
         .add("sequenceBy", sequenceBy)
         .toString();
+  }
+
+  TableSpecificConfigPb toPb() {
+    TableSpecificConfigPb pb = new TableSpecificConfigPb();
+    pb.setExcludeColumns(excludeColumns);
+    pb.setIncludeColumns(includeColumns);
+    pb.setPrimaryKeys(primaryKeys);
+    pb.setSalesforceIncludeFormulaFields(salesforceIncludeFormulaFields);
+    pb.setScdType(scdType);
+    pb.setSequenceBy(sequenceBy);
+
+    return pb;
+  }
+
+  static TableSpecificConfig fromPb(TableSpecificConfigPb pb) {
+    TableSpecificConfig model = new TableSpecificConfig();
+    model.setExcludeColumns(pb.getExcludeColumns());
+    model.setIncludeColumns(pb.getIncludeColumns());
+    model.setPrimaryKeys(pb.getPrimaryKeys());
+    model.setSalesforceIncludeFormulaFields(pb.getSalesforceIncludeFormulaFields());
+    model.setScdType(pb.getScdType());
+    model.setSequenceBy(pb.getSequenceBy());
+
+    return model;
+  }
+
+  public static class TableSpecificConfigSerializer extends JsonSerializer<TableSpecificConfig> {
+    @Override
+    public void serialize(TableSpecificConfig value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      TableSpecificConfigPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class TableSpecificConfigDeserializer
+      extends JsonDeserializer<TableSpecificConfig> {
+    @Override
+    public TableSpecificConfig deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      TableSpecificConfigPb pb = mapper.readValue(p, TableSpecificConfigPb.class);
+      return TableSpecificConfig.fromPb(pb);
+    }
   }
 }

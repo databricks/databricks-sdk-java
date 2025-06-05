@@ -4,30 +4,37 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = PasswordAccessControlResponse.PasswordAccessControlResponseSerializer.class)
+@JsonDeserialize(
+    using = PasswordAccessControlResponse.PasswordAccessControlResponseDeserializer.class)
 public class PasswordAccessControlResponse {
   /** All permissions. */
-  @JsonProperty("all_permissions")
   private Collection<PasswordPermission> allPermissions;
 
   /** Display name of the user or service principal. */
-  @JsonProperty("display_name")
   private String displayName;
 
   /** name of the group */
-  @JsonProperty("group_name")
   private String groupName;
 
   /** Name of the service principal. */
-  @JsonProperty("service_principal_name")
   private String servicePrincipalName;
 
   /** name of the user */
-  @JsonProperty("user_name")
   private String userName;
 
   public PasswordAccessControlResponse setAllPermissions(
@@ -102,5 +109,50 @@ public class PasswordAccessControlResponse {
         .add("servicePrincipalName", servicePrincipalName)
         .add("userName", userName)
         .toString();
+  }
+
+  PasswordAccessControlResponsePb toPb() {
+    PasswordAccessControlResponsePb pb = new PasswordAccessControlResponsePb();
+    pb.setAllPermissions(allPermissions);
+    pb.setDisplayName(displayName);
+    pb.setGroupName(groupName);
+    pb.setServicePrincipalName(servicePrincipalName);
+    pb.setUserName(userName);
+
+    return pb;
+  }
+
+  static PasswordAccessControlResponse fromPb(PasswordAccessControlResponsePb pb) {
+    PasswordAccessControlResponse model = new PasswordAccessControlResponse();
+    model.setAllPermissions(pb.getAllPermissions());
+    model.setDisplayName(pb.getDisplayName());
+    model.setGroupName(pb.getGroupName());
+    model.setServicePrincipalName(pb.getServicePrincipalName());
+    model.setUserName(pb.getUserName());
+
+    return model;
+  }
+
+  public static class PasswordAccessControlResponseSerializer
+      extends JsonSerializer<PasswordAccessControlResponse> {
+    @Override
+    public void serialize(
+        PasswordAccessControlResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PasswordAccessControlResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PasswordAccessControlResponseDeserializer
+      extends JsonDeserializer<PasswordAccessControlResponse> {
+    @Override
+    public PasswordAccessControlResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PasswordAccessControlResponsePb pb =
+          mapper.readValue(p, PasswordAccessControlResponsePb.class);
+      return PasswordAccessControlResponse.fromPb(pb);
+    }
   }
 }

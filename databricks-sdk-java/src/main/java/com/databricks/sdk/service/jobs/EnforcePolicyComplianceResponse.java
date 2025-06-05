@@ -4,24 +4,35 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = EnforcePolicyComplianceResponse.EnforcePolicyComplianceResponseSerializer.class)
+@JsonDeserialize(
+    using = EnforcePolicyComplianceResponse.EnforcePolicyComplianceResponseDeserializer.class)
 public class EnforcePolicyComplianceResponse {
   /**
    * Whether any changes have been made to the job cluster settings for the job to become compliant
    * with its policies.
    */
-  @JsonProperty("has_changes")
   private Boolean hasChanges;
 
   /**
    * A list of job cluster changes that have been made to the job’s cluster settings in order for
    * all job clusters to become compliant with their policies.
    */
-  @JsonProperty("job_cluster_changes")
   private Collection<EnforcePolicyComplianceForJobResponseJobClusterSettingsChange>
       jobClusterChanges;
 
@@ -31,7 +42,6 @@ public class EnforcePolicyComplianceResponse {
    * to existing all-purpose clusters. Updated job settings are derived by applying policy default
    * values to the existing job clusters in order to satisfy policy requirements.
    */
-  @JsonProperty("settings")
   private JobSettings settings;
 
   public EnforcePolicyComplianceResponse setHasChanges(Boolean hasChanges) {
@@ -85,5 +95,46 @@ public class EnforcePolicyComplianceResponse {
         .add("jobClusterChanges", jobClusterChanges)
         .add("settings", settings)
         .toString();
+  }
+
+  EnforcePolicyComplianceResponsePb toPb() {
+    EnforcePolicyComplianceResponsePb pb = new EnforcePolicyComplianceResponsePb();
+    pb.setHasChanges(hasChanges);
+    pb.setJobClusterChanges(jobClusterChanges);
+    pb.setSettings(settings);
+
+    return pb;
+  }
+
+  static EnforcePolicyComplianceResponse fromPb(EnforcePolicyComplianceResponsePb pb) {
+    EnforcePolicyComplianceResponse model = new EnforcePolicyComplianceResponse();
+    model.setHasChanges(pb.getHasChanges());
+    model.setJobClusterChanges(pb.getJobClusterChanges());
+    model.setSettings(pb.getSettings());
+
+    return model;
+  }
+
+  public static class EnforcePolicyComplianceResponseSerializer
+      extends JsonSerializer<EnforcePolicyComplianceResponse> {
+    @Override
+    public void serialize(
+        EnforcePolicyComplianceResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      EnforcePolicyComplianceResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class EnforcePolicyComplianceResponseDeserializer
+      extends JsonDeserializer<EnforcePolicyComplianceResponse> {
+    @Override
+    public EnforcePolicyComplianceResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      EnforcePolicyComplianceResponsePb pb =
+          mapper.readValue(p, EnforcePolicyComplianceResponsePb.class);
+      return EnforcePolicyComplianceResponse.fromPb(pb);
+    }
   }
 }

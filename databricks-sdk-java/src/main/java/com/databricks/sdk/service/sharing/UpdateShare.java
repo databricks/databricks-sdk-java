@@ -4,34 +4,39 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = UpdateShare.UpdateShareSerializer.class)
+@JsonDeserialize(using = UpdateShare.UpdateShareDeserializer.class)
 public class UpdateShare {
   /** User-provided free-form text description. */
-  @JsonProperty("comment")
   private String comment;
 
   /** The name of the share. */
-  @JsonIgnore private String name;
+  private String name;
 
   /** New name for the share. */
-  @JsonProperty("new_name")
   private String newName;
 
   /** Username of current owner of share. */
-  @JsonProperty("owner")
   private String owner;
 
   /** Storage root URL for the share. */
-  @JsonProperty("storage_root")
   private String storageRoot;
 
   /** Array of shared data object updates. */
-  @JsonProperty("updates")
   private Collection<SharedDataObjectUpdate> updates;
 
   public UpdateShare setComment(String comment) {
@@ -116,5 +121,47 @@ public class UpdateShare {
         .add("storageRoot", storageRoot)
         .add("updates", updates)
         .toString();
+  }
+
+  UpdateSharePb toPb() {
+    UpdateSharePb pb = new UpdateSharePb();
+    pb.setComment(comment);
+    pb.setName(name);
+    pb.setNewName(newName);
+    pb.setOwner(owner);
+    pb.setStorageRoot(storageRoot);
+    pb.setUpdates(updates);
+
+    return pb;
+  }
+
+  static UpdateShare fromPb(UpdateSharePb pb) {
+    UpdateShare model = new UpdateShare();
+    model.setComment(pb.getComment());
+    model.setName(pb.getName());
+    model.setNewName(pb.getNewName());
+    model.setOwner(pb.getOwner());
+    model.setStorageRoot(pb.getStorageRoot());
+    model.setUpdates(pb.getUpdates());
+
+    return model;
+  }
+
+  public static class UpdateShareSerializer extends JsonSerializer<UpdateShare> {
+    @Override
+    public void serialize(UpdateShare value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateSharePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateShareDeserializer extends JsonDeserializer<UpdateShare> {
+    @Override
+    public UpdateShare deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateSharePb pb = mapper.readValue(p, UpdateSharePb.class);
+      return UpdateShare.fromPb(pb);
+    }
   }
 }

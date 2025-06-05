@@ -4,13 +4,23 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = UpdateCommentResponse.UpdateCommentResponseSerializer.class)
+@JsonDeserialize(using = UpdateCommentResponse.UpdateCommentResponseDeserializer.class)
 public class UpdateCommentResponse {
   /** Comment details. */
-  @JsonProperty("comment")
   private CommentObject comment;
 
   public UpdateCommentResponse setComment(CommentObject comment) {
@@ -38,5 +48,41 @@ public class UpdateCommentResponse {
   @Override
   public String toString() {
     return new ToStringer(UpdateCommentResponse.class).add("comment", comment).toString();
+  }
+
+  UpdateCommentResponsePb toPb() {
+    UpdateCommentResponsePb pb = new UpdateCommentResponsePb();
+    pb.setComment(comment);
+
+    return pb;
+  }
+
+  static UpdateCommentResponse fromPb(UpdateCommentResponsePb pb) {
+    UpdateCommentResponse model = new UpdateCommentResponse();
+    model.setComment(pb.getComment());
+
+    return model;
+  }
+
+  public static class UpdateCommentResponseSerializer
+      extends JsonSerializer<UpdateCommentResponse> {
+    @Override
+    public void serialize(
+        UpdateCommentResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateCommentResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateCommentResponseDeserializer
+      extends JsonDeserializer<UpdateCommentResponse> {
+    @Override
+    public UpdateCommentResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateCommentResponsePb pb = mapper.readValue(p, UpdateCommentResponsePb.class);
+      return UpdateCommentResponse.fromPb(pb);
+    }
   }
 }

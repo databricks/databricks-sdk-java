@@ -4,27 +4,38 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = EffectivePredictiveOptimizationFlag.EffectivePredictiveOptimizationFlagSerializer.class)
+@JsonDeserialize(
+    using =
+        EffectivePredictiveOptimizationFlag.EffectivePredictiveOptimizationFlagDeserializer.class)
 public class EffectivePredictiveOptimizationFlag {
   /**
    * The name of the object from which the flag was inherited. If there was no inheritance, this
    * field is left blank.
    */
-  @JsonProperty("inherited_from_name")
   private String inheritedFromName;
 
   /**
    * The type of the object from which the flag was inherited. If there was no inheritance, this
    * field is left blank.
    */
-  @JsonProperty("inherited_from_type")
   private EffectivePredictiveOptimizationFlagInheritedFromType inheritedFromType;
 
   /** Whether predictive optimization should be enabled for this object and objects under it. */
-  @JsonProperty("value")
   private EnablePredictiveOptimization value;
 
   public EffectivePredictiveOptimizationFlag setInheritedFromName(String inheritedFromName) {
@@ -77,5 +88,46 @@ public class EffectivePredictiveOptimizationFlag {
         .add("inheritedFromType", inheritedFromType)
         .add("value", value)
         .toString();
+  }
+
+  EffectivePredictiveOptimizationFlagPb toPb() {
+    EffectivePredictiveOptimizationFlagPb pb = new EffectivePredictiveOptimizationFlagPb();
+    pb.setInheritedFromName(inheritedFromName);
+    pb.setInheritedFromType(inheritedFromType);
+    pb.setValue(value);
+
+    return pb;
+  }
+
+  static EffectivePredictiveOptimizationFlag fromPb(EffectivePredictiveOptimizationFlagPb pb) {
+    EffectivePredictiveOptimizationFlag model = new EffectivePredictiveOptimizationFlag();
+    model.setInheritedFromName(pb.getInheritedFromName());
+    model.setInheritedFromType(pb.getInheritedFromType());
+    model.setValue(pb.getValue());
+
+    return model;
+  }
+
+  public static class EffectivePredictiveOptimizationFlagSerializer
+      extends JsonSerializer<EffectivePredictiveOptimizationFlag> {
+    @Override
+    public void serialize(
+        EffectivePredictiveOptimizationFlag value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      EffectivePredictiveOptimizationFlagPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class EffectivePredictiveOptimizationFlagDeserializer
+      extends JsonDeserializer<EffectivePredictiveOptimizationFlag> {
+    @Override
+    public EffectivePredictiveOptimizationFlag deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      EffectivePredictiveOptimizationFlagPb pb =
+          mapper.readValue(p, EffectivePredictiveOptimizationFlagPb.class);
+      return EffectivePredictiveOptimizationFlag.fromPb(pb);
+    }
   }
 }

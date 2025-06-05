@@ -4,17 +4,28 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = WarehousePermissionsDescription.WarehousePermissionsDescriptionSerializer.class)
+@JsonDeserialize(
+    using = WarehousePermissionsDescription.WarehousePermissionsDescriptionDeserializer.class)
 public class WarehousePermissionsDescription {
   /** */
-  @JsonProperty("description")
   private String description;
 
   /** Permission level */
-  @JsonProperty("permission_level")
   private WarehousePermissionLevel permissionLevel;
 
   public WarehousePermissionsDescription setDescription(String description) {
@@ -56,5 +67,44 @@ public class WarehousePermissionsDescription {
         .add("description", description)
         .add("permissionLevel", permissionLevel)
         .toString();
+  }
+
+  WarehousePermissionsDescriptionPb toPb() {
+    WarehousePermissionsDescriptionPb pb = new WarehousePermissionsDescriptionPb();
+    pb.setDescription(description);
+    pb.setPermissionLevel(permissionLevel);
+
+    return pb;
+  }
+
+  static WarehousePermissionsDescription fromPb(WarehousePermissionsDescriptionPb pb) {
+    WarehousePermissionsDescription model = new WarehousePermissionsDescription();
+    model.setDescription(pb.getDescription());
+    model.setPermissionLevel(pb.getPermissionLevel());
+
+    return model;
+  }
+
+  public static class WarehousePermissionsDescriptionSerializer
+      extends JsonSerializer<WarehousePermissionsDescription> {
+    @Override
+    public void serialize(
+        WarehousePermissionsDescription value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      WarehousePermissionsDescriptionPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class WarehousePermissionsDescriptionDeserializer
+      extends JsonDeserializer<WarehousePermissionsDescription> {
+    @Override
+    public WarehousePermissionsDescription deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      WarehousePermissionsDescriptionPb pb =
+          mapper.readValue(p, WarehousePermissionsDescriptionPb.class);
+      return WarehousePermissionsDescription.fromPb(pb);
+    }
   }
 }

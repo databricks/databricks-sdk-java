@@ -4,14 +4,25 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get object permissions */
 @Generated
+@JsonSerialize(using = GetPermissionRequest.GetPermissionRequestSerializer.class)
+@JsonDeserialize(using = GetPermissionRequest.GetPermissionRequestDeserializer.class)
 public class GetPermissionRequest {
   /** The id of the request object. */
-  @JsonIgnore private String requestObjectId;
+  private String requestObjectId;
 
   /**
    * The type of the request object. Can be one of the following: alerts, authorization, clusters,
@@ -19,7 +30,7 @@ public class GetPermissionRequest {
    * instance-pools, jobs, notebooks, pipelines, queries, registered-models, repos,
    * serving-endpoints, or warehouses.
    */
-  @JsonIgnore private String requestObjectType;
+  private String requestObjectType;
 
   public GetPermissionRequest setRequestObjectId(String requestObjectId) {
     this.requestObjectId = requestObjectId;
@@ -59,5 +70,42 @@ public class GetPermissionRequest {
         .add("requestObjectId", requestObjectId)
         .add("requestObjectType", requestObjectType)
         .toString();
+  }
+
+  GetPermissionRequestPb toPb() {
+    GetPermissionRequestPb pb = new GetPermissionRequestPb();
+    pb.setRequestObjectId(requestObjectId);
+    pb.setRequestObjectType(requestObjectType);
+
+    return pb;
+  }
+
+  static GetPermissionRequest fromPb(GetPermissionRequestPb pb) {
+    GetPermissionRequest model = new GetPermissionRequest();
+    model.setRequestObjectId(pb.getRequestObjectId());
+    model.setRequestObjectType(pb.getRequestObjectType());
+
+    return model;
+  }
+
+  public static class GetPermissionRequestSerializer extends JsonSerializer<GetPermissionRequest> {
+    @Override
+    public void serialize(
+        GetPermissionRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetPermissionRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetPermissionRequestDeserializer
+      extends JsonDeserializer<GetPermissionRequest> {
+    @Override
+    public GetPermissionRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetPermissionRequestPb pb = mapper.readValue(p, GetPermissionRequestPb.class);
+      return GetPermissionRequest.fromPb(pb);
+    }
   }
 }

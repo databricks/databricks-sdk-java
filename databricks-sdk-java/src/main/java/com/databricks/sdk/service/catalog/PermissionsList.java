@@ -4,14 +4,24 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = PermissionsList.PermissionsListSerializer.class)
+@JsonDeserialize(using = PermissionsList.PermissionsListDeserializer.class)
 public class PermissionsList {
   /** The privileges assigned to each principal */
-  @JsonProperty("privilege_assignments")
   private Collection<PrivilegeAssignment> privilegeAssignments;
 
   public PermissionsList setPrivilegeAssignments(
@@ -42,5 +52,38 @@ public class PermissionsList {
     return new ToStringer(PermissionsList.class)
         .add("privilegeAssignments", privilegeAssignments)
         .toString();
+  }
+
+  PermissionsListPb toPb() {
+    PermissionsListPb pb = new PermissionsListPb();
+    pb.setPrivilegeAssignments(privilegeAssignments);
+
+    return pb;
+  }
+
+  static PermissionsList fromPb(PermissionsListPb pb) {
+    PermissionsList model = new PermissionsList();
+    model.setPrivilegeAssignments(pb.getPrivilegeAssignments());
+
+    return model;
+  }
+
+  public static class PermissionsListSerializer extends JsonSerializer<PermissionsList> {
+    @Override
+    public void serialize(PermissionsList value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PermissionsListPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PermissionsListDeserializer extends JsonDeserializer<PermissionsList> {
+    @Override
+    public PermissionsList deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PermissionsListPb pb = mapper.readValue(p, PermissionsListPb.class);
+      return PermissionsList.fromPb(pb);
+    }
   }
 }

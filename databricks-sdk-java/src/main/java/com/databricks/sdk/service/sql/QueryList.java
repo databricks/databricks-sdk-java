@@ -4,26 +4,33 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = QueryList.QueryListSerializer.class)
+@JsonDeserialize(using = QueryList.QueryListDeserializer.class)
 public class QueryList {
   /** The total number of queries. */
-  @JsonProperty("count")
   private Long count;
 
   /** The page number that is currently displayed. */
-  @JsonProperty("page")
   private Long page;
 
   /** The number of queries per page. */
-  @JsonProperty("page_size")
   private Long pageSize;
 
   /** List of queries returned. */
-  @JsonProperty("results")
   private Collection<LegacyQuery> results;
 
   public QueryList setCount(Long count) {
@@ -86,5 +93,43 @@ public class QueryList {
         .add("pageSize", pageSize)
         .add("results", results)
         .toString();
+  }
+
+  QueryListPb toPb() {
+    QueryListPb pb = new QueryListPb();
+    pb.setCount(count);
+    pb.setPage(page);
+    pb.setPageSize(pageSize);
+    pb.setResults(results);
+
+    return pb;
+  }
+
+  static QueryList fromPb(QueryListPb pb) {
+    QueryList model = new QueryList();
+    model.setCount(pb.getCount());
+    model.setPage(pb.getPage());
+    model.setPageSize(pb.getPageSize());
+    model.setResults(pb.getResults());
+
+    return model;
+  }
+
+  public static class QueryListSerializer extends JsonSerializer<QueryList> {
+    @Override
+    public void serialize(QueryList value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      QueryListPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class QueryListDeserializer extends JsonDeserializer<QueryList> {
+    @Override
+    public QueryList deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      QueryListPb pb = mapper.readValue(p, QueryListPb.class);
+      return QueryList.fromPb(pb);
+    }
   }
 }

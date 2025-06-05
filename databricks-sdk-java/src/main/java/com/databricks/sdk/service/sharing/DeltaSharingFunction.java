@@ -4,74 +4,69 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = DeltaSharingFunction.DeltaSharingFunctionSerializer.class)
+@JsonDeserialize(using = DeltaSharingFunction.DeltaSharingFunctionDeserializer.class)
 public class DeltaSharingFunction {
   /** The aliass of registered model. */
-  @JsonProperty("aliases")
   private Collection<RegisteredModelAlias> aliases;
 
   /** The comment of the function. */
-  @JsonProperty("comment")
   private String comment;
 
   /** The data type of the function. */
-  @JsonProperty("data_type")
   private ColumnTypeName dataType;
 
   /** The dependency list of the function. */
-  @JsonProperty("dependency_list")
   private DeltaSharingDependencyList dependencyList;
 
   /** The full data type of the function. */
-  @JsonProperty("full_data_type")
   private String fullDataType;
 
   /** The id of the function. */
-  @JsonProperty("id")
   private String id;
 
   /** The function parameter information. */
-  @JsonProperty("input_params")
   private FunctionParameterInfos inputParams;
 
   /** The name of the function. */
-  @JsonProperty("name")
   private String name;
 
   /** The properties of the function. */
-  @JsonProperty("properties")
   private String properties;
 
   /** The routine definition of the function. */
-  @JsonProperty("routine_definition")
   private String routineDefinition;
 
   /** The name of the schema that the function belongs to. */
-  @JsonProperty("schema")
   private String schema;
 
   /** The securable kind of the function. */
-  @JsonProperty("securable_kind")
   private SharedSecurableKind securableKind;
 
   /** The name of the share that the function belongs to. */
-  @JsonProperty("share")
   private String share;
 
   /** The id of the share that the function belongs to. */
-  @JsonProperty("share_id")
   private String shareId;
 
   /** The storage location of the function. */
-  @JsonProperty("storage_location")
   private String storageLocation;
 
   /** The tags of the function. */
-  @JsonProperty("tags")
   private Collection<com.databricks.sdk.service.catalog.TagKeyValue> tags;
 
   public DeltaSharingFunction setAliases(Collection<RegisteredModelAlias> aliases) {
@@ -283,5 +278,70 @@ public class DeltaSharingFunction {
         .add("storageLocation", storageLocation)
         .add("tags", tags)
         .toString();
+  }
+
+  DeltaSharingFunctionPb toPb() {
+    DeltaSharingFunctionPb pb = new DeltaSharingFunctionPb();
+    pb.setAliases(aliases);
+    pb.setComment(comment);
+    pb.setDataType(dataType);
+    pb.setDependencyList(dependencyList);
+    pb.setFullDataType(fullDataType);
+    pb.setId(id);
+    pb.setInputParams(inputParams);
+    pb.setName(name);
+    pb.setProperties(properties);
+    pb.setRoutineDefinition(routineDefinition);
+    pb.setSchema(schema);
+    pb.setSecurableKind(securableKind);
+    pb.setShare(share);
+    pb.setShareId(shareId);
+    pb.setStorageLocation(storageLocation);
+    pb.setTags(tags);
+
+    return pb;
+  }
+
+  static DeltaSharingFunction fromPb(DeltaSharingFunctionPb pb) {
+    DeltaSharingFunction model = new DeltaSharingFunction();
+    model.setAliases(pb.getAliases());
+    model.setComment(pb.getComment());
+    model.setDataType(pb.getDataType());
+    model.setDependencyList(pb.getDependencyList());
+    model.setFullDataType(pb.getFullDataType());
+    model.setId(pb.getId());
+    model.setInputParams(pb.getInputParams());
+    model.setName(pb.getName());
+    model.setProperties(pb.getProperties());
+    model.setRoutineDefinition(pb.getRoutineDefinition());
+    model.setSchema(pb.getSchema());
+    model.setSecurableKind(pb.getSecurableKind());
+    model.setShare(pb.getShare());
+    model.setShareId(pb.getShareId());
+    model.setStorageLocation(pb.getStorageLocation());
+    model.setTags(pb.getTags());
+
+    return model;
+  }
+
+  public static class DeltaSharingFunctionSerializer extends JsonSerializer<DeltaSharingFunction> {
+    @Override
+    public void serialize(
+        DeltaSharingFunction value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DeltaSharingFunctionPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DeltaSharingFunctionDeserializer
+      extends JsonDeserializer<DeltaSharingFunction> {
+    @Override
+    public DeltaSharingFunction deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DeltaSharingFunctionPb pb = mapper.readValue(p, DeltaSharingFunctionPb.class);
+      return DeltaSharingFunction.fromPb(pb);
+    }
   }
 }

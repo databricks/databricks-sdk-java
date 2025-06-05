@@ -4,14 +4,25 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Delete a warehouse */
 @Generated
+@JsonSerialize(using = DeleteWarehouseRequest.DeleteWarehouseRequestSerializer.class)
+@JsonDeserialize(using = DeleteWarehouseRequest.DeleteWarehouseRequestDeserializer.class)
 public class DeleteWarehouseRequest {
   /** Required. Id of the SQL warehouse. */
-  @JsonIgnore private String id;
+  private String id;
 
   public DeleteWarehouseRequest setId(String id) {
     this.id = id;
@@ -38,5 +49,41 @@ public class DeleteWarehouseRequest {
   @Override
   public String toString() {
     return new ToStringer(DeleteWarehouseRequest.class).add("id", id).toString();
+  }
+
+  DeleteWarehouseRequestPb toPb() {
+    DeleteWarehouseRequestPb pb = new DeleteWarehouseRequestPb();
+    pb.setId(id);
+
+    return pb;
+  }
+
+  static DeleteWarehouseRequest fromPb(DeleteWarehouseRequestPb pb) {
+    DeleteWarehouseRequest model = new DeleteWarehouseRequest();
+    model.setId(pb.getId());
+
+    return model;
+  }
+
+  public static class DeleteWarehouseRequestSerializer
+      extends JsonSerializer<DeleteWarehouseRequest> {
+    @Override
+    public void serialize(
+        DeleteWarehouseRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DeleteWarehouseRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DeleteWarehouseRequestDeserializer
+      extends JsonDeserializer<DeleteWarehouseRequest> {
+    @Override
+    public DeleteWarehouseRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DeleteWarehouseRequestPb pb = mapper.readValue(p, DeleteWarehouseRequestPb.class);
+      return DeleteWarehouseRequest.fromPb(pb);
+    }
   }
 }

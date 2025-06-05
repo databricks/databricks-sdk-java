@@ -4,25 +4,32 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = OdbcParams.OdbcParamsSerializer.class)
+@JsonDeserialize(using = OdbcParams.OdbcParamsDeserializer.class)
 public class OdbcParams {
   /** */
-  @JsonProperty("hostname")
   private String hostname;
 
   /** */
-  @JsonProperty("path")
   private String path;
 
   /** */
-  @JsonProperty("port")
   private Long port;
 
   /** */
-  @JsonProperty("protocol")
   private String protocol;
 
   public OdbcParams setHostname(String hostname) {
@@ -85,5 +92,43 @@ public class OdbcParams {
         .add("port", port)
         .add("protocol", protocol)
         .toString();
+  }
+
+  OdbcParamsPb toPb() {
+    OdbcParamsPb pb = new OdbcParamsPb();
+    pb.setHostname(hostname);
+    pb.setPath(path);
+    pb.setPort(port);
+    pb.setProtocol(protocol);
+
+    return pb;
+  }
+
+  static OdbcParams fromPb(OdbcParamsPb pb) {
+    OdbcParams model = new OdbcParams();
+    model.setHostname(pb.getHostname());
+    model.setPath(pb.getPath());
+    model.setPort(pb.getPort());
+    model.setProtocol(pb.getProtocol());
+
+    return model;
+  }
+
+  public static class OdbcParamsSerializer extends JsonSerializer<OdbcParams> {
+    @Override
+    public void serialize(OdbcParams value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      OdbcParamsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class OdbcParamsDeserializer extends JsonDeserializer<OdbcParams> {
+    @Override
+    public OdbcParams deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      OdbcParamsPb pb = mapper.readValue(p, OdbcParamsPb.class);
+      return OdbcParams.fromPb(pb);
+    }
   }
 }

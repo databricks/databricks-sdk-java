@@ -4,29 +4,36 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = QueryOptions.QueryOptionsSerializer.class)
+@JsonDeserialize(using = QueryOptions.QueryOptionsDeserializer.class)
 public class QueryOptions {
   /** The name of the catalog to execute this query in. */
-  @JsonProperty("catalog")
   private String catalog;
 
   /**
    * The timestamp when this query was moved to trash. Only present when the `is_archived` property
    * is `true`. Trashed items are deleted after thirty days.
    */
-  @JsonProperty("moved_to_trash_at")
   private String movedToTrashAt;
 
   /** */
-  @JsonProperty("parameters")
   private Collection<Parameter> parameters;
 
   /** The name of the schema to execute this query in. */
-  @JsonProperty("schema")
   private String schema;
 
   public QueryOptions setCatalog(String catalog) {
@@ -89,5 +96,43 @@ public class QueryOptions {
         .add("parameters", parameters)
         .add("schema", schema)
         .toString();
+  }
+
+  QueryOptionsPb toPb() {
+    QueryOptionsPb pb = new QueryOptionsPb();
+    pb.setCatalog(catalog);
+    pb.setMovedToTrashAt(movedToTrashAt);
+    pb.setParameters(parameters);
+    pb.setSchema(schema);
+
+    return pb;
+  }
+
+  static QueryOptions fromPb(QueryOptionsPb pb) {
+    QueryOptions model = new QueryOptions();
+    model.setCatalog(pb.getCatalog());
+    model.setMovedToTrashAt(pb.getMovedToTrashAt());
+    model.setParameters(pb.getParameters());
+    model.setSchema(pb.getSchema());
+
+    return model;
+  }
+
+  public static class QueryOptionsSerializer extends JsonSerializer<QueryOptions> {
+    @Override
+    public void serialize(QueryOptions value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      QueryOptionsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class QueryOptionsDeserializer extends JsonDeserializer<QueryOptions> {
+    @Override
+    public QueryOptions deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      QueryOptionsPb pb = mapper.readValue(p, QueryOptionsPb.class);
+      return QueryOptions.fromPb(pb);
+    }
   }
 }

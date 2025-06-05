@@ -4,21 +4,29 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ExternalModelUsageElement.ExternalModelUsageElementSerializer.class)
+@JsonDeserialize(using = ExternalModelUsageElement.ExternalModelUsageElementDeserializer.class)
 public class ExternalModelUsageElement {
   /** The number of tokens in the chat/completions response. */
-  @JsonProperty("completion_tokens")
   private Long completionTokens;
 
   /** The number of tokens in the prompt. */
-  @JsonProperty("prompt_tokens")
   private Long promptTokens;
 
   /** The total number of tokens in the prompt and response. */
-  @JsonProperty("total_tokens")
   private Long totalTokens;
 
   public ExternalModelUsageElement setCompletionTokens(Long completionTokens) {
@@ -70,5 +78,45 @@ public class ExternalModelUsageElement {
         .add("promptTokens", promptTokens)
         .add("totalTokens", totalTokens)
         .toString();
+  }
+
+  ExternalModelUsageElementPb toPb() {
+    ExternalModelUsageElementPb pb = new ExternalModelUsageElementPb();
+    pb.setCompletionTokens(completionTokens);
+    pb.setPromptTokens(promptTokens);
+    pb.setTotalTokens(totalTokens);
+
+    return pb;
+  }
+
+  static ExternalModelUsageElement fromPb(ExternalModelUsageElementPb pb) {
+    ExternalModelUsageElement model = new ExternalModelUsageElement();
+    model.setCompletionTokens(pb.getCompletionTokens());
+    model.setPromptTokens(pb.getPromptTokens());
+    model.setTotalTokens(pb.getTotalTokens());
+
+    return model;
+  }
+
+  public static class ExternalModelUsageElementSerializer
+      extends JsonSerializer<ExternalModelUsageElement> {
+    @Override
+    public void serialize(
+        ExternalModelUsageElement value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ExternalModelUsageElementPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ExternalModelUsageElementDeserializer
+      extends JsonDeserializer<ExternalModelUsageElement> {
+    @Override
+    public ExternalModelUsageElement deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ExternalModelUsageElementPb pb = mapper.readValue(p, ExternalModelUsageElementPb.class);
+      return ExternalModelUsageElement.fromPb(pb);
+    }
   }
 }

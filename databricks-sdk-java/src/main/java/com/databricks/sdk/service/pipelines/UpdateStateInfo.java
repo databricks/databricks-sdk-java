@@ -4,21 +4,29 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = UpdateStateInfo.UpdateStateInfoSerializer.class)
+@JsonDeserialize(using = UpdateStateInfo.UpdateStateInfoDeserializer.class)
 public class UpdateStateInfo {
   /** */
-  @JsonProperty("creation_time")
   private String creationTime;
 
   /** The update state. */
-  @JsonProperty("state")
   private UpdateStateInfoState state;
 
   /** */
-  @JsonProperty("update_id")
   private String updateId;
 
   public UpdateStateInfo setCreationTime(String creationTime) {
@@ -70,5 +78,42 @@ public class UpdateStateInfo {
         .add("state", state)
         .add("updateId", updateId)
         .toString();
+  }
+
+  UpdateStateInfoPb toPb() {
+    UpdateStateInfoPb pb = new UpdateStateInfoPb();
+    pb.setCreationTime(creationTime);
+    pb.setState(state);
+    pb.setUpdateId(updateId);
+
+    return pb;
+  }
+
+  static UpdateStateInfo fromPb(UpdateStateInfoPb pb) {
+    UpdateStateInfo model = new UpdateStateInfo();
+    model.setCreationTime(pb.getCreationTime());
+    model.setState(pb.getState());
+    model.setUpdateId(pb.getUpdateId());
+
+    return model;
+  }
+
+  public static class UpdateStateInfoSerializer extends JsonSerializer<UpdateStateInfo> {
+    @Override
+    public void serialize(UpdateStateInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateStateInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateStateInfoDeserializer extends JsonDeserializer<UpdateStateInfo> {
+    @Override
+    public UpdateStateInfo deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateStateInfoPb pb = mapper.readValue(p, UpdateStateInfoPb.class);
+      return UpdateStateInfo.fromPb(pb);
+    }
   }
 }

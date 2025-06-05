@@ -4,28 +4,35 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = GenAiComputeTask.GenAiComputeTaskSerializer.class)
+@JsonDeserialize(using = GenAiComputeTask.GenAiComputeTaskDeserializer.class)
 public class GenAiComputeTask {
   /** Command launcher to run the actual script, e.g. bash, python etc. */
-  @JsonProperty("command")
   private String command;
 
   /** */
-  @JsonProperty("compute")
   private ComputeConfig compute;
 
   /** Runtime image */
-  @JsonProperty("dl_runtime_image")
   private String dlRuntimeImage;
 
   /**
    * Optional string containing the name of the MLflow experiment to log the run to. If name is not
    * found, backend will create the mlflow experiment using the name.
    */
-  @JsonProperty("mlflow_experiment_name")
   private String mlflowExperimentName;
 
   /**
@@ -35,7 +42,6 @@ public class GenAiComputeTask {
    * if `git_source` is defined and `WORKSPACE` otherwise. * `WORKSPACE`: Script is located in
    * Databricks workspace. * `GIT`: Script is located in cloud Git provider.
    */
-  @JsonProperty("source")
   private Source source;
 
   /**
@@ -44,18 +50,15 @@ public class GenAiComputeTask {
    * the path must be absolute and begin with `/`. For files stored in a remote repository, the path
    * must be relative. This field is required.
    */
-  @JsonProperty("training_script_path")
   private String trainingScriptPath;
 
   /**
    * Optional string containing model parameters passed to the training script in yaml format. If
    * present, then the content in yaml_parameters_file_path will be ignored.
    */
-  @JsonProperty("yaml_parameters")
   private String yamlParameters;
 
   /** Optional path to a YAML file containing model parameters passed to the training script. */
-  @JsonProperty("yaml_parameters_file_path")
   private String yamlParametersFilePath;
 
   public GenAiComputeTask setCommand(String command) {
@@ -170,5 +173,52 @@ public class GenAiComputeTask {
         .add("yamlParameters", yamlParameters)
         .add("yamlParametersFilePath", yamlParametersFilePath)
         .toString();
+  }
+
+  GenAiComputeTaskPb toPb() {
+    GenAiComputeTaskPb pb = new GenAiComputeTaskPb();
+    pb.setCommand(command);
+    pb.setCompute(compute);
+    pb.setDlRuntimeImage(dlRuntimeImage);
+    pb.setMlflowExperimentName(mlflowExperimentName);
+    pb.setSource(source);
+    pb.setTrainingScriptPath(trainingScriptPath);
+    pb.setYamlParameters(yamlParameters);
+    pb.setYamlParametersFilePath(yamlParametersFilePath);
+
+    return pb;
+  }
+
+  static GenAiComputeTask fromPb(GenAiComputeTaskPb pb) {
+    GenAiComputeTask model = new GenAiComputeTask();
+    model.setCommand(pb.getCommand());
+    model.setCompute(pb.getCompute());
+    model.setDlRuntimeImage(pb.getDlRuntimeImage());
+    model.setMlflowExperimentName(pb.getMlflowExperimentName());
+    model.setSource(pb.getSource());
+    model.setTrainingScriptPath(pb.getTrainingScriptPath());
+    model.setYamlParameters(pb.getYamlParameters());
+    model.setYamlParametersFilePath(pb.getYamlParametersFilePath());
+
+    return model;
+  }
+
+  public static class GenAiComputeTaskSerializer extends JsonSerializer<GenAiComputeTask> {
+    @Override
+    public void serialize(GenAiComputeTask value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GenAiComputeTaskPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GenAiComputeTaskDeserializer extends JsonDeserializer<GenAiComputeTask> {
+    @Override
+    public GenAiComputeTask deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GenAiComputeTaskPb pb = mapper.readValue(p, GenAiComputeTaskPb.class);
+      return GenAiComputeTask.fromPb(pb);
+    }
   }
 }

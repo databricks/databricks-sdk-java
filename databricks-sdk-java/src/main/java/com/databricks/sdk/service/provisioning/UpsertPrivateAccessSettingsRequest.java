@@ -4,12 +4,24 @@ package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = UpsertPrivateAccessSettingsRequest.UpsertPrivateAccessSettingsRequestSerializer.class)
+@JsonDeserialize(
+    using = UpsertPrivateAccessSettingsRequest.UpsertPrivateAccessSettingsRequestDeserializer.class)
 public class UpsertPrivateAccessSettingsRequest {
   /**
    * An array of Databricks VPC endpoint IDs. This is the Databricks ID that is returned when
@@ -25,7 +37,6 @@ public class UpsertPrivateAccessSettingsRequest {
    *
    * <p>[IP access lists]: https://docs.databricks.com/security/network/ip-access-list.html
    */
-  @JsonProperty("allowed_vpc_endpoint_ids")
   private Collection<String> allowedVpcEndpointIds;
 
   /**
@@ -35,14 +46,12 @@ public class UpsertPrivateAccessSettingsRequest {
    * your workspace. * `ENDPOINT` level access allows only specified VPC endpoints connect to your
    * workspace. For details, see `allowed_vpc_endpoint_ids`.
    */
-  @JsonProperty("private_access_level")
   private PrivateAccessLevel privateAccessLevel;
 
   /** Databricks Account API private access settings ID. */
-  @JsonIgnore private String privateAccessSettingsId;
+  private String privateAccessSettingsId;
 
   /** The human-readable name of the private access settings object. */
-  @JsonProperty("private_access_settings_name")
   private String privateAccessSettingsName;
 
   /**
@@ -51,11 +60,9 @@ public class UpsertPrivateAccessSettingsRequest {
    * back-end PrivateLink connections. Otherwise, specify `true`, which means that public access is
    * enabled.
    */
-  @JsonProperty("public_access_enabled")
   private Boolean publicAccessEnabled;
 
   /** The cloud region for workspaces associated with this private access settings object. */
-  @JsonProperty("region")
   private String region;
 
   public UpsertPrivateAccessSettingsRequest setAllowedVpcEndpointIds(
@@ -150,5 +157,52 @@ public class UpsertPrivateAccessSettingsRequest {
         .add("publicAccessEnabled", publicAccessEnabled)
         .add("region", region)
         .toString();
+  }
+
+  UpsertPrivateAccessSettingsRequestPb toPb() {
+    UpsertPrivateAccessSettingsRequestPb pb = new UpsertPrivateAccessSettingsRequestPb();
+    pb.setAllowedVpcEndpointIds(allowedVpcEndpointIds);
+    pb.setPrivateAccessLevel(privateAccessLevel);
+    pb.setPrivateAccessSettingsId(privateAccessSettingsId);
+    pb.setPrivateAccessSettingsName(privateAccessSettingsName);
+    pb.setPublicAccessEnabled(publicAccessEnabled);
+    pb.setRegion(region);
+
+    return pb;
+  }
+
+  static UpsertPrivateAccessSettingsRequest fromPb(UpsertPrivateAccessSettingsRequestPb pb) {
+    UpsertPrivateAccessSettingsRequest model = new UpsertPrivateAccessSettingsRequest();
+    model.setAllowedVpcEndpointIds(pb.getAllowedVpcEndpointIds());
+    model.setPrivateAccessLevel(pb.getPrivateAccessLevel());
+    model.setPrivateAccessSettingsId(pb.getPrivateAccessSettingsId());
+    model.setPrivateAccessSettingsName(pb.getPrivateAccessSettingsName());
+    model.setPublicAccessEnabled(pb.getPublicAccessEnabled());
+    model.setRegion(pb.getRegion());
+
+    return model;
+  }
+
+  public static class UpsertPrivateAccessSettingsRequestSerializer
+      extends JsonSerializer<UpsertPrivateAccessSettingsRequest> {
+    @Override
+    public void serialize(
+        UpsertPrivateAccessSettingsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpsertPrivateAccessSettingsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpsertPrivateAccessSettingsRequestDeserializer
+      extends JsonDeserializer<UpsertPrivateAccessSettingsRequest> {
+    @Override
+    public UpsertPrivateAccessSettingsRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpsertPrivateAccessSettingsRequestPb pb =
+          mapper.readValue(p, UpsertPrivateAccessSettingsRequestPb.class);
+      return UpsertPrivateAccessSettingsRequest.fromPb(pb);
+    }
   }
 }

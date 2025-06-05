@@ -3,22 +3,28 @@
 package com.databricks.sdk.service.apps;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List apps */
 @Generated
+@JsonSerialize(using = ListAppsRequest.ListAppsRequestSerializer.class)
+@JsonDeserialize(using = ListAppsRequest.ListAppsRequestDeserializer.class)
 public class ListAppsRequest {
   /** Upper bound for items returned. */
-  @JsonIgnore
-  @QueryParam("page_size")
   private Long pageSize;
 
   /** Pagination token to go to the next page of apps. Requests first page if absent. */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   public ListAppsRequest setPageSize(Long pageSize) {
@@ -58,5 +64,40 @@ public class ListAppsRequest {
         .add("pageSize", pageSize)
         .add("pageToken", pageToken)
         .toString();
+  }
+
+  ListAppsRequestPb toPb() {
+    ListAppsRequestPb pb = new ListAppsRequestPb();
+    pb.setPageSize(pageSize);
+    pb.setPageToken(pageToken);
+
+    return pb;
+  }
+
+  static ListAppsRequest fromPb(ListAppsRequestPb pb) {
+    ListAppsRequest model = new ListAppsRequest();
+    model.setPageSize(pb.getPageSize());
+    model.setPageToken(pb.getPageToken());
+
+    return model;
+  }
+
+  public static class ListAppsRequestSerializer extends JsonSerializer<ListAppsRequest> {
+    @Override
+    public void serialize(ListAppsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListAppsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListAppsRequestDeserializer extends JsonDeserializer<ListAppsRequest> {
+    @Override
+    public ListAppsRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListAppsRequestPb pb = mapper.readValue(p, ListAppsRequestPb.class);
+      return ListAppsRequest.fromPb(pb);
+    }
   }
 }

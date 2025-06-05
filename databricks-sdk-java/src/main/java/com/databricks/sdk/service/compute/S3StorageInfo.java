@@ -4,11 +4,22 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** A storage location in Amazon S3 */
 @Generated
+@JsonSerialize(using = S3StorageInfo.S3StorageInfoSerializer.class)
+@JsonDeserialize(using = S3StorageInfo.S3StorageInfoDeserializer.class)
 public class S3StorageInfo {
   /**
    * (Optional) Set canned access control list for the logs, e.g. `bucket-owner-full-control`. If
@@ -19,7 +30,6 @@ public class S3StorageInfo {
    * for writing data, you may want to set `bucket-owner-full-control` to make bucket owner able to
    * read the logs.
    */
-  @JsonProperty("canned_acl")
   private String cannedAcl;
 
   /**
@@ -27,39 +37,33 @@ public class S3StorageInfo {
    * cluster iam role, please make sure you set cluster iam role and the role has write access to
    * the destination. Please also note that you cannot use AWS keys to deliver logs.
    */
-  @JsonProperty("destination")
   private String destination;
 
   /** (Optional) Flag to enable server side encryption, `false` by default. */
-  @JsonProperty("enable_encryption")
   private Boolean enableEncryption;
 
   /**
    * (Optional) The encryption type, it could be `sse-s3` or `sse-kms`. It will be used only when
    * encryption is enabled and the default type is `sse-s3`.
    */
-  @JsonProperty("encryption_type")
   private String encryptionType;
 
   /**
    * S3 endpoint, e.g. `https://s3-us-west-2.amazonaws.com`. Either region or endpoint needs to be
    * set. If both are set, endpoint will be used.
    */
-  @JsonProperty("endpoint")
   private String endpoint;
 
   /**
    * (Optional) Kms key which will be used if encryption is enabled and encryption type is set to
    * `sse-kms`.
    */
-  @JsonProperty("kms_key")
   private String kmsKey;
 
   /**
    * S3 region, e.g. `us-west-2`. Either region or endpoint needs to be set. If both are set,
    * endpoint will be used.
    */
-  @JsonProperty("region")
   private String region;
 
   public S3StorageInfo setCannedAcl(String cannedAcl) {
@@ -156,5 +160,49 @@ public class S3StorageInfo {
         .add("kmsKey", kmsKey)
         .add("region", region)
         .toString();
+  }
+
+  S3StorageInfoPb toPb() {
+    S3StorageInfoPb pb = new S3StorageInfoPb();
+    pb.setCannedAcl(cannedAcl);
+    pb.setDestination(destination);
+    pb.setEnableEncryption(enableEncryption);
+    pb.setEncryptionType(encryptionType);
+    pb.setEndpoint(endpoint);
+    pb.setKmsKey(kmsKey);
+    pb.setRegion(region);
+
+    return pb;
+  }
+
+  static S3StorageInfo fromPb(S3StorageInfoPb pb) {
+    S3StorageInfo model = new S3StorageInfo();
+    model.setCannedAcl(pb.getCannedAcl());
+    model.setDestination(pb.getDestination());
+    model.setEnableEncryption(pb.getEnableEncryption());
+    model.setEncryptionType(pb.getEncryptionType());
+    model.setEndpoint(pb.getEndpoint());
+    model.setKmsKey(pb.getKmsKey());
+    model.setRegion(pb.getRegion());
+
+    return model;
+  }
+
+  public static class S3StorageInfoSerializer extends JsonSerializer<S3StorageInfo> {
+    @Override
+    public void serialize(S3StorageInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      S3StorageInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class S3StorageInfoDeserializer extends JsonDeserializer<S3StorageInfo> {
+    @Override
+    public S3StorageInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      S3StorageInfoPb pb = mapper.readValue(p, S3StorageInfoPb.class);
+      return S3StorageInfo.fromPb(pb);
+    }
   }
 }

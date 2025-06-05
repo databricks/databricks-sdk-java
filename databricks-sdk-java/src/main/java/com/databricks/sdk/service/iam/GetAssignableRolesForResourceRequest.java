@@ -3,13 +3,27 @@
 package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get assignable roles for a resource */
 @Generated
+@JsonSerialize(
+    using =
+        GetAssignableRolesForResourceRequest.GetAssignableRolesForResourceRequestSerializer.class)
+@JsonDeserialize(
+    using =
+        GetAssignableRolesForResourceRequest.GetAssignableRolesForResourceRequestDeserializer.class)
 public class GetAssignableRolesForResourceRequest {
   /**
    * The resource name for which assignable roles will be listed.
@@ -19,8 +33,6 @@ public class GetAssignableRolesForResourceRequest {
    * `resource=accounts/<ACCOUNT_ID>/servicePrincipals/<SP_ID>` | A resource name for the service
    * principal.
    */
-  @JsonIgnore
-  @QueryParam("resource")
   private String resource;
 
   public GetAssignableRolesForResourceRequest setResource(String resource) {
@@ -50,5 +62,42 @@ public class GetAssignableRolesForResourceRequest {
     return new ToStringer(GetAssignableRolesForResourceRequest.class)
         .add("resource", resource)
         .toString();
+  }
+
+  GetAssignableRolesForResourceRequestPb toPb() {
+    GetAssignableRolesForResourceRequestPb pb = new GetAssignableRolesForResourceRequestPb();
+    pb.setResource(resource);
+
+    return pb;
+  }
+
+  static GetAssignableRolesForResourceRequest fromPb(GetAssignableRolesForResourceRequestPb pb) {
+    GetAssignableRolesForResourceRequest model = new GetAssignableRolesForResourceRequest();
+    model.setResource(pb.getResource());
+
+    return model;
+  }
+
+  public static class GetAssignableRolesForResourceRequestSerializer
+      extends JsonSerializer<GetAssignableRolesForResourceRequest> {
+    @Override
+    public void serialize(
+        GetAssignableRolesForResourceRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetAssignableRolesForResourceRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetAssignableRolesForResourceRequestDeserializer
+      extends JsonDeserializer<GetAssignableRolesForResourceRequest> {
+    @Override
+    public GetAssignableRolesForResourceRequest deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetAssignableRolesForResourceRequestPb pb =
+          mapper.readValue(p, GetAssignableRolesForResourceRequestPb.class);
+      return GetAssignableRolesForResourceRequest.fromPb(pb);
+    }
   }
 }

@@ -4,19 +4,28 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 /** Run inputs. */
 @Generated
+@JsonSerialize(using = RunInputs.RunInputsSerializer.class)
+@JsonDeserialize(using = RunInputs.RunInputsDeserializer.class)
 public class RunInputs {
   /** Run metrics. */
-  @JsonProperty("dataset_inputs")
   private Collection<DatasetInput> datasetInputs;
 
   /** Model inputs to the Run. */
-  @JsonProperty("model_inputs")
   private Collection<ModelInput> modelInputs;
 
   public RunInputs setDatasetInputs(Collection<DatasetInput> datasetInputs) {
@@ -57,5 +66,39 @@ public class RunInputs {
         .add("datasetInputs", datasetInputs)
         .add("modelInputs", modelInputs)
         .toString();
+  }
+
+  RunInputsPb toPb() {
+    RunInputsPb pb = new RunInputsPb();
+    pb.setDatasetInputs(datasetInputs);
+    pb.setModelInputs(modelInputs);
+
+    return pb;
+  }
+
+  static RunInputs fromPb(RunInputsPb pb) {
+    RunInputs model = new RunInputs();
+    model.setDatasetInputs(pb.getDatasetInputs());
+    model.setModelInputs(pb.getModelInputs());
+
+    return model;
+  }
+
+  public static class RunInputsSerializer extends JsonSerializer<RunInputs> {
+    @Override
+    public void serialize(RunInputs value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      RunInputsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class RunInputsDeserializer extends JsonDeserializer<RunInputs> {
+    @Override
+    public RunInputs deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      RunInputsPb pb = mapper.readValue(p, RunInputsPb.class);
+      return RunInputs.fromPb(pb);
+    }
   }
 }

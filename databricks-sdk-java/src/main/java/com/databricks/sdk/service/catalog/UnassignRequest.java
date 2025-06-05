@@ -3,21 +3,29 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Delete an assignment */
 @Generated
+@JsonSerialize(using = UnassignRequest.UnassignRequestSerializer.class)
+@JsonDeserialize(using = UnassignRequest.UnassignRequestDeserializer.class)
 public class UnassignRequest {
   /** Query for the ID of the metastore to delete. */
-  @JsonIgnore
-  @QueryParam("metastore_id")
   private String metastoreId;
 
   /** A workspace ID. */
-  @JsonIgnore private Long workspaceId;
+  private Long workspaceId;
 
   public UnassignRequest setMetastoreId(String metastoreId) {
     this.metastoreId = metastoreId;
@@ -57,5 +65,40 @@ public class UnassignRequest {
         .add("metastoreId", metastoreId)
         .add("workspaceId", workspaceId)
         .toString();
+  }
+
+  UnassignRequestPb toPb() {
+    UnassignRequestPb pb = new UnassignRequestPb();
+    pb.setMetastoreId(metastoreId);
+    pb.setWorkspaceId(workspaceId);
+
+    return pb;
+  }
+
+  static UnassignRequest fromPb(UnassignRequestPb pb) {
+    UnassignRequest model = new UnassignRequest();
+    model.setMetastoreId(pb.getMetastoreId());
+    model.setWorkspaceId(pb.getWorkspaceId());
+
+    return model;
+  }
+
+  public static class UnassignRequestSerializer extends JsonSerializer<UnassignRequest> {
+    @Override
+    public void serialize(UnassignRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UnassignRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UnassignRequestDeserializer extends JsonDeserializer<UnassignRequest> {
+    @Override
+    public UnassignRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UnassignRequestPb pb = mapper.readValue(p, UnassignRequestPb.class);
+      return UnassignRequest.fromPb(pb);
+    }
   }
 }

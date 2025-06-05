@@ -4,19 +4,28 @@ package com.databricks.sdk.service.cleanrooms;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 /** Publicly visible central clean room details. */
 @Generated
+@JsonSerialize(using = CleanRoomRemoteDetail.CleanRoomRemoteDetailSerializer.class)
+@JsonDeserialize(using = CleanRoomRemoteDetail.CleanRoomRemoteDetailDeserializer.class)
 public class CleanRoomRemoteDetail {
   /** Central clean room ID. */
-  @JsonProperty("central_clean_room_id")
   private String centralCleanRoomId;
 
   /** Cloud vendor (aws,azure,gcp) of the central clean room. */
-  @JsonProperty("cloud_vendor")
   private String cloudVendor;
 
   /**
@@ -27,25 +36,20 @@ public class CleanRoomRemoteDetail {
    *
    * <p>2. Its invite_recipient_email is empty.
    */
-  @JsonProperty("collaborators")
   private Collection<CleanRoomCollaborator> collaborators;
 
   /**
    * The compliance security profile used to process regulated data following compliance standards.
    */
-  @JsonProperty("compliance_security_profile")
   private ComplianceSecurityProfile complianceSecurityProfile;
 
   /** Collaborator who creates the clean room. */
-  @JsonProperty("creator")
   private CleanRoomCollaborator creator;
 
   /** Egress network policy to apply to the central clean room workspace. */
-  @JsonProperty("egress_network_policy")
   private com.databricks.sdk.service.settings.EgressNetworkPolicy egressNetworkPolicy;
 
   /** Region of the central clean room. */
-  @JsonProperty("region")
   private String region;
 
   public CleanRoomRemoteDetail setCentralCleanRoomId(String centralCleanRoomId) {
@@ -150,5 +154,53 @@ public class CleanRoomRemoteDetail {
         .add("egressNetworkPolicy", egressNetworkPolicy)
         .add("region", region)
         .toString();
+  }
+
+  CleanRoomRemoteDetailPb toPb() {
+    CleanRoomRemoteDetailPb pb = new CleanRoomRemoteDetailPb();
+    pb.setCentralCleanRoomId(centralCleanRoomId);
+    pb.setCloudVendor(cloudVendor);
+    pb.setCollaborators(collaborators);
+    pb.setComplianceSecurityProfile(complianceSecurityProfile);
+    pb.setCreator(creator);
+    pb.setEgressNetworkPolicy(egressNetworkPolicy);
+    pb.setRegion(region);
+
+    return pb;
+  }
+
+  static CleanRoomRemoteDetail fromPb(CleanRoomRemoteDetailPb pb) {
+    CleanRoomRemoteDetail model = new CleanRoomRemoteDetail();
+    model.setCentralCleanRoomId(pb.getCentralCleanRoomId());
+    model.setCloudVendor(pb.getCloudVendor());
+    model.setCollaborators(pb.getCollaborators());
+    model.setComplianceSecurityProfile(pb.getComplianceSecurityProfile());
+    model.setCreator(pb.getCreator());
+    model.setEgressNetworkPolicy(pb.getEgressNetworkPolicy());
+    model.setRegion(pb.getRegion());
+
+    return model;
+  }
+
+  public static class CleanRoomRemoteDetailSerializer
+      extends JsonSerializer<CleanRoomRemoteDetail> {
+    @Override
+    public void serialize(
+        CleanRoomRemoteDetail value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CleanRoomRemoteDetailPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CleanRoomRemoteDetailDeserializer
+      extends JsonDeserializer<CleanRoomRemoteDetail> {
+    @Override
+    public CleanRoomRemoteDetail deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CleanRoomRemoteDetailPb pb = mapper.readValue(p, CleanRoomRemoteDetailPb.class);
+      return CleanRoomRemoteDetail.fromPb(pb);
+    }
   }
 }

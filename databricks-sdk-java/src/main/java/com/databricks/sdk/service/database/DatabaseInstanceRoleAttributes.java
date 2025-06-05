@@ -4,7 +4,16 @@ package com.databricks.sdk.service.database;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -15,17 +24,18 @@ import java.util.Objects;
  * from an external spec.
  */
 @Generated
+@JsonSerialize(
+    using = DatabaseInstanceRoleAttributes.DatabaseInstanceRoleAttributesSerializer.class)
+@JsonDeserialize(
+    using = DatabaseInstanceRoleAttributes.DatabaseInstanceRoleAttributesDeserializer.class)
 public class DatabaseInstanceRoleAttributes {
   /** */
-  @JsonProperty("bypassrls")
   private Boolean bypassrls;
 
   /** */
-  @JsonProperty("createdb")
   private Boolean createdb;
 
   /** */
-  @JsonProperty("createrole")
   private Boolean createrole;
 
   public DatabaseInstanceRoleAttributes setBypassrls(Boolean bypassrls) {
@@ -77,5 +87,46 @@ public class DatabaseInstanceRoleAttributes {
         .add("createdb", createdb)
         .add("createrole", createrole)
         .toString();
+  }
+
+  DatabaseInstanceRoleAttributesPb toPb() {
+    DatabaseInstanceRoleAttributesPb pb = new DatabaseInstanceRoleAttributesPb();
+    pb.setBypassrls(bypassrls);
+    pb.setCreatedb(createdb);
+    pb.setCreaterole(createrole);
+
+    return pb;
+  }
+
+  static DatabaseInstanceRoleAttributes fromPb(DatabaseInstanceRoleAttributesPb pb) {
+    DatabaseInstanceRoleAttributes model = new DatabaseInstanceRoleAttributes();
+    model.setBypassrls(pb.getBypassrls());
+    model.setCreatedb(pb.getCreatedb());
+    model.setCreaterole(pb.getCreaterole());
+
+    return model;
+  }
+
+  public static class DatabaseInstanceRoleAttributesSerializer
+      extends JsonSerializer<DatabaseInstanceRoleAttributes> {
+    @Override
+    public void serialize(
+        DatabaseInstanceRoleAttributes value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DatabaseInstanceRoleAttributesPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DatabaseInstanceRoleAttributesDeserializer
+      extends JsonDeserializer<DatabaseInstanceRoleAttributes> {
+    @Override
+    public DatabaseInstanceRoleAttributes deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DatabaseInstanceRoleAttributesPb pb =
+          mapper.readValue(p, DatabaseInstanceRoleAttributesPb.class);
+      return DatabaseInstanceRoleAttributes.fromPb(pb);
+    }
   }
 }

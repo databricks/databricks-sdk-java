@@ -4,60 +4,59 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
  * Represents a parameter of a function. The same message is used for both input and output columns.
  */
 @Generated
+@JsonSerialize(using = FunctionParameterInfo.FunctionParameterInfoSerializer.class)
+@JsonDeserialize(using = FunctionParameterInfo.FunctionParameterInfoDeserializer.class)
 public class FunctionParameterInfo {
   /** The comment of the parameter. */
-  @JsonProperty("comment")
   private String comment;
 
   /** The name of the parameter. */
-  @JsonProperty("name")
   private String name;
 
   /** The default value of the parameter. */
-  @JsonProperty("parameter_default")
   private String parameterDefault;
 
   /** The mode of the function parameter. */
-  @JsonProperty("parameter_mode")
   private FunctionParameterMode parameterMode;
 
   /** The type of the function parameter. */
-  @JsonProperty("parameter_type")
   private FunctionParameterType parameterType;
 
   /** The position of the parameter. */
-  @JsonProperty("position")
   private Long position;
 
   /** The interval type of the parameter type. */
-  @JsonProperty("type_interval_type")
   private String typeIntervalType;
 
   /** The type of the parameter in JSON format. */
-  @JsonProperty("type_json")
   private String typeJson;
 
   /** The type of the parameter in Enum format. */
-  @JsonProperty("type_name")
   private ColumnTypeName typeName;
 
   /** The precision of the parameter type. */
-  @JsonProperty("type_precision")
   private Long typePrecision;
 
   /** The scale of the parameter type. */
-  @JsonProperty("type_scale")
   private Long typeScale;
 
   /** The type of the parameter in text format. */
-  @JsonProperty("type_text")
   private String typeText;
 
   public FunctionParameterInfo setComment(String comment) {
@@ -220,5 +219,63 @@ public class FunctionParameterInfo {
         .add("typeScale", typeScale)
         .add("typeText", typeText)
         .toString();
+  }
+
+  FunctionParameterInfoPb toPb() {
+    FunctionParameterInfoPb pb = new FunctionParameterInfoPb();
+    pb.setComment(comment);
+    pb.setName(name);
+    pb.setParameterDefault(parameterDefault);
+    pb.setParameterMode(parameterMode);
+    pb.setParameterType(parameterType);
+    pb.setPosition(position);
+    pb.setTypeIntervalType(typeIntervalType);
+    pb.setTypeJson(typeJson);
+    pb.setTypeName(typeName);
+    pb.setTypePrecision(typePrecision);
+    pb.setTypeScale(typeScale);
+    pb.setTypeText(typeText);
+
+    return pb;
+  }
+
+  static FunctionParameterInfo fromPb(FunctionParameterInfoPb pb) {
+    FunctionParameterInfo model = new FunctionParameterInfo();
+    model.setComment(pb.getComment());
+    model.setName(pb.getName());
+    model.setParameterDefault(pb.getParameterDefault());
+    model.setParameterMode(pb.getParameterMode());
+    model.setParameterType(pb.getParameterType());
+    model.setPosition(pb.getPosition());
+    model.setTypeIntervalType(pb.getTypeIntervalType());
+    model.setTypeJson(pb.getTypeJson());
+    model.setTypeName(pb.getTypeName());
+    model.setTypePrecision(pb.getTypePrecision());
+    model.setTypeScale(pb.getTypeScale());
+    model.setTypeText(pb.getTypeText());
+
+    return model;
+  }
+
+  public static class FunctionParameterInfoSerializer
+      extends JsonSerializer<FunctionParameterInfo> {
+    @Override
+    public void serialize(
+        FunctionParameterInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      FunctionParameterInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class FunctionParameterInfoDeserializer
+      extends JsonDeserializer<FunctionParameterInfo> {
+    @Override
+    public FunctionParameterInfo deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      FunctionParameterInfoPb pb = mapper.readValue(p, FunctionParameterInfoPb.class);
+      return FunctionParameterInfo.fromPb(pb);
+    }
   }
 }

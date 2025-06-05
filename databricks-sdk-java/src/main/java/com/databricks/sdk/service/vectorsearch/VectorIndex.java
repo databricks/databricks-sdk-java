@@ -4,25 +4,32 @@ package com.databricks.sdk.service.vectorsearch;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = VectorIndex.VectorIndexSerializer.class)
+@JsonDeserialize(using = VectorIndex.VectorIndexDeserializer.class)
 public class VectorIndex {
   /** The user who created the index. */
-  @JsonProperty("creator")
   private String creator;
 
   /** */
-  @JsonProperty("delta_sync_index_spec")
   private DeltaSyncVectorIndexSpecResponse deltaSyncIndexSpec;
 
   /** */
-  @JsonProperty("direct_access_index_spec")
   private DirectAccessVectorIndexSpec directAccessIndexSpec;
 
   /** Name of the endpoint associated with the index */
-  @JsonProperty("endpoint_name")
   private String endpointName;
 
   /**
@@ -32,19 +39,15 @@ public class VectorIndex {
    * write of vectors and metadata through our REST and SDK APIs. With this model, the user manages
    * index updates.
    */
-  @JsonProperty("index_type")
   private VectorIndexType indexType;
 
   /** Name of the index */
-  @JsonProperty("name")
   private String name;
 
   /** Primary key of the index */
-  @JsonProperty("primary_key")
   private String primaryKey;
 
   /** */
-  @JsonProperty("status")
   private VectorIndexStatus status;
 
   public VectorIndex setCreator(String creator) {
@@ -159,5 +162,51 @@ public class VectorIndex {
         .add("primaryKey", primaryKey)
         .add("status", status)
         .toString();
+  }
+
+  VectorIndexPb toPb() {
+    VectorIndexPb pb = new VectorIndexPb();
+    pb.setCreator(creator);
+    pb.setDeltaSyncIndexSpec(deltaSyncIndexSpec);
+    pb.setDirectAccessIndexSpec(directAccessIndexSpec);
+    pb.setEndpointName(endpointName);
+    pb.setIndexType(indexType);
+    pb.setName(name);
+    pb.setPrimaryKey(primaryKey);
+    pb.setStatus(status);
+
+    return pb;
+  }
+
+  static VectorIndex fromPb(VectorIndexPb pb) {
+    VectorIndex model = new VectorIndex();
+    model.setCreator(pb.getCreator());
+    model.setDeltaSyncIndexSpec(pb.getDeltaSyncIndexSpec());
+    model.setDirectAccessIndexSpec(pb.getDirectAccessIndexSpec());
+    model.setEndpointName(pb.getEndpointName());
+    model.setIndexType(pb.getIndexType());
+    model.setName(pb.getName());
+    model.setPrimaryKey(pb.getPrimaryKey());
+    model.setStatus(pb.getStatus());
+
+    return model;
+  }
+
+  public static class VectorIndexSerializer extends JsonSerializer<VectorIndex> {
+    @Override
+    public void serialize(VectorIndex value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      VectorIndexPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class VectorIndexDeserializer extends JsonDeserializer<VectorIndex> {
+    @Override
+    public VectorIndex deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      VectorIndexPb pb = mapper.readValue(p, VectorIndexPb.class);
+      return VectorIndex.fromPb(pb);
+    }
   }
 }

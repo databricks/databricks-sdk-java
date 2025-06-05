@@ -4,21 +4,29 @@ package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = AwsKeyInfo.AwsKeyInfoSerializer.class)
+@JsonDeserialize(using = AwsKeyInfo.AwsKeyInfoDeserializer.class)
 public class AwsKeyInfo {
   /** The AWS KMS key alias. */
-  @JsonProperty("key_alias")
   private String keyAlias;
 
   /** The AWS KMS key's Amazon Resource Name (ARN). */
-  @JsonProperty("key_arn")
   private String keyArn;
 
   /** The AWS KMS key region. */
-  @JsonProperty("key_region")
   private String keyRegion;
 
   /**
@@ -26,7 +34,6 @@ public class AwsKeyInfo {
    * `true` or omitted, the key is also used to encrypt cluster EBS volumes. If you do not want to
    * use this key for encrypting EBS volumes, set to `false`.
    */
-  @JsonProperty("reuse_key_for_cluster_volumes")
   private Boolean reuseKeyForClusterVolumes;
 
   public AwsKeyInfo setKeyAlias(String keyAlias) {
@@ -89,5 +96,43 @@ public class AwsKeyInfo {
         .add("keyRegion", keyRegion)
         .add("reuseKeyForClusterVolumes", reuseKeyForClusterVolumes)
         .toString();
+  }
+
+  AwsKeyInfoPb toPb() {
+    AwsKeyInfoPb pb = new AwsKeyInfoPb();
+    pb.setKeyAlias(keyAlias);
+    pb.setKeyArn(keyArn);
+    pb.setKeyRegion(keyRegion);
+    pb.setReuseKeyForClusterVolumes(reuseKeyForClusterVolumes);
+
+    return pb;
+  }
+
+  static AwsKeyInfo fromPb(AwsKeyInfoPb pb) {
+    AwsKeyInfo model = new AwsKeyInfo();
+    model.setKeyAlias(pb.getKeyAlias());
+    model.setKeyArn(pb.getKeyArn());
+    model.setKeyRegion(pb.getKeyRegion());
+    model.setReuseKeyForClusterVolumes(pb.getReuseKeyForClusterVolumes());
+
+    return model;
+  }
+
+  public static class AwsKeyInfoSerializer extends JsonSerializer<AwsKeyInfo> {
+    @Override
+    public void serialize(AwsKeyInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      AwsKeyInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class AwsKeyInfoDeserializer extends JsonDeserializer<AwsKeyInfo> {
+    @Override
+    public AwsKeyInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      AwsKeyInfoPb pb = mapper.readValue(p, AwsKeyInfoPb.class);
+      return AwsKeyInfo.fromPb(pb);
+    }
   }
 }

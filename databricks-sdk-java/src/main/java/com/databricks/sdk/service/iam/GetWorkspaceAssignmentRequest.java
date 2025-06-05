@@ -4,14 +4,26 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List workspace permissions */
 @Generated
+@JsonSerialize(using = GetWorkspaceAssignmentRequest.GetWorkspaceAssignmentRequestSerializer.class)
+@JsonDeserialize(
+    using = GetWorkspaceAssignmentRequest.GetWorkspaceAssignmentRequestDeserializer.class)
 public class GetWorkspaceAssignmentRequest {
   /** The workspace ID. */
-  @JsonIgnore private Long workspaceId;
+  private Long workspaceId;
 
   public GetWorkspaceAssignmentRequest setWorkspaceId(Long workspaceId) {
     this.workspaceId = workspaceId;
@@ -40,5 +52,42 @@ public class GetWorkspaceAssignmentRequest {
     return new ToStringer(GetWorkspaceAssignmentRequest.class)
         .add("workspaceId", workspaceId)
         .toString();
+  }
+
+  GetWorkspaceAssignmentRequestPb toPb() {
+    GetWorkspaceAssignmentRequestPb pb = new GetWorkspaceAssignmentRequestPb();
+    pb.setWorkspaceId(workspaceId);
+
+    return pb;
+  }
+
+  static GetWorkspaceAssignmentRequest fromPb(GetWorkspaceAssignmentRequestPb pb) {
+    GetWorkspaceAssignmentRequest model = new GetWorkspaceAssignmentRequest();
+    model.setWorkspaceId(pb.getWorkspaceId());
+
+    return model;
+  }
+
+  public static class GetWorkspaceAssignmentRequestSerializer
+      extends JsonSerializer<GetWorkspaceAssignmentRequest> {
+    @Override
+    public void serialize(
+        GetWorkspaceAssignmentRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetWorkspaceAssignmentRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetWorkspaceAssignmentRequestDeserializer
+      extends JsonDeserializer<GetWorkspaceAssignmentRequest> {
+    @Override
+    public GetWorkspaceAssignmentRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetWorkspaceAssignmentRequestPb pb =
+          mapper.readValue(p, GetWorkspaceAssignmentRequestPb.class);
+      return GetWorkspaceAssignmentRequest.fromPb(pb);
+    }
   }
 }

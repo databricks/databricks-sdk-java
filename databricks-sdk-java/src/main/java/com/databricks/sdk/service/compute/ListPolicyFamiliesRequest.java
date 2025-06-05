@@ -3,22 +3,28 @@
 package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List policy families */
 @Generated
+@JsonSerialize(using = ListPolicyFamiliesRequest.ListPolicyFamiliesRequestSerializer.class)
+@JsonDeserialize(using = ListPolicyFamiliesRequest.ListPolicyFamiliesRequestDeserializer.class)
 public class ListPolicyFamiliesRequest {
   /** Maximum number of policy families to return. */
-  @JsonIgnore
-  @QueryParam("max_results")
   private Long maxResults;
 
   /** A token that can be used to get the next page of results. */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   public ListPolicyFamiliesRequest setMaxResults(Long maxResults) {
@@ -58,5 +64,43 @@ public class ListPolicyFamiliesRequest {
         .add("maxResults", maxResults)
         .add("pageToken", pageToken)
         .toString();
+  }
+
+  ListPolicyFamiliesRequestPb toPb() {
+    ListPolicyFamiliesRequestPb pb = new ListPolicyFamiliesRequestPb();
+    pb.setMaxResults(maxResults);
+    pb.setPageToken(pageToken);
+
+    return pb;
+  }
+
+  static ListPolicyFamiliesRequest fromPb(ListPolicyFamiliesRequestPb pb) {
+    ListPolicyFamiliesRequest model = new ListPolicyFamiliesRequest();
+    model.setMaxResults(pb.getMaxResults());
+    model.setPageToken(pb.getPageToken());
+
+    return model;
+  }
+
+  public static class ListPolicyFamiliesRequestSerializer
+      extends JsonSerializer<ListPolicyFamiliesRequest> {
+    @Override
+    public void serialize(
+        ListPolicyFamiliesRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListPolicyFamiliesRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListPolicyFamiliesRequestDeserializer
+      extends JsonDeserializer<ListPolicyFamiliesRequest> {
+    @Override
+    public ListPolicyFamiliesRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListPolicyFamiliesRequestPb pb = mapper.readValue(p, ListPolicyFamiliesRequestPb.class);
+      return ListPolicyFamiliesRequest.fromPb(pb);
+    }
   }
 }

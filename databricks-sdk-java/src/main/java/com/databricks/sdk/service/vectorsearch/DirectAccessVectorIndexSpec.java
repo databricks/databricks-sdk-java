@@ -4,18 +4,27 @@ package com.databricks.sdk.service.vectorsearch;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = DirectAccessVectorIndexSpec.DirectAccessVectorIndexSpecSerializer.class)
+@JsonDeserialize(using = DirectAccessVectorIndexSpec.DirectAccessVectorIndexSpecDeserializer.class)
 public class DirectAccessVectorIndexSpec {
   /** The columns that contain the embedding source. The format should be array[double]. */
-  @JsonProperty("embedding_source_columns")
   private Collection<EmbeddingSourceColumn> embeddingSourceColumns;
 
   /** The columns that contain the embedding vectors. The format should be array[double]. */
-  @JsonProperty("embedding_vector_columns")
   private Collection<EmbeddingVectorColumn> embeddingVectorColumns;
 
   /**
@@ -23,7 +32,6 @@ public class DirectAccessVectorIndexSpec {
    * `double`, `boolean`, `string`, `date`, `timestamp`. Supported types for vector column:
    * `array<float>`, `array<double>`,`.
    */
-  @JsonProperty("schema_json")
   private String schemaJson;
 
   public DirectAccessVectorIndexSpec setEmbeddingSourceColumns(
@@ -77,5 +85,45 @@ public class DirectAccessVectorIndexSpec {
         .add("embeddingVectorColumns", embeddingVectorColumns)
         .add("schemaJson", schemaJson)
         .toString();
+  }
+
+  DirectAccessVectorIndexSpecPb toPb() {
+    DirectAccessVectorIndexSpecPb pb = new DirectAccessVectorIndexSpecPb();
+    pb.setEmbeddingSourceColumns(embeddingSourceColumns);
+    pb.setEmbeddingVectorColumns(embeddingVectorColumns);
+    pb.setSchemaJson(schemaJson);
+
+    return pb;
+  }
+
+  static DirectAccessVectorIndexSpec fromPb(DirectAccessVectorIndexSpecPb pb) {
+    DirectAccessVectorIndexSpec model = new DirectAccessVectorIndexSpec();
+    model.setEmbeddingSourceColumns(pb.getEmbeddingSourceColumns());
+    model.setEmbeddingVectorColumns(pb.getEmbeddingVectorColumns());
+    model.setSchemaJson(pb.getSchemaJson());
+
+    return model;
+  }
+
+  public static class DirectAccessVectorIndexSpecSerializer
+      extends JsonSerializer<DirectAccessVectorIndexSpec> {
+    @Override
+    public void serialize(
+        DirectAccessVectorIndexSpec value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DirectAccessVectorIndexSpecPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DirectAccessVectorIndexSpecDeserializer
+      extends JsonDeserializer<DirectAccessVectorIndexSpec> {
+    @Override
+    public DirectAccessVectorIndexSpec deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DirectAccessVectorIndexSpecPb pb = mapper.readValue(p, DirectAccessVectorIndexSpecPb.class);
+      return DirectAccessVectorIndexSpec.fromPb(pb);
+    }
   }
 }

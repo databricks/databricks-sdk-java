@@ -3,32 +3,34 @@
 package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Check access policy to a resource */
 @Generated
+@JsonSerialize(using = CheckPolicyRequest.CheckPolicyRequestSerializer.class)
+@JsonDeserialize(using = CheckPolicyRequest.CheckPolicyRequestDeserializer.class)
 public class CheckPolicyRequest {
   /** */
-  @JsonIgnore
-  @QueryParam("actor")
   private Actor actor;
 
   /** */
-  @JsonIgnore
-  @QueryParam("authz_identity")
   private RequestAuthzIdentity authzIdentity;
 
   /** */
-  @JsonIgnore
-  @QueryParam("consistency_token")
   private ConsistencyToken consistencyToken;
 
   /** */
-  @JsonIgnore
-  @QueryParam("permission")
   private String permission;
 
   /**
@@ -36,13 +38,9 @@ public class CheckPolicyRequest {
    * (servicePrincipal.ruleSet/update,
    * accounts/<account-id>/servicePrincipals/<sp-id>/ruleSets/default)
    */
-  @JsonIgnore
-  @QueryParam("resource")
   private String resource;
 
   /** */
-  @JsonIgnore
-  @QueryParam("resource_info")
   private ResourceInfo resourceInfo;
 
   public CheckPolicyRequest setActor(Actor actor) {
@@ -127,5 +125,48 @@ public class CheckPolicyRequest {
         .add("resource", resource)
         .add("resourceInfo", resourceInfo)
         .toString();
+  }
+
+  CheckPolicyRequestPb toPb() {
+    CheckPolicyRequestPb pb = new CheckPolicyRequestPb();
+    pb.setActor(actor);
+    pb.setAuthzIdentity(authzIdentity);
+    pb.setConsistencyToken(consistencyToken);
+    pb.setPermission(permission);
+    pb.setResource(resource);
+    pb.setResourceInfo(resourceInfo);
+
+    return pb;
+  }
+
+  static CheckPolicyRequest fromPb(CheckPolicyRequestPb pb) {
+    CheckPolicyRequest model = new CheckPolicyRequest();
+    model.setActor(pb.getActor());
+    model.setAuthzIdentity(pb.getAuthzIdentity());
+    model.setConsistencyToken(pb.getConsistencyToken());
+    model.setPermission(pb.getPermission());
+    model.setResource(pb.getResource());
+    model.setResourceInfo(pb.getResourceInfo());
+
+    return model;
+  }
+
+  public static class CheckPolicyRequestSerializer extends JsonSerializer<CheckPolicyRequest> {
+    @Override
+    public void serialize(CheckPolicyRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CheckPolicyRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CheckPolicyRequestDeserializer extends JsonDeserializer<CheckPolicyRequest> {
+    @Override
+    public CheckPolicyRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CheckPolicyRequestPb pb = mapper.readValue(p, CheckPolicyRequestPb.class);
+      return CheckPolicyRequest.fromPb(pb);
+    }
   }
 }

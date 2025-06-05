@@ -3,20 +3,28 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List catalogs */
 @Generated
+@JsonSerialize(using = ListCatalogsRequest.ListCatalogsRequestSerializer.class)
+@JsonDeserialize(using = ListCatalogsRequest.ListCatalogsRequestDeserializer.class)
 public class ListCatalogsRequest {
   /**
    * Whether to include catalogs in the response for which the principal can only access selective
    * metadata for
    */
-  @JsonIgnore
-  @QueryParam("include_browse")
   private Boolean includeBrowse;
 
   /**
@@ -28,13 +36,9 @@ public class ListCatalogsRequest {
    * max_results size, even zero. The only definitive indication that no further catalogs can be
    * fetched is when the next_page_token is unset from the response.
    */
-  @JsonIgnore
-  @QueryParam("max_results")
   private Long maxResults;
 
   /** Opaque pagination token to go to next page based on previous query. */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   public ListCatalogsRequest setIncludeBrowse(Boolean includeBrowse) {
@@ -86,5 +90,43 @@ public class ListCatalogsRequest {
         .add("maxResults", maxResults)
         .add("pageToken", pageToken)
         .toString();
+  }
+
+  ListCatalogsRequestPb toPb() {
+    ListCatalogsRequestPb pb = new ListCatalogsRequestPb();
+    pb.setIncludeBrowse(includeBrowse);
+    pb.setMaxResults(maxResults);
+    pb.setPageToken(pageToken);
+
+    return pb;
+  }
+
+  static ListCatalogsRequest fromPb(ListCatalogsRequestPb pb) {
+    ListCatalogsRequest model = new ListCatalogsRequest();
+    model.setIncludeBrowse(pb.getIncludeBrowse());
+    model.setMaxResults(pb.getMaxResults());
+    model.setPageToken(pb.getPageToken());
+
+    return model;
+  }
+
+  public static class ListCatalogsRequestSerializer extends JsonSerializer<ListCatalogsRequest> {
+    @Override
+    public void serialize(ListCatalogsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListCatalogsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListCatalogsRequestDeserializer
+      extends JsonDeserializer<ListCatalogsRequest> {
+    @Override
+    public ListCatalogsRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListCatalogsRequestPb pb = mapper.readValue(p, ListCatalogsRequestPb.class);
+      return ListCatalogsRequest.fromPb(pb);
+    }
   }
 }

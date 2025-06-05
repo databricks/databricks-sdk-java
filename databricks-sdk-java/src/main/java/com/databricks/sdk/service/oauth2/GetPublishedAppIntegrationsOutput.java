@@ -4,18 +4,29 @@ package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = GetPublishedAppIntegrationsOutput.GetPublishedAppIntegrationsOutputSerializer.class)
+@JsonDeserialize(
+    using = GetPublishedAppIntegrationsOutput.GetPublishedAppIntegrationsOutputDeserializer.class)
 public class GetPublishedAppIntegrationsOutput {
   /** List of Published OAuth App Integrations defined for the account. */
-  @JsonProperty("apps")
   private Collection<GetPublishedAppIntegrationOutput> apps;
 
   /** */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   public GetPublishedAppIntegrationsOutput setApps(
@@ -56,5 +67,44 @@ public class GetPublishedAppIntegrationsOutput {
         .add("apps", apps)
         .add("nextPageToken", nextPageToken)
         .toString();
+  }
+
+  GetPublishedAppIntegrationsOutputPb toPb() {
+    GetPublishedAppIntegrationsOutputPb pb = new GetPublishedAppIntegrationsOutputPb();
+    pb.setApps(apps);
+    pb.setNextPageToken(nextPageToken);
+
+    return pb;
+  }
+
+  static GetPublishedAppIntegrationsOutput fromPb(GetPublishedAppIntegrationsOutputPb pb) {
+    GetPublishedAppIntegrationsOutput model = new GetPublishedAppIntegrationsOutput();
+    model.setApps(pb.getApps());
+    model.setNextPageToken(pb.getNextPageToken());
+
+    return model;
+  }
+
+  public static class GetPublishedAppIntegrationsOutputSerializer
+      extends JsonSerializer<GetPublishedAppIntegrationsOutput> {
+    @Override
+    public void serialize(
+        GetPublishedAppIntegrationsOutput value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetPublishedAppIntegrationsOutputPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetPublishedAppIntegrationsOutputDeserializer
+      extends JsonDeserializer<GetPublishedAppIntegrationsOutput> {
+    @Override
+    public GetPublishedAppIntegrationsOutput deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetPublishedAppIntegrationsOutputPb pb =
+          mapper.readValue(p, GetPublishedAppIntegrationsOutputPb.class);
+      return GetPublishedAppIntegrationsOutput.fromPb(pb);
+    }
   }
 }

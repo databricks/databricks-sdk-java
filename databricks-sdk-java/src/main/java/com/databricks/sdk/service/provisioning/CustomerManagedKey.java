@@ -4,34 +4,39 @@ package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CustomerManagedKey.CustomerManagedKeySerializer.class)
+@JsonDeserialize(using = CustomerManagedKey.CustomerManagedKeyDeserializer.class)
 public class CustomerManagedKey {
   /** The Databricks account ID that holds the customer-managed key. */
-  @JsonProperty("account_id")
   private String accountId;
 
   /** */
-  @JsonProperty("aws_key_info")
   private AwsKeyInfo awsKeyInfo;
 
   /** Time in epoch milliseconds when the customer key was created. */
-  @JsonProperty("creation_time")
   private Long creationTime;
 
   /** ID of the encryption key configuration object. */
-  @JsonProperty("customer_managed_key_id")
   private String customerManagedKeyId;
 
   /** */
-  @JsonProperty("gcp_key_info")
   private GcpKeyInfo gcpKeyInfo;
 
   /** The cases that the key can be used for. */
-  @JsonProperty("use_cases")
   private Collection<KeyUseCase> useCases;
 
   public CustomerManagedKey setAccountId(String accountId) {
@@ -117,5 +122,48 @@ public class CustomerManagedKey {
         .add("gcpKeyInfo", gcpKeyInfo)
         .add("useCases", useCases)
         .toString();
+  }
+
+  CustomerManagedKeyPb toPb() {
+    CustomerManagedKeyPb pb = new CustomerManagedKeyPb();
+    pb.setAccountId(accountId);
+    pb.setAwsKeyInfo(awsKeyInfo);
+    pb.setCreationTime(creationTime);
+    pb.setCustomerManagedKeyId(customerManagedKeyId);
+    pb.setGcpKeyInfo(gcpKeyInfo);
+    pb.setUseCases(useCases);
+
+    return pb;
+  }
+
+  static CustomerManagedKey fromPb(CustomerManagedKeyPb pb) {
+    CustomerManagedKey model = new CustomerManagedKey();
+    model.setAccountId(pb.getAccountId());
+    model.setAwsKeyInfo(pb.getAwsKeyInfo());
+    model.setCreationTime(pb.getCreationTime());
+    model.setCustomerManagedKeyId(pb.getCustomerManagedKeyId());
+    model.setGcpKeyInfo(pb.getGcpKeyInfo());
+    model.setUseCases(pb.getUseCases());
+
+    return model;
+  }
+
+  public static class CustomerManagedKeySerializer extends JsonSerializer<CustomerManagedKey> {
+    @Override
+    public void serialize(CustomerManagedKey value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CustomerManagedKeyPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CustomerManagedKeyDeserializer extends JsonDeserializer<CustomerManagedKey> {
+    @Override
+    public CustomerManagedKey deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CustomerManagedKeyPb pb = mapper.readValue(p, CustomerManagedKeyPb.class);
+      return CustomerManagedKey.fromPb(pb);
+    }
   }
 }

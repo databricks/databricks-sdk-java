@@ -3,13 +3,23 @@
 package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List shares by Provider */
 @Generated
+@JsonSerialize(using = ListSharesRequest.ListSharesRequestSerializer.class)
+@JsonDeserialize(using = ListSharesRequest.ListSharesRequestDeserializer.class)
 public class ListSharesRequest {
   /**
    * Maximum number of shares to return. - when set to 0, the page length is set to a server
@@ -20,16 +30,12 @@ public class ListSharesRequest {
    * max_results size, even zero. The only definitive indication that no further shares can be
    * fetched is when the next_page_token is unset from the response.
    */
-  @JsonIgnore
-  @QueryParam("max_results")
   private Long maxResults;
 
   /** Name of the provider in which to list shares. */
-  @JsonIgnore private String name;
+  private String name;
 
   /** Opaque pagination token to go to next page based on previous query. */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   public ListSharesRequest setMaxResults(Long maxResults) {
@@ -81,5 +87,42 @@ public class ListSharesRequest {
         .add("name", name)
         .add("pageToken", pageToken)
         .toString();
+  }
+
+  ListSharesRequestPb toPb() {
+    ListSharesRequestPb pb = new ListSharesRequestPb();
+    pb.setMaxResults(maxResults);
+    pb.setName(name);
+    pb.setPageToken(pageToken);
+
+    return pb;
+  }
+
+  static ListSharesRequest fromPb(ListSharesRequestPb pb) {
+    ListSharesRequest model = new ListSharesRequest();
+    model.setMaxResults(pb.getMaxResults());
+    model.setName(pb.getName());
+    model.setPageToken(pb.getPageToken());
+
+    return model;
+  }
+
+  public static class ListSharesRequestSerializer extends JsonSerializer<ListSharesRequest> {
+    @Override
+    public void serialize(ListSharesRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListSharesRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListSharesRequestDeserializer extends JsonDeserializer<ListSharesRequest> {
+    @Override
+    public ListSharesRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListSharesRequestPb pb = mapper.readValue(p, ListSharesRequestPb.class);
+      return ListSharesRequest.fromPb(pb);
+    }
   }
 }

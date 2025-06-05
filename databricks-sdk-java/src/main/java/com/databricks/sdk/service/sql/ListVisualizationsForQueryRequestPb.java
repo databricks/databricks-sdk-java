@@ -1,0 +1,74 @@
+// Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
+
+package com.databricks.sdk.service.sql;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Objects;
+
+/** List visualizations on a query */
+@Generated
+class ListVisualizationsForQueryRequestPb {
+  @JsonIgnore private String id;
+
+  @JsonIgnore
+  @QueryParam("page_size")
+  private Long pageSize;
+
+  @JsonIgnore
+  @QueryParam("page_token")
+  private String pageToken;
+
+  public ListVisualizationsForQueryRequestPb setId(String id) {
+    this.id = id;
+    return this;
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public ListVisualizationsForQueryRequestPb setPageSize(Long pageSize) {
+    this.pageSize = pageSize;
+    return this;
+  }
+
+  public Long getPageSize() {
+    return pageSize;
+  }
+
+  public ListVisualizationsForQueryRequestPb setPageToken(String pageToken) {
+    this.pageToken = pageToken;
+    return this;
+  }
+
+  public String getPageToken() {
+    return pageToken;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ListVisualizationsForQueryRequestPb that = (ListVisualizationsForQueryRequestPb) o;
+    return Objects.equals(id, that.id)
+        && Objects.equals(pageSize, that.pageSize)
+        && Objects.equals(pageToken, that.pageToken);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, pageSize, pageToken);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ListVisualizationsForQueryRequestPb.class)
+        .add("id", id)
+        .add("pageSize", pageSize)
+        .add("pageToken", pageToken)
+        .toString();
+  }
+}

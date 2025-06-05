@@ -4,14 +4,24 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = User.UserSerializer.class)
+@JsonDeserialize(using = User.UserDeserializer.class)
 public class User {
   /** If this user is active */
-  @JsonProperty("active")
   private Boolean active;
 
   /**
@@ -22,11 +32,9 @@ public class User {
    * <p>[identity federation is enabled]:
    * https://docs.databricks.com/administration-guide/users-groups/best-practices.html#enable-identity-federation
    */
-  @JsonProperty("displayName")
   private String displayName;
 
   /** All the emails associated with the Databricks user. */
-  @JsonProperty("emails")
   private Collection<ComplexValue> emails;
 
   /**
@@ -36,35 +44,27 @@ public class User {
    * <p>[assigning entitlements]:
    * https://docs.databricks.com/administration-guide/users-groups/index.html#assigning-entitlements
    */
-  @JsonProperty("entitlements")
   private Collection<ComplexValue> entitlements;
 
   /** External ID is not currently supported. It is reserved for future use. */
-  @JsonProperty("externalId")
   private String externalId;
 
   /** */
-  @JsonProperty("groups")
   private Collection<ComplexValue> groups;
 
   /** Databricks user ID. */
-  @JsonProperty("id")
   private String id;
 
   /** */
-  @JsonProperty("name")
   private Name name;
 
   /** Corresponds to AWS instance profile/arn role. */
-  @JsonProperty("roles")
   private Collection<ComplexValue> roles;
 
   /** The schema of the user. */
-  @JsonProperty("schemas")
   private Collection<UserSchema> schemas;
 
   /** Email address of the Databricks user. */
-  @JsonProperty("userName")
   private String userName;
 
   public User setActive(Boolean active) {
@@ -215,5 +215,57 @@ public class User {
         .add("schemas", schemas)
         .add("userName", userName)
         .toString();
+  }
+
+  UserPb toPb() {
+    UserPb pb = new UserPb();
+    pb.setActive(active);
+    pb.setDisplayName(displayName);
+    pb.setEmails(emails);
+    pb.setEntitlements(entitlements);
+    pb.setExternalId(externalId);
+    pb.setGroups(groups);
+    pb.setId(id);
+    pb.setName(name);
+    pb.setRoles(roles);
+    pb.setSchemas(schemas);
+    pb.setUserName(userName);
+
+    return pb;
+  }
+
+  static User fromPb(UserPb pb) {
+    User model = new User();
+    model.setActive(pb.getActive());
+    model.setDisplayName(pb.getDisplayName());
+    model.setEmails(pb.getEmails());
+    model.setEntitlements(pb.getEntitlements());
+    model.setExternalId(pb.getExternalId());
+    model.setGroups(pb.getGroups());
+    model.setId(pb.getId());
+    model.setName(pb.getName());
+    model.setRoles(pb.getRoles());
+    model.setSchemas(pb.getSchemas());
+    model.setUserName(pb.getUserName());
+
+    return model;
+  }
+
+  public static class UserSerializer extends JsonSerializer<User> {
+    @Override
+    public void serialize(User value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UserPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UserDeserializer extends JsonDeserializer<User> {
+    @Override
+    public User deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UserPb pb = mapper.readValue(p, UserPb.class);
+      return User.fromPb(pb);
+    }
   }
 }

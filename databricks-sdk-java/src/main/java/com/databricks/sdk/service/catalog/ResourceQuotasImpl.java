@@ -24,7 +24,7 @@ class ResourceQuotasImpl implements ResourceQuotasService {
             request.getParentSecurableType(), request.getParentFullName(), request.getQuotaName());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetQuotaResponse.class);
     } catch (IOException e) {
@@ -37,7 +37,7 @@ class ResourceQuotasImpl implements ResourceQuotasService {
     String path = "/api/2.1/unity-catalog/resource-quotas/all-resource-quotas";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListQuotasResponse.class);
     } catch (IOException e) {

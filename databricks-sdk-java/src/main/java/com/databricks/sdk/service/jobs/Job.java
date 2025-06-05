@@ -4,23 +4,32 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Job was retrieved successfully. */
 @Generated
+@JsonSerialize(using = Job.JobSerializer.class)
+@JsonDeserialize(using = Job.JobDeserializer.class)
 public class Job {
   /**
    * The time at which this job was created in epoch milliseconds (milliseconds since 1/1/1970 UTC).
    */
-  @JsonProperty("created_time")
   private Long createdTime;
 
   /**
    * The creator user name. This field won’t be included in the response if the user has already
    * been deleted.
    */
-  @JsonProperty("creator_user_name")
   private String creatorUserName;
 
   /**
@@ -29,7 +38,6 @@ public class Job {
    * Jobs UI in the job details page and Jobs API using `budget_policy_id` 3. Inferred default based
    * on accessible budget policies of the run_as identity on job creation or modification.
    */
-  @JsonProperty("effective_budget_policy_id")
   private String effectiveBudgetPolicyId;
 
   /**
@@ -37,15 +45,12 @@ public class Job {
    * They can be accessed via :method:jobs/get endpoint. It is only relevant for API 2.2
    * :method:jobs/list requests with `expand_tasks=true`.
    */
-  @JsonProperty("has_more")
   private Boolean hasMore;
 
   /** The canonical identifier for this job. */
-  @JsonProperty("job_id")
   private Long jobId;
 
   /** A token that can be used to list the next page of array properties. */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   /**
@@ -57,14 +62,12 @@ public class Job {
    * creator of the job if job access control is disabled or to the user with the `is_owner`
    * permission if job access control is enabled.
    */
-  @JsonProperty("run_as_user_name")
   private String runAsUserName;
 
   /**
    * Settings for this job and all of its runs. These settings can be updated using the `resetJob`
    * method.
    */
-  @JsonProperty("settings")
   private JobSettings settings;
 
   public Job setCreatedTime(Long createdTime) {
@@ -179,5 +182,51 @@ public class Job {
         .add("runAsUserName", runAsUserName)
         .add("settings", settings)
         .toString();
+  }
+
+  JobPb toPb() {
+    JobPb pb = new JobPb();
+    pb.setCreatedTime(createdTime);
+    pb.setCreatorUserName(creatorUserName);
+    pb.setEffectiveBudgetPolicyId(effectiveBudgetPolicyId);
+    pb.setHasMore(hasMore);
+    pb.setJobId(jobId);
+    pb.setNextPageToken(nextPageToken);
+    pb.setRunAsUserName(runAsUserName);
+    pb.setSettings(settings);
+
+    return pb;
+  }
+
+  static Job fromPb(JobPb pb) {
+    Job model = new Job();
+    model.setCreatedTime(pb.getCreatedTime());
+    model.setCreatorUserName(pb.getCreatorUserName());
+    model.setEffectiveBudgetPolicyId(pb.getEffectiveBudgetPolicyId());
+    model.setHasMore(pb.getHasMore());
+    model.setJobId(pb.getJobId());
+    model.setNextPageToken(pb.getNextPageToken());
+    model.setRunAsUserName(pb.getRunAsUserName());
+    model.setSettings(pb.getSettings());
+
+    return model;
+  }
+
+  public static class JobSerializer extends JsonSerializer<Job> {
+    @Override
+    public void serialize(Job value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      JobPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class JobDeserializer extends JsonDeserializer<Job> {
+    @Override
+    public Job deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      JobPb pb = mapper.readValue(p, JobPb.class);
+      return Job.fromPb(pb);
+    }
   }
 }

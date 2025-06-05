@@ -4,14 +4,24 @@ package com.databricks.sdk.service.database;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Next field marker: 12 */
 @Generated
+@JsonSerialize(using = SyncedDatabaseTable.SyncedDatabaseTableSerializer.class)
+@JsonDeserialize(using = SyncedDatabaseTable.SyncedDatabaseTableDeserializer.class)
 public class SyncedDatabaseTable {
   /** Synced Table data synchronization status */
-  @JsonProperty("data_synchronization_status")
   private SyncedTableStatus dataSynchronizationStatus;
 
   /**
@@ -21,7 +31,6 @@ public class SyncedDatabaseTable {
    * catalogs, the database instance name MUST match that of the registered catalog (or the request
    * will be rejected).
    */
-  @JsonProperty("database_instance_name")
   private String databaseInstanceName;
 
   /**
@@ -37,19 +46,15 @@ public class SyncedDatabaseTable {
    * be that of the standard catalog. In this scenario, specifying this field will allow targeting
    * an arbitrary postgres database.
    */
-  @JsonProperty("logical_database_name")
   private String logicalDatabaseName;
 
   /** Full three-part (catalog, schema, table) name of the table. */
-  @JsonProperty("name")
   private String name;
 
   /** Specification of a synced database table. */
-  @JsonProperty("spec")
   private SyncedTableSpec spec;
 
   /** Data serving REST API URL for this table */
-  @JsonProperty("table_serving_url")
   private String tableServingUrl;
 
   /**
@@ -57,7 +62,6 @@ public class SyncedDatabaseTable {
    * state of the data synchronization pipeline (i.e. the table may be in "ACTIVE" but the pipeline
    * may be in "PROVISIONING" as it runs asynchronously).
    */
-  @JsonProperty("unity_catalog_provisioning_state")
   private ProvisioningInfoState unityCatalogProvisioningState;
 
   public SyncedDatabaseTable setDataSynchronizationStatus(
@@ -162,5 +166,51 @@ public class SyncedDatabaseTable {
         .add("tableServingUrl", tableServingUrl)
         .add("unityCatalogProvisioningState", unityCatalogProvisioningState)
         .toString();
+  }
+
+  SyncedDatabaseTablePb toPb() {
+    SyncedDatabaseTablePb pb = new SyncedDatabaseTablePb();
+    pb.setDataSynchronizationStatus(dataSynchronizationStatus);
+    pb.setDatabaseInstanceName(databaseInstanceName);
+    pb.setLogicalDatabaseName(logicalDatabaseName);
+    pb.setName(name);
+    pb.setSpec(spec);
+    pb.setTableServingUrl(tableServingUrl);
+    pb.setUnityCatalogProvisioningState(unityCatalogProvisioningState);
+
+    return pb;
+  }
+
+  static SyncedDatabaseTable fromPb(SyncedDatabaseTablePb pb) {
+    SyncedDatabaseTable model = new SyncedDatabaseTable();
+    model.setDataSynchronizationStatus(pb.getDataSynchronizationStatus());
+    model.setDatabaseInstanceName(pb.getDatabaseInstanceName());
+    model.setLogicalDatabaseName(pb.getLogicalDatabaseName());
+    model.setName(pb.getName());
+    model.setSpec(pb.getSpec());
+    model.setTableServingUrl(pb.getTableServingUrl());
+    model.setUnityCatalogProvisioningState(pb.getUnityCatalogProvisioningState());
+
+    return model;
+  }
+
+  public static class SyncedDatabaseTableSerializer extends JsonSerializer<SyncedDatabaseTable> {
+    @Override
+    public void serialize(SyncedDatabaseTable value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SyncedDatabaseTablePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SyncedDatabaseTableDeserializer
+      extends JsonDeserializer<SyncedDatabaseTable> {
+    @Override
+    public SyncedDatabaseTable deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SyncedDatabaseTablePb pb = mapper.readValue(p, SyncedDatabaseTablePb.class);
+      return SyncedDatabaseTable.fromPb(pb);
+    }
   }
 }

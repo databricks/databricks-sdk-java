@@ -4,13 +4,23 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = SqlTaskQuery.SqlTaskQuerySerializer.class)
+@JsonDeserialize(using = SqlTaskQuery.SqlTaskQueryDeserializer.class)
 public class SqlTaskQuery {
   /** The canonical identifier of the SQL query. */
-  @JsonProperty("query_id")
   private String queryId;
 
   public SqlTaskQuery setQueryId(String queryId) {
@@ -38,5 +48,37 @@ public class SqlTaskQuery {
   @Override
   public String toString() {
     return new ToStringer(SqlTaskQuery.class).add("queryId", queryId).toString();
+  }
+
+  SqlTaskQueryPb toPb() {
+    SqlTaskQueryPb pb = new SqlTaskQueryPb();
+    pb.setQueryId(queryId);
+
+    return pb;
+  }
+
+  static SqlTaskQuery fromPb(SqlTaskQueryPb pb) {
+    SqlTaskQuery model = new SqlTaskQuery();
+    model.setQueryId(pb.getQueryId());
+
+    return model;
+  }
+
+  public static class SqlTaskQuerySerializer extends JsonSerializer<SqlTaskQuery> {
+    @Override
+    public void serialize(SqlTaskQuery value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SqlTaskQueryPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SqlTaskQueryDeserializer extends JsonDeserializer<SqlTaskQuery> {
+    @Override
+    public SqlTaskQuery deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SqlTaskQueryPb pb = mapper.readValue(p, SqlTaskQueryPb.class);
+      return SqlTaskQuery.fromPb(pb);
+    }
   }
 }

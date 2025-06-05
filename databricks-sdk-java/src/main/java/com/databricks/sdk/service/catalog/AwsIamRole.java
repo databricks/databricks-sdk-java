@@ -4,25 +4,33 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** The AWS IAM role configuration */
 @Generated
+@JsonSerialize(using = AwsIamRole.AwsIamRoleSerializer.class)
+@JsonDeserialize(using = AwsIamRole.AwsIamRoleDeserializer.class)
 public class AwsIamRole {
   /** The external ID used in role assumption to prevent the confused deputy problem. */
-  @JsonProperty("external_id")
   private String externalId;
 
   /** The Amazon Resource Name (ARN) of the AWS IAM role used to vend temporary credentials. */
-  @JsonProperty("role_arn")
   private String roleArn;
 
   /**
    * The Amazon Resource Name (ARN) of the AWS IAM user managed by Databricks. This is the identity
    * that is going to assume the AWS IAM role.
    */
-  @JsonProperty("unity_catalog_iam_arn")
   private String unityCatalogIamArn;
 
   public AwsIamRole setExternalId(String externalId) {
@@ -74,5 +82,41 @@ public class AwsIamRole {
         .add("roleArn", roleArn)
         .add("unityCatalogIamArn", unityCatalogIamArn)
         .toString();
+  }
+
+  AwsIamRolePb toPb() {
+    AwsIamRolePb pb = new AwsIamRolePb();
+    pb.setExternalId(externalId);
+    pb.setRoleArn(roleArn);
+    pb.setUnityCatalogIamArn(unityCatalogIamArn);
+
+    return pb;
+  }
+
+  static AwsIamRole fromPb(AwsIamRolePb pb) {
+    AwsIamRole model = new AwsIamRole();
+    model.setExternalId(pb.getExternalId());
+    model.setRoleArn(pb.getRoleArn());
+    model.setUnityCatalogIamArn(pb.getUnityCatalogIamArn());
+
+    return model;
+  }
+
+  public static class AwsIamRoleSerializer extends JsonSerializer<AwsIamRole> {
+    @Override
+    public void serialize(AwsIamRole value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      AwsIamRolePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class AwsIamRoleDeserializer extends JsonDeserializer<AwsIamRole> {
+    @Override
+    public AwsIamRole deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      AwsIamRolePb pb = mapper.readValue(p, AwsIamRolePb.class);
+      return AwsIamRole.fromPb(pb);
+    }
   }
 }

@@ -4,23 +4,31 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = PatchServingEndpointTags.PatchServingEndpointTagsSerializer.class)
+@JsonDeserialize(using = PatchServingEndpointTags.PatchServingEndpointTagsDeserializer.class)
 public class PatchServingEndpointTags {
   /** List of endpoint tags to add */
-  @JsonProperty("add_tags")
   private Collection<EndpointTag> addTags;
 
   /** List of tag keys to delete */
-  @JsonProperty("delete_tags")
   private Collection<String> deleteTags;
 
   /** The name of the serving endpoint who's tags to patch. This field is required. */
-  @JsonIgnore private String name;
+  private String name;
 
   public PatchServingEndpointTags setAddTags(Collection<EndpointTag> addTags) {
     this.addTags = addTags;
@@ -71,5 +79,45 @@ public class PatchServingEndpointTags {
         .add("deleteTags", deleteTags)
         .add("name", name)
         .toString();
+  }
+
+  PatchServingEndpointTagsPb toPb() {
+    PatchServingEndpointTagsPb pb = new PatchServingEndpointTagsPb();
+    pb.setAddTags(addTags);
+    pb.setDeleteTags(deleteTags);
+    pb.setName(name);
+
+    return pb;
+  }
+
+  static PatchServingEndpointTags fromPb(PatchServingEndpointTagsPb pb) {
+    PatchServingEndpointTags model = new PatchServingEndpointTags();
+    model.setAddTags(pb.getAddTags());
+    model.setDeleteTags(pb.getDeleteTags());
+    model.setName(pb.getName());
+
+    return model;
+  }
+
+  public static class PatchServingEndpointTagsSerializer
+      extends JsonSerializer<PatchServingEndpointTags> {
+    @Override
+    public void serialize(
+        PatchServingEndpointTags value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PatchServingEndpointTagsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PatchServingEndpointTagsDeserializer
+      extends JsonDeserializer<PatchServingEndpointTags> {
+    @Override
+    public PatchServingEndpointTags deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PatchServingEndpointTagsPb pb = mapper.readValue(p, PatchServingEndpointTagsPb.class);
+      return PatchServingEndpointTags.fromPb(pb);
+    }
   }
 }

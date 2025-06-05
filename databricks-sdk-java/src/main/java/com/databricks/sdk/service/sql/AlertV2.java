@@ -4,68 +4,65 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = AlertV2.AlertV2Serializer.class)
+@JsonDeserialize(using = AlertV2.AlertV2Deserializer.class)
 public class AlertV2 {
   /** The timestamp indicating when the alert was created. */
-  @JsonProperty("create_time")
   private String createTime;
 
   /** Custom description for the alert. support mustache template. */
-  @JsonProperty("custom_description")
   private String customDescription;
 
   /** Custom summary for the alert. support mustache template. */
-  @JsonProperty("custom_summary")
   private String customSummary;
 
   /** The display name of the alert. */
-  @JsonProperty("display_name")
   private String displayName;
 
   /** */
-  @JsonProperty("evaluation")
   private AlertV2Evaluation evaluation;
 
   /** UUID identifying the alert. */
-  @JsonProperty("id")
   private String id;
 
   /** Indicates whether the query is trashed. */
-  @JsonProperty("lifecycle_state")
   private LifecycleState lifecycleState;
 
   /** The owner's username. This field is set to "Unavailable" if the user has been deleted. */
-  @JsonProperty("owner_user_name")
   private String ownerUserName;
 
   /**
    * The workspace path of the folder containing the alert. Can only be set on create, and cannot be
    * updated.
    */
-  @JsonProperty("parent_path")
   private String parentPath;
 
   /** Text of the query to be run. */
-  @JsonProperty("query_text")
   private String queryText;
 
   /** The run as username. This field is set to "Unavailable" if the user has been deleted. */
-  @JsonProperty("run_as_user_name")
   private String runAsUserName;
 
   /** */
-  @JsonProperty("schedule")
   private CronSchedule schedule;
 
   /** The timestamp indicating when the alert was updated. */
-  @JsonProperty("update_time")
   private String updateTime;
 
   /** ID of the SQL warehouse attached to the alert. */
-  @JsonProperty("warehouse_id")
   private String warehouseId;
 
   public AlertV2 setCreateTime(String createTime) {
@@ -252,5 +249,63 @@ public class AlertV2 {
         .add("updateTime", updateTime)
         .add("warehouseId", warehouseId)
         .toString();
+  }
+
+  AlertV2Pb toPb() {
+    AlertV2Pb pb = new AlertV2Pb();
+    pb.setCreateTime(createTime);
+    pb.setCustomDescription(customDescription);
+    pb.setCustomSummary(customSummary);
+    pb.setDisplayName(displayName);
+    pb.setEvaluation(evaluation);
+    pb.setId(id);
+    pb.setLifecycleState(lifecycleState);
+    pb.setOwnerUserName(ownerUserName);
+    pb.setParentPath(parentPath);
+    pb.setQueryText(queryText);
+    pb.setRunAsUserName(runAsUserName);
+    pb.setSchedule(schedule);
+    pb.setUpdateTime(updateTime);
+    pb.setWarehouseId(warehouseId);
+
+    return pb;
+  }
+
+  static AlertV2 fromPb(AlertV2Pb pb) {
+    AlertV2 model = new AlertV2();
+    model.setCreateTime(pb.getCreateTime());
+    model.setCustomDescription(pb.getCustomDescription());
+    model.setCustomSummary(pb.getCustomSummary());
+    model.setDisplayName(pb.getDisplayName());
+    model.setEvaluation(pb.getEvaluation());
+    model.setId(pb.getId());
+    model.setLifecycleState(pb.getLifecycleState());
+    model.setOwnerUserName(pb.getOwnerUserName());
+    model.setParentPath(pb.getParentPath());
+    model.setQueryText(pb.getQueryText());
+    model.setRunAsUserName(pb.getRunAsUserName());
+    model.setSchedule(pb.getSchedule());
+    model.setUpdateTime(pb.getUpdateTime());
+    model.setWarehouseId(pb.getWarehouseId());
+
+    return model;
+  }
+
+  public static class AlertV2Serializer extends JsonSerializer<AlertV2> {
+    @Override
+    public void serialize(AlertV2 value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      AlertV2Pb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class AlertV2Deserializer extends JsonDeserializer<AlertV2> {
+    @Override
+    public AlertV2 deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      AlertV2Pb pb = mapper.readValue(p, AlertV2Pb.class);
+      return AlertV2.fromPb(pb);
+    }
   }
 }

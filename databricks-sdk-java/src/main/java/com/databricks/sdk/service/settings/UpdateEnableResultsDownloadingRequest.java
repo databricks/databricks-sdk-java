@@ -4,14 +4,29 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Details required to update a setting. */
 @Generated
+@JsonSerialize(
+    using =
+        UpdateEnableResultsDownloadingRequest.UpdateEnableResultsDownloadingRequestSerializer.class)
+@JsonDeserialize(
+    using =
+        UpdateEnableResultsDownloadingRequest.UpdateEnableResultsDownloadingRequestDeserializer
+            .class)
 public class UpdateEnableResultsDownloadingRequest {
   /** This should always be set to true for Settings API. Added for AIP compliance. */
-  @JsonProperty("allow_missing")
   private Boolean allowMissing;
 
   /**
@@ -25,11 +40,9 @@ public class UpdateEnableResultsDownloadingRequest {
    * the fields being updated and avoid using `*` wildcards, as it can lead to unintended results if
    * the API changes in the future.
    */
-  @JsonProperty("field_mask")
   private String fieldMask;
 
   /** */
-  @JsonProperty("setting")
   private EnableResultsDownloading setting;
 
   public UpdateEnableResultsDownloadingRequest setAllowMissing(Boolean allowMissing) {
@@ -81,5 +94,46 @@ public class UpdateEnableResultsDownloadingRequest {
         .add("fieldMask", fieldMask)
         .add("setting", setting)
         .toString();
+  }
+
+  UpdateEnableResultsDownloadingRequestPb toPb() {
+    UpdateEnableResultsDownloadingRequestPb pb = new UpdateEnableResultsDownloadingRequestPb();
+    pb.setAllowMissing(allowMissing);
+    pb.setFieldMask(fieldMask);
+    pb.setSetting(setting);
+
+    return pb;
+  }
+
+  static UpdateEnableResultsDownloadingRequest fromPb(UpdateEnableResultsDownloadingRequestPb pb) {
+    UpdateEnableResultsDownloadingRequest model = new UpdateEnableResultsDownloadingRequest();
+    model.setAllowMissing(pb.getAllowMissing());
+    model.setFieldMask(pb.getFieldMask());
+    model.setSetting(pb.getSetting());
+
+    return model;
+  }
+
+  public static class UpdateEnableResultsDownloadingRequestSerializer
+      extends JsonSerializer<UpdateEnableResultsDownloadingRequest> {
+    @Override
+    public void serialize(
+        UpdateEnableResultsDownloadingRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateEnableResultsDownloadingRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateEnableResultsDownloadingRequestDeserializer
+      extends JsonDeserializer<UpdateEnableResultsDownloadingRequest> {
+    @Override
+    public UpdateEnableResultsDownloadingRequest deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateEnableResultsDownloadingRequestPb pb =
+          mapper.readValue(p, UpdateEnableResultsDownloadingRequestPb.class);
+      return UpdateEnableResultsDownloadingRequest.fromPb(pb);
+    }
   }
 }

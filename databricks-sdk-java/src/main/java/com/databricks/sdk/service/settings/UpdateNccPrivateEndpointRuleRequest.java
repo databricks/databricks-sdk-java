@@ -3,30 +3,41 @@
 package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Update a private endpoint rule */
 @Generated
+@JsonSerialize(
+    using = UpdateNccPrivateEndpointRuleRequest.UpdateNccPrivateEndpointRuleRequestSerializer.class)
+@JsonDeserialize(
+    using =
+        UpdateNccPrivateEndpointRuleRequest.UpdateNccPrivateEndpointRuleRequestDeserializer.class)
 public class UpdateNccPrivateEndpointRuleRequest {
   /**
    * The ID of a network connectivity configuration, which is the parent resource of this private
    * endpoint rule object.
    */
-  @JsonIgnore private String networkConnectivityConfigId;
+  private String networkConnectivityConfigId;
 
   /**
    * Properties of the new private endpoint rule. Note that you must approve the endpoint in Azure
    * portal after initialization.
    */
-  @JsonProperty("private_endpoint_rule")
   private UpdatePrivateEndpointRule privateEndpointRule;
 
   /** Your private endpoint rule ID. */
-  @JsonIgnore private String privateEndpointRuleId;
+  private String privateEndpointRuleId;
 
   /**
    * The field mask must be a single string, with multiple fields separated by commas (no spaces).
@@ -35,8 +46,6 @@ public class UpdateNccPrivateEndpointRuleRequest {
    * allowed, as only the entire collection field can be specified. Field names must exactly match
    * the resource field names.
    */
-  @JsonIgnore
-  @QueryParam("update_mask")
   private String updateMask;
 
   public UpdateNccPrivateEndpointRuleRequest setNetworkConnectivityConfigId(
@@ -103,5 +112,48 @@ public class UpdateNccPrivateEndpointRuleRequest {
         .add("privateEndpointRuleId", privateEndpointRuleId)
         .add("updateMask", updateMask)
         .toString();
+  }
+
+  UpdateNccPrivateEndpointRuleRequestPb toPb() {
+    UpdateNccPrivateEndpointRuleRequestPb pb = new UpdateNccPrivateEndpointRuleRequestPb();
+    pb.setNetworkConnectivityConfigId(networkConnectivityConfigId);
+    pb.setPrivateEndpointRule(privateEndpointRule);
+    pb.setPrivateEndpointRuleId(privateEndpointRuleId);
+    pb.setUpdateMask(updateMask);
+
+    return pb;
+  }
+
+  static UpdateNccPrivateEndpointRuleRequest fromPb(UpdateNccPrivateEndpointRuleRequestPb pb) {
+    UpdateNccPrivateEndpointRuleRequest model = new UpdateNccPrivateEndpointRuleRequest();
+    model.setNetworkConnectivityConfigId(pb.getNetworkConnectivityConfigId());
+    model.setPrivateEndpointRule(pb.getPrivateEndpointRule());
+    model.setPrivateEndpointRuleId(pb.getPrivateEndpointRuleId());
+    model.setUpdateMask(pb.getUpdateMask());
+
+    return model;
+  }
+
+  public static class UpdateNccPrivateEndpointRuleRequestSerializer
+      extends JsonSerializer<UpdateNccPrivateEndpointRuleRequest> {
+    @Override
+    public void serialize(
+        UpdateNccPrivateEndpointRuleRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateNccPrivateEndpointRuleRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateNccPrivateEndpointRuleRequestDeserializer
+      extends JsonDeserializer<UpdateNccPrivateEndpointRuleRequest> {
+    @Override
+    public UpdateNccPrivateEndpointRuleRequest deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateNccPrivateEndpointRuleRequestPb pb =
+          mapper.readValue(p, UpdateNccPrivateEndpointRuleRequestPb.class);
+      return UpdateNccPrivateEndpointRuleRequest.fromPb(pb);
+    }
   }
 }

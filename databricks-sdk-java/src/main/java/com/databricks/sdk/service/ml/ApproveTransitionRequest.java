@@ -4,21 +4,29 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ApproveTransitionRequest.ApproveTransitionRequestSerializer.class)
+@JsonDeserialize(using = ApproveTransitionRequest.ApproveTransitionRequestDeserializer.class)
 public class ApproveTransitionRequest {
   /** Specifies whether to archive all current model versions in the target stage. */
-  @JsonProperty("archive_existing_versions")
   private Boolean archiveExistingVersions;
 
   /** User-provided comment on the action. */
-  @JsonProperty("comment")
   private String comment;
 
   /** Name of the model. */
-  @JsonProperty("name")
   private String name;
 
   /**
@@ -32,11 +40,9 @@ public class ApproveTransitionRequest {
    *
    * <p>* `Archived`: Archived stage.
    */
-  @JsonProperty("stage")
   private Stage stage;
 
   /** Version of the model. */
-  @JsonProperty("version")
   private String version;
 
   public ApproveTransitionRequest setArchiveExistingVersions(Boolean archiveExistingVersions) {
@@ -110,5 +116,49 @@ public class ApproveTransitionRequest {
         .add("stage", stage)
         .add("version", version)
         .toString();
+  }
+
+  ApproveTransitionRequestPb toPb() {
+    ApproveTransitionRequestPb pb = new ApproveTransitionRequestPb();
+    pb.setArchiveExistingVersions(archiveExistingVersions);
+    pb.setComment(comment);
+    pb.setName(name);
+    pb.setStage(stage);
+    pb.setVersion(version);
+
+    return pb;
+  }
+
+  static ApproveTransitionRequest fromPb(ApproveTransitionRequestPb pb) {
+    ApproveTransitionRequest model = new ApproveTransitionRequest();
+    model.setArchiveExistingVersions(pb.getArchiveExistingVersions());
+    model.setComment(pb.getComment());
+    model.setName(pb.getName());
+    model.setStage(pb.getStage());
+    model.setVersion(pb.getVersion());
+
+    return model;
+  }
+
+  public static class ApproveTransitionRequestSerializer
+      extends JsonSerializer<ApproveTransitionRequest> {
+    @Override
+    public void serialize(
+        ApproveTransitionRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ApproveTransitionRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ApproveTransitionRequestDeserializer
+      extends JsonDeserializer<ApproveTransitionRequest> {
+    @Override
+    public ApproveTransitionRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ApproveTransitionRequestPb pb = mapper.readValue(p, ApproveTransitionRequestPb.class);
+      return ApproveTransitionRequest.fromPb(pb);
+    }
   }
 }

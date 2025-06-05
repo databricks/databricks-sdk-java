@@ -4,23 +4,34 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = FileArrivalTriggerConfiguration.FileArrivalTriggerConfigurationSerializer.class)
+@JsonDeserialize(
+    using = FileArrivalTriggerConfiguration.FileArrivalTriggerConfigurationDeserializer.class)
 public class FileArrivalTriggerConfiguration {
   /**
    * If set, the trigger starts a run only after the specified amount of time passed since the last
    * time the trigger fired. The minimum allowed value is 60 seconds
    */
-  @JsonProperty("min_time_between_triggers_seconds")
   private Long minTimeBetweenTriggersSeconds;
 
   /**
    * URL to be monitored for file arrivals. The path must point to the root or a subpath of the
    * external location.
    */
-  @JsonProperty("url")
   private String url;
 
   /**
@@ -28,7 +39,6 @@ public class FileArrivalTriggerConfiguration {
    * amount of time. This makes it possible to wait for a batch of incoming files to arrive before
    * triggering a run. The minimum allowed value is 60 seconds.
    */
-  @JsonProperty("wait_after_last_change_seconds")
   private Long waitAfterLastChangeSeconds;
 
   public FileArrivalTriggerConfiguration setMinTimeBetweenTriggersSeconds(
@@ -82,5 +92,46 @@ public class FileArrivalTriggerConfiguration {
         .add("url", url)
         .add("waitAfterLastChangeSeconds", waitAfterLastChangeSeconds)
         .toString();
+  }
+
+  FileArrivalTriggerConfigurationPb toPb() {
+    FileArrivalTriggerConfigurationPb pb = new FileArrivalTriggerConfigurationPb();
+    pb.setMinTimeBetweenTriggersSeconds(minTimeBetweenTriggersSeconds);
+    pb.setUrl(url);
+    pb.setWaitAfterLastChangeSeconds(waitAfterLastChangeSeconds);
+
+    return pb;
+  }
+
+  static FileArrivalTriggerConfiguration fromPb(FileArrivalTriggerConfigurationPb pb) {
+    FileArrivalTriggerConfiguration model = new FileArrivalTriggerConfiguration();
+    model.setMinTimeBetweenTriggersSeconds(pb.getMinTimeBetweenTriggersSeconds());
+    model.setUrl(pb.getUrl());
+    model.setWaitAfterLastChangeSeconds(pb.getWaitAfterLastChangeSeconds());
+
+    return model;
+  }
+
+  public static class FileArrivalTriggerConfigurationSerializer
+      extends JsonSerializer<FileArrivalTriggerConfiguration> {
+    @Override
+    public void serialize(
+        FileArrivalTriggerConfiguration value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      FileArrivalTriggerConfigurationPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class FileArrivalTriggerConfigurationDeserializer
+      extends JsonDeserializer<FileArrivalTriggerConfiguration> {
+    @Override
+    public FileArrivalTriggerConfiguration deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      FileArrivalTriggerConfigurationPb pb =
+          mapper.readValue(p, FileArrivalTriggerConfigurationPb.class);
+      return FileArrivalTriggerConfiguration.fromPb(pb);
+    }
   }
 }

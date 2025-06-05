@@ -4,21 +4,29 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ValidationResult.ValidationResultSerializer.class)
+@JsonDeserialize(using = ValidationResult.ValidationResultDeserializer.class)
 public class ValidationResult {
   /** Error message would exist when the result does not equal to **PASS**. */
-  @JsonProperty("message")
   private String message;
 
   /** The operation tested. */
-  @JsonProperty("operation")
   private ValidationResultOperation operation;
 
   /** The results of the tested operation. */
-  @JsonProperty("result")
   private ValidationResultResult result;
 
   public ValidationResult setMessage(String message) {
@@ -70,5 +78,42 @@ public class ValidationResult {
         .add("operation", operation)
         .add("result", result)
         .toString();
+  }
+
+  ValidationResultPb toPb() {
+    ValidationResultPb pb = new ValidationResultPb();
+    pb.setMessage(message);
+    pb.setOperation(operation);
+    pb.setResult(result);
+
+    return pb;
+  }
+
+  static ValidationResult fromPb(ValidationResultPb pb) {
+    ValidationResult model = new ValidationResult();
+    model.setMessage(pb.getMessage());
+    model.setOperation(pb.getOperation());
+    model.setResult(pb.getResult());
+
+    return model;
+  }
+
+  public static class ValidationResultSerializer extends JsonSerializer<ValidationResult> {
+    @Override
+    public void serialize(ValidationResult value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ValidationResultPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ValidationResultDeserializer extends JsonDeserializer<ValidationResult> {
+    @Override
+    public ValidationResult deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ValidationResultPb pb = mapper.readValue(p, ValidationResultPb.class);
+      return ValidationResult.fromPb(pb);
+    }
   }
 }

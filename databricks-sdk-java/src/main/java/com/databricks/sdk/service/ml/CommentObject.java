@@ -4,35 +4,40 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 /** Comment details. */
 @Generated
+@JsonSerialize(using = CommentObject.CommentObjectSerializer.class)
+@JsonDeserialize(using = CommentObject.CommentObjectDeserializer.class)
 public class CommentObject {
   /** Array of actions on the activity allowed for the current viewer. */
-  @JsonProperty("available_actions")
   private Collection<CommentActivityAction> availableActions;
 
   /** User-provided comment on the action. */
-  @JsonProperty("comment")
   private String comment;
 
   /** Creation time of the object, as a Unix timestamp in milliseconds. */
-  @JsonProperty("creation_timestamp")
   private Long creationTimestamp;
 
   /** Comment ID */
-  @JsonProperty("id")
   private String id;
 
   /** Time of the object at last update, as a Unix timestamp in milliseconds. */
-  @JsonProperty("last_updated_timestamp")
   private Long lastUpdatedTimestamp;
 
   /** The username of the user that created the object. */
-  @JsonProperty("user_id")
   private String userId;
 
   public CommentObject setAvailableActions(Collection<CommentActivityAction> availableActions) {
@@ -118,5 +123,47 @@ public class CommentObject {
         .add("lastUpdatedTimestamp", lastUpdatedTimestamp)
         .add("userId", userId)
         .toString();
+  }
+
+  CommentObjectPb toPb() {
+    CommentObjectPb pb = new CommentObjectPb();
+    pb.setAvailableActions(availableActions);
+    pb.setComment(comment);
+    pb.setCreationTimestamp(creationTimestamp);
+    pb.setId(id);
+    pb.setLastUpdatedTimestamp(lastUpdatedTimestamp);
+    pb.setUserId(userId);
+
+    return pb;
+  }
+
+  static CommentObject fromPb(CommentObjectPb pb) {
+    CommentObject model = new CommentObject();
+    model.setAvailableActions(pb.getAvailableActions());
+    model.setComment(pb.getComment());
+    model.setCreationTimestamp(pb.getCreationTimestamp());
+    model.setId(pb.getId());
+    model.setLastUpdatedTimestamp(pb.getLastUpdatedTimestamp());
+    model.setUserId(pb.getUserId());
+
+    return model;
+  }
+
+  public static class CommentObjectSerializer extends JsonSerializer<CommentObject> {
+    @Override
+    public void serialize(CommentObject value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CommentObjectPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CommentObjectDeserializer extends JsonDeserializer<CommentObject> {
+    @Override
+    public CommentObject deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CommentObjectPb pb = mapper.readValue(p, CommentObjectPb.class);
+      return CommentObject.fromPb(pb);
+    }
   }
 }

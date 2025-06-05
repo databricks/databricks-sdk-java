@@ -4,10 +4,21 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = GoogleCloudVertexAiConfig.GoogleCloudVertexAiConfigSerializer.class)
+@JsonDeserialize(using = GoogleCloudVertexAiConfig.GoogleCloudVertexAiConfigDeserializer.class)
 public class GoogleCloudVertexAiConfig {
   /**
    * The Databricks secret key reference for a private key for the service account which has access
@@ -18,7 +29,6 @@ public class GoogleCloudVertexAiConfig {
    * <p>[Best practices for managing service account keys]:
    * https://cloud.google.com/iam/docs/best-practices-for-managing-service-account-keys
    */
-  @JsonProperty("private_key")
   private String privateKey;
 
   /**
@@ -30,11 +40,9 @@ public class GoogleCloudVertexAiConfig {
    * <p>[Best practices for managing service account keys]:
    * https://cloud.google.com/iam/docs/best-practices-for-managing-service-account-keys
    */
-  @JsonProperty("private_key_plaintext")
   private String privateKeyPlaintext;
 
   /** This is the Google Cloud project id that the service account is associated with. */
-  @JsonProperty("project_id")
   private String projectId;
 
   /**
@@ -43,7 +51,6 @@ public class GoogleCloudVertexAiConfig {
    *
    * <p>[supported regions]: https://cloud.google.com/vertex-ai/docs/general/locations
    */
-  @JsonProperty("region")
   private String region;
 
   public GoogleCloudVertexAiConfig setPrivateKey(String privateKey) {
@@ -106,5 +113,47 @@ public class GoogleCloudVertexAiConfig {
         .add("projectId", projectId)
         .add("region", region)
         .toString();
+  }
+
+  GoogleCloudVertexAiConfigPb toPb() {
+    GoogleCloudVertexAiConfigPb pb = new GoogleCloudVertexAiConfigPb();
+    pb.setPrivateKey(privateKey);
+    pb.setPrivateKeyPlaintext(privateKeyPlaintext);
+    pb.setProjectId(projectId);
+    pb.setRegion(region);
+
+    return pb;
+  }
+
+  static GoogleCloudVertexAiConfig fromPb(GoogleCloudVertexAiConfigPb pb) {
+    GoogleCloudVertexAiConfig model = new GoogleCloudVertexAiConfig();
+    model.setPrivateKey(pb.getPrivateKey());
+    model.setPrivateKeyPlaintext(pb.getPrivateKeyPlaintext());
+    model.setProjectId(pb.getProjectId());
+    model.setRegion(pb.getRegion());
+
+    return model;
+  }
+
+  public static class GoogleCloudVertexAiConfigSerializer
+      extends JsonSerializer<GoogleCloudVertexAiConfig> {
+    @Override
+    public void serialize(
+        GoogleCloudVertexAiConfig value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GoogleCloudVertexAiConfigPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GoogleCloudVertexAiConfigDeserializer
+      extends JsonDeserializer<GoogleCloudVertexAiConfig> {
+    @Override
+    public GoogleCloudVertexAiConfig deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GoogleCloudVertexAiConfigPb pb = mapper.readValue(p, GoogleCloudVertexAiConfigPb.class);
+      return GoogleCloudVertexAiConfig.fromPb(pb);
+    }
   }
 }

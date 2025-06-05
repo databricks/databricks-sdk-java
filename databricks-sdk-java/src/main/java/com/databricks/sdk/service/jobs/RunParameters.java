@@ -4,18 +4,28 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = RunParameters.RunParametersSerializer.class)
+@JsonDeserialize(using = RunParameters.RunParametersDeserializer.class)
 public class RunParameters {
   /**
    * An array of commands to execute for jobs with the dbt task, for example `"dbt_commands": ["dbt
    * deps", "dbt seed", "dbt deps", "dbt seed", "dbt run"]`
    */
-  @JsonProperty("dbt_commands")
   private Collection<String> dbtCommands;
 
   /**
@@ -29,7 +39,6 @@ public class RunParameters {
    *
    * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
    */
-  @JsonProperty("jar_params")
   private Collection<String> jarParams;
 
   /**
@@ -49,15 +58,12 @@ public class RunParameters {
    * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
    * [dbutils.widgets.get]: https://docs.databricks.com/dev-tools/databricks-utils.html
    */
-  @JsonProperty("notebook_params")
   private Map<String, String> notebookParams;
 
   /** Controls whether the pipeline should perform a full refresh */
-  @JsonProperty("pipeline_params")
   private PipelineParams pipelineParams;
 
   /** */
-  @JsonProperty("python_named_params")
   private Map<String, String> pythonNamedParams;
 
   /**
@@ -76,7 +82,6 @@ public class RunParameters {
    *
    * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
    */
-  @JsonProperty("python_params")
   private Collection<String> pythonParams;
 
   /**
@@ -96,14 +101,12 @@ public class RunParameters {
    *
    * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
    */
-  @JsonProperty("spark_submit_params")
   private Collection<String> sparkSubmitParams;
 
   /**
    * A map from keys to values for jobs with SQL task, for example `"sql_params": {"name": "john
    * doe", "age": "35"}`. The SQL alert task does not support custom parameters.
    */
-  @JsonProperty("sql_params")
   private Map<String, String> sqlParams;
 
   public RunParameters setDbtCommands(Collection<String> dbtCommands) {
@@ -218,5 +221,51 @@ public class RunParameters {
         .add("sparkSubmitParams", sparkSubmitParams)
         .add("sqlParams", sqlParams)
         .toString();
+  }
+
+  RunParametersPb toPb() {
+    RunParametersPb pb = new RunParametersPb();
+    pb.setDbtCommands(dbtCommands);
+    pb.setJarParams(jarParams);
+    pb.setNotebookParams(notebookParams);
+    pb.setPipelineParams(pipelineParams);
+    pb.setPythonNamedParams(pythonNamedParams);
+    pb.setPythonParams(pythonParams);
+    pb.setSparkSubmitParams(sparkSubmitParams);
+    pb.setSqlParams(sqlParams);
+
+    return pb;
+  }
+
+  static RunParameters fromPb(RunParametersPb pb) {
+    RunParameters model = new RunParameters();
+    model.setDbtCommands(pb.getDbtCommands());
+    model.setJarParams(pb.getJarParams());
+    model.setNotebookParams(pb.getNotebookParams());
+    model.setPipelineParams(pb.getPipelineParams());
+    model.setPythonNamedParams(pb.getPythonNamedParams());
+    model.setPythonParams(pb.getPythonParams());
+    model.setSparkSubmitParams(pb.getSparkSubmitParams());
+    model.setSqlParams(pb.getSqlParams());
+
+    return model;
+  }
+
+  public static class RunParametersSerializer extends JsonSerializer<RunParameters> {
+    @Override
+    public void serialize(RunParameters value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      RunParametersPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class RunParametersDeserializer extends JsonDeserializer<RunParameters> {
+    @Override
+    public RunParameters deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      RunParametersPb pb = mapper.readValue(p, RunParametersPb.class);
+      return RunParameters.fromPb(pb);
+    }
   }
 }

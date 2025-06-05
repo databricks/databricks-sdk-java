@@ -4,21 +4,35 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using =
+        GenerateTemporaryServiceCredentialRequest
+            .GenerateTemporaryServiceCredentialRequestSerializer.class)
+@JsonDeserialize(
+    using =
+        GenerateTemporaryServiceCredentialRequest
+            .GenerateTemporaryServiceCredentialRequestDeserializer.class)
 public class GenerateTemporaryServiceCredentialRequest {
   /** The Azure cloud options to customize the requested temporary credential */
-  @JsonProperty("azure_options")
   private GenerateTemporaryServiceCredentialAzureOptions azureOptions;
 
   /** The name of the service credential used to generate a temporary credential */
-  @JsonProperty("credential_name")
   private String credentialName;
 
   /** The GCP cloud options to customize the requested temporary credential */
-  @JsonProperty("gcp_options")
   private GenerateTemporaryServiceCredentialGcpOptions gcpOptions;
 
   public GenerateTemporaryServiceCredentialRequest setAzureOptions(
@@ -72,5 +86,51 @@ public class GenerateTemporaryServiceCredentialRequest {
         .add("credentialName", credentialName)
         .add("gcpOptions", gcpOptions)
         .toString();
+  }
+
+  GenerateTemporaryServiceCredentialRequestPb toPb() {
+    GenerateTemporaryServiceCredentialRequestPb pb =
+        new GenerateTemporaryServiceCredentialRequestPb();
+    pb.setAzureOptions(azureOptions);
+    pb.setCredentialName(credentialName);
+    pb.setGcpOptions(gcpOptions);
+
+    return pb;
+  }
+
+  static GenerateTemporaryServiceCredentialRequest fromPb(
+      GenerateTemporaryServiceCredentialRequestPb pb) {
+    GenerateTemporaryServiceCredentialRequest model =
+        new GenerateTemporaryServiceCredentialRequest();
+    model.setAzureOptions(pb.getAzureOptions());
+    model.setCredentialName(pb.getCredentialName());
+    model.setGcpOptions(pb.getGcpOptions());
+
+    return model;
+  }
+
+  public static class GenerateTemporaryServiceCredentialRequestSerializer
+      extends JsonSerializer<GenerateTemporaryServiceCredentialRequest> {
+    @Override
+    public void serialize(
+        GenerateTemporaryServiceCredentialRequest value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      GenerateTemporaryServiceCredentialRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GenerateTemporaryServiceCredentialRequestDeserializer
+      extends JsonDeserializer<GenerateTemporaryServiceCredentialRequest> {
+    @Override
+    public GenerateTemporaryServiceCredentialRequest deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GenerateTemporaryServiceCredentialRequestPb pb =
+          mapper.readValue(p, GenerateTemporaryServiceCredentialRequestPb.class);
+      return GenerateTemporaryServiceCredentialRequest.fromPb(pb);
+    }
   }
 }

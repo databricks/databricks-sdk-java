@@ -3,38 +3,42 @@
 package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List assets by provider share */
 @Generated
+@JsonSerialize(
+    using = ListProviderShareAssetsRequest.ListProviderShareAssetsRequestSerializer.class)
+@JsonDeserialize(
+    using = ListProviderShareAssetsRequest.ListProviderShareAssetsRequestDeserializer.class)
 public class ListProviderShareAssetsRequest {
   /** Maximum number of functions to return. */
-  @JsonIgnore
-  @QueryParam("function_max_results")
   private Long functionMaxResults;
 
   /** Maximum number of notebooks to return. */
-  @JsonIgnore
-  @QueryParam("notebook_max_results")
   private Long notebookMaxResults;
 
   /** The name of the provider who owns the share. */
-  @JsonIgnore private String providerName;
+  private String providerName;
 
   /** The name of the share. */
-  @JsonIgnore private String shareName;
+  private String shareName;
 
   /** Maximum number of tables to return. */
-  @JsonIgnore
-  @QueryParam("table_max_results")
   private Long tableMaxResults;
 
   /** Maximum number of volumes to return. */
-  @JsonIgnore
-  @QueryParam("volume_max_results")
   private Long volumeMaxResults;
 
   public ListProviderShareAssetsRequest setFunctionMaxResults(Long functionMaxResults) {
@@ -125,5 +129,52 @@ public class ListProviderShareAssetsRequest {
         .add("tableMaxResults", tableMaxResults)
         .add("volumeMaxResults", volumeMaxResults)
         .toString();
+  }
+
+  ListProviderShareAssetsRequestPb toPb() {
+    ListProviderShareAssetsRequestPb pb = new ListProviderShareAssetsRequestPb();
+    pb.setFunctionMaxResults(functionMaxResults);
+    pb.setNotebookMaxResults(notebookMaxResults);
+    pb.setProviderName(providerName);
+    pb.setShareName(shareName);
+    pb.setTableMaxResults(tableMaxResults);
+    pb.setVolumeMaxResults(volumeMaxResults);
+
+    return pb;
+  }
+
+  static ListProviderShareAssetsRequest fromPb(ListProviderShareAssetsRequestPb pb) {
+    ListProviderShareAssetsRequest model = new ListProviderShareAssetsRequest();
+    model.setFunctionMaxResults(pb.getFunctionMaxResults());
+    model.setNotebookMaxResults(pb.getNotebookMaxResults());
+    model.setProviderName(pb.getProviderName());
+    model.setShareName(pb.getShareName());
+    model.setTableMaxResults(pb.getTableMaxResults());
+    model.setVolumeMaxResults(pb.getVolumeMaxResults());
+
+    return model;
+  }
+
+  public static class ListProviderShareAssetsRequestSerializer
+      extends JsonSerializer<ListProviderShareAssetsRequest> {
+    @Override
+    public void serialize(
+        ListProviderShareAssetsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListProviderShareAssetsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListProviderShareAssetsRequestDeserializer
+      extends JsonDeserializer<ListProviderShareAssetsRequest> {
+    @Override
+    public ListProviderShareAssetsRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListProviderShareAssetsRequestPb pb =
+          mapper.readValue(p, ListProviderShareAssetsRequestPb.class);
+      return ListProviderShareAssetsRequest.fromPb(pb);
+    }
   }
 }

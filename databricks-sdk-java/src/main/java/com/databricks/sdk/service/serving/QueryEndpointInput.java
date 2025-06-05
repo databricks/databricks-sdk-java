@@ -4,20 +4,28 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = QueryEndpointInput.QueryEndpointInputSerializer.class)
+@JsonDeserialize(using = QueryEndpointInput.QueryEndpointInputDeserializer.class)
 public class QueryEndpointInput {
   /** Pandas Dataframe input in the records orientation. */
-  @JsonProperty("dataframe_records")
   private Collection<Object> dataframeRecords;
 
   /** Pandas Dataframe input in the split orientation. */
-  @JsonProperty("dataframe_split")
   private DataframeSplitInput dataframeSplit;
 
   /**
@@ -25,7 +33,6 @@ public class QueryEndpointInput {
    * foundation model__ serving endpoints. This is a map of strings and should only be used with
    * other external/foundation model query fields.
    */
-  @JsonProperty("extra_params")
   private Map<String, String> extraParams;
 
   /**
@@ -33,15 +40,12 @@ public class QueryEndpointInput {
    * model__ serving endpoints and is the only field (along with extra_params if needed) used by
    * embeddings queries.
    */
-  @JsonProperty("input")
   private Object input;
 
   /** Tensor-based input in columnar format. */
-  @JsonProperty("inputs")
   private Object inputs;
 
   /** Tensor-based input in row format. */
-  @JsonProperty("instances")
   private Collection<Object> instances;
 
   /**
@@ -49,14 +53,12 @@ public class QueryEndpointInput {
    * serving endpoints. This is an integer and should only be used with other chat/completions query
    * fields.
    */
-  @JsonProperty("max_tokens")
   private Long maxTokens;
 
   /**
    * The messages field used ONLY for __chat external & foundation model__ serving endpoints. This
    * is a map of strings and should only be used with other chat query fields.
    */
-  @JsonProperty("messages")
   private Collection<ChatMessage> messages;
 
   /**
@@ -64,17 +66,15 @@ public class QueryEndpointInput {
    * foundation model__ serving endpoints. This is an integer between 1 and 5 with a default of 1
    * and should only be used with other chat/completions query fields.
    */
-  @JsonProperty("n")
   private Long n;
 
   /** The name of the serving endpoint. This field is required. */
-  @JsonIgnore private String name;
+  private String name;
 
   /**
    * The prompt string (or array of strings) field used ONLY for __completions external & foundation
    * model__ serving endpoints and should only be used with other completions query fields.
    */
-  @JsonProperty("prompt")
   private Object prompt;
 
   /**
@@ -82,7 +82,6 @@ public class QueryEndpointInput {
    * serving endpoints. This is a list of strings and should only be used with other
    * chat/completions query fields.
    */
-  @JsonProperty("stop")
   private Collection<String> stop;
 
   /**
@@ -90,7 +89,6 @@ public class QueryEndpointInput {
    * endpoints. This is a boolean defaulting to false and should only be used with other
    * chat/completions query fields.
    */
-  @JsonProperty("stream")
   private Boolean stream;
 
   /**
@@ -98,7 +96,6 @@ public class QueryEndpointInput {
    * serving endpoints. This is a float between 0.0 and 2.0 with a default of 1.0 and should only be
    * used with other chat/completions query fields.
    */
-  @JsonProperty("temperature")
   private Double temperature;
 
   public QueryEndpointInput setDataframeRecords(Collection<Object> dataframeRecords) {
@@ -285,5 +282,64 @@ public class QueryEndpointInput {
         .add("stream", stream)
         .add("temperature", temperature)
         .toString();
+  }
+
+  QueryEndpointInputPb toPb() {
+    QueryEndpointInputPb pb = new QueryEndpointInputPb();
+    pb.setDataframeRecords(dataframeRecords);
+    pb.setDataframeSplit(dataframeSplit);
+    pb.setExtraParams(extraParams);
+    pb.setInput(input);
+    pb.setInputs(inputs);
+    pb.setInstances(instances);
+    pb.setMaxTokens(maxTokens);
+    pb.setMessages(messages);
+    pb.setN(n);
+    pb.setName(name);
+    pb.setPrompt(prompt);
+    pb.setStop(stop);
+    pb.setStream(stream);
+    pb.setTemperature(temperature);
+
+    return pb;
+  }
+
+  static QueryEndpointInput fromPb(QueryEndpointInputPb pb) {
+    QueryEndpointInput model = new QueryEndpointInput();
+    model.setDataframeRecords(pb.getDataframeRecords());
+    model.setDataframeSplit(pb.getDataframeSplit());
+    model.setExtraParams(pb.getExtraParams());
+    model.setInput(pb.getInput());
+    model.setInputs(pb.getInputs());
+    model.setInstances(pb.getInstances());
+    model.setMaxTokens(pb.getMaxTokens());
+    model.setMessages(pb.getMessages());
+    model.setN(pb.getN());
+    model.setName(pb.getName());
+    model.setPrompt(pb.getPrompt());
+    model.setStop(pb.getStop());
+    model.setStream(pb.getStream());
+    model.setTemperature(pb.getTemperature());
+
+    return model;
+  }
+
+  public static class QueryEndpointInputSerializer extends JsonSerializer<QueryEndpointInput> {
+    @Override
+    public void serialize(QueryEndpointInput value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      QueryEndpointInputPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class QueryEndpointInputDeserializer extends JsonDeserializer<QueryEndpointInput> {
+    @Override
+    public QueryEndpointInput deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      QueryEndpointInputPb pb = mapper.readValue(p, QueryEndpointInputPb.class);
+      return QueryEndpointInput.fromPb(pb);
+    }
   }
 }

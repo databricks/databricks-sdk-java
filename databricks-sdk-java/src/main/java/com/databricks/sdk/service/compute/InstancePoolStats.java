@@ -4,25 +4,32 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = InstancePoolStats.InstancePoolStatsSerializer.class)
+@JsonDeserialize(using = InstancePoolStats.InstancePoolStatsDeserializer.class)
 public class InstancePoolStats {
   /** Number of active instances in the pool that are NOT part of a cluster. */
-  @JsonProperty("idle_count")
   private Long idleCount;
 
   /** Number of pending instances in the pool that are NOT part of a cluster. */
-  @JsonProperty("pending_idle_count")
   private Long pendingIdleCount;
 
   /** Number of pending instances in the pool that are part of a cluster. */
-  @JsonProperty("pending_used_count")
   private Long pendingUsedCount;
 
   /** Number of active instances in the pool that are part of a cluster. */
-  @JsonProperty("used_count")
   private Long usedCount;
 
   public InstancePoolStats setIdleCount(Long idleCount) {
@@ -85,5 +92,44 @@ public class InstancePoolStats {
         .add("pendingUsedCount", pendingUsedCount)
         .add("usedCount", usedCount)
         .toString();
+  }
+
+  InstancePoolStatsPb toPb() {
+    InstancePoolStatsPb pb = new InstancePoolStatsPb();
+    pb.setIdleCount(idleCount);
+    pb.setPendingIdleCount(pendingIdleCount);
+    pb.setPendingUsedCount(pendingUsedCount);
+    pb.setUsedCount(usedCount);
+
+    return pb;
+  }
+
+  static InstancePoolStats fromPb(InstancePoolStatsPb pb) {
+    InstancePoolStats model = new InstancePoolStats();
+    model.setIdleCount(pb.getIdleCount());
+    model.setPendingIdleCount(pb.getPendingIdleCount());
+    model.setPendingUsedCount(pb.getPendingUsedCount());
+    model.setUsedCount(pb.getUsedCount());
+
+    return model;
+  }
+
+  public static class InstancePoolStatsSerializer extends JsonSerializer<InstancePoolStats> {
+    @Override
+    public void serialize(InstancePoolStats value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      InstancePoolStatsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class InstancePoolStatsDeserializer extends JsonDeserializer<InstancePoolStats> {
+    @Override
+    public InstancePoolStats deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      InstancePoolStatsPb pb = mapper.readValue(p, InstancePoolStatsPb.class);
+      return InstancePoolStats.fromPb(pb);
+    }
   }
 }

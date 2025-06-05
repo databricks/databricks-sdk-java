@@ -4,7 +4,16 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -18,50 +27,45 @@ import java.util.Objects;
  * are used, `git_source` must be defined on the job.
  */
 @Generated
+@JsonSerialize(using = GitSource.GitSourceSerializer.class)
+@JsonDeserialize(using = GitSource.GitSourceDeserializer.class)
 public class GitSource {
   /**
    * Name of the branch to be checked out and used by this job. This field cannot be specified in
    * conjunction with git_tag or git_commit.
    */
-  @JsonProperty("git_branch")
   private String gitBranch;
 
   /**
    * Commit to be checked out and used by this job. This field cannot be specified in conjunction
    * with git_branch or git_tag.
    */
-  @JsonProperty("git_commit")
   private String gitCommit;
 
   /**
    * Unique identifier of the service used to host the Git repository. The value is case
    * insensitive.
    */
-  @JsonProperty("git_provider")
   private GitProvider gitProvider;
 
   /**
    * Read-only state of the remote repository at the time the job was run. This field is only
    * included on job runs.
    */
-  @JsonProperty("git_snapshot")
   private GitSnapshot gitSnapshot;
 
   /**
    * Name of the tag to be checked out and used by this job. This field cannot be specified in
    * conjunction with git_branch or git_commit.
    */
-  @JsonProperty("git_tag")
   private String gitTag;
 
   /** URL of the repository to be cloned by this job. */
-  @JsonProperty("git_url")
   private String gitUrl;
 
   /**
    * The source of the job specification in the remote repository when the job is source controlled.
    */
-  @JsonProperty("job_source")
   private JobSource jobSource;
 
   public GitSource setGitBranch(String gitBranch) {
@@ -157,5 +161,49 @@ public class GitSource {
         .add("gitUrl", gitUrl)
         .add("jobSource", jobSource)
         .toString();
+  }
+
+  GitSourcePb toPb() {
+    GitSourcePb pb = new GitSourcePb();
+    pb.setGitBranch(gitBranch);
+    pb.setGitCommit(gitCommit);
+    pb.setGitProvider(gitProvider);
+    pb.setGitSnapshot(gitSnapshot);
+    pb.setGitTag(gitTag);
+    pb.setGitUrl(gitUrl);
+    pb.setJobSource(jobSource);
+
+    return pb;
+  }
+
+  static GitSource fromPb(GitSourcePb pb) {
+    GitSource model = new GitSource();
+    model.setGitBranch(pb.getGitBranch());
+    model.setGitCommit(pb.getGitCommit());
+    model.setGitProvider(pb.getGitProvider());
+    model.setGitSnapshot(pb.getGitSnapshot());
+    model.setGitTag(pb.getGitTag());
+    model.setGitUrl(pb.getGitUrl());
+    model.setJobSource(pb.getJobSource());
+
+    return model;
+  }
+
+  public static class GitSourceSerializer extends JsonSerializer<GitSource> {
+    @Override
+    public void serialize(GitSource value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GitSourcePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GitSourceDeserializer extends JsonDeserializer<GitSource> {
+    @Override
+    public GitSource deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GitSourcePb pb = mapper.readValue(p, GitSourcePb.class);
+      return GitSource.fromPb(pb);
+    }
   }
 }

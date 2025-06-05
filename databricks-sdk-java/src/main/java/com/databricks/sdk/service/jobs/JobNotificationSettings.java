@@ -4,23 +4,32 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = JobNotificationSettings.JobNotificationSettingsSerializer.class)
+@JsonDeserialize(using = JobNotificationSettings.JobNotificationSettingsDeserializer.class)
 public class JobNotificationSettings {
   /**
    * If true, do not send notifications to recipients specified in `on_failure` if the run is
    * canceled.
    */
-  @JsonProperty("no_alert_for_canceled_runs")
   private Boolean noAlertForCanceledRuns;
 
   /**
    * If true, do not send notifications to recipients specified in `on_failure` if the run is
    * skipped.
    */
-  @JsonProperty("no_alert_for_skipped_runs")
   private Boolean noAlertForSkippedRuns;
 
   public JobNotificationSettings setNoAlertForCanceledRuns(Boolean noAlertForCanceledRuns) {
@@ -61,5 +70,43 @@ public class JobNotificationSettings {
         .add("noAlertForCanceledRuns", noAlertForCanceledRuns)
         .add("noAlertForSkippedRuns", noAlertForSkippedRuns)
         .toString();
+  }
+
+  JobNotificationSettingsPb toPb() {
+    JobNotificationSettingsPb pb = new JobNotificationSettingsPb();
+    pb.setNoAlertForCanceledRuns(noAlertForCanceledRuns);
+    pb.setNoAlertForSkippedRuns(noAlertForSkippedRuns);
+
+    return pb;
+  }
+
+  static JobNotificationSettings fromPb(JobNotificationSettingsPb pb) {
+    JobNotificationSettings model = new JobNotificationSettings();
+    model.setNoAlertForCanceledRuns(pb.getNoAlertForCanceledRuns());
+    model.setNoAlertForSkippedRuns(pb.getNoAlertForSkippedRuns());
+
+    return model;
+  }
+
+  public static class JobNotificationSettingsSerializer
+      extends JsonSerializer<JobNotificationSettings> {
+    @Override
+    public void serialize(
+        JobNotificationSettings value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      JobNotificationSettingsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class JobNotificationSettingsDeserializer
+      extends JsonDeserializer<JobNotificationSettings> {
+    @Override
+    public JobNotificationSettings deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      JobNotificationSettingsPb pb = mapper.readValue(p, JobNotificationSettingsPb.class);
+      return JobNotificationSettings.fromPb(pb);
+    }
   }
 }

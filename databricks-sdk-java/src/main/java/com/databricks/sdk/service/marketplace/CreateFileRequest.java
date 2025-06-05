@@ -4,25 +4,32 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateFileRequest.CreateFileRequestSerializer.class)
+@JsonDeserialize(using = CreateFileRequest.CreateFileRequestDeserializer.class)
 public class CreateFileRequest {
   /** */
-  @JsonProperty("display_name")
   private String displayName;
 
   /** */
-  @JsonProperty("file_parent")
   private FileParent fileParent;
 
   /** */
-  @JsonProperty("marketplace_file_type")
   private MarketplaceFileType marketplaceFileType;
 
   /** */
-  @JsonProperty("mime_type")
   private String mimeType;
 
   public CreateFileRequest setDisplayName(String displayName) {
@@ -85,5 +92,44 @@ public class CreateFileRequest {
         .add("marketplaceFileType", marketplaceFileType)
         .add("mimeType", mimeType)
         .toString();
+  }
+
+  CreateFileRequestPb toPb() {
+    CreateFileRequestPb pb = new CreateFileRequestPb();
+    pb.setDisplayName(displayName);
+    pb.setFileParent(fileParent);
+    pb.setMarketplaceFileType(marketplaceFileType);
+    pb.setMimeType(mimeType);
+
+    return pb;
+  }
+
+  static CreateFileRequest fromPb(CreateFileRequestPb pb) {
+    CreateFileRequest model = new CreateFileRequest();
+    model.setDisplayName(pb.getDisplayName());
+    model.setFileParent(pb.getFileParent());
+    model.setMarketplaceFileType(pb.getMarketplaceFileType());
+    model.setMimeType(pb.getMimeType());
+
+    return model;
+  }
+
+  public static class CreateFileRequestSerializer extends JsonSerializer<CreateFileRequest> {
+    @Override
+    public void serialize(CreateFileRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateFileRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateFileRequestDeserializer extends JsonDeserializer<CreateFileRequest> {
+    @Override
+    public CreateFileRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateFileRequestPb pb = mapper.readValue(p, CreateFileRequestPb.class);
+      return CreateFileRequest.fromPb(pb);
+    }
   }
 }

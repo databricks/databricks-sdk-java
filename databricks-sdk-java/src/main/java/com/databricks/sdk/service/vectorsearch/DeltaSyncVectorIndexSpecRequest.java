@@ -4,33 +4,42 @@ package com.databricks.sdk.service.vectorsearch;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = DeltaSyncVectorIndexSpecRequest.DeltaSyncVectorIndexSpecRequestSerializer.class)
+@JsonDeserialize(
+    using = DeltaSyncVectorIndexSpecRequest.DeltaSyncVectorIndexSpecRequestDeserializer.class)
 public class DeltaSyncVectorIndexSpecRequest {
   /**
    * [Optional] Select the columns to sync with the vector index. If you leave this field blank, all
    * columns from the source table are synced with the index. The primary key column and embedding
    * source column or embedding vector column are always synced.
    */
-  @JsonProperty("columns_to_sync")
   private Collection<String> columnsToSync;
 
   /** The columns that contain the embedding source. */
-  @JsonProperty("embedding_source_columns")
   private Collection<EmbeddingSourceColumn> embeddingSourceColumns;
 
   /** The columns that contain the embedding vectors. */
-  @JsonProperty("embedding_vector_columns")
   private Collection<EmbeddingVectorColumn> embeddingVectorColumns;
 
   /**
    * [Optional] Name of the Delta table to sync the vector index contents and computed embeddings
    * to.
    */
-  @JsonProperty("embedding_writeback_table")
   private String embeddingWritebackTable;
 
   /**
@@ -40,11 +49,9 @@ public class DeltaSyncVectorIndexSpecRequest {
    * `CONTINUOUS`: If the pipeline uses continuous execution, the pipeline processes new data as it
    * arrives in the source table to keep vector index fresh.
    */
-  @JsonProperty("pipeline_type")
   private PipelineType pipelineType;
 
   /** The name of the source table. */
-  @JsonProperty("source_table")
   private String sourceTable;
 
   public DeltaSyncVectorIndexSpecRequest setColumnsToSync(Collection<String> columnsToSync) {
@@ -138,5 +145,52 @@ public class DeltaSyncVectorIndexSpecRequest {
         .add("pipelineType", pipelineType)
         .add("sourceTable", sourceTable)
         .toString();
+  }
+
+  DeltaSyncVectorIndexSpecRequestPb toPb() {
+    DeltaSyncVectorIndexSpecRequestPb pb = new DeltaSyncVectorIndexSpecRequestPb();
+    pb.setColumnsToSync(columnsToSync);
+    pb.setEmbeddingSourceColumns(embeddingSourceColumns);
+    pb.setEmbeddingVectorColumns(embeddingVectorColumns);
+    pb.setEmbeddingWritebackTable(embeddingWritebackTable);
+    pb.setPipelineType(pipelineType);
+    pb.setSourceTable(sourceTable);
+
+    return pb;
+  }
+
+  static DeltaSyncVectorIndexSpecRequest fromPb(DeltaSyncVectorIndexSpecRequestPb pb) {
+    DeltaSyncVectorIndexSpecRequest model = new DeltaSyncVectorIndexSpecRequest();
+    model.setColumnsToSync(pb.getColumnsToSync());
+    model.setEmbeddingSourceColumns(pb.getEmbeddingSourceColumns());
+    model.setEmbeddingVectorColumns(pb.getEmbeddingVectorColumns());
+    model.setEmbeddingWritebackTable(pb.getEmbeddingWritebackTable());
+    model.setPipelineType(pb.getPipelineType());
+    model.setSourceTable(pb.getSourceTable());
+
+    return model;
+  }
+
+  public static class DeltaSyncVectorIndexSpecRequestSerializer
+      extends JsonSerializer<DeltaSyncVectorIndexSpecRequest> {
+    @Override
+    public void serialize(
+        DeltaSyncVectorIndexSpecRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DeltaSyncVectorIndexSpecRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DeltaSyncVectorIndexSpecRequestDeserializer
+      extends JsonDeserializer<DeltaSyncVectorIndexSpecRequest> {
+    @Override
+    public DeltaSyncVectorIndexSpecRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DeltaSyncVectorIndexSpecRequestPb pb =
+          mapper.readValue(p, DeltaSyncVectorIndexSpecRequestPb.class);
+      return DeltaSyncVectorIndexSpecRequest.fromPb(pb);
+    }
   }
 }

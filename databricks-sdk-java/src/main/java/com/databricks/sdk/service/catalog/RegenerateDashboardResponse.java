@@ -4,17 +4,26 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = RegenerateDashboardResponse.RegenerateDashboardResponseSerializer.class)
+@JsonDeserialize(using = RegenerateDashboardResponse.RegenerateDashboardResponseDeserializer.class)
 public class RegenerateDashboardResponse {
   /** Id of the regenerated monitoring dashboard. */
-  @JsonProperty("dashboard_id")
   private String dashboardId;
 
   /** The directory where the regenerated dashboard is stored. */
-  @JsonProperty("parent_folder")
   private String parentFolder;
 
   public RegenerateDashboardResponse setDashboardId(String dashboardId) {
@@ -55,5 +64,43 @@ public class RegenerateDashboardResponse {
         .add("dashboardId", dashboardId)
         .add("parentFolder", parentFolder)
         .toString();
+  }
+
+  RegenerateDashboardResponsePb toPb() {
+    RegenerateDashboardResponsePb pb = new RegenerateDashboardResponsePb();
+    pb.setDashboardId(dashboardId);
+    pb.setParentFolder(parentFolder);
+
+    return pb;
+  }
+
+  static RegenerateDashboardResponse fromPb(RegenerateDashboardResponsePb pb) {
+    RegenerateDashboardResponse model = new RegenerateDashboardResponse();
+    model.setDashboardId(pb.getDashboardId());
+    model.setParentFolder(pb.getParentFolder());
+
+    return model;
+  }
+
+  public static class RegenerateDashboardResponseSerializer
+      extends JsonSerializer<RegenerateDashboardResponse> {
+    @Override
+    public void serialize(
+        RegenerateDashboardResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      RegenerateDashboardResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class RegenerateDashboardResponseDeserializer
+      extends JsonDeserializer<RegenerateDashboardResponse> {
+    @Override
+    public RegenerateDashboardResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      RegenerateDashboardResponsePb pb = mapper.readValue(p, RegenerateDashboardResponsePb.class);
+      return RegenerateDashboardResponse.fromPb(pb);
+    }
   }
 }

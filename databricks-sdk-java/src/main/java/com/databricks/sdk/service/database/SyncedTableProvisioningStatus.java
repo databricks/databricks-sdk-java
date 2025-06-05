@@ -4,7 +4,16 @@ package com.databricks.sdk.service.database;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -12,12 +21,14 @@ import java.util.Objects;
  * PROVISIONING_PIPELINE_RESOURCES or the PROVISIONING_INITIAL_SNAPSHOT state.
  */
 @Generated
+@JsonSerialize(using = SyncedTableProvisioningStatus.SyncedTableProvisioningStatusSerializer.class)
+@JsonDeserialize(
+    using = SyncedTableProvisioningStatus.SyncedTableProvisioningStatusDeserializer.class)
 public class SyncedTableProvisioningStatus {
   /**
    * Details about initial data synchronization. Only populated when in the
    * PROVISIONING_INITIAL_SNAPSHOT state.
    */
-  @JsonProperty("initial_pipeline_sync_progress")
   private SyncedTablePipelineProgress initialPipelineSyncProgress;
 
   public SyncedTableProvisioningStatus setInitialPipelineSyncProgress(
@@ -48,5 +59,42 @@ public class SyncedTableProvisioningStatus {
     return new ToStringer(SyncedTableProvisioningStatus.class)
         .add("initialPipelineSyncProgress", initialPipelineSyncProgress)
         .toString();
+  }
+
+  SyncedTableProvisioningStatusPb toPb() {
+    SyncedTableProvisioningStatusPb pb = new SyncedTableProvisioningStatusPb();
+    pb.setInitialPipelineSyncProgress(initialPipelineSyncProgress);
+
+    return pb;
+  }
+
+  static SyncedTableProvisioningStatus fromPb(SyncedTableProvisioningStatusPb pb) {
+    SyncedTableProvisioningStatus model = new SyncedTableProvisioningStatus();
+    model.setInitialPipelineSyncProgress(pb.getInitialPipelineSyncProgress());
+
+    return model;
+  }
+
+  public static class SyncedTableProvisioningStatusSerializer
+      extends JsonSerializer<SyncedTableProvisioningStatus> {
+    @Override
+    public void serialize(
+        SyncedTableProvisioningStatus value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SyncedTableProvisioningStatusPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SyncedTableProvisioningStatusDeserializer
+      extends JsonDeserializer<SyncedTableProvisioningStatus> {
+    @Override
+    public SyncedTableProvisioningStatus deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SyncedTableProvisioningStatusPb pb =
+          mapper.readValue(p, SyncedTableProvisioningStatusPb.class);
+      return SyncedTableProvisioningStatus.fromPb(pb);
+    }
   }
 }

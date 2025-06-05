@@ -4,13 +4,23 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = SearchLoggedModelsOrderBy.SearchLoggedModelsOrderBySerializer.class)
+@JsonDeserialize(using = SearchLoggedModelsOrderBy.SearchLoggedModelsOrderByDeserializer.class)
 public class SearchLoggedModelsOrderBy {
   /** Whether the search results order is ascending or not. */
-  @JsonProperty("ascending")
   private Boolean ascending;
 
   /**
@@ -18,7 +28,6 @@ public class SearchLoggedModelsOrderBy {
    * with the metric. Only metrics associated with the specified dataset name and digest will be
    * considered for ordering. This field may only be set if ``dataset_name`` is also set.
    */
-  @JsonProperty("dataset_digest")
   private String datasetDigest;
 
   /**
@@ -26,11 +35,9 @@ public class SearchLoggedModelsOrderBy {
    * with the metric. Only metrics associated with the specified dataset name will be considered for
    * ordering. This field may only be set if ``field_name`` refers to a metric.
    */
-  @JsonProperty("dataset_name")
   private String datasetName;
 
   /** The name of the field to order by, e.g. "metrics.accuracy". */
-  @JsonProperty("field_name")
   private String fieldName;
 
   public SearchLoggedModelsOrderBy setAscending(Boolean ascending) {
@@ -93,5 +100,47 @@ public class SearchLoggedModelsOrderBy {
         .add("datasetName", datasetName)
         .add("fieldName", fieldName)
         .toString();
+  }
+
+  SearchLoggedModelsOrderByPb toPb() {
+    SearchLoggedModelsOrderByPb pb = new SearchLoggedModelsOrderByPb();
+    pb.setAscending(ascending);
+    pb.setDatasetDigest(datasetDigest);
+    pb.setDatasetName(datasetName);
+    pb.setFieldName(fieldName);
+
+    return pb;
+  }
+
+  static SearchLoggedModelsOrderBy fromPb(SearchLoggedModelsOrderByPb pb) {
+    SearchLoggedModelsOrderBy model = new SearchLoggedModelsOrderBy();
+    model.setAscending(pb.getAscending());
+    model.setDatasetDigest(pb.getDatasetDigest());
+    model.setDatasetName(pb.getDatasetName());
+    model.setFieldName(pb.getFieldName());
+
+    return model;
+  }
+
+  public static class SearchLoggedModelsOrderBySerializer
+      extends JsonSerializer<SearchLoggedModelsOrderBy> {
+    @Override
+    public void serialize(
+        SearchLoggedModelsOrderBy value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SearchLoggedModelsOrderByPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SearchLoggedModelsOrderByDeserializer
+      extends JsonDeserializer<SearchLoggedModelsOrderBy> {
+    @Override
+    public SearchLoggedModelsOrderBy deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SearchLoggedModelsOrderByPb pb = mapper.readValue(p, SearchLoggedModelsOrderByPb.class);
+      return SearchLoggedModelsOrderBy.fromPb(pb);
+    }
   }
 }

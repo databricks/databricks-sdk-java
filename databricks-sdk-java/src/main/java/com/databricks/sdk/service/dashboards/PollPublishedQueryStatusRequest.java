@@ -3,28 +3,34 @@
 package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 /** Poll the results for the a query for a published, embedded dashboard */
 @Generated
+@JsonSerialize(
+    using = PollPublishedQueryStatusRequest.PollPublishedQueryStatusRequestSerializer.class)
+@JsonDeserialize(
+    using = PollPublishedQueryStatusRequest.PollPublishedQueryStatusRequestDeserializer.class)
 public class PollPublishedQueryStatusRequest {
   /** */
-  @JsonIgnore
-  @QueryParam("dashboard_name")
   private String dashboardName;
 
   /** */
-  @JsonIgnore
-  @QueryParam("dashboard_revision_id")
   private String dashboardRevisionId;
 
   /** Example: EC0A..ChAB7WCEn_4Qo4vkLqEbXsxxEgh3Y2pbWw45WhoQXgZSQo9aS5q2ZvFcbvbx9CgA-PAEAQ */
-  @JsonIgnore
-  @QueryParam("tokens")
   private Collection<String> tokens;
 
   public PollPublishedQueryStatusRequest setDashboardName(String dashboardName) {
@@ -76,5 +82,46 @@ public class PollPublishedQueryStatusRequest {
         .add("dashboardRevisionId", dashboardRevisionId)
         .add("tokens", tokens)
         .toString();
+  }
+
+  PollPublishedQueryStatusRequestPb toPb() {
+    PollPublishedQueryStatusRequestPb pb = new PollPublishedQueryStatusRequestPb();
+    pb.setDashboardName(dashboardName);
+    pb.setDashboardRevisionId(dashboardRevisionId);
+    pb.setTokens(tokens);
+
+    return pb;
+  }
+
+  static PollPublishedQueryStatusRequest fromPb(PollPublishedQueryStatusRequestPb pb) {
+    PollPublishedQueryStatusRequest model = new PollPublishedQueryStatusRequest();
+    model.setDashboardName(pb.getDashboardName());
+    model.setDashboardRevisionId(pb.getDashboardRevisionId());
+    model.setTokens(pb.getTokens());
+
+    return model;
+  }
+
+  public static class PollPublishedQueryStatusRequestSerializer
+      extends JsonSerializer<PollPublishedQueryStatusRequest> {
+    @Override
+    public void serialize(
+        PollPublishedQueryStatusRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PollPublishedQueryStatusRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PollPublishedQueryStatusRequestDeserializer
+      extends JsonDeserializer<PollPublishedQueryStatusRequest> {
+    @Override
+    public PollPublishedQueryStatusRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PollPublishedQueryStatusRequestPb pb =
+          mapper.readValue(p, PollPublishedQueryStatusRequestPb.class);
+      return PollPublishedQueryStatusRequest.fromPb(pb);
+    }
   }
 }

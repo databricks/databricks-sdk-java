@@ -4,30 +4,36 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateSchema.CreateSchemaSerializer.class)
+@JsonDeserialize(using = CreateSchema.CreateSchemaDeserializer.class)
 public class CreateSchema {
   /** Name of parent catalog. */
-  @JsonProperty("catalog_name")
   private String catalogName;
 
   /** User-provided free-form text description. */
-  @JsonProperty("comment")
   private String comment;
 
   /** Name of schema, relative to parent catalog. */
-  @JsonProperty("name")
   private String name;
 
   /** A map of key-value properties attached to the securable. */
-  @JsonProperty("properties")
   private Map<String, String> properties;
 
   /** Storage root URL for managed tables within schema. */
-  @JsonProperty("storage_root")
   private String storageRoot;
 
   public CreateSchema setCatalogName(String catalogName) {
@@ -101,5 +107,45 @@ public class CreateSchema {
         .add("properties", properties)
         .add("storageRoot", storageRoot)
         .toString();
+  }
+
+  CreateSchemaPb toPb() {
+    CreateSchemaPb pb = new CreateSchemaPb();
+    pb.setCatalogName(catalogName);
+    pb.setComment(comment);
+    pb.setName(name);
+    pb.setProperties(properties);
+    pb.setStorageRoot(storageRoot);
+
+    return pb;
+  }
+
+  static CreateSchema fromPb(CreateSchemaPb pb) {
+    CreateSchema model = new CreateSchema();
+    model.setCatalogName(pb.getCatalogName());
+    model.setComment(pb.getComment());
+    model.setName(pb.getName());
+    model.setProperties(pb.getProperties());
+    model.setStorageRoot(pb.getStorageRoot());
+
+    return model;
+  }
+
+  public static class CreateSchemaSerializer extends JsonSerializer<CreateSchema> {
+    @Override
+    public void serialize(CreateSchema value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateSchemaPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateSchemaDeserializer extends JsonDeserializer<CreateSchema> {
+    @Override
+    public CreateSchema deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateSchemaPb pb = mapper.readValue(p, CreateSchemaPb.class);
+      return CreateSchema.fromPb(pb);
+    }
   }
 }

@@ -4,46 +4,51 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = PutAiGatewayRequest.PutAiGatewayRequestSerializer.class)
+@JsonDeserialize(using = PutAiGatewayRequest.PutAiGatewayRequestDeserializer.class)
 public class PutAiGatewayRequest {
   /**
    * Configuration for traffic fallback which auto fallbacks to other served entities if the request
    * to a served entity fails with certain error codes, to increase availability.
    */
-  @JsonProperty("fallback_config")
   private FallbackConfig fallbackConfig;
 
   /**
    * Configuration for AI Guardrails to prevent unwanted data and unsafe data in requests and
    * responses.
    */
-  @JsonProperty("guardrails")
   private AiGatewayGuardrails guardrails;
 
   /**
    * Configuration for payload logging using inference tables. Use these tables to monitor and audit
    * data being sent to and received from model APIs and to improve model quality.
    */
-  @JsonProperty("inference_table_config")
   private AiGatewayInferenceTableConfig inferenceTableConfig;
 
   /** The name of the serving endpoint whose AI Gateway is being updated. This field is required. */
-  @JsonIgnore private String name;
+  private String name;
 
   /** Configuration for rate limits which can be set to limit endpoint traffic. */
-  @JsonProperty("rate_limits")
   private Collection<AiGatewayRateLimit> rateLimits;
 
   /**
    * Configuration to enable usage tracking using system tables. These tables allow you to monitor
    * operational usage on endpoints and their associated costs.
    */
-  @JsonProperty("usage_tracking_config")
   private AiGatewayUsageTrackingConfig usageTrackingConfig;
 
   public PutAiGatewayRequest setFallbackConfig(FallbackConfig fallbackConfig) {
@@ -131,5 +136,49 @@ public class PutAiGatewayRequest {
         .add("rateLimits", rateLimits)
         .add("usageTrackingConfig", usageTrackingConfig)
         .toString();
+  }
+
+  PutAiGatewayRequestPb toPb() {
+    PutAiGatewayRequestPb pb = new PutAiGatewayRequestPb();
+    pb.setFallbackConfig(fallbackConfig);
+    pb.setGuardrails(guardrails);
+    pb.setInferenceTableConfig(inferenceTableConfig);
+    pb.setName(name);
+    pb.setRateLimits(rateLimits);
+    pb.setUsageTrackingConfig(usageTrackingConfig);
+
+    return pb;
+  }
+
+  static PutAiGatewayRequest fromPb(PutAiGatewayRequestPb pb) {
+    PutAiGatewayRequest model = new PutAiGatewayRequest();
+    model.setFallbackConfig(pb.getFallbackConfig());
+    model.setGuardrails(pb.getGuardrails());
+    model.setInferenceTableConfig(pb.getInferenceTableConfig());
+    model.setName(pb.getName());
+    model.setRateLimits(pb.getRateLimits());
+    model.setUsageTrackingConfig(pb.getUsageTrackingConfig());
+
+    return model;
+  }
+
+  public static class PutAiGatewayRequestSerializer extends JsonSerializer<PutAiGatewayRequest> {
+    @Override
+    public void serialize(PutAiGatewayRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PutAiGatewayRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PutAiGatewayRequestDeserializer
+      extends JsonDeserializer<PutAiGatewayRequest> {
+    @Override
+    public PutAiGatewayRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PutAiGatewayRequestPb pb = mapper.readValue(p, PutAiGatewayRequestPb.class);
+      return PutAiGatewayRequest.fromPb(pb);
+    }
   }
 }

@@ -4,7 +4,16 @@ package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -12,38 +21,34 @@ import java.util.Objects;
  * secondary IP ranges).
  */
 @Generated
+@JsonSerialize(using = GcpNetworkInfo.GcpNetworkInfoSerializer.class)
+@JsonDeserialize(using = GcpNetworkInfo.GcpNetworkInfoDeserializer.class)
 public class GcpNetworkInfo {
   /** The Google Cloud project ID of the VPC network. */
-  @JsonProperty("network_project_id")
   private String networkProjectId;
 
   /**
    * The name of the secondary IP range for pods. A Databricks-managed GKE cluster uses this IP
    * range for its pods. This secondary IP range can be used by only one workspace.
    */
-  @JsonProperty("pod_ip_range_name")
   private String podIpRangeName;
 
   /**
    * The name of the secondary IP range for services. A Databricks-managed GKE cluster uses this IP
    * range for its services. This secondary IP range can be used by only one workspace.
    */
-  @JsonProperty("service_ip_range_name")
   private String serviceIpRangeName;
 
   /** The ID of the subnet associated with this network. */
-  @JsonProperty("subnet_id")
   private String subnetId;
 
   /** The Google Cloud region of the workspace data plane (for example, `us-east4`). */
-  @JsonProperty("subnet_region")
   private String subnetRegion;
 
   /**
    * The ID of the VPC associated with this network. VPC IDs can be used in multiple network
    * configurations.
    */
-  @JsonProperty("vpc_id")
   private String vpcId;
 
   public GcpNetworkInfo setNetworkProjectId(String networkProjectId) {
@@ -129,5 +134,48 @@ public class GcpNetworkInfo {
         .add("subnetRegion", subnetRegion)
         .add("vpcId", vpcId)
         .toString();
+  }
+
+  GcpNetworkInfoPb toPb() {
+    GcpNetworkInfoPb pb = new GcpNetworkInfoPb();
+    pb.setNetworkProjectId(networkProjectId);
+    pb.setPodIpRangeName(podIpRangeName);
+    pb.setServiceIpRangeName(serviceIpRangeName);
+    pb.setSubnetId(subnetId);
+    pb.setSubnetRegion(subnetRegion);
+    pb.setVpcId(vpcId);
+
+    return pb;
+  }
+
+  static GcpNetworkInfo fromPb(GcpNetworkInfoPb pb) {
+    GcpNetworkInfo model = new GcpNetworkInfo();
+    model.setNetworkProjectId(pb.getNetworkProjectId());
+    model.setPodIpRangeName(pb.getPodIpRangeName());
+    model.setServiceIpRangeName(pb.getServiceIpRangeName());
+    model.setSubnetId(pb.getSubnetId());
+    model.setSubnetRegion(pb.getSubnetRegion());
+    model.setVpcId(pb.getVpcId());
+
+    return model;
+  }
+
+  public static class GcpNetworkInfoSerializer extends JsonSerializer<GcpNetworkInfo> {
+    @Override
+    public void serialize(GcpNetworkInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GcpNetworkInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GcpNetworkInfoDeserializer extends JsonDeserializer<GcpNetworkInfo> {
+    @Override
+    public GcpNetworkInfo deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GcpNetworkInfoPb pb = mapper.readValue(p, GcpNetworkInfoPb.class);
+      return GcpNetworkInfo.fromPb(pb);
+    }
   }
 }

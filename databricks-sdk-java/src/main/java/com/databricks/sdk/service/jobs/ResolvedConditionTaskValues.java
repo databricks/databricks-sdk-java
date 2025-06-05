@@ -4,17 +4,26 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ResolvedConditionTaskValues.ResolvedConditionTaskValuesSerializer.class)
+@JsonDeserialize(using = ResolvedConditionTaskValues.ResolvedConditionTaskValuesDeserializer.class)
 public class ResolvedConditionTaskValues {
   /** */
-  @JsonProperty("left")
   private String left;
 
   /** */
-  @JsonProperty("right")
   private String right;
 
   public ResolvedConditionTaskValues setLeft(String left) {
@@ -54,5 +63,43 @@ public class ResolvedConditionTaskValues {
         .add("left", left)
         .add("right", right)
         .toString();
+  }
+
+  ResolvedConditionTaskValuesPb toPb() {
+    ResolvedConditionTaskValuesPb pb = new ResolvedConditionTaskValuesPb();
+    pb.setLeft(left);
+    pb.setRight(right);
+
+    return pb;
+  }
+
+  static ResolvedConditionTaskValues fromPb(ResolvedConditionTaskValuesPb pb) {
+    ResolvedConditionTaskValues model = new ResolvedConditionTaskValues();
+    model.setLeft(pb.getLeft());
+    model.setRight(pb.getRight());
+
+    return model;
+  }
+
+  public static class ResolvedConditionTaskValuesSerializer
+      extends JsonSerializer<ResolvedConditionTaskValues> {
+    @Override
+    public void serialize(
+        ResolvedConditionTaskValues value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ResolvedConditionTaskValuesPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ResolvedConditionTaskValuesDeserializer
+      extends JsonDeserializer<ResolvedConditionTaskValues> {
+    @Override
+    public ResolvedConditionTaskValues deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ResolvedConditionTaskValuesPb pb = mapper.readValue(p, ResolvedConditionTaskValuesPb.class);
+      return ResolvedConditionTaskValues.fromPb(pb);
+    }
   }
 }

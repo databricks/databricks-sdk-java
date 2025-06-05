@@ -4,18 +4,27 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = RepeatedEndpointConfPairs.RepeatedEndpointConfPairsSerializer.class)
+@JsonDeserialize(using = RepeatedEndpointConfPairs.RepeatedEndpointConfPairsDeserializer.class)
 public class RepeatedEndpointConfPairs {
   /** Deprecated: Use configuration_pairs */
-  @JsonProperty("config_pair")
   private Collection<EndpointConfPair> configPair;
 
   /** */
-  @JsonProperty("configuration_pairs")
   private Collection<EndpointConfPair> configurationPairs;
 
   public RepeatedEndpointConfPairs setConfigPair(Collection<EndpointConfPair> configPair) {
@@ -57,5 +66,43 @@ public class RepeatedEndpointConfPairs {
         .add("configPair", configPair)
         .add("configurationPairs", configurationPairs)
         .toString();
+  }
+
+  RepeatedEndpointConfPairsPb toPb() {
+    RepeatedEndpointConfPairsPb pb = new RepeatedEndpointConfPairsPb();
+    pb.setConfigPair(configPair);
+    pb.setConfigurationPairs(configurationPairs);
+
+    return pb;
+  }
+
+  static RepeatedEndpointConfPairs fromPb(RepeatedEndpointConfPairsPb pb) {
+    RepeatedEndpointConfPairs model = new RepeatedEndpointConfPairs();
+    model.setConfigPair(pb.getConfigPair());
+    model.setConfigurationPairs(pb.getConfigurationPairs());
+
+    return model;
+  }
+
+  public static class RepeatedEndpointConfPairsSerializer
+      extends JsonSerializer<RepeatedEndpointConfPairs> {
+    @Override
+    public void serialize(
+        RepeatedEndpointConfPairs value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      RepeatedEndpointConfPairsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class RepeatedEndpointConfPairsDeserializer
+      extends JsonDeserializer<RepeatedEndpointConfPairs> {
+    @Override
+    public RepeatedEndpointConfPairs deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      RepeatedEndpointConfPairsPb pb = mapper.readValue(p, RepeatedEndpointConfPairsPb.class);
+      return RepeatedEndpointConfPairs.fromPb(pb);
+    }
   }
 }

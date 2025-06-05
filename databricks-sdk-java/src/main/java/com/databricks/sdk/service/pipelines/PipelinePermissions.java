@@ -4,22 +4,30 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = PipelinePermissions.PipelinePermissionsSerializer.class)
+@JsonDeserialize(using = PipelinePermissions.PipelinePermissionsDeserializer.class)
 public class PipelinePermissions {
   /** */
-  @JsonProperty("access_control_list")
   private Collection<PipelineAccessControlResponse> accessControlList;
 
   /** */
-  @JsonProperty("object_id")
   private String objectId;
 
   /** */
-  @JsonProperty("object_type")
   private String objectType;
 
   public PipelinePermissions setAccessControlList(
@@ -72,5 +80,43 @@ public class PipelinePermissions {
         .add("objectId", objectId)
         .add("objectType", objectType)
         .toString();
+  }
+
+  PipelinePermissionsPb toPb() {
+    PipelinePermissionsPb pb = new PipelinePermissionsPb();
+    pb.setAccessControlList(accessControlList);
+    pb.setObjectId(objectId);
+    pb.setObjectType(objectType);
+
+    return pb;
+  }
+
+  static PipelinePermissions fromPb(PipelinePermissionsPb pb) {
+    PipelinePermissions model = new PipelinePermissions();
+    model.setAccessControlList(pb.getAccessControlList());
+    model.setObjectId(pb.getObjectId());
+    model.setObjectType(pb.getObjectType());
+
+    return model;
+  }
+
+  public static class PipelinePermissionsSerializer extends JsonSerializer<PipelinePermissions> {
+    @Override
+    public void serialize(PipelinePermissions value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PipelinePermissionsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PipelinePermissionsDeserializer
+      extends JsonDeserializer<PipelinePermissions> {
+    @Override
+    public PipelinePermissions deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PipelinePermissionsPb pb = mapper.readValue(p, PipelinePermissionsPb.class);
+      return PipelinePermissions.fromPb(pb);
+    }
   }
 }

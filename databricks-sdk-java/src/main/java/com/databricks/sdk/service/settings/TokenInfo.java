@@ -4,45 +4,47 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = TokenInfo.TokenInfoSerializer.class)
+@JsonDeserialize(using = TokenInfo.TokenInfoDeserializer.class)
 public class TokenInfo {
   /** Comment that describes the purpose of the token, specified by the token creator. */
-  @JsonProperty("comment")
   private String comment;
 
   /** User ID of the user that created the token. */
-  @JsonProperty("created_by_id")
   private Long createdById;
 
   /** Username of the user that created the token. */
-  @JsonProperty("created_by_username")
   private String createdByUsername;
 
   /** Timestamp when the token was created. */
-  @JsonProperty("creation_time")
   private Long creationTime;
 
   /** Timestamp when the token expires. */
-  @JsonProperty("expiry_time")
   private Long expiryTime;
 
   /** Approximate timestamp for the day the token was last used. Accurate up to 1 day. */
-  @JsonProperty("last_used_day")
   private Long lastUsedDay;
 
   /** User ID of the user that owns the token. */
-  @JsonProperty("owner_id")
   private Long ownerId;
 
   /** ID of the token. */
-  @JsonProperty("token_id")
   private String tokenId;
 
   /** If applicable, the ID of the workspace that the token was created in. */
-  @JsonProperty("workspace_id")
   private Long workspaceId;
 
   public TokenInfo setComment(String comment) {
@@ -169,5 +171,53 @@ public class TokenInfo {
         .add("tokenId", tokenId)
         .add("workspaceId", workspaceId)
         .toString();
+  }
+
+  TokenInfoPb toPb() {
+    TokenInfoPb pb = new TokenInfoPb();
+    pb.setComment(comment);
+    pb.setCreatedById(createdById);
+    pb.setCreatedByUsername(createdByUsername);
+    pb.setCreationTime(creationTime);
+    pb.setExpiryTime(expiryTime);
+    pb.setLastUsedDay(lastUsedDay);
+    pb.setOwnerId(ownerId);
+    pb.setTokenId(tokenId);
+    pb.setWorkspaceId(workspaceId);
+
+    return pb;
+  }
+
+  static TokenInfo fromPb(TokenInfoPb pb) {
+    TokenInfo model = new TokenInfo();
+    model.setComment(pb.getComment());
+    model.setCreatedById(pb.getCreatedById());
+    model.setCreatedByUsername(pb.getCreatedByUsername());
+    model.setCreationTime(pb.getCreationTime());
+    model.setExpiryTime(pb.getExpiryTime());
+    model.setLastUsedDay(pb.getLastUsedDay());
+    model.setOwnerId(pb.getOwnerId());
+    model.setTokenId(pb.getTokenId());
+    model.setWorkspaceId(pb.getWorkspaceId());
+
+    return model;
+  }
+
+  public static class TokenInfoSerializer extends JsonSerializer<TokenInfo> {
+    @Override
+    public void serialize(TokenInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      TokenInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class TokenInfoDeserializer extends JsonDeserializer<TokenInfo> {
+    @Override
+    public TokenInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      TokenInfoPb pb = mapper.readValue(p, TokenInfoPb.class);
+      return TokenInfo.fromPb(pb);
+    }
   }
 }

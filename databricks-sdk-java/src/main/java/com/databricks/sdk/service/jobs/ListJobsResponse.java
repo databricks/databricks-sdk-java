@@ -4,27 +4,34 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 /** List of jobs was retrieved successfully. */
 @Generated
+@JsonSerialize(using = ListJobsResponse.ListJobsResponseSerializer.class)
+@JsonDeserialize(using = ListJobsResponse.ListJobsResponseDeserializer.class)
 public class ListJobsResponse {
   /** If true, additional jobs matching the provided filter are available for listing. */
-  @JsonProperty("has_more")
   private Boolean hasMore;
 
   /** The list of jobs. Only included in the response if there are jobs to list. */
-  @JsonProperty("jobs")
   private Collection<BaseJob> jobs;
 
   /** A token that can be used to list the next page of jobs (if applicable). */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   /** A token that can be used to list the previous page of jobs (if applicable). */
-  @JsonProperty("prev_page_token")
   private String prevPageToken;
 
   public ListJobsResponse setHasMore(Boolean hasMore) {
@@ -87,5 +94,44 @@ public class ListJobsResponse {
         .add("nextPageToken", nextPageToken)
         .add("prevPageToken", prevPageToken)
         .toString();
+  }
+
+  ListJobsResponsePb toPb() {
+    ListJobsResponsePb pb = new ListJobsResponsePb();
+    pb.setHasMore(hasMore);
+    pb.setJobs(jobs);
+    pb.setNextPageToken(nextPageToken);
+    pb.setPrevPageToken(prevPageToken);
+
+    return pb;
+  }
+
+  static ListJobsResponse fromPb(ListJobsResponsePb pb) {
+    ListJobsResponse model = new ListJobsResponse();
+    model.setHasMore(pb.getHasMore());
+    model.setJobs(pb.getJobs());
+    model.setNextPageToken(pb.getNextPageToken());
+    model.setPrevPageToken(pb.getPrevPageToken());
+
+    return model;
+  }
+
+  public static class ListJobsResponseSerializer extends JsonSerializer<ListJobsResponse> {
+    @Override
+    public void serialize(ListJobsResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListJobsResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListJobsResponseDeserializer extends JsonDeserializer<ListJobsResponse> {
+    @Override
+    public ListJobsResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListJobsResponsePb pb = mapper.readValue(p, ListJobsResponsePb.class);
+      return ListJobsResponse.fromPb(pb);
+    }
   }
 }

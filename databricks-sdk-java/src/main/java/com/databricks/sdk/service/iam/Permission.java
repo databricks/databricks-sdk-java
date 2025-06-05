@@ -4,22 +4,30 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = Permission.PermissionSerializer.class)
+@JsonDeserialize(using = Permission.PermissionDeserializer.class)
 public class Permission {
   /** */
-  @JsonProperty("inherited")
   private Boolean inherited;
 
   /** */
-  @JsonProperty("inherited_from_object")
   private Collection<String> inheritedFromObject;
 
   /** Permission level */
-  @JsonProperty("permission_level")
   private PermissionLevel permissionLevel;
 
   public Permission setInherited(Boolean inherited) {
@@ -71,5 +79,41 @@ public class Permission {
         .add("inheritedFromObject", inheritedFromObject)
         .add("permissionLevel", permissionLevel)
         .toString();
+  }
+
+  PermissionPb toPb() {
+    PermissionPb pb = new PermissionPb();
+    pb.setInherited(inherited);
+    pb.setInheritedFromObject(inheritedFromObject);
+    pb.setPermissionLevel(permissionLevel);
+
+    return pb;
+  }
+
+  static Permission fromPb(PermissionPb pb) {
+    Permission model = new Permission();
+    model.setInherited(pb.getInherited());
+    model.setInheritedFromObject(pb.getInheritedFromObject());
+    model.setPermissionLevel(pb.getPermissionLevel());
+
+    return model;
+  }
+
+  public static class PermissionSerializer extends JsonSerializer<Permission> {
+    @Override
+    public void serialize(Permission value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PermissionPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PermissionDeserializer extends JsonDeserializer<Permission> {
+    @Override
+    public Permission deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PermissionPb pb = mapper.readValue(p, PermissionPb.class);
+      return Permission.fromPb(pb);
+    }
   }
 }

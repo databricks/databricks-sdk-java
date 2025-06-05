@@ -4,13 +4,23 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = JobSpecWithoutSecret.JobSpecWithoutSecretSerializer.class)
+@JsonDeserialize(using = JobSpecWithoutSecret.JobSpecWithoutSecretDeserializer.class)
 public class JobSpecWithoutSecret {
   /** ID of the job that the webhook runs. */
-  @JsonProperty("job_id")
   private String jobId;
 
   /**
@@ -18,7 +28,6 @@ public class JobSpecWithoutSecret {
    * in which the webhook is created. If not specified, the job’s workspace is assumed to be the
    * same as the webhook’s.
    */
-  @JsonProperty("workspace_url")
   private String workspaceUrl;
 
   public JobSpecWithoutSecret setJobId(String jobId) {
@@ -58,5 +67,42 @@ public class JobSpecWithoutSecret {
         .add("jobId", jobId)
         .add("workspaceUrl", workspaceUrl)
         .toString();
+  }
+
+  JobSpecWithoutSecretPb toPb() {
+    JobSpecWithoutSecretPb pb = new JobSpecWithoutSecretPb();
+    pb.setJobId(jobId);
+    pb.setWorkspaceUrl(workspaceUrl);
+
+    return pb;
+  }
+
+  static JobSpecWithoutSecret fromPb(JobSpecWithoutSecretPb pb) {
+    JobSpecWithoutSecret model = new JobSpecWithoutSecret();
+    model.setJobId(pb.getJobId());
+    model.setWorkspaceUrl(pb.getWorkspaceUrl());
+
+    return model;
+  }
+
+  public static class JobSpecWithoutSecretSerializer extends JsonSerializer<JobSpecWithoutSecret> {
+    @Override
+    public void serialize(
+        JobSpecWithoutSecret value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      JobSpecWithoutSecretPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class JobSpecWithoutSecretDeserializer
+      extends JsonDeserializer<JobSpecWithoutSecret> {
+    @Override
+    public JobSpecWithoutSecret deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      JobSpecWithoutSecretPb pb = mapper.readValue(p, JobSpecWithoutSecretPb.class);
+      return JobSpecWithoutSecret.fromPb(pb);
+    }
   }
 }

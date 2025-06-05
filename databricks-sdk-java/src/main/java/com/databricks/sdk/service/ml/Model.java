@@ -4,41 +4,45 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = Model.ModelSerializer.class)
+@JsonDeserialize(using = Model.ModelDeserializer.class)
 public class Model {
   /** Timestamp recorded when this `registered_model` was created. */
-  @JsonProperty("creation_timestamp")
   private Long creationTimestamp;
 
   /** Description of this `registered_model`. */
-  @JsonProperty("description")
   private String description;
 
   /** Timestamp recorded when metadata for this `registered_model` was last updated. */
-  @JsonProperty("last_updated_timestamp")
   private Long lastUpdatedTimestamp;
 
   /**
    * Collection of latest model versions for each stage. Only contains models with current `READY`
    * status.
    */
-  @JsonProperty("latest_versions")
   private Collection<ModelVersion> latestVersions;
 
   /** Unique name for the model. */
-  @JsonProperty("name")
   private String name;
 
   /** Tags: Additional metadata key-value pairs for this `registered_model`. */
-  @JsonProperty("tags")
   private Collection<ModelTag> tags;
 
   /** User that created this `registered_model` */
-  @JsonProperty("user_id")
   private String userId;
 
   public Model setCreationTimestamp(Long creationTimestamp) {
@@ -135,5 +139,49 @@ public class Model {
         .add("tags", tags)
         .add("userId", userId)
         .toString();
+  }
+
+  ModelPb toPb() {
+    ModelPb pb = new ModelPb();
+    pb.setCreationTimestamp(creationTimestamp);
+    pb.setDescription(description);
+    pb.setLastUpdatedTimestamp(lastUpdatedTimestamp);
+    pb.setLatestVersions(latestVersions);
+    pb.setName(name);
+    pb.setTags(tags);
+    pb.setUserId(userId);
+
+    return pb;
+  }
+
+  static Model fromPb(ModelPb pb) {
+    Model model = new Model();
+    model.setCreationTimestamp(pb.getCreationTimestamp());
+    model.setDescription(pb.getDescription());
+    model.setLastUpdatedTimestamp(pb.getLastUpdatedTimestamp());
+    model.setLatestVersions(pb.getLatestVersions());
+    model.setName(pb.getName());
+    model.setTags(pb.getTags());
+    model.setUserId(pb.getUserId());
+
+    return model;
+  }
+
+  public static class ModelSerializer extends JsonSerializer<Model> {
+    @Override
+    public void serialize(Model value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ModelPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ModelDeserializer extends JsonDeserializer<Model> {
+    @Override
+    public Model deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ModelPb pb = mapper.readValue(p, ModelPb.class);
+      return Model.fromPb(pb);
+    }
   }
 }

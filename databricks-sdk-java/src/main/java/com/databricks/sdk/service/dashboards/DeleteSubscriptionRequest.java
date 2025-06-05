@@ -3,30 +3,38 @@
 package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Delete schedule subscription */
 @Generated
+@JsonSerialize(using = DeleteSubscriptionRequest.DeleteSubscriptionRequestSerializer.class)
+@JsonDeserialize(using = DeleteSubscriptionRequest.DeleteSubscriptionRequestDeserializer.class)
 public class DeleteSubscriptionRequest {
   /** UUID identifying the dashboard which the subscription belongs. */
-  @JsonIgnore private String dashboardId;
+  private String dashboardId;
 
   /**
    * The etag for the subscription. Can be optionally provided to ensure that the subscription has
    * not been modified since the last read.
    */
-  @JsonIgnore
-  @QueryParam("etag")
   private String etag;
 
   /** UUID identifying the schedule which the subscription belongs. */
-  @JsonIgnore private String scheduleId;
+  private String scheduleId;
 
   /** UUID identifying the subscription. */
-  @JsonIgnore private String subscriptionId;
+  private String subscriptionId;
 
   public DeleteSubscriptionRequest setDashboardId(String dashboardId) {
     this.dashboardId = dashboardId;
@@ -88,5 +96,47 @@ public class DeleteSubscriptionRequest {
         .add("scheduleId", scheduleId)
         .add("subscriptionId", subscriptionId)
         .toString();
+  }
+
+  DeleteSubscriptionRequestPb toPb() {
+    DeleteSubscriptionRequestPb pb = new DeleteSubscriptionRequestPb();
+    pb.setDashboardId(dashboardId);
+    pb.setEtag(etag);
+    pb.setScheduleId(scheduleId);
+    pb.setSubscriptionId(subscriptionId);
+
+    return pb;
+  }
+
+  static DeleteSubscriptionRequest fromPb(DeleteSubscriptionRequestPb pb) {
+    DeleteSubscriptionRequest model = new DeleteSubscriptionRequest();
+    model.setDashboardId(pb.getDashboardId());
+    model.setEtag(pb.getEtag());
+    model.setScheduleId(pb.getScheduleId());
+    model.setSubscriptionId(pb.getSubscriptionId());
+
+    return model;
+  }
+
+  public static class DeleteSubscriptionRequestSerializer
+      extends JsonSerializer<DeleteSubscriptionRequest> {
+    @Override
+    public void serialize(
+        DeleteSubscriptionRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DeleteSubscriptionRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DeleteSubscriptionRequestDeserializer
+      extends JsonDeserializer<DeleteSubscriptionRequest> {
+    @Override
+    public DeleteSubscriptionRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DeleteSubscriptionRequestPb pb = mapper.readValue(p, DeleteSubscriptionRequestPb.class);
+      return DeleteSubscriptionRequest.fromPb(pb);
+    }
   }
 }

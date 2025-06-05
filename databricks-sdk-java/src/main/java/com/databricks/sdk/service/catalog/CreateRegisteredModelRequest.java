@@ -4,29 +4,36 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateRegisteredModelRequest.CreateRegisteredModelRequestSerializer.class)
+@JsonDeserialize(
+    using = CreateRegisteredModelRequest.CreateRegisteredModelRequestDeserializer.class)
 public class CreateRegisteredModelRequest {
   /** The name of the catalog where the schema and the registered model reside */
-  @JsonProperty("catalog_name")
   private String catalogName;
 
   /** The comment attached to the registered model */
-  @JsonProperty("comment")
   private String comment;
 
   /** The name of the registered model */
-  @JsonProperty("name")
   private String name;
 
   /** The name of the schema where the registered model resides */
-  @JsonProperty("schema_name")
   private String schemaName;
 
   /** The storage location on the cloud under which model version data files are stored */
-  @JsonProperty("storage_location")
   private String storageLocation;
 
   public CreateRegisteredModelRequest setCatalogName(String catalogName) {
@@ -100,5 +107,49 @@ public class CreateRegisteredModelRequest {
         .add("schemaName", schemaName)
         .add("storageLocation", storageLocation)
         .toString();
+  }
+
+  CreateRegisteredModelRequestPb toPb() {
+    CreateRegisteredModelRequestPb pb = new CreateRegisteredModelRequestPb();
+    pb.setCatalogName(catalogName);
+    pb.setComment(comment);
+    pb.setName(name);
+    pb.setSchemaName(schemaName);
+    pb.setStorageLocation(storageLocation);
+
+    return pb;
+  }
+
+  static CreateRegisteredModelRequest fromPb(CreateRegisteredModelRequestPb pb) {
+    CreateRegisteredModelRequest model = new CreateRegisteredModelRequest();
+    model.setCatalogName(pb.getCatalogName());
+    model.setComment(pb.getComment());
+    model.setName(pb.getName());
+    model.setSchemaName(pb.getSchemaName());
+    model.setStorageLocation(pb.getStorageLocation());
+
+    return model;
+  }
+
+  public static class CreateRegisteredModelRequestSerializer
+      extends JsonSerializer<CreateRegisteredModelRequest> {
+    @Override
+    public void serialize(
+        CreateRegisteredModelRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateRegisteredModelRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateRegisteredModelRequestDeserializer
+      extends JsonDeserializer<CreateRegisteredModelRequest> {
+    @Override
+    public CreateRegisteredModelRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateRegisteredModelRequestPb pb = mapper.readValue(p, CreateRegisteredModelRequestPb.class);
+      return CreateRegisteredModelRequest.fromPb(pb);
+    }
   }
 }

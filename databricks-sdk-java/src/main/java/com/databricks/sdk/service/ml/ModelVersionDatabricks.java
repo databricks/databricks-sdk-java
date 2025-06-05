@@ -4,14 +4,24 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ModelVersionDatabricks.ModelVersionDatabricksSerializer.class)
+@JsonDeserialize(using = ModelVersionDatabricks.ModelVersionDatabricksDeserializer.class)
 public class ModelVersionDatabricks {
   /** Creation time of the object, as a Unix timestamp in milliseconds. */
-  @JsonProperty("creation_timestamp")
   private Long creationTimestamp;
 
   /**
@@ -25,30 +35,24 @@ public class ModelVersionDatabricks {
    *
    * <p>* `Archived`: Archived stage.
    */
-  @JsonProperty("current_stage")
   private Stage currentStage;
 
   /** User-specified description for the object. */
-  @JsonProperty("description")
   private String description;
 
   /** Time of the object at last update, as a Unix timestamp in milliseconds. */
-  @JsonProperty("last_updated_timestamp")
   private Long lastUpdatedTimestamp;
 
   /** Name of the model. */
-  @JsonProperty("name")
   private String name;
 
   /**
    * Permission level of the requesting user on the object. For what is allowed at each level, see
    * [MLflow Model permissions](..).
    */
-  @JsonProperty("permission_level")
   private PermissionLevel permissionLevel;
 
   /** Unique identifier for the MLflow tracking run associated with the source model artifacts. */
-  @JsonProperty("run_id")
   private String runId;
 
   /**
@@ -56,14 +60,12 @@ public class ModelVersionDatabricks {
    * time only for model versions whose source run is from a tracking server that is different from
    * the registry server.
    */
-  @JsonProperty("run_link")
   private String runLink;
 
   /**
    * URI that indicates the location of the source model artifacts. This is used when creating the
    * model version.
    */
-  @JsonProperty("source")
   private String source;
 
   /**
@@ -74,23 +76,18 @@ public class ModelVersionDatabricks {
    *
    * <p>* `READY`: Model version is ready for use.
    */
-  @JsonProperty("status")
   private Status status;
 
   /** Details on the current status, for example why registration failed. */
-  @JsonProperty("status_message")
   private String statusMessage;
 
   /** Array of tags that are associated with the model version. */
-  @JsonProperty("tags")
   private Collection<ModelVersionTag> tags;
 
   /** The username of the user that created the object. */
-  @JsonProperty("user_id")
   private String userId;
 
   /** Version of the model. */
-  @JsonProperty("version")
   private String version;
 
   public ModelVersionDatabricks setCreationTimestamp(Long creationTimestamp) {
@@ -277,5 +274,67 @@ public class ModelVersionDatabricks {
         .add("userId", userId)
         .add("version", version)
         .toString();
+  }
+
+  ModelVersionDatabricksPb toPb() {
+    ModelVersionDatabricksPb pb = new ModelVersionDatabricksPb();
+    pb.setCreationTimestamp(creationTimestamp);
+    pb.setCurrentStage(currentStage);
+    pb.setDescription(description);
+    pb.setLastUpdatedTimestamp(lastUpdatedTimestamp);
+    pb.setName(name);
+    pb.setPermissionLevel(permissionLevel);
+    pb.setRunId(runId);
+    pb.setRunLink(runLink);
+    pb.setSource(source);
+    pb.setStatus(status);
+    pb.setStatusMessage(statusMessage);
+    pb.setTags(tags);
+    pb.setUserId(userId);
+    pb.setVersion(version);
+
+    return pb;
+  }
+
+  static ModelVersionDatabricks fromPb(ModelVersionDatabricksPb pb) {
+    ModelVersionDatabricks model = new ModelVersionDatabricks();
+    model.setCreationTimestamp(pb.getCreationTimestamp());
+    model.setCurrentStage(pb.getCurrentStage());
+    model.setDescription(pb.getDescription());
+    model.setLastUpdatedTimestamp(pb.getLastUpdatedTimestamp());
+    model.setName(pb.getName());
+    model.setPermissionLevel(pb.getPermissionLevel());
+    model.setRunId(pb.getRunId());
+    model.setRunLink(pb.getRunLink());
+    model.setSource(pb.getSource());
+    model.setStatus(pb.getStatus());
+    model.setStatusMessage(pb.getStatusMessage());
+    model.setTags(pb.getTags());
+    model.setUserId(pb.getUserId());
+    model.setVersion(pb.getVersion());
+
+    return model;
+  }
+
+  public static class ModelVersionDatabricksSerializer
+      extends JsonSerializer<ModelVersionDatabricks> {
+    @Override
+    public void serialize(
+        ModelVersionDatabricks value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ModelVersionDatabricksPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ModelVersionDatabricksDeserializer
+      extends JsonDeserializer<ModelVersionDatabricks> {
+    @Override
+    public ModelVersionDatabricks deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ModelVersionDatabricksPb pb = mapper.readValue(p, ModelVersionDatabricksPb.class);
+      return ModelVersionDatabricks.fromPb(pb);
+    }
   }
 }

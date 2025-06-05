@@ -4,14 +4,30 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Details required to update a setting. */
 @Generated
+@JsonSerialize(
+    using =
+        UpdateLlmProxyPartnerPoweredWorkspaceRequest
+            .UpdateLlmProxyPartnerPoweredWorkspaceRequestSerializer.class)
+@JsonDeserialize(
+    using =
+        UpdateLlmProxyPartnerPoweredWorkspaceRequest
+            .UpdateLlmProxyPartnerPoweredWorkspaceRequestDeserializer.class)
 public class UpdateLlmProxyPartnerPoweredWorkspaceRequest {
   /** This should always be set to true for Settings API. Added for AIP compliance. */
-  @JsonProperty("allow_missing")
   private Boolean allowMissing;
 
   /**
@@ -25,11 +41,9 @@ public class UpdateLlmProxyPartnerPoweredWorkspaceRequest {
    * the fields being updated and avoid using `*` wildcards, as it can lead to unintended results if
    * the API changes in the future.
    */
-  @JsonProperty("field_mask")
   private String fieldMask;
 
   /** */
-  @JsonProperty("setting")
   private LlmProxyPartnerPoweredWorkspace setting;
 
   public UpdateLlmProxyPartnerPoweredWorkspaceRequest setAllowMissing(Boolean allowMissing) {
@@ -83,5 +97,51 @@ public class UpdateLlmProxyPartnerPoweredWorkspaceRequest {
         .add("fieldMask", fieldMask)
         .add("setting", setting)
         .toString();
+  }
+
+  UpdateLlmProxyPartnerPoweredWorkspaceRequestPb toPb() {
+    UpdateLlmProxyPartnerPoweredWorkspaceRequestPb pb =
+        new UpdateLlmProxyPartnerPoweredWorkspaceRequestPb();
+    pb.setAllowMissing(allowMissing);
+    pb.setFieldMask(fieldMask);
+    pb.setSetting(setting);
+
+    return pb;
+  }
+
+  static UpdateLlmProxyPartnerPoweredWorkspaceRequest fromPb(
+      UpdateLlmProxyPartnerPoweredWorkspaceRequestPb pb) {
+    UpdateLlmProxyPartnerPoweredWorkspaceRequest model =
+        new UpdateLlmProxyPartnerPoweredWorkspaceRequest();
+    model.setAllowMissing(pb.getAllowMissing());
+    model.setFieldMask(pb.getFieldMask());
+    model.setSetting(pb.getSetting());
+
+    return model;
+  }
+
+  public static class UpdateLlmProxyPartnerPoweredWorkspaceRequestSerializer
+      extends JsonSerializer<UpdateLlmProxyPartnerPoweredWorkspaceRequest> {
+    @Override
+    public void serialize(
+        UpdateLlmProxyPartnerPoweredWorkspaceRequest value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      UpdateLlmProxyPartnerPoweredWorkspaceRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateLlmProxyPartnerPoweredWorkspaceRequestDeserializer
+      extends JsonDeserializer<UpdateLlmProxyPartnerPoweredWorkspaceRequest> {
+    @Override
+    public UpdateLlmProxyPartnerPoweredWorkspaceRequest deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateLlmProxyPartnerPoweredWorkspaceRequestPb pb =
+          mapper.readValue(p, UpdateLlmProxyPartnerPoweredWorkspaceRequestPb.class);
+      return UpdateLlmProxyPartnerPoweredWorkspaceRequest.fromPb(pb);
+    }
   }
 }

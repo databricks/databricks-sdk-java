@@ -22,7 +22,7 @@ class WorkspaceBindingsImpl implements WorkspaceBindingsService {
         String.format("/api/2.1/unity-catalog/workspace-bindings/catalogs/%s", request.getName());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetCatalogWorkspaceBindingsResponse.class);
     } catch (IOException e) {
@@ -38,7 +38,7 @@ class WorkspaceBindingsImpl implements WorkspaceBindingsService {
             request.getSecurableType(), request.getSecurableName());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetWorkspaceBindingsResponse.class);
     } catch (IOException e) {
@@ -52,7 +52,7 @@ class WorkspaceBindingsImpl implements WorkspaceBindingsService {
         String.format("/api/2.1/unity-catalog/workspace-bindings/catalogs/%s", request.getName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, UpdateCatalogWorkspaceBindingsResponse.class);
@@ -69,7 +69,7 @@ class WorkspaceBindingsImpl implements WorkspaceBindingsService {
             request.getSecurableType(), request.getSecurableName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, UpdateWorkspaceBindingsResponse.class);

@@ -4,16 +4,26 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = RunConditionTask.RunConditionTaskSerializer.class)
+@JsonDeserialize(using = RunConditionTask.RunConditionTaskDeserializer.class)
 public class RunConditionTask {
   /**
    * The left operand of the condition task. Can be either a string value or a job state or
    * parameter reference.
    */
-  @JsonProperty("left")
   private String left;
 
   /**
@@ -26,21 +36,18 @@ public class RunConditionTask {
    * `NOT_EQUAL`. If a task value was set to a boolean value, it will be serialized to `“true”` or
    * `“false”` for the comparison.
    */
-  @JsonProperty("op")
   private ConditionTaskOp op;
 
   /**
    * The condition expression evaluation result. Filled in if the task was successfully completed.
    * Can be `"true"` or `"false"`
    */
-  @JsonProperty("outcome")
   private String outcome;
 
   /**
    * The right operand of the condition task. Can be either a string value or a job state or
    * parameter reference.
    */
-  @JsonProperty("right")
   private String right;
 
   public RunConditionTask setLeft(String left) {
@@ -103,5 +110,44 @@ public class RunConditionTask {
         .add("outcome", outcome)
         .add("right", right)
         .toString();
+  }
+
+  RunConditionTaskPb toPb() {
+    RunConditionTaskPb pb = new RunConditionTaskPb();
+    pb.setLeft(left);
+    pb.setOp(op);
+    pb.setOutcome(outcome);
+    pb.setRight(right);
+
+    return pb;
+  }
+
+  static RunConditionTask fromPb(RunConditionTaskPb pb) {
+    RunConditionTask model = new RunConditionTask();
+    model.setLeft(pb.getLeft());
+    model.setOp(pb.getOp());
+    model.setOutcome(pb.getOutcome());
+    model.setRight(pb.getRight());
+
+    return model;
+  }
+
+  public static class RunConditionTaskSerializer extends JsonSerializer<RunConditionTask> {
+    @Override
+    public void serialize(RunConditionTask value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      RunConditionTaskPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class RunConditionTaskDeserializer extends JsonDeserializer<RunConditionTask> {
+    @Override
+    public RunConditionTask deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      RunConditionTaskPb pb = mapper.readValue(p, RunConditionTaskPb.class);
+      return RunConditionTask.fromPb(pb);
+    }
   }
 }

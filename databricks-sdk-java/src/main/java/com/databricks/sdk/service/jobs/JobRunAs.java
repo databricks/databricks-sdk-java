@@ -4,7 +4,16 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -15,19 +24,19 @@ import java.util.Objects;
  * thrown.
  */
 @Generated
+@JsonSerialize(using = JobRunAs.JobRunAsSerializer.class)
+@JsonDeserialize(using = JobRunAs.JobRunAsDeserializer.class)
 public class JobRunAs {
   /**
    * Application ID of an active service principal. Setting this field requires the
    * `servicePrincipal/user` role.
    */
-  @JsonProperty("service_principal_name")
   private String servicePrincipalName;
 
   /**
    * The email of an active workspace user. Non-admin users can only set this field to their own
    * email.
    */
-  @JsonProperty("user_name")
   private String userName;
 
   public JobRunAs setServicePrincipalName(String servicePrincipalName) {
@@ -68,5 +77,39 @@ public class JobRunAs {
         .add("servicePrincipalName", servicePrincipalName)
         .add("userName", userName)
         .toString();
+  }
+
+  JobRunAsPb toPb() {
+    JobRunAsPb pb = new JobRunAsPb();
+    pb.setServicePrincipalName(servicePrincipalName);
+    pb.setUserName(userName);
+
+    return pb;
+  }
+
+  static JobRunAs fromPb(JobRunAsPb pb) {
+    JobRunAs model = new JobRunAs();
+    model.setServicePrincipalName(pb.getServicePrincipalName());
+    model.setUserName(pb.getUserName());
+
+    return model;
+  }
+
+  public static class JobRunAsSerializer extends JsonSerializer<JobRunAs> {
+    @Override
+    public void serialize(JobRunAs value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      JobRunAsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class JobRunAsDeserializer extends JsonDeserializer<JobRunAs> {
+    @Override
+    public JobRunAs deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      JobRunAsPb pb = mapper.readValue(p, JobRunAsPb.class);
+      return JobRunAs.fromPb(pb);
+    }
   }
 }

@@ -4,17 +4,28 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get the latest logs for a served model */
 @Generated
+@JsonSerialize(using = LogsRequest.LogsRequestSerializer.class)
+@JsonDeserialize(using = LogsRequest.LogsRequestDeserializer.class)
 public class LogsRequest {
   /** The name of the serving endpoint that the served model belongs to. This field is required. */
-  @JsonIgnore private String name;
+  private String name;
 
   /** The name of the served model that logs will be retrieved for. This field is required. */
-  @JsonIgnore private String servedModelName;
+  private String servedModelName;
 
   public LogsRequest setName(String name) {
     this.name = name;
@@ -53,5 +64,39 @@ public class LogsRequest {
         .add("name", name)
         .add("servedModelName", servedModelName)
         .toString();
+  }
+
+  LogsRequestPb toPb() {
+    LogsRequestPb pb = new LogsRequestPb();
+    pb.setName(name);
+    pb.setServedModelName(servedModelName);
+
+    return pb;
+  }
+
+  static LogsRequest fromPb(LogsRequestPb pb) {
+    LogsRequest model = new LogsRequest();
+    model.setName(pb.getName());
+    model.setServedModelName(pb.getServedModelName());
+
+    return model;
+  }
+
+  public static class LogsRequestSerializer extends JsonSerializer<LogsRequest> {
+    @Override
+    public void serialize(LogsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      LogsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class LogsRequestDeserializer extends JsonDeserializer<LogsRequest> {
+    @Override
+    public LogsRequest deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      LogsRequestPb pb = mapper.readValue(p, LogsRequestPb.class);
+      return LogsRequest.fromPb(pb);
+    }
   }
 }

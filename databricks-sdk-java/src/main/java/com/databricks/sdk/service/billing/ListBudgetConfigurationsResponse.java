@@ -4,21 +4,32 @@ package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = ListBudgetConfigurationsResponse.ListBudgetConfigurationsResponseSerializer.class)
+@JsonDeserialize(
+    using = ListBudgetConfigurationsResponse.ListBudgetConfigurationsResponseDeserializer.class)
 public class ListBudgetConfigurationsResponse {
   /** */
-  @JsonProperty("budgets")
   private Collection<BudgetConfiguration> budgets;
 
   /**
    * Token which can be sent as `page_token` to retrieve the next page of results. If this field is
    * omitted, there are no subsequent budgets.
    */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   public ListBudgetConfigurationsResponse setBudgets(Collection<BudgetConfiguration> budgets) {
@@ -59,5 +70,44 @@ public class ListBudgetConfigurationsResponse {
         .add("budgets", budgets)
         .add("nextPageToken", nextPageToken)
         .toString();
+  }
+
+  ListBudgetConfigurationsResponsePb toPb() {
+    ListBudgetConfigurationsResponsePb pb = new ListBudgetConfigurationsResponsePb();
+    pb.setBudgets(budgets);
+    pb.setNextPageToken(nextPageToken);
+
+    return pb;
+  }
+
+  static ListBudgetConfigurationsResponse fromPb(ListBudgetConfigurationsResponsePb pb) {
+    ListBudgetConfigurationsResponse model = new ListBudgetConfigurationsResponse();
+    model.setBudgets(pb.getBudgets());
+    model.setNextPageToken(pb.getNextPageToken());
+
+    return model;
+  }
+
+  public static class ListBudgetConfigurationsResponseSerializer
+      extends JsonSerializer<ListBudgetConfigurationsResponse> {
+    @Override
+    public void serialize(
+        ListBudgetConfigurationsResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListBudgetConfigurationsResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListBudgetConfigurationsResponseDeserializer
+      extends JsonDeserializer<ListBudgetConfigurationsResponse> {
+    @Override
+    public ListBudgetConfigurationsResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListBudgetConfigurationsResponsePb pb =
+          mapper.readValue(p, ListBudgetConfigurationsResponsePb.class);
+      return ListBudgetConfigurationsResponse.fromPb(pb);
+    }
   }
 }

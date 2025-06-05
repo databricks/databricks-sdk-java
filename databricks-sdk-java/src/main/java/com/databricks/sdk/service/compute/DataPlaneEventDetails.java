@@ -4,25 +4,32 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = DataPlaneEventDetails.DataPlaneEventDetailsSerializer.class)
+@JsonDeserialize(using = DataPlaneEventDetails.DataPlaneEventDetailsDeserializer.class)
 public class DataPlaneEventDetails {
   /** */
-  @JsonProperty("event_type")
   private DataPlaneEventDetailsEventType eventType;
 
   /** */
-  @JsonProperty("executor_failures")
   private Long executorFailures;
 
   /** */
-  @JsonProperty("host_id")
   private String hostId;
 
   /** */
-  @JsonProperty("timestamp")
   private Long timestamp;
 
   public DataPlaneEventDetails setEventType(DataPlaneEventDetailsEventType eventType) {
@@ -85,5 +92,47 @@ public class DataPlaneEventDetails {
         .add("hostId", hostId)
         .add("timestamp", timestamp)
         .toString();
+  }
+
+  DataPlaneEventDetailsPb toPb() {
+    DataPlaneEventDetailsPb pb = new DataPlaneEventDetailsPb();
+    pb.setEventType(eventType);
+    pb.setExecutorFailures(executorFailures);
+    pb.setHostId(hostId);
+    pb.setTimestamp(timestamp);
+
+    return pb;
+  }
+
+  static DataPlaneEventDetails fromPb(DataPlaneEventDetailsPb pb) {
+    DataPlaneEventDetails model = new DataPlaneEventDetails();
+    model.setEventType(pb.getEventType());
+    model.setExecutorFailures(pb.getExecutorFailures());
+    model.setHostId(pb.getHostId());
+    model.setTimestamp(pb.getTimestamp());
+
+    return model;
+  }
+
+  public static class DataPlaneEventDetailsSerializer
+      extends JsonSerializer<DataPlaneEventDetails> {
+    @Override
+    public void serialize(
+        DataPlaneEventDetails value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DataPlaneEventDetailsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DataPlaneEventDetailsDeserializer
+      extends JsonDeserializer<DataPlaneEventDetails> {
+    @Override
+    public DataPlaneEventDetails deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DataPlaneEventDetailsPb pb = mapper.readValue(p, DataPlaneEventDetailsPb.class);
+      return DataPlaneEventDetails.fromPb(pb);
+    }
   }
 }

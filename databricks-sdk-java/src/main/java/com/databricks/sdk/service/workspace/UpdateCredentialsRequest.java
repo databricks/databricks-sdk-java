@@ -4,21 +4,30 @@ package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = UpdateCredentialsRequest.UpdateCredentialsRequestSerializer.class)
+@JsonDeserialize(using = UpdateCredentialsRequest.UpdateCredentialsRequestDeserializer.class)
 public class UpdateCredentialsRequest {
   /** The ID for the corresponding credential to access. */
-  @JsonIgnore private Long credentialId;
+  private Long credentialId;
 
   /**
    * Git provider. This field is case-insensitive. The available Git providers are `gitHub`,
    * `bitbucketCloud`, `gitLab`, `azureDevOpsServices`, `gitHubEnterprise`, `bitbucketServer`,
    * `gitLabEnterpriseEdition` and `awsCodeCommit`.
    */
-  @JsonProperty("git_provider")
   private String gitProvider;
 
   /**
@@ -29,7 +38,6 @@ public class UpdateCredentialsRequest {
    * please see your provider's Personal Access Token authentication documentation to see what is
    * supported.
    */
-  @JsonProperty("git_username")
   private String gitUsername;
 
   /**
@@ -38,7 +46,6 @@ public class UpdateCredentialsRequest {
    *
    * <p>[Learn more]: https://docs.databricks.com/repos/get-access-tokens-from-git-provider.html
    */
-  @JsonProperty("personal_access_token")
   private String personalAccessToken;
 
   public UpdateCredentialsRequest setCredentialId(Long credentialId) {
@@ -101,5 +108,47 @@ public class UpdateCredentialsRequest {
         .add("gitUsername", gitUsername)
         .add("personalAccessToken", personalAccessToken)
         .toString();
+  }
+
+  UpdateCredentialsRequestPb toPb() {
+    UpdateCredentialsRequestPb pb = new UpdateCredentialsRequestPb();
+    pb.setCredentialId(credentialId);
+    pb.setGitProvider(gitProvider);
+    pb.setGitUsername(gitUsername);
+    pb.setPersonalAccessToken(personalAccessToken);
+
+    return pb;
+  }
+
+  static UpdateCredentialsRequest fromPb(UpdateCredentialsRequestPb pb) {
+    UpdateCredentialsRequest model = new UpdateCredentialsRequest();
+    model.setCredentialId(pb.getCredentialId());
+    model.setGitProvider(pb.getGitProvider());
+    model.setGitUsername(pb.getGitUsername());
+    model.setPersonalAccessToken(pb.getPersonalAccessToken());
+
+    return model;
+  }
+
+  public static class UpdateCredentialsRequestSerializer
+      extends JsonSerializer<UpdateCredentialsRequest> {
+    @Override
+    public void serialize(
+        UpdateCredentialsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateCredentialsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateCredentialsRequestDeserializer
+      extends JsonDeserializer<UpdateCredentialsRequest> {
+    @Override
+    public UpdateCredentialsRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateCredentialsRequestPb pb = mapper.readValue(p, UpdateCredentialsRequestPb.class);
+      return UpdateCredentialsRequest.fromPb(pb);
+    }
   }
 }

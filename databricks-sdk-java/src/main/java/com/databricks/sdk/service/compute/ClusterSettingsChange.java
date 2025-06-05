@@ -4,7 +4,16 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -12,9 +21,10 @@ import java.util.Objects;
  * policy.
  */
 @Generated
+@JsonSerialize(using = ClusterSettingsChange.ClusterSettingsChangeSerializer.class)
+@JsonDeserialize(using = ClusterSettingsChange.ClusterSettingsChangeDeserializer.class)
 public class ClusterSettingsChange {
   /** The field where this change would be made. */
-  @JsonProperty("field")
   private String field;
 
   /**
@@ -22,7 +32,6 @@ public class ClusterSettingsChange {
    * string) converted to a string. This is intended to be read by a human. The typed new value of
    * this field can be retrieved by reading the settings field in the API response.
    */
-  @JsonProperty("new_value")
   private String newValue;
 
   /**
@@ -30,7 +39,6 @@ public class ClusterSettingsChange {
    * boolean, or a string) converted to a string. This is intended to be read by a human. The type
    * of the field can be retrieved by reading the settings field in the API response.
    */
-  @JsonProperty("previous_value")
   private String previousValue;
 
   public ClusterSettingsChange setField(String field) {
@@ -82,5 +90,45 @@ public class ClusterSettingsChange {
         .add("newValue", newValue)
         .add("previousValue", previousValue)
         .toString();
+  }
+
+  ClusterSettingsChangePb toPb() {
+    ClusterSettingsChangePb pb = new ClusterSettingsChangePb();
+    pb.setField(field);
+    pb.setNewValue(newValue);
+    pb.setPreviousValue(previousValue);
+
+    return pb;
+  }
+
+  static ClusterSettingsChange fromPb(ClusterSettingsChangePb pb) {
+    ClusterSettingsChange model = new ClusterSettingsChange();
+    model.setField(pb.getField());
+    model.setNewValue(pb.getNewValue());
+    model.setPreviousValue(pb.getPreviousValue());
+
+    return model;
+  }
+
+  public static class ClusterSettingsChangeSerializer
+      extends JsonSerializer<ClusterSettingsChange> {
+    @Override
+    public void serialize(
+        ClusterSettingsChange value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ClusterSettingsChangePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ClusterSettingsChangeDeserializer
+      extends JsonDeserializer<ClusterSettingsChange> {
+    @Override
+    public ClusterSettingsChange deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ClusterSettingsChangePb pb = mapper.readValue(p, ClusterSettingsChangePb.class);
+      return ClusterSettingsChange.fromPb(pb);
+    }
   }
 }

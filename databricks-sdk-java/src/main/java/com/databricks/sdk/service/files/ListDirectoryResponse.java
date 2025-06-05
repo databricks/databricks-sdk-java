@@ -4,18 +4,27 @@ package com.databricks.sdk.service.files;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ListDirectoryResponse.ListDirectoryResponseSerializer.class)
+@JsonDeserialize(using = ListDirectoryResponse.ListDirectoryResponseDeserializer.class)
 public class ListDirectoryResponse {
   /** Array of DirectoryEntry. */
-  @JsonProperty("contents")
   private Collection<DirectoryEntry> contents;
 
   /** A token, which can be sent as `page_token` to retrieve the next page. */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   public ListDirectoryResponse setContents(Collection<DirectoryEntry> contents) {
@@ -56,5 +65,43 @@ public class ListDirectoryResponse {
         .add("contents", contents)
         .add("nextPageToken", nextPageToken)
         .toString();
+  }
+
+  ListDirectoryResponsePb toPb() {
+    ListDirectoryResponsePb pb = new ListDirectoryResponsePb();
+    pb.setContents(contents);
+    pb.setNextPageToken(nextPageToken);
+
+    return pb;
+  }
+
+  static ListDirectoryResponse fromPb(ListDirectoryResponsePb pb) {
+    ListDirectoryResponse model = new ListDirectoryResponse();
+    model.setContents(pb.getContents());
+    model.setNextPageToken(pb.getNextPageToken());
+
+    return model;
+  }
+
+  public static class ListDirectoryResponseSerializer
+      extends JsonSerializer<ListDirectoryResponse> {
+    @Override
+    public void serialize(
+        ListDirectoryResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListDirectoryResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListDirectoryResponseDeserializer
+      extends JsonDeserializer<ListDirectoryResponse> {
+    @Override
+    public ListDirectoryResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListDirectoryResponsePb pb = mapper.readValue(p, ListDirectoryResponsePb.class);
+      return ListDirectoryResponse.fromPb(pb);
+    }
   }
 }

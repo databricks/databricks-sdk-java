@@ -33,7 +33,7 @@ class LibrariesImpl implements LibrariesService {
     String path = "/api/2.0/libraries/cluster-status";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ClusterLibraryStatuses.class);
     } catch (IOException e) {
@@ -46,7 +46,7 @@ class LibrariesImpl implements LibrariesService {
     String path = "/api/2.0/libraries/install";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, InstallLibrariesResponse.class);
@@ -60,7 +60,7 @@ class LibrariesImpl implements LibrariesService {
     String path = "/api/2.0/libraries/uninstall";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, UninstallLibrariesResponse.class);

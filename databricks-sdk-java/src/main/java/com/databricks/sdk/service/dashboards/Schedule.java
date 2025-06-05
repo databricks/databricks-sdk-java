@@ -4,25 +4,32 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = Schedule.ScheduleSerializer.class)
+@JsonDeserialize(using = Schedule.ScheduleDeserializer.class)
 public class Schedule {
   /** A timestamp indicating when the schedule was created. */
-  @JsonProperty("create_time")
   private String createTime;
 
   /** The cron expression describing the frequency of the periodic refresh for this schedule. */
-  @JsonProperty("cron_schedule")
   private CronSchedule cronSchedule;
 
   /** UUID identifying the dashboard to which the schedule belongs. */
-  @JsonProperty("dashboard_id")
   private String dashboardId;
 
   /** The display name for schedule. */
-  @JsonProperty("display_name")
   private String displayName;
 
   /**
@@ -30,23 +37,18 @@ public class Schedule {
    * that the schedule has not been modified since the last read, and can be optionally provided on
    * delete.
    */
-  @JsonProperty("etag")
   private String etag;
 
   /** The status indicates whether this schedule is paused or not. */
-  @JsonProperty("pause_status")
   private SchedulePauseStatus pauseStatus;
 
   /** UUID identifying the schedule. */
-  @JsonProperty("schedule_id")
   private String scheduleId;
 
   /** A timestamp indicating when the schedule was last updated. */
-  @JsonProperty("update_time")
   private String updateTime;
 
   /** The warehouse id to run the dashboard with for the schedule. */
-  @JsonProperty("warehouse_id")
   private String warehouseId;
 
   public Schedule setCreateTime(String createTime) {
@@ -173,5 +175,53 @@ public class Schedule {
         .add("updateTime", updateTime)
         .add("warehouseId", warehouseId)
         .toString();
+  }
+
+  SchedulePb toPb() {
+    SchedulePb pb = new SchedulePb();
+    pb.setCreateTime(createTime);
+    pb.setCronSchedule(cronSchedule);
+    pb.setDashboardId(dashboardId);
+    pb.setDisplayName(displayName);
+    pb.setEtag(etag);
+    pb.setPauseStatus(pauseStatus);
+    pb.setScheduleId(scheduleId);
+    pb.setUpdateTime(updateTime);
+    pb.setWarehouseId(warehouseId);
+
+    return pb;
+  }
+
+  static Schedule fromPb(SchedulePb pb) {
+    Schedule model = new Schedule();
+    model.setCreateTime(pb.getCreateTime());
+    model.setCronSchedule(pb.getCronSchedule());
+    model.setDashboardId(pb.getDashboardId());
+    model.setDisplayName(pb.getDisplayName());
+    model.setEtag(pb.getEtag());
+    model.setPauseStatus(pb.getPauseStatus());
+    model.setScheduleId(pb.getScheduleId());
+    model.setUpdateTime(pb.getUpdateTime());
+    model.setWarehouseId(pb.getWarehouseId());
+
+    return model;
+  }
+
+  public static class ScheduleSerializer extends JsonSerializer<Schedule> {
+    @Override
+    public void serialize(Schedule value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SchedulePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ScheduleDeserializer extends JsonDeserializer<Schedule> {
+    @Override
+    public Schedule deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SchedulePb pb = mapper.readValue(p, SchedulePb.class);
+      return Schedule.fromPb(pb);
+    }
   }
 }

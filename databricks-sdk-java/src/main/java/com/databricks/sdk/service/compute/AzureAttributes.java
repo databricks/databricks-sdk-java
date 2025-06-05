@@ -4,17 +4,27 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Attributes set during cluster creation which are related to Microsoft Azure. */
 @Generated
+@JsonSerialize(using = AzureAttributes.AzureAttributesSerializer.class)
+@JsonDeserialize(using = AzureAttributes.AzureAttributesDeserializer.class)
 public class AzureAttributes {
   /**
    * Availability type used for all subsequent nodes past the `first_on_demand` ones. Note: If
    * `first_on_demand` is zero, this availability type will be used for the entire cluster.
    */
-  @JsonProperty("availability")
   private AzureAvailability availability;
 
   /**
@@ -26,11 +36,9 @@ public class AzureAttributes {
    * on `availability` instances. Note that this value does not affect cluster size and cannot
    * currently be mutated over the lifetime of a cluster.
    */
-  @JsonProperty("first_on_demand")
   private Long firstOnDemand;
 
   /** Defines values necessary to configure and run Azure Log Analytics agent */
-  @JsonProperty("log_analytics_info")
   private LogAnalyticsInfo logAnalyticsInfo;
 
   /**
@@ -39,7 +47,6 @@ public class AzureAttributes {
    * which specifies that the instance cannot be evicted on the basis of price, and only on the
    * basis of availability. Further, the value should > 0 or -1.
    */
-  @JsonProperty("spot_bid_max_price")
   private Double spotBidMaxPrice;
 
   public AzureAttributes setAvailability(AzureAvailability availability) {
@@ -102,5 +109,44 @@ public class AzureAttributes {
         .add("logAnalyticsInfo", logAnalyticsInfo)
         .add("spotBidMaxPrice", spotBidMaxPrice)
         .toString();
+  }
+
+  AzureAttributesPb toPb() {
+    AzureAttributesPb pb = new AzureAttributesPb();
+    pb.setAvailability(availability);
+    pb.setFirstOnDemand(firstOnDemand);
+    pb.setLogAnalyticsInfo(logAnalyticsInfo);
+    pb.setSpotBidMaxPrice(spotBidMaxPrice);
+
+    return pb;
+  }
+
+  static AzureAttributes fromPb(AzureAttributesPb pb) {
+    AzureAttributes model = new AzureAttributes();
+    model.setAvailability(pb.getAvailability());
+    model.setFirstOnDemand(pb.getFirstOnDemand());
+    model.setLogAnalyticsInfo(pb.getLogAnalyticsInfo());
+    model.setSpotBidMaxPrice(pb.getSpotBidMaxPrice());
+
+    return model;
+  }
+
+  public static class AzureAttributesSerializer extends JsonSerializer<AzureAttributes> {
+    @Override
+    public void serialize(AzureAttributes value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      AzureAttributesPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class AzureAttributesDeserializer extends JsonDeserializer<AzureAttributes> {
+    @Override
+    public AzureAttributes deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      AzureAttributesPb pb = mapper.readValue(p, AzureAttributesPb.class);
+      return AzureAttributes.fromPb(pb);
+    }
   }
 }

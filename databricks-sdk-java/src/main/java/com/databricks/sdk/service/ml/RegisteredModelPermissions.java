@@ -4,22 +4,30 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = RegisteredModelPermissions.RegisteredModelPermissionsSerializer.class)
+@JsonDeserialize(using = RegisteredModelPermissions.RegisteredModelPermissionsDeserializer.class)
 public class RegisteredModelPermissions {
   /** */
-  @JsonProperty("access_control_list")
   private Collection<RegisteredModelAccessControlResponse> accessControlList;
 
   /** */
-  @JsonProperty("object_id")
   private String objectId;
 
   /** */
-  @JsonProperty("object_type")
   private String objectType;
 
   public RegisteredModelPermissions setAccessControlList(
@@ -72,5 +80,45 @@ public class RegisteredModelPermissions {
         .add("objectId", objectId)
         .add("objectType", objectType)
         .toString();
+  }
+
+  RegisteredModelPermissionsPb toPb() {
+    RegisteredModelPermissionsPb pb = new RegisteredModelPermissionsPb();
+    pb.setAccessControlList(accessControlList);
+    pb.setObjectId(objectId);
+    pb.setObjectType(objectType);
+
+    return pb;
+  }
+
+  static RegisteredModelPermissions fromPb(RegisteredModelPermissionsPb pb) {
+    RegisteredModelPermissions model = new RegisteredModelPermissions();
+    model.setAccessControlList(pb.getAccessControlList());
+    model.setObjectId(pb.getObjectId());
+    model.setObjectType(pb.getObjectType());
+
+    return model;
+  }
+
+  public static class RegisteredModelPermissionsSerializer
+      extends JsonSerializer<RegisteredModelPermissions> {
+    @Override
+    public void serialize(
+        RegisteredModelPermissions value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      RegisteredModelPermissionsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class RegisteredModelPermissionsDeserializer
+      extends JsonDeserializer<RegisteredModelPermissions> {
+    @Override
+    public RegisteredModelPermissions deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      RegisteredModelPermissionsPb pb = mapper.readValue(p, RegisteredModelPermissionsPb.class);
+      return RegisteredModelPermissions.fromPb(pb);
+    }
   }
 }

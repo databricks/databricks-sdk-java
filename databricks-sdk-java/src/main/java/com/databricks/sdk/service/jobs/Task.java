@@ -4,18 +4,28 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = Task.TaskSerializer.class)
+@JsonDeserialize(using = Task.TaskDeserializer.class)
 public class Task {
   /**
    * The task runs a [clean rooms] notebook when the `clean_rooms_notebook_task` field is present.
    *
    * <p>[clean rooms]: https://docs.databricks.com/en/clean-rooms/index.html
    */
-  @JsonProperty("clean_rooms_notebook_task")
   private CleanRoomsNotebookTask cleanRoomsNotebookTask;
 
   /**
@@ -23,22 +33,18 @@ public class Task {
    * the `condition_task` field is present. The condition task does not require a cluster to execute
    * and does not support retries or notifications.
    */
-  @JsonProperty("condition_task")
   private ConditionTask conditionTask;
 
   /** The task refreshes a dashboard and sends a snapshot to subscribers. */
-  @JsonProperty("dashboard_task")
   private DashboardTask dashboardTask;
 
   /** Task type for dbt cloud */
-  @JsonProperty("dbt_cloud_task")
   private DbtCloudTask dbtCloudTask;
 
   /**
    * The task runs one or more dbt commands when the `dbt_task` field is present. The dbt task
    * requires both Databricks SQL and the ability to use a serverless or a pro SQL warehouse.
    */
-  @JsonProperty("dbt_task")
   private DbtTask dbtTask;
 
   /**
@@ -47,29 +53,24 @@ public class Task {
    * condition is true. The key is `task_key`, and the value is the name assigned to the dependent
    * task.
    */
-  @JsonProperty("depends_on")
   private Collection<TaskDependency> dependsOn;
 
   /** An optional description for this task. */
-  @JsonProperty("description")
   private String description;
 
   /** An option to disable auto optimization in serverless */
-  @JsonProperty("disable_auto_optimization")
   private Boolean disableAutoOptimization;
 
   /**
    * An optional set of email addresses that is notified when runs of this task begin or complete as
    * well as when this task is deleted. The default behavior is to not send any emails.
    */
-  @JsonProperty("email_notifications")
   private TaskEmailNotifications emailNotifications;
 
   /**
    * The key that references an environment spec in a job. This field is required for Python script,
    * Python wheel and dbt tasks when using serverless compute.
    */
-  @JsonProperty("environment_key")
   private String environmentKey;
 
   /**
@@ -77,36 +78,30 @@ public class Task {
    * jobs or tasks on an existing cluster, you may need to manually restart the cluster if it stops
    * responding. We suggest running jobs and tasks on new clusters for greater reliability
    */
-  @JsonProperty("existing_cluster_id")
   private String existingClusterId;
 
   /**
    * The task executes a nested task for every input provided when the `for_each_task` field is
    * present.
    */
-  @JsonProperty("for_each_task")
   private ForEachTask forEachTask;
 
   /** */
-  @JsonProperty("gen_ai_compute_task")
   private GenAiComputeTask genAiComputeTask;
 
   /** An optional set of health rules that can be defined for this job. */
-  @JsonProperty("health")
   private JobsHealthRules health;
 
   /**
    * If job_cluster_key, this task is executed reusing the cluster specified in
    * `job.settings.job_clusters`.
    */
-  @JsonProperty("job_cluster_key")
   private String jobClusterKey;
 
   /**
    * An optional list of libraries to be installed on the cluster. The default value is an empty
    * list.
    */
-  @JsonProperty("libraries")
   private Collection<com.databricks.sdk.service.compute.Library> libraries;
 
   /**
@@ -115,53 +110,44 @@ public class Task {
    * `life_cycle_state`. The value `-1` means to retry indefinitely and the value `0` means to never
    * retry.
    */
-  @JsonProperty("max_retries")
   private Long maxRetries;
 
   /**
    * An optional minimal interval in milliseconds between the start of the failed run and the
    * subsequent retry run. The default behavior is that unsuccessful runs are immediately retried.
    */
-  @JsonProperty("min_retry_interval_millis")
   private Long minRetryIntervalMillis;
 
   /** If new_cluster, a description of a new cluster that is created for each run. */
-  @JsonProperty("new_cluster")
   private com.databricks.sdk.service.compute.ClusterSpec newCluster;
 
   /** The task runs a notebook when the `notebook_task` field is present. */
-  @JsonProperty("notebook_task")
   private NotebookTask notebookTask;
 
   /**
    * Optional notification settings that are used when sending notifications to each of the
    * `email_notifications` and `webhook_notifications` for this task.
    */
-  @JsonProperty("notification_settings")
   private TaskNotificationSettings notificationSettings;
 
   /**
    * The task triggers a pipeline update when the `pipeline_task` field is present. Only pipelines
    * configured to use triggered more are supported.
    */
-  @JsonProperty("pipeline_task")
   private PipelineTask pipelineTask;
 
   /**
    * The task triggers a Power BI semantic model update when the `power_bi_task` field is present.
    */
-  @JsonProperty("power_bi_task")
   private PowerBiTask powerBiTask;
 
   /** The task runs a Python wheel when the `python_wheel_task` field is present. */
-  @JsonProperty("python_wheel_task")
   private PythonWheelTask pythonWheelTask;
 
   /**
    * An optional policy to specify whether to retry a job when it times out. The default behavior is
    * to not retry on timeout.
    */
-  @JsonProperty("retry_on_timeout")
   private Boolean retryOnTimeout;
 
   /**
@@ -174,19 +160,15 @@ public class Task {
    * `AT_LEAST_ONE_FAILED`: At least one dependency failed * `ALL_FAILED`: ALl dependencies have
    * failed
    */
-  @JsonProperty("run_if")
   private RunIf runIf;
 
   /** The task triggers another job when the `run_job_task` field is present. */
-  @JsonProperty("run_job_task")
   private RunJobTask runJobTask;
 
   /** The task runs a JAR when the `spark_jar_task` field is present. */
-  @JsonProperty("spark_jar_task")
   private SparkJarTask sparkJarTask;
 
   /** The task runs a Python file when the `spark_python_task` field is present. */
-  @JsonProperty("spark_python_task")
   private SparkPythonTask sparkPythonTask;
 
   /**
@@ -206,14 +188,12 @@ public class Task {
    *
    * <p>The `--jars`, `--py-files`, `--files` arguments support DBFS and S3 paths.
    */
-  @JsonProperty("spark_submit_task")
   private SparkSubmitTask sparkSubmitTask;
 
   /**
    * The task runs a SQL query or file, or it refreshes a SQL alert or a legacy SQL dashboard when
    * the `sql_task` field is present.
    */
-  @JsonProperty("sql_task")
   private SqlTask sqlTask;
 
   /**
@@ -221,18 +201,15 @@ public class Task {
    * field is required and must be unique within its parent job. On Update or Reset, this field is
    * used to reference the tasks to be updated or reset.
    */
-  @JsonProperty("task_key")
   private String taskKey;
 
   /** An optional timeout applied to each run of this job task. A value of `0` means no timeout. */
-  @JsonProperty("timeout_seconds")
   private Long timeoutSeconds;
 
   /**
    * A collection of system notification IDs to notify when runs of this task begin or complete. The
    * default behavior is to not send any system notifications.
    */
-  @JsonProperty("webhook_notifications")
   private WebhookNotifications webhookNotifications;
 
   public Task setCleanRoomsNotebookTask(CleanRoomsNotebookTask cleanRoomsNotebookTask) {
@@ -659,5 +636,103 @@ public class Task {
         .add("timeoutSeconds", timeoutSeconds)
         .add("webhookNotifications", webhookNotifications)
         .toString();
+  }
+
+  TaskPb toPb() {
+    TaskPb pb = new TaskPb();
+    pb.setCleanRoomsNotebookTask(cleanRoomsNotebookTask);
+    pb.setConditionTask(conditionTask);
+    pb.setDashboardTask(dashboardTask);
+    pb.setDbtCloudTask(dbtCloudTask);
+    pb.setDbtTask(dbtTask);
+    pb.setDependsOn(dependsOn);
+    pb.setDescription(description);
+    pb.setDisableAutoOptimization(disableAutoOptimization);
+    pb.setEmailNotifications(emailNotifications);
+    pb.setEnvironmentKey(environmentKey);
+    pb.setExistingClusterId(existingClusterId);
+    pb.setForEachTask(forEachTask);
+    pb.setGenAiComputeTask(genAiComputeTask);
+    pb.setHealth(health);
+    pb.setJobClusterKey(jobClusterKey);
+    pb.setLibraries(libraries);
+    pb.setMaxRetries(maxRetries);
+    pb.setMinRetryIntervalMillis(minRetryIntervalMillis);
+    pb.setNewCluster(newCluster);
+    pb.setNotebookTask(notebookTask);
+    pb.setNotificationSettings(notificationSettings);
+    pb.setPipelineTask(pipelineTask);
+    pb.setPowerBiTask(powerBiTask);
+    pb.setPythonWheelTask(pythonWheelTask);
+    pb.setRetryOnTimeout(retryOnTimeout);
+    pb.setRunIf(runIf);
+    pb.setRunJobTask(runJobTask);
+    pb.setSparkJarTask(sparkJarTask);
+    pb.setSparkPythonTask(sparkPythonTask);
+    pb.setSparkSubmitTask(sparkSubmitTask);
+    pb.setSqlTask(sqlTask);
+    pb.setTaskKey(taskKey);
+    pb.setTimeoutSeconds(timeoutSeconds);
+    pb.setWebhookNotifications(webhookNotifications);
+
+    return pb;
+  }
+
+  static Task fromPb(TaskPb pb) {
+    Task model = new Task();
+    model.setCleanRoomsNotebookTask(pb.getCleanRoomsNotebookTask());
+    model.setConditionTask(pb.getConditionTask());
+    model.setDashboardTask(pb.getDashboardTask());
+    model.setDbtCloudTask(pb.getDbtCloudTask());
+    model.setDbtTask(pb.getDbtTask());
+    model.setDependsOn(pb.getDependsOn());
+    model.setDescription(pb.getDescription());
+    model.setDisableAutoOptimization(pb.getDisableAutoOptimization());
+    model.setEmailNotifications(pb.getEmailNotifications());
+    model.setEnvironmentKey(pb.getEnvironmentKey());
+    model.setExistingClusterId(pb.getExistingClusterId());
+    model.setForEachTask(pb.getForEachTask());
+    model.setGenAiComputeTask(pb.getGenAiComputeTask());
+    model.setHealth(pb.getHealth());
+    model.setJobClusterKey(pb.getJobClusterKey());
+    model.setLibraries(pb.getLibraries());
+    model.setMaxRetries(pb.getMaxRetries());
+    model.setMinRetryIntervalMillis(pb.getMinRetryIntervalMillis());
+    model.setNewCluster(pb.getNewCluster());
+    model.setNotebookTask(pb.getNotebookTask());
+    model.setNotificationSettings(pb.getNotificationSettings());
+    model.setPipelineTask(pb.getPipelineTask());
+    model.setPowerBiTask(pb.getPowerBiTask());
+    model.setPythonWheelTask(pb.getPythonWheelTask());
+    model.setRetryOnTimeout(pb.getRetryOnTimeout());
+    model.setRunIf(pb.getRunIf());
+    model.setRunJobTask(pb.getRunJobTask());
+    model.setSparkJarTask(pb.getSparkJarTask());
+    model.setSparkPythonTask(pb.getSparkPythonTask());
+    model.setSparkSubmitTask(pb.getSparkSubmitTask());
+    model.setSqlTask(pb.getSqlTask());
+    model.setTaskKey(pb.getTaskKey());
+    model.setTimeoutSeconds(pb.getTimeoutSeconds());
+    model.setWebhookNotifications(pb.getWebhookNotifications());
+
+    return model;
+  }
+
+  public static class TaskSerializer extends JsonSerializer<Task> {
+    @Override
+    public void serialize(Task value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      TaskPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class TaskDeserializer extends JsonDeserializer<Task> {
+    @Override
+    public Task deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      TaskPb pb = mapper.readValue(p, TaskPb.class);
+      return Task.fromPb(pb);
+    }
   }
 }

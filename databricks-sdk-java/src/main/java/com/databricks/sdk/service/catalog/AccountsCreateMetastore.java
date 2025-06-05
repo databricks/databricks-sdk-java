@@ -4,13 +4,23 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = AccountsCreateMetastore.AccountsCreateMetastoreSerializer.class)
+@JsonDeserialize(using = AccountsCreateMetastore.AccountsCreateMetastoreDeserializer.class)
 public class AccountsCreateMetastore {
   /** */
-  @JsonProperty("metastore_info")
   private CreateMetastore metastoreInfo;
 
   public AccountsCreateMetastore setMetastoreInfo(CreateMetastore metastoreInfo) {
@@ -40,5 +50,41 @@ public class AccountsCreateMetastore {
     return new ToStringer(AccountsCreateMetastore.class)
         .add("metastoreInfo", metastoreInfo)
         .toString();
+  }
+
+  AccountsCreateMetastorePb toPb() {
+    AccountsCreateMetastorePb pb = new AccountsCreateMetastorePb();
+    pb.setMetastoreInfo(metastoreInfo);
+
+    return pb;
+  }
+
+  static AccountsCreateMetastore fromPb(AccountsCreateMetastorePb pb) {
+    AccountsCreateMetastore model = new AccountsCreateMetastore();
+    model.setMetastoreInfo(pb.getMetastoreInfo());
+
+    return model;
+  }
+
+  public static class AccountsCreateMetastoreSerializer
+      extends JsonSerializer<AccountsCreateMetastore> {
+    @Override
+    public void serialize(
+        AccountsCreateMetastore value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      AccountsCreateMetastorePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class AccountsCreateMetastoreDeserializer
+      extends JsonDeserializer<AccountsCreateMetastore> {
+    @Override
+    public AccountsCreateMetastore deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      AccountsCreateMetastorePb pb = mapper.readValue(p, AccountsCreateMetastorePb.class);
+      return AccountsCreateMetastore.fromPb(pb);
+    }
   }
 }

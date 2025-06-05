@@ -4,18 +4,27 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ServedModelOutput.ServedModelOutputSerializer.class)
+@JsonDeserialize(using = ServedModelOutput.ServedModelOutputDeserializer.class)
 public class ServedModelOutput {
   /** */
-  @JsonProperty("creation_timestamp")
   private Long creationTimestamp;
 
   /** */
-  @JsonProperty("creator")
   private String creator;
 
   /**
@@ -24,33 +33,27 @@ public class ServedModelOutput {
    * Example entity environment variables that refer to Databricks secrets: `{"OPENAI_API_KEY":
    * "{{secrets/my_scope/my_key}}", "DATABRICKS_TOKEN": "{{secrets/my_scope2/my_key2}}"}`
    */
-  @JsonProperty("environment_vars")
   private Map<String, String> environmentVars;
 
   /** ARN of the instance profile that the served entity uses to access AWS resources. */
-  @JsonProperty("instance_profile_arn")
   private String instanceProfileArn;
 
   /**
    * The maximum provisioned concurrency that the endpoint can scale up to. Do not use if
    * workload_size is specified.
    */
-  @JsonProperty("max_provisioned_concurrency")
   private Long maxProvisionedConcurrency;
 
   /**
    * The minimum provisioned concurrency that the endpoint can scale down to. Do not use if
    * workload_size is specified.
    */
-  @JsonProperty("min_provisioned_concurrency")
   private Long minProvisionedConcurrency;
 
   /** */
-  @JsonProperty("model_name")
   private String modelName;
 
   /** */
-  @JsonProperty("model_version")
   private String modelVersion;
 
   /**
@@ -59,19 +62,15 @@ public class ServedModelOutput {
    * model, this field defaults to external_model.name, with '.' and ':' replaced with '-', and if
    * not specified for other entities, it defaults to entity_name-entity_version.
    */
-  @JsonProperty("name")
   private String name;
 
   /** The number of model units provisioned. */
-  @JsonProperty("provisioned_model_units")
   private Long provisionedModelUnits;
 
   /** Whether the compute resources for the served entity should scale down to zero. */
-  @JsonProperty("scale_to_zero_enabled")
   private Boolean scaleToZeroEnabled;
 
   /** */
-  @JsonProperty("state")
   private ServedModelState state;
 
   /**
@@ -84,7 +83,6 @@ public class ServedModelOutput {
    * workload size is 0. Do not use if min_provisioned_concurrency and max_provisioned_concurrency
    * are specified.
    */
-  @JsonProperty("workload_size")
   private String workloadSize;
 
   /**
@@ -96,7 +94,6 @@ public class ServedModelOutput {
    * <p>[GPU types]:
    * https://docs.databricks.com/en/machine-learning/model-serving/create-manage-serving-endpoints.html#gpu-workload-types
    */
-  @JsonProperty("workload_type")
   private ServingModelWorkloadType workloadType;
 
   public ServedModelOutput setCreationTimestamp(Long creationTimestamp) {
@@ -283,5 +280,64 @@ public class ServedModelOutput {
         .add("workloadSize", workloadSize)
         .add("workloadType", workloadType)
         .toString();
+  }
+
+  ServedModelOutputPb toPb() {
+    ServedModelOutputPb pb = new ServedModelOutputPb();
+    pb.setCreationTimestamp(creationTimestamp);
+    pb.setCreator(creator);
+    pb.setEnvironmentVars(environmentVars);
+    pb.setInstanceProfileArn(instanceProfileArn);
+    pb.setMaxProvisionedConcurrency(maxProvisionedConcurrency);
+    pb.setMinProvisionedConcurrency(minProvisionedConcurrency);
+    pb.setModelName(modelName);
+    pb.setModelVersion(modelVersion);
+    pb.setName(name);
+    pb.setProvisionedModelUnits(provisionedModelUnits);
+    pb.setScaleToZeroEnabled(scaleToZeroEnabled);
+    pb.setState(state);
+    pb.setWorkloadSize(workloadSize);
+    pb.setWorkloadType(workloadType);
+
+    return pb;
+  }
+
+  static ServedModelOutput fromPb(ServedModelOutputPb pb) {
+    ServedModelOutput model = new ServedModelOutput();
+    model.setCreationTimestamp(pb.getCreationTimestamp());
+    model.setCreator(pb.getCreator());
+    model.setEnvironmentVars(pb.getEnvironmentVars());
+    model.setInstanceProfileArn(pb.getInstanceProfileArn());
+    model.setMaxProvisionedConcurrency(pb.getMaxProvisionedConcurrency());
+    model.setMinProvisionedConcurrency(pb.getMinProvisionedConcurrency());
+    model.setModelName(pb.getModelName());
+    model.setModelVersion(pb.getModelVersion());
+    model.setName(pb.getName());
+    model.setProvisionedModelUnits(pb.getProvisionedModelUnits());
+    model.setScaleToZeroEnabled(pb.getScaleToZeroEnabled());
+    model.setState(pb.getState());
+    model.setWorkloadSize(pb.getWorkloadSize());
+    model.setWorkloadType(pb.getWorkloadType());
+
+    return model;
+  }
+
+  public static class ServedModelOutputSerializer extends JsonSerializer<ServedModelOutput> {
+    @Override
+    public void serialize(ServedModelOutput value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ServedModelOutputPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ServedModelOutputDeserializer extends JsonDeserializer<ServedModelOutput> {
+    @Override
+    public ServedModelOutput deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ServedModelOutputPb pb = mapper.readValue(p, ServedModelOutputPb.class);
+      return ServedModelOutput.fromPb(pb);
+    }
   }
 }

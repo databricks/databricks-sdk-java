@@ -4,14 +4,24 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = UpdateRegistryWebhook.UpdateRegistryWebhookSerializer.class)
+@JsonDeserialize(using = UpdateRegistryWebhook.UpdateRegistryWebhookDeserializer.class)
 public class UpdateRegistryWebhook {
   /** User-specified description for the webhook. */
-  @JsonProperty("description")
   private String description;
 
   /**
@@ -45,19 +55,15 @@ public class UpdateRegistryWebhook {
    *
    * <p>* `TRANSITION_REQUEST_TO_ARCHIVED_CREATED`: A user requested a model version be archived.
    */
-  @JsonProperty("events")
   private Collection<RegistryWebhookEvent> events;
 
   /** */
-  @JsonProperty("http_url_spec")
   private HttpUrlSpec httpUrlSpec;
 
   /** Webhook ID */
-  @JsonProperty("id")
   private String id;
 
   /** */
-  @JsonProperty("job_spec")
   private JobSpec jobSpec;
 
   /**
@@ -69,7 +75,6 @@ public class UpdateRegistryWebhook {
    * <p>* `TEST_MODE`: Webhook can be triggered through the test endpoint, but is not triggered on a
    * real event.
    */
-  @JsonProperty("status")
   private RegistryWebhookStatus status;
 
   public UpdateRegistryWebhook setDescription(String description) {
@@ -154,5 +159,51 @@ public class UpdateRegistryWebhook {
         .add("jobSpec", jobSpec)
         .add("status", status)
         .toString();
+  }
+
+  UpdateRegistryWebhookPb toPb() {
+    UpdateRegistryWebhookPb pb = new UpdateRegistryWebhookPb();
+    pb.setDescription(description);
+    pb.setEvents(events);
+    pb.setHttpUrlSpec(httpUrlSpec);
+    pb.setId(id);
+    pb.setJobSpec(jobSpec);
+    pb.setStatus(status);
+
+    return pb;
+  }
+
+  static UpdateRegistryWebhook fromPb(UpdateRegistryWebhookPb pb) {
+    UpdateRegistryWebhook model = new UpdateRegistryWebhook();
+    model.setDescription(pb.getDescription());
+    model.setEvents(pb.getEvents());
+    model.setHttpUrlSpec(pb.getHttpUrlSpec());
+    model.setId(pb.getId());
+    model.setJobSpec(pb.getJobSpec());
+    model.setStatus(pb.getStatus());
+
+    return model;
+  }
+
+  public static class UpdateRegistryWebhookSerializer
+      extends JsonSerializer<UpdateRegistryWebhook> {
+    @Override
+    public void serialize(
+        UpdateRegistryWebhook value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateRegistryWebhookPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateRegistryWebhookDeserializer
+      extends JsonDeserializer<UpdateRegistryWebhook> {
+    @Override
+    public UpdateRegistryWebhook deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateRegistryWebhookPb pb = mapper.readValue(p, UpdateRegistryWebhookPb.class);
+      return UpdateRegistryWebhook.fromPb(pb);
+    }
   }
 }

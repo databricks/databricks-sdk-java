@@ -4,43 +4,48 @@ package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = AlertConfiguration.AlertConfigurationSerializer.class)
+@JsonDeserialize(using = AlertConfiguration.AlertConfigurationDeserializer.class)
 public class AlertConfiguration {
   /**
    * Configured actions for this alert. These define what happens when an alert enters a triggered
    * state.
    */
-  @JsonProperty("action_configurations")
   private Collection<ActionConfiguration> actionConfigurations;
 
   /** Databricks alert configuration ID. */
-  @JsonProperty("alert_configuration_id")
   private String alertConfigurationId;
 
   /**
    * The threshold for the budget alert to determine if it is in a triggered state. The number is
    * evaluated based on `quantity_type`.
    */
-  @JsonProperty("quantity_threshold")
   private String quantityThreshold;
 
   /**
    * The way to calculate cost for this budget alert. This is what `quantity_threshold` is measured
    * in.
    */
-  @JsonProperty("quantity_type")
   private AlertConfigurationQuantityType quantityType;
 
   /** The time window of usage data for the budget. */
-  @JsonProperty("time_period")
   private AlertConfigurationTimePeriod timePeriod;
 
   /** The evaluation method to determine when this budget alert is in a triggered state. */
-  @JsonProperty("trigger_type")
   private AlertConfigurationTriggerType triggerType;
 
   public AlertConfiguration setActionConfigurations(
@@ -132,5 +137,48 @@ public class AlertConfiguration {
         .add("timePeriod", timePeriod)
         .add("triggerType", triggerType)
         .toString();
+  }
+
+  AlertConfigurationPb toPb() {
+    AlertConfigurationPb pb = new AlertConfigurationPb();
+    pb.setActionConfigurations(actionConfigurations);
+    pb.setAlertConfigurationId(alertConfigurationId);
+    pb.setQuantityThreshold(quantityThreshold);
+    pb.setQuantityType(quantityType);
+    pb.setTimePeriod(timePeriod);
+    pb.setTriggerType(triggerType);
+
+    return pb;
+  }
+
+  static AlertConfiguration fromPb(AlertConfigurationPb pb) {
+    AlertConfiguration model = new AlertConfiguration();
+    model.setActionConfigurations(pb.getActionConfigurations());
+    model.setAlertConfigurationId(pb.getAlertConfigurationId());
+    model.setQuantityThreshold(pb.getQuantityThreshold());
+    model.setQuantityType(pb.getQuantityType());
+    model.setTimePeriod(pb.getTimePeriod());
+    model.setTriggerType(pb.getTriggerType());
+
+    return model;
+  }
+
+  public static class AlertConfigurationSerializer extends JsonSerializer<AlertConfiguration> {
+    @Override
+    public void serialize(AlertConfiguration value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      AlertConfigurationPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class AlertConfigurationDeserializer extends JsonDeserializer<AlertConfiguration> {
+    @Override
+    public AlertConfiguration deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      AlertConfigurationPb pb = mapper.readValue(p, AlertConfigurationPb.class);
+      return AlertConfiguration.fromPb(pb);
+    }
   }
 }

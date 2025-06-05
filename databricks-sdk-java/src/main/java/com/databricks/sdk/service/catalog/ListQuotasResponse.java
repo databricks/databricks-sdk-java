@@ -4,21 +4,30 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ListQuotasResponse.ListQuotasResponseSerializer.class)
+@JsonDeserialize(using = ListQuotasResponse.ListQuotasResponseDeserializer.class)
 public class ListQuotasResponse {
   /**
    * Opaque token to retrieve the next page of results. Absent if there are no more pages.
    * __page_token__ should be set to this value for the next request.
    */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   /** An array of returned QuotaInfos. */
-  @JsonProperty("quotas")
   private Collection<QuotaInfo> quotas;
 
   public ListQuotasResponse setNextPageToken(String nextPageToken) {
@@ -58,5 +67,40 @@ public class ListQuotasResponse {
         .add("nextPageToken", nextPageToken)
         .add("quotas", quotas)
         .toString();
+  }
+
+  ListQuotasResponsePb toPb() {
+    ListQuotasResponsePb pb = new ListQuotasResponsePb();
+    pb.setNextPageToken(nextPageToken);
+    pb.setQuotas(quotas);
+
+    return pb;
+  }
+
+  static ListQuotasResponse fromPb(ListQuotasResponsePb pb) {
+    ListQuotasResponse model = new ListQuotasResponse();
+    model.setNextPageToken(pb.getNextPageToken());
+    model.setQuotas(pb.getQuotas());
+
+    return model;
+  }
+
+  public static class ListQuotasResponseSerializer extends JsonSerializer<ListQuotasResponse> {
+    @Override
+    public void serialize(ListQuotasResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListQuotasResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListQuotasResponseDeserializer extends JsonDeserializer<ListQuotasResponse> {
+    @Override
+    public ListQuotasResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListQuotasResponsePb pb = mapper.readValue(p, ListQuotasResponsePb.class);
+      return ListQuotasResponse.fromPb(pb);
+    }
   }
 }

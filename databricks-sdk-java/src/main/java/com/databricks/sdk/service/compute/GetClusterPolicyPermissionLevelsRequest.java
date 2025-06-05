@@ -4,14 +4,31 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get cluster policy permission levels */
 @Generated
+@JsonSerialize(
+    using =
+        GetClusterPolicyPermissionLevelsRequest.GetClusterPolicyPermissionLevelsRequestSerializer
+            .class)
+@JsonDeserialize(
+    using =
+        GetClusterPolicyPermissionLevelsRequest.GetClusterPolicyPermissionLevelsRequestDeserializer
+            .class)
 public class GetClusterPolicyPermissionLevelsRequest {
   /** The cluster policy for which to get or manage permissions. */
-  @JsonIgnore private String clusterPolicyId;
+  private String clusterPolicyId;
 
   public GetClusterPolicyPermissionLevelsRequest setClusterPolicyId(String clusterPolicyId) {
     this.clusterPolicyId = clusterPolicyId;
@@ -40,5 +57,45 @@ public class GetClusterPolicyPermissionLevelsRequest {
     return new ToStringer(GetClusterPolicyPermissionLevelsRequest.class)
         .add("clusterPolicyId", clusterPolicyId)
         .toString();
+  }
+
+  GetClusterPolicyPermissionLevelsRequestPb toPb() {
+    GetClusterPolicyPermissionLevelsRequestPb pb = new GetClusterPolicyPermissionLevelsRequestPb();
+    pb.setClusterPolicyId(clusterPolicyId);
+
+    return pb;
+  }
+
+  static GetClusterPolicyPermissionLevelsRequest fromPb(
+      GetClusterPolicyPermissionLevelsRequestPb pb) {
+    GetClusterPolicyPermissionLevelsRequest model = new GetClusterPolicyPermissionLevelsRequest();
+    model.setClusterPolicyId(pb.getClusterPolicyId());
+
+    return model;
+  }
+
+  public static class GetClusterPolicyPermissionLevelsRequestSerializer
+      extends JsonSerializer<GetClusterPolicyPermissionLevelsRequest> {
+    @Override
+    public void serialize(
+        GetClusterPolicyPermissionLevelsRequest value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      GetClusterPolicyPermissionLevelsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetClusterPolicyPermissionLevelsRequestDeserializer
+      extends JsonDeserializer<GetClusterPolicyPermissionLevelsRequest> {
+    @Override
+    public GetClusterPolicyPermissionLevelsRequest deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetClusterPolicyPermissionLevelsRequestPb pb =
+          mapper.readValue(p, GetClusterPolicyPermissionLevelsRequestPb.class);
+      return GetClusterPolicyPermissionLevelsRequest.fromPb(pb);
+    }
   }
 }

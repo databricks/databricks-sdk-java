@@ -4,13 +4,24 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = EnableNotebookTableClipboard.EnableNotebookTableClipboardSerializer.class)
+@JsonDeserialize(
+    using = EnableNotebookTableClipboard.EnableNotebookTableClipboardDeserializer.class)
 public class EnableNotebookTableClipboard {
   /** */
-  @JsonProperty("boolean_val")
   private BooleanMessage booleanVal;
 
   /**
@@ -19,7 +30,6 @@ public class EnableNotebookTableClipboard {
    * respected instead. Setting name is required to be 'default' if the setting only has one
    * instance per workspace.
    */
-  @JsonProperty("setting_name")
   private String settingName;
 
   public EnableNotebookTableClipboard setBooleanVal(BooleanMessage booleanVal) {
@@ -60,5 +70,43 @@ public class EnableNotebookTableClipboard {
         .add("booleanVal", booleanVal)
         .add("settingName", settingName)
         .toString();
+  }
+
+  EnableNotebookTableClipboardPb toPb() {
+    EnableNotebookTableClipboardPb pb = new EnableNotebookTableClipboardPb();
+    pb.setBooleanVal(booleanVal);
+    pb.setSettingName(settingName);
+
+    return pb;
+  }
+
+  static EnableNotebookTableClipboard fromPb(EnableNotebookTableClipboardPb pb) {
+    EnableNotebookTableClipboard model = new EnableNotebookTableClipboard();
+    model.setBooleanVal(pb.getBooleanVal());
+    model.setSettingName(pb.getSettingName());
+
+    return model;
+  }
+
+  public static class EnableNotebookTableClipboardSerializer
+      extends JsonSerializer<EnableNotebookTableClipboard> {
+    @Override
+    public void serialize(
+        EnableNotebookTableClipboard value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      EnableNotebookTableClipboardPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class EnableNotebookTableClipboardDeserializer
+      extends JsonDeserializer<EnableNotebookTableClipboard> {
+    @Override
+    public EnableNotebookTableClipboard deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      EnableNotebookTableClipboardPb pb = mapper.readValue(p, EnableNotebookTableClipboardPb.class);
+      return EnableNotebookTableClipboard.fromPb(pb);
+    }
   }
 }

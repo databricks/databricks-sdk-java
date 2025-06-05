@@ -4,25 +4,32 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = RetrieveTokenResponse.RetrieveTokenResponseSerializer.class)
+@JsonDeserialize(using = RetrieveTokenResponse.RetrieveTokenResponseDeserializer.class)
 public class RetrieveTokenResponse {
   /** The token used to authorize the recipient. */
-  @JsonProperty("bearerToken")
   private String bearerToken;
 
   /** The endpoint for the share to be used by the recipient. */
-  @JsonProperty("endpoint")
   private String endpoint;
 
   /** Expiration timestamp of the token in epoch milliseconds. */
-  @JsonProperty("expirationTime")
   private String expirationTime;
 
   /** These field names must follow the delta sharing protocol. */
-  @JsonProperty("shareCredentialsVersion")
   private Long shareCredentialsVersion;
 
   public RetrieveTokenResponse setBearerToken(String bearerToken) {
@@ -85,5 +92,47 @@ public class RetrieveTokenResponse {
         .add("expirationTime", expirationTime)
         .add("shareCredentialsVersion", shareCredentialsVersion)
         .toString();
+  }
+
+  RetrieveTokenResponsePb toPb() {
+    RetrieveTokenResponsePb pb = new RetrieveTokenResponsePb();
+    pb.setBearerToken(bearerToken);
+    pb.setEndpoint(endpoint);
+    pb.setExpirationTime(expirationTime);
+    pb.setShareCredentialsVersion(shareCredentialsVersion);
+
+    return pb;
+  }
+
+  static RetrieveTokenResponse fromPb(RetrieveTokenResponsePb pb) {
+    RetrieveTokenResponse model = new RetrieveTokenResponse();
+    model.setBearerToken(pb.getBearerToken());
+    model.setEndpoint(pb.getEndpoint());
+    model.setExpirationTime(pb.getExpirationTime());
+    model.setShareCredentialsVersion(pb.getShareCredentialsVersion());
+
+    return model;
+  }
+
+  public static class RetrieveTokenResponseSerializer
+      extends JsonSerializer<RetrieveTokenResponse> {
+    @Override
+    public void serialize(
+        RetrieveTokenResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      RetrieveTokenResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class RetrieveTokenResponseDeserializer
+      extends JsonDeserializer<RetrieveTokenResponse> {
+    @Override
+    public RetrieveTokenResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      RetrieveTokenResponsePb pb = mapper.readValue(p, RetrieveTokenResponsePb.class);
+      return RetrieveTokenResponse.fromPb(pb);
+    }
   }
 }

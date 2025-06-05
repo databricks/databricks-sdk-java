@@ -4,13 +4,23 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = RestoreExperiment.RestoreExperimentSerializer.class)
+@JsonDeserialize(using = RestoreExperiment.RestoreExperimentDeserializer.class)
 public class RestoreExperiment {
   /** ID of the associated experiment. */
-  @JsonProperty("experiment_id")
   private String experimentId;
 
   public RestoreExperiment setExperimentId(String experimentId) {
@@ -38,5 +48,38 @@ public class RestoreExperiment {
   @Override
   public String toString() {
     return new ToStringer(RestoreExperiment.class).add("experimentId", experimentId).toString();
+  }
+
+  RestoreExperimentPb toPb() {
+    RestoreExperimentPb pb = new RestoreExperimentPb();
+    pb.setExperimentId(experimentId);
+
+    return pb;
+  }
+
+  static RestoreExperiment fromPb(RestoreExperimentPb pb) {
+    RestoreExperiment model = new RestoreExperiment();
+    model.setExperimentId(pb.getExperimentId());
+
+    return model;
+  }
+
+  public static class RestoreExperimentSerializer extends JsonSerializer<RestoreExperiment> {
+    @Override
+    public void serialize(RestoreExperiment value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      RestoreExperimentPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class RestoreExperimentDeserializer extends JsonDeserializer<RestoreExperiment> {
+    @Override
+    public RestoreExperiment deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      RestoreExperimentPb pb = mapper.readValue(p, RestoreExperimentPb.class);
+      return RestoreExperiment.fromPb(pb);
+    }
   }
 }

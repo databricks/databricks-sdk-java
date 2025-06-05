@@ -4,14 +4,24 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Attributes specific to AWS for a Spark node. */
 @Generated
+@JsonSerialize(using = SparkNodeAwsAttributes.SparkNodeAwsAttributesSerializer.class)
+@JsonDeserialize(using = SparkNodeAwsAttributes.SparkNodeAwsAttributesDeserializer.class)
 public class SparkNodeAwsAttributes {
   /** Whether this node is on an Amazon spot instance. */
-  @JsonProperty("is_spot")
   private Boolean isSpot;
 
   public SparkNodeAwsAttributes setIsSpot(Boolean isSpot) {
@@ -39,5 +49,41 @@ public class SparkNodeAwsAttributes {
   @Override
   public String toString() {
     return new ToStringer(SparkNodeAwsAttributes.class).add("isSpot", isSpot).toString();
+  }
+
+  SparkNodeAwsAttributesPb toPb() {
+    SparkNodeAwsAttributesPb pb = new SparkNodeAwsAttributesPb();
+    pb.setIsSpot(isSpot);
+
+    return pb;
+  }
+
+  static SparkNodeAwsAttributes fromPb(SparkNodeAwsAttributesPb pb) {
+    SparkNodeAwsAttributes model = new SparkNodeAwsAttributes();
+    model.setIsSpot(pb.getIsSpot());
+
+    return model;
+  }
+
+  public static class SparkNodeAwsAttributesSerializer
+      extends JsonSerializer<SparkNodeAwsAttributes> {
+    @Override
+    public void serialize(
+        SparkNodeAwsAttributes value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SparkNodeAwsAttributesPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SparkNodeAwsAttributesDeserializer
+      extends JsonDeserializer<SparkNodeAwsAttributes> {
+    @Override
+    public SparkNodeAwsAttributes deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SparkNodeAwsAttributesPb pb = mapper.readValue(p, SparkNodeAwsAttributesPb.class);
+      return SparkNodeAwsAttributes.fromPb(pb);
+    }
   }
 }

@@ -22,7 +22,7 @@ class EnhancedSecurityMonitoringImpl implements EnhancedSecurityMonitoringServic
     String path = "/api/2.0/settings/types/shield_esm_enablement_ws_db/names/default";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, EnhancedSecurityMonitoringSetting.class);
     } catch (IOException e) {
@@ -36,7 +36,7 @@ class EnhancedSecurityMonitoringImpl implements EnhancedSecurityMonitoringServic
     String path = "/api/2.0/settings/types/shield_esm_enablement_ws_db/names/default";
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, EnhancedSecurityMonitoringSetting.class);

@@ -4,11 +4,22 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = RuleSetResponse.RuleSetResponseSerializer.class)
+@JsonDeserialize(using = RuleSetResponse.RuleSetResponseDeserializer.class)
 public class RuleSetResponse {
   /**
    * Identifies the version of the rule set returned. Etag used for versioning. The response is at
@@ -19,15 +30,12 @@ public class RuleSetResponse {
    * request, and pass it with the PUT update request to identify the rule set version you are
    * updating.
    */
-  @JsonProperty("etag")
   private String etag;
 
   /** */
-  @JsonProperty("grant_rules")
   private Collection<GrantRule> grantRules;
 
   /** Name of the rule set. */
-  @JsonProperty("name")
   private String name;
 
   public RuleSetResponse setEtag(String etag) {
@@ -79,5 +87,42 @@ public class RuleSetResponse {
         .add("grantRules", grantRules)
         .add("name", name)
         .toString();
+  }
+
+  RuleSetResponsePb toPb() {
+    RuleSetResponsePb pb = new RuleSetResponsePb();
+    pb.setEtag(etag);
+    pb.setGrantRules(grantRules);
+    pb.setName(name);
+
+    return pb;
+  }
+
+  static RuleSetResponse fromPb(RuleSetResponsePb pb) {
+    RuleSetResponse model = new RuleSetResponse();
+    model.setEtag(pb.getEtag());
+    model.setGrantRules(pb.getGrantRules());
+    model.setName(pb.getName());
+
+    return model;
+  }
+
+  public static class RuleSetResponseSerializer extends JsonSerializer<RuleSetResponse> {
+    @Override
+    public void serialize(RuleSetResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      RuleSetResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class RuleSetResponseDeserializer extends JsonDeserializer<RuleSetResponse> {
+    @Override
+    public RuleSetResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      RuleSetResponsePb pb = mapper.readValue(p, RuleSetResponsePb.class);
+      return RuleSetResponse.fromPb(pb);
+    }
   }
 }

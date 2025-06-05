@@ -4,18 +4,27 @@ package com.databricks.sdk.service.vectorsearch;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = DeleteDataResult.DeleteDataResultSerializer.class)
+@JsonDeserialize(using = DeleteDataResult.DeleteDataResultDeserializer.class)
 public class DeleteDataResult {
   /** List of primary keys for rows that failed to process. */
-  @JsonProperty("failed_primary_keys")
   private Collection<String> failedPrimaryKeys;
 
   /** Count of successfully processed rows. */
-  @JsonProperty("success_row_count")
   private Long successRowCount;
 
   public DeleteDataResult setFailedPrimaryKeys(Collection<String> failedPrimaryKeys) {
@@ -56,5 +65,40 @@ public class DeleteDataResult {
         .add("failedPrimaryKeys", failedPrimaryKeys)
         .add("successRowCount", successRowCount)
         .toString();
+  }
+
+  DeleteDataResultPb toPb() {
+    DeleteDataResultPb pb = new DeleteDataResultPb();
+    pb.setFailedPrimaryKeys(failedPrimaryKeys);
+    pb.setSuccessRowCount(successRowCount);
+
+    return pb;
+  }
+
+  static DeleteDataResult fromPb(DeleteDataResultPb pb) {
+    DeleteDataResult model = new DeleteDataResult();
+    model.setFailedPrimaryKeys(pb.getFailedPrimaryKeys());
+    model.setSuccessRowCount(pb.getSuccessRowCount());
+
+    return model;
+  }
+
+  public static class DeleteDataResultSerializer extends JsonSerializer<DeleteDataResult> {
+    @Override
+    public void serialize(DeleteDataResult value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DeleteDataResultPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DeleteDataResultDeserializer extends JsonDeserializer<DeleteDataResult> {
+    @Override
+    public DeleteDataResult deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DeleteDataResultPb pb = mapper.readValue(p, DeleteDataResultPb.class);
+      return DeleteDataResult.fromPb(pb);
+    }
   }
 }

@@ -4,29 +4,35 @@ package com.databricks.sdk.service.cleanrooms;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CollaboratorJobRunInfo.CollaboratorJobRunInfoSerializer.class)
+@JsonDeserialize(using = CollaboratorJobRunInfo.CollaboratorJobRunInfoDeserializer.class)
 public class CollaboratorJobRunInfo {
   /** Alias of the collaborator that triggered the task run. */
-  @JsonProperty("collaborator_alias")
   private String collaboratorAlias;
 
   /** Job ID of the task run in the collaborator's workspace. */
-  @JsonProperty("collaborator_job_id")
   private Long collaboratorJobId;
 
   /** Job run ID of the task run in the collaborator's workspace. */
-  @JsonProperty("collaborator_job_run_id")
   private Long collaboratorJobRunId;
 
   /** Task run ID of the task run in the collaborator's workspace. */
-  @JsonProperty("collaborator_task_run_id")
   private Long collaboratorTaskRunId;
 
   /** ID of the collaborator's workspace that triggered the task run. */
-  @JsonProperty("collaborator_workspace_id")
   private Long collaboratorWorkspaceId;
 
   public CollaboratorJobRunInfo setCollaboratorAlias(String collaboratorAlias) {
@@ -105,5 +111,49 @@ public class CollaboratorJobRunInfo {
         .add("collaboratorTaskRunId", collaboratorTaskRunId)
         .add("collaboratorWorkspaceId", collaboratorWorkspaceId)
         .toString();
+  }
+
+  CollaboratorJobRunInfoPb toPb() {
+    CollaboratorJobRunInfoPb pb = new CollaboratorJobRunInfoPb();
+    pb.setCollaboratorAlias(collaboratorAlias);
+    pb.setCollaboratorJobId(collaboratorJobId);
+    pb.setCollaboratorJobRunId(collaboratorJobRunId);
+    pb.setCollaboratorTaskRunId(collaboratorTaskRunId);
+    pb.setCollaboratorWorkspaceId(collaboratorWorkspaceId);
+
+    return pb;
+  }
+
+  static CollaboratorJobRunInfo fromPb(CollaboratorJobRunInfoPb pb) {
+    CollaboratorJobRunInfo model = new CollaboratorJobRunInfo();
+    model.setCollaboratorAlias(pb.getCollaboratorAlias());
+    model.setCollaboratorJobId(pb.getCollaboratorJobId());
+    model.setCollaboratorJobRunId(pb.getCollaboratorJobRunId());
+    model.setCollaboratorTaskRunId(pb.getCollaboratorTaskRunId());
+    model.setCollaboratorWorkspaceId(pb.getCollaboratorWorkspaceId());
+
+    return model;
+  }
+
+  public static class CollaboratorJobRunInfoSerializer
+      extends JsonSerializer<CollaboratorJobRunInfo> {
+    @Override
+    public void serialize(
+        CollaboratorJobRunInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CollaboratorJobRunInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CollaboratorJobRunInfoDeserializer
+      extends JsonDeserializer<CollaboratorJobRunInfo> {
+    @Override
+    public CollaboratorJobRunInfo deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CollaboratorJobRunInfoPb pb = mapper.readValue(p, CollaboratorJobRunInfoPb.class);
+      return CollaboratorJobRunInfo.fromPb(pb);
+    }
   }
 }

@@ -4,25 +4,32 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = UpdateVolumeRequestContent.UpdateVolumeRequestContentSerializer.class)
+@JsonDeserialize(using = UpdateVolumeRequestContent.UpdateVolumeRequestContentDeserializer.class)
 public class UpdateVolumeRequestContent {
   /** The comment attached to the volume */
-  @JsonProperty("comment")
   private String comment;
 
   /** The three-level (fully qualified) name of the volume */
-  @JsonIgnore private String name;
+  private String name;
 
   /** New name for the volume. */
-  @JsonProperty("new_name")
   private String newName;
 
   /** The identifier of the user who owns the volume */
-  @JsonProperty("owner")
   private String owner;
 
   public UpdateVolumeRequestContent setComment(String comment) {
@@ -85,5 +92,47 @@ public class UpdateVolumeRequestContent {
         .add("newName", newName)
         .add("owner", owner)
         .toString();
+  }
+
+  UpdateVolumeRequestContentPb toPb() {
+    UpdateVolumeRequestContentPb pb = new UpdateVolumeRequestContentPb();
+    pb.setComment(comment);
+    pb.setName(name);
+    pb.setNewName(newName);
+    pb.setOwner(owner);
+
+    return pb;
+  }
+
+  static UpdateVolumeRequestContent fromPb(UpdateVolumeRequestContentPb pb) {
+    UpdateVolumeRequestContent model = new UpdateVolumeRequestContent();
+    model.setComment(pb.getComment());
+    model.setName(pb.getName());
+    model.setNewName(pb.getNewName());
+    model.setOwner(pb.getOwner());
+
+    return model;
+  }
+
+  public static class UpdateVolumeRequestContentSerializer
+      extends JsonSerializer<UpdateVolumeRequestContent> {
+    @Override
+    public void serialize(
+        UpdateVolumeRequestContent value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateVolumeRequestContentPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateVolumeRequestContentDeserializer
+      extends JsonDeserializer<UpdateVolumeRequestContent> {
+    @Override
+    public UpdateVolumeRequestContent deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateVolumeRequestContentPb pb = mapper.readValue(p, UpdateVolumeRequestContentPb.class);
+      return UpdateVolumeRequestContent.fromPb(pb);
+    }
   }
 }

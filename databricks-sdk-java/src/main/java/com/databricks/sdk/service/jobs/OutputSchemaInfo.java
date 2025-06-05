@@ -4,7 +4,16 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -12,17 +21,16 @@ import java.util.Objects;
  * run.
  */
 @Generated
+@JsonSerialize(using = OutputSchemaInfo.OutputSchemaInfoSerializer.class)
+@JsonDeserialize(using = OutputSchemaInfo.OutputSchemaInfoDeserializer.class)
 public class OutputSchemaInfo {
   /** */
-  @JsonProperty("catalog_name")
   private String catalogName;
 
   /** The expiration time for the output schema as a Unix timestamp in milliseconds. */
-  @JsonProperty("expiration_time")
   private Long expirationTime;
 
   /** */
-  @JsonProperty("schema_name")
   private String schemaName;
 
   public OutputSchemaInfo setCatalogName(String catalogName) {
@@ -74,5 +82,42 @@ public class OutputSchemaInfo {
         .add("expirationTime", expirationTime)
         .add("schemaName", schemaName)
         .toString();
+  }
+
+  OutputSchemaInfoPb toPb() {
+    OutputSchemaInfoPb pb = new OutputSchemaInfoPb();
+    pb.setCatalogName(catalogName);
+    pb.setExpirationTime(expirationTime);
+    pb.setSchemaName(schemaName);
+
+    return pb;
+  }
+
+  static OutputSchemaInfo fromPb(OutputSchemaInfoPb pb) {
+    OutputSchemaInfo model = new OutputSchemaInfo();
+    model.setCatalogName(pb.getCatalogName());
+    model.setExpirationTime(pb.getExpirationTime());
+    model.setSchemaName(pb.getSchemaName());
+
+    return model;
+  }
+
+  public static class OutputSchemaInfoSerializer extends JsonSerializer<OutputSchemaInfo> {
+    @Override
+    public void serialize(OutputSchemaInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      OutputSchemaInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class OutputSchemaInfoDeserializer extends JsonDeserializer<OutputSchemaInfo> {
+    @Override
+    public OutputSchemaInfo deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      OutputSchemaInfoPb pb = mapper.readValue(p, OutputSchemaInfoPb.class);
+      return OutputSchemaInfo.fromPb(pb);
+    }
   }
 }

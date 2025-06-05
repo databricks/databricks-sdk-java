@@ -4,45 +4,48 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = PipelineStateInfo.PipelineStateInfoSerializer.class)
+@JsonDeserialize(using = PipelineStateInfo.PipelineStateInfoDeserializer.class)
 public class PipelineStateInfo {
   /** The unique identifier of the cluster running the pipeline. */
-  @JsonProperty("cluster_id")
   private String clusterId;
 
   /** The username of the pipeline creator. */
-  @JsonProperty("creator_user_name")
   private String creatorUserName;
 
   /** The health of a pipeline. */
-  @JsonProperty("health")
   private PipelineStateInfoHealth health;
 
   /** Status of the latest updates for the pipeline. Ordered with the newest update first. */
-  @JsonProperty("latest_updates")
   private Collection<UpdateStateInfo> latestUpdates;
 
   /** The user-friendly name of the pipeline. */
-  @JsonProperty("name")
   private String name;
 
   /** The unique identifier of the pipeline. */
-  @JsonProperty("pipeline_id")
   private String pipelineId;
 
   /**
    * The username that the pipeline runs as. This is a read only value derived from the pipeline
    * owner.
    */
-  @JsonProperty("run_as_user_name")
   private String runAsUserName;
 
   /** The pipeline state. */
-  @JsonProperty("state")
   private PipelineState state;
 
   public PipelineStateInfo setClusterId(String clusterId) {
@@ -150,5 +153,52 @@ public class PipelineStateInfo {
         .add("runAsUserName", runAsUserName)
         .add("state", state)
         .toString();
+  }
+
+  PipelineStateInfoPb toPb() {
+    PipelineStateInfoPb pb = new PipelineStateInfoPb();
+    pb.setClusterId(clusterId);
+    pb.setCreatorUserName(creatorUserName);
+    pb.setHealth(health);
+    pb.setLatestUpdates(latestUpdates);
+    pb.setName(name);
+    pb.setPipelineId(pipelineId);
+    pb.setRunAsUserName(runAsUserName);
+    pb.setState(state);
+
+    return pb;
+  }
+
+  static PipelineStateInfo fromPb(PipelineStateInfoPb pb) {
+    PipelineStateInfo model = new PipelineStateInfo();
+    model.setClusterId(pb.getClusterId());
+    model.setCreatorUserName(pb.getCreatorUserName());
+    model.setHealth(pb.getHealth());
+    model.setLatestUpdates(pb.getLatestUpdates());
+    model.setName(pb.getName());
+    model.setPipelineId(pb.getPipelineId());
+    model.setRunAsUserName(pb.getRunAsUserName());
+    model.setState(pb.getState());
+
+    return model;
+  }
+
+  public static class PipelineStateInfoSerializer extends JsonSerializer<PipelineStateInfo> {
+    @Override
+    public void serialize(PipelineStateInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PipelineStateInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PipelineStateInfoDeserializer extends JsonDeserializer<PipelineStateInfo> {
+    @Override
+    public PipelineStateInfo deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PipelineStateInfoPb pb = mapper.readValue(p, PipelineStateInfoPb.class);
+      return PipelineStateInfo.fromPb(pb);
+    }
   }
 }

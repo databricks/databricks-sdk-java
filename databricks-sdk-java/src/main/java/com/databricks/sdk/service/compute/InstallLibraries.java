@@ -4,18 +4,27 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = InstallLibraries.InstallLibrariesSerializer.class)
+@JsonDeserialize(using = InstallLibraries.InstallLibrariesDeserializer.class)
 public class InstallLibraries {
   /** Unique identifier for the cluster on which to install these libraries. */
-  @JsonProperty("cluster_id")
   private String clusterId;
 
   /** The libraries to install. */
-  @JsonProperty("libraries")
   private Collection<Library> libraries;
 
   public InstallLibraries setClusterId(String clusterId) {
@@ -55,5 +64,40 @@ public class InstallLibraries {
         .add("clusterId", clusterId)
         .add("libraries", libraries)
         .toString();
+  }
+
+  InstallLibrariesPb toPb() {
+    InstallLibrariesPb pb = new InstallLibrariesPb();
+    pb.setClusterId(clusterId);
+    pb.setLibraries(libraries);
+
+    return pb;
+  }
+
+  static InstallLibraries fromPb(InstallLibrariesPb pb) {
+    InstallLibraries model = new InstallLibraries();
+    model.setClusterId(pb.getClusterId());
+    model.setLibraries(pb.getLibraries());
+
+    return model;
+  }
+
+  public static class InstallLibrariesSerializer extends JsonSerializer<InstallLibraries> {
+    @Override
+    public void serialize(InstallLibraries value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      InstallLibrariesPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class InstallLibrariesDeserializer extends JsonDeserializer<InstallLibraries> {
+    @Override
+    public InstallLibraries deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      InstallLibrariesPb pb = mapper.readValue(p, InstallLibrariesPb.class);
+      return InstallLibraries.fromPb(pb);
+    }
   }
 }

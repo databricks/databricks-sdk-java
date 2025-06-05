@@ -4,22 +4,30 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = PartialUpdate.PartialUpdateSerializer.class)
+@JsonDeserialize(using = PartialUpdate.PartialUpdateDeserializer.class)
 public class PartialUpdate {
   /** Unique ID in the Databricks workspace. */
-  @JsonIgnore private String id;
+  private String id;
 
   /** */
-  @JsonProperty("Operations")
   private Collection<Patch> operations;
 
   /** The schema of the patch request. Must be ["urn:ietf:params:scim:api:messages:2.0:PatchOp"]. */
-  @JsonProperty("schemas")
   private Collection<PatchSchema> schemas;
 
   public PartialUpdate setId(String id) {
@@ -71,5 +79,41 @@ public class PartialUpdate {
         .add("operations", operations)
         .add("schemas", schemas)
         .toString();
+  }
+
+  PartialUpdatePb toPb() {
+    PartialUpdatePb pb = new PartialUpdatePb();
+    pb.setId(id);
+    pb.setOperations(operations);
+    pb.setSchemas(schemas);
+
+    return pb;
+  }
+
+  static PartialUpdate fromPb(PartialUpdatePb pb) {
+    PartialUpdate model = new PartialUpdate();
+    model.setId(pb.getId());
+    model.setOperations(pb.getOperations());
+    model.setSchemas(pb.getSchemas());
+
+    return model;
+  }
+
+  public static class PartialUpdateSerializer extends JsonSerializer<PartialUpdate> {
+    @Override
+    public void serialize(PartialUpdate value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PartialUpdatePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PartialUpdateDeserializer extends JsonDeserializer<PartialUpdate> {
+    @Override
+    public PartialUpdate deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PartialUpdatePb pb = mapper.readValue(p, PartialUpdatePb.class);
+      return PartialUpdate.fromPb(pb);
+    }
   }
 }

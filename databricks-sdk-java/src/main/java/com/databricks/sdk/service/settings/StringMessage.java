@@ -4,13 +4,23 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = StringMessage.StringMessageSerializer.class)
+@JsonDeserialize(using = StringMessage.StringMessageDeserializer.class)
 public class StringMessage {
   /** Represents a generic string value. */
-  @JsonProperty("value")
   private String value;
 
   public StringMessage setValue(String value) {
@@ -38,5 +48,37 @@ public class StringMessage {
   @Override
   public String toString() {
     return new ToStringer(StringMessage.class).add("value", value).toString();
+  }
+
+  StringMessagePb toPb() {
+    StringMessagePb pb = new StringMessagePb();
+    pb.setValue(value);
+
+    return pb;
+  }
+
+  static StringMessage fromPb(StringMessagePb pb) {
+    StringMessage model = new StringMessage();
+    model.setValue(pb.getValue());
+
+    return model;
+  }
+
+  public static class StringMessageSerializer extends JsonSerializer<StringMessage> {
+    @Override
+    public void serialize(StringMessage value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      StringMessagePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class StringMessageDeserializer extends JsonDeserializer<StringMessage> {
+    @Override
+    public StringMessage deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      StringMessagePb pb = mapper.readValue(p, StringMessagePb.class);
+      return StringMessage.fromPb(pb);
+    }
   }
 }

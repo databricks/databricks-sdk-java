@@ -3,30 +3,34 @@
 package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List pipeline updates */
 @Generated
+@JsonSerialize(using = ListUpdatesRequest.ListUpdatesRequestSerializer.class)
+@JsonDeserialize(using = ListUpdatesRequest.ListUpdatesRequestDeserializer.class)
 public class ListUpdatesRequest {
   /** Max number of entries to return in a single page. */
-  @JsonIgnore
-  @QueryParam("max_results")
   private Long maxResults;
 
   /** Page token returned by previous call */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   /** The pipeline to return updates for. */
-  @JsonIgnore private String pipelineId;
+  private String pipelineId;
 
   /** If present, returns updates until and including this update_id. */
-  @JsonIgnore
-  @QueryParam("until_update_id")
   private String untilUpdateId;
 
   public ListUpdatesRequest setMaxResults(Long maxResults) {
@@ -89,5 +93,44 @@ public class ListUpdatesRequest {
         .add("pipelineId", pipelineId)
         .add("untilUpdateId", untilUpdateId)
         .toString();
+  }
+
+  ListUpdatesRequestPb toPb() {
+    ListUpdatesRequestPb pb = new ListUpdatesRequestPb();
+    pb.setMaxResults(maxResults);
+    pb.setPageToken(pageToken);
+    pb.setPipelineId(pipelineId);
+    pb.setUntilUpdateId(untilUpdateId);
+
+    return pb;
+  }
+
+  static ListUpdatesRequest fromPb(ListUpdatesRequestPb pb) {
+    ListUpdatesRequest model = new ListUpdatesRequest();
+    model.setMaxResults(pb.getMaxResults());
+    model.setPageToken(pb.getPageToken());
+    model.setPipelineId(pb.getPipelineId());
+    model.setUntilUpdateId(pb.getUntilUpdateId());
+
+    return model;
+  }
+
+  public static class ListUpdatesRequestSerializer extends JsonSerializer<ListUpdatesRequest> {
+    @Override
+    public void serialize(ListUpdatesRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListUpdatesRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListUpdatesRequestDeserializer extends JsonDeserializer<ListUpdatesRequest> {
+    @Override
+    public ListUpdatesRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListUpdatesRequestPb pb = mapper.readValue(p, ListUpdatesRequestPb.class);
+      return ListUpdatesRequest.fromPb(pb);
+    }
   }
 }

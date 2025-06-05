@@ -4,10 +4,21 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = TerminationDetails.TerminationDetailsSerializer.class)
+@JsonDeserialize(using = TerminationDetails.TerminationDetailsDeserializer.class)
 public class TerminationDetails {
   /**
    * The code indicates why the run was terminated. Additional codes might be introduced in future
@@ -49,14 +60,12 @@ public class TerminationDetails {
    * <p>[Link]:
    * https://kb.databricks.com/en_US/notebooks/too-many-execution-contexts-are-open-right-now
    */
-  @JsonProperty("code")
   private TerminationCodeCode code;
 
   /**
    * A descriptive message with the termination details. This field is unstructured and the format
    * might change.
    */
-  @JsonProperty("message")
   private String message;
 
   /**
@@ -68,7 +77,6 @@ public class TerminationDetails {
    *
    * <p>[status page]: https://status.databricks.com/
    */
-  @JsonProperty("type")
   private TerminationTypeType typeValue;
 
   public TerminationDetails setCode(TerminationCodeCode code) {
@@ -120,5 +128,42 @@ public class TerminationDetails {
         .add("message", message)
         .add("typeValue", typeValue)
         .toString();
+  }
+
+  TerminationDetailsPb toPb() {
+    TerminationDetailsPb pb = new TerminationDetailsPb();
+    pb.setCode(code);
+    pb.setMessage(message);
+    pb.setType(typeValue);
+
+    return pb;
+  }
+
+  static TerminationDetails fromPb(TerminationDetailsPb pb) {
+    TerminationDetails model = new TerminationDetails();
+    model.setCode(pb.getCode());
+    model.setMessage(pb.getMessage());
+    model.setType(pb.getType());
+
+    return model;
+  }
+
+  public static class TerminationDetailsSerializer extends JsonSerializer<TerminationDetails> {
+    @Override
+    public void serialize(TerminationDetails value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      TerminationDetailsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class TerminationDetailsDeserializer extends JsonDeserializer<TerminationDetails> {
+    @Override
+    public TerminationDetails deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      TerminationDetailsPb pb = mapper.readValue(p, TerminationDetailsPb.class);
+      return TerminationDetails.fromPb(pb);
+    }
   }
 }

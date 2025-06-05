@@ -4,13 +4,23 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = EnableResultsDownloading.EnableResultsDownloadingSerializer.class)
+@JsonDeserialize(using = EnableResultsDownloading.EnableResultsDownloadingDeserializer.class)
 public class EnableResultsDownloading {
   /** */
-  @JsonProperty("boolean_val")
   private BooleanMessage booleanVal;
 
   /**
@@ -19,7 +29,6 @@ public class EnableResultsDownloading {
    * respected instead. Setting name is required to be 'default' if the setting only has one
    * instance per workspace.
    */
-  @JsonProperty("setting_name")
   private String settingName;
 
   public EnableResultsDownloading setBooleanVal(BooleanMessage booleanVal) {
@@ -60,5 +69,43 @@ public class EnableResultsDownloading {
         .add("booleanVal", booleanVal)
         .add("settingName", settingName)
         .toString();
+  }
+
+  EnableResultsDownloadingPb toPb() {
+    EnableResultsDownloadingPb pb = new EnableResultsDownloadingPb();
+    pb.setBooleanVal(booleanVal);
+    pb.setSettingName(settingName);
+
+    return pb;
+  }
+
+  static EnableResultsDownloading fromPb(EnableResultsDownloadingPb pb) {
+    EnableResultsDownloading model = new EnableResultsDownloading();
+    model.setBooleanVal(pb.getBooleanVal());
+    model.setSettingName(pb.getSettingName());
+
+    return model;
+  }
+
+  public static class EnableResultsDownloadingSerializer
+      extends JsonSerializer<EnableResultsDownloading> {
+    @Override
+    public void serialize(
+        EnableResultsDownloading value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      EnableResultsDownloadingPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class EnableResultsDownloadingDeserializer
+      extends JsonDeserializer<EnableResultsDownloading> {
+    @Override
+    public EnableResultsDownloading deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      EnableResultsDownloadingPb pb = mapper.readValue(p, EnableResultsDownloadingPb.class);
+      return EnableResultsDownloading.fromPb(pb);
+    }
   }
 }

@@ -4,32 +4,38 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateAlert.CreateAlertSerializer.class)
+@JsonDeserialize(using = CreateAlert.CreateAlertDeserializer.class)
 public class CreateAlert {
   /** Name of the alert. */
-  @JsonProperty("name")
   private String name;
 
   /** Alert configuration options. */
-  @JsonProperty("options")
   private AlertOptions options;
 
   /** The identifier of the workspace folder containing the object. */
-  @JsonProperty("parent")
   private String parent;
 
   /** Query ID. */
-  @JsonProperty("query_id")
   private String queryId;
 
   /**
    * Number of seconds after being triggered before the alert rearms itself and can be triggered
    * again. If `null`, alert will never be triggered again.
    */
-  @JsonProperty("rearm")
   private Long rearm;
 
   public CreateAlert setName(String name) {
@@ -103,5 +109,45 @@ public class CreateAlert {
         .add("queryId", queryId)
         .add("rearm", rearm)
         .toString();
+  }
+
+  CreateAlertPb toPb() {
+    CreateAlertPb pb = new CreateAlertPb();
+    pb.setName(name);
+    pb.setOptions(options);
+    pb.setParent(parent);
+    pb.setQueryId(queryId);
+    pb.setRearm(rearm);
+
+    return pb;
+  }
+
+  static CreateAlert fromPb(CreateAlertPb pb) {
+    CreateAlert model = new CreateAlert();
+    model.setName(pb.getName());
+    model.setOptions(pb.getOptions());
+    model.setParent(pb.getParent());
+    model.setQueryId(pb.getQueryId());
+    model.setRearm(pb.getRearm());
+
+    return model;
+  }
+
+  public static class CreateAlertSerializer extends JsonSerializer<CreateAlert> {
+    @Override
+    public void serialize(CreateAlert value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateAlertPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateAlertDeserializer extends JsonDeserializer<CreateAlert> {
+    @Override
+    public CreateAlert deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateAlertPb pb = mapper.readValue(p, CreateAlertPb.class);
+      return CreateAlert.fromPb(pb);
+    }
   }
 }

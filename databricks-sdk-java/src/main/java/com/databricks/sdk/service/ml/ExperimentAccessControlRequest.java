@@ -4,25 +4,34 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = ExperimentAccessControlRequest.ExperimentAccessControlRequestSerializer.class)
+@JsonDeserialize(
+    using = ExperimentAccessControlRequest.ExperimentAccessControlRequestDeserializer.class)
 public class ExperimentAccessControlRequest {
   /** name of the group */
-  @JsonProperty("group_name")
   private String groupName;
 
   /** Permission level */
-  @JsonProperty("permission_level")
   private ExperimentPermissionLevel permissionLevel;
 
   /** application ID of a service principal */
-  @JsonProperty("service_principal_name")
   private String servicePrincipalName;
 
   /** name of the user */
-  @JsonProperty("user_name")
   private String userName;
 
   public ExperimentAccessControlRequest setGroupName(String groupName) {
@@ -86,5 +95,48 @@ public class ExperimentAccessControlRequest {
         .add("servicePrincipalName", servicePrincipalName)
         .add("userName", userName)
         .toString();
+  }
+
+  ExperimentAccessControlRequestPb toPb() {
+    ExperimentAccessControlRequestPb pb = new ExperimentAccessControlRequestPb();
+    pb.setGroupName(groupName);
+    pb.setPermissionLevel(permissionLevel);
+    pb.setServicePrincipalName(servicePrincipalName);
+    pb.setUserName(userName);
+
+    return pb;
+  }
+
+  static ExperimentAccessControlRequest fromPb(ExperimentAccessControlRequestPb pb) {
+    ExperimentAccessControlRequest model = new ExperimentAccessControlRequest();
+    model.setGroupName(pb.getGroupName());
+    model.setPermissionLevel(pb.getPermissionLevel());
+    model.setServicePrincipalName(pb.getServicePrincipalName());
+    model.setUserName(pb.getUserName());
+
+    return model;
+  }
+
+  public static class ExperimentAccessControlRequestSerializer
+      extends JsonSerializer<ExperimentAccessControlRequest> {
+    @Override
+    public void serialize(
+        ExperimentAccessControlRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ExperimentAccessControlRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ExperimentAccessControlRequestDeserializer
+      extends JsonDeserializer<ExperimentAccessControlRequest> {
+    @Override
+    public ExperimentAccessControlRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ExperimentAccessControlRequestPb pb =
+          mapper.readValue(p, ExperimentAccessControlRequestPb.class);
+      return ExperimentAccessControlRequest.fromPb(pb);
+    }
   }
 }

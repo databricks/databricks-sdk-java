@@ -4,29 +4,36 @@ package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateWorkspaceRequest.CreateWorkspaceRequestSerializer.class)
+@JsonDeserialize(using = CreateWorkspaceRequest.CreateWorkspaceRequestDeserializer.class)
 public class CreateWorkspaceRequest {
   /** The AWS region of the workspace's data plane. */
-  @JsonProperty("aws_region")
   private String awsRegion;
 
   /**
    * The cloud provider which the workspace uses. For Google Cloud workspaces, always set this field
    * to `gcp`.
    */
-  @JsonProperty("cloud")
   private String cloud;
 
   /** The general workspace configurations that are specific to cloud providers. */
-  @JsonProperty("cloud_resource_container")
   private CloudResourceContainer cloudResourceContainer;
 
   /** ID of the workspace's credential configuration object. */
-  @JsonProperty("credentials_id")
   private String credentialsId;
 
   /**
@@ -34,7 +41,6 @@ public class CreateWorkspaceRequest {
    * string of utf-8 characters. The value can be an empty string, with maximum length of 255
    * characters. The key can be of maximum length of 127 characters, and cannot be empty.
    */
-  @JsonProperty("custom_tags")
   private Map<String, String> customTags;
 
   /**
@@ -62,7 +68,6 @@ public class CreateWorkspaceRequest {
    * <p>If a new workspace omits this property, the server generates a unique deployment name for
    * you with the pattern `dbc-xxxxxxxx-xxxx`.
    */
-  @JsonProperty("deployment_name")
   private String deploymentName;
 
   /**
@@ -86,22 +91,18 @@ public class CreateWorkspaceRequest {
    * <p>[calculate subnet sizes for a new workspace]:
    * https://docs.gcp.databricks.com/administration-guide/cloud-configurations/gcp/network-sizing.html
    */
-  @JsonProperty("gcp_managed_network_config")
   private GcpManagedNetworkConfig gcpManagedNetworkConfig;
 
   /** The configurations for the GKE cluster of a Databricks workspace. */
-  @JsonProperty("gke_config")
   private GkeConfig gkeConfig;
 
   /** Whether no public IP is enabled for the workspace. */
-  @JsonProperty("is_no_public_ip_enabled")
   private Boolean isNoPublicIpEnabled;
 
   /**
    * The Google Cloud region of the workspace data plane in your Google account. For example,
    * `us-east4`.
    */
-  @JsonProperty("location")
   private String location;
 
   /**
@@ -110,11 +111,9 @@ public class CreateWorkspaceRequest {
    * and query history. The provided key configuration object property `use_cases` must contain
    * `MANAGED_SERVICES`.
    */
-  @JsonProperty("managed_services_customer_managed_key_id")
   private String managedServicesCustomerManagedKeyId;
 
   /** */
-  @JsonProperty("network_id")
   private String networkId;
 
   /**
@@ -122,7 +121,6 @@ public class CreateWorkspaceRequest {
    *
    * <p>[AWS Pricing]: https://databricks.com/product/aws-pricing
    */
-  @JsonProperty("pricing_tier")
   private PricingTier pricingTier;
 
   /**
@@ -136,11 +134,9 @@ public class CreateWorkspaceRequest {
    * PrivateLink]:
    * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
    */
-  @JsonProperty("private_access_settings_id")
   private String privateAccessSettingsId;
 
   /** The ID of the workspace's storage configuration object. */
-  @JsonProperty("storage_configuration_id")
   private String storageConfigurationId;
 
   /**
@@ -148,11 +144,9 @@ public class CreateWorkspaceRequest {
    * the workspace's root S3 bucket (root DBFS and system data) and, optionally, cluster EBS
    * volumes. The provided key configuration object property `use_cases` must contain `STORAGE`.
    */
-  @JsonProperty("storage_customer_managed_key_id")
   private String storageCustomerManagedKeyId;
 
   /** The workspace's human-readable name. */
-  @JsonProperty("workspace_name")
   private String workspaceName;
 
   public CreateWorkspaceRequest setAwsRegion(String awsRegion) {
@@ -379,5 +373,73 @@ public class CreateWorkspaceRequest {
         .add("storageCustomerManagedKeyId", storageCustomerManagedKeyId)
         .add("workspaceName", workspaceName)
         .toString();
+  }
+
+  CreateWorkspaceRequestPb toPb() {
+    CreateWorkspaceRequestPb pb = new CreateWorkspaceRequestPb();
+    pb.setAwsRegion(awsRegion);
+    pb.setCloud(cloud);
+    pb.setCloudResourceContainer(cloudResourceContainer);
+    pb.setCredentialsId(credentialsId);
+    pb.setCustomTags(customTags);
+    pb.setDeploymentName(deploymentName);
+    pb.setGcpManagedNetworkConfig(gcpManagedNetworkConfig);
+    pb.setGkeConfig(gkeConfig);
+    pb.setIsNoPublicIpEnabled(isNoPublicIpEnabled);
+    pb.setLocation(location);
+    pb.setManagedServicesCustomerManagedKeyId(managedServicesCustomerManagedKeyId);
+    pb.setNetworkId(networkId);
+    pb.setPricingTier(pricingTier);
+    pb.setPrivateAccessSettingsId(privateAccessSettingsId);
+    pb.setStorageConfigurationId(storageConfigurationId);
+    pb.setStorageCustomerManagedKeyId(storageCustomerManagedKeyId);
+    pb.setWorkspaceName(workspaceName);
+
+    return pb;
+  }
+
+  static CreateWorkspaceRequest fromPb(CreateWorkspaceRequestPb pb) {
+    CreateWorkspaceRequest model = new CreateWorkspaceRequest();
+    model.setAwsRegion(pb.getAwsRegion());
+    model.setCloud(pb.getCloud());
+    model.setCloudResourceContainer(pb.getCloudResourceContainer());
+    model.setCredentialsId(pb.getCredentialsId());
+    model.setCustomTags(pb.getCustomTags());
+    model.setDeploymentName(pb.getDeploymentName());
+    model.setGcpManagedNetworkConfig(pb.getGcpManagedNetworkConfig());
+    model.setGkeConfig(pb.getGkeConfig());
+    model.setIsNoPublicIpEnabled(pb.getIsNoPublicIpEnabled());
+    model.setLocation(pb.getLocation());
+    model.setManagedServicesCustomerManagedKeyId(pb.getManagedServicesCustomerManagedKeyId());
+    model.setNetworkId(pb.getNetworkId());
+    model.setPricingTier(pb.getPricingTier());
+    model.setPrivateAccessSettingsId(pb.getPrivateAccessSettingsId());
+    model.setStorageConfigurationId(pb.getStorageConfigurationId());
+    model.setStorageCustomerManagedKeyId(pb.getStorageCustomerManagedKeyId());
+    model.setWorkspaceName(pb.getWorkspaceName());
+
+    return model;
+  }
+
+  public static class CreateWorkspaceRequestSerializer
+      extends JsonSerializer<CreateWorkspaceRequest> {
+    @Override
+    public void serialize(
+        CreateWorkspaceRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateWorkspaceRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateWorkspaceRequestDeserializer
+      extends JsonDeserializer<CreateWorkspaceRequest> {
+    @Override
+    public CreateWorkspaceRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateWorkspaceRequestPb pb = mapper.readValue(p, CreateWorkspaceRequestPb.class);
+      return CreateWorkspaceRequest.fromPb(pb);
+    }
   }
 }

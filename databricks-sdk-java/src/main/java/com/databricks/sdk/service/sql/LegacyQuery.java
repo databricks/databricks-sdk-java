@@ -4,18 +4,27 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = LegacyQuery.LegacyQuerySerializer.class)
+@JsonDeserialize(using = LegacyQuery.LegacyQueryDeserializer.class)
 public class LegacyQuery {
   /** Describes whether the authenticated user is allowed to edit the definition of this query. */
-  @JsonProperty("can_edit")
   private Boolean canEdit;
 
   /** The timestamp when this query was created. */
-  @JsonProperty("created_at")
   private String createdAt;
 
   /**
@@ -24,17 +33,14 @@ public class LegacyQuery {
    *
    * <p>[Learn more]: https://docs.databricks.com/api/workspace/datasources/list
    */
-  @JsonProperty("data_source_id")
   private String dataSourceId;
 
   /**
    * General description that conveys additional information about this query such as usage notes.
    */
-  @JsonProperty("description")
   private String description;
 
   /** Query ID. */
-  @JsonProperty("id")
   private String id;
 
   /**
@@ -42,21 +48,18 @@ public class LegacyQuery {
    * in search results. If this boolean is `true`, the `options` property for this query includes a
    * `moved_to_trash_at` timestamp. Trashed queries are permanently deleted after 30 days.
    */
-  @JsonProperty("is_archived")
   private Boolean isArchived;
 
   /**
    * Whether the query is a draft. Draft queries only appear in list views for their owners.
    * Visualizations from draft queries cannot appear on dashboards.
    */
-  @JsonProperty("is_draft")
   private Boolean isDraft;
 
   /**
    * Whether this query object appears in the current user's favorites list. This flag determines
    * whether the star icon for favorites is selected.
    */
-  @JsonProperty("is_favorite")
   private Boolean isFavorite;
 
   /**
@@ -64,76 +67,60 @@ public class LegacyQuery {
    * Boolean parameter to `true` if a query either does not use any text type parameters or uses a
    * data source type where text type parameters are handled safely.
    */
-  @JsonProperty("is_safe")
   private Boolean isSafe;
 
   /** */
-  @JsonProperty("last_modified_by")
   private User lastModifiedBy;
 
   /** The ID of the user who last saved changes to this query. */
-  @JsonProperty("last_modified_by_id")
   private Long lastModifiedById;
 
   /**
    * If there is a cached result for this query and user, this field includes the query result ID.
    * If this query uses parameters, this field is always null.
    */
-  @JsonProperty("latest_query_data_id")
   private String latestQueryDataId;
 
   /** The title of this query that appears in list views, widget headings, and on the query page. */
-  @JsonProperty("name")
   private String name;
 
   /** */
-  @JsonProperty("options")
   private QueryOptions options;
 
   /** The identifier of the workspace folder containing the object. */
-  @JsonProperty("parent")
   private String parent;
 
   /**
    * * `CAN_VIEW`: Can view the query * `CAN_RUN`: Can run the query * `CAN_EDIT`: Can edit the
    * query * `CAN_MANAGE`: Can manage the query
    */
-  @JsonProperty("permission_tier")
   private PermissionLevel permissionTier;
 
   /** The text of the query to be run. */
-  @JsonProperty("query")
   private String query;
 
   /** A SHA-256 hash of the query text along with the authenticated user ID. */
-  @JsonProperty("query_hash")
   private String queryHash;
 
   /**
    * Sets the **Run as** role for the object. Must be set to one of `"viewer"` (signifying "run as
    * viewer" behavior) or `"owner"` (signifying "run as owner" behavior)
    */
-  @JsonProperty("run_as_role")
   private RunAsRole runAsRole;
 
   /** */
-  @JsonProperty("tags")
   private Collection<String> tags;
 
   /** The timestamp at which this query was last updated. */
-  @JsonProperty("updated_at")
   private String updatedAt;
 
   /** */
-  @JsonProperty("user")
   private User user;
 
   /** The ID of the user who owns the query. */
-  @JsonProperty("user_id")
   private Long userId;
 
   /** */
-  @JsonProperty("visualizations")
   private Collection<LegacyVisualization> visualizations;
 
   public LegacyQuery setCanEdit(Boolean canEdit) {
@@ -440,5 +427,83 @@ public class LegacyQuery {
         .add("userId", userId)
         .add("visualizations", visualizations)
         .toString();
+  }
+
+  LegacyQueryPb toPb() {
+    LegacyQueryPb pb = new LegacyQueryPb();
+    pb.setCanEdit(canEdit);
+    pb.setCreatedAt(createdAt);
+    pb.setDataSourceId(dataSourceId);
+    pb.setDescription(description);
+    pb.setId(id);
+    pb.setIsArchived(isArchived);
+    pb.setIsDraft(isDraft);
+    pb.setIsFavorite(isFavorite);
+    pb.setIsSafe(isSafe);
+    pb.setLastModifiedBy(lastModifiedBy);
+    pb.setLastModifiedById(lastModifiedById);
+    pb.setLatestQueryDataId(latestQueryDataId);
+    pb.setName(name);
+    pb.setOptions(options);
+    pb.setParent(parent);
+    pb.setPermissionTier(permissionTier);
+    pb.setQuery(query);
+    pb.setQueryHash(queryHash);
+    pb.setRunAsRole(runAsRole);
+    pb.setTags(tags);
+    pb.setUpdatedAt(updatedAt);
+    pb.setUser(user);
+    pb.setUserId(userId);
+    pb.setVisualizations(visualizations);
+
+    return pb;
+  }
+
+  static LegacyQuery fromPb(LegacyQueryPb pb) {
+    LegacyQuery model = new LegacyQuery();
+    model.setCanEdit(pb.getCanEdit());
+    model.setCreatedAt(pb.getCreatedAt());
+    model.setDataSourceId(pb.getDataSourceId());
+    model.setDescription(pb.getDescription());
+    model.setId(pb.getId());
+    model.setIsArchived(pb.getIsArchived());
+    model.setIsDraft(pb.getIsDraft());
+    model.setIsFavorite(pb.getIsFavorite());
+    model.setIsSafe(pb.getIsSafe());
+    model.setLastModifiedBy(pb.getLastModifiedBy());
+    model.setLastModifiedById(pb.getLastModifiedById());
+    model.setLatestQueryDataId(pb.getLatestQueryDataId());
+    model.setName(pb.getName());
+    model.setOptions(pb.getOptions());
+    model.setParent(pb.getParent());
+    model.setPermissionTier(pb.getPermissionTier());
+    model.setQuery(pb.getQuery());
+    model.setQueryHash(pb.getQueryHash());
+    model.setRunAsRole(pb.getRunAsRole());
+    model.setTags(pb.getTags());
+    model.setUpdatedAt(pb.getUpdatedAt());
+    model.setUser(pb.getUser());
+    model.setUserId(pb.getUserId());
+    model.setVisualizations(pb.getVisualizations());
+
+    return model;
+  }
+
+  public static class LegacyQuerySerializer extends JsonSerializer<LegacyQuery> {
+    @Override
+    public void serialize(LegacyQuery value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      LegacyQueryPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class LegacyQueryDeserializer extends JsonDeserializer<LegacyQuery> {
+    @Override
+    public LegacyQuery deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      LegacyQueryPb pb = mapper.readValue(p, LegacyQueryPb.class);
+      return LegacyQuery.fromPb(pb);
+    }
   }
 }

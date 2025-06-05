@@ -4,24 +4,32 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = AccessControl.AccessControlSerializer.class)
+@JsonDeserialize(using = AccessControl.AccessControlDeserializer.class)
 public class AccessControl {
   /** */
-  @JsonProperty("group_name")
   private String groupName;
 
   /**
    * * `CAN_VIEW`: Can view the query * `CAN_RUN`: Can run the query * `CAN_EDIT`: Can edit the
    * query * `CAN_MANAGE`: Can manage the query
    */
-  @JsonProperty("permission_level")
   private PermissionLevel permissionLevel;
 
   /** */
-  @JsonProperty("user_name")
   private String userName;
 
   public AccessControl setGroupName(String groupName) {
@@ -73,5 +81,41 @@ public class AccessControl {
         .add("permissionLevel", permissionLevel)
         .add("userName", userName)
         .toString();
+  }
+
+  AccessControlPb toPb() {
+    AccessControlPb pb = new AccessControlPb();
+    pb.setGroupName(groupName);
+    pb.setPermissionLevel(permissionLevel);
+    pb.setUserName(userName);
+
+    return pb;
+  }
+
+  static AccessControl fromPb(AccessControlPb pb) {
+    AccessControl model = new AccessControl();
+    model.setGroupName(pb.getGroupName());
+    model.setPermissionLevel(pb.getPermissionLevel());
+    model.setUserName(pb.getUserName());
+
+    return model;
+  }
+
+  public static class AccessControlSerializer extends JsonSerializer<AccessControl> {
+    @Override
+    public void serialize(AccessControl value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      AccessControlPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class AccessControlDeserializer extends JsonDeserializer<AccessControl> {
+    @Override
+    public AccessControl deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      AccessControlPb pb = mapper.readValue(p, AccessControlPb.class);
+      return AccessControl.fromPb(pb);
+    }
   }
 }

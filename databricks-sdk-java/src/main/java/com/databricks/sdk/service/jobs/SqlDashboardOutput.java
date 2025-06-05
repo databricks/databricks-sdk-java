@@ -4,18 +4,27 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = SqlDashboardOutput.SqlDashboardOutputSerializer.class)
+@JsonDeserialize(using = SqlDashboardOutput.SqlDashboardOutputDeserializer.class)
 public class SqlDashboardOutput {
   /** The canonical identifier of the SQL warehouse. */
-  @JsonProperty("warehouse_id")
   private String warehouseId;
 
   /** Widgets executed in the run. Only SQL query based widgets are listed. */
-  @JsonProperty("widgets")
   private Collection<SqlDashboardWidgetOutput> widgets;
 
   public SqlDashboardOutput setWarehouseId(String warehouseId) {
@@ -55,5 +64,40 @@ public class SqlDashboardOutput {
         .add("warehouseId", warehouseId)
         .add("widgets", widgets)
         .toString();
+  }
+
+  SqlDashboardOutputPb toPb() {
+    SqlDashboardOutputPb pb = new SqlDashboardOutputPb();
+    pb.setWarehouseId(warehouseId);
+    pb.setWidgets(widgets);
+
+    return pb;
+  }
+
+  static SqlDashboardOutput fromPb(SqlDashboardOutputPb pb) {
+    SqlDashboardOutput model = new SqlDashboardOutput();
+    model.setWarehouseId(pb.getWarehouseId());
+    model.setWidgets(pb.getWidgets());
+
+    return model;
+  }
+
+  public static class SqlDashboardOutputSerializer extends JsonSerializer<SqlDashboardOutput> {
+    @Override
+    public void serialize(SqlDashboardOutput value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SqlDashboardOutputPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SqlDashboardOutputDeserializer extends JsonDeserializer<SqlDashboardOutput> {
+    @Override
+    public SqlDashboardOutput deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SqlDashboardOutputPb pb = mapper.readValue(p, SqlDashboardOutputPb.class);
+      return SqlDashboardOutput.fromPb(pb);
+    }
   }
 }

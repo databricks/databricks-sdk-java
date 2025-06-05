@@ -1,0 +1,57 @@
+// Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
+
+package com.databricks.sdk.service.iam;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
+
+@Generated
+class PermissionsDescriptionPb {
+  @JsonProperty("description")
+  private String description;
+
+  @JsonProperty("permission_level")
+  private PermissionLevel permissionLevel;
+
+  public PermissionsDescriptionPb setDescription(String description) {
+    this.description = description;
+    return this;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public PermissionsDescriptionPb setPermissionLevel(PermissionLevel permissionLevel) {
+    this.permissionLevel = permissionLevel;
+    return this;
+  }
+
+  public PermissionLevel getPermissionLevel() {
+    return permissionLevel;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    PermissionsDescriptionPb that = (PermissionsDescriptionPb) o;
+    return Objects.equals(description, that.description)
+        && Objects.equals(permissionLevel, that.permissionLevel);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(description, permissionLevel);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(PermissionsDescriptionPb.class)
+        .add("description", description)
+        .add("permissionLevel", permissionLevel)
+        .toString();
+  }
+}

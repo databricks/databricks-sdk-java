@@ -3,22 +3,32 @@
 package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List account federation policies */
 @Generated
+@JsonSerialize(
+    using =
+        ListAccountFederationPoliciesRequest.ListAccountFederationPoliciesRequestSerializer.class)
+@JsonDeserialize(
+    using =
+        ListAccountFederationPoliciesRequest.ListAccountFederationPoliciesRequestDeserializer.class)
 public class ListAccountFederationPoliciesRequest {
   /** */
-  @JsonIgnore
-  @QueryParam("page_size")
   private Long pageSize;
 
   /** */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   public ListAccountFederationPoliciesRequest setPageSize(Long pageSize) {
@@ -58,5 +68,44 @@ public class ListAccountFederationPoliciesRequest {
         .add("pageSize", pageSize)
         .add("pageToken", pageToken)
         .toString();
+  }
+
+  ListAccountFederationPoliciesRequestPb toPb() {
+    ListAccountFederationPoliciesRequestPb pb = new ListAccountFederationPoliciesRequestPb();
+    pb.setPageSize(pageSize);
+    pb.setPageToken(pageToken);
+
+    return pb;
+  }
+
+  static ListAccountFederationPoliciesRequest fromPb(ListAccountFederationPoliciesRequestPb pb) {
+    ListAccountFederationPoliciesRequest model = new ListAccountFederationPoliciesRequest();
+    model.setPageSize(pb.getPageSize());
+    model.setPageToken(pb.getPageToken());
+
+    return model;
+  }
+
+  public static class ListAccountFederationPoliciesRequestSerializer
+      extends JsonSerializer<ListAccountFederationPoliciesRequest> {
+    @Override
+    public void serialize(
+        ListAccountFederationPoliciesRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListAccountFederationPoliciesRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListAccountFederationPoliciesRequestDeserializer
+      extends JsonDeserializer<ListAccountFederationPoliciesRequest> {
+    @Override
+    public ListAccountFederationPoliciesRequest deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListAccountFederationPoliciesRequestPb pb =
+          mapper.readValue(p, ListAccountFederationPoliciesRequestPb.class);
+      return ListAccountFederationPoliciesRequest.fromPb(pb);
+    }
   }
 }

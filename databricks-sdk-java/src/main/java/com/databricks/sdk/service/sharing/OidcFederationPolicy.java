@@ -4,7 +4,16 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -14,17 +23,17 @@ import java.util.Objects;
  * for more details.
  */
 @Generated
+@JsonSerialize(using = OidcFederationPolicy.OidcFederationPolicySerializer.class)
+@JsonDeserialize(using = OidcFederationPolicy.OidcFederationPolicyDeserializer.class)
 public class OidcFederationPolicy {
   /**
    * The allowed token audiences, as specified in the 'aud' claim of federated tokens. The audience
    * identifier is intended to represent the recipient of the token. Can be any non-empty string
    * value. As long as the audience in the token matches at least one audience in the policy,
    */
-  @JsonProperty("audiences")
   private Collection<String> audiences;
 
   /** The required token issuer, as specified in the 'iss' claim of federated tokens. */
-  @JsonProperty("issuer")
   private String issuer;
 
   /**
@@ -35,7 +44,6 @@ public class OidcFederationPolicy {
    * be the Object ID of the user in Entra ID. - M2M flow (OAuth App access): If the subject claim
    * is `azp`, this must be the client ID of the OAuth app registered in Entra ID.
    */
-  @JsonProperty("subject")
   private String subject;
 
   /**
@@ -48,7 +56,6 @@ public class OidcFederationPolicy {
    * the OAuth app. - `groups`: Object ID of the group. - `sub`: Subject identifier for other use
    * cases.
    */
-  @JsonProperty("subject_claim")
   private String subjectClaim;
 
   public OidcFederationPolicy setAudiences(Collection<String> audiences) {
@@ -111,5 +118,46 @@ public class OidcFederationPolicy {
         .add("subject", subject)
         .add("subjectClaim", subjectClaim)
         .toString();
+  }
+
+  OidcFederationPolicyPb toPb() {
+    OidcFederationPolicyPb pb = new OidcFederationPolicyPb();
+    pb.setAudiences(audiences);
+    pb.setIssuer(issuer);
+    pb.setSubject(subject);
+    pb.setSubjectClaim(subjectClaim);
+
+    return pb;
+  }
+
+  static OidcFederationPolicy fromPb(OidcFederationPolicyPb pb) {
+    OidcFederationPolicy model = new OidcFederationPolicy();
+    model.setAudiences(pb.getAudiences());
+    model.setIssuer(pb.getIssuer());
+    model.setSubject(pb.getSubject());
+    model.setSubjectClaim(pb.getSubjectClaim());
+
+    return model;
+  }
+
+  public static class OidcFederationPolicySerializer extends JsonSerializer<OidcFederationPolicy> {
+    @Override
+    public void serialize(
+        OidcFederationPolicy value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      OidcFederationPolicyPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class OidcFederationPolicyDeserializer
+      extends JsonDeserializer<OidcFederationPolicy> {
+    @Override
+    public OidcFederationPolicy deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      OidcFederationPolicyPb pb = mapper.readValue(p, OidcFederationPolicyPb.class);
+      return OidcFederationPolicy.fromPb(pb);
+    }
   }
 }

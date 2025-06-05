@@ -4,14 +4,24 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = GetEventsResponse.GetEventsResponseSerializer.class)
+@JsonDeserialize(using = GetEventsResponse.GetEventsResponseDeserializer.class)
 public class GetEventsResponse {
   /** */
-  @JsonProperty("events")
   private Collection<ClusterEvent> events;
 
   /**
@@ -20,21 +30,18 @@ public class GetEventsResponse {
    * <p>The parameters required to retrieve the next page of events. Omitted if there are no more
    * events to read.
    */
-  @JsonProperty("next_page")
   private GetEvents nextPage;
 
   /**
    * This field represents the pagination token to retrieve the next page of results. If the value
    * is "", it means no further results for the request.
    */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   /**
    * This field represents the pagination token to retrieve the previous page of results. If the
    * value is "", it means no further results for the request.
    */
-  @JsonProperty("prev_page_token")
   private String prevPageToken;
 
   /**
@@ -43,7 +50,6 @@ public class GetEventsResponse {
    *
    * <p>The total number of events filtered by the start_time, end_time, and event_types.
    */
-  @JsonProperty("total_count")
   private Long totalCount;
 
   public GetEventsResponse setEvents(Collection<ClusterEvent> events) {
@@ -117,5 +123,46 @@ public class GetEventsResponse {
         .add("prevPageToken", prevPageToken)
         .add("totalCount", totalCount)
         .toString();
+  }
+
+  GetEventsResponsePb toPb() {
+    GetEventsResponsePb pb = new GetEventsResponsePb();
+    pb.setEvents(events);
+    pb.setNextPage(nextPage);
+    pb.setNextPageToken(nextPageToken);
+    pb.setPrevPageToken(prevPageToken);
+    pb.setTotalCount(totalCount);
+
+    return pb;
+  }
+
+  static GetEventsResponse fromPb(GetEventsResponsePb pb) {
+    GetEventsResponse model = new GetEventsResponse();
+    model.setEvents(pb.getEvents());
+    model.setNextPage(pb.getNextPage());
+    model.setNextPageToken(pb.getNextPageToken());
+    model.setPrevPageToken(pb.getPrevPageToken());
+    model.setTotalCount(pb.getTotalCount());
+
+    return model;
+  }
+
+  public static class GetEventsResponseSerializer extends JsonSerializer<GetEventsResponse> {
+    @Override
+    public void serialize(GetEventsResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetEventsResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetEventsResponseDeserializer extends JsonDeserializer<GetEventsResponse> {
+    @Override
+    public GetEventsResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetEventsResponsePb pb = mapper.readValue(p, GetEventsResponsePb.class);
+      return GetEventsResponse.fromPb(pb);
+    }
   }
 }

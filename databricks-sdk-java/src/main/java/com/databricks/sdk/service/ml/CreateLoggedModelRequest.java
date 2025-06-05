@@ -4,34 +4,39 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateLoggedModelRequest.CreateLoggedModelRequestSerializer.class)
+@JsonDeserialize(using = CreateLoggedModelRequest.CreateLoggedModelRequestDeserializer.class)
 public class CreateLoggedModelRequest {
   /** The ID of the experiment that owns the model. */
-  @JsonProperty("experiment_id")
   private String experimentId;
 
   /** The type of the model, such as ``"Agent"``, ``"Classifier"``, ``"LLM"``. */
-  @JsonProperty("model_type")
   private String modelType;
 
   /** The name of the model (optional). If not specified one will be generated. */
-  @JsonProperty("name")
   private String name;
 
   /** Parameters attached to the model. */
-  @JsonProperty("params")
   private Collection<LoggedModelParameter> params;
 
   /** The ID of the run that created the model. */
-  @JsonProperty("source_run_id")
   private String sourceRunId;
 
   /** Tags attached to the model. */
-  @JsonProperty("tags")
   private Collection<LoggedModelTag> tags;
 
   public CreateLoggedModelRequest setExperimentId(String experimentId) {
@@ -116,5 +121,51 @@ public class CreateLoggedModelRequest {
         .add("sourceRunId", sourceRunId)
         .add("tags", tags)
         .toString();
+  }
+
+  CreateLoggedModelRequestPb toPb() {
+    CreateLoggedModelRequestPb pb = new CreateLoggedModelRequestPb();
+    pb.setExperimentId(experimentId);
+    pb.setModelType(modelType);
+    pb.setName(name);
+    pb.setParams(params);
+    pb.setSourceRunId(sourceRunId);
+    pb.setTags(tags);
+
+    return pb;
+  }
+
+  static CreateLoggedModelRequest fromPb(CreateLoggedModelRequestPb pb) {
+    CreateLoggedModelRequest model = new CreateLoggedModelRequest();
+    model.setExperimentId(pb.getExperimentId());
+    model.setModelType(pb.getModelType());
+    model.setName(pb.getName());
+    model.setParams(pb.getParams());
+    model.setSourceRunId(pb.getSourceRunId());
+    model.setTags(pb.getTags());
+
+    return model;
+  }
+
+  public static class CreateLoggedModelRequestSerializer
+      extends JsonSerializer<CreateLoggedModelRequest> {
+    @Override
+    public void serialize(
+        CreateLoggedModelRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateLoggedModelRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateLoggedModelRequestDeserializer
+      extends JsonDeserializer<CreateLoggedModelRequest> {
+    @Override
+    public CreateLoggedModelRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateLoggedModelRequestPb pb = mapper.readValue(p, CreateLoggedModelRequestPb.class);
+      return CreateLoggedModelRequest.fromPb(pb);
+    }
   }
 }

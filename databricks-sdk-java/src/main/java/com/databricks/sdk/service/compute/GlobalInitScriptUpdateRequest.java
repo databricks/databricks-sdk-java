@@ -4,18 +4,27 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = GlobalInitScriptUpdateRequest.GlobalInitScriptUpdateRequestSerializer.class)
+@JsonDeserialize(
+    using = GlobalInitScriptUpdateRequest.GlobalInitScriptUpdateRequestDeserializer.class)
 public class GlobalInitScriptUpdateRequest {
   /** Specifies whether the script is enabled. The script runs only if enabled. */
-  @JsonProperty("enabled")
   private Boolean enabled;
 
   /** The name of the script */
-  @JsonProperty("name")
   private String name;
 
   /**
@@ -30,15 +39,13 @@ public class GlobalInitScriptUpdateRequest {
    * the original script at that position and all later scripts have their positions incremented by
    * 1.
    */
-  @JsonProperty("position")
   private Long position;
 
   /** The Base64-encoded content of the script. */
-  @JsonProperty("script")
   private String script;
 
   /** The ID of the global init script. */
-  @JsonIgnore private String scriptId;
+  private String scriptId;
 
   public GlobalInitScriptUpdateRequest setEnabled(Boolean enabled) {
     this.enabled = enabled;
@@ -111,5 +118,50 @@ public class GlobalInitScriptUpdateRequest {
         .add("script", script)
         .add("scriptId", scriptId)
         .toString();
+  }
+
+  GlobalInitScriptUpdateRequestPb toPb() {
+    GlobalInitScriptUpdateRequestPb pb = new GlobalInitScriptUpdateRequestPb();
+    pb.setEnabled(enabled);
+    pb.setName(name);
+    pb.setPosition(position);
+    pb.setScript(script);
+    pb.setScriptId(scriptId);
+
+    return pb;
+  }
+
+  static GlobalInitScriptUpdateRequest fromPb(GlobalInitScriptUpdateRequestPb pb) {
+    GlobalInitScriptUpdateRequest model = new GlobalInitScriptUpdateRequest();
+    model.setEnabled(pb.getEnabled());
+    model.setName(pb.getName());
+    model.setPosition(pb.getPosition());
+    model.setScript(pb.getScript());
+    model.setScriptId(pb.getScriptId());
+
+    return model;
+  }
+
+  public static class GlobalInitScriptUpdateRequestSerializer
+      extends JsonSerializer<GlobalInitScriptUpdateRequest> {
+    @Override
+    public void serialize(
+        GlobalInitScriptUpdateRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GlobalInitScriptUpdateRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GlobalInitScriptUpdateRequestDeserializer
+      extends JsonDeserializer<GlobalInitScriptUpdateRequest> {
+    @Override
+    public GlobalInitScriptUpdateRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GlobalInitScriptUpdateRequestPb pb =
+          mapper.readValue(p, GlobalInitScriptUpdateRequestPb.class);
+      return GlobalInitScriptUpdateRequest.fromPb(pb);
+    }
   }
 }

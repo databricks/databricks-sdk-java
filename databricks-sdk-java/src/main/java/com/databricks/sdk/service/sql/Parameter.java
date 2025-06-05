@@ -4,45 +4,49 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = Parameter.ParameterSerializer.class)
+@JsonDeserialize(using = Parameter.ParameterDeserializer.class)
 public class Parameter {
   /**
    * List of valid parameter values, newline delimited. Only applies for dropdown list parameters.
    */
-  @JsonProperty("enumOptions")
   private String enumOptions;
 
   /**
    * If specified, allows multiple values to be selected for this parameter. Only applies to
    * dropdown list and query-based dropdown list parameters.
    */
-  @JsonProperty("multiValuesOptions")
   private MultiValuesOptions multiValuesOptions;
 
   /** The literal parameter marker that appears between double curly braces in the query text. */
-  @JsonProperty("name")
   private String name;
 
   /**
    * The UUID of the query that provides the parameter values. Only applies for query-based dropdown
    * list parameters.
    */
-  @JsonProperty("queryId")
   private String queryId;
 
   /** The text displayed in a parameter picking widget. */
-  @JsonProperty("title")
   private String title;
 
   /** Parameters can have several different types. */
-  @JsonProperty("type")
   private ParameterType typeValue;
 
   /** The default value for this parameter. */
-  @JsonProperty("value")
   private Object value;
 
   public Parameter setEnumOptions(String enumOptions) {
@@ -138,5 +142,49 @@ public class Parameter {
         .add("typeValue", typeValue)
         .add("value", value)
         .toString();
+  }
+
+  ParameterPb toPb() {
+    ParameterPb pb = new ParameterPb();
+    pb.setEnumOptions(enumOptions);
+    pb.setMultiValuesOptions(multiValuesOptions);
+    pb.setName(name);
+    pb.setQueryId(queryId);
+    pb.setTitle(title);
+    pb.setType(typeValue);
+    pb.setValue(value);
+
+    return pb;
+  }
+
+  static Parameter fromPb(ParameterPb pb) {
+    Parameter model = new Parameter();
+    model.setEnumOptions(pb.getEnumOptions());
+    model.setMultiValuesOptions(pb.getMultiValuesOptions());
+    model.setName(pb.getName());
+    model.setQueryId(pb.getQueryId());
+    model.setTitle(pb.getTitle());
+    model.setType(pb.getType());
+    model.setValue(pb.getValue());
+
+    return model;
+  }
+
+  public static class ParameterSerializer extends JsonSerializer<Parameter> {
+    @Override
+    public void serialize(Parameter value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ParameterPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ParameterDeserializer extends JsonDeserializer<Parameter> {
+    @Override
+    public Parameter deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ParameterPb pb = mapper.readValue(p, ParameterPb.class);
+      return Parameter.fromPb(pb);
+    }
   }
 }

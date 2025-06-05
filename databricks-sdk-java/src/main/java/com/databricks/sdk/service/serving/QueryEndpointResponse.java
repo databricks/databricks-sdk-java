@@ -3,74 +3,73 @@
 package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.Header;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = QueryEndpointResponse.QueryEndpointResponseSerializer.class)
+@JsonDeserialize(using = QueryEndpointResponse.QueryEndpointResponseDeserializer.class)
 public class QueryEndpointResponse {
   /**
    * The list of choices returned by the __chat or completions external/foundation model__ serving
    * endpoint.
    */
-  @JsonProperty("choices")
   private Collection<V1ResponseChoiceElement> choices;
 
   /**
    * The timestamp in seconds when the query was created in Unix time returned by a __completions or
    * chat external/foundation model__ serving endpoint.
    */
-  @JsonProperty("created")
   private Long created;
 
   /**
    * The list of the embeddings returned by the __embeddings external/foundation model__ serving
    * endpoint.
    */
-  @JsonProperty("data")
   private Collection<EmbeddingsV1ResponseEmbeddingElement> data;
 
   /**
    * The ID of the query that may be returned by a __completions or chat external/foundation model__
    * serving endpoint.
    */
-  @JsonProperty("id")
   private String id;
 
   /**
    * The name of the __external/foundation model__ used for querying. This is the name of the model
    * that was specified in the endpoint config.
    */
-  @JsonProperty("model")
   private String model;
 
   /**
    * The type of object returned by the __external/foundation model__ serving endpoint, one of
    * [text_completion, chat.completion, list (of embeddings)].
    */
-  @JsonProperty("object")
   private QueryEndpointResponseObject object;
 
   /** The predictions returned by the serving endpoint. */
-  @JsonProperty("predictions")
   private Collection<Object> predictions;
 
   /**
    * The name of the served model that served the request. This is useful when there are multiple
    * models behind the same endpoint with traffic split.
    */
-  @JsonIgnore
-  @Header("served-model-name")
   private String servedModelName;
 
   /**
    * The usage object that may be returned by the __external/foundation model__ serving endpoint.
    * This contains information about the number of tokens used in the prompt and response.
    */
-  @JsonProperty("usage")
   private ExternalModelUsageElement usage;
 
   public QueryEndpointResponse setChoices(Collection<V1ResponseChoiceElement> choices) {
@@ -189,5 +188,57 @@ public class QueryEndpointResponse {
         .add("servedModelName", servedModelName)
         .add("usage", usage)
         .toString();
+  }
+
+  QueryEndpointResponsePb toPb() {
+    QueryEndpointResponsePb pb = new QueryEndpointResponsePb();
+    pb.setChoices(choices);
+    pb.setCreated(created);
+    pb.setData(data);
+    pb.setId(id);
+    pb.setModel(model);
+    pb.setObject(object);
+    pb.setPredictions(predictions);
+    pb.setServedModelName(servedModelName);
+    pb.setUsage(usage);
+
+    return pb;
+  }
+
+  static QueryEndpointResponse fromPb(QueryEndpointResponsePb pb) {
+    QueryEndpointResponse model = new QueryEndpointResponse();
+    model.setChoices(pb.getChoices());
+    model.setCreated(pb.getCreated());
+    model.setData(pb.getData());
+    model.setId(pb.getId());
+    model.setModel(pb.getModel());
+    model.setObject(pb.getObject());
+    model.setPredictions(pb.getPredictions());
+    model.setServedModelName(pb.getServedModelName());
+    model.setUsage(pb.getUsage());
+
+    return model;
+  }
+
+  public static class QueryEndpointResponseSerializer
+      extends JsonSerializer<QueryEndpointResponse> {
+    @Override
+    public void serialize(
+        QueryEndpointResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      QueryEndpointResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class QueryEndpointResponseDeserializer
+      extends JsonDeserializer<QueryEndpointResponse> {
+    @Override
+    public QueryEndpointResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      QueryEndpointResponsePb pb = mapper.readValue(p, QueryEndpointResponsePb.class);
+      return QueryEndpointResponse.fromPb(pb);
+    }
   }
 }

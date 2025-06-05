@@ -24,7 +24,7 @@ class StorageImpl implements StorageService {
             "/api/2.0/accounts/%s/storage-configurations", apiClient.configuredAccountID());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, StorageConfiguration.class);
@@ -41,7 +41,7 @@ class StorageImpl implements StorageService {
             apiClient.configuredAccountID(), request.getStorageConfigurationId());
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, DeleteResponse.class);
     } catch (IOException e) {
@@ -57,7 +57,7 @@ class StorageImpl implements StorageService {
             apiClient.configuredAccountID(), request.getStorageConfigurationId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, StorageConfiguration.class);
     } catch (IOException e) {

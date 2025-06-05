@@ -4,22 +4,33 @@ package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = WorkspaceObjectPermissionsRequest.WorkspaceObjectPermissionsRequestSerializer.class)
+@JsonDeserialize(
+    using = WorkspaceObjectPermissionsRequest.WorkspaceObjectPermissionsRequestDeserializer.class)
 public class WorkspaceObjectPermissionsRequest {
   /** */
-  @JsonProperty("access_control_list")
   private Collection<WorkspaceObjectAccessControlRequest> accessControlList;
 
   /** The workspace object for which to get or manage permissions. */
-  @JsonIgnore private String workspaceObjectId;
+  private String workspaceObjectId;
 
   /** The workspace object type for which to get or manage permissions. */
-  @JsonIgnore private String workspaceObjectType;
+  private String workspaceObjectType;
 
   public WorkspaceObjectPermissionsRequest setAccessControlList(
       Collection<WorkspaceObjectAccessControlRequest> accessControlList) {
@@ -71,5 +82,46 @@ public class WorkspaceObjectPermissionsRequest {
         .add("workspaceObjectId", workspaceObjectId)
         .add("workspaceObjectType", workspaceObjectType)
         .toString();
+  }
+
+  WorkspaceObjectPermissionsRequestPb toPb() {
+    WorkspaceObjectPermissionsRequestPb pb = new WorkspaceObjectPermissionsRequestPb();
+    pb.setAccessControlList(accessControlList);
+    pb.setWorkspaceObjectId(workspaceObjectId);
+    pb.setWorkspaceObjectType(workspaceObjectType);
+
+    return pb;
+  }
+
+  static WorkspaceObjectPermissionsRequest fromPb(WorkspaceObjectPermissionsRequestPb pb) {
+    WorkspaceObjectPermissionsRequest model = new WorkspaceObjectPermissionsRequest();
+    model.setAccessControlList(pb.getAccessControlList());
+    model.setWorkspaceObjectId(pb.getWorkspaceObjectId());
+    model.setWorkspaceObjectType(pb.getWorkspaceObjectType());
+
+    return model;
+  }
+
+  public static class WorkspaceObjectPermissionsRequestSerializer
+      extends JsonSerializer<WorkspaceObjectPermissionsRequest> {
+    @Override
+    public void serialize(
+        WorkspaceObjectPermissionsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      WorkspaceObjectPermissionsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class WorkspaceObjectPermissionsRequestDeserializer
+      extends JsonDeserializer<WorkspaceObjectPermissionsRequest> {
+    @Override
+    public WorkspaceObjectPermissionsRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      WorkspaceObjectPermissionsRequestPb pb =
+          mapper.readValue(p, WorkspaceObjectPermissionsRequestPb.class);
+      return WorkspaceObjectPermissionsRequest.fromPb(pb);
+    }
   }
 }

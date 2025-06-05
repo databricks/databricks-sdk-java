@@ -3,17 +3,25 @@
 package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get cluster policy compliance */
 @Generated
+@JsonSerialize(using = GetClusterComplianceRequest.GetClusterComplianceRequestSerializer.class)
+@JsonDeserialize(using = GetClusterComplianceRequest.GetClusterComplianceRequestDeserializer.class)
 public class GetClusterComplianceRequest {
   /** The ID of the cluster to get the compliance status */
-  @JsonIgnore
-  @QueryParam("cluster_id")
   private String clusterId;
 
   public GetClusterComplianceRequest setClusterId(String clusterId) {
@@ -41,5 +49,41 @@ public class GetClusterComplianceRequest {
   @Override
   public String toString() {
     return new ToStringer(GetClusterComplianceRequest.class).add("clusterId", clusterId).toString();
+  }
+
+  GetClusterComplianceRequestPb toPb() {
+    GetClusterComplianceRequestPb pb = new GetClusterComplianceRequestPb();
+    pb.setClusterId(clusterId);
+
+    return pb;
+  }
+
+  static GetClusterComplianceRequest fromPb(GetClusterComplianceRequestPb pb) {
+    GetClusterComplianceRequest model = new GetClusterComplianceRequest();
+    model.setClusterId(pb.getClusterId());
+
+    return model;
+  }
+
+  public static class GetClusterComplianceRequestSerializer
+      extends JsonSerializer<GetClusterComplianceRequest> {
+    @Override
+    public void serialize(
+        GetClusterComplianceRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetClusterComplianceRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetClusterComplianceRequestDeserializer
+      extends JsonDeserializer<GetClusterComplianceRequest> {
+    @Override
+    public GetClusterComplianceRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetClusterComplianceRequestPb pb = mapper.readValue(p, GetClusterComplianceRequestPb.class);
+      return GetClusterComplianceRequest.fromPb(pb);
+    }
   }
 }

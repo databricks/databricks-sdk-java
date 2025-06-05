@@ -4,21 +4,29 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = AlertV2OperandValue.AlertV2OperandValueSerializer.class)
+@JsonDeserialize(using = AlertV2OperandValue.AlertV2OperandValueDeserializer.class)
 public class AlertV2OperandValue {
   /** */
-  @JsonProperty("bool_value")
   private Boolean boolValue;
 
   /** */
-  @JsonProperty("double_value")
   private Double doubleValue;
 
   /** */
-  @JsonProperty("string_value")
   private String stringValue;
 
   public AlertV2OperandValue setBoolValue(Boolean boolValue) {
@@ -70,5 +78,43 @@ public class AlertV2OperandValue {
         .add("doubleValue", doubleValue)
         .add("stringValue", stringValue)
         .toString();
+  }
+
+  AlertV2OperandValuePb toPb() {
+    AlertV2OperandValuePb pb = new AlertV2OperandValuePb();
+    pb.setBoolValue(boolValue);
+    pb.setDoubleValue(doubleValue);
+    pb.setStringValue(stringValue);
+
+    return pb;
+  }
+
+  static AlertV2OperandValue fromPb(AlertV2OperandValuePb pb) {
+    AlertV2OperandValue model = new AlertV2OperandValue();
+    model.setBoolValue(pb.getBoolValue());
+    model.setDoubleValue(pb.getDoubleValue());
+    model.setStringValue(pb.getStringValue());
+
+    return model;
+  }
+
+  public static class AlertV2OperandValueSerializer extends JsonSerializer<AlertV2OperandValue> {
+    @Override
+    public void serialize(AlertV2OperandValue value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      AlertV2OperandValuePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class AlertV2OperandValueDeserializer
+      extends JsonDeserializer<AlertV2OperandValue> {
+    @Override
+    public AlertV2OperandValue deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      AlertV2OperandValuePb pb = mapper.readValue(p, AlertV2OperandValuePb.class);
+      return AlertV2OperandValue.fromPb(pb);
+    }
   }
 }

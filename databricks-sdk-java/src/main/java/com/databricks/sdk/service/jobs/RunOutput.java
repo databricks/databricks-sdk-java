@@ -4,41 +4,45 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Run output was retrieved successfully. */
 @Generated
+@JsonSerialize(using = RunOutput.RunOutputSerializer.class)
+@JsonDeserialize(using = RunOutput.RunOutputDeserializer.class)
 public class RunOutput {
   /** The output of a clean rooms notebook task, if available */
-  @JsonProperty("clean_rooms_notebook_output")
   private CleanRoomsNotebookTaskCleanRoomsNotebookTaskOutput cleanRoomsNotebookOutput;
 
   /** The output of a dashboard task, if available */
-  @JsonProperty("dashboard_output")
   private DashboardTaskOutput dashboardOutput;
 
   /** */
-  @JsonProperty("dbt_cloud_output")
   private DbtCloudTaskOutput dbtCloudOutput;
 
   /** The output of a dbt task, if available. */
-  @JsonProperty("dbt_output")
   private DbtOutput dbtOutput;
 
   /**
    * An error message indicating why a task failed or why output is not available. The message is
    * unstructured, and its exact format is subject to change.
    */
-  @JsonProperty("error")
   private String error;
 
   /** If there was an error executing the run, this field contains any available stack traces. */
-  @JsonProperty("error_trace")
   private String errorTrace;
 
   /** */
-  @JsonProperty("info")
   private String info;
 
   /**
@@ -49,15 +53,12 @@ public class RunOutput {
    *
    * <p>Databricks restricts this API to return the last 5 MB of these logs.
    */
-  @JsonProperty("logs")
   private String logs;
 
   /** Whether the logs are truncated. */
-  @JsonProperty("logs_truncated")
   private Boolean logsTruncated;
 
   /** All details of the run except for its output. */
-  @JsonProperty("metadata")
   private Run metadata;
 
   /**
@@ -70,15 +71,12 @@ public class RunOutput {
    * <p>[ClusterLogConf]:
    * https://docs.databricks.com/dev-tools/api/latest/clusters.html#clusterlogconf
    */
-  @JsonProperty("notebook_output")
   private NotebookOutput notebookOutput;
 
   /** The output of a run job task, if available */
-  @JsonProperty("run_job_output")
   private RunJobOutput runJobOutput;
 
   /** The output of a SQL task, if available. */
-  @JsonProperty("sql_output")
   private SqlOutput sqlOutput;
 
   public RunOutput setCleanRoomsNotebookOutput(
@@ -254,5 +252,61 @@ public class RunOutput {
         .add("runJobOutput", runJobOutput)
         .add("sqlOutput", sqlOutput)
         .toString();
+  }
+
+  RunOutputPb toPb() {
+    RunOutputPb pb = new RunOutputPb();
+    pb.setCleanRoomsNotebookOutput(cleanRoomsNotebookOutput);
+    pb.setDashboardOutput(dashboardOutput);
+    pb.setDbtCloudOutput(dbtCloudOutput);
+    pb.setDbtOutput(dbtOutput);
+    pb.setError(error);
+    pb.setErrorTrace(errorTrace);
+    pb.setInfo(info);
+    pb.setLogs(logs);
+    pb.setLogsTruncated(logsTruncated);
+    pb.setMetadata(metadata);
+    pb.setNotebookOutput(notebookOutput);
+    pb.setRunJobOutput(runJobOutput);
+    pb.setSqlOutput(sqlOutput);
+
+    return pb;
+  }
+
+  static RunOutput fromPb(RunOutputPb pb) {
+    RunOutput model = new RunOutput();
+    model.setCleanRoomsNotebookOutput(pb.getCleanRoomsNotebookOutput());
+    model.setDashboardOutput(pb.getDashboardOutput());
+    model.setDbtCloudOutput(pb.getDbtCloudOutput());
+    model.setDbtOutput(pb.getDbtOutput());
+    model.setError(pb.getError());
+    model.setErrorTrace(pb.getErrorTrace());
+    model.setInfo(pb.getInfo());
+    model.setLogs(pb.getLogs());
+    model.setLogsTruncated(pb.getLogsTruncated());
+    model.setMetadata(pb.getMetadata());
+    model.setNotebookOutput(pb.getNotebookOutput());
+    model.setRunJobOutput(pb.getRunJobOutput());
+    model.setSqlOutput(pb.getSqlOutput());
+
+    return model;
+  }
+
+  public static class RunOutputSerializer extends JsonSerializer<RunOutput> {
+    @Override
+    public void serialize(RunOutput value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      RunOutputPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class RunOutputDeserializer extends JsonDeserializer<RunOutput> {
+    @Override
+    public RunOutput deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      RunOutputPb pb = mapper.readValue(p, RunOutputPb.class);
+      return RunOutput.fromPb(pb);
+    }
   }
 }

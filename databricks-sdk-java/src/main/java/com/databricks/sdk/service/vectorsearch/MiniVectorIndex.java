@@ -4,17 +4,26 @@ package com.databricks.sdk.service.vectorsearch;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = MiniVectorIndex.MiniVectorIndexSerializer.class)
+@JsonDeserialize(using = MiniVectorIndex.MiniVectorIndexDeserializer.class)
 public class MiniVectorIndex {
   /** The user who created the index. */
-  @JsonProperty("creator")
   private String creator;
 
   /** Name of the endpoint associated with the index */
-  @JsonProperty("endpoint_name")
   private String endpointName;
 
   /**
@@ -24,15 +33,12 @@ public class MiniVectorIndex {
    * write of vectors and metadata through our REST and SDK APIs. With this model, the user manages
    * index updates.
    */
-  @JsonProperty("index_type")
   private VectorIndexType indexType;
 
   /** Name of the index */
-  @JsonProperty("name")
   private String name;
 
   /** Primary key of the index */
-  @JsonProperty("primary_key")
   private String primaryKey;
 
   public MiniVectorIndex setCreator(String creator) {
@@ -106,5 +112,46 @@ public class MiniVectorIndex {
         .add("name", name)
         .add("primaryKey", primaryKey)
         .toString();
+  }
+
+  MiniVectorIndexPb toPb() {
+    MiniVectorIndexPb pb = new MiniVectorIndexPb();
+    pb.setCreator(creator);
+    pb.setEndpointName(endpointName);
+    pb.setIndexType(indexType);
+    pb.setName(name);
+    pb.setPrimaryKey(primaryKey);
+
+    return pb;
+  }
+
+  static MiniVectorIndex fromPb(MiniVectorIndexPb pb) {
+    MiniVectorIndex model = new MiniVectorIndex();
+    model.setCreator(pb.getCreator());
+    model.setEndpointName(pb.getEndpointName());
+    model.setIndexType(pb.getIndexType());
+    model.setName(pb.getName());
+    model.setPrimaryKey(pb.getPrimaryKey());
+
+    return model;
+  }
+
+  public static class MiniVectorIndexSerializer extends JsonSerializer<MiniVectorIndex> {
+    @Override
+    public void serialize(MiniVectorIndex value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      MiniVectorIndexPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class MiniVectorIndexDeserializer extends JsonDeserializer<MiniVectorIndex> {
+    @Override
+    public MiniVectorIndex deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      MiniVectorIndexPb pb = mapper.readValue(p, MiniVectorIndexPb.class);
+      return MiniVectorIndex.fromPb(pb);
+    }
   }
 }

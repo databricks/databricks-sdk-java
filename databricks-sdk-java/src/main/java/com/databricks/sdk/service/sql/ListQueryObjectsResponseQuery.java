@@ -4,78 +4,74 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ListQueryObjectsResponseQuery.ListQueryObjectsResponseQuerySerializer.class)
+@JsonDeserialize(
+    using = ListQueryObjectsResponseQuery.ListQueryObjectsResponseQueryDeserializer.class)
 public class ListQueryObjectsResponseQuery {
   /** Whether to apply a 1000 row limit to the query result. */
-  @JsonProperty("apply_auto_limit")
   private Boolean applyAutoLimit;
 
   /** Name of the catalog where this query will be executed. */
-  @JsonProperty("catalog")
   private String catalog;
 
   /** Timestamp when this query was created. */
-  @JsonProperty("create_time")
   private String createTime;
 
   /**
    * General description that conveys additional information about this query such as usage notes.
    */
-  @JsonProperty("description")
   private String description;
 
   /**
    * Display name of the query that appears in list views, widget headings, and on the query page.
    */
-  @JsonProperty("display_name")
   private String displayName;
 
   /** UUID identifying the query. */
-  @JsonProperty("id")
   private String id;
 
   /** Username of the user who last saved changes to this query. */
-  @JsonProperty("last_modifier_user_name")
   private String lastModifierUserName;
 
   /** Indicates whether the query is trashed. */
-  @JsonProperty("lifecycle_state")
   private LifecycleState lifecycleState;
 
   /** Username of the user that owns the query. */
-  @JsonProperty("owner_user_name")
   private String ownerUserName;
 
   /** List of query parameter definitions. */
-  @JsonProperty("parameters")
   private Collection<QueryParameter> parameters;
 
   /** Text of the query to be run. */
-  @JsonProperty("query_text")
   private String queryText;
 
   /** Sets the "Run as" role for the object. */
-  @JsonProperty("run_as_mode")
   private RunAsMode runAsMode;
 
   /** Name of the schema where this query will be executed. */
-  @JsonProperty("schema")
   private String schema;
 
   /** */
-  @JsonProperty("tags")
   private Collection<String> tags;
 
   /** Timestamp when this query was last updated. */
-  @JsonProperty("update_time")
   private String updateTime;
 
   /** ID of the SQL warehouse attached to the query. */
-  @JsonProperty("warehouse_id")
   private String warehouseId;
 
   public ListQueryObjectsResponseQuery setApplyAutoLimit(Boolean applyAutoLimit) {
@@ -286,5 +282,72 @@ public class ListQueryObjectsResponseQuery {
         .add("updateTime", updateTime)
         .add("warehouseId", warehouseId)
         .toString();
+  }
+
+  ListQueryObjectsResponseQueryPb toPb() {
+    ListQueryObjectsResponseQueryPb pb = new ListQueryObjectsResponseQueryPb();
+    pb.setApplyAutoLimit(applyAutoLimit);
+    pb.setCatalog(catalog);
+    pb.setCreateTime(createTime);
+    pb.setDescription(description);
+    pb.setDisplayName(displayName);
+    pb.setId(id);
+    pb.setLastModifierUserName(lastModifierUserName);
+    pb.setLifecycleState(lifecycleState);
+    pb.setOwnerUserName(ownerUserName);
+    pb.setParameters(parameters);
+    pb.setQueryText(queryText);
+    pb.setRunAsMode(runAsMode);
+    pb.setSchema(schema);
+    pb.setTags(tags);
+    pb.setUpdateTime(updateTime);
+    pb.setWarehouseId(warehouseId);
+
+    return pb;
+  }
+
+  static ListQueryObjectsResponseQuery fromPb(ListQueryObjectsResponseQueryPb pb) {
+    ListQueryObjectsResponseQuery model = new ListQueryObjectsResponseQuery();
+    model.setApplyAutoLimit(pb.getApplyAutoLimit());
+    model.setCatalog(pb.getCatalog());
+    model.setCreateTime(pb.getCreateTime());
+    model.setDescription(pb.getDescription());
+    model.setDisplayName(pb.getDisplayName());
+    model.setId(pb.getId());
+    model.setLastModifierUserName(pb.getLastModifierUserName());
+    model.setLifecycleState(pb.getLifecycleState());
+    model.setOwnerUserName(pb.getOwnerUserName());
+    model.setParameters(pb.getParameters());
+    model.setQueryText(pb.getQueryText());
+    model.setRunAsMode(pb.getRunAsMode());
+    model.setSchema(pb.getSchema());
+    model.setTags(pb.getTags());
+    model.setUpdateTime(pb.getUpdateTime());
+    model.setWarehouseId(pb.getWarehouseId());
+
+    return model;
+  }
+
+  public static class ListQueryObjectsResponseQuerySerializer
+      extends JsonSerializer<ListQueryObjectsResponseQuery> {
+    @Override
+    public void serialize(
+        ListQueryObjectsResponseQuery value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListQueryObjectsResponseQueryPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListQueryObjectsResponseQueryDeserializer
+      extends JsonDeserializer<ListQueryObjectsResponseQuery> {
+    @Override
+    public ListQueryObjectsResponseQuery deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListQueryObjectsResponseQueryPb pb =
+          mapper.readValue(p, ListQueryObjectsResponseQueryPb.class);
+      return ListQueryObjectsResponseQuery.fromPb(pb);
+    }
   }
 }

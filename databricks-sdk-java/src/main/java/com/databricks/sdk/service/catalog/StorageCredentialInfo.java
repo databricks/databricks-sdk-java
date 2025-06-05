@@ -4,81 +4,74 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = StorageCredentialInfo.StorageCredentialInfoSerializer.class)
+@JsonDeserialize(using = StorageCredentialInfo.StorageCredentialInfoDeserializer.class)
 public class StorageCredentialInfo {
   /** The AWS IAM role configuration. */
-  @JsonProperty("aws_iam_role")
   private AwsIamRoleResponse awsIamRole;
 
   /** The Azure managed identity configuration. */
-  @JsonProperty("azure_managed_identity")
   private AzureManagedIdentityResponse azureManagedIdentity;
 
   /** The Azure service principal configuration. */
-  @JsonProperty("azure_service_principal")
   private AzureServicePrincipal azureServicePrincipal;
 
   /** The Cloudflare API token configuration. */
-  @JsonProperty("cloudflare_api_token")
   private CloudflareApiToken cloudflareApiToken;
 
   /** Comment associated with the credential. */
-  @JsonProperty("comment")
   private String comment;
 
   /** Time at which this Credential was created, in epoch milliseconds. */
-  @JsonProperty("created_at")
   private Long createdAt;
 
   /** Username of credential creator. */
-  @JsonProperty("created_by")
   private String createdBy;
 
   /** The Databricks managed GCP service account configuration. */
-  @JsonProperty("databricks_gcp_service_account")
   private DatabricksGcpServiceAccountResponse databricksGcpServiceAccount;
 
   /** The full name of the credential. */
-  @JsonProperty("full_name")
   private String fullName;
 
   /** The unique identifier of the credential. */
-  @JsonProperty("id")
   private String id;
 
   /** */
-  @JsonProperty("isolation_mode")
   private IsolationMode isolationMode;
 
   /** Unique identifier of parent metastore. */
-  @JsonProperty("metastore_id")
   private String metastoreId;
 
   /** The credential name. The name must be unique within the metastore. */
-  @JsonProperty("name")
   private String name;
 
   /** Username of current owner of credential. */
-  @JsonProperty("owner")
   private String owner;
 
   /** Whether the storage credential is only usable for read operations. */
-  @JsonProperty("read_only")
   private Boolean readOnly;
 
   /** Time at which this credential was last modified, in epoch milliseconds. */
-  @JsonProperty("updated_at")
   private Long updatedAt;
 
   /** Username of user who last modified the credential. */
-  @JsonProperty("updated_by")
   private String updatedBy;
 
   /** Whether this credential is the current metastore's root storage credential. */
-  @JsonProperty("used_for_managed_storage")
   private Boolean usedForManagedStorage;
 
   public StorageCredentialInfo setAwsIamRole(AwsIamRoleResponse awsIamRole) {
@@ -316,5 +309,75 @@ public class StorageCredentialInfo {
         .add("updatedBy", updatedBy)
         .add("usedForManagedStorage", usedForManagedStorage)
         .toString();
+  }
+
+  StorageCredentialInfoPb toPb() {
+    StorageCredentialInfoPb pb = new StorageCredentialInfoPb();
+    pb.setAwsIamRole(awsIamRole);
+    pb.setAzureManagedIdentity(azureManagedIdentity);
+    pb.setAzureServicePrincipal(azureServicePrincipal);
+    pb.setCloudflareApiToken(cloudflareApiToken);
+    pb.setComment(comment);
+    pb.setCreatedAt(createdAt);
+    pb.setCreatedBy(createdBy);
+    pb.setDatabricksGcpServiceAccount(databricksGcpServiceAccount);
+    pb.setFullName(fullName);
+    pb.setId(id);
+    pb.setIsolationMode(isolationMode);
+    pb.setMetastoreId(metastoreId);
+    pb.setName(name);
+    pb.setOwner(owner);
+    pb.setReadOnly(readOnly);
+    pb.setUpdatedAt(updatedAt);
+    pb.setUpdatedBy(updatedBy);
+    pb.setUsedForManagedStorage(usedForManagedStorage);
+
+    return pb;
+  }
+
+  static StorageCredentialInfo fromPb(StorageCredentialInfoPb pb) {
+    StorageCredentialInfo model = new StorageCredentialInfo();
+    model.setAwsIamRole(pb.getAwsIamRole());
+    model.setAzureManagedIdentity(pb.getAzureManagedIdentity());
+    model.setAzureServicePrincipal(pb.getAzureServicePrincipal());
+    model.setCloudflareApiToken(pb.getCloudflareApiToken());
+    model.setComment(pb.getComment());
+    model.setCreatedAt(pb.getCreatedAt());
+    model.setCreatedBy(pb.getCreatedBy());
+    model.setDatabricksGcpServiceAccount(pb.getDatabricksGcpServiceAccount());
+    model.setFullName(pb.getFullName());
+    model.setId(pb.getId());
+    model.setIsolationMode(pb.getIsolationMode());
+    model.setMetastoreId(pb.getMetastoreId());
+    model.setName(pb.getName());
+    model.setOwner(pb.getOwner());
+    model.setReadOnly(pb.getReadOnly());
+    model.setUpdatedAt(pb.getUpdatedAt());
+    model.setUpdatedBy(pb.getUpdatedBy());
+    model.setUsedForManagedStorage(pb.getUsedForManagedStorage());
+
+    return model;
+  }
+
+  public static class StorageCredentialInfoSerializer
+      extends JsonSerializer<StorageCredentialInfo> {
+    @Override
+    public void serialize(
+        StorageCredentialInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      StorageCredentialInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class StorageCredentialInfoDeserializer
+      extends JsonDeserializer<StorageCredentialInfo> {
+    @Override
+    public StorageCredentialInfo deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      StorageCredentialInfoPb pb = mapper.readValue(p, StorageCredentialInfoPb.class);
+      return StorageCredentialInfo.fromPb(pb);
+    }
   }
 }

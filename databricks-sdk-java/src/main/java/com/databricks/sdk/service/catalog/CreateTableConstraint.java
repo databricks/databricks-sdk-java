@@ -4,20 +4,29 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateTableConstraint.CreateTableConstraintSerializer.class)
+@JsonDeserialize(using = CreateTableConstraint.CreateTableConstraintDeserializer.class)
 public class CreateTableConstraint {
   /**
    * A table constraint, as defined by *one* of the following fields being set:
    * __primary_key_constraint__, __foreign_key_constraint__, __named_table_constraint__.
    */
-  @JsonProperty("constraint")
   private TableConstraint constraint;
 
   /** The full name of the table referenced by the constraint. */
-  @JsonProperty("full_name_arg")
   private String fullNameArg;
 
   public CreateTableConstraint setConstraint(TableConstraint constraint) {
@@ -58,5 +67,43 @@ public class CreateTableConstraint {
         .add("constraint", constraint)
         .add("fullNameArg", fullNameArg)
         .toString();
+  }
+
+  CreateTableConstraintPb toPb() {
+    CreateTableConstraintPb pb = new CreateTableConstraintPb();
+    pb.setConstraint(constraint);
+    pb.setFullNameArg(fullNameArg);
+
+    return pb;
+  }
+
+  static CreateTableConstraint fromPb(CreateTableConstraintPb pb) {
+    CreateTableConstraint model = new CreateTableConstraint();
+    model.setConstraint(pb.getConstraint());
+    model.setFullNameArg(pb.getFullNameArg());
+
+    return model;
+  }
+
+  public static class CreateTableConstraintSerializer
+      extends JsonSerializer<CreateTableConstraint> {
+    @Override
+    public void serialize(
+        CreateTableConstraint value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateTableConstraintPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateTableConstraintDeserializer
+      extends JsonDeserializer<CreateTableConstraint> {
+    @Override
+    public CreateTableConstraint deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateTableConstraintPb pb = mapper.readValue(p, CreateTableConstraintPb.class);
+      return CreateTableConstraint.fromPb(pb);
+    }
   }
 }

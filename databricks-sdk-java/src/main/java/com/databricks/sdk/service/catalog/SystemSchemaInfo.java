@@ -4,13 +4,23 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = SystemSchemaInfo.SystemSchemaInfoSerializer.class)
+@JsonDeserialize(using = SystemSchemaInfo.SystemSchemaInfoDeserializer.class)
 public class SystemSchemaInfo {
   /** Name of the system schema. */
-  @JsonProperty("schema")
   private String schema;
 
   /**
@@ -18,7 +28,6 @@ public class SystemSchemaInfo {
    * is available and ready for opt-in. Possible values: AVAILABLE | ENABLE_INITIALIZED |
    * ENABLE_COMPLETED | DISABLE_INITIALIZED | UNAVAILABLE
    */
-  @JsonProperty("state")
   private String state;
 
   public SystemSchemaInfo setSchema(String schema) {
@@ -58,5 +67,40 @@ public class SystemSchemaInfo {
         .add("schema", schema)
         .add("state", state)
         .toString();
+  }
+
+  SystemSchemaInfoPb toPb() {
+    SystemSchemaInfoPb pb = new SystemSchemaInfoPb();
+    pb.setSchema(schema);
+    pb.setState(state);
+
+    return pb;
+  }
+
+  static SystemSchemaInfo fromPb(SystemSchemaInfoPb pb) {
+    SystemSchemaInfo model = new SystemSchemaInfo();
+    model.setSchema(pb.getSchema());
+    model.setState(pb.getState());
+
+    return model;
+  }
+
+  public static class SystemSchemaInfoSerializer extends JsonSerializer<SystemSchemaInfo> {
+    @Override
+    public void serialize(SystemSchemaInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SystemSchemaInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SystemSchemaInfoDeserializer extends JsonDeserializer<SystemSchemaInfo> {
+    @Override
+    public SystemSchemaInfo deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SystemSchemaInfoPb pb = mapper.readValue(p, SystemSchemaInfoPb.class);
+      return SystemSchemaInfo.fromPb(pb);
+    }
   }
 }

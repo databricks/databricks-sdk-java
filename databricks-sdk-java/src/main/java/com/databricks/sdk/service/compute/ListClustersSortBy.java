@@ -3,24 +3,30 @@
 package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ListClustersSortBy.ListClustersSortBySerializer.class)
+@JsonDeserialize(using = ListClustersSortBy.ListClustersSortByDeserializer.class)
 public class ListClustersSortBy {
   /** The direction to sort by. */
-  @JsonProperty("direction")
-  @QueryParam("direction")
   private ListClustersSortByDirection direction;
 
   /**
    * The sorting criteria. By default, clusters are sorted by 3 columns from highest to lowest
    * precedence: cluster state, pinned or unpinned, then cluster name.
    */
-  @JsonProperty("field")
-  @QueryParam("field")
   private ListClustersSortByField field;
 
   public ListClustersSortBy setDirection(ListClustersSortByDirection direction) {
@@ -60,5 +66,40 @@ public class ListClustersSortBy {
         .add("direction", direction)
         .add("field", field)
         .toString();
+  }
+
+  ListClustersSortByPb toPb() {
+    ListClustersSortByPb pb = new ListClustersSortByPb();
+    pb.setDirection(direction);
+    pb.setField(field);
+
+    return pb;
+  }
+
+  static ListClustersSortBy fromPb(ListClustersSortByPb pb) {
+    ListClustersSortBy model = new ListClustersSortBy();
+    model.setDirection(pb.getDirection());
+    model.setField(pb.getField());
+
+    return model;
+  }
+
+  public static class ListClustersSortBySerializer extends JsonSerializer<ListClustersSortBy> {
+    @Override
+    public void serialize(ListClustersSortBy value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListClustersSortByPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListClustersSortByDeserializer extends JsonDeserializer<ListClustersSortBy> {
+    @Override
+    public ListClustersSortBy deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListClustersSortByPb pb = mapper.readValue(p, ListClustersSortByPb.class);
+      return ListClustersSortBy.fromPb(pb);
+    }
   }
 }

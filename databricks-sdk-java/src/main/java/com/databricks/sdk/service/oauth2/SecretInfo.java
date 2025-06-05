@@ -4,35 +4,40 @@ package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = SecretInfo.SecretInfoSerializer.class)
+@JsonDeserialize(using = SecretInfo.SecretInfoDeserializer.class)
 public class SecretInfo {
   /** UTC time when the secret was created */
-  @JsonProperty("create_time")
   private String createTime;
 
   /**
    * UTC time when the secret will expire. If the field is not present, the secret does not expire.
    */
-  @JsonProperty("expire_time")
   private String expireTime;
 
   /** ID of the secret */
-  @JsonProperty("id")
   private String id;
 
   /** Secret Hash */
-  @JsonProperty("secret_hash")
   private String secretHash;
 
   /** Status of the secret */
-  @JsonProperty("status")
   private String status;
 
   /** UTC time when the secret was updated */
-  @JsonProperty("update_time")
   private String updateTime;
 
   public SecretInfo setCreateTime(String createTime) {
@@ -117,5 +122,47 @@ public class SecretInfo {
         .add("status", status)
         .add("updateTime", updateTime)
         .toString();
+  }
+
+  SecretInfoPb toPb() {
+    SecretInfoPb pb = new SecretInfoPb();
+    pb.setCreateTime(createTime);
+    pb.setExpireTime(expireTime);
+    pb.setId(id);
+    pb.setSecretHash(secretHash);
+    pb.setStatus(status);
+    pb.setUpdateTime(updateTime);
+
+    return pb;
+  }
+
+  static SecretInfo fromPb(SecretInfoPb pb) {
+    SecretInfo model = new SecretInfo();
+    model.setCreateTime(pb.getCreateTime());
+    model.setExpireTime(pb.getExpireTime());
+    model.setId(pb.getId());
+    model.setSecretHash(pb.getSecretHash());
+    model.setStatus(pb.getStatus());
+    model.setUpdateTime(pb.getUpdateTime());
+
+    return model;
+  }
+
+  public static class SecretInfoSerializer extends JsonSerializer<SecretInfo> {
+    @Override
+    public void serialize(SecretInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SecretInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SecretInfoDeserializer extends JsonDeserializer<SecretInfo> {
+    @Override
+    public SecretInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SecretInfoPb pb = mapper.readValue(p, SecretInfoPb.class);
+      return SecretInfo.fromPb(pb);
+    }
   }
 }

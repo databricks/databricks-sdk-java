@@ -4,34 +4,39 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = NotebookFile.NotebookFileSerializer.class)
+@JsonDeserialize(using = NotebookFile.NotebookFileDeserializer.class)
 public class NotebookFile {
   /** The comment of the notebook file. */
-  @JsonProperty("comment")
   private String comment;
 
   /** The id of the notebook file. */
-  @JsonProperty("id")
   private String id;
 
   /** Name of the notebook file. */
-  @JsonProperty("name")
   private String name;
 
   /** The name of the share that the notebook file belongs to. */
-  @JsonProperty("share")
   private String share;
 
   /** The id of the share that the notebook file belongs to. */
-  @JsonProperty("share_id")
   private String shareId;
 
   /** The tags of the notebook file. */
-  @JsonProperty("tags")
   private Collection<com.databricks.sdk.service.catalog.TagKeyValue> tags;
 
   public NotebookFile setComment(String comment) {
@@ -116,5 +121,47 @@ public class NotebookFile {
         .add("shareId", shareId)
         .add("tags", tags)
         .toString();
+  }
+
+  NotebookFilePb toPb() {
+    NotebookFilePb pb = new NotebookFilePb();
+    pb.setComment(comment);
+    pb.setId(id);
+    pb.setName(name);
+    pb.setShare(share);
+    pb.setShareId(shareId);
+    pb.setTags(tags);
+
+    return pb;
+  }
+
+  static NotebookFile fromPb(NotebookFilePb pb) {
+    NotebookFile model = new NotebookFile();
+    model.setComment(pb.getComment());
+    model.setId(pb.getId());
+    model.setName(pb.getName());
+    model.setShare(pb.getShare());
+    model.setShareId(pb.getShareId());
+    model.setTags(pb.getTags());
+
+    return model;
+  }
+
+  public static class NotebookFileSerializer extends JsonSerializer<NotebookFile> {
+    @Override
+    public void serialize(NotebookFile value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      NotebookFilePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class NotebookFileDeserializer extends JsonDeserializer<NotebookFile> {
+    @Override
+    public NotebookFile deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      NotebookFilePb pb = mapper.readValue(p, NotebookFilePb.class);
+      return NotebookFile.fromPb(pb);
+    }
   }
 }

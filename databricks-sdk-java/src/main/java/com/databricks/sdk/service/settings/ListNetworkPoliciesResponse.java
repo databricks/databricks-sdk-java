@@ -4,21 +4,30 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ListNetworkPoliciesResponse.ListNetworkPoliciesResponseSerializer.class)
+@JsonDeserialize(using = ListNetworkPoliciesResponse.ListNetworkPoliciesResponseDeserializer.class)
 public class ListNetworkPoliciesResponse {
   /** List of network policies. */
-  @JsonProperty("items")
   private Collection<AccountNetworkPolicy> items;
 
   /**
    * A token that can be used to get the next page of results. If null, there are no more results to
    * show.
    */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   public ListNetworkPoliciesResponse setItems(Collection<AccountNetworkPolicy> items) {
@@ -58,5 +67,43 @@ public class ListNetworkPoliciesResponse {
         .add("items", items)
         .add("nextPageToken", nextPageToken)
         .toString();
+  }
+
+  ListNetworkPoliciesResponsePb toPb() {
+    ListNetworkPoliciesResponsePb pb = new ListNetworkPoliciesResponsePb();
+    pb.setItems(items);
+    pb.setNextPageToken(nextPageToken);
+
+    return pb;
+  }
+
+  static ListNetworkPoliciesResponse fromPb(ListNetworkPoliciesResponsePb pb) {
+    ListNetworkPoliciesResponse model = new ListNetworkPoliciesResponse();
+    model.setItems(pb.getItems());
+    model.setNextPageToken(pb.getNextPageToken());
+
+    return model;
+  }
+
+  public static class ListNetworkPoliciesResponseSerializer
+      extends JsonSerializer<ListNetworkPoliciesResponse> {
+    @Override
+    public void serialize(
+        ListNetworkPoliciesResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListNetworkPoliciesResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListNetworkPoliciesResponseDeserializer
+      extends JsonDeserializer<ListNetworkPoliciesResponse> {
+    @Override
+    public ListNetworkPoliciesResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListNetworkPoliciesResponsePb pb = mapper.readValue(p, ListNetworkPoliciesResponsePb.class);
+      return ListNetworkPoliciesResponse.fromPb(pb);
+    }
   }
 }

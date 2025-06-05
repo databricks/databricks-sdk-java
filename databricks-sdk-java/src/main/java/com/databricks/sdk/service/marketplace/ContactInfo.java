@@ -4,26 +4,33 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** contact info for the consumer requesting data or performing a listing installation */
 @Generated
+@JsonSerialize(using = ContactInfo.ContactInfoSerializer.class)
+@JsonDeserialize(using = ContactInfo.ContactInfoDeserializer.class)
 public class ContactInfo {
   /** */
-  @JsonProperty("company")
   private String company;
 
   /** */
-  @JsonProperty("email")
   private String email;
 
   /** */
-  @JsonProperty("first_name")
   private String firstName;
 
   /** */
-  @JsonProperty("last_name")
   private String lastName;
 
   public ContactInfo setCompany(String company) {
@@ -86,5 +93,43 @@ public class ContactInfo {
         .add("firstName", firstName)
         .add("lastName", lastName)
         .toString();
+  }
+
+  ContactInfoPb toPb() {
+    ContactInfoPb pb = new ContactInfoPb();
+    pb.setCompany(company);
+    pb.setEmail(email);
+    pb.setFirstName(firstName);
+    pb.setLastName(lastName);
+
+    return pb;
+  }
+
+  static ContactInfo fromPb(ContactInfoPb pb) {
+    ContactInfo model = new ContactInfo();
+    model.setCompany(pb.getCompany());
+    model.setEmail(pb.getEmail());
+    model.setFirstName(pb.getFirstName());
+    model.setLastName(pb.getLastName());
+
+    return model;
+  }
+
+  public static class ContactInfoSerializer extends JsonSerializer<ContactInfo> {
+    @Override
+    public void serialize(ContactInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ContactInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ContactInfoDeserializer extends JsonDeserializer<ContactInfo> {
+    @Override
+    public ContactInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ContactInfoPb pb = mapper.readValue(p, ContactInfoPb.class);
+      return ContactInfo.fromPb(pb);
+    }
   }
 }

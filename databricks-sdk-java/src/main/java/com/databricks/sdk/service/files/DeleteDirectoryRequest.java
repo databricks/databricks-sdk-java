@@ -4,14 +4,25 @@ package com.databricks.sdk.service.files;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Delete a directory */
 @Generated
+@JsonSerialize(using = DeleteDirectoryRequest.DeleteDirectoryRequestSerializer.class)
+@JsonDeserialize(using = DeleteDirectoryRequest.DeleteDirectoryRequestDeserializer.class)
 public class DeleteDirectoryRequest {
   /** The absolute path of a directory. */
-  @JsonIgnore private String directoryPath;
+  private String directoryPath;
 
   public DeleteDirectoryRequest setDirectoryPath(String directoryPath) {
     this.directoryPath = directoryPath;
@@ -40,5 +51,41 @@ public class DeleteDirectoryRequest {
     return new ToStringer(DeleteDirectoryRequest.class)
         .add("directoryPath", directoryPath)
         .toString();
+  }
+
+  DeleteDirectoryRequestPb toPb() {
+    DeleteDirectoryRequestPb pb = new DeleteDirectoryRequestPb();
+    pb.setDirectoryPath(directoryPath);
+
+    return pb;
+  }
+
+  static DeleteDirectoryRequest fromPb(DeleteDirectoryRequestPb pb) {
+    DeleteDirectoryRequest model = new DeleteDirectoryRequest();
+    model.setDirectoryPath(pb.getDirectoryPath());
+
+    return model;
+  }
+
+  public static class DeleteDirectoryRequestSerializer
+      extends JsonSerializer<DeleteDirectoryRequest> {
+    @Override
+    public void serialize(
+        DeleteDirectoryRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DeleteDirectoryRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DeleteDirectoryRequestDeserializer
+      extends JsonDeserializer<DeleteDirectoryRequest> {
+    @Override
+    public DeleteDirectoryRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DeleteDirectoryRequestPb pb = mapper.readValue(p, DeleteDirectoryRequestPb.class);
+      return DeleteDirectoryRequest.fromPb(pb);
+    }
   }
 }

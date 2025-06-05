@@ -4,14 +4,24 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Create an alert */
 @Generated
+@JsonSerialize(using = CreateAlertV2Request.CreateAlertV2RequestSerializer.class)
+@JsonDeserialize(using = CreateAlertV2Request.CreateAlertV2RequestDeserializer.class)
 public class CreateAlertV2Request {
   /** */
-  @JsonProperty("alert")
   private AlertV2 alert;
 
   public CreateAlertV2Request setAlert(AlertV2 alert) {
@@ -39,5 +49,40 @@ public class CreateAlertV2Request {
   @Override
   public String toString() {
     return new ToStringer(CreateAlertV2Request.class).add("alert", alert).toString();
+  }
+
+  CreateAlertV2RequestPb toPb() {
+    CreateAlertV2RequestPb pb = new CreateAlertV2RequestPb();
+    pb.setAlert(alert);
+
+    return pb;
+  }
+
+  static CreateAlertV2Request fromPb(CreateAlertV2RequestPb pb) {
+    CreateAlertV2Request model = new CreateAlertV2Request();
+    model.setAlert(pb.getAlert());
+
+    return model;
+  }
+
+  public static class CreateAlertV2RequestSerializer extends JsonSerializer<CreateAlertV2Request> {
+    @Override
+    public void serialize(
+        CreateAlertV2Request value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateAlertV2RequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateAlertV2RequestDeserializer
+      extends JsonDeserializer<CreateAlertV2Request> {
+    @Override
+    public CreateAlertV2Request deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateAlertV2RequestPb pb = mapper.readValue(p, CreateAlertV2RequestPb.class);
+      return CreateAlertV2Request.fromPb(pb);
+    }
   }
 }

@@ -4,21 +4,29 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = MetastoreAssignment.MetastoreAssignmentSerializer.class)
+@JsonDeserialize(using = MetastoreAssignment.MetastoreAssignmentDeserializer.class)
 public class MetastoreAssignment {
   /** The name of the default catalog in the metastore. */
-  @JsonProperty("default_catalog_name")
   private String defaultCatalogName;
 
   /** The unique ID of the metastore. */
-  @JsonProperty("metastore_id")
   private String metastoreId;
 
   /** The unique ID of the Databricks workspace. */
-  @JsonProperty("workspace_id")
   private Long workspaceId;
 
   public MetastoreAssignment setDefaultCatalogName(String defaultCatalogName) {
@@ -70,5 +78,43 @@ public class MetastoreAssignment {
         .add("metastoreId", metastoreId)
         .add("workspaceId", workspaceId)
         .toString();
+  }
+
+  MetastoreAssignmentPb toPb() {
+    MetastoreAssignmentPb pb = new MetastoreAssignmentPb();
+    pb.setDefaultCatalogName(defaultCatalogName);
+    pb.setMetastoreId(metastoreId);
+    pb.setWorkspaceId(workspaceId);
+
+    return pb;
+  }
+
+  static MetastoreAssignment fromPb(MetastoreAssignmentPb pb) {
+    MetastoreAssignment model = new MetastoreAssignment();
+    model.setDefaultCatalogName(pb.getDefaultCatalogName());
+    model.setMetastoreId(pb.getMetastoreId());
+    model.setWorkspaceId(pb.getWorkspaceId());
+
+    return model;
+  }
+
+  public static class MetastoreAssignmentSerializer extends JsonSerializer<MetastoreAssignment> {
+    @Override
+    public void serialize(MetastoreAssignment value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      MetastoreAssignmentPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class MetastoreAssignmentDeserializer
+      extends JsonDeserializer<MetastoreAssignment> {
+    @Override
+    public MetastoreAssignment deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      MetastoreAssignmentPb pb = mapper.readValue(p, MetastoreAssignmentPb.class);
+      return MetastoreAssignment.fromPb(pb);
+    }
   }
 }

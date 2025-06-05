@@ -4,36 +4,41 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateWidget.CreateWidgetSerializer.class)
+@JsonDeserialize(using = CreateWidget.CreateWidgetDeserializer.class)
 public class CreateWidget {
   /** Dashboard ID returned by :method:dashboards/create. */
-  @JsonProperty("dashboard_id")
   private String dashboardId;
 
   /** Widget ID returned by :method:dashboardwidgets/create */
-  @JsonIgnore private String id;
+  private String id;
 
   /** */
-  @JsonProperty("options")
   private WidgetOptions options;
 
   /**
    * If this is a textbox widget, the application displays this text. This field is ignored if the
    * widget contains a visualization in the `visualization` field.
    */
-  @JsonProperty("text")
   private String text;
 
   /** Query Vizualization ID returned by :method:queryvisualizations/create. */
-  @JsonProperty("visualization_id")
   private String visualizationId;
 
   /** Width of a widget */
-  @JsonProperty("width")
   private Long width;
 
   public CreateWidget setDashboardId(String dashboardId) {
@@ -118,5 +123,47 @@ public class CreateWidget {
         .add("visualizationId", visualizationId)
         .add("width", width)
         .toString();
+  }
+
+  CreateWidgetPb toPb() {
+    CreateWidgetPb pb = new CreateWidgetPb();
+    pb.setDashboardId(dashboardId);
+    pb.setId(id);
+    pb.setOptions(options);
+    pb.setText(text);
+    pb.setVisualizationId(visualizationId);
+    pb.setWidth(width);
+
+    return pb;
+  }
+
+  static CreateWidget fromPb(CreateWidgetPb pb) {
+    CreateWidget model = new CreateWidget();
+    model.setDashboardId(pb.getDashboardId());
+    model.setId(pb.getId());
+    model.setOptions(pb.getOptions());
+    model.setText(pb.getText());
+    model.setVisualizationId(pb.getVisualizationId());
+    model.setWidth(pb.getWidth());
+
+    return model;
+  }
+
+  public static class CreateWidgetSerializer extends JsonSerializer<CreateWidget> {
+    @Override
+    public void serialize(CreateWidget value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateWidgetPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateWidgetDeserializer extends JsonDeserializer<CreateWidget> {
+    @Override
+    public CreateWidget deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateWidgetPb pb = mapper.readValue(p, CreateWidgetPb.class);
+      return CreateWidget.fromPb(pb);
+    }
   }
 }

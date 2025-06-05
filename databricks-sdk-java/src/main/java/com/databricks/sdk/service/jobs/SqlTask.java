@@ -4,33 +4,39 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = SqlTask.SqlTaskSerializer.class)
+@JsonDeserialize(using = SqlTask.SqlTaskDeserializer.class)
 public class SqlTask {
   /** If alert, indicates that this job must refresh a SQL alert. */
-  @JsonProperty("alert")
   private SqlTaskAlert alert;
 
   /** If dashboard, indicates that this job must refresh a SQL dashboard. */
-  @JsonProperty("dashboard")
   private SqlTaskDashboard dashboard;
 
   /** If file, indicates that this job runs a SQL file in a remote Git repository. */
-  @JsonProperty("file")
   private SqlTaskFile file;
 
   /**
    * Parameters to be used for each run of this job. The SQL alert task does not support custom
    * parameters.
    */
-  @JsonProperty("parameters")
   private Map<String, String> parameters;
 
   /** If query, indicates that this job must execute a SQL query. */
-  @JsonProperty("query")
   private SqlTaskQuery query;
 
   /**
@@ -38,7 +44,6 @@ public class SqlTask {
    * warehouses. Classic SQL warehouses are only supported for SQL alert, dashboard and query tasks
    * and are limited to scheduled single-task jobs.
    */
-  @JsonProperty("warehouse_id")
   private String warehouseId;
 
   public SqlTask setAlert(SqlTaskAlert alert) {
@@ -123,5 +128,47 @@ public class SqlTask {
         .add("query", query)
         .add("warehouseId", warehouseId)
         .toString();
+  }
+
+  SqlTaskPb toPb() {
+    SqlTaskPb pb = new SqlTaskPb();
+    pb.setAlert(alert);
+    pb.setDashboard(dashboard);
+    pb.setFile(file);
+    pb.setParameters(parameters);
+    pb.setQuery(query);
+    pb.setWarehouseId(warehouseId);
+
+    return pb;
+  }
+
+  static SqlTask fromPb(SqlTaskPb pb) {
+    SqlTask model = new SqlTask();
+    model.setAlert(pb.getAlert());
+    model.setDashboard(pb.getDashboard());
+    model.setFile(pb.getFile());
+    model.setParameters(pb.getParameters());
+    model.setQuery(pb.getQuery());
+    model.setWarehouseId(pb.getWarehouseId());
+
+    return model;
+  }
+
+  public static class SqlTaskSerializer extends JsonSerializer<SqlTask> {
+    @Override
+    public void serialize(SqlTask value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SqlTaskPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SqlTaskDeserializer extends JsonDeserializer<SqlTask> {
+    @Override
+    public SqlTask deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SqlTaskPb pb = mapper.readValue(p, SqlTaskPb.class);
+      return SqlTask.fromPb(pb);
+    }
   }
 }

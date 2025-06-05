@@ -22,7 +22,7 @@ class NetworkPoliciesImpl implements NetworkPoliciesService {
         String.format("/api/2.0/accounts/%s/network-policies", apiClient.configuredAccountID());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request.getNetworkPolicy()));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, AccountNetworkPolicy.class);
@@ -39,7 +39,7 @@ class NetworkPoliciesImpl implements NetworkPoliciesService {
             apiClient.configuredAccountID(), request.getNetworkPolicyId());
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, DeleteNetworkPolicyRpcResponse.class);
     } catch (IOException e) {
@@ -55,7 +55,7 @@ class NetworkPoliciesImpl implements NetworkPoliciesService {
             apiClient.configuredAccountID(), request.getNetworkPolicyId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, AccountNetworkPolicy.class);
     } catch (IOException e) {
@@ -69,7 +69,7 @@ class NetworkPoliciesImpl implements NetworkPoliciesService {
         String.format("/api/2.0/accounts/%s/network-policies", apiClient.configuredAccountID());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListNetworkPoliciesResponse.class);
     } catch (IOException e) {
@@ -85,7 +85,7 @@ class NetworkPoliciesImpl implements NetworkPoliciesService {
             apiClient.configuredAccountID(), request.getNetworkPolicyId());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request.getNetworkPolicy()));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, AccountNetworkPolicy.class);

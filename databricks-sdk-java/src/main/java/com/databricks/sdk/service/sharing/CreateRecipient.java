@@ -4,17 +4,26 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateRecipient.CreateRecipientSerializer.class)
+@JsonDeserialize(using = CreateRecipient.CreateRecipientDeserializer.class)
 public class CreateRecipient {
   /** The delta sharing authentication type. */
-  @JsonProperty("authentication_type")
   private AuthenticationType authenticationType;
 
   /** Description about the recipient. */
-  @JsonProperty("comment")
   private String comment;
 
   /**
@@ -22,23 +31,18 @@ public class CreateRecipient {
    * present when the __authentication_type__ is **DATABRICKS**. The identifier is of format
    * __cloud__:__region__:__metastore-uuid__.
    */
-  @JsonProperty("data_recipient_global_metastore_id")
   private String dataRecipientGlobalMetastoreId;
 
   /** Expiration timestamp of the token, in epoch milliseconds. */
-  @JsonProperty("expiration_time")
   private Long expirationTime;
 
   /** IP Access List */
-  @JsonProperty("ip_access_list")
   private IpAccessList ipAccessList;
 
   /** Name of Recipient. */
-  @JsonProperty("name")
   private String name;
 
   /** Username of the recipient owner. */
-  @JsonProperty("owner")
   private String owner;
 
   /**
@@ -46,14 +50,12 @@ public class CreateRecipient {
    * specified properties will override the existing properties. To add and remove properties, one
    * would need to perform a read-modify-write.
    */
-  @JsonProperty("properties_kvpairs")
   private SecurablePropertiesKvPairs propertiesKvpairs;
 
   /**
    * The one-time sharing code provided by the data recipient. This field is only present when the
    * __authentication_type__ is **DATABRICKS**.
    */
-  @JsonProperty("sharing_code")
   private String sharingCode;
 
   public CreateRecipient setAuthenticationType(AuthenticationType authenticationType) {
@@ -180,5 +182,54 @@ public class CreateRecipient {
         .add("propertiesKvpairs", propertiesKvpairs)
         .add("sharingCode", sharingCode)
         .toString();
+  }
+
+  CreateRecipientPb toPb() {
+    CreateRecipientPb pb = new CreateRecipientPb();
+    pb.setAuthenticationType(authenticationType);
+    pb.setComment(comment);
+    pb.setDataRecipientGlobalMetastoreId(dataRecipientGlobalMetastoreId);
+    pb.setExpirationTime(expirationTime);
+    pb.setIpAccessList(ipAccessList);
+    pb.setName(name);
+    pb.setOwner(owner);
+    pb.setPropertiesKvpairs(propertiesKvpairs);
+    pb.setSharingCode(sharingCode);
+
+    return pb;
+  }
+
+  static CreateRecipient fromPb(CreateRecipientPb pb) {
+    CreateRecipient model = new CreateRecipient();
+    model.setAuthenticationType(pb.getAuthenticationType());
+    model.setComment(pb.getComment());
+    model.setDataRecipientGlobalMetastoreId(pb.getDataRecipientGlobalMetastoreId());
+    model.setExpirationTime(pb.getExpirationTime());
+    model.setIpAccessList(pb.getIpAccessList());
+    model.setName(pb.getName());
+    model.setOwner(pb.getOwner());
+    model.setPropertiesKvpairs(pb.getPropertiesKvpairs());
+    model.setSharingCode(pb.getSharingCode());
+
+    return model;
+  }
+
+  public static class CreateRecipientSerializer extends JsonSerializer<CreateRecipient> {
+    @Override
+    public void serialize(CreateRecipient value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateRecipientPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateRecipientDeserializer extends JsonDeserializer<CreateRecipient> {
+    @Override
+    public CreateRecipient deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateRecipientPb pb = mapper.readValue(p, CreateRecipientPb.class);
+      return CreateRecipient.fromPb(pb);
+    }
   }
 }

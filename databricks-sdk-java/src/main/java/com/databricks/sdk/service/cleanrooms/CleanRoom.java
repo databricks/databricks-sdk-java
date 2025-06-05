@@ -4,29 +4,36 @@ package com.databricks.sdk.service.cleanrooms;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CleanRoom.CleanRoomSerializer.class)
+@JsonDeserialize(using = CleanRoom.CleanRoomDeserializer.class)
 public class CleanRoom {
   /**
    * Whether clean room access is restricted due to [CSP]
    *
    * <p>[CSP]: https://docs.databricks.com/en/security/privacy/security-profile.html
    */
-  @JsonProperty("access_restricted")
   private CleanRoomAccessRestricted accessRestricted;
 
   /** */
-  @JsonProperty("comment")
   private String comment;
 
   /** When the clean room was created, in epoch milliseconds. */
-  @JsonProperty("created_at")
   private Long createdAt;
 
   /** The alias of the collaborator tied to the local clean room. */
-  @JsonProperty("local_collaborator_alias")
   private String localCollaboratorAlias;
 
   /**
@@ -35,36 +42,30 @@ public class CleanRoom {
    * <p>[UC securable naming requirements]:
    * https://docs.databricks.com/en/data-governance/unity-catalog/index.html#securable-object-naming-requirements
    */
-  @JsonProperty("name")
   private String name;
 
   /**
    * Output catalog of the clean room. It is an output only field. Output catalog is manipulated
    * using the separate CreateCleanRoomOutputCatalog API.
    */
-  @JsonProperty("output_catalog")
   private CleanRoomOutputCatalog outputCatalog;
 
   /**
    * This is Databricks username of the owner of the local clean room securable for permission
    * management.
    */
-  @JsonProperty("owner")
   private String owner;
 
   /**
    * Central clean room details. During creation, users need to specify cloud_vendor, region, and
    * collaborators.global_metastore_id. This field will not be filled in the ListCleanRooms call.
    */
-  @JsonProperty("remote_detailed_info")
   private CleanRoomRemoteDetail remoteDetailedInfo;
 
   /** Clean room status. */
-  @JsonProperty("status")
   private CleanRoomStatusEnum status;
 
   /** When the clean room was last updated, in epoch milliseconds. */
-  @JsonProperty("updated_at")
   private Long updatedAt;
 
   public CleanRoom setAccessRestricted(CleanRoomAccessRestricted accessRestricted) {
@@ -203,5 +204,55 @@ public class CleanRoom {
         .add("status", status)
         .add("updatedAt", updatedAt)
         .toString();
+  }
+
+  CleanRoomPb toPb() {
+    CleanRoomPb pb = new CleanRoomPb();
+    pb.setAccessRestricted(accessRestricted);
+    pb.setComment(comment);
+    pb.setCreatedAt(createdAt);
+    pb.setLocalCollaboratorAlias(localCollaboratorAlias);
+    pb.setName(name);
+    pb.setOutputCatalog(outputCatalog);
+    pb.setOwner(owner);
+    pb.setRemoteDetailedInfo(remoteDetailedInfo);
+    pb.setStatus(status);
+    pb.setUpdatedAt(updatedAt);
+
+    return pb;
+  }
+
+  static CleanRoom fromPb(CleanRoomPb pb) {
+    CleanRoom model = new CleanRoom();
+    model.setAccessRestricted(pb.getAccessRestricted());
+    model.setComment(pb.getComment());
+    model.setCreatedAt(pb.getCreatedAt());
+    model.setLocalCollaboratorAlias(pb.getLocalCollaboratorAlias());
+    model.setName(pb.getName());
+    model.setOutputCatalog(pb.getOutputCatalog());
+    model.setOwner(pb.getOwner());
+    model.setRemoteDetailedInfo(pb.getRemoteDetailedInfo());
+    model.setStatus(pb.getStatus());
+    model.setUpdatedAt(pb.getUpdatedAt());
+
+    return model;
+  }
+
+  public static class CleanRoomSerializer extends JsonSerializer<CleanRoom> {
+    @Override
+    public void serialize(CleanRoom value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CleanRoomPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CleanRoomDeserializer extends JsonDeserializer<CleanRoom> {
+    @Override
+    public CleanRoom deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CleanRoomPb pb = mapper.readValue(p, CleanRoomPb.class);
+      return CleanRoom.fromPb(pb);
+    }
   }
 }

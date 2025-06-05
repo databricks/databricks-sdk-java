@@ -4,17 +4,26 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ContextStatusResponse.ContextStatusResponseSerializer.class)
+@JsonDeserialize(using = ContextStatusResponse.ContextStatusResponseDeserializer.class)
 public class ContextStatusResponse {
   /** */
-  @JsonProperty("id")
   private String id;
 
   /** */
-  @JsonProperty("status")
   private ContextStatus status;
 
   public ContextStatusResponse setId(String id) {
@@ -54,5 +63,43 @@ public class ContextStatusResponse {
         .add("id", id)
         .add("status", status)
         .toString();
+  }
+
+  ContextStatusResponsePb toPb() {
+    ContextStatusResponsePb pb = new ContextStatusResponsePb();
+    pb.setId(id);
+    pb.setStatus(status);
+
+    return pb;
+  }
+
+  static ContextStatusResponse fromPb(ContextStatusResponsePb pb) {
+    ContextStatusResponse model = new ContextStatusResponse();
+    model.setId(pb.getId());
+    model.setStatus(pb.getStatus());
+
+    return model;
+  }
+
+  public static class ContextStatusResponseSerializer
+      extends JsonSerializer<ContextStatusResponse> {
+    @Override
+    public void serialize(
+        ContextStatusResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ContextStatusResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ContextStatusResponseDeserializer
+      extends JsonDeserializer<ContextStatusResponse> {
+    @Override
+    public ContextStatusResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ContextStatusResponsePb pb = mapper.readValue(p, ContextStatusResponsePb.class);
+      return ContextStatusResponse.fromPb(pb);
+    }
   }
 }

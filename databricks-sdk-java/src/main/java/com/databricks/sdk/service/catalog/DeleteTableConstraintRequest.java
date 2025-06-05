@@ -3,29 +3,36 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Delete a table constraint */
 @Generated
+@JsonSerialize(using = DeleteTableConstraintRequest.DeleteTableConstraintRequestSerializer.class)
+@JsonDeserialize(
+    using = DeleteTableConstraintRequest.DeleteTableConstraintRequestDeserializer.class)
 public class DeleteTableConstraintRequest {
   /**
    * If true, try deleting all child constraints of the current constraint. If false, reject this
    * operation if the current constraint has any child constraints.
    */
-  @JsonIgnore
-  @QueryParam("cascade")
   private Boolean cascade;
 
   /** The name of the constraint to delete. */
-  @JsonIgnore
-  @QueryParam("constraint_name")
   private String constraintName;
 
   /** Full name of the table referenced by the constraint. */
-  @JsonIgnore private String fullName;
+  private String fullName;
 
   public DeleteTableConstraintRequest setCascade(Boolean cascade) {
     this.cascade = cascade;
@@ -76,5 +83,45 @@ public class DeleteTableConstraintRequest {
         .add("constraintName", constraintName)
         .add("fullName", fullName)
         .toString();
+  }
+
+  DeleteTableConstraintRequestPb toPb() {
+    DeleteTableConstraintRequestPb pb = new DeleteTableConstraintRequestPb();
+    pb.setCascade(cascade);
+    pb.setConstraintName(constraintName);
+    pb.setFullName(fullName);
+
+    return pb;
+  }
+
+  static DeleteTableConstraintRequest fromPb(DeleteTableConstraintRequestPb pb) {
+    DeleteTableConstraintRequest model = new DeleteTableConstraintRequest();
+    model.setCascade(pb.getCascade());
+    model.setConstraintName(pb.getConstraintName());
+    model.setFullName(pb.getFullName());
+
+    return model;
+  }
+
+  public static class DeleteTableConstraintRequestSerializer
+      extends JsonSerializer<DeleteTableConstraintRequest> {
+    @Override
+    public void serialize(
+        DeleteTableConstraintRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DeleteTableConstraintRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DeleteTableConstraintRequestDeserializer
+      extends JsonDeserializer<DeleteTableConstraintRequest> {
+    @Override
+    public DeleteTableConstraintRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DeleteTableConstraintRequestPb pb = mapper.readValue(p, DeleteTableConstraintRequestPb.class);
+      return DeleteTableConstraintRequest.fromPb(pb);
+    }
   }
 }

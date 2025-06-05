@@ -60,7 +60,7 @@ class ProviderProviderAnalyticsDashboardsImpl
         String.format("/api/2.0/marketplace-provider/analytics_dashboard/%s", request.getId());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, UpdateProviderAnalyticsDashboardResponse.class);

@@ -4,25 +4,35 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = SetWorkspaceWarehouseConfigRequest.SetWorkspaceWarehouseConfigRequestSerializer.class)
+@JsonDeserialize(
+    using = SetWorkspaceWarehouseConfigRequest.SetWorkspaceWarehouseConfigRequestDeserializer.class)
 public class SetWorkspaceWarehouseConfigRequest {
   /** Optional: Channel selection details */
-  @JsonProperty("channel")
   private Channel channel;
 
   /** Deprecated: Use sql_configuration_parameters */
-  @JsonProperty("config_param")
   private RepeatedEndpointConfPairs configParam;
 
   /**
    * Spark confs for external hive metastore configuration JSON serialized size must be less than <=
    * 512K
    */
-  @JsonProperty("data_access_config")
   private Collection<EndpointConfPair> dataAccessConfig;
 
   /**
@@ -32,27 +42,21 @@ public class SetWorkspaceWarehouseConfigRequest {
    * to be converted to another type. Used by frontend to save specific type availability in the
    * warehouse create and edit form UI.
    */
-  @JsonProperty("enabled_warehouse_types")
   private Collection<WarehouseTypePair> enabledWarehouseTypes;
 
   /** Deprecated: Use sql_configuration_parameters */
-  @JsonProperty("global_param")
   private RepeatedEndpointConfPairs globalParam;
 
   /** GCP only: Google Service Account used to pass to cluster to access Google Cloud Storage */
-  @JsonProperty("google_service_account")
   private String googleServiceAccount;
 
   /** AWS Only: Instance profile used to pass IAM role to the cluster */
-  @JsonProperty("instance_profile_arn")
   private String instanceProfileArn;
 
   /** Security policy for warehouses */
-  @JsonProperty("security_policy")
   private SetWorkspaceWarehouseConfigRequestSecurityPolicy securityPolicy;
 
   /** SQL configuration parameters */
-  @JsonProperty("sql_configuration_parameters")
   private RepeatedEndpointConfPairs sqlConfigurationParameters;
 
   public SetWorkspaceWarehouseConfigRequest setChannel(Channel channel) {
@@ -183,5 +187,58 @@ public class SetWorkspaceWarehouseConfigRequest {
         .add("securityPolicy", securityPolicy)
         .add("sqlConfigurationParameters", sqlConfigurationParameters)
         .toString();
+  }
+
+  SetWorkspaceWarehouseConfigRequestPb toPb() {
+    SetWorkspaceWarehouseConfigRequestPb pb = new SetWorkspaceWarehouseConfigRequestPb();
+    pb.setChannel(channel);
+    pb.setConfigParam(configParam);
+    pb.setDataAccessConfig(dataAccessConfig);
+    pb.setEnabledWarehouseTypes(enabledWarehouseTypes);
+    pb.setGlobalParam(globalParam);
+    pb.setGoogleServiceAccount(googleServiceAccount);
+    pb.setInstanceProfileArn(instanceProfileArn);
+    pb.setSecurityPolicy(securityPolicy);
+    pb.setSqlConfigurationParameters(sqlConfigurationParameters);
+
+    return pb;
+  }
+
+  static SetWorkspaceWarehouseConfigRequest fromPb(SetWorkspaceWarehouseConfigRequestPb pb) {
+    SetWorkspaceWarehouseConfigRequest model = new SetWorkspaceWarehouseConfigRequest();
+    model.setChannel(pb.getChannel());
+    model.setConfigParam(pb.getConfigParam());
+    model.setDataAccessConfig(pb.getDataAccessConfig());
+    model.setEnabledWarehouseTypes(pb.getEnabledWarehouseTypes());
+    model.setGlobalParam(pb.getGlobalParam());
+    model.setGoogleServiceAccount(pb.getGoogleServiceAccount());
+    model.setInstanceProfileArn(pb.getInstanceProfileArn());
+    model.setSecurityPolicy(pb.getSecurityPolicy());
+    model.setSqlConfigurationParameters(pb.getSqlConfigurationParameters());
+
+    return model;
+  }
+
+  public static class SetWorkspaceWarehouseConfigRequestSerializer
+      extends JsonSerializer<SetWorkspaceWarehouseConfigRequest> {
+    @Override
+    public void serialize(
+        SetWorkspaceWarehouseConfigRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SetWorkspaceWarehouseConfigRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SetWorkspaceWarehouseConfigRequestDeserializer
+      extends JsonDeserializer<SetWorkspaceWarehouseConfigRequest> {
+    @Override
+    public SetWorkspaceWarehouseConfigRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SetWorkspaceWarehouseConfigRequestPb pb =
+          mapper.readValue(p, SetWorkspaceWarehouseConfigRequestPb.class);
+      return SetWorkspaceWarehouseConfigRequest.fromPb(pb);
+    }
   }
 }

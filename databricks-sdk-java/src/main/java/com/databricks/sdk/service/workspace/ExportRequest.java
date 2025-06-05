@@ -3,13 +3,23 @@
 package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Export a workspace object */
 @Generated
+@JsonSerialize(using = ExportRequest.ExportRequestSerializer.class)
+@JsonDeserialize(using = ExportRequest.ExportRequestDeserializer.class)
 public class ExportRequest {
   /**
    * This specifies the format of the exported file. By default, this is `SOURCE`.
@@ -24,16 +34,12 @@ public class ExportRequest {
    * is exported depending on the objects type. Directory exports will include notebooks and
    * workspace files.
    */
-  @JsonIgnore
-  @QueryParam("format")
   private ExportFormat format;
 
   /**
    * The absolute path of the object or directory. Exporting a directory is only supported for the
    * `DBC`, `SOURCE`, and `AUTO` format.
    */
-  @JsonIgnore
-  @QueryParam("path")
   private String path;
 
   public ExportRequest setFormat(ExportFormat format) {
@@ -70,5 +76,39 @@ public class ExportRequest {
   @Override
   public String toString() {
     return new ToStringer(ExportRequest.class).add("format", format).add("path", path).toString();
+  }
+
+  ExportRequestPb toPb() {
+    ExportRequestPb pb = new ExportRequestPb();
+    pb.setFormat(format);
+    pb.setPath(path);
+
+    return pb;
+  }
+
+  static ExportRequest fromPb(ExportRequestPb pb) {
+    ExportRequest model = new ExportRequest();
+    model.setFormat(pb.getFormat());
+    model.setPath(pb.getPath());
+
+    return model;
+  }
+
+  public static class ExportRequestSerializer extends JsonSerializer<ExportRequest> {
+    @Override
+    public void serialize(ExportRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ExportRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ExportRequestDeserializer extends JsonDeserializer<ExportRequest> {
+    @Override
+    public ExportRequest deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ExportRequestPb pb = mapper.readValue(p, ExportRequestPb.class);
+      return ExportRequest.fromPb(pb);
+    }
   }
 }

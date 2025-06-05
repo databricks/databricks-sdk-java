@@ -4,21 +4,35 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using =
+        ListProviderAnalyticsDashboardResponse.ListProviderAnalyticsDashboardResponseSerializer
+            .class)
+@JsonDeserialize(
+    using =
+        ListProviderAnalyticsDashboardResponse.ListProviderAnalyticsDashboardResponseDeserializer
+            .class)
 public class ListProviderAnalyticsDashboardResponse {
   /** dashboard_id will be used to open Lakeview dashboard. */
-  @JsonProperty("dashboard_id")
   private String dashboardId;
 
   /** */
-  @JsonProperty("id")
   private String id;
 
   /** */
-  @JsonProperty("version")
   private Long version;
 
   public ListProviderAnalyticsDashboardResponse setDashboardId(String dashboardId) {
@@ -70,5 +84,49 @@ public class ListProviderAnalyticsDashboardResponse {
         .add("id", id)
         .add("version", version)
         .toString();
+  }
+
+  ListProviderAnalyticsDashboardResponsePb toPb() {
+    ListProviderAnalyticsDashboardResponsePb pb = new ListProviderAnalyticsDashboardResponsePb();
+    pb.setDashboardId(dashboardId);
+    pb.setId(id);
+    pb.setVersion(version);
+
+    return pb;
+  }
+
+  static ListProviderAnalyticsDashboardResponse fromPb(
+      ListProviderAnalyticsDashboardResponsePb pb) {
+    ListProviderAnalyticsDashboardResponse model = new ListProviderAnalyticsDashboardResponse();
+    model.setDashboardId(pb.getDashboardId());
+    model.setId(pb.getId());
+    model.setVersion(pb.getVersion());
+
+    return model;
+  }
+
+  public static class ListProviderAnalyticsDashboardResponseSerializer
+      extends JsonSerializer<ListProviderAnalyticsDashboardResponse> {
+    @Override
+    public void serialize(
+        ListProviderAnalyticsDashboardResponse value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      ListProviderAnalyticsDashboardResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListProviderAnalyticsDashboardResponseDeserializer
+      extends JsonDeserializer<ListProviderAnalyticsDashboardResponse> {
+    @Override
+    public ListProviderAnalyticsDashboardResponse deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListProviderAnalyticsDashboardResponsePb pb =
+          mapper.readValue(p, ListProviderAnalyticsDashboardResponsePb.class);
+      return ListProviderAnalyticsDashboardResponse.fromPb(pb);
+    }
   }
 }

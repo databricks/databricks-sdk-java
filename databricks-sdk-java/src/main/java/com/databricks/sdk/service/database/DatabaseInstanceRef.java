@@ -4,7 +4,16 @@ package com.databricks.sdk.service.database;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -16,6 +25,8 @@ import java.util.Objects;
  * instance.
  */
 @Generated
+@JsonSerialize(using = DatabaseInstanceRef.DatabaseInstanceRefSerializer.class)
+@JsonDeserialize(using = DatabaseInstanceRef.DatabaseInstanceRefDeserializer.class)
 public class DatabaseInstanceRef {
   /**
    * Branch time of the ref database instance. For a parent ref instance, this is the point in time
@@ -24,7 +35,6 @@ public class DatabaseInstanceRef {
    * specifying the point in time to create a child instance. Optional. Output: Only populated if
    * provided as input to create a child instance.
    */
-  @JsonProperty("branch_time")
   private String branchTime;
 
   /**
@@ -33,15 +43,12 @@ public class DatabaseInstanceRef {
    * instance from which the child instance was created. Input: For specifying the WAL LSN to create
    * a child instance. Optional. Output: Always populated
    */
-  @JsonProperty("lsn")
   private String lsn;
 
   /** Name of the ref database instance. */
-  @JsonProperty("name")
   private String name;
 
   /** Id of the ref database instance. */
-  @JsonProperty("uid")
   private String uid;
 
   public DatabaseInstanceRef setBranchTime(String branchTime) {
@@ -104,5 +111,45 @@ public class DatabaseInstanceRef {
         .add("name", name)
         .add("uid", uid)
         .toString();
+  }
+
+  DatabaseInstanceRefPb toPb() {
+    DatabaseInstanceRefPb pb = new DatabaseInstanceRefPb();
+    pb.setBranchTime(branchTime);
+    pb.setLsn(lsn);
+    pb.setName(name);
+    pb.setUid(uid);
+
+    return pb;
+  }
+
+  static DatabaseInstanceRef fromPb(DatabaseInstanceRefPb pb) {
+    DatabaseInstanceRef model = new DatabaseInstanceRef();
+    model.setBranchTime(pb.getBranchTime());
+    model.setLsn(pb.getLsn());
+    model.setName(pb.getName());
+    model.setUid(pb.getUid());
+
+    return model;
+  }
+
+  public static class DatabaseInstanceRefSerializer extends JsonSerializer<DatabaseInstanceRef> {
+    @Override
+    public void serialize(DatabaseInstanceRef value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DatabaseInstanceRefPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DatabaseInstanceRefDeserializer
+      extends JsonDeserializer<DatabaseInstanceRef> {
+    @Override
+    public DatabaseInstanceRef deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DatabaseInstanceRefPb pb = mapper.readValue(p, DatabaseInstanceRefPb.class);
+      return DatabaseInstanceRef.fromPb(pb);
+    }
   }
 }

@@ -4,33 +4,45 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Add visualization to a query */
 @Generated
+@JsonSerialize(
+    using =
+        CreateQueryVisualizationsLegacyRequest.CreateQueryVisualizationsLegacyRequestSerializer
+            .class)
+@JsonDeserialize(
+    using =
+        CreateQueryVisualizationsLegacyRequest.CreateQueryVisualizationsLegacyRequestDeserializer
+            .class)
 public class CreateQueryVisualizationsLegacyRequest {
   /** A short description of this visualization. This is not displayed in the UI. */
-  @JsonProperty("description")
   private String description;
 
   /** The name of the visualization that appears on dashboards and the query screen. */
-  @JsonProperty("name")
   private String name;
 
   /**
    * The options object varies widely from one visualization type to the next and is unsupported.
    * Databricks does not recommend modifying visualization settings in JSON.
    */
-  @JsonProperty("options")
   private Object options;
 
   /** The identifier returned by :method:queries/create */
-  @JsonProperty("query_id")
   private String queryId;
 
   /** The type of visualization: chart, table, pivot table, and so on. */
-  @JsonProperty("type")
   private String typeValue;
 
   public CreateQueryVisualizationsLegacyRequest setDescription(String description) {
@@ -104,5 +116,53 @@ public class CreateQueryVisualizationsLegacyRequest {
         .add("queryId", queryId)
         .add("typeValue", typeValue)
         .toString();
+  }
+
+  CreateQueryVisualizationsLegacyRequestPb toPb() {
+    CreateQueryVisualizationsLegacyRequestPb pb = new CreateQueryVisualizationsLegacyRequestPb();
+    pb.setDescription(description);
+    pb.setName(name);
+    pb.setOptions(options);
+    pb.setQueryId(queryId);
+    pb.setType(typeValue);
+
+    return pb;
+  }
+
+  static CreateQueryVisualizationsLegacyRequest fromPb(
+      CreateQueryVisualizationsLegacyRequestPb pb) {
+    CreateQueryVisualizationsLegacyRequest model = new CreateQueryVisualizationsLegacyRequest();
+    model.setDescription(pb.getDescription());
+    model.setName(pb.getName());
+    model.setOptions(pb.getOptions());
+    model.setQueryId(pb.getQueryId());
+    model.setType(pb.getType());
+
+    return model;
+  }
+
+  public static class CreateQueryVisualizationsLegacyRequestSerializer
+      extends JsonSerializer<CreateQueryVisualizationsLegacyRequest> {
+    @Override
+    public void serialize(
+        CreateQueryVisualizationsLegacyRequest value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      CreateQueryVisualizationsLegacyRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateQueryVisualizationsLegacyRequestDeserializer
+      extends JsonDeserializer<CreateQueryVisualizationsLegacyRequest> {
+    @Override
+    public CreateQueryVisualizationsLegacyRequest deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateQueryVisualizationsLegacyRequestPb pb =
+          mapper.readValue(p, CreateQueryVisualizationsLegacyRequestPb.class);
+      return CreateQueryVisualizationsLegacyRequest.fromPb(pb);
+    }
   }
 }

@@ -4,29 +4,35 @@ package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = Credential.CredentialSerializer.class)
+@JsonDeserialize(using = Credential.CredentialDeserializer.class)
 public class Credential {
   /** The Databricks account ID that hosts the credential. */
-  @JsonProperty("account_id")
   private String accountId;
 
   /** */
-  @JsonProperty("aws_credentials")
   private AwsCredentials awsCredentials;
 
   /** Time in epoch milliseconds when the credential was created. */
-  @JsonProperty("creation_time")
   private Long creationTime;
 
   /** Databricks credential configuration ID. */
-  @JsonProperty("credentials_id")
   private String credentialsId;
 
   /** The human-readable name of the credential configuration object. */
-  @JsonProperty("credentials_name")
   private String credentialsName;
 
   public Credential setAccountId(String accountId) {
@@ -100,5 +106,45 @@ public class Credential {
         .add("credentialsId", credentialsId)
         .add("credentialsName", credentialsName)
         .toString();
+  }
+
+  CredentialPb toPb() {
+    CredentialPb pb = new CredentialPb();
+    pb.setAccountId(accountId);
+    pb.setAwsCredentials(awsCredentials);
+    pb.setCreationTime(creationTime);
+    pb.setCredentialsId(credentialsId);
+    pb.setCredentialsName(credentialsName);
+
+    return pb;
+  }
+
+  static Credential fromPb(CredentialPb pb) {
+    Credential model = new Credential();
+    model.setAccountId(pb.getAccountId());
+    model.setAwsCredentials(pb.getAwsCredentials());
+    model.setCreationTime(pb.getCreationTime());
+    model.setCredentialsId(pb.getCredentialsId());
+    model.setCredentialsName(pb.getCredentialsName());
+
+    return model;
+  }
+
+  public static class CredentialSerializer extends JsonSerializer<Credential> {
+    @Override
+    public void serialize(Credential value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CredentialPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CredentialDeserializer extends JsonDeserializer<Credential> {
+    @Override
+    public Credential deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CredentialPb pb = mapper.readValue(p, CredentialPb.class);
+      return Credential.fromPb(pb);
+    }
   }
 }

@@ -4,24 +4,32 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = DateValue.DateValueSerializer.class)
+@JsonDeserialize(using = DateValue.DateValueDeserializer.class)
 public class DateValue {
   /** Manually specified date-time value. */
-  @JsonProperty("date_value")
   private String dateValue;
 
   /** Dynamic date-time value based on current date-time. */
-  @JsonProperty("dynamic_date_value")
   private DateValueDynamicDate dynamicDateValue;
 
   /**
    * Date-time precision to format the value into when the query is run. Defaults to DAY_PRECISION
    * (YYYY-MM-DD).
    */
-  @JsonProperty("precision")
   private DatePrecision precision;
 
   public DateValue setDateValue(String dateValue) {
@@ -73,5 +81,41 @@ public class DateValue {
         .add("dynamicDateValue", dynamicDateValue)
         .add("precision", precision)
         .toString();
+  }
+
+  DateValuePb toPb() {
+    DateValuePb pb = new DateValuePb();
+    pb.setDateValue(dateValue);
+    pb.setDynamicDateValue(dynamicDateValue);
+    pb.setPrecision(precision);
+
+    return pb;
+  }
+
+  static DateValue fromPb(DateValuePb pb) {
+    DateValue model = new DateValue();
+    model.setDateValue(pb.getDateValue());
+    model.setDynamicDateValue(pb.getDynamicDateValue());
+    model.setPrecision(pb.getPrecision());
+
+    return model;
+  }
+
+  public static class DateValueSerializer extends JsonSerializer<DateValue> {
+    @Override
+    public void serialize(DateValue value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DateValuePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DateValueDeserializer extends JsonDeserializer<DateValue> {
+    @Override
+    public DateValue deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DateValuePb pb = mapper.readValue(p, DateValuePb.class);
+      return DateValue.fromPb(pb);
+    }
   }
 }

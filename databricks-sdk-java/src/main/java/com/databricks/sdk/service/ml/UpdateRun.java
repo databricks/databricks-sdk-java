@@ -4,32 +4,38 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = UpdateRun.UpdateRunSerializer.class)
+@JsonDeserialize(using = UpdateRun.UpdateRunDeserializer.class)
 public class UpdateRun {
   /** Unix timestamp in milliseconds of when the run ended. */
-  @JsonProperty("end_time")
   private Long endTime;
 
   /** ID of the run to update. Must be provided. */
-  @JsonProperty("run_id")
   private String runId;
 
   /** Updated name of the run. */
-  @JsonProperty("run_name")
   private String runName;
 
   /**
    * [Deprecated, use `run_id` instead] ID of the run to update. This field will be removed in a
    * future MLflow version.
    */
-  @JsonProperty("run_uuid")
   private String runUuid;
 
   /** Updated status of the run. */
-  @JsonProperty("status")
   private UpdateRunStatus status;
 
   public UpdateRun setEndTime(Long endTime) {
@@ -103,5 +109,45 @@ public class UpdateRun {
         .add("runUuid", runUuid)
         .add("status", status)
         .toString();
+  }
+
+  UpdateRunPb toPb() {
+    UpdateRunPb pb = new UpdateRunPb();
+    pb.setEndTime(endTime);
+    pb.setRunId(runId);
+    pb.setRunName(runName);
+    pb.setRunUuid(runUuid);
+    pb.setStatus(status);
+
+    return pb;
+  }
+
+  static UpdateRun fromPb(UpdateRunPb pb) {
+    UpdateRun model = new UpdateRun();
+    model.setEndTime(pb.getEndTime());
+    model.setRunId(pb.getRunId());
+    model.setRunName(pb.getRunName());
+    model.setRunUuid(pb.getRunUuid());
+    model.setStatus(pb.getStatus());
+
+    return model;
+  }
+
+  public static class UpdateRunSerializer extends JsonSerializer<UpdateRun> {
+    @Override
+    public void serialize(UpdateRun value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateRunPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateRunDeserializer extends JsonDeserializer<UpdateRun> {
+    @Override
+    public UpdateRun deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateRunPb pb = mapper.readValue(p, UpdateRunPb.class);
+      return UpdateRun.fromPb(pb);
+    }
   }
 }

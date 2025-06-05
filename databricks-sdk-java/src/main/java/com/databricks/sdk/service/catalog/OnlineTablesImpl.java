@@ -21,7 +21,7 @@ class OnlineTablesImpl implements OnlineTablesService {
     String path = "/api/2.0/online-tables";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request.getTable()));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, OnlineTable.class);
@@ -35,7 +35,7 @@ class OnlineTablesImpl implements OnlineTablesService {
     String path = String.format("/api/2.0/online-tables/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, DeleteResponse.class);
     } catch (IOException e) {
@@ -48,7 +48,7 @@ class OnlineTablesImpl implements OnlineTablesService {
     String path = String.format("/api/2.0/online-tables/%s", request.getName());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, OnlineTable.class);
     } catch (IOException e) {

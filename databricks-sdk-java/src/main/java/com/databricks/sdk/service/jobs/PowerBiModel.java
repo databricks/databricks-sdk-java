@@ -4,29 +4,35 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = PowerBiModel.PowerBiModelSerializer.class)
+@JsonDeserialize(using = PowerBiModel.PowerBiModelDeserializer.class)
 public class PowerBiModel {
   /** How the published Power BI model authenticates to Databricks */
-  @JsonProperty("authentication_method")
   private AuthenticationMethod authenticationMethod;
 
   /** The name of the Power BI model */
-  @JsonProperty("model_name")
   private String modelName;
 
   /** Whether to overwrite existing Power BI models */
-  @JsonProperty("overwrite_existing")
   private Boolean overwriteExisting;
 
   /** The default storage mode of the Power BI model */
-  @JsonProperty("storage_mode")
   private StorageMode storageMode;
 
   /** The name of the Power BI workspace of the model */
-  @JsonProperty("workspace_name")
   private String workspaceName;
 
   public PowerBiModel setAuthenticationMethod(AuthenticationMethod authenticationMethod) {
@@ -101,5 +107,45 @@ public class PowerBiModel {
         .add("storageMode", storageMode)
         .add("workspaceName", workspaceName)
         .toString();
+  }
+
+  PowerBiModelPb toPb() {
+    PowerBiModelPb pb = new PowerBiModelPb();
+    pb.setAuthenticationMethod(authenticationMethod);
+    pb.setModelName(modelName);
+    pb.setOverwriteExisting(overwriteExisting);
+    pb.setStorageMode(storageMode);
+    pb.setWorkspaceName(workspaceName);
+
+    return pb;
+  }
+
+  static PowerBiModel fromPb(PowerBiModelPb pb) {
+    PowerBiModel model = new PowerBiModel();
+    model.setAuthenticationMethod(pb.getAuthenticationMethod());
+    model.setModelName(pb.getModelName());
+    model.setOverwriteExisting(pb.getOverwriteExisting());
+    model.setStorageMode(pb.getStorageMode());
+    model.setWorkspaceName(pb.getWorkspaceName());
+
+    return model;
+  }
+
+  public static class PowerBiModelSerializer extends JsonSerializer<PowerBiModel> {
+    @Override
+    public void serialize(PowerBiModel value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PowerBiModelPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PowerBiModelDeserializer extends JsonDeserializer<PowerBiModel> {
+    @Override
+    public PowerBiModel deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PowerBiModelPb pb = mapper.readValue(p, PowerBiModelPb.class);
+      return PowerBiModel.fromPb(pb);
+    }
   }
 }

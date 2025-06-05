@@ -4,18 +4,27 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ListRegistryWebhooks.ListRegistryWebhooksSerializer.class)
+@JsonDeserialize(using = ListRegistryWebhooks.ListRegistryWebhooksDeserializer.class)
 public class ListRegistryWebhooks {
   /** Token that can be used to retrieve the next page of artifact results */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   /** Array of registry webhooks. */
-  @JsonProperty("webhooks")
   private Collection<RegistryWebhook> webhooks;
 
   public ListRegistryWebhooks setNextPageToken(String nextPageToken) {
@@ -56,5 +65,42 @@ public class ListRegistryWebhooks {
         .add("nextPageToken", nextPageToken)
         .add("webhooks", webhooks)
         .toString();
+  }
+
+  ListRegistryWebhooksPb toPb() {
+    ListRegistryWebhooksPb pb = new ListRegistryWebhooksPb();
+    pb.setNextPageToken(nextPageToken);
+    pb.setWebhooks(webhooks);
+
+    return pb;
+  }
+
+  static ListRegistryWebhooks fromPb(ListRegistryWebhooksPb pb) {
+    ListRegistryWebhooks model = new ListRegistryWebhooks();
+    model.setNextPageToken(pb.getNextPageToken());
+    model.setWebhooks(pb.getWebhooks());
+
+    return model;
+  }
+
+  public static class ListRegistryWebhooksSerializer extends JsonSerializer<ListRegistryWebhooks> {
+    @Override
+    public void serialize(
+        ListRegistryWebhooks value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListRegistryWebhooksPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListRegistryWebhooksDeserializer
+      extends JsonDeserializer<ListRegistryWebhooks> {
+    @Override
+    public ListRegistryWebhooks deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListRegistryWebhooksPb pb = mapper.readValue(p, ListRegistryWebhooksPb.class);
+      return ListRegistryWebhooks.fromPb(pb);
+    }
   }
 }

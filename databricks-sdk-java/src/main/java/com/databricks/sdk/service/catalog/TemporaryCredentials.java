@@ -4,16 +4,26 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = TemporaryCredentials.TemporaryCredentialsSerializer.class)
+@JsonDeserialize(using = TemporaryCredentials.TemporaryCredentialsDeserializer.class)
 public class TemporaryCredentials {
   /**
    * AWS temporary credentials for API authentication. Read more at
    * https://docs.aws.amazon.com/STS/latest/APIReference/API_Credentials.html.
    */
-  @JsonProperty("aws_temp_credentials")
   private AwsCredentials awsTempCredentials;
 
   /**
@@ -21,21 +31,18 @@ public class TemporaryCredentials {
    * Managed Identity. Read more at
    * https://learn.microsoft.com/en-us/azure/databricks/dev-tools/api/latest/aad/service-prin-aad-token
    */
-  @JsonProperty("azure_aad")
   private AzureActiveDirectoryToken azureAad;
 
   /**
    * Server time when the credential will expire, in epoch milliseconds. The API client is advised
    * to cache the credential given this expiration time.
    */
-  @JsonProperty("expiration_time")
   private Long expirationTime;
 
   /**
    * GCP temporary credentials for API authentication. Read more at
    * https://developers.google.com/identity/protocols/oauth2/service-account
    */
-  @JsonProperty("gcp_oauth_token")
   private GcpOauthToken gcpOauthToken;
 
   public TemporaryCredentials setAwsTempCredentials(AwsCredentials awsTempCredentials) {
@@ -98,5 +105,46 @@ public class TemporaryCredentials {
         .add("expirationTime", expirationTime)
         .add("gcpOauthToken", gcpOauthToken)
         .toString();
+  }
+
+  TemporaryCredentialsPb toPb() {
+    TemporaryCredentialsPb pb = new TemporaryCredentialsPb();
+    pb.setAwsTempCredentials(awsTempCredentials);
+    pb.setAzureAad(azureAad);
+    pb.setExpirationTime(expirationTime);
+    pb.setGcpOauthToken(gcpOauthToken);
+
+    return pb;
+  }
+
+  static TemporaryCredentials fromPb(TemporaryCredentialsPb pb) {
+    TemporaryCredentials model = new TemporaryCredentials();
+    model.setAwsTempCredentials(pb.getAwsTempCredentials());
+    model.setAzureAad(pb.getAzureAad());
+    model.setExpirationTime(pb.getExpirationTime());
+    model.setGcpOauthToken(pb.getGcpOauthToken());
+
+    return model;
+  }
+
+  public static class TemporaryCredentialsSerializer extends JsonSerializer<TemporaryCredentials> {
+    @Override
+    public void serialize(
+        TemporaryCredentials value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      TemporaryCredentialsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class TemporaryCredentialsDeserializer
+      extends JsonDeserializer<TemporaryCredentials> {
+    @Override
+    public TemporaryCredentials deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      TemporaryCredentialsPb pb = mapper.readValue(p, TemporaryCredentialsPb.class);
+      return TemporaryCredentials.fromPb(pb);
+    }
   }
 }

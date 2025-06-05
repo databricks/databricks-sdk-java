@@ -21,7 +21,7 @@ class ProviderFilesImpl implements ProviderFilesService {
     String path = "/api/2.0/marketplace-provider/files";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, CreateFileResponse.class);
@@ -35,7 +35,7 @@ class ProviderFilesImpl implements ProviderFilesService {
     String path = String.format("/api/2.0/marketplace-provider/files/%s", request.getFileId());
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, DeleteFileResponse.class);
     } catch (IOException e) {
@@ -48,7 +48,7 @@ class ProviderFilesImpl implements ProviderFilesService {
     String path = String.format("/api/2.0/marketplace-provider/files/%s", request.getFileId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetFileResponse.class);
     } catch (IOException e) {
@@ -61,7 +61,7 @@ class ProviderFilesImpl implements ProviderFilesService {
     String path = "/api/2.0/marketplace-provider/files";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListFilesResponse.class);
     } catch (IOException e) {

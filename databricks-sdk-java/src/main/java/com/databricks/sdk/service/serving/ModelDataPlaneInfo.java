@@ -4,7 +4,16 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -12,9 +21,10 @@ import java.util.Objects;
  * Plane APIs.
  */
 @Generated
+@JsonSerialize(using = ModelDataPlaneInfo.ModelDataPlaneInfoSerializer.class)
+@JsonDeserialize(using = ModelDataPlaneInfo.ModelDataPlaneInfoDeserializer.class)
 public class ModelDataPlaneInfo {
   /** Information required to query DataPlane API 'query' endpoint. */
-  @JsonProperty("query_info")
   private DataPlaneInfo queryInfo;
 
   public ModelDataPlaneInfo setQueryInfo(DataPlaneInfo queryInfo) {
@@ -42,5 +52,38 @@ public class ModelDataPlaneInfo {
   @Override
   public String toString() {
     return new ToStringer(ModelDataPlaneInfo.class).add("queryInfo", queryInfo).toString();
+  }
+
+  ModelDataPlaneInfoPb toPb() {
+    ModelDataPlaneInfoPb pb = new ModelDataPlaneInfoPb();
+    pb.setQueryInfo(queryInfo);
+
+    return pb;
+  }
+
+  static ModelDataPlaneInfo fromPb(ModelDataPlaneInfoPb pb) {
+    ModelDataPlaneInfo model = new ModelDataPlaneInfo();
+    model.setQueryInfo(pb.getQueryInfo());
+
+    return model;
+  }
+
+  public static class ModelDataPlaneInfoSerializer extends JsonSerializer<ModelDataPlaneInfo> {
+    @Override
+    public void serialize(ModelDataPlaneInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ModelDataPlaneInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ModelDataPlaneInfoDeserializer extends JsonDeserializer<ModelDataPlaneInfo> {
+    @Override
+    public ModelDataPlaneInfo deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ModelDataPlaneInfoPb pb = mapper.readValue(p, ModelDataPlaneInfoPb.class);
+      return ModelDataPlaneInfo.fromPb(pb);
+    }
   }
 }

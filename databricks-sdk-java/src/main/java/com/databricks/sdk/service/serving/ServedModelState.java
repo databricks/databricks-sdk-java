@@ -4,17 +4,26 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ServedModelState.ServedModelStateSerializer.class)
+@JsonDeserialize(using = ServedModelState.ServedModelStateDeserializer.class)
 public class ServedModelState {
   /** */
-  @JsonProperty("deployment")
   private ServedModelStateDeployment deployment;
 
   /** */
-  @JsonProperty("deployment_state_message")
   private String deploymentStateMessage;
 
   public ServedModelState setDeployment(ServedModelStateDeployment deployment) {
@@ -55,5 +64,40 @@ public class ServedModelState {
         .add("deployment", deployment)
         .add("deploymentStateMessage", deploymentStateMessage)
         .toString();
+  }
+
+  ServedModelStatePb toPb() {
+    ServedModelStatePb pb = new ServedModelStatePb();
+    pb.setDeployment(deployment);
+    pb.setDeploymentStateMessage(deploymentStateMessage);
+
+    return pb;
+  }
+
+  static ServedModelState fromPb(ServedModelStatePb pb) {
+    ServedModelState model = new ServedModelState();
+    model.setDeployment(pb.getDeployment());
+    model.setDeploymentStateMessage(pb.getDeploymentStateMessage());
+
+    return model;
+  }
+
+  public static class ServedModelStateSerializer extends JsonSerializer<ServedModelState> {
+    @Override
+    public void serialize(ServedModelState value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ServedModelStatePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ServedModelStateDeserializer extends JsonDeserializer<ServedModelState> {
+    @Override
+    public ServedModelState deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ServedModelStatePb pb = mapper.readValue(p, ServedModelStatePb.class);
+      return ServedModelState.fromPb(pb);
+    }
   }
 }

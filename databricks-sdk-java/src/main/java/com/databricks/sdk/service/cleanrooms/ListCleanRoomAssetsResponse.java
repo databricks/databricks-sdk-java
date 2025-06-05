@@ -4,21 +4,30 @@ package com.databricks.sdk.service.cleanrooms;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ListCleanRoomAssetsResponse.ListCleanRoomAssetsResponseSerializer.class)
+@JsonDeserialize(using = ListCleanRoomAssetsResponse.ListCleanRoomAssetsResponseDeserializer.class)
 public class ListCleanRoomAssetsResponse {
   /** Assets in the clean room. */
-  @JsonProperty("assets")
   private Collection<CleanRoomAsset> assets;
 
   /**
    * Opaque token to retrieve the next page of results. Absent if there are no more pages.
    * page_token should be set to this value for the next request (for the next page of results).
    */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   public ListCleanRoomAssetsResponse setAssets(Collection<CleanRoomAsset> assets) {
@@ -58,5 +67,43 @@ public class ListCleanRoomAssetsResponse {
         .add("assets", assets)
         .add("nextPageToken", nextPageToken)
         .toString();
+  }
+
+  ListCleanRoomAssetsResponsePb toPb() {
+    ListCleanRoomAssetsResponsePb pb = new ListCleanRoomAssetsResponsePb();
+    pb.setAssets(assets);
+    pb.setNextPageToken(nextPageToken);
+
+    return pb;
+  }
+
+  static ListCleanRoomAssetsResponse fromPb(ListCleanRoomAssetsResponsePb pb) {
+    ListCleanRoomAssetsResponse model = new ListCleanRoomAssetsResponse();
+    model.setAssets(pb.getAssets());
+    model.setNextPageToken(pb.getNextPageToken());
+
+    return model;
+  }
+
+  public static class ListCleanRoomAssetsResponseSerializer
+      extends JsonSerializer<ListCleanRoomAssetsResponse> {
+    @Override
+    public void serialize(
+        ListCleanRoomAssetsResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListCleanRoomAssetsResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListCleanRoomAssetsResponseDeserializer
+      extends JsonDeserializer<ListCleanRoomAssetsResponse> {
+    @Override
+    public ListCleanRoomAssetsResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListCleanRoomAssetsResponsePb pb = mapper.readValue(p, ListCleanRoomAssetsResponsePb.class);
+      return ListCleanRoomAssetsResponse.fromPb(pb);
+    }
   }
 }

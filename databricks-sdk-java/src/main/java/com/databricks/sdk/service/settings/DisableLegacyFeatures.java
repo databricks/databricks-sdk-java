@@ -4,13 +4,23 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = DisableLegacyFeatures.DisableLegacyFeaturesSerializer.class)
+@JsonDeserialize(using = DisableLegacyFeatures.DisableLegacyFeaturesDeserializer.class)
 public class DisableLegacyFeatures {
   /** */
-  @JsonProperty("disable_legacy_features")
   private BooleanMessage disableLegacyFeatures;
 
   /**
@@ -21,7 +31,6 @@ public class DisableLegacyFeatures {
    * etag from a GET request, and pass it with the PATCH request to identify the setting version you
    * are updating.
    */
-  @JsonProperty("etag")
   private String etag;
 
   /**
@@ -30,7 +39,6 @@ public class DisableLegacyFeatures {
    * respected instead. Setting name is required to be 'default' if the setting only has one
    * instance per workspace.
    */
-  @JsonProperty("setting_name")
   private String settingName;
 
   public DisableLegacyFeatures setDisableLegacyFeatures(BooleanMessage disableLegacyFeatures) {
@@ -82,5 +90,45 @@ public class DisableLegacyFeatures {
         .add("etag", etag)
         .add("settingName", settingName)
         .toString();
+  }
+
+  DisableLegacyFeaturesPb toPb() {
+    DisableLegacyFeaturesPb pb = new DisableLegacyFeaturesPb();
+    pb.setDisableLegacyFeatures(disableLegacyFeatures);
+    pb.setEtag(etag);
+    pb.setSettingName(settingName);
+
+    return pb;
+  }
+
+  static DisableLegacyFeatures fromPb(DisableLegacyFeaturesPb pb) {
+    DisableLegacyFeatures model = new DisableLegacyFeatures();
+    model.setDisableLegacyFeatures(pb.getDisableLegacyFeatures());
+    model.setEtag(pb.getEtag());
+    model.setSettingName(pb.getSettingName());
+
+    return model;
+  }
+
+  public static class DisableLegacyFeaturesSerializer
+      extends JsonSerializer<DisableLegacyFeatures> {
+    @Override
+    public void serialize(
+        DisableLegacyFeatures value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DisableLegacyFeaturesPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DisableLegacyFeaturesDeserializer
+      extends JsonDeserializer<DisableLegacyFeatures> {
+    @Override
+    public DisableLegacyFeatures deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DisableLegacyFeaturesPb pb = mapper.readValue(p, DisableLegacyFeaturesPb.class);
+      return DisableLegacyFeatures.fromPb(pb);
+    }
   }
 }

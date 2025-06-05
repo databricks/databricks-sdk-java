@@ -4,21 +4,30 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = EnableRequest.EnableRequestSerializer.class)
+@JsonDeserialize(using = EnableRequest.EnableRequestDeserializer.class)
 public class EnableRequest {
   /** the catalog for which the system schema is to enabled in */
-  @JsonProperty("catalog_name")
   private String catalogName;
 
   /** The metastore ID under which the system schema lives. */
-  @JsonIgnore private String metastoreId;
+  private String metastoreId;
 
   /** Full name of the system schema. */
-  @JsonIgnore private String schemaName;
+  private String schemaName;
 
   public EnableRequest setCatalogName(String catalogName) {
     this.catalogName = catalogName;
@@ -69,5 +78,41 @@ public class EnableRequest {
         .add("metastoreId", metastoreId)
         .add("schemaName", schemaName)
         .toString();
+  }
+
+  EnableRequestPb toPb() {
+    EnableRequestPb pb = new EnableRequestPb();
+    pb.setCatalogName(catalogName);
+    pb.setMetastoreId(metastoreId);
+    pb.setSchemaName(schemaName);
+
+    return pb;
+  }
+
+  static EnableRequest fromPb(EnableRequestPb pb) {
+    EnableRequest model = new EnableRequest();
+    model.setCatalogName(pb.getCatalogName());
+    model.setMetastoreId(pb.getMetastoreId());
+    model.setSchemaName(pb.getSchemaName());
+
+    return model;
+  }
+
+  public static class EnableRequestSerializer extends JsonSerializer<EnableRequest> {
+    @Override
+    public void serialize(EnableRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      EnableRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class EnableRequestDeserializer extends JsonDeserializer<EnableRequest> {
+    @Override
+    public EnableRequest deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      EnableRequestPb pb = mapper.readValue(p, EnableRequestPb.class);
+      return EnableRequest.fromPb(pb);
+    }
   }
 }

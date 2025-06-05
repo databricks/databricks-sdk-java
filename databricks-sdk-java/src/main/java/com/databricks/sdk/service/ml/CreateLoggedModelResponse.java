@@ -4,13 +4,23 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateLoggedModelResponse.CreateLoggedModelResponseSerializer.class)
+@JsonDeserialize(using = CreateLoggedModelResponse.CreateLoggedModelResponseDeserializer.class)
 public class CreateLoggedModelResponse {
   /** The newly created logged model. */
-  @JsonProperty("model")
   private LoggedModel model;
 
   public CreateLoggedModelResponse setModel(LoggedModel model) {
@@ -38,5 +48,41 @@ public class CreateLoggedModelResponse {
   @Override
   public String toString() {
     return new ToStringer(CreateLoggedModelResponse.class).add("model", model).toString();
+  }
+
+  CreateLoggedModelResponsePb toPb() {
+    CreateLoggedModelResponsePb pb = new CreateLoggedModelResponsePb();
+    pb.setModel(model);
+
+    return pb;
+  }
+
+  static CreateLoggedModelResponse fromPb(CreateLoggedModelResponsePb pb) {
+    CreateLoggedModelResponse model = new CreateLoggedModelResponse();
+    model.setModel(pb.getModel());
+
+    return model;
+  }
+
+  public static class CreateLoggedModelResponseSerializer
+      extends JsonSerializer<CreateLoggedModelResponse> {
+    @Override
+    public void serialize(
+        CreateLoggedModelResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateLoggedModelResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateLoggedModelResponseDeserializer
+      extends JsonDeserializer<CreateLoggedModelResponse> {
+    @Override
+    public CreateLoggedModelResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateLoggedModelResponsePb pb = mapper.readValue(p, CreateLoggedModelResponsePb.class);
+      return CreateLoggedModelResponse.fromPb(pb);
+    }
   }
 }

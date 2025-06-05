@@ -4,28 +4,35 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateProvider.CreateProviderSerializer.class)
+@JsonDeserialize(using = CreateProvider.CreateProviderDeserializer.class)
 public class CreateProvider {
   /** The delta sharing authentication type. */
-  @JsonProperty("authentication_type")
   private AuthenticationType authenticationType;
 
   /** Description about the provider. */
-  @JsonProperty("comment")
   private String comment;
 
   /** The name of the Provider. */
-  @JsonProperty("name")
   private String name;
 
   /**
    * This field is required when the __authentication_type__ is **TOKEN**,
    * **OAUTH_CLIENT_CREDENTIALS** or not provided.
    */
-  @JsonProperty("recipient_profile_str")
   private String recipientProfileStr;
 
   public CreateProvider setAuthenticationType(AuthenticationType authenticationType) {
@@ -88,5 +95,44 @@ public class CreateProvider {
         .add("name", name)
         .add("recipientProfileStr", recipientProfileStr)
         .toString();
+  }
+
+  CreateProviderPb toPb() {
+    CreateProviderPb pb = new CreateProviderPb();
+    pb.setAuthenticationType(authenticationType);
+    pb.setComment(comment);
+    pb.setName(name);
+    pb.setRecipientProfileStr(recipientProfileStr);
+
+    return pb;
+  }
+
+  static CreateProvider fromPb(CreateProviderPb pb) {
+    CreateProvider model = new CreateProvider();
+    model.setAuthenticationType(pb.getAuthenticationType());
+    model.setComment(pb.getComment());
+    model.setName(pb.getName());
+    model.setRecipientProfileStr(pb.getRecipientProfileStr());
+
+    return model;
+  }
+
+  public static class CreateProviderSerializer extends JsonSerializer<CreateProvider> {
+    @Override
+    public void serialize(CreateProvider value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateProviderPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateProviderDeserializer extends JsonDeserializer<CreateProvider> {
+    @Override
+    public CreateProvider deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateProviderPb pb = mapper.readValue(p, CreateProviderPb.class);
+      return CreateProvider.fromPb(pb);
+    }
   }
 }

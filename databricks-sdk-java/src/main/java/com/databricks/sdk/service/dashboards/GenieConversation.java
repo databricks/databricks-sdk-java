@@ -4,37 +4,41 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = GenieConversation.GenieConversationSerializer.class)
+@JsonDeserialize(using = GenieConversation.GenieConversationDeserializer.class)
 public class GenieConversation {
   /** Conversation ID */
-  @JsonProperty("conversation_id")
   private String conversationId;
 
   /** Timestamp when the message was created */
-  @JsonProperty("created_timestamp")
   private Long createdTimestamp;
 
   /** Conversation ID. Legacy identifier, use conversation_id instead */
-  @JsonProperty("id")
   private String id;
 
   /** Timestamp when the message was last updated */
-  @JsonProperty("last_updated_timestamp")
   private Long lastUpdatedTimestamp;
 
   /** Genie space ID */
-  @JsonProperty("space_id")
   private String spaceId;
 
   /** Conversation title */
-  @JsonProperty("title")
   private String title;
 
   /** ID of the user who created the conversation */
-  @JsonProperty("user_id")
   private Long userId;
 
   public GenieConversation setConversationId(String conversationId) {
@@ -131,5 +135,50 @@ public class GenieConversation {
         .add("title", title)
         .add("userId", userId)
         .toString();
+  }
+
+  GenieConversationPb toPb() {
+    GenieConversationPb pb = new GenieConversationPb();
+    pb.setConversationId(conversationId);
+    pb.setCreatedTimestamp(createdTimestamp);
+    pb.setId(id);
+    pb.setLastUpdatedTimestamp(lastUpdatedTimestamp);
+    pb.setSpaceId(spaceId);
+    pb.setTitle(title);
+    pb.setUserId(userId);
+
+    return pb;
+  }
+
+  static GenieConversation fromPb(GenieConversationPb pb) {
+    GenieConversation model = new GenieConversation();
+    model.setConversationId(pb.getConversationId());
+    model.setCreatedTimestamp(pb.getCreatedTimestamp());
+    model.setId(pb.getId());
+    model.setLastUpdatedTimestamp(pb.getLastUpdatedTimestamp());
+    model.setSpaceId(pb.getSpaceId());
+    model.setTitle(pb.getTitle());
+    model.setUserId(pb.getUserId());
+
+    return model;
+  }
+
+  public static class GenieConversationSerializer extends JsonSerializer<GenieConversation> {
+    @Override
+    public void serialize(GenieConversation value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GenieConversationPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GenieConversationDeserializer extends JsonDeserializer<GenieConversation> {
+    @Override
+    public GenieConversation deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GenieConversationPb pb = mapper.readValue(p, GenieConversationPb.class);
+      return GenieConversation.fromPb(pb);
+    }
   }
 }

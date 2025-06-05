@@ -4,21 +4,31 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Create recipient federation policy */
 @Generated
+@JsonSerialize(using = CreateFederationPolicyRequest.CreateFederationPolicyRequestSerializer.class)
+@JsonDeserialize(
+    using = CreateFederationPolicyRequest.CreateFederationPolicyRequestDeserializer.class)
 public class CreateFederationPolicyRequest {
   /** */
-  @JsonProperty("policy")
   private FederationPolicy policy;
 
   /**
    * Name of the recipient. This is the name of the recipient for which the policy is being created.
    */
-  @JsonIgnore private String recipientName;
+  private String recipientName;
 
   public CreateFederationPolicyRequest setPolicy(FederationPolicy policy) {
     this.policy = policy;
@@ -57,5 +67,44 @@ public class CreateFederationPolicyRequest {
         .add("policy", policy)
         .add("recipientName", recipientName)
         .toString();
+  }
+
+  CreateFederationPolicyRequestPb toPb() {
+    CreateFederationPolicyRequestPb pb = new CreateFederationPolicyRequestPb();
+    pb.setPolicy(policy);
+    pb.setRecipientName(recipientName);
+
+    return pb;
+  }
+
+  static CreateFederationPolicyRequest fromPb(CreateFederationPolicyRequestPb pb) {
+    CreateFederationPolicyRequest model = new CreateFederationPolicyRequest();
+    model.setPolicy(pb.getPolicy());
+    model.setRecipientName(pb.getRecipientName());
+
+    return model;
+  }
+
+  public static class CreateFederationPolicyRequestSerializer
+      extends JsonSerializer<CreateFederationPolicyRequest> {
+    @Override
+    public void serialize(
+        CreateFederationPolicyRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateFederationPolicyRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateFederationPolicyRequestDeserializer
+      extends JsonDeserializer<CreateFederationPolicyRequest> {
+    @Override
+    public CreateFederationPolicyRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateFederationPolicyRequestPb pb =
+          mapper.readValue(p, CreateFederationPolicyRequestPb.class);
+      return CreateFederationPolicyRequest.fromPb(pb);
+    }
   }
 }

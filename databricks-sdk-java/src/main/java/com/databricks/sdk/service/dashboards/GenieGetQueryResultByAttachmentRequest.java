@@ -4,23 +4,40 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** [Deprecated] Get conversation message SQL query result */
 @Generated
+@JsonSerialize(
+    using =
+        GenieGetQueryResultByAttachmentRequest.GenieGetQueryResultByAttachmentRequestSerializer
+            .class)
+@JsonDeserialize(
+    using =
+        GenieGetQueryResultByAttachmentRequest.GenieGetQueryResultByAttachmentRequestDeserializer
+            .class)
 public class GenieGetQueryResultByAttachmentRequest {
   /** Attachment ID */
-  @JsonIgnore private String attachmentId;
+  private String attachmentId;
 
   /** Conversation ID */
-  @JsonIgnore private String conversationId;
+  private String conversationId;
 
   /** Message ID */
-  @JsonIgnore private String messageId;
+  private String messageId;
 
   /** Genie space ID */
-  @JsonIgnore private String spaceId;
+  private String spaceId;
 
   public GenieGetQueryResultByAttachmentRequest setAttachmentId(String attachmentId) {
     this.attachmentId = attachmentId;
@@ -82,5 +99,51 @@ public class GenieGetQueryResultByAttachmentRequest {
         .add("messageId", messageId)
         .add("spaceId", spaceId)
         .toString();
+  }
+
+  GenieGetQueryResultByAttachmentRequestPb toPb() {
+    GenieGetQueryResultByAttachmentRequestPb pb = new GenieGetQueryResultByAttachmentRequestPb();
+    pb.setAttachmentId(attachmentId);
+    pb.setConversationId(conversationId);
+    pb.setMessageId(messageId);
+    pb.setSpaceId(spaceId);
+
+    return pb;
+  }
+
+  static GenieGetQueryResultByAttachmentRequest fromPb(
+      GenieGetQueryResultByAttachmentRequestPb pb) {
+    GenieGetQueryResultByAttachmentRequest model = new GenieGetQueryResultByAttachmentRequest();
+    model.setAttachmentId(pb.getAttachmentId());
+    model.setConversationId(pb.getConversationId());
+    model.setMessageId(pb.getMessageId());
+    model.setSpaceId(pb.getSpaceId());
+
+    return model;
+  }
+
+  public static class GenieGetQueryResultByAttachmentRequestSerializer
+      extends JsonSerializer<GenieGetQueryResultByAttachmentRequest> {
+    @Override
+    public void serialize(
+        GenieGetQueryResultByAttachmentRequest value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      GenieGetQueryResultByAttachmentRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GenieGetQueryResultByAttachmentRequestDeserializer
+      extends JsonDeserializer<GenieGetQueryResultByAttachmentRequest> {
+    @Override
+    public GenieGetQueryResultByAttachmentRequest deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GenieGetQueryResultByAttachmentRequestPb pb =
+          mapper.readValue(p, GenieGetQueryResultByAttachmentRequestPb.class);
+      return GenieGetQueryResultByAttachmentRequest.fromPb(pb);
+    }
   }
 }

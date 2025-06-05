@@ -3,13 +3,23 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List system schemas */
 @Generated
+@JsonSerialize(using = ListSystemSchemasRequest.ListSystemSchemasRequestSerializer.class)
+@JsonDeserialize(using = ListSystemSchemasRequest.ListSystemSchemasRequestDeserializer.class)
 public class ListSystemSchemasRequest {
   /**
    * Maximum number of schemas to return. - When set to 0, the page length is set to a server
@@ -18,16 +28,12 @@ public class ListSystemSchemasRequest {
    * invalid parameter error is returned; - If not set, all the schemas are returned (not
    * recommended).
    */
-  @JsonIgnore
-  @QueryParam("max_results")
   private Long maxResults;
 
   /** The ID for the metastore in which the system schema resides. */
-  @JsonIgnore private String metastoreId;
+  private String metastoreId;
 
   /** Opaque pagination token to go to next page based on previous query. */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   public ListSystemSchemasRequest setMaxResults(Long maxResults) {
@@ -79,5 +85,45 @@ public class ListSystemSchemasRequest {
         .add("metastoreId", metastoreId)
         .add("pageToken", pageToken)
         .toString();
+  }
+
+  ListSystemSchemasRequestPb toPb() {
+    ListSystemSchemasRequestPb pb = new ListSystemSchemasRequestPb();
+    pb.setMaxResults(maxResults);
+    pb.setMetastoreId(metastoreId);
+    pb.setPageToken(pageToken);
+
+    return pb;
+  }
+
+  static ListSystemSchemasRequest fromPb(ListSystemSchemasRequestPb pb) {
+    ListSystemSchemasRequest model = new ListSystemSchemasRequest();
+    model.setMaxResults(pb.getMaxResults());
+    model.setMetastoreId(pb.getMetastoreId());
+    model.setPageToken(pb.getPageToken());
+
+    return model;
+  }
+
+  public static class ListSystemSchemasRequestSerializer
+      extends JsonSerializer<ListSystemSchemasRequest> {
+    @Override
+    public void serialize(
+        ListSystemSchemasRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListSystemSchemasRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListSystemSchemasRequestDeserializer
+      extends JsonDeserializer<ListSystemSchemasRequest> {
+    @Override
+    public ListSystemSchemasRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListSystemSchemasRequestPb pb = mapper.readValue(p, ListSystemSchemasRequestPb.class);
+      return ListSystemSchemasRequest.fromPb(pb);
+    }
   }
 }

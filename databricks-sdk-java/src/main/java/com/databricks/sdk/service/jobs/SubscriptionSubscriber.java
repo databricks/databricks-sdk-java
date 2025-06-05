@@ -4,23 +4,32 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = SubscriptionSubscriber.SubscriptionSubscriberSerializer.class)
+@JsonDeserialize(using = SubscriptionSubscriber.SubscriptionSubscriberDeserializer.class)
 public class SubscriptionSubscriber {
   /**
    * A snapshot of the dashboard will be sent to the destination when the `destination_id` field is
    * present.
    */
-  @JsonProperty("destination_id")
   private String destinationId;
 
   /**
    * A snapshot of the dashboard will be sent to the user's email when the `user_name` field is
    * present.
    */
-  @JsonProperty("user_name")
   private String userName;
 
   public SubscriptionSubscriber setDestinationId(String destinationId) {
@@ -61,5 +70,43 @@ public class SubscriptionSubscriber {
         .add("destinationId", destinationId)
         .add("userName", userName)
         .toString();
+  }
+
+  SubscriptionSubscriberPb toPb() {
+    SubscriptionSubscriberPb pb = new SubscriptionSubscriberPb();
+    pb.setDestinationId(destinationId);
+    pb.setUserName(userName);
+
+    return pb;
+  }
+
+  static SubscriptionSubscriber fromPb(SubscriptionSubscriberPb pb) {
+    SubscriptionSubscriber model = new SubscriptionSubscriber();
+    model.setDestinationId(pb.getDestinationId());
+    model.setUserName(pb.getUserName());
+
+    return model;
+  }
+
+  public static class SubscriptionSubscriberSerializer
+      extends JsonSerializer<SubscriptionSubscriber> {
+    @Override
+    public void serialize(
+        SubscriptionSubscriber value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SubscriptionSubscriberPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SubscriptionSubscriberDeserializer
+      extends JsonDeserializer<SubscriptionSubscriber> {
+    @Override
+    public SubscriptionSubscriber deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SubscriptionSubscriberPb pb = mapper.readValue(p, SubscriptionSubscriberPb.class);
+      return SubscriptionSubscriber.fromPb(pb);
+    }
   }
 }

@@ -4,20 +4,31 @@ package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = CreateBillingUsageDashboardRequest.CreateBillingUsageDashboardRequestSerializer.class)
+@JsonDeserialize(
+    using = CreateBillingUsageDashboardRequest.CreateBillingUsageDashboardRequestDeserializer.class)
 public class CreateBillingUsageDashboardRequest {
   /**
    * Workspace level usage dashboard shows usage data for the specified workspace ID. Global level
    * usage dashboard shows usage data for all workspaces in the account.
    */
-  @JsonProperty("dashboard_type")
   private UsageDashboardType dashboardType;
 
   /** The workspace ID of the workspace in which the usage dashboard is created. */
-  @JsonProperty("workspace_id")
   private Long workspaceId;
 
   public CreateBillingUsageDashboardRequest setDashboardType(UsageDashboardType dashboardType) {
@@ -58,5 +69,44 @@ public class CreateBillingUsageDashboardRequest {
         .add("dashboardType", dashboardType)
         .add("workspaceId", workspaceId)
         .toString();
+  }
+
+  CreateBillingUsageDashboardRequestPb toPb() {
+    CreateBillingUsageDashboardRequestPb pb = new CreateBillingUsageDashboardRequestPb();
+    pb.setDashboardType(dashboardType);
+    pb.setWorkspaceId(workspaceId);
+
+    return pb;
+  }
+
+  static CreateBillingUsageDashboardRequest fromPb(CreateBillingUsageDashboardRequestPb pb) {
+    CreateBillingUsageDashboardRequest model = new CreateBillingUsageDashboardRequest();
+    model.setDashboardType(pb.getDashboardType());
+    model.setWorkspaceId(pb.getWorkspaceId());
+
+    return model;
+  }
+
+  public static class CreateBillingUsageDashboardRequestSerializer
+      extends JsonSerializer<CreateBillingUsageDashboardRequest> {
+    @Override
+    public void serialize(
+        CreateBillingUsageDashboardRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateBillingUsageDashboardRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateBillingUsageDashboardRequestDeserializer
+      extends JsonDeserializer<CreateBillingUsageDashboardRequest> {
+    @Override
+    public CreateBillingUsageDashboardRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateBillingUsageDashboardRequestPb pb =
+          mapper.readValue(p, CreateBillingUsageDashboardRequestPb.class);
+      return CreateBillingUsageDashboardRequest.fromPb(pb);
+    }
   }
 }

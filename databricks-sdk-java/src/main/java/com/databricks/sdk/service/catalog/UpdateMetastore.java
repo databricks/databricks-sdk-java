@@ -4,44 +4,47 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = UpdateMetastore.UpdateMetastoreSerializer.class)
+@JsonDeserialize(using = UpdateMetastore.UpdateMetastoreDeserializer.class)
 public class UpdateMetastore {
   /**
    * The organization name of a Delta Sharing entity, to be used in Databricks-to-Databricks Delta
    * Sharing as the official name.
    */
-  @JsonProperty("delta_sharing_organization_name")
   private String deltaSharingOrganizationName;
 
   /** The lifetime of delta sharing recipient token in seconds. */
-  @JsonProperty("delta_sharing_recipient_token_lifetime_in_seconds")
   private Long deltaSharingRecipientTokenLifetimeInSeconds;
 
   /** The scope of Delta Sharing enabled for the metastore. */
-  @JsonProperty("delta_sharing_scope")
   private DeltaSharingScopeEnum deltaSharingScope;
 
   /** Unique ID of the metastore. */
-  @JsonIgnore private String id;
+  private String id;
 
   /** New name for the metastore. */
-  @JsonProperty("new_name")
   private String newName;
 
   /** The owner of the metastore. */
-  @JsonProperty("owner")
   private String owner;
 
   /** Privilege model version of the metastore, of the form `major.minor` (e.g., `1.0`). */
-  @JsonProperty("privilege_model_version")
   private String privilegeModelVersion;
 
   /** UUID of storage credential to access the metastore storage_root. */
-  @JsonProperty("storage_root_credential_id")
   private String storageRootCredentialId;
 
   public UpdateMetastore setDeltaSharingOrganizationName(String deltaSharingOrganizationName) {
@@ -161,5 +164,53 @@ public class UpdateMetastore {
         .add("privilegeModelVersion", privilegeModelVersion)
         .add("storageRootCredentialId", storageRootCredentialId)
         .toString();
+  }
+
+  UpdateMetastorePb toPb() {
+    UpdateMetastorePb pb = new UpdateMetastorePb();
+    pb.setDeltaSharingOrganizationName(deltaSharingOrganizationName);
+    pb.setDeltaSharingRecipientTokenLifetimeInSeconds(deltaSharingRecipientTokenLifetimeInSeconds);
+    pb.setDeltaSharingScope(deltaSharingScope);
+    pb.setId(id);
+    pb.setNewName(newName);
+    pb.setOwner(owner);
+    pb.setPrivilegeModelVersion(privilegeModelVersion);
+    pb.setStorageRootCredentialId(storageRootCredentialId);
+
+    return pb;
+  }
+
+  static UpdateMetastore fromPb(UpdateMetastorePb pb) {
+    UpdateMetastore model = new UpdateMetastore();
+    model.setDeltaSharingOrganizationName(pb.getDeltaSharingOrganizationName());
+    model.setDeltaSharingRecipientTokenLifetimeInSeconds(
+        pb.getDeltaSharingRecipientTokenLifetimeInSeconds());
+    model.setDeltaSharingScope(pb.getDeltaSharingScope());
+    model.setId(pb.getId());
+    model.setNewName(pb.getNewName());
+    model.setOwner(pb.getOwner());
+    model.setPrivilegeModelVersion(pb.getPrivilegeModelVersion());
+    model.setStorageRootCredentialId(pb.getStorageRootCredentialId());
+
+    return model;
+  }
+
+  public static class UpdateMetastoreSerializer extends JsonSerializer<UpdateMetastore> {
+    @Override
+    public void serialize(UpdateMetastore value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateMetastorePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateMetastoreDeserializer extends JsonDeserializer<UpdateMetastore> {
+    @Override
+    public UpdateMetastore deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateMetastorePb pb = mapper.readValue(p, UpdateMetastorePb.class);
+      return UpdateMetastore.fromPb(pb);
+    }
   }
 }

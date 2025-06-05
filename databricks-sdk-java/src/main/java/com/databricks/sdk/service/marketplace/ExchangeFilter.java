@@ -4,45 +4,47 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ExchangeFilter.ExchangeFilterSerializer.class)
+@JsonDeserialize(using = ExchangeFilter.ExchangeFilterDeserializer.class)
 public class ExchangeFilter {
   /** */
-  @JsonProperty("created_at")
   private Long createdAt;
 
   /** */
-  @JsonProperty("created_by")
   private String createdBy;
 
   /** */
-  @JsonProperty("exchange_id")
   private String exchangeId;
 
   /** */
-  @JsonProperty("filter_type")
   private ExchangeFilterType filterType;
 
   /** */
-  @JsonProperty("filter_value")
   private String filterValue;
 
   /** */
-  @JsonProperty("id")
   private String id;
 
   /** */
-  @JsonProperty("name")
   private String name;
 
   /** */
-  @JsonProperty("updated_at")
   private Long updatedAt;
 
   /** */
-  @JsonProperty("updated_by")
   private String updatedBy;
 
   public ExchangeFilter setCreatedAt(Long createdAt) {
@@ -161,5 +163,54 @@ public class ExchangeFilter {
         .add("updatedAt", updatedAt)
         .add("updatedBy", updatedBy)
         .toString();
+  }
+
+  ExchangeFilterPb toPb() {
+    ExchangeFilterPb pb = new ExchangeFilterPb();
+    pb.setCreatedAt(createdAt);
+    pb.setCreatedBy(createdBy);
+    pb.setExchangeId(exchangeId);
+    pb.setFilterType(filterType);
+    pb.setFilterValue(filterValue);
+    pb.setId(id);
+    pb.setName(name);
+    pb.setUpdatedAt(updatedAt);
+    pb.setUpdatedBy(updatedBy);
+
+    return pb;
+  }
+
+  static ExchangeFilter fromPb(ExchangeFilterPb pb) {
+    ExchangeFilter model = new ExchangeFilter();
+    model.setCreatedAt(pb.getCreatedAt());
+    model.setCreatedBy(pb.getCreatedBy());
+    model.setExchangeId(pb.getExchangeId());
+    model.setFilterType(pb.getFilterType());
+    model.setFilterValue(pb.getFilterValue());
+    model.setId(pb.getId());
+    model.setName(pb.getName());
+    model.setUpdatedAt(pb.getUpdatedAt());
+    model.setUpdatedBy(pb.getUpdatedBy());
+
+    return model;
+  }
+
+  public static class ExchangeFilterSerializer extends JsonSerializer<ExchangeFilter> {
+    @Override
+    public void serialize(ExchangeFilter value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ExchangeFilterPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ExchangeFilterDeserializer extends JsonDeserializer<ExchangeFilter> {
+    @Override
+    public ExchangeFilter deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ExchangeFilterPb pb = mapper.readValue(p, ExchangeFilterPb.class);
+      return ExchangeFilter.fromPb(pb);
+    }
   }
 }

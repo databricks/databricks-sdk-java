@@ -3,22 +3,28 @@
 package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get a model version */
 @Generated
+@JsonSerialize(using = GetModelVersionRequest.GetModelVersionRequestSerializer.class)
+@JsonDeserialize(using = GetModelVersionRequest.GetModelVersionRequestDeserializer.class)
 public class GetModelVersionRequest {
   /** Name of the registered model */
-  @JsonIgnore
-  @QueryParam("name")
   private String name;
 
   /** Model version number */
-  @JsonIgnore
-  @QueryParam("version")
   private String version;
 
   public GetModelVersionRequest setName(String name) {
@@ -58,5 +64,43 @@ public class GetModelVersionRequest {
         .add("name", name)
         .add("version", version)
         .toString();
+  }
+
+  GetModelVersionRequestPb toPb() {
+    GetModelVersionRequestPb pb = new GetModelVersionRequestPb();
+    pb.setName(name);
+    pb.setVersion(version);
+
+    return pb;
+  }
+
+  static GetModelVersionRequest fromPb(GetModelVersionRequestPb pb) {
+    GetModelVersionRequest model = new GetModelVersionRequest();
+    model.setName(pb.getName());
+    model.setVersion(pb.getVersion());
+
+    return model;
+  }
+
+  public static class GetModelVersionRequestSerializer
+      extends JsonSerializer<GetModelVersionRequest> {
+    @Override
+    public void serialize(
+        GetModelVersionRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetModelVersionRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetModelVersionRequestDeserializer
+      extends JsonDeserializer<GetModelVersionRequest> {
+    @Override
+    public GetModelVersionRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetModelVersionRequestPb pb = mapper.readValue(p, GetModelVersionRequestPb.class);
+      return GetModelVersionRequest.fromPb(pb);
+    }
   }
 }

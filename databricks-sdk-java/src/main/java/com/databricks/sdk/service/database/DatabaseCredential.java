@@ -4,13 +4,23 @@ package com.databricks.sdk.service.database;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = DatabaseCredential.DatabaseCredentialSerializer.class)
+@JsonDeserialize(using = DatabaseCredential.DatabaseCredentialDeserializer.class)
 public class DatabaseCredential {
   /** */
-  @JsonProperty("token")
   private String token;
 
   public DatabaseCredential setToken(String token) {
@@ -38,5 +48,38 @@ public class DatabaseCredential {
   @Override
   public String toString() {
     return new ToStringer(DatabaseCredential.class).add("token", token).toString();
+  }
+
+  DatabaseCredentialPb toPb() {
+    DatabaseCredentialPb pb = new DatabaseCredentialPb();
+    pb.setToken(token);
+
+    return pb;
+  }
+
+  static DatabaseCredential fromPb(DatabaseCredentialPb pb) {
+    DatabaseCredential model = new DatabaseCredential();
+    model.setToken(pb.getToken());
+
+    return model;
+  }
+
+  public static class DatabaseCredentialSerializer extends JsonSerializer<DatabaseCredential> {
+    @Override
+    public void serialize(DatabaseCredential value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DatabaseCredentialPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DatabaseCredentialDeserializer extends JsonDeserializer<DatabaseCredential> {
+    @Override
+    public DatabaseCredential deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DatabaseCredentialPb pb = mapper.readValue(p, DatabaseCredentialPb.class);
+      return DatabaseCredential.fromPb(pb);
+    }
   }
 }

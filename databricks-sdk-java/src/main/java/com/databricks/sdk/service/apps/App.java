@@ -4,114 +4,102 @@ package com.databricks.sdk.service.apps;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = App.AppSerializer.class)
+@JsonDeserialize(using = App.AppDeserializer.class)
 public class App {
   /**
    * The active deployment of the app. A deployment is considered active when it has been deployed
    * to the app compute.
    */
-  @JsonProperty("active_deployment")
   private AppDeployment activeDeployment;
 
   /** */
-  @JsonProperty("app_status")
   private ApplicationStatus appStatus;
 
   /** */
-  @JsonProperty("budget_policy_id")
   private String budgetPolicyId;
 
   /** */
-  @JsonProperty("compute_status")
   private ComputeStatus computeStatus;
 
   /** The creation time of the app. Formatted timestamp in ISO 6801. */
-  @JsonProperty("create_time")
   private String createTime;
 
   /** The email of the user that created the app. */
-  @JsonProperty("creator")
   private String creator;
 
   /**
    * The default workspace file system path of the source code from which app deployment are
    * created. This field tracks the workspace source code path of the last active deployment.
    */
-  @JsonProperty("default_source_code_path")
   private String defaultSourceCodePath;
 
   /** The description of the app. */
-  @JsonProperty("description")
   private String description;
 
   /** */
-  @JsonProperty("effective_budget_policy_id")
   private String effectiveBudgetPolicyId;
 
   /** The effective api scopes granted to the user access token. */
-  @JsonProperty("effective_user_api_scopes")
   private Collection<String> effectiveUserApiScopes;
 
   /** The unique identifier of the app. */
-  @JsonProperty("id")
   private String id;
 
   /**
    * The name of the app. The name must contain only lowercase alphanumeric characters and hyphens.
    * It must be unique within the workspace.
    */
-  @JsonProperty("name")
   private String name;
 
   /** */
-  @JsonProperty("oauth2_app_client_id")
   private String oauth2AppClientId;
 
   /** */
-  @JsonProperty("oauth2_app_integration_id")
   private String oauth2AppIntegrationId;
 
   /**
    * The pending deployment of the app. A deployment is considered pending when it is being prepared
    * for deployment to the app compute.
    */
-  @JsonProperty("pending_deployment")
   private AppDeployment pendingDeployment;
 
   /** Resources for the app. */
-  @JsonProperty("resources")
   private Collection<AppResource> resources;
 
   /** */
-  @JsonProperty("service_principal_client_id")
   private String servicePrincipalClientId;
 
   /** */
-  @JsonProperty("service_principal_id")
   private Long servicePrincipalId;
 
   /** */
-  @JsonProperty("service_principal_name")
   private String servicePrincipalName;
 
   /** The update time of the app. Formatted timestamp in ISO 6801. */
-  @JsonProperty("update_time")
   private String updateTime;
 
   /** The email of the user that last updated the app. */
-  @JsonProperty("updater")
   private String updater;
 
   /** The URL of the app once it is deployed. */
-  @JsonProperty("url")
   private String url;
 
   /** */
-  @JsonProperty("user_api_scopes")
   private Collection<String> userApiScopes;
 
   public App setActiveDeployment(AppDeployment activeDeployment) {
@@ -406,5 +394,81 @@ public class App {
         .add("url", url)
         .add("userApiScopes", userApiScopes)
         .toString();
+  }
+
+  AppPb toPb() {
+    AppPb pb = new AppPb();
+    pb.setActiveDeployment(activeDeployment);
+    pb.setAppStatus(appStatus);
+    pb.setBudgetPolicyId(budgetPolicyId);
+    pb.setComputeStatus(computeStatus);
+    pb.setCreateTime(createTime);
+    pb.setCreator(creator);
+    pb.setDefaultSourceCodePath(defaultSourceCodePath);
+    pb.setDescription(description);
+    pb.setEffectiveBudgetPolicyId(effectiveBudgetPolicyId);
+    pb.setEffectiveUserApiScopes(effectiveUserApiScopes);
+    pb.setId(id);
+    pb.setName(name);
+    pb.setOauth2AppClientId(oauth2AppClientId);
+    pb.setOauth2AppIntegrationId(oauth2AppIntegrationId);
+    pb.setPendingDeployment(pendingDeployment);
+    pb.setResources(resources);
+    pb.setServicePrincipalClientId(servicePrincipalClientId);
+    pb.setServicePrincipalId(servicePrincipalId);
+    pb.setServicePrincipalName(servicePrincipalName);
+    pb.setUpdateTime(updateTime);
+    pb.setUpdater(updater);
+    pb.setUrl(url);
+    pb.setUserApiScopes(userApiScopes);
+
+    return pb;
+  }
+
+  static App fromPb(AppPb pb) {
+    App model = new App();
+    model.setActiveDeployment(pb.getActiveDeployment());
+    model.setAppStatus(pb.getAppStatus());
+    model.setBudgetPolicyId(pb.getBudgetPolicyId());
+    model.setComputeStatus(pb.getComputeStatus());
+    model.setCreateTime(pb.getCreateTime());
+    model.setCreator(pb.getCreator());
+    model.setDefaultSourceCodePath(pb.getDefaultSourceCodePath());
+    model.setDescription(pb.getDescription());
+    model.setEffectiveBudgetPolicyId(pb.getEffectiveBudgetPolicyId());
+    model.setEffectiveUserApiScopes(pb.getEffectiveUserApiScopes());
+    model.setId(pb.getId());
+    model.setName(pb.getName());
+    model.setOauth2AppClientId(pb.getOauth2AppClientId());
+    model.setOauth2AppIntegrationId(pb.getOauth2AppIntegrationId());
+    model.setPendingDeployment(pb.getPendingDeployment());
+    model.setResources(pb.getResources());
+    model.setServicePrincipalClientId(pb.getServicePrincipalClientId());
+    model.setServicePrincipalId(pb.getServicePrincipalId());
+    model.setServicePrincipalName(pb.getServicePrincipalName());
+    model.setUpdateTime(pb.getUpdateTime());
+    model.setUpdater(pb.getUpdater());
+    model.setUrl(pb.getUrl());
+    model.setUserApiScopes(pb.getUserApiScopes());
+
+    return model;
+  }
+
+  public static class AppSerializer extends JsonSerializer<App> {
+    @Override
+    public void serialize(App value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      AppPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class AppDeserializer extends JsonDeserializer<App> {
+    @Override
+    public App deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      AppPb pb = mapper.readValue(p, AppPb.class);
+      return App.fromPb(pb);
+    }
   }
 }

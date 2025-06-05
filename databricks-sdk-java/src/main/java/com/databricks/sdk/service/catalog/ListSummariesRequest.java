@@ -3,22 +3,28 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List table summaries */
 @Generated
+@JsonSerialize(using = ListSummariesRequest.ListSummariesRequestSerializer.class)
+@JsonDeserialize(using = ListSummariesRequest.ListSummariesRequestDeserializer.class)
 public class ListSummariesRequest {
   /** Name of parent catalog for tables of interest. */
-  @JsonIgnore
-  @QueryParam("catalog_name")
   private String catalogName;
 
   /** Whether to include a manifest containing capabilities the table has. */
-  @JsonIgnore
-  @QueryParam("include_manifest_capabilities")
   private Boolean includeManifestCapabilities;
 
   /**
@@ -28,28 +34,20 @@ public class ListSummariesRequest {
    * when set to 0, the page length is set to a server configured value (10000, as of 1/5/2024)
    * (recommended); - when set to a value less than 0, an invalid parameter error is returned;
    */
-  @JsonIgnore
-  @QueryParam("max_results")
   private Long maxResults;
 
   /** Opaque pagination token to go to next page based on previous query. */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   /**
    * A sql LIKE pattern (% and _) for schema names. All schemas will be returned if not set or
    * empty.
    */
-  @JsonIgnore
-  @QueryParam("schema_name_pattern")
   private String schemaNamePattern;
 
   /**
    * A sql LIKE pattern (% and _) for table names. All tables will be returned if not set or empty.
    */
-  @JsonIgnore
-  @QueryParam("table_name_pattern")
   private String tableNamePattern;
 
   public ListSummariesRequest setCatalogName(String catalogName) {
@@ -140,5 +138,50 @@ public class ListSummariesRequest {
         .add("schemaNamePattern", schemaNamePattern)
         .add("tableNamePattern", tableNamePattern)
         .toString();
+  }
+
+  ListSummariesRequestPb toPb() {
+    ListSummariesRequestPb pb = new ListSummariesRequestPb();
+    pb.setCatalogName(catalogName);
+    pb.setIncludeManifestCapabilities(includeManifestCapabilities);
+    pb.setMaxResults(maxResults);
+    pb.setPageToken(pageToken);
+    pb.setSchemaNamePattern(schemaNamePattern);
+    pb.setTableNamePattern(tableNamePattern);
+
+    return pb;
+  }
+
+  static ListSummariesRequest fromPb(ListSummariesRequestPb pb) {
+    ListSummariesRequest model = new ListSummariesRequest();
+    model.setCatalogName(pb.getCatalogName());
+    model.setIncludeManifestCapabilities(pb.getIncludeManifestCapabilities());
+    model.setMaxResults(pb.getMaxResults());
+    model.setPageToken(pb.getPageToken());
+    model.setSchemaNamePattern(pb.getSchemaNamePattern());
+    model.setTableNamePattern(pb.getTableNamePattern());
+
+    return model;
+  }
+
+  public static class ListSummariesRequestSerializer extends JsonSerializer<ListSummariesRequest> {
+    @Override
+    public void serialize(
+        ListSummariesRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListSummariesRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListSummariesRequestDeserializer
+      extends JsonDeserializer<ListSummariesRequest> {
+    @Override
+    public ListSummariesRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListSummariesRequestPb pb = mapper.readValue(p, ListSummariesRequestPb.class);
+      return ListSummariesRequest.fromPb(pb);
+    }
   }
 }

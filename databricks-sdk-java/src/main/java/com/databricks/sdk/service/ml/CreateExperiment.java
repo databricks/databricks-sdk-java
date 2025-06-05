@@ -4,21 +4,30 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateExperiment.CreateExperimentSerializer.class)
+@JsonDeserialize(using = CreateExperiment.CreateExperimentDeserializer.class)
 public class CreateExperiment {
   /**
    * Location where all artifacts for the experiment are stored. If not provided, the remote server
    * will select an appropriate default.
    */
-  @JsonProperty("artifact_location")
   private String artifactLocation;
 
   /** Experiment name. */
-  @JsonProperty("name")
   private String name;
 
   /**
@@ -27,7 +36,6 @@ public class CreateExperiment {
    * 250 bytes in size and tag values up to 5000 bytes in size. All storage backends are also
    * guaranteed to support up to 20 tags per request.
    */
-  @JsonProperty("tags")
   private Collection<ExperimentTag> tags;
 
   public CreateExperiment setArtifactLocation(String artifactLocation) {
@@ -79,5 +87,42 @@ public class CreateExperiment {
         .add("name", name)
         .add("tags", tags)
         .toString();
+  }
+
+  CreateExperimentPb toPb() {
+    CreateExperimentPb pb = new CreateExperimentPb();
+    pb.setArtifactLocation(artifactLocation);
+    pb.setName(name);
+    pb.setTags(tags);
+
+    return pb;
+  }
+
+  static CreateExperiment fromPb(CreateExperimentPb pb) {
+    CreateExperiment model = new CreateExperiment();
+    model.setArtifactLocation(pb.getArtifactLocation());
+    model.setName(pb.getName());
+    model.setTags(pb.getTags());
+
+    return model;
+  }
+
+  public static class CreateExperimentSerializer extends JsonSerializer<CreateExperiment> {
+    @Override
+    public void serialize(CreateExperiment value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateExperimentPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateExperimentDeserializer extends JsonDeserializer<CreateExperiment> {
+    @Override
+    public CreateExperiment deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateExperimentPb pb = mapper.readValue(p, CreateExperimentPb.class);
+      return CreateExperiment.fromPb(pb);
+    }
   }
 }

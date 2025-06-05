@@ -3,22 +3,29 @@
 package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get all the published OAuth apps */
 @Generated
+@JsonSerialize(using = ListOAuthPublishedAppsRequest.ListOAuthPublishedAppsRequestSerializer.class)
+@JsonDeserialize(
+    using = ListOAuthPublishedAppsRequest.ListOAuthPublishedAppsRequestDeserializer.class)
 public class ListOAuthPublishedAppsRequest {
   /** The max number of OAuth published apps to return in one page. */
-  @JsonIgnore
-  @QueryParam("page_size")
   private Long pageSize;
 
   /** A token that can be used to get the next page of results. */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   public ListOAuthPublishedAppsRequest setPageSize(Long pageSize) {
@@ -58,5 +65,44 @@ public class ListOAuthPublishedAppsRequest {
         .add("pageSize", pageSize)
         .add("pageToken", pageToken)
         .toString();
+  }
+
+  ListOAuthPublishedAppsRequestPb toPb() {
+    ListOAuthPublishedAppsRequestPb pb = new ListOAuthPublishedAppsRequestPb();
+    pb.setPageSize(pageSize);
+    pb.setPageToken(pageToken);
+
+    return pb;
+  }
+
+  static ListOAuthPublishedAppsRequest fromPb(ListOAuthPublishedAppsRequestPb pb) {
+    ListOAuthPublishedAppsRequest model = new ListOAuthPublishedAppsRequest();
+    model.setPageSize(pb.getPageSize());
+    model.setPageToken(pb.getPageToken());
+
+    return model;
+  }
+
+  public static class ListOAuthPublishedAppsRequestSerializer
+      extends JsonSerializer<ListOAuthPublishedAppsRequest> {
+    @Override
+    public void serialize(
+        ListOAuthPublishedAppsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListOAuthPublishedAppsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListOAuthPublishedAppsRequestDeserializer
+      extends JsonDeserializer<ListOAuthPublishedAppsRequest> {
+    @Override
+    public ListOAuthPublishedAppsRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListOAuthPublishedAppsRequestPb pb =
+          mapper.readValue(p, ListOAuthPublishedAppsRequestPb.class);
+      return ListOAuthPublishedAppsRequest.fromPb(pb);
+    }
   }
 }

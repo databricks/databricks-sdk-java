@@ -4,17 +4,26 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ListAlertsResponseAlert.ListAlertsResponseAlertSerializer.class)
+@JsonDeserialize(using = ListAlertsResponseAlert.ListAlertsResponseAlertDeserializer.class)
 public class ListAlertsResponseAlert {
   /** Trigger conditions of the alert. */
-  @JsonProperty("condition")
   private AlertCondition condition;
 
   /** The timestamp indicating when the alert was created. */
-  @JsonProperty("create_time")
   private String createTime;
 
   /**
@@ -22,7 +31,6 @@ public class ListAlertsResponseAlert {
    *
    * <p>[here]: https://docs.databricks.com/sql/user/alerts/index.html
    */
-  @JsonProperty("custom_body")
   private String customBody;
 
   /**
@@ -31,53 +39,42 @@ public class ListAlertsResponseAlert {
    *
    * <p>[here]: https://docs.databricks.com/sql/user/alerts/index.html
    */
-  @JsonProperty("custom_subject")
   private String customSubject;
 
   /** The display name of the alert. */
-  @JsonProperty("display_name")
   private String displayName;
 
   /** UUID identifying the alert. */
-  @JsonProperty("id")
   private String id;
 
   /** The workspace state of the alert. Used for tracking trashed status. */
-  @JsonProperty("lifecycle_state")
   private LifecycleState lifecycleState;
 
   /** Whether to notify alert subscribers when alert returns back to normal. */
-  @JsonProperty("notify_on_ok")
   private Boolean notifyOnOk;
 
   /** The owner's username. This field is set to "Unavailable" if the user has been deleted. */
-  @JsonProperty("owner_user_name")
   private String ownerUserName;
 
   /** UUID of the query attached to the alert. */
-  @JsonProperty("query_id")
   private String queryId;
 
   /**
    * Number of seconds an alert must wait after being triggered to rearm itself. After rearming, it
    * can be triggered again. If 0 or not specified, the alert will not be triggered again.
    */
-  @JsonProperty("seconds_to_retrigger")
   private Long secondsToRetrigger;
 
   /**
    * Current state of the alert's trigger status. This field is set to UNKNOWN if the alert has not
    * yet been evaluated or ran into an error during the last evaluation.
    */
-  @JsonProperty("state")
   private AlertState state;
 
   /** Timestamp when the alert was last triggered, if the alert has been triggered before. */
-  @JsonProperty("trigger_time")
   private String triggerTime;
 
   /** The timestamp indicating when the alert was updated. */
-  @JsonProperty("update_time")
   private String updateTime;
 
   public ListAlertsResponseAlert setCondition(AlertCondition condition) {
@@ -264,5 +261,67 @@ public class ListAlertsResponseAlert {
         .add("triggerTime", triggerTime)
         .add("updateTime", updateTime)
         .toString();
+  }
+
+  ListAlertsResponseAlertPb toPb() {
+    ListAlertsResponseAlertPb pb = new ListAlertsResponseAlertPb();
+    pb.setCondition(condition);
+    pb.setCreateTime(createTime);
+    pb.setCustomBody(customBody);
+    pb.setCustomSubject(customSubject);
+    pb.setDisplayName(displayName);
+    pb.setId(id);
+    pb.setLifecycleState(lifecycleState);
+    pb.setNotifyOnOk(notifyOnOk);
+    pb.setOwnerUserName(ownerUserName);
+    pb.setQueryId(queryId);
+    pb.setSecondsToRetrigger(secondsToRetrigger);
+    pb.setState(state);
+    pb.setTriggerTime(triggerTime);
+    pb.setUpdateTime(updateTime);
+
+    return pb;
+  }
+
+  static ListAlertsResponseAlert fromPb(ListAlertsResponseAlertPb pb) {
+    ListAlertsResponseAlert model = new ListAlertsResponseAlert();
+    model.setCondition(pb.getCondition());
+    model.setCreateTime(pb.getCreateTime());
+    model.setCustomBody(pb.getCustomBody());
+    model.setCustomSubject(pb.getCustomSubject());
+    model.setDisplayName(pb.getDisplayName());
+    model.setId(pb.getId());
+    model.setLifecycleState(pb.getLifecycleState());
+    model.setNotifyOnOk(pb.getNotifyOnOk());
+    model.setOwnerUserName(pb.getOwnerUserName());
+    model.setQueryId(pb.getQueryId());
+    model.setSecondsToRetrigger(pb.getSecondsToRetrigger());
+    model.setState(pb.getState());
+    model.setTriggerTime(pb.getTriggerTime());
+    model.setUpdateTime(pb.getUpdateTime());
+
+    return model;
+  }
+
+  public static class ListAlertsResponseAlertSerializer
+      extends JsonSerializer<ListAlertsResponseAlert> {
+    @Override
+    public void serialize(
+        ListAlertsResponseAlert value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListAlertsResponseAlertPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListAlertsResponseAlertDeserializer
+      extends JsonDeserializer<ListAlertsResponseAlert> {
+    @Override
+    public ListAlertsResponseAlert deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListAlertsResponseAlertPb pb = mapper.readValue(p, ListAlertsResponseAlertPb.class);
+      return ListAlertsResponseAlert.fromPb(pb);
+    }
   }
 }

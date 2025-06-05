@@ -4,14 +4,27 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = GetPasswordPermissionLevelsResponse.GetPasswordPermissionLevelsResponseSerializer.class)
+@JsonDeserialize(
+    using =
+        GetPasswordPermissionLevelsResponse.GetPasswordPermissionLevelsResponseDeserializer.class)
 public class GetPasswordPermissionLevelsResponse {
   /** Specific permission levels */
-  @JsonProperty("permission_levels")
   private Collection<PasswordPermissionsDescription> permissionLevels;
 
   public GetPasswordPermissionLevelsResponse setPermissionLevels(
@@ -42,5 +55,42 @@ public class GetPasswordPermissionLevelsResponse {
     return new ToStringer(GetPasswordPermissionLevelsResponse.class)
         .add("permissionLevels", permissionLevels)
         .toString();
+  }
+
+  GetPasswordPermissionLevelsResponsePb toPb() {
+    GetPasswordPermissionLevelsResponsePb pb = new GetPasswordPermissionLevelsResponsePb();
+    pb.setPermissionLevels(permissionLevels);
+
+    return pb;
+  }
+
+  static GetPasswordPermissionLevelsResponse fromPb(GetPasswordPermissionLevelsResponsePb pb) {
+    GetPasswordPermissionLevelsResponse model = new GetPasswordPermissionLevelsResponse();
+    model.setPermissionLevels(pb.getPermissionLevels());
+
+    return model;
+  }
+
+  public static class GetPasswordPermissionLevelsResponseSerializer
+      extends JsonSerializer<GetPasswordPermissionLevelsResponse> {
+    @Override
+    public void serialize(
+        GetPasswordPermissionLevelsResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetPasswordPermissionLevelsResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetPasswordPermissionLevelsResponseDeserializer
+      extends JsonDeserializer<GetPasswordPermissionLevelsResponse> {
+    @Override
+    public GetPasswordPermissionLevelsResponse deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetPasswordPermissionLevelsResponsePb pb =
+          mapper.readValue(p, GetPasswordPermissionLevelsResponsePb.class);
+      return GetPasswordPermissionLevelsResponse.fromPb(pb);
+    }
   }
 }

@@ -4,7 +4,16 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -13,6 +22,8 @@ import java.util.Objects;
  * portal after initialization.
  */
 @Generated
+@JsonSerialize(using = NccAzurePrivateEndpointRule.NccAzurePrivateEndpointRuleSerializer.class)
+@JsonDeserialize(using = NccAzurePrivateEndpointRule.NccAzurePrivateEndpointRuleDeserializer.class)
 public class NccAzurePrivateEndpointRule {
   /**
    * The current status of this private endpoint. The private endpoint rules are effective only if
@@ -25,19 +36,15 @@ public class NccAzurePrivateEndpointRule {
    * the private endpoint becomes informative and should be deleted for clean-up. - EXPIRED: If the
    * endpoint was created but not approved in 14 days, it will be EXPIRED.
    */
-  @JsonProperty("connection_state")
   private NccAzurePrivateEndpointRuleConnectionState connectionState;
 
   /** Time in epoch milliseconds when this object was created. */
-  @JsonProperty("creation_time")
   private Long creationTime;
 
   /** Whether this private endpoint is deactivated. */
-  @JsonProperty("deactivated")
   private Boolean deactivated;
 
   /** Time in epoch milliseconds when this object was deactivated. */
-  @JsonProperty("deactivated_at")
   private Long deactivatedAt;
 
   /**
@@ -46,11 +53,9 @@ public class NccAzurePrivateEndpointRule {
    * <p>Domain names of target private link service. When updating this field, the full list of
    * target domain_names must be specified.
    */
-  @JsonProperty("domain_names")
   private Collection<String> domainNames;
 
   /** The name of the Azure private endpoint resource. */
-  @JsonProperty("endpoint_name")
   private String endpointName;
 
   /**
@@ -59,26 +64,21 @@ public class NccAzurePrivateEndpointRule {
    * <p>The sub-resource type (group ID) of the target resource. Note that to connect to workspace
    * root storage (root DBFS), you need two endpoints, one for blob and one for dfs.
    */
-  @JsonProperty("group_id")
   private String groupId;
 
   /**
    * The ID of a network connectivity configuration, which is the parent resource of this private
    * endpoint rule object.
    */
-  @JsonProperty("network_connectivity_config_id")
   private String networkConnectivityConfigId;
 
   /** The Azure resource ID of the target resource. */
-  @JsonProperty("resource_id")
   private String resourceId;
 
   /** The ID of a private endpoint rule. */
-  @JsonProperty("rule_id")
   private String ruleId;
 
   /** Time in epoch milliseconds when this object was updated. */
-  @JsonProperty("updated_time")
   private Long updatedTime;
 
   public NccAzurePrivateEndpointRule setConnectionState(
@@ -231,5 +231,61 @@ public class NccAzurePrivateEndpointRule {
         .add("ruleId", ruleId)
         .add("updatedTime", updatedTime)
         .toString();
+  }
+
+  NccAzurePrivateEndpointRulePb toPb() {
+    NccAzurePrivateEndpointRulePb pb = new NccAzurePrivateEndpointRulePb();
+    pb.setConnectionState(connectionState);
+    pb.setCreationTime(creationTime);
+    pb.setDeactivated(deactivated);
+    pb.setDeactivatedAt(deactivatedAt);
+    pb.setDomainNames(domainNames);
+    pb.setEndpointName(endpointName);
+    pb.setGroupId(groupId);
+    pb.setNetworkConnectivityConfigId(networkConnectivityConfigId);
+    pb.setResourceId(resourceId);
+    pb.setRuleId(ruleId);
+    pb.setUpdatedTime(updatedTime);
+
+    return pb;
+  }
+
+  static NccAzurePrivateEndpointRule fromPb(NccAzurePrivateEndpointRulePb pb) {
+    NccAzurePrivateEndpointRule model = new NccAzurePrivateEndpointRule();
+    model.setConnectionState(pb.getConnectionState());
+    model.setCreationTime(pb.getCreationTime());
+    model.setDeactivated(pb.getDeactivated());
+    model.setDeactivatedAt(pb.getDeactivatedAt());
+    model.setDomainNames(pb.getDomainNames());
+    model.setEndpointName(pb.getEndpointName());
+    model.setGroupId(pb.getGroupId());
+    model.setNetworkConnectivityConfigId(pb.getNetworkConnectivityConfigId());
+    model.setResourceId(pb.getResourceId());
+    model.setRuleId(pb.getRuleId());
+    model.setUpdatedTime(pb.getUpdatedTime());
+
+    return model;
+  }
+
+  public static class NccAzurePrivateEndpointRuleSerializer
+      extends JsonSerializer<NccAzurePrivateEndpointRule> {
+    @Override
+    public void serialize(
+        NccAzurePrivateEndpointRule value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      NccAzurePrivateEndpointRulePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class NccAzurePrivateEndpointRuleDeserializer
+      extends JsonDeserializer<NccAzurePrivateEndpointRule> {
+    @Override
+    public NccAzurePrivateEndpointRule deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      NccAzurePrivateEndpointRulePb pb = mapper.readValue(p, NccAzurePrivateEndpointRulePb.class);
+      return NccAzurePrivateEndpointRule.fromPb(pb);
+    }
   }
 }

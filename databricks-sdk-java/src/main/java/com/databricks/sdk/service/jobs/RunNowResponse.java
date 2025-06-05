@@ -4,18 +4,27 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Run was started successfully. */
 @Generated
+@JsonSerialize(using = RunNowResponse.RunNowResponseSerializer.class)
+@JsonDeserialize(using = RunNowResponse.RunNowResponseDeserializer.class)
 public class RunNowResponse {
   /** A unique identifier for this job run. This is set to the same value as `run_id`. */
-  @JsonProperty("number_in_job")
   private Long numberInJob;
 
   /** The globally unique ID of the newly triggered run. */
-  @JsonProperty("run_id")
   private Long runId;
 
   public RunNowResponse setNumberInJob(Long numberInJob) {
@@ -55,5 +64,40 @@ public class RunNowResponse {
         .add("numberInJob", numberInJob)
         .add("runId", runId)
         .toString();
+  }
+
+  RunNowResponsePb toPb() {
+    RunNowResponsePb pb = new RunNowResponsePb();
+    pb.setNumberInJob(numberInJob);
+    pb.setRunId(runId);
+
+    return pb;
+  }
+
+  static RunNowResponse fromPb(RunNowResponsePb pb) {
+    RunNowResponse model = new RunNowResponse();
+    model.setNumberInJob(pb.getNumberInJob());
+    model.setRunId(pb.getRunId());
+
+    return model;
+  }
+
+  public static class RunNowResponseSerializer extends JsonSerializer<RunNowResponse> {
+    @Override
+    public void serialize(RunNowResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      RunNowResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class RunNowResponseDeserializer extends JsonDeserializer<RunNowResponse> {
+    @Override
+    public RunNowResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      RunNowResponsePb pb = mapper.readValue(p, RunNowResponsePb.class);
+      return RunNowResponse.fromPb(pb);
+    }
   }
 }

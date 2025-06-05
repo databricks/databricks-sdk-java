@@ -4,25 +4,33 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = UpdateRegisteredModelRequest.UpdateRegisteredModelRequestSerializer.class)
+@JsonDeserialize(
+    using = UpdateRegisteredModelRequest.UpdateRegisteredModelRequestDeserializer.class)
 public class UpdateRegisteredModelRequest {
   /** The comment attached to the registered model */
-  @JsonProperty("comment")
   private String comment;
 
   /** The three-level (fully qualified) name of the registered model */
-  @JsonIgnore private String fullName;
+  private String fullName;
 
   /** New name for the registered model. */
-  @JsonProperty("new_name")
   private String newName;
 
   /** The identifier of the user who owns the registered model */
-  @JsonProperty("owner")
   private String owner;
 
   public UpdateRegisteredModelRequest setComment(String comment) {
@@ -85,5 +93,47 @@ public class UpdateRegisteredModelRequest {
         .add("newName", newName)
         .add("owner", owner)
         .toString();
+  }
+
+  UpdateRegisteredModelRequestPb toPb() {
+    UpdateRegisteredModelRequestPb pb = new UpdateRegisteredModelRequestPb();
+    pb.setComment(comment);
+    pb.setFullName(fullName);
+    pb.setNewName(newName);
+    pb.setOwner(owner);
+
+    return pb;
+  }
+
+  static UpdateRegisteredModelRequest fromPb(UpdateRegisteredModelRequestPb pb) {
+    UpdateRegisteredModelRequest model = new UpdateRegisteredModelRequest();
+    model.setComment(pb.getComment());
+    model.setFullName(pb.getFullName());
+    model.setNewName(pb.getNewName());
+    model.setOwner(pb.getOwner());
+
+    return model;
+  }
+
+  public static class UpdateRegisteredModelRequestSerializer
+      extends JsonSerializer<UpdateRegisteredModelRequest> {
+    @Override
+    public void serialize(
+        UpdateRegisteredModelRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateRegisteredModelRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateRegisteredModelRequestDeserializer
+      extends JsonDeserializer<UpdateRegisteredModelRequest> {
+    @Override
+    public UpdateRegisteredModelRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateRegisteredModelRequestPb pb = mapper.readValue(p, UpdateRegisteredModelRequestPb.class);
+      return UpdateRegisteredModelRequest.fromPb(pb);
+    }
   }
 }

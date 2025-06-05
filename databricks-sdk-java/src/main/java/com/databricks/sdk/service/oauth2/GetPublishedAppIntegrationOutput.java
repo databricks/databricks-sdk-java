@@ -4,33 +4,40 @@ package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = GetPublishedAppIntegrationOutput.GetPublishedAppIntegrationOutputSerializer.class)
+@JsonDeserialize(
+    using = GetPublishedAppIntegrationOutput.GetPublishedAppIntegrationOutputDeserializer.class)
 public class GetPublishedAppIntegrationOutput {
   /** App-id of the published app integration */
-  @JsonProperty("app_id")
   private String appId;
 
   /** */
-  @JsonProperty("create_time")
   private String createTime;
 
   /** */
-  @JsonProperty("created_by")
   private Long createdBy;
 
   /** Unique integration id for the published OAuth app */
-  @JsonProperty("integration_id")
   private String integrationId;
 
   /** Display name of the published OAuth app */
-  @JsonProperty("name")
   private String name;
 
   /** Token access policy */
-  @JsonProperty("token_access_policy")
   private TokenAccessPolicy tokenAccessPolicy;
 
   public GetPublishedAppIntegrationOutput setAppId(String appId) {
@@ -116,5 +123,52 @@ public class GetPublishedAppIntegrationOutput {
         .add("name", name)
         .add("tokenAccessPolicy", tokenAccessPolicy)
         .toString();
+  }
+
+  GetPublishedAppIntegrationOutputPb toPb() {
+    GetPublishedAppIntegrationOutputPb pb = new GetPublishedAppIntegrationOutputPb();
+    pb.setAppId(appId);
+    pb.setCreateTime(createTime);
+    pb.setCreatedBy(createdBy);
+    pb.setIntegrationId(integrationId);
+    pb.setName(name);
+    pb.setTokenAccessPolicy(tokenAccessPolicy);
+
+    return pb;
+  }
+
+  static GetPublishedAppIntegrationOutput fromPb(GetPublishedAppIntegrationOutputPb pb) {
+    GetPublishedAppIntegrationOutput model = new GetPublishedAppIntegrationOutput();
+    model.setAppId(pb.getAppId());
+    model.setCreateTime(pb.getCreateTime());
+    model.setCreatedBy(pb.getCreatedBy());
+    model.setIntegrationId(pb.getIntegrationId());
+    model.setName(pb.getName());
+    model.setTokenAccessPolicy(pb.getTokenAccessPolicy());
+
+    return model;
+  }
+
+  public static class GetPublishedAppIntegrationOutputSerializer
+      extends JsonSerializer<GetPublishedAppIntegrationOutput> {
+    @Override
+    public void serialize(
+        GetPublishedAppIntegrationOutput value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetPublishedAppIntegrationOutputPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetPublishedAppIntegrationOutputDeserializer
+      extends JsonDeserializer<GetPublishedAppIntegrationOutput> {
+    @Override
+    public GetPublishedAppIntegrationOutput deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetPublishedAppIntegrationOutputPb pb =
+          mapper.readValue(p, GetPublishedAppIntegrationOutputPb.class);
+      return GetPublishedAppIntegrationOutput.fromPb(pb);
+    }
   }
 }

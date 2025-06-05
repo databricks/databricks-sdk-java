@@ -4,14 +4,24 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Run was created and started successfully. */
 @Generated
+@JsonSerialize(using = SubmitRunResponse.SubmitRunResponseSerializer.class)
+@JsonDeserialize(using = SubmitRunResponse.SubmitRunResponseDeserializer.class)
 public class SubmitRunResponse {
   /** The canonical identifier for the newly submitted run. */
-  @JsonProperty("run_id")
   private Long runId;
 
   public SubmitRunResponse setRunId(Long runId) {
@@ -39,5 +49,38 @@ public class SubmitRunResponse {
   @Override
   public String toString() {
     return new ToStringer(SubmitRunResponse.class).add("runId", runId).toString();
+  }
+
+  SubmitRunResponsePb toPb() {
+    SubmitRunResponsePb pb = new SubmitRunResponsePb();
+    pb.setRunId(runId);
+
+    return pb;
+  }
+
+  static SubmitRunResponse fromPb(SubmitRunResponsePb pb) {
+    SubmitRunResponse model = new SubmitRunResponse();
+    model.setRunId(pb.getRunId());
+
+    return model;
+  }
+
+  public static class SubmitRunResponseSerializer extends JsonSerializer<SubmitRunResponse> {
+    @Override
+    public void serialize(SubmitRunResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SubmitRunResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SubmitRunResponseDeserializer extends JsonDeserializer<SubmitRunResponse> {
+    @Override
+    public SubmitRunResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SubmitRunResponsePb pb = mapper.readValue(p, SubmitRunResponsePb.class);
+      return SubmitRunResponse.fromPb(pb);
+    }
   }
 }

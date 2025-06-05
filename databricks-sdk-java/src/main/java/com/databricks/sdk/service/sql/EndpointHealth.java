@@ -4,32 +4,38 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = EndpointHealth.EndpointHealthSerializer.class)
+@JsonDeserialize(using = EndpointHealth.EndpointHealthDeserializer.class)
 public class EndpointHealth {
   /** Details about errors that are causing current degraded/failed status. */
-  @JsonProperty("details")
   private String details;
 
   /**
    * The reason for failure to bring up clusters for this warehouse. This is available when status
    * is 'FAILED' and sometimes when it is DEGRADED.
    */
-  @JsonProperty("failure_reason")
   private TerminationReason failureReason;
 
   /** Deprecated. split into summary and details for security */
-  @JsonProperty("message")
   private String message;
 
   /** Health status of the warehouse. */
-  @JsonProperty("status")
   private Status status;
 
   /** A short summary of the health status in case of degraded/failed warehouses. */
-  @JsonProperty("summary")
   private String summary;
 
   public EndpointHealth setDetails(String details) {
@@ -103,5 +109,46 @@ public class EndpointHealth {
         .add("status", status)
         .add("summary", summary)
         .toString();
+  }
+
+  EndpointHealthPb toPb() {
+    EndpointHealthPb pb = new EndpointHealthPb();
+    pb.setDetails(details);
+    pb.setFailureReason(failureReason);
+    pb.setMessage(message);
+    pb.setStatus(status);
+    pb.setSummary(summary);
+
+    return pb;
+  }
+
+  static EndpointHealth fromPb(EndpointHealthPb pb) {
+    EndpointHealth model = new EndpointHealth();
+    model.setDetails(pb.getDetails());
+    model.setFailureReason(pb.getFailureReason());
+    model.setMessage(pb.getMessage());
+    model.setStatus(pb.getStatus());
+    model.setSummary(pb.getSummary());
+
+    return model;
+  }
+
+  public static class EndpointHealthSerializer extends JsonSerializer<EndpointHealth> {
+    @Override
+    public void serialize(EndpointHealth value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      EndpointHealthPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class EndpointHealthDeserializer extends JsonDeserializer<EndpointHealth> {
+    @Override
+    public EndpointHealth deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      EndpointHealthPb pb = mapper.readValue(p, EndpointHealthPb.class);
+      return EndpointHealth.fromPb(pb);
+    }
   }
 }

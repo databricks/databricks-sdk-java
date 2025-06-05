@@ -4,17 +4,26 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = RejectTransitionRequest.RejectTransitionRequestSerializer.class)
+@JsonDeserialize(using = RejectTransitionRequest.RejectTransitionRequestDeserializer.class)
 public class RejectTransitionRequest {
   /** User-provided comment on the action. */
-  @JsonProperty("comment")
   private String comment;
 
   /** Name of the model. */
-  @JsonProperty("name")
   private String name;
 
   /**
@@ -28,11 +37,9 @@ public class RejectTransitionRequest {
    *
    * <p>* `Archived`: Archived stage.
    */
-  @JsonProperty("stage")
   private Stage stage;
 
   /** Version of the model. */
-  @JsonProperty("version")
   private String version;
 
   public RejectTransitionRequest setComment(String comment) {
@@ -95,5 +102,47 @@ public class RejectTransitionRequest {
         .add("stage", stage)
         .add("version", version)
         .toString();
+  }
+
+  RejectTransitionRequestPb toPb() {
+    RejectTransitionRequestPb pb = new RejectTransitionRequestPb();
+    pb.setComment(comment);
+    pb.setName(name);
+    pb.setStage(stage);
+    pb.setVersion(version);
+
+    return pb;
+  }
+
+  static RejectTransitionRequest fromPb(RejectTransitionRequestPb pb) {
+    RejectTransitionRequest model = new RejectTransitionRequest();
+    model.setComment(pb.getComment());
+    model.setName(pb.getName());
+    model.setStage(pb.getStage());
+    model.setVersion(pb.getVersion());
+
+    return model;
+  }
+
+  public static class RejectTransitionRequestSerializer
+      extends JsonSerializer<RejectTransitionRequest> {
+    @Override
+    public void serialize(
+        RejectTransitionRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      RejectTransitionRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class RejectTransitionRequestDeserializer
+      extends JsonDeserializer<RejectTransitionRequest> {
+    @Override
+    public RejectTransitionRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      RejectTransitionRequestPb pb = mapper.readValue(p, RejectTransitionRequestPb.class);
+      return RejectTransitionRequest.fromPb(pb);
+    }
   }
 }

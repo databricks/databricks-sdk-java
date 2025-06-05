@@ -4,22 +4,30 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ServicePrincipal.ServicePrincipalSerializer.class)
+@JsonDeserialize(using = ServicePrincipal.ServicePrincipalDeserializer.class)
 public class ServicePrincipal {
   /** If this user is active */
-  @JsonProperty("active")
   private Boolean active;
 
   /** UUID relating to the service principal */
-  @JsonProperty("applicationId")
   private String applicationId;
 
   /** String that represents a concatenation of given and family names. */
-  @JsonProperty("displayName")
   private String displayName;
 
   /**
@@ -29,27 +37,21 @@ public class ServicePrincipal {
    * <p>[assigning entitlements]:
    * https://docs.databricks.com/administration-guide/users-groups/index.html#assigning-entitlements
    */
-  @JsonProperty("entitlements")
   private Collection<ComplexValue> entitlements;
 
   /** */
-  @JsonProperty("externalId")
   private String externalId;
 
   /** */
-  @JsonProperty("groups")
   private Collection<ComplexValue> groups;
 
   /** Databricks service principal ID. */
-  @JsonProperty("id")
   private String id;
 
   /** Corresponds to AWS instance profile/arn role. */
-  @JsonProperty("roles")
   private Collection<ComplexValue> roles;
 
   /** The schema of the List response. */
-  @JsonProperty("schemas")
   private Collection<ServicePrincipalSchema> schemas;
 
   public ServicePrincipal setActive(Boolean active) {
@@ -168,5 +170,54 @@ public class ServicePrincipal {
         .add("roles", roles)
         .add("schemas", schemas)
         .toString();
+  }
+
+  ServicePrincipalPb toPb() {
+    ServicePrincipalPb pb = new ServicePrincipalPb();
+    pb.setActive(active);
+    pb.setApplicationId(applicationId);
+    pb.setDisplayName(displayName);
+    pb.setEntitlements(entitlements);
+    pb.setExternalId(externalId);
+    pb.setGroups(groups);
+    pb.setId(id);
+    pb.setRoles(roles);
+    pb.setSchemas(schemas);
+
+    return pb;
+  }
+
+  static ServicePrincipal fromPb(ServicePrincipalPb pb) {
+    ServicePrincipal model = new ServicePrincipal();
+    model.setActive(pb.getActive());
+    model.setApplicationId(pb.getApplicationId());
+    model.setDisplayName(pb.getDisplayName());
+    model.setEntitlements(pb.getEntitlements());
+    model.setExternalId(pb.getExternalId());
+    model.setGroups(pb.getGroups());
+    model.setId(pb.getId());
+    model.setRoles(pb.getRoles());
+    model.setSchemas(pb.getSchemas());
+
+    return model;
+  }
+
+  public static class ServicePrincipalSerializer extends JsonSerializer<ServicePrincipal> {
+    @Override
+    public void serialize(ServicePrincipal value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ServicePrincipalPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ServicePrincipalDeserializer extends JsonDeserializer<ServicePrincipal> {
+    @Override
+    public ServicePrincipal deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ServicePrincipalPb pb = mapper.readValue(p, ServicePrincipalPb.class);
+      return ServicePrincipal.fromPb(pb);
+    }
   }
 }

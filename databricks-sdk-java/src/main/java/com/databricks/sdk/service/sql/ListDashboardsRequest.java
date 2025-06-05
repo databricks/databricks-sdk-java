@@ -3,32 +3,34 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get dashboard objects */
 @Generated
+@JsonSerialize(using = ListDashboardsRequest.ListDashboardsRequestSerializer.class)
+@JsonDeserialize(using = ListDashboardsRequest.ListDashboardsRequestDeserializer.class)
 public class ListDashboardsRequest {
   /** Name of dashboard attribute to order by. */
-  @JsonIgnore
-  @QueryParam("order")
   private ListOrder order;
 
   /** Page number to retrieve. */
-  @JsonIgnore
-  @QueryParam("page")
   private Long page;
 
   /** Number of dashboards to return per page. */
-  @JsonIgnore
-  @QueryParam("page_size")
   private Long pageSize;
 
   /** Full text search term. */
-  @JsonIgnore
-  @QueryParam("q")
   private String q;
 
   public ListDashboardsRequest setOrder(ListOrder order) {
@@ -91,5 +93,47 @@ public class ListDashboardsRequest {
         .add("pageSize", pageSize)
         .add("q", q)
         .toString();
+  }
+
+  ListDashboardsRequestPb toPb() {
+    ListDashboardsRequestPb pb = new ListDashboardsRequestPb();
+    pb.setOrder(order);
+    pb.setPage(page);
+    pb.setPageSize(pageSize);
+    pb.setQ(q);
+
+    return pb;
+  }
+
+  static ListDashboardsRequest fromPb(ListDashboardsRequestPb pb) {
+    ListDashboardsRequest model = new ListDashboardsRequest();
+    model.setOrder(pb.getOrder());
+    model.setPage(pb.getPage());
+    model.setPageSize(pb.getPageSize());
+    model.setQ(pb.getQ());
+
+    return model;
+  }
+
+  public static class ListDashboardsRequestSerializer
+      extends JsonSerializer<ListDashboardsRequest> {
+    @Override
+    public void serialize(
+        ListDashboardsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListDashboardsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListDashboardsRequestDeserializer
+      extends JsonDeserializer<ListDashboardsRequest> {
+    @Override
+    public ListDashboardsRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListDashboardsRequestPb pb = mapper.readValue(p, ListDashboardsRequestPb.class);
+      return ListDashboardsRequest.fromPb(pb);
+    }
   }
 }

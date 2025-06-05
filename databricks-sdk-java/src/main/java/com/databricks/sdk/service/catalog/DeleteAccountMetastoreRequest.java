@@ -3,21 +3,30 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Delete a metastore */
 @Generated
+@JsonSerialize(using = DeleteAccountMetastoreRequest.DeleteAccountMetastoreRequestSerializer.class)
+@JsonDeserialize(
+    using = DeleteAccountMetastoreRequest.DeleteAccountMetastoreRequestDeserializer.class)
 public class DeleteAccountMetastoreRequest {
   /** Force deletion even if the metastore is not empty. Default is false. */
-  @JsonIgnore
-  @QueryParam("force")
   private Boolean force;
 
   /** Unity Catalog metastore ID */
-  @JsonIgnore private String metastoreId;
+  private String metastoreId;
 
   public DeleteAccountMetastoreRequest setForce(Boolean force) {
     this.force = force;
@@ -56,5 +65,44 @@ public class DeleteAccountMetastoreRequest {
         .add("force", force)
         .add("metastoreId", metastoreId)
         .toString();
+  }
+
+  DeleteAccountMetastoreRequestPb toPb() {
+    DeleteAccountMetastoreRequestPb pb = new DeleteAccountMetastoreRequestPb();
+    pb.setForce(force);
+    pb.setMetastoreId(metastoreId);
+
+    return pb;
+  }
+
+  static DeleteAccountMetastoreRequest fromPb(DeleteAccountMetastoreRequestPb pb) {
+    DeleteAccountMetastoreRequest model = new DeleteAccountMetastoreRequest();
+    model.setForce(pb.getForce());
+    model.setMetastoreId(pb.getMetastoreId());
+
+    return model;
+  }
+
+  public static class DeleteAccountMetastoreRequestSerializer
+      extends JsonSerializer<DeleteAccountMetastoreRequest> {
+    @Override
+    public void serialize(
+        DeleteAccountMetastoreRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DeleteAccountMetastoreRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DeleteAccountMetastoreRequestDeserializer
+      extends JsonDeserializer<DeleteAccountMetastoreRequest> {
+    @Override
+    public DeleteAccountMetastoreRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DeleteAccountMetastoreRequestPb pb =
+          mapper.readValue(p, DeleteAccountMetastoreRequestPb.class);
+      return DeleteAccountMetastoreRequest.fromPb(pb);
+    }
   }
 }

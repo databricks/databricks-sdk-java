@@ -4,17 +4,26 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ArtifactMatcher.ArtifactMatcherSerializer.class)
+@JsonDeserialize(using = ArtifactMatcher.ArtifactMatcherDeserializer.class)
 public class ArtifactMatcher {
   /** The artifact path or maven coordinate */
-  @JsonProperty("artifact")
   private String artifact;
 
   /** The pattern matching type of the artifact */
-  @JsonProperty("match_type")
   private MatchType matchType;
 
   public ArtifactMatcher setArtifact(String artifact) {
@@ -54,5 +63,40 @@ public class ArtifactMatcher {
         .add("artifact", artifact)
         .add("matchType", matchType)
         .toString();
+  }
+
+  ArtifactMatcherPb toPb() {
+    ArtifactMatcherPb pb = new ArtifactMatcherPb();
+    pb.setArtifact(artifact);
+    pb.setMatchType(matchType);
+
+    return pb;
+  }
+
+  static ArtifactMatcher fromPb(ArtifactMatcherPb pb) {
+    ArtifactMatcher model = new ArtifactMatcher();
+    model.setArtifact(pb.getArtifact());
+    model.setMatchType(pb.getMatchType());
+
+    return model;
+  }
+
+  public static class ArtifactMatcherSerializer extends JsonSerializer<ArtifactMatcher> {
+    @Override
+    public void serialize(ArtifactMatcher value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ArtifactMatcherPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ArtifactMatcherDeserializer extends JsonDeserializer<ArtifactMatcher> {
+    @Override
+    public ArtifactMatcher deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ArtifactMatcherPb pb = mapper.readValue(p, ArtifactMatcherPb.class);
+      return ArtifactMatcher.fromPb(pb);
+    }
   }
 }

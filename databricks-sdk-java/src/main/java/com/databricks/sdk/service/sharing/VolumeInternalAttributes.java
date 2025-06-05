@@ -4,18 +4,27 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Internal information for D2D sharing that should not be disclosed to external users. */
 @Generated
+@JsonSerialize(using = VolumeInternalAttributes.VolumeInternalAttributesSerializer.class)
+@JsonDeserialize(using = VolumeInternalAttributes.VolumeInternalAttributesDeserializer.class)
 public class VolumeInternalAttributes {
   /** The cloud storage location of the volume */
-  @JsonProperty("storage_location")
   private String storageLocation;
 
   /** The type of the shared volume. */
-  @JsonProperty("type")
   private String typeValue;
 
   public VolumeInternalAttributes setStorageLocation(String storageLocation) {
@@ -56,5 +65,43 @@ public class VolumeInternalAttributes {
         .add("storageLocation", storageLocation)
         .add("typeValue", typeValue)
         .toString();
+  }
+
+  VolumeInternalAttributesPb toPb() {
+    VolumeInternalAttributesPb pb = new VolumeInternalAttributesPb();
+    pb.setStorageLocation(storageLocation);
+    pb.setType(typeValue);
+
+    return pb;
+  }
+
+  static VolumeInternalAttributes fromPb(VolumeInternalAttributesPb pb) {
+    VolumeInternalAttributes model = new VolumeInternalAttributes();
+    model.setStorageLocation(pb.getStorageLocation());
+    model.setType(pb.getType());
+
+    return model;
+  }
+
+  public static class VolumeInternalAttributesSerializer
+      extends JsonSerializer<VolumeInternalAttributes> {
+    @Override
+    public void serialize(
+        VolumeInternalAttributes value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      VolumeInternalAttributesPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class VolumeInternalAttributesDeserializer
+      extends JsonDeserializer<VolumeInternalAttributes> {
+    @Override
+    public VolumeInternalAttributes deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      VolumeInternalAttributesPb pb = mapper.readValue(p, VolumeInternalAttributesPb.class);
+      return VolumeInternalAttributes.fromPb(pb);
+    }
   }
 }

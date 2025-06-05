@@ -4,21 +4,29 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ExternalQuerySourceJobInfo.ExternalQuerySourceJobInfoSerializer.class)
+@JsonDeserialize(using = ExternalQuerySourceJobInfo.ExternalQuerySourceJobInfoDeserializer.class)
 public class ExternalQuerySourceJobInfo {
   /** The canonical identifier for this job. */
-  @JsonProperty("job_id")
   private String jobId;
 
   /** The canonical identifier of the run. This ID is unique across all runs of all jobs. */
-  @JsonProperty("job_run_id")
   private String jobRunId;
 
   /** The canonical identifier of the task run. */
-  @JsonProperty("job_task_run_id")
   private String jobTaskRunId;
 
   public ExternalQuerySourceJobInfo setJobId(String jobId) {
@@ -70,5 +78,45 @@ public class ExternalQuerySourceJobInfo {
         .add("jobRunId", jobRunId)
         .add("jobTaskRunId", jobTaskRunId)
         .toString();
+  }
+
+  ExternalQuerySourceJobInfoPb toPb() {
+    ExternalQuerySourceJobInfoPb pb = new ExternalQuerySourceJobInfoPb();
+    pb.setJobId(jobId);
+    pb.setJobRunId(jobRunId);
+    pb.setJobTaskRunId(jobTaskRunId);
+
+    return pb;
+  }
+
+  static ExternalQuerySourceJobInfo fromPb(ExternalQuerySourceJobInfoPb pb) {
+    ExternalQuerySourceJobInfo model = new ExternalQuerySourceJobInfo();
+    model.setJobId(pb.getJobId());
+    model.setJobRunId(pb.getJobRunId());
+    model.setJobTaskRunId(pb.getJobTaskRunId());
+
+    return model;
+  }
+
+  public static class ExternalQuerySourceJobInfoSerializer
+      extends JsonSerializer<ExternalQuerySourceJobInfo> {
+    @Override
+    public void serialize(
+        ExternalQuerySourceJobInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ExternalQuerySourceJobInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ExternalQuerySourceJobInfoDeserializer
+      extends JsonDeserializer<ExternalQuerySourceJobInfo> {
+    @Override
+    public ExternalQuerySourceJobInfo deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ExternalQuerySourceJobInfoPb pb = mapper.readValue(p, ExternalQuerySourceJobInfoPb.class);
+      return ExternalQuerySourceJobInfo.fromPb(pb);
+    }
   }
 }

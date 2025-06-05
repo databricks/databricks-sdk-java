@@ -4,13 +4,23 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CronSchedule.CronScheduleSerializer.class)
+@JsonDeserialize(using = CronSchedule.CronScheduleDeserializer.class)
 public class CronSchedule {
   /** Indicate whether this schedule is paused or not. */
-  @JsonProperty("pause_status")
   private SchedulePauseStatus pauseStatus;
 
   /**
@@ -18,7 +28,6 @@ public class CronSchedule {
    * the quartz format described here:
    * http://www.quartz-scheduler.org/documentation/quartz-2.1.7/tutorials/tutorial-lesson-06.html
    */
-  @JsonProperty("quartz_cron_schedule")
   private String quartzCronSchedule;
 
   /**
@@ -27,7 +36,6 @@ public class CronSchedule {
    * https://docs.databricks.com/sql/language-manual/sql-ref-syntax-aux-conf-mgmt-set-timezone.html
    * for details.
    */
-  @JsonProperty("timezone_id")
   private String timezoneId;
 
   public CronSchedule setPauseStatus(SchedulePauseStatus pauseStatus) {
@@ -79,5 +87,41 @@ public class CronSchedule {
         .add("quartzCronSchedule", quartzCronSchedule)
         .add("timezoneId", timezoneId)
         .toString();
+  }
+
+  CronSchedulePb toPb() {
+    CronSchedulePb pb = new CronSchedulePb();
+    pb.setPauseStatus(pauseStatus);
+    pb.setQuartzCronSchedule(quartzCronSchedule);
+    pb.setTimezoneId(timezoneId);
+
+    return pb;
+  }
+
+  static CronSchedule fromPb(CronSchedulePb pb) {
+    CronSchedule model = new CronSchedule();
+    model.setPauseStatus(pb.getPauseStatus());
+    model.setQuartzCronSchedule(pb.getQuartzCronSchedule());
+    model.setTimezoneId(pb.getTimezoneId());
+
+    return model;
+  }
+
+  public static class CronScheduleSerializer extends JsonSerializer<CronSchedule> {
+    @Override
+    public void serialize(CronSchedule value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CronSchedulePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CronScheduleDeserializer extends JsonDeserializer<CronSchedule> {
+    @Override
+    public CronSchedule deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CronSchedulePb pb = mapper.readValue(p, CronSchedulePb.class);
+      return CronSchedule.fromPb(pb);
+    }
   }
 }

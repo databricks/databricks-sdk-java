@@ -4,21 +4,32 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = AccountsCreateMetastoreAssignment.AccountsCreateMetastoreAssignmentSerializer.class)
+@JsonDeserialize(
+    using = AccountsCreateMetastoreAssignment.AccountsCreateMetastoreAssignmentDeserializer.class)
 public class AccountsCreateMetastoreAssignment {
   /** */
-  @JsonProperty("metastore_assignment")
   private CreateMetastoreAssignment metastoreAssignment;
 
   /** Unity Catalog metastore ID */
-  @JsonIgnore private String metastoreId;
+  private String metastoreId;
 
   /** Workspace ID. */
-  @JsonIgnore private Long workspaceId;
+  private Long workspaceId;
 
   public AccountsCreateMetastoreAssignment setMetastoreAssignment(
       CreateMetastoreAssignment metastoreAssignment) {
@@ -70,5 +81,46 @@ public class AccountsCreateMetastoreAssignment {
         .add("metastoreId", metastoreId)
         .add("workspaceId", workspaceId)
         .toString();
+  }
+
+  AccountsCreateMetastoreAssignmentPb toPb() {
+    AccountsCreateMetastoreAssignmentPb pb = new AccountsCreateMetastoreAssignmentPb();
+    pb.setMetastoreAssignment(metastoreAssignment);
+    pb.setMetastoreId(metastoreId);
+    pb.setWorkspaceId(workspaceId);
+
+    return pb;
+  }
+
+  static AccountsCreateMetastoreAssignment fromPb(AccountsCreateMetastoreAssignmentPb pb) {
+    AccountsCreateMetastoreAssignment model = new AccountsCreateMetastoreAssignment();
+    model.setMetastoreAssignment(pb.getMetastoreAssignment());
+    model.setMetastoreId(pb.getMetastoreId());
+    model.setWorkspaceId(pb.getWorkspaceId());
+
+    return model;
+  }
+
+  public static class AccountsCreateMetastoreAssignmentSerializer
+      extends JsonSerializer<AccountsCreateMetastoreAssignment> {
+    @Override
+    public void serialize(
+        AccountsCreateMetastoreAssignment value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      AccountsCreateMetastoreAssignmentPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class AccountsCreateMetastoreAssignmentDeserializer
+      extends JsonDeserializer<AccountsCreateMetastoreAssignment> {
+    @Override
+    public AccountsCreateMetastoreAssignment deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      AccountsCreateMetastoreAssignmentPb pb =
+          mapper.readValue(p, AccountsCreateMetastoreAssignmentPb.class);
+      return AccountsCreateMetastoreAssignment.fromPb(pb);
+    }
   }
 }

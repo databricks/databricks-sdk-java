@@ -3,25 +3,33 @@
 package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get usage dashboard */
 @Generated
+@JsonSerialize(
+    using = GetBillingUsageDashboardRequest.GetBillingUsageDashboardRequestSerializer.class)
+@JsonDeserialize(
+    using = GetBillingUsageDashboardRequest.GetBillingUsageDashboardRequestDeserializer.class)
 public class GetBillingUsageDashboardRequest {
   /**
    * Workspace level usage dashboard shows usage data for the specified workspace ID. Global level
    * usage dashboard shows usage data for all workspaces in the account.
    */
-  @JsonIgnore
-  @QueryParam("dashboard_type")
   private UsageDashboardType dashboardType;
 
   /** The workspace ID of the workspace in which the usage dashboard is created. */
-  @JsonIgnore
-  @QueryParam("workspace_id")
   private Long workspaceId;
 
   public GetBillingUsageDashboardRequest setDashboardType(UsageDashboardType dashboardType) {
@@ -62,5 +70,44 @@ public class GetBillingUsageDashboardRequest {
         .add("dashboardType", dashboardType)
         .add("workspaceId", workspaceId)
         .toString();
+  }
+
+  GetBillingUsageDashboardRequestPb toPb() {
+    GetBillingUsageDashboardRequestPb pb = new GetBillingUsageDashboardRequestPb();
+    pb.setDashboardType(dashboardType);
+    pb.setWorkspaceId(workspaceId);
+
+    return pb;
+  }
+
+  static GetBillingUsageDashboardRequest fromPb(GetBillingUsageDashboardRequestPb pb) {
+    GetBillingUsageDashboardRequest model = new GetBillingUsageDashboardRequest();
+    model.setDashboardType(pb.getDashboardType());
+    model.setWorkspaceId(pb.getWorkspaceId());
+
+    return model;
+  }
+
+  public static class GetBillingUsageDashboardRequestSerializer
+      extends JsonSerializer<GetBillingUsageDashboardRequest> {
+    @Override
+    public void serialize(
+        GetBillingUsageDashboardRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetBillingUsageDashboardRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetBillingUsageDashboardRequestDeserializer
+      extends JsonDeserializer<GetBillingUsageDashboardRequest> {
+    @Override
+    public GetBillingUsageDashboardRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetBillingUsageDashboardRequestPb pb =
+          mapper.readValue(p, GetBillingUsageDashboardRequestPb.class);
+      return GetBillingUsageDashboardRequest.fromPb(pb);
+    }
   }
 }

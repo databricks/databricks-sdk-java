@@ -4,10 +4,21 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = NotebookOutput.NotebookOutputSerializer.class)
+@JsonDeserialize(using = NotebookOutput.NotebookOutputDeserializer.class)
 public class NotebookOutput {
   /**
    * The value passed to
@@ -16,11 +27,9 @@ public class NotebookOutput {
    * job can store the results in a cloud storage service. This field is absent if
    * `dbutils.notebook.exit()` was never called.
    */
-  @JsonProperty("result")
   private String result;
 
   /** Whether or not the result was truncated. */
-  @JsonProperty("truncated")
   private Boolean truncated;
 
   public NotebookOutput setResult(String result) {
@@ -60,5 +69,40 @@ public class NotebookOutput {
         .add("result", result)
         .add("truncated", truncated)
         .toString();
+  }
+
+  NotebookOutputPb toPb() {
+    NotebookOutputPb pb = new NotebookOutputPb();
+    pb.setResult(result);
+    pb.setTruncated(truncated);
+
+    return pb;
+  }
+
+  static NotebookOutput fromPb(NotebookOutputPb pb) {
+    NotebookOutput model = new NotebookOutput();
+    model.setResult(pb.getResult());
+    model.setTruncated(pb.getTruncated());
+
+    return model;
+  }
+
+  public static class NotebookOutputSerializer extends JsonSerializer<NotebookOutput> {
+    @Override
+    public void serialize(NotebookOutput value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      NotebookOutputPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class NotebookOutputDeserializer extends JsonDeserializer<NotebookOutput> {
+    @Override
+    public NotebookOutput deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      NotebookOutputPb pb = mapper.readValue(p, NotebookOutputPb.class);
+      return NotebookOutput.fromPb(pb);
+    }
   }
 }

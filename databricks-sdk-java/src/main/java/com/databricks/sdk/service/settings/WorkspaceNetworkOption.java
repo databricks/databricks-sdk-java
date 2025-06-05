@@ -4,21 +4,30 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = WorkspaceNetworkOption.WorkspaceNetworkOptionSerializer.class)
+@JsonDeserialize(using = WorkspaceNetworkOption.WorkspaceNetworkOptionDeserializer.class)
 public class WorkspaceNetworkOption {
   /**
    * The network policy ID to apply to the workspace. This controls the network access rules for all
    * serverless compute resources in the workspace. Each workspace can only be linked to one policy
    * at a time. If no policy is explicitly assigned, the workspace will use 'default-policy'.
    */
-  @JsonProperty("network_policy_id")
   private String networkPolicyId;
 
   /** The workspace ID. */
-  @JsonProperty("workspace_id")
   private Long workspaceId;
 
   public WorkspaceNetworkOption setNetworkPolicyId(String networkPolicyId) {
@@ -59,5 +68,43 @@ public class WorkspaceNetworkOption {
         .add("networkPolicyId", networkPolicyId)
         .add("workspaceId", workspaceId)
         .toString();
+  }
+
+  WorkspaceNetworkOptionPb toPb() {
+    WorkspaceNetworkOptionPb pb = new WorkspaceNetworkOptionPb();
+    pb.setNetworkPolicyId(networkPolicyId);
+    pb.setWorkspaceId(workspaceId);
+
+    return pb;
+  }
+
+  static WorkspaceNetworkOption fromPb(WorkspaceNetworkOptionPb pb) {
+    WorkspaceNetworkOption model = new WorkspaceNetworkOption();
+    model.setNetworkPolicyId(pb.getNetworkPolicyId());
+    model.setWorkspaceId(pb.getWorkspaceId());
+
+    return model;
+  }
+
+  public static class WorkspaceNetworkOptionSerializer
+      extends JsonSerializer<WorkspaceNetworkOption> {
+    @Override
+    public void serialize(
+        WorkspaceNetworkOption value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      WorkspaceNetworkOptionPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class WorkspaceNetworkOptionDeserializer
+      extends JsonDeserializer<WorkspaceNetworkOption> {
+    @Override
+    public WorkspaceNetworkOption deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      WorkspaceNetworkOptionPb pb = mapper.readValue(p, WorkspaceNetworkOptionPb.class);
+      return WorkspaceNetworkOption.fromPb(pb);
+    }
   }
 }

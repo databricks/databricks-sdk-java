@@ -4,14 +4,26 @@ package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = WrappedLogDeliveryConfigurations.WrappedLogDeliveryConfigurationsSerializer.class)
+@JsonDeserialize(
+    using = WrappedLogDeliveryConfigurations.WrappedLogDeliveryConfigurationsDeserializer.class)
 public class WrappedLogDeliveryConfigurations {
   /** */
-  @JsonProperty("log_delivery_configurations")
   private Collection<LogDeliveryConfiguration> logDeliveryConfigurations;
 
   public WrappedLogDeliveryConfigurations setLogDeliveryConfigurations(
@@ -42,5 +54,42 @@ public class WrappedLogDeliveryConfigurations {
     return new ToStringer(WrappedLogDeliveryConfigurations.class)
         .add("logDeliveryConfigurations", logDeliveryConfigurations)
         .toString();
+  }
+
+  WrappedLogDeliveryConfigurationsPb toPb() {
+    WrappedLogDeliveryConfigurationsPb pb = new WrappedLogDeliveryConfigurationsPb();
+    pb.setLogDeliveryConfigurations(logDeliveryConfigurations);
+
+    return pb;
+  }
+
+  static WrappedLogDeliveryConfigurations fromPb(WrappedLogDeliveryConfigurationsPb pb) {
+    WrappedLogDeliveryConfigurations model = new WrappedLogDeliveryConfigurations();
+    model.setLogDeliveryConfigurations(pb.getLogDeliveryConfigurations());
+
+    return model;
+  }
+
+  public static class WrappedLogDeliveryConfigurationsSerializer
+      extends JsonSerializer<WrappedLogDeliveryConfigurations> {
+    @Override
+    public void serialize(
+        WrappedLogDeliveryConfigurations value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      WrappedLogDeliveryConfigurationsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class WrappedLogDeliveryConfigurationsDeserializer
+      extends JsonDeserializer<WrappedLogDeliveryConfigurations> {
+    @Override
+    public WrappedLogDeliveryConfigurations deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      WrappedLogDeliveryConfigurationsPb pb =
+          mapper.readValue(p, WrappedLogDeliveryConfigurationsPb.class);
+      return WrappedLogDeliveryConfigurations.fromPb(pb);
+    }
   }
 }

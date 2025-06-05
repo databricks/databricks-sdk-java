@@ -3,24 +3,37 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Delete a storage credential */
 @Generated
+@JsonSerialize(
+    using =
+        DeleteAccountStorageCredentialRequest.DeleteAccountStorageCredentialRequestSerializer.class)
+@JsonDeserialize(
+    using =
+        DeleteAccountStorageCredentialRequest.DeleteAccountStorageCredentialRequestDeserializer
+            .class)
 public class DeleteAccountStorageCredentialRequest {
   /** Force deletion even if the Storage Credential is not empty. Default is false. */
-  @JsonIgnore
-  @QueryParam("force")
   private Boolean force;
 
   /** Unity Catalog metastore ID */
-  @JsonIgnore private String metastoreId;
+  private String metastoreId;
 
   /** Name of the storage credential. */
-  @JsonIgnore private String storageCredentialName;
+  private String storageCredentialName;
 
   public DeleteAccountStorageCredentialRequest setForce(Boolean force) {
     this.force = force;
@@ -72,5 +85,46 @@ public class DeleteAccountStorageCredentialRequest {
         .add("metastoreId", metastoreId)
         .add("storageCredentialName", storageCredentialName)
         .toString();
+  }
+
+  DeleteAccountStorageCredentialRequestPb toPb() {
+    DeleteAccountStorageCredentialRequestPb pb = new DeleteAccountStorageCredentialRequestPb();
+    pb.setForce(force);
+    pb.setMetastoreId(metastoreId);
+    pb.setStorageCredentialName(storageCredentialName);
+
+    return pb;
+  }
+
+  static DeleteAccountStorageCredentialRequest fromPb(DeleteAccountStorageCredentialRequestPb pb) {
+    DeleteAccountStorageCredentialRequest model = new DeleteAccountStorageCredentialRequest();
+    model.setForce(pb.getForce());
+    model.setMetastoreId(pb.getMetastoreId());
+    model.setStorageCredentialName(pb.getStorageCredentialName());
+
+    return model;
+  }
+
+  public static class DeleteAccountStorageCredentialRequestSerializer
+      extends JsonSerializer<DeleteAccountStorageCredentialRequest> {
+    @Override
+    public void serialize(
+        DeleteAccountStorageCredentialRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DeleteAccountStorageCredentialRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DeleteAccountStorageCredentialRequestDeserializer
+      extends JsonDeserializer<DeleteAccountStorageCredentialRequest> {
+    @Override
+    public DeleteAccountStorageCredentialRequest deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DeleteAccountStorageCredentialRequestPb pb =
+          mapper.readValue(p, DeleteAccountStorageCredentialRequestPb.class);
+      return DeleteAccountStorageCredentialRequest.fromPb(pb);
+    }
   }
 }

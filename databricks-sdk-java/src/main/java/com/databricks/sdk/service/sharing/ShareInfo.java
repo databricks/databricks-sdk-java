@@ -4,50 +4,51 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ShareInfo.ShareInfoSerializer.class)
+@JsonDeserialize(using = ShareInfo.ShareInfoDeserializer.class)
 public class ShareInfo {
   /** User-provided free-form text description. */
-  @JsonProperty("comment")
   private String comment;
 
   /** Time at which this share was created, in epoch milliseconds. */
-  @JsonProperty("created_at")
   private Long createdAt;
 
   /** Username of share creator. */
-  @JsonProperty("created_by")
   private String createdBy;
 
   /** Name of the share. */
-  @JsonProperty("name")
   private String name;
 
   /** A list of shared data objects within the share. */
-  @JsonProperty("objects")
   private Collection<SharedDataObject> objects;
 
   /** Username of current owner of share. */
-  @JsonProperty("owner")
   private String owner;
 
   /** Storage Location URL (full path) for the share. */
-  @JsonProperty("storage_location")
   private String storageLocation;
 
   /** Storage root URL for the share. */
-  @JsonProperty("storage_root")
   private String storageRoot;
 
   /** Time at which this share was updated, in epoch milliseconds. */
-  @JsonProperty("updated_at")
   private Long updatedAt;
 
   /** Username of share updater. */
-  @JsonProperty("updated_by")
   private String updatedBy;
 
   public ShareInfo setComment(String comment) {
@@ -186,5 +187,55 @@ public class ShareInfo {
         .add("updatedAt", updatedAt)
         .add("updatedBy", updatedBy)
         .toString();
+  }
+
+  ShareInfoPb toPb() {
+    ShareInfoPb pb = new ShareInfoPb();
+    pb.setComment(comment);
+    pb.setCreatedAt(createdAt);
+    pb.setCreatedBy(createdBy);
+    pb.setName(name);
+    pb.setObjects(objects);
+    pb.setOwner(owner);
+    pb.setStorageLocation(storageLocation);
+    pb.setStorageRoot(storageRoot);
+    pb.setUpdatedAt(updatedAt);
+    pb.setUpdatedBy(updatedBy);
+
+    return pb;
+  }
+
+  static ShareInfo fromPb(ShareInfoPb pb) {
+    ShareInfo model = new ShareInfo();
+    model.setComment(pb.getComment());
+    model.setCreatedAt(pb.getCreatedAt());
+    model.setCreatedBy(pb.getCreatedBy());
+    model.setName(pb.getName());
+    model.setObjects(pb.getObjects());
+    model.setOwner(pb.getOwner());
+    model.setStorageLocation(pb.getStorageLocation());
+    model.setStorageRoot(pb.getStorageRoot());
+    model.setUpdatedAt(pb.getUpdatedAt());
+    model.setUpdatedBy(pb.getUpdatedBy());
+
+    return model;
+  }
+
+  public static class ShareInfoSerializer extends JsonSerializer<ShareInfo> {
+    @Override
+    public void serialize(ShareInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ShareInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ShareInfoDeserializer extends JsonDeserializer<ShareInfo> {
+    @Override
+    public ShareInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ShareInfoPb pb = mapper.readValue(p, ShareInfoPb.class);
+      return ShareInfo.fromPb(pb);
+    }
   }
 }

@@ -4,22 +4,30 @@ package com.databricks.sdk.service.apps;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = AppPermissions.AppPermissionsSerializer.class)
+@JsonDeserialize(using = AppPermissions.AppPermissionsDeserializer.class)
 public class AppPermissions {
   /** */
-  @JsonProperty("access_control_list")
   private Collection<AppAccessControlResponse> accessControlList;
 
   /** */
-  @JsonProperty("object_id")
   private String objectId;
 
   /** */
-  @JsonProperty("object_type")
   private String objectType;
 
   public AppPermissions setAccessControlList(
@@ -72,5 +80,42 @@ public class AppPermissions {
         .add("objectId", objectId)
         .add("objectType", objectType)
         .toString();
+  }
+
+  AppPermissionsPb toPb() {
+    AppPermissionsPb pb = new AppPermissionsPb();
+    pb.setAccessControlList(accessControlList);
+    pb.setObjectId(objectId);
+    pb.setObjectType(objectType);
+
+    return pb;
+  }
+
+  static AppPermissions fromPb(AppPermissionsPb pb) {
+    AppPermissions model = new AppPermissions();
+    model.setAccessControlList(pb.getAccessControlList());
+    model.setObjectId(pb.getObjectId());
+    model.setObjectType(pb.getObjectType());
+
+    return model;
+  }
+
+  public static class AppPermissionsSerializer extends JsonSerializer<AppPermissions> {
+    @Override
+    public void serialize(AppPermissions value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      AppPermissionsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class AppPermissionsDeserializer extends JsonDeserializer<AppPermissions> {
+    @Override
+    public AppPermissions deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      AppPermissionsPb pb = mapper.readValue(p, AppPermissionsPb.class);
+      return AppPermissions.fromPb(pb);
+    }
   }
 }

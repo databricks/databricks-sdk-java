@@ -4,11 +4,28 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** The etag is returned. */
 @Generated
+@JsonSerialize(
+    using =
+        DeleteRestrictWorkspaceAdminsSettingResponse
+            .DeleteRestrictWorkspaceAdminsSettingResponseSerializer.class)
+@JsonDeserialize(
+    using =
+        DeleteRestrictWorkspaceAdminsSettingResponse
+            .DeleteRestrictWorkspaceAdminsSettingResponseDeserializer.class)
 public class DeleteRestrictWorkspaceAdminsSettingResponse {
   /**
    * etag used for versioning. The response is at least as fresh as the eTag provided. This is used
@@ -18,7 +35,6 @@ public class DeleteRestrictWorkspaceAdminsSettingResponse {
    * an etag from a GET request, and pass it with the DELETE request to identify the rule set
    * version you are deleting.
    */
-  @JsonProperty("etag")
   private String etag;
 
   public DeleteRestrictWorkspaceAdminsSettingResponse setEtag(String etag) {
@@ -49,5 +65,47 @@ public class DeleteRestrictWorkspaceAdminsSettingResponse {
     return new ToStringer(DeleteRestrictWorkspaceAdminsSettingResponse.class)
         .add("etag", etag)
         .toString();
+  }
+
+  DeleteRestrictWorkspaceAdminsSettingResponsePb toPb() {
+    DeleteRestrictWorkspaceAdminsSettingResponsePb pb =
+        new DeleteRestrictWorkspaceAdminsSettingResponsePb();
+    pb.setEtag(etag);
+
+    return pb;
+  }
+
+  static DeleteRestrictWorkspaceAdminsSettingResponse fromPb(
+      DeleteRestrictWorkspaceAdminsSettingResponsePb pb) {
+    DeleteRestrictWorkspaceAdminsSettingResponse model =
+        new DeleteRestrictWorkspaceAdminsSettingResponse();
+    model.setEtag(pb.getEtag());
+
+    return model;
+  }
+
+  public static class DeleteRestrictWorkspaceAdminsSettingResponseSerializer
+      extends JsonSerializer<DeleteRestrictWorkspaceAdminsSettingResponse> {
+    @Override
+    public void serialize(
+        DeleteRestrictWorkspaceAdminsSettingResponse value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      DeleteRestrictWorkspaceAdminsSettingResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DeleteRestrictWorkspaceAdminsSettingResponseDeserializer
+      extends JsonDeserializer<DeleteRestrictWorkspaceAdminsSettingResponse> {
+    @Override
+    public DeleteRestrictWorkspaceAdminsSettingResponse deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DeleteRestrictWorkspaceAdminsSettingResponsePb pb =
+          mapper.readValue(p, DeleteRestrictWorkspaceAdminsSettingResponsePb.class);
+      return DeleteRestrictWorkspaceAdminsSettingResponse.fromPb(pb);
+    }
   }
 }

@@ -4,26 +4,33 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Format of response retrieved from dbt Cloud, for inclusion in output */
 @Generated
+@JsonSerialize(using = DbtCloudJobRunStep.DbtCloudJobRunStepSerializer.class)
+@JsonDeserialize(using = DbtCloudJobRunStep.DbtCloudJobRunStepDeserializer.class)
 public class DbtCloudJobRunStep {
   /** Orders the steps in the job */
-  @JsonProperty("index")
   private Long index;
 
   /** Output of the step */
-  @JsonProperty("logs")
   private String logs;
 
   /** Name of the step in the job */
-  @JsonProperty("name")
   private String name;
 
   /** State of the step */
-  @JsonProperty("status")
   private DbtCloudRunStatus status;
 
   public DbtCloudJobRunStep setIndex(Long index) {
@@ -86,5 +93,44 @@ public class DbtCloudJobRunStep {
         .add("name", name)
         .add("status", status)
         .toString();
+  }
+
+  DbtCloudJobRunStepPb toPb() {
+    DbtCloudJobRunStepPb pb = new DbtCloudJobRunStepPb();
+    pb.setIndex(index);
+    pb.setLogs(logs);
+    pb.setName(name);
+    pb.setStatus(status);
+
+    return pb;
+  }
+
+  static DbtCloudJobRunStep fromPb(DbtCloudJobRunStepPb pb) {
+    DbtCloudJobRunStep model = new DbtCloudJobRunStep();
+    model.setIndex(pb.getIndex());
+    model.setLogs(pb.getLogs());
+    model.setName(pb.getName());
+    model.setStatus(pb.getStatus());
+
+    return model;
+  }
+
+  public static class DbtCloudJobRunStepSerializer extends JsonSerializer<DbtCloudJobRunStep> {
+    @Override
+    public void serialize(DbtCloudJobRunStep value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DbtCloudJobRunStepPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DbtCloudJobRunStepDeserializer extends JsonDeserializer<DbtCloudJobRunStep> {
+    @Override
+    public DbtCloudJobRunStep deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DbtCloudJobRunStepPb pb = mapper.readValue(p, DbtCloudJobRunStepPb.class);
+      return DbtCloudJobRunStep.fromPb(pb);
+    }
   }
 }

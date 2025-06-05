@@ -4,23 +4,31 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 /** Transition request details. */
 @Generated
+@JsonSerialize(using = TransitionRequest.TransitionRequestSerializer.class)
+@JsonDeserialize(using = TransitionRequest.TransitionRequestDeserializer.class)
 public class TransitionRequest {
   /** Array of actions on the activity allowed for the current viewer. */
-  @JsonProperty("available_actions")
   private Collection<ActivityAction> availableActions;
 
   /** User-provided comment associated with the transition request. */
-  @JsonProperty("comment")
   private String comment;
 
   /** Creation time of the object, as a Unix timestamp in milliseconds. */
-  @JsonProperty("creation_timestamp")
   private Long creationTimestamp;
 
   /**
@@ -34,11 +42,9 @@ public class TransitionRequest {
    *
    * <p>* `Archived`: Archived stage.
    */
-  @JsonProperty("to_stage")
   private Stage toStage;
 
   /** The username of the user that created the object. */
-  @JsonProperty("user_id")
   private String userId;
 
   public TransitionRequest setAvailableActions(Collection<ActivityAction> availableActions) {
@@ -112,5 +118,46 @@ public class TransitionRequest {
         .add("toStage", toStage)
         .add("userId", userId)
         .toString();
+  }
+
+  TransitionRequestPb toPb() {
+    TransitionRequestPb pb = new TransitionRequestPb();
+    pb.setAvailableActions(availableActions);
+    pb.setComment(comment);
+    pb.setCreationTimestamp(creationTimestamp);
+    pb.setToStage(toStage);
+    pb.setUserId(userId);
+
+    return pb;
+  }
+
+  static TransitionRequest fromPb(TransitionRequestPb pb) {
+    TransitionRequest model = new TransitionRequest();
+    model.setAvailableActions(pb.getAvailableActions());
+    model.setComment(pb.getComment());
+    model.setCreationTimestamp(pb.getCreationTimestamp());
+    model.setToStage(pb.getToStage());
+    model.setUserId(pb.getUserId());
+
+    return model;
+  }
+
+  public static class TransitionRequestSerializer extends JsonSerializer<TransitionRequest> {
+    @Override
+    public void serialize(TransitionRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      TransitionRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class TransitionRequestDeserializer extends JsonDeserializer<TransitionRequest> {
+    @Override
+    public TransitionRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      TransitionRequestPb pb = mapper.readValue(p, TransitionRequestPb.class);
+      return TransitionRequest.fromPb(pb);
+    }
   }
 }

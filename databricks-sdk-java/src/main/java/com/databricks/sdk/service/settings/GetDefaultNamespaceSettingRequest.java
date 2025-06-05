@@ -3,13 +3,25 @@
 package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get the default namespace setting */
 @Generated
+@JsonSerialize(
+    using = GetDefaultNamespaceSettingRequest.GetDefaultNamespaceSettingRequestSerializer.class)
+@JsonDeserialize(
+    using = GetDefaultNamespaceSettingRequest.GetDefaultNamespaceSettingRequestDeserializer.class)
 public class GetDefaultNamespaceSettingRequest {
   /**
    * etag used for versioning. The response is at least as fresh as the eTag provided. This is used
@@ -19,8 +31,6 @@ public class GetDefaultNamespaceSettingRequest {
    * an etag from a GET request, and pass it with the DELETE request to identify the rule set
    * version you are deleting.
    */
-  @JsonIgnore
-  @QueryParam("etag")
   private String etag;
 
   public GetDefaultNamespaceSettingRequest setEtag(String etag) {
@@ -48,5 +58,42 @@ public class GetDefaultNamespaceSettingRequest {
   @Override
   public String toString() {
     return new ToStringer(GetDefaultNamespaceSettingRequest.class).add("etag", etag).toString();
+  }
+
+  GetDefaultNamespaceSettingRequestPb toPb() {
+    GetDefaultNamespaceSettingRequestPb pb = new GetDefaultNamespaceSettingRequestPb();
+    pb.setEtag(etag);
+
+    return pb;
+  }
+
+  static GetDefaultNamespaceSettingRequest fromPb(GetDefaultNamespaceSettingRequestPb pb) {
+    GetDefaultNamespaceSettingRequest model = new GetDefaultNamespaceSettingRequest();
+    model.setEtag(pb.getEtag());
+
+    return model;
+  }
+
+  public static class GetDefaultNamespaceSettingRequestSerializer
+      extends JsonSerializer<GetDefaultNamespaceSettingRequest> {
+    @Override
+    public void serialize(
+        GetDefaultNamespaceSettingRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetDefaultNamespaceSettingRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetDefaultNamespaceSettingRequestDeserializer
+      extends JsonDeserializer<GetDefaultNamespaceSettingRequest> {
+    @Override
+    public GetDefaultNamespaceSettingRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetDefaultNamespaceSettingRequestPb pb =
+          mapper.readValue(p, GetDefaultNamespaceSettingRequestPb.class);
+      return GetDefaultNamespaceSettingRequest.fromPb(pb);
+    }
   }
 }

@@ -4,9 +4,21 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = SetLoggedModelTagsResponse.SetLoggedModelTagsResponseSerializer.class)
+@JsonDeserialize(using = SetLoggedModelTagsResponse.SetLoggedModelTagsResponseDeserializer.class)
 public class SetLoggedModelTagsResponse {
 
   @Override
@@ -24,5 +36,39 @@ public class SetLoggedModelTagsResponse {
   @Override
   public String toString() {
     return new ToStringer(SetLoggedModelTagsResponse.class).toString();
+  }
+
+  SetLoggedModelTagsResponsePb toPb() {
+    SetLoggedModelTagsResponsePb pb = new SetLoggedModelTagsResponsePb();
+
+    return pb;
+  }
+
+  static SetLoggedModelTagsResponse fromPb(SetLoggedModelTagsResponsePb pb) {
+    SetLoggedModelTagsResponse model = new SetLoggedModelTagsResponse();
+
+    return model;
+  }
+
+  public static class SetLoggedModelTagsResponseSerializer
+      extends JsonSerializer<SetLoggedModelTagsResponse> {
+    @Override
+    public void serialize(
+        SetLoggedModelTagsResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SetLoggedModelTagsResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SetLoggedModelTagsResponseDeserializer
+      extends JsonDeserializer<SetLoggedModelTagsResponse> {
+    @Override
+    public SetLoggedModelTagsResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SetLoggedModelTagsResponsePb pb = mapper.readValue(p, SetLoggedModelTagsResponsePb.class);
+      return SetLoggedModelTagsResponse.fromPb(pb);
+    }
   }
 }

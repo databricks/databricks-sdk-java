@@ -4,29 +4,38 @@ package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = UpdateBudgetConfigurationBudget.UpdateBudgetConfigurationBudgetSerializer.class)
+@JsonDeserialize(
+    using = UpdateBudgetConfigurationBudget.UpdateBudgetConfigurationBudgetDeserializer.class)
 public class UpdateBudgetConfigurationBudget {
   /** Databricks account ID. */
-  @JsonProperty("account_id")
   private String accountId;
 
   /**
    * Alerts to configure when this budget is in a triggered state. Budgets must have exactly one
    * alert configuration.
    */
-  @JsonProperty("alert_configurations")
   private Collection<AlertConfiguration> alertConfigurations;
 
   /** Databricks budget configuration ID. */
-  @JsonProperty("budget_configuration_id")
   private String budgetConfigurationId;
 
   /** Human-readable name of budget configuration. Max Length: 128 */
-  @JsonProperty("display_name")
   private String displayName;
 
   /**
@@ -34,7 +43,6 @@ public class UpdateBudgetConfigurationBudget {
    * scope of what is considered for this budget. Leave empty to include all usage for this account.
    * All provided filters must be matched for usage to be included.
    */
-  @JsonProperty("filter")
   private BudgetConfigurationFilter filter;
 
   public UpdateBudgetConfigurationBudget setAccountId(String accountId) {
@@ -109,5 +117,50 @@ public class UpdateBudgetConfigurationBudget {
         .add("displayName", displayName)
         .add("filter", filter)
         .toString();
+  }
+
+  UpdateBudgetConfigurationBudgetPb toPb() {
+    UpdateBudgetConfigurationBudgetPb pb = new UpdateBudgetConfigurationBudgetPb();
+    pb.setAccountId(accountId);
+    pb.setAlertConfigurations(alertConfigurations);
+    pb.setBudgetConfigurationId(budgetConfigurationId);
+    pb.setDisplayName(displayName);
+    pb.setFilter(filter);
+
+    return pb;
+  }
+
+  static UpdateBudgetConfigurationBudget fromPb(UpdateBudgetConfigurationBudgetPb pb) {
+    UpdateBudgetConfigurationBudget model = new UpdateBudgetConfigurationBudget();
+    model.setAccountId(pb.getAccountId());
+    model.setAlertConfigurations(pb.getAlertConfigurations());
+    model.setBudgetConfigurationId(pb.getBudgetConfigurationId());
+    model.setDisplayName(pb.getDisplayName());
+    model.setFilter(pb.getFilter());
+
+    return model;
+  }
+
+  public static class UpdateBudgetConfigurationBudgetSerializer
+      extends JsonSerializer<UpdateBudgetConfigurationBudget> {
+    @Override
+    public void serialize(
+        UpdateBudgetConfigurationBudget value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateBudgetConfigurationBudgetPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateBudgetConfigurationBudgetDeserializer
+      extends JsonDeserializer<UpdateBudgetConfigurationBudget> {
+    @Override
+    public UpdateBudgetConfigurationBudget deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateBudgetConfigurationBudgetPb pb =
+          mapper.readValue(p, UpdateBudgetConfigurationBudgetPb.class);
+      return UpdateBudgetConfigurationBudget.fromPb(pb);
+    }
   }
 }

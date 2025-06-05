@@ -22,7 +22,7 @@ class AccountUsersImpl implements AccountUsersService {
         String.format("/api/2.0/accounts/%s/scim/v2/Users", apiClient.configuredAccountID());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, User.class);
@@ -39,7 +39,7 @@ class AccountUsersImpl implements AccountUsersService {
             apiClient.configuredAccountID(), request.getId());
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       apiClient.execute(req, DeleteResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -54,7 +54,7 @@ class AccountUsersImpl implements AccountUsersService {
             apiClient.configuredAccountID(), request.getId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, User.class);
     } catch (IOException e) {
@@ -68,7 +68,7 @@ class AccountUsersImpl implements AccountUsersService {
         String.format("/api/2.0/accounts/%s/scim/v2/Users", apiClient.configuredAccountID());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListUsersResponse.class);
     } catch (IOException e) {
@@ -84,7 +84,7 @@ class AccountUsersImpl implements AccountUsersService {
             apiClient.configuredAccountID(), request.getId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, PatchResponse.class);
     } catch (IOException e) {
@@ -100,7 +100,7 @@ class AccountUsersImpl implements AccountUsersService {
             apiClient.configuredAccountID(), request.getId());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, UpdateResponse.class);
     } catch (IOException e) {

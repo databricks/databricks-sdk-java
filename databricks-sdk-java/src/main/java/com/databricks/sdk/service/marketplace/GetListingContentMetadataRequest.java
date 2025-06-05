@@ -3,25 +3,33 @@
 package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get listing content metadata */
 @Generated
+@JsonSerialize(
+    using = GetListingContentMetadataRequest.GetListingContentMetadataRequestSerializer.class)
+@JsonDeserialize(
+    using = GetListingContentMetadataRequest.GetListingContentMetadataRequestDeserializer.class)
 public class GetListingContentMetadataRequest {
   /** */
-  @JsonIgnore private String listingId;
+  private String listingId;
 
   /** */
-  @JsonIgnore
-  @QueryParam("page_size")
   private Long pageSize;
 
   /** */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   public GetListingContentMetadataRequest setListingId(String listingId) {
@@ -73,5 +81,46 @@ public class GetListingContentMetadataRequest {
         .add("pageSize", pageSize)
         .add("pageToken", pageToken)
         .toString();
+  }
+
+  GetListingContentMetadataRequestPb toPb() {
+    GetListingContentMetadataRequestPb pb = new GetListingContentMetadataRequestPb();
+    pb.setListingId(listingId);
+    pb.setPageSize(pageSize);
+    pb.setPageToken(pageToken);
+
+    return pb;
+  }
+
+  static GetListingContentMetadataRequest fromPb(GetListingContentMetadataRequestPb pb) {
+    GetListingContentMetadataRequest model = new GetListingContentMetadataRequest();
+    model.setListingId(pb.getListingId());
+    model.setPageSize(pb.getPageSize());
+    model.setPageToken(pb.getPageToken());
+
+    return model;
+  }
+
+  public static class GetListingContentMetadataRequestSerializer
+      extends JsonSerializer<GetListingContentMetadataRequest> {
+    @Override
+    public void serialize(
+        GetListingContentMetadataRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetListingContentMetadataRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetListingContentMetadataRequestDeserializer
+      extends JsonDeserializer<GetListingContentMetadataRequest> {
+    @Override
+    public GetListingContentMetadataRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetListingContentMetadataRequestPb pb =
+          mapper.readValue(p, GetListingContentMetadataRequestPb.class);
+      return GetListingContentMetadataRequest.fromPb(pb);
+    }
   }
 }

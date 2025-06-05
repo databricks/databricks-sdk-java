@@ -4,7 +4,16 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -13,12 +22,13 @@ import java.util.Objects;
  * allow traffic from your Databricks workspace.
  */
 @Generated
+@JsonSerialize(using = NccAwsStableIpRule.NccAwsStableIpRuleSerializer.class)
+@JsonDeserialize(using = NccAwsStableIpRule.NccAwsStableIpRuleDeserializer.class)
 public class NccAwsStableIpRule {
   /**
    * The list of stable IP CIDR blocks from which Databricks network traffic originates when
    * accessing your resources.
    */
-  @JsonProperty("cidr_blocks")
   private Collection<String> cidrBlocks;
 
   public NccAwsStableIpRule setCidrBlocks(Collection<String> cidrBlocks) {
@@ -46,5 +56,38 @@ public class NccAwsStableIpRule {
   @Override
   public String toString() {
     return new ToStringer(NccAwsStableIpRule.class).add("cidrBlocks", cidrBlocks).toString();
+  }
+
+  NccAwsStableIpRulePb toPb() {
+    NccAwsStableIpRulePb pb = new NccAwsStableIpRulePb();
+    pb.setCidrBlocks(cidrBlocks);
+
+    return pb;
+  }
+
+  static NccAwsStableIpRule fromPb(NccAwsStableIpRulePb pb) {
+    NccAwsStableIpRule model = new NccAwsStableIpRule();
+    model.setCidrBlocks(pb.getCidrBlocks());
+
+    return model;
+  }
+
+  public static class NccAwsStableIpRuleSerializer extends JsonSerializer<NccAwsStableIpRule> {
+    @Override
+    public void serialize(NccAwsStableIpRule value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      NccAwsStableIpRulePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class NccAwsStableIpRuleDeserializer extends JsonDeserializer<NccAwsStableIpRule> {
+    @Override
+    public NccAwsStableIpRule deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      NccAwsStableIpRulePb pb = mapper.readValue(p, NccAwsStableIpRulePb.class);
+      return NccAwsStableIpRule.fromPb(pb);
+    }
   }
 }

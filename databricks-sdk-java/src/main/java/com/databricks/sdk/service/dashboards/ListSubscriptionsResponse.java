@@ -4,21 +4,30 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ListSubscriptionsResponse.ListSubscriptionsResponseSerializer.class)
+@JsonDeserialize(using = ListSubscriptionsResponse.ListSubscriptionsResponseDeserializer.class)
 public class ListSubscriptionsResponse {
   /**
    * A token that can be used as a `page_token` in subsequent requests to retrieve the next page of
    * results. If this field is omitted, there are no subsequent subscriptions.
    */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   /** */
-  @JsonProperty("subscriptions")
   private Collection<Subscription> subscriptions;
 
   public ListSubscriptionsResponse setNextPageToken(String nextPageToken) {
@@ -59,5 +68,43 @@ public class ListSubscriptionsResponse {
         .add("nextPageToken", nextPageToken)
         .add("subscriptions", subscriptions)
         .toString();
+  }
+
+  ListSubscriptionsResponsePb toPb() {
+    ListSubscriptionsResponsePb pb = new ListSubscriptionsResponsePb();
+    pb.setNextPageToken(nextPageToken);
+    pb.setSubscriptions(subscriptions);
+
+    return pb;
+  }
+
+  static ListSubscriptionsResponse fromPb(ListSubscriptionsResponsePb pb) {
+    ListSubscriptionsResponse model = new ListSubscriptionsResponse();
+    model.setNextPageToken(pb.getNextPageToken());
+    model.setSubscriptions(pb.getSubscriptions());
+
+    return model;
+  }
+
+  public static class ListSubscriptionsResponseSerializer
+      extends JsonSerializer<ListSubscriptionsResponse> {
+    @Override
+    public void serialize(
+        ListSubscriptionsResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListSubscriptionsResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListSubscriptionsResponseDeserializer
+      extends JsonDeserializer<ListSubscriptionsResponse> {
+    @Override
+    public ListSubscriptionsResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListSubscriptionsResponsePb pb = mapper.readValue(p, ListSubscriptionsResponsePb.class);
+      return ListSubscriptionsResponse.fromPb(pb);
+    }
   }
 }

@@ -3,27 +3,31 @@
 package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List group details. */
 @Generated
+@JsonSerialize(using = ListGroupsRequest.ListGroupsRequestSerializer.class)
+@JsonDeserialize(using = ListGroupsRequest.ListGroupsRequestDeserializer.class)
 public class ListGroupsRequest {
   /** Comma-separated list of attributes to return in response. */
-  @JsonIgnore
-  @QueryParam("attributes")
   private String attributes;
 
   /** Desired number of results per page. */
-  @JsonIgnore
-  @QueryParam("count")
   private Long count;
 
   /** Comma-separated list of attributes to exclude in response. */
-  @JsonIgnore
-  @QueryParam("excludedAttributes")
   private String excludedAttributes;
 
   /**
@@ -34,23 +38,15 @@ public class ListGroupsRequest {
    *
    * <p>[SCIM RFC]: https://tools.ietf.org/html/rfc7644#section-3.4.2.2
    */
-  @JsonIgnore
-  @QueryParam("filter")
   private String filter;
 
   /** Attribute to sort the results. */
-  @JsonIgnore
-  @QueryParam("sortBy")
   private String sortBy;
 
   /** The order to sort the results. */
-  @JsonIgnore
-  @QueryParam("sortOrder")
   private ListSortOrder sortOrder;
 
   /** Specifies the index of the first result. First item is number 1. */
-  @JsonIgnore
-  @QueryParam("startIndex")
   private Long startIndex;
 
   public ListGroupsRequest setAttributes(String attributes) {
@@ -147,5 +143,50 @@ public class ListGroupsRequest {
         .add("sortOrder", sortOrder)
         .add("startIndex", startIndex)
         .toString();
+  }
+
+  ListGroupsRequestPb toPb() {
+    ListGroupsRequestPb pb = new ListGroupsRequestPb();
+    pb.setAttributes(attributes);
+    pb.setCount(count);
+    pb.setExcludedAttributes(excludedAttributes);
+    pb.setFilter(filter);
+    pb.setSortBy(sortBy);
+    pb.setSortOrder(sortOrder);
+    pb.setStartIndex(startIndex);
+
+    return pb;
+  }
+
+  static ListGroupsRequest fromPb(ListGroupsRequestPb pb) {
+    ListGroupsRequest model = new ListGroupsRequest();
+    model.setAttributes(pb.getAttributes());
+    model.setCount(pb.getCount());
+    model.setExcludedAttributes(pb.getExcludedAttributes());
+    model.setFilter(pb.getFilter());
+    model.setSortBy(pb.getSortBy());
+    model.setSortOrder(pb.getSortOrder());
+    model.setStartIndex(pb.getStartIndex());
+
+    return model;
+  }
+
+  public static class ListGroupsRequestSerializer extends JsonSerializer<ListGroupsRequest> {
+    @Override
+    public void serialize(ListGroupsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListGroupsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListGroupsRequestDeserializer extends JsonDeserializer<ListGroupsRequest> {
+    @Override
+    public ListGroupsRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListGroupsRequestPb pb = mapper.readValue(p, ListGroupsRequestPb.class);
+      return ListGroupsRequest.fromPb(pb);
+    }
   }
 }

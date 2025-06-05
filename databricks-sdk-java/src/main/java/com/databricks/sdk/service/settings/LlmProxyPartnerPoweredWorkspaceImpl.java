@@ -22,7 +22,7 @@ class LlmProxyPartnerPoweredWorkspaceImpl implements LlmProxyPartnerPoweredWorks
     String path = "/api/2.0/settings/types/llm_proxy_partner_powered/names/default";
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, DeleteLlmProxyPartnerPoweredWorkspaceResponse.class);
     } catch (IOException e) {
@@ -35,7 +35,7 @@ class LlmProxyPartnerPoweredWorkspaceImpl implements LlmProxyPartnerPoweredWorks
     String path = "/api/2.0/settings/types/llm_proxy_partner_powered/names/default";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, LlmProxyPartnerPoweredWorkspace.class);
     } catch (IOException e) {
@@ -49,7 +49,7 @@ class LlmProxyPartnerPoweredWorkspaceImpl implements LlmProxyPartnerPoweredWorks
     String path = "/api/2.0/settings/types/llm_proxy_partner_powered/names/default";
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, LlmProxyPartnerPoweredWorkspace.class);

@@ -4,28 +4,36 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Configs needed to create a custom provider model route. */
 @Generated
+@JsonSerialize(using = CustomProviderConfig.CustomProviderConfigSerializer.class)
+@JsonDeserialize(using = CustomProviderConfig.CustomProviderConfigDeserializer.class)
 public class CustomProviderConfig {
   /**
    * This is a field to provide API key authentication for the custom provider API. You can only
    * specify one authentication method.
    */
-  @JsonProperty("api_key_auth")
   private ApiKeyAuth apiKeyAuth;
 
   /**
    * This is a field to provide bearer token authentication for the custom provider API. You can
    * only specify one authentication method.
    */
-  @JsonProperty("bearer_token_auth")
   private BearerTokenAuth bearerTokenAuth;
 
   /** This is a field to provide the URL of the custom provider API. */
-  @JsonProperty("custom_provider_url")
   private String customProviderUrl;
 
   public CustomProviderConfig setApiKeyAuth(ApiKeyAuth apiKeyAuth) {
@@ -77,5 +85,44 @@ public class CustomProviderConfig {
         .add("bearerTokenAuth", bearerTokenAuth)
         .add("customProviderUrl", customProviderUrl)
         .toString();
+  }
+
+  CustomProviderConfigPb toPb() {
+    CustomProviderConfigPb pb = new CustomProviderConfigPb();
+    pb.setApiKeyAuth(apiKeyAuth);
+    pb.setBearerTokenAuth(bearerTokenAuth);
+    pb.setCustomProviderUrl(customProviderUrl);
+
+    return pb;
+  }
+
+  static CustomProviderConfig fromPb(CustomProviderConfigPb pb) {
+    CustomProviderConfig model = new CustomProviderConfig();
+    model.setApiKeyAuth(pb.getApiKeyAuth());
+    model.setBearerTokenAuth(pb.getBearerTokenAuth());
+    model.setCustomProviderUrl(pb.getCustomProviderUrl());
+
+    return model;
+  }
+
+  public static class CustomProviderConfigSerializer extends JsonSerializer<CustomProviderConfig> {
+    @Override
+    public void serialize(
+        CustomProviderConfig value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CustomProviderConfigPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CustomProviderConfigDeserializer
+      extends JsonDeserializer<CustomProviderConfig> {
+    @Override
+    public CustomProviderConfig deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CustomProviderConfigPb pb = mapper.readValue(p, CustomProviderConfigPb.class);
+      return CustomProviderConfig.fromPb(pb);
+    }
   }
 }

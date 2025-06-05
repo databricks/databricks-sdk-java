@@ -4,7 +4,16 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -13,9 +22,10 @@ import java.util.Objects;
  * portal after initialization.
  */
 @Generated
+@JsonSerialize(using = NccPrivateEndpointRule.NccPrivateEndpointRuleSerializer.class)
+@JsonDeserialize(using = NccPrivateEndpointRule.NccPrivateEndpointRuleDeserializer.class)
 public class NccPrivateEndpointRule {
   /** Databricks account ID. You can find your account ID from the Accounts Console. */
-  @JsonProperty("account_id")
   private String accountId;
 
   /**
@@ -28,19 +38,15 @@ public class NccPrivateEndpointRule {
    * resource owner, the private endpoint becomes informative and should be deleted for clean-up. -
    * EXPIRED: If the endpoint was created but not approved in 14 days, it will be EXPIRED.
    */
-  @JsonProperty("connection_state")
   private NccPrivateEndpointRulePrivateLinkConnectionState connectionState;
 
   /** Time in epoch milliseconds when this object was created. */
-  @JsonProperty("creation_time")
   private Long creationTime;
 
   /** Whether this private endpoint is deactivated. */
-  @JsonProperty("deactivated")
   private Boolean deactivated;
 
   /** Time in epoch milliseconds when this object was deactivated. */
-  @JsonProperty("deactivated_at")
   private Long deactivatedAt;
 
   /**
@@ -49,7 +55,6 @@ public class NccPrivateEndpointRule {
    * <p>Domain names of target private link service. When updating this field, the full list of
    * target domain_names must be specified.
    */
-  @JsonProperty("domain_names")
   private Collection<String> domainNames;
 
   /**
@@ -58,18 +63,15 @@ public class NccPrivateEndpointRule {
    * <p>Update this field to activate/deactivate this private endpoint to allow egress access from
    * serverless compute resources.
    */
-  @JsonProperty("enabled")
   private Boolean enabled;
 
   /** The name of the Azure private endpoint resource. */
-  @JsonProperty("endpoint_name")
   private String endpointName;
 
   /**
    * The full target AWS endpoint service name that connects to the destination resources of the
    * private endpoint.
    */
-  @JsonProperty("endpoint_service")
   private String endpointService;
 
   /**
@@ -78,18 +80,15 @@ public class NccPrivateEndpointRule {
    * <p>The sub-resource type (group ID) of the target resource. Note that to connect to workspace
    * root storage (root DBFS), you need two endpoints, one for blob and one for dfs.
    */
-  @JsonProperty("group_id")
   private String groupId;
 
   /**
    * The ID of a network connectivity configuration, which is the parent resource of this private
    * endpoint rule object.
    */
-  @JsonProperty("network_connectivity_config_id")
   private String networkConnectivityConfigId;
 
   /** The Azure resource ID of the target resource. */
-  @JsonProperty("resource_id")
   private String resourceId;
 
   /**
@@ -100,22 +99,18 @@ public class NccPrivateEndpointRule {
    * perform full update on this field. Please ensure a full list of desired resource_names is
    * provided.
    */
-  @JsonProperty("resource_names")
   private Collection<String> resourceNames;
 
   /** The ID of a private endpoint rule. */
-  @JsonProperty("rule_id")
   private String ruleId;
 
   /** Time in epoch milliseconds when this object was updated. */
-  @JsonProperty("updated_time")
   private Long updatedTime;
 
   /**
    * The AWS VPC endpoint ID. You can use this ID to identify the VPC endpoint created by
    * Databricks.
    */
-  @JsonProperty("vpc_endpoint_id")
   private String vpcEndpointId;
 
   public NccPrivateEndpointRule setAccountId(String accountId) {
@@ -327,5 +322,71 @@ public class NccPrivateEndpointRule {
         .add("updatedTime", updatedTime)
         .add("vpcEndpointId", vpcEndpointId)
         .toString();
+  }
+
+  NccPrivateEndpointRulePb toPb() {
+    NccPrivateEndpointRulePb pb = new NccPrivateEndpointRulePb();
+    pb.setAccountId(accountId);
+    pb.setConnectionState(connectionState);
+    pb.setCreationTime(creationTime);
+    pb.setDeactivated(deactivated);
+    pb.setDeactivatedAt(deactivatedAt);
+    pb.setDomainNames(domainNames);
+    pb.setEnabled(enabled);
+    pb.setEndpointName(endpointName);
+    pb.setEndpointService(endpointService);
+    pb.setGroupId(groupId);
+    pb.setNetworkConnectivityConfigId(networkConnectivityConfigId);
+    pb.setResourceId(resourceId);
+    pb.setResourceNames(resourceNames);
+    pb.setRuleId(ruleId);
+    pb.setUpdatedTime(updatedTime);
+    pb.setVpcEndpointId(vpcEndpointId);
+
+    return pb;
+  }
+
+  static NccPrivateEndpointRule fromPb(NccPrivateEndpointRulePb pb) {
+    NccPrivateEndpointRule model = new NccPrivateEndpointRule();
+    model.setAccountId(pb.getAccountId());
+    model.setConnectionState(pb.getConnectionState());
+    model.setCreationTime(pb.getCreationTime());
+    model.setDeactivated(pb.getDeactivated());
+    model.setDeactivatedAt(pb.getDeactivatedAt());
+    model.setDomainNames(pb.getDomainNames());
+    model.setEnabled(pb.getEnabled());
+    model.setEndpointName(pb.getEndpointName());
+    model.setEndpointService(pb.getEndpointService());
+    model.setGroupId(pb.getGroupId());
+    model.setNetworkConnectivityConfigId(pb.getNetworkConnectivityConfigId());
+    model.setResourceId(pb.getResourceId());
+    model.setResourceNames(pb.getResourceNames());
+    model.setRuleId(pb.getRuleId());
+    model.setUpdatedTime(pb.getUpdatedTime());
+    model.setVpcEndpointId(pb.getVpcEndpointId());
+
+    return model;
+  }
+
+  public static class NccPrivateEndpointRuleSerializer
+      extends JsonSerializer<NccPrivateEndpointRule> {
+    @Override
+    public void serialize(
+        NccPrivateEndpointRule value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      NccPrivateEndpointRulePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class NccPrivateEndpointRuleDeserializer
+      extends JsonDeserializer<NccPrivateEndpointRule> {
+    @Override
+    public NccPrivateEndpointRule deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      NccPrivateEndpointRulePb pb = mapper.readValue(p, NccPrivateEndpointRulePb.class);
+      return NccPrivateEndpointRule.fromPb(pb);
+    }
   }
 }

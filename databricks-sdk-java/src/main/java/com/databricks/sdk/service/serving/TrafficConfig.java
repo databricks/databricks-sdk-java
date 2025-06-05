@@ -4,14 +4,24 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = TrafficConfig.TrafficConfigSerializer.class)
+@JsonDeserialize(using = TrafficConfig.TrafficConfigDeserializer.class)
 public class TrafficConfig {
   /** The list of routes that define traffic to each served entity. */
-  @JsonProperty("routes")
   private Collection<Route> routes;
 
   public TrafficConfig setRoutes(Collection<Route> routes) {
@@ -39,5 +49,37 @@ public class TrafficConfig {
   @Override
   public String toString() {
     return new ToStringer(TrafficConfig.class).add("routes", routes).toString();
+  }
+
+  TrafficConfigPb toPb() {
+    TrafficConfigPb pb = new TrafficConfigPb();
+    pb.setRoutes(routes);
+
+    return pb;
+  }
+
+  static TrafficConfig fromPb(TrafficConfigPb pb) {
+    TrafficConfig model = new TrafficConfig();
+    model.setRoutes(pb.getRoutes());
+
+    return model;
+  }
+
+  public static class TrafficConfigSerializer extends JsonSerializer<TrafficConfig> {
+    @Override
+    public void serialize(TrafficConfig value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      TrafficConfigPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class TrafficConfigDeserializer extends JsonDeserializer<TrafficConfig> {
+    @Override
+    public TrafficConfig deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      TrafficConfigPb pb = mapper.readValue(p, TrafficConfigPb.class);
+      return TrafficConfig.fromPb(pb);
+    }
   }
 }

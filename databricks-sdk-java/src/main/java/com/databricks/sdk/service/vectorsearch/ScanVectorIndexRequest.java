@@ -4,21 +4,29 @@ package com.databricks.sdk.service.vectorsearch;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ScanVectorIndexRequest.ScanVectorIndexRequestSerializer.class)
+@JsonDeserialize(using = ScanVectorIndexRequest.ScanVectorIndexRequestDeserializer.class)
 public class ScanVectorIndexRequest {
   /** Name of the vector index to scan. */
-  @JsonIgnore private String indexName;
+  private String indexName;
 
   /** Primary key of the last entry returned in the previous scan. */
-  @JsonProperty("last_primary_key")
   private String lastPrimaryKey;
 
   /** Number of results to return. Defaults to 10. */
-  @JsonProperty("num_results")
   private Long numResults;
 
   public ScanVectorIndexRequest setIndexName(String indexName) {
@@ -70,5 +78,45 @@ public class ScanVectorIndexRequest {
         .add("lastPrimaryKey", lastPrimaryKey)
         .add("numResults", numResults)
         .toString();
+  }
+
+  ScanVectorIndexRequestPb toPb() {
+    ScanVectorIndexRequestPb pb = new ScanVectorIndexRequestPb();
+    pb.setIndexName(indexName);
+    pb.setLastPrimaryKey(lastPrimaryKey);
+    pb.setNumResults(numResults);
+
+    return pb;
+  }
+
+  static ScanVectorIndexRequest fromPb(ScanVectorIndexRequestPb pb) {
+    ScanVectorIndexRequest model = new ScanVectorIndexRequest();
+    model.setIndexName(pb.getIndexName());
+    model.setLastPrimaryKey(pb.getLastPrimaryKey());
+    model.setNumResults(pb.getNumResults());
+
+    return model;
+  }
+
+  public static class ScanVectorIndexRequestSerializer
+      extends JsonSerializer<ScanVectorIndexRequest> {
+    @Override
+    public void serialize(
+        ScanVectorIndexRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ScanVectorIndexRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ScanVectorIndexRequestDeserializer
+      extends JsonDeserializer<ScanVectorIndexRequest> {
+    @Override
+    public ScanVectorIndexRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ScanVectorIndexRequestPb pb = mapper.readValue(p, ScanVectorIndexRequestPb.class);
+      return ScanVectorIndexRequest.fromPb(pb);
+    }
   }
 }

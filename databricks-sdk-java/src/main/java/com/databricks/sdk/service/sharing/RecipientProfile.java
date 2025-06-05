@@ -4,21 +4,29 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = RecipientProfile.RecipientProfileSerializer.class)
+@JsonDeserialize(using = RecipientProfile.RecipientProfileDeserializer.class)
 public class RecipientProfile {
   /** The token used to authorize the recipient. */
-  @JsonProperty("bearer_token")
   private String bearerToken;
 
   /** The endpoint for the share to be used by the recipient. */
-  @JsonProperty("endpoint")
   private String endpoint;
 
   /** The version number of the recipient's credentials on a share. */
-  @JsonProperty("share_credentials_version")
   private Long shareCredentialsVersion;
 
   public RecipientProfile setBearerToken(String bearerToken) {
@@ -70,5 +78,42 @@ public class RecipientProfile {
         .add("endpoint", endpoint)
         .add("shareCredentialsVersion", shareCredentialsVersion)
         .toString();
+  }
+
+  RecipientProfilePb toPb() {
+    RecipientProfilePb pb = new RecipientProfilePb();
+    pb.setBearerToken(bearerToken);
+    pb.setEndpoint(endpoint);
+    pb.setShareCredentialsVersion(shareCredentialsVersion);
+
+    return pb;
+  }
+
+  static RecipientProfile fromPb(RecipientProfilePb pb) {
+    RecipientProfile model = new RecipientProfile();
+    model.setBearerToken(pb.getBearerToken());
+    model.setEndpoint(pb.getEndpoint());
+    model.setShareCredentialsVersion(pb.getShareCredentialsVersion());
+
+    return model;
+  }
+
+  public static class RecipientProfileSerializer extends JsonSerializer<RecipientProfile> {
+    @Override
+    public void serialize(RecipientProfile value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      RecipientProfilePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class RecipientProfileDeserializer extends JsonDeserializer<RecipientProfile> {
+    @Override
+    public RecipientProfile deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      RecipientProfilePb pb = mapper.readValue(p, RecipientProfilePb.class);
+      return RecipientProfile.fromPb(pb);
+    }
   }
 }

@@ -22,7 +22,7 @@ class PolicyComplianceForClustersImpl implements PolicyComplianceForClustersServ
     String path = "/api/2.0/policies/clusters/enforce-compliance";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, EnforceClusterComplianceResponse.class);
@@ -36,7 +36,7 @@ class PolicyComplianceForClustersImpl implements PolicyComplianceForClustersServ
     String path = "/api/2.0/policies/clusters/get-compliance";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetClusterComplianceResponse.class);
     } catch (IOException e) {
@@ -49,7 +49,7 @@ class PolicyComplianceForClustersImpl implements PolicyComplianceForClustersServ
     String path = "/api/2.0/policies/clusters/list-compliance";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListClusterCompliancesResponse.class);
     } catch (IOException e) {

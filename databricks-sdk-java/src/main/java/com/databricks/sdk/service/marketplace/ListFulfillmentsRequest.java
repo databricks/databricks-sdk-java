@@ -3,25 +3,31 @@
 package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List all listing fulfillments */
 @Generated
+@JsonSerialize(using = ListFulfillmentsRequest.ListFulfillmentsRequestSerializer.class)
+@JsonDeserialize(using = ListFulfillmentsRequest.ListFulfillmentsRequestDeserializer.class)
 public class ListFulfillmentsRequest {
   /** */
-  @JsonIgnore private String listingId;
+  private String listingId;
 
   /** */
-  @JsonIgnore
-  @QueryParam("page_size")
   private Long pageSize;
 
   /** */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   public ListFulfillmentsRequest setListingId(String listingId) {
@@ -73,5 +79,45 @@ public class ListFulfillmentsRequest {
         .add("pageSize", pageSize)
         .add("pageToken", pageToken)
         .toString();
+  }
+
+  ListFulfillmentsRequestPb toPb() {
+    ListFulfillmentsRequestPb pb = new ListFulfillmentsRequestPb();
+    pb.setListingId(listingId);
+    pb.setPageSize(pageSize);
+    pb.setPageToken(pageToken);
+
+    return pb;
+  }
+
+  static ListFulfillmentsRequest fromPb(ListFulfillmentsRequestPb pb) {
+    ListFulfillmentsRequest model = new ListFulfillmentsRequest();
+    model.setListingId(pb.getListingId());
+    model.setPageSize(pb.getPageSize());
+    model.setPageToken(pb.getPageToken());
+
+    return model;
+  }
+
+  public static class ListFulfillmentsRequestSerializer
+      extends JsonSerializer<ListFulfillmentsRequest> {
+    @Override
+    public void serialize(
+        ListFulfillmentsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListFulfillmentsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListFulfillmentsRequestDeserializer
+      extends JsonDeserializer<ListFulfillmentsRequest> {
+    @Override
+    public ListFulfillmentsRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListFulfillmentsRequestPb pb = mapper.readValue(p, ListFulfillmentsRequestPb.class);
+      return ListFulfillmentsRequest.fromPb(pb);
+    }
   }
 }

@@ -4,11 +4,22 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = EditPolicy.EditPolicySerializer.class)
+@JsonDeserialize(using = EditPolicy.EditPolicyDeserializer.class)
 public class EditPolicy {
   /**
    * Policy definition document expressed in [Databricks Cluster Policy Definition Language].
@@ -16,32 +27,27 @@ public class EditPolicy {
    * <p>[Databricks Cluster Policy Definition Language]:
    * https://docs.databricks.com/administration-guide/clusters/policy-definition.html
    */
-  @JsonProperty("definition")
   private String definition;
 
   /** Additional human-readable description of the cluster policy. */
-  @JsonProperty("description")
   private String description;
 
   /**
    * A list of libraries to be installed on the next cluster restart that uses this policy. The
    * maximum number of libraries is 500.
    */
-  @JsonProperty("libraries")
   private Collection<Library> libraries;
 
   /**
    * Max number of clusters per user that can be active using this policy. If not present, there is
    * no max limit.
    */
-  @JsonProperty("max_clusters_per_user")
   private Long maxClustersPerUser;
 
   /**
    * Cluster Policy name requested by the user. This has to be unique. Length must be between 1 and
    * 100 characters.
    */
-  @JsonProperty("name")
   private String name;
 
   /**
@@ -54,7 +60,6 @@ public class EditPolicy {
    * <p>[Databricks Policy Definition Language]:
    * https://docs.databricks.com/administration-guide/clusters/policy-definition.html
    */
-  @JsonProperty("policy_family_definition_overrides")
   private String policyFamilyDefinitionOverrides;
 
   /**
@@ -64,11 +69,9 @@ public class EditPolicy {
    * <p>Cannot be used with `definition`. Use `policy_family_definition_overrides` instead to
    * customize the policy definition.
    */
-  @JsonProperty("policy_family_id")
   private String policyFamilyId;
 
   /** The ID of the policy to update. */
-  @JsonProperty("policy_id")
   private String policyId;
 
   public EditPolicy setDefinition(String definition) {
@@ -183,5 +186,51 @@ public class EditPolicy {
         .add("policyFamilyId", policyFamilyId)
         .add("policyId", policyId)
         .toString();
+  }
+
+  EditPolicyPb toPb() {
+    EditPolicyPb pb = new EditPolicyPb();
+    pb.setDefinition(definition);
+    pb.setDescription(description);
+    pb.setLibraries(libraries);
+    pb.setMaxClustersPerUser(maxClustersPerUser);
+    pb.setName(name);
+    pb.setPolicyFamilyDefinitionOverrides(policyFamilyDefinitionOverrides);
+    pb.setPolicyFamilyId(policyFamilyId);
+    pb.setPolicyId(policyId);
+
+    return pb;
+  }
+
+  static EditPolicy fromPb(EditPolicyPb pb) {
+    EditPolicy model = new EditPolicy();
+    model.setDefinition(pb.getDefinition());
+    model.setDescription(pb.getDescription());
+    model.setLibraries(pb.getLibraries());
+    model.setMaxClustersPerUser(pb.getMaxClustersPerUser());
+    model.setName(pb.getName());
+    model.setPolicyFamilyDefinitionOverrides(pb.getPolicyFamilyDefinitionOverrides());
+    model.setPolicyFamilyId(pb.getPolicyFamilyId());
+    model.setPolicyId(pb.getPolicyId());
+
+    return model;
+  }
+
+  public static class EditPolicySerializer extends JsonSerializer<EditPolicy> {
+    @Override
+    public void serialize(EditPolicy value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      EditPolicyPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class EditPolicyDeserializer extends JsonDeserializer<EditPolicy> {
+    @Override
+    public EditPolicy deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      EditPolicyPb pb = mapper.readValue(p, EditPolicyPb.class);
+      return EditPolicy.fromPb(pb);
+    }
   }
 }

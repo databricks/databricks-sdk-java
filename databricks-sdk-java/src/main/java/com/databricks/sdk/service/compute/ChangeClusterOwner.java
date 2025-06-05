@@ -4,17 +4,26 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ChangeClusterOwner.ChangeClusterOwnerSerializer.class)
+@JsonDeserialize(using = ChangeClusterOwner.ChangeClusterOwnerDeserializer.class)
 public class ChangeClusterOwner {
   /** */
-  @JsonProperty("cluster_id")
   private String clusterId;
 
   /** New owner of the cluster_id after this RPC. */
-  @JsonProperty("owner_username")
   private String ownerUsername;
 
   public ChangeClusterOwner setClusterId(String clusterId) {
@@ -55,5 +64,40 @@ public class ChangeClusterOwner {
         .add("clusterId", clusterId)
         .add("ownerUsername", ownerUsername)
         .toString();
+  }
+
+  ChangeClusterOwnerPb toPb() {
+    ChangeClusterOwnerPb pb = new ChangeClusterOwnerPb();
+    pb.setClusterId(clusterId);
+    pb.setOwnerUsername(ownerUsername);
+
+    return pb;
+  }
+
+  static ChangeClusterOwner fromPb(ChangeClusterOwnerPb pb) {
+    ChangeClusterOwner model = new ChangeClusterOwner();
+    model.setClusterId(pb.getClusterId());
+    model.setOwnerUsername(pb.getOwnerUsername());
+
+    return model;
+  }
+
+  public static class ChangeClusterOwnerSerializer extends JsonSerializer<ChangeClusterOwner> {
+    @Override
+    public void serialize(ChangeClusterOwner value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ChangeClusterOwnerPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ChangeClusterOwnerDeserializer extends JsonDeserializer<ChangeClusterOwner> {
+    @Override
+    public ChangeClusterOwner deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ChangeClusterOwnerPb pb = mapper.readValue(p, ChangeClusterOwnerPb.class);
+      return ChangeClusterOwner.fromPb(pb);
+    }
   }
 }

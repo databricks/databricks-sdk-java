@@ -4,13 +4,23 @@ package com.databricks.sdk.service.vectorsearch;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = QueryVectorIndexResponse.QueryVectorIndexResponseSerializer.class)
+@JsonDeserialize(using = QueryVectorIndexResponse.QueryVectorIndexResponseDeserializer.class)
 public class QueryVectorIndexResponse {
   /** Metadata about the result set. */
-  @JsonProperty("manifest")
   private ResultManifest manifest;
 
   /**
@@ -19,11 +29,9 @@ public class QueryVectorIndexResponse {
    * Empty value means no more results. The maximum number of results that can be returned is
    * 10,000.
    */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   /** Data returned in the query result. */
-  @JsonProperty("result")
   private ResultData result;
 
   public QueryVectorIndexResponse setManifest(ResultManifest manifest) {
@@ -75,5 +83,45 @@ public class QueryVectorIndexResponse {
         .add("nextPageToken", nextPageToken)
         .add("result", result)
         .toString();
+  }
+
+  QueryVectorIndexResponsePb toPb() {
+    QueryVectorIndexResponsePb pb = new QueryVectorIndexResponsePb();
+    pb.setManifest(manifest);
+    pb.setNextPageToken(nextPageToken);
+    pb.setResult(result);
+
+    return pb;
+  }
+
+  static QueryVectorIndexResponse fromPb(QueryVectorIndexResponsePb pb) {
+    QueryVectorIndexResponse model = new QueryVectorIndexResponse();
+    model.setManifest(pb.getManifest());
+    model.setNextPageToken(pb.getNextPageToken());
+    model.setResult(pb.getResult());
+
+    return model;
+  }
+
+  public static class QueryVectorIndexResponseSerializer
+      extends JsonSerializer<QueryVectorIndexResponse> {
+    @Override
+    public void serialize(
+        QueryVectorIndexResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      QueryVectorIndexResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class QueryVectorIndexResponseDeserializer
+      extends JsonDeserializer<QueryVectorIndexResponse> {
+    @Override
+    public QueryVectorIndexResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      QueryVectorIndexResponsePb pb = mapper.readValue(p, QueryVectorIndexResponsePb.class);
+      return QueryVectorIndexResponse.fromPb(pb);
+    }
   }
 }

@@ -4,7 +4,16 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -12,41 +21,37 @@ import java.util.Objects;
  * model development process.
  */
 @Generated
+@JsonSerialize(using = Dataset.DatasetSerializer.class)
+@JsonDeserialize(using = Dataset.DatasetDeserializer.class)
 public class Dataset {
   /**
    * Dataset digest, e.g. an md5 hash of the dataset that uniquely identifies it within datasets of
    * the same name.
    */
-  @JsonProperty("digest")
   private String digest;
 
   /** The name of the dataset. E.g. “my.uc.table@2” “nyc-taxi-dataset”, “fantastic-elk-3” */
-  @JsonProperty("name")
   private String name;
 
   /**
    * The profile of the dataset. Summary statistics for the dataset, such as the number of rows in a
    * table, the mean / std / mode of each column in a table, or the number of elements in an array.
    */
-  @JsonProperty("profile")
   private String profile;
 
   /**
    * The schema of the dataset. E.g., MLflow ColSpec JSON for a dataframe, MLflow TensorSpec JSON
    * for an ndarray, or another schema format.
    */
-  @JsonProperty("schema")
   private String schema;
 
   /**
    * Source information for the dataset. Note that the source may not exactly reproduce the dataset
    * if it was transformed / modified before use with MLflow.
    */
-  @JsonProperty("source")
   private String source;
 
   /** The type of the dataset source, e.g. ‘databricks-uc-table’, ‘DBFS’, ‘S3’, ... */
-  @JsonProperty("source_type")
   private String sourceType;
 
   public Dataset setDigest(String digest) {
@@ -131,5 +136,47 @@ public class Dataset {
         .add("source", source)
         .add("sourceType", sourceType)
         .toString();
+  }
+
+  DatasetPb toPb() {
+    DatasetPb pb = new DatasetPb();
+    pb.setDigest(digest);
+    pb.setName(name);
+    pb.setProfile(profile);
+    pb.setSchema(schema);
+    pb.setSource(source);
+    pb.setSourceType(sourceType);
+
+    return pb;
+  }
+
+  static Dataset fromPb(DatasetPb pb) {
+    Dataset model = new Dataset();
+    model.setDigest(pb.getDigest());
+    model.setName(pb.getName());
+    model.setProfile(pb.getProfile());
+    model.setSchema(pb.getSchema());
+    model.setSource(pb.getSource());
+    model.setSourceType(pb.getSourceType());
+
+    return model;
+  }
+
+  public static class DatasetSerializer extends JsonSerializer<Dataset> {
+    @Override
+    public void serialize(Dataset value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DatasetPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DatasetDeserializer extends JsonDeserializer<Dataset> {
+    @Override
+    public Dataset deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DatasetPb pb = mapper.readValue(p, DatasetPb.class);
+      return Dataset.fromPb(pb);
+    }
   }
 }

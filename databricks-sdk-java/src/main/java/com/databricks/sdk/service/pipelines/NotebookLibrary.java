@@ -4,13 +4,23 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = NotebookLibrary.NotebookLibrarySerializer.class)
+@JsonDeserialize(using = NotebookLibrary.NotebookLibraryDeserializer.class)
 public class NotebookLibrary {
   /** The absolute path of the source code. */
-  @JsonProperty("path")
   private String path;
 
   public NotebookLibrary setPath(String path) {
@@ -38,5 +48,38 @@ public class NotebookLibrary {
   @Override
   public String toString() {
     return new ToStringer(NotebookLibrary.class).add("path", path).toString();
+  }
+
+  NotebookLibraryPb toPb() {
+    NotebookLibraryPb pb = new NotebookLibraryPb();
+    pb.setPath(path);
+
+    return pb;
+  }
+
+  static NotebookLibrary fromPb(NotebookLibraryPb pb) {
+    NotebookLibrary model = new NotebookLibrary();
+    model.setPath(pb.getPath());
+
+    return model;
+  }
+
+  public static class NotebookLibrarySerializer extends JsonSerializer<NotebookLibrary> {
+    @Override
+    public void serialize(NotebookLibrary value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      NotebookLibraryPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class NotebookLibraryDeserializer extends JsonDeserializer<NotebookLibrary> {
+    @Override
+    public NotebookLibrary deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      NotebookLibraryPb pb = mapper.readValue(p, NotebookLibraryPb.class);
+      return NotebookLibrary.fromPb(pb);
+    }
   }
 }

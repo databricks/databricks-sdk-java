@@ -4,22 +4,30 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = PrimaryKeyConstraint.PrimaryKeyConstraintSerializer.class)
+@JsonDeserialize(using = PrimaryKeyConstraint.PrimaryKeyConstraintDeserializer.class)
 public class PrimaryKeyConstraint {
   /** Column names for this constraint. */
-  @JsonProperty("child_columns")
   private Collection<String> childColumns;
 
   /** The name of the constraint. */
-  @JsonProperty("name")
   private String name;
 
   /** Column names that represent a timeseries. */
-  @JsonProperty("timeseries_columns")
   private Collection<String> timeseriesColumns;
 
   public PrimaryKeyConstraint setChildColumns(Collection<String> childColumns) {
@@ -71,5 +79,44 @@ public class PrimaryKeyConstraint {
         .add("name", name)
         .add("timeseriesColumns", timeseriesColumns)
         .toString();
+  }
+
+  PrimaryKeyConstraintPb toPb() {
+    PrimaryKeyConstraintPb pb = new PrimaryKeyConstraintPb();
+    pb.setChildColumns(childColumns);
+    pb.setName(name);
+    pb.setTimeseriesColumns(timeseriesColumns);
+
+    return pb;
+  }
+
+  static PrimaryKeyConstraint fromPb(PrimaryKeyConstraintPb pb) {
+    PrimaryKeyConstraint model = new PrimaryKeyConstraint();
+    model.setChildColumns(pb.getChildColumns());
+    model.setName(pb.getName());
+    model.setTimeseriesColumns(pb.getTimeseriesColumns());
+
+    return model;
+  }
+
+  public static class PrimaryKeyConstraintSerializer extends JsonSerializer<PrimaryKeyConstraint> {
+    @Override
+    public void serialize(
+        PrimaryKeyConstraint value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PrimaryKeyConstraintPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PrimaryKeyConstraintDeserializer
+      extends JsonDeserializer<PrimaryKeyConstraint> {
+    @Override
+    public PrimaryKeyConstraint deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PrimaryKeyConstraintPb pb = mapper.readValue(p, PrimaryKeyConstraintPb.class);
+      return PrimaryKeyConstraint.fromPb(pb);
+    }
   }
 }

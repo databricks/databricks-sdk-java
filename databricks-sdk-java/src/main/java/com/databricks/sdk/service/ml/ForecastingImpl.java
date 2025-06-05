@@ -22,7 +22,7 @@ class ForecastingImpl implements ForecastingService {
     String path = "/api/2.0/automl/create-forecasting-experiment";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, CreateForecastingExperimentResponse.class);
@@ -37,7 +37,7 @@ class ForecastingImpl implements ForecastingService {
         String.format("/api/2.0/automl/get-forecasting-experiment/%s", request.getExperimentId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ForecastingExperiment.class);
     } catch (IOException e) {

@@ -4,18 +4,27 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ShareToPrivilegeAssignment.ShareToPrivilegeAssignmentSerializer.class)
+@JsonDeserialize(using = ShareToPrivilegeAssignment.ShareToPrivilegeAssignmentDeserializer.class)
 public class ShareToPrivilegeAssignment {
   /** The privileges assigned to the principal. */
-  @JsonProperty("privilege_assignments")
   private Collection<PrivilegeAssignment> privilegeAssignments;
 
   /** The share name. */
-  @JsonProperty("share_name")
   private String shareName;
 
   public ShareToPrivilegeAssignment setPrivilegeAssignments(
@@ -57,5 +66,43 @@ public class ShareToPrivilegeAssignment {
         .add("privilegeAssignments", privilegeAssignments)
         .add("shareName", shareName)
         .toString();
+  }
+
+  ShareToPrivilegeAssignmentPb toPb() {
+    ShareToPrivilegeAssignmentPb pb = new ShareToPrivilegeAssignmentPb();
+    pb.setPrivilegeAssignments(privilegeAssignments);
+    pb.setShareName(shareName);
+
+    return pb;
+  }
+
+  static ShareToPrivilegeAssignment fromPb(ShareToPrivilegeAssignmentPb pb) {
+    ShareToPrivilegeAssignment model = new ShareToPrivilegeAssignment();
+    model.setPrivilegeAssignments(pb.getPrivilegeAssignments());
+    model.setShareName(pb.getShareName());
+
+    return model;
+  }
+
+  public static class ShareToPrivilegeAssignmentSerializer
+      extends JsonSerializer<ShareToPrivilegeAssignment> {
+    @Override
+    public void serialize(
+        ShareToPrivilegeAssignment value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ShareToPrivilegeAssignmentPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ShareToPrivilegeAssignmentDeserializer
+      extends JsonDeserializer<ShareToPrivilegeAssignment> {
+    @Override
+    public ShareToPrivilegeAssignment deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ShareToPrivilegeAssignmentPb pb = mapper.readValue(p, ShareToPrivilegeAssignmentPb.class);
+      return ShareToPrivilegeAssignment.fromPb(pb);
+    }
   }
 }

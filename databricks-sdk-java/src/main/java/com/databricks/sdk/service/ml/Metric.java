@@ -4,51 +4,54 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Metric associated with a run, represented as a key-value pair. */
 @Generated
+@JsonSerialize(using = Metric.MetricSerializer.class)
+@JsonDeserialize(using = Metric.MetricDeserializer.class)
 public class Metric {
   /**
    * The dataset digest of the dataset associated with the metric, e.g. an md5 hash of the dataset
    * that uniquely identifies it within datasets of the same name.
    */
-  @JsonProperty("dataset_digest")
   private String datasetDigest;
 
   /**
    * The name of the dataset associated with the metric. E.g. “my.uc.table@2” “nyc-taxi-dataset”,
    * “fantastic-elk-3”
    */
-  @JsonProperty("dataset_name")
   private String datasetName;
 
   /** The key identifying the metric. */
-  @JsonProperty("key")
   private String key;
 
   /**
    * The ID of the logged model or registered model version associated with the metric, if
    * applicable.
    */
-  @JsonProperty("model_id")
   private String modelId;
 
   /** The ID of the run containing the metric. */
-  @JsonProperty("run_id")
   private String runId;
 
   /** The step at which the metric was logged. */
-  @JsonProperty("step")
   private Long step;
 
   /** The timestamp at which the metric was recorded. */
-  @JsonProperty("timestamp")
   private Long timestamp;
 
   /** The value of the metric. */
-  @JsonProperty("value")
   private Double value;
 
   public Metric setDatasetDigest(String datasetDigest) {
@@ -155,5 +158,51 @@ public class Metric {
         .add("timestamp", timestamp)
         .add("value", value)
         .toString();
+  }
+
+  MetricPb toPb() {
+    MetricPb pb = new MetricPb();
+    pb.setDatasetDigest(datasetDigest);
+    pb.setDatasetName(datasetName);
+    pb.setKey(key);
+    pb.setModelId(modelId);
+    pb.setRunId(runId);
+    pb.setStep(step);
+    pb.setTimestamp(timestamp);
+    pb.setValue(value);
+
+    return pb;
+  }
+
+  static Metric fromPb(MetricPb pb) {
+    Metric model = new Metric();
+    model.setDatasetDigest(pb.getDatasetDigest());
+    model.setDatasetName(pb.getDatasetName());
+    model.setKey(pb.getKey());
+    model.setModelId(pb.getModelId());
+    model.setRunId(pb.getRunId());
+    model.setStep(pb.getStep());
+    model.setTimestamp(pb.getTimestamp());
+    model.setValue(pb.getValue());
+
+    return model;
+  }
+
+  public static class MetricSerializer extends JsonSerializer<Metric> {
+    @Override
+    public void serialize(Metric value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      MetricPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class MetricDeserializer extends JsonDeserializer<Metric> {
+    @Override
+    public Metric deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      MetricPb pb = mapper.readValue(p, MetricPb.class);
+      return Metric.fromPb(pb);
+    }
   }
 }

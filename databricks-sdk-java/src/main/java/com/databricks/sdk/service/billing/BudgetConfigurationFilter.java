@@ -4,22 +4,31 @@ package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = BudgetConfigurationFilter.BudgetConfigurationFilterSerializer.class)
+@JsonDeserialize(using = BudgetConfigurationFilter.BudgetConfigurationFilterDeserializer.class)
 public class BudgetConfigurationFilter {
   /**
    * A list of tag keys and values that will limit the budget to usage that includes those specific
    * custom tags. Tags are case-sensitive and should be entered exactly as they appear in your usage
    * data.
    */
-  @JsonProperty("tags")
   private Collection<BudgetConfigurationFilterTagClause> tags;
 
   /** If provided, usage must match with the provided Databricks workspace IDs. */
-  @JsonProperty("workspace_id")
   private BudgetConfigurationFilterWorkspaceIdClause workspaceId;
 
   public BudgetConfigurationFilter setTags(Collection<BudgetConfigurationFilterTagClause> tags) {
@@ -60,5 +69,43 @@ public class BudgetConfigurationFilter {
         .add("tags", tags)
         .add("workspaceId", workspaceId)
         .toString();
+  }
+
+  BudgetConfigurationFilterPb toPb() {
+    BudgetConfigurationFilterPb pb = new BudgetConfigurationFilterPb();
+    pb.setTags(tags);
+    pb.setWorkspaceId(workspaceId);
+
+    return pb;
+  }
+
+  static BudgetConfigurationFilter fromPb(BudgetConfigurationFilterPb pb) {
+    BudgetConfigurationFilter model = new BudgetConfigurationFilter();
+    model.setTags(pb.getTags());
+    model.setWorkspaceId(pb.getWorkspaceId());
+
+    return model;
+  }
+
+  public static class BudgetConfigurationFilterSerializer
+      extends JsonSerializer<BudgetConfigurationFilter> {
+    @Override
+    public void serialize(
+        BudgetConfigurationFilter value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      BudgetConfigurationFilterPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class BudgetConfigurationFilterDeserializer
+      extends JsonDeserializer<BudgetConfigurationFilter> {
+    @Override
+    public BudgetConfigurationFilter deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      BudgetConfigurationFilterPb pb = mapper.readValue(p, BudgetConfigurationFilterPb.class);
+      return BudgetConfigurationFilter.fromPb(pb);
+    }
   }
 }

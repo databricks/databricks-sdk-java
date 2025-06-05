@@ -4,27 +4,37 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = IngestionGatewayPipelineDefinition.IngestionGatewayPipelineDefinitionSerializer.class)
+@JsonDeserialize(
+    using = IngestionGatewayPipelineDefinition.IngestionGatewayPipelineDefinitionDeserializer.class)
 public class IngestionGatewayPipelineDefinition {
   /**
    * [Deprecated, use connection_name instead] Immutable. The Unity Catalog connection that this
    * gateway pipeline uses to communicate with the source.
    */
-  @JsonProperty("connection_id")
   private String connectionId;
 
   /**
    * Immutable. The Unity Catalog connection that this gateway pipeline uses to communicate with the
    * source.
    */
-  @JsonProperty("connection_name")
   private String connectionName;
 
   /** Required, Immutable. The name of the catalog for the gateway pipeline's storage location. */
-  @JsonProperty("gateway_storage_catalog")
   private String gatewayStorageCatalog;
 
   /**
@@ -32,11 +42,9 @@ public class IngestionGatewayPipelineDefinition {
    * destination to use for the data that is extracted by the gateway. Delta Live Tables system will
    * automatically create the storage location under the catalog and schema.
    */
-  @JsonProperty("gateway_storage_name")
   private String gatewayStorageName;
 
   /** Required, Immutable. The name of the schema for the gateway pipelines's storage location. */
-  @JsonProperty("gateway_storage_schema")
   private String gatewayStorageSchema;
 
   public IngestionGatewayPipelineDefinition setConnectionId(String connectionId) {
@@ -115,5 +123,50 @@ public class IngestionGatewayPipelineDefinition {
         .add("gatewayStorageName", gatewayStorageName)
         .add("gatewayStorageSchema", gatewayStorageSchema)
         .toString();
+  }
+
+  IngestionGatewayPipelineDefinitionPb toPb() {
+    IngestionGatewayPipelineDefinitionPb pb = new IngestionGatewayPipelineDefinitionPb();
+    pb.setConnectionId(connectionId);
+    pb.setConnectionName(connectionName);
+    pb.setGatewayStorageCatalog(gatewayStorageCatalog);
+    pb.setGatewayStorageName(gatewayStorageName);
+    pb.setGatewayStorageSchema(gatewayStorageSchema);
+
+    return pb;
+  }
+
+  static IngestionGatewayPipelineDefinition fromPb(IngestionGatewayPipelineDefinitionPb pb) {
+    IngestionGatewayPipelineDefinition model = new IngestionGatewayPipelineDefinition();
+    model.setConnectionId(pb.getConnectionId());
+    model.setConnectionName(pb.getConnectionName());
+    model.setGatewayStorageCatalog(pb.getGatewayStorageCatalog());
+    model.setGatewayStorageName(pb.getGatewayStorageName());
+    model.setGatewayStorageSchema(pb.getGatewayStorageSchema());
+
+    return model;
+  }
+
+  public static class IngestionGatewayPipelineDefinitionSerializer
+      extends JsonSerializer<IngestionGatewayPipelineDefinition> {
+    @Override
+    public void serialize(
+        IngestionGatewayPipelineDefinition value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      IngestionGatewayPipelineDefinitionPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class IngestionGatewayPipelineDefinitionDeserializer
+      extends JsonDeserializer<IngestionGatewayPipelineDefinition> {
+    @Override
+    public IngestionGatewayPipelineDefinition deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      IngestionGatewayPipelineDefinitionPb pb =
+          mapper.readValue(p, IngestionGatewayPipelineDefinitionPb.class);
+      return IngestionGatewayPipelineDefinition.fromPb(pb);
+    }
   }
 }

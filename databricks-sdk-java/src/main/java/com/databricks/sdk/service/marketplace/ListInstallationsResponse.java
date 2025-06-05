@@ -4,18 +4,27 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ListInstallationsResponse.ListInstallationsResponseSerializer.class)
+@JsonDeserialize(using = ListInstallationsResponse.ListInstallationsResponseDeserializer.class)
 public class ListInstallationsResponse {
   /** */
-  @JsonProperty("installations")
   private Collection<InstallationDetail> installations;
 
   /** */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   public ListInstallationsResponse setInstallations(Collection<InstallationDetail> installations) {
@@ -56,5 +65,43 @@ public class ListInstallationsResponse {
         .add("installations", installations)
         .add("nextPageToken", nextPageToken)
         .toString();
+  }
+
+  ListInstallationsResponsePb toPb() {
+    ListInstallationsResponsePb pb = new ListInstallationsResponsePb();
+    pb.setInstallations(installations);
+    pb.setNextPageToken(nextPageToken);
+
+    return pb;
+  }
+
+  static ListInstallationsResponse fromPb(ListInstallationsResponsePb pb) {
+    ListInstallationsResponse model = new ListInstallationsResponse();
+    model.setInstallations(pb.getInstallations());
+    model.setNextPageToken(pb.getNextPageToken());
+
+    return model;
+  }
+
+  public static class ListInstallationsResponseSerializer
+      extends JsonSerializer<ListInstallationsResponse> {
+    @Override
+    public void serialize(
+        ListInstallationsResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListInstallationsResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListInstallationsResponseDeserializer
+      extends JsonDeserializer<ListInstallationsResponse> {
+    @Override
+    public ListInstallationsResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListInstallationsResponsePb pb = mapper.readValue(p, ListInstallationsResponsePb.class);
+      return ListInstallationsResponse.fromPb(pb);
+    }
   }
 }

@@ -3,27 +3,35 @@
 package com.databricks.sdk.service.files;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
 
 /** Upload a file */
 @Generated
+@JsonSerialize(using = UploadRequest.UploadRequestSerializer.class)
+@JsonDeserialize(using = UploadRequest.UploadRequestDeserializer.class)
 public class UploadRequest {
   /** */
-  @JsonIgnore private InputStream contents;
+  private InputStream contents;
 
   /** The absolute path of the file. */
-  @JsonIgnore private String filePath;
+  private String filePath;
 
   /**
    * If true or unspecified, an existing file will be overwritten. If false, an error will be
    * returned if the path points to an existing file.
    */
-  @JsonIgnore
-  @QueryParam("overwrite")
   private Boolean overwrite;
 
   public UploadRequest setContents(InputStream contents) {
@@ -75,5 +83,41 @@ public class UploadRequest {
         .add("filePath", filePath)
         .add("overwrite", overwrite)
         .toString();
+  }
+
+  UploadRequestPb toPb() {
+    UploadRequestPb pb = new UploadRequestPb();
+    pb.setContents(contents);
+    pb.setFilePath(filePath);
+    pb.setOverwrite(overwrite);
+
+    return pb;
+  }
+
+  static UploadRequest fromPb(UploadRequestPb pb) {
+    UploadRequest model = new UploadRequest();
+    model.setContents(pb.getContents());
+    model.setFilePath(pb.getFilePath());
+    model.setOverwrite(pb.getOverwrite());
+
+    return model;
+  }
+
+  public static class UploadRequestSerializer extends JsonSerializer<UploadRequest> {
+    @Override
+    public void serialize(UploadRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UploadRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UploadRequestDeserializer extends JsonDeserializer<UploadRequest> {
+    @Override
+    public UploadRequest deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UploadRequestPb pb = mapper.readValue(p, UploadRequestPb.class);
+      return UploadRequest.fromPb(pb);
+    }
   }
 }

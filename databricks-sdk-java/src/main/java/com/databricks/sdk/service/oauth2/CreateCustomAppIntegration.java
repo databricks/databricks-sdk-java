@@ -4,42 +4,47 @@ package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateCustomAppIntegration.CreateCustomAppIntegrationSerializer.class)
+@JsonDeserialize(using = CreateCustomAppIntegration.CreateCustomAppIntegrationDeserializer.class)
 public class CreateCustomAppIntegration {
   /**
    * This field indicates whether an OAuth client secret is required to authenticate this client.
    */
-  @JsonProperty("confidential")
   private Boolean confidential;
 
   /** Name of the custom OAuth app */
-  @JsonProperty("name")
   private String name;
 
   /** List of OAuth redirect urls */
-  @JsonProperty("redirect_urls")
   private Collection<String> redirectUrls;
 
   /**
    * OAuth scopes granted to the application. Supported scopes: all-apis, sql, offline_access,
    * openid, profile, email.
    */
-  @JsonProperty("scopes")
   private Collection<String> scopes;
 
   /** Token access policy */
-  @JsonProperty("token_access_policy")
   private TokenAccessPolicy tokenAccessPolicy;
 
   /**
    * Scopes that will need to be consented by end user to mint the access token. If the user does
    * not authorize the access token will not be minted. Must be a subset of scopes.
    */
-  @JsonProperty("user_authorized_scopes")
   private Collection<String> userAuthorizedScopes;
 
   public CreateCustomAppIntegration setConfidential(Boolean confidential) {
@@ -126,5 +131,51 @@ public class CreateCustomAppIntegration {
         .add("tokenAccessPolicy", tokenAccessPolicy)
         .add("userAuthorizedScopes", userAuthorizedScopes)
         .toString();
+  }
+
+  CreateCustomAppIntegrationPb toPb() {
+    CreateCustomAppIntegrationPb pb = new CreateCustomAppIntegrationPb();
+    pb.setConfidential(confidential);
+    pb.setName(name);
+    pb.setRedirectUrls(redirectUrls);
+    pb.setScopes(scopes);
+    pb.setTokenAccessPolicy(tokenAccessPolicy);
+    pb.setUserAuthorizedScopes(userAuthorizedScopes);
+
+    return pb;
+  }
+
+  static CreateCustomAppIntegration fromPb(CreateCustomAppIntegrationPb pb) {
+    CreateCustomAppIntegration model = new CreateCustomAppIntegration();
+    model.setConfidential(pb.getConfidential());
+    model.setName(pb.getName());
+    model.setRedirectUrls(pb.getRedirectUrls());
+    model.setScopes(pb.getScopes());
+    model.setTokenAccessPolicy(pb.getTokenAccessPolicy());
+    model.setUserAuthorizedScopes(pb.getUserAuthorizedScopes());
+
+    return model;
+  }
+
+  public static class CreateCustomAppIntegrationSerializer
+      extends JsonSerializer<CreateCustomAppIntegration> {
+    @Override
+    public void serialize(
+        CreateCustomAppIntegration value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateCustomAppIntegrationPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateCustomAppIntegrationDeserializer
+      extends JsonDeserializer<CreateCustomAppIntegration> {
+    @Override
+    public CreateCustomAppIntegration deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateCustomAppIntegrationPb pb = mapper.readValue(p, CreateCustomAppIntegrationPb.class);
+      return CreateCustomAppIntegration.fromPb(pb);
+    }
   }
 }

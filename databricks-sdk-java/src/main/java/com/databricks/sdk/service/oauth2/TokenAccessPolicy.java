@@ -4,17 +4,26 @@ package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = TokenAccessPolicy.TokenAccessPolicySerializer.class)
+@JsonDeserialize(using = TokenAccessPolicy.TokenAccessPolicyDeserializer.class)
 public class TokenAccessPolicy {
   /** access token time to live in minutes */
-  @JsonProperty("access_token_ttl_in_minutes")
   private Long accessTokenTtlInMinutes;
 
   /** refresh token time to live in minutes */
-  @JsonProperty("refresh_token_ttl_in_minutes")
   private Long refreshTokenTtlInMinutes;
 
   public TokenAccessPolicy setAccessTokenTtlInMinutes(Long accessTokenTtlInMinutes) {
@@ -55,5 +64,40 @@ public class TokenAccessPolicy {
         .add("accessTokenTtlInMinutes", accessTokenTtlInMinutes)
         .add("refreshTokenTtlInMinutes", refreshTokenTtlInMinutes)
         .toString();
+  }
+
+  TokenAccessPolicyPb toPb() {
+    TokenAccessPolicyPb pb = new TokenAccessPolicyPb();
+    pb.setAccessTokenTtlInMinutes(accessTokenTtlInMinutes);
+    pb.setRefreshTokenTtlInMinutes(refreshTokenTtlInMinutes);
+
+    return pb;
+  }
+
+  static TokenAccessPolicy fromPb(TokenAccessPolicyPb pb) {
+    TokenAccessPolicy model = new TokenAccessPolicy();
+    model.setAccessTokenTtlInMinutes(pb.getAccessTokenTtlInMinutes());
+    model.setRefreshTokenTtlInMinutes(pb.getRefreshTokenTtlInMinutes());
+
+    return model;
+  }
+
+  public static class TokenAccessPolicySerializer extends JsonSerializer<TokenAccessPolicy> {
+    @Override
+    public void serialize(TokenAccessPolicy value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      TokenAccessPolicyPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class TokenAccessPolicyDeserializer extends JsonDeserializer<TokenAccessPolicy> {
+    @Override
+    public TokenAccessPolicy deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      TokenAccessPolicyPb pb = mapper.readValue(p, TokenAccessPolicyPb.class);
+      return TokenAccessPolicy.fromPb(pb);
+    }
   }
 }

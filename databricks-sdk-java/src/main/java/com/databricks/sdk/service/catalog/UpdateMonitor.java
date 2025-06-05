@@ -4,18 +4,27 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = UpdateMonitor.UpdateMonitorSerializer.class)
+@JsonDeserialize(using = UpdateMonitor.UpdateMonitorDeserializer.class)
 public class UpdateMonitor {
   /**
    * Name of the baseline table from which drift metrics are computed from. Columns in the monitored
    * table should also be present in the baseline table.
    */
-  @JsonProperty("baseline_table_name")
   private String baselineTableName;
 
   /**
@@ -23,34 +32,27 @@ public class UpdateMonitor {
    * metrics (from already computed aggregate metrics), or drift metrics (comparing metrics across
    * time windows).
    */
-  @JsonProperty("custom_metrics")
   private Collection<MonitorMetric> customMetrics;
 
   /**
    * Id of dashboard that visualizes the computed metrics. This can be empty if the monitor is in
    * PENDING state.
    */
-  @JsonProperty("dashboard_id")
   private String dashboardId;
 
   /** The data classification config for the monitor. */
-  @JsonProperty("data_classification_config")
   private MonitorDataClassificationConfig dataClassificationConfig;
 
   /** Configuration for monitoring inference logs. */
-  @JsonProperty("inference_log")
   private MonitorInferenceLog inferenceLog;
 
   /** The notification settings for the monitor. */
-  @JsonProperty("notifications")
   private MonitorNotifications notifications;
 
   /** Schema where output metric tables are created. */
-  @JsonProperty("output_schema_name")
   private String outputSchemaName;
 
   /** The schedule for automatically updating and refreshing metric tables. */
-  @JsonProperty("schedule")
   private MonitorCronSchedule schedule;
 
   /**
@@ -59,18 +61,15 @@ public class UpdateMonitor {
    * complements. For high-cardinality columns, only the top 100 unique values by frequency will
    * generate slices.
    */
-  @JsonProperty("slicing_exprs")
   private Collection<String> slicingExprs;
 
   /** Configuration for monitoring snapshot tables. */
-  @JsonProperty("snapshot")
   private MonitorSnapshot snapshot;
 
   /** Full name of the table. */
-  @JsonIgnore private String tableName;
+  private String tableName;
 
   /** Configuration for monitoring time series tables. */
-  @JsonProperty("time_series")
   private MonitorTimeSeries timeSeries;
 
   public UpdateMonitor setBaselineTableName(String baselineTableName) {
@@ -234,5 +233,59 @@ public class UpdateMonitor {
         .add("tableName", tableName)
         .add("timeSeries", timeSeries)
         .toString();
+  }
+
+  UpdateMonitorPb toPb() {
+    UpdateMonitorPb pb = new UpdateMonitorPb();
+    pb.setBaselineTableName(baselineTableName);
+    pb.setCustomMetrics(customMetrics);
+    pb.setDashboardId(dashboardId);
+    pb.setDataClassificationConfig(dataClassificationConfig);
+    pb.setInferenceLog(inferenceLog);
+    pb.setNotifications(notifications);
+    pb.setOutputSchemaName(outputSchemaName);
+    pb.setSchedule(schedule);
+    pb.setSlicingExprs(slicingExprs);
+    pb.setSnapshot(snapshot);
+    pb.setTableName(tableName);
+    pb.setTimeSeries(timeSeries);
+
+    return pb;
+  }
+
+  static UpdateMonitor fromPb(UpdateMonitorPb pb) {
+    UpdateMonitor model = new UpdateMonitor();
+    model.setBaselineTableName(pb.getBaselineTableName());
+    model.setCustomMetrics(pb.getCustomMetrics());
+    model.setDashboardId(pb.getDashboardId());
+    model.setDataClassificationConfig(pb.getDataClassificationConfig());
+    model.setInferenceLog(pb.getInferenceLog());
+    model.setNotifications(pb.getNotifications());
+    model.setOutputSchemaName(pb.getOutputSchemaName());
+    model.setSchedule(pb.getSchedule());
+    model.setSlicingExprs(pb.getSlicingExprs());
+    model.setSnapshot(pb.getSnapshot());
+    model.setTableName(pb.getTableName());
+    model.setTimeSeries(pb.getTimeSeries());
+
+    return model;
+  }
+
+  public static class UpdateMonitorSerializer extends JsonSerializer<UpdateMonitor> {
+    @Override
+    public void serialize(UpdateMonitor value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateMonitorPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateMonitorDeserializer extends JsonDeserializer<UpdateMonitor> {
+    @Override
+    public UpdateMonitor deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateMonitorPb pb = mapper.readValue(p, UpdateMonitorPb.class);
+      return UpdateMonitor.fromPb(pb);
+    }
   }
 }

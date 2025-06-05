@@ -4,36 +4,43 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = PipelineCluster.PipelineClusterSerializer.class)
+@JsonDeserialize(using = PipelineCluster.PipelineClusterDeserializer.class)
 public class PipelineCluster {
   /** Note: This field won't be persisted. Only API users will check this field. */
-  @JsonProperty("apply_policy_default_values")
   private Boolean applyPolicyDefaultValues;
 
   /**
    * Parameters needed in order to automatically scale clusters up and down based on load. Note:
    * autoscaling works best with DB runtime versions 3.0 or later.
    */
-  @JsonProperty("autoscale")
   private PipelineClusterAutoscale autoscale;
 
   /**
    * Attributes related to clusters running on Amazon Web Services. If not specified at cluster
    * creation, a set of default values will be used.
    */
-  @JsonProperty("aws_attributes")
   private com.databricks.sdk.service.compute.AwsAttributes awsAttributes;
 
   /**
    * Attributes related to clusters running on Microsoft Azure. If not specified at cluster
    * creation, a set of default values will be used.
    */
-  @JsonProperty("azure_attributes")
   private com.databricks.sdk.service.compute.AzureAttributes azureAttributes;
 
   /**
@@ -43,7 +50,6 @@ public class PipelineCluster {
    * driver logs is `$destination/$clusterId/driver`, while the destination of executor logs is
    * `$destination/$clusterId/executor`.
    */
-  @JsonProperty("cluster_log_conf")
   private com.databricks.sdk.service.compute.ClusterLogConf clusterLogConf;
 
   /**
@@ -55,32 +61,27 @@ public class PipelineCluster {
    * <p>- Clusters can only reuse cloud resources if the resources' tags are a subset of the cluster
    * tags
    */
-  @JsonProperty("custom_tags")
   private Map<String, String> customTags;
 
   /**
    * The optional ID of the instance pool for the driver of the cluster belongs. The pool cluster
    * uses the instance pool with id (instance_pool_id) if the driver pool is not assigned.
    */
-  @JsonProperty("driver_instance_pool_id")
   private String driverInstancePoolId;
 
   /**
    * The node type of the Spark driver. Note that this field is optional; if unset, the driver node
    * type will be set as the same value as `node_type_id` defined above.
    */
-  @JsonProperty("driver_node_type_id")
   private String driverNodeTypeId;
 
   /** Whether to enable local disk encryption for the cluster. */
-  @JsonProperty("enable_local_disk_encryption")
   private Boolean enableLocalDiskEncryption;
 
   /**
    * Attributes related to clusters running on Google Cloud Platform. If not specified at cluster
    * creation, a set of default values will be used.
    */
-  @JsonProperty("gcp_attributes")
   private com.databricks.sdk.service.compute.GcpAttributes gcpAttributes;
 
   /**
@@ -88,11 +89,9 @@ public class PipelineCluster {
    * scripts are executed sequentially in the order provided. If `cluster_log_conf` is specified,
    * init script logs are sent to `<destination>/<cluster-ID>/init_scripts`.
    */
-  @JsonProperty("init_scripts")
   private Collection<com.databricks.sdk.service.compute.InitScriptInfo> initScripts;
 
   /** The optional ID of the instance pool to which the cluster belongs. */
-  @JsonProperty("instance_pool_id")
   private String instancePoolId;
 
   /**
@@ -100,7 +99,6 @@ public class PipelineCluster {
    * `maintenance` to configure the maintenance cluster. This field is optional. The default value
    * is `default`.
    */
-  @JsonProperty("label")
   private String label;
 
   /**
@@ -109,7 +107,6 @@ public class PipelineCluster {
    * compute intensive workloads. A list of available node types can be retrieved by using the
    * :method:clusters/listNodeTypes API call.
    */
-  @JsonProperty("node_type_id")
   private String nodeTypeId;
 
   /**
@@ -122,18 +119,15 @@ public class PipelineCluster {
    * workers, whereas the workers listed in `spark_info` will gradually increase from 5 to 10 as the
    * new nodes are provisioned.
    */
-  @JsonProperty("num_workers")
   private Long numWorkers;
 
   /** The ID of the cluster policy used to create the cluster if applicable. */
-  @JsonProperty("policy_id")
   private String policyId;
 
   /**
    * An object containing a set of optional, user-specified Spark configuration key-value pairs. See
    * :method:clusters/create for more details.
    */
-  @JsonProperty("spark_conf")
   private Map<String, String> sparkConf;
 
   /**
@@ -149,7 +143,6 @@ public class PipelineCluster {
    * "/local_disk0"}` or `{"SPARK_DAEMON_JAVA_OPTS": "$SPARK_DAEMON_JAVA_OPTS
    * -Dspark.shuffle.service.enabled=true"}`
    */
-  @JsonProperty("spark_env_vars")
   private Map<String, String> sparkEnvVars;
 
   /**
@@ -157,7 +150,6 @@ public class PipelineCluster {
    * corresponding private keys can be used to login with the user name `ubuntu` on port `2200`. Up
    * to 10 keys can be specified.
    */
-  @JsonProperty("ssh_public_keys")
   private Collection<String> sshPublicKeys;
 
   public PipelineCluster setApplyPolicyDefaultValues(Boolean applyPolicyDefaultValues) {
@@ -409,5 +401,74 @@ public class PipelineCluster {
         .add("sparkEnvVars", sparkEnvVars)
         .add("sshPublicKeys", sshPublicKeys)
         .toString();
+  }
+
+  PipelineClusterPb toPb() {
+    PipelineClusterPb pb = new PipelineClusterPb();
+    pb.setApplyPolicyDefaultValues(applyPolicyDefaultValues);
+    pb.setAutoscale(autoscale);
+    pb.setAwsAttributes(awsAttributes);
+    pb.setAzureAttributes(azureAttributes);
+    pb.setClusterLogConf(clusterLogConf);
+    pb.setCustomTags(customTags);
+    pb.setDriverInstancePoolId(driverInstancePoolId);
+    pb.setDriverNodeTypeId(driverNodeTypeId);
+    pb.setEnableLocalDiskEncryption(enableLocalDiskEncryption);
+    pb.setGcpAttributes(gcpAttributes);
+    pb.setInitScripts(initScripts);
+    pb.setInstancePoolId(instancePoolId);
+    pb.setLabel(label);
+    pb.setNodeTypeId(nodeTypeId);
+    pb.setNumWorkers(numWorkers);
+    pb.setPolicyId(policyId);
+    pb.setSparkConf(sparkConf);
+    pb.setSparkEnvVars(sparkEnvVars);
+    pb.setSshPublicKeys(sshPublicKeys);
+
+    return pb;
+  }
+
+  static PipelineCluster fromPb(PipelineClusterPb pb) {
+    PipelineCluster model = new PipelineCluster();
+    model.setApplyPolicyDefaultValues(pb.getApplyPolicyDefaultValues());
+    model.setAutoscale(pb.getAutoscale());
+    model.setAwsAttributes(pb.getAwsAttributes());
+    model.setAzureAttributes(pb.getAzureAttributes());
+    model.setClusterLogConf(pb.getClusterLogConf());
+    model.setCustomTags(pb.getCustomTags());
+    model.setDriverInstancePoolId(pb.getDriverInstancePoolId());
+    model.setDriverNodeTypeId(pb.getDriverNodeTypeId());
+    model.setEnableLocalDiskEncryption(pb.getEnableLocalDiskEncryption());
+    model.setGcpAttributes(pb.getGcpAttributes());
+    model.setInitScripts(pb.getInitScripts());
+    model.setInstancePoolId(pb.getInstancePoolId());
+    model.setLabel(pb.getLabel());
+    model.setNodeTypeId(pb.getNodeTypeId());
+    model.setNumWorkers(pb.getNumWorkers());
+    model.setPolicyId(pb.getPolicyId());
+    model.setSparkConf(pb.getSparkConf());
+    model.setSparkEnvVars(pb.getSparkEnvVars());
+    model.setSshPublicKeys(pb.getSshPublicKeys());
+
+    return model;
+  }
+
+  public static class PipelineClusterSerializer extends JsonSerializer<PipelineCluster> {
+    @Override
+    public void serialize(PipelineCluster value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PipelineClusterPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PipelineClusterDeserializer extends JsonDeserializer<PipelineCluster> {
+    @Override
+    public PipelineCluster deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PipelineClusterPb pb = mapper.readValue(p, PipelineClusterPb.class);
+      return PipelineCluster.fromPb(pb);
+    }
   }
 }

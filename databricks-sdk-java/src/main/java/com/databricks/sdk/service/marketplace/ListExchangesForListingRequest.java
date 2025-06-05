@@ -3,27 +3,33 @@
 package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List exchanges for listing */
 @Generated
+@JsonSerialize(
+    using = ListExchangesForListingRequest.ListExchangesForListingRequestSerializer.class)
+@JsonDeserialize(
+    using = ListExchangesForListingRequest.ListExchangesForListingRequestDeserializer.class)
 public class ListExchangesForListingRequest {
   /** */
-  @JsonIgnore
-  @QueryParam("listing_id")
   private String listingId;
 
   /** */
-  @JsonIgnore
-  @QueryParam("page_size")
   private Long pageSize;
 
   /** */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   public ListExchangesForListingRequest setListingId(String listingId) {
@@ -75,5 +81,46 @@ public class ListExchangesForListingRequest {
         .add("pageSize", pageSize)
         .add("pageToken", pageToken)
         .toString();
+  }
+
+  ListExchangesForListingRequestPb toPb() {
+    ListExchangesForListingRequestPb pb = new ListExchangesForListingRequestPb();
+    pb.setListingId(listingId);
+    pb.setPageSize(pageSize);
+    pb.setPageToken(pageToken);
+
+    return pb;
+  }
+
+  static ListExchangesForListingRequest fromPb(ListExchangesForListingRequestPb pb) {
+    ListExchangesForListingRequest model = new ListExchangesForListingRequest();
+    model.setListingId(pb.getListingId());
+    model.setPageSize(pb.getPageSize());
+    model.setPageToken(pb.getPageToken());
+
+    return model;
+  }
+
+  public static class ListExchangesForListingRequestSerializer
+      extends JsonSerializer<ListExchangesForListingRequest> {
+    @Override
+    public void serialize(
+        ListExchangesForListingRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListExchangesForListingRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListExchangesForListingRequestDeserializer
+      extends JsonDeserializer<ListExchangesForListingRequest> {
+    @Override
+    public ListExchangesForListingRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListExchangesForListingRequestPb pb =
+          mapper.readValue(p, ListExchangesForListingRequestPb.class);
+      return ListExchangesForListingRequest.fromPb(pb);
+    }
   }
 }

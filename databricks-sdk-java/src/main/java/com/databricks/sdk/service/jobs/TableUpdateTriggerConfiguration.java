@@ -4,28 +4,38 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = TableUpdateTriggerConfiguration.TableUpdateTriggerConfigurationSerializer.class)
+@JsonDeserialize(
+    using = TableUpdateTriggerConfiguration.TableUpdateTriggerConfigurationDeserializer.class)
 public class TableUpdateTriggerConfiguration {
   /** The table(s) condition based on which to trigger a job run. */
-  @JsonProperty("condition")
   private Condition condition;
 
   /**
    * If set, the trigger starts a run only after the specified amount of time has passed since the
    * last time the trigger fired. The minimum allowed value is 60 seconds.
    */
-  @JsonProperty("min_time_between_triggers_seconds")
   private Long minTimeBetweenTriggersSeconds;
 
   /**
    * A list of Delta tables to monitor for changes. The table name must be in the format
    * `catalog_name.schema_name.table_name`.
    */
-  @JsonProperty("table_names")
   private Collection<String> tableNames;
 
   /**
@@ -33,7 +43,6 @@ public class TableUpdateTriggerConfiguration {
    * time and can be used to wait for a series of table updates before triggering a run. The minimum
    * allowed value is 60 seconds.
    */
-  @JsonProperty("wait_after_last_change_seconds")
   private Long waitAfterLastChangeSeconds;
 
   public TableUpdateTriggerConfiguration setCondition(Condition condition) {
@@ -99,5 +108,48 @@ public class TableUpdateTriggerConfiguration {
         .add("tableNames", tableNames)
         .add("waitAfterLastChangeSeconds", waitAfterLastChangeSeconds)
         .toString();
+  }
+
+  TableUpdateTriggerConfigurationPb toPb() {
+    TableUpdateTriggerConfigurationPb pb = new TableUpdateTriggerConfigurationPb();
+    pb.setCondition(condition);
+    pb.setMinTimeBetweenTriggersSeconds(minTimeBetweenTriggersSeconds);
+    pb.setTableNames(tableNames);
+    pb.setWaitAfterLastChangeSeconds(waitAfterLastChangeSeconds);
+
+    return pb;
+  }
+
+  static TableUpdateTriggerConfiguration fromPb(TableUpdateTriggerConfigurationPb pb) {
+    TableUpdateTriggerConfiguration model = new TableUpdateTriggerConfiguration();
+    model.setCondition(pb.getCondition());
+    model.setMinTimeBetweenTriggersSeconds(pb.getMinTimeBetweenTriggersSeconds());
+    model.setTableNames(pb.getTableNames());
+    model.setWaitAfterLastChangeSeconds(pb.getWaitAfterLastChangeSeconds());
+
+    return model;
+  }
+
+  public static class TableUpdateTriggerConfigurationSerializer
+      extends JsonSerializer<TableUpdateTriggerConfiguration> {
+    @Override
+    public void serialize(
+        TableUpdateTriggerConfiguration value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      TableUpdateTriggerConfigurationPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class TableUpdateTriggerConfigurationDeserializer
+      extends JsonDeserializer<TableUpdateTriggerConfiguration> {
+    @Override
+    public TableUpdateTriggerConfiguration deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      TableUpdateTriggerConfigurationPb pb =
+          mapper.readValue(p, TableUpdateTriggerConfigurationPb.class);
+      return TableUpdateTriggerConfiguration.fromPb(pb);
+    }
   }
 }

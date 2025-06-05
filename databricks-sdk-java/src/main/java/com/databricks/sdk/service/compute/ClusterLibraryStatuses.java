@@ -4,18 +4,27 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ClusterLibraryStatuses.ClusterLibraryStatusesSerializer.class)
+@JsonDeserialize(using = ClusterLibraryStatuses.ClusterLibraryStatusesDeserializer.class)
 public class ClusterLibraryStatuses {
   /** Unique identifier for the cluster. */
-  @JsonProperty("cluster_id")
   private String clusterId;
 
   /** Status of all libraries on the cluster. */
-  @JsonProperty("library_statuses")
   private Collection<LibraryFullStatus> libraryStatuses;
 
   public ClusterLibraryStatuses setClusterId(String clusterId) {
@@ -56,5 +65,43 @@ public class ClusterLibraryStatuses {
         .add("clusterId", clusterId)
         .add("libraryStatuses", libraryStatuses)
         .toString();
+  }
+
+  ClusterLibraryStatusesPb toPb() {
+    ClusterLibraryStatusesPb pb = new ClusterLibraryStatusesPb();
+    pb.setClusterId(clusterId);
+    pb.setLibraryStatuses(libraryStatuses);
+
+    return pb;
+  }
+
+  static ClusterLibraryStatuses fromPb(ClusterLibraryStatusesPb pb) {
+    ClusterLibraryStatuses model = new ClusterLibraryStatuses();
+    model.setClusterId(pb.getClusterId());
+    model.setLibraryStatuses(pb.getLibraryStatuses());
+
+    return model;
+  }
+
+  public static class ClusterLibraryStatusesSerializer
+      extends JsonSerializer<ClusterLibraryStatuses> {
+    @Override
+    public void serialize(
+        ClusterLibraryStatuses value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ClusterLibraryStatusesPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ClusterLibraryStatusesDeserializer
+      extends JsonDeserializer<ClusterLibraryStatuses> {
+    @Override
+    public ClusterLibraryStatuses deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ClusterLibraryStatusesPb pb = mapper.readValue(p, ClusterLibraryStatusesPb.class);
+      return ClusterLibraryStatuses.fromPb(pb);
+    }
   }
 }

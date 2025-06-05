@@ -4,21 +4,29 @@ package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ExternalCustomerInfo.ExternalCustomerInfoSerializer.class)
+@JsonDeserialize(using = ExternalCustomerInfo.ExternalCustomerInfoDeserializer.class)
 public class ExternalCustomerInfo {
   /** Email of the authoritative user. */
-  @JsonProperty("authoritative_user_email")
   private String authoritativeUserEmail;
 
   /** The authoritative user full name. */
-  @JsonProperty("authoritative_user_full_name")
   private String authoritativeUserFullName;
 
   /** The legal entity name for the external workspace */
-  @JsonProperty("customer_name")
   private String customerName;
 
   public ExternalCustomerInfo setAuthoritativeUserEmail(String authoritativeUserEmail) {
@@ -70,5 +78,44 @@ public class ExternalCustomerInfo {
         .add("authoritativeUserFullName", authoritativeUserFullName)
         .add("customerName", customerName)
         .toString();
+  }
+
+  ExternalCustomerInfoPb toPb() {
+    ExternalCustomerInfoPb pb = new ExternalCustomerInfoPb();
+    pb.setAuthoritativeUserEmail(authoritativeUserEmail);
+    pb.setAuthoritativeUserFullName(authoritativeUserFullName);
+    pb.setCustomerName(customerName);
+
+    return pb;
+  }
+
+  static ExternalCustomerInfo fromPb(ExternalCustomerInfoPb pb) {
+    ExternalCustomerInfo model = new ExternalCustomerInfo();
+    model.setAuthoritativeUserEmail(pb.getAuthoritativeUserEmail());
+    model.setAuthoritativeUserFullName(pb.getAuthoritativeUserFullName());
+    model.setCustomerName(pb.getCustomerName());
+
+    return model;
+  }
+
+  public static class ExternalCustomerInfoSerializer extends JsonSerializer<ExternalCustomerInfo> {
+    @Override
+    public void serialize(
+        ExternalCustomerInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ExternalCustomerInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ExternalCustomerInfoDeserializer
+      extends JsonDeserializer<ExternalCustomerInfo> {
+    @Override
+    public ExternalCustomerInfo deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ExternalCustomerInfoPb pb = mapper.readValue(p, ExternalCustomerInfoPb.class);
+      return ExternalCustomerInfo.fromPb(pb);
+    }
   }
 }

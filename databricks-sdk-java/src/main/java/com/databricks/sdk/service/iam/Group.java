@@ -4,14 +4,24 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = Group.GroupSerializer.class)
+@JsonDeserialize(using = Group.GroupDeserializer.class)
 public class Group {
   /** String that represents a human-readable group name */
-  @JsonProperty("displayName")
   private String displayName;
 
   /**
@@ -21,35 +31,27 @@ public class Group {
    * <p>[assigning entitlements]:
    * https://docs.databricks.com/administration-guide/users-groups/index.html#assigning-entitlements
    */
-  @JsonProperty("entitlements")
   private Collection<ComplexValue> entitlements;
 
   /** */
-  @JsonProperty("externalId")
   private String externalId;
 
   /** */
-  @JsonProperty("groups")
   private Collection<ComplexValue> groups;
 
   /** Databricks group ID */
-  @JsonProperty("id")
   private String id;
 
   /** */
-  @JsonProperty("members")
   private Collection<ComplexValue> members;
 
   /** Container for the group identifier. Workspace local versus account. */
-  @JsonProperty("meta")
   private ResourceMeta meta;
 
   /** Corresponds to AWS instance profile/arn role. */
-  @JsonProperty("roles")
   private Collection<ComplexValue> roles;
 
   /** The schema of the group. */
-  @JsonProperty("schemas")
   private Collection<GroupSchema> schemas;
 
   public Group setDisplayName(String displayName) {
@@ -168,5 +170,53 @@ public class Group {
         .add("roles", roles)
         .add("schemas", schemas)
         .toString();
+  }
+
+  GroupPb toPb() {
+    GroupPb pb = new GroupPb();
+    pb.setDisplayName(displayName);
+    pb.setEntitlements(entitlements);
+    pb.setExternalId(externalId);
+    pb.setGroups(groups);
+    pb.setId(id);
+    pb.setMembers(members);
+    pb.setMeta(meta);
+    pb.setRoles(roles);
+    pb.setSchemas(schemas);
+
+    return pb;
+  }
+
+  static Group fromPb(GroupPb pb) {
+    Group model = new Group();
+    model.setDisplayName(pb.getDisplayName());
+    model.setEntitlements(pb.getEntitlements());
+    model.setExternalId(pb.getExternalId());
+    model.setGroups(pb.getGroups());
+    model.setId(pb.getId());
+    model.setMembers(pb.getMembers());
+    model.setMeta(pb.getMeta());
+    model.setRoles(pb.getRoles());
+    model.setSchemas(pb.getSchemas());
+
+    return model;
+  }
+
+  public static class GroupSerializer extends JsonSerializer<Group> {
+    @Override
+    public void serialize(Group value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GroupPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GroupDeserializer extends JsonDeserializer<Group> {
+    @Override
+    public Group deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GroupPb pb = mapper.readValue(p, GroupPb.class);
+      return Group.fromPb(pb);
+    }
   }
 }

@@ -4,22 +4,30 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = TerminationReason.TerminationReasonSerializer.class)
+@JsonDeserialize(using = TerminationReason.TerminationReasonDeserializer.class)
 public class TerminationReason {
   /** status code indicating why the cluster was terminated */
-  @JsonProperty("code")
   private TerminationReasonCode code;
 
   /** list of parameters that provide additional information about why the cluster was terminated */
-  @JsonProperty("parameters")
   private Map<String, String> parameters;
 
   /** type of the termination */
-  @JsonProperty("type")
   private TerminationReasonType typeValue;
 
   public TerminationReason setCode(TerminationReasonCode code) {
@@ -71,5 +79,42 @@ public class TerminationReason {
         .add("parameters", parameters)
         .add("typeValue", typeValue)
         .toString();
+  }
+
+  TerminationReasonPb toPb() {
+    TerminationReasonPb pb = new TerminationReasonPb();
+    pb.setCode(code);
+    pb.setParameters(parameters);
+    pb.setType(typeValue);
+
+    return pb;
+  }
+
+  static TerminationReason fromPb(TerminationReasonPb pb) {
+    TerminationReason model = new TerminationReason();
+    model.setCode(pb.getCode());
+    model.setParameters(pb.getParameters());
+    model.setType(pb.getType());
+
+    return model;
+  }
+
+  public static class TerminationReasonSerializer extends JsonSerializer<TerminationReason> {
+    @Override
+    public void serialize(TerminationReason value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      TerminationReasonPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class TerminationReasonDeserializer extends JsonDeserializer<TerminationReason> {
+    @Override
+    public TerminationReason deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      TerminationReasonPb pb = mapper.readValue(p, TerminationReasonPb.class);
+      return TerminationReason.fromPb(pb);
+    }
   }
 }

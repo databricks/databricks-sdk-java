@@ -4,13 +4,23 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = RemoveInstanceProfile.RemoveInstanceProfileSerializer.class)
+@JsonDeserialize(using = RemoveInstanceProfile.RemoveInstanceProfileDeserializer.class)
 public class RemoveInstanceProfile {
   /** The ARN of the instance profile to remove. This field is required. */
-  @JsonProperty("instance_profile_arn")
   private String instanceProfileArn;
 
   public RemoveInstanceProfile setInstanceProfileArn(String instanceProfileArn) {
@@ -40,5 +50,41 @@ public class RemoveInstanceProfile {
     return new ToStringer(RemoveInstanceProfile.class)
         .add("instanceProfileArn", instanceProfileArn)
         .toString();
+  }
+
+  RemoveInstanceProfilePb toPb() {
+    RemoveInstanceProfilePb pb = new RemoveInstanceProfilePb();
+    pb.setInstanceProfileArn(instanceProfileArn);
+
+    return pb;
+  }
+
+  static RemoveInstanceProfile fromPb(RemoveInstanceProfilePb pb) {
+    RemoveInstanceProfile model = new RemoveInstanceProfile();
+    model.setInstanceProfileArn(pb.getInstanceProfileArn());
+
+    return model;
+  }
+
+  public static class RemoveInstanceProfileSerializer
+      extends JsonSerializer<RemoveInstanceProfile> {
+    @Override
+    public void serialize(
+        RemoveInstanceProfile value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      RemoveInstanceProfilePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class RemoveInstanceProfileDeserializer
+      extends JsonDeserializer<RemoveInstanceProfile> {
+    @Override
+    public RemoveInstanceProfile deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      RemoveInstanceProfilePb pb = mapper.readValue(p, RemoveInstanceProfilePb.class);
+      return RemoveInstanceProfile.fromPb(pb);
+    }
   }
 }

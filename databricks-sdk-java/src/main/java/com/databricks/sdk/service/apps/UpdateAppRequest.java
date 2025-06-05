@@ -4,22 +4,31 @@ package com.databricks.sdk.service.apps;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Update an app */
 @Generated
+@JsonSerialize(using = UpdateAppRequest.UpdateAppRequestSerializer.class)
+@JsonDeserialize(using = UpdateAppRequest.UpdateAppRequestDeserializer.class)
 public class UpdateAppRequest {
   /** */
-  @JsonProperty("app")
   private App app;
 
   /**
    * The name of the app. The name must contain only lowercase alphanumeric characters and hyphens.
    * It must be unique within the workspace.
    */
-  @JsonIgnore private String name;
+  private String name;
 
   public UpdateAppRequest setApp(App app) {
     this.app = app;
@@ -55,5 +64,40 @@ public class UpdateAppRequest {
   @Override
   public String toString() {
     return new ToStringer(UpdateAppRequest.class).add("app", app).add("name", name).toString();
+  }
+
+  UpdateAppRequestPb toPb() {
+    UpdateAppRequestPb pb = new UpdateAppRequestPb();
+    pb.setApp(app);
+    pb.setName(name);
+
+    return pb;
+  }
+
+  static UpdateAppRequest fromPb(UpdateAppRequestPb pb) {
+    UpdateAppRequest model = new UpdateAppRequest();
+    model.setApp(pb.getApp());
+    model.setName(pb.getName());
+
+    return model;
+  }
+
+  public static class UpdateAppRequestSerializer extends JsonSerializer<UpdateAppRequest> {
+    @Override
+    public void serialize(UpdateAppRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateAppRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateAppRequestDeserializer extends JsonDeserializer<UpdateAppRequest> {
+    @Override
+    public UpdateAppRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateAppRequestPb pb = mapper.readValue(p, UpdateAppRequestPb.class);
+      return UpdateAppRequest.fromPb(pb);
+    }
   }
 }

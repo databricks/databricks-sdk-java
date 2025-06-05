@@ -4,7 +4,16 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -13,6 +22,8 @@ import java.util.Objects;
  * Databricks will launch a total of 6 disks, 100 GiB each, for this cluster.
  */
 @Generated
+@JsonSerialize(using = DiskSpec.DiskSpecSerializer.class)
+@JsonDeserialize(using = DiskSpec.DiskSpecDeserializer.class)
 public class DiskSpec {
   /**
    * The number of disks launched for each instance: - This feature is only enabled for supported
@@ -30,11 +41,9 @@ public class DiskSpec {
    * <p>Disks will be mounted at: - For AWS: `/ebs0`, `/ebs1`, and etc. - For Azure:
    * `/remote_volume0`, `/remote_volume1`, and etc.
    */
-  @JsonProperty("disk_count")
   private Long diskCount;
 
   /** */
-  @JsonProperty("disk_iops")
   private Long diskIops;
 
   /**
@@ -45,15 +54,12 @@ public class DiskSpec {
    *
    * <p>For Azure: - Premium LRS (SSD): 1 - 1023 GiB - Standard LRS (HDD): 1- 1023 GiB
    */
-  @JsonProperty("disk_size")
   private Long diskSize;
 
   /** */
-  @JsonProperty("disk_throughput")
   private Long diskThroughput;
 
   /** The type of disks that will be launched with this cluster. */
-  @JsonProperty("disk_type")
   private DiskType diskType;
 
   public DiskSpec setDiskCount(Long diskCount) {
@@ -127,5 +133,45 @@ public class DiskSpec {
         .add("diskThroughput", diskThroughput)
         .add("diskType", diskType)
         .toString();
+  }
+
+  DiskSpecPb toPb() {
+    DiskSpecPb pb = new DiskSpecPb();
+    pb.setDiskCount(diskCount);
+    pb.setDiskIops(diskIops);
+    pb.setDiskSize(diskSize);
+    pb.setDiskThroughput(diskThroughput);
+    pb.setDiskType(diskType);
+
+    return pb;
+  }
+
+  static DiskSpec fromPb(DiskSpecPb pb) {
+    DiskSpec model = new DiskSpec();
+    model.setDiskCount(pb.getDiskCount());
+    model.setDiskIops(pb.getDiskIops());
+    model.setDiskSize(pb.getDiskSize());
+    model.setDiskThroughput(pb.getDiskThroughput());
+    model.setDiskType(pb.getDiskType());
+
+    return model;
+  }
+
+  public static class DiskSpecSerializer extends JsonSerializer<DiskSpec> {
+    @Override
+    public void serialize(DiskSpec value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DiskSpecPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DiskSpecDeserializer extends JsonDeserializer<DiskSpec> {
+    @Override
+    public DiskSpec deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DiskSpecPb pb = mapper.readValue(p, DiskSpecPb.class);
+      return DiskSpec.fromPb(pb);
+    }
   }
 }

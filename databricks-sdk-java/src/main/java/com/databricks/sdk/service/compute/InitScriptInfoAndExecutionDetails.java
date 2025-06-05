@@ -4,23 +4,34 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = InitScriptInfoAndExecutionDetails.InitScriptInfoAndExecutionDetailsSerializer.class)
+@JsonDeserialize(
+    using = InitScriptInfoAndExecutionDetails.InitScriptInfoAndExecutionDetailsDeserializer.class)
 public class InitScriptInfoAndExecutionDetails {
   /**
    * destination needs to be provided, e.g.
    * `abfss://<container-name>@<storage-account-name>.dfs.core.windows.net/<directory-name>`
    */
-  @JsonProperty("abfss")
   private Adlsgen2Info abfss;
 
   /**
    * destination needs to be provided. e.g. `{ "dbfs": { "destination" : "dbfs:/home/cluster_log" }
    * }`
    */
-  @JsonProperty("dbfs")
   private DbfsStorageInfo dbfs;
 
   /**
@@ -28,24 +39,20 @@ public class InitScriptInfoAndExecutionDetails {
    * FAILED_FETCH). This field should only be used to provide *additional* information to the status
    * field, not duplicate it.
    */
-  @JsonProperty("error_message")
   private String errorMessage;
 
   /** The number duration of the script execution in seconds */
-  @JsonProperty("execution_duration_seconds")
   private Long executionDurationSeconds;
 
   /**
    * destination needs to be provided, e.g. `{ "file": { "destination": "file:/my/local/file.sh" }
    * }`
    */
-  @JsonProperty("file")
   private LocalFileInfo file;
 
   /**
    * destination needs to be provided, e.g. `{ "gcs": { "destination": "gs://my-bucket/file.sh" } }`
    */
-  @JsonProperty("gcs")
   private GcsStorageInfo gcs;
 
   /**
@@ -54,25 +61,21 @@ public class InitScriptInfoAndExecutionDetails {
    * role is used to access s3, please make sure the cluster iam role in `instance_profile_arn` has
    * permission to write data to the s3 destination.
    */
-  @JsonProperty("s3")
   private S3StorageInfo s3;
 
   /** The current status of the script */
-  @JsonProperty("status")
   private InitScriptExecutionDetailsInitScriptExecutionStatus status;
 
   /**
    * destination needs to be provided. e.g. `{ \"volumes\" : { \"destination\" :
    * \"/Volumes/my-init.sh\" } }`
    */
-  @JsonProperty("volumes")
   private VolumesStorageInfo volumes;
 
   /**
    * destination needs to be provided, e.g. `{ "workspace": { "destination":
    * "/cluster-init-scripts/setup-datadog.sh" } }`
    */
-  @JsonProperty("workspace")
   private WorkspaceStorageInfo workspace;
 
   public InitScriptInfoAndExecutionDetails setAbfss(Adlsgen2Info abfss) {
@@ -213,5 +216,60 @@ public class InitScriptInfoAndExecutionDetails {
         .add("volumes", volumes)
         .add("workspace", workspace)
         .toString();
+  }
+
+  InitScriptInfoAndExecutionDetailsPb toPb() {
+    InitScriptInfoAndExecutionDetailsPb pb = new InitScriptInfoAndExecutionDetailsPb();
+    pb.setAbfss(abfss);
+    pb.setDbfs(dbfs);
+    pb.setErrorMessage(errorMessage);
+    pb.setExecutionDurationSeconds(executionDurationSeconds);
+    pb.setFile(file);
+    pb.setGcs(gcs);
+    pb.setS3(s3);
+    pb.setStatus(status);
+    pb.setVolumes(volumes);
+    pb.setWorkspace(workspace);
+
+    return pb;
+  }
+
+  static InitScriptInfoAndExecutionDetails fromPb(InitScriptInfoAndExecutionDetailsPb pb) {
+    InitScriptInfoAndExecutionDetails model = new InitScriptInfoAndExecutionDetails();
+    model.setAbfss(pb.getAbfss());
+    model.setDbfs(pb.getDbfs());
+    model.setErrorMessage(pb.getErrorMessage());
+    model.setExecutionDurationSeconds(pb.getExecutionDurationSeconds());
+    model.setFile(pb.getFile());
+    model.setGcs(pb.getGcs());
+    model.setS3(pb.getS3());
+    model.setStatus(pb.getStatus());
+    model.setVolumes(pb.getVolumes());
+    model.setWorkspace(pb.getWorkspace());
+
+    return model;
+  }
+
+  public static class InitScriptInfoAndExecutionDetailsSerializer
+      extends JsonSerializer<InitScriptInfoAndExecutionDetails> {
+    @Override
+    public void serialize(
+        InitScriptInfoAndExecutionDetails value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      InitScriptInfoAndExecutionDetailsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class InitScriptInfoAndExecutionDetailsDeserializer
+      extends JsonDeserializer<InitScriptInfoAndExecutionDetails> {
+    @Override
+    public InitScriptInfoAndExecutionDetails deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      InitScriptInfoAndExecutionDetailsPb pb =
+          mapper.readValue(p, InitScriptInfoAndExecutionDetailsPb.class);
+      return InitScriptInfoAndExecutionDetails.fromPb(pb);
+    }
   }
 }

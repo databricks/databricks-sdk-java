@@ -4,12 +4,22 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = QueryEditContent.QueryEditContentSerializer.class)
+@JsonDeserialize(using = QueryEditContent.QueryEditContentDeserializer.class)
 public class QueryEditContent {
   /**
    * Data source ID maps to the ID of the data source used by the resource and is distinct from the
@@ -17,17 +27,14 @@ public class QueryEditContent {
    *
    * <p>[Learn more]: https://docs.databricks.com/api/workspace/datasources/list
    */
-  @JsonProperty("data_source_id")
   private String dataSourceId;
 
   /**
    * General description that conveys additional information about this query such as usage notes.
    */
-  @JsonProperty("description")
   private String description;
 
   /** The title of this query that appears in list views, widget headings, and on the query page. */
-  @JsonProperty("name")
   private String name;
 
   /**
@@ -35,25 +42,21 @@ public class QueryEditContent {
    * `title`, `name`, `type`, and `value` properties. The `value` field here is the default value.
    * It can be overridden at runtime.
    */
-  @JsonProperty("options")
   private Object options;
 
   /** The text of the query to be run. */
-  @JsonProperty("query")
   private String query;
 
   /** */
-  @JsonIgnore private String queryId;
+  private String queryId;
 
   /**
    * Sets the **Run as** role for the object. Must be set to one of `"viewer"` (signifying "run as
    * viewer" behavior) or `"owner"` (signifying "run as owner" behavior)
    */
-  @JsonProperty("run_as_role")
   private RunAsRole runAsRole;
 
   /** */
-  @JsonProperty("tags")
   private Collection<String> tags;
 
   public QueryEditContent setDataSourceId(String dataSourceId) {
@@ -160,5 +163,52 @@ public class QueryEditContent {
         .add("runAsRole", runAsRole)
         .add("tags", tags)
         .toString();
+  }
+
+  QueryEditContentPb toPb() {
+    QueryEditContentPb pb = new QueryEditContentPb();
+    pb.setDataSourceId(dataSourceId);
+    pb.setDescription(description);
+    pb.setName(name);
+    pb.setOptions(options);
+    pb.setQuery(query);
+    pb.setQueryId(queryId);
+    pb.setRunAsRole(runAsRole);
+    pb.setTags(tags);
+
+    return pb;
+  }
+
+  static QueryEditContent fromPb(QueryEditContentPb pb) {
+    QueryEditContent model = new QueryEditContent();
+    model.setDataSourceId(pb.getDataSourceId());
+    model.setDescription(pb.getDescription());
+    model.setName(pb.getName());
+    model.setOptions(pb.getOptions());
+    model.setQuery(pb.getQuery());
+    model.setQueryId(pb.getQueryId());
+    model.setRunAsRole(pb.getRunAsRole());
+    model.setTags(pb.getTags());
+
+    return model;
+  }
+
+  public static class QueryEditContentSerializer extends JsonSerializer<QueryEditContent> {
+    @Override
+    public void serialize(QueryEditContent value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      QueryEditContentPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class QueryEditContentDeserializer extends JsonDeserializer<QueryEditContent> {
+    @Override
+    public QueryEditContent deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      QueryEditContentPb pb = mapper.readValue(p, QueryEditContentPb.class);
+      return QueryEditContent.fromPb(pb);
+    }
   }
 }

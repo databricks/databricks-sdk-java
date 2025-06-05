@@ -21,7 +21,7 @@ class GlobalInitScriptsImpl implements GlobalInitScriptsService {
     String path = "/api/2.0/global-init-scripts";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, CreateResponse.class);
@@ -35,7 +35,7 @@ class GlobalInitScriptsImpl implements GlobalInitScriptsService {
     String path = String.format("/api/2.0/global-init-scripts/%s", request.getScriptId());
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, DeleteResponse.class);
     } catch (IOException e) {
@@ -48,7 +48,7 @@ class GlobalInitScriptsImpl implements GlobalInitScriptsService {
     String path = String.format("/api/2.0/global-init-scripts/%s", request.getScriptId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GlobalInitScriptDetailsWithContent.class);
     } catch (IOException e) {
@@ -73,7 +73,7 @@ class GlobalInitScriptsImpl implements GlobalInitScriptsService {
     String path = String.format("/api/2.0/global-init-scripts/%s", request.getScriptId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, UpdateResponse.class);

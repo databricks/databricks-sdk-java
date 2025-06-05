@@ -4,18 +4,28 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = RunNow.RunNowSerializer.class)
+@JsonDeserialize(using = RunNow.RunNowDeserializer.class)
 public class RunNow {
   /**
    * An array of commands to execute for jobs with the dbt task, for example `"dbt_commands": ["dbt
    * deps", "dbt seed", "dbt deps", "dbt seed", "dbt run"]`
    */
-  @JsonProperty("dbt_commands")
   private Collection<String> dbtCommands;
 
   /**
@@ -32,7 +42,6 @@ public class RunNow {
    *
    * <p>[How to ensure idempotency for jobs]: https://kb.databricks.com/jobs/jobs-idempotency.html
    */
-  @JsonProperty("idempotency_token")
   private String idempotencyToken;
 
   /**
@@ -46,15 +55,12 @@ public class RunNow {
    *
    * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
    */
-  @JsonProperty("jar_params")
   private Collection<String> jarParams;
 
   /** The ID of the job to be executed */
-  @JsonProperty("job_id")
   private Long jobId;
 
   /** Job-level parameters used in the run. for example `"param": "overriding_val"` */
-  @JsonProperty("job_parameters")
   private Map<String, String> jobParameters;
 
   /**
@@ -74,14 +80,12 @@ public class RunNow {
    * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
    * [dbutils.widgets.get]: https://docs.databricks.com/dev-tools/databricks-utils.html
    */
-  @JsonProperty("notebook_params")
   private Map<String, String> notebookParams;
 
   /**
    * A list of task keys to run inside of the job. If this field is not provided, all tasks in the
    * job will be run.
    */
-  @JsonProperty("only")
   private Collection<String> only;
 
   /**
@@ -93,15 +97,12 @@ public class RunNow {
    * `PERFORMANCE_OPTIMIZED`: Prioritizes fast startup and execution times through rapid scaling and
    * optimized cluster performance.
    */
-  @JsonProperty("performance_target")
   private PerformanceTarget performanceTarget;
 
   /** Controls whether the pipeline should perform a full refresh */
-  @JsonProperty("pipeline_params")
   private PipelineParams pipelineParams;
 
   /** */
-  @JsonProperty("python_named_params")
   private Map<String, String> pythonNamedParams;
 
   /**
@@ -120,11 +121,9 @@ public class RunNow {
    *
    * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
    */
-  @JsonProperty("python_params")
   private Collection<String> pythonParams;
 
   /** The queue settings of the run. */
-  @JsonProperty("queue")
   private QueueSettings queue;
 
   /**
@@ -144,14 +143,12 @@ public class RunNow {
    *
    * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
    */
-  @JsonProperty("spark_submit_params")
   private Collection<String> sparkSubmitParams;
 
   /**
    * A map from keys to values for jobs with SQL task, for example `"sql_params": {"name": "john
    * doe", "age": "35"}`. The SQL alert task does not support custom parameters.
    */
-  @JsonProperty("sql_params")
   private Map<String, String> sqlParams;
 
   public RunNow setDbtCommands(Collection<String> dbtCommands) {
@@ -338,5 +335,63 @@ public class RunNow {
         .add("sparkSubmitParams", sparkSubmitParams)
         .add("sqlParams", sqlParams)
         .toString();
+  }
+
+  RunNowPb toPb() {
+    RunNowPb pb = new RunNowPb();
+    pb.setDbtCommands(dbtCommands);
+    pb.setIdempotencyToken(idempotencyToken);
+    pb.setJarParams(jarParams);
+    pb.setJobId(jobId);
+    pb.setJobParameters(jobParameters);
+    pb.setNotebookParams(notebookParams);
+    pb.setOnly(only);
+    pb.setPerformanceTarget(performanceTarget);
+    pb.setPipelineParams(pipelineParams);
+    pb.setPythonNamedParams(pythonNamedParams);
+    pb.setPythonParams(pythonParams);
+    pb.setQueue(queue);
+    pb.setSparkSubmitParams(sparkSubmitParams);
+    pb.setSqlParams(sqlParams);
+
+    return pb;
+  }
+
+  static RunNow fromPb(RunNowPb pb) {
+    RunNow model = new RunNow();
+    model.setDbtCommands(pb.getDbtCommands());
+    model.setIdempotencyToken(pb.getIdempotencyToken());
+    model.setJarParams(pb.getJarParams());
+    model.setJobId(pb.getJobId());
+    model.setJobParameters(pb.getJobParameters());
+    model.setNotebookParams(pb.getNotebookParams());
+    model.setOnly(pb.getOnly());
+    model.setPerformanceTarget(pb.getPerformanceTarget());
+    model.setPipelineParams(pb.getPipelineParams());
+    model.setPythonNamedParams(pb.getPythonNamedParams());
+    model.setPythonParams(pb.getPythonParams());
+    model.setQueue(pb.getQueue());
+    model.setSparkSubmitParams(pb.getSparkSubmitParams());
+    model.setSqlParams(pb.getSqlParams());
+
+    return model;
+  }
+
+  public static class RunNowSerializer extends JsonSerializer<RunNow> {
+    @Override
+    public void serialize(RunNow value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      RunNowPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class RunNowDeserializer extends JsonDeserializer<RunNow> {
+    @Override
+    public RunNow deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      RunNowPb pb = mapper.readValue(p, RunNowPb.class);
+      return RunNow.fromPb(pb);
+    }
   }
 }

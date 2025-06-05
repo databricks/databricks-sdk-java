@@ -22,7 +22,7 @@ class ArtifactAllowlistsImpl implements ArtifactAllowlistsService {
         String.format("/api/2.1/unity-catalog/artifact-allowlists/%s", request.getArtifactType());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ArtifactAllowlistInfo.class);
     } catch (IOException e) {
@@ -36,7 +36,7 @@ class ArtifactAllowlistsImpl implements ArtifactAllowlistsService {
         String.format("/api/2.1/unity-catalog/artifact-allowlists/%s", request.getArtifactType());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, ArtifactAllowlistInfo.class);

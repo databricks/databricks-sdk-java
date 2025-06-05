@@ -4,17 +4,28 @@ package com.databricks.sdk.service.apps;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get an app deployment */
 @Generated
+@JsonSerialize(using = GetAppDeploymentRequest.GetAppDeploymentRequestSerializer.class)
+@JsonDeserialize(using = GetAppDeploymentRequest.GetAppDeploymentRequestDeserializer.class)
 public class GetAppDeploymentRequest {
   /** The name of the app. */
-  @JsonIgnore private String appName;
+  private String appName;
 
   /** The unique id of the deployment. */
-  @JsonIgnore private String deploymentId;
+  private String deploymentId;
 
   public GetAppDeploymentRequest setAppName(String appName) {
     this.appName = appName;
@@ -53,5 +64,43 @@ public class GetAppDeploymentRequest {
         .add("appName", appName)
         .add("deploymentId", deploymentId)
         .toString();
+  }
+
+  GetAppDeploymentRequestPb toPb() {
+    GetAppDeploymentRequestPb pb = new GetAppDeploymentRequestPb();
+    pb.setAppName(appName);
+    pb.setDeploymentId(deploymentId);
+
+    return pb;
+  }
+
+  static GetAppDeploymentRequest fromPb(GetAppDeploymentRequestPb pb) {
+    GetAppDeploymentRequest model = new GetAppDeploymentRequest();
+    model.setAppName(pb.getAppName());
+    model.setDeploymentId(pb.getDeploymentId());
+
+    return model;
+  }
+
+  public static class GetAppDeploymentRequestSerializer
+      extends JsonSerializer<GetAppDeploymentRequest> {
+    @Override
+    public void serialize(
+        GetAppDeploymentRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetAppDeploymentRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetAppDeploymentRequestDeserializer
+      extends JsonDeserializer<GetAppDeploymentRequest> {
+    @Override
+    public GetAppDeploymentRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetAppDeploymentRequestPb pb = mapper.readValue(p, GetAppDeploymentRequestPb.class);
+      return GetAppDeploymentRequest.fromPb(pb);
+    }
   }
 }

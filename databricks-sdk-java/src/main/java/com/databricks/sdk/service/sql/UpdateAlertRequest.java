@@ -4,25 +4,33 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = UpdateAlertRequest.UpdateAlertRequestSerializer.class)
+@JsonDeserialize(using = UpdateAlertRequest.UpdateAlertRequestDeserializer.class)
 public class UpdateAlertRequest {
   /** */
-  @JsonProperty("alert")
   private UpdateAlertRequestAlert alert;
 
   /**
    * If true, automatically resolve alert display name conflicts. Otherwise, fail the request if the
    * alert's display name conflicts with an existing alert's display name.
    */
-  @JsonProperty("auto_resolve_display_name")
   private Boolean autoResolveDisplayName;
 
   /** */
-  @JsonIgnore private String id;
+  private String id;
 
   /**
    * The field mask must be a single string, with multiple fields separated by commas (no spaces).
@@ -35,7 +43,6 @@ public class UpdateAlertRequest {
    * the fields being updated and avoid using `*` wildcards, as it can lead to unintended results if
    * the API changes in the future.
    */
-  @JsonProperty("update_mask")
   private String updateMask;
 
   public UpdateAlertRequest setAlert(UpdateAlertRequestAlert alert) {
@@ -98,5 +105,44 @@ public class UpdateAlertRequest {
         .add("id", id)
         .add("updateMask", updateMask)
         .toString();
+  }
+
+  UpdateAlertRequestPb toPb() {
+    UpdateAlertRequestPb pb = new UpdateAlertRequestPb();
+    pb.setAlert(alert);
+    pb.setAutoResolveDisplayName(autoResolveDisplayName);
+    pb.setId(id);
+    pb.setUpdateMask(updateMask);
+
+    return pb;
+  }
+
+  static UpdateAlertRequest fromPb(UpdateAlertRequestPb pb) {
+    UpdateAlertRequest model = new UpdateAlertRequest();
+    model.setAlert(pb.getAlert());
+    model.setAutoResolveDisplayName(pb.getAutoResolveDisplayName());
+    model.setId(pb.getId());
+    model.setUpdateMask(pb.getUpdateMask());
+
+    return model;
+  }
+
+  public static class UpdateAlertRequestSerializer extends JsonSerializer<UpdateAlertRequest> {
+    @Override
+    public void serialize(UpdateAlertRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateAlertRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateAlertRequestDeserializer extends JsonDeserializer<UpdateAlertRequest> {
+    @Override
+    public UpdateAlertRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateAlertRequestPb pb = mapper.readValue(p, UpdateAlertRequestPb.class);
+      return UpdateAlertRequest.fromPb(pb);
+    }
   }
 }

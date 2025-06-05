@@ -4,14 +4,29 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using =
+        ListAllClusterLibraryStatusesResponse.ListAllClusterLibraryStatusesResponseSerializer.class)
+@JsonDeserialize(
+    using =
+        ListAllClusterLibraryStatusesResponse.ListAllClusterLibraryStatusesResponseDeserializer
+            .class)
 public class ListAllClusterLibraryStatusesResponse {
   /** A list of cluster statuses. */
-  @JsonProperty("statuses")
   private Collection<ClusterLibraryStatuses> statuses;
 
   public ListAllClusterLibraryStatusesResponse setStatuses(
@@ -42,5 +57,42 @@ public class ListAllClusterLibraryStatusesResponse {
     return new ToStringer(ListAllClusterLibraryStatusesResponse.class)
         .add("statuses", statuses)
         .toString();
+  }
+
+  ListAllClusterLibraryStatusesResponsePb toPb() {
+    ListAllClusterLibraryStatusesResponsePb pb = new ListAllClusterLibraryStatusesResponsePb();
+    pb.setStatuses(statuses);
+
+    return pb;
+  }
+
+  static ListAllClusterLibraryStatusesResponse fromPb(ListAllClusterLibraryStatusesResponsePb pb) {
+    ListAllClusterLibraryStatusesResponse model = new ListAllClusterLibraryStatusesResponse();
+    model.setStatuses(pb.getStatuses());
+
+    return model;
+  }
+
+  public static class ListAllClusterLibraryStatusesResponseSerializer
+      extends JsonSerializer<ListAllClusterLibraryStatusesResponse> {
+    @Override
+    public void serialize(
+        ListAllClusterLibraryStatusesResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListAllClusterLibraryStatusesResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListAllClusterLibraryStatusesResponseDeserializer
+      extends JsonDeserializer<ListAllClusterLibraryStatusesResponse> {
+    @Override
+    public ListAllClusterLibraryStatusesResponse deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListAllClusterLibraryStatusesResponsePb pb =
+          mapper.readValue(p, ListAllClusterLibraryStatusesResponsePb.class);
+      return ListAllClusterLibraryStatusesResponse.fromPb(pb);
+    }
   }
 }

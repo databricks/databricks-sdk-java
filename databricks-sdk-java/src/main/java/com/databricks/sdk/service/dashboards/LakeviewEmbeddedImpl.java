@@ -23,7 +23,7 @@ class LakeviewEmbeddedImpl implements LakeviewEmbeddedService {
             "/api/2.0/lakeview/dashboards/%s/published/embedded", request.getDashboardId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, GetPublishedDashboardEmbeddedResponse.class);
     } catch (IOException e) {
@@ -39,7 +39,7 @@ class LakeviewEmbeddedImpl implements LakeviewEmbeddedService {
             "/api/2.0/lakeview/dashboards/%s/published/tokeninfo", request.getDashboardId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetPublishedDashboardTokenInfoResponse.class);
     } catch (IOException e) {

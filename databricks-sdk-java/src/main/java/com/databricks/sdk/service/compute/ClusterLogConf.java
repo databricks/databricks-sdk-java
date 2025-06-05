@@ -4,17 +4,27 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Cluster log delivery config */
 @Generated
+@JsonSerialize(using = ClusterLogConf.ClusterLogConfSerializer.class)
+@JsonDeserialize(using = ClusterLogConf.ClusterLogConfDeserializer.class)
 public class ClusterLogConf {
   /**
    * destination needs to be provided. e.g. `{ "dbfs" : { "destination" : "dbfs:/home/cluster_log" }
    * }`
    */
-  @JsonProperty("dbfs")
   private DbfsStorageInfo dbfs;
 
   /**
@@ -23,14 +33,12 @@ public class ClusterLogConf {
    * is used to access s3, please make sure the cluster iam role in `instance_profile_arn` has
    * permission to write data to the s3 destination.
    */
-  @JsonProperty("s3")
   private S3StorageInfo s3;
 
   /**
    * destination needs to be provided, e.g. `{ "volumes": { "destination":
    * "/Volumes/catalog/schema/volume/cluster_log" } }`
    */
-  @JsonProperty("volumes")
   private VolumesStorageInfo volumes;
 
   public ClusterLogConf setDbfs(DbfsStorageInfo dbfs) {
@@ -82,5 +90,42 @@ public class ClusterLogConf {
         .add("s3", s3)
         .add("volumes", volumes)
         .toString();
+  }
+
+  ClusterLogConfPb toPb() {
+    ClusterLogConfPb pb = new ClusterLogConfPb();
+    pb.setDbfs(dbfs);
+    pb.setS3(s3);
+    pb.setVolumes(volumes);
+
+    return pb;
+  }
+
+  static ClusterLogConf fromPb(ClusterLogConfPb pb) {
+    ClusterLogConf model = new ClusterLogConf();
+    model.setDbfs(pb.getDbfs());
+    model.setS3(pb.getS3());
+    model.setVolumes(pb.getVolumes());
+
+    return model;
+  }
+
+  public static class ClusterLogConfSerializer extends JsonSerializer<ClusterLogConf> {
+    @Override
+    public void serialize(ClusterLogConf value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ClusterLogConfPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ClusterLogConfDeserializer extends JsonDeserializer<ClusterLogConf> {
+    @Override
+    public ClusterLogConf deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ClusterLogConfPb pb = mapper.readValue(p, ClusterLogConfPb.class);
+      return ClusterLogConf.fromPb(pb);
+    }
   }
 }

@@ -4,9 +4,21 @@ package com.databricks.sdk.service.database;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = DeleteDatabaseTableResponse.DeleteDatabaseTableResponseSerializer.class)
+@JsonDeserialize(using = DeleteDatabaseTableResponse.DeleteDatabaseTableResponseDeserializer.class)
 public class DeleteDatabaseTableResponse {
 
   @Override
@@ -24,5 +36,39 @@ public class DeleteDatabaseTableResponse {
   @Override
   public String toString() {
     return new ToStringer(DeleteDatabaseTableResponse.class).toString();
+  }
+
+  DeleteDatabaseTableResponsePb toPb() {
+    DeleteDatabaseTableResponsePb pb = new DeleteDatabaseTableResponsePb();
+
+    return pb;
+  }
+
+  static DeleteDatabaseTableResponse fromPb(DeleteDatabaseTableResponsePb pb) {
+    DeleteDatabaseTableResponse model = new DeleteDatabaseTableResponse();
+
+    return model;
+  }
+
+  public static class DeleteDatabaseTableResponseSerializer
+      extends JsonSerializer<DeleteDatabaseTableResponse> {
+    @Override
+    public void serialize(
+        DeleteDatabaseTableResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DeleteDatabaseTableResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DeleteDatabaseTableResponseDeserializer
+      extends JsonDeserializer<DeleteDatabaseTableResponse> {
+    @Override
+    public DeleteDatabaseTableResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DeleteDatabaseTableResponsePb pb = mapper.readValue(p, DeleteDatabaseTableResponsePb.class);
+      return DeleteDatabaseTableResponse.fromPb(pb);
+    }
   }
 }

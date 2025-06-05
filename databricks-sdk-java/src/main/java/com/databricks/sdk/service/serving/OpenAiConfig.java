@@ -4,14 +4,24 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Configs needed to create an OpenAI model route. */
 @Generated
+@JsonSerialize(using = OpenAiConfig.OpenAiConfigSerializer.class)
+@JsonDeserialize(using = OpenAiConfig.OpenAiConfigDeserializer.class)
 public class OpenAiConfig {
   /** This field is only required for Azure AD OpenAI and is the Microsoft Entra Client ID. */
-  @JsonProperty("microsoft_entra_client_id")
   private String microsoftEntraClientId;
 
   /**
@@ -20,7 +30,6 @@ public class OpenAiConfig {
    * `microsoft_entra_client_secret_plaintext`. You must provide an API key using one of the
    * following fields: `microsoft_entra_client_secret` or `microsoft_entra_client_secret_plaintext`.
    */
-  @JsonProperty("microsoft_entra_client_secret")
   private String microsoftEntraClientSecret;
 
   /**
@@ -29,11 +38,9 @@ public class OpenAiConfig {
    * You must provide an API key using one of the following fields: `microsoft_entra_client_secret`
    * or `microsoft_entra_client_secret_plaintext`.
    */
-  @JsonProperty("microsoft_entra_client_secret_plaintext")
   private String microsoftEntraClientSecretPlaintext;
 
   /** This field is only required for Azure AD OpenAI and is the Microsoft Entra Tenant ID. */
-  @JsonProperty("microsoft_entra_tenant_id")
   private String microsoftEntraTenantId;
 
   /**
@@ -42,7 +49,6 @@ public class OpenAiConfig {
    * other OpenAI API types, this field is optional, and if left unspecified, the standard OpenAI
    * base URL is used.
    */
-  @JsonProperty("openai_api_base")
   private String openaiApiBase;
 
   /**
@@ -50,7 +56,6 @@ public class OpenAiConfig {
    * you prefer to paste your API key directly, see `openai_api_key_plaintext`. You must provide an
    * API key using one of the following fields: `openai_api_key` or `openai_api_key_plaintext`.
    */
-  @JsonProperty("openai_api_key")
   private String openaiApiKey;
 
   /**
@@ -58,7 +63,6 @@ public class OpenAiConfig {
    * prefer to reference your key using Databricks Secrets, see `openai_api_key`. You must provide
    * an API key using one of the following fields: `openai_api_key` or `openai_api_key_plaintext`.
    */
-  @JsonProperty("openai_api_key_plaintext")
   private String openaiApiKeyPlaintext;
 
   /**
@@ -67,25 +71,21 @@ public class OpenAiConfig {
    * validation protocol. For access token validation, use azure. For authentication using Azure
    * Active Directory (Azure AD) use, azuread.
    */
-  @JsonProperty("openai_api_type")
   private String openaiApiType;
 
   /**
    * This is an optional field to specify the OpenAI API version. For Azure OpenAI, this field is
    * required, and is the version of the Azure OpenAI service to utilize, specified by a date.
    */
-  @JsonProperty("openai_api_version")
   private String openaiApiVersion;
 
   /**
    * This field is only required for Azure OpenAI and is the name of the deployment resource for the
    * Azure OpenAI service.
    */
-  @JsonProperty("openai_deployment_name")
   private String openaiDeploymentName;
 
   /** This is an optional field to specify the organization in OpenAI or Azure OpenAI. */
-  @JsonProperty("openai_organization")
   private String openaiOrganization;
 
   public OpenAiConfig setMicrosoftEntraClientId(String microsoftEntraClientId) {
@@ -238,5 +238,57 @@ public class OpenAiConfig {
         .add("openaiDeploymentName", openaiDeploymentName)
         .add("openaiOrganization", openaiOrganization)
         .toString();
+  }
+
+  OpenAiConfigPb toPb() {
+    OpenAiConfigPb pb = new OpenAiConfigPb();
+    pb.setMicrosoftEntraClientId(microsoftEntraClientId);
+    pb.setMicrosoftEntraClientSecret(microsoftEntraClientSecret);
+    pb.setMicrosoftEntraClientSecretPlaintext(microsoftEntraClientSecretPlaintext);
+    pb.setMicrosoftEntraTenantId(microsoftEntraTenantId);
+    pb.setOpenaiApiBase(openaiApiBase);
+    pb.setOpenaiApiKey(openaiApiKey);
+    pb.setOpenaiApiKeyPlaintext(openaiApiKeyPlaintext);
+    pb.setOpenaiApiType(openaiApiType);
+    pb.setOpenaiApiVersion(openaiApiVersion);
+    pb.setOpenaiDeploymentName(openaiDeploymentName);
+    pb.setOpenaiOrganization(openaiOrganization);
+
+    return pb;
+  }
+
+  static OpenAiConfig fromPb(OpenAiConfigPb pb) {
+    OpenAiConfig model = new OpenAiConfig();
+    model.setMicrosoftEntraClientId(pb.getMicrosoftEntraClientId());
+    model.setMicrosoftEntraClientSecret(pb.getMicrosoftEntraClientSecret());
+    model.setMicrosoftEntraClientSecretPlaintext(pb.getMicrosoftEntraClientSecretPlaintext());
+    model.setMicrosoftEntraTenantId(pb.getMicrosoftEntraTenantId());
+    model.setOpenaiApiBase(pb.getOpenaiApiBase());
+    model.setOpenaiApiKey(pb.getOpenaiApiKey());
+    model.setOpenaiApiKeyPlaintext(pb.getOpenaiApiKeyPlaintext());
+    model.setOpenaiApiType(pb.getOpenaiApiType());
+    model.setOpenaiApiVersion(pb.getOpenaiApiVersion());
+    model.setOpenaiDeploymentName(pb.getOpenaiDeploymentName());
+    model.setOpenaiOrganization(pb.getOpenaiOrganization());
+
+    return model;
+  }
+
+  public static class OpenAiConfigSerializer extends JsonSerializer<OpenAiConfig> {
+    @Override
+    public void serialize(OpenAiConfig value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      OpenAiConfigPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class OpenAiConfigDeserializer extends JsonDeserializer<OpenAiConfig> {
+    @Override
+    public OpenAiConfig deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      OpenAiConfigPb pb = mapper.readValue(p, OpenAiConfigPb.class);
+      return OpenAiConfig.fromPb(pb);
+    }
   }
 }

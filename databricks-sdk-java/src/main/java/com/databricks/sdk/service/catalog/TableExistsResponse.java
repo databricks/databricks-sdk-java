@@ -4,13 +4,23 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = TableExistsResponse.TableExistsResponseSerializer.class)
+@JsonDeserialize(using = TableExistsResponse.TableExistsResponseDeserializer.class)
 public class TableExistsResponse {
   /** Whether the table exists or not. */
-  @JsonProperty("table_exists")
   private Boolean tableExists;
 
   public TableExistsResponse setTableExists(Boolean tableExists) {
@@ -38,5 +48,39 @@ public class TableExistsResponse {
   @Override
   public String toString() {
     return new ToStringer(TableExistsResponse.class).add("tableExists", tableExists).toString();
+  }
+
+  TableExistsResponsePb toPb() {
+    TableExistsResponsePb pb = new TableExistsResponsePb();
+    pb.setTableExists(tableExists);
+
+    return pb;
+  }
+
+  static TableExistsResponse fromPb(TableExistsResponsePb pb) {
+    TableExistsResponse model = new TableExistsResponse();
+    model.setTableExists(pb.getTableExists());
+
+    return model;
+  }
+
+  public static class TableExistsResponseSerializer extends JsonSerializer<TableExistsResponse> {
+    @Override
+    public void serialize(TableExistsResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      TableExistsResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class TableExistsResponseDeserializer
+      extends JsonDeserializer<TableExistsResponse> {
+    @Override
+    public TableExistsResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      TableExistsResponsePb pb = mapper.readValue(p, TableExistsResponsePb.class);
+      return TableExistsResponse.fromPb(pb);
+    }
   }
 }

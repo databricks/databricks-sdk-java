@@ -4,21 +4,29 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = PayloadTable.PayloadTableSerializer.class)
+@JsonDeserialize(using = PayloadTable.PayloadTableDeserializer.class)
 public class PayloadTable {
   /** */
-  @JsonProperty("name")
   private String name;
 
   /** */
-  @JsonProperty("status")
   private String status;
 
   /** */
-  @JsonProperty("status_message")
   private String statusMessage;
 
   public PayloadTable setName(String name) {
@@ -70,5 +78,41 @@ public class PayloadTable {
         .add("status", status)
         .add("statusMessage", statusMessage)
         .toString();
+  }
+
+  PayloadTablePb toPb() {
+    PayloadTablePb pb = new PayloadTablePb();
+    pb.setName(name);
+    pb.setStatus(status);
+    pb.setStatusMessage(statusMessage);
+
+    return pb;
+  }
+
+  static PayloadTable fromPb(PayloadTablePb pb) {
+    PayloadTable model = new PayloadTable();
+    model.setName(pb.getName());
+    model.setStatus(pb.getStatus());
+    model.setStatusMessage(pb.getStatusMessage());
+
+    return model;
+  }
+
+  public static class PayloadTableSerializer extends JsonSerializer<PayloadTable> {
+    @Override
+    public void serialize(PayloadTable value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PayloadTablePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PayloadTableDeserializer extends JsonDeserializer<PayloadTable> {
+    @Override
+    public PayloadTable deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PayloadTablePb pb = mapper.readValue(p, PayloadTablePb.class);
+      return PayloadTable.fromPb(pb);
+    }
   }
 }

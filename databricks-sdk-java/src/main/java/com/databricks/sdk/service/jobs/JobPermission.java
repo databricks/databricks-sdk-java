@@ -4,22 +4,30 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = JobPermission.JobPermissionSerializer.class)
+@JsonDeserialize(using = JobPermission.JobPermissionDeserializer.class)
 public class JobPermission {
   /** */
-  @JsonProperty("inherited")
   private Boolean inherited;
 
   /** */
-  @JsonProperty("inherited_from_object")
   private Collection<String> inheritedFromObject;
 
   /** Permission level */
-  @JsonProperty("permission_level")
   private JobPermissionLevel permissionLevel;
 
   public JobPermission setInherited(Boolean inherited) {
@@ -71,5 +79,41 @@ public class JobPermission {
         .add("inheritedFromObject", inheritedFromObject)
         .add("permissionLevel", permissionLevel)
         .toString();
+  }
+
+  JobPermissionPb toPb() {
+    JobPermissionPb pb = new JobPermissionPb();
+    pb.setInherited(inherited);
+    pb.setInheritedFromObject(inheritedFromObject);
+    pb.setPermissionLevel(permissionLevel);
+
+    return pb;
+  }
+
+  static JobPermission fromPb(JobPermissionPb pb) {
+    JobPermission model = new JobPermission();
+    model.setInherited(pb.getInherited());
+    model.setInheritedFromObject(pb.getInheritedFromObject());
+    model.setPermissionLevel(pb.getPermissionLevel());
+
+    return model;
+  }
+
+  public static class JobPermissionSerializer extends JsonSerializer<JobPermission> {
+    @Override
+    public void serialize(JobPermission value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      JobPermissionPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class JobPermissionDeserializer extends JsonDeserializer<JobPermission> {
+    @Override
+    public JobPermission deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      JobPermissionPb pb = mapper.readValue(p, JobPermissionPb.class);
+      return JobPermission.fromPb(pb);
+    }
   }
 }

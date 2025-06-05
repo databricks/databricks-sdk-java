@@ -4,53 +4,55 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateCredentialRequest.CreateCredentialRequestSerializer.class)
+@JsonDeserialize(using = CreateCredentialRequest.CreateCredentialRequestDeserializer.class)
 public class CreateCredentialRequest {
   /** The AWS IAM role configuration */
-  @JsonProperty("aws_iam_role")
   private AwsIamRole awsIamRole;
 
   /** The Azure managed identity configuration. */
-  @JsonProperty("azure_managed_identity")
   private AzureManagedIdentity azureManagedIdentity;
 
   /** The Azure service principal configuration. Only applicable when purpose is **STORAGE**. */
-  @JsonProperty("azure_service_principal")
   private AzureServicePrincipal azureServicePrincipal;
 
   /** Comment associated with the credential. */
-  @JsonProperty("comment")
   private String comment;
 
   /** GCP long-lived credential. Databricks-created Google Cloud Storage service account. */
-  @JsonProperty("databricks_gcp_service_account")
   private DatabricksGcpServiceAccount databricksGcpServiceAccount;
 
   /**
    * The credential name. The name must be unique among storage and service credentials within the
    * metastore.
    */
-  @JsonProperty("name")
   private String name;
 
   /** Indicates the purpose of the credential. */
-  @JsonProperty("purpose")
   private CredentialPurpose purpose;
 
   /**
    * Whether the credential is usable only for read operations. Only applicable when purpose is
    * **STORAGE**.
    */
-  @JsonProperty("read_only")
   private Boolean readOnly;
 
   /**
    * Optional. Supplying true to this argument skips validation of the created set of credentials.
    */
-  @JsonProperty("skip_validation")
   private Boolean skipValidation;
 
   public CreateCredentialRequest setAwsIamRole(AwsIamRole awsIamRole) {
@@ -180,5 +182,57 @@ public class CreateCredentialRequest {
         .add("readOnly", readOnly)
         .add("skipValidation", skipValidation)
         .toString();
+  }
+
+  CreateCredentialRequestPb toPb() {
+    CreateCredentialRequestPb pb = new CreateCredentialRequestPb();
+    pb.setAwsIamRole(awsIamRole);
+    pb.setAzureManagedIdentity(azureManagedIdentity);
+    pb.setAzureServicePrincipal(azureServicePrincipal);
+    pb.setComment(comment);
+    pb.setDatabricksGcpServiceAccount(databricksGcpServiceAccount);
+    pb.setName(name);
+    pb.setPurpose(purpose);
+    pb.setReadOnly(readOnly);
+    pb.setSkipValidation(skipValidation);
+
+    return pb;
+  }
+
+  static CreateCredentialRequest fromPb(CreateCredentialRequestPb pb) {
+    CreateCredentialRequest model = new CreateCredentialRequest();
+    model.setAwsIamRole(pb.getAwsIamRole());
+    model.setAzureManagedIdentity(pb.getAzureManagedIdentity());
+    model.setAzureServicePrincipal(pb.getAzureServicePrincipal());
+    model.setComment(pb.getComment());
+    model.setDatabricksGcpServiceAccount(pb.getDatabricksGcpServiceAccount());
+    model.setName(pb.getName());
+    model.setPurpose(pb.getPurpose());
+    model.setReadOnly(pb.getReadOnly());
+    model.setSkipValidation(pb.getSkipValidation());
+
+    return model;
+  }
+
+  public static class CreateCredentialRequestSerializer
+      extends JsonSerializer<CreateCredentialRequest> {
+    @Override
+    public void serialize(
+        CreateCredentialRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateCredentialRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateCredentialRequestDeserializer
+      extends JsonDeserializer<CreateCredentialRequest> {
+    @Override
+    public CreateCredentialRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateCredentialRequestPb pb = mapper.readValue(p, CreateCredentialRequestPb.class);
+      return CreateCredentialRequest.fromPb(pb);
+    }
   }
 }

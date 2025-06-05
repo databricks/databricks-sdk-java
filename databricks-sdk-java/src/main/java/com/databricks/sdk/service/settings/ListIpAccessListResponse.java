@@ -4,15 +4,25 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 /** IP access lists were successfully returned. */
 @Generated
+@JsonSerialize(using = ListIpAccessListResponse.ListIpAccessListResponseSerializer.class)
+@JsonDeserialize(using = ListIpAccessListResponse.ListIpAccessListResponseDeserializer.class)
 public class ListIpAccessListResponse {
   /** */
-  @JsonProperty("ip_access_lists")
   private Collection<IpAccessListInfo> ipAccessLists;
 
   public ListIpAccessListResponse setIpAccessLists(Collection<IpAccessListInfo> ipAccessLists) {
@@ -42,5 +52,41 @@ public class ListIpAccessListResponse {
     return new ToStringer(ListIpAccessListResponse.class)
         .add("ipAccessLists", ipAccessLists)
         .toString();
+  }
+
+  ListIpAccessListResponsePb toPb() {
+    ListIpAccessListResponsePb pb = new ListIpAccessListResponsePb();
+    pb.setIpAccessLists(ipAccessLists);
+
+    return pb;
+  }
+
+  static ListIpAccessListResponse fromPb(ListIpAccessListResponsePb pb) {
+    ListIpAccessListResponse model = new ListIpAccessListResponse();
+    model.setIpAccessLists(pb.getIpAccessLists());
+
+    return model;
+  }
+
+  public static class ListIpAccessListResponseSerializer
+      extends JsonSerializer<ListIpAccessListResponse> {
+    @Override
+    public void serialize(
+        ListIpAccessListResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListIpAccessListResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListIpAccessListResponseDeserializer
+      extends JsonDeserializer<ListIpAccessListResponse> {
+    @Override
+    public ListIpAccessListResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListIpAccessListResponsePb pb = mapper.readValue(p, ListIpAccessListResponsePb.class);
+      return ListIpAccessListResponse.fromPb(pb);
+    }
   }
 }

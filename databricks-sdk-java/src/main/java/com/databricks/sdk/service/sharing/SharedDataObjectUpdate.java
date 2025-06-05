@@ -4,17 +4,26 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = SharedDataObjectUpdate.SharedDataObjectUpdateSerializer.class)
+@JsonDeserialize(using = SharedDataObjectUpdate.SharedDataObjectUpdateDeserializer.class)
 public class SharedDataObjectUpdate {
   /** One of: **ADD**, **REMOVE**, **UPDATE**. */
-  @JsonProperty("action")
   private SharedDataObjectUpdateAction action;
 
   /** The data object that is being added, removed, or updated. */
-  @JsonProperty("data_object")
   private SharedDataObject dataObject;
 
   public SharedDataObjectUpdate setAction(SharedDataObjectUpdateAction action) {
@@ -54,5 +63,43 @@ public class SharedDataObjectUpdate {
         .add("action", action)
         .add("dataObject", dataObject)
         .toString();
+  }
+
+  SharedDataObjectUpdatePb toPb() {
+    SharedDataObjectUpdatePb pb = new SharedDataObjectUpdatePb();
+    pb.setAction(action);
+    pb.setDataObject(dataObject);
+
+    return pb;
+  }
+
+  static SharedDataObjectUpdate fromPb(SharedDataObjectUpdatePb pb) {
+    SharedDataObjectUpdate model = new SharedDataObjectUpdate();
+    model.setAction(pb.getAction());
+    model.setDataObject(pb.getDataObject());
+
+    return model;
+  }
+
+  public static class SharedDataObjectUpdateSerializer
+      extends JsonSerializer<SharedDataObjectUpdate> {
+    @Override
+    public void serialize(
+        SharedDataObjectUpdate value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SharedDataObjectUpdatePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SharedDataObjectUpdateDeserializer
+      extends JsonDeserializer<SharedDataObjectUpdate> {
+    @Override
+    public SharedDataObjectUpdate deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SharedDataObjectUpdatePb pb = mapper.readValue(p, SharedDataObjectUpdatePb.class);
+      return SharedDataObjectUpdate.fromPb(pb);
+    }
   }
 }

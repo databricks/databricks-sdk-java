@@ -21,7 +21,7 @@ class QueryVisualizationsImpl implements QueryVisualizationsService {
     String path = "/api/2.0/sql/visualizations";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, Visualization.class);
@@ -35,7 +35,7 @@ class QueryVisualizationsImpl implements QueryVisualizationsService {
     String path = String.format("/api/2.0/sql/visualizations/%s", request.getId());
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Empty.class);
     } catch (IOException e) {
@@ -48,7 +48,7 @@ class QueryVisualizationsImpl implements QueryVisualizationsService {
     String path = String.format("/api/2.0/sql/visualizations/%s", request.getId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, Visualization.class);

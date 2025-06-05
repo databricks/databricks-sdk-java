@@ -4,54 +4,54 @@ package com.databricks.sdk.service.vectorsearch;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = EndpointInfo.EndpointInfoSerializer.class)
+@JsonDeserialize(using = EndpointInfo.EndpointInfoDeserializer.class)
 public class EndpointInfo {
   /** Timestamp of endpoint creation */
-  @JsonProperty("creation_timestamp")
   private Long creationTimestamp;
 
   /** Creator of the endpoint */
-  @JsonProperty("creator")
   private String creator;
 
   /** The custom tags assigned to the endpoint */
-  @JsonProperty("custom_tags")
   private Collection<CustomTag> customTags;
 
   /** The budget policy id applied to the endpoint */
-  @JsonProperty("effective_budget_policy_id")
   private String effectiveBudgetPolicyId;
 
   /** Current status of the endpoint */
-  @JsonProperty("endpoint_status")
   private EndpointStatus endpointStatus;
 
   /** Type of endpoint */
-  @JsonProperty("endpoint_type")
   private EndpointType endpointType;
 
   /** Unique identifier of the endpoint */
-  @JsonProperty("id")
   private String id;
 
   /** Timestamp of last update to the endpoint */
-  @JsonProperty("last_updated_timestamp")
   private Long lastUpdatedTimestamp;
 
   /** User who last updated the endpoint */
-  @JsonProperty("last_updated_user")
   private String lastUpdatedUser;
 
   /** Name of the vector search endpoint */
-  @JsonProperty("name")
   private String name;
 
   /** Number of indexes on the endpoint */
-  @JsonProperty("num_indexes")
   private Long numIndexes;
 
   public EndpointInfo setCreationTimestamp(Long creationTimestamp) {
@@ -202,5 +202,57 @@ public class EndpointInfo {
         .add("name", name)
         .add("numIndexes", numIndexes)
         .toString();
+  }
+
+  EndpointInfoPb toPb() {
+    EndpointInfoPb pb = new EndpointInfoPb();
+    pb.setCreationTimestamp(creationTimestamp);
+    pb.setCreator(creator);
+    pb.setCustomTags(customTags);
+    pb.setEffectiveBudgetPolicyId(effectiveBudgetPolicyId);
+    pb.setEndpointStatus(endpointStatus);
+    pb.setEndpointType(endpointType);
+    pb.setId(id);
+    pb.setLastUpdatedTimestamp(lastUpdatedTimestamp);
+    pb.setLastUpdatedUser(lastUpdatedUser);
+    pb.setName(name);
+    pb.setNumIndexes(numIndexes);
+
+    return pb;
+  }
+
+  static EndpointInfo fromPb(EndpointInfoPb pb) {
+    EndpointInfo model = new EndpointInfo();
+    model.setCreationTimestamp(pb.getCreationTimestamp());
+    model.setCreator(pb.getCreator());
+    model.setCustomTags(pb.getCustomTags());
+    model.setEffectiveBudgetPolicyId(pb.getEffectiveBudgetPolicyId());
+    model.setEndpointStatus(pb.getEndpointStatus());
+    model.setEndpointType(pb.getEndpointType());
+    model.setId(pb.getId());
+    model.setLastUpdatedTimestamp(pb.getLastUpdatedTimestamp());
+    model.setLastUpdatedUser(pb.getLastUpdatedUser());
+    model.setName(pb.getName());
+    model.setNumIndexes(pb.getNumIndexes());
+
+    return model;
+  }
+
+  public static class EndpointInfoSerializer extends JsonSerializer<EndpointInfo> {
+    @Override
+    public void serialize(EndpointInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      EndpointInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class EndpointInfoDeserializer extends JsonDeserializer<EndpointInfo> {
+    @Override
+    public EndpointInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      EndpointInfoPb pb = mapper.readValue(p, EndpointInfoPb.class);
+      return EndpointInfo.fromPb(pb);
+    }
   }
 }

@@ -4,49 +4,50 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ResolvedValues.ResolvedValuesSerializer.class)
+@JsonDeserialize(using = ResolvedValues.ResolvedValuesDeserializer.class)
 public class ResolvedValues {
   /** */
-  @JsonProperty("condition_task")
   private ResolvedConditionTaskValues conditionTask;
 
   /** */
-  @JsonProperty("dbt_task")
   private ResolvedDbtTaskValues dbtTask;
 
   /** */
-  @JsonProperty("notebook_task")
   private ResolvedNotebookTaskValues notebookTask;
 
   /** */
-  @JsonProperty("python_wheel_task")
   private ResolvedPythonWheelTaskValues pythonWheelTask;
 
   /** */
-  @JsonProperty("run_job_task")
   private ResolvedRunJobTaskValues runJobTask;
 
   /** */
-  @JsonProperty("simulation_task")
   private ResolvedParamPairValues simulationTask;
 
   /** */
-  @JsonProperty("spark_jar_task")
   private ResolvedStringParamsValues sparkJarTask;
 
   /** */
-  @JsonProperty("spark_python_task")
   private ResolvedStringParamsValues sparkPythonTask;
 
   /** */
-  @JsonProperty("spark_submit_task")
   private ResolvedStringParamsValues sparkSubmitTask;
 
   /** */
-  @JsonProperty("sql_task")
   private ResolvedParamPairValues sqlTask;
 
   public ResolvedValues setConditionTask(ResolvedConditionTaskValues conditionTask) {
@@ -185,5 +186,56 @@ public class ResolvedValues {
         .add("sparkSubmitTask", sparkSubmitTask)
         .add("sqlTask", sqlTask)
         .toString();
+  }
+
+  ResolvedValuesPb toPb() {
+    ResolvedValuesPb pb = new ResolvedValuesPb();
+    pb.setConditionTask(conditionTask);
+    pb.setDbtTask(dbtTask);
+    pb.setNotebookTask(notebookTask);
+    pb.setPythonWheelTask(pythonWheelTask);
+    pb.setRunJobTask(runJobTask);
+    pb.setSimulationTask(simulationTask);
+    pb.setSparkJarTask(sparkJarTask);
+    pb.setSparkPythonTask(sparkPythonTask);
+    pb.setSparkSubmitTask(sparkSubmitTask);
+    pb.setSqlTask(sqlTask);
+
+    return pb;
+  }
+
+  static ResolvedValues fromPb(ResolvedValuesPb pb) {
+    ResolvedValues model = new ResolvedValues();
+    model.setConditionTask(pb.getConditionTask());
+    model.setDbtTask(pb.getDbtTask());
+    model.setNotebookTask(pb.getNotebookTask());
+    model.setPythonWheelTask(pb.getPythonWheelTask());
+    model.setRunJobTask(pb.getRunJobTask());
+    model.setSimulationTask(pb.getSimulationTask());
+    model.setSparkJarTask(pb.getSparkJarTask());
+    model.setSparkPythonTask(pb.getSparkPythonTask());
+    model.setSparkSubmitTask(pb.getSparkSubmitTask());
+    model.setSqlTask(pb.getSqlTask());
+
+    return model;
+  }
+
+  public static class ResolvedValuesSerializer extends JsonSerializer<ResolvedValues> {
+    @Override
+    public void serialize(ResolvedValues value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ResolvedValuesPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ResolvedValuesDeserializer extends JsonDeserializer<ResolvedValues> {
+    @Override
+    public ResolvedValues deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ResolvedValuesPb pb = mapper.readValue(p, ResolvedValuesPb.class);
+      return ResolvedValues.fromPb(pb);
+    }
   }
 }

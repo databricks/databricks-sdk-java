@@ -4,20 +4,31 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get recipient federation policy */
 @Generated
+@JsonSerialize(using = GetFederationPolicyRequest.GetFederationPolicyRequestSerializer.class)
+@JsonDeserialize(using = GetFederationPolicyRequest.GetFederationPolicyRequestDeserializer.class)
 public class GetFederationPolicyRequest {
   /** Name of the policy. This is the name of the policy to be retrieved. */
-  @JsonIgnore private String name;
+  private String name;
 
   /**
    * Name of the recipient. This is the name of the recipient for which the policy is being
    * retrieved.
    */
-  @JsonIgnore private String recipientName;
+  private String recipientName;
 
   public GetFederationPolicyRequest setName(String name) {
     this.name = name;
@@ -56,5 +67,43 @@ public class GetFederationPolicyRequest {
         .add("name", name)
         .add("recipientName", recipientName)
         .toString();
+  }
+
+  GetFederationPolicyRequestPb toPb() {
+    GetFederationPolicyRequestPb pb = new GetFederationPolicyRequestPb();
+    pb.setName(name);
+    pb.setRecipientName(recipientName);
+
+    return pb;
+  }
+
+  static GetFederationPolicyRequest fromPb(GetFederationPolicyRequestPb pb) {
+    GetFederationPolicyRequest model = new GetFederationPolicyRequest();
+    model.setName(pb.getName());
+    model.setRecipientName(pb.getRecipientName());
+
+    return model;
+  }
+
+  public static class GetFederationPolicyRequestSerializer
+      extends JsonSerializer<GetFederationPolicyRequest> {
+    @Override
+    public void serialize(
+        GetFederationPolicyRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetFederationPolicyRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetFederationPolicyRequestDeserializer
+      extends JsonDeserializer<GetFederationPolicyRequest> {
+    @Override
+    public GetFederationPolicyRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetFederationPolicyRequestPb pb = mapper.readValue(p, GetFederationPolicyRequestPb.class);
+      return GetFederationPolicyRequest.fromPb(pb);
+    }
   }
 }

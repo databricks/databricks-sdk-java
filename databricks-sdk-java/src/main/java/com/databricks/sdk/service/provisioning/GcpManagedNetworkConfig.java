@@ -4,7 +4,16 @@ package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -29,26 +38,25 @@ import java.util.Objects;
  * https://docs.gcp.databricks.com/administration-guide/cloud-configurations/gcp/network-sizing.html
  */
 @Generated
+@JsonSerialize(using = GcpManagedNetworkConfig.GcpManagedNetworkConfigSerializer.class)
+@JsonDeserialize(using = GcpManagedNetworkConfig.GcpManagedNetworkConfigDeserializer.class)
 public class GcpManagedNetworkConfig {
   /**
    * The IP range from which to allocate GKE cluster pods. No bigger than `/9` and no smaller than
    * `/21`.
    */
-  @JsonProperty("gke_cluster_pod_ip_range")
   private String gkeClusterPodIpRange;
 
   /**
    * The IP range from which to allocate GKE cluster services. No bigger than `/16` and no smaller
    * than `/27`.
    */
-  @JsonProperty("gke_cluster_service_ip_range")
   private String gkeClusterServiceIpRange;
 
   /**
    * The IP range from which to allocate GKE cluster nodes. No bigger than `/9` and no smaller than
    * `/29`.
    */
-  @JsonProperty("subnet_cidr")
   private String subnetCidr;
 
   public GcpManagedNetworkConfig setGkeClusterPodIpRange(String gkeClusterPodIpRange) {
@@ -100,5 +108,45 @@ public class GcpManagedNetworkConfig {
         .add("gkeClusterServiceIpRange", gkeClusterServiceIpRange)
         .add("subnetCidr", subnetCidr)
         .toString();
+  }
+
+  GcpManagedNetworkConfigPb toPb() {
+    GcpManagedNetworkConfigPb pb = new GcpManagedNetworkConfigPb();
+    pb.setGkeClusterPodIpRange(gkeClusterPodIpRange);
+    pb.setGkeClusterServiceIpRange(gkeClusterServiceIpRange);
+    pb.setSubnetCidr(subnetCidr);
+
+    return pb;
+  }
+
+  static GcpManagedNetworkConfig fromPb(GcpManagedNetworkConfigPb pb) {
+    GcpManagedNetworkConfig model = new GcpManagedNetworkConfig();
+    model.setGkeClusterPodIpRange(pb.getGkeClusterPodIpRange());
+    model.setGkeClusterServiceIpRange(pb.getGkeClusterServiceIpRange());
+    model.setSubnetCidr(pb.getSubnetCidr());
+
+    return model;
+  }
+
+  public static class GcpManagedNetworkConfigSerializer
+      extends JsonSerializer<GcpManagedNetworkConfig> {
+    @Override
+    public void serialize(
+        GcpManagedNetworkConfig value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GcpManagedNetworkConfigPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GcpManagedNetworkConfigDeserializer
+      extends JsonDeserializer<GcpManagedNetworkConfig> {
+    @Override
+    public GcpManagedNetworkConfig deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GcpManagedNetworkConfigPb pb = mapper.readValue(p, GcpManagedNetworkConfigPb.class);
+      return GcpManagedNetworkConfig.fromPb(pb);
+    }
   }
 }

@@ -4,22 +4,30 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = GetEvents.GetEventsSerializer.class)
+@JsonDeserialize(using = GetEvents.GetEventsDeserializer.class)
 public class GetEvents {
   /** The ID of the cluster to retrieve events about. */
-  @JsonProperty("cluster_id")
   private String clusterId;
 
   /** The end time in epoch milliseconds. If empty, returns events up to the current time. */
-  @JsonProperty("end_time")
   private Long endTime;
 
   /** An optional set of event types to filter on. If empty, all event types are returned. */
-  @JsonProperty("event_types")
   private Collection<EventType> eventTypes;
 
   /**
@@ -28,7 +36,6 @@ public class GetEvents {
    * <p>The maximum number of events to include in a page of events. Defaults to 50, and maximum
    * allowed value is 500.
    */
-  @JsonProperty("limit")
   private Long limit;
 
   /**
@@ -37,11 +44,9 @@ public class GetEvents {
    * <p>The offset in the result set. Defaults to 0 (no offset). When an offset is specified and the
    * results are requested in descending order, the end_time field is required.
    */
-  @JsonProperty("offset")
   private Long offset;
 
   /** The order to list events in; either "ASC" or "DESC". Defaults to "DESC". */
-  @JsonProperty("order")
   private GetEventsOrder order;
 
   /**
@@ -50,21 +55,18 @@ public class GetEvents {
    * server will decide the number of results to be returned. The field has to be in the range
    * [0,500]. If the value is outside the range, the server enforces 0 or 500.
    */
-  @JsonProperty("page_size")
   private Long pageSize;
 
   /**
    * Use next_page_token or prev_page_token returned from the previous request to list the next or
    * previous page of events respectively. If page_token is empty, the first page is returned.
    */
-  @JsonProperty("page_token")
   private String pageToken;
 
   /**
    * The start time in epoch milliseconds. If empty, returns events starting from the beginning of
    * time.
    */
-  @JsonProperty("start_time")
   private Long startTime;
 
   public GetEvents setClusterId(String clusterId) {
@@ -183,5 +185,53 @@ public class GetEvents {
         .add("pageToken", pageToken)
         .add("startTime", startTime)
         .toString();
+  }
+
+  GetEventsPb toPb() {
+    GetEventsPb pb = new GetEventsPb();
+    pb.setClusterId(clusterId);
+    pb.setEndTime(endTime);
+    pb.setEventTypes(eventTypes);
+    pb.setLimit(limit);
+    pb.setOffset(offset);
+    pb.setOrder(order);
+    pb.setPageSize(pageSize);
+    pb.setPageToken(pageToken);
+    pb.setStartTime(startTime);
+
+    return pb;
+  }
+
+  static GetEvents fromPb(GetEventsPb pb) {
+    GetEvents model = new GetEvents();
+    model.setClusterId(pb.getClusterId());
+    model.setEndTime(pb.getEndTime());
+    model.setEventTypes(pb.getEventTypes());
+    model.setLimit(pb.getLimit());
+    model.setOffset(pb.getOffset());
+    model.setOrder(pb.getOrder());
+    model.setPageSize(pb.getPageSize());
+    model.setPageToken(pb.getPageToken());
+    model.setStartTime(pb.getStartTime());
+
+    return model;
+  }
+
+  public static class GetEventsSerializer extends JsonSerializer<GetEvents> {
+    @Override
+    public void serialize(GetEvents value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetEventsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetEventsDeserializer extends JsonDeserializer<GetEvents> {
+    @Override
+    public GetEvents deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetEventsPb pb = mapper.readValue(p, GetEventsPb.class);
+      return GetEvents.fromPb(pb);
+    }
   }
 }

@@ -4,10 +4,21 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = PtServedModel.PtServedModelSerializer.class)
+@JsonDeserialize(using = PtServedModel.PtServedModelDeserializer.class)
 public class PtServedModel {
   /**
    * The name of the entity to be served. The entity may be a model in the Databricks Model
@@ -15,11 +26,9 @@ public class PtServedModel {
    * it is a UC object, the full name of the object should be given in the form of
    * **catalog_name.schema_name.model_name**.
    */
-  @JsonProperty("entity_name")
   private String entityName;
 
   /** */
-  @JsonProperty("entity_version")
   private String entityVersion;
 
   /**
@@ -28,11 +37,9 @@ public class PtServedModel {
    * model, this field defaults to external_model.name, with '.' and ':' replaced with '-', and if
    * not specified for other entities, it defaults to entity_name-entity_version.
    */
-  @JsonProperty("name")
   private String name;
 
   /** The number of model units to be provisioned. */
-  @JsonProperty("provisioned_model_units")
   private Long provisionedModelUnits;
 
   public PtServedModel setEntityName(String entityName) {
@@ -95,5 +102,43 @@ public class PtServedModel {
         .add("name", name)
         .add("provisionedModelUnits", provisionedModelUnits)
         .toString();
+  }
+
+  PtServedModelPb toPb() {
+    PtServedModelPb pb = new PtServedModelPb();
+    pb.setEntityName(entityName);
+    pb.setEntityVersion(entityVersion);
+    pb.setName(name);
+    pb.setProvisionedModelUnits(provisionedModelUnits);
+
+    return pb;
+  }
+
+  static PtServedModel fromPb(PtServedModelPb pb) {
+    PtServedModel model = new PtServedModel();
+    model.setEntityName(pb.getEntityName());
+    model.setEntityVersion(pb.getEntityVersion());
+    model.setName(pb.getName());
+    model.setProvisionedModelUnits(pb.getProvisionedModelUnits());
+
+    return model;
+  }
+
+  public static class PtServedModelSerializer extends JsonSerializer<PtServedModel> {
+    @Override
+    public void serialize(PtServedModel value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PtServedModelPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PtServedModelDeserializer extends JsonDeserializer<PtServedModel> {
+    @Override
+    public PtServedModel deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PtServedModelPb pb = mapper.readValue(p, PtServedModelPb.class);
+      return PtServedModel.fromPb(pb);
+    }
   }
 }

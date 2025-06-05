@@ -4,76 +4,72 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CatalogInfo.CatalogInfoSerializer.class)
+@JsonDeserialize(using = CatalogInfo.CatalogInfoDeserializer.class)
 public class CatalogInfo {
   /**
    * Indicates whether the principal is limited to retrieving metadata for the associated object
    * through the BROWSE privilege when include_browse is enabled in the request.
    */
-  @JsonProperty("browse_only")
   private Boolean browseOnly;
 
   /** The type of the catalog. */
-  @JsonProperty("catalog_type")
   private CatalogType catalogType;
 
   /** User-provided free-form text description. */
-  @JsonProperty("comment")
   private String comment;
 
   /** The name of the connection to an external data source. */
-  @JsonProperty("connection_name")
   private String connectionName;
 
   /** Time at which this catalog was created, in epoch milliseconds. */
-  @JsonProperty("created_at")
   private Long createdAt;
 
   /** Username of catalog creator. */
-  @JsonProperty("created_by")
   private String createdBy;
 
   /** */
-  @JsonProperty("effective_predictive_optimization_flag")
   private EffectivePredictiveOptimizationFlag effectivePredictiveOptimizationFlag;
 
   /** Whether predictive optimization should be enabled for this object and objects under it. */
-  @JsonProperty("enable_predictive_optimization")
   private EnablePredictiveOptimization enablePredictiveOptimization;
 
   /** The full name of the catalog. Corresponds with the name field. */
-  @JsonProperty("full_name")
   private String fullName;
 
   /**
    * Whether the current securable is accessible from all workspaces or a specific set of
    * workspaces.
    */
-  @JsonProperty("isolation_mode")
   private CatalogIsolationMode isolationMode;
 
   /** Unique identifier of parent metastore. */
-  @JsonProperty("metastore_id")
   private String metastoreId;
 
   /** Name of catalog. */
-  @JsonProperty("name")
   private String name;
 
   /** A map of key-value properties attached to the securable. */
-  @JsonProperty("options")
   private Map<String, String> options;
 
   /** Username of current owner of catalog. */
-  @JsonProperty("owner")
   private String owner;
 
   /** A map of key-value properties attached to the securable. */
-  @JsonProperty("properties")
   private Map<String, String> properties;
 
   /**
@@ -82,35 +78,27 @@ public class CatalogInfo {
    * <p>A Delta Sharing catalog is a catalog that is based on a Delta share on a remote sharing
    * server.
    */
-  @JsonProperty("provider_name")
   private String providerName;
 
   /** Status of an asynchronously provisioned resource. */
-  @JsonProperty("provisioning_info")
   private ProvisioningInfo provisioningInfo;
 
   /** The type of Unity Catalog securable. */
-  @JsonProperty("securable_type")
   private SecurableType securableType;
 
   /** The name of the share under the share provider. */
-  @JsonProperty("share_name")
   private String shareName;
 
   /** Storage Location URL (full path) for managed tables within catalog. */
-  @JsonProperty("storage_location")
   private String storageLocation;
 
   /** Storage root URL for managed tables within catalog. */
-  @JsonProperty("storage_root")
   private String storageRoot;
 
   /** Time at which this catalog was last modified, in epoch milliseconds. */
-  @JsonProperty("updated_at")
   private Long updatedAt;
 
   /** Username of user who last modified catalog. */
-  @JsonProperty("updated_by")
   private String updatedBy;
 
   public CatalogInfo setBrowseOnly(Boolean browseOnly) {
@@ -408,5 +396,81 @@ public class CatalogInfo {
         .add("updatedAt", updatedAt)
         .add("updatedBy", updatedBy)
         .toString();
+  }
+
+  CatalogInfoPb toPb() {
+    CatalogInfoPb pb = new CatalogInfoPb();
+    pb.setBrowseOnly(browseOnly);
+    pb.setCatalogType(catalogType);
+    pb.setComment(comment);
+    pb.setConnectionName(connectionName);
+    pb.setCreatedAt(createdAt);
+    pb.setCreatedBy(createdBy);
+    pb.setEffectivePredictiveOptimizationFlag(effectivePredictiveOptimizationFlag);
+    pb.setEnablePredictiveOptimization(enablePredictiveOptimization);
+    pb.setFullName(fullName);
+    pb.setIsolationMode(isolationMode);
+    pb.setMetastoreId(metastoreId);
+    pb.setName(name);
+    pb.setOptions(options);
+    pb.setOwner(owner);
+    pb.setProperties(properties);
+    pb.setProviderName(providerName);
+    pb.setProvisioningInfo(provisioningInfo);
+    pb.setSecurableType(securableType);
+    pb.setShareName(shareName);
+    pb.setStorageLocation(storageLocation);
+    pb.setStorageRoot(storageRoot);
+    pb.setUpdatedAt(updatedAt);
+    pb.setUpdatedBy(updatedBy);
+
+    return pb;
+  }
+
+  static CatalogInfo fromPb(CatalogInfoPb pb) {
+    CatalogInfo model = new CatalogInfo();
+    model.setBrowseOnly(pb.getBrowseOnly());
+    model.setCatalogType(pb.getCatalogType());
+    model.setComment(pb.getComment());
+    model.setConnectionName(pb.getConnectionName());
+    model.setCreatedAt(pb.getCreatedAt());
+    model.setCreatedBy(pb.getCreatedBy());
+    model.setEffectivePredictiveOptimizationFlag(pb.getEffectivePredictiveOptimizationFlag());
+    model.setEnablePredictiveOptimization(pb.getEnablePredictiveOptimization());
+    model.setFullName(pb.getFullName());
+    model.setIsolationMode(pb.getIsolationMode());
+    model.setMetastoreId(pb.getMetastoreId());
+    model.setName(pb.getName());
+    model.setOptions(pb.getOptions());
+    model.setOwner(pb.getOwner());
+    model.setProperties(pb.getProperties());
+    model.setProviderName(pb.getProviderName());
+    model.setProvisioningInfo(pb.getProvisioningInfo());
+    model.setSecurableType(pb.getSecurableType());
+    model.setShareName(pb.getShareName());
+    model.setStorageLocation(pb.getStorageLocation());
+    model.setStorageRoot(pb.getStorageRoot());
+    model.setUpdatedAt(pb.getUpdatedAt());
+    model.setUpdatedBy(pb.getUpdatedBy());
+
+    return model;
+  }
+
+  public static class CatalogInfoSerializer extends JsonSerializer<CatalogInfo> {
+    @Override
+    public void serialize(CatalogInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CatalogInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CatalogInfoDeserializer extends JsonDeserializer<CatalogInfo> {
+    @Override
+    public CatalogInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CatalogInfoPb pb = mapper.readValue(p, CatalogInfoPb.class);
+      return CatalogInfo.fromPb(pb);
+    }
   }
 }

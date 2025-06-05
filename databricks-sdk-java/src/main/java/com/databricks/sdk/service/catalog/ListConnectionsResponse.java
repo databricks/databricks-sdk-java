@@ -4,21 +4,30 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ListConnectionsResponse.ListConnectionsResponseSerializer.class)
+@JsonDeserialize(using = ListConnectionsResponse.ListConnectionsResponseDeserializer.class)
 public class ListConnectionsResponse {
   /** An array of connection information objects. */
-  @JsonProperty("connections")
   private Collection<ConnectionInfo> connections;
 
   /**
    * Opaque token to retrieve the next page of results. Absent if there are no more pages.
    * __page_token__ should be set to this value for the next request (for the next page of results).
    */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   public ListConnectionsResponse setConnections(Collection<ConnectionInfo> connections) {
@@ -59,5 +68,43 @@ public class ListConnectionsResponse {
         .add("connections", connections)
         .add("nextPageToken", nextPageToken)
         .toString();
+  }
+
+  ListConnectionsResponsePb toPb() {
+    ListConnectionsResponsePb pb = new ListConnectionsResponsePb();
+    pb.setConnections(connections);
+    pb.setNextPageToken(nextPageToken);
+
+    return pb;
+  }
+
+  static ListConnectionsResponse fromPb(ListConnectionsResponsePb pb) {
+    ListConnectionsResponse model = new ListConnectionsResponse();
+    model.setConnections(pb.getConnections());
+    model.setNextPageToken(pb.getNextPageToken());
+
+    return model;
+  }
+
+  public static class ListConnectionsResponseSerializer
+      extends JsonSerializer<ListConnectionsResponse> {
+    @Override
+    public void serialize(
+        ListConnectionsResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListConnectionsResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListConnectionsResponseDeserializer
+      extends JsonDeserializer<ListConnectionsResponse> {
+    @Override
+    public ListConnectionsResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListConnectionsResponsePb pb = mapper.readValue(p, ListConnectionsResponsePb.class);
+      return ListConnectionsResponse.fromPb(pb);
+    }
   }
 }

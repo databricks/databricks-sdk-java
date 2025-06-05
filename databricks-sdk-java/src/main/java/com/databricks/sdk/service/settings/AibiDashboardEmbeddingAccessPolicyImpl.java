@@ -22,7 +22,7 @@ class AibiDashboardEmbeddingAccessPolicyImpl implements AibiDashboardEmbeddingAc
     String path = "/api/2.0/settings/types/aibi_dash_embed_ws_acc_policy/names/default";
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, DeleteAibiDashboardEmbeddingAccessPolicySettingResponse.class);
     } catch (IOException e) {
@@ -36,7 +36,7 @@ class AibiDashboardEmbeddingAccessPolicyImpl implements AibiDashboardEmbeddingAc
     String path = "/api/2.0/settings/types/aibi_dash_embed_ws_acc_policy/names/default";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, AibiDashboardEmbeddingAccessPolicySetting.class);
     } catch (IOException e) {
@@ -50,7 +50,7 @@ class AibiDashboardEmbeddingAccessPolicyImpl implements AibiDashboardEmbeddingAc
     String path = "/api/2.0/settings/types/aibi_dash_embed_ws_acc_policy/names/default";
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, AibiDashboardEmbeddingAccessPolicySetting.class);

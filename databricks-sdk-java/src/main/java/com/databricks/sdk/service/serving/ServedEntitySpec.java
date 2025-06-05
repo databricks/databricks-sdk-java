@@ -4,32 +4,38 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ServedEntitySpec.ServedEntitySpecSerializer.class)
+@JsonDeserialize(using = ServedEntitySpec.ServedEntitySpecDeserializer.class)
 public class ServedEntitySpec {
   /** */
-  @JsonProperty("entity_name")
   private String entityName;
 
   /** */
-  @JsonProperty("entity_version")
   private String entityVersion;
 
   /** */
-  @JsonProperty("external_model")
   private ExternalModel externalModel;
 
   /**
    * All fields are not sensitive as they are hard-coded in the system and made available to
    * customers.
    */
-  @JsonProperty("foundation_model")
   private FoundationModel foundationModel;
 
   /** */
-  @JsonProperty("name")
   private String name;
 
   public ServedEntitySpec setEntityName(String entityName) {
@@ -103,5 +109,46 @@ public class ServedEntitySpec {
         .add("foundationModel", foundationModel)
         .add("name", name)
         .toString();
+  }
+
+  ServedEntitySpecPb toPb() {
+    ServedEntitySpecPb pb = new ServedEntitySpecPb();
+    pb.setEntityName(entityName);
+    pb.setEntityVersion(entityVersion);
+    pb.setExternalModel(externalModel);
+    pb.setFoundationModel(foundationModel);
+    pb.setName(name);
+
+    return pb;
+  }
+
+  static ServedEntitySpec fromPb(ServedEntitySpecPb pb) {
+    ServedEntitySpec model = new ServedEntitySpec();
+    model.setEntityName(pb.getEntityName());
+    model.setEntityVersion(pb.getEntityVersion());
+    model.setExternalModel(pb.getExternalModel());
+    model.setFoundationModel(pb.getFoundationModel());
+    model.setName(pb.getName());
+
+    return model;
+  }
+
+  public static class ServedEntitySpecSerializer extends JsonSerializer<ServedEntitySpec> {
+    @Override
+    public void serialize(ServedEntitySpec value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ServedEntitySpecPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ServedEntitySpecDeserializer extends JsonDeserializer<ServedEntitySpec> {
+    @Override
+    public ServedEntitySpec deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ServedEntitySpecPb pb = mapper.readValue(p, ServedEntitySpecPb.class);
+      return ServedEntitySpec.fromPb(pb);
+    }
   }
 }

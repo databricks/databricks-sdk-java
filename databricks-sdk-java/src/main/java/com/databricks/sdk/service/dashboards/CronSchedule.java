@@ -4,10 +4,21 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CronSchedule.CronScheduleSerializer.class)
+@JsonDeserialize(using = CronSchedule.CronScheduleDeserializer.class)
 public class CronSchedule {
   /**
    * A cron expression using quartz syntax. EX: `0 0 8 * * ?` represents everyday at 8am. See [Cron
@@ -16,7 +27,6 @@ public class CronSchedule {
    * <p>[Cron Trigger]:
    * http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html
    */
-  @JsonProperty("quartz_cron_expression")
   private String quartzCronExpression;
 
   /**
@@ -25,7 +35,6 @@ public class CronSchedule {
    *
    * <p>[Java TimeZone]: https://docs.oracle.com/javase/7/docs/api/java/util/TimeZone.html
    */
-  @JsonProperty("timezone_id")
   private String timezoneId;
 
   public CronSchedule setQuartzCronExpression(String quartzCronExpression) {
@@ -66,5 +75,39 @@ public class CronSchedule {
         .add("quartzCronExpression", quartzCronExpression)
         .add("timezoneId", timezoneId)
         .toString();
+  }
+
+  CronSchedulePb toPb() {
+    CronSchedulePb pb = new CronSchedulePb();
+    pb.setQuartzCronExpression(quartzCronExpression);
+    pb.setTimezoneId(timezoneId);
+
+    return pb;
+  }
+
+  static CronSchedule fromPb(CronSchedulePb pb) {
+    CronSchedule model = new CronSchedule();
+    model.setQuartzCronExpression(pb.getQuartzCronExpression());
+    model.setTimezoneId(pb.getTimezoneId());
+
+    return model;
+  }
+
+  public static class CronScheduleSerializer extends JsonSerializer<CronSchedule> {
+    @Override
+    public void serialize(CronSchedule value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CronSchedulePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CronScheduleDeserializer extends JsonDeserializer<CronSchedule> {
+    @Override
+    public CronSchedule deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CronSchedulePb pb = mapper.readValue(p, CronSchedulePb.class);
+      return CronSchedule.fromPb(pb);
+    }
   }
 }

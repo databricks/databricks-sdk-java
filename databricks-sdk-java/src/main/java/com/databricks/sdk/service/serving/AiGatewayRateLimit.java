@@ -4,24 +4,32 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = AiGatewayRateLimit.AiGatewayRateLimitSerializer.class)
+@JsonDeserialize(using = AiGatewayRateLimit.AiGatewayRateLimitDeserializer.class)
 public class AiGatewayRateLimit {
   /** Used to specify how many calls are allowed for a key within the renewal_period. */
-  @JsonProperty("calls")
   private Long calls;
 
   /**
    * Key field for a rate limit. Currently, only 'user' and 'endpoint' are supported, with
    * 'endpoint' being the default if not specified.
    */
-  @JsonProperty("key")
   private AiGatewayRateLimitKey key;
 
   /** Renewal period field for a rate limit. Currently, only 'minute' is supported. */
-  @JsonProperty("renewal_period")
   private AiGatewayRateLimitRenewalPeriod renewalPeriod;
 
   public AiGatewayRateLimit setCalls(Long calls) {
@@ -73,5 +81,42 @@ public class AiGatewayRateLimit {
         .add("key", key)
         .add("renewalPeriod", renewalPeriod)
         .toString();
+  }
+
+  AiGatewayRateLimitPb toPb() {
+    AiGatewayRateLimitPb pb = new AiGatewayRateLimitPb();
+    pb.setCalls(calls);
+    pb.setKey(key);
+    pb.setRenewalPeriod(renewalPeriod);
+
+    return pb;
+  }
+
+  static AiGatewayRateLimit fromPb(AiGatewayRateLimitPb pb) {
+    AiGatewayRateLimit model = new AiGatewayRateLimit();
+    model.setCalls(pb.getCalls());
+    model.setKey(pb.getKey());
+    model.setRenewalPeriod(pb.getRenewalPeriod());
+
+    return model;
+  }
+
+  public static class AiGatewayRateLimitSerializer extends JsonSerializer<AiGatewayRateLimit> {
+    @Override
+    public void serialize(AiGatewayRateLimit value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      AiGatewayRateLimitPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class AiGatewayRateLimitDeserializer extends JsonDeserializer<AiGatewayRateLimit> {
+    @Override
+    public AiGatewayRateLimit deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      AiGatewayRateLimitPb pb = mapper.readValue(p, AiGatewayRateLimitPb.class);
+      return AiGatewayRateLimit.fromPb(pb);
+    }
   }
 }

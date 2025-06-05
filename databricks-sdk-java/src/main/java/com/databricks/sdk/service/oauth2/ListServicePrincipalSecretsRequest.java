@@ -3,13 +3,25 @@
 package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List service principal secrets */
 @Generated
+@JsonSerialize(
+    using = ListServicePrincipalSecretsRequest.ListServicePrincipalSecretsRequestSerializer.class)
+@JsonDeserialize(
+    using = ListServicePrincipalSecretsRequest.ListServicePrincipalSecretsRequestDeserializer.class)
 public class ListServicePrincipalSecretsRequest {
   /**
    * An opaque page token which was the `next_page_token` in the response of the previous request to
@@ -20,12 +32,10 @@ public class ListServicePrincipalSecretsRequest {
    * `next_page_token`. Note that the number of entries returned must not be used to determine when
    * the listing is complete.
    */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   /** The service principal ID. */
-  @JsonIgnore private Long servicePrincipalId;
+  private Long servicePrincipalId;
 
   public ListServicePrincipalSecretsRequest setPageToken(String pageToken) {
     this.pageToken = pageToken;
@@ -65,5 +75,44 @@ public class ListServicePrincipalSecretsRequest {
         .add("pageToken", pageToken)
         .add("servicePrincipalId", servicePrincipalId)
         .toString();
+  }
+
+  ListServicePrincipalSecretsRequestPb toPb() {
+    ListServicePrincipalSecretsRequestPb pb = new ListServicePrincipalSecretsRequestPb();
+    pb.setPageToken(pageToken);
+    pb.setServicePrincipalId(servicePrincipalId);
+
+    return pb;
+  }
+
+  static ListServicePrincipalSecretsRequest fromPb(ListServicePrincipalSecretsRequestPb pb) {
+    ListServicePrincipalSecretsRequest model = new ListServicePrincipalSecretsRequest();
+    model.setPageToken(pb.getPageToken());
+    model.setServicePrincipalId(pb.getServicePrincipalId());
+
+    return model;
+  }
+
+  public static class ListServicePrincipalSecretsRequestSerializer
+      extends JsonSerializer<ListServicePrincipalSecretsRequest> {
+    @Override
+    public void serialize(
+        ListServicePrincipalSecretsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListServicePrincipalSecretsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListServicePrincipalSecretsRequestDeserializer
+      extends JsonDeserializer<ListServicePrincipalSecretsRequest> {
+    @Override
+    public ListServicePrincipalSecretsRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListServicePrincipalSecretsRequestPb pb =
+          mapper.readValue(p, ListServicePrincipalSecretsRequestPb.class);
+      return ListServicePrincipalSecretsRequest.fromPb(pb);
+    }
   }
 }

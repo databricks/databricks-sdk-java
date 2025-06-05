@@ -4,30 +4,36 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = PowerBiTask.PowerBiTaskSerializer.class)
+@JsonDeserialize(using = PowerBiTask.PowerBiTaskDeserializer.class)
 public class PowerBiTask {
   /** The resource name of the UC connection to authenticate from Databricks to Power BI */
-  @JsonProperty("connection_resource_name")
   private String connectionResourceName;
 
   /** The semantic model to update */
-  @JsonProperty("power_bi_model")
   private PowerBiModel powerBiModel;
 
   /** Whether the model should be refreshed after the update */
-  @JsonProperty("refresh_after_update")
   private Boolean refreshAfterUpdate;
 
   /** The tables to be exported to Power BI */
-  @JsonProperty("tables")
   private Collection<PowerBiTable> tables;
 
   /** The SQL warehouse ID to use as the Power BI data source */
-  @JsonProperty("warehouse_id")
   private String warehouseId;
 
   public PowerBiTask setConnectionResourceName(String connectionResourceName) {
@@ -102,5 +108,45 @@ public class PowerBiTask {
         .add("tables", tables)
         .add("warehouseId", warehouseId)
         .toString();
+  }
+
+  PowerBiTaskPb toPb() {
+    PowerBiTaskPb pb = new PowerBiTaskPb();
+    pb.setConnectionResourceName(connectionResourceName);
+    pb.setPowerBiModel(powerBiModel);
+    pb.setRefreshAfterUpdate(refreshAfterUpdate);
+    pb.setTables(tables);
+    pb.setWarehouseId(warehouseId);
+
+    return pb;
+  }
+
+  static PowerBiTask fromPb(PowerBiTaskPb pb) {
+    PowerBiTask model = new PowerBiTask();
+    model.setConnectionResourceName(pb.getConnectionResourceName());
+    model.setPowerBiModel(pb.getPowerBiModel());
+    model.setRefreshAfterUpdate(pb.getRefreshAfterUpdate());
+    model.setTables(pb.getTables());
+    model.setWarehouseId(pb.getWarehouseId());
+
+    return model;
+  }
+
+  public static class PowerBiTaskSerializer extends JsonSerializer<PowerBiTask> {
+    @Override
+    public void serialize(PowerBiTask value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PowerBiTaskPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PowerBiTaskDeserializer extends JsonDeserializer<PowerBiTask> {
+    @Override
+    public PowerBiTask deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PowerBiTaskPb pb = mapper.readValue(p, PowerBiTaskPb.class);
+      return PowerBiTask.fromPb(pb);
+    }
   }
 }

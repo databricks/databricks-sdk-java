@@ -4,50 +4,51 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = Table.TableSerializer.class)
+@JsonDeserialize(using = Table.TableDeserializer.class)
 public class Table {
   /** The comment of the table. */
-  @JsonProperty("comment")
   private String comment;
 
   /** The id of the table. */
-  @JsonProperty("id")
   private String id;
 
   /** Internal information for D2D sharing that should not be disclosed to external users. */
-  @JsonProperty("internal_attributes")
   private TableInternalAttributes internalAttributes;
 
   /** The catalog and schema of the materialized table */
-  @JsonProperty("materialization_namespace")
   private String materializationNamespace;
 
   /** The name of a materialized table. */
-  @JsonProperty("materialized_table_name")
   private String materializedTableName;
 
   /** The name of the table. */
-  @JsonProperty("name")
   private String name;
 
   /** The name of the schema that the table belongs to. */
-  @JsonProperty("schema")
   private String schema;
 
   /** The name of the share that the table belongs to. */
-  @JsonProperty("share")
   private String share;
 
   /** The id of the share that the table belongs to. */
-  @JsonProperty("share_id")
   private String shareId;
 
   /** The Tags of the table. */
-  @JsonProperty("tags")
   private Collection<com.databricks.sdk.service.catalog.TagKeyValue> tags;
 
   public Table setComment(String comment) {
@@ -186,5 +187,55 @@ public class Table {
         .add("shareId", shareId)
         .add("tags", tags)
         .toString();
+  }
+
+  TablePb toPb() {
+    TablePb pb = new TablePb();
+    pb.setComment(comment);
+    pb.setId(id);
+    pb.setInternalAttributes(internalAttributes);
+    pb.setMaterializationNamespace(materializationNamespace);
+    pb.setMaterializedTableName(materializedTableName);
+    pb.setName(name);
+    pb.setSchema(schema);
+    pb.setShare(share);
+    pb.setShareId(shareId);
+    pb.setTags(tags);
+
+    return pb;
+  }
+
+  static Table fromPb(TablePb pb) {
+    Table model = new Table();
+    model.setComment(pb.getComment());
+    model.setId(pb.getId());
+    model.setInternalAttributes(pb.getInternalAttributes());
+    model.setMaterializationNamespace(pb.getMaterializationNamespace());
+    model.setMaterializedTableName(pb.getMaterializedTableName());
+    model.setName(pb.getName());
+    model.setSchema(pb.getSchema());
+    model.setShare(pb.getShare());
+    model.setShareId(pb.getShareId());
+    model.setTags(pb.getTags());
+
+    return model;
+  }
+
+  public static class TableSerializer extends JsonSerializer<Table> {
+    @Override
+    public void serialize(Table value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      TablePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class TableDeserializer extends JsonDeserializer<Table> {
+    @Override
+    public Table deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      TablePb pb = mapper.readValue(p, TablePb.class);
+      return Table.fromPb(pb);
+    }
   }
 }

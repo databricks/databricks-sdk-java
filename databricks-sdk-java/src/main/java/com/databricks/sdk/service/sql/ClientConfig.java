@@ -4,49 +4,50 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ClientConfig.ClientConfigSerializer.class)
+@JsonDeserialize(using = ClientConfig.ClientConfigDeserializer.class)
 public class ClientConfig {
   /** */
-  @JsonProperty("allow_custom_js_visualizations")
   private Boolean allowCustomJsVisualizations;
 
   /** */
-  @JsonProperty("allow_downloads")
   private Boolean allowDownloads;
 
   /** */
-  @JsonProperty("allow_external_shares")
   private Boolean allowExternalShares;
 
   /** */
-  @JsonProperty("allow_subscriptions")
   private Boolean allowSubscriptions;
 
   /** */
-  @JsonProperty("date_format")
   private String dateFormat;
 
   /** */
-  @JsonProperty("date_time_format")
   private String dateTimeFormat;
 
   /** */
-  @JsonProperty("disable_publish")
   private Boolean disablePublish;
 
   /** */
-  @JsonProperty("enable_legacy_autodetect_types")
   private Boolean enableLegacyAutodetectTypes;
 
   /** */
-  @JsonProperty("feature_show_permissions_control")
   private Boolean featureShowPermissionsControl;
 
   /** */
-  @JsonProperty("hide_plotly_mode_bar")
   private Boolean hidePlotlyModeBar;
 
   public ClientConfig setAllowCustomJsVisualizations(Boolean allowCustomJsVisualizations) {
@@ -185,5 +186,55 @@ public class ClientConfig {
         .add("featureShowPermissionsControl", featureShowPermissionsControl)
         .add("hidePlotlyModeBar", hidePlotlyModeBar)
         .toString();
+  }
+
+  ClientConfigPb toPb() {
+    ClientConfigPb pb = new ClientConfigPb();
+    pb.setAllowCustomJsVisualizations(allowCustomJsVisualizations);
+    pb.setAllowDownloads(allowDownloads);
+    pb.setAllowExternalShares(allowExternalShares);
+    pb.setAllowSubscriptions(allowSubscriptions);
+    pb.setDateFormat(dateFormat);
+    pb.setDateTimeFormat(dateTimeFormat);
+    pb.setDisablePublish(disablePublish);
+    pb.setEnableLegacyAutodetectTypes(enableLegacyAutodetectTypes);
+    pb.setFeatureShowPermissionsControl(featureShowPermissionsControl);
+    pb.setHidePlotlyModeBar(hidePlotlyModeBar);
+
+    return pb;
+  }
+
+  static ClientConfig fromPb(ClientConfigPb pb) {
+    ClientConfig model = new ClientConfig();
+    model.setAllowCustomJsVisualizations(pb.getAllowCustomJsVisualizations());
+    model.setAllowDownloads(pb.getAllowDownloads());
+    model.setAllowExternalShares(pb.getAllowExternalShares());
+    model.setAllowSubscriptions(pb.getAllowSubscriptions());
+    model.setDateFormat(pb.getDateFormat());
+    model.setDateTimeFormat(pb.getDateTimeFormat());
+    model.setDisablePublish(pb.getDisablePublish());
+    model.setEnableLegacyAutodetectTypes(pb.getEnableLegacyAutodetectTypes());
+    model.setFeatureShowPermissionsControl(pb.getFeatureShowPermissionsControl());
+    model.setHidePlotlyModeBar(pb.getHidePlotlyModeBar());
+
+    return model;
+  }
+
+  public static class ClientConfigSerializer extends JsonSerializer<ClientConfig> {
+    @Override
+    public void serialize(ClientConfig value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ClientConfigPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ClientConfigDeserializer extends JsonDeserializer<ClientConfig> {
+    @Override
+    public ClientConfig deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ClientConfigPb pb = mapper.readValue(p, ClientConfigPb.class);
+      return ClientConfig.fromPb(pb);
+    }
   }
 }

@@ -4,30 +4,37 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 /** A JSON representing a dashboard containing widgets of visualizations and text boxes. */
 @Generated
+@JsonSerialize(using = Dashboard.DashboardSerializer.class)
+@JsonDeserialize(using = Dashboard.DashboardDeserializer.class)
 public class Dashboard {
   /** Whether the authenticated user can edit the query definition. */
-  @JsonProperty("can_edit")
   private Boolean canEdit;
 
   /** Timestamp when this dashboard was created. */
-  @JsonProperty("created_at")
   private String createdAt;
 
   /**
    * In the web application, query filters that share a name are coupled to a single selection box
    * if this value is `true`.
    */
-  @JsonProperty("dashboard_filters_enabled")
   private Boolean dashboardFiltersEnabled;
 
   /** The ID for this dashboard. */
-  @JsonProperty("id")
   private String id;
 
   /**
@@ -35,66 +42,53 @@ public class Dashboard {
    * this boolean is `true`, the `options` property for this dashboard includes a
    * `moved_to_trash_at` timestamp. Items in trash are permanently deleted after 30 days.
    */
-  @JsonProperty("is_archived")
   private Boolean isArchived;
 
   /**
    * Whether a dashboard is a draft. Draft dashboards only appear in list views for their owners.
    */
-  @JsonProperty("is_draft")
   private Boolean isDraft;
 
   /**
    * Indicates whether this query object appears in the current user's favorites list. This flag
    * determines whether the star icon for favorites is selected.
    */
-  @JsonProperty("is_favorite")
   private Boolean isFavorite;
 
   /** The title of the dashboard that appears in list views and at the top of the dashboard page. */
-  @JsonProperty("name")
   private String name;
 
   /** */
-  @JsonProperty("options")
   private DashboardOptions options;
 
   /** The identifier of the workspace folder containing the object. */
-  @JsonProperty("parent")
   private String parent;
 
   /**
    * * `CAN_VIEW`: Can view the query * `CAN_RUN`: Can run the query * `CAN_EDIT`: Can edit the
    * query * `CAN_MANAGE`: Can manage the query
    */
-  @JsonProperty("permission_tier")
   private PermissionLevel permissionTier;
 
   /**
    * URL slug. Usually mirrors the query name with dashes (`-`) instead of spaces. Appears in the
    * URL for this query.
    */
-  @JsonProperty("slug")
   private String slug;
 
   /** */
-  @JsonProperty("tags")
   private Collection<String> tags;
 
   /** Timestamp when this dashboard was last updated. */
-  @JsonProperty("updated_at")
   private String updatedAt;
 
   /** */
-  @JsonProperty("user")
   private User user;
 
   /** The ID of the user who owns the dashboard. */
-  @JsonProperty("user_id")
   private Long userId;
 
   /** */
-  @JsonProperty("widgets")
   private Collection<Widget> widgets;
 
   public Dashboard setCanEdit(Boolean canEdit) {
@@ -317,5 +311,69 @@ public class Dashboard {
         .add("userId", userId)
         .add("widgets", widgets)
         .toString();
+  }
+
+  DashboardPb toPb() {
+    DashboardPb pb = new DashboardPb();
+    pb.setCanEdit(canEdit);
+    pb.setCreatedAt(createdAt);
+    pb.setDashboardFiltersEnabled(dashboardFiltersEnabled);
+    pb.setId(id);
+    pb.setIsArchived(isArchived);
+    pb.setIsDraft(isDraft);
+    pb.setIsFavorite(isFavorite);
+    pb.setName(name);
+    pb.setOptions(options);
+    pb.setParent(parent);
+    pb.setPermissionTier(permissionTier);
+    pb.setSlug(slug);
+    pb.setTags(tags);
+    pb.setUpdatedAt(updatedAt);
+    pb.setUser(user);
+    pb.setUserId(userId);
+    pb.setWidgets(widgets);
+
+    return pb;
+  }
+
+  static Dashboard fromPb(DashboardPb pb) {
+    Dashboard model = new Dashboard();
+    model.setCanEdit(pb.getCanEdit());
+    model.setCreatedAt(pb.getCreatedAt());
+    model.setDashboardFiltersEnabled(pb.getDashboardFiltersEnabled());
+    model.setId(pb.getId());
+    model.setIsArchived(pb.getIsArchived());
+    model.setIsDraft(pb.getIsDraft());
+    model.setIsFavorite(pb.getIsFavorite());
+    model.setName(pb.getName());
+    model.setOptions(pb.getOptions());
+    model.setParent(pb.getParent());
+    model.setPermissionTier(pb.getPermissionTier());
+    model.setSlug(pb.getSlug());
+    model.setTags(pb.getTags());
+    model.setUpdatedAt(pb.getUpdatedAt());
+    model.setUser(pb.getUser());
+    model.setUserId(pb.getUserId());
+    model.setWidgets(pb.getWidgets());
+
+    return model;
+  }
+
+  public static class DashboardSerializer extends JsonSerializer<Dashboard> {
+    @Override
+    public void serialize(Dashboard value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DashboardPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DashboardDeserializer extends JsonDeserializer<Dashboard> {
+    @Override
+    public Dashboard deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DashboardPb pb = mapper.readValue(p, DashboardPb.class);
+      return Dashboard.fromPb(pb);
+    }
   }
 }

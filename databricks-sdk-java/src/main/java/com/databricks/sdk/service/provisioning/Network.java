@@ -4,45 +4,48 @@ package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = Network.NetworkSerializer.class)
+@JsonDeserialize(using = Network.NetworkDeserializer.class)
 public class Network {
   /** The Databricks account ID associated with this network configuration. */
-  @JsonProperty("account_id")
   private String accountId;
 
   /** Time in epoch milliseconds when the network was created. */
-  @JsonProperty("creation_time")
   private Long creationTime;
 
   /** Array of error messages about the network configuration. */
-  @JsonProperty("error_messages")
   private Collection<NetworkHealth> errorMessages;
 
   /**
    * The Google Cloud specific information for this network (for example, the VPC ID, subnet ID, and
    * secondary IP ranges).
    */
-  @JsonProperty("gcp_network_info")
   private GcpNetworkInfo gcpNetworkInfo;
 
   /** The Databricks network configuration ID. */
-  @JsonProperty("network_id")
   private String networkId;
 
   /** The human-readable name of the network configuration. */
-  @JsonProperty("network_name")
   private String networkName;
 
   /** */
-  @JsonProperty("security_group_ids")
   private Collection<String> securityGroupIds;
 
   /** */
-  @JsonProperty("subnet_ids")
   private Collection<String> subnetIds;
 
   /**
@@ -51,29 +54,24 @@ public class Network {
    *
    * <p>[AWS PrivateLink]: https://aws.amazon.com/privatelink/
    */
-  @JsonProperty("vpc_endpoints")
   private NetworkVpcEndpoints vpcEndpoints;
 
   /**
    * The ID of the VPC associated with this network configuration. VPC IDs can be used in multiple
    * networks.
    */
-  @JsonProperty("vpc_id")
   private String vpcId;
 
   /**
    * The status of this network configuration object in terms of its use in a workspace: *
    * `UNATTACHED`: Unattached. * `VALID`: Valid. * `BROKEN`: Broken. * `WARNED`: Warned.
    */
-  @JsonProperty("vpc_status")
   private VpcStatus vpcStatus;
 
   /** Array of warning messages about the network configuration. */
-  @JsonProperty("warning_messages")
   private Collection<NetworkWarning> warningMessages;
 
   /** Workspace ID associated with this network configuration. */
-  @JsonProperty("workspace_id")
   private Long workspaceId;
 
   public Network setAccountId(String accountId) {
@@ -248,5 +246,61 @@ public class Network {
         .add("warningMessages", warningMessages)
         .add("workspaceId", workspaceId)
         .toString();
+  }
+
+  NetworkPb toPb() {
+    NetworkPb pb = new NetworkPb();
+    pb.setAccountId(accountId);
+    pb.setCreationTime(creationTime);
+    pb.setErrorMessages(errorMessages);
+    pb.setGcpNetworkInfo(gcpNetworkInfo);
+    pb.setNetworkId(networkId);
+    pb.setNetworkName(networkName);
+    pb.setSecurityGroupIds(securityGroupIds);
+    pb.setSubnetIds(subnetIds);
+    pb.setVpcEndpoints(vpcEndpoints);
+    pb.setVpcId(vpcId);
+    pb.setVpcStatus(vpcStatus);
+    pb.setWarningMessages(warningMessages);
+    pb.setWorkspaceId(workspaceId);
+
+    return pb;
+  }
+
+  static Network fromPb(NetworkPb pb) {
+    Network model = new Network();
+    model.setAccountId(pb.getAccountId());
+    model.setCreationTime(pb.getCreationTime());
+    model.setErrorMessages(pb.getErrorMessages());
+    model.setGcpNetworkInfo(pb.getGcpNetworkInfo());
+    model.setNetworkId(pb.getNetworkId());
+    model.setNetworkName(pb.getNetworkName());
+    model.setSecurityGroupIds(pb.getSecurityGroupIds());
+    model.setSubnetIds(pb.getSubnetIds());
+    model.setVpcEndpoints(pb.getVpcEndpoints());
+    model.setVpcId(pb.getVpcId());
+    model.setVpcStatus(pb.getVpcStatus());
+    model.setWarningMessages(pb.getWarningMessages());
+    model.setWorkspaceId(pb.getWorkspaceId());
+
+    return model;
+  }
+
+  public static class NetworkSerializer extends JsonSerializer<Network> {
+    @Override
+    public void serialize(Network value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      NetworkPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class NetworkDeserializer extends JsonDeserializer<Network> {
+    @Override
+    public Network deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      NetworkPb pb = mapper.readValue(p, NetworkPb.class);
+      return Network.fromPb(pb);
+    }
   }
 }

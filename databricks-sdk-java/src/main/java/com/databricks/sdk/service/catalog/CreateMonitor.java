@@ -4,22 +4,30 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateMonitor.CreateMonitorSerializer.class)
+@JsonDeserialize(using = CreateMonitor.CreateMonitorDeserializer.class)
 public class CreateMonitor {
   /** The directory to store monitoring assets (e.g. dashboard, metric tables). */
-  @JsonProperty("assets_dir")
   private String assetsDir;
 
   /**
    * Name of the baseline table from which drift metrics are computed from. Columns in the monitored
    * table should also be present in the baseline table.
    */
-  @JsonProperty("baseline_table_name")
   private String baselineTableName;
 
   /**
@@ -27,31 +35,24 @@ public class CreateMonitor {
    * metrics (from already computed aggregate metrics), or drift metrics (comparing metrics across
    * time windows).
    */
-  @JsonProperty("custom_metrics")
   private Collection<MonitorMetric> customMetrics;
 
   /** The data classification config for the monitor. */
-  @JsonProperty("data_classification_config")
   private MonitorDataClassificationConfig dataClassificationConfig;
 
   /** Configuration for monitoring inference logs. */
-  @JsonProperty("inference_log")
   private MonitorInferenceLog inferenceLog;
 
   /** The notification settings for the monitor. */
-  @JsonProperty("notifications")
   private MonitorNotifications notifications;
 
   /** Schema where output metric tables are created. */
-  @JsonProperty("output_schema_name")
   private String outputSchemaName;
 
   /** The schedule for automatically updating and refreshing metric tables. */
-  @JsonProperty("schedule")
   private MonitorCronSchedule schedule;
 
   /** Whether to skip creating a default dashboard summarizing data quality metrics. */
-  @JsonProperty("skip_builtin_dashboard")
   private Boolean skipBuiltinDashboard;
 
   /**
@@ -60,25 +61,21 @@ public class CreateMonitor {
    * complements. For high-cardinality columns, only the top 100 unique values by frequency will
    * generate slices.
    */
-  @JsonProperty("slicing_exprs")
   private Collection<String> slicingExprs;
 
   /** Configuration for monitoring snapshot tables. */
-  @JsonProperty("snapshot")
   private MonitorSnapshot snapshot;
 
   /** Full name of the table. */
-  @JsonIgnore private String tableName;
+  private String tableName;
 
   /** Configuration for monitoring time series tables. */
-  @JsonProperty("time_series")
   private MonitorTimeSeries timeSeries;
 
   /**
    * Optional argument to specify the warehouse for dashboard creation. If not specified, the first
    * running warehouse will be used.
    */
-  @JsonProperty("warehouse_id")
   private String warehouseId;
 
   public CreateMonitor setAssetsDir(String assetsDir) {
@@ -266,5 +263,63 @@ public class CreateMonitor {
         .add("timeSeries", timeSeries)
         .add("warehouseId", warehouseId)
         .toString();
+  }
+
+  CreateMonitorPb toPb() {
+    CreateMonitorPb pb = new CreateMonitorPb();
+    pb.setAssetsDir(assetsDir);
+    pb.setBaselineTableName(baselineTableName);
+    pb.setCustomMetrics(customMetrics);
+    pb.setDataClassificationConfig(dataClassificationConfig);
+    pb.setInferenceLog(inferenceLog);
+    pb.setNotifications(notifications);
+    pb.setOutputSchemaName(outputSchemaName);
+    pb.setSchedule(schedule);
+    pb.setSkipBuiltinDashboard(skipBuiltinDashboard);
+    pb.setSlicingExprs(slicingExprs);
+    pb.setSnapshot(snapshot);
+    pb.setTableName(tableName);
+    pb.setTimeSeries(timeSeries);
+    pb.setWarehouseId(warehouseId);
+
+    return pb;
+  }
+
+  static CreateMonitor fromPb(CreateMonitorPb pb) {
+    CreateMonitor model = new CreateMonitor();
+    model.setAssetsDir(pb.getAssetsDir());
+    model.setBaselineTableName(pb.getBaselineTableName());
+    model.setCustomMetrics(pb.getCustomMetrics());
+    model.setDataClassificationConfig(pb.getDataClassificationConfig());
+    model.setInferenceLog(pb.getInferenceLog());
+    model.setNotifications(pb.getNotifications());
+    model.setOutputSchemaName(pb.getOutputSchemaName());
+    model.setSchedule(pb.getSchedule());
+    model.setSkipBuiltinDashboard(pb.getSkipBuiltinDashboard());
+    model.setSlicingExprs(pb.getSlicingExprs());
+    model.setSnapshot(pb.getSnapshot());
+    model.setTableName(pb.getTableName());
+    model.setTimeSeries(pb.getTimeSeries());
+    model.setWarehouseId(pb.getWarehouseId());
+
+    return model;
+  }
+
+  public static class CreateMonitorSerializer extends JsonSerializer<CreateMonitor> {
+    @Override
+    public void serialize(CreateMonitor value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateMonitorPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateMonitorDeserializer extends JsonDeserializer<CreateMonitor> {
+    @Override
+    public CreateMonitor deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateMonitorPb pb = mapper.readValue(p, CreateMonitorPb.class);
+      return CreateMonitor.fromPb(pb);
+    }
   }
 }

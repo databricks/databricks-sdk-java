@@ -23,7 +23,7 @@ class CredentialsImpl implements CredentialsService {
         String.format("/api/2.0/accounts/%s/credentials", apiClient.configuredAccountID());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, Credential.class);
@@ -40,7 +40,7 @@ class CredentialsImpl implements CredentialsService {
             apiClient.configuredAccountID(), request.getCredentialsId());
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, DeleteResponse.class);
     } catch (IOException e) {
@@ -56,7 +56,7 @@ class CredentialsImpl implements CredentialsService {
             apiClient.configuredAccountID(), request.getCredentialsId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, Credential.class);
     } catch (IOException e) {

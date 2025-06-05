@@ -4,49 +4,51 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ModelDatabricks.ModelDatabricksSerializer.class)
+@JsonDeserialize(using = ModelDatabricks.ModelDatabricksDeserializer.class)
 public class ModelDatabricks {
   /** Creation time of the object, as a Unix timestamp in milliseconds. */
-  @JsonProperty("creation_timestamp")
   private Long creationTimestamp;
 
   /** User-specified description for the object. */
-  @JsonProperty("description")
   private String description;
 
   /** Unique identifier for the object. */
-  @JsonProperty("id")
   private String id;
 
   /** Time of the object at last update, as a Unix timestamp in milliseconds. */
-  @JsonProperty("last_updated_timestamp")
   private Long lastUpdatedTimestamp;
 
   /** Array of model versions, each the latest version for its stage. */
-  @JsonProperty("latest_versions")
   private Collection<ModelVersion> latestVersions;
 
   /** Name of the model. */
-  @JsonProperty("name")
   private String name;
 
   /**
    * Permission level of the requesting user on the object. For what is allowed at each level, see
    * [MLflow Model permissions](..).
    */
-  @JsonProperty("permission_level")
   private PermissionLevel permissionLevel;
 
   /** Array of tags associated with the model. */
-  @JsonProperty("tags")
   private Collection<ModelTag> tags;
 
   /** The username of the user that created the object. */
-  @JsonProperty("user_id")
   private String userId;
 
   public ModelDatabricks setCreationTimestamp(Long creationTimestamp) {
@@ -173,5 +175,54 @@ public class ModelDatabricks {
         .add("tags", tags)
         .add("userId", userId)
         .toString();
+  }
+
+  ModelDatabricksPb toPb() {
+    ModelDatabricksPb pb = new ModelDatabricksPb();
+    pb.setCreationTimestamp(creationTimestamp);
+    pb.setDescription(description);
+    pb.setId(id);
+    pb.setLastUpdatedTimestamp(lastUpdatedTimestamp);
+    pb.setLatestVersions(latestVersions);
+    pb.setName(name);
+    pb.setPermissionLevel(permissionLevel);
+    pb.setTags(tags);
+    pb.setUserId(userId);
+
+    return pb;
+  }
+
+  static ModelDatabricks fromPb(ModelDatabricksPb pb) {
+    ModelDatabricks model = new ModelDatabricks();
+    model.setCreationTimestamp(pb.getCreationTimestamp());
+    model.setDescription(pb.getDescription());
+    model.setId(pb.getId());
+    model.setLastUpdatedTimestamp(pb.getLastUpdatedTimestamp());
+    model.setLatestVersions(pb.getLatestVersions());
+    model.setName(pb.getName());
+    model.setPermissionLevel(pb.getPermissionLevel());
+    model.setTags(pb.getTags());
+    model.setUserId(pb.getUserId());
+
+    return model;
+  }
+
+  public static class ModelDatabricksSerializer extends JsonSerializer<ModelDatabricks> {
+    @Override
+    public void serialize(ModelDatabricks value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ModelDatabricksPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ModelDatabricksDeserializer extends JsonDeserializer<ModelDatabricks> {
+    @Override
+    public ModelDatabricks deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ModelDatabricksPb pb = mapper.readValue(p, ModelDatabricksPb.class);
+      return ModelDatabricks.fromPb(pb);
+    }
   }
 }

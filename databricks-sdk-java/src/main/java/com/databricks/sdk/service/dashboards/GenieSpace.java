@@ -4,21 +4,29 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = GenieSpace.GenieSpaceSerializer.class)
+@JsonDeserialize(using = GenieSpace.GenieSpaceDeserializer.class)
 public class GenieSpace {
   /** Description of the Genie Space */
-  @JsonProperty("description")
   private String description;
 
   /** Genie space ID */
-  @JsonProperty("space_id")
   private String spaceId;
 
   /** Title of the Genie Space */
-  @JsonProperty("title")
   private String title;
 
   public GenieSpace setDescription(String description) {
@@ -70,5 +78,41 @@ public class GenieSpace {
         .add("spaceId", spaceId)
         .add("title", title)
         .toString();
+  }
+
+  GenieSpacePb toPb() {
+    GenieSpacePb pb = new GenieSpacePb();
+    pb.setDescription(description);
+    pb.setSpaceId(spaceId);
+    pb.setTitle(title);
+
+    return pb;
+  }
+
+  static GenieSpace fromPb(GenieSpacePb pb) {
+    GenieSpace model = new GenieSpace();
+    model.setDescription(pb.getDescription());
+    model.setSpaceId(pb.getSpaceId());
+    model.setTitle(pb.getTitle());
+
+    return model;
+  }
+
+  public static class GenieSpaceSerializer extends JsonSerializer<GenieSpace> {
+    @Override
+    public void serialize(GenieSpace value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GenieSpacePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GenieSpaceDeserializer extends JsonDeserializer<GenieSpace> {
+    @Override
+    public GenieSpace deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GenieSpacePb pb = mapper.readValue(p, GenieSpacePb.class);
+      return GenieSpace.fromPb(pb);
+    }
   }
 }

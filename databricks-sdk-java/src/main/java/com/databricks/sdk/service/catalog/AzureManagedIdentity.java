@@ -4,17 +4,27 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** The Azure managed identity configuration. */
 @Generated
+@JsonSerialize(using = AzureManagedIdentity.AzureManagedIdentitySerializer.class)
+@JsonDeserialize(using = AzureManagedIdentity.AzureManagedIdentityDeserializer.class)
 public class AzureManagedIdentity {
   /**
    * The Azure resource ID of the Azure Databricks Access Connector. Use the format
    * `/subscriptions/{guid}/resourceGroups/{rg-name}/providers/Microsoft.Databricks/accessConnectors/{connector-name}`.
    */
-  @JsonProperty("access_connector_id")
   private String accessConnectorId;
 
   /**
@@ -22,7 +32,6 @@ public class AzureManagedIdentity {
    * persist the credential_id once it is fetched from the credentials manager - as we only use the
    * protobuf serializer to store credentials, this ID gets persisted to the database. .
    */
-  @JsonProperty("credential_id")
   private String credentialId;
 
   /**
@@ -32,7 +41,6 @@ public class AzureManagedIdentity {
    * access_connector_id is used to identify the identity. If this field is not provided, then we
    * assume the AzureManagedIdentity is using the system-assigned identity.
    */
-  @JsonProperty("managed_identity_id")
   private String managedIdentityId;
 
   public AzureManagedIdentity setAccessConnectorId(String accessConnectorId) {
@@ -84,5 +92,44 @@ public class AzureManagedIdentity {
         .add("credentialId", credentialId)
         .add("managedIdentityId", managedIdentityId)
         .toString();
+  }
+
+  AzureManagedIdentityPb toPb() {
+    AzureManagedIdentityPb pb = new AzureManagedIdentityPb();
+    pb.setAccessConnectorId(accessConnectorId);
+    pb.setCredentialId(credentialId);
+    pb.setManagedIdentityId(managedIdentityId);
+
+    return pb;
+  }
+
+  static AzureManagedIdentity fromPb(AzureManagedIdentityPb pb) {
+    AzureManagedIdentity model = new AzureManagedIdentity();
+    model.setAccessConnectorId(pb.getAccessConnectorId());
+    model.setCredentialId(pb.getCredentialId());
+    model.setManagedIdentityId(pb.getManagedIdentityId());
+
+    return model;
+  }
+
+  public static class AzureManagedIdentitySerializer extends JsonSerializer<AzureManagedIdentity> {
+    @Override
+    public void serialize(
+        AzureManagedIdentity value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      AzureManagedIdentityPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class AzureManagedIdentityDeserializer
+      extends JsonDeserializer<AzureManagedIdentity> {
+    @Override
+    public AzureManagedIdentity deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      AzureManagedIdentityPb pb = mapper.readValue(p, AzureManagedIdentityPb.class);
+      return AzureManagedIdentity.fromPb(pb);
+    }
   }
 }

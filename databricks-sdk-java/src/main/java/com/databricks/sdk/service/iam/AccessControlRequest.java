@@ -4,25 +4,32 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = AccessControlRequest.AccessControlRequestSerializer.class)
+@JsonDeserialize(using = AccessControlRequest.AccessControlRequestDeserializer.class)
 public class AccessControlRequest {
   /** name of the group */
-  @JsonProperty("group_name")
   private String groupName;
 
   /** Permission level */
-  @JsonProperty("permission_level")
   private PermissionLevel permissionLevel;
 
   /** application ID of a service principal */
-  @JsonProperty("service_principal_name")
   private String servicePrincipalName;
 
   /** name of the user */
-  @JsonProperty("user_name")
   private String userName;
 
   public AccessControlRequest setGroupName(String groupName) {
@@ -85,5 +92,46 @@ public class AccessControlRequest {
         .add("servicePrincipalName", servicePrincipalName)
         .add("userName", userName)
         .toString();
+  }
+
+  AccessControlRequestPb toPb() {
+    AccessControlRequestPb pb = new AccessControlRequestPb();
+    pb.setGroupName(groupName);
+    pb.setPermissionLevel(permissionLevel);
+    pb.setServicePrincipalName(servicePrincipalName);
+    pb.setUserName(userName);
+
+    return pb;
+  }
+
+  static AccessControlRequest fromPb(AccessControlRequestPb pb) {
+    AccessControlRequest model = new AccessControlRequest();
+    model.setGroupName(pb.getGroupName());
+    model.setPermissionLevel(pb.getPermissionLevel());
+    model.setServicePrincipalName(pb.getServicePrincipalName());
+    model.setUserName(pb.getUserName());
+
+    return model;
+  }
+
+  public static class AccessControlRequestSerializer extends JsonSerializer<AccessControlRequest> {
+    @Override
+    public void serialize(
+        AccessControlRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      AccessControlRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class AccessControlRequestDeserializer
+      extends JsonDeserializer<AccessControlRequest> {
+    @Override
+    public AccessControlRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      AccessControlRequestPb pb = mapper.readValue(p, AccessControlRequestPb.class);
+      return AccessControlRequest.fromPb(pb);
+    }
   }
 }

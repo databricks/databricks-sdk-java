@@ -4,17 +4,27 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = SparkJarTask.SparkJarTaskSerializer.class)
+@JsonDeserialize(using = SparkJarTask.SparkJarTaskDeserializer.class)
 public class SparkJarTask {
   /**
    * Deprecated since 04/2016. Provide a `jar` through the `libraries` field instead. For an
    * example, see :method:jobs/create.
    */
-  @JsonProperty("jar_uri")
   private String jarUri;
 
   /**
@@ -24,7 +34,6 @@ public class SparkJarTask {
    * <p>The code must use `SparkContext.getOrCreate` to obtain a Spark context; otherwise, runs of
    * the job fail.
    */
-  @JsonProperty("main_class_name")
   private String mainClassName;
 
   /**
@@ -34,11 +43,9 @@ public class SparkJarTask {
    *
    * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
    */
-  @JsonProperty("parameters")
   private Collection<String> parameters;
 
   /** Deprecated. A value of `false` is no longer supported. */
-  @JsonProperty("run_as_repl")
   private Boolean runAsRepl;
 
   public SparkJarTask setJarUri(String jarUri) {
@@ -101,5 +108,43 @@ public class SparkJarTask {
         .add("parameters", parameters)
         .add("runAsRepl", runAsRepl)
         .toString();
+  }
+
+  SparkJarTaskPb toPb() {
+    SparkJarTaskPb pb = new SparkJarTaskPb();
+    pb.setJarUri(jarUri);
+    pb.setMainClassName(mainClassName);
+    pb.setParameters(parameters);
+    pb.setRunAsRepl(runAsRepl);
+
+    return pb;
+  }
+
+  static SparkJarTask fromPb(SparkJarTaskPb pb) {
+    SparkJarTask model = new SparkJarTask();
+    model.setJarUri(pb.getJarUri());
+    model.setMainClassName(pb.getMainClassName());
+    model.setParameters(pb.getParameters());
+    model.setRunAsRepl(pb.getRunAsRepl());
+
+    return model;
+  }
+
+  public static class SparkJarTaskSerializer extends JsonSerializer<SparkJarTask> {
+    @Override
+    public void serialize(SparkJarTask value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SparkJarTaskPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SparkJarTaskDeserializer extends JsonDeserializer<SparkJarTask> {
+    @Override
+    public SparkJarTask deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SparkJarTaskPb pb = mapper.readValue(p, SparkJarTaskPb.class);
+      return SparkJarTask.fromPb(pb);
+    }
   }
 }

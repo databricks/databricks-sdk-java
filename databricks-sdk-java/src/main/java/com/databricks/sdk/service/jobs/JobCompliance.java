@@ -4,18 +4,27 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = JobCompliance.JobComplianceSerializer.class)
+@JsonDeserialize(using = JobCompliance.JobComplianceDeserializer.class)
 public class JobCompliance {
   /** Whether this job is in compliance with the latest version of its policy. */
-  @JsonProperty("is_compliant")
   private Boolean isCompliant;
 
   /** Canonical unique identifier for a job. */
-  @JsonProperty("job_id")
   private Long jobId;
 
   /**
@@ -24,7 +33,6 @@ public class JobCompliance {
    * the job cluster is prepended to the path. The values indicate an error message describing the
    * policy validation error.
    */
-  @JsonProperty("violations")
   private Map<String, String> violations;
 
   public JobCompliance setIsCompliant(Boolean isCompliant) {
@@ -76,5 +84,41 @@ public class JobCompliance {
         .add("jobId", jobId)
         .add("violations", violations)
         .toString();
+  }
+
+  JobCompliancePb toPb() {
+    JobCompliancePb pb = new JobCompliancePb();
+    pb.setIsCompliant(isCompliant);
+    pb.setJobId(jobId);
+    pb.setViolations(violations);
+
+    return pb;
+  }
+
+  static JobCompliance fromPb(JobCompliancePb pb) {
+    JobCompliance model = new JobCompliance();
+    model.setIsCompliant(pb.getIsCompliant());
+    model.setJobId(pb.getJobId());
+    model.setViolations(pb.getViolations());
+
+    return model;
+  }
+
+  public static class JobComplianceSerializer extends JsonSerializer<JobCompliance> {
+    @Override
+    public void serialize(JobCompliance value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      JobCompliancePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class JobComplianceDeserializer extends JsonDeserializer<JobCompliance> {
+    @Override
+    public JobCompliance deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      JobCompliancePb pb = mapper.readValue(p, JobCompliancePb.class);
+      return JobCompliance.fromPb(pb);
+    }
   }
 }

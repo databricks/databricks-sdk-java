@@ -4,17 +4,26 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = DbtCloudTask.DbtCloudTaskSerializer.class)
+@JsonDeserialize(using = DbtCloudTask.DbtCloudTaskDeserializer.class)
 public class DbtCloudTask {
   /** The resource name of the UC connection that authenticates the dbt Cloud for this task */
-  @JsonProperty("connection_resource_name")
   private String connectionResourceName;
 
   /** Id of the dbt Cloud job to be triggered */
-  @JsonProperty("dbt_cloud_job_id")
   private Long dbtCloudJobId;
 
   public DbtCloudTask setConnectionResourceName(String connectionResourceName) {
@@ -55,5 +64,39 @@ public class DbtCloudTask {
         .add("connectionResourceName", connectionResourceName)
         .add("dbtCloudJobId", dbtCloudJobId)
         .toString();
+  }
+
+  DbtCloudTaskPb toPb() {
+    DbtCloudTaskPb pb = new DbtCloudTaskPb();
+    pb.setConnectionResourceName(connectionResourceName);
+    pb.setDbtCloudJobId(dbtCloudJobId);
+
+    return pb;
+  }
+
+  static DbtCloudTask fromPb(DbtCloudTaskPb pb) {
+    DbtCloudTask model = new DbtCloudTask();
+    model.setConnectionResourceName(pb.getConnectionResourceName());
+    model.setDbtCloudJobId(pb.getDbtCloudJobId());
+
+    return model;
+  }
+
+  public static class DbtCloudTaskSerializer extends JsonSerializer<DbtCloudTask> {
+    @Override
+    public void serialize(DbtCloudTask value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DbtCloudTaskPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DbtCloudTaskDeserializer extends JsonDeserializer<DbtCloudTask> {
+    @Override
+    public DbtCloudTask deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DbtCloudTaskPb pb = mapper.readValue(p, DbtCloudTaskPb.class);
+      return DbtCloudTask.fromPb(pb);
+    }
   }
 }

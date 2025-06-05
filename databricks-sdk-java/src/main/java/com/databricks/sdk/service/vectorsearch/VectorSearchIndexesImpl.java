@@ -21,7 +21,7 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
     String path = "/api/2.0/vector-search/indexes";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, VectorIndex.class);
@@ -36,7 +36,7 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
         String.format("/api/2.0/vector-search/indexes/%s/delete-data", request.getIndexName());
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, DeleteDataVectorIndexResponse.class);
     } catch (IOException e) {
@@ -49,7 +49,7 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
     String path = String.format("/api/2.0/vector-search/indexes/%s", request.getIndexName());
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, DeleteIndexResponse.class);
     } catch (IOException e) {
@@ -62,7 +62,7 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
     String path = String.format("/api/2.0/vector-search/indexes/%s", request.getIndexName());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, VectorIndex.class);
     } catch (IOException e) {
@@ -75,7 +75,7 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
     String path = "/api/2.0/vector-search/indexes";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListVectorIndexesResponse.class);
     } catch (IOException e) {
@@ -88,7 +88,7 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
     String path = String.format("/api/2.0/vector-search/indexes/%s/query", request.getIndexName());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, QueryVectorIndexResponse.class);
@@ -103,7 +103,7 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
         String.format("/api/2.0/vector-search/indexes/%s/query-next-page", request.getIndexName());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, QueryVectorIndexResponse.class);
@@ -117,7 +117,7 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
     String path = String.format("/api/2.0/vector-search/indexes/%s/scan", request.getIndexName());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, ScanVectorIndexResponse.class);
@@ -131,7 +131,7 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
     String path = String.format("/api/2.0/vector-search/indexes/%s/sync", request.getIndexName());
     try {
       Request req = new Request("POST", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, SyncIndexResponse.class);
     } catch (IOException e) {
@@ -145,7 +145,7 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
         String.format("/api/2.0/vector-search/indexes/%s/upsert-data", request.getIndexName());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, UpsertDataVectorIndexResponse.class);

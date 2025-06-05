@@ -4,29 +4,35 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateVolumeRequestContent.CreateVolumeRequestContentSerializer.class)
+@JsonDeserialize(using = CreateVolumeRequestContent.CreateVolumeRequestContentDeserializer.class)
 public class CreateVolumeRequestContent {
   /** The name of the catalog where the schema and the volume are */
-  @JsonProperty("catalog_name")
   private String catalogName;
 
   /** The comment attached to the volume */
-  @JsonProperty("comment")
   private String comment;
 
   /** The name of the volume */
-  @JsonProperty("name")
   private String name;
 
   /** The name of the schema where the volume is */
-  @JsonProperty("schema_name")
   private String schemaName;
 
   /** The storage location on the cloud */
-  @JsonProperty("storage_location")
   private String storageLocation;
 
   /**
@@ -36,7 +42,6 @@ public class CreateVolumeRequestContent {
    *
    * <p>[Learn more]: https://docs.databricks.com/aws/en/volumes/managed-vs-external
    */
-  @JsonProperty("volume_type")
   private VolumeType volumeType;
 
   public CreateVolumeRequestContent setCatalogName(String catalogName) {
@@ -121,5 +126,51 @@ public class CreateVolumeRequestContent {
         .add("storageLocation", storageLocation)
         .add("volumeType", volumeType)
         .toString();
+  }
+
+  CreateVolumeRequestContentPb toPb() {
+    CreateVolumeRequestContentPb pb = new CreateVolumeRequestContentPb();
+    pb.setCatalogName(catalogName);
+    pb.setComment(comment);
+    pb.setName(name);
+    pb.setSchemaName(schemaName);
+    pb.setStorageLocation(storageLocation);
+    pb.setVolumeType(volumeType);
+
+    return pb;
+  }
+
+  static CreateVolumeRequestContent fromPb(CreateVolumeRequestContentPb pb) {
+    CreateVolumeRequestContent model = new CreateVolumeRequestContent();
+    model.setCatalogName(pb.getCatalogName());
+    model.setComment(pb.getComment());
+    model.setName(pb.getName());
+    model.setSchemaName(pb.getSchemaName());
+    model.setStorageLocation(pb.getStorageLocation());
+    model.setVolumeType(pb.getVolumeType());
+
+    return model;
+  }
+
+  public static class CreateVolumeRequestContentSerializer
+      extends JsonSerializer<CreateVolumeRequestContent> {
+    @Override
+    public void serialize(
+        CreateVolumeRequestContent value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateVolumeRequestContentPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateVolumeRequestContentDeserializer
+      extends JsonDeserializer<CreateVolumeRequestContent> {
+    @Override
+    public CreateVolumeRequestContent deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateVolumeRequestContentPb pb = mapper.readValue(p, CreateVolumeRequestContentPb.class);
+      return CreateVolumeRequestContent.fromPb(pb);
+    }
   }
 }

@@ -21,7 +21,7 @@ class QueriesImpl implements QueriesService {
     String path = "/api/2.0/sql/queries";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, Query.class);
@@ -35,7 +35,7 @@ class QueriesImpl implements QueriesService {
     String path = String.format("/api/2.0/sql/queries/%s", request.getId());
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Empty.class);
     } catch (IOException e) {
@@ -48,7 +48,7 @@ class QueriesImpl implements QueriesService {
     String path = String.format("/api/2.0/sql/queries/%s", request.getId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, Query.class);
     } catch (IOException e) {
@@ -61,7 +61,7 @@ class QueriesImpl implements QueriesService {
     String path = "/api/2.0/sql/queries";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListQueryObjectsResponse.class);
     } catch (IOException e) {
@@ -75,7 +75,7 @@ class QueriesImpl implements QueriesService {
     String path = String.format("/api/2.0/sql/queries/%s/visualizations", request.getId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListVisualizationsForQueryResponse.class);
     } catch (IOException e) {
@@ -88,7 +88,7 @@ class QueriesImpl implements QueriesService {
     String path = String.format("/api/2.0/sql/queries/%s", request.getId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, Query.class);

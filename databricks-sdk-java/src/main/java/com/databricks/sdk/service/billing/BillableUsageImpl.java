@@ -22,7 +22,7 @@ class BillableUsageImpl implements BillableUsageService {
         String.format("/api/2.0/accounts/%s/usage/download", apiClient.configuredAccountID());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "text/plain");
       return apiClient.execute(req, DownloadResponse.class);
     } catch (IOException e) {

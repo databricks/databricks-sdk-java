@@ -4,21 +4,29 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = SqlOutput.SqlOutputSerializer.class)
+@JsonDeserialize(using = SqlOutput.SqlOutputDeserializer.class)
 public class SqlOutput {
   /** The output of a SQL alert task, if available. */
-  @JsonProperty("alert_output")
   private SqlAlertOutput alertOutput;
 
   /** The output of a SQL dashboard task, if available. */
-  @JsonProperty("dashboard_output")
   private SqlDashboardOutput dashboardOutput;
 
   /** The output of a SQL query task, if available. */
-  @JsonProperty("query_output")
   private SqlQueryOutput queryOutput;
 
   public SqlOutput setAlertOutput(SqlAlertOutput alertOutput) {
@@ -70,5 +78,41 @@ public class SqlOutput {
         .add("dashboardOutput", dashboardOutput)
         .add("queryOutput", queryOutput)
         .toString();
+  }
+
+  SqlOutputPb toPb() {
+    SqlOutputPb pb = new SqlOutputPb();
+    pb.setAlertOutput(alertOutput);
+    pb.setDashboardOutput(dashboardOutput);
+    pb.setQueryOutput(queryOutput);
+
+    return pb;
+  }
+
+  static SqlOutput fromPb(SqlOutputPb pb) {
+    SqlOutput model = new SqlOutput();
+    model.setAlertOutput(pb.getAlertOutput());
+    model.setDashboardOutput(pb.getDashboardOutput());
+    model.setQueryOutput(pb.getQueryOutput());
+
+    return model;
+  }
+
+  public static class SqlOutputSerializer extends JsonSerializer<SqlOutput> {
+    @Override
+    public void serialize(SqlOutput value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SqlOutputPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SqlOutputDeserializer extends JsonDeserializer<SqlOutput> {
+    @Override
+    public SqlOutput deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SqlOutputPb pb = mapper.readValue(p, SqlOutputPb.class);
+      return SqlOutput.fromPb(pb);
+    }
   }
 }

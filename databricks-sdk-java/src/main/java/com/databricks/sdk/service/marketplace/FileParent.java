@@ -4,17 +4,26 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = FileParent.FileParentSerializer.class)
+@JsonDeserialize(using = FileParent.FileParentDeserializer.class)
 public class FileParent {
   /** */
-  @JsonProperty("file_parent_type")
   private FileParentType fileParentType;
 
   /** TODO make the following fields required */
-  @JsonProperty("parent_id")
   private String parentId;
 
   public FileParent setFileParentType(FileParentType fileParentType) {
@@ -55,5 +64,39 @@ public class FileParent {
         .add("fileParentType", fileParentType)
         .add("parentId", parentId)
         .toString();
+  }
+
+  FileParentPb toPb() {
+    FileParentPb pb = new FileParentPb();
+    pb.setFileParentType(fileParentType);
+    pb.setParentId(parentId);
+
+    return pb;
+  }
+
+  static FileParent fromPb(FileParentPb pb) {
+    FileParent model = new FileParent();
+    model.setFileParentType(pb.getFileParentType());
+    model.setParentId(pb.getParentId());
+
+    return model;
+  }
+
+  public static class FileParentSerializer extends JsonSerializer<FileParent> {
+    @Override
+    public void serialize(FileParent value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      FileParentPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class FileParentDeserializer extends JsonDeserializer<FileParent> {
+    @Override
+    public FileParent deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      FileParentPb pb = mapper.readValue(p, FileParentPb.class);
+      return FileParent.fromPb(pb);
+    }
   }
 }

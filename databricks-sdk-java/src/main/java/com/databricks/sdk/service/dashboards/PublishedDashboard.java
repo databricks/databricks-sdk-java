@@ -4,25 +4,32 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = PublishedDashboard.PublishedDashboardSerializer.class)
+@JsonDeserialize(using = PublishedDashboard.PublishedDashboardDeserializer.class)
 public class PublishedDashboard {
   /** The display name of the published dashboard. */
-  @JsonProperty("display_name")
   private String displayName;
 
   /** Indicates whether credentials are embedded in the published dashboard. */
-  @JsonProperty("embed_credentials")
   private Boolean embedCredentials;
 
   /** The timestamp of when the published dashboard was last revised. */
-  @JsonProperty("revision_create_time")
   private String revisionCreateTime;
 
   /** The warehouse ID used to run the published dashboard. */
-  @JsonProperty("warehouse_id")
   private String warehouseId;
 
   public PublishedDashboard setDisplayName(String displayName) {
@@ -85,5 +92,44 @@ public class PublishedDashboard {
         .add("revisionCreateTime", revisionCreateTime)
         .add("warehouseId", warehouseId)
         .toString();
+  }
+
+  PublishedDashboardPb toPb() {
+    PublishedDashboardPb pb = new PublishedDashboardPb();
+    pb.setDisplayName(displayName);
+    pb.setEmbedCredentials(embedCredentials);
+    pb.setRevisionCreateTime(revisionCreateTime);
+    pb.setWarehouseId(warehouseId);
+
+    return pb;
+  }
+
+  static PublishedDashboard fromPb(PublishedDashboardPb pb) {
+    PublishedDashboard model = new PublishedDashboard();
+    model.setDisplayName(pb.getDisplayName());
+    model.setEmbedCredentials(pb.getEmbedCredentials());
+    model.setRevisionCreateTime(pb.getRevisionCreateTime());
+    model.setWarehouseId(pb.getWarehouseId());
+
+    return model;
+  }
+
+  public static class PublishedDashboardSerializer extends JsonSerializer<PublishedDashboard> {
+    @Override
+    public void serialize(PublishedDashboard value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PublishedDashboardPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PublishedDashboardDeserializer extends JsonDeserializer<PublishedDashboard> {
+    @Override
+    public PublishedDashboard deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PublishedDashboardPb pb = mapper.readValue(p, PublishedDashboardPb.class);
+      return PublishedDashboard.fromPb(pb);
+    }
   }
 }

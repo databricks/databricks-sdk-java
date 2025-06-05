@@ -4,27 +4,34 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 /** Details required to replace an IP access list. */
 @Generated
+@JsonSerialize(using = ReplaceIpAccessList.ReplaceIpAccessListSerializer.class)
+@JsonDeserialize(using = ReplaceIpAccessList.ReplaceIpAccessListDeserializer.class)
 public class ReplaceIpAccessList {
   /** Specifies whether this IP access list is enabled. */
-  @JsonProperty("enabled")
   private Boolean enabled;
 
   /** The ID for the corresponding IP access list */
-  @JsonIgnore private String ipAccessListId;
+  private String ipAccessListId;
 
   /** */
-  @JsonProperty("ip_addresses")
   private Collection<String> ipAddresses;
 
   /** Label for the IP access list. This **cannot** be empty. */
-  @JsonProperty("label")
   private String label;
 
   /**
@@ -34,7 +41,6 @@ public class ReplaceIpAccessList {
    * or range. IP addresses in the block list are excluded even if they are included in an allow
    * list.
    */
-  @JsonProperty("list_type")
   private ListType listType;
 
   public ReplaceIpAccessList setEnabled(Boolean enabled) {
@@ -108,5 +114,47 @@ public class ReplaceIpAccessList {
         .add("label", label)
         .add("listType", listType)
         .toString();
+  }
+
+  ReplaceIpAccessListPb toPb() {
+    ReplaceIpAccessListPb pb = new ReplaceIpAccessListPb();
+    pb.setEnabled(enabled);
+    pb.setIpAccessListId(ipAccessListId);
+    pb.setIpAddresses(ipAddresses);
+    pb.setLabel(label);
+    pb.setListType(listType);
+
+    return pb;
+  }
+
+  static ReplaceIpAccessList fromPb(ReplaceIpAccessListPb pb) {
+    ReplaceIpAccessList model = new ReplaceIpAccessList();
+    model.setEnabled(pb.getEnabled());
+    model.setIpAccessListId(pb.getIpAccessListId());
+    model.setIpAddresses(pb.getIpAddresses());
+    model.setLabel(pb.getLabel());
+    model.setListType(pb.getListType());
+
+    return model;
+  }
+
+  public static class ReplaceIpAccessListSerializer extends JsonSerializer<ReplaceIpAccessList> {
+    @Override
+    public void serialize(ReplaceIpAccessList value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ReplaceIpAccessListPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ReplaceIpAccessListDeserializer
+      extends JsonDeserializer<ReplaceIpAccessList> {
+    @Override
+    public ReplaceIpAccessList deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ReplaceIpAccessListPb pb = mapper.readValue(p, ReplaceIpAccessListPb.class);
+      return ReplaceIpAccessList.fromPb(pb);
+    }
   }
 }

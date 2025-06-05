@@ -4,7 +4,16 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -13,9 +22,16 @@ import java.util.Objects;
  * support host names and IP addresses.
  */
 @Generated
+@JsonSerialize(
+    using =
+        EgressNetworkPolicyInternetAccessPolicyInternetDestination
+            .EgressNetworkPolicyInternetAccessPolicyInternetDestinationSerializer.class)
+@JsonDeserialize(
+    using =
+        EgressNetworkPolicyInternetAccessPolicyInternetDestination
+            .EgressNetworkPolicyInternetAccessPolicyInternetDestinationDeserializer.class)
 public class EgressNetworkPolicyInternetAccessPolicyInternetDestination {
   /** */
-  @JsonProperty("destination")
   private String destination;
 
   /**
@@ -24,13 +40,11 @@ public class EgressNetworkPolicyInternetAccessPolicyInternetDestination {
    * be set to TCP by default and hidden from the user. In the future, users may be able to select
    * HTTP filtering (i.e. SNI based filtering, filtering by FQDN).
    */
-  @JsonProperty("protocol")
   private
   EgressNetworkPolicyInternetAccessPolicyInternetDestinationInternetDestinationFilteringProtocol
       protocol;
 
   /** */
-  @JsonProperty("type")
   private EgressNetworkPolicyInternetAccessPolicyInternetDestinationInternetDestinationType
       typeValue;
 
@@ -91,5 +105,51 @@ public class EgressNetworkPolicyInternetAccessPolicyInternetDestination {
         .add("protocol", protocol)
         .add("typeValue", typeValue)
         .toString();
+  }
+
+  EgressNetworkPolicyInternetAccessPolicyInternetDestinationPb toPb() {
+    EgressNetworkPolicyInternetAccessPolicyInternetDestinationPb pb =
+        new EgressNetworkPolicyInternetAccessPolicyInternetDestinationPb();
+    pb.setDestination(destination);
+    pb.setProtocol(protocol);
+    pb.setType(typeValue);
+
+    return pb;
+  }
+
+  static EgressNetworkPolicyInternetAccessPolicyInternetDestination fromPb(
+      EgressNetworkPolicyInternetAccessPolicyInternetDestinationPb pb) {
+    EgressNetworkPolicyInternetAccessPolicyInternetDestination model =
+        new EgressNetworkPolicyInternetAccessPolicyInternetDestination();
+    model.setDestination(pb.getDestination());
+    model.setProtocol(pb.getProtocol());
+    model.setType(pb.getType());
+
+    return model;
+  }
+
+  public static class EgressNetworkPolicyInternetAccessPolicyInternetDestinationSerializer
+      extends JsonSerializer<EgressNetworkPolicyInternetAccessPolicyInternetDestination> {
+    @Override
+    public void serialize(
+        EgressNetworkPolicyInternetAccessPolicyInternetDestination value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      EgressNetworkPolicyInternetAccessPolicyInternetDestinationPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class EgressNetworkPolicyInternetAccessPolicyInternetDestinationDeserializer
+      extends JsonDeserializer<EgressNetworkPolicyInternetAccessPolicyInternetDestination> {
+    @Override
+    public EgressNetworkPolicyInternetAccessPolicyInternetDestination deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      EgressNetworkPolicyInternetAccessPolicyInternetDestinationPb pb =
+          mapper.readValue(p, EgressNetworkPolicyInternetAccessPolicyInternetDestinationPb.class);
+      return EgressNetworkPolicyInternetAccessPolicyInternetDestination.fromPb(pb);
+    }
   }
 }

@@ -4,18 +4,29 @@ package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = UpdateBudgetConfigurationRequest.UpdateBudgetConfigurationRequestSerializer.class)
+@JsonDeserialize(
+    using = UpdateBudgetConfigurationRequest.UpdateBudgetConfigurationRequestDeserializer.class)
 public class UpdateBudgetConfigurationRequest {
   /** The updated budget. This will overwrite the budget specified by the budget ID. */
-  @JsonProperty("budget")
   private UpdateBudgetConfigurationBudget budget;
 
   /** The Databricks budget configuration ID. */
-  @JsonIgnore private String budgetId;
+  private String budgetId;
 
   public UpdateBudgetConfigurationRequest setBudget(UpdateBudgetConfigurationBudget budget) {
     this.budget = budget;
@@ -54,5 +65,44 @@ public class UpdateBudgetConfigurationRequest {
         .add("budget", budget)
         .add("budgetId", budgetId)
         .toString();
+  }
+
+  UpdateBudgetConfigurationRequestPb toPb() {
+    UpdateBudgetConfigurationRequestPb pb = new UpdateBudgetConfigurationRequestPb();
+    pb.setBudget(budget);
+    pb.setBudgetId(budgetId);
+
+    return pb;
+  }
+
+  static UpdateBudgetConfigurationRequest fromPb(UpdateBudgetConfigurationRequestPb pb) {
+    UpdateBudgetConfigurationRequest model = new UpdateBudgetConfigurationRequest();
+    model.setBudget(pb.getBudget());
+    model.setBudgetId(pb.getBudgetId());
+
+    return model;
+  }
+
+  public static class UpdateBudgetConfigurationRequestSerializer
+      extends JsonSerializer<UpdateBudgetConfigurationRequest> {
+    @Override
+    public void serialize(
+        UpdateBudgetConfigurationRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateBudgetConfigurationRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateBudgetConfigurationRequestDeserializer
+      extends JsonDeserializer<UpdateBudgetConfigurationRequest> {
+    @Override
+    public UpdateBudgetConfigurationRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateBudgetConfigurationRequestPb pb =
+          mapper.readValue(p, UpdateBudgetConfigurationRequestPb.class);
+      return UpdateBudgetConfigurationRequest.fromPb(pb);
+    }
   }
 }

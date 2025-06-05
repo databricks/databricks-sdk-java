@@ -24,7 +24,7 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
             apiClient.configuredAccountID(), request.getWorkspaceId(), request.getMetastoreId());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, CreateResponse.class);
@@ -41,7 +41,7 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
             apiClient.configuredAccountID(), request.getWorkspaceId(), request.getMetastoreId());
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, DeleteResponse.class);
     } catch (IOException e) {
@@ -57,7 +57,7 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
             apiClient.configuredAccountID(), request.getWorkspaceId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, AccountsMetastoreAssignment.class);
     } catch (IOException e) {
@@ -74,7 +74,7 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
             apiClient.configuredAccountID(), request.getMetastoreId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListAccountMetastoreAssignmentsResponse.class);
     } catch (IOException e) {
@@ -90,7 +90,7 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
             apiClient.configuredAccountID(), request.getWorkspaceId(), request.getMetastoreId());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, UpdateResponse.class);

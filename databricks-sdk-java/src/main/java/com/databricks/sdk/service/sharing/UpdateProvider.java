@@ -4,32 +4,38 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = UpdateProvider.UpdateProviderSerializer.class)
+@JsonDeserialize(using = UpdateProvider.UpdateProviderDeserializer.class)
 public class UpdateProvider {
   /** Description about the provider. */
-  @JsonProperty("comment")
   private String comment;
 
   /** Name of the provider. */
-  @JsonIgnore private String name;
+  private String name;
 
   /** New name for the provider. */
-  @JsonProperty("new_name")
   private String newName;
 
   /** Username of Provider owner. */
-  @JsonProperty("owner")
   private String owner;
 
   /**
    * This field is required when the __authentication_type__ is **TOKEN**,
    * **OAUTH_CLIENT_CREDENTIALS** or not provided.
    */
-  @JsonProperty("recipient_profile_str")
   private String recipientProfileStr;
 
   public UpdateProvider setComment(String comment) {
@@ -103,5 +109,46 @@ public class UpdateProvider {
         .add("owner", owner)
         .add("recipientProfileStr", recipientProfileStr)
         .toString();
+  }
+
+  UpdateProviderPb toPb() {
+    UpdateProviderPb pb = new UpdateProviderPb();
+    pb.setComment(comment);
+    pb.setName(name);
+    pb.setNewName(newName);
+    pb.setOwner(owner);
+    pb.setRecipientProfileStr(recipientProfileStr);
+
+    return pb;
+  }
+
+  static UpdateProvider fromPb(UpdateProviderPb pb) {
+    UpdateProvider model = new UpdateProvider();
+    model.setComment(pb.getComment());
+    model.setName(pb.getName());
+    model.setNewName(pb.getNewName());
+    model.setOwner(pb.getOwner());
+    model.setRecipientProfileStr(pb.getRecipientProfileStr());
+
+    return model;
+  }
+
+  public static class UpdateProviderSerializer extends JsonSerializer<UpdateProvider> {
+    @Override
+    public void serialize(UpdateProvider value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateProviderPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateProviderDeserializer extends JsonDeserializer<UpdateProvider> {
+    @Override
+    public UpdateProvider deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateProviderPb pb = mapper.readValue(p, UpdateProviderPb.class);
+      return UpdateProvider.fromPb(pb);
+    }
   }
 }

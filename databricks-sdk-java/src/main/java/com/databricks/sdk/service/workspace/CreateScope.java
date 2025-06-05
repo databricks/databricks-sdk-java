@@ -4,27 +4,34 @@ package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateScope.CreateScopeSerializer.class)
+@JsonDeserialize(using = CreateScope.CreateScopeDeserializer.class)
 public class CreateScope {
   /** The metadata for the secret scope if the type is `AZURE_KEYVAULT` */
-  @JsonProperty("backend_azure_keyvault")
   private AzureKeyVaultSecretScopeMetadata backendAzureKeyvault;
 
   /** The principal that is initially granted `MANAGE` permission to the created scope. */
-  @JsonProperty("initial_manage_principal")
   private String initialManagePrincipal;
 
   /** Scope name requested by the user. Scope names are unique. */
-  @JsonProperty("scope")
   private String scope;
 
   /**
    * The backend type the scope will be created with. If not specified, will default to `DATABRICKS`
    */
-  @JsonProperty("scope_backend_type")
   private ScopeBackendType scopeBackendType;
 
   public CreateScope setBackendAzureKeyvault(
@@ -88,5 +95,43 @@ public class CreateScope {
         .add("scope", scope)
         .add("scopeBackendType", scopeBackendType)
         .toString();
+  }
+
+  CreateScopePb toPb() {
+    CreateScopePb pb = new CreateScopePb();
+    pb.setBackendAzureKeyvault(backendAzureKeyvault);
+    pb.setInitialManagePrincipal(initialManagePrincipal);
+    pb.setScope(scope);
+    pb.setScopeBackendType(scopeBackendType);
+
+    return pb;
+  }
+
+  static CreateScope fromPb(CreateScopePb pb) {
+    CreateScope model = new CreateScope();
+    model.setBackendAzureKeyvault(pb.getBackendAzureKeyvault());
+    model.setInitialManagePrincipal(pb.getInitialManagePrincipal());
+    model.setScope(pb.getScope());
+    model.setScopeBackendType(pb.getScopeBackendType());
+
+    return model;
+  }
+
+  public static class CreateScopeSerializer extends JsonSerializer<CreateScope> {
+    @Override
+    public void serialize(CreateScope value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateScopePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateScopeDeserializer extends JsonDeserializer<CreateScope> {
+    @Override
+    public CreateScope deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateScopePb pb = mapper.readValue(p, CreateScopePb.class);
+      return CreateScope.fromPb(pb);
+    }
   }
 }

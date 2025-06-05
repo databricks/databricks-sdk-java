@@ -4,32 +4,40 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = WebhookNotifications.WebhookNotificationsSerializer.class)
+@JsonDeserialize(using = WebhookNotifications.WebhookNotificationsDeserializer.class)
 public class WebhookNotifications {
   /**
    * An optional list of system notification IDs to call when the duration of a run exceeds the
    * threshold specified for the `RUN_DURATION_SECONDS` metric in the `health` field. A maximum of 3
    * destinations can be specified for the `on_duration_warning_threshold_exceeded` property.
    */
-  @JsonProperty("on_duration_warning_threshold_exceeded")
   private Collection<Webhook> onDurationWarningThresholdExceeded;
 
   /**
    * An optional list of system notification IDs to call when the run fails. A maximum of 3
    * destinations can be specified for the `on_failure` property.
    */
-  @JsonProperty("on_failure")
   private Collection<Webhook> onFailure;
 
   /**
    * An optional list of system notification IDs to call when the run starts. A maximum of 3
    * destinations can be specified for the `on_start` property.
    */
-  @JsonProperty("on_start")
   private Collection<Webhook> onStart;
 
   /**
@@ -40,14 +48,12 @@ public class WebhookNotifications {
    * average of these metrics. If the issue persists, notifications are resent every 30 minutes. A
    * maximum of 3 destinations can be specified for the `on_streaming_backlog_exceeded` property.
    */
-  @JsonProperty("on_streaming_backlog_exceeded")
   private Collection<Webhook> onStreamingBacklogExceeded;
 
   /**
    * An optional list of system notification IDs to call when the run completes successfully. A
    * maximum of 3 destinations can be specified for the `on_success` property.
    */
-  @JsonProperty("on_success")
   private Collection<Webhook> onSuccess;
 
   public WebhookNotifications setOnDurationWarningThresholdExceeded(
@@ -129,5 +135,48 @@ public class WebhookNotifications {
         .add("onStreamingBacklogExceeded", onStreamingBacklogExceeded)
         .add("onSuccess", onSuccess)
         .toString();
+  }
+
+  WebhookNotificationsPb toPb() {
+    WebhookNotificationsPb pb = new WebhookNotificationsPb();
+    pb.setOnDurationWarningThresholdExceeded(onDurationWarningThresholdExceeded);
+    pb.setOnFailure(onFailure);
+    pb.setOnStart(onStart);
+    pb.setOnStreamingBacklogExceeded(onStreamingBacklogExceeded);
+    pb.setOnSuccess(onSuccess);
+
+    return pb;
+  }
+
+  static WebhookNotifications fromPb(WebhookNotificationsPb pb) {
+    WebhookNotifications model = new WebhookNotifications();
+    model.setOnDurationWarningThresholdExceeded(pb.getOnDurationWarningThresholdExceeded());
+    model.setOnFailure(pb.getOnFailure());
+    model.setOnStart(pb.getOnStart());
+    model.setOnStreamingBacklogExceeded(pb.getOnStreamingBacklogExceeded());
+    model.setOnSuccess(pb.getOnSuccess());
+
+    return model;
+  }
+
+  public static class WebhookNotificationsSerializer extends JsonSerializer<WebhookNotifications> {
+    @Override
+    public void serialize(
+        WebhookNotifications value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      WebhookNotificationsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class WebhookNotificationsDeserializer
+      extends JsonDeserializer<WebhookNotifications> {
+    @Override
+    public WebhookNotifications deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      WebhookNotificationsPb pb = mapper.readValue(p, WebhookNotificationsPb.class);
+      return WebhookNotifications.fromPb(pb);
+    }
   }
 }

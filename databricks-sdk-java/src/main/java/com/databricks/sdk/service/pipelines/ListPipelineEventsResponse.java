@@ -4,22 +4,30 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ListPipelineEventsResponse.ListPipelineEventsResponseSerializer.class)
+@JsonDeserialize(using = ListPipelineEventsResponse.ListPipelineEventsResponseDeserializer.class)
 public class ListPipelineEventsResponse {
   /** The list of events matching the request criteria. */
-  @JsonProperty("events")
   private Collection<PipelineEvent> events;
 
   /** If present, a token to fetch the next page of events. */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   /** If present, a token to fetch the previous page of events. */
-  @JsonProperty("prev_page_token")
   private String prevPageToken;
 
   public ListPipelineEventsResponse setEvents(Collection<PipelineEvent> events) {
@@ -71,5 +79,45 @@ public class ListPipelineEventsResponse {
         .add("nextPageToken", nextPageToken)
         .add("prevPageToken", prevPageToken)
         .toString();
+  }
+
+  ListPipelineEventsResponsePb toPb() {
+    ListPipelineEventsResponsePb pb = new ListPipelineEventsResponsePb();
+    pb.setEvents(events);
+    pb.setNextPageToken(nextPageToken);
+    pb.setPrevPageToken(prevPageToken);
+
+    return pb;
+  }
+
+  static ListPipelineEventsResponse fromPb(ListPipelineEventsResponsePb pb) {
+    ListPipelineEventsResponse model = new ListPipelineEventsResponse();
+    model.setEvents(pb.getEvents());
+    model.setNextPageToken(pb.getNextPageToken());
+    model.setPrevPageToken(pb.getPrevPageToken());
+
+    return model;
+  }
+
+  public static class ListPipelineEventsResponseSerializer
+      extends JsonSerializer<ListPipelineEventsResponse> {
+    @Override
+    public void serialize(
+        ListPipelineEventsResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListPipelineEventsResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListPipelineEventsResponseDeserializer
+      extends JsonDeserializer<ListPipelineEventsResponse> {
+    @Override
+    public ListPipelineEventsResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListPipelineEventsResponsePb pb = mapper.readValue(p, ListPipelineEventsResponsePb.class);
+      return ListPipelineEventsResponse.fromPb(pb);
+    }
   }
 }

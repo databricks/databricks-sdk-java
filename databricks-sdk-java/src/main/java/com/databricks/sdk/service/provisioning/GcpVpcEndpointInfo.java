@@ -4,30 +4,36 @@ package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** The Google Cloud specific information for this Private Service Connect endpoint. */
 @Generated
+@JsonSerialize(using = GcpVpcEndpointInfo.GcpVpcEndpointInfoSerializer.class)
+@JsonDeserialize(using = GcpVpcEndpointInfo.GcpVpcEndpointInfoDeserializer.class)
 public class GcpVpcEndpointInfo {
   /** Region of the PSC endpoint. */
-  @JsonProperty("endpoint_region")
   private String endpointRegion;
 
   /** The Google Cloud project ID of the VPC network where the PSC connection resides. */
-  @JsonProperty("project_id")
   private String projectId;
 
   /** The unique ID of this PSC connection. */
-  @JsonProperty("psc_connection_id")
   private String pscConnectionId;
 
   /** The name of the PSC endpoint in the Google Cloud project. */
-  @JsonProperty("psc_endpoint_name")
   private String pscEndpointName;
 
   /** The service attachment this PSC connection connects to. */
-  @JsonProperty("service_attachment_id")
   private String serviceAttachmentId;
 
   public GcpVpcEndpointInfo setEndpointRegion(String endpointRegion) {
@@ -102,5 +108,46 @@ public class GcpVpcEndpointInfo {
         .add("pscEndpointName", pscEndpointName)
         .add("serviceAttachmentId", serviceAttachmentId)
         .toString();
+  }
+
+  GcpVpcEndpointInfoPb toPb() {
+    GcpVpcEndpointInfoPb pb = new GcpVpcEndpointInfoPb();
+    pb.setEndpointRegion(endpointRegion);
+    pb.setProjectId(projectId);
+    pb.setPscConnectionId(pscConnectionId);
+    pb.setPscEndpointName(pscEndpointName);
+    pb.setServiceAttachmentId(serviceAttachmentId);
+
+    return pb;
+  }
+
+  static GcpVpcEndpointInfo fromPb(GcpVpcEndpointInfoPb pb) {
+    GcpVpcEndpointInfo model = new GcpVpcEndpointInfo();
+    model.setEndpointRegion(pb.getEndpointRegion());
+    model.setProjectId(pb.getProjectId());
+    model.setPscConnectionId(pb.getPscConnectionId());
+    model.setPscEndpointName(pb.getPscEndpointName());
+    model.setServiceAttachmentId(pb.getServiceAttachmentId());
+
+    return model;
+  }
+
+  public static class GcpVpcEndpointInfoSerializer extends JsonSerializer<GcpVpcEndpointInfo> {
+    @Override
+    public void serialize(GcpVpcEndpointInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GcpVpcEndpointInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GcpVpcEndpointInfoDeserializer extends JsonDeserializer<GcpVpcEndpointInfo> {
+    @Override
+    public GcpVpcEndpointInfo deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GcpVpcEndpointInfoPb pb = mapper.readValue(p, GcpVpcEndpointInfoPb.class);
+      return GcpVpcEndpointInfo.fromPb(pb);
+    }
   }
 }

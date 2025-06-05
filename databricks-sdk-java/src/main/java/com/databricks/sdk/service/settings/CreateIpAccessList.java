@@ -4,19 +4,28 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 /** Details required to configure a block list or allow list. */
 @Generated
+@JsonSerialize(using = CreateIpAccessList.CreateIpAccessListSerializer.class)
+@JsonDeserialize(using = CreateIpAccessList.CreateIpAccessListDeserializer.class)
 public class CreateIpAccessList {
   /** */
-  @JsonProperty("ip_addresses")
   private Collection<String> ipAddresses;
 
   /** Label for the IP access list. This **cannot** be empty. */
-  @JsonProperty("label")
   private String label;
 
   /**
@@ -26,7 +35,6 @@ public class CreateIpAccessList {
    * or range. IP addresses in the block list are excluded even if they are included in an allow
    * list.
    */
-  @JsonProperty("list_type")
   private ListType listType;
 
   public CreateIpAccessList setIpAddresses(Collection<String> ipAddresses) {
@@ -78,5 +86,42 @@ public class CreateIpAccessList {
         .add("label", label)
         .add("listType", listType)
         .toString();
+  }
+
+  CreateIpAccessListPb toPb() {
+    CreateIpAccessListPb pb = new CreateIpAccessListPb();
+    pb.setIpAddresses(ipAddresses);
+    pb.setLabel(label);
+    pb.setListType(listType);
+
+    return pb;
+  }
+
+  static CreateIpAccessList fromPb(CreateIpAccessListPb pb) {
+    CreateIpAccessList model = new CreateIpAccessList();
+    model.setIpAddresses(pb.getIpAddresses());
+    model.setLabel(pb.getLabel());
+    model.setListType(pb.getListType());
+
+    return model;
+  }
+
+  public static class CreateIpAccessListSerializer extends JsonSerializer<CreateIpAccessList> {
+    @Override
+    public void serialize(CreateIpAccessList value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateIpAccessListPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateIpAccessListDeserializer extends JsonDeserializer<CreateIpAccessList> {
+    @Override
+    public CreateIpAccessList deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateIpAccessListPb pb = mapper.readValue(p, CreateIpAccessListPb.class);
+      return CreateIpAccessList.fromPb(pb);
+    }
   }
 }

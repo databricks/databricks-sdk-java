@@ -3,13 +3,23 @@
 package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get recipient share permissions */
 @Generated
+@JsonSerialize(using = SharePermissionsRequest.SharePermissionsRequestSerializer.class)
+@JsonDeserialize(using = SharePermissionsRequest.SharePermissionsRequestDeserializer.class)
 public class SharePermissionsRequest {
   /**
    * Maximum number of permissions to return. - when set to 0, the page length is set to a server
@@ -20,16 +30,12 @@ public class SharePermissionsRequest {
    * max_results size, even zero. The only definitive indication that no further permissions can be
    * fetched is when the next_page_token is unset from the response.
    */
-  @JsonIgnore
-  @QueryParam("max_results")
   private Long maxResults;
 
   /** The name of the Recipient. */
-  @JsonIgnore private String name;
+  private String name;
 
   /** Opaque pagination token to go to next page based on previous query. */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   public SharePermissionsRequest setMaxResults(Long maxResults) {
@@ -81,5 +87,45 @@ public class SharePermissionsRequest {
         .add("name", name)
         .add("pageToken", pageToken)
         .toString();
+  }
+
+  SharePermissionsRequestPb toPb() {
+    SharePermissionsRequestPb pb = new SharePermissionsRequestPb();
+    pb.setMaxResults(maxResults);
+    pb.setName(name);
+    pb.setPageToken(pageToken);
+
+    return pb;
+  }
+
+  static SharePermissionsRequest fromPb(SharePermissionsRequestPb pb) {
+    SharePermissionsRequest model = new SharePermissionsRequest();
+    model.setMaxResults(pb.getMaxResults());
+    model.setName(pb.getName());
+    model.setPageToken(pb.getPageToken());
+
+    return model;
+  }
+
+  public static class SharePermissionsRequestSerializer
+      extends JsonSerializer<SharePermissionsRequest> {
+    @Override
+    public void serialize(
+        SharePermissionsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SharePermissionsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SharePermissionsRequestDeserializer
+      extends JsonDeserializer<SharePermissionsRequest> {
+    @Override
+    public SharePermissionsRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SharePermissionsRequestPb pb = mapper.readValue(p, SharePermissionsRequestPb.class);
+      return SharePermissionsRequest.fromPb(pb);
+    }
   }
 }

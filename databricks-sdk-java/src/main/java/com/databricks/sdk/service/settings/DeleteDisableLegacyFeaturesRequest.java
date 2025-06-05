@@ -3,13 +3,25 @@
 package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Delete the disable legacy features setting */
 @Generated
+@JsonSerialize(
+    using = DeleteDisableLegacyFeaturesRequest.DeleteDisableLegacyFeaturesRequestSerializer.class)
+@JsonDeserialize(
+    using = DeleteDisableLegacyFeaturesRequest.DeleteDisableLegacyFeaturesRequestDeserializer.class)
 public class DeleteDisableLegacyFeaturesRequest {
   /**
    * etag used for versioning. The response is at least as fresh as the eTag provided. This is used
@@ -19,8 +31,6 @@ public class DeleteDisableLegacyFeaturesRequest {
    * an etag from a GET request, and pass it with the DELETE request to identify the rule set
    * version you are deleting.
    */
-  @JsonIgnore
-  @QueryParam("etag")
   private String etag;
 
   public DeleteDisableLegacyFeaturesRequest setEtag(String etag) {
@@ -48,5 +58,42 @@ public class DeleteDisableLegacyFeaturesRequest {
   @Override
   public String toString() {
     return new ToStringer(DeleteDisableLegacyFeaturesRequest.class).add("etag", etag).toString();
+  }
+
+  DeleteDisableLegacyFeaturesRequestPb toPb() {
+    DeleteDisableLegacyFeaturesRequestPb pb = new DeleteDisableLegacyFeaturesRequestPb();
+    pb.setEtag(etag);
+
+    return pb;
+  }
+
+  static DeleteDisableLegacyFeaturesRequest fromPb(DeleteDisableLegacyFeaturesRequestPb pb) {
+    DeleteDisableLegacyFeaturesRequest model = new DeleteDisableLegacyFeaturesRequest();
+    model.setEtag(pb.getEtag());
+
+    return model;
+  }
+
+  public static class DeleteDisableLegacyFeaturesRequestSerializer
+      extends JsonSerializer<DeleteDisableLegacyFeaturesRequest> {
+    @Override
+    public void serialize(
+        DeleteDisableLegacyFeaturesRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DeleteDisableLegacyFeaturesRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DeleteDisableLegacyFeaturesRequestDeserializer
+      extends JsonDeserializer<DeleteDisableLegacyFeaturesRequest> {
+    @Override
+    public DeleteDisableLegacyFeaturesRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DeleteDisableLegacyFeaturesRequestPb pb =
+          mapper.readValue(p, DeleteDisableLegacyFeaturesRequestPb.class);
+      return DeleteDisableLegacyFeaturesRequest.fromPb(pb);
+    }
   }
 }

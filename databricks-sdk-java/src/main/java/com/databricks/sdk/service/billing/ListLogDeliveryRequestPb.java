@@ -1,0 +1,76 @@
+// Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
+
+package com.databricks.sdk.service.billing;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Objects;
+
+/** Get all log delivery configurations */
+@Generated
+class ListLogDeliveryRequestPb {
+  @JsonIgnore
+  @QueryParam("credentials_id")
+  private String credentialsId;
+
+  @JsonIgnore
+  @QueryParam("status")
+  private LogDeliveryConfigStatus status;
+
+  @JsonIgnore
+  @QueryParam("storage_configuration_id")
+  private String storageConfigurationId;
+
+  public ListLogDeliveryRequestPb setCredentialsId(String credentialsId) {
+    this.credentialsId = credentialsId;
+    return this;
+  }
+
+  public String getCredentialsId() {
+    return credentialsId;
+  }
+
+  public ListLogDeliveryRequestPb setStatus(LogDeliveryConfigStatus status) {
+    this.status = status;
+    return this;
+  }
+
+  public LogDeliveryConfigStatus getStatus() {
+    return status;
+  }
+
+  public ListLogDeliveryRequestPb setStorageConfigurationId(String storageConfigurationId) {
+    this.storageConfigurationId = storageConfigurationId;
+    return this;
+  }
+
+  public String getStorageConfigurationId() {
+    return storageConfigurationId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ListLogDeliveryRequestPb that = (ListLogDeliveryRequestPb) o;
+    return Objects.equals(credentialsId, that.credentialsId)
+        && Objects.equals(status, that.status)
+        && Objects.equals(storageConfigurationId, that.storageConfigurationId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(credentialsId, status, storageConfigurationId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ListLogDeliveryRequestPb.class)
+        .add("credentialsId", credentialsId)
+        .add("status", status)
+        .add("storageConfigurationId", storageConfigurationId)
+        .toString();
+  }
+}

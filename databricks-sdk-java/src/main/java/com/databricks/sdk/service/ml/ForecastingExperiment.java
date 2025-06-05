@@ -4,22 +4,30 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Represents a forecasting experiment with its unique identifier, URL, and state. */
 @Generated
+@JsonSerialize(using = ForecastingExperiment.ForecastingExperimentSerializer.class)
+@JsonDeserialize(using = ForecastingExperiment.ForecastingExperimentDeserializer.class)
 public class ForecastingExperiment {
   /** The unique ID for the forecasting experiment. */
-  @JsonProperty("experiment_id")
   private String experimentId;
 
   /** The URL to the forecasting experiment page. */
-  @JsonProperty("experiment_page_url")
   private String experimentPageUrl;
 
   /** The current state of the forecasting experiment. */
-  @JsonProperty("state")
   private ForecastingExperimentState state;
 
   public ForecastingExperiment setExperimentId(String experimentId) {
@@ -71,5 +79,45 @@ public class ForecastingExperiment {
         .add("experimentPageUrl", experimentPageUrl)
         .add("state", state)
         .toString();
+  }
+
+  ForecastingExperimentPb toPb() {
+    ForecastingExperimentPb pb = new ForecastingExperimentPb();
+    pb.setExperimentId(experimentId);
+    pb.setExperimentPageUrl(experimentPageUrl);
+    pb.setState(state);
+
+    return pb;
+  }
+
+  static ForecastingExperiment fromPb(ForecastingExperimentPb pb) {
+    ForecastingExperiment model = new ForecastingExperiment();
+    model.setExperimentId(pb.getExperimentId());
+    model.setExperimentPageUrl(pb.getExperimentPageUrl());
+    model.setState(pb.getState());
+
+    return model;
+  }
+
+  public static class ForecastingExperimentSerializer
+      extends JsonSerializer<ForecastingExperiment> {
+    @Override
+    public void serialize(
+        ForecastingExperiment value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ForecastingExperimentPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ForecastingExperimentDeserializer
+      extends JsonDeserializer<ForecastingExperiment> {
+    @Override
+    public ForecastingExperiment deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ForecastingExperimentPb pb = mapper.readValue(p, ForecastingExperimentPb.class);
+      return ForecastingExperiment.fromPb(pb);
+    }
   }
 }

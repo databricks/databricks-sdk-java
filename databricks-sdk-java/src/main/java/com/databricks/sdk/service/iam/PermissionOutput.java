@@ -4,17 +4,26 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = PermissionOutput.PermissionOutputSerializer.class)
+@JsonDeserialize(using = PermissionOutput.PermissionOutputDeserializer.class)
 public class PermissionOutput {
   /** The results of a permissions query. */
-  @JsonProperty("description")
   private String description;
 
   /** */
-  @JsonProperty("permission_level")
   private WorkspacePermission permissionLevel;
 
   public PermissionOutput setDescription(String description) {
@@ -55,5 +64,40 @@ public class PermissionOutput {
         .add("description", description)
         .add("permissionLevel", permissionLevel)
         .toString();
+  }
+
+  PermissionOutputPb toPb() {
+    PermissionOutputPb pb = new PermissionOutputPb();
+    pb.setDescription(description);
+    pb.setPermissionLevel(permissionLevel);
+
+    return pb;
+  }
+
+  static PermissionOutput fromPb(PermissionOutputPb pb) {
+    PermissionOutput model = new PermissionOutput();
+    model.setDescription(pb.getDescription());
+    model.setPermissionLevel(pb.getPermissionLevel());
+
+    return model;
+  }
+
+  public static class PermissionOutputSerializer extends JsonSerializer<PermissionOutput> {
+    @Override
+    public void serialize(PermissionOutput value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PermissionOutputPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PermissionOutputDeserializer extends JsonDeserializer<PermissionOutput> {
+    @Override
+    public PermissionOutput deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PermissionOutputPb pb = mapper.readValue(p, PermissionOutputPb.class);
+      return PermissionOutput.fromPb(pb);
+    }
   }
 }

@@ -4,44 +4,47 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = LegacyAlert.LegacyAlertSerializer.class)
+@JsonDeserialize(using = LegacyAlert.LegacyAlertDeserializer.class)
 public class LegacyAlert {
   /** Timestamp when the alert was created. */
-  @JsonProperty("created_at")
   private String createdAt;
 
   /** Alert ID. */
-  @JsonProperty("id")
   private String id;
 
   /** Timestamp when the alert was last triggered. */
-  @JsonProperty("last_triggered_at")
   private String lastTriggeredAt;
 
   /** Name of the alert. */
-  @JsonProperty("name")
   private String name;
 
   /** Alert configuration options. */
-  @JsonProperty("options")
   private AlertOptions options;
 
   /** The identifier of the workspace folder containing the object. */
-  @JsonProperty("parent")
   private String parent;
 
   /** */
-  @JsonProperty("query")
   private AlertQuery query;
 
   /**
    * Number of seconds after being triggered before the alert rearms itself and can be triggered
    * again. If `null`, alert will never be triggered again.
    */
-  @JsonProperty("rearm")
   private Long rearm;
 
   /**
@@ -49,15 +52,12 @@ public class LegacyAlert {
    * (evaluated and fulfilled trigger conditions), or `ok` (evaluated and did not fulfill trigger
    * conditions).
    */
-  @JsonProperty("state")
   private LegacyAlertState state;
 
   /** Timestamp when the alert was last updated. */
-  @JsonProperty("updated_at")
   private String updatedAt;
 
   /** */
-  @JsonProperty("user")
   private User user;
 
   public LegacyAlert setCreatedAt(String createdAt) {
@@ -208,5 +208,57 @@ public class LegacyAlert {
         .add("updatedAt", updatedAt)
         .add("user", user)
         .toString();
+  }
+
+  LegacyAlertPb toPb() {
+    LegacyAlertPb pb = new LegacyAlertPb();
+    pb.setCreatedAt(createdAt);
+    pb.setId(id);
+    pb.setLastTriggeredAt(lastTriggeredAt);
+    pb.setName(name);
+    pb.setOptions(options);
+    pb.setParent(parent);
+    pb.setQuery(query);
+    pb.setRearm(rearm);
+    pb.setState(state);
+    pb.setUpdatedAt(updatedAt);
+    pb.setUser(user);
+
+    return pb;
+  }
+
+  static LegacyAlert fromPb(LegacyAlertPb pb) {
+    LegacyAlert model = new LegacyAlert();
+    model.setCreatedAt(pb.getCreatedAt());
+    model.setId(pb.getId());
+    model.setLastTriggeredAt(pb.getLastTriggeredAt());
+    model.setName(pb.getName());
+    model.setOptions(pb.getOptions());
+    model.setParent(pb.getParent());
+    model.setQuery(pb.getQuery());
+    model.setRearm(pb.getRearm());
+    model.setState(pb.getState());
+    model.setUpdatedAt(pb.getUpdatedAt());
+    model.setUser(pb.getUser());
+
+    return model;
+  }
+
+  public static class LegacyAlertSerializer extends JsonSerializer<LegacyAlert> {
+    @Override
+    public void serialize(LegacyAlert value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      LegacyAlertPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class LegacyAlertDeserializer extends JsonDeserializer<LegacyAlert> {
+    @Override
+    public LegacyAlert deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      LegacyAlertPb pb = mapper.readValue(p, LegacyAlertPb.class);
+      return LegacyAlert.fromPb(pb);
+    }
   }
 }

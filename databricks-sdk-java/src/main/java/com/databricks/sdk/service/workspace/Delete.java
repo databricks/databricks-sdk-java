@@ -4,13 +4,23 @@ package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = Delete.DeleteSerializer.class)
+@JsonDeserialize(using = Delete.DeleteDeserializer.class)
 public class Delete {
   /** The absolute path of the notebook or directory. */
-  @JsonProperty("path")
   private String path;
 
   /**
@@ -18,7 +28,6 @@ public class Delete {
    * Please note this deleting directory is not atomic. If it fails in the middle, some of objects
    * under this directory may be deleted and cannot be undone.
    */
-  @JsonProperty("recursive")
   private Boolean recursive;
 
   public Delete setPath(String path) {
@@ -55,5 +64,39 @@ public class Delete {
   @Override
   public String toString() {
     return new ToStringer(Delete.class).add("path", path).add("recursive", recursive).toString();
+  }
+
+  DeletePb toPb() {
+    DeletePb pb = new DeletePb();
+    pb.setPath(path);
+    pb.setRecursive(recursive);
+
+    return pb;
+  }
+
+  static Delete fromPb(DeletePb pb) {
+    Delete model = new Delete();
+    model.setPath(pb.getPath());
+    model.setRecursive(pb.getRecursive());
+
+    return model;
+  }
+
+  public static class DeleteSerializer extends JsonSerializer<Delete> {
+    @Override
+    public void serialize(Delete value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DeletePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DeleteDeserializer extends JsonDeserializer<Delete> {
+    @Override
+    public Delete deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DeletePb pb = mapper.readValue(p, DeletePb.class);
+      return Delete.fromPb(pb);
+    }
   }
 }

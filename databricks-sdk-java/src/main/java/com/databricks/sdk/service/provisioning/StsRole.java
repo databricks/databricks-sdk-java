@@ -4,20 +4,29 @@ package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = StsRole.StsRoleSerializer.class)
+@JsonDeserialize(using = StsRole.StsRoleDeserializer.class)
 public class StsRole {
   /**
    * The external ID that needs to be trusted by the cross-account role. This is always your
    * Databricks account ID.
    */
-  @JsonProperty("external_id")
   private String externalId;
 
   /** The Amazon Resource Name (ARN) of the cross account role. */
-  @JsonProperty("role_arn")
   private String roleArn;
 
   public StsRole setExternalId(String externalId) {
@@ -57,5 +66,39 @@ public class StsRole {
         .add("externalId", externalId)
         .add("roleArn", roleArn)
         .toString();
+  }
+
+  StsRolePb toPb() {
+    StsRolePb pb = new StsRolePb();
+    pb.setExternalId(externalId);
+    pb.setRoleArn(roleArn);
+
+    return pb;
+  }
+
+  static StsRole fromPb(StsRolePb pb) {
+    StsRole model = new StsRole();
+    model.setExternalId(pb.getExternalId());
+    model.setRoleArn(pb.getRoleArn());
+
+    return model;
+  }
+
+  public static class StsRoleSerializer extends JsonSerializer<StsRole> {
+    @Override
+    public void serialize(StsRole value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      StsRolePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class StsRoleDeserializer extends JsonDeserializer<StsRole> {
+    @Override
+    public StsRole deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      StsRolePb pb = mapper.readValue(p, StsRolePb.class);
+      return StsRole.fromPb(pb);
+    }
   }
 }

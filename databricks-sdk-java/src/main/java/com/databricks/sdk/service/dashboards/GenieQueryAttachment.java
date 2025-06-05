@@ -4,40 +4,44 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = GenieQueryAttachment.GenieQueryAttachmentSerializer.class)
+@JsonDeserialize(using = GenieQueryAttachment.GenieQueryAttachmentDeserializer.class)
 public class GenieQueryAttachment {
   /** Description of the query */
-  @JsonProperty("description")
   private String description;
 
   /** */
-  @JsonProperty("id")
   private String id;
 
   /** Time when the user updated the query last */
-  @JsonProperty("last_updated_timestamp")
   private Long lastUpdatedTimestamp;
 
   /** AI generated SQL query */
-  @JsonProperty("query")
   private String query;
 
   /** Metadata associated with the query result. */
-  @JsonProperty("query_result_metadata")
   private GenieResultMetadata queryResultMetadata;
 
   /**
    * Statement Execution API statement id. Use [Get status, manifest, and result first
    * chunk](:method:statementexecution/getstatement) to get the full result data.
    */
-  @JsonProperty("statement_id")
   private String statementId;
 
   /** Name of the query */
-  @JsonProperty("title")
   private String title;
 
   public GenieQueryAttachment setDescription(String description) {
@@ -134,5 +138,52 @@ public class GenieQueryAttachment {
         .add("statementId", statementId)
         .add("title", title)
         .toString();
+  }
+
+  GenieQueryAttachmentPb toPb() {
+    GenieQueryAttachmentPb pb = new GenieQueryAttachmentPb();
+    pb.setDescription(description);
+    pb.setId(id);
+    pb.setLastUpdatedTimestamp(lastUpdatedTimestamp);
+    pb.setQuery(query);
+    pb.setQueryResultMetadata(queryResultMetadata);
+    pb.setStatementId(statementId);
+    pb.setTitle(title);
+
+    return pb;
+  }
+
+  static GenieQueryAttachment fromPb(GenieQueryAttachmentPb pb) {
+    GenieQueryAttachment model = new GenieQueryAttachment();
+    model.setDescription(pb.getDescription());
+    model.setId(pb.getId());
+    model.setLastUpdatedTimestamp(pb.getLastUpdatedTimestamp());
+    model.setQuery(pb.getQuery());
+    model.setQueryResultMetadata(pb.getQueryResultMetadata());
+    model.setStatementId(pb.getStatementId());
+    model.setTitle(pb.getTitle());
+
+    return model;
+  }
+
+  public static class GenieQueryAttachmentSerializer extends JsonSerializer<GenieQueryAttachment> {
+    @Override
+    public void serialize(
+        GenieQueryAttachment value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GenieQueryAttachmentPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GenieQueryAttachmentDeserializer
+      extends JsonDeserializer<GenieQueryAttachment> {
+    @Override
+    public GenieQueryAttachment deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GenieQueryAttachmentPb pb = mapper.readValue(p, GenieQueryAttachmentPb.class);
+      return GenieQueryAttachment.fromPb(pb);
+    }
   }
 }

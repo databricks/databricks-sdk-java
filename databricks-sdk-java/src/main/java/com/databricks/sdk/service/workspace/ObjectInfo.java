@@ -4,28 +4,35 @@ package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
  * The information of the object in workspace. It will be returned by ``list`` and ``get-status``.
  */
 @Generated
+@JsonSerialize(using = ObjectInfo.ObjectInfoSerializer.class)
+@JsonDeserialize(using = ObjectInfo.ObjectInfoDeserializer.class)
 public class ObjectInfo {
   /** Only applicable to files. The creation UTC timestamp. */
-  @JsonProperty("created_at")
   private Long createdAt;
 
   /** The language of the object. This value is set only if the object type is ``NOTEBOOK``. */
-  @JsonProperty("language")
   private Language language;
 
   /** Only applicable to files, the last modified UTC timestamp. */
-  @JsonProperty("modified_at")
   private Long modifiedAt;
 
   /** Unique identifier for the object. */
-  @JsonProperty("object_id")
   private Long objectId;
 
   /**
@@ -35,19 +42,15 @@ public class ObjectInfo {
    * `DIRECTORY`: directory - `LIBRARY`: library - `FILE`: file - `REPO`: repository - `DASHBOARD`:
    * Lakeview dashboard
    */
-  @JsonProperty("object_type")
   private ObjectType objectType;
 
   /** The absolute path of the object. */
-  @JsonProperty("path")
   private String path;
 
   /** A unique identifier for the object that is consistent across all Databricks APIs. */
-  @JsonProperty("resource_id")
   private String resourceId;
 
   /** Only applicable to files. The file size in bytes can be returned. */
-  @JsonProperty("size")
   private Long size;
 
   public ObjectInfo setCreatedAt(Long createdAt) {
@@ -155,5 +158,51 @@ public class ObjectInfo {
         .add("resourceId", resourceId)
         .add("size", size)
         .toString();
+  }
+
+  ObjectInfoPb toPb() {
+    ObjectInfoPb pb = new ObjectInfoPb();
+    pb.setCreatedAt(createdAt);
+    pb.setLanguage(language);
+    pb.setModifiedAt(modifiedAt);
+    pb.setObjectId(objectId);
+    pb.setObjectType(objectType);
+    pb.setPath(path);
+    pb.setResourceId(resourceId);
+    pb.setSize(size);
+
+    return pb;
+  }
+
+  static ObjectInfo fromPb(ObjectInfoPb pb) {
+    ObjectInfo model = new ObjectInfo();
+    model.setCreatedAt(pb.getCreatedAt());
+    model.setLanguage(pb.getLanguage());
+    model.setModifiedAt(pb.getModifiedAt());
+    model.setObjectId(pb.getObjectId());
+    model.setObjectType(pb.getObjectType());
+    model.setPath(pb.getPath());
+    model.setResourceId(pb.getResourceId());
+    model.setSize(pb.getSize());
+
+    return model;
+  }
+
+  public static class ObjectInfoSerializer extends JsonSerializer<ObjectInfo> {
+    @Override
+    public void serialize(ObjectInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ObjectInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ObjectInfoDeserializer extends JsonDeserializer<ObjectInfo> {
+    @Override
+    public ObjectInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ObjectInfoPb pb = mapper.readValue(p, ObjectInfoPb.class);
+      return ObjectInfo.fromPb(pb);
+    }
   }
 }

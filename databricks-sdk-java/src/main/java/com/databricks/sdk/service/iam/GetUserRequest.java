@@ -3,27 +3,31 @@
 package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get user details. */
 @Generated
+@JsonSerialize(using = GetUserRequest.GetUserRequestSerializer.class)
+@JsonDeserialize(using = GetUserRequest.GetUserRequestDeserializer.class)
 public class GetUserRequest {
   /** Comma-separated list of attributes to return in response. */
-  @JsonIgnore
-  @QueryParam("attributes")
   private String attributes;
 
   /** Desired number of results per page. */
-  @JsonIgnore
-  @QueryParam("count")
   private Long count;
 
   /** Comma-separated list of attributes to exclude in response. */
-  @JsonIgnore
-  @QueryParam("excludedAttributes")
   private String excludedAttributes;
 
   /**
@@ -34,29 +38,21 @@ public class GetUserRequest {
    *
    * <p>[SCIM RFC]: https://tools.ietf.org/html/rfc7644#section-3.4.2.2
    */
-  @JsonIgnore
-  @QueryParam("filter")
   private String filter;
 
   /** Unique ID for a user in the Databricks workspace. */
-  @JsonIgnore private String id;
+  private String id;
 
   /**
    * Attribute to sort the results. Multi-part paths are supported. For example, `userName`,
    * `name.givenName`, and `emails`.
    */
-  @JsonIgnore
-  @QueryParam("sortBy")
   private String sortBy;
 
   /** The order to sort the results. */
-  @JsonIgnore
-  @QueryParam("sortOrder")
   private GetSortOrder sortOrder;
 
   /** Specifies the index of the first result. First item is number 1. */
-  @JsonIgnore
-  @QueryParam("startIndex")
   private Long startIndex;
 
   public GetUserRequest setAttributes(String attributes) {
@@ -164,5 +160,52 @@ public class GetUserRequest {
         .add("sortOrder", sortOrder)
         .add("startIndex", startIndex)
         .toString();
+  }
+
+  GetUserRequestPb toPb() {
+    GetUserRequestPb pb = new GetUserRequestPb();
+    pb.setAttributes(attributes);
+    pb.setCount(count);
+    pb.setExcludedAttributes(excludedAttributes);
+    pb.setFilter(filter);
+    pb.setId(id);
+    pb.setSortBy(sortBy);
+    pb.setSortOrder(sortOrder);
+    pb.setStartIndex(startIndex);
+
+    return pb;
+  }
+
+  static GetUserRequest fromPb(GetUserRequestPb pb) {
+    GetUserRequest model = new GetUserRequest();
+    model.setAttributes(pb.getAttributes());
+    model.setCount(pb.getCount());
+    model.setExcludedAttributes(pb.getExcludedAttributes());
+    model.setFilter(pb.getFilter());
+    model.setId(pb.getId());
+    model.setSortBy(pb.getSortBy());
+    model.setSortOrder(pb.getSortOrder());
+    model.setStartIndex(pb.getStartIndex());
+
+    return model;
+  }
+
+  public static class GetUserRequestSerializer extends JsonSerializer<GetUserRequest> {
+    @Override
+    public void serialize(GetUserRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetUserRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetUserRequestDeserializer extends JsonDeserializer<GetUserRequest> {
+    @Override
+    public GetUserRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetUserRequestPb pb = mapper.readValue(p, GetUserRequestPb.class);
+      return GetUserRequest.fromPb(pb);
+    }
   }
 }

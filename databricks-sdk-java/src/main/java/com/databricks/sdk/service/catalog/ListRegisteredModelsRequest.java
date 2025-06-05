@@ -3,28 +3,34 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List Registered Models */
 @Generated
+@JsonSerialize(using = ListRegisteredModelsRequest.ListRegisteredModelsRequestSerializer.class)
+@JsonDeserialize(using = ListRegisteredModelsRequest.ListRegisteredModelsRequestDeserializer.class)
 public class ListRegisteredModelsRequest {
   /**
    * The identifier of the catalog under which to list registered models. If specified, schema_name
    * must be specified.
    */
-  @JsonIgnore
-  @QueryParam("catalog_name")
   private String catalogName;
 
   /**
    * Whether to include registered models in the response for which the principal can only access
    * selective metadata for
    */
-  @JsonIgnore
-  @QueryParam("include_browse")
   private Boolean includeBrowse;
 
   /**
@@ -43,21 +49,15 @@ public class ListRegisteredModelsRequest {
    * 4/2/2024); - when set to 0, the page length is set to a server configured value (100, as of
    * 4/2/2024); - when set to a value less than 0, an invalid parameter error is returned;
    */
-  @JsonIgnore
-  @QueryParam("max_results")
   private Long maxResults;
 
   /** Opaque token to send for the next page of results (pagination). */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   /**
    * The identifier of the schema under which to list registered models. If specified, catalog_name
    * must be specified.
    */
-  @JsonIgnore
-  @QueryParam("schema_name")
   private String schemaName;
 
   public ListRegisteredModelsRequest setCatalogName(String catalogName) {
@@ -131,5 +131,49 @@ public class ListRegisteredModelsRequest {
         .add("pageToken", pageToken)
         .add("schemaName", schemaName)
         .toString();
+  }
+
+  ListRegisteredModelsRequestPb toPb() {
+    ListRegisteredModelsRequestPb pb = new ListRegisteredModelsRequestPb();
+    pb.setCatalogName(catalogName);
+    pb.setIncludeBrowse(includeBrowse);
+    pb.setMaxResults(maxResults);
+    pb.setPageToken(pageToken);
+    pb.setSchemaName(schemaName);
+
+    return pb;
+  }
+
+  static ListRegisteredModelsRequest fromPb(ListRegisteredModelsRequestPb pb) {
+    ListRegisteredModelsRequest model = new ListRegisteredModelsRequest();
+    model.setCatalogName(pb.getCatalogName());
+    model.setIncludeBrowse(pb.getIncludeBrowse());
+    model.setMaxResults(pb.getMaxResults());
+    model.setPageToken(pb.getPageToken());
+    model.setSchemaName(pb.getSchemaName());
+
+    return model;
+  }
+
+  public static class ListRegisteredModelsRequestSerializer
+      extends JsonSerializer<ListRegisteredModelsRequest> {
+    @Override
+    public void serialize(
+        ListRegisteredModelsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListRegisteredModelsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListRegisteredModelsRequestDeserializer
+      extends JsonDeserializer<ListRegisteredModelsRequest> {
+    @Override
+    public ListRegisteredModelsRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListRegisteredModelsRequestPb pb = mapper.readValue(p, ListRegisteredModelsRequestPb.class);
+      return ListRegisteredModelsRequest.fromPb(pb);
+    }
   }
 }

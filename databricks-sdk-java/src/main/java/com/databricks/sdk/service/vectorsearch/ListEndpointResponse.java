@@ -4,21 +4,30 @@ package com.databricks.sdk.service.vectorsearch;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ListEndpointResponse.ListEndpointResponseSerializer.class)
+@JsonDeserialize(using = ListEndpointResponse.ListEndpointResponseDeserializer.class)
 public class ListEndpointResponse {
   /** An array of Endpoint objects */
-  @JsonProperty("endpoints")
   private Collection<EndpointInfo> endpoints;
 
   /**
    * A token that can be used to get the next page of results. If not present, there are no more
    * results to show.
    */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   public ListEndpointResponse setEndpoints(Collection<EndpointInfo> endpoints) {
@@ -59,5 +68,42 @@ public class ListEndpointResponse {
         .add("endpoints", endpoints)
         .add("nextPageToken", nextPageToken)
         .toString();
+  }
+
+  ListEndpointResponsePb toPb() {
+    ListEndpointResponsePb pb = new ListEndpointResponsePb();
+    pb.setEndpoints(endpoints);
+    pb.setNextPageToken(nextPageToken);
+
+    return pb;
+  }
+
+  static ListEndpointResponse fromPb(ListEndpointResponsePb pb) {
+    ListEndpointResponse model = new ListEndpointResponse();
+    model.setEndpoints(pb.getEndpoints());
+    model.setNextPageToken(pb.getNextPageToken());
+
+    return model;
+  }
+
+  public static class ListEndpointResponseSerializer extends JsonSerializer<ListEndpointResponse> {
+    @Override
+    public void serialize(
+        ListEndpointResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListEndpointResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListEndpointResponseDeserializer
+      extends JsonDeserializer<ListEndpointResponse> {
+    @Override
+    public ListEndpointResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListEndpointResponsePb pb = mapper.readValue(p, ListEndpointResponsePb.class);
+      return ListEndpointResponse.fromPb(pb);
+    }
   }
 }

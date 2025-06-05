@@ -4,14 +4,24 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = EmailConfig.EmailConfigSerializer.class)
+@JsonDeserialize(using = EmailConfig.EmailConfigDeserializer.class)
 public class EmailConfig {
   /** Email addresses to notify. */
-  @JsonProperty("addresses")
   private Collection<String> addresses;
 
   public EmailConfig setAddresses(Collection<String> addresses) {
@@ -39,5 +49,37 @@ public class EmailConfig {
   @Override
   public String toString() {
     return new ToStringer(EmailConfig.class).add("addresses", addresses).toString();
+  }
+
+  EmailConfigPb toPb() {
+    EmailConfigPb pb = new EmailConfigPb();
+    pb.setAddresses(addresses);
+
+    return pb;
+  }
+
+  static EmailConfig fromPb(EmailConfigPb pb) {
+    EmailConfig model = new EmailConfig();
+    model.setAddresses(pb.getAddresses());
+
+    return model;
+  }
+
+  public static class EmailConfigSerializer extends JsonSerializer<EmailConfig> {
+    @Override
+    public void serialize(EmailConfig value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      EmailConfigPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class EmailConfigDeserializer extends JsonDeserializer<EmailConfig> {
+    @Override
+    public EmailConfig deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      EmailConfigPb pb = mapper.readValue(p, EmailConfigPb.class);
+      return EmailConfig.fromPb(pb);
+    }
   }
 }

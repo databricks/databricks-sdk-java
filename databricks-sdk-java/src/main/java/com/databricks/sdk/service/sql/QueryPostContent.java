@@ -4,11 +4,22 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = QueryPostContent.QueryPostContentSerializer.class)
+@JsonDeserialize(using = QueryPostContent.QueryPostContentDeserializer.class)
 public class QueryPostContent {
   /**
    * Data source ID maps to the ID of the data source used by the resource and is distinct from the
@@ -16,17 +27,14 @@ public class QueryPostContent {
    *
    * <p>[Learn more]: https://docs.databricks.com/api/workspace/datasources/list
    */
-  @JsonProperty("data_source_id")
   private String dataSourceId;
 
   /**
    * General description that conveys additional information about this query such as usage notes.
    */
-  @JsonProperty("description")
   private String description;
 
   /** The title of this query that appears in list views, widget headings, and on the query page. */
-  @JsonProperty("name")
   private String name;
 
   /**
@@ -34,26 +42,21 @@ public class QueryPostContent {
    * `title`, `name`, `type`, and `value` properties. The `value` field here is the default value.
    * It can be overridden at runtime.
    */
-  @JsonProperty("options")
   private Object options;
 
   /** The identifier of the workspace folder containing the object. */
-  @JsonProperty("parent")
   private String parent;
 
   /** The text of the query to be run. */
-  @JsonProperty("query")
   private String query;
 
   /**
    * Sets the **Run as** role for the object. Must be set to one of `"viewer"` (signifying "run as
    * viewer" behavior) or `"owner"` (signifying "run as owner" behavior)
    */
-  @JsonProperty("run_as_role")
   private RunAsRole runAsRole;
 
   /** */
-  @JsonProperty("tags")
   private Collection<String> tags;
 
   public QueryPostContent setDataSourceId(String dataSourceId) {
@@ -160,5 +163,52 @@ public class QueryPostContent {
         .add("runAsRole", runAsRole)
         .add("tags", tags)
         .toString();
+  }
+
+  QueryPostContentPb toPb() {
+    QueryPostContentPb pb = new QueryPostContentPb();
+    pb.setDataSourceId(dataSourceId);
+    pb.setDescription(description);
+    pb.setName(name);
+    pb.setOptions(options);
+    pb.setParent(parent);
+    pb.setQuery(query);
+    pb.setRunAsRole(runAsRole);
+    pb.setTags(tags);
+
+    return pb;
+  }
+
+  static QueryPostContent fromPb(QueryPostContentPb pb) {
+    QueryPostContent model = new QueryPostContent();
+    model.setDataSourceId(pb.getDataSourceId());
+    model.setDescription(pb.getDescription());
+    model.setName(pb.getName());
+    model.setOptions(pb.getOptions());
+    model.setParent(pb.getParent());
+    model.setQuery(pb.getQuery());
+    model.setRunAsRole(pb.getRunAsRole());
+    model.setTags(pb.getTags());
+
+    return model;
+  }
+
+  public static class QueryPostContentSerializer extends JsonSerializer<QueryPostContent> {
+    @Override
+    public void serialize(QueryPostContent value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      QueryPostContentPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class QueryPostContentDeserializer extends JsonDeserializer<QueryPostContent> {
+    @Override
+    public QueryPostContent deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      QueryPostContentPb pb = mapper.readValue(p, QueryPostContentPb.class);
+      return QueryPostContent.fromPb(pb);
+    }
   }
 }

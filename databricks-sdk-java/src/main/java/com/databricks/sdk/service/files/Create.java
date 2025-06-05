@@ -4,17 +4,26 @@ package com.databricks.sdk.service.files;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = Create.CreateSerializer.class)
+@JsonDeserialize(using = Create.CreateDeserializer.class)
 public class Create {
   /** The flag that specifies whether to overwrite existing file/files. */
-  @JsonProperty("overwrite")
   private Boolean overwrite;
 
   /** The path of the new file. The path should be the absolute DBFS path. */
-  @JsonProperty("path")
   private String path;
 
   public Create setOverwrite(Boolean overwrite) {
@@ -51,5 +60,39 @@ public class Create {
   @Override
   public String toString() {
     return new ToStringer(Create.class).add("overwrite", overwrite).add("path", path).toString();
+  }
+
+  CreatePb toPb() {
+    CreatePb pb = new CreatePb();
+    pb.setOverwrite(overwrite);
+    pb.setPath(path);
+
+    return pb;
+  }
+
+  static Create fromPb(CreatePb pb) {
+    Create model = new Create();
+    model.setOverwrite(pb.getOverwrite());
+    model.setPath(pb.getPath());
+
+    return model;
+  }
+
+  public static class CreateSerializer extends JsonSerializer<Create> {
+    @Override
+    public void serialize(Create value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreatePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateDeserializer extends JsonDeserializer<Create> {
+    @Override
+    public Create deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreatePb pb = mapper.readValue(p, CreatePb.class);
+      return Create.fromPb(pb);
+    }
   }
 }

@@ -4,42 +4,46 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 /** An experiment and its metadata. */
 @Generated
+@JsonSerialize(using = Experiment.ExperimentSerializer.class)
+@JsonDeserialize(using = Experiment.ExperimentDeserializer.class)
 public class Experiment {
   /** Location where artifacts for the experiment are stored. */
-  @JsonProperty("artifact_location")
   private String artifactLocation;
 
   /** Creation time */
-  @JsonProperty("creation_time")
   private Long creationTime;
 
   /** Unique identifier for the experiment. */
-  @JsonProperty("experiment_id")
   private String experimentId;
 
   /** Last update time */
-  @JsonProperty("last_update_time")
   private Long lastUpdateTime;
 
   /**
    * Current life cycle stage of the experiment: "active" or "deleted". Deleted experiments are not
    * returned by APIs.
    */
-  @JsonProperty("lifecycle_stage")
   private String lifecycleStage;
 
   /** Human readable name that identifies the experiment. */
-  @JsonProperty("name")
   private String name;
 
   /** Tags: Additional metadata key-value pairs. */
-  @JsonProperty("tags")
   private Collection<ExperimentTag> tags;
 
   public Experiment setArtifactLocation(String artifactLocation) {
@@ -136,5 +140,49 @@ public class Experiment {
         .add("name", name)
         .add("tags", tags)
         .toString();
+  }
+
+  ExperimentPb toPb() {
+    ExperimentPb pb = new ExperimentPb();
+    pb.setArtifactLocation(artifactLocation);
+    pb.setCreationTime(creationTime);
+    pb.setExperimentId(experimentId);
+    pb.setLastUpdateTime(lastUpdateTime);
+    pb.setLifecycleStage(lifecycleStage);
+    pb.setName(name);
+    pb.setTags(tags);
+
+    return pb;
+  }
+
+  static Experiment fromPb(ExperimentPb pb) {
+    Experiment model = new Experiment();
+    model.setArtifactLocation(pb.getArtifactLocation());
+    model.setCreationTime(pb.getCreationTime());
+    model.setExperimentId(pb.getExperimentId());
+    model.setLastUpdateTime(pb.getLastUpdateTime());
+    model.setLifecycleStage(pb.getLifecycleStage());
+    model.setName(pb.getName());
+    model.setTags(pb.getTags());
+
+    return model;
+  }
+
+  public static class ExperimentSerializer extends JsonSerializer<Experiment> {
+    @Override
+    public void serialize(Experiment value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ExperimentPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ExperimentDeserializer extends JsonDeserializer<Experiment> {
+    @Override
+    public Experiment deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ExperimentPb pb = mapper.readValue(p, ExperimentPb.class);
+      return Experiment.fromPb(pb);
+    }
   }
 }

@@ -3,13 +3,24 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List credentials */
 @Generated
+@JsonSerialize(using = ListStorageCredentialsRequest.ListStorageCredentialsRequestSerializer.class)
+@JsonDeserialize(
+    using = ListStorageCredentialsRequest.ListStorageCredentialsRequestDeserializer.class)
 public class ListStorageCredentialsRequest {
   /**
    * Maximum number of storage credentials to return. If not set, all the storage credentials are
@@ -18,13 +29,9 @@ public class ListStorageCredentialsRequest {
    * a server configured value (recommended); - when set to a value less than 0, an invalid
    * parameter error is returned;
    */
-  @JsonIgnore
-  @QueryParam("max_results")
   private Long maxResults;
 
   /** Opaque pagination token to go to next page based on previous query. */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   public ListStorageCredentialsRequest setMaxResults(Long maxResults) {
@@ -64,5 +71,44 @@ public class ListStorageCredentialsRequest {
         .add("maxResults", maxResults)
         .add("pageToken", pageToken)
         .toString();
+  }
+
+  ListStorageCredentialsRequestPb toPb() {
+    ListStorageCredentialsRequestPb pb = new ListStorageCredentialsRequestPb();
+    pb.setMaxResults(maxResults);
+    pb.setPageToken(pageToken);
+
+    return pb;
+  }
+
+  static ListStorageCredentialsRequest fromPb(ListStorageCredentialsRequestPb pb) {
+    ListStorageCredentialsRequest model = new ListStorageCredentialsRequest();
+    model.setMaxResults(pb.getMaxResults());
+    model.setPageToken(pb.getPageToken());
+
+    return model;
+  }
+
+  public static class ListStorageCredentialsRequestSerializer
+      extends JsonSerializer<ListStorageCredentialsRequest> {
+    @Override
+    public void serialize(
+        ListStorageCredentialsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListStorageCredentialsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListStorageCredentialsRequestDeserializer
+      extends JsonDeserializer<ListStorageCredentialsRequest> {
+    @Override
+    public ListStorageCredentialsRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListStorageCredentialsRequestPb pb =
+          mapper.readValue(p, ListStorageCredentialsRequestPb.class);
+      return ListStorageCredentialsRequest.fromPb(pb);
+    }
   }
 }

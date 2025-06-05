@@ -4,45 +4,48 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = Volume.VolumeSerializer.class)
+@JsonDeserialize(using = Volume.VolumeDeserializer.class)
 public class Volume {
   /** The comment of the volume. */
-  @JsonProperty("comment")
   private String comment;
 
   /**
    * This id maps to the shared_volume_id in database Recipient needs shared_volume_id for recon to
    * check if this volume is already in recipient's DB or not.
    */
-  @JsonProperty("id")
   private String id;
 
   /** Internal attributes for D2D sharing that should not be disclosed to external users. */
-  @JsonProperty("internal_attributes")
   private VolumeInternalAttributes internalAttributes;
 
   /** The name of the volume. */
-  @JsonProperty("name")
   private String name;
 
   /** The name of the schema that the volume belongs to. */
-  @JsonProperty("schema")
   private String schema;
 
   /** The name of the share that the volume belongs to. */
-  @JsonProperty("share")
   private String share;
 
   /** / The id of the share that the volume belongs to. */
-  @JsonProperty("share_id")
   private String shareId;
 
   /** The tags of the volume. */
-  @JsonProperty("tags")
   private Collection<com.databricks.sdk.service.catalog.TagKeyValue> tags;
 
   public Volume setComment(String comment) {
@@ -149,5 +152,51 @@ public class Volume {
         .add("shareId", shareId)
         .add("tags", tags)
         .toString();
+  }
+
+  VolumePb toPb() {
+    VolumePb pb = new VolumePb();
+    pb.setComment(comment);
+    pb.setId(id);
+    pb.setInternalAttributes(internalAttributes);
+    pb.setName(name);
+    pb.setSchema(schema);
+    pb.setShare(share);
+    pb.setShareId(shareId);
+    pb.setTags(tags);
+
+    return pb;
+  }
+
+  static Volume fromPb(VolumePb pb) {
+    Volume model = new Volume();
+    model.setComment(pb.getComment());
+    model.setId(pb.getId());
+    model.setInternalAttributes(pb.getInternalAttributes());
+    model.setName(pb.getName());
+    model.setSchema(pb.getSchema());
+    model.setShare(pb.getShare());
+    model.setShareId(pb.getShareId());
+    model.setTags(pb.getTags());
+
+    return model;
+  }
+
+  public static class VolumeSerializer extends JsonSerializer<Volume> {
+    @Override
+    public void serialize(Volume value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      VolumePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class VolumeDeserializer extends JsonDeserializer<Volume> {
+    @Override
+    public Volume deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      VolumePb pb = mapper.readValue(p, VolumePb.class);
+      return Volume.fromPb(pb);
+    }
   }
 }

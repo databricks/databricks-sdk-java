@@ -4,13 +4,23 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = DisableLegacyDbfs.DisableLegacyDbfsSerializer.class)
+@JsonDeserialize(using = DisableLegacyDbfs.DisableLegacyDbfsDeserializer.class)
 public class DisableLegacyDbfs {
   /** */
-  @JsonProperty("disable_legacy_dbfs")
   private BooleanMessage disableLegacyDbfs;
 
   /**
@@ -21,7 +31,6 @@ public class DisableLegacyDbfs {
    * etag from a GET request, and pass it with the PATCH request to identify the setting version you
    * are updating.
    */
-  @JsonProperty("etag")
   private String etag;
 
   /**
@@ -30,7 +39,6 @@ public class DisableLegacyDbfs {
    * respected instead. Setting name is required to be 'default' if the setting only has one
    * instance per workspace.
    */
-  @JsonProperty("setting_name")
   private String settingName;
 
   public DisableLegacyDbfs setDisableLegacyDbfs(BooleanMessage disableLegacyDbfs) {
@@ -82,5 +90,42 @@ public class DisableLegacyDbfs {
         .add("etag", etag)
         .add("settingName", settingName)
         .toString();
+  }
+
+  DisableLegacyDbfsPb toPb() {
+    DisableLegacyDbfsPb pb = new DisableLegacyDbfsPb();
+    pb.setDisableLegacyDbfs(disableLegacyDbfs);
+    pb.setEtag(etag);
+    pb.setSettingName(settingName);
+
+    return pb;
+  }
+
+  static DisableLegacyDbfs fromPb(DisableLegacyDbfsPb pb) {
+    DisableLegacyDbfs model = new DisableLegacyDbfs();
+    model.setDisableLegacyDbfs(pb.getDisableLegacyDbfs());
+    model.setEtag(pb.getEtag());
+    model.setSettingName(pb.getSettingName());
+
+    return model;
+  }
+
+  public static class DisableLegacyDbfsSerializer extends JsonSerializer<DisableLegacyDbfs> {
+    @Override
+    public void serialize(DisableLegacyDbfs value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DisableLegacyDbfsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DisableLegacyDbfsDeserializer extends JsonDeserializer<DisableLegacyDbfs> {
+    @Override
+    public DisableLegacyDbfs deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DisableLegacyDbfsPb pb = mapper.readValue(p, DisableLegacyDbfsPb.class);
+      return DisableLegacyDbfs.fromPb(pb);
+    }
   }
 }

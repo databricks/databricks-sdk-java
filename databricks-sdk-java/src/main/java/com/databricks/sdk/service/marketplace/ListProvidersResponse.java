@@ -4,18 +4,27 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ListProvidersResponse.ListProvidersResponseSerializer.class)
+@JsonDeserialize(using = ListProvidersResponse.ListProvidersResponseDeserializer.class)
 public class ListProvidersResponse {
   /** */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   /** */
-  @JsonProperty("providers")
   private Collection<ProviderInfo> providers;
 
   public ListProvidersResponse setNextPageToken(String nextPageToken) {
@@ -56,5 +65,43 @@ public class ListProvidersResponse {
         .add("nextPageToken", nextPageToken)
         .add("providers", providers)
         .toString();
+  }
+
+  ListProvidersResponsePb toPb() {
+    ListProvidersResponsePb pb = new ListProvidersResponsePb();
+    pb.setNextPageToken(nextPageToken);
+    pb.setProviders(providers);
+
+    return pb;
+  }
+
+  static ListProvidersResponse fromPb(ListProvidersResponsePb pb) {
+    ListProvidersResponse model = new ListProvidersResponse();
+    model.setNextPageToken(pb.getNextPageToken());
+    model.setProviders(pb.getProviders());
+
+    return model;
+  }
+
+  public static class ListProvidersResponseSerializer
+      extends JsonSerializer<ListProvidersResponse> {
+    @Override
+    public void serialize(
+        ListProvidersResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListProvidersResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListProvidersResponseDeserializer
+      extends JsonDeserializer<ListProvidersResponse> {
+    @Override
+    public ListProvidersResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListProvidersResponsePb pb = mapper.readValue(p, ListProvidersResponsePb.class);
+      return ListProvidersResponse.fromPb(pb);
+    }
   }
 }

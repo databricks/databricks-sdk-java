@@ -4,19 +4,27 @@ package com.databricks.sdk.service.vectorsearch;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = QueryVectorIndexRequest.QueryVectorIndexRequestSerializer.class)
+@JsonDeserialize(using = QueryVectorIndexRequest.QueryVectorIndexRequestDeserializer.class)
 public class QueryVectorIndexRequest {
   /** List of column names to include in the response. */
-  @JsonProperty("columns")
   private Collection<String> columns;
 
   /** Column names used to retrieve data to send to the reranker. */
-  @JsonProperty("columns_to_rerank")
   private Collection<String> columnsToRerank;
 
   /**
@@ -28,37 +36,30 @@ public class QueryVectorIndexRequest {
    * `{"id <=": 5}`: Filter for id less than equal to 5. - `{"id >=": 5}`: Filter for id greater
    * than equal to 5. - `{"id": 5}`: Filter for id equal to 5.
    */
-  @JsonProperty("filters_json")
   private String filtersJson;
 
   /** Name of the vector index to query. */
-  @JsonIgnore private String indexName;
+  private String indexName;
 
   /** Number of results to return. Defaults to 10. */
-  @JsonProperty("num_results")
   private Long numResults;
 
   /** Query text. Required for Delta Sync Index using model endpoint. */
-  @JsonProperty("query_text")
   private String queryText;
 
   /** The query type to use. Choices are `ANN` and `HYBRID`. Defaults to `ANN`. */
-  @JsonProperty("query_type")
   private String queryType;
 
   /**
    * Query vector. Required for Direct Vector Access Index and Delta Sync Index using self-managed
    * vectors.
    */
-  @JsonProperty("query_vector")
   private Collection<Double> queryVector;
 
   /** */
-  @JsonProperty("reranker")
   private RerankerConfig reranker;
 
   /** Threshold for the approximate nearest neighbor search. Defaults to 0.0. */
-  @JsonProperty("score_threshold")
   private Double scoreThreshold;
 
   public QueryVectorIndexRequest setColumns(Collection<String> columns) {
@@ -197,5 +198,59 @@ public class QueryVectorIndexRequest {
         .add("reranker", reranker)
         .add("scoreThreshold", scoreThreshold)
         .toString();
+  }
+
+  QueryVectorIndexRequestPb toPb() {
+    QueryVectorIndexRequestPb pb = new QueryVectorIndexRequestPb();
+    pb.setColumns(columns);
+    pb.setColumnsToRerank(columnsToRerank);
+    pb.setFiltersJson(filtersJson);
+    pb.setIndexName(indexName);
+    pb.setNumResults(numResults);
+    pb.setQueryText(queryText);
+    pb.setQueryType(queryType);
+    pb.setQueryVector(queryVector);
+    pb.setReranker(reranker);
+    pb.setScoreThreshold(scoreThreshold);
+
+    return pb;
+  }
+
+  static QueryVectorIndexRequest fromPb(QueryVectorIndexRequestPb pb) {
+    QueryVectorIndexRequest model = new QueryVectorIndexRequest();
+    model.setColumns(pb.getColumns());
+    model.setColumnsToRerank(pb.getColumnsToRerank());
+    model.setFiltersJson(pb.getFiltersJson());
+    model.setIndexName(pb.getIndexName());
+    model.setNumResults(pb.getNumResults());
+    model.setQueryText(pb.getQueryText());
+    model.setQueryType(pb.getQueryType());
+    model.setQueryVector(pb.getQueryVector());
+    model.setReranker(pb.getReranker());
+    model.setScoreThreshold(pb.getScoreThreshold());
+
+    return model;
+  }
+
+  public static class QueryVectorIndexRequestSerializer
+      extends JsonSerializer<QueryVectorIndexRequest> {
+    @Override
+    public void serialize(
+        QueryVectorIndexRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      QueryVectorIndexRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class QueryVectorIndexRequestDeserializer
+      extends JsonDeserializer<QueryVectorIndexRequest> {
+    @Override
+    public QueryVectorIndexRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      QueryVectorIndexRequestPb pb = mapper.readValue(p, QueryVectorIndexRequestPb.class);
+      return QueryVectorIndexRequest.fromPb(pb);
+    }
   }
 }

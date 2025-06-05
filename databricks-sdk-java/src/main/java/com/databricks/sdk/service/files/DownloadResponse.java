@@ -3,30 +3,34 @@
 package com.databricks.sdk.service.files;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.Header;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = DownloadResponse.DownloadResponseSerializer.class)
+@JsonDeserialize(using = DownloadResponse.DownloadResponseDeserializer.class)
 public class DownloadResponse {
   /** The length of the HTTP response body in bytes. */
-  @JsonIgnore
-  @Header("content-length")
   private Long contentLength;
 
   /** */
-  @JsonIgnore
-  @Header("content-type")
   private String contentType;
 
   /** */
-  @JsonIgnore private InputStream contents;
+  private InputStream contents;
 
   /** The last modified time of the file in HTTP-date (RFC 7231) format. */
-  @JsonIgnore
-  @Header("last-modified")
   private String lastModified;
 
   public DownloadResponse setContentLength(Long contentLength) {
@@ -89,5 +93,44 @@ public class DownloadResponse {
         .add("contents", contents)
         .add("lastModified", lastModified)
         .toString();
+  }
+
+  DownloadResponsePb toPb() {
+    DownloadResponsePb pb = new DownloadResponsePb();
+    pb.setContentLength(contentLength);
+    pb.setContentType(contentType);
+    pb.setContents(contents);
+    pb.setLastModified(lastModified);
+
+    return pb;
+  }
+
+  static DownloadResponse fromPb(DownloadResponsePb pb) {
+    DownloadResponse model = new DownloadResponse();
+    model.setContentLength(pb.getContentLength());
+    model.setContentType(pb.getContentType());
+    model.setContents(pb.getContents());
+    model.setLastModified(pb.getLastModified());
+
+    return model;
+  }
+
+  public static class DownloadResponseSerializer extends JsonSerializer<DownloadResponse> {
+    @Override
+    public void serialize(DownloadResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DownloadResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DownloadResponseDeserializer extends JsonDeserializer<DownloadResponse> {
+    @Override
+    public DownloadResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DownloadResponsePb pb = mapper.readValue(p, DownloadResponsePb.class);
+      return DownloadResponse.fromPb(pb);
+    }
   }
 }

@@ -4,27 +4,37 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Properties of the new network connectivity configuration. */
 @Generated
+@JsonSerialize(
+    using = NetworkConnectivityConfiguration.NetworkConnectivityConfigurationSerializer.class)
+@JsonDeserialize(
+    using = NetworkConnectivityConfiguration.NetworkConnectivityConfigurationDeserializer.class)
 public class NetworkConnectivityConfiguration {
   /**
    * Your Databricks account ID. You can find your account ID in your Databricks accounts console.
    */
-  @JsonProperty("account_id")
   private String accountId;
 
   /** Time in epoch milliseconds when this object was created. */
-  @JsonProperty("creation_time")
   private Long creationTime;
 
   /**
    * The network connectivity rules that apply to network traffic from your serverless compute
    * resources.
    */
-  @JsonProperty("egress_config")
   private NccEgressConfig egressConfig;
 
   /**
@@ -32,22 +42,18 @@ public class NetworkConnectivityConfiguration {
    * characters, hyphens, and underscores. The length must be between 3 and 30 characters. The name
    * must match the regular expression ^[0-9a-zA-Z-_]{3,30}$
    */
-  @JsonProperty("name")
   private String name;
 
   /** Databricks network connectivity configuration ID. */
-  @JsonProperty("network_connectivity_config_id")
   private String networkConnectivityConfigId;
 
   /**
    * The region for the network connectivity configuration. Only workspaces in the same region can
    * be attached to the network connectivity configuration.
    */
-  @JsonProperty("region")
   private String region;
 
   /** Time in epoch milliseconds when this object was updated. */
-  @JsonProperty("updated_time")
   private Long updatedTime;
 
   public NetworkConnectivityConfiguration setAccountId(String accountId) {
@@ -151,5 +157,54 @@ public class NetworkConnectivityConfiguration {
         .add("region", region)
         .add("updatedTime", updatedTime)
         .toString();
+  }
+
+  NetworkConnectivityConfigurationPb toPb() {
+    NetworkConnectivityConfigurationPb pb = new NetworkConnectivityConfigurationPb();
+    pb.setAccountId(accountId);
+    pb.setCreationTime(creationTime);
+    pb.setEgressConfig(egressConfig);
+    pb.setName(name);
+    pb.setNetworkConnectivityConfigId(networkConnectivityConfigId);
+    pb.setRegion(region);
+    pb.setUpdatedTime(updatedTime);
+
+    return pb;
+  }
+
+  static NetworkConnectivityConfiguration fromPb(NetworkConnectivityConfigurationPb pb) {
+    NetworkConnectivityConfiguration model = new NetworkConnectivityConfiguration();
+    model.setAccountId(pb.getAccountId());
+    model.setCreationTime(pb.getCreationTime());
+    model.setEgressConfig(pb.getEgressConfig());
+    model.setName(pb.getName());
+    model.setNetworkConnectivityConfigId(pb.getNetworkConnectivityConfigId());
+    model.setRegion(pb.getRegion());
+    model.setUpdatedTime(pb.getUpdatedTime());
+
+    return model;
+  }
+
+  public static class NetworkConnectivityConfigurationSerializer
+      extends JsonSerializer<NetworkConnectivityConfiguration> {
+    @Override
+    public void serialize(
+        NetworkConnectivityConfiguration value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      NetworkConnectivityConfigurationPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class NetworkConnectivityConfigurationDeserializer
+      extends JsonDeserializer<NetworkConnectivityConfiguration> {
+    @Override
+    public NetworkConnectivityConfiguration deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      NetworkConnectivityConfigurationPb pb =
+          mapper.readValue(p, NetworkConnectivityConfigurationPb.class);
+      return NetworkConnectivityConfiguration.fromPb(pb);
+    }
   }
 }

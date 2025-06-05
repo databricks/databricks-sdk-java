@@ -4,17 +4,26 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = WorkspaceBinding.WorkspaceBindingSerializer.class)
+@JsonDeserialize(using = WorkspaceBinding.WorkspaceBindingDeserializer.class)
 public class WorkspaceBinding {
   /** One of READ_WRITE/READ_ONLY. Default is READ_WRITE. */
-  @JsonProperty("binding_type")
   private WorkspaceBindingBindingType bindingType;
 
   /** Required */
-  @JsonProperty("workspace_id")
   private Long workspaceId;
 
   public WorkspaceBinding setBindingType(WorkspaceBindingBindingType bindingType) {
@@ -55,5 +64,40 @@ public class WorkspaceBinding {
         .add("bindingType", bindingType)
         .add("workspaceId", workspaceId)
         .toString();
+  }
+
+  WorkspaceBindingPb toPb() {
+    WorkspaceBindingPb pb = new WorkspaceBindingPb();
+    pb.setBindingType(bindingType);
+    pb.setWorkspaceId(workspaceId);
+
+    return pb;
+  }
+
+  static WorkspaceBinding fromPb(WorkspaceBindingPb pb) {
+    WorkspaceBinding model = new WorkspaceBinding();
+    model.setBindingType(pb.getBindingType());
+    model.setWorkspaceId(pb.getWorkspaceId());
+
+    return model;
+  }
+
+  public static class WorkspaceBindingSerializer extends JsonSerializer<WorkspaceBinding> {
+    @Override
+    public void serialize(WorkspaceBinding value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      WorkspaceBindingPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class WorkspaceBindingDeserializer extends JsonDeserializer<WorkspaceBinding> {
+    @Override
+    public WorkspaceBinding deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      WorkspaceBindingPb pb = mapper.readValue(p, WorkspaceBindingPb.class);
+      return WorkspaceBinding.fromPb(pb);
+    }
   }
 }

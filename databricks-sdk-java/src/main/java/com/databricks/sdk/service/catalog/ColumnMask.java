@@ -4,14 +4,24 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ColumnMask.ColumnMaskSerializer.class)
+@JsonDeserialize(using = ColumnMask.ColumnMaskDeserializer.class)
 public class ColumnMask {
   /** The full name of the column mask SQL UDF. */
-  @JsonProperty("function_name")
   private String functionName;
 
   /**
@@ -19,7 +29,6 @@ public class ColumnMask {
    * first arg of the mask function should be of the type of the column being masked and the types
    * of the rest of the args should match the types of columns in 'using_column_names'.
    */
-  @JsonProperty("using_column_names")
   private Collection<String> usingColumnNames;
 
   public ColumnMask setFunctionName(String functionName) {
@@ -60,5 +69,39 @@ public class ColumnMask {
         .add("functionName", functionName)
         .add("usingColumnNames", usingColumnNames)
         .toString();
+  }
+
+  ColumnMaskPb toPb() {
+    ColumnMaskPb pb = new ColumnMaskPb();
+    pb.setFunctionName(functionName);
+    pb.setUsingColumnNames(usingColumnNames);
+
+    return pb;
+  }
+
+  static ColumnMask fromPb(ColumnMaskPb pb) {
+    ColumnMask model = new ColumnMask();
+    model.setFunctionName(pb.getFunctionName());
+    model.setUsingColumnNames(pb.getUsingColumnNames());
+
+    return model;
+  }
+
+  public static class ColumnMaskSerializer extends JsonSerializer<ColumnMask> {
+    @Override
+    public void serialize(ColumnMask value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ColumnMaskPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ColumnMaskDeserializer extends JsonDeserializer<ColumnMask> {
+    @Override
+    public ColumnMask deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ColumnMaskPb pb = mapper.readValue(p, ColumnMaskPb.class);
+      return ColumnMask.fromPb(pb);
+    }
   }
 }

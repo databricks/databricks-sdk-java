@@ -1,0 +1,57 @@
+// Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
+
+package com.databricks.sdk.service.pipelines;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
+
+@Generated
+class ErrorDetailPb {
+  @JsonProperty("exceptions")
+  private Collection<SerializedException> exceptions;
+
+  @JsonProperty("fatal")
+  private Boolean fatal;
+
+  public ErrorDetailPb setExceptions(Collection<SerializedException> exceptions) {
+    this.exceptions = exceptions;
+    return this;
+  }
+
+  public Collection<SerializedException> getExceptions() {
+    return exceptions;
+  }
+
+  public ErrorDetailPb setFatal(Boolean fatal) {
+    this.fatal = fatal;
+    return this;
+  }
+
+  public Boolean getFatal() {
+    return fatal;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ErrorDetailPb that = (ErrorDetailPb) o;
+    return Objects.equals(exceptions, that.exceptions) && Objects.equals(fatal, that.fatal);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(exceptions, fatal);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ErrorDetailPb.class)
+        .add("exceptions", exceptions)
+        .add("fatal", fatal)
+        .toString();
+  }
+}

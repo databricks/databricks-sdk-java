@@ -4,22 +4,30 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = Subscription.SubscriptionSerializer.class)
+@JsonDeserialize(using = Subscription.SubscriptionDeserializer.class)
 public class Subscription {
   /** Optional: Allows users to specify a custom subject line on the email sent to subscribers. */
-  @JsonProperty("custom_subject")
   private String customSubject;
 
   /** When true, the subscription will not send emails. */
-  @JsonProperty("paused")
   private Boolean paused;
 
   /** The list of subscribers to send the snapshot of the dashboard to. */
-  @JsonProperty("subscribers")
   private Collection<SubscriptionSubscriber> subscribers;
 
   public Subscription setCustomSubject(String customSubject) {
@@ -71,5 +79,41 @@ public class Subscription {
         .add("paused", paused)
         .add("subscribers", subscribers)
         .toString();
+  }
+
+  SubscriptionPb toPb() {
+    SubscriptionPb pb = new SubscriptionPb();
+    pb.setCustomSubject(customSubject);
+    pb.setPaused(paused);
+    pb.setSubscribers(subscribers);
+
+    return pb;
+  }
+
+  static Subscription fromPb(SubscriptionPb pb) {
+    Subscription model = new Subscription();
+    model.setCustomSubject(pb.getCustomSubject());
+    model.setPaused(pb.getPaused());
+    model.setSubscribers(pb.getSubscribers());
+
+    return model;
+  }
+
+  public static class SubscriptionSerializer extends JsonSerializer<Subscription> {
+    @Override
+    public void serialize(Subscription value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SubscriptionPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SubscriptionDeserializer extends JsonDeserializer<Subscription> {
+    @Override
+    public Subscription deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SubscriptionPb pb = mapper.readValue(p, SubscriptionPb.class);
+      return Subscription.fromPb(pb);
+    }
   }
 }

@@ -4,30 +4,37 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ListServicePrincipalResponse.ListServicePrincipalResponseSerializer.class)
+@JsonDeserialize(
+    using = ListServicePrincipalResponse.ListServicePrincipalResponseDeserializer.class)
 public class ListServicePrincipalResponse {
   /** Total results returned in the response. */
-  @JsonProperty("itemsPerPage")
   private Long itemsPerPage;
 
   /** User objects returned in the response. */
-  @JsonProperty("Resources")
   private Collection<ServicePrincipal> resources;
 
   /** The schema of the List response. */
-  @JsonProperty("schemas")
   private Collection<ListResponseSchema> schemas;
 
   /** Starting index of all the results that matched the request filters. First item is number 1. */
-  @JsonProperty("startIndex")
   private Long startIndex;
 
   /** Total results that match the request filters. */
-  @JsonProperty("totalResults")
   private Long totalResults;
 
   public ListServicePrincipalResponse setItemsPerPage(Long itemsPerPage) {
@@ -101,5 +108,49 @@ public class ListServicePrincipalResponse {
         .add("startIndex", startIndex)
         .add("totalResults", totalResults)
         .toString();
+  }
+
+  ListServicePrincipalResponsePb toPb() {
+    ListServicePrincipalResponsePb pb = new ListServicePrincipalResponsePb();
+    pb.setItemsPerPage(itemsPerPage);
+    pb.setResources(resources);
+    pb.setSchemas(schemas);
+    pb.setStartIndex(startIndex);
+    pb.setTotalResults(totalResults);
+
+    return pb;
+  }
+
+  static ListServicePrincipalResponse fromPb(ListServicePrincipalResponsePb pb) {
+    ListServicePrincipalResponse model = new ListServicePrincipalResponse();
+    model.setItemsPerPage(pb.getItemsPerPage());
+    model.setResources(pb.getResources());
+    model.setSchemas(pb.getSchemas());
+    model.setStartIndex(pb.getStartIndex());
+    model.setTotalResults(pb.getTotalResults());
+
+    return model;
+  }
+
+  public static class ListServicePrincipalResponseSerializer
+      extends JsonSerializer<ListServicePrincipalResponse> {
+    @Override
+    public void serialize(
+        ListServicePrincipalResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListServicePrincipalResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListServicePrincipalResponseDeserializer
+      extends JsonDeserializer<ListServicePrincipalResponse> {
+    @Override
+    public ListServicePrincipalResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListServicePrincipalResponsePb pb = mapper.readValue(p, ListServicePrincipalResponsePb.class);
+      return ListServicePrincipalResponse.fromPb(pb);
+    }
   }
 }

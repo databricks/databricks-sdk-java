@@ -4,42 +4,46 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 /** The result manifest provides schema and metadata for the result set. */
 @Generated
+@JsonSerialize(using = ResultManifest.ResultManifestSerializer.class)
+@JsonDeserialize(using = ResultManifest.ResultManifestDeserializer.class)
 public class ResultManifest {
   /** Array of result set chunk metadata. */
-  @JsonProperty("chunks")
   private Collection<BaseChunkInfo> chunks;
 
   /** */
-  @JsonProperty("format")
   private Format format;
 
   /** The schema is an ordered list of column descriptions. */
-  @JsonProperty("schema")
   private ResultSchema schema;
 
   /**
    * The total number of bytes in the result set. This field is not available when using `INLINE`
    * disposition.
    */
-  @JsonProperty("total_byte_count")
   private Long totalByteCount;
 
   /** The total number of chunks that the result set has been divided into. */
-  @JsonProperty("total_chunk_count")
   private Long totalChunkCount;
 
   /** The total number of rows in the result set. */
-  @JsonProperty("total_row_count")
   private Long totalRowCount;
 
   /** Indicates whether the result is truncated due to `row_limit` or `byte_limit`. */
-  @JsonProperty("truncated")
   private Boolean truncated;
 
   public ResultManifest setChunks(Collection<BaseChunkInfo> chunks) {
@@ -136,5 +140,50 @@ public class ResultManifest {
         .add("totalRowCount", totalRowCount)
         .add("truncated", truncated)
         .toString();
+  }
+
+  ResultManifestPb toPb() {
+    ResultManifestPb pb = new ResultManifestPb();
+    pb.setChunks(chunks);
+    pb.setFormat(format);
+    pb.setSchema(schema);
+    pb.setTotalByteCount(totalByteCount);
+    pb.setTotalChunkCount(totalChunkCount);
+    pb.setTotalRowCount(totalRowCount);
+    pb.setTruncated(truncated);
+
+    return pb;
+  }
+
+  static ResultManifest fromPb(ResultManifestPb pb) {
+    ResultManifest model = new ResultManifest();
+    model.setChunks(pb.getChunks());
+    model.setFormat(pb.getFormat());
+    model.setSchema(pb.getSchema());
+    model.setTotalByteCount(pb.getTotalByteCount());
+    model.setTotalChunkCount(pb.getTotalChunkCount());
+    model.setTotalRowCount(pb.getTotalRowCount());
+    model.setTruncated(pb.getTruncated());
+
+    return model;
+  }
+
+  public static class ResultManifestSerializer extends JsonSerializer<ResultManifest> {
+    @Override
+    public void serialize(ResultManifest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ResultManifestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ResultManifestDeserializer extends JsonDeserializer<ResultManifest> {
+    @Override
+    public ResultManifest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ResultManifestPb pb = mapper.readValue(p, ResultManifestPb.class);
+      return ResultManifest.fromPb(pb);
+    }
   }
 }

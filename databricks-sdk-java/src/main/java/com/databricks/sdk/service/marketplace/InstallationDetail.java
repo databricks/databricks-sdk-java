@@ -4,62 +4,60 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = InstallationDetail.InstallationDetailSerializer.class)
+@JsonDeserialize(using = InstallationDetail.InstallationDetailDeserializer.class)
 public class InstallationDetail {
   /** */
-  @JsonProperty("catalog_name")
   private String catalogName;
 
   /** */
-  @JsonProperty("error_message")
   private String errorMessage;
 
   /** */
-  @JsonProperty("id")
   private String id;
 
   /** */
-  @JsonProperty("installed_on")
   private Long installedOn;
 
   /** */
-  @JsonProperty("listing_id")
   private String listingId;
 
   /** */
-  @JsonProperty("listing_name")
   private String listingName;
 
   /** */
-  @JsonProperty("recipient_type")
   private DeltaSharingRecipientType recipientType;
 
   /** */
-  @JsonProperty("repo_name")
   private String repoName;
 
   /** */
-  @JsonProperty("repo_path")
   private String repoPath;
 
   /** */
-  @JsonProperty("share_name")
   private String shareName;
 
   /** */
-  @JsonProperty("status")
   private InstallationStatus status;
 
   /** */
-  @JsonProperty("token_detail")
   private TokenDetail tokenDetail;
 
   /** */
-  @JsonProperty("tokens")
   private Collection<TokenInfo> tokens;
 
   public InstallationDetail setCatalogName(String catalogName) {
@@ -234,5 +232,62 @@ public class InstallationDetail {
         .add("tokenDetail", tokenDetail)
         .add("tokens", tokens)
         .toString();
+  }
+
+  InstallationDetailPb toPb() {
+    InstallationDetailPb pb = new InstallationDetailPb();
+    pb.setCatalogName(catalogName);
+    pb.setErrorMessage(errorMessage);
+    pb.setId(id);
+    pb.setInstalledOn(installedOn);
+    pb.setListingId(listingId);
+    pb.setListingName(listingName);
+    pb.setRecipientType(recipientType);
+    pb.setRepoName(repoName);
+    pb.setRepoPath(repoPath);
+    pb.setShareName(shareName);
+    pb.setStatus(status);
+    pb.setTokenDetail(tokenDetail);
+    pb.setTokens(tokens);
+
+    return pb;
+  }
+
+  static InstallationDetail fromPb(InstallationDetailPb pb) {
+    InstallationDetail model = new InstallationDetail();
+    model.setCatalogName(pb.getCatalogName());
+    model.setErrorMessage(pb.getErrorMessage());
+    model.setId(pb.getId());
+    model.setInstalledOn(pb.getInstalledOn());
+    model.setListingId(pb.getListingId());
+    model.setListingName(pb.getListingName());
+    model.setRecipientType(pb.getRecipientType());
+    model.setRepoName(pb.getRepoName());
+    model.setRepoPath(pb.getRepoPath());
+    model.setShareName(pb.getShareName());
+    model.setStatus(pb.getStatus());
+    model.setTokenDetail(pb.getTokenDetail());
+    model.setTokens(pb.getTokens());
+
+    return model;
+  }
+
+  public static class InstallationDetailSerializer extends JsonSerializer<InstallationDetail> {
+    @Override
+    public void serialize(InstallationDetail value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      InstallationDetailPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class InstallationDetailDeserializer extends JsonDeserializer<InstallationDetail> {
+    @Override
+    public InstallationDetail deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      InstallationDetailPb pb = mapper.readValue(p, InstallationDetailPb.class);
+      return InstallationDetail.fromPb(pb);
+    }
   }
 }

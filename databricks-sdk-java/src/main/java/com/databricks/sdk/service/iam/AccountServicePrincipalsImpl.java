@@ -23,7 +23,7 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
             "/api/2.0/accounts/%s/scim/v2/ServicePrincipals", apiClient.configuredAccountID());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, ServicePrincipal.class);
@@ -40,7 +40,7 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
             apiClient.configuredAccountID(), request.getId());
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       apiClient.execute(req, DeleteResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -55,7 +55,7 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
             apiClient.configuredAccountID(), request.getId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ServicePrincipal.class);
     } catch (IOException e) {
@@ -70,7 +70,7 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
             "/api/2.0/accounts/%s/scim/v2/ServicePrincipals", apiClient.configuredAccountID());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListServicePrincipalResponse.class);
     } catch (IOException e) {
@@ -86,7 +86,7 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
             apiClient.configuredAccountID(), request.getId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, PatchResponse.class);
     } catch (IOException e) {
@@ -102,7 +102,7 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
             apiClient.configuredAccountID(), request.getId());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, UpdateResponse.class);
     } catch (IOException e) {

@@ -3,20 +3,28 @@
 package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List providers */
 @Generated
+@JsonSerialize(using = ListProvidersRequest.ListProvidersRequestSerializer.class)
+@JsonDeserialize(using = ListProvidersRequest.ListProvidersRequestDeserializer.class)
 public class ListProvidersRequest {
   /**
    * If not provided, all providers will be returned. If no providers exist with this ID, no results
    * will be returned.
    */
-  @JsonIgnore
-  @QueryParam("data_provider_global_metastore_id")
   private String dataProviderGlobalMetastoreId;
 
   /**
@@ -28,13 +36,9 @@ public class ListProvidersRequest {
    * max_results size, even zero. The only definitive indication that no further providers can be
    * fetched is when the next_page_token is unset from the response.
    */
-  @JsonIgnore
-  @QueryParam("max_results")
   private Long maxResults;
 
   /** Opaque pagination token to go to next page based on previous query. */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   public ListProvidersRequest setDataProviderGlobalMetastoreId(
@@ -87,5 +91,44 @@ public class ListProvidersRequest {
         .add("maxResults", maxResults)
         .add("pageToken", pageToken)
         .toString();
+  }
+
+  ListProvidersRequestPb toPb() {
+    ListProvidersRequestPb pb = new ListProvidersRequestPb();
+    pb.setDataProviderGlobalMetastoreId(dataProviderGlobalMetastoreId);
+    pb.setMaxResults(maxResults);
+    pb.setPageToken(pageToken);
+
+    return pb;
+  }
+
+  static ListProvidersRequest fromPb(ListProvidersRequestPb pb) {
+    ListProvidersRequest model = new ListProvidersRequest();
+    model.setDataProviderGlobalMetastoreId(pb.getDataProviderGlobalMetastoreId());
+    model.setMaxResults(pb.getMaxResults());
+    model.setPageToken(pb.getPageToken());
+
+    return model;
+  }
+
+  public static class ListProvidersRequestSerializer extends JsonSerializer<ListProvidersRequest> {
+    @Override
+    public void serialize(
+        ListProvidersRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListProvidersRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListProvidersRequestDeserializer
+      extends JsonDeserializer<ListProvidersRequest> {
+    @Override
+    public ListProvidersRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListProvidersRequestPb pb = mapper.readValue(p, ListProvidersRequestPb.class);
+      return ListProvidersRequest.fromPb(pb);
+    }
   }
 }

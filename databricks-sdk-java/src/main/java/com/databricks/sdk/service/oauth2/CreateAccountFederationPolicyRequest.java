@@ -3,17 +3,29 @@
 package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Create account federation policy */
 @Generated
+@JsonSerialize(
+    using =
+        CreateAccountFederationPolicyRequest.CreateAccountFederationPolicyRequestSerializer.class)
+@JsonDeserialize(
+    using =
+        CreateAccountFederationPolicyRequest.CreateAccountFederationPolicyRequestDeserializer.class)
 public class CreateAccountFederationPolicyRequest {
   /** */
-  @JsonProperty("policy")
   private FederationPolicy policy;
 
   /**
@@ -21,8 +33,6 @@ public class CreateAccountFederationPolicyRequest {
    * alphanumeric characters, numbers, hyphens, and slashes. If unspecified, the id will be assigned
    * by Databricks.
    */
-  @JsonIgnore
-  @QueryParam("policy_id")
   private String policyId;
 
   public CreateAccountFederationPolicyRequest setPolicy(FederationPolicy policy) {
@@ -62,5 +72,44 @@ public class CreateAccountFederationPolicyRequest {
         .add("policy", policy)
         .add("policyId", policyId)
         .toString();
+  }
+
+  CreateAccountFederationPolicyRequestPb toPb() {
+    CreateAccountFederationPolicyRequestPb pb = new CreateAccountFederationPolicyRequestPb();
+    pb.setPolicy(policy);
+    pb.setPolicyId(policyId);
+
+    return pb;
+  }
+
+  static CreateAccountFederationPolicyRequest fromPb(CreateAccountFederationPolicyRequestPb pb) {
+    CreateAccountFederationPolicyRequest model = new CreateAccountFederationPolicyRequest();
+    model.setPolicy(pb.getPolicy());
+    model.setPolicyId(pb.getPolicyId());
+
+    return model;
+  }
+
+  public static class CreateAccountFederationPolicyRequestSerializer
+      extends JsonSerializer<CreateAccountFederationPolicyRequest> {
+    @Override
+    public void serialize(
+        CreateAccountFederationPolicyRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateAccountFederationPolicyRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateAccountFederationPolicyRequestDeserializer
+      extends JsonDeserializer<CreateAccountFederationPolicyRequest> {
+    @Override
+    public CreateAccountFederationPolicyRequest deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateAccountFederationPolicyRequestPb pb =
+          mapper.readValue(p, CreateAccountFederationPolicyRequestPb.class);
+      return CreateAccountFederationPolicyRequest.fromPb(pb);
+    }
   }
 }

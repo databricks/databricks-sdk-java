@@ -4,14 +4,24 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = BatchGetListingsResponse.BatchGetListingsResponseSerializer.class)
+@JsonDeserialize(using = BatchGetListingsResponse.BatchGetListingsResponseDeserializer.class)
 public class BatchGetListingsResponse {
   /** */
-  @JsonProperty("listings")
   private Collection<Listing> listings;
 
   public BatchGetListingsResponse setListings(Collection<Listing> listings) {
@@ -39,5 +49,41 @@ public class BatchGetListingsResponse {
   @Override
   public String toString() {
     return new ToStringer(BatchGetListingsResponse.class).add("listings", listings).toString();
+  }
+
+  BatchGetListingsResponsePb toPb() {
+    BatchGetListingsResponsePb pb = new BatchGetListingsResponsePb();
+    pb.setListings(listings);
+
+    return pb;
+  }
+
+  static BatchGetListingsResponse fromPb(BatchGetListingsResponsePb pb) {
+    BatchGetListingsResponse model = new BatchGetListingsResponse();
+    model.setListings(pb.getListings());
+
+    return model;
+  }
+
+  public static class BatchGetListingsResponseSerializer
+      extends JsonSerializer<BatchGetListingsResponse> {
+    @Override
+    public void serialize(
+        BatchGetListingsResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      BatchGetListingsResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class BatchGetListingsResponseDeserializer
+      extends JsonDeserializer<BatchGetListingsResponse> {
+    @Override
+    public BatchGetListingsResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      BatchGetListingsResponsePb pb = mapper.readValue(p, BatchGetListingsResponsePb.class);
+      return BatchGetListingsResponse.fromPb(pb);
+    }
   }
 }

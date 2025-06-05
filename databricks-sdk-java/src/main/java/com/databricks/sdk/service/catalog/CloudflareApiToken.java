@@ -4,21 +4,29 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CloudflareApiToken.CloudflareApiTokenSerializer.class)
+@JsonDeserialize(using = CloudflareApiToken.CloudflareApiTokenDeserializer.class)
 public class CloudflareApiToken {
   /** The Cloudflare access key id of the token. */
-  @JsonProperty("access_key_id")
   private String accessKeyId;
 
   /** The account id associated with the API token. */
-  @JsonProperty("account_id")
   private String accountId;
 
   /** The secret access token generated for the access key id */
-  @JsonProperty("secret_access_key")
   private String secretAccessKey;
 
   public CloudflareApiToken setAccessKeyId(String accessKeyId) {
@@ -70,5 +78,42 @@ public class CloudflareApiToken {
         .add("accountId", accountId)
         .add("secretAccessKey", secretAccessKey)
         .toString();
+  }
+
+  CloudflareApiTokenPb toPb() {
+    CloudflareApiTokenPb pb = new CloudflareApiTokenPb();
+    pb.setAccessKeyId(accessKeyId);
+    pb.setAccountId(accountId);
+    pb.setSecretAccessKey(secretAccessKey);
+
+    return pb;
+  }
+
+  static CloudflareApiToken fromPb(CloudflareApiTokenPb pb) {
+    CloudflareApiToken model = new CloudflareApiToken();
+    model.setAccessKeyId(pb.getAccessKeyId());
+    model.setAccountId(pb.getAccountId());
+    model.setSecretAccessKey(pb.getSecretAccessKey());
+
+    return model;
+  }
+
+  public static class CloudflareApiTokenSerializer extends JsonSerializer<CloudflareApiToken> {
+    @Override
+    public void serialize(CloudflareApiToken value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CloudflareApiTokenPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CloudflareApiTokenDeserializer extends JsonDeserializer<CloudflareApiToken> {
+    @Override
+    public CloudflareApiToken deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CloudflareApiTokenPb pb = mapper.readValue(p, CloudflareApiTokenPb.class);
+      return CloudflareApiToken.fromPb(pb);
+    }
   }
 }

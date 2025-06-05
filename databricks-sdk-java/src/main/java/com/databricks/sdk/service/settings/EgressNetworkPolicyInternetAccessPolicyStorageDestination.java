@@ -4,43 +4,52 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 /** Users can specify accessible storage destinations. */
 @Generated
+@JsonSerialize(
+    using =
+        EgressNetworkPolicyInternetAccessPolicyStorageDestination
+            .EgressNetworkPolicyInternetAccessPolicyStorageDestinationSerializer.class)
+@JsonDeserialize(
+    using =
+        EgressNetworkPolicyInternetAccessPolicyStorageDestination
+            .EgressNetworkPolicyInternetAccessPolicyStorageDestinationDeserializer.class)
 public class EgressNetworkPolicyInternetAccessPolicyStorageDestination {
   /** */
-  @JsonProperty("allowed_paths")
   private Collection<String> allowedPaths;
 
   /** */
-  @JsonProperty("azure_container")
   private String azureContainer;
 
   /** */
-  @JsonProperty("azure_dns_zone")
   private String azureDnsZone;
 
   /** */
-  @JsonProperty("azure_storage_account")
   private String azureStorageAccount;
 
   /** */
-  @JsonProperty("azure_storage_service")
   private String azureStorageService;
 
   /** */
-  @JsonProperty("bucket_name")
   private String bucketName;
 
   /** */
-  @JsonProperty("region")
   private String region;
 
   /** */
-  @JsonProperty("type")
   private EgressNetworkPolicyInternetAccessPolicyStorageDestinationStorageDestinationType typeValue;
 
   public EgressNetworkPolicyInternetAccessPolicyStorageDestination setAllowedPaths(
@@ -163,5 +172,61 @@ public class EgressNetworkPolicyInternetAccessPolicyStorageDestination {
         .add("region", region)
         .add("typeValue", typeValue)
         .toString();
+  }
+
+  EgressNetworkPolicyInternetAccessPolicyStorageDestinationPb toPb() {
+    EgressNetworkPolicyInternetAccessPolicyStorageDestinationPb pb =
+        new EgressNetworkPolicyInternetAccessPolicyStorageDestinationPb();
+    pb.setAllowedPaths(allowedPaths);
+    pb.setAzureContainer(azureContainer);
+    pb.setAzureDnsZone(azureDnsZone);
+    pb.setAzureStorageAccount(azureStorageAccount);
+    pb.setAzureStorageService(azureStorageService);
+    pb.setBucketName(bucketName);
+    pb.setRegion(region);
+    pb.setType(typeValue);
+
+    return pb;
+  }
+
+  static EgressNetworkPolicyInternetAccessPolicyStorageDestination fromPb(
+      EgressNetworkPolicyInternetAccessPolicyStorageDestinationPb pb) {
+    EgressNetworkPolicyInternetAccessPolicyStorageDestination model =
+        new EgressNetworkPolicyInternetAccessPolicyStorageDestination();
+    model.setAllowedPaths(pb.getAllowedPaths());
+    model.setAzureContainer(pb.getAzureContainer());
+    model.setAzureDnsZone(pb.getAzureDnsZone());
+    model.setAzureStorageAccount(pb.getAzureStorageAccount());
+    model.setAzureStorageService(pb.getAzureStorageService());
+    model.setBucketName(pb.getBucketName());
+    model.setRegion(pb.getRegion());
+    model.setType(pb.getType());
+
+    return model;
+  }
+
+  public static class EgressNetworkPolicyInternetAccessPolicyStorageDestinationSerializer
+      extends JsonSerializer<EgressNetworkPolicyInternetAccessPolicyStorageDestination> {
+    @Override
+    public void serialize(
+        EgressNetworkPolicyInternetAccessPolicyStorageDestination value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      EgressNetworkPolicyInternetAccessPolicyStorageDestinationPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class EgressNetworkPolicyInternetAccessPolicyStorageDestinationDeserializer
+      extends JsonDeserializer<EgressNetworkPolicyInternetAccessPolicyStorageDestination> {
+    @Override
+    public EgressNetworkPolicyInternetAccessPolicyStorageDestination deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      EgressNetworkPolicyInternetAccessPolicyStorageDestinationPb pb =
+          mapper.readValue(p, EgressNetworkPolicyInternetAccessPolicyStorageDestinationPb.class);
+      return EgressNetworkPolicyInternetAccessPolicyStorageDestination.fromPb(pb);
+    }
   }
 }

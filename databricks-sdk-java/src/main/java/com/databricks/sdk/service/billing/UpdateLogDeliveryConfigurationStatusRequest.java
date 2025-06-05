@@ -4,14 +4,30 @@ package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using =
+        UpdateLogDeliveryConfigurationStatusRequest
+            .UpdateLogDeliveryConfigurationStatusRequestSerializer.class)
+@JsonDeserialize(
+    using =
+        UpdateLogDeliveryConfigurationStatusRequest
+            .UpdateLogDeliveryConfigurationStatusRequestDeserializer.class)
 public class UpdateLogDeliveryConfigurationStatusRequest {
   /** Databricks log delivery configuration ID */
-  @JsonIgnore private String logDeliveryConfigurationId;
+  private String logDeliveryConfigurationId;
 
   /**
    * Status of log delivery configuration. Set to `ENABLED` (enabled) or `DISABLED` (disabled).
@@ -19,7 +35,6 @@ public class UpdateLogDeliveryConfigurationStatusRequest {
    * configuration](#operation/patch-log-delivery-config-status) later. Deletion of a configuration
    * is not supported, so disable a log delivery configuration that is no longer needed.
    */
-  @JsonProperty("status")
   private LogDeliveryConfigStatus status;
 
   public UpdateLogDeliveryConfigurationStatusRequest setLogDeliveryConfigurationId(
@@ -62,5 +77,49 @@ public class UpdateLogDeliveryConfigurationStatusRequest {
         .add("logDeliveryConfigurationId", logDeliveryConfigurationId)
         .add("status", status)
         .toString();
+  }
+
+  UpdateLogDeliveryConfigurationStatusRequestPb toPb() {
+    UpdateLogDeliveryConfigurationStatusRequestPb pb =
+        new UpdateLogDeliveryConfigurationStatusRequestPb();
+    pb.setLogDeliveryConfigurationId(logDeliveryConfigurationId);
+    pb.setStatus(status);
+
+    return pb;
+  }
+
+  static UpdateLogDeliveryConfigurationStatusRequest fromPb(
+      UpdateLogDeliveryConfigurationStatusRequestPb pb) {
+    UpdateLogDeliveryConfigurationStatusRequest model =
+        new UpdateLogDeliveryConfigurationStatusRequest();
+    model.setLogDeliveryConfigurationId(pb.getLogDeliveryConfigurationId());
+    model.setStatus(pb.getStatus());
+
+    return model;
+  }
+
+  public static class UpdateLogDeliveryConfigurationStatusRequestSerializer
+      extends JsonSerializer<UpdateLogDeliveryConfigurationStatusRequest> {
+    @Override
+    public void serialize(
+        UpdateLogDeliveryConfigurationStatusRequest value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      UpdateLogDeliveryConfigurationStatusRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateLogDeliveryConfigurationStatusRequestDeserializer
+      extends JsonDeserializer<UpdateLogDeliveryConfigurationStatusRequest> {
+    @Override
+    public UpdateLogDeliveryConfigurationStatusRequest deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateLogDeliveryConfigurationStatusRequestPb pb =
+          mapper.readValue(p, UpdateLogDeliveryConfigurationStatusRequestPb.class);
+      return UpdateLogDeliveryConfigurationStatusRequest.fromPb(pb);
+    }
   }
 }

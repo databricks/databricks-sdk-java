@@ -4,35 +4,42 @@ package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateNetworkRequest.CreateNetworkRequestSerializer.class)
+@JsonDeserialize(using = CreateNetworkRequest.CreateNetworkRequestDeserializer.class)
 public class CreateNetworkRequest {
   /**
    * The Google Cloud specific information for this network (for example, the VPC ID, subnet ID, and
    * secondary IP ranges).
    */
-  @JsonProperty("gcp_network_info")
   private GcpNetworkInfo gcpNetworkInfo;
 
   /** The human-readable name of the network configuration. */
-  @JsonProperty("network_name")
   private String networkName;
 
   /**
    * IDs of one to five security groups associated with this network. Security group IDs **cannot**
    * be used in multiple network configurations.
    */
-  @JsonProperty("security_group_ids")
   private Collection<String> securityGroupIds;
 
   /**
    * IDs of at least two subnets associated with this network. Subnet IDs **cannot** be used in
    * multiple network configurations.
    */
-  @JsonProperty("subnet_ids")
   private Collection<String> subnetIds;
 
   /**
@@ -41,14 +48,12 @@ public class CreateNetworkRequest {
    *
    * <p>[AWS PrivateLink]: https://aws.amazon.com/privatelink/
    */
-  @JsonProperty("vpc_endpoints")
   private NetworkVpcEndpoints vpcEndpoints;
 
   /**
    * The ID of the VPC associated with this network. VPC IDs can be used in multiple network
    * configurations.
    */
-  @JsonProperty("vpc_id")
   private String vpcId;
 
   public CreateNetworkRequest setGcpNetworkInfo(GcpNetworkInfo gcpNetworkInfo) {
@@ -134,5 +139,50 @@ public class CreateNetworkRequest {
         .add("vpcEndpoints", vpcEndpoints)
         .add("vpcId", vpcId)
         .toString();
+  }
+
+  CreateNetworkRequestPb toPb() {
+    CreateNetworkRequestPb pb = new CreateNetworkRequestPb();
+    pb.setGcpNetworkInfo(gcpNetworkInfo);
+    pb.setNetworkName(networkName);
+    pb.setSecurityGroupIds(securityGroupIds);
+    pb.setSubnetIds(subnetIds);
+    pb.setVpcEndpoints(vpcEndpoints);
+    pb.setVpcId(vpcId);
+
+    return pb;
+  }
+
+  static CreateNetworkRequest fromPb(CreateNetworkRequestPb pb) {
+    CreateNetworkRequest model = new CreateNetworkRequest();
+    model.setGcpNetworkInfo(pb.getGcpNetworkInfo());
+    model.setNetworkName(pb.getNetworkName());
+    model.setSecurityGroupIds(pb.getSecurityGroupIds());
+    model.setSubnetIds(pb.getSubnetIds());
+    model.setVpcEndpoints(pb.getVpcEndpoints());
+    model.setVpcId(pb.getVpcId());
+
+    return model;
+  }
+
+  public static class CreateNetworkRequestSerializer extends JsonSerializer<CreateNetworkRequest> {
+    @Override
+    public void serialize(
+        CreateNetworkRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateNetworkRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateNetworkRequestDeserializer
+      extends JsonDeserializer<CreateNetworkRequest> {
+    @Override
+    public CreateNetworkRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateNetworkRequestPb pb = mapper.readValue(p, CreateNetworkRequestPb.class);
+      return CreateNetworkRequest.fromPb(pb);
+    }
   }
 }

@@ -4,18 +4,33 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using =
+        EgressNetworkPolicyInternetAccessPolicyLogOnlyMode
+            .EgressNetworkPolicyInternetAccessPolicyLogOnlyModeSerializer.class)
+@JsonDeserialize(
+    using =
+        EgressNetworkPolicyInternetAccessPolicyLogOnlyMode
+            .EgressNetworkPolicyInternetAccessPolicyLogOnlyModeDeserializer.class)
 public class EgressNetworkPolicyInternetAccessPolicyLogOnlyMode {
   /** */
-  @JsonProperty("log_only_mode_type")
   private EgressNetworkPolicyInternetAccessPolicyLogOnlyModeLogOnlyModeType logOnlyModeType;
 
   /** */
-  @JsonProperty("workloads")
   private Collection<EgressNetworkPolicyInternetAccessPolicyLogOnlyModeWorkloadType> workloads;
 
   public EgressNetworkPolicyInternetAccessPolicyLogOnlyMode setLogOnlyModeType(
@@ -59,5 +74,49 @@ public class EgressNetworkPolicyInternetAccessPolicyLogOnlyMode {
         .add("logOnlyModeType", logOnlyModeType)
         .add("workloads", workloads)
         .toString();
+  }
+
+  EgressNetworkPolicyInternetAccessPolicyLogOnlyModePb toPb() {
+    EgressNetworkPolicyInternetAccessPolicyLogOnlyModePb pb =
+        new EgressNetworkPolicyInternetAccessPolicyLogOnlyModePb();
+    pb.setLogOnlyModeType(logOnlyModeType);
+    pb.setWorkloads(workloads);
+
+    return pb;
+  }
+
+  static EgressNetworkPolicyInternetAccessPolicyLogOnlyMode fromPb(
+      EgressNetworkPolicyInternetAccessPolicyLogOnlyModePb pb) {
+    EgressNetworkPolicyInternetAccessPolicyLogOnlyMode model =
+        new EgressNetworkPolicyInternetAccessPolicyLogOnlyMode();
+    model.setLogOnlyModeType(pb.getLogOnlyModeType());
+    model.setWorkloads(pb.getWorkloads());
+
+    return model;
+  }
+
+  public static class EgressNetworkPolicyInternetAccessPolicyLogOnlyModeSerializer
+      extends JsonSerializer<EgressNetworkPolicyInternetAccessPolicyLogOnlyMode> {
+    @Override
+    public void serialize(
+        EgressNetworkPolicyInternetAccessPolicyLogOnlyMode value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      EgressNetworkPolicyInternetAccessPolicyLogOnlyModePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class EgressNetworkPolicyInternetAccessPolicyLogOnlyModeDeserializer
+      extends JsonDeserializer<EgressNetworkPolicyInternetAccessPolicyLogOnlyMode> {
+    @Override
+    public EgressNetworkPolicyInternetAccessPolicyLogOnlyMode deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      EgressNetworkPolicyInternetAccessPolicyLogOnlyModePb pb =
+          mapper.readValue(p, EgressNetworkPolicyInternetAccessPolicyLogOnlyModePb.class);
+      return EgressNetworkPolicyInternetAccessPolicyLogOnlyMode.fromPb(pb);
+    }
   }
 }

@@ -4,11 +4,25 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** The etag is returned. */
 @Generated
+@JsonSerialize(
+    using = DeleteAccountIpAccessEnableResponse.DeleteAccountIpAccessEnableResponseSerializer.class)
+@JsonDeserialize(
+    using =
+        DeleteAccountIpAccessEnableResponse.DeleteAccountIpAccessEnableResponseDeserializer.class)
 public class DeleteAccountIpAccessEnableResponse {
   /**
    * etag used for versioning. The response is at least as fresh as the eTag provided. This is used
@@ -18,7 +32,6 @@ public class DeleteAccountIpAccessEnableResponse {
    * an etag from a GET request, and pass it with the DELETE request to identify the rule set
    * version you are deleting.
    */
-  @JsonProperty("etag")
   private String etag;
 
   public DeleteAccountIpAccessEnableResponse setEtag(String etag) {
@@ -46,5 +59,42 @@ public class DeleteAccountIpAccessEnableResponse {
   @Override
   public String toString() {
     return new ToStringer(DeleteAccountIpAccessEnableResponse.class).add("etag", etag).toString();
+  }
+
+  DeleteAccountIpAccessEnableResponsePb toPb() {
+    DeleteAccountIpAccessEnableResponsePb pb = new DeleteAccountIpAccessEnableResponsePb();
+    pb.setEtag(etag);
+
+    return pb;
+  }
+
+  static DeleteAccountIpAccessEnableResponse fromPb(DeleteAccountIpAccessEnableResponsePb pb) {
+    DeleteAccountIpAccessEnableResponse model = new DeleteAccountIpAccessEnableResponse();
+    model.setEtag(pb.getEtag());
+
+    return model;
+  }
+
+  public static class DeleteAccountIpAccessEnableResponseSerializer
+      extends JsonSerializer<DeleteAccountIpAccessEnableResponse> {
+    @Override
+    public void serialize(
+        DeleteAccountIpAccessEnableResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DeleteAccountIpAccessEnableResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DeleteAccountIpAccessEnableResponseDeserializer
+      extends JsonDeserializer<DeleteAccountIpAccessEnableResponse> {
+    @Override
+    public DeleteAccountIpAccessEnableResponse deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DeleteAccountIpAccessEnableResponsePb pb =
+          mapper.readValue(p, DeleteAccountIpAccessEnableResponsePb.class);
+      return DeleteAccountIpAccessEnableResponse.fromPb(pb);
+    }
   }
 }

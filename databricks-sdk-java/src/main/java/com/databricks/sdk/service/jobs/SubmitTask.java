@@ -4,18 +4,28 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = SubmitTask.SubmitTaskSerializer.class)
+@JsonDeserialize(using = SubmitTask.SubmitTaskDeserializer.class)
 public class SubmitTask {
   /**
    * The task runs a [clean rooms] notebook when the `clean_rooms_notebook_task` field is present.
    *
    * <p>[clean rooms]: https://docs.databricks.com/en/clean-rooms/index.html
    */
-  @JsonProperty("clean_rooms_notebook_task")
   private CleanRoomsNotebookTask cleanRoomsNotebookTask;
 
   /**
@@ -23,22 +33,18 @@ public class SubmitTask {
    * the `condition_task` field is present. The condition task does not require a cluster to execute
    * and does not support retries or notifications.
    */
-  @JsonProperty("condition_task")
   private ConditionTask conditionTask;
 
   /** The task refreshes a dashboard and sends a snapshot to subscribers. */
-  @JsonProperty("dashboard_task")
   private DashboardTask dashboardTask;
 
   /** Task type for dbt cloud */
-  @JsonProperty("dbt_cloud_task")
   private DbtCloudTask dbtCloudTask;
 
   /**
    * The task runs one or more dbt commands when the `dbt_task` field is present. The dbt task
    * requires both Databricks SQL and the ability to use a serverless or a pro SQL warehouse.
    */
-  @JsonProperty("dbt_task")
   private DbtTask dbtTask;
 
   /**
@@ -46,25 +52,21 @@ public class SubmitTask {
    * in this field must complete successfully before executing this task. The key is `task_key`, and
    * the value is the name assigned to the dependent task.
    */
-  @JsonProperty("depends_on")
   private Collection<TaskDependency> dependsOn;
 
   /** An optional description for this task. */
-  @JsonProperty("description")
   private String description;
 
   /**
    * An optional set of email addresses notified when the task run begins or completes. The default
    * behavior is to not send any emails.
    */
-  @JsonProperty("email_notifications")
   private JobEmailNotifications emailNotifications;
 
   /**
    * The key that references an environment spec in a job. This field is required for Python script,
    * Python wheel and dbt tasks when using serverless compute.
    */
-  @JsonProperty("environment_key")
   private String environmentKey;
 
   /**
@@ -72,61 +74,50 @@ public class SubmitTask {
    * jobs or tasks on an existing cluster, you may need to manually restart the cluster if it stops
    * responding. We suggest running jobs and tasks on new clusters for greater reliability
    */
-  @JsonProperty("existing_cluster_id")
   private String existingClusterId;
 
   /**
    * The task executes a nested task for every input provided when the `for_each_task` field is
    * present.
    */
-  @JsonProperty("for_each_task")
   private ForEachTask forEachTask;
 
   /** */
-  @JsonProperty("gen_ai_compute_task")
   private GenAiComputeTask genAiComputeTask;
 
   /** An optional set of health rules that can be defined for this job. */
-  @JsonProperty("health")
   private JobsHealthRules health;
 
   /**
    * An optional list of libraries to be installed on the cluster. The default value is an empty
    * list.
    */
-  @JsonProperty("libraries")
   private Collection<com.databricks.sdk.service.compute.Library> libraries;
 
   /** If new_cluster, a description of a new cluster that is created for each run. */
-  @JsonProperty("new_cluster")
   private com.databricks.sdk.service.compute.ClusterSpec newCluster;
 
   /** The task runs a notebook when the `notebook_task` field is present. */
-  @JsonProperty("notebook_task")
   private NotebookTask notebookTask;
 
   /**
    * Optional notification settings that are used when sending notifications to each of the
    * `email_notifications` and `webhook_notifications` for this task run.
    */
-  @JsonProperty("notification_settings")
   private TaskNotificationSettings notificationSettings;
 
   /**
    * The task triggers a pipeline update when the `pipeline_task` field is present. Only pipelines
    * configured to use triggered more are supported.
    */
-  @JsonProperty("pipeline_task")
   private PipelineTask pipelineTask;
 
   /**
    * The task triggers a Power BI semantic model update when the `power_bi_task` field is present.
    */
-  @JsonProperty("power_bi_task")
   private PowerBiTask powerBiTask;
 
   /** The task runs a Python wheel when the `python_wheel_task` field is present. */
-  @JsonProperty("python_wheel_task")
   private PythonWheelTask pythonWheelTask;
 
   /**
@@ -134,19 +125,15 @@ public class SubmitTask {
    * its dependencies have been completed. When omitted, defaults to `ALL_SUCCESS`. See
    * :method:jobs/create for a list of possible values.
    */
-  @JsonProperty("run_if")
   private RunIf runIf;
 
   /** The task triggers another job when the `run_job_task` field is present. */
-  @JsonProperty("run_job_task")
   private RunJobTask runJobTask;
 
   /** The task runs a JAR when the `spark_jar_task` field is present. */
-  @JsonProperty("spark_jar_task")
   private SparkJarTask sparkJarTask;
 
   /** The task runs a Python file when the `spark_python_task` field is present. */
-  @JsonProperty("spark_python_task")
   private SparkPythonTask sparkPythonTask;
 
   /**
@@ -166,14 +153,12 @@ public class SubmitTask {
    *
    * <p>The `--jars`, `--py-files`, `--files` arguments support DBFS and S3 paths.
    */
-  @JsonProperty("spark_submit_task")
   private SparkSubmitTask sparkSubmitTask;
 
   /**
    * The task runs a SQL query or file, or it refreshes a SQL alert or a legacy SQL dashboard when
    * the `sql_task` field is present.
    */
-  @JsonProperty("sql_task")
   private SqlTask sqlTask;
 
   /**
@@ -181,11 +166,9 @@ public class SubmitTask {
    * field is required and must be unique within its parent job. On Update or Reset, this field is
    * used to reference the tasks to be updated or reset.
    */
-  @JsonProperty("task_key")
   private String taskKey;
 
   /** An optional timeout applied to each run of this job task. A value of `0` means no timeout. */
-  @JsonProperty("timeout_seconds")
   private Long timeoutSeconds;
 
   /**
@@ -193,7 +176,6 @@ public class SubmitTask {
    * behavior is to not send any system notifications. Task webhooks respect the task notification
    * settings.
    */
-  @JsonProperty("webhook_notifications")
   private WebhookNotifications webhookNotifications;
 
   public SubmitTask setCleanRoomsNotebookTask(CleanRoomsNotebookTask cleanRoomsNotebookTask) {
@@ -560,5 +542,93 @@ public class SubmitTask {
         .add("timeoutSeconds", timeoutSeconds)
         .add("webhookNotifications", webhookNotifications)
         .toString();
+  }
+
+  SubmitTaskPb toPb() {
+    SubmitTaskPb pb = new SubmitTaskPb();
+    pb.setCleanRoomsNotebookTask(cleanRoomsNotebookTask);
+    pb.setConditionTask(conditionTask);
+    pb.setDashboardTask(dashboardTask);
+    pb.setDbtCloudTask(dbtCloudTask);
+    pb.setDbtTask(dbtTask);
+    pb.setDependsOn(dependsOn);
+    pb.setDescription(description);
+    pb.setEmailNotifications(emailNotifications);
+    pb.setEnvironmentKey(environmentKey);
+    pb.setExistingClusterId(existingClusterId);
+    pb.setForEachTask(forEachTask);
+    pb.setGenAiComputeTask(genAiComputeTask);
+    pb.setHealth(health);
+    pb.setLibraries(libraries);
+    pb.setNewCluster(newCluster);
+    pb.setNotebookTask(notebookTask);
+    pb.setNotificationSettings(notificationSettings);
+    pb.setPipelineTask(pipelineTask);
+    pb.setPowerBiTask(powerBiTask);
+    pb.setPythonWheelTask(pythonWheelTask);
+    pb.setRunIf(runIf);
+    pb.setRunJobTask(runJobTask);
+    pb.setSparkJarTask(sparkJarTask);
+    pb.setSparkPythonTask(sparkPythonTask);
+    pb.setSparkSubmitTask(sparkSubmitTask);
+    pb.setSqlTask(sqlTask);
+    pb.setTaskKey(taskKey);
+    pb.setTimeoutSeconds(timeoutSeconds);
+    pb.setWebhookNotifications(webhookNotifications);
+
+    return pb;
+  }
+
+  static SubmitTask fromPb(SubmitTaskPb pb) {
+    SubmitTask model = new SubmitTask();
+    model.setCleanRoomsNotebookTask(pb.getCleanRoomsNotebookTask());
+    model.setConditionTask(pb.getConditionTask());
+    model.setDashboardTask(pb.getDashboardTask());
+    model.setDbtCloudTask(pb.getDbtCloudTask());
+    model.setDbtTask(pb.getDbtTask());
+    model.setDependsOn(pb.getDependsOn());
+    model.setDescription(pb.getDescription());
+    model.setEmailNotifications(pb.getEmailNotifications());
+    model.setEnvironmentKey(pb.getEnvironmentKey());
+    model.setExistingClusterId(pb.getExistingClusterId());
+    model.setForEachTask(pb.getForEachTask());
+    model.setGenAiComputeTask(pb.getGenAiComputeTask());
+    model.setHealth(pb.getHealth());
+    model.setLibraries(pb.getLibraries());
+    model.setNewCluster(pb.getNewCluster());
+    model.setNotebookTask(pb.getNotebookTask());
+    model.setNotificationSettings(pb.getNotificationSettings());
+    model.setPipelineTask(pb.getPipelineTask());
+    model.setPowerBiTask(pb.getPowerBiTask());
+    model.setPythonWheelTask(pb.getPythonWheelTask());
+    model.setRunIf(pb.getRunIf());
+    model.setRunJobTask(pb.getRunJobTask());
+    model.setSparkJarTask(pb.getSparkJarTask());
+    model.setSparkPythonTask(pb.getSparkPythonTask());
+    model.setSparkSubmitTask(pb.getSparkSubmitTask());
+    model.setSqlTask(pb.getSqlTask());
+    model.setTaskKey(pb.getTaskKey());
+    model.setTimeoutSeconds(pb.getTimeoutSeconds());
+    model.setWebhookNotifications(pb.getWebhookNotifications());
+
+    return model;
+  }
+
+  public static class SubmitTaskSerializer extends JsonSerializer<SubmitTask> {
+    @Override
+    public void serialize(SubmitTask value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SubmitTaskPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SubmitTaskDeserializer extends JsonDeserializer<SubmitTask> {
+    @Override
+    public SubmitTask deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SubmitTaskPb pb = mapper.readValue(p, SubmitTaskPb.class);
+      return SubmitTask.fromPb(pb);
+    }
   }
 }

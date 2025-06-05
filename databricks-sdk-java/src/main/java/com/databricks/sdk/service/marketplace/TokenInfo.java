@@ -4,40 +4,44 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = TokenInfo.TokenInfoSerializer.class)
+@JsonDeserialize(using = TokenInfo.TokenInfoDeserializer.class)
 public class TokenInfo {
   /**
    * Full activation url to retrieve the access token. It will be empty if the token is already
    * retrieved.
    */
-  @JsonProperty("activation_url")
   private String activationUrl;
 
   /** Time at which this Recipient Token was created, in epoch milliseconds. */
-  @JsonProperty("created_at")
   private Long createdAt;
 
   /** Username of Recipient Token creator. */
-  @JsonProperty("created_by")
   private String createdBy;
 
   /** Expiration timestamp of the token in epoch milliseconds. */
-  @JsonProperty("expiration_time")
   private Long expirationTime;
 
   /** Unique id of the Recipient Token. */
-  @JsonProperty("id")
   private String id;
 
   /** Time at which this Recipient Token was updated, in epoch milliseconds. */
-  @JsonProperty("updated_at")
   private Long updatedAt;
 
   /** Username of Recipient Token updater. */
-  @JsonProperty("updated_by")
   private String updatedBy;
 
   public TokenInfo setActivationUrl(String activationUrl) {
@@ -134,5 +138,49 @@ public class TokenInfo {
         .add("updatedAt", updatedAt)
         .add("updatedBy", updatedBy)
         .toString();
+  }
+
+  TokenInfoPb toPb() {
+    TokenInfoPb pb = new TokenInfoPb();
+    pb.setActivationUrl(activationUrl);
+    pb.setCreatedAt(createdAt);
+    pb.setCreatedBy(createdBy);
+    pb.setExpirationTime(expirationTime);
+    pb.setId(id);
+    pb.setUpdatedAt(updatedAt);
+    pb.setUpdatedBy(updatedBy);
+
+    return pb;
+  }
+
+  static TokenInfo fromPb(TokenInfoPb pb) {
+    TokenInfo model = new TokenInfo();
+    model.setActivationUrl(pb.getActivationUrl());
+    model.setCreatedAt(pb.getCreatedAt());
+    model.setCreatedBy(pb.getCreatedBy());
+    model.setExpirationTime(pb.getExpirationTime());
+    model.setId(pb.getId());
+    model.setUpdatedAt(pb.getUpdatedAt());
+    model.setUpdatedBy(pb.getUpdatedBy());
+
+    return model;
+  }
+
+  public static class TokenInfoSerializer extends JsonSerializer<TokenInfo> {
+    @Override
+    public void serialize(TokenInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      TokenInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class TokenInfoDeserializer extends JsonDeserializer<TokenInfo> {
+    @Override
+    public TokenInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      TokenInfoPb pb = mapper.readValue(p, TokenInfoPb.class);
+      return TokenInfo.fromPb(pb);
+    }
   }
 }

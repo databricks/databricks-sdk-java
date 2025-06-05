@@ -4,18 +4,27 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = SearchModelVersionsResponse.SearchModelVersionsResponseSerializer.class)
+@JsonDeserialize(using = SearchModelVersionsResponse.SearchModelVersionsResponseDeserializer.class)
 public class SearchModelVersionsResponse {
   /** Models that match the search criteria */
-  @JsonProperty("model_versions")
   private Collection<ModelVersion> modelVersions;
 
   /** Pagination token to request next page of models for the same search query. */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   public SearchModelVersionsResponse setModelVersions(Collection<ModelVersion> modelVersions) {
@@ -56,5 +65,43 @@ public class SearchModelVersionsResponse {
         .add("modelVersions", modelVersions)
         .add("nextPageToken", nextPageToken)
         .toString();
+  }
+
+  SearchModelVersionsResponsePb toPb() {
+    SearchModelVersionsResponsePb pb = new SearchModelVersionsResponsePb();
+    pb.setModelVersions(modelVersions);
+    pb.setNextPageToken(nextPageToken);
+
+    return pb;
+  }
+
+  static SearchModelVersionsResponse fromPb(SearchModelVersionsResponsePb pb) {
+    SearchModelVersionsResponse model = new SearchModelVersionsResponse();
+    model.setModelVersions(pb.getModelVersions());
+    model.setNextPageToken(pb.getNextPageToken());
+
+    return model;
+  }
+
+  public static class SearchModelVersionsResponseSerializer
+      extends JsonSerializer<SearchModelVersionsResponse> {
+    @Override
+    public void serialize(
+        SearchModelVersionsResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SearchModelVersionsResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SearchModelVersionsResponseDeserializer
+      extends JsonDeserializer<SearchModelVersionsResponse> {
+    @Override
+    public SearchModelVersionsResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SearchModelVersionsResponsePb pb = mapper.readValue(p, SearchModelVersionsResponsePb.class);
+      return SearchModelVersionsResponse.fromPb(pb);
+    }
   }
 }

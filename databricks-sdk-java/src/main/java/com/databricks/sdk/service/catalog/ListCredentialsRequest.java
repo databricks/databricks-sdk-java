@@ -3,13 +3,23 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List credentials */
 @Generated
+@JsonSerialize(using = ListCredentialsRequest.ListCredentialsRequestSerializer.class)
+@JsonDeserialize(using = ListCredentialsRequest.ListCredentialsRequestDeserializer.class)
 public class ListCredentialsRequest {
   /**
    * Maximum number of credentials to return. - If not set, the default max page size is used. -
@@ -17,18 +27,12 @@ public class ListCredentialsRequest {
    * server-configured value. - When set to 0, the page length is set to a server-configured value
    * (recommended). - When set to a value less than 0, an invalid parameter error is returned.
    */
-  @JsonIgnore
-  @QueryParam("max_results")
   private Long maxResults;
 
   /** Opaque token to retrieve the next page of results. */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   /** Return only credentials for the specified purpose. */
-  @JsonIgnore
-  @QueryParam("purpose")
   private CredentialPurpose purpose;
 
   public ListCredentialsRequest setMaxResults(Long maxResults) {
@@ -80,5 +84,45 @@ public class ListCredentialsRequest {
         .add("pageToken", pageToken)
         .add("purpose", purpose)
         .toString();
+  }
+
+  ListCredentialsRequestPb toPb() {
+    ListCredentialsRequestPb pb = new ListCredentialsRequestPb();
+    pb.setMaxResults(maxResults);
+    pb.setPageToken(pageToken);
+    pb.setPurpose(purpose);
+
+    return pb;
+  }
+
+  static ListCredentialsRequest fromPb(ListCredentialsRequestPb pb) {
+    ListCredentialsRequest model = new ListCredentialsRequest();
+    model.setMaxResults(pb.getMaxResults());
+    model.setPageToken(pb.getPageToken());
+    model.setPurpose(pb.getPurpose());
+
+    return model;
+  }
+
+  public static class ListCredentialsRequestSerializer
+      extends JsonSerializer<ListCredentialsRequest> {
+    @Override
+    public void serialize(
+        ListCredentialsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListCredentialsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListCredentialsRequestDeserializer
+      extends JsonDeserializer<ListCredentialsRequest> {
+    @Override
+    public ListCredentialsRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListCredentialsRequestPb pb = mapper.readValue(p, ListCredentialsRequestPb.class);
+      return ListCredentialsRequest.fromPb(pb);
+    }
   }
 }

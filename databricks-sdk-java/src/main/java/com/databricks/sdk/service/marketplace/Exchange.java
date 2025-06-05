@@ -4,46 +4,48 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = Exchange.ExchangeSerializer.class)
+@JsonDeserialize(using = Exchange.ExchangeDeserializer.class)
 public class Exchange {
   /** */
-  @JsonProperty("comment")
   private String comment;
 
   /** */
-  @JsonProperty("created_at")
   private Long createdAt;
 
   /** */
-  @JsonProperty("created_by")
   private String createdBy;
 
   /** */
-  @JsonProperty("filters")
   private Collection<ExchangeFilter> filters;
 
   /** */
-  @JsonProperty("id")
   private String id;
 
   /** */
-  @JsonProperty("linked_listings")
   private Collection<ExchangeListing> linkedListings;
 
   /** */
-  @JsonProperty("name")
   private String name;
 
   /** */
-  @JsonProperty("updated_at")
   private Long updatedAt;
 
   /** */
-  @JsonProperty("updated_by")
   private String updatedBy;
 
   public Exchange setComment(String comment) {
@@ -162,5 +164,53 @@ public class Exchange {
         .add("updatedAt", updatedAt)
         .add("updatedBy", updatedBy)
         .toString();
+  }
+
+  ExchangePb toPb() {
+    ExchangePb pb = new ExchangePb();
+    pb.setComment(comment);
+    pb.setCreatedAt(createdAt);
+    pb.setCreatedBy(createdBy);
+    pb.setFilters(filters);
+    pb.setId(id);
+    pb.setLinkedListings(linkedListings);
+    pb.setName(name);
+    pb.setUpdatedAt(updatedAt);
+    pb.setUpdatedBy(updatedBy);
+
+    return pb;
+  }
+
+  static Exchange fromPb(ExchangePb pb) {
+    Exchange model = new Exchange();
+    model.setComment(pb.getComment());
+    model.setCreatedAt(pb.getCreatedAt());
+    model.setCreatedBy(pb.getCreatedBy());
+    model.setFilters(pb.getFilters());
+    model.setId(pb.getId());
+    model.setLinkedListings(pb.getLinkedListings());
+    model.setName(pb.getName());
+    model.setUpdatedAt(pb.getUpdatedAt());
+    model.setUpdatedBy(pb.getUpdatedBy());
+
+    return model;
+  }
+
+  public static class ExchangeSerializer extends JsonSerializer<Exchange> {
+    @Override
+    public void serialize(Exchange value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ExchangePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ExchangeDeserializer extends JsonDeserializer<Exchange> {
+    @Override
+    public Exchange deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ExchangePb pb = mapper.readValue(p, ExchangePb.class);
+      return Exchange.fromPb(pb);
+    }
   }
 }

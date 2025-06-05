@@ -4,20 +4,29 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = RegenerateDashboardRequest.RegenerateDashboardRequestSerializer.class)
+@JsonDeserialize(using = RegenerateDashboardRequest.RegenerateDashboardRequestDeserializer.class)
 public class RegenerateDashboardRequest {
   /** Full name of the table. */
-  @JsonIgnore private String tableName;
+  private String tableName;
 
   /**
    * Optional argument to specify the warehouse for dashboard regeneration. If not specified, the
    * first running warehouse will be used.
    */
-  @JsonProperty("warehouse_id")
   private String warehouseId;
 
   public RegenerateDashboardRequest setTableName(String tableName) {
@@ -58,5 +67,43 @@ public class RegenerateDashboardRequest {
         .add("tableName", tableName)
         .add("warehouseId", warehouseId)
         .toString();
+  }
+
+  RegenerateDashboardRequestPb toPb() {
+    RegenerateDashboardRequestPb pb = new RegenerateDashboardRequestPb();
+    pb.setTableName(tableName);
+    pb.setWarehouseId(warehouseId);
+
+    return pb;
+  }
+
+  static RegenerateDashboardRequest fromPb(RegenerateDashboardRequestPb pb) {
+    RegenerateDashboardRequest model = new RegenerateDashboardRequest();
+    model.setTableName(pb.getTableName());
+    model.setWarehouseId(pb.getWarehouseId());
+
+    return model;
+  }
+
+  public static class RegenerateDashboardRequestSerializer
+      extends JsonSerializer<RegenerateDashboardRequest> {
+    @Override
+    public void serialize(
+        RegenerateDashboardRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      RegenerateDashboardRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class RegenerateDashboardRequestDeserializer
+      extends JsonDeserializer<RegenerateDashboardRequest> {
+    @Override
+    public RegenerateDashboardRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      RegenerateDashboardRequestPb pb = mapper.readValue(p, RegenerateDashboardRequestPb.class);
+      return RegenerateDashboardRequest.fromPb(pb);
+    }
   }
 }

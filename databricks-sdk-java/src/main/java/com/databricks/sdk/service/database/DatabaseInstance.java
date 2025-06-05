@@ -4,7 +4,16 @@ package com.databricks.sdk.service.database;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -12,36 +21,31 @@ import java.util.Objects;
  * A DatabaseInstance represents a logical Postgres instance, comprised of both compute and storage.
  */
 @Generated
+@JsonSerialize(using = DatabaseInstance.DatabaseInstanceSerializer.class)
+@JsonDeserialize(using = DatabaseInstance.DatabaseInstanceDeserializer.class)
 public class DatabaseInstance {
   /** The sku of the instance. Valid values are "CU_1", "CU_2", "CU_4". */
-  @JsonProperty("capacity")
   private String capacity;
 
   /** The refs of the child instances. This is only available if the instance is parent instance. */
-  @JsonProperty("child_instance_refs")
   private Collection<DatabaseInstanceRef> childInstanceRefs;
 
   /** The timestamp when the instance was created. */
-  @JsonProperty("creation_time")
   private String creationTime;
 
   /** The email of the creator of the instance. */
-  @JsonProperty("creator")
   private String creator;
 
   /** Whether to enable secondaries to serve read-only traffic. Defaults to false. */
-  @JsonProperty("enable_readable_secondaries")
   private Boolean enableReadableSecondaries;
 
   /** The name of the instance. This is the unique identifier for the instance. */
-  @JsonProperty("name")
   private String name;
 
   /**
    * The number of nodes in the instance, composed of 1 primary and 0 or more secondaries. Defaults
    * to 1 primary and 0 secondaries.
    */
-  @JsonProperty("node_count")
   private Long nodeCount;
 
   /**
@@ -49,41 +53,33 @@ public class DatabaseInstance {
    * Input: For specifying the parent instance to create a child instance. Optional. Output: Only
    * populated if provided as input to create a child instance.
    */
-  @JsonProperty("parent_instance_ref")
   private DatabaseInstanceRef parentInstanceRef;
 
   /** The version of Postgres running on the instance. */
-  @JsonProperty("pg_version")
   private String pgVersion;
 
   /**
    * The DNS endpoint to connect to the instance for read only access. This is only available if
    * enable_readable_secondaries is true.
    */
-  @JsonProperty("read_only_dns")
   private String readOnlyDns;
 
   /** The DNS endpoint to connect to the instance for read+write access. */
-  @JsonProperty("read_write_dns")
   private String readWriteDns;
 
   /**
    * The retention window for the instance. This is the time window in days for which the historical
    * data is retained. The default value is 7 days. Valid values are 2 to 35 days.
    */
-  @JsonProperty("retention_window_in_days")
   private Long retentionWindowInDays;
 
   /** The current state of the instance. */
-  @JsonProperty("state")
   private DatabaseInstanceState state;
 
   /** Whether the instance is stopped. */
-  @JsonProperty("stopped")
   private Boolean stopped;
 
   /** An immutable UUID identifier for the instance. */
-  @JsonProperty("uid")
   private String uid;
 
   public DatabaseInstance setCapacity(String capacity) {
@@ -282,5 +278,66 @@ public class DatabaseInstance {
         .add("stopped", stopped)
         .add("uid", uid)
         .toString();
+  }
+
+  DatabaseInstancePb toPb() {
+    DatabaseInstancePb pb = new DatabaseInstancePb();
+    pb.setCapacity(capacity);
+    pb.setChildInstanceRefs(childInstanceRefs);
+    pb.setCreationTime(creationTime);
+    pb.setCreator(creator);
+    pb.setEnableReadableSecondaries(enableReadableSecondaries);
+    pb.setName(name);
+    pb.setNodeCount(nodeCount);
+    pb.setParentInstanceRef(parentInstanceRef);
+    pb.setPgVersion(pgVersion);
+    pb.setReadOnlyDns(readOnlyDns);
+    pb.setReadWriteDns(readWriteDns);
+    pb.setRetentionWindowInDays(retentionWindowInDays);
+    pb.setState(state);
+    pb.setStopped(stopped);
+    pb.setUid(uid);
+
+    return pb;
+  }
+
+  static DatabaseInstance fromPb(DatabaseInstancePb pb) {
+    DatabaseInstance model = new DatabaseInstance();
+    model.setCapacity(pb.getCapacity());
+    model.setChildInstanceRefs(pb.getChildInstanceRefs());
+    model.setCreationTime(pb.getCreationTime());
+    model.setCreator(pb.getCreator());
+    model.setEnableReadableSecondaries(pb.getEnableReadableSecondaries());
+    model.setName(pb.getName());
+    model.setNodeCount(pb.getNodeCount());
+    model.setParentInstanceRef(pb.getParentInstanceRef());
+    model.setPgVersion(pb.getPgVersion());
+    model.setReadOnlyDns(pb.getReadOnlyDns());
+    model.setReadWriteDns(pb.getReadWriteDns());
+    model.setRetentionWindowInDays(pb.getRetentionWindowInDays());
+    model.setState(pb.getState());
+    model.setStopped(pb.getStopped());
+    model.setUid(pb.getUid());
+
+    return model;
+  }
+
+  public static class DatabaseInstanceSerializer extends JsonSerializer<DatabaseInstance> {
+    @Override
+    public void serialize(DatabaseInstance value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DatabaseInstancePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DatabaseInstanceDeserializer extends JsonDeserializer<DatabaseInstance> {
+    @Override
+    public DatabaseInstance deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DatabaseInstancePb pb = mapper.readValue(p, DatabaseInstancePb.class);
+      return DatabaseInstance.fromPb(pb);
+    }
   }
 }

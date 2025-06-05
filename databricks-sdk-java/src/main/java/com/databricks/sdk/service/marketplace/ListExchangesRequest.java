@@ -3,22 +3,28 @@
 package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List exchanges */
 @Generated
+@JsonSerialize(using = ListExchangesRequest.ListExchangesRequestSerializer.class)
+@JsonDeserialize(using = ListExchangesRequest.ListExchangesRequestDeserializer.class)
 public class ListExchangesRequest {
   /** */
-  @JsonIgnore
-  @QueryParam("page_size")
   private Long pageSize;
 
   /** */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   public ListExchangesRequest setPageSize(Long pageSize) {
@@ -58,5 +64,42 @@ public class ListExchangesRequest {
         .add("pageSize", pageSize)
         .add("pageToken", pageToken)
         .toString();
+  }
+
+  ListExchangesRequestPb toPb() {
+    ListExchangesRequestPb pb = new ListExchangesRequestPb();
+    pb.setPageSize(pageSize);
+    pb.setPageToken(pageToken);
+
+    return pb;
+  }
+
+  static ListExchangesRequest fromPb(ListExchangesRequestPb pb) {
+    ListExchangesRequest model = new ListExchangesRequest();
+    model.setPageSize(pb.getPageSize());
+    model.setPageToken(pb.getPageToken());
+
+    return model;
+  }
+
+  public static class ListExchangesRequestSerializer extends JsonSerializer<ListExchangesRequest> {
+    @Override
+    public void serialize(
+        ListExchangesRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListExchangesRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListExchangesRequestDeserializer
+      extends JsonDeserializer<ListExchangesRequest> {
+    @Override
+    public ListExchangesRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListExchangesRequestPb pb = mapper.readValue(p, ListExchangesRequestPb.class);
+      return ListExchangesRequest.fromPb(pb);
+    }
   }
 }

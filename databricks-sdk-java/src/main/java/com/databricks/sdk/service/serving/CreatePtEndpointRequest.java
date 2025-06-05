@@ -4,33 +4,39 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreatePtEndpointRequest.CreatePtEndpointRequestSerializer.class)
+@JsonDeserialize(using = CreatePtEndpointRequest.CreatePtEndpointRequestDeserializer.class)
 public class CreatePtEndpointRequest {
   /** The AI Gateway configuration for the serving endpoint. */
-  @JsonProperty("ai_gateway")
   private AiGatewayConfig aiGateway;
 
   /** The budget policy associated with the endpoint. */
-  @JsonProperty("budget_policy_id")
   private String budgetPolicyId;
 
   /** The core config of the serving endpoint. */
-  @JsonProperty("config")
   private PtEndpointCoreConfig config;
 
   /**
    * The name of the serving endpoint. This field is required and must be unique across a Databricks
    * workspace. An endpoint name can consist of alphanumeric characters, dashes, and underscores.
    */
-  @JsonProperty("name")
   private String name;
 
   /** Tags to be attached to the serving endpoint and automatically propagated to billing logs. */
-  @JsonProperty("tags")
   private Collection<EndpointTag> tags;
 
   public CreatePtEndpointRequest setAiGateway(AiGatewayConfig aiGateway) {
@@ -104,5 +110,49 @@ public class CreatePtEndpointRequest {
         .add("name", name)
         .add("tags", tags)
         .toString();
+  }
+
+  CreatePtEndpointRequestPb toPb() {
+    CreatePtEndpointRequestPb pb = new CreatePtEndpointRequestPb();
+    pb.setAiGateway(aiGateway);
+    pb.setBudgetPolicyId(budgetPolicyId);
+    pb.setConfig(config);
+    pb.setName(name);
+    pb.setTags(tags);
+
+    return pb;
+  }
+
+  static CreatePtEndpointRequest fromPb(CreatePtEndpointRequestPb pb) {
+    CreatePtEndpointRequest model = new CreatePtEndpointRequest();
+    model.setAiGateway(pb.getAiGateway());
+    model.setBudgetPolicyId(pb.getBudgetPolicyId());
+    model.setConfig(pb.getConfig());
+    model.setName(pb.getName());
+    model.setTags(pb.getTags());
+
+    return model;
+  }
+
+  public static class CreatePtEndpointRequestSerializer
+      extends JsonSerializer<CreatePtEndpointRequest> {
+    @Override
+    public void serialize(
+        CreatePtEndpointRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreatePtEndpointRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreatePtEndpointRequestDeserializer
+      extends JsonDeserializer<CreatePtEndpointRequest> {
+    @Override
+    public CreatePtEndpointRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreatePtEndpointRequestPb pb = mapper.readValue(p, CreatePtEndpointRequestPb.class);
+      return CreatePtEndpointRequest.fromPb(pb);
+    }
   }
 }

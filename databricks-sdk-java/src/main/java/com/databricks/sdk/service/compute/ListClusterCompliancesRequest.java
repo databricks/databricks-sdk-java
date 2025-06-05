@@ -3,33 +3,38 @@
 package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List cluster policy compliance */
 @Generated
+@JsonSerialize(using = ListClusterCompliancesRequest.ListClusterCompliancesRequestSerializer.class)
+@JsonDeserialize(
+    using = ListClusterCompliancesRequest.ListClusterCompliancesRequestDeserializer.class)
 public class ListClusterCompliancesRequest {
   /**
    * Use this field to specify the maximum number of results to be returned by the server. The
    * server may further constrain the maximum number of results returned in a single page.
    */
-  @JsonIgnore
-  @QueryParam("page_size")
   private Long pageSize;
 
   /**
    * A page token that can be used to navigate to the next page or previous page as returned by
    * `next_page_token` or `prev_page_token`.
    */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   /** Canonical unique identifier for the cluster policy. */
-  @JsonIgnore
-  @QueryParam("policy_id")
   private String policyId;
 
   public ListClusterCompliancesRequest setPageSize(Long pageSize) {
@@ -81,5 +86,46 @@ public class ListClusterCompliancesRequest {
         .add("pageToken", pageToken)
         .add("policyId", policyId)
         .toString();
+  }
+
+  ListClusterCompliancesRequestPb toPb() {
+    ListClusterCompliancesRequestPb pb = new ListClusterCompliancesRequestPb();
+    pb.setPageSize(pageSize);
+    pb.setPageToken(pageToken);
+    pb.setPolicyId(policyId);
+
+    return pb;
+  }
+
+  static ListClusterCompliancesRequest fromPb(ListClusterCompliancesRequestPb pb) {
+    ListClusterCompliancesRequest model = new ListClusterCompliancesRequest();
+    model.setPageSize(pb.getPageSize());
+    model.setPageToken(pb.getPageToken());
+    model.setPolicyId(pb.getPolicyId());
+
+    return model;
+  }
+
+  public static class ListClusterCompliancesRequestSerializer
+      extends JsonSerializer<ListClusterCompliancesRequest> {
+    @Override
+    public void serialize(
+        ListClusterCompliancesRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListClusterCompliancesRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListClusterCompliancesRequestDeserializer
+      extends JsonDeserializer<ListClusterCompliancesRequest> {
+    @Override
+    public ListClusterCompliancesRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListClusterCompliancesRequestPb pb =
+          mapper.readValue(p, ListClusterCompliancesRequestPb.class);
+      return ListClusterCompliancesRequest.fromPb(pb);
+    }
   }
 }

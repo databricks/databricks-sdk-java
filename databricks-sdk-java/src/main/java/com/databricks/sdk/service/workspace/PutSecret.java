@@ -4,25 +4,32 @@ package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = PutSecret.PutSecretSerializer.class)
+@JsonDeserialize(using = PutSecret.PutSecretDeserializer.class)
 public class PutSecret {
   /** If specified, value will be stored as bytes. */
-  @JsonProperty("bytes_value")
   private String bytesValue;
 
   /** A unique name to identify the secret. */
-  @JsonProperty("key")
   private String key;
 
   /** The name of the scope to which the secret will be associated with. */
-  @JsonProperty("scope")
   private String scope;
 
   /** If specified, note that the value will be stored in UTF-8 (MB4) form. */
-  @JsonProperty("string_value")
   private String stringValue;
 
   public PutSecret setBytesValue(String bytesValue) {
@@ -85,5 +92,43 @@ public class PutSecret {
         .add("scope", scope)
         .add("stringValue", stringValue)
         .toString();
+  }
+
+  PutSecretPb toPb() {
+    PutSecretPb pb = new PutSecretPb();
+    pb.setBytesValue(bytesValue);
+    pb.setKey(key);
+    pb.setScope(scope);
+    pb.setStringValue(stringValue);
+
+    return pb;
+  }
+
+  static PutSecret fromPb(PutSecretPb pb) {
+    PutSecret model = new PutSecret();
+    model.setBytesValue(pb.getBytesValue());
+    model.setKey(pb.getKey());
+    model.setScope(pb.getScope());
+    model.setStringValue(pb.getStringValue());
+
+    return model;
+  }
+
+  public static class PutSecretSerializer extends JsonSerializer<PutSecret> {
+    @Override
+    public void serialize(PutSecret value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PutSecretPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PutSecretDeserializer extends JsonDeserializer<PutSecret> {
+    @Override
+    public PutSecret deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PutSecretPb pb = mapper.readValue(p, PutSecretPb.class);
+      return PutSecret.fromPb(pb);
+    }
   }
 }

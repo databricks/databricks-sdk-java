@@ -4,13 +4,23 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = UpdateAlertRequestAlert.UpdateAlertRequestAlertSerializer.class)
+@JsonDeserialize(using = UpdateAlertRequestAlert.UpdateAlertRequestAlertDeserializer.class)
 public class UpdateAlertRequestAlert {
   /** Trigger conditions of the alert. */
-  @JsonProperty("condition")
   private AlertCondition condition;
 
   /**
@@ -18,7 +28,6 @@ public class UpdateAlertRequestAlert {
    *
    * <p>[here]: https://docs.databricks.com/sql/user/alerts/index.html
    */
-  @JsonProperty("custom_body")
   private String customBody;
 
   /**
@@ -27,30 +36,24 @@ public class UpdateAlertRequestAlert {
    *
    * <p>[here]: https://docs.databricks.com/sql/user/alerts/index.html
    */
-  @JsonProperty("custom_subject")
   private String customSubject;
 
   /** The display name of the alert. */
-  @JsonProperty("display_name")
   private String displayName;
 
   /** Whether to notify alert subscribers when alert returns back to normal. */
-  @JsonProperty("notify_on_ok")
   private Boolean notifyOnOk;
 
   /** The owner's username. This field is set to "Unavailable" if the user has been deleted. */
-  @JsonProperty("owner_user_name")
   private String ownerUserName;
 
   /** UUID of the query attached to the alert. */
-  @JsonProperty("query_id")
   private String queryId;
 
   /**
    * Number of seconds an alert must wait after being triggered to rearm itself. After rearming, it
    * can be triggered again. If 0 or not specified, the alert will not be triggered again.
    */
-  @JsonProperty("seconds_to_retrigger")
   private Long secondsToRetrigger;
 
   public UpdateAlertRequestAlert setCondition(AlertCondition condition) {
@@ -165,5 +168,55 @@ public class UpdateAlertRequestAlert {
         .add("queryId", queryId)
         .add("secondsToRetrigger", secondsToRetrigger)
         .toString();
+  }
+
+  UpdateAlertRequestAlertPb toPb() {
+    UpdateAlertRequestAlertPb pb = new UpdateAlertRequestAlertPb();
+    pb.setCondition(condition);
+    pb.setCustomBody(customBody);
+    pb.setCustomSubject(customSubject);
+    pb.setDisplayName(displayName);
+    pb.setNotifyOnOk(notifyOnOk);
+    pb.setOwnerUserName(ownerUserName);
+    pb.setQueryId(queryId);
+    pb.setSecondsToRetrigger(secondsToRetrigger);
+
+    return pb;
+  }
+
+  static UpdateAlertRequestAlert fromPb(UpdateAlertRequestAlertPb pb) {
+    UpdateAlertRequestAlert model = new UpdateAlertRequestAlert();
+    model.setCondition(pb.getCondition());
+    model.setCustomBody(pb.getCustomBody());
+    model.setCustomSubject(pb.getCustomSubject());
+    model.setDisplayName(pb.getDisplayName());
+    model.setNotifyOnOk(pb.getNotifyOnOk());
+    model.setOwnerUserName(pb.getOwnerUserName());
+    model.setQueryId(pb.getQueryId());
+    model.setSecondsToRetrigger(pb.getSecondsToRetrigger());
+
+    return model;
+  }
+
+  public static class UpdateAlertRequestAlertSerializer
+      extends JsonSerializer<UpdateAlertRequestAlert> {
+    @Override
+    public void serialize(
+        UpdateAlertRequestAlert value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateAlertRequestAlertPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateAlertRequestAlertDeserializer
+      extends JsonDeserializer<UpdateAlertRequestAlert> {
+    @Override
+    public UpdateAlertRequestAlert deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateAlertRequestAlertPb pb = mapper.readValue(p, UpdateAlertRequestAlertPb.class);
+      return UpdateAlertRequestAlert.fromPb(pb);
+    }
   }
 }

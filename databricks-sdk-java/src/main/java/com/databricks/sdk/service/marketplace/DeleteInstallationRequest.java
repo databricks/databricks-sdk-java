@@ -4,17 +4,28 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Uninstall from a listing */
 @Generated
+@JsonSerialize(using = DeleteInstallationRequest.DeleteInstallationRequestSerializer.class)
+@JsonDeserialize(using = DeleteInstallationRequest.DeleteInstallationRequestDeserializer.class)
 public class DeleteInstallationRequest {
   /** */
-  @JsonIgnore private String installationId;
+  private String installationId;
 
   /** */
-  @JsonIgnore private String listingId;
+  private String listingId;
 
   public DeleteInstallationRequest setInstallationId(String installationId) {
     this.installationId = installationId;
@@ -54,5 +65,43 @@ public class DeleteInstallationRequest {
         .add("installationId", installationId)
         .add("listingId", listingId)
         .toString();
+  }
+
+  DeleteInstallationRequestPb toPb() {
+    DeleteInstallationRequestPb pb = new DeleteInstallationRequestPb();
+    pb.setInstallationId(installationId);
+    pb.setListingId(listingId);
+
+    return pb;
+  }
+
+  static DeleteInstallationRequest fromPb(DeleteInstallationRequestPb pb) {
+    DeleteInstallationRequest model = new DeleteInstallationRequest();
+    model.setInstallationId(pb.getInstallationId());
+    model.setListingId(pb.getListingId());
+
+    return model;
+  }
+
+  public static class DeleteInstallationRequestSerializer
+      extends JsonSerializer<DeleteInstallationRequest> {
+    @Override
+    public void serialize(
+        DeleteInstallationRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DeleteInstallationRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DeleteInstallationRequestDeserializer
+      extends JsonDeserializer<DeleteInstallationRequest> {
+    @Override
+    public DeleteInstallationRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DeleteInstallationRequestPb pb = mapper.readValue(p, DeleteInstallationRequestPb.class);
+      return DeleteInstallationRequest.fromPb(pb);
+    }
   }
 }

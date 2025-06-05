@@ -4,100 +4,91 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = EventDetails.EventDetailsSerializer.class)
+@JsonDeserialize(using = EventDetails.EventDetailsDeserializer.class)
 public class EventDetails {
   /**
    * * For created clusters, the attributes of the cluster. * For edited clusters, the new
    * attributes of the cluster.
    */
-  @JsonProperty("attributes")
   private ClusterAttributes attributes;
 
   /** The cause of a change in target size. */
-  @JsonProperty("cause")
   private EventDetailsCause cause;
 
   /** The actual cluster size that was set in the cluster creation or edit. */
-  @JsonProperty("cluster_size")
   private ClusterSize clusterSize;
 
   /** The current number of vCPUs in the cluster. */
-  @JsonProperty("current_num_vcpus")
   private Long currentNumVcpus;
 
   /** The current number of nodes in the cluster. */
-  @JsonProperty("current_num_workers")
   private Long currentNumWorkers;
 
   /** */
-  @JsonProperty("did_not_expand_reason")
   private String didNotExpandReason;
 
   /** Current disk size in bytes */
-  @JsonProperty("disk_size")
   private Long diskSize;
 
   /** More details about the change in driver's state */
-  @JsonProperty("driver_state_message")
   private String driverStateMessage;
 
   /**
    * Whether or not a blocklisted node should be terminated. For ClusterEventType NODE_BLACKLISTED.
    */
-  @JsonProperty("enable_termination_for_node_blocklisted")
   private Boolean enableTerminationForNodeBlocklisted;
 
   /** */
-  @JsonProperty("free_space")
   private Long freeSpace;
 
   /** List of global and cluster init scripts associated with this cluster event. */
-  @JsonProperty("init_scripts")
   private InitScriptEventDetails initScripts;
 
   /** Instance Id where the event originated from */
-  @JsonProperty("instance_id")
   private String instanceId;
 
   /**
    * Unique identifier of the specific job run associated with this cluster event * For clusters
    * created for jobs, this will be the same as the cluster name
    */
-  @JsonProperty("job_run_name")
   private String jobRunName;
 
   /** The cluster attributes before a cluster was edited. */
-  @JsonProperty("previous_attributes")
   private ClusterAttributes previousAttributes;
 
   /** The size of the cluster before an edit or resize. */
-  @JsonProperty("previous_cluster_size")
   private ClusterSize previousClusterSize;
 
   /** Previous disk size in bytes */
-  @JsonProperty("previous_disk_size")
   private Long previousDiskSize;
 
   /**
    * A termination reason: * On a TERMINATED event, this is the reason of the termination. * On a
    * RESIZE_COMPLETE event, this indicates the reason that we failed to acquire some nodes.
    */
-  @JsonProperty("reason")
   private TerminationReason reason;
 
   /** The targeted number of vCPUs in the cluster. */
-  @JsonProperty("target_num_vcpus")
   private Long targetNumVcpus;
 
   /** The targeted number of nodes in the cluster. */
-  @JsonProperty("target_num_workers")
   private Long targetNumWorkers;
 
   /** The user that caused the event to occur. (Empty if it was done by the control plane.) */
-  @JsonProperty("user")
   private String user;
 
   public EventDetails setAttributes(ClusterAttributes attributes) {
@@ -358,5 +349,75 @@ public class EventDetails {
         .add("targetNumWorkers", targetNumWorkers)
         .add("user", user)
         .toString();
+  }
+
+  EventDetailsPb toPb() {
+    EventDetailsPb pb = new EventDetailsPb();
+    pb.setAttributes(attributes);
+    pb.setCause(cause);
+    pb.setClusterSize(clusterSize);
+    pb.setCurrentNumVcpus(currentNumVcpus);
+    pb.setCurrentNumWorkers(currentNumWorkers);
+    pb.setDidNotExpandReason(didNotExpandReason);
+    pb.setDiskSize(diskSize);
+    pb.setDriverStateMessage(driverStateMessage);
+    pb.setEnableTerminationForNodeBlocklisted(enableTerminationForNodeBlocklisted);
+    pb.setFreeSpace(freeSpace);
+    pb.setInitScripts(initScripts);
+    pb.setInstanceId(instanceId);
+    pb.setJobRunName(jobRunName);
+    pb.setPreviousAttributes(previousAttributes);
+    pb.setPreviousClusterSize(previousClusterSize);
+    pb.setPreviousDiskSize(previousDiskSize);
+    pb.setReason(reason);
+    pb.setTargetNumVcpus(targetNumVcpus);
+    pb.setTargetNumWorkers(targetNumWorkers);
+    pb.setUser(user);
+
+    return pb;
+  }
+
+  static EventDetails fromPb(EventDetailsPb pb) {
+    EventDetails model = new EventDetails();
+    model.setAttributes(pb.getAttributes());
+    model.setCause(pb.getCause());
+    model.setClusterSize(pb.getClusterSize());
+    model.setCurrentNumVcpus(pb.getCurrentNumVcpus());
+    model.setCurrentNumWorkers(pb.getCurrentNumWorkers());
+    model.setDidNotExpandReason(pb.getDidNotExpandReason());
+    model.setDiskSize(pb.getDiskSize());
+    model.setDriverStateMessage(pb.getDriverStateMessage());
+    model.setEnableTerminationForNodeBlocklisted(pb.getEnableTerminationForNodeBlocklisted());
+    model.setFreeSpace(pb.getFreeSpace());
+    model.setInitScripts(pb.getInitScripts());
+    model.setInstanceId(pb.getInstanceId());
+    model.setJobRunName(pb.getJobRunName());
+    model.setPreviousAttributes(pb.getPreviousAttributes());
+    model.setPreviousClusterSize(pb.getPreviousClusterSize());
+    model.setPreviousDiskSize(pb.getPreviousDiskSize());
+    model.setReason(pb.getReason());
+    model.setTargetNumVcpus(pb.getTargetNumVcpus());
+    model.setTargetNumWorkers(pb.getTargetNumWorkers());
+    model.setUser(pb.getUser());
+
+    return model;
+  }
+
+  public static class EventDetailsSerializer extends JsonSerializer<EventDetails> {
+    @Override
+    public void serialize(EventDetails value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      EventDetailsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class EventDetailsDeserializer extends JsonDeserializer<EventDetails> {
+    @Override
+    public EventDetails deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      EventDetailsPb pb = mapper.readValue(p, EventDetailsPb.class);
+      return EventDetails.fromPb(pb);
+    }
   }
 }

@@ -4,14 +4,24 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** The status response includes execution state and if relevant, error information. */
 @Generated
+@JsonSerialize(using = StatementStatus.StatementStatusSerializer.class)
+@JsonDeserialize(using = StatementStatus.StatementStatusDeserializer.class)
 public class StatementStatus {
   /** */
-  @JsonProperty("error")
   private ServiceError error;
 
   /**
@@ -21,7 +31,6 @@ public class StatementStatus {
    * can come from explicit cancel call, or timeout with `on_wait_timeout=CANCEL` - `CLOSED`:
    * execution successful, and statement closed; result no longer available for fetch
    */
-  @JsonProperty("state")
   private StatementState state;
 
   public StatementStatus setError(ServiceError error) {
@@ -58,5 +67,40 @@ public class StatementStatus {
   @Override
   public String toString() {
     return new ToStringer(StatementStatus.class).add("error", error).add("state", state).toString();
+  }
+
+  StatementStatusPb toPb() {
+    StatementStatusPb pb = new StatementStatusPb();
+    pb.setError(error);
+    pb.setState(state);
+
+    return pb;
+  }
+
+  static StatementStatus fromPb(StatementStatusPb pb) {
+    StatementStatus model = new StatementStatus();
+    model.setError(pb.getError());
+    model.setState(pb.getState());
+
+    return model;
+  }
+
+  public static class StatementStatusSerializer extends JsonSerializer<StatementStatus> {
+    @Override
+    public void serialize(StatementStatus value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      StatementStatusPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class StatementStatusDeserializer extends JsonDeserializer<StatementStatus> {
+    @Override
+    public StatementStatus deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      StatementStatusPb pb = mapper.readValue(p, StatementStatusPb.class);
+      return StatementStatus.fromPb(pb);
+    }
   }
 }

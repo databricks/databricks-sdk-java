@@ -4,59 +4,60 @@ package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = GetCustomAppIntegrationOutput.GetCustomAppIntegrationOutputSerializer.class)
+@JsonDeserialize(
+    using = GetCustomAppIntegrationOutput.GetCustomAppIntegrationOutputDeserializer.class)
 public class GetCustomAppIntegrationOutput {
   /** The client id of the custom OAuth app */
-  @JsonProperty("client_id")
   private String clientId;
 
   /**
    * This field indicates whether an OAuth client secret is required to authenticate this client.
    */
-  @JsonProperty("confidential")
   private Boolean confidential;
 
   /** */
-  @JsonProperty("create_time")
   private String createTime;
 
   /** */
-  @JsonProperty("created_by")
   private Long createdBy;
 
   /** */
-  @JsonProperty("creator_username")
   private String creatorUsername;
 
   /** ID of this custom app */
-  @JsonProperty("integration_id")
   private String integrationId;
 
   /** The display name of the custom OAuth app */
-  @JsonProperty("name")
   private String name;
 
   /** List of OAuth redirect urls */
-  @JsonProperty("redirect_urls")
   private Collection<String> redirectUrls;
 
   /** */
-  @JsonProperty("scopes")
   private Collection<String> scopes;
 
   /** Token access policy */
-  @JsonProperty("token_access_policy")
   private TokenAccessPolicy tokenAccessPolicy;
 
   /**
    * Scopes that will need to be consented by end user to mint the access token. If the user does
    * not authorize the access token will not be minted. Must be a subset of scopes.
    */
-  @JsonProperty("user_authorized_scopes")
   private Collection<String> userAuthorizedScopes;
 
   public GetCustomAppIntegrationOutput setClientId(String clientId) {
@@ -208,5 +209,62 @@ public class GetCustomAppIntegrationOutput {
         .add("tokenAccessPolicy", tokenAccessPolicy)
         .add("userAuthorizedScopes", userAuthorizedScopes)
         .toString();
+  }
+
+  GetCustomAppIntegrationOutputPb toPb() {
+    GetCustomAppIntegrationOutputPb pb = new GetCustomAppIntegrationOutputPb();
+    pb.setClientId(clientId);
+    pb.setConfidential(confidential);
+    pb.setCreateTime(createTime);
+    pb.setCreatedBy(createdBy);
+    pb.setCreatorUsername(creatorUsername);
+    pb.setIntegrationId(integrationId);
+    pb.setName(name);
+    pb.setRedirectUrls(redirectUrls);
+    pb.setScopes(scopes);
+    pb.setTokenAccessPolicy(tokenAccessPolicy);
+    pb.setUserAuthorizedScopes(userAuthorizedScopes);
+
+    return pb;
+  }
+
+  static GetCustomAppIntegrationOutput fromPb(GetCustomAppIntegrationOutputPb pb) {
+    GetCustomAppIntegrationOutput model = new GetCustomAppIntegrationOutput();
+    model.setClientId(pb.getClientId());
+    model.setConfidential(pb.getConfidential());
+    model.setCreateTime(pb.getCreateTime());
+    model.setCreatedBy(pb.getCreatedBy());
+    model.setCreatorUsername(pb.getCreatorUsername());
+    model.setIntegrationId(pb.getIntegrationId());
+    model.setName(pb.getName());
+    model.setRedirectUrls(pb.getRedirectUrls());
+    model.setScopes(pb.getScopes());
+    model.setTokenAccessPolicy(pb.getTokenAccessPolicy());
+    model.setUserAuthorizedScopes(pb.getUserAuthorizedScopes());
+
+    return model;
+  }
+
+  public static class GetCustomAppIntegrationOutputSerializer
+      extends JsonSerializer<GetCustomAppIntegrationOutput> {
+    @Override
+    public void serialize(
+        GetCustomAppIntegrationOutput value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetCustomAppIntegrationOutputPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetCustomAppIntegrationOutputDeserializer
+      extends JsonDeserializer<GetCustomAppIntegrationOutput> {
+    @Override
+    public GetCustomAppIntegrationOutput deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetCustomAppIntegrationOutputPb pb =
+          mapper.readValue(p, GetCustomAppIntegrationOutputPb.class);
+      return GetCustomAppIntegrationOutput.fromPb(pb);
+    }
   }
 }

@@ -4,13 +4,23 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = GetFileResponse.GetFileResponseSerializer.class)
+@JsonDeserialize(using = GetFileResponse.GetFileResponseDeserializer.class)
 public class GetFileResponse {
   /** */
-  @JsonProperty("file_info")
   private FileInfo fileInfo;
 
   public GetFileResponse setFileInfo(FileInfo fileInfo) {
@@ -38,5 +48,38 @@ public class GetFileResponse {
   @Override
   public String toString() {
     return new ToStringer(GetFileResponse.class).add("fileInfo", fileInfo).toString();
+  }
+
+  GetFileResponsePb toPb() {
+    GetFileResponsePb pb = new GetFileResponsePb();
+    pb.setFileInfo(fileInfo);
+
+    return pb;
+  }
+
+  static GetFileResponse fromPb(GetFileResponsePb pb) {
+    GetFileResponse model = new GetFileResponse();
+    model.setFileInfo(pb.getFileInfo());
+
+    return model;
+  }
+
+  public static class GetFileResponseSerializer extends JsonSerializer<GetFileResponse> {
+    @Override
+    public void serialize(GetFileResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetFileResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetFileResponseDeserializer extends JsonDeserializer<GetFileResponse> {
+    @Override
+    public GetFileResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetFileResponsePb pb = mapper.readValue(p, GetFileResponsePb.class);
+      return GetFileResponse.fromPb(pb);
+    }
   }
 }

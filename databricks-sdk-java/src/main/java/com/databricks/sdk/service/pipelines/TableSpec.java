@@ -4,43 +4,47 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = TableSpec.TableSpecSerializer.class)
+@JsonDeserialize(using = TableSpec.TableSpecDeserializer.class)
 public class TableSpec {
   /** Required. Destination catalog to store table. */
-  @JsonProperty("destination_catalog")
   private String destinationCatalog;
 
   /** Required. Destination schema to store table. */
-  @JsonProperty("destination_schema")
   private String destinationSchema;
 
   /**
    * Optional. Destination table name. The pipeline fails if a table with that name already exists.
    * If not set, the source table name is used.
    */
-  @JsonProperty("destination_table")
   private String destinationTable;
 
   /** Source catalog name. Might be optional depending on the type of source. */
-  @JsonProperty("source_catalog")
   private String sourceCatalog;
 
   /** Schema name in the source database. Might be optional depending on the type of source. */
-  @JsonProperty("source_schema")
   private String sourceSchema;
 
   /** Required. Table name in the source database. */
-  @JsonProperty("source_table")
   private String sourceTable;
 
   /**
    * Configuration settings to control the ingestion of tables. These settings override the
    * table_configuration defined in the IngestionPipelineDefinition object and the SchemaSpec.
    */
-  @JsonProperty("table_configuration")
   private TableSpecificConfig tableConfiguration;
 
   public TableSpec setDestinationCatalog(String destinationCatalog) {
@@ -143,5 +147,49 @@ public class TableSpec {
         .add("sourceTable", sourceTable)
         .add("tableConfiguration", tableConfiguration)
         .toString();
+  }
+
+  TableSpecPb toPb() {
+    TableSpecPb pb = new TableSpecPb();
+    pb.setDestinationCatalog(destinationCatalog);
+    pb.setDestinationSchema(destinationSchema);
+    pb.setDestinationTable(destinationTable);
+    pb.setSourceCatalog(sourceCatalog);
+    pb.setSourceSchema(sourceSchema);
+    pb.setSourceTable(sourceTable);
+    pb.setTableConfiguration(tableConfiguration);
+
+    return pb;
+  }
+
+  static TableSpec fromPb(TableSpecPb pb) {
+    TableSpec model = new TableSpec();
+    model.setDestinationCatalog(pb.getDestinationCatalog());
+    model.setDestinationSchema(pb.getDestinationSchema());
+    model.setDestinationTable(pb.getDestinationTable());
+    model.setSourceCatalog(pb.getSourceCatalog());
+    model.setSourceSchema(pb.getSourceSchema());
+    model.setSourceTable(pb.getSourceTable());
+    model.setTableConfiguration(pb.getTableConfiguration());
+
+    return model;
+  }
+
+  public static class TableSpecSerializer extends JsonSerializer<TableSpec> {
+    @Override
+    public void serialize(TableSpec value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      TableSpecPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class TableSpecDeserializer extends JsonDeserializer<TableSpec> {
+    @Override
+    public TableSpec deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      TableSpecPb pb = mapper.readValue(p, TableSpecPb.class);
+      return TableSpec.fromPb(pb);
+    }
   }
 }

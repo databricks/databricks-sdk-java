@@ -3,27 +3,31 @@
 package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get command info */
 @Generated
+@JsonSerialize(using = CommandStatusRequest.CommandStatusRequestSerializer.class)
+@JsonDeserialize(using = CommandStatusRequest.CommandStatusRequestDeserializer.class)
 public class CommandStatusRequest {
   /** */
-  @JsonIgnore
-  @QueryParam("clusterId")
   private String clusterId;
 
   /** */
-  @JsonIgnore
-  @QueryParam("commandId")
   private String commandId;
 
   /** */
-  @JsonIgnore
-  @QueryParam("contextId")
   private String contextId;
 
   public CommandStatusRequest setClusterId(String clusterId) {
@@ -75,5 +79,44 @@ public class CommandStatusRequest {
         .add("commandId", commandId)
         .add("contextId", contextId)
         .toString();
+  }
+
+  CommandStatusRequestPb toPb() {
+    CommandStatusRequestPb pb = new CommandStatusRequestPb();
+    pb.setClusterId(clusterId);
+    pb.setCommandId(commandId);
+    pb.setContextId(contextId);
+
+    return pb;
+  }
+
+  static CommandStatusRequest fromPb(CommandStatusRequestPb pb) {
+    CommandStatusRequest model = new CommandStatusRequest();
+    model.setClusterId(pb.getClusterId());
+    model.setCommandId(pb.getCommandId());
+    model.setContextId(pb.getContextId());
+
+    return model;
+  }
+
+  public static class CommandStatusRequestSerializer extends JsonSerializer<CommandStatusRequest> {
+    @Override
+    public void serialize(
+        CommandStatusRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CommandStatusRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CommandStatusRequestDeserializer
+      extends JsonDeserializer<CommandStatusRequest> {
+    @Override
+    public CommandStatusRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CommandStatusRequestPb pb = mapper.readValue(p, CommandStatusRequestPb.class);
+      return CommandStatusRequest.fromPb(pb);
+    }
   }
 }

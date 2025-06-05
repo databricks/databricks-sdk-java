@@ -4,10 +4,21 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = AmazonBedrockConfig.AmazonBedrockConfigSerializer.class)
+@JsonDeserialize(using = AmazonBedrockConfig.AmazonBedrockConfigDeserializer.class)
 public class AmazonBedrockConfig {
   /**
    * The Databricks secret key reference for an AWS access key ID with permissions to interact with
@@ -15,7 +26,6 @@ public class AmazonBedrockConfig {
    * `aws_access_key_id_plaintext`. You must provide an API key using one of the following fields:
    * `aws_access_key_id` or `aws_access_key_id_plaintext`.
    */
-  @JsonProperty("aws_access_key_id")
   private String awsAccessKeyId;
 
   /**
@@ -24,11 +34,9 @@ public class AmazonBedrockConfig {
    * You must provide an API key using one of the following fields: `aws_access_key_id` or
    * `aws_access_key_id_plaintext`.
    */
-  @JsonProperty("aws_access_key_id_plaintext")
   private String awsAccessKeyIdPlaintext;
 
   /** The AWS region to use. Bedrock has to be enabled there. */
-  @JsonProperty("aws_region")
   private String awsRegion;
 
   /**
@@ -37,7 +45,6 @@ public class AmazonBedrockConfig {
    * directly, see `aws_secret_access_key_plaintext`. You must provide an API key using one of the
    * following fields: `aws_secret_access_key` or `aws_secret_access_key_plaintext`.
    */
-  @JsonProperty("aws_secret_access_key")
   private String awsSecretAccessKey;
 
   /**
@@ -46,14 +53,12 @@ public class AmazonBedrockConfig {
    * Databricks Secrets, see `aws_secret_access_key`. You must provide an API key using one of the
    * following fields: `aws_secret_access_key` or `aws_secret_access_key_plaintext`.
    */
-  @JsonProperty("aws_secret_access_key_plaintext")
   private String awsSecretAccessKeyPlaintext;
 
   /**
    * The underlying provider in Amazon Bedrock. Supported values (case insensitive) include:
    * Anthropic, Cohere, AI21Labs, Amazon.
    */
-  @JsonProperty("bedrock_provider")
   private AmazonBedrockConfigBedrockProvider bedrockProvider;
 
   /**
@@ -62,7 +67,6 @@ public class AmazonBedrockConfig {
    * access keys, see `aws_access_key_id`, `aws_access_key_id_plaintext`, `aws_secret_access_key`
    * and `aws_secret_access_key_plaintext`.
    */
-  @JsonProperty("instance_profile_arn")
   private String instanceProfileArn;
 
   public AmazonBedrockConfig setAwsAccessKeyId(String awsAccessKeyId) {
@@ -166,5 +170,51 @@ public class AmazonBedrockConfig {
         .add("bedrockProvider", bedrockProvider)
         .add("instanceProfileArn", instanceProfileArn)
         .toString();
+  }
+
+  AmazonBedrockConfigPb toPb() {
+    AmazonBedrockConfigPb pb = new AmazonBedrockConfigPb();
+    pb.setAwsAccessKeyId(awsAccessKeyId);
+    pb.setAwsAccessKeyIdPlaintext(awsAccessKeyIdPlaintext);
+    pb.setAwsRegion(awsRegion);
+    pb.setAwsSecretAccessKey(awsSecretAccessKey);
+    pb.setAwsSecretAccessKeyPlaintext(awsSecretAccessKeyPlaintext);
+    pb.setBedrockProvider(bedrockProvider);
+    pb.setInstanceProfileArn(instanceProfileArn);
+
+    return pb;
+  }
+
+  static AmazonBedrockConfig fromPb(AmazonBedrockConfigPb pb) {
+    AmazonBedrockConfig model = new AmazonBedrockConfig();
+    model.setAwsAccessKeyId(pb.getAwsAccessKeyId());
+    model.setAwsAccessKeyIdPlaintext(pb.getAwsAccessKeyIdPlaintext());
+    model.setAwsRegion(pb.getAwsRegion());
+    model.setAwsSecretAccessKey(pb.getAwsSecretAccessKey());
+    model.setAwsSecretAccessKeyPlaintext(pb.getAwsSecretAccessKeyPlaintext());
+    model.setBedrockProvider(pb.getBedrockProvider());
+    model.setInstanceProfileArn(pb.getInstanceProfileArn());
+
+    return model;
+  }
+
+  public static class AmazonBedrockConfigSerializer extends JsonSerializer<AmazonBedrockConfig> {
+    @Override
+    public void serialize(AmazonBedrockConfig value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      AmazonBedrockConfigPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class AmazonBedrockConfigDeserializer
+      extends JsonDeserializer<AmazonBedrockConfig> {
+    @Override
+    public AmazonBedrockConfig deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      AmazonBedrockConfigPb pb = mapper.readValue(p, AmazonBedrockConfigPb.class);
+      return AmazonBedrockConfig.fromPb(pb);
+    }
   }
 }

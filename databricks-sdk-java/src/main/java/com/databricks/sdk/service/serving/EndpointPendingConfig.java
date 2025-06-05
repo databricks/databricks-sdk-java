@@ -4,11 +4,22 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = EndpointPendingConfig.EndpointPendingConfigSerializer.class)
+@JsonDeserialize(using = EndpointPendingConfig.EndpointPendingConfigDeserializer.class)
 public class EndpointPendingConfig {
   /**
    * Configuration for Inference Tables which automatically logs requests and responses to Unity
@@ -16,30 +27,24 @@ public class EndpointPendingConfig {
    * updating existing provisioned throughput endpoints that never have inference table configured;
    * in these cases please use AI Gateway to manage inference tables.
    */
-  @JsonProperty("auto_capture_config")
   private AutoCaptureConfigOutput autoCaptureConfig;
 
   /** The config version that the serving endpoint is currently serving. */
-  @JsonProperty("config_version")
   private Long configVersion;
 
   /** The list of served entities belonging to the last issued update to the serving endpoint. */
-  @JsonProperty("served_entities")
   private Collection<ServedEntityOutput> servedEntities;
 
   /**
    * (Deprecated, use served_entities instead) The list of served models belonging to the last
    * issued update to the serving endpoint.
    */
-  @JsonProperty("served_models")
   private Collection<ServedModelOutput> servedModels;
 
   /** The timestamp when the update to the pending config started. */
-  @JsonProperty("start_time")
   private Long startTime;
 
   /** The traffic config defining how invocations to the serving endpoint should be routed. */
-  @JsonProperty("traffic_config")
   private TrafficConfig trafficConfig;
 
   public EndpointPendingConfig setAutoCaptureConfig(AutoCaptureConfigOutput autoCaptureConfig) {
@@ -125,5 +130,51 @@ public class EndpointPendingConfig {
         .add("startTime", startTime)
         .add("trafficConfig", trafficConfig)
         .toString();
+  }
+
+  EndpointPendingConfigPb toPb() {
+    EndpointPendingConfigPb pb = new EndpointPendingConfigPb();
+    pb.setAutoCaptureConfig(autoCaptureConfig);
+    pb.setConfigVersion(configVersion);
+    pb.setServedEntities(servedEntities);
+    pb.setServedModels(servedModels);
+    pb.setStartTime(startTime);
+    pb.setTrafficConfig(trafficConfig);
+
+    return pb;
+  }
+
+  static EndpointPendingConfig fromPb(EndpointPendingConfigPb pb) {
+    EndpointPendingConfig model = new EndpointPendingConfig();
+    model.setAutoCaptureConfig(pb.getAutoCaptureConfig());
+    model.setConfigVersion(pb.getConfigVersion());
+    model.setServedEntities(pb.getServedEntities());
+    model.setServedModels(pb.getServedModels());
+    model.setStartTime(pb.getStartTime());
+    model.setTrafficConfig(pb.getTrafficConfig());
+
+    return model;
+  }
+
+  public static class EndpointPendingConfigSerializer
+      extends JsonSerializer<EndpointPendingConfig> {
+    @Override
+    public void serialize(
+        EndpointPendingConfig value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      EndpointPendingConfigPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class EndpointPendingConfigDeserializer
+      extends JsonDeserializer<EndpointPendingConfig> {
+    @Override
+    public EndpointPendingConfig deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      EndpointPendingConfigPb pb = mapper.readValue(p, EndpointPendingConfigPb.class);
+      return EndpointPendingConfig.fromPb(pb);
+    }
   }
 }

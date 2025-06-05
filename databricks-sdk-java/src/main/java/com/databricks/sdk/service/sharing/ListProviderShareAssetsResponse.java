@@ -4,27 +4,36 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 /** Response to ListProviderShareAssets, which contains the list of assets of a share. */
 @Generated
+@JsonSerialize(
+    using = ListProviderShareAssetsResponse.ListProviderShareAssetsResponseSerializer.class)
+@JsonDeserialize(
+    using = ListProviderShareAssetsResponse.ListProviderShareAssetsResponseDeserializer.class)
 public class ListProviderShareAssetsResponse {
   /** The list of functions in the share. */
-  @JsonProperty("functions")
   private Collection<DeltaSharingFunction> functions;
 
   /** The list of notebooks in the share. */
-  @JsonProperty("notebooks")
   private Collection<NotebookFile> notebooks;
 
   /** The list of tables in the share. */
-  @JsonProperty("tables")
   private Collection<Table> tables;
 
   /** The list of volumes in the share. */
-  @JsonProperty("volumes")
   private Collection<Volume> volumes;
 
   public ListProviderShareAssetsResponse setFunctions(Collection<DeltaSharingFunction> functions) {
@@ -87,5 +96,48 @@ public class ListProviderShareAssetsResponse {
         .add("tables", tables)
         .add("volumes", volumes)
         .toString();
+  }
+
+  ListProviderShareAssetsResponsePb toPb() {
+    ListProviderShareAssetsResponsePb pb = new ListProviderShareAssetsResponsePb();
+    pb.setFunctions(functions);
+    pb.setNotebooks(notebooks);
+    pb.setTables(tables);
+    pb.setVolumes(volumes);
+
+    return pb;
+  }
+
+  static ListProviderShareAssetsResponse fromPb(ListProviderShareAssetsResponsePb pb) {
+    ListProviderShareAssetsResponse model = new ListProviderShareAssetsResponse();
+    model.setFunctions(pb.getFunctions());
+    model.setNotebooks(pb.getNotebooks());
+    model.setTables(pb.getTables());
+    model.setVolumes(pb.getVolumes());
+
+    return model;
+  }
+
+  public static class ListProviderShareAssetsResponseSerializer
+      extends JsonSerializer<ListProviderShareAssetsResponse> {
+    @Override
+    public void serialize(
+        ListProviderShareAssetsResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListProviderShareAssetsResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListProviderShareAssetsResponseDeserializer
+      extends JsonDeserializer<ListProviderShareAssetsResponse> {
+    @Override
+    public ListProviderShareAssetsResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListProviderShareAssetsResponsePb pb =
+          mapper.readValue(p, ListProviderShareAssetsResponsePb.class);
+      return ListProviderShareAssetsResponse.fromPb(pb);
+    }
   }
 }

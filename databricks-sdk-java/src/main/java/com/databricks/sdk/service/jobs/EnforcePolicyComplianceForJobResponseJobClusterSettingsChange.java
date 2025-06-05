@@ -4,7 +4,16 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -12,9 +21,16 @@ import java.util.Objects;
  * become compliant with their policies.
  */
 @Generated
+@JsonSerialize(
+    using =
+        EnforcePolicyComplianceForJobResponseJobClusterSettingsChange
+            .EnforcePolicyComplianceForJobResponseJobClusterSettingsChangeSerializer.class)
+@JsonDeserialize(
+    using =
+        EnforcePolicyComplianceForJobResponseJobClusterSettingsChange
+            .EnforcePolicyComplianceForJobResponseJobClusterSettingsChangeDeserializer.class)
 public class EnforcePolicyComplianceForJobResponseJobClusterSettingsChange {
   /** The field where this change would be made, prepended with the job cluster key. */
-  @JsonProperty("field")
   private String field;
 
   /**
@@ -22,7 +38,6 @@ public class EnforcePolicyComplianceForJobResponseJobClusterSettingsChange {
    * string) converted to a string. This is intended to be read by a human. The typed new value of
    * this field can be retrieved by reading the settings field in the API response.
    */
-  @JsonProperty("new_value")
   private String newValue;
 
   /**
@@ -30,7 +45,6 @@ public class EnforcePolicyComplianceForJobResponseJobClusterSettingsChange {
    * boolean, or a string) converted to a string. This is intended to be read by a human. The type
    * of the field can be retrieved by reading the settings field in the API response.
    */
-  @JsonProperty("previous_value")
   private String previousValue;
 
   public EnforcePolicyComplianceForJobResponseJobClusterSettingsChange setField(String field) {
@@ -85,5 +99,52 @@ public class EnforcePolicyComplianceForJobResponseJobClusterSettingsChange {
         .add("newValue", newValue)
         .add("previousValue", previousValue)
         .toString();
+  }
+
+  EnforcePolicyComplianceForJobResponseJobClusterSettingsChangePb toPb() {
+    EnforcePolicyComplianceForJobResponseJobClusterSettingsChangePb pb =
+        new EnforcePolicyComplianceForJobResponseJobClusterSettingsChangePb();
+    pb.setField(field);
+    pb.setNewValue(newValue);
+    pb.setPreviousValue(previousValue);
+
+    return pb;
+  }
+
+  static EnforcePolicyComplianceForJobResponseJobClusterSettingsChange fromPb(
+      EnforcePolicyComplianceForJobResponseJobClusterSettingsChangePb pb) {
+    EnforcePolicyComplianceForJobResponseJobClusterSettingsChange model =
+        new EnforcePolicyComplianceForJobResponseJobClusterSettingsChange();
+    model.setField(pb.getField());
+    model.setNewValue(pb.getNewValue());
+    model.setPreviousValue(pb.getPreviousValue());
+
+    return model;
+  }
+
+  public static class EnforcePolicyComplianceForJobResponseJobClusterSettingsChangeSerializer
+      extends JsonSerializer<EnforcePolicyComplianceForJobResponseJobClusterSettingsChange> {
+    @Override
+    public void serialize(
+        EnforcePolicyComplianceForJobResponseJobClusterSettingsChange value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      EnforcePolicyComplianceForJobResponseJobClusterSettingsChangePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class EnforcePolicyComplianceForJobResponseJobClusterSettingsChangeDeserializer
+      extends JsonDeserializer<EnforcePolicyComplianceForJobResponseJobClusterSettingsChange> {
+    @Override
+    public EnforcePolicyComplianceForJobResponseJobClusterSettingsChange deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      EnforcePolicyComplianceForJobResponseJobClusterSettingsChangePb pb =
+          mapper.readValue(
+              p, EnforcePolicyComplianceForJobResponseJobClusterSettingsChangePb.class);
+      return EnforcePolicyComplianceForJobResponseJobClusterSettingsChange.fromPb(pb);
+    }
   }
 }

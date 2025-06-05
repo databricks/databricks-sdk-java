@@ -4,32 +4,38 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = EditAlert.EditAlertSerializer.class)
+@JsonDeserialize(using = EditAlert.EditAlertDeserializer.class)
 public class EditAlert {
   /** */
-  @JsonIgnore private String alertId;
+  private String alertId;
 
   /** Name of the alert. */
-  @JsonProperty("name")
   private String name;
 
   /** Alert configuration options. */
-  @JsonProperty("options")
   private AlertOptions options;
 
   /** Query ID. */
-  @JsonProperty("query_id")
   private String queryId;
 
   /**
    * Number of seconds after being triggered before the alert rearms itself and can be triggered
    * again. If `null`, alert will never be triggered again.
    */
-  @JsonProperty("rearm")
   private Long rearm;
 
   public EditAlert setAlertId(String alertId) {
@@ -103,5 +109,45 @@ public class EditAlert {
         .add("queryId", queryId)
         .add("rearm", rearm)
         .toString();
+  }
+
+  EditAlertPb toPb() {
+    EditAlertPb pb = new EditAlertPb();
+    pb.setAlertId(alertId);
+    pb.setName(name);
+    pb.setOptions(options);
+    pb.setQueryId(queryId);
+    pb.setRearm(rearm);
+
+    return pb;
+  }
+
+  static EditAlert fromPb(EditAlertPb pb) {
+    EditAlert model = new EditAlert();
+    model.setAlertId(pb.getAlertId());
+    model.setName(pb.getName());
+    model.setOptions(pb.getOptions());
+    model.setQueryId(pb.getQueryId());
+    model.setRearm(pb.getRearm());
+
+    return model;
+  }
+
+  public static class EditAlertSerializer extends JsonSerializer<EditAlert> {
+    @Override
+    public void serialize(EditAlert value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      EditAlertPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class EditAlertDeserializer extends JsonDeserializer<EditAlert> {
+    @Override
+    public EditAlert deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      EditAlertPb pb = mapper.readValue(p, EditAlertPb.class);
+      return EditAlert.fromPb(pb);
+    }
   }
 }

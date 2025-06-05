@@ -4,44 +4,47 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ExternalLocationInfo.ExternalLocationInfoSerializer.class)
+@JsonDeserialize(using = ExternalLocationInfo.ExternalLocationInfoDeserializer.class)
 public class ExternalLocationInfo {
   /**
    * Indicates whether the principal is limited to retrieving metadata for the associated object
    * through the BROWSE privilege when include_browse is enabled in the request.
    */
-  @JsonProperty("browse_only")
   private Boolean browseOnly;
 
   /** User-provided free-form text description. */
-  @JsonProperty("comment")
   private String comment;
 
   /** Time at which this external location was created, in epoch milliseconds. */
-  @JsonProperty("created_at")
   private Long createdAt;
 
   /** Username of external location creator. */
-  @JsonProperty("created_by")
   private String createdBy;
 
   /** Unique ID of the location's storage credential. */
-  @JsonProperty("credential_id")
   private String credentialId;
 
   /** Name of the storage credential used with this location. */
-  @JsonProperty("credential_name")
   private String credentialName;
 
   /** [Create:OPT Update:OPT] Whether to enable file events on this external location. */
-  @JsonProperty("enable_file_events")
   private Boolean enableFileEvents;
 
   /** Encryption options that apply to clients connecting to cloud storage. */
-  @JsonProperty("encryption_details")
   private EncryptionDetails encryptionDetails;
 
   /**
@@ -49,43 +52,33 @@ public class ExternalLocationInfo {
    * enabled, the access to the location falls back to cluster credentials if UC credentials are not
    * sufficient.
    */
-  @JsonProperty("fallback")
   private Boolean fallback;
 
   /** [Create:OPT Update:OPT] File event queue settings. */
-  @JsonProperty("file_event_queue")
   private FileEventQueue fileEventQueue;
 
   /** */
-  @JsonProperty("isolation_mode")
   private IsolationMode isolationMode;
 
   /** Unique identifier of metastore hosting the external location. */
-  @JsonProperty("metastore_id")
   private String metastoreId;
 
   /** Name of the external location. */
-  @JsonProperty("name")
   private String name;
 
   /** The owner of the external location. */
-  @JsonProperty("owner")
   private String owner;
 
   /** Indicates whether the external location is read-only. */
-  @JsonProperty("read_only")
   private Boolean readOnly;
 
   /** Time at which external location this was last modified, in epoch milliseconds. */
-  @JsonProperty("updated_at")
   private Long updatedAt;
 
   /** Username of user who last modified the external location. */
-  @JsonProperty("updated_by")
   private String updatedBy;
 
   /** Path URL of the external location. */
-  @JsonProperty("url")
   private String url;
 
   public ExternalLocationInfo setBrowseOnly(Boolean browseOnly) {
@@ -320,5 +313,74 @@ public class ExternalLocationInfo {
         .add("updatedBy", updatedBy)
         .add("url", url)
         .toString();
+  }
+
+  ExternalLocationInfoPb toPb() {
+    ExternalLocationInfoPb pb = new ExternalLocationInfoPb();
+    pb.setBrowseOnly(browseOnly);
+    pb.setComment(comment);
+    pb.setCreatedAt(createdAt);
+    pb.setCreatedBy(createdBy);
+    pb.setCredentialId(credentialId);
+    pb.setCredentialName(credentialName);
+    pb.setEnableFileEvents(enableFileEvents);
+    pb.setEncryptionDetails(encryptionDetails);
+    pb.setFallback(fallback);
+    pb.setFileEventQueue(fileEventQueue);
+    pb.setIsolationMode(isolationMode);
+    pb.setMetastoreId(metastoreId);
+    pb.setName(name);
+    pb.setOwner(owner);
+    pb.setReadOnly(readOnly);
+    pb.setUpdatedAt(updatedAt);
+    pb.setUpdatedBy(updatedBy);
+    pb.setUrl(url);
+
+    return pb;
+  }
+
+  static ExternalLocationInfo fromPb(ExternalLocationInfoPb pb) {
+    ExternalLocationInfo model = new ExternalLocationInfo();
+    model.setBrowseOnly(pb.getBrowseOnly());
+    model.setComment(pb.getComment());
+    model.setCreatedAt(pb.getCreatedAt());
+    model.setCreatedBy(pb.getCreatedBy());
+    model.setCredentialId(pb.getCredentialId());
+    model.setCredentialName(pb.getCredentialName());
+    model.setEnableFileEvents(pb.getEnableFileEvents());
+    model.setEncryptionDetails(pb.getEncryptionDetails());
+    model.setFallback(pb.getFallback());
+    model.setFileEventQueue(pb.getFileEventQueue());
+    model.setIsolationMode(pb.getIsolationMode());
+    model.setMetastoreId(pb.getMetastoreId());
+    model.setName(pb.getName());
+    model.setOwner(pb.getOwner());
+    model.setReadOnly(pb.getReadOnly());
+    model.setUpdatedAt(pb.getUpdatedAt());
+    model.setUpdatedBy(pb.getUpdatedBy());
+    model.setUrl(pb.getUrl());
+
+    return model;
+  }
+
+  public static class ExternalLocationInfoSerializer extends JsonSerializer<ExternalLocationInfo> {
+    @Override
+    public void serialize(
+        ExternalLocationInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ExternalLocationInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ExternalLocationInfoDeserializer
+      extends JsonDeserializer<ExternalLocationInfo> {
+    @Override
+    public ExternalLocationInfo deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ExternalLocationInfoPb pb = mapper.readValue(p, ExternalLocationInfoPb.class);
+      return ExternalLocationInfo.fromPb(pb);
+    }
   }
 }

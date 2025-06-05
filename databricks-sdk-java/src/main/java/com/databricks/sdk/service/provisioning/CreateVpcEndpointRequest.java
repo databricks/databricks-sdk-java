@@ -4,25 +4,32 @@ package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateVpcEndpointRequest.CreateVpcEndpointRequestSerializer.class)
+@JsonDeserialize(using = CreateVpcEndpointRequest.CreateVpcEndpointRequestDeserializer.class)
 public class CreateVpcEndpointRequest {
   /** The ID of the VPC endpoint object in AWS. */
-  @JsonProperty("aws_vpc_endpoint_id")
   private String awsVpcEndpointId;
 
   /** The Google Cloud specific information for this Private Service Connect endpoint. */
-  @JsonProperty("gcp_vpc_endpoint_info")
   private GcpVpcEndpointInfo gcpVpcEndpointInfo;
 
   /** The AWS region in which this VPC endpoint object exists. */
-  @JsonProperty("region")
   private String region;
 
   /** The human-readable name of the storage configuration. */
-  @JsonProperty("vpc_endpoint_name")
   private String vpcEndpointName;
 
   public CreateVpcEndpointRequest setAwsVpcEndpointId(String awsVpcEndpointId) {
@@ -85,5 +92,47 @@ public class CreateVpcEndpointRequest {
         .add("region", region)
         .add("vpcEndpointName", vpcEndpointName)
         .toString();
+  }
+
+  CreateVpcEndpointRequestPb toPb() {
+    CreateVpcEndpointRequestPb pb = new CreateVpcEndpointRequestPb();
+    pb.setAwsVpcEndpointId(awsVpcEndpointId);
+    pb.setGcpVpcEndpointInfo(gcpVpcEndpointInfo);
+    pb.setRegion(region);
+    pb.setVpcEndpointName(vpcEndpointName);
+
+    return pb;
+  }
+
+  static CreateVpcEndpointRequest fromPb(CreateVpcEndpointRequestPb pb) {
+    CreateVpcEndpointRequest model = new CreateVpcEndpointRequest();
+    model.setAwsVpcEndpointId(pb.getAwsVpcEndpointId());
+    model.setGcpVpcEndpointInfo(pb.getGcpVpcEndpointInfo());
+    model.setRegion(pb.getRegion());
+    model.setVpcEndpointName(pb.getVpcEndpointName());
+
+    return model;
+  }
+
+  public static class CreateVpcEndpointRequestSerializer
+      extends JsonSerializer<CreateVpcEndpointRequest> {
+    @Override
+    public void serialize(
+        CreateVpcEndpointRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateVpcEndpointRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateVpcEndpointRequestDeserializer
+      extends JsonDeserializer<CreateVpcEndpointRequest> {
+    @Override
+    public CreateVpcEndpointRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateVpcEndpointRequestPb pb = mapper.readValue(p, CreateVpcEndpointRequestPb.class);
+      return CreateVpcEndpointRequest.fromPb(pb);
+    }
   }
 }

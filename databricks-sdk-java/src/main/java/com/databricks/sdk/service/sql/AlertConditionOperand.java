@@ -4,13 +4,23 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = AlertConditionOperand.AlertConditionOperandSerializer.class)
+@JsonDeserialize(using = AlertConditionOperand.AlertConditionOperandDeserializer.class)
 public class AlertConditionOperand {
   /** */
-  @JsonProperty("column")
   private AlertOperandColumn column;
 
   public AlertConditionOperand setColumn(AlertOperandColumn column) {
@@ -38,5 +48,41 @@ public class AlertConditionOperand {
   @Override
   public String toString() {
     return new ToStringer(AlertConditionOperand.class).add("column", column).toString();
+  }
+
+  AlertConditionOperandPb toPb() {
+    AlertConditionOperandPb pb = new AlertConditionOperandPb();
+    pb.setColumn(column);
+
+    return pb;
+  }
+
+  static AlertConditionOperand fromPb(AlertConditionOperandPb pb) {
+    AlertConditionOperand model = new AlertConditionOperand();
+    model.setColumn(pb.getColumn());
+
+    return model;
+  }
+
+  public static class AlertConditionOperandSerializer
+      extends JsonSerializer<AlertConditionOperand> {
+    @Override
+    public void serialize(
+        AlertConditionOperand value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      AlertConditionOperandPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class AlertConditionOperandDeserializer
+      extends JsonDeserializer<AlertConditionOperand> {
+    @Override
+    public AlertConditionOperand deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      AlertConditionOperandPb pb = mapper.readValue(p, AlertConditionOperandPb.class);
+      return AlertConditionOperand.fromPb(pb);
+    }
   }
 }

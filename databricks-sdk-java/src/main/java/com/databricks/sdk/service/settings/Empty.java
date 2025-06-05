@@ -4,9 +4,21 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = Empty.EmptySerializer.class)
+@JsonDeserialize(using = Empty.EmptyDeserializer.class)
 public class Empty {
 
   @Override
@@ -24,5 +36,35 @@ public class Empty {
   @Override
   public String toString() {
     return new ToStringer(Empty.class).toString();
+  }
+
+  EmptyPb toPb() {
+    EmptyPb pb = new EmptyPb();
+
+    return pb;
+  }
+
+  static Empty fromPb(EmptyPb pb) {
+    Empty model = new Empty();
+
+    return model;
+  }
+
+  public static class EmptySerializer extends JsonSerializer<Empty> {
+    @Override
+    public void serialize(Empty value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      EmptyPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class EmptyDeserializer extends JsonDeserializer<Empty> {
+    @Override
+    public Empty deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      EmptyPb pb = mapper.readValue(p, EmptyPb.class);
+      return Empty.fromPb(pb);
+    }
   }
 }

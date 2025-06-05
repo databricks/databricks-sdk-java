@@ -4,13 +4,25 @@ package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = GetBudgetConfigurationResponse.GetBudgetConfigurationResponseSerializer.class)
+@JsonDeserialize(
+    using = GetBudgetConfigurationResponse.GetBudgetConfigurationResponseDeserializer.class)
 public class GetBudgetConfigurationResponse {
   /** */
-  @JsonProperty("budget")
   private BudgetConfiguration budget;
 
   public GetBudgetConfigurationResponse setBudget(BudgetConfiguration budget) {
@@ -38,5 +50,42 @@ public class GetBudgetConfigurationResponse {
   @Override
   public String toString() {
     return new ToStringer(GetBudgetConfigurationResponse.class).add("budget", budget).toString();
+  }
+
+  GetBudgetConfigurationResponsePb toPb() {
+    GetBudgetConfigurationResponsePb pb = new GetBudgetConfigurationResponsePb();
+    pb.setBudget(budget);
+
+    return pb;
+  }
+
+  static GetBudgetConfigurationResponse fromPb(GetBudgetConfigurationResponsePb pb) {
+    GetBudgetConfigurationResponse model = new GetBudgetConfigurationResponse();
+    model.setBudget(pb.getBudget());
+
+    return model;
+  }
+
+  public static class GetBudgetConfigurationResponseSerializer
+      extends JsonSerializer<GetBudgetConfigurationResponse> {
+    @Override
+    public void serialize(
+        GetBudgetConfigurationResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetBudgetConfigurationResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetBudgetConfigurationResponseDeserializer
+      extends JsonDeserializer<GetBudgetConfigurationResponse> {
+    @Override
+    public GetBudgetConfigurationResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetBudgetConfigurationResponsePb pb =
+          mapper.readValue(p, GetBudgetConfigurationResponsePb.class);
+      return GetBudgetConfigurationResponse.fromPb(pb);
+    }
   }
 }

@@ -4,11 +4,22 @@ package com.databricks.sdk.service.cleanrooms;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Publicly visible clean room collaborator. */
 @Generated
+@JsonSerialize(using = CleanRoomCollaborator.CleanRoomCollaboratorSerializer.class)
+@JsonDeserialize(using = CleanRoomCollaborator.CleanRoomCollaboratorDeserializer.class)
 public class CleanRoomCollaborator {
   /**
    * Collaborator alias specified by the clean room creator. It is unique across all collaborators
@@ -19,7 +30,6 @@ public class CleanRoomCollaborator {
    * <p>[UC securable naming requirements]:
    * https://docs.databricks.com/en/data-governance/unity-catalog/index.html#securable-object-naming-requirements
    */
-  @JsonProperty("collaborator_alias")
   private String collaboratorAlias;
 
   /**
@@ -27,14 +37,12 @@ public class CleanRoomCollaborator {
    * is the clean room name. For x-metastore clean rooms, it is the organization name of the
    * metastore. It is not restricted to these values and could change in the future
    */
-  @JsonProperty("display_name")
   private String displayName;
 
   /**
    * The global Unity Catalog metastore id of the collaborator. The identifier is of format
    * cloud:region:metastore-uuid.
    */
-  @JsonProperty("global_metastore_id")
   private String globalMetastoreId;
 
   /**
@@ -42,7 +50,6 @@ public class CleanRoomCollaborator {
    * creator of the clean room, and non-empty for the invitees of the clean room. It is only
    * returned in the output when clean room creator calls GET
    */
-  @JsonProperty("invite_recipient_email")
   private String inviteRecipientEmail;
 
   /**
@@ -50,14 +57,12 @@ public class CleanRoomCollaborator {
    * invite_recipient_email is specified. It should be empty when the collaborator is the creator of
    * the clean room.
    */
-  @JsonProperty("invite_recipient_workspace_id")
   private Long inviteRecipientWorkspaceId;
 
   /**
    * [Organization name](:method:metastores/list#metastores-delta_sharing_organization_name)
    * configured in the metastore
    */
-  @JsonProperty("organization_name")
   private String organizationName;
 
   public CleanRoomCollaborator setCollaboratorAlias(String collaboratorAlias) {
@@ -148,5 +153,51 @@ public class CleanRoomCollaborator {
         .add("inviteRecipientWorkspaceId", inviteRecipientWorkspaceId)
         .add("organizationName", organizationName)
         .toString();
+  }
+
+  CleanRoomCollaboratorPb toPb() {
+    CleanRoomCollaboratorPb pb = new CleanRoomCollaboratorPb();
+    pb.setCollaboratorAlias(collaboratorAlias);
+    pb.setDisplayName(displayName);
+    pb.setGlobalMetastoreId(globalMetastoreId);
+    pb.setInviteRecipientEmail(inviteRecipientEmail);
+    pb.setInviteRecipientWorkspaceId(inviteRecipientWorkspaceId);
+    pb.setOrganizationName(organizationName);
+
+    return pb;
+  }
+
+  static CleanRoomCollaborator fromPb(CleanRoomCollaboratorPb pb) {
+    CleanRoomCollaborator model = new CleanRoomCollaborator();
+    model.setCollaboratorAlias(pb.getCollaboratorAlias());
+    model.setDisplayName(pb.getDisplayName());
+    model.setGlobalMetastoreId(pb.getGlobalMetastoreId());
+    model.setInviteRecipientEmail(pb.getInviteRecipientEmail());
+    model.setInviteRecipientWorkspaceId(pb.getInviteRecipientWorkspaceId());
+    model.setOrganizationName(pb.getOrganizationName());
+
+    return model;
+  }
+
+  public static class CleanRoomCollaboratorSerializer
+      extends JsonSerializer<CleanRoomCollaborator> {
+    @Override
+    public void serialize(
+        CleanRoomCollaborator value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CleanRoomCollaboratorPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CleanRoomCollaboratorDeserializer
+      extends JsonDeserializer<CleanRoomCollaborator> {
+    @Override
+    public CleanRoomCollaborator deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CleanRoomCollaboratorPb pb = mapper.readValue(p, CleanRoomCollaboratorPb.class);
+      return CleanRoomCollaborator.fromPb(pb);
+    }
   }
 }

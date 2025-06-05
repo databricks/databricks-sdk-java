@@ -4,20 +4,33 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get result chunk by index */
 @Generated
+@JsonSerialize(
+    using = GetStatementResultChunkNRequest.GetStatementResultChunkNRequestSerializer.class)
+@JsonDeserialize(
+    using = GetStatementResultChunkNRequest.GetStatementResultChunkNRequestDeserializer.class)
 public class GetStatementResultChunkNRequest {
   /** */
-  @JsonIgnore private Long chunkIndex;
+  private Long chunkIndex;
 
   /**
    * The statement ID is returned upon successfully submitting a SQL statement, and is a required
    * reference for all subsequent calls.
    */
-  @JsonIgnore private String statementId;
+  private String statementId;
 
   public GetStatementResultChunkNRequest setChunkIndex(Long chunkIndex) {
     this.chunkIndex = chunkIndex;
@@ -57,5 +70,44 @@ public class GetStatementResultChunkNRequest {
         .add("chunkIndex", chunkIndex)
         .add("statementId", statementId)
         .toString();
+  }
+
+  GetStatementResultChunkNRequestPb toPb() {
+    GetStatementResultChunkNRequestPb pb = new GetStatementResultChunkNRequestPb();
+    pb.setChunkIndex(chunkIndex);
+    pb.setStatementId(statementId);
+
+    return pb;
+  }
+
+  static GetStatementResultChunkNRequest fromPb(GetStatementResultChunkNRequestPb pb) {
+    GetStatementResultChunkNRequest model = new GetStatementResultChunkNRequest();
+    model.setChunkIndex(pb.getChunkIndex());
+    model.setStatementId(pb.getStatementId());
+
+    return model;
+  }
+
+  public static class GetStatementResultChunkNRequestSerializer
+      extends JsonSerializer<GetStatementResultChunkNRequest> {
+    @Override
+    public void serialize(
+        GetStatementResultChunkNRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetStatementResultChunkNRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetStatementResultChunkNRequestDeserializer
+      extends JsonDeserializer<GetStatementResultChunkNRequest> {
+    @Override
+    public GetStatementResultChunkNRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetStatementResultChunkNRequestPb pb =
+          mapper.readValue(p, GetStatementResultChunkNRequestPb.class);
+      return GetStatementResultChunkNRequest.fromPb(pb);
+    }
   }
 }

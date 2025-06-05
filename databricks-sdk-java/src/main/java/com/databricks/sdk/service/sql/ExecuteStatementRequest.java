@@ -4,11 +4,22 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ExecuteStatementRequest.ExecuteStatementRequestSerializer.class)
+@JsonDeserialize(using = ExecuteStatementRequest.ExecuteStatementRequestDeserializer.class)
 public class ExecuteStatementRequest {
   /**
    * Applies the given byte limit to the statement's result size. Byte counts are based on internal
@@ -17,7 +28,6 @@ public class ExecuteStatementRequest {
    * When using `EXTERNAL_LINKS` disposition, a default `byte_limit` of 100 GiB is applied if
    * `byte_limit` is not explcitly set.
    */
-  @JsonProperty("byte_limit")
   private Long byteLimit;
 
   /**
@@ -26,11 +36,9 @@ public class ExecuteStatementRequest {
    * <p>[`USE CATALOG`]:
    * https://docs.databricks.com/sql/language-manual/sql-ref-syntax-ddl-use-catalog.html
    */
-  @JsonProperty("catalog")
   private String catalog;
 
   /** */
-  @JsonProperty("disposition")
   private Disposition disposition;
 
   /**
@@ -66,7 +74,6 @@ public class ExecuteStatementRequest {
    * https://arrow.apache.org/docs/format/Columnar.html#ipc-streaming-format [RFC 4180]:
    * https://www.rfc-editor.org/rfc/rfc4180
    */
-  @JsonProperty("format")
   private Format format;
 
   /**
@@ -77,7 +84,6 @@ public class ExecuteStatementRequest {
    * :method:statementexecution/getStatement. When set to `CANCEL`, the statement execution is
    * canceled and the call returns with a `CANCELED` state.
    */
-  @JsonProperty("on_wait_timeout")
   private ExecuteStatementRequestOnWaitTimeout onWaitTimeout;
 
   /**
@@ -110,7 +116,6 @@ public class ExecuteStatementRequest {
    * https://docs.databricks.com/sql/language-manual/sql-ref-parameter-marker.html [`cast`
    * function]: https://docs.databricks.com/sql/language-manual/functions/cast.html
    */
-  @JsonProperty("parameters")
   private Collection<StatementParameterListItem> parameters;
 
   /**
@@ -118,7 +123,6 @@ public class ExecuteStatementRequest {
    * SQL, it also sets the `truncated` field in the response to indicate whether the result was
    * trimmed due to the limit or not.
    */
-  @JsonProperty("row_limit")
   private Long rowLimit;
 
   /**
@@ -127,13 +131,11 @@ public class ExecuteStatementRequest {
    * <p>[`USE SCHEMA`]:
    * https://docs.databricks.com/sql/language-manual/sql-ref-syntax-ddl-use-schema.html
    */
-  @JsonProperty("schema")
   private String schema;
 
   /**
    * The SQL statement to execute. The statement can optionally be parameterized, see `parameters`.
    */
-  @JsonProperty("statement")
   private String statement;
 
   /**
@@ -150,7 +152,6 @@ public class ExecuteStatementRequest {
    * execution error). If the statement takes longer to execute, `on_wait_timeout` determines what
    * should happen after the timeout is reached.
    */
-  @JsonProperty("wait_timeout")
   private String waitTimeout;
 
   /**
@@ -158,7 +159,6 @@ public class ExecuteStatementRequest {
    *
    * <p>[What are SQL warehouses?]: https://docs.databricks.com/sql/admin/warehouse-type.html
    */
-  @JsonProperty("warehouse_id")
   private String warehouseId;
 
   public ExecuteStatementRequest setByteLimit(Long byteLimit) {
@@ -310,5 +310,61 @@ public class ExecuteStatementRequest {
         .add("waitTimeout", waitTimeout)
         .add("warehouseId", warehouseId)
         .toString();
+  }
+
+  ExecuteStatementRequestPb toPb() {
+    ExecuteStatementRequestPb pb = new ExecuteStatementRequestPb();
+    pb.setByteLimit(byteLimit);
+    pb.setCatalog(catalog);
+    pb.setDisposition(disposition);
+    pb.setFormat(format);
+    pb.setOnWaitTimeout(onWaitTimeout);
+    pb.setParameters(parameters);
+    pb.setRowLimit(rowLimit);
+    pb.setSchema(schema);
+    pb.setStatement(statement);
+    pb.setWaitTimeout(waitTimeout);
+    pb.setWarehouseId(warehouseId);
+
+    return pb;
+  }
+
+  static ExecuteStatementRequest fromPb(ExecuteStatementRequestPb pb) {
+    ExecuteStatementRequest model = new ExecuteStatementRequest();
+    model.setByteLimit(pb.getByteLimit());
+    model.setCatalog(pb.getCatalog());
+    model.setDisposition(pb.getDisposition());
+    model.setFormat(pb.getFormat());
+    model.setOnWaitTimeout(pb.getOnWaitTimeout());
+    model.setParameters(pb.getParameters());
+    model.setRowLimit(pb.getRowLimit());
+    model.setSchema(pb.getSchema());
+    model.setStatement(pb.getStatement());
+    model.setWaitTimeout(pb.getWaitTimeout());
+    model.setWarehouseId(pb.getWarehouseId());
+
+    return model;
+  }
+
+  public static class ExecuteStatementRequestSerializer
+      extends JsonSerializer<ExecuteStatementRequest> {
+    @Override
+    public void serialize(
+        ExecuteStatementRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ExecuteStatementRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ExecuteStatementRequestDeserializer
+      extends JsonDeserializer<ExecuteStatementRequest> {
+    @Override
+    public ExecuteStatementRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ExecuteStatementRequestPb pb = mapper.readValue(p, ExecuteStatementRequestPb.class);
+      return ExecuteStatementRequest.fromPb(pb);
+    }
   }
 }

@@ -3,27 +3,31 @@
 package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get user details. */
 @Generated
+@JsonSerialize(using = GetAccountUserRequest.GetAccountUserRequestSerializer.class)
+@JsonDeserialize(using = GetAccountUserRequest.GetAccountUserRequestDeserializer.class)
 public class GetAccountUserRequest {
   /** Comma-separated list of attributes to return in response. */
-  @JsonIgnore
-  @QueryParam("attributes")
   private String attributes;
 
   /** Desired number of results per page. Default is 10000. */
-  @JsonIgnore
-  @QueryParam("count")
   private Long count;
 
   /** Comma-separated list of attributes to exclude in response. */
-  @JsonIgnore
-  @QueryParam("excludedAttributes")
   private String excludedAttributes;
 
   /**
@@ -34,29 +38,21 @@ public class GetAccountUserRequest {
    *
    * <p>[SCIM RFC]: https://tools.ietf.org/html/rfc7644#section-3.4.2.2
    */
-  @JsonIgnore
-  @QueryParam("filter")
   private String filter;
 
   /** Unique ID for a user in the Databricks account. */
-  @JsonIgnore private String id;
+  private String id;
 
   /**
    * Attribute to sort the results. Multi-part paths are supported. For example, `userName`,
    * `name.givenName`, and `emails`.
    */
-  @JsonIgnore
-  @QueryParam("sortBy")
   private String sortBy;
 
   /** The order to sort the results. */
-  @JsonIgnore
-  @QueryParam("sortOrder")
   private GetSortOrder sortOrder;
 
   /** Specifies the index of the first result. First item is number 1. */
-  @JsonIgnore
-  @QueryParam("startIndex")
   private Long startIndex;
 
   public GetAccountUserRequest setAttributes(String attributes) {
@@ -164,5 +160,55 @@ public class GetAccountUserRequest {
         .add("sortOrder", sortOrder)
         .add("startIndex", startIndex)
         .toString();
+  }
+
+  GetAccountUserRequestPb toPb() {
+    GetAccountUserRequestPb pb = new GetAccountUserRequestPb();
+    pb.setAttributes(attributes);
+    pb.setCount(count);
+    pb.setExcludedAttributes(excludedAttributes);
+    pb.setFilter(filter);
+    pb.setId(id);
+    pb.setSortBy(sortBy);
+    pb.setSortOrder(sortOrder);
+    pb.setStartIndex(startIndex);
+
+    return pb;
+  }
+
+  static GetAccountUserRequest fromPb(GetAccountUserRequestPb pb) {
+    GetAccountUserRequest model = new GetAccountUserRequest();
+    model.setAttributes(pb.getAttributes());
+    model.setCount(pb.getCount());
+    model.setExcludedAttributes(pb.getExcludedAttributes());
+    model.setFilter(pb.getFilter());
+    model.setId(pb.getId());
+    model.setSortBy(pb.getSortBy());
+    model.setSortOrder(pb.getSortOrder());
+    model.setStartIndex(pb.getStartIndex());
+
+    return model;
+  }
+
+  public static class GetAccountUserRequestSerializer
+      extends JsonSerializer<GetAccountUserRequest> {
+    @Override
+    public void serialize(
+        GetAccountUserRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetAccountUserRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetAccountUserRequestDeserializer
+      extends JsonDeserializer<GetAccountUserRequest> {
+    @Override
+    public GetAccountUserRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetAccountUserRequestPb pb = mapper.readValue(p, GetAccountUserRequestPb.class);
+      return GetAccountUserRequest.fromPb(pb);
+    }
   }
 }

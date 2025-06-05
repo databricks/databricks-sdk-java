@@ -4,17 +4,31 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using =
+        RegisteredModelPermissionsDescription.RegisteredModelPermissionsDescriptionSerializer.class)
+@JsonDeserialize(
+    using =
+        RegisteredModelPermissionsDescription.RegisteredModelPermissionsDescriptionDeserializer
+            .class)
 public class RegisteredModelPermissionsDescription {
   /** */
-  @JsonProperty("description")
   private String description;
 
   /** Permission level */
-  @JsonProperty("permission_level")
   private RegisteredModelPermissionLevel permissionLevel;
 
   public RegisteredModelPermissionsDescription setDescription(String description) {
@@ -56,5 +70,44 @@ public class RegisteredModelPermissionsDescription {
         .add("description", description)
         .add("permissionLevel", permissionLevel)
         .toString();
+  }
+
+  RegisteredModelPermissionsDescriptionPb toPb() {
+    RegisteredModelPermissionsDescriptionPb pb = new RegisteredModelPermissionsDescriptionPb();
+    pb.setDescription(description);
+    pb.setPermissionLevel(permissionLevel);
+
+    return pb;
+  }
+
+  static RegisteredModelPermissionsDescription fromPb(RegisteredModelPermissionsDescriptionPb pb) {
+    RegisteredModelPermissionsDescription model = new RegisteredModelPermissionsDescription();
+    model.setDescription(pb.getDescription());
+    model.setPermissionLevel(pb.getPermissionLevel());
+
+    return model;
+  }
+
+  public static class RegisteredModelPermissionsDescriptionSerializer
+      extends JsonSerializer<RegisteredModelPermissionsDescription> {
+    @Override
+    public void serialize(
+        RegisteredModelPermissionsDescription value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      RegisteredModelPermissionsDescriptionPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class RegisteredModelPermissionsDescriptionDeserializer
+      extends JsonDeserializer<RegisteredModelPermissionsDescription> {
+    @Override
+    public RegisteredModelPermissionsDescription deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      RegisteredModelPermissionsDescriptionPb pb =
+          mapper.readValue(p, RegisteredModelPermissionsDescriptionPb.class);
+      return RegisteredModelPermissionsDescription.fromPb(pb);
+    }
   }
 }

@@ -4,33 +4,39 @@ package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = BudgetConfiguration.BudgetConfigurationSerializer.class)
+@JsonDeserialize(using = BudgetConfiguration.BudgetConfigurationDeserializer.class)
 public class BudgetConfiguration {
   /** Databricks account ID. */
-  @JsonProperty("account_id")
   private String accountId;
 
   /**
    * Alerts to configure when this budget is in a triggered state. Budgets must have exactly one
    * alert configuration.
    */
-  @JsonProperty("alert_configurations")
   private Collection<AlertConfiguration> alertConfigurations;
 
   /** Databricks budget configuration ID. */
-  @JsonProperty("budget_configuration_id")
   private String budgetConfigurationId;
 
   /** Creation time of this budget configuration. */
-  @JsonProperty("create_time")
   private Long createTime;
 
   /** Human-readable name of budget configuration. Max Length: 128 */
-  @JsonProperty("display_name")
   private String displayName;
 
   /**
@@ -38,11 +44,9 @@ public class BudgetConfiguration {
    * scope of what is considered for this budget. Leave empty to include all usage for this account.
    * All provided filters must be matched for usage to be included.
    */
-  @JsonProperty("filter")
   private BudgetConfigurationFilter filter;
 
   /** Update time of this budget configuration. */
-  @JsonProperty("update_time")
   private Long updateTime;
 
   public BudgetConfiguration setAccountId(String accountId) {
@@ -146,5 +150,51 @@ public class BudgetConfiguration {
         .add("filter", filter)
         .add("updateTime", updateTime)
         .toString();
+  }
+
+  BudgetConfigurationPb toPb() {
+    BudgetConfigurationPb pb = new BudgetConfigurationPb();
+    pb.setAccountId(accountId);
+    pb.setAlertConfigurations(alertConfigurations);
+    pb.setBudgetConfigurationId(budgetConfigurationId);
+    pb.setCreateTime(createTime);
+    pb.setDisplayName(displayName);
+    pb.setFilter(filter);
+    pb.setUpdateTime(updateTime);
+
+    return pb;
+  }
+
+  static BudgetConfiguration fromPb(BudgetConfigurationPb pb) {
+    BudgetConfiguration model = new BudgetConfiguration();
+    model.setAccountId(pb.getAccountId());
+    model.setAlertConfigurations(pb.getAlertConfigurations());
+    model.setBudgetConfigurationId(pb.getBudgetConfigurationId());
+    model.setCreateTime(pb.getCreateTime());
+    model.setDisplayName(pb.getDisplayName());
+    model.setFilter(pb.getFilter());
+    model.setUpdateTime(pb.getUpdateTime());
+
+    return model;
+  }
+
+  public static class BudgetConfigurationSerializer extends JsonSerializer<BudgetConfiguration> {
+    @Override
+    public void serialize(BudgetConfiguration value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      BudgetConfigurationPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class BudgetConfigurationDeserializer
+      extends JsonDeserializer<BudgetConfiguration> {
+    @Override
+    public BudgetConfiguration deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      BudgetConfigurationPb pb = mapper.readValue(p, BudgetConfigurationPb.class);
+      return BudgetConfiguration.fromPb(pb);
+    }
   }
 }

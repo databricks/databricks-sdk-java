@@ -4,35 +4,47 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using =
+        CreateVisualizationRequestVisualization.CreateVisualizationRequestVisualizationSerializer
+            .class)
+@JsonDeserialize(
+    using =
+        CreateVisualizationRequestVisualization.CreateVisualizationRequestVisualizationDeserializer
+            .class)
 public class CreateVisualizationRequestVisualization {
   /** The display name of the visualization. */
-  @JsonProperty("display_name")
   private String displayName;
 
   /** UUID of the query that the visualization is attached to. */
-  @JsonProperty("query_id")
   private String queryId;
 
   /**
    * The visualization options varies widely from one visualization type to the next and is
    * unsupported. Databricks does not recommend modifying visualization options directly.
    */
-  @JsonProperty("serialized_options")
   private String serializedOptions;
 
   /**
    * The visualization query plan varies widely from one visualization type to the next and is
    * unsupported. Databricks does not recommend modifying the visualization query plan directly.
    */
-  @JsonProperty("serialized_query_plan")
   private String serializedQueryPlan;
 
   /** The type of visualization: counter, table, funnel, and so on. */
-  @JsonProperty("type")
   private String typeValue;
 
   public CreateVisualizationRequestVisualization setDisplayName(String displayName) {
@@ -107,5 +119,53 @@ public class CreateVisualizationRequestVisualization {
         .add("serializedQueryPlan", serializedQueryPlan)
         .add("typeValue", typeValue)
         .toString();
+  }
+
+  CreateVisualizationRequestVisualizationPb toPb() {
+    CreateVisualizationRequestVisualizationPb pb = new CreateVisualizationRequestVisualizationPb();
+    pb.setDisplayName(displayName);
+    pb.setQueryId(queryId);
+    pb.setSerializedOptions(serializedOptions);
+    pb.setSerializedQueryPlan(serializedQueryPlan);
+    pb.setType(typeValue);
+
+    return pb;
+  }
+
+  static CreateVisualizationRequestVisualization fromPb(
+      CreateVisualizationRequestVisualizationPb pb) {
+    CreateVisualizationRequestVisualization model = new CreateVisualizationRequestVisualization();
+    model.setDisplayName(pb.getDisplayName());
+    model.setQueryId(pb.getQueryId());
+    model.setSerializedOptions(pb.getSerializedOptions());
+    model.setSerializedQueryPlan(pb.getSerializedQueryPlan());
+    model.setType(pb.getType());
+
+    return model;
+  }
+
+  public static class CreateVisualizationRequestVisualizationSerializer
+      extends JsonSerializer<CreateVisualizationRequestVisualization> {
+    @Override
+    public void serialize(
+        CreateVisualizationRequestVisualization value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      CreateVisualizationRequestVisualizationPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateVisualizationRequestVisualizationDeserializer
+      extends JsonDeserializer<CreateVisualizationRequestVisualization> {
+    @Override
+    public CreateVisualizationRequestVisualization deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateVisualizationRequestVisualizationPb pb =
+          mapper.readValue(p, CreateVisualizationRequestVisualizationPb.class);
+      return CreateVisualizationRequestVisualization.fromPb(pb);
+    }
   }
 }

@@ -4,18 +4,27 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Parameter associated with a LoggedModel. */
 @Generated
+@JsonSerialize(using = LoggedModelParameter.LoggedModelParameterSerializer.class)
+@JsonDeserialize(using = LoggedModelParameter.LoggedModelParameterDeserializer.class)
 public class LoggedModelParameter {
   /** The key identifying this param. */
-  @JsonProperty("key")
   private String key;
 
   /** The value of this param. */
-  @JsonProperty("value")
   private String value;
 
   public LoggedModelParameter setKey(String key) {
@@ -55,5 +64,42 @@ public class LoggedModelParameter {
         .add("key", key)
         .add("value", value)
         .toString();
+  }
+
+  LoggedModelParameterPb toPb() {
+    LoggedModelParameterPb pb = new LoggedModelParameterPb();
+    pb.setKey(key);
+    pb.setValue(value);
+
+    return pb;
+  }
+
+  static LoggedModelParameter fromPb(LoggedModelParameterPb pb) {
+    LoggedModelParameter model = new LoggedModelParameter();
+    model.setKey(pb.getKey());
+    model.setValue(pb.getValue());
+
+    return model;
+  }
+
+  public static class LoggedModelParameterSerializer extends JsonSerializer<LoggedModelParameter> {
+    @Override
+    public void serialize(
+        LoggedModelParameter value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      LoggedModelParameterPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class LoggedModelParameterDeserializer
+      extends JsonDeserializer<LoggedModelParameter> {
+    @Override
+    public LoggedModelParameter deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      LoggedModelParameterPb pb = mapper.readValue(p, LoggedModelParameterPb.class);
+      return LoggedModelParameter.fromPb(pb);
+    }
   }
 }

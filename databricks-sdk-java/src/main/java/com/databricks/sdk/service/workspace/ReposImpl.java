@@ -21,7 +21,7 @@ class ReposImpl implements ReposService {
     String path = "/api/2.0/repos";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, CreateRepoResponse.class);
@@ -35,7 +35,7 @@ class ReposImpl implements ReposService {
     String path = String.format("/api/2.0/repos/%s", request.getRepoId());
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, DeleteRepoResponse.class);
     } catch (IOException e) {
@@ -48,7 +48,7 @@ class ReposImpl implements ReposService {
     String path = String.format("/api/2.0/repos/%s", request.getRepoId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetRepoResponse.class);
     } catch (IOException e) {
@@ -63,7 +63,7 @@ class ReposImpl implements ReposService {
         String.format("/api/2.0/permissions/repos/%s/permissionLevels", request.getRepoId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetRepoPermissionLevelsResponse.class);
     } catch (IOException e) {
@@ -76,7 +76,7 @@ class ReposImpl implements ReposService {
     String path = String.format("/api/2.0/permissions/repos/%s", request.getRepoId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, RepoPermissions.class);
     } catch (IOException e) {
@@ -89,7 +89,7 @@ class ReposImpl implements ReposService {
     String path = "/api/2.0/repos";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListReposResponse.class);
     } catch (IOException e) {
@@ -102,7 +102,7 @@ class ReposImpl implements ReposService {
     String path = String.format("/api/2.0/permissions/repos/%s", request.getRepoId());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, RepoPermissions.class);
@@ -116,7 +116,7 @@ class ReposImpl implements ReposService {
     String path = String.format("/api/2.0/repos/%s", request.getRepoId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, UpdateRepoResponse.class);
@@ -130,7 +130,7 @@ class ReposImpl implements ReposService {
     String path = String.format("/api/2.0/permissions/repos/%s", request.getRepoId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, RepoPermissions.class);

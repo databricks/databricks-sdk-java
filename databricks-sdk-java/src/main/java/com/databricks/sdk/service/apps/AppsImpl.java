@@ -21,7 +21,7 @@ class AppsImpl implements AppsService {
     String path = "/api/2.0/apps";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request.getApp()));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, App.class);
@@ -35,7 +35,7 @@ class AppsImpl implements AppsService {
     String path = String.format("/api/2.0/apps/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, App.class);
     } catch (IOException e) {
@@ -48,7 +48,7 @@ class AppsImpl implements AppsService {
     String path = String.format("/api/2.0/apps/%s/deployments", request.getAppName());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request.getAppDeployment()));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, AppDeployment.class);
@@ -62,7 +62,7 @@ class AppsImpl implements AppsService {
     String path = String.format("/api/2.0/apps/%s", request.getName());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, App.class);
     } catch (IOException e) {
@@ -77,7 +77,7 @@ class AppsImpl implements AppsService {
             "/api/2.0/apps/%s/deployments/%s", request.getAppName(), request.getDeploymentId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, AppDeployment.class);
     } catch (IOException e) {
@@ -91,7 +91,7 @@ class AppsImpl implements AppsService {
         String.format("/api/2.0/permissions/apps/%s/permissionLevels", request.getAppName());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetAppPermissionLevelsResponse.class);
     } catch (IOException e) {
@@ -104,7 +104,7 @@ class AppsImpl implements AppsService {
     String path = String.format("/api/2.0/permissions/apps/%s", request.getAppName());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, AppPermissions.class);
     } catch (IOException e) {
@@ -117,7 +117,7 @@ class AppsImpl implements AppsService {
     String path = "/api/2.0/apps";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListAppsResponse.class);
     } catch (IOException e) {
@@ -130,7 +130,7 @@ class AppsImpl implements AppsService {
     String path = String.format("/api/2.0/apps/%s/deployments", request.getAppName());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListAppDeploymentsResponse.class);
     } catch (IOException e) {
@@ -143,7 +143,7 @@ class AppsImpl implements AppsService {
     String path = String.format("/api/2.0/permissions/apps/%s", request.getAppName());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, AppPermissions.class);
@@ -157,7 +157,7 @@ class AppsImpl implements AppsService {
     String path = String.format("/api/2.0/apps/%s/start", request.getName());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, App.class);
@@ -171,7 +171,7 @@ class AppsImpl implements AppsService {
     String path = String.format("/api/2.0/apps/%s/stop", request.getName());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, App.class);
@@ -185,7 +185,7 @@ class AppsImpl implements AppsService {
     String path = String.format("/api/2.0/apps/%s", request.getName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getApp()));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, App.class);
@@ -199,7 +199,7 @@ class AppsImpl implements AppsService {
     String path = String.format("/api/2.0/permissions/apps/%s", request.getAppName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, AppPermissions.class);

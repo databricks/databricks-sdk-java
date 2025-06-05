@@ -4,14 +4,25 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Delete a table monitor */
 @Generated
+@JsonSerialize(using = DeleteQualityMonitorRequest.DeleteQualityMonitorRequestSerializer.class)
+@JsonDeserialize(using = DeleteQualityMonitorRequest.DeleteQualityMonitorRequestDeserializer.class)
 public class DeleteQualityMonitorRequest {
   /** Full name of the table. */
-  @JsonIgnore private String tableName;
+  private String tableName;
 
   public DeleteQualityMonitorRequest setTableName(String tableName) {
     this.tableName = tableName;
@@ -38,5 +49,41 @@ public class DeleteQualityMonitorRequest {
   @Override
   public String toString() {
     return new ToStringer(DeleteQualityMonitorRequest.class).add("tableName", tableName).toString();
+  }
+
+  DeleteQualityMonitorRequestPb toPb() {
+    DeleteQualityMonitorRequestPb pb = new DeleteQualityMonitorRequestPb();
+    pb.setTableName(tableName);
+
+    return pb;
+  }
+
+  static DeleteQualityMonitorRequest fromPb(DeleteQualityMonitorRequestPb pb) {
+    DeleteQualityMonitorRequest model = new DeleteQualityMonitorRequest();
+    model.setTableName(pb.getTableName());
+
+    return model;
+  }
+
+  public static class DeleteQualityMonitorRequestSerializer
+      extends JsonSerializer<DeleteQualityMonitorRequest> {
+    @Override
+    public void serialize(
+        DeleteQualityMonitorRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DeleteQualityMonitorRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DeleteQualityMonitorRequestDeserializer
+      extends JsonDeserializer<DeleteQualityMonitorRequest> {
+    @Override
+    public DeleteQualityMonitorRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DeleteQualityMonitorRequestPb pb = mapper.readValue(p, DeleteQualityMonitorRequestPb.class);
+      return DeleteQualityMonitorRequest.fromPb(pb);
+    }
   }
 }

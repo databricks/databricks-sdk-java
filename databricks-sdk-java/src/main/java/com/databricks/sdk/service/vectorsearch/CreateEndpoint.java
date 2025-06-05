@@ -4,21 +4,29 @@ package com.databricks.sdk.service.vectorsearch;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateEndpoint.CreateEndpointSerializer.class)
+@JsonDeserialize(using = CreateEndpoint.CreateEndpointDeserializer.class)
 public class CreateEndpoint {
   /** The budget policy id to be applied */
-  @JsonProperty("budget_policy_id")
   private String budgetPolicyId;
 
   /** Type of endpoint */
-  @JsonProperty("endpoint_type")
   private EndpointType endpointType;
 
   /** Name of the vector search endpoint */
-  @JsonProperty("name")
   private String name;
 
   public CreateEndpoint setBudgetPolicyId(String budgetPolicyId) {
@@ -70,5 +78,42 @@ public class CreateEndpoint {
         .add("endpointType", endpointType)
         .add("name", name)
         .toString();
+  }
+
+  CreateEndpointPb toPb() {
+    CreateEndpointPb pb = new CreateEndpointPb();
+    pb.setBudgetPolicyId(budgetPolicyId);
+    pb.setEndpointType(endpointType);
+    pb.setName(name);
+
+    return pb;
+  }
+
+  static CreateEndpoint fromPb(CreateEndpointPb pb) {
+    CreateEndpoint model = new CreateEndpoint();
+    model.setBudgetPolicyId(pb.getBudgetPolicyId());
+    model.setEndpointType(pb.getEndpointType());
+    model.setName(pb.getName());
+
+    return model;
+  }
+
+  public static class CreateEndpointSerializer extends JsonSerializer<CreateEndpoint> {
+    @Override
+    public void serialize(CreateEndpoint value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateEndpointPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateEndpointDeserializer extends JsonDeserializer<CreateEndpoint> {
+    @Override
+    public CreateEndpoint deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateEndpointPb pb = mapper.readValue(p, CreateEndpointPb.class);
+      return CreateEndpoint.fromPb(pb);
+    }
   }
 }

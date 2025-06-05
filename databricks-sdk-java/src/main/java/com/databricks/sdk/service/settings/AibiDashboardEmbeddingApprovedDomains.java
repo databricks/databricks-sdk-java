@@ -4,14 +4,29 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using =
+        AibiDashboardEmbeddingApprovedDomains.AibiDashboardEmbeddingApprovedDomainsSerializer.class)
+@JsonDeserialize(
+    using =
+        AibiDashboardEmbeddingApprovedDomains.AibiDashboardEmbeddingApprovedDomainsDeserializer
+            .class)
 public class AibiDashboardEmbeddingApprovedDomains {
   /** */
-  @JsonProperty("approved_domains")
   private Collection<String> approvedDomains;
 
   public AibiDashboardEmbeddingApprovedDomains setApprovedDomains(
@@ -42,5 +57,42 @@ public class AibiDashboardEmbeddingApprovedDomains {
     return new ToStringer(AibiDashboardEmbeddingApprovedDomains.class)
         .add("approvedDomains", approvedDomains)
         .toString();
+  }
+
+  AibiDashboardEmbeddingApprovedDomainsPb toPb() {
+    AibiDashboardEmbeddingApprovedDomainsPb pb = new AibiDashboardEmbeddingApprovedDomainsPb();
+    pb.setApprovedDomains(approvedDomains);
+
+    return pb;
+  }
+
+  static AibiDashboardEmbeddingApprovedDomains fromPb(AibiDashboardEmbeddingApprovedDomainsPb pb) {
+    AibiDashboardEmbeddingApprovedDomains model = new AibiDashboardEmbeddingApprovedDomains();
+    model.setApprovedDomains(pb.getApprovedDomains());
+
+    return model;
+  }
+
+  public static class AibiDashboardEmbeddingApprovedDomainsSerializer
+      extends JsonSerializer<AibiDashboardEmbeddingApprovedDomains> {
+    @Override
+    public void serialize(
+        AibiDashboardEmbeddingApprovedDomains value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      AibiDashboardEmbeddingApprovedDomainsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class AibiDashboardEmbeddingApprovedDomainsDeserializer
+      extends JsonDeserializer<AibiDashboardEmbeddingApprovedDomains> {
+    @Override
+    public AibiDashboardEmbeddingApprovedDomains deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      AibiDashboardEmbeddingApprovedDomainsPb pb =
+          mapper.readValue(p, AibiDashboardEmbeddingApprovedDomainsPb.class);
+      return AibiDashboardEmbeddingApprovedDomains.fromPb(pb);
+    }
   }
 }

@@ -4,39 +4,44 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = DashboardPostContent.DashboardPostContentSerializer.class)
+@JsonDeserialize(using = DashboardPostContent.DashboardPostContentDeserializer.class)
 public class DashboardPostContent {
   /** Indicates whether the dashboard filters are enabled */
-  @JsonProperty("dashboard_filters_enabled")
   private Boolean dashboardFiltersEnabled;
 
   /** Indicates whether this dashboard object should appear in the current user's favorites list. */
-  @JsonProperty("is_favorite")
   private Boolean isFavorite;
 
   /**
    * The title of this dashboard that appears in list views and at the top of the dashboard page.
    */
-  @JsonProperty("name")
   private String name;
 
   /** The identifier of the workspace folder containing the object. */
-  @JsonProperty("parent")
   private String parent;
 
   /**
    * Sets the **Run as** role for the object. Must be set to one of `"viewer"` (signifying "run as
    * viewer" behavior) or `"owner"` (signifying "run as owner" behavior)
    */
-  @JsonProperty("run_as_role")
   private RunAsRole runAsRole;
 
   /** */
-  @JsonProperty("tags")
   private Collection<String> tags;
 
   public DashboardPostContent setDashboardFiltersEnabled(Boolean dashboardFiltersEnabled) {
@@ -121,5 +126,50 @@ public class DashboardPostContent {
         .add("runAsRole", runAsRole)
         .add("tags", tags)
         .toString();
+  }
+
+  DashboardPostContentPb toPb() {
+    DashboardPostContentPb pb = new DashboardPostContentPb();
+    pb.setDashboardFiltersEnabled(dashboardFiltersEnabled);
+    pb.setIsFavorite(isFavorite);
+    pb.setName(name);
+    pb.setParent(parent);
+    pb.setRunAsRole(runAsRole);
+    pb.setTags(tags);
+
+    return pb;
+  }
+
+  static DashboardPostContent fromPb(DashboardPostContentPb pb) {
+    DashboardPostContent model = new DashboardPostContent();
+    model.setDashboardFiltersEnabled(pb.getDashboardFiltersEnabled());
+    model.setIsFavorite(pb.getIsFavorite());
+    model.setName(pb.getName());
+    model.setParent(pb.getParent());
+    model.setRunAsRole(pb.getRunAsRole());
+    model.setTags(pb.getTags());
+
+    return model;
+  }
+
+  public static class DashboardPostContentSerializer extends JsonSerializer<DashboardPostContent> {
+    @Override
+    public void serialize(
+        DashboardPostContent value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DashboardPostContentPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DashboardPostContentDeserializer
+      extends JsonDeserializer<DashboardPostContent> {
+    @Override
+    public DashboardPostContent deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DashboardPostContentPb pb = mapper.readValue(p, DashboardPostContentPb.class);
+      return DashboardPostContent.fromPb(pb);
+    }
   }
 }

@@ -24,7 +24,7 @@ class PersonalComputeImpl implements PersonalComputeService {
             apiClient.configuredAccountID());
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, DeletePersonalComputeSettingResponse.class);
     } catch (IOException e) {
@@ -40,7 +40,7 @@ class PersonalComputeImpl implements PersonalComputeService {
             apiClient.configuredAccountID());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, PersonalComputeSetting.class);
     } catch (IOException e) {
@@ -56,7 +56,7 @@ class PersonalComputeImpl implements PersonalComputeService {
             apiClient.configuredAccountID());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, PersonalComputeSetting.class);

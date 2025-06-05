@@ -4,76 +4,71 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = VolumeInfo.VolumeInfoSerializer.class)
+@JsonDeserialize(using = VolumeInfo.VolumeInfoDeserializer.class)
 public class VolumeInfo {
   /** The AWS access point to use when accesing s3 for this external location. */
-  @JsonProperty("access_point")
   private String accessPoint;
 
   /**
    * Indicates whether the principal is limited to retrieving metadata for the associated object
    * through the BROWSE privilege when include_browse is enabled in the request.
    */
-  @JsonProperty("browse_only")
   private Boolean browseOnly;
 
   /** The name of the catalog where the schema and the volume are */
-  @JsonProperty("catalog_name")
   private String catalogName;
 
   /** The comment attached to the volume */
-  @JsonProperty("comment")
   private String comment;
 
   /** */
-  @JsonProperty("created_at")
   private Long createdAt;
 
   /** The identifier of the user who created the volume */
-  @JsonProperty("created_by")
   private String createdBy;
 
   /** Encryption options that apply to clients connecting to cloud storage. */
-  @JsonProperty("encryption_details")
   private EncryptionDetails encryptionDetails;
 
   /** The three-level (fully qualified) name of the volume */
-  @JsonProperty("full_name")
   private String fullName;
 
   /** The unique identifier of the metastore */
-  @JsonProperty("metastore_id")
   private String metastoreId;
 
   /** The name of the volume */
-  @JsonProperty("name")
   private String name;
 
   /** The identifier of the user who owns the volume */
-  @JsonProperty("owner")
   private String owner;
 
   /** The name of the schema where the volume is */
-  @JsonProperty("schema_name")
   private String schemaName;
 
   /** The storage location on the cloud */
-  @JsonProperty("storage_location")
   private String storageLocation;
 
   /** */
-  @JsonProperty("updated_at")
   private Long updatedAt;
 
   /** The identifier of the user who updated the volume last time */
-  @JsonProperty("updated_by")
   private String updatedBy;
 
   /** The unique identifier of the volume */
-  @JsonProperty("volume_id")
   private String volumeId;
 
   /**
@@ -83,7 +78,6 @@ public class VolumeInfo {
    *
    * <p>[Learn more]: https://docs.databricks.com/aws/en/volumes/managed-vs-external
    */
-  @JsonProperty("volume_type")
   private VolumeType volumeType;
 
   public VolumeInfo setAccessPoint(String accessPoint) {
@@ -306,5 +300,69 @@ public class VolumeInfo {
         .add("volumeId", volumeId)
         .add("volumeType", volumeType)
         .toString();
+  }
+
+  VolumeInfoPb toPb() {
+    VolumeInfoPb pb = new VolumeInfoPb();
+    pb.setAccessPoint(accessPoint);
+    pb.setBrowseOnly(browseOnly);
+    pb.setCatalogName(catalogName);
+    pb.setComment(comment);
+    pb.setCreatedAt(createdAt);
+    pb.setCreatedBy(createdBy);
+    pb.setEncryptionDetails(encryptionDetails);
+    pb.setFullName(fullName);
+    pb.setMetastoreId(metastoreId);
+    pb.setName(name);
+    pb.setOwner(owner);
+    pb.setSchemaName(schemaName);
+    pb.setStorageLocation(storageLocation);
+    pb.setUpdatedAt(updatedAt);
+    pb.setUpdatedBy(updatedBy);
+    pb.setVolumeId(volumeId);
+    pb.setVolumeType(volumeType);
+
+    return pb;
+  }
+
+  static VolumeInfo fromPb(VolumeInfoPb pb) {
+    VolumeInfo model = new VolumeInfo();
+    model.setAccessPoint(pb.getAccessPoint());
+    model.setBrowseOnly(pb.getBrowseOnly());
+    model.setCatalogName(pb.getCatalogName());
+    model.setComment(pb.getComment());
+    model.setCreatedAt(pb.getCreatedAt());
+    model.setCreatedBy(pb.getCreatedBy());
+    model.setEncryptionDetails(pb.getEncryptionDetails());
+    model.setFullName(pb.getFullName());
+    model.setMetastoreId(pb.getMetastoreId());
+    model.setName(pb.getName());
+    model.setOwner(pb.getOwner());
+    model.setSchemaName(pb.getSchemaName());
+    model.setStorageLocation(pb.getStorageLocation());
+    model.setUpdatedAt(pb.getUpdatedAt());
+    model.setUpdatedBy(pb.getUpdatedBy());
+    model.setVolumeId(pb.getVolumeId());
+    model.setVolumeType(pb.getVolumeType());
+
+    return model;
+  }
+
+  public static class VolumeInfoSerializer extends JsonSerializer<VolumeInfo> {
+    @Override
+    public void serialize(VolumeInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      VolumeInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class VolumeInfoDeserializer extends JsonDeserializer<VolumeInfo> {
+    @Override
+    public VolumeInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      VolumeInfoPb pb = mapper.readValue(p, VolumeInfoPb.class);
+      return VolumeInfo.fromPb(pb);
+    }
   }
 }

@@ -4,17 +4,26 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateFileResponse.CreateFileResponseSerializer.class)
+@JsonDeserialize(using = CreateFileResponse.CreateFileResponseDeserializer.class)
 public class CreateFileResponse {
   /** */
-  @JsonProperty("file_info")
   private FileInfo fileInfo;
 
   /** Pre-signed POST URL to blob storage */
-  @JsonProperty("upload_url")
   private String uploadUrl;
 
   public CreateFileResponse setFileInfo(FileInfo fileInfo) {
@@ -54,5 +63,40 @@ public class CreateFileResponse {
         .add("fileInfo", fileInfo)
         .add("uploadUrl", uploadUrl)
         .toString();
+  }
+
+  CreateFileResponsePb toPb() {
+    CreateFileResponsePb pb = new CreateFileResponsePb();
+    pb.setFileInfo(fileInfo);
+    pb.setUploadUrl(uploadUrl);
+
+    return pb;
+  }
+
+  static CreateFileResponse fromPb(CreateFileResponsePb pb) {
+    CreateFileResponse model = new CreateFileResponse();
+    model.setFileInfo(pb.getFileInfo());
+    model.setUploadUrl(pb.getUploadUrl());
+
+    return model;
+  }
+
+  public static class CreateFileResponseSerializer extends JsonSerializer<CreateFileResponse> {
+    @Override
+    public void serialize(CreateFileResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateFileResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateFileResponseDeserializer extends JsonDeserializer<CreateFileResponse> {
+    @Override
+    public CreateFileResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateFileResponsePb pb = mapper.readValue(p, CreateFileResponsePb.class);
+      return CreateFileResponse.fromPb(pb);
+    }
   }
 }

@@ -4,20 +4,29 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = WarehouseTypePair.WarehouseTypePairSerializer.class)
+@JsonDeserialize(using = WarehouseTypePair.WarehouseTypePairDeserializer.class)
 public class WarehouseTypePair {
   /**
    * If set to false the specific warehouse type will not be be allowed as a value for
    * warehouse_type in CreateWarehouse and EditWarehouse
    */
-  @JsonProperty("enabled")
   private Boolean enabled;
 
   /** Warehouse type: `PRO` or `CLASSIC`. */
-  @JsonProperty("warehouse_type")
   private WarehouseTypePairWarehouseType warehouseType;
 
   public WarehouseTypePair setEnabled(Boolean enabled) {
@@ -58,5 +67,40 @@ public class WarehouseTypePair {
         .add("enabled", enabled)
         .add("warehouseType", warehouseType)
         .toString();
+  }
+
+  WarehouseTypePairPb toPb() {
+    WarehouseTypePairPb pb = new WarehouseTypePairPb();
+    pb.setEnabled(enabled);
+    pb.setWarehouseType(warehouseType);
+
+    return pb;
+  }
+
+  static WarehouseTypePair fromPb(WarehouseTypePairPb pb) {
+    WarehouseTypePair model = new WarehouseTypePair();
+    model.setEnabled(pb.getEnabled());
+    model.setWarehouseType(pb.getWarehouseType());
+
+    return model;
+  }
+
+  public static class WarehouseTypePairSerializer extends JsonSerializer<WarehouseTypePair> {
+    @Override
+    public void serialize(WarehouseTypePair value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      WarehouseTypePairPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class WarehouseTypePairDeserializer extends JsonDeserializer<WarehouseTypePair> {
+    @Override
+    public WarehouseTypePair deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      WarehouseTypePairPb pb = mapper.readValue(p, WarehouseTypePairPb.class);
+      return WarehouseTypePair.fromPb(pb);
+    }
   }
 }

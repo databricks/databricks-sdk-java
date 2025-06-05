@@ -4,17 +4,26 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = UpdateProviderRequest.UpdateProviderRequestSerializer.class)
+@JsonDeserialize(using = UpdateProviderRequest.UpdateProviderRequestDeserializer.class)
 public class UpdateProviderRequest {
   /** */
-  @JsonIgnore private String id;
+  private String id;
 
   /** */
-  @JsonProperty("provider")
   private ProviderInfo provider;
 
   public UpdateProviderRequest setId(String id) {
@@ -54,5 +63,43 @@ public class UpdateProviderRequest {
         .add("id", id)
         .add("provider", provider)
         .toString();
+  }
+
+  UpdateProviderRequestPb toPb() {
+    UpdateProviderRequestPb pb = new UpdateProviderRequestPb();
+    pb.setId(id);
+    pb.setProvider(provider);
+
+    return pb;
+  }
+
+  static UpdateProviderRequest fromPb(UpdateProviderRequestPb pb) {
+    UpdateProviderRequest model = new UpdateProviderRequest();
+    model.setId(pb.getId());
+    model.setProvider(pb.getProvider());
+
+    return model;
+  }
+
+  public static class UpdateProviderRequestSerializer
+      extends JsonSerializer<UpdateProviderRequest> {
+    @Override
+    public void serialize(
+        UpdateProviderRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateProviderRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateProviderRequestDeserializer
+      extends JsonDeserializer<UpdateProviderRequest> {
+    @Override
+    public UpdateProviderRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateProviderRequestPb pb = mapper.readValue(p, UpdateProviderRequestPb.class);
+      return UpdateProviderRequest.fromPb(pb);
+    }
   }
 }

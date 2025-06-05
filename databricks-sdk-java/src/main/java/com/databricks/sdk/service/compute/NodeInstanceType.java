@@ -4,7 +4,16 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -13,25 +22,22 @@ import java.util.Objects;
  * in the future (which is likely)
  */
 @Generated
+@JsonSerialize(using = NodeInstanceType.NodeInstanceTypeSerializer.class)
+@JsonDeserialize(using = NodeInstanceType.NodeInstanceTypeDeserializer.class)
 public class NodeInstanceType {
   /** Unique identifier across instance types */
-  @JsonProperty("instance_type_id")
   private String instanceTypeId;
 
   /** Size of the individual local disks attached to this instance (i.e. per local disk). */
-  @JsonProperty("local_disk_size_gb")
   private Long localDiskSizeGb;
 
   /** Number of local disks that are present on this instance. */
-  @JsonProperty("local_disks")
   private Long localDisks;
 
   /** Size of the individual local nvme disks attached to this instance (i.e. per local disk). */
-  @JsonProperty("local_nvme_disk_size_gb")
   private Long localNvmeDiskSizeGb;
 
   /** Number of local nvme disks that are present on this instance. */
-  @JsonProperty("local_nvme_disks")
   private Long localNvmeDisks;
 
   public NodeInstanceType setInstanceTypeId(String instanceTypeId) {
@@ -106,5 +112,46 @@ public class NodeInstanceType {
         .add("localNvmeDiskSizeGb", localNvmeDiskSizeGb)
         .add("localNvmeDisks", localNvmeDisks)
         .toString();
+  }
+
+  NodeInstanceTypePb toPb() {
+    NodeInstanceTypePb pb = new NodeInstanceTypePb();
+    pb.setInstanceTypeId(instanceTypeId);
+    pb.setLocalDiskSizeGb(localDiskSizeGb);
+    pb.setLocalDisks(localDisks);
+    pb.setLocalNvmeDiskSizeGb(localNvmeDiskSizeGb);
+    pb.setLocalNvmeDisks(localNvmeDisks);
+
+    return pb;
+  }
+
+  static NodeInstanceType fromPb(NodeInstanceTypePb pb) {
+    NodeInstanceType model = new NodeInstanceType();
+    model.setInstanceTypeId(pb.getInstanceTypeId());
+    model.setLocalDiskSizeGb(pb.getLocalDiskSizeGb());
+    model.setLocalDisks(pb.getLocalDisks());
+    model.setLocalNvmeDiskSizeGb(pb.getLocalNvmeDiskSizeGb());
+    model.setLocalNvmeDisks(pb.getLocalNvmeDisks());
+
+    return model;
+  }
+
+  public static class NodeInstanceTypeSerializer extends JsonSerializer<NodeInstanceType> {
+    @Override
+    public void serialize(NodeInstanceType value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      NodeInstanceTypePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class NodeInstanceTypeDeserializer extends JsonDeserializer<NodeInstanceType> {
+    @Override
+    public NodeInstanceType deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      NodeInstanceTypePb pb = mapper.readValue(p, NodeInstanceTypePb.class);
+      return NodeInstanceType.fromPb(pb);
+    }
   }
 }

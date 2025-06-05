@@ -4,14 +4,24 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = EffectivePermissionsList.EffectivePermissionsListSerializer.class)
+@JsonDeserialize(using = EffectivePermissionsList.EffectivePermissionsListDeserializer.class)
 public class EffectivePermissionsList {
   /** The privileges conveyed to each principal (either directly or via inheritance) */
-  @JsonProperty("privilege_assignments")
   private Collection<EffectivePrivilegeAssignment> privilegeAssignments;
 
   public EffectivePermissionsList setPrivilegeAssignments(
@@ -42,5 +52,41 @@ public class EffectivePermissionsList {
     return new ToStringer(EffectivePermissionsList.class)
         .add("privilegeAssignments", privilegeAssignments)
         .toString();
+  }
+
+  EffectivePermissionsListPb toPb() {
+    EffectivePermissionsListPb pb = new EffectivePermissionsListPb();
+    pb.setPrivilegeAssignments(privilegeAssignments);
+
+    return pb;
+  }
+
+  static EffectivePermissionsList fromPb(EffectivePermissionsListPb pb) {
+    EffectivePermissionsList model = new EffectivePermissionsList();
+    model.setPrivilegeAssignments(pb.getPrivilegeAssignments());
+
+    return model;
+  }
+
+  public static class EffectivePermissionsListSerializer
+      extends JsonSerializer<EffectivePermissionsList> {
+    @Override
+    public void serialize(
+        EffectivePermissionsList value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      EffectivePermissionsListPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class EffectivePermissionsListDeserializer
+      extends JsonDeserializer<EffectivePermissionsList> {
+    @Override
+    public EffectivePermissionsList deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      EffectivePermissionsListPb pb = mapper.readValue(p, EffectivePermissionsListPb.class);
+      return EffectivePermissionsList.fromPb(pb);
+    }
   }
 }

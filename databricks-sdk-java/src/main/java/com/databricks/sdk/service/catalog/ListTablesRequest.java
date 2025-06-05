@@ -3,35 +3,37 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List tables */
 @Generated
+@JsonSerialize(using = ListTablesRequest.ListTablesRequestSerializer.class)
+@JsonDeserialize(using = ListTablesRequest.ListTablesRequestDeserializer.class)
 public class ListTablesRequest {
   /** Name of parent catalog for tables of interest. */
-  @JsonIgnore
-  @QueryParam("catalog_name")
   private String catalogName;
 
   /**
    * Whether to include tables in the response for which the principal can only access selective
    * metadata for
    */
-  @JsonIgnore
-  @QueryParam("include_browse")
   private Boolean includeBrowse;
 
   /** Whether delta metadata should be included in the response. */
-  @JsonIgnore
-  @QueryParam("include_delta_metadata")
   private Boolean includeDeltaMetadata;
 
   /** Whether to include a manifest containing capabilities the table has. */
-  @JsonIgnore
-  @QueryParam("include_manifest_capabilities")
   private Boolean includeManifestCapabilities;
 
   /**
@@ -40,36 +42,24 @@ public class ListTablesRequest {
    * configured value; - when set to 0, the page length is set to a server configured value
    * (recommended); - when set to a value less than 0, an invalid parameter error is returned;
    */
-  @JsonIgnore
-  @QueryParam("max_results")
   private Long maxResults;
 
   /** Whether to omit the columns of the table from the response or not. */
-  @JsonIgnore
-  @QueryParam("omit_columns")
   private Boolean omitColumns;
 
   /** Whether to omit the properties of the table from the response or not. */
-  @JsonIgnore
-  @QueryParam("omit_properties")
   private Boolean omitProperties;
 
   /**
    * Whether to omit the username of the table (e.g. owner, updated_by, created_by) from the
    * response or not.
    */
-  @JsonIgnore
-  @QueryParam("omit_username")
   private Boolean omitUsername;
 
   /** Opaque token to send for the next page of results (pagination). */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   /** Parent schema of tables. */
-  @JsonIgnore
-  @QueryParam("schema_name")
   private String schemaName;
 
   public ListTablesRequest setCatalogName(String catalogName) {
@@ -208,5 +198,56 @@ public class ListTablesRequest {
         .add("pageToken", pageToken)
         .add("schemaName", schemaName)
         .toString();
+  }
+
+  ListTablesRequestPb toPb() {
+    ListTablesRequestPb pb = new ListTablesRequestPb();
+    pb.setCatalogName(catalogName);
+    pb.setIncludeBrowse(includeBrowse);
+    pb.setIncludeDeltaMetadata(includeDeltaMetadata);
+    pb.setIncludeManifestCapabilities(includeManifestCapabilities);
+    pb.setMaxResults(maxResults);
+    pb.setOmitColumns(omitColumns);
+    pb.setOmitProperties(omitProperties);
+    pb.setOmitUsername(omitUsername);
+    pb.setPageToken(pageToken);
+    pb.setSchemaName(schemaName);
+
+    return pb;
+  }
+
+  static ListTablesRequest fromPb(ListTablesRequestPb pb) {
+    ListTablesRequest model = new ListTablesRequest();
+    model.setCatalogName(pb.getCatalogName());
+    model.setIncludeBrowse(pb.getIncludeBrowse());
+    model.setIncludeDeltaMetadata(pb.getIncludeDeltaMetadata());
+    model.setIncludeManifestCapabilities(pb.getIncludeManifestCapabilities());
+    model.setMaxResults(pb.getMaxResults());
+    model.setOmitColumns(pb.getOmitColumns());
+    model.setOmitProperties(pb.getOmitProperties());
+    model.setOmitUsername(pb.getOmitUsername());
+    model.setPageToken(pb.getPageToken());
+    model.setSchemaName(pb.getSchemaName());
+
+    return model;
+  }
+
+  public static class ListTablesRequestSerializer extends JsonSerializer<ListTablesRequest> {
+    @Override
+    public void serialize(ListTablesRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListTablesRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListTablesRequestDeserializer extends JsonDeserializer<ListTablesRequest> {
+    @Override
+    public ListTablesRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListTablesRequestPb pb = mapper.readValue(p, ListTablesRequestPb.class);
+      return ListTablesRequest.fromPb(pb);
+    }
   }
 }

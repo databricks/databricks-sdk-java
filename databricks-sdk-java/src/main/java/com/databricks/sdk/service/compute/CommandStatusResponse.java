@@ -4,21 +4,29 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CommandStatusResponse.CommandStatusResponseSerializer.class)
+@JsonDeserialize(using = CommandStatusResponse.CommandStatusResponseDeserializer.class)
 public class CommandStatusResponse {
   /** */
-  @JsonProperty("id")
   private String id;
 
   /** */
-  @JsonProperty("results")
   private Results results;
 
   /** */
-  @JsonProperty("status")
   private CommandStatus status;
 
   public CommandStatusResponse setId(String id) {
@@ -70,5 +78,45 @@ public class CommandStatusResponse {
         .add("results", results)
         .add("status", status)
         .toString();
+  }
+
+  CommandStatusResponsePb toPb() {
+    CommandStatusResponsePb pb = new CommandStatusResponsePb();
+    pb.setId(id);
+    pb.setResults(results);
+    pb.setStatus(status);
+
+    return pb;
+  }
+
+  static CommandStatusResponse fromPb(CommandStatusResponsePb pb) {
+    CommandStatusResponse model = new CommandStatusResponse();
+    model.setId(pb.getId());
+    model.setResults(pb.getResults());
+    model.setStatus(pb.getStatus());
+
+    return model;
+  }
+
+  public static class CommandStatusResponseSerializer
+      extends JsonSerializer<CommandStatusResponse> {
+    @Override
+    public void serialize(
+        CommandStatusResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CommandStatusResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CommandStatusResponseDeserializer
+      extends JsonDeserializer<CommandStatusResponse> {
+    @Override
+    public CommandStatusResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CommandStatusResponsePb pb = mapper.readValue(p, CommandStatusResponsePb.class);
+      return CommandStatusResponse.fromPb(pb);
+    }
   }
 }

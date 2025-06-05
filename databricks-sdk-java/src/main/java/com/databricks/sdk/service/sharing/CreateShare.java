@@ -4,21 +4,29 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateShare.CreateShareSerializer.class)
+@JsonDeserialize(using = CreateShare.CreateShareDeserializer.class)
 public class CreateShare {
   /** User-provided free-form text description. */
-  @JsonProperty("comment")
   private String comment;
 
   /** Name of the share. */
-  @JsonProperty("name")
   private String name;
 
   /** Storage root URL for the share. */
-  @JsonProperty("storage_root")
   private String storageRoot;
 
   public CreateShare setComment(String comment) {
@@ -70,5 +78,41 @@ public class CreateShare {
         .add("name", name)
         .add("storageRoot", storageRoot)
         .toString();
+  }
+
+  CreateSharePb toPb() {
+    CreateSharePb pb = new CreateSharePb();
+    pb.setComment(comment);
+    pb.setName(name);
+    pb.setStorageRoot(storageRoot);
+
+    return pb;
+  }
+
+  static CreateShare fromPb(CreateSharePb pb) {
+    CreateShare model = new CreateShare();
+    model.setComment(pb.getComment());
+    model.setName(pb.getName());
+    model.setStorageRoot(pb.getStorageRoot());
+
+    return model;
+  }
+
+  public static class CreateShareSerializer extends JsonSerializer<CreateShare> {
+    @Override
+    public void serialize(CreateShare value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateSharePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateShareDeserializer extends JsonDeserializer<CreateShare> {
+    @Override
+    public CreateShare deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateSharePb pb = mapper.readValue(p, CreateSharePb.class);
+      return CreateShare.fromPb(pb);
+    }
   }
 }

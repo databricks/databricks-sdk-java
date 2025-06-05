@@ -4,13 +4,23 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CreateExperimentResponse.CreateExperimentResponseSerializer.class)
+@JsonDeserialize(using = CreateExperimentResponse.CreateExperimentResponseDeserializer.class)
 public class CreateExperimentResponse {
   /** Unique identifier for the experiment. */
-  @JsonProperty("experiment_id")
   private String experimentId;
 
   public CreateExperimentResponse setExperimentId(String experimentId) {
@@ -40,5 +50,41 @@ public class CreateExperimentResponse {
     return new ToStringer(CreateExperimentResponse.class)
         .add("experimentId", experimentId)
         .toString();
+  }
+
+  CreateExperimentResponsePb toPb() {
+    CreateExperimentResponsePb pb = new CreateExperimentResponsePb();
+    pb.setExperimentId(experimentId);
+
+    return pb;
+  }
+
+  static CreateExperimentResponse fromPb(CreateExperimentResponsePb pb) {
+    CreateExperimentResponse model = new CreateExperimentResponse();
+    model.setExperimentId(pb.getExperimentId());
+
+    return model;
+  }
+
+  public static class CreateExperimentResponseSerializer
+      extends JsonSerializer<CreateExperimentResponse> {
+    @Override
+    public void serialize(
+        CreateExperimentResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateExperimentResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateExperimentResponseDeserializer
+      extends JsonDeserializer<CreateExperimentResponse> {
+    @Override
+    public CreateExperimentResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateExperimentResponsePb pb = mapper.readValue(p, CreateExperimentResponsePb.class);
+      return CreateExperimentResponse.fromPb(pb);
+    }
   }
 }

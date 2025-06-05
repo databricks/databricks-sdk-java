@@ -4,30 +4,36 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Information about the principal assigned to the workspace. */
 @Generated
+@JsonSerialize(using = PrincipalOutput.PrincipalOutputSerializer.class)
+@JsonDeserialize(using = PrincipalOutput.PrincipalOutputDeserializer.class)
 public class PrincipalOutput {
   /** The display name of the principal. */
-  @JsonProperty("display_name")
   private String displayName;
 
   /** The group name of the group. Present only if the principal is a group. */
-  @JsonProperty("group_name")
   private String groupName;
 
   /** The unique, opaque id of the principal. */
-  @JsonProperty("principal_id")
   private Long principalId;
 
   /** The name of the service principal. Present only if the principal is a service principal. */
-  @JsonProperty("service_principal_name")
   private String servicePrincipalName;
 
   /** The username of the user. Present only if the principal is a user. */
-  @JsonProperty("user_name")
   private String userName;
 
   public PrincipalOutput setDisplayName(String displayName) {
@@ -101,5 +107,46 @@ public class PrincipalOutput {
         .add("servicePrincipalName", servicePrincipalName)
         .add("userName", userName)
         .toString();
+  }
+
+  PrincipalOutputPb toPb() {
+    PrincipalOutputPb pb = new PrincipalOutputPb();
+    pb.setDisplayName(displayName);
+    pb.setGroupName(groupName);
+    pb.setPrincipalId(principalId);
+    pb.setServicePrincipalName(servicePrincipalName);
+    pb.setUserName(userName);
+
+    return pb;
+  }
+
+  static PrincipalOutput fromPb(PrincipalOutputPb pb) {
+    PrincipalOutput model = new PrincipalOutput();
+    model.setDisplayName(pb.getDisplayName());
+    model.setGroupName(pb.getGroupName());
+    model.setPrincipalId(pb.getPrincipalId());
+    model.setServicePrincipalName(pb.getServicePrincipalName());
+    model.setUserName(pb.getUserName());
+
+    return model;
+  }
+
+  public static class PrincipalOutputSerializer extends JsonSerializer<PrincipalOutput> {
+    @Override
+    public void serialize(PrincipalOutput value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PrincipalOutputPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PrincipalOutputDeserializer extends JsonDeserializer<PrincipalOutput> {
+    @Override
+    public PrincipalOutput deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PrincipalOutputPb pb = mapper.readValue(p, PrincipalOutputPb.class);
+      return PrincipalOutput.fromPb(pb);
+    }
   }
 }

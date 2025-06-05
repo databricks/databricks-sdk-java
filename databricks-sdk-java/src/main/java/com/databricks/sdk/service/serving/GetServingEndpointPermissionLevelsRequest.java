@@ -4,14 +4,31 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get serving endpoint permission levels */
 @Generated
+@JsonSerialize(
+    using =
+        GetServingEndpointPermissionLevelsRequest
+            .GetServingEndpointPermissionLevelsRequestSerializer.class)
+@JsonDeserialize(
+    using =
+        GetServingEndpointPermissionLevelsRequest
+            .GetServingEndpointPermissionLevelsRequestDeserializer.class)
 public class GetServingEndpointPermissionLevelsRequest {
   /** The serving endpoint for which to get or manage permissions. */
-  @JsonIgnore private String servingEndpointId;
+  private String servingEndpointId;
 
   public GetServingEndpointPermissionLevelsRequest setServingEndpointId(String servingEndpointId) {
     this.servingEndpointId = servingEndpointId;
@@ -40,5 +57,47 @@ public class GetServingEndpointPermissionLevelsRequest {
     return new ToStringer(GetServingEndpointPermissionLevelsRequest.class)
         .add("servingEndpointId", servingEndpointId)
         .toString();
+  }
+
+  GetServingEndpointPermissionLevelsRequestPb toPb() {
+    GetServingEndpointPermissionLevelsRequestPb pb =
+        new GetServingEndpointPermissionLevelsRequestPb();
+    pb.setServingEndpointId(servingEndpointId);
+
+    return pb;
+  }
+
+  static GetServingEndpointPermissionLevelsRequest fromPb(
+      GetServingEndpointPermissionLevelsRequestPb pb) {
+    GetServingEndpointPermissionLevelsRequest model =
+        new GetServingEndpointPermissionLevelsRequest();
+    model.setServingEndpointId(pb.getServingEndpointId());
+
+    return model;
+  }
+
+  public static class GetServingEndpointPermissionLevelsRequestSerializer
+      extends JsonSerializer<GetServingEndpointPermissionLevelsRequest> {
+    @Override
+    public void serialize(
+        GetServingEndpointPermissionLevelsRequest value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      GetServingEndpointPermissionLevelsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetServingEndpointPermissionLevelsRequestDeserializer
+      extends JsonDeserializer<GetServingEndpointPermissionLevelsRequest> {
+    @Override
+    public GetServingEndpointPermissionLevelsRequest deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetServingEndpointPermissionLevelsRequestPb pb =
+          mapper.readValue(p, GetServingEndpointPermissionLevelsRequestPb.class);
+      return GetServingEndpointPermissionLevelsRequest.fromPb(pb);
+    }
   }
 }

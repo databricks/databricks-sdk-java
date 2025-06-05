@@ -4,13 +4,23 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = WidgetErrorDetail.WidgetErrorDetailSerializer.class)
+@JsonDeserialize(using = WidgetErrorDetail.WidgetErrorDetailDeserializer.class)
 public class WidgetErrorDetail {
   /** */
-  @JsonProperty("message")
   private String message;
 
   public WidgetErrorDetail setMessage(String message) {
@@ -38,5 +48,38 @@ public class WidgetErrorDetail {
   @Override
   public String toString() {
     return new ToStringer(WidgetErrorDetail.class).add("message", message).toString();
+  }
+
+  WidgetErrorDetailPb toPb() {
+    WidgetErrorDetailPb pb = new WidgetErrorDetailPb();
+    pb.setMessage(message);
+
+    return pb;
+  }
+
+  static WidgetErrorDetail fromPb(WidgetErrorDetailPb pb) {
+    WidgetErrorDetail model = new WidgetErrorDetail();
+    model.setMessage(pb.getMessage());
+
+    return model;
+  }
+
+  public static class WidgetErrorDetailSerializer extends JsonSerializer<WidgetErrorDetail> {
+    @Override
+    public void serialize(WidgetErrorDetail value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      WidgetErrorDetailPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class WidgetErrorDetailDeserializer extends JsonDeserializer<WidgetErrorDetail> {
+    @Override
+    public WidgetErrorDetail deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      WidgetErrorDetailPb pb = mapper.readValue(p, WidgetErrorDetailPb.class);
+      return WidgetErrorDetail.fromPb(pb);
+    }
   }
 }

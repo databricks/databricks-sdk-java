@@ -4,14 +4,24 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = SearchRuns.SearchRunsSerializer.class)
+@JsonDeserialize(using = SearchRuns.SearchRunsDeserializer.class)
 public class SearchRuns {
   /** List of experiment IDs to search over. */
-  @JsonProperty("experiment_ids")
   private Collection<String> experimentIds;
 
   /**
@@ -26,11 +36,9 @@ public class SearchRuns {
    *
    * <p>Supported operators are `=`, `!=`, `>`, `>=`, `<`, and `<=`.
    */
-  @JsonProperty("filter")
   private String filter;
 
   /** Maximum number of runs desired. Max threshold is 50000 */
-  @JsonProperty("max_results")
   private Long maxResults;
 
   /**
@@ -40,15 +48,12 @@ public class SearchRuns {
    * by `run_id` for runs with the same start time (and this is the default ordering criterion if
    * order_by is not provided).
    */
-  @JsonProperty("order_by")
   private Collection<String> orderBy;
 
   /** Token for the current page of runs. */
-  @JsonProperty("page_token")
   private String pageToken;
 
   /** Whether to display only active, only deleted, or all runs. Defaults to only active runs. */
-  @JsonProperty("run_view_type")
   private ViewType runViewType;
 
   public SearchRuns setExperimentIds(Collection<String> experimentIds) {
@@ -133,5 +138,47 @@ public class SearchRuns {
         .add("pageToken", pageToken)
         .add("runViewType", runViewType)
         .toString();
+  }
+
+  SearchRunsPb toPb() {
+    SearchRunsPb pb = new SearchRunsPb();
+    pb.setExperimentIds(experimentIds);
+    pb.setFilter(filter);
+    pb.setMaxResults(maxResults);
+    pb.setOrderBy(orderBy);
+    pb.setPageToken(pageToken);
+    pb.setRunViewType(runViewType);
+
+    return pb;
+  }
+
+  static SearchRuns fromPb(SearchRunsPb pb) {
+    SearchRuns model = new SearchRuns();
+    model.setExperimentIds(pb.getExperimentIds());
+    model.setFilter(pb.getFilter());
+    model.setMaxResults(pb.getMaxResults());
+    model.setOrderBy(pb.getOrderBy());
+    model.setPageToken(pb.getPageToken());
+    model.setRunViewType(pb.getRunViewType());
+
+    return model;
+  }
+
+  public static class SearchRunsSerializer extends JsonSerializer<SearchRuns> {
+    @Override
+    public void serialize(SearchRuns value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SearchRunsPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SearchRunsDeserializer extends JsonDeserializer<SearchRuns> {
+    @Override
+    public SearchRuns deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SearchRunsPb pb = mapper.readValue(p, SearchRunsPb.class);
+      return SearchRuns.fromPb(pb);
+    }
   }
 }

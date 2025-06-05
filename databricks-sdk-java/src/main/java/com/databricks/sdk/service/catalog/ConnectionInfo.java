@@ -4,82 +4,75 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ConnectionInfo.ConnectionInfoSerializer.class)
+@JsonDeserialize(using = ConnectionInfo.ConnectionInfoDeserializer.class)
 public class ConnectionInfo {
   /** User-provided free-form text description. */
-  @JsonProperty("comment")
   private String comment;
 
   /** Unique identifier of the Connection. */
-  @JsonProperty("connection_id")
   private String connectionId;
 
   /** The type of connection. */
-  @JsonProperty("connection_type")
   private ConnectionType connectionType;
 
   /** Time at which this connection was created, in epoch milliseconds. */
-  @JsonProperty("created_at")
   private Long createdAt;
 
   /** Username of connection creator. */
-  @JsonProperty("created_by")
   private String createdBy;
 
   /** The type of credential. */
-  @JsonProperty("credential_type")
   private CredentialType credentialType;
 
   /** Full name of connection. */
-  @JsonProperty("full_name")
   private String fullName;
 
   /** Unique identifier of parent metastore. */
-  @JsonProperty("metastore_id")
   private String metastoreId;
 
   /** Name of the connection. */
-  @JsonProperty("name")
   private String name;
 
   /** A map of key-value properties attached to the securable. */
-  @JsonProperty("options")
   private Map<String, String> options;
 
   /** Username of current owner of the connection. */
-  @JsonProperty("owner")
   private String owner;
 
   /** A map of key-value properties attached to the securable. */
-  @JsonProperty("properties")
   private Map<String, String> properties;
 
   /** Status of an asynchronously provisioned resource. */
-  @JsonProperty("provisioning_info")
   private ProvisioningInfo provisioningInfo;
 
   /** If the connection is read only. */
-  @JsonProperty("read_only")
   private Boolean readOnly;
 
   /** The type of Unity Catalog securable. */
-  @JsonProperty("securable_type")
   private SecurableType securableType;
 
   /** Time at which this connection was updated, in epoch milliseconds. */
-  @JsonProperty("updated_at")
   private Long updatedAt;
 
   /** Username of user who last modified connection. */
-  @JsonProperty("updated_by")
   private String updatedBy;
 
   /** URL of the remote data source, extracted from options. */
-  @JsonProperty("url")
   private String url;
 
   public ConnectionInfo setComment(String comment) {
@@ -314,5 +307,72 @@ public class ConnectionInfo {
         .add("updatedBy", updatedBy)
         .add("url", url)
         .toString();
+  }
+
+  ConnectionInfoPb toPb() {
+    ConnectionInfoPb pb = new ConnectionInfoPb();
+    pb.setComment(comment);
+    pb.setConnectionId(connectionId);
+    pb.setConnectionType(connectionType);
+    pb.setCreatedAt(createdAt);
+    pb.setCreatedBy(createdBy);
+    pb.setCredentialType(credentialType);
+    pb.setFullName(fullName);
+    pb.setMetastoreId(metastoreId);
+    pb.setName(name);
+    pb.setOptions(options);
+    pb.setOwner(owner);
+    pb.setProperties(properties);
+    pb.setProvisioningInfo(provisioningInfo);
+    pb.setReadOnly(readOnly);
+    pb.setSecurableType(securableType);
+    pb.setUpdatedAt(updatedAt);
+    pb.setUpdatedBy(updatedBy);
+    pb.setUrl(url);
+
+    return pb;
+  }
+
+  static ConnectionInfo fromPb(ConnectionInfoPb pb) {
+    ConnectionInfo model = new ConnectionInfo();
+    model.setComment(pb.getComment());
+    model.setConnectionId(pb.getConnectionId());
+    model.setConnectionType(pb.getConnectionType());
+    model.setCreatedAt(pb.getCreatedAt());
+    model.setCreatedBy(pb.getCreatedBy());
+    model.setCredentialType(pb.getCredentialType());
+    model.setFullName(pb.getFullName());
+    model.setMetastoreId(pb.getMetastoreId());
+    model.setName(pb.getName());
+    model.setOptions(pb.getOptions());
+    model.setOwner(pb.getOwner());
+    model.setProperties(pb.getProperties());
+    model.setProvisioningInfo(pb.getProvisioningInfo());
+    model.setReadOnly(pb.getReadOnly());
+    model.setSecurableType(pb.getSecurableType());
+    model.setUpdatedAt(pb.getUpdatedAt());
+    model.setUpdatedBy(pb.getUpdatedBy());
+    model.setUrl(pb.getUrl());
+
+    return model;
+  }
+
+  public static class ConnectionInfoSerializer extends JsonSerializer<ConnectionInfo> {
+    @Override
+    public void serialize(ConnectionInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ConnectionInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ConnectionInfoDeserializer extends JsonDeserializer<ConnectionInfo> {
+    @Override
+    public ConnectionInfo deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ConnectionInfoPb pb = mapper.readValue(p, ConnectionInfoPb.class);
+      return ConnectionInfo.fromPb(pb);
+    }
   }
 }

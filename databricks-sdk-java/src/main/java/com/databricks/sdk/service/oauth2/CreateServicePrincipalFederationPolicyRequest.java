@@ -3,17 +3,31 @@
 package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Create service principal federation policy */
 @Generated
+@JsonSerialize(
+    using =
+        CreateServicePrincipalFederationPolicyRequest
+            .CreateServicePrincipalFederationPolicyRequestSerializer.class)
+@JsonDeserialize(
+    using =
+        CreateServicePrincipalFederationPolicyRequest
+            .CreateServicePrincipalFederationPolicyRequestDeserializer.class)
 public class CreateServicePrincipalFederationPolicyRequest {
   /** */
-  @JsonProperty("policy")
   private FederationPolicy policy;
 
   /**
@@ -21,12 +35,10 @@ public class CreateServicePrincipalFederationPolicyRequest {
    * alphanumeric characters, numbers, hyphens, and slashes. If unspecified, the id will be assigned
    * by Databricks.
    */
-  @JsonIgnore
-  @QueryParam("policy_id")
   private String policyId;
 
   /** The service principal id for the federation policy. */
-  @JsonIgnore private Long servicePrincipalId;
+  private Long servicePrincipalId;
 
   public CreateServicePrincipalFederationPolicyRequest setPolicy(FederationPolicy policy) {
     this.policy = policy;
@@ -79,5 +91,51 @@ public class CreateServicePrincipalFederationPolicyRequest {
         .add("policyId", policyId)
         .add("servicePrincipalId", servicePrincipalId)
         .toString();
+  }
+
+  CreateServicePrincipalFederationPolicyRequestPb toPb() {
+    CreateServicePrincipalFederationPolicyRequestPb pb =
+        new CreateServicePrincipalFederationPolicyRequestPb();
+    pb.setPolicy(policy);
+    pb.setPolicyId(policyId);
+    pb.setServicePrincipalId(servicePrincipalId);
+
+    return pb;
+  }
+
+  static CreateServicePrincipalFederationPolicyRequest fromPb(
+      CreateServicePrincipalFederationPolicyRequestPb pb) {
+    CreateServicePrincipalFederationPolicyRequest model =
+        new CreateServicePrincipalFederationPolicyRequest();
+    model.setPolicy(pb.getPolicy());
+    model.setPolicyId(pb.getPolicyId());
+    model.setServicePrincipalId(pb.getServicePrincipalId());
+
+    return model;
+  }
+
+  public static class CreateServicePrincipalFederationPolicyRequestSerializer
+      extends JsonSerializer<CreateServicePrincipalFederationPolicyRequest> {
+    @Override
+    public void serialize(
+        CreateServicePrincipalFederationPolicyRequest value,
+        JsonGenerator gen,
+        SerializerProvider provider)
+        throws IOException {
+      CreateServicePrincipalFederationPolicyRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateServicePrincipalFederationPolicyRequestDeserializer
+      extends JsonDeserializer<CreateServicePrincipalFederationPolicyRequest> {
+    @Override
+    public CreateServicePrincipalFederationPolicyRequest deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateServicePrincipalFederationPolicyRequestPb pb =
+          mapper.readValue(p, CreateServicePrincipalFederationPolicyRequestPb.class);
+      return CreateServicePrincipalFederationPolicyRequest.fromPb(pb);
+    }
   }
 }

@@ -4,50 +4,52 @@ package com.databricks.sdk.service.cleanrooms;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Stores information about a single task run. */
 @Generated
+@JsonSerialize(using = CleanRoomNotebookTaskRun.CleanRoomNotebookTaskRunSerializer.class)
+@JsonDeserialize(using = CleanRoomNotebookTaskRun.CleanRoomNotebookTaskRunDeserializer.class)
 public class CleanRoomNotebookTaskRun {
   /**
    * Job run info of the task in the runner's local workspace. This field is only included in the
    * LIST API. if the task was run within the same workspace the API is being called. If the task
    * run was in a different workspace under the same metastore, only the workspace_id is included.
    */
-  @JsonProperty("collaborator_job_run_info")
   private CollaboratorJobRunInfo collaboratorJobRunInfo;
 
   /** Etag of the notebook executed in this task run, used to identify the notebook version. */
-  @JsonProperty("notebook_etag")
   private String notebookEtag;
 
   /** State of the task run. */
-  @JsonProperty("notebook_job_run_state")
   private com.databricks.sdk.service.jobs.CleanRoomTaskRunState notebookJobRunState;
 
   /** Asset name of the notebook executed in this task run. */
-  @JsonProperty("notebook_name")
   private String notebookName;
 
   /** The timestamp of when the notebook was last updated. */
-  @JsonProperty("notebook_updated_at")
   private Long notebookUpdatedAt;
 
   /** Expiration time of the output schema of the task run (if any), in epoch milliseconds. */
-  @JsonProperty("output_schema_expiration_time")
   private Long outputSchemaExpirationTime;
 
   /** Name of the output schema associated with the clean rooms notebook task run. */
-  @JsonProperty("output_schema_name")
   private String outputSchemaName;
 
   /** Duration of the task run, in milliseconds. */
-  @JsonProperty("run_duration")
   private Long runDuration;
 
   /** When the task run started, in epoch milliseconds. */
-  @JsonProperty("start_time")
   private Long startTime;
 
   public CleanRoomNotebookTaskRun setCollaboratorJobRunInfo(
@@ -176,5 +178,57 @@ public class CleanRoomNotebookTaskRun {
         .add("runDuration", runDuration)
         .add("startTime", startTime)
         .toString();
+  }
+
+  CleanRoomNotebookTaskRunPb toPb() {
+    CleanRoomNotebookTaskRunPb pb = new CleanRoomNotebookTaskRunPb();
+    pb.setCollaboratorJobRunInfo(collaboratorJobRunInfo);
+    pb.setNotebookEtag(notebookEtag);
+    pb.setNotebookJobRunState(notebookJobRunState);
+    pb.setNotebookName(notebookName);
+    pb.setNotebookUpdatedAt(notebookUpdatedAt);
+    pb.setOutputSchemaExpirationTime(outputSchemaExpirationTime);
+    pb.setOutputSchemaName(outputSchemaName);
+    pb.setRunDuration(runDuration);
+    pb.setStartTime(startTime);
+
+    return pb;
+  }
+
+  static CleanRoomNotebookTaskRun fromPb(CleanRoomNotebookTaskRunPb pb) {
+    CleanRoomNotebookTaskRun model = new CleanRoomNotebookTaskRun();
+    model.setCollaboratorJobRunInfo(pb.getCollaboratorJobRunInfo());
+    model.setNotebookEtag(pb.getNotebookEtag());
+    model.setNotebookJobRunState(pb.getNotebookJobRunState());
+    model.setNotebookName(pb.getNotebookName());
+    model.setNotebookUpdatedAt(pb.getNotebookUpdatedAt());
+    model.setOutputSchemaExpirationTime(pb.getOutputSchemaExpirationTime());
+    model.setOutputSchemaName(pb.getOutputSchemaName());
+    model.setRunDuration(pb.getRunDuration());
+    model.setStartTime(pb.getStartTime());
+
+    return model;
+  }
+
+  public static class CleanRoomNotebookTaskRunSerializer
+      extends JsonSerializer<CleanRoomNotebookTaskRun> {
+    @Override
+    public void serialize(
+        CleanRoomNotebookTaskRun value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CleanRoomNotebookTaskRunPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CleanRoomNotebookTaskRunDeserializer
+      extends JsonDeserializer<CleanRoomNotebookTaskRun> {
+    @Override
+    public CleanRoomNotebookTaskRun deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CleanRoomNotebookTaskRunPb pb = mapper.readValue(p, CleanRoomNotebookTaskRunPb.class);
+      return CleanRoomNotebookTaskRun.fromPb(pb);
+    }
   }
 }

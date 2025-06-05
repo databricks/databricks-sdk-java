@@ -3,33 +3,37 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List Queries */
 @Generated
+@JsonSerialize(using = ListQueryHistoryRequest.ListQueryHistoryRequestSerializer.class)
+@JsonDeserialize(using = ListQueryHistoryRequest.ListQueryHistoryRequestDeserializer.class)
 public class ListQueryHistoryRequest {
   /** A filter to limit query history results. This field is optional. */
-  @JsonIgnore
-  @QueryParam("filter_by")
   private QueryFilter filterBy;
 
   /**
    * Whether to include the query metrics with each query. Only use this for a small subset of
    * queries (max_results). Defaults to false.
    */
-  @JsonIgnore
-  @QueryParam("include_metrics")
   private Boolean includeMetrics;
 
   /**
    * Limit the number of results returned in one page. Must be less than 1000 and the default is
    * 100.
    */
-  @JsonIgnore
-  @QueryParam("max_results")
   private Long maxResults;
 
   /**
@@ -37,8 +41,6 @@ public class ListQueryHistoryRequest {
    * that need to be encoded before using it in a URL. For example, the character '+' needs to be
    * replaced by %2B. This field is optional.
    */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   public ListQueryHistoryRequest setFilterBy(QueryFilter filterBy) {
@@ -101,5 +103,47 @@ public class ListQueryHistoryRequest {
         .add("maxResults", maxResults)
         .add("pageToken", pageToken)
         .toString();
+  }
+
+  ListQueryHistoryRequestPb toPb() {
+    ListQueryHistoryRequestPb pb = new ListQueryHistoryRequestPb();
+    pb.setFilterBy(filterBy);
+    pb.setIncludeMetrics(includeMetrics);
+    pb.setMaxResults(maxResults);
+    pb.setPageToken(pageToken);
+
+    return pb;
+  }
+
+  static ListQueryHistoryRequest fromPb(ListQueryHistoryRequestPb pb) {
+    ListQueryHistoryRequest model = new ListQueryHistoryRequest();
+    model.setFilterBy(pb.getFilterBy());
+    model.setIncludeMetrics(pb.getIncludeMetrics());
+    model.setMaxResults(pb.getMaxResults());
+    model.setPageToken(pb.getPageToken());
+
+    return model;
+  }
+
+  public static class ListQueryHistoryRequestSerializer
+      extends JsonSerializer<ListQueryHistoryRequest> {
+    @Override
+    public void serialize(
+        ListQueryHistoryRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListQueryHistoryRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListQueryHistoryRequestDeserializer
+      extends JsonDeserializer<ListQueryHistoryRequest> {
+    @Override
+    public ListQueryHistoryRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListQueryHistoryRequestPb pb = mapper.readValue(p, ListQueryHistoryRequestPb.class);
+      return ListQueryHistoryRequest.fromPb(pb);
+    }
   }
 }

@@ -4,18 +4,27 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ClusterCompliance.ClusterComplianceSerializer.class)
+@JsonDeserialize(using = ClusterCompliance.ClusterComplianceDeserializer.class)
 public class ClusterCompliance {
   /** Canonical unique identifier for a cluster. */
-  @JsonProperty("cluster_id")
   private String clusterId;
 
   /** Whether this cluster is in compliance with the latest version of its policy. */
-  @JsonProperty("is_compliant")
   private Boolean isCompliant;
 
   /**
@@ -23,7 +32,6 @@ public class ClusterCompliance {
    * The keys indicate the path where the policy validation error is occurring. The values indicate
    * an error message describing the policy validation error.
    */
-  @JsonProperty("violations")
   private Map<String, String> violations;
 
   public ClusterCompliance setClusterId(String clusterId) {
@@ -75,5 +83,42 @@ public class ClusterCompliance {
         .add("isCompliant", isCompliant)
         .add("violations", violations)
         .toString();
+  }
+
+  ClusterCompliancePb toPb() {
+    ClusterCompliancePb pb = new ClusterCompliancePb();
+    pb.setClusterId(clusterId);
+    pb.setIsCompliant(isCompliant);
+    pb.setViolations(violations);
+
+    return pb;
+  }
+
+  static ClusterCompliance fromPb(ClusterCompliancePb pb) {
+    ClusterCompliance model = new ClusterCompliance();
+    model.setClusterId(pb.getClusterId());
+    model.setIsCompliant(pb.getIsCompliant());
+    model.setViolations(pb.getViolations());
+
+    return model;
+  }
+
+  public static class ClusterComplianceSerializer extends JsonSerializer<ClusterCompliance> {
+    @Override
+    public void serialize(ClusterCompliance value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ClusterCompliancePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ClusterComplianceDeserializer extends JsonDeserializer<ClusterCompliance> {
+    @Override
+    public ClusterCompliance deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ClusterCompliancePb pb = mapper.readValue(p, ClusterCompliancePb.class);
+      return ClusterCompliance.fromPb(pb);
+    }
   }
 }

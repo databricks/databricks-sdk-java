@@ -4,7 +4,16 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -13,9 +22,10 @@ import java.util.Objects;
  * the format expected by the dataplane, see networkconfig.textproto).
  */
 @Generated
+@JsonSerialize(using = EgressNetworkPolicy.EgressNetworkPolicySerializer.class)
+@JsonDeserialize(using = EgressNetworkPolicy.EgressNetworkPolicyDeserializer.class)
 public class EgressNetworkPolicy {
   /** The access policy enforced for egress traffic to the internet. */
-  @JsonProperty("internet_access")
   private EgressNetworkPolicyInternetAccessPolicy internetAccess;
 
   public EgressNetworkPolicy setInternetAccess(
@@ -46,5 +56,39 @@ public class EgressNetworkPolicy {
     return new ToStringer(EgressNetworkPolicy.class)
         .add("internetAccess", internetAccess)
         .toString();
+  }
+
+  EgressNetworkPolicyPb toPb() {
+    EgressNetworkPolicyPb pb = new EgressNetworkPolicyPb();
+    pb.setInternetAccess(internetAccess);
+
+    return pb;
+  }
+
+  static EgressNetworkPolicy fromPb(EgressNetworkPolicyPb pb) {
+    EgressNetworkPolicy model = new EgressNetworkPolicy();
+    model.setInternetAccess(pb.getInternetAccess());
+
+    return model;
+  }
+
+  public static class EgressNetworkPolicySerializer extends JsonSerializer<EgressNetworkPolicy> {
+    @Override
+    public void serialize(EgressNetworkPolicy value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      EgressNetworkPolicyPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class EgressNetworkPolicyDeserializer
+      extends JsonDeserializer<EgressNetworkPolicy> {
+    @Override
+    public EgressNetworkPolicy deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      EgressNetworkPolicyPb pb = mapper.readValue(p, EgressNetworkPolicyPb.class);
+      return EgressNetworkPolicy.fromPb(pb);
+    }
   }
 }

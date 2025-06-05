@@ -4,33 +4,38 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = UpdateRecipient.UpdateRecipientSerializer.class)
+@JsonDeserialize(using = UpdateRecipient.UpdateRecipientDeserializer.class)
 public class UpdateRecipient {
   /** Description about the recipient. */
-  @JsonProperty("comment")
   private String comment;
 
   /** Expiration timestamp of the token, in epoch milliseconds. */
-  @JsonProperty("expiration_time")
   private Long expirationTime;
 
   /** IP Access List */
-  @JsonProperty("ip_access_list")
   private IpAccessList ipAccessList;
 
   /** Name of the recipient. */
-  @JsonIgnore private String name;
+  private String name;
 
   /** New name for the recipient. . */
-  @JsonProperty("new_name")
   private String newName;
 
   /** Username of the recipient owner. */
-  @JsonProperty("owner")
   private String owner;
 
   /**
@@ -38,7 +43,6 @@ public class UpdateRecipient {
    * specified properties will override the existing properties. To add and remove properties, one
    * would need to perform a read-modify-write.
    */
-  @JsonProperty("properties_kvpairs")
   private SecurablePropertiesKvPairs propertiesKvpairs;
 
   public UpdateRecipient setComment(String comment) {
@@ -135,5 +139,50 @@ public class UpdateRecipient {
         .add("owner", owner)
         .add("propertiesKvpairs", propertiesKvpairs)
         .toString();
+  }
+
+  UpdateRecipientPb toPb() {
+    UpdateRecipientPb pb = new UpdateRecipientPb();
+    pb.setComment(comment);
+    pb.setExpirationTime(expirationTime);
+    pb.setIpAccessList(ipAccessList);
+    pb.setName(name);
+    pb.setNewName(newName);
+    pb.setOwner(owner);
+    pb.setPropertiesKvpairs(propertiesKvpairs);
+
+    return pb;
+  }
+
+  static UpdateRecipient fromPb(UpdateRecipientPb pb) {
+    UpdateRecipient model = new UpdateRecipient();
+    model.setComment(pb.getComment());
+    model.setExpirationTime(pb.getExpirationTime());
+    model.setIpAccessList(pb.getIpAccessList());
+    model.setName(pb.getName());
+    model.setNewName(pb.getNewName());
+    model.setOwner(pb.getOwner());
+    model.setPropertiesKvpairs(pb.getPropertiesKvpairs());
+
+    return model;
+  }
+
+  public static class UpdateRecipientSerializer extends JsonSerializer<UpdateRecipient> {
+    @Override
+    public void serialize(UpdateRecipient value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateRecipientPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateRecipientDeserializer extends JsonDeserializer<UpdateRecipient> {
+    @Override
+    public UpdateRecipient deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateRecipientPb pb = mapper.readValue(p, UpdateRecipientPb.class);
+      return UpdateRecipient.fromPb(pb);
+    }
   }
 }

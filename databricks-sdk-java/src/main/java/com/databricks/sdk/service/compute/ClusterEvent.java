@@ -4,32 +4,38 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ClusterEvent.ClusterEventSerializer.class)
+@JsonDeserialize(using = ClusterEvent.ClusterEventDeserializer.class)
 public class ClusterEvent {
   /** */
-  @JsonProperty("cluster_id")
   private String clusterId;
 
   /** */
-  @JsonProperty("data_plane_event_details")
   private DataPlaneEventDetails dataPlaneEventDetails;
 
   /** */
-  @JsonProperty("details")
   private EventDetails details;
 
   /**
    * The timestamp when the event occurred, stored as the number of milliseconds since the Unix
    * epoch. If not provided, this will be assigned by the Timeline service.
    */
-  @JsonProperty("timestamp")
   private Long timestamp;
 
   /** */
-  @JsonProperty("type")
   private EventType typeValue;
 
   public ClusterEvent setClusterId(String clusterId) {
@@ -103,5 +109,45 @@ public class ClusterEvent {
         .add("timestamp", timestamp)
         .add("typeValue", typeValue)
         .toString();
+  }
+
+  ClusterEventPb toPb() {
+    ClusterEventPb pb = new ClusterEventPb();
+    pb.setClusterId(clusterId);
+    pb.setDataPlaneEventDetails(dataPlaneEventDetails);
+    pb.setDetails(details);
+    pb.setTimestamp(timestamp);
+    pb.setType(typeValue);
+
+    return pb;
+  }
+
+  static ClusterEvent fromPb(ClusterEventPb pb) {
+    ClusterEvent model = new ClusterEvent();
+    model.setClusterId(pb.getClusterId());
+    model.setDataPlaneEventDetails(pb.getDataPlaneEventDetails());
+    model.setDetails(pb.getDetails());
+    model.setTimestamp(pb.getTimestamp());
+    model.setType(pb.getType());
+
+    return model;
+  }
+
+  public static class ClusterEventSerializer extends JsonSerializer<ClusterEvent> {
+    @Override
+    public void serialize(ClusterEvent value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ClusterEventPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ClusterEventDeserializer extends JsonDeserializer<ClusterEvent> {
+    @Override
+    public ClusterEvent deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ClusterEventPb pb = mapper.readValue(p, ClusterEventPb.class);
+      return ClusterEvent.fromPb(pb);
+    }
   }
 }

@@ -1,0 +1,71 @@
+// Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
+
+package com.databricks.sdk.service.sql;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
+
+@Generated
+class CronSchedulePb {
+  @JsonProperty("pause_status")
+  private SchedulePauseStatus pauseStatus;
+
+  @JsonProperty("quartz_cron_schedule")
+  private String quartzCronSchedule;
+
+  @JsonProperty("timezone_id")
+  private String timezoneId;
+
+  public CronSchedulePb setPauseStatus(SchedulePauseStatus pauseStatus) {
+    this.pauseStatus = pauseStatus;
+    return this;
+  }
+
+  public SchedulePauseStatus getPauseStatus() {
+    return pauseStatus;
+  }
+
+  public CronSchedulePb setQuartzCronSchedule(String quartzCronSchedule) {
+    this.quartzCronSchedule = quartzCronSchedule;
+    return this;
+  }
+
+  public String getQuartzCronSchedule() {
+    return quartzCronSchedule;
+  }
+
+  public CronSchedulePb setTimezoneId(String timezoneId) {
+    this.timezoneId = timezoneId;
+    return this;
+  }
+
+  public String getTimezoneId() {
+    return timezoneId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CronSchedulePb that = (CronSchedulePb) o;
+    return Objects.equals(pauseStatus, that.pauseStatus)
+        && Objects.equals(quartzCronSchedule, that.quartzCronSchedule)
+        && Objects.equals(timezoneId, that.timezoneId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(pauseStatus, quartzCronSchedule, timezoneId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CronSchedulePb.class)
+        .add("pauseStatus", pauseStatus)
+        .add("quartzCronSchedule", quartzCronSchedule)
+        .add("timezoneId", timezoneId)
+        .toString();
+  }
+}

@@ -4,19 +4,28 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Update dashboard */
 @Generated
+@JsonSerialize(using = UpdateDashboardRequest.UpdateDashboardRequestSerializer.class)
+@JsonDeserialize(using = UpdateDashboardRequest.UpdateDashboardRequestDeserializer.class)
 public class UpdateDashboardRequest {
   /** */
-  @JsonProperty("dashboard")
   private Dashboard dashboard;
 
   /** UUID identifying the dashboard. */
-  @JsonIgnore private String dashboardId;
+  private String dashboardId;
 
   public UpdateDashboardRequest setDashboard(Dashboard dashboard) {
     this.dashboard = dashboard;
@@ -56,5 +65,43 @@ public class UpdateDashboardRequest {
         .add("dashboard", dashboard)
         .add("dashboardId", dashboardId)
         .toString();
+  }
+
+  UpdateDashboardRequestPb toPb() {
+    UpdateDashboardRequestPb pb = new UpdateDashboardRequestPb();
+    pb.setDashboard(dashboard);
+    pb.setDashboardId(dashboardId);
+
+    return pb;
+  }
+
+  static UpdateDashboardRequest fromPb(UpdateDashboardRequestPb pb) {
+    UpdateDashboardRequest model = new UpdateDashboardRequest();
+    model.setDashboard(pb.getDashboard());
+    model.setDashboardId(pb.getDashboardId());
+
+    return model;
+  }
+
+  public static class UpdateDashboardRequestSerializer
+      extends JsonSerializer<UpdateDashboardRequest> {
+    @Override
+    public void serialize(
+        UpdateDashboardRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateDashboardRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateDashboardRequestDeserializer
+      extends JsonDeserializer<UpdateDashboardRequest> {
+    @Override
+    public UpdateDashboardRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateDashboardRequestPb pb = mapper.readValue(p, UpdateDashboardRequestPb.class);
+      return UpdateDashboardRequest.fromPb(pb);
+    }
   }
 }

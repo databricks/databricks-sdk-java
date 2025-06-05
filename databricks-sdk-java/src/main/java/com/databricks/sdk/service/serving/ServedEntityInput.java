@@ -4,11 +4,22 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ServedEntityInput.ServedEntityInputSerializer.class)
+@JsonDeserialize(using = ServedEntityInput.ServedEntityInputDeserializer.class)
 public class ServedEntityInput {
   /**
    * The name of the entity to be served. The entity may be a model in the Databricks Model
@@ -16,11 +27,9 @@ public class ServedEntityInput {
    * it is a UC object, the full name of the object should be given in the form of
    * **catalog_name.schema_name.model_name**.
    */
-  @JsonProperty("entity_name")
   private String entityName;
 
   /** */
-  @JsonProperty("entity_version")
   private String entityVersion;
 
   /**
@@ -29,7 +38,6 @@ public class ServedEntityInput {
    * Example entity environment variables that refer to Databricks secrets: `{"OPENAI_API_KEY":
    * "{{secrets/my_scope/my_key}}", "DATABRICKS_TOKEN": "{{secrets/my_scope2/my_key2}}"}`
    */
-  @JsonProperty("environment_vars")
   private Map<String, String> environmentVars;
 
   /**
@@ -41,33 +49,27 @@ public class ServedEntityInput {
    * add external_model later. The task type of all external models within an endpoint must be the
    * same.
    */
-  @JsonProperty("external_model")
   private ExternalModel externalModel;
 
   /** ARN of the instance profile that the served entity uses to access AWS resources. */
-  @JsonProperty("instance_profile_arn")
   private String instanceProfileArn;
 
   /**
    * The maximum provisioned concurrency that the endpoint can scale up to. Do not use if
    * workload_size is specified.
    */
-  @JsonProperty("max_provisioned_concurrency")
   private Long maxProvisionedConcurrency;
 
   /** The maximum tokens per second that the endpoint can scale up to. */
-  @JsonProperty("max_provisioned_throughput")
   private Long maxProvisionedThroughput;
 
   /**
    * The minimum provisioned concurrency that the endpoint can scale down to. Do not use if
    * workload_size is specified.
    */
-  @JsonProperty("min_provisioned_concurrency")
   private Long minProvisionedConcurrency;
 
   /** The minimum tokens per second that the endpoint can scale down to. */
-  @JsonProperty("min_provisioned_throughput")
   private Long minProvisionedThroughput;
 
   /**
@@ -76,15 +78,12 @@ public class ServedEntityInput {
    * model, this field defaults to external_model.name, with '.' and ':' replaced with '-', and if
    * not specified for other entities, it defaults to entity_name-entity_version.
    */
-  @JsonProperty("name")
   private String name;
 
   /** The number of model units provisioned. */
-  @JsonProperty("provisioned_model_units")
   private Long provisionedModelUnits;
 
   /** Whether the compute resources for the served entity should scale down to zero. */
-  @JsonProperty("scale_to_zero_enabled")
   private Boolean scaleToZeroEnabled;
 
   /**
@@ -97,7 +96,6 @@ public class ServedEntityInput {
    * workload size is 0. Do not use if min_provisioned_concurrency and max_provisioned_concurrency
    * are specified.
    */
-  @JsonProperty("workload_size")
   private String workloadSize;
 
   /**
@@ -109,7 +107,6 @@ public class ServedEntityInput {
    * <p>[GPU types]:
    * https://docs.databricks.com/en/machine-learning/model-serving/create-manage-serving-endpoints.html#gpu-workload-types
    */
-  @JsonProperty("workload_type")
   private ServingModelWorkloadType workloadType;
 
   public ServedEntityInput setEntityName(String entityName) {
@@ -296,5 +293,64 @@ public class ServedEntityInput {
         .add("workloadSize", workloadSize)
         .add("workloadType", workloadType)
         .toString();
+  }
+
+  ServedEntityInputPb toPb() {
+    ServedEntityInputPb pb = new ServedEntityInputPb();
+    pb.setEntityName(entityName);
+    pb.setEntityVersion(entityVersion);
+    pb.setEnvironmentVars(environmentVars);
+    pb.setExternalModel(externalModel);
+    pb.setInstanceProfileArn(instanceProfileArn);
+    pb.setMaxProvisionedConcurrency(maxProvisionedConcurrency);
+    pb.setMaxProvisionedThroughput(maxProvisionedThroughput);
+    pb.setMinProvisionedConcurrency(minProvisionedConcurrency);
+    pb.setMinProvisionedThroughput(minProvisionedThroughput);
+    pb.setName(name);
+    pb.setProvisionedModelUnits(provisionedModelUnits);
+    pb.setScaleToZeroEnabled(scaleToZeroEnabled);
+    pb.setWorkloadSize(workloadSize);
+    pb.setWorkloadType(workloadType);
+
+    return pb;
+  }
+
+  static ServedEntityInput fromPb(ServedEntityInputPb pb) {
+    ServedEntityInput model = new ServedEntityInput();
+    model.setEntityName(pb.getEntityName());
+    model.setEntityVersion(pb.getEntityVersion());
+    model.setEnvironmentVars(pb.getEnvironmentVars());
+    model.setExternalModel(pb.getExternalModel());
+    model.setInstanceProfileArn(pb.getInstanceProfileArn());
+    model.setMaxProvisionedConcurrency(pb.getMaxProvisionedConcurrency());
+    model.setMaxProvisionedThroughput(pb.getMaxProvisionedThroughput());
+    model.setMinProvisionedConcurrency(pb.getMinProvisionedConcurrency());
+    model.setMinProvisionedThroughput(pb.getMinProvisionedThroughput());
+    model.setName(pb.getName());
+    model.setProvisionedModelUnits(pb.getProvisionedModelUnits());
+    model.setScaleToZeroEnabled(pb.getScaleToZeroEnabled());
+    model.setWorkloadSize(pb.getWorkloadSize());
+    model.setWorkloadType(pb.getWorkloadType());
+
+    return model;
+  }
+
+  public static class ServedEntityInputSerializer extends JsonSerializer<ServedEntityInput> {
+    @Override
+    public void serialize(ServedEntityInput value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ServedEntityInputPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ServedEntityInputDeserializer extends JsonDeserializer<ServedEntityInput> {
+    @Override
+    public ServedEntityInput deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ServedEntityInputPb pb = mapper.readValue(p, ServedEntityInputPb.class);
+      return ServedEntityInput.fromPb(pb);
+    }
   }
 }

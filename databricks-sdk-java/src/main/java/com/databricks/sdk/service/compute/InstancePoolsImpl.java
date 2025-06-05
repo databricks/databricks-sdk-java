@@ -21,7 +21,7 @@ class InstancePoolsImpl implements InstancePoolsService {
     String path = "/api/2.0/instance-pools/create";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, CreateInstancePoolResponse.class);
@@ -35,7 +35,7 @@ class InstancePoolsImpl implements InstancePoolsService {
     String path = "/api/2.0/instance-pools/delete";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, DeleteInstancePoolResponse.class);
@@ -49,7 +49,7 @@ class InstancePoolsImpl implements InstancePoolsService {
     String path = "/api/2.0/instance-pools/edit";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, EditInstancePoolResponse.class);
@@ -63,7 +63,7 @@ class InstancePoolsImpl implements InstancePoolsService {
     String path = "/api/2.0/instance-pools/get";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetInstancePool.class);
     } catch (IOException e) {
@@ -79,7 +79,7 @@ class InstancePoolsImpl implements InstancePoolsService {
             "/api/2.0/permissions/instance-pools/%s/permissionLevels", request.getInstancePoolId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetInstancePoolPermissionLevelsResponse.class);
     } catch (IOException e) {
@@ -93,7 +93,7 @@ class InstancePoolsImpl implements InstancePoolsService {
         String.format("/api/2.0/permissions/instance-pools/%s", request.getInstancePoolId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, InstancePoolPermissions.class);
     } catch (IOException e) {
@@ -119,7 +119,7 @@ class InstancePoolsImpl implements InstancePoolsService {
         String.format("/api/2.0/permissions/instance-pools/%s", request.getInstancePoolId());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, InstancePoolPermissions.class);
@@ -134,7 +134,7 @@ class InstancePoolsImpl implements InstancePoolsService {
         String.format("/api/2.0/permissions/instance-pools/%s", request.getInstancePoolId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, InstancePoolPermissions.class);

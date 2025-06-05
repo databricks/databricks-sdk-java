@@ -4,22 +4,34 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using =
+        EmbeddingsV1ResponseEmbeddingElement.EmbeddingsV1ResponseEmbeddingElementSerializer.class)
+@JsonDeserialize(
+    using =
+        EmbeddingsV1ResponseEmbeddingElement.EmbeddingsV1ResponseEmbeddingElementDeserializer.class)
 public class EmbeddingsV1ResponseEmbeddingElement {
   /** */
-  @JsonProperty("embedding")
   private Collection<Double> embedding;
 
   /** The index of the embedding in the response. */
-  @JsonProperty("index")
   private Long index;
 
   /** This will always be 'embedding'. */
-  @JsonProperty("object")
   private EmbeddingsV1ResponseEmbeddingElementObject object;
 
   public EmbeddingsV1ResponseEmbeddingElement setEmbedding(Collection<Double> embedding) {
@@ -72,5 +84,46 @@ public class EmbeddingsV1ResponseEmbeddingElement {
         .add("index", index)
         .add("object", object)
         .toString();
+  }
+
+  EmbeddingsV1ResponseEmbeddingElementPb toPb() {
+    EmbeddingsV1ResponseEmbeddingElementPb pb = new EmbeddingsV1ResponseEmbeddingElementPb();
+    pb.setEmbedding(embedding);
+    pb.setIndex(index);
+    pb.setObject(object);
+
+    return pb;
+  }
+
+  static EmbeddingsV1ResponseEmbeddingElement fromPb(EmbeddingsV1ResponseEmbeddingElementPb pb) {
+    EmbeddingsV1ResponseEmbeddingElement model = new EmbeddingsV1ResponseEmbeddingElement();
+    model.setEmbedding(pb.getEmbedding());
+    model.setIndex(pb.getIndex());
+    model.setObject(pb.getObject());
+
+    return model;
+  }
+
+  public static class EmbeddingsV1ResponseEmbeddingElementSerializer
+      extends JsonSerializer<EmbeddingsV1ResponseEmbeddingElement> {
+    @Override
+    public void serialize(
+        EmbeddingsV1ResponseEmbeddingElement value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      EmbeddingsV1ResponseEmbeddingElementPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class EmbeddingsV1ResponseEmbeddingElementDeserializer
+      extends JsonDeserializer<EmbeddingsV1ResponseEmbeddingElement> {
+    @Override
+    public EmbeddingsV1ResponseEmbeddingElement deserialize(
+        JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      EmbeddingsV1ResponseEmbeddingElementPb pb =
+          mapper.readValue(p, EmbeddingsV1ResponseEmbeddingElementPb.class);
+      return EmbeddingsV1ResponseEmbeddingElement.fromPb(pb);
+    }
   }
 }

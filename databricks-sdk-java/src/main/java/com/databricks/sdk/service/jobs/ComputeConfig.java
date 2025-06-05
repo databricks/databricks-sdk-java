@@ -4,21 +4,29 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ComputeConfig.ComputeConfigSerializer.class)
+@JsonDeserialize(using = ComputeConfig.ComputeConfigDeserializer.class)
 public class ComputeConfig {
   /** IDof the GPU pool to use. */
-  @JsonProperty("gpu_node_pool_id")
   private String gpuNodePoolId;
 
   /** GPU type. */
-  @JsonProperty("gpu_type")
   private String gpuType;
 
   /** Number of GPUs. */
-  @JsonProperty("num_gpus")
   private Long numGpus;
 
   public ComputeConfig setGpuNodePoolId(String gpuNodePoolId) {
@@ -70,5 +78,41 @@ public class ComputeConfig {
         .add("gpuType", gpuType)
         .add("numGpus", numGpus)
         .toString();
+  }
+
+  ComputeConfigPb toPb() {
+    ComputeConfigPb pb = new ComputeConfigPb();
+    pb.setGpuNodePoolId(gpuNodePoolId);
+    pb.setGpuType(gpuType);
+    pb.setNumGpus(numGpus);
+
+    return pb;
+  }
+
+  static ComputeConfig fromPb(ComputeConfigPb pb) {
+    ComputeConfig model = new ComputeConfig();
+    model.setGpuNodePoolId(pb.getGpuNodePoolId());
+    model.setGpuType(pb.getGpuType());
+    model.setNumGpus(pb.getNumGpus());
+
+    return model;
+  }
+
+  public static class ComputeConfigSerializer extends JsonSerializer<ComputeConfig> {
+    @Override
+    public void serialize(ComputeConfig value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ComputeConfigPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ComputeConfigDeserializer extends JsonDeserializer<ComputeConfig> {
+    @Override
+    public ComputeConfig deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ComputeConfigPb pb = mapper.readValue(p, ComputeConfigPb.class);
+      return ComputeConfig.fromPb(pb);
+    }
   }
 }

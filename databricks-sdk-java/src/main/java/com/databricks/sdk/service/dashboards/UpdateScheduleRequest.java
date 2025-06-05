@@ -4,22 +4,31 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Update dashboard schedule */
 @Generated
+@JsonSerialize(using = UpdateScheduleRequest.UpdateScheduleRequestSerializer.class)
+@JsonDeserialize(using = UpdateScheduleRequest.UpdateScheduleRequestDeserializer.class)
 public class UpdateScheduleRequest {
   /** UUID identifying the dashboard to which the schedule belongs. */
-  @JsonIgnore private String dashboardId;
+  private String dashboardId;
 
   /** */
-  @JsonProperty("schedule")
   private Schedule schedule;
 
   /** UUID identifying the schedule. */
-  @JsonIgnore private String scheduleId;
+  private String scheduleId;
 
   public UpdateScheduleRequest setDashboardId(String dashboardId) {
     this.dashboardId = dashboardId;
@@ -70,5 +79,45 @@ public class UpdateScheduleRequest {
         .add("schedule", schedule)
         .add("scheduleId", scheduleId)
         .toString();
+  }
+
+  UpdateScheduleRequestPb toPb() {
+    UpdateScheduleRequestPb pb = new UpdateScheduleRequestPb();
+    pb.setDashboardId(dashboardId);
+    pb.setSchedule(schedule);
+    pb.setScheduleId(scheduleId);
+
+    return pb;
+  }
+
+  static UpdateScheduleRequest fromPb(UpdateScheduleRequestPb pb) {
+    UpdateScheduleRequest model = new UpdateScheduleRequest();
+    model.setDashboardId(pb.getDashboardId());
+    model.setSchedule(pb.getSchedule());
+    model.setScheduleId(pb.getScheduleId());
+
+    return model;
+  }
+
+  public static class UpdateScheduleRequestSerializer
+      extends JsonSerializer<UpdateScheduleRequest> {
+    @Override
+    public void serialize(
+        UpdateScheduleRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      UpdateScheduleRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class UpdateScheduleRequestDeserializer
+      extends JsonDeserializer<UpdateScheduleRequest> {
+    @Override
+    public UpdateScheduleRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      UpdateScheduleRequestPb pb = mapper.readValue(p, UpdateScheduleRequestPb.class);
+      return UpdateScheduleRequest.fromPb(pb);
+    }
   }
 }

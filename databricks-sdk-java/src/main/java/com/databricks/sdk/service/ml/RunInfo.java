@@ -4,60 +4,61 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Metadata of a single run. */
 @Generated
+@JsonSerialize(using = RunInfo.RunInfoSerializer.class)
+@JsonDeserialize(using = RunInfo.RunInfoDeserializer.class)
 public class RunInfo {
   /**
    * URI of the directory where artifacts should be uploaded. This can be a local path (starting
    * with "/"), or a distributed file system (DFS) path, like ``s3://bucket/directory`` or
    * ``dbfs:/my/directory``. If not set, the local ``./mlruns`` directory is chosen.
    */
-  @JsonProperty("artifact_uri")
   private String artifactUri;
 
   /** Unix timestamp of when the run ended in milliseconds. */
-  @JsonProperty("end_time")
   private Long endTime;
 
   /** The experiment ID. */
-  @JsonProperty("experiment_id")
   private String experimentId;
 
   /** Current life cycle stage of the experiment : OneOf("active", "deleted") */
-  @JsonProperty("lifecycle_stage")
   private String lifecycleStage;
 
   /** Unique identifier for the run. */
-  @JsonProperty("run_id")
   private String runId;
 
   /** The name of the run. */
-  @JsonProperty("run_name")
   private String runName;
 
   /**
    * [Deprecated, use run_id instead] Unique identifier for the run. This field will be removed in a
    * future MLflow version.
    */
-  @JsonProperty("run_uuid")
   private String runUuid;
 
   /** Unix timestamp of when the run started in milliseconds. */
-  @JsonProperty("start_time")
   private Long startTime;
 
   /** Current status of the run. */
-  @JsonProperty("status")
   private RunInfoStatus status;
 
   /**
    * User who initiated the run. This field is deprecated as of MLflow 1.0, and will be removed in a
    * future MLflow release. Use 'mlflow.user' tag instead.
    */
-  @JsonProperty("user_id")
   private String userId;
 
   public RunInfo setArtifactUri(String artifactUri) {
@@ -196,5 +197,55 @@ public class RunInfo {
         .add("status", status)
         .add("userId", userId)
         .toString();
+  }
+
+  RunInfoPb toPb() {
+    RunInfoPb pb = new RunInfoPb();
+    pb.setArtifactUri(artifactUri);
+    pb.setEndTime(endTime);
+    pb.setExperimentId(experimentId);
+    pb.setLifecycleStage(lifecycleStage);
+    pb.setRunId(runId);
+    pb.setRunName(runName);
+    pb.setRunUuid(runUuid);
+    pb.setStartTime(startTime);
+    pb.setStatus(status);
+    pb.setUserId(userId);
+
+    return pb;
+  }
+
+  static RunInfo fromPb(RunInfoPb pb) {
+    RunInfo model = new RunInfo();
+    model.setArtifactUri(pb.getArtifactUri());
+    model.setEndTime(pb.getEndTime());
+    model.setExperimentId(pb.getExperimentId());
+    model.setLifecycleStage(pb.getLifecycleStage());
+    model.setRunId(pb.getRunId());
+    model.setRunName(pb.getRunName());
+    model.setRunUuid(pb.getRunUuid());
+    model.setStartTime(pb.getStartTime());
+    model.setStatus(pb.getStatus());
+    model.setUserId(pb.getUserId());
+
+    return model;
+  }
+
+  public static class RunInfoSerializer extends JsonSerializer<RunInfo> {
+    @Override
+    public void serialize(RunInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      RunInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class RunInfoDeserializer extends JsonDeserializer<RunInfo> {
+    @Override
+    public RunInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      RunInfoPb pb = mapper.readValue(p, RunInfoPb.class);
+      return RunInfo.fromPb(pb);
+    }
   }
 }

@@ -4,11 +4,22 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Internal information for D2D sharing that should not be disclosed to external users. */
 @Generated
+@JsonSerialize(using = TableInternalAttributes.TableInternalAttributesSerializer.class)
+@JsonDeserialize(using = TableInternalAttributes.TableInternalAttributesDeserializer.class)
 public class TableInternalAttributes {
   /**
    * Will be populated in the reconciliation response for VIEW and FOREIGN_TABLE, with the value of
@@ -18,19 +29,15 @@ public class TableInternalAttributes {
    * whitelisted when SEG is enabled on the workspace of the recipient, to allow the recipient users
    * to query this shared VIEW/FOREIGN_TABLE.
    */
-  @JsonProperty("parent_storage_location")
   private String parentStorageLocation;
 
   /** The cloud storage location of a shard table with DIRECTORY_BASED_TABLE type. */
-  @JsonProperty("storage_location")
   private String storageLocation;
 
   /** The type of the shared table. */
-  @JsonProperty("type")
   private TableInternalAttributesSharedTableType typeValue;
 
   /** The view definition of a shared view. DEPRECATED. */
-  @JsonProperty("view_definition")
   private String viewDefinition;
 
   public TableInternalAttributes setParentStorageLocation(String parentStorageLocation) {
@@ -93,5 +100,47 @@ public class TableInternalAttributes {
         .add("typeValue", typeValue)
         .add("viewDefinition", viewDefinition)
         .toString();
+  }
+
+  TableInternalAttributesPb toPb() {
+    TableInternalAttributesPb pb = new TableInternalAttributesPb();
+    pb.setParentStorageLocation(parentStorageLocation);
+    pb.setStorageLocation(storageLocation);
+    pb.setType(typeValue);
+    pb.setViewDefinition(viewDefinition);
+
+    return pb;
+  }
+
+  static TableInternalAttributes fromPb(TableInternalAttributesPb pb) {
+    TableInternalAttributes model = new TableInternalAttributes();
+    model.setParentStorageLocation(pb.getParentStorageLocation());
+    model.setStorageLocation(pb.getStorageLocation());
+    model.setType(pb.getType());
+    model.setViewDefinition(pb.getViewDefinition());
+
+    return model;
+  }
+
+  public static class TableInternalAttributesSerializer
+      extends JsonSerializer<TableInternalAttributes> {
+    @Override
+    public void serialize(
+        TableInternalAttributes value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      TableInternalAttributesPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class TableInternalAttributesDeserializer
+      extends JsonDeserializer<TableInternalAttributes> {
+    @Override
+    public TableInternalAttributes deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      TableInternalAttributesPb pb = mapper.readValue(p, TableInternalAttributesPb.class);
+      return TableInternalAttributes.fromPb(pb);
+    }
   }
 }

@@ -4,29 +4,36 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CleanRoomsNotebookTask.CleanRoomsNotebookTaskSerializer.class)
+@JsonDeserialize(using = CleanRoomsNotebookTask.CleanRoomsNotebookTaskDeserializer.class)
 public class CleanRoomsNotebookTask {
   /** The clean room that the notebook belongs to. */
-  @JsonProperty("clean_room_name")
   private String cleanRoomName;
 
   /**
    * Checksum to validate the freshness of the notebook resource (i.e. the notebook being run is the
    * latest version). It can be fetched by calling the :method:cleanroomassets/get API.
    */
-  @JsonProperty("etag")
   private String etag;
 
   /** Base parameters to be used for the clean room notebook job. */
-  @JsonProperty("notebook_base_parameters")
   private Map<String, String> notebookBaseParameters;
 
   /** Name of the notebook being run. */
-  @JsonProperty("notebook_name")
   private String notebookName;
 
   public CleanRoomsNotebookTask setCleanRoomName(String cleanRoomName) {
@@ -90,5 +97,47 @@ public class CleanRoomsNotebookTask {
         .add("notebookBaseParameters", notebookBaseParameters)
         .add("notebookName", notebookName)
         .toString();
+  }
+
+  CleanRoomsNotebookTaskPb toPb() {
+    CleanRoomsNotebookTaskPb pb = new CleanRoomsNotebookTaskPb();
+    pb.setCleanRoomName(cleanRoomName);
+    pb.setEtag(etag);
+    pb.setNotebookBaseParameters(notebookBaseParameters);
+    pb.setNotebookName(notebookName);
+
+    return pb;
+  }
+
+  static CleanRoomsNotebookTask fromPb(CleanRoomsNotebookTaskPb pb) {
+    CleanRoomsNotebookTask model = new CleanRoomsNotebookTask();
+    model.setCleanRoomName(pb.getCleanRoomName());
+    model.setEtag(pb.getEtag());
+    model.setNotebookBaseParameters(pb.getNotebookBaseParameters());
+    model.setNotebookName(pb.getNotebookName());
+
+    return model;
+  }
+
+  public static class CleanRoomsNotebookTaskSerializer
+      extends JsonSerializer<CleanRoomsNotebookTask> {
+    @Override
+    public void serialize(
+        CleanRoomsNotebookTask value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CleanRoomsNotebookTaskPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CleanRoomsNotebookTaskDeserializer
+      extends JsonDeserializer<CleanRoomsNotebookTask> {
+    @Override
+    public CleanRoomsNotebookTask deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CleanRoomsNotebookTaskPb pb = mapper.readValue(p, CleanRoomsNotebookTaskPb.class);
+      return CleanRoomsNotebookTask.fromPb(pb);
+    }
   }
 }

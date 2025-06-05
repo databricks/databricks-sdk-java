@@ -3,37 +3,37 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = QueryFilter.QueryFilterSerializer.class)
+@JsonDeserialize(using = QueryFilter.QueryFilterDeserializer.class)
 public class QueryFilter {
   /** A range filter for query submitted time. The time range must be <= 30 days. */
-  @JsonProperty("query_start_time_range")
-  @QueryParam("query_start_time_range")
   private TimeRange queryStartTimeRange;
 
   /** A list of statement IDs. */
-  @JsonProperty("statement_ids")
-  @QueryParam("statement_ids")
   private Collection<String> statementIds;
 
   /** */
-  @JsonProperty("statuses")
-  @QueryParam("statuses")
   private Collection<QueryStatus> statuses;
 
   /** A list of user IDs who ran the queries. */
-  @JsonProperty("user_ids")
-  @QueryParam("user_ids")
   private Collection<Long> userIds;
 
   /** A list of warehouse IDs. */
-  @JsonProperty("warehouse_ids")
-  @QueryParam("warehouse_ids")
   private Collection<String> warehouseIds;
 
   public QueryFilter setQueryStartTimeRange(TimeRange queryStartTimeRange) {
@@ -107,5 +107,45 @@ public class QueryFilter {
         .add("userIds", userIds)
         .add("warehouseIds", warehouseIds)
         .toString();
+  }
+
+  QueryFilterPb toPb() {
+    QueryFilterPb pb = new QueryFilterPb();
+    pb.setQueryStartTimeRange(queryStartTimeRange);
+    pb.setStatementIds(statementIds);
+    pb.setStatuses(statuses);
+    pb.setUserIds(userIds);
+    pb.setWarehouseIds(warehouseIds);
+
+    return pb;
+  }
+
+  static QueryFilter fromPb(QueryFilterPb pb) {
+    QueryFilter model = new QueryFilter();
+    model.setQueryStartTimeRange(pb.getQueryStartTimeRange());
+    model.setStatementIds(pb.getStatementIds());
+    model.setStatuses(pb.getStatuses());
+    model.setUserIds(pb.getUserIds());
+    model.setWarehouseIds(pb.getWarehouseIds());
+
+    return model;
+  }
+
+  public static class QueryFilterSerializer extends JsonSerializer<QueryFilter> {
+    @Override
+    public void serialize(QueryFilter value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      QueryFilterPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class QueryFilterDeserializer extends JsonDeserializer<QueryFilter> {
+    @Override
+    public QueryFilter deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      QueryFilterPb pb = mapper.readValue(p, QueryFilterPb.class);
+      return QueryFilter.fromPb(pb);
+    }
   }
 }

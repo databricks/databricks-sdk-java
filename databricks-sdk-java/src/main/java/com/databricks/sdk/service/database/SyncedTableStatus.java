@@ -4,46 +4,51 @@ package com.databricks.sdk.service.database;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Status of a synced table. */
 @Generated
+@JsonSerialize(using = SyncedTableStatus.SyncedTableStatusSerializer.class)
+@JsonDeserialize(using = SyncedTableStatus.SyncedTableStatusDeserializer.class)
 public class SyncedTableStatus {
   /**
    * Detailed status of a synced table. Shown if the synced table is in the SYNCED_CONTINUOUS_UPDATE
    * or the SYNCED_UPDATING_PIPELINE_RESOURCES state.
    */
-  @JsonProperty("continuous_update_status")
   private SyncedTableContinuousUpdateStatus continuousUpdateStatus;
 
   /** The state of the synced table. */
-  @JsonProperty("detailed_state")
   private SyncedTableState detailedState;
 
   /**
    * Detailed status of a synced table. Shown if the synced table is in the OFFLINE_FAILED or the
    * SYNCED_PIPELINE_FAILED state.
    */
-  @JsonProperty("failed_status")
   private SyncedTableFailedStatus failedStatus;
 
   /** A text description of the current state of the synced table. */
-  @JsonProperty("message")
   private String message;
 
   /**
    * Detailed status of a synced table. Shown if the synced table is in the
    * PROVISIONING_PIPELINE_RESOURCES or the PROVISIONING_INITIAL_SNAPSHOT state.
    */
-  @JsonProperty("provisioning_status")
   private SyncedTableProvisioningStatus provisioningStatus;
 
   /**
    * Detailed status of a synced table. Shown if the synced table is in the SYNCED_TRIGGERED_UPDATE
    * or the SYNCED_NO_PENDING_UPDATE state.
    */
-  @JsonProperty("triggered_update_status")
   private SyncedTableTriggeredUpdateStatus triggeredUpdateStatus;
 
   public SyncedTableStatus setContinuousUpdateStatus(
@@ -136,5 +141,48 @@ public class SyncedTableStatus {
         .add("provisioningStatus", provisioningStatus)
         .add("triggeredUpdateStatus", triggeredUpdateStatus)
         .toString();
+  }
+
+  SyncedTableStatusPb toPb() {
+    SyncedTableStatusPb pb = new SyncedTableStatusPb();
+    pb.setContinuousUpdateStatus(continuousUpdateStatus);
+    pb.setDetailedState(detailedState);
+    pb.setFailedStatus(failedStatus);
+    pb.setMessage(message);
+    pb.setProvisioningStatus(provisioningStatus);
+    pb.setTriggeredUpdateStatus(triggeredUpdateStatus);
+
+    return pb;
+  }
+
+  static SyncedTableStatus fromPb(SyncedTableStatusPb pb) {
+    SyncedTableStatus model = new SyncedTableStatus();
+    model.setContinuousUpdateStatus(pb.getContinuousUpdateStatus());
+    model.setDetailedState(pb.getDetailedState());
+    model.setFailedStatus(pb.getFailedStatus());
+    model.setMessage(pb.getMessage());
+    model.setProvisioningStatus(pb.getProvisioningStatus());
+    model.setTriggeredUpdateStatus(pb.getTriggeredUpdateStatus());
+
+    return model;
+  }
+
+  public static class SyncedTableStatusSerializer extends JsonSerializer<SyncedTableStatus> {
+    @Override
+    public void serialize(SyncedTableStatus value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SyncedTableStatusPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SyncedTableStatusDeserializer extends JsonDeserializer<SyncedTableStatus> {
+    @Override
+    public SyncedTableStatus deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SyncedTableStatusPb pb = mapper.readValue(p, SyncedTableStatusPb.class);
+      return SyncedTableStatus.fromPb(pb);
+    }
   }
 }

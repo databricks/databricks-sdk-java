@@ -4,91 +4,83 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = GetMetastoreSummaryResponse.GetMetastoreSummaryResponseSerializer.class)
+@JsonDeserialize(using = GetMetastoreSummaryResponse.GetMetastoreSummaryResponseDeserializer.class)
 public class GetMetastoreSummaryResponse {
   /** Cloud vendor of the metastore home shard (e.g., `aws`, `azure`, `gcp`). */
-  @JsonProperty("cloud")
   private String cloud;
 
   /** Time at which this metastore was created, in epoch milliseconds. */
-  @JsonProperty("created_at")
   private Long createdAt;
 
   /** Username of metastore creator. */
-  @JsonProperty("created_by")
   private String createdBy;
 
   /** Unique identifier of the metastore's (Default) Data Access Configuration. */
-  @JsonProperty("default_data_access_config_id")
   private String defaultDataAccessConfigId;
 
   /**
    * The organization name of a Delta Sharing entity, to be used in Databricks-to-Databricks Delta
    * Sharing as the official name.
    */
-  @JsonProperty("delta_sharing_organization_name")
   private String deltaSharingOrganizationName;
 
   /** The lifetime of delta sharing recipient token in seconds. */
-  @JsonProperty("delta_sharing_recipient_token_lifetime_in_seconds")
   private Long deltaSharingRecipientTokenLifetimeInSeconds;
 
   /** The scope of Delta Sharing enabled for the metastore. */
-  @JsonProperty("delta_sharing_scope")
   private DeltaSharingScopeEnum deltaSharingScope;
 
   /** Whether to allow non-DBR clients to directly access entities under the metastore. */
-  @JsonProperty("external_access_enabled")
   private Boolean externalAccessEnabled;
 
   /**
    * Globally unique metastore ID across clouds and regions, of the form
    * `cloud:region:metastore_id`.
    */
-  @JsonProperty("global_metastore_id")
   private String globalMetastoreId;
 
   /** Unique identifier of metastore. */
-  @JsonProperty("metastore_id")
   private String metastoreId;
 
   /** The user-specified name of the metastore. */
-  @JsonProperty("name")
   private String name;
 
   /** The owner of the metastore. */
-  @JsonProperty("owner")
   private String owner;
 
   /** Privilege model version of the metastore, of the form `major.minor` (e.g., `1.0`). */
-  @JsonProperty("privilege_model_version")
   private String privilegeModelVersion;
 
   /** Cloud region which the metastore serves (e.g., `us-west-2`, `westus`). */
-  @JsonProperty("region")
   private String region;
 
   /** The storage root URL for metastore */
-  @JsonProperty("storage_root")
   private String storageRoot;
 
   /** UUID of storage credential to access the metastore storage_root. */
-  @JsonProperty("storage_root_credential_id")
   private String storageRootCredentialId;
 
   /** Name of the storage credential to access the metastore storage_root. */
-  @JsonProperty("storage_root_credential_name")
   private String storageRootCredentialName;
 
   /** Time at which the metastore was last modified, in epoch milliseconds. */
-  @JsonProperty("updated_at")
   private Long updatedAt;
 
   /** Username of user who last modified the metastore. */
-  @JsonProperty("updated_by")
   private String updatedBy;
 
   public GetMetastoreSummaryResponse setCloud(String cloud) {
@@ -343,5 +335,78 @@ public class GetMetastoreSummaryResponse {
         .add("updatedAt", updatedAt)
         .add("updatedBy", updatedBy)
         .toString();
+  }
+
+  GetMetastoreSummaryResponsePb toPb() {
+    GetMetastoreSummaryResponsePb pb = new GetMetastoreSummaryResponsePb();
+    pb.setCloud(cloud);
+    pb.setCreatedAt(createdAt);
+    pb.setCreatedBy(createdBy);
+    pb.setDefaultDataAccessConfigId(defaultDataAccessConfigId);
+    pb.setDeltaSharingOrganizationName(deltaSharingOrganizationName);
+    pb.setDeltaSharingRecipientTokenLifetimeInSeconds(deltaSharingRecipientTokenLifetimeInSeconds);
+    pb.setDeltaSharingScope(deltaSharingScope);
+    pb.setExternalAccessEnabled(externalAccessEnabled);
+    pb.setGlobalMetastoreId(globalMetastoreId);
+    pb.setMetastoreId(metastoreId);
+    pb.setName(name);
+    pb.setOwner(owner);
+    pb.setPrivilegeModelVersion(privilegeModelVersion);
+    pb.setRegion(region);
+    pb.setStorageRoot(storageRoot);
+    pb.setStorageRootCredentialId(storageRootCredentialId);
+    pb.setStorageRootCredentialName(storageRootCredentialName);
+    pb.setUpdatedAt(updatedAt);
+    pb.setUpdatedBy(updatedBy);
+
+    return pb;
+  }
+
+  static GetMetastoreSummaryResponse fromPb(GetMetastoreSummaryResponsePb pb) {
+    GetMetastoreSummaryResponse model = new GetMetastoreSummaryResponse();
+    model.setCloud(pb.getCloud());
+    model.setCreatedAt(pb.getCreatedAt());
+    model.setCreatedBy(pb.getCreatedBy());
+    model.setDefaultDataAccessConfigId(pb.getDefaultDataAccessConfigId());
+    model.setDeltaSharingOrganizationName(pb.getDeltaSharingOrganizationName());
+    model.setDeltaSharingRecipientTokenLifetimeInSeconds(
+        pb.getDeltaSharingRecipientTokenLifetimeInSeconds());
+    model.setDeltaSharingScope(pb.getDeltaSharingScope());
+    model.setExternalAccessEnabled(pb.getExternalAccessEnabled());
+    model.setGlobalMetastoreId(pb.getGlobalMetastoreId());
+    model.setMetastoreId(pb.getMetastoreId());
+    model.setName(pb.getName());
+    model.setOwner(pb.getOwner());
+    model.setPrivilegeModelVersion(pb.getPrivilegeModelVersion());
+    model.setRegion(pb.getRegion());
+    model.setStorageRoot(pb.getStorageRoot());
+    model.setStorageRootCredentialId(pb.getStorageRootCredentialId());
+    model.setStorageRootCredentialName(pb.getStorageRootCredentialName());
+    model.setUpdatedAt(pb.getUpdatedAt());
+    model.setUpdatedBy(pb.getUpdatedBy());
+
+    return model;
+  }
+
+  public static class GetMetastoreSummaryResponseSerializer
+      extends JsonSerializer<GetMetastoreSummaryResponse> {
+    @Override
+    public void serialize(
+        GetMetastoreSummaryResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetMetastoreSummaryResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetMetastoreSummaryResponseDeserializer
+      extends JsonDeserializer<GetMetastoreSummaryResponse> {
+    @Override
+    public GetMetastoreSummaryResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetMetastoreSummaryResponsePb pb = mapper.readValue(p, GetMetastoreSummaryResponsePb.class);
+      return GetMetastoreSummaryResponse.fromPb(pb);
+    }
   }
 }

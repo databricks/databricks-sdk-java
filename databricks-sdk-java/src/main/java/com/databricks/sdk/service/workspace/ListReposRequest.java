@@ -3,20 +3,28 @@
 package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get repos */
 @Generated
+@JsonSerialize(using = ListReposRequest.ListReposRequestSerializer.class)
+@JsonDeserialize(using = ListReposRequest.ListReposRequestDeserializer.class)
 public class ListReposRequest {
   /**
    * Token used to get the next page of results. If not specified, returns the first page of results
    * as well as a next page token if there are more results.
    */
-  @JsonIgnore
-  @QueryParam("next_page_token")
   private String nextPageToken;
 
   /**
@@ -24,8 +32,6 @@ public class ListReposRequest {
    * provided an effectively empty prefix (`/` or `/Workspace`) Git folders (repos) from
    * `/Workspace/Repos` will be served.
    */
-  @JsonIgnore
-  @QueryParam("path_prefix")
   private String pathPrefix;
 
   public ListReposRequest setNextPageToken(String nextPageToken) {
@@ -66,5 +72,40 @@ public class ListReposRequest {
         .add("nextPageToken", nextPageToken)
         .add("pathPrefix", pathPrefix)
         .toString();
+  }
+
+  ListReposRequestPb toPb() {
+    ListReposRequestPb pb = new ListReposRequestPb();
+    pb.setNextPageToken(nextPageToken);
+    pb.setPathPrefix(pathPrefix);
+
+    return pb;
+  }
+
+  static ListReposRequest fromPb(ListReposRequestPb pb) {
+    ListReposRequest model = new ListReposRequest();
+    model.setNextPageToken(pb.getNextPageToken());
+    model.setPathPrefix(pb.getPathPrefix());
+
+    return model;
+  }
+
+  public static class ListReposRequestSerializer extends JsonSerializer<ListReposRequest> {
+    @Override
+    public void serialize(ListReposRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListReposRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListReposRequestDeserializer extends JsonDeserializer<ListReposRequest> {
+    @Override
+    public ListReposRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListReposRequestPb pb = mapper.readValue(p, ListReposRequestPb.class);
+      return ListReposRequest.fromPb(pb);
+    }
   }
 }

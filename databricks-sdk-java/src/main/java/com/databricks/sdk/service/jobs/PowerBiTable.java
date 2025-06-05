@@ -4,25 +4,32 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = PowerBiTable.PowerBiTableSerializer.class)
+@JsonDeserialize(using = PowerBiTable.PowerBiTableDeserializer.class)
 public class PowerBiTable {
   /** The catalog name in Databricks */
-  @JsonProperty("catalog")
   private String catalog;
 
   /** The table name in Databricks */
-  @JsonProperty("name")
   private String name;
 
   /** The schema name in Databricks */
-  @JsonProperty("schema")
   private String schema;
 
   /** The Power BI storage mode of the table */
-  @JsonProperty("storage_mode")
   private StorageMode storageMode;
 
   public PowerBiTable setCatalog(String catalog) {
@@ -85,5 +92,43 @@ public class PowerBiTable {
         .add("schema", schema)
         .add("storageMode", storageMode)
         .toString();
+  }
+
+  PowerBiTablePb toPb() {
+    PowerBiTablePb pb = new PowerBiTablePb();
+    pb.setCatalog(catalog);
+    pb.setName(name);
+    pb.setSchema(schema);
+    pb.setStorageMode(storageMode);
+
+    return pb;
+  }
+
+  static PowerBiTable fromPb(PowerBiTablePb pb) {
+    PowerBiTable model = new PowerBiTable();
+    model.setCatalog(pb.getCatalog());
+    model.setName(pb.getName());
+    model.setSchema(pb.getSchema());
+    model.setStorageMode(pb.getStorageMode());
+
+    return model;
+  }
+
+  public static class PowerBiTableSerializer extends JsonSerializer<PowerBiTable> {
+    @Override
+    public void serialize(PowerBiTable value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      PowerBiTablePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class PowerBiTableDeserializer extends JsonDeserializer<PowerBiTable> {
+    @Override
+    public PowerBiTable deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      PowerBiTablePb pb = mapper.readValue(p, PowerBiTablePb.class);
+      return PowerBiTable.fromPb(pb);
+    }
   }
 }

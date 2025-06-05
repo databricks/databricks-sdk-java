@@ -4,65 +4,62 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = ProviderInfo.ProviderInfoSerializer.class)
+@JsonDeserialize(using = ProviderInfo.ProviderInfoDeserializer.class)
 public class ProviderInfo {
   /** */
-  @JsonProperty("business_contact_email")
   private String businessContactEmail;
 
   /** */
-  @JsonProperty("company_website_link")
   private String companyWebsiteLink;
 
   /** */
-  @JsonProperty("dark_mode_icon_file_id")
   private String darkModeIconFileId;
 
   /** */
-  @JsonProperty("dark_mode_icon_file_path")
   private String darkModeIconFilePath;
 
   /** */
-  @JsonProperty("description")
   private String description;
 
   /** */
-  @JsonProperty("icon_file_id")
   private String iconFileId;
 
   /** */
-  @JsonProperty("icon_file_path")
   private String iconFilePath;
 
   /** */
-  @JsonProperty("id")
   private String id;
 
   /** is_featured is accessible by consumers only */
-  @JsonProperty("is_featured")
   private Boolean isFeatured;
 
   /** */
-  @JsonProperty("name")
   private String name;
 
   /** */
-  @JsonProperty("privacy_policy_link")
   private String privacyPolicyLink;
 
   /** published_by is only applicable to data aggregators (e.g. Crux) */
-  @JsonProperty("published_by")
   private String publishedBy;
 
   /** */
-  @JsonProperty("support_contact_email")
   private String supportContactEmail;
 
   /** */
-  @JsonProperty("term_of_service_link")
   private String termOfServiceLink;
 
   public ProviderInfo setBusinessContactEmail(String businessContactEmail) {
@@ -249,5 +246,63 @@ public class ProviderInfo {
         .add("supportContactEmail", supportContactEmail)
         .add("termOfServiceLink", termOfServiceLink)
         .toString();
+  }
+
+  ProviderInfoPb toPb() {
+    ProviderInfoPb pb = new ProviderInfoPb();
+    pb.setBusinessContactEmail(businessContactEmail);
+    pb.setCompanyWebsiteLink(companyWebsiteLink);
+    pb.setDarkModeIconFileId(darkModeIconFileId);
+    pb.setDarkModeIconFilePath(darkModeIconFilePath);
+    pb.setDescription(description);
+    pb.setIconFileId(iconFileId);
+    pb.setIconFilePath(iconFilePath);
+    pb.setId(id);
+    pb.setIsFeatured(isFeatured);
+    pb.setName(name);
+    pb.setPrivacyPolicyLink(privacyPolicyLink);
+    pb.setPublishedBy(publishedBy);
+    pb.setSupportContactEmail(supportContactEmail);
+    pb.setTermOfServiceLink(termOfServiceLink);
+
+    return pb;
+  }
+
+  static ProviderInfo fromPb(ProviderInfoPb pb) {
+    ProviderInfo model = new ProviderInfo();
+    model.setBusinessContactEmail(pb.getBusinessContactEmail());
+    model.setCompanyWebsiteLink(pb.getCompanyWebsiteLink());
+    model.setDarkModeIconFileId(pb.getDarkModeIconFileId());
+    model.setDarkModeIconFilePath(pb.getDarkModeIconFilePath());
+    model.setDescription(pb.getDescription());
+    model.setIconFileId(pb.getIconFileId());
+    model.setIconFilePath(pb.getIconFilePath());
+    model.setId(pb.getId());
+    model.setIsFeatured(pb.getIsFeatured());
+    model.setName(pb.getName());
+    model.setPrivacyPolicyLink(pb.getPrivacyPolicyLink());
+    model.setPublishedBy(pb.getPublishedBy());
+    model.setSupportContactEmail(pb.getSupportContactEmail());
+    model.setTermOfServiceLink(pb.getTermOfServiceLink());
+
+    return model;
+  }
+
+  public static class ProviderInfoSerializer extends JsonSerializer<ProviderInfo> {
+    @Override
+    public void serialize(ProviderInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ProviderInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ProviderInfoDeserializer extends JsonDeserializer<ProviderInfo> {
+    @Override
+    public ProviderInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ProviderInfoPb pb = mapper.readValue(p, ProviderInfoPb.class);
+      return ProviderInfo.fromPb(pb);
+    }
   }
 }

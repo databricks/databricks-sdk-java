@@ -3,25 +3,31 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List Volumes */
 @Generated
+@JsonSerialize(using = ListVolumesRequest.ListVolumesRequestSerializer.class)
+@JsonDeserialize(using = ListVolumesRequest.ListVolumesRequestDeserializer.class)
 public class ListVolumesRequest {
   /** The identifier of the catalog */
-  @JsonIgnore
-  @QueryParam("catalog_name")
   private String catalogName;
 
   /**
    * Whether to include volumes in the response for which the principal can only access selective
    * metadata for
    */
-  @JsonIgnore
-  @QueryParam("include_browse")
   private Boolean includeBrowse;
 
   /**
@@ -37,21 +43,15 @@ public class ListVolumesRequest {
    * number of volumes returned in a page may be smaller than this value, including 0, even if there
    * are more pages.
    */
-  @JsonIgnore
-  @QueryParam("max_results")
   private Long maxResults;
 
   /**
    * Opaque token returned by a previous request. It must be included in the request to retrieve the
    * next page of results (pagination).
    */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   /** The identifier of the schema */
-  @JsonIgnore
-  @QueryParam("schema_name")
   private String schemaName;
 
   public ListVolumesRequest setCatalogName(String catalogName) {
@@ -125,5 +125,46 @@ public class ListVolumesRequest {
         .add("pageToken", pageToken)
         .add("schemaName", schemaName)
         .toString();
+  }
+
+  ListVolumesRequestPb toPb() {
+    ListVolumesRequestPb pb = new ListVolumesRequestPb();
+    pb.setCatalogName(catalogName);
+    pb.setIncludeBrowse(includeBrowse);
+    pb.setMaxResults(maxResults);
+    pb.setPageToken(pageToken);
+    pb.setSchemaName(schemaName);
+
+    return pb;
+  }
+
+  static ListVolumesRequest fromPb(ListVolumesRequestPb pb) {
+    ListVolumesRequest model = new ListVolumesRequest();
+    model.setCatalogName(pb.getCatalogName());
+    model.setIncludeBrowse(pb.getIncludeBrowse());
+    model.setMaxResults(pb.getMaxResults());
+    model.setPageToken(pb.getPageToken());
+    model.setSchemaName(pb.getSchemaName());
+
+    return model;
+  }
+
+  public static class ListVolumesRequestSerializer extends JsonSerializer<ListVolumesRequest> {
+    @Override
+    public void serialize(ListVolumesRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListVolumesRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListVolumesRequestDeserializer extends JsonDeserializer<ListVolumesRequest> {
+    @Override
+    public ListVolumesRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListVolumesRequestPb pb = mapper.readValue(p, ListVolumesRequestPb.class);
+      return ListVolumesRequest.fromPb(pb);
+    }
   }
 }

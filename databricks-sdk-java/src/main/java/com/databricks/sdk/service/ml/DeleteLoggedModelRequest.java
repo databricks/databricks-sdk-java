@@ -4,14 +4,25 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Delete a logged model */
 @Generated
+@JsonSerialize(using = DeleteLoggedModelRequest.DeleteLoggedModelRequestSerializer.class)
+@JsonDeserialize(using = DeleteLoggedModelRequest.DeleteLoggedModelRequestDeserializer.class)
 public class DeleteLoggedModelRequest {
   /** The ID of the logged model to delete. */
-  @JsonIgnore private String modelId;
+  private String modelId;
 
   public DeleteLoggedModelRequest setModelId(String modelId) {
     this.modelId = modelId;
@@ -38,5 +49,41 @@ public class DeleteLoggedModelRequest {
   @Override
   public String toString() {
     return new ToStringer(DeleteLoggedModelRequest.class).add("modelId", modelId).toString();
+  }
+
+  DeleteLoggedModelRequestPb toPb() {
+    DeleteLoggedModelRequestPb pb = new DeleteLoggedModelRequestPb();
+    pb.setModelId(modelId);
+
+    return pb;
+  }
+
+  static DeleteLoggedModelRequest fromPb(DeleteLoggedModelRequestPb pb) {
+    DeleteLoggedModelRequest model = new DeleteLoggedModelRequest();
+    model.setModelId(pb.getModelId());
+
+    return model;
+  }
+
+  public static class DeleteLoggedModelRequestSerializer
+      extends JsonSerializer<DeleteLoggedModelRequest> {
+    @Override
+    public void serialize(
+        DeleteLoggedModelRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DeleteLoggedModelRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DeleteLoggedModelRequestDeserializer
+      extends JsonDeserializer<DeleteLoggedModelRequest> {
+    @Override
+    public DeleteLoggedModelRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DeleteLoggedModelRequestPb pb = mapper.readValue(p, DeleteLoggedModelRequestPb.class);
+      return DeleteLoggedModelRequest.fromPb(pb);
+    }
   }
 }

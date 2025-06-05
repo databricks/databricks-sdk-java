@@ -3,25 +3,31 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** List functions */
 @Generated
+@JsonSerialize(using = ListFunctionsRequest.ListFunctionsRequestSerializer.class)
+@JsonDeserialize(using = ListFunctionsRequest.ListFunctionsRequestDeserializer.class)
 public class ListFunctionsRequest {
   /** Name of parent catalog for functions of interest. */
-  @JsonIgnore
-  @QueryParam("catalog_name")
   private String catalogName;
 
   /**
    * Whether to include functions in the response for which the principal can only access selective
    * metadata for
    */
-  @JsonIgnore
-  @QueryParam("include_browse")
   private Boolean includeBrowse;
 
   /**
@@ -31,18 +37,12 @@ public class ListFunctionsRequest {
    * configured value (recommended); - when set to a value less than 0, an invalid parameter error
    * is returned;
    */
-  @JsonIgnore
-  @QueryParam("max_results")
   private Long maxResults;
 
   /** Opaque pagination token to go to next page based on previous query. */
-  @JsonIgnore
-  @QueryParam("page_token")
   private String pageToken;
 
   /** Parent schema of functions. */
-  @JsonIgnore
-  @QueryParam("schema_name")
   private String schemaName;
 
   public ListFunctionsRequest setCatalogName(String catalogName) {
@@ -116,5 +116,48 @@ public class ListFunctionsRequest {
         .add("pageToken", pageToken)
         .add("schemaName", schemaName)
         .toString();
+  }
+
+  ListFunctionsRequestPb toPb() {
+    ListFunctionsRequestPb pb = new ListFunctionsRequestPb();
+    pb.setCatalogName(catalogName);
+    pb.setIncludeBrowse(includeBrowse);
+    pb.setMaxResults(maxResults);
+    pb.setPageToken(pageToken);
+    pb.setSchemaName(schemaName);
+
+    return pb;
+  }
+
+  static ListFunctionsRequest fromPb(ListFunctionsRequestPb pb) {
+    ListFunctionsRequest model = new ListFunctionsRequest();
+    model.setCatalogName(pb.getCatalogName());
+    model.setIncludeBrowse(pb.getIncludeBrowse());
+    model.setMaxResults(pb.getMaxResults());
+    model.setPageToken(pb.getPageToken());
+    model.setSchemaName(pb.getSchemaName());
+
+    return model;
+  }
+
+  public static class ListFunctionsRequestSerializer extends JsonSerializer<ListFunctionsRequest> {
+    @Override
+    public void serialize(
+        ListFunctionsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      ListFunctionsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class ListFunctionsRequestDeserializer
+      extends JsonDeserializer<ListFunctionsRequest> {
+    @Override
+    public ListFunctionsRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      ListFunctionsRequestPb pb = mapper.readValue(p, ListFunctionsRequestPb.class);
+      return ListFunctionsRequest.fromPb(pb);
+    }
   }
 }

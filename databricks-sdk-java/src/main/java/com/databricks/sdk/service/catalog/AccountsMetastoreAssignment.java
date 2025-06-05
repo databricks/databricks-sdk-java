@@ -4,13 +4,23 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = AccountsMetastoreAssignment.AccountsMetastoreAssignmentSerializer.class)
+@JsonDeserialize(using = AccountsMetastoreAssignment.AccountsMetastoreAssignmentDeserializer.class)
 public class AccountsMetastoreAssignment {
   /** */
-  @JsonProperty("metastore_assignment")
   private MetastoreAssignment metastoreAssignment;
 
   public AccountsMetastoreAssignment setMetastoreAssignment(
@@ -41,5 +51,41 @@ public class AccountsMetastoreAssignment {
     return new ToStringer(AccountsMetastoreAssignment.class)
         .add("metastoreAssignment", metastoreAssignment)
         .toString();
+  }
+
+  AccountsMetastoreAssignmentPb toPb() {
+    AccountsMetastoreAssignmentPb pb = new AccountsMetastoreAssignmentPb();
+    pb.setMetastoreAssignment(metastoreAssignment);
+
+    return pb;
+  }
+
+  static AccountsMetastoreAssignment fromPb(AccountsMetastoreAssignmentPb pb) {
+    AccountsMetastoreAssignment model = new AccountsMetastoreAssignment();
+    model.setMetastoreAssignment(pb.getMetastoreAssignment());
+
+    return model;
+  }
+
+  public static class AccountsMetastoreAssignmentSerializer
+      extends JsonSerializer<AccountsMetastoreAssignment> {
+    @Override
+    public void serialize(
+        AccountsMetastoreAssignment value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      AccountsMetastoreAssignmentPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class AccountsMetastoreAssignmentDeserializer
+      extends JsonDeserializer<AccountsMetastoreAssignment> {
+    @Override
+    public AccountsMetastoreAssignment deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      AccountsMetastoreAssignmentPb pb = mapper.readValue(p, AccountsMetastoreAssignmentPb.class);
+      return AccountsMetastoreAssignment.fromPb(pb);
+    }
   }
 }

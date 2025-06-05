@@ -4,11 +4,22 @@ package com.databricks.sdk.service.database;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Next field marker: 13 */
 @Generated
+@JsonSerialize(using = DatabaseTable.DatabaseTableSerializer.class)
+@JsonDeserialize(using = DatabaseTable.DatabaseTableDeserializer.class)
 public class DatabaseTable {
   /**
    * Name of the target database instance. This is required when creating database tables in
@@ -16,7 +27,6 @@ public class DatabaseTable {
    * this field is specified when creating database tables in registered catalogs, the database
    * instance name MUST match that of the registered catalog (or the request will be rejected).
    */
-  @JsonProperty("database_instance_name")
   private String databaseInstanceName;
 
   /**
@@ -33,15 +43,12 @@ public class DatabaseTable {
    * arbitrary postgres database. Note that this has implications for the
    * `create_database_objects_is_missing` field in `spec`.
    */
-  @JsonProperty("logical_database_name")
   private String logicalDatabaseName;
 
   /** Full three-part (catalog, schema, table) name of the table. */
-  @JsonProperty("name")
   private String name;
 
   /** Data serving REST API URL for this table */
-  @JsonProperty("table_serving_url")
   private String tableServingUrl;
 
   public DatabaseTable setDatabaseInstanceName(String databaseInstanceName) {
@@ -104,5 +111,43 @@ public class DatabaseTable {
         .add("name", name)
         .add("tableServingUrl", tableServingUrl)
         .toString();
+  }
+
+  DatabaseTablePb toPb() {
+    DatabaseTablePb pb = new DatabaseTablePb();
+    pb.setDatabaseInstanceName(databaseInstanceName);
+    pb.setLogicalDatabaseName(logicalDatabaseName);
+    pb.setName(name);
+    pb.setTableServingUrl(tableServingUrl);
+
+    return pb;
+  }
+
+  static DatabaseTable fromPb(DatabaseTablePb pb) {
+    DatabaseTable model = new DatabaseTable();
+    model.setDatabaseInstanceName(pb.getDatabaseInstanceName());
+    model.setLogicalDatabaseName(pb.getLogicalDatabaseName());
+    model.setName(pb.getName());
+    model.setTableServingUrl(pb.getTableServingUrl());
+
+    return model;
+  }
+
+  public static class DatabaseTableSerializer extends JsonSerializer<DatabaseTable> {
+    @Override
+    public void serialize(DatabaseTable value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      DatabaseTablePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class DatabaseTableDeserializer extends JsonDeserializer<DatabaseTable> {
+    @Override
+    public DatabaseTable deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      DatabaseTablePb pb = mapper.readValue(p, DatabaseTablePb.class);
+      return DatabaseTable.fromPb(pb);
+    }
   }
 }

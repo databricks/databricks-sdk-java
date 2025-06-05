@@ -4,20 +4,31 @@ package com.databricks.sdk.service.cleanrooms;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Get an asset */
 @Generated
+@JsonSerialize(using = GetCleanRoomAssetRequest.GetCleanRoomAssetRequestSerializer.class)
+@JsonDeserialize(using = GetCleanRoomAssetRequest.GetCleanRoomAssetRequestDeserializer.class)
 public class GetCleanRoomAssetRequest {
   /** The type of the asset. */
-  @JsonIgnore private CleanRoomAssetAssetType assetType;
+  private CleanRoomAssetAssetType assetType;
 
   /** Name of the clean room. */
-  @JsonIgnore private String cleanRoomName;
+  private String cleanRoomName;
 
   /** The fully qualified name of the asset, it is same as the name field in CleanRoomAsset. */
-  @JsonIgnore private String name;
+  private String name;
 
   public GetCleanRoomAssetRequest setAssetType(CleanRoomAssetAssetType assetType) {
     this.assetType = assetType;
@@ -68,5 +79,45 @@ public class GetCleanRoomAssetRequest {
         .add("cleanRoomName", cleanRoomName)
         .add("name", name)
         .toString();
+  }
+
+  GetCleanRoomAssetRequestPb toPb() {
+    GetCleanRoomAssetRequestPb pb = new GetCleanRoomAssetRequestPb();
+    pb.setAssetType(assetType);
+    pb.setCleanRoomName(cleanRoomName);
+    pb.setName(name);
+
+    return pb;
+  }
+
+  static GetCleanRoomAssetRequest fromPb(GetCleanRoomAssetRequestPb pb) {
+    GetCleanRoomAssetRequest model = new GetCleanRoomAssetRequest();
+    model.setAssetType(pb.getAssetType());
+    model.setCleanRoomName(pb.getCleanRoomName());
+    model.setName(pb.getName());
+
+    return model;
+  }
+
+  public static class GetCleanRoomAssetRequestSerializer
+      extends JsonSerializer<GetCleanRoomAssetRequest> {
+    @Override
+    public void serialize(
+        GetCleanRoomAssetRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetCleanRoomAssetRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetCleanRoomAssetRequestDeserializer
+      extends JsonDeserializer<GetCleanRoomAssetRequest> {
+    @Override
+    public GetCleanRoomAssetRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetCleanRoomAssetRequestPb pb = mapper.readValue(p, GetCleanRoomAssetRequestPb.class);
+      return GetCleanRoomAssetRequest.fromPb(pb);
+    }
   }
 }

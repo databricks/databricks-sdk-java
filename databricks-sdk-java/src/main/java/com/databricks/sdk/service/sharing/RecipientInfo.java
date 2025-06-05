@@ -4,47 +4,51 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = RecipientInfo.RecipientInfoSerializer.class)
+@JsonDeserialize(using = RecipientInfo.RecipientInfoDeserializer.class)
 public class RecipientInfo {
   /**
    * A boolean status field showing whether the Recipient's activation URL has been exercised or
    * not.
    */
-  @JsonProperty("activated")
   private Boolean activated;
 
   /**
    * Full activation url to retrieve the access token. It will be empty if the token is already
    * retrieved.
    */
-  @JsonProperty("activation_url")
   private String activationUrl;
 
   /** The delta sharing authentication type. */
-  @JsonProperty("authentication_type")
   private AuthenticationType authenticationType;
 
   /**
    * Cloud vendor of the recipient's Unity Catalog Metastore. This field is only present when the
    * __authentication_type__ is **DATABRICKS**.
    */
-  @JsonProperty("cloud")
   private String cloud;
 
   /** Description about the recipient. */
-  @JsonProperty("comment")
   private String comment;
 
   /** Time at which this recipient was created, in epoch milliseconds. */
-  @JsonProperty("created_at")
   private Long createdAt;
 
   /** Username of recipient creator. */
-  @JsonProperty("created_by")
   private String createdBy;
 
   /**
@@ -52,30 +56,24 @@ public class RecipientInfo {
    * present when the __authentication_type__ is **DATABRICKS**. The identifier is of format
    * __cloud__:__region__:__metastore-uuid__.
    */
-  @JsonProperty("data_recipient_global_metastore_id")
   private String dataRecipientGlobalMetastoreId;
 
   /** Expiration timestamp of the token, in epoch milliseconds. */
-  @JsonProperty("expiration_time")
   private Long expirationTime;
 
   /** IP Access List */
-  @JsonProperty("ip_access_list")
   private IpAccessList ipAccessList;
 
   /**
    * Unique identifier of recipient's Unity Catalog Metastore. This field is only present when the
    * __authentication_type__ is **DATABRICKS**.
    */
-  @JsonProperty("metastore_id")
   private String metastoreId;
 
   /** Name of Recipient. */
-  @JsonProperty("name")
   private String name;
 
   /** Username of the recipient owner. */
-  @JsonProperty("owner")
   private String owner;
 
   /**
@@ -83,33 +81,27 @@ public class RecipientInfo {
    * specified properties will override the existing properties. To add and remove properties, one
    * would need to perform a read-modify-write.
    */
-  @JsonProperty("properties_kvpairs")
   private SecurablePropertiesKvPairs propertiesKvpairs;
 
   /**
    * Cloud region of the recipient's Unity Catalog Metastore. This field is only present when the
    * __authentication_type__ is **DATABRICKS**.
    */
-  @JsonProperty("region")
   private String region;
 
   /**
    * The one-time sharing code provided by the data recipient. This field is only present when the
    * __authentication_type__ is **DATABRICKS**.
    */
-  @JsonProperty("sharing_code")
   private String sharingCode;
 
   /** This field is only present when the __authentication_type__ is **TOKEN**. */
-  @JsonProperty("tokens")
   private Collection<RecipientTokenInfo> tokens;
 
   /** Time at which the recipient was updated, in epoch milliseconds. */
-  @JsonProperty("updated_at")
   private Long updatedAt;
 
   /** Username of recipient updater. */
-  @JsonProperty("updated_by")
   private String updatedBy;
 
   public RecipientInfo setActivated(Boolean activated) {
@@ -356,5 +348,73 @@ public class RecipientInfo {
         .add("updatedAt", updatedAt)
         .add("updatedBy", updatedBy)
         .toString();
+  }
+
+  RecipientInfoPb toPb() {
+    RecipientInfoPb pb = new RecipientInfoPb();
+    pb.setActivated(activated);
+    pb.setActivationUrl(activationUrl);
+    pb.setAuthenticationType(authenticationType);
+    pb.setCloud(cloud);
+    pb.setComment(comment);
+    pb.setCreatedAt(createdAt);
+    pb.setCreatedBy(createdBy);
+    pb.setDataRecipientGlobalMetastoreId(dataRecipientGlobalMetastoreId);
+    pb.setExpirationTime(expirationTime);
+    pb.setIpAccessList(ipAccessList);
+    pb.setMetastoreId(metastoreId);
+    pb.setName(name);
+    pb.setOwner(owner);
+    pb.setPropertiesKvpairs(propertiesKvpairs);
+    pb.setRegion(region);
+    pb.setSharingCode(sharingCode);
+    pb.setTokens(tokens);
+    pb.setUpdatedAt(updatedAt);
+    pb.setUpdatedBy(updatedBy);
+
+    return pb;
+  }
+
+  static RecipientInfo fromPb(RecipientInfoPb pb) {
+    RecipientInfo model = new RecipientInfo();
+    model.setActivated(pb.getActivated());
+    model.setActivationUrl(pb.getActivationUrl());
+    model.setAuthenticationType(pb.getAuthenticationType());
+    model.setCloud(pb.getCloud());
+    model.setComment(pb.getComment());
+    model.setCreatedAt(pb.getCreatedAt());
+    model.setCreatedBy(pb.getCreatedBy());
+    model.setDataRecipientGlobalMetastoreId(pb.getDataRecipientGlobalMetastoreId());
+    model.setExpirationTime(pb.getExpirationTime());
+    model.setIpAccessList(pb.getIpAccessList());
+    model.setMetastoreId(pb.getMetastoreId());
+    model.setName(pb.getName());
+    model.setOwner(pb.getOwner());
+    model.setPropertiesKvpairs(pb.getPropertiesKvpairs());
+    model.setRegion(pb.getRegion());
+    model.setSharingCode(pb.getSharingCode());
+    model.setTokens(pb.getTokens());
+    model.setUpdatedAt(pb.getUpdatedAt());
+    model.setUpdatedBy(pb.getUpdatedBy());
+
+    return model;
+  }
+
+  public static class RecipientInfoSerializer extends JsonSerializer<RecipientInfo> {
+    @Override
+    public void serialize(RecipientInfo value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      RecipientInfoPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class RecipientInfoDeserializer extends JsonDeserializer<RecipientInfo> {
+    @Override
+    public RecipientInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      RecipientInfoPb pb = mapper.readValue(p, RecipientInfoPb.class);
+      return RecipientInfo.fromPb(pb);
+    }
   }
 }

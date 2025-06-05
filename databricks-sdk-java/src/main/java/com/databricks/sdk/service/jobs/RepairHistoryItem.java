@@ -4,11 +4,22 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = RepairHistoryItem.RepairHistoryItemSerializer.class)
+@JsonDeserialize(using = RepairHistoryItem.RepairHistoryItemDeserializer.class)
 public class RepairHistoryItem {
   /**
    * The actual performance target used by the serverless run during execution. This can differ from
@@ -19,37 +30,29 @@ public class RepairHistoryItem {
    * `PERFORMANCE_OPTIMIZED`: Prioritizes fast startup and execution times through rapid scaling and
    * optimized cluster performance.
    */
-  @JsonProperty("effective_performance_target")
   private PerformanceTarget effectivePerformanceTarget;
 
   /** The end time of the (repaired) run. */
-  @JsonProperty("end_time")
   private Long endTime;
 
   /**
    * The ID of the repair. Only returned for the items that represent a repair in `repair_history`.
    */
-  @JsonProperty("id")
   private Long id;
 
   /** The start time of the (repaired) run. */
-  @JsonProperty("start_time")
   private Long startTime;
 
   /** Deprecated. Please use the `status` field instead. */
-  @JsonProperty("state")
   private RunState state;
 
   /** The current status of the run */
-  @JsonProperty("status")
   private RunStatus status;
 
   /** The run IDs of the task runs that ran as part of this repair history item. */
-  @JsonProperty("task_run_ids")
   private Collection<Long> taskRunIds;
 
   /** The repair history item type. Indicates whether a run is the original run or a repair run. */
-  @JsonProperty("type")
   private RepairHistoryItemType typeValue;
 
   public RepairHistoryItem setEffectivePerformanceTarget(
@@ -158,5 +161,52 @@ public class RepairHistoryItem {
         .add("taskRunIds", taskRunIds)
         .add("typeValue", typeValue)
         .toString();
+  }
+
+  RepairHistoryItemPb toPb() {
+    RepairHistoryItemPb pb = new RepairHistoryItemPb();
+    pb.setEffectivePerformanceTarget(effectivePerformanceTarget);
+    pb.setEndTime(endTime);
+    pb.setId(id);
+    pb.setStartTime(startTime);
+    pb.setState(state);
+    pb.setStatus(status);
+    pb.setTaskRunIds(taskRunIds);
+    pb.setType(typeValue);
+
+    return pb;
+  }
+
+  static RepairHistoryItem fromPb(RepairHistoryItemPb pb) {
+    RepairHistoryItem model = new RepairHistoryItem();
+    model.setEffectivePerformanceTarget(pb.getEffectivePerformanceTarget());
+    model.setEndTime(pb.getEndTime());
+    model.setId(pb.getId());
+    model.setStartTime(pb.getStartTime());
+    model.setState(pb.getState());
+    model.setStatus(pb.getStatus());
+    model.setTaskRunIds(pb.getTaskRunIds());
+    model.setType(pb.getType());
+
+    return model;
+  }
+
+  public static class RepairHistoryItemSerializer extends JsonSerializer<RepairHistoryItem> {
+    @Override
+    public void serialize(RepairHistoryItem value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      RepairHistoryItemPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class RepairHistoryItemDeserializer extends JsonDeserializer<RepairHistoryItem> {
+    @Override
+    public RepairHistoryItem deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      RepairHistoryItemPb pb = mapper.readValue(p, RepairHistoryItemPb.class);
+      return RepairHistoryItem.fromPb(pb);
+    }
   }
 }

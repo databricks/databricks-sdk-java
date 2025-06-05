@@ -21,7 +21,7 @@ class ProviderExchangesImpl implements ProviderExchangesService {
     String path = "/api/2.0/marketplace-exchange/exchanges-for-listing";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, AddExchangeForListingResponse.class);
@@ -35,7 +35,7 @@ class ProviderExchangesImpl implements ProviderExchangesService {
     String path = "/api/2.0/marketplace-exchange/exchanges";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, CreateExchangeResponse.class);
@@ -49,7 +49,7 @@ class ProviderExchangesImpl implements ProviderExchangesService {
     String path = String.format("/api/2.0/marketplace-exchange/exchanges/%s", request.getId());
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, DeleteExchangeResponse.class);
     } catch (IOException e) {
@@ -63,7 +63,7 @@ class ProviderExchangesImpl implements ProviderExchangesService {
         String.format("/api/2.0/marketplace-exchange/exchanges-for-listing/%s", request.getId());
     try {
       Request req = new Request("DELETE", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, RemoveExchangeForListingResponse.class);
     } catch (IOException e) {
@@ -76,7 +76,7 @@ class ProviderExchangesImpl implements ProviderExchangesService {
     String path = String.format("/api/2.0/marketplace-exchange/exchanges/%s", request.getId());
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetExchangeResponse.class);
     } catch (IOException e) {
@@ -89,7 +89,7 @@ class ProviderExchangesImpl implements ProviderExchangesService {
     String path = "/api/2.0/marketplace-exchange/exchanges";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListExchangesResponse.class);
     } catch (IOException e) {
@@ -103,7 +103,7 @@ class ProviderExchangesImpl implements ProviderExchangesService {
     String path = "/api/2.0/marketplace-exchange/exchanges-for-listing";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListExchangesForListingResponse.class);
     } catch (IOException e) {
@@ -117,7 +117,7 @@ class ProviderExchangesImpl implements ProviderExchangesService {
     String path = "/api/2.0/marketplace-exchange/listings-for-exchange";
     try {
       Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListListingsForExchangeResponse.class);
     } catch (IOException e) {
@@ -130,7 +130,7 @@ class ProviderExchangesImpl implements ProviderExchangesService {
     String path = String.format("/api/2.0/marketplace-exchange/exchanges/%s", request.getId());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
+      ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, UpdateExchangeResponse.class);

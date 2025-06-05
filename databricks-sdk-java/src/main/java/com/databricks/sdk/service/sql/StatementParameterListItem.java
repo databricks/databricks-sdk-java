@@ -4,13 +4,23 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = StatementParameterListItem.StatementParameterListItemSerializer.class)
+@JsonDeserialize(using = StatementParameterListItem.StatementParameterListItemDeserializer.class)
 public class StatementParameterListItem {
   /** The name of a parameter marker to be substituted in the statement. */
-  @JsonProperty("name")
   private String name;
 
   /**
@@ -21,13 +31,11 @@ public class StatementParameterListItem {
    *
    * <p>[Data types]: https://docs.databricks.com/sql/language-manual/functions/cast.html
    */
-  @JsonProperty("type")
   private String typeValue;
 
   /**
    * The value to substitute, represented as a string. If omitted, the value is interpreted as NULL.
    */
-  @JsonProperty("value")
   private String value;
 
   public StatementParameterListItem setName(String name) {
@@ -79,5 +87,45 @@ public class StatementParameterListItem {
         .add("typeValue", typeValue)
         .add("value", value)
         .toString();
+  }
+
+  StatementParameterListItemPb toPb() {
+    StatementParameterListItemPb pb = new StatementParameterListItemPb();
+    pb.setName(name);
+    pb.setType(typeValue);
+    pb.setValue(value);
+
+    return pb;
+  }
+
+  static StatementParameterListItem fromPb(StatementParameterListItemPb pb) {
+    StatementParameterListItem model = new StatementParameterListItem();
+    model.setName(pb.getName());
+    model.setType(pb.getType());
+    model.setValue(pb.getValue());
+
+    return model;
+  }
+
+  public static class StatementParameterListItemSerializer
+      extends JsonSerializer<StatementParameterListItem> {
+    @Override
+    public void serialize(
+        StatementParameterListItem value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      StatementParameterListItemPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class StatementParameterListItemDeserializer
+      extends JsonDeserializer<StatementParameterListItem> {
+    @Override
+    public StatementParameterListItem deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      StatementParameterListItemPb pb = mapper.readValue(p, StatementParameterListItemPb.class);
+      return StatementParameterListItem.fromPb(pb);
+    }
   }
 }

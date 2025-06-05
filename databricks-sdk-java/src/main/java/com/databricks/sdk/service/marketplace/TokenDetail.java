@@ -4,28 +4,35 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = TokenDetail.TokenDetailSerializer.class)
+@JsonDeserialize(using = TokenDetail.TokenDetailDeserializer.class)
 public class TokenDetail {
   /** */
-  @JsonProperty("bearerToken")
   private String bearerToken;
 
   /** */
-  @JsonProperty("endpoint")
   private String endpoint;
 
   /** */
-  @JsonProperty("expirationTime")
   private String expirationTime;
 
   /**
    * These field names must follow the delta sharing protocol. Original message:
    * RetrieveToken.Response in managed-catalog/api/messages/recipient.proto
    */
-  @JsonProperty("shareCredentialsVersion")
   private Long shareCredentialsVersion;
 
   public TokenDetail setBearerToken(String bearerToken) {
@@ -88,5 +95,43 @@ public class TokenDetail {
         .add("expirationTime", expirationTime)
         .add("shareCredentialsVersion", shareCredentialsVersion)
         .toString();
+  }
+
+  TokenDetailPb toPb() {
+    TokenDetailPb pb = new TokenDetailPb();
+    pb.setBearerToken(bearerToken);
+    pb.setEndpoint(endpoint);
+    pb.setExpirationTime(expirationTime);
+    pb.setShareCredentialsVersion(shareCredentialsVersion);
+
+    return pb;
+  }
+
+  static TokenDetail fromPb(TokenDetailPb pb) {
+    TokenDetail model = new TokenDetail();
+    model.setBearerToken(pb.getBearerToken());
+    model.setEndpoint(pb.getEndpoint());
+    model.setExpirationTime(pb.getExpirationTime());
+    model.setShareCredentialsVersion(pb.getShareCredentialsVersion());
+
+    return model;
+  }
+
+  public static class TokenDetailSerializer extends JsonSerializer<TokenDetail> {
+    @Override
+    public void serialize(TokenDetail value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      TokenDetailPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class TokenDetailDeserializer extends JsonDeserializer<TokenDetail> {
+    @Override
+    public TokenDetail deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      TokenDetailPb pb = mapper.readValue(p, TokenDetailPb.class);
+      return TokenDetail.fromPb(pb);
+    }
   }
 }

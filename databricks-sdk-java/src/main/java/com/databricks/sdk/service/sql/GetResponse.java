@@ -4,22 +4,30 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = GetResponse.GetResponseSerializer.class)
+@JsonDeserialize(using = GetResponse.GetResponseDeserializer.class)
 public class GetResponse {
   /** */
-  @JsonProperty("access_control_list")
   private Collection<AccessControl> accessControlList;
 
   /** An object's type and UUID, separated by a forward slash (/) character. */
-  @JsonProperty("object_id")
   private String objectId;
 
   /** A singular noun object type. */
-  @JsonProperty("object_type")
   private ObjectType objectType;
 
   public GetResponse setAccessControlList(Collection<AccessControl> accessControlList) {
@@ -71,5 +79,41 @@ public class GetResponse {
         .add("objectId", objectId)
         .add("objectType", objectType)
         .toString();
+  }
+
+  GetResponsePb toPb() {
+    GetResponsePb pb = new GetResponsePb();
+    pb.setAccessControlList(accessControlList);
+    pb.setObjectId(objectId);
+    pb.setObjectType(objectType);
+
+    return pb;
+  }
+
+  static GetResponse fromPb(GetResponsePb pb) {
+    GetResponse model = new GetResponse();
+    model.setAccessControlList(pb.getAccessControlList());
+    model.setObjectId(pb.getObjectId());
+    model.setObjectType(pb.getObjectType());
+
+    return model;
+  }
+
+  public static class GetResponseSerializer extends JsonSerializer<GetResponse> {
+    @Override
+    public void serialize(GetResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      GetResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class GetResponseDeserializer extends JsonDeserializer<GetResponse> {
+    @Override
+    public GetResponse deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      GetResponsePb pb = mapper.readValue(p, GetResponsePb.class);
+      return GetResponse.fromPb(pb);
+    }
   }
 }

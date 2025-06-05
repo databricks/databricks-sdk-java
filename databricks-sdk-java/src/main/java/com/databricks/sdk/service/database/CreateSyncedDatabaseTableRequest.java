@@ -4,14 +4,26 @@ package com.databricks.sdk.service.database;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 /** Create a Synced Database Table */
 @Generated
+@JsonSerialize(
+    using = CreateSyncedDatabaseTableRequest.CreateSyncedDatabaseTableRequestSerializer.class)
+@JsonDeserialize(
+    using = CreateSyncedDatabaseTableRequest.CreateSyncedDatabaseTableRequestDeserializer.class)
 public class CreateSyncedDatabaseTableRequest {
   /** Next field marker: 12 */
-  @JsonProperty("synced_table")
   private SyncedDatabaseTable syncedTable;
 
   public CreateSyncedDatabaseTableRequest setSyncedTable(SyncedDatabaseTable syncedTable) {
@@ -41,5 +53,42 @@ public class CreateSyncedDatabaseTableRequest {
     return new ToStringer(CreateSyncedDatabaseTableRequest.class)
         .add("syncedTable", syncedTable)
         .toString();
+  }
+
+  CreateSyncedDatabaseTableRequestPb toPb() {
+    CreateSyncedDatabaseTableRequestPb pb = new CreateSyncedDatabaseTableRequestPb();
+    pb.setSyncedTable(syncedTable);
+
+    return pb;
+  }
+
+  static CreateSyncedDatabaseTableRequest fromPb(CreateSyncedDatabaseTableRequestPb pb) {
+    CreateSyncedDatabaseTableRequest model = new CreateSyncedDatabaseTableRequest();
+    model.setSyncedTable(pb.getSyncedTable());
+
+    return model;
+  }
+
+  public static class CreateSyncedDatabaseTableRequestSerializer
+      extends JsonSerializer<CreateSyncedDatabaseTableRequest> {
+    @Override
+    public void serialize(
+        CreateSyncedDatabaseTableRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CreateSyncedDatabaseTableRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CreateSyncedDatabaseTableRequestDeserializer
+      extends JsonDeserializer<CreateSyncedDatabaseTableRequest> {
+    @Override
+    public CreateSyncedDatabaseTableRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CreateSyncedDatabaseTableRequestPb pb =
+          mapper.readValue(p, CreateSyncedDatabaseTableRequestPb.class);
+      return CreateSyncedDatabaseTableRequest.fromPb(pb);
+    }
   }
 }

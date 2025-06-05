@@ -4,14 +4,24 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = AlertQuery.AlertQuerySerializer.class)
+@JsonDeserialize(using = AlertQuery.AlertQueryDeserializer.class)
 public class AlertQuery {
   /** The timestamp when this query was created. */
-  @JsonProperty("created_at")
   private String createdAt;
 
   /**
@@ -20,17 +30,14 @@ public class AlertQuery {
    *
    * <p>[Learn more]: https://docs.databricks.com/api/workspace/datasources/list
    */
-  @JsonProperty("data_source_id")
   private String dataSourceId;
 
   /**
    * General description that conveys additional information about this query such as usage notes.
    */
-  @JsonProperty("description")
   private String description;
 
   /** Query ID. */
-  @JsonProperty("id")
   private String id;
 
   /**
@@ -38,14 +45,12 @@ public class AlertQuery {
    * in search results. If this boolean is `true`, the `options` property for this query includes a
    * `moved_to_trash_at` timestamp. Trashed queries are permanently deleted after 30 days.
    */
-  @JsonProperty("is_archived")
   private Boolean isArchived;
 
   /**
    * Whether the query is a draft. Draft queries only appear in list views for their owners.
    * Visualizations from draft queries cannot appear on dashboards.
    */
-  @JsonProperty("is_draft")
   private Boolean isDraft;
 
   /**
@@ -53,31 +58,24 @@ public class AlertQuery {
    * Boolean parameter to `true` if a query either does not use any text type parameters or uses a
    * data source type where text type parameters are handled safely.
    */
-  @JsonProperty("is_safe")
   private Boolean isSafe;
 
   /** The title of this query that appears in list views, widget headings, and on the query page. */
-  @JsonProperty("name")
   private String name;
 
   /** */
-  @JsonProperty("options")
   private QueryOptions options;
 
   /** The text of the query to be run. */
-  @JsonProperty("query")
   private String query;
 
   /** */
-  @JsonProperty("tags")
   private Collection<String> tags;
 
   /** The timestamp at which this query was last updated. */
-  @JsonProperty("updated_at")
   private String updatedAt;
 
   /** The ID of the user who owns the query. */
-  @JsonProperty("user_id")
   private Long userId;
 
   public AlertQuery setCreatedAt(String createdAt) {
@@ -252,5 +250,61 @@ public class AlertQuery {
         .add("updatedAt", updatedAt)
         .add("userId", userId)
         .toString();
+  }
+
+  AlertQueryPb toPb() {
+    AlertQueryPb pb = new AlertQueryPb();
+    pb.setCreatedAt(createdAt);
+    pb.setDataSourceId(dataSourceId);
+    pb.setDescription(description);
+    pb.setId(id);
+    pb.setIsArchived(isArchived);
+    pb.setIsDraft(isDraft);
+    pb.setIsSafe(isSafe);
+    pb.setName(name);
+    pb.setOptions(options);
+    pb.setQuery(query);
+    pb.setTags(tags);
+    pb.setUpdatedAt(updatedAt);
+    pb.setUserId(userId);
+
+    return pb;
+  }
+
+  static AlertQuery fromPb(AlertQueryPb pb) {
+    AlertQuery model = new AlertQuery();
+    model.setCreatedAt(pb.getCreatedAt());
+    model.setDataSourceId(pb.getDataSourceId());
+    model.setDescription(pb.getDescription());
+    model.setId(pb.getId());
+    model.setIsArchived(pb.getIsArchived());
+    model.setIsDraft(pb.getIsDraft());
+    model.setIsSafe(pb.getIsSafe());
+    model.setName(pb.getName());
+    model.setOptions(pb.getOptions());
+    model.setQuery(pb.getQuery());
+    model.setTags(pb.getTags());
+    model.setUpdatedAt(pb.getUpdatedAt());
+    model.setUserId(pb.getUserId());
+
+    return model;
+  }
+
+  public static class AlertQuerySerializer extends JsonSerializer<AlertQuery> {
+    @Override
+    public void serialize(AlertQuery value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      AlertQueryPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class AlertQueryDeserializer extends JsonDeserializer<AlertQuery> {
+    @Override
+    public AlertQuery deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      AlertQueryPb pb = mapper.readValue(p, AlertQueryPb.class);
+      return AlertQuery.fromPb(pb);
+    }
   }
 }

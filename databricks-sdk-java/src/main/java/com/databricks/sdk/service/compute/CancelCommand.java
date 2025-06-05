@@ -4,21 +4,29 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = CancelCommand.CancelCommandSerializer.class)
+@JsonDeserialize(using = CancelCommand.CancelCommandDeserializer.class)
 public class CancelCommand {
   /** */
-  @JsonProperty("clusterId")
   private String clusterId;
 
   /** */
-  @JsonProperty("commandId")
   private String commandId;
 
   /** */
-  @JsonProperty("contextId")
   private String contextId;
 
   public CancelCommand setClusterId(String clusterId) {
@@ -70,5 +78,41 @@ public class CancelCommand {
         .add("commandId", commandId)
         .add("contextId", contextId)
         .toString();
+  }
+
+  CancelCommandPb toPb() {
+    CancelCommandPb pb = new CancelCommandPb();
+    pb.setClusterId(clusterId);
+    pb.setCommandId(commandId);
+    pb.setContextId(contextId);
+
+    return pb;
+  }
+
+  static CancelCommand fromPb(CancelCommandPb pb) {
+    CancelCommand model = new CancelCommand();
+    model.setClusterId(pb.getClusterId());
+    model.setCommandId(pb.getCommandId());
+    model.setContextId(pb.getContextId());
+
+    return model;
+  }
+
+  public static class CancelCommandSerializer extends JsonSerializer<CancelCommand> {
+    @Override
+    public void serialize(CancelCommand value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      CancelCommandPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class CancelCommandDeserializer extends JsonDeserializer<CancelCommand> {
+    @Override
+    public CancelCommand deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      CancelCommandPb pb = mapper.readValue(p, CancelCommandPb.class);
+      return CancelCommand.fromPb(pb);
+    }
   }
 }

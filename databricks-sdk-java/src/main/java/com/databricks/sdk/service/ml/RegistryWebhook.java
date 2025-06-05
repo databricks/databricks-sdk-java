@@ -4,18 +4,27 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = RegistryWebhook.RegistryWebhookSerializer.class)
+@JsonDeserialize(using = RegistryWebhook.RegistryWebhookDeserializer.class)
 public class RegistryWebhook {
   /** Creation time of the object, as a Unix timestamp in milliseconds. */
-  @JsonProperty("creation_timestamp")
   private Long creationTimestamp;
 
   /** User-specified description for the webhook. */
-  @JsonProperty("description")
   private String description;
 
   /**
@@ -49,27 +58,21 @@ public class RegistryWebhook {
    *
    * <p>* `TRANSITION_REQUEST_TO_ARCHIVED_CREATED`: A user requested a model version be archived.
    */
-  @JsonProperty("events")
   private Collection<RegistryWebhookEvent> events;
 
   /** */
-  @JsonProperty("http_url_spec")
   private HttpUrlSpecWithoutSecret httpUrlSpec;
 
   /** Webhook ID */
-  @JsonProperty("id")
   private String id;
 
   /** */
-  @JsonProperty("job_spec")
   private JobSpecWithoutSecret jobSpec;
 
   /** Time of the object at last update, as a Unix timestamp in milliseconds. */
-  @JsonProperty("last_updated_timestamp")
   private Long lastUpdatedTimestamp;
 
   /** Name of the model whose events would trigger this webhook. */
-  @JsonProperty("model_name")
   private String modelName;
 
   /**
@@ -81,7 +84,6 @@ public class RegistryWebhook {
    * <p>* `TEST_MODE`: Webhook can be triggered through the test endpoint, but is not triggered on a
    * real event.
    */
-  @JsonProperty("status")
   private RegistryWebhookStatus status;
 
   public RegistryWebhook setCreationTimestamp(Long creationTimestamp) {
@@ -208,5 +210,54 @@ public class RegistryWebhook {
         .add("modelName", modelName)
         .add("status", status)
         .toString();
+  }
+
+  RegistryWebhookPb toPb() {
+    RegistryWebhookPb pb = new RegistryWebhookPb();
+    pb.setCreationTimestamp(creationTimestamp);
+    pb.setDescription(description);
+    pb.setEvents(events);
+    pb.setHttpUrlSpec(httpUrlSpec);
+    pb.setId(id);
+    pb.setJobSpec(jobSpec);
+    pb.setLastUpdatedTimestamp(lastUpdatedTimestamp);
+    pb.setModelName(modelName);
+    pb.setStatus(status);
+
+    return pb;
+  }
+
+  static RegistryWebhook fromPb(RegistryWebhookPb pb) {
+    RegistryWebhook model = new RegistryWebhook();
+    model.setCreationTimestamp(pb.getCreationTimestamp());
+    model.setDescription(pb.getDescription());
+    model.setEvents(pb.getEvents());
+    model.setHttpUrlSpec(pb.getHttpUrlSpec());
+    model.setId(pb.getId());
+    model.setJobSpec(pb.getJobSpec());
+    model.setLastUpdatedTimestamp(pb.getLastUpdatedTimestamp());
+    model.setModelName(pb.getModelName());
+    model.setStatus(pb.getStatus());
+
+    return model;
+  }
+
+  public static class RegistryWebhookSerializer extends JsonSerializer<RegistryWebhook> {
+    @Override
+    public void serialize(RegistryWebhook value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      RegistryWebhookPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class RegistryWebhookDeserializer extends JsonDeserializer<RegistryWebhook> {
+    @Override
+    public RegistryWebhook deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      RegistryWebhookPb pb = mapper.readValue(p, RegistryWebhookPb.class);
+      return RegistryWebhook.fromPb(pb);
+    }
   }
 }

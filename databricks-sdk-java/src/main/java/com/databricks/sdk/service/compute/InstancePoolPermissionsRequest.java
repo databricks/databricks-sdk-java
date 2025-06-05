@@ -4,19 +4,30 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(
+    using = InstancePoolPermissionsRequest.InstancePoolPermissionsRequestSerializer.class)
+@JsonDeserialize(
+    using = InstancePoolPermissionsRequest.InstancePoolPermissionsRequestDeserializer.class)
 public class InstancePoolPermissionsRequest {
   /** */
-  @JsonProperty("access_control_list")
   private Collection<InstancePoolAccessControlRequest> accessControlList;
 
   /** The instance pool for which to get or manage permissions. */
-  @JsonIgnore private String instancePoolId;
+  private String instancePoolId;
 
   public InstancePoolPermissionsRequest setAccessControlList(
       Collection<InstancePoolAccessControlRequest> accessControlList) {
@@ -57,5 +68,44 @@ public class InstancePoolPermissionsRequest {
         .add("accessControlList", accessControlList)
         .add("instancePoolId", instancePoolId)
         .toString();
+  }
+
+  InstancePoolPermissionsRequestPb toPb() {
+    InstancePoolPermissionsRequestPb pb = new InstancePoolPermissionsRequestPb();
+    pb.setAccessControlList(accessControlList);
+    pb.setInstancePoolId(instancePoolId);
+
+    return pb;
+  }
+
+  static InstancePoolPermissionsRequest fromPb(InstancePoolPermissionsRequestPb pb) {
+    InstancePoolPermissionsRequest model = new InstancePoolPermissionsRequest();
+    model.setAccessControlList(pb.getAccessControlList());
+    model.setInstancePoolId(pb.getInstancePoolId());
+
+    return model;
+  }
+
+  public static class InstancePoolPermissionsRequestSerializer
+      extends JsonSerializer<InstancePoolPermissionsRequest> {
+    @Override
+    public void serialize(
+        InstancePoolPermissionsRequest value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      InstancePoolPermissionsRequestPb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class InstancePoolPermissionsRequestDeserializer
+      extends JsonDeserializer<InstancePoolPermissionsRequest> {
+    @Override
+    public InstancePoolPermissionsRequest deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      InstancePoolPermissionsRequestPb pb =
+          mapper.readValue(p, InstancePoolPermissionsRequestPb.class);
+      return InstancePoolPermissionsRequest.fromPb(pb);
+    }
   }
 }

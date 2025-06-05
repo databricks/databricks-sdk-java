@@ -4,18 +4,27 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
+@JsonSerialize(using = SearchListingsResponse.SearchListingsResponseSerializer.class)
+@JsonDeserialize(using = SearchListingsResponse.SearchListingsResponseDeserializer.class)
 public class SearchListingsResponse {
   /** */
-  @JsonProperty("listings")
   private Collection<Listing> listings;
 
   /** */
-  @JsonProperty("next_page_token")
   private String nextPageToken;
 
   public SearchListingsResponse setListings(Collection<Listing> listings) {
@@ -56,5 +65,43 @@ public class SearchListingsResponse {
         .add("listings", listings)
         .add("nextPageToken", nextPageToken)
         .toString();
+  }
+
+  SearchListingsResponsePb toPb() {
+    SearchListingsResponsePb pb = new SearchListingsResponsePb();
+    pb.setListings(listings);
+    pb.setNextPageToken(nextPageToken);
+
+    return pb;
+  }
+
+  static SearchListingsResponse fromPb(SearchListingsResponsePb pb) {
+    SearchListingsResponse model = new SearchListingsResponse();
+    model.setListings(pb.getListings());
+    model.setNextPageToken(pb.getNextPageToken());
+
+    return model;
+  }
+
+  public static class SearchListingsResponseSerializer
+      extends JsonSerializer<SearchListingsResponse> {
+    @Override
+    public void serialize(
+        SearchListingsResponse value, JsonGenerator gen, SerializerProvider provider)
+        throws IOException {
+      SearchListingsResponsePb pb = value.toPb();
+      provider.defaultSerializeValue(pb, gen);
+    }
+  }
+
+  public static class SearchListingsResponseDeserializer
+      extends JsonDeserializer<SearchListingsResponse> {
+    @Override
+    public SearchListingsResponse deserialize(JsonParser p, DeserializationContext ctxt)
+        throws IOException {
+      ObjectMapper mapper = (ObjectMapper) p.getCodec();
+      SearchListingsResponsePb pb = mapper.readValue(p, SearchListingsResponsePb.class);
+      return SearchListingsResponse.fromPb(pb);
+    }
   }
 }
