@@ -1295,6 +1295,9 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TaskNotificati
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TerminationCodeCode.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TerminationDetails.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TerminationTypeType.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TestEnum.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TestMarshallMessage.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TestNestedMessage.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TriggerInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TriggerSettings.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TriggerType.java linguist-generated=true
