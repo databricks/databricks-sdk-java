@@ -310,6 +310,15 @@ public class GenieAPI {
     return impl.getSpace(request);
   }
 
+  /**
+   * List Genie spaces.
+   *
+   * <p>Get list of Genie Spaces.
+   */
+  public GenieListSpacesResponse listSpaces(GenieListSpacesRequest request) {
+    return impl.listSpaces(request);
+  }
+
   public Wait<GenieMessage, GenieStartConversationResponse> startConversation(
       String spaceId, String content) {
     return startConversation(

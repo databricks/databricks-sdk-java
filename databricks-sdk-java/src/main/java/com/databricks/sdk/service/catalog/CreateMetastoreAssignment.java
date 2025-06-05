@@ -11,7 +11,7 @@ import java.util.Objects;
 @Generated
 public class CreateMetastoreAssignment {
   /**
-   * The name of the default catalog in the metastore. This field is depracted. Please use "Default
+   * The name of the default catalog in the metastore. This field is deprecated. Please use "Default
    * Namespace API" to configure the default catalog for a Databricks workspace.
    */
   @JsonProperty("default_catalog_name")

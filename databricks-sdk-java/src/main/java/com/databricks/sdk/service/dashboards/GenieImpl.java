@@ -198,6 +198,19 @@ class GenieImpl implements GenieService {
   }
 
   @Override
+  public GenieListSpacesResponse listSpaces(GenieListSpacesRequest request) {
+    String path = "/api/2.0/genie/spaces";
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, GenieListSpacesResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public GenieStartConversationResponse startConversation(
       GenieStartConversationMessageRequest request) {
     String path =

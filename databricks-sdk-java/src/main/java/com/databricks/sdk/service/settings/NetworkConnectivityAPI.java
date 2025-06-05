@@ -62,7 +62,7 @@ public class NetworkConnectivityAPI {
     return impl.createNetworkConnectivityConfiguration(request);
   }
 
-  public NccAzurePrivateEndpointRule createPrivateEndpointRule(
+  public NccPrivateEndpointRule createPrivateEndpointRule(
       String networkConnectivityConfigId, CreatePrivateEndpointRule privateEndpointRule) {
     return createPrivateEndpointRule(
         new CreatePrivateEndpointRuleRequest()
@@ -84,7 +84,7 @@ public class NetworkConnectivityAPI {
    * <p>[serverless private link]:
    * https://learn.microsoft.com/azure/databricks/security/network/serverless-network-security/serverless-private-link
    */
-  public NccAzurePrivateEndpointRule createPrivateEndpointRule(
+  public NccPrivateEndpointRule createPrivateEndpointRule(
       CreatePrivateEndpointRuleRequest request) {
     return impl.createPrivateEndpointRule(request);
   }
@@ -105,7 +105,7 @@ public class NetworkConnectivityAPI {
     impl.deleteNetworkConnectivityConfiguration(request);
   }
 
-  public NccAzurePrivateEndpointRule deletePrivateEndpointRule(
+  public NccPrivateEndpointRule deletePrivateEndpointRule(
       String networkConnectivityConfigId, String privateEndpointRuleId) {
     return deletePrivateEndpointRule(
         new DeletePrivateEndpointRuleRequest()
@@ -122,7 +122,7 @@ public class NetworkConnectivityAPI {
    * `deactivated` field is set to `true` and the private endpoint is not available to your
    * serverless compute resources.
    */
-  public NccAzurePrivateEndpointRule deletePrivateEndpointRule(
+  public NccPrivateEndpointRule deletePrivateEndpointRule(
       DeletePrivateEndpointRuleRequest request) {
     return impl.deletePrivateEndpointRule(request);
   }
@@ -144,7 +144,7 @@ public class NetworkConnectivityAPI {
     return impl.getNetworkConnectivityConfiguration(request);
   }
 
-  public NccAzurePrivateEndpointRule getPrivateEndpointRule(
+  public NccPrivateEndpointRule getPrivateEndpointRule(
       String networkConnectivityConfigId, String privateEndpointRuleId) {
     return getPrivateEndpointRule(
         new GetPrivateEndpointRuleRequest()
@@ -157,7 +157,7 @@ public class NetworkConnectivityAPI {
    *
    * <p>Gets the private endpoint rule.
    */
-  public NccAzurePrivateEndpointRule getPrivateEndpointRule(GetPrivateEndpointRuleRequest request) {
+  public NccPrivateEndpointRule getPrivateEndpointRule(GetPrivateEndpointRuleRequest request) {
     return impl.getPrivateEndpointRule(request);
   }
 
@@ -181,7 +181,7 @@ public class NetworkConnectivityAPI {
         });
   }
 
-  public Iterable<NccAzurePrivateEndpointRule> listPrivateEndpointRules(
+  public Iterable<NccPrivateEndpointRule> listPrivateEndpointRules(
       String networkConnectivityConfigId) {
     return listPrivateEndpointRules(
         new ListPrivateEndpointRulesRequest()
@@ -193,12 +193,12 @@ public class NetworkConnectivityAPI {
    *
    * <p>Gets an array of private endpoint rules.
    */
-  public Iterable<NccAzurePrivateEndpointRule> listPrivateEndpointRules(
+  public Iterable<NccPrivateEndpointRule> listPrivateEndpointRules(
       ListPrivateEndpointRulesRequest request) {
     return new Paginator<>(
         request,
         impl::listPrivateEndpointRules,
-        ListNccAzurePrivateEndpointRulesResponse::getItems,
+        ListPrivateEndpointRulesResponse::getItems,
         response -> {
           String token = response.getNextPageToken();
           if (token == null || token.isEmpty()) {
@@ -208,13 +208,13 @@ public class NetworkConnectivityAPI {
         });
   }
 
-  public NccAzurePrivateEndpointRule updateNccAzurePrivateEndpointRulePublic(
+  public NccPrivateEndpointRule updatePrivateEndpointRule(
       String networkConnectivityConfigId,
       String privateEndpointRuleId,
       UpdatePrivateEndpointRule privateEndpointRule,
       String updateMask) {
-    return updateNccAzurePrivateEndpointRulePublic(
-        new UpdateNccAzurePrivateEndpointRulePublicRequest()
+    return updatePrivateEndpointRule(
+        new UpdateNccPrivateEndpointRuleRequest()
             .setNetworkConnectivityConfigId(networkConnectivityConfigId)
             .setPrivateEndpointRuleId(privateEndpointRuleId)
             .setPrivateEndpointRule(privateEndpointRule)
@@ -227,9 +227,9 @@ public class NetworkConnectivityAPI {
    * <p>Updates a private endpoint rule. Currently only a private endpoint rule to customer-managed
    * resources is allowed to be updated.
    */
-  public NccAzurePrivateEndpointRule updateNccAzurePrivateEndpointRulePublic(
-      UpdateNccAzurePrivateEndpointRulePublicRequest request) {
-    return impl.updateNccAzurePrivateEndpointRulePublic(request);
+  public NccPrivateEndpointRule updatePrivateEndpointRule(
+      UpdateNccPrivateEndpointRuleRequest request) {
+    return impl.updatePrivateEndpointRule(request);
   }
 
   public NetworkConnectivityService impl() {

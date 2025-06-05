@@ -18,6 +18,10 @@ public class RunOutput {
   @JsonProperty("dashboard_output")
   private DashboardTaskOutput dashboardOutput;
 
+  /** */
+  @JsonProperty("dbt_cloud_output")
+  private DbtCloudTaskOutput dbtCloudOutput;
+
   /** The output of a dbt task, if available. */
   @JsonProperty("dbt_output")
   private DbtOutput dbtOutput;
@@ -94,6 +98,15 @@ public class RunOutput {
 
   public DashboardTaskOutput getDashboardOutput() {
     return dashboardOutput;
+  }
+
+  public RunOutput setDbtCloudOutput(DbtCloudTaskOutput dbtCloudOutput) {
+    this.dbtCloudOutput = dbtCloudOutput;
+    return this;
+  }
+
+  public DbtCloudTaskOutput getDbtCloudOutput() {
+    return dbtCloudOutput;
   }
 
   public RunOutput setDbtOutput(DbtOutput dbtOutput) {
@@ -193,6 +206,7 @@ public class RunOutput {
     RunOutput that = (RunOutput) o;
     return Objects.equals(cleanRoomsNotebookOutput, that.cleanRoomsNotebookOutput)
         && Objects.equals(dashboardOutput, that.dashboardOutput)
+        && Objects.equals(dbtCloudOutput, that.dbtCloudOutput)
         && Objects.equals(dbtOutput, that.dbtOutput)
         && Objects.equals(error, that.error)
         && Objects.equals(errorTrace, that.errorTrace)
@@ -210,6 +224,7 @@ public class RunOutput {
     return Objects.hash(
         cleanRoomsNotebookOutput,
         dashboardOutput,
+        dbtCloudOutput,
         dbtOutput,
         error,
         errorTrace,
@@ -227,6 +242,7 @@ public class RunOutput {
     return new ToStringer(RunOutput.class)
         .add("cleanRoomsNotebookOutput", cleanRoomsNotebookOutput)
         .add("dashboardOutput", dashboardOutput)
+        .add("dbtCloudOutput", dbtCloudOutput)
         .add("dbtOutput", dbtOutput)
         .add("error", error)
         .add("errorTrace", errorTrace)

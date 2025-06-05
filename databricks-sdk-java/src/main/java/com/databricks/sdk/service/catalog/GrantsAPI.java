@@ -33,20 +33,20 @@ public class GrantsAPI {
     impl = mock;
   }
 
-  public PermissionsList get(SecurableType securableType, String fullName) {
+  public GetPermissionsResponse get(String securableType, String fullName) {
     return get(new GetGrantRequest().setSecurableType(securableType).setFullName(fullName));
   }
 
   /**
    * Get permissions.
    *
-   * <p>Gets the permissions for a securable.
+   * <p>Gets the permissions for a securable. Does not include inherited permissions.
    */
-  public PermissionsList get(GetGrantRequest request) {
+  public GetPermissionsResponse get(GetGrantRequest request) {
     return impl.get(request);
   }
 
-  public EffectivePermissionsList getEffective(SecurableType securableType, String fullName) {
+  public EffectivePermissionsList getEffective(String securableType, String fullName) {
     return getEffective(
         new GetEffectiveRequest().setSecurableType(securableType).setFullName(fullName));
   }
@@ -54,13 +54,14 @@ public class GrantsAPI {
   /**
    * Get effective permissions.
    *
-   * <p>Gets the effective permissions for a securable.
+   * <p>Gets the effective permissions for a securable. Includes inherited permissions from any
+   * parent securables.
    */
   public EffectivePermissionsList getEffective(GetEffectiveRequest request) {
     return impl.getEffective(request);
   }
 
-  public PermissionsList update(SecurableType securableType, String fullName) {
+  public UpdatePermissionsResponse update(String securableType, String fullName) {
     return update(new UpdatePermissions().setSecurableType(securableType).setFullName(fullName));
   }
 
@@ -69,7 +70,7 @@ public class GrantsAPI {
    *
    * <p>Updates the permissions for a securable.
    */
-  public PermissionsList update(UpdatePermissions request) {
+  public UpdatePermissionsResponse update(UpdatePermissions request) {
     return impl.update(request);
   }
 

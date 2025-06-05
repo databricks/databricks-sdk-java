@@ -96,14 +96,6 @@ public interface ExperimentsService {
    */
   GetExperimentByNameResponse getByName(GetByNameRequest getByNameRequest);
 
-  /** Get credentials to download trace data. */
-  GetCredentialsForTraceDataDownloadResponse getCredentialsForTraceDataDownload(
-      GetCredentialsForTraceDataDownloadRequest getCredentialsForTraceDataDownloadRequest);
-
-  /** Get credentials to upload trace data. */
-  GetCredentialsForTraceDataUploadResponse getCredentialsForTraceDataUpload(
-      GetCredentialsForTraceDataUploadRequest getCredentialsForTraceDataUploadRequest);
-
   /**
    * Get an experiment.
    *
@@ -165,15 +157,6 @@ public interface ExperimentsService {
    * <p>Gets a list of all experiments.
    */
   ListExperimentsResponse listExperiments(ListExperimentsRequest listExperimentsRequest);
-
-  /**
-   * List artifacts for a logged model.
-   *
-   * <p>List artifacts for a logged model. Takes an optional ``artifact_directory_path`` prefix
-   * which if specified, the response contains only artifacts with the specified prefix.
-   */
-  ListLoggedModelArtifactsResponse listLoggedModelArtifacts(
-      ListLoggedModelArtifactsRequest listLoggedModelArtifactsRequest);
 
   /**
    * Log a batch of metrics/params/tags for a run.
