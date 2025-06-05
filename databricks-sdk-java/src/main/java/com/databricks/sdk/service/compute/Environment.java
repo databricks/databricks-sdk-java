@@ -15,31 +15,23 @@ import java.util.Objects;
  */
 @Generated
 public class Environment {
-  /**
-   * Client version used by the environment The client is the user-facing environment of the
-   * runtime. Each client comes with a specific set of pre-installed libraries. The version is a
-   * string, consisting of the major client version.
-   */
+  /** Use `environment_version` instead. */
   @JsonProperty("client")
   private String client;
 
   /**
    * List of pip dependencies, as supported by the version of pip in this environment. Each
-   * dependency is a pip requirement file line
-   * https://pip.pypa.io/en/stable/reference/requirements-file-format/ Allowed dependency could be
-   * <requirement specifier>, <archive url/path>, <local project path>(WSFS or Volumes in
-   * Databricks), <vcs project url> E.g. dependencies: ["foo==0.0.1", "-r
-   * /Workspace/test/requirements.txt"]
+   * dependency is a valid pip requirements file line per
+   * https://pip.pypa.io/en/stable/reference/requirements-file-format/. Allowed dependencies include
+   * a requirement specifier, an archive URL, a local project path (such as WSFS or UC Volumes in
+   * Databricks), or a VCS project URL.
    */
   @JsonProperty("dependencies")
   private Collection<String> dependencies;
 
   /**
-   * We renamed `client` to `environment_version` in notebook exports. This field is meant solely so
-   * that imported notebooks with `environment_version` can be deserialized correctly, in a
-   * backwards-compatible way (i.e. if `client` is specified instead of `environment_version`, it
-   * will be deserialized correctly). Do NOT use this field for any other purpose, e.g. notebook
-   * storage. This field is not yet exposed to customers (e.g. in the jobs API).
+   * Required. Environment version used by the environment. Each version comes with a specific
+   * Python version and a set of Python packages. The version is a string, consisting of an integer.
    */
   @JsonProperty("environment_version")
   private String environmentVersion;

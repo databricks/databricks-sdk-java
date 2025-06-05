@@ -10,7 +10,9 @@ import java.util.Objects;
 /** Properties of the new network connectivity configuration. */
 @Generated
 public class NetworkConnectivityConfiguration {
-  /** The Databricks account ID that hosts the credential. */
+  /**
+   * Your Databricks account ID. You can find your account ID in your Databricks accounts console.
+   */
   @JsonProperty("account_id")
   private String accountId;
 

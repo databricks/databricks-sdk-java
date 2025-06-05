@@ -10,9 +10,25 @@ import java.util.Objects;
 
 @Generated
 public class EffectivePermissionsList {
+  /**
+   * Opaque token to retrieve the next page of results. Absent if there are no more pages.
+   * __page_token__ should be set to this value for the next request (for the next page of results).
+   */
+  @JsonProperty("next_page_token")
+  private String nextPageToken;
+
   /** The privileges conveyed to each principal (either directly or via inheritance) */
   @JsonProperty("privilege_assignments")
   private Collection<EffectivePrivilegeAssignment> privilegeAssignments;
+
+  public EffectivePermissionsList setNextPageToken(String nextPageToken) {
+    this.nextPageToken = nextPageToken;
+    return this;
+  }
+
+  public String getNextPageToken() {
+    return nextPageToken;
+  }
 
   public EffectivePermissionsList setPrivilegeAssignments(
       Collection<EffectivePrivilegeAssignment> privilegeAssignments) {
@@ -29,17 +45,19 @@ public class EffectivePermissionsList {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     EffectivePermissionsList that = (EffectivePermissionsList) o;
-    return Objects.equals(privilegeAssignments, that.privilegeAssignments);
+    return Objects.equals(nextPageToken, that.nextPageToken)
+        && Objects.equals(privilegeAssignments, that.privilegeAssignments);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(privilegeAssignments);
+    return Objects.hash(nextPageToken, privilegeAssignments);
   }
 
   @Override
   public String toString() {
     return new ToStringer(EffectivePermissionsList.class)
+        .add("nextPageToken", nextPageToken)
         .add("privilegeAssignments", privilegeAssignments)
         .toString();
   }

@@ -19,7 +19,7 @@ public class UpdatePermissions {
   @JsonIgnore private String fullName;
 
   /** Type of securable. */
-  @JsonIgnore private SecurableType securableType;
+  @JsonIgnore private String securableType;
 
   public UpdatePermissions setChanges(Collection<PermissionsChange> changes) {
     this.changes = changes;
@@ -39,12 +39,12 @@ public class UpdatePermissions {
     return fullName;
   }
 
-  public UpdatePermissions setSecurableType(SecurableType securableType) {
+  public UpdatePermissions setSecurableType(String securableType) {
     this.securableType = securableType;
     return this;
   }
 
-  public SecurableType getSecurableType() {
+  public String getSecurableType() {
     return securableType;
   }
 

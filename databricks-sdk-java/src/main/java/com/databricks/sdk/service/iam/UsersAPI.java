@@ -98,7 +98,7 @@ public class UsersAPI {
   public Iterable<User> list(ListUsersRequest request) {
     request.setStartIndex(1L);
     if (request.getCount() == null) {
-      request.setCount(100L);
+      request.setCount(10000L);
     }
     return new Paginator<>(
             request,

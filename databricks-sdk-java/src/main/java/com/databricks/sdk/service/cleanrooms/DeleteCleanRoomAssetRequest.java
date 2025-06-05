@@ -10,23 +10,14 @@ import java.util.Objects;
 /** Delete an asset */
 @Generated
 public class DeleteCleanRoomAssetRequest {
-  /** The fully qualified name of the asset, it is same as the name field in CleanRoomAsset. */
-  @JsonIgnore private String assetFullName;
-
   /** The type of the asset. */
   @JsonIgnore private CleanRoomAssetAssetType assetType;
 
   /** Name of the clean room. */
   @JsonIgnore private String cleanRoomName;
 
-  public DeleteCleanRoomAssetRequest setAssetFullName(String assetFullName) {
-    this.assetFullName = assetFullName;
-    return this;
-  }
-
-  public String getAssetFullName() {
-    return assetFullName;
-  }
+  /** The fully qualified name of the asset, it is same as the name field in CleanRoomAsset. */
+  @JsonIgnore private String name;
 
   public DeleteCleanRoomAssetRequest setAssetType(CleanRoomAssetAssetType assetType) {
     this.assetType = assetType;
@@ -46,27 +37,36 @@ public class DeleteCleanRoomAssetRequest {
     return cleanRoomName;
   }
 
+  public DeleteCleanRoomAssetRequest setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public String getName() {
+    return name;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     DeleteCleanRoomAssetRequest that = (DeleteCleanRoomAssetRequest) o;
-    return Objects.equals(assetFullName, that.assetFullName)
-        && Objects.equals(assetType, that.assetType)
-        && Objects.equals(cleanRoomName, that.cleanRoomName);
+    return Objects.equals(assetType, that.assetType)
+        && Objects.equals(cleanRoomName, that.cleanRoomName)
+        && Objects.equals(name, that.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(assetFullName, assetType, cleanRoomName);
+    return Objects.hash(assetType, cleanRoomName, name);
   }
 
   @Override
   public String toString() {
     return new ToStringer(DeleteCleanRoomAssetRequest.class)
-        .add("assetFullName", assetFullName)
         .add("assetType", assetType)
         .add("cleanRoomName", cleanRoomName)
+        .add("name", name)
         .toString();
   }
 }

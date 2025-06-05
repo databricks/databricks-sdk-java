@@ -8,9 +8,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** * Update Log Delivery Configuration */
 @Generated
 public class UpdateLogDeliveryConfigurationStatusRequest {
-  /** Databricks log delivery configuration ID */
+  /** The log delivery configuration id of customer */
   @JsonIgnore private String logDeliveryConfigurationId;
 
   /**

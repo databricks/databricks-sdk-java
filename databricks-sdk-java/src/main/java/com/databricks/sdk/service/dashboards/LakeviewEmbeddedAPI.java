@@ -23,20 +23,6 @@ public class LakeviewEmbeddedAPI {
     impl = mock;
   }
 
-  public void getPublishedDashboardEmbedded(String dashboardId) {
-    getPublishedDashboardEmbedded(
-        new GetPublishedDashboardEmbeddedRequest().setDashboardId(dashboardId));
-  }
-
-  /**
-   * Read a published dashboard in an embedded ui.
-   *
-   * <p>Get the current published dashboard within an embedded context.
-   */
-  public void getPublishedDashboardEmbedded(GetPublishedDashboardEmbeddedRequest request) {
-    impl.getPublishedDashboardEmbedded(request);
-  }
-
   public GetPublishedDashboardTokenInfoResponse getPublishedDashboardTokenInfo(String dashboardId) {
     return getPublishedDashboardTokenInfo(
         new GetPublishedDashboardTokenInfoRequest().setDashboardId(dashboardId));

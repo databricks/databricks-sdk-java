@@ -106,7 +106,8 @@ public class PipelinesAPI {
   /**
    * Delete a pipeline.
    *
-   * <p>Deletes a pipeline.
+   * <p>Deletes a pipeline. Deleting a pipeline is a permanent action that stops and removes the
+   * pipeline and its tables. You cannot undo this action.
    */
   public void delete(DeletePipelineRequest request) {
     impl.delete(request);

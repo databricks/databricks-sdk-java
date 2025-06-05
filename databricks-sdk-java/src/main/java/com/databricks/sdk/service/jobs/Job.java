@@ -67,6 +67,10 @@ public class Job {
   @JsonProperty("settings")
   private JobSettings settings;
 
+  /** State of the trigger associated with the job. */
+  @JsonProperty("trigger_state")
+  private TriggerStateProto triggerState;
+
   public Job setCreatedTime(Long createdTime) {
     this.createdTime = createdTime;
     return this;
@@ -139,6 +143,15 @@ public class Job {
     return settings;
   }
 
+  public Job setTriggerState(TriggerStateProto triggerState) {
+    this.triggerState = triggerState;
+    return this;
+  }
+
+  public TriggerStateProto getTriggerState() {
+    return triggerState;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -151,7 +164,8 @@ public class Job {
         && Objects.equals(jobId, that.jobId)
         && Objects.equals(nextPageToken, that.nextPageToken)
         && Objects.equals(runAsUserName, that.runAsUserName)
-        && Objects.equals(settings, that.settings);
+        && Objects.equals(settings, that.settings)
+        && Objects.equals(triggerState, that.triggerState);
   }
 
   @Override
@@ -164,7 +178,8 @@ public class Job {
         jobId,
         nextPageToken,
         runAsUserName,
-        settings);
+        settings,
+        triggerState);
   }
 
   @Override
@@ -178,6 +193,7 @@ public class Job {
         .add("nextPageToken", nextPageToken)
         .add("runAsUserName", runAsUserName)
         .add("settings", settings)
+        .add("triggerState", triggerState)
         .toString();
   }
 }

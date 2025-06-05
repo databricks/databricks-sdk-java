@@ -191,14 +191,6 @@ public class ClusterAttributes {
   @JsonProperty("policy_id")
   private String policyId;
 
-  /** If set, what the configurable IOPS for the remote shuffle disk is. */
-  @JsonProperty("remote_shuffle_disk_iops")
-  private Long remoteShuffleDiskIops;
-
-  /** If set, what the configurable throughput (in Mb/s) for the remote shuffle disk is. */
-  @JsonProperty("remote_shuffle_disk_throughput")
-  private Long remoteShuffleDiskThroughput;
-
   /**
    * Determines the cluster's runtime engine, either standard or Photon.
    *
@@ -253,10 +245,6 @@ public class ClusterAttributes {
    */
   @JsonProperty("ssh_public_keys")
   private Collection<String> sshPublicKeys;
-
-  /** If set, what the total initial volume size (in GB) of the remote shuffle disks should be. */
-  @JsonProperty("total_initial_remote_shuffle_disk_size")
-  private Long totalInitialRemoteShuffleDiskSize;
 
   /**
    * This field can only be used when `kind = CLASSIC_PREVIEW`.
@@ -442,24 +430,6 @@ public class ClusterAttributes {
     return policyId;
   }
 
-  public ClusterAttributes setRemoteShuffleDiskIops(Long remoteShuffleDiskIops) {
-    this.remoteShuffleDiskIops = remoteShuffleDiskIops;
-    return this;
-  }
-
-  public Long getRemoteShuffleDiskIops() {
-    return remoteShuffleDiskIops;
-  }
-
-  public ClusterAttributes setRemoteShuffleDiskThroughput(Long remoteShuffleDiskThroughput) {
-    this.remoteShuffleDiskThroughput = remoteShuffleDiskThroughput;
-    return this;
-  }
-
-  public Long getRemoteShuffleDiskThroughput() {
-    return remoteShuffleDiskThroughput;
-  }
-
   public ClusterAttributes setRuntimeEngine(RuntimeEngine runtimeEngine) {
     this.runtimeEngine = runtimeEngine;
     return this;
@@ -514,16 +484,6 @@ public class ClusterAttributes {
     return sshPublicKeys;
   }
 
-  public ClusterAttributes setTotalInitialRemoteShuffleDiskSize(
-      Long totalInitialRemoteShuffleDiskSize) {
-    this.totalInitialRemoteShuffleDiskSize = totalInitialRemoteShuffleDiskSize;
-    return this;
-  }
-
-  public Long getTotalInitialRemoteShuffleDiskSize() {
-    return totalInitialRemoteShuffleDiskSize;
-  }
-
   public ClusterAttributes setUseMlRuntime(Boolean useMlRuntime) {
     this.useMlRuntime = useMlRuntime;
     return this;
@@ -566,15 +526,12 @@ public class ClusterAttributes {
         && Objects.equals(kind, that.kind)
         && Objects.equals(nodeTypeId, that.nodeTypeId)
         && Objects.equals(policyId, that.policyId)
-        && Objects.equals(remoteShuffleDiskIops, that.remoteShuffleDiskIops)
-        && Objects.equals(remoteShuffleDiskThroughput, that.remoteShuffleDiskThroughput)
         && Objects.equals(runtimeEngine, that.runtimeEngine)
         && Objects.equals(singleUserName, that.singleUserName)
         && Objects.equals(sparkConf, that.sparkConf)
         && Objects.equals(sparkEnvVars, that.sparkEnvVars)
         && Objects.equals(sparkVersion, that.sparkVersion)
         && Objects.equals(sshPublicKeys, that.sshPublicKeys)
-        && Objects.equals(totalInitialRemoteShuffleDiskSize, that.totalInitialRemoteShuffleDiskSize)
         && Objects.equals(useMlRuntime, that.useMlRuntime)
         && Objects.equals(workloadType, that.workloadType);
   }
@@ -601,15 +558,12 @@ public class ClusterAttributes {
         kind,
         nodeTypeId,
         policyId,
-        remoteShuffleDiskIops,
-        remoteShuffleDiskThroughput,
         runtimeEngine,
         singleUserName,
         sparkConf,
         sparkEnvVars,
         sparkVersion,
         sshPublicKeys,
-        totalInitialRemoteShuffleDiskSize,
         useMlRuntime,
         workloadType);
   }
@@ -636,15 +590,12 @@ public class ClusterAttributes {
         .add("kind", kind)
         .add("nodeTypeId", nodeTypeId)
         .add("policyId", policyId)
-        .add("remoteShuffleDiskIops", remoteShuffleDiskIops)
-        .add("remoteShuffleDiskThroughput", remoteShuffleDiskThroughput)
         .add("runtimeEngine", runtimeEngine)
         .add("singleUserName", singleUserName)
         .add("sparkConf", sparkConf)
         .add("sparkEnvVars", sparkEnvVars)
         .add("sparkVersion", sparkVersion)
         .add("sshPublicKeys", sshPublicKeys)
-        .add("totalInitialRemoteShuffleDiskSize", totalInitialRemoteShuffleDiskSize)
         .add("useMlRuntime", useMlRuntime)
         .add("workloadType", workloadType)
         .toString();

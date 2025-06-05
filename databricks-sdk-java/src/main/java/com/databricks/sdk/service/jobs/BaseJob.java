@@ -50,6 +50,10 @@ public class BaseJob {
   @JsonProperty("settings")
   private JobSettings settings;
 
+  /** State of the trigger associated with the job. */
+  @JsonProperty("trigger_state")
+  private TriggerStateProto triggerState;
+
   public BaseJob setCreatedTime(Long createdTime) {
     this.createdTime = createdTime;
     return this;
@@ -104,6 +108,15 @@ public class BaseJob {
     return settings;
   }
 
+  public BaseJob setTriggerState(TriggerStateProto triggerState) {
+    this.triggerState = triggerState;
+    return this;
+  }
+
+  public TriggerStateProto getTriggerState() {
+    return triggerState;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -114,13 +127,20 @@ public class BaseJob {
         && Objects.equals(effectiveBudgetPolicyId, that.effectiveBudgetPolicyId)
         && Objects.equals(hasMore, that.hasMore)
         && Objects.equals(jobId, that.jobId)
-        && Objects.equals(settings, that.settings);
+        && Objects.equals(settings, that.settings)
+        && Objects.equals(triggerState, that.triggerState);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        createdTime, creatorUserName, effectiveBudgetPolicyId, hasMore, jobId, settings);
+        createdTime,
+        creatorUserName,
+        effectiveBudgetPolicyId,
+        hasMore,
+        jobId,
+        settings,
+        triggerState);
   }
 
   @Override
@@ -132,6 +152,7 @@ public class BaseJob {
         .add("hasMore", hasMore)
         .add("jobId", jobId)
         .add("settings", settings)
+        .add("triggerState", triggerState)
         .toString();
   }
 }

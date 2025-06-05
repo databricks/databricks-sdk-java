@@ -173,30 +173,6 @@ public class ExperimentsAPI {
     return impl.getByName(request);
   }
 
-  public GetCredentialsForTraceDataDownloadResponse getCredentialsForTraceDataDownload(
-      String requestId) {
-    return getCredentialsForTraceDataDownload(
-        new GetCredentialsForTraceDataDownloadRequest().setRequestId(requestId));
-  }
-
-  /** Get credentials to download trace data. */
-  public GetCredentialsForTraceDataDownloadResponse getCredentialsForTraceDataDownload(
-      GetCredentialsForTraceDataDownloadRequest request) {
-    return impl.getCredentialsForTraceDataDownload(request);
-  }
-
-  public GetCredentialsForTraceDataUploadResponse getCredentialsForTraceDataUpload(
-      String requestId) {
-    return getCredentialsForTraceDataUpload(
-        new GetCredentialsForTraceDataUploadRequest().setRequestId(requestId));
-  }
-
-  /** Get credentials to upload trace data. */
-  public GetCredentialsForTraceDataUploadResponse getCredentialsForTraceDataUpload(
-      GetCredentialsForTraceDataUploadRequest request) {
-    return impl.getCredentialsForTraceDataUpload(request);
-  }
-
   public GetExperimentResponse getExperiment(String experimentId) {
     return getExperiment(new GetExperimentRequest().setExperimentId(experimentId));
   }
@@ -327,21 +303,6 @@ public class ExperimentsAPI {
           }
           return request.setPageToken(token);
         });
-  }
-
-  public ListLoggedModelArtifactsResponse listLoggedModelArtifacts(String modelId) {
-    return listLoggedModelArtifacts(new ListLoggedModelArtifactsRequest().setModelId(modelId));
-  }
-
-  /**
-   * List artifacts for a logged model.
-   *
-   * <p>List artifacts for a logged model. Takes an optional ``artifact_directory_path`` prefix
-   * which if specified, the response contains only artifacts with the specified prefix.
-   */
-  public ListLoggedModelArtifactsResponse listLoggedModelArtifacts(
-      ListLoggedModelArtifactsRequest request) {
-    return impl.listLoggedModelArtifacts(request);
   }
 
   /**
