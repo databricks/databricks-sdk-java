@@ -193,6 +193,10 @@ public class CreateJob {
   @JsonProperty("webhook_notifications")
   private WebhookNotifications webhookNotifications;
 
+  /** */
+  @JsonProperty("well_known")
+  private AllWellKnown wellKnown;
+
   public CreateJob setAccessControlList(Collection<JobAccessControlRequest> accessControlList) {
     this.accessControlList = accessControlList;
     return this;
@@ -418,6 +422,15 @@ public class CreateJob {
     return webhookNotifications;
   }
 
+  public CreateJob setWellKnown(AllWellKnown wellKnown) {
+    this.wellKnown = wellKnown;
+    return this;
+  }
+
+  public AllWellKnown getWellKnown() {
+    return wellKnown;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -447,7 +460,8 @@ public class CreateJob {
         && Objects.equals(tasks, that.tasks)
         && Objects.equals(timeoutSeconds, that.timeoutSeconds)
         && Objects.equals(trigger, that.trigger)
-        && Objects.equals(webhookNotifications, that.webhookNotifications);
+        && Objects.equals(webhookNotifications, that.webhookNotifications)
+        && Objects.equals(wellKnown, that.wellKnown);
   }
 
   @Override
@@ -477,7 +491,8 @@ public class CreateJob {
         tasks,
         timeoutSeconds,
         trigger,
-        webhookNotifications);
+        webhookNotifications,
+        wellKnown);
   }
 
   @Override
@@ -508,6 +523,7 @@ public class CreateJob {
         .add("timeoutSeconds", timeoutSeconds)
         .add("trigger", trigger)
         .add("webhookNotifications", webhookNotifications)
+        .add("wellKnown", wellKnown)
         .toString();
   }
 }

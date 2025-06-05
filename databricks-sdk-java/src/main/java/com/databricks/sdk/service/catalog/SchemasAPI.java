@@ -85,10 +85,6 @@ public class SchemasAPI {
    * the array.
    */
   public Iterable<SchemaInfo> list(ListSchemasRequest request) {
-
-    if (request.getMaxResults() == null) {
-      request.setMaxResults(0L);
-    }
     return new Paginator<>(
         request,
         impl::list,

@@ -38,7 +38,7 @@ public class GetMetastoreSummaryResponse {
 
   /** The scope of Delta Sharing enabled for the metastore. */
   @JsonProperty("delta_sharing_scope")
-  private GetMetastoreSummaryResponseDeltaSharingScope deltaSharingScope;
+  private DeltaSharingScopeEnum deltaSharingScope;
 
   /** Whether to allow non-DBR clients to directly access entities under the metastore. */
   @JsonProperty("external_access_enabled")
@@ -148,13 +148,12 @@ public class GetMetastoreSummaryResponse {
     return deltaSharingRecipientTokenLifetimeInSeconds;
   }
 
-  public GetMetastoreSummaryResponse setDeltaSharingScope(
-      GetMetastoreSummaryResponseDeltaSharingScope deltaSharingScope) {
+  public GetMetastoreSummaryResponse setDeltaSharingScope(DeltaSharingScopeEnum deltaSharingScope) {
     this.deltaSharingScope = deltaSharingScope;
     return this;
   }
 
-  public GetMetastoreSummaryResponseDeltaSharingScope getDeltaSharingScope() {
+  public DeltaSharingScopeEnum getDeltaSharingScope() {
     return deltaSharingScope;
   }
 

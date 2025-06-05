@@ -18,8 +18,6 @@ import com.databricks.sdk.service.catalog.ConnectionsAPI;
 import com.databricks.sdk.service.catalog.ConnectionsService;
 import com.databricks.sdk.service.catalog.CredentialsAPI;
 import com.databricks.sdk.service.catalog.CredentialsService;
-import com.databricks.sdk.service.catalog.DatabaseInstancesAPI;
-import com.databricks.sdk.service.catalog.DatabaseInstancesService;
 import com.databricks.sdk.service.catalog.ExternalLocationsAPI;
 import com.databricks.sdk.service.catalog.ExternalLocationsService;
 import com.databricks.sdk.service.catalog.FunctionsAPI;
@@ -85,6 +83,8 @@ import com.databricks.sdk.service.dashboards.LakeviewEmbeddedService;
 import com.databricks.sdk.service.dashboards.LakeviewService;
 import com.databricks.sdk.service.dashboards.QueryExecutionAPI;
 import com.databricks.sdk.service.dashboards.QueryExecutionService;
+import com.databricks.sdk.service.database.DatabaseAPI;
+import com.databricks.sdk.service.database.DatabaseService;
 import com.databricks.sdk.service.files.DbfsService;
 import com.databricks.sdk.service.files.FilesAPI;
 import com.databricks.sdk.service.files.FilesService;
@@ -140,6 +140,8 @@ import com.databricks.sdk.service.ml.ModelRegistryAPI;
 import com.databricks.sdk.service.ml.ModelRegistryService;
 import com.databricks.sdk.service.pipelines.PipelinesAPI;
 import com.databricks.sdk.service.pipelines.PipelinesService;
+import com.databricks.sdk.service.qualitymonitorv2.QualityMonitorV2API;
+import com.databricks.sdk.service.qualitymonitorv2.QualityMonitorV2Service;
 import com.databricks.sdk.service.serving.ServingEndpointsAPI;
 import com.databricks.sdk.service.serving.ServingEndpointsDataPlaneAPI;
 import com.databricks.sdk.service.serving.ServingEndpointsDataPlaneService;
@@ -243,7 +245,7 @@ public class WorkspaceClient {
   private DashboardWidgetsAPI dashboardWidgetsAPI;
   private DashboardsAPI dashboardsAPI;
   private DataSourcesAPI dataSourcesAPI;
-  private DatabaseInstancesAPI databaseInstancesAPI;
+  private DatabaseAPI databaseAPI;
   private DbfsExt dbfsAPI;
   private DbsqlPermissionsAPI dbsqlPermissionsAPI;
   private ExperimentsAPI experimentsAPI;
@@ -281,6 +283,7 @@ public class WorkspaceClient {
   private ProviderProviderAnalyticsDashboardsAPI providerProviderAnalyticsDashboardsAPI;
   private ProviderProvidersAPI providerProvidersAPI;
   private ProvidersAPI providersAPI;
+  private QualityMonitorV2API qualityMonitorV2API;
   private QualityMonitorsAPI qualityMonitorsAPI;
   private QueriesAPI queriesAPI;
   private QueriesLegacyAPI queriesLegacyAPI;
@@ -353,7 +356,7 @@ public class WorkspaceClient {
     dashboardWidgetsAPI = new DashboardWidgetsAPI(apiClient);
     dashboardsAPI = new DashboardsAPI(apiClient);
     dataSourcesAPI = new DataSourcesAPI(apiClient);
-    databaseInstancesAPI = new DatabaseInstancesAPI(apiClient);
+    databaseAPI = new DatabaseAPI(apiClient);
     dbfsAPI = new DbfsExt(apiClient);
     dbsqlPermissionsAPI = new DbsqlPermissionsAPI(apiClient);
     experimentsAPI = new ExperimentsAPI(apiClient);
@@ -391,6 +394,7 @@ public class WorkspaceClient {
     providerProviderAnalyticsDashboardsAPI = new ProviderProviderAnalyticsDashboardsAPI(apiClient);
     providerProvidersAPI = new ProviderProvidersAPI(apiClient);
     providersAPI = new ProvidersAPI(apiClient);
+    qualityMonitorV2API = new QualityMonitorV2API(apiClient);
     qualityMonitorsAPI = new QualityMonitorsAPI(apiClient);
     queriesAPI = new QueriesAPI(apiClient);
     queriesLegacyAPI = new QueriesLegacyAPI(apiClient);
@@ -483,7 +487,7 @@ public class WorkspaceClient {
     return alertsLegacyAPI;
   }
 
-  /** TODO: Add description */
+  /** New version of SQL Alerts */
   public AlertsV2API alertsV2() {
     return alertsV2API;
   }
@@ -714,8 +718,8 @@ public class WorkspaceClient {
   }
 
   /** Database Instances provide access to a database via REST API or direct SQL. */
-  public DatabaseInstancesAPI databaseInstances() {
-    return databaseInstancesAPI;
+  public DatabaseAPI database() {
+    return databaseAPI;
   }
 
   /**
@@ -795,6 +799,8 @@ public class WorkspaceClient {
    * <p>Some Files API client features are currently experimental. To enable them, set
    * `enable_experimental_files_api_client = True` in your configuration profile or use the
    * environment variable `DATABRICKS_ENABLE_EXPERIMENTAL_FILES_API_CLIENT=True`.
+   *
+   * <p>Use of Files API may incur Databricks data transfer charges.
    *
    * <p>[Unity Catalog volumes]: https://docs.databricks.com/en/connect/unity-catalog/volumes.html
    */
@@ -1209,6 +1215,11 @@ public class WorkspaceClient {
    */
   public ProvidersAPI providers() {
     return providersAPI;
+  }
+
+  /** Manage data quality of UC objects (currently support `schema`) */
+  public QualityMonitorV2API qualityMonitorV2() {
+    return qualityMonitorV2API;
   }
 
   /**
@@ -2068,14 +2079,14 @@ public class WorkspaceClient {
     return this;
   }
 
-  /** Replace the default DatabaseInstancesService with a custom implementation. */
-  public WorkspaceClient withDatabaseInstancesImpl(DatabaseInstancesService databaseInstances) {
-    return this.withDatabaseInstancesAPI(new DatabaseInstancesAPI(databaseInstances));
+  /** Replace the default DatabaseService with a custom implementation. */
+  public WorkspaceClient withDatabaseImpl(DatabaseService database) {
+    return this.withDatabaseAPI(new DatabaseAPI(database));
   }
 
-  /** Replace the default DatabaseInstancesAPI with a custom implementation. */
-  public WorkspaceClient withDatabaseInstancesAPI(DatabaseInstancesAPI databaseInstances) {
-    this.databaseInstancesAPI = databaseInstances;
+  /** Replace the default DatabaseAPI with a custom implementation. */
+  public WorkspaceClient withDatabaseAPI(DatabaseAPI database) {
+    this.databaseAPI = database;
     return this;
   }
 
@@ -2504,6 +2515,17 @@ public class WorkspaceClient {
   /** Replace the default ProvidersAPI with a custom implementation. */
   public WorkspaceClient withProvidersAPI(ProvidersAPI providers) {
     this.providersAPI = providers;
+    return this;
+  }
+
+  /** Replace the default QualityMonitorV2Service with a custom implementation. */
+  public WorkspaceClient withQualityMonitorV2Impl(QualityMonitorV2Service qualityMonitorV2) {
+    return this.withQualityMonitorV2API(new QualityMonitorV2API(qualityMonitorV2));
+  }
+
+  /** Replace the default QualityMonitorV2API with a custom implementation. */
+  public WorkspaceClient withQualityMonitorV2API(QualityMonitorV2API qualityMonitorV2) {
+    this.qualityMonitorV2API = qualityMonitorV2;
     return this;
   }
 
