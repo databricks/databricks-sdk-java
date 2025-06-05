@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/** * Log Delivery Configuration */
 @Generated
 public class CreateLogDeliveryConfigurationParams {
   /** The optional human-readable name of the log delivery configuration. Defaults to empty. */
@@ -34,21 +35,17 @@ public class CreateLogDeliveryConfigurationParams {
   private String deliveryPathPrefix;
 
   /**
-   * This field applies only if `log_type` is `BILLABLE_USAGE`. This is the optional start month and
-   * year for delivery, specified in `YYYY-MM` format. Defaults to current year and month.
-   * `BILLABLE_USAGE` logs are not available for usage before March 2019 (`2019-03`).
+   * This field applies only if log_type is BILLABLE_USAGE. This is the optional start month and
+   * year for delivery, specified in YYYY-MM format. Defaults to current year and month.
+   * BILLABLE_USAGE logs are not available for usage before March 2019 (2019-03).
    */
   @JsonProperty("delivery_start_time")
   private String deliveryStartTime;
 
   /**
-   * Log delivery type. Supported values are:
-   *
-   * <p>* `BILLABLE_USAGE` — Configure [billable usage log delivery]. For the CSV schema, see the
-   * [View billable usage].
-   *
-   * <p>* `AUDIT_LOGS` — Configure [audit log delivery]. For the JSON schema, see [Configure audit
-   * logging]
+   * Log delivery type. Supported values are: * `BILLABLE_USAGE` — Configure [billable usage log
+   * delivery]. For the CSV schema, see the [View billable usage]. * `AUDIT_LOGS` — Configure [audit
+   * log delivery]. For the JSON schema, see [Configure audit logging]
    *
    * <p>[Configure audit logging]:
    * https://docs.databricks.com/administration-guide/account-settings/audit-logs.html [View
@@ -62,12 +59,11 @@ public class CreateLogDeliveryConfigurationParams {
   private LogType logType;
 
   /**
-   * The file type of log delivery.
-   *
-   * <p>* If `log_type` is `BILLABLE_USAGE`, this value must be `CSV`. Only the CSV (comma-separated
-   * values) format is supported. For the schema, see the [View billable usage] * If `log_type` is
-   * `AUDIT_LOGS`, this value must be `JSON`. Only the JSON (JavaScript Object Notation) format is
-   * supported. For the schema, see the [Configuring audit logs].
+   * The file type of log delivery. * If `log_type` is `BILLABLE_USAGE`, this value must be `CSV`.
+   * Only the CSV (comma-separated values) format is supported. For the schema, see the [View
+   * billable usage] * If `log_type` is `AUDIT_LOGS`, this value must be `JSON`. Only the JSON
+   * (JavaScript Object Notation) format is supported. For the schema, see the [Configuring audit
+   * logs].
    *
    * <p>[Configuring audit logs]:
    * https://docs.databricks.com/administration-guide/account-settings/audit-logs.html [View

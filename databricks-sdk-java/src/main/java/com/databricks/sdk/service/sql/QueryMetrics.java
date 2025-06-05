@@ -99,6 +99,13 @@ public class QueryMetrics {
   @JsonProperty("spill_to_disk_bytes")
   private Long spillToDiskBytes;
 
+  /**
+   * sum of task times completed in a range of wall clock time, approximated to a configurable
+   * number of points aggregated over all stages and jobs in the query (based on task_total_time_ms)
+   */
+  @JsonProperty("task_time_over_time_range")
+  private TaskTimeOverRange taskTimeOverTimeRange;
+
   /** Sum of execution time for all of the query’s tasks, in milliseconds. */
   @JsonProperty("task_total_time_ms")
   private Long taskTotalTimeMs;
@@ -282,6 +289,15 @@ public class QueryMetrics {
     return spillToDiskBytes;
   }
 
+  public QueryMetrics setTaskTimeOverTimeRange(TaskTimeOverRange taskTimeOverTimeRange) {
+    this.taskTimeOverTimeRange = taskTimeOverTimeRange;
+    return this;
+  }
+
+  public TaskTimeOverRange getTaskTimeOverTimeRange() {
+    return taskTimeOverTimeRange;
+  }
+
   public QueryMetrics setTaskTotalTimeMs(Long taskTotalTimeMs) {
     this.taskTotalTimeMs = taskTotalTimeMs;
     return this;
@@ -333,6 +349,7 @@ public class QueryMetrics {
         && Objects.equals(rowsProducedCount, that.rowsProducedCount)
         && Objects.equals(rowsReadCount, that.rowsReadCount)
         && Objects.equals(spillToDiskBytes, that.spillToDiskBytes)
+        && Objects.equals(taskTimeOverTimeRange, that.taskTimeOverTimeRange)
         && Objects.equals(taskTotalTimeMs, that.taskTotalTimeMs)
         && Objects.equals(totalTimeMs, that.totalTimeMs)
         && Objects.equals(writeRemoteBytes, that.writeRemoteBytes);
@@ -360,6 +377,7 @@ public class QueryMetrics {
         rowsProducedCount,
         rowsReadCount,
         spillToDiskBytes,
+        taskTimeOverTimeRange,
         taskTotalTimeMs,
         totalTimeMs,
         writeRemoteBytes);
@@ -387,6 +405,7 @@ public class QueryMetrics {
         .add("rowsProducedCount", rowsProducedCount)
         .add("rowsReadCount", rowsReadCount)
         .add("spillToDiskBytes", spillToDiskBytes)
+        .add("taskTimeOverTimeRange", taskTimeOverTimeRange)
         .add("taskTotalTimeMs", taskTotalTimeMs)
         .add("totalTimeMs", totalTimeMs)
         .add("writeRemoteBytes", writeRemoteBytes)

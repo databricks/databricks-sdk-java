@@ -15,12 +15,7 @@ public class RunInputs {
   @JsonProperty("dataset_inputs")
   private Collection<DatasetInput> datasetInputs;
 
-  /**
-   * **NOTE**: Experimental: This API field may change or be removed in a future release without
-   * warning.
-   *
-   * <p>Model inputs to the Run.
-   */
+  /** Model inputs to the Run. */
   @JsonProperty("model_inputs")
   private Collection<ModelInput> modelInputs;
 

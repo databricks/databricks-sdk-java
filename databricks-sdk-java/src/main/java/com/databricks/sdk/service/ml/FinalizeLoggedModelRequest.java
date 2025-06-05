@@ -15,7 +15,7 @@ public class FinalizeLoggedModelRequest {
 
   /**
    * Whether or not the model is ready for use. ``"LOGGED_MODEL_UPLOAD_FAILED"`` indicates that
-   * something went wrong when logging the model weights / agent code).
+   * something went wrong when logging the model weights / agent code.
    */
   @JsonProperty("status")
   private LoggedModelStatus status;

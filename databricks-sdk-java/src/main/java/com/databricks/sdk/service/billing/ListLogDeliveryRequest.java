@@ -11,17 +11,25 @@ import java.util.Objects;
 /** Get all log delivery configurations */
 @Generated
 public class ListLogDeliveryRequest {
-  /** Filter by credential configuration ID. */
+  /** The Credentials id to filter the search results with */
   @JsonIgnore
   @QueryParam("credentials_id")
   private String credentialsId;
 
-  /** Filter by status `ENABLED` or `DISABLED`. */
+  /**
+   * A page token received from a previous get all budget configurations call. This token can be
+   * used to retrieve the subsequent page. Requests first page if absent.
+   */
+  @JsonIgnore
+  @QueryParam("page_token")
+  private String pageToken;
+
+  /** The log delivery status to filter the search results with */
   @JsonIgnore
   @QueryParam("status")
   private LogDeliveryConfigStatus status;
 
-  /** Filter by storage configuration ID. */
+  /** The Storage Configuration id to filter the search results with */
   @JsonIgnore
   @QueryParam("storage_configuration_id")
   private String storageConfigurationId;
@@ -33,6 +41,15 @@ public class ListLogDeliveryRequest {
 
   public String getCredentialsId() {
     return credentialsId;
+  }
+
+  public ListLogDeliveryRequest setPageToken(String pageToken) {
+    this.pageToken = pageToken;
+    return this;
+  }
+
+  public String getPageToken() {
+    return pageToken;
   }
 
   public ListLogDeliveryRequest setStatus(LogDeliveryConfigStatus status) {
@@ -59,19 +76,21 @@ public class ListLogDeliveryRequest {
     if (o == null || getClass() != o.getClass()) return false;
     ListLogDeliveryRequest that = (ListLogDeliveryRequest) o;
     return Objects.equals(credentialsId, that.credentialsId)
+        && Objects.equals(pageToken, that.pageToken)
         && Objects.equals(status, that.status)
         && Objects.equals(storageConfigurationId, that.storageConfigurationId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(credentialsId, status, storageConfigurationId);
+    return Objects.hash(credentialsId, pageToken, status, storageConfigurationId);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ListLogDeliveryRequest.class)
         .add("credentialsId", credentialsId)
+        .add("pageToken", pageToken)
         .add("status", status)
         .add("storageConfigurationId", storageConfigurationId)
         .toString();

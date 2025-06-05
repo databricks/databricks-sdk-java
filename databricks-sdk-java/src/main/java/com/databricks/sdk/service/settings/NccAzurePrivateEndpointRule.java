@@ -41,7 +41,7 @@ public class NccAzurePrivateEndpointRule {
   private Long deactivatedAt;
 
   /**
-   * Only used by private endpoints to customer-managed resources.
+   * Not used by customer-managed private endpoint services.
    *
    * <p>Domain names of target private link service. When updating this field, the full list of
    * target domain_names must be specified.
@@ -54,8 +54,7 @@ public class NccAzurePrivateEndpointRule {
   private String endpointName;
 
   /**
-   * Only used by private endpoints to Azure first-party services. Enum: blob | dfs | sqlServer |
-   * mysqlServer
+   * Only used by private endpoints to Azure first-party services.
    *
    * <p>The sub-resource type (group ID) of the target resource. Note that to connect to workspace
    * root storage (root DBFS), you need two endpoints, one for blob and one for dfs.

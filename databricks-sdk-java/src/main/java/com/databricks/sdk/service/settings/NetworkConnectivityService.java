@@ -53,7 +53,7 @@ public interface NetworkConnectivityService {
    * <p>[serverless private link]:
    * https://learn.microsoft.com/azure/databricks/security/network/serverless-network-security/serverless-private-link
    */
-  NccAzurePrivateEndpointRule createPrivateEndpointRule(
+  NccPrivateEndpointRule createPrivateEndpointRule(
       CreatePrivateEndpointRuleRequest createPrivateEndpointRuleRequest);
 
   /**
@@ -73,7 +73,7 @@ public interface NetworkConnectivityService {
    * `deactivated` field is set to `true` and the private endpoint is not available to your
    * serverless compute resources.
    */
-  NccAzurePrivateEndpointRule deletePrivateEndpointRule(
+  NccPrivateEndpointRule deletePrivateEndpointRule(
       DeletePrivateEndpointRuleRequest deletePrivateEndpointRuleRequest);
 
   /**
@@ -89,7 +89,7 @@ public interface NetworkConnectivityService {
    *
    * <p>Gets the private endpoint rule.
    */
-  NccAzurePrivateEndpointRule getPrivateEndpointRule(
+  NccPrivateEndpointRule getPrivateEndpointRule(
       GetPrivateEndpointRuleRequest getPrivateEndpointRuleRequest);
 
   /**
@@ -105,7 +105,7 @@ public interface NetworkConnectivityService {
    *
    * <p>Gets an array of private endpoint rules.
    */
-  ListNccAzurePrivateEndpointRulesResponse listPrivateEndpointRules(
+  ListPrivateEndpointRulesResponse listPrivateEndpointRules(
       ListPrivateEndpointRulesRequest listPrivateEndpointRulesRequest);
 
   /**
@@ -114,7 +114,6 @@ public interface NetworkConnectivityService {
    * <p>Updates a private endpoint rule. Currently only a private endpoint rule to customer-managed
    * resources is allowed to be updated.
    */
-  NccAzurePrivateEndpointRule updateNccAzurePrivateEndpointRulePublic(
-      UpdateNccAzurePrivateEndpointRulePublicRequest
-          updateNccAzurePrivateEndpointRulePublicRequest);
+  NccPrivateEndpointRule updatePrivateEndpointRule(
+      UpdateNccPrivateEndpointRuleRequest updateNccPrivateEndpointRuleRequest);
 }

@@ -8,13 +8,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/** * Log Delivery Configuration */
 @Generated
 public class LogDeliveryConfiguration {
-  /** The Databricks account ID that hosts the log delivery configuration. */
+  /** Databricks account ID. */
   @JsonProperty("account_id")
   private String accountId;
 
-  /** Databricks log delivery configuration ID. */
+  /** The unique UUID of log delivery configuration */
   @JsonProperty("config_id")
   private String configId;
 
@@ -46,25 +47,21 @@ public class LogDeliveryConfiguration {
   private String deliveryPathPrefix;
 
   /**
-   * This field applies only if `log_type` is `BILLABLE_USAGE`. This is the optional start month and
-   * year for delivery, specified in `YYYY-MM` format. Defaults to current year and month.
-   * `BILLABLE_USAGE` logs are not available for usage before March 2019 (`2019-03`).
+   * This field applies only if log_type is BILLABLE_USAGE. This is the optional start month and
+   * year for delivery, specified in YYYY-MM format. Defaults to current year and month.
+   * BILLABLE_USAGE logs are not available for usage before March 2019 (2019-03).
    */
   @JsonProperty("delivery_start_time")
   private String deliveryStartTime;
 
-  /** Databricks log delivery status. */
+  /** The LogDeliveryStatus of this log delivery configuration */
   @JsonProperty("log_delivery_status")
   private LogDeliveryStatus logDeliveryStatus;
 
   /**
-   * Log delivery type. Supported values are:
-   *
-   * <p>* `BILLABLE_USAGE` — Configure [billable usage log delivery]. For the CSV schema, see the
-   * [View billable usage].
-   *
-   * <p>* `AUDIT_LOGS` — Configure [audit log delivery]. For the JSON schema, see [Configure audit
-   * logging]
+   * Log delivery type. Supported values are: * `BILLABLE_USAGE` — Configure [billable usage log
+   * delivery]. For the CSV schema, see the [View billable usage]. * `AUDIT_LOGS` — Configure [audit
+   * log delivery]. For the JSON schema, see [Configure audit logging]
    *
    * <p>[Configure audit logging]:
    * https://docs.databricks.com/administration-guide/account-settings/audit-logs.html [View
@@ -78,12 +75,11 @@ public class LogDeliveryConfiguration {
   private LogType logType;
 
   /**
-   * The file type of log delivery.
-   *
-   * <p>* If `log_type` is `BILLABLE_USAGE`, this value must be `CSV`. Only the CSV (comma-separated
-   * values) format is supported. For the schema, see the [View billable usage] * If `log_type` is
-   * `AUDIT_LOGS`, this value must be `JSON`. Only the JSON (JavaScript Object Notation) format is
-   * supported. For the schema, see the [Configuring audit logs].
+   * The file type of log delivery. * If `log_type` is `BILLABLE_USAGE`, this value must be `CSV`.
+   * Only the CSV (comma-separated values) format is supported. For the schema, see the [View
+   * billable usage] * If `log_type` is `AUDIT_LOGS`, this value must be `JSON`. Only the JSON
+   * (JavaScript Object Notation) format is supported. For the schema, see the [Configuring audit
+   * logs].
    *
    * <p>[Configuring audit logs]:
    * https://docs.databricks.com/administration-guide/account-settings/audit-logs.html [View

@@ -19,6 +19,13 @@ public class CleanRoomAsset {
   private CleanRoomAssetAssetType assetType;
 
   /**
+   * The name of the clean room this asset belongs to. This is an output-only field to ensure proper
+   * resource identification.
+   */
+  @JsonProperty("clean_room_name")
+  private String cleanRoomName;
+
+  /**
    * Foreign table details available to all collaborators of the clean room. Present if and only if
    * **asset_type** is **FOREIGN_TABLE**
    */
@@ -110,6 +117,15 @@ public class CleanRoomAsset {
 
   public CleanRoomAssetAssetType getAssetType() {
     return assetType;
+  }
+
+  public CleanRoomAsset setCleanRoomName(String cleanRoomName) {
+    this.cleanRoomName = cleanRoomName;
+    return this;
+  }
+
+  public String getCleanRoomName() {
+    return cleanRoomName;
   }
 
   public CleanRoomAsset setForeignTable(CleanRoomAssetForeignTable foreignTable) {
@@ -219,6 +235,7 @@ public class CleanRoomAsset {
     CleanRoomAsset that = (CleanRoomAsset) o;
     return Objects.equals(addedAt, that.addedAt)
         && Objects.equals(assetType, that.assetType)
+        && Objects.equals(cleanRoomName, that.cleanRoomName)
         && Objects.equals(foreignTable, that.foreignTable)
         && Objects.equals(foreignTableLocalDetails, that.foreignTableLocalDetails)
         && Objects.equals(name, that.name)
@@ -237,6 +254,7 @@ public class CleanRoomAsset {
     return Objects.hash(
         addedAt,
         assetType,
+        cleanRoomName,
         foreignTable,
         foreignTableLocalDetails,
         name,
@@ -255,6 +273,7 @@ public class CleanRoomAsset {
     return new ToStringer(CleanRoomAsset.class)
         .add("addedAt", addedAt)
         .add("assetType", assetType)
+        .add("cleanRoomName", cleanRoomName)
         .add("foreignTable", foreignTable)
         .add("foreignTableLocalDetails", foreignTableLocalDetails)
         .add("name", name)

@@ -15,7 +15,7 @@ import java.util.Objects;
 @Generated
 public class CreatePrivateEndpointRule {
   /**
-   * Only used by private endpoints to customer-managed resources.
+   * Only used by private endpoints to customer-managed private endpoint services.
    *
    * <p>Domain names of target private link service. When updating this field, the full list of
    * target domain_names must be specified.
@@ -24,8 +24,14 @@ public class CreatePrivateEndpointRule {
   private Collection<String> domainNames;
 
   /**
-   * Only used by private endpoints to Azure first-party services. Enum: blob | dfs | sqlServer |
-   * mysqlServer
+   * The full target AWS endpoint service name that connects to the destination resources of the
+   * private endpoint.
+   */
+  @JsonProperty("endpoint_service")
+  private String endpointService;
+
+  /**
+   * Not used by customer-managed private endpoint services.
    *
    * <p>The sub-resource type (group ID) of the target resource. Note that to connect to workspace
    * root storage (root DBFS), you need two endpoints, one for blob and one for dfs.
@@ -37,6 +43,17 @@ public class CreatePrivateEndpointRule {
   @JsonProperty("resource_id")
   private String resourceId;
 
+  /**
+   * Only used by private endpoints towards AWS S3 service.
+   *
+   * <p>The globally unique S3 bucket names that will be accessed via the VPC endpoint. The bucket
+   * names must be in the same region as the NCC/endpoint service. When updating this field, we
+   * perform full update on this field. Please ensure a full list of desired resource_names is
+   * provided.
+   */
+  @JsonProperty("resource_names")
+  private Collection<String> resourceNames;
+
   public CreatePrivateEndpointRule setDomainNames(Collection<String> domainNames) {
     this.domainNames = domainNames;
     return this;
@@ -44,6 +61,15 @@ public class CreatePrivateEndpointRule {
 
   public Collection<String> getDomainNames() {
     return domainNames;
+  }
+
+  public CreatePrivateEndpointRule setEndpointService(String endpointService) {
+    this.endpointService = endpointService;
+    return this;
+  }
+
+  public String getEndpointService() {
+    return endpointService;
   }
 
   public CreatePrivateEndpointRule setGroupId(String groupId) {
@@ -64,27 +90,40 @@ public class CreatePrivateEndpointRule {
     return resourceId;
   }
 
+  public CreatePrivateEndpointRule setResourceNames(Collection<String> resourceNames) {
+    this.resourceNames = resourceNames;
+    return this;
+  }
+
+  public Collection<String> getResourceNames() {
+    return resourceNames;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CreatePrivateEndpointRule that = (CreatePrivateEndpointRule) o;
     return Objects.equals(domainNames, that.domainNames)
+        && Objects.equals(endpointService, that.endpointService)
         && Objects.equals(groupId, that.groupId)
-        && Objects.equals(resourceId, that.resourceId);
+        && Objects.equals(resourceId, that.resourceId)
+        && Objects.equals(resourceNames, that.resourceNames);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(domainNames, groupId, resourceId);
+    return Objects.hash(domainNames, endpointService, groupId, resourceId, resourceNames);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CreatePrivateEndpointRule.class)
         .add("domainNames", domainNames)
+        .add("endpointService", endpointService)
         .add("groupId", groupId)
         .add("resourceId", resourceId)
+        .add("resourceNames", resourceNames)
         .toString();
   }
 }
