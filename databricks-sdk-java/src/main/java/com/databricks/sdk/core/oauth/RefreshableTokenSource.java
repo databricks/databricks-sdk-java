@@ -8,8 +8,7 @@ import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.utils.ClockSupplier;
 import com.databricks.sdk.core.utils.SystemClockSupplier;
 import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
+import java.time.Instant;
 import java.util.Base64;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -143,8 +142,7 @@ public abstract class RefreshableTokenSource implements TokenSource {
     if (t == null) {
       return TokenState.EXPIRED;
     }
-    Duration lifeTime =
-        Duration.between(LocalDateTime.now(clockSupplier.getClock()), t.getExpiry());
+    Duration lifeTime = Duration.between(Instant.now(clockSupplier.getClock()), t.getExpiry());
     if (lifeTime.compareTo(expiryBuffer) <= 0) {
       return TokenState.EXPIRED;
     }
@@ -286,7 +284,7 @@ public abstract class RefreshableTokenSource implements TokenSource {
       if (resp.getErrorCode() != null) {
         throw new IllegalArgumentException(resp.getErrorCode() + ": " + resp.getErrorSummary());
       }
-      LocalDateTime expiry = LocalDateTime.now().plus(resp.getExpiresIn(), ChronoUnit.SECONDS);
+      Instant expiry = Instant.now().plusSeconds(resp.getExpiresIn());
       return new Token(resp.getAccessToken(), resp.getTokenType(), resp.getRefreshToken(), expiry);
     } catch (Exception e) {
       throw new DatabricksException("Failed to refresh credentials: " + e.getMessage(), e);

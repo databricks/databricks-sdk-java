@@ -13,7 +13,7 @@ import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -210,7 +210,7 @@ public class ExternalBrowserCredentialsProviderTest {
                     "originalAccessToken",
                     "originalTokenType",
                     "originalRefreshToken",
-                    LocalDateTime.MAX))
+                    Instant.MAX))
             .build();
     Token token = sessionCredentials.refresh();
 
@@ -234,7 +234,7 @@ public class ExternalBrowserCredentialsProviderTest {
         .execute(any(Request.class));
 
     // Create an valid token with valid refresh token
-    LocalDateTime futureTime = LocalDateTime.now().plusHours(1);
+    Instant futureTime = Instant.now().plusSeconds(3600);
     Token validToken = new Token("valid_access_token", "Bearer", "valid_refresh_token", futureTime);
 
     // Create mock token cache that returns the valid token
@@ -314,7 +314,7 @@ public class ExternalBrowserCredentialsProviderTest {
         .execute(any(Request.class));
 
     // Create an expired token with valid refresh token
-    LocalDateTime pastTime = LocalDateTime.now().minusHours(1);
+    Instant pastTime = Instant.now().minusSeconds(3600);
     Token expiredToken =
         new Token("expired_access_token", "Bearer", "valid_refresh_token", pastTime);
 
@@ -392,7 +392,7 @@ public class ExternalBrowserCredentialsProviderTest {
         .execute(any(Request.class));
 
     // Create an expired token with invalid refresh token
-    LocalDateTime pastTime = LocalDateTime.now().minusHours(1);
+    Instant pastTime = Instant.now().minusSeconds(3600);
     Token expiredToken =
         new Token("expired_access_token", "Bearer", "invalid_refresh_token", pastTime);
 
@@ -406,7 +406,7 @@ public class ExternalBrowserCredentialsProviderTest {
             "browser_access_token",
             "Bearer",
             "browser_refresh_token",
-            LocalDateTime.now().plusHours(1));
+            Instant.now().plusSeconds(3600));
 
     SessionCredentials browserAuthCreds =
         new SessionCredentials.Builder()
@@ -460,7 +460,7 @@ public class ExternalBrowserCredentialsProviderTest {
   @Test
   void cacheWithInvalidTokensTest() throws IOException {
     // Create completely invalid token (no refresh token)
-    LocalDateTime pastTime = LocalDateTime.now().minusHours(1);
+    Instant pastTime = Instant.now().minusSeconds(3600);
     Token invalidToken = new Token("expired_access_token", "Bearer", null, pastTime);
 
     // Create mock token cache that returns the invalid token
@@ -473,7 +473,7 @@ public class ExternalBrowserCredentialsProviderTest {
             "browser_access_token",
             "Bearer",
             "browser_refresh_token",
-            LocalDateTime.now().plusHours(1));
+            Instant.now().plusSeconds(3600));
 
     SessionCredentials browserAuthCreds =
         new SessionCredentials.Builder()

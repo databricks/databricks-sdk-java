@@ -8,10 +8,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.InputStream;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.time.format.DateTimeParseException;
-import java.util.Arrays;
 import java.util.List;
 import org.apache.commons.io.IOUtils;
 
@@ -36,26 +35,16 @@ public class CliTokenSource extends RefreshableTokenSource {
     this.env = env;
   }
 
-  static LocalDateTime parseExpiry(String expiry) {
-    String multiplePrecisionPattern =
-        "[SSSSSSSSS][SSSSSSSS][SSSSSSS][SSSSSS][SSSSS][SSSS][SSS][SS][S]";
-    List<String> datePatterns =
-        Arrays.asList(
-            "yyyy-MM-dd HH:mm:ss",
-            "yyyy-MM-dd HH:mm:ss." + multiplePrecisionPattern,
-            "yyyy-MM-dd'T'HH:mm:ss." + multiplePrecisionPattern + "XXX",
-            "yyyy-MM-dd'T'HH:mm:ss." + multiplePrecisionPattern + "'Z'");
-    DateTimeParseException lastException = null;
-    for (String pattern : datePatterns) {
-      try {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-        LocalDateTime dateTime = LocalDateTime.parse(expiry, formatter);
-        return dateTime;
-      } catch (DateTimeParseException e) {
-        lastException = e;
-      }
-    }
-    throw lastException;
+  /**
+   * Parses an expiry string in RFC 3339/ISO 8601 format (with or without offset) and returns the
+   * corresponding {@link Instant}. Any specified time zone or offset is converted to UTC.
+   *
+   * @param expiry expiry time string in RFC 3339/ISO 8601 format
+   * @return the parsed {@link Instant}
+   * @throws DateTimeParseException if the input string cannot be parsed
+   */
+  static Instant parseExpiry(String expiry) {
+    return OffsetDateTime.parse(expiry).toInstant();
   }
 
   private String getProcessStream(InputStream stream) throws IOException {
@@ -83,7 +72,7 @@ public class CliTokenSource extends RefreshableTokenSource {
       String tokenType = jsonNode.get(tokenTypeField).asText();
       String accessToken = jsonNode.get(accessTokenField).asText();
       String expiry = jsonNode.get(expiryField).asText();
-      LocalDateTime expiresOn = parseExpiry(expiry);
+      Instant expiresOn = parseExpiry(expiry);
       return new Token(accessToken, tokenType, expiresOn);
     } catch (DatabricksException e) {
       throw e;

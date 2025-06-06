@@ -111,6 +111,13 @@ public interface GenieService {
   GenieSpace getSpace(GenieGetSpaceRequest genieGetSpaceRequest);
 
   /**
+   * List Genie spaces.
+   *
+   * <p>Get list of Genie Spaces.
+   */
+  GenieListSpacesResponse listSpaces(GenieListSpacesRequest genieListSpacesRequest);
+
+  /**
    * Start conversation.
    *
    * <p>Start a new conversation.

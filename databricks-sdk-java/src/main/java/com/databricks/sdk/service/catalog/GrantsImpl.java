@@ -17,7 +17,7 @@ class GrantsImpl implements GrantsService {
   }
 
   @Override
-  public PermissionsList get(GetGrantRequest request) {
+  public GetPermissionsResponse get(GetGrantRequest request) {
     String path =
         String.format(
             "/api/2.1/unity-catalog/permissions/%s/%s",
@@ -26,7 +26,7 @@ class GrantsImpl implements GrantsService {
       Request req = new Request("GET", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
-      return apiClient.execute(req, PermissionsList.class);
+      return apiClient.execute(req, GetPermissionsResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -49,7 +49,7 @@ class GrantsImpl implements GrantsService {
   }
 
   @Override
-  public PermissionsList update(UpdatePermissions request) {
+  public UpdatePermissionsResponse update(UpdatePermissions request) {
     String path =
         String.format(
             "/api/2.1/unity-catalog/permissions/%s/%s",
@@ -59,7 +59,7 @@ class GrantsImpl implements GrantsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
-      return apiClient.execute(req, PermissionsList.class);
+      return apiClient.execute(req, UpdatePermissionsResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

@@ -8,6 +8,8 @@ import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.mixin.ClustersExt;
 import com.databricks.sdk.mixin.DbfsExt;
 import com.databricks.sdk.mixin.SecretsExt;
+import com.databricks.sdk.service.aibuilder.CustomLlmsAPI;
+import com.databricks.sdk.service.aibuilder.CustomLlmsService;
 import com.databricks.sdk.service.apps.AppsAPI;
 import com.databricks.sdk.service.apps.AppsService;
 import com.databricks.sdk.service.catalog.ArtifactAllowlistsAPI;
@@ -18,8 +20,6 @@ import com.databricks.sdk.service.catalog.ConnectionsAPI;
 import com.databricks.sdk.service.catalog.ConnectionsService;
 import com.databricks.sdk.service.catalog.CredentialsAPI;
 import com.databricks.sdk.service.catalog.CredentialsService;
-import com.databricks.sdk.service.catalog.DatabaseInstancesAPI;
-import com.databricks.sdk.service.catalog.DatabaseInstancesService;
 import com.databricks.sdk.service.catalog.ExternalLocationsAPI;
 import com.databricks.sdk.service.catalog.ExternalLocationsService;
 import com.databricks.sdk.service.catalog.FunctionsAPI;
@@ -83,8 +83,8 @@ import com.databricks.sdk.service.dashboards.LakeviewAPI;
 import com.databricks.sdk.service.dashboards.LakeviewEmbeddedAPI;
 import com.databricks.sdk.service.dashboards.LakeviewEmbeddedService;
 import com.databricks.sdk.service.dashboards.LakeviewService;
-import com.databricks.sdk.service.dashboards.QueryExecutionAPI;
-import com.databricks.sdk.service.dashboards.QueryExecutionService;
+import com.databricks.sdk.service.database.DatabaseAPI;
+import com.databricks.sdk.service.database.DatabaseService;
 import com.databricks.sdk.service.files.DbfsService;
 import com.databricks.sdk.service.files.FilesAPI;
 import com.databricks.sdk.service.files.FilesService;
@@ -140,6 +140,8 @@ import com.databricks.sdk.service.ml.ModelRegistryAPI;
 import com.databricks.sdk.service.ml.ModelRegistryService;
 import com.databricks.sdk.service.pipelines.PipelinesAPI;
 import com.databricks.sdk.service.pipelines.PipelinesService;
+import com.databricks.sdk.service.qualitymonitorv2.QualityMonitorV2API;
+import com.databricks.sdk.service.qualitymonitorv2.QualityMonitorV2Service;
 import com.databricks.sdk.service.serving.ServingEndpointsAPI;
 import com.databricks.sdk.service.serving.ServingEndpointsDataPlaneAPI;
 import com.databricks.sdk.service.serving.ServingEndpointsDataPlaneService;
@@ -240,10 +242,11 @@ public class WorkspaceClient {
   private CredentialsAPI credentialsAPI;
   private CredentialsManagerAPI credentialsManagerAPI;
   private CurrentUserAPI currentUserAPI;
+  private CustomLlmsAPI customLlmsAPI;
   private DashboardWidgetsAPI dashboardWidgetsAPI;
   private DashboardsAPI dashboardsAPI;
   private DataSourcesAPI dataSourcesAPI;
-  private DatabaseInstancesAPI databaseInstancesAPI;
+  private DatabaseAPI databaseAPI;
   private DbfsExt dbfsAPI;
   private DbsqlPermissionsAPI dbsqlPermissionsAPI;
   private ExperimentsAPI experimentsAPI;
@@ -281,10 +284,10 @@ public class WorkspaceClient {
   private ProviderProviderAnalyticsDashboardsAPI providerProviderAnalyticsDashboardsAPI;
   private ProviderProvidersAPI providerProvidersAPI;
   private ProvidersAPI providersAPI;
+  private QualityMonitorV2API qualityMonitorV2API;
   private QualityMonitorsAPI qualityMonitorsAPI;
   private QueriesAPI queriesAPI;
   private QueriesLegacyAPI queriesLegacyAPI;
-  private QueryExecutionAPI queryExecutionAPI;
   private QueryHistoryAPI queryHistoryAPI;
   private QueryVisualizationsAPI queryVisualizationsAPI;
   private QueryVisualizationsLegacyAPI queryVisualizationsLegacyAPI;
@@ -350,10 +353,11 @@ public class WorkspaceClient {
     credentialsAPI = new CredentialsAPI(apiClient);
     credentialsManagerAPI = new CredentialsManagerAPI(apiClient);
     currentUserAPI = new CurrentUserAPI(apiClient);
+    customLlmsAPI = new CustomLlmsAPI(apiClient);
     dashboardWidgetsAPI = new DashboardWidgetsAPI(apiClient);
     dashboardsAPI = new DashboardsAPI(apiClient);
     dataSourcesAPI = new DataSourcesAPI(apiClient);
-    databaseInstancesAPI = new DatabaseInstancesAPI(apiClient);
+    databaseAPI = new DatabaseAPI(apiClient);
     dbfsAPI = new DbfsExt(apiClient);
     dbsqlPermissionsAPI = new DbsqlPermissionsAPI(apiClient);
     experimentsAPI = new ExperimentsAPI(apiClient);
@@ -391,10 +395,10 @@ public class WorkspaceClient {
     providerProviderAnalyticsDashboardsAPI = new ProviderProviderAnalyticsDashboardsAPI(apiClient);
     providerProvidersAPI = new ProviderProvidersAPI(apiClient);
     providersAPI = new ProvidersAPI(apiClient);
+    qualityMonitorV2API = new QualityMonitorV2API(apiClient);
     qualityMonitorsAPI = new QualityMonitorsAPI(apiClient);
     queriesAPI = new QueriesAPI(apiClient);
     queriesLegacyAPI = new QueriesLegacyAPI(apiClient);
-    queryExecutionAPI = new QueryExecutionAPI(apiClient);
     queryHistoryAPI = new QueryHistoryAPI(apiClient);
     queryVisualizationsAPI = new QueryVisualizationsAPI(apiClient);
     queryVisualizationsLegacyAPI = new QueryVisualizationsLegacyAPI(apiClient);
@@ -676,6 +680,11 @@ public class WorkspaceClient {
     return currentUserAPI;
   }
 
+  /** The Custom LLMs service manages state and powers the UI for the Custom LLM product. */
+  public CustomLlmsAPI customLlms() {
+    return customLlmsAPI;
+  }
+
   /**
    * This is an evolving API that facilitates the addition and removal of widgets from existing
    * dashboards within the Databricks Workspace. Data structures may change over time.
@@ -714,8 +723,8 @@ public class WorkspaceClient {
   }
 
   /** Database Instances provide access to a database via REST API or direct SQL. */
-  public DatabaseInstancesAPI databaseInstances() {
-    return databaseInstancesAPI;
+  public DatabaseAPI database() {
+    return databaseAPI;
   }
 
   /**
@@ -795,6 +804,8 @@ public class WorkspaceClient {
    * <p>Some Files API client features are currently experimental. To enable them, set
    * `enable_experimental_files_api_client = True` in your configuration profile or use the
    * environment variable `DATABRICKS_ENABLE_EXPERIMENTAL_FILES_API_CLIENT=True`.
+   *
+   * <p>Use of Files API may incur Databricks data transfer charges.
    *
    * <p>[Unity Catalog volumes]: https://docs.databricks.com/en/connect/unity-catalog/volumes.html
    */
@@ -1211,6 +1222,11 @@ public class WorkspaceClient {
     return providersAPI;
   }
 
+  /** Manage data quality of UC objects (currently support `schema`) */
+  public QualityMonitorV2API qualityMonitorV2() {
+    return qualityMonitorV2API;
+  }
+
   /**
    * A monitor computes and monitors data or model quality metrics for a table over time. It
    * generates metrics tables and a dashboard that you can use to monitor table health and set
@@ -1247,11 +1263,6 @@ public class WorkspaceClient {
    */
   public QueriesLegacyAPI queriesLegacy() {
     return queriesLegacyAPI;
-  }
-
-  /** Query execution APIs for AI / BI Dashboards */
-  public QueryExecutionAPI queryExecution() {
-    return queryExecutionAPI;
   }
 
   /**
@@ -2035,6 +2046,17 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default CustomLlmsService with a custom implementation. */
+  public WorkspaceClient withCustomLlmsImpl(CustomLlmsService customLlms) {
+    return this.withCustomLlmsAPI(new CustomLlmsAPI(customLlms));
+  }
+
+  /** Replace the default CustomLlmsAPI with a custom implementation. */
+  public WorkspaceClient withCustomLlmsAPI(CustomLlmsAPI customLlms) {
+    this.customLlmsAPI = customLlms;
+    return this;
+  }
+
   /** Replace the default DashboardWidgetsService with a custom implementation. */
   public WorkspaceClient withDashboardWidgetsImpl(DashboardWidgetsService dashboardWidgets) {
     return this.withDashboardWidgetsAPI(new DashboardWidgetsAPI(dashboardWidgets));
@@ -2068,14 +2090,14 @@ public class WorkspaceClient {
     return this;
   }
 
-  /** Replace the default DatabaseInstancesService with a custom implementation. */
-  public WorkspaceClient withDatabaseInstancesImpl(DatabaseInstancesService databaseInstances) {
-    return this.withDatabaseInstancesAPI(new DatabaseInstancesAPI(databaseInstances));
+  /** Replace the default DatabaseService with a custom implementation. */
+  public WorkspaceClient withDatabaseImpl(DatabaseService database) {
+    return this.withDatabaseAPI(new DatabaseAPI(database));
   }
 
-  /** Replace the default DatabaseInstancesAPI with a custom implementation. */
-  public WorkspaceClient withDatabaseInstancesAPI(DatabaseInstancesAPI databaseInstances) {
-    this.databaseInstancesAPI = databaseInstances;
+  /** Replace the default DatabaseAPI with a custom implementation. */
+  public WorkspaceClient withDatabaseAPI(DatabaseAPI database) {
+    this.databaseAPI = database;
     return this;
   }
 
@@ -2507,6 +2529,17 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default QualityMonitorV2Service with a custom implementation. */
+  public WorkspaceClient withQualityMonitorV2Impl(QualityMonitorV2Service qualityMonitorV2) {
+    return this.withQualityMonitorV2API(new QualityMonitorV2API(qualityMonitorV2));
+  }
+
+  /** Replace the default QualityMonitorV2API with a custom implementation. */
+  public WorkspaceClient withQualityMonitorV2API(QualityMonitorV2API qualityMonitorV2) {
+    this.qualityMonitorV2API = qualityMonitorV2;
+    return this;
+  }
+
   /** Replace the default QualityMonitorsService with a custom implementation. */
   public WorkspaceClient withQualityMonitorsImpl(QualityMonitorsService qualityMonitors) {
     return this.withQualityMonitorsAPI(new QualityMonitorsAPI(qualityMonitors));
@@ -2537,17 +2570,6 @@ public class WorkspaceClient {
   /** Replace the default QueriesLegacyAPI with a custom implementation. */
   public WorkspaceClient withQueriesLegacyAPI(QueriesLegacyAPI queriesLegacy) {
     this.queriesLegacyAPI = queriesLegacy;
-    return this;
-  }
-
-  /** Replace the default QueryExecutionService with a custom implementation. */
-  public WorkspaceClient withQueryExecutionImpl(QueryExecutionService queryExecution) {
-    return this.withQueryExecutionAPI(new QueryExecutionAPI(queryExecution));
-  }
-
-  /** Replace the default QueryExecutionAPI with a custom implementation. */
-  public WorkspaceClient withQueryExecutionAPI(QueryExecutionAPI queryExecution) {
-    this.queryExecutionAPI = queryExecution;
     return this;
   }
 

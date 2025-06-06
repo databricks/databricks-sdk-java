@@ -45,13 +45,12 @@ public class CleanRoomAssetsAPI {
     return impl.create(request);
   }
 
-  public void delete(
-      String cleanRoomName, CleanRoomAssetAssetType assetType, String assetFullName) {
+  public void delete(String cleanRoomName, CleanRoomAssetAssetType assetType, String name) {
     delete(
         new DeleteCleanRoomAssetRequest()
             .setCleanRoomName(cleanRoomName)
             .setAssetType(assetType)
-            .setAssetFullName(assetFullName));
+            .setName(name));
   }
 
   /**
@@ -63,13 +62,12 @@ public class CleanRoomAssetsAPI {
     impl.delete(request);
   }
 
-  public CleanRoomAsset get(
-      String cleanRoomName, CleanRoomAssetAssetType assetType, String assetFullName) {
+  public CleanRoomAsset get(String cleanRoomName, CleanRoomAssetAssetType assetType, String name) {
     return get(
         new GetCleanRoomAssetRequest()
             .setCleanRoomName(cleanRoomName)
             .setAssetType(assetType)
-            .setAssetFullName(assetFullName));
+            .setName(name));
   }
 
   /**

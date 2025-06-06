@@ -23,7 +23,7 @@ public class UpdateMetastore {
 
   /** The scope of Delta Sharing enabled for the metastore. */
   @JsonProperty("delta_sharing_scope")
-  private UpdateMetastoreDeltaSharingScope deltaSharingScope;
+  private DeltaSharingScopeEnum deltaSharingScope;
 
   /** Unique ID of the metastore. */
   @JsonIgnore private String id;
@@ -63,12 +63,12 @@ public class UpdateMetastore {
     return deltaSharingRecipientTokenLifetimeInSeconds;
   }
 
-  public UpdateMetastore setDeltaSharingScope(UpdateMetastoreDeltaSharingScope deltaSharingScope) {
+  public UpdateMetastore setDeltaSharingScope(DeltaSharingScopeEnum deltaSharingScope) {
     this.deltaSharingScope = deltaSharingScope;
     return this;
   }
 
-  public UpdateMetastoreDeltaSharingScope getDeltaSharingScope() {
+  public DeltaSharingScopeEnum getDeltaSharingScope() {
     return deltaSharingScope;
   }
 

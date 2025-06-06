@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
@@ -42,7 +42,7 @@ public class FileTokenCacheTest {
   @Test
   void testSaveAndLoadToken() {
     // Given a token
-    LocalDateTime expiry = LocalDateTime.now().plusHours(1);
+    Instant expiry = Instant.now().plusSeconds(3600);
     Token token = new Token("access-token", "Bearer", "refresh-token", expiry);
 
     // When saving and loading the token
@@ -68,8 +68,8 @@ public class FileTokenCacheTest {
   @Test
   void testOverwriteToken() {
     // Given two tokens saved in sequence
-    Token token1 = new Token("token1", "Bearer", "refresh1", LocalDateTime.now().plusHours(1));
-    Token token2 = new Token("token2", "Bearer", "refresh2", LocalDateTime.now().plusHours(2));
+    Token token1 = new Token("token1", "Bearer", "refresh1", Instant.now().plusSeconds(3600));
+    Token token2 = new Token("token2", "Bearer", "refresh2", Instant.now().plusSeconds(7200));
 
     tokenCache.save(token1);
     tokenCache.save(token2);
@@ -92,7 +92,7 @@ public class FileTokenCacheTest {
     // And a token
     Token testToken =
         new Token(
-            "test-access-token", "Bearer", "test-refresh-token", LocalDateTime.now().plusHours(1));
+            "test-access-token", "Bearer", "test-refresh-token", Instant.now().plusSeconds(3600));
 
     // When saving and loading
     cache.save(testToken);

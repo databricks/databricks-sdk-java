@@ -56,7 +56,10 @@ public class CreateRegistryWebhook {
   @JsonProperty("job_spec")
   private JobSpec jobSpec;
 
-  /** Name of the model whose events would trigger this webhook. */
+  /**
+   * If model name is not specified, a registry-wide webhook is created that listens for the
+   * specified events across all versions of all registered models.
+   */
   @JsonProperty("model_name")
   private String modelName;
 

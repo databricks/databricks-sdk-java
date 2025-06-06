@@ -35,7 +35,7 @@ class CleanRoomAssetsImpl implements CleanRoomAssetsService {
     String path =
         String.format(
             "/api/2.0/clean-rooms/%s/assets/%s/%s",
-            request.getCleanRoomName(), request.getAssetType(), request.getAssetFullName());
+            request.getCleanRoomName(), request.getAssetType(), request.getName());
     try {
       Request req = new Request("DELETE", path);
       ApiClient.setQuery(req, request);
@@ -51,7 +51,7 @@ class CleanRoomAssetsImpl implements CleanRoomAssetsService {
     String path =
         String.format(
             "/api/2.0/clean-rooms/%s/assets/%s/%s",
-            request.getCleanRoomName(), request.getAssetType(), request.getAssetFullName());
+            request.getCleanRoomName(), request.getAssetType(), request.getName());
     try {
       Request req = new Request("GET", path);
       ApiClient.setQuery(req, request);
