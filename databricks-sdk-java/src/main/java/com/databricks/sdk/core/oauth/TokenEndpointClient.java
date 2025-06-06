@@ -1,5 +1,6 @@
 package com.databricks.sdk.core.oauth;
 
+import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.FormRequest;
 import com.databricks.sdk.core.http.HttpClient;
@@ -87,5 +88,64 @@ public final class TokenEndpointClient {
     }
     LOG.debug("Successfully obtained token response from {}", tokenEndpointUrl);
     return response;
+  }
+
+  /**
+   * Helper method implementing OAuth token refresh.
+   *
+   * @param hc The HTTP client to use for the request.
+   * @param clientId The client ID to authenticate with.
+   * @param clientSecret The client secret to authenticate with.
+   * @param tokenUrl The authorization URL for fetching tokens.
+   * @param params Additional request parameters.
+   * @param headers Additional headers.
+   * @param position The position of the authentication parameters in the request.
+   * @return The newly fetched Token.
+   * @throws DatabricksException if the refresh fails
+   * @throws IllegalArgumentException if the OAuth response contains an error
+   */
+  public static Token retrieveToken(
+      HttpClient hc,
+      String clientId,
+      String clientSecret,
+      String tokenUrl,
+      Map<String, String> params,
+      Map<String, String> headers,
+      AuthParameterPosition position) {
+    switch (position) {
+      case BODY:
+        if (clientId != null) {
+          params.put("client_id", clientId);
+        }
+        if (clientSecret != null) {
+          params.put("client_secret", clientSecret);
+        }
+        break;
+      case HEADER:
+        String authHeaderValue =
+            "Basic "
+                + java.util.Base64.getEncoder()
+                    .encodeToString((clientId + ":" + clientSecret).getBytes());
+        headers.put(org.apache.http.HttpHeaders.AUTHORIZATION, authHeaderValue);
+        break;
+    }
+    headers.put("Content-Type", "application/x-www-form-urlencoded");
+    com.databricks.sdk.core.http.Request req =
+        new com.databricks.sdk.core.http.Request(
+            "POST", tokenUrl, com.databricks.sdk.core.http.FormRequest.wrapValuesInList(params));
+    req.withHeaders(headers);
+    try {
+      ApiClient apiClient = new ApiClient.Builder().withHttpClient(hc).build();
+      OAuthResponse resp = apiClient.execute(req, OAuthResponse.class);
+      if (resp.getErrorCode() != null) {
+        throw new IllegalArgumentException(resp.getErrorCode() + ": " + resp.getErrorSummary());
+      }
+      java.time.LocalDateTime expiry =
+          java.time.LocalDateTime.now()
+              .plus(resp.getExpiresIn(), java.time.temporal.ChronoUnit.SECONDS);
+      return new Token(resp.getAccessToken(), resp.getTokenType(), resp.getRefreshToken(), expiry);
+    } catch (Exception e) {
+      throw new DatabricksException("Failed to refresh credentials: " + e.getMessage(), e);
+    }
   }
 }

@@ -17,8 +17,7 @@ import org.slf4j.LoggerFactory;
  * requests to an API, and a long-lived refresh token, which can be used to fetch new access tokens.
  * Calling refresh() uses the refresh token to retrieve a new access token to authenticate to APIs.
  */
-public class SessionCredentials extends RefreshableTokenSource
-    implements CredentialsProvider, Serializable {
+public class SessionCredentials implements TokenSource, CredentialsProvider, Serializable {
   private static final long serialVersionUID = 3083941540130596650L;
   private static final Logger LOGGER = LoggerFactory.getLogger(SessionCredentials.class);
 
@@ -87,9 +86,10 @@ public class SessionCredentials extends RefreshableTokenSource
   private final String clientId;
   private final String clientSecret;
   private final TokenCache tokenCache;
+  protected Token token;
 
   private SessionCredentials(Builder b) {
-    super(b.token);
+    this.token = b.token;
     this.hc = b.hc;
     this.tokenUrl = b.tokenUrl;
     this.redirectUrl = b.redirectUrl;
@@ -99,7 +99,7 @@ public class SessionCredentials extends RefreshableTokenSource
   }
 
   @Override
-  protected Token refresh() {
+  public Token getToken() {
     if (this.token == null) {
       throw new DatabricksException("oauth2: token is not set");
     }
@@ -118,7 +118,7 @@ public class SessionCredentials extends RefreshableTokenSource
       headers.put("Origin", redirectUrl);
     }
     Token newToken =
-        retrieveToken(
+        TokenEndpointClient.retrieveToken(
             hc, clientId, clientSecret, tokenUrl, params, headers, AuthParameterPosition.BODY);
 
     // Save the refreshed token directly to cache
