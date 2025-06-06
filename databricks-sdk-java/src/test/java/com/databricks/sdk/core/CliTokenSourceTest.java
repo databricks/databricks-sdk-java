@@ -1,58 +1,49 @@
 package com.databricks.sdk.core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.Instant;
 import java.time.format.DateTimeParseException;
-import org.junit.jupiter.api.Test;
+import java.util.stream.Stream;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public class CliTokenSourceTest {
 
-  @Test
-  public void testParseExpiryWithoutTruncate() {
-    Instant parsedInstant = CliTokenSource.parseExpiry("2023-07-17T09:02:22.330612218Z");
-    assertEquals(Instant.parse("2023-07-17T09:02:22.330612218Z"), parsedInstant);
+  private static Stream<Arguments> expiryProvider() {
+    return Stream.of(
+        Arguments.of(
+            "2023-07-17T09:02:22.330612218Z", "2023-07-17T09:02:22.330612218Z", "9-digit nanos"),
+        Arguments.of(
+            "2023-07-17T09:02:22.33061221Z", "2023-07-17T09:02:22.330612210Z", "8-digit nanos"),
+        Arguments.of(
+            "2023-07-17T09:02:22.330612Z", "2023-07-17T09:02:22.330612000Z", "6-digit nanos"),
+        Arguments.of(
+            "2023-07-17T10:02:22.330612218+01:00",
+            "2023-07-17T09:02:22.330612218Z",
+            "+01:00 offset, 9-digit nanos"),
+        Arguments.of(
+            "2023-07-17T04:02:22.330612218-05:00",
+            "2023-07-17T09:02:22.330612218Z",
+            "-05:00 offset, 9-digit nanos"),
+        Arguments.of(
+            "2023-07-17T10:02:22.330612+01:00",
+            "2023-07-17T09:02:22.330612000Z",
+            "+01:00 offset, 6-digit nanos"),
+        Arguments.of("2023-07-17T09:02:22.33061221987Z", null, "Invalid: >9 nanos"),
+        Arguments.of("17-07-2023 09:02:22", null, "Invalid: non-ISO8601 format"));
   }
 
-  @Test
-  public void testParseExpiryWithTruncate() {
-    Instant parsedInstant = CliTokenSource.parseExpiry("2023-07-17T09:02:22.33061221Z");
-    assertEquals(Instant.parse("2023-07-17T09:02:22.330612210Z"), parsedInstant);
-  }
-
-  @Test
-  public void testParseExpiryWithTruncateAndLessNanoSecondDigits() {
-    Instant parsedInstant = CliTokenSource.parseExpiry("2023-07-17T09:02:22.330612Z");
-    assertEquals(Instant.parse("2023-07-17T09:02:22.330612000Z"), parsedInstant);
-  }
-
-  @Test
-  public void testParseExpiryWithMoreThanNineNanoSecondDigits() {
-    try {
-      CliTokenSource.parseExpiry("2023-07-17T09:02:22.33061221987Z");
-    } catch (DateTimeParseException e) {
-      assert (e.getMessage().contains("could not be parsed"));
-    }
-  }
-
-  @Test
-  public void testParseExpiryWithSpaceFormat() {
-    Instant parsedInstant = CliTokenSource.parseExpiry("2023-07-17 09:02:22");
-    assertEquals(Instant.parse("2023-07-17T09:02:22Z"), parsedInstant);
-  }
-
-  @Test
-  public void testParseExpiryWithSpaceFormatAndMillis() {
-    Instant parsedInstant = CliTokenSource.parseExpiry("2023-07-17 09:02:22.123");
-    assertEquals(Instant.parse("2023-07-17T09:02:22.123Z"), parsedInstant);
-  }
-
-  @Test
-  public void testParseExpiryWithInvalidFormat() {
-    try {
-      CliTokenSource.parseExpiry("17-07-2023 09:02:22");
-    } catch (DateTimeParseException e) {
-      assert (e.getMessage().contains("could not be parsed"));
+  @ParameterizedTest(name = "{2}")
+  @MethodSource("expiryProvider")
+  public void testParseExpiry(String input, String expectedInstant, String description) {
+    if (expectedInstant == null) {
+      assertThrows(DateTimeParseException.class, () -> CliTokenSource.parseExpiry(input));
+    } else {
+      Instant parsedInstant = CliTokenSource.parseExpiry(input);
+      assertEquals(Instant.parse(expectedInstant), parsedInstant);
     }
   }
 }

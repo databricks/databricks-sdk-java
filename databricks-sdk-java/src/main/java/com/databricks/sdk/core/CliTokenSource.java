@@ -9,11 +9,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
+import java.time.OffsetDateTime;
 import java.time.format.DateTimeParseException;
-import java.util.Arrays;
 import java.util.List;
 import org.apache.commons.io.IOUtils;
 
@@ -39,44 +36,15 @@ public class CliTokenSource extends RefreshableTokenSource {
   }
 
   /**
-   * Parses an expiry time string and returns the corresponding {@link Instant}.
+   * Parses an expiry string in RFC 3339/ISO 8601 format (with or without offset) and returns the
+   * corresponding {@link Instant}. Any specified time zone or offset is converted to UTC.
    *
-   * <p>The expiry time string is always in UTC. Any time zone or offset information present in the
-   * input is ignored.
-   *
-   * <p>The method attempts to parse the input using several common date-time formats, including
-   * ISO-8601 and patterns with varying sub-second precision.
-   *
-   * @param expiry the expiry time string to parse, which must represent a UTC time
+   * @param expiry expiry time string in RFC 3339/ISO 8601 format
    * @return the parsed {@link Instant}
    * @throws DateTimeParseException if the input string cannot be parsed
    */
   static Instant parseExpiry(String expiry) {
-    DateTimeParseException lastException = null;
-    // Try to parse the expiry as an ISO-8601 string in UTC first
-    try {
-      return Instant.parse(expiry);
-    } catch (DateTimeParseException e) {
-      lastException = e;
-    }
-
-    String multiplePrecisionPattern =
-        "[SSSSSSSSS][SSSSSSSS][SSSSSSS][SSSSSS][SSSSS][SSSS][SSS][SS][S]";
-    List<String> datePatterns =
-        Arrays.asList(
-            "yyyy-MM-dd HH:mm:ss",
-            "yyyy-MM-dd HH:mm:ss." + multiplePrecisionPattern,
-            "yyyy-MM-dd'T'HH:mm:ss." + multiplePrecisionPattern + "XXX");
-    for (String pattern : datePatterns) {
-      try {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-        LocalDateTime dateTime = LocalDateTime.parse(expiry, formatter);
-        return dateTime.atZone(ZoneOffset.UTC).toInstant();
-      } catch (DateTimeParseException e) {
-        lastException = e;
-      }
-    }
-    throw lastException;
+    return OffsetDateTime.parse(expiry).toInstant();
   }
 
   private String getProcessStream(InputStream stream) throws IOException {
