@@ -28,8 +28,8 @@ public class AzureServicePrincipalCredentialsProvider implements CredentialsProv
     }
     AzureUtils.ensureHostPresent(
         config, mapper, AzureServicePrincipalCredentialsProvider::tokenSourceFor);
-    TokenSource inner = tokenSourceFor(config, config.getEffectiveAzureLoginAppId());
-    TokenSource cloud =
+    RefreshableTokenSource inner = tokenSourceFor(config, config.getEffectiveAzureLoginAppId());
+    RefreshableTokenSource cloud =
         tokenSourceFor(config, config.getAzureEnvironment().getServiceManagementEndpoint());
 
     return OAuthHeaderFactory.fromSuppliers(
@@ -55,7 +55,7 @@ public class AzureServicePrincipalCredentialsProvider implements CredentialsProv
    * @return A RefreshableTokenSource instance capable of fetching OAuth tokens for the specified
    *     Azure resource.
    */
-  private static TokenSource tokenSourceFor(DatabricksConfig config, String resource) {
+  private static RefreshableTokenSource tokenSourceFor(DatabricksConfig config, String resource) {
     String aadEndpoint = config.getAzureEnvironment().getActiveDirectoryEndpoint();
     String tokenUrl = aadEndpoint + config.getAzureTenantId() + "/oauth2/token";
     Map<String, String> endpointParams = new HashMap<>();

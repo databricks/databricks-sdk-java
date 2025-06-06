@@ -13,7 +13,7 @@ import java.util.function.Supplier;
  * support all OAuth endpoints, authentication parameters can be passed in the request body or in
  * the Authorization header.
  */
-public class ClientCredentials implements TokenSource {
+public class ClientCredentials extends RefreshableTokenSource {
   public static class Builder {
     private String clientId;
     private String clientSecret;
@@ -97,7 +97,7 @@ public class ClientCredentials implements TokenSource {
   }
 
   @Override
-  public Token getToken() {
+  protected Token refresh() {
     Map<String, String> params = new HashMap<>();
     params.put("grant_type", "client_credentials");
     if (scopes != null) {
@@ -106,7 +106,6 @@ public class ClientCredentials implements TokenSource {
     if (endpointParamsSupplier != null) {
       params.putAll(endpointParamsSupplier.get());
     }
-    return TokenEndpointClient.retrieveToken(
-        hc, clientId, clientSecret, tokenUrl, params, new HashMap<>(), position);
+    return retrieveToken(hc, clientId, clientSecret, tokenUrl, params, new HashMap<>(), position);
   }
 }

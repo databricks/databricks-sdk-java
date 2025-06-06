@@ -186,7 +186,7 @@ public class ExternalBrowserCredentialsProviderTest {
             .withClientSecret("abc")
             .withTokenUrl("https://tokenUrl")
             .build();
-    Token token = clientCredentials.getToken();
+    Token token = clientCredentials.refresh();
     assertEquals("accessTokenFromServer", token.getAccessToken());
     assertEquals("refreshTokenFromServer", token.getRefreshToken());
   }
@@ -212,7 +212,7 @@ public class ExternalBrowserCredentialsProviderTest {
                     "originalRefreshToken",
                     LocalDateTime.MAX))
             .build();
-    Token token = sessionCredentials.getToken();
+    Token token = sessionCredentials.refresh();
 
     // We check that we are actually getting the token from server response (that is defined
     // above) rather than what was given while creating session credentials

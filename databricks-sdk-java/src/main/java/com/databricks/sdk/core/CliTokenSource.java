@@ -1,7 +1,7 @@
 package com.databricks.sdk.core;
 
+import com.databricks.sdk.core.oauth.RefreshableTokenSource;
 import com.databricks.sdk.core.oauth.Token;
-import com.databricks.sdk.core.oauth.TokenSource;
 import com.databricks.sdk.core.utils.Environment;
 import com.databricks.sdk.core.utils.OSUtils;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import org.apache.commons.io.IOUtils;
 
-public class CliTokenSource implements TokenSource {
+public class CliTokenSource extends RefreshableTokenSource {
   private List<String> cmd;
   private String tokenTypeField;
   private String accessTokenField;
@@ -64,7 +64,7 @@ public class CliTokenSource implements TokenSource {
   }
 
   @Override
-  public Token getToken() {
+  protected Token refresh() {
     try {
       ProcessBuilder processBuilder = new ProcessBuilder(cmd);
       processBuilder.environment().putAll(env.getEnv());

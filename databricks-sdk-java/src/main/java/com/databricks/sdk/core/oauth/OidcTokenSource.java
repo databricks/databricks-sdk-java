@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
  * protocol. It communicates with an OAuth server to request access tokens using the client
  * credentials grant type instead of a client secret.
  */
-class OidcTokenSource implements TokenSource {
+class OidcTokenSource extends RefreshableTokenSource {
 
   private final HttpClient httpClient;
   private final String tokenUrl;
@@ -58,8 +58,7 @@ class OidcTokenSource implements TokenSource {
     }
   }
 
-  @Override
-  public Token getToken() {
+  protected Token refresh() {
     Response rawResp;
     try {
       rawResp = httpClient.execute(new FormRequest(tokenUrl, params));

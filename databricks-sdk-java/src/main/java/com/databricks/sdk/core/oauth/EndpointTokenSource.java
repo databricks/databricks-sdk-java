@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
  * Represents a token source that exchanges a control plane token for an endpoint-specific dataplane
  * token. It utilizes an underlying {@link TokenSource} to obtain the initial control plane token.
  */
-public class EndpointTokenSource implements TokenSource {
+public class EndpointTokenSource extends RefreshableTokenSource {
   private static final Logger LOG = LoggerFactory.getLogger(EndpointTokenSource.class);
   private static final String JWT_GRANT_TYPE = "urn:ietf:params:oauth:grant-type:jwt-bearer";
   private static final String GRANT_TYPE_PARAM = "grant_type";
@@ -67,7 +67,7 @@ public class EndpointTokenSource implements TokenSource {
    * @throws NullPointerException if any of the parameters are null.
    */
   @Override
-  public Token getToken() {
+  protected Token refresh() {
     Token cpToken = cpTokenSource.getToken();
     Map<String, String> params = new HashMap<>();
     params.put(GRANT_TYPE_PARAM, JWT_GRANT_TYPE);

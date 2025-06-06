@@ -11,7 +11,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-public class CachedTokenSourceTest {
+public class RefreshableTokenSourceTest {
   private static final String TOKEN_TYPE = "Bearer";
   private static final String INITIAL_TOKEN = "initial-token";
   private static final String REFRESH_TOKEN = "refreshed-token";
@@ -46,10 +46,10 @@ public class CachedTokenSourceTest {
         new Token(REFRESH_TOKEN, TOKEN_TYPE, null, LocalDateTime.now().plusMinutes(10));
     CountDownLatch refreshCalled = new CountDownLatch(1);
 
-    TokenSource tokenSource =
-        new TokenSource() {
+    RefreshableTokenSource source =
+        new RefreshableTokenSource(initialToken) {
           @Override
-          public Token getToken() {
+          protected Token refresh() {
             refreshCalled.countDown();
             try {
               Thread.sleep(500);
@@ -58,13 +58,7 @@ public class CachedTokenSourceTest {
             }
             return refreshedToken;
           }
-        };
-
-    CachedTokenSource source =
-        new CachedTokenSource.Builder(tokenSource)
-            .withAsyncEnabled(asyncEnabled)
-            .withToken(initialToken)
-            .build();
+        }.withAsyncRefresh(asyncEnabled);
 
     Token token = source.getToken();
 
@@ -73,56 +67,74 @@ public class CachedTokenSourceTest {
     assertEquals(expectedToken, token.getAccessToken(), "Token value did not match expected");
   }
 
+  /**
+   * This test verifies that if an asynchronous token refresh fails, the next refresh attempt is
+   * forced to be synchronous. It ensures that after an async failure, the system does not
+   * repeatedly attempt async refreshes while the token is stale, and only performs a synchronous
+   * refresh when the token is expired. After a successful sync refresh, async refreshes resume as
+   * normal.
+   */
   @Test
   void testAsyncRefreshFailureFallback() throws Exception {
-    class MutableTokenSource implements TokenSource {
+    Token staleToken =
+        new Token(INITIAL_TOKEN, TOKEN_TYPE, null, LocalDateTime.now().plusMinutes(2));
+
+    class TestSource extends RefreshableTokenSource {
       int refreshCallCount = 0;
       boolean isFirstRefresh = true;
-      Token token = new Token(INITIAL_TOKEN, TOKEN_TYPE, null, LocalDateTime.now().plusMinutes(2));
+
+      TestSource(Token token) {
+        super(token);
+      }
 
       @Override
-      public Token getToken() {
+      protected Token refresh() {
         refreshCallCount++;
         if (isFirstRefresh) {
           isFirstRefresh = false;
           throw new RuntimeException("Simulated async failure");
         }
-        token = new Token(REFRESH_TOKEN, TOKEN_TYPE, null, LocalDateTime.now().plusMinutes(10));
-        return token;
+        return new Token(REFRESH_TOKEN, TOKEN_TYPE, null, LocalDateTime.now().plusMinutes(10));
       }
     }
 
-    MutableTokenSource mutableTokenSource = new MutableTokenSource();
-
-    CachedTokenSource source =
-        new CachedTokenSource.Builder(mutableTokenSource)
-            .withAsyncEnabled(true)
-            .withToken(mutableTokenSource.token)
-            .build();
+    TestSource source = new TestSource(staleToken);
+    source.withAsyncRefresh(true);
 
     // First call triggers async refresh, which fails
     source.getToken();
-    assertEquals(1, mutableTokenSource.refreshCallCount);
+    Thread.sleep(300);
+    assertEquals(
+        1, source.refreshCallCount, "refresh() should have been called once (async, failed)");
 
     // Token is still stale, so next call should NOT trigger another refresh since the last refresh
     // failed
     source.getToken();
-    assertEquals(1, mutableTokenSource.refreshCallCount);
+    Thread.sleep(200);
+    assertEquals(
+        1,
+        source.refreshCallCount,
+        "refresh() should NOT be called again while stale after async failure");
 
     // Advance the clock so the token is now expired
-    mutableTokenSource.token =
-        new Token(INITIAL_TOKEN, TOKEN_TYPE, null, LocalDateTime.now().minusMinutes(1));
+    source.token = new Token(INITIAL_TOKEN, TOKEN_TYPE, null, LocalDateTime.now().minusMinutes(1));
 
     // Now getToken() should call refresh synchronously and return the refreshed token
-    Token token;
-    token = source.getToken();
-    assertEquals(REFRESH_TOKEN, token.getAccessToken());
-    assertEquals(2, mutableTokenSource.refreshCallCount);
+    Token token = source.getToken();
+    assertEquals(
+        REFRESH_TOKEN,
+        token.getAccessToken(),
+        "Should return the refreshed token after sync refresh");
+    assertEquals(
+        2, source.refreshCallCount, "refresh() should have been called synchronously after expiry");
 
     // Make the token stale again and trigger async refresh since the last sync refresh succeeded
-    mutableTokenSource.token =
-        new Token(INITIAL_TOKEN, TOKEN_TYPE, null, LocalDateTime.now().plusMinutes(2));
+    source.token = new Token(INITIAL_TOKEN, TOKEN_TYPE, null, LocalDateTime.now().plusMinutes(2));
     source.getToken();
-    assertEquals(3, mutableTokenSource.refreshCallCount);
+    Thread.sleep(300);
+    assertEquals(
+        3,
+        source.refreshCallCount,
+        "refresh() should have been called again asynchronously after making token stale");
   }
 }
