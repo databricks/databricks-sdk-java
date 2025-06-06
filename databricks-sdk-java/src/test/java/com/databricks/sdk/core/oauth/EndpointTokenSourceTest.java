@@ -9,7 +9,7 @@ import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Response;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -48,7 +48,7 @@ class EndpointTokenSourceTest {
     String malformedJson = "{not valid json}";
 
     // Mock DatabricksOAuthTokenSource for control plane token
-    Token cpToken = new Token(TEST_CP_TOKEN, TEST_TOKEN_TYPE, LocalDateTime.now().plusMinutes(10));
+    Token cpToken = new Token(TEST_CP_TOKEN, TEST_TOKEN_TYPE, Instant.now().plusSeconds(600));
     DatabricksOAuthTokenSource mockCpTokenSource = mock(DatabricksOAuthTokenSource.class);
     when(mockCpTokenSource.getToken()).thenReturn(cpToken);
 

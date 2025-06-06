@@ -3,7 +3,7 @@ package com.databricks.sdk.core.oauth;
 import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.HttpClient;
 import com.google.common.base.Strings;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -166,7 +166,7 @@ public class DatabricksOAuthTokenSource extends RefreshableTokenSource {
       throw e;
     }
 
-    LocalDateTime expiry = LocalDateTime.now().plusSeconds(response.getExpiresIn());
+    Instant expiry = Instant.now().plusSeconds(response.getExpiresIn());
     return new Token(
         response.getAccessToken(), response.getTokenType(), response.getRefreshToken(), expiry);
   }
