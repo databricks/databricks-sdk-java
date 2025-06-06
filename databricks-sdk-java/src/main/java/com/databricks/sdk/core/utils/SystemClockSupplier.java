@@ -5,6 +5,6 @@ import java.time.Clock;
 public class SystemClockSupplier implements ClockSupplier {
   @Override
   public Clock getClock() {
-    return Clock.systemDefaultZone();
+    return Clock.systemUTC();
   }
 }
