@@ -4,8 +4,7 @@ import com.databricks.sdk.core.utils.ClockSupplier;
 import com.databricks.sdk.core.utils.SystemClockSupplier;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
+import java.time.Instant;
 import java.util.Objects;
 
 public class Token {
@@ -19,21 +18,20 @@ public class Token {
    * The expiry time of the token.
    *
    * <p>OAuth token responses include the duration of the lifetime of the access token. When the
-   * token is retrieved, this is converted to a LocalDateTime tracking the expiry time of the token
-   * with respect to the current clock.
+   * token is retrieved, this is converted to an Instant tracking the expiry time of the token with
+   * respect to the current clock.
    */
-  @JsonProperty private LocalDateTime expiry;
+  @JsonProperty private Instant expiry;
 
   private final ClockSupplier clockSupplier;
 
   /** Constructor for non-refreshable tokens (e.g. M2M). */
-  public Token(String accessToken, String tokenType, LocalDateTime expiry) {
+  public Token(String accessToken, String tokenType, Instant expiry) {
     this(accessToken, tokenType, null, expiry, new SystemClockSupplier());
   }
 
   /** Constructor for non-refreshable tokens (e.g. M2M) with ClockSupplier */
-  public Token(
-      String accessToken, String tokenType, LocalDateTime expiry, ClockSupplier clockSupplier) {
+  public Token(String accessToken, String tokenType, Instant expiry, ClockSupplier clockSupplier) {
     this(accessToken, tokenType, null, expiry, clockSupplier);
   }
 
@@ -43,7 +41,7 @@ public class Token {
       @JsonProperty("accessToken") String accessToken,
       @JsonProperty("tokenType") String tokenType,
       @JsonProperty("refreshToken") String refreshToken,
-      @JsonProperty("expiry") LocalDateTime expiry) {
+      @JsonProperty("expiry") Instant expiry) {
     this(accessToken, tokenType, refreshToken, expiry, new SystemClockSupplier());
   }
 
@@ -52,7 +50,7 @@ public class Token {
       String accessToken,
       String tokenType,
       String refreshToken,
-      LocalDateTime expiry,
+      Instant expiry,
       ClockSupplier clockSupplier) {
     Objects.requireNonNull(accessToken, "accessToken must be defined");
     Objects.requireNonNull(tokenType, "tokenType must be defined");
@@ -71,8 +69,8 @@ public class Token {
     }
     // Azure Databricks rejects tokens that expire in 30 seconds or less,
     // so we refresh the token 40 seconds before it expires.
-    LocalDateTime potentiallyExpired = expiry.minus(40, ChronoUnit.SECONDS);
-    LocalDateTime now = LocalDateTime.now(clockSupplier.getClock());
+    Instant potentiallyExpired = expiry.minusSeconds(40);
+    Instant now = Instant.now(clockSupplier.getClock());
     return potentiallyExpired.isBefore(now);
   }
 
