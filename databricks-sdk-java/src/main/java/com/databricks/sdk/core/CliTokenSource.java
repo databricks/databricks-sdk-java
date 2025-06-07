@@ -9,8 +9,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
 import java.util.List;
 import org.apache.commons.io.IOUtils;
 
@@ -44,7 +48,27 @@ public class CliTokenSource extends RefreshableTokenSource {
    * @throws DateTimeParseException if the input string cannot be parsed
    */
   static Instant parseExpiry(String expiry) {
-    return OffsetDateTime.parse(expiry).toInstant();
+    DateTimeParseException lastException = null;
+    try {
+      return OffsetDateTime.parse(expiry).toInstant();
+    } catch (DateTimeParseException e) {
+      lastException = e;
+    }
+
+    String multiplePrecisionPattern =
+        "[SSSSSSSSS][SSSSSSSS][SSSSSSS][SSSSSS][SSSSS][SSSS][SSS][SS][S]";
+    List<String> datePatterns =
+        Arrays.asList("yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm:ss." + multiplePrecisionPattern);
+    for (String pattern : datePatterns) {
+      try {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        LocalDateTime dateTime = LocalDateTime.parse(expiry, formatter);
+        return dateTime.atZone(ZoneId.systemDefault()).toInstant();
+      } catch (DateTimeParseException e) {
+        lastException = e;
+      }
+    }
+    throw lastException;
   }
 
   private String getProcessStream(InputStream stream) throws IOException {
