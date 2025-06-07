@@ -88,14 +88,15 @@ public class CachedTokenSourceTest {
   @Test
   void testAsyncRefreshFailureFallback() throws Exception {
     // Create a mutable clock supplier that we can control
-    MutableClockSupplier clockSupplier = new MutableClockSupplier(Instant.now());
-    
+    TestClockSupplier clockSupplier = new TestClockSupplier(Instant.now());
+
     // Create a token that will be stale (2 minutes until expiry)
-    Token staleToken = new Token(
-        INITIAL_TOKEN, 
-        TOKEN_TYPE, 
-        null, 
-        LocalDateTime.now(clockSupplier.getClock()).plusMinutes(2));
+    Token staleToken =
+        new Token(
+            INITIAL_TOKEN,
+            TOKEN_TYPE,
+            null,
+            LocalDateTime.now(clockSupplier.getClock()).plusMinutes(2));
 
     class TestSource implements TokenSource {
       int refreshCallCount = 0;
@@ -104,36 +105,45 @@ public class CachedTokenSourceTest {
       @Override
       public Token getToken() {
         refreshCallCount++;
+        try {
+          // Sleep to simulate token fetch delay
+          Thread.sleep(500);
+        } catch (InterruptedException e) {
+          Thread.currentThread().interrupt();
+        }
         if (isFirstRefresh) {
           isFirstRefresh = false;
           throw new RuntimeException("Simulated async failure");
         }
         // Return a token that expires in 10 minutes from current time
         return new Token(
-            REFRESH_TOKEN, 
-            TOKEN_TYPE, 
-            null, 
+            REFRESH_TOKEN + "-" + refreshCallCount,
+            TOKEN_TYPE,
+            null,
             LocalDateTime.now(clockSupplier.getClock()).plusMinutes(10));
       }
     }
 
     TestSource testSource = new TestSource();
-    CachedTokenSource source = new CachedTokenSource.Builder(testSource)
-        .withAsyncEnabled(true)
-        .withToken(staleToken)
-        .withClockSupplier(clockSupplier)
-        .build();
+    CachedTokenSource source =
+        new CachedTokenSource.Builder(testSource)
+            .withAsyncEnabled(true)
+            .withToken(staleToken)
+            .withClockSupplier(clockSupplier)
+            .build();
 
     // First call triggers async refresh, which fails
-    source.getToken();
-    Thread.sleep(300);
+    // Should return stale token immediately (async refresh)
+    Token token = source.getToken();
+    assertEquals(INITIAL_TOKEN, token.getAccessToken(), "Should return stale token immediately");
+    Thread.sleep(600);
     assertEquals(
         1, testSource.refreshCallCount, "refresh() should have been called once (async, failed)");
 
     // Token is still stale, so next call should NOT trigger another refresh since the last refresh
     // failed
-    source.getToken();
-    Thread.sleep(200);
+    token = source.getToken();
+    assertEquals(INITIAL_TOKEN, token.getAccessToken(), "Should still return stale token");
     assertEquals(
         1,
         testSource.refreshCallCount,
@@ -143,28 +153,33 @@ public class CachedTokenSourceTest {
     clockSupplier.advanceTime(Duration.ofMinutes(3));
 
     // Now getToken() should call refresh synchronously and return the refreshed token
-    Token token = source.getToken();
+    token = source.getToken();
     assertEquals(
-        REFRESH_TOKEN,
+        REFRESH_TOKEN + "-2",
         token.getAccessToken(),
         "Should return the refreshed token after sync refresh");
     assertEquals(
-        2, testSource.refreshCallCount, "refresh() should have been called synchronously after expiry");
+        2,
+        testSource.refreshCallCount,
+        "refresh() should have been called synchronously after expiry");
 
     // Advance time by 8 minutes to make the token stale again
     clockSupplier.advanceTime(Duration.ofMinutes(8));
-    source.getToken();
-    Thread.sleep(300);
+    // Should return stale token immediately (async refresh)
+    token = source.getToken();
+    assertEquals(
+        REFRESH_TOKEN + "-2", token.getAccessToken(), "Should return stale token immediately");
+    Thread.sleep(600);
     assertEquals(
         3,
         testSource.refreshCallCount,
         "refresh() should have been called again asynchronously after making token stale");
   }
 
-  private static class MutableClockSupplier implements ClockSupplier {
+  private static class TestClockSupplier implements ClockSupplier {
     private Instant instant;
 
-    MutableClockSupplier(Instant instant) {
+    TestClockSupplier(Instant instant) {
       this.instant = instant;
     }
 
