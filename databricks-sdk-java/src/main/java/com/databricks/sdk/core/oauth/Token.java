@@ -21,16 +21,9 @@ public class Token {
    */
   @JsonProperty private Instant expiry;
 
-  private final ClockSupplier clockSupplier;
-
   /** Constructor for non-refreshable tokens (e.g. M2M). */
   public Token(String accessToken, String tokenType, Instant expiry) {
-    this(accessToken, tokenType, null, expiry, new SystemClockSupplier());
-  }
-
-  /** Constructor for non-refreshable tokens (e.g. M2M) with ClockSupplier */
-  public Token(String accessToken, String tokenType, Instant expiry, ClockSupplier clockSupplier) {
-    this(accessToken, tokenType, null, expiry, clockSupplier);
+    this(accessToken, tokenType, null, expiry);
   }
 
   /** Constructor for refreshable tokens. */
@@ -40,16 +33,6 @@ public class Token {
       @JsonProperty("tokenType") String tokenType,
       @JsonProperty("refreshToken") String refreshToken,
       @JsonProperty("expiry") Instant expiry) {
-    this(accessToken, tokenType, refreshToken, expiry, new SystemClockSupplier());
-  }
-
-  /** Constructor for refreshable tokens with ClockSupplier. */
-  public Token(
-      String accessToken,
-      String tokenType,
-      String refreshToken,
-      Instant expiry,
-      ClockSupplier clockSupplier) {
     Objects.requireNonNull(accessToken, "accessToken must be defined");
     Objects.requireNonNull(tokenType, "tokenType must be defined");
     Objects.requireNonNull(expiry, "expiry must be defined");
@@ -57,24 +40,13 @@ public class Token {
     this.tokenType = tokenType;
     this.refreshToken = refreshToken;
     this.expiry = expiry;
-    this.clockSupplier = clockSupplier;
   }
 
-  public boolean isExpired() {
-    if (expiry == null) {
-      return false;
-    }
-    // Azure Databricks rejects tokens that expire in 30 seconds or less,
-    // so we refresh the token 40 seconds before it expires.
-    Instant potentiallyExpired = expiry.minusSeconds(40);
-    Instant now = Instant.now(clockSupplier.getClock());
-    return potentiallyExpired.isBefore(now);
-  }
-
-  public boolean isValid() {
-    return accessToken != null && !isExpired();
-  }
-
+  /**
+   * Returns the type of the token (e.g., "Bearer").
+   *
+   * @return the token type
+   */
   public String getTokenType() {
     return tokenType;
   }
@@ -102,7 +74,7 @@ public class Token {
    *
    * @return the expiry time
    */
-  public LocalDateTime getExpiry() {
+  public Instant getExpiry() {
     return this.expiry;
   }
 }

@@ -54,24 +54,6 @@ public class FileTokenCacheTest {
     assertEquals("access-token", loadedToken.getAccessToken());
     assertEquals("Bearer", loadedToken.getTokenType());
     assertEquals("refresh-token", loadedToken.getRefreshToken());
-    assertFalse(loadedToken.isExpired(), "Token should not be expired");
-  }
-
-  @Test
-  void testTokenExpiry() {
-    // Create an expired token
-    Instant pastTime = Instant.now().minusSeconds(3600);
-    Token expiredToken = new Token("access-token", "Bearer", "refresh-token", pastTime);
-
-    // Verify it's marked as expired
-    assertTrue(expiredToken.isExpired(), "Token should be expired");
-
-    // Create a valid token
-    Instant futureTime = Instant.now().plusSeconds(1800);
-    Token validToken = new Token("access-token", "Bearer", "refresh-token", futureTime);
-
-    // Verify it's not marked as expired
-    assertFalse(validToken.isExpired(), "Token should not be expired");
   }
 
   @Test

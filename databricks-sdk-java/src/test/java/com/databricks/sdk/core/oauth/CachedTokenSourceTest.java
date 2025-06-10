@@ -6,7 +6,6 @@ import com.databricks.sdk.core.utils.ClockSupplier;
 import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -46,9 +45,9 @@ public class CachedTokenSourceTest {
 
     Token initialToken =
         new Token(
-            INITIAL_TOKEN, TOKEN_TYPE, null, LocalDateTime.now().plusMinutes(minutesUntilExpiry));
+            INITIAL_TOKEN, TOKEN_TYPE, null, Instant.now().plus(Duration.ofMinutes(minutesUntilExpiry)));
     Token refreshedToken =
-        new Token(REFRESH_TOKEN, TOKEN_TYPE, null, LocalDateTime.now().plusMinutes(10));
+        new Token(REFRESH_TOKEN, TOKEN_TYPE, null, Instant.now().plus(Duration.ofMinutes(10)));
     CountDownLatch refreshCalled = new CountDownLatch(1);
 
     TokenSource tokenSource =
@@ -96,7 +95,7 @@ public class CachedTokenSourceTest {
             INITIAL_TOKEN,
             TOKEN_TYPE,
             null,
-            LocalDateTime.now(clockSupplier.getClock()).plusMinutes(2));
+            Instant.now(clockSupplier.getClock()).plus(Duration.ofMinutes(2)));
 
     class TestSource implements TokenSource {
       int refreshCallCount = 0;
@@ -120,7 +119,7 @@ public class CachedTokenSourceTest {
             REFRESH_TOKEN + "-" + refreshCallCount,
             TOKEN_TYPE,
             null,
-            LocalDateTime.now(clockSupplier.getClock()).plusMinutes(10));
+            Instant.now(clockSupplier.getClock()).plus(Duration.ofMinutes(10)));
       }
     }
 
