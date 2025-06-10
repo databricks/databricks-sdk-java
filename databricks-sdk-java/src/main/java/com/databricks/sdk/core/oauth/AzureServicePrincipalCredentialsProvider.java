@@ -28,8 +28,8 @@ public class AzureServicePrincipalCredentialsProvider implements CredentialsProv
     }
     AzureUtils.ensureHostPresent(
         config, mapper, AzureServicePrincipalCredentialsProvider::tokenSourceFor);
-    TokenSource inner = tokenSourceFor(config, config.getEffectiveAzureLoginAppId());
-    TokenSource cloud =
+    CachedTokenSource inner = tokenSourceFor(config, config.getEffectiveAzureLoginAppId());
+    CachedTokenSource cloud =
         tokenSourceFor(config, config.getAzureEnvironment().getServiceManagementEndpoint());
 
     return OAuthHeaderFactory.fromSuppliers(

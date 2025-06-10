@@ -28,7 +28,7 @@ public class CachedTokenSource implements TokenSource {
     EXPIRED
   }
 
-  private static final Logger logger = LoggerFactory.getLogger(RefreshableTokenSource.class);
+  private static final Logger logger = LoggerFactory.getLogger(CachedTokenSource.class);
   // Default duration before expiry to consider a token as 'stale'.
   private static final Duration DEFAULT_STALE_DURATION = Duration.ofMinutes(3);
   private static final Duration DEFAULT_EXPIRY_BUFFER = Duration.ofSeconds(40);

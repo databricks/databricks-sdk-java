@@ -37,11 +37,16 @@ public class TokenSourceCredentialsProvider implements CredentialsProvider {
    */
   @Override
   public OAuthHeaderFactory configure(DatabricksConfig config) {
+    // Check if the token source is already cached to prevent double caching
+    TokenSource source =
+        (tokenSource instanceof CachedTokenSource)
+            ? tokenSource
+            : new CachedTokenSource.Builder(tokenSource).build();
+
     try {
       // Validate that we can get a token before returning a HeaderFactory
-      tokenSource.getToken().getAccessToken();
-
-      return OAuthHeaderFactory.fromTokenSource(tokenSource);
+      source.getToken().getAccessToken();
+      return OAuthHeaderFactory.fromTokenSource(source);
     } catch (Exception e) {
       return null;
     }
