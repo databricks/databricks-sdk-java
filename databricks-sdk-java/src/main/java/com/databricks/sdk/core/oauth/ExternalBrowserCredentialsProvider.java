@@ -81,12 +81,12 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
           LOGGER.debug("Using cached token, will immediately refresh");
           sessionCredentials.token = sessionCredentials.getToken();
 
-          CachedTokenSource cachedTokenSource =
+          CachedTokenSource tokenSource =
               new CachedTokenSource.Builder(sessionCredentials)
                   .withToken(sessionCredentials.token)
                   .build();
 
-          return OAuthHeaderFactory.fromTokenSource(cachedTokenSource);
+          return OAuthHeaderFactory.fromTokenSource(tokenSource);
         } catch (Exception e) {
           // If token refresh fails, log and continue to browser auth
           LOGGER.info("Token refresh failed: {}, falling back to browser auth", e.getMessage());
