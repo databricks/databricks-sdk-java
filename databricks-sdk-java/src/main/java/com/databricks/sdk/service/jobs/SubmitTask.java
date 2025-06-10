@@ -30,6 +30,10 @@ public class SubmitTask {
   @JsonProperty("dashboard_task")
   private DashboardTask dashboardTask;
 
+  /** Task type for dbt cloud */
+  @JsonProperty("dbt_cloud_task")
+  private DbtCloudTask dbtCloudTask;
+
   /**
    * The task runs one or more dbt commands when the `dbt_task` field is present. The dbt task
    * requires both Databricks SQL and the ability to use a serverless or a pro SQL warehouse.
@@ -217,6 +221,15 @@ public class SubmitTask {
 
   public DashboardTask getDashboardTask() {
     return dashboardTask;
+  }
+
+  public SubmitTask setDbtCloudTask(DbtCloudTask dbtCloudTask) {
+    this.dbtCloudTask = dbtCloudTask;
+    return this;
+  }
+
+  public DbtCloudTask getDbtCloudTask() {
+    return dbtCloudTask;
   }
 
   public SubmitTask setDbtTask(DbtTask dbtTask) {
@@ -452,6 +465,7 @@ public class SubmitTask {
     return Objects.equals(cleanRoomsNotebookTask, that.cleanRoomsNotebookTask)
         && Objects.equals(conditionTask, that.conditionTask)
         && Objects.equals(dashboardTask, that.dashboardTask)
+        && Objects.equals(dbtCloudTask, that.dbtCloudTask)
         && Objects.equals(dbtTask, that.dbtTask)
         && Objects.equals(dependsOn, that.dependsOn)
         && Objects.equals(description, that.description)
@@ -485,6 +499,7 @@ public class SubmitTask {
         cleanRoomsNotebookTask,
         conditionTask,
         dashboardTask,
+        dbtCloudTask,
         dbtTask,
         dependsOn,
         description,
@@ -518,6 +533,7 @@ public class SubmitTask {
         .add("cleanRoomsNotebookTask", cleanRoomsNotebookTask)
         .add("conditionTask", conditionTask)
         .add("dashboardTask", dashboardTask)
+        .add("dbtCloudTask", dbtCloudTask)
         .add("dbtTask", dbtTask)
         .add("dependsOn", dependsOn)
         .add("description", description)

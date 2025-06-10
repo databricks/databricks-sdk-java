@@ -70,7 +70,7 @@ public interface MetastoresService {
    * an admin to retrieve this info. There is no guarantee of a specific ordering of the elements in
    * the array.
    */
-  ListMetastoresResponse list();
+  ListMetastoresResponse list(ListMetastoresRequest listMetastoresRequest);
 
   /**
    * Get a metastore summary.

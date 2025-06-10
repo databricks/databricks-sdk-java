@@ -8,7 +8,6 @@ import static org.mockito.Mockito.times;
 import com.databricks.sdk.core.oauth.CachedTokenSource;
 import com.databricks.sdk.core.oauth.Token;
 import com.databricks.sdk.core.oauth.TokenSource;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -26,7 +25,7 @@ class AzureCliCredentialsProviderTest {
   private static CachedTokenSource mockTokenSource() {
     CliTokenSource cliTokenSource = Mockito.mock(CliTokenSource.class);
     Mockito.when(cliTokenSource.getToken())
-        .thenReturn(new Token(TOKEN, TOKEN_TYPE, LocalDateTime.now()));
+        .thenReturn(new Token(TOKEN, TOKEN_TYPE, java.time.Instant.now()));
     return new CachedTokenSource.Builder(cliTokenSource).build();
   }
 

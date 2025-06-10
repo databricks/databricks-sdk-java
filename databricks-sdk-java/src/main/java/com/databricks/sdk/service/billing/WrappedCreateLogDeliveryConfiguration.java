@@ -7,9 +7,10 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** * Properties of the new log delivery configuration. */
 @Generated
 public class WrappedCreateLogDeliveryConfiguration {
-  /** */
+  /** * Log Delivery Configuration */
   @JsonProperty("log_delivery_configuration")
   private CreateLogDeliveryConfigurationParams logDeliveryConfiguration;
 

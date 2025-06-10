@@ -11,7 +11,7 @@ import java.util.Objects;
 
 @Generated
 public class UpdateSharePermissions {
-  /** Array of permission changes. */
+  /** Array of permissions change objects. */
   @JsonProperty("changes")
   private Collection<PermissionsChange> changes;
 

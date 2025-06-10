@@ -6,7 +6,7 @@ import static org.mockito.Mockito.*;
 import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.HeaderFactory;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Map;
 import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -19,7 +19,7 @@ class TokenSourceCredentialsProviderTest {
   private static final String TEST_AUTH_TYPE = "test-auth-type";
   private static final String TEST_ACCESS_TOKEN_VALUE = "test-access-token";
   private static final Token TEST_TOKEN =
-      new Token(TEST_ACCESS_TOKEN_VALUE, "Bearer", LocalDateTime.now().plusHours(1));
+      new Token(TEST_ACCESS_TOKEN_VALUE, "Bearer", Instant.now().plusSeconds(3600));
 
   /** Tests token retrieval scenarios */
   @ParameterizedTest(name = "{0}")

@@ -13,14 +13,6 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface LakeviewEmbeddedService {
   /**
-   * Read a published dashboard in an embedded ui.
-   *
-   * <p>Get the current published dashboard within an embedded context.
-   */
-  void getPublishedDashboardEmbedded(
-      GetPublishedDashboardEmbeddedRequest getPublishedDashboardEmbeddedRequest);
-
-  /**
    * Read an information of a published dashboard to mint an OAuth token.
    *
    * <p>Get a required authorization details and scopes of a published dashboard to mint an OAuth

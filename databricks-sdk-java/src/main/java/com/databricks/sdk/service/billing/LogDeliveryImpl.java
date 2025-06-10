@@ -32,7 +32,7 @@ class LogDeliveryImpl implements LogDeliveryService {
   }
 
   @Override
-  public WrappedLogDeliveryConfiguration get(GetLogDeliveryRequest request) {
+  public GetLogDeliveryConfigurationResponse get(GetLogDeliveryRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/log-delivery/%s",
@@ -41,7 +41,7 @@ class LogDeliveryImpl implements LogDeliveryService {
       Request req = new Request("GET", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
-      return apiClient.execute(req, WrappedLogDeliveryConfiguration.class);
+      return apiClient.execute(req, GetLogDeliveryConfigurationResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
