@@ -3,7 +3,7 @@ package com.databricks.sdk.core.oauth;
 import com.databricks.sdk.core.utils.ClockSupplier;
 import com.databricks.sdk.core.utils.SystemClockSupplier;
 import java.time.Duration;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.concurrent.CompletableFuture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -122,8 +122,7 @@ public class CachedTokenSource implements TokenSource {
     if (t == null) {
       return TokenState.EXPIRED;
     }
-    Duration lifeTime =
-        Duration.between(LocalDateTime.now(clockSupplier.getClock()), t.getExpiry());
+    Duration lifeTime = Duration.between(Instant.now(clockSupplier.getClock()), t.getExpiry());
     if (lifeTime.compareTo(expiryBuffer) <= 0) {
       return TokenState.EXPIRED;
     }
