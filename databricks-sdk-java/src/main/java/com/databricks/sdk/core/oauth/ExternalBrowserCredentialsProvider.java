@@ -121,11 +121,12 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
 
     // Use the existing browser flow to get credentials
     SessionCredentials credentials = consent.launchExternalBrowser();
+    Token token = credentials.getToken();
 
     // Create a new SessionCredentials with the same token but with our token cache
     SessionCredentials sessionCredentials =
         new SessionCredentials.Builder()
-            .withToken(credentials.getToken())
+            .withToken(token)
             .withHttpClient(config.getHttpClient())
             .withClientId(config.getClientId())
             .withClientSecret(config.getClientSecret())
@@ -134,8 +135,6 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
             .withTokenCache(tokenCache)
             .build();
 
-    return new CachedTokenSource.Builder(sessionCredentials)
-        .withToken(sessionCredentials.getToken())
-        .build();
+    return new CachedTokenSource.Builder(sessionCredentials).withToken(token).build();
   }
 }
