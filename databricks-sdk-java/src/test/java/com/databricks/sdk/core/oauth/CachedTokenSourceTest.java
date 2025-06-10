@@ -45,7 +45,10 @@ public class CachedTokenSourceTest {
 
     Token initialToken =
         new Token(
-            INITIAL_TOKEN, TOKEN_TYPE, null, Instant.now().plus(Duration.ofMinutes(minutesUntilExpiry)));
+            INITIAL_TOKEN,
+            TOKEN_TYPE,
+            null,
+            Instant.now().plus(Duration.ofMinutes(minutesUntilExpiry)));
     Token refreshedToken =
         new Token(REFRESH_TOKEN, TOKEN_TYPE, null, Instant.now().plus(Duration.ofMinutes(10)));
     CountDownLatch refreshCalled = new CountDownLatch(1);
