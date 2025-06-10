@@ -44,29 +44,32 @@ public class AzureServicePrincipalCredentialsProvider implements CredentialsProv
   }
 
   /**
-   * Creates a RefreshableTokenSource for the specified Azure resource.
+   * Creates a CachedTokenSource for the specified Azure resource.
    *
-   * <p>This function constructs a RefreshableTokenSource instance that fetches OAuth tokens for the
+   * <p>This function constructs a CachedTokenSource instance that fetches OAuth tokens for the
    * given Azure resource. It uses the authentication parameters provided by the DatabricksConfig
    * instance to generate the tokens.
    *
    * @param config The DatabricksConfig instance containing the required authentication parameters.
    * @param resource The Azure resource for which OAuth tokens need to be fetched.
-   * @return A RefreshableTokenSource instance capable of fetching OAuth tokens for the specified
-   *     Azure resource.
+   * @return A CachedTokenSource instance capable of fetching OAuth tokens for the specified Azure
+   *     resource.
    */
-  private static TokenSource tokenSourceFor(DatabricksConfig config, String resource) {
+  private static CachedTokenSource tokenSourceFor(DatabricksConfig config, String resource) {
     String aadEndpoint = config.getAzureEnvironment().getActiveDirectoryEndpoint();
     String tokenUrl = aadEndpoint + config.getAzureTenantId() + "/oauth2/token";
     Map<String, String> endpointParams = new HashMap<>();
     endpointParams.put("resource", resource);
-    return new ClientCredentials.Builder()
-        .withHttpClient(config.getHttpClient())
-        .withClientId(config.getAzureClientId())
-        .withClientSecret(config.getAzureClientSecret())
-        .withTokenUrl(tokenUrl)
-        .withEndpointParametersSupplier(() -> endpointParams)
-        .withAuthParameterPosition(AuthParameterPosition.BODY)
-        .build();
+
+    ClientCredentials clientCredentials =
+        new ClientCredentials.Builder()
+            .withHttpClient(config.getHttpClient())
+            .withClientId(config.getAzureClientId())
+            .withClientSecret(config.getAzureClientSecret())
+            .withTokenUrl(tokenUrl)
+            .withEndpointParametersSupplier(() -> endpointParams)
+            .withAuthParameterPosition(AuthParameterPosition.BODY)
+            .build();
+    return new CachedTokenSource.Builder(clientCredentials).build();
   }
 }

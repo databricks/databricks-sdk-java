@@ -408,12 +408,15 @@ public class ExternalBrowserCredentialsProviderTest {
             "browser_refresh_token",
             LocalDateTime.now().plusHours(1));
 
-    SessionCredentials browserAuthCreds =
+    SessionCredentials sessionCredentials =
         new SessionCredentials.Builder()
             .withToken(browserAuthToken)
             .withClientId("test-client-id")
             .withTokenUrl("https://test-token-url")
             .build();
+
+    CachedTokenSource browserAuthTokenSource =
+        new CachedTokenSource.Builder(sessionCredentials).withToken(browserAuthToken).build();
 
     // Create config with failing HTTP client and mock token cache
     DatabricksConfig config =
@@ -431,7 +434,7 @@ public class ExternalBrowserCredentialsProviderTest {
     // Create our provider and mock the browser auth method
     ExternalBrowserCredentialsProvider provider =
         Mockito.spy(new ExternalBrowserCredentialsProvider(mockTokenCache));
-    Mockito.doReturn(browserAuthCreds)
+    Mockito.doReturn(browserAuthTokenSource)
         .when(provider)
         .performBrowserAuth(any(DatabricksConfig.class), any(), any(), any(TokenCache.class));
 
@@ -441,6 +444,7 @@ public class ExternalBrowserCredentialsProviderTest {
 
     // Configure provider
     HeaderFactory headerFactory = provider.configure(spyConfig);
+    assertNotNull(headerFactory);
 
     // Verify headers contain the browser auth token (fallback)
     Map<String, String> headers = headerFactory.headers();
@@ -475,12 +479,15 @@ public class ExternalBrowserCredentialsProviderTest {
             "browser_refresh_token",
             LocalDateTime.now().plusHours(1));
 
-    SessionCredentials browserAuthCreds =
+    SessionCredentials sessionCredentials =
         new SessionCredentials.Builder()
             .withToken(browserAuthToken)
             .withClientId("test-client-id")
             .withTokenUrl("https://test-token-url")
             .build();
+
+    CachedTokenSource browserAuthTokenSource =
+        new CachedTokenSource.Builder(sessionCredentials).withToken(browserAuthToken).build();
 
     // Create simple config
     DatabricksConfig config =
@@ -492,12 +499,13 @@ public class ExternalBrowserCredentialsProviderTest {
     // Create our provider and mock the browser auth method
     ExternalBrowserCredentialsProvider provider =
         Mockito.spy(new ExternalBrowserCredentialsProvider(mockTokenCache));
-    Mockito.doReturn(browserAuthCreds)
+    Mockito.doReturn(browserAuthTokenSource)
         .when(provider)
         .performBrowserAuth(any(DatabricksConfig.class), any(), any(), any(TokenCache.class));
 
     // Configure provider
     HeaderFactory headerFactory = provider.configure(config);
+    assertNotNull(headerFactory);
     // Verify headers contain the browser auth token (fallback)
     Map<String, String> headers = headerFactory.headers();
     assertEquals("Bearer browser_access_token", headers.get("Authorization"));

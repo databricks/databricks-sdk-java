@@ -1,5 +1,6 @@
 package com.databricks.sdk.core;
 
+import com.databricks.sdk.core.oauth.CachedTokenSource;
 import com.databricks.sdk.core.oauth.OAuthHeaderFactory;
 import com.databricks.sdk.core.utils.OSUtils;
 import java.util.*;
@@ -47,8 +48,11 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
       if (tokenSource == null) {
         return null;
       }
-      tokenSource.getToken(); // We need this for checking if databricks CLI is installed.
-      return OAuthHeaderFactory.fromTokenSource(tokenSource);
+
+      CachedTokenSource cachedTokenSource = new CachedTokenSource.Builder(tokenSource).build();
+      cachedTokenSource.getToken(); // We need this for checking if databricks CLI is installed.
+
+      return OAuthHeaderFactory.fromTokenSource(cachedTokenSource);
     } catch (DatabricksException e) {
       String stderr = e.getMessage();
       if (stderr.contains("not found")) {

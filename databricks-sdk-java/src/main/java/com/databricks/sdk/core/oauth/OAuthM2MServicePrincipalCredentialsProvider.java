@@ -27,7 +27,7 @@ public class OAuthM2MServicePrincipalCredentialsProvider implements CredentialsP
     // https://login.microsoftonline.com/{cfg.azure_tenant_id}/.well-known/oauth-authorization-server
     try {
       OpenIDConnectEndpoints jsonResponse = config.getOidcEndpoints();
-      ClientCredentials tokenSource =
+      ClientCredentials clientCredentials =
           new ClientCredentials.Builder()
               .withHttpClient(config.getHttpClient())
               .withClientId(config.getClientId())
@@ -36,6 +36,8 @@ public class OAuthM2MServicePrincipalCredentialsProvider implements CredentialsP
               .withScopes(Collections.singletonList("all-apis"))
               .withAuthParameterPosition(AuthParameterPosition.HEADER)
               .build();
+
+      CachedTokenSource tokenSource = new CachedTokenSource.Builder(clientCredentials).build();
 
       return OAuthHeaderFactory.fromTokenSource(tokenSource);
     } catch (IOException e) {
