@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.times;
 
+import com.databricks.sdk.core.oauth.CachedTokenSource;
 import com.databricks.sdk.core.oauth.Token;
 import com.databricks.sdk.core.oauth.TokenSource;
 import java.time.Instant;
@@ -22,11 +23,11 @@ class AzureCliCredentialsProviderTest {
   private static final String TOKEN = "t-123";
   private static final String TOKEN_TYPE = "token-type";
 
-  private static CliTokenSource mockTokenSource() {
-    CliTokenSource tokenSource = Mockito.mock(CliTokenSource.class);
-    Mockito.when(tokenSource.getToken())
+  private static CachedTokenSource mockTokenSource() {
+    CliTokenSource cliTokenSource = Mockito.mock(CliTokenSource.class);
+    Mockito.when(cliTokenSource.getToken())
         .thenReturn(new Token(TOKEN, TOKEN_TYPE, Instant.now()));
-    return tokenSource;
+    return new CachedTokenSource.Builder(cliTokenSource).build();
   }
 
   private static AzureCliCredentialsProvider getAzureCliCredentialsProvider(
@@ -62,10 +63,12 @@ class AzureCliCredentialsProviderTest {
 
   @Test
   void testFallbackWhenTailsToGetTokenForSubscription() {
-    CliTokenSource tokenSource = mockTokenSource();
+    CachedTokenSource tokenSource = mockTokenSource();
 
     AzureCliCredentialsProvider provider = Mockito.spy(new AzureCliCredentialsProvider());
-    Mockito.doThrow(new DatabricksException("error")).when(provider).getTokenSource(any(), anyList());
+    Mockito.doThrow(new DatabricksException("error"))
+        .when(provider)
+        .getTokenSource(any(), anyList());
     Mockito.doReturn(tokenSource).when(provider).getTokenSource(any(), anyList());
 
     DatabricksConfig config =
