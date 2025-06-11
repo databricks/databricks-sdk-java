@@ -37,9 +37,10 @@ public class OAuthM2MServicePrincipalCredentialsProvider implements CredentialsP
               .withAuthParameterPosition(AuthParameterPosition.HEADER)
               .build();
 
-      CachedTokenSource tokenSource = new CachedTokenSource.Builder(clientCredentials).build();
+      CachedTokenSource cachedTokenSource =
+          new CachedTokenSource.Builder(clientCredentials).build();
 
-      return OAuthHeaderFactory.fromTokenSource(tokenSource);
+      return OAuthHeaderFactory.fromTokenSource(cachedTokenSource);
     } catch (IOException e) {
       // TODO: Log exception
       throw new DatabricksException("Unable to fetch OIDC endpoint: " + e.getMessage(), e);

@@ -25,8 +25,7 @@ class AzureCliCredentialsProviderTest {
 
   private static CachedTokenSource mockTokenSource() {
     CliTokenSource cliTokenSource = Mockito.mock(CliTokenSource.class);
-    Mockito.when(cliTokenSource.getToken())
-        .thenReturn(new Token(TOKEN, TOKEN_TYPE, Instant.now()));
+    Mockito.when(cliTokenSource.getToken()).thenReturn(new Token(TOKEN, TOKEN_TYPE, Instant.now()));
     return new CachedTokenSource.Builder(cliTokenSource).build();
   }
 

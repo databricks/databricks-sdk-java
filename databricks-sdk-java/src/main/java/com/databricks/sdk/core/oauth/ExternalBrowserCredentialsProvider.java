@@ -81,23 +81,23 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
           LOGGER.debug("Using cached token, will immediately refresh");
           sessionCredentials.token = sessionCredentials.getToken();
 
-          CachedTokenSource tokenSource =
+          CachedTokenSource cachedTokenSource =
               new CachedTokenSource.Builder(sessionCredentials)
                   .withToken(sessionCredentials.token)
                   .build();
 
-          return OAuthHeaderFactory.fromTokenSource(tokenSource);
+          return OAuthHeaderFactory.fromTokenSource(cachedTokenSource);
         } catch (Exception e) {
           // If token refresh fails, log and continue to browser auth
           LOGGER.info("Token refresh failed: {}, falling back to browser auth", e.getMessage());
         }
       }
       // If no cached token or refresh failed, perform browser auth
-      CachedTokenSource tokenSource =
+      CachedTokenSource cachedTokenSource =
           performBrowserAuth(config, clientId, clientSecret, tokenCache);
-      tokenCache.save(tokenSource.getToken());
+      tokenCache.save(cachedTokenSource.getToken());
 
-      return OAuthHeaderFactory.fromTokenSource(tokenSource);
+      return OAuthHeaderFactory.fromTokenSource(cachedTokenSource);
     } catch (IOException | DatabricksException e) {
       LOGGER.error("Failed to authenticate: {}", e.getMessage());
       return null;
