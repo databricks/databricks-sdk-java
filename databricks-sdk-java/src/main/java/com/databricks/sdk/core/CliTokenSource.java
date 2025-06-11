@@ -48,11 +48,11 @@ public class CliTokenSource extends RefreshableTokenSource {
    * @throws DateTimeParseException if the input string cannot be parsed
    */
   static Instant parseExpiry(String expiry) {
-    DateTimeParseException lastException = null;
+    DateTimeParseException parseException;
     try {
       return OffsetDateTime.parse(expiry).toInstant();
     } catch (DateTimeParseException e) {
-      lastException = e;
+      parseException = e;
     }
 
     String multiplePrecisionPattern =
@@ -65,10 +65,11 @@ public class CliTokenSource extends RefreshableTokenSource {
         LocalDateTime dateTime = LocalDateTime.parse(expiry, formatter);
         return dateTime.atZone(ZoneId.systemDefault()).toInstant();
       } catch (DateTimeParseException e) {
-        lastException = e;
+        parseException.addSuppressed(e);
       }
     }
-    throw lastException;
+
+    throw parseException;
   }
 
   private String getProcessStream(InputStream stream) throws IOException {
