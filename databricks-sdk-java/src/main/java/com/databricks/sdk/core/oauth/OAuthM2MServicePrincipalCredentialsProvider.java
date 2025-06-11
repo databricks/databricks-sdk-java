@@ -27,7 +27,7 @@ public class OAuthM2MServicePrincipalCredentialsProvider implements CredentialsP
     // https://login.microsoftonline.com/{cfg.azure_tenant_id}/.well-known/oauth-authorization-server
     try {
       OpenIDConnectEndpoints jsonResponse = config.getOidcEndpoints();
-      ClientCredentials tokenSource =
+      ClientCredentials clientCredentials =
           new ClientCredentials.Builder()
               .withHttpClient(config.getHttpClient())
               .withClientId(config.getClientId())
@@ -37,7 +37,10 @@ public class OAuthM2MServicePrincipalCredentialsProvider implements CredentialsP
               .withAuthParameterPosition(AuthParameterPosition.HEADER)
               .build();
 
-      return OAuthHeaderFactory.fromTokenSource(tokenSource);
+      CachedTokenSource cachedTokenSource =
+          new CachedTokenSource.Builder(clientCredentials).build();
+
+      return OAuthHeaderFactory.fromTokenSource(cachedTokenSource);
     } catch (IOException e) {
       // TODO: Log exception
       throw new DatabricksException("Unable to fetch OIDC endpoint: " + e.getMessage(), e);

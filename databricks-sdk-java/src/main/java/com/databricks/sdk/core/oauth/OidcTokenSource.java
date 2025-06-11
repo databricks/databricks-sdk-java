@@ -8,14 +8,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 /**
  * {@code OidcTokenSource} is responsible for obtaining OAuth tokens using the OpenID Connect (OIDC)
  * protocol. It communicates with an OAuth server to request access tokens using the client
  * credentials grant type instead of a client secret.
  */
-class OidcTokenSource extends RefreshableTokenSource {
+class OidcTokenSource implements TokenSource {
 
   private final HttpClient httpClient;
   private final String tokenUrl;
@@ -58,7 +58,8 @@ class OidcTokenSource extends RefreshableTokenSource {
     }
   }
 
-  protected Token refresh() {
+  @Override
+  public Token getToken() {
     Response rawResp;
     try {
       rawResp = httpClient.execute(new FormRequest(tokenUrl, params));
@@ -77,7 +78,7 @@ class OidcTokenSource extends RefreshableTokenSource {
     if (resp.getErrorCode() != null) {
       throw new IllegalArgumentException(resp.getErrorCode() + ": " + resp.getErrorSummary());
     }
-    LocalDateTime expiry = LocalDateTime.now().plusSeconds(resp.getExpiresIn());
+    Instant expiry = Instant.now().plusSeconds(resp.getExpiresIn());
     return new Token(resp.getAccessToken(), resp.getTokenType(), resp.getRefreshToken(), expiry);
   }
 }

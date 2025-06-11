@@ -298,7 +298,7 @@ public class Consent implements Serializable {
     return exchange(query.get("code"), query.get("state"));
   }
 
-  public SessionCredentials exchange(String code, String state) {
+  private SessionCredentials exchange(String code, String state) {
     if (!this.state.equals(state)) {
       throw new DatabricksException(
           "state mismatch: original state: " + this.state + "; retrieved state: " + state);
@@ -313,7 +313,7 @@ public class Consent implements Serializable {
       headers.put("Origin", this.redirectUrl);
     }
     Token token =
-        RefreshableTokenSource.retrieveToken(
+        TokenEndpointClient.retrieveToken(
             this.hc,
             this.clientId,
             this.clientSecret,

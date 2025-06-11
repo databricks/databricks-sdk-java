@@ -3,7 +3,7 @@ package com.databricks.sdk.core.oauth;
 import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.HttpClient;
 import com.google.common.base.Strings;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
  * Implementation of TokenSource that handles OAuth token exchange for Databricks authentication.
  * This class manages the OAuth token exchange flow using ID tokens to obtain access tokens.
  */
-public class DatabricksOAuthTokenSource extends RefreshableTokenSource {
+public class DatabricksOAuthTokenSource implements TokenSource {
   private static final Logger LOG = LoggerFactory.getLogger(DatabricksOAuthTokenSource.class);
 
   /** OAuth client ID used for token exchange. */
@@ -128,7 +128,7 @@ public class DatabricksOAuthTokenSource extends RefreshableTokenSource {
    * @throws NullPointerException when any of the required parameters are null.
    */
   @Override
-  public Token refresh() {
+  public Token getToken() {
     Objects.requireNonNull(clientId, "ClientID cannot be null");
     Objects.requireNonNull(host, "Host cannot be null");
     Objects.requireNonNull(endpoints, "Endpoints cannot be null");
@@ -166,7 +166,7 @@ public class DatabricksOAuthTokenSource extends RefreshableTokenSource {
       throw e;
     }
 
-    LocalDateTime expiry = LocalDateTime.now().plusSeconds(response.getExpiresIn());
+    Instant expiry = Instant.now().plusSeconds(response.getExpiresIn());
     return new Token(
         response.getAccessToken(), response.getTokenType(), response.getRefreshToken(), expiry);
   }

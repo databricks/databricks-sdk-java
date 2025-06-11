@@ -13,7 +13,7 @@ import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -186,7 +186,7 @@ public class ExternalBrowserCredentialsProviderTest {
             .withClientSecret("abc")
             .withTokenUrl("https://tokenUrl")
             .build();
-    Token token = clientCredentials.refresh();
+    Token token = clientCredentials.getToken();
     assertEquals("accessTokenFromServer", token.getAccessToken());
     assertEquals("refreshTokenFromServer", token.getRefreshToken());
   }
@@ -210,9 +210,9 @@ public class ExternalBrowserCredentialsProviderTest {
                     "originalAccessToken",
                     "originalTokenType",
                     "originalRefreshToken",
-                    LocalDateTime.MAX))
+                    Instant.MAX))
             .build();
-    Token token = sessionCredentials.refresh();
+    Token token = sessionCredentials.getToken();
 
     // We check that we are actually getting the token from server response (that is defined
     // above) rather than what was given while creating session credentials
@@ -234,7 +234,7 @@ public class ExternalBrowserCredentialsProviderTest {
         .execute(any(Request.class));
 
     // Create an valid token with valid refresh token
-    LocalDateTime futureTime = LocalDateTime.now().plusHours(1);
+    Instant futureTime = Instant.now().plusSeconds(3600);
     Token validToken = new Token("valid_access_token", "Bearer", "valid_refresh_token", futureTime);
 
     // Create mock token cache that returns the valid token
@@ -314,7 +314,7 @@ public class ExternalBrowserCredentialsProviderTest {
         .execute(any(Request.class));
 
     // Create an expired token with valid refresh token
-    LocalDateTime pastTime = LocalDateTime.now().minusHours(1);
+    Instant pastTime = Instant.now().minusSeconds(3600);
     Token expiredToken =
         new Token("expired_access_token", "Bearer", "valid_refresh_token", pastTime);
 
@@ -392,7 +392,7 @@ public class ExternalBrowserCredentialsProviderTest {
         .execute(any(Request.class));
 
     // Create an expired token with invalid refresh token
-    LocalDateTime pastTime = LocalDateTime.now().minusHours(1);
+    Instant pastTime = Instant.now().minusSeconds(3600);
     Token expiredToken =
         new Token("expired_access_token", "Bearer", "invalid_refresh_token", pastTime);
 
@@ -406,14 +406,17 @@ public class ExternalBrowserCredentialsProviderTest {
             "browser_access_token",
             "Bearer",
             "browser_refresh_token",
-            LocalDateTime.now().plusHours(1));
+            Instant.now().plusSeconds(3600));
 
-    SessionCredentials browserAuthCreds =
+    SessionCredentials sessionCredentials =
         new SessionCredentials.Builder()
             .withToken(browserAuthToken)
             .withClientId("test-client-id")
             .withTokenUrl("https://test-token-url")
             .build();
+
+    CachedTokenSource browserAuthTokenSource =
+        new CachedTokenSource.Builder(sessionCredentials).withToken(browserAuthToken).build();
 
     // Create config with failing HTTP client and mock token cache
     DatabricksConfig config =
@@ -431,7 +434,7 @@ public class ExternalBrowserCredentialsProviderTest {
     // Create our provider and mock the browser auth method
     ExternalBrowserCredentialsProvider provider =
         Mockito.spy(new ExternalBrowserCredentialsProvider(mockTokenCache));
-    Mockito.doReturn(browserAuthCreds)
+    Mockito.doReturn(browserAuthTokenSource)
         .when(provider)
         .performBrowserAuth(any(DatabricksConfig.class), any(), any(), any(TokenCache.class));
 
@@ -441,6 +444,7 @@ public class ExternalBrowserCredentialsProviderTest {
 
     // Configure provider
     HeaderFactory headerFactory = provider.configure(spyConfig);
+    assertNotNull(headerFactory);
 
     // Verify headers contain the browser auth token (fallback)
     Map<String, String> headers = headerFactory.headers();
@@ -460,7 +464,7 @@ public class ExternalBrowserCredentialsProviderTest {
   @Test
   void cacheWithInvalidTokensTest() throws IOException {
     // Create completely invalid token (no refresh token)
-    LocalDateTime pastTime = LocalDateTime.now().minusHours(1);
+    Instant pastTime = Instant.now().minusSeconds(3600);
     Token invalidToken = new Token("expired_access_token", "Bearer", null, pastTime);
 
     // Create mock token cache that returns the invalid token
@@ -473,14 +477,17 @@ public class ExternalBrowserCredentialsProviderTest {
             "browser_access_token",
             "Bearer",
             "browser_refresh_token",
-            LocalDateTime.now().plusHours(1));
+            Instant.now().plusSeconds(3600));
 
-    SessionCredentials browserAuthCreds =
+    SessionCredentials sessionCredentials =
         new SessionCredentials.Builder()
             .withToken(browserAuthToken)
             .withClientId("test-client-id")
             .withTokenUrl("https://test-token-url")
             .build();
+
+    CachedTokenSource browserAuthTokenSource =
+        new CachedTokenSource.Builder(sessionCredentials).withToken(browserAuthToken).build();
 
     // Create simple config
     DatabricksConfig config =
@@ -492,12 +499,13 @@ public class ExternalBrowserCredentialsProviderTest {
     // Create our provider and mock the browser auth method
     ExternalBrowserCredentialsProvider provider =
         Mockito.spy(new ExternalBrowserCredentialsProvider(mockTokenCache));
-    Mockito.doReturn(browserAuthCreds)
+    Mockito.doReturn(browserAuthTokenSource)
         .when(provider)
         .performBrowserAuth(any(DatabricksConfig.class), any(), any(), any(TokenCache.class));
 
     // Configure provider
     HeaderFactory headerFactory = provider.configure(config);
+    assertNotNull(headerFactory);
     // Verify headers contain the browser auth token (fallback)
     Map<String, String> headers = headerFactory.headers();
     assertEquals("Bearer browser_access_token", headers.get("Authorization"));

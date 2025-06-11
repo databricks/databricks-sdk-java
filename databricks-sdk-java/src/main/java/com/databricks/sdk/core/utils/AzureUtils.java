@@ -77,7 +77,7 @@ public class AzureUtils {
   }
 
   public static Map<String, String> addSpManagementToken(
-      RefreshableTokenSource tokenSource, Map<String, String> headers) {
+      TokenSource tokenSource, Map<String, String> headers) {
     headers.put("X-Databricks-Azure-SP-Management-Token", tokenSource.getToken().getAccessToken());
     return headers;
   }
