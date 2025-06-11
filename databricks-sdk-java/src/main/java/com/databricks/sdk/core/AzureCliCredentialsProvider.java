@@ -20,7 +20,7 @@ public class AzureCliCredentialsProvider implements CredentialsProvider {
     return AZURE_CLI;
   }
 
-  public CachedTokenSource tokenSourceFor(DatabricksConfig config, String resource) {
+  public CliTokenSource tokenSourceFor(DatabricksConfig config, String resource) {
     String azPath =
         Optional.ofNullable(config.getEnv()).map(env -> env.get("AZ_PATH")).orElse("az");
 
@@ -49,12 +49,11 @@ public class AzureCliCredentialsProvider implements CredentialsProvider {
     return getTokenSource(config, cmd);
   }
 
-  protected CachedTokenSource getTokenSource(DatabricksConfig config, List<String> cmd) {
-    CliTokenSource tokenSource =
+  protected CliTokenSource getTokenSource(DatabricksConfig config, List<String> cmd) {
+    CliTokenSource token =
         new CliTokenSource(cmd, "tokenType", "accessToken", "expiresOn", config.getEnv());
-    CachedTokenSource cachedTokenSource = new CachedTokenSource.Builder(tokenSource).build();
-    cachedTokenSource.getToken(); // Check if the CLI is installed and to validate the config.
-    return cachedTokenSource;
+    token.getToken(); // We need this to check if the CLI is installed and to validate the config.
+    return token;
   }
 
   private Optional<String> getSubscription(DatabricksConfig config) {
@@ -79,8 +78,8 @@ public class AzureCliCredentialsProvider implements CredentialsProvider {
     try {
       AzureUtils.ensureHostPresent(config, mapper, this::tokenSourceFor);
       String resource = config.getEffectiveAzureLoginAppId();
-      CachedTokenSource tokenSource = tokenSourceFor(config, resource);
-      CachedTokenSource mgmtTokenSource;
+      CliTokenSource tokenSource = tokenSourceFor(config, resource);
+      CliTokenSource mgmtTokenSource;
       try {
         mgmtTokenSource =
             tokenSourceFor(config, config.getAzureEnvironment().getServiceManagementEndpoint());
@@ -88,7 +87,8 @@ public class AzureCliCredentialsProvider implements CredentialsProvider {
         LOG.debug("Not including service management token in headers", e);
         mgmtTokenSource = null;
       }
-      CachedTokenSource finalMgmtTokenSource = mgmtTokenSource;
+      CachedTokenSource finalMgmtTokenSource =
+          new CachedTokenSource.Builder(mgmtTokenSource).build();
       return OAuthHeaderFactory.fromSuppliers(
           tokenSource::getToken,
           () -> {
