@@ -23,6 +23,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -68,7 +70,7 @@ public class CliTokenSourceTest {
 
         String expiryStr = getExpiryStr(dateFormat, Duration.ofMinutes(minutesUntilExpiry));
 
-        // Mock process
+        // Mock process to return the specified expiry string
         Process process = mock(Process.class);
         when(process.getInputStream())
             .thenReturn(
@@ -98,8 +100,11 @@ public class CliTokenSourceTest {
   }
 
   private static Stream<Arguments> provideTimezoneTestCases() {
-    // Timezones to test
-    List<String> timezones = Arrays.asList("UTC", "GMT+1", "GMT+8", "GMT-1", "GMT-8");
+    // Generate timezones from GMT-12 to GMT+12
+    List<String> timezones =
+        IntStream.rangeClosed(-12, 12)
+            .mapToObj(offset -> offset == 0 ? "GMT" : String.format("GMT%+d", offset))
+            .collect(Collectors.toList());
 
     // Time to expiry of tokens (minutes, shouldBeExpired)
     List<Arguments> minutesUntilExpiry =
