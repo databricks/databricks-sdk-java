@@ -37,8 +37,9 @@ public class CliTokenSourceTest {
   private static final String[] DATE_FORMATS = {
     "yyyy-MM-dd HH:mm:ss",
     "yyyy-MM-dd HH:mm:ss.SSS",
-    "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
-    "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+    TimeZone.getDefault().getID().equals("UTC")
+        ? "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        : "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
   };
 
   String getExpiryStr(String dateFormat, Duration offset) {
