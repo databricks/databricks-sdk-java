@@ -9,8 +9,8 @@ import static org.mockito.Mockito.when;
 
 import com.databricks.sdk.core.oauth.Token;
 import com.databricks.sdk.core.utils.Environment;
-import com.databricks.sdk.core.utils.OSUtils;
 import com.databricks.sdk.core.utils.OSUtilities;
+import com.databricks.sdk.core.utils.OSUtils;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.time.Duration;
@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -32,10 +33,10 @@ import org.mockito.MockedStatic;
 
 public class CliTokenSourceTest {
   private static final String[] DATE_FORMATS = {
-      "yyyy-MM-dd HH:mm:ss",
-      "yyyy-MM-dd HH:mm:ss.SSS",
-      "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
-      "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+    "yyyy-MM-dd HH:mm:ss",
+    "yyyy-MM-dd HH:mm:ss.SSS",
+    "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
+    "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
   };
 
   String getExpiryStr(String dateFormat, Duration offset) {
@@ -43,20 +44,9 @@ public class CliTokenSourceTest {
     return futureExpiry.format(DateTimeFormatter.ofPattern(dateFormat));
   }
 
-  private static Stream<Arguments> provideTestCases() {
-    return Stream.of(
-        Arguments.of("Valid: 30min remaining", 30, false),
-        Arguments.of("Valid: 1hr remaining", 60, false),
-        Arguments.of("Valid: 2hrs remaining", 120, false),
-        Arguments.of("Expired: 30min ago", -30, true),
-        Arguments.of("Expired: 1hr ago", -60, true),
-        Arguments.of("Expired: 2hrs ago", -120, true)
-    );
-  }
-
-  @ParameterizedTest(name = "{0}")
-  @MethodSource("provideTestCases")
-  public void testRefreshWithExpiry(String testName, int offsetMinutes, boolean shouldBeExpired) throws IOException, InterruptedException {
+  public void testRefreshWithExpiry(
+      String testName, int minutesUntilExpiry, boolean shouldBeExpired)
+      throws IOException, InterruptedException {
     for (String dateFormat : DATE_FORMATS) {
       // Mock environment
       Environment env = mock(Environment.class);
@@ -65,31 +55,38 @@ public class CliTokenSourceTest {
 
       // Create test command
       List<String> cmd = Arrays.asList("test", "command");
-      
+
       // Mock OSUtilities
       OSUtilities osUtils = mock(OSUtilities.class);
       when(osUtils.getCliExecutableCommand(any())).thenReturn(cmd);
-      
+
       try (MockedStatic<OSUtils> mockedOSUtils = mockStatic(OSUtils.class)) {
         mockedOSUtils.when(() -> OSUtils.get(any())).thenReturn(osUtils);
-        
-        // Create token source
-        CliTokenSource tokenSource = new CliTokenSource(cmd, "token_type", "access_token", "expiry", env);
 
-        String expiryStr = getExpiryStr(dateFormat, Duration.ofMinutes(offsetMinutes));
+        CliTokenSource tokenSource =
+            new CliTokenSource(cmd, "token_type", "access_token", "expiry", env);
+
+        String expiryStr = getExpiryStr(dateFormat, Duration.ofMinutes(minutesUntilExpiry));
 
         // Mock process
         Process process = mock(Process.class);
-        when(process.getInputStream()).thenReturn(new ByteArrayInputStream(
-            String.format("{\"token_type\": \"Bearer\", \"access_token\": \"test-token\", \"expiry\": \"%s\"}", expiryStr).getBytes()));
+        when(process.getInputStream())
+            .thenReturn(
+                new ByteArrayInputStream(
+                    String.format(
+                            "{\"token_type\": \"Bearer\", \"access_token\": \"test-token\", \"expiry\": \"%s\"}",
+                            expiryStr)
+                        .getBytes()));
         when(process.getErrorStream()).thenReturn(new ByteArrayInputStream(new byte[0]));
         when(process.waitFor()).thenReturn(0);
 
         // Mock ProcessBuilder constructor
-        try (MockedConstruction<ProcessBuilder> mocked = mockConstruction(ProcessBuilder.class,
-            (mock, context) -> {
-              when(mock.start()).thenReturn(process);
-            })) {
+        try (MockedConstruction<ProcessBuilder> mocked =
+            mockConstruction(
+                ProcessBuilder.class,
+                (mock, context) -> {
+                  when(mock.start()).thenReturn(process);
+                })) {
           // Test refresh
           Token token = tokenSource.refresh();
           assertEquals("Bearer", token.getTokenType());
@@ -97,6 +94,51 @@ public class CliTokenSourceTest {
           assertEquals(shouldBeExpired, token.isExpired());
         }
       }
+    }
+  }
+
+  private static Stream<Arguments> provideTimezoneTestCases() {
+    // Timezones to test
+    List<String> timezones = Arrays.asList("UTC", "GMT+1", "GMT+8", "GMT-1", "GMT-8");
+
+    // Time to expiry of tokens (minutes, shouldBeExpired)
+    List<Arguments> minutesUntilExpiry =
+        Arrays.asList(
+            Arguments.of(5, false), // 5 minutes remaining
+            Arguments.of(30, false), // 30 minutes remaining
+            Arguments.of(60, false), // 1 hour remaining
+            Arguments.of(120, false), // 2 hours remaining
+            Arguments.of(-5, true), // 5 minutes ago
+            Arguments.of(-30, true), // 30 minutes ago
+            Arguments.of(-60, true), // 1 hour ago
+            Arguments.of(-120, true) // 2 hours ago
+            );
+
+    // Create cross product of timezones and minutesUntilExpiry cases
+    return timezones.stream()
+        .flatMap(
+            timezone ->
+                minutesUntilExpiry.stream()
+                    .map(
+                        minutesUntilExpiryCase -> {
+                          Object[] args = minutesUntilExpiryCase.get();
+                          return Arguments.of(timezone, args[0], args[1]);
+                        }));
+  }
+
+  @ParameterizedTest(name = "Test in {0} with {1} minutes offset")
+  @MethodSource("provideTimezoneTestCases")
+  public void testRefreshWithDifferentTimezone(
+      String timezone, int minutesUntilExpiry, boolean shouldBeExpired)
+      throws IOException, InterruptedException {
+    // Save original timezone
+    TimeZone originalTimeZone = TimeZone.getDefault();
+    try {
+      TimeZone.setDefault(TimeZone.getTimeZone(timezone));
+      testRefreshWithExpiry("Test in " + timezone, minutesUntilExpiry, shouldBeExpired);
+    } finally {
+      // Restore original timezone
+      TimeZone.setDefault(originalTimeZone);
     }
   }
 
