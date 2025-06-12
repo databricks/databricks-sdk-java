@@ -36,13 +36,15 @@ import org.mockito.MockedConstruction;
 import org.mockito.MockedStatic;
 
 public class CliTokenSourceTest {
-  private static final String[] DATE_FORMATS = {
-    "yyyy-MM-dd HH:mm:ss",
-    "yyyy-MM-dd HH:mm:ss.SSS",
-    TimeZone.getDefault().getID().equals("UTC")
-        ? "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-        : "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
-  };
+  private String[] getDateFormats() {
+    return new String[] {
+      "yyyy-MM-dd HH:mm:ss",
+      "yyyy-MM-dd HH:mm:ss.SSS",
+      TimeZone.getDefault().getID().equals("UTC")
+          ? "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+          : "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
+    };
+  }
 
   String getExpiryStr(String dateFormat, Duration offset) {
     ZonedDateTime futureExpiry = ZonedDateTime.now().plus(offset);
@@ -52,7 +54,7 @@ public class CliTokenSourceTest {
   public void testRefreshWithExpiry(
       String testName, int minutesUntilExpiry, boolean shouldBeExpired)
       throws IOException, InterruptedException {
-    for (String dateFormat : DATE_FORMATS) {
+    for (String dateFormat : getDateFormats()) {
       // Mock environment
       Environment env = mock(Environment.class);
       Map<String, String> envMap = new HashMap<>();
