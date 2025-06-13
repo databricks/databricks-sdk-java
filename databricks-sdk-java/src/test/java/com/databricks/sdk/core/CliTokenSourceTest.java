@@ -62,8 +62,7 @@ public class CliTokenSourceTest {
             Arguments.of(-120, true) // 2 hours ago
             );
 
-    // Create cross product of timezones and minutesUntilExpiry case and match the timezone with the
-    // date formats
+    // Create cross product of timezones and minutesUntilExpiry case
     return timezones.stream()
         .flatMap(
             timezone -> {
@@ -83,26 +82,28 @@ public class CliTokenSourceTest {
                 dateFormats.add("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
               }
 
-              return minutesUntilExpiry.stream()
-                  .map(
-                      minutesUntilExpiryCase -> {
-                        Object[] args = minutesUntilExpiryCase.get();
-                        return Arguments.of(timezone, args[0], args[1], dateFormats);
-                      });
+              return dateFormats.stream()
+                  .flatMap(
+                      dateFormat ->
+                          minutesUntilExpiry.stream()
+                              .map(
+                                  minutesUntilExpiryCase -> {
+                                    Object[] args = minutesUntilExpiryCase.get();
+                                    return Arguments.of(timezone, args[0], args[1], dateFormat);
+                                  }));
             });
   }
 
-  @ParameterizedTest(name = "Test in {0} with {1} minutes offset")
+  @ParameterizedTest(name = "Test in {0} with {1} minutes offset using format {3}")
   @MethodSource("provideTimezoneTestCases")
   public void testRefreshWithDifferentTimezone(
-      String timezone, int minutesUntilExpiry, boolean shouldBeExpired, List<String> dateFormats)
+      String timezone, int minutesUntilExpiry, boolean shouldBeExpired, String dateFormat)
       throws IOException, InterruptedException {
     // Save original timezone
     TimeZone originalTimeZone = TimeZone.getDefault();
     try {
       TimeZone.setDefault(TimeZone.getTimeZone(timezone));
-      testRefreshWithExpiry(
-          "Test in " + timezone, minutesUntilExpiry, shouldBeExpired, dateFormats);
+      testRefreshWithExpiry("Test in " + timezone, minutesUntilExpiry, shouldBeExpired, dateFormat);
     } finally {
       // Restore original timezone
       TimeZone.setDefault(originalTimeZone);
@@ -110,54 +111,52 @@ public class CliTokenSourceTest {
   }
 
   public void testRefreshWithExpiry(
-      String testName, int minutesUntilExpiry, boolean shouldBeExpired, List<String> dateFormats)
+      String testName, int minutesUntilExpiry, boolean shouldBeExpired, String dateFormat)
       throws IOException, InterruptedException {
-    for (String dateFormat : dateFormats) {
-      // Mock environment
-      Environment env = mock(Environment.class);
-      Map<String, String> envMap = new HashMap<>();
-      when(env.getEnv()).thenReturn(envMap);
+    // Mock environment
+    Environment env = mock(Environment.class);
+    Map<String, String> envMap = new HashMap<>();
+    when(env.getEnv()).thenReturn(envMap);
 
-      // Create test command
-      List<String> cmd = Arrays.asList("test", "command");
+    // Create test command
+    List<String> cmd = Arrays.asList("test", "command");
 
-      // Mock OSUtilities
-      OSUtilities osUtils = mock(OSUtilities.class);
-      when(osUtils.getCliExecutableCommand(any())).thenReturn(cmd);
+    // Mock OSUtilities
+    OSUtilities osUtils = mock(OSUtilities.class);
+    when(osUtils.getCliExecutableCommand(any())).thenReturn(cmd);
 
-      try (MockedStatic<OSUtils> mockedOSUtils = mockStatic(OSUtils.class)) {
-        mockedOSUtils.when(() -> OSUtils.get(any())).thenReturn(osUtils);
+    try (MockedStatic<OSUtils> mockedOSUtils = mockStatic(OSUtils.class)) {
+      mockedOSUtils.when(() -> OSUtils.get(any())).thenReturn(osUtils);
 
-        CliTokenSource tokenSource =
-            new CliTokenSource(cmd, "token_type", "access_token", "expiry", env);
+      CliTokenSource tokenSource =
+          new CliTokenSource(cmd, "token_type", "access_token", "expiry", env);
 
-        String expiryStr = getExpiryStr(dateFormat, Duration.ofMinutes(minutesUntilExpiry));
+      String expiryStr = getExpiryStr(dateFormat, Duration.ofMinutes(minutesUntilExpiry));
 
-        // Mock process to return the specified expiry string
-        Process process = mock(Process.class);
-        when(process.getInputStream())
-            .thenReturn(
-                new ByteArrayInputStream(
-                    String.format(
-                            "{\"token_type\": \"Bearer\", \"access_token\": \"test-token\", \"expiry\": \"%s\"}",
-                            expiryStr)
-                        .getBytes()));
-        when(process.getErrorStream()).thenReturn(new ByteArrayInputStream(new byte[0]));
-        when(process.waitFor()).thenReturn(0);
+      // Mock process to return the specified expiry string
+      Process process = mock(Process.class);
+      when(process.getInputStream())
+          .thenReturn(
+              new ByteArrayInputStream(
+                  String.format(
+                          "{\"token_type\": \"Bearer\", \"access_token\": \"test-token\", \"expiry\": \"%s\"}",
+                          expiryStr)
+                      .getBytes()));
+      when(process.getErrorStream()).thenReturn(new ByteArrayInputStream(new byte[0]));
+      when(process.waitFor()).thenReturn(0);
 
-        // Mock ProcessBuilder constructor
-        try (MockedConstruction<ProcessBuilder> mocked =
-            mockConstruction(
-                ProcessBuilder.class,
-                (mock, context) -> {
-                  when(mock.start()).thenReturn(process);
-                })) {
-          // Test refresh
-          Token token = tokenSource.refresh();
-          assertEquals("Bearer", token.getTokenType());
-          assertEquals("test-token", token.getAccessToken());
-          assertEquals(shouldBeExpired, token.isExpired());
-        }
+      // Mock ProcessBuilder constructor
+      try (MockedConstruction<ProcessBuilder> mocked =
+          mockConstruction(
+              ProcessBuilder.class,
+              (mock, context) -> {
+                when(mock.start()).thenReturn(process);
+              })) {
+        // Test refresh
+        Token token = tokenSource.refresh();
+        assertEquals("Bearer", token.getTokenType());
+        assertEquals("test-token", token.getAccessToken());
+        assertEquals(shouldBeExpired, token.isExpired());
       }
     }
   }
