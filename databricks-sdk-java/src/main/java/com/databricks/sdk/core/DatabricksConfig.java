@@ -581,6 +581,12 @@ public class DatabricksConfig {
     if (getHost() == null) {
       return null;
     }
+
+    if (isAccountClient() && getAccountId() != null) {
+      String prefix = getHost() + "/oidc/accounts/" + getAccountId();
+      return new OpenIDConnectEndpoints(prefix + "/v1/token", prefix + "/v1/authorize");
+    }
+
     ApiClient apiClient =
         new ApiClient.Builder()
             .withHttpClient(getHttpClient())
