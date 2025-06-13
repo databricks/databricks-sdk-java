@@ -157,4 +157,26 @@ public abstract class ApiErrorBody {
      */
     public abstract ApiErrorBody build();
   }
+
+  /**
+   * Converts the error details to a list of ErrorDetail objects. This only supports the ErrorInfo
+   * type.
+   *
+   * @param details The error details to convert.
+   * @return A list of ErrorDetail objects.
+   */
+  private static List<ErrorDetail> fromDetails(ErrorDetails details) {
+    if (details == null) {
+      return Collections.emptyList();
+    }
+    if (!details.errorInfo().isPresent()) {
+      return Collections.emptyList();
+    }
+    return Arrays.asList(
+        new ErrorDetail(
+            "type.googleapis.com/google.rpc.ErrorInfo",
+            details.errorInfo().get().reason(),
+            details.errorInfo().get().domain(),
+            details.errorInfo().get().metadata()));
+  }
 }

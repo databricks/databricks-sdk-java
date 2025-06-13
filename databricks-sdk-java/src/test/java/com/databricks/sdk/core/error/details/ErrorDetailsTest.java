@@ -2,14 +2,17 @@ package com.databricks.sdk.core.error.details;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.databricks.sdk.core.utils.SerDeUtils;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.guava.GuavaModule;
+import com.google.common.collect.ImmutableMap;
+import java.time.Duration;
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 public class ErrorDetailsTest {
 
-  private final ObjectMapper mapper = new ObjectMapper().registerModule(new GuavaModule());
+  private final ObjectMapper mapper = SerDeUtils.createMapper();
 
   @Test
   public void testDeserializeFromArray() throws Exception {
@@ -40,21 +43,28 @@ public class ErrorDetailsTest {
 
     ErrorDetails errorDetails = mapper.readValue(json, ErrorDetails.class);
 
-    assertTrue(errorDetails.errorInfo().isPresent());
-    assertEquals("PERMISSION_DENIED", errorDetails.errorInfo().get().reason());
-    assertEquals("databricks.com", errorDetails.errorInfo().get().domain());
+    JsonNode unknownDetail =
+        mapper.readTree("{\"@type\": \"unknown.type\", \"custom_field\": \"custom_value\"}");
 
-    assertTrue(errorDetails.requestInfo().isPresent());
-    assertEquals("req-123", errorDetails.requestInfo().get().requestId());
-    assertEquals("stack-trace-data", errorDetails.requestInfo().get().servingData());
+    ErrorDetails expected =
+        ErrorDetails.builder()
+            .setErrorInfo(
+                ErrorInfo.builder()
+                    .setReason("PERMISSION_DENIED")
+                    .setDomain("databricks.com")
+                    .setMetadata(
+                        ImmutableMap.<String, String>builder().put("service", "workspace").build())
+                    .build())
+            .setRequestInfo(
+                RequestInfo.builder()
+                    .setRequestId("req-123")
+                    .setServingData("stack-trace-data")
+                    .build())
+            .setRetryInfo(RetryInfo.builder().setRetryDelay(Duration.ofSeconds(30)).build())
+            .setUnknownDetails(Arrays.asList(unknownDetail))
+            .build();
 
-    assertTrue(errorDetails.retryInfo().isPresent());
-    assertEquals("PT30S", errorDetails.retryInfo().get().retryDelay().toString());
-
-    assertEquals(1, errorDetails.unknownDetails().size());
-    JsonNode unknownDetail = errorDetails.unknownDetails().get(0);
-    assertEquals("unknown.type", unknownDetail.get("@type").asText());
-    assertEquals("custom_value", unknownDetail.get("custom_field").asText());
+    assertEquals(expected, errorDetails);
   }
 
   @Test
@@ -71,12 +81,18 @@ public class ErrorDetailsTest {
 
     ErrorDetails errorDetails = mapper.readValue(json, ErrorDetails.class);
 
-    assertTrue(errorDetails.errorInfo().isPresent());
-    assertEquals("RESOURCE_EXHAUSTED", errorDetails.errorInfo().get().reason());
-    assertEquals("databricks.com", errorDetails.errorInfo().get().domain());
-    assertEquals("1000", errorDetails.errorInfo().get().metadata().get("quota_limit"));
+    ErrorDetails expected =
+        ErrorDetails.builder()
+            .setErrorInfo(
+                ErrorInfo.builder()
+                    .setReason("RESOURCE_EXHAUSTED")
+                    .setDomain("databricks.com")
+                    .setMetadata(
+                        ImmutableMap.<String, String>builder().put("quota_limit", "1000").build())
+                    .build())
+            .build();
 
-    assertEquals(0, errorDetails.unknownDetails().size());
+    assertEquals(expected, errorDetails);
   }
 
   @Test
@@ -108,22 +124,32 @@ public class ErrorDetailsTest {
 
     ErrorDetails errorDetails = mapper.readValue(json, ErrorDetails.class);
 
-    assertTrue(errorDetails.quotaFailure().isPresent());
-    assertEquals(1, errorDetails.quotaFailure().get().violations().size());
-    assertEquals("project:123", errorDetails.quotaFailure().get().violations().get(0).subject());
-    assertEquals(
-        "Daily limit exceeded",
-        errorDetails.quotaFailure().get().violations().get(0).description());
+    JsonNode unknownDetail = mapper.readTree("{\"unrecognized_field\": \"value\"}");
 
-    assertTrue(errorDetails.help().isPresent());
-    assertEquals(1, errorDetails.help().get().links().size());
-    assertEquals("Quota documentation", errorDetails.help().get().links().get(0).description());
-    assertEquals(
-        "https://docs.databricks.com/quota", errorDetails.help().get().links().get(0).url());
+    ErrorDetails expected =
+        ErrorDetails.builder()
+            .setQuotaFailure(
+                QuotaFailure.builder()
+                    .setViolations(
+                        Arrays.asList(
+                            QuotaFailure.QuotaFailureViolation.builder()
+                                .setSubject("project:123")
+                                .setDescription("Daily limit exceeded")
+                                .build()))
+                    .build())
+            .setHelp(
+                Help.builder()
+                    .setLinks(
+                        Arrays.asList(
+                            Help.HelpLink.builder()
+                                .setDescription("Quota documentation")
+                                .setUrl("https://docs.databricks.com/quota")
+                                .build()))
+                    .build())
+            .setUnknownDetails(Arrays.asList(unknownDetail))
+            .build();
 
-    assertEquals(1, errorDetails.unknownDetails().size());
-    JsonNode unknownDetail = errorDetails.unknownDetails().get(0);
-    assertEquals("value", unknownDetail.get("unrecognized_field").asText());
+    assertEquals(expected, errorDetails);
   }
 
   @Test
@@ -132,16 +158,9 @@ public class ErrorDetailsTest {
 
     ErrorDetails errorDetails = mapper.readValue(json, ErrorDetails.class);
 
-    assertFalse(errorDetails.errorInfo().isPresent());
-    assertFalse(errorDetails.requestInfo().isPresent());
-    assertFalse(errorDetails.retryInfo().isPresent());
-    assertFalse(errorDetails.debugInfo().isPresent());
-    assertFalse(errorDetails.quotaFailure().isPresent());
-    assertFalse(errorDetails.preconditionFailure().isPresent());
-    assertFalse(errorDetails.badRequest().isPresent());
-    assertFalse(errorDetails.resourceInfo().isPresent());
-    assertFalse(errorDetails.help().isPresent());
-    assertEquals(0, errorDetails.unknownDetails().size());
+    ErrorDetails expected = ErrorDetails.builder().build();
+
+    assertEquals(expected, errorDetails);
   }
 
   @Test
@@ -195,57 +214,73 @@ public class ErrorDetailsTest {
 
     ErrorDetails errorDetails = mapper.readValue(json, ErrorDetails.class);
 
-    // Verify all error detail types are present
-    assertTrue(errorDetails.errorInfo().isPresent());
-    assertEquals("reason", errorDetails.errorInfo().get().reason());
-    assertEquals("domain", errorDetails.errorInfo().get().domain());
-    assertEquals("v1", errorDetails.errorInfo().get().metadata().get("k1"));
-    assertEquals("v2", errorDetails.errorInfo().get().metadata().get("k2"));
+    ErrorDetails expected =
+        ErrorDetails.builder()
+            .setErrorInfo(
+                ErrorInfo.builder()
+                    .setReason("reason")
+                    .setDomain("domain")
+                    .setMetadata(
+                        ImmutableMap.<String, String>builder()
+                            .put("k1", "v1")
+                            .put("k2", "v2")
+                            .build())
+                    .build())
+            .setRequestInfo(
+                RequestInfo.builder().setRequestId("req42").setServingData("data").build())
+            .setRetryInfo(RetryInfo.builder().setRetryDelay(Duration.ofSeconds(1, 1)).build())
+            .setDebugInfo(
+                DebugInfo.builder()
+                    .setStackEntries(Arrays.asList("entry1", "entry2"))
+                    .setDetail("detail")
+                    .build())
+            .setQuotaFailure(
+                QuotaFailure.builder()
+                    .setViolations(
+                        Arrays.asList(
+                            QuotaFailure.QuotaFailureViolation.builder()
+                                .setSubject("subject")
+                                .setDescription("description")
+                                .build()))
+                    .build())
+            .setPreconditionFailure(
+                PreconditionFailure.builder()
+                    .setViolations(
+                        Arrays.asList(
+                            PreconditionFailure.PreconditionFailureViolation.builder()
+                                .setType("type")
+                                .setSubject("subject")
+                                .setDescription("description")
+                                .build()))
+                    .build())
+            .setBadRequest(
+                BadRequest.builder()
+                    .setFieldViolations(
+                        Arrays.asList(
+                            BadRequest.BadRequestFieldViolation.builder()
+                                .setField("field")
+                                .setDescription("description")
+                                .build()))
+                    .build())
+            .setResourceInfo(
+                ResourceInfo.builder()
+                    .setResourceType("resource_type")
+                    .setResourceName("resource_name")
+                    .setOwner("owner")
+                    .setDescription("description")
+                    .build())
+            .setHelp(
+                Help.builder()
+                    .setLinks(
+                        Arrays.asList(
+                            Help.HelpLink.builder()
+                                .setDescription("description")
+                                .setUrl("url")
+                                .build()))
+                    .build())
+            .build();
 
-    assertTrue(errorDetails.requestInfo().isPresent());
-    assertEquals("req42", errorDetails.requestInfo().get().requestId());
-    assertEquals("data", errorDetails.requestInfo().get().servingData());
-
-    assertTrue(errorDetails.retryInfo().isPresent());
-    assertEquals("PT1.000000001S", errorDetails.retryInfo().get().retryDelay().toString());
-
-    assertTrue(errorDetails.debugInfo().isPresent());
-    assertEquals(2, errorDetails.debugInfo().get().stackEntries().size());
-    assertEquals("entry1", errorDetails.debugInfo().get().stackEntries().get(0));
-    assertEquals("entry2", errorDetails.debugInfo().get().stackEntries().get(1));
-    assertEquals("detail", errorDetails.debugInfo().get().detail());
-
-    assertTrue(errorDetails.quotaFailure().isPresent());
-    assertEquals(1, errorDetails.quotaFailure().get().violations().size());
-    assertEquals("subject", errorDetails.quotaFailure().get().violations().get(0).subject());
-    assertEquals(
-        "description", errorDetails.quotaFailure().get().violations().get(0).description());
-
-    assertTrue(errorDetails.preconditionFailure().isPresent());
-    assertEquals(1, errorDetails.preconditionFailure().get().violations().size());
-    assertEquals("type", errorDetails.preconditionFailure().get().violations().get(0).type());
-    assertEquals("subject", errorDetails.preconditionFailure().get().violations().get(0).subject());
-    assertEquals(
-        "description", errorDetails.preconditionFailure().get().violations().get(0).description());
-
-    assertTrue(errorDetails.badRequest().isPresent());
-    assertEquals(1, errorDetails.badRequest().get().fieldViolations().size());
-    assertEquals("field", errorDetails.badRequest().get().fieldViolations().get(0).field());
-    assertEquals(
-        "description", errorDetails.badRequest().get().fieldViolations().get(0).description());
-
-    assertTrue(errorDetails.resourceInfo().isPresent());
-    assertEquals("resource_type", errorDetails.resourceInfo().get().resourceType());
-    assertEquals("resource_name", errorDetails.resourceInfo().get().resourceName());
-    assertEquals("owner", errorDetails.resourceInfo().get().owner());
-    assertEquals("description", errorDetails.resourceInfo().get().description());
-
-    assertTrue(errorDetails.help().isPresent());
-    assertEquals(1, errorDetails.help().get().links().size());
-    assertEquals("description", errorDetails.help().get().links().get(0).description());
-    assertEquals("url", errorDetails.help().get().links().get(0).url());
-
-    assertEquals(0, errorDetails.unknownDetails().size());
+    assertEquals(expected, errorDetails);
   }
 
   @Test
@@ -255,22 +290,12 @@ public class ErrorDetailsTest {
 
     ErrorDetails errorDetails = mapper.readValue(json, ErrorDetails.class);
 
-    // Verify no known error detail types are present.
-    assertFalse(errorDetails.errorInfo().isPresent());
-    assertFalse(errorDetails.requestInfo().isPresent());
-    assertFalse(errorDetails.retryInfo().isPresent());
-    assertFalse(errorDetails.debugInfo().isPresent());
-    assertFalse(errorDetails.quotaFailure().isPresent());
-    assertFalse(errorDetails.preconditionFailure().isPresent());
-    assertFalse(errorDetails.badRequest().isPresent());
-    assertFalse(errorDetails.resourceInfo().isPresent());
-    assertFalse(errorDetails.help().isPresent());
+    JsonNode unknownDetail = mapper.readTree("{\"@type\": \"foo\", \"reason\": \"reason\"}");
 
-    // Verify unknown detail is captured.
-    assertEquals(1, errorDetails.unknownDetails().size());
-    JsonNode unknownDetail = errorDetails.unknownDetails().get(0);
-    assertEquals("foo", unknownDetail.get("@type").asText());
-    assertEquals("reason", unknownDetail.get("reason").asText());
+    ErrorDetails expected =
+        ErrorDetails.builder().setUnknownDetails(Arrays.asList(unknownDetail)).build();
+
+    assertEquals(expected, errorDetails);
   }
 
   @Test
@@ -320,55 +345,54 @@ public class ErrorDetailsTest {
 
     ErrorDetails errorDetails = mapper.readValue(json, ErrorDetails.class);
 
-    // All error detail types should fail to deserialize due to invalid data
-    // and be captured as unknown details.
-    assertFalse(errorDetails.errorInfo().isPresent());
-    assertFalse(errorDetails.badRequest().isPresent());
-    assertFalse(errorDetails.help().isPresent());
-    assertFalse(errorDetails.requestInfo().isPresent());
-    assertFalse(errorDetails.resourceInfo().isPresent());
-    assertFalse(errorDetails.quotaFailure().isPresent());
-    assertFalse(errorDetails.preconditionFailure().isPresent());
-    assertFalse(errorDetails.debugInfo().isPresent());
-    assertFalse(errorDetails.retryInfo().isPresent());
+    JsonNode firstUnknown = mapper.readTree("42");
+    JsonNode secondUnknown = mapper.readTree("\"foobar\"");
+    JsonNode thirdUnknown = mapper.readTree("{\"foo\": \"bar\"}");
+    JsonNode errorInfoUnknown =
+        mapper.readTree("{\"@type\": \"type.googleapis.com/google.rpc.ErrorInfo\", \"reason\": 0}");
+    JsonNode requestInfoUnknown =
+        mapper.readTree(
+            "{\"@type\": \"type.googleapis.com/google.rpc.RequestInfo\", \"request_id\": 0}");
+    JsonNode retryInfoUnknown =
+        mapper.readTree(
+            "{\"@type\": \"type.googleapis.com/google.rpc.RetryInfo\", \"retry_delay\": 0}");
+    JsonNode debugInfoUnknown =
+        mapper.readTree(
+            "{\"@type\": \"type.googleapis.com/google.rpc.DebugInfo\", \"stack_entries\": 0}");
+    JsonNode quotaFailureUnknown =
+        mapper.readTree(
+            "{\"@type\": \"type.googleapis.com/google.rpc.QuotaFailure\", \"violations\": 0}");
+    JsonNode preconditionFailureUnknown =
+        mapper.readTree(
+            "{\"@type\": \"type.googleapis.com/google.rpc.PreconditionFailure\", \"violations\": 0}");
+    JsonNode badRequestUnknown =
+        mapper.readTree(
+            "{\"@type\": \"type.googleapis.com/google.rpc.BadRequest\", \"field_violations\": 0}");
+    JsonNode resourceInfoUnknown =
+        mapper.readTree(
+            "{\"@type\": \"type.googleapis.com/google.rpc.ResourceInfo\", \"resource_type\": 0}");
+    JsonNode helpUnknown =
+        mapper.readTree("{\"@type\": \"type.googleapis.com/google.rpc.Help\", \"links\": 0}");
 
-    // 12 items should be captured as unknown details:
-    // - 3 non-error detail types (42, "foobar", {"foo": "bar"}),
-    // - 9 error detail objects with invalid data (including RetryInfo).
-    assertEquals(12, errorDetails.unknownDetails().size());
+    ErrorDetails expected =
+        ErrorDetails.builder()
+            .setUnknownDetails(
+                Arrays.asList(
+                    firstUnknown,
+                    secondUnknown,
+                    thirdUnknown,
+                    errorInfoUnknown,
+                    requestInfoUnknown,
+                    retryInfoUnknown,
+                    debugInfoUnknown,
+                    quotaFailureUnknown,
+                    preconditionFailureUnknown,
+                    badRequestUnknown,
+                    resourceInfoUnknown,
+                    helpUnknown))
+            .build();
 
-    // Verify the first three unknown details (non-error detail types).
-    JsonNode firstUnknown = errorDetails.unknownDetails().get(0);
-    assertTrue(firstUnknown.isNumber());
-    assertEquals(42, firstUnknown.asInt());
-
-    JsonNode secondUnknown = errorDetails.unknownDetails().get(1);
-    assertTrue(secondUnknown.isTextual());
-    assertEquals("foobar", secondUnknown.asText());
-
-    JsonNode thirdUnknown = errorDetails.unknownDetails().get(2);
-    assertTrue(thirdUnknown.isObject());
-    assertEquals("bar", thirdUnknown.get("foo").asText());
-
-    // Verify that error detail objects with invalid data are in unknown details
-    // Check for a few key types to ensure they're properly captured.
-    boolean foundErrorInfo = false;
-    boolean foundBadRequest = false;
-    for (JsonNode unknownDetail : errorDetails.unknownDetails()) {
-      if (unknownDetail.isObject() && unknownDetail.has("@type")) {
-        String type = unknownDetail.get("@type").asText();
-        if ("type.googleapis.com/google.rpc.ErrorInfo".equals(type)) {
-          assertEquals(0, unknownDetail.get("reason").asInt());
-          foundErrorInfo = true;
-        } else if ("type.googleapis.com/google.rpc.BadRequest".equals(type)) {
-          assertEquals(0, unknownDetail.get("field_violations").asInt());
-          foundBadRequest = true;
-        }
-      }
-    }
-
-    assertTrue(foundErrorInfo, "ErrorInfo should be found in unknown details");
-    assertTrue(foundBadRequest, "BadRequest should be found in unknown details");
+    assertEquals(expected, errorDetails);
   }
 
   @Test
@@ -391,20 +415,16 @@ public class ErrorDetailsTest {
 
     ErrorDetails errorDetails = mapper.readValue(json, ErrorDetails.class);
 
-    // Verify only the last ErrorInfo is present.
-    assertTrue(errorDetails.errorInfo().isPresent());
-    assertEquals("second", errorDetails.errorInfo().get().reason());
+    ErrorDetails expected =
+        ErrorDetails.builder()
+            .setErrorInfo(
+                ErrorInfo.builder()
+                    .setReason("second")
+                    .setDomain("test")
+                    .setMetadata(ImmutableMap.of())
+                    .build())
+            .build();
 
-    // Verify no other error detail types are present.
-    assertFalse(errorDetails.requestInfo().isPresent());
-    assertFalse(errorDetails.retryInfo().isPresent());
-    assertFalse(errorDetails.debugInfo().isPresent());
-    assertFalse(errorDetails.quotaFailure().isPresent());
-    assertFalse(errorDetails.preconditionFailure().isPresent());
-    assertFalse(errorDetails.badRequest().isPresent());
-    assertFalse(errorDetails.resourceInfo().isPresent());
-    assertFalse(errorDetails.help().isPresent());
-
-    assertEquals(0, errorDetails.unknownDetails().size());
+    assertEquals(expected, errorDetails);
   }
 }

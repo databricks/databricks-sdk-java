@@ -9,11 +9,17 @@ import java.util.Objects;
 
 @Generated
 public class CleanRoomAutoApprovalRule {
-  /** */
+  /**
+   * Collaborator alias of the author covered by the rule. Only one of `author_collaborator_alias`
+   * and `author_scope` can be set.
+   */
   @JsonProperty("author_collaborator_alias")
   private String authorCollaboratorAlias;
 
-  /** */
+  /**
+   * Scope of authors covered by the rule. Only one of `author_collaborator_alias` and
+   * `author_scope` can be set.
+   */
   @JsonProperty("author_scope")
   private CleanRoomAutoApprovalRuleAuthorScope authorScope;
 
@@ -33,7 +39,7 @@ public class CleanRoomAutoApprovalRule {
   @JsonProperty("rule_owner_collaborator_alias")
   private String ruleOwnerCollaboratorAlias;
 
-  /** */
+  /** Collaborator alias of the runner covered by the rule. */
   @JsonProperty("runner_collaborator_alias")
   private String runnerCollaboratorAlias;
 

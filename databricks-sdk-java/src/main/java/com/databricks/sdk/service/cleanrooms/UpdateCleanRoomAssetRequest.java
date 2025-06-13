@@ -30,7 +30,8 @@ public class UpdateCleanRoomAssetRequest {
    * <p>For UC securable assets (tables, volumes, etc.), the format is
    * *shared_catalog*.*shared_schema*.*asset_name*
    *
-   * <p>For notebooks, the name is the notebook file name.
+   * <p>For notebooks, the name is the notebook file name. For jar analyses, the name is the jar
+   * analysis name.
    */
   @JsonIgnore private String name;
 

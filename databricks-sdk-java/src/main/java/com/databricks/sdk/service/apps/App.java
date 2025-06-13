@@ -21,10 +21,7 @@ public class App {
   @JsonProperty("app_status")
   private ApplicationStatus appStatus;
 
-  /**
-   * TODO: Deprecate this field after serverless entitlements are released to all prod stages and
-   * the new usage_policy_id is properly populated and used.
-   */
+  /** */
   @JsonProperty("budget_policy_id")
   private String budgetPolicyId;
 
@@ -51,10 +48,7 @@ public class App {
   @JsonProperty("description")
   private String description;
 
-  /**
-   * TODO: Deprecate this field after serverless entitlements are released to all prod stages and
-   * the new usage_policy_id is properly populated and used.
-   */
+  /** */
   @JsonProperty("effective_budget_policy_id")
   private String effectiveBudgetPolicyId;
 

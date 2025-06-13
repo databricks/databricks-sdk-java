@@ -38,7 +38,7 @@ public class CleanRoomAssetsAPI {
     return impl.create(request);
   }
 
-  /** submit an asset review */
+  /** Submit an asset review */
   public CreateCleanRoomAssetReviewResponse createCleanRoomAssetReview(
       CreateCleanRoomAssetReviewRequest request) {
     return impl.createCleanRoomAssetReview(request);

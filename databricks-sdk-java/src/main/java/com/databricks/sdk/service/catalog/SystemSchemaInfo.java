@@ -16,7 +16,7 @@ public class SystemSchemaInfo {
   /**
    * The current state of enablement for the system schema. An empty string means the system schema
    * is available and ready for opt-in. Possible values: AVAILABLE | ENABLE_INITIALIZED |
-   * ENABLE_COMPLETED | DISABLE_INITIALIZED | UNAVAILABLE
+   * ENABLE_COMPLETED | DISABLE_INITIALIZED | UNAVAILABLE | MANAGED
    */
   @JsonProperty("state")
   private String state;

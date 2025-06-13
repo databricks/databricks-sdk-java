@@ -337,10 +337,7 @@ public class ApiClientTest {
                 getTransientError(
                     req,
                     401,
-                    ApiErrorBody.builder()
-                        .setErrorCode("ERROR")
-                        .setErrorDetails(errorDetails)
-                        .build()),
+                    new ApiErrorBody("ERROR", null, null, null, null, null, errorDetails)),
                 getSuccessResponse(req)),
             MyEndpointResponse.class,
             DatabricksError.class);
