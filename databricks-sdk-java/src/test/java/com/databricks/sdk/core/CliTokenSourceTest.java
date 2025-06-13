@@ -75,6 +75,7 @@ public class CliTokenSourceTest {
                           "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"));
 
               if (timezone.equals("GMT")) {
+                // We only test with this format when timezone is GMT
                 dateFormats.add("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
               }
 
