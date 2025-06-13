@@ -43,13 +43,13 @@ public class CliTokenSourceTest {
   }
 
   private static Stream<Arguments> provideTimezoneTestCases() {
-    // Generate timezones from GMT-12 to GMT+12
+    // Generate timezones from GMT-12 to GMT+12.
     List<String> timezones =
         IntStream.rangeClosed(-12, 12)
             .mapToObj(offset -> offset == 0 ? "GMT" : String.format("GMT%+d", offset))
             .collect(Collectors.toList());
 
-    // Time to expiry of tokens (minutes, shouldBeExpired)
+    // Time to expiry of tokens (minutes, shouldBeExpired).
     List<Arguments> minutesUntilExpiry =
         Arrays.asList(
             Arguments.of(5, false), // 5 minutes remaining
@@ -62,7 +62,7 @@ public class CliTokenSourceTest {
             Arguments.of(-120, true) // 2 hours ago
             );
 
-    // Create cross product of timezones and minutesUntilExpiry case
+    // Create cross product of timezones and minutesUntilExpiry cases.
     return timezones.stream()
         .flatMap(
             timezone -> {
@@ -74,11 +74,9 @@ public class CliTokenSourceTest {
                           "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"));
 
               if (timezone.equals("GMT")) {
-                /*
-                 * The Databricks CLI outputs timestamps with 'Z' suffix (e.g.,
-                 * 2024-03-14T10:30:00.000Z) only when in UTC/GMT+0 timezone.
-                 * Thus, we only test with this format together with the GMT timezone.
-                 */
+                // The Databricks CLI outputs timestamps with 'Z' suffix (e.g.,
+                // 2024-03-14T10:30:00.000Z) only when in UTC/GMT+0 timezone.
+                // Thus, we only test with this format together with the GMT timezone.
                 dateFormats.add("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
               }
 
@@ -99,13 +97,13 @@ public class CliTokenSourceTest {
   public void testRefreshWithDifferentTimezone(
       String timezone, int minutesUntilExpiry, boolean shouldBeExpired, String dateFormat)
       throws IOException, InterruptedException {
-    // Save original timezone
+    // Save original timezone.
     TimeZone originalTimeZone = TimeZone.getDefault();
     try {
       TimeZone.setDefault(TimeZone.getTimeZone(timezone));
       testRefreshWithExpiry("Test in " + timezone, minutesUntilExpiry, shouldBeExpired, dateFormat);
     } finally {
-      // Restore original timezone
+      // Restore original timezone.
       TimeZone.setDefault(originalTimeZone);
     }
   }
@@ -113,15 +111,15 @@ public class CliTokenSourceTest {
   public void testRefreshWithExpiry(
       String testName, int minutesUntilExpiry, boolean shouldBeExpired, String dateFormat)
       throws IOException, InterruptedException {
-    // Mock environment
+    // Mock environment.
     Environment env = mock(Environment.class);
     Map<String, String> envMap = new HashMap<>();
     when(env.getEnv()).thenReturn(envMap);
 
-    // Create test command
+    // Create test command.
     List<String> cmd = Arrays.asList("test", "command");
 
-    // Mock OSUtilities
+    // Mock OSUtilities.
     OSUtilities osUtils = mock(OSUtilities.class);
     when(osUtils.getCliExecutableCommand(any())).thenReturn(cmd);
 
@@ -133,7 +131,7 @@ public class CliTokenSourceTest {
 
       String expiryStr = getExpiryStr(dateFormat, Duration.ofMinutes(minutesUntilExpiry));
 
-      // Mock process to return the specified expiry string
+      // Mock process to return the specified expiry string.
       Process process = mock(Process.class);
       when(process.getInputStream())
           .thenReturn(
@@ -145,14 +143,14 @@ public class CliTokenSourceTest {
       when(process.getErrorStream()).thenReturn(new ByteArrayInputStream(new byte[0]));
       when(process.waitFor()).thenReturn(0);
 
-      // Mock ProcessBuilder constructor
+      // Mock ProcessBuilder constructor.
       try (MockedConstruction<ProcessBuilder> mocked =
           mockConstruction(
               ProcessBuilder.class,
               (mock, context) -> {
                 when(mock.start()).thenReturn(process);
               })) {
-        // Test refresh
+        // Test refresh.
         Token token = tokenSource.refresh();
         assertEquals("Bearer", token.getTokenType());
         assertEquals("test-token", token.getAccessToken());
