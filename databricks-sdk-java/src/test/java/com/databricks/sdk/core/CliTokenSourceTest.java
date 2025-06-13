@@ -75,7 +75,11 @@ public class CliTokenSourceTest {
                           "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"));
 
               if (timezone.equals("GMT")) {
-                // We only test with this format when timezone is GMT
+                /*
+                 * The Databricks CLI outputs timestamps with 'Z' suffix (e.g.,
+                 * 2024-03-14T10:30:00.000Z) only when in UTC/GMT+0 timezone.
+                 * Thus, we only test with this format together with the GMT timezone.
+                 */
                 dateFormats.add("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
               }
 
