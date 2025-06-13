@@ -21,6 +21,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -36,25 +37,77 @@ import org.mockito.MockedConstruction;
 import org.mockito.MockedStatic;
 
 public class CliTokenSourceTest {
-  private String[] getDateFormats() {
-    return new String[] {
-      "yyyy-MM-dd HH:mm:ss",
-      "yyyy-MM-dd HH:mm:ss.SSS",
-      TimeZone.getDefault().getID().equals("UTC")
-          ? "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-          : "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"
-    };
-  }
-
   String getExpiryStr(String dateFormat, Duration offset) {
     ZonedDateTime futureExpiry = ZonedDateTime.now().plus(offset);
     return futureExpiry.format(DateTimeFormatter.ofPattern(dateFormat));
   }
 
-  public void testRefreshWithExpiry(
-      String testName, int minutesUntilExpiry, boolean shouldBeExpired)
+  private static Stream<Arguments> provideTimezoneTestCases() {
+    // Generate timezones from GMT-12 to GMT+12
+    List<String> timezones =
+        IntStream.rangeClosed(-12, 12)
+            .mapToObj(offset -> offset == 0 ? "GMT" : String.format("GMT%+d", offset))
+            .collect(Collectors.toList());
+
+    // Time to expiry of tokens (minutes, shouldBeExpired)
+    List<Arguments> minutesUntilExpiry =
+        Arrays.asList(
+            Arguments.of(5, false), // 5 minutes remaining
+            Arguments.of(30, false), // 30 minutes remaining
+            Arguments.of(60, false), // 1 hour remaining
+            Arguments.of(120, false), // 2 hours remaining
+            Arguments.of(-5, true), // 5 minutes ago
+            Arguments.of(-30, true), // 30 minutes ago
+            Arguments.of(-60, true), // 1 hour ago
+            Arguments.of(-120, true) // 2 hours ago
+            );
+
+    // Create cross product of timezones and minutesUntilExpiry case and match the timezone with the
+    // date formats
+    return timezones.stream()
+        .flatMap(
+            timezone -> {
+              List<String> dateFormats =
+                  new ArrayList<>(
+                      Arrays.asList(
+                          "yyyy-MM-dd HH:mm:ss",
+                          "yyyy-MM-dd HH:mm:ss.SSS",
+                          "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"));
+
+              if (timezone.equals("GMT")) {
+                dateFormats.add("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+              }
+
+              return minutesUntilExpiry.stream()
+                  .map(
+                      minutesUntilExpiryCase -> {
+                        Object[] args = minutesUntilExpiryCase.get();
+                        return Arguments.of(timezone, args[0], args[1], dateFormats);
+                      });
+            });
+  }
+
+  @ParameterizedTest(name = "Test in {0} with {1} minutes offset")
+  @MethodSource("provideTimezoneTestCases")
+  public void testRefreshWithDifferentTimezone(
+      String timezone, int minutesUntilExpiry, boolean shouldBeExpired, List<String> dateFormats)
       throws IOException, InterruptedException {
-    for (String dateFormat : getDateFormats()) {
+    // Save original timezone
+    TimeZone originalTimeZone = TimeZone.getDefault();
+    try {
+      TimeZone.setDefault(TimeZone.getTimeZone(timezone));
+      testRefreshWithExpiry(
+          "Test in " + timezone, minutesUntilExpiry, shouldBeExpired, dateFormats);
+    } finally {
+      // Restore original timezone
+      TimeZone.setDefault(originalTimeZone);
+    }
+  }
+
+  public void testRefreshWithExpiry(
+      String testName, int minutesUntilExpiry, boolean shouldBeExpired, List<String> dateFormats)
+      throws IOException, InterruptedException {
+    for (String dateFormat : dateFormats) {
       // Mock environment
       Environment env = mock(Environment.class);
       Map<String, String> envMap = new HashMap<>();
@@ -101,54 +154,6 @@ public class CliTokenSourceTest {
           assertEquals(shouldBeExpired, token.isExpired());
         }
       }
-    }
-  }
-
-  private static Stream<Arguments> provideTimezoneTestCases() {
-    // Generate timezones from GMT-12 to GMT+12
-    List<String> timezones =
-        IntStream.rangeClosed(-12, 12)
-            .mapToObj(offset -> offset == 0 ? "GMT" : String.format("GMT%+d", offset))
-            .collect(Collectors.toList());
-
-    // Time to expiry of tokens (minutes, shouldBeExpired)
-    List<Arguments> minutesUntilExpiry =
-        Arrays.asList(
-            Arguments.of(5, false), // 5 minutes remaining
-            Arguments.of(30, false), // 30 minutes remaining
-            Arguments.of(60, false), // 1 hour remaining
-            Arguments.of(120, false), // 2 hours remaining
-            Arguments.of(-5, true), // 5 minutes ago
-            Arguments.of(-30, true), // 30 minutes ago
-            Arguments.of(-60, true), // 1 hour ago
-            Arguments.of(-120, true) // 2 hours ago
-            );
-
-    // Create cross product of timezones and minutesUntilExpiry cases
-    return timezones.stream()
-        .flatMap(
-            timezone ->
-                minutesUntilExpiry.stream()
-                    .map(
-                        minutesUntilExpiryCase -> {
-                          Object[] args = minutesUntilExpiryCase.get();
-                          return Arguments.of(timezone, args[0], args[1]);
-                        }));
-  }
-
-  @ParameterizedTest(name = "Test in {0} with {1} minutes offset")
-  @MethodSource("provideTimezoneTestCases")
-  public void testRefreshWithDifferentTimezone(
-      String timezone, int minutesUntilExpiry, boolean shouldBeExpired)
-      throws IOException, InterruptedException {
-    // Save original timezone
-    TimeZone originalTimeZone = TimeZone.getDefault();
-    try {
-      TimeZone.setDefault(TimeZone.getTimeZone(timezone));
-      testRefreshWithExpiry("Test in " + timezone, minutesUntilExpiry, shouldBeExpired);
-    } finally {
-      // Restore original timezone
-      TimeZone.setDefault(originalTimeZone);
     }
   }
 
