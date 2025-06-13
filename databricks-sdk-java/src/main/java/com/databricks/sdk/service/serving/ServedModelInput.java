@@ -23,9 +23,23 @@ public class ServedModelInput {
   @JsonProperty("instance_profile_arn")
   private String instanceProfileArn;
 
+  /**
+   * The maximum provisioned concurrency that the endpoint can scale up to. Do not use if
+   * workload_size is specified.
+   */
+  @JsonProperty("max_provisioned_concurrency")
+  private Long maxProvisionedConcurrency;
+
   /** The maximum tokens per second that the endpoint can scale up to. */
   @JsonProperty("max_provisioned_throughput")
   private Long maxProvisionedThroughput;
+
+  /**
+   * The minimum provisioned concurrency that the endpoint can scale down to. Do not use if
+   * workload_size is specified.
+   */
+  @JsonProperty("min_provisioned_concurrency")
+  private Long minProvisionedConcurrency;
 
   /** The minimum tokens per second that the endpoint can scale down to. */
   @JsonProperty("min_provisioned_throughput")
@@ -48,6 +62,10 @@ public class ServedModelInput {
   @JsonProperty("name")
   private String name;
 
+  /** The number of model units provisioned. */
+  @JsonProperty("provisioned_model_units")
+  private Long provisionedModelUnits;
+
   /** Whether the compute resources for the served entity should scale down to zero. */
   @JsonProperty("scale_to_zero_enabled")
   private Boolean scaleToZeroEnabled;
@@ -59,7 +77,8 @@ public class ServedModelInput {
    * concurrency), "Medium" (8 - 16 provisioned concurrency), and "Large" (16 - 64 provisioned
    * concurrency). Additional custom workload sizes can also be used when available in the
    * workspace. If scale-to-zero is enabled, the lower bound of the provisioned concurrency for each
-   * workload size is 0.
+   * workload size is 0. Do not use if min_provisioned_concurrency and max_provisioned_concurrency
+   * are specified.
    */
   @JsonProperty("workload_size")
   private String workloadSize;
@@ -94,6 +113,15 @@ public class ServedModelInput {
     return instanceProfileArn;
   }
 
+  public ServedModelInput setMaxProvisionedConcurrency(Long maxProvisionedConcurrency) {
+    this.maxProvisionedConcurrency = maxProvisionedConcurrency;
+    return this;
+  }
+
+  public Long getMaxProvisionedConcurrency() {
+    return maxProvisionedConcurrency;
+  }
+
   public ServedModelInput setMaxProvisionedThroughput(Long maxProvisionedThroughput) {
     this.maxProvisionedThroughput = maxProvisionedThroughput;
     return this;
@@ -101,6 +129,15 @@ public class ServedModelInput {
 
   public Long getMaxProvisionedThroughput() {
     return maxProvisionedThroughput;
+  }
+
+  public ServedModelInput setMinProvisionedConcurrency(Long minProvisionedConcurrency) {
+    this.minProvisionedConcurrency = minProvisionedConcurrency;
+    return this;
+  }
+
+  public Long getMinProvisionedConcurrency() {
+    return minProvisionedConcurrency;
   }
 
   public ServedModelInput setMinProvisionedThroughput(Long minProvisionedThroughput) {
@@ -139,6 +176,15 @@ public class ServedModelInput {
     return name;
   }
 
+  public ServedModelInput setProvisionedModelUnits(Long provisionedModelUnits) {
+    this.provisionedModelUnits = provisionedModelUnits;
+    return this;
+  }
+
+  public Long getProvisionedModelUnits() {
+    return provisionedModelUnits;
+  }
+
   public ServedModelInput setScaleToZeroEnabled(Boolean scaleToZeroEnabled) {
     this.scaleToZeroEnabled = scaleToZeroEnabled;
     return this;
@@ -173,11 +219,14 @@ public class ServedModelInput {
     ServedModelInput that = (ServedModelInput) o;
     return Objects.equals(environmentVars, that.environmentVars)
         && Objects.equals(instanceProfileArn, that.instanceProfileArn)
+        && Objects.equals(maxProvisionedConcurrency, that.maxProvisionedConcurrency)
         && Objects.equals(maxProvisionedThroughput, that.maxProvisionedThroughput)
+        && Objects.equals(minProvisionedConcurrency, that.minProvisionedConcurrency)
         && Objects.equals(minProvisionedThroughput, that.minProvisionedThroughput)
         && Objects.equals(modelName, that.modelName)
         && Objects.equals(modelVersion, that.modelVersion)
         && Objects.equals(name, that.name)
+        && Objects.equals(provisionedModelUnits, that.provisionedModelUnits)
         && Objects.equals(scaleToZeroEnabled, that.scaleToZeroEnabled)
         && Objects.equals(workloadSize, that.workloadSize)
         && Objects.equals(workloadType, that.workloadType);
@@ -188,11 +237,14 @@ public class ServedModelInput {
     return Objects.hash(
         environmentVars,
         instanceProfileArn,
+        maxProvisionedConcurrency,
         maxProvisionedThroughput,
+        minProvisionedConcurrency,
         minProvisionedThroughput,
         modelName,
         modelVersion,
         name,
+        provisionedModelUnits,
         scaleToZeroEnabled,
         workloadSize,
         workloadType);
@@ -203,11 +255,14 @@ public class ServedModelInput {
     return new ToStringer(ServedModelInput.class)
         .add("environmentVars", environmentVars)
         .add("instanceProfileArn", instanceProfileArn)
+        .add("maxProvisionedConcurrency", maxProvisionedConcurrency)
         .add("maxProvisionedThroughput", maxProvisionedThroughput)
+        .add("minProvisionedConcurrency", minProvisionedConcurrency)
         .add("minProvisionedThroughput", minProvisionedThroughput)
         .add("modelName", modelName)
         .add("modelVersion", modelVersion)
         .add("name", name)
+        .add("provisionedModelUnits", provisionedModelUnits)
         .add("scaleToZeroEnabled", scaleToZeroEnabled)
         .add("workloadSize", workloadSize)
         .add("workloadType", workloadType)

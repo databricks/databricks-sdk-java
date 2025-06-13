@@ -4,7 +4,10 @@ import com.databricks.sdk.core.commons.CommonsHttpClient;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
+import com.databricks.sdk.core.oauth.ErrorTokenSource;
+import com.databricks.sdk.core.oauth.OAuthHeaderFactory;
 import com.databricks.sdk.core.oauth.OpenIDConnectEndpoints;
+import com.databricks.sdk.core.oauth.TokenSource;
 import com.databricks.sdk.core.utils.Cloud;
 import com.databricks.sdk.core.utils.Environment;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -148,6 +151,14 @@ public class DatabricksConfig {
   @ConfigAttribute(env = "TOKEN_AUDIENCE")
   private String tokenAudience;
 
+  /** Path to the file containing an OIDC ID token. */
+  @ConfigAttribute(env = "DATABRICKS_OIDC_TOKEN_FILEPATH", auth = "file-oidc")
+  private String oidcTokenFilepath;
+
+  /** Environment variable name that contains an OIDC ID token. */
+  @ConfigAttribute(env = "DATABRICKS_OIDC_TOKEN_ENV", auth = "env-oidc")
+  private String oidcTokenEnv;
+
   public Environment getEnv() {
     return env;
   }
@@ -199,6 +210,24 @@ public class DatabricksConfig {
       DatabricksException wrapperException = new DatabricksException(msg, e);
       throw ConfigLoader.makeNicerError(wrapperException.getMessage(), wrapperException, this);
     }
+  }
+
+  public TokenSource getTokenSource() {
+    if (headerFactory == null) {
+      try {
+        ConfigLoader.fixHostIfNeeded(this);
+        headerFactory = credentialsProvider.configure(this);
+      } catch (Exception e) {
+        return new ErrorTokenSource("Failed to get token source: " + e.getMessage());
+      }
+      setAuthType(credentialsProvider.authType());
+    }
+
+    if (headerFactory instanceof OAuthHeaderFactory) {
+      return (TokenSource) headerFactory;
+    }
+    return new ErrorTokenSource(
+        String.format("OAuth Token not supported for current auth type %s", authType));
   }
 
   public CredentialsProvider getCredentialsProvider() {
@@ -525,6 +554,24 @@ public class DatabricksConfig {
 
   public DatabricksConfig setTokenAudience(String tokenAudience) {
     this.tokenAudience = tokenAudience;
+    return this;
+  }
+
+  public String getOidcTokenFilepath() {
+    return oidcTokenFilepath;
+  }
+
+  public DatabricksConfig setOidcTokenFilepath(String oidcTokenFilepath) {
+    this.oidcTokenFilepath = oidcTokenFilepath;
+    return this;
+  }
+
+  public String getOidcTokenEnv() {
+    return oidcTokenEnv;
+  }
+
+  public DatabricksConfig setOidcTokenEnv(String oidcTokenEnv) {
+    this.oidcTokenEnv = oidcTokenEnv;
     return this;
   }
 

@@ -1,6 +1,7 @@
 package com.databricks.sdk.core;
 
 import com.databricks.sdk.core.oauth.*;
+import com.google.common.base.Strings;
 import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
@@ -32,14 +33,6 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
     public NamedIDTokenSource(String name, IDTokenSource idTokenSource) {
       this.name = name;
       this.idTokenSource = idTokenSource;
-    }
-
-    public String getName() {
-      return name;
-    }
-
-    public IDTokenSource getIdTokenSource() {
-      return idTokenSource;
     }
   }
 
@@ -113,6 +106,20 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
     List<NamedIDTokenSource> namedIdTokenSources = new ArrayList<>();
     namedIdTokenSources.add(
         new NamedIDTokenSource(
+            "env-oidc",
+            new EnvVarIDTokenSource(
+                // Use configured environment variable name if set, otherwise default to
+                // DATABRICKS_OIDC_TOKEN
+                Strings.isNullOrEmpty(config.getOidcTokenEnv())
+                    ? "DATABRICKS_OIDC_TOKEN"
+                    : config.getOidcTokenEnv(),
+                config.getEnv())));
+
+    namedIdTokenSources.add(
+        new NamedIDTokenSource("file-oidc", new FileIDTokenSource(config.getOidcTokenFilepath())));
+
+    namedIdTokenSources.add(
+        new NamedIDTokenSource(
             "github-oidc",
             new GithubIDTokenSource(
                 config.getActionsIdTokenRequestUrl(),
@@ -128,14 +135,13 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
                   config.getClientId(),
                   config.getHost(),
                   endpoints,
-                  namedIdTokenSource.getIdTokenSource(),
+                  namedIdTokenSource.idTokenSource,
                   config.getHttpClient())
               .audience(config.getTokenAudience())
               .accountId(config.isAccountClient() ? config.getAccountId() : null)
               .build();
 
-      providers.add(
-          new TokenSourceCredentialsProvider(oauthTokenSource, namedIdTokenSource.getName()));
+      providers.add(new TokenSourceCredentialsProvider(oauthTokenSource, namedIdTokenSource.name));
     }
   }
 

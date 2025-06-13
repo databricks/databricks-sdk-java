@@ -31,6 +31,20 @@ public class ServedModelOutput {
   @JsonProperty("instance_profile_arn")
   private String instanceProfileArn;
 
+  /**
+   * The maximum provisioned concurrency that the endpoint can scale up to. Do not use if
+   * workload_size is specified.
+   */
+  @JsonProperty("max_provisioned_concurrency")
+  private Long maxProvisionedConcurrency;
+
+  /**
+   * The minimum provisioned concurrency that the endpoint can scale down to. Do not use if
+   * workload_size is specified.
+   */
+  @JsonProperty("min_provisioned_concurrency")
+  private Long minProvisionedConcurrency;
+
   /** */
   @JsonProperty("model_name")
   private String modelName;
@@ -48,6 +62,10 @@ public class ServedModelOutput {
   @JsonProperty("name")
   private String name;
 
+  /** The number of model units provisioned. */
+  @JsonProperty("provisioned_model_units")
+  private Long provisionedModelUnits;
+
   /** Whether the compute resources for the served entity should scale down to zero. */
   @JsonProperty("scale_to_zero_enabled")
   private Boolean scaleToZeroEnabled;
@@ -63,7 +81,8 @@ public class ServedModelOutput {
    * concurrency), "Medium" (8 - 16 provisioned concurrency), and "Large" (16 - 64 provisioned
    * concurrency). Additional custom workload sizes can also be used when available in the
    * workspace. If scale-to-zero is enabled, the lower bound of the provisioned concurrency for each
-   * workload size is 0.
+   * workload size is 0. Do not use if min_provisioned_concurrency and max_provisioned_concurrency
+   * are specified.
    */
   @JsonProperty("workload_size")
   private String workloadSize;
@@ -116,6 +135,24 @@ public class ServedModelOutput {
     return instanceProfileArn;
   }
 
+  public ServedModelOutput setMaxProvisionedConcurrency(Long maxProvisionedConcurrency) {
+    this.maxProvisionedConcurrency = maxProvisionedConcurrency;
+    return this;
+  }
+
+  public Long getMaxProvisionedConcurrency() {
+    return maxProvisionedConcurrency;
+  }
+
+  public ServedModelOutput setMinProvisionedConcurrency(Long minProvisionedConcurrency) {
+    this.minProvisionedConcurrency = minProvisionedConcurrency;
+    return this;
+  }
+
+  public Long getMinProvisionedConcurrency() {
+    return minProvisionedConcurrency;
+  }
+
   public ServedModelOutput setModelName(String modelName) {
     this.modelName = modelName;
     return this;
@@ -141,6 +178,15 @@ public class ServedModelOutput {
 
   public String getName() {
     return name;
+  }
+
+  public ServedModelOutput setProvisionedModelUnits(Long provisionedModelUnits) {
+    this.provisionedModelUnits = provisionedModelUnits;
+    return this;
+  }
+
+  public Long getProvisionedModelUnits() {
+    return provisionedModelUnits;
   }
 
   public ServedModelOutput setScaleToZeroEnabled(Boolean scaleToZeroEnabled) {
@@ -188,9 +234,12 @@ public class ServedModelOutput {
         && Objects.equals(creator, that.creator)
         && Objects.equals(environmentVars, that.environmentVars)
         && Objects.equals(instanceProfileArn, that.instanceProfileArn)
+        && Objects.equals(maxProvisionedConcurrency, that.maxProvisionedConcurrency)
+        && Objects.equals(minProvisionedConcurrency, that.minProvisionedConcurrency)
         && Objects.equals(modelName, that.modelName)
         && Objects.equals(modelVersion, that.modelVersion)
         && Objects.equals(name, that.name)
+        && Objects.equals(provisionedModelUnits, that.provisionedModelUnits)
         && Objects.equals(scaleToZeroEnabled, that.scaleToZeroEnabled)
         && Objects.equals(state, that.state)
         && Objects.equals(workloadSize, that.workloadSize)
@@ -204,9 +253,12 @@ public class ServedModelOutput {
         creator,
         environmentVars,
         instanceProfileArn,
+        maxProvisionedConcurrency,
+        minProvisionedConcurrency,
         modelName,
         modelVersion,
         name,
+        provisionedModelUnits,
         scaleToZeroEnabled,
         state,
         workloadSize,
@@ -220,9 +272,12 @@ public class ServedModelOutput {
         .add("creator", creator)
         .add("environmentVars", environmentVars)
         .add("instanceProfileArn", instanceProfileArn)
+        .add("maxProvisionedConcurrency", maxProvisionedConcurrency)
+        .add("minProvisionedConcurrency", minProvisionedConcurrency)
         .add("modelName", modelName)
         .add("modelVersion", modelVersion)
         .add("name", name)
+        .add("provisionedModelUnits", provisionedModelUnits)
         .add("scaleToZeroEnabled", scaleToZeroEnabled)
         .add("state", state)
         .add("workloadSize", workloadSize)

@@ -12,6 +12,7 @@ public class IDToken {
    * Constructs an IDToken with a value.
    *
    * @param value The ID Token string.
+   * @throws IllegalArgumentException if the token value is null or empty.
    */
   public IDToken(String value) {
     if (value == null || value.isEmpty()) {

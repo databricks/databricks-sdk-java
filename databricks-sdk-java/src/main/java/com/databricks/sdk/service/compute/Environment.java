@@ -10,31 +10,31 @@ import java.util.Objects;
 
 /**
  * The environment entity used to preserve serverless environment side panel, jobs' environment for
- * non-notebook task, and DLT's environment for classic and serverless pipelines. (Note: DLT uses a
- * copied version of the Environment proto below, at
- * //spark/pipelines/api/protos/copied/libraries-environments-copy.proto) In this minimal
+ * non-notebook task, and DLT's environment for classic and serverless pipelines. In this minimal
  * environment spec, only pip dependencies are supported.
  */
 @Generated
 public class Environment {
-  /**
-   * Client version used by the environment The client is the user-facing environment of the
-   * runtime. Each client comes with a specific set of pre-installed libraries. The version is a
-   * string, consisting of the major client version.
-   */
+  /** Use `environment_version` instead. */
   @JsonProperty("client")
   private String client;
 
   /**
    * List of pip dependencies, as supported by the version of pip in this environment. Each
-   * dependency is a pip requirement file line
-   * https://pip.pypa.io/en/stable/reference/requirements-file-format/ Allowed dependency could be
-   * <requirement specifier>, <archive url/path>, <local project path>(WSFS or Volumes in
-   * Databricks), <vcs project url> E.g. dependencies: ["foo==0.0.1", "-r
-   * /Workspace/test/requirements.txt"]
+   * dependency is a valid pip requirements file line per
+   * https://pip.pypa.io/en/stable/reference/requirements-file-format/. Allowed dependencies include
+   * a requirement specifier, an archive URL, a local project path (such as WSFS or UC Volumes in
+   * Databricks), or a VCS project URL.
    */
   @JsonProperty("dependencies")
   private Collection<String> dependencies;
+
+  /**
+   * Required. Environment version used by the environment. Each version comes with a specific
+   * Python version and a set of Python packages. The version is a string, consisting of an integer.
+   */
+  @JsonProperty("environment_version")
+  private String environmentVersion;
 
   /**
    * List of jar dependencies, should be string representing volume paths. For example:
@@ -61,6 +61,15 @@ public class Environment {
     return dependencies;
   }
 
+  public Environment setEnvironmentVersion(String environmentVersion) {
+    this.environmentVersion = environmentVersion;
+    return this;
+  }
+
+  public String getEnvironmentVersion() {
+    return environmentVersion;
+  }
+
   public Environment setJarDependencies(Collection<String> jarDependencies) {
     this.jarDependencies = jarDependencies;
     return this;
@@ -77,12 +86,13 @@ public class Environment {
     Environment that = (Environment) o;
     return Objects.equals(client, that.client)
         && Objects.equals(dependencies, that.dependencies)
+        && Objects.equals(environmentVersion, that.environmentVersion)
         && Objects.equals(jarDependencies, that.jarDependencies);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(client, dependencies, jarDependencies);
+    return Objects.hash(client, dependencies, environmentVersion, jarDependencies);
   }
 
   @Override
@@ -90,6 +100,7 @@ public class Environment {
     return new ToStringer(Environment.class)
         .add("client", client)
         .add("dependencies", dependencies)
+        .add("environmentVersion", environmentVersion)
         .add("jarDependencies", jarDependencies)
         .toString();
   }

@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class WrappedLogDeliveryConfiguration {
-  /** */
+  /** The created log delivery configuration */
   @JsonProperty("log_delivery_configuration")
   private LogDeliveryConfiguration logDeliveryConfiguration;
 

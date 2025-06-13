@@ -19,7 +19,7 @@ public class AzureServicePrincipalCredentialsProvider implements CredentialsProv
   }
 
   @Override
-  public HeaderFactory configure(DatabricksConfig config) {
+  public OAuthHeaderFactory configure(DatabricksConfig config) {
     if (!config.isAzure()
         || config.getAzureClientId() == null
         || config.getAzureClientSecret() == null
@@ -32,13 +32,15 @@ public class AzureServicePrincipalCredentialsProvider implements CredentialsProv
     RefreshableTokenSource cloud =
         tokenSourceFor(config, config.getAzureEnvironment().getServiceManagementEndpoint());
 
-    return () -> {
-      Map<String, String> headers = new HashMap<>();
-      headers.put("Authorization", "Bearer " + inner.getToken().getAccessToken());
-      AzureUtils.addWorkspaceResourceId(config, headers);
-      AzureUtils.addSpManagementToken(cloud, headers);
-      return headers;
-    };
+    return OAuthHeaderFactory.fromSuppliers(
+        inner::getToken,
+        () -> {
+          Map<String, String> headers = new HashMap<>();
+          headers.put("Authorization", "Bearer " + inner.getToken().getAccessToken());
+          AzureUtils.addWorkspaceResourceId(config, headers);
+          AzureUtils.addSpManagementToken(cloud, headers);
+          return headers;
+        });
   }
 
   /**

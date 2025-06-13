@@ -49,6 +49,15 @@ public class ExperimentsAPI {
     return impl.createExperiment(request);
   }
 
+  public CreateLoggedModelResponse createLoggedModel(String experimentId) {
+    return createLoggedModel(new CreateLoggedModelRequest().setExperimentId(experimentId));
+  }
+
+  /** Create a logged model. */
+  public CreateLoggedModelResponse createLoggedModel(CreateLoggedModelRequest request) {
+    return impl.createLoggedModel(request);
+  }
+
   /**
    * Create a run.
    *
@@ -72,6 +81,24 @@ public class ExperimentsAPI {
    */
   public void deleteExperiment(DeleteExperiment request) {
     impl.deleteExperiment(request);
+  }
+
+  public void deleteLoggedModel(String modelId) {
+    deleteLoggedModel(new DeleteLoggedModelRequest().setModelId(modelId));
+  }
+
+  /** Delete a logged model. */
+  public void deleteLoggedModel(DeleteLoggedModelRequest request) {
+    impl.deleteLoggedModel(request);
+  }
+
+  public void deleteLoggedModelTag(String modelId, String tagKey) {
+    deleteLoggedModelTag(new DeleteLoggedModelTagRequest().setModelId(modelId).setTagKey(tagKey));
+  }
+
+  /** Delete a tag on a logged model. */
+  public void deleteLoggedModelTag(DeleteLoggedModelTagRequest request) {
+    impl.deleteLoggedModelTag(request);
   }
 
   public void deleteRun(String runId) {
@@ -117,6 +144,16 @@ public class ExperimentsAPI {
     impl.deleteTag(request);
   }
 
+  public FinalizeLoggedModelResponse finalizeLoggedModel(String modelId, LoggedModelStatus status) {
+    return finalizeLoggedModel(
+        new FinalizeLoggedModelRequest().setModelId(modelId).setStatus(status));
+  }
+
+  /** Finalize a logged model. */
+  public FinalizeLoggedModelResponse finalizeLoggedModel(FinalizeLoggedModelRequest request) {
+    return impl.finalizeLoggedModel(request);
+  }
+
   public GetExperimentByNameResponse getByName(String experimentName) {
     return getByName(new GetByNameRequest().setExperimentName(experimentName));
   }
@@ -134,30 +171,6 @@ public class ExperimentsAPI {
    */
   public GetExperimentByNameResponse getByName(GetByNameRequest request) {
     return impl.getByName(request);
-  }
-
-  public GetCredentialsForTraceDataDownloadResponse getCredentialsForTraceDataDownload(
-      String requestId) {
-    return getCredentialsForTraceDataDownload(
-        new GetCredentialsForTraceDataDownloadRequest().setRequestId(requestId));
-  }
-
-  /** Get credentials to download trace data. */
-  public GetCredentialsForTraceDataDownloadResponse getCredentialsForTraceDataDownload(
-      GetCredentialsForTraceDataDownloadRequest request) {
-    return impl.getCredentialsForTraceDataDownload(request);
-  }
-
-  public GetCredentialsForTraceDataUploadResponse getCredentialsForTraceDataUpload(
-      String requestId) {
-    return getCredentialsForTraceDataUpload(
-        new GetCredentialsForTraceDataUploadRequest().setRequestId(requestId));
-  }
-
-  /** Get credentials to upload trace data. */
-  public GetCredentialsForTraceDataUploadResponse getCredentialsForTraceDataUpload(
-      GetCredentialsForTraceDataUploadRequest request) {
-    return impl.getCredentialsForTraceDataUpload(request);
   }
 
   public GetExperimentResponse getExperiment(String experimentId) {
@@ -194,6 +207,15 @@ public class ExperimentsAPI {
           }
           return request.setPageToken(token);
         });
+  }
+
+  public GetLoggedModelResponse getLoggedModel(String modelId) {
+    return getLoggedModel(new GetLoggedModelRequest().setModelId(modelId));
+  }
+
+  /** Get a logged model. */
+  public GetLoggedModelResponse getLoggedModel(GetLoggedModelRequest request) {
+    return impl.getLoggedModel(request);
   }
 
   public GetExperimentPermissionLevelsResponse getPermissionLevels(String experimentId) {
@@ -349,6 +371,22 @@ public class ExperimentsAPI {
     impl.logInputs(request);
   }
 
+  public void logLoggedModelParams(String modelId) {
+    logLoggedModelParams(new LogLoggedModelParamsRequest().setModelId(modelId));
+  }
+
+  /**
+   * Log params for a logged model.
+   *
+   * <p>Logs params for a logged model. A param is a key-value pair (string key, string value).
+   * Examples include hyperparameters used for ML model training. A param can be logged only once
+   * for a logged model, and attempting to overwrite an existing param with a different value will
+   * result in an error
+   */
+  public void logLoggedModelParams(LogLoggedModelParamsRequest request) {
+    impl.logLoggedModelParams(request);
+  }
+
   public void logMetric(String key, double value, long timestamp) {
     logMetric(new LogMetric().setKey(key).setValue(value).setTimestamp(timestamp));
   }
@@ -372,6 +410,22 @@ public class ExperimentsAPI {
    */
   public void logModel(LogModel request) {
     impl.logModel(request);
+  }
+
+  public void logOutputs(String runId) {
+    logOutputs(new LogOutputsRequest().setRunId(runId));
+  }
+
+  /**
+   * Log outputs from a run.
+   *
+   * <p>**NOTE**: Experimental: This API may change or be removed in a future release without
+   * warning.
+   *
+   * <p>Logs outputs, such as models, from an MLflow Run.
+   */
+  public void logOutputs(LogOutputsRequest request) {
+    impl.logOutputs(request);
   }
 
   public void logParam(String key, String value) {
@@ -458,6 +512,15 @@ public class ExperimentsAPI {
   }
 
   /**
+   * Search logged models.
+   *
+   * <p>Search for Logged Models that satisfy specified search criteria.
+   */
+  public SearchLoggedModelsResponse searchLoggedModels(SearchLoggedModelsRequest request) {
+    return impl.searchLoggedModels(request);
+  }
+
+  /**
    * Search for runs.
    *
    * <p>Searches for runs that satisfy expressions.
@@ -490,6 +553,15 @@ public class ExperimentsAPI {
    */
   public void setExperimentTag(SetExperimentTag request) {
     impl.setExperimentTag(request);
+  }
+
+  public void setLoggedModelTags(String modelId) {
+    setLoggedModelTags(new SetLoggedModelTagsRequest().setModelId(modelId));
+  }
+
+  /** Set a tag for a logged model. */
+  public void setLoggedModelTags(SetLoggedModelTagsRequest request) {
+    impl.setLoggedModelTags(request);
   }
 
   public ExperimentPermissions setPermissions(String experimentId) {

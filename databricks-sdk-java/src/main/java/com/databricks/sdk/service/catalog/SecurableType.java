@@ -4,7 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** The type of Unity Catalog securable */
+/** The type of Unity Catalog securable. */
 @Generated
 public enum SecurableType {
   CATALOG,
@@ -12,6 +12,7 @@ public enum SecurableType {
   CONNECTION,
   CREDENTIAL,
   EXTERNAL_LOCATION,
+  EXTERNAL_METADATA,
   FUNCTION,
   METASTORE,
   PIPELINE,
@@ -19,7 +20,9 @@ public enum SecurableType {
   RECIPIENT,
   SCHEMA,
   SHARE,
+  STAGING_TABLE,
   STORAGE_CREDENTIAL,
   TABLE,
+  UNKNOWN_SECURABLE_TYPE,
   VOLUME,
 }

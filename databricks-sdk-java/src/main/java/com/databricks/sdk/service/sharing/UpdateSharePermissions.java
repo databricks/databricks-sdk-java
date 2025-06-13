@@ -11,12 +11,16 @@ import java.util.Objects;
 
 @Generated
 public class UpdateSharePermissions {
-  /** Array of permission changes. */
+  /** Array of permissions change objects. */
   @JsonProperty("changes")
   private Collection<PermissionsChange> changes;
 
   /** The name of the share. */
   @JsonIgnore private String name;
+
+  /** Optional. Whether to return the latest permissions list of the share in the response. */
+  @JsonProperty("omit_permissions_list")
+  private Boolean omitPermissionsList;
 
   public UpdateSharePermissions setChanges(Collection<PermissionsChange> changes) {
     this.changes = changes;
@@ -36,17 +40,28 @@ public class UpdateSharePermissions {
     return name;
   }
 
+  public UpdateSharePermissions setOmitPermissionsList(Boolean omitPermissionsList) {
+    this.omitPermissionsList = omitPermissionsList;
+    return this;
+  }
+
+  public Boolean getOmitPermissionsList() {
+    return omitPermissionsList;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     UpdateSharePermissions that = (UpdateSharePermissions) o;
-    return Objects.equals(changes, that.changes) && Objects.equals(name, that.name);
+    return Objects.equals(changes, that.changes)
+        && Objects.equals(name, that.name)
+        && Objects.equals(omitPermissionsList, that.omitPermissionsList);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(changes, name);
+    return Objects.hash(changes, name, omitPermissionsList);
   }
 
   @Override
@@ -54,6 +69,7 @@ public class UpdateSharePermissions {
     return new ToStringer(UpdateSharePermissions.class)
         .add("changes", changes)
         .add("name", name)
+        .add("omitPermissionsList", omitPermissionsList)
         .toString();
   }
 }

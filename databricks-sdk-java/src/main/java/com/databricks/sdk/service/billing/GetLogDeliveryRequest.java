@@ -10,7 +10,7 @@ import java.util.Objects;
 /** Get log delivery configuration */
 @Generated
 public class GetLogDeliveryRequest {
-  /** Databricks log delivery configuration ID */
+  /** The log delivery configuration id of customer */
   @JsonIgnore private String logDeliveryConfigurationId;
 
   public GetLogDeliveryRequest setLogDeliveryConfigurationId(String logDeliveryConfigurationId) {

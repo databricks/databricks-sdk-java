@@ -22,6 +22,10 @@ public class Table {
   @JsonProperty("internal_attributes")
   private TableInternalAttributes internalAttributes;
 
+  /** The catalog and schema of the materialized table */
+  @JsonProperty("materialization_namespace")
+  private String materializationNamespace;
+
   /** The name of a materialized table. */
   @JsonProperty("materialized_table_name")
   private String materializedTableName;
@@ -71,6 +75,15 @@ public class Table {
 
   public TableInternalAttributes getInternalAttributes() {
     return internalAttributes;
+  }
+
+  public Table setMaterializationNamespace(String materializationNamespace) {
+    this.materializationNamespace = materializationNamespace;
+    return this;
+  }
+
+  public String getMaterializationNamespace() {
+    return materializationNamespace;
   }
 
   public Table setMaterializedTableName(String materializedTableName) {
@@ -135,6 +148,7 @@ public class Table {
     return Objects.equals(comment, that.comment)
         && Objects.equals(id, that.id)
         && Objects.equals(internalAttributes, that.internalAttributes)
+        && Objects.equals(materializationNamespace, that.materializationNamespace)
         && Objects.equals(materializedTableName, that.materializedTableName)
         && Objects.equals(name, that.name)
         && Objects.equals(schema, that.schema)
@@ -146,7 +160,16 @@ public class Table {
   @Override
   public int hashCode() {
     return Objects.hash(
-        comment, id, internalAttributes, materializedTableName, name, schema, share, shareId, tags);
+        comment,
+        id,
+        internalAttributes,
+        materializationNamespace,
+        materializedTableName,
+        name,
+        schema,
+        share,
+        shareId,
+        tags);
   }
 
   @Override
@@ -155,6 +178,7 @@ public class Table {
         .add("comment", comment)
         .add("id", id)
         .add("internalAttributes", internalAttributes)
+        .add("materializationNamespace", materializationNamespace)
         .add("materializedTableName", materializedTableName)
         .add("name", name)
         .add("schema", schema)

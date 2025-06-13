@@ -13,19 +13,11 @@ public class CustomPolicyTag {
    * The key of the tag. - Must be unique among all custom tags of the same policy - Cannot be
    * “budget-policy-name”, “budget-policy-id” or "budget-policy-resolution-result" - these tags are
    * preserved.
-   *
-   * <p>- Follows the regex pattern defined in cluster-common/conf/src/ClusterTagConstraints.scala
-   * (https://src.dev.databricks.com/databricks/universe@1647196627c8dc7b4152ad098a94b86484b93a6c/-/blob/cluster-common/conf/src/ClusterTagConstraints.scala?L17)
    */
   @JsonProperty("key")
   private String key;
 
-  /**
-   * The value of the tag.
-   *
-   * <p>- Follows the regex pattern defined in cluster-common/conf/src/ClusterTagConstraints.scala
-   * (https://src.dev.databricks.com/databricks/universe@1647196627c8dc7b4152ad098a94b86484b93a6c/-/blob/cluster-common/conf/src/ClusterTagConstraints.scala?L24)
-   */
+  /** The value of the tag. */
   @JsonProperty("value")
   private String value;
 

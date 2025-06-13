@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 import java.util.Objects;
 
+/** Next ID: 40 */
 @Generated
 public class SchemaInfo {
   /**
@@ -23,7 +24,7 @@ public class SchemaInfo {
 
   /** The type of the parent catalog. */
   @JsonProperty("catalog_type")
-  private String catalogType;
+  private CatalogType catalogType;
 
   /** User-provided free-form text description. */
   @JsonProperty("comment")
@@ -103,12 +104,12 @@ public class SchemaInfo {
     return catalogName;
   }
 
-  public SchemaInfo setCatalogType(String catalogType) {
+  public SchemaInfo setCatalogType(CatalogType catalogType) {
     this.catalogType = catalogType;
     return this;
   }
 
-  public String getCatalogType() {
+  public CatalogType getCatalogType() {
     return catalogType;
   }
 

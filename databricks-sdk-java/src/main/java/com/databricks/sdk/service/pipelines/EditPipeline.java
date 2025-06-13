@@ -113,6 +113,14 @@ public class EditPipeline {
   private RestartWindow restartWindow;
 
   /**
+   * Root path for this pipeline. This is used as the root directory when editing the pipeline in
+   * the Databricks user interface and it is added to sys.path when executing Python sources during
+   * pipeline execution.
+   */
+  @JsonProperty("root_path")
+  private String rootPath;
+
+  /**
    * Write-only setting, available only in Create/Update calls. Specifies the user or service
    * principal that the pipeline runs as. If not specified, the pipeline runs as the user who
    * created the pipeline.
@@ -134,6 +142,14 @@ public class EditPipeline {
   /** DBFS root directory for storing checkpoints and tables. */
   @JsonProperty("storage")
   private String storage;
+
+  /**
+   * A map of tags associated with the pipeline. These are forwarded to the cluster as cluster tags,
+   * and are therefore subject to the same limitations. A maximum of 25 tags can be added to the
+   * pipeline.
+   */
+  @JsonProperty("tags")
+  private Map<String, String> tags;
 
   /**
    * Target schema (database) to add tables in this pipeline to. Exactly one of `schema` or `target`
@@ -345,6 +361,15 @@ public class EditPipeline {
     return restartWindow;
   }
 
+  public EditPipeline setRootPath(String rootPath) {
+    this.rootPath = rootPath;
+    return this;
+  }
+
+  public String getRootPath() {
+    return rootPath;
+  }
+
   public EditPipeline setRunAs(RunAs runAs) {
     this.runAs = runAs;
     return this;
@@ -379,6 +404,15 @@ public class EditPipeline {
 
   public String getStorage() {
     return storage;
+  }
+
+  public EditPipeline setTags(Map<String, String> tags) {
+    this.tags = tags;
+    return this;
+  }
+
+  public Map<String, String> getTags() {
+    return tags;
   }
 
   public EditPipeline setTarget(String target) {
@@ -426,10 +460,12 @@ public class EditPipeline {
         && Objects.equals(photon, that.photon)
         && Objects.equals(pipelineId, that.pipelineId)
         && Objects.equals(restartWindow, that.restartWindow)
+        && Objects.equals(rootPath, that.rootPath)
         && Objects.equals(runAs, that.runAs)
         && Objects.equals(schema, that.schema)
         && Objects.equals(serverless, that.serverless)
         && Objects.equals(storage, that.storage)
+        && Objects.equals(tags, that.tags)
         && Objects.equals(target, that.target)
         && Objects.equals(trigger, that.trigger);
   }
@@ -459,10 +495,12 @@ public class EditPipeline {
         photon,
         pipelineId,
         restartWindow,
+        rootPath,
         runAs,
         schema,
         serverless,
         storage,
+        tags,
         target,
         trigger);
   }
@@ -492,10 +530,12 @@ public class EditPipeline {
         .add("photon", photon)
         .add("pipelineId", pipelineId)
         .add("restartWindow", restartWindow)
+        .add("rootPath", rootPath)
         .add("runAs", runAs)
         .add("schema", schema)
         .add("serverless", serverless)
         .add("storage", storage)
+        .add("tags", tags)
         .add("target", target)
         .add("trigger", trigger)
         .toString();

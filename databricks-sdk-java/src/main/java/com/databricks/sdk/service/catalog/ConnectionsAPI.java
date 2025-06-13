@@ -85,10 +85,6 @@ public class ConnectionsAPI {
    * <p>List all connections.
    */
   public Iterable<ConnectionInfo> list(ListConnectionsRequest request) {
-
-    if (request.getMaxResults() == null) {
-      request.setMaxResults(0L);
-    }
     return new Paginator<>(
         request,
         impl::list,

@@ -9,6 +9,7 @@ import com.databricks.sdk.support.Generated;
 public enum PermissionLevel {
   CAN_ATTACH_TO,
   CAN_BIND,
+  CAN_CREATE,
   CAN_EDIT,
   CAN_EDIT_METADATA,
   CAN_MANAGE,
@@ -16,6 +17,7 @@ public enum PermissionLevel {
   CAN_MANAGE_RUN,
   CAN_MANAGE_STAGING_VERSIONS,
   CAN_MONITOR,
+  CAN_MONITOR_ONLY,
   CAN_QUERY,
   CAN_READ,
   CAN_RESTART,

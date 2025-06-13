@@ -35,7 +35,7 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
   }
 
   @Override
-  public NccAzurePrivateEndpointRule createPrivateEndpointRule(
+  public NccPrivateEndpointRule createPrivateEndpointRule(
       CreatePrivateEndpointRuleRequest request) {
     String path =
         String.format(
@@ -47,7 +47,7 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
-      return apiClient.execute(req, NccAzurePrivateEndpointRule.class);
+      return apiClient.execute(req, NccPrivateEndpointRule.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -71,7 +71,7 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
   }
 
   @Override
-  public NccAzurePrivateEndpointRule deletePrivateEndpointRule(
+  public NccPrivateEndpointRule deletePrivateEndpointRule(
       DeletePrivateEndpointRuleRequest request) {
     String path =
         String.format(
@@ -83,7 +83,7 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
       Request req = new Request("DELETE", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
-      return apiClient.execute(req, NccAzurePrivateEndpointRule.class);
+      return apiClient.execute(req, NccPrivateEndpointRule.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -107,7 +107,7 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
   }
 
   @Override
-  public NccAzurePrivateEndpointRule getPrivateEndpointRule(GetPrivateEndpointRuleRequest request) {
+  public NccPrivateEndpointRule getPrivateEndpointRule(GetPrivateEndpointRuleRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/network-connectivity-configs/%s/private-endpoint-rules/%s",
@@ -118,7 +118,7 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
       Request req = new Request("GET", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
-      return apiClient.execute(req, NccAzurePrivateEndpointRule.class);
+      return apiClient.execute(req, NccPrivateEndpointRule.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -141,7 +141,7 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
   }
 
   @Override
-  public ListNccAzurePrivateEndpointRulesResponse listPrivateEndpointRules(
+  public ListPrivateEndpointRulesResponse listPrivateEndpointRules(
       ListPrivateEndpointRulesRequest request) {
     String path =
         String.format(
@@ -151,15 +151,15 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
       Request req = new Request("GET", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
-      return apiClient.execute(req, ListNccAzurePrivateEndpointRulesResponse.class);
+      return apiClient.execute(req, ListPrivateEndpointRulesResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
   }
 
   @Override
-  public NccAzurePrivateEndpointRule updateNccAzurePrivateEndpointRulePublic(
-      UpdateNccAzurePrivateEndpointRulePublicRequest request) {
+  public NccPrivateEndpointRule updatePrivateEndpointRule(
+      UpdateNccPrivateEndpointRuleRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/network-connectivity-configs/%s/private-endpoint-rules/%s",
@@ -172,7 +172,7 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
-      return apiClient.execute(req, NccAzurePrivateEndpointRule.class);
+      return apiClient.execute(req, NccPrivateEndpointRule.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

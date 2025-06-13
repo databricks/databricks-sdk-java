@@ -10,10 +10,6 @@ import java.util.Objects;
 
 @Generated
 public class UpdateExternalLocation {
-  /** The AWS access point to use when accesing s3 for this external location. */
-  @JsonProperty("access_point")
-  private String accessPoint;
-
   /** User-provided free-form text description. */
   @JsonProperty("comment")
   private String comment;
@@ -21,6 +17,10 @@ public class UpdateExternalLocation {
   /** Name of the storage credential used with this location. */
   @JsonProperty("credential_name")
   private String credentialName;
+
+  /** [Create:OPT Update:OPT] Whether to enable file events on this external location. */
+  @JsonProperty("enable_file_events")
+  private Boolean enableFileEvents;
 
   /** Encryption options that apply to clients connecting to cloud storage. */
   @JsonProperty("encryption_details")
@@ -33,6 +33,10 @@ public class UpdateExternalLocation {
    */
   @JsonProperty("fallback")
   private Boolean fallback;
+
+  /** [Create:OPT Update:OPT] File event queue settings. */
+  @JsonProperty("file_event_queue")
+  private FileEventQueue fileEventQueue;
 
   /** Force update even if changing url invalidates dependent external tables or mounts. */
   @JsonProperty("force")
@@ -65,15 +69,6 @@ public class UpdateExternalLocation {
   @JsonProperty("url")
   private String url;
 
-  public UpdateExternalLocation setAccessPoint(String accessPoint) {
-    this.accessPoint = accessPoint;
-    return this;
-  }
-
-  public String getAccessPoint() {
-    return accessPoint;
-  }
-
   public UpdateExternalLocation setComment(String comment) {
     this.comment = comment;
     return this;
@@ -92,6 +87,15 @@ public class UpdateExternalLocation {
     return credentialName;
   }
 
+  public UpdateExternalLocation setEnableFileEvents(Boolean enableFileEvents) {
+    this.enableFileEvents = enableFileEvents;
+    return this;
+  }
+
+  public Boolean getEnableFileEvents() {
+    return enableFileEvents;
+  }
+
   public UpdateExternalLocation setEncryptionDetails(EncryptionDetails encryptionDetails) {
     this.encryptionDetails = encryptionDetails;
     return this;
@@ -108,6 +112,15 @@ public class UpdateExternalLocation {
 
   public Boolean getFallback() {
     return fallback;
+  }
+
+  public UpdateExternalLocation setFileEventQueue(FileEventQueue fileEventQueue) {
+    this.fileEventQueue = fileEventQueue;
+    return this;
+  }
+
+  public FileEventQueue getFileEventQueue() {
+    return fileEventQueue;
   }
 
   public UpdateExternalLocation setForce(Boolean force) {
@@ -187,11 +200,12 @@ public class UpdateExternalLocation {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     UpdateExternalLocation that = (UpdateExternalLocation) o;
-    return Objects.equals(accessPoint, that.accessPoint)
-        && Objects.equals(comment, that.comment)
+    return Objects.equals(comment, that.comment)
         && Objects.equals(credentialName, that.credentialName)
+        && Objects.equals(enableFileEvents, that.enableFileEvents)
         && Objects.equals(encryptionDetails, that.encryptionDetails)
         && Objects.equals(fallback, that.fallback)
+        && Objects.equals(fileEventQueue, that.fileEventQueue)
         && Objects.equals(force, that.force)
         && Objects.equals(isolationMode, that.isolationMode)
         && Objects.equals(name, that.name)
@@ -205,11 +219,12 @@ public class UpdateExternalLocation {
   @Override
   public int hashCode() {
     return Objects.hash(
-        accessPoint,
         comment,
         credentialName,
+        enableFileEvents,
         encryptionDetails,
         fallback,
+        fileEventQueue,
         force,
         isolationMode,
         name,
@@ -223,11 +238,12 @@ public class UpdateExternalLocation {
   @Override
   public String toString() {
     return new ToStringer(UpdateExternalLocation.class)
-        .add("accessPoint", accessPoint)
         .add("comment", comment)
         .add("credentialName", credentialName)
+        .add("enableFileEvents", enableFileEvents)
         .add("encryptionDetails", encryptionDetails)
         .add("fallback", fallback)
+        .add("fileEventQueue", fileEventQueue)
         .add("force", force)
         .add("isolationMode", isolationMode)
         .add("name", name)

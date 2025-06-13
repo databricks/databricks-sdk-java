@@ -4,7 +4,6 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** The type of key encryption to use (affects headers from s3 client). */
 @Generated
 public enum SseEncryptionDetailsAlgorithm {
   AWS_SSE_KMS,

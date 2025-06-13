@@ -20,7 +20,7 @@ class AlertsV2Impl implements AlertsV2Service {
   public AlertV2 createAlert(CreateAlertV2Request request) {
     String path = "/api/2.0/alerts";
     try {
-      Request req = new Request("POST", path, apiClient.serialize(request));
+      Request req = new Request("POST", path, apiClient.serialize(request.getAlert()));
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -73,7 +73,7 @@ class AlertsV2Impl implements AlertsV2Service {
   public AlertV2 updateAlert(UpdateAlertV2Request request) {
     String path = String.format("/api/2.0/alerts/%s", request.getId());
     try {
-      Request req = new Request("PATCH", path, apiClient.serialize(request));
+      Request req = new Request("PATCH", path, apiClient.serialize(request.getAlert()));
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

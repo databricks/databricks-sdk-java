@@ -65,6 +65,10 @@ import com.databricks.sdk.service.settings.AccountSettingsAPI;
 import com.databricks.sdk.service.settings.AccountSettingsService;
 import com.databricks.sdk.service.settings.NetworkConnectivityAPI;
 import com.databricks.sdk.service.settings.NetworkConnectivityService;
+import com.databricks.sdk.service.settings.NetworkPoliciesAPI;
+import com.databricks.sdk.service.settings.NetworkPoliciesService;
+import com.databricks.sdk.service.settings.WorkspaceNetworkConfigurationAPI;
+import com.databricks.sdk.service.settings.WorkspaceNetworkConfigurationService;
 import com.databricks.sdk.support.Generated;
 
 /** Entry point for accessing Databricks account-level APIs */
@@ -86,6 +90,7 @@ public class AccountClient {
   private AccountMetastoreAssignmentsAPI metastoreAssignmentsAPI;
   private AccountMetastoresAPI metastoresAPI;
   private NetworkConnectivityAPI networkConnectivityAPI;
+  private NetworkPoliciesAPI networkPoliciesAPI;
   private NetworksAPI networksAPI;
   private OAuthPublishedAppsAPI oAuthPublishedAppsAPI;
   private PrivateAccessAPI privateAccessAPI;
@@ -100,6 +105,7 @@ public class AccountClient {
   private AccountUsersAPI usersAPI;
   private VpcEndpointsAPI vpcEndpointsAPI;
   private WorkspaceAssignmentAPI workspaceAssignmentAPI;
+  private WorkspaceNetworkConfigurationAPI workspaceNetworkConfigurationAPI;
   private WorkspacesAPI workspacesAPI;
   private BudgetsAPI budgetsAPI;
 
@@ -124,6 +130,7 @@ public class AccountClient {
     metastoreAssignmentsAPI = new AccountMetastoreAssignmentsAPI(apiClient);
     metastoresAPI = new AccountMetastoresAPI(apiClient);
     networkConnectivityAPI = new NetworkConnectivityAPI(apiClient);
+    networkPoliciesAPI = new NetworkPoliciesAPI(apiClient);
     networksAPI = new NetworksAPI(apiClient);
     oAuthPublishedAppsAPI = new OAuthPublishedAppsAPI(apiClient);
     privateAccessAPI = new PrivateAccessAPI(apiClient);
@@ -138,6 +145,7 @@ public class AccountClient {
     usersAPI = new AccountUsersAPI(apiClient);
     vpcEndpointsAPI = new VpcEndpointsAPI(apiClient);
     workspaceAssignmentAPI = new WorkspaceAssignmentAPI(apiClient);
+    workspaceNetworkConfigurationAPI = new WorkspaceNetworkConfigurationAPI(apiClient);
     workspacesAPI = new WorkspacesAPI(apiClient);
     budgetsAPI = new BudgetsAPI(apiClient);
   }
@@ -297,60 +305,8 @@ public class AccountClient {
   }
 
   /**
-   * These APIs manage log delivery configurations for this account. The two supported log types for
-   * this API are _billable usage logs_ and _audit logs_. This feature is in Public Preview. This
-   * feature works with all account ID types.
-   *
-   * <p>Log delivery works with all account types. However, if your account is on the E2 version of
-   * the platform or on a select custom plan that allows multiple workspaces per account, you can
-   * optionally configure different storage destinations for each workspace. Log delivery status is
-   * also provided to know the latest status of log delivery attempts. The high-level flow of
-   * billable usage delivery:
-   *
-   * <p>1. **Create storage**: In AWS, [create a new AWS S3 bucket] with a specific bucket policy.
-   * Using Databricks APIs, call the Account API to create a [storage configuration
-   * object](:method:Storage/Create) that uses the bucket name. 2. **Create credentials**: In AWS,
-   * create the appropriate AWS IAM role. For full details, including the required IAM role policies
-   * and trust relationship, see [Billable usage log delivery]. Using Databricks APIs, call the
-   * Account API to create a [credential configuration object](:method:Credentials/Create) that uses
-   * the IAM role"s ARN. 3. **Create log delivery configuration**: Using Databricks APIs, call the
-   * Account API to [create a log delivery configuration](:method:LogDelivery/Create) that uses the
-   * credential and storage configuration objects from previous steps. You can specify if the logs
-   * should include all events of that log type in your account (_Account level_ delivery) or only
-   * events for a specific set of workspaces (_workspace level_ delivery). Account level log
-   * delivery applies to all current and future workspaces plus account level logs, while workspace
-   * level log delivery solely delivers logs related to the specified workspaces. You can create
-   * multiple types of delivery configurations per account.
-   *
-   * <p>For billable usage delivery: * For more information about billable usage logs, see [Billable
-   * usage log delivery]. For the CSV schema, see the [Usage page]. * The delivery location is
-   * `<bucket-name>/<prefix>/billable-usage/csv/`, where `<prefix>` is the name of the optional
-   * delivery path prefix you set up during log delivery configuration. Files are named
-   * `workspaceId=<workspace-id>-usageMonth=<month>.csv`. * All billable usage logs apply to
-   * specific workspaces (_workspace level_ logs). You can aggregate usage for your entire account
-   * by creating an _account level_ delivery configuration that delivers logs for all current and
-   * future workspaces in your account. * The files are delivered daily by overwriting the month's
-   * CSV file for each workspace.
-   *
-   * <p>For audit log delivery: * For more information about about audit log delivery, see [Audit
-   * log delivery], which includes information about the used JSON schema. * The delivery location
-   * is
-   * `<bucket-name>/<delivery-path-prefix>/workspaceId=<workspaceId>/date=<yyyy-mm-dd>/auditlogs_<internal-id>.json`.
-   * Files may get overwritten with the same content multiple times to achieve exactly-once
-   * delivery. * If the audit log delivery configuration included specific workspace IDs, only
-   * _workspace-level_ audit logs for those workspaces are delivered. If the log delivery
-   * configuration applies to the entire account (_account level_ delivery configuration), the audit
-   * log delivery includes workspace-level audit logs for all workspaces in the account as well as
-   * account-level audit logs. See [Audit log delivery] for details. * Auditable events are
-   * typically available in logs within 15 minutes.
-   *
-   * <p>[Audit log delivery]:
-   * https://docs.databricks.com/administration-guide/account-settings/audit-logs.html [Billable
-   * usage log delivery]:
-   * https://docs.databricks.com/administration-guide/account-settings/billable-usage-delivery.html
-   * [Usage page]: https://docs.databricks.com/administration-guide/account-settings/usage.html
-   * [create a new AWS S3 bucket]:
-   * https://docs.databricks.com/administration-guide/account-api/aws-storage.html
+   * These APIs manage Log delivery configurations for this account. Log delivery configs enable you
+   * to configure the delivery of the specified type of logs to your storage account.
    */
   public LogDeliveryAPI logDelivery() {
     return logDeliveryAPI;
@@ -382,6 +338,18 @@ public class AccountClient {
    */
   public NetworkConnectivityAPI networkConnectivity() {
     return networkConnectivityAPI;
+  }
+
+  /**
+   * These APIs manage network policies for this account. Network policies control which network
+   * destinations can be accessed from the Databricks environment. Each Databricks account includes
+   * a default policy named 'default-policy'. 'default-policy' is associated with any workspace
+   * lacking an explicit network policy assignment, and is automatically associated with each newly
+   * created workspace. 'default-policy' is reserved and cannot be deleted, but it can be updated to
+   * customize the default network access rules for your account.
+   */
+  public NetworkPoliciesAPI networkPolicies() {
+    return networkPoliciesAPI;
   }
 
   /**
@@ -554,6 +522,18 @@ public class AccountClient {
   }
 
   /**
+   * These APIs allow configuration of network settings for Databricks workspaces by selecting which
+   * network policy to associate with the workspace. Each workspace is always associated with
+   * exactly one network policy that controls which network destinations can be accessed from the
+   * Databricks environment. By default, workspaces are associated with the 'default-policy' network
+   * policy. You cannot create or delete a workspace's network option, only update it to associate
+   * the workspace with a different policy
+   */
+  public WorkspaceNetworkConfigurationAPI workspaceNetworkConfiguration() {
+    return workspaceNetworkConfigurationAPI;
+  }
+
+  /**
    * These APIs manage workspaces for this account. A Databricks workspace is an environment for
    * accessing all of your Databricks assets. The workspace organizes objects (notebooks, libraries,
    * and experiments) into folders, and provides access to data and computational resources such as
@@ -723,6 +703,17 @@ public class AccountClient {
     return this;
   }
 
+  /** Replace the default NetworkPoliciesService with a custom implementation. */
+  public AccountClient withNetworkPoliciesImpl(NetworkPoliciesService networkPolicies) {
+    return this.withNetworkPoliciesAPI(new NetworkPoliciesAPI(networkPolicies));
+  }
+
+  /** Replace the default NetworkPoliciesAPI with a custom implementation. */
+  public AccountClient withNetworkPoliciesAPI(NetworkPoliciesAPI networkPolicies) {
+    this.networkPoliciesAPI = networkPolicies;
+    return this;
+  }
+
   /** Replace the default NetworksService with a custom implementation. */
   public AccountClient withNetworksImpl(NetworksService networks) {
     return this.withNetworksAPI(new NetworksAPI(networks));
@@ -888,6 +879,20 @@ public class AccountClient {
   /** Replace the default WorkspaceAssignmentAPI with a custom implementation. */
   public AccountClient withWorkspaceAssignmentAPI(WorkspaceAssignmentAPI workspaceAssignment) {
     this.workspaceAssignmentAPI = workspaceAssignment;
+    return this;
+  }
+
+  /** Replace the default WorkspaceNetworkConfigurationService with a custom implementation. */
+  public AccountClient withWorkspaceNetworkConfigurationImpl(
+      WorkspaceNetworkConfigurationService workspaceNetworkConfiguration) {
+    return this.withWorkspaceNetworkConfigurationAPI(
+        new WorkspaceNetworkConfigurationAPI(workspaceNetworkConfiguration));
+  }
+
+  /** Replace the default WorkspaceNetworkConfigurationAPI with a custom implementation. */
+  public AccountClient withWorkspaceNetworkConfigurationAPI(
+      WorkspaceNetworkConfigurationAPI workspaceNetworkConfiguration) {
+    this.workspaceNetworkConfigurationAPI = workspaceNetworkConfiguration;
     return this;
   }
 

@@ -63,9 +63,23 @@ public class ServedEntityOutput {
   @JsonProperty("instance_profile_arn")
   private String instanceProfileArn;
 
+  /**
+   * The maximum provisioned concurrency that the endpoint can scale up to. Do not use if
+   * workload_size is specified.
+   */
+  @JsonProperty("max_provisioned_concurrency")
+  private Long maxProvisionedConcurrency;
+
   /** The maximum tokens per second that the endpoint can scale up to. */
   @JsonProperty("max_provisioned_throughput")
   private Long maxProvisionedThroughput;
+
+  /**
+   * The minimum provisioned concurrency that the endpoint can scale down to. Do not use if
+   * workload_size is specified.
+   */
+  @JsonProperty("min_provisioned_concurrency")
+  private Long minProvisionedConcurrency;
 
   /** The minimum tokens per second that the endpoint can scale down to. */
   @JsonProperty("min_provisioned_throughput")
@@ -79,6 +93,10 @@ public class ServedEntityOutput {
    */
   @JsonProperty("name")
   private String name;
+
+  /** The number of model units provisioned. */
+  @JsonProperty("provisioned_model_units")
+  private Long provisionedModelUnits;
 
   /** Whether the compute resources for the served entity should scale down to zero. */
   @JsonProperty("scale_to_zero_enabled")
@@ -95,7 +113,8 @@ public class ServedEntityOutput {
    * concurrency), "Medium" (8 - 16 provisioned concurrency), and "Large" (16 - 64 provisioned
    * concurrency). Additional custom workload sizes can also be used when available in the
    * workspace. If scale-to-zero is enabled, the lower bound of the provisioned concurrency for each
-   * workload size is 0.
+   * workload size is 0. Do not use if min_provisioned_concurrency and max_provisioned_concurrency
+   * are specified.
    */
   @JsonProperty("workload_size")
   private String workloadSize;
@@ -184,6 +203,15 @@ public class ServedEntityOutput {
     return instanceProfileArn;
   }
 
+  public ServedEntityOutput setMaxProvisionedConcurrency(Long maxProvisionedConcurrency) {
+    this.maxProvisionedConcurrency = maxProvisionedConcurrency;
+    return this;
+  }
+
+  public Long getMaxProvisionedConcurrency() {
+    return maxProvisionedConcurrency;
+  }
+
   public ServedEntityOutput setMaxProvisionedThroughput(Long maxProvisionedThroughput) {
     this.maxProvisionedThroughput = maxProvisionedThroughput;
     return this;
@@ -191,6 +219,15 @@ public class ServedEntityOutput {
 
   public Long getMaxProvisionedThroughput() {
     return maxProvisionedThroughput;
+  }
+
+  public ServedEntityOutput setMinProvisionedConcurrency(Long minProvisionedConcurrency) {
+    this.minProvisionedConcurrency = minProvisionedConcurrency;
+    return this;
+  }
+
+  public Long getMinProvisionedConcurrency() {
+    return minProvisionedConcurrency;
   }
 
   public ServedEntityOutput setMinProvisionedThroughput(Long minProvisionedThroughput) {
@@ -209,6 +246,15 @@ public class ServedEntityOutput {
 
   public String getName() {
     return name;
+  }
+
+  public ServedEntityOutput setProvisionedModelUnits(Long provisionedModelUnits) {
+    this.provisionedModelUnits = provisionedModelUnits;
+    return this;
+  }
+
+  public Long getProvisionedModelUnits() {
+    return provisionedModelUnits;
   }
 
   public ServedEntityOutput setScaleToZeroEnabled(Boolean scaleToZeroEnabled) {
@@ -260,9 +306,12 @@ public class ServedEntityOutput {
         && Objects.equals(externalModel, that.externalModel)
         && Objects.equals(foundationModel, that.foundationModel)
         && Objects.equals(instanceProfileArn, that.instanceProfileArn)
+        && Objects.equals(maxProvisionedConcurrency, that.maxProvisionedConcurrency)
         && Objects.equals(maxProvisionedThroughput, that.maxProvisionedThroughput)
+        && Objects.equals(minProvisionedConcurrency, that.minProvisionedConcurrency)
         && Objects.equals(minProvisionedThroughput, that.minProvisionedThroughput)
         && Objects.equals(name, that.name)
+        && Objects.equals(provisionedModelUnits, that.provisionedModelUnits)
         && Objects.equals(scaleToZeroEnabled, that.scaleToZeroEnabled)
         && Objects.equals(state, that.state)
         && Objects.equals(workloadSize, that.workloadSize)
@@ -280,9 +329,12 @@ public class ServedEntityOutput {
         externalModel,
         foundationModel,
         instanceProfileArn,
+        maxProvisionedConcurrency,
         maxProvisionedThroughput,
+        minProvisionedConcurrency,
         minProvisionedThroughput,
         name,
+        provisionedModelUnits,
         scaleToZeroEnabled,
         state,
         workloadSize,
@@ -300,9 +352,12 @@ public class ServedEntityOutput {
         .add("externalModel", externalModel)
         .add("foundationModel", foundationModel)
         .add("instanceProfileArn", instanceProfileArn)
+        .add("maxProvisionedConcurrency", maxProvisionedConcurrency)
         .add("maxProvisionedThroughput", maxProvisionedThroughput)
+        .add("minProvisionedConcurrency", minProvisionedConcurrency)
         .add("minProvisionedThroughput", minProvisionedThroughput)
         .add("name", name)
+        .add("provisionedModelUnits", provisionedModelUnits)
         .add("scaleToZeroEnabled", scaleToZeroEnabled)
         .add("state", state)
         .add("workloadSize", workloadSize)

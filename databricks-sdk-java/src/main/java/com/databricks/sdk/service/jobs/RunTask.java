@@ -57,6 +57,10 @@ public class RunTask {
   @JsonProperty("dashboard_task")
   private DashboardTask dashboardTask;
 
+  /** Task type for dbt cloud */
+  @JsonProperty("dbt_cloud_task")
+  private DbtCloudTask dbtCloudTask;
+
   /**
    * The task runs one or more dbt commands when the `dbt_task` field is present. The dbt task
    * requires both Databricks SQL and the ability to use a serverless or a pro SQL warehouse.
@@ -364,6 +368,15 @@ public class RunTask {
 
   public DashboardTask getDashboardTask() {
     return dashboardTask;
+  }
+
+  public RunTask setDbtCloudTask(DbtCloudTask dbtCloudTask) {
+    this.dbtCloudTask = dbtCloudTask;
+    return this;
+  }
+
+  public DbtCloudTask getDbtCloudTask() {
+    return dbtCloudTask;
   }
 
   public RunTask setDbtTask(DbtTask dbtTask) {
@@ -728,6 +741,7 @@ public class RunTask {
         && Objects.equals(clusterInstance, that.clusterInstance)
         && Objects.equals(conditionTask, that.conditionTask)
         && Objects.equals(dashboardTask, that.dashboardTask)
+        && Objects.equals(dbtCloudTask, that.dbtCloudTask)
         && Objects.equals(dbtTask, that.dbtTask)
         && Objects.equals(dependsOn, that.dependsOn)
         && Objects.equals(description, that.description)
@@ -778,6 +792,7 @@ public class RunTask {
         clusterInstance,
         conditionTask,
         dashboardTask,
+        dbtCloudTask,
         dbtTask,
         dependsOn,
         description,
@@ -828,6 +843,7 @@ public class RunTask {
         .add("clusterInstance", clusterInstance)
         .add("conditionTask", conditionTask)
         .add("dashboardTask", dashboardTask)
+        .add("dbtCloudTask", dbtCloudTask)
         .add("dbtTask", dbtTask)
         .add("dependsOn", dependsOn)
         .add("description", description)

@@ -21,6 +21,8 @@ public class SettingsAPI {
 
   private ComplianceSecurityProfileAPI complianceSecurityProfileAPI;
 
+  private DashboardEmailSubscriptionsAPI dashboardEmailSubscriptionsAPI;
+
   private DefaultNamespaceAPI defaultNamespaceAPI;
 
   private DisableLegacyAccessAPI disableLegacyAccessAPI;
@@ -35,7 +37,11 @@ public class SettingsAPI {
 
   private EnhancedSecurityMonitoringAPI enhancedSecurityMonitoringAPI;
 
+  private LlmProxyPartnerPoweredWorkspaceAPI llmProxyPartnerPoweredWorkspaceAPI;
+
   private RestrictWorkspaceAdminsAPI restrictWorkspaceAdminsAPI;
+
+  private SqlResultsDownloadAPI sqlResultsDownloadAPI;
 
   /** Regular-use constructor */
   public SettingsAPI(ApiClient apiClient) {
@@ -49,6 +55,8 @@ public class SettingsAPI {
     automaticClusterUpdateAPI = new AutomaticClusterUpdateAPI(apiClient);
 
     complianceSecurityProfileAPI = new ComplianceSecurityProfileAPI(apiClient);
+
+    dashboardEmailSubscriptionsAPI = new DashboardEmailSubscriptionsAPI(apiClient);
 
     defaultNamespaceAPI = new DefaultNamespaceAPI(apiClient);
 
@@ -64,7 +72,11 @@ public class SettingsAPI {
 
     enhancedSecurityMonitoringAPI = new EnhancedSecurityMonitoringAPI(apiClient);
 
+    llmProxyPartnerPoweredWorkspaceAPI = new LlmProxyPartnerPoweredWorkspaceAPI(apiClient);
+
     restrictWorkspaceAdminsAPI = new RestrictWorkspaceAdminsAPI(apiClient);
+
+    sqlResultsDownloadAPI = new SqlResultsDownloadAPI(apiClient);
   }
 
   /** Constructor for mocks */
@@ -96,6 +108,14 @@ public class SettingsAPI {
   }
 
   /**
+   * Controls whether schedules or workload tasks for refreshing AI/BI Dashboards in the workspace
+   * can send subscription emails containing PDFs and/or images of the dashboard.
+   */
+  public DashboardEmailSubscriptionsAPI DashboardEmailSubscriptions() {
+    return dashboardEmailSubscriptionsAPI;
+  }
+
+  /**
    * The default namespace setting API allows users to configure the default namespace for a
    * Databricks workspace.
    */
@@ -108,10 +128,7 @@ public class SettingsAPI {
     return disableLegacyAccessAPI;
   }
 
-  /**
-   * When this setting is on, access to DBFS root and DBFS mounts is disallowed (as well as creation
-   * of new mounts).
-   */
+  /** Disabling legacy DBFS has the following implications: 1. */
   public DisableLegacyDbfsAPI DisableLegacyDbfs() {
     return disableLegacyDbfsAPI;
   }
@@ -136,11 +153,24 @@ public class SettingsAPI {
     return enhancedSecurityMonitoringAPI;
   }
 
+  /** Determines if partner powered models are enabled or not for a specific workspace. */
+  public LlmProxyPartnerPoweredWorkspaceAPI LlmProxyPartnerPoweredWorkspace() {
+    return llmProxyPartnerPoweredWorkspaceAPI;
+  }
+
   /**
    * The Restrict Workspace Admins setting lets you control the capabilities of workspace admins.
    */
   public RestrictWorkspaceAdminsAPI RestrictWorkspaceAdmins() {
     return restrictWorkspaceAdminsAPI;
+  }
+
+  /**
+   * Controls whether users within the workspace are allowed to download results from the SQL Editor
+   * and AI/BI Dashboards UIs.
+   */
+  public SqlResultsDownloadAPI SqlResultsDownload() {
+    return sqlResultsDownloadAPI;
   }
 
   public SettingsService impl() {

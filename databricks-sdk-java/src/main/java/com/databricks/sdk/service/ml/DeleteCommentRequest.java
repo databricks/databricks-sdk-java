@@ -11,7 +11,7 @@ import java.util.Objects;
 /** Delete a comment */
 @Generated
 public class DeleteCommentRequest {
-  /** */
+  /** Unique identifier of an activity */
   @JsonIgnore
   @QueryParam("id")
   private String id;

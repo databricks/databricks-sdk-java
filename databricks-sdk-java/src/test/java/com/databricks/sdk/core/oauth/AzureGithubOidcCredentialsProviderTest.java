@@ -25,7 +25,7 @@ public class AzureGithubOidcCredentialsProviderTest {
   private static final String OAUTH_RESPONSE =
       new JSONObject()
           .put("access_token", TOKEN)
-          .put("token_type", "token-type")
+          .put("token_type", "Bearer")
           .put("expires_in", 360)
           .toString();
 

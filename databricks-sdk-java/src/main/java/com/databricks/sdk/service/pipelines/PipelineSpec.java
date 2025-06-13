@@ -95,6 +95,14 @@ public class PipelineSpec {
   @JsonProperty("restart_window")
   private RestartWindow restartWindow;
 
+  /**
+   * Root path for this pipeline. This is used as the root directory when editing the pipeline in
+   * the Databricks user interface and it is added to sys.path when executing Python sources during
+   * pipeline execution.
+   */
+  @JsonProperty("root_path")
+  private String rootPath;
+
   /** The default schema (database) where tables are read from or published to. */
   @JsonProperty("schema")
   private String schema;
@@ -106,6 +114,14 @@ public class PipelineSpec {
   /** DBFS root directory for storing checkpoints and tables. */
   @JsonProperty("storage")
   private String storage;
+
+  /**
+   * A map of tags associated with the pipeline. These are forwarded to the cluster as cluster tags,
+   * and are therefore subject to the same limitations. A maximum of 25 tags can be added to the
+   * pipeline.
+   */
+  @JsonProperty("tags")
+  private Map<String, String> tags;
 
   /**
    * Target schema (database) to add tables in this pipeline to. Exactly one of `schema` or `target`
@@ -290,6 +306,15 @@ public class PipelineSpec {
     return restartWindow;
   }
 
+  public PipelineSpec setRootPath(String rootPath) {
+    this.rootPath = rootPath;
+    return this;
+  }
+
+  public String getRootPath() {
+    return rootPath;
+  }
+
   public PipelineSpec setSchema(String schema) {
     this.schema = schema;
     return this;
@@ -315,6 +340,15 @@ public class PipelineSpec {
 
   public String getStorage() {
     return storage;
+  }
+
+  public PipelineSpec setTags(Map<String, String> tags) {
+    this.tags = tags;
+    return this;
+  }
+
+  public Map<String, String> getTags() {
+    return tags;
   }
 
   public PipelineSpec setTarget(String target) {
@@ -359,9 +393,11 @@ public class PipelineSpec {
         && Objects.equals(notifications, that.notifications)
         && Objects.equals(photon, that.photon)
         && Objects.equals(restartWindow, that.restartWindow)
+        && Objects.equals(rootPath, that.rootPath)
         && Objects.equals(schema, that.schema)
         && Objects.equals(serverless, that.serverless)
         && Objects.equals(storage, that.storage)
+        && Objects.equals(tags, that.tags)
         && Objects.equals(target, that.target)
         && Objects.equals(trigger, that.trigger);
   }
@@ -388,9 +424,11 @@ public class PipelineSpec {
         notifications,
         photon,
         restartWindow,
+        rootPath,
         schema,
         serverless,
         storage,
+        tags,
         target,
         trigger);
   }
@@ -417,9 +455,11 @@ public class PipelineSpec {
         .add("notifications", notifications)
         .add("photon", photon)
         .add("restartWindow", restartWindow)
+        .add("rootPath", rootPath)
         .add("schema", schema)
         .add("serverless", serverless)
         .add("storage", storage)
+        .add("tags", tags)
         .add("target", target)
         .add("trigger", trigger)
         .toString();

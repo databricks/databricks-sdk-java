@@ -18,6 +18,10 @@ public class CleanRoomNotebookTaskRun {
   @JsonProperty("collaborator_job_run_info")
   private CollaboratorJobRunInfo collaboratorJobRunInfo;
 
+  /** Etag of the notebook executed in this task run, used to identify the notebook version. */
+  @JsonProperty("notebook_etag")
+  private String notebookEtag;
+
   /** State of the task run. */
   @JsonProperty("notebook_job_run_state")
   private com.databricks.sdk.service.jobs.CleanRoomTaskRunState notebookJobRunState;
@@ -25,6 +29,10 @@ public class CleanRoomNotebookTaskRun {
   /** Asset name of the notebook executed in this task run. */
   @JsonProperty("notebook_name")
   private String notebookName;
+
+  /** The timestamp of when the notebook was last updated. */
+  @JsonProperty("notebook_updated_at")
+  private Long notebookUpdatedAt;
 
   /** Expiration time of the output schema of the task run (if any), in epoch milliseconds. */
   @JsonProperty("output_schema_expiration_time")
@@ -52,6 +60,15 @@ public class CleanRoomNotebookTaskRun {
     return collaboratorJobRunInfo;
   }
 
+  public CleanRoomNotebookTaskRun setNotebookEtag(String notebookEtag) {
+    this.notebookEtag = notebookEtag;
+    return this;
+  }
+
+  public String getNotebookEtag() {
+    return notebookEtag;
+  }
+
   public CleanRoomNotebookTaskRun setNotebookJobRunState(
       com.databricks.sdk.service.jobs.CleanRoomTaskRunState notebookJobRunState) {
     this.notebookJobRunState = notebookJobRunState;
@@ -69,6 +86,15 @@ public class CleanRoomNotebookTaskRun {
 
   public String getNotebookName() {
     return notebookName;
+  }
+
+  public CleanRoomNotebookTaskRun setNotebookUpdatedAt(Long notebookUpdatedAt) {
+    this.notebookUpdatedAt = notebookUpdatedAt;
+    return this;
+  }
+
+  public Long getNotebookUpdatedAt() {
+    return notebookUpdatedAt;
   }
 
   public CleanRoomNotebookTaskRun setOutputSchemaExpirationTime(Long outputSchemaExpirationTime) {
@@ -113,8 +139,10 @@ public class CleanRoomNotebookTaskRun {
     if (o == null || getClass() != o.getClass()) return false;
     CleanRoomNotebookTaskRun that = (CleanRoomNotebookTaskRun) o;
     return Objects.equals(collaboratorJobRunInfo, that.collaboratorJobRunInfo)
+        && Objects.equals(notebookEtag, that.notebookEtag)
         && Objects.equals(notebookJobRunState, that.notebookJobRunState)
         && Objects.equals(notebookName, that.notebookName)
+        && Objects.equals(notebookUpdatedAt, that.notebookUpdatedAt)
         && Objects.equals(outputSchemaExpirationTime, that.outputSchemaExpirationTime)
         && Objects.equals(outputSchemaName, that.outputSchemaName)
         && Objects.equals(runDuration, that.runDuration)
@@ -125,8 +153,10 @@ public class CleanRoomNotebookTaskRun {
   public int hashCode() {
     return Objects.hash(
         collaboratorJobRunInfo,
+        notebookEtag,
         notebookJobRunState,
         notebookName,
+        notebookUpdatedAt,
         outputSchemaExpirationTime,
         outputSchemaName,
         runDuration,
@@ -137,8 +167,10 @@ public class CleanRoomNotebookTaskRun {
   public String toString() {
     return new ToStringer(CleanRoomNotebookTaskRun.class)
         .add("collaboratorJobRunInfo", collaboratorJobRunInfo)
+        .add("notebookEtag", notebookEtag)
         .add("notebookJobRunState", notebookJobRunState)
         .add("notebookName", notebookName)
+        .add("notebookUpdatedAt", notebookUpdatedAt)
         .add("outputSchemaExpirationTime", outputSchemaExpirationTime)
         .add("outputSchemaName", outputSchemaName)
         .add("runDuration", runDuration)

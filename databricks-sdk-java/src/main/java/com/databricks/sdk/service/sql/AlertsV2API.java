@@ -7,7 +7,7 @@ import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** TODO: Add description */
+/** New version of SQL Alerts */
 @Generated
 public class AlertsV2API {
   private static final Logger LOG = LoggerFactory.getLogger(AlertsV2API.class);
@@ -22,6 +22,10 @@ public class AlertsV2API {
   /** Constructor for mocks */
   public AlertsV2API(AlertsV2Service mock) {
     impl = mock;
+  }
+
+  public AlertV2 createAlert(AlertV2 alert) {
+    return createAlert(new CreateAlertV2Request().setAlert(alert));
   }
 
   /**
@@ -80,8 +84,9 @@ public class AlertsV2API {
     impl.trashAlert(request);
   }
 
-  public AlertV2 updateAlert(String id, String updateMask) {
-    return updateAlert(new UpdateAlertV2Request().setId(id).setUpdateMask(updateMask));
+  public AlertV2 updateAlert(String id, AlertV2 alert, String updateMask) {
+    return updateAlert(
+        new UpdateAlertV2Request().setId(id).setAlert(alert).setUpdateMask(updateMask));
   }
 
   /**

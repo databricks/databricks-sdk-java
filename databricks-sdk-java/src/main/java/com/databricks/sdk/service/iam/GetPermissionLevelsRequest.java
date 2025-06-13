@@ -10,10 +10,15 @@ import java.util.Objects;
 /** Get object permission levels */
 @Generated
 public class GetPermissionLevelsRequest {
-  /** <needs content> */
+  /** */
   @JsonIgnore private String requestObjectId;
 
-  /** <needs content> */
+  /**
+   * The type of the request object. Can be one of the following: alerts, authorization, clusters,
+   * cluster-policies, dashboards, dbsql-dashboards, directories, experiments, files,
+   * instance-pools, jobs, notebooks, pipelines, queries, registered-models, repos,
+   * serving-endpoints, or warehouses.
+   */
   @JsonIgnore private String requestObjectType;
 
   public GetPermissionLevelsRequest setRequestObjectId(String requestObjectId) {

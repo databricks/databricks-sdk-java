@@ -114,9 +114,18 @@ public class MetastoresAPI {
    * an admin to retrieve this info. There is no guarantee of a specific ordering of the elements in
    * the array.
    */
-  public Iterable<MetastoreInfo> list() {
+  public Iterable<MetastoreInfo> list(ListMetastoresRequest request) {
     return new Paginator<>(
-        null, (Void v) -> impl.list(), ListMetastoresResponse::getMetastores, response -> null);
+        request,
+        impl::list,
+        ListMetastoresResponse::getMetastores,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   /**

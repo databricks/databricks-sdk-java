@@ -64,7 +64,8 @@ public class ClusterSpec {
 
   /**
    * Cluster name requested by the user. This doesn't have to be unique. If not specified at
-   * creation, the cluster name will be an empty string.
+   * creation, the cluster name will be an empty string. For job clusters, the cluster name is
+   * automatically set based on the job and job run IDs.
    */
   @JsonProperty("cluster_name")
   private String clusterName;

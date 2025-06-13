@@ -8,6 +8,8 @@ import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.mixin.ClustersExt;
 import com.databricks.sdk.mixin.DbfsExt;
 import com.databricks.sdk.mixin.SecretsExt;
+import com.databricks.sdk.service.aibuilder.CustomLlmsAPI;
+import com.databricks.sdk.service.aibuilder.CustomLlmsService;
 import com.databricks.sdk.service.apps.AppsAPI;
 import com.databricks.sdk.service.apps.AppsService;
 import com.databricks.sdk.service.catalog.ArtifactAllowlistsAPI;
@@ -81,8 +83,8 @@ import com.databricks.sdk.service.dashboards.LakeviewAPI;
 import com.databricks.sdk.service.dashboards.LakeviewEmbeddedAPI;
 import com.databricks.sdk.service.dashboards.LakeviewEmbeddedService;
 import com.databricks.sdk.service.dashboards.LakeviewService;
-import com.databricks.sdk.service.dashboards.QueryExecutionAPI;
-import com.databricks.sdk.service.dashboards.QueryExecutionService;
+import com.databricks.sdk.service.database.DatabaseAPI;
+import com.databricks.sdk.service.database.DatabaseService;
 import com.databricks.sdk.service.files.DbfsService;
 import com.databricks.sdk.service.files.FilesAPI;
 import com.databricks.sdk.service.files.FilesService;
@@ -138,7 +140,11 @@ import com.databricks.sdk.service.ml.ModelRegistryAPI;
 import com.databricks.sdk.service.ml.ModelRegistryService;
 import com.databricks.sdk.service.pipelines.PipelinesAPI;
 import com.databricks.sdk.service.pipelines.PipelinesService;
+import com.databricks.sdk.service.qualitymonitorv2.QualityMonitorV2API;
+import com.databricks.sdk.service.qualitymonitorv2.QualityMonitorV2Service;
 import com.databricks.sdk.service.serving.ServingEndpointsAPI;
+import com.databricks.sdk.service.serving.ServingEndpointsDataPlaneAPI;
+import com.databricks.sdk.service.serving.ServingEndpointsDataPlaneService;
 import com.databricks.sdk.service.serving.ServingEndpointsService;
 import com.databricks.sdk.service.settings.CredentialsManagerAPI;
 import com.databricks.sdk.service.settings.CredentialsManagerService;
@@ -158,6 +164,8 @@ import com.databricks.sdk.service.sharing.ProvidersAPI;
 import com.databricks.sdk.service.sharing.ProvidersService;
 import com.databricks.sdk.service.sharing.RecipientActivationAPI;
 import com.databricks.sdk.service.sharing.RecipientActivationService;
+import com.databricks.sdk.service.sharing.RecipientFederationPoliciesAPI;
+import com.databricks.sdk.service.sharing.RecipientFederationPoliciesService;
 import com.databricks.sdk.service.sharing.RecipientsAPI;
 import com.databricks.sdk.service.sharing.RecipientsService;
 import com.databricks.sdk.service.sharing.SharesAPI;
@@ -234,9 +242,11 @@ public class WorkspaceClient {
   private CredentialsAPI credentialsAPI;
   private CredentialsManagerAPI credentialsManagerAPI;
   private CurrentUserAPI currentUserAPI;
+  private CustomLlmsAPI customLlmsAPI;
   private DashboardWidgetsAPI dashboardWidgetsAPI;
   private DashboardsAPI dashboardsAPI;
   private DataSourcesAPI dataSourcesAPI;
+  private DatabaseAPI databaseAPI;
   private DbfsExt dbfsAPI;
   private DbsqlPermissionsAPI dbsqlPermissionsAPI;
   private ExperimentsAPI experimentsAPI;
@@ -274,14 +284,15 @@ public class WorkspaceClient {
   private ProviderProviderAnalyticsDashboardsAPI providerProviderAnalyticsDashboardsAPI;
   private ProviderProvidersAPI providerProvidersAPI;
   private ProvidersAPI providersAPI;
+  private QualityMonitorV2API qualityMonitorV2API;
   private QualityMonitorsAPI qualityMonitorsAPI;
   private QueriesAPI queriesAPI;
   private QueriesLegacyAPI queriesLegacyAPI;
-  private QueryExecutionAPI queryExecutionAPI;
   private QueryHistoryAPI queryHistoryAPI;
   private QueryVisualizationsAPI queryVisualizationsAPI;
   private QueryVisualizationsLegacyAPI queryVisualizationsLegacyAPI;
   private RecipientActivationAPI recipientActivationAPI;
+  private RecipientFederationPoliciesAPI recipientFederationPoliciesAPI;
   private RecipientsAPI recipientsAPI;
   private RedashConfigAPI redashConfigAPI;
   private RegisteredModelsAPI registeredModelsAPI;
@@ -291,6 +302,7 @@ public class WorkspaceClient {
   private SecretsExt secretsAPI;
   private ServicePrincipalsAPI servicePrincipalsAPI;
   private ServingEndpointsAPI servingEndpointsAPI;
+  private ServingEndpointsDataPlaneAPI servingEndpointsDataPlaneAPI;
   private SettingsAPI settingsAPI;
   private SharesAPI sharesAPI;
   private StatementExecutionAPI statementExecutionAPI;
@@ -318,7 +330,6 @@ public class WorkspaceClient {
   public WorkspaceClient(DatabricksConfig config) {
     this.config = config;
     apiClient = new ApiClient(config);
-
     accessControlAPI = new AccessControlAPI(apiClient);
     accountAccessControlProxyAPI = new AccountAccessControlProxyAPI(apiClient);
     alertsAPI = new AlertsAPI(apiClient);
@@ -342,9 +353,11 @@ public class WorkspaceClient {
     credentialsAPI = new CredentialsAPI(apiClient);
     credentialsManagerAPI = new CredentialsManagerAPI(apiClient);
     currentUserAPI = new CurrentUserAPI(apiClient);
+    customLlmsAPI = new CustomLlmsAPI(apiClient);
     dashboardWidgetsAPI = new DashboardWidgetsAPI(apiClient);
     dashboardsAPI = new DashboardsAPI(apiClient);
     dataSourcesAPI = new DataSourcesAPI(apiClient);
+    databaseAPI = new DatabaseAPI(apiClient);
     dbfsAPI = new DbfsExt(apiClient);
     dbsqlPermissionsAPI = new DbsqlPermissionsAPI(apiClient);
     experimentsAPI = new ExperimentsAPI(apiClient);
@@ -382,14 +395,15 @@ public class WorkspaceClient {
     providerProviderAnalyticsDashboardsAPI = new ProviderProviderAnalyticsDashboardsAPI(apiClient);
     providerProvidersAPI = new ProviderProvidersAPI(apiClient);
     providersAPI = new ProvidersAPI(apiClient);
+    qualityMonitorV2API = new QualityMonitorV2API(apiClient);
     qualityMonitorsAPI = new QualityMonitorsAPI(apiClient);
     queriesAPI = new QueriesAPI(apiClient);
     queriesLegacyAPI = new QueriesLegacyAPI(apiClient);
-    queryExecutionAPI = new QueryExecutionAPI(apiClient);
     queryHistoryAPI = new QueryHistoryAPI(apiClient);
     queryVisualizationsAPI = new QueryVisualizationsAPI(apiClient);
     queryVisualizationsLegacyAPI = new QueryVisualizationsLegacyAPI(apiClient);
     recipientActivationAPI = new RecipientActivationAPI(apiClient);
+    recipientFederationPoliciesAPI = new RecipientFederationPoliciesAPI(apiClient);
     recipientsAPI = new RecipientsAPI(apiClient);
     redashConfigAPI = new RedashConfigAPI(apiClient);
     registeredModelsAPI = new RegisteredModelsAPI(apiClient);
@@ -399,6 +413,8 @@ public class WorkspaceClient {
     secretsAPI = new SecretsExt(apiClient);
     servicePrincipalsAPI = new ServicePrincipalsAPI(apiClient);
     servingEndpointsAPI = new ServingEndpointsAPI(apiClient);
+    servingEndpointsDataPlaneAPI =
+        new ServingEndpointsDataPlaneAPI(apiClient, config, servingEndpointsAPI);
     settingsAPI = new SettingsAPI(apiClient);
     sharesAPI = new SharesAPI(apiClient);
     statementExecutionAPI = new StatementExecutionAPI(apiClient);
@@ -440,7 +456,7 @@ public class WorkspaceClient {
    * These APIs manage access rules on resources in an account. Currently, only grant rules are
    * supported. A grant rule specifies a role assigned to a set of principals. A list of rules
    * attached to a resource is called a rule set. A workspace must belong to an account for these
-   * APIs to work.
+   * APIs to work
    */
   public AccountAccessControlProxyAPI accountAccessControlProxy() {
     return accountAccessControlProxyAPI;
@@ -471,7 +487,7 @@ public class WorkspaceClient {
     return alertsLegacyAPI;
   }
 
-  /** TODO: Add description */
+  /** New version of SQL Alerts */
   public AlertsV2API alertsV2() {
     return alertsV2API;
   }
@@ -664,6 +680,11 @@ public class WorkspaceClient {
     return currentUserAPI;
   }
 
+  /** The Custom LLMs service manages state and powers the UI for the Custom LLM product. */
+  public CustomLlmsAPI customLlms() {
+    return customLlmsAPI;
+  }
+
   /**
    * This is an evolving API that facilitates the addition and removal of widgets from existing
    * dashboards within the Databricks Workspace. Data structures may change over time.
@@ -699,6 +720,11 @@ public class WorkspaceClient {
    */
   public DataSourcesAPI dataSources() {
     return dataSourcesAPI;
+  }
+
+  /** Database Instances provide access to a database via REST API or direct SQL. */
+  public DatabaseAPI database() {
+    return databaseAPI;
   }
 
   /**
@@ -778,6 +804,8 @@ public class WorkspaceClient {
    * <p>Some Files API client features are currently experimental. To enable them, set
    * `enable_experimental_files_api_client = True` in your configuration profile or use the
    * environment variable `DATABRICKS_ENABLE_EXPERIMENTAL_FILES_API_CLIENT=True`.
+   *
+   * <p>Use of Files API may incur Databricks data transfer charges.
    *
    * <p>[Unity Catalog volumes]: https://docs.databricks.com/en/connect/unity-catalog/volumes.html
    */
@@ -1044,52 +1072,27 @@ public class WorkspaceClient {
 
   /**
    * Permissions API are used to create read, write, edit, update and manage access for various
-   * users on different objects and endpoints.
-   *
-   * <p>* **[Apps permissions](:service:apps)** — Manage which users can manage or use apps.
-   *
-   * <p>* **[Cluster permissions](:service:clusters)** — Manage which users can manage, restart, or
-   * attach to clusters.
-   *
-   * <p>* **[Cluster policy permissions](:service:clusterpolicies)** — Manage which users can use
-   * cluster policies.
-   *
-   * <p>* **[Delta Live Tables pipeline permissions](:service:pipelines)** — Manage which users can
-   * view, manage, run, cancel, or own a Delta Live Tables pipeline.
-   *
-   * <p>* **[Job permissions](:service:jobs)** — Manage which users can view, manage, trigger,
-   * cancel, or own a job.
-   *
-   * <p>* **[MLflow experiment permissions](:service:experiments)** — Manage which users can read,
-   * edit, or manage MLflow experiments.
-   *
-   * <p>* **[MLflow registered model permissions](:service:modelregistry)** — Manage which users can
-   * read, edit, or manage MLflow registered models.
-   *
-   * <p>* **[Password permissions](:service:users)** — Manage which users can use password login
-   * when SSO is enabled.
-   *
-   * <p>* **[Instance Pool permissions](:service:instancepools)** — Manage which users can manage or
-   * attach to pools.
-   *
-   * <p>* **[Repo permissions](repos)** — Manage which users can read, run, edit, or manage a repo.
-   *
-   * <p>* **[Serving endpoint permissions](:service:servingendpoints)** — Manage which users can
-   * view, query, or manage a serving endpoint.
-   *
-   * <p>* **[SQL warehouse permissions](:service:warehouses)** — Manage which users can use or
-   * manage SQL warehouses.
-   *
-   * <p>* **[Token permissions](:service:tokenmanagement)** — Manage which users can create or use
-   * tokens.
-   *
-   * <p>* **[Workspace object permissions](:service:workspace)** — Manage which users can read, run,
-   * edit, or manage alerts, dbsql-dashboards, directories, files, notebooks and queries.
-   *
-   * <p>For the mapping of the required permissions for specific actions or abilities and other
-   * important information, see [Access Control].
-   *
-   * <p>Note that to manage access control on service principals, use **[Account Access Control
+   * users on different objects and endpoints. * **[Apps permissions](:service:apps)** — Manage
+   * which users can manage or use apps. * **[Cluster permissions](:service:clusters)** — Manage
+   * which users can manage, restart, or attach to clusters. * **[Cluster policy
+   * permissions](:service:clusterpolicies)** — Manage which users can use cluster policies. *
+   * **[Delta Live Tables pipeline permissions](:service:pipelines)** — Manage which users can view,
+   * manage, run, cancel, or own a Delta Live Tables pipeline. * **[Job
+   * permissions](:service:jobs)** — Manage which users can view, manage, trigger, cancel, or own a
+   * job. * **[MLflow experiment permissions](:service:experiments)** — Manage which users can read,
+   * edit, or manage MLflow experiments. * **[MLflow registered model
+   * permissions](:service:modelregistry)** — Manage which users can read, edit, or manage MLflow
+   * registered models. * **[Instance Pool permissions](:service:instancepools)** — Manage which
+   * users can manage or attach to pools. * **[Repo permissions](repos)** — Manage which users can
+   * read, run, edit, or manage a repo. * **[Serving endpoint
+   * permissions](:service:servingendpoints)** — Manage which users can view, query, or manage a
+   * serving endpoint. * **[SQL warehouse permissions](:service:warehouses)** — Manage which users
+   * can use or manage SQL warehouses. * **[Token permissions](:service:tokenmanagement)** — Manage
+   * which users can create or use tokens. * **[Workspace object permissions](:service:workspace)**
+   * — Manage which users can read, run, edit, or manage alerts, dbsql-dashboards, directories,
+   * files, notebooks and queries. For the mapping of the required permissions for specific actions
+   * or abilities and other important information, see [Access Control]. Note that to manage access
+   * control on service principals, use **[Account Access Control
    * Proxy](:service:accountaccesscontrolproxy)**.
    *
    * <p>[Access Control]: https://docs.databricks.com/security/auth-authz/access-control/index.html
@@ -1219,6 +1222,11 @@ public class WorkspaceClient {
     return providersAPI;
   }
 
+  /** Manage data quality of UC objects (currently support `schema`) */
+  public QualityMonitorV2API qualityMonitorV2() {
+    return qualityMonitorV2API;
+  }
+
   /**
    * A monitor computes and monitors data or model quality metrics for a table over time. It
    * generates metrics tables and a dashboard that you can use to monitor table health and set
@@ -1255,11 +1263,6 @@ public class WorkspaceClient {
    */
   public QueriesLegacyAPI queriesLegacy() {
     return queriesLegacyAPI;
-  }
-
-  /** Query execution APIs for AI / BI Dashboards */
-  public QueryExecutionAPI queryExecution() {
-    return queryExecutionAPI;
   }
 
   /**
@@ -1303,6 +1306,33 @@ public class WorkspaceClient {
    */
   public RecipientActivationAPI recipientActivation() {
     return recipientActivationAPI;
+  }
+
+  /**
+   * The Recipient Federation Policies APIs are only applicable in the open sharing model where the
+   * recipient object has the authentication type of `OIDC_RECIPIENT`, enabling data sharing from
+   * Databricks to non-Databricks recipients. OIDC Token Federation enables secure, secret-less
+   * authentication for accessing Delta Sharing servers. Users and applications authenticate using
+   * short-lived OIDC tokens issued by their own Identity Provider (IdP), such as Azure Entra ID or
+   * Okta, without the need for managing static credentials or client secrets. A federation policy
+   * defines how non-Databricks recipients authenticate using OIDC tokens. It validates the OIDC
+   * claims in federated tokens and is set at the recipient level. The caller must be the owner of
+   * the recipient to create or manage a federation policy. Federation policies support the
+   * following scenarios: - User-to-Machine (U2M) flow: A user accesses Delta Shares using their own
+   * identity, such as connecting through PowerBI Delta Sharing Client. - Machine-to-Machine (M2M)
+   * flow: An application accesses Delta Shares using its own identity, typically for automation
+   * tasks like nightly jobs through Python Delta Sharing Client. OIDC Token Federation enables
+   * fine-grained access control, supports Multi-Factor Authentication (MFA), and enhances security
+   * by minimizing the risk of credential leakage through the use of short-lived, expiring tokens.
+   * It is designed for strong identity governance, secure cross-platform data sharing, and reduced
+   * operational overhead for credential management.
+   *
+   * <p>For more information, see
+   * https://www.databricks.com/blog/announcing-oidc-token-federation-enhanced-delta-sharing-security
+   * and https://docs.databricks.com/en/delta-sharing/create-recipient-oidc-fed
+   */
+  public RecipientFederationPoliciesAPI recipientFederationPolicies() {
+    return recipientFederationPoliciesAPI;
   }
 
   /**
@@ -1441,6 +1471,14 @@ public class WorkspaceClient {
    */
   public ServingEndpointsAPI servingEndpoints() {
     return servingEndpointsAPI;
+  }
+
+  /**
+   * Serving endpoints DataPlane provides a set of operations to interact with data plane endpoints
+   * for Serving endpoints service.
+   */
+  public ServingEndpointsDataPlaneAPI servingEndpointsDataPlane() {
+    return servingEndpointsDataPlaneAPI;
   }
 
   /** Workspace Settings API allows users to manage settings at the workspace level. */
@@ -1729,7 +1767,8 @@ public class WorkspaceClient {
    * Please use the new path (/api/2.1/unity-catalog/bindings/{securable_type}/{securable_name})
    * which introduces the ability to bind a securable in READ_ONLY mode (catalogs only).
    *
-   * <p>Securable types that support binding: - catalog - storage_credential - external_location
+   * <p>Securable types that support binding: - catalog - storage_credential - credential -
+   * external_location
    */
   public WorkspaceBindingsAPI workspaceBindings() {
     return workspaceBindingsAPI;
@@ -2007,6 +2046,17 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default CustomLlmsService with a custom implementation. */
+  public WorkspaceClient withCustomLlmsImpl(CustomLlmsService customLlms) {
+    return this.withCustomLlmsAPI(new CustomLlmsAPI(customLlms));
+  }
+
+  /** Replace the default CustomLlmsAPI with a custom implementation. */
+  public WorkspaceClient withCustomLlmsAPI(CustomLlmsAPI customLlms) {
+    this.customLlmsAPI = customLlms;
+    return this;
+  }
+
   /** Replace the default DashboardWidgetsService with a custom implementation. */
   public WorkspaceClient withDashboardWidgetsImpl(DashboardWidgetsService dashboardWidgets) {
     return this.withDashboardWidgetsAPI(new DashboardWidgetsAPI(dashboardWidgets));
@@ -2037,6 +2087,17 @@ public class WorkspaceClient {
   /** Replace the default DataSourcesAPI with a custom implementation. */
   public WorkspaceClient withDataSourcesAPI(DataSourcesAPI dataSources) {
     this.dataSourcesAPI = dataSources;
+    return this;
+  }
+
+  /** Replace the default DatabaseService with a custom implementation. */
+  public WorkspaceClient withDatabaseImpl(DatabaseService database) {
+    return this.withDatabaseAPI(new DatabaseAPI(database));
+  }
+
+  /** Replace the default DatabaseAPI with a custom implementation. */
+  public WorkspaceClient withDatabaseAPI(DatabaseAPI database) {
+    this.databaseAPI = database;
     return this;
   }
 
@@ -2468,6 +2529,17 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default QualityMonitorV2Service with a custom implementation. */
+  public WorkspaceClient withQualityMonitorV2Impl(QualityMonitorV2Service qualityMonitorV2) {
+    return this.withQualityMonitorV2API(new QualityMonitorV2API(qualityMonitorV2));
+  }
+
+  /** Replace the default QualityMonitorV2API with a custom implementation. */
+  public WorkspaceClient withQualityMonitorV2API(QualityMonitorV2API qualityMonitorV2) {
+    this.qualityMonitorV2API = qualityMonitorV2;
+    return this;
+  }
+
   /** Replace the default QualityMonitorsService with a custom implementation. */
   public WorkspaceClient withQualityMonitorsImpl(QualityMonitorsService qualityMonitors) {
     return this.withQualityMonitorsAPI(new QualityMonitorsAPI(qualityMonitors));
@@ -2498,17 +2570,6 @@ public class WorkspaceClient {
   /** Replace the default QueriesLegacyAPI with a custom implementation. */
   public WorkspaceClient withQueriesLegacyAPI(QueriesLegacyAPI queriesLegacy) {
     this.queriesLegacyAPI = queriesLegacy;
-    return this;
-  }
-
-  /** Replace the default QueryExecutionService with a custom implementation. */
-  public WorkspaceClient withQueryExecutionImpl(QueryExecutionService queryExecution) {
-    return this.withQueryExecutionAPI(new QueryExecutionAPI(queryExecution));
-  }
-
-  /** Replace the default QueryExecutionAPI with a custom implementation. */
-  public WorkspaceClient withQueryExecutionAPI(QueryExecutionAPI queryExecution) {
-    this.queryExecutionAPI = queryExecution;
     return this;
   }
 
@@ -2558,6 +2619,20 @@ public class WorkspaceClient {
   /** Replace the default RecipientActivationAPI with a custom implementation. */
   public WorkspaceClient withRecipientActivationAPI(RecipientActivationAPI recipientActivation) {
     this.recipientActivationAPI = recipientActivation;
+    return this;
+  }
+
+  /** Replace the default RecipientFederationPoliciesService with a custom implementation. */
+  public WorkspaceClient withRecipientFederationPoliciesImpl(
+      RecipientFederationPoliciesService recipientFederationPolicies) {
+    return this.withRecipientFederationPoliciesAPI(
+        new RecipientFederationPoliciesAPI(recipientFederationPolicies));
+  }
+
+  /** Replace the default RecipientFederationPoliciesAPI with a custom implementation. */
+  public WorkspaceClient withRecipientFederationPoliciesAPI(
+      RecipientFederationPoliciesAPI recipientFederationPolicies) {
+    this.recipientFederationPoliciesAPI = recipientFederationPolicies;
     return this;
   }
 
@@ -2657,6 +2732,20 @@ public class WorkspaceClient {
   /** Replace the default ServingEndpointsAPI with a custom implementation. */
   public WorkspaceClient withServingEndpointsAPI(ServingEndpointsAPI servingEndpoints) {
     this.servingEndpointsAPI = servingEndpoints;
+    return this;
+  }
+
+  /** Replace the default ServingEndpointsDataPlaneService with a custom implementation. */
+  public WorkspaceClient withServingEndpointsDataPlaneImpl(
+      ServingEndpointsDataPlaneService servingEndpointsDataPlane) {
+    return this.withServingEndpointsDataPlaneAPI(
+        new ServingEndpointsDataPlaneAPI(servingEndpointsDataPlane));
+  }
+
+  /** Replace the default ServingEndpointsDataPlaneAPI with a custom implementation. */
+  public WorkspaceClient withServingEndpointsDataPlaneAPI(
+      ServingEndpointsDataPlaneAPI servingEndpointsDataPlane) {
+    this.servingEndpointsDataPlaneAPI = servingEndpointsDataPlane;
     return this;
   }
 

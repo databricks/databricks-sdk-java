@@ -32,6 +32,13 @@ public class IngestionPipelineDefinition {
   private Collection<IngestionConfig> objects;
 
   /**
+   * The type of the foreign source. The source type will be inferred from the source connection or
+   * ingestion gateway. This field is output only and will be ignored if provided.
+   */
+  @JsonProperty("source_type")
+  private IngestionSourceType sourceType;
+
+  /**
    * Configuration settings to control the ingestion of tables. These settings are applied to all
    * tables in the pipeline.
    */
@@ -65,6 +72,15 @@ public class IngestionPipelineDefinition {
     return objects;
   }
 
+  public IngestionPipelineDefinition setSourceType(IngestionSourceType sourceType) {
+    this.sourceType = sourceType;
+    return this;
+  }
+
+  public IngestionSourceType getSourceType() {
+    return sourceType;
+  }
+
   public IngestionPipelineDefinition setTableConfiguration(TableSpecificConfig tableConfiguration) {
     this.tableConfiguration = tableConfiguration;
     return this;
@@ -82,12 +98,14 @@ public class IngestionPipelineDefinition {
     return Objects.equals(connectionName, that.connectionName)
         && Objects.equals(ingestionGatewayId, that.ingestionGatewayId)
         && Objects.equals(objects, that.objects)
+        && Objects.equals(sourceType, that.sourceType)
         && Objects.equals(tableConfiguration, that.tableConfiguration);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(connectionName, ingestionGatewayId, objects, tableConfiguration);
+    return Objects.hash(
+        connectionName, ingestionGatewayId, objects, sourceType, tableConfiguration);
   }
 
   @Override
@@ -96,6 +114,7 @@ public class IngestionPipelineDefinition {
         .add("connectionName", connectionName)
         .add("ingestionGatewayId", ingestionGatewayId)
         .add("objects", objects)
+        .add("sourceType", sourceType)
         .add("tableConfiguration", tableConfiguration)
         .toString();
   }
