@@ -22,16 +22,14 @@ for arg in "$@"; do
     fi
 done
 
-# MacOS
-EXP="$(/bin/date -v+${EXPIRE:=10S} +'%FT%T%z' 2>/dev/null)"
+# Macos
+EXP="$(/bin/date -v+${EXPIRE:=10S} +'%F %T' 2>/dev/null)"
 if [ -z "${EXP}" ]; then
   # Linux
   EXPIRE=$(/bin/echo $EXPIRE | /bin/sed 's/S/seconds/')
   EXPIRE=$(/bin/echo $EXPIRE | /bin/sed 's/M/minutes/')
-  EXP=$(/bin/date --date=+${EXPIRE:=10seconds} +'%FT%T%z')
+  EXP=$(/bin/date --date=+${EXPIRE:=10seconds} +'%F %T')
 fi
-# Insert colon in timezone offset for ISO 8601 compliance
-EXP="${EXP:0:19}${EXP:19:3}:${EXP:22:2}"
 
 if [ -z "${TF_AAD_TOKEN}" ]; then
     TF_AAD_TOKEN="..."

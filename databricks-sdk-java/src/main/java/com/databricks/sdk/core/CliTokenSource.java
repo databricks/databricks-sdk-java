@@ -40,19 +40,26 @@ public class CliTokenSource extends RefreshableTokenSource {
   }
 
   /**
-   * Parses an expiry string in RFC 3339/ISO 8601 format (with or without offset) and returns the
-   * corresponding {@link Instant}. Any specified time zone or offset is converted to UTC.
+   * Parses an expiry time string and returns the corresponding {@link Instant}. The method attempts
+   * to parse the input in the following order: 1. RFC 3339/ISO 8601 format with offset (e.g.
+   * "2024-03-20T10:30:00Z") 2. Local date-time format "yyyy-MM-dd HH:mm:ss" (e.g. "2024-03-20
+   * 10:30:00") 3. Local date-time format with optional fractional seconds of varying precision
+   * (e.g. "2024-03-20 10:30:00.123")
    *
-   * @param expiry expiry time string in RFC 3339/ISO 8601 format
+   * <p>Any specified time zone or offset is converted to UTC. For local date-time formats, the
+   * system's default time zone is used.
+   *
+   * @param expiry expiry time string in one of the supported formats
    * @return the parsed {@link Instant}
-   * @throws DateTimeParseException if the input string cannot be parsed
+   * @throws DateTimeParseException if the input string cannot be parsed in any of the supported
+   *     formats
    */
   static Instant parseExpiry(String expiry) {
-    DateTimeParseException lastException = null;
+    DateTimeParseException parseException;
     try {
       return OffsetDateTime.parse(expiry).toInstant();
     } catch (DateTimeParseException e) {
-      lastException = e;
+      parseException = e;
     }
 
     String multiplePrecisionPattern =
@@ -65,10 +72,11 @@ public class CliTokenSource extends RefreshableTokenSource {
         LocalDateTime dateTime = LocalDateTime.parse(expiry, formatter);
         return dateTime.atZone(ZoneId.systemDefault()).toInstant();
       } catch (DateTimeParseException e) {
-        lastException = e;
+        parseException.addSuppressed(e);
       }
     }
-    throw lastException;
+
+    throw parseException;
   }
 
   private String getProcessStream(InputStream stream) throws IOException {
