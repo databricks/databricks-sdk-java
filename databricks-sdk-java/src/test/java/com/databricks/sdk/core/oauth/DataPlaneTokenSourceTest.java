@@ -8,7 +8,7 @@ import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Response;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -29,8 +29,7 @@ public class DataPlaneTokenSourceTest {
 
   private static Stream<Arguments> provideDataPlaneTokenScenarios() throws Exception {
     // Mock DatabricksOAuthTokenSource for control plane token
-    Token cpToken =
-        new Token(TEST_CP_TOKEN, TEST_TOKEN_TYPE, null, LocalDateTime.now().plusSeconds(600));
+    Token cpToken = new Token(TEST_CP_TOKEN, TEST_TOKEN_TYPE, null, Instant.now().plusSeconds(600));
     DatabricksOAuthTokenSource mockCpTokenSource = mock(DatabricksOAuthTokenSource.class);
     when(mockCpTokenSource.getToken()).thenReturn(cpToken);
 
@@ -81,9 +80,8 @@ public class DataPlaneTokenSourceTest {
                 "dp-access-token1",
                 TEST_TOKEN_TYPE,
                 TEST_REFRESH_TOKEN,
-                LocalDateTime.now().plusSeconds(TEST_EXPIRES_IN)),
-            null // No exception
-            ),
+                Instant.now().plusSeconds(TEST_EXPIRES_IN)),
+            null),
         Arguments.of(
             "Success: endpoint2/auth2 (different cache key)",
             TEST_ENDPOINT_2,
@@ -95,7 +93,7 @@ public class DataPlaneTokenSourceTest {
                 "dp-access-token2",
                 TEST_TOKEN_TYPE,
                 TEST_REFRESH_TOKEN,
-                LocalDateTime.now().plusSeconds(TEST_EXPIRES_IN)),
+                Instant.now().plusSeconds(TEST_EXPIRES_IN)),
             null),
         Arguments.of(
             "Error response from endpoint",
@@ -203,7 +201,7 @@ public class DataPlaneTokenSourceTest {
   @Test
   void testEndpointTokenSourceCaching() throws Exception {
     Token cpToken =
-        new Token(TEST_CP_TOKEN, TEST_TOKEN_TYPE, null, LocalDateTime.now().plusSeconds(3600));
+        new Token(TEST_CP_TOKEN, TEST_TOKEN_TYPE, null, Instant.now().plusSeconds(3600));
     DatabricksOAuthTokenSource mockCpTokenSource = mock(DatabricksOAuthTokenSource.class);
     when(mockCpTokenSource.getToken()).thenReturn(cpToken);
 

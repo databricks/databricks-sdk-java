@@ -1,6 +1,7 @@
 package com.databricks.sdk.core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockConstruction;
@@ -14,7 +15,9 @@ import com.databricks.sdk.core.utils.OSUtils;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -27,7 +30,6 @@ import java.util.TimeZone;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -157,30 +159,58 @@ public class CliTokenSourceTest {
     }
   }
 
-  @Test
-  public void testParseExpiryWithoutTruncate() {
-    LocalDateTime parsedDateTime = CliTokenSource.parseExpiry("2023-07-17T09:02:22.330612218Z");
-    assertEquals(LocalDateTime.of(2023, 7, 17, 9, 2, 22, 330612218), parsedDateTime);
+  private static Stream<Arguments> expiryProvider() {
+    return Stream.of(
+        Arguments.of(
+            "2023-07-17T09:02:22.330612218Z",
+            Instant.parse("2023-07-17T09:02:22.330612218Z"),
+            "9-digit nanos"),
+        Arguments.of(
+            "2023-07-17T09:02:22.33061221Z",
+            Instant.parse("2023-07-17T09:02:22.330612210Z"),
+            "8-digit nanos"),
+        Arguments.of(
+            "2023-07-17T09:02:22.330612Z",
+            Instant.parse("2023-07-17T09:02:22.330612000Z"),
+            "6-digit nanos"),
+        Arguments.of(
+            "2023-07-17T10:02:22.330612218+01:00",
+            Instant.parse("2023-07-17T09:02:22.330612218Z"),
+            "+01:00 offset, 9-digit nanos"),
+        Arguments.of(
+            "2023-07-17T04:02:22.330612218-05:00",
+            Instant.parse("2023-07-17T09:02:22.330612218Z"),
+            "-05:00 offset, 9-digit nanos"),
+        Arguments.of(
+            "2023-07-17T10:02:22.330612+01:00",
+            Instant.parse("2023-07-17T09:02:22.330612000Z"),
+            "+01:00 offset, 6-digit nanos"),
+        Arguments.of("2023-07-17T09:02:22.33061221987Z", null, "Invalid: >9 nanos"),
+        Arguments.of("17-07-2023 09:02:22", null, "Invalid date format"),
+        Arguments.of(
+            "2023-07-17 09:02:22.330612218",
+            LocalDateTime.parse("2023-07-17T09:02:22.330612218")
+                .atZone(ZoneId.systemDefault())
+                .toInstant(),
+            "Space separator, 9-digit nanos"),
+        Arguments.of(
+            "2023-07-17 09:02:22.330612",
+            LocalDateTime.parse("2023-07-17T09:02:22.330612")
+                .atZone(ZoneId.systemDefault())
+                .toInstant(),
+            "Space separator, 6-digit nanos"),
+        Arguments.of(
+            "2023-07-17 09:02:22.33061221987", null, "Space separator, Invalid: >9 nanos"));
   }
 
-  @Test
-  public void testParseExpiryWithTruncate() {
-    LocalDateTime parsedDateTime = CliTokenSource.parseExpiry("2023-07-17T09:02:22.33061221Z");
-    assertEquals(LocalDateTime.of(2023, 7, 17, 9, 2, 22, 330612210), parsedDateTime);
-  }
-
-  @Test
-  public void testParseExpiryWithTruncateAndLessNanoSecondDigits() {
-    LocalDateTime parsedDateTime = CliTokenSource.parseExpiry("2023-07-17T09:02:22.330612Z");
-    assertEquals(LocalDateTime.of(2023, 7, 17, 9, 2, 22, 330612000), parsedDateTime);
-  }
-
-  @Test
-  public void testParseExpiryWithMoreThanNineNanoSecondDigits() {
-    try {
-      CliTokenSource.parseExpiry("2023-07-17T09:02:22.33061221987Z");
-    } catch (DateTimeParseException e) {
-      assert (e.getMessage().contains("could not be parsed"));
+  @ParameterizedTest(name = "{2}")
+  @MethodSource("expiryProvider")
+  public void testParseExpiry(String input, Instant expectedInstant, String description) {
+    if (expectedInstant == null) {
+      assertThrows(DateTimeParseException.class, () -> CliTokenSource.parseExpiry(input));
+    } else {
+      Instant parsedInstant = CliTokenSource.parseExpiry(input);
+      assertEquals(expectedInstant, parsedInstant);
     }
   }
 }
