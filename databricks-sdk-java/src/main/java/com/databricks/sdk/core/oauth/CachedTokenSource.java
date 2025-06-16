@@ -1,7 +1,7 @@
 package com.databricks.sdk.core.oauth;
 
 import com.databricks.sdk.core.utils.ClockSupplier;
-import com.databricks.sdk.core.utils.SystemClockSupplier;
+import com.databricks.sdk.core.utils.UtcClockSupplier;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.concurrent.CompletableFuture;
@@ -42,7 +42,7 @@ public class CachedTokenSource implements TokenSource {
   private final Duration staleDuration;
   // Additional buffer before expiry to consider a token as expired.
   private final Duration expiryBuffer;
-  // Clock supplier for current time, can be overridden for testing purposes.
+  // Clock supplier for current time.
   private final ClockSupplier clockSupplier;
 
   // The current OAuth token. May be null if not yet fetched.
@@ -67,7 +67,7 @@ public class CachedTokenSource implements TokenSource {
     private boolean asyncEnabled = false;
     private Duration staleDuration = DEFAULT_STALE_DURATION;
     private Duration expiryBuffer = DEFAULT_EXPIRY_BUFFER;
-    private ClockSupplier clockSupplier = new SystemClockSupplier();
+    private ClockSupplier clockSupplier = new UtcClockSupplier();
 
     public Builder(TokenSource tokenSource) {
       this.tokenSource = tokenSource;
