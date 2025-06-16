@@ -31,20 +31,26 @@ public class CachedTokenSource implements TokenSource {
   private static final Logger logger = LoggerFactory.getLogger(CachedTokenSource.class);
   // Default duration before expiry to consider a token as 'stale'.
   private static final Duration DEFAULT_STALE_DURATION = Duration.ofMinutes(3);
+  // Default additional buffer before expiry to consider a token as expired.
   private static final Duration DEFAULT_EXPIRY_BUFFER = Duration.ofSeconds(40);
 
+  // The token source to use for refreshing the token.
   private final TokenSource tokenSource;
+  // Whether asynchronous refresh is enabled.
   private final boolean asyncEnabled;
+  // Duration before expiry to consider a token as 'stale'.
   private final Duration staleDuration;
+  // Additional buffer before expiry to consider a token as expired.
   private final Duration expiryBuffer;
+  // Clock supplier for current time, can be overridden for testing purposes.
   private final ClockSupplier clockSupplier;
 
   // The current OAuth token. May be null if not yet fetched.
-  private volatile Token token;
+  protected volatile Token token;
   // Whether a refresh is currently in progress (for async refresh).
-  private volatile boolean refreshInProgress = false;
+  private boolean refreshInProgress = false;
   // Whether the last refresh attempt succeeded.
-  private volatile boolean lastRefreshSucceeded = true;
+  private boolean lastRefreshSucceeded = true;
 
   private CachedTokenSource(Builder builder) {
     this.tokenSource = builder.tokenSource;
@@ -193,14 +199,15 @@ public class CachedTokenSource implements TokenSource {
    * Trigger an asynchronous refresh of the token if not already in progress and last refresh
    * succeeded.
    */
-  protected synchronized void triggerAsyncRefresh() {
-    // Check token state to avoid triggering a refresh if another thread has already refreshed it
+  private synchronized void triggerAsyncRefresh() {
+    // Check token state again inside the synchronized block to avoid triggering a refresh if
+    // another thread updated the token in the meantime.
     if (!refreshInProgress && lastRefreshSucceeded && getTokenState(token) != TokenState.FRESH) {
       refreshInProgress = true;
       CompletableFuture.runAsync(
           () -> {
             try {
-              // Attempt to refresh the token in the background
+              // Attempt to fetch the token in the background
               Token newToken = tokenSource.getToken();
               synchronized (this) {
                 token = newToken;
@@ -210,7 +217,7 @@ public class CachedTokenSource implements TokenSource {
               synchronized (this) {
                 lastRefreshSucceeded = false;
                 refreshInProgress = false;
-                logger.error("Async token refresh failed", e);
+                logger.error("Asynchronous token refresh failed", e);
               }
             }
           });
