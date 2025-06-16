@@ -18,6 +18,7 @@ class TokenTest {
     assertEquals(accessToken, token.getAccessToken());
     assertEquals(tokenType, token.getTokenType());
     assertNull(token.getRefreshToken());
+    assertEquals(currentInstant.plusSeconds(300), token.getExpiry());
   }
 
   @Test
@@ -26,5 +27,6 @@ class TokenTest {
     assertEquals(accessToken, token.getAccessToken());
     assertEquals(tokenType, token.getTokenType());
     assertEquals(refreshToken, token.getRefreshToken());
+    assertEquals(currentInstant.plusSeconds(300), token.getExpiry());
   }
 }
