@@ -3,7 +3,7 @@ package com.databricks.sdk.core.oauth;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +25,7 @@ public class OAuthHeaderFactoryTest {
   @Mock private TokenSource tokenSource;
 
   private static Stream<Arguments> provideTokenSourceTestCases() {
-    LocalDateTime expiry = LocalDateTime.now().plusHours(1);
+    Instant expiry = Instant.now().plusSeconds(3600);
     Token token = new Token(TOKEN_VALUE, TOKEN_TYPE, expiry);
 
     return Stream.of(
@@ -57,7 +57,7 @@ public class OAuthHeaderFactoryTest {
   }
 
   private static Stream<Arguments> provideSuppliersTestCases() {
-    LocalDateTime expiry = LocalDateTime.now().plusHours(1);
+    Instant expiry = Instant.now().plusSeconds(3600);
     Token token = new Token(TOKEN_VALUE, TOKEN_TYPE, expiry);
 
     Map<String, String> standardHeaders = new HashMap<>();

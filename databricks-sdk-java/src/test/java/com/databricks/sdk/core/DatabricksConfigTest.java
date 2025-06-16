@@ -12,7 +12,6 @@ import com.databricks.sdk.core.oauth.Token;
 import com.databricks.sdk.core.oauth.TokenSource;
 import com.databricks.sdk.core.utils.Environment;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -232,7 +231,7 @@ public class DatabricksConfigTest {
     HttpClient httpClient = mock(HttpClient.class);
     TokenSource mockTokenSource = mock(TokenSource.class);
     when(mockTokenSource.getToken())
-        .thenReturn(new Token("test-token", "Bearer", LocalDateTime.now().plusHours(1)));
+        .thenReturn(new Token("test-token", "Bearer", java.time.Instant.now().plusSeconds(3600)));
     OAuthHeaderFactory mockHeaderFactory = OAuthHeaderFactory.fromTokenSource(mockTokenSource);
     CredentialsProvider mockProvider = mock(CredentialsProvider.class);
     when(mockProvider.authType()).thenReturn("test");
