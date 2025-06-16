@@ -39,6 +39,8 @@ public abstract class RefreshableTokenSource implements TokenSource {
   private static final Logger logger = LoggerFactory.getLogger(RefreshableTokenSource.class);
   // Default duration before expiry to consider a token as 'stale'.
   private static final Duration DEFAULT_STALE_DURATION = Duration.ofMinutes(3);
+  // Default additional buffer before expiry to consider a token as expired.
+  private static final Duration DEFAULT_EXPIRY_BUFFER = Duration.ofSeconds(40);
 
   // The current OAuth token. May be null if not yet fetched.
   protected volatile Token token;
@@ -47,12 +49,12 @@ public abstract class RefreshableTokenSource implements TokenSource {
   // Duration before expiry to consider a token as 'stale'.
   private Duration staleDuration = DEFAULT_STALE_DURATION;
   // Additional buffer before expiry to consider a token as expired.
-  private Duration expiryBuffer = Duration.ofSeconds(40);
+  private Duration expiryBuffer = DEFAULT_EXPIRY_BUFFER;
   // Whether a refresh is currently in progress (for async refresh).
   private boolean refreshInProgress = false;
   // Whether the last refresh attempt succeeded.
   private boolean lastRefreshSucceeded = true;
-  // Clock supplier for current time, for testing purposes.
+  // Clock supplier for current time, can be overridden for testing purposes.
   private ClockSupplier clockSupplier = new SystemClockSupplier();
 
   /** Constructs a new {@code RefreshableTokenSource} with no initial token. */
