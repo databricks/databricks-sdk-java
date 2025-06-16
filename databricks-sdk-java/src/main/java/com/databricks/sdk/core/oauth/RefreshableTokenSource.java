@@ -6,7 +6,7 @@ import com.databricks.sdk.core.http.FormRequest;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.utils.ClockSupplier;
-import com.databricks.sdk.core.utils.SystemClockSupplier;
+import com.databricks.sdk.core.utils.UtcClockSupplier;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Base64;
@@ -54,8 +54,8 @@ public abstract class RefreshableTokenSource implements TokenSource {
   private boolean refreshInProgress = false;
   // Whether the last refresh attempt succeeded.
   private boolean lastRefreshSucceeded = true;
-  // Clock supplier for current time, can be overridden for testing purposes.
-  private ClockSupplier clockSupplier = new SystemClockSupplier();
+  // Clock supplier for current time.
+  private ClockSupplier clockSupplier = new UtcClockSupplier();
 
   /** Constructs a new {@code RefreshableTokenSource} with no initial token. */
   public RefreshableTokenSource() {}
