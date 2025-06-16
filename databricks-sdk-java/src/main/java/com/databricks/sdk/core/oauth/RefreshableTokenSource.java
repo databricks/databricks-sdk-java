@@ -30,7 +30,7 @@ public abstract class RefreshableTokenSource implements TokenSource {
    * Token is valid but will expire soon - an async refresh will be triggered if enabled. EXPIRED:
    * Token has expired and must be refreshed using a blocking call.
    */
-  private enum TokenState {
+  protected enum TokenState {
     FRESH,
     STALE,
     EXPIRED
