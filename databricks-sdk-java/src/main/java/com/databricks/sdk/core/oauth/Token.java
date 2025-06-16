@@ -70,7 +70,7 @@ public class Token {
   }
 
   /**
-   * Returns the expiry time of the token as a LocalDateTime.
+   * Returns the expiry time of the token as a Instant.
    *
    * @return the expiry time
    */

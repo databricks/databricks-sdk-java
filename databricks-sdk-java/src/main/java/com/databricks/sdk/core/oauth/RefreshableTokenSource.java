@@ -213,7 +213,7 @@ public abstract class RefreshableTokenSource implements TokenSource {
    * Trigger an asynchronous refresh of the token if not already in progress and last refresh
    * succeeded.
    */
-  protected synchronized void triggerAsyncRefresh() {
+  private synchronized void triggerAsyncRefresh() {
     // Check token state to avoid triggering a refresh if another thread has already refreshed it
     if (!refreshInProgress && lastRefreshSucceeded && getTokenState(token) != TokenState.FRESH) {
       refreshInProgress = true;
