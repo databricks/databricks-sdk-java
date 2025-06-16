@@ -2,6 +2,7 @@ package com.databricks.sdk.core.oauth;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.databricks.sdk.core.utils.TestClockSupplier;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.concurrent.CountDownLatch;
@@ -80,8 +81,16 @@ public class RefreshableTokenSourceTest {
    */
   @Test
   void testAsyncRefreshFailureFallback() throws Exception {
+    // Create a test clock starting at current time
+    TestClockSupplier clockSupplier = new TestClockSupplier(Instant.now());
+
+    // Create a token that expires in 2 minutes from the initial clock time
     Token staleToken =
-        new Token(INITIAL_TOKEN, TOKEN_TYPE, null, Instant.now().plus(Duration.ofMinutes(2)));
+        new Token(
+            INITIAL_TOKEN,
+            TOKEN_TYPE,
+            null,
+            Instant.now(clockSupplier.getClock()).plus(Duration.ofMinutes(2)));
 
     class TestSource extends RefreshableTokenSource {
       int refreshCallCount = 0;
@@ -99,12 +108,16 @@ public class RefreshableTokenSourceTest {
           throw new RuntimeException("Simulated async failure");
         }
         return new Token(
-            REFRESH_TOKEN, TOKEN_TYPE, null, Instant.now().plus(Duration.ofMinutes(10)));
+            REFRESH_TOKEN,
+            TOKEN_TYPE,
+            null,
+            Instant.now(clockSupplier.getClock()).plus(Duration.ofMinutes(10)));
       }
     }
 
     TestSource source = new TestSource(staleToken);
     source.withAsyncRefresh(true);
+    source.withClockSupplier(clockSupplier);
 
     // First call triggers async refresh, which fails
     source.getToken();
@@ -121,9 +134,8 @@ public class RefreshableTokenSourceTest {
         source.refreshCallCount,
         "refresh() should NOT be called again while stale after async failure");
 
-    // Advance the clock so the token is now expired
-    source.token =
-        new Token(INITIAL_TOKEN, TOKEN_TYPE, null, Instant.now().minus(Duration.ofMinutes(1)));
+    // Advance the clock by 3 minutes to make the token expired
+    clockSupplier.advanceTime(Duration.ofMinutes(3));
 
     // Now getToken() should call refresh synchronously and return the refreshed token
     Token token = source.getToken();
@@ -134,9 +146,8 @@ public class RefreshableTokenSourceTest {
     assertEquals(
         2, source.refreshCallCount, "refresh() should have been called synchronously after expiry");
 
-    // Make the token stale again and trigger async refresh since the last sync refresh succeeded
-    source.token =
-        new Token(INITIAL_TOKEN, TOKEN_TYPE, null, Instant.now().plus(Duration.ofMinutes(2)));
+    // Advance time by 8 minutes to make the token stale again
+    clockSupplier.advanceTime(Duration.ofMinutes(8));
     source.getToken();
     Thread.sleep(300);
     assertEquals(
