@@ -45,7 +45,7 @@ public abstract class RefreshableTokenSource implements TokenSource {
   // The current OAuth token. May be null if not yet fetched.
   protected volatile Token token;
   // Whether asynchronous refresh is enabled.
-  private boolean asyncEnabled = false;
+  private boolean asyncEnabled = true;
   // Duration before expiry to consider a token as 'stale'.
   private Duration staleDuration = DEFAULT_STALE_DURATION;
   // Additional buffer before expiry to consider a token as expired.
