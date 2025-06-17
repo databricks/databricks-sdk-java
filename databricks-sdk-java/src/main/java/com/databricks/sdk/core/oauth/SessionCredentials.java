@@ -28,7 +28,9 @@ public class SessionCredentials implements TokenSource, CredentialsProvider, Ser
 
   @Override
   public OAuthHeaderFactory configure(DatabricksConfig config) {
-    return OAuthHeaderFactory.fromTokenSource(this);
+    CachedTokenSource cachedTokenSource =
+        new CachedTokenSource.Builder(this).withToken(this.token).build();
+    return OAuthHeaderFactory.fromTokenSource(cachedTokenSource);
   }
 
   static class Builder {
@@ -117,15 +119,15 @@ public class SessionCredentials implements TokenSource, CredentialsProvider, Ser
       // cross-origin requests
       headers.put("Origin", redirectUrl);
     }
-    Token newToken =
+    this.token =
         TokenEndpointClient.retrieveToken(
             hc, clientId, clientSecret, tokenUrl, params, headers, AuthParameterPosition.BODY);
 
     // Save the refreshed token directly to cache
     if (tokenCache != null) {
-      tokenCache.save(newToken);
+      tokenCache.save(this.token);
       LOGGER.debug("Saved refreshed token to cache");
     }
-    return newToken;
+    return this.token;
   }
 }

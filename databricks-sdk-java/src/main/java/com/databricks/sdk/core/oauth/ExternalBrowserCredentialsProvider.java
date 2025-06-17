@@ -79,24 +79,22 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
                   .build();
 
           LOGGER.debug("Using cached token, will immediately refresh");
-          sessionCredentials.token = sessionCredentials.getToken();
-
+          sessionCredentials.getToken();
           CachedTokenSource cachedTokenSource =
               new CachedTokenSource.Builder(sessionCredentials)
                   .withToken(sessionCredentials.token)
                   .build();
-
           return OAuthHeaderFactory.fromTokenSource(cachedTokenSource);
         } catch (Exception e) {
           // If token refresh fails, log and continue to browser auth
           LOGGER.info("Token refresh failed: {}, falling back to browser auth", e.getMessage());
         }
       }
+
       // If no cached token or refresh failed, perform browser auth
       CachedTokenSource cachedTokenSource =
           performBrowserAuth(config, clientId, clientSecret, tokenCache);
       tokenCache.save(cachedTokenSource.getToken());
-
       return OAuthHeaderFactory.fromTokenSource(cachedTokenSource);
     } catch (IOException | DatabricksException e) {
       LOGGER.error("Failed to authenticate: {}", e.getMessage());
@@ -120,9 +118,8 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
     Consent consent = client.initiateConsent();
 
     // Use the existing browser flow to get credentials
-    SessionCredentials credentials = consent.launchExternalBrowser();
+    CachedTokenSource credentials = consent.launchExternalBrowser();
     Token token = credentials.getToken();
-
     // Create a new SessionCredentials with the same token but with our token cache
     SessionCredentials sessionCredentials =
         new SessionCredentials.Builder()

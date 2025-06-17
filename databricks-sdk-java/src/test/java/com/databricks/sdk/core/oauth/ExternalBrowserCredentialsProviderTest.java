@@ -166,7 +166,7 @@ public class ExternalBrowserCredentialsProviderTest {
     Map<String, String> queryCreds = new HashMap<>();
     queryCreds.put("code", "testCode");
     queryCreds.put("state", "testState");
-    SessionCredentials creds = testConsent.exchangeCallbackParameters(queryCreds);
+    CachedTokenSource creds = testConsent.exchangeCallbackParameters(queryCreds);
     assertEquals("accessTokenFromServer", creds.token.getAccessToken());
     assertEquals("refreshTokenFromServer", creds.token.getRefreshToken());
   }
