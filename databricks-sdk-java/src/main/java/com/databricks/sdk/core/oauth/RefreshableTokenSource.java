@@ -129,10 +129,10 @@ public abstract class RefreshableTokenSource implements TokenSource {
    * @return The current valid token
    */
   public Token getToken() {
-    if (!asyncEnabled) {
-      return getTokenBlocking();
+    if (asyncEnabled) {
+      return getTokenAsync();
     }
-    return getTokenAsync();
+    return getTokenBlocking();
   }
 
   /**
