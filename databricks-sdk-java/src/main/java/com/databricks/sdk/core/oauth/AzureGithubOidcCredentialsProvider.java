@@ -36,7 +36,7 @@ public class AzureGithubOidcCredentialsProvider implements CredentialsProvider {
       return null;
     }
 
-    TokenSource tokenSource =
+    OidcTokenSource tokenSource =
         new OidcTokenSource(
             config.getHttpClient(),
             config.getDatabricksEnvironment().getAzureEnvironment().getActiveDirectoryEndpoint()
@@ -47,6 +47,7 @@ public class AzureGithubOidcCredentialsProvider implements CredentialsProvider {
             idToken.get(),
             "urn:ietf:params:oauth:client-assertion-type:jwt-bearer");
 
+    tokenSource.withAsyncRefresh(config.getEnableExperimentalAsyncTokenRefresh());
     return OAuthHeaderFactory.fromTokenSource(tokenSource);
   }
 

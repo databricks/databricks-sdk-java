@@ -26,11 +26,15 @@ public class AzureServicePrincipalCredentialsProvider implements CredentialsProv
         || config.getAzureTenantId() == null) {
       return null;
     }
+
     AzureUtils.ensureHostPresent(
         config, mapper, AzureServicePrincipalCredentialsProvider::tokenSourceFor);
+
     RefreshableTokenSource inner = tokenSourceFor(config, config.getEffectiveAzureLoginAppId());
+    inner.withAsyncRefresh(config.getEnableExperimentalAsyncTokenRefresh());
     RefreshableTokenSource cloud =
         tokenSourceFor(config, config.getAzureEnvironment().getServiceManagementEndpoint());
+    cloud.withAsyncRefresh(config.getEnableExperimentalAsyncTokenRefresh());
 
     return OAuthHeaderFactory.fromSuppliers(
         inner::getToken,

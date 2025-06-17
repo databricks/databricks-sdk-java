@@ -9,9 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class AzureCliCredentialsProvider implements CredentialsProvider {
+
   private final ObjectMapper mapper = new ObjectMapper();
   private static final Logger LOG = LoggerFactory.getLogger(AzureCliCredentialsProvider.class);
-
   public static final String AZURE_CLI = "azure-cli";
 
   @Override
@@ -27,11 +27,11 @@ public class AzureCliCredentialsProvider implements CredentialsProvider {
         new ArrayList<>(
             Arrays.asList(
                 azPath, "account", "get-access-token", "--resource", resource, "--output", "json"));
+
     Optional<String> subscription = getSubscription(config);
     if (subscription.isPresent()) {
       // This will fail if the user has access to the workspace, but not to the subscription
-      // itself.
-      // In such case, we fall back to not using the subscription.
+      // itself. In such case, we fall back to not using the subscription.
       List<String> extendedCmd = new ArrayList<>(cmd);
       extendedCmd.addAll(Arrays.asList("--subscription", subscription.get()));
       try {
@@ -60,11 +60,13 @@ public class AzureCliCredentialsProvider implements CredentialsProvider {
     if (resourceId == null || resourceId.equals("")) {
       return Optional.empty();
     }
+
     String[] components = resourceId.split("/");
     if (components.length < 3) {
       LOG.warn("Invalid azure workspace resource ID");
       return Optional.empty();
     }
+
     return Optional.of(components[2]);
   }
 
@@ -78,14 +80,18 @@ public class AzureCliCredentialsProvider implements CredentialsProvider {
       AzureUtils.ensureHostPresent(config, mapper, this::tokenSourceFor);
       String resource = config.getEffectiveAzureLoginAppId();
       CliTokenSource tokenSource = tokenSourceFor(config, resource);
+      tokenSource.withAsyncRefresh(config.getEnableExperimentalAsyncTokenRefresh());
+
       CliTokenSource mgmtTokenSource;
       try {
         mgmtTokenSource =
             tokenSourceFor(config, config.getAzureEnvironment().getServiceManagementEndpoint());
+        mgmtTokenSource.withAsyncRefresh(config.getEnableExperimentalAsyncTokenRefresh());
       } catch (Exception e) {
         LOG.debug("Not including service management token in headers", e);
         mgmtTokenSource = null;
       }
+
       CliTokenSource finalMgmtTokenSource = mgmtTokenSource;
       return OAuthHeaderFactory.fromSuppliers(
           tokenSource::getToken,

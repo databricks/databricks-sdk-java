@@ -12,7 +12,7 @@ import com.databricks.sdk.core.DatabricksConfig;
  * authorization headers for API requests.
  */
 public class TokenSourceCredentialsProvider implements CredentialsProvider {
-  private final TokenSource tokenSource;
+  private final RefreshableTokenSource tokenSource;
   private final String authType;
 
   /**
@@ -21,7 +21,7 @@ public class TokenSourceCredentialsProvider implements CredentialsProvider {
    * @param tokenSource The token source responsible for token acquisition and management.
    * @param authType The authentication type identifier.
    */
-  public TokenSourceCredentialsProvider(TokenSource tokenSource, String authType) {
+  public TokenSourceCredentialsProvider(RefreshableTokenSource tokenSource, String authType) {
     this.tokenSource = tokenSource;
     this.authType = authType;
   }
@@ -40,7 +40,7 @@ public class TokenSourceCredentialsProvider implements CredentialsProvider {
     try {
       // Validate that we can get a token before returning a HeaderFactory
       tokenSource.getToken().getAccessToken();
-
+      tokenSource.withAsyncRefresh(config.getEnableExperimentalAsyncTokenRefresh());
       return OAuthHeaderFactory.fromTokenSource(tokenSource);
     } catch (Exception e) {
       return null;
