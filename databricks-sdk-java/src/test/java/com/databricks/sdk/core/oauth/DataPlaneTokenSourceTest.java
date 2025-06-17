@@ -194,7 +194,7 @@ public class DataPlaneTokenSourceTest {
       assertEquals(expectedToken.getAccessToken(), token.getAccessToken());
       assertEquals(expectedToken.getTokenType(), token.getTokenType());
       assertEquals(expectedToken.getRefreshToken(), token.getRefreshToken());
-      assertTrue(token.isValid());
+      assertTrue(expectedToken.getExpiry().isAfter(Instant.now()));
     }
   }
 

@@ -154,7 +154,7 @@ public class CliTokenSourceTest {
         Token token = tokenSource.refresh();
         assertEquals("Bearer", token.getTokenType());
         assertEquals("test-token", token.getAccessToken());
-        assertEquals(shouldBeExpired, token.isExpired());
+        assertEquals(shouldBeExpired, token.getExpiry().isBefore(Instant.now()));
       }
     }
   }
