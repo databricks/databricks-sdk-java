@@ -37,6 +37,7 @@ public class OAuthM2MServicePrincipalCredentialsProvider implements CredentialsP
               .withAuthParameterPosition(AuthParameterPosition.HEADER)
               .build();
 
+      tokenSource.withAsyncRefresh(config.getEnableExperimentalAsyncTokenRefresh());
       return OAuthHeaderFactory.fromTokenSource(tokenSource);
     } catch (IOException e) {
       // TODO: Log exception

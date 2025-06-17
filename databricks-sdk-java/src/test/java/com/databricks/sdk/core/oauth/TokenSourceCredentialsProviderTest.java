@@ -26,7 +26,7 @@ class TokenSourceCredentialsProviderTest {
   @MethodSource("provideTokenScenarios")
   void testTokenScenarios(
       String testName,
-      TokenSource mockTokenSource,
+      RefreshableTokenSource mockTokenSource,
       String expectedAuthHeader,
       Exception expectedException) {
     provider = new TokenSourceCredentialsProvider(mockTokenSource, TEST_AUTH_TYPE);
@@ -48,11 +48,11 @@ class TokenSourceCredentialsProviderTest {
   /** Provides test scenarios */
   private static Stream<Arguments> provideTokenScenarios() {
     // Mock behaviour of successful token retrieval
-    TokenSource mockSuccessTokenSource = mock(TokenSource.class);
+    RefreshableTokenSource mockSuccessTokenSource = mock(RefreshableTokenSource.class);
     when(mockSuccessTokenSource.getToken()).thenReturn(TEST_TOKEN);
 
     // Mock behaviour of failing token retrieval
-    TokenSource mockFailureTokenSource = mock(TokenSource.class);
+    RefreshableTokenSource mockFailureTokenSource = mock(RefreshableTokenSource.class);
     when(mockFailureTokenSource.getToken())
         .thenThrow(new DatabricksException("Token retrieval failed"));
 

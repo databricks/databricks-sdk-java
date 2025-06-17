@@ -159,6 +159,15 @@ public class DatabricksConfig {
   @ConfigAttribute(env = "DATABRICKS_OIDC_TOKEN_ENV", auth = "env-oidc")
   private String oidcTokenEnv;
 
+  /**
+   * Whether to enable experimental async token refresh.
+   *
+   * <p><b>Experimental:</b> This feature and its setting are experimental and may be removed in
+   * future releases.
+   */
+  @ConfigAttribute(env = "DATABRICKS_ENABLE_EXPERIMENTAL_ASYNC_TOKEN_REFRESH")
+  private Boolean enableExperimentalAsyncTokenRefresh;
+
   public Environment getEnv() {
     return env;
   }
@@ -572,6 +581,16 @@ public class DatabricksConfig {
 
   public DatabricksConfig setOidcTokenEnv(String oidcTokenEnv) {
     this.oidcTokenEnv = oidcTokenEnv;
+    return this;
+  }
+
+  public Boolean getEnableExperimentalAsyncTokenRefresh() {
+    return enableExperimentalAsyncTokenRefresh;
+  }
+
+  public DatabricksConfig setEnableExperimentalAsyncTokenRefresh(
+      Boolean enableExperimentalAsyncTokenRefresh) {
+    this.enableExperimentalAsyncTokenRefresh = enableExperimentalAsyncTokenRefresh;
     return this;
   }
 

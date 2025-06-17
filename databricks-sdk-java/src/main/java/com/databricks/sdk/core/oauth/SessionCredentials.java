@@ -29,6 +29,7 @@ public class SessionCredentials extends RefreshableTokenSource
 
   @Override
   public OAuthHeaderFactory configure(DatabricksConfig config) {
+    this.withAsyncRefresh(config.getEnableExperimentalAsyncTokenRefresh());
     return OAuthHeaderFactory.fromTokenSource(this);
   }
 

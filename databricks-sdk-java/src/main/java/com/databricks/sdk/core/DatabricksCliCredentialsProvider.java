@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 public class DatabricksCliCredentialsProvider implements CredentialsProvider {
 
   private static final Logger LOG = LoggerFactory.getLogger(DatabricksCliCredentialsProvider.class);
-
   public static final String DATABRICKS_CLI = "databricks-cli";
 
   @Override
@@ -26,12 +25,15 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
       LOG.debug("Databricks CLI could not be found");
       return null;
     }
+
     List<String> cmd =
         new ArrayList<>(Arrays.asList(cliPath, "auth", "token", "--host", config.getHost()));
+
     if (config.isAccountClient()) {
       cmd.add("--account-id");
       cmd.add(config.getAccountId());
     }
+
     return new CliTokenSource(cmd, "token_type", "access_token", "expiry", config.getEnv());
   }
 
@@ -47,7 +49,9 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
       if (tokenSource == null) {
         return null;
       }
+
       tokenSource.getToken(); // We need this for checking if databricks CLI is installed.
+      tokenSource.withAsyncRefresh(config.getEnableExperimentalAsyncTokenRefresh());
       return OAuthHeaderFactory.fromTokenSource(tokenSource);
     } catch (DatabricksException e) {
       String stderr = e.getMessage();
