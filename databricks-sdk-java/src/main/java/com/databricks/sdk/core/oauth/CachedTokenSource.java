@@ -4,6 +4,7 @@ import com.databricks.sdk.core.utils.ClockSupplier;
 import com.databricks.sdk.core.utils.UtcClockSupplier;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +33,8 @@ public class CachedTokenSource implements TokenSource {
   // Default duration before expiry to consider a token as 'stale'.
   private static final Duration DEFAULT_STALE_DURATION = Duration.ofMinutes(3);
   // Default additional buffer before expiry to consider a token as expired.
+  // This is 40 seconds by default since Azure Databricks rejects tokens that are within 30 seconds
+  // of expiry.
   private static final Duration DEFAULT_EXPIRY_BUFFER = Duration.ofSeconds(40);
 
   // The token source to use for refreshing the token.
@@ -61,6 +64,12 @@ public class CachedTokenSource implements TokenSource {
     this.token = builder.token;
   }
 
+  /**
+   * Builder for creating instances of {@link CachedTokenSource}.
+   *
+   * <p>This builder allows configuration of various aspects of token caching behavior, including
+   * asynchronous refresh, timing parameters, and initial token state.
+   */
   public static class Builder {
     private final TokenSource tokenSource;
     private boolean asyncEnabled = false;
@@ -69,35 +78,94 @@ public class CachedTokenSource implements TokenSource {
     private ClockSupplier clockSupplier = new UtcClockSupplier();
     private Token token;
 
+    /**
+     * Creates a new builder with the specified token source.
+     *
+     * @param tokenSource The underlying token source to use for refreshing tokens.
+     * @throws NullPointerException If the token source is null.
+     */
     public Builder(TokenSource tokenSource) {
-      this.tokenSource = tokenSource;
+      this.tokenSource = Objects.requireNonNull(tokenSource);
     }
 
+    /**
+     * Sets an initial token to use in the cache.
+     *
+     * <p>If provided, this token will be used immediately without requiring an initial refresh from
+     * the underlying token source.
+     *
+     * @param token The initial token to cache.
+     * @return This builder instance for method chaining.
+     */
     public Builder withToken(Token token) {
       this.token = token;
       return this;
     }
 
+    /**
+     * Enables or disables asynchronous token refresh.
+     *
+     * <p>When enabled, stale tokens will trigger a background refresh while continuing to serve the
+     * current token. When disabled, all refreshes are performed synchronously and will block the
+     * calling thread.
+     *
+     * @param asyncEnabled True to enable asynchronous refresh, false to disable.
+     * @return This builder instance for method chaining.
+     */
     public Builder withAsyncEnabled(boolean asyncEnabled) {
       this.asyncEnabled = asyncEnabled;
       return this;
     }
 
+    /**
+     * Sets the duration before token expiry at which the token is considered stale.
+     *
+     * <p>When asynchronous refresh is enabled, tokens that are stale but not yet expired will
+     * trigger a background refresh while continuing to serve the current token.
+     *
+     * @param staleDuration The duration before expiry to consider a token stale. Must be greater
+     *     than the expiry buffer duration.
+     * @return This builder instance for method chaining.
+     */
     public Builder withStaleDuration(Duration staleDuration) {
       this.staleDuration = staleDuration;
       return this;
     }
 
+    /**
+     * Sets the buffer duration before token expiry at which the token is considered expired.
+     *
+     * <p>Tokens within this buffer of their expiry time will be considered expired and require
+     * synchronous refresh.
+     *
+     * @param expiryBuffer The buffer duration before expiry to consider a token expired. Must be
+     *     less than the stale duration.
+     * @return This builder instance for method chaining.
+     */
     public Builder withExpiryBuffer(Duration expiryBuffer) {
       this.expiryBuffer = expiryBuffer;
       return this;
     }
 
+    /**
+     * Sets the clock supplier to use for time-based operations.
+     *
+     * <p>This is primarily useful for testing scenarios where you need to control the current time.
+     * In production, the default UTC clock supplier should be used.
+     *
+     * @param clockSupplier The clock supplier to use for determining current time.
+     * @return This builder instance for method chaining.
+     */
     public Builder withClockSupplier(ClockSupplier clockSupplier) {
       this.clockSupplier = clockSupplier;
       return this;
     }
 
+    /**
+     * Builds and returns a new {@link CachedTokenSource} instance with the configured parameters.
+     *
+     * @return A new CachedTokenSource instance.
+     */
     public CachedTokenSource build() {
       return new CachedTokenSource(this);
     }
@@ -207,7 +275,7 @@ public class CachedTokenSource implements TokenSource {
       CompletableFuture.runAsync(
           () -> {
             try {
-              // Attempt to refresh the token in the background
+              // Attempt to refresh the token in the background.
               Token newToken = tokenSource.getToken();
               synchronized (this) {
                 token = newToken;
