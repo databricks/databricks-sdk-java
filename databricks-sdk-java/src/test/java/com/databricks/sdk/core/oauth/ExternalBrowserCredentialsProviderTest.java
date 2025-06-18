@@ -166,7 +166,7 @@ public class ExternalBrowserCredentialsProviderTest {
     Map<String, String> queryCreds = new HashMap<>();
     queryCreds.put("code", "testCode");
     queryCreds.put("state", "testState");
-    SessionCredentials creds = testConsent.exchangeCallbackParameters(queryCreds);
+    CachedTokenSource creds = testConsent.exchangeCallbackParameters(queryCreds);
     assertEquals("accessTokenFromServer", creds.token.getAccessToken());
     assertEquals("refreshTokenFromServer", creds.token.getRefreshToken());
   }
@@ -186,7 +186,7 @@ public class ExternalBrowserCredentialsProviderTest {
             .withClientSecret("abc")
             .withTokenUrl("https://tokenUrl")
             .build();
-    Token token = clientCredentials.refresh();
+    Token token = clientCredentials.getToken();
     assertEquals("accessTokenFromServer", token.getAccessToken());
     assertEquals("refreshTokenFromServer", token.getRefreshToken());
   }
@@ -212,7 +212,7 @@ public class ExternalBrowserCredentialsProviderTest {
                     "originalRefreshToken",
                     Instant.MAX))
             .build();
-    Token token = sessionCredentials.refresh();
+    Token token = sessionCredentials.getToken();
 
     // We check that we are actually getting the token from server response (that is defined
     // above) rather than what was given while creating session credentials
@@ -408,12 +408,15 @@ public class ExternalBrowserCredentialsProviderTest {
             "browser_refresh_token",
             Instant.now().plusSeconds(3600));
 
-    SessionCredentials browserAuthCreds =
+    SessionCredentials sessionCredentials =
         new SessionCredentials.Builder()
             .withToken(browserAuthToken)
             .withClientId("test-client-id")
             .withTokenUrl("https://test-token-url")
             .build();
+
+    CachedTokenSource browserAuthTokenSource =
+        new CachedTokenSource.Builder(sessionCredentials).withToken(browserAuthToken).build();
 
     // Create config with failing HTTP client and mock token cache
     DatabricksConfig config =
@@ -431,7 +434,7 @@ public class ExternalBrowserCredentialsProviderTest {
     // Create our provider and mock the browser auth method
     ExternalBrowserCredentialsProvider provider =
         Mockito.spy(new ExternalBrowserCredentialsProvider(mockTokenCache));
-    Mockito.doReturn(browserAuthCreds)
+    Mockito.doReturn(browserAuthTokenSource)
         .when(provider)
         .performBrowserAuth(any(DatabricksConfig.class), any(), any(), any(TokenCache.class));
 
@@ -441,6 +444,7 @@ public class ExternalBrowserCredentialsProviderTest {
 
     // Configure provider
     HeaderFactory headerFactory = provider.configure(spyConfig);
+    assertNotNull(headerFactory);
 
     // Verify headers contain the browser auth token (fallback)
     Map<String, String> headers = headerFactory.headers();
@@ -475,12 +479,15 @@ public class ExternalBrowserCredentialsProviderTest {
             "browser_refresh_token",
             Instant.now().plusSeconds(3600));
 
-    SessionCredentials browserAuthCreds =
+    SessionCredentials sessionCredentials =
         new SessionCredentials.Builder()
             .withToken(browserAuthToken)
             .withClientId("test-client-id")
             .withTokenUrl("https://test-token-url")
             .build();
+
+    CachedTokenSource browserAuthTokenSource =
+        new CachedTokenSource.Builder(sessionCredentials).withToken(browserAuthToken).build();
 
     // Create simple config
     DatabricksConfig config =
@@ -492,12 +499,13 @@ public class ExternalBrowserCredentialsProviderTest {
     // Create our provider and mock the browser auth method
     ExternalBrowserCredentialsProvider provider =
         Mockito.spy(new ExternalBrowserCredentialsProvider(mockTokenCache));
-    Mockito.doReturn(browserAuthCreds)
+    Mockito.doReturn(browserAuthTokenSource)
         .when(provider)
         .performBrowserAuth(any(DatabricksConfig.class), any(), any(), any(TokenCache.class));
 
     // Configure provider
     HeaderFactory headerFactory = provider.configure(config);
+    assertNotNull(headerFactory);
     // Verify headers contain the browser auth token (fallback)
     Map<String, String> headers = headerFactory.headers();
     assertEquals("Bearer browser_access_token", headers.get("Authorization"));

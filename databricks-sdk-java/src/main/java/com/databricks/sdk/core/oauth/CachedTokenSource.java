@@ -1,18 +1,10 @@
 package com.databricks.sdk.core.oauth;
 
-import com.databricks.sdk.core.ApiClient;
-import com.databricks.sdk.core.DatabricksException;
-import com.databricks.sdk.core.http.FormRequest;
-import com.databricks.sdk.core.http.HttpClient;
-import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.utils.ClockSupplier;
 import com.databricks.sdk.core.utils.UtcClockSupplier;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Base64;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import org.apache.http.HttpHeaders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,101 +15,93 @@ import org.slf4j.LoggerFactory;
  * stale tokens will trigger a background refresh, while expired tokens will block until a new token
  * is fetched.
  */
-public abstract class RefreshableTokenSource implements TokenSource {
+public class CachedTokenSource implements TokenSource {
 
   /**
    * Enum representing the state of the token. FRESH: Token is valid and not close to expiry. STALE:
    * Token is valid but will expire soon - an async refresh will be triggered if enabled. EXPIRED:
    * Token has expired and must be refreshed using a blocking call.
    */
-  protected enum TokenState {
+  private enum TokenState {
     FRESH,
     STALE,
     EXPIRED
   }
 
-  private static final Logger logger = LoggerFactory.getLogger(RefreshableTokenSource.class);
+  private static final Logger logger = LoggerFactory.getLogger(CachedTokenSource.class);
   // Default duration before expiry to consider a token as 'stale'.
   private static final Duration DEFAULT_STALE_DURATION = Duration.ofMinutes(3);
   // Default additional buffer before expiry to consider a token as expired.
   private static final Duration DEFAULT_EXPIRY_BUFFER = Duration.ofSeconds(40);
 
+  // The token source to use for refreshing the token.
+  private final TokenSource tokenSource;
+  // Whether asynchronous refresh is enabled.
+  private final boolean asyncEnabled;
+  // Duration before expiry to consider a token as 'stale'.
+  private final Duration staleDuration;
+  // Additional buffer before expiry to consider a token as expired.
+  private final Duration expiryBuffer;
+  // Clock supplier for current time.
+  private final ClockSupplier clockSupplier;
+
   // The current OAuth token. May be null if not yet fetched.
   protected volatile Token token;
-  // Whether asynchronous refresh is enabled.
-  private boolean asyncEnabled = false;
-  // Duration before expiry to consider a token as 'stale'.
-  private Duration staleDuration = DEFAULT_STALE_DURATION;
-  // Additional buffer before expiry to consider a token as expired.
-  private Duration expiryBuffer = DEFAULT_EXPIRY_BUFFER;
   // Whether a refresh is currently in progress (for async refresh).
   private boolean refreshInProgress = false;
   // Whether the last refresh attempt succeeded.
   private boolean lastRefreshSucceeded = true;
-  // Clock supplier for current time.
-  private ClockSupplier clockSupplier = new UtcClockSupplier();
 
-  /** Constructs a new {@code RefreshableTokenSource} with no initial token. */
-  public RefreshableTokenSource() {}
-
-  /**
-   * Constructor with initial token.
-   *
-   * @param token The initial token to use.
-   */
-  public RefreshableTokenSource(Token token) {
-    this.token = token;
+  private CachedTokenSource(Builder builder) {
+    this.tokenSource = builder.tokenSource;
+    this.asyncEnabled = builder.asyncEnabled;
+    this.staleDuration = builder.staleDuration;
+    this.expiryBuffer = builder.expiryBuffer;
+    this.clockSupplier = builder.clockSupplier;
+    this.token = builder.token;
   }
 
-  /**
-   * Set the clock supplier for current time.
-   *
-   * <p><b>Experimental:</b> This method may change or be removed in future releases.
-   *
-   * @param clockSupplier The clock supplier to use.
-   * @return this instance for chaining
-   */
-  public RefreshableTokenSource withClockSupplier(ClockSupplier clockSupplier) {
-    this.clockSupplier = clockSupplier;
-    return this;
-  }
+  public static class Builder {
+    private final TokenSource tokenSource;
+    private boolean asyncEnabled = false;
+    private Duration staleDuration = DEFAULT_STALE_DURATION;
+    private Duration expiryBuffer = DEFAULT_EXPIRY_BUFFER;
+    private ClockSupplier clockSupplier = new UtcClockSupplier();
+    private Token token;
 
-  /**
-   * Enable or disable asynchronous token refresh.
-   *
-   * <p><b>Experimental:</b> This method may change or be removed in future releases.
-   *
-   * @param enabled true to enable async refresh, false to disable
-   * @return this instance for chaining
-   */
-  public RefreshableTokenSource withAsyncRefresh(boolean enabled) {
-    this.asyncEnabled = enabled;
-    return this;
-  }
+    public Builder(TokenSource tokenSource) {
+      this.tokenSource = tokenSource;
+    }
 
-  /**
-   * Set the expiry buffer. If the token's lifetime is less than this buffer, it is considered
-   * expired.
-   *
-   * <p><b>Experimental:</b> This method may change or be removed in future releases.
-   *
-   * @param buffer the expiry buffer duration
-   * @return this instance for chaining
-   */
-  public RefreshableTokenSource withExpiryBuffer(Duration buffer) {
-    this.expiryBuffer = buffer;
-    return this;
-  }
+    public Builder withToken(Token token) {
+      this.token = token;
+      return this;
+    }
 
-  /**
-   * Refresh the OAuth token. Subclasses must implement this to define how the token is refreshed.
-   *
-   * <p>This method may throw an exception if the token cannot be refreshed. The specific exception
-   * type depends on the implementation.
-   *
-   * @return The newly refreshed Token.
-   */
-  protected abstract Token refresh();
+    public Builder withAsyncEnabled(boolean asyncEnabled) {
+      this.asyncEnabled = asyncEnabled;
+      return this;
+    }
+
+    public Builder withStaleDuration(Duration staleDuration) {
+      this.staleDuration = staleDuration;
+      return this;
+    }
+
+    public Builder withExpiryBuffer(Duration expiryBuffer) {
+      this.expiryBuffer = expiryBuffer;
+      return this;
+    }
+
+    public Builder withClockSupplier(ClockSupplier clockSupplier) {
+      this.clockSupplier = clockSupplier;
+      return this;
+    }
+
+    public CachedTokenSource build() {
+      return new CachedTokenSource(this);
+    }
+  }
 
   /**
    * Gets the current token, refreshing if necessary. If async refresh is enabled, may return a
@@ -176,7 +160,7 @@ public abstract class RefreshableTokenSource implements TokenSource {
       }
       lastRefreshSucceeded = false;
       try {
-        token = refresh();
+        token = tokenSource.getToken();
       } catch (Exception e) {
         logger.error("Failed to refresh token synchronously", e);
         throw e;
@@ -224,7 +208,7 @@ public abstract class RefreshableTokenSource implements TokenSource {
           () -> {
             try {
               // Attempt to refresh the token in the background
-              Token newToken = refresh();
+              Token newToken = tokenSource.getToken();
               synchronized (this) {
                 token = newToken;
                 refreshInProgress = false;
@@ -237,60 +221,6 @@ public abstract class RefreshableTokenSource implements TokenSource {
               }
             }
           });
-    }
-  }
-
-  /**
-   * Helper method implementing OAuth token refresh.
-   *
-   * @param hc The HTTP client to use for the request.
-   * @param clientId The client ID to authenticate with.
-   * @param clientSecret The client secret to authenticate with.
-   * @param tokenUrl The authorization URL for fetching tokens.
-   * @param params Additional request parameters.
-   * @param headers Additional headers.
-   * @param position The position of the authentication parameters in the request.
-   * @return The newly fetched Token.
-   * @throws DatabricksException if the refresh fails
-   * @throws IllegalArgumentException if the OAuth response contains an error
-   */
-  protected static Token retrieveToken(
-      HttpClient hc,
-      String clientId,
-      String clientSecret,
-      String tokenUrl,
-      Map<String, String> params,
-      Map<String, String> headers,
-      AuthParameterPosition position) {
-    switch (position) {
-      case BODY:
-        if (clientId != null) {
-          params.put("client_id", clientId);
-        }
-        if (clientSecret != null) {
-          params.put("client_secret", clientSecret);
-        }
-        break;
-      case HEADER:
-        String authHeaderValue =
-            "Basic "
-                + Base64.getEncoder().encodeToString((clientId + ":" + clientSecret).getBytes());
-        headers.put(HttpHeaders.AUTHORIZATION, authHeaderValue);
-        break;
-    }
-    headers.put("Content-Type", "application/x-www-form-urlencoded");
-    Request req = new Request("POST", tokenUrl, FormRequest.wrapValuesInList(params));
-    req.withHeaders(headers);
-    try {
-      ApiClient apiClient = new ApiClient.Builder().withHttpClient(hc).build();
-      OAuthResponse resp = apiClient.execute(req, OAuthResponse.class);
-      if (resp.getErrorCode() != null) {
-        throw new IllegalArgumentException(resp.getErrorCode() + ": " + resp.getErrorSummary());
-      }
-      Instant expiry = Instant.now().plusSeconds(resp.getExpiresIn());
-      return new Token(resp.getAccessToken(), resp.getTokenType(), resp.getRefreshToken(), expiry);
-    } catch (Exception e) {
-      throw new DatabricksException("Failed to refresh credentials: " + e.getMessage(), e);
     }
   }
 }

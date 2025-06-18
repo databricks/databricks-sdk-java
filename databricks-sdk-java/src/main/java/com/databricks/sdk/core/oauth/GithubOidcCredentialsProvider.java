@@ -58,9 +58,11 @@ public class GithubOidcCredentialsProvider implements CredentialsProvider {
                         .build())
             .build();
 
+    CachedTokenSource cachedTokenSource = new CachedTokenSource.Builder(clientCredentials).build();
+
     return () -> {
       Map<String, String> headers = new HashMap<>();
-      headers.put("Authorization", "Bearer " + clientCredentials.getToken().getAccessToken());
+      headers.put("Authorization", "Bearer " + cachedTokenSource.getToken().getAccessToken());
       return headers;
     };
   }
