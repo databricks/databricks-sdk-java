@@ -54,6 +54,7 @@ public class FileTokenCacheTest {
     assertEquals("access-token", loadedToken.getAccessToken());
     assertEquals("Bearer", loadedToken.getTokenType());
     assertEquals("refresh-token", loadedToken.getRefreshToken());
+    assertEquals(expiry, loadedToken.getExpiry());
   }
 
   @Test
