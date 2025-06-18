@@ -63,11 +63,11 @@ public class CachedTokenSource implements TokenSource {
 
   public static class Builder {
     private final TokenSource tokenSource;
-    private Token token;
     private boolean asyncEnabled = false;
     private Duration staleDuration = DEFAULT_STALE_DURATION;
     private Duration expiryBuffer = DEFAULT_EXPIRY_BUFFER;
     private ClockSupplier clockSupplier = new UtcClockSupplier();
+    private Token token;
 
     public Builder(TokenSource tokenSource) {
       this.tokenSource = tokenSource;
@@ -113,10 +113,10 @@ public class CachedTokenSource implements TokenSource {
    * @return The current valid token
    */
   public Token getToken() {
-    if (!asyncEnabled) {
-      return getTokenBlocking();
+    if (asyncEnabled) {
+      return getTokenAsync();
     }
-    return getTokenAsync();
+    return getTokenBlocking();
   }
 
   /**
@@ -207,7 +207,7 @@ public class CachedTokenSource implements TokenSource {
       CompletableFuture.runAsync(
           () -> {
             try {
-              // Attempt to fetch the token in the background
+              // Attempt to refresh the token in the background
               Token newToken = tokenSource.getToken();
               synchronized (this) {
                 token = newToken;

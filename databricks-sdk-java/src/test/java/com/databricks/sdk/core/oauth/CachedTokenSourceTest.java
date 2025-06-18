@@ -2,11 +2,9 @@ package com.databricks.sdk.core.oauth;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.databricks.sdk.core.utils.ClockSupplier;
-import java.time.Clock;
+import com.databricks.sdk.core.utils.TestClockSupplier;
 import java.time.Duration;
 import java.time.Instant;
-import java.time.ZoneId;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
@@ -146,6 +144,7 @@ public class CachedTokenSourceTest {
     // failed
     token = source.getToken();
     assertEquals(INITIAL_TOKEN, token.getAccessToken(), "Should still return stale token");
+    Thread.sleep(600);
     assertEquals(
         1,
         testSource.refreshCallCount,
@@ -160,6 +159,7 @@ public class CachedTokenSourceTest {
         REFRESH_TOKEN + "-2",
         token.getAccessToken(),
         "Should return the refreshed token after sync refresh");
+    Thread.sleep(600);
     assertEquals(
         2,
         testSource.refreshCallCount,
@@ -176,22 +176,5 @@ public class CachedTokenSourceTest {
         3,
         testSource.refreshCallCount,
         "refresh() should have been called again asynchronously after making token stale");
-  }
-
-  private static class TestClockSupplier implements ClockSupplier {
-    private Instant instant;
-
-    TestClockSupplier(Instant instant) {
-      this.instant = instant;
-    }
-
-    void advanceTime(Duration duration) {
-      this.instant = instant.plus(duration);
-    }
-
-    @Override
-    public Clock getClock() {
-      return Clock.fixed(instant, ZoneId.of("UTC"));
-    }
   }
 }
