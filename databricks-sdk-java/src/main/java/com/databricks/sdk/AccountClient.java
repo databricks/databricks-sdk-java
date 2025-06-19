@@ -574,11 +574,12 @@ public class AccountClient {
   }
 
   /**
-   * These APIs allow configuration of network settings for Databricks workspaces. Each workspace is
-   * always associated with exactly one network policy that controls which network destinations can
-   * be accessed from the Databricks environment. By default, workspaces are associated with the
-   * 'default-policy' network policy. You cannot create or delete a workspace's network
-   * configuration, only update it to associate the workspace with a different policy.
+   * These APIs allow configuration of network settings for Databricks workspaces by selecting which
+   * network policy to associate with the workspace. Each workspace is always associated with
+   * exactly one network policy that controls which network destinations can be accessed from the
+   * Databricks environment. By default, workspaces are associated with the 'default-policy' network
+   * policy. You cannot create or delete a workspace's network option, only update it to associate
+   * the workspace with a different policy
    */
   public WorkspaceNetworkConfigurationAPI workspaceNetworkConfiguration() {
     return workspaceNetworkConfigurationAPI;

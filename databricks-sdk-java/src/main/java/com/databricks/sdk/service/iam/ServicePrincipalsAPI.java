@@ -73,7 +73,7 @@ public class ServicePrincipalsAPI {
   public Iterable<ServicePrincipal> list(ListServicePrincipalsRequest request) {
     request.setStartIndex(1L);
     if (request.getCount() == null) {
-      request.setCount(10000L);
+      request.setCount(100L);
     }
     return new Paginator<>(
             request,
