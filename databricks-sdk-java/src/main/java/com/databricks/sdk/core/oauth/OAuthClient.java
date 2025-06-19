@@ -5,6 +5,7 @@ import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.HttpClient;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -105,12 +106,7 @@ public class OAuthClient {
 
     List<String> scopes = b.scopes;
     if (scopes == null) {
-      scopes = Arrays.asList("offline_access", "clusters", "sql");
-    }
-    if (config.isAzure()) {
-      scopes =
-          Arrays.asList(
-              config.getEffectiveAzureLoginAppId() + "/user_impersonation", "offline_access");
+      scopes = Arrays.asList("all-apis", "offline_access");
     }
     this.scopes = scopes;
   }
@@ -169,9 +165,18 @@ public class OAuthClient {
   private static String urlEncode(String urlBase, Map<String, String> params) {
     String queryParams =
         params.entrySet().stream()
-            .map(entry -> entry.getKey() + "=" + entry.getValue())
+            .map(
+                entry -> {
+                  try {
+                    return URLEncoder.encode(entry.getKey(), StandardCharsets.UTF_8.toString())
+                        + "="
+                        + URLEncoder.encode(entry.getValue(), StandardCharsets.UTF_8.toString());
+                  } catch (Exception e) {
+                    throw new DatabricksException("Failed to URL encode parameters", e);
+                  }
+                })
             .collect(Collectors.joining("&"));
-    return urlBase + "?" + queryParams.replaceAll(" ", "%20");
+    return urlBase + "?" + queryParams;
   }
 
   public Consent initiateConsent() throws MalformedURLException {
