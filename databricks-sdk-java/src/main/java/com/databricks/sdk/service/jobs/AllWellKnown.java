@@ -14,8 +14,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.google.protobuf.Duration;
+import com.google.protobuf.FieldMask;
+import com.google.protobuf.Timestamp;
 import java.io.IOException;
-import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,7 +29,7 @@ import java.util.Objects;
 @JsonDeserialize(using = AllWellKnown.AllWellKnownDeserializer.class)
 public class AllWellKnown {
   /** */
-  private Duration duration;
+  private java.time.Duration duration;
 
   /**
    * optional google.protobuf.Struct struct = 3;
@@ -44,7 +46,7 @@ public class AllWellKnown {
   private Collection<JsonNode> listValue;
 
   /** */
-  private Collection<Duration> repeatedDuration;
+  private Collection<java.time.Duration> repeatedDuration;
 
   /** repeated google.protobuf.Struct repeated_struct = 13; */
   private Collection<List<String>> repeatedFieldMask;
@@ -59,7 +61,7 @@ public class AllWellKnown {
   private Collection<JsonNode> repeatedValue;
 
   /** */
-  private Duration requiredDuration;
+  private java.time.Duration requiredDuration;
 
   /**
    * optional google.protobuf.Struct required_struct = 8 [ (validate_required) = true ];
@@ -87,12 +89,12 @@ public class AllWellKnown {
   /** */
   private JsonNode value;
 
-  public AllWellKnown setDuration(Duration duration) {
+  public AllWellKnown setDuration(java.time.Duration duration) {
     this.duration = duration;
     return this;
   }
 
-  public Duration getDuration() {
+  public java.time.Duration getDuration() {
     return duration;
   }
 
@@ -114,12 +116,12 @@ public class AllWellKnown {
     return listValue;
   }
 
-  public AllWellKnown setRepeatedDuration(Collection<Duration> repeatedDuration) {
+  public AllWellKnown setRepeatedDuration(Collection<java.time.Duration> repeatedDuration) {
     this.repeatedDuration = repeatedDuration;
     return this;
   }
 
-  public Collection<Duration> getRepeatedDuration() {
+  public Collection<java.time.Duration> getRepeatedDuration() {
     return repeatedDuration;
   }
 
@@ -159,12 +161,12 @@ public class AllWellKnown {
     return repeatedValue;
   }
 
-  public AllWellKnown setRequiredDuration(Duration requiredDuration) {
+  public AllWellKnown setRequiredDuration(java.time.Duration requiredDuration) {
     this.requiredDuration = requiredDuration;
     return this;
   }
 
-  public Duration getRequiredDuration() {
+  public java.time.Duration getRequiredDuration() {
     return requiredDuration;
   }
 
@@ -293,8 +295,8 @@ public class AllWellKnown {
     pb.setFieldMask(fieldMask);
     pb.setListValue(listValue);
     if (repeatedDuration != null) {
-      List<String> repeatedDurationPb = new ArrayList<>();
-      for (Duration item : repeatedDuration) {
+      List<Duration> repeatedDurationPb = new ArrayList<>();
+      for (java.time.Duration item : repeatedDuration) {
         if (item != null) {
           repeatedDurationPb.add(Converters.durationToPb(item));
         } else {
@@ -304,7 +306,7 @@ public class AllWellKnown {
       pb.setRepeatedDuration(repeatedDurationPb);
     }
     if (repeatedFieldMask != null) {
-      List<String> repeatedFieldMaskPb = new ArrayList<>();
+      List<FieldMask> repeatedFieldMaskPb = new ArrayList<>();
       for (List<String> item : repeatedFieldMask) {
         if (item != null) {
           repeatedFieldMaskPb.add(Converters.fieldMaskToPb(item));
@@ -316,7 +318,7 @@ public class AllWellKnown {
     }
     pb.setRepeatedListValue(repeatedListValue);
     if (repeatedTimestamp != null) {
-      List<String> repeatedTimestampPb = new ArrayList<>();
+      List<Timestamp> repeatedTimestampPb = new ArrayList<>();
       for (Instant item : repeatedTimestamp) {
         if (item != null) {
           repeatedTimestampPb.add(Converters.instantToPb(item));
@@ -348,8 +350,8 @@ public class AllWellKnown {
     model.setFieldMask(pb.getFieldMask());
     model.setListValue(pb.getListValue());
     if (pb.getRepeatedDuration() != null) {
-      List<Duration> repeatedDuration = new ArrayList<>();
-      for (String item : pb.getRepeatedDuration()) {
+      List<java.time.Duration> repeatedDuration = new ArrayList<>();
+      for (Duration item : pb.getRepeatedDuration()) {
         if (item != null) {
           repeatedDuration.add(Converters.durationFromPb(item));
         } else {
@@ -360,7 +362,7 @@ public class AllWellKnown {
     }
     if (pb.getRepeatedFieldMask() != null) {
       List<List<String>> repeatedFieldMask = new ArrayList<>();
-      for (String item : pb.getRepeatedFieldMask()) {
+      for (FieldMask item : pb.getRepeatedFieldMask()) {
         if (item != null) {
           repeatedFieldMask.add(Converters.fieldMaskFromPb(item));
         } else {
@@ -372,7 +374,7 @@ public class AllWellKnown {
     model.setRepeatedListValue(pb.getRepeatedListValue());
     if (pb.getRepeatedTimestamp() != null) {
       List<Instant> repeatedTimestamp = new ArrayList<>();
-      for (String item : pb.getRepeatedTimestamp()) {
+      for (Timestamp item : pb.getRepeatedTimestamp()) {
         if (item != null) {
           repeatedTimestamp.add(Converters.instantFromPb(item));
         } else {

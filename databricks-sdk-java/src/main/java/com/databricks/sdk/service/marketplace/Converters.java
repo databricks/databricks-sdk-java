@@ -1,64 +1,59 @@
 package com.databricks.sdk.service.marketplace;
 
-import java.math.BigDecimal;
+import com.google.protobuf.FieldMask;
+import com.google.protobuf.Timestamp;
 import java.time.Duration;
 import java.time.Instant;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatterBuilder;
-import java.time.temporal.ChronoField;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 class Converters {
-  static Duration durationFromPb(String duration) {
+
+  private static final long MAX_SECONDS = 315576000000L;
+  private static final long MIN_SECONDS = -315576000000L;
+
+  static Duration durationFromPb(com.google.protobuf.Duration duration) {
     Objects.requireNonNull(duration, "duration must not be null");
-    // Remove the 's' suffix and parse as BigDecimal
-    String secondsStr = duration.substring(0, duration.length() - 1);
-    BigDecimal seconds = new BigDecimal(secondsStr);
-    long wholeSeconds = seconds.longValue();
-    int nanos =
-        seconds
-            .subtract(BigDecimal.valueOf(wholeSeconds))
-            .multiply(BigDecimal.valueOf(1_000_000_000))
-            .intValue();
-    return Duration.ofSeconds(wholeSeconds, nanos);
+    return Duration.ofSeconds(duration.getSeconds(), duration.getNanos());
   }
 
-  static String durationToPb(Duration duration) {
+  static com.google.protobuf.Duration durationToPb(Duration duration) {
     Objects.requireNonNull(duration, "duration must not be null");
-    long seconds = duration.getSeconds();
-    int nanos = duration.getNano();
-    if (nanos == 0) {
-      return seconds + "s";
+    // Validate that nanoseconds fit in an int
+    if (duration.getSeconds() < MIN_SECONDS || duration.getSeconds() > MAX_SECONDS) {
+      throw new IllegalArgumentException("Duration seconds out of range: " + duration.getSeconds());
     }
-    BigDecimal totalSeconds = BigDecimal.valueOf(seconds).add(BigDecimal.valueOf(nanos, 9));
-    return totalSeconds.stripTrailingZeros().toPlainString() + "s";
+    return com.google.protobuf.Duration.newBuilder()
+        .setSeconds(duration.getSeconds())
+        .setNanos(duration.getNano())
+        .build();
   }
 
-  static String instantToPb(Instant instant) {
+  static Timestamp instantToPb(Instant instant) {
     Objects.requireNonNull(instant, "instant must not be null");
-    return new DateTimeFormatterBuilder()
-        .appendPattern("yyyy-MM-dd'T'HH:mm:ss")
-        .appendFraction(ChronoField.NANO_OF_SECOND, 0, 9, true)
-        .appendOffset("+HH:MM", "Z")
-        .toFormatter()
-        .withZone(ZoneOffset.UTC)
-        .format(instant);
+    return Timestamp.newBuilder()
+        .setSeconds(instant.getEpochSecond())
+        .setNanos(instant.getNano())
+        .build();
   }
 
-  static Instant instantFromPb(String instant) {
-    Objects.requireNonNull(instant, "instant must not be null");
-    return Instant.parse(instant);
+  static Instant instantFromPb(Timestamp timestamp) {
+    Objects.requireNonNull(timestamp, "timestamp must not be null");
+    // Validate that nanoseconds fit in an int
+    if (timestamp.getSeconds() < MIN_SECONDS || timestamp.getSeconds() > MAX_SECONDS) {
+      throw new IllegalArgumentException(
+          "Timestamp seconds out of range: " + timestamp.getSeconds());
+    }
+    return Instant.ofEpochSecond(timestamp.getSeconds(), timestamp.getNanos());
   }
 
-  static String fieldMaskToPb(List<String> fieldMask) {
+  static FieldMask fieldMaskToPb(List<String> fieldMask) {
     Objects.requireNonNull(fieldMask, "fieldMask must not be null");
-    return String.join(",", fieldMask);
+    return FieldMask.newBuilder().addAllPaths(fieldMask).build();
   }
 
-  static List<String> fieldMaskFromPb(String fieldMask) {
+  static List<String> fieldMaskFromPb(com.google.protobuf.FieldMask fieldMask) {
     Objects.requireNonNull(fieldMask, "fieldMask must not be null");
-    return Arrays.asList(fieldMask.split(","));
+    return fieldMask.getPathsList();
   }
 }

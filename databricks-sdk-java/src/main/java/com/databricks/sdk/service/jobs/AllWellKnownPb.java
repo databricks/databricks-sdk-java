@@ -2,17 +2,26 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.core.serialization.DurationDeserializer;
+import com.databricks.sdk.core.serialization.DurationSerializer;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.google.protobuf.Duration;
+import com.google.protobuf.FieldMask;
+import com.google.protobuf.Timestamp;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
 class AllWellKnownPb {
   @JsonProperty("duration")
-  private String duration;
+  @JsonSerialize(using = DurationSerializer.class)
+  @JsonDeserialize(using = DurationDeserializer.class)
+  private Duration duration;
 
   @JsonProperty("field_mask")
   private String fieldMask;
@@ -21,22 +30,24 @@ class AllWellKnownPb {
   private Collection<JsonNode> listValue;
 
   @JsonProperty("repeated_duration")
-  private Collection<String> repeatedDuration;
+  private Collection<Duration> repeatedDuration;
 
   @JsonProperty("repeated_field_mask")
-  private Collection<String> repeatedFieldMask;
+  private Collection<FieldMask> repeatedFieldMask;
 
   @JsonProperty("repeated_list_value")
   private Collection<Collection<JsonNode>> repeatedListValue;
 
   @JsonProperty("repeated_timestamp")
-  private Collection<String> repeatedTimestamp;
+  private Collection<Timestamp> repeatedTimestamp;
 
   @JsonProperty("repeated_value")
   private Collection<JsonNode> repeatedValue;
 
   @JsonProperty("required_duration")
-  private String requiredDuration;
+  @JsonSerialize(using = DurationSerializer.class)
+  @JsonDeserialize(using = DurationDeserializer.class)
+  private Duration requiredDuration;
 
   @JsonProperty("required_field_mask")
   private String requiredFieldMask;
@@ -56,12 +67,12 @@ class AllWellKnownPb {
   @JsonProperty("value")
   private JsonNode value;
 
-  public AllWellKnownPb setDuration(String duration) {
+  public AllWellKnownPb setDuration(Duration duration) {
     this.duration = duration;
     return this;
   }
 
-  public String getDuration() {
+  public Duration getDuration() {
     return duration;
   }
 
@@ -83,21 +94,21 @@ class AllWellKnownPb {
     return listValue;
   }
 
-  public AllWellKnownPb setRepeatedDuration(Collection<String> repeatedDuration) {
+  public AllWellKnownPb setRepeatedDuration(Collection<Duration> repeatedDuration) {
     this.repeatedDuration = repeatedDuration;
     return this;
   }
 
-  public Collection<String> getRepeatedDuration() {
+  public Collection<Duration> getRepeatedDuration() {
     return repeatedDuration;
   }
 
-  public AllWellKnownPb setRepeatedFieldMask(Collection<String> repeatedFieldMask) {
+  public AllWellKnownPb setRepeatedFieldMask(Collection<FieldMask> repeatedFieldMask) {
     this.repeatedFieldMask = repeatedFieldMask;
     return this;
   }
 
-  public Collection<String> getRepeatedFieldMask() {
+  public Collection<FieldMask> getRepeatedFieldMask() {
     return repeatedFieldMask;
   }
 
@@ -110,12 +121,12 @@ class AllWellKnownPb {
     return repeatedListValue;
   }
 
-  public AllWellKnownPb setRepeatedTimestamp(Collection<String> repeatedTimestamp) {
+  public AllWellKnownPb setRepeatedTimestamp(Collection<Timestamp> repeatedTimestamp) {
     this.repeatedTimestamp = repeatedTimestamp;
     return this;
   }
 
-  public Collection<String> getRepeatedTimestamp() {
+  public Collection<Timestamp> getRepeatedTimestamp() {
     return repeatedTimestamp;
   }
 
@@ -128,12 +139,12 @@ class AllWellKnownPb {
     return repeatedValue;
   }
 
-  public AllWellKnownPb setRequiredDuration(String requiredDuration) {
+  public AllWellKnownPb setRequiredDuration(Duration requiredDuration) {
     this.requiredDuration = requiredDuration;
     return this;
   }
 
-  public String getRequiredDuration() {
+  public Duration getRequiredDuration() {
     return requiredDuration;
   }
 
