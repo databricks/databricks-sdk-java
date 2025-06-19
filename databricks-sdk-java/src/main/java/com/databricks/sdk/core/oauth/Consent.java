@@ -155,6 +155,131 @@ public class Consent implements Serializable {
     return clientSecret;
   }
 
+  /**
+   * Launch a browser to collect an authorization code and exchange the code for an OAuth token.
+   *
+   * @return A {@code SessionCredentials} instance representing the retrieved OAuth token.
+   * @throws IOException if the webserver cannot be started, or if the browser cannot be opened
+   */
+  public SessionCredentials launchExternalBrowser() throws IOException {
+    Map<String, String> params = getOAuthCallbackParameters();
+    return exchangeCallbackParameters(params);
+  }
+
+  /**
+   * Exchange callback parameters for OAuth credentials.
+   *
+   * @param query The callback parameters from the OAuth flow
+   * @return A {@code SessionCredentials} instance representing the retrieved OAuth token
+   */
+  public SessionCredentials exchangeCallbackParameters(Map<String, String> query) {
+    validateCallbackParameters(query);
+    Token token = exchange(query.get("code"), query.get("state"));
+    return new SessionCredentials.Builder()
+        .withHttpClient(this.hc)
+        .withClientId(this.clientId)
+        .withClientSecret(this.clientSecret)
+        .withTokenUrl(this.tokenUrl)
+        .withToken(token)
+        .build();
+  }
+
+  /**
+   * Launches an external browser to collect OAuth callback parameters and exchanges them for an
+   * OAuth token.
+   *
+   * @return A {@code Token} instance containing the OAuth access token and related credentials
+   * @throws IOException if the local HTTP server cannot be started, the browser cannot be opened,
+   *     or there are network issues during the token exchange
+   * @throws DatabricksException if the OAuth callback contains an error, missing required
+   *     parameters, or if there's a state mismatch during the token exchange.
+   */
+  Token getTokenFromExternalBrowser() throws IOException {
+    Map<String, String> params = getOAuthCallbackParameters();
+    validateCallbackParameters(params);
+    return exchange(params.get("code"), params.get("state"));
+  }
+
+  protected void desktopBrowser() throws IOException {
+    Desktop.getDesktop().browse(URI.create(this.authUrl));
+  }
+
+  /**
+   * Handles the OAuth callback by setting up a local HTTP server, launching the browser, and
+   * collecting the callback parameters.
+   *
+   * @return A map containing the callback parameters from the OAuth flow
+   * @throws IOException if the webserver cannot be started, or if the browser cannot be opened
+   */
+  private Map<String, String> getOAuthCallbackParameters() throws IOException {
+    URL redirect = new URL(getRedirectUrl());
+    if (!Arrays.asList("localhost", "127.0.0.1").contains(redirect.getHost())) {
+      throw new IllegalArgumentException(
+          "cannot listen on "
+              + redirect.getHost()
+              + ", redirectUrl host must be one of: localhost, 127.0.0.1");
+    }
+    CallbackResponseHandler handler = new CallbackResponseHandler();
+    HttpServer httpServer =
+        HttpServer.create(new InetSocketAddress(redirect.getHost(), redirect.getPort()), 0);
+    httpServer.createContext("/", handler);
+    httpServer.start();
+    desktopBrowser();
+    Map<String, String> params = handler.getParams();
+    httpServer.stop(0);
+    return params;
+  }
+
+  /**
+   * Validates the OAuth callback parameters to ensure they contain the required fields and no error
+   * conditions.
+   *
+   * @param query The callback parameters to validate
+   * @throws DatabricksException if validation fails due to error conditions or missing required
+   *     parameters
+   */
+  private void validateCallbackParameters(Map<String, String> query) {
+    if (query.containsKey("error")) {
+      throw new DatabricksException(query.get("error") + ": " + query.get("error_description"));
+    }
+    if (!query.containsKey("code") || !query.containsKey("state")) {
+      throw new DatabricksException("No code returned in callback");
+    }
+  }
+
+  /**
+   * Exchange authorization code for OAuth token.
+   *
+   * @param code The authorization code from the OAuth callback
+   * @param state The state parameter from the OAuth callback
+   * @return A {@code Token} instance representing the OAuth token
+   */
+  private Token exchange(String code, String state) {
+    if (!this.state.equals(state)) {
+      throw new DatabricksException(
+          "state mismatch: original state: " + this.state + "; retrieved state: " + state);
+    }
+    Map<String, String> params = new HashMap<>();
+    params.put("grant_type", "authorization_code");
+    params.put("code", code);
+    params.put("code_verifier", this.verifier);
+    params.put("redirect_uri", this.redirectUrl);
+    Map<String, String> headers = new HashMap<>();
+    if (this.tokenUrl.contains("microsoft")) {
+      headers.put("Origin", this.redirectUrl);
+    }
+    Token token =
+        RefreshableTokenSource.retrieveToken(
+            this.hc,
+            this.clientId,
+            this.clientSecret,
+            this.tokenUrl,
+            params,
+            headers,
+            AuthParameterPosition.BODY);
+    return token;
+  }
+
   static class CallbackResponseHandler implements HttpHandler {
     private final Logger LOG = LoggerFactory.getLogger(getClass().getName());
     // Protects params
@@ -257,76 +382,5 @@ public class Consent implements Serializable {
         return params;
       }
     }
-  }
-
-  /**
-   * Launch a browser to collect an authorization code and exchange the code for an OAuth token.
-   *
-   * @return A {@code SessionCredentials} instance representing the retrieved OAuth token.
-   * @throws IOException if the webserver cannot be started, or if the browser cannot be opened
-   */
-  public SessionCredentials launchExternalBrowser() throws IOException {
-    URL redirect = new URL(getRedirectUrl());
-    if (!Arrays.asList("localhost", "127.0.0.1").contains(redirect.getHost())) {
-      throw new IllegalArgumentException(
-          "cannot listen on "
-              + redirect.getHost()
-              + ", redirectUrl host must be one of: localhost, 127.0.0.1");
-    }
-    CallbackResponseHandler handler = new CallbackResponseHandler();
-    HttpServer httpServer =
-        HttpServer.create(new InetSocketAddress(redirect.getHost(), redirect.getPort()), 0);
-    httpServer.createContext("/", handler);
-    httpServer.start();
-    desktopBrowser();
-    Map<String, String> params = handler.getParams();
-    httpServer.stop(0);
-    return exchangeCallbackParameters(params);
-  }
-
-  protected void desktopBrowser() throws IOException {
-    Desktop.getDesktop().browse(URI.create(this.authUrl));
-  }
-
-  public SessionCredentials exchangeCallbackParameters(Map<String, String> query) {
-    if (query.containsKey("error")) {
-      throw new DatabricksException(query.get("error") + ": " + query.get("error_description"));
-    }
-    if (!query.containsKey("code") || !query.containsKey("state")) {
-      throw new DatabricksException("No code returned in callback");
-    }
-    return exchange(query.get("code"), query.get("state"));
-  }
-
-  public SessionCredentials exchange(String code, String state) {
-    if (!this.state.equals(state)) {
-      throw new DatabricksException(
-          "state mismatch: original state: " + this.state + "; retrieved state: " + state);
-    }
-    Map<String, String> params = new HashMap<>();
-    params.put("grant_type", "authorization_code");
-    params.put("code", code);
-    params.put("code_verifier", this.verifier);
-    params.put("redirect_uri", this.redirectUrl);
-    Map<String, String> headers = new HashMap<>();
-    if (this.tokenUrl.contains("microsoft")) {
-      headers.put("Origin", this.redirectUrl);
-    }
-    Token token =
-        RefreshableTokenSource.retrieveToken(
-            this.hc,
-            this.clientId,
-            this.clientSecret,
-            this.tokenUrl,
-            params,
-            headers,
-            AuthParameterPosition.BODY);
-    return new SessionCredentials.Builder()
-        .withHttpClient(this.hc)
-        .withClientId(this.clientId)
-        .withClientSecret(this.clientSecret)
-        .withTokenUrl(this.tokenUrl)
-        .withToken(token)
-        .build();
   }
 }

@@ -129,7 +129,7 @@ public class ExternalBrowserCredentialsProviderTest {
   void exchangeTest() throws IOException {
     HttpClient hc = Mockito.mock(HttpClient.class);
     String response =
-        "{\"access_token\": \"accessTokenFromServer\", \"token_type\": \"tokenTypeFromServer\", \"expires_in\": \"10\", \"refresh_token\": \"refreshTokenFromServer\"}";
+        "{\"access_token\": \"accessTokenFromServer\", \"token_type\": \"tokenTypeFromServer\", \"expires_in\": \"3600\", \"refresh_token\": \"refreshTokenFromServer\"}";
     URL url = new URL("https://databricks.com/");
 
     // Mock because it's a POST Request to http client
@@ -166,16 +166,28 @@ public class ExternalBrowserCredentialsProviderTest {
     Map<String, String> queryCreds = new HashMap<>();
     queryCreds.put("code", "testCode");
     queryCreds.put("state", "testState");
+
+    // Verify that SessionCredentials is created successfully with the exchange
     SessionCredentials creds = testConsent.exchangeCallbackParameters(queryCreds);
-    assertEquals("accessTokenFromServer", creds.token.getAccessToken());
-    assertEquals("refreshTokenFromServer", creds.token.getRefreshToken());
+    assertNotNull(creds);
+
+    // Create a minimal config for testing the configure method
+    DatabricksConfig testConfig = new DatabricksConfig();
+
+    // Configure the SessionCredentials to get the OAuthHeaderFactory
+    OAuthHeaderFactory headerFactory = creds.configure(testConfig);
+    assertNotNull(headerFactory);
+
+    // Verify the headers are correctly formatted
+    Map<String, String> headers = headerFactory.headers();
+    assertEquals("tokenTypeFromServer accessTokenFromServer", headers.get("Authorization"));
   }
 
   @Test
   void clientCredentials() throws IOException {
     HttpClient hc = Mockito.mock(HttpClient.class);
     String response =
-        "{\"access_token\": \"accessTokenFromServer\", \"token_type\": \"tokenTypeFromServer\", \"expires_in\": \"10\", \"refresh_token\": \"refreshTokenFromServer\"}";
+        "{\"access_token\": \"accessTokenFromServer\", \"token_type\": \"tokenTypeFromServer\", \"expires_in\": \"3600\", \"refresh_token\": \"refreshTokenFromServer\"}";
     URL url = new URL("https://databricks.com/");
     Mockito.doReturn(new Response(response, url)).when(hc).execute(any(Request.class));
 
@@ -195,24 +207,23 @@ public class ExternalBrowserCredentialsProviderTest {
   void sessionCredentials() throws IOException {
     HttpClient hc = Mockito.mock(HttpClient.class);
     String response =
-        "{\"access_token\": \"accessTokenFromServer\", \"token_type\": \"tokenTypeFromServer\", \"expires_in\": \"10\", \"refresh_token\": \"refreshTokenFromServer\"}";
+        "{\"access_token\": \"accessTokenFromServer\", \"token_type\": \"tokenTypeFromServer\", \"expires_in\": \"3600\", \"refresh_token\": \"refreshTokenFromServer\"}";
     URL url = new URL("https://databricks.com/");
     Mockito.doReturn(new Response(response, url)).when(hc).execute(any(Request.class));
 
-    SessionCredentials sessionCredentials =
-        new SessionCredentials.Builder()
-            .withHttpClient(hc)
-            .withClientId("testClientId")
-            .withClientSecret("abc")
-            .withTokenUrl("https://tokenUrl")
-            .withToken(
+    SessionCredentialsTokenSource sessionCredentialsTokenSource =
+        new SessionCredentialsTokenSource.Builder(
                 new Token(
                     "originalAccessToken",
                     "originalTokenType",
                     "originalRefreshToken",
-                    Instant.MAX))
+                    Instant.MAX),
+                hc,
+                "https://tokenUrl",
+                "testClientId",
+                "abc")
             .build();
-    Token token = sessionCredentials.refresh();
+    Token token = sessionCredentialsTokenSource.refresh();
 
     // We check that we are actually getting the token from server response (that is defined
     // above) rather than what was given while creating session credentials
@@ -408,11 +419,13 @@ public class ExternalBrowserCredentialsProviderTest {
             "browser_refresh_token",
             Instant.now().plusSeconds(3600));
 
-    SessionCredentials browserAuthCreds =
-        new SessionCredentials.Builder()
-            .withToken(browserAuthToken)
-            .withClientId("test-client-id")
-            .withTokenUrl("https://test-token-url")
+    SessionCredentialsTokenSource browserAuthCreds =
+        new SessionCredentialsTokenSource.Builder(
+                browserAuthToken,
+                mockHttpClient,
+                "https://test-token-url",
+                "test-client-id",
+                "test-client-secret")
             .build();
 
     // Create config with failing HTTP client and mock token cache
@@ -459,6 +472,9 @@ public class ExternalBrowserCredentialsProviderTest {
 
   @Test
   void cacheWithInvalidTokensTest() throws IOException {
+    // Create mock HTTP client
+    HttpClient mockHttpClient = Mockito.mock(HttpClient.class);
+
     // Create completely invalid token (no refresh token)
     Instant pastTime = Instant.now().minusSeconds(3600);
     Token invalidToken = new Token("expired_access_token", "Bearer", null, pastTime);
@@ -475,11 +491,13 @@ public class ExternalBrowserCredentialsProviderTest {
             "browser_refresh_token",
             Instant.now().plusSeconds(3600));
 
-    SessionCredentials browserAuthCreds =
-        new SessionCredentials.Builder()
-            .withToken(browserAuthToken)
-            .withClientId("test-client-id")
-            .withTokenUrl("https://test-token-url")
+    SessionCredentialsTokenSource browserAuthCreds =
+        new SessionCredentialsTokenSource.Builder(
+                browserAuthToken,
+                mockHttpClient,
+                "https://test-token-url",
+                "test-client-id",
+                "test-client-secret")
             .build();
 
     // Create simple config
