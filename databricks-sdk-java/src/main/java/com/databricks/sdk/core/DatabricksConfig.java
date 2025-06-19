@@ -725,11 +725,12 @@ public class DatabricksConfig {
 
   /**
    * Gets the default OAuth redirect URL. If one is not provided explicitly, uses
-   * http://localhost:8080/callback
+   * http://localhost:8020, which is the default redirect URL for the default
+   * client ID (databricks-cli).
    *
    * @return The OAuth redirect URL to use
    */
   public String getEffectiveOAuthRedirectUrl() {
-    return redirectUrl != null ? redirectUrl : "http://localhost:8080/callback";
+    return redirectUrl != null ? redirectUrl : "http://localhost:8020";
   }
 }

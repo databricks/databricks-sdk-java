@@ -5,6 +5,8 @@ import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.DatabricksException;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,12 +53,16 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
     // Use the utility class to resolve client ID and client secret
     String clientId = OAuthClientUtils.resolveClientId(config);
     String clientSecret = OAuthClientUtils.resolveClientSecret(config);
+    List<String> scopes = config.getScopes();
+    if (scopes == null) {
+      scopes = Arrays.asList("all-apis", "offline_access");
+    }
 
     try {
       if (tokenCache == null) {
         // Create a default FileTokenCache based on config
         Path cachePath =
-            TokenCacheUtils.getCacheFilePath(config.getHost(), clientId, config.getScopes());
+            TokenCacheUtils.getCacheFilePath(config.getHost(), clientId, scopes);
         tokenCache = new FileTokenCache(cachePath);
       }
 
@@ -89,7 +95,7 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
 
       // If no cached token or refresh failed, perform browser auth
       SessionCredentials credentials =
-          performBrowserAuth(config, clientId, clientSecret, tokenCache);
+          performBrowserAuth(config, clientId, clientSecret, scopes, tokenCache);
       tokenCache.save(credentials.getToken());
       return credentials.configure(config);
     } catch (IOException | DatabricksException e) {
@@ -99,7 +105,7 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
   }
 
   SessionCredentials performBrowserAuth(
-      DatabricksConfig config, String clientId, String clientSecret, TokenCache tokenCache)
+      DatabricksConfig config, String clientId, String clientSecret, List<String> scopes, TokenCache tokenCache)
       throws IOException {
     LOGGER.debug("Performing browser authentication");
     OAuthClient client =
@@ -109,7 +115,7 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
             .withClientSecret(clientSecret)
             .withHost(config.getHost())
             .withRedirectUrl(config.getEffectiveOAuthRedirectUrl())
-            .withScopes(config.getScopes())
+            .withScopes(scopes)
             .build();
     Consent consent = client.initiateConsent();
 

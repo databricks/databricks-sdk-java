@@ -16,6 +16,7 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -60,8 +61,8 @@ public class ExternalBrowserCredentialsProviderTest {
       assertNotNull(authUrl);
       assertTrue(authUrl.contains("response_type=code"));
       assertTrue(authUrl.contains("client_id=test-client-id"));
-      assertTrue(authUrl.contains("redirect_uri=http://localhost:8080/callback"));
-      assertTrue(authUrl.contains("scope=offline_access%20clusters%20sql"));
+      assertTrue(authUrl.contains("redirect_uri=http%3A%2F%2Flocalhost%3A8020"));
+      assertTrue(authUrl.contains("scope=all-apis+offline_access"));
     }
   }
 
@@ -105,7 +106,7 @@ public class ExternalBrowserCredentialsProviderTest {
       assertNotNull(authUrl);
       assertTrue(authUrl.contains("response_type=code"));
       assertTrue(authUrl.contains("client_id=test-client-id"));
-      assertTrue(authUrl.contains("redirect_uri=http://localhost:8010"));
+      assertTrue(authUrl.contains("redirect_uri=http%3A%2F%2Flocalhost%3A8010"));
       assertTrue(authUrl.contains("scope=sql"));
     }
   }
@@ -281,6 +282,7 @@ public class ExternalBrowserCredentialsProviderTest {
             any(DatabricksConfig.class),
             any(String.class),
             any(String.class),
+            any(List.class),
             any(TokenCache.class));
 
     // Verify token was saved back to cache
@@ -362,6 +364,7 @@ public class ExternalBrowserCredentialsProviderTest {
             any(DatabricksConfig.class),
             any(String.class),
             any(String.class),
+            any(List.class),
             any(TokenCache.class));
 
     // Verify token was saved back to cache
@@ -433,7 +436,7 @@ public class ExternalBrowserCredentialsProviderTest {
         Mockito.spy(new ExternalBrowserCredentialsProvider(mockTokenCache));
     Mockito.doReturn(browserAuthCreds)
         .when(provider)
-        .performBrowserAuth(any(DatabricksConfig.class), any(), any(), any(TokenCache.class));
+        .performBrowserAuth(any(DatabricksConfig.class), any(), any(), any(List.class), any(TokenCache.class));
 
     // Spy on the config to inject the endpoints
     DatabricksConfig spyConfig = Mockito.spy(config);
@@ -451,7 +454,7 @@ public class ExternalBrowserCredentialsProviderTest {
 
     // Verify performBrowserAuth was called since refresh failed
     Mockito.verify(provider, Mockito.times(1))
-        .performBrowserAuth(any(DatabricksConfig.class), any(), any(), any(TokenCache.class));
+        .performBrowserAuth(any(DatabricksConfig.class), any(), any(), any(List.class), any(TokenCache.class));
 
     // Verify token was saved after browser auth (for the new token)
     Mockito.verify(mockTokenCache, Mockito.times(1)).save(any(Token.class));
@@ -494,7 +497,7 @@ public class ExternalBrowserCredentialsProviderTest {
         Mockito.spy(new ExternalBrowserCredentialsProvider(mockTokenCache));
     Mockito.doReturn(browserAuthCreds)
         .when(provider)
-        .performBrowserAuth(any(DatabricksConfig.class), any(), any(), any(TokenCache.class));
+        .performBrowserAuth(any(DatabricksConfig.class), any(), any(), any(List.class), any(TokenCache.class));
 
     // Configure provider
     HeaderFactory headerFactory = provider.configure(config);
@@ -507,7 +510,7 @@ public class ExternalBrowserCredentialsProviderTest {
 
     // Verify performBrowserAuth was called since we had an invalid token
     Mockito.verify(provider, Mockito.times(1))
-        .performBrowserAuth(any(DatabricksConfig.class), any(), any(), any(TokenCache.class));
+        .performBrowserAuth(any(DatabricksConfig.class), any(), any(), any(List.class), any(TokenCache.class));
 
     // Verify token was saved after browser auth (for the new token)
     Mockito.verify(mockTokenCache, Mockito.times(1)).save(any(Token.class));
