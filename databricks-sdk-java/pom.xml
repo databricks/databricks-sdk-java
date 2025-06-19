@@ -103,5 +103,16 @@
       <artifactId>jackson-datatype-jsr310</artifactId>
       <version>${jackson.version}</version>
     </dependency>
+    <!-- Google Protocol Buffers -->
+    <dependency>
+      <groupId>com.google.protobuf</groupId>
+      <artifactId>protobuf-java</artifactId>
+      <version>3.25.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.protobuf</groupId>
+      <artifactId>protobuf-java-util</artifactId>
+      <version>3.25.1</version>
+    </dependency>
   </dependencies>
 </project>
