@@ -61,8 +61,7 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
     try {
       if (tokenCache == null) {
         // Create a default FileTokenCache based on config
-        Path cachePath =
-            TokenCacheUtils.getCacheFilePath(config.getHost(), clientId, scopes);
+        Path cachePath = TokenCacheUtils.getCacheFilePath(config.getHost(), clientId, scopes);
         tokenCache = new FileTokenCache(cachePath);
       }
 
@@ -105,7 +104,11 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
   }
 
   SessionCredentials performBrowserAuth(
-      DatabricksConfig config, String clientId, String clientSecret, List<String> scopes, TokenCache tokenCache)
+      DatabricksConfig config,
+      String clientId,
+      String clientSecret,
+      List<String> scopes,
+      TokenCache tokenCache)
       throws IOException {
     LOGGER.debug("Performing browser authentication");
     OAuthClient client =

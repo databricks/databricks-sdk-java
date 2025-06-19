@@ -165,15 +165,16 @@ public class OAuthClient {
   private static String urlEncode(String urlBase, Map<String, String> params) {
     String queryParams =
         params.entrySet().stream()
-            .map(entry -> {
-              try {
-                return URLEncoder.encode(entry.getKey(), StandardCharsets.UTF_8.toString()) +
-                       "=" +
-                       URLEncoder.encode(entry.getValue(), StandardCharsets.UTF_8.toString());
-              } catch (Exception e) {
-                throw new DatabricksException("Failed to URL encode parameters", e);
-              }
-            })
+            .map(
+                entry -> {
+                  try {
+                    return URLEncoder.encode(entry.getKey(), StandardCharsets.UTF_8.toString())
+                        + "="
+                        + URLEncoder.encode(entry.getValue(), StandardCharsets.UTF_8.toString());
+                  } catch (Exception e) {
+                    throw new DatabricksException("Failed to URL encode parameters", e);
+                  }
+                })
             .collect(Collectors.joining("&"));
     return urlBase + "?" + queryParams;
   }

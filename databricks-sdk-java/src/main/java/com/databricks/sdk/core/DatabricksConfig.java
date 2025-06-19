@@ -725,8 +725,8 @@ public class DatabricksConfig {
 
   /**
    * Gets the default OAuth redirect URL. If one is not provided explicitly, uses
-   * http://localhost:8020, which is the default redirect URL for the default
-   * client ID (databricks-cli).
+   * http://localhost:8020, which is the default redirect URL for the default client ID
+   * (databricks-cli).
    *
    * @return The OAuth redirect URL to use
    */
