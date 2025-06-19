@@ -77,6 +77,7 @@ public class ConsistencyToken {
     @Override
     public ConsistencyToken deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ConsistencyTokenPb pb = mapper.readValue(p, ConsistencyTokenPb.class);
       return ConsistencyToken.fromPb(pb);

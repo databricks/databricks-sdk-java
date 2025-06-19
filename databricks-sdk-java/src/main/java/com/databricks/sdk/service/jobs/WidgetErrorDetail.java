@@ -77,6 +77,7 @@ public class WidgetErrorDetail {
     @Override
     public WidgetErrorDetail deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       WidgetErrorDetailPb pb = mapper.readValue(p, WidgetErrorDetailPb.class);
       return WidgetErrorDetail.fromPb(pb);

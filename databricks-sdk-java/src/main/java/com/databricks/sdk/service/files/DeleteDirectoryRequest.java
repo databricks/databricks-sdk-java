@@ -83,6 +83,7 @@ public class DeleteDirectoryRequest {
     @Override
     public DeleteDirectoryRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteDirectoryRequestPb pb = mapper.readValue(p, DeleteDirectoryRequestPb.class);
       return DeleteDirectoryRequest.fromPb(pb);

@@ -123,6 +123,7 @@ public class SharePermissionsRequest {
     @Override
     public SharePermissionsRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SharePermissionsRequestPb pb = mapper.readValue(p, SharePermissionsRequestPb.class);
       return SharePermissionsRequest.fromPb(pb);

@@ -97,6 +97,7 @@ public class CancelRefreshRequest {
     @Override
     public CancelRefreshRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CancelRefreshRequestPb pb = mapper.readValue(p, CancelRefreshRequestPb.class);
       return CancelRefreshRequest.fromPb(pb);

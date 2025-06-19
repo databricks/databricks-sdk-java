@@ -137,6 +137,7 @@ public class SetModelVersionTagRequest {
     @Override
     public SetModelVersionTagRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SetModelVersionTagRequestPb pb = mapper.readValue(p, SetModelVersionTagRequestPb.class);
       return SetModelVersionTagRequest.fromPb(pb);

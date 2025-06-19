@@ -99,6 +99,7 @@ public class ListTokenManagementRequest {
     @Override
     public ListTokenManagementRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListTokenManagementRequestPb pb = mapper.readValue(p, ListTokenManagementRequestPb.class);
       return ListTokenManagementRequest.fromPb(pb);

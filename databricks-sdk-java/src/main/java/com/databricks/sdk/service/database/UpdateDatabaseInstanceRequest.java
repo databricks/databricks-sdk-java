@@ -119,6 +119,7 @@ public class UpdateDatabaseInstanceRequest {
     @Override
     public UpdateDatabaseInstanceRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateDatabaseInstanceRequestPb pb =
           mapper.readValue(p, UpdateDatabaseInstanceRequestPb.class);

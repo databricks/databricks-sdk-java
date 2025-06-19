@@ -141,6 +141,7 @@ public class CreateBudgetConfigurationBudget {
     @Override
     public CreateBudgetConfigurationBudget deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateBudgetConfigurationBudgetPb pb =
           mapper.readValue(p, CreateBudgetConfigurationBudgetPb.class);

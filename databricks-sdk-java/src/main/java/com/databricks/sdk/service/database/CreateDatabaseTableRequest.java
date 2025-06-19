@@ -81,6 +81,7 @@ public class CreateDatabaseTableRequest {
     @Override
     public CreateDatabaseTableRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateDatabaseTableRequestPb pb = mapper.readValue(p, CreateDatabaseTableRequestPb.class);
       return CreateDatabaseTableRequest.fromPb(pb);

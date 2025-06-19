@@ -215,6 +215,7 @@ public class TokenInfo {
   public static class TokenInfoDeserializer extends JsonDeserializer<TokenInfo> {
     @Override
     public TokenInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       TokenInfoPb pb = mapper.readValue(p, TokenInfoPb.class);
       return TokenInfo.fromPb(pb);

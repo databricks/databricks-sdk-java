@@ -103,6 +103,7 @@ public class Ai21LabsConfig {
     @Override
     public Ai21LabsConfig deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       Ai21LabsConfigPb pb = mapper.readValue(p, Ai21LabsConfigPb.class);
       return Ai21LabsConfig.fromPb(pb);

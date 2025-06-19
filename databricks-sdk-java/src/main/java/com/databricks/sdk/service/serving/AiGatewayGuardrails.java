@@ -95,6 +95,7 @@ public class AiGatewayGuardrails {
     @Override
     public AiGatewayGuardrails deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AiGatewayGuardrailsPb pb = mapper.readValue(p, AiGatewayGuardrailsPb.class);
       return AiGatewayGuardrails.fromPb(pb);

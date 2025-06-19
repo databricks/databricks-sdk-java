@@ -82,6 +82,7 @@ public class ListGlobalInitScriptsResponse {
     @Override
     public ListGlobalInitScriptsResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListGlobalInitScriptsResponsePb pb =
           mapper.readValue(p, ListGlobalInitScriptsResponsePb.class);

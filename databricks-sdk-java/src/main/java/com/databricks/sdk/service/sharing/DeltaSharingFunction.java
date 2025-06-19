@@ -339,6 +339,7 @@ public class DeltaSharingFunction {
     @Override
     public DeltaSharingFunction deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeltaSharingFunctionPb pb = mapper.readValue(p, DeltaSharingFunctionPb.class);
       return DeltaSharingFunction.fromPb(pb);

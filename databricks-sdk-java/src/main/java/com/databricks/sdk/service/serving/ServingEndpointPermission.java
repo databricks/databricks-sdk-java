@@ -116,6 +116,7 @@ public class ServingEndpointPermission {
     @Override
     public ServingEndpointPermission deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ServingEndpointPermissionPb pb = mapper.readValue(p, ServingEndpointPermissionPb.class);
       return ServingEndpointPermission.fromPb(pb);

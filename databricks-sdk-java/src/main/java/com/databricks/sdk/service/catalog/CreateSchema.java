@@ -143,6 +143,7 @@ public class CreateSchema {
   public static class CreateSchemaDeserializer extends JsonDeserializer<CreateSchema> {
     @Override
     public CreateSchema deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateSchemaPb pb = mapper.readValue(p, CreateSchemaPb.class);
       return CreateSchema.fromPb(pb);

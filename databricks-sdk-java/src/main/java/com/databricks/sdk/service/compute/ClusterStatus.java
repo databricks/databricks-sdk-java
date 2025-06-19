@@ -77,6 +77,7 @@ public class ClusterStatus {
   public static class ClusterStatusDeserializer extends JsonDeserializer<ClusterStatus> {
     @Override
     public ClusterStatus deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ClusterStatusPb pb = mapper.readValue(p, ClusterStatusPb.class);
       return ClusterStatus.fromPb(pb);

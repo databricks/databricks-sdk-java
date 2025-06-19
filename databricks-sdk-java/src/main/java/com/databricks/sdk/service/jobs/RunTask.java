@@ -967,6 +967,7 @@ public class RunTask {
   public static class RunTaskDeserializer extends JsonDeserializer<RunTask> {
     @Override
     public RunTask deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RunTaskPb pb = mapper.readValue(p, RunTaskPb.class);
       return RunTask.fromPb(pb);

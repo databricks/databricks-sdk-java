@@ -91,6 +91,7 @@ public class RunTag {
   public static class RunTagDeserializer extends JsonDeserializer<RunTag> {
     @Override
     public RunTag deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RunTagPb pb = mapper.readValue(p, RunTagPb.class);
       return RunTag.fromPb(pb);

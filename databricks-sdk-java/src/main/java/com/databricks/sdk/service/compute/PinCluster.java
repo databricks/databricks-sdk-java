@@ -76,6 +76,7 @@ public class PinCluster {
   public static class PinClusterDeserializer extends JsonDeserializer<PinCluster> {
     @Override
     public PinCluster deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PinClusterPb pb = mapper.readValue(p, PinClusterPb.class);
       return PinCluster.fromPb(pb);

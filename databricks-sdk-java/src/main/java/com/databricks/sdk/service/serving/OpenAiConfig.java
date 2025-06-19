@@ -286,6 +286,7 @@ public class OpenAiConfig {
   public static class OpenAiConfigDeserializer extends JsonDeserializer<OpenAiConfig> {
     @Override
     public OpenAiConfig deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       OpenAiConfigPb pb = mapper.readValue(p, OpenAiConfigPb.class);
       return OpenAiConfig.fromPb(pb);

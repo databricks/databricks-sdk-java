@@ -178,6 +178,7 @@ public class SqlDashboardWidgetOutput {
     @Override
     public SqlDashboardWidgetOutput deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SqlDashboardWidgetOutputPb pb = mapper.readValue(p, SqlDashboardWidgetOutputPb.class);
       return SqlDashboardWidgetOutput.fromPb(pb);

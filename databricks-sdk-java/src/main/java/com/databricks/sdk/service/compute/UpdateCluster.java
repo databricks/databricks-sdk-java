@@ -123,6 +123,7 @@ public class UpdateCluster {
   public static class UpdateClusterDeserializer extends JsonDeserializer<UpdateCluster> {
     @Override
     public UpdateCluster deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateClusterPb pb = mapper.readValue(p, UpdateClusterPb.class);
       return UpdateCluster.fromPb(pb);

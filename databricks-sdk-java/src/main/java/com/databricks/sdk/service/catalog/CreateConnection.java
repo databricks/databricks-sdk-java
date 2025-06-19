@@ -160,6 +160,7 @@ public class CreateConnection {
     @Override
     public CreateConnection deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateConnectionPb pb = mapper.readValue(p, CreateConnectionPb.class);
       return CreateConnection.fromPb(pb);

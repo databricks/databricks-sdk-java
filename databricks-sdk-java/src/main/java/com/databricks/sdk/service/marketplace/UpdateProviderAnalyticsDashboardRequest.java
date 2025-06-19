@@ -109,6 +109,7 @@ public class UpdateProviderAnalyticsDashboardRequest {
     @Override
     public UpdateProviderAnalyticsDashboardRequest deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateProviderAnalyticsDashboardRequestPb pb =
           mapper.readValue(p, UpdateProviderAnalyticsDashboardRequestPb.class);

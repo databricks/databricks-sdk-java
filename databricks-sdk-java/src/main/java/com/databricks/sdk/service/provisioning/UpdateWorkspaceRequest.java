@@ -265,6 +265,7 @@ public class UpdateWorkspaceRequest {
     @Override
     public UpdateWorkspaceRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateWorkspaceRequestPb pb = mapper.readValue(p, UpdateWorkspaceRequestPb.class);
       return UpdateWorkspaceRequest.fromPb(pb);

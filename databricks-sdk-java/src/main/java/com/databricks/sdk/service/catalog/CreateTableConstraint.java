@@ -101,6 +101,7 @@ public class CreateTableConstraint {
     @Override
     public CreateTableConstraint deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateTableConstraintPb pb = mapper.readValue(p, CreateTableConstraintPb.class);
       return CreateTableConstraint.fromPb(pb);

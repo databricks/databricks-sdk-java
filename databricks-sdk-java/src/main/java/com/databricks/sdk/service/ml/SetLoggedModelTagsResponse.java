@@ -66,6 +66,7 @@ public class SetLoggedModelTagsResponse {
     @Override
     public SetLoggedModelTagsResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SetLoggedModelTagsResponsePb pb = mapper.readValue(p, SetLoggedModelTagsResponsePb.class);
       return SetLoggedModelTagsResponse.fromPb(pb);

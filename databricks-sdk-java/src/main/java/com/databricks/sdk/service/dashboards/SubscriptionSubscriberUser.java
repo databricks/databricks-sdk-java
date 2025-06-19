@@ -80,6 +80,7 @@ public class SubscriptionSubscriberUser {
     @Override
     public SubscriptionSubscriberUser deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SubscriptionSubscriberUserPb pb = mapper.readValue(p, SubscriptionSubscriberUserPb.class);
       return SubscriptionSubscriberUser.fromPb(pb);

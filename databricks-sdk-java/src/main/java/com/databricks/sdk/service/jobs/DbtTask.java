@@ -205,6 +205,7 @@ public class DbtTask {
   public static class DbtTaskDeserializer extends JsonDeserializer<DbtTask> {
     @Override
     public DbtTask deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DbtTaskPb pb = mapper.readValue(p, DbtTaskPb.class);
       return DbtTask.fromPb(pb);

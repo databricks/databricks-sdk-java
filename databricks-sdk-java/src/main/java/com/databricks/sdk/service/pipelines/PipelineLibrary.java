@@ -162,6 +162,7 @@ public class PipelineLibrary {
     @Override
     public PipelineLibrary deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PipelineLibraryPb pb = mapper.readValue(p, PipelineLibraryPb.class);
       return PipelineLibrary.fromPb(pb);

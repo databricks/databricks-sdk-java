@@ -83,6 +83,7 @@ public class GetAccountMetastoreRequest {
     @Override
     public GetAccountMetastoreRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetAccountMetastoreRequestPb pb = mapper.readValue(p, GetAccountMetastoreRequestPb.class);
       return GetAccountMetastoreRequest.fromPb(pb);

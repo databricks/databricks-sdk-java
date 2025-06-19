@@ -171,6 +171,7 @@ public class ListProviderShareAssetsRequest {
     @Override
     public ListProviderShareAssetsRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListProviderShareAssetsRequestPb pb =
           mapper.readValue(p, ListProviderShareAssetsRequestPb.class);

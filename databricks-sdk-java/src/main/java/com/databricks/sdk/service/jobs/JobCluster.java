@@ -98,6 +98,7 @@ public class JobCluster {
   public static class JobClusterDeserializer extends JsonDeserializer<JobCluster> {
     @Override
     public JobCluster deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       JobClusterPb pb = mapper.readValue(p, JobClusterPb.class);
       return JobCluster.fromPb(pb);

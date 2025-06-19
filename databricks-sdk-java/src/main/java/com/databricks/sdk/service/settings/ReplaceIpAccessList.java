@@ -152,6 +152,7 @@ public class ReplaceIpAccessList {
     @Override
     public ReplaceIpAccessList deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ReplaceIpAccessListPb pb = mapper.readValue(p, ReplaceIpAccessListPb.class);
       return ReplaceIpAccessList.fromPb(pb);

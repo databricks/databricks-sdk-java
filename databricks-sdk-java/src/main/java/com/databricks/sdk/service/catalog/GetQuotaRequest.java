@@ -112,6 +112,7 @@ public class GetQuotaRequest {
     @Override
     public GetQuotaRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetQuotaRequestPb pb = mapper.readValue(p, GetQuotaRequestPb.class);
       return GetQuotaRequest.fromPb(pb);

@@ -96,6 +96,7 @@ public class StsRole {
   public static class StsRoleDeserializer extends JsonDeserializer<StsRole> {
     @Override
     public StsRole deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       StsRolePb pb = mapper.readValue(p, StsRolePb.class);
       return StsRole.fromPb(pb);

@@ -419,6 +419,7 @@ public class ServedEntityOutput {
     @Override
     public ServedEntityOutput deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ServedEntityOutputPb pb = mapper.readValue(p, ServedEntityOutputPb.class);
       return ServedEntityOutput.fromPb(pb);

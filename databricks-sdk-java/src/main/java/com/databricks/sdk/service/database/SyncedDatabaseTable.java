@@ -208,6 +208,7 @@ public class SyncedDatabaseTable {
     @Override
     public SyncedDatabaseTable deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SyncedDatabaseTablePb pb = mapper.readValue(p, SyncedDatabaseTablePb.class);
       return SyncedDatabaseTable.fromPb(pb);

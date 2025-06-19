@@ -83,6 +83,7 @@ public class GetInstancePoolRequest {
     @Override
     public GetInstancePoolRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetInstancePoolRequestPb pb = mapper.readValue(p, GetInstancePoolRequestPb.class);
       return GetInstancePoolRequest.fromPb(pb);

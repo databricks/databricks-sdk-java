@@ -232,6 +232,7 @@ public class ClientConfig {
   public static class ClientConfigDeserializer extends JsonDeserializer<ClientConfig> {
     @Override
     public ClientConfig deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ClientConfigPb pb = mapper.readValue(p, ClientConfigPb.class);
       return ClientConfig.fromPb(pb);

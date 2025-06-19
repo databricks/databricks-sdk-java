@@ -100,6 +100,7 @@ public class UpsertDataVectorIndexRequest {
     @Override
     public UpsertDataVectorIndexRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpsertDataVectorIndexRequestPb pb = mapper.readValue(p, UpsertDataVectorIndexRequestPb.class);
       return UpsertDataVectorIndexRequest.fromPb(pb);

@@ -233,6 +233,7 @@ public class ResolvedValues {
     @Override
     public ResolvedValues deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ResolvedValuesPb pb = mapper.readValue(p, ResolvedValuesPb.class);
       return ResolvedValues.fromPb(pb);

@@ -145,6 +145,7 @@ public class CreateAlert {
   public static class CreateAlertDeserializer extends JsonDeserializer<CreateAlert> {
     @Override
     public CreateAlert deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateAlertPb pb = mapper.readValue(p, CreateAlertPb.class);
       return CreateAlert.fromPb(pb);

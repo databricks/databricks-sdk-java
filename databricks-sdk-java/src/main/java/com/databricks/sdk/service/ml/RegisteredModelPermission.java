@@ -116,6 +116,7 @@ public class RegisteredModelPermission {
     @Override
     public RegisteredModelPermission deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RegisteredModelPermissionPb pb = mapper.readValue(p, RegisteredModelPermissionPb.class);
       return RegisteredModelPermission.fromPb(pb);

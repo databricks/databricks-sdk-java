@@ -100,6 +100,7 @@ public class GetModelVersionDownloadUriRequest {
     @Override
     public GetModelVersionDownloadUriRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetModelVersionDownloadUriRequestPb pb =
           mapper.readValue(p, GetModelVersionDownloadUriRequestPb.class);

@@ -79,6 +79,7 @@ public class GetMetastoreRequest {
     @Override
     public GetMetastoreRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetMetastoreRequestPb pb = mapper.readValue(p, GetMetastoreRequestPb.class);
       return GetMetastoreRequest.fromPb(pb);

@@ -156,6 +156,7 @@ public class ClusterAutoRestartMessage {
     @Override
     public ClusterAutoRestartMessage deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ClusterAutoRestartMessagePb pb = mapper.readValue(p, ClusterAutoRestartMessagePb.class);
       return ClusterAutoRestartMessage.fromPb(pb);

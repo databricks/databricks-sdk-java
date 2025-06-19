@@ -79,6 +79,7 @@ public class JobsHealthRules {
     @Override
     public JobsHealthRules deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       JobsHealthRulesPb pb = mapper.readValue(p, JobsHealthRulesPb.class);
       return JobsHealthRules.fromPb(pb);

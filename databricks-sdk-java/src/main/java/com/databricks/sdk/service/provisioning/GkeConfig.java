@@ -108,6 +108,7 @@ public class GkeConfig {
   public static class GkeConfigDeserializer extends JsonDeserializer<GkeConfig> {
     @Override
     public GkeConfig deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GkeConfigPb pb = mapper.readValue(p, GkeConfigPb.class);
       return GkeConfig.fromPb(pb);

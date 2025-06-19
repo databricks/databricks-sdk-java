@@ -111,6 +111,7 @@ public class ValidationResult {
     @Override
     public ValidationResult deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ValidationResultPb pb = mapper.readValue(p, ValidationResultPb.class);
       return ValidationResult.fromPb(pb);

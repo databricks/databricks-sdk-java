@@ -94,6 +94,7 @@ public class CronTrigger {
   public static class CronTriggerDeserializer extends JsonDeserializer<CronTrigger> {
     @Override
     public CronTrigger deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CronTriggerPb pb = mapper.readValue(p, CronTriggerPb.class);
       return CronTrigger.fromPb(pb);

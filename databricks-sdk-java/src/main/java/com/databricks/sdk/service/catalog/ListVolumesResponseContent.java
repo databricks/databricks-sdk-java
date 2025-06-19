@@ -103,6 +103,7 @@ public class ListVolumesResponseContent {
     @Override
     public ListVolumesResponseContent deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListVolumesResponseContentPb pb = mapper.readValue(p, ListVolumesResponseContentPb.class);
       return ListVolumesResponseContent.fromPb(pb);

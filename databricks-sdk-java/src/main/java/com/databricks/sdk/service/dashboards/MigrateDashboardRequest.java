@@ -133,6 +133,7 @@ public class MigrateDashboardRequest {
     @Override
     public MigrateDashboardRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       MigrateDashboardRequestPb pb = mapper.readValue(p, MigrateDashboardRequestPb.class);
       return MigrateDashboardRequest.fromPb(pb);

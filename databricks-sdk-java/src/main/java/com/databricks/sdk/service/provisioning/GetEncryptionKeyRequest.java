@@ -83,6 +83,7 @@ public class GetEncryptionKeyRequest {
     @Override
     public GetEncryptionKeyRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetEncryptionKeyRequestPb pb = mapper.readValue(p, GetEncryptionKeyRequestPb.class);
       return GetEncryptionKeyRequest.fromPb(pb);

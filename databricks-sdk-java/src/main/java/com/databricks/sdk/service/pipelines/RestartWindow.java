@@ -121,6 +121,7 @@ public class RestartWindow {
   public static class RestartWindowDeserializer extends JsonDeserializer<RestartWindow> {
     @Override
     public RestartWindow deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RestartWindowPb pb = mapper.readValue(p, RestartWindowPb.class);
       return RestartWindow.fromPb(pb);

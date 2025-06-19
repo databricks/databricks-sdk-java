@@ -126,6 +126,7 @@ public class ClusterSettingsChange {
     @Override
     public ClusterSettingsChange deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ClusterSettingsChangePb pb = mapper.readValue(p, ClusterSettingsChangePb.class);
       return ClusterSettingsChange.fromPb(pb);

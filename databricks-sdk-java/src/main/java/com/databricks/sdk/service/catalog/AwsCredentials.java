@@ -134,6 +134,7 @@ public class AwsCredentials {
     @Override
     public AwsCredentials deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AwsCredentialsPb pb = mapper.readValue(p, AwsCredentialsPb.class);
       return AwsCredentials.fromPb(pb);

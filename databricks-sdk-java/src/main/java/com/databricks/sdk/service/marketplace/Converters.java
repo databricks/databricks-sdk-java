@@ -4,15 +4,15 @@ import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 class Converters {
   static Duration durationFromPb(String duration) {
-    if (duration == null || duration.isEmpty()) {
-      return null;
-    }
+    Objects.requireNonNull(duration, "duration must not be null");
     // Remove the 's' suffix and parse as BigDecimal
     String secondsStr = duration.substring(0, duration.length() - 1);
     BigDecimal seconds = new BigDecimal(secondsStr);
@@ -26,9 +26,7 @@ class Converters {
   }
 
   static String durationToPb(Duration duration) {
-    if (duration == null) {
-      return null;
-    }
+    Objects.requireNonNull(duration, "duration must not be null");
     long seconds = duration.getSeconds();
     int nanos = duration.getNano();
     if (nanos == 0) {
@@ -39,31 +37,28 @@ class Converters {
   }
 
   static String instantToPb(Instant instant) {
-    if (instant == null) {
-      return null;
-    }
-    // Use ISO_OFFSET_DATE_TIME for explicit offset
-    return DateTimeFormatter.ISO_OFFSET_DATE_TIME.withZone(ZoneOffset.UTC).format(instant);
+    Objects.requireNonNull(instant, "instant must not be null");
+    return new DateTimeFormatterBuilder()
+        .appendPattern("yyyy-MM-dd'T'HH:mm:ss")
+        .appendFraction(ChronoField.NANO_OF_SECOND, 0, 9, true)
+        .appendOffset("+HH:MM", "Z")
+        .toFormatter()
+        .withZone(ZoneOffset.UTC)
+        .format(instant);
   }
 
   static Instant instantFromPb(String instant) {
-    if (instant == null || instant.isEmpty()) {
-      return null;
-    }
+    Objects.requireNonNull(instant, "instant must not be null");
     return Instant.parse(instant);
   }
 
   static String fieldMaskToPb(List<String> fieldMask) {
-    if (fieldMask == null) {
-      return null;
-    }
+    Objects.requireNonNull(fieldMask, "fieldMask must not be null");
     return String.join(",", fieldMask);
   }
 
   static List<String> fieldMaskFromPb(String fieldMask) {
-    if (fieldMask == null) {
-      return null;
-    }
+    Objects.requireNonNull(fieldMask, "fieldMask must not be null");
     return Arrays.asList(fieldMask.split(","));
   }
 }

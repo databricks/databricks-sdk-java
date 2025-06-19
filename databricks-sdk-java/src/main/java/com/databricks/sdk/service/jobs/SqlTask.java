@@ -166,6 +166,7 @@ public class SqlTask {
   public static class SqlTaskDeserializer extends JsonDeserializer<SqlTask> {
     @Override
     public SqlTask deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SqlTaskPb pb = mapper.readValue(p, SqlTaskPb.class);
       return SqlTask.fromPb(pb);

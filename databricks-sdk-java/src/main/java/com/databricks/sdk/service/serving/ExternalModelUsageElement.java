@@ -114,6 +114,7 @@ public class ExternalModelUsageElement {
     @Override
     public ExternalModelUsageElement deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ExternalModelUsageElementPb pb = mapper.readValue(p, ExternalModelUsageElementPb.class);
       return ExternalModelUsageElement.fromPb(pb);

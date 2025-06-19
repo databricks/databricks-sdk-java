@@ -106,6 +106,7 @@ public class NetworkVpcEndpoints {
     @Override
     public NetworkVpcEndpoints deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       NetworkVpcEndpointsPb pb = mapper.readValue(p, NetworkVpcEndpointsPb.class);
       return NetworkVpcEndpoints.fromPb(pb);

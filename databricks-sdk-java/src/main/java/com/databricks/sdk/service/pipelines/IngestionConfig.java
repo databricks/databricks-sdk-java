@@ -111,6 +111,7 @@ public class IngestionConfig {
     @Override
     public IngestionConfig deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       IngestionConfigPb pb = mapper.readValue(p, IngestionConfigPb.class);
       return IngestionConfig.fromPb(pb);

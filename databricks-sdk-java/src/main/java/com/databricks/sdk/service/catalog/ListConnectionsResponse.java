@@ -102,6 +102,7 @@ public class ListConnectionsResponse {
     @Override
     public ListConnectionsResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListConnectionsResponsePb pb = mapper.readValue(p, ListConnectionsResponsePb.class);
       return ListConnectionsResponse.fromPb(pb);

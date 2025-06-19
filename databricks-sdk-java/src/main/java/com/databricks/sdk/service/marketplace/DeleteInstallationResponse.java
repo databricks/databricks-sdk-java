@@ -66,6 +66,7 @@ public class DeleteInstallationResponse {
     @Override
     public DeleteInstallationResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteInstallationResponsePb pb = mapper.readValue(p, DeleteInstallationResponsePb.class);
       return DeleteInstallationResponse.fromPb(pb);

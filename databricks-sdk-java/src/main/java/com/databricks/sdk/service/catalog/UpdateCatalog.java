@@ -203,6 +203,7 @@ public class UpdateCatalog {
   public static class UpdateCatalogDeserializer extends JsonDeserializer<UpdateCatalog> {
     @Override
     public UpdateCatalog deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateCatalogPb pb = mapper.readValue(p, UpdateCatalogPb.class);
       return UpdateCatalog.fromPb(pb);

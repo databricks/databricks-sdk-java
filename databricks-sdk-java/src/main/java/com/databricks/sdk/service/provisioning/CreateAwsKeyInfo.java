@@ -118,6 +118,7 @@ public class CreateAwsKeyInfo {
     @Override
     public CreateAwsKeyInfo deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateAwsKeyInfoPb pb = mapper.readValue(p, CreateAwsKeyInfoPb.class);
       return CreateAwsKeyInfo.fromPb(pb);

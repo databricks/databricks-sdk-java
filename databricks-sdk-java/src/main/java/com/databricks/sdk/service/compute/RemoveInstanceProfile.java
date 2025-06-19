@@ -82,6 +82,7 @@ public class RemoveInstanceProfile {
     @Override
     public RemoveInstanceProfile deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RemoveInstanceProfilePb pb = mapper.readValue(p, RemoveInstanceProfilePb.class);
       return RemoveInstanceProfile.fromPb(pb);

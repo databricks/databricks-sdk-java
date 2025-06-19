@@ -149,6 +149,7 @@ public class NodeInstanceType {
     @Override
     public NodeInstanceType deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       NodeInstanceTypePb pb = mapper.readValue(p, NodeInstanceTypePb.class);
       return NodeInstanceType.fromPb(pb);

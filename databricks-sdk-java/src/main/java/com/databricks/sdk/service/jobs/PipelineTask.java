@@ -94,6 +94,7 @@ public class PipelineTask {
   public static class PipelineTaskDeserializer extends JsonDeserializer<PipelineTask> {
     @Override
     public PipelineTask deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PipelineTaskPb pb = mapper.readValue(p, PipelineTaskPb.class);
       return PipelineTask.fromPb(pb);

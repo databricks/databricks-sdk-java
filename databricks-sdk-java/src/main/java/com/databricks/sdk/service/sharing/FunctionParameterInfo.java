@@ -273,6 +273,7 @@ public class FunctionParameterInfo {
     @Override
     public FunctionParameterInfo deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       FunctionParameterInfoPb pb = mapper.readValue(p, FunctionParameterInfoPb.class);
       return FunctionParameterInfo.fromPb(pb);

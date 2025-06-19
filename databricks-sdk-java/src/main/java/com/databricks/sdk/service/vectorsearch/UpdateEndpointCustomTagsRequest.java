@@ -101,6 +101,7 @@ public class UpdateEndpointCustomTagsRequest {
     @Override
     public UpdateEndpointCustomTagsRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateEndpointCustomTagsRequestPb pb =
           mapper.readValue(p, UpdateEndpointCustomTagsRequestPb.class);

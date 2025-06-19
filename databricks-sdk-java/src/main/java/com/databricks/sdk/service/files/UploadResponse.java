@@ -63,6 +63,7 @@ public class UploadResponse {
     @Override
     public UploadResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UploadResponsePb pb = mapper.readValue(p, UploadResponsePb.class);
       return UploadResponse.fromPb(pb);

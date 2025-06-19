@@ -319,6 +319,7 @@ public class ProviderInfo {
   public static class ProviderInfoDeserializer extends JsonDeserializer<ProviderInfo> {
     @Override
     public ProviderInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ProviderInfoPb pb = mapper.readValue(p, ProviderInfoPb.class);
       return ProviderInfo.fromPb(pb);

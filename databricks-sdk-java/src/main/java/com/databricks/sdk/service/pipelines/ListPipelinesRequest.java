@@ -147,6 +147,7 @@ public class ListPipelinesRequest {
     @Override
     public ListPipelinesRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListPipelinesRequestPb pb = mapper.readValue(p, ListPipelinesRequestPb.class);
       return ListPipelinesRequest.fromPb(pb);

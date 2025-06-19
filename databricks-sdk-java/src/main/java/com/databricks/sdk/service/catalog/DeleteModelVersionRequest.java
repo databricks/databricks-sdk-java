@@ -98,6 +98,7 @@ public class DeleteModelVersionRequest {
     @Override
     public DeleteModelVersionRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteModelVersionRequestPb pb = mapper.readValue(p, DeleteModelVersionRequestPb.class);
       return DeleteModelVersionRequest.fromPb(pb);

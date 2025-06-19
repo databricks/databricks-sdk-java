@@ -94,6 +94,7 @@ public class ApplicationStatus {
     @Override
     public ApplicationStatus deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ApplicationStatusPb pb = mapper.readValue(p, ApplicationStatusPb.class);
       return ApplicationStatus.fromPb(pb);

@@ -96,6 +96,7 @@ public class ListAlertsV2Request {
     @Override
     public ListAlertsV2Request deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListAlertsV2RequestPb pb = mapper.readValue(p, ListAlertsV2RequestPb.class);
       return ListAlertsV2Request.fromPb(pb);

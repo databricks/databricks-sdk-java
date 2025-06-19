@@ -93,6 +93,7 @@ public class ServiceError {
   public static class ServiceErrorDeserializer extends JsonDeserializer<ServiceError> {
     @Override
     public ServiceError deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ServiceErrorPb pb = mapper.readValue(p, ServiceErrorPb.class);
       return ServiceError.fromPb(pb);

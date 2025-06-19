@@ -77,6 +77,7 @@ public class TriggerInfo {
   public static class TriggerInfoDeserializer extends JsonDeserializer<TriggerInfo> {
     @Override
     public TriggerInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       TriggerInfoPb pb = mapper.readValue(p, TriggerInfoPb.class);
       return TriggerInfo.fromPb(pb);

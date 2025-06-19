@@ -90,6 +90,7 @@ public class DeleteAccountIpAccessEnableRequest {
     @Override
     public DeleteAccountIpAccessEnableRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteAccountIpAccessEnableRequestPb pb =
           mapper.readValue(p, DeleteAccountIpAccessEnableRequestPb.class);

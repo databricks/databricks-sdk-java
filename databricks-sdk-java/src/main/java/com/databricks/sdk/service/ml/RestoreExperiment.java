@@ -77,6 +77,7 @@ public class RestoreExperiment {
     @Override
     public RestoreExperiment deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RestoreExperimentPb pb = mapper.readValue(p, RestoreExperimentPb.class);
       return RestoreExperiment.fromPb(pb);

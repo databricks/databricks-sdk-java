@@ -111,6 +111,7 @@ public class SetExperimentTag {
     @Override
     public SetExperimentTag deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SetExperimentTagPb pb = mapper.readValue(p, SetExperimentTagPb.class);
       return SetExperimentTag.fromPb(pb);

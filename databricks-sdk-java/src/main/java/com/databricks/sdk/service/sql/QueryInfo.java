@@ -484,6 +484,7 @@ public class QueryInfo {
   public static class QueryInfoDeserializer extends JsonDeserializer<QueryInfo> {
     @Override
     public QueryInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       QueryInfoPb pb = mapper.readValue(p, QueryInfoPb.class);
       return QueryInfo.fromPb(pb);

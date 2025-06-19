@@ -65,6 +65,7 @@ public class DeletePolicyResponse {
     @Override
     public DeletePolicyResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeletePolicyResponsePb pb = mapper.readValue(p, DeletePolicyResponsePb.class);
       return DeletePolicyResponse.fromPb(pb);

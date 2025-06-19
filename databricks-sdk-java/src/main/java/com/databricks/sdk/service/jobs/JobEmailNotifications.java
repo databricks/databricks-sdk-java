@@ -199,6 +199,7 @@ public class JobEmailNotifications {
     @Override
     public JobEmailNotifications deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       JobEmailNotificationsPb pb = mapper.readValue(p, JobEmailNotificationsPb.class);
       return JobEmailNotifications.fromPb(pb);

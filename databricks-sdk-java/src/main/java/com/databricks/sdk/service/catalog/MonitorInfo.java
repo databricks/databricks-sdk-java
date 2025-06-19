@@ -393,6 +393,7 @@ public class MonitorInfo {
   public static class MonitorInfoDeserializer extends JsonDeserializer<MonitorInfo> {
     @Override
     public MonitorInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       MonitorInfoPb pb = mapper.readValue(p, MonitorInfoPb.class);
       return MonitorInfo.fromPb(pb);

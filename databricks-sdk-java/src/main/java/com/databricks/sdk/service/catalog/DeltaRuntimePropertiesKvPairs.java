@@ -89,6 +89,7 @@ public class DeltaRuntimePropertiesKvPairs {
     @Override
     public DeltaRuntimePropertiesKvPairs deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeltaRuntimePropertiesKvPairsPb pb =
           mapper.readValue(p, DeltaRuntimePropertiesKvPairsPb.class);

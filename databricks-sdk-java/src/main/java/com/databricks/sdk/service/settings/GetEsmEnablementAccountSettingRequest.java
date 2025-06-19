@@ -93,6 +93,7 @@ public class GetEsmEnablementAccountSettingRequest {
     @Override
     public GetEsmEnablementAccountSettingRequest deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetEsmEnablementAccountSettingRequestPb pb =
           mapper.readValue(p, GetEsmEnablementAccountSettingRequestPb.class);

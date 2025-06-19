@@ -101,6 +101,7 @@ public class AppResourceSqlWarehouse {
     @Override
     public AppResourceSqlWarehouse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AppResourceSqlWarehousePb pb = mapper.readValue(p, AppResourceSqlWarehousePb.class);
       return AppResourceSqlWarehouse.fromPb(pb);

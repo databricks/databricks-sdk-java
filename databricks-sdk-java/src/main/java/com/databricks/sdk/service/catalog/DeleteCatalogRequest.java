@@ -97,6 +97,7 @@ public class DeleteCatalogRequest {
     @Override
     public DeleteCatalogRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteCatalogRequestPb pb = mapper.readValue(p, DeleteCatalogRequestPb.class);
       return DeleteCatalogRequest.fromPb(pb);

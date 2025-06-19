@@ -66,6 +66,7 @@ public class EditWarehouseResponse {
     @Override
     public EditWarehouseResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       EditWarehouseResponsePb pb = mapper.readValue(p, EditWarehouseResponsePb.class);
       return EditWarehouseResponse.fromPb(pb);

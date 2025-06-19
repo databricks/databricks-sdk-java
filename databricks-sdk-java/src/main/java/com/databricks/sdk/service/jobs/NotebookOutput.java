@@ -100,6 +100,7 @@ public class NotebookOutput {
     @Override
     public NotebookOutput deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       NotebookOutputPb pb = mapper.readValue(p, NotebookOutputPb.class);
       return NotebookOutput.fromPb(pb);

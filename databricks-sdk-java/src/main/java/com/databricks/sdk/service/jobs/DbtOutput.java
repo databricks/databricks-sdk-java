@@ -98,6 +98,7 @@ public class DbtOutput {
   public static class DbtOutputDeserializer extends JsonDeserializer<DbtOutput> {
     @Override
     public DbtOutput deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DbtOutputPb pb = mapper.readValue(p, DbtOutputPb.class);
       return DbtOutput.fromPb(pb);

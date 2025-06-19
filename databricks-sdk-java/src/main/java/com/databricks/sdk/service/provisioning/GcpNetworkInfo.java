@@ -173,6 +173,7 @@ public class GcpNetworkInfo {
     @Override
     public GcpNetworkInfo deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GcpNetworkInfoPb pb = mapper.readValue(p, GcpNetworkInfoPb.class);
       return GcpNetworkInfo.fromPb(pb);

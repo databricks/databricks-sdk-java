@@ -126,6 +126,7 @@ public class OdbcParams {
   public static class OdbcParamsDeserializer extends JsonDeserializer<OdbcParams> {
     @Override
     public OdbcParams deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       OdbcParamsPb pb = mapper.readValue(p, OdbcParamsPb.class);
       return OdbcParams.fromPb(pb);

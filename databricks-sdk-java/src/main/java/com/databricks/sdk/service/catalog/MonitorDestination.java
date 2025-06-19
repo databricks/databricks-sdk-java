@@ -83,6 +83,7 @@ public class MonitorDestination {
     @Override
     public MonitorDestination deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       MonitorDestinationPb pb = mapper.readValue(p, MonitorDestinationPb.class);
       return MonitorDestination.fromPb(pb);

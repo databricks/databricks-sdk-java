@@ -717,6 +717,7 @@ public class BaseRun {
   public static class BaseRunDeserializer extends JsonDeserializer<BaseRun> {
     @Override
     public BaseRun deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       BaseRunPb pb = mapper.readValue(p, BaseRunPb.class);
       return BaseRun.fromPb(pb);

@@ -106,6 +106,7 @@ public class ComplianceSecurityProfile {
     @Override
     public ComplianceSecurityProfile deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ComplianceSecurityProfilePb pb = mapper.readValue(p, ComplianceSecurityProfilePb.class);
       return ComplianceSecurityProfile.fromPb(pb);

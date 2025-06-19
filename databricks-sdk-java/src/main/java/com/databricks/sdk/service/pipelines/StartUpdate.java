@@ -171,6 +171,7 @@ public class StartUpdate {
   public static class StartUpdateDeserializer extends JsonDeserializer<StartUpdate> {
     @Override
     public StartUpdate deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       StartUpdatePb pb = mapper.readValue(p, StartUpdatePb.class);
       return StartUpdate.fromPb(pb);

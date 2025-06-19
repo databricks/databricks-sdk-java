@@ -198,6 +198,7 @@ public class GlobalInitScriptDetails {
     @Override
     public GlobalInitScriptDetails deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GlobalInitScriptDetailsPb pb = mapper.readValue(p, GlobalInitScriptDetailsPb.class);
       return GlobalInitScriptDetails.fromPb(pb);

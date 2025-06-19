@@ -97,6 +97,7 @@ public class ResolvedConditionTaskValues {
     @Override
     public ResolvedConditionTaskValues deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ResolvedConditionTaskValuesPb pb = mapper.readValue(p, ResolvedConditionTaskValuesPb.class);
       return ResolvedConditionTaskValues.fromPb(pb);

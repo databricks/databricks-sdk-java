@@ -131,6 +131,7 @@ public class GetTableRequest {
     @Override
     public GetTableRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetTableRequestPb pb = mapper.readValue(p, GetTableRequestPb.class);
       return GetTableRequest.fromPb(pb);

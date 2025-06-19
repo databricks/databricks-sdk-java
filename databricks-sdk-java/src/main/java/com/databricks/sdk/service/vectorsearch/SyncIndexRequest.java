@@ -78,6 +78,7 @@ public class SyncIndexRequest {
     @Override
     public SyncIndexRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SyncIndexRequestPb pb = mapper.readValue(p, SyncIndexRequestPb.class);
       return SyncIndexRequest.fromPb(pb);

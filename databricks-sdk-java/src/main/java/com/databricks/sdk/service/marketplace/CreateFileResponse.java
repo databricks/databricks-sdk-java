@@ -94,6 +94,7 @@ public class CreateFileResponse {
     @Override
     public CreateFileResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateFileResponsePb pb = mapper.readValue(p, CreateFileResponsePb.class);
       return CreateFileResponse.fromPb(pb);

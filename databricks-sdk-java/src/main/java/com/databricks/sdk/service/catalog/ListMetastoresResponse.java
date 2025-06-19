@@ -102,6 +102,7 @@ public class ListMetastoresResponse {
     @Override
     public ListMetastoresResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListMetastoresResponsePb pb = mapper.readValue(p, ListMetastoresResponsePb.class);
       return ListMetastoresResponse.fromPb(pb);

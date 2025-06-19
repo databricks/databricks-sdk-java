@@ -90,6 +90,7 @@ public class DockerImage {
   public static class DockerImageDeserializer extends JsonDeserializer<DockerImage> {
     @Override
     public DockerImage deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DockerImagePb pb = mapper.readValue(p, DockerImagePb.class);
       return DockerImage.fromPb(pb);

@@ -78,6 +78,7 @@ public class GcsStorageInfo {
     @Override
     public GcsStorageInfo deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GcsStorageInfoPb pb = mapper.readValue(p, GcsStorageInfoPb.class);
       return GcsStorageInfo.fromPb(pb);

@@ -98,6 +98,7 @@ public class GetModelVersionRequest {
     @Override
     public GetModelVersionRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetModelVersionRequestPb pb = mapper.readValue(p, GetModelVersionRequestPb.class);
       return GetModelVersionRequest.fromPb(pb);

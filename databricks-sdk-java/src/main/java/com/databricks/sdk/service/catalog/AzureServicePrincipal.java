@@ -117,6 +117,7 @@ public class AzureServicePrincipal {
     @Override
     public AzureServicePrincipal deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AzureServicePrincipalPb pb = mapper.readValue(p, AzureServicePrincipalPb.class);
       return AzureServicePrincipal.fromPb(pb);

@@ -90,6 +90,7 @@ public class SlackConfig {
   public static class SlackConfigDeserializer extends JsonDeserializer<SlackConfig> {
     @Override
     public SlackConfig deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SlackConfigPb pb = mapper.readValue(p, SlackConfigPb.class);
       return SlackConfig.fromPb(pb);

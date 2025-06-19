@@ -76,6 +76,7 @@ public class DeleteCluster {
   public static class DeleteClusterDeserializer extends JsonDeserializer<DeleteCluster> {
     @Override
     public DeleteCluster deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteClusterPb pb = mapper.readValue(p, DeleteClusterPb.class);
       return DeleteCluster.fromPb(pb);

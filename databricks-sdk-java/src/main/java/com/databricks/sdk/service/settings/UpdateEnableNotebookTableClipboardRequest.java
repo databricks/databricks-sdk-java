@@ -137,6 +137,7 @@ public class UpdateEnableNotebookTableClipboardRequest {
     @Override
     public UpdateEnableNotebookTableClipboardRequest deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateEnableNotebookTableClipboardRequestPb pb =
           mapper.readValue(p, UpdateEnableNotebookTableClipboardRequestPb.class);

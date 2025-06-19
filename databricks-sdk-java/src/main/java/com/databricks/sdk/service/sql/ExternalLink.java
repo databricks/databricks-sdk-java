@@ -235,6 +235,7 @@ public class ExternalLink {
   public static class ExternalLinkDeserializer extends JsonDeserializer<ExternalLink> {
     @Override
     public ExternalLink deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ExternalLinkPb pb = mapper.readValue(p, ExternalLinkPb.class);
       return ExternalLink.fromPb(pb);

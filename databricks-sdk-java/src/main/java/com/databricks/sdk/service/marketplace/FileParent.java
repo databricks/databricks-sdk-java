@@ -94,6 +94,7 @@ public class FileParent {
   public static class FileParentDeserializer extends JsonDeserializer<FileParent> {
     @Override
     public FileParent deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       FileParentPb pb = mapper.readValue(p, FileParentPb.class);
       return FileParent.fromPb(pb);

@@ -389,6 +389,7 @@ public class RunNow {
   public static class RunNowDeserializer extends JsonDeserializer<RunNow> {
     @Override
     public RunNow deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RunNowPb pb = mapper.readValue(p, RunNowPb.class);
       return RunNow.fromPb(pb);

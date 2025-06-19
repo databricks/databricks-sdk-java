@@ -90,6 +90,7 @@ public class TagKeyValue {
   public static class TagKeyValueDeserializer extends JsonDeserializer<TagKeyValue> {
     @Override
     public TagKeyValue deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       TagKeyValuePb pb = mapper.readValue(p, TagKeyValuePb.class);
       return TagKeyValue.fromPb(pb);

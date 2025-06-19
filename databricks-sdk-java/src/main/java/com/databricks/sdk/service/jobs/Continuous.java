@@ -78,6 +78,7 @@ public class Continuous {
   public static class ContinuousDeserializer extends JsonDeserializer<Continuous> {
     @Override
     public Continuous deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ContinuousPb pb = mapper.readValue(p, ContinuousPb.class);
       return Continuous.fromPb(pb);

@@ -110,6 +110,7 @@ public class PayloadTable {
   public static class PayloadTableDeserializer extends JsonDeserializer<PayloadTable> {
     @Override
     public PayloadTable deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PayloadTablePb pb = mapper.readValue(p, PayloadTablePb.class);
       return PayloadTable.fromPb(pb);

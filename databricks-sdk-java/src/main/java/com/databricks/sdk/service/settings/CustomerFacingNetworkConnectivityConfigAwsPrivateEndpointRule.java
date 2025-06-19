@@ -355,6 +355,7 @@ public class CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRule {
     @Override
     public CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRule deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRulePb pb =
           mapper.readValue(

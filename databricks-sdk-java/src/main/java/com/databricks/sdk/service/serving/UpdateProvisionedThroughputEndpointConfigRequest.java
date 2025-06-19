@@ -109,6 +109,7 @@ public class UpdateProvisionedThroughputEndpointConfigRequest {
     @Override
     public UpdateProvisionedThroughputEndpointConfigRequest deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateProvisionedThroughputEndpointConfigRequestPb pb =
           mapper.readValue(p, UpdateProvisionedThroughputEndpointConfigRequestPb.class);

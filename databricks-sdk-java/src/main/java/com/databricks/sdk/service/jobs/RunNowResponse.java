@@ -95,6 +95,7 @@ public class RunNowResponse {
     @Override
     public RunNowResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RunNowResponsePb pb = mapper.readValue(p, RunNowResponsePb.class);
       return RunNowResponse.fromPb(pb);

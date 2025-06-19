@@ -66,6 +66,7 @@ public class DeleteEndpointResponse {
     @Override
     public DeleteEndpointResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteEndpointResponsePb pb = mapper.readValue(p, DeleteEndpointResponsePb.class);
       return DeleteEndpointResponse.fromPb(pb);

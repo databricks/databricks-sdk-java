@@ -634,6 +634,7 @@ public class TableInfo {
   public static class TableInfoDeserializer extends JsonDeserializer<TableInfo> {
     @Override
     public TableInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       TableInfoPb pb = mapper.readValue(p, TableInfoPb.class);
       return TableInfo.fromPb(pb);

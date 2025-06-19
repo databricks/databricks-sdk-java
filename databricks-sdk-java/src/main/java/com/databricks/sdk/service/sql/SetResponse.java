@@ -111,6 +111,7 @@ public class SetResponse {
   public static class SetResponseDeserializer extends JsonDeserializer<SetResponse> {
     @Override
     public SetResponse deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SetResponsePb pb = mapper.readValue(p, SetResponsePb.class);
       return SetResponse.fromPb(pb);

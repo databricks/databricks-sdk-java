@@ -376,6 +376,7 @@ public class SchemaInfo {
   public static class SchemaInfoDeserializer extends JsonDeserializer<SchemaInfo> {
     @Override
     public SchemaInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SchemaInfoPb pb = mapper.readValue(p, SchemaInfoPb.class);
       return SchemaInfo.fromPb(pb);

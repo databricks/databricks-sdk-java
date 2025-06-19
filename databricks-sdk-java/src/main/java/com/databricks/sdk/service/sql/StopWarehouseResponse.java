@@ -66,6 +66,7 @@ public class StopWarehouseResponse {
     @Override
     public StopWarehouseResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       StopWarehouseResponsePb pb = mapper.readValue(p, StopWarehouseResponsePb.class);
       return StopWarehouseResponse.fromPb(pb);

@@ -95,6 +95,7 @@ public class SecretMetadata {
     @Override
     public SecretMetadata deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SecretMetadataPb pb = mapper.readValue(p, SecretMetadataPb.class);
       return SecretMetadata.fromPb(pb);

@@ -269,6 +269,7 @@ public class GetPipelineResponse {
     @Override
     public GetPipelineResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetPipelineResponsePb pb = mapper.readValue(p, GetPipelineResponsePb.class);
       return GetPipelineResponse.fromPb(pb);

@@ -102,6 +102,7 @@ public class NccEgressConfig {
     @Override
     public NccEgressConfig deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       NccEgressConfigPb pb = mapper.readValue(p, NccEgressConfigPb.class);
       return NccEgressConfig.fromPb(pb);

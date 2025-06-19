@@ -132,6 +132,7 @@ public class InstancePoolAwsAttributes {
     @Override
     public InstancePoolAwsAttributes deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       InstancePoolAwsAttributesPb pb = mapper.readValue(p, InstancePoolAwsAttributesPb.class);
       return InstancePoolAwsAttributes.fromPb(pb);

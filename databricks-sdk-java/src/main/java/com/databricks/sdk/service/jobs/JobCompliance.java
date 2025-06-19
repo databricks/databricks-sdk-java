@@ -116,6 +116,7 @@ public class JobCompliance {
   public static class JobComplianceDeserializer extends JsonDeserializer<JobCompliance> {
     @Override
     public JobCompliance deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       JobCompliancePb pb = mapper.readValue(p, JobCompliancePb.class);
       return JobCompliance.fromPb(pb);

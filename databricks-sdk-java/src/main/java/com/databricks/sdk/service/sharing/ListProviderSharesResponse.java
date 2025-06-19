@@ -101,6 +101,7 @@ public class ListProviderSharesResponse {
     @Override
     public ListProviderSharesResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListProviderSharesResponsePb pb = mapper.readValue(p, ListProviderSharesResponsePb.class);
       return ListProviderSharesResponse.fromPb(pb);

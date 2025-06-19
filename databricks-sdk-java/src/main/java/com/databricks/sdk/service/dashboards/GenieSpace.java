@@ -110,6 +110,7 @@ public class GenieSpace {
   public static class GenieSpaceDeserializer extends JsonDeserializer<GenieSpace> {
     @Override
     public GenieSpace deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GenieSpacePb pb = mapper.readValue(p, GenieSpacePb.class);
       return GenieSpace.fromPb(pb);

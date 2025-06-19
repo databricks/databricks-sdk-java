@@ -370,6 +370,7 @@ public class ConnectionInfo {
     @Override
     public ConnectionInfo deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ConnectionInfoPb pb = mapper.readValue(p, ConnectionInfoPb.class);
       return ConnectionInfo.fromPb(pb);

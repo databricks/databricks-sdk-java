@@ -314,6 +314,7 @@ public class SharedDataObject {
     @Override
     public SharedDataObject deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SharedDataObjectPb pb = mapper.readValue(p, SharedDataObjectPb.class);
       return SharedDataObject.fromPb(pb);

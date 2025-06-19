@@ -101,6 +101,7 @@ public class AppResourceServingEndpoint {
     @Override
     public AppResourceServingEndpoint deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AppResourceServingEndpointPb pb = mapper.readValue(p, AppResourceServingEndpointPb.class);
       return AppResourceServingEndpoint.fromPb(pb);

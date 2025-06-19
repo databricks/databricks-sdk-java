@@ -101,6 +101,7 @@ public class SseEncryptionDetails {
     @Override
     public SseEncryptionDetails deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SseEncryptionDetailsPb pb = mapper.readValue(p, SseEncryptionDetailsPb.class);
       return SseEncryptionDetails.fromPb(pb);

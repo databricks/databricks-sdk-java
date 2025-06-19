@@ -155,6 +155,7 @@ public class PipelineProgress {
     @Override
     public PipelineProgress deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PipelineProgressPb pb = mapper.readValue(p, PipelineProgressPb.class);
       return PipelineProgress.fromPb(pb);

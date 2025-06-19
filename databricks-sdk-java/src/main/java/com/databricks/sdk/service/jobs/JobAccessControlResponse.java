@@ -147,6 +147,7 @@ public class JobAccessControlResponse {
     @Override
     public JobAccessControlResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       JobAccessControlResponsePb pb = mapper.readValue(p, JobAccessControlResponsePb.class);
       return JobAccessControlResponse.fromPb(pb);

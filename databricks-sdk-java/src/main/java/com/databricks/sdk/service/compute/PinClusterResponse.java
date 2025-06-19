@@ -63,6 +63,7 @@ public class PinClusterResponse {
     @Override
     public PinClusterResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PinClusterResponsePb pb = mapper.readValue(p, PinClusterResponsePb.class);
       return PinClusterResponse.fromPb(pb);

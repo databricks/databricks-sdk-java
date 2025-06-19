@@ -146,6 +146,7 @@ public class TableUpdateTriggerConfiguration {
     @Override
     public TableUpdateTriggerConfiguration deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       TableUpdateTriggerConfigurationPb pb =
           mapper.readValue(p, TableUpdateTriggerConfigurationPb.class);

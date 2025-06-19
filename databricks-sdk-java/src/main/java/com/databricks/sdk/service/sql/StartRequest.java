@@ -77,6 +77,7 @@ public class StartRequest {
   public static class StartRequestDeserializer extends JsonDeserializer<StartRequest> {
     @Override
     public StartRequest deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       StartRequestPb pb = mapper.readValue(p, StartRequestPb.class);
       return StartRequest.fromPb(pb);

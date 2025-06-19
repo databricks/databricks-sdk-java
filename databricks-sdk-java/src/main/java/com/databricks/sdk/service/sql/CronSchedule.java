@@ -119,6 +119,7 @@ public class CronSchedule {
   public static class CronScheduleDeserializer extends JsonDeserializer<CronSchedule> {
     @Override
     public CronSchedule deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CronSchedulePb pb = mapper.readValue(p, CronSchedulePb.class);
       return CronSchedule.fromPb(pb);

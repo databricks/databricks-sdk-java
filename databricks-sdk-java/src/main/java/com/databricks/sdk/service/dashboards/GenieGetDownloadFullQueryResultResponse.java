@@ -95,6 +95,7 @@ public class GenieGetDownloadFullQueryResultResponse {
     @Override
     public GenieGetDownloadFullQueryResultResponse deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GenieGetDownloadFullQueryResultResponsePb pb =
           mapper.readValue(p, GenieGetDownloadFullQueryResultResponsePb.class);

@@ -98,6 +98,7 @@ public class AnomalyDetectionConfig {
     @Override
     public AnomalyDetectionConfig deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AnomalyDetectionConfigPb pb = mapper.readValue(p, AnomalyDetectionConfigPb.class);
       return AnomalyDetectionConfig.fromPb(pb);

@@ -66,6 +66,7 @@ public class DeleteClusterResponse {
     @Override
     public DeleteClusterResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteClusterResponsePb pb = mapper.readValue(p, DeleteClusterResponsePb.class);
       return DeleteClusterResponse.fromPb(pb);

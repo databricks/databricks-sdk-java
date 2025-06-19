@@ -143,6 +143,7 @@ public class GenieGetMessageAttachmentQueryResultRequest {
     @Override
     public GenieGetMessageAttachmentQueryResultRequest deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GenieGetMessageAttachmentQueryResultRequestPb pb =
           mapper.readValue(p, GenieGetMessageAttachmentQueryResultRequestPb.class);

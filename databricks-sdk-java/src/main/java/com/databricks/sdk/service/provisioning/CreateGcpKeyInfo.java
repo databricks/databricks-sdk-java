@@ -77,6 +77,7 @@ public class CreateGcpKeyInfo {
     @Override
     public CreateGcpKeyInfo deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateGcpKeyInfoPb pb = mapper.readValue(p, CreateGcpKeyInfoPb.class);
       return CreateGcpKeyInfo.fromPb(pb);

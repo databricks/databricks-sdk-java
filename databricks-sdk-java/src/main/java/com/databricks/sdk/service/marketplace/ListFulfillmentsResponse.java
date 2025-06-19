@@ -99,6 +99,7 @@ public class ListFulfillmentsResponse {
     @Override
     public ListFulfillmentsResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListFulfillmentsResponsePb pb = mapper.readValue(p, ListFulfillmentsResponsePb.class);
       return ListFulfillmentsResponse.fromPb(pb);

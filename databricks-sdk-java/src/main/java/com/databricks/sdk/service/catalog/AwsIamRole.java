@@ -114,6 +114,7 @@ public class AwsIamRole {
   public static class AwsIamRoleDeserializer extends JsonDeserializer<AwsIamRole> {
     @Override
     public AwsIamRole deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AwsIamRolePb pb = mapper.readValue(p, AwsIamRolePb.class);
       return AwsIamRole.fromPb(pb);

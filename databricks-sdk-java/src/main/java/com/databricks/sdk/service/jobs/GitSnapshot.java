@@ -84,6 +84,7 @@ public class GitSnapshot {
   public static class GitSnapshotDeserializer extends JsonDeserializer<GitSnapshot> {
     @Override
     public GitSnapshot deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GitSnapshotPb pb = mapper.readValue(p, GitSnapshotPb.class);
       return GitSnapshot.fromPb(pb);

@@ -160,6 +160,7 @@ public class MonitorMetric {
   public static class MonitorMetricDeserializer extends JsonDeserializer<MonitorMetric> {
     @Override
     public MonitorMetric deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       MonitorMetricPb pb = mapper.readValue(p, MonitorMetricPb.class);
       return MonitorMetric.fromPb(pb);

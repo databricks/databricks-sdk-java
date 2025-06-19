@@ -100,6 +100,7 @@ public class AutoScale {
   public static class AutoScaleDeserializer extends JsonDeserializer<AutoScale> {
     @Override
     public AutoScale deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AutoScalePb pb = mapper.readValue(p, AutoScalePb.class);
       return AutoScale.fromPb(pb);

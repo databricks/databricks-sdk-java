@@ -79,6 +79,7 @@ public class HttpRequestResponse {
     @Override
     public HttpRequestResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       HttpRequestResponsePb pb = mapper.readValue(p, HttpRequestResponsePb.class);
       return HttpRequestResponse.fromPb(pb);

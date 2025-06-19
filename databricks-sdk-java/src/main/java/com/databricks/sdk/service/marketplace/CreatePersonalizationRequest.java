@@ -222,6 +222,7 @@ public class CreatePersonalizationRequest {
     @Override
     public CreatePersonalizationRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreatePersonalizationRequestPb pb = mapper.readValue(p, CreatePersonalizationRequestPb.class);
       return CreatePersonalizationRequest.fromPb(pb);

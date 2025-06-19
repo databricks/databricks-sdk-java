@@ -112,6 +112,7 @@ public class TerminationReason {
     @Override
     public TerminationReason deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       TerminationReasonPb pb = mapper.readValue(p, TerminationReasonPb.class);
       return TerminationReason.fromPb(pb);

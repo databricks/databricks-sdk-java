@@ -80,6 +80,7 @@ public class RenameModelResponse {
     @Override
     public RenameModelResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RenameModelResponsePb pb = mapper.readValue(p, RenameModelResponsePb.class);
       return RenameModelResponse.fromPb(pb);

@@ -156,6 +156,7 @@ public class EndpointCoreConfigOutput {
     @Override
     public EndpointCoreConfigOutput deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       EndpointCoreConfigOutputPb pb = mapper.readValue(p, EndpointCoreConfigOutputPb.class);
       return EndpointCoreConfigOutput.fromPb(pb);

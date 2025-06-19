@@ -62,6 +62,7 @@ public class PatchResponse {
   public static class PatchResponseDeserializer extends JsonDeserializer<PatchResponse> {
     @Override
     public PatchResponse deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PatchResponsePb pb = mapper.readValue(p, PatchResponsePb.class);
       return PatchResponse.fromPb(pb);

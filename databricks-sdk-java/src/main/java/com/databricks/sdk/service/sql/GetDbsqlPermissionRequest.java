@@ -98,6 +98,7 @@ public class GetDbsqlPermissionRequest {
     @Override
     public GetDbsqlPermissionRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetDbsqlPermissionRequestPb pb = mapper.readValue(p, GetDbsqlPermissionRequestPb.class);
       return GetDbsqlPermissionRequest.fromPb(pb);

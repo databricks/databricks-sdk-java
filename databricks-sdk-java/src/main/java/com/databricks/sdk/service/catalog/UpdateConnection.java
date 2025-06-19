@@ -128,6 +128,7 @@ public class UpdateConnection {
     @Override
     public UpdateConnection deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateConnectionPb pb = mapper.readValue(p, UpdateConnectionPb.class);
       return UpdateConnection.fromPb(pb);

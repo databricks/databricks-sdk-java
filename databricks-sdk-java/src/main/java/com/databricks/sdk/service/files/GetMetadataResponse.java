@@ -112,6 +112,7 @@ public class GetMetadataResponse {
     @Override
     public GetMetadataResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetMetadataResponsePb pb = mapper.readValue(p, GetMetadataResponsePb.class);
       return GetMetadataResponse.fromPb(pb);

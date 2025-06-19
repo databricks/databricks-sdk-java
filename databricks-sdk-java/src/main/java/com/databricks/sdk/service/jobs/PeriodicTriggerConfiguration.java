@@ -98,6 +98,7 @@ public class PeriodicTriggerConfiguration {
     @Override
     public PeriodicTriggerConfiguration deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PeriodicTriggerConfigurationPb pb = mapper.readValue(p, PeriodicTriggerConfigurationPb.class);
       return PeriodicTriggerConfiguration.fromPb(pb);

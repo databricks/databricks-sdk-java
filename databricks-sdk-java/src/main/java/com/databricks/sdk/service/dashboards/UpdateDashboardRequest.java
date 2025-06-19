@@ -99,6 +99,7 @@ public class UpdateDashboardRequest {
     @Override
     public UpdateDashboardRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateDashboardRequestPb pb = mapper.readValue(p, UpdateDashboardRequestPb.class);
       return UpdateDashboardRequest.fromPb(pb);

@@ -106,6 +106,7 @@ public class CreatePrivateEndpointRuleRequest {
     @Override
     public CreatePrivateEndpointRuleRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreatePrivateEndpointRuleRequestPb pb =
           mapper.readValue(p, CreatePrivateEndpointRuleRequestPb.class);

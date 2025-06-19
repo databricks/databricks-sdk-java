@@ -113,6 +113,7 @@ public class DataframeSplitInput {
     @Override
     public DataframeSplitInput deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DataframeSplitInputPb pb = mapper.readValue(p, DataframeSplitInputPb.class);
       return DataframeSplitInput.fromPb(pb);

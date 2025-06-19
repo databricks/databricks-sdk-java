@@ -80,6 +80,7 @@ public class PermanentDeleteCluster {
     @Override
     public PermanentDeleteCluster deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PermanentDeleteClusterPb pb = mapper.readValue(p, PermanentDeleteClusterPb.class);
       return PermanentDeleteCluster.fromPb(pb);

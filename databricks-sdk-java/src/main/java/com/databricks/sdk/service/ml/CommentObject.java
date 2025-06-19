@@ -161,6 +161,7 @@ public class CommentObject {
   public static class CommentObjectDeserializer extends JsonDeserializer<CommentObject> {
     @Override
     public CommentObject deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CommentObjectPb pb = mapper.readValue(p, CommentObjectPb.class);
       return CommentObject.fromPb(pb);

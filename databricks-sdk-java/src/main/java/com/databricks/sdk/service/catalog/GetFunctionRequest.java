@@ -101,6 +101,7 @@ public class GetFunctionRequest {
     @Override
     public GetFunctionRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetFunctionRequestPb pb = mapper.readValue(p, GetFunctionRequestPb.class);
       return GetFunctionRequest.fromPb(pb);

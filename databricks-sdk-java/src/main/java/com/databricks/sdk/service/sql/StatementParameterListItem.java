@@ -123,6 +123,7 @@ public class StatementParameterListItem {
     @Override
     public StatementParameterListItem deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       StatementParameterListItemPb pb = mapper.readValue(p, StatementParameterListItemPb.class);
       return StatementParameterListItem.fromPb(pb);

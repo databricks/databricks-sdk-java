@@ -68,6 +68,7 @@ public class DeleteSyncedDatabaseTableResponse {
     @Override
     public DeleteSyncedDatabaseTableResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteSyncedDatabaseTableResponsePb pb =
           mapper.readValue(p, DeleteSyncedDatabaseTableResponsePb.class);

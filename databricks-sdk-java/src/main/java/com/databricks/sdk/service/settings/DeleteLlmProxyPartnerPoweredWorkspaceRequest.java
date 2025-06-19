@@ -102,6 +102,7 @@ public class DeleteLlmProxyPartnerPoweredWorkspaceRequest {
     @Override
     public DeleteLlmProxyPartnerPoweredWorkspaceRequest deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteLlmProxyPartnerPoweredWorkspaceRequestPb pb =
           mapper.readValue(p, DeleteLlmProxyPartnerPoweredWorkspaceRequestPb.class);

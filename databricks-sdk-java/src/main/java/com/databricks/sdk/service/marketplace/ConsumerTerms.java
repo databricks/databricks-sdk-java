@@ -76,6 +76,7 @@ public class ConsumerTerms {
   public static class ConsumerTermsDeserializer extends JsonDeserializer<ConsumerTerms> {
     @Override
     public ConsumerTerms deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ConsumerTermsPb pb = mapper.readValue(p, ConsumerTermsPb.class);
       return ConsumerTerms.fromPb(pb);

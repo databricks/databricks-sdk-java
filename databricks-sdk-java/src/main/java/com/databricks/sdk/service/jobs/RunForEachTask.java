@@ -135,6 +135,7 @@ public class RunForEachTask {
     @Override
     public RunForEachTask deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RunForEachTaskPb pb = mapper.readValue(p, RunForEachTaskPb.class);
       return RunForEachTask.fromPb(pb);

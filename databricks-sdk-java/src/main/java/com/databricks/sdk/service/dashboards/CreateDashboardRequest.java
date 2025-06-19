@@ -81,6 +81,7 @@ public class CreateDashboardRequest {
     @Override
     public CreateDashboardRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateDashboardRequestPb pb = mapper.readValue(p, CreateDashboardRequestPb.class);
       return CreateDashboardRequest.fromPb(pb);

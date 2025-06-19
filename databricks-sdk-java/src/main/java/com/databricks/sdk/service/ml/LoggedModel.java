@@ -94,6 +94,7 @@ public class LoggedModel {
   public static class LoggedModelDeserializer extends JsonDeserializer<LoggedModel> {
     @Override
     public LoggedModel deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       LoggedModelPb pb = mapper.readValue(p, LoggedModelPb.class);
       return LoggedModel.fromPb(pb);

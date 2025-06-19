@@ -80,6 +80,7 @@ public class GcpOauthToken {
   public static class GcpOauthTokenDeserializer extends JsonDeserializer<GcpOauthToken> {
     @Override
     public GcpOauthToken deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GcpOauthTokenPb pb = mapper.readValue(p, GcpOauthTokenPb.class);
       return GcpOauthToken.fromPb(pb);

@@ -66,6 +66,7 @@ public class TrashDashboardResponse {
     @Override
     public TrashDashboardResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       TrashDashboardResponsePb pb = mapper.readValue(p, TrashDashboardResponsePb.class);
       return TrashDashboardResponse.fromPb(pb);

@@ -95,6 +95,7 @@ public class ChangeClusterOwner {
     @Override
     public ChangeClusterOwner deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ChangeClusterOwnerPb pb = mapper.readValue(p, ChangeClusterOwnerPb.class);
       return ChangeClusterOwner.fromPb(pb);

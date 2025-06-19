@@ -201,6 +201,7 @@ public class GitSource {
   public static class GitSourceDeserializer extends JsonDeserializer<GitSource> {
     @Override
     public GitSource deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GitSourcePb pb = mapper.readValue(p, GitSourcePb.class);
       return GitSource.fromPb(pb);

@@ -161,6 +161,7 @@ public class CreateWidget {
   public static class CreateWidgetDeserializer extends JsonDeserializer<CreateWidget> {
     @Override
     public CreateWidget deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateWidgetPb pb = mapper.readValue(p, CreateWidgetPb.class);
       return CreateWidget.fromPb(pb);

@@ -66,6 +66,7 @@ public class Empty {
   public static class EmptyDeserializer extends JsonDeserializer<Empty> {
     @Override
     public Empty deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       EmptyPb pb = mapper.readValue(p, EmptyPb.class);
       return Empty.fromPb(pb);

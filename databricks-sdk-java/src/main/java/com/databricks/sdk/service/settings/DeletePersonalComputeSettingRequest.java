@@ -91,6 +91,7 @@ public class DeletePersonalComputeSettingRequest {
     @Override
     public DeletePersonalComputeSettingRequest deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeletePersonalComputeSettingRequestPb pb =
           mapper.readValue(p, DeletePersonalComputeSettingRequestPb.class);

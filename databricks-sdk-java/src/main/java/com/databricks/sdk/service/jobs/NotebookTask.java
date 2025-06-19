@@ -159,6 +159,7 @@ public class NotebookTask {
   public static class NotebookTaskDeserializer extends JsonDeserializer<NotebookTask> {
     @Override
     public NotebookTask deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       NotebookTaskPb pb = mapper.readValue(p, NotebookTaskPb.class);
       return NotebookTask.fromPb(pb);

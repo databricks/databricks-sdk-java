@@ -114,6 +114,7 @@ public class ListProvidersRequest {
     @Override
     public ListProvidersRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListProvidersRequestPb pb = mapper.readValue(p, ListProvidersRequestPb.class);
       return ListProvidersRequest.fromPb(pb);

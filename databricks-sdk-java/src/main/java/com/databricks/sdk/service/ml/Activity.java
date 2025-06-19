@@ -254,6 +254,7 @@ public class Activity {
   public static class ActivityDeserializer extends JsonDeserializer<Activity> {
     @Override
     public Activity deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ActivityPb pb = mapper.readValue(p, ActivityPb.class);
       return Activity.fromPb(pb);

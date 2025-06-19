@@ -76,6 +76,7 @@ public class TextValue {
   public static class TextValueDeserializer extends JsonDeserializer<TextValue> {
     @Override
     public TextValue deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       TextValuePb pb = mapper.readValue(p, TextValuePb.class);
       return TextValue.fromPb(pb);

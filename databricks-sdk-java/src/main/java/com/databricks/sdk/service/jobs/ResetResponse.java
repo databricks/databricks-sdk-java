@@ -62,6 +62,7 @@ public class ResetResponse {
   public static class ResetResponseDeserializer extends JsonDeserializer<ResetResponse> {
     @Override
     public ResetResponse deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ResetResponsePb pb = mapper.readValue(p, ResetResponsePb.class);
       return ResetResponse.fromPb(pb);

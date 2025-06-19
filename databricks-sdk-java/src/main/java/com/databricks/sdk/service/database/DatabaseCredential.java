@@ -77,6 +77,7 @@ public class DatabaseCredential {
     @Override
     public DatabaseCredential deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DatabaseCredentialPb pb = mapper.readValue(p, DatabaseCredentialPb.class);
       return DatabaseCredential.fromPb(pb);

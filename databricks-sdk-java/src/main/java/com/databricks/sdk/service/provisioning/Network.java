@@ -298,6 +298,7 @@ public class Network {
   public static class NetworkDeserializer extends JsonDeserializer<Network> {
     @Override
     public Network deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       NetworkPb pb = mapper.readValue(p, NetworkPb.class);
       return Network.fromPb(pb);

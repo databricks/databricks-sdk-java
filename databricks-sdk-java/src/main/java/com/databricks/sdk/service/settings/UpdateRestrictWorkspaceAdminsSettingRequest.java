@@ -138,6 +138,7 @@ public class UpdateRestrictWorkspaceAdminsSettingRequest {
     @Override
     public UpdateRestrictWorkspaceAdminsSettingRequest deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateRestrictWorkspaceAdminsSettingRequestPb pb =
           mapper.readValue(p, UpdateRestrictWorkspaceAdminsSettingRequestPb.class);

@@ -375,6 +375,7 @@ public class StorageCredentialInfo {
     @Override
     public StorageCredentialInfo deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       StorageCredentialInfoPb pb = mapper.readValue(p, StorageCredentialInfoPb.class);
       return StorageCredentialInfo.fromPb(pb);

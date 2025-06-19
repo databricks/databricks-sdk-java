@@ -85,6 +85,7 @@ public class GetForecastingExperimentRequest {
     @Override
     public GetForecastingExperimentRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetForecastingExperimentRequestPb pb =
           mapper.readValue(p, GetForecastingExperimentRequestPb.class);

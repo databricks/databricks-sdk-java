@@ -111,6 +111,7 @@ public class EventLogSpec {
   public static class EventLogSpecDeserializer extends JsonDeserializer<EventLogSpec> {
     @Override
     public EventLogSpec deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       EventLogSpecPb pb = mapper.readValue(p, EventLogSpecPb.class);
       return EventLogSpec.fromPb(pb);

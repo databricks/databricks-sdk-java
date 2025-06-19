@@ -130,6 +130,7 @@ public class RetrieveTokenResponse {
     @Override
     public RetrieveTokenResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RetrieveTokenResponsePb pb = mapper.readValue(p, RetrieveTokenResponsePb.class);
       return RetrieveTokenResponse.fromPb(pb);

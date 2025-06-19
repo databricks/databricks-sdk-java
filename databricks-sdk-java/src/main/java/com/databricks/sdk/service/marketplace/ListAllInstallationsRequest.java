@@ -98,6 +98,7 @@ public class ListAllInstallationsRequest {
     @Override
     public ListAllInstallationsRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListAllInstallationsRequestPb pb = mapper.readValue(p, ListAllInstallationsRequestPb.class);
       return ListAllInstallationsRequest.fromPb(pb);

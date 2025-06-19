@@ -114,6 +114,7 @@ public class PipelinePermissions {
     @Override
     public PipelinePermissions deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PipelinePermissionsPb pb = mapper.readValue(p, PipelinePermissionsPb.class);
       return PipelinePermissions.fromPb(pb);

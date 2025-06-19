@@ -181,6 +181,7 @@ public class WidgetOptions {
   public static class WidgetOptionsDeserializer extends JsonDeserializer<WidgetOptions> {
     @Override
     public WidgetOptions deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       WidgetOptionsPb pb = mapper.readValue(p, WidgetOptionsPb.class);
       return WidgetOptions.fromPb(pb);

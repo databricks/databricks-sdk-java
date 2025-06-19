@@ -129,6 +129,7 @@ public class TokenDetail {
   public static class TokenDetailDeserializer extends JsonDeserializer<TokenDetail> {
     @Override
     public TokenDetail deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       TokenDetailPb pb = mapper.readValue(p, TokenDetailPb.class);
       return TokenDetail.fromPb(pb);

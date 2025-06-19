@@ -76,6 +76,7 @@ public class StringMessage {
   public static class StringMessageDeserializer extends JsonDeserializer<StringMessage> {
     @Override
     public StringMessage deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       StringMessagePb pb = mapper.readValue(p, StringMessagePb.class);
       return StringMessage.fromPb(pb);

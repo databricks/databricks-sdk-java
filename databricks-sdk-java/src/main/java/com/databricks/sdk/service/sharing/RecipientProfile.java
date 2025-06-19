@@ -111,6 +111,7 @@ public class RecipientProfile {
     @Override
     public RecipientProfile deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RecipientProfilePb pb = mapper.readValue(p, RecipientProfilePb.class);
       return RecipientProfile.fromPb(pb);

@@ -102,6 +102,7 @@ public class EndpointState {
   public static class EndpointStateDeserializer extends JsonDeserializer<EndpointState> {
     @Override
     public EndpointState deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       EndpointStatePb pb = mapper.readValue(p, EndpointStatePb.class);
       return EndpointState.fromPb(pb);

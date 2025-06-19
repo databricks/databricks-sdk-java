@@ -99,6 +99,7 @@ public class ClusterLibraryStatuses {
     @Override
     public ClusterLibraryStatuses deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ClusterLibraryStatusesPb pb = mapper.readValue(p, ClusterLibraryStatusesPb.class);
       return ClusterLibraryStatuses.fromPb(pb);

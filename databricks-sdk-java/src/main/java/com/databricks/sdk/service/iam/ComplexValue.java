@@ -142,6 +142,7 @@ public class ComplexValue {
   public static class ComplexValueDeserializer extends JsonDeserializer<ComplexValue> {
     @Override
     public ComplexValue deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ComplexValuePb pb = mapper.readValue(p, ComplexValuePb.class);
       return ComplexValue.fromPb(pb);

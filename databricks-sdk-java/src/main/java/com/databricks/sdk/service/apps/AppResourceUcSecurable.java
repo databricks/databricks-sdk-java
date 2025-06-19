@@ -116,6 +116,7 @@ public class AppResourceUcSecurable {
     @Override
     public AppResourceUcSecurable deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AppResourceUcSecurablePb pb = mapper.readValue(p, AppResourceUcSecurablePb.class);
       return AppResourceUcSecurable.fromPb(pb);

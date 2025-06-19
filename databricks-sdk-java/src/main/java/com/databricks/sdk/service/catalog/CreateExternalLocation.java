@@ -240,6 +240,7 @@ public class CreateExternalLocation {
     @Override
     public CreateExternalLocation deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateExternalLocationPb pb = mapper.readValue(p, CreateExternalLocationPb.class);
       return CreateExternalLocation.fromPb(pb);

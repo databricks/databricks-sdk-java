@@ -88,6 +88,7 @@ public class GetDisableLegacyDbfsRequest {
     @Override
     public GetDisableLegacyDbfsRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetDisableLegacyDbfsRequestPb pb = mapper.readValue(p, GetDisableLegacyDbfsRequestPb.class);
       return GetDisableLegacyDbfsRequest.fromPb(pb);

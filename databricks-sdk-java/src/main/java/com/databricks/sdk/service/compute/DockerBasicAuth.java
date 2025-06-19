@@ -94,6 +94,7 @@ public class DockerBasicAuth {
     @Override
     public DockerBasicAuth deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DockerBasicAuthPb pb = mapper.readValue(p, DockerBasicAuthPb.class);
       return DockerBasicAuth.fromPb(pb);

@@ -66,6 +66,7 @@ public class DeleteInstancePoolResponse {
     @Override
     public DeleteInstancePoolResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteInstancePoolResponsePb pb = mapper.readValue(p, DeleteInstancePoolResponsePb.class);
       return DeleteInstancePoolResponse.fromPb(pb);

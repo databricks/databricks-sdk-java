@@ -77,6 +77,7 @@ public class ExistsRequest {
   public static class ExistsRequestDeserializer extends JsonDeserializer<ExistsRequest> {
     @Override
     public ExistsRequest deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ExistsRequestPb pb = mapper.readValue(p, ExistsRequestPb.class);
       return ExistsRequest.fromPb(pb);

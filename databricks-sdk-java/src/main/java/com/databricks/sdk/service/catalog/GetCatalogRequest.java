@@ -98,6 +98,7 @@ public class GetCatalogRequest {
     @Override
     public GetCatalogRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetCatalogRequestPb pb = mapper.readValue(p, GetCatalogRequestPb.class);
       return GetCatalogRequest.fromPb(pb);

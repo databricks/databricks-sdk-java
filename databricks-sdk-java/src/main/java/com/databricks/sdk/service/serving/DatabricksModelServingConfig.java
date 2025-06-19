@@ -131,6 +131,7 @@ public class DatabricksModelServingConfig {
     @Override
     public DatabricksModelServingConfig deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DatabricksModelServingConfigPb pb = mapper.readValue(p, DatabricksModelServingConfigPb.class);
       return DatabricksModelServingConfig.fromPb(pb);

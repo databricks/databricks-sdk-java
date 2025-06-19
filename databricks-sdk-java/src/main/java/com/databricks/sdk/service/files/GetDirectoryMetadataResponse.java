@@ -67,6 +67,7 @@ public class GetDirectoryMetadataResponse {
     @Override
     public GetDirectoryMetadataResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetDirectoryMetadataResponsePb pb = mapper.readValue(p, GetDirectoryMetadataResponsePb.class);
       return GetDirectoryMetadataResponse.fromPb(pb);

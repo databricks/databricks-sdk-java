@@ -144,6 +144,7 @@ public class Environment {
   public static class EnvironmentDeserializer extends JsonDeserializer<Environment> {
     @Override
     public Environment deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       EnvironmentPb pb = mapper.readValue(p, EnvironmentPb.class);
       return Environment.fromPb(pb);

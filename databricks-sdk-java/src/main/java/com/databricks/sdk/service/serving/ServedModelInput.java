@@ -318,6 +318,7 @@ public class ServedModelInput {
     @Override
     public ServedModelInput deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ServedModelInputPb pb = mapper.readValue(p, ServedModelInputPb.class);
       return ServedModelInput.fromPb(pb);

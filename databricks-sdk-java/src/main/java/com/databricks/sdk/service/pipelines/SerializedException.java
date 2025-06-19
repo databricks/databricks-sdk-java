@@ -113,6 +113,7 @@ public class SerializedException {
     @Override
     public SerializedException deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SerializedExceptionPb pb = mapper.readValue(p, SerializedExceptionPb.class);
       return SerializedException.fromPb(pb);

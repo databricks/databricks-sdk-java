@@ -180,6 +180,7 @@ public class SyncedTableStatus {
     @Override
     public SyncedTableStatus deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SyncedTableStatusPb pb = mapper.readValue(p, SyncedTableStatusPb.class);
       return SyncedTableStatus.fromPb(pb);

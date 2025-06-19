@@ -130,6 +130,7 @@ public class AwsKeyInfo {
   public static class AwsKeyInfoDeserializer extends JsonDeserializer<AwsKeyInfo> {
     @Override
     public AwsKeyInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AwsKeyInfoPb pb = mapper.readValue(p, AwsKeyInfoPb.class);
       return AwsKeyInfo.fromPb(pb);

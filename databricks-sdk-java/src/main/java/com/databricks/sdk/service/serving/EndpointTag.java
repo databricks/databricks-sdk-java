@@ -90,6 +90,7 @@ public class EndpointTag {
   public static class EndpointTagDeserializer extends JsonDeserializer<EndpointTag> {
     @Override
     public EndpointTag deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       EndpointTagPb pb = mapper.readValue(p, EndpointTagPb.class);
       return EndpointTag.fromPb(pb);

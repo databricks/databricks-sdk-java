@@ -468,6 +468,7 @@ public class CatalogInfo {
   public static class CatalogInfoDeserializer extends JsonDeserializer<CatalogInfo> {
     @Override
     public CatalogInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CatalogInfoPb pb = mapper.readValue(p, CatalogInfoPb.class);
       return CatalogInfo.fromPb(pb);

@@ -130,6 +130,7 @@ public class UpdateInstallationRequest {
     @Override
     public UpdateInstallationRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateInstallationRequestPb pb = mapper.readValue(p, UpdateInstallationRequestPb.class);
       return UpdateInstallationRequest.fromPb(pb);

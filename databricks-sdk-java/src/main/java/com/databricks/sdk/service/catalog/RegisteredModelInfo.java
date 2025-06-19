@@ -306,6 +306,7 @@ public class RegisteredModelInfo {
     @Override
     public RegisteredModelInfo deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RegisteredModelInfoPb pb = mapper.readValue(p, RegisteredModelInfoPb.class);
       return RegisteredModelInfo.fromPb(pb);

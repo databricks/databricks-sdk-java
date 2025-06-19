@@ -160,6 +160,7 @@ public class SecretInfo {
   public static class SecretInfoDeserializer extends JsonDeserializer<SecretInfo> {
     @Override
     public SecretInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SecretInfoPb pb = mapper.readValue(p, SecretInfoPb.class);
       return SecretInfo.fromPb(pb);

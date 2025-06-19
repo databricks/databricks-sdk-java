@@ -103,6 +103,7 @@ public class GetWorkspaceBindingsResponse {
     @Override
     public GetWorkspaceBindingsResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetWorkspaceBindingsResponsePb pb = mapper.readValue(p, GetWorkspaceBindingsResponsePb.class);
       return GetWorkspaceBindingsResponse.fromPb(pb);

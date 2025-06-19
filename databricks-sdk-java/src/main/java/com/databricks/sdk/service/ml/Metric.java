@@ -200,6 +200,7 @@ public class Metric {
   public static class MetricDeserializer extends JsonDeserializer<Metric> {
     @Override
     public Metric deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       MetricPb pb = mapper.readValue(p, MetricPb.class);
       return Metric.fromPb(pb);

@@ -118,6 +118,7 @@ public class WorkspaceObjectPermissionsRequest {
     @Override
     public WorkspaceObjectPermissionsRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       WorkspaceObjectPermissionsRequestPb pb =
           mapper.readValue(p, WorkspaceObjectPermissionsRequestPb.class);

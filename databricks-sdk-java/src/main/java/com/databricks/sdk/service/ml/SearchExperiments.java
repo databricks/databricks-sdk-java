@@ -151,6 +151,7 @@ public class SearchExperiments {
     @Override
     public SearchExperiments deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SearchExperimentsPb pb = mapper.readValue(p, SearchExperimentsPb.class);
       return SearchExperiments.fromPb(pb);

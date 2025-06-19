@@ -83,6 +83,7 @@ public class DeletePrivateAccesRequest {
     @Override
     public DeletePrivateAccesRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeletePrivateAccesRequestPb pb = mapper.readValue(p, DeletePrivateAccesRequestPb.class);
       return DeletePrivateAccesRequest.fromPb(pb);

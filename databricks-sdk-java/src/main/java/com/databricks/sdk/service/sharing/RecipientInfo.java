@@ -412,6 +412,7 @@ public class RecipientInfo {
   public static class RecipientInfoDeserializer extends JsonDeserializer<RecipientInfo> {
     @Override
     public RecipientInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RecipientInfoPb pb = mapper.readValue(p, RecipientInfoPb.class);
       return RecipientInfo.fromPb(pb);

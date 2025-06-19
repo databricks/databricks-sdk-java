@@ -105,6 +105,7 @@ public class ClusterSize {
   public static class ClusterSizeDeserializer extends JsonDeserializer<ClusterSize> {
     @Override
     public ClusterSize deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ClusterSizePb pb = mapper.readValue(p, ClusterSizePb.class);
       return ClusterSize.fromPb(pb);

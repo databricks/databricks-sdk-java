@@ -82,6 +82,7 @@ public class MonitorDataClassificationConfig {
     @Override
     public MonitorDataClassificationConfig deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       MonitorDataClassificationConfigPb pb =
           mapper.readValue(p, MonitorDataClassificationConfigPb.class);

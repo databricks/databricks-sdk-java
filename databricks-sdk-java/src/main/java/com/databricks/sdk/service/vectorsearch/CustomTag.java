@@ -90,6 +90,7 @@ public class CustomTag {
   public static class CustomTagDeserializer extends JsonDeserializer<CustomTag> {
     @Override
     public CustomTag deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CustomTagPb pb = mapper.readValue(p, CustomTagPb.class);
       return CustomTag.fromPb(pb);

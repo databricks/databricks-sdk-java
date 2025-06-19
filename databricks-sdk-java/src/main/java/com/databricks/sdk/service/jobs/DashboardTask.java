@@ -114,6 +114,7 @@ public class DashboardTask {
   public static class DashboardTaskDeserializer extends JsonDeserializer<DashboardTask> {
     @Override
     public DashboardTask deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DashboardTaskPb pb = mapper.readValue(p, DashboardTaskPb.class);
       return DashboardTask.fromPb(pb);

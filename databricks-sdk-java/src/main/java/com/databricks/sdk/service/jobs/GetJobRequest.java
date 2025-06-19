@@ -97,6 +97,7 @@ public class GetJobRequest {
   public static class GetJobRequestDeserializer extends JsonDeserializer<GetJobRequest> {
     @Override
     public GetJobRequest deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetJobRequestPb pb = mapper.readValue(p, GetJobRequestPb.class);
       return GetJobRequest.fromPb(pb);

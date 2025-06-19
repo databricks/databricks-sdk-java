@@ -66,6 +66,7 @@ public class DeleteWebhookResponse {
     @Override
     public DeleteWebhookResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteWebhookResponsePb pb = mapper.readValue(p, DeleteWebhookResponsePb.class);
       return DeleteWebhookResponse.fromPb(pb);

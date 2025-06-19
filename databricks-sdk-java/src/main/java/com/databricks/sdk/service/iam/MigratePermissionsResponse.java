@@ -82,6 +82,7 @@ public class MigratePermissionsResponse {
     @Override
     public MigratePermissionsResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       MigratePermissionsResponsePb pb = mapper.readValue(p, MigratePermissionsResponsePb.class);
       return MigratePermissionsResponse.fromPb(pb);

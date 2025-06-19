@@ -96,6 +96,7 @@ public class UpsertDataResult {
     @Override
     public UpsertDataResult deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpsertDataResultPb pb = mapper.readValue(p, UpsertDataResultPb.class);
       return UpsertDataResult.fromPb(pb);

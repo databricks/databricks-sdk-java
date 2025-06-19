@@ -204,6 +204,7 @@ public class AppDeployment {
   public static class AppDeploymentDeserializer extends JsonDeserializer<AppDeployment> {
     @Override
     public AppDeployment deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AppDeploymentPb pb = mapper.readValue(p, AppDeploymentPb.class);
       return AppDeployment.fromPb(pb);

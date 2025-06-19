@@ -66,6 +66,7 @@ public class LimitConfig {
   public static class LimitConfigDeserializer extends JsonDeserializer<LimitConfig> {
     @Override
     public LimitConfig deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       LimitConfigPb pb = mapper.readValue(p, LimitConfigPb.class);
       return LimitConfig.fromPb(pb);

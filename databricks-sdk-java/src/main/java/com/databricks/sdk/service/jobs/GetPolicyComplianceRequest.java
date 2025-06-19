@@ -81,6 +81,7 @@ public class GetPolicyComplianceRequest {
     @Override
     public GetPolicyComplianceRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetPolicyComplianceRequestPb pb = mapper.readValue(p, GetPolicyComplianceRequestPb.class);
       return GetPolicyComplianceRequest.fromPb(pb);

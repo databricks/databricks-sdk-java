@@ -90,6 +90,7 @@ public class ShareInfo {
   public static class ShareInfoDeserializer extends JsonDeserializer<ShareInfo> {
     @Override
     public ShareInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ShareInfoPb pb = mapper.readValue(p, ShareInfoPb.class);
       return ShareInfo.fromPb(pb);

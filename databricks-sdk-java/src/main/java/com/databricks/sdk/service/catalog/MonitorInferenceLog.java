@@ -205,6 +205,7 @@ public class MonitorInferenceLog {
     @Override
     public MonitorInferenceLog deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       MonitorInferenceLogPb pb = mapper.readValue(p, MonitorInferenceLogPb.class);
       return MonitorInferenceLog.fromPb(pb);

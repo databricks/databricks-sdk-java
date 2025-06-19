@@ -34,9 +34,6 @@ class QueryVectorIndexRequestPb {
   @JsonProperty("query_vector")
   private Collection<Double> queryVector;
 
-  @JsonProperty("reranker")
-  private RerankerConfig reranker;
-
   @JsonProperty("score_threshold")
   private Double scoreThreshold;
 
@@ -112,15 +109,6 @@ class QueryVectorIndexRequestPb {
     return queryVector;
   }
 
-  public QueryVectorIndexRequestPb setReranker(RerankerConfig reranker) {
-    this.reranker = reranker;
-    return this;
-  }
-
-  public RerankerConfig getReranker() {
-    return reranker;
-  }
-
   public QueryVectorIndexRequestPb setScoreThreshold(Double scoreThreshold) {
     this.scoreThreshold = scoreThreshold;
     return this;
@@ -143,7 +131,6 @@ class QueryVectorIndexRequestPb {
         && Objects.equals(queryText, that.queryText)
         && Objects.equals(queryType, that.queryType)
         && Objects.equals(queryVector, that.queryVector)
-        && Objects.equals(reranker, that.reranker)
         && Objects.equals(scoreThreshold, that.scoreThreshold);
   }
 
@@ -158,7 +145,6 @@ class QueryVectorIndexRequestPb {
         queryText,
         queryType,
         queryVector,
-        reranker,
         scoreThreshold);
   }
 
@@ -173,7 +159,6 @@ class QueryVectorIndexRequestPb {
         .add("queryText", queryText)
         .add("queryType", queryType)
         .add("queryVector", queryVector)
-        .add("reranker", reranker)
         .add("scoreThreshold", scoreThreshold)
         .toString();
   }

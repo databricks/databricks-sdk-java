@@ -286,6 +286,7 @@ public class Policy {
   public static class PolicyDeserializer extends JsonDeserializer<Policy> {
     @Override
     public Policy deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PolicyPb pb = mapper.readValue(p, PolicyPb.class);
       return Policy.fromPb(pb);

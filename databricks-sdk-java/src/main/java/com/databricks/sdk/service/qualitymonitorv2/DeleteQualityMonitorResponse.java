@@ -67,6 +67,7 @@ public class DeleteQualityMonitorResponse {
     @Override
     public DeleteQualityMonitorResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteQualityMonitorResponsePb pb = mapper.readValue(p, DeleteQualityMonitorResponsePb.class);
       return DeleteQualityMonitorResponse.fromPb(pb);

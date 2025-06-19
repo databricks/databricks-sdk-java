@@ -159,6 +159,7 @@ public class QuotaInfo {
   public static class QuotaInfoDeserializer extends JsonDeserializer<QuotaInfo> {
     @Override
     public QuotaInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       QuotaInfoPb pb = mapper.readValue(p, QuotaInfoPb.class);
       return QuotaInfo.fromPb(pb);

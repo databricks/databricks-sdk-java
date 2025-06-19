@@ -113,6 +113,7 @@ public class JobPermissions {
     @Override
     public JobPermissions deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       JobPermissionsPb pb = mapper.readValue(p, JobPermissionsPb.class);
       return JobPermissions.fromPb(pb);

@@ -130,6 +130,7 @@ public class DataPlaneEventDetails {
     @Override
     public DataPlaneEventDetails deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DataPlaneEventDetailsPb pb = mapper.readValue(p, DataPlaneEventDetailsPb.class);
       return DataPlaneEventDetails.fromPb(pb);

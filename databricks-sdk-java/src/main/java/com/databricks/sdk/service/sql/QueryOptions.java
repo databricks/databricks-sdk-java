@@ -130,6 +130,7 @@ public class QueryOptions {
   public static class QueryOptionsDeserializer extends JsonDeserializer<QueryOptions> {
     @Override
     public QueryOptions deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       QueryOptionsPb pb = mapper.readValue(p, QueryOptionsPb.class);
       return QueryOptions.fromPb(pb);

@@ -161,6 +161,7 @@ public class MonitorRefreshInfo {
     @Override
     public MonitorRefreshInfo deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       MonitorRefreshInfoPb pb = mapper.readValue(p, MonitorRefreshInfoPb.class);
       return MonitorRefreshInfo.fromPb(pb);

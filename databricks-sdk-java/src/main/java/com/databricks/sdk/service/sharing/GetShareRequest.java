@@ -96,6 +96,7 @@ public class GetShareRequest {
     @Override
     public GetShareRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetShareRequestPb pb = mapper.readValue(p, GetShareRequestPb.class);
       return GetShareRequest.fromPb(pb);

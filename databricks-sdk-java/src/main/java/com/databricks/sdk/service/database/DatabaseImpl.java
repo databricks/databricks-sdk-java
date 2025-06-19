@@ -45,22 +45,6 @@ class DatabaseImpl implements DatabaseService {
   }
 
   @Override
-  public DatabaseInstanceRole createDatabaseInstanceRole(
-      CreateDatabaseInstanceRoleRequest request) {
-    String path = String.format("/api/2.0/database/instances/%s/roles", request.getInstanceName());
-    try {
-      Request req =
-          new Request("POST", path, apiClient.serialize(request.getDatabaseInstanceRole()));
-      ApiClient.setQuery(req, request.toPb());
-      req.withHeader("Accept", "application/json");
-      req.withHeader("Content-Type", "application/json");
-      return apiClient.execute(req, DatabaseInstanceRole.class);
-    } catch (IOException e) {
-      throw new DatabricksException("IO error: " + e.getMessage(), e);
-    }
-  }
-
-  @Override
   public DatabaseTable createDatabaseTable(CreateDatabaseTableRequest request) {
     String path = "/api/2.0/database/tables";
     try {
@@ -141,20 +125,6 @@ class DatabaseImpl implements DatabaseService {
   }
 
   @Override
-  public DatabaseInstance failoverDatabaseInstance(FailoverDatabaseInstanceRequest request) {
-    String path = String.format("/api/2.0/database/instances/%s/failover", request.getName());
-    try {
-      Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request.toPb());
-      req.withHeader("Accept", "application/json");
-      req.withHeader("Content-Type", "application/json");
-      return apiClient.execute(req, DatabaseInstance.class);
-    } catch (IOException e) {
-      throw new DatabricksException("IO error: " + e.getMessage(), e);
-    }
-  }
-
-  @Override
   public DatabaseInstance findDatabaseInstanceByUid(FindDatabaseInstanceByUidRequest request) {
     String path = "/api/2.0/database/instances:findByUid";
     try {
@@ -208,22 +178,6 @@ class DatabaseImpl implements DatabaseService {
   }
 
   @Override
-  public DatabaseInstanceRole getDatabaseInstanceRole(GetDatabaseInstanceRoleRequest request) {
-    String path =
-        String.format(
-            "/api/2.0/database/instances/%s/roles/%s",
-            request.getInstanceName(), request.getName());
-    try {
-      Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request.toPb());
-      req.withHeader("Accept", "application/json");
-      return apiClient.execute(req, DatabaseInstanceRole.class);
-    } catch (IOException e) {
-      throw new DatabricksException("IO error: " + e.getMessage(), e);
-    }
-  }
-
-  @Override
   public DatabaseTable getDatabaseTable(GetDatabaseTableRequest request) {
     String path = String.format("/api/2.0/database/tables/%s", request.getName());
     try {
@@ -244,20 +198,6 @@ class DatabaseImpl implements DatabaseService {
       ApiClient.setQuery(req, request.toPb());
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, SyncedDatabaseTable.class);
-    } catch (IOException e) {
-      throw new DatabricksException("IO error: " + e.getMessage(), e);
-    }
-  }
-
-  @Override
-  public ListDatabaseInstanceRolesResponse listDatabaseInstanceRoles(
-      ListDatabaseInstanceRolesRequest request) {
-    String path = String.format("/api/2.0/database/instances/%s/roles", request.getInstanceName());
-    try {
-      Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request.toPb());
-      req.withHeader("Accept", "application/json");
-      return apiClient.execute(req, ListDatabaseInstanceRolesResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

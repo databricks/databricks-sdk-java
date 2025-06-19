@@ -144,6 +144,7 @@ public class ExchangeToken {
   public static class ExchangeTokenDeserializer extends JsonDeserializer<ExchangeToken> {
     @Override
     public ExchangeToken deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ExchangeTokenPb pb = mapper.readValue(p, ExchangeTokenPb.class);
       return ExchangeToken.fromPb(pb);

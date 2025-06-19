@@ -127,6 +127,7 @@ public class CreateFileRequest {
     @Override
     public CreateFileRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateFileRequestPb pb = mapper.readValue(p, CreateFileRequestPb.class);
       return CreateFileRequest.fromPb(pb);

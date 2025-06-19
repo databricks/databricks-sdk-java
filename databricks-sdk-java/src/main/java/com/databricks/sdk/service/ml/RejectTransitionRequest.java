@@ -140,6 +140,7 @@ public class RejectTransitionRequest {
     @Override
     public RejectTransitionRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RejectTransitionRequestPb pb = mapper.readValue(p, RejectTransitionRequestPb.class);
       return RejectTransitionRequest.fromPb(pb);

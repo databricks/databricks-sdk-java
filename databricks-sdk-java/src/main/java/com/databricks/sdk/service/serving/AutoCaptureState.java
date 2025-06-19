@@ -77,6 +77,7 @@ public class AutoCaptureState {
     @Override
     public AutoCaptureState deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AutoCaptureStatePb pb = mapper.readValue(p, AutoCaptureStatePb.class);
       return AutoCaptureState.fromPb(pb);

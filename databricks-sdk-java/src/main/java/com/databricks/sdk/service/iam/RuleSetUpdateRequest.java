@@ -122,6 +122,7 @@ public class RuleSetUpdateRequest {
     @Override
     public RuleSetUpdateRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RuleSetUpdateRequestPb pb = mapper.readValue(p, RuleSetUpdateRequestPb.class);
       return RuleSetUpdateRequest.fromPb(pb);

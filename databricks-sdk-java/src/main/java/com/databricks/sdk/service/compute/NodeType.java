@@ -422,6 +422,7 @@ public class NodeType {
   public static class NodeTypeDeserializer extends JsonDeserializer<NodeType> {
     @Override
     public NodeType deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       NodeTypePb pb = mapper.readValue(p, NodeTypePb.class);
       return NodeType.fromPb(pb);

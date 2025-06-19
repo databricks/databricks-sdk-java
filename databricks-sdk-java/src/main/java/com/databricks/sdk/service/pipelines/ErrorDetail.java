@@ -94,6 +94,7 @@ public class ErrorDetail {
   public static class ErrorDetailDeserializer extends JsonDeserializer<ErrorDetail> {
     @Override
     public ErrorDetail deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ErrorDetailPb pb = mapper.readValue(p, ErrorDetailPb.class);
       return ErrorDetail.fromPb(pb);

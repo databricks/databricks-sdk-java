@@ -117,6 +117,7 @@ public class GenieGetConversationMessageRequest {
     @Override
     public GenieGetConversationMessageRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GenieGetConversationMessageRequestPb pb =
           mapper.readValue(p, GenieGetConversationMessageRequestPb.class);

@@ -81,6 +81,7 @@ public class AiGatewayGuardrailPiiBehavior {
     @Override
     public AiGatewayGuardrailPiiBehavior deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AiGatewayGuardrailPiiBehaviorPb pb =
           mapper.readValue(p, AiGatewayGuardrailPiiBehaviorPb.class);

@@ -263,6 +263,7 @@ public class RunParameters {
   public static class RunParametersDeserializer extends JsonDeserializer<RunParameters> {
     @Override
     public RunParameters deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RunParametersPb pb = mapper.readValue(p, RunParametersPb.class);
       return RunParameters.fromPb(pb);

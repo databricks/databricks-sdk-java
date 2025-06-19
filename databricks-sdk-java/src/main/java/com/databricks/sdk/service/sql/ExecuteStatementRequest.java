@@ -362,6 +362,7 @@ public class ExecuteStatementRequest {
     @Override
     public ExecuteStatementRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ExecuteStatementRequestPb pb = mapper.readValue(p, ExecuteStatementRequestPb.class);
       return ExecuteStatementRequest.fromPb(pb);

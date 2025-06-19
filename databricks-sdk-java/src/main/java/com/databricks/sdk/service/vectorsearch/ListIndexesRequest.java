@@ -96,6 +96,7 @@ public class ListIndexesRequest {
     @Override
     public ListIndexesRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListIndexesRequestPb pb = mapper.readValue(p, ListIndexesRequestPb.class);
       return ListIndexesRequest.fromPb(pb);

@@ -82,6 +82,7 @@ public class CleanRoomAssetForeignTable {
     @Override
     public CleanRoomAssetForeignTable deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CleanRoomAssetForeignTablePb pb = mapper.readValue(p, CleanRoomAssetForeignTablePb.class);
       return CleanRoomAssetForeignTable.fromPb(pb);

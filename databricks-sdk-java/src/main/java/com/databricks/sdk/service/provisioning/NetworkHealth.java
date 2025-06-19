@@ -97,6 +97,7 @@ public class NetworkHealth {
   public static class NetworkHealthDeserializer extends JsonDeserializer<NetworkHealth> {
     @Override
     public NetworkHealth deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       NetworkHealthPb pb = mapper.readValue(p, NetworkHealthPb.class);
       return NetworkHealth.fromPb(pb);

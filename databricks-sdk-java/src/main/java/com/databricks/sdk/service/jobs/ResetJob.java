@@ -98,6 +98,7 @@ public class ResetJob {
   public static class ResetJobDeserializer extends JsonDeserializer<ResetJob> {
     @Override
     public ResetJob deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ResetJobPb pb = mapper.readValue(p, ResetJobPb.class);
       return ResetJob.fromPb(pb);

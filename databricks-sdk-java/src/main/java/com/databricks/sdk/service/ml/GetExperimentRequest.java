@@ -80,6 +80,7 @@ public class GetExperimentRequest {
     @Override
     public GetExperimentRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetExperimentRequestPb pb = mapper.readValue(p, GetExperimentRequestPb.class);
       return GetExperimentRequest.fromPb(pb);

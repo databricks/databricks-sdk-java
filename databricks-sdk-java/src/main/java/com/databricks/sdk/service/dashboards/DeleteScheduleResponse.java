@@ -66,6 +66,7 @@ public class DeleteScheduleResponse {
     @Override
     public DeleteScheduleResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteScheduleResponsePb pb = mapper.readValue(p, DeleteScheduleResponsePb.class);
       return DeleteScheduleResponse.fromPb(pb);

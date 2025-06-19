@@ -123,6 +123,7 @@ public class ListLoggedModelArtifactsRequest {
     @Override
     public ListLoggedModelArtifactsRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListLoggedModelArtifactsRequestPb pb =
           mapper.readValue(p, ListLoggedModelArtifactsRequestPb.class);

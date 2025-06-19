@@ -67,6 +67,7 @@ public class DeleteExchangeFilterResponse {
     @Override
     public DeleteExchangeFilterResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteExchangeFilterResponsePb pb = mapper.readValue(p, DeleteExchangeFilterResponsePb.class);
       return DeleteExchangeFilterResponse.fromPb(pb);

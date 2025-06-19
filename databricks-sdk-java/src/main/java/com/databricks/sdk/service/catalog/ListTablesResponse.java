@@ -98,6 +98,7 @@ public class ListTablesResponse {
     @Override
     public ListTablesResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListTablesResponsePb pb = mapper.readValue(p, ListTablesResponsePb.class);
       return ListTablesResponse.fromPb(pb);

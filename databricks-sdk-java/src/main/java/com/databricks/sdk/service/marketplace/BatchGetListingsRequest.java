@@ -82,6 +82,7 @@ public class BatchGetListingsRequest {
     @Override
     public BatchGetListingsRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       BatchGetListingsRequestPb pb = mapper.readValue(p, BatchGetListingsRequestPb.class);
       return BatchGetListingsRequest.fromPb(pb);

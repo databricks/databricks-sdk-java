@@ -146,6 +146,7 @@ public class StorageConfiguration {
     @Override
     public StorageConfiguration deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       StorageConfigurationPb pb = mapper.readValue(p, StorageConfigurationPb.class);
       return StorageConfiguration.fromPb(pb);

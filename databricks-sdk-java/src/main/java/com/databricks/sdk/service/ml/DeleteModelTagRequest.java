@@ -98,6 +98,7 @@ public class DeleteModelTagRequest {
     @Override
     public DeleteModelTagRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteModelTagRequestPb pb = mapper.readValue(p, DeleteModelTagRequestPb.class);
       return DeleteModelTagRequest.fromPb(pb);

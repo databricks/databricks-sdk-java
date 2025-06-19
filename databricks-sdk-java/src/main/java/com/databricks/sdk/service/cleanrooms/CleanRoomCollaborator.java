@@ -195,6 +195,7 @@ public class CleanRoomCollaborator {
     @Override
     public CleanRoomCollaborator deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CleanRoomCollaboratorPb pb = mapper.readValue(p, CleanRoomCollaboratorPb.class);
       return CleanRoomCollaborator.fromPb(pb);

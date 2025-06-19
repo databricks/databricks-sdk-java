@@ -101,6 +101,7 @@ public class InstancePoolPermissionsDescription {
     @Override
     public InstancePoolPermissionsDescription deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       InstancePoolPermissionsDescriptionPb pb =
           mapper.readValue(p, InstancePoolPermissionsDescriptionPb.class);

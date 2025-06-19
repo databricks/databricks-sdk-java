@@ -116,6 +116,7 @@ public class DeleteRuns {
   public static class DeleteRunsDeserializer extends JsonDeserializer<DeleteRuns> {
     @Override
     public DeleteRuns deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteRunsPb pb = mapper.readValue(p, DeleteRunsPb.class);
       return DeleteRuns.fromPb(pb);

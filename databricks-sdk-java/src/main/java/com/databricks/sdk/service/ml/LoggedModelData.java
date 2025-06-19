@@ -96,6 +96,7 @@ public class LoggedModelData {
     @Override
     public LoggedModelData deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       LoggedModelDataPb pb = mapper.readValue(p, LoggedModelDataPb.class);
       return LoggedModelData.fromPb(pb);

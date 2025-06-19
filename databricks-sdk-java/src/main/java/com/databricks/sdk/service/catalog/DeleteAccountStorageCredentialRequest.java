@@ -121,6 +121,7 @@ public class DeleteAccountStorageCredentialRequest {
     @Override
     public DeleteAccountStorageCredentialRequest deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteAccountStorageCredentialRequestPb pb =
           mapper.readValue(p, DeleteAccountStorageCredentialRequestPb.class);

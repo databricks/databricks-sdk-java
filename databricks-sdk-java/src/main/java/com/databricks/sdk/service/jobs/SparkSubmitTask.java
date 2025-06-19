@@ -84,6 +84,7 @@ public class SparkSubmitTask {
     @Override
     public SparkSubmitTask deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SparkSubmitTaskPb pb = mapper.readValue(p, SparkSubmitTaskPb.class);
       return SparkSubmitTask.fromPb(pb);

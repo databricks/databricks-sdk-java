@@ -98,6 +98,7 @@ public class ListAvailableZonesResponse {
     @Override
     public ListAvailableZonesResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListAvailableZonesResponsePb pb = mapper.readValue(p, ListAvailableZonesResponsePb.class);
       return ListAvailableZonesResponse.fromPb(pb);

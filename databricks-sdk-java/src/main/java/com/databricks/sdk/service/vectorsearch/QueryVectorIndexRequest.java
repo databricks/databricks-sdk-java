@@ -56,9 +56,6 @@ public class QueryVectorIndexRequest {
    */
   private Collection<Double> queryVector;
 
-  /** */
-  private RerankerConfig reranker;
-
   /** Threshold for the approximate nearest neighbor search. Defaults to 0.0. */
   private Double scoreThreshold;
 
@@ -134,15 +131,6 @@ public class QueryVectorIndexRequest {
     return queryVector;
   }
 
-  public QueryVectorIndexRequest setReranker(RerankerConfig reranker) {
-    this.reranker = reranker;
-    return this;
-  }
-
-  public RerankerConfig getReranker() {
-    return reranker;
-  }
-
   public QueryVectorIndexRequest setScoreThreshold(Double scoreThreshold) {
     this.scoreThreshold = scoreThreshold;
     return this;
@@ -165,7 +153,6 @@ public class QueryVectorIndexRequest {
         && Objects.equals(queryText, that.queryText)
         && Objects.equals(queryType, that.queryType)
         && Objects.equals(queryVector, that.queryVector)
-        && Objects.equals(reranker, that.reranker)
         && Objects.equals(scoreThreshold, that.scoreThreshold);
   }
 
@@ -180,7 +167,6 @@ public class QueryVectorIndexRequest {
         queryText,
         queryType,
         queryVector,
-        reranker,
         scoreThreshold);
   }
 
@@ -195,7 +181,6 @@ public class QueryVectorIndexRequest {
         .add("queryText", queryText)
         .add("queryType", queryType)
         .add("queryVector", queryVector)
-        .add("reranker", reranker)
         .add("scoreThreshold", scoreThreshold)
         .toString();
   }
@@ -210,7 +195,6 @@ public class QueryVectorIndexRequest {
     pb.setQueryText(queryText);
     pb.setQueryType(queryType);
     pb.setQueryVector(queryVector);
-    pb.setReranker(reranker);
     pb.setScoreThreshold(scoreThreshold);
 
     return pb;
@@ -226,7 +210,6 @@ public class QueryVectorIndexRequest {
     model.setQueryText(pb.getQueryText());
     model.setQueryType(pb.getQueryType());
     model.setQueryVector(pb.getQueryVector());
-    model.setReranker(pb.getReranker());
     model.setScoreThreshold(pb.getScoreThreshold());
 
     return model;
@@ -248,6 +231,7 @@ public class QueryVectorIndexRequest {
     @Override
     public QueryVectorIndexRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       QueryVectorIndexRequestPb pb = mapper.readValue(p, QueryVectorIndexRequestPb.class);
       return QueryVectorIndexRequest.fromPb(pb);

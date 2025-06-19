@@ -103,6 +103,7 @@ public class CreateBillingUsageDashboardRequest {
     @Override
     public CreateBillingUsageDashboardRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateBillingUsageDashboardRequestPb pb =
           mapper.readValue(p, CreateBillingUsageDashboardRequestPb.class);

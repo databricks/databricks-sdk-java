@@ -140,6 +140,7 @@ public class ListBudgetPoliciesRequest {
     @Override
     public ListBudgetPoliciesRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListBudgetPoliciesRequestPb pb = mapper.readValue(p, ListBudgetPoliciesRequestPb.class);
       return ListBudgetPoliciesRequest.fromPb(pb);

@@ -98,6 +98,7 @@ public class GetLatestVersionsRequest {
     @Override
     public GetLatestVersionsRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetLatestVersionsRequestPb pb = mapper.readValue(p, GetLatestVersionsRequestPb.class);
       return GetLatestVersionsRequest.fromPb(pb);

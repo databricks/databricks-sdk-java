@@ -125,6 +125,7 @@ public class UpdateJob {
   public static class UpdateJobDeserializer extends JsonDeserializer<UpdateJob> {
     @Override
     public UpdateJob deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateJobPb pb = mapper.readValue(p, UpdateJobPb.class);
       return UpdateJob.fromPb(pb);

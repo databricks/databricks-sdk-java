@@ -121,6 +121,7 @@ public class ListWebhooksRequest {
     @Override
     public ListWebhooksRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListWebhooksRequestPb pb = mapper.readValue(p, ListWebhooksRequestPb.class);
       return ListWebhooksRequest.fromPb(pb);

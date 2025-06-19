@@ -81,6 +81,7 @@ public class GetServicePrincipalRequest {
     @Override
     public GetServicePrincipalRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetServicePrincipalRequestPb pb = mapper.readValue(p, GetServicePrincipalRequestPb.class);
       return GetServicePrincipalRequest.fromPb(pb);

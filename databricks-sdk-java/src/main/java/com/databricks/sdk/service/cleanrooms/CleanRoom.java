@@ -250,6 +250,7 @@ public class CleanRoom {
   public static class CleanRoomDeserializer extends JsonDeserializer<CleanRoom> {
     @Override
     public CleanRoom deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CleanRoomPb pb = mapper.readValue(p, CleanRoomPb.class);
       return CleanRoom.fromPb(pb);

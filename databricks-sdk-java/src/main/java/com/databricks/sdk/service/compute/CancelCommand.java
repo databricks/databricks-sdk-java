@@ -110,6 +110,7 @@ public class CancelCommand {
   public static class CancelCommandDeserializer extends JsonDeserializer<CancelCommand> {
     @Override
     public CancelCommand deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CancelCommandPb pb = mapper.readValue(p, CancelCommandPb.class);
       return CancelCommand.fromPb(pb);

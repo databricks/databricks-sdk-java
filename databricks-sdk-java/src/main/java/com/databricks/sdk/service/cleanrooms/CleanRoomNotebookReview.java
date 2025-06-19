@@ -149,6 +149,7 @@ public class CleanRoomNotebookReview {
     @Override
     public CleanRoomNotebookReview deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CleanRoomNotebookReviewPb pb = mapper.readValue(p, CleanRoomNotebookReviewPb.class);
       return CleanRoomNotebookReview.fromPb(pb);

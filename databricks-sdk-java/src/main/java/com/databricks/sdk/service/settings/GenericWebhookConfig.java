@@ -161,6 +161,7 @@ public class GenericWebhookConfig {
     @Override
     public GenericWebhookConfig deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GenericWebhookConfigPb pb = mapper.readValue(p, GenericWebhookConfigPb.class);
       return GenericWebhookConfig.fromPb(pb);

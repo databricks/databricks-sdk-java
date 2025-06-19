@@ -166,6 +166,7 @@ public class ExternalFunctionRequest {
     @Override
     public ExternalFunctionRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ExternalFunctionRequestPb pb = mapper.readValue(p, ExternalFunctionRequestPb.class);
       return ExternalFunctionRequest.fromPb(pb);

@@ -348,6 +348,7 @@ public class EditWarehouseRequest {
     @Override
     public EditWarehouseRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       EditWarehouseRequestPb pb = mapper.readValue(p, EditWarehouseRequestPb.class);
       return EditWarehouseRequest.fromPb(pb);

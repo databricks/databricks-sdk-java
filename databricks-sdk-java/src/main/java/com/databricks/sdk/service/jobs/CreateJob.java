@@ -166,9 +166,6 @@ public class CreateJob {
    */
   private Collection<Task> tasks;
 
-  /** */
-  private TestMarshallMessage testMarshallMessage;
-
   /** An optional timeout applied to each run of this job. A value of `0` means no timeout. */
   private Long timeoutSeconds;
 
@@ -383,15 +380,6 @@ public class CreateJob {
     return tasks;
   }
 
-  public CreateJob setTestMarshallMessage(TestMarshallMessage testMarshallMessage) {
-    this.testMarshallMessage = testMarshallMessage;
-    return this;
-  }
-
-  public TestMarshallMessage getTestMarshallMessage() {
-    return testMarshallMessage;
-  }
-
   public CreateJob setTimeoutSeconds(Long timeoutSeconds) {
     this.timeoutSeconds = timeoutSeconds;
     return this;
@@ -455,7 +443,6 @@ public class CreateJob {
         && Objects.equals(schedule, that.schedule)
         && Objects.equals(tags, that.tags)
         && Objects.equals(tasks, that.tasks)
-        && Objects.equals(testMarshallMessage, that.testMarshallMessage)
         && Objects.equals(timeoutSeconds, that.timeoutSeconds)
         && Objects.equals(trigger, that.trigger)
         && Objects.equals(webhookNotifications, that.webhookNotifications)
@@ -487,7 +474,6 @@ public class CreateJob {
         schedule,
         tags,
         tasks,
-        testMarshallMessage,
         timeoutSeconds,
         trigger,
         webhookNotifications,
@@ -519,7 +505,6 @@ public class CreateJob {
         .add("schedule", schedule)
         .add("tags", tags)
         .add("tasks", tasks)
-        .add("testMarshallMessage", testMarshallMessage)
         .add("timeoutSeconds", timeoutSeconds)
         .add("trigger", trigger)
         .add("webhookNotifications", webhookNotifications)
@@ -551,7 +536,6 @@ public class CreateJob {
     pb.setSchedule(schedule);
     pb.setTags(tags);
     pb.setTasks(tasks);
-    pb.setTestMarshallMessage(testMarshallMessage);
     pb.setTimeoutSeconds(timeoutSeconds);
     pb.setTrigger(trigger);
     pb.setWebhookNotifications(webhookNotifications);
@@ -584,7 +568,6 @@ public class CreateJob {
     model.setSchedule(pb.getSchedule());
     model.setTags(pb.getTags());
     model.setTasks(pb.getTasks());
-    model.setTestMarshallMessage(pb.getTestMarshallMessage());
     model.setTimeoutSeconds(pb.getTimeoutSeconds());
     model.setTrigger(pb.getTrigger());
     model.setWebhookNotifications(pb.getWebhookNotifications());
@@ -605,6 +588,7 @@ public class CreateJob {
   public static class CreateJobDeserializer extends JsonDeserializer<CreateJob> {
     @Override
     public CreateJob deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateJobPb pb = mapper.readValue(p, CreateJobPb.class);
       return CreateJob.fromPb(pb);

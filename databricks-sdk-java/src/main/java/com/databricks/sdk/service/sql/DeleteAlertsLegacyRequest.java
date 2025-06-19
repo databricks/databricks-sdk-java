@@ -81,6 +81,7 @@ public class DeleteAlertsLegacyRequest {
     @Override
     public DeleteAlertsLegacyRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteAlertsLegacyRequestPb pb = mapper.readValue(p, DeleteAlertsLegacyRequestPb.class);
       return DeleteAlertsLegacyRequest.fromPb(pb);

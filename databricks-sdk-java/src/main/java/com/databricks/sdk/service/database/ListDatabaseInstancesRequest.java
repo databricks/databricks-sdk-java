@@ -101,6 +101,7 @@ public class ListDatabaseInstancesRequest {
     @Override
     public ListDatabaseInstancesRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListDatabaseInstancesRequestPb pb = mapper.readValue(p, ListDatabaseInstancesRequestPb.class);
       return ListDatabaseInstancesRequest.fromPb(pb);

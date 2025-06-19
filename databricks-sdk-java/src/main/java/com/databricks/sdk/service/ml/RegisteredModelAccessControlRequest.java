@@ -134,6 +134,7 @@ public class RegisteredModelAccessControlRequest {
     @Override
     public RegisteredModelAccessControlRequest deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RegisteredModelAccessControlRequestPb pb =
           mapper.readValue(p, RegisteredModelAccessControlRequestPb.class);

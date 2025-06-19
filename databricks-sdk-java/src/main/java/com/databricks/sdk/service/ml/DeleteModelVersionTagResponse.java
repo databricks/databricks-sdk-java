@@ -67,6 +67,7 @@ public class DeleteModelVersionTagResponse {
     @Override
     public DeleteModelVersionTagResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteModelVersionTagResponsePb pb =
           mapper.readValue(p, DeleteModelVersionTagResponsePb.class);

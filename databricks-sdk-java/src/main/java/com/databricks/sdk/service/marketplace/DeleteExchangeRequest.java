@@ -81,6 +81,7 @@ public class DeleteExchangeRequest {
     @Override
     public DeleteExchangeRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteExchangeRequestPb pb = mapper.readValue(p, DeleteExchangeRequestPb.class);
       return DeleteExchangeRequest.fromPb(pb);

@@ -79,6 +79,7 @@ public class GetWarehouseRequest {
     @Override
     public GetWarehouseRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetWarehouseRequestPb pb = mapper.readValue(p, GetWarehouseRequestPb.class);
       return GetWarehouseRequest.fromPb(pb);

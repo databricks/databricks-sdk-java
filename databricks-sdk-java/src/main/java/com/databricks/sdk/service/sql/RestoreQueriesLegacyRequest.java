@@ -81,6 +81,7 @@ public class RestoreQueriesLegacyRequest {
     @Override
     public RestoreQueriesLegacyRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RestoreQueriesLegacyRequestPb pb = mapper.readValue(p, RestoreQueriesLegacyRequestPb.class);
       return RestoreQueriesLegacyRequest.fromPb(pb);

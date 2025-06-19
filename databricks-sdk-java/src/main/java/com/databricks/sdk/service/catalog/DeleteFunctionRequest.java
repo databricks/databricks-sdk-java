@@ -101,6 +101,7 @@ public class DeleteFunctionRequest {
     @Override
     public DeleteFunctionRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteFunctionRequestPb pb = mapper.readValue(p, DeleteFunctionRequestPb.class);
       return DeleteFunctionRequest.fromPb(pb);

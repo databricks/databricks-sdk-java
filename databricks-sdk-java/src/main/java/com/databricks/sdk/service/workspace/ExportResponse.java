@@ -101,6 +101,7 @@ public class ExportResponse {
     @Override
     public ExportResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ExportResponsePb pb = mapper.readValue(p, ExportResponsePb.class);
       return ExportResponse.fromPb(pb);

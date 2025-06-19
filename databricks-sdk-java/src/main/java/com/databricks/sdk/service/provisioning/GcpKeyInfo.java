@@ -76,6 +76,7 @@ public class GcpKeyInfo {
   public static class GcpKeyInfoDeserializer extends JsonDeserializer<GcpKeyInfo> {
     @Override
     public GcpKeyInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GcpKeyInfoPb pb = mapper.readValue(p, GcpKeyInfoPb.class);
       return GcpKeyInfo.fromPb(pb);

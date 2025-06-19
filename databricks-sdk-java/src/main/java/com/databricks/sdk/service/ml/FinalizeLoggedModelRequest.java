@@ -100,6 +100,7 @@ public class FinalizeLoggedModelRequest {
     @Override
     public FinalizeLoggedModelRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       FinalizeLoggedModelRequestPb pb = mapper.readValue(p, FinalizeLoggedModelRequestPb.class);
       return FinalizeLoggedModelRequest.fromPb(pb);

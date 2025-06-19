@@ -77,6 +77,7 @@ public class BooleanMessage {
     @Override
     public BooleanMessage deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       BooleanMessagePb pb = mapper.readValue(p, BooleanMessagePb.class);
       return BooleanMessage.fromPb(pb);

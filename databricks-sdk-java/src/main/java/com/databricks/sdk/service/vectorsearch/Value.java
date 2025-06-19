@@ -142,6 +142,7 @@ public class Value {
   public static class ValueDeserializer extends JsonDeserializer<Value> {
     @Override
     public Value deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ValuePb pb = mapper.readValue(p, ValuePb.class);
       return Value.fromPb(pb);

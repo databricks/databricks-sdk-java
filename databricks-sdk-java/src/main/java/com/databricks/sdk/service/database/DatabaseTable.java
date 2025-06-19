@@ -145,6 +145,7 @@ public class DatabaseTable {
   public static class DatabaseTableDeserializer extends JsonDeserializer<DatabaseTable> {
     @Override
     public DatabaseTable deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DatabaseTablePb pb = mapper.readValue(p, DatabaseTablePb.class);
       return DatabaseTable.fromPb(pb);

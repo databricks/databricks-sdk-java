@@ -101,6 +101,7 @@ public class LogSyncStatus {
   public static class LogSyncStatusDeserializer extends JsonDeserializer<LogSyncStatus> {
     @Override
     public LogSyncStatus deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       LogSyncStatusPb pb = mapper.readValue(p, LogSyncStatusPb.class);
       return LogSyncStatus.fromPb(pb);

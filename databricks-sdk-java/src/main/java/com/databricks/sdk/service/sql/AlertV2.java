@@ -303,6 +303,7 @@ public class AlertV2 {
   public static class AlertV2Deserializer extends JsonDeserializer<AlertV2> {
     @Override
     public AlertV2 deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AlertV2Pb pb = mapper.readValue(p, AlertV2Pb.class);
       return AlertV2.fromPb(pb);

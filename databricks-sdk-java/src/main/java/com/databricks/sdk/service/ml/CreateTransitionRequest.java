@@ -140,6 +140,7 @@ public class CreateTransitionRequest {
     @Override
     public CreateTransitionRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateTransitionRequestPb pb = mapper.readValue(p, CreateTransitionRequestPb.class);
       return CreateTransitionRequest.fromPb(pb);

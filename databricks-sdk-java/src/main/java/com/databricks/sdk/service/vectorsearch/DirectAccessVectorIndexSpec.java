@@ -121,6 +121,7 @@ public class DirectAccessVectorIndexSpec {
     @Override
     public DirectAccessVectorIndexSpec deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DirectAccessVectorIndexSpecPb pb = mapper.readValue(p, DirectAccessVectorIndexSpecPb.class);
       return DirectAccessVectorIndexSpec.fromPb(pb);

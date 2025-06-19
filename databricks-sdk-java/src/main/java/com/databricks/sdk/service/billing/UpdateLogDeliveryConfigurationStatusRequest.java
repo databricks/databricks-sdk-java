@@ -116,6 +116,7 @@ public class UpdateLogDeliveryConfigurationStatusRequest {
     @Override
     public UpdateLogDeliveryConfigurationStatusRequest deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateLogDeliveryConfigurationStatusRequestPb pb =
           mapper.readValue(p, UpdateLogDeliveryConfigurationStatusRequestPb.class);

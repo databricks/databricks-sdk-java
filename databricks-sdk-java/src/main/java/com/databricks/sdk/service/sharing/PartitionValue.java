@@ -133,6 +133,7 @@ public class PartitionValue {
     @Override
     public PartitionValue deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PartitionValuePb pb = mapper.readValue(p, PartitionValuePb.class);
       return PartitionValue.fromPb(pb);

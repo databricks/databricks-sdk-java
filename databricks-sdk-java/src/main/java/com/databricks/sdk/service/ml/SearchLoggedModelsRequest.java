@@ -174,6 +174,7 @@ public class SearchLoggedModelsRequest {
     @Override
     public SearchLoggedModelsRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SearchLoggedModelsRequestPb pb = mapper.readValue(p, SearchLoggedModelsRequestPb.class);
       return SearchLoggedModelsRequest.fromPb(pb);

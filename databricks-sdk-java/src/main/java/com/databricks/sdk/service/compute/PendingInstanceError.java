@@ -97,6 +97,7 @@ public class PendingInstanceError {
     @Override
     public PendingInstanceError deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PendingInstanceErrorPb pb = mapper.readValue(p, PendingInstanceErrorPb.class);
       return PendingInstanceError.fromPb(pb);

@@ -115,6 +115,7 @@ public class UpdateSharePermissions {
     @Override
     public UpdateSharePermissions deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateSharePermissionsPb pb = mapper.readValue(p, UpdateSharePermissionsPb.class);
       return UpdateSharePermissions.fromPb(pb);

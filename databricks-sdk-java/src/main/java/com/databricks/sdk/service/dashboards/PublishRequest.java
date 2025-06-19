@@ -116,6 +116,7 @@ public class PublishRequest {
     @Override
     public PublishRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PublishRequestPb pb = mapper.readValue(p, PublishRequestPb.class);
       return PublishRequest.fromPb(pb);

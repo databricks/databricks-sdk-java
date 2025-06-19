@@ -82,6 +82,7 @@ public class CreateDatabaseCatalogRequest {
     @Override
     public CreateDatabaseCatalogRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateDatabaseCatalogRequestPb pb = mapper.readValue(p, CreateDatabaseCatalogRequestPb.class);
       return CreateDatabaseCatalogRequest.fromPb(pb);

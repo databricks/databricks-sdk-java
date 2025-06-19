@@ -79,6 +79,7 @@ public class CreateListingRequest {
     @Override
     public CreateListingRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateListingRequestPb pb = mapper.readValue(p, CreateListingRequestPb.class);
       return CreateListingRequest.fromPb(pb);

@@ -139,6 +139,7 @@ public class HttpUrlSpec {
   public static class HttpUrlSpecDeserializer extends JsonDeserializer<HttpUrlSpec> {
     @Override
     public HttpUrlSpec deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       HttpUrlSpecPb pb = mapper.readValue(p, HttpUrlSpecPb.class);
       return HttpUrlSpec.fromPb(pb);

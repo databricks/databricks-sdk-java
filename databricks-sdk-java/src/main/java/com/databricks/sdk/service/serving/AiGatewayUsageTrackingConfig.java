@@ -81,6 +81,7 @@ public class AiGatewayUsageTrackingConfig {
     @Override
     public AiGatewayUsageTrackingConfig deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AiGatewayUsageTrackingConfigPb pb = mapper.readValue(p, AiGatewayUsageTrackingConfigPb.class);
       return AiGatewayUsageTrackingConfig.fromPb(pb);

@@ -93,6 +93,7 @@ public class Name {
   public static class NameDeserializer extends JsonDeserializer<Name> {
     @Override
     public Name deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       NamePb pb = mapper.readValue(p, NamePb.class);
       return Name.fromPb(pb);

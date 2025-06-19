@@ -79,6 +79,7 @@ public class GetWorkspaceRequest {
     @Override
     public GetWorkspaceRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetWorkspaceRequestPb pb = mapper.readValue(p, GetWorkspaceRequestPb.class);
       return GetWorkspaceRequest.fromPb(pb);

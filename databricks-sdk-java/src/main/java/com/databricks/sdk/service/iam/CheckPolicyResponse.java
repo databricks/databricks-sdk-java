@@ -96,6 +96,7 @@ public class CheckPolicyResponse {
     @Override
     public CheckPolicyResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CheckPolicyResponsePb pb = mapper.readValue(p, CheckPolicyResponsePb.class);
       return CheckPolicyResponse.fromPb(pb);

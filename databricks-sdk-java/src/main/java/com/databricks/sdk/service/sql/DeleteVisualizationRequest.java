@@ -81,6 +81,7 @@ public class DeleteVisualizationRequest {
     @Override
     public DeleteVisualizationRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteVisualizationRequestPb pb = mapper.readValue(p, DeleteVisualizationRequestPb.class);
       return DeleteVisualizationRequest.fromPb(pb);

@@ -93,6 +93,7 @@ public class ClientsTypes {
   public static class ClientsTypesDeserializer extends JsonDeserializer<ClientsTypes> {
     @Override
     public ClientsTypes deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ClientsTypesPb pb = mapper.readValue(p, ClientsTypesPb.class);
       return ClientsTypes.fromPb(pb);

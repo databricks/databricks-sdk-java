@@ -147,6 +147,7 @@ public class TokenAccessControlResponse {
     @Override
     public TokenAccessControlResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       TokenAccessControlResponsePb pb = mapper.readValue(p, TokenAccessControlResponsePb.class);
       return TokenAccessControlResponse.fromPb(pb);

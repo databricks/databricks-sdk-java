@@ -77,9 +77,6 @@ class CreateJobPb {
   @JsonProperty("tasks")
   private Collection<Task> tasks;
 
-  @JsonProperty("test_marshall_message")
-  private TestMarshallMessage testMarshallMessage;
-
   @JsonProperty("timeout_seconds")
   private Long timeoutSeconds;
 
@@ -290,15 +287,6 @@ class CreateJobPb {
     return tasks;
   }
 
-  public CreateJobPb setTestMarshallMessage(TestMarshallMessage testMarshallMessage) {
-    this.testMarshallMessage = testMarshallMessage;
-    return this;
-  }
-
-  public TestMarshallMessage getTestMarshallMessage() {
-    return testMarshallMessage;
-  }
-
   public CreateJobPb setTimeoutSeconds(Long timeoutSeconds) {
     this.timeoutSeconds = timeoutSeconds;
     return this;
@@ -362,7 +350,6 @@ class CreateJobPb {
         && Objects.equals(schedule, that.schedule)
         && Objects.equals(tags, that.tags)
         && Objects.equals(tasks, that.tasks)
-        && Objects.equals(testMarshallMessage, that.testMarshallMessage)
         && Objects.equals(timeoutSeconds, that.timeoutSeconds)
         && Objects.equals(trigger, that.trigger)
         && Objects.equals(webhookNotifications, that.webhookNotifications)
@@ -394,7 +381,6 @@ class CreateJobPb {
         schedule,
         tags,
         tasks,
-        testMarshallMessage,
         timeoutSeconds,
         trigger,
         webhookNotifications,
@@ -426,7 +412,6 @@ class CreateJobPb {
         .add("schedule", schedule)
         .add("tags", tags)
         .add("tasks", tasks)
-        .add("testMarshallMessage", testMarshallMessage)
         .add("timeoutSeconds", timeoutSeconds)
         .add("trigger", trigger)
         .add("webhookNotifications", webhookNotifications)

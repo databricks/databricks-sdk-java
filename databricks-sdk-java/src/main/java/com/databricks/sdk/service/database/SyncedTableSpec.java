@@ -187,6 +187,7 @@ public class SyncedTableSpec {
     @Override
     public SyncedTableSpec deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SyncedTableSpecPb pb = mapper.readValue(p, SyncedTableSpecPb.class);
       return SyncedTableSpec.fromPb(pb);

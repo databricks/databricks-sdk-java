@@ -84,6 +84,7 @@ public class EffectivePermissionsList {
     @Override
     public EffectivePermissionsList deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       EffectivePermissionsListPb pb = mapper.readValue(p, EffectivePermissionsListPb.class);
       return EffectivePermissionsList.fromPb(pb);

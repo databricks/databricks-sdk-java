@@ -92,6 +92,7 @@ public class DatasetInput {
   public static class DatasetInputDeserializer extends JsonDeserializer<DatasetInput> {
     @Override
     public DatasetInput deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DatasetInputPb pb = mapper.readValue(p, DatasetInputPb.class);
       return DatasetInput.fromPb(pb);

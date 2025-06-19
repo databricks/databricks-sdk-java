@@ -142,6 +142,7 @@ public class Config {
   public static class ConfigDeserializer extends JsonDeserializer<Config> {
     @Override
     public Config deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ConfigPb pb = mapper.readValue(p, ConfigPb.class);
       return Config.fromPb(pb);

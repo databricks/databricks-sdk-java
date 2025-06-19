@@ -80,6 +80,7 @@ public class UpdateProviderResponse {
     @Override
     public UpdateProviderResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateProviderResponsePb pb = mapper.readValue(p, UpdateProviderResponsePb.class);
       return UpdateProviderResponse.fromPb(pb);

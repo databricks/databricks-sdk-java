@@ -152,6 +152,7 @@ public class CleanRoomAssetNotebook {
     @Override
     public CleanRoomAssetNotebook deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CleanRoomAssetNotebookPb pb = mapper.readValue(p, CleanRoomAssetNotebookPb.class);
       return CleanRoomAssetNotebook.fromPb(pb);

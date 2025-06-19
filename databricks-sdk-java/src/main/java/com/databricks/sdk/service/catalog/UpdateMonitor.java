@@ -283,6 +283,7 @@ public class UpdateMonitor {
   public static class UpdateMonitorDeserializer extends JsonDeserializer<UpdateMonitor> {
     @Override
     public UpdateMonitor deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateMonitorPb pb = mapper.readValue(p, UpdateMonitorPb.class);
       return UpdateMonitor.fromPb(pb);

@@ -81,6 +81,7 @@ public class ResolvedDbtTaskValues {
     @Override
     public ResolvedDbtTaskValues deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ResolvedDbtTaskValuesPb pb = mapper.readValue(p, ResolvedDbtTaskValuesPb.class);
       return ResolvedDbtTaskValues.fromPb(pb);

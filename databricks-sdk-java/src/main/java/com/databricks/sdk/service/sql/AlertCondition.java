@@ -127,6 +127,7 @@ public class AlertCondition {
     @Override
     public AlertCondition deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AlertConditionPb pb = mapper.readValue(p, AlertConditionPb.class);
       return AlertCondition.fromPb(pb);

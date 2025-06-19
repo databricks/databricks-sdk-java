@@ -117,6 +117,7 @@ public class EffectivePrivilege {
     @Override
     public EffectivePrivilege deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       EffectivePrivilegePb pb = mapper.readValue(p, EffectivePrivilegePb.class);
       return EffectivePrivilege.fromPb(pb);

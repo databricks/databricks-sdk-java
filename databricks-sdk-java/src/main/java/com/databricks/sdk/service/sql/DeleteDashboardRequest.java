@@ -81,6 +81,7 @@ public class DeleteDashboardRequest {
     @Override
     public DeleteDashboardRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteDashboardRequestPb pb = mapper.readValue(p, DeleteDashboardRequestPb.class);
       return DeleteDashboardRequest.fromPb(pb);

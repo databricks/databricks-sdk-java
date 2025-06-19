@@ -113,6 +113,7 @@ public class EgressNetworkPolicyInternetAccessPolicyLogOnlyMode {
     @Override
     public EgressNetworkPolicyInternetAccessPolicyLogOnlyMode deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       EgressNetworkPolicyInternetAccessPolicyLogOnlyModePb pb =
           mapper.readValue(p, EgressNetworkPolicyInternetAccessPolicyLogOnlyModePb.class);

@@ -730,6 +730,7 @@ public class Task {
   public static class TaskDeserializer extends JsonDeserializer<Task> {
     @Override
     public Task deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       TaskPb pb = mapper.readValue(p, TaskPb.class);
       return Task.fromPb(pb);

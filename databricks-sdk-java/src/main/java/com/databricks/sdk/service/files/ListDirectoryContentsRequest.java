@@ -133,6 +133,7 @@ public class ListDirectoryContentsRequest {
     @Override
     public ListDirectoryContentsRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListDirectoryContentsRequestPb pb = mapper.readValue(p, ListDirectoryContentsRequestPb.class);
       return ListDirectoryContentsRequest.fromPb(pb);

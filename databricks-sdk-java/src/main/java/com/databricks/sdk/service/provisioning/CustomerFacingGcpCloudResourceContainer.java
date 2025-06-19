@@ -95,6 +95,7 @@ public class CustomerFacingGcpCloudResourceContainer {
     @Override
     public CustomerFacingGcpCloudResourceContainer deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CustomerFacingGcpCloudResourceContainerPb pb =
           mapper.readValue(p, CustomerFacingGcpCloudResourceContainerPb.class);

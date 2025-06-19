@@ -161,6 +161,7 @@ public class CustomerManagedKey {
     @Override
     public CustomerManagedKey deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CustomerManagedKeyPb pb = mapper.readValue(p, CustomerManagedKeyPb.class);
       return CustomerManagedKey.fromPb(pb);

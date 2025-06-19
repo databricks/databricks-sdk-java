@@ -63,6 +63,7 @@ public class RestoreRunResponse {
     @Override
     public RestoreRunResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RestoreRunResponsePb pb = mapper.readValue(p, RestoreRunResponsePb.class);
       return RestoreRunResponse.fromPb(pb);

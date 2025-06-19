@@ -81,6 +81,7 @@ public class CreateCleanRoomRequest {
     @Override
     public CreateCleanRoomRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateCleanRoomRequestPb pb = mapper.readValue(p, CreateCleanRoomRequestPb.class);
       return CreateCleanRoomRequest.fromPb(pb);

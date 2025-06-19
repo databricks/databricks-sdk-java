@@ -66,6 +66,7 @@ public class UpdateExperimentResponse {
     @Override
     public UpdateExperimentResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateExperimentResponsePb pb = mapper.readValue(p, UpdateExperimentResponsePb.class);
       return UpdateExperimentResponse.fromPb(pb);

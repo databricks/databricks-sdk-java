@@ -196,6 +196,7 @@ public class Library {
   public static class LibraryDeserializer extends JsonDeserializer<Library> {
     @Override
     public Library deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       LibraryPb pb = mapper.readValue(p, LibraryPb.class);
       return Library.fromPb(pb);

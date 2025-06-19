@@ -148,6 +148,7 @@ public class ListServicePrincipalResponse {
     @Override
     public ListServicePrincipalResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListServicePrincipalResponsePb pb = mapper.readValue(p, ListServicePrincipalResponsePb.class);
       return ListServicePrincipalResponse.fromPb(pb);

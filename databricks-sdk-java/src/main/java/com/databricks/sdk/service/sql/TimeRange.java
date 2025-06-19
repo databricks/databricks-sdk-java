@@ -94,6 +94,7 @@ public class TimeRange {
   public static class TimeRangeDeserializer extends JsonDeserializer<TimeRange> {
     @Override
     public TimeRange deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       TimeRangePb pb = mapper.readValue(p, TimeRangePb.class);
       return TimeRange.fromPb(pb);

@@ -132,6 +132,7 @@ public class GenieStartConversationResponse {
     @Override
     public GenieStartConversationResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GenieStartConversationResponsePb pb =
           mapper.readValue(p, GenieStartConversationResponsePb.class);

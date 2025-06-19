@@ -90,6 +90,7 @@ public class ModelTag {
   public static class ModelTagDeserializer extends JsonDeserializer<ModelTag> {
     @Override
     public ModelTag deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ModelTagPb pb = mapper.readValue(p, ModelTagPb.class);
       return ModelTag.fromPb(pb);

@@ -83,6 +83,7 @@ public class GetArtifactAllowlistRequest {
     @Override
     public GetArtifactAllowlistRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetArtifactAllowlistRequestPb pb = mapper.readValue(p, GetArtifactAllowlistRequestPb.class);
       return GetArtifactAllowlistRequest.fromPb(pb);

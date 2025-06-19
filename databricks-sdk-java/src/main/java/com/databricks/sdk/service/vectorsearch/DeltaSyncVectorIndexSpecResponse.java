@@ -183,6 +183,7 @@ public class DeltaSyncVectorIndexSpecResponse {
     @Override
     public DeltaSyncVectorIndexSpecResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeltaSyncVectorIndexSpecResponsePb pb =
           mapper.readValue(p, DeltaSyncVectorIndexSpecResponsePb.class);

@@ -62,6 +62,7 @@ public class ManualTrigger {
   public static class ManualTriggerDeserializer extends JsonDeserializer<ManualTrigger> {
     @Override
     public ManualTrigger deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ManualTriggerPb pb = mapper.readValue(p, ManualTriggerPb.class);
       return ManualTrigger.fromPb(pb);

@@ -160,6 +160,7 @@ public class GetEventsResponse {
     @Override
     public GetEventsResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetEventsResponsePb pb = mapper.readValue(p, GetEventsResponsePb.class);
       return GetEventsResponse.fromPb(pb);

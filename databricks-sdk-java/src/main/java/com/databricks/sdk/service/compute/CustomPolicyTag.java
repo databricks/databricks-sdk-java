@@ -103,6 +103,7 @@ public class CustomPolicyTag {
     @Override
     public CustomPolicyTag deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CustomPolicyTagPb pb = mapper.readValue(p, CustomPolicyTagPb.class);
       return CustomPolicyTag.fromPb(pb);

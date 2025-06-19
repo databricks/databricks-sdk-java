@@ -77,6 +77,7 @@ public class GetQuotaResponse {
     @Override
     public GetQuotaResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetQuotaResponsePb pb = mapper.readValue(p, GetQuotaResponsePb.class);
       return GetQuotaResponse.fromPb(pb);

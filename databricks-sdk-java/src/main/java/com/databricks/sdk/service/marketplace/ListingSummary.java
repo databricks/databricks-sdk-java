@@ -390,6 +390,7 @@ public class ListingSummary {
     @Override
     public ListingSummary deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListingSummaryPb pb = mapper.readValue(p, ListingSummaryPb.class);
       return ListingSummary.fromPb(pb);

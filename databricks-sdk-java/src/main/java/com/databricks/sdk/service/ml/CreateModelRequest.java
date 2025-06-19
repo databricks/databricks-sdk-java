@@ -112,6 +112,7 @@ public class CreateModelRequest {
     @Override
     public CreateModelRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateModelRequestPb pb = mapper.readValue(p, CreateModelRequestPb.class);
       return CreateModelRequest.fromPb(pb);

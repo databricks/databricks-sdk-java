@@ -65,6 +65,7 @@ public class EditPipelineResponse {
     @Override
     public EditPipelineResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       EditPipelineResponsePb pb = mapper.readValue(p, EditPipelineResponsePb.class);
       return EditPipelineResponse.fromPb(pb);

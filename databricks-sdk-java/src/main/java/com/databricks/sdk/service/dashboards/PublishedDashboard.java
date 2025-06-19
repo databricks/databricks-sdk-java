@@ -127,6 +127,7 @@ public class PublishedDashboard {
     @Override
     public PublishedDashboard deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PublishedDashboardPb pb = mapper.readValue(p, PublishedDashboardPb.class);
       return PublishedDashboard.fromPb(pb);

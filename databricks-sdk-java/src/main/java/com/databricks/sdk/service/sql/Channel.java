@@ -97,6 +97,7 @@ public class Channel {
   public static class ChannelDeserializer extends JsonDeserializer<Channel> {
     @Override
     public Channel deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ChannelPb pb = mapper.readValue(p, ChannelPb.class);
       return Channel.fromPb(pb);

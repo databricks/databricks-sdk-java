@@ -113,6 +113,7 @@ public class AppPermissions {
     @Override
     public AppPermissions deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AppPermissionsPb pb = mapper.readValue(p, AppPermissionsPb.class);
       return AppPermissions.fromPb(pb);

@@ -129,6 +129,7 @@ public class SetTag {
   public static class SetTagDeserializer extends JsonDeserializer<SetTag> {
     @Override
     public SetTag deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SetTagPb pb = mapper.readValue(p, SetTagPb.class);
       return SetTag.fromPb(pb);

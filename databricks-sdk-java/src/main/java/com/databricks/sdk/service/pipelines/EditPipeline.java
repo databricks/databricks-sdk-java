@@ -606,6 +606,7 @@ public class EditPipeline {
   public static class EditPipelineDeserializer extends JsonDeserializer<EditPipeline> {
     @Override
     public EditPipeline deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       EditPipelinePb pb = mapper.readValue(p, EditPipelinePb.class);
       return EditPipeline.fromPb(pb);

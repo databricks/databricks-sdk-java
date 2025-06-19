@@ -99,6 +99,7 @@ public class CreateTokenRequest {
     @Override
     public CreateTokenRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateTokenRequestPb pb = mapper.readValue(p, CreateTokenRequestPb.class);
       return CreateTokenRequest.fromPb(pb);

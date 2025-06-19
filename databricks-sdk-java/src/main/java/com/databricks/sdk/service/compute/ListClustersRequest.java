@@ -135,6 +135,7 @@ public class ListClustersRequest {
     @Override
     public ListClustersRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListClustersRequestPb pb = mapper.readValue(p, ListClustersRequestPb.class);
       return ListClustersRequest.fromPb(pb);

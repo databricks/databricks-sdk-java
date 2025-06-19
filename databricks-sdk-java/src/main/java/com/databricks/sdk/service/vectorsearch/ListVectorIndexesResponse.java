@@ -102,6 +102,7 @@ public class ListVectorIndexesResponse {
     @Override
     public ListVectorIndexesResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListVectorIndexesResponsePb pb = mapper.readValue(p, ListVectorIndexesResponsePb.class);
       return ListVectorIndexesResponse.fromPb(pb);

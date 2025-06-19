@@ -93,6 +93,7 @@ public class TableSummary {
   public static class TableSummaryDeserializer extends JsonDeserializer<TableSummary> {
     @Override
     public TableSummary deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       TableSummaryPb pb = mapper.readValue(p, TableSummaryPb.class);
       return TableSummary.fromPb(pb);

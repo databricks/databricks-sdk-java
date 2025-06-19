@@ -83,6 +83,7 @@ public class CreateIpAccessListResponse {
     @Override
     public CreateIpAccessListResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateIpAccessListResponsePb pb = mapper.readValue(p, CreateIpAccessListResponsePb.class);
       return CreateIpAccessListResponse.fromPb(pb);

@@ -104,6 +104,7 @@ public class ListRegisteredModelsResponse {
     @Override
     public ListRegisteredModelsResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListRegisteredModelsResponsePb pb = mapper.readValue(p, ListRegisteredModelsResponsePb.class);
       return ListRegisteredModelsResponse.fromPb(pb);

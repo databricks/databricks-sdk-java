@@ -80,9 +80,6 @@ class EditClusterPb {
   @JsonProperty("policy_id")
   private String policyId;
 
-  @JsonProperty("remote_disk_throughput")
-  private Long remoteDiskThroughput;
-
   @JsonProperty("runtime_engine")
   private RuntimeEngine runtimeEngine;
 
@@ -100,9 +97,6 @@ class EditClusterPb {
 
   @JsonProperty("ssh_public_keys")
   private Collection<String> sshPublicKeys;
-
-  @JsonProperty("total_initial_remote_disk_size")
-  private Long totalInitialRemoteDiskSize;
 
   @JsonProperty("use_ml_runtime")
   private Boolean useMlRuntime;
@@ -317,15 +311,6 @@ class EditClusterPb {
     return policyId;
   }
 
-  public EditClusterPb setRemoteDiskThroughput(Long remoteDiskThroughput) {
-    this.remoteDiskThroughput = remoteDiskThroughput;
-    return this;
-  }
-
-  public Long getRemoteDiskThroughput() {
-    return remoteDiskThroughput;
-  }
-
   public EditClusterPb setRuntimeEngine(RuntimeEngine runtimeEngine) {
     this.runtimeEngine = runtimeEngine;
     return this;
@@ -380,15 +365,6 @@ class EditClusterPb {
     return sshPublicKeys;
   }
 
-  public EditClusterPb setTotalInitialRemoteDiskSize(Long totalInitialRemoteDiskSize) {
-    this.totalInitialRemoteDiskSize = totalInitialRemoteDiskSize;
-    return this;
-  }
-
-  public Long getTotalInitialRemoteDiskSize() {
-    return totalInitialRemoteDiskSize;
-  }
-
   public EditClusterPb setUseMlRuntime(Boolean useMlRuntime) {
     this.useMlRuntime = useMlRuntime;
     return this;
@@ -435,14 +411,12 @@ class EditClusterPb {
         && Objects.equals(nodeTypeId, that.nodeTypeId)
         && Objects.equals(numWorkers, that.numWorkers)
         && Objects.equals(policyId, that.policyId)
-        && Objects.equals(remoteDiskThroughput, that.remoteDiskThroughput)
         && Objects.equals(runtimeEngine, that.runtimeEngine)
         && Objects.equals(singleUserName, that.singleUserName)
         && Objects.equals(sparkConf, that.sparkConf)
         && Objects.equals(sparkEnvVars, that.sparkEnvVars)
         && Objects.equals(sparkVersion, that.sparkVersion)
         && Objects.equals(sshPublicKeys, that.sshPublicKeys)
-        && Objects.equals(totalInitialRemoteDiskSize, that.totalInitialRemoteDiskSize)
         && Objects.equals(useMlRuntime, that.useMlRuntime)
         && Objects.equals(workloadType, that.workloadType);
   }
@@ -473,14 +447,12 @@ class EditClusterPb {
         nodeTypeId,
         numWorkers,
         policyId,
-        remoteDiskThroughput,
         runtimeEngine,
         singleUserName,
         sparkConf,
         sparkEnvVars,
         sparkVersion,
         sshPublicKeys,
-        totalInitialRemoteDiskSize,
         useMlRuntime,
         workloadType);
   }
@@ -511,14 +483,12 @@ class EditClusterPb {
         .add("nodeTypeId", nodeTypeId)
         .add("numWorkers", numWorkers)
         .add("policyId", policyId)
-        .add("remoteDiskThroughput", remoteDiskThroughput)
         .add("runtimeEngine", runtimeEngine)
         .add("singleUserName", singleUserName)
         .add("sparkConf", sparkConf)
         .add("sparkEnvVars", sparkEnvVars)
         .add("sparkVersion", sparkVersion)
         .add("sshPublicKeys", sshPublicKeys)
-        .add("totalInitialRemoteDiskSize", totalInitialRemoteDiskSize)
         .add("useMlRuntime", useMlRuntime)
         .add("workloadType", workloadType)
         .toString();

@@ -470,6 +470,7 @@ public class QueryMetrics {
   public static class QueryMetricsDeserializer extends JsonDeserializer<QueryMetrics> {
     @Override
     public QueryMetrics deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       QueryMetricsPb pb = mapper.readValue(p, QueryMetricsPb.class);
       return QueryMetrics.fromPb(pb);

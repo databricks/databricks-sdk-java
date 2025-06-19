@@ -139,6 +139,7 @@ public class UpdateAibiDashboardEmbeddingAccessPolicySettingRequest {
     @Override
     public UpdateAibiDashboardEmbeddingAccessPolicySettingRequest deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateAibiDashboardEmbeddingAccessPolicySettingRequestPb pb =
           mapper.readValue(p, UpdateAibiDashboardEmbeddingAccessPolicySettingRequestPb.class);

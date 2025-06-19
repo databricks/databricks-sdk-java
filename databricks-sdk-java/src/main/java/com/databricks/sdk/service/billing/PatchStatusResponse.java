@@ -64,6 +64,7 @@ public class PatchStatusResponse {
     @Override
     public PatchStatusResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PatchStatusResponsePb pb = mapper.readValue(p, PatchStatusResponsePb.class);
       return PatchStatusResponse.fromPb(pb);

@@ -97,6 +97,7 @@ public class TaskDependency {
     @Override
     public TaskDependency deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       TaskDependencyPb pb = mapper.readValue(p, TaskDependencyPb.class);
       return TaskDependency.fromPb(pb);

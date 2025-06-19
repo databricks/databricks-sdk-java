@@ -144,6 +144,7 @@ public class GcpManagedNetworkConfig {
     @Override
     public GcpManagedNetworkConfig deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GcpManagedNetworkConfigPb pb = mapper.readValue(p, GcpManagedNetworkConfigPb.class);
       return GcpManagedNetworkConfig.fromPb(pb);

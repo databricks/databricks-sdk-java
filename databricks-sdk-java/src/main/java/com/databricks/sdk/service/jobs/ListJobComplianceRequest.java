@@ -121,6 +121,7 @@ public class ListJobComplianceRequest {
     @Override
     public ListJobComplianceRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListJobComplianceRequestPb pb = mapper.readValue(p, ListJobComplianceRequestPb.class);
       return ListJobComplianceRequest.fromPb(pb);

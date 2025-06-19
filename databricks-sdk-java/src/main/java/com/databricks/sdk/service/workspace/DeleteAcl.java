@@ -93,6 +93,7 @@ public class DeleteAcl {
   public static class DeleteAclDeserializer extends JsonDeserializer<DeleteAcl> {
     @Override
     public DeleteAcl deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteAclPb pb = mapper.readValue(p, DeleteAclPb.class);
       return DeleteAcl.fromPb(pb);

@@ -130,6 +130,7 @@ public class CreateCredentialsRequest {
     @Override
     public CreateCredentialsRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateCredentialsRequestPb pb = mapper.readValue(p, CreateCredentialsRequestPb.class);
       return CreateCredentialsRequest.fromPb(pb);

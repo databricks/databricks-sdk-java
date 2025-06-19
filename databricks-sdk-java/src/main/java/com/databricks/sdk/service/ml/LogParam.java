@@ -129,6 +129,7 @@ public class LogParam {
   public static class LogParamDeserializer extends JsonDeserializer<LogParam> {
     @Override
     public LogParam deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       LogParamPb pb = mapper.readValue(p, LogParamPb.class);
       return LogParam.fromPb(pb);

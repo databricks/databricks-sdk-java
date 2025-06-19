@@ -81,6 +81,7 @@ public class VolumesStorageInfo {
     @Override
     public VolumesStorageInfo deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       VolumesStorageInfoPb pb = mapper.readValue(p, VolumesStorageInfoPb.class);
       return VolumesStorageInfo.fromPb(pb);

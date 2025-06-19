@@ -76,6 +76,7 @@ public class FileLibrary {
   public static class FileLibraryDeserializer extends JsonDeserializer<FileLibrary> {
     @Override
     public FileLibrary deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       FileLibraryPb pb = mapper.readValue(p, FileLibraryPb.class);
       return FileLibrary.fromPb(pb);

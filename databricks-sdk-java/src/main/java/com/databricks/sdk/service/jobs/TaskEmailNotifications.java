@@ -199,6 +199,7 @@ public class TaskEmailNotifications {
     @Override
     public TaskEmailNotifications deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       TaskEmailNotificationsPb pb = mapper.readValue(p, TaskEmailNotificationsPb.class);
       return TaskEmailNotifications.fromPb(pb);

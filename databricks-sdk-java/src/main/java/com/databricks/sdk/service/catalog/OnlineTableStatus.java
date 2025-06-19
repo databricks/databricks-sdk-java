@@ -179,6 +179,7 @@ public class OnlineTableStatus {
     @Override
     public OnlineTableStatus deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       OnlineTableStatusPb pb = mapper.readValue(p, OnlineTableStatusPb.class);
       return OnlineTableStatus.fromPb(pb);

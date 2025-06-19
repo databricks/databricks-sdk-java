@@ -100,6 +100,7 @@ public class TestRegistryWebhookRequest {
     @Override
     public TestRegistryWebhookRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       TestRegistryWebhookRequestPb pb = mapper.readValue(p, TestRegistryWebhookRequestPb.class);
       return TestRegistryWebhookRequest.fromPb(pb);

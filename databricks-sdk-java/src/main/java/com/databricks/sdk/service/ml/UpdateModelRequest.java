@@ -94,6 +94,7 @@ public class UpdateModelRequest {
     @Override
     public UpdateModelRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateModelRequestPb pb = mapper.readValue(p, UpdateModelRequestPb.class);
       return UpdateModelRequest.fromPb(pb);

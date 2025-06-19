@@ -216,6 +216,7 @@ public class GenAiComputeTask {
     @Override
     public GenAiComputeTask deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GenAiComputeTaskPb pb = mapper.readValue(p, GenAiComputeTaskPb.class);
       return GenAiComputeTask.fromPb(pb);

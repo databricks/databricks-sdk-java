@@ -94,6 +94,7 @@ public class Sequencing {
   public static class SequencingDeserializer extends JsonDeserializer<Sequencing> {
     @Override
     public Sequencing deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SequencingPb pb = mapper.readValue(p, SequencingPb.class);
       return Sequencing.fromPb(pb);

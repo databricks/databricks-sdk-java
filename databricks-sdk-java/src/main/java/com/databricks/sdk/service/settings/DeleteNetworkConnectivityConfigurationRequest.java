@@ -96,6 +96,7 @@ public class DeleteNetworkConnectivityConfigurationRequest {
     @Override
     public DeleteNetworkConnectivityConfigurationRequest deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteNetworkConnectivityConfigurationRequestPb pb =
           mapper.readValue(p, DeleteNetworkConnectivityConfigurationRequestPb.class);

@@ -161,6 +161,7 @@ public class UpdateSchema {
   public static class UpdateSchemaDeserializer extends JsonDeserializer<UpdateSchema> {
     @Override
     public UpdateSchema deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateSchemaPb pb = mapper.readValue(p, UpdateSchemaPb.class);
       return UpdateSchema.fromPb(pb);

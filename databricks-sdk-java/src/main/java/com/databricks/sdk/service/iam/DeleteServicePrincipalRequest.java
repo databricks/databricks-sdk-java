@@ -82,6 +82,7 @@ public class DeleteServicePrincipalRequest {
     @Override
     public DeleteServicePrincipalRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteServicePrincipalRequestPb pb =
           mapper.readValue(p, DeleteServicePrincipalRequestPb.class);

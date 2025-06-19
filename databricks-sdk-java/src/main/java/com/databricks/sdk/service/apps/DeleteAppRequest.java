@@ -78,6 +78,7 @@ public class DeleteAppRequest {
     @Override
     public DeleteAppRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteAppRequestPb pb = mapper.readValue(p, DeleteAppRequestPb.class);
       return DeleteAppRequest.fromPb(pb);

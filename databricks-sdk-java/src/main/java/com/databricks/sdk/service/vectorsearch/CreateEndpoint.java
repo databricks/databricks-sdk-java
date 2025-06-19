@@ -111,6 +111,7 @@ public class CreateEndpoint {
     @Override
     public CreateEndpoint deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateEndpointPb pb = mapper.readValue(p, CreateEndpointPb.class);
       return CreateEndpoint.fromPb(pb);

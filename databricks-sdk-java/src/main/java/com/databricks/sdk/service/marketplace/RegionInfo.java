@@ -90,6 +90,7 @@ public class RegionInfo {
   public static class RegionInfoDeserializer extends JsonDeserializer<RegionInfo> {
     @Override
     public RegionInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RegionInfoPb pb = mapper.readValue(p, RegionInfoPb.class);
       return RegionInfo.fromPb(pb);

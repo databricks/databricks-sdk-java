@@ -125,6 +125,7 @@ public class ConditionTask {
   public static class ConditionTaskDeserializer extends JsonDeserializer<ConditionTask> {
     @Override
     public ConditionTask deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ConditionTaskPb pb = mapper.readValue(p, ConditionTaskPb.class);
       return ConditionTask.fromPb(pb);

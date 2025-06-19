@@ -77,6 +77,7 @@ public class StopRequest {
   public static class StopRequestDeserializer extends JsonDeserializer<StopRequest> {
     @Override
     public StopRequest deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       StopRequestPb pb = mapper.readValue(p, StopRequestPb.class);
       return StopRequest.fromPb(pb);

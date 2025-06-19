@@ -144,6 +144,7 @@ public class PrincipalOutput {
     @Override
     public PrincipalOutput deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PrincipalOutputPb pb = mapper.readValue(p, PrincipalOutputPb.class);
       return PrincipalOutput.fromPb(pb);

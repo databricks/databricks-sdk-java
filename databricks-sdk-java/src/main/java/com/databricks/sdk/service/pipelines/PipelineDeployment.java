@@ -95,6 +95,7 @@ public class PipelineDeployment {
     @Override
     public PipelineDeployment deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PipelineDeploymentPb pb = mapper.readValue(p, PipelineDeploymentPb.class);
       return PipelineDeployment.fromPb(pb);

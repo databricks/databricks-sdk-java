@@ -206,6 +206,7 @@ public class QueryPostContent {
     @Override
     public QueryPostContent deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       QueryPostContentPb pb = mapper.readValue(p, QueryPostContentPb.class);
       return QueryPostContent.fromPb(pb);

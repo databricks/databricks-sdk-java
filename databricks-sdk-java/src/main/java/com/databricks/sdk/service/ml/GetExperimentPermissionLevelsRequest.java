@@ -87,6 +87,7 @@ public class GetExperimentPermissionLevelsRequest {
     @Override
     public GetExperimentPermissionLevelsRequest deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetExperimentPermissionLevelsRequestPb pb =
           mapper.readValue(p, GetExperimentPermissionLevelsRequestPb.class);

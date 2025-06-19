@@ -94,6 +94,7 @@ public class ArtifactMatcher {
     @Override
     public ArtifactMatcher deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ArtifactMatcherPb pb = mapper.readValue(p, ArtifactMatcherPb.class);
       return ArtifactMatcher.fromPb(pb);

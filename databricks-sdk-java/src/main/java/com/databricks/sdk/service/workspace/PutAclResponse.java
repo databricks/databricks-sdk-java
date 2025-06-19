@@ -63,6 +63,7 @@ public class PutAclResponse {
     @Override
     public PutAclResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PutAclResponsePb pb = mapper.readValue(p, PutAclResponsePb.class);
       return PutAclResponse.fromPb(pb);

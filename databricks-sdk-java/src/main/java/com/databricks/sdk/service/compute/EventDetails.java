@@ -415,6 +415,7 @@ public class EventDetails {
   public static class EventDetailsDeserializer extends JsonDeserializer<EventDetails> {
     @Override
     public EventDetails deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       EventDetailsPb pb = mapper.readValue(p, EventDetailsPb.class);
       return EventDetails.fromPb(pb);

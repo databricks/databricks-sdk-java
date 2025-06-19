@@ -80,6 +80,7 @@ public class CreateWebhookResponse {
     @Override
     public CreateWebhookResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateWebhookResponsePb pb = mapper.readValue(p, CreateWebhookResponsePb.class);
       return CreateWebhookResponse.fromPb(pb);

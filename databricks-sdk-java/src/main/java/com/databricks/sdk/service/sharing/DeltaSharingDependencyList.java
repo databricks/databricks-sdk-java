@@ -85,6 +85,7 @@ public class DeltaSharingDependencyList {
     @Override
     public DeltaSharingDependencyList deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeltaSharingDependencyListPb pb = mapper.readValue(p, DeltaSharingDependencyListPb.class);
       return DeltaSharingDependencyList.fromPb(pb);

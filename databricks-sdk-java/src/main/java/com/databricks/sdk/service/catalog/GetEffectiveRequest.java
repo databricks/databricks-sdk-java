@@ -116,6 +116,7 @@ public class GetEffectiveRequest {
     @Override
     public GetEffectiveRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetEffectiveRequestPb pb = mapper.readValue(p, GetEffectiveRequestPb.class);
       return GetEffectiveRequest.fromPb(pb);

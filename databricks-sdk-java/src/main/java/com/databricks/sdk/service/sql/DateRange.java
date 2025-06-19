@@ -90,6 +90,7 @@ public class DateRange {
   public static class DateRangeDeserializer extends JsonDeserializer<DateRange> {
     @Override
     public DateRange deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DateRangePb pb = mapper.readValue(p, DateRangePb.class);
       return DateRange.fromPb(pb);

@@ -332,6 +332,7 @@ public class ModelVersionDatabricks {
     @Override
     public ModelVersionDatabricks deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ModelVersionDatabricksPb pb = mapper.readValue(p, ModelVersionDatabricksPb.class);
       return ModelVersionDatabricks.fromPb(pb);

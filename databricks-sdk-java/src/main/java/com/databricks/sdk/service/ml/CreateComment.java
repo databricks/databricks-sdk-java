@@ -110,6 +110,7 @@ public class CreateComment {
   public static class CreateCommentDeserializer extends JsonDeserializer<CreateComment> {
     @Override
     public CreateComment deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateCommentPb pb = mapper.readValue(p, CreateCommentPb.class);
       return CreateComment.fromPb(pb);

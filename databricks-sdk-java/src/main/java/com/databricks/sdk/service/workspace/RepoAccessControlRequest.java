@@ -130,6 +130,7 @@ public class RepoAccessControlRequest {
     @Override
     public RepoAccessControlRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RepoAccessControlRequestPb pb = mapper.readValue(p, RepoAccessControlRequestPb.class);
       return RepoAccessControlRequest.fromPb(pb);

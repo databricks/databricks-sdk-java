@@ -95,6 +95,7 @@ public class GetListingsRequest {
     @Override
     public GetListingsRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetListingsRequestPb pb = mapper.readValue(p, GetListingsRequestPb.class);
       return GetListingsRequest.fromPb(pb);

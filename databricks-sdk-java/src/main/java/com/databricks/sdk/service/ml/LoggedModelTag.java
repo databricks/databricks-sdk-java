@@ -92,6 +92,7 @@ public class LoggedModelTag {
     @Override
     public LoggedModelTag deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       LoggedModelTagPb pb = mapper.readValue(p, LoggedModelTagPb.class);
       return LoggedModelTag.fromPb(pb);

@@ -95,6 +95,7 @@ public class SparkVersion {
   public static class SparkVersionDeserializer extends JsonDeserializer<SparkVersion> {
     @Override
     public SparkVersion deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SparkVersionPb pb = mapper.readValue(p, SparkVersionPb.class);
       return SparkVersion.fromPb(pb);

@@ -116,6 +116,7 @@ public class RestoreRuns {
   public static class RestoreRunsDeserializer extends JsonDeserializer<RestoreRuns> {
     @Override
     public RestoreRuns deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RestoreRunsPb pb = mapper.readValue(p, RestoreRunsPb.class);
       return RestoreRuns.fromPb(pb);

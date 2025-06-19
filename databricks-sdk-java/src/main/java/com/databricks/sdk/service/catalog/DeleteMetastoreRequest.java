@@ -98,6 +98,7 @@ public class DeleteMetastoreRequest {
     @Override
     public DeleteMetastoreRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteMetastoreRequestPb pb = mapper.readValue(p, DeleteMetastoreRequestPb.class);
       return DeleteMetastoreRequest.fromPb(pb);

@@ -98,6 +98,7 @@ public class ReadVolumeRequest {
     @Override
     public ReadVolumeRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ReadVolumeRequestPb pb = mapper.readValue(p, ReadVolumeRequestPb.class);
       return ReadVolumeRequest.fromPb(pb);

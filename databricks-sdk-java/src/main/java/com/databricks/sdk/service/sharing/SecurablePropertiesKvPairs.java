@@ -86,6 +86,7 @@ public class SecurablePropertiesKvPairs {
     @Override
     public SecurablePropertiesKvPairs deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SecurablePropertiesKvPairsPb pb = mapper.readValue(p, SecurablePropertiesKvPairsPb.class);
       return SecurablePropertiesKvPairs.fromPb(pb);

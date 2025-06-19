@@ -110,6 +110,7 @@ public class ClusterInstance {
     @Override
     public ClusterInstance deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ClusterInstancePb pb = mapper.readValue(p, ClusterInstancePb.class);
       return ClusterInstance.fromPb(pb);

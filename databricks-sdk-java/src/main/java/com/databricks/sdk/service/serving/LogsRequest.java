@@ -94,6 +94,7 @@ public class LogsRequest {
   public static class LogsRequestDeserializer extends JsonDeserializer<LogsRequest> {
     @Override
     public LogsRequest deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       LogsRequestPb pb = mapper.readValue(p, LogsRequestPb.class);
       return LogsRequest.fromPb(pb);

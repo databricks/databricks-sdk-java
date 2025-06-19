@@ -94,6 +94,7 @@ public class Move {
   public static class MoveDeserializer extends JsonDeserializer<Move> {
     @Override
     public Move deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       MovePb pb = mapper.readValue(p, MovePb.class);
       return Move.fromPb(pb);

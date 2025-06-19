@@ -147,6 +147,7 @@ public class WidgetPosition {
     @Override
     public WidgetPosition deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       WidgetPositionPb pb = mapper.readValue(p, WidgetPositionPb.class);
       return WidgetPosition.fromPb(pb);

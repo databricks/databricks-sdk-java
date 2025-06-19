@@ -104,6 +104,7 @@ public class ListClusterPoliciesRequest {
     @Override
     public ListClusterPoliciesRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListClusterPoliciesRequestPb pb = mapper.readValue(p, ListClusterPoliciesRequestPb.class);
       return ListClusterPoliciesRequest.fromPb(pb);

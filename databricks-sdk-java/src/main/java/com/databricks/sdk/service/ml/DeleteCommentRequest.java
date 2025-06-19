@@ -80,6 +80,7 @@ public class DeleteCommentRequest {
     @Override
     public DeleteCommentRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteCommentRequestPb pb = mapper.readValue(p, DeleteCommentRequestPb.class);
       return DeleteCommentRequest.fromPb(pb);

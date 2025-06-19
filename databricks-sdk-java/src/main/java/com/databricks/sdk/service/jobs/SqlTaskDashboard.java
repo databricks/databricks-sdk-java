@@ -128,6 +128,7 @@ public class SqlTaskDashboard {
     @Override
     public SqlTaskDashboard deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SqlTaskDashboardPb pb = mapper.readValue(p, SqlTaskDashboardPb.class);
       return SqlTaskDashboard.fromPb(pb);

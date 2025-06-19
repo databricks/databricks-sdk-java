@@ -139,6 +139,7 @@ public class SearchModelVersionsRequest {
     @Override
     public SearchModelVersionsRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SearchModelVersionsRequestPb pb = mapper.readValue(p, SearchModelVersionsRequestPb.class);
       return SearchModelVersionsRequest.fromPb(pb);

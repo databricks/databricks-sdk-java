@@ -97,6 +97,7 @@ public class Dependency {
   public static class DependencyDeserializer extends JsonDeserializer<Dependency> {
     @Override
     public Dependency deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DependencyPb pb = mapper.readValue(p, DependencyPb.class);
       return Dependency.fromPb(pb);

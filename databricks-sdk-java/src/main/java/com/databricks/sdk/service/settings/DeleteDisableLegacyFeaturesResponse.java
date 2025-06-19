@@ -91,6 +91,7 @@ public class DeleteDisableLegacyFeaturesResponse {
     @Override
     public DeleteDisableLegacyFeaturesResponse deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteDisableLegacyFeaturesResponsePb pb =
           mapper.readValue(p, DeleteDisableLegacyFeaturesResponsePb.class);

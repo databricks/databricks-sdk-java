@@ -146,6 +146,7 @@ public class V1ResponseChoiceElement {
     @Override
     public V1ResponseChoiceElement deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       V1ResponseChoiceElementPb pb = mapper.readValue(p, V1ResponseChoiceElementPb.class);
       return V1ResponseChoiceElement.fromPb(pb);

@@ -85,6 +85,7 @@ public class NccAwsStableIpRule {
     @Override
     public NccAwsStableIpRule deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       NccAwsStableIpRulePb pb = mapper.readValue(p, NccAwsStableIpRulePb.class);
       return NccAwsStableIpRule.fromPb(pb);

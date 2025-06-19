@@ -78,6 +78,7 @@ public class GetProviderResponse {
     @Override
     public GetProviderResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetProviderResponsePb pb = mapper.readValue(p, GetProviderResponsePb.class);
       return GetProviderResponse.fromPb(pb);

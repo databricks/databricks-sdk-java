@@ -81,6 +81,7 @@ public class DeleteWarehouseRequest {
     @Override
     public DeleteWarehouseRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteWarehouseRequestPb pb = mapper.readValue(p, DeleteWarehouseRequestPb.class);
       return DeleteWarehouseRequest.fromPb(pb);

@@ -76,6 +76,7 @@ public class DeleteScope {
   public static class DeleteScopeDeserializer extends JsonDeserializer<DeleteScope> {
     @Override
     public DeleteScope deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteScopePb pb = mapper.readValue(p, DeleteScopePb.class);
       return DeleteScope.fromPb(pb);

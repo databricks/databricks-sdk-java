@@ -76,6 +76,7 @@ public class LocalFileInfo {
   public static class LocalFileInfoDeserializer extends JsonDeserializer<LocalFileInfo> {
     @Override
     public LocalFileInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       LocalFileInfoPb pb = mapper.readValue(p, LocalFileInfoPb.class);
       return LocalFileInfo.fromPb(pb);

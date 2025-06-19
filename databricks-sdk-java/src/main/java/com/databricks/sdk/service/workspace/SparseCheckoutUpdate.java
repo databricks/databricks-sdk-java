@@ -86,6 +86,7 @@ public class SparseCheckoutUpdate {
     @Override
     public SparseCheckoutUpdate deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SparseCheckoutUpdatePb pb = mapper.readValue(p, SparseCheckoutUpdatePb.class);
       return SparseCheckoutUpdate.fromPb(pb);

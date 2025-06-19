@@ -99,6 +99,7 @@ public class VolumeInternalAttributes {
     @Override
     public VolumeInternalAttributes deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       VolumeInternalAttributesPb pb = mapper.readValue(p, VolumeInternalAttributesPb.class);
       return VolumeInternalAttributes.fromPb(pb);

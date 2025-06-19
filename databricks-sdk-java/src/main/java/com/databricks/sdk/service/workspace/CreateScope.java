@@ -129,6 +129,7 @@ public class CreateScope {
   public static class CreateScopeDeserializer extends JsonDeserializer<CreateScope> {
     @Override
     public CreateScope deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateScopePb pb = mapper.readValue(p, CreateScopePb.class);
       return CreateScope.fromPb(pb);

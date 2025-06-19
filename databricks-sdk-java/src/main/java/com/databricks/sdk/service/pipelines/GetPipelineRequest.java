@@ -78,6 +78,7 @@ public class GetPipelineRequest {
     @Override
     public GetPipelineRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetPipelineRequestPb pb = mapper.readValue(p, GetPipelineRequestPb.class);
       return GetPipelineRequest.fromPb(pb);

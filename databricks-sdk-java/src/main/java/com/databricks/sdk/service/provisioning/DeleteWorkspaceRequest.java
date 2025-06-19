@@ -81,6 +81,7 @@ public class DeleteWorkspaceRequest {
     @Override
     public DeleteWorkspaceRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteWorkspaceRequestPb pb = mapper.readValue(p, DeleteWorkspaceRequestPb.class);
       return DeleteWorkspaceRequest.fromPb(pb);

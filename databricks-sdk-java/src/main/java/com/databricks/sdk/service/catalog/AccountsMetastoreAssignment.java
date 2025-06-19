@@ -83,6 +83,7 @@ public class AccountsMetastoreAssignment {
     @Override
     public AccountsMetastoreAssignment deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AccountsMetastoreAssignmentPb pb = mapper.readValue(p, AccountsMetastoreAssignmentPb.class);
       return AccountsMetastoreAssignment.fromPb(pb);

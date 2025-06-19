@@ -212,6 +212,7 @@ public class AmazonBedrockConfig {
     @Override
     public AmazonBedrockConfig deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AmazonBedrockConfigPb pb = mapper.readValue(p, AmazonBedrockConfigPb.class);
       return AmazonBedrockConfig.fromPb(pb);

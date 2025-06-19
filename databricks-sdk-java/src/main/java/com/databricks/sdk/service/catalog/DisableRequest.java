@@ -96,6 +96,7 @@ public class DisableRequest {
     @Override
     public DisableRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DisableRequestPb pb = mapper.readValue(p, DisableRequestPb.class);
       return DisableRequest.fromPb(pb);

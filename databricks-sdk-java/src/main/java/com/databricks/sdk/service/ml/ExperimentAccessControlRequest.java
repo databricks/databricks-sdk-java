@@ -133,6 +133,7 @@ public class ExperimentAccessControlRequest {
     @Override
     public ExperimentAccessControlRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ExperimentAccessControlRequestPb pb =
           mapper.readValue(p, ExperimentAccessControlRequestPb.class);

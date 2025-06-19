@@ -171,6 +171,7 @@ public class CreateVectorIndexRequest {
     @Override
     public CreateVectorIndexRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateVectorIndexRequestPb pb = mapper.readValue(p, CreateVectorIndexRequestPb.class);
       return CreateVectorIndexRequest.fromPb(pb);

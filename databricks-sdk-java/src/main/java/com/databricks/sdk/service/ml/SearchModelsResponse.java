@@ -98,6 +98,7 @@ public class SearchModelsResponse {
     @Override
     public SearchModelsResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SearchModelsResponsePb pb = mapper.readValue(p, SearchModelsResponsePb.class);
       return SearchModelsResponse.fromPb(pb);

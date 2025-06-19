@@ -151,6 +151,7 @@ public class UpdateIpAccessList {
     @Override
     public UpdateIpAccessList deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateIpAccessListPb pb = mapper.readValue(p, UpdateIpAccessListPb.class);
       return UpdateIpAccessList.fromPb(pb);

@@ -95,6 +95,7 @@ public class EndpointStatus {
     @Override
     public EndpointStatus deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       EndpointStatusPb pb = mapper.readValue(p, EndpointStatusPb.class);
       return EndpointStatus.fromPb(pb);

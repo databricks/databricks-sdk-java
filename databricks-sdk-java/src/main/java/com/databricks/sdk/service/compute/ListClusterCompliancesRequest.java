@@ -122,6 +122,7 @@ public class ListClusterCompliancesRequest {
     @Override
     public ListClusterCompliancesRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListClusterCompliancesRequestPb pb =
           mapper.readValue(p, ListClusterCompliancesRequestPb.class);

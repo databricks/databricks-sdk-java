@@ -99,6 +99,7 @@ public class CreatePublishedAppIntegration {
     @Override
     public CreatePublishedAppIntegration deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreatePublishedAppIntegrationPb pb =
           mapper.readValue(p, CreatePublishedAppIntegrationPb.class);

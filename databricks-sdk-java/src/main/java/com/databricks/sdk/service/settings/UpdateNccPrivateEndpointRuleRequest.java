@@ -150,6 +150,7 @@ public class UpdateNccPrivateEndpointRuleRequest {
     @Override
     public UpdateNccPrivateEndpointRuleRequest deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateNccPrivateEndpointRuleRequestPb pb =
           mapper.readValue(p, UpdateNccPrivateEndpointRuleRequestPb.class);

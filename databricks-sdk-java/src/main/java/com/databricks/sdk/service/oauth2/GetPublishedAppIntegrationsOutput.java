@@ -101,6 +101,7 @@ public class GetPublishedAppIntegrationsOutput {
     @Override
     public GetPublishedAppIntegrationsOutput deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetPublishedAppIntegrationsOutputPb pb =
           mapper.readValue(p, GetPublishedAppIntegrationsOutputPb.class);

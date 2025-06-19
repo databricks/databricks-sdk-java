@@ -76,6 +76,7 @@ public class DeleteJob {
   public static class DeleteJobDeserializer extends JsonDeserializer<DeleteJob> {
     @Override
     public DeleteJob deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteJobPb pb = mapper.readValue(p, DeleteJobPb.class);
       return DeleteJob.fromPb(pb);

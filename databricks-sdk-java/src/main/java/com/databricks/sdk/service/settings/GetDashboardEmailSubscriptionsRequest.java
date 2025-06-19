@@ -93,6 +93,7 @@ public class GetDashboardEmailSubscriptionsRequest {
     @Override
     public GetDashboardEmailSubscriptionsRequest deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetDashboardEmailSubscriptionsRequestPb pb =
           mapper.readValue(p, GetDashboardEmailSubscriptionsRequestPb.class);

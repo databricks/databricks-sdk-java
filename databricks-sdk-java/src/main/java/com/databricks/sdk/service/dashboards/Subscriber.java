@@ -101,6 +101,7 @@ public class Subscriber {
   public static class SubscriberDeserializer extends JsonDeserializer<Subscriber> {
     @Override
     public Subscriber deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SubscriberPb pb = mapper.readValue(p, SubscriberPb.class);
       return Subscriber.fromPb(pb);

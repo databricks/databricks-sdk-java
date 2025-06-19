@@ -126,6 +126,7 @@ public class Command {
   public static class CommandDeserializer extends JsonDeserializer<Command> {
     @Override
     public Command deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CommandPb pb = mapper.readValue(p, CommandPb.class);
       return Command.fromPb(pb);

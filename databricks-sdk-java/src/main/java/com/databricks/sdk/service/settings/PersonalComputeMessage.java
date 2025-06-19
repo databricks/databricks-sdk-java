@@ -86,6 +86,7 @@ public class PersonalComputeMessage {
     @Override
     public PersonalComputeMessage deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PersonalComputeMessagePb pb = mapper.readValue(p, PersonalComputeMessagePb.class);
       return PersonalComputeMessage.fromPb(pb);

@@ -80,6 +80,7 @@ public class GetConnectionRequest {
     @Override
     public GetConnectionRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetConnectionRequestPb pb = mapper.readValue(p, GetConnectionRequestPb.class);
       return GetConnectionRequest.fromPb(pb);

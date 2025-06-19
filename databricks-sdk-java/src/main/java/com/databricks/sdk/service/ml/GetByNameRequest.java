@@ -78,6 +78,7 @@ public class GetByNameRequest {
     @Override
     public GetByNameRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetByNameRequestPb pb = mapper.readValue(p, GetByNameRequestPb.class);
       return GetByNameRequest.fromPb(pb);

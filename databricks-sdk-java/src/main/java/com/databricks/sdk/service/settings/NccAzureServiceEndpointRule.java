@@ -123,6 +123,7 @@ public class NccAzureServiceEndpointRule {
     @Override
     public NccAzureServiceEndpointRule deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       NccAzureServiceEndpointRulePb pb = mapper.readValue(p, NccAzureServiceEndpointRulePb.class);
       return NccAzureServiceEndpointRule.fromPb(pb);

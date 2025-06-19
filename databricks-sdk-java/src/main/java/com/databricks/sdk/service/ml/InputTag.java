@@ -91,6 +91,7 @@ public class InputTag {
   public static class InputTagDeserializer extends JsonDeserializer<InputTag> {
     @Override
     public InputTag deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       InputTagPb pb = mapper.readValue(p, InputTagPb.class);
       return InputTag.fromPb(pb);

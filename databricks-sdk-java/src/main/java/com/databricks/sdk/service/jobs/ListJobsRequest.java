@@ -156,6 +156,7 @@ public class ListJobsRequest {
     @Override
     public ListJobsRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListJobsRequestPb pb = mapper.readValue(p, ListJobsRequestPb.class);
       return ListJobsRequest.fromPb(pb);

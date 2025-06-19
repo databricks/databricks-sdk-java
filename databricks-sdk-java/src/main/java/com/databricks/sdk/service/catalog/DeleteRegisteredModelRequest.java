@@ -82,6 +82,7 @@ public class DeleteRegisteredModelRequest {
     @Override
     public DeleteRegisteredModelRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteRegisteredModelRequestPb pb = mapper.readValue(p, DeleteRegisteredModelRequestPb.class);
       return DeleteRegisteredModelRequest.fromPb(pb);

@@ -317,6 +317,7 @@ public class CreateMonitor {
   public static class CreateMonitorDeserializer extends JsonDeserializer<CreateMonitor> {
     @Override
     public CreateMonitor deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateMonitorPb pb = mapper.readValue(p, CreateMonitorPb.class);
       return CreateMonitor.fromPb(pb);

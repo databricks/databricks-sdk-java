@@ -131,6 +131,7 @@ public class ListDashboardsRequest {
     @Override
     public ListDashboardsRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListDashboardsRequestPb pb = mapper.readValue(p, ListDashboardsRequestPb.class);
       return ListDashboardsRequest.fromPb(pb);

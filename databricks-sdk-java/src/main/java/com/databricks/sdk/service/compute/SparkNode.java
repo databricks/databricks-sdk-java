@@ -183,6 +183,7 @@ public class SparkNode {
   public static class SparkNodeDeserializer extends JsonDeserializer<SparkNode> {
     @Override
     public SparkNode deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SparkNodePb pb = mapper.readValue(p, SparkNodePb.class);
       return SparkNode.fromPb(pb);

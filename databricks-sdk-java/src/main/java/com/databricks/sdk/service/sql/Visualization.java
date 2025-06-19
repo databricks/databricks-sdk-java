@@ -204,6 +204,7 @@ public class Visualization {
   public static class VisualizationDeserializer extends JsonDeserializer<Visualization> {
     @Override
     public Visualization deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       VisualizationPb pb = mapper.readValue(p, VisualizationPb.class);
       return Visualization.fromPb(pb);

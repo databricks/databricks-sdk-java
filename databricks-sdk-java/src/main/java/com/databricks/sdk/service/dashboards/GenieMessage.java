@@ -285,6 +285,7 @@ public class GenieMessage {
   public static class GenieMessageDeserializer extends JsonDeserializer<GenieMessage> {
     @Override
     public GenieMessage deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GenieMessagePb pb = mapper.readValue(p, GenieMessagePb.class);
       return GenieMessage.fromPb(pb);

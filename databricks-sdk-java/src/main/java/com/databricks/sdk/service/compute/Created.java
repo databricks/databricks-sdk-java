@@ -76,6 +76,7 @@ public class Created {
   public static class CreatedDeserializer extends JsonDeserializer<Created> {
     @Override
     public Created deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreatedPb pb = mapper.readValue(p, CreatedPb.class);
       return Created.fromPb(pb);

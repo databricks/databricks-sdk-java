@@ -104,6 +104,7 @@ public class HttpUrlSpecWithoutSecret {
     @Override
     public HttpUrlSpecWithoutSecret deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       HttpUrlSpecWithoutSecretPb pb = mapper.readValue(p, HttpUrlSpecWithoutSecretPb.class);
       return HttpUrlSpecWithoutSecret.fromPb(pb);

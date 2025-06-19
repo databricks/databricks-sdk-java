@@ -99,6 +99,7 @@ public class CreateAppDeploymentRequest {
     @Override
     public CreateAppDeploymentRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateAppDeploymentRequestPb pb = mapper.readValue(p, CreateAppDeploymentRequestPb.class);
       return CreateAppDeploymentRequest.fromPb(pb);

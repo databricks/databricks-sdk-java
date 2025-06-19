@@ -97,6 +97,7 @@ public class GetRunRequest {
   public static class GetRunRequestDeserializer extends JsonDeserializer<GetRunRequest> {
     @Override
     public GetRunRequest deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetRunRequestPb pb = mapper.readValue(p, GetRunRequestPb.class);
       return GetRunRequest.fromPb(pb);

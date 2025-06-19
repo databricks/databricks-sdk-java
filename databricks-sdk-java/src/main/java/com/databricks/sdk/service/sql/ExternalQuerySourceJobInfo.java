@@ -114,6 +114,7 @@ public class ExternalQuerySourceJobInfo {
     @Override
     public ExternalQuerySourceJobInfo deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ExternalQuerySourceJobInfoPb pb = mapper.readValue(p, ExternalQuerySourceJobInfoPb.class);
       return ExternalQuerySourceJobInfo.fromPb(pb);

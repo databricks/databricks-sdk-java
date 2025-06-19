@@ -219,6 +219,7 @@ public class Schedule {
   public static class ScheduleDeserializer extends JsonDeserializer<Schedule> {
     @Override
     public Schedule deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SchedulePb pb = mapper.readValue(p, SchedulePb.class);
       return Schedule.fromPb(pb);

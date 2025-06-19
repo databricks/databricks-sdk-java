@@ -150,6 +150,7 @@ public class ClusterPolicyAccessControlResponse {
     @Override
     public ClusterPolicyAccessControlResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ClusterPolicyAccessControlResponsePb pb =
           mapper.readValue(p, ClusterPolicyAccessControlResponsePb.class);

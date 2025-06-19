@@ -112,6 +112,7 @@ public class GetGrantRequest {
     @Override
     public GetGrantRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetGrantRequestPb pb = mapper.readValue(p, GetGrantRequestPb.class);
       return GetGrantRequest.fromPb(pb);

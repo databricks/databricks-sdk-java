@@ -113,6 +113,7 @@ public class WarehousePermission {
     @Override
     public WarehousePermission deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       WarehousePermissionPb pb = mapper.readValue(p, WarehousePermissionPb.class);
       return WarehousePermission.fromPb(pb);

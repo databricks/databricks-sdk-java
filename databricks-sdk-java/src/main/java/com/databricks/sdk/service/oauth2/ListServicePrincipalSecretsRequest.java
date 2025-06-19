@@ -109,6 +109,7 @@ public class ListServicePrincipalSecretsRequest {
     @Override
     public ListServicePrincipalSecretsRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListServicePrincipalSecretsRequestPb pb =
           mapper.readValue(p, ListServicePrincipalSecretsRequestPb.class);

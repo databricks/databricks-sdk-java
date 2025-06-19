@@ -80,6 +80,7 @@ public class CreateProviderRequest {
     @Override
     public CreateProviderRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateProviderRequestPb pb = mapper.readValue(p, CreateProviderRequestPb.class);
       return CreateProviderRequest.fromPb(pb);

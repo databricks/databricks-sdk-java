@@ -146,6 +146,7 @@ public class CreateRun {
   public static class CreateRunDeserializer extends JsonDeserializer<CreateRun> {
     @Override
     public CreateRun deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateRunPb pb = mapper.readValue(p, CreateRunPb.class);
       return CreateRun.fromPb(pb);

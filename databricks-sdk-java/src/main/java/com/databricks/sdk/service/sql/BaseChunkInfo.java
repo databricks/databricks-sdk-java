@@ -133,6 +133,7 @@ public class BaseChunkInfo {
   public static class BaseChunkInfoDeserializer extends JsonDeserializer<BaseChunkInfo> {
     @Override
     public BaseChunkInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       BaseChunkInfoPb pb = mapper.readValue(p, BaseChunkInfoPb.class);
       return BaseChunkInfo.fromPb(pb);

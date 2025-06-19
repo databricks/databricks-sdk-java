@@ -81,6 +81,7 @@ public class DeleteLoggedModelRequest {
     @Override
     public DeleteLoggedModelRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteLoggedModelRequestPb pb = mapper.readValue(p, DeleteLoggedModelRequestPb.class);
       return DeleteLoggedModelRequest.fromPb(pb);

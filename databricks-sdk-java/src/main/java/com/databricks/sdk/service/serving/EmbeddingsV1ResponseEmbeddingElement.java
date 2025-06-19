@@ -120,6 +120,7 @@ public class EmbeddingsV1ResponseEmbeddingElement {
     @Override
     public EmbeddingsV1ResponseEmbeddingElement deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       EmbeddingsV1ResponseEmbeddingElementPb pb =
           mapper.readValue(p, EmbeddingsV1ResponseEmbeddingElementPb.class);

@@ -96,6 +96,7 @@ public class ForEachStats {
   public static class ForEachStatsDeserializer extends JsonDeserializer<ForEachStats> {
     @Override
     public ForEachStats deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ForEachStatsPb pb = mapper.readValue(p, ForEachStatsPb.class);
       return ForEachStats.fromPb(pb);

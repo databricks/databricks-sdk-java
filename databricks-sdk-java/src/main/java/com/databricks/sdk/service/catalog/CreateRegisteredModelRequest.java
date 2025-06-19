@@ -147,6 +147,7 @@ public class CreateRegisteredModelRequest {
     @Override
     public CreateRegisteredModelRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateRegisteredModelRequestPb pb = mapper.readValue(p, CreateRegisteredModelRequestPb.class);
       return CreateRegisteredModelRequest.fromPb(pb);

@@ -263,6 +263,7 @@ public class User {
   public static class UserDeserializer extends JsonDeserializer<User> {
     @Override
     public User deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UserPb pb = mapper.readValue(p, UserPb.class);
       return User.fromPb(pb);

@@ -179,6 +179,7 @@ public class Model {
   public static class ModelDeserializer extends JsonDeserializer<Model> {
     @Override
     public Model deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ModelPb pb = mapper.readValue(p, ModelPb.class);
       return Model.fromPb(pb);

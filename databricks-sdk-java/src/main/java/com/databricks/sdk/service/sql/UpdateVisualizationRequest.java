@@ -125,6 +125,7 @@ public class UpdateVisualizationRequest {
     @Override
     public UpdateVisualizationRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateVisualizationRequestPb pb = mapper.readValue(p, UpdateVisualizationRequestPb.class);
       return UpdateVisualizationRequest.fromPb(pb);

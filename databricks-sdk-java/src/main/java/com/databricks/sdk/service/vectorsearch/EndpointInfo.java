@@ -250,6 +250,7 @@ public class EndpointInfo {
   public static class EndpointInfoDeserializer extends JsonDeserializer<EndpointInfo> {
     @Override
     public EndpointInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       EndpointInfoPb pb = mapper.readValue(p, EndpointInfoPb.class);
       return EndpointInfo.fromPb(pb);

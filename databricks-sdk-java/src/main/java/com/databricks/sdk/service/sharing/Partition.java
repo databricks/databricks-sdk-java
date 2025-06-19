@@ -77,6 +77,7 @@ public class Partition {
   public static class PartitionDeserializer extends JsonDeserializer<Partition> {
     @Override
     public Partition deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PartitionPb pb = mapper.readValue(p, PartitionPb.class);
       return Partition.fromPb(pb);

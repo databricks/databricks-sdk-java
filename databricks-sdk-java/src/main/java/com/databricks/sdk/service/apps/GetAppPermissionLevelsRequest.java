@@ -82,6 +82,7 @@ public class GetAppPermissionLevelsRequest {
     @Override
     public GetAppPermissionLevelsRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetAppPermissionLevelsRequestPb pb =
           mapper.readValue(p, GetAppPermissionLevelsRequestPb.class);

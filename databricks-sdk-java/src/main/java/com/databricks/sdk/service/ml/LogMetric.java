@@ -216,6 +216,7 @@ public class LogMetric {
   public static class LogMetricDeserializer extends JsonDeserializer<LogMetric> {
     @Override
     public LogMetric deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       LogMetricPb pb = mapper.readValue(p, LogMetricPb.class);
       return LogMetric.fromPb(pb);

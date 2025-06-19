@@ -62,6 +62,7 @@ public class PutResponse {
   public static class PutResponseDeserializer extends JsonDeserializer<PutResponse> {
     @Override
     public PutResponse deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PutResponsePb pb = mapper.readValue(p, PutResponsePb.class);
       return PutResponse.fromPb(pb);

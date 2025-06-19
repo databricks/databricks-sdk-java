@@ -200,6 +200,7 @@ public class S3StorageInfo {
   public static class S3StorageInfoDeserializer extends JsonDeserializer<S3StorageInfo> {
     @Override
     public S3StorageInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       S3StorageInfoPb pb = mapper.readValue(p, S3StorageInfoPb.class);
       return S3StorageInfo.fromPb(pb);

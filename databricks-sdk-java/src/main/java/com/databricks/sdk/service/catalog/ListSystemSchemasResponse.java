@@ -102,6 +102,7 @@ public class ListSystemSchemasResponse {
     @Override
     public ListSystemSchemasResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListSystemSchemasResponsePb pb = mapper.readValue(p, ListSystemSchemasResponsePb.class);
       return ListSystemSchemasResponse.fromPb(pb);

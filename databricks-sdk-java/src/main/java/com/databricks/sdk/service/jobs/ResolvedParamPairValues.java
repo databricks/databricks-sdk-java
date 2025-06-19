@@ -81,6 +81,7 @@ public class ResolvedParamPairValues {
     @Override
     public ResolvedParamPairValues deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ResolvedParamPairValuesPb pb = mapper.readValue(p, ResolvedParamPairValuesPb.class);
       return ResolvedParamPairValues.fromPb(pb);

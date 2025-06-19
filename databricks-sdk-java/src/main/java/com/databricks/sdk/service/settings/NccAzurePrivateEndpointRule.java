@@ -283,6 +283,7 @@ public class NccAzurePrivateEndpointRule {
     @Override
     public NccAzurePrivateEndpointRule deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       NccAzurePrivateEndpointRulePb pb = mapper.readValue(p, NccAzurePrivateEndpointRulePb.class);
       return NccAzurePrivateEndpointRule.fromPb(pb);

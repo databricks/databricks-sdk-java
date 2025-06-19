@@ -136,6 +136,7 @@ public class LogBatch {
   public static class LogBatchDeserializer extends JsonDeserializer<LogBatch> {
     @Override
     public LogBatch deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       LogBatchPb pb = mapper.readValue(p, LogBatchPb.class);
       return LogBatch.fromPb(pb);

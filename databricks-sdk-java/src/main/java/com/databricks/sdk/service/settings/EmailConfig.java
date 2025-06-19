@@ -77,6 +77,7 @@ public class EmailConfig {
   public static class EmailConfigDeserializer extends JsonDeserializer<EmailConfig> {
     @Override
     public EmailConfig deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       EmailConfigPb pb = mapper.readValue(p, EmailConfigPb.class);
       return EmailConfig.fromPb(pb);

@@ -87,6 +87,7 @@ public class ProvisioningStatus {
     @Override
     public ProvisioningStatus deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ProvisioningStatusPb pb = mapper.readValue(p, ProvisioningStatusPb.class);
       return ProvisioningStatus.fromPb(pb);

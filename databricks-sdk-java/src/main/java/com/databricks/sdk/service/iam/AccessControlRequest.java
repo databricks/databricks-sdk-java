@@ -129,6 +129,7 @@ public class AccessControlRequest {
     @Override
     public AccessControlRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AccessControlRequestPb pb = mapper.readValue(p, AccessControlRequestPb.class);
       return AccessControlRequest.fromPb(pb);

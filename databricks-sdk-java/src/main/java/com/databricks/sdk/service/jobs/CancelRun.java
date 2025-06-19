@@ -76,6 +76,7 @@ public class CancelRun {
   public static class CancelRunDeserializer extends JsonDeserializer<CancelRun> {
     @Override
     public CancelRun deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CancelRunPb pb = mapper.readValue(p, CancelRunPb.class);
       return CancelRun.fromPb(pb);

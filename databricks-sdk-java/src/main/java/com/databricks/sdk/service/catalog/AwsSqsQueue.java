@@ -97,6 +97,7 @@ public class AwsSqsQueue {
   public static class AwsSqsQueueDeserializer extends JsonDeserializer<AwsSqsQueue> {
     @Override
     public AwsSqsQueue deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AwsSqsQueuePb pb = mapper.readValue(p, AwsSqsQueuePb.class);
       return AwsSqsQueue.fromPb(pb);

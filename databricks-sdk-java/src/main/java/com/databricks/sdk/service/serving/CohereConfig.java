@@ -121,6 +121,7 @@ public class CohereConfig {
   public static class CohereConfigDeserializer extends JsonDeserializer<CohereConfig> {
     @Override
     public CohereConfig deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CohereConfigPb pb = mapper.readValue(p, CohereConfigPb.class);
       return CohereConfig.fromPb(pb);

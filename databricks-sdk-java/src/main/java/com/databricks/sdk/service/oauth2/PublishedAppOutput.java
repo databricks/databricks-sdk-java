@@ -180,6 +180,7 @@ public class PublishedAppOutput {
     @Override
     public PublishedAppOutput deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PublishedAppOutputPb pb = mapper.readValue(p, PublishedAppOutputPb.class);
       return PublishedAppOutput.fromPb(pb);

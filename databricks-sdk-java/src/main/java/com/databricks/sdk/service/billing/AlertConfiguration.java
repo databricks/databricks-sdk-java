@@ -176,6 +176,7 @@ public class AlertConfiguration {
     @Override
     public AlertConfiguration deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AlertConfigurationPb pb = mapper.readValue(p, AlertConfigurationPb.class);
       return AlertConfiguration.fromPb(pb);

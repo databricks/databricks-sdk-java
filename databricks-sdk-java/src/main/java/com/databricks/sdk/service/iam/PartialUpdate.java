@@ -111,6 +111,7 @@ public class PartialUpdate {
   public static class PartialUpdateDeserializer extends JsonDeserializer<PartialUpdate> {
     @Override
     public PartialUpdate deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PartialUpdatePb pb = mapper.readValue(p, PartialUpdatePb.class);
       return PartialUpdate.fromPb(pb);

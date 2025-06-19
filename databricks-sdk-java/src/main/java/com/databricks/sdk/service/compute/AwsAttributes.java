@@ -299,6 +299,7 @@ public class AwsAttributes {
   public static class AwsAttributesDeserializer extends JsonDeserializer<AwsAttributes> {
     @Override
     public AwsAttributes deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AwsAttributesPb pb = mapper.readValue(p, AwsAttributesPb.class);
       return AwsAttributes.fromPb(pb);

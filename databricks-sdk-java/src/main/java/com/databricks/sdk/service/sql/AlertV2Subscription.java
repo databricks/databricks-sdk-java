@@ -96,6 +96,7 @@ public class AlertV2Subscription {
     @Override
     public AlertV2Subscription deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AlertV2SubscriptionPb pb = mapper.readValue(p, AlertV2SubscriptionPb.class);
       return AlertV2Subscription.fromPb(pb);

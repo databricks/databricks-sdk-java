@@ -195,6 +195,7 @@ public class OnlineTableSpec {
     @Override
     public OnlineTableSpec deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       OnlineTableSpecPb pb = mapper.readValue(p, OnlineTableSpecPb.class);
       return OnlineTableSpec.fromPb(pb);

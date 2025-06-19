@@ -84,6 +84,7 @@ public class TaskTimeOverRangeEntry {
     @Override
     public TaskTimeOverRangeEntry deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       TaskTimeOverRangeEntryPb pb = mapper.readValue(p, TaskTimeOverRangeEntryPb.class);
       return TaskTimeOverRangeEntry.fromPb(pb);

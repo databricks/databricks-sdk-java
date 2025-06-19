@@ -142,6 +142,7 @@ public class Credential {
   public static class CredentialDeserializer extends JsonDeserializer<Credential> {
     @Override
     public Credential deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CredentialPb pb = mapper.readValue(p, CredentialPb.class);
       return Credential.fromPb(pb);

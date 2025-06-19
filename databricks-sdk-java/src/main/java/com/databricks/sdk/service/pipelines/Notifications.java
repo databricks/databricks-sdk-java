@@ -102,6 +102,7 @@ public class Notifications {
   public static class NotificationsDeserializer extends JsonDeserializer<Notifications> {
     @Override
     public Notifications deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       NotificationsPb pb = mapper.readValue(p, NotificationsPb.class);
       return Notifications.fromPb(pb);

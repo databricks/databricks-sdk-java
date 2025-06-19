@@ -107,6 +107,7 @@ public class JobRunAs {
   public static class JobRunAsDeserializer extends JsonDeserializer<JobRunAs> {
     @Override
     public JobRunAs deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       JobRunAsPb pb = mapper.readValue(p, JobRunAsPb.class);
       return JobRunAs.fromPb(pb);

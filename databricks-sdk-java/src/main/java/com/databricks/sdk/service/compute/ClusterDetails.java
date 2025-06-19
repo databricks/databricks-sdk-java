@@ -266,12 +266,6 @@ public class ClusterDetails {
   private String policyId;
 
   /**
-   * If set, what the configurable throughput (in Mb/s) for the remote disk is. Currently only
-   * supported for GCP HYPERDISK_BALANCED disks.
-   */
-  private Long remoteDiskThroughput;
-
-  /**
    * Determines the cluster's runtime engine, either standard or Photon.
    *
    * <p>This field is not compatible with legacy `spark_version` values that contain `-photon-`.
@@ -356,12 +350,6 @@ public class ClusterDetails {
    * in a `TERMINATING` or `TERMINATED` state.
    */
   private TerminationReason terminationReason;
-
-  /**
-   * If set, what the total initial volume size (in GB) of the remote disks should be. Currently
-   * only supported for GCP HYPERDISK_BALANCED disks.
-   */
-  private Long totalInitialRemoteDiskSize;
 
   /**
    * This field can only be used when `kind = CLASSIC_PREVIEW`.
@@ -671,15 +659,6 @@ public class ClusterDetails {
     return policyId;
   }
 
-  public ClusterDetails setRemoteDiskThroughput(Long remoteDiskThroughput) {
-    this.remoteDiskThroughput = remoteDiskThroughput;
-    return this;
-  }
-
-  public Long getRemoteDiskThroughput() {
-    return remoteDiskThroughput;
-  }
-
   public ClusterDetails setRuntimeEngine(RuntimeEngine runtimeEngine) {
     this.runtimeEngine = runtimeEngine;
     return this;
@@ -797,15 +776,6 @@ public class ClusterDetails {
     return terminationReason;
   }
 
-  public ClusterDetails setTotalInitialRemoteDiskSize(Long totalInitialRemoteDiskSize) {
-    this.totalInitialRemoteDiskSize = totalInitialRemoteDiskSize;
-    return this;
-  }
-
-  public Long getTotalInitialRemoteDiskSize() {
-    return totalInitialRemoteDiskSize;
-  }
-
   public ClusterDetails setUseMlRuntime(Boolean useMlRuntime) {
     this.useMlRuntime = useMlRuntime;
     return this;
@@ -862,7 +832,6 @@ public class ClusterDetails {
         && Objects.equals(nodeTypeId, that.nodeTypeId)
         && Objects.equals(numWorkers, that.numWorkers)
         && Objects.equals(policyId, that.policyId)
-        && Objects.equals(remoteDiskThroughput, that.remoteDiskThroughput)
         && Objects.equals(runtimeEngine, that.runtimeEngine)
         && Objects.equals(singleUserName, that.singleUserName)
         && Objects.equals(sparkConf, that.sparkConf)
@@ -876,7 +845,6 @@ public class ClusterDetails {
         && Objects.equals(stateMessage, that.stateMessage)
         && Objects.equals(terminatedTime, that.terminatedTime)
         && Objects.equals(terminationReason, that.terminationReason)
-        && Objects.equals(totalInitialRemoteDiskSize, that.totalInitialRemoteDiskSize)
         && Objects.equals(useMlRuntime, that.useMlRuntime)
         && Objects.equals(workloadType, that.workloadType);
   }
@@ -917,7 +885,6 @@ public class ClusterDetails {
         nodeTypeId,
         numWorkers,
         policyId,
-        remoteDiskThroughput,
         runtimeEngine,
         singleUserName,
         sparkConf,
@@ -931,7 +898,6 @@ public class ClusterDetails {
         stateMessage,
         terminatedTime,
         terminationReason,
-        totalInitialRemoteDiskSize,
         useMlRuntime,
         workloadType);
   }
@@ -972,7 +938,6 @@ public class ClusterDetails {
         .add("nodeTypeId", nodeTypeId)
         .add("numWorkers", numWorkers)
         .add("policyId", policyId)
-        .add("remoteDiskThroughput", remoteDiskThroughput)
         .add("runtimeEngine", runtimeEngine)
         .add("singleUserName", singleUserName)
         .add("sparkConf", sparkConf)
@@ -986,7 +951,6 @@ public class ClusterDetails {
         .add("stateMessage", stateMessage)
         .add("terminatedTime", terminatedTime)
         .add("terminationReason", terminationReason)
-        .add("totalInitialRemoteDiskSize", totalInitialRemoteDiskSize)
         .add("useMlRuntime", useMlRuntime)
         .add("workloadType", workloadType)
         .toString();
@@ -1027,7 +991,6 @@ public class ClusterDetails {
     pb.setNodeTypeId(nodeTypeId);
     pb.setNumWorkers(numWorkers);
     pb.setPolicyId(policyId);
-    pb.setRemoteDiskThroughput(remoteDiskThroughput);
     pb.setRuntimeEngine(runtimeEngine);
     pb.setSingleUserName(singleUserName);
     pb.setSparkConf(sparkConf);
@@ -1041,7 +1004,6 @@ public class ClusterDetails {
     pb.setStateMessage(stateMessage);
     pb.setTerminatedTime(terminatedTime);
     pb.setTerminationReason(terminationReason);
-    pb.setTotalInitialRemoteDiskSize(totalInitialRemoteDiskSize);
     pb.setUseMlRuntime(useMlRuntime);
     pb.setWorkloadType(workloadType);
 
@@ -1083,7 +1045,6 @@ public class ClusterDetails {
     model.setNodeTypeId(pb.getNodeTypeId());
     model.setNumWorkers(pb.getNumWorkers());
     model.setPolicyId(pb.getPolicyId());
-    model.setRemoteDiskThroughput(pb.getRemoteDiskThroughput());
     model.setRuntimeEngine(pb.getRuntimeEngine());
     model.setSingleUserName(pb.getSingleUserName());
     model.setSparkConf(pb.getSparkConf());
@@ -1097,7 +1058,6 @@ public class ClusterDetails {
     model.setStateMessage(pb.getStateMessage());
     model.setTerminatedTime(pb.getTerminatedTime());
     model.setTerminationReason(pb.getTerminationReason());
-    model.setTotalInitialRemoteDiskSize(pb.getTotalInitialRemoteDiskSize());
     model.setUseMlRuntime(pb.getUseMlRuntime());
     model.setWorkloadType(pb.getWorkloadType());
 
@@ -1117,6 +1077,7 @@ public class ClusterDetails {
     @Override
     public ClusterDetails deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ClusterDetailsPb pb = mapper.readValue(p, ClusterDetailsPb.class);
       return ClusterDetails.fromPb(pb);

@@ -101,6 +101,7 @@ public class ExperimentPermissionsDescription {
     @Override
     public ExperimentPermissionsDescription deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ExperimentPermissionsDescriptionPb pb =
           mapper.readValue(p, ExperimentPermissionsDescriptionPb.class);

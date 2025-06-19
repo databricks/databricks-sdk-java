@@ -337,6 +337,7 @@ public class SubmitRun {
   public static class SubmitRunDeserializer extends JsonDeserializer<SubmitRun> {
     @Override
     public SubmitRun deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SubmitRunPb pb = mapper.readValue(p, SubmitRunPb.class);
       return SubmitRun.fromPb(pb);

@@ -98,6 +98,7 @@ public class SystemSchemaInfo {
     @Override
     public SystemSchemaInfo deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SystemSchemaInfoPb pb = mapper.readValue(p, SystemSchemaInfoPb.class);
       return SystemSchemaInfo.fromPb(pb);

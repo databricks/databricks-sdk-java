@@ -91,6 +91,7 @@ public class ModelOutput {
   public static class ModelOutputDeserializer extends JsonDeserializer<ModelOutput> {
     @Override
     public ModelOutput deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ModelOutputPb pb = mapper.readValue(p, ModelOutputPb.class);
       return ModelOutput.fromPb(pb);

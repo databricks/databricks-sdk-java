@@ -115,6 +115,7 @@ public class ForEachTask {
   public static class ForEachTaskDeserializer extends JsonDeserializer<ForEachTask> {
     @Override
     public ForEachTask deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ForEachTaskPb pb = mapper.readValue(p, ForEachTaskPb.class);
       return ForEachTask.fromPb(pb);

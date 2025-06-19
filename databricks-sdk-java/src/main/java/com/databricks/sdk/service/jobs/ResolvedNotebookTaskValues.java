@@ -83,6 +83,7 @@ public class ResolvedNotebookTaskValues {
     @Override
     public ResolvedNotebookTaskValues deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ResolvedNotebookTaskValuesPb pb = mapper.readValue(p, ResolvedNotebookTaskValuesPb.class);
       return ResolvedNotebookTaskValues.fromPb(pb);

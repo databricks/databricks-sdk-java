@@ -81,6 +81,7 @@ public class SparkNodeAwsAttributes {
     @Override
     public SparkNodeAwsAttributes deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SparkNodeAwsAttributesPb pb = mapper.readValue(p, SparkNodeAwsAttributesPb.class);
       return SparkNodeAwsAttributes.fromPb(pb);

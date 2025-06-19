@@ -285,6 +285,7 @@ public class InstallationDetail {
     @Override
     public InstallationDetail deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       InstallationDetailPb pb = mapper.readValue(p, InstallationDetailPb.class);
       return InstallationDetail.fromPb(pb);

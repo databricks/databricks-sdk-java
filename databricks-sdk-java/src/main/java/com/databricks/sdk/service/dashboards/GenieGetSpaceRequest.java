@@ -80,6 +80,7 @@ public class GenieGetSpaceRequest {
     @Override
     public GenieGetSpaceRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GenieGetSpaceRequestPb pb = mapper.readValue(p, GenieGetSpaceRequestPb.class);
       return GenieGetSpaceRequest.fromPb(pb);

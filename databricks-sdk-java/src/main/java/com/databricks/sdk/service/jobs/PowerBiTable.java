@@ -126,6 +126,7 @@ public class PowerBiTable {
   public static class PowerBiTableDeserializer extends JsonDeserializer<PowerBiTable> {
     @Override
     public PowerBiTable deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PowerBiTablePb pb = mapper.readValue(p, PowerBiTablePb.class);
       return PowerBiTable.fromPb(pb);

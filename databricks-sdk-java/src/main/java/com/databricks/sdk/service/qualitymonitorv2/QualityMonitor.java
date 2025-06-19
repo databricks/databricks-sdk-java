@@ -111,6 +111,7 @@ public class QualityMonitor {
     @Override
     public QualityMonitor deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       QualityMonitorPb pb = mapper.readValue(p, QualityMonitorPb.class);
       return QualityMonitor.fromPb(pb);

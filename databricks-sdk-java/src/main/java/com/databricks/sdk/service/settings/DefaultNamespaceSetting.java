@@ -135,6 +135,7 @@ public class DefaultNamespaceSetting {
     @Override
     public DefaultNamespaceSetting deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DefaultNamespaceSettingPb pb = mapper.readValue(p, DefaultNamespaceSettingPb.class);
       return DefaultNamespaceSetting.fromPb(pb);

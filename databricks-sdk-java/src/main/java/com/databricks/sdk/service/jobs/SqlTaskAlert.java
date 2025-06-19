@@ -111,6 +111,7 @@ public class SqlTaskAlert {
   public static class SqlTaskAlertDeserializer extends JsonDeserializer<SqlTaskAlert> {
     @Override
     public SqlTaskAlert deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SqlTaskAlertPb pb = mapper.readValue(p, SqlTaskAlertPb.class);
       return SqlTaskAlert.fromPb(pb);

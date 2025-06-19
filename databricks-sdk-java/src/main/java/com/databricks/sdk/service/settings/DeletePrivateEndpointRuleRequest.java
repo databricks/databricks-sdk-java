@@ -102,6 +102,7 @@ public class DeletePrivateEndpointRuleRequest {
     @Override
     public DeletePrivateEndpointRuleRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeletePrivateEndpointRuleRequestPb pb =
           mapper.readValue(p, DeletePrivateEndpointRuleRequestPb.class);

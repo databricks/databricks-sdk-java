@@ -110,6 +110,7 @@ public class GenerateTemporaryTableCredentialRequest {
     @Override
     public GenerateTemporaryTableCredentialRequest deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GenerateTemporaryTableCredentialRequestPb pb =
           mapper.readValue(p, GenerateTemporaryTableCredentialRequestPb.class);

@@ -92,6 +92,7 @@ public class DeleteDefaultNamespaceSettingRequest {
     @Override
     public DeleteDefaultNamespaceSettingRequest deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteDefaultNamespaceSettingRequestPb pb =
           mapper.readValue(p, DeleteDefaultNamespaceSettingRequestPb.class);

@@ -146,6 +146,7 @@ public class SetArtifactAllowlist {
     @Override
     public SetArtifactAllowlist deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SetArtifactAllowlistPb pb = mapper.readValue(p, SetArtifactAllowlistPb.class);
       return SetArtifactAllowlist.fromPb(pb);

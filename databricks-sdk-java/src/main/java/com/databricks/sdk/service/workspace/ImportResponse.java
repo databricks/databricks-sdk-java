@@ -63,6 +63,7 @@ public class ImportResponse {
     @Override
     public ImportResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ImportResponsePb pb = mapper.readValue(p, ImportResponsePb.class);
       return ImportResponse.fromPb(pb);

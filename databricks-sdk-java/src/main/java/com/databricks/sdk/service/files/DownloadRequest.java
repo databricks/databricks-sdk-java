@@ -78,6 +78,7 @@ public class DownloadRequest {
     @Override
     public DownloadRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DownloadRequestPb pb = mapper.readValue(p, DownloadRequestPb.class);
       return DownloadRequest.fromPb(pb);

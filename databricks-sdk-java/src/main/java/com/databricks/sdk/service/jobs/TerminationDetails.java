@@ -161,6 +161,7 @@ public class TerminationDetails {
     @Override
     public TerminationDetails deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       TerminationDetailsPb pb = mapper.readValue(p, TerminationDetailsPb.class);
       return TerminationDetails.fromPb(pb);

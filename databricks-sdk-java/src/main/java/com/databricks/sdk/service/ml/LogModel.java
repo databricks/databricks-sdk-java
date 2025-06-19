@@ -93,6 +93,7 @@ public class LogModel {
   public static class LogModelDeserializer extends JsonDeserializer<LogModel> {
     @Override
     public LogModel deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       LogModelPb pb = mapper.readValue(p, LogModelPb.class);
       return LogModel.fromPb(pb);

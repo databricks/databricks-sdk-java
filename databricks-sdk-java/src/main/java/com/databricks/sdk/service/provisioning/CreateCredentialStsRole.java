@@ -80,6 +80,7 @@ public class CreateCredentialStsRole {
     @Override
     public CreateCredentialStsRole deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateCredentialStsRolePb pb = mapper.readValue(p, CreateCredentialStsRolePb.class);
       return CreateCredentialStsRole.fromPb(pb);

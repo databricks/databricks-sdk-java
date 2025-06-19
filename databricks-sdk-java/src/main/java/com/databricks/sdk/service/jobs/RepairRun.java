@@ -399,6 +399,7 @@ public class RepairRun {
   public static class RepairRunDeserializer extends JsonDeserializer<RepairRun> {
     @Override
     public RepairRun deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RepairRunPb pb = mapper.readValue(p, RepairRunPb.class);
       return RepairRun.fromPb(pb);

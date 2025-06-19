@@ -81,6 +81,7 @@ public class GetDatabaseInstanceRequest {
     @Override
     public GetDatabaseInstanceRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetDatabaseInstanceRequestPb pb = mapper.readValue(p, GetDatabaseInstanceRequestPb.class);
       return GetDatabaseInstanceRequest.fromPb(pb);

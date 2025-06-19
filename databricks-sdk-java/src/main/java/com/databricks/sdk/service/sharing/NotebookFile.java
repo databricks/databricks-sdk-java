@@ -159,6 +159,7 @@ public class NotebookFile {
   public static class NotebookFileDeserializer extends JsonDeserializer<NotebookFile> {
     @Override
     public NotebookFile deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       NotebookFilePb pb = mapper.readValue(p, NotebookFilePb.class);
       return NotebookFile.fromPb(pb);

@@ -83,6 +83,7 @@ public class UnpublishDashboardRequest {
     @Override
     public UnpublishDashboardRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UnpublishDashboardRequestPb pb = mapper.readValue(p, UnpublishDashboardRequestPb.class);
       return UnpublishDashboardRequest.fromPb(pb);

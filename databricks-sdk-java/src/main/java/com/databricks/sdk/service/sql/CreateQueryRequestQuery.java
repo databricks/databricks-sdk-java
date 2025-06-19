@@ -258,6 +258,7 @@ public class CreateQueryRequestQuery {
     @Override
     public CreateQueryRequestQuery deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateQueryRequestQueryPb pb = mapper.readValue(p, CreateQueryRequestQueryPb.class);
       return CreateQueryRequestQuery.fromPb(pb);

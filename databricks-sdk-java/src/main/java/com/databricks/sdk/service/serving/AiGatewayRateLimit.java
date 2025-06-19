@@ -114,6 +114,7 @@ public class AiGatewayRateLimit {
     @Override
     public AiGatewayRateLimit deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AiGatewayRateLimitPb pb = mapper.readValue(p, AiGatewayRateLimitPb.class);
       return AiGatewayRateLimit.fromPb(pb);

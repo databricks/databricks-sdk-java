@@ -91,6 +91,7 @@ public class PipelineTrigger {
     @Override
     public PipelineTrigger deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PipelineTriggerPb pb = mapper.readValue(p, PipelineTriggerPb.class);
       return PipelineTrigger.fromPb(pb);

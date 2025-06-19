@@ -144,6 +144,7 @@ public class ListGroupsResponse {
     @Override
     public ListGroupsResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListGroupsResponsePb pb = mapper.readValue(p, ListGroupsResponsePb.class);
       return ListGroupsResponse.fromPb(pb);

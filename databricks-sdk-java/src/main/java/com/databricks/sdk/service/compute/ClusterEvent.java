@@ -145,6 +145,7 @@ public class ClusterEvent {
   public static class ClusterEventDeserializer extends JsonDeserializer<ClusterEvent> {
     @Override
     public ClusterEvent deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ClusterEventPb pb = mapper.readValue(p, ClusterEventPb.class);
       return ClusterEvent.fromPb(pb);

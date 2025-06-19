@@ -93,6 +93,7 @@ public class ComputeStatus {
   public static class ComputeStatusDeserializer extends JsonDeserializer<ComputeStatus> {
     @Override
     public ComputeStatus deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ComputeStatusPb pb = mapper.readValue(p, ComputeStatusPb.class);
       return ComputeStatus.fromPb(pb);

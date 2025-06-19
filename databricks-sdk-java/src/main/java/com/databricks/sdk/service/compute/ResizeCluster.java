@@ -122,6 +122,7 @@ public class ResizeCluster {
   public static class ResizeClusterDeserializer extends JsonDeserializer<ResizeCluster> {
     @Override
     public ResizeCluster deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ResizeClusterPb pb = mapper.readValue(p, ResizeClusterPb.class);
       return ResizeCluster.fromPb(pb);

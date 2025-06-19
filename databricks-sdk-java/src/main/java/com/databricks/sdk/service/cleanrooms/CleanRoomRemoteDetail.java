@@ -198,6 +198,7 @@ public class CleanRoomRemoteDetail {
     @Override
     public CleanRoomRemoteDetail deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CleanRoomRemoteDetailPb pb = mapper.readValue(p, CleanRoomRemoteDetailPb.class);
       return CleanRoomRemoteDetail.fromPb(pb);

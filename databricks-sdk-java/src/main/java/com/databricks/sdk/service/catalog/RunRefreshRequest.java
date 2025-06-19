@@ -78,6 +78,7 @@ public class RunRefreshRequest {
     @Override
     public RunRefreshRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RunRefreshRequestPb pb = mapper.readValue(p, RunRefreshRequestPb.class);
       return RunRefreshRequest.fromPb(pb);

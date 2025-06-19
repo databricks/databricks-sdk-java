@@ -127,6 +127,7 @@ public class AzureManagedIdentity {
     @Override
     public AzureManagedIdentity deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AzureManagedIdentityPb pb = mapper.readValue(p, AzureManagedIdentityPb.class);
       return AzureManagedIdentity.fromPb(pb);

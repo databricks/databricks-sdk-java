@@ -127,6 +127,7 @@ public class PublicTokenInfo {
     @Override
     public PublicTokenInfo deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PublicTokenInfoPb pb = mapper.readValue(p, PublicTokenInfoPb.class);
       return PublicTokenInfo.fromPb(pb);

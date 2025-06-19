@@ -117,6 +117,7 @@ public class ListSchedulesRequest {
     @Override
     public ListSchedulesRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListSchedulesRequestPb pb = mapper.readValue(p, ListSchedulesRequestPb.class);
       return ListSchedulesRequest.fromPb(pb);

@@ -119,6 +119,7 @@ public class MavenLibrary {
   public static class MavenLibraryDeserializer extends JsonDeserializer<MavenLibrary> {
     @Override
     public MavenLibrary deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       MavenLibraryPb pb = mapper.readValue(p, MavenLibraryPb.class);
       return MavenLibrary.fromPb(pb);

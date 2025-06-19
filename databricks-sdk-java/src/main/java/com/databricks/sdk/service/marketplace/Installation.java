@@ -76,6 +76,7 @@ public class Installation {
   public static class InstallationDeserializer extends JsonDeserializer<Installation> {
     @Override
     public Installation deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       InstallationPb pb = mapper.readValue(p, InstallationPb.class);
       return Installation.fromPb(pb);

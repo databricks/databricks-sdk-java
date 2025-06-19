@@ -206,6 +206,7 @@ public class GetAccountUserRequest {
     @Override
     public GetAccountUserRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetAccountUserRequestPb pb = mapper.readValue(p, GetAccountUserRequestPb.class);
       return GetAccountUserRequest.fromPb(pb);

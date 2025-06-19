@@ -76,6 +76,7 @@ public class StartCluster {
   public static class StartClusterDeserializer extends JsonDeserializer<StartCluster> {
     @Override
     public StartCluster deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       StartClusterPb pb = mapper.readValue(p, StartClusterPb.class);
       return StartCluster.fromPb(pb);

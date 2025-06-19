@@ -123,6 +123,7 @@ public class ListProviderAnalyticsDashboardResponse {
     @Override
     public ListProviderAnalyticsDashboardResponse deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListProviderAnalyticsDashboardResponsePb pb =
           mapper.readValue(p, ListProviderAnalyticsDashboardResponsePb.class);

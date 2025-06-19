@@ -76,6 +76,7 @@ public class Close {
   public static class CloseDeserializer extends JsonDeserializer<Close> {
     @Override
     public Close deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ClosePb pb = mapper.readValue(p, ClosePb.class);
       return Close.fromPb(pb);

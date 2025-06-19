@@ -103,6 +103,7 @@ public class AnthropicConfig {
     @Override
     public AnthropicConfig deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AnthropicConfigPb pb = mapper.readValue(p, AnthropicConfigPb.class);
       return AnthropicConfig.fromPb(pb);

@@ -354,6 +354,7 @@ public class Origin {
   public static class OriginDeserializer extends JsonDeserializer<Origin> {
     @Override
     public Origin deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       OriginPb pb = mapper.readValue(p, OriginPb.class);
       return Origin.fromPb(pb);

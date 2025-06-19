@@ -143,6 +143,7 @@ public class DirectoryEntry {
     @Override
     public DirectoryEntry deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DirectoryEntryPb pb = mapper.readValue(p, DirectoryEntryPb.class);
       return DirectoryEntry.fromPb(pb);

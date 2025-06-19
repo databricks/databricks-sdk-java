@@ -120,6 +120,7 @@ public class RuleSetResponse {
     @Override
     public RuleSetResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RuleSetResponsePb pb = mapper.readValue(p, RuleSetResponsePb.class);
       return RuleSetResponse.fromPb(pb);

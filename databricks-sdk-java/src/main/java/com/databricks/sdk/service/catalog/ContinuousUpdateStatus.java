@@ -125,6 +125,7 @@ public class ContinuousUpdateStatus {
     @Override
     public ContinuousUpdateStatus deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ContinuousUpdateStatusPb pb = mapper.readValue(p, ContinuousUpdateStatusPb.class);
       return ContinuousUpdateStatus.fromPb(pb);

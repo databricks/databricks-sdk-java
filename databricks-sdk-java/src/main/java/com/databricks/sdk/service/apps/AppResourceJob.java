@@ -97,6 +97,7 @@ public class AppResourceJob {
     @Override
     public AppResourceJob deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AppResourceJobPb pb = mapper.readValue(p, AppResourceJobPb.class);
       return AppResourceJob.fromPb(pb);

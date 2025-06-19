@@ -113,6 +113,7 @@ public class DateValue {
   public static class DateValueDeserializer extends JsonDeserializer<DateValue> {
     @Override
     public DateValue deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DateValuePb pb = mapper.readValue(p, DateValuePb.class);
       return DateValue.fromPb(pb);

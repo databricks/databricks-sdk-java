@@ -63,6 +63,7 @@ public class LogOutputsResponse {
     @Override
     public LogOutputsResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       LogOutputsResponsePb pb = mapper.readValue(p, LogOutputsResponsePb.class);
       return LogOutputsResponse.fromPb(pb);

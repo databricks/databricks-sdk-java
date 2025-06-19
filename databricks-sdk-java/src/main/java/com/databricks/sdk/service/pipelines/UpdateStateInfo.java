@@ -111,6 +111,7 @@ public class UpdateStateInfo {
     @Override
     public UpdateStateInfo deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateStateInfoPb pb = mapper.readValue(p, UpdateStateInfoPb.class);
       return UpdateStateInfo.fromPb(pb);

@@ -397,6 +397,7 @@ public class MetastoreInfo {
   public static class MetastoreInfoDeserializer extends JsonDeserializer<MetastoreInfo> {
     @Override
     public MetastoreInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       MetastoreInfoPb pb = mapper.readValue(p, MetastoreInfoPb.class);
       return MetastoreInfo.fromPb(pb);

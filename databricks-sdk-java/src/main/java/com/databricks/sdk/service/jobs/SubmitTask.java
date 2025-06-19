@@ -626,6 +626,7 @@ public class SubmitTask {
   public static class SubmitTaskDeserializer extends JsonDeserializer<SubmitTask> {
     @Override
     public SubmitTask deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SubmitTaskPb pb = mapper.readValue(p, SubmitTaskPb.class);
       return SubmitTask.fromPb(pb);

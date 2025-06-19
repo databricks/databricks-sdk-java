@@ -110,6 +110,7 @@ public class Listing {
   public static class ListingDeserializer extends JsonDeserializer<Listing> {
     @Override
     public Listing deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListingPb pb = mapper.readValue(p, ListingPb.class);
       return Listing.fromPb(pb);

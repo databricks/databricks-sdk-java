@@ -159,6 +159,7 @@ public class UpdateShare {
   public static class UpdateShareDeserializer extends JsonDeserializer<UpdateShare> {
     @Override
     public UpdateShare deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateSharePb pb = mapper.readValue(p, UpdateSharePb.class);
       return UpdateShare.fromPb(pb);

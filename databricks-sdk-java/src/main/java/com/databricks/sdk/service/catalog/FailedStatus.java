@@ -105,6 +105,7 @@ public class FailedStatus {
   public static class FailedStatusDeserializer extends JsonDeserializer<FailedStatus> {
     @Override
     public FailedStatus deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       FailedStatusPb pb = mapper.readValue(p, FailedStatusPb.class);
       return FailedStatus.fromPb(pb);

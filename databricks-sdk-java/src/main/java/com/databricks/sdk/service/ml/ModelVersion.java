@@ -289,6 +289,7 @@ public class ModelVersion {
   public static class ModelVersionDeserializer extends JsonDeserializer<ModelVersion> {
     @Override
     public ModelVersion deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ModelVersionPb pb = mapper.readValue(p, ModelVersionPb.class);
       return ModelVersion.fromPb(pb);

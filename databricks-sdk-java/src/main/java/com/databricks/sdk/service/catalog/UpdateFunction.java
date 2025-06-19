@@ -94,6 +94,7 @@ public class UpdateFunction {
     @Override
     public UpdateFunction deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateFunctionPb pb = mapper.readValue(p, UpdateFunctionPb.class);
       return UpdateFunction.fromPb(pb);

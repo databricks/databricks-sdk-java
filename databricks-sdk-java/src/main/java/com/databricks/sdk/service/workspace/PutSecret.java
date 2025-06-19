@@ -126,6 +126,7 @@ public class PutSecret {
   public static class PutSecretDeserializer extends JsonDeserializer<PutSecret> {
     @Override
     public PutSecret deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PutSecretPb pb = mapper.readValue(p, PutSecretPb.class);
       return PutSecret.fromPb(pb);

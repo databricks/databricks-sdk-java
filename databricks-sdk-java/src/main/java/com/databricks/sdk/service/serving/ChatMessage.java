@@ -90,6 +90,7 @@ public class ChatMessage {
   public static class ChatMessageDeserializer extends JsonDeserializer<ChatMessage> {
     @Override
     public ChatMessage deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ChatMessagePb pb = mapper.readValue(p, ChatMessagePb.class);
       return ChatMessage.fromPb(pb);

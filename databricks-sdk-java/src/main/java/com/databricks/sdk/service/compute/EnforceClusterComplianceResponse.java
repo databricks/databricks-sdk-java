@@ -106,6 +106,7 @@ public class EnforceClusterComplianceResponse {
     @Override
     public EnforceClusterComplianceResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       EnforceClusterComplianceResponsePb pb =
           mapper.readValue(p, EnforceClusterComplianceResponsePb.class);

@@ -175,6 +175,7 @@ public class RepoInfo {
   public static class RepoInfoDeserializer extends JsonDeserializer<RepoInfo> {
     @Override
     public RepoInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RepoInfoPb pb = mapper.readValue(p, RepoInfoPb.class);
       return RepoInfo.fromPb(pb);

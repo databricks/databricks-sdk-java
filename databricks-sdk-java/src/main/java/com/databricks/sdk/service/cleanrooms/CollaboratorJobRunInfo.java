@@ -151,6 +151,7 @@ public class CollaboratorJobRunInfo {
     @Override
     public CollaboratorJobRunInfo deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CollaboratorJobRunInfoPb pb = mapper.readValue(p, CollaboratorJobRunInfoPb.class);
       return CollaboratorJobRunInfo.fromPb(pb);

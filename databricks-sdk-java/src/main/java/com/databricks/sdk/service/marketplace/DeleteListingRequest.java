@@ -80,6 +80,7 @@ public class DeleteListingRequest {
     @Override
     public DeleteListingRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteListingRequestPb pb = mapper.readValue(p, DeleteListingRequestPb.class);
       return DeleteListingRequest.fromPb(pb);

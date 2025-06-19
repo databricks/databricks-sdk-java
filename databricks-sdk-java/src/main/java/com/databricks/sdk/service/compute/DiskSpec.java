@@ -169,6 +169,7 @@ public class DiskSpec {
   public static class DiskSpecDeserializer extends JsonDeserializer<DiskSpec> {
     @Override
     public DiskSpec deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DiskSpecPb pb = mapper.readValue(p, DiskSpecPb.class);
       return DiskSpec.fromPb(pb);

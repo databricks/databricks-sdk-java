@@ -142,6 +142,7 @@ public class SparkJarTask {
   public static class SparkJarTaskDeserializer extends JsonDeserializer<SparkJarTask> {
     @Override
     public SparkJarTask deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SparkJarTaskPb pb = mapper.readValue(p, SparkJarTaskPb.class);
       return SparkJarTask.fromPb(pb);

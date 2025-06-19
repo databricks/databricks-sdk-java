@@ -81,6 +81,7 @@ public class EnhancedSecurityMonitoring {
     @Override
     public EnhancedSecurityMonitoring deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       EnhancedSecurityMonitoringPb pb = mapper.readValue(p, EnhancedSecurityMonitoringPb.class);
       return EnhancedSecurityMonitoring.fromPb(pb);

@@ -81,8 +81,6 @@ import com.databricks.sdk.service.dashboards.LakeviewAPI;
 import com.databricks.sdk.service.dashboards.LakeviewEmbeddedAPI;
 import com.databricks.sdk.service.dashboards.LakeviewEmbeddedService;
 import com.databricks.sdk.service.dashboards.LakeviewService;
-import com.databricks.sdk.service.dashboards.QueryExecutionAPI;
-import com.databricks.sdk.service.dashboards.QueryExecutionService;
 import com.databricks.sdk.service.database.DatabaseAPI;
 import com.databricks.sdk.service.database.DatabaseService;
 import com.databricks.sdk.service.files.DbfsService;
@@ -287,7 +285,6 @@ public class WorkspaceClient {
   private QualityMonitorsAPI qualityMonitorsAPI;
   private QueriesAPI queriesAPI;
   private QueriesLegacyAPI queriesLegacyAPI;
-  private QueryExecutionAPI queryExecutionAPI;
   private QueryHistoryAPI queryHistoryAPI;
   private QueryVisualizationsAPI queryVisualizationsAPI;
   private QueryVisualizationsLegacyAPI queryVisualizationsLegacyAPI;
@@ -398,7 +395,6 @@ public class WorkspaceClient {
     qualityMonitorsAPI = new QualityMonitorsAPI(apiClient);
     queriesAPI = new QueriesAPI(apiClient);
     queriesLegacyAPI = new QueriesLegacyAPI(apiClient);
-    queryExecutionAPI = new QueryExecutionAPI(apiClient);
     queryHistoryAPI = new QueryHistoryAPI(apiClient);
     queryVisualizationsAPI = new QueryVisualizationsAPI(apiClient);
     queryVisualizationsLegacyAPI = new QueryVisualizationsLegacyAPI(apiClient);
@@ -1258,11 +1254,6 @@ public class WorkspaceClient {
    */
   public QueriesLegacyAPI queriesLegacy() {
     return queriesLegacyAPI;
-  }
-
-  /** Query execution APIs for AI / BI Dashboards */
-  public QueryExecutionAPI queryExecution() {
-    return queryExecutionAPI;
   }
 
   /**
@@ -2559,17 +2550,6 @@ public class WorkspaceClient {
   /** Replace the default QueriesLegacyAPI with a custom implementation. */
   public WorkspaceClient withQueriesLegacyAPI(QueriesLegacyAPI queriesLegacy) {
     this.queriesLegacyAPI = queriesLegacy;
-    return this;
-  }
-
-  /** Replace the default QueryExecutionService with a custom implementation. */
-  public WorkspaceClient withQueryExecutionImpl(QueryExecutionService queryExecution) {
-    return this.withQueryExecutionAPI(new QueryExecutionAPI(queryExecution));
-  }
-
-  /** Replace the default QueryExecutionAPI with a custom implementation. */
-  public WorkspaceClient withQueryExecutionAPI(QueryExecutionAPI queryExecution) {
-    this.queryExecutionAPI = queryExecution;
     return this;
   }
 

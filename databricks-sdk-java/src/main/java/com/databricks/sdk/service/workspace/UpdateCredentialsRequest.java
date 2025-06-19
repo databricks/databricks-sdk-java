@@ -146,6 +146,7 @@ public class UpdateCredentialsRequest {
     @Override
     public UpdateCredentialsRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateCredentialsRequestPb pb = mapper.readValue(p, UpdateCredentialsRequestPb.class);
       return UpdateCredentialsRequest.fromPb(pb);

@@ -162,6 +162,7 @@ public class FederationPolicy {
     @Override
     public FederationPolicy deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       FederationPolicyPb pb = mapper.readValue(p, FederationPolicyPb.class);
       return FederationPolicy.fromPb(pb);

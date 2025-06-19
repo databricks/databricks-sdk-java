@@ -123,6 +123,7 @@ public class ClusterLogConf {
     @Override
     public ClusterLogConf deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ClusterLogConfPb pb = mapper.readValue(p, ClusterLogConfPb.class);
       return ClusterLogConf.fromPb(pb);

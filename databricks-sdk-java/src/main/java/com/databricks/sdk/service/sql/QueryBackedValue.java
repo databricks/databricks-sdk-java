@@ -112,6 +112,7 @@ public class QueryBackedValue {
     @Override
     public QueryBackedValue deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       QueryBackedValuePb pb = mapper.readValue(p, QueryBackedValuePb.class);
       return QueryBackedValue.fromPb(pb);

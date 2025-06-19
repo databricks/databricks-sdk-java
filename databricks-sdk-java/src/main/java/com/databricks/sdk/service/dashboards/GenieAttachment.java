@@ -112,6 +112,7 @@ public class GenieAttachment {
     @Override
     public GenieAttachment deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GenieAttachmentPb pb = mapper.readValue(p, GenieAttachmentPb.class);
       return GenieAttachment.fromPb(pb);

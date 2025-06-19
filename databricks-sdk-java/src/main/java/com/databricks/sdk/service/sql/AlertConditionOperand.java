@@ -80,6 +80,7 @@ public class AlertConditionOperand {
     @Override
     public AlertConditionOperand deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AlertConditionOperandPb pb = mapper.readValue(p, AlertConditionOperandPb.class);
       return AlertConditionOperand.fromPb(pb);

@@ -81,6 +81,7 @@ public class GetSparkVersionsResponse {
     @Override
     public GetSparkVersionsResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetSparkVersionsResponsePb pb = mapper.readValue(p, GetSparkVersionsResponsePb.class);
       return GetSparkVersionsResponse.fromPb(pb);

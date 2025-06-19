@@ -121,6 +121,7 @@ public class UpdateWorkspaceAssignments {
     @Override
     public UpdateWorkspaceAssignments deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateWorkspaceAssignmentsPb pb = mapper.readValue(p, UpdateWorkspaceAssignmentsPb.class);
       return UpdateWorkspaceAssignments.fromPb(pb);

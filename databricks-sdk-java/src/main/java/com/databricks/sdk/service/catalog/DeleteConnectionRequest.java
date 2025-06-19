@@ -81,6 +81,7 @@ public class DeleteConnectionRequest {
     @Override
     public DeleteConnectionRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteConnectionRequestPb pb = mapper.readValue(p, DeleteConnectionRequestPb.class);
       return DeleteConnectionRequest.fromPb(pb);

@@ -174,6 +174,7 @@ public class AppResource {
   public static class AppResourceDeserializer extends JsonDeserializer<AppResource> {
     @Override
     public AppResource deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AppResourcePb pb = mapper.readValue(p, AppResourcePb.class);
       return AppResource.fromPb(pb);

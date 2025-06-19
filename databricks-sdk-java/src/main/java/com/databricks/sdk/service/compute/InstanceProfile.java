@@ -124,6 +124,7 @@ public class InstanceProfile {
     @Override
     public InstanceProfile deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       InstanceProfilePb pb = mapper.readValue(p, InstanceProfilePb.class);
       return InstanceProfile.fromPb(pb);

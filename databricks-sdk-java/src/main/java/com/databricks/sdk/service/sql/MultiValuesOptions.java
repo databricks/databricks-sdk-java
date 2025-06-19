@@ -111,6 +111,7 @@ public class MultiValuesOptions {
     @Override
     public MultiValuesOptions deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       MultiValuesOptionsPb pb = mapper.readValue(p, MultiValuesOptionsPb.class);
       return MultiValuesOptions.fromPb(pb);

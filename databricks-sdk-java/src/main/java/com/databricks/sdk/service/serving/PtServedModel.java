@@ -136,6 +136,7 @@ public class PtServedModel {
   public static class PtServedModelDeserializer extends JsonDeserializer<PtServedModel> {
     @Override
     public PtServedModel deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PtServedModelPb pb = mapper.readValue(p, PtServedModelPb.class);
       return PtServedModel.fromPb(pb);

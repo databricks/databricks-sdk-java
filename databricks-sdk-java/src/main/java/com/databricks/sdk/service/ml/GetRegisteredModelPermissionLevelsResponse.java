@@ -96,6 +96,7 @@ public class GetRegisteredModelPermissionLevelsResponse {
     @Override
     public GetRegisteredModelPermissionLevelsResponse deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetRegisteredModelPermissionLevelsResponsePb pb =
           mapper.readValue(p, GetRegisteredModelPermissionLevelsResponsePb.class);

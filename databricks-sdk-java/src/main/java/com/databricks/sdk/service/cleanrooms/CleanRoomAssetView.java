@@ -79,6 +79,7 @@ public class CleanRoomAssetView {
     @Override
     public CleanRoomAssetView deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CleanRoomAssetViewPb pb = mapper.readValue(p, CleanRoomAssetViewPb.class);
       return CleanRoomAssetView.fromPb(pb);

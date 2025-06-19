@@ -115,6 +115,7 @@ public class PatchServingEndpointTags {
     @Override
     public PatchServingEndpointTags deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PatchServingEndpointTagsPb pb = mapper.readValue(p, PatchServingEndpointTagsPb.class);
       return PatchServingEndpointTags.fromPb(pb);

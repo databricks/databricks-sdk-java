@@ -114,6 +114,7 @@ public class AwsIamRoleResponse {
     @Override
     public AwsIamRoleResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AwsIamRoleResponsePb pb = mapper.readValue(p, AwsIamRoleResponsePb.class);
       return AwsIamRoleResponse.fromPb(pb);

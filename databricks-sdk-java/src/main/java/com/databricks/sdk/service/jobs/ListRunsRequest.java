@@ -259,6 +259,7 @@ public class ListRunsRequest {
     @Override
     public ListRunsRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListRunsRequestPb pb = mapper.readValue(p, ListRunsRequestPb.class);
       return ListRunsRequest.fromPb(pb);

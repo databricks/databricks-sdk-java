@@ -95,6 +95,7 @@ public class TokenAccessPolicy {
     @Override
     public TokenAccessPolicy deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       TokenAccessPolicyPb pb = mapper.readValue(p, TokenAccessPolicyPb.class);
       return TokenAccessPolicy.fromPb(pb);

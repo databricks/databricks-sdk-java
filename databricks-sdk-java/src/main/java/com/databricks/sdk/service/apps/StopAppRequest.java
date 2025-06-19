@@ -77,6 +77,7 @@ public class StopAppRequest {
     @Override
     public StopAppRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       StopAppRequestPb pb = mapper.readValue(p, StopAppRequestPb.class);
       return StopAppRequest.fromPb(pb);

@@ -90,6 +90,7 @@ public class AddBlock {
   public static class AddBlockDeserializer extends JsonDeserializer<AddBlock> {
     @Override
     public AddBlock deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AddBlockPb pb = mapper.readValue(p, AddBlockPb.class);
       return AddBlock.fromPb(pb);

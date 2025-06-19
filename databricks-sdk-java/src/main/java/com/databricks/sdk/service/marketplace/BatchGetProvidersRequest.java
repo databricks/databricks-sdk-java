@@ -82,6 +82,7 @@ public class BatchGetProvidersRequest {
     @Override
     public BatchGetProvidersRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       BatchGetProvidersRequestPb pb = mapper.readValue(p, BatchGetProvidersRequestPb.class);
       return BatchGetProvidersRequest.fromPb(pb);

@@ -94,6 +94,7 @@ public class DestroyContext {
     @Override
     public DestroyContext deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DestroyContextPb pb = mapper.readValue(p, DestroyContextPb.class);
       return DestroyContext.fromPb(pb);

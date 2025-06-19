@@ -118,6 +118,7 @@ public class DeleteScheduleRequest {
     @Override
     public DeleteScheduleRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteScheduleRequestPb pb = mapper.readValue(p, DeleteScheduleRequestPb.class);
       return DeleteScheduleRequest.fromPb(pb);

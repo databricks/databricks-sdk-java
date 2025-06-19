@@ -98,6 +98,7 @@ public class JobEnvironment {
     @Override
     public JobEnvironment deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       JobEnvironmentPb pb = mapper.readValue(p, JobEnvironmentPb.class);
       return JobEnvironment.fromPb(pb);

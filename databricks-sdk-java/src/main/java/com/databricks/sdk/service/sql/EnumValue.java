@@ -111,6 +111,7 @@ public class EnumValue {
   public static class EnumValueDeserializer extends JsonDeserializer<EnumValue> {
     @Override
     public EnumValue deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       EnumValuePb pb = mapper.readValue(p, EnumValuePb.class);
       return EnumValue.fromPb(pb);

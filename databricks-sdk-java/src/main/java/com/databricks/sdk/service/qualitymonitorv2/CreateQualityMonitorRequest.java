@@ -83,6 +83,7 @@ public class CreateQualityMonitorRequest {
     @Override
     public CreateQualityMonitorRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateQualityMonitorRequestPb pb = mapper.readValue(p, CreateQualityMonitorRequestPb.class);
       return CreateQualityMonitorRequest.fromPb(pb);

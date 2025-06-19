@@ -83,6 +83,7 @@ public class AddExchangeForListingResponse {
     @Override
     public AddExchangeForListingResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AddExchangeForListingResponsePb pb =
           mapper.readValue(p, AddExchangeForListingResponsePb.class);

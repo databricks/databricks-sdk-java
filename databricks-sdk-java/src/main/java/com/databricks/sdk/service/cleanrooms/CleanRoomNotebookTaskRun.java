@@ -226,6 +226,7 @@ public class CleanRoomNotebookTaskRun {
     @Override
     public CleanRoomNotebookTaskRun deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CleanRoomNotebookTaskRunPb pb = mapper.readValue(p, CleanRoomNotebookTaskRunPb.class);
       return CleanRoomNotebookTaskRun.fromPb(pb);

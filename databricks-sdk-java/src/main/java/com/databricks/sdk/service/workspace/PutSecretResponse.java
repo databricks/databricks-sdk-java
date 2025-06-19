@@ -63,6 +63,7 @@ public class PutSecretResponse {
     @Override
     public PutSecretResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PutSecretResponsePb pb = mapper.readValue(p, PutSecretResponsePb.class);
       return PutSecretResponse.fromPb(pb);

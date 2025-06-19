@@ -128,6 +128,7 @@ public class FileArrivalTriggerConfiguration {
     @Override
     public FileArrivalTriggerConfiguration deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       FileArrivalTriggerConfigurationPb pb =
           mapper.readValue(p, FileArrivalTriggerConfigurationPb.class);

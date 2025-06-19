@@ -19,10 +19,6 @@ public interface DatabaseService {
   DatabaseInstance createDatabaseInstance(
       CreateDatabaseInstanceRequest createDatabaseInstanceRequest);
 
-  /** Create a role for a Database Instance. */
-  DatabaseInstanceRole createDatabaseInstanceRole(
-      CreateDatabaseInstanceRoleRequest createDatabaseInstanceRoleRequest);
-
   /** Create a Database Table. */
   DatabaseTable createDatabaseTable(CreateDatabaseTableRequest createDatabaseTableRequest);
 
@@ -42,10 +38,6 @@ public interface DatabaseService {
   /** Delete a Synced Database Table. */
   void deleteSyncedDatabaseTable(DeleteSyncedDatabaseTableRequest deleteSyncedDatabaseTableRequest);
 
-  /** Failover the primary node of a Database Instance to a secondary. */
-  DatabaseInstance failoverDatabaseInstance(
-      FailoverDatabaseInstanceRequest failoverDatabaseInstanceRequest);
-
   /** Find a Database Instance by uid. */
   DatabaseInstance findDatabaseInstanceByUid(
       FindDatabaseInstanceByUidRequest findDatabaseInstanceByUidRequest);
@@ -60,24 +52,12 @@ public interface DatabaseService {
   /** Get a Database Instance. */
   DatabaseInstance getDatabaseInstance(GetDatabaseInstanceRequest getDatabaseInstanceRequest);
 
-  /** Get a role for a Database Instance. */
-  DatabaseInstanceRole getDatabaseInstanceRole(
-      GetDatabaseInstanceRoleRequest getDatabaseInstanceRoleRequest);
-
   /** Get a Database Table. */
   DatabaseTable getDatabaseTable(GetDatabaseTableRequest getDatabaseTableRequest);
 
   /** Get a Synced Database Table. */
   SyncedDatabaseTable getSyncedDatabaseTable(
       GetSyncedDatabaseTableRequest getSyncedDatabaseTableRequest);
-
-  /**
-   * List roles for a Database Instance.
-   *
-   * <p>START OF PG ROLE APIs Section
-   */
-  ListDatabaseInstanceRolesResponse listDatabaseInstanceRoles(
-      ListDatabaseInstanceRolesRequest listDatabaseInstanceRolesRequest);
 
   /** List Database Instances. */
   ListDatabaseInstancesResponse listDatabaseInstances(

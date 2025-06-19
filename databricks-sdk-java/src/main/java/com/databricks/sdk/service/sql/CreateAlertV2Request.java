@@ -80,6 +80,7 @@ public class CreateAlertV2Request {
     @Override
     public CreateAlertV2Request deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateAlertV2RequestPb pb = mapper.readValue(p, CreateAlertV2RequestPb.class);
       return CreateAlertV2Request.fromPb(pb);

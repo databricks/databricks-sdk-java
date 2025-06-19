@@ -370,6 +370,7 @@ public class LogDeliveryConfiguration {
     @Override
     public LogDeliveryConfiguration deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       LogDeliveryConfigurationPb pb = mapper.readValue(p, LogDeliveryConfigurationPb.class);
       return LogDeliveryConfiguration.fromPb(pb);

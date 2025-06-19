@@ -115,6 +115,7 @@ public class UploadRequest {
   public static class UploadRequestDeserializer extends JsonDeserializer<UploadRequest> {
     @Override
     public UploadRequest deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UploadRequestPb pb = mapper.readValue(p, UploadRequestPb.class);
       return UploadRequest.fromPb(pb);

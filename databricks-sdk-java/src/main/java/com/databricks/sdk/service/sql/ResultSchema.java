@@ -95,6 +95,7 @@ public class ResultSchema {
   public static class ResultSchemaDeserializer extends JsonDeserializer<ResultSchema> {
     @Override
     public ResultSchema deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ResultSchemaPb pb = mapper.readValue(p, ResultSchemaPb.class);
       return ResultSchema.fromPb(pb);

@@ -200,6 +200,7 @@ public class ObjectInfo {
   public static class ObjectInfoDeserializer extends JsonDeserializer<ObjectInfo> {
     @Override
     public ObjectInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ObjectInfoPb pb = mapper.readValue(p, ObjectInfoPb.class);
       return ObjectInfo.fromPb(pb);

@@ -110,6 +110,7 @@ public class PutAcl {
   public static class PutAclDeserializer extends JsonDeserializer<PutAcl> {
     @Override
     public PutAcl deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PutAclPb pb = mapper.readValue(p, PutAclPb.class);
       return PutAcl.fromPb(pb);

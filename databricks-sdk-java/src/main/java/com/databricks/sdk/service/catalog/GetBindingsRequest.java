@@ -137,6 +137,7 @@ public class GetBindingsRequest {
     @Override
     public GetBindingsRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetBindingsRequestPb pb = mapper.readValue(p, GetBindingsRequestPb.class);
       return GetBindingsRequest.fromPb(pb);

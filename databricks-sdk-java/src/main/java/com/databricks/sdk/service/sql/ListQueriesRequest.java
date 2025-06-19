@@ -95,6 +95,7 @@ public class ListQueriesRequest {
     @Override
     public ListQueriesRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListQueriesRequestPb pb = mapper.readValue(p, ListQueriesRequestPb.class);
       return ListQueriesRequest.fromPb(pb);

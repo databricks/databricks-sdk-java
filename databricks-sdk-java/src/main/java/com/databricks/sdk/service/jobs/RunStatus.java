@@ -114,6 +114,7 @@ public class RunStatus {
   public static class RunStatusDeserializer extends JsonDeserializer<RunStatus> {
     @Override
     public RunStatus deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RunStatusPb pb = mapper.readValue(p, RunStatusPb.class);
       return RunStatus.fromPb(pb);

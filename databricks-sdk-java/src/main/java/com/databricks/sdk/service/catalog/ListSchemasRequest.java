@@ -137,6 +137,7 @@ public class ListSchemasRequest {
     @Override
     public ListSchemasRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListSchemasRequestPb pb = mapper.readValue(p, ListSchemasRequestPb.class);
       return ListSchemasRequest.fromPb(pb);

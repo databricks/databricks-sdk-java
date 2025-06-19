@@ -113,6 +113,7 @@ public class AccountNetworkPolicy {
     @Override
     public AccountNetworkPolicy deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AccountNetworkPolicyPb pb = mapper.readValue(p, AccountNetworkPolicyPb.class);
       return AccountNetworkPolicy.fromPb(pb);

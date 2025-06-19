@@ -134,6 +134,7 @@ public class DeleteSubscriptionRequest {
     @Override
     public DeleteSubscriptionRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteSubscriptionRequestPb pb = mapper.readValue(p, DeleteSubscriptionRequestPb.class);
       return DeleteSubscriptionRequest.fromPb(pb);

@@ -43,20 +43,6 @@ public class DatabaseAPI {
     return impl.createDatabaseInstance(request);
   }
 
-  public DatabaseInstanceRole createDatabaseInstanceRole(
-      String instanceName, DatabaseInstanceRole databaseInstanceRole) {
-    return createDatabaseInstanceRole(
-        new CreateDatabaseInstanceRoleRequest()
-            .setInstanceName(instanceName)
-            .setDatabaseInstanceRole(databaseInstanceRole));
-  }
-
-  /** Create a role for a Database Instance. */
-  public DatabaseInstanceRole createDatabaseInstanceRole(
-      CreateDatabaseInstanceRoleRequest request) {
-    return impl.createDatabaseInstanceRole(request);
-  }
-
   public DatabaseTable createDatabaseTable(DatabaseTable table) {
     return createDatabaseTable(new CreateDatabaseTableRequest().setTable(table));
   }
@@ -112,15 +98,6 @@ public class DatabaseAPI {
     impl.deleteSyncedDatabaseTable(request);
   }
 
-  public DatabaseInstance failoverDatabaseInstance(String name) {
-    return failoverDatabaseInstance(new FailoverDatabaseInstanceRequest().setName(name));
-  }
-
-  /** Failover the primary node of a Database Instance to a secondary. */
-  public DatabaseInstance failoverDatabaseInstance(FailoverDatabaseInstanceRequest request) {
-    return impl.failoverDatabaseInstance(request);
-  }
-
   /** Find a Database Instance by uid. */
   public DatabaseInstance findDatabaseInstanceByUid(FindDatabaseInstanceByUidRequest request) {
     return impl.findDatabaseInstanceByUid(request);
@@ -149,16 +126,6 @@ public class DatabaseAPI {
     return impl.getDatabaseInstance(request);
   }
 
-  public DatabaseInstanceRole getDatabaseInstanceRole(String instanceName, String name) {
-    return getDatabaseInstanceRole(
-        new GetDatabaseInstanceRoleRequest().setInstanceName(instanceName).setName(name));
-  }
-
-  /** Get a role for a Database Instance. */
-  public DatabaseInstanceRole getDatabaseInstanceRole(GetDatabaseInstanceRoleRequest request) {
-    return impl.getDatabaseInstanceRole(request);
-  }
-
   public DatabaseTable getDatabaseTable(String name) {
     return getDatabaseTable(new GetDatabaseTableRequest().setName(name));
   }
@@ -175,31 +142,6 @@ public class DatabaseAPI {
   /** Get a Synced Database Table. */
   public SyncedDatabaseTable getSyncedDatabaseTable(GetSyncedDatabaseTableRequest request) {
     return impl.getSyncedDatabaseTable(request);
-  }
-
-  public Iterable<DatabaseInstanceRole> listDatabaseInstanceRoles(String instanceName) {
-    return listDatabaseInstanceRoles(
-        new ListDatabaseInstanceRolesRequest().setInstanceName(instanceName));
-  }
-
-  /**
-   * List roles for a Database Instance.
-   *
-   * <p>START OF PG ROLE APIs Section
-   */
-  public Iterable<DatabaseInstanceRole> listDatabaseInstanceRoles(
-      ListDatabaseInstanceRolesRequest request) {
-    return new Paginator<>(
-        request,
-        impl::listDatabaseInstanceRoles,
-        ListDatabaseInstanceRolesResponse::getDatabaseInstanceRoles,
-        response -> {
-          String token = response.getNextPageToken();
-          if (token == null || token.isEmpty()) {
-            return null;
-          }
-          return request.setPageToken(token);
-        });
   }
 
   /** List Database Instances. */

@@ -155,6 +155,7 @@ public class UpdateCustomAppIntegration {
     @Override
     public UpdateCustomAppIntegration deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateCustomAppIntegrationPb pb = mapper.readValue(p, UpdateCustomAppIntegrationPb.class);
       return UpdateCustomAppIntegration.fromPb(pb);

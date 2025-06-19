@@ -80,6 +80,7 @@ public class GetLoggedModelResponse {
     @Override
     public GetLoggedModelResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetLoggedModelResponsePb pb = mapper.readValue(p, GetLoggedModelResponsePb.class);
       return GetLoggedModelResponse.fromPb(pb);

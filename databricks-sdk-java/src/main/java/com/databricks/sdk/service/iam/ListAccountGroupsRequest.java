@@ -187,6 +187,7 @@ public class ListAccountGroupsRequest {
     @Override
     public ListAccountGroupsRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListAccountGroupsRequestPb pb = mapper.readValue(p, ListAccountGroupsRequestPb.class);
       return ListAccountGroupsRequest.fromPb(pb);

@@ -130,6 +130,7 @@ public class StatementResponse {
     @Override
     public StatementResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       StatementResponsePb pb = mapper.readValue(p, StatementResponsePb.class);
       return StatementResponse.fromPb(pb);

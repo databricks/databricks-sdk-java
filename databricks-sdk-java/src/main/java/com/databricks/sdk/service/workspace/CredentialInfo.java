@@ -114,6 +114,7 @@ public class CredentialInfo {
     @Override
     public CredentialInfo deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CredentialInfoPb pb = mapper.readValue(p, CredentialInfoPb.class);
       return CredentialInfo.fromPb(pb);

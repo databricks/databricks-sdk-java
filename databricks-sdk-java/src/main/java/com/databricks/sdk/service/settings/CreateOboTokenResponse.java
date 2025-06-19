@@ -98,6 +98,7 @@ public class CreateOboTokenResponse {
     @Override
     public CreateOboTokenResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateOboTokenResponsePb pb = mapper.readValue(p, CreateOboTokenResponsePb.class);
       return CreateOboTokenResponse.fromPb(pb);

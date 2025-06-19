@@ -78,6 +78,7 @@ public class DeleteRepoRequest {
     @Override
     public DeleteRepoRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteRepoRequestPb pb = mapper.readValue(p, DeleteRepoRequestPb.class);
       return DeleteRepoRequest.fromPb(pb);

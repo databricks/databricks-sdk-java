@@ -94,6 +94,7 @@ public class Delete {
   public static class DeleteDeserializer extends JsonDeserializer<Delete> {
     @Override
     public Delete deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeletePb pb = mapper.readValue(p, DeletePb.class);
       return Delete.fromPb(pb);

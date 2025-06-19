@@ -77,6 +77,7 @@ public class PartitionId {
   public static class PartitionIdDeserializer extends JsonDeserializer<PartitionId> {
     @Override
     public PartitionId deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PartitionIdPb pb = mapper.readValue(p, PartitionIdPb.class);
       return PartitionId.fromPb(pb);

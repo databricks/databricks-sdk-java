@@ -80,6 +80,7 @@ public class Adlsgen2Info {
   public static class Adlsgen2InfoDeserializer extends JsonDeserializer<Adlsgen2Info> {
     @Override
     public Adlsgen2Info deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       Adlsgen2InfoPb pb = mapper.readValue(p, Adlsgen2InfoPb.class);
       return Adlsgen2Info.fromPb(pb);

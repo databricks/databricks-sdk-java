@@ -157,6 +157,7 @@ public class EgressNetworkPolicyInternetAccessPolicy {
     @Override
     public EgressNetworkPolicyInternetAccessPolicy deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       EgressNetworkPolicyInternetAccessPolicyPb pb =
           mapper.readValue(p, EgressNetworkPolicyInternetAccessPolicyPb.class);

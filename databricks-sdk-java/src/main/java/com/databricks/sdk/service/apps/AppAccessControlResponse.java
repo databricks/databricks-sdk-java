@@ -147,6 +147,7 @@ public class AppAccessControlResponse {
     @Override
     public AppAccessControlResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AppAccessControlResponsePb pb = mapper.readValue(p, AppAccessControlResponsePb.class);
       return AppAccessControlResponse.fromPb(pb);

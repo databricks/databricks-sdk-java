@@ -95,6 +95,7 @@ public class CreateAppRequest {
     @Override
     public CreateAppRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateAppRequestPb pb = mapper.readValue(p, CreateAppRequestPb.class);
       return CreateAppRequest.fromPb(pb);

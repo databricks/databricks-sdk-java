@@ -79,6 +79,7 @@ public class DashboardTaskOutput {
     @Override
     public DashboardTaskOutput deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DashboardTaskOutputPb pb = mapper.readValue(p, DashboardTaskOutputPb.class);
       return DashboardTaskOutput.fromPb(pb);

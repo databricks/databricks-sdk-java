@@ -90,6 +90,7 @@ public class DeleteSecret {
   public static class DeleteSecretDeserializer extends JsonDeserializer<DeleteSecret> {
     @Override
     public DeleteSecret deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteSecretPb pb = mapper.readValue(p, DeleteSecretPb.class);
       return DeleteSecret.fromPb(pb);

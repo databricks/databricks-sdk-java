@@ -174,6 +174,7 @@ public class Dataset {
   public static class DatasetDeserializer extends JsonDeserializer<Dataset> {
     @Override
     public Dataset deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DatasetPb pb = mapper.readValue(p, DatasetPb.class);
       return Dataset.fromPb(pb);

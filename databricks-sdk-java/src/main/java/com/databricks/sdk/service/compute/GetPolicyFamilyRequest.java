@@ -99,6 +99,7 @@ public class GetPolicyFamilyRequest {
     @Override
     public GetPolicyFamilyRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetPolicyFamilyRequestPb pb = mapper.readValue(p, GetPolicyFamilyRequestPb.class);
       return GetPolicyFamilyRequest.fromPb(pb);

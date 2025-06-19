@@ -103,6 +103,7 @@ public class CleanRoomOutputCatalog {
     @Override
     public CleanRoomOutputCatalog deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CleanRoomOutputCatalogPb pb = mapper.readValue(p, CleanRoomOutputCatalogPb.class);
       return CleanRoomOutputCatalog.fromPb(pb);

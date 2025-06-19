@@ -119,6 +119,7 @@ public class QueryVectorIndexResponse {
     @Override
     public QueryVectorIndexResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       QueryVectorIndexResponsePb pb = mapper.readValue(p, QueryVectorIndexResponsePb.class);
       return QueryVectorIndexResponse.fromPb(pb);

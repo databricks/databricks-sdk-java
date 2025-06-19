@@ -162,6 +162,7 @@ public class ListVolumesRequest {
     @Override
     public ListVolumesRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListVolumesRequestPb pb = mapper.readValue(p, ListVolumesRequestPb.class);
       return ListVolumesRequest.fromPb(pb);

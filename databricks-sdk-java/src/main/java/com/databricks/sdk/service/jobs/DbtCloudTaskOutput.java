@@ -113,6 +113,7 @@ public class DbtCloudTaskOutput {
     @Override
     public DbtCloudTaskOutput deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DbtCloudTaskOutputPb pb = mapper.readValue(p, DbtCloudTaskOutputPb.class);
       return DbtCloudTaskOutput.fromPb(pb);

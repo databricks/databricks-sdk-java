@@ -95,6 +95,7 @@ public class InstallLibraries {
     @Override
     public InstallLibraries deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       InstallLibrariesPb pb = mapper.readValue(p, InstallLibrariesPb.class);
       return InstallLibraries.fromPb(pb);

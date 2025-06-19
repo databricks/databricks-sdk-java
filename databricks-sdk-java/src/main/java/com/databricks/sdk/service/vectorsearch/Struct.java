@@ -77,6 +77,7 @@ public class Struct {
   public static class StructDeserializer extends JsonDeserializer<Struct> {
     @Override
     public Struct deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       StructPb pb = mapper.readValue(p, StructPb.class);
       return Struct.fromPb(pb);

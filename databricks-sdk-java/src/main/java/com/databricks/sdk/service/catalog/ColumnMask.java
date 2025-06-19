@@ -99,6 +99,7 @@ public class ColumnMask {
   public static class ColumnMaskDeserializer extends JsonDeserializer<ColumnMask> {
     @Override
     public ColumnMask deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ColumnMaskPb pb = mapper.readValue(p, ColumnMaskPb.class);
       return ColumnMask.fromPb(pb);

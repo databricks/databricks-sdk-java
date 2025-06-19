@@ -174,6 +174,7 @@ public class WebhookNotifications {
     @Override
     public WebhookNotifications deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       WebhookNotificationsPb pb = mapper.readValue(p, WebhookNotificationsPb.class);
       return WebhookNotifications.fromPb(pb);

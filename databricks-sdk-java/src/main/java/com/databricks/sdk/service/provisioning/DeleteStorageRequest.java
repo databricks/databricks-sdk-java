@@ -82,6 +82,7 @@ public class DeleteStorageRequest {
     @Override
     public DeleteStorageRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteStorageRequestPb pb = mapper.readValue(p, DeleteStorageRequestPb.class);
       return DeleteStorageRequest.fromPb(pb);

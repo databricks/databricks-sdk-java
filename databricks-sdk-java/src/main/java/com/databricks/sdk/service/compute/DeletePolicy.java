@@ -76,6 +76,7 @@ public class DeletePolicy {
   public static class DeletePolicyDeserializer extends JsonDeserializer<DeletePolicy> {
     @Override
     public DeletePolicy deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeletePolicyPb pb = mapper.readValue(p, DeletePolicyPb.class);
       return DeletePolicy.fromPb(pb);

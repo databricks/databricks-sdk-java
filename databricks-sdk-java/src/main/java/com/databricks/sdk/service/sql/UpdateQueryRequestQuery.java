@@ -258,6 +258,7 @@ public class UpdateQueryRequestQuery {
     @Override
     public UpdateQueryRequestQuery deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateQueryRequestQueryPb pb = mapper.readValue(p, UpdateQueryRequestQueryPb.class);
       return UpdateQueryRequestQuery.fromPb(pb);

@@ -66,6 +66,7 @@ public class UninstallLibrariesResponse {
     @Override
     public UninstallLibrariesResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UninstallLibrariesResponsePb pb = mapper.readValue(p, UninstallLibrariesResponsePb.class);
       return UninstallLibrariesResponse.fromPb(pb);

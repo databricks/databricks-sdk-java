@@ -114,6 +114,7 @@ public class PasswordPermissions {
     @Override
     public PasswordPermissions deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PasswordPermissionsPb pb = mapper.readValue(p, PasswordPermissionsPb.class);
       return PasswordPermissions.fromPb(pb);

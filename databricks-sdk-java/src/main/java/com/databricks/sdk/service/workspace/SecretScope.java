@@ -110,6 +110,7 @@ public class SecretScope {
   public static class SecretScopeDeserializer extends JsonDeserializer<SecretScope> {
     @Override
     public SecretScope deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SecretScopePb pb = mapper.readValue(p, SecretScopePb.class);
       return SecretScope.fromPb(pb);

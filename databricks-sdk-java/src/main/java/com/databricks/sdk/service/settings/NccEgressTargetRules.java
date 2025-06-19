@@ -104,6 +104,7 @@ public class NccEgressTargetRules {
     @Override
     public NccEgressTargetRules deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       NccEgressTargetRulesPb pb = mapper.readValue(p, NccEgressTargetRulesPb.class);
       return NccEgressTargetRules.fromPb(pb);

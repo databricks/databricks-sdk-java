@@ -94,6 +94,7 @@ public class ListingTag {
   public static class ListingTagDeserializer extends JsonDeserializer<ListingTag> {
     @Override
     public ListingTag deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListingTagPb pb = mapper.readValue(p, ListingTagPb.class);
       return ListingTag.fromPb(pb);

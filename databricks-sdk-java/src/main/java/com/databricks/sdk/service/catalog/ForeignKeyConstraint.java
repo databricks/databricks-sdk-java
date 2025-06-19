@@ -130,6 +130,7 @@ public class ForeignKeyConstraint {
     @Override
     public ForeignKeyConstraint deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ForeignKeyConstraintPb pb = mapper.readValue(p, ForeignKeyConstraintPb.class);
       return ForeignKeyConstraint.fromPb(pb);

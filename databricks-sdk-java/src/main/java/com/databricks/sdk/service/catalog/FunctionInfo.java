@@ -580,6 +580,7 @@ public class FunctionInfo {
   public static class FunctionInfoDeserializer extends JsonDeserializer<FunctionInfo> {
     @Override
     public FunctionInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       FunctionInfoPb pb = mapper.readValue(p, FunctionInfoPb.class);
       return FunctionInfo.fromPb(pb);

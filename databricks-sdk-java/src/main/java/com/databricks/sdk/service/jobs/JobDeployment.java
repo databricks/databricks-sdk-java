@@ -98,6 +98,7 @@ public class JobDeployment {
   public static class JobDeploymentDeserializer extends JsonDeserializer<JobDeployment> {
     @Override
     public JobDeployment deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       JobDeploymentPb pb = mapper.readValue(p, JobDeploymentPb.class);
       return JobDeployment.fromPb(pb);

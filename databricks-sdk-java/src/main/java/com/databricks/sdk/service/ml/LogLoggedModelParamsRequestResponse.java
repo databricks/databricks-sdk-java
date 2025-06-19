@@ -69,6 +69,7 @@ public class LogLoggedModelParamsRequestResponse {
     @Override
     public LogLoggedModelParamsRequestResponse deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       LogLoggedModelParamsRequestResponsePb pb =
           mapper.readValue(p, LogLoggedModelParamsRequestResponsePb.class);

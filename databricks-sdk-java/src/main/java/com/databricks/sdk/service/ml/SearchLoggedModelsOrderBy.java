@@ -138,6 +138,7 @@ public class SearchLoggedModelsOrderBy {
     @Override
     public SearchLoggedModelsOrderBy deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SearchLoggedModelsOrderByPb pb = mapper.readValue(p, SearchLoggedModelsOrderByPb.class);
       return SearchLoggedModelsOrderBy.fromPb(pb);

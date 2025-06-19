@@ -91,6 +91,7 @@ public class Param {
   public static class ParamDeserializer extends JsonDeserializer<Param> {
     @Override
     public Param deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ParamPb pb = mapper.readValue(p, ParamPb.class);
       return Param.fromPb(pb);

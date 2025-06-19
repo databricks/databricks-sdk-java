@@ -76,6 +76,7 @@ public class Success {
   public static class SuccessDeserializer extends JsonDeserializer<Success> {
     @Override
     public Success deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SuccessPb pb = mapper.readValue(p, SuccessPb.class);
       return Success.fromPb(pb);

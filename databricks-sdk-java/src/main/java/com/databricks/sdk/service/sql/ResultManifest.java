@@ -181,6 +181,7 @@ public class ResultManifest {
     @Override
     public ResultManifest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ResultManifestPb pb = mapper.readValue(p, ResultManifestPb.class);
       return ResultManifest.fromPb(pb);

@@ -98,6 +98,7 @@ public class StatementStatus {
     @Override
     public StatementStatus deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       StatementStatusPb pb = mapper.readValue(p, StatementStatusPb.class);
       return StatementStatus.fromPb(pb);

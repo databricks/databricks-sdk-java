@@ -63,6 +63,7 @@ public class SetStatusResponse {
     @Override
     public SetStatusResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SetStatusResponsePb pb = mapper.readValue(p, SetStatusResponsePb.class);
       return SetStatusResponse.fromPb(pb);

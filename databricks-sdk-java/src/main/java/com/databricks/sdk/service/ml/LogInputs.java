@@ -111,6 +111,7 @@ public class LogInputs {
   public static class LogInputsDeserializer extends JsonDeserializer<LogInputs> {
     @Override
     public LogInputs deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       LogInputsPb pb = mapper.readValue(p, LogInputsPb.class);
       return LogInputs.fromPb(pb);

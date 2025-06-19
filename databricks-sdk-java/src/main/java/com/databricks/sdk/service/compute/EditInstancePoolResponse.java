@@ -66,6 +66,7 @@ public class EditInstancePoolResponse {
     @Override
     public EditInstancePoolResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       EditInstancePoolResponsePb pb = mapper.readValue(p, EditInstancePoolResponsePb.class);
       return EditInstancePoolResponse.fromPb(pb);

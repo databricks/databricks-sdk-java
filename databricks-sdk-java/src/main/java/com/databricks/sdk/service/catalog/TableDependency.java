@@ -81,6 +81,7 @@ public class TableDependency {
     @Override
     public TableDependency deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       TableDependencyPb pb = mapper.readValue(p, TableDependencyPb.class);
       return TableDependency.fromPb(pb);

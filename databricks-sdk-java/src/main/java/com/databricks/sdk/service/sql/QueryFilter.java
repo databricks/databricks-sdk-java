@@ -143,6 +143,7 @@ public class QueryFilter {
   public static class QueryFilterDeserializer extends JsonDeserializer<QueryFilter> {
     @Override
     public QueryFilter deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       QueryFilterPb pb = mapper.readValue(p, QueryFilterPb.class);
       return QueryFilter.fromPb(pb);

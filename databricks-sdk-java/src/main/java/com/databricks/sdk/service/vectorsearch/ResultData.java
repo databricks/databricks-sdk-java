@@ -95,6 +95,7 @@ public class ResultData {
   public static class ResultDataDeserializer extends JsonDeserializer<ResultData> {
     @Override
     public ResultData deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ResultDataPb pb = mapper.readValue(p, ResultDataPb.class);
       return ResultData.fromPb(pb);

@@ -175,6 +175,7 @@ public class ExchangeListing {
     @Override
     public ExchangeListing deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ExchangeListingPb pb = mapper.readValue(p, ExchangeListingPb.class);
       return ExchangeListing.fromPb(pb);

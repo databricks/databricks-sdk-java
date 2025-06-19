@@ -62,6 +62,7 @@ public class MoveResponse {
   public static class MoveResponseDeserializer extends JsonDeserializer<MoveResponse> {
     @Override
     public MoveResponse deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       MoveResponsePb pb = mapper.readValue(p, MoveResponsePb.class);
       return MoveResponse.fromPb(pb);

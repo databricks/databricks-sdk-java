@@ -131,6 +131,7 @@ public class FoundationModel {
     @Override
     public FoundationModel deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       FoundationModelPb pb = mapper.readValue(p, FoundationModelPb.class);
       return FoundationModel.fromPb(pb);

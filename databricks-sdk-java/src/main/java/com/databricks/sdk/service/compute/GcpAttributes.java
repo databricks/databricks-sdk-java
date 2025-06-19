@@ -190,6 +190,7 @@ public class GcpAttributes {
   public static class GcpAttributesDeserializer extends JsonDeserializer<GcpAttributes> {
     @Override
     public GcpAttributes deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GcpAttributesPb pb = mapper.readValue(p, GcpAttributesPb.class);
       return GcpAttributes.fromPb(pb);

@@ -68,6 +68,7 @@ public class DatabricksGcpServiceAccountRequest {
     @Override
     public DatabricksGcpServiceAccountRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DatabricksGcpServiceAccountRequestPb pb =
           mapper.readValue(p, DatabricksGcpServiceAccountRequestPb.class);

@@ -110,6 +110,7 @@ public class EnableRequest {
   public static class EnableRequestDeserializer extends JsonDeserializer<EnableRequest> {
     @Override
     public EnableRequest deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       EnableRequestPb pb = mapper.readValue(p, EnableRequestPb.class);
       return EnableRequest.fromPb(pb);

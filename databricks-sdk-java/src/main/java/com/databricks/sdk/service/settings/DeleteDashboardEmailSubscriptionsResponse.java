@@ -101,6 +101,7 @@ public class DeleteDashboardEmailSubscriptionsResponse {
     @Override
     public DeleteDashboardEmailSubscriptionsResponse deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteDashboardEmailSubscriptionsResponsePb pb =
           mapper.readValue(p, DeleteDashboardEmailSubscriptionsResponsePb.class);

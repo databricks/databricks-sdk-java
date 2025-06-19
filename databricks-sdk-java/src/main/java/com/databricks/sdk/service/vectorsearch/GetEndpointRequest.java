@@ -78,6 +78,7 @@ public class GetEndpointRequest {
     @Override
     public GetEndpointRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetEndpointRequestPb pb = mapper.readValue(p, GetEndpointRequestPb.class);
       return GetEndpointRequest.fromPb(pb);

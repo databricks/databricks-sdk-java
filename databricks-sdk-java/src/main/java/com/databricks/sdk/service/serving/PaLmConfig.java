@@ -102,6 +102,7 @@ public class PaLmConfig {
   public static class PaLmConfigDeserializer extends JsonDeserializer<PaLmConfig> {
     @Override
     public PaLmConfig deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PaLmConfigPb pb = mapper.readValue(p, PaLmConfigPb.class);
       return PaLmConfig.fromPb(pb);

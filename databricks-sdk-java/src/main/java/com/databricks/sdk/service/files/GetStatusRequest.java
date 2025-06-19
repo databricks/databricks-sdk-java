@@ -78,6 +78,7 @@ public class GetStatusRequest {
     @Override
     public GetStatusRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetStatusRequestPb pb = mapper.readValue(p, GetStatusRequestPb.class);
       return GetStatusRequest.fromPb(pb);

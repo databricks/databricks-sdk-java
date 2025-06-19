@@ -99,6 +99,7 @@ public class GetLlmProxyPartnerPoweredEnforceRequest {
     @Override
     public GetLlmProxyPartnerPoweredEnforceRequest deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetLlmProxyPartnerPoweredEnforceRequestPb pb =
           mapper.readValue(p, GetLlmProxyPartnerPoweredEnforceRequestPb.class);

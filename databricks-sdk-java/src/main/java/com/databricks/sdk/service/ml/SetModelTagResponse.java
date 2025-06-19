@@ -64,6 +64,7 @@ public class SetModelTagResponse {
     @Override
     public SetModelTagResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SetModelTagResponsePb pb = mapper.readValue(p, SetModelTagResponsePb.class);
       return SetModelTagResponse.fromPb(pb);

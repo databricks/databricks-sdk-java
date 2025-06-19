@@ -63,6 +63,7 @@ public class DisableResponse {
     @Override
     public DisableResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DisableResponsePb pb = mapper.readValue(p, DisableResponsePb.class);
       return DisableResponse.fromPb(pb);

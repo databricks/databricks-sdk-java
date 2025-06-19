@@ -78,6 +78,7 @@ public class DeleteShareRequest {
     @Override
     public DeleteShareRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteShareRequestPb pb = mapper.readValue(p, DeleteShareRequestPb.class);
       return DeleteShareRequest.fromPb(pb);

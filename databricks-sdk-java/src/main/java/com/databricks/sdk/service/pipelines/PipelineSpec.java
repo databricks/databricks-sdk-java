@@ -526,6 +526,7 @@ public class PipelineSpec {
   public static class PipelineSpecDeserializer extends JsonDeserializer<PipelineSpec> {
     @Override
     public PipelineSpec deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PipelineSpecPb pb = mapper.readValue(p, PipelineSpecPb.class);
       return PipelineSpec.fromPb(pb);

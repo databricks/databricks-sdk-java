@@ -127,6 +127,7 @@ public class InstancePoolStats {
     @Override
     public InstancePoolStats deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       InstancePoolStatsPb pb = mapper.readValue(p, InstancePoolStatsPb.class);
       return InstancePoolStats.fromPb(pb);

@@ -95,6 +95,7 @@ public class ServedModelState {
     @Override
     public ServedModelState deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ServedModelStatePb pb = mapper.readValue(p, ServedModelStatePb.class);
       return ServedModelState.fromPb(pb);

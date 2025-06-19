@@ -114,6 +114,7 @@ public class AppResourceSecret {
     @Override
     public AppResourceSecret deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AppResourceSecretPb pb = mapper.readValue(p, AppResourceSecretPb.class);
       return AppResourceSecret.fromPb(pb);

@@ -124,6 +124,7 @@ public class TaskNotificationSettings {
     @Override
     public TaskNotificationSettings deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       TaskNotificationSettingsPb pb = mapper.readValue(p, TaskNotificationSettingsPb.class);
       return TaskNotificationSettings.fromPb(pb);

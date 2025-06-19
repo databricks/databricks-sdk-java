@@ -78,6 +78,7 @@ public class DbfsStorageInfo {
     @Override
     public DbfsStorageInfo deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DbfsStorageInfoPb pb = mapper.readValue(p, DbfsStorageInfoPb.class);
       return DbfsStorageInfo.fromPb(pb);

@@ -77,6 +77,7 @@ public class GetAppRequest {
   public static class GetAppRequestDeserializer extends JsonDeserializer<GetAppRequest> {
     @Override
     public GetAppRequest deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetAppRequestPb pb = mapper.readValue(p, GetAppRequestPb.class);
       return GetAppRequest.fromPb(pb);

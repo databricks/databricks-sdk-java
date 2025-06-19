@@ -107,6 +107,7 @@ public class MonitorTimeSeries {
     @Override
     public MonitorTimeSeries deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       MonitorTimeSeriesPb pb = mapper.readValue(p, MonitorTimeSeriesPb.class);
       return MonitorTimeSeries.fromPb(pb);

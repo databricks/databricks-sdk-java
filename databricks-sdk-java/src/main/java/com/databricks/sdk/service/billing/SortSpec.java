@@ -93,6 +93,7 @@ public class SortSpec {
   public static class SortSpecDeserializer extends JsonDeserializer<SortSpec> {
     @Override
     public SortSpec deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SortSpecPb pb = mapper.readValue(p, SortSpecPb.class);
       return SortSpec.fromPb(pb);

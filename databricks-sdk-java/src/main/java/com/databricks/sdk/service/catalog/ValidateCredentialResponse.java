@@ -101,6 +101,7 @@ public class ValidateCredentialResponse {
     @Override
     public ValidateCredentialResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ValidateCredentialResponsePb pb = mapper.readValue(p, ValidateCredentialResponsePb.class);
       return ValidateCredentialResponse.fromPb(pb);

@@ -360,6 +360,7 @@ public class VolumeInfo {
   public static class VolumeInfoDeserializer extends JsonDeserializer<VolumeInfo> {
     @Override
     public VolumeInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       VolumeInfoPb pb = mapper.readValue(p, VolumeInfoPb.class);
       return VolumeInfo.fromPb(pb);

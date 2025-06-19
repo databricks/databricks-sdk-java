@@ -76,6 +76,7 @@ public class ProviderShare {
   public static class ProviderShareDeserializer extends JsonDeserializer<ProviderShare> {
     @Override
     public ProviderShare deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ProviderSharePb pb = mapper.readValue(p, ProviderSharePb.class);
       return ProviderShare.fromPb(pb);

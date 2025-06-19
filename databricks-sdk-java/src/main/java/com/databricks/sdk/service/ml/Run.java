@@ -111,6 +111,7 @@ public class Run {
   public static class RunDeserializer extends JsonDeserializer<Run> {
     @Override
     public Run deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RunPb pb = mapper.readValue(p, RunPb.class);
       return Run.fromPb(pb);

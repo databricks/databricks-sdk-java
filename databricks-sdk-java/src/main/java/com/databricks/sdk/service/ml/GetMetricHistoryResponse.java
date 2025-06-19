@@ -106,6 +106,7 @@ public class GetMetricHistoryResponse {
     @Override
     public GetMetricHistoryResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetMetricHistoryResponsePb pb = mapper.readValue(p, GetMetricHistoryResponsePb.class);
       return GetMetricHistoryResponse.fromPb(pb);

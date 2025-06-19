@@ -165,6 +165,7 @@ public class Import {
   public static class ImportDeserializer extends JsonDeserializer<Import> {
     @Override
     public Import deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ImportPb pb = mapper.readValue(p, ImportPb.class);
       return Import.fromPb(pb);

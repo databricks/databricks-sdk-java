@@ -66,6 +66,7 @@ public class DeleteCredentialResponse {
     @Override
     public DeleteCredentialResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteCredentialResponsePb pb = mapper.readValue(p, DeleteCredentialResponsePb.class);
       return DeleteCredentialResponse.fromPb(pb);

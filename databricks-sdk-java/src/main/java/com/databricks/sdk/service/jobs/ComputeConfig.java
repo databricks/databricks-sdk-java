@@ -110,6 +110,7 @@ public class ComputeConfig {
   public static class ComputeConfigDeserializer extends JsonDeserializer<ComputeConfig> {
     @Override
     public ComputeConfig deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ComputeConfigPb pb = mapper.readValue(p, ComputeConfigPb.class);
       return ComputeConfig.fromPb(pb);

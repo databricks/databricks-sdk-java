@@ -90,6 +90,7 @@ public class DeleteSqlResultsDownloadRequest {
     @Override
     public DeleteSqlResultsDownloadRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteSqlResultsDownloadRequestPb pb =
           mapper.readValue(p, DeleteSqlResultsDownloadRequestPb.class);

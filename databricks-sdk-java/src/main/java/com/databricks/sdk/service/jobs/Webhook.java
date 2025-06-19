@@ -76,6 +76,7 @@ public class Webhook {
   public static class WebhookDeserializer extends JsonDeserializer<Webhook> {
     @Override
     public Webhook deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       WebhookPb pb = mapper.readValue(p, WebhookPb.class);
       return Webhook.fromPb(pb);

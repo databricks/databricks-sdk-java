@@ -109,6 +109,7 @@ public class SyncedTableFailedStatus {
     @Override
     public SyncedTableFailedStatus deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SyncedTableFailedStatusPb pb = mapper.readValue(p, SyncedTableFailedStatusPb.class);
       return SyncedTableFailedStatus.fromPb(pb);

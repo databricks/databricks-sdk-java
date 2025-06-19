@@ -113,6 +113,7 @@ public class AlertV2OperandColumn {
     @Override
     public AlertV2OperandColumn deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AlertV2OperandColumnPb pb = mapper.readValue(p, AlertV2OperandColumnPb.class);
       return AlertV2OperandColumn.fromPb(pb);

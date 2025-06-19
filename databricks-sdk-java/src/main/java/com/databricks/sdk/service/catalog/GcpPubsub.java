@@ -97,6 +97,7 @@ public class GcpPubsub {
   public static class GcpPubsubDeserializer extends JsonDeserializer<GcpPubsub> {
     @Override
     public GcpPubsub deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GcpPubsubPb pb = mapper.readValue(p, GcpPubsubPb.class);
       return GcpPubsub.fromPb(pb);

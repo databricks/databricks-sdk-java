@@ -116,6 +116,7 @@ public class ApiKeyAuth {
   public static class ApiKeyAuthDeserializer extends JsonDeserializer<ApiKeyAuth> {
     @Override
     public ApiKeyAuth deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ApiKeyAuthPb pb = mapper.readValue(p, ApiKeyAuthPb.class);
       return ApiKeyAuth.fromPb(pb);

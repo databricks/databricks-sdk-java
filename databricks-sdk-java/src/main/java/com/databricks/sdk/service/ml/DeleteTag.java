@@ -90,6 +90,7 @@ public class DeleteTag {
   public static class DeleteTagDeserializer extends JsonDeserializer<DeleteTag> {
     @Override
     public DeleteTag deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteTagPb pb = mapper.readValue(p, DeleteTagPb.class);
       return DeleteTag.fromPb(pb);

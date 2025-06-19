@@ -97,6 +97,7 @@ public class UpdateExchangeRequest {
     @Override
     public UpdateExchangeRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateExchangeRequestPb pb = mapper.readValue(p, UpdateExchangeRequestPb.class);
       return UpdateExchangeRequest.fromPb(pb);

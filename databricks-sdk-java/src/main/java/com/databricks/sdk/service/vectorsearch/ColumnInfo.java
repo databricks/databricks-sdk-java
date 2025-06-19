@@ -76,6 +76,7 @@ public class ColumnInfo {
   public static class ColumnInfoDeserializer extends JsonDeserializer<ColumnInfo> {
     @Override
     public ColumnInfo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ColumnInfoPb pb = mapper.readValue(p, ColumnInfoPb.class);
       return ColumnInfo.fromPb(pb);

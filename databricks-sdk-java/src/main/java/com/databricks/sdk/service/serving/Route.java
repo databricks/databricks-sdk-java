@@ -97,6 +97,7 @@ public class Route {
   public static class RouteDeserializer extends JsonDeserializer<Route> {
     @Override
     public Route deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RoutePb pb = mapper.readValue(p, RoutePb.class);
       return Route.fromPb(pb);

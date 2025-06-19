@@ -101,6 +101,7 @@ public class RotateRecipientToken {
     @Override
     public RotateRecipientToken deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RotateRecipientTokenPb pb = mapper.readValue(p, RotateRecipientTokenPb.class);
       return RotateRecipientToken.fromPb(pb);

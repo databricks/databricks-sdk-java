@@ -91,6 +91,7 @@ public class Filters {
   public static class FiltersDeserializer extends JsonDeserializer<Filters> {
     @Override
     public Filters deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       FiltersPb pb = mapper.readValue(p, FiltersPb.class);
       return Filters.fromPb(pb);

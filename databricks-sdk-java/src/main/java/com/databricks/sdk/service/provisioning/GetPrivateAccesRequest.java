@@ -83,6 +83,7 @@ public class GetPrivateAccesRequest {
     @Override
     public GetPrivateAccesRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetPrivateAccesRequestPb pb = mapper.readValue(p, GetPrivateAccesRequestPb.class);
       return GetPrivateAccesRequest.fromPb(pb);

@@ -256,6 +256,7 @@ public class LegacyAlert {
   public static class LegacyAlertDeserializer extends JsonDeserializer<LegacyAlert> {
     @Override
     public LegacyAlert deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       LegacyAlertPb pb = mapper.readValue(p, LegacyAlertPb.class);
       return LegacyAlert.fromPb(pb);

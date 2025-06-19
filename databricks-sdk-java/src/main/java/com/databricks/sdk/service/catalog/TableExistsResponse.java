@@ -78,6 +78,7 @@ public class TableExistsResponse {
     @Override
     public TableExistsResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       TableExistsResponsePb pb = mapper.readValue(p, TableExistsResponsePb.class);
       return TableExistsResponse.fromPb(pb);

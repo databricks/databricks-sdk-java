@@ -82,6 +82,7 @@ public class AppDeploymentArtifacts {
     @Override
     public AppDeploymentArtifacts deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AppDeploymentArtifactsPb pb = mapper.readValue(p, AppDeploymentArtifactsPb.class);
       return AppDeploymentArtifacts.fromPb(pb);

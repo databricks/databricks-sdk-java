@@ -126,6 +126,7 @@ public class DisableLegacyFeatures {
     @Override
     public DisableLegacyFeatures deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DisableLegacyFeaturesPb pb = mapper.readValue(p, DisableLegacyFeaturesPb.class);
       return DisableLegacyFeatures.fromPb(pb);

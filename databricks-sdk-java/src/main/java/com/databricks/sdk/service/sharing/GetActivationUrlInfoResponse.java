@@ -67,6 +67,7 @@ public class GetActivationUrlInfoResponse {
     @Override
     public GetActivationUrlInfoResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetActivationUrlInfoResponsePb pb = mapper.readValue(p, GetActivationUrlInfoResponsePb.class);
       return GetActivationUrlInfoResponse.fromPb(pb);

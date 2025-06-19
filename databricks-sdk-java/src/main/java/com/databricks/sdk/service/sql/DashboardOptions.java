@@ -80,6 +80,7 @@ public class DashboardOptions {
     @Override
     public DashboardOptions deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DashboardOptionsPb pb = mapper.readValue(p, DashboardOptionsPb.class);
       return DashboardOptions.fromPb(pb);

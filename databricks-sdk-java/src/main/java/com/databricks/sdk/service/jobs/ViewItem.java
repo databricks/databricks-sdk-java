@@ -113,6 +113,7 @@ public class ViewItem {
   public static class ViewItemDeserializer extends JsonDeserializer<ViewItem> {
     @Override
     public ViewItem deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ViewItemPb pb = mapper.readValue(p, ViewItemPb.class);
       return ViewItem.fromPb(pb);

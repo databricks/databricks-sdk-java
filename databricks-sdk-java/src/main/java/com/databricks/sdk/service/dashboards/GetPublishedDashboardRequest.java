@@ -84,6 +84,7 @@ public class GetPublishedDashboardRequest {
     @Override
     public GetPublishedDashboardRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetPublishedDashboardRequestPb pb = mapper.readValue(p, GetPublishedDashboardRequestPb.class);
       return GetPublishedDashboardRequest.fromPb(pb);

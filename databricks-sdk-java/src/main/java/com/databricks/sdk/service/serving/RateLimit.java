@@ -115,6 +115,7 @@ public class RateLimit {
   public static class RateLimitDeserializer extends JsonDeserializer<RateLimit> {
     @Override
     public RateLimit deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RateLimitPb pb = mapper.readValue(p, RateLimitPb.class);
       return RateLimit.fromPb(pb);

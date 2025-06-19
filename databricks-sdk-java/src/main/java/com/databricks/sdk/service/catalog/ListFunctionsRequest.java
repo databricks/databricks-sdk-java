@@ -155,6 +155,7 @@ public class ListFunctionsRequest {
     @Override
     public ListFunctionsRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListFunctionsRequestPb pb = mapper.readValue(p, ListFunctionsRequestPb.class);
       return ListFunctionsRequest.fromPb(pb);

@@ -404,6 +404,7 @@ public class GetMetastoreSummaryResponse {
     @Override
     public GetMetastoreSummaryResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetMetastoreSummaryResponsePb pb = mapper.readValue(p, GetMetastoreSummaryResponsePb.class);
       return GetMetastoreSummaryResponse.fromPb(pb);

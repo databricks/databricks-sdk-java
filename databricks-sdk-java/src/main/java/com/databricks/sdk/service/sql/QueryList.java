@@ -127,6 +127,7 @@ public class QueryList {
   public static class QueryListDeserializer extends JsonDeserializer<QueryList> {
     @Override
     public QueryList deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       QueryListPb pb = mapper.readValue(p, QueryListPb.class);
       return QueryList.fromPb(pb);

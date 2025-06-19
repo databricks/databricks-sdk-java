@@ -182,6 +182,7 @@ public class AlertV2Evaluation {
     @Override
     public AlertV2Evaluation deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AlertV2EvaluationPb pb = mapper.readValue(p, AlertV2EvaluationPb.class);
       return AlertV2Evaluation.fromPb(pb);

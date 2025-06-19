@@ -93,6 +93,7 @@ public class CreateContext {
   public static class CreateContextDeserializer extends JsonDeserializer<CreateContext> {
     @Override
     public CreateContext deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateContextPb pb = mapper.readValue(p, CreateContextPb.class);
       return CreateContext.fromPb(pb);

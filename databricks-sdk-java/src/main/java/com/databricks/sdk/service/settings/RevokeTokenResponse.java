@@ -64,6 +64,7 @@ public class RevokeTokenResponse {
     @Override
     public RevokeTokenResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RevokeTokenResponsePb pb = mapper.readValue(p, RevokeTokenResponsePb.class);
       return RevokeTokenResponse.fromPb(pb);

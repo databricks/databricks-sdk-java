@@ -112,6 +112,7 @@ public class TokenPermission {
     @Override
     public TokenPermission deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       TokenPermissionPb pb = mapper.readValue(p, TokenPermissionPb.class);
       return TokenPermission.fromPb(pb);

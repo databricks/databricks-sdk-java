@@ -84,6 +84,7 @@ public class GetClusterPermissionsRequest {
     @Override
     public GetClusterPermissionsRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetClusterPermissionsRequestPb pb = mapper.readValue(p, GetClusterPermissionsRequestPb.class);
       return GetClusterPermissionsRequest.fromPb(pb);

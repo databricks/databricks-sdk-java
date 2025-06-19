@@ -66,6 +66,7 @@ public class CancelAllRunsResponse {
     @Override
     public CancelAllRunsResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CancelAllRunsResponsePb pb = mapper.readValue(p, CancelAllRunsResponsePb.class);
       return CancelAllRunsResponse.fromPb(pb);

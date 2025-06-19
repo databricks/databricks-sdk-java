@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import java.util.Collection;
-import java.util.Map;
 import java.util.Objects;
 
 @Generated
@@ -30,9 +29,6 @@ class AllWellKnownPb {
   @JsonProperty("repeated_list_value")
   private Collection<Collection<JsonNode>> repeatedListValue;
 
-  @JsonProperty("repeated_struct")
-  private Collection<Map<String, JsonNode>> repeatedStruct;
-
   @JsonProperty("repeated_timestamp")
   private Collection<String> repeatedTimestamp;
 
@@ -48,17 +44,11 @@ class AllWellKnownPb {
   @JsonProperty("required_list_value")
   private Collection<JsonNode> requiredListValue;
 
-  @JsonProperty("required_struct")
-  private Map<String, JsonNode> requiredStruct;
-
   @JsonProperty("required_timestamp")
   private String requiredTimestamp;
 
   @JsonProperty("required_value")
   private JsonNode requiredValue;
-
-  @JsonProperty("struct")
-  private Map<String, JsonNode> structValue;
 
   @JsonProperty("timestamp")
   private String timestamp;
@@ -120,15 +110,6 @@ class AllWellKnownPb {
     return repeatedListValue;
   }
 
-  public AllWellKnownPb setRepeatedStruct(Collection<Map<String, JsonNode>> repeatedStruct) {
-    this.repeatedStruct = repeatedStruct;
-    return this;
-  }
-
-  public Collection<Map<String, JsonNode>> getRepeatedStruct() {
-    return repeatedStruct;
-  }
-
   public AllWellKnownPb setRepeatedTimestamp(Collection<String> repeatedTimestamp) {
     this.repeatedTimestamp = repeatedTimestamp;
     return this;
@@ -174,15 +155,6 @@ class AllWellKnownPb {
     return requiredListValue;
   }
 
-  public AllWellKnownPb setRequiredStruct(Map<String, JsonNode> requiredStruct) {
-    this.requiredStruct = requiredStruct;
-    return this;
-  }
-
-  public Map<String, JsonNode> getRequiredStruct() {
-    return requiredStruct;
-  }
-
   public AllWellKnownPb setRequiredTimestamp(String requiredTimestamp) {
     this.requiredTimestamp = requiredTimestamp;
     return this;
@@ -199,15 +171,6 @@ class AllWellKnownPb {
 
   public JsonNode getRequiredValue() {
     return requiredValue;
-  }
-
-  public AllWellKnownPb setStruct(Map<String, JsonNode> structValue) {
-    this.structValue = structValue;
-    return this;
-  }
-
-  public Map<String, JsonNode> getStruct() {
-    return structValue;
   }
 
   public AllWellKnownPb setTimestamp(String timestamp) {
@@ -239,16 +202,13 @@ class AllWellKnownPb {
         && Objects.equals(repeatedDuration, that.repeatedDuration)
         && Objects.equals(repeatedFieldMask, that.repeatedFieldMask)
         && Objects.equals(repeatedListValue, that.repeatedListValue)
-        && Objects.equals(repeatedStruct, that.repeatedStruct)
         && Objects.equals(repeatedTimestamp, that.repeatedTimestamp)
         && Objects.equals(repeatedValue, that.repeatedValue)
         && Objects.equals(requiredDuration, that.requiredDuration)
         && Objects.equals(requiredFieldMask, that.requiredFieldMask)
         && Objects.equals(requiredListValue, that.requiredListValue)
-        && Objects.equals(requiredStruct, that.requiredStruct)
         && Objects.equals(requiredTimestamp, that.requiredTimestamp)
         && Objects.equals(requiredValue, that.requiredValue)
-        && Objects.equals(structValue, that.structValue)
         && Objects.equals(timestamp, that.timestamp)
         && Objects.equals(value, that.value);
   }
@@ -262,16 +222,13 @@ class AllWellKnownPb {
         repeatedDuration,
         repeatedFieldMask,
         repeatedListValue,
-        repeatedStruct,
         repeatedTimestamp,
         repeatedValue,
         requiredDuration,
         requiredFieldMask,
         requiredListValue,
-        requiredStruct,
         requiredTimestamp,
         requiredValue,
-        structValue,
         timestamp,
         value);
   }
@@ -285,16 +242,13 @@ class AllWellKnownPb {
         .add("repeatedDuration", repeatedDuration)
         .add("repeatedFieldMask", repeatedFieldMask)
         .add("repeatedListValue", repeatedListValue)
-        .add("repeatedStruct", repeatedStruct)
         .add("repeatedTimestamp", repeatedTimestamp)
         .add("repeatedValue", repeatedValue)
         .add("requiredDuration", requiredDuration)
         .add("requiredFieldMask", requiredFieldMask)
         .add("requiredListValue", requiredListValue)
-        .add("requiredStruct", requiredStruct)
         .add("requiredTimestamp", requiredTimestamp)
         .add("requiredValue", requiredValue)
-        .add("structValue", structValue)
         .add("timestamp", timestamp)
         .add("value", value)
         .toString();

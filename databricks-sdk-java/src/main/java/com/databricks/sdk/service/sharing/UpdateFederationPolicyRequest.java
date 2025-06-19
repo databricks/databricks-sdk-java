@@ -140,6 +140,7 @@ public class UpdateFederationPolicyRequest {
     @Override
     public UpdateFederationPolicyRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateFederationPolicyRequestPb pb =
           mapper.readValue(p, UpdateFederationPolicyRequestPb.class);

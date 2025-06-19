@@ -528,6 +528,7 @@ public class Workspace {
   public static class WorkspaceDeserializer extends JsonDeserializer<Workspace> {
     @Override
     public Workspace deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       WorkspacePb pb = mapper.readValue(p, WorkspacePb.class);
       return Workspace.fromPb(pb);

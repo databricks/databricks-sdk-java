@@ -98,6 +98,7 @@ public class AccountsUpdateMetastore {
     @Override
     public AccountsUpdateMetastore deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AccountsUpdateMetastorePb pb = mapper.readValue(p, AccountsUpdateMetastorePb.class);
       return AccountsUpdateMetastore.fromPb(pb);

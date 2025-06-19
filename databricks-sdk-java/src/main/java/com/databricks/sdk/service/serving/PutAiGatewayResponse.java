@@ -161,6 +161,7 @@ public class PutAiGatewayResponse {
     @Override
     public PutAiGatewayResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PutAiGatewayResponsePb pb = mapper.readValue(p, PutAiGatewayResponsePb.class);
       return PutAiGatewayResponse.fromPb(pb);

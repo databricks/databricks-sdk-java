@@ -214,6 +214,7 @@ public class Group {
   public static class GroupDeserializer extends JsonDeserializer<Group> {
     @Override
     public Group deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GroupPb pb = mapper.readValue(p, GroupPb.class);
       return Group.fromPb(pb);

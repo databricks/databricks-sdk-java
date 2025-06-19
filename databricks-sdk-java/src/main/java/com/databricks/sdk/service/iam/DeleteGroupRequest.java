@@ -78,6 +78,7 @@ public class DeleteGroupRequest {
     @Override
     public DeleteGroupRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteGroupRequestPb pb = mapper.readValue(p, DeleteGroupRequestPb.class);
       return DeleteGroupRequest.fromPb(pb);

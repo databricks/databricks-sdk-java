@@ -62,6 +62,7 @@ public class CloseResponse {
   public static class CloseResponseDeserializer extends JsonDeserializer<CloseResponse> {
     @Override
     public CloseResponse deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CloseResponsePb pb = mapper.readValue(p, CloseResponsePb.class);
       return CloseResponse.fromPb(pb);

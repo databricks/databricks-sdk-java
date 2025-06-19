@@ -95,6 +95,7 @@ public class AzureWorkspaceInfo {
     @Override
     public AzureWorkspaceInfo deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AzureWorkspaceInfoPb pb = mapper.readValue(p, AzureWorkspaceInfoPb.class);
       return AzureWorkspaceInfo.fromPb(pb);

@@ -146,6 +146,7 @@ public class EndpointHealth {
     @Override
     public EndpointHealth deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       EndpointHealthPb pb = mapper.readValue(p, EndpointHealthPb.class);
       return EndpointHealth.fromPb(pb);

@@ -94,6 +94,7 @@ public class RenameModelRequest {
     @Override
     public RenameModelRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RenameModelRequestPb pb = mapper.readValue(p, RenameModelRequestPb.class);
       return RenameModelRequest.fromPb(pb);

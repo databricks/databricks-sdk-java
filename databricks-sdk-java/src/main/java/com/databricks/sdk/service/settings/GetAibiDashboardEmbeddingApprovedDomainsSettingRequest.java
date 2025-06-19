@@ -102,6 +102,7 @@ public class GetAibiDashboardEmbeddingApprovedDomainsSettingRequest {
     @Override
     public GetAibiDashboardEmbeddingApprovedDomainsSettingRequest deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetAibiDashboardEmbeddingApprovedDomainsSettingRequestPb pb =
           mapper.readValue(p, GetAibiDashboardEmbeddingApprovedDomainsSettingRequestPb.class);

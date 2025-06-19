@@ -208,6 +208,7 @@ public class Exchange {
   public static class ExchangeDeserializer extends JsonDeserializer<Exchange> {
     @Override
     public Exchange deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ExchangePb pb = mapper.readValue(p, ExchangePb.class);
       return Exchange.fromPb(pb);

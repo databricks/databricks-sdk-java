@@ -90,6 +90,7 @@ public class UpdateComment {
   public static class UpdateCommentDeserializer extends JsonDeserializer<UpdateComment> {
     @Override
     public UpdateComment deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateCommentPb pb = mapper.readValue(p, UpdateCommentPb.class);
       return UpdateComment.fromPb(pb);

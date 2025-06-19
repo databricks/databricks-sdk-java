@@ -82,6 +82,7 @@ public class TransitionStageResponse {
     @Override
     public TransitionStageResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       TransitionStageResponsePb pb = mapper.readValue(p, TransitionStageResponsePb.class);
       return TransitionStageResponse.fromPb(pb);

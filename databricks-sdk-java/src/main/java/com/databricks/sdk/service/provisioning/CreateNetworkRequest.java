@@ -180,6 +180,7 @@ public class CreateNetworkRequest {
     @Override
     public CreateNetworkRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateNetworkRequestPb pb = mapper.readValue(p, CreateNetworkRequestPb.class);
       return CreateNetworkRequest.fromPb(pb);

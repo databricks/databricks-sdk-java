@@ -125,6 +125,7 @@ public class PipelineClusterAutoscale {
     @Override
     public PipelineClusterAutoscale deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PipelineClusterAutoscalePb pb = mapper.readValue(p, PipelineClusterAutoscalePb.class);
       return PipelineClusterAutoscale.fromPb(pb);

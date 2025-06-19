@@ -207,6 +207,7 @@ public class PipelineEvent {
   public static class PipelineEventDeserializer extends JsonDeserializer<PipelineEvent> {
     @Override
     public PipelineEvent deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PipelineEventPb pb = mapper.readValue(p, PipelineEventPb.class);
       return PipelineEvent.fromPb(pb);

@@ -77,6 +77,7 @@ public class ListValue {
   public static class ListValueDeserializer extends JsonDeserializer<ListValue> {
     @Override
     public ListValue deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListValuePb pb = mapper.readValue(p, ListValuePb.class);
       return ListValue.fromPb(pb);

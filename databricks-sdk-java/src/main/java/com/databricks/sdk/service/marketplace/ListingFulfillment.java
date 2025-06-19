@@ -143,6 +143,7 @@ public class ListingFulfillment {
     @Override
     public ListingFulfillment deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListingFulfillmentPb pb = mapper.readValue(p, ListingFulfillmentPb.class);
       return ListingFulfillment.fromPb(pb);

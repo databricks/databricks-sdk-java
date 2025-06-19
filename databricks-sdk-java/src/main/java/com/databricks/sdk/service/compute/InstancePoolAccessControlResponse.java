@@ -150,6 +150,7 @@ public class InstancePoolAccessControlResponse {
     @Override
     public InstancePoolAccessControlResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       InstancePoolAccessControlResponsePb pb =
           mapper.readValue(p, InstancePoolAccessControlResponsePb.class);

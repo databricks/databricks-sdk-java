@@ -77,6 +77,7 @@ public class NotebookLibrary {
     @Override
     public NotebookLibrary deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       NotebookLibraryPb pb = mapper.readValue(p, NotebookLibraryPb.class);
       return NotebookLibrary.fromPb(pb);

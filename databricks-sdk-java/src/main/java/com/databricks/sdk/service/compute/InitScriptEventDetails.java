@@ -121,6 +121,7 @@ public class InitScriptEventDetails {
     @Override
     public InitScriptEventDetails deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       InitScriptEventDetailsPb pb = mapper.readValue(p, InitScriptEventDetailsPb.class);
       return InitScriptEventDetails.fromPb(pb);

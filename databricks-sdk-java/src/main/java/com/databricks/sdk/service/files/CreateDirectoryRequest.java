@@ -83,6 +83,7 @@ public class CreateDirectoryRequest {
     @Override
     public CreateDirectoryRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateDirectoryRequestPb pb = mapper.readValue(p, CreateDirectoryRequestPb.class);
       return CreateDirectoryRequest.fromPb(pb);

@@ -115,6 +115,7 @@ public class OutputSchemaInfo {
     @Override
     public OutputSchemaInfo deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       OutputSchemaInfoPb pb = mapper.readValue(p, OutputSchemaInfoPb.class);
       return OutputSchemaInfo.fromPb(pb);

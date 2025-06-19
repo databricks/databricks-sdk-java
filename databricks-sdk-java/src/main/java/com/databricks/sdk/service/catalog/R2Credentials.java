@@ -114,6 +114,7 @@ public class R2Credentials {
   public static class R2CredentialsDeserializer extends JsonDeserializer<R2Credentials> {
     @Override
     public R2Credentials deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       R2CredentialsPb pb = mapper.readValue(p, R2CredentialsPb.class);
       return R2Credentials.fromPb(pb);

@@ -176,6 +176,7 @@ public class SearchRuns {
   public static class SearchRunsDeserializer extends JsonDeserializer<SearchRuns> {
     @Override
     public SearchRuns deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SearchRunsPb pb = mapper.readValue(p, SearchRunsPb.class);
       return SearchRuns.fromPb(pb);

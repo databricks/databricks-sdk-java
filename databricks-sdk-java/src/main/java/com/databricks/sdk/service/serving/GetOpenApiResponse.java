@@ -78,6 +78,7 @@ public class GetOpenApiResponse {
     @Override
     public GetOpenApiResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetOpenApiResponsePb pb = mapper.readValue(p, GetOpenApiResponsePb.class);
       return GetOpenApiResponse.fromPb(pb);

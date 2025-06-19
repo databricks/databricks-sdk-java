@@ -179,6 +179,7 @@ public class RecipientTokenInfo {
     @Override
     public RecipientTokenInfo deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RecipientTokenInfoPb pb = mapper.readValue(p, RecipientTokenInfoPb.class);
       return RecipientTokenInfo.fromPb(pb);

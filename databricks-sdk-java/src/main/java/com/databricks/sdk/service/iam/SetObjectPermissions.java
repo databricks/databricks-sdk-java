@@ -120,6 +120,7 @@ public class SetObjectPermissions {
     @Override
     public SetObjectPermissions deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SetObjectPermissionsPb pb = mapper.readValue(p, SetObjectPermissionsPb.class);
       return SetObjectPermissions.fromPb(pb);

@@ -20,7 +20,6 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 @Generated
@@ -31,11 +30,13 @@ public class AllWellKnown {
   private Duration duration;
 
   /**
-   * The field mask must be a single string, with multiple fields separated by commas (no spaces).
-   * The field path is relative to the resource object, using a dot (`.`) to navigate sub-fields
-   * (e.g., `author.given_name`). Specification of elements in sequence or map fields is not
-   * allowed, as only the entire collection field can be specified. Field names must exactly match
-   * the resource field names.
+   * optional google.protobuf.Struct struct = 3;
+   *
+   * <p>The field mask must be a single string, with multiple fields separated by commas (no
+   * spaces). The field path is relative to the resource object, using a dot (`.`) to navigate
+   * sub-fields (e.g., `author.given_name`). Specification of elements in sequence or map fields is
+   * not allowed, as only the entire collection field can be specified. Field names must exactly
+   * match the resource field names.
    */
   private String fieldMask;
 
@@ -45,14 +46,11 @@ public class AllWellKnown {
   /** */
   private Collection<Duration> repeatedDuration;
 
-  /** */
+  /** repeated google.protobuf.Struct repeated_struct = 13; */
   private Collection<List<String>> repeatedFieldMask;
 
   /** */
   private Collection<Collection<JsonNode>> repeatedListValue;
-
-  /** */
-  private Collection<Map<String, JsonNode>> repeatedStruct;
 
   /** */
   private Collection<Instant> repeatedTimestamp;
@@ -64,11 +62,13 @@ public class AllWellKnown {
   private Duration requiredDuration;
 
   /**
-   * The field mask must be a single string, with multiple fields separated by commas (no spaces).
-   * The field path is relative to the resource object, using a dot (`.`) to navigate sub-fields
-   * (e.g., `author.given_name`). Specification of elements in sequence or map fields is not
-   * allowed, as only the entire collection field can be specified. Field names must exactly match
-   * the resource field names.
+   * optional google.protobuf.Struct required_struct = 8 [ (validate_required) = true ];
+   *
+   * <p>The field mask must be a single string, with multiple fields separated by commas (no
+   * spaces). The field path is relative to the resource object, using a dot (`.`) to navigate
+   * sub-fields (e.g., `author.given_name`). Specification of elements in sequence or map fields is
+   * not allowed, as only the entire collection field can be specified. Field names must exactly
+   * match the resource field names.
    */
   private String requiredFieldMask;
 
@@ -76,16 +76,10 @@ public class AllWellKnown {
   private Collection<JsonNode> requiredListValue;
 
   /** */
-  private Map<String, JsonNode> requiredStruct;
-
-  /** */
   private String requiredTimestamp;
 
   /** */
   private JsonNode requiredValue;
-
-  /** */
-  private Map<String, JsonNode> structValue;
 
   /** */
   private String timestamp;
@@ -147,15 +141,6 @@ public class AllWellKnown {
     return repeatedListValue;
   }
 
-  public AllWellKnown setRepeatedStruct(Collection<Map<String, JsonNode>> repeatedStruct) {
-    this.repeatedStruct = repeatedStruct;
-    return this;
-  }
-
-  public Collection<Map<String, JsonNode>> getRepeatedStruct() {
-    return repeatedStruct;
-  }
-
   public AllWellKnown setRepeatedTimestamp(Collection<Instant> repeatedTimestamp) {
     this.repeatedTimestamp = repeatedTimestamp;
     return this;
@@ -201,15 +186,6 @@ public class AllWellKnown {
     return requiredListValue;
   }
 
-  public AllWellKnown setRequiredStruct(Map<String, JsonNode> requiredStruct) {
-    this.requiredStruct = requiredStruct;
-    return this;
-  }
-
-  public Map<String, JsonNode> getRequiredStruct() {
-    return requiredStruct;
-  }
-
   public AllWellKnown setRequiredTimestamp(String requiredTimestamp) {
     this.requiredTimestamp = requiredTimestamp;
     return this;
@@ -226,15 +202,6 @@ public class AllWellKnown {
 
   public JsonNode getRequiredValue() {
     return requiredValue;
-  }
-
-  public AllWellKnown setStruct(Map<String, JsonNode> structValue) {
-    this.structValue = structValue;
-    return this;
-  }
-
-  public Map<String, JsonNode> getStruct() {
-    return structValue;
   }
 
   public AllWellKnown setTimestamp(String timestamp) {
@@ -266,16 +233,13 @@ public class AllWellKnown {
         && Objects.equals(repeatedDuration, that.repeatedDuration)
         && Objects.equals(repeatedFieldMask, that.repeatedFieldMask)
         && Objects.equals(repeatedListValue, that.repeatedListValue)
-        && Objects.equals(repeatedStruct, that.repeatedStruct)
         && Objects.equals(repeatedTimestamp, that.repeatedTimestamp)
         && Objects.equals(repeatedValue, that.repeatedValue)
         && Objects.equals(requiredDuration, that.requiredDuration)
         && Objects.equals(requiredFieldMask, that.requiredFieldMask)
         && Objects.equals(requiredListValue, that.requiredListValue)
-        && Objects.equals(requiredStruct, that.requiredStruct)
         && Objects.equals(requiredTimestamp, that.requiredTimestamp)
         && Objects.equals(requiredValue, that.requiredValue)
-        && Objects.equals(structValue, that.structValue)
         && Objects.equals(timestamp, that.timestamp)
         && Objects.equals(value, that.value);
   }
@@ -289,16 +253,13 @@ public class AllWellKnown {
         repeatedDuration,
         repeatedFieldMask,
         repeatedListValue,
-        repeatedStruct,
         repeatedTimestamp,
         repeatedValue,
         requiredDuration,
         requiredFieldMask,
         requiredListValue,
-        requiredStruct,
         requiredTimestamp,
         requiredValue,
-        structValue,
         timestamp,
         value);
   }
@@ -312,16 +273,13 @@ public class AllWellKnown {
         .add("repeatedDuration", repeatedDuration)
         .add("repeatedFieldMask", repeatedFieldMask)
         .add("repeatedListValue", repeatedListValue)
-        .add("repeatedStruct", repeatedStruct)
         .add("repeatedTimestamp", repeatedTimestamp)
         .add("repeatedValue", repeatedValue)
         .add("requiredDuration", requiredDuration)
         .add("requiredFieldMask", requiredFieldMask)
         .add("requiredListValue", requiredListValue)
-        .add("requiredStruct", requiredStruct)
         .add("requiredTimestamp", requiredTimestamp)
         .add("requiredValue", requiredValue)
-        .add("structValue", structValue)
         .add("timestamp", timestamp)
         .add("value", value)
         .toString();
@@ -339,6 +297,8 @@ public class AllWellKnown {
       for (Duration item : repeatedDuration) {
         if (item != null) {
           repeatedDurationPb.add(Converters.durationToPb(item));
+        } else {
+          repeatedDurationPb.add(null);
         }
       }
       pb.setRepeatedDuration(repeatedDurationPb);
@@ -348,17 +308,20 @@ public class AllWellKnown {
       for (List<String> item : repeatedFieldMask) {
         if (item != null) {
           repeatedFieldMaskPb.add(Converters.fieldMaskToPb(item));
+        } else {
+          repeatedFieldMaskPb.add(null);
         }
       }
       pb.setRepeatedFieldMask(repeatedFieldMaskPb);
     }
     pb.setRepeatedListValue(repeatedListValue);
-    pb.setRepeatedStruct(repeatedStruct);
     if (repeatedTimestamp != null) {
       List<String> repeatedTimestampPb = new ArrayList<>();
       for (Instant item : repeatedTimestamp) {
         if (item != null) {
           repeatedTimestampPb.add(Converters.instantToPb(item));
+        } else {
+          repeatedTimestampPb.add(null);
         }
       }
       pb.setRepeatedTimestamp(repeatedTimestampPb);
@@ -369,10 +332,8 @@ public class AllWellKnown {
     }
     pb.setRequiredFieldMask(requiredFieldMask);
     pb.setRequiredListValue(requiredListValue);
-    pb.setRequiredStruct(requiredStruct);
     pb.setRequiredTimestamp(requiredTimestamp);
     pb.setRequiredValue(requiredValue);
-    pb.setStruct(structValue);
     pb.setTimestamp(timestamp);
     pb.setValue(value);
 
@@ -391,6 +352,8 @@ public class AllWellKnown {
       for (String item : pb.getRepeatedDuration()) {
         if (item != null) {
           repeatedDuration.add(Converters.durationFromPb(item));
+        } else {
+          repeatedDuration.add(null);
         }
       }
       model.setRepeatedDuration(repeatedDuration);
@@ -400,17 +363,20 @@ public class AllWellKnown {
       for (String item : pb.getRepeatedFieldMask()) {
         if (item != null) {
           repeatedFieldMask.add(Converters.fieldMaskFromPb(item));
+        } else {
+          repeatedFieldMask.add(null);
         }
       }
       model.setRepeatedFieldMask(repeatedFieldMask);
     }
     model.setRepeatedListValue(pb.getRepeatedListValue());
-    model.setRepeatedStruct(pb.getRepeatedStruct());
     if (pb.getRepeatedTimestamp() != null) {
       List<Instant> repeatedTimestamp = new ArrayList<>();
       for (String item : pb.getRepeatedTimestamp()) {
         if (item != null) {
           repeatedTimestamp.add(Converters.instantFromPb(item));
+        } else {
+          repeatedTimestamp.add(null);
         }
       }
       model.setRepeatedTimestamp(repeatedTimestamp);
@@ -421,10 +387,8 @@ public class AllWellKnown {
     }
     model.setRequiredFieldMask(pb.getRequiredFieldMask());
     model.setRequiredListValue(pb.getRequiredListValue());
-    model.setRequiredStruct(pb.getRequiredStruct());
     model.setRequiredTimestamp(pb.getRequiredTimestamp());
     model.setRequiredValue(pb.getRequiredValue());
-    model.setStruct(pb.getStruct());
     model.setTimestamp(pb.getTimestamp());
     model.setValue(pb.getValue());
 
@@ -443,6 +407,7 @@ public class AllWellKnown {
   public static class AllWellKnownDeserializer extends JsonDeserializer<AllWellKnown> {
     @Override
     public AllWellKnown deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AllWellKnownPb pb = mapper.readValue(p, AllWellKnownPb.class);
       return AllWellKnown.fromPb(pb);

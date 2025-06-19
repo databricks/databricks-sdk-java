@@ -99,6 +99,7 @@ public class TableRowFilter {
     @Override
     public TableRowFilter deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       TableRowFilterPb pb = mapper.readValue(p, TableRowFilterPb.class);
       return TableRowFilter.fromPb(pb);

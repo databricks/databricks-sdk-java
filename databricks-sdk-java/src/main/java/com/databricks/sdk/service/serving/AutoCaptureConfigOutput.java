@@ -155,6 +155,7 @@ public class AutoCaptureConfigOutput {
     @Override
     public AutoCaptureConfigOutput deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AutoCaptureConfigOutputPb pb = mapper.readValue(p, AutoCaptureConfigOutputPb.class);
       return AutoCaptureConfigOutput.fromPb(pb);

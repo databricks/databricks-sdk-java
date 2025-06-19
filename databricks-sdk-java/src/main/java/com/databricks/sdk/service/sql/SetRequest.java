@@ -114,6 +114,7 @@ public class SetRequest {
   public static class SetRequestDeserializer extends JsonDeserializer<SetRequest> {
     @Override
     public SetRequest deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SetRequestPb pb = mapper.readValue(p, SetRequestPb.class);
       return SetRequest.fromPb(pb);

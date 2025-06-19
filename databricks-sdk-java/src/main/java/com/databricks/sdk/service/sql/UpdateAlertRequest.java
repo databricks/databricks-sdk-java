@@ -140,6 +140,7 @@ public class UpdateAlertRequest {
     @Override
     public UpdateAlertRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateAlertRequestPb pb = mapper.readValue(p, UpdateAlertRequestPb.class);
       return UpdateAlertRequest.fromPb(pb);

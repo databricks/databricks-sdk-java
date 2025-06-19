@@ -76,6 +76,7 @@ public class PathPattern {
   public static class PathPatternDeserializer extends JsonDeserializer<PathPattern> {
     @Override
     public PathPattern deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PathPatternPb pb = mapper.readValue(p, PathPatternPb.class);
       return PathPattern.fromPb(pb);

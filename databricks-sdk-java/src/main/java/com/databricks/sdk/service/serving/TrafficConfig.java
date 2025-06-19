@@ -77,6 +77,7 @@ public class TrafficConfig {
   public static class TrafficConfigDeserializer extends JsonDeserializer<TrafficConfig> {
     @Override
     public TrafficConfig deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       TrafficConfigPb pb = mapper.readValue(p, TrafficConfigPb.class);
       return TrafficConfig.fromPb(pb);

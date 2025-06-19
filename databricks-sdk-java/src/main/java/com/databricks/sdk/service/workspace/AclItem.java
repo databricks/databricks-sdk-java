@@ -93,6 +93,7 @@ public class AclItem {
   public static class AclItemDeserializer extends JsonDeserializer<AclItem> {
     @Override
     public AclItem deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AclItemPb pb = mapper.readValue(p, AclItemPb.class);
       return AclItem.fromPb(pb);

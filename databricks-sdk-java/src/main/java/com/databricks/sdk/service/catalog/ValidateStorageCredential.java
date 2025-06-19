@@ -222,6 +222,7 @@ public class ValidateStorageCredential {
     @Override
     public ValidateStorageCredential deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ValidateStorageCredentialPb pb = mapper.readValue(p, ValidateStorageCredentialPb.class);
       return ValidateStorageCredential.fromPb(pb);

@@ -138,6 +138,7 @@ public class PythonWheelTask {
     @Override
     public PythonWheelTask deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       PythonWheelTaskPb pb = mapper.readValue(p, PythonWheelTaskPb.class);
       return PythonWheelTask.fromPb(pb);

@@ -112,6 +112,7 @@ public class RunData {
   public static class RunDataDeserializer extends JsonDeserializer<RunData> {
     @Override
     public RunData deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       RunDataPb pb = mapper.readValue(p, RunDataPb.class);
       return RunData.fromPb(pb);

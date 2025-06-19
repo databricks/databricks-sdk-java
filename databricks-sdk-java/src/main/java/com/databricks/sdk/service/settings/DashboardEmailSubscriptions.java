@@ -126,6 +126,7 @@ public class DashboardEmailSubscriptions {
     @Override
     public DashboardEmailSubscriptions deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DashboardEmailSubscriptionsPb pb = mapper.readValue(p, DashboardEmailSubscriptionsPb.class);
       return DashboardEmailSubscriptions.fromPb(pb);

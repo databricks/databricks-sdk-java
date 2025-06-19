@@ -112,6 +112,7 @@ public class AlertV2OperandValue {
     @Override
     public AlertV2OperandValue deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AlertV2OperandValuePb pb = mapper.readValue(p, AlertV2OperandValuePb.class);
       return AlertV2OperandValue.fromPb(pb);

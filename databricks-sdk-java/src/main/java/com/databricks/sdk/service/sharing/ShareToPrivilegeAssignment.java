@@ -100,6 +100,7 @@ public class ShareToPrivilegeAssignment {
     @Override
     public ShareToPrivilegeAssignment deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ShareToPrivilegeAssignmentPb pb = mapper.readValue(p, ShareToPrivilegeAssignmentPb.class);
       return ShareToPrivilegeAssignment.fromPb(pb);

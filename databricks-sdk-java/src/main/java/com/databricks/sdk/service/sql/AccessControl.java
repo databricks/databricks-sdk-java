@@ -113,6 +113,7 @@ public class AccessControl {
   public static class AccessControlDeserializer extends JsonDeserializer<AccessControl> {
     @Override
     public AccessControl deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AccessControlPb pb = mapper.readValue(p, AccessControlPb.class);
       return AccessControl.fromPb(pb);

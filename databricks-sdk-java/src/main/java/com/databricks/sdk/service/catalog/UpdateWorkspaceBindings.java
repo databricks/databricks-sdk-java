@@ -115,6 +115,7 @@ public class UpdateWorkspaceBindings {
     @Override
     public UpdateWorkspaceBindings deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateWorkspaceBindingsPb pb = mapper.readValue(p, UpdateWorkspaceBindingsPb.class);
       return UpdateWorkspaceBindings.fromPb(pb);

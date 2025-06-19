@@ -501,6 +501,7 @@ public class LegacyQuery {
   public static class LegacyQueryDeserializer extends JsonDeserializer<LegacyQuery> {
     @Override
     public LegacyQuery deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       LegacyQueryPb pb = mapper.readValue(p, LegacyQueryPb.class);
       return LegacyQuery.fromPb(pb);

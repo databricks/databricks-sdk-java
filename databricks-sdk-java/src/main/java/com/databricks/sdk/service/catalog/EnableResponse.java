@@ -63,6 +63,7 @@ public class EnableResponse {
     @Override
     public EnableResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       EnableResponsePb pb = mapper.readValue(p, EnableResponsePb.class);
       return EnableResponse.fromPb(pb);

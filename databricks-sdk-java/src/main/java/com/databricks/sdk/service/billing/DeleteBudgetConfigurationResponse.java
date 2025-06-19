@@ -68,6 +68,7 @@ public class DeleteBudgetConfigurationResponse {
     @Override
     public DeleteBudgetConfigurationResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteBudgetConfigurationResponsePb pb =
           mapper.readValue(p, DeleteBudgetConfigurationResponsePb.class);

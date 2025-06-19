@@ -110,6 +110,7 @@ public class CreateShare {
   public static class CreateShareDeserializer extends JsonDeserializer<CreateShare> {
     @Override
     public CreateShare deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateSharePb pb = mapper.readValue(p, CreateSharePb.class);
       return CreateShare.fromPb(pb);

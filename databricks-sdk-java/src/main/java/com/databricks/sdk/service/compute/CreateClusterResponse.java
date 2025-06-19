@@ -80,6 +80,7 @@ public class CreateClusterResponse {
     @Override
     public CreateClusterResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CreateClusterResponsePb pb = mapper.readValue(p, CreateClusterResponsePb.class);
       return CreateClusterResponse.fromPb(pb);

@@ -100,6 +100,7 @@ public class DashboardPageSnapshot {
     @Override
     public DashboardPageSnapshot deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DashboardPageSnapshotPb pb = mapper.readValue(p, DashboardPageSnapshotPb.class);
       return DashboardPageSnapshot.fromPb(pb);

@@ -130,6 +130,7 @@ public class ListClustersFilterBy {
     @Override
     public ListClustersFilterBy deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ListClustersFilterByPb pb = mapper.readValue(p, ListClustersFilterByPb.class);
       return ListClustersFilterBy.fromPb(pb);

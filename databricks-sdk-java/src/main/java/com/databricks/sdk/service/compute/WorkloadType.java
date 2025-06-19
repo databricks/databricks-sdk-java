@@ -77,6 +77,7 @@ public class WorkloadType {
   public static class WorkloadTypeDeserializer extends JsonDeserializer<WorkloadType> {
     @Override
     public WorkloadType deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       WorkloadTypePb pb = mapper.readValue(p, WorkloadTypePb.class);
       return WorkloadType.fromPb(pb);

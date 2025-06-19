@@ -162,6 +162,7 @@ public class DeleteTransitionRequestRequest {
     @Override
     public DeleteTransitionRequestRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteTransitionRequestRequestPb pb =
           mapper.readValue(p, DeleteTransitionRequestRequestPb.class);

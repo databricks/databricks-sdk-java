@@ -145,6 +145,7 @@ public class UpdateRun {
   public static class UpdateRunDeserializer extends JsonDeserializer<UpdateRun> {
     @Override
     public UpdateRun deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       UpdateRunPb pb = mapper.readValue(p, UpdateRunPb.class);
       return UpdateRun.fromPb(pb);

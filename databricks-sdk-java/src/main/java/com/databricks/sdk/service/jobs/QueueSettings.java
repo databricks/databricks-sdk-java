@@ -76,6 +76,7 @@ public class QueueSettings {
   public static class QueueSettingsDeserializer extends JsonDeserializer<QueueSettings> {
     @Override
     public QueueSettings deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       QueueSettingsPb pb = mapper.readValue(p, QueueSettingsPb.class);
       return QueueSettings.fromPb(pb);

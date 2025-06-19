@@ -88,6 +88,7 @@ public class AzureActiveDirectoryToken {
     @Override
     public AzureActiveDirectoryToken deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       AzureActiveDirectoryTokenPb pb = mapper.readValue(p, AzureActiveDirectoryTokenPb.class);
       return AzureActiveDirectoryToken.fromPb(pb);

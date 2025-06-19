@@ -94,6 +94,7 @@ public class DataRefreshInfo {
     @Override
     public DataRefreshInfo deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DataRefreshInfoPb pb = mapper.readValue(p, DataRefreshInfoPb.class);
       return DataRefreshInfo.fromPb(pb);

@@ -83,6 +83,7 @@ public class FallbackConfig {
     @Override
     public FallbackConfig deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       FallbackConfigPb pb = mapper.readValue(p, FallbackConfigPb.class);
       return FallbackConfig.fromPb(pb);

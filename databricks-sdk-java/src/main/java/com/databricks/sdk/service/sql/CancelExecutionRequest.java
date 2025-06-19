@@ -84,6 +84,7 @@ public class CancelExecutionRequest {
     @Override
     public CancelExecutionRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CancelExecutionRequestPb pb = mapper.readValue(p, CancelExecutionRequestPb.class);
       return CancelExecutionRequest.fromPb(pb);

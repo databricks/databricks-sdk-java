@@ -117,6 +117,7 @@ public class MonitorCronSchedule {
     @Override
     public MonitorCronSchedule deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       MonitorCronSchedulePb pb = mapper.readValue(p, MonitorCronSchedulePb.class);
       return MonitorCronSchedule.fromPb(pb);

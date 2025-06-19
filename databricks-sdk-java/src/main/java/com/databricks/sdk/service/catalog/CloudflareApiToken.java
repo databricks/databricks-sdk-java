@@ -111,6 +111,7 @@ public class CloudflareApiToken {
     @Override
     public CloudflareApiToken deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       CloudflareApiTokenPb pb = mapper.readValue(p, CloudflareApiTokenPb.class);
       return CloudflareApiToken.fromPb(pb);

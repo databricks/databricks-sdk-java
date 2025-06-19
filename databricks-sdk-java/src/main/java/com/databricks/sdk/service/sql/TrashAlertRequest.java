@@ -78,6 +78,7 @@ public class TrashAlertRequest {
     @Override
     public TrashAlertRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       TrashAlertRequestPb pb = mapper.readValue(p, TrashAlertRequestPb.class);
       return TrashAlertRequest.fromPb(pb);

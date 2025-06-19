@@ -79,6 +79,7 @@ public class Mkdirs {
   public static class MkdirsDeserializer extends JsonDeserializer<Mkdirs> {
     @Override
     public Mkdirs deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       MkdirsPb pb = mapper.readValue(p, MkdirsPb.class);
       return Mkdirs.fromPb(pb);

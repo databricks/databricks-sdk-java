@@ -92,6 +92,7 @@ public class GetSecretRequest {
     @Override
     public GetSecretRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetSecretRequestPb pb = mapper.readValue(p, GetSecretRequestPb.class);
       return GetSecretRequest.fromPb(pb);

@@ -94,6 +94,7 @@ public class GetClusterPolicyPermissionLevelsResponse {
     @Override
     public GetClusterPolicyPermissionLevelsResponse deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetClusterPolicyPermissionLevelsResponsePb pb =
           mapper.readValue(p, GetClusterPolicyPermissionLevelsResponsePb.class);

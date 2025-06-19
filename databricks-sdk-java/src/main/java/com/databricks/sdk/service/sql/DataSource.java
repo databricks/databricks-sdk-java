@@ -216,6 +216,7 @@ public class DataSource {
   public static class DataSourceDeserializer extends JsonDeserializer<DataSource> {
     @Override
     public DataSource deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DataSourcePb pb = mapper.readValue(p, DataSourcePb.class);
       return DataSource.fromPb(pb);

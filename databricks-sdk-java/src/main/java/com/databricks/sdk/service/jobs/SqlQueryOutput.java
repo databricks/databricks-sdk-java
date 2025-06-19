@@ -146,6 +146,7 @@ public class SqlQueryOutput {
     @Override
     public SqlQueryOutput deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SqlQueryOutputPb pb = mapper.readValue(p, SqlQueryOutputPb.class);
       return SqlQueryOutput.fromPb(pb);

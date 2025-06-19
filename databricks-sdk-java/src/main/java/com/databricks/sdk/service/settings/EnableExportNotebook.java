@@ -102,6 +102,7 @@ public class EnableExportNotebook {
     @Override
     public EnableExportNotebook deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       EnableExportNotebookPb pb = mapper.readValue(p, EnableExportNotebookPb.class);
       return EnableExportNotebook.fromPb(pb);

@@ -64,6 +64,7 @@ public class DeleteIndexResponse {
     @Override
     public DeleteIndexResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DeleteIndexResponsePb pb = mapper.readValue(p, DeleteIndexResponsePb.class);
       return DeleteIndexResponse.fromPb(pb);

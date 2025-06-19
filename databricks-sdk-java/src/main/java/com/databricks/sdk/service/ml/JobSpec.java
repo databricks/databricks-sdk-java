@@ -113,6 +113,7 @@ public class JobSpec {
   public static class JobSpecDeserializer extends JsonDeserializer<JobSpec> {
     @Override
     public JobSpec deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       JobSpecPb pb = mapper.readValue(p, JobSpecPb.class);
       return JobSpec.fromPb(pb);

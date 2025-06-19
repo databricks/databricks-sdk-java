@@ -135,6 +135,7 @@ public class DashboardEditContent {
     @Override
     public DashboardEditContent deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       DashboardEditContentPb pb = mapper.readValue(p, DashboardEditContentPb.class);
       return DashboardEditContent.fromPb(pb);

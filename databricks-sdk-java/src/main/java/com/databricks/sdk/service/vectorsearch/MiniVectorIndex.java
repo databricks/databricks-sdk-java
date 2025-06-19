@@ -149,6 +149,7 @@ public class MiniVectorIndex {
     @Override
     public MiniVectorIndex deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       MiniVectorIndexPb pb = mapper.readValue(p, MiniVectorIndexPb.class);
       return MiniVectorIndex.fromPb(pb);

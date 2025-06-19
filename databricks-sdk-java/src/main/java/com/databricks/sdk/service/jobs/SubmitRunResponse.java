@@ -78,6 +78,7 @@ public class SubmitRunResponse {
     @Override
     public SubmitRunResponse deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       SubmitRunResponsePb pb = mapper.readValue(p, SubmitRunResponsePb.class);
       return SubmitRunResponse.fromPb(pb);

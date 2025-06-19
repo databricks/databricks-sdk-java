@@ -204,6 +204,7 @@ public class VectorIndex {
   public static class VectorIndexDeserializer extends JsonDeserializer<VectorIndex> {
     @Override
     public VectorIndex deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       VectorIndexPb pb = mapper.readValue(p, VectorIndexPb.class);
       return VectorIndex.fromPb(pb);

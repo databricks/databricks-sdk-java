@@ -78,6 +78,7 @@ public class TrashQueryRequest {
     @Override
     public TrashQueryRequest deserialize(JsonParser p, DeserializationContext ctxt)
         throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       TrashQueryRequestPb pb = mapper.readValue(p, TrashQueryRequestPb.class);
       return TrashQueryRequest.fromPb(pb);

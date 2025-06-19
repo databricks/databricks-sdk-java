@@ -140,6 +140,7 @@ public class EnforcePolicyComplianceForJobResponseJobClusterSettingsChange {
     @Override
     public EnforcePolicyComplianceForJobResponseJobClusterSettingsChange deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       EnforcePolicyComplianceForJobResponseJobClusterSettingsChangePb pb =
           mapper.readValue(

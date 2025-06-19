@@ -88,6 +88,7 @@ public class WrappedCreateLogDeliveryConfiguration {
     @Override
     public WrappedCreateLogDeliveryConfiguration deserialize(
         JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       WrappedCreateLogDeliveryConfigurationPb pb =
           mapper.readValue(p, WrappedCreateLogDeliveryConfigurationPb.class);

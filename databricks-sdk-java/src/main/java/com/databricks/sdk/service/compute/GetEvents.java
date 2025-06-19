@@ -229,6 +229,7 @@ public class GetEvents {
   public static class GetEventsDeserializer extends JsonDeserializer<GetEvents> {
     @Override
     public GetEvents deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       GetEventsPb pb = mapper.readValue(p, GetEventsPb.class);
       return GetEvents.fromPb(pb);

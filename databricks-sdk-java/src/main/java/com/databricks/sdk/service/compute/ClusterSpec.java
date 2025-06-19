@@ -208,12 +208,6 @@ public class ClusterSpec {
   private String policyId;
 
   /**
-   * If set, what the configurable throughput (in Mb/s) for the remote disk is. Currently only
-   * supported for GCP HYPERDISK_BALANCED disks.
-   */
-  private Long remoteDiskThroughput;
-
-  /**
    * Determines the cluster's runtime engine, either standard or Photon.
    *
    * <p>This field is not compatible with legacy `spark_version` values that contain `-photon-`.
@@ -261,12 +255,6 @@ public class ClusterSpec {
    * to 10 keys can be specified.
    */
   private Collection<String> sshPublicKeys;
-
-  /**
-   * If set, what the total initial volume size (in GB) of the remote disks should be. Currently
-   * only supported for GCP HYPERDISK_BALANCED disks.
-   */
-  private Long totalInitialRemoteDiskSize;
 
   /**
    * This field can only be used when `kind = CLASSIC_PREVIEW`.
@@ -477,15 +465,6 @@ public class ClusterSpec {
     return policyId;
   }
 
-  public ClusterSpec setRemoteDiskThroughput(Long remoteDiskThroughput) {
-    this.remoteDiskThroughput = remoteDiskThroughput;
-    return this;
-  }
-
-  public Long getRemoteDiskThroughput() {
-    return remoteDiskThroughput;
-  }
-
   public ClusterSpec setRuntimeEngine(RuntimeEngine runtimeEngine) {
     this.runtimeEngine = runtimeEngine;
     return this;
@@ -540,15 +519,6 @@ public class ClusterSpec {
     return sshPublicKeys;
   }
 
-  public ClusterSpec setTotalInitialRemoteDiskSize(Long totalInitialRemoteDiskSize) {
-    this.totalInitialRemoteDiskSize = totalInitialRemoteDiskSize;
-    return this;
-  }
-
-  public Long getTotalInitialRemoteDiskSize() {
-    return totalInitialRemoteDiskSize;
-  }
-
   public ClusterSpec setUseMlRuntime(Boolean useMlRuntime) {
     this.useMlRuntime = useMlRuntime;
     return this;
@@ -594,14 +564,12 @@ public class ClusterSpec {
         && Objects.equals(nodeTypeId, that.nodeTypeId)
         && Objects.equals(numWorkers, that.numWorkers)
         && Objects.equals(policyId, that.policyId)
-        && Objects.equals(remoteDiskThroughput, that.remoteDiskThroughput)
         && Objects.equals(runtimeEngine, that.runtimeEngine)
         && Objects.equals(singleUserName, that.singleUserName)
         && Objects.equals(sparkConf, that.sparkConf)
         && Objects.equals(sparkEnvVars, that.sparkEnvVars)
         && Objects.equals(sparkVersion, that.sparkVersion)
         && Objects.equals(sshPublicKeys, that.sshPublicKeys)
-        && Objects.equals(totalInitialRemoteDiskSize, that.totalInitialRemoteDiskSize)
         && Objects.equals(useMlRuntime, that.useMlRuntime)
         && Objects.equals(workloadType, that.workloadType);
   }
@@ -631,14 +599,12 @@ public class ClusterSpec {
         nodeTypeId,
         numWorkers,
         policyId,
-        remoteDiskThroughput,
         runtimeEngine,
         singleUserName,
         sparkConf,
         sparkEnvVars,
         sparkVersion,
         sshPublicKeys,
-        totalInitialRemoteDiskSize,
         useMlRuntime,
         workloadType);
   }
@@ -668,14 +634,12 @@ public class ClusterSpec {
         .add("nodeTypeId", nodeTypeId)
         .add("numWorkers", numWorkers)
         .add("policyId", policyId)
-        .add("remoteDiskThroughput", remoteDiskThroughput)
         .add("runtimeEngine", runtimeEngine)
         .add("singleUserName", singleUserName)
         .add("sparkConf", sparkConf)
         .add("sparkEnvVars", sparkEnvVars)
         .add("sparkVersion", sparkVersion)
         .add("sshPublicKeys", sshPublicKeys)
-        .add("totalInitialRemoteDiskSize", totalInitialRemoteDiskSize)
         .add("useMlRuntime", useMlRuntime)
         .add("workloadType", workloadType)
         .toString();
@@ -705,14 +669,12 @@ public class ClusterSpec {
     pb.setNodeTypeId(nodeTypeId);
     pb.setNumWorkers(numWorkers);
     pb.setPolicyId(policyId);
-    pb.setRemoteDiskThroughput(remoteDiskThroughput);
     pb.setRuntimeEngine(runtimeEngine);
     pb.setSingleUserName(singleUserName);
     pb.setSparkConf(sparkConf);
     pb.setSparkEnvVars(sparkEnvVars);
     pb.setSparkVersion(sparkVersion);
     pb.setSshPublicKeys(sshPublicKeys);
-    pb.setTotalInitialRemoteDiskSize(totalInitialRemoteDiskSize);
     pb.setUseMlRuntime(useMlRuntime);
     pb.setWorkloadType(workloadType);
 
@@ -743,14 +705,12 @@ public class ClusterSpec {
     model.setNodeTypeId(pb.getNodeTypeId());
     model.setNumWorkers(pb.getNumWorkers());
     model.setPolicyId(pb.getPolicyId());
-    model.setRemoteDiskThroughput(pb.getRemoteDiskThroughput());
     model.setRuntimeEngine(pb.getRuntimeEngine());
     model.setSingleUserName(pb.getSingleUserName());
     model.setSparkConf(pb.getSparkConf());
     model.setSparkEnvVars(pb.getSparkEnvVars());
     model.setSparkVersion(pb.getSparkVersion());
     model.setSshPublicKeys(pb.getSshPublicKeys());
-    model.setTotalInitialRemoteDiskSize(pb.getTotalInitialRemoteDiskSize());
     model.setUseMlRuntime(pb.getUseMlRuntime());
     model.setWorkloadType(pb.getWorkloadType());
 
@@ -769,6 +729,7 @@ public class ClusterSpec {
   public static class ClusterSpecDeserializer extends JsonDeserializer<ClusterSpec> {
     @Override
     public ClusterSpec deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ClusterSpecPb pb = mapper.readValue(p, ClusterSpecPb.class);
       return ClusterSpec.fromPb(pb);

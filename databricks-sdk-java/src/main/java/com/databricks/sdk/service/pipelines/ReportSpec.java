@@ -148,6 +148,7 @@ public class ReportSpec {
   public static class ReportSpecDeserializer extends JsonDeserializer<ReportSpec> {
     @Override
     public ReportSpec deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+      // The Codec is set by us in the SerDeUtils.java, and it is an ObjectMapper.
       ObjectMapper mapper = (ObjectMapper) p.getCodec();
       ReportSpecPb pb = mapper.readValue(p, ReportSpecPb.class);
       return ReportSpec.fromPb(pb);
