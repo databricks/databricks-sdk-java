@@ -243,10 +243,10 @@ public class ExternalBrowserCredentialsProviderTest {
   void cacheWithValidTokenTest() throws IOException {
     // Create mock HTTP client for token refresh
     HttpClient mockHttpClient = Mockito.mock(HttpClient.class);
-    String response =
+    String refreshResponse =
         "{\"access_token\": \"refreshed_access_token\", \"token_type\": \"Bearer\", \"expires_in\": \"3600\", \"refresh_token\": \"new_refresh_token\"}";
     URL url = new URL("https://test.databricks.com/");
-    Mockito.doAnswer(invocation -> new Response(response, url))
+    Mockito.doAnswer(invocation -> new Response(refreshResponse, url))
         .when(mockHttpClient)
         .execute(any(Request.class));
 
@@ -323,10 +323,10 @@ public class ExternalBrowserCredentialsProviderTest {
   void cacheWithInvalidAccessTokenValidRefreshTest() throws IOException {
     // Create mock HTTP client for token refresh
     HttpClient mockHttpClient = Mockito.mock(HttpClient.class);
-    String response =
+    String refreshResponse =
         "{\"access_token\": \"refreshed_access_token\", \"token_type\": \"Bearer\", \"expires_in\": \"3600\", \"refresh_token\": \"new_refresh_token\"}";
     URL url = new URL("https://test.databricks.com/");
-    Mockito.doAnswer(invocation -> new Response(response, url))
+    Mockito.doAnswer(invocation -> new Response(refreshResponse, url))
         .when(mockHttpClient)
         .execute(any(Request.class));
 
