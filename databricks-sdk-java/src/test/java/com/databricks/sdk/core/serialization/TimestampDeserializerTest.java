@@ -39,10 +39,7 @@ public class TimestampDeserializerTest {
     String json = "{\"timestamp\":\"2024-06-20T12:34:56.123456789Z\"}";
     ObjectMapper mapper = new ObjectMapper();
     TestClass obj = mapper.readValue(json, TestClass.class);
-    Timestamp expected = Timestamp.newBuilder()
-        .setSeconds(1718886896L)
-        .setNanos(123456789)
-        .build();
+    Timestamp expected = Timestamp.newBuilder().setSeconds(1718886896L).setNanos(123456789).build();
     assertEquals(expected, obj.getTimestamp());
   }
-} 
+}

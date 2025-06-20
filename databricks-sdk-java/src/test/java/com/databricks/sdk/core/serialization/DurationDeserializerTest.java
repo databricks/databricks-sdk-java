@@ -33,4 +33,4 @@ public class DurationDeserializerTest {
     TestClass obj = mapper.readValue(json, TestClass.class);
     assertNull(obj.getDuration());
   }
-} 
+}

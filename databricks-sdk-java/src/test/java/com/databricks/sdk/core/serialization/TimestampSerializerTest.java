@@ -37,14 +37,15 @@ public class TimestampSerializerTest {
 
   @Test
   public void testTimestampSerializationWithNanos() throws Exception {
-    Timestamp ts = Timestamp.newBuilder()
-        .setSeconds(1718886896L) // 2024-06-20T12:34:56Z
-        .setNanos(123456789)
-        .build();
+    Timestamp ts =
+        Timestamp.newBuilder()
+            .setSeconds(1718886896L) // 2024-06-20T12:34:56Z
+            .setNanos(123456789)
+            .build();
     TestClass testObject = new TestClass(ts);
     ObjectMapper mapper = new ObjectMapper();
     String json = mapper.writeValueAsString(testObject);
     // Should match the RFC 3339 format with fractional seconds
     assertEquals("{\"timestamp\":\"2024-06-20T12:34:56.123456789Z\"}", json);
   }
-} 
+}

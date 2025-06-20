@@ -34,4 +34,4 @@ public class FieldMaskSerializerTest {
     String json = mapper.writeValueAsString(testObject);
     assertEquals("{\"fieldMask\":null}", json);
   }
-} 
+}

@@ -23,7 +23,9 @@ public class FieldMaskDeserializerTest {
     String json = "{\"fieldMask\":\"foo,bar.baz\"}";
     ObjectMapper mapper = new ObjectMapper();
     TestClass obj = mapper.readValue(json, TestClass.class);
-    assertEquals(FieldMaskUtil.fromStringList(java.util.Arrays.asList("foo", "bar.baz")), obj.getFieldMask());
+    assertEquals(
+        FieldMaskUtil.fromStringList(java.util.Arrays.asList("foo", "bar.baz")),
+        obj.getFieldMask());
   }
 
   @Test
@@ -33,4 +35,4 @@ public class FieldMaskDeserializerTest {
     TestClass obj = mapper.readValue(json, TestClass.class);
     assertNull(obj.getFieldMask());
   }
-} 
+}
