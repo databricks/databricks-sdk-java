@@ -11,10 +11,6 @@ import org.slf4j.LoggerFactory;
  * TokenSource that handles OAuth token refresh for SessionCredentials.
  *
  * <p>Implements the refresh_token OAuth grant type with optional token caching.
- *
- * @see RefreshableTokenSource
- * @see Token
- * @see TokenCache
  */
 public class SessionCredentialsTokenSource extends RefreshableTokenSource {
   private static final Logger LOGGER = LoggerFactory.getLogger(SessionCredentialsTokenSource.class);
