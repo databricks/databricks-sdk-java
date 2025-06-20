@@ -425,7 +425,7 @@ public class ExternalBrowserCredentialsProviderTest {
             "browser_refresh_token",
             Instant.now().plusSeconds(3600));
 
-    SessionCredentialsTokenSource browserAuthCreds =
+    SessionCredentialsTokenSource browserAuthTokenSource =
         new SessionCredentialsTokenSource.Builder(
                 browserAuthToken,
                 mockHttpClient,
@@ -450,7 +450,7 @@ public class ExternalBrowserCredentialsProviderTest {
     // Create our provider and mock the browser auth method
     ExternalBrowserCredentialsProvider provider =
         Mockito.spy(new ExternalBrowserCredentialsProvider(mockTokenCache));
-    Mockito.doReturn(browserAuthCreds)
+    Mockito.doReturn(browserAuthTokenSource)
         .when(provider)
         .performBrowserAuth(any(DatabricksConfig.class), any(), any(), any(TokenCache.class));
 
@@ -497,7 +497,7 @@ public class ExternalBrowserCredentialsProviderTest {
             "browser_refresh_token",
             Instant.now().plusSeconds(3600));
 
-    SessionCredentialsTokenSource browserAuthCreds =
+    SessionCredentialsTokenSource browserAuthTokenSource =
         new SessionCredentialsTokenSource.Builder(
                 browserAuthToken,
                 mockHttpClient,
@@ -516,7 +516,7 @@ public class ExternalBrowserCredentialsProviderTest {
     // Create our provider and mock the browser auth method
     ExternalBrowserCredentialsProvider provider =
         Mockito.spy(new ExternalBrowserCredentialsProvider(mockTokenCache));
-    Mockito.doReturn(browserAuthCreds)
+    Mockito.doReturn(browserAuthTokenSource)
         .when(provider)
         .performBrowserAuth(any(DatabricksConfig.class), any(), any(), any(TokenCache.class));
 
