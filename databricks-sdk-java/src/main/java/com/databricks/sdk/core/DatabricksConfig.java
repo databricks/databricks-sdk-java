@@ -159,6 +159,10 @@ public class DatabricksConfig {
   @ConfigAttribute(env = "DATABRICKS_OIDC_TOKEN_ENV", auth = "env-oidc")
   private String oidcTokenEnv;
 
+  /** Disable asynchronous token refresh when set to true. */
+  @ConfigAttribute(env = "DATABRICKS_DISABLE_ASYNC_TOKEN_REFRESH")
+  private boolean disableAsyncTokenRefresh = false;
+
   public Environment getEnv() {
     return env;
   }
@@ -410,13 +414,17 @@ public class DatabricksConfig {
     return this;
   }
 
-  /** @deprecated Use {@link #getAzureUseMsi()} instead. */
+  /**
+   * @deprecated Use {@link #getAzureUseMsi()} instead.
+   */
   @Deprecated()
   public boolean getAzureUseMSI() {
     return azureUseMsi;
   }
 
-  /** @deprecated Use {@link #setAzureUseMsi(boolean)} instead. */
+  /**
+   * @deprecated Use {@link #setAzureUseMsi(boolean)} instead.
+   */
   @Deprecated
   public DatabricksConfig setAzureUseMSI(boolean azureUseMsi) {
     this.azureUseMsi = azureUseMsi;
@@ -572,6 +580,15 @@ public class DatabricksConfig {
 
   public DatabricksConfig setOidcTokenEnv(String oidcTokenEnv) {
     this.oidcTokenEnv = oidcTokenEnv;
+    return this;
+  }
+
+  public boolean getDisableAsyncTokenRefresh() {
+    return disableAsyncTokenRefresh;
+  }
+
+  public DatabricksConfig setDisableAsyncTokenRefresh(boolean disableAsyncTokenRefresh) {
+    this.disableAsyncTokenRefresh = disableAsyncTokenRefresh;
     return this;
   }
 
