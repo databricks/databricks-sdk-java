@@ -129,11 +129,13 @@ public class ExternalBrowserCredentialsProviderTest {
   void exchangeTest() throws IOException {
     HttpClient hc = Mockito.mock(HttpClient.class);
     String response =
-        "{\"access_token\": \"accessTokenFromServer\", \"token_type\": \"tokenTypeFromServer\", \"expires_in\": \"3600\", \"refresh_token\": \"refreshTokenFromServer\"}";
+        "{\"access_token\": \"accessTokenFromServer\", \"token_type\": \"tokenTypeFromServer\", \"expires_in\": \"10\", \"refresh_token\": \"refreshTokenFromServer\"}";
     URL url = new URL("https://databricks.com/");
 
     // Mock because it's a POST Request to http client
-    Mockito.doReturn(new Response(response, url)).when(hc).execute(any(Request.class));
+    Mockito.doAnswer(invocation -> new Response(response, url))
+        .when(hc)
+        .execute(any(Request.class));
 
     Consent testConsent =
         new Consent.Builder()
@@ -187,9 +189,11 @@ public class ExternalBrowserCredentialsProviderTest {
   void clientCredentials() throws IOException {
     HttpClient hc = Mockito.mock(HttpClient.class);
     String response =
-        "{\"access_token\": \"accessTokenFromServer\", \"token_type\": \"tokenTypeFromServer\", \"expires_in\": \"3600\", \"refresh_token\": \"refreshTokenFromServer\"}";
+        "{\"access_token\": \"accessTokenFromServer\", \"token_type\": \"tokenTypeFromServer\", \"expires_in\": \"10\", \"refresh_token\": \"refreshTokenFromServer\"}";
     URL url = new URL("https://databricks.com/");
-    Mockito.doReturn(new Response(response, url)).when(hc).execute(any(Request.class));
+    Mockito.doAnswer(invocation -> new Response(response, url))
+        .when(hc)
+        .execute(any(Request.class));
 
     ClientCredentials clientCredentials =
         new ClientCredentials.Builder()
@@ -207,9 +211,11 @@ public class ExternalBrowserCredentialsProviderTest {
   void sessionCredentials() throws IOException {
     HttpClient hc = Mockito.mock(HttpClient.class);
     String response =
-        "{\"access_token\": \"accessTokenFromServer\", \"token_type\": \"tokenTypeFromServer\", \"expires_in\": \"3600\", \"refresh_token\": \"refreshTokenFromServer\"}";
+        "{\"access_token\": \"accessTokenFromServer\", \"token_type\": \"tokenTypeFromServer\", \"expires_in\": \"10\", \"refresh_token\": \"refreshTokenFromServer\"}";
     URL url = new URL("https://databricks.com/");
-    Mockito.doReturn(new Response(response, url)).when(hc).execute(any(Request.class));
+    Mockito.doAnswer(invocation -> new Response(response, url))
+        .when(hc)
+        .execute(any(Request.class));
 
     SessionCredentialsTokenSource sessionCredentialsTokenSource =
         new SessionCredentialsTokenSource.Builder(
@@ -237,10 +243,10 @@ public class ExternalBrowserCredentialsProviderTest {
   void cacheWithValidTokenTest() throws IOException {
     // Create mock HTTP client for token refresh
     HttpClient mockHttpClient = Mockito.mock(HttpClient.class);
-    String refreshResponse =
+    String response =
         "{\"access_token\": \"refreshed_access_token\", \"token_type\": \"Bearer\", \"expires_in\": \"3600\", \"refresh_token\": \"new_refresh_token\"}";
     URL url = new URL("https://test.databricks.com/");
-    Mockito.doReturn(new Response(refreshResponse, url))
+    Mockito.doAnswer(invocation -> new Response(response, url))
         .when(mockHttpClient)
         .execute(any(Request.class));
 
@@ -317,10 +323,10 @@ public class ExternalBrowserCredentialsProviderTest {
   void cacheWithInvalidAccessTokenValidRefreshTest() throws IOException {
     // Create mock HTTP client for token refresh
     HttpClient mockHttpClient = Mockito.mock(HttpClient.class);
-    String refreshResponse =
+    String response =
         "{\"access_token\": \"refreshed_access_token\", \"token_type\": \"Bearer\", \"expires_in\": \"3600\", \"refresh_token\": \"new_refresh_token\"}";
     URL url = new URL("https://test.databricks.com/");
-    Mockito.doReturn(new Response(refreshResponse, url))
+    Mockito.doAnswer(invocation -> new Response(response, url))
         .when(mockHttpClient)
         .execute(any(Request.class));
 
