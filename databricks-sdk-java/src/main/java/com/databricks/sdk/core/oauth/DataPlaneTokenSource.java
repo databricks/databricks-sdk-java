@@ -6,14 +6,12 @@ import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Manages and provides Databricks data plane tokens. This class is responsible
- * for acquiring and caching OAuth tokens that are specific to a particular
- * Databricks data plane service endpoint and a set of authorization details.
- * It utilizes a {@link DatabricksOAuthTokenSource} for obtaining control plane
- * tokens, which may then be exchanged or used to authorize requests for data
- * plane tokens. Cached {@link EndpointTokenSource} instances are used to
- * efficiently reuse tokens for repeated requests to the same endpoint with the
- * same authorization context.
+ * Manages and provides Databricks data plane tokens. This class is responsible for acquiring and
+ * caching OAuth tokens that are specific to a particular Databricks data plane service endpoint and
+ * a set of authorization details. It utilizes a {@link DatabricksOAuthTokenSource} for obtaining
+ * control plane tokens, which may then be exchanged or used to authorize requests for data plane
+ * tokens. Cached {@link EndpointTokenSource} instances are used to efficiently reuse tokens for
+ * repeated requests to the same endpoint with the same authorization context.
  */
 public class DataPlaneTokenSource {
   private final HttpClient httpClient;
@@ -22,13 +20,13 @@ public class DataPlaneTokenSource {
   private final ConcurrentHashMap<TokenSourceKey, EndpointTokenSource> sourcesCache;
 
   /**
-   * Caching key for {@link EndpointTokenSource}, based on endpoint and 
-   * authorization details. This is a value object that uniquely identifies 
-   * a token source configuration.
+   * Caching key for {@link EndpointTokenSource}, based on endpoint and authorization details. This
+   * is a value object that uniquely identifies a token source configuration.
    */
   @AutoValue
-  static abstract class TokenSourceKey {
+  abstract static class TokenSourceKey {
     abstract String endpoint();
+
     abstract String authDetails();
 
     static TokenSourceKey create(String endpoint, String authDetails) {
