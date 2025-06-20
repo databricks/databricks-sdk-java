@@ -5,8 +5,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.protobuf.Timestamp;
-import com.google.protobuf.util.Timestamps;
-import org.junit.jupiter.api.Test;
+import java.util.stream.Stream;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public class TimestampDeserializerTest {
   private static class TestClass {
@@ -18,28 +20,26 @@ public class TimestampDeserializerTest {
     }
   }
 
-  @Test
-  public void testTimestampDeserialization() throws Exception {
-    String json = "{\"timestamp\":\"2024-06-20T12:34:56Z\"}";
+  @ParameterizedTest
+  @MethodSource("timestampDeserializationTestCases")
+  public void testTimestampDeserialization(String inputJson, Timestamp expectedTimestamp)
+      throws Exception {
     ObjectMapper mapper = new ObjectMapper();
-    TestClass obj = mapper.readValue(json, TestClass.class);
-    assertEquals(Timestamps.parse("2024-06-20T12:34:56Z"), obj.getTimestamp());
+    TestClass obj = mapper.readValue(inputJson, TestClass.class);
+    assertEquals(expectedTimestamp, obj.getTimestamp());
   }
 
-  @Test
-  public void testNullTimestampDeserialization() throws Exception {
-    String json = "{\"timestamp\":null}";
-    ObjectMapper mapper = new ObjectMapper();
-    TestClass obj = mapper.readValue(json, TestClass.class);
-    assertNull(obj.getTimestamp());
-  }
-
-  @Test
-  public void testTimestampDeserializationWithNanos() throws Exception {
-    String json = "{\"timestamp\":\"2024-06-20T12:34:56.123456789Z\"}";
-    ObjectMapper mapper = new ObjectMapper();
-    TestClass obj = mapper.readValue(json, TestClass.class);
-    Timestamp expected = Timestamp.newBuilder().setSeconds(1718886896L).setNanos(123456789).build();
-    assertEquals(expected, obj.getTimestamp());
+  static Stream<Arguments> timestampDeserializationTestCases() {
+    return Stream.of(
+        // Timestamp without nanos
+        Arguments.of(
+            "{\"timestamp\":\"2024-06-20T12:34:56Z\"}",
+            Timestamp.newBuilder().setSeconds(1718886896L).build()),
+        // Timestamp with nanos
+        Arguments.of(
+            "{\"timestamp\":\"2024-06-20T12:34:56.123456789Z\"}",
+            Timestamp.newBuilder().setSeconds(1718886896L).setNanos(123456789).build()),
+        // Null timestamp
+        Arguments.of("{\"timestamp\":null}", null));
   }
 }

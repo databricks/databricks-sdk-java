@@ -5,7 +5,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.protobuf.Duration;
-import org.junit.jupiter.api.Test;
+import java.util.stream.Stream;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public class DurationSerializerTest {
 
@@ -18,56 +21,29 @@ public class DurationSerializerTest {
     }
   }
 
-  @Test
-  public void testDurationSerialization() throws Exception {
-    // Create a Duration of 3 seconds
-    Duration duration = Duration.newBuilder().setSeconds(3).build();
-
+  @ParameterizedTest
+  @MethodSource("durationSerializationTestCases")
+  public void testDurationSerialization(Duration duration, String expectedJson) throws Exception {
     TestClass testObject = new TestClass(duration);
-
     ObjectMapper mapper = new ObjectMapper();
     String json = mapper.writeValueAsString(testObject);
-
-    // The Duration should be serialized as "3s" by Durations.toString()
-    assertEquals("{\"duration\":\"3s\"}", json);
+    assertEquals(expectedJson, json);
   }
 
-  @Test
-  public void testDurationSerializationWithNanos() throws Exception {
-    // Create a Duration of 3.5 seconds (3 seconds + 500000000 nanoseconds)
-    Duration duration = Duration.newBuilder().setSeconds(3).setNanos(500000000).build();
-
-    TestClass testObject = new TestClass(duration);
-
-    ObjectMapper mapper = new ObjectMapper();
-    String json = mapper.writeValueAsString(testObject);
-
-    // The Duration should be serialized as "3.500s" by Durations.toString()
-    assertEquals("{\"duration\":\"3.500s\"}", json);
-  }
-
-  @Test
-  public void testNullDurationSerialization() throws Exception {
-    TestClass testObject = new TestClass(null);
-
-    ObjectMapper mapper = new ObjectMapper();
-    String json = mapper.writeValueAsString(testObject);
-
-    // Null duration should be serialized as null
-    assertEquals("{\"duration\":null}", json);
-  }
-
-  @Test
-  public void testZeroDurationSerialization() throws Exception {
-    // Create a Duration of 0 seconds
-    Duration duration = Duration.newBuilder().setSeconds(0).build();
-
-    TestClass testObject = new TestClass(duration);
-
-    ObjectMapper mapper = new ObjectMapper();
-    String json = mapper.writeValueAsString(testObject);
-
-    // The Duration should be serialized as "0s" by Durations.toString()
-    assertEquals("{\"duration\":\"0s\"}", json);
+  static Stream<Arguments> durationSerializationTestCases() {
+    return Stream.of(
+        // Duration of 3 seconds
+        Arguments.of(Duration.newBuilder().setSeconds(3).build(), "{\"duration\":\"3s\"}"),
+        // Duration of 3.5 seconds (3 seconds + 500000000 nanoseconds)
+        Arguments.of(
+            Duration.newBuilder().setSeconds(3).setNanos(500000000).build(),
+            "{\"duration\":\"3.500s\"}"),
+        // Duration of 0 seconds
+        Arguments.of(Duration.newBuilder().setSeconds(0).build(), "{\"duration\":\"0s\"}"),
+        // Duration with only nanos
+        Arguments.of(
+            Duration.newBuilder().setNanos(123456789).build(), "{\"duration\":\"0.123456789s\"}"),
+        // Null duration
+        Arguments.of(null, "{\"duration\":null}"));
   }
 }

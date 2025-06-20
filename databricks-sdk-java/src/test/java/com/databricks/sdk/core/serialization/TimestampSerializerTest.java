@@ -5,8 +5,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.protobuf.Timestamp;
-import com.google.protobuf.util.Timestamps;
-import org.junit.jupiter.api.Test;
+import java.util.stream.Stream;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public class TimestampSerializerTest {
   private static class TestClass {
@@ -18,34 +20,27 @@ public class TimestampSerializerTest {
     }
   }
 
-  @Test
-  public void testTimestampSerialization() throws Exception {
-    Timestamp ts = Timestamps.parse("2024-06-20T12:34:56Z");
-    TestClass testObject = new TestClass(ts);
+  @ParameterizedTest
+  @MethodSource("timestampSerializationTestCases")
+  public void testTimestampSerialization(Timestamp timestamp, String expectedJson)
+      throws Exception {
+    TestClass testObject = new TestClass(timestamp);
     ObjectMapper mapper = new ObjectMapper();
     String json = mapper.writeValueAsString(testObject);
-    assertEquals("{\"timestamp\":\"2024-06-20T12:34:56Z\"}", json);
+    assertEquals(expectedJson, json);
   }
 
-  @Test
-  public void testNullTimestampSerialization() throws Exception {
-    TestClass testObject = new TestClass(null);
-    ObjectMapper mapper = new ObjectMapper();
-    String json = mapper.writeValueAsString(testObject);
-    assertEquals("{\"timestamp\":null}", json);
-  }
-
-  @Test
-  public void testTimestampSerializationWithNanos() throws Exception {
-    Timestamp ts =
-        Timestamp.newBuilder()
-            .setSeconds(1718886896L) // 2024-06-20T12:34:56Z
-            .setNanos(123456789)
-            .build();
-    TestClass testObject = new TestClass(ts);
-    ObjectMapper mapper = new ObjectMapper();
-    String json = mapper.writeValueAsString(testObject);
-    // Should match the RFC 3339 format with fractional seconds
-    assertEquals("{\"timestamp\":\"2024-06-20T12:34:56.123456789Z\"}", json);
+  static Stream<Arguments> timestampSerializationTestCases() {
+    return Stream.of(
+        // Basic timestamp without nanos
+        Arguments.of(
+            Timestamp.newBuilder().setSeconds(1718886896L).build(),
+            "{\"timestamp\":\"2024-06-20T12:34:56Z\"}"),
+        // Timestamp with nanos
+        Arguments.of(
+            Timestamp.newBuilder().setSeconds(1718886896L).setNanos(123456789).build(),
+            "{\"timestamp\":\"2024-06-20T12:34:56.123456789Z\"}"),
+        // Null timestamp
+        Arguments.of(null, "{\"timestamp\":null}"));
   }
 }
