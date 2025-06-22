@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get the output for a single run */
 @Generated
 public class GetRunOutputRequest {
   /** The canonical identifier for the run. */

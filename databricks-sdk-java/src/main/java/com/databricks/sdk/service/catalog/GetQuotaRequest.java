@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get information for a single resource quota. */
 @Generated
 public class GetQuotaRequest {
   /** Full name of the parent resource. Provide the metastore ID if the parent is a metastore. */

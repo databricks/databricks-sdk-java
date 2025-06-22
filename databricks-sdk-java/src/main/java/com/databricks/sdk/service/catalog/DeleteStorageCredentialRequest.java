@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete a credential */
 @Generated
 public class DeleteStorageCredentialRequest {
   /** Force deletion even if there are dependent external locations or external tables. */

@@ -29,20 +29,12 @@ public class DisableLegacyFeaturesAPI {
     impl = mock;
   }
 
-  /**
-   * Delete the disable legacy features setting.
-   *
-   * <p>Deletes the disable legacy features setting.
-   */
+  /** Deletes the disable legacy features setting. */
   public DeleteDisableLegacyFeaturesResponse delete(DeleteDisableLegacyFeaturesRequest request) {
     return impl.delete(request);
   }
 
-  /**
-   * Get the disable legacy features setting.
-   *
-   * <p>Gets the value of the disable legacy features setting.
-   */
+  /** Gets the value of the disable legacy features setting. */
   public DisableLegacyFeatures get(GetDisableLegacyFeaturesRequest request) {
     return impl.get(request);
   }
@@ -56,11 +48,7 @@ public class DisableLegacyFeaturesAPI {
             .setFieldMask(fieldMask));
   }
 
-  /**
-   * Update the disable legacy features setting.
-   *
-   * <p>Updates the value of the disable legacy features setting.
-   */
+  /** Updates the value of the disable legacy features setting. */
   public DisableLegacyFeatures update(UpdateDisableLegacyFeaturesRequest request) {
     return impl.update(request);
   }

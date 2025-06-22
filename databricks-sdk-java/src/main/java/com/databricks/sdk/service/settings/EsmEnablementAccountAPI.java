@@ -28,11 +28,7 @@ public class EsmEnablementAccountAPI {
     impl = mock;
   }
 
-  /**
-   * Get the enhanced security monitoring setting for new workspaces.
-   *
-   * <p>Gets the enhanced security monitoring setting for new workspaces.
-   */
+  /** Gets the enhanced security monitoring setting for new workspaces. */
   public EsmEnablementAccountSetting get(GetEsmEnablementAccountSettingRequest request) {
     return impl.get(request);
   }
@@ -46,11 +42,7 @@ public class EsmEnablementAccountAPI {
             .setFieldMask(fieldMask));
   }
 
-  /**
-   * Update the enhanced security monitoring setting for new workspaces.
-   *
-   * <p>Updates the value of the enhanced security monitoring setting for new workspaces.
-   */
+  /** Updates the value of the enhanced security monitoring setting for new workspaces. */
   public EsmEnablementAccountSetting update(UpdateEsmEnablementAccountSettingRequest request) {
     return impl.update(request);
   }

@@ -47,10 +47,8 @@ public class WorkspaceBindingsAPI {
   }
 
   /**
-   * Get catalog workspace bindings.
-   *
-   * <p>Gets workspace bindings of the catalog. The caller must be a metastore admin or an owner of
-   * the catalog.
+   * Gets workspace bindings of the catalog. The caller must be a metastore admin or an owner of the
+   * catalog.
    */
   public GetCatalogWorkspaceBindingsResponse get(GetWorkspaceBindingRequest request) {
     return impl.get(request);
@@ -62,10 +60,8 @@ public class WorkspaceBindingsAPI {
   }
 
   /**
-   * Get securable workspace bindings.
-   *
-   * <p>Gets workspace bindings of the securable. The caller must be a metastore admin or an owner
-   * of the securable.
+   * Gets workspace bindings of the securable. The caller must be a metastore admin or an owner of
+   * the securable.
    */
   public Iterable<WorkspaceBinding> getBindings(GetBindingsRequest request) {
     return new Paginator<>(
@@ -86,10 +82,8 @@ public class WorkspaceBindingsAPI {
   }
 
   /**
-   * Update catalog workspace bindings.
-   *
-   * <p>Updates workspace bindings of the catalog. The caller must be a metastore admin or an owner
-   * of the catalog.
+   * Updates workspace bindings of the catalog. The caller must be a metastore admin or an owner of
+   * the catalog.
    */
   public UpdateCatalogWorkspaceBindingsResponse update(UpdateWorkspaceBindings request) {
     return impl.update(request);
@@ -104,10 +98,8 @@ public class WorkspaceBindingsAPI {
   }
 
   /**
-   * Update securable workspace bindings.
-   *
-   * <p>Updates workspace bindings of the securable. The caller must be a metastore admin or an
-   * owner of the securable.
+   * Updates workspace bindings of the securable. The caller must be a metastore admin or an owner
+   * of the securable.
    */
   public UpdateWorkspaceBindingsResponse updateBindings(UpdateWorkspaceBindingsParameters request) {
     return impl.updateBindings(request);

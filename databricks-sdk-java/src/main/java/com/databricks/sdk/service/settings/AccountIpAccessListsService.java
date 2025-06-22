@@ -32,9 +32,7 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface AccountIpAccessListsService {
   /**
-   * Create access list.
-   *
-   * <p>Creates an IP access list for the account.
+   * Creates an IP access list for the account.
    *
    * <p>A list can be an allow list or a block list. See the top of this file for a description of
    * how the server treats allow lists and block lists at runtime.
@@ -50,31 +48,17 @@ public interface AccountIpAccessListsService {
    */
   CreateIpAccessListResponse create(CreateIpAccessList createIpAccessList);
 
-  /**
-   * Delete access list.
-   *
-   * <p>Deletes an IP access list, specified by its list ID.
-   */
+  /** Deletes an IP access list, specified by its list ID. */
   void delete(DeleteAccountIpAccessListRequest deleteAccountIpAccessListRequest);
 
-  /**
-   * Get IP access list.
-   *
-   * <p>Gets an IP access list, specified by its list ID.
-   */
+  /** Gets an IP access list, specified by its list ID. */
   GetIpAccessListResponse get(GetAccountIpAccessListRequest getAccountIpAccessListRequest);
 
-  /**
-   * Get access lists.
-   *
-   * <p>Gets all IP access lists for the specified account.
-   */
+  /** Gets all IP access lists for the specified account. */
   GetIpAccessListsResponse list();
 
   /**
-   * Replace access list.
-   *
-   * <p>Replaces an IP access list, specified by its ID.
+   * Replaces an IP access list, specified by its ID.
    *
    * <p>A list can include allow lists and block lists. See the top of this file for a description
    * of how the server treats allow lists and block lists at run time. When replacing an IP access
@@ -87,9 +71,7 @@ public interface AccountIpAccessListsService {
   void replace(ReplaceIpAccessList replaceIpAccessList);
 
   /**
-   * Update access list.
-   *
-   * <p>Updates an existing IP access list, specified by its ID.
+   * Updates an existing IP access list, specified by its ID.
    *
    * <p>A list can include allow lists and block lists. See the top of this file for a description
    * of how the server treats allow lists and block lists at run time.

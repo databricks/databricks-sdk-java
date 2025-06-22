@@ -102,10 +102,8 @@ public class GenieAPI {
   }
 
   /**
-   * Create conversation message.
-   *
-   * <p>Create new message in a [conversation](:method:genie/startconversation). The AI response
-   * uses all previously created messages in the conversation to respond.
+   * Create new message in a [conversation](:method:genie/startconversation). The AI response uses
+   * all previously created messages in the conversation to respond.
    */
   public Wait<GenieMessage, GenieMessage> createMessage(
       GenieCreateConversationMessageRequest request) {
@@ -132,9 +130,7 @@ public class GenieAPI {
   }
 
   /**
-   * Execute message attachment SQL query.
-   *
-   * <p>Execute the SQL for a message query attachment. Use this API when the query attachment has
+   * Execute the SQL for a message query attachment. Use this API when the query attachment has
    * expired and needs to be re-executed.
    */
   public GenieGetMessageQueryResultResponse executeMessageAttachmentQuery(
@@ -151,11 +147,7 @@ public class GenieAPI {
             .setMessageId(messageId));
   }
 
-  /**
-   * [Deprecated] Execute SQL query in a conversation message.
-   *
-   * <p>Execute the SQL query in the message.
-   */
+  /** Execute the SQL query in the message. */
   public GenieGetMessageQueryResultResponse executeMessageQuery(
       GenieExecuteMessageQueryRequest request) {
     return impl.executeMessageQuery(request);
@@ -172,9 +164,7 @@ public class GenieAPI {
   }
 
   /**
-   * Generate full query result download.
-   *
-   * <p>Initiates a new SQL execution and returns a `download_id` that you can use to track the
+   * Initiates a new SQL execution and returns a `download_id` that you can use to track the
    * progress of the download. The query result is stored in an external link and can be retrieved
    * using the [Get Download Full Query Result](:method:genie/getdownloadfullqueryresult) API.
    * Warning: Databricks strongly recommends that you protect the URLs that are returned by the
@@ -202,11 +192,9 @@ public class GenieAPI {
   }
 
   /**
-   * Get download full query result.
-   *
-   * <p>After [Generating a Full Query Result Download](:method:genie/getdownloadfullqueryresult)
-   * and successfully receiving a `download_id`, use this API to poll the download progress. When
-   * the download is complete, the API returns one or more external links to the query result files.
+   * After [Generating a Full Query Result Download](:method:genie/getdownloadfullqueryresult) and
+   * successfully receiving a `download_id`, use this API to poll the download progress. When the
+   * download is complete, the API returns one or more external links to the query result files.
    * Warning: Databricks strongly recommends that you protect the URLs that are returned by the
    * `EXTERNAL_LINKS` disposition. You must not set an Authorization header in download requests.
    * When using the `EXTERNAL_LINKS` disposition, Databricks returns presigned URLs that grant
@@ -226,11 +214,7 @@ public class GenieAPI {
             .setMessageId(messageId));
   }
 
-  /**
-   * Get conversation message.
-   *
-   * <p>Get message from conversation.
-   */
+  /** Get message from conversation. */
   public GenieMessage getMessage(GenieGetConversationMessageRequest request) {
     return impl.getMessage(request);
   }
@@ -246,10 +230,8 @@ public class GenieAPI {
   }
 
   /**
-   * Get message attachment SQL query result.
-   *
-   * <p>Get the result of SQL query if the message has a query attachment. This is only available if
-   * a message has a query attachment and the message status is `EXECUTING_QUERY` OR `COMPLETED`.
+   * Get the result of SQL query if the message has a query attachment. This is only available if a
+   * message has a query attachment and the message status is `EXECUTING_QUERY` OR `COMPLETED`.
    */
   public GenieGetMessageQueryResultResponse getMessageAttachmentQueryResult(
       GenieGetMessageAttachmentQueryResultRequest request) {
@@ -266,10 +248,8 @@ public class GenieAPI {
   }
 
   /**
-   * [Deprecated] Get conversation message SQL query result.
-   *
-   * <p>Get the result of SQL query if the message has a query attachment. This is only available if
-   * a message has a query attachment and the message status is `EXECUTING_QUERY`.
+   * Get the result of SQL query if the message has a query attachment. This is only available if a
+   * message has a query attachment and the message status is `EXECUTING_QUERY`.
    */
   public GenieGetMessageQueryResultResponse getMessageQueryResult(
       GenieGetMessageQueryResultRequest request) {
@@ -287,10 +267,8 @@ public class GenieAPI {
   }
 
   /**
-   * [Deprecated] Get conversation message SQL query result.
-   *
-   * <p>Get the result of SQL query if the message has a query attachment. This is only available if
-   * a message has a query attachment and the message status is `EXECUTING_QUERY` OR `COMPLETED`.
+   * Get the result of SQL query if the message has a query attachment. This is only available if a
+   * message has a query attachment and the message status is `EXECUTING_QUERY` OR `COMPLETED`.
    */
   public GenieGetMessageQueryResultResponse getMessageQueryResultByAttachment(
       GenieGetQueryResultByAttachmentRequest request) {
@@ -301,20 +279,12 @@ public class GenieAPI {
     return getSpace(new GenieGetSpaceRequest().setSpaceId(spaceId));
   }
 
-  /**
-   * Get Genie Space.
-   *
-   * <p>Get details of a Genie Space.
-   */
+  /** Get details of a Genie Space. */
   public GenieSpace getSpace(GenieGetSpaceRequest request) {
     return impl.getSpace(request);
   }
 
-  /**
-   * List Genie spaces.
-   *
-   * <p>Get list of Genie Spaces.
-   */
+  /** Get list of Genie Spaces. */
   public GenieListSpacesResponse listSpaces(GenieListSpacesRequest request) {
     return impl.listSpaces(request);
   }
@@ -325,11 +295,7 @@ public class GenieAPI {
         new GenieStartConversationMessageRequest().setSpaceId(spaceId).setContent(content));
   }
 
-  /**
-   * Start conversation.
-   *
-   * <p>Start a new conversation.
-   */
+  /** Start a new conversation. */
   public Wait<GenieMessage, GenieStartConversationResponse> startConversation(
       GenieStartConversationMessageRequest request) {
     GenieStartConversationResponse response = impl.startConversation(request);

@@ -13,31 +13,15 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface ProviderFilesService {
-  /**
-   * Create a file.
-   *
-   * <p>Create a file. Currently, only provider icons and attached notebooks are supported.
-   */
+  /** Create a file. Currently, only provider icons and attached notebooks are supported. */
   CreateFileResponse create(CreateFileRequest createFileRequest);
 
-  /**
-   * Delete a file.
-   *
-   * <p>Delete a file
-   */
+  /** Delete a file */
   void delete(DeleteFileRequest deleteFileRequest);
 
-  /**
-   * Get a file.
-   *
-   * <p>Get a file
-   */
+  /** Get a file */
   GetFileResponse get(GetFileRequest getFileRequest);
 
-  /**
-   * List files.
-   *
-   * <p>List files attached to a parent entity.
-   */
+  /** List files attached to a parent entity. */
   ListFilesResponse list(ListFilesRequest listFilesRequest);
 }

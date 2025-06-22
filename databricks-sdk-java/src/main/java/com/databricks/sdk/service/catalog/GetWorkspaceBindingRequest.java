@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get catalog workspace bindings */
 @Generated
 public class GetWorkspaceBindingRequest {
   /** The name of the catalog. */

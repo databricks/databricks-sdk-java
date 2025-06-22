@@ -100,10 +100,8 @@ public class JobsAPI {
   }
 
   /**
-   * Cancel all runs of a job.
-   *
-   * <p>Cancels all active runs of a job. The runs are canceled asynchronously, so it doesn't
-   * prevent new runs from being started.
+   * Cancels all active runs of a job. The runs are canceled asynchronously, so it doesn't prevent
+   * new runs from being started.
    */
   public void cancelAllRuns(CancelAllRuns request) {
     impl.cancelAllRuns(request);
@@ -114,10 +112,8 @@ public class JobsAPI {
   }
 
   /**
-   * Cancel a run.
-   *
-   * <p>Cancels a job run or a task run. The run is canceled asynchronously, so it may still be
-   * running when this request completes.
+   * Cancels a job run or a task run. The run is canceled asynchronously, so it may still be running
+   * when this request completes.
    */
   public Wait<Run, Void> cancelRun(CancelRun request) {
     impl.cancelRun(request);
@@ -126,11 +122,7 @@ public class JobsAPI {
             waitGetRunJobTerminatedOrSkipped(request.getRunId(), timeout, callback));
   }
 
-  /**
-   * Create a new job.
-   *
-   * <p>Create a new job.
-   */
+  /** Create a new job. */
   public CreateResponse create(CreateJob request) {
     return impl.create(request);
   }
@@ -139,11 +131,7 @@ public class JobsAPI {
     delete(new DeleteJob().setJobId(jobId));
   }
 
-  /**
-   * Delete a job.
-   *
-   * <p>Deletes a job.
-   */
+  /** Deletes a job. */
   public void delete(DeleteJob request) {
     impl.delete(request);
   }
@@ -152,11 +140,7 @@ public class JobsAPI {
     deleteRun(new DeleteRun().setRunId(runId));
   }
 
-  /**
-   * Delete a job run.
-   *
-   * <p>Deletes a non-active run. Returns an error if the run is active.
-   */
+  /** Deletes a non-active run. Returns an error if the run is active. */
   public void deleteRun(DeleteRun request) {
     impl.deleteRun(request);
   }
@@ -165,11 +149,7 @@ public class JobsAPI {
     return exportRun(new ExportRunRequest().setRunId(runId));
   }
 
-  /**
-   * Export and retrieve a job run.
-   *
-   * <p>Export and retrieve the job run task.
-   */
+  /** Export and retrieve the job run task. */
   public ExportRunOutput exportRun(ExportRunRequest request) {
     return impl.exportRun(request);
   }
@@ -179,9 +159,7 @@ public class JobsAPI {
   }
 
   /**
-   * Get a single job.
-   *
-   * <p>Retrieves the details for a single job.
+   * Retrieves the details for a single job.
    *
    * <p>Large arrays in the results will be paginated when they exceed 100 elements. A request for a
    * single job will return all properties for that job, and the first 100 elements of array
@@ -199,11 +177,7 @@ public class JobsAPI {
     return getPermissionLevels(new GetJobPermissionLevelsRequest().setJobId(jobId));
   }
 
-  /**
-   * Get job permission levels.
-   *
-   * <p>Gets the permission levels that a user can have on an object.
-   */
+  /** Gets the permission levels that a user can have on an object. */
   public GetJobPermissionLevelsResponse getPermissionLevels(GetJobPermissionLevelsRequest request) {
     return impl.getPermissionLevels(request);
   }
@@ -212,11 +186,7 @@ public class JobsAPI {
     return getPermissions(new GetJobPermissionsRequest().setJobId(jobId));
   }
 
-  /**
-   * Get job permissions.
-   *
-   * <p>Gets the permissions of a job. Jobs can inherit permissions from their root object.
-   */
+  /** Gets the permissions of a job. Jobs can inherit permissions from their root object. */
   public JobPermissions getPermissions(GetJobPermissionsRequest request) {
     return impl.getPermissions(request);
   }
@@ -226,9 +196,7 @@ public class JobsAPI {
   }
 
   /**
-   * Get a single job run.
-   *
-   * <p>Retrieves the metadata of a run.
+   * Retrieves the metadata of a run.
    *
    * <p>Large arrays in the results will be paginated when they exceed 100 elements. A request for a
    * single run will return all properties for that run, and the first 100 elements of array
@@ -247,9 +215,7 @@ public class JobsAPI {
   }
 
   /**
-   * Get the output for a single run.
-   *
-   * <p>Retrieve the output and metadata of a single task run. When a notebook task returns a value
+   * Retrieve the output and metadata of a single task run. When a notebook task returns a value
    * through the `dbutils.notebook.exit()` call, you can use this endpoint to retrieve that value.
    * Databricks restricts this API to returning the first 5 MB of the output. To return a larger
    * result, you can store job results in a cloud storage service.
@@ -263,11 +229,7 @@ public class JobsAPI {
     return impl.getRunOutput(request);
   }
 
-  /**
-   * List jobs.
-   *
-   * <p>Retrieves a list of jobs.
-   */
+  /** Retrieves a list of jobs. */
   public Iterable<BaseJob> list(ListJobsRequest request) {
     return new Paginator<>(
         request,
@@ -282,11 +244,7 @@ public class JobsAPI {
         });
   }
 
-  /**
-   * List job runs.
-   *
-   * <p>List runs in descending order by start time.
-   */
+  /** List runs in descending order by start time. */
   public Iterable<BaseRun> listRuns(ListRunsRequest request) {
     return new Paginator<>(
         request,
@@ -306,9 +264,7 @@ public class JobsAPI {
   }
 
   /**
-   * Repair a job run.
-   *
-   * <p>Re-run one or more tasks. Tasks are re-run as part of the original job run. They use the
+   * Re-run one or more tasks. Tasks are re-run as part of the original job run. They use the
    * current job and task settings, and can be viewed in the history for the original job run.
    */
   public Wait<Run, RepairRunResponse> repairRun(RepairRun request) {
@@ -324,10 +280,8 @@ public class JobsAPI {
   }
 
   /**
-   * Update all job settings (reset).
-   *
-   * <p>Overwrite all settings for the given job. Use the [_Update_ endpoint](:method:jobs/update)
-   * to update job settings partially.
+   * Overwrite all settings for the given job. Use the [_Update_ endpoint](:method:jobs/update) to
+   * update job settings partially.
    */
   public void reset(ResetJob request) {
     impl.reset(request);
@@ -337,11 +291,7 @@ public class JobsAPI {
     return runNow(new RunNow().setJobId(jobId));
   }
 
-  /**
-   * Trigger a new job run.
-   *
-   * <p>Run a job and return the `run_id` of the triggered run.
-   */
+  /** Run a job and return the `run_id` of the triggered run. */
   public Wait<Run, RunNowResponse> runNow(RunNow request) {
     RunNowResponse response = impl.runNow(request);
     return new Wait<>(
@@ -355,22 +305,17 @@ public class JobsAPI {
   }
 
   /**
-   * Set job permissions.
-   *
-   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
-   * direct permissions if none are specified. Objects can inherit permissions from their root
-   * object.
+   * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
+   * permissions if none are specified. Objects can inherit permissions from their root object.
    */
   public JobPermissions setPermissions(JobPermissionsRequest request) {
     return impl.setPermissions(request);
   }
 
   /**
-   * Create and trigger a one-time run.
-   *
-   * <p>Submit a one-time run. This endpoint allows you to submit a workload directly without
-   * creating a job. Runs submitted using this endpoint don’t display in the UI. Use the
-   * `jobs/runs/get` API to check the run state after the job is submitted.
+   * Submit a one-time run. This endpoint allows you to submit a workload directly without creating
+   * a job. Runs submitted using this endpoint don’t display in the UI. Use the `jobs/runs/get` API
+   * to check the run state after the job is submitted.
    */
   public Wait<Run, SubmitRunResponse> submit(SubmitRun request) {
     SubmitRunResponse response = impl.submit(request);
@@ -385,9 +330,7 @@ public class JobsAPI {
   }
 
   /**
-   * Update job settings partially.
-   *
-   * <p>Add, update, or remove specific settings of an existing job. Use the [_Reset_
+   * Add, update, or remove specific settings of an existing job. Use the [_Reset_
    * endpoint](:method:jobs/reset) to overwrite all job settings.
    */
   public void update(UpdateJob request) {
@@ -398,11 +341,7 @@ public class JobsAPI {
     return updatePermissions(new JobPermissionsRequest().setJobId(jobId));
   }
 
-  /**
-   * Update job permissions.
-   *
-   * <p>Updates the permissions on a job. Jobs can inherit permissions from their root object.
-   */
+  /** Updates the permissions on a job. Jobs can inherit permissions from their root object. */
   public JobPermissions updatePermissions(JobPermissionsRequest request) {
     return impl.updatePermissions(request);
   }

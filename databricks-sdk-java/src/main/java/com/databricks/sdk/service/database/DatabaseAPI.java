@@ -28,7 +28,6 @@ public class DatabaseAPI {
     return createDatabaseCatalog(new CreateDatabaseCatalogRequest().setCatalog(catalog));
   }
 
-  /** Create a Database Catalog. */
   public DatabaseCatalog createDatabaseCatalog(CreateDatabaseCatalogRequest request) {
     return impl.createDatabaseCatalog(request);
   }
@@ -38,7 +37,6 @@ public class DatabaseAPI {
         new CreateDatabaseInstanceRequest().setDatabaseInstance(databaseInstance));
   }
 
-  /** Create a Database Instance. */
   public DatabaseInstance createDatabaseInstance(CreateDatabaseInstanceRequest request) {
     return impl.createDatabaseInstance(request);
   }
@@ -47,7 +45,6 @@ public class DatabaseAPI {
     return createDatabaseTable(new CreateDatabaseTableRequest().setTable(table));
   }
 
-  /** Create a Database Table. */
   public DatabaseTable createDatabaseTable(CreateDatabaseTableRequest request) {
     return impl.createDatabaseTable(request);
   }
@@ -57,7 +54,6 @@ public class DatabaseAPI {
         new CreateSyncedDatabaseTableRequest().setSyncedTable(syncedTable));
   }
 
-  /** Create a Synced Database Table. */
   public SyncedDatabaseTable createSyncedDatabaseTable(CreateSyncedDatabaseTableRequest request) {
     return impl.createSyncedDatabaseTable(request);
   }
@@ -66,7 +62,6 @@ public class DatabaseAPI {
     deleteDatabaseCatalog(new DeleteDatabaseCatalogRequest().setName(name));
   }
 
-  /** Delete a Database Catalog. */
   public void deleteDatabaseCatalog(DeleteDatabaseCatalogRequest request) {
     impl.deleteDatabaseCatalog(request);
   }
@@ -75,7 +70,6 @@ public class DatabaseAPI {
     deleteDatabaseInstance(new DeleteDatabaseInstanceRequest().setName(name));
   }
 
-  /** Delete a Database Instance. */
   public void deleteDatabaseInstance(DeleteDatabaseInstanceRequest request) {
     impl.deleteDatabaseInstance(request);
   }
@@ -84,7 +78,6 @@ public class DatabaseAPI {
     deleteDatabaseTable(new DeleteDatabaseTableRequest().setName(name));
   }
 
-  /** Delete a Database Table. */
   public void deleteDatabaseTable(DeleteDatabaseTableRequest request) {
     impl.deleteDatabaseTable(request);
   }
@@ -93,17 +86,14 @@ public class DatabaseAPI {
     deleteSyncedDatabaseTable(new DeleteSyncedDatabaseTableRequest().setName(name));
   }
 
-  /** Delete a Synced Database Table. */
   public void deleteSyncedDatabaseTable(DeleteSyncedDatabaseTableRequest request) {
     impl.deleteSyncedDatabaseTable(request);
   }
 
-  /** Find a Database Instance by uid. */
   public DatabaseInstance findDatabaseInstanceByUid(FindDatabaseInstanceByUidRequest request) {
     return impl.findDatabaseInstanceByUid(request);
   }
 
-  /** Generates a credential that can be used to access database instances. */
   public DatabaseCredential generateDatabaseCredential(GenerateDatabaseCredentialRequest request) {
     return impl.generateDatabaseCredential(request);
   }
@@ -112,7 +102,6 @@ public class DatabaseAPI {
     return getDatabaseCatalog(new GetDatabaseCatalogRequest().setName(name));
   }
 
-  /** Get a Database Catalog. */
   public DatabaseCatalog getDatabaseCatalog(GetDatabaseCatalogRequest request) {
     return impl.getDatabaseCatalog(request);
   }
@@ -121,7 +110,6 @@ public class DatabaseAPI {
     return getDatabaseInstance(new GetDatabaseInstanceRequest().setName(name));
   }
 
-  /** Get a Database Instance. */
   public DatabaseInstance getDatabaseInstance(GetDatabaseInstanceRequest request) {
     return impl.getDatabaseInstance(request);
   }
@@ -130,7 +118,6 @@ public class DatabaseAPI {
     return getDatabaseTable(new GetDatabaseTableRequest().setName(name));
   }
 
-  /** Get a Database Table. */
   public DatabaseTable getDatabaseTable(GetDatabaseTableRequest request) {
     return impl.getDatabaseTable(request);
   }
@@ -139,12 +126,10 @@ public class DatabaseAPI {
     return getSyncedDatabaseTable(new GetSyncedDatabaseTableRequest().setName(name));
   }
 
-  /** Get a Synced Database Table. */
   public SyncedDatabaseTable getSyncedDatabaseTable(GetSyncedDatabaseTableRequest request) {
     return impl.getSyncedDatabaseTable(request);
   }
 
-  /** List Database Instances. */
   public Iterable<DatabaseInstance> listDatabaseInstances(ListDatabaseInstancesRequest request) {
     return new Paginator<>(
         request,
@@ -168,7 +153,6 @@ public class DatabaseAPI {
             .setUpdateMask(updateMask));
   }
 
-  /** Update a Database Instance. */
   public DatabaseInstance updateDatabaseInstance(UpdateDatabaseInstanceRequest request) {
     return impl.updateDatabaseInstance(request);
   }

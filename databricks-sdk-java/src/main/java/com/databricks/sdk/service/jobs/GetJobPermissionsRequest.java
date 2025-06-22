@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get job permissions */
 @Generated
 public class GetJobPermissionsRequest {
   /** The job for which to get or manage permissions. */

@@ -29,9 +29,7 @@ public class AccountStorageCredentialsAPI {
   }
 
   /**
-   * Create a storage credential.
-   *
-   * <p>Creates a new storage credential. The request object is specific to the cloud:
+   * Creates a new storage credential. The request object is specific to the cloud:
    *
    * <p>* **AwsIamRole** for AWS credentials * **AzureServicePrincipal** for Azure credentials *
    * **GcpServiceAcountKey** for GCP credentials.
@@ -51,9 +49,7 @@ public class AccountStorageCredentialsAPI {
   }
 
   /**
-   * Delete a storage credential.
-   *
-   * <p>Deletes a storage credential from the metastore. The caller must be an owner of the storage
+   * Deletes a storage credential from the metastore. The caller must be an owner of the storage
    * credential.
    */
   public void delete(DeleteAccountStorageCredentialRequest request) {
@@ -68,10 +64,8 @@ public class AccountStorageCredentialsAPI {
   }
 
   /**
-   * Gets the named storage credential.
-   *
-   * <p>Gets a storage credential from the metastore. The caller must be a metastore admin, the
-   * owner of the storage credential, or have a level of privilege on the storage credential.
+   * Gets a storage credential from the metastore. The caller must be a metastore admin, the owner
+   * of the storage credential, or have a level of privilege on the storage credential.
    */
   public AccountsStorageCredentialInfo get(GetAccountStorageCredentialRequest request) {
     return impl.get(request);
@@ -81,11 +75,7 @@ public class AccountStorageCredentialsAPI {
     return list(new ListAccountStorageCredentialsRequest().setMetastoreId(metastoreId));
   }
 
-  /**
-   * Get all storage credentials assigned to a metastore.
-   *
-   * <p>Gets a list of all storage credentials that have been assigned to given metastore.
-   */
+  /** Gets a list of all storage credentials that have been assigned to given metastore. */
   public Iterable<StorageCredentialInfo> list(ListAccountStorageCredentialsRequest request) {
     return new Paginator<>(
         request,
@@ -102,9 +92,7 @@ public class AccountStorageCredentialsAPI {
   }
 
   /**
-   * Updates a storage credential.
-   *
-   * <p>Updates a storage credential on the metastore. The caller must be the owner of the storage
+   * Updates a storage credential on the metastore. The caller must be the owner of the storage
    * credential. If the caller is a metastore admin, only the __owner__ credential can be changed.
    */
   public AccountsStorageCredentialInfo update(AccountsUpdateStorageCredential request) {

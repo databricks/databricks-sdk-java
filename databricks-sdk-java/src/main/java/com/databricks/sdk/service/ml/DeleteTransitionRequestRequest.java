@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete a transition request */
 @Generated
 public class DeleteTransitionRequestRequest {
   /** User-provided comment on the action. */

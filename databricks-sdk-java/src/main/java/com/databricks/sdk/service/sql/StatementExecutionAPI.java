@@ -117,9 +117,7 @@ public class StatementExecutionAPI {
   }
 
   /**
-   * Cancel statement execution.
-   *
-   * <p>Requests that an executing statement be canceled. Callers must poll for status to see the
+   * Requests that an executing statement be canceled. Callers must poll for status to see the
    * terminal state.
    */
   public void cancelExecution(CancelExecutionRequest request) {
@@ -131,7 +129,6 @@ public class StatementExecutionAPI {
         new ExecuteStatementRequest().setStatement(statement).setWarehouseId(warehouseId));
   }
 
-  /** Execute a SQL statement. */
   public StatementResponse executeStatement(ExecuteStatementRequest request) {
     return impl.executeStatement(request);
   }
@@ -141,10 +138,8 @@ public class StatementExecutionAPI {
   }
 
   /**
-   * Get status, manifest, and result first chunk.
-   *
-   * <p>This request can be used to poll for the statement's status. When the `status.state` field
-   * is `SUCCEEDED` it will also return the result manifest and the first chunk of the result data.
+   * This request can be used to poll for the statement's status. When the `status.state` field is
+   * `SUCCEEDED` it will also return the result manifest and the first chunk of the result data.
    * When the statement is in the terminal states `CANCELED`, `CLOSED` or `FAILED`, it returns HTTP
    * 200 with the state set. After at least 12 hours in terminal state, the statement is removed
    * from the warehouse and further calls will receive an HTTP 404 response.
@@ -163,10 +158,8 @@ public class StatementExecutionAPI {
   }
 
   /**
-   * Get result chunk by index.
-   *
-   * <p>After the statement execution has `SUCCEEDED`, this request can be used to fetch any chunk
-   * by index. Whereas the first chunk with `chunk_index=0` is typically fetched with
+   * After the statement execution has `SUCCEEDED`, this request can be used to fetch any chunk by
+   * index. Whereas the first chunk with `chunk_index=0` is typically fetched with
    * :method:statementexecution/executeStatement or :method:statementexecution/getStatement, this
    * request can be used to fetch subsequent chunks. The response structure is identical to the
    * nested `result` element described in the :method:statementexecution/getStatement request, and

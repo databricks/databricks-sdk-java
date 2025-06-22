@@ -19,78 +19,42 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface VectorSearchIndexesService {
-  /**
-   * Create an index.
-   *
-   * <p>Create a new index.
-   */
+  /** Create a new index. */
   VectorIndex createIndex(CreateVectorIndexRequest createVectorIndexRequest);
 
-  /**
-   * Delete data from index.
-   *
-   * <p>Handles the deletion of data from a specified vector index.
-   */
+  /** Handles the deletion of data from a specified vector index. */
   DeleteDataVectorIndexResponse deleteDataVectorIndex(
       DeleteDataVectorIndexRequest deleteDataVectorIndexRequest);
 
-  /**
-   * Delete an index.
-   *
-   * <p>Delete an index.
-   */
+  /** Delete an index. */
   void deleteIndex(DeleteIndexRequest deleteIndexRequest);
 
-  /**
-   * Get an index.
-   *
-   * <p>Get an index.
-   */
+  /** Get an index. */
   VectorIndex getIndex(GetIndexRequest getIndexRequest);
 
-  /**
-   * List indexes.
-   *
-   * <p>List all indexes in the given endpoint.
-   */
+  /** List all indexes in the given endpoint. */
   ListVectorIndexesResponse listIndexes(ListIndexesRequest listIndexesRequest);
 
-  /**
-   * Query an index.
-   *
-   * <p>Query the specified vector index.
-   */
+  /** Query the specified vector index. */
   QueryVectorIndexResponse queryIndex(QueryVectorIndexRequest queryVectorIndexRequest);
 
   /**
-   * Query next page.
-   *
-   * <p>Use `next_page_token` returned from previous `QueryVectorIndex` or
-   * `QueryVectorIndexNextPage` request to fetch next page of results.
+   * Use `next_page_token` returned from previous `QueryVectorIndex` or `QueryVectorIndexNextPage`
+   * request to fetch next page of results.
    */
   QueryVectorIndexResponse queryNextPage(
       QueryVectorIndexNextPageRequest queryVectorIndexNextPageRequest);
 
   /**
-   * Scan an index.
-   *
-   * <p>Scan the specified vector index and return the first `num_results` entries after the
-   * exclusive `primary_key`.
+   * Scan the specified vector index and return the first `num_results` entries after the exclusive
+   * `primary_key`.
    */
   ScanVectorIndexResponse scanIndex(ScanVectorIndexRequest scanVectorIndexRequest);
 
-  /**
-   * Synchronize an index.
-   *
-   * <p>Triggers a synchronization process for a specified vector index.
-   */
+  /** Triggers a synchronization process for a specified vector index. */
   void syncIndex(SyncIndexRequest syncIndexRequest);
 
-  /**
-   * Upsert data into an index.
-   *
-   * <p>Handles the upserting of data into a specified vector index.
-   */
+  /** Handles the upserting of data into a specified vector index. */
   UpsertDataVectorIndexResponse upsertDataVectorIndex(
       UpsertDataVectorIndexRequest upsertDataVectorIndexRequest);
 }

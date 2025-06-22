@@ -27,9 +27,7 @@ public class QueryHistoryAPI {
   }
 
   /**
-   * List Queries.
-   *
-   * <p>List the history of queries through SQL warehouses, and serverless compute.
+   * List the history of queries through SQL warehouses, and serverless compute.
    *
    * <p>You can filter by user ID, warehouse ID, status, and time range. Most recently started
    * queries are returned first (up to max_results in request). The pagination token returned in

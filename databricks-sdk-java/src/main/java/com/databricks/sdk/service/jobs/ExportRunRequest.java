@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Export and retrieve a job run */
 @Generated
 public class ExportRunRequest {
   /** The canonical identifier for the run. This field is required. */

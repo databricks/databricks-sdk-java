@@ -12,27 +12,15 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface LlmProxyPartnerPoweredWorkspaceService {
-  /**
-   * Delete the enable partner powered AI features workspace setting.
-   *
-   * <p>Reverts the enable partner powered AI features workspace setting to its default value.
-   */
+  /** Reverts the enable partner powered AI features workspace setting to its default value. */
   DeleteLlmProxyPartnerPoweredWorkspaceResponse delete(
       DeleteLlmProxyPartnerPoweredWorkspaceRequest deleteLlmProxyPartnerPoweredWorkspaceRequest);
 
-  /**
-   * Get the enable partner powered AI features workspace setting.
-   *
-   * <p>Gets the enable partner powered AI features workspace setting.
-   */
+  /** Gets the enable partner powered AI features workspace setting. */
   LlmProxyPartnerPoweredWorkspace get(
       GetLlmProxyPartnerPoweredWorkspaceRequest getLlmProxyPartnerPoweredWorkspaceRequest);
 
-  /**
-   * Update the enable partner powered AI features workspace setting.
-   *
-   * <p>Updates the enable partner powered AI features workspace setting.
-   */
+  /** Updates the enable partner powered AI features workspace setting. */
   LlmProxyPartnerPoweredWorkspace update(
       UpdateLlmProxyPartnerPoweredWorkspaceRequest updateLlmProxyPartnerPoweredWorkspaceRequest);
 }

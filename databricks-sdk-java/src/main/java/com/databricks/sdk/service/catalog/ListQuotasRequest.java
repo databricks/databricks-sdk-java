@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** List all resource quotas under a metastore. */
 @Generated
 public class ListQuotasRequest {
   /** The number of quotas to return. */

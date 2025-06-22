@@ -42,10 +42,8 @@ public class NetworkConnectivityAPI {
   }
 
   /**
-   * Create a network connectivity configuration.
-   *
-   * <p>Creates a network connectivity configuration (NCC), which provides stable Azure service
-   * subnets when accessing your Azure Storage accounts. You can also use a network connectivity
+   * Creates a network connectivity configuration (NCC), which provides stable Azure service subnets
+   * when accessing your Azure Storage accounts. You can also use a network connectivity
    * configuration to create Databricks managed private endpoints so that Databricks serverless
    * compute resources privately access your resources.
    *
@@ -71,11 +69,9 @@ public class NetworkConnectivityAPI {
   }
 
   /**
-   * Create a private endpoint rule.
-   *
-   * <p>Create a private endpoint rule for the specified network connectivity config object. Once
-   * the object is created, Databricks asynchronously provisions a new Azure private endpoint to
-   * your specified Azure resource.
+   * Create a private endpoint rule for the specified network connectivity config object. Once the
+   * object is created, Databricks asynchronously provisions a new Azure private endpoint to your
+   * specified Azure resource.
    *
    * <p>**IMPORTANT**: You must use Azure portal or other Azure tools to approve the private
    * endpoint to complete the connection. To get the information of the private endpoint created,
@@ -95,11 +91,7 @@ public class NetworkConnectivityAPI {
             .setNetworkConnectivityConfigId(networkConnectivityConfigId));
   }
 
-  /**
-   * Delete a network connectivity configuration.
-   *
-   * <p>Deletes a network connectivity configuration.
-   */
+  /** Deletes a network connectivity configuration. */
   public void deleteNetworkConnectivityConfiguration(
       DeleteNetworkConnectivityConfigurationRequest request) {
     impl.deleteNetworkConnectivityConfiguration(request);
@@ -114,10 +106,8 @@ public class NetworkConnectivityAPI {
   }
 
   /**
-   * Delete a private endpoint rule.
-   *
-   * <p>Initiates deleting a private endpoint rule. If the connection state is PENDING or EXPIRED,
-   * the private endpoint is immediately deleted. Otherwise, the private endpoint is deactivated and
+   * Initiates deleting a private endpoint rule. If the connection state is PENDING or EXPIRED, the
+   * private endpoint is immediately deleted. Otherwise, the private endpoint is deactivated and
    * will be deleted after seven days of deactivation. When a private endpoint is deactivated, the
    * `deactivated` field is set to `true` and the private endpoint is not available to your
    * serverless compute resources.
@@ -134,11 +124,7 @@ public class NetworkConnectivityAPI {
             .setNetworkConnectivityConfigId(networkConnectivityConfigId));
   }
 
-  /**
-   * Get a network connectivity configuration.
-   *
-   * <p>Gets a network connectivity configuration.
-   */
+  /** Gets a network connectivity configuration. */
   public NetworkConnectivityConfiguration getNetworkConnectivityConfiguration(
       GetNetworkConnectivityConfigurationRequest request) {
     return impl.getNetworkConnectivityConfiguration(request);
@@ -152,20 +138,12 @@ public class NetworkConnectivityAPI {
             .setPrivateEndpointRuleId(privateEndpointRuleId));
   }
 
-  /**
-   * Gets a private endpoint rule.
-   *
-   * <p>Gets the private endpoint rule.
-   */
+  /** Gets the private endpoint rule. */
   public NccPrivateEndpointRule getPrivateEndpointRule(GetPrivateEndpointRuleRequest request) {
     return impl.getPrivateEndpointRule(request);
   }
 
-  /**
-   * List network connectivity configurations.
-   *
-   * <p>Gets an array of network connectivity configurations.
-   */
+  /** Gets an array of network connectivity configurations. */
   public Iterable<NetworkConnectivityConfiguration> listNetworkConnectivityConfigurations(
       ListNetworkConnectivityConfigurationsRequest request) {
     return new Paginator<>(
@@ -188,11 +166,7 @@ public class NetworkConnectivityAPI {
             .setNetworkConnectivityConfigId(networkConnectivityConfigId));
   }
 
-  /**
-   * List private endpoint rules.
-   *
-   * <p>Gets an array of private endpoint rules.
-   */
+  /** Gets an array of private endpoint rules. */
   public Iterable<NccPrivateEndpointRule> listPrivateEndpointRules(
       ListPrivateEndpointRulesRequest request) {
     return new Paginator<>(
@@ -222,9 +196,7 @@ public class NetworkConnectivityAPI {
   }
 
   /**
-   * Update a private endpoint rule.
-   *
-   * <p>Updates a private endpoint rule. Currently only a private endpoint rule to customer-managed
+   * Updates a private endpoint rule. Currently only a private endpoint rule to customer-managed
    * resources is allowed to be updated.
    */
   public NccPrivateEndpointRule updatePrivateEndpointRule(

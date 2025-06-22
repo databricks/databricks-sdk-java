@@ -14,18 +14,14 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface ProviderPersonalizationRequestsService {
   /**
-   * All personalization requests across all listings.
-   *
-   * <p>List personalization requests to this provider. This will return all personalization
-   * requests, regardless of which listing they are for.
+   * List personalization requests to this provider. This will return all personalization requests,
+   * regardless of which listing they are for.
    */
   ListAllPersonalizationRequestsResponse list(
       ListAllPersonalizationRequestsRequest listAllPersonalizationRequestsRequest);
 
   /**
-   * Update personalization request status.
-   *
-   * <p>Update personalization request. This method only permits updating the status of the request.
+   * Update personalization request. This method only permits updating the status of the request.
    */
   UpdatePersonalizationRequestResponse update(
       UpdatePersonalizationRequestRequest updatePersonalizationRequestRequest);

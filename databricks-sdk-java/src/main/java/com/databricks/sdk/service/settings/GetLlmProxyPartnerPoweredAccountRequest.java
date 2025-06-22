@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get the enable partner powered AI features account setting */
 @Generated
 public class GetLlmProxyPartnerPoweredAccountRequest {
   /**

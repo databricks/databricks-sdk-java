@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete a quality monitor */
 @Generated
 public class DeleteQualityMonitorRequest {
   /** The uuid of the request object. For example, schema id. */

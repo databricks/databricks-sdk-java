@@ -30,8 +30,6 @@ public class CustomAppIntegrationAPI {
   /**
    * Create Custom OAuth App Integration.
    *
-   * <p>Create Custom OAuth App Integration.
-   *
    * <p>You can retrieve the custom OAuth app integration via :method:CustomAppIntegration/get.
    */
   public CreateCustomAppIntegrationOutput create(CreateCustomAppIntegration request) {
@@ -43,9 +41,7 @@ public class CustomAppIntegrationAPI {
   }
 
   /**
-   * Delete Custom OAuth App Integration.
-   *
-   * <p>Delete an existing Custom OAuth App Integration. You can retrieve the custom OAuth app
+   * Delete an existing Custom OAuth App Integration. You can retrieve the custom OAuth app
    * integration via :method:CustomAppIntegration/get.
    */
   public void delete(DeleteCustomAppIntegrationRequest request) {
@@ -56,20 +52,12 @@ public class CustomAppIntegrationAPI {
     return get(new GetCustomAppIntegrationRequest().setIntegrationId(integrationId));
   }
 
-  /**
-   * Get OAuth Custom App Integration.
-   *
-   * <p>Gets the Custom OAuth App Integration for the given integration id.
-   */
+  /** Gets the Custom OAuth App Integration for the given integration id. */
   public GetCustomAppIntegrationOutput get(GetCustomAppIntegrationRequest request) {
     return impl.get(request);
   }
 
-  /**
-   * Get custom oauth app integrations.
-   *
-   * <p>Get the list of custom OAuth app integrations for the specified Databricks account
-   */
+  /** Get the list of custom OAuth app integrations for the specified Databricks account */
   public Iterable<GetCustomAppIntegrationOutput> list(ListCustomAppIntegrationsRequest request) {
     return new Paginator<>(
         request,
@@ -89,9 +77,7 @@ public class CustomAppIntegrationAPI {
   }
 
   /**
-   * Updates Custom OAuth App Integration.
-   *
-   * <p>Updates an existing custom OAuth App Integration. You can retrieve the custom OAuth app
+   * Updates an existing custom OAuth App Integration. You can retrieve the custom OAuth app
    * integration via :method:CustomAppIntegration/get.
    */
   public void update(UpdateCustomAppIntegration request) {

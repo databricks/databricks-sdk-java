@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** List clean rooms */
 @Generated
 public class ListCleanRoomsRequest {
   /** Maximum number of clean rooms to return (i.e., the page length). Defaults to 100. */

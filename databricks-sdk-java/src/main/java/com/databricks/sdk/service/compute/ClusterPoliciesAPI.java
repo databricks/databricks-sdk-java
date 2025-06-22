@@ -44,11 +44,7 @@ public class ClusterPoliciesAPI {
     impl = mock;
   }
 
-  /**
-   * Create a new policy.
-   *
-   * <p>Creates a new policy with prescribed settings.
-   */
+  /** Creates a new policy with prescribed settings. */
   public CreatePolicyResponse create(CreatePolicy request) {
     return impl.create(request);
   }
@@ -58,9 +54,7 @@ public class ClusterPoliciesAPI {
   }
 
   /**
-   * Delete a cluster policy.
-   *
-   * <p>Delete a policy for a cluster. Clusters governed by this policy can still run, but cannot be
+   * Delete a policy for a cluster. Clusters governed by this policy can still run, but cannot be
    * edited.
    */
   public void delete(DeletePolicy request) {
@@ -72,9 +66,7 @@ public class ClusterPoliciesAPI {
   }
 
   /**
-   * Update a cluster policy.
-   *
-   * <p>Update an existing policy for cluster. This operation may make some clusters governed by the
+   * Update an existing policy for cluster. This operation may make some clusters governed by the
    * previous policy invalid.
    */
   public void edit(EditPolicy request) {
@@ -85,11 +77,7 @@ public class ClusterPoliciesAPI {
     return get(new GetClusterPolicyRequest().setPolicyId(policyId));
   }
 
-  /**
-   * Get a cluster policy.
-   *
-   * <p>Get a cluster policy entity. Creation and editing is available to admins only.
-   */
+  /** Get a cluster policy entity. Creation and editing is available to admins only. */
   public Policy get(GetClusterPolicyRequest request) {
     return impl.get(request);
   }
@@ -99,11 +87,7 @@ public class ClusterPoliciesAPI {
         new GetClusterPolicyPermissionLevelsRequest().setClusterPolicyId(clusterPolicyId));
   }
 
-  /**
-   * Get cluster policy permission levels.
-   *
-   * <p>Gets the permission levels that a user can have on an object.
-   */
+  /** Gets the permission levels that a user can have on an object. */
   public GetClusterPolicyPermissionLevelsResponse getPermissionLevels(
       GetClusterPolicyPermissionLevelsRequest request) {
     return impl.getPermissionLevels(request);
@@ -115,20 +99,14 @@ public class ClusterPoliciesAPI {
   }
 
   /**
-   * Get cluster policy permissions.
-   *
-   * <p>Gets the permissions of a cluster policy. Cluster policies can inherit permissions from
-   * their root object.
+   * Gets the permissions of a cluster policy. Cluster policies can inherit permissions from their
+   * root object.
    */
   public ClusterPolicyPermissions getPermissions(GetClusterPolicyPermissionsRequest request) {
     return impl.getPermissions(request);
   }
 
-  /**
-   * List cluster policies.
-   *
-   * <p>Returns a list of policies accessible by the requesting user.
-   */
+  /** Returns a list of policies accessible by the requesting user. */
   public Iterable<Policy> list(ListClusterPoliciesRequest request) {
     return new Paginator<>(
         request, impl::list, ListPoliciesResponse::getPolicies, response -> null);
@@ -140,11 +118,8 @@ public class ClusterPoliciesAPI {
   }
 
   /**
-   * Set cluster policy permissions.
-   *
-   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
-   * direct permissions if none are specified. Objects can inherit permissions from their root
-   * object.
+   * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
+   * permissions if none are specified. Objects can inherit permissions from their root object.
    */
   public ClusterPolicyPermissions setPermissions(ClusterPolicyPermissionsRequest request) {
     return impl.setPermissions(request);
@@ -156,9 +131,7 @@ public class ClusterPoliciesAPI {
   }
 
   /**
-   * Update cluster policy permissions.
-   *
-   * <p>Updates the permissions on a cluster policy. Cluster policies can inherit permissions from
+   * Updates the permissions on a cluster policy. Cluster policies can inherit permissions from
    * their root object.
    */
   public ClusterPolicyPermissions updatePermissions(ClusterPolicyPermissionsRequest request) {

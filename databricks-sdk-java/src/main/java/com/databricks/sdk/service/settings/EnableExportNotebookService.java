@@ -13,18 +13,12 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface EnableExportNotebookService {
-  /**
-   * Get the Notebook and File exporting setting.
-   *
-   * <p>Gets the Notebook and File exporting setting.
-   */
+  /** Gets the Notebook and File exporting setting. */
   EnableExportNotebook getEnableExportNotebook();
 
   /**
-   * Update the Notebook and File exporting setting.
-   *
-   * <p>Updates the Notebook and File exporting setting. The model follows eventual consistency,
-   * which means the get after the update operation might receive stale values for some time.
+   * Updates the Notebook and File exporting setting. The model follows eventual consistency, which
+   * means the get after the update operation might receive stale values for some time.
    */
   EnableExportNotebook patchEnableExportNotebook(
       UpdateEnableExportNotebookRequest updateEnableExportNotebookRequest);

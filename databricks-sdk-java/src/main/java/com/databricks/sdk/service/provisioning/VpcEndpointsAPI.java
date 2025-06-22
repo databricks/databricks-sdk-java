@@ -28,10 +28,8 @@ public class VpcEndpointsAPI {
   }
 
   /**
-   * Create VPC endpoint configuration.
-   *
-   * <p>Creates a VPC endpoint configuration, which represents a [VPC endpoint] object in AWS used
-   * to communicate privately with Databricks over [AWS PrivateLink].
+   * Creates a VPC endpoint configuration, which represents a [VPC endpoint] object in AWS used to
+   * communicate privately with Databricks over [AWS PrivateLink].
    *
    * <p>After you create the VPC endpoint configuration, the Databricks [endpoint service]
    * automatically accepts the VPC endpoint.
@@ -54,9 +52,7 @@ public class VpcEndpointsAPI {
   }
 
   /**
-   * Delete VPC endpoint configuration.
-   *
-   * <p>Deletes a VPC endpoint configuration, which represents an [AWS VPC endpoint] that can
+   * Deletes a VPC endpoint configuration, which represents an [AWS VPC endpoint] that can
    * communicate privately with Databricks over [AWS PrivateLink].
    *
    * <p>Before configuring PrivateLink, read the [Databricks article about PrivateLink].
@@ -75,9 +71,7 @@ public class VpcEndpointsAPI {
   }
 
   /**
-   * Get a VPC endpoint configuration.
-   *
-   * <p>Gets a VPC endpoint configuration, which represents a [VPC endpoint] object in AWS used to
+   * Gets a VPC endpoint configuration, which represents a [VPC endpoint] object in AWS used to
    * communicate privately with Databricks over [AWS PrivateLink].
    *
    * <p>[AWS PrivateLink]: https://aws.amazon.com/privatelink [VPC endpoint]:
@@ -88,9 +82,7 @@ public class VpcEndpointsAPI {
   }
 
   /**
-   * Get all VPC endpoint configurations.
-   *
-   * <p>Gets a list of all VPC endpoints for an account, specified by ID.
+   * Gets a list of all VPC endpoints for an account, specified by ID.
    *
    * <p>Before configuring PrivateLink, read the [Databricks article about PrivateLink].
    *

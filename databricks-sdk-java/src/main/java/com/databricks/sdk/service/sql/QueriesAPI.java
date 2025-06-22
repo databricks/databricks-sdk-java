@@ -29,11 +29,7 @@ public class QueriesAPI {
     impl = mock;
   }
 
-  /**
-   * Create a query.
-   *
-   * <p>Creates a query.
-   */
+  /** Creates a query. */
   public Query create(CreateQueryRequest request) {
     return impl.create(request);
   }
@@ -43,11 +39,9 @@ public class QueriesAPI {
   }
 
   /**
-   * Delete a query.
-   *
-   * <p>Moves a query to the trash. Trashed queries immediately disappear from searches and list
-   * views, and cannot be used for alerts. You can restore a trashed query through the UI. A trashed
-   * query is permanently deleted after 30 days.
+   * Moves a query to the trash. Trashed queries immediately disappear from searches and list views,
+   * and cannot be used for alerts. You can restore a trashed query through the UI. A trashed query
+   * is permanently deleted after 30 days.
    */
   public void delete(TrashQueryRequest request) {
     impl.delete(request);
@@ -57,21 +51,15 @@ public class QueriesAPI {
     return get(new GetQueryRequest().setId(id));
   }
 
-  /**
-   * Get a query.
-   *
-   * <p>Gets a query.
-   */
+  /** Gets a query. */
   public Query get(GetQueryRequest request) {
     return impl.get(request);
   }
 
   /**
-   * List queries.
-   *
-   * <p>Gets a list of queries accessible to the user, ordered by creation time. **Warning:**
-   * Calling this API concurrently 10 or more times could result in throttling, service degradation,
-   * or a temporary ban.
+   * Gets a list of queries accessible to the user, ordered by creation time. **Warning:** Calling
+   * this API concurrently 10 or more times could result in throttling, service degradation, or a
+   * temporary ban.
    */
   public Iterable<ListQueryObjectsResponseQuery> list(ListQueriesRequest request) {
     return new Paginator<>(
@@ -91,11 +79,7 @@ public class QueriesAPI {
     return listVisualizations(new ListVisualizationsForQueryRequest().setId(id));
   }
 
-  /**
-   * List visualizations on a query.
-   *
-   * <p>Gets a list of visualizations on a query.
-   */
+  /** Gets a list of visualizations on a query. */
   public Iterable<Visualization> listVisualizations(ListVisualizationsForQueryRequest request) {
     return new Paginator<>(
         request,
@@ -114,11 +98,7 @@ public class QueriesAPI {
     return update(new UpdateQueryRequest().setId(id).setUpdateMask(updateMask));
   }
 
-  /**
-   * Update a query.
-   *
-   * <p>Updates a query.
-   */
+  /** Updates a query. */
   public Query update(UpdateQueryRequest request) {
     return impl.update(request);
   }

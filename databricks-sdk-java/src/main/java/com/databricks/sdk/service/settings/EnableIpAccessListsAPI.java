@@ -26,20 +26,12 @@ public class EnableIpAccessListsAPI {
     impl = mock;
   }
 
-  /**
-   * Delete the account IP access toggle setting.
-   *
-   * <p>Reverts the value of the account IP access toggle setting to default (ON)
-   */
+  /** Reverts the value of the account IP access toggle setting to default (ON) */
   public DeleteAccountIpAccessEnableResponse delete(DeleteAccountIpAccessEnableRequest request) {
     return impl.delete(request);
   }
 
-  /**
-   * Get the account IP access toggle setting.
-   *
-   * <p>Gets the value of the account IP access toggle setting.
-   */
+  /** Gets the value of the account IP access toggle setting. */
   public AccountIpAccessEnable get(GetAccountIpAccessEnableRequest request) {
     return impl.get(request);
   }
@@ -53,11 +45,7 @@ public class EnableIpAccessListsAPI {
             .setFieldMask(fieldMask));
   }
 
-  /**
-   * Update the account IP access toggle setting.
-   *
-   * <p>Updates the value of the account IP access toggle setting.
-   */
+  /** Updates the value of the account IP access toggle setting. */
   public AccountIpAccessEnable update(UpdateAccountIpAccessEnableRequest request) {
     return impl.update(request);
   }

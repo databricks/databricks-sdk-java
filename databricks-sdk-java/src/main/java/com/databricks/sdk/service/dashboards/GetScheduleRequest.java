@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get dashboard schedule */
 @Generated
 public class GetScheduleRequest {
   /** UUID identifying the dashboard to which the schedule belongs. */

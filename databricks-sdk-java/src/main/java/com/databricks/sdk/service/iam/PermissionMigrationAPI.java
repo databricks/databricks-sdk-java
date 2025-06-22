@@ -35,7 +35,6 @@ public class PermissionMigrationAPI {
             .setToAccountGroupName(toAccountGroupName));
   }
 
-  /** Migrate Permissions. */
   public MigratePermissionsResponse migratePermissions(MigratePermissionsRequest request) {
     return impl.migratePermissions(request);
   }

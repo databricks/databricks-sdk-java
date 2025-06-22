@@ -14,9 +14,7 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface BillableUsageService {
   /**
-   * Return billable usage logs.
-   *
-   * <p>Returns billable usage logs in CSV format for the specified account and date range. For the
+   * Returns billable usage logs in CSV format for the specified account and date range. For the
    * data schema, see [CSV file schema]. Note that this method might take multiple minutes to
    * complete.
    *

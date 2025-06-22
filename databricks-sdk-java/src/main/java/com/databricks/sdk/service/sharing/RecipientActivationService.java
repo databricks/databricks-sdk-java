@@ -19,18 +19,11 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface RecipientActivationService {
-  /**
-   * Get a share activation URL.
-   *
-   * <p>Gets an activation URL for a share.
-   */
+  /** Gets an activation URL for a share. */
   void getActivationUrlInfo(GetActivationUrlInfoRequest getActivationUrlInfoRequest);
 
   /**
-   * Get an access token.
-   *
-   * <p>Retrieve access token with an activation url. This is a public API without any
-   * authentication.
+   * Retrieve access token with an activation url. This is a public API without any authentication.
    */
   RetrieveTokenResponse retrieveToken(RetrieveTokenRequest retrieveTokenRequest);
 }

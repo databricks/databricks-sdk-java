@@ -12,24 +12,12 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface ConsumerProvidersService {
-  /**
-   * Get one batch of providers. One may specify up to 50 IDs per request.
-   *
-   * <p>Batch get a provider in the Databricks Marketplace with at least one visible listing.
-   */
+  /** Batch get a provider in the Databricks Marketplace with at least one visible listing. */
   BatchGetProvidersResponse batchGet(BatchGetProvidersRequest batchGetProvidersRequest);
 
-  /**
-   * Get a provider.
-   *
-   * <p>Get a provider in the Databricks Marketplace with at least one visible listing.
-   */
+  /** Get a provider in the Databricks Marketplace with at least one visible listing. */
   GetProviderResponse get(GetProviderRequest getProviderRequest);
 
-  /**
-   * List providers.
-   *
-   * <p>List all providers in the Databricks Marketplace with at least one visible listing.
-   */
+  /** List all providers in the Databricks Marketplace with at least one visible listing. */
   ListProvidersResponse list(ListProvidersRequest listProvidersRequest);
 }

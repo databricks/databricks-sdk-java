@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Return billable usage logs */
 @Generated
 public class DownloadRequest {
   /** Format: `YYYY-MM`. Last month to return billable usage logs for. This field is required. */

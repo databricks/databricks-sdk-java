@@ -16,50 +16,35 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface SharesService {
   /**
-   * Create a share.
-   *
-   * <p>Creates a new share for data objects. Data objects can be added after creation with
-   * **update**. The caller must be a metastore admin or have the **CREATE_SHARE** privilege on the
-   * metastore.
+   * Creates a new share for data objects. Data objects can be added after creation with **update**.
+   * The caller must be a metastore admin or have the **CREATE_SHARE** privilege on the metastore.
    */
   ShareInfo create(CreateShare createShare);
 
-  /**
-   * Delete a share.
-   *
-   * <p>Deletes a data object share from the metastore. The caller must be an owner of the share.
-   */
+  /** Deletes a data object share from the metastore. The caller must be an owner of the share. */
   void delete(DeleteShareRequest deleteShareRequest);
 
   /**
-   * Get a share.
-   *
-   * <p>Gets a data object share from the metastore. The caller must be a metastore admin or the
-   * owner of the share.
+   * Gets a data object share from the metastore. The caller must be a metastore admin or the owner
+   * of the share.
    */
   ShareInfo get(GetShareRequest getShareRequest);
 
   /**
-   * List shares.
-   *
-   * <p>Gets an array of data object shares from the metastore. The caller must be a metastore admin
-   * or the owner of the share. There is no guarantee of a specific ordering of the elements in the
+   * Gets an array of data object shares from the metastore. The caller must be a metastore admin or
+   * the owner of the share. There is no guarantee of a specific ordering of the elements in the
    * array.
    */
   ListSharesResponse list(ListSharesRequest listSharesRequest);
 
   /**
-   * Get permissions.
-   *
-   * <p>Gets the permissions for a data share from the metastore. The caller must be a metastore
-   * admin or the owner of the share.
+   * Gets the permissions for a data share from the metastore. The caller must be a metastore admin
+   * or the owner of the share.
    */
   GetSharePermissionsResponse sharePermissions(SharePermissionsRequest sharePermissionsRequest);
 
   /**
-   * Update a share.
-   *
-   * <p>Updates the share with the changes and data objects in the request. The caller must be the
+   * Updates the share with the changes and data objects in the request. The caller must be the
    * owner of the share or a metastore admin.
    *
    * <p>When the caller is a metastore admin, only the __owner__ field can be updated.
@@ -78,10 +63,8 @@ public interface SharesService {
   ShareInfo update(UpdateShare updateShare);
 
   /**
-   * Update permissions.
-   *
-   * <p>Updates the permissions for a data share in the metastore. The caller must be a metastore
-   * admin or an owner of the share.
+   * Updates the permissions for a data share in the metastore. The caller must be a metastore admin
+   * or an owner of the share.
    *
    * <p>For new recipient grants, the user must also be the recipient owner or metastore admin.
    * recipient revocations do not require additional privileges.

@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete a storage credential */
 @Generated
 public class DeleteAccountStorageCredentialRequest {
   /** Force deletion even if the Storage Credential is not empty. Default is false. */

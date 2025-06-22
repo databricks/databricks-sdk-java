@@ -40,11 +40,7 @@ public class StorageCredentialsAPI {
     return create(new CreateStorageCredential().setName(name));
   }
 
-  /**
-   * Create a storage credential.
-   *
-   * <p>Creates a new storage credential.
-   */
+  /** Creates a new storage credential. */
   public StorageCredentialInfo create(CreateStorageCredential request) {
     return impl.create(request);
   }
@@ -54,9 +50,7 @@ public class StorageCredentialsAPI {
   }
 
   /**
-   * Delete a credential.
-   *
-   * <p>Deletes a storage credential from the metastore. The caller must be an owner of the storage
+   * Deletes a storage credential from the metastore. The caller must be an owner of the storage
    * credential.
    */
   public void delete(DeleteStorageCredentialRequest request) {
@@ -68,19 +62,15 @@ public class StorageCredentialsAPI {
   }
 
   /**
-   * Get a credential.
-   *
-   * <p>Gets a storage credential from the metastore. The caller must be a metastore admin, the
-   * owner of the storage credential, or have some permission on the storage credential.
+   * Gets a storage credential from the metastore. The caller must be a metastore admin, the owner
+   * of the storage credential, or have some permission on the storage credential.
    */
   public StorageCredentialInfo get(GetStorageCredentialRequest request) {
     return impl.get(request);
   }
 
   /**
-   * List credentials.
-   *
-   * <p>Gets an array of storage credentials (as __StorageCredentialInfo__ objects). The array is
+   * Gets an array of storage credentials (as __StorageCredentialInfo__ objects). The array is
    * limited to only those storage credentials the caller has permission to access. If the caller is
    * a metastore admin, retrieval of credentials is unrestricted. There is no guarantee of a
    * specific ordering of the elements in the array.
@@ -107,21 +97,15 @@ public class StorageCredentialsAPI {
     return update(new UpdateStorageCredential().setName(name));
   }
 
-  /**
-   * Update a credential.
-   *
-   * <p>Updates a storage credential on the metastore.
-   */
+  /** Updates a storage credential on the metastore. */
   public StorageCredentialInfo update(UpdateStorageCredential request) {
     return impl.update(request);
   }
 
   /**
-   * Validate a storage credential.
-   *
-   * <p>Validates a storage credential. At least one of __external_location_name__ and __url__ need
-   * to be provided. If only one of them is provided, it will be used for validation. And if both
-   * are provided, the __url__ will be used for validation, and __external_location_name__ will be
+   * Validates a storage credential. At least one of __external_location_name__ and __url__ need to
+   * be provided. If only one of them is provided, it will be used for validation. And if both are
+   * provided, the __url__ will be used for validation, and __external_location_name__ will be
    * ignored when checking overlapping urls.
    *
    * <p>Either the __storage_credential_name__ or the cloud-specific credential must be provided.

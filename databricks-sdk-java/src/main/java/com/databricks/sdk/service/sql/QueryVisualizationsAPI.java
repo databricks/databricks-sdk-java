@@ -26,11 +26,7 @@ public class QueryVisualizationsAPI {
     impl = mock;
   }
 
-  /**
-   * Add a visualization to a query.
-   *
-   * <p>Adds a visualization to a query.
-   */
+  /** Adds a visualization to a query. */
   public Visualization create(CreateVisualizationRequest request) {
     return impl.create(request);
   }
@@ -39,11 +35,7 @@ public class QueryVisualizationsAPI {
     delete(new DeleteVisualizationRequest().setId(id));
   }
 
-  /**
-   * Remove a visualization.
-   *
-   * <p>Removes a visualization.
-   */
+  /** Removes a visualization. */
   public void delete(DeleteVisualizationRequest request) {
     impl.delete(request);
   }
@@ -52,11 +44,7 @@ public class QueryVisualizationsAPI {
     return update(new UpdateVisualizationRequest().setId(id).setUpdateMask(updateMask));
   }
 
-  /**
-   * Update a visualization.
-   *
-   * <p>Updates a visualization.
-   */
+  /** Updates a visualization. */
   public Visualization update(UpdateVisualizationRequest request) {
     return impl.update(request);
   }

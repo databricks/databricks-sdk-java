@@ -40,9 +40,7 @@ public class PolicyComplianceForClustersAPI {
   }
 
   /**
-   * Enforce cluster policy compliance.
-   *
-   * <p>Updates a cluster to be compliant with the current version of its policy. A cluster can be
+   * Updates a cluster to be compliant with the current version of its policy. A cluster can be
    * updated if it is in a `RUNNING` or `TERMINATED` state.
    *
    * <p>If a cluster is updated while in a `RUNNING` state, it will be restarted so that the new
@@ -64,10 +62,8 @@ public class PolicyComplianceForClustersAPI {
   }
 
   /**
-   * Get cluster policy compliance.
-   *
-   * <p>Returns the policy compliance status of a cluster. Clusters could be out of compliance if
-   * their policy was updated after the cluster was last edited.
+   * Returns the policy compliance status of a cluster. Clusters could be out of compliance if their
+   * policy was updated after the cluster was last edited.
    */
   public GetClusterComplianceResponse getCompliance(GetClusterComplianceRequest request) {
     return impl.getCompliance(request);
@@ -78,10 +74,8 @@ public class PolicyComplianceForClustersAPI {
   }
 
   /**
-   * List cluster policy compliance.
-   *
-   * <p>Returns the policy compliance status of all clusters that use a given policy. Clusters could
-   * be out of compliance if their policy was updated after the cluster was last edited.
+   * Returns the policy compliance status of all clusters that use a given policy. Clusters could be
+   * out of compliance if their policy was updated after the cluster was last edited.
    */
   public Iterable<ClusterCompliance> listCompliance(ListClusterCompliancesRequest request) {
     return new Paginator<>(

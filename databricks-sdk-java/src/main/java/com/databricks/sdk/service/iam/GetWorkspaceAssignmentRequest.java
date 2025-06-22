@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** List workspace permissions */
 @Generated
 public class GetWorkspaceAssignmentRequest {
   /** The workspace ID. */

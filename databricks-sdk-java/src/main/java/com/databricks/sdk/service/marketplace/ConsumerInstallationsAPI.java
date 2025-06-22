@@ -30,11 +30,7 @@ public class ConsumerInstallationsAPI {
     return create(new CreateInstallationRequest().setListingId(listingId));
   }
 
-  /**
-   * Install from a listing.
-   *
-   * <p>Install payload associated with a Databricks Marketplace listing.
-   */
+  /** Install payload associated with a Databricks Marketplace listing. */
   public Installation create(CreateInstallationRequest request) {
     return impl.create(request);
   }
@@ -44,20 +40,12 @@ public class ConsumerInstallationsAPI {
         new DeleteInstallationRequest().setListingId(listingId).setInstallationId(installationId));
   }
 
-  /**
-   * Uninstall from a listing.
-   *
-   * <p>Uninstall an installation associated with a Databricks Marketplace listing.
-   */
+  /** Uninstall an installation associated with a Databricks Marketplace listing. */
   public void delete(DeleteInstallationRequest request) {
     impl.delete(request);
   }
 
-  /**
-   * List all installations.
-   *
-   * <p>List all installations across all listings.
-   */
+  /** List all installations across all listings. */
   public Iterable<InstallationDetail> list(ListAllInstallationsRequest request) {
     return new Paginator<>(
         request,
@@ -76,11 +64,7 @@ public class ConsumerInstallationsAPI {
     return listListingInstallations(new ListInstallationsRequest().setListingId(listingId));
   }
 
-  /**
-   * List installations for a listing.
-   *
-   * <p>List all installations for a particular listing.
-   */
+  /** List all installations for a particular listing. */
   public Iterable<InstallationDetail> listListingInstallations(ListInstallationsRequest request) {
     return new Paginator<>(
         request,
@@ -105,10 +89,8 @@ public class ConsumerInstallationsAPI {
   }
 
   /**
-   * Update an installation.
-   *
-   * <p>This is a update API that will update the part of the fields defined in the installation
-   * table as well as interact with external services according to the fields not included in the
+   * This is a update API that will update the part of the fields defined in the installation table
+   * as well as interact with external services according to the fields not included in the
    * installation table 1. the token will be rotate if the rotateToken flag is true 2. the token
    * will be forcibly rotate if the rotateToken flag is true and the tokenInfo field is empty
    */

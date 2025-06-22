@@ -43,11 +43,7 @@ public class ModelRegistryAPI {
             .setArchiveExistingVersions(archiveExistingVersions));
   }
 
-  /**
-   * Approve transition request.
-   *
-   * <p>Approves a model version stage transition request.
-   */
+  /** Approves a model version stage transition request. */
   public ApproveTransitionRequestResponse approveTransitionRequest(
       ApproveTransitionRequest request) {
     return impl.approveTransitionRequest(request);
@@ -58,9 +54,7 @@ public class ModelRegistryAPI {
   }
 
   /**
-   * Post a comment.
-   *
-   * <p>Posts a comment on a model version. A comment can be submitted either by a user or
+   * Posts a comment on a model version. A comment can be submitted either by a user or
    * programmatically to display relevant information about the model. For example, test results or
    * deployment errors.
    */
@@ -73,9 +67,7 @@ public class ModelRegistryAPI {
   }
 
   /**
-   * Create a model.
-   *
-   * <p>Creates a new registered model with the name specified in the request body.
+   * Creates a new registered model with the name specified in the request body.
    *
    * <p>Throws `RESOURCE_ALREADY_EXISTS` if a registered model with the given name exists.
    */
@@ -87,11 +79,7 @@ public class ModelRegistryAPI {
     return createModelVersion(new CreateModelVersionRequest().setName(name).setSource(source));
   }
 
-  /**
-   * Create a model version.
-   *
-   * <p>Creates a model version.
-   */
+  /** Creates a model version. */
   public CreateModelVersionResponse createModelVersion(CreateModelVersionRequest request) {
     return impl.createModelVersion(request);
   }
@@ -102,11 +90,7 @@ public class ModelRegistryAPI {
         new CreateTransitionRequest().setName(name).setVersion(version).setStage(stage));
   }
 
-  /**
-   * Make a transition request.
-   *
-   * <p>Creates a model version stage transition request.
-   */
+  /** Creates a model version stage transition request. */
   public CreateTransitionRequestResponse createTransitionRequest(CreateTransitionRequest request) {
     return impl.createTransitionRequest(request);
   }
@@ -116,9 +100,7 @@ public class ModelRegistryAPI {
   }
 
   /**
-   * Create a webhook.
-   *
-   * <p>**NOTE**: This endpoint is in Public Preview.
+   * **NOTE**: This endpoint is in Public Preview.
    *
    * <p>Creates a registry webhook.
    */
@@ -130,11 +112,7 @@ public class ModelRegistryAPI {
     deleteComment(new DeleteCommentRequest().setId(id));
   }
 
-  /**
-   * Delete a comment.
-   *
-   * <p>Deletes a comment on a model version.
-   */
+  /** Deletes a comment on a model version. */
   public void deleteComment(DeleteCommentRequest request) {
     impl.deleteComment(request);
   }
@@ -143,11 +121,7 @@ public class ModelRegistryAPI {
     deleteModel(new DeleteModelRequest().setName(name));
   }
 
-  /**
-   * Delete a model.
-   *
-   * <p>Deletes a registered model.
-   */
+  /** Deletes a registered model. */
   public void deleteModel(DeleteModelRequest request) {
     impl.deleteModel(request);
   }
@@ -156,11 +130,7 @@ public class ModelRegistryAPI {
     deleteModelTag(new DeleteModelTagRequest().setName(name).setKey(key));
   }
 
-  /**
-   * Delete a model tag.
-   *
-   * <p>Deletes the tag for a registered model.
-   */
+  /** Deletes the tag for a registered model. */
   public void deleteModelTag(DeleteModelTagRequest request) {
     impl.deleteModelTag(request);
   }
@@ -169,11 +139,7 @@ public class ModelRegistryAPI {
     deleteModelVersion(new DeleteModelVersionRequest().setName(name).setVersion(version));
   }
 
-  /**
-   * Delete a model version.
-   *
-   * <p>Deletes a model version.
-   */
+  /** Deletes a model version. */
   public void deleteModelVersion(DeleteModelVersionRequest request) {
     impl.deleteModelVersion(request);
   }
@@ -183,11 +149,7 @@ public class ModelRegistryAPI {
         new DeleteModelVersionTagRequest().setName(name).setVersion(version).setKey(key));
   }
 
-  /**
-   * Delete a model version tag.
-   *
-   * <p>Deletes a model version tag.
-   */
+  /** Deletes a model version tag. */
   public void deleteModelVersionTag(DeleteModelVersionTagRequest request) {
     impl.deleteModelVersionTag(request);
   }
@@ -202,19 +164,13 @@ public class ModelRegistryAPI {
             .setCreator(creator));
   }
 
-  /**
-   * Delete a transition request.
-   *
-   * <p>Cancels a model version stage transition request.
-   */
+  /** Cancels a model version stage transition request. */
   public void deleteTransitionRequest(DeleteTransitionRequestRequest request) {
     impl.deleteTransitionRequest(request);
   }
 
   /**
-   * Delete a webhook.
-   *
-   * <p>**NOTE:** This endpoint is in Public Preview.
+   * **NOTE:** This endpoint is in Public Preview.
    *
    * <p>Deletes a registry webhook.
    */
@@ -226,11 +182,7 @@ public class ModelRegistryAPI {
     return getLatestVersions(new GetLatestVersionsRequest().setName(name));
   }
 
-  /**
-   * Get the latest version.
-   *
-   * <p>Gets the latest version of a registered model.
-   */
+  /** Gets the latest version of a registered model. */
   public Iterable<ModelVersion> getLatestVersions(GetLatestVersionsRequest request) {
     return new Paginator<>(
         request,
@@ -244,9 +196,7 @@ public class ModelRegistryAPI {
   }
 
   /**
-   * Get model.
-   *
-   * <p>Get the details of a model. This is a Databricks workspace version of the [MLflow endpoint]
+   * Get the details of a model. This is a Databricks workspace version of the [MLflow endpoint]
    * that also returns the model's Databricks workspace ID and the permission level of the
    * requesting user on the model.
    *
@@ -260,11 +210,7 @@ public class ModelRegistryAPI {
     return getModelVersion(new GetModelVersionRequest().setName(name).setVersion(version));
   }
 
-  /**
-   * Get a model version.
-   *
-   * <p>Get a model version.
-   */
+  /** Get a model version. */
   public GetModelVersionResponse getModelVersion(GetModelVersionRequest request) {
     return impl.getModelVersion(request);
   }
@@ -275,11 +221,7 @@ public class ModelRegistryAPI {
         new GetModelVersionDownloadUriRequest().setName(name).setVersion(version));
   }
 
-  /**
-   * Get a model version URI.
-   *
-   * <p>Gets a URI to download the model version.
-   */
+  /** Gets a URI to download the model version. */
   public GetModelVersionDownloadUriResponse getModelVersionDownloadUri(
       GetModelVersionDownloadUriRequest request) {
     return impl.getModelVersionDownloadUri(request);
@@ -290,11 +232,7 @@ public class ModelRegistryAPI {
         new GetRegisteredModelPermissionLevelsRequest().setRegisteredModelId(registeredModelId));
   }
 
-  /**
-   * Get registered model permission levels.
-   *
-   * <p>Gets the permission levels that a user can have on an object.
-   */
+  /** Gets the permission levels that a user can have on an object. */
   public GetRegisteredModelPermissionLevelsResponse getPermissionLevels(
       GetRegisteredModelPermissionLevelsRequest request) {
     return impl.getPermissionLevels(request);
@@ -306,20 +244,14 @@ public class ModelRegistryAPI {
   }
 
   /**
-   * Get registered model permissions.
-   *
-   * <p>Gets the permissions of a registered model. Registered models can inherit permissions from
+   * Gets the permissions of a registered model. Registered models can inherit permissions from
    * their root object.
    */
   public RegisteredModelPermissions getPermissions(GetRegisteredModelPermissionsRequest request) {
     return impl.getPermissions(request);
   }
 
-  /**
-   * List models.
-   *
-   * <p>Lists all available registered models, up to the limit specified in __max_results__.
-   */
+  /** Lists all available registered models, up to the limit specified in __max_results__. */
   public Iterable<Model> listModels(ListModelsRequest request) {
     return new Paginator<>(
         request,
@@ -339,11 +271,7 @@ public class ModelRegistryAPI {
         new ListTransitionRequestsRequest().setName(name).setVersion(version));
   }
 
-  /**
-   * List transition requests.
-   *
-   * <p>Gets a list of all open stage transition requests for the model version.
-   */
+  /** Gets a list of all open stage transition requests for the model version. */
   public Iterable<Activity> listTransitionRequests(ListTransitionRequestsRequest request) {
     return new Paginator<>(
         request,
@@ -353,9 +281,7 @@ public class ModelRegistryAPI {
   }
 
   /**
-   * List registry webhooks.
-   *
-   * <p>**NOTE:** This endpoint is in Public Preview.
+   * **NOTE:** This endpoint is in Public Preview.
    *
    * <p>Lists all registry webhooks.
    */
@@ -379,11 +305,7 @@ public class ModelRegistryAPI {
         new RejectTransitionRequest().setName(name).setVersion(version).setStage(stage));
   }
 
-  /**
-   * Reject a transition request.
-   *
-   * <p>Rejects a model version stage transition request.
-   */
+  /** Rejects a model version stage transition request. */
   public RejectTransitionRequestResponse rejectTransitionRequest(RejectTransitionRequest request) {
     return impl.rejectTransitionRequest(request);
   }
@@ -392,20 +314,12 @@ public class ModelRegistryAPI {
     return renameModel(new RenameModelRequest().setName(name));
   }
 
-  /**
-   * Rename a model.
-   *
-   * <p>Renames a registered model.
-   */
+  /** Renames a registered model. */
   public RenameModelResponse renameModel(RenameModelRequest request) {
     return impl.renameModel(request);
   }
 
-  /**
-   * Searches model versions.
-   *
-   * <p>Searches for specific model versions based on the supplied __filter__.
-   */
+  /** Searches for specific model versions based on the supplied __filter__. */
   public Iterable<ModelVersion> searchModelVersions(SearchModelVersionsRequest request) {
     return new Paginator<>(
         request,
@@ -420,11 +334,7 @@ public class ModelRegistryAPI {
         });
   }
 
-  /**
-   * Search models.
-   *
-   * <p>Search for registered models based on the specified __filter__.
-   */
+  /** Search for registered models based on the specified __filter__. */
   public Iterable<Model> searchModels(SearchModelsRequest request) {
     return new Paginator<>(
         request,
@@ -443,11 +353,7 @@ public class ModelRegistryAPI {
     setModelTag(new SetModelTagRequest().setName(name).setKey(key).setValue(value));
   }
 
-  /**
-   * Set a tag.
-   *
-   * <p>Sets a tag on a registered model.
-   */
+  /** Sets a tag on a registered model. */
   public void setModelTag(SetModelTagRequest request) {
     impl.setModelTag(request);
   }
@@ -461,11 +367,7 @@ public class ModelRegistryAPI {
             .setValue(value));
   }
 
-  /**
-   * Set a version tag.
-   *
-   * <p>Sets a model version tag.
-   */
+  /** Sets a model version tag. */
   public void setModelVersionTag(SetModelVersionTagRequest request) {
     impl.setModelVersionTag(request);
   }
@@ -476,11 +378,8 @@ public class ModelRegistryAPI {
   }
 
   /**
-   * Set registered model permissions.
-   *
-   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
-   * direct permissions if none are specified. Objects can inherit permissions from their root
-   * object.
+   * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
+   * permissions if none are specified. Objects can inherit permissions from their root object.
    */
   public RegisteredModelPermissions setPermissions(RegisteredModelPermissionsRequest request) {
     return impl.setPermissions(request);
@@ -491,9 +390,7 @@ public class ModelRegistryAPI {
   }
 
   /**
-   * Test a webhook.
-   *
-   * <p>**NOTE:** This endpoint is in Public Preview.
+   * **NOTE:** This endpoint is in Public Preview.
    *
    * <p>Tests a registry webhook.
    */
@@ -512,9 +409,7 @@ public class ModelRegistryAPI {
   }
 
   /**
-   * Transition a stage.
-   *
-   * <p>Transition a model version's stage. This is a Databricks workspace version of the [MLflow
+   * Transition a model version's stage. This is a Databricks workspace version of the [MLflow
    * endpoint] that also accepts a comment associated with the transition to be recorded.",
    *
    * <p>[MLflow endpoint]:
@@ -528,11 +423,7 @@ public class ModelRegistryAPI {
     return updateComment(new UpdateComment().setId(id).setComment(comment));
   }
 
-  /**
-   * Update a comment.
-   *
-   * <p>Post an edit to a comment on a model version.
-   */
+  /** Post an edit to a comment on a model version. */
   public UpdateCommentResponse updateComment(UpdateComment request) {
     return impl.updateComment(request);
   }
@@ -541,11 +432,7 @@ public class ModelRegistryAPI {
     updateModel(new UpdateModelRequest().setName(name));
   }
 
-  /**
-   * Update model.
-   *
-   * <p>Updates a registered model.
-   */
+  /** Updates a registered model. */
   public void updateModel(UpdateModelRequest request) {
     impl.updateModel(request);
   }
@@ -554,11 +441,7 @@ public class ModelRegistryAPI {
     updateModelVersion(new UpdateModelVersionRequest().setName(name).setVersion(version));
   }
 
-  /**
-   * Update model version.
-   *
-   * <p>Updates the model version.
-   */
+  /** Updates the model version. */
   public void updateModelVersion(UpdateModelVersionRequest request) {
     impl.updateModelVersion(request);
   }
@@ -569,10 +452,8 @@ public class ModelRegistryAPI {
   }
 
   /**
-   * Update registered model permissions.
-   *
-   * <p>Updates the permissions on a registered model. Registered models can inherit permissions
-   * from their root object.
+   * Updates the permissions on a registered model. Registered models can inherit permissions from
+   * their root object.
    */
   public RegisteredModelPermissions updatePermissions(RegisteredModelPermissionsRequest request) {
     return impl.updatePermissions(request);
@@ -583,9 +464,7 @@ public class ModelRegistryAPI {
   }
 
   /**
-   * Update a webhook.
-   *
-   * <p>**NOTE:** This endpoint is in Public Preview.
+   * **NOTE:** This endpoint is in Public Preview.
    *
    * <p>Updates a registry webhook.
    */

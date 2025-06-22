@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete a network policy */
 @Generated
 public class DeleteNetworkPolicyRequest {
   /** The unique identifier of the network policy to delete. */

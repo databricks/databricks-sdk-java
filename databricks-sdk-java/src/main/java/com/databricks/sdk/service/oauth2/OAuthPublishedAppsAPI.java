@@ -28,11 +28,7 @@ public class OAuthPublishedAppsAPI {
     impl = mock;
   }
 
-  /**
-   * Get all the published OAuth apps.
-   *
-   * <p>Get all the available published OAuth apps in Databricks.
-   */
+  /** Get all the available published OAuth apps in Databricks. */
   public Iterable<PublishedAppOutput> list(ListOAuthPublishedAppsRequest request) {
     return new Paginator<>(
         request,

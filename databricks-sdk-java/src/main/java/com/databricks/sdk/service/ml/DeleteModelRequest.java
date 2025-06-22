@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete a model */
 @Generated
 public class DeleteModelRequest {
   /** Registered model unique name identifier. */

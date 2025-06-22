@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get cluster permissions */
 @Generated
 public class GetClusterPermissionsRequest {
   /** The cluster for which to get or manage permissions. */

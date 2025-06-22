@@ -25,11 +25,7 @@ public class CurrentUserAPI {
     impl = mock;
   }
 
-  /**
-   * Get current user info.
-   *
-   * <p>Get details about the current method caller's identity.
-   */
+  /** Get details about the current method caller's identity. */
   public User me() {
     return impl.me();
   }

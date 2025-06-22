@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Create account federation policy */
 @Generated
 public class CreateAccountFederationPolicyRequest {
   /** */

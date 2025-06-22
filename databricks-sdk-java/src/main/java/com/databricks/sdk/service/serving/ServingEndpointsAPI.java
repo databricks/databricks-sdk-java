@@ -95,11 +95,7 @@ public class ServingEndpointsAPI {
     return buildLogs(new BuildLogsRequest().setName(name).setServedModelName(servedModelName));
   }
 
-  /**
-   * Get build logs for a served model.
-   *
-   * <p>Retrieves the build logs associated with the provided served model.
-   */
+  /** Retrieves the build logs associated with the provided served model. */
   public BuildLogsResponse buildLogs(BuildLogsRequest request) {
     return impl.buildLogs(request);
   }
@@ -108,7 +104,6 @@ public class ServingEndpointsAPI {
     return create(new CreateServingEndpoint().setName(name));
   }
 
-  /** Create a new serving endpoint. */
   public Wait<ServingEndpointDetailed, ServingEndpointDetailed> create(
       CreateServingEndpoint request) {
     ServingEndpointDetailed response = impl.create(request);
@@ -124,7 +119,6 @@ public class ServingEndpointsAPI {
         new CreatePtEndpointRequest().setName(name).setConfig(config));
   }
 
-  /** Create a new PT serving endpoint. */
   public Wait<ServingEndpointDetailed, ServingEndpointDetailed> createProvisionedThroughputEndpoint(
       CreatePtEndpointRequest request) {
     ServingEndpointDetailed response = impl.createProvisionedThroughputEndpoint(request);
@@ -138,7 +132,6 @@ public class ServingEndpointsAPI {
     delete(new DeleteServingEndpointRequest().setName(name));
   }
 
-  /** Delete a serving endpoint. */
   public void delete(DeleteServingEndpointRequest request) {
     impl.delete(request);
   }
@@ -148,9 +141,7 @@ public class ServingEndpointsAPI {
   }
 
   /**
-   * Get metrics of a serving endpoint.
-   *
-   * <p>Retrieves the metrics associated with the provided serving endpoint in either Prometheus or
+   * Retrieves the metrics associated with the provided serving endpoint in either Prometheus or
    * OpenMetrics exposition format.
    */
   public ExportMetricsResponse exportMetrics(ExportMetricsRequest request) {
@@ -161,11 +152,7 @@ public class ServingEndpointsAPI {
     return get(new GetServingEndpointRequest().setName(name));
   }
 
-  /**
-   * Get a single serving endpoint.
-   *
-   * <p>Retrieves the details for a single serving endpoint.
-   */
+  /** Retrieves the details for a single serving endpoint. */
   public ServingEndpointDetailed get(GetServingEndpointRequest request) {
     return impl.get(request);
   }
@@ -175,10 +162,8 @@ public class ServingEndpointsAPI {
   }
 
   /**
-   * Get the schema for a serving endpoint.
-   *
-   * <p>Get the query schema of the serving endpoint in OpenAPI format. The schema contains
-   * information for the supported paths, input and output format and datatypes.
+   * Get the query schema of the serving endpoint in OpenAPI format. The schema contains information
+   * for the supported paths, input and output format and datatypes.
    */
   public GetOpenApiResponse getOpenApi(GetOpenApiRequest request) {
     return impl.getOpenApi(request);
@@ -189,11 +174,7 @@ public class ServingEndpointsAPI {
         new GetServingEndpointPermissionLevelsRequest().setServingEndpointId(servingEndpointId));
   }
 
-  /**
-   * Get serving endpoint permission levels.
-   *
-   * <p>Gets the permission levels that a user can have on an object.
-   */
+  /** Gets the permission levels that a user can have on an object. */
   public GetServingEndpointPermissionLevelsResponse getPermissionLevels(
       GetServingEndpointPermissionLevelsRequest request) {
     return impl.getPermissionLevels(request);
@@ -205,9 +186,7 @@ public class ServingEndpointsAPI {
   }
 
   /**
-   * Get serving endpoint permissions.
-   *
-   * <p>Gets the permissions of a serving endpoint. Serving endpoints can inherit permissions from
+   * Gets the permissions of a serving endpoint. Serving endpoints can inherit permissions from
    * their root object.
    */
   public ServingEndpointPermissions getPermissions(GetServingEndpointPermissionsRequest request) {
@@ -223,12 +202,10 @@ public class ServingEndpointsAPI {
             .setPath(path));
   }
 
-  /** Make external services call using the credentials stored in UC Connection. */
   public HttpRequestResponse httpRequest(ExternalFunctionRequest request) {
     return impl.httpRequest(request);
   }
 
-  /** Get all serving endpoints. */
   public Iterable<ServingEndpoint> list() {
     return new Paginator<>(
         null, (Void v) -> impl.list(), ListEndpointsResponse::getEndpoints, response -> null);
@@ -238,11 +215,7 @@ public class ServingEndpointsAPI {
     return logs(new LogsRequest().setName(name).setServedModelName(servedModelName));
   }
 
-  /**
-   * Get the latest logs for a served model.
-   *
-   * <p>Retrieves the service logs associated with the provided served model.
-   */
+  /** Retrieves the service logs associated with the provided served model. */
   public ServerLogsResponse logs(LogsRequest request) {
     return impl.logs(request);
   }
@@ -251,11 +224,7 @@ public class ServingEndpointsAPI {
     return patch(new PatchServingEndpointTags().setName(name));
   }
 
-  /**
-   * Update tags of a serving endpoint.
-   *
-   * <p>Used to batch add and delete tags from a serving endpoint with a single API call.
-   */
+  /** Used to batch add and delete tags from a serving endpoint with a single API call. */
   public EndpointTags patch(PatchServingEndpointTags request) {
     return impl.patch(request);
   }
@@ -264,11 +233,7 @@ public class ServingEndpointsAPI {
     return put(new PutRequest().setName(name));
   }
 
-  /**
-   * Update rate limits of a serving endpoint.
-   *
-   * <p>Deprecated: Please use AI Gateway to manage rate limits instead.
-   */
+  /** Deprecated: Please use AI Gateway to manage rate limits instead. */
   public PutResponse put(PutRequest request) {
     return impl.put(request);
   }
@@ -278,9 +243,7 @@ public class ServingEndpointsAPI {
   }
 
   /**
-   * Update AI Gateway of a serving endpoint.
-   *
-   * <p>Used to update the AI Gateway of a serving endpoint. NOTE: External model, provisioned
+   * Used to update the AI Gateway of a serving endpoint. NOTE: External model, provisioned
    * throughput, and pay-per-token endpoints are fully supported; agent endpoints currently only
    * support inference tables.
    */
@@ -292,7 +255,6 @@ public class ServingEndpointsAPI {
     return query(new QueryEndpointInput().setName(name));
   }
 
-  /** Query a serving endpoint. */
   public QueryEndpointResponse query(QueryEndpointInput request) {
     return impl.query(request);
   }
@@ -303,11 +265,8 @@ public class ServingEndpointsAPI {
   }
 
   /**
-   * Set serving endpoint permissions.
-   *
-   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
-   * direct permissions if none are specified. Objects can inherit permissions from their root
-   * object.
+   * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
+   * permissions if none are specified. Objects can inherit permissions from their root object.
    */
   public ServingEndpointPermissions setPermissions(ServingEndpointPermissionsRequest request) {
     return impl.setPermissions(request);
@@ -318,10 +277,8 @@ public class ServingEndpointsAPI {
   }
 
   /**
-   * Update config of a serving endpoint.
-   *
-   * <p>Updates any combination of the serving endpoint's served entities, the compute configuration
-   * of those served entities, and the endpoint's traffic config. An endpoint that already has an
+   * Updates any combination of the serving endpoint's served entities, the compute configuration of
+   * those served entities, and the endpoint's traffic config. An endpoint that already has an
    * update in progress can not be updated until the current update completes or fails.
    */
   public Wait<ServingEndpointDetailed, ServingEndpointDetailed> updateConfig(
@@ -339,10 +296,8 @@ public class ServingEndpointsAPI {
   }
 
   /**
-   * Update serving endpoint permissions.
-   *
-   * <p>Updates the permissions on a serving endpoint. Serving endpoints can inherit permissions
-   * from their root object.
+   * Updates the permissions on a serving endpoint. Serving endpoints can inherit permissions from
+   * their root object.
    */
   public ServingEndpointPermissions updatePermissions(ServingEndpointPermissionsRequest request) {
     return impl.updatePermissions(request);
@@ -355,9 +310,7 @@ public class ServingEndpointsAPI {
   }
 
   /**
-   * Update config of a PT serving endpoint.
-   *
-   * <p>Updates any combination of the pt endpoint's served entities, the compute configuration of
+   * Updates any combination of the pt endpoint's served entities, the compute configuration of
    * those served entities, and the endpoint's traffic config. Updates are instantaneous and
    * endpoint should be updated instantly
    */

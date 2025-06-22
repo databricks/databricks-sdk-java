@@ -12,6 +12,6 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface AccessControlService {
-  /** Check access policy to a resource. */
+
   CheckPolicyResponse checkPolicy(CheckPolicyRequest checkPolicyRequest);
 }

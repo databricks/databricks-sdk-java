@@ -41,9 +41,7 @@ public class PolicyComplianceForJobsAPI {
   }
 
   /**
-   * Enforce job policy compliance.
-   *
-   * <p>Updates a job so the job clusters that are created when running the job (specified in
+   * Updates a job so the job clusters that are created when running the job (specified in
    * `new_cluster`) are compliant with the current versions of their respective cluster policies.
    * All-purpose clusters used in the job will not be updated.
    */
@@ -56,9 +54,7 @@ public class PolicyComplianceForJobsAPI {
   }
 
   /**
-   * Get job policy compliance.
-   *
-   * <p>Returns the policy compliance status of a job. Jobs could be out of compliance if a cluster
+   * Returns the policy compliance status of a job. Jobs could be out of compliance if a cluster
    * policy they use was updated after the job was last edited and some of its job clusters no
    * longer comply with their updated policies.
    */
@@ -71,11 +67,9 @@ public class PolicyComplianceForJobsAPI {
   }
 
   /**
-   * List job policy compliance.
-   *
-   * <p>Returns the policy compliance status of all jobs that use a given policy. Jobs could be out
-   * of compliance if a cluster policy they use was updated after the job was last edited and its
-   * job clusters no longer comply with the updated policy.
+   * Returns the policy compliance status of all jobs that use a given policy. Jobs could be out of
+   * compliance if a cluster policy they use was updated after the job was last edited and its job
+   * clusters no longer comply with the updated policy.
    */
   public Iterable<JobCompliance> listCompliance(ListJobComplianceRequest request) {
     return new Paginator<>(

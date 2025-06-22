@@ -13,6 +13,6 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface ServingEndpointsDataPlaneService {
-  /** Query a serving endpoint. */
+
   QueryEndpointResponse query(QueryEndpointInput queryEndpointInput);
 }

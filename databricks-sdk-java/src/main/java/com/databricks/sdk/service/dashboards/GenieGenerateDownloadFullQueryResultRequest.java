@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Generate full query result download */
 @Generated
 public class GenieGenerateDownloadFullQueryResultRequest {
   /** Attachment ID */

@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get job policy compliance */
 @Generated
 public class GetPolicyComplianceRequest {
   /** The ID of the job whose compliance status you are requesting. */

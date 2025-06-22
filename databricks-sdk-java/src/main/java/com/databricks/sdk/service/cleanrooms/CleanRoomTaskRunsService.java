@@ -12,11 +12,7 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface CleanRoomTaskRunsService {
-  /**
-   * List notebook task runs.
-   *
-   * <p>List all the historical notebook task runs in a clean room.
-   */
+  /** List all the historical notebook task runs in a clean room. */
   ListCleanRoomNotebookTaskRunsResponse list(
       ListCleanRoomNotebookTaskRunsRequest listCleanRoomNotebookTaskRunsRequest);
 }

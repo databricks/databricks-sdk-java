@@ -12,39 +12,20 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface BudgetPolicyService {
-  /**
-   * Create a budget policy.
-   *
-   * <p>Creates a new policy.
-   */
+  /** Creates a new policy. */
   BudgetPolicy create(CreateBudgetPolicyRequest createBudgetPolicyRequest);
 
-  /**
-   * Delete a budget policy.
-   *
-   * <p>Deletes a policy
-   */
+  /** Deletes a policy */
   void delete(DeleteBudgetPolicyRequest deleteBudgetPolicyRequest);
 
-  /**
-   * Get a budget policy.
-   *
-   * <p>Retrieves a policy by it's ID.
-   */
+  /** Retrieves a policy by it's ID. */
   BudgetPolicy get(GetBudgetPolicyRequest getBudgetPolicyRequest);
 
   /**
-   * List policies.
-   *
-   * <p>Lists all policies. Policies are returned in the alphabetically ascending order of their
-   * names.
+   * Lists all policies. Policies are returned in the alphabetically ascending order of their names.
    */
   ListBudgetPoliciesResponse list(ListBudgetPoliciesRequest listBudgetPoliciesRequest);
 
-  /**
-   * Update a budget policy.
-   *
-   * <p>Updates a policy
-   */
+  /** Updates a policy */
   BudgetPolicy update(UpdateBudgetPolicyRequest updateBudgetPolicyRequest);
 }
