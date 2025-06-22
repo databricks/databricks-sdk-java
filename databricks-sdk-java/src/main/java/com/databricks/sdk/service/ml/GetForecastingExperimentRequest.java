@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get a forecasting experiment */
 @Generated
 public class GetForecastingExperimentRequest {
   /** The unique ID of a forecasting experiment */

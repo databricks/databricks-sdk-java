@@ -25,11 +25,9 @@ import java.util.Collection;
 @Generated
 public interface DataSourcesService {
   /**
-   * Get a list of SQL warehouses.
-   *
-   * <p>Retrieves a full list of SQL warehouses available in this workspace. All fields that appear
-   * in this API response are enumerated for clarity. However, you need only a SQL warehouse's `id`
-   * to create new queries against it.
+   * Retrieves a full list of SQL warehouses available in this workspace. All fields that appear in
+   * this API response are enumerated for clarity. However, you need only a SQL warehouse's `id` to
+   * create new queries against it.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
    * :method:warehouses/list instead. [Learn more]

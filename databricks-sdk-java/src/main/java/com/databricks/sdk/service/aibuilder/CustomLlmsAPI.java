@@ -27,7 +27,6 @@ public class CustomLlmsAPI {
     cancel(new CancelCustomLlmOptimizationRunRequest().setId(id));
   }
 
-  /** Cancel a Custom LLM Optimization Run. */
   public void cancel(CancelCustomLlmOptimizationRunRequest request) {
     impl.cancel(request);
   }
@@ -36,7 +35,6 @@ public class CustomLlmsAPI {
     return create(new StartCustomLlmOptimizationRunRequest().setId(id));
   }
 
-  /** Start a Custom LLM Optimization Run. */
   public CustomLlm create(StartCustomLlmOptimizationRunRequest request) {
     return impl.create(request);
   }
@@ -45,7 +43,6 @@ public class CustomLlmsAPI {
     return get(new GetCustomLlmRequest().setId(id));
   }
 
-  /** Get a Custom LLM. */
   public CustomLlm get(GetCustomLlmRequest request) {
     return impl.get(request);
   }
@@ -55,7 +52,6 @@ public class CustomLlmsAPI {
         new UpdateCustomLlmRequest().setId(id).setCustomLlm(customLlm).setUpdateMask(updateMask));
   }
 
-  /** Update a Custom LLM. */
   public CustomLlm update(UpdateCustomLlmRequest request) {
     return impl.update(request);
   }

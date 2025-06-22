@@ -29,11 +29,7 @@ public class QualityMonitorV2API {
         new CreateQualityMonitorRequest().setQualityMonitor(qualityMonitor));
   }
 
-  /**
-   * Create a quality monitor.
-   *
-   * <p>Create a quality monitor on UC object
-   */
+  /** Create a quality monitor on UC object */
   public QualityMonitor createQualityMonitor(CreateQualityMonitorRequest request) {
     return impl.createQualityMonitor(request);
   }
@@ -43,11 +39,7 @@ public class QualityMonitorV2API {
         new DeleteQualityMonitorRequest().setObjectType(objectType).setObjectId(objectId));
   }
 
-  /**
-   * Delete a quality monitor.
-   *
-   * <p>Delete a quality monitor on UC object
-   */
+  /** Delete a quality monitor on UC object */
   public void deleteQualityMonitor(DeleteQualityMonitorRequest request) {
     impl.deleteQualityMonitor(request);
   }
@@ -57,20 +49,12 @@ public class QualityMonitorV2API {
         new GetQualityMonitorRequest().setObjectType(objectType).setObjectId(objectId));
   }
 
-  /**
-   * Read a quality monitor.
-   *
-   * <p>Read a quality monitor on UC object
-   */
+  /** Read a quality monitor on UC object */
   public QualityMonitor getQualityMonitor(GetQualityMonitorRequest request) {
     return impl.getQualityMonitor(request);
   }
 
-  /**
-   * List quality monitors.
-   *
-   * <p>(Unimplemented) List quality monitors
-   */
+  /** (Unimplemented) List quality monitors */
   public Iterable<QualityMonitor> listQualityMonitor(ListQualityMonitorRequest request) {
     return new Paginator<>(
         request,
@@ -94,11 +78,7 @@ public class QualityMonitorV2API {
             .setQualityMonitor(qualityMonitor));
   }
 
-  /**
-   * Update a quality monitor.
-   *
-   * <p>(Unimplemented) Update a quality monitor on UC object
-   */
+  /** (Unimplemented) Update a quality monitor on UC object */
   public QualityMonitor updateQualityMonitor(UpdateQualityMonitorRequest request) {
     return impl.updateQualityMonitor(request);
   }

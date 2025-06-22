@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get a connection */
 @Generated
 public class GetConnectionRequest {
   /** Name of the connection. */

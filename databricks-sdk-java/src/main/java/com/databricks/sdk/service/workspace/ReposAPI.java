@@ -40,10 +40,8 @@ public class ReposAPI {
   }
 
   /**
-   * Create a repo.
-   *
-   * <p>Creates a repo in the workspace and links it to the remote Git repo specified. Note that
-   * repos created programmatically must be linked to a remote Git repo, unlike repos created in the
+   * Creates a repo in the workspace and links it to the remote Git repo specified. Note that repos
+   * created programmatically must be linked to a remote Git repo, unlike repos created in the
    * browser.
    */
   public CreateRepoResponse create(CreateRepoRequest request) {
@@ -54,11 +52,7 @@ public class ReposAPI {
     delete(new DeleteRepoRequest().setRepoId(repoId));
   }
 
-  /**
-   * Delete a repo.
-   *
-   * <p>Deletes the specified repo.
-   */
+  /** Deletes the specified repo. */
   public void delete(DeleteRepoRequest request) {
     impl.delete(request);
   }
@@ -67,11 +61,7 @@ public class ReposAPI {
     return get(new GetRepoRequest().setRepoId(repoId));
   }
 
-  /**
-   * Get a repo.
-   *
-   * <p>Returns the repo with the given repo ID.
-   */
+  /** Returns the repo with the given repo ID. */
   public GetRepoResponse get(GetRepoRequest request) {
     return impl.get(request);
   }
@@ -80,11 +70,7 @@ public class ReposAPI {
     return getPermissionLevels(new GetRepoPermissionLevelsRequest().setRepoId(repoId));
   }
 
-  /**
-   * Get repo permission levels.
-   *
-   * <p>Gets the permission levels that a user can have on an object.
-   */
+  /** Gets the permission levels that a user can have on an object. */
   public GetRepoPermissionLevelsResponse getPermissionLevels(
       GetRepoPermissionLevelsRequest request) {
     return impl.getPermissionLevels(request);
@@ -94,20 +80,14 @@ public class ReposAPI {
     return getPermissions(new GetRepoPermissionsRequest().setRepoId(repoId));
   }
 
-  /**
-   * Get repo permissions.
-   *
-   * <p>Gets the permissions of a repo. Repos can inherit permissions from their root object.
-   */
+  /** Gets the permissions of a repo. Repos can inherit permissions from their root object. */
   public RepoPermissions getPermissions(GetRepoPermissionsRequest request) {
     return impl.getPermissions(request);
   }
 
   /**
-   * Get repos.
-   *
-   * <p>Returns repos that the calling user has Manage permissions on. Use `next_page_token` to
-   * iterate through additional pages.
+   * Returns repos that the calling user has Manage permissions on. Use `next_page_token` to iterate
+   * through additional pages.
    */
   public Iterable<RepoInfo> list(ListReposRequest request) {
     return new Paginator<>(
@@ -128,11 +108,8 @@ public class ReposAPI {
   }
 
   /**
-   * Set repo permissions.
-   *
-   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
-   * direct permissions if none are specified. Objects can inherit permissions from their root
-   * object.
+   * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
+   * permissions if none are specified. Objects can inherit permissions from their root object.
    */
   public RepoPermissions setPermissions(RepoPermissionsRequest request) {
     return impl.setPermissions(request);
@@ -143,10 +120,8 @@ public class ReposAPI {
   }
 
   /**
-   * Update a repo.
-   *
-   * <p>Updates the repo to a different branch or tag, or updates the repo to the latest commit on
-   * the same branch.
+   * Updates the repo to a different branch or tag, or updates the repo to the latest commit on the
+   * same branch.
    */
   public void update(UpdateRepoRequest request) {
     impl.update(request);
@@ -156,11 +131,7 @@ public class ReposAPI {
     return updatePermissions(new RepoPermissionsRequest().setRepoId(repoId));
   }
 
-  /**
-   * Update repo permissions.
-   *
-   * <p>Updates the permissions on a repo. Repos can inherit permissions from their root object.
-   */
+  /** Updates the permissions on a repo. Repos can inherit permissions from their root object. */
   public RepoPermissions updatePermissions(RepoPermissionsRequest request) {
     return impl.updatePermissions(request);
   }

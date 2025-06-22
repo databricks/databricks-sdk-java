@@ -45,11 +45,7 @@ public class InstancePoolsAPI {
         new CreateInstancePool().setInstancePoolName(instancePoolName).setNodeTypeId(nodeTypeId));
   }
 
-  /**
-   * Create a new instance pool.
-   *
-   * <p>Creates a new instance pool using idle and ready-to-use cloud instances.
-   */
+  /** Creates a new instance pool using idle and ready-to-use cloud instances. */
   public CreateInstancePoolResponse create(CreateInstancePool request) {
     return impl.create(request);
   }
@@ -59,9 +55,7 @@ public class InstancePoolsAPI {
   }
 
   /**
-   * Delete an instance pool.
-   *
-   * <p>Deletes the instance pool permanently. The idle instances in the pool are terminated
+   * Deletes the instance pool permanently. The idle instances in the pool are terminated
    * asynchronously.
    */
   public void delete(DeleteInstancePool request) {
@@ -76,11 +70,7 @@ public class InstancePoolsAPI {
             .setNodeTypeId(nodeTypeId));
   }
 
-  /**
-   * Edit an existing instance pool.
-   *
-   * <p>Modifies the configuration of an existing instance pool.
-   */
+  /** Modifies the configuration of an existing instance pool. */
   public void edit(EditInstancePool request) {
     impl.edit(request);
   }
@@ -89,11 +79,7 @@ public class InstancePoolsAPI {
     return get(new GetInstancePoolRequest().setInstancePoolId(instancePoolId));
   }
 
-  /**
-   * Get instance pool information.
-   *
-   * <p>Retrieve the information for an instance pool based on its identifier.
-   */
+  /** Retrieve the information for an instance pool based on its identifier. */
   public GetInstancePool get(GetInstancePoolRequest request) {
     return impl.get(request);
   }
@@ -103,11 +89,7 @@ public class InstancePoolsAPI {
         new GetInstancePoolPermissionLevelsRequest().setInstancePoolId(instancePoolId));
   }
 
-  /**
-   * Get instance pool permission levels.
-   *
-   * <p>Gets the permission levels that a user can have on an object.
-   */
+  /** Gets the permission levels that a user can have on an object. */
   public GetInstancePoolPermissionLevelsResponse getPermissionLevels(
       GetInstancePoolPermissionLevelsRequest request) {
     return impl.getPermissionLevels(request);
@@ -119,20 +101,14 @@ public class InstancePoolsAPI {
   }
 
   /**
-   * Get instance pool permissions.
-   *
-   * <p>Gets the permissions of an instance pool. Instance pools can inherit permissions from their
+   * Gets the permissions of an instance pool. Instance pools can inherit permissions from their
    * root object.
    */
   public InstancePoolPermissions getPermissions(GetInstancePoolPermissionsRequest request) {
     return impl.getPermissions(request);
   }
 
-  /**
-   * List instance pool info.
-   *
-   * <p>Gets a list of instance pools with their statistics.
-   */
+  /** Gets a list of instance pools with their statistics. */
   public Iterable<InstancePoolAndStats> list() {
     return new Paginator<>(
         null, (Void v) -> impl.list(), ListInstancePools::getInstancePools, response -> null);
@@ -143,11 +119,8 @@ public class InstancePoolsAPI {
   }
 
   /**
-   * Set instance pool permissions.
-   *
-   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
-   * direct permissions if none are specified. Objects can inherit permissions from their root
-   * object.
+   * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
+   * permissions if none are specified. Objects can inherit permissions from their root object.
    */
   public InstancePoolPermissions setPermissions(InstancePoolPermissionsRequest request) {
     return impl.setPermissions(request);
@@ -159,10 +132,8 @@ public class InstancePoolsAPI {
   }
 
   /**
-   * Update instance pool permissions.
-   *
-   * <p>Updates the permissions on an instance pool. Instance pools can inherit permissions from
-   * their root object.
+   * Updates the permissions on an instance pool. Instance pools can inherit permissions from their
+   * root object.
    */
   public InstancePoolPermissions updatePermissions(InstancePoolPermissionsRequest request) {
     return impl.updatePermissions(request);

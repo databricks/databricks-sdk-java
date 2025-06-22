@@ -54,23 +54,19 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface ServicePrincipalFederationPolicyService {
-  /** Create service principal federation policy. */
+
   FederationPolicy create(
       CreateServicePrincipalFederationPolicyRequest createServicePrincipalFederationPolicyRequest);
 
-  /** Delete service principal federation policy. */
   void delete(
       DeleteServicePrincipalFederationPolicyRequest deleteServicePrincipalFederationPolicyRequest);
 
-  /** Get service principal federation policy. */
   FederationPolicy get(
       GetServicePrincipalFederationPolicyRequest getServicePrincipalFederationPolicyRequest);
 
-  /** List service principal federation policies. */
   ListFederationPoliciesResponse list(
       ListServicePrincipalFederationPoliciesRequest listServicePrincipalFederationPoliciesRequest);
 
-  /** Update service principal federation policy. */
   FederationPolicy update(
       UpdateServicePrincipalFederationPolicyRequest updateServicePrincipalFederationPolicyRequest);
 }

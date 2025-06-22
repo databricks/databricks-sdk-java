@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Update a private endpoint rule */
 @Generated
 public class UpdateNccPrivateEndpointRuleRequest {
   /**

@@ -42,9 +42,7 @@ public class ConnectionsAPI {
   }
 
   /**
-   * Create a connection.
-   *
-   * <p>Creates a new connection
+   * Creates a new connection
    *
    * <p>Creates a new connection to an external data source. It allows users to specify connection
    * details and configurations for interaction with the external server.
@@ -57,11 +55,7 @@ public class ConnectionsAPI {
     delete(new DeleteConnectionRequest().setName(name));
   }
 
-  /**
-   * Delete a connection.
-   *
-   * <p>Deletes the connection that matches the supplied name.
-   */
+  /** Deletes the connection that matches the supplied name. */
   public void delete(DeleteConnectionRequest request) {
     impl.delete(request);
   }
@@ -70,20 +64,12 @@ public class ConnectionsAPI {
     return get(new GetConnectionRequest().setName(name));
   }
 
-  /**
-   * Get a connection.
-   *
-   * <p>Gets a connection from it's name.
-   */
+  /** Gets a connection from it's name. */
   public ConnectionInfo get(GetConnectionRequest request) {
     return impl.get(request);
   }
 
-  /**
-   * List connections.
-   *
-   * <p>List all connections.
-   */
+  /** List all connections. */
   public Iterable<ConnectionInfo> list(ListConnectionsRequest request) {
     return new Paginator<>(
         request,
@@ -102,11 +88,7 @@ public class ConnectionsAPI {
     return update(new UpdateConnection().setName(name).setOptions(options));
   }
 
-  /**
-   * Update a connection.
-   *
-   * <p>Updates the connection that matches the supplied name.
-   */
+  /** Updates the connection that matches the supplied name. */
   public ConnectionInfo update(UpdateConnection request) {
     return impl.update(request);
   }

@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get a single job run */
 @Generated
 public class GetRunRequest {
   /** Whether to include the repair history in the response. */

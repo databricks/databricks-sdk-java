@@ -28,11 +28,7 @@ public class ProviderExchangeFiltersAPI {
     return create(new CreateExchangeFilterRequest().setFilter(filter));
   }
 
-  /**
-   * Create a new exchange filter.
-   *
-   * <p>Add an exchange filter.
-   */
+  /** Add an exchange filter. */
   public CreateExchangeFilterResponse create(CreateExchangeFilterRequest request) {
     return impl.create(request);
   }
@@ -41,11 +37,7 @@ public class ProviderExchangeFiltersAPI {
     delete(new DeleteExchangeFilterRequest().setId(id));
   }
 
-  /**
-   * Delete an exchange filter.
-   *
-   * <p>Delete an exchange filter
-   */
+  /** Delete an exchange filter */
   public void delete(DeleteExchangeFilterRequest request) {
     impl.delete(request);
   }
@@ -54,11 +46,7 @@ public class ProviderExchangeFiltersAPI {
     return list(new ListExchangeFiltersRequest().setExchangeId(exchangeId));
   }
 
-  /**
-   * List exchange filters.
-   *
-   * <p>List exchange filter
-   */
+  /** List exchange filter */
   public Iterable<ExchangeFilter> list(ListExchangeFiltersRequest request) {
     return new Paginator<>(
         request,
@@ -77,11 +65,7 @@ public class ProviderExchangeFiltersAPI {
     return update(new UpdateExchangeFilterRequest().setId(id).setFilter(filter));
   }
 
-  /**
-   * Update exchange filter.
-   *
-   * <p>Update an exchange filter.
-   */
+  /** Update an exchange filter. */
   public UpdateExchangeFilterResponse update(UpdateExchangeFilterRequest request) {
     return impl.update(request);
   }

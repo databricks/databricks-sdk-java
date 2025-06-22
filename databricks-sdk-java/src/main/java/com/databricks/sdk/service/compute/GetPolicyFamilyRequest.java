@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get policy family information */
 @Generated
 public class GetPolicyFamilyRequest {
   /** The family ID about which to retrieve information. */

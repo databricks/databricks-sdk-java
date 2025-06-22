@@ -38,7 +38,6 @@ public class AccessControlAPI {
             .setAuthzIdentity(authzIdentity));
   }
 
-  /** Check access policy to a resource. */
   public CheckPolicyResponse checkPolicy(CheckPolicyRequest request) {
     return impl.checkPolicy(request);
   }

@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Create a Database Table */
 @Generated
 public class CreateDatabaseTableRequest {
   /** Next field marker: 13 */

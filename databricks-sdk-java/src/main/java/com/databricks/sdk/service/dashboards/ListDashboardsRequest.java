@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** List dashboards */
 @Generated
 public class ListDashboardsRequest {
   /** The number of dashboards to return per page. */

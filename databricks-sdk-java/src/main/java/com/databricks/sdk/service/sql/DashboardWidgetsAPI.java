@@ -31,7 +31,6 @@ public class DashboardWidgetsAPI {
         new CreateWidget().setDashboardId(dashboardId).setOptions(options).setWidth(width));
   }
 
-  /** Add widget to a dashboard. */
   public Widget create(CreateWidget request) {
     return impl.create(request);
   }
@@ -40,7 +39,6 @@ public class DashboardWidgetsAPI {
     delete(new DeleteDashboardWidgetRequest().setId(id));
   }
 
-  /** Remove widget. */
   public void delete(DeleteDashboardWidgetRequest request) {
     impl.delete(request);
   }
@@ -54,7 +52,6 @@ public class DashboardWidgetsAPI {
             .setWidth(width));
   }
 
-  /** Update existing widget. */
   public Widget update(CreateWidget request) {
     return impl.update(request);
   }

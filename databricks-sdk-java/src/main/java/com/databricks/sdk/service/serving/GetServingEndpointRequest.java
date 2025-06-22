@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get a single serving endpoint */
 @Generated
 public class GetServingEndpointRequest {
   /** The name of the serving endpoint. This field is required. */

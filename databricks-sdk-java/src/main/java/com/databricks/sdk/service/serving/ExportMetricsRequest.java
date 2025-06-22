@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get metrics of a serving endpoint */
 @Generated
 public class ExportMetricsRequest {
   /** The name of the serving endpoint to retrieve metrics for. This field is required. */

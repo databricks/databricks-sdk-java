@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get dashboard objects */
 @Generated
 public class ListDashboardsRequest {
   /** Name of dashboard attribute to order by. */

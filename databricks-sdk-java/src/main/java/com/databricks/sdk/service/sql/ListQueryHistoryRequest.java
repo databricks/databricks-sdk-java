@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** List Queries */
 @Generated
 public class ListQueryHistoryRequest {
   /** A filter to limit query history results. This field is optional. */

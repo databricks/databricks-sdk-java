@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** List notebook task runs */
 @Generated
 public class ListCleanRoomNotebookTaskRunsRequest {
   /** Name of the clean room. */

@@ -28,11 +28,7 @@ public class AlertsV2API {
     return createAlert(new CreateAlertV2Request().setAlert(alert));
   }
 
-  /**
-   * Create an alert.
-   *
-   * <p>Create Alert
-   */
+  /** Create Alert */
   public AlertV2 createAlert(CreateAlertV2Request request) {
     return impl.createAlert(request);
   }
@@ -41,20 +37,12 @@ public class AlertsV2API {
     return getAlert(new GetAlertV2Request().setId(id));
   }
 
-  /**
-   * Get an alert.
-   *
-   * <p>Gets an alert.
-   */
+  /** Gets an alert. */
   public AlertV2 getAlert(GetAlertV2Request request) {
     return impl.getAlert(request);
   }
 
-  /**
-   * List alerts.
-   *
-   * <p>Gets a list of alerts accessible to the user, ordered by creation time.
-   */
+  /** Gets a list of alerts accessible to the user, ordered by creation time. */
   public Iterable<AlertV2> listAlerts(ListAlertsV2Request request) {
     return new Paginator<>(
         request,
@@ -74,11 +62,9 @@ public class AlertsV2API {
   }
 
   /**
-   * Delete an alert.
-   *
-   * <p>Moves an alert to the trash. Trashed alerts immediately disappear from list views, and can
-   * no longer trigger. You can restore a trashed alert through the UI. A trashed alert is
-   * permanently deleted after 30 days.
+   * Moves an alert to the trash. Trashed alerts immediately disappear from list views, and can no
+   * longer trigger. You can restore a trashed alert through the UI. A trashed alert is permanently
+   * deleted after 30 days.
    */
   public void trashAlert(TrashAlertV2Request request) {
     impl.trashAlert(request);
@@ -89,11 +75,7 @@ public class AlertsV2API {
         new UpdateAlertV2Request().setId(id).setAlert(alert).setUpdateMask(updateMask));
   }
 
-  /**
-   * Update an alert.
-   *
-   * <p>Update alert
-   */
+  /** Update alert */
   public AlertV2 updateAlert(UpdateAlertV2Request request) {
     return impl.updateAlert(request);
   }

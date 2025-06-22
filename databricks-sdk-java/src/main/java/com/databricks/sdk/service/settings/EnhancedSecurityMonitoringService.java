@@ -17,18 +17,12 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface EnhancedSecurityMonitoringService {
-  /**
-   * Get the enhanced security monitoring setting.
-   *
-   * <p>Gets the enhanced security monitoring setting.
-   */
+  /** Gets the enhanced security monitoring setting. */
   EnhancedSecurityMonitoringSetting get(
       GetEnhancedSecurityMonitoringSettingRequest getEnhancedSecurityMonitoringSettingRequest);
 
   /**
-   * Update the enhanced security monitoring setting.
-   *
-   * <p>Updates the enhanced security monitoring setting for the workspace. A fresh etag needs to be
+   * Updates the enhanced security monitoring setting for the workspace. A fresh etag needs to be
    * provided in `PATCH` requests (as part of the setting field). The etag can be retrieved by
    * making a `GET` request before the `PATCH` request. If the setting is updated concurrently,
    * `PATCH` fails with 409 and the request must be retried by using the fresh etag in the 409

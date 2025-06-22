@@ -14,10 +14,8 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface LogDeliveryService {
   /**
-   * Create a new log delivery configuration.
-   *
-   * <p>Creates a new Databricks log delivery configuration to enable delivery of the specified type
-   * of logs to your storage location. This requires that you already created a [credential
+   * Creates a new Databricks log delivery configuration to enable delivery of the specified type of
+   * logs to your storage location. This requires that you already created a [credential
    * object](:method:Credentials/Create) (which encapsulates a cross-account service IAM role) and a
    * [storage configuration object](:method:Storage/Create) (which encapsulates an S3 bucket).
    *
@@ -43,24 +41,14 @@ public interface LogDeliveryService {
   WrappedLogDeliveryConfiguration create(
       WrappedCreateLogDeliveryConfiguration wrappedCreateLogDeliveryConfiguration);
 
-  /**
-   * Get log delivery configuration.
-   *
-   * <p>Gets a Databricks log delivery configuration object for an account, both specified by ID.
-   */
+  /** Gets a Databricks log delivery configuration object for an account, both specified by ID. */
   GetLogDeliveryConfigurationResponse get(GetLogDeliveryRequest getLogDeliveryRequest);
 
-  /**
-   * Get all log delivery configurations.
-   *
-   * <p>Gets all Databricks log delivery configurations associated with an account specified by ID.
-   */
+  /** Gets all Databricks log delivery configurations associated with an account specified by ID. */
   WrappedLogDeliveryConfigurations list(ListLogDeliveryRequest listLogDeliveryRequest);
 
   /**
-   * Enable or disable log delivery configuration.
-   *
-   * <p>Enables or disables a log delivery configuration. Deletion of delivery configurations is not
+   * Enables or disables a log delivery configuration. Deletion of delivery configurations is not
    * supported, so disable log delivery configurations that are no longer needed. Note that you
    * can't re-enable a delivery configuration if this would violate the delivery configuration
    * limits described under [Create log delivery](:method:LogDelivery/Create).

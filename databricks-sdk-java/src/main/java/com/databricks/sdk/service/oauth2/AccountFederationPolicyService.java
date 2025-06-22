@@ -52,21 +52,17 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface AccountFederationPolicyService {
-  /** Create account federation policy. */
+
   FederationPolicy create(
       CreateAccountFederationPolicyRequest createAccountFederationPolicyRequest);
 
-  /** Delete account federation policy. */
   void delete(DeleteAccountFederationPolicyRequest deleteAccountFederationPolicyRequest);
 
-  /** Get account federation policy. */
   FederationPolicy get(GetAccountFederationPolicyRequest getAccountFederationPolicyRequest);
 
-  /** List account federation policies. */
   ListFederationPoliciesResponse list(
       ListAccountFederationPoliciesRequest listAccountFederationPoliciesRequest);
 
-  /** Update account federation policy. */
   FederationPolicy update(
       UpdateAccountFederationPolicyRequest updateAccountFederationPolicyRequest);
 }

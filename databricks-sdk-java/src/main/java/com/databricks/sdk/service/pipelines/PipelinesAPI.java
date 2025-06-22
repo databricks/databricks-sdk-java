@@ -90,9 +90,7 @@ public class PipelinesAPI {
   }
 
   /**
-   * Create a pipeline.
-   *
-   * <p>Creates a new data processing pipeline based on the requested configuration. If successful,
+   * Creates a new data processing pipeline based on the requested configuration. If successful,
    * this method returns the ID of the new pipeline.
    */
   public CreatePipelineResponse create(CreatePipeline request) {
@@ -104,9 +102,7 @@ public class PipelinesAPI {
   }
 
   /**
-   * Delete a pipeline.
-   *
-   * <p>Deletes a pipeline. Deleting a pipeline is a permanent action that stops and removes the
+   * Deletes a pipeline. Deleting a pipeline is a permanent action that stops and removes the
    * pipeline and its tables. You cannot undo this action.
    */
   public void delete(DeletePipelineRequest request) {
@@ -117,7 +113,6 @@ public class PipelinesAPI {
     return get(new GetPipelineRequest().setPipelineId(pipelineId));
   }
 
-  /** Get a pipeline. */
   public GetPipelineResponse get(GetPipelineRequest request) {
     return impl.get(request);
   }
@@ -126,11 +121,7 @@ public class PipelinesAPI {
     return getPermissionLevels(new GetPipelinePermissionLevelsRequest().setPipelineId(pipelineId));
   }
 
-  /**
-   * Get pipeline permission levels.
-   *
-   * <p>Gets the permission levels that a user can have on an object.
-   */
+  /** Gets the permission levels that a user can have on an object. */
   public GetPipelinePermissionLevelsResponse getPermissionLevels(
       GetPipelinePermissionLevelsRequest request) {
     return impl.getPermissionLevels(request);
@@ -141,10 +132,7 @@ public class PipelinesAPI {
   }
 
   /**
-   * Get pipeline permissions.
-   *
-   * <p>Gets the permissions of a pipeline. Pipelines can inherit permissions from their root
-   * object.
+   * Gets the permissions of a pipeline. Pipelines can inherit permissions from their root object.
    */
   public PipelinePermissions getPermissions(GetPipelinePermissionsRequest request) {
     return impl.getPermissions(request);
@@ -154,11 +142,7 @@ public class PipelinesAPI {
     return getUpdate(new GetUpdateRequest().setPipelineId(pipelineId).setUpdateId(updateId));
   }
 
-  /**
-   * Get a pipeline update.
-   *
-   * <p>Gets an update from an active pipeline.
-   */
+  /** Gets an update from an active pipeline. */
   public GetUpdateResponse getUpdate(GetUpdateRequest request) {
     return impl.getUpdate(request);
   }
@@ -167,11 +151,7 @@ public class PipelinesAPI {
     return listPipelineEvents(new ListPipelineEventsRequest().setPipelineId(pipelineId));
   }
 
-  /**
-   * List pipeline events.
-   *
-   * <p>Retrieves events for a pipeline.
-   */
+  /** Retrieves events for a pipeline. */
   public Iterable<PipelineEvent> listPipelineEvents(ListPipelineEventsRequest request) {
     return new Paginator<>(
         request,
@@ -186,11 +166,7 @@ public class PipelinesAPI {
         });
   }
 
-  /**
-   * List pipelines.
-   *
-   * <p>Lists pipelines defined in the Delta Live Tables system.
-   */
+  /** Lists pipelines defined in the Delta Live Tables system. */
   public Iterable<PipelineStateInfo> listPipelines(ListPipelinesRequest request) {
     return new Paginator<>(
         request,
@@ -209,11 +185,7 @@ public class PipelinesAPI {
     return listUpdates(new ListUpdatesRequest().setPipelineId(pipelineId));
   }
 
-  /**
-   * List pipeline updates.
-   *
-   * <p>List updates for an active pipeline.
-   */
+  /** List updates for an active pipeline. */
   public ListUpdatesResponse listUpdates(ListUpdatesRequest request) {
     return impl.listUpdates(request);
   }
@@ -223,11 +195,8 @@ public class PipelinesAPI {
   }
 
   /**
-   * Set pipeline permissions.
-   *
-   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
-   * direct permissions if none are specified. Objects can inherit permissions from their root
-   * object.
+   * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
+   * permissions if none are specified. Objects can inherit permissions from their root object.
    */
   public PipelinePermissions setPermissions(PipelinePermissionsRequest request) {
     return impl.setPermissions(request);
@@ -238,9 +207,7 @@ public class PipelinesAPI {
   }
 
   /**
-   * Start a pipeline.
-   *
-   * <p>Starts a new update for the pipeline. If there is already an active update for the pipeline,
+   * Starts a new update for the pipeline. If there is already an active update for the pipeline,
    * the request will fail and the active update will remain running.
    */
   public StartUpdateResponse startUpdate(StartUpdate request) {
@@ -252,9 +219,7 @@ public class PipelinesAPI {
   }
 
   /**
-   * Stop a pipeline.
-   *
-   * <p>Stops the pipeline by canceling the active update. If there is no active update for the
+   * Stops the pipeline by canceling the active update. If there is no active update for the
    * pipeline, this request is a no-op.
    */
   public Wait<GetPipelineResponse, Void> stop(StopRequest request) {
@@ -267,11 +232,7 @@ public class PipelinesAPI {
     update(new EditPipeline().setPipelineId(pipelineId));
   }
 
-  /**
-   * Edit a pipeline.
-   *
-   * <p>Updates a pipeline with the supplied configuration.
-   */
+  /** Updates a pipeline with the supplied configuration. */
   public void update(EditPipeline request) {
     impl.update(request);
   }
@@ -281,9 +242,7 @@ public class PipelinesAPI {
   }
 
   /**
-   * Update pipeline permissions.
-   *
-   * <p>Updates the permissions on a pipeline. Pipelines can inherit permissions from their root
+   * Updates the permissions on a pipeline. Pipelines can inherit permissions from their root
    * object.
    */
   public PipelinePermissions updatePermissions(PipelinePermissionsRequest request) {

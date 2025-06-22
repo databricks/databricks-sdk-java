@@ -13,7 +13,7 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface PermissionMigrationService {
-  /** Migrate Permissions. */
+
   MigratePermissionsResponse migratePermissions(
       MigratePermissionsRequest migratePermissionsRequest);
 }

@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** List table summaries */
 @Generated
 public class ListSummariesRequest {
   /** Name of parent catalog for tables of interest. */

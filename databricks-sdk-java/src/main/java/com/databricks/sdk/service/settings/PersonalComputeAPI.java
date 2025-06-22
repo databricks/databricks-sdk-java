@@ -32,20 +32,12 @@ public class PersonalComputeAPI {
     impl = mock;
   }
 
-  /**
-   * Delete Personal Compute setting.
-   *
-   * <p>Reverts back the Personal Compute setting value to default (ON)
-   */
+  /** Reverts back the Personal Compute setting value to default (ON) */
   public DeletePersonalComputeSettingResponse delete(DeletePersonalComputeSettingRequest request) {
     return impl.delete(request);
   }
 
-  /**
-   * Get Personal Compute setting.
-   *
-   * <p>Gets the value of the Personal Compute setting.
-   */
+  /** Gets the value of the Personal Compute setting. */
   public PersonalComputeSetting get(GetPersonalComputeSettingRequest request) {
     return impl.get(request);
   }
@@ -59,11 +51,7 @@ public class PersonalComputeAPI {
             .setFieldMask(fieldMask));
   }
 
-  /**
-   * Update Personal Compute setting.
-   *
-   * <p>Updates the value of the Personal Compute setting.
-   */
+  /** Updates the value of the Personal Compute setting. */
   public PersonalComputeSetting update(UpdatePersonalComputeSettingRequest request) {
     return impl.update(request);
   }

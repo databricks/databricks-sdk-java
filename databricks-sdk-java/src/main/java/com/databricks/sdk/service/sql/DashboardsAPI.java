@@ -34,7 +34,6 @@ public class DashboardsAPI {
     return create(new DashboardPostContent().setName(name));
   }
 
-  /** Create a dashboard object. */
   public Dashboard create(DashboardPostContent request) {
     return impl.create(request);
   }
@@ -44,10 +43,8 @@ public class DashboardsAPI {
   }
 
   /**
-   * Remove a dashboard.
-   *
-   * <p>Moves a dashboard to the trash. Trashed dashboards do not appear in list views or searches,
-   * and cannot be shared.
+   * Moves a dashboard to the trash. Trashed dashboards do not appear in list views or searches, and
+   * cannot be shared.
    */
   public void delete(DeleteDashboardRequest request) {
     impl.delete(request);
@@ -58,9 +55,7 @@ public class DashboardsAPI {
   }
 
   /**
-   * Retrieve a definition.
-   *
-   * <p>Returns a JSON representation of a dashboard object, including its visualization and query
+   * Returns a JSON representation of a dashboard object, including its visualization and query
    * objects.
    */
   public Dashboard get(GetDashboardRequest request) {
@@ -68,9 +63,7 @@ public class DashboardsAPI {
   }
 
   /**
-   * Get dashboard objects.
-   *
-   * <p>Fetch a paginated list of dashboard objects.
+   * Fetch a paginated list of dashboard objects.
    *
    * <p>**Warning**: Calling this API concurrently 10 or more times could result in throttling,
    * service degradation, or a temporary ban.
@@ -95,11 +88,7 @@ public class DashboardsAPI {
     restore(new RestoreDashboardRequest().setDashboardId(dashboardId));
   }
 
-  /**
-   * Restore a dashboard.
-   *
-   * <p>A restored dashboard appears in list views and searches and can be shared.
-   */
+  /** A restored dashboard appears in list views and searches and can be shared. */
   public void restore(RestoreDashboardRequest request) {
     impl.restore(request);
   }
@@ -109,9 +98,7 @@ public class DashboardsAPI {
   }
 
   /**
-   * Change a dashboard definition.
-   *
-   * <p>Modify this dashboard definition. This operation only affects attributes of the dashboard
+   * Modify this dashboard definition. This operation only affects attributes of the dashboard
    * object. It does not add, modify, or remove widgets.
    *
    * <p>**Note**: You cannot undo this operation.

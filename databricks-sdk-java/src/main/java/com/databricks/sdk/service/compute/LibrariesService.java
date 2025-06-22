@@ -27,38 +27,29 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface LibrariesService {
   /**
-   * Get all statuses.
-   *
-   * <p>Get the status of all libraries on all clusters. A status is returned for all libraries
+   * Get the status of all libraries on all clusters. A status is returned for all libraries
    * installed on this cluster via the API or the libraries UI.
    */
   ListAllClusterLibraryStatusesResponse allClusterStatuses();
 
   /**
-   * Get status.
-   *
-   * <p>Get the status of libraries on a cluster. A status is returned for all libraries installed
-   * on this cluster via the API or the libraries UI. The order of returned libraries is as follows:
-   * 1. Libraries set to be installed on this cluster, in the order that the libraries were added to
+   * Get the status of libraries on a cluster. A status is returned for all libraries installed on
+   * this cluster via the API or the libraries UI. The order of returned libraries is as follows: 1.
+   * Libraries set to be installed on this cluster, in the order that the libraries were added to
    * the cluster, are returned first. 2. Libraries that were previously requested to be installed on
    * this cluster or, but are now marked for removal, in no particular order, are returned last.
    */
   ClusterLibraryStatuses clusterStatus(ClusterStatus clusterStatus);
 
   /**
-   * Add a library.
-   *
-   * <p>Add libraries to install on a cluster. The installation is asynchronous; it happens in the
+   * Add libraries to install on a cluster. The installation is asynchronous; it happens in the
    * background after the completion of this request.
    */
   void install(InstallLibraries installLibraries);
 
   /**
-   * Uninstall libraries.
-   *
-   * <p>Set libraries to uninstall from a cluster. The libraries won't be uninstalled until the
-   * cluster is restarted. A request to uninstall a library that is not currently installed is
-   * ignored.
+   * Set libraries to uninstall from a cluster. The libraries won't be uninstalled until the cluster
+   * is restarted. A request to uninstall a library that is not currently installed is ignored.
    */
   void uninstall(UninstallLibraries uninstallLibraries);
 }

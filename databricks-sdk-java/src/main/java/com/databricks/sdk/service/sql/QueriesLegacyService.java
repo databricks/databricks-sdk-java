@@ -20,10 +20,8 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface QueriesLegacyService {
   /**
-   * Create a new query definition.
-   *
-   * <p>Creates a new query definition. Queries created with this endpoint belong to the
-   * authenticated user making the request.
+   * Creates a new query definition. Queries created with this endpoint belong to the authenticated
+   * user making the request.
    *
    * <p>The `data_source_id` field specifies the ID of the SQL warehouse to run this query against.
    * You can use the Data Sources API to see a complete list of available SQL warehouses. Or you can
@@ -39,10 +37,8 @@ public interface QueriesLegacyService {
   LegacyQuery create(QueryPostContent queryPostContent);
 
   /**
-   * Delete a query.
-   *
-   * <p>Moves a query to the trash. Trashed queries immediately disappear from searches and list
-   * views, and they cannot be used for alerts. The trash is deleted after 30 days.
+   * Moves a query to the trash. Trashed queries immediately disappear from searches and list views,
+   * and they cannot be used for alerts. The trash is deleted after 30 days.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
    * :method:queries/delete instead. [Learn more]
@@ -52,9 +48,7 @@ public interface QueriesLegacyService {
   void delete(DeleteQueriesLegacyRequest deleteQueriesLegacyRequest);
 
   /**
-   * Get a query definition.
-   *
-   * <p>Retrieve a query object definition along with contextual permissions information about the
+   * Retrieve a query object definition along with contextual permissions information about the
    * currently authenticated user.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
@@ -65,9 +59,7 @@ public interface QueriesLegacyService {
   LegacyQuery get(GetQueriesLegacyRequest getQueriesLegacyRequest);
 
   /**
-   * Get a list of queries.
-   *
-   * <p>Gets a list of queries. Optionally, this list can be filtered by a search term.
+   * Gets a list of queries. Optionally, this list can be filtered by a search term.
    *
    * <p>**Warning**: Calling this API concurrently 10 or more times could result in throttling,
    * service degradation, or a temporary ban.
@@ -80,9 +72,7 @@ public interface QueriesLegacyService {
   QueryList list(ListQueriesLegacyRequest listQueriesLegacyRequest);
 
   /**
-   * Restore a query.
-   *
-   * <p>Restore a query that has been moved to the trash. A restored query appears in list views and
+   * Restore a query that has been moved to the trash. A restored query appears in list views and
    * searches. You can use restored queries for alerts.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please see the latest
@@ -93,9 +83,7 @@ public interface QueriesLegacyService {
   void restore(RestoreQueriesLegacyRequest restoreQueriesLegacyRequest);
 
   /**
-   * Change a query definition.
-   *
-   * <p>Modify this query definition.
+   * Modify this query definition.
    *
    * <p>**Note**: You cannot undo this operation.
    *

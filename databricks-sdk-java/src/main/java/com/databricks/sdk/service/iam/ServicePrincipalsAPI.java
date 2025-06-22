@@ -30,11 +30,7 @@ public class ServicePrincipalsAPI {
     impl = mock;
   }
 
-  /**
-   * Create a service principal.
-   *
-   * <p>Creates a new service principal in the Databricks workspace.
-   */
+  /** Creates a new service principal in the Databricks workspace. */
   public ServicePrincipal create(ServicePrincipal request) {
     return impl.create(request);
   }
@@ -43,11 +39,7 @@ public class ServicePrincipalsAPI {
     delete(new DeleteServicePrincipalRequest().setId(id));
   }
 
-  /**
-   * Delete a service principal.
-   *
-   * <p>Delete a single service principal in the Databricks workspace.
-   */
+  /** Delete a single service principal in the Databricks workspace. */
   public void delete(DeleteServicePrincipalRequest request) {
     impl.delete(request);
   }
@@ -56,20 +48,12 @@ public class ServicePrincipalsAPI {
     return get(new GetServicePrincipalRequest().setId(id));
   }
 
-  /**
-   * Get service principal details.
-   *
-   * <p>Gets the details for a single service principal define in the Databricks workspace.
-   */
+  /** Gets the details for a single service principal define in the Databricks workspace. */
   public ServicePrincipal get(GetServicePrincipalRequest request) {
     return impl.get(request);
   }
 
-  /**
-   * List service principals.
-   *
-   * <p>Gets the set of service principals associated with a Databricks workspace.
-   */
+  /** Gets the set of service principals associated with a Databricks workspace. */
   public Iterable<ServicePrincipal> list(ListServicePrincipalsRequest request) {
     request.setStartIndex(1L);
     if (request.getCount() == null) {
@@ -94,11 +78,7 @@ public class ServicePrincipalsAPI {
     patch(new PartialUpdate().setId(id));
   }
 
-  /**
-   * Update service principal details.
-   *
-   * <p>Partially updates the details of a single service principal in the Databricks workspace.
-   */
+  /** Partially updates the details of a single service principal in the Databricks workspace. */
   public void patch(PartialUpdate request) {
     impl.patch(request);
   }
@@ -108,9 +88,7 @@ public class ServicePrincipalsAPI {
   }
 
   /**
-   * Replace service principal.
-   *
-   * <p>Updates the details of a single service principal.
+   * Updates the details of a single service principal.
    *
    * <p>This action replaces the existing service principal with the same name.
    */

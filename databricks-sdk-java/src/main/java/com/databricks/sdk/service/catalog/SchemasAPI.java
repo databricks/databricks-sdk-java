@@ -34,10 +34,8 @@ public class SchemasAPI {
   }
 
   /**
-   * Create a schema.
-   *
-   * <p>Creates a new schema for catalog in the Metatastore. The caller must be a metastore admin,
-   * or have the **CREATE_SCHEMA** privilege in the parent catalog.
+   * Creates a new schema for catalog in the Metatastore. The caller must be a metastore admin, or
+   * have the **CREATE_SCHEMA** privilege in the parent catalog.
    */
   public SchemaInfo create(CreateSchema request) {
     return impl.create(request);
@@ -48,9 +46,7 @@ public class SchemasAPI {
   }
 
   /**
-   * Delete a schema.
-   *
-   * <p>Deletes the specified schema from the parent catalog. The caller must be the owner of the
+   * Deletes the specified schema from the parent catalog. The caller must be the owner of the
    * schema or an owner of the parent catalog.
    */
   public void delete(DeleteSchemaRequest request) {
@@ -62,10 +58,8 @@ public class SchemasAPI {
   }
 
   /**
-   * Get a schema.
-   *
-   * <p>Gets the specified schema within the metastore. The caller must be a metastore admin, the
-   * owner of the schema, or a user that has the **USE_SCHEMA** privilege on the schema.
+   * Gets the specified schema within the metastore. The caller must be a metastore admin, the owner
+   * of the schema, or a user that has the **USE_SCHEMA** privilege on the schema.
    */
   public SchemaInfo get(GetSchemaRequest request) {
     return impl.get(request);
@@ -76,13 +70,10 @@ public class SchemasAPI {
   }
 
   /**
-   * List schemas.
-   *
-   * <p>Gets an array of schemas for a catalog in the metastore. If the caller is the metastore
-   * admin or the owner of the parent catalog, all schemas for the catalog will be retrieved.
-   * Otherwise, only schemas owned by the caller (or for which the caller has the **USE_SCHEMA**
-   * privilege) will be retrieved. There is no guarantee of a specific ordering of the elements in
-   * the array.
+   * Gets an array of schemas for a catalog in the metastore. If the caller is the metastore admin
+   * or the owner of the parent catalog, all schemas for the catalog will be retrieved. Otherwise,
+   * only schemas owned by the caller (or for which the caller has the **USE_SCHEMA** privilege)
+   * will be retrieved. There is no guarantee of a specific ordering of the elements in the array.
    */
   public Iterable<SchemaInfo> list(ListSchemasRequest request) {
     return new Paginator<>(
@@ -103,9 +94,7 @@ public class SchemasAPI {
   }
 
   /**
-   * Update a schema.
-   *
-   * <p>Updates a schema for a catalog. The caller must be the owner of the schema or a metastore
+   * Updates a schema for a catalog. The caller must be the owner of the schema or a metastore
    * admin. If the caller is a metastore admin, only the __owner__ field can be changed in the
    * update. If the __name__ field must be updated, the caller must be a metastore admin or have the
    * **CREATE_SCHEMA** privilege on the parent catalog.

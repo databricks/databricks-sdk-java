@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Collection;
 import java.util.Objects;
 
-/** List pipeline events */
 @Generated
 public class ListPipelineEventsRequest {
   /**

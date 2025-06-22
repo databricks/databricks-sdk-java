@@ -35,9 +35,7 @@ public class UsersAPI {
   }
 
   /**
-   * Create a new user.
-   *
-   * <p>Creates a new user in the Databricks workspace. This new user will also be added to the
+   * Creates a new user in the Databricks workspace. This new user will also be added to the
    * Databricks account.
    */
   public User create(User request) {
@@ -49,9 +47,7 @@ public class UsersAPI {
   }
 
   /**
-   * Delete a user.
-   *
-   * <p>Deletes a user. Deleting a user from a Databricks workspace also removes objects associated
+   * Deletes a user. Deleting a user from a Databricks workspace also removes objects associated
    * with the user.
    */
   public void delete(DeleteUserRequest request) {
@@ -62,39 +58,25 @@ public class UsersAPI {
     return get(new GetUserRequest().setId(id));
   }
 
-  /**
-   * Get user details.
-   *
-   * <p>Gets information for a specific user in Databricks workspace.
-   */
+  /** Gets information for a specific user in Databricks workspace. */
   public User get(GetUserRequest request) {
     return impl.get(request);
   }
 
-  /**
-   * Get password permission levels.
-   *
-   * <p>Gets the permission levels that a user can have on an object.
-   */
+  /** Gets the permission levels that a user can have on an object. */
   public GetPasswordPermissionLevelsResponse getPermissionLevels() {
     return impl.getPermissionLevels();
   }
 
   /**
-   * Get password permissions.
-   *
-   * <p>Gets the permissions of all passwords. Passwords can inherit permissions from their root
+   * Gets the permissions of all passwords. Passwords can inherit permissions from their root
    * object.
    */
   public PasswordPermissions getPermissions() {
     return impl.getPermissions();
   }
 
-  /**
-   * List users.
-   *
-   * <p>Gets details for all the users associated with a Databricks workspace.
-   */
+  /** Gets details for all the users associated with a Databricks workspace. */
   public Iterable<User> list(ListUsersRequest request) {
     request.setStartIndex(1L);
     if (request.getCount() == null) {
@@ -120,9 +102,7 @@ public class UsersAPI {
   }
 
   /**
-   * Update user details.
-   *
-   * <p>Partially updates a user resource by applying the supplied operations on specific user
+   * Partially updates a user resource by applying the supplied operations on specific user
    * attributes.
    */
   public void patch(PartialUpdate request) {
@@ -130,11 +110,8 @@ public class UsersAPI {
   }
 
   /**
-   * Set password permissions.
-   *
-   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
-   * direct permissions if none are specified. Objects can inherit permissions from their root
-   * object.
+   * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
+   * permissions if none are specified. Objects can inherit permissions from their root object.
    */
   public PasswordPermissions setPermissions(PasswordPermissionsRequest request) {
     return impl.setPermissions(request);
@@ -144,19 +121,13 @@ public class UsersAPI {
     update(new User().setId(id));
   }
 
-  /**
-   * Replace a user.
-   *
-   * <p>Replaces a user's information with the data supplied in request.
-   */
+  /** Replaces a user's information with the data supplied in request. */
   public void update(User request) {
     impl.update(request);
   }
 
   /**
-   * Update password permissions.
-   *
-   * <p>Updates the permissions on all passwords. Passwords can inherit permissions from their root
+   * Updates the permissions on all passwords. Passwords can inherit permissions from their root
    * object.
    */
   public PasswordPermissions updatePermissions(PasswordPermissionsRequest request) {

@@ -41,10 +41,8 @@ public class ExternalLocationsAPI {
   }
 
   /**
-   * Create an external location.
-   *
-   * <p>Creates a new external location entry in the metastore. The caller must be a metastore admin
-   * or have the **CREATE_EXTERNAL_LOCATION** privilege on both the metastore and the associated
+   * Creates a new external location entry in the metastore. The caller must be a metastore admin or
+   * have the **CREATE_EXTERNAL_LOCATION** privilege on both the metastore and the associated
    * storage credential.
    */
   public ExternalLocationInfo create(CreateExternalLocation request) {
@@ -56,10 +54,8 @@ public class ExternalLocationsAPI {
   }
 
   /**
-   * Delete an external location.
-   *
-   * <p>Deletes the specified external location from the metastore. The caller must be the owner of
-   * the external location.
+   * Deletes the specified external location from the metastore. The caller must be the owner of the
+   * external location.
    */
   public void delete(DeleteExternalLocationRequest request) {
     impl.delete(request);
@@ -70,21 +66,17 @@ public class ExternalLocationsAPI {
   }
 
   /**
-   * Get an external location.
-   *
-   * <p>Gets an external location from the metastore. The caller must be either a metastore admin,
-   * the owner of the external location, or a user that has some privilege on the external location.
+   * Gets an external location from the metastore. The caller must be either a metastore admin, the
+   * owner of the external location, or a user that has some privilege on the external location.
    */
   public ExternalLocationInfo get(GetExternalLocationRequest request) {
     return impl.get(request);
   }
 
   /**
-   * List external locations.
-   *
-   * <p>Gets an array of external locations (__ExternalLocationInfo__ objects) from the metastore.
-   * The caller must be a metastore admin, the owner of the external location, or a user that has
-   * some privilege on the external location. There is no guarantee of a specific ordering of the
+   * Gets an array of external locations (__ExternalLocationInfo__ objects) from the metastore. The
+   * caller must be a metastore admin, the owner of the external location, or a user that has some
+   * privilege on the external location. There is no guarantee of a specific ordering of the
    * elements in the array.
    */
   public Iterable<ExternalLocationInfo> list(ListExternalLocationsRequest request) {
@@ -106,9 +98,7 @@ public class ExternalLocationsAPI {
   }
 
   /**
-   * Update an external location.
-   *
-   * <p>Updates an external location in the metastore. The caller must be the owner of the external
+   * Updates an external location in the metastore. The caller must be the owner of the external
    * location, or be a metastore admin. In the second case, the admin can only update the name of
    * the external location.
    */

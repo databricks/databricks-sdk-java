@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete a table monitor */
 @Generated
 public class DeleteQualityMonitorRequest {
   /** Full name of the table. */

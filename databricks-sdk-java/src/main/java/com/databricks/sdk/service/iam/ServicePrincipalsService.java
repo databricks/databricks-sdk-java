@@ -16,45 +16,23 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface ServicePrincipalsService {
-  /**
-   * Create a service principal.
-   *
-   * <p>Creates a new service principal in the Databricks workspace.
-   */
+  /** Creates a new service principal in the Databricks workspace. */
   ServicePrincipal create(ServicePrincipal servicePrincipal);
 
-  /**
-   * Delete a service principal.
-   *
-   * <p>Delete a single service principal in the Databricks workspace.
-   */
+  /** Delete a single service principal in the Databricks workspace. */
   void delete(DeleteServicePrincipalRequest deleteServicePrincipalRequest);
 
-  /**
-   * Get service principal details.
-   *
-   * <p>Gets the details for a single service principal define in the Databricks workspace.
-   */
+  /** Gets the details for a single service principal define in the Databricks workspace. */
   ServicePrincipal get(GetServicePrincipalRequest getServicePrincipalRequest);
 
-  /**
-   * List service principals.
-   *
-   * <p>Gets the set of service principals associated with a Databricks workspace.
-   */
+  /** Gets the set of service principals associated with a Databricks workspace. */
   ListServicePrincipalResponse list(ListServicePrincipalsRequest listServicePrincipalsRequest);
 
-  /**
-   * Update service principal details.
-   *
-   * <p>Partially updates the details of a single service principal in the Databricks workspace.
-   */
+  /** Partially updates the details of a single service principal in the Databricks workspace. */
   void patch(PartialUpdate partialUpdate);
 
   /**
-   * Replace service principal.
-   *
-   * <p>Updates the details of a single service principal.
+   * Updates the details of a single service principal.
    *
    * <p>This action replaces the existing service principal with the same name.
    */

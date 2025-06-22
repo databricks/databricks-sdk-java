@@ -37,11 +37,7 @@ public class ConsumerPersonalizationRequestsAPI {
             .setAcceptedConsumerTerms(acceptedConsumerTerms));
   }
 
-  /**
-   * Create a personalization request.
-   *
-   * <p>Create a personalization request for a listing.
-   */
+  /** Create a personalization request for a listing. */
   public CreatePersonalizationRequestResponse create(CreatePersonalizationRequest request) {
     return impl.create(request);
   }
@@ -51,20 +47,14 @@ public class ConsumerPersonalizationRequestsAPI {
   }
 
   /**
-   * Get the personalization request for a listing.
-   *
-   * <p>Get the personalization request for a listing. Each consumer can make at *most* one
+   * Get the personalization request for a listing. Each consumer can make at *most* one
    * personalization request for a listing.
    */
   public GetPersonalizationRequestResponse get(GetPersonalizationRequestRequest request) {
     return impl.get(request);
   }
 
-  /**
-   * List all personalization requests.
-   *
-   * <p>List personalization requests for a consumer across all listings.
-   */
+  /** List personalization requests for a consumer across all listings. */
   public Iterable<PersonalizationRequest> list(ListAllPersonalizationRequestsRequest request) {
     return new Paginator<>(
         request,

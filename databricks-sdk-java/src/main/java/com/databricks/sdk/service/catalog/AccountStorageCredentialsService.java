@@ -13,9 +13,7 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface AccountStorageCredentialsService {
   /**
-   * Create a storage credential.
-   *
-   * <p>Creates a new storage credential. The request object is specific to the cloud:
+   * Creates a new storage credential. The request object is specific to the cloud:
    *
    * <p>* **AwsIamRole** for AWS credentials * **AzureServicePrincipal** for Azure credentials *
    * **GcpServiceAcountKey** for GCP credentials.
@@ -27,34 +25,24 @@ public interface AccountStorageCredentialsService {
       AccountsCreateStorageCredential accountsCreateStorageCredential);
 
   /**
-   * Delete a storage credential.
-   *
-   * <p>Deletes a storage credential from the metastore. The caller must be an owner of the storage
+   * Deletes a storage credential from the metastore. The caller must be an owner of the storage
    * credential.
    */
   void delete(DeleteAccountStorageCredentialRequest deleteAccountStorageCredentialRequest);
 
   /**
-   * Gets the named storage credential.
-   *
-   * <p>Gets a storage credential from the metastore. The caller must be a metastore admin, the
-   * owner of the storage credential, or have a level of privilege on the storage credential.
+   * Gets a storage credential from the metastore. The caller must be a metastore admin, the owner
+   * of the storage credential, or have a level of privilege on the storage credential.
    */
   AccountsStorageCredentialInfo get(
       GetAccountStorageCredentialRequest getAccountStorageCredentialRequest);
 
-  /**
-   * Get all storage credentials assigned to a metastore.
-   *
-   * <p>Gets a list of all storage credentials that have been assigned to given metastore.
-   */
+  /** Gets a list of all storage credentials that have been assigned to given metastore. */
   ListAccountStorageCredentialsResponse list(
       ListAccountStorageCredentialsRequest listAccountStorageCredentialsRequest);
 
   /**
-   * Updates a storage credential.
-   *
-   * <p>Updates a storage credential on the metastore. The caller must be the owner of the storage
+   * Updates a storage credential on the metastore. The caller must be the owner of the storage
    * credential. If the caller is a metastore admin, only the __owner__ credential can be changed.
    */
   AccountsStorageCredentialInfo update(

@@ -70,7 +70,6 @@ public class AccountFederationPolicyAPI {
     return create(new CreateAccountFederationPolicyRequest().setPolicy(policy));
   }
 
-  /** Create account federation policy. */
   public FederationPolicy create(CreateAccountFederationPolicyRequest request) {
     return impl.create(request);
   }
@@ -79,7 +78,6 @@ public class AccountFederationPolicyAPI {
     delete(new DeleteAccountFederationPolicyRequest().setPolicyId(policyId));
   }
 
-  /** Delete account federation policy. */
   public void delete(DeleteAccountFederationPolicyRequest request) {
     impl.delete(request);
   }
@@ -88,12 +86,10 @@ public class AccountFederationPolicyAPI {
     return get(new GetAccountFederationPolicyRequest().setPolicyId(policyId));
   }
 
-  /** Get account federation policy. */
   public FederationPolicy get(GetAccountFederationPolicyRequest request) {
     return impl.get(request);
   }
 
-  /** List account federation policies. */
   public Iterable<FederationPolicy> list(ListAccountFederationPoliciesRequest request) {
     return new Paginator<>(
         request,
@@ -113,7 +109,6 @@ public class AccountFederationPolicyAPI {
         new UpdateAccountFederationPolicyRequest().setPolicyId(policyId).setPolicy(policy));
   }
 
-  /** Update account federation policy. */
   public FederationPolicy update(UpdateAccountFederationPolicyRequest request) {
     return impl.update(request);
   }

@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Collection;
 import java.util.Objects;
 
-/** List listings */
 @Generated
 public class ListListingsRequest {
   /** Matches any of the following asset types */

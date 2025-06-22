@@ -28,20 +28,12 @@ public class WorkspaceConfAPI {
     return getStatus(new GetStatusRequest().setKeys(keys));
   }
 
-  /**
-   * Check configuration status.
-   *
-   * <p>Gets the configuration status for a workspace.
-   */
+  /** Gets the configuration status for a workspace. */
   public Map<String, String> getStatus(GetStatusRequest request) {
     return impl.getStatus(request);
   }
 
-  /**
-   * Enable/disable features.
-   *
-   * <p>Sets the configuration status for a workspace, including enabling or disabling it.
-   */
+  /** Sets the configuration status for a workspace, including enabling or disabling it. */
   public void setStatus(Map<String, String> request) {
     impl.setStatus(request);
   }

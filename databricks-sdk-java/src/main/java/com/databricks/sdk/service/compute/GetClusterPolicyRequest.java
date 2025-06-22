@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get a cluster policy */
 @Generated
 public class GetClusterPolicyRequest {
   /** Canonical unique identifier for the Cluster Policy. */

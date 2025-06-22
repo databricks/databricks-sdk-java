@@ -15,50 +15,30 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface QueriesService {
-  /**
-   * Create a query.
-   *
-   * <p>Creates a query.
-   */
+  /** Creates a query. */
   Query create(CreateQueryRequest createQueryRequest);
 
   /**
-   * Delete a query.
-   *
-   * <p>Moves a query to the trash. Trashed queries immediately disappear from searches and list
-   * views, and cannot be used for alerts. You can restore a trashed query through the UI. A trashed
-   * query is permanently deleted after 30 days.
+   * Moves a query to the trash. Trashed queries immediately disappear from searches and list views,
+   * and cannot be used for alerts. You can restore a trashed query through the UI. A trashed query
+   * is permanently deleted after 30 days.
    */
   void delete(TrashQueryRequest trashQueryRequest);
 
-  /**
-   * Get a query.
-   *
-   * <p>Gets a query.
-   */
+  /** Gets a query. */
   Query get(GetQueryRequest getQueryRequest);
 
   /**
-   * List queries.
-   *
-   * <p>Gets a list of queries accessible to the user, ordered by creation time. **Warning:**
-   * Calling this API concurrently 10 or more times could result in throttling, service degradation,
-   * or a temporary ban.
+   * Gets a list of queries accessible to the user, ordered by creation time. **Warning:** Calling
+   * this API concurrently 10 or more times could result in throttling, service degradation, or a
+   * temporary ban.
    */
   ListQueryObjectsResponse list(ListQueriesRequest listQueriesRequest);
 
-  /**
-   * List visualizations on a query.
-   *
-   * <p>Gets a list of visualizations on a query.
-   */
+  /** Gets a list of visualizations on a query. */
   ListVisualizationsForQueryResponse listVisualizations(
       ListVisualizationsForQueryRequest listVisualizationsForQueryRequest);
 
-  /**
-   * Update a query.
-   *
-   * <p>Updates a query.
-   */
+  /** Updates a query. */
   Query update(UpdateQueryRequest updateQueryRequest);
 }

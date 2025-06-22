@@ -206,9 +206,7 @@ public class CommandExecutionAPI {
   }
 
   /**
-   * Cancel a command.
-   *
-   * <p>Cancels a currently running command within an execution context.
+   * Cancels a currently running command within an execution context.
    *
    * <p>The command ID is obtained from a prior successful call to __execute__.
    */
@@ -233,9 +231,7 @@ public class CommandExecutionAPI {
   }
 
   /**
-   * Get command info.
-   *
-   * <p>Gets the status of and, if available, the results from a currently executing command.
+   * Gets the status of and, if available, the results from a currently executing command.
    *
    * <p>The command ID is obtained from a prior successful call to __execute__.
    */
@@ -248,19 +244,13 @@ public class CommandExecutionAPI {
         new ContextStatusRequest().setClusterId(clusterId).setContextId(contextId));
   }
 
-  /**
-   * Get status.
-   *
-   * <p>Gets the status for an execution context.
-   */
+  /** Gets the status for an execution context. */
   public ContextStatusResponse contextStatus(ContextStatusRequest request) {
     return impl.contextStatus(request);
   }
 
   /**
-   * Create an execution context.
-   *
-   * <p>Creates an execution context for running cluster commands.
+   * Creates an execution context for running cluster commands.
    *
    * <p>If successful, this method returns the ID of the new execution context.
    */
@@ -277,19 +267,13 @@ public class CommandExecutionAPI {
     destroy(new DestroyContext().setClusterId(clusterId).setContextId(contextId));
   }
 
-  /**
-   * Delete an execution context.
-   *
-   * <p>Deletes an execution context.
-   */
+  /** Deletes an execution context. */
   public void destroy(DestroyContext request) {
     impl.destroy(request);
   }
 
   /**
-   * Run a command.
-   *
-   * <p>Runs a cluster command in the given execution context, using the provided language.
+   * Runs a cluster command in the given execution context, using the provided language.
    *
    * <p>If successful, it returns an ID for tracking the status of the command's execution.
    */

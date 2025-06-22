@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete a metastore assignment */
 @Generated
 public class DeleteAccountMetastoreAssignmentRequest {
   /** Unity Catalog metastore ID */

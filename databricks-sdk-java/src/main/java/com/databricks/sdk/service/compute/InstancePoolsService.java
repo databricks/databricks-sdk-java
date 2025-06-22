@@ -26,74 +26,45 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface InstancePoolsService {
-  /**
-   * Create a new instance pool.
-   *
-   * <p>Creates a new instance pool using idle and ready-to-use cloud instances.
-   */
+  /** Creates a new instance pool using idle and ready-to-use cloud instances. */
   CreateInstancePoolResponse create(CreateInstancePool createInstancePool);
 
   /**
-   * Delete an instance pool.
-   *
-   * <p>Deletes the instance pool permanently. The idle instances in the pool are terminated
+   * Deletes the instance pool permanently. The idle instances in the pool are terminated
    * asynchronously.
    */
   void delete(DeleteInstancePool deleteInstancePool);
 
-  /**
-   * Edit an existing instance pool.
-   *
-   * <p>Modifies the configuration of an existing instance pool.
-   */
+  /** Modifies the configuration of an existing instance pool. */
   void edit(EditInstancePool editInstancePool);
 
-  /**
-   * Get instance pool information.
-   *
-   * <p>Retrieve the information for an instance pool based on its identifier.
-   */
+  /** Retrieve the information for an instance pool based on its identifier. */
   GetInstancePool get(GetInstancePoolRequest getInstancePoolRequest);
 
-  /**
-   * Get instance pool permission levels.
-   *
-   * <p>Gets the permission levels that a user can have on an object.
-   */
+  /** Gets the permission levels that a user can have on an object. */
   GetInstancePoolPermissionLevelsResponse getPermissionLevels(
       GetInstancePoolPermissionLevelsRequest getInstancePoolPermissionLevelsRequest);
 
   /**
-   * Get instance pool permissions.
-   *
-   * <p>Gets the permissions of an instance pool. Instance pools can inherit permissions from their
+   * Gets the permissions of an instance pool. Instance pools can inherit permissions from their
    * root object.
    */
   InstancePoolPermissions getPermissions(
       GetInstancePoolPermissionsRequest getInstancePoolPermissionsRequest);
 
-  /**
-   * List instance pool info.
-   *
-   * <p>Gets a list of instance pools with their statistics.
-   */
+  /** Gets a list of instance pools with their statistics. */
   ListInstancePools list();
 
   /**
-   * Set instance pool permissions.
-   *
-   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
-   * direct permissions if none are specified. Objects can inherit permissions from their root
-   * object.
+   * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
+   * permissions if none are specified. Objects can inherit permissions from their root object.
    */
   InstancePoolPermissions setPermissions(
       InstancePoolPermissionsRequest instancePoolPermissionsRequest);
 
   /**
-   * Update instance pool permissions.
-   *
-   * <p>Updates the permissions on an instance pool. Instance pools can inherit permissions from
-   * their root object.
+   * Updates the permissions on an instance pool. Instance pools can inherit permissions from their
+   * root object.
    */
   InstancePoolPermissions updatePermissions(
       InstancePoolPermissionsRequest instancePoolPermissionsRequest);

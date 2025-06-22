@@ -13,24 +13,12 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface QueryVisualizationsService {
-  /**
-   * Add a visualization to a query.
-   *
-   * <p>Adds a visualization to a query.
-   */
+  /** Adds a visualization to a query. */
   Visualization create(CreateVisualizationRequest createVisualizationRequest);
 
-  /**
-   * Remove a visualization.
-   *
-   * <p>Removes a visualization.
-   */
+  /** Removes a visualization. */
   void delete(DeleteVisualizationRequest deleteVisualizationRequest);
 
-  /**
-   * Update a visualization.
-   *
-   * <p>Updates a visualization.
-   */
+  /** Updates a visualization. */
   Visualization update(UpdateVisualizationRequest updateVisualizationRequest);
 }

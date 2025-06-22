@@ -32,7 +32,6 @@ public class ServingEndpointsDataPlaneAPI {
     return query(new QueryEndpointInput().setName(name));
   }
 
-  /** Query a serving endpoint. */
   public QueryEndpointResponse query(QueryEndpointInput request) {
     return impl.query(request);
   }

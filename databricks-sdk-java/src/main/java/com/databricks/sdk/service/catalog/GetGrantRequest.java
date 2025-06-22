@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get permissions */
 @Generated
 public class GetGrantRequest {
   /** Full name of securable. */

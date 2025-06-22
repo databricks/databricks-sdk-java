@@ -36,35 +36,25 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface PermissionsService {
   /**
-   * Get object permissions.
-   *
-   * <p>Gets the permissions of an object. Objects can inherit permissions from their parent objects
-   * or root object.
+   * Gets the permissions of an object. Objects can inherit permissions from their parent objects or
+   * root object.
    */
   ObjectPermissions get(GetPermissionRequest getPermissionRequest);
 
-  /**
-   * Get object permission levels.
-   *
-   * <p>Gets the permission levels that a user can have on an object.
-   */
+  /** Gets the permission levels that a user can have on an object. */
   GetPermissionLevelsResponse getPermissionLevels(
       GetPermissionLevelsRequest getPermissionLevelsRequest);
 
   /**
-   * Set object permissions.
-   *
-   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
-   * direct permissions if none are specified. Objects can inherit permissions from their parent
-   * objects or root object.
+   * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
+   * permissions if none are specified. Objects can inherit permissions from their parent objects or
+   * root object.
    */
   ObjectPermissions set(SetObjectPermissions setObjectPermissions);
 
   /**
-   * Update object permissions.
-   *
-   * <p>Updates the permissions on an object. Objects can inherit permissions from their parent
-   * objects or root object.
+   * Updates the permissions on an object. Objects can inherit permissions from their parent objects
+   * or root object.
    */
   ObjectPermissions update(UpdateObjectPermissions updateObjectPermissions);
 }

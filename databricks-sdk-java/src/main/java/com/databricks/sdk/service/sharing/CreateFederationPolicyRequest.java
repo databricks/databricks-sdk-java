@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Create recipient federation policy */
 @Generated
 public class CreateFederationPolicyRequest {
   /** */

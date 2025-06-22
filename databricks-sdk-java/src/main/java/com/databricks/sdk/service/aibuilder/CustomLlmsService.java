@@ -12,15 +12,12 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface CustomLlmsService {
-  /** Cancel a Custom LLM Optimization Run. */
+
   void cancel(CancelCustomLlmOptimizationRunRequest cancelCustomLlmOptimizationRunRequest);
 
-  /** Start a Custom LLM Optimization Run. */
   CustomLlm create(StartCustomLlmOptimizationRunRequest startCustomLlmOptimizationRunRequest);
 
-  /** Get a Custom LLM. */
   CustomLlm get(GetCustomLlmRequest getCustomLlmRequest);
 
-  /** Update a Custom LLM. */
   CustomLlm update(UpdateCustomLlmRequest updateCustomLlmRequest);
 }

@@ -32,26 +32,17 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface FilesService {
   /**
-   * Create a directory.
-   *
-   * <p>Creates an empty directory. If necessary, also creates any parent directories of the new,
-   * empty directory (like the shell command `mkdir -p`). If called on an existing directory,
-   * returns a success response; this method is idempotent (it will succeed if the directory already
-   * exists).
+   * Creates an empty directory. If necessary, also creates any parent directories of the new, empty
+   * directory (like the shell command `mkdir -p`). If called on an existing directory, returns a
+   * success response; this method is idempotent (it will succeed if the directory already exists).
    */
   void createDirectory(CreateDirectoryRequest createDirectoryRequest);
 
-  /**
-   * Delete a file.
-   *
-   * <p>Deletes a file. If the request is successful, there is no response body.
-   */
+  /** Deletes a file. If the request is successful, there is no response body. */
   void delete(DeleteFileRequest deleteFileRequest);
 
   /**
-   * Delete a directory.
-   *
-   * <p>Deletes an empty directory.
+   * Deletes an empty directory.
    *
    * <p>To delete a non-empty directory, first delete all of its contents. This can be done by
    * listing the directory contents and deleting each file and subdirectory recursively.
@@ -59,17 +50,13 @@ public interface FilesService {
   void deleteDirectory(DeleteDirectoryRequest deleteDirectoryRequest);
 
   /**
-   * Download a file.
-   *
-   * <p>Downloads a file. The file contents are the response body. This is a standard HTTP file
+   * Downloads a file. The file contents are the response body. This is a standard HTTP file
    * download, not a JSON RPC. It supports the Range and If-Unmodified-Since HTTP headers.
    */
   DownloadResponse download(DownloadRequest downloadRequest);
 
   /**
-   * Get directory metadata.
-   *
-   * <p>Get the metadata of a directory. The response HTTP headers contain the metadata. There is no
+   * Get the metadata of a directory. The response HTTP headers contain the metadata. There is no
    * response body.
    *
    * <p>This method is useful to check if a directory exists and the caller has access to it.
@@ -81,26 +68,20 @@ public interface FilesService {
   void getDirectoryMetadata(GetDirectoryMetadataRequest getDirectoryMetadataRequest);
 
   /**
-   * Get file metadata.
-   *
-   * <p>Get the metadata of a file. The response HTTP headers contain the metadata. There is no
+   * Get the metadata of a file. The response HTTP headers contain the metadata. There is no
    * response body.
    */
   GetMetadataResponse getMetadata(GetMetadataRequest getMetadataRequest);
 
   /**
-   * List directory contents.
-   *
-   * <p>Returns the contents of a directory. If there is no directory at the specified path, the API
+   * Returns the contents of a directory. If there is no directory at the specified path, the API
    * returns a HTTP 404 error.
    */
   ListDirectoryResponse listDirectoryContents(
       ListDirectoryContentsRequest listDirectoryContentsRequest);
 
   /**
-   * Upload a file.
-   *
-   * <p>Uploads a file of up to 5 GiB. The file contents should be sent as the request body as raw
+   * Uploads a file of up to 5 GiB. The file contents should be sent as the request body as raw
    * bytes (an octet stream); do not encode or otherwise modify the bytes before sending. The
    * contents of the resulting file will be exactly the bytes sent in the request body. If the
    * request is successful, there is no response body.

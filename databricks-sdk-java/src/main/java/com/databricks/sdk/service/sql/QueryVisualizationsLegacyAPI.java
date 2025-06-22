@@ -40,9 +40,7 @@ public class QueryVisualizationsLegacyAPI {
   }
 
   /**
-   * Add visualization to a query.
-   *
-   * <p>Creates visualization in the query.
+   * Creates visualization in the query.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
    * :method:queryvisualizations/create instead. [Learn more]
@@ -58,9 +56,7 @@ public class QueryVisualizationsLegacyAPI {
   }
 
   /**
-   * Remove visualization.
-   *
-   * <p>Removes a visualization from the query.
+   * Removes a visualization from the query.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
    * :method:queryvisualizations/delete instead. [Learn more]
@@ -76,9 +72,7 @@ public class QueryVisualizationsLegacyAPI {
   }
 
   /**
-   * Edit existing visualization.
-   *
-   * <p>Updates visualization in the query.
+   * Updates visualization in the query.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
    * :method:queryvisualizations/update instead. [Learn more]

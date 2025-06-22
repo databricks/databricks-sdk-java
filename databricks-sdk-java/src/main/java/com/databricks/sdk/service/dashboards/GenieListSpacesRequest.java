@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** List Genie spaces */
 @Generated
 public class GenieListSpacesRequest {
   /** Maximum number of spaces to return per page */

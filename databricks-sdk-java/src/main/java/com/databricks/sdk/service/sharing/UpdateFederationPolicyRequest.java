@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Update recipient federation policy */
 @Generated
 public class UpdateFederationPolicyRequest {
   /** Name of the policy. This is the name of the current name of the policy. */

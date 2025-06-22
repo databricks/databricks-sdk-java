@@ -38,9 +38,7 @@ public class StorageAPI {
   }
 
   /**
-   * Create new storage configuration.
-   *
-   * <p>Creates new storage configuration for an account, specified by ID. Uploads a storage
+   * Creates new storage configuration for an account, specified by ID. Uploads a storage
    * configuration object that represents the root AWS S3 bucket in your account. Databricks stores
    * related workspace assets including DBFS, cluster logs, and job results. For the AWS S3 bucket,
    * you need to configure the required bucket policy.
@@ -60,10 +58,8 @@ public class StorageAPI {
   }
 
   /**
-   * Delete storage configuration.
-   *
-   * <p>Deletes a Databricks storage configuration. You cannot delete a storage configuration that
-   * is associated with any workspace.
+   * Deletes a Databricks storage configuration. You cannot delete a storage configuration that is
+   * associated with any workspace.
    */
   public void delete(DeleteStorageRequest request) {
     impl.delete(request);
@@ -73,20 +69,12 @@ public class StorageAPI {
     return get(new GetStorageRequest().setStorageConfigurationId(storageConfigurationId));
   }
 
-  /**
-   * Get storage configuration.
-   *
-   * <p>Gets a Databricks storage configuration for an account, both specified by ID.
-   */
+  /** Gets a Databricks storage configuration for an account, both specified by ID. */
   public StorageConfiguration get(GetStorageRequest request) {
     return impl.get(request);
   }
 
-  /**
-   * Get all storage configurations.
-   *
-   * <p>Gets a list of all Databricks storage configurations for your account, specified by ID.
-   */
+  /** Gets a list of all Databricks storage configurations for your account, specified by ID. */
   public Iterable<StorageConfiguration> list() {
     return impl.list();
   }

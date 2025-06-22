@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** List schemas */
 @Generated
 public class ListSchemasRequest {
   /** Parent catalog for schemas of interest. */

@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete the account IP access toggle setting */
 @Generated
 public class DeleteAccountIpAccessEnableRequest {
   /**

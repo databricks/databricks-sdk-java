@@ -31,11 +31,7 @@ public class TokenManagementAPI {
     return createOboToken(new CreateOboTokenRequest().setApplicationId(applicationId));
   }
 
-  /**
-   * Create on-behalf token.
-   *
-   * <p>Creates a token on behalf of a service principal.
-   */
+  /** Creates a token on behalf of a service principal. */
   public CreateOboTokenResponse createOboToken(CreateOboTokenRequest request) {
     return impl.createOboToken(request);
   }
@@ -44,11 +40,7 @@ public class TokenManagementAPI {
     delete(new DeleteTokenManagementRequest().setTokenId(tokenId));
   }
 
-  /**
-   * Delete a token.
-   *
-   * <p>Deletes a token, specified by its ID.
-   */
+  /** Deletes a token, specified by its ID. */
   public void delete(DeleteTokenManagementRequest request) {
     impl.delete(request);
   }
@@ -57,59 +49,37 @@ public class TokenManagementAPI {
     return get(new GetTokenManagementRequest().setTokenId(tokenId));
   }
 
-  /**
-   * Get token info.
-   *
-   * <p>Gets information about a token, specified by its ID.
-   */
+  /** Gets information about a token, specified by its ID. */
   public GetTokenResponse get(GetTokenManagementRequest request) {
     return impl.get(request);
   }
 
-  /**
-   * Get token permission levels.
-   *
-   * <p>Gets the permission levels that a user can have on an object.
-   */
+  /** Gets the permission levels that a user can have on an object. */
   public GetTokenPermissionLevelsResponse getPermissionLevels() {
     return impl.getPermissionLevels();
   }
 
-  /**
-   * Get token permissions.
-   *
-   * <p>Gets the permissions of all tokens. Tokens can inherit permissions from their root object.
-   */
+  /** Gets the permissions of all tokens. Tokens can inherit permissions from their root object. */
   public TokenPermissions getPermissions() {
     return impl.getPermissions();
   }
 
-  /**
-   * List all tokens.
-   *
-   * <p>Lists all tokens associated with the specified workspace or user.
-   */
+  /** Lists all tokens associated with the specified workspace or user. */
   public Iterable<TokenInfo> list(ListTokenManagementRequest request) {
     return new Paginator<>(
         request, impl::list, ListTokensResponse::getTokenInfos, response -> null);
   }
 
   /**
-   * Set token permissions.
-   *
-   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
-   * direct permissions if none are specified. Objects can inherit permissions from their root
-   * object.
+   * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
+   * permissions if none are specified. Objects can inherit permissions from their root object.
    */
   public TokenPermissions setPermissions(TokenPermissionsRequest request) {
     return impl.setPermissions(request);
   }
 
   /**
-   * Update token permissions.
-   *
-   * <p>Updates the permissions on all tokens. Tokens can inherit permissions from their root
-   * object.
+   * Updates the permissions on all tokens. Tokens can inherit permissions from their root object.
    */
   public TokenPermissions updatePermissions(TokenPermissionsRequest request) {
     return impl.updatePermissions(request);

@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete the restrict workspace admins setting */
 @Generated
 public class DeleteRestrictWorkspaceAdminsSettingRequest {
   /**

@@ -24,11 +24,7 @@ public class BudgetPolicyAPI {
     impl = mock;
   }
 
-  /**
-   * Create a budget policy.
-   *
-   * <p>Creates a new policy.
-   */
+  /** Creates a new policy. */
   public BudgetPolicy create(CreateBudgetPolicyRequest request) {
     return impl.create(request);
   }
@@ -37,11 +33,7 @@ public class BudgetPolicyAPI {
     delete(new DeleteBudgetPolicyRequest().setPolicyId(policyId));
   }
 
-  /**
-   * Delete a budget policy.
-   *
-   * <p>Deletes a policy
-   */
+  /** Deletes a policy */
   public void delete(DeleteBudgetPolicyRequest request) {
     impl.delete(request);
   }
@@ -50,20 +42,13 @@ public class BudgetPolicyAPI {
     return get(new GetBudgetPolicyRequest().setPolicyId(policyId));
   }
 
-  /**
-   * Get a budget policy.
-   *
-   * <p>Retrieves a policy by it's ID.
-   */
+  /** Retrieves a policy by it's ID. */
   public BudgetPolicy get(GetBudgetPolicyRequest request) {
     return impl.get(request);
   }
 
   /**
-   * List policies.
-   *
-   * <p>Lists all policies. Policies are returned in the alphabetically ascending order of their
-   * names.
+   * Lists all policies. Policies are returned in the alphabetically ascending order of their names.
    */
   public Iterable<BudgetPolicy> list(ListBudgetPoliciesRequest request) {
     return new Paginator<>(
@@ -83,11 +68,7 @@ public class BudgetPolicyAPI {
     return update(new UpdateBudgetPolicyRequest().setPolicyId(policyId).setPolicy(policy));
   }
 
-  /**
-   * Update a budget policy.
-   *
-   * <p>Updates a policy
-   */
+  /** Updates a policy */
   public BudgetPolicy update(UpdateBudgetPolicyRequest request) {
     return impl.update(request);
   }

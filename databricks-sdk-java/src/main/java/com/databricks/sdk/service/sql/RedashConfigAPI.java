@@ -23,7 +23,6 @@ public class RedashConfigAPI {
     impl = mock;
   }
 
-  /** Read workspace configuration for Redash-v2. */
   public ClientConfig getConfig() {
     return impl.getConfig();
   }

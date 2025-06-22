@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get serving endpoint permissions */
 @Generated
 public class GetServingEndpointPermissionsRequest {
   /** The serving endpoint for which to get or manage permissions. */

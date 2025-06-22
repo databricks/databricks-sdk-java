@@ -31,11 +31,7 @@ public class LakeviewAPI {
     return create(new CreateDashboardRequest().setDashboard(dashboard));
   }
 
-  /**
-   * Create dashboard.
-   *
-   * <p>Create a draft dashboard.
-   */
+  /** Create a draft dashboard. */
   public Dashboard create(CreateDashboardRequest request) {
     return impl.create(request);
   }
@@ -45,7 +41,6 @@ public class LakeviewAPI {
         new CreateScheduleRequest().setDashboardId(dashboardId).setSchedule(schedule));
   }
 
-  /** Create dashboard schedule. */
   public Schedule createSchedule(CreateScheduleRequest request) {
     return impl.createSchedule(request);
   }
@@ -59,7 +54,6 @@ public class LakeviewAPI {
             .setSubscription(subscription));
   }
 
-  /** Create schedule subscription. */
   public Subscription createSubscription(CreateSubscriptionRequest request) {
     return impl.createSubscription(request);
   }
@@ -69,7 +63,6 @@ public class LakeviewAPI {
         new DeleteScheduleRequest().setDashboardId(dashboardId).setScheduleId(scheduleId));
   }
 
-  /** Delete dashboard schedule. */
   public void deleteSchedule(DeleteScheduleRequest request) {
     impl.deleteSchedule(request);
   }
@@ -82,7 +75,6 @@ public class LakeviewAPI {
             .setSubscriptionId(subscriptionId));
   }
 
-  /** Delete schedule subscription. */
   public void deleteSubscription(DeleteSubscriptionRequest request) {
     impl.deleteSubscription(request);
   }
@@ -91,11 +83,7 @@ public class LakeviewAPI {
     return get(new GetDashboardRequest().setDashboardId(dashboardId));
   }
 
-  /**
-   * Get dashboard.
-   *
-   * <p>Get a draft dashboard.
-   */
+  /** Get a draft dashboard. */
   public Dashboard get(GetDashboardRequest request) {
     return impl.get(request);
   }
@@ -104,11 +92,7 @@ public class LakeviewAPI {
     return getPublished(new GetPublishedDashboardRequest().setDashboardId(dashboardId));
   }
 
-  /**
-   * Get published dashboard.
-   *
-   * <p>Get the current published dashboard.
-   */
+  /** Get the current published dashboard. */
   public PublishedDashboard getPublished(GetPublishedDashboardRequest request) {
     return impl.getPublished(request);
   }
@@ -118,7 +102,6 @@ public class LakeviewAPI {
         new GetScheduleRequest().setDashboardId(dashboardId).setScheduleId(scheduleId));
   }
 
-  /** Get dashboard schedule. */
   public Schedule getSchedule(GetScheduleRequest request) {
     return impl.getSchedule(request);
   }
@@ -132,12 +115,10 @@ public class LakeviewAPI {
             .setSubscriptionId(subscriptionId));
   }
 
-  /** Get schedule subscription. */
   public Subscription getSubscription(GetSubscriptionRequest request) {
     return impl.getSubscription(request);
   }
 
-  /** List dashboards. */
   public Iterable<Dashboard> list(ListDashboardsRequest request) {
     return new Paginator<>(
         request,
@@ -156,7 +137,6 @@ public class LakeviewAPI {
     return listSchedules(new ListSchedulesRequest().setDashboardId(dashboardId));
   }
 
-  /** List dashboard schedules. */
   public Iterable<Schedule> listSchedules(ListSchedulesRequest request) {
     return new Paginator<>(
         request,
@@ -176,7 +156,6 @@ public class LakeviewAPI {
         new ListSubscriptionsRequest().setDashboardId(dashboardId).setScheduleId(scheduleId));
   }
 
-  /** List schedule subscriptions. */
   public Iterable<Subscription> listSubscriptions(ListSubscriptionsRequest request) {
     return new Paginator<>(
         request,
@@ -195,11 +174,7 @@ public class LakeviewAPI {
     return migrate(new MigrateDashboardRequest().setSourceDashboardId(sourceDashboardId));
   }
 
-  /**
-   * Migrate dashboard.
-   *
-   * <p>Migrates a classic SQL dashboard to Lakeview.
-   */
+  /** Migrates a classic SQL dashboard to Lakeview. */
   public Dashboard migrate(MigrateDashboardRequest request) {
     return impl.migrate(request);
   }
@@ -208,11 +183,7 @@ public class LakeviewAPI {
     return publish(new PublishRequest().setDashboardId(dashboardId));
   }
 
-  /**
-   * Publish dashboard.
-   *
-   * <p>Publish the current draft dashboard.
-   */
+  /** Publish the current draft dashboard. */
   public PublishedDashboard publish(PublishRequest request) {
     return impl.publish(request);
   }
@@ -221,11 +192,7 @@ public class LakeviewAPI {
     trash(new TrashDashboardRequest().setDashboardId(dashboardId));
   }
 
-  /**
-   * Trash dashboard.
-   *
-   * <p>Trash a dashboard.
-   */
+  /** Trash a dashboard. */
   public void trash(TrashDashboardRequest request) {
     impl.trash(request);
   }
@@ -234,11 +201,7 @@ public class LakeviewAPI {
     unpublish(new UnpublishDashboardRequest().setDashboardId(dashboardId));
   }
 
-  /**
-   * Unpublish dashboard.
-   *
-   * <p>Unpublish the dashboard.
-   */
+  /** Unpublish the dashboard. */
   public void unpublish(UnpublishDashboardRequest request) {
     impl.unpublish(request);
   }
@@ -247,11 +210,7 @@ public class LakeviewAPI {
     return update(new UpdateDashboardRequest().setDashboardId(dashboardId).setDashboard(dashboard));
   }
 
-  /**
-   * Update dashboard.
-   *
-   * <p>Update a draft dashboard.
-   */
+  /** Update a draft dashboard. */
   public Dashboard update(UpdateDashboardRequest request) {
     return impl.update(request);
   }
@@ -264,7 +223,6 @@ public class LakeviewAPI {
             .setSchedule(schedule));
   }
 
-  /** Update dashboard schedule. */
   public Schedule updateSchedule(UpdateScheduleRequest request) {
     return impl.updateSchedule(request);
   }

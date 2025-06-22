@@ -28,11 +28,7 @@ public class ConsumerFulfillmentsAPI {
     return get(new GetListingContentMetadataRequest().setListingId(listingId));
   }
 
-  /**
-   * Get listing content metadata.
-   *
-   * <p>Get a high level preview of the metadata of listing installable content.
-   */
+  /** Get a high level preview of the metadata of listing installable content. */
   public Iterable<SharedDataObject> get(GetListingContentMetadataRequest request) {
     return new Paginator<>(
         request,
@@ -52,9 +48,7 @@ public class ConsumerFulfillmentsAPI {
   }
 
   /**
-   * List all listing fulfillments.
-   *
-   * <p>Get all listings fulfillments associated with a listing. A _fulfillment_ is a potential
+   * Get all listings fulfillments associated with a listing. A _fulfillment_ is a potential
    * installation. Standard installations contain metadata about the attached share or git repo.
    * Only one of these fields will be present. Personalized installations contain metadata about the
    * attached share or git repo, as well as the Delta Sharing recipient type.

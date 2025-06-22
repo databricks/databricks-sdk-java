@@ -31,11 +31,7 @@ public class ProviderListingsAPI {
     return create(new CreateListingRequest().setListing(listing));
   }
 
-  /**
-   * Create a listing.
-   *
-   * <p>Create a new listing
-   */
+  /** Create a new listing */
   public CreateListingResponse create(CreateListingRequest request) {
     return impl.create(request);
   }
@@ -44,11 +40,7 @@ public class ProviderListingsAPI {
     delete(new DeleteListingRequest().setId(id));
   }
 
-  /**
-   * Delete a listing.
-   *
-   * <p>Delete a listing
-   */
+  /** Delete a listing */
   public void delete(DeleteListingRequest request) {
     impl.delete(request);
   }
@@ -57,20 +49,12 @@ public class ProviderListingsAPI {
     return get(new GetListingRequest().setId(id));
   }
 
-  /**
-   * Get a listing.
-   *
-   * <p>Get a listing
-   */
+  /** Get a listing */
   public GetListingResponse get(GetListingRequest request) {
     return impl.get(request);
   }
 
-  /**
-   * List listings.
-   *
-   * <p>List listings owned by this provider
-   */
+  /** List listings owned by this provider */
   public Iterable<Listing> list(GetListingsRequest request) {
     return new Paginator<>(
         request,
@@ -89,11 +73,7 @@ public class ProviderListingsAPI {
     return update(new UpdateListingRequest().setId(id).setListing(listing));
   }
 
-  /**
-   * Update listing.
-   *
-   * <p>Update a listing
-   */
+  /** Update a listing */
   public UpdateListingResponse update(UpdateListingRequest request) {
     return impl.update(request);
   }

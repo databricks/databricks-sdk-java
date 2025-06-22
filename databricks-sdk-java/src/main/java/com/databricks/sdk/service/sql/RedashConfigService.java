@@ -12,6 +12,6 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface RedashConfigService {
-  /** Read workspace configuration for Redash-v2. */
+
   ClientConfig getConfig();
 }

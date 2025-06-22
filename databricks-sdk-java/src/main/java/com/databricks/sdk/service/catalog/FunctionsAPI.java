@@ -36,9 +36,7 @@ public class FunctionsAPI {
   }
 
   /**
-   * Create a function.
-   *
-   * <p>**WARNING: This API is experimental and will change in future versions**
+   * **WARNING: This API is experimental and will change in future versions**
    *
    * <p>Creates a new function
    *
@@ -55,13 +53,11 @@ public class FunctionsAPI {
   }
 
   /**
-   * Delete a function.
-   *
-   * <p>Deletes the function that matches the supplied name. For the deletion to succeed, the user
-   * must satisfy one of the following conditions: - Is the owner of the function's parent catalog -
-   * Is the owner of the function's parent schema and have the **USE_CATALOG** privilege on its
-   * parent catalog - Is the owner of the function itself and have both the **USE_CATALOG**
-   * privilege on its parent catalog and the **USE_SCHEMA** privilege on its parent schema
+   * Deletes the function that matches the supplied name. For the deletion to succeed, the user must
+   * satisfy one of the following conditions: - Is the owner of the function's parent catalog - Is
+   * the owner of the function's parent schema and have the **USE_CATALOG** privilege on its parent
+   * catalog - Is the owner of the function itself and have both the **USE_CATALOG** privilege on
+   * its parent catalog and the **USE_SCHEMA** privilege on its parent schema
    */
   public void delete(DeleteFunctionRequest request) {
     impl.delete(request);
@@ -72,9 +68,7 @@ public class FunctionsAPI {
   }
 
   /**
-   * Get a function.
-   *
-   * <p>Gets a function from within a parent catalog and schema. For the fetch to succeed, the user
+   * Gets a function from within a parent catalog and schema. For the fetch to succeed, the user
    * must satisfy one of the following requirements: - Is a metastore admin - Is an owner of the
    * function's parent catalog - Have the **USE_CATALOG** privilege on the function's parent catalog
    * and be the owner of the function - Have the **USE_CATALOG** privilege on the function's parent
@@ -90,9 +84,7 @@ public class FunctionsAPI {
   }
 
   /**
-   * List functions.
-   *
-   * <p>List functions within the specified parent catalog and schema. If the user is a metastore
+   * List functions within the specified parent catalog and schema. If the user is a metastore
    * admin, all functions are returned in the output list. Otherwise, the user must have the
    * **USE_CATALOG** privilege on the catalog and the **USE_SCHEMA** privilege on the schema, and
    * the output list contains only functions for which either the user has the **EXECUTE** privilege
@@ -118,9 +110,7 @@ public class FunctionsAPI {
   }
 
   /**
-   * Update a function.
-   *
-   * <p>Updates the function that matches the supplied name. Only the owner of the function can be
+   * Updates the function that matches the supplied name. Only the owner of the function can be
    * updated. If the user is not a metastore admin, the user must be a member of the group that is
    * the new function owner. - Is a metastore admin - Is the owner of the function's parent catalog
    * - Is the owner of the function's parent schema and has the **USE_CATALOG** privilege on its

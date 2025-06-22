@@ -76,7 +76,6 @@ public class ServicePrincipalFederationPolicyAPI {
             .setPolicy(policy));
   }
 
-  /** Create service principal federation policy. */
   public FederationPolicy create(CreateServicePrincipalFederationPolicyRequest request) {
     return impl.create(request);
   }
@@ -88,7 +87,6 @@ public class ServicePrincipalFederationPolicyAPI {
             .setPolicyId(policyId));
   }
 
-  /** Delete service principal federation policy. */
   public void delete(DeleteServicePrincipalFederationPolicyRequest request) {
     impl.delete(request);
   }
@@ -100,7 +98,6 @@ public class ServicePrincipalFederationPolicyAPI {
             .setPolicyId(policyId));
   }
 
-  /** Get service principal federation policy. */
   public FederationPolicy get(GetServicePrincipalFederationPolicyRequest request) {
     return impl.get(request);
   }
@@ -111,7 +108,6 @@ public class ServicePrincipalFederationPolicyAPI {
             .setServicePrincipalId(servicePrincipalId));
   }
 
-  /** List service principal federation policies. */
   public Iterable<FederationPolicy> list(ListServicePrincipalFederationPoliciesRequest request) {
     return new Paginator<>(
         request,
@@ -135,7 +131,6 @@ public class ServicePrincipalFederationPolicyAPI {
             .setPolicy(policy));
   }
 
-  /** Update service principal federation policy. */
   public FederationPolicy update(UpdateServicePrincipalFederationPolicyRequest request) {
     return impl.update(request);
   }

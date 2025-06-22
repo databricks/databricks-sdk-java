@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Collection;
 import java.util.Objects;
 
-/** Get one batch of listings. One may specify up to 50 IDs per request. */
 @Generated
 public class BatchGetListingsRequest {
   /** */

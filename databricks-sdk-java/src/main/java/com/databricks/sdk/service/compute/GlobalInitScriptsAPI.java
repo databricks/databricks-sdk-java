@@ -36,11 +36,7 @@ public class GlobalInitScriptsAPI {
     return create(new GlobalInitScriptCreateRequest().setName(name).setScript(script));
   }
 
-  /**
-   * Create init script.
-   *
-   * <p>Creates a new global init script in this workspace.
-   */
+  /** Creates a new global init script in this workspace. */
   public CreateResponse create(GlobalInitScriptCreateRequest request) {
     return impl.create(request);
   }
@@ -49,11 +45,7 @@ public class GlobalInitScriptsAPI {
     delete(new DeleteGlobalInitScriptRequest().setScriptId(scriptId));
   }
 
-  /**
-   * Delete init script.
-   *
-   * <p>Deletes a global init script.
-   */
+  /** Deletes a global init script. */
   public void delete(DeleteGlobalInitScriptRequest request) {
     impl.delete(request);
   }
@@ -62,21 +54,15 @@ public class GlobalInitScriptsAPI {
     return get(new GetGlobalInitScriptRequest().setScriptId(scriptId));
   }
 
-  /**
-   * Get an init script.
-   *
-   * <p>Gets all the details of a script, including its Base64-encoded contents.
-   */
+  /** Gets all the details of a script, including its Base64-encoded contents. */
   public GlobalInitScriptDetailsWithContent get(GetGlobalInitScriptRequest request) {
     return impl.get(request);
   }
 
   /**
-   * Get init scripts.
-   *
-   * <p>Get a list of all global init scripts for this workspace. This returns all properties for
-   * each script but **not** the script contents. To retrieve the contents of a script, use the [get
-   * a global init script](:method:globalinitscripts/get) operation.
+   * Get a list of all global init scripts for this workspace. This returns all properties for each
+   * script but **not** the script contents. To retrieve the contents of a script, use the [get a
+   * global init script](:method:globalinitscripts/get) operation.
    */
   public Iterable<GlobalInitScriptDetails> list() {
     return new Paginator<>(
@@ -89,9 +75,7 @@ public class GlobalInitScriptsAPI {
   }
 
   /**
-   * Update init script.
-   *
-   * <p>Updates a global init script, specifying only the fields to change. All fields are optional.
+   * Updates a global init script, specifying only the fields to change. All fields are optional.
    * Unspecified fields retain their current value.
    */
   public void update(GlobalInitScriptUpdateRequest request) {

@@ -18,45 +18,22 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface AccountGroupsService {
   /**
-   * Create a new group.
-   *
-   * <p>Creates a group in the Databricks account with a unique name, using the supplied group
-   * details.
+   * Creates a group in the Databricks account with a unique name, using the supplied group details.
    */
   Group create(Group group);
 
-  /**
-   * Delete a group.
-   *
-   * <p>Deletes a group from the Databricks account.
-   */
+  /** Deletes a group from the Databricks account. */
   void delete(DeleteAccountGroupRequest deleteAccountGroupRequest);
 
-  /**
-   * Get group details.
-   *
-   * <p>Gets the information for a specific group in the Databricks account.
-   */
+  /** Gets the information for a specific group in the Databricks account. */
   Group get(GetAccountGroupRequest getAccountGroupRequest);
 
-  /**
-   * List group details.
-   *
-   * <p>Gets all details of the groups associated with the Databricks account.
-   */
+  /** Gets all details of the groups associated with the Databricks account. */
   ListGroupsResponse list(ListAccountGroupsRequest listAccountGroupsRequest);
 
-  /**
-   * Update group details.
-   *
-   * <p>Partially updates the details of a group.
-   */
+  /** Partially updates the details of a group. */
   void patch(PartialUpdate partialUpdate);
 
-  /**
-   * Replace a group.
-   *
-   * <p>Updates the details of a group by replacing the entire group entity.
-   */
+  /** Updates the details of a group by replacing the entire group entity. */
   void update(Group group);
 }
