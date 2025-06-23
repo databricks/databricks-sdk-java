@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Create dashboard schedule */
 @Generated
 public class CreateScheduleRequest {
   /** UUID identifying the dashboard to which the schedule belongs. */

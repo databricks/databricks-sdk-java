@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete an Online Table */
 @Generated
 public class DeleteOnlineTableRequest {
   /** Full three-part (catalog, schema, table) name of the table. */

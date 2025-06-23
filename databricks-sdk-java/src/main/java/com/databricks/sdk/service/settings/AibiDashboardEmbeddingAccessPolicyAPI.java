@@ -28,20 +28,14 @@ public class AibiDashboardEmbeddingAccessPolicyAPI {
     impl = mock;
   }
 
-  /**
-   * Delete the AI/BI dashboard embedding access policy.
-   *
-   * <p>Delete the AI/BI dashboard embedding access policy, reverting back to the default.
-   */
+  /** Delete the AI/BI dashboard embedding access policy, reverting back to the default. */
   public DeleteAibiDashboardEmbeddingAccessPolicySettingResponse delete(
       DeleteAibiDashboardEmbeddingAccessPolicySettingRequest request) {
     return impl.delete(request);
   }
 
   /**
-   * Retrieve the AI/BI dashboard embedding access policy.
-   *
-   * <p>Retrieves the AI/BI dashboard embedding access policy. The default setting is
+   * Retrieves the AI/BI dashboard embedding access policy. The default setting is
    * ALLOW_APPROVED_DOMAINS, permitting AI/BI dashboards to be embedded on approved domains.
    */
   public AibiDashboardEmbeddingAccessPolicySetting get(
@@ -58,11 +52,7 @@ public class AibiDashboardEmbeddingAccessPolicyAPI {
             .setFieldMask(fieldMask));
   }
 
-  /**
-   * Update the AI/BI dashboard embedding access policy.
-   *
-   * <p>Updates the AI/BI dashboard embedding access policy at the workspace level.
-   */
+  /** Updates the AI/BI dashboard embedding access policy at the workspace level. */
   public AibiDashboardEmbeddingAccessPolicySetting update(
       UpdateAibiDashboardEmbeddingAccessPolicySettingRequest request) {
     return impl.update(request);

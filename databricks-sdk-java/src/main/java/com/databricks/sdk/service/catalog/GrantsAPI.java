@@ -37,11 +37,7 @@ public class GrantsAPI {
     return get(new GetGrantRequest().setSecurableType(securableType).setFullName(fullName));
   }
 
-  /**
-   * Get permissions.
-   *
-   * <p>Gets the permissions for a securable. Does not include inherited permissions.
-   */
+  /** Gets the permissions for a securable. Does not include inherited permissions. */
   public GetPermissionsResponse get(GetGrantRequest request) {
     return impl.get(request);
   }
@@ -52,10 +48,8 @@ public class GrantsAPI {
   }
 
   /**
-   * Get effective permissions.
-   *
-   * <p>Gets the effective permissions for a securable. Includes inherited permissions from any
-   * parent securables.
+   * Gets the effective permissions for a securable. Includes inherited permissions from any parent
+   * securables.
    */
   public EffectivePermissionsList getEffective(GetEffectiveRequest request) {
     return impl.getEffective(request);
@@ -65,11 +59,7 @@ public class GrantsAPI {
     return update(new UpdatePermissions().setSecurableType(securableType).setFullName(fullName));
   }
 
-  /**
-   * Update permissions.
-   *
-   * <p>Updates the permissions for a securable.
-   */
+  /** Updates the permissions for a securable. */
   public UpdatePermissionsResponse update(UpdatePermissions request) {
     return impl.update(request);
   }

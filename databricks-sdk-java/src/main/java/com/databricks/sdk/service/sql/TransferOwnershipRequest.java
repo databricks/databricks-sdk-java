@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Transfer object ownership */
 @Generated
 public class TransferOwnershipRequest {
   /** Email address for the new owner, who must exist in the workspace. */

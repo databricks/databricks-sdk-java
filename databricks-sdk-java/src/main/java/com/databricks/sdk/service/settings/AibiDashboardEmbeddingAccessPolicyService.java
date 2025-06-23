@@ -14,30 +14,20 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface AibiDashboardEmbeddingAccessPolicyService {
-  /**
-   * Delete the AI/BI dashboard embedding access policy.
-   *
-   * <p>Delete the AI/BI dashboard embedding access policy, reverting back to the default.
-   */
+  /** Delete the AI/BI dashboard embedding access policy, reverting back to the default. */
   DeleteAibiDashboardEmbeddingAccessPolicySettingResponse delete(
       DeleteAibiDashboardEmbeddingAccessPolicySettingRequest
           deleteAibiDashboardEmbeddingAccessPolicySettingRequest);
 
   /**
-   * Retrieve the AI/BI dashboard embedding access policy.
-   *
-   * <p>Retrieves the AI/BI dashboard embedding access policy. The default setting is
+   * Retrieves the AI/BI dashboard embedding access policy. The default setting is
    * ALLOW_APPROVED_DOMAINS, permitting AI/BI dashboards to be embedded on approved domains.
    */
   AibiDashboardEmbeddingAccessPolicySetting get(
       GetAibiDashboardEmbeddingAccessPolicySettingRequest
           getAibiDashboardEmbeddingAccessPolicySettingRequest);
 
-  /**
-   * Update the AI/BI dashboard embedding access policy.
-   *
-   * <p>Updates the AI/BI dashboard embedding access policy at the workspace level.
-   */
+  /** Updates the AI/BI dashboard embedding access policy at the workspace level. */
   AibiDashboardEmbeddingAccessPolicySetting update(
       UpdateAibiDashboardEmbeddingAccessPolicySettingRequest
           updateAibiDashboardEmbeddingAccessPolicySettingRequest);

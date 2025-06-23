@@ -7,7 +7,10 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Format of response retrieved from dbt Cloud, for inclusion in output */
+/**
+ * Format of response retrieved from dbt Cloud, for inclusion in output Deprecated in favor of
+ * DbtPlatformJobRunStep
+ */
 @Generated
 public class DbtCloudJobRunStep {
   /** Orders the steps in the job */
@@ -24,7 +27,7 @@ public class DbtCloudJobRunStep {
 
   /** State of the step */
   @JsonProperty("status")
-  private DbtCloudRunStatus status;
+  private DbtPlatformRunStatus status;
 
   public DbtCloudJobRunStep setIndex(Long index) {
     this.index = index;
@@ -53,12 +56,12 @@ public class DbtCloudJobRunStep {
     return name;
   }
 
-  public DbtCloudJobRunStep setStatus(DbtCloudRunStatus status) {
+  public DbtCloudJobRunStep setStatus(DbtPlatformRunStatus status) {
     this.status = status;
     return this;
   }
 
-  public DbtCloudRunStatus getStatus() {
+  public DbtPlatformRunStatus getStatus() {
     return status;
   }
 

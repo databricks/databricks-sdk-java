@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get a Custom LLM */
 @Generated
 public class GetCustomLlmRequest {
   /** The id of the custom llm */

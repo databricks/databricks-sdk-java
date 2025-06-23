@@ -18,40 +18,24 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface GlobalInitScriptsService {
-  /**
-   * Create init script.
-   *
-   * <p>Creates a new global init script in this workspace.
-   */
+  /** Creates a new global init script in this workspace. */
   CreateResponse create(GlobalInitScriptCreateRequest globalInitScriptCreateRequest);
 
-  /**
-   * Delete init script.
-   *
-   * <p>Deletes a global init script.
-   */
+  /** Deletes a global init script. */
   void delete(DeleteGlobalInitScriptRequest deleteGlobalInitScriptRequest);
 
-  /**
-   * Get an init script.
-   *
-   * <p>Gets all the details of a script, including its Base64-encoded contents.
-   */
+  /** Gets all the details of a script, including its Base64-encoded contents. */
   GlobalInitScriptDetailsWithContent get(GetGlobalInitScriptRequest getGlobalInitScriptRequest);
 
   /**
-   * Get init scripts.
-   *
-   * <p>Get a list of all global init scripts for this workspace. This returns all properties for
-   * each script but **not** the script contents. To retrieve the contents of a script, use the [get
-   * a global init script](:method:globalinitscripts/get) operation.
+   * Get a list of all global init scripts for this workspace. This returns all properties for each
+   * script but **not** the script contents. To retrieve the contents of a script, use the [get a
+   * global init script](:method:globalinitscripts/get) operation.
    */
   ListGlobalInitScriptsResponse list();
 
   /**
-   * Update init script.
-   *
-   * <p>Updates a global init script, specifying only the fields to change. All fields are optional.
+   * Updates a global init script, specifying only the fields to change. All fields are optional.
    * Unspecified fields retain their current value.
    */
   void update(GlobalInitScriptUpdateRequest globalInitScriptUpdateRequest);

@@ -33,9 +33,7 @@ public class CleanRoomAssetsAPI {
   }
 
   /**
-   * Create an asset.
-   *
-   * <p>Create a clean room asset —share an asset like a notebook or table into the clean room. For
+   * Create a clean room asset —share an asset like a notebook or table into the clean room. For
    * each UC asset that is added through this method, the clean room owner must also have enough
    * privilege on the asset to consume it. The privilege must be maintained indefinitely for the
    * clean room to be able to access the asset. Typically, you should use a group as the clean room
@@ -53,11 +51,7 @@ public class CleanRoomAssetsAPI {
             .setName(name));
   }
 
-  /**
-   * Delete an asset.
-   *
-   * <p>Delete a clean room asset - unshare/remove the asset from the clean room
-   */
+  /** Delete a clean room asset - unshare/remove the asset from the clean room */
   public void delete(DeleteCleanRoomAssetRequest request) {
     impl.delete(request);
   }
@@ -70,11 +64,7 @@ public class CleanRoomAssetsAPI {
             .setName(name));
   }
 
-  /**
-   * Get an asset.
-   *
-   * <p>Get the details of a clean room asset by its type and full name.
-   */
+  /** Get the details of a clean room asset by its type and full name. */
   public CleanRoomAsset get(GetCleanRoomAssetRequest request) {
     return impl.get(request);
   }
@@ -109,10 +99,8 @@ public class CleanRoomAssetsAPI {
   }
 
   /**
-   * Update an asset.
-   *
-   * <p>Update a clean room asset. For example, updating the content of a notebook; changing the
-   * shared partitions of a table; etc.
+   * Update a clean room asset. For example, updating the content of a notebook; changing the shared
+   * partitions of a table; etc.
    */
   public CleanRoomAsset update(UpdateCleanRoomAssetRequest request) {
     return impl.update(request);

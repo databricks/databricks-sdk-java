@@ -12,26 +12,16 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface OnlineTablesService {
-  /**
-   * Create an Online Table.
-   *
-   * <p>Create a new Online Table.
-   */
+  /** Create a new Online Table. */
   OnlineTable create(CreateOnlineTableRequest createOnlineTableRequest);
 
   /**
-   * Delete an Online Table.
-   *
-   * <p>Delete an online table. Warning: This will delete all the data in the online table. If the
+   * Delete an online table. Warning: This will delete all the data in the online table. If the
    * source Delta table was deleted or modified since this Online Table was created, this will lose
    * the data forever!
    */
   void delete(DeleteOnlineTableRequest deleteOnlineTableRequest);
 
-  /**
-   * Get an Online Table.
-   *
-   * <p>Get information about an existing online table and its status.
-   */
+  /** Get information about an existing online table and its status. */
   OnlineTable get(GetOnlineTableRequest getOnlineTableRequest);
 }

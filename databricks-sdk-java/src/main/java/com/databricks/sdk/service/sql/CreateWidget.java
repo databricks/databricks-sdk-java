@@ -4,7 +4,6 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -13,9 +12,6 @@ public class CreateWidget {
   /** Dashboard ID returned by :method:dashboards/create. */
   @JsonProperty("dashboard_id")
   private String dashboardId;
-
-  /** Widget ID returned by :method:dashboardwidgets/create */
-  @JsonIgnore private String id;
 
   /** */
   @JsonProperty("options")
@@ -43,15 +39,6 @@ public class CreateWidget {
 
   public String getDashboardId() {
     return dashboardId;
-  }
-
-  public CreateWidget setId(String id) {
-    this.id = id;
-    return this;
-  }
-
-  public String getId() {
-    return id;
   }
 
   public CreateWidget setOptions(WidgetOptions options) {
@@ -96,7 +83,6 @@ public class CreateWidget {
     if (o == null || getClass() != o.getClass()) return false;
     CreateWidget that = (CreateWidget) o;
     return Objects.equals(dashboardId, that.dashboardId)
-        && Objects.equals(id, that.id)
         && Objects.equals(options, that.options)
         && Objects.equals(text, that.text)
         && Objects.equals(visualizationId, that.visualizationId)
@@ -105,14 +91,13 @@ public class CreateWidget {
 
   @Override
   public int hashCode() {
-    return Objects.hash(dashboardId, id, options, text, visualizationId, width);
+    return Objects.hash(dashboardId, options, text, visualizationId, width);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CreateWidget.class)
         .add("dashboardId", dashboardId)
-        .add("id", id)
         .add("options", options)
         .add("text", text)
         .add("visualizationId", visualizationId)

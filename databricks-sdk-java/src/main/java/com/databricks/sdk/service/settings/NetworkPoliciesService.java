@@ -18,41 +18,23 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface NetworkPoliciesService {
   /**
-   * Create a network policy.
-   *
-   * <p>Creates a new network policy to manage which network destinations can be accessed from the
+   * Creates a new network policy to manage which network destinations can be accessed from the
    * Databricks environment.
    */
   AccountNetworkPolicy createNetworkPolicyRpc(
       CreateNetworkPolicyRequest createNetworkPolicyRequest);
 
-  /**
-   * Delete a network policy.
-   *
-   * <p>Deletes a network policy. Cannot be called on 'default-policy'.
-   */
+  /** Deletes a network policy. Cannot be called on 'default-policy'. */
   void deleteNetworkPolicyRpc(DeleteNetworkPolicyRequest deleteNetworkPolicyRequest);
 
-  /**
-   * Get a network policy.
-   *
-   * <p>Gets a network policy.
-   */
+  /** Gets a network policy. */
   AccountNetworkPolicy getNetworkPolicyRpc(GetNetworkPolicyRequest getNetworkPolicyRequest);
 
-  /**
-   * List network policies.
-   *
-   * <p>Gets an array of network policies.
-   */
+  /** Gets an array of network policies. */
   ListNetworkPoliciesResponse listNetworkPoliciesRpc(
       ListNetworkPoliciesRequest listNetworkPoliciesRequest);
 
-  /**
-   * Update a network policy.
-   *
-   * <p>Updates a network policy. This allows you to modify the configuration of a network policy.
-   */
+  /** Updates a network policy. This allows you to modify the configuration of a network policy. */
   AccountNetworkPolicy updateNetworkPolicyRpc(
       UpdateNetworkPolicyRequest updateNetworkPolicyRequest);
 }

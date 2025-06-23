@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** List secret keys */
 @Generated
 public class ListSecretsRequest {
   /** The name of the scope to list secrets within. */

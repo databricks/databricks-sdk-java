@@ -8,10 +8,13 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** List Queries */
 @Generated
 public class ListQueryHistoryRequest {
-  /** A filter to limit query history results. This field is optional. */
+  /**
+   * An optional filter object to limit query history results. Accepts parameters such as user IDs,
+   * endpoint IDs, and statuses to narrow the returned data. In a URL, the parameters of this filter
+   * are specified with dot notation. For example: `filter_by.statement_ids`.
+   */
   @JsonIgnore
   @QueryParam("filter_by")
   private QueryFilter filterBy;

@@ -38,7 +38,10 @@ public class UpdateStorageCredential {
   @JsonProperty("force")
   private Boolean force;
 
-  /** */
+  /**
+   * Whether the current securable is accessible from all workspaces or a specific set of
+   * workspaces.
+   */
   @JsonProperty("isolation_mode")
   private IsolationMode isolationMode;
 
@@ -53,7 +56,10 @@ public class UpdateStorageCredential {
   @JsonProperty("owner")
   private String owner;
 
-  /** Whether the storage credential is only usable for read operations. */
+  /**
+   * Whether the credential is usable only for read operations. Only applicable when purpose is
+   * **STORAGE**.
+   */
   @JsonProperty("read_only")
   private Boolean readOnly;
 

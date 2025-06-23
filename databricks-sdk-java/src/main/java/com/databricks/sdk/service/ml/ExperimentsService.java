@@ -19,9 +19,7 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface ExperimentsService {
   /**
-   * Create experiment.
-   *
-   * <p>Creates an experiment with a name. Returns the ID of the newly created experiment. Validates
+   * Creates an experiment with a name. Returns the ID of the newly created experiment. Validates
    * that another experiment with the same name does not already exist and fails if another
    * experiment with the same name already exists.
    *
@@ -33,19 +31,15 @@ public interface ExperimentsService {
   CreateLoggedModelResponse createLoggedModel(CreateLoggedModelRequest createLoggedModelRequest);
 
   /**
-   * Create a run.
-   *
-   * <p>Creates a new run within an experiment. A run is usually a single execution of a machine
+   * Creates a new run within an experiment. A run is usually a single execution of a machine
    * learning or data ETL pipeline. MLflow uses runs to track the `mlflowParam`, `mlflowMetric`, and
    * `mlflowRunTag` associated with a single execution.
    */
   CreateRunResponse createRun(CreateRun createRun);
 
   /**
-   * Delete an experiment.
-   *
-   * <p>Marks an experiment and associated metadata, runs, metrics, params, and tags for deletion.
-   * If the experiment uses FileStore, artifacts associated with the experiment are also deleted.
+   * Marks an experiment and associated metadata, runs, metrics, params, and tags for deletion. If
+   * the experiment uses FileStore, artifacts associated with the experiment are also deleted.
    */
   void deleteExperiment(DeleteExperiment deleteExperiment);
 
@@ -55,27 +49,19 @@ public interface ExperimentsService {
   /** Delete a tag on a logged model. */
   void deleteLoggedModelTag(DeleteLoggedModelTagRequest deleteLoggedModelTagRequest);
 
-  /**
-   * Delete a run.
-   *
-   * <p>Marks a run for deletion.
-   */
+  /** Marks a run for deletion. */
   void deleteRun(DeleteRun deleteRun);
 
   /**
-   * Delete runs by creation time.
-   *
-   * <p>Bulk delete runs in an experiment that were created prior to or at the specified timestamp.
+   * Bulk delete runs in an experiment that were created prior to or at the specified timestamp.
    * Deletes at most max_runs per request. To call this API from a Databricks Notebook in Python,
    * you can use the client code snippet on
    */
   DeleteRunsResponse deleteRuns(DeleteRuns deleteRuns);
 
   /**
-   * Delete a tag on a run.
-   *
-   * <p>Deletes a tag on a run. Tags are run metadata that can be updated during a run and after a
-   * run completes.
+   * Deletes a tag on a run. Tags are run metadata that can be updated during a run and after a run
+   * completes.
    */
   void deleteTag(DeleteTag deleteTag);
 
@@ -84,9 +70,7 @@ public interface ExperimentsService {
       FinalizeLoggedModelRequest finalizeLoggedModelRequest);
 
   /**
-   * Get an experiment by name.
-   *
-   * <p>Gets metadata for an experiment.
+   * Gets metadata for an experiment.
    *
    * <p>This endpoint will return deleted experiments, but prefers the active experiment if an
    * active and deleted experiment share the same name. If multiple deleted experiments share the
@@ -96,54 +80,36 @@ public interface ExperimentsService {
    */
   GetExperimentByNameResponse getByName(GetByNameRequest getByNameRequest);
 
-  /**
-   * Get an experiment.
-   *
-   * <p>Gets metadata for an experiment. This method works on deleted experiments.
-   */
+  /** Gets metadata for an experiment. This method works on deleted experiments. */
   GetExperimentResponse getExperiment(GetExperimentRequest getExperimentRequest);
 
-  /**
-   * Get metric history for a run.
-   *
-   * <p>Gets a list of all values for the specified metric for a given run.
-   */
+  /** Gets a list of all values for the specified metric for a given run. */
   GetMetricHistoryResponse getHistory(GetHistoryRequest getHistoryRequest);
 
   /** Get a logged model. */
   GetLoggedModelResponse getLoggedModel(GetLoggedModelRequest getLoggedModelRequest);
 
-  /**
-   * Get experiment permission levels.
-   *
-   * <p>Gets the permission levels that a user can have on an object.
-   */
+  /** Gets the permission levels that a user can have on an object. */
   GetExperimentPermissionLevelsResponse getPermissionLevels(
       GetExperimentPermissionLevelsRequest getExperimentPermissionLevelsRequest);
 
   /**
-   * Get experiment permissions.
-   *
-   * <p>Gets the permissions of an experiment. Experiments can inherit permissions from their root
+   * Gets the permissions of an experiment. Experiments can inherit permissions from their root
    * object.
    */
   ExperimentPermissions getPermissions(
       GetExperimentPermissionsRequest getExperimentPermissionsRequest);
 
   /**
-   * Get a run.
-   *
-   * <p>Gets the metadata, metrics, params, and tags for a run. In the case where multiple metrics
-   * with the same key are logged for a run, return only the value with the latest timestamp.
+   * Gets the metadata, metrics, params, and tags for a run. In the case where multiple metrics with
+   * the same key are logged for a run, return only the value with the latest timestamp.
    *
    * <p>If there are multiple values with the latest timestamp, return the maximum of these values.
    */
   GetRunResponse getRun(GetRunRequest getRunRequest);
 
   /**
-   * List artifacts.
-   *
-   * <p>List artifacts for a run. Takes an optional `artifact_path` prefix which if specified, the
+   * List artifacts for a run. Takes an optional `artifact_path` prefix which if specified, the
    * response contains only artifacts with the specified prefix. A maximum of 1000 artifacts will be
    * retrieved for UC Volumes. Please call `/api/2.0/fs/directories{directory_path}` for listing
    * artifacts in UC Volumes, which supports pagination. See [List directory contents | Files
@@ -151,17 +117,11 @@ public interface ExperimentsService {
    */
   ListArtifactsResponse listArtifacts(ListArtifactsRequest listArtifactsRequest);
 
-  /**
-   * List experiments.
-   *
-   * <p>Gets a list of all experiments.
-   */
+  /** Gets a list of all experiments. */
   ListExperimentsResponse listExperiments(ListExperimentsRequest listExperimentsRequest);
 
   /**
-   * Log a batch of metrics/params/tags for a run.
-   *
-   * <p>Logs a batch of metrics, params, and tags for a run. If any data failed to be persisted, the
+   * Logs a batch of metrics, params, and tags for a run. If any data failed to be persisted, the
    * server will respond with an error (non-200 status code).
    *
    * <p>In case of error (due to internal server error or an invalid request), partial data may be
@@ -206,20 +166,11 @@ public interface ExperimentsService {
    */
   void logBatch(LogBatch logBatch);
 
-  /**
-   * Log inputs to a run.
-   *
-   * <p>**NOTE:** Experimental: This API may change or be removed in a future release without
-   * warning.
-   *
-   * <p>Logs inputs, such as datasets and models, to an MLflow Run.
-   */
+  /** Logs inputs, such as datasets and models, to an MLflow Run. */
   void logInputs(LogInputs logInputs);
 
   /**
-   * Log params for a logged model.
-   *
-   * <p>Logs params for a logged model. A param is a key-value pair (string key, string value).
+   * Logs params for a logged model. A param is a key-value pair (string key, string value).
    * Examples include hyperparameters used for ML model training. A param can be logged only once
    * for a logged model, and attempting to overwrite an existing param with a different value will
    * result in an error
@@ -227,45 +178,32 @@ public interface ExperimentsService {
   void logLoggedModelParams(LogLoggedModelParamsRequest logLoggedModelParamsRequest);
 
   /**
-   * Log a metric for a run.
-   *
-   * <p>Log a metric for a run. A metric is a key-value pair (string key, float value) with an
+   * Log a metric for a run. A metric is a key-value pair (string key, float value) with an
    * associated timestamp. Examples include the various metrics that represent ML model accuracy. A
    * metric can be logged multiple times.
    */
   void logMetric(LogMetric logMetric);
 
   /**
-   * Log a model.
+   * **Note:** the [Create a logged model](/api/workspace/experiments/createloggedmodel) API
+   * replaces this endpoint.
    *
-   * <p>**NOTE:** Experimental: This API may change or be removed in a future release without
-   * warning.
+   * <p>Log a model to an MLflow Run.
    */
   void logModel(LogModel logModel);
 
-  /**
-   * Log outputs from a run.
-   *
-   * <p>**NOTE**: Experimental: This API may change or be removed in a future release without
-   * warning.
-   *
-   * <p>Logs outputs, such as models, from an MLflow Run.
-   */
+  /** Logs outputs, such as models, from an MLflow Run. */
   void logOutputs(LogOutputsRequest logOutputsRequest);
 
   /**
-   * Log a param for a run.
-   *
-   * <p>Logs a param used for a run. A param is a key-value pair (string key, string value).
-   * Examples include hyperparameters used for ML model training and constant dates and values used
-   * in an ETL pipeline. A param can be logged only once for a run.
+   * Logs a param used for a run. A param is a key-value pair (string key, string value). Examples
+   * include hyperparameters used for ML model training and constant dates and values used in an ETL
+   * pipeline. A param can be logged only once for a run.
    */
   void logParam(LogParam logParam);
 
   /**
-   * Restore an experiment.
-   *
-   * <p>Restore an experiment marked for deletion. This also restores associated metadata, runs,
+   * Restore an experiment marked for deletion. This also restores associated metadata, runs,
    * metrics, params, and tags. If experiment uses FileStore, underlying artifacts associated with
    * experiment are also restored.
    *
@@ -274,9 +212,7 @@ public interface ExperimentsService {
   void restoreExperiment(RestoreExperiment restoreExperiment);
 
   /**
-   * Restore a run.
-   *
-   * <p>Restores a deleted run. This also restores associated metadata, runs, metrics, params, and
+   * Restores a deleted run. This also restores associated metadata, runs, metrics, params, and
    * tags.
    *
    * <p>Throws `RESOURCE_DOES_NOT_EXIST` if the run was never created or was permanently deleted.
@@ -284,85 +220,54 @@ public interface ExperimentsService {
   void restoreRun(RestoreRun restoreRun);
 
   /**
-   * Restore runs by deletion time.
-   *
-   * <p>Bulk restore runs in an experiment that were deleted no earlier than the specified
-   * timestamp. Restores at most max_runs per request. To call this API from a Databricks Notebook
-   * in Python, you can use the client code snippet on
+   * Bulk restore runs in an experiment that were deleted no earlier than the specified timestamp.
+   * Restores at most max_runs per request. To call this API from a Databricks Notebook in Python,
+   * you can use the client code snippet on
    */
   RestoreRunsResponse restoreRuns(RestoreRuns restoreRuns);
 
-  /**
-   * Search experiments.
-   *
-   * <p>Searches for experiments that satisfy specified search criteria.
-   */
+  /** Searches for experiments that satisfy specified search criteria. */
   SearchExperimentsResponse searchExperiments(SearchExperiments searchExperiments);
 
-  /**
-   * Search logged models.
-   *
-   * <p>Search for Logged Models that satisfy specified search criteria.
-   */
+  /** Search for Logged Models that satisfy specified search criteria. */
   SearchLoggedModelsResponse searchLoggedModels(
       SearchLoggedModelsRequest searchLoggedModelsRequest);
 
   /**
-   * Search for runs.
-   *
-   * <p>Searches for runs that satisfy expressions.
+   * Searches for runs that satisfy expressions.
    *
    * <p>Search expressions can use `mlflowMetric` and `mlflowParam` keys.
    */
   SearchRunsResponse searchRuns(SearchRuns searchRuns);
 
-  /**
-   * Set a tag for an experiment.
-   *
-   * <p>Sets a tag on an experiment. Experiment tags are metadata that can be updated.
-   */
+  /** Sets a tag on an experiment. Experiment tags are metadata that can be updated. */
   void setExperimentTag(SetExperimentTag setExperimentTag);
 
-  /** Set a tag for a logged model. */
+  /** Set tags for a logged model. */
   void setLoggedModelTags(SetLoggedModelTagsRequest setLoggedModelTagsRequest);
 
   /**
-   * Set experiment permissions.
-   *
-   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
-   * direct permissions if none are specified. Objects can inherit permissions from their root
-   * object.
+   * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
+   * permissions if none are specified. Objects can inherit permissions from their root object.
    */
   ExperimentPermissions setPermissions(ExperimentPermissionsRequest experimentPermissionsRequest);
 
   /**
-   * Set a tag for a run.
-   *
-   * <p>Sets a tag on a run. Tags are run metadata that can be updated during a run and after a run
+   * Sets a tag on a run. Tags are run metadata that can be updated during a run and after a run
    * completes.
    */
   void setTag(SetTag setTag);
 
-  /**
-   * Update an experiment.
-   *
-   * <p>Updates experiment metadata.
-   */
+  /** Updates experiment metadata. */
   void updateExperiment(UpdateExperiment updateExperiment);
 
   /**
-   * Update experiment permissions.
-   *
-   * <p>Updates the permissions on an experiment. Experiments can inherit permissions from their
-   * root object.
+   * Updates the permissions on an experiment. Experiments can inherit permissions from their root
+   * object.
    */
   ExperimentPermissions updatePermissions(
       ExperimentPermissionsRequest experimentPermissionsRequest);
 
-  /**
-   * Update a run.
-   *
-   * <p>Updates run metadata.
-   */
+  /** Updates run metadata. */
   UpdateRunResponse updateRun(UpdateRun updateRun);
 }

@@ -8,13 +8,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Update a table owner. */
 @Generated
 public class UpdateTableRequest {
   /** Full name of the table. */
   @JsonIgnore private String fullName;
 
-  /** */
+  /** Username of current owner of table. */
   @JsonProperty("owner")
   private String owner;
 

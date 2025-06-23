@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete an external location */
 @Generated
 public class DeleteExternalLocationRequest {
   /** Force deletion even if there are dependent external tables or mounts. */

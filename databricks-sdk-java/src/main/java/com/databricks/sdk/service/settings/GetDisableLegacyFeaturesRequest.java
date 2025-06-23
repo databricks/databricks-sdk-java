@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get the disable legacy features setting */
 @Generated
 public class GetDisableLegacyFeaturesRequest {
   /**

@@ -14,10 +14,6 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface OAuthPublishedAppsService {
-  /**
-   * Get all the published OAuth apps.
-   *
-   * <p>Get all the available published OAuth apps in Databricks.
-   */
+  /** Get all the available published OAuth apps in Databricks. */
   GetPublishedAppsOutput list(ListOAuthPublishedAppsRequest listOAuthPublishedAppsRequest);
 }

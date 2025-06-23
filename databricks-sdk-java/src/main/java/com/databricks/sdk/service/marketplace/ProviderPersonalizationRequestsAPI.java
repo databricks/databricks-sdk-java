@@ -29,10 +29,8 @@ public class ProviderPersonalizationRequestsAPI {
   }
 
   /**
-   * All personalization requests across all listings.
-   *
-   * <p>List personalization requests to this provider. This will return all personalization
-   * requests, regardless of which listing they are for.
+   * List personalization requests to this provider. This will return all personalization requests,
+   * regardless of which listing they are for.
    */
   public Iterable<PersonalizationRequest> list(ListAllPersonalizationRequestsRequest request) {
     return new Paginator<>(
@@ -58,9 +56,7 @@ public class ProviderPersonalizationRequestsAPI {
   }
 
   /**
-   * Update personalization request status.
-   *
-   * <p>Update personalization request. This method only permits updating the status of the request.
+   * Update personalization request. This method only permits updating the status of the request.
    */
   public UpdatePersonalizationRequestResponse update(UpdatePersonalizationRequestRequest request) {
     return impl.update(request);

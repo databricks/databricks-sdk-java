@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Create an Online Table */
 @Generated
 public class CreateOnlineTableRequest {
   /** Online Table information. */

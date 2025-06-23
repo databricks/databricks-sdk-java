@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get cluster info */
 @Generated
 public class GetClusterRequest {
   /** The cluster about which to retrieve information. */

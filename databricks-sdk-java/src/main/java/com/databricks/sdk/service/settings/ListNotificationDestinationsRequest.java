@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** List notification destinations */
 @Generated
 public class ListNotificationDestinationsRequest {
   /** */

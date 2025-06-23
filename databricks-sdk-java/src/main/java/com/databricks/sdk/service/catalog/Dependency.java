@@ -8,11 +8,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * A dependency of a SQL object. Either the __table__ field or the __function__ field must be
- * defined.
+ * A dependency of a SQL object. One of the following fields must be defined: __table__,
+ * __function__, __connection__, or __credential__.
  */
 @Generated
 public class Dependency {
+  /** A connection that is dependent on a SQL object. */
+  @JsonProperty("connection")
+  private ConnectionDependency connection;
+
+  /** A credential that is dependent on a SQL object. */
+  @JsonProperty("credential")
+  private CredentialDependency credential;
+
   /** A function that is dependent on a SQL object. */
   @JsonProperty("function")
   private FunctionDependency function;
@@ -20,6 +28,24 @@ public class Dependency {
   /** A table that is dependent on a SQL object. */
   @JsonProperty("table")
   private TableDependency table;
+
+  public Dependency setConnection(ConnectionDependency connection) {
+    this.connection = connection;
+    return this;
+  }
+
+  public ConnectionDependency getConnection() {
+    return connection;
+  }
+
+  public Dependency setCredential(CredentialDependency credential) {
+    this.credential = credential;
+    return this;
+  }
+
+  public CredentialDependency getCredential() {
+    return credential;
+  }
 
   public Dependency setFunction(FunctionDependency function) {
     this.function = function;
@@ -44,17 +70,22 @@ public class Dependency {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Dependency that = (Dependency) o;
-    return Objects.equals(function, that.function) && Objects.equals(table, that.table);
+    return Objects.equals(connection, that.connection)
+        && Objects.equals(credential, that.credential)
+        && Objects.equals(function, that.function)
+        && Objects.equals(table, that.table);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(function, table);
+    return Objects.hash(connection, credential, function, table);
   }
 
   @Override
   public String toString() {
     return new ToStringer(Dependency.class)
+        .add("connection", connection)
+        .add("credential", credential)
         .add("function", function)
         .add("table", table)
         .toString();

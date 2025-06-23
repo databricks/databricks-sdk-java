@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete a group. */
 @Generated
 public class DeleteGroupRequest {
   /** Unique ID for a group in the Databricks workspace. */

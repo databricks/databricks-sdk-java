@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete a file */
 @Generated
 public class DeleteFileRequest {
   /** The absolute path of the file. */

@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Deprecated in favor of DbtPlatformTask */
 @Generated
 public class DbtCloudTask {
   /** The resource name of the UC connection that authenticates the dbt Cloud for this task */

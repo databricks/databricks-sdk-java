@@ -12,43 +12,27 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface AccountMetastoreAssignmentsService {
-  /**
-   * Assigns a workspace to a metastore.
-   *
-   * <p>Creates an assignment to a metastore for a workspace
-   */
+  /** Creates an assignment to a metastore for a workspace */
   void create(AccountsCreateMetastoreAssignment accountsCreateMetastoreAssignment);
 
-  /**
-   * Delete a metastore assignment.
-   *
-   * <p>Deletes a metastore assignment to a workspace, leaving the workspace with no metastore.
-   */
+  /** Deletes a metastore assignment to a workspace, leaving the workspace with no metastore. */
   void delete(DeleteAccountMetastoreAssignmentRequest deleteAccountMetastoreAssignmentRequest);
 
   /**
-   * Gets the metastore assignment for a workspace.
-   *
-   * <p>Gets the metastore assignment, if any, for the workspace specified by ID. If the workspace
-   * is assigned a metastore, the mappig will be returned. If no metastore is assigned to the
+   * Gets the metastore assignment, if any, for the workspace specified by ID. If the workspace is
+   * assigned a metastore, the mappig will be returned. If no metastore is assigned to the
    * workspace, the assignment will not be found and a 404 returned.
    */
   AccountsMetastoreAssignment get(
       GetAccountMetastoreAssignmentRequest getAccountMetastoreAssignmentRequest);
 
-  /**
-   * Get all workspaces assigned to a metastore.
-   *
-   * <p>Gets a list of all Databricks workspace IDs that have been assigned to given metastore.
-   */
+  /** Gets a list of all Databricks workspace IDs that have been assigned to given metastore. */
   ListAccountMetastoreAssignmentsResponse list(
       ListAccountMetastoreAssignmentsRequest listAccountMetastoreAssignmentsRequest);
 
   /**
-   * Updates a metastore assignment to a workspaces.
-   *
-   * <p>Updates an assignment to a metastore for a workspace. Currently, only the default catalog
-   * may be updated.
+   * Updates an assignment to a metastore for a workspace. Currently, only the default catalog may
+   * be updated.
    */
   void update(AccountsUpdateMetastoreAssignment accountsUpdateMetastoreAssignment);
 }

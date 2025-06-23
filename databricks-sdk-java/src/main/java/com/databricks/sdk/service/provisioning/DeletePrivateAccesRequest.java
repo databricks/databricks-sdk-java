@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete a private access settings object */
 @Generated
 public class DeletePrivateAccesRequest {
   /** Databricks Account API private access settings ID. */

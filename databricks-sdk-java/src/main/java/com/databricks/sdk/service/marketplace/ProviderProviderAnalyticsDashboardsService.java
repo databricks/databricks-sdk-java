@@ -13,32 +13,18 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface ProviderProviderAnalyticsDashboardsService {
   /**
-   * Create provider analytics dashboard.
-   *
-   * <p>Create provider analytics dashboard. Returns Marketplace specific `id`. Not to be confused
-   * with the Lakeview dashboard id.
+   * Create provider analytics dashboard. Returns Marketplace specific `id`. Not to be confused with
+   * the Lakeview dashboard id.
    */
   ProviderAnalyticsDashboard create();
 
-  /**
-   * Get provider analytics dashboard.
-   *
-   * <p>Get provider analytics dashboard.
-   */
+  /** Get provider analytics dashboard. */
   ListProviderAnalyticsDashboardResponse get();
 
-  /**
-   * Get latest version of provider analytics dashboard.
-   *
-   * <p>Get latest version of provider analytics dashboard.
-   */
+  /** Get latest version of provider analytics dashboard. */
   GetLatestVersionProviderAnalyticsDashboardResponse getLatestVersion();
 
-  /**
-   * Update provider analytics dashboard.
-   *
-   * <p>Update provider analytics dashboard.
-   */
+  /** Update provider analytics dashboard. */
   UpdateProviderAnalyticsDashboardResponse update(
       UpdateProviderAnalyticsDashboardRequest updateProviderAnalyticsDashboardRequest);
 }

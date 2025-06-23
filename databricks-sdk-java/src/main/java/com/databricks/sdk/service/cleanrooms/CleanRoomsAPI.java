@@ -33,9 +33,7 @@ public class CleanRoomsAPI {
   }
 
   /**
-   * Create a clean room.
-   *
-   * <p>Create a new clean room with the specified collaborators. This method is asynchronous; the
+   * Create a new clean room with the specified collaborators. This method is asynchronous; the
    * returned name field inside the clean_room field can be used to poll the clean room status,
    * using the :method:cleanrooms/get method. When this method returns, the clean room will be in a
    * PROVISIONING state, with only name, owner, comment, created_at and status populated. The clean
@@ -56,11 +54,7 @@ public class CleanRoomsAPI {
             .setOutputCatalog(outputCatalog));
   }
 
-  /**
-   * Create an output catalog.
-   *
-   * <p>Create the output catalog of the clean room.
-   */
+  /** Create the output catalog of the clean room. */
   public CreateCleanRoomOutputCatalogResponse createOutputCatalog(
       CreateCleanRoomOutputCatalogRequest request) {
     return impl.createOutputCatalog(request);
@@ -71,10 +65,8 @@ public class CleanRoomsAPI {
   }
 
   /**
-   * Delete a clean room.
-   *
-   * <p>Delete a clean room. After deletion, the clean room will be removed from the metastore. If
-   * the other collaborators have not deleted the clean room, they will still have the clean room in
+   * Delete a clean room. After deletion, the clean room will be removed from the metastore. If the
+   * other collaborators have not deleted the clean room, they will still have the clean room in
    * their metastore, but it will be in a DELETED state and no operations other than deletion can be
    * performed on it.
    */
@@ -86,20 +78,14 @@ public class CleanRoomsAPI {
     return get(new GetCleanRoomRequest().setName(name));
   }
 
-  /**
-   * Get a clean room.
-   *
-   * <p>Get the details of a clean room given its name.
-   */
+  /** Get the details of a clean room given its name. */
   public CleanRoom get(GetCleanRoomRequest request) {
     return impl.get(request);
   }
 
   /**
-   * List clean rooms.
-   *
-   * <p>Get a list of all clean rooms of the metastore. Only clean rooms the caller has access to
-   * are returned.
+   * Get a list of all clean rooms of the metastore. Only clean rooms the caller has access to are
+   * returned.
    */
   public Iterable<CleanRoom> list(ListCleanRoomsRequest request) {
     return new Paginator<>(
@@ -120,10 +106,8 @@ public class CleanRoomsAPI {
   }
 
   /**
-   * Update a clean room.
-   *
-   * <p>Update a clean room. The caller must be the owner of the clean room, have
-   * **MODIFY_CLEAN_ROOM** privilege, or be metastore admin.
+   * Update a clean room. The caller must be the owner of the clean room, have **MODIFY_CLEAN_ROOM**
+   * privilege, or be metastore admin.
    *
    * <p>When the caller is a metastore admin, only the __owner__ field can be updated.
    */

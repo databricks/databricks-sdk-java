@@ -40,9 +40,7 @@ public class TableConstraintsAPI {
   }
 
   /**
-   * Create a table constraint.
-   *
-   * <p>Creates a new table constraint.
+   * Creates a new table constraint.
    *
    * <p>For the table constraint creation to succeed, the user must satisfy both of these
    * conditions: - the user must have the **USE_CATALOG** privilege on the table's parent catalog,
@@ -64,9 +62,7 @@ public class TableConstraintsAPI {
   }
 
   /**
-   * Delete a table constraint.
-   *
-   * <p>Deletes a table constraint.
+   * Deletes a table constraint.
    *
    * <p>For the table constraint deletion to succeed, the user must satisfy both of these
    * conditions: - the user must have the **USE_CATALOG** privilege on the table's parent catalog,

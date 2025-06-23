@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get cluster policy permissions */
 @Generated
 public class GetClusterPolicyPermissionsRequest {
   /** The cluster policy for which to get or manage permissions. */

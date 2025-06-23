@@ -18,13 +18,17 @@ public class RunOutput {
   @JsonProperty("dashboard_output")
   private DashboardTaskOutput dashboardOutput;
 
-  /** */
+  /** Deprecated in favor of the new dbt_platform_output */
   @JsonProperty("dbt_cloud_output")
   private DbtCloudTaskOutput dbtCloudOutput;
 
   /** The output of a dbt task, if available. */
   @JsonProperty("dbt_output")
   private DbtOutput dbtOutput;
+
+  /** */
+  @JsonProperty("dbt_platform_output")
+  private DbtPlatformTaskOutput dbtPlatformOutput;
 
   /**
    * An error message indicating why a task failed or why output is not available. The message is
@@ -118,6 +122,15 @@ public class RunOutput {
     return dbtOutput;
   }
 
+  public RunOutput setDbtPlatformOutput(DbtPlatformTaskOutput dbtPlatformOutput) {
+    this.dbtPlatformOutput = dbtPlatformOutput;
+    return this;
+  }
+
+  public DbtPlatformTaskOutput getDbtPlatformOutput() {
+    return dbtPlatformOutput;
+  }
+
   public RunOutput setError(String error) {
     this.error = error;
     return this;
@@ -208,6 +221,7 @@ public class RunOutput {
         && Objects.equals(dashboardOutput, that.dashboardOutput)
         && Objects.equals(dbtCloudOutput, that.dbtCloudOutput)
         && Objects.equals(dbtOutput, that.dbtOutput)
+        && Objects.equals(dbtPlatformOutput, that.dbtPlatformOutput)
         && Objects.equals(error, that.error)
         && Objects.equals(errorTrace, that.errorTrace)
         && Objects.equals(info, that.info)
@@ -226,6 +240,7 @@ public class RunOutput {
         dashboardOutput,
         dbtCloudOutput,
         dbtOutput,
+        dbtPlatformOutput,
         error,
         errorTrace,
         info,
@@ -244,6 +259,7 @@ public class RunOutput {
         .add("dashboardOutput", dashboardOutput)
         .add("dbtCloudOutput", dbtCloudOutput)
         .add("dbtOutput", dbtOutput)
+        .add("dbtPlatformOutput", dbtPlatformOutput)
         .add("error", error)
         .add("errorTrace", errorTrace)
         .add("info", info)

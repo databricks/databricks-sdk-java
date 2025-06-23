@@ -30,74 +30,47 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface ClusterPoliciesService {
-  /**
-   * Create a new policy.
-   *
-   * <p>Creates a new policy with prescribed settings.
-   */
+  /** Creates a new policy with prescribed settings. */
   CreatePolicyResponse create(CreatePolicy createPolicy);
 
   /**
-   * Delete a cluster policy.
-   *
-   * <p>Delete a policy for a cluster. Clusters governed by this policy can still run, but cannot be
+   * Delete a policy for a cluster. Clusters governed by this policy can still run, but cannot be
    * edited.
    */
   void delete(DeletePolicy deletePolicy);
 
   /**
-   * Update a cluster policy.
-   *
-   * <p>Update an existing policy for cluster. This operation may make some clusters governed by the
+   * Update an existing policy for cluster. This operation may make some clusters governed by the
    * previous policy invalid.
    */
   void edit(EditPolicy editPolicy);
 
-  /**
-   * Get a cluster policy.
-   *
-   * <p>Get a cluster policy entity. Creation and editing is available to admins only.
-   */
+  /** Get a cluster policy entity. Creation and editing is available to admins only. */
   Policy get(GetClusterPolicyRequest getClusterPolicyRequest);
 
-  /**
-   * Get cluster policy permission levels.
-   *
-   * <p>Gets the permission levels that a user can have on an object.
-   */
+  /** Gets the permission levels that a user can have on an object. */
   GetClusterPolicyPermissionLevelsResponse getPermissionLevels(
       GetClusterPolicyPermissionLevelsRequest getClusterPolicyPermissionLevelsRequest);
 
   /**
-   * Get cluster policy permissions.
-   *
-   * <p>Gets the permissions of a cluster policy. Cluster policies can inherit permissions from
-   * their root object.
+   * Gets the permissions of a cluster policy. Cluster policies can inherit permissions from their
+   * root object.
    */
   ClusterPolicyPermissions getPermissions(
       GetClusterPolicyPermissionsRequest getClusterPolicyPermissionsRequest);
 
-  /**
-   * List cluster policies.
-   *
-   * <p>Returns a list of policies accessible by the requesting user.
-   */
+  /** Returns a list of policies accessible by the requesting user. */
   ListPoliciesResponse list(ListClusterPoliciesRequest listClusterPoliciesRequest);
 
   /**
-   * Set cluster policy permissions.
-   *
-   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
-   * direct permissions if none are specified. Objects can inherit permissions from their root
-   * object.
+   * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
+   * permissions if none are specified. Objects can inherit permissions from their root object.
    */
   ClusterPolicyPermissions setPermissions(
       ClusterPolicyPermissionsRequest clusterPolicyPermissionsRequest);
 
   /**
-   * Update cluster policy permissions.
-   *
-   * <p>Updates the permissions on a cluster policy. Cluster policies can inherit permissions from
+   * Updates the permissions on a cluster policy. Cluster policies can inherit permissions from
    * their root object.
    */
   ClusterPolicyPermissions updatePermissions(

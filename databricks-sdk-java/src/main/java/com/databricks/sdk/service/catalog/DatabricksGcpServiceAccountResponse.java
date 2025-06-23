@@ -7,15 +7,14 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** GCP long-lived credential. Databricks-created Google Cloud Storage service account. */
 @Generated
 public class DatabricksGcpServiceAccountResponse {
-  /**
-   * The Databricks internal ID that represents this service account. This is an output-only field.
-   */
+  /** The Databricks internal ID that represents this managed identity. */
   @JsonProperty("credential_id")
   private String credentialId;
 
-  /** The email of the service account. This is an output-only field. */
+  /** The email of the service account. */
   @JsonProperty("email")
   private String email;
 

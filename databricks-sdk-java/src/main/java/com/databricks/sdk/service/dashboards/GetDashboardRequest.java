@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get dashboard */
 @Generated
 public class GetDashboardRequest {
   /** UUID identifying the dashboard. */

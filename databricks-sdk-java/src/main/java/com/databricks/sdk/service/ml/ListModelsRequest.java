@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** List models */
 @Generated
 public class ListModelsRequest {
   /** Maximum number of registered models desired. Max threshold is 1000. */

@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Create an output catalog */
 @Generated
 public class CreateCleanRoomOutputCatalogRequest {
   /** Name of the clean room. */

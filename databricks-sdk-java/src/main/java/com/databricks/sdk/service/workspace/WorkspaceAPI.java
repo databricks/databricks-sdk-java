@@ -34,9 +34,7 @@ public class WorkspaceAPI {
   }
 
   /**
-   * Delete a workspace object.
-   *
-   * <p>Deletes an object or a directory (and optionally recursively deletes all objects in the
+   * Deletes an object or a directory (and optionally recursively deletes all objects in the
    * directory). * If `path` does not exist, this call returns an error `RESOURCE_DOES_NOT_EXIST`. *
    * If `path` is a non-empty directory and `recursive` is set to `false`, this call returns an
    * error `DIRECTORY_NOT_EMPTY`.
@@ -52,9 +50,7 @@ public class WorkspaceAPI {
   }
 
   /**
-   * Export a workspace object.
-   *
-   * <p>Exports an object or the contents of an entire directory.
+   * Exports an object or the contents of an entire directory.
    *
    * <p>If `path` does not exist, this call returns an error `RESOURCE_DOES_NOT_EXIST`.
    *
@@ -73,11 +69,7 @@ public class WorkspaceAPI {
             .setWorkspaceObjectId(workspaceObjectId));
   }
 
-  /**
-   * Get workspace object permission levels.
-   *
-   * <p>Gets the permission levels that a user can have on an object.
-   */
+  /** Gets the permission levels that a user can have on an object. */
   public GetWorkspaceObjectPermissionLevelsResponse getPermissionLevels(
       GetWorkspaceObjectPermissionLevelsRequest request) {
     return impl.getPermissionLevels(request);
@@ -92,9 +84,7 @@ public class WorkspaceAPI {
   }
 
   /**
-   * Get workspace object permissions.
-   *
-   * <p>Gets the permissions of a workspace object. Workspace objects can inherit permissions from
+   * Gets the permissions of a workspace object. Workspace objects can inherit permissions from
    * their parent objects or root object.
    */
   public WorkspaceObjectPermissions getPermissions(GetWorkspaceObjectPermissionsRequest request) {
@@ -106,9 +96,7 @@ public class WorkspaceAPI {
   }
 
   /**
-   * Get status.
-   *
-   * <p>Gets the status of an object or a directory. If `path` does not exist, this call returns an
+   * Gets the status of an object or a directory. If `path` does not exist, this call returns an
    * error `RESOURCE_DOES_NOT_EXIST`.
    */
   public ObjectInfo getStatus(GetStatusRequest request) {
@@ -120,9 +108,7 @@ public class WorkspaceAPI {
   }
 
   /**
-   * Import a workspace object.
-   *
-   * <p>Imports a workspace object (for example, a notebook or file) or the contents of an entire
+   * Imports a workspace object (for example, a notebook or file) or the contents of an entire
    * directory. If `path` already exists and `overwrite` is set to `false`, this call returns an
    * error `RESOURCE_ALREADY_EXISTS`. To import a directory, you can use either the `DBC` format or
    * the `SOURCE` format with the `language` field unset. To import a single file as `SOURCE`, you
@@ -137,9 +123,7 @@ public class WorkspaceAPI {
   }
 
   /**
-   * List contents.
-   *
-   * <p>Lists the contents of a directory, or the object if it is not a directory. If the input path
+   * Lists the contents of a directory, or the object if it is not a directory. If the input path
    * does not exist, this call returns an error `RESOURCE_DOES_NOT_EXIST`.
    */
   public Iterable<ObjectInfo> list(ListWorkspaceRequest request) {
@@ -151,9 +135,7 @@ public class WorkspaceAPI {
   }
 
   /**
-   * Create a directory.
-   *
-   * <p>Creates the specified directory (and necessary parent directories if they do not exist). If
+   * Creates the specified directory (and necessary parent directories if they do not exist). If
    * there is an object (not a directory) at any prefix of the input path, this call returns an
    * error `RESOURCE_ALREADY_EXISTS`.
    *
@@ -173,11 +155,9 @@ public class WorkspaceAPI {
   }
 
   /**
-   * Set workspace object permissions.
-   *
-   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
-   * direct permissions if none are specified. Objects can inherit permissions from their parent
-   * objects or root object.
+   * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
+   * permissions if none are specified. Objects can inherit permissions from their parent objects or
+   * root object.
    */
   public WorkspaceObjectPermissions setPermissions(WorkspaceObjectPermissionsRequest request) {
     return impl.setPermissions(request);
@@ -192,10 +172,8 @@ public class WorkspaceAPI {
   }
 
   /**
-   * Update workspace object permissions.
-   *
-   * <p>Updates the permissions on a workspace object. Workspace objects can inherit permissions
-   * from their parent objects or root object.
+   * Updates the permissions on a workspace object. Workspace objects can inherit permissions from
+   * their parent objects or root object.
    */
   public WorkspaceObjectPermissions updatePermissions(WorkspaceObjectPermissionsRequest request) {
     return impl.updatePermissions(request);

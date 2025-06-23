@@ -21,17 +21,13 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface SecretsService {
   /**
-   * Create a new secret scope.
-   *
-   * <p>The scope name must consist of alphanumeric characters, dashes, underscores, and periods,
-   * and may not exceed 128 characters.
+   * The scope name must consist of alphanumeric characters, dashes, underscores, and periods, and
+   * may not exceed 128 characters.
    */
   void createScope(CreateScope createScope);
 
   /**
-   * Delete an ACL.
-   *
-   * <p>Deletes the given ACL on the given scope.
+   * Deletes the given ACL on the given scope.
    *
    * <p>Users must have the `MANAGE` permission to invoke this API. Throws `RESOURCE_DOES_NOT_EXIST`
    * if no such secret scope, principal, or ACL exists. Throws `PERMISSION_DENIED` if the user does
@@ -40,9 +36,7 @@ public interface SecretsService {
   void deleteAcl(DeleteAcl deleteAcl);
 
   /**
-   * Delete a secret scope.
-   *
-   * <p>Deletes a secret scope.
+   * Deletes a secret scope.
    *
    * <p>Throws `RESOURCE_DOES_NOT_EXIST` if the scope does not exist. Throws `PERMISSION_DENIED` if
    * the user does not have permission to make this API call.
@@ -50,10 +44,8 @@ public interface SecretsService {
   void deleteScope(DeleteScope deleteScope);
 
   /**
-   * Delete a secret.
-   *
-   * <p>Deletes the secret stored in this secret scope. You must have `WRITE` or `MANAGE` permission
-   * on the secret scope.
+   * Deletes the secret stored in this secret scope. You must have `WRITE` or `MANAGE` permission on
+   * the secret scope.
    *
    * <p>Throws `RESOURCE_DOES_NOT_EXIST` if no such secret scope or secret exists. Throws
    * `PERMISSION_DENIED` if the user does not have permission to make this API call.
@@ -61,9 +53,7 @@ public interface SecretsService {
   void deleteSecret(DeleteSecret deleteSecret);
 
   /**
-   * Get secret ACL details.
-   *
-   * <p>Gets the details about the given ACL, such as the group and permission. Users must have the
+   * Gets the details about the given ACL, such as the group and permission. Users must have the
    * `MANAGE` permission to invoke this API.
    *
    * <p>Throws `RESOURCE_DOES_NOT_EXIST` if no such secret scope exists. Throws `PERMISSION_DENIED`
@@ -72,9 +62,7 @@ public interface SecretsService {
   AclItem getAcl(GetAclRequest getAclRequest);
 
   /**
-   * Get a secret.
-   *
-   * <p>Gets the bytes representation of a secret value for the specified scope and key.
+   * Gets the bytes representation of a secret value for the specified scope and key.
    *
    * <p>Users need the READ permission to make this call.
    *
@@ -87,10 +75,8 @@ public interface SecretsService {
   GetSecretResponse getSecret(GetSecretRequest getSecretRequest);
 
   /**
-   * Lists ACLs.
-   *
-   * <p>List the ACLs for a given secret scope. Users must have the `MANAGE` permission to invoke
-   * this API.
+   * List the ACLs for a given secret scope. Users must have the `MANAGE` permission to invoke this
+   * API.
    *
    * <p>Throws `RESOURCE_DOES_NOT_EXIST` if no such secret scope exists. Throws `PERMISSION_DENIED`
    * if the user does not have permission to make this API call.
@@ -98,20 +84,15 @@ public interface SecretsService {
   ListAclsResponse listAcls(ListAclsRequest listAclsRequest);
 
   /**
-   * List all scopes.
-   *
-   * <p>Lists all secret scopes available in the workspace.
+   * Lists all secret scopes available in the workspace.
    *
    * <p>Throws `PERMISSION_DENIED` if the user does not have permission to make this API call.
    */
   ListScopesResponse listScopes();
 
   /**
-   * List secret keys.
-   *
-   * <p>Lists the secret keys that are stored at this scope. This is a metadata-only operation;
-   * secret data cannot be retrieved using this API. Users need the READ permission to make this
-   * call.
+   * Lists the secret keys that are stored at this scope. This is a metadata-only operation; secret
+   * data cannot be retrieved using this API. Users need the READ permission to make this call.
    *
    * <p>The lastUpdatedTimestamp returned is in milliseconds since epoch. Throws
    * `RESOURCE_DOES_NOT_EXIST` if no such secret scope exists. Throws `PERMISSION_DENIED` if the
@@ -120,10 +101,8 @@ public interface SecretsService {
   ListSecretsResponse listSecrets(ListSecretsRequest listSecretsRequest);
 
   /**
-   * Create/update an ACL.
-   *
-   * <p>Creates or overwrites the Access Control List (ACL) associated with the given principal
-   * (user or group) on the specified scope point.
+   * Creates or overwrites the Access Control List (ACL) associated with the given principal (user
+   * or group) on the specified scope point.
    *
    * <p>In general, a user or group will use the most powerful permission available to them, and
    * permissions are ordered as follows:
@@ -150,11 +129,9 @@ public interface SecretsService {
   void putAcl(PutAcl putAcl);
 
   /**
-   * Add a secret.
-   *
-   * <p>Inserts a secret under the provided scope with the given name. If a secret already exists
-   * with the same name, this command overwrites the existing secret's value. The server encrypts
-   * the secret using the secret scope's encryption settings before storing it.
+   * Inserts a secret under the provided scope with the given name. If a secret already exists with
+   * the same name, this command overwrites the existing secret's value. The server encrypts the
+   * secret using the secret scope's encryption settings before storing it.
    *
    * <p>You must have `WRITE` or `MANAGE` permission on the secret scope. The secret key must
    * consist of alphanumeric characters, dashes, underscores, and periods, and cannot exceed 128

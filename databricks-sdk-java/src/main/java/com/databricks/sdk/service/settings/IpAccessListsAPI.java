@@ -49,9 +49,7 @@ public class IpAccessListsAPI {
   }
 
   /**
-   * Create access list.
-   *
-   * <p>Creates an IP access list for this workspace.
+   * Creates an IP access list for this workspace.
    *
    * <p>A list can be an allow list or a block list. See the top of this file for a description of
    * how the server treats allow lists and block lists at runtime.
@@ -74,11 +72,7 @@ public class IpAccessListsAPI {
     delete(new DeleteIpAccessListRequest().setIpAccessListId(ipAccessListId));
   }
 
-  /**
-   * Delete access list.
-   *
-   * <p>Deletes an IP access list, specified by its list ID.
-   */
+  /** Deletes an IP access list, specified by its list ID. */
   public void delete(DeleteIpAccessListRequest request) {
     impl.delete(request);
   }
@@ -87,20 +81,12 @@ public class IpAccessListsAPI {
     return get(new GetIpAccessListRequest().setIpAccessListId(ipAccessListId));
   }
 
-  /**
-   * Get access list.
-   *
-   * <p>Gets an IP access list, specified by its list ID.
-   */
+  /** Gets an IP access list, specified by its list ID. */
   public FetchIpAccessListResponse get(GetIpAccessListRequest request) {
     return impl.get(request);
   }
 
-  /**
-   * Get access lists.
-   *
-   * <p>Gets all IP access lists for the specified workspace.
-   */
+  /** Gets all IP access lists for the specified workspace. */
   public Iterable<IpAccessListInfo> list() {
     return new Paginator<>(
         null,
@@ -119,9 +105,7 @@ public class IpAccessListsAPI {
   }
 
   /**
-   * Replace access list.
-   *
-   * <p>Replaces an IP access list, specified by its ID.
+   * Replaces an IP access list, specified by its ID.
    *
    * <p>A list can include allow lists and block lists. See the top of this file for a description
    * of how the server treats allow lists and block lists at run time. When replacing an IP access
@@ -141,9 +125,7 @@ public class IpAccessListsAPI {
   }
 
   /**
-   * Update access list.
-   *
-   * <p>Updates an existing IP access list, specified by its ID.
+   * Updates an existing IP access list, specified by its ID.
    *
    * <p>A list can include allow lists and block lists. See the top of this file for a description
    * of how the server treats allow lists and block lists at run time.

@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Create a network policy */
 @Generated
 public class CreateNetworkPolicyRequest {
   /** */

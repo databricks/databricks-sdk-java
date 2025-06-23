@@ -60,6 +60,10 @@ public class CreatePipeline {
   @JsonProperty("edition")
   private String edition;
 
+  /** Environment specification for this pipeline used to install dependencies. */
+  @JsonProperty("environment")
+  private PipelinesEnvironment environment;
+
   /** Event log configuration for this pipeline */
   @JsonProperty("event_log")
   private EventLogSpec eventLog;
@@ -253,6 +257,15 @@ public class CreatePipeline {
     return edition;
   }
 
+  public CreatePipeline setEnvironment(PipelinesEnvironment environment) {
+    this.environment = environment;
+    return this;
+  }
+
+  public PipelinesEnvironment getEnvironment() {
+    return environment;
+  }
+
   public CreatePipeline setEventLog(EventLogSpec eventLog) {
     this.eventLog = eventLog;
     return this;
@@ -431,6 +444,7 @@ public class CreatePipeline {
         && Objects.equals(development, that.development)
         && Objects.equals(dryRun, that.dryRun)
         && Objects.equals(edition, that.edition)
+        && Objects.equals(environment, that.environment)
         && Objects.equals(eventLog, that.eventLog)
         && Objects.equals(filters, that.filters)
         && Objects.equals(gatewayDefinition, that.gatewayDefinition)
@@ -465,6 +479,7 @@ public class CreatePipeline {
         development,
         dryRun,
         edition,
+        environment,
         eventLog,
         filters,
         gatewayDefinition,
@@ -499,6 +514,7 @@ public class CreatePipeline {
         .add("development", development)
         .add("dryRun", dryRun)
         .add("edition", edition)
+        .add("environment", environment)
         .add("eventLog", eventLog)
         .add("filters", filters)
         .add("gatewayDefinition", gatewayDefinition)

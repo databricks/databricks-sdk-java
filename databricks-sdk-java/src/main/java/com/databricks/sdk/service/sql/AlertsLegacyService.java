@@ -22,11 +22,9 @@ import java.util.Collection;
 @Generated
 public interface AlertsLegacyService {
   /**
-   * Create an alert.
-   *
-   * <p>Creates an alert. An alert is a Databricks SQL object that periodically runs a query,
-   * evaluates a condition of its result, and notifies users or notification destinations if the
-   * condition was met.
+   * Creates an alert. An alert is a Databricks SQL object that periodically runs a query, evaluates
+   * a condition of its result, and notifies users or notification destinations if the condition was
+   * met.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
    * :method:alerts/create instead. [Learn more]
@@ -36,9 +34,7 @@ public interface AlertsLegacyService {
   LegacyAlert create(CreateAlert createAlert);
 
   /**
-   * Delete an alert.
-   *
-   * <p>Deletes an alert. Deleted alerts are no longer accessible and cannot be restored. **Note**:
+   * Deletes an alert. Deleted alerts are no longer accessible and cannot be restored. **Note**:
    * Unlike queries and dashboards, alerts cannot be moved to the trash.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
@@ -49,9 +45,7 @@ public interface AlertsLegacyService {
   void delete(DeleteAlertsLegacyRequest deleteAlertsLegacyRequest);
 
   /**
-   * Get an alert.
-   *
-   * <p>Gets an alert.
+   * Gets an alert.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
    * :method:alerts/get instead. [Learn more]
@@ -61,9 +55,7 @@ public interface AlertsLegacyService {
   LegacyAlert get(GetAlertsLegacyRequest getAlertsLegacyRequest);
 
   /**
-   * Get alerts.
-   *
-   * <p>Gets a list of alerts.
+   * Gets a list of alerts.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
    * :method:alerts/list instead. [Learn more]
@@ -73,9 +65,7 @@ public interface AlertsLegacyService {
   Collection<LegacyAlert> list();
 
   /**
-   * Update an alert.
-   *
-   * <p>Updates an alert.
+   * Updates an alert.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
    * :method:alerts/update instead. [Learn more]

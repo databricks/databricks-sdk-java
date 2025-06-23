@@ -104,6 +104,20 @@ public class CreateInstancePool {
   @JsonProperty("preloaded_spark_versions")
   private Collection<String> preloadedSparkVersions;
 
+  /**
+   * If set, what the configurable throughput (in Mb/s) for the remote disk is. Currently only
+   * supported for GCP HYPERDISK_BALANCED types.
+   */
+  @JsonProperty("remote_disk_throughput")
+  private Long remoteDiskThroughput;
+
+  /**
+   * If set, what the total initial volume size (in GB) of the remote disks should be. Currently
+   * only supported for GCP HYPERDISK_BALANCED types.
+   */
+  @JsonProperty("total_initial_remote_disk_size")
+  private Long totalInitialRemoteDiskSize;
+
   public CreateInstancePool setAwsAttributes(InstancePoolAwsAttributes awsAttributes) {
     this.awsAttributes = awsAttributes;
     return this;
@@ -223,6 +237,24 @@ public class CreateInstancePool {
     return preloadedSparkVersions;
   }
 
+  public CreateInstancePool setRemoteDiskThroughput(Long remoteDiskThroughput) {
+    this.remoteDiskThroughput = remoteDiskThroughput;
+    return this;
+  }
+
+  public Long getRemoteDiskThroughput() {
+    return remoteDiskThroughput;
+  }
+
+  public CreateInstancePool setTotalInitialRemoteDiskSize(Long totalInitialRemoteDiskSize) {
+    this.totalInitialRemoteDiskSize = totalInitialRemoteDiskSize;
+    return this;
+  }
+
+  public Long getTotalInitialRemoteDiskSize() {
+    return totalInitialRemoteDiskSize;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -241,7 +273,9 @@ public class CreateInstancePool {
         && Objects.equals(minIdleInstances, that.minIdleInstances)
         && Objects.equals(nodeTypeId, that.nodeTypeId)
         && Objects.equals(preloadedDockerImages, that.preloadedDockerImages)
-        && Objects.equals(preloadedSparkVersions, that.preloadedSparkVersions);
+        && Objects.equals(preloadedSparkVersions, that.preloadedSparkVersions)
+        && Objects.equals(remoteDiskThroughput, that.remoteDiskThroughput)
+        && Objects.equals(totalInitialRemoteDiskSize, that.totalInitialRemoteDiskSize);
   }
 
   @Override
@@ -259,7 +293,9 @@ public class CreateInstancePool {
         minIdleInstances,
         nodeTypeId,
         preloadedDockerImages,
-        preloadedSparkVersions);
+        preloadedSparkVersions,
+        remoteDiskThroughput,
+        totalInitialRemoteDiskSize);
   }
 
   @Override
@@ -278,6 +314,8 @@ public class CreateInstancePool {
         .add("nodeTypeId", nodeTypeId)
         .add("preloadedDockerImages", preloadedDockerImages)
         .add("preloadedSparkVersions", preloadedSparkVersions)
+        .add("remoteDiskThroughput", remoteDiskThroughput)
+        .add("totalInitialRemoteDiskSize", totalInitialRemoteDiskSize)
         .toString();
   }
 }

@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Lists ACLs */
 @Generated
 public class ListAclsRequest {
   /** The name of the scope to fetch ACL information from. */

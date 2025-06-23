@@ -33,10 +33,8 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface RecipientFederationPoliciesService {
   /**
-   * Create recipient federation policy.
-   *
-   * <p>Create a federation policy for an OIDC_FEDERATION recipient for sharing data from Databricks
-   * to non-Databricks recipients. The caller must be the owner of the recipient. When sharing data
+   * Create a federation policy for an OIDC_FEDERATION recipient for sharing data from Databricks to
+   * non-Databricks recipients. The caller must be the owner of the recipient. When sharing data
    * from Databricks to non-Databricks clients, you can define a federation policy to authenticate
    * non-Databricks recipients. The federation policy validates OIDC claims in federated tokens and
    * is defined at the recipient level. This enables secretless sharing clients to authenticate
@@ -60,33 +58,25 @@ public interface RecipientFederationPoliciesService {
   FederationPolicy create(CreateFederationPolicyRequest createFederationPolicyRequest);
 
   /**
-   * Delete recipient federation policy.
-   *
-   * <p>Deletes an existing federation policy for an OIDC_FEDERATION recipient. The caller must be
-   * the owner of the recipient.
+   * Deletes an existing federation policy for an OIDC_FEDERATION recipient. The caller must be the
+   * owner of the recipient.
    */
   void delete(DeleteFederationPolicyRequest deleteFederationPolicyRequest);
 
   /**
-   * Get recipient federation policy.
-   *
-   * <p>Reads an existing federation policy for an OIDC_FEDERATION recipient for sharing data from
+   * Reads an existing federation policy for an OIDC_FEDERATION recipient for sharing data from
    * Databricks to non-Databricks recipients. The caller must have read access to the recipient.
    */
   FederationPolicy getFederationPolicy(GetFederationPolicyRequest getFederationPolicyRequest);
 
   /**
-   * List recipient federation policies.
-   *
-   * <p>Lists federation policies for an OIDC_FEDERATION recipient for sharing data from Databricks
-   * to non-Databricks recipients. The caller must have read access to the recipient.
+   * Lists federation policies for an OIDC_FEDERATION recipient for sharing data from Databricks to
+   * non-Databricks recipients. The caller must have read access to the recipient.
    */
   ListFederationPoliciesResponse list(ListFederationPoliciesRequest listFederationPoliciesRequest);
 
   /**
-   * Update recipient federation policy.
-   *
-   * <p>Updates an existing federation policy for an OIDC_RECIPIENT. The caller must be the owner of
+   * Updates an existing federation policy for an OIDC_RECIPIENT. The caller must be the owner of
    * the recipient.
    */
   FederationPolicy update(UpdateFederationPolicyRequest updateFederationPolicyRequest);

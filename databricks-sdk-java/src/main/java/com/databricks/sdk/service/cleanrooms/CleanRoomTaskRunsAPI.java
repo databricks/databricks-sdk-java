@@ -28,11 +28,7 @@ public class CleanRoomTaskRunsAPI {
     return list(new ListCleanRoomNotebookTaskRunsRequest().setCleanRoomName(cleanRoomName));
   }
 
-  /**
-   * List notebook task runs.
-   *
-   * <p>List all the historical notebook task runs in a clean room.
-   */
+  /** List all the historical notebook task runs in a clean room. */
   public Iterable<CleanRoomNotebookTaskRun> list(ListCleanRoomNotebookTaskRunsRequest request) {
     return new Paginator<>(
         request,

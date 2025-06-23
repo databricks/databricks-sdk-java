@@ -84,11 +84,7 @@ public class VectorSearchEndpointsAPI {
     return createEndpoint(new CreateEndpoint().setName(name).setEndpointType(endpointType));
   }
 
-  /**
-   * Create an endpoint.
-   *
-   * <p>Create a new endpoint.
-   */
+  /** Create a new endpoint. */
   public Wait<EndpointInfo, EndpointInfo> createEndpoint(CreateEndpoint request) {
     EndpointInfo response = impl.createEndpoint(request);
     return new Wait<>(
@@ -101,11 +97,7 @@ public class VectorSearchEndpointsAPI {
     deleteEndpoint(new DeleteEndpointRequest().setEndpointName(endpointName));
   }
 
-  /**
-   * Delete an endpoint.
-   *
-   * <p>Delete a vector search endpoint.
-   */
+  /** Delete a vector search endpoint. */
   public void deleteEndpoint(DeleteEndpointRequest request) {
     impl.deleteEndpoint(request);
   }
@@ -114,20 +106,12 @@ public class VectorSearchEndpointsAPI {
     return getEndpoint(new GetEndpointRequest().setEndpointName(endpointName));
   }
 
-  /**
-   * Get an endpoint.
-   *
-   * <p>Get details for a single vector search endpoint.
-   */
+  /** Get details for a single vector search endpoint. */
   public EndpointInfo getEndpoint(GetEndpointRequest request) {
     return impl.getEndpoint(request);
   }
 
-  /**
-   * List all endpoints.
-   *
-   * <p>List all vector search endpoints in the workspace.
-   */
+  /** List all vector search endpoints in the workspace. */
   public Iterable<EndpointInfo> listEndpoints(ListEndpointsRequest request) {
     return new Paginator<>(
         request,
@@ -150,11 +134,7 @@ public class VectorSearchEndpointsAPI {
             .setBudgetPolicyId(budgetPolicyId));
   }
 
-  /**
-   * Update the budget policy of an endpoint.
-   *
-   * <p>Update the budget policy of an endpoint
-   */
+  /** Update the budget policy of an endpoint */
   public PatchEndpointBudgetPolicyResponse updateEndpointBudgetPolicy(
       PatchEndpointBudgetPolicyRequest request) {
     return impl.updateEndpointBudgetPolicy(request);

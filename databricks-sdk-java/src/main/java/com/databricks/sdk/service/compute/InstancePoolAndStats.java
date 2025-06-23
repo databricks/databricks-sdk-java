@@ -122,6 +122,13 @@ public class InstancePoolAndStats {
   @JsonProperty("preloaded_spark_versions")
   private Collection<String> preloadedSparkVersions;
 
+  /**
+   * If set, what the configurable throughput (in Mb/s) for the remote disk is. Currently only
+   * supported for GCP HYPERDISK_BALANCED types.
+   */
+  @JsonProperty("remote_disk_throughput")
+  private Long remoteDiskThroughput;
+
   /** Current state of the instance pool. */
   @JsonProperty("state")
   private InstancePoolState state;
@@ -133,6 +140,13 @@ public class InstancePoolAndStats {
   /** Status of failed pending instances in the pool. */
   @JsonProperty("status")
   private InstancePoolStatus status;
+
+  /**
+   * If set, what the total initial volume size (in GB) of the remote disks should be. Currently
+   * only supported for GCP HYPERDISK_BALANCED types.
+   */
+  @JsonProperty("total_initial_remote_disk_size")
+  private Long totalInitialRemoteDiskSize;
 
   public InstancePoolAndStats setAwsAttributes(InstancePoolAwsAttributes awsAttributes) {
     this.awsAttributes = awsAttributes;
@@ -271,6 +285,15 @@ public class InstancePoolAndStats {
     return preloadedSparkVersions;
   }
 
+  public InstancePoolAndStats setRemoteDiskThroughput(Long remoteDiskThroughput) {
+    this.remoteDiskThroughput = remoteDiskThroughput;
+    return this;
+  }
+
+  public Long getRemoteDiskThroughput() {
+    return remoteDiskThroughput;
+  }
+
   public InstancePoolAndStats setState(InstancePoolState state) {
     this.state = state;
     return this;
@@ -298,6 +321,15 @@ public class InstancePoolAndStats {
     return status;
   }
 
+  public InstancePoolAndStats setTotalInitialRemoteDiskSize(Long totalInitialRemoteDiskSize) {
+    this.totalInitialRemoteDiskSize = totalInitialRemoteDiskSize;
+    return this;
+  }
+
+  public Long getTotalInitialRemoteDiskSize() {
+    return totalInitialRemoteDiskSize;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -319,9 +351,11 @@ public class InstancePoolAndStats {
         && Objects.equals(nodeTypeId, that.nodeTypeId)
         && Objects.equals(preloadedDockerImages, that.preloadedDockerImages)
         && Objects.equals(preloadedSparkVersions, that.preloadedSparkVersions)
+        && Objects.equals(remoteDiskThroughput, that.remoteDiskThroughput)
         && Objects.equals(state, that.state)
         && Objects.equals(stats, that.stats)
-        && Objects.equals(status, that.status);
+        && Objects.equals(status, that.status)
+        && Objects.equals(totalInitialRemoteDiskSize, that.totalInitialRemoteDiskSize);
   }
 
   @Override
@@ -342,9 +376,11 @@ public class InstancePoolAndStats {
         nodeTypeId,
         preloadedDockerImages,
         preloadedSparkVersions,
+        remoteDiskThroughput,
         state,
         stats,
-        status);
+        status,
+        totalInitialRemoteDiskSize);
   }
 
   @Override
@@ -365,9 +401,11 @@ public class InstancePoolAndStats {
         .add("nodeTypeId", nodeTypeId)
         .add("preloadedDockerImages", preloadedDockerImages)
         .add("preloadedSparkVersions", preloadedSparkVersions)
+        .add("remoteDiskThroughput", remoteDiskThroughput)
         .add("state", state)
         .add("stats", stats)
         .add("status", status)
+        .add("totalInitialRemoteDiskSize", totalInitialRemoteDiskSize)
         .toString();
   }
 }

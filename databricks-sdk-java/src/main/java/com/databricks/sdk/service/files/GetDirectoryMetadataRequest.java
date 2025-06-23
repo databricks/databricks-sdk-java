@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get directory metadata */
 @Generated
 public class GetDirectoryMetadataRequest {
   /** The absolute path of a directory. */

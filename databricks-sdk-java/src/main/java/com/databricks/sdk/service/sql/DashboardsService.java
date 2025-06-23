@@ -16,46 +16,38 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface DashboardsService {
-  /** Create a dashboard object. */
+  /**
+   * Creates a new dashboard object. Only the name parameter is required in the POST request JSON
+   * body. Other fields can be included when duplicating dashboards with this API. Databricks does
+   * not recommend designing dashboards exclusively using this API.',
+   */
   Dashboard create(DashboardPostContent dashboardPostContent);
 
   /**
-   * Remove a dashboard.
-   *
-   * <p>Moves a dashboard to the trash. Trashed dashboards do not appear in list views or searches,
-   * and cannot be shared.
+   * Moves a dashboard to the trash. Trashed dashboards do not appear in list views or searches, and
+   * cannot be shared.
    */
   void delete(DeleteDashboardRequest deleteDashboardRequest);
 
   /**
-   * Retrieve a definition.
-   *
-   * <p>Returns a JSON representation of a dashboard object, including its visualization and query
+   * Returns a JSON representation of a dashboard object, including its visualization and query
    * objects.
    */
   Dashboard get(GetDashboardRequest getDashboardRequest);
 
   /**
-   * Get dashboard objects.
-   *
-   * <p>Fetch a paginated list of dashboard objects.
+   * Fetch a paginated list of dashboard objects.
    *
    * <p>**Warning**: Calling this API concurrently 10 or more times could result in throttling,
    * service degradation, or a temporary ban.
    */
   ListResponse list(ListDashboardsRequest listDashboardsRequest);
 
-  /**
-   * Restore a dashboard.
-   *
-   * <p>A restored dashboard appears in list views and searches and can be shared.
-   */
+  /** A restored dashboard appears in list views and searches and can be shared. */
   void restore(RestoreDashboardRequest restoreDashboardRequest);
 
   /**
-   * Change a dashboard definition.
-   *
-   * <p>Modify this dashboard definition. This operation only affects attributes of the dashboard
+   * Modify this dashboard definition. This operation only affects attributes of the dashboard
    * object. It does not add, modify, or remove widgets.
    *
    * <p>**Note**: You cannot undo this operation.
