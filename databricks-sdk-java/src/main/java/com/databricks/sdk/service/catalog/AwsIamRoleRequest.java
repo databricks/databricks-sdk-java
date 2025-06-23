@@ -7,9 +7,10 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** The AWS IAM role configuration */
 @Generated
 public class AwsIamRoleRequest {
-  /** The Amazon Resource Name (ARN) of the AWS IAM role for S3 data access. */
+  /** The Amazon Resource Name (ARN) of the AWS IAM role used to vend temporary credentials. */
   @JsonProperty("role_arn")
   private String roleArn;
 

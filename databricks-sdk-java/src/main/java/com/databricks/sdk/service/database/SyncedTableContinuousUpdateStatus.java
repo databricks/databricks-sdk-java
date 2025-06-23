@@ -17,16 +17,13 @@ public class SyncedTableContinuousUpdateStatus {
   @JsonProperty("initial_pipeline_sync_progress")
   private SyncedTablePipelineProgress initialPipelineSyncProgress;
 
-  /**
-   * The last source table Delta version that was synced to the synced table. Note that this Delta
-   * version may not be completely synced to the synced table yet.
-   */
+  /** The last source table Delta version that was successfully synced to the synced table. */
   @JsonProperty("last_processed_commit_version")
   private Long lastProcessedCommitVersion;
 
   /**
-   * The timestamp of the last time any data was synchronized from the source table to the synced
-   * table.
+   * The end timestamp of the last time any data was synchronized from the source table to the
+   * synced table. This is when the data is available in the synced table.
    */
   @JsonProperty("timestamp")
   private String timestamp;

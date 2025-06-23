@@ -31,11 +31,7 @@ public class CspEnablementAccountAPI {
     impl = mock;
   }
 
-  /**
-   * Get the compliance security profile setting for new workspaces.
-   *
-   * <p>Gets the compliance security profile setting for new workspaces.
-   */
+  /** Gets the compliance security profile setting for new workspaces. */
   public CspEnablementAccountSetting get(GetCspEnablementAccountSettingRequest request) {
     return impl.get(request);
   }
@@ -49,11 +45,7 @@ public class CspEnablementAccountAPI {
             .setFieldMask(fieldMask));
   }
 
-  /**
-   * Update the compliance security profile setting for new workspaces.
-   *
-   * <p>Updates the value of the compliance security profile setting for new workspaces.
-   */
+  /** Updates the value of the compliance security profile setting for new workspaces. */
   public CspEnablementAccountSetting update(UpdateCspEnablementAccountSettingRequest request) {
     return impl.update(request);
   }

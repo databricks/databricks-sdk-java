@@ -15,41 +15,23 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface NotificationDestinationsService {
-  /**
-   * Create a notification destination.
-   *
-   * <p>Creates a notification destination. Requires workspace admin permissions.
-   */
+  /** Creates a notification destination. Requires workspace admin permissions. */
   NotificationDestination create(
       CreateNotificationDestinationRequest createNotificationDestinationRequest);
 
-  /**
-   * Delete a notification destination.
-   *
-   * <p>Deletes a notification destination. Requires workspace admin permissions.
-   */
+  /** Deletes a notification destination. Requires workspace admin permissions. */
   void delete(DeleteNotificationDestinationRequest deleteNotificationDestinationRequest);
 
-  /**
-   * Get a notification destination.
-   *
-   * <p>Gets a notification destination.
-   */
+  /** Gets a notification destination. */
   NotificationDestination get(GetNotificationDestinationRequest getNotificationDestinationRequest);
 
-  /**
-   * List notification destinations.
-   *
-   * <p>Lists notification destinations.
-   */
+  /** Lists notification destinations. */
   ListNotificationDestinationsResponse list(
       ListNotificationDestinationsRequest listNotificationDestinationsRequest);
 
   /**
-   * Update a notification destination.
-   *
-   * <p>Updates a notification destination. Requires workspace admin permissions. At least one field
-   * is required in the request body.
+   * Updates a notification destination. Requires workspace admin permissions. At least one field is
+   * required in the request body.
    */
   NotificationDestination update(
       UpdateNotificationDestinationRequest updateNotificationDestinationRequest);

@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get Model Version By Alias */
 @Generated
 public class GetByAliasRequest {
   /** The name of the alias */

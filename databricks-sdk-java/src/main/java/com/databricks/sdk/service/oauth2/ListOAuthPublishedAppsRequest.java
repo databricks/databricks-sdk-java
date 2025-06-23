@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get all the published OAuth apps */
 @Generated
 public class ListOAuthPublishedAppsRequest {
   /** The max number of OAuth published apps to return in one page. */

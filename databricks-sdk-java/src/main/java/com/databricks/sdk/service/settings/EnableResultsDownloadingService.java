@@ -12,17 +12,11 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface EnableResultsDownloadingService {
-  /**
-   * Get the Notebook results download setting.
-   *
-   * <p>Gets the Notebook results download setting.
-   */
+  /** Gets the Notebook results download setting. */
   EnableResultsDownloading getEnableResultsDownloading();
 
   /**
-   * Update the Notebook results download setting.
-   *
-   * <p>Updates the Notebook results download setting. The model follows eventual consistency, which
+   * Updates the Notebook results download setting. The model follows eventual consistency, which
    * means the get after the update operation might receive stale values for some time.
    */
   EnableResultsDownloading patchEnableResultsDownloading(

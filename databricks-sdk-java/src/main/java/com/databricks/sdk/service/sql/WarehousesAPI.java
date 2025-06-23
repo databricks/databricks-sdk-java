@@ -124,11 +124,7 @@ public class WarehousesAPI {
     throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
   }
 
-  /**
-   * Create a warehouse.
-   *
-   * <p>Creates a new SQL warehouse.
-   */
+  /** Creates a new SQL warehouse. */
   public Wait<GetWarehouseResponse, CreateWarehouseResponse> create(
       CreateWarehouseRequest request) {
     CreateWarehouseResponse response = impl.create(request);
@@ -141,11 +137,7 @@ public class WarehousesAPI {
     delete(new DeleteWarehouseRequest().setId(id));
   }
 
-  /**
-   * Delete a warehouse.
-   *
-   * <p>Deletes a SQL warehouse.
-   */
+  /** Deletes a SQL warehouse. */
   public void delete(DeleteWarehouseRequest request) {
     impl.delete(request);
   }
@@ -154,11 +146,7 @@ public class WarehousesAPI {
     return edit(new EditWarehouseRequest().setId(id));
   }
 
-  /**
-   * Update a warehouse.
-   *
-   * <p>Updates the configuration for a SQL warehouse.
-   */
+  /** Updates the configuration for a SQL warehouse. */
   public Wait<GetWarehouseResponse, Void> edit(EditWarehouseRequest request) {
     impl.edit(request);
     return new Wait<>(
@@ -169,11 +157,7 @@ public class WarehousesAPI {
     return get(new GetWarehouseRequest().setId(id));
   }
 
-  /**
-   * Get warehouse info.
-   *
-   * <p>Gets the information for a single SQL warehouse.
-   */
+  /** Gets the information for a single SQL warehouse. */
   public GetWarehouseResponse get(GetWarehouseRequest request) {
     return impl.get(request);
   }
@@ -183,11 +167,7 @@ public class WarehousesAPI {
         new GetWarehousePermissionLevelsRequest().setWarehouseId(warehouseId));
   }
 
-  /**
-   * Get SQL warehouse permission levels.
-   *
-   * <p>Gets the permission levels that a user can have on an object.
-   */
+  /** Gets the permission levels that a user can have on an object. */
   public GetWarehousePermissionLevelsResponse getPermissionLevels(
       GetWarehousePermissionLevelsRequest request) {
     return impl.getPermissionLevels(request);
@@ -198,29 +178,19 @@ public class WarehousesAPI {
   }
 
   /**
-   * Get SQL warehouse permissions.
-   *
-   * <p>Gets the permissions of a SQL warehouse. SQL warehouses can inherit permissions from their
-   * root object.
+   * Gets the permissions of a SQL warehouse. SQL warehouses can inherit permissions from their root
+   * object.
    */
   public WarehousePermissions getPermissions(GetWarehousePermissionsRequest request) {
     return impl.getPermissions(request);
   }
 
-  /**
-   * Get the workspace configuration.
-   *
-   * <p>Gets the workspace level configuration that is shared by all SQL warehouses in a workspace.
-   */
+  /** Gets the workspace level configuration that is shared by all SQL warehouses in a workspace. */
   public GetWorkspaceWarehouseConfigResponse getWorkspaceWarehouseConfig() {
     return impl.getWorkspaceWarehouseConfig();
   }
 
-  /**
-   * List warehouses.
-   *
-   * <p>Lists all SQL warehouses that a user has manager permissions on.
-   */
+  /** Lists all SQL warehouses that a user has manager permissions on. */
   public Iterable<EndpointInfo> list(ListWarehousesRequest request) {
     return new Paginator<>(
         request, impl::list, ListWarehousesResponse::getWarehouses, response -> null);
@@ -231,21 +201,14 @@ public class WarehousesAPI {
   }
 
   /**
-   * Set SQL warehouse permissions.
-   *
-   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
-   * direct permissions if none are specified. Objects can inherit permissions from their root
-   * object.
+   * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
+   * permissions if none are specified. Objects can inherit permissions from their root object.
    */
   public WarehousePermissions setPermissions(WarehousePermissionsRequest request) {
     return impl.setPermissions(request);
   }
 
-  /**
-   * Set the workspace configuration.
-   *
-   * <p>Sets the workspace level configuration that is shared by all SQL warehouses in a workspace.
-   */
+  /** Sets the workspace level configuration that is shared by all SQL warehouses in a workspace. */
   public void setWorkspaceWarehouseConfig(SetWorkspaceWarehouseConfigRequest request) {
     impl.setWorkspaceWarehouseConfig(request);
   }
@@ -254,11 +217,7 @@ public class WarehousesAPI {
     return start(new StartRequest().setId(id));
   }
 
-  /**
-   * Start a warehouse.
-   *
-   * <p>Starts a SQL warehouse.
-   */
+  /** Starts a SQL warehouse. */
   public Wait<GetWarehouseResponse, Void> start(StartRequest request) {
     impl.start(request);
     return new Wait<>(
@@ -269,11 +228,7 @@ public class WarehousesAPI {
     return stop(new StopRequest().setId(id));
   }
 
-  /**
-   * Stop a warehouse.
-   *
-   * <p>Stops a SQL warehouse.
-   */
+  /** Stops a SQL warehouse. */
   public Wait<GetWarehouseResponse, Void> stop(StopRequest request) {
     impl.stop(request);
     return new Wait<>(
@@ -285,10 +240,8 @@ public class WarehousesAPI {
   }
 
   /**
-   * Update SQL warehouse permissions.
-   *
-   * <p>Updates the permissions on a SQL warehouse. SQL warehouses can inherit permissions from
-   * their root object.
+   * Updates the permissions on a SQL warehouse. SQL warehouses can inherit permissions from their
+   * root object.
    */
   public WarehousePermissions updatePermissions(WarehousePermissionsRequest request) {
     return impl.updatePermissions(request);

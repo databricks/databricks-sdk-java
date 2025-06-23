@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get status */
 @Generated
 public class GetStatusRequest {
   /** The absolute path of the notebook or directory. */

@@ -29,7 +29,7 @@ public class StorageCredentialInfo {
   @JsonProperty("comment")
   private String comment;
 
-  /** Time at which this Credential was created, in epoch milliseconds. */
+  /** Time at which this credential was created, in epoch milliseconds. */
   @JsonProperty("created_at")
   private Long createdAt;
 
@@ -49,15 +49,21 @@ public class StorageCredentialInfo {
   @JsonProperty("id")
   private String id;
 
-  /** */
+  /**
+   * Whether the current securable is accessible from all workspaces or a specific set of
+   * workspaces.
+   */
   @JsonProperty("isolation_mode")
   private IsolationMode isolationMode;
 
-  /** Unique identifier of parent metastore. */
+  /** Unique identifier of the parent metastore. */
   @JsonProperty("metastore_id")
   private String metastoreId;
 
-  /** The credential name. The name must be unique within the metastore. */
+  /**
+   * The credential name. The name must be unique among storage and service credentials within the
+   * metastore.
+   */
   @JsonProperty("name")
   private String name;
 
@@ -65,7 +71,10 @@ public class StorageCredentialInfo {
   @JsonProperty("owner")
   private String owner;
 
-  /** Whether the storage credential is only usable for read operations. */
+  /**
+   * Whether the credential is usable only for read operations. Only applicable when purpose is
+   * **STORAGE**.
+   */
   @JsonProperty("read_only")
   private Boolean readOnly;
 
@@ -77,7 +86,10 @@ public class StorageCredentialInfo {
   @JsonProperty("updated_by")
   private String updatedBy;
 
-  /** Whether this credential is the current metastore's root storage credential. */
+  /**
+   * Whether this credential is the current metastore's root storage credential. Only applicable
+   * when purpose is **STORAGE**.
+   */
   @JsonProperty("used_for_managed_storage")
   private Boolean usedForManagedStorage;
 

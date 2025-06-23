@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Trash dashboard */
 @Generated
 public class TrashDashboardRequest {
   /** UUID identifying the dashboard. */

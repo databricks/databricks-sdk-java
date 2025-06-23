@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.InputStream;
 import java.util.Objects;
 
-/** Upload a file */
 @Generated
 public class UploadRequest {
   /** */

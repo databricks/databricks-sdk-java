@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete credential configuration */
 @Generated
 public class DeleteCredentialRequest {
   /** Databricks Account API credential configuration ID */

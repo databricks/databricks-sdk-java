@@ -4,7 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** The results of the tested operation. */
+/** A enum represents the result of the file operation */
 @Generated
 public enum ValidationResultResult {
   FAIL,

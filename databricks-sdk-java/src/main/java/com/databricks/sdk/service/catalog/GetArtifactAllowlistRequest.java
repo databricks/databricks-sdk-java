@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get an artifact allowlist */
 @Generated
 public class GetArtifactAllowlistRequest {
   /** The artifact type of the allowlist. */

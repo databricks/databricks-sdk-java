@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get the SQL Results Download setting */
 @Generated
 public class GetSqlResultsDownloadRequest {
   /**

@@ -13,104 +13,49 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface AppsService {
-  /**
-   * Create an app.
-   *
-   * <p>Creates a new app.
-   */
+  /** Creates a new app. */
   App create(CreateAppRequest createAppRequest);
 
-  /**
-   * Delete an app.
-   *
-   * <p>Deletes an app.
-   */
+  /** Deletes an app. */
   App delete(DeleteAppRequest deleteAppRequest);
 
-  /**
-   * Create an app deployment.
-   *
-   * <p>Creates an app deployment for the app with the supplied name.
-   */
+  /** Creates an app deployment for the app with the supplied name. */
   AppDeployment deploy(CreateAppDeploymentRequest createAppDeploymentRequest);
 
-  /**
-   * Get an app.
-   *
-   * <p>Retrieves information for the app with the supplied name.
-   */
+  /** Retrieves information for the app with the supplied name. */
   App get(GetAppRequest getAppRequest);
 
-  /**
-   * Get an app deployment.
-   *
-   * <p>Retrieves information for the app deployment with the supplied name and deployment id.
-   */
+  /** Retrieves information for the app deployment with the supplied name and deployment id. */
   AppDeployment getDeployment(GetAppDeploymentRequest getAppDeploymentRequest);
 
-  /**
-   * Get app permission levels.
-   *
-   * <p>Gets the permission levels that a user can have on an object.
-   */
+  /** Gets the permission levels that a user can have on an object. */
   GetAppPermissionLevelsResponse getPermissionLevels(
       GetAppPermissionLevelsRequest getAppPermissionLevelsRequest);
 
-  /**
-   * Get app permissions.
-   *
-   * <p>Gets the permissions of an app. Apps can inherit permissions from their root object.
-   */
+  /** Gets the permissions of an app. Apps can inherit permissions from their root object. */
   AppPermissions getPermissions(GetAppPermissionsRequest getAppPermissionsRequest);
 
-  /**
-   * List apps.
-   *
-   * <p>Lists all apps in the workspace.
-   */
+  /** Lists all apps in the workspace. */
   ListAppsResponse list(ListAppsRequest listAppsRequest);
 
-  /**
-   * List app deployments.
-   *
-   * <p>Lists all app deployments for the app with the supplied name.
-   */
+  /** Lists all app deployments for the app with the supplied name. */
   ListAppDeploymentsResponse listDeployments(ListAppDeploymentsRequest listAppDeploymentsRequest);
 
   /**
-   * Set app permissions.
-   *
-   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
-   * direct permissions if none are specified. Objects can inherit permissions from their root
-   * object.
+   * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
+   * permissions if none are specified. Objects can inherit permissions from their root object.
    */
   AppPermissions setPermissions(AppPermissionsRequest appPermissionsRequest);
 
-  /**
-   * Start an app.
-   *
-   * <p>Start the last active deployment of the app in the workspace.
-   */
+  /** Start the last active deployment of the app in the workspace. */
   App start(StartAppRequest startAppRequest);
 
-  /**
-   * Stop an app.
-   *
-   * <p>Stops the active deployment of the app in the workspace.
-   */
+  /** Stops the active deployment of the app in the workspace. */
   App stop(StopAppRequest stopAppRequest);
 
-  /**
-   * Update an app.
-   *
-   * <p>Updates the app with the supplied name.
-   */
+  /** Updates the app with the supplied name. */
   App update(UpdateAppRequest updateAppRequest);
 
-  /**
-   * Update app permissions.
-   *
-   * <p>Updates the permissions on an app. Apps can inherit permissions from their root object.
-   */
+  /** Updates the permissions on an app. Apps can inherit permissions from their root object. */
   AppPermissions updatePermissions(AppPermissionsRequest appPermissionsRequest);
 }

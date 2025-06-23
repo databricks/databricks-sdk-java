@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get the latest logs for a served model */
 @Generated
 public class LogsRequest {
   /** The name of the serving endpoint that the served model belongs to. This field is required. */

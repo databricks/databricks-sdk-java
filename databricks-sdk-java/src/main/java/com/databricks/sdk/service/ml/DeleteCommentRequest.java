@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete a comment */
 @Generated
 public class DeleteCommentRequest {
   /** Unique identifier of an activity */

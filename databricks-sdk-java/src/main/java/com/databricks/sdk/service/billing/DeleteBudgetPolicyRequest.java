@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete a budget policy */
 @Generated
 public class DeleteBudgetPolicyRequest {
   /** The Id of the policy. */

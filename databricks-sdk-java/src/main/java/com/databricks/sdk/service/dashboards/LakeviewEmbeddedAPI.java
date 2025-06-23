@@ -29,9 +29,7 @@ public class LakeviewEmbeddedAPI {
   }
 
   /**
-   * Read an information of a published dashboard to mint an OAuth token.
-   *
-   * <p>Get a required authorization details and scopes of a published dashboard to mint an OAuth
+   * Get a required authorization details and scopes of a published dashboard to mint an OAuth
    * token. The `authorization_details` can be enriched to apply additional restriction.
    *
    * <p>Example: Adding the following `authorization_details` object to downscope the viewer

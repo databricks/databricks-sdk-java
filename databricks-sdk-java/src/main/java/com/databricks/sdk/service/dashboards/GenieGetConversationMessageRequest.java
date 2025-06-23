@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get conversation message */
 @Generated
 public class GenieGetConversationMessageRequest {
   /** The ID associated with the target conversation. */

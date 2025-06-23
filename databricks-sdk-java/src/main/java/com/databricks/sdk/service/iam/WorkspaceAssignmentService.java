@@ -14,32 +14,21 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface WorkspaceAssignmentService {
   /**
-   * Delete permissions assignment.
-   *
-   * <p>Deletes the workspace permissions assignment in a given account and workspace for the
-   * specified principal.
+   * Deletes the workspace permissions assignment in a given account and workspace for the specified
+   * principal.
    */
   void delete(DeleteWorkspaceAssignmentRequest deleteWorkspaceAssignmentRequest);
 
-  /**
-   * List workspace permissions.
-   *
-   * <p>Get an array of workspace permissions for the specified account and workspace.
-   */
+  /** Get an array of workspace permissions for the specified account and workspace. */
   WorkspacePermissions get(GetWorkspaceAssignmentRequest getWorkspaceAssignmentRequest);
 
   /**
-   * Get permission assignments.
-   *
-   * <p>Get the permission assignments for the specified Databricks account and Databricks
-   * workspace.
+   * Get the permission assignments for the specified Databricks account and Databricks workspace.
    */
   PermissionAssignments list(ListWorkspaceAssignmentRequest listWorkspaceAssignmentRequest);
 
   /**
-   * Create or update permissions assignment.
-   *
-   * <p>Creates or updates the workspace permissions assignment in a given account and workspace for
+   * Creates or updates the workspace permissions assignment in a given account and workspace for
    * the specified principal.
    */
   PermissionAssignment update(UpdateWorkspaceAssignments updateWorkspaceAssignments);

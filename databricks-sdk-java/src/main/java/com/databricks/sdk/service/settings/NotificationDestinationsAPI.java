@@ -29,11 +29,7 @@ public class NotificationDestinationsAPI {
     impl = mock;
   }
 
-  /**
-   * Create a notification destination.
-   *
-   * <p>Creates a notification destination. Requires workspace admin permissions.
-   */
+  /** Creates a notification destination. Requires workspace admin permissions. */
   public NotificationDestination create(CreateNotificationDestinationRequest request) {
     return impl.create(request);
   }
@@ -42,11 +38,7 @@ public class NotificationDestinationsAPI {
     delete(new DeleteNotificationDestinationRequest().setId(id));
   }
 
-  /**
-   * Delete a notification destination.
-   *
-   * <p>Deletes a notification destination. Requires workspace admin permissions.
-   */
+  /** Deletes a notification destination. Requires workspace admin permissions. */
   public void delete(DeleteNotificationDestinationRequest request) {
     impl.delete(request);
   }
@@ -55,20 +47,12 @@ public class NotificationDestinationsAPI {
     return get(new GetNotificationDestinationRequest().setId(id));
   }
 
-  /**
-   * Get a notification destination.
-   *
-   * <p>Gets a notification destination.
-   */
+  /** Gets a notification destination. */
   public NotificationDestination get(GetNotificationDestinationRequest request) {
     return impl.get(request);
   }
 
-  /**
-   * List notification destinations.
-   *
-   * <p>Lists notification destinations.
-   */
+  /** Lists notification destinations. */
   public Iterable<ListNotificationDestinationsResult> list(
       ListNotificationDestinationsRequest request) {
     return new Paginator<>(
@@ -89,10 +73,8 @@ public class NotificationDestinationsAPI {
   }
 
   /**
-   * Update a notification destination.
-   *
-   * <p>Updates a notification destination. Requires workspace admin permissions. At least one field
-   * is required in the request body.
+   * Updates a notification destination. Requires workspace admin permissions. At least one field is
+   * required in the request body.
    */
   public NotificationDestination update(UpdateNotificationDestinationRequest request) {
     return impl.update(request);

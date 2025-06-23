@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Create an asset */
 @Generated
 public class CreateCleanRoomAssetRequest {
   /** Metadata of the clean room asset */

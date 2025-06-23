@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Gets the metastore assignment for a workspace */
 @Generated
 public class GetAccountMetastoreAssignmentRequest {
   /** Workspace ID. */

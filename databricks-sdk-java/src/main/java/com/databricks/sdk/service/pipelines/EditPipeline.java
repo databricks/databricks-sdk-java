@@ -59,6 +59,10 @@ public class EditPipeline {
   @JsonProperty("edition")
   private String edition;
 
+  /** Environment specification for this pipeline used to install dependencies. */
+  @JsonProperty("environment")
+  private PipelinesEnvironment environment;
+
   /** Event log configuration for this pipeline */
   @JsonProperty("event_log")
   private EventLogSpec eventLog;
@@ -251,6 +255,15 @@ public class EditPipeline {
 
   public String getEdition() {
     return edition;
+  }
+
+  public EditPipeline setEnvironment(PipelinesEnvironment environment) {
+    this.environment = environment;
+    return this;
+  }
+
+  public PipelinesEnvironment getEnvironment() {
+    return environment;
   }
 
   public EditPipeline setEventLog(EventLogSpec eventLog) {
@@ -448,6 +461,7 @@ public class EditPipeline {
         && Objects.equals(deployment, that.deployment)
         && Objects.equals(development, that.development)
         && Objects.equals(edition, that.edition)
+        && Objects.equals(environment, that.environment)
         && Objects.equals(eventLog, that.eventLog)
         && Objects.equals(expectedLastModified, that.expectedLastModified)
         && Objects.equals(filters, that.filters)
@@ -483,6 +497,7 @@ public class EditPipeline {
         deployment,
         development,
         edition,
+        environment,
         eventLog,
         expectedLastModified,
         filters,
@@ -518,6 +533,7 @@ public class EditPipeline {
         .add("deployment", deployment)
         .add("development", development)
         .add("edition", edition)
+        .add("environment", environment)
         .add("eventLog", eventLog)
         .add("expectedLastModified", expectedLastModified)
         .add("filters", filters)

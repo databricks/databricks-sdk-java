@@ -13,6 +13,10 @@ public class TableSummary {
   @JsonProperty("full_name")
   private String fullName;
 
+  /** SecurableKindManifest of table, including capabilities the table has. */
+  @JsonProperty("securable_kind_manifest")
+  private SecurableKindManifest securableKindManifest;
+
   /** */
   @JsonProperty("table_type")
   private TableType tableType;
@@ -24,6 +28,15 @@ public class TableSummary {
 
   public String getFullName() {
     return fullName;
+  }
+
+  public TableSummary setSecurableKindManifest(SecurableKindManifest securableKindManifest) {
+    this.securableKindManifest = securableKindManifest;
+    return this;
+  }
+
+  public SecurableKindManifest getSecurableKindManifest() {
+    return securableKindManifest;
   }
 
   public TableSummary setTableType(TableType tableType) {
@@ -40,18 +53,21 @@ public class TableSummary {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     TableSummary that = (TableSummary) o;
-    return Objects.equals(fullName, that.fullName) && Objects.equals(tableType, that.tableType);
+    return Objects.equals(fullName, that.fullName)
+        && Objects.equals(securableKindManifest, that.securableKindManifest)
+        && Objects.equals(tableType, that.tableType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(fullName, tableType);
+    return Objects.hash(fullName, securableKindManifest, tableType);
   }
 
   @Override
   public String toString() {
     return new ToStringer(TableSummary.class)
         .add("fullName", fullName)
+        .add("securableKindManifest", securableKindManifest)
         .add("tableType", tableType)
         .toString();
   }

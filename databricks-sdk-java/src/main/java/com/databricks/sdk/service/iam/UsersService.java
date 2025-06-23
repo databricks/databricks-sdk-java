@@ -21,78 +21,49 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface UsersService {
   /**
-   * Create a new user.
-   *
-   * <p>Creates a new user in the Databricks workspace. This new user will also be added to the
+   * Creates a new user in the Databricks workspace. This new user will also be added to the
    * Databricks account.
    */
   User create(User user);
 
   /**
-   * Delete a user.
-   *
-   * <p>Deletes a user. Deleting a user from a Databricks workspace also removes objects associated
+   * Deletes a user. Deleting a user from a Databricks workspace also removes objects associated
    * with the user.
    */
   void delete(DeleteUserRequest deleteUserRequest);
 
-  /**
-   * Get user details.
-   *
-   * <p>Gets information for a specific user in Databricks workspace.
-   */
+  /** Gets information for a specific user in Databricks workspace. */
   User get(GetUserRequest getUserRequest);
 
-  /**
-   * Get password permission levels.
-   *
-   * <p>Gets the permission levels that a user can have on an object.
-   */
+  /** Gets the permission levels that a user can have on an object. */
   GetPasswordPermissionLevelsResponse getPermissionLevels();
 
   /**
-   * Get password permissions.
-   *
-   * <p>Gets the permissions of all passwords. Passwords can inherit permissions from their root
+   * Gets the permissions of all passwords. Passwords can inherit permissions from their root
    * object.
    */
   PasswordPermissions getPermissions();
 
-  /**
-   * List users.
-   *
-   * <p>Gets details for all the users associated with a Databricks workspace.
-   */
+  /** Gets details for all the users associated with a Databricks workspace. */
   ListUsersResponse list(ListUsersRequest listUsersRequest);
 
   /**
-   * Update user details.
-   *
-   * <p>Partially updates a user resource by applying the supplied operations on specific user
+   * Partially updates a user resource by applying the supplied operations on specific user
    * attributes.
    */
   void patch(PartialUpdate partialUpdate);
 
   /**
-   * Set password permissions.
-   *
-   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
-   * direct permissions if none are specified. Objects can inherit permissions from their root
-   * object.
+   * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
+   * permissions if none are specified. Objects can inherit permissions from their root object.
    */
   PasswordPermissions setPermissions(PasswordPermissionsRequest passwordPermissionsRequest);
 
-  /**
-   * Replace a user.
-   *
-   * <p>Replaces a user's information with the data supplied in request.
-   */
+  /** Replaces a user's information with the data supplied in request. */
   void update(User user);
 
   /**
-   * Update password permissions.
-   *
-   * <p>Updates the permissions on all passwords. Passwords can inherit permissions from their root
+   * Updates the permissions on all passwords. Passwords can inherit permissions from their root
    * object.
    */
   PasswordPermissions updatePermissions(PasswordPermissionsRequest passwordPermissionsRequest);

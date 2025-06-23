@@ -14,31 +14,19 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface ConsumerListingsService {
   /**
-   * Get one batch of listings. One may specify up to 50 IDs per request.
-   *
-   * <p>Batch get a published listing in the Databricks Marketplace that the consumer has access to.
+   * Batch get a published listing in the Databricks Marketplace that the consumer has access to.
    */
   BatchGetListingsResponse batchGet(BatchGetListingsRequest batchGetListingsRequest);
 
-  /**
-   * Get listing.
-   *
-   * <p>Get a published listing in the Databricks Marketplace that the consumer has access to.
-   */
+  /** Get a published listing in the Databricks Marketplace that the consumer has access to. */
   GetListingResponse get(GetListingRequest getListingRequest);
 
-  /**
-   * List listings.
-   *
-   * <p>List all published listings in the Databricks Marketplace that the consumer has access to.
-   */
+  /** List all published listings in the Databricks Marketplace that the consumer has access to. */
   ListListingsResponse list(ListListingsRequest listListingsRequest);
 
   /**
-   * Search listings.
-   *
-   * <p>Search published listings in the Databricks Marketplace that the consumer has access to.
-   * This query supports a variety of different search parameters and performs fuzzy matching.
+   * Search published listings in the Databricks Marketplace that the consumer has access to. This
+   * query supports a variety of different search parameters and performs fuzzy matching.
    */
   SearchListingsResponse search(SearchListingsRequest searchListingsRequest);
 }

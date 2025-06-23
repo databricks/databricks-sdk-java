@@ -87,9 +87,7 @@ public class WorkspacesAPI {
   }
 
   /**
-   * Create a new workspace.
-   *
-   * <p>Creates a new workspace.
+   * Creates a new workspace.
    *
    * <p>**Important**: This operation is asynchronous. A response with HTTP status code 200 means
    * the request has been accepted and is in progress, but does not mean that the workspace deployed
@@ -111,11 +109,9 @@ public class WorkspacesAPI {
   }
 
   /**
-   * Delete a workspace.
-   *
-   * <p>Terminates and deletes a Databricks workspace. From an API perspective, deletion is
-   * immediate. However, it might take a few minutes for all workspaces resources to be deleted,
-   * depending on the size and number of workspace resources.
+   * Terminates and deletes a Databricks workspace. From an API perspective, deletion is immediate.
+   * However, it might take a few minutes for all workspaces resources to be deleted, depending on
+   * the size and number of workspace resources.
    *
    * <p>This operation is available only if your account is on the E2 version of the platform or on
    * a select custom plan that allows multiple workspaces per account.
@@ -129,12 +125,10 @@ public class WorkspacesAPI {
   }
 
   /**
-   * Get a workspace.
-   *
-   * <p>Gets information including status for a Databricks workspace, specified by ID. In the
-   * response, the `workspace_status` field indicates the current status. After initial workspace
-   * creation (which is asynchronous), make repeated `GET` requests with the workspace ID and check
-   * its status. The workspace becomes available when the status changes to `RUNNING`.
+   * Gets information including status for a Databricks workspace, specified by ID. In the response,
+   * the `workspace_status` field indicates the current status. After initial workspace creation
+   * (which is asynchronous), make repeated `GET` requests with the workspace ID and check its
+   * status. The workspace becomes available when the status changes to `RUNNING`.
    *
    * <p>For information about how to create a new workspace with this API **including error
    * handling**, see [Create a new workspace using the Account API].
@@ -150,9 +144,7 @@ public class WorkspacesAPI {
   }
 
   /**
-   * Get all workspaces.
-   *
-   * <p>Gets a list of all workspaces associated with an account, specified by ID.
+   * Gets a list of all workspaces associated with an account, specified by ID.
    *
    * <p>This operation is available only if your account is on the E2 version of the platform or on
    * a select custom plan that allows multiple workspaces per account.
@@ -166,9 +158,7 @@ public class WorkspacesAPI {
   }
 
   /**
-   * Update workspace configuration.
-   *
-   * <p>Updates a workspace configuration for either a running workspace or a failed workspace. The
+   * Updates a workspace configuration for either a running workspace or a failed workspace. The
    * elements that can be updated varies between these two use cases.
    *
    * <p>### Update a failed workspace You can update a Databricks workspace configuration for failed

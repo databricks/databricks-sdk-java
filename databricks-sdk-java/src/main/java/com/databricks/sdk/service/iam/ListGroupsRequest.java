@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** List group details. */
 @Generated
 public class ListGroupsRequest {
   /** Comma-separated list of attributes to return in response. */

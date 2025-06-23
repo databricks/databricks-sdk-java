@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Remove a visualization */
 @Generated
 public class DeleteVisualizationRequest {
   /** */

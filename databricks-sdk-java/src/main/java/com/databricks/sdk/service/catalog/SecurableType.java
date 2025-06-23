@@ -23,6 +23,5 @@ public enum SecurableType {
   STAGING_TABLE,
   STORAGE_CREDENTIAL,
   TABLE,
-  UNKNOWN_SECURABLE_TYPE,
   VOLUME,
 }

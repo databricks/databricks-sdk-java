@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get the information of a file or directory */
 @Generated
 public class GetStatusRequest {
   /** The path of the file or directory. The path should be the absolute DBFS path. */

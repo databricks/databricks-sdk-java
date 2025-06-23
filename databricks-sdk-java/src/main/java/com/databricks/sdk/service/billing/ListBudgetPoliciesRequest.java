@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** List policies */
 @Generated
 public class ListBudgetPoliciesRequest {
   /** A filter to apply to the list of policies. */

@@ -36,10 +36,8 @@ public class ModelVersionsAPI {
   }
 
   /**
-   * Delete a Model Version.
-   *
-   * <p>Deletes a model version from the specified registered model. Any aliases assigned to the
-   * model version will also be deleted.
+   * Deletes a model version from the specified registered model. Any aliases assigned to the model
+   * version will also be deleted.
    *
    * <p>The caller must be a metastore admin or an owner of the parent registered model. For the
    * latter case, the caller must also be the owner or have the **USE_CATALOG** privilege on the
@@ -54,9 +52,7 @@ public class ModelVersionsAPI {
   }
 
   /**
-   * Get a Model Version.
-   *
-   * <p>Get a model version.
+   * Get a model version.
    *
    * <p>The caller must be a metastore admin or an owner of (or have the **EXECUTE** privilege on)
    * the parent registered model. For the latter case, the caller must also be the owner or have the
@@ -72,9 +68,7 @@ public class ModelVersionsAPI {
   }
 
   /**
-   * Get Model Version By Alias.
-   *
-   * <p>Get a model version by alias.
+   * Get a model version by alias.
    *
    * <p>The caller must be a metastore admin or an owner of (or have the **EXECUTE** privilege on)
    * the registered model. For the latter case, the caller must also be the owner or have the
@@ -90,10 +84,8 @@ public class ModelVersionsAPI {
   }
 
   /**
-   * List Model Versions.
-   *
-   * <p>List model versions. You can list model versions under a particular schema, or list all
-   * model versions in the current metastore.
+   * List model versions. You can list model versions under a particular schema, or list all model
+   * versions in the current metastore.
    *
    * <p>The returned models are filtered based on the privileges of the calling user. For example,
    * the metastore admin is able to list all the model versions. A regular user needs to be the
@@ -124,9 +116,7 @@ public class ModelVersionsAPI {
   }
 
   /**
-   * Update a Model Version.
-   *
-   * <p>Updates the specified model version.
+   * Updates the specified model version.
    *
    * <p>The caller must be a metastore admin or an owner of the parent registered model. For the
    * latter case, the caller must also be the owner or have the **USE_CATALOG** privilege on the

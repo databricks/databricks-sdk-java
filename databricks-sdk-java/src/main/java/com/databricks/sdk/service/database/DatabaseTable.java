@@ -20,18 +20,15 @@ public class DatabaseTable {
   private String databaseInstanceName;
 
   /**
-   * Target Postgres database object (logical database) name for this table. This field is optional
-   * in all scenarios.
+   * Target Postgres database object (logical database) name for this table.
    *
    * <p>When creating a table in a registered Postgres catalog, the target Postgres database name is
    * inferred to be that of the registered catalog. If this field is specified in this scenario, the
    * Postgres database name MUST match that of the registered catalog (or the request will be
    * rejected).
    *
-   * <p>When creating a table in a standard catalog, the target database name is inferred to be that
-   * of the standard catalog. In this scenario, specifying this field will allow targeting an
-   * arbitrary postgres database. Note that this has implications for the
-   * `create_database_objects_is_missing` field in `spec`.
+   * <p>When creating a table in a standard catalog, this field is required. In this scenario,
+   * specifying this field will allow targeting an arbitrary postgres database.
    */
   @JsonProperty("logical_database_name")
   private String logicalDatabaseName;
@@ -39,10 +36,6 @@ public class DatabaseTable {
   /** Full three-part (catalog, schema, table) name of the table. */
   @JsonProperty("name")
   private String name;
-
-  /** Data serving REST API URL for this table */
-  @JsonProperty("table_serving_url")
-  private String tableServingUrl;
 
   public DatabaseTable setDatabaseInstanceName(String databaseInstanceName) {
     this.databaseInstanceName = databaseInstanceName;
@@ -71,15 +64,6 @@ public class DatabaseTable {
     return name;
   }
 
-  public DatabaseTable setTableServingUrl(String tableServingUrl) {
-    this.tableServingUrl = tableServingUrl;
-    return this;
-  }
-
-  public String getTableServingUrl() {
-    return tableServingUrl;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -87,13 +71,12 @@ public class DatabaseTable {
     DatabaseTable that = (DatabaseTable) o;
     return Objects.equals(databaseInstanceName, that.databaseInstanceName)
         && Objects.equals(logicalDatabaseName, that.logicalDatabaseName)
-        && Objects.equals(name, that.name)
-        && Objects.equals(tableServingUrl, that.tableServingUrl);
+        && Objects.equals(name, that.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(databaseInstanceName, logicalDatabaseName, name, tableServingUrl);
+    return Objects.hash(databaseInstanceName, logicalDatabaseName, name);
   }
 
   @Override
@@ -102,7 +85,6 @@ public class DatabaseTable {
         .add("databaseInstanceName", databaseInstanceName)
         .add("logicalDatabaseName", logicalDatabaseName)
         .add("name", name)
-        .add("tableServingUrl", tableServingUrl)
         .toString();
   }
 }

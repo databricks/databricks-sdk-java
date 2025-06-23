@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete the enable partner powered AI features workspace setting */
 @Generated
 public class DeleteLlmProxyPartnerPoweredWorkspaceRequest {
   /**

@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get object ACL */
 @Generated
 public class GetDbsqlPermissionRequest {
   /** Object ID. An ACL is returned for the object with this UUID. */

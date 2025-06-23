@@ -29,34 +29,26 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface WorkspaceBindingsService {
   /**
-   * Get catalog workspace bindings.
-   *
-   * <p>Gets workspace bindings of the catalog. The caller must be a metastore admin or an owner of
-   * the catalog.
+   * Gets workspace bindings of the catalog. The caller must be a metastore admin or an owner of the
+   * catalog.
    */
   GetCatalogWorkspaceBindingsResponse get(GetWorkspaceBindingRequest getWorkspaceBindingRequest);
 
   /**
-   * Get securable workspace bindings.
-   *
-   * <p>Gets workspace bindings of the securable. The caller must be a metastore admin or an owner
-   * of the securable.
+   * Gets workspace bindings of the securable. The caller must be a metastore admin or an owner of
+   * the securable.
    */
   GetWorkspaceBindingsResponse getBindings(GetBindingsRequest getBindingsRequest);
 
   /**
-   * Update catalog workspace bindings.
-   *
-   * <p>Updates workspace bindings of the catalog. The caller must be a metastore admin or an owner
-   * of the catalog.
+   * Updates workspace bindings of the catalog. The caller must be a metastore admin or an owner of
+   * the catalog.
    */
   UpdateCatalogWorkspaceBindingsResponse update(UpdateWorkspaceBindings updateWorkspaceBindings);
 
   /**
-   * Update securable workspace bindings.
-   *
-   * <p>Updates workspace bindings of the securable. The caller must be a metastore admin or an
-   * owner of the securable.
+   * Updates workspace bindings of the securable. The caller must be a metastore admin or an owner
+   * of the securable.
    */
   UpdateWorkspaceBindingsResponse updateBindings(
       UpdateWorkspaceBindingsParameters updateWorkspaceBindingsParameters);

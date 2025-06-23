@@ -26,11 +26,7 @@ public class LlmProxyPartnerPoweredEnforceAPI {
     impl = mock;
   }
 
-  /**
-   * Get the enforcement status of partner powered AI features account setting.
-   *
-   * <p>Gets the enforcement status of partner powered AI features account setting.
-   */
+  /** Gets the enforcement status of partner powered AI features account setting. */
   public LlmProxyPartnerPoweredEnforce get(GetLlmProxyPartnerPoweredEnforceRequest request) {
     return impl.get(request);
   }
@@ -44,11 +40,7 @@ public class LlmProxyPartnerPoweredEnforceAPI {
             .setFieldMask(fieldMask));
   }
 
-  /**
-   * Update the enforcement status of partner powered AI features account setting.
-   *
-   * <p>Updates the enable enforcement status of partner powered AI features account setting.
-   */
+  /** Updates the enable enforcement status of partner powered AI features account setting. */
   public LlmProxyPartnerPoweredEnforce update(UpdateLlmProxyPartnerPoweredEnforceRequest request) {
     return impl.update(request);
   }

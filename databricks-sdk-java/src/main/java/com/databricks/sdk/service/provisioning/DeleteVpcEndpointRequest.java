@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete VPC endpoint configuration */
 @Generated
 public class DeleteVpcEndpointRequest {
   /** Databricks VPC endpoint ID. */

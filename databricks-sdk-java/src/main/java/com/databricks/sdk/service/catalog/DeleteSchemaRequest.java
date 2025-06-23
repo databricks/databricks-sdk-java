@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete a schema */
 @Generated
 public class DeleteSchemaRequest {
   /** Force deletion even if the schema is not empty. */

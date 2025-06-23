@@ -18,13 +18,18 @@ public class SyncedTableSpec {
   @JsonProperty("create_database_objects_if_missing")
   private Boolean createDatabaseObjectsIfMissing;
 
-  /** Spec of new pipeline. Should be empty if pipeline_id is set */
+  /**
+   * User-specified ID of a pre-existing pipeline to bin pack. This field is optional, and should be
+   * empty if new_pipeline_spec is set. This field will only be set by the server in response
+   * messages if it is specified in the request. The SyncedTableStatus message will always contain
+   * the effective pipeline ID (either client provided or server generated), however.
+   */
+  @JsonProperty("existing_pipeline_id")
+  private String existingPipelineId;
+
+  /** Spec of new pipeline. Should be empty if pipeline_id / existing_pipeline_id is set */
   @JsonProperty("new_pipeline_spec")
   private NewPipelineSpec newPipelineSpec;
-
-  /** ID of the associated pipeline. Should be empty if new_pipeline_spec is set */
-  @JsonProperty("pipeline_id")
-  private String pipelineId;
 
   /** Primary Key columns to be used for data insert/update in the destination. */
   @JsonProperty("primary_key_columns")
@@ -51,6 +56,15 @@ public class SyncedTableSpec {
     return createDatabaseObjectsIfMissing;
   }
 
+  public SyncedTableSpec setExistingPipelineId(String existingPipelineId) {
+    this.existingPipelineId = existingPipelineId;
+    return this;
+  }
+
+  public String getExistingPipelineId() {
+    return existingPipelineId;
+  }
+
   public SyncedTableSpec setNewPipelineSpec(NewPipelineSpec newPipelineSpec) {
     this.newPipelineSpec = newPipelineSpec;
     return this;
@@ -58,15 +72,6 @@ public class SyncedTableSpec {
 
   public NewPipelineSpec getNewPipelineSpec() {
     return newPipelineSpec;
-  }
-
-  public SyncedTableSpec setPipelineId(String pipelineId) {
-    this.pipelineId = pipelineId;
-    return this;
-  }
-
-  public String getPipelineId() {
-    return pipelineId;
   }
 
   public SyncedTableSpec setPrimaryKeyColumns(Collection<String> primaryKeyColumns) {
@@ -111,8 +116,8 @@ public class SyncedTableSpec {
     if (o == null || getClass() != o.getClass()) return false;
     SyncedTableSpec that = (SyncedTableSpec) o;
     return Objects.equals(createDatabaseObjectsIfMissing, that.createDatabaseObjectsIfMissing)
+        && Objects.equals(existingPipelineId, that.existingPipelineId)
         && Objects.equals(newPipelineSpec, that.newPipelineSpec)
-        && Objects.equals(pipelineId, that.pipelineId)
         && Objects.equals(primaryKeyColumns, that.primaryKeyColumns)
         && Objects.equals(schedulingPolicy, that.schedulingPolicy)
         && Objects.equals(sourceTableFullName, that.sourceTableFullName)
@@ -123,8 +128,8 @@ public class SyncedTableSpec {
   public int hashCode() {
     return Objects.hash(
         createDatabaseObjectsIfMissing,
+        existingPipelineId,
         newPipelineSpec,
-        pipelineId,
         primaryKeyColumns,
         schedulingPolicy,
         sourceTableFullName,
@@ -135,8 +140,8 @@ public class SyncedTableSpec {
   public String toString() {
     return new ToStringer(SyncedTableSpec.class)
         .add("createDatabaseObjectsIfMissing", createDatabaseObjectsIfMissing)
+        .add("existingPipelineId", existingPipelineId)
         .add("newPipelineSpec", newPipelineSpec)
-        .add("pipelineId", pipelineId)
         .add("primaryKeyColumns", primaryKeyColumns)
         .add("schedulingPolicy", schedulingPolicy)
         .add("sourceTableFullName", sourceTableFullName)

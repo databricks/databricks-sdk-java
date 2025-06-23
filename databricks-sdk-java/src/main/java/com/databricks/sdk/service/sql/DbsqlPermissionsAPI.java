@@ -45,9 +45,7 @@ public class DbsqlPermissionsAPI {
   }
 
   /**
-   * Get object ACL.
-   *
-   * <p>Gets a JSON representation of the access control list (ACL) for a specified object.
+   * Gets a JSON representation of the access control list (ACL) for a specified object.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
    * :method:workspace/getpermissions instead. [Learn more]
@@ -63,10 +61,8 @@ public class DbsqlPermissionsAPI {
   }
 
   /**
-   * Set object ACL.
-   *
-   * <p>Sets the access control list (ACL) for a specified object. This operation will complete
-   * rewrite the ACL.
+   * Sets the access control list (ACL) for a specified object. This operation will complete rewrite
+   * the ACL.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
    * :method:workspace/setpermissions instead. [Learn more]
@@ -84,9 +80,7 @@ public class DbsqlPermissionsAPI {
   }
 
   /**
-   * Transfer object ownership.
-   *
-   * <p>Transfers ownership of a dashboard, query, or alert to an active user. Requires an admin API
+   * Transfers ownership of a dashboard, query, or alert to an active user. Requires an admin API
    * key.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. For queries and alerts,

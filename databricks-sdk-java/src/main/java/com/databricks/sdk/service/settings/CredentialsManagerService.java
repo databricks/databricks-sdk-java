@@ -14,9 +14,7 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface CredentialsManagerService {
   /**
-   * Exchange token.
-   *
-   * <p>Exchange tokens with an Identity Provider to get a new access token. It allows specifying
+   * Exchange tokens with an Identity Provider to get a new access token. It allows specifying
    * scopes to determine token permissions.
    */
   ExchangeTokenResponse exchangeToken(ExchangeTokenRequest exchangeTokenRequest);

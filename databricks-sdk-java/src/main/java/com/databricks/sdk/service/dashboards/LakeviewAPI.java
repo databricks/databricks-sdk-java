@@ -31,11 +31,7 @@ public class LakeviewAPI {
     return create(new CreateDashboardRequest().setDashboard(dashboard));
   }
 
-  /**
-   * Create dashboard.
-   *
-   * <p>Create a draft dashboard.
-   */
+  /** Create a draft dashboard. */
   public Dashboard create(CreateDashboardRequest request) {
     return impl.create(request);
   }
@@ -91,11 +87,7 @@ public class LakeviewAPI {
     return get(new GetDashboardRequest().setDashboardId(dashboardId));
   }
 
-  /**
-   * Get dashboard.
-   *
-   * <p>Get a draft dashboard.
-   */
+  /** Get a draft dashboard. */
   public Dashboard get(GetDashboardRequest request) {
     return impl.get(request);
   }
@@ -104,11 +96,7 @@ public class LakeviewAPI {
     return getPublished(new GetPublishedDashboardRequest().setDashboardId(dashboardId));
   }
 
-  /**
-   * Get published dashboard.
-   *
-   * <p>Get the current published dashboard.
-   */
+  /** Get the current published dashboard. */
   public PublishedDashboard getPublished(GetPublishedDashboardRequest request) {
     return impl.getPublished(request);
   }
@@ -195,11 +183,7 @@ public class LakeviewAPI {
     return migrate(new MigrateDashboardRequest().setSourceDashboardId(sourceDashboardId));
   }
 
-  /**
-   * Migrate dashboard.
-   *
-   * <p>Migrates a classic SQL dashboard to Lakeview.
-   */
+  /** Migrates a classic SQL dashboard to Lakeview. */
   public Dashboard migrate(MigrateDashboardRequest request) {
     return impl.migrate(request);
   }
@@ -208,11 +192,7 @@ public class LakeviewAPI {
     return publish(new PublishRequest().setDashboardId(dashboardId));
   }
 
-  /**
-   * Publish dashboard.
-   *
-   * <p>Publish the current draft dashboard.
-   */
+  /** Publish the current draft dashboard. */
   public PublishedDashboard publish(PublishRequest request) {
     return impl.publish(request);
   }
@@ -221,11 +201,7 @@ public class LakeviewAPI {
     trash(new TrashDashboardRequest().setDashboardId(dashboardId));
   }
 
-  /**
-   * Trash dashboard.
-   *
-   * <p>Trash a dashboard.
-   */
+  /** Trash a dashboard. */
   public void trash(TrashDashboardRequest request) {
     impl.trash(request);
   }
@@ -234,11 +210,7 @@ public class LakeviewAPI {
     unpublish(new UnpublishDashboardRequest().setDashboardId(dashboardId));
   }
 
-  /**
-   * Unpublish dashboard.
-   *
-   * <p>Unpublish the dashboard.
-   */
+  /** Unpublish the dashboard. */
   public void unpublish(UnpublishDashboardRequest request) {
     impl.unpublish(request);
   }
@@ -247,11 +219,7 @@ public class LakeviewAPI {
     return update(new UpdateDashboardRequest().setDashboardId(dashboardId).setDashboard(dashboard));
   }
 
-  /**
-   * Update dashboard.
-   *
-   * <p>Update a draft dashboard.
-   */
+  /** Update a draft dashboard. */
   public Dashboard update(UpdateDashboardRequest request) {
     return impl.update(request);
   }

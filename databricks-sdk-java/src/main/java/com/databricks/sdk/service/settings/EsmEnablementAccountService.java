@@ -15,19 +15,11 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface EsmEnablementAccountService {
-  /**
-   * Get the enhanced security monitoring setting for new workspaces.
-   *
-   * <p>Gets the enhanced security monitoring setting for new workspaces.
-   */
+  /** Gets the enhanced security monitoring setting for new workspaces. */
   EsmEnablementAccountSetting get(
       GetEsmEnablementAccountSettingRequest getEsmEnablementAccountSettingRequest);
 
-  /**
-   * Update the enhanced security monitoring setting for new workspaces.
-   *
-   * <p>Updates the value of the enhanced security monitoring setting for new workspaces.
-   */
+  /** Updates the value of the enhanced security monitoring setting for new workspaces. */
   EsmEnablementAccountSetting update(
       UpdateEsmEnablementAccountSettingRequest updateEsmEnablementAccountSettingRequest);
 }

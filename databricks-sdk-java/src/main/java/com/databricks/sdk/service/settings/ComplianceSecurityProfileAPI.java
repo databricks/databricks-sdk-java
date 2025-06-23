@@ -28,11 +28,7 @@ public class ComplianceSecurityProfileAPI {
     impl = mock;
   }
 
-  /**
-   * Get the compliance security profile setting.
-   *
-   * <p>Gets the compliance security profile setting.
-   */
+  /** Gets the compliance security profile setting. */
   public ComplianceSecurityProfileSetting get(GetComplianceSecurityProfileSettingRequest request) {
     return impl.get(request);
   }
@@ -47,9 +43,7 @@ public class ComplianceSecurityProfileAPI {
   }
 
   /**
-   * Update the compliance security profile setting.
-   *
-   * <p>Updates the compliance security profile setting for the workspace. A fresh etag needs to be
+   * Updates the compliance security profile setting for the workspace. A fresh etag needs to be
    * provided in `PATCH` requests (as part of the setting field). The etag can be retrieved by
    * making a `GET` request before the `PATCH` request. If the setting is updated concurrently,
    * `PATCH` fails with 409 and the request must be retried by using the fresh etag in the 409

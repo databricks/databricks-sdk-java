@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Download a file */
 @Generated
 public class DownloadRequest {
   /** The absolute path of the file. */

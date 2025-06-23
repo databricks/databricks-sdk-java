@@ -13,19 +13,12 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface EnableNotebookTableClipboardService {
-  /**
-   * Get the Results Table Clipboard features setting.
-   *
-   * <p>Gets the Results Table Clipboard features setting.
-   */
+  /** Gets the Results Table Clipboard features setting. */
   EnableNotebookTableClipboard getEnableNotebookTableClipboard();
 
   /**
-   * Update the Results Table Clipboard features setting.
-   *
-   * <p>Updates the Results Table Clipboard features setting. The model follows eventual
-   * consistency, which means the get after the update operation might receive stale values for some
-   * time.
+   * Updates the Results Table Clipboard features setting. The model follows eventual consistency,
+   * which means the get after the update operation might receive stale values for some time.
    */
   EnableNotebookTableClipboard patchEnableNotebookTableClipboard(
       UpdateEnableNotebookTableClipboardRequest updateEnableNotebookTableClipboardRequest);

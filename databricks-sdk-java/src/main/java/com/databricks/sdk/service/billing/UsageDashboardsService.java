@@ -14,19 +14,11 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface UsageDashboardsService {
-  /**
-   * Create new usage dashboard.
-   *
-   * <p>Create a usage dashboard specified by workspaceId, accountId, and dashboard type.
-   */
+  /** Create a usage dashboard specified by workspaceId, accountId, and dashboard type. */
   CreateBillingUsageDashboardResponse create(
       CreateBillingUsageDashboardRequest createBillingUsageDashboardRequest);
 
-  /**
-   * Get usage dashboard.
-   *
-   * <p>Get a usage dashboard specified by workspaceId, accountId, and dashboard type.
-   */
+  /** Get a usage dashboard specified by workspaceId, accountId, and dashboard type. */
   GetBillingUsageDashboardResponse get(
       GetBillingUsageDashboardRequest getBillingUsageDashboardRequest);
 }

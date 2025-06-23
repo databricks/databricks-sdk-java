@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get OAuth Custom App Integration */
 @Generated
 public class GetCustomAppIntegrationRequest {
   /** The OAuth app integration ID. */

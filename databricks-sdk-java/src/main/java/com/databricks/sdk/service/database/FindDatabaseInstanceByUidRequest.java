@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Find a Database Instance by uid */
 @Generated
 public class FindDatabaseInstanceByUidRequest {
   /** UID of the cluster to get. */

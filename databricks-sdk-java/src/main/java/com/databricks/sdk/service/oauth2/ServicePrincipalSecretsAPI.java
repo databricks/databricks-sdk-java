@@ -43,11 +43,7 @@ public class ServicePrincipalSecretsAPI {
         new CreateServicePrincipalSecretRequest().setServicePrincipalId(servicePrincipalId));
   }
 
-  /**
-   * Create service principal secret.
-   *
-   * <p>Create a secret for the given service principal.
-   */
+  /** Create a secret for the given service principal. */
   public CreateServicePrincipalSecretResponse create(CreateServicePrincipalSecretRequest request) {
     return impl.create(request);
   }
@@ -59,11 +55,7 @@ public class ServicePrincipalSecretsAPI {
             .setSecretId(secretId));
   }
 
-  /**
-   * Delete service principal secret.
-   *
-   * <p>Delete a secret from the given service principal.
-   */
+  /** Delete a secret from the given service principal. */
   public void delete(DeleteServicePrincipalSecretRequest request) {
     impl.delete(request);
   }
@@ -73,9 +65,7 @@ public class ServicePrincipalSecretsAPI {
   }
 
   /**
-   * List service principal secrets.
-   *
-   * <p>List all secrets associated with the given service principal. This operation only returns
+   * List all secrets associated with the given service principal. This operation only returns
    * information about the secrets themselves and does not include the secret values.
    */
   public Iterable<SecretInfo> list(ListServicePrincipalSecretsRequest request) {

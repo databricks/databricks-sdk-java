@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get the account IP access toggle setting */
 @Generated
 public class GetAccountIpAccessEnableRequest {
   /**

@@ -33,11 +33,17 @@ public class CreateStorageCredential {
   @JsonProperty("databricks_gcp_service_account")
   private DatabricksGcpServiceAccountRequest databricksGcpServiceAccount;
 
-  /** The credential name. The name must be unique within the metastore. */
+  /**
+   * The credential name. The name must be unique among storage and service credentials within the
+   * metastore.
+   */
   @JsonProperty("name")
   private String name;
 
-  /** Whether the storage credential is only usable for read operations. */
+  /**
+   * Whether the credential is usable only for read operations. Only applicable when purpose is
+   * **STORAGE**.
+   */
   @JsonProperty("read_only")
   private Boolean readOnly;
 

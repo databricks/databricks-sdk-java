@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete init script */
 @Generated
 public class DeleteGlobalInitScriptRequest {
   /** The ID of the global init script. */

@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete a Registered Model */
 @Generated
 public class DeleteRegisteredModelRequest {
   /** The three-level (fully qualified) name of the registered model */

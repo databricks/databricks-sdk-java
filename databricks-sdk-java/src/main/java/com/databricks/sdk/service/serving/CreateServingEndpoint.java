@@ -26,6 +26,10 @@ public class CreateServingEndpoint {
   @JsonProperty("config")
   private EndpointCoreConfigInput config;
 
+  /** */
+  @JsonProperty("description")
+  private String description;
+
   /**
    * The name of the serving endpoint. This field is required and must be unique across a Databricks
    * workspace. An endpoint name can consist of alphanumeric characters, dashes, and underscores.
@@ -75,6 +79,15 @@ public class CreateServingEndpoint {
     return config;
   }
 
+  public CreateServingEndpoint setDescription(String description) {
+    this.description = description;
+    return this;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
   public CreateServingEndpoint setName(String name) {
     this.name = name;
     return this;
@@ -119,6 +132,7 @@ public class CreateServingEndpoint {
     return Objects.equals(aiGateway, that.aiGateway)
         && Objects.equals(budgetPolicyId, that.budgetPolicyId)
         && Objects.equals(config, that.config)
+        && Objects.equals(description, that.description)
         && Objects.equals(name, that.name)
         && Objects.equals(rateLimits, that.rateLimits)
         && Objects.equals(routeOptimized, that.routeOptimized)
@@ -127,7 +141,8 @@ public class CreateServingEndpoint {
 
   @Override
   public int hashCode() {
-    return Objects.hash(aiGateway, budgetPolicyId, config, name, rateLimits, routeOptimized, tags);
+    return Objects.hash(
+        aiGateway, budgetPolicyId, config, description, name, rateLimits, routeOptimized, tags);
   }
 
   @Override
@@ -136,6 +151,7 @@ public class CreateServingEndpoint {
         .add("aiGateway", aiGateway)
         .add("budgetPolicyId", budgetPolicyId)
         .add("config", config)
+        .add("description", description)
         .add("name", name)
         .add("rateLimits", rateLimits)
         .add("routeOptimized", routeOptimized)

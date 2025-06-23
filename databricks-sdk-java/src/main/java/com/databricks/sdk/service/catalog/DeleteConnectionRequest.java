@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete a connection */
 @Generated
 public class DeleteConnectionRequest {
   /** The name of the connection to be deleted. */
