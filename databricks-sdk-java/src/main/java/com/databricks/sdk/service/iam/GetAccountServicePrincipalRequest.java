@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get service principal details. */
 @Generated
 public class GetAccountServicePrincipalRequest {
   /** Unique ID for a service principal in the Databricks account. */

@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Queue a metric refresh for a monitor */
 @Generated
 public class RunRefreshRequest {
   /** Full name of the table. */

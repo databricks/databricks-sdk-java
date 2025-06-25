@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get encryption key configuration */
 @Generated
 public class GetEncryptionKeyRequest {
   /** Databricks encryption key configuration ID. */

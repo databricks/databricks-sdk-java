@@ -13,26 +13,14 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface EnableIpAccessListsService {
-  /**
-   * Delete the account IP access toggle setting.
-   *
-   * <p>Reverts the value of the account IP access toggle setting to default (ON)
-   */
+  /** Reverts the value of the account IP access toggle setting to default (ON) */
   DeleteAccountIpAccessEnableResponse delete(
       DeleteAccountIpAccessEnableRequest deleteAccountIpAccessEnableRequest);
 
-  /**
-   * Get the account IP access toggle setting.
-   *
-   * <p>Gets the value of the account IP access toggle setting.
-   */
+  /** Gets the value of the account IP access toggle setting. */
   AccountIpAccessEnable get(GetAccountIpAccessEnableRequest getAccountIpAccessEnableRequest);
 
-  /**
-   * Update the account IP access toggle setting.
-   *
-   * <p>Updates the value of the account IP access toggle setting.
-   */
+  /** Updates the value of the account IP access toggle setting. */
   AccountIpAccessEnable update(
       UpdateAccountIpAccessEnableRequest updateAccountIpAccessEnableRequest);
 }

@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Create a private endpoint rule */
 @Generated
 public class CreatePrivateEndpointRuleRequest {
   /** Your Network Connectivity Configuration ID. */

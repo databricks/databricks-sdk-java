@@ -93,11 +93,7 @@ public class ForecastingAPI {
             .setForecastHorizon(forecastHorizon));
   }
 
-  /**
-   * Create a forecasting experiment.
-   *
-   * <p>Creates a serverless forecasting experiment. Returns the experiment ID.
-   */
+  /** Creates a serverless forecasting experiment. Returns the experiment ID. */
   public Wait<ForecastingExperiment, CreateForecastingExperimentResponse> createExperiment(
       CreateForecastingExperimentRequest request) {
     CreateForecastingExperimentResponse response = impl.createExperiment(request);
@@ -111,11 +107,7 @@ public class ForecastingAPI {
     return getExperiment(new GetForecastingExperimentRequest().setExperimentId(experimentId));
   }
 
-  /**
-   * Get a forecasting experiment.
-   *
-   * <p>Public RPC to get forecasting experiment
-   */
+  /** Public RPC to get forecasting experiment */
   public ForecastingExperiment getExperiment(GetForecastingExperimentRequest request) {
     return impl.getExperiment(request);
   }

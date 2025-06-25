@@ -21,40 +21,22 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface ConnectionsService {
   /**
-   * Create a connection.
-   *
-   * <p>Creates a new connection
+   * Creates a new connection
    *
    * <p>Creates a new connection to an external data source. It allows users to specify connection
    * details and configurations for interaction with the external server.
    */
   ConnectionInfo create(CreateConnection createConnection);
 
-  /**
-   * Delete a connection.
-   *
-   * <p>Deletes the connection that matches the supplied name.
-   */
+  /** Deletes the connection that matches the supplied name. */
   void delete(DeleteConnectionRequest deleteConnectionRequest);
 
-  /**
-   * Get a connection.
-   *
-   * <p>Gets a connection from it's name.
-   */
+  /** Gets a connection from it's name. */
   ConnectionInfo get(GetConnectionRequest getConnectionRequest);
 
-  /**
-   * List connections.
-   *
-   * <p>List all connections.
-   */
+  /** List all connections. */
   ListConnectionsResponse list(ListConnectionsRequest listConnectionsRequest);
 
-  /**
-   * Update a connection.
-   *
-   * <p>Updates the connection that matches the supplied name.
-   */
+  /** Updates the connection that matches the supplied name. */
   ConnectionInfo update(UpdateConnection updateConnection);
 }

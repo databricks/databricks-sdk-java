@@ -14,16 +14,16 @@ import java.util.Objects;
 @Generated
 public class SyncedTableFailedStatus {
   /**
-   * The last source table Delta version that was synced to the synced table. Note that this Delta
-   * version may only be partially synced to the synced table. Only populated if the table is still
-   * synced and available for serving.
+   * The last source table Delta version that was successfully synced to the synced table. The last
+   * source table Delta version that was synced to the synced table. Only populated if the table is
+   * still synced and available for serving.
    */
   @JsonProperty("last_processed_commit_version")
   private Long lastProcessedCommitVersion;
 
   /**
-   * The timestamp of the last time any data was synchronized from the source table to the synced
-   * table. Only populated if the table is still synced and available for serving.
+   * The end timestamp of the last time any data was synchronized from the source table to the
+   * synced table. Only populated if the table is still synced and available for serving.
    */
   @JsonProperty("timestamp")
   private String timestamp;

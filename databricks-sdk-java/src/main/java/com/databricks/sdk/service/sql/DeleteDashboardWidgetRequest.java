@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Remove widget */
 @Generated
 public class DeleteDashboardWidgetRequest {
   /** Widget ID returned by :method:dashboardwidgets/create */

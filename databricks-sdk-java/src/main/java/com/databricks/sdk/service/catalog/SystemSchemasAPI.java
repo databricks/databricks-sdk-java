@@ -33,9 +33,7 @@ public class SystemSchemasAPI {
   }
 
   /**
-   * Disable a system schema.
-   *
-   * <p>Disables the system schema and removes it from the system catalog. The caller must be an
+   * Disables the system schema and removes it from the system catalog. The caller must be an
    * account admin or a metastore admin.
    */
   public void disable(DisableRequest request) {
@@ -47,9 +45,7 @@ public class SystemSchemasAPI {
   }
 
   /**
-   * Enable a system schema.
-   *
-   * <p>Enables the system schema and adds it to the system catalog. The caller must be an account
+   * Enables the system schema and adds it to the system catalog. The caller must be an account
    * admin or a metastore admin.
    */
   public void enable(EnableRequest request) {
@@ -61,9 +57,7 @@ public class SystemSchemasAPI {
   }
 
   /**
-   * List system schemas.
-   *
-   * <p>Gets an array of system schemas for a metastore. The caller must be an account admin or a
+   * Gets an array of system schemas for a metastore. The caller must be an account admin or a
    * metastore admin.
    */
   public Iterable<SystemSchemaInfo> list(ListSystemSchemasRequest request) {

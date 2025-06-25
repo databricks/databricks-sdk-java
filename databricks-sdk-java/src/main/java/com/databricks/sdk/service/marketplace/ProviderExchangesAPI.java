@@ -31,11 +31,7 @@ public class ProviderExchangesAPI {
         new AddExchangeForListingRequest().setListingId(listingId).setExchangeId(exchangeId));
   }
 
-  /**
-   * Add an exchange for listing.
-   *
-   * <p>Associate an exchange with a listing
-   */
+  /** Associate an exchange with a listing */
   public AddExchangeForListingResponse addListingToExchange(AddExchangeForListingRequest request) {
     return impl.addListingToExchange(request);
   }
@@ -44,11 +40,7 @@ public class ProviderExchangesAPI {
     return create(new CreateExchangeRequest().setExchange(exchange));
   }
 
-  /**
-   * Create an exchange.
-   *
-   * <p>Create an exchange
-   */
+  /** Create an exchange */
   public CreateExchangeResponse create(CreateExchangeRequest request) {
     return impl.create(request);
   }
@@ -57,11 +49,7 @@ public class ProviderExchangesAPI {
     delete(new DeleteExchangeRequest().setId(id));
   }
 
-  /**
-   * Delete an exchange.
-   *
-   * <p>This removes a listing from marketplace.
-   */
+  /** This removes a listing from marketplace. */
   public void delete(DeleteExchangeRequest request) {
     impl.delete(request);
   }
@@ -70,11 +58,7 @@ public class ProviderExchangesAPI {
     deleteListingFromExchange(new RemoveExchangeForListingRequest().setId(id));
   }
 
-  /**
-   * Remove an exchange for listing.
-   *
-   * <p>Disassociate an exchange with a listing
-   */
+  /** Disassociate an exchange with a listing */
   public void deleteListingFromExchange(RemoveExchangeForListingRequest request) {
     impl.deleteListingFromExchange(request);
   }
@@ -83,20 +67,12 @@ public class ProviderExchangesAPI {
     return get(new GetExchangeRequest().setId(id));
   }
 
-  /**
-   * Get an exchange.
-   *
-   * <p>Get an exchange.
-   */
+  /** Get an exchange. */
   public GetExchangeResponse get(GetExchangeRequest request) {
     return impl.get(request);
   }
 
-  /**
-   * List exchanges.
-   *
-   * <p>List exchanges visible to provider
-   */
+  /** List exchanges visible to provider */
   public Iterable<Exchange> list(ListExchangesRequest request) {
     return new Paginator<>(
         request,
@@ -115,11 +91,7 @@ public class ProviderExchangesAPI {
     return listExchangesForListing(new ListExchangesForListingRequest().setListingId(listingId));
   }
 
-  /**
-   * List exchanges for listing.
-   *
-   * <p>List exchanges associated with a listing
-   */
+  /** List exchanges associated with a listing */
   public Iterable<ExchangeListing> listExchangesForListing(ListExchangesForListingRequest request) {
     return new Paginator<>(
         request,
@@ -138,11 +110,7 @@ public class ProviderExchangesAPI {
     return listListingsForExchange(new ListListingsForExchangeRequest().setExchangeId(exchangeId));
   }
 
-  /**
-   * List listings for exchange.
-   *
-   * <p>List listings associated with an exchange
-   */
+  /** List listings associated with an exchange */
   public Iterable<ExchangeListing> listListingsForExchange(ListListingsForExchangeRequest request) {
     return new Paginator<>(
         request,
@@ -161,11 +129,7 @@ public class ProviderExchangesAPI {
     return update(new UpdateExchangeRequest().setId(id).setExchange(exchange));
   }
 
-  /**
-   * Update exchange.
-   *
-   * <p>Update an exchange
-   */
+  /** Update an exchange */
   public UpdateExchangeResponse update(UpdateExchangeRequest request) {
     return impl.update(request);
   }

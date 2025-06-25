@@ -19,26 +19,14 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface PersonalComputeService {
-  /**
-   * Delete Personal Compute setting.
-   *
-   * <p>Reverts back the Personal Compute setting value to default (ON)
-   */
+  /** Reverts back the Personal Compute setting value to default (ON) */
   DeletePersonalComputeSettingResponse delete(
       DeletePersonalComputeSettingRequest deletePersonalComputeSettingRequest);
 
-  /**
-   * Get Personal Compute setting.
-   *
-   * <p>Gets the value of the Personal Compute setting.
-   */
+  /** Gets the value of the Personal Compute setting. */
   PersonalComputeSetting get(GetPersonalComputeSettingRequest getPersonalComputeSettingRequest);
 
-  /**
-   * Update Personal Compute setting.
-   *
-   * <p>Updates the value of the Personal Compute setting.
-   */
+  /** Updates the value of the Personal Compute setting. */
   PersonalComputeSetting update(
       UpdatePersonalComputeSettingRequest updatePersonalComputeSettingRequest);
 }

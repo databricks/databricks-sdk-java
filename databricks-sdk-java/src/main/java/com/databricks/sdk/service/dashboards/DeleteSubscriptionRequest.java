@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete schedule subscription */
 @Generated
 public class DeleteSubscriptionRequest {
   /** UUID identifying the dashboard which the subscription belongs. */

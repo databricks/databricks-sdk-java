@@ -13,12 +13,12 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface DashboardWidgetsService {
-  /** Add widget to a dashboard. */
+  /** Adds a widget to a dashboard */
   Widget create(CreateWidget createWidget);
 
-  /** Remove widget. */
+  /** Removes a widget from a dashboard */
   void delete(DeleteDashboardWidgetRequest deleteDashboardWidgetRequest);
 
-  /** Update existing widget. */
-  Widget update(CreateWidget createWidget);
+  /** Updates an existing widget */
+  Widget update(UpdateWidgetRequest updateWidgetRequest);
 }

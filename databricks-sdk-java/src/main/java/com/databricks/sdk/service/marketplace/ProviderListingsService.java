@@ -13,38 +13,18 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface ProviderListingsService {
-  /**
-   * Create a listing.
-   *
-   * <p>Create a new listing
-   */
+  /** Create a new listing */
   CreateListingResponse create(CreateListingRequest createListingRequest);
 
-  /**
-   * Delete a listing.
-   *
-   * <p>Delete a listing
-   */
+  /** Delete a listing */
   void delete(DeleteListingRequest deleteListingRequest);
 
-  /**
-   * Get a listing.
-   *
-   * <p>Get a listing
-   */
+  /** Get a listing */
   GetListingResponse get(GetListingRequest getListingRequest);
 
-  /**
-   * List listings.
-   *
-   * <p>List listings owned by this provider
-   */
+  /** List listings owned by this provider */
   GetListingsResponse list(GetListingsRequest getListingsRequest);
 
-  /**
-   * Update listing.
-   *
-   * <p>Update a listing
-   */
+  /** Update a listing */
   UpdateListingResponse update(UpdateListingRequest updateListingRequest);
 }

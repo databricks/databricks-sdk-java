@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete a model version. */
 @Generated
 public class DeleteModelVersionRequest {
   /** Name of the registered model */

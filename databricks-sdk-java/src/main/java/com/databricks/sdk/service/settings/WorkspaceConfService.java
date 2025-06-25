@@ -13,17 +13,9 @@ import java.util.Map;
  */
 @Generated
 public interface WorkspaceConfService {
-  /**
-   * Check configuration status.
-   *
-   * <p>Gets the configuration status for a workspace.
-   */
+  /** Gets the configuration status for a workspace. */
   Map<String, String> getStatus(GetStatusRequest getStatusRequest);
 
-  /**
-   * Enable/disable features.
-   *
-   * <p>Sets the configuration status for a workspace, including enabling or disabling it.
-   */
+  /** Sets the configuration status for a workspace, including enabling or disabling it. */
   void setStatus(Map<String, String> workspaceConf);
 }

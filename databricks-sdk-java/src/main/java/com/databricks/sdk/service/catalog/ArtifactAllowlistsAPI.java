@@ -32,10 +32,8 @@ public class ArtifactAllowlistsAPI {
   }
 
   /**
-   * Get an artifact allowlist.
-   *
-   * <p>Get the artifact allowlist of a certain artifact type. The caller must be a metastore admin
-   * or have the **MANAGE ALLOWLIST** privilege on the metastore.
+   * Get the artifact allowlist of a certain artifact type. The caller must be a metastore admin or
+   * have the **MANAGE ALLOWLIST** privilege on the metastore.
    */
   public ArtifactAllowlistInfo get(GetArtifactAllowlistRequest request) {
     return impl.get(request);
@@ -50,11 +48,9 @@ public class ArtifactAllowlistsAPI {
   }
 
   /**
-   * Set an artifact allowlist.
-   *
-   * <p>Set the artifact allowlist of a certain artifact type. The whole artifact allowlist is
-   * replaced with the new allowlist. The caller must be a metastore admin or have the **MANAGE
-   * ALLOWLIST** privilege on the metastore.
+   * Set the artifact allowlist of a certain artifact type. The whole artifact allowlist is replaced
+   * with the new allowlist. The caller must be a metastore admin or have the **MANAGE ALLOWLIST**
+   * privilege on the metastore.
    */
   public ArtifactAllowlistInfo update(SetArtifactAllowlist request) {
     return impl.update(request);

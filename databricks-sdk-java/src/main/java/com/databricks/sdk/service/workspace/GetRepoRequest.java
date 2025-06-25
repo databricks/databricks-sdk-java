@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get a repo */
 @Generated
 public class GetRepoRequest {
   /** ID of the Git folder (repo) object in the workspace. */

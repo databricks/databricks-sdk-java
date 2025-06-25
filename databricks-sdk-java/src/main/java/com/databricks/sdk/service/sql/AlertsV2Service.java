@@ -12,40 +12,22 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface AlertsV2Service {
-  /**
-   * Create an alert.
-   *
-   * <p>Create Alert
-   */
+  /** Create Alert */
   AlertV2 createAlert(CreateAlertV2Request createAlertV2Request);
 
-  /**
-   * Get an alert.
-   *
-   * <p>Gets an alert.
-   */
+  /** Gets an alert. */
   AlertV2 getAlert(GetAlertV2Request getAlertV2Request);
 
-  /**
-   * List alerts.
-   *
-   * <p>Gets a list of alerts accessible to the user, ordered by creation time.
-   */
+  /** Gets a list of alerts accessible to the user, ordered by creation time. */
   ListAlertsV2Response listAlerts(ListAlertsV2Request listAlertsV2Request);
 
   /**
-   * Delete an alert.
-   *
-   * <p>Moves an alert to the trash. Trashed alerts immediately disappear from list views, and can
-   * no longer trigger. You can restore a trashed alert through the UI. A trashed alert is
-   * permanently deleted after 30 days.
+   * Moves an alert to the trash. Trashed alerts immediately disappear from list views, and can no
+   * longer trigger. You can restore a trashed alert through the UI. A trashed alert is permanently
+   * deleted after 30 days.
    */
   void trashAlert(TrashAlertV2Request trashAlertV2Request);
 
-  /**
-   * Update an alert.
-   *
-   * <p>Update alert
-   */
+  /** Update alert */
   AlertV2 updateAlert(UpdateAlertV2Request updateAlertV2Request);
 }

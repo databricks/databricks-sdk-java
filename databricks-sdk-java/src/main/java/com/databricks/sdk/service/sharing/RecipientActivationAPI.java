@@ -36,11 +36,7 @@ public class RecipientActivationAPI {
     getActivationUrlInfo(new GetActivationUrlInfoRequest().setActivationUrl(activationUrl));
   }
 
-  /**
-   * Get a share activation URL.
-   *
-   * <p>Gets an activation URL for a share.
-   */
+  /** Gets an activation URL for a share. */
   public void getActivationUrlInfo(GetActivationUrlInfoRequest request) {
     impl.getActivationUrlInfo(request);
   }
@@ -50,10 +46,7 @@ public class RecipientActivationAPI {
   }
 
   /**
-   * Get an access token.
-   *
-   * <p>Retrieve access token with an activation url. This is a public API without any
-   * authentication.
+   * Retrieve access token with an activation url. This is a public API without any authentication.
    */
   public RetrieveTokenResponse retrieveToken(RetrieveTokenRequest request) {
     return impl.retrieveToken(request);

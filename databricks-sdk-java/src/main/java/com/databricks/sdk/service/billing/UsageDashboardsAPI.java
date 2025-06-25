@@ -27,20 +27,12 @@ public class UsageDashboardsAPI {
     impl = mock;
   }
 
-  /**
-   * Create new usage dashboard.
-   *
-   * <p>Create a usage dashboard specified by workspaceId, accountId, and dashboard type.
-   */
+  /** Create a usage dashboard specified by workspaceId, accountId, and dashboard type. */
   public CreateBillingUsageDashboardResponse create(CreateBillingUsageDashboardRequest request) {
     return impl.create(request);
   }
 
-  /**
-   * Get usage dashboard.
-   *
-   * <p>Get a usage dashboard specified by workspaceId, accountId, and dashboard type.
-   */
+  /** Get a usage dashboard specified by workspaceId, accountId, and dashboard type. */
   public GetBillingUsageDashboardResponse get(GetBillingUsageDashboardRequest request) {
     return impl.get(request);
   }

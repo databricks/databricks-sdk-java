@@ -7,11 +7,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** The Azure managed identity configuration. */
 @Generated
 public class AzureManagedIdentityResponse {
   /**
    * The Azure resource ID of the Azure Databricks Access Connector. Use the format
-   * /subscriptions/{guid}/resourceGroups/{rg-name}/providers/Microsoft.Databricks/accessConnectors/{connector-name}.
+   * `/subscriptions/{guid}/resourceGroups/{rg-name}/providers/Microsoft.Databricks/accessConnectors/{connector-name}`.
    */
   @JsonProperty("access_connector_id")
   private String accessConnectorId;
@@ -21,11 +22,11 @@ public class AzureManagedIdentityResponse {
   private String credentialId;
 
   /**
-   * The Azure resource ID of the managed identity. Use the format
-   * /subscriptions/{guid}/resourceGroups/{rg-name}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identity-name}.
+   * The Azure resource ID of the managed identity. Use the format,
+   * `/subscriptions/{guid}/resourceGroups/{rg-name}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identity-name}`
    * This is only available for user-assgined identities. For system-assigned identities, the
    * access_connector_id is used to identify the identity. If this field is not provided, then we
-   * assume the AzureManagedIdentity is for a system-assigned identity.
+   * assume the AzureManagedIdentity is using the system-assigned identity.
    */
   @JsonProperty("managed_identity_id")
   private String managedIdentityId;

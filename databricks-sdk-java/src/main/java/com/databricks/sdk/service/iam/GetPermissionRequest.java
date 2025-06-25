@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get object permissions */
 @Generated
 public class GetPermissionRequest {
   /** The id of the request object. */

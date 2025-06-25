@@ -24,25 +24,15 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface ServicePrincipalSecretsService {
-  /**
-   * Create service principal secret.
-   *
-   * <p>Create a secret for the given service principal.
-   */
+  /** Create a secret for the given service principal. */
   CreateServicePrincipalSecretResponse create(
       CreateServicePrincipalSecretRequest createServicePrincipalSecretRequest);
 
-  /**
-   * Delete service principal secret.
-   *
-   * <p>Delete a secret from the given service principal.
-   */
+  /** Delete a secret from the given service principal. */
   void delete(DeleteServicePrincipalSecretRequest deleteServicePrincipalSecretRequest);
 
   /**
-   * List service principal secrets.
-   *
-   * <p>List all secrets associated with the given service principal. This operation only returns
+   * List all secrets associated with the given service principal. This operation only returns
    * information about the secrets themselves and does not include the secret values.
    */
   ListServicePrincipalSecretsResponse list(

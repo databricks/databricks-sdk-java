@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete access list */
 @Generated
 public class DeleteAccountIpAccessListRequest {
   /** The ID for the corresponding IP access list */

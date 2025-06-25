@@ -20,18 +20,12 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface PolicyFamiliesService {
-  /**
-   * Get policy family information.
-   *
-   * <p>Retrieve the information for an policy family based on its identifier and version
-   */
+  /** Retrieve the information for an policy family based on its identifier and version */
   PolicyFamily get(GetPolicyFamilyRequest getPolicyFamilyRequest);
 
   /**
-   * List policy families.
-   *
-   * <p>Returns the list of policy definition types available to use at their latest version. This
-   * API is paginated.
+   * Returns the list of policy definition types available to use at their latest version. This API
+   * is paginated.
    */
   ListPolicyFamiliesResponse list(ListPolicyFamiliesRequest listPolicyFamiliesRequest);
 }

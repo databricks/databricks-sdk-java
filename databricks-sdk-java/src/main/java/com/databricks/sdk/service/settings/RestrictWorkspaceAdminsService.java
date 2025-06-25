@@ -22,29 +22,21 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface RestrictWorkspaceAdminsService {
   /**
-   * Delete the restrict workspace admins setting.
-   *
-   * <p>Reverts the restrict workspace admins setting status for the workspace. A fresh etag needs
-   * to be provided in `DELETE` requests (as a query parameter). The etag can be retrieved by making
-   * a `GET` request before the DELETE request. If the setting is updated/deleted concurrently,
+   * Reverts the restrict workspace admins setting status for the workspace. A fresh etag needs to
+   * be provided in `DELETE` requests (as a query parameter). The etag can be retrieved by making a
+   * `GET` request before the DELETE request. If the setting is updated/deleted concurrently,
    * `DELETE` fails with 409 and the request must be retried by using the fresh etag in the 409
    * response.
    */
   DeleteRestrictWorkspaceAdminsSettingResponse delete(
       DeleteRestrictWorkspaceAdminsSettingRequest deleteRestrictWorkspaceAdminsSettingRequest);
 
-  /**
-   * Get the restrict workspace admins setting.
-   *
-   * <p>Gets the restrict workspace admins setting.
-   */
+  /** Gets the restrict workspace admins setting. */
   RestrictWorkspaceAdminsSetting get(
       GetRestrictWorkspaceAdminsSettingRequest getRestrictWorkspaceAdminsSettingRequest);
 
   /**
-   * Update the restrict workspace admins setting.
-   *
-   * <p>Updates the restrict workspace admins setting for the workspace. A fresh etag needs to be
+   * Updates the restrict workspace admins setting for the workspace. A fresh etag needs to be
    * provided in `PATCH` requests (as part of the setting field). The etag can be retrieved by
    * making a GET request before the `PATCH` request. If the setting is updated concurrently,
    * `PATCH` fails with 409 and the request must be retried by using the fresh etag in the 409

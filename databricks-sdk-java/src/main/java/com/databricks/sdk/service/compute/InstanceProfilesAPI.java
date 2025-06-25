@@ -36,10 +36,8 @@ public class InstanceProfilesAPI {
   }
 
   /**
-   * Register an instance profile.
-   *
-   * <p>Registers an instance profile in Databricks. In the UI, you can then give users the
-   * permission to use this instance profile when launching clusters.
+   * Registers an instance profile in Databricks. In the UI, you can then give users the permission
+   * to use this instance profile when launching clusters.
    *
    * <p>This API is only available to admin users.
    */
@@ -52,9 +50,7 @@ public class InstanceProfilesAPI {
   }
 
   /**
-   * Edit an instance profile.
-   *
-   * <p>The only supported field to change is the optional IAM role ARN associated with the instance
+   * The only supported field to change is the optional IAM role ARN associated with the instance
    * profile. It is required to specify the IAM role ARN if both of the following are true:
    *
    * <p>* Your role name and instance profile name do not match. The name is the part after the last
@@ -73,9 +69,7 @@ public class InstanceProfilesAPI {
   }
 
   /**
-   * List available instance profiles.
-   *
-   * <p>List the instance profiles that the calling user can use to launch a cluster.
+   * List the instance profiles that the calling user can use to launch a cluster.
    *
    * <p>This API is available to all users.
    */
@@ -92,10 +86,8 @@ public class InstanceProfilesAPI {
   }
 
   /**
-   * Remove the instance profile.
-   *
-   * <p>Remove the instance profile with the provided ARN. Existing clusters with this instance
-   * profile will continue to function.
+   * Remove the instance profile with the provided ARN. Existing clusters with this instance profile
+   * will continue to function.
    *
    * <p>This API is only accessible to admin users.
    */

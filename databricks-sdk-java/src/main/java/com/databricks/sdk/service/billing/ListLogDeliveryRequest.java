@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get all log delivery configurations */
 @Generated
 public class ListLogDeliveryRequest {
   /** The Credentials id to filter the search results with */

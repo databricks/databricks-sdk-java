@@ -33,19 +33,15 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface ClustersService {
   /**
-   * Change cluster owner.
-   *
-   * <p>Change the owner of the cluster. You must be an admin and the cluster must be terminated to
+   * Change the owner of the cluster. You must be an admin and the cluster must be terminated to
    * perform this operation. The service principal application ID can be supplied as an argument to
    * `owner_username`.
    */
   void changeOwner(ChangeClusterOwner changeClusterOwner);
 
   /**
-   * Create new cluster.
-   *
-   * <p>Creates a new Spark cluster. This method will acquire new instances from the cloud provider
-   * if necessary. This method is asynchronous; the returned ``cluster_id`` can be used to poll the
+   * Creates a new Spark cluster. This method will acquire new instances from the cloud provider if
+   * necessary. This method is asynchronous; the returned ``cluster_id`` can be used to poll the
    * cluster status. When this method returns, the cluster will be in a ``PENDING`` state. The
    * cluster will be usable once it enters a ``RUNNING`` state. Note: Databricks may not be able to
    * acquire some of the requested nodes, due to cloud provider limitations (account limits, spot
@@ -62,19 +58,15 @@ public interface ClustersService {
   CreateClusterResponse create(CreateCluster createCluster);
 
   /**
-   * Terminate cluster.
-   *
-   * <p>Terminates the Spark cluster with the specified ID. The cluster is removed asynchronously.
-   * Once the termination has completed, the cluster will be in a `TERMINATED` state. If the cluster
-   * is already in a `TERMINATING` or `TERMINATED` state, nothing will happen.
+   * Terminates the Spark cluster with the specified ID. The cluster is removed asynchronously. Once
+   * the termination has completed, the cluster will be in a `TERMINATED` state. If the cluster is
+   * already in a `TERMINATING` or `TERMINATED` state, nothing will happen.
    */
   void delete(DeleteCluster deleteCluster);
 
   /**
-   * Update cluster configuration.
-   *
-   * <p>Updates the configuration of a cluster to match the provided attributes and size. A cluster
-   * can be updated if it is in a `RUNNING` or `TERMINATED` state.
+   * Updates the configuration of a cluster to match the provided attributes and size. A cluster can
+   * be updated if it is in a `RUNNING` or `TERMINATED` state.
    *
    * <p>If a cluster is updated while in a `RUNNING` state, it will be restarted so that the new
    * attributes can take effect.
@@ -89,65 +81,44 @@ public interface ClustersService {
   void edit(EditCluster editCluster);
 
   /**
-   * List cluster activity events.
-   *
-   * <p>Retrieves a list of events about the activity of a cluster. This API is paginated. If there
-   * are more events to read, the response includes all the parameters necessary to request the next
+   * Retrieves a list of events about the activity of a cluster. This API is paginated. If there are
+   * more events to read, the response includes all the parameters necessary to request the next
    * page of events.
    */
   GetEventsResponse events(GetEvents getEvents);
 
   /**
-   * Get cluster info.
-   *
-   * <p>Retrieves the information for a cluster given its identifier. Clusters can be described
-   * while they are running, or up to 60 days after they are terminated.
+   * Retrieves the information for a cluster given its identifier. Clusters can be described while
+   * they are running, or up to 60 days after they are terminated.
    */
   ClusterDetails get(GetClusterRequest getClusterRequest);
 
-  /**
-   * Get cluster permission levels.
-   *
-   * <p>Gets the permission levels that a user can have on an object.
-   */
+  /** Gets the permission levels that a user can have on an object. */
   GetClusterPermissionLevelsResponse getPermissionLevels(
       GetClusterPermissionLevelsRequest getClusterPermissionLevelsRequest);
 
-  /**
-   * Get cluster permissions.
-   *
-   * <p>Gets the permissions of a cluster. Clusters can inherit permissions from their root object.
-   */
+  /** Gets the permissions of a cluster. Clusters can inherit permissions from their root object. */
   ClusterPermissions getPermissions(GetClusterPermissionsRequest getClusterPermissionsRequest);
 
   /**
-   * List clusters.
-   *
-   * <p>Return information about all pinned and active clusters, and all clusters terminated within
-   * the last 30 days. Clusters terminated prior to this period are not included.
+   * Return information about all pinned and active clusters, and all clusters terminated within the
+   * last 30 days. Clusters terminated prior to this period are not included.
    */
   ListClustersResponse list(ListClustersRequest listClustersRequest);
 
   /**
-   * List node types.
-   *
-   * <p>Returns a list of supported Spark node types. These node types can be used to launch a
-   * cluster.
+   * Returns a list of supported Spark node types. These node types can be used to launch a cluster.
    */
   ListNodeTypesResponse listNodeTypes();
 
   /**
-   * List availability zones.
-   *
-   * <p>Returns a list of availability zones where clusters can be created in (For example,
+   * Returns a list of availability zones where clusters can be created in (For example,
    * us-west-2a). These zones can be used to launch a cluster.
    */
   ListAvailableZonesResponse listZones();
 
   /**
-   * Permanently delete cluster.
-   *
-   * <p>Permanently deletes a Spark cluster. This cluster is terminated and resources are
+   * Permanently deletes a Spark cluster. This cluster is terminated and resources are
    * asynchronously removed.
    *
    * <p>In addition, users will no longer see permanently deleted clusters in the cluster list, and
@@ -156,74 +127,55 @@ public interface ClustersService {
   void permanentDelete(PermanentDeleteCluster permanentDeleteCluster);
 
   /**
-   * Pin cluster.
-   *
-   * <p>Pinning a cluster ensures that the cluster will always be returned by the ListClusters API.
+   * Pinning a cluster ensures that the cluster will always be returned by the ListClusters API.
    * Pinning a cluster that is already pinned will have no effect. This API can only be called by
    * workspace admins.
    */
   void pin(PinCluster pinCluster);
 
   /**
-   * Resize cluster.
-   *
-   * <p>Resizes a cluster to have a desired number of workers. This will fail unless the cluster is
-   * in a `RUNNING` state.
+   * Resizes a cluster to have a desired number of workers. This will fail unless the cluster is in
+   * a `RUNNING` state.
    */
   void resize(ResizeCluster resizeCluster);
 
   /**
-   * Restart cluster.
-   *
-   * <p>Restarts a Spark cluster with the supplied ID. If the cluster is not currently in a
-   * `RUNNING` state, nothing will happen.
+   * Restarts a Spark cluster with the supplied ID. If the cluster is not currently in a `RUNNING`
+   * state, nothing will happen.
    */
   void restart(RestartCluster restartCluster);
 
   /**
-   * Set cluster permissions.
-   *
-   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
-   * direct permissions if none are specified. Objects can inherit permissions from their root
-   * object.
+   * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
+   * permissions if none are specified. Objects can inherit permissions from their root object.
    */
   ClusterPermissions setPermissions(ClusterPermissionsRequest clusterPermissionsRequest);
 
   /**
-   * List available Spark versions.
-   *
-   * <p>Returns the list of available Spark versions. These versions can be used to launch a
-   * cluster.
+   * Returns the list of available Spark versions. These versions can be used to launch a cluster.
    */
   GetSparkVersionsResponse sparkVersions();
 
   /**
-   * Start terminated cluster.
-   *
-   * <p>Starts a terminated Spark cluster with the supplied ID. This works similar to
-   * `createCluster` except: - The previous cluster id and attributes are preserved. - The cluster
-   * starts with the last specified cluster size. - If the previous cluster was an autoscaling
-   * cluster, the current cluster starts with the minimum number of nodes. - If the cluster is not
-   * currently in a ``TERMINATED`` state, nothing will happen. - Clusters launched to run a job
-   * cannot be started.
+   * Starts a terminated Spark cluster with the supplied ID. This works similar to `createCluster`
+   * except: - The previous cluster id and attributes are preserved. - The cluster starts with the
+   * last specified cluster size. - If the previous cluster was an autoscaling cluster, the current
+   * cluster starts with the minimum number of nodes. - If the cluster is not currently in a
+   * ``TERMINATED`` state, nothing will happen. - Clusters launched to run a job cannot be started.
    */
   void start(StartCluster startCluster);
 
   /**
-   * Unpin cluster.
-   *
-   * <p>Unpinning a cluster will allow the cluster to eventually be removed from the ListClusters
-   * API. Unpinning a cluster that is not pinned will have no effect. This API can only be called by
+   * Unpinning a cluster will allow the cluster to eventually be removed from the ListClusters API.
+   * Unpinning a cluster that is not pinned will have no effect. This API can only be called by
    * workspace admins.
    */
   void unpin(UnpinCluster unpinCluster);
 
   /**
-   * Update cluster configuration (partial).
-   *
-   * <p>Updates the configuration of a cluster to match the partial set of attributes and size.
-   * Denote which fields to update using the `update_mask` field in the request body. A cluster can
-   * be updated if it is in a `RUNNING` or `TERMINATED` state. If a cluster is updated while in a
+   * Updates the configuration of a cluster to match the partial set of attributes and size. Denote
+   * which fields to update using the `update_mask` field in the request body. A cluster can be
+   * updated if it is in a `RUNNING` or `TERMINATED` state. If a cluster is updated while in a
    * `RUNNING` state, it will be restarted so that the new attributes can take effect. If a cluster
    * is updated while in a `TERMINATED` state, it will remain `TERMINATED`. The updated attributes
    * will take effect the next time the cluster is started using the `clusters/start` API. Attempts
@@ -233,10 +185,7 @@ public interface ClustersService {
   void update(UpdateCluster updateCluster);
 
   /**
-   * Update cluster permissions.
-   *
-   * <p>Updates the permissions on a cluster. Clusters can inherit permissions from their root
-   * object.
+   * Updates the permissions on a cluster. Clusters can inherit permissions from their root object.
    */
   ClusterPermissions updatePermissions(ClusterPermissionsRequest clusterPermissionsRequest);
 }

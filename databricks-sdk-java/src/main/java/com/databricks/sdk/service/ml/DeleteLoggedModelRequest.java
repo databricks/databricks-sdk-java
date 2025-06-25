@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete a logged model */
 @Generated
 public class DeleteLoggedModelRequest {
   /** The ID of the logged model to delete. */

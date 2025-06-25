@@ -18,9 +18,7 @@ import java.util.Collection;
 @Generated
 public interface StorageService {
   /**
-   * Create new storage configuration.
-   *
-   * <p>Creates new storage configuration for an account, specified by ID. Uploads a storage
+   * Creates new storage configuration for an account, specified by ID. Uploads a storage
    * configuration object that represents the root AWS S3 bucket in your account. Databricks stores
    * related workspace assets including DBFS, cluster logs, and job results. For the AWS S3 bucket,
    * you need to configure the required bucket policy.
@@ -34,24 +32,14 @@ public interface StorageService {
   StorageConfiguration create(CreateStorageConfigurationRequest createStorageConfigurationRequest);
 
   /**
-   * Delete storage configuration.
-   *
-   * <p>Deletes a Databricks storage configuration. You cannot delete a storage configuration that
-   * is associated with any workspace.
+   * Deletes a Databricks storage configuration. You cannot delete a storage configuration that is
+   * associated with any workspace.
    */
   void delete(DeleteStorageRequest deleteStorageRequest);
 
-  /**
-   * Get storage configuration.
-   *
-   * <p>Gets a Databricks storage configuration for an account, both specified by ID.
-   */
+  /** Gets a Databricks storage configuration for an account, both specified by ID. */
   StorageConfiguration get(GetStorageRequest getStorageRequest);
 
-  /**
-   * Get all storage configurations.
-   *
-   * <p>Gets a list of all Databricks storage configurations for your account, specified by ID.
-   */
+  /** Gets a list of all Databricks storage configurations for your account, specified by ID. */
   Collection<StorageConfiguration> list();
 }

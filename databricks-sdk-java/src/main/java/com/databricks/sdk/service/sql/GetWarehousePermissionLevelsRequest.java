@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get SQL warehouse permission levels */
 @Generated
 public class GetWarehousePermissionLevelsRequest {
   /** The SQL warehouse for which to get or manage permissions. */

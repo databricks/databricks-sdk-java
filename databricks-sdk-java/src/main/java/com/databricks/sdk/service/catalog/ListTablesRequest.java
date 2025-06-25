@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** List tables */
 @Generated
 public class ListTablesRequest {
   /** Name of parent catalog for tables of interest. */
@@ -18,18 +17,13 @@ public class ListTablesRequest {
 
   /**
    * Whether to include tables in the response for which the principal can only access selective
-   * metadata for
+   * metadata for.
    */
   @JsonIgnore
   @QueryParam("include_browse")
   private Boolean includeBrowse;
 
-  /** Whether delta metadata should be included in the response. */
-  @JsonIgnore
-  @QueryParam("include_delta_metadata")
-  private Boolean includeDeltaMetadata;
-
-  /** Whether to include a manifest containing capabilities the table has. */
+  /** Whether to include a manifest containing table capabilities in the response. */
   @JsonIgnore
   @QueryParam("include_manifest_capabilities")
   private Boolean includeManifestCapabilities;
@@ -88,15 +82,6 @@ public class ListTablesRequest {
 
   public Boolean getIncludeBrowse() {
     return includeBrowse;
-  }
-
-  public ListTablesRequest setIncludeDeltaMetadata(Boolean includeDeltaMetadata) {
-    this.includeDeltaMetadata = includeDeltaMetadata;
-    return this;
-  }
-
-  public Boolean getIncludeDeltaMetadata() {
-    return includeDeltaMetadata;
   }
 
   public ListTablesRequest setIncludeManifestCapabilities(Boolean includeManifestCapabilities) {
@@ -169,7 +154,6 @@ public class ListTablesRequest {
     ListTablesRequest that = (ListTablesRequest) o;
     return Objects.equals(catalogName, that.catalogName)
         && Objects.equals(includeBrowse, that.includeBrowse)
-        && Objects.equals(includeDeltaMetadata, that.includeDeltaMetadata)
         && Objects.equals(includeManifestCapabilities, that.includeManifestCapabilities)
         && Objects.equals(maxResults, that.maxResults)
         && Objects.equals(omitColumns, that.omitColumns)
@@ -184,7 +168,6 @@ public class ListTablesRequest {
     return Objects.hash(
         catalogName,
         includeBrowse,
-        includeDeltaMetadata,
         includeManifestCapabilities,
         maxResults,
         omitColumns,
@@ -199,7 +182,6 @@ public class ListTablesRequest {
     return new ToStringer(ListTablesRequest.class)
         .add("catalogName", catalogName)
         .add("includeBrowse", includeBrowse)
-        .add("includeDeltaMetadata", includeDeltaMetadata)
         .add("includeManifestCapabilities", includeManifestCapabilities)
         .add("maxResults", maxResults)
         .add("omitColumns", omitColumns)

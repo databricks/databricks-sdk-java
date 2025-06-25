@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get a share recipient */
 @Generated
 public class GetRecipientRequest {
   /** Name of the recipient. */

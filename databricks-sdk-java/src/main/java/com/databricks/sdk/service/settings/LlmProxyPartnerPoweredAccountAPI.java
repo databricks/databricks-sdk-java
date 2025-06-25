@@ -23,11 +23,7 @@ public class LlmProxyPartnerPoweredAccountAPI {
     impl = mock;
   }
 
-  /**
-   * Get the enable partner powered AI features account setting.
-   *
-   * <p>Gets the enable partner powered AI features account setting.
-   */
+  /** Gets the enable partner powered AI features account setting. */
   public LlmProxyPartnerPoweredAccount get(GetLlmProxyPartnerPoweredAccountRequest request) {
     return impl.get(request);
   }
@@ -41,11 +37,7 @@ public class LlmProxyPartnerPoweredAccountAPI {
             .setFieldMask(fieldMask));
   }
 
-  /**
-   * Update the enable partner powered AI features account setting.
-   *
-   * <p>Updates the enable partner powered AI features account setting.
-   */
+  /** Updates the enable partner powered AI features account setting. */
   public LlmProxyPartnerPoweredAccount update(UpdateLlmProxyPartnerPoweredAccountRequest request) {
     return impl.update(request);
   }

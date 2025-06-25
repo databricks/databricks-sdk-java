@@ -132,6 +132,7 @@ public class ExecuteStatementRequest {
 
   /**
    * The SQL statement to execute. The statement can optionally be parameterized, see `parameters`.
+   * The maximum query text size is 16 MiB.
    */
   @JsonProperty("statement")
   private String statement;

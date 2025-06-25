@@ -25,9 +25,7 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface TemporaryTableCredentialsService {
   /**
-   * Generate a temporary table credential.
-   *
-   * <p>Get a short-lived credential for directly accessing the table data on cloud storage. The
+   * Get a short-lived credential for directly accessing the table data on cloud storage. The
    * metastore must have external_access_enabled flag set to true (default false). The caller must
    * have EXTERNAL_USE_SCHEMA privilege on the parent schema and this privilege can only be granted
    * by catalog owners.

@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete a service principal. */
 @Generated
 public class DeleteServicePrincipalRequest {
   /** Unique ID for a service principal in the Databricks workspace. */

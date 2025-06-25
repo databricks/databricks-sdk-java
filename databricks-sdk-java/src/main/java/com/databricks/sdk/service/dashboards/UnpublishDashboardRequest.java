@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Unpublish dashboard */
 @Generated
 public class UnpublishDashboardRequest {
   /** UUID identifying the published dashboard. */

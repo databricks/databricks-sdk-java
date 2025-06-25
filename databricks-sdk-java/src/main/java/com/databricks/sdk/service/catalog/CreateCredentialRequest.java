@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateCredentialRequest {
-  /** The AWS IAM role configuration */
+  /** The AWS IAM role configuration. */
   @JsonProperty("aws_iam_role")
   private AwsIamRole awsIamRole;
 
@@ -17,7 +17,7 @@ public class CreateCredentialRequest {
   @JsonProperty("azure_managed_identity")
   private AzureManagedIdentity azureManagedIdentity;
 
-  /** The Azure service principal configuration. Only applicable when purpose is **STORAGE**. */
+  /** The Azure service principal configuration. */
   @JsonProperty("azure_service_principal")
   private AzureServicePrincipal azureServicePrincipal;
 
@@ -25,7 +25,7 @@ public class CreateCredentialRequest {
   @JsonProperty("comment")
   private String comment;
 
-  /** GCP long-lived credential. Databricks-created Google Cloud Storage service account. */
+  /** The Databricks managed GCP service account configuration. */
   @JsonProperty("databricks_gcp_service_account")
   private DatabricksGcpServiceAccount databricksGcpServiceAccount;
 

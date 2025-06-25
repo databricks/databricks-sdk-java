@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get an app deployment */
 @Generated
 public class GetAppDeploymentRequest {
   /** The name of the app. */

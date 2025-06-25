@@ -43,9 +43,7 @@ public class EncryptionKeysAPI {
   }
 
   /**
-   * Create encryption key configuration.
-   *
-   * <p>Creates a customer-managed key configuration object for an account, specified by ID. This
+   * Creates a customer-managed key configuration object for an account, specified by ID. This
    * operation uploads a reference to a customer-managed key to Databricks. If the key is assigned
    * as a workspace's customer-managed key for managed services, Databricks uses the key to encrypt
    * the workspaces notebooks and secrets in the control plane, in addition to Databricks SQL
@@ -68,9 +66,7 @@ public class EncryptionKeysAPI {
   }
 
   /**
-   * Delete encryption key configuration.
-   *
-   * <p>Deletes a customer-managed key configuration object for an account. You cannot delete a
+   * Deletes a customer-managed key configuration object for an account. You cannot delete a
    * configuration that is associated with a running workspace.
    */
   public void delete(DeleteEncryptionKeyRequest request) {
@@ -82,9 +78,7 @@ public class EncryptionKeysAPI {
   }
 
   /**
-   * Get encryption key configuration.
-   *
-   * <p>Gets a customer-managed key configuration object for an account, specified by ID. This
+   * Gets a customer-managed key configuration object for an account, specified by ID. This
    * operation uploads a reference to a customer-managed key to Databricks. If assigned as a
    * workspace's customer-managed key for managed services, Databricks uses the key to encrypt the
    * workspaces notebooks and secrets in the control plane, in addition to Databricks SQL queries
@@ -102,10 +96,8 @@ public class EncryptionKeysAPI {
   }
 
   /**
-   * Get all encryption key configurations.
-   *
-   * <p>Gets all customer-managed key configuration objects for an account. If the key is specified
-   * as a workspace's managed services customer-managed key, Databricks uses the key to encrypt the
+   * Gets all customer-managed key configuration objects for an account. If the key is specified as
+   * a workspace's managed services customer-managed key, Databricks uses the key to encrypt the
    * workspace's notebooks and secrets in the control plane, in addition to Databricks SQL queries
    * and query history. If the key is specified as a workspace's storage customer-managed key, the
    * key is used to encrypt the workspace's root S3 bucket and optionally can encrypt cluster EBS

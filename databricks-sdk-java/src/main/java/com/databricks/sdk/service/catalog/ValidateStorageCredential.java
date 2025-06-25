@@ -37,7 +37,7 @@ public class ValidateStorageCredential {
   @JsonProperty("read_only")
   private Boolean readOnly;
 
-  /** The name of the storage credential to validate. */
+  /** Required. The name of an existing credential or long-lived cloud credential to validate. */
   @JsonProperty("storage_credential_name")
   private String storageCredentialName;
 

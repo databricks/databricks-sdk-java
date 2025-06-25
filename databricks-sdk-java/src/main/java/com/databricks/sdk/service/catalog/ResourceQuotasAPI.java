@@ -43,9 +43,7 @@ public class ResourceQuotasAPI {
   }
 
   /**
-   * Get information for a single resource quota.
-   *
-   * <p>The GetQuota API returns usage information for a single resource quota, defined as a
+   * The GetQuota API returns usage information for a single resource quota, defined as a
    * child-parent pair. This API also refreshes the quota count if it is out of date. Refreshes are
    * triggered asynchronously. The updated count might not be returned in the first call.
    */
@@ -54,10 +52,8 @@ public class ResourceQuotasAPI {
   }
 
   /**
-   * List all resource quotas under a metastore.
-   *
-   * <p>ListQuotas returns all quota values under the metastore. There are no SLAs on the freshness
-   * of the counts returned. This API does not trigger a refresh of quota counts.
+   * ListQuotas returns all quota values under the metastore. There are no SLAs on the freshness of
+   * the counts returned. This API does not trigger a refresh of quota counts.
    */
   public Iterable<QuotaInfo> listQuotas(ListQuotasRequest request) {
     return new Paginator<>(

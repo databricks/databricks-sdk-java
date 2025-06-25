@@ -21,10 +21,8 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface NetworkConnectivityService {
   /**
-   * Create a network connectivity configuration.
-   *
-   * <p>Creates a network connectivity configuration (NCC), which provides stable Azure service
-   * subnets when accessing your Azure Storage accounts. You can also use a network connectivity
+   * Creates a network connectivity configuration (NCC), which provides stable Azure service subnets
+   * when accessing your Azure Storage accounts. You can also use a network connectivity
    * configuration to create Databricks managed private endpoints so that Databricks serverless
    * compute resources privately access your resources.
    *
@@ -40,11 +38,9 @@ public interface NetworkConnectivityService {
       CreateNetworkConnectivityConfigRequest createNetworkConnectivityConfigRequest);
 
   /**
-   * Create a private endpoint rule.
-   *
-   * <p>Create a private endpoint rule for the specified network connectivity config object. Once
-   * the object is created, Databricks asynchronously provisions a new Azure private endpoint to
-   * your specified Azure resource.
+   * Create a private endpoint rule for the specified network connectivity config object. Once the
+   * object is created, Databricks asynchronously provisions a new Azure private endpoint to your
+   * specified Azure resource.
    *
    * <p>**IMPORTANT**: You must use Azure portal or other Azure tools to approve the private
    * endpoint to complete the connection. To get the information of the private endpoint created,
@@ -56,19 +52,13 @@ public interface NetworkConnectivityService {
   NccPrivateEndpointRule createPrivateEndpointRule(
       CreatePrivateEndpointRuleRequest createPrivateEndpointRuleRequest);
 
-  /**
-   * Delete a network connectivity configuration.
-   *
-   * <p>Deletes a network connectivity configuration.
-   */
+  /** Deletes a network connectivity configuration. */
   void deleteNetworkConnectivityConfiguration(
       DeleteNetworkConnectivityConfigurationRequest deleteNetworkConnectivityConfigurationRequest);
 
   /**
-   * Delete a private endpoint rule.
-   *
-   * <p>Initiates deleting a private endpoint rule. If the connection state is PENDING or EXPIRED,
-   * the private endpoint is immediately deleted. Otherwise, the private endpoint is deactivated and
+   * Initiates deleting a private endpoint rule. If the connection state is PENDING or EXPIRED, the
+   * private endpoint is immediately deleted. Otherwise, the private endpoint is deactivated and
    * will be deleted after seven days of deactivation. When a private endpoint is deactivated, the
    * `deactivated` field is set to `true` and the private endpoint is not available to your
    * serverless compute resources.
@@ -76,42 +66,24 @@ public interface NetworkConnectivityService {
   NccPrivateEndpointRule deletePrivateEndpointRule(
       DeletePrivateEndpointRuleRequest deletePrivateEndpointRuleRequest);
 
-  /**
-   * Get a network connectivity configuration.
-   *
-   * <p>Gets a network connectivity configuration.
-   */
+  /** Gets a network connectivity configuration. */
   NetworkConnectivityConfiguration getNetworkConnectivityConfiguration(
       GetNetworkConnectivityConfigurationRequest getNetworkConnectivityConfigurationRequest);
 
-  /**
-   * Gets a private endpoint rule.
-   *
-   * <p>Gets the private endpoint rule.
-   */
+  /** Gets the private endpoint rule. */
   NccPrivateEndpointRule getPrivateEndpointRule(
       GetPrivateEndpointRuleRequest getPrivateEndpointRuleRequest);
 
-  /**
-   * List network connectivity configurations.
-   *
-   * <p>Gets an array of network connectivity configurations.
-   */
+  /** Gets an array of network connectivity configurations. */
   ListNetworkConnectivityConfigurationsResponse listNetworkConnectivityConfigurations(
       ListNetworkConnectivityConfigurationsRequest listNetworkConnectivityConfigurationsRequest);
 
-  /**
-   * List private endpoint rules.
-   *
-   * <p>Gets an array of private endpoint rules.
-   */
+  /** Gets an array of private endpoint rules. */
   ListPrivateEndpointRulesResponse listPrivateEndpointRules(
       ListPrivateEndpointRulesRequest listPrivateEndpointRulesRequest);
 
   /**
-   * Update a private endpoint rule.
-   *
-   * <p>Updates a private endpoint rule. Currently only a private endpoint rule to customer-managed
+   * Updates a private endpoint rule. Currently only a private endpoint rule to customer-managed
    * resources is allowed to be updated.
    */
   NccPrivateEndpointRule updatePrivateEndpointRule(

@@ -31,9 +31,7 @@ public class NetworksAPI {
   }
 
   /**
-   * Create network configuration.
-   *
-   * <p>Creates a Databricks network configuration that represents an VPC and its resources. The VPC
+   * Creates a Databricks network configuration that represents an VPC and its resources. The VPC
    * will be used for new Databricks clusters. This requires a pre-existing VPC and subnets.
    */
   public Network create(CreateNetworkRequest request) {
@@ -45,10 +43,8 @@ public class NetworksAPI {
   }
 
   /**
-   * Delete a network configuration.
-   *
-   * <p>Deletes a Databricks network configuration, which represents a cloud VPC and its resources.
-   * You cannot delete a network that is associated with a workspace.
+   * Deletes a Databricks network configuration, which represents a cloud VPC and its resources. You
+   * cannot delete a network that is associated with a workspace.
    *
    * <p>This operation is available only if your account is on the E2 version of the platform.
    */
@@ -60,19 +56,13 @@ public class NetworksAPI {
     return get(new GetNetworkRequest().setNetworkId(networkId));
   }
 
-  /**
-   * Get a network configuration.
-   *
-   * <p>Gets a Databricks network configuration, which represents a cloud VPC and its resources.
-   */
+  /** Gets a Databricks network configuration, which represents a cloud VPC and its resources. */
   public Network get(GetNetworkRequest request) {
     return impl.get(request);
   }
 
   /**
-   * Get all network configurations.
-   *
-   * <p>Gets a list of all Databricks network configurations for an account, specified by ID.
+   * Gets a list of all Databricks network configurations for an account, specified by ID.
    *
    * <p>This operation is available only if your account is on the E2 version of the platform.
    */

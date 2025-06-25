@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get a network configuration */
 @Generated
 public class GetNetworkRequest {
   /** Databricks Account API network configuration ID. */

@@ -58,9 +58,7 @@ public class RegisteredModelsAPI {
   }
 
   /**
-   * Create a Registered Model.
-   *
-   * <p>Creates a new registered model in Unity Catalog.
+   * Creates a new registered model in Unity Catalog.
    *
    * <p>File storage for model versions in the registered model will be located in the default
    * location which is specified by the parent schema, or the parent catalog, or the Metastore.
@@ -80,9 +78,7 @@ public class RegisteredModelsAPI {
   }
 
   /**
-   * Delete a Registered Model.
-   *
-   * <p>Deletes a registered model and all its model versions from the specified parent catalog and
+   * Deletes a registered model and all its model versions from the specified parent catalog and
    * schema.
    *
    * <p>The caller must be a metastore admin or an owner of the registered model. For the latter
@@ -98,9 +94,7 @@ public class RegisteredModelsAPI {
   }
 
   /**
-   * Delete a Registered Model Alias.
-   *
-   * <p>Deletes a registered model alias.
+   * Deletes a registered model alias.
    *
    * <p>The caller must be a metastore admin or an owner of the registered model. For the latter
    * case, the caller must also be the owner or have the **USE_CATALOG** privilege on the parent
@@ -115,9 +109,7 @@ public class RegisteredModelsAPI {
   }
 
   /**
-   * Get a Registered Model.
-   *
-   * <p>Get a registered model.
+   * Get a registered model.
    *
    * <p>The caller must be a metastore admin or an owner of (or have the **EXECUTE** privilege on)
    * the registered model. For the latter case, the caller must also be the owner or have the
@@ -129,10 +121,8 @@ public class RegisteredModelsAPI {
   }
 
   /**
-   * List Registered Models.
-   *
-   * <p>List registered models. You can list registered models under a particular schema, or list
-   * all registered models in the current metastore.
+   * List registered models. You can list registered models under a particular schema, or list all
+   * registered models in the current metastore.
    *
    * <p>The returned models are filtered based on the privileges of the calling user. For example,
    * the metastore admin is able to list all the registered models. A regular user needs to be the
@@ -166,9 +156,7 @@ public class RegisteredModelsAPI {
   }
 
   /**
-   * Set a Registered Model Alias.
-   *
-   * <p>Set an alias on the specified registered model.
+   * Set an alias on the specified registered model.
    *
    * <p>The caller must be a metastore admin or an owner of the registered model. For the latter
    * case, the caller must also be the owner or have the **USE_CATALOG** privilege on the parent
@@ -183,9 +171,7 @@ public class RegisteredModelsAPI {
   }
 
   /**
-   * Update a Registered Model.
-   *
-   * <p>Updates the specified registered model.
+   * Updates the specified registered model.
    *
    * <p>The caller must be a metastore admin or an owner of the registered model. For the latter
    * case, the caller must also be the owner or have the **USE_CATALOG** privilege on the parent

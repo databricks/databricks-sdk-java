@@ -26,6 +26,10 @@ public class ForeignKeyConstraint {
   @JsonProperty("parent_table")
   private String parentTable;
 
+  /** True if the constraint is RELY, false or unset if NORELY. */
+  @JsonProperty("rely")
+  private Boolean rely;
+
   public ForeignKeyConstraint setChildColumns(Collection<String> childColumns) {
     this.childColumns = childColumns;
     return this;
@@ -62,6 +66,15 @@ public class ForeignKeyConstraint {
     return parentTable;
   }
 
+  public ForeignKeyConstraint setRely(Boolean rely) {
+    this.rely = rely;
+    return this;
+  }
+
+  public Boolean getRely() {
+    return rely;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -70,12 +83,13 @@ public class ForeignKeyConstraint {
     return Objects.equals(childColumns, that.childColumns)
         && Objects.equals(name, that.name)
         && Objects.equals(parentColumns, that.parentColumns)
-        && Objects.equals(parentTable, that.parentTable);
+        && Objects.equals(parentTable, that.parentTable)
+        && Objects.equals(rely, that.rely);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(childColumns, name, parentColumns, parentTable);
+    return Objects.hash(childColumns, name, parentColumns, parentTable, rely);
   }
 
   @Override
@@ -85,6 +99,7 @@ public class ForeignKeyConstraint {
         .add("name", name)
         .add("parentColumns", parentColumns)
         .add("parentTable", parentTable)
+        .add("rely", rely)
         .toString();
   }
 }

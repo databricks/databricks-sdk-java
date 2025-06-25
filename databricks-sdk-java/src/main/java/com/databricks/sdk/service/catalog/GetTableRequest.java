@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get a table */
 @Generated
 public class GetTableRequest {
   /** Full name of the table. */
@@ -16,7 +15,7 @@ public class GetTableRequest {
 
   /**
    * Whether to include tables in the response for which the principal can only access selective
-   * metadata for
+   * metadata for.
    */
   @JsonIgnore
   @QueryParam("include_browse")
@@ -27,7 +26,7 @@ public class GetTableRequest {
   @QueryParam("include_delta_metadata")
   private Boolean includeDeltaMetadata;
 
-  /** Whether to include a manifest containing capabilities the table has. */
+  /** Whether to include a manifest containing table capabilities in the response. */
   @JsonIgnore
   @QueryParam("include_manifest_capabilities")
   private Boolean includeManifestCapabilities;

@@ -28,11 +28,7 @@ public class ProviderProvidersAPI {
     return create(new CreateProviderRequest().setProvider(provider));
   }
 
-  /**
-   * Create a provider.
-   *
-   * <p>Create a provider
-   */
+  /** Create a provider */
   public CreateProviderResponse create(CreateProviderRequest request) {
     return impl.create(request);
   }
@@ -41,11 +37,7 @@ public class ProviderProvidersAPI {
     delete(new DeleteProviderRequest().setId(id));
   }
 
-  /**
-   * Delete provider.
-   *
-   * <p>Delete provider
-   */
+  /** Delete provider */
   public void delete(DeleteProviderRequest request) {
     impl.delete(request);
   }
@@ -54,20 +46,12 @@ public class ProviderProvidersAPI {
     return get(new GetProviderRequest().setId(id));
   }
 
-  /**
-   * Get provider.
-   *
-   * <p>Get provider profile
-   */
+  /** Get provider profile */
   public GetProviderResponse get(GetProviderRequest request) {
     return impl.get(request);
   }
 
-  /**
-   * List providers.
-   *
-   * <p>List provider profiles for account.
-   */
+  /** List provider profiles for account. */
   public Iterable<ProviderInfo> list(ListProvidersRequest request) {
     return new Paginator<>(
         request,
@@ -86,11 +70,7 @@ public class ProviderProvidersAPI {
     return update(new UpdateProviderRequest().setId(id).setProvider(provider));
   }
 
-  /**
-   * Update provider.
-   *
-   * <p>Update provider profile
-   */
+  /** Update provider profile */
   public UpdateProviderResponse update(UpdateProviderRequest request) {
     return impl.update(request);
   }

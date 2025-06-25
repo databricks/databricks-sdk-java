@@ -222,6 +222,13 @@ public class CreateCluster {
   private String policyId;
 
   /**
+   * If set, what the configurable throughput (in Mb/s) for the remote disk is. Currently only
+   * supported for GCP HYPERDISK_BALANCED disks.
+   */
+  @JsonProperty("remote_disk_throughput")
+  private Long remoteDiskThroughput;
+
+  /**
    * Determines the cluster's runtime engine, either standard or Photon.
    *
    * <p>This field is not compatible with legacy `spark_version` values that contain `-photon-`.
@@ -275,6 +282,13 @@ public class CreateCluster {
    */
   @JsonProperty("ssh_public_keys")
   private Collection<String> sshPublicKeys;
+
+  /**
+   * If set, what the total initial volume size (in GB) of the remote disks should be. Currently
+   * only supported for GCP HYPERDISK_BALANCED disks.
+   */
+  @JsonProperty("total_initial_remote_disk_size")
+  private Long totalInitialRemoteDiskSize;
 
   /**
    * This field can only be used when `kind = CLASSIC_PREVIEW`.
@@ -496,6 +510,15 @@ public class CreateCluster {
     return policyId;
   }
 
+  public CreateCluster setRemoteDiskThroughput(Long remoteDiskThroughput) {
+    this.remoteDiskThroughput = remoteDiskThroughput;
+    return this;
+  }
+
+  public Long getRemoteDiskThroughput() {
+    return remoteDiskThroughput;
+  }
+
   public CreateCluster setRuntimeEngine(RuntimeEngine runtimeEngine) {
     this.runtimeEngine = runtimeEngine;
     return this;
@@ -550,6 +573,15 @@ public class CreateCluster {
     return sshPublicKeys;
   }
 
+  public CreateCluster setTotalInitialRemoteDiskSize(Long totalInitialRemoteDiskSize) {
+    this.totalInitialRemoteDiskSize = totalInitialRemoteDiskSize;
+    return this;
+  }
+
+  public Long getTotalInitialRemoteDiskSize() {
+    return totalInitialRemoteDiskSize;
+  }
+
   public CreateCluster setUseMlRuntime(Boolean useMlRuntime) {
     this.useMlRuntime = useMlRuntime;
     return this;
@@ -596,12 +628,14 @@ public class CreateCluster {
         && Objects.equals(nodeTypeId, that.nodeTypeId)
         && Objects.equals(numWorkers, that.numWorkers)
         && Objects.equals(policyId, that.policyId)
+        && Objects.equals(remoteDiskThroughput, that.remoteDiskThroughput)
         && Objects.equals(runtimeEngine, that.runtimeEngine)
         && Objects.equals(singleUserName, that.singleUserName)
         && Objects.equals(sparkConf, that.sparkConf)
         && Objects.equals(sparkEnvVars, that.sparkEnvVars)
         && Objects.equals(sparkVersion, that.sparkVersion)
         && Objects.equals(sshPublicKeys, that.sshPublicKeys)
+        && Objects.equals(totalInitialRemoteDiskSize, that.totalInitialRemoteDiskSize)
         && Objects.equals(useMlRuntime, that.useMlRuntime)
         && Objects.equals(workloadType, that.workloadType);
   }
@@ -632,12 +666,14 @@ public class CreateCluster {
         nodeTypeId,
         numWorkers,
         policyId,
+        remoteDiskThroughput,
         runtimeEngine,
         singleUserName,
         sparkConf,
         sparkEnvVars,
         sparkVersion,
         sshPublicKeys,
+        totalInitialRemoteDiskSize,
         useMlRuntime,
         workloadType);
   }
@@ -668,12 +704,14 @@ public class CreateCluster {
         .add("nodeTypeId", nodeTypeId)
         .add("numWorkers", numWorkers)
         .add("policyId", policyId)
+        .add("remoteDiskThroughput", remoteDiskThroughput)
         .add("runtimeEngine", runtimeEngine)
         .add("singleUserName", singleUserName)
         .add("sparkConf", sparkConf)
         .add("sparkEnvVars", sparkEnvVars)
         .add("sparkVersion", sparkVersion)
         .add("sshPublicKeys", sshPublicKeys)
+        .add("totalInitialRemoteDiskSize", totalInitialRemoteDiskSize)
         .add("useMlRuntime", useMlRuntime)
         .add("workloadType", workloadType)
         .toString();

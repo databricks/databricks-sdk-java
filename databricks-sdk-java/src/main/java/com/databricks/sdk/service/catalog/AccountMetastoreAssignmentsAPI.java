@@ -31,11 +31,7 @@ public class AccountMetastoreAssignmentsAPI {
             .setMetastoreId(metastoreId));
   }
 
-  /**
-   * Assigns a workspace to a metastore.
-   *
-   * <p>Creates an assignment to a metastore for a workspace
-   */
+  /** Creates an assignment to a metastore for a workspace */
   public void create(AccountsCreateMetastoreAssignment request) {
     impl.create(request);
   }
@@ -47,11 +43,7 @@ public class AccountMetastoreAssignmentsAPI {
             .setMetastoreId(metastoreId));
   }
 
-  /**
-   * Delete a metastore assignment.
-   *
-   * <p>Deletes a metastore assignment to a workspace, leaving the workspace with no metastore.
-   */
+  /** Deletes a metastore assignment to a workspace, leaving the workspace with no metastore. */
   public void delete(DeleteAccountMetastoreAssignmentRequest request) {
     impl.delete(request);
   }
@@ -61,10 +53,8 @@ public class AccountMetastoreAssignmentsAPI {
   }
 
   /**
-   * Gets the metastore assignment for a workspace.
-   *
-   * <p>Gets the metastore assignment, if any, for the workspace specified by ID. If the workspace
-   * is assigned a metastore, the mappig will be returned. If no metastore is assigned to the
+   * Gets the metastore assignment, if any, for the workspace specified by ID. If the workspace is
+   * assigned a metastore, the mappig will be returned. If no metastore is assigned to the
    * workspace, the assignment will not be found and a 404 returned.
    */
   public AccountsMetastoreAssignment get(GetAccountMetastoreAssignmentRequest request) {
@@ -75,11 +65,7 @@ public class AccountMetastoreAssignmentsAPI {
     return list(new ListAccountMetastoreAssignmentsRequest().setMetastoreId(metastoreId));
   }
 
-  /**
-   * Get all workspaces assigned to a metastore.
-   *
-   * <p>Gets a list of all Databricks workspace IDs that have been assigned to given metastore.
-   */
+  /** Gets a list of all Databricks workspace IDs that have been assigned to given metastore. */
   public Iterable<Long> list(ListAccountMetastoreAssignmentsRequest request) {
     return new Paginator<>(
         request,
@@ -96,10 +82,8 @@ public class AccountMetastoreAssignmentsAPI {
   }
 
   /**
-   * Updates a metastore assignment to a workspaces.
-   *
-   * <p>Updates an assignment to a metastore for a workspace. Currently, only the default catalog
-   * may be updated.
+   * Updates an assignment to a metastore for a workspace. Currently, only the default catalog may
+   * be updated.
    */
   public void update(AccountsUpdateMetastoreAssignment request) {
     impl.update(request);

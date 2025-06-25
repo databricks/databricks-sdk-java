@@ -28,9 +28,7 @@ public class ConsumerListingsAPI {
   }
 
   /**
-   * Get one batch of listings. One may specify up to 50 IDs per request.
-   *
-   * <p>Batch get a published listing in the Databricks Marketplace that the consumer has access to.
+   * Batch get a published listing in the Databricks Marketplace that the consumer has access to.
    */
   public BatchGetListingsResponse batchGet(BatchGetListingsRequest request) {
     return impl.batchGet(request);
@@ -40,20 +38,12 @@ public class ConsumerListingsAPI {
     return get(new GetListingRequest().setId(id));
   }
 
-  /**
-   * Get listing.
-   *
-   * <p>Get a published listing in the Databricks Marketplace that the consumer has access to.
-   */
+  /** Get a published listing in the Databricks Marketplace that the consumer has access to. */
   public GetListingResponse get(GetListingRequest request) {
     return impl.get(request);
   }
 
-  /**
-   * List listings.
-   *
-   * <p>List all published listings in the Databricks Marketplace that the consumer has access to.
-   */
+  /** List all published listings in the Databricks Marketplace that the consumer has access to. */
   public Iterable<Listing> list(ListListingsRequest request) {
     return new Paginator<>(
         request,
@@ -73,10 +63,8 @@ public class ConsumerListingsAPI {
   }
 
   /**
-   * Search listings.
-   *
-   * <p>Search published listings in the Databricks Marketplace that the consumer has access to.
-   * This query supports a variety of different search parameters and performs fuzzy matching.
+   * Search published listings in the Databricks Marketplace that the consumer has access to. This
+   * query supports a variety of different search parameters and performs fuzzy matching.
    */
   public Iterable<Listing> search(SearchListingsRequest request) {
     return new Paginator<>(

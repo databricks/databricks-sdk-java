@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get the default namespace setting */
 @Generated
 public class GetDefaultNamespaceSettingRequest {
   /**

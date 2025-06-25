@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get a budget policy */
 @Generated
 public class GetBudgetPolicyRequest {
   /** The Id of the policy. */

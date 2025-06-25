@@ -12,19 +12,11 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface LlmProxyPartnerPoweredAccountService {
-  /**
-   * Get the enable partner powered AI features account setting.
-   *
-   * <p>Gets the enable partner powered AI features account setting.
-   */
+  /** Gets the enable partner powered AI features account setting. */
   LlmProxyPartnerPoweredAccount get(
       GetLlmProxyPartnerPoweredAccountRequest getLlmProxyPartnerPoweredAccountRequest);
 
-  /**
-   * Update the enable partner powered AI features account setting.
-   *
-   * <p>Updates the enable partner powered AI features account setting.
-   */
+  /** Updates the enable partner powered AI features account setting. */
   LlmProxyPartnerPoweredAccount update(
       UpdateLlmProxyPartnerPoweredAccountRequest updateLlmProxyPartnerPoweredAccountRequest);
 }

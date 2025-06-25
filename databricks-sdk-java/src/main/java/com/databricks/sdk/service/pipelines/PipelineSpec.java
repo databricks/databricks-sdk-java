@@ -52,6 +52,10 @@ public class PipelineSpec {
   @JsonProperty("edition")
   private String edition;
 
+  /** Environment specification for this pipeline used to install dependencies. */
+  @JsonProperty("environment")
+  private PipelinesEnvironment environment;
+
   /** Event log configuration for this pipeline */
   @JsonProperty("event_log")
   private EventLogSpec eventLog;
@@ -214,6 +218,15 @@ public class PipelineSpec {
 
   public String getEdition() {
     return edition;
+  }
+
+  public PipelineSpec setEnvironment(PipelinesEnvironment environment) {
+    this.environment = environment;
+    return this;
+  }
+
+  public PipelinesEnvironment getEnvironment() {
+    return environment;
   }
 
   public PipelineSpec setEventLog(EventLogSpec eventLog) {
@@ -383,6 +396,7 @@ public class PipelineSpec {
         && Objects.equals(deployment, that.deployment)
         && Objects.equals(development, that.development)
         && Objects.equals(edition, that.edition)
+        && Objects.equals(environment, that.environment)
         && Objects.equals(eventLog, that.eventLog)
         && Objects.equals(filters, that.filters)
         && Objects.equals(gatewayDefinition, that.gatewayDefinition)
@@ -414,6 +428,7 @@ public class PipelineSpec {
         deployment,
         development,
         edition,
+        environment,
         eventLog,
         filters,
         gatewayDefinition,
@@ -445,6 +460,7 @@ public class PipelineSpec {
         .add("deployment", deployment)
         .add("development", development)
         .add("edition", edition)
+        .add("environment", environment)
         .add("eventLog", eventLog)
         .add("filters", filters)
         .add("gatewayDefinition", gatewayDefinition)

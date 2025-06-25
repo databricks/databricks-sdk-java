@@ -21,7 +21,11 @@ public class QueryInfo {
   @JsonProperty("client_application")
   private String clientApplication;
 
-  /** Total execution time of the statement ( excluding result fetch time ). */
+  /**
+   * Total time of the statement execution. This value does not include the time taken to retrieve
+   * the results, which can result in a discrepancy between this value and the start-to-finish
+   * wall-clock time.
+   */
   @JsonProperty("duration")
   private Long duration;
 

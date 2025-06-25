@@ -30,9 +30,13 @@ public class SubmitTask {
   @JsonProperty("dashboard_task")
   private DashboardTask dashboardTask;
 
-  /** Task type for dbt cloud */
+  /** Task type for dbt cloud, deprecated in favor of the new name dbt_platform_task */
   @JsonProperty("dbt_cloud_task")
   private DbtCloudTask dbtCloudTask;
+
+  /** */
+  @JsonProperty("dbt_platform_task")
+  private DbtPlatformTask dbtPlatformTask;
 
   /**
    * The task runs one or more dbt commands when the `dbt_task` field is present. The dbt task
@@ -230,6 +234,15 @@ public class SubmitTask {
 
   public DbtCloudTask getDbtCloudTask() {
     return dbtCloudTask;
+  }
+
+  public SubmitTask setDbtPlatformTask(DbtPlatformTask dbtPlatformTask) {
+    this.dbtPlatformTask = dbtPlatformTask;
+    return this;
+  }
+
+  public DbtPlatformTask getDbtPlatformTask() {
+    return dbtPlatformTask;
   }
 
   public SubmitTask setDbtTask(DbtTask dbtTask) {
@@ -466,6 +479,7 @@ public class SubmitTask {
         && Objects.equals(conditionTask, that.conditionTask)
         && Objects.equals(dashboardTask, that.dashboardTask)
         && Objects.equals(dbtCloudTask, that.dbtCloudTask)
+        && Objects.equals(dbtPlatformTask, that.dbtPlatformTask)
         && Objects.equals(dbtTask, that.dbtTask)
         && Objects.equals(dependsOn, that.dependsOn)
         && Objects.equals(description, that.description)
@@ -500,6 +514,7 @@ public class SubmitTask {
         conditionTask,
         dashboardTask,
         dbtCloudTask,
+        dbtPlatformTask,
         dbtTask,
         dependsOn,
         description,
@@ -534,6 +549,7 @@ public class SubmitTask {
         .add("conditionTask", conditionTask)
         .add("dashboardTask", dashboardTask)
         .add("dbtCloudTask", dbtCloudTask)
+        .add("dbtPlatformTask", dbtPlatformTask)
         .add("dbtTask", dbtTask)
         .add("dependsOn", dependsOn)
         .add("description", description)

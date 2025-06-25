@@ -15,25 +15,19 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface SystemSchemasService {
   /**
-   * Disable a system schema.
-   *
-   * <p>Disables the system schema and removes it from the system catalog. The caller must be an
+   * Disables the system schema and removes it from the system catalog. The caller must be an
    * account admin or a metastore admin.
    */
   void disable(DisableRequest disableRequest);
 
   /**
-   * Enable a system schema.
-   *
-   * <p>Enables the system schema and adds it to the system catalog. The caller must be an account
+   * Enables the system schema and adds it to the system catalog. The caller must be an account
    * admin or a metastore admin.
    */
   void enable(EnableRequest enableRequest);
 
   /**
-   * List system schemas.
-   *
-   * <p>Gets an array of system schemas for a metastore. The caller must be an account admin or a
+   * Gets an array of system schemas for a metastore. The caller must be an account admin or a
    * metastore admin.
    */
   ListSystemSchemasResponse list(ListSystemSchemasRequest listSystemSchemasRequest);

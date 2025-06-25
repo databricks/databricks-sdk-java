@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Collection;
 import java.util.Objects;
 
-/** Searches model versions */
 @Generated
 public class SearchModelVersionsRequest {
   /**

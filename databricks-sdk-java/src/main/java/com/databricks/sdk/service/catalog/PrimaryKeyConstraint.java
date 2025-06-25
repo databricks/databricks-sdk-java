@@ -18,6 +18,10 @@ public class PrimaryKeyConstraint {
   @JsonProperty("name")
   private String name;
 
+  /** True if the constraint is RELY, false or unset if NORELY. */
+  @JsonProperty("rely")
+  private Boolean rely;
+
   /** Column names that represent a timeseries. */
   @JsonProperty("timeseries_columns")
   private Collection<String> timeseriesColumns;
@@ -40,6 +44,15 @@ public class PrimaryKeyConstraint {
     return name;
   }
 
+  public PrimaryKeyConstraint setRely(Boolean rely) {
+    this.rely = rely;
+    return this;
+  }
+
+  public Boolean getRely() {
+    return rely;
+  }
+
   public PrimaryKeyConstraint setTimeseriesColumns(Collection<String> timeseriesColumns) {
     this.timeseriesColumns = timeseriesColumns;
     return this;
@@ -56,12 +69,13 @@ public class PrimaryKeyConstraint {
     PrimaryKeyConstraint that = (PrimaryKeyConstraint) o;
     return Objects.equals(childColumns, that.childColumns)
         && Objects.equals(name, that.name)
+        && Objects.equals(rely, that.rely)
         && Objects.equals(timeseriesColumns, that.timeseriesColumns);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(childColumns, name, timeseriesColumns);
+    return Objects.hash(childColumns, name, rely, timeseriesColumns);
   }
 
   @Override
@@ -69,6 +83,7 @@ public class PrimaryKeyConstraint {
     return new ToStringer(PrimaryKeyConstraint.class)
         .add("childColumns", childColumns)
         .add("name", name)
+        .add("rely", rely)
         .add("timeseriesColumns", timeseriesColumns)
         .toString();
   }

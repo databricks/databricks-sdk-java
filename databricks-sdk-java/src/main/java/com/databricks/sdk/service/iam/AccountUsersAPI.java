@@ -35,9 +35,7 @@ public class AccountUsersAPI {
   }
 
   /**
-   * Create a new user.
-   *
-   * <p>Creates a new user in the Databricks account. This new user will also be added to the
+   * Creates a new user in the Databricks account. This new user will also be added to the
    * Databricks account.
    */
   public User create(User request) {
@@ -49,10 +47,8 @@ public class AccountUsersAPI {
   }
 
   /**
-   * Delete a user.
-   *
-   * <p>Deletes a user. Deleting a user from a Databricks account also removes objects associated
-   * with the user.
+   * Deletes a user. Deleting a user from a Databricks account also removes objects associated with
+   * the user.
    */
   public void delete(DeleteAccountUserRequest request) {
     impl.delete(request);
@@ -62,20 +58,12 @@ public class AccountUsersAPI {
     return get(new GetAccountUserRequest().setId(id));
   }
 
-  /**
-   * Get user details.
-   *
-   * <p>Gets information for a specific user in Databricks account.
-   */
+  /** Gets information for a specific user in Databricks account. */
   public User get(GetAccountUserRequest request) {
     return impl.get(request);
   }
 
-  /**
-   * List users.
-   *
-   * <p>Gets details for all the users associated with a Databricks account.
-   */
+  /** Gets details for all the users associated with a Databricks account. */
   public Iterable<User> list(ListAccountUsersRequest request) {
     request.setStartIndex(1L);
     if (request.getCount() == null) {
@@ -101,9 +89,7 @@ public class AccountUsersAPI {
   }
 
   /**
-   * Update user details.
-   *
-   * <p>Partially updates a user resource by applying the supplied operations on specific user
+   * Partially updates a user resource by applying the supplied operations on specific user
    * attributes.
    */
   public void patch(PartialUpdate request) {
@@ -114,11 +100,7 @@ public class AccountUsersAPI {
     update(new User().setId(id));
   }
 
-  /**
-   * Replace a user.
-   *
-   * <p>Replaces a user's information with the data supplied in request.
-   */
+  /** Replaces a user's information with the data supplied in request. */
   public void update(User request) {
     impl.update(request);
   }

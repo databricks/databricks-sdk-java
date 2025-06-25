@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete service principal secret */
 @Generated
 public class DeleteServicePrincipalSecretRequest {
   /** The secret ID. */

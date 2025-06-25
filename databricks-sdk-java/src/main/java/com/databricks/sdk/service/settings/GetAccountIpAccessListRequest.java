@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get IP access list */
 @Generated
 public class GetAccountIpAccessListRequest {
   /** The ID for the corresponding IP access list */

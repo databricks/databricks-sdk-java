@@ -43,9 +43,7 @@ public class VolumesAPI {
   }
 
   /**
-   * Create a Volume.
-   *
-   * <p>Creates a new volume.
+   * Creates a new volume.
    *
    * <p>The user could create either an external volume or a managed volume. An external volume will
    * be created in the specified external location, while a managed volume will be located in the
@@ -71,9 +69,7 @@ public class VolumesAPI {
   }
 
   /**
-   * Delete a Volume.
-   *
-   * <p>Deletes a volume from the specified parent catalog and schema.
+   * Deletes a volume from the specified parent catalog and schema.
    *
    * <p>The caller must be a metastore admin or an owner of the volume. For the latter case, the
    * caller must also be the owner or have the **USE_CATALOG** privilege on the parent catalog and
@@ -88,9 +84,7 @@ public class VolumesAPI {
   }
 
   /**
-   * List Volumes.
-   *
-   * <p>Gets an array of volumes for the current metastore under the parent catalog and schema.
+   * Gets an array of volumes for the current metastore under the parent catalog and schema.
    *
    * <p>The returned volumes are filtered based on the privileges of the calling user. For example,
    * the metastore admin is able to list all the volumes. A regular user needs to be the owner or
@@ -119,9 +113,7 @@ public class VolumesAPI {
   }
 
   /**
-   * Get a Volume.
-   *
-   * <p>Gets a volume from the metastore for a specific catalog and schema.
+   * Gets a volume from the metastore for a specific catalog and schema.
    *
    * <p>The caller must be a metastore admin or an owner of (or have the **READ VOLUME** privilege
    * on) the volume. For the latter case, the caller must also be the owner or have the
@@ -137,9 +129,7 @@ public class VolumesAPI {
   }
 
   /**
-   * Update a Volume.
-   *
-   * <p>Updates the specified volume under the specified parent catalog and schema.
+   * Updates the specified volume under the specified parent catalog and schema.
    *
    * <p>The caller must be a metastore admin or an owner of the volume. For the latter case, the
    * caller must also be the owner or have the **USE_CATALOG** privilege on the parent catalog and

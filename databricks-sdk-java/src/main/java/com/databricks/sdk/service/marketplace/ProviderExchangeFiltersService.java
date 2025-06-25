@@ -12,31 +12,15 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface ProviderExchangeFiltersService {
-  /**
-   * Create a new exchange filter.
-   *
-   * <p>Add an exchange filter.
-   */
+  /** Add an exchange filter. */
   CreateExchangeFilterResponse create(CreateExchangeFilterRequest createExchangeFilterRequest);
 
-  /**
-   * Delete an exchange filter.
-   *
-   * <p>Delete an exchange filter
-   */
+  /** Delete an exchange filter */
   void delete(DeleteExchangeFilterRequest deleteExchangeFilterRequest);
 
-  /**
-   * List exchange filters.
-   *
-   * <p>List exchange filter
-   */
+  /** List exchange filter */
   ListExchangeFiltersResponse list(ListExchangeFiltersRequest listExchangeFiltersRequest);
 
-  /**
-   * Update exchange filter.
-   *
-   * <p>Update an exchange filter.
-   */
+  /** Update an exchange filter. */
   UpdateExchangeFilterResponse update(UpdateExchangeFilterRequest updateExchangeFilterRequest);
 }

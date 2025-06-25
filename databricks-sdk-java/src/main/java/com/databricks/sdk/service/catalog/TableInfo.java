@@ -108,6 +108,10 @@ public class TableInfo {
   @JsonProperty("schema_name")
   private String schemaName;
 
+  /** SecurableKindManifest of table, including capabilities the table has. */
+  @JsonProperty("securable_kind_manifest")
+  private SecurableKindManifest securableKindManifest;
+
   /** List of schemes whose objects can be referenced without qualification. */
   @JsonProperty("sql_path")
   private String sqlPath;
@@ -119,7 +123,7 @@ public class TableInfo {
   @JsonProperty("storage_credential_name")
   private String storageCredentialName;
 
-  /** Storage root URL for table (for **MANAGED**, **EXTERNAL** tables) */
+  /** Storage root URL for table (for **MANAGED**, **EXTERNAL** tables). */
   @JsonProperty("storage_location")
   private String storageLocation;
 
@@ -362,6 +366,15 @@ public class TableInfo {
     return schemaName;
   }
 
+  public TableInfo setSecurableKindManifest(SecurableKindManifest securableKindManifest) {
+    this.securableKindManifest = securableKindManifest;
+    return this;
+  }
+
+  public SecurableKindManifest getSecurableKindManifest() {
+    return securableKindManifest;
+  }
+
   public TableInfo setSqlPath(String sqlPath) {
     this.sqlPath = sqlPath;
     return this;
@@ -480,6 +493,7 @@ public class TableInfo {
         && Objects.equals(properties, that.properties)
         && Objects.equals(rowFilter, that.rowFilter)
         && Objects.equals(schemaName, that.schemaName)
+        && Objects.equals(securableKindManifest, that.securableKindManifest)
         && Objects.equals(sqlPath, that.sqlPath)
         && Objects.equals(storageCredentialName, that.storageCredentialName)
         && Objects.equals(storageLocation, that.storageLocation)
@@ -517,6 +531,7 @@ public class TableInfo {
         properties,
         rowFilter,
         schemaName,
+        securableKindManifest,
         sqlPath,
         storageCredentialName,
         storageLocation,
@@ -554,6 +569,7 @@ public class TableInfo {
         .add("properties", properties)
         .add("rowFilter", rowFilter)
         .add("schemaName", schemaName)
+        .add("securableKindManifest", securableKindManifest)
         .add("sqlPath", sqlPath)
         .add("storageCredentialName", storageCredentialName)
         .add("storageLocation", storageLocation)
