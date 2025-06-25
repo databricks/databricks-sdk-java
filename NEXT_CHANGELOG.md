@@ -10,7 +10,10 @@
 
 ### Internal Changes
 
+* The route-optimized query method now returns a descriptive error instead of a NullPointerException when called on a non-optimized endpoint.
+
 ### API Changes
+
 * Added `workspaceClient.aiBuilder()` service.
 * Added `workspaceClient.featureStore()` service and `workspaceClient.materializedFeatures()` service.
 * Added `deleteConversation()`, `listConversations()` and `trashSpace()` methods for `workspaceClient.genie()` service.
