@@ -4,6 +4,7 @@ import com.databricks.sdk.core.CredentialsProvider;
 import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.http.HttpClient;
 import java.io.Serializable;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,11 +23,14 @@ public class SessionCredentials implements CredentialsProvider, Serializable {
 
   private SessionCredentials(Builder b) {
     this.tokenSource =
-        new SessionCredentialsTokenSource.Builder(
-                b.token, b.hc, b.tokenUrl, b.clientId, b.clientSecret)
-            .withRedirectUrl(b.redirectUrl)
-            .withTokenCache(b.tokenCache)
-            .build();
+        new SessionCredentialsTokenSource(
+            b.token,
+            b.hc,
+            b.tokenUrl,
+            b.clientId,
+            b.clientSecret,
+            Optional.ofNullable(b.redirectUrl),
+            Optional.ofNullable(b.tokenCache));
   }
 
   @Override

@@ -159,7 +159,7 @@ public class Consent implements Serializable {
    * Launch a browser to collect an authorization code and exchange the code for an OAuth token.
    *
    * @return A {@code SessionCredentials} instance representing the retrieved OAuth token.
-   * @throws IOException if the webserver cannot be started, or if the browser cannot be opened
+   * @throws IOException if the webserver cannot be started, or if the browser cannot be opened.
    */
   public SessionCredentials launchExternalBrowser() throws IOException {
     Map<String, String> params = getOAuthCallbackParameters();
@@ -170,7 +170,7 @@ public class Consent implements Serializable {
    * Exchange callback parameters for OAuth credentials.
    *
    * @param query The callback parameters from the OAuth flow
-   * @return A {@code SessionCredentials} instance representing the retrieved OAuth token
+   * @return A {@code SessionCredentials} instance representing the retrieved OAuth token.
    */
   public SessionCredentials exchangeCallbackParameters(Map<String, String> query) {
     validateCallbackParameters(query);
@@ -208,8 +208,8 @@ public class Consent implements Serializable {
    * Handles the OAuth callback by setting up a local HTTP server, launching the browser, and
    * collecting the callback parameters.
    *
-   * @return A map containing the callback parameters from the OAuth flow
-   * @throws IOException if the webserver cannot be started, or if the browser cannot be opened
+   * @return A map containing the callback parameters from the OAuth flow.
+   * @throws IOException if the webserver cannot be started, or if the browser cannot be opened.
    */
   private Map<String, String> getOAuthCallbackParameters() throws IOException {
     URL redirect = new URL(getRedirectUrl());

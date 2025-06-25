@@ -17,6 +17,7 @@ import java.time.Instant;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
@@ -218,17 +219,15 @@ public class ExternalBrowserCredentialsProviderTest {
         .execute(any(Request.class));
 
     SessionCredentialsTokenSource sessionCredentialsTokenSource =
-        new SessionCredentialsTokenSource.Builder(
-                new Token(
-                    "originalAccessToken",
-                    "originalTokenType",
-                    "originalRefreshToken",
-                    Instant.MAX),
-                hc,
-                "https://tokenUrl",
-                "testClientId",
-                "abc")
-            .build();
+        new SessionCredentialsTokenSource(
+            new Token(
+                "originalAccessToken", "originalTokenType", "originalRefreshToken", Instant.MAX),
+            hc,
+            "https://tokenUrl",
+            "testClientId",
+            "abc",
+            Optional.empty(),
+            Optional.empty());
     Token token = sessionCredentialsTokenSource.refresh();
 
     // We check that we are actually getting the token from server response (that is defined
@@ -426,13 +425,14 @@ public class ExternalBrowserCredentialsProviderTest {
             Instant.now().plusSeconds(3600));
 
     SessionCredentialsTokenSource browserAuthTokenSource =
-        new SessionCredentialsTokenSource.Builder(
-                browserAuthToken,
-                mockHttpClient,
-                "https://test-token-url",
-                "test-client-id",
-                "test-client-secret")
-            .build();
+        new SessionCredentialsTokenSource(
+            browserAuthToken,
+            mockHttpClient,
+            "https://test-token-url",
+            "test-client-id",
+            "test-client-secret",
+            Optional.empty(),
+            Optional.empty());
 
     // Create config with failing HTTP client and mock token cache
     DatabricksConfig config =
@@ -498,13 +498,14 @@ public class ExternalBrowserCredentialsProviderTest {
             Instant.now().plusSeconds(3600));
 
     SessionCredentialsTokenSource browserAuthTokenSource =
-        new SessionCredentialsTokenSource.Builder(
-                browserAuthToken,
-                mockHttpClient,
-                "https://test-token-url",
-                "test-client-id",
-                "test-client-secret")
-            .build();
+        new SessionCredentialsTokenSource(
+            browserAuthToken,
+            mockHttpClient,
+            "https://test-token-url",
+            "test-client-id",
+            "test-client-secret",
+            Optional.empty(),
+            Optional.empty());
 
     // Create simple config
     DatabricksConfig config =

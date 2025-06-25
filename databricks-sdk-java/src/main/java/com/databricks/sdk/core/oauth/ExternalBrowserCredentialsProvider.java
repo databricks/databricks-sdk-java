@@ -6,6 +6,7 @@ import com.databricks.sdk.core.DatabricksException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Objects;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -68,15 +69,14 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
         try {
           // Create SessionCredentialsTokenSource with the cached token and try to refresh if needed
           SessionCredentialsTokenSource tokenSource =
-              new SessionCredentialsTokenSource.Builder(
-                      cachedToken,
-                      config.getHttpClient(),
-                      config.getOidcEndpoints().getTokenEndpoint(),
-                      clientId,
-                      clientSecret)
-                  .withRedirectUrl(config.getEffectiveOAuthRedirectUrl())
-                  .withTokenCache(tokenCache)
-                  .build();
+              new SessionCredentialsTokenSource(
+                  cachedToken,
+                  config.getHttpClient(),
+                  config.getOidcEndpoints().getTokenEndpoint(),
+                  clientId,
+                  clientSecret,
+                  Optional.of(config.getEffectiveOAuthRedirectUrl()),
+                  Optional.of(tokenCache));
 
           LOGGER.debug("Using cached token, will immediately refresh");
           tokenSource.token = tokenSource.refresh();
@@ -117,14 +117,13 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
     Token token = consent.getTokenFromExternalBrowser();
 
     // Create a SessionCredentialsTokenSource with the token from browser auth.
-    return new SessionCredentialsTokenSource.Builder(
-            token,
-            config.getHttpClient(),
-            config.getOidcEndpoints().getTokenEndpoint(),
-            config.getClientId(),
-            config.getClientSecret())
-        .withRedirectUrl(config.getEffectiveOAuthRedirectUrl())
-        .withTokenCache(tokenCache)
-        .build();
+    return new SessionCredentialsTokenSource(
+        token,
+        config.getHttpClient(),
+        config.getOidcEndpoints().getTokenEndpoint(),
+        config.getClientId(),
+        config.getClientSecret(),
+        Optional.ofNullable(config.getEffectiveOAuthRedirectUrl()),
+        Optional.ofNullable(tokenCache));
   }
 }
