@@ -41,7 +41,7 @@ public class SessionCredentials implements CredentialsProvider, Serializable {
   @Override
   public OAuthHeaderFactory configure(DatabricksConfig config) {
     CachedTokenSource cachedTokenSource =
-        new CachedTokenSource.Builder(tokenSource).withToken(tokenSource.getToken()).build();
+        new CachedTokenSource.Builder(tokenSource).setToken(tokenSource.getToken()).build();
     return OAuthHeaderFactory.fromTokenSource(cachedTokenSource);
   }
 

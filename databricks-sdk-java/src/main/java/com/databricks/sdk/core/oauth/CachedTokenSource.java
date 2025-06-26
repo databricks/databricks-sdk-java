@@ -98,7 +98,7 @@ public class CachedTokenSource implements TokenSource {
      * @param token The initial token to cache.
      * @return This builder instance for method chaining.
      */
-    public Builder withToken(Token token) {
+    public Builder setToken(Token token) {
       this.token = token;
       return this;
     }
@@ -113,7 +113,7 @@ public class CachedTokenSource implements TokenSource {
      * @param asyncEnabled True to enable asynchronous refresh, false to disable.
      * @return This builder instance for method chaining.
      */
-    public Builder withAsyncEnabled(boolean asyncEnabled) {
+    public Builder setAsyncEnabled(boolean asyncEnabled) {
       this.asyncEnabled = asyncEnabled;
       return this;
     }
@@ -128,7 +128,7 @@ public class CachedTokenSource implements TokenSource {
      *     than the expiry buffer duration.
      * @return This builder instance for method chaining.
      */
-    public Builder withStaleDuration(Duration staleDuration) {
+    public Builder setStaleDuration(Duration staleDuration) {
       this.staleDuration = staleDuration;
       return this;
     }
@@ -143,7 +143,7 @@ public class CachedTokenSource implements TokenSource {
      *     less than the stale duration.
      * @return This builder instance for method chaining.
      */
-    public Builder withExpiryBuffer(Duration expiryBuffer) {
+    public Builder setExpiryBuffer(Duration expiryBuffer) {
       this.expiryBuffer = expiryBuffer;
       return this;
     }
@@ -157,7 +157,7 @@ public class CachedTokenSource implements TokenSource {
      * @param clockSupplier The clock supplier to use for determining current time.
      * @return This builder instance for method chaining.
      */
-    public Builder withClockSupplier(ClockSupplier clockSupplier) {
+    public Builder setClockSupplier(ClockSupplier clockSupplier) {
       this.clockSupplier = clockSupplier;
       return this;
     }

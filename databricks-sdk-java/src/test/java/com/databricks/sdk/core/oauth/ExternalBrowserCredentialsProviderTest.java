@@ -435,7 +435,7 @@ public class ExternalBrowserCredentialsProviderTest {
             Optional.empty());
 
     CachedTokenSource cachedTokenSource =
-        new CachedTokenSource.Builder(browserAuthTokenSource).withToken(browserAuthToken).build();
+        new CachedTokenSource.Builder(browserAuthTokenSource).setToken(browserAuthToken).build();
 
     // Create config with failing HTTP client and mock token cache
     DatabricksConfig config =
@@ -512,7 +512,7 @@ public class ExternalBrowserCredentialsProviderTest {
             Optional.empty());
 
     CachedTokenSource cachedTokenSource =
-        new CachedTokenSource.Builder(browserAuthTokenSource).withToken(browserAuthToken).build();
+        new CachedTokenSource.Builder(browserAuthTokenSource).setToken(browserAuthToken).build();
 
     // Create simple config
     DatabricksConfig config =

@@ -67,8 +67,8 @@ public class CachedTokenSourceTest {
 
     CachedTokenSource source =
         new CachedTokenSource.Builder(tokenSource)
-            .withAsyncEnabled(asyncEnabled)
-            .withToken(initialToken)
+            .setAsyncEnabled(asyncEnabled)
+            .setToken(initialToken)
             .build();
 
     Token token = source.getToken();
@@ -127,9 +127,9 @@ public class CachedTokenSourceTest {
     TestSource testSource = new TestSource();
     CachedTokenSource source =
         new CachedTokenSource.Builder(testSource)
-            .withAsyncEnabled(true)
-            .withToken(staleToken)
-            .withClockSupplier(clockSupplier)
+            .setAsyncEnabled(true)
+            .setToken(staleToken)
+            .setClockSupplier(clockSupplier)
             .build();
 
     // First call triggers async refresh, which fails

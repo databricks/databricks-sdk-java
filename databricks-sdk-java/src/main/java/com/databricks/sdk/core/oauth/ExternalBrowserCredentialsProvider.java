@@ -128,6 +128,6 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
             Optional.ofNullable(config.getEffectiveOAuthRedirectUrl()),
             Optional.ofNullable(tokenCache));
 
-    return new CachedTokenSource.Builder(tokenSource).withToken(token).build();
+    return new CachedTokenSource.Builder(tokenSource).setToken(token).build();
   }
 }
