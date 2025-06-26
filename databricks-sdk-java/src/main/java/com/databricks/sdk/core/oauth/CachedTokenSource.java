@@ -50,7 +50,7 @@ public class CachedTokenSource implements TokenSource {
   private final ClockSupplier clockSupplier;
 
   // The current OAuth token. May be null if not yet fetched.
-  protected volatile Token token;
+  private volatile Token token;
   // Whether a refresh is currently in progress (for async refresh).
   private boolean refreshInProgress = false;
   // Whether the last refresh attempt succeeded.
