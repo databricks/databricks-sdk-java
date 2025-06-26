@@ -44,11 +44,7 @@ public class VectorSearchIndexesAPI {
             .setIndexType(indexType));
   }
 
-  /**
-   * Create an index.
-   *
-   * <p>Create a new index.
-   */
+  /** Create a new index. */
   public VectorIndex createIndex(CreateVectorIndexRequest request) {
     return impl.createIndex(request);
   }
@@ -59,11 +55,7 @@ public class VectorSearchIndexesAPI {
         new DeleteDataVectorIndexRequest().setIndexName(indexName).setPrimaryKeys(primaryKeys));
   }
 
-  /**
-   * Delete data from index.
-   *
-   * <p>Handles the deletion of data from a specified vector index.
-   */
+  /** Handles the deletion of data from a specified vector index. */
   public DeleteDataVectorIndexResponse deleteDataVectorIndex(DeleteDataVectorIndexRequest request) {
     return impl.deleteDataVectorIndex(request);
   }
@@ -72,11 +64,7 @@ public class VectorSearchIndexesAPI {
     deleteIndex(new DeleteIndexRequest().setIndexName(indexName));
   }
 
-  /**
-   * Delete an index.
-   *
-   * <p>Delete an index.
-   */
+  /** Delete an index. */
   public void deleteIndex(DeleteIndexRequest request) {
     impl.deleteIndex(request);
   }
@@ -85,11 +73,7 @@ public class VectorSearchIndexesAPI {
     return getIndex(new GetIndexRequest().setIndexName(indexName));
   }
 
-  /**
-   * Get an index.
-   *
-   * <p>Get an index.
-   */
+  /** Get an index. */
   public VectorIndex getIndex(GetIndexRequest request) {
     return impl.getIndex(request);
   }
@@ -98,11 +82,7 @@ public class VectorSearchIndexesAPI {
     return listIndexes(new ListIndexesRequest().setEndpointName(endpointName));
   }
 
-  /**
-   * List indexes.
-   *
-   * <p>List all indexes in the given endpoint.
-   */
+  /** List all indexes in the given endpoint. */
   public Iterable<MiniVectorIndex> listIndexes(ListIndexesRequest request) {
     return new Paginator<>(
         request,
@@ -121,11 +101,7 @@ public class VectorSearchIndexesAPI {
     return queryIndex(new QueryVectorIndexRequest().setIndexName(indexName).setColumns(columns));
   }
 
-  /**
-   * Query an index.
-   *
-   * <p>Query the specified vector index.
-   */
+  /** Query the specified vector index. */
   public QueryVectorIndexResponse queryIndex(QueryVectorIndexRequest request) {
     return impl.queryIndex(request);
   }
@@ -135,10 +111,8 @@ public class VectorSearchIndexesAPI {
   }
 
   /**
-   * Query next page.
-   *
-   * <p>Use `next_page_token` returned from previous `QueryVectorIndex` or
-   * `QueryVectorIndexNextPage` request to fetch next page of results.
+   * Use `next_page_token` returned from previous `QueryVectorIndex` or `QueryVectorIndexNextPage`
+   * request to fetch next page of results.
    */
   public QueryVectorIndexResponse queryNextPage(QueryVectorIndexNextPageRequest request) {
     return impl.queryNextPage(request);
@@ -149,10 +123,8 @@ public class VectorSearchIndexesAPI {
   }
 
   /**
-   * Scan an index.
-   *
-   * <p>Scan the specified vector index and return the first `num_results` entries after the
-   * exclusive `primary_key`.
+   * Scan the specified vector index and return the first `num_results` entries after the exclusive
+   * `primary_key`.
    */
   public ScanVectorIndexResponse scanIndex(ScanVectorIndexRequest request) {
     return impl.scanIndex(request);
@@ -162,11 +134,7 @@ public class VectorSearchIndexesAPI {
     syncIndex(new SyncIndexRequest().setIndexName(indexName));
   }
 
-  /**
-   * Synchronize an index.
-   *
-   * <p>Triggers a synchronization process for a specified vector index.
-   */
+  /** Triggers a synchronization process for a specified vector index. */
   public void syncIndex(SyncIndexRequest request) {
     impl.syncIndex(request);
   }
@@ -176,11 +144,7 @@ public class VectorSearchIndexesAPI {
         new UpsertDataVectorIndexRequest().setIndexName(indexName).setInputsJson(inputsJson));
   }
 
-  /**
-   * Upsert data into an index.
-   *
-   * <p>Handles the upserting of data into a specified vector index.
-   */
+  /** Handles the upserting of data into a specified vector index. */
   public UpsertDataVectorIndexResponse upsertDataVectorIndex(UpsertDataVectorIndexRequest request) {
     return impl.upsertDataVectorIndex(request);
   }

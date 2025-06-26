@@ -6,6 +6,7 @@ import com.databricks.sdk.core.DatabricksException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Objects;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,21 +67,21 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
         LOGGER.debug("Found cached token for {}:{}", config.getHost(), clientId);
 
         try {
-          // Create SessionCredentials with the cached token and try to refresh if needed
-          SessionCredentials cachedCreds =
-              new SessionCredentials.Builder()
-                  .withToken(cachedToken)
-                  .withHttpClient(config.getHttpClient())
-                  .withClientId(clientId)
-                  .withClientSecret(clientSecret)
-                  .withTokenUrl(config.getOidcEndpoints().getTokenEndpoint())
-                  .withRedirectUrl(config.getEffectiveOAuthRedirectUrl())
-                  .withTokenCache(tokenCache)
-                  .build();
+          // Create SessionCredentialsTokenSource with the cached token and try to refresh if needed
+          SessionCredentialsTokenSource tokenSource =
+              new SessionCredentialsTokenSource(
+                  cachedToken,
+                  config.getHttpClient(),
+                  config.getOidcEndpoints().getTokenEndpoint(),
+                  clientId,
+                  clientSecret,
+                  Optional.of(config.getEffectiveOAuthRedirectUrl()),
+                  Optional.of(tokenCache));
 
+          CachedTokenSource cachedTokenSource = new CachedTokenSource.Builder(tokenSource).build();
           LOGGER.debug("Using cached token, will immediately refresh");
-          cachedCreds.token = cachedCreds.refresh();
-          return cachedCreds.configure(config);
+          cachedTokenSource.getToken();
+          return OAuthHeaderFactory.fromTokenSource(cachedTokenSource);
         } catch (Exception e) {
           // If token refresh fails, log and continue to browser auth
           LOGGER.info("Token refresh failed: {}, falling back to browser auth", e.getMessage());
@@ -88,17 +89,17 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
       }
 
       // If no cached token or refresh failed, perform browser auth
-      SessionCredentials credentials =
+      CachedTokenSource cachedTokenSource =
           performBrowserAuth(config, clientId, clientSecret, tokenCache);
-      tokenCache.save(credentials.getToken());
-      return credentials.configure(config);
+      tokenCache.save(cachedTokenSource.getToken());
+      return OAuthHeaderFactory.fromTokenSource(cachedTokenSource);
     } catch (IOException | DatabricksException e) {
       LOGGER.error("Failed to authenticate: {}", e.getMessage());
       return null;
     }
   }
 
-  SessionCredentials performBrowserAuth(
+  CachedTokenSource performBrowserAuth(
       DatabricksConfig config, String clientId, String clientSecret, TokenCache tokenCache)
       throws IOException {
     LOGGER.debug("Performing browser authentication");
@@ -113,18 +114,20 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
             .build();
     Consent consent = client.initiateConsent();
 
-    // Use the existing browser flow to get credentials
-    SessionCredentials credentials = consent.launchExternalBrowser();
+    // Use the existing browser flow to get credentials.
+    Token token = consent.getTokenFromExternalBrowser();
 
-    // Create a new SessionCredentials with the same token but with our token cache
-    return new SessionCredentials.Builder()
-        .withToken(credentials.getToken())
-        .withHttpClient(config.getHttpClient())
-        .withClientId(config.getClientId())
-        .withClientSecret(config.getClientSecret())
-        .withTokenUrl(config.getOidcEndpoints().getTokenEndpoint())
-        .withRedirectUrl(config.getEffectiveOAuthRedirectUrl())
-        .withTokenCache(tokenCache)
-        .build();
+    // Create a SessionCredentialsTokenSource with the token from browser auth.
+    SessionCredentialsTokenSource tokenSource =
+        new SessionCredentialsTokenSource(
+            token,
+            config.getHttpClient(),
+            config.getOidcEndpoints().getTokenEndpoint(),
+            config.getClientId(),
+            config.getClientSecret(),
+            Optional.ofNullable(config.getEffectiveOAuthRedirectUrl()),
+            Optional.ofNullable(tokenCache));
+
+    return new CachedTokenSource.Builder(tokenSource).setToken(token).build();
   }
 }

@@ -6,6 +6,7 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
+/** GCP long-lived credential. Databricks-created Google Cloud Storage service account. */
 @Generated
 public class DatabricksGcpServiceAccountRequest {
 

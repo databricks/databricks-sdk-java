@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** List directory contents or file details */
 @Generated
 public class ListDbfsRequest {
   /** The path of the file or directory. The path should be the absolute DBFS path. */

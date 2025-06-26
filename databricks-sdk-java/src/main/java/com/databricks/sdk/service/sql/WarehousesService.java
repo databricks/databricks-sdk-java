@@ -14,101 +14,54 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface WarehousesService {
-  /**
-   * Create a warehouse.
-   *
-   * <p>Creates a new SQL warehouse.
-   */
+  /** Creates a new SQL warehouse. */
   CreateWarehouseResponse create(CreateWarehouseRequest createWarehouseRequest);
 
-  /**
-   * Delete a warehouse.
-   *
-   * <p>Deletes a SQL warehouse.
-   */
+  /** Deletes a SQL warehouse. */
   void delete(DeleteWarehouseRequest deleteWarehouseRequest);
 
-  /**
-   * Update a warehouse.
-   *
-   * <p>Updates the configuration for a SQL warehouse.
-   */
+  /** Updates the configuration for a SQL warehouse. */
   void edit(EditWarehouseRequest editWarehouseRequest);
 
-  /**
-   * Get warehouse info.
-   *
-   * <p>Gets the information for a single SQL warehouse.
-   */
+  /** Gets the information for a single SQL warehouse. */
   GetWarehouseResponse get(GetWarehouseRequest getWarehouseRequest);
 
-  /**
-   * Get SQL warehouse permission levels.
-   *
-   * <p>Gets the permission levels that a user can have on an object.
-   */
+  /** Gets the permission levels that a user can have on an object. */
   GetWarehousePermissionLevelsResponse getPermissionLevels(
       GetWarehousePermissionLevelsRequest getWarehousePermissionLevelsRequest);
 
   /**
-   * Get SQL warehouse permissions.
-   *
-   * <p>Gets the permissions of a SQL warehouse. SQL warehouses can inherit permissions from their
-   * root object.
+   * Gets the permissions of a SQL warehouse. SQL warehouses can inherit permissions from their root
+   * object.
    */
   WarehousePermissions getPermissions(
       GetWarehousePermissionsRequest getWarehousePermissionsRequest);
 
-  /**
-   * Get the workspace configuration.
-   *
-   * <p>Gets the workspace level configuration that is shared by all SQL warehouses in a workspace.
-   */
+  /** Gets the workspace level configuration that is shared by all SQL warehouses in a workspace. */
   GetWorkspaceWarehouseConfigResponse getWorkspaceWarehouseConfig();
 
-  /**
-   * List warehouses.
-   *
-   * <p>Lists all SQL warehouses that a user has manager permissions on.
-   */
+  /** Lists all SQL warehouses that a user has manager permissions on. */
   ListWarehousesResponse list(ListWarehousesRequest listWarehousesRequest);
 
   /**
-   * Set SQL warehouse permissions.
-   *
-   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
-   * direct permissions if none are specified. Objects can inherit permissions from their root
-   * object.
+   * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
+   * permissions if none are specified. Objects can inherit permissions from their root object.
    */
   WarehousePermissions setPermissions(WarehousePermissionsRequest warehousePermissionsRequest);
 
-  /**
-   * Set the workspace configuration.
-   *
-   * <p>Sets the workspace level configuration that is shared by all SQL warehouses in a workspace.
-   */
+  /** Sets the workspace level configuration that is shared by all SQL warehouses in a workspace. */
   void setWorkspaceWarehouseConfig(
       SetWorkspaceWarehouseConfigRequest setWorkspaceWarehouseConfigRequest);
 
-  /**
-   * Start a warehouse.
-   *
-   * <p>Starts a SQL warehouse.
-   */
+  /** Starts a SQL warehouse. */
   void start(StartRequest startRequest);
 
-  /**
-   * Stop a warehouse.
-   *
-   * <p>Stops a SQL warehouse.
-   */
+  /** Stops a SQL warehouse. */
   void stop(StopRequest stopRequest);
 
   /**
-   * Update SQL warehouse permissions.
-   *
-   * <p>Updates the permissions on a SQL warehouse. SQL warehouses can inherit permissions from
-   * their root object.
+   * Updates the permissions on a SQL warehouse. SQL warehouses can inherit permissions from their
+   * root object.
    */
   WarehousePermissions updatePermissions(WarehousePermissionsRequest warehousePermissionsRequest);
 }

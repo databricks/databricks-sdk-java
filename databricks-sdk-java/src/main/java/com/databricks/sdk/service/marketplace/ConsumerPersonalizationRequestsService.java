@@ -13,28 +13,18 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface ConsumerPersonalizationRequestsService {
-  /**
-   * Create a personalization request.
-   *
-   * <p>Create a personalization request for a listing.
-   */
+  /** Create a personalization request for a listing. */
   CreatePersonalizationRequestResponse create(
       CreatePersonalizationRequest createPersonalizationRequest);
 
   /**
-   * Get the personalization request for a listing.
-   *
-   * <p>Get the personalization request for a listing. Each consumer can make at *most* one
+   * Get the personalization request for a listing. Each consumer can make at *most* one
    * personalization request for a listing.
    */
   GetPersonalizationRequestResponse get(
       GetPersonalizationRequestRequest getPersonalizationRequestRequest);
 
-  /**
-   * List all personalization requests.
-   *
-   * <p>List personalization requests for a consumer across all listings.
-   */
+  /** List personalization requests for a consumer across all listings. */
   ListAllPersonalizationRequestsResponse list(
       ListAllPersonalizationRequestsRequest listAllPersonalizationRequestsRequest);
 }

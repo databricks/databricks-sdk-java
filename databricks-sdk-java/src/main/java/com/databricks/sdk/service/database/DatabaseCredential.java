@@ -10,8 +10,21 @@ import java.util.Objects;
 @Generated
 public class DatabaseCredential {
   /** */
+  @JsonProperty("expiration_time")
+  private String expirationTime;
+
+  /** */
   @JsonProperty("token")
   private String token;
+
+  public DatabaseCredential setExpirationTime(String expirationTime) {
+    this.expirationTime = expirationTime;
+    return this;
+  }
+
+  public String getExpirationTime() {
+    return expirationTime;
+  }
 
   public DatabaseCredential setToken(String token) {
     this.token = token;
@@ -27,16 +40,19 @@ public class DatabaseCredential {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     DatabaseCredential that = (DatabaseCredential) o;
-    return Objects.equals(token, that.token);
+    return Objects.equals(expirationTime, that.expirationTime) && Objects.equals(token, that.token);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(token);
+    return Objects.hash(expirationTime, token);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(DatabaseCredential.class).add("token", token).toString();
+    return new ToStringer(DatabaseCredential.class)
+        .add("expirationTime", expirationTime)
+        .add("token", token)
+        .toString();
   }
 }

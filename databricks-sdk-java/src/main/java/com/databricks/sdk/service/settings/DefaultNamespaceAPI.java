@@ -35,23 +35,17 @@ public class DefaultNamespaceAPI {
   }
 
   /**
-   * Delete the default namespace setting.
-   *
-   * <p>Deletes the default namespace setting for the workspace. A fresh etag needs to be provided
-   * in `DELETE` requests (as a query parameter). The etag can be retrieved by making a `GET`
-   * request before the `DELETE` request. If the setting is updated/deleted concurrently, `DELETE`
-   * fails with 409 and the request must be retried by using the fresh etag in the 409 response.
+   * Deletes the default namespace setting for the workspace. A fresh etag needs to be provided in
+   * `DELETE` requests (as a query parameter). The etag can be retrieved by making a `GET` request
+   * before the `DELETE` request. If the setting is updated/deleted concurrently, `DELETE` fails
+   * with 409 and the request must be retried by using the fresh etag in the 409 response.
    */
   public DeleteDefaultNamespaceSettingResponse delete(
       DeleteDefaultNamespaceSettingRequest request) {
     return impl.delete(request);
   }
 
-  /**
-   * Get the default namespace setting.
-   *
-   * <p>Gets the default namespace setting.
-   */
+  /** Gets the default namespace setting. */
   public DefaultNamespaceSetting get(GetDefaultNamespaceSettingRequest request) {
     return impl.get(request);
   }
@@ -66,10 +60,8 @@ public class DefaultNamespaceAPI {
   }
 
   /**
-   * Update the default namespace setting.
-   *
-   * <p>Updates the default namespace setting for the workspace. A fresh etag needs to be provided
-   * in `PATCH` requests (as part of the setting field). The etag can be retrieved by making a `GET`
+   * Updates the default namespace setting for the workspace. A fresh etag needs to be provided in
+   * `PATCH` requests (as part of the setting field). The etag can be retrieved by making a `GET`
    * request before the `PATCH` request. Note that if the setting does not exist, `GET` returns a
    * NOT_FOUND error and the etag is present in the error response, which should be set in the
    * `PATCH` request. If the setting is updated concurrently, `PATCH` fails with 409 and the request

@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Update a quality monitor */
 @Generated
 public class UpdateQualityMonitorRequest {
   /** The uuid of the request object. For example, schema id. */

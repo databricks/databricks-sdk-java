@@ -56,10 +56,8 @@ public class PermissionsAPI {
   }
 
   /**
-   * Get object permissions.
-   *
-   * <p>Gets the permissions of an object. Objects can inherit permissions from their parent objects
-   * or root object.
+   * Gets the permissions of an object. Objects can inherit permissions from their parent objects or
+   * root object.
    */
   public ObjectPermissions get(GetPermissionRequest request) {
     return impl.get(request);
@@ -73,11 +71,7 @@ public class PermissionsAPI {
             .setRequestObjectId(requestObjectId));
   }
 
-  /**
-   * Get object permission levels.
-   *
-   * <p>Gets the permission levels that a user can have on an object.
-   */
+  /** Gets the permission levels that a user can have on an object. */
   public GetPermissionLevelsResponse getPermissionLevels(GetPermissionLevelsRequest request) {
     return impl.getPermissionLevels(request);
   }
@@ -90,11 +84,9 @@ public class PermissionsAPI {
   }
 
   /**
-   * Set object permissions.
-   *
-   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
-   * direct permissions if none are specified. Objects can inherit permissions from their parent
-   * objects or root object.
+   * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
+   * permissions if none are specified. Objects can inherit permissions from their parent objects or
+   * root object.
    */
   public ObjectPermissions set(SetObjectPermissions request) {
     return impl.set(request);
@@ -108,10 +100,8 @@ public class PermissionsAPI {
   }
 
   /**
-   * Update object permissions.
-   *
-   * <p>Updates the permissions on an object. Objects can inherit permissions from their parent
-   * objects or root object.
+   * Updates the permissions on an object. Objects can inherit permissions from their parent objects
+   * or root object.
    */
   public ObjectPermissions update(UpdateObjectPermissions request) {
     return impl.update(request);

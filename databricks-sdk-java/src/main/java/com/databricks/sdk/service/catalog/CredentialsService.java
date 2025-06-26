@@ -19,10 +19,8 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface CredentialsService {
   /**
-   * Create a credential.
-   *
-   * <p>Creates a new credential. The type of credential to be created is determined by the
-   * **purpose** field, which should be either **SERVICE** or **STORAGE**.
+   * Creates a new credential. The type of credential to be created is determined by the **purpose**
+   * field, which should be either **SERVICE** or **STORAGE**.
    *
    * <p>The caller must be a metastore admin or have the metastore privilege
    * **CREATE_STORAGE_CREDENTIAL** for storage credentials, or **CREATE_SERVICE_CREDENTIAL** for
@@ -31,17 +29,13 @@ public interface CredentialsService {
   CredentialInfo createCredential(CreateCredentialRequest createCredentialRequest);
 
   /**
-   * Delete a credential.
-   *
-   * <p>Deletes a service or storage credential from the metastore. The caller must be an owner of
-   * the credential.
+   * Deletes a service or storage credential from the metastore. The caller must be an owner of the
+   * credential.
    */
   void deleteCredential(DeleteCredentialRequest deleteCredentialRequest);
 
   /**
-   * Generate a temporary service credential.
-   *
-   * <p>Returns a set of temporary credentials generated using the specified service credential. The
+   * Returns a set of temporary credentials generated using the specified service credential. The
    * caller must be a metastore admin or have the metastore privilege **ACCESS** on the service
    * credential.
    */
@@ -49,17 +43,13 @@ public interface CredentialsService {
       GenerateTemporaryServiceCredentialRequest generateTemporaryServiceCredentialRequest);
 
   /**
-   * Get a credential.
-   *
-   * <p>Gets a service or storage credential from the metastore. The caller must be a metastore
-   * admin, the owner of the credential, or have any permission on the credential.
+   * Gets a service or storage credential from the metastore. The caller must be a metastore admin,
+   * the owner of the credential, or have any permission on the credential.
    */
   CredentialInfo getCredential(GetCredentialRequest getCredentialRequest);
 
   /**
-   * List credentials.
-   *
-   * <p>Gets an array of credentials (as __CredentialInfo__ objects).
+   * Gets an array of credentials (as __CredentialInfo__ objects).
    *
    * <p>The array is limited to only the credentials that the caller has permission to access. If
    * the caller is a metastore admin, retrieval of credentials is unrestricted. There is no
@@ -68,9 +58,7 @@ public interface CredentialsService {
   ListCredentialsResponse listCredentials(ListCredentialsRequest listCredentialsRequest);
 
   /**
-   * Update a credential.
-   *
-   * <p>Updates a service or storage credential on the metastore.
+   * Updates a service or storage credential on the metastore.
    *
    * <p>The caller must be the owner of the credential or a metastore admin or have the `MANAGE`
    * permission. If the caller is a metastore admin, only the __owner__ field can be changed.
@@ -78,9 +66,7 @@ public interface CredentialsService {
   CredentialInfo updateCredential(UpdateCredentialRequest updateCredentialRequest);
 
   /**
-   * Validate a credential.
-   *
-   * <p>Validates a credential.
+   * Validates a credential.
    *
    * <p>For service credentials (purpose is **SERVICE**), either the __credential_name__ or the
    * cloud-specific credential must be provided.

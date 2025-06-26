@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get registered model permissions */
 @Generated
 public class GetRegisteredModelPermissionsRequest {
   /** The registered model for which to get or manage permissions. */

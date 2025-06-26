@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** List network policies */
 @Generated
 public class ListNetworkPoliciesRequest {
   /** Pagination token to go to next page based on previous query. */

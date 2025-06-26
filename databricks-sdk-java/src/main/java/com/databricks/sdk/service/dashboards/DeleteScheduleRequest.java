@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete dashboard schedule */
 @Generated
 public class DeleteScheduleRequest {
   /** UUID identifying the dashboard to which the schedule belongs. */

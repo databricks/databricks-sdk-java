@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete a repo */
 @Generated
 public class DeleteRepoRequest {
   /** The ID for the corresponding repo to delete. */

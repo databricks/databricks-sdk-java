@@ -22,7 +22,7 @@ public class EgressNetworkPolicyNetworkAccessPolicyStorageDestination {
   @JsonProperty("bucket_name")
   private String bucketName;
 
-  /** The region of the S3 bucket. */
+  /** */
   @JsonProperty("region")
   private String region;
 

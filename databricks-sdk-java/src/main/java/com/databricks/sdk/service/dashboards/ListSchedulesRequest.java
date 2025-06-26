@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** List dashboard schedules */
 @Generated
 public class ListSchedulesRequest {
   /** UUID identifying the dashboard to which the schedules belongs. */

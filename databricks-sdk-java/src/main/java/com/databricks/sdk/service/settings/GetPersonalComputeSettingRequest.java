@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get Personal Compute setting */
 @Generated
 public class GetPersonalComputeSettingRequest {
   /**

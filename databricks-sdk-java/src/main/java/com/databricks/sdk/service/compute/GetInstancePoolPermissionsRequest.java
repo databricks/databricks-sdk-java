@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get instance pool permissions */
 @Generated
 public class GetInstancePoolPermissionsRequest {
   /** The instance pool for which to get or manage permissions. */

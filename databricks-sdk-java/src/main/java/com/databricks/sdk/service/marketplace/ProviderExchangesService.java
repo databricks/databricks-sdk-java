@@ -12,69 +12,33 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface ProviderExchangesService {
-  /**
-   * Add an exchange for listing.
-   *
-   * <p>Associate an exchange with a listing
-   */
+  /** Associate an exchange with a listing */
   AddExchangeForListingResponse addListingToExchange(
       AddExchangeForListingRequest addExchangeForListingRequest);
 
-  /**
-   * Create an exchange.
-   *
-   * <p>Create an exchange
-   */
+  /** Create an exchange */
   CreateExchangeResponse create(CreateExchangeRequest createExchangeRequest);
 
-  /**
-   * Delete an exchange.
-   *
-   * <p>This removes a listing from marketplace.
-   */
+  /** This removes a listing from marketplace. */
   void delete(DeleteExchangeRequest deleteExchangeRequest);
 
-  /**
-   * Remove an exchange for listing.
-   *
-   * <p>Disassociate an exchange with a listing
-   */
+  /** Disassociate an exchange with a listing */
   void deleteListingFromExchange(RemoveExchangeForListingRequest removeExchangeForListingRequest);
 
-  /**
-   * Get an exchange.
-   *
-   * <p>Get an exchange.
-   */
+  /** Get an exchange. */
   GetExchangeResponse get(GetExchangeRequest getExchangeRequest);
 
-  /**
-   * List exchanges.
-   *
-   * <p>List exchanges visible to provider
-   */
+  /** List exchanges visible to provider */
   ListExchangesResponse list(ListExchangesRequest listExchangesRequest);
 
-  /**
-   * List exchanges for listing.
-   *
-   * <p>List exchanges associated with a listing
-   */
+  /** List exchanges associated with a listing */
   ListExchangesForListingResponse listExchangesForListing(
       ListExchangesForListingRequest listExchangesForListingRequest);
 
-  /**
-   * List listings for exchange.
-   *
-   * <p>List listings associated with an exchange
-   */
+  /** List listings associated with an exchange */
   ListListingsForExchangeResponse listListingsForExchange(
       ListListingsForExchangeRequest listListingsForExchangeRequest);
 
-  /**
-   * Update exchange.
-   *
-   * <p>Update an exchange
-   */
+  /** Update an exchange */
   UpdateExchangeResponse update(UpdateExchangeRequest updateExchangeRequest);
 }

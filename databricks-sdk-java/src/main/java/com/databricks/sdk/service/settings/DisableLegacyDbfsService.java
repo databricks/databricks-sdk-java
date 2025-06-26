@@ -19,25 +19,13 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface DisableLegacyDbfsService {
-  /**
-   * Delete the disable legacy DBFS setting.
-   *
-   * <p>Deletes the disable legacy DBFS setting for a workspace, reverting back to the default.
-   */
+  /** Deletes the disable legacy DBFS setting for a workspace, reverting back to the default. */
   DeleteDisableLegacyDbfsResponse delete(
       DeleteDisableLegacyDbfsRequest deleteDisableLegacyDbfsRequest);
 
-  /**
-   * Get the disable legacy DBFS setting.
-   *
-   * <p>Gets the disable legacy DBFS setting.
-   */
+  /** Gets the disable legacy DBFS setting. */
   DisableLegacyDbfs get(GetDisableLegacyDbfsRequest getDisableLegacyDbfsRequest);
 
-  /**
-   * Update the disable legacy DBFS setting.
-   *
-   * <p>Updates the disable legacy DBFS setting for the workspace.
-   */
+  /** Updates the disable legacy DBFS setting for the workspace. */
   DisableLegacyDbfs update(UpdateDisableLegacyDbfsRequest updateDisableLegacyDbfsRequest);
 }

@@ -12,10 +12,6 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface CurrentUserService {
-  /**
-   * Get current user info.
-   *
-   * <p>Get details about the current method caller's identity.
-   */
+  /** Get details about the current method caller's identity. */
   User me();
 }

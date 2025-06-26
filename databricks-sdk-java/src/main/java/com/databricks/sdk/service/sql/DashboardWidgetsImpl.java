@@ -44,7 +44,7 @@ class DashboardWidgetsImpl implements DashboardWidgetsService {
   }
 
   @Override
-  public Widget update(CreateWidget request) {
+  public Widget update(UpdateWidgetRequest request) {
     String path = String.format("/api/2.0/preview/sql/widgets/%s", request.getId());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));

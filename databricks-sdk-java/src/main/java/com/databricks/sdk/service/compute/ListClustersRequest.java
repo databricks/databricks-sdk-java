@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** List clusters */
 @Generated
 public class ListClustersRequest {
   /** Filters to apply to the list of clusters. */

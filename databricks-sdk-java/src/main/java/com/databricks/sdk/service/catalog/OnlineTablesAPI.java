@@ -79,11 +79,7 @@ public class OnlineTablesAPI {
     return create(new CreateOnlineTableRequest().setTable(table));
   }
 
-  /**
-   * Create an Online Table.
-   *
-   * <p>Create a new Online Table.
-   */
+  /** Create a new Online Table. */
   public Wait<OnlineTable, OnlineTable> create(CreateOnlineTableRequest request) {
     OnlineTable response = impl.create(request);
     return new Wait<>(
@@ -96,9 +92,7 @@ public class OnlineTablesAPI {
   }
 
   /**
-   * Delete an Online Table.
-   *
-   * <p>Delete an online table. Warning: This will delete all the data in the online table. If the
+   * Delete an online table. Warning: This will delete all the data in the online table. If the
    * source Delta table was deleted or modified since this Online Table was created, this will lose
    * the data forever!
    */
@@ -110,11 +104,7 @@ public class OnlineTablesAPI {
     return get(new GetOnlineTableRequest().setName(name));
   }
 
-  /**
-   * Get an Online Table.
-   *
-   * <p>Get information about an existing online table and its status.
-   */
+  /** Get information about an existing online table and its status. */
   public OnlineTable get(GetOnlineTableRequest request) {
     return impl.get(request);
   }

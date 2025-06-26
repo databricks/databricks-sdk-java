@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get a VPC endpoint configuration */
 @Generated
 public class GetVpcEndpointRequest {
   /** Databricks VPC endpoint ID. */

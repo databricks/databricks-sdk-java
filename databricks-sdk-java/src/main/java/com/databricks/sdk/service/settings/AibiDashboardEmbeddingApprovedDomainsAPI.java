@@ -29,9 +29,7 @@ public class AibiDashboardEmbeddingApprovedDomainsAPI {
   }
 
   /**
-   * Delete AI/BI dashboard embedding approved domains.
-   *
-   * <p>Delete the list of domains approved to host embedded AI/BI dashboards, reverting back to the
+   * Delete the list of domains approved to host embedded AI/BI dashboards, reverting back to the
    * default empty list.
    */
   public DeleteAibiDashboardEmbeddingApprovedDomainsSettingResponse delete(
@@ -39,11 +37,7 @@ public class AibiDashboardEmbeddingApprovedDomainsAPI {
     return impl.delete(request);
   }
 
-  /**
-   * Retrieve the list of domains approved to host embedded AI/BI dashboards.
-   *
-   * <p>Retrieves the list of domains approved to host embedded AI/BI dashboards.
-   */
+  /** Retrieves the list of domains approved to host embedded AI/BI dashboards. */
   public AibiDashboardEmbeddingApprovedDomainsSetting get(
       GetAibiDashboardEmbeddingApprovedDomainsSettingRequest request) {
     return impl.get(request);
@@ -61,10 +55,8 @@ public class AibiDashboardEmbeddingApprovedDomainsAPI {
   }
 
   /**
-   * Update the list of domains approved to host embedded AI/BI dashboards.
-   *
-   * <p>Updates the list of domains approved to host embedded AI/BI dashboards. This update will
-   * fail if the current workspace access policy is not ALLOW_APPROVED_DOMAINS.
+   * Updates the list of domains approved to host embedded AI/BI dashboards. This update will fail
+   * if the current workspace access policy is not ALLOW_APPROVED_DOMAINS.
    */
   public AibiDashboardEmbeddingApprovedDomainsSetting update(
       UpdateAibiDashboardEmbeddingApprovedDomainsSettingRequest request) {

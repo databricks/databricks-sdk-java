@@ -1,60 +1,35 @@
 package com.databricks.sdk.core.oauth;
 
 import com.databricks.sdk.core.http.HttpClient;
+import com.google.auto.value.AutoValue;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Manages and provides Databricks data plane tokens. This class is responsible for acquiring and
  * caching OAuth tokens that are specific to a particular Databricks data plane service endpoint and
- * a set of authorization details. It utilizes a {@link DatabricksOAuthTokenSource} for obtaining
- * control plane tokens, which may then be exchanged or used to authorize requests for data plane
- * tokens. Cached {@link EndpointTokenSource} instances are used to efficiently reuse tokens for
- * repeated requests to the same endpoint with the same authorization context.
+ * a set of authorization details. It utilizes a {@link TokenSource} for obtaining control plane
+ * tokens, which may then be exchanged or used to authorize requests for data plane tokens. Cached
+ * {@link EndpointTokenSource} instances are used to efficiently reuse tokens for repeated requests
+ * to the same endpoint with the same authorization context.
  */
 public class DataPlaneTokenSource {
   private final HttpClient httpClient;
   private final TokenSource cpTokenSource;
   private final String host;
-  private final ConcurrentHashMap<TokenSourceKey, EndpointTokenSource> sourcesCache;
+  private final ConcurrentHashMap<TokenSourceKey, CachedTokenSource> sourcesCache;
   /**
    * Caching key for {@link EndpointTokenSource}, based on endpoint and authorization details. This
    * is a value object that uniquely identifies a token source configuration.
    */
-  private static final class TokenSourceKey {
-    /** The target service endpoint URL. */
-    private final String endpoint;
+  @AutoValue
+  abstract static class TokenSourceKey {
+    abstract String endpoint();
 
-    /** Specific authorization details for the endpoint. */
-    private final String authDetails;
+    abstract String authDetails();
 
-    /**
-     * Constructs a TokenSourceKey.
-     *
-     * @param endpoint The target service endpoint URL.
-     * @param authDetails Specific authorization details.
-     */
-    public TokenSourceKey(String endpoint, String authDetails) {
-      this.endpoint = endpoint;
-      this.authDetails = authDetails;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-      if (this == o) {
-        return true;
-      }
-      if (o == null || getClass() != o.getClass()) {
-        return false;
-      }
-      TokenSourceKey that = (TokenSourceKey) o;
-      return Objects.equals(endpoint, that.endpoint)
-          && Objects.equals(authDetails, that.authDetails);
-    }
-
-    @Override
-    public int hashCode() {
-      return Objects.hash(endpoint, authDetails);
+    static TokenSourceKey create(String endpoint, String authDetails) {
+      return new AutoValue_DataPlaneTokenSource_TokenSourceKey(endpoint, authDetails);
     }
   }
 
@@ -101,14 +76,16 @@ public class DataPlaneTokenSource {
       throw new IllegalArgumentException("Authorization details cannot be empty");
     }
 
-    TokenSourceKey key = new TokenSourceKey(endpoint, authDetails);
+    TokenSourceKey key = TokenSourceKey.create(endpoint, authDetails);
 
-    EndpointTokenSource specificSource =
+    CachedTokenSource specificSource =
         sourcesCache.computeIfAbsent(
             key,
             k ->
-                new EndpointTokenSource(
-                    this.cpTokenSource, k.authDetails, this.httpClient, this.host));
+                new CachedTokenSource.Builder(
+                        new EndpointTokenSource(
+                            this.cpTokenSource, k.authDetails(), this.httpClient, this.host))
+                    .build());
 
     return specificSource.getToken();
   }

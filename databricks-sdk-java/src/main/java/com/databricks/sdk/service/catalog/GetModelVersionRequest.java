@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get a Model Version */
 @Generated
 public class GetModelVersionRequest {
   /** The three-level (fully qualified) name of the model version */

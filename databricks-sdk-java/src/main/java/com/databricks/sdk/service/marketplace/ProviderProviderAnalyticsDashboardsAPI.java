@@ -25,29 +25,19 @@ public class ProviderProviderAnalyticsDashboardsAPI {
   }
 
   /**
-   * Create provider analytics dashboard.
-   *
-   * <p>Create provider analytics dashboard. Returns Marketplace specific `id`. Not to be confused
-   * with the Lakeview dashboard id.
+   * Create provider analytics dashboard. Returns Marketplace specific `id`. Not to be confused with
+   * the Lakeview dashboard id.
    */
   public ProviderAnalyticsDashboard create() {
     return impl.create();
   }
 
-  /**
-   * Get provider analytics dashboard.
-   *
-   * <p>Get provider analytics dashboard.
-   */
+  /** Get provider analytics dashboard. */
   public ListProviderAnalyticsDashboardResponse get() {
     return impl.get();
   }
 
-  /**
-   * Get latest version of provider analytics dashboard.
-   *
-   * <p>Get latest version of provider analytics dashboard.
-   */
+  /** Get latest version of provider analytics dashboard. */
   public GetLatestVersionProviderAnalyticsDashboardResponse getLatestVersion() {
     return impl.getLatestVersion();
   }
@@ -56,11 +46,7 @@ public class ProviderProviderAnalyticsDashboardsAPI {
     return update(new UpdateProviderAnalyticsDashboardRequest().setId(id));
   }
 
-  /**
-   * Update provider analytics dashboard.
-   *
-   * <p>Update provider analytics dashboard.
-   */
+  /** Update provider analytics dashboard. */
   public UpdateProviderAnalyticsDashboardResponse update(
       UpdateProviderAnalyticsDashboardRequest request) {
     return impl.update(request);

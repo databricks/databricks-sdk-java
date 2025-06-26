@@ -36,13 +36,11 @@ public class CredentialsAPI {
   }
 
   /**
-   * Create credential configuration.
-   *
-   * <p>Creates a Databricks credential configuration that represents cloud cross-account
-   * credentials for a specified account. Databricks uses this to set up network infrastructure
-   * properly to host Databricks clusters. For your AWS IAM role, you need to trust the External ID
-   * (the Databricks Account API account ID) in the returned credential object, and configure the
-   * required access policy.
+   * Creates a Databricks credential configuration that represents cloud cross-account credentials
+   * for a specified account. Databricks uses this to set up network infrastructure properly to host
+   * Databricks clusters. For your AWS IAM role, you need to trust the External ID (the Databricks
+   * Account API account ID) in the returned credential object, and configure the required access
+   * policy.
    *
    * <p>Save the response's `credentials_id` field, which is the ID for your new credential
    * configuration object.
@@ -62,10 +60,8 @@ public class CredentialsAPI {
   }
 
   /**
-   * Delete credential configuration.
-   *
-   * <p>Deletes a Databricks credential configuration object for an account, both specified by ID.
-   * You cannot delete a credential that is associated with any workspace.
+   * Deletes a Databricks credential configuration object for an account, both specified by ID. You
+   * cannot delete a credential that is associated with any workspace.
    */
   public void delete(DeleteCredentialRequest request) {
     impl.delete(request);
@@ -75,20 +71,12 @@ public class CredentialsAPI {
     return get(new GetCredentialRequest().setCredentialsId(credentialsId));
   }
 
-  /**
-   * Get credential configuration.
-   *
-   * <p>Gets a Databricks credential configuration object for an account, both specified by ID.
-   */
+  /** Gets a Databricks credential configuration object for an account, both specified by ID. */
   public Credential get(GetCredentialRequest request) {
     return impl.get(request);
   }
 
-  /**
-   * Get all credential configurations.
-   *
-   * <p>Gets all Databricks credential configurations associated with an account specified by ID.
-   */
+  /** Gets all Databricks credential configurations associated with an account specified by ID. */
   public Iterable<Credential> list() {
     return impl.list();
   }

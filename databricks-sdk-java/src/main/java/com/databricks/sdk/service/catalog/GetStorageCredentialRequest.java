@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get a credential */
 @Generated
 public class GetStorageCredentialRequest {
   /** Name of the storage credential. */

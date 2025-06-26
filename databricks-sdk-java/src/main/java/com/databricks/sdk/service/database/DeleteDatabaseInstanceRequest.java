@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete a Database Instance */
 @Generated
 public class DeleteDatabaseInstanceRequest {
   /**
@@ -23,10 +22,12 @@ public class DeleteDatabaseInstanceRequest {
   @JsonIgnore private String name;
 
   /**
-   * If false, the database instance is soft deleted. Soft deleted instances behave as if they are
-   * deleted, and cannot be used for CRUD operations nor connected to. However they can be undeleted
-   * by calling the undelete API for a limited time. If true, the database instance is hard deleted
-   * and cannot be undeleted.
+   * Note purge=false is in development. If false, the database instance is soft deleted
+   * (implementation pending). Soft deleted instances behave as if they are deleted, and cannot be
+   * used for CRUD operations nor connected to. However they can be undeleted by calling the
+   * undelete API for a limited time (implementation pending). If true, the database instance is
+   * hard deleted and cannot be undeleted. For the time being, setting this value to true is
+   * required to delete an instance (soft delete is not yet supported).
    */
   @JsonIgnore
   @QueryParam("purge")

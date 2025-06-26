@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Synchronize an index */
 @Generated
 public class SyncIndexRequest {
   /** Name of the vector index to synchronize. Must be a Delta Sync Index. */

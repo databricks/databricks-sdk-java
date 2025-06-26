@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get an asset */
 @Generated
 public class GetCleanRoomAssetRequest {
   /** The type of the asset. */

@@ -32,9 +32,7 @@ public class GroupsAPI {
   }
 
   /**
-   * Create a new group.
-   *
-   * <p>Creates a group in the Databricks workspace with a unique name, using the supplied group
+   * Creates a group in the Databricks workspace with a unique name, using the supplied group
    * details.
    */
   public Group create(Group request) {
@@ -45,11 +43,7 @@ public class GroupsAPI {
     delete(new DeleteGroupRequest().setId(id));
   }
 
-  /**
-   * Delete a group.
-   *
-   * <p>Deletes a group from the Databricks workspace.
-   */
+  /** Deletes a group from the Databricks workspace. */
   public void delete(DeleteGroupRequest request) {
     impl.delete(request);
   }
@@ -58,20 +52,12 @@ public class GroupsAPI {
     return get(new GetGroupRequest().setId(id));
   }
 
-  /**
-   * Get group details.
-   *
-   * <p>Gets the information for a specific group in the Databricks workspace.
-   */
+  /** Gets the information for a specific group in the Databricks workspace. */
   public Group get(GetGroupRequest request) {
     return impl.get(request);
   }
 
-  /**
-   * List group details.
-   *
-   * <p>Gets all details of the groups associated with the Databricks workspace.
-   */
+  /** Gets all details of the groups associated with the Databricks workspace. */
   public Iterable<Group> list(ListGroupsRequest request) {
     request.setStartIndex(1L);
     if (request.getCount() == null) {
@@ -96,11 +82,7 @@ public class GroupsAPI {
     patch(new PartialUpdate().setId(id));
   }
 
-  /**
-   * Update group details.
-   *
-   * <p>Partially updates the details of a group.
-   */
+  /** Partially updates the details of a group. */
   public void patch(PartialUpdate request) {
     impl.patch(request);
   }
@@ -109,11 +91,7 @@ public class GroupsAPI {
     update(new Group().setId(id));
   }
 
-  /**
-   * Replace a group.
-   *
-   * <p>Updates the details of a group by replacing the entire group entity.
-   */
+  /** Updates the details of a group by replacing the entire group entity. */
   public void update(Group request) {
     impl.update(request);
   }

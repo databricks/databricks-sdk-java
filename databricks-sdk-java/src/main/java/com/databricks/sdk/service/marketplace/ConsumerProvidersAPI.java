@@ -24,11 +24,7 @@ public class ConsumerProvidersAPI {
     impl = mock;
   }
 
-  /**
-   * Get one batch of providers. One may specify up to 50 IDs per request.
-   *
-   * <p>Batch get a provider in the Databricks Marketplace with at least one visible listing.
-   */
+  /** Batch get a provider in the Databricks Marketplace with at least one visible listing. */
   public BatchGetProvidersResponse batchGet(BatchGetProvidersRequest request) {
     return impl.batchGet(request);
   }
@@ -37,20 +33,12 @@ public class ConsumerProvidersAPI {
     return get(new GetProviderRequest().setId(id));
   }
 
-  /**
-   * Get a provider.
-   *
-   * <p>Get a provider in the Databricks Marketplace with at least one visible listing.
-   */
+  /** Get a provider in the Databricks Marketplace with at least one visible listing. */
   public GetProviderResponse get(GetProviderRequest request) {
     return impl.get(request);
   }
 
-  /**
-   * List providers.
-   *
-   * <p>List all providers in the Databricks Marketplace with at least one visible listing.
-   */
+  /** List all providers in the Databricks Marketplace with at least one visible listing. */
   public Iterable<ProviderInfo> list(ListProvidersRequest request) {
     return new Paginator<>(
         request,

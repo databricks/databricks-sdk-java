@@ -10,11 +10,7 @@ import java.util.Objects;
 /** GCP long-lived credential. Databricks-created Google Cloud Storage service account. */
 @Generated
 public class DatabricksGcpServiceAccount {
-  /**
-   * The Databricks internal ID that represents this managed identity. This field is only used to
-   * persist the credential_id once it is fetched from the credentials manager - as we only use the
-   * protobuf serializer to store credentials, this ID gets persisted to the database
-   */
+  /** The Databricks internal ID that represents this managed identity. */
   @JsonProperty("credential_id")
   private String credentialId;
 

@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete a tag on a logged model */
 @Generated
 public class DeleteLoggedModelTagRequest {
   /** The ID of the logged model to delete the tag from. */

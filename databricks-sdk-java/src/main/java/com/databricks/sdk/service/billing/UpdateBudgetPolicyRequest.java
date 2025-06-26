@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Update a budget policy */
 @Generated
 public class UpdateBudgetPolicyRequest {
   /** DEPRECATED. This is redundant field as LimitConfig is part of the BudgetPolicy */

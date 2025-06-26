@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get a logged model */
 @Generated
 public class GetLoggedModelRequest {
   /** The ID of the logged model to retrieve. */

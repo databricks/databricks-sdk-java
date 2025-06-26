@@ -10,6 +10,7 @@ import com.databricks.sdk.core.oauth.DataPlaneTokenSource;
 import com.databricks.sdk.core.oauth.Token;
 import com.databricks.sdk.support.Generated;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 /** Package-local implementation of ServingEndpointsDataPlane */
@@ -37,11 +38,15 @@ class ServingEndpointsDataPlaneImpl implements ServingEndpointsDataPlaneService 
 
     return infos.computeIfAbsent(
         key,
-        k -> {
-          ServingEndpointDetailed response =
-              servingEndpointsAPI.get(new GetServingEndpointRequest().setName(request.getName()));
-          return response.getDataPlaneInfo().getQueryInfo();
-        });
+        k ->
+            Optional.of(new GetServingEndpointRequest().setName(request.getName()))
+                .map(r -> servingEndpointsAPI.get(r))
+                .map(r -> r.getDataPlaneInfo())
+                .map(r -> r.getQueryInfo())
+                .orElseThrow(
+                    () ->
+                        new DatabricksException(
+                            "Could not find route optimized data plane info for: " + key)));
   }
 
   @Override

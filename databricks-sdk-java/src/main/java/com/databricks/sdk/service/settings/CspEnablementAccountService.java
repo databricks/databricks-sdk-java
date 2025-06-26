@@ -18,19 +18,11 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface CspEnablementAccountService {
-  /**
-   * Get the compliance security profile setting for new workspaces.
-   *
-   * <p>Gets the compliance security profile setting for new workspaces.
-   */
+  /** Gets the compliance security profile setting for new workspaces. */
   CspEnablementAccountSetting get(
       GetCspEnablementAccountSettingRequest getCspEnablementAccountSettingRequest);
 
-  /**
-   * Update the compliance security profile setting for new workspaces.
-   *
-   * <p>Updates the value of the compliance security profile setting for new workspaces.
-   */
+  /** Updates the value of the compliance security profile setting for new workspaces. */
   CspEnablementAccountSetting update(
       UpdateCspEnablementAccountSettingRequest updateCspEnablementAccountSettingRequest);
 }

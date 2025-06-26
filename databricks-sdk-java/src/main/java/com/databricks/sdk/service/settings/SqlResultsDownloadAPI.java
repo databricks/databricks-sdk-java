@@ -26,20 +26,12 @@ public class SqlResultsDownloadAPI {
     impl = mock;
   }
 
-  /**
-   * Delete the SQL Results Download setting.
-   *
-   * <p>Reverts the SQL Results Download setting to its default value.
-   */
+  /** Reverts the SQL Results Download setting to its default value. */
   public DeleteSqlResultsDownloadResponse delete(DeleteSqlResultsDownloadRequest request) {
     return impl.delete(request);
   }
 
-  /**
-   * Get the SQL Results Download setting.
-   *
-   * <p>Gets the SQL Results Download setting.
-   */
+  /** Gets the SQL Results Download setting. */
   public SqlResultsDownload get(GetSqlResultsDownloadRequest request) {
     return impl.get(request);
   }
@@ -53,11 +45,7 @@ public class SqlResultsDownloadAPI {
             .setFieldMask(fieldMask));
   }
 
-  /**
-   * Update the SQL Results Download setting.
-   *
-   * <p>Updates the SQL Results Download setting.
-   */
+  /** Updates the SQL Results Download setting. */
   public SqlResultsDownload update(UpdateSqlResultsDownloadRequest request) {
     return impl.update(request);
   }

@@ -32,10 +32,7 @@ public class AccountGroupsAPI {
   }
 
   /**
-   * Create a new group.
-   *
-   * <p>Creates a group in the Databricks account with a unique name, using the supplied group
-   * details.
+   * Creates a group in the Databricks account with a unique name, using the supplied group details.
    */
   public Group create(Group request) {
     return impl.create(request);
@@ -45,11 +42,7 @@ public class AccountGroupsAPI {
     delete(new DeleteAccountGroupRequest().setId(id));
   }
 
-  /**
-   * Delete a group.
-   *
-   * <p>Deletes a group from the Databricks account.
-   */
+  /** Deletes a group from the Databricks account. */
   public void delete(DeleteAccountGroupRequest request) {
     impl.delete(request);
   }
@@ -58,20 +51,12 @@ public class AccountGroupsAPI {
     return get(new GetAccountGroupRequest().setId(id));
   }
 
-  /**
-   * Get group details.
-   *
-   * <p>Gets the information for a specific group in the Databricks account.
-   */
+  /** Gets the information for a specific group in the Databricks account. */
   public Group get(GetAccountGroupRequest request) {
     return impl.get(request);
   }
 
-  /**
-   * List group details.
-   *
-   * <p>Gets all details of the groups associated with the Databricks account.
-   */
+  /** Gets all details of the groups associated with the Databricks account. */
   public Iterable<Group> list(ListAccountGroupsRequest request) {
     request.setStartIndex(1L);
     if (request.getCount() == null) {
@@ -96,11 +81,7 @@ public class AccountGroupsAPI {
     patch(new PartialUpdate().setId(id));
   }
 
-  /**
-   * Update group details.
-   *
-   * <p>Partially updates the details of a group.
-   */
+  /** Partially updates the details of a group. */
   public void patch(PartialUpdate request) {
     impl.patch(request);
   }
@@ -109,11 +90,7 @@ public class AccountGroupsAPI {
     update(new Group().setId(id));
   }
 
-  /**
-   * Replace a group.
-   *
-   * <p>Updates the details of a group by replacing the entire group entity.
-   */
+  /** Updates the details of a group by replacing the entire group entity. */
   public void update(Group request) {
     impl.update(request);
   }

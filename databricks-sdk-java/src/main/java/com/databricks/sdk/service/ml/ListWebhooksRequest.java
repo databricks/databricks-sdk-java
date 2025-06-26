@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Collection;
 import java.util.Objects;
 
-/** List registry webhooks */
 @Generated
 public class ListWebhooksRequest {
   /**

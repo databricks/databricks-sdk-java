@@ -11,7 +11,9 @@ import java.util.Objects;
 
 @Generated
 public class QueryFilter {
-  /** A range filter for query submitted time. The time range must be <= 30 days. */
+  /**
+   * A range filter for query submitted time. The time range must be less than or equal to 30 days.
+   */
   @JsonProperty("query_start_time_range")
   @QueryParam("query_start_time_range")
   private TimeRange queryStartTimeRange;
@@ -21,7 +23,12 @@ public class QueryFilter {
   @QueryParam("statement_ids")
   private Collection<String> statementIds;
 
-  /** */
+  /**
+   * A list of statuses (QUEUED, RUNNING, CANCELED, FAILED, FINISHED) to match query results.
+   * Corresponds to the `status` field in the response. Filtering for multiple statuses is not
+   * recommended. Instead, opt to filter by a single status multiple times and then combine the
+   * results.
+   */
   @JsonProperty("statuses")
   @QueryParam("statuses")
   private Collection<QueryStatus> statuses;

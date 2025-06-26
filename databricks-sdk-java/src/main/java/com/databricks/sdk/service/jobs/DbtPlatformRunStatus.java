@@ -4,9 +4,9 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 
-/** Response enumeration from calling the dbt Cloud API, for inclusion in output */
+/** Response enumeration from calling the dbt platform API, for inclusion in output */
 @Generated
-public enum DbtCloudRunStatus {
+public enum DbtPlatformRunStatus {
   CANCELLED,
   ERROR,
   QUEUED,

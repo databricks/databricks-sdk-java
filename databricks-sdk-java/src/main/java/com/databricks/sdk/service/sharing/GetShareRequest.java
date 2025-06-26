@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get a share */
 @Generated
 public class GetShareRequest {
   /** Query for data to include in the share. */

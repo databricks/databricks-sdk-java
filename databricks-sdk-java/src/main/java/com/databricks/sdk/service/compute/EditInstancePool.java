@@ -61,6 +61,20 @@ public class EditInstancePool {
   @JsonProperty("node_type_id")
   private String nodeTypeId;
 
+  /**
+   * If set, what the configurable throughput (in Mb/s) for the remote disk is. Currently only
+   * supported for GCP HYPERDISK_BALANCED types.
+   */
+  @JsonProperty("remote_disk_throughput")
+  private Long remoteDiskThroughput;
+
+  /**
+   * If set, what the total initial volume size (in GB) of the remote disks should be. Currently
+   * only supported for GCP HYPERDISK_BALANCED types.
+   */
+  @JsonProperty("total_initial_remote_disk_size")
+  private Long totalInitialRemoteDiskSize;
+
   public EditInstancePool setCustomTags(Map<String, String> customTags) {
     this.customTags = customTags;
     return this;
@@ -125,6 +139,24 @@ public class EditInstancePool {
     return nodeTypeId;
   }
 
+  public EditInstancePool setRemoteDiskThroughput(Long remoteDiskThroughput) {
+    this.remoteDiskThroughput = remoteDiskThroughput;
+    return this;
+  }
+
+  public Long getRemoteDiskThroughput() {
+    return remoteDiskThroughput;
+  }
+
+  public EditInstancePool setTotalInitialRemoteDiskSize(Long totalInitialRemoteDiskSize) {
+    this.totalInitialRemoteDiskSize = totalInitialRemoteDiskSize;
+    return this;
+  }
+
+  public Long getTotalInitialRemoteDiskSize() {
+    return totalInitialRemoteDiskSize;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -137,7 +169,9 @@ public class EditInstancePool {
         && Objects.equals(instancePoolName, that.instancePoolName)
         && Objects.equals(maxCapacity, that.maxCapacity)
         && Objects.equals(minIdleInstances, that.minIdleInstances)
-        && Objects.equals(nodeTypeId, that.nodeTypeId);
+        && Objects.equals(nodeTypeId, that.nodeTypeId)
+        && Objects.equals(remoteDiskThroughput, that.remoteDiskThroughput)
+        && Objects.equals(totalInitialRemoteDiskSize, that.totalInitialRemoteDiskSize);
   }
 
   @Override
@@ -149,7 +183,9 @@ public class EditInstancePool {
         instancePoolName,
         maxCapacity,
         minIdleInstances,
-        nodeTypeId);
+        nodeTypeId,
+        remoteDiskThroughput,
+        totalInitialRemoteDiskSize);
   }
 
   @Override
@@ -162,6 +198,8 @@ public class EditInstancePool {
         .add("maxCapacity", maxCapacity)
         .add("minIdleInstances", minIdleInstances)
         .add("nodeTypeId", nodeTypeId)
+        .add("remoteDiskThroughput", remoteDiskThroughput)
+        .add("totalInitialRemoteDiskSize", totalInitialRemoteDiskSize)
         .toString();
   }
 }

@@ -37,9 +37,7 @@ public class CatalogsAPI {
   }
 
   /**
-   * Create a catalog.
-   *
-   * <p>Creates a new catalog instance in the parent metastore if the caller is a metastore admin or
+   * Creates a new catalog instance in the parent metastore if the caller is a metastore admin or
    * has the **CREATE_CATALOG** privilege.
    */
   public CatalogInfo create(CreateCatalog request) {
@@ -51,10 +49,8 @@ public class CatalogsAPI {
   }
 
   /**
-   * Delete a catalog.
-   *
-   * <p>Deletes the catalog that matches the supplied name. The caller must be a metastore admin or
-   * the owner of the catalog.
+   * Deletes the catalog that matches the supplied name. The caller must be a metastore admin or the
+   * owner of the catalog.
    */
   public void delete(DeleteCatalogRequest request) {
     impl.delete(request);
@@ -65,22 +61,18 @@ public class CatalogsAPI {
   }
 
   /**
-   * Get a catalog.
-   *
-   * <p>Gets the specified catalog in a metastore. The caller must be a metastore admin, the owner
-   * of the catalog, or a user that has the **USE_CATALOG** privilege set for their account.
+   * Gets the specified catalog in a metastore. The caller must be a metastore admin, the owner of
+   * the catalog, or a user that has the **USE_CATALOG** privilege set for their account.
    */
   public CatalogInfo get(GetCatalogRequest request) {
     return impl.get(request);
   }
 
   /**
-   * List catalogs.
-   *
-   * <p>Gets an array of catalogs in the metastore. If the caller is the metastore admin, all
-   * catalogs will be retrieved. Otherwise, only catalogs owned by the caller (or for which the
-   * caller has the **USE_CATALOG** privilege) will be retrieved. There is no guarantee of a
-   * specific ordering of the elements in the array.
+   * Gets an array of catalogs in the metastore. If the caller is the metastore admin, all catalogs
+   * will be retrieved. Otherwise, only catalogs owned by the caller (or for which the caller has
+   * the **USE_CATALOG** privilege) will be retrieved. There is no guarantee of a specific ordering
+   * of the elements in the array.
    */
   public Iterable<CatalogInfo> list(ListCatalogsRequest request) {
     return new Paginator<>(
@@ -101,10 +93,8 @@ public class CatalogsAPI {
   }
 
   /**
-   * Update a catalog.
-   *
-   * <p>Updates the catalog that matches the supplied name. The caller must be either the owner of
-   * the catalog, or a metastore admin (when changing the owner field of the catalog).
+   * Updates the catalog that matches the supplied name. The caller must be either the owner of the
+   * catalog, or a metastore admin (when changing the owner field of the catalog).
    */
   public CatalogInfo update(UpdateCatalog request) {
     return impl.update(request);

@@ -33,9 +33,7 @@ public class BudgetsAPI {
   }
 
   /**
-   * Create new budget.
-   *
-   * <p>Create a new budget configuration for an account. For full details, see
+   * Create a new budget configuration for an account. For full details, see
    * https://docs.databricks.com/en/admin/account-settings/budgets.html.
    */
   public CreateBudgetConfigurationResponse create(CreateBudgetConfigurationRequest request) {
@@ -47,9 +45,7 @@ public class BudgetsAPI {
   }
 
   /**
-   * Delete budget.
-   *
-   * <p>Deletes a budget configuration for an account. Both account and budget configuration are
+   * Deletes a budget configuration for an account. Both account and budget configuration are
    * specified by ID. This cannot be undone.
    */
   public void delete(DeleteBudgetConfigurationRequest request) {
@@ -61,20 +57,14 @@ public class BudgetsAPI {
   }
 
   /**
-   * Get budget.
-   *
-   * <p>Gets a budget configuration for an account. Both account and budget configuration are
-   * specified by ID.
+   * Gets a budget configuration for an account. Both account and budget configuration are specified
+   * by ID.
    */
   public GetBudgetConfigurationResponse get(GetBudgetConfigurationRequest request) {
     return impl.get(request);
   }
 
-  /**
-   * Get all budgets.
-   *
-   * <p>Gets all budgets associated with this account.
-   */
+  /** Gets all budgets associated with this account. */
   public Iterable<BudgetConfiguration> list(ListBudgetConfigurationsRequest request) {
     return new Paginator<>(
         request,
@@ -95,9 +85,7 @@ public class BudgetsAPI {
   }
 
   /**
-   * Modify budget.
-   *
-   * <p>Updates a budget configuration for an account. Both account and budget configuration are
+   * Updates a budget configuration for an account. Both account and budget configuration are
    * specified by ID.
    */
   public UpdateBudgetConfigurationResponse update(UpdateBudgetConfigurationRequest request) {

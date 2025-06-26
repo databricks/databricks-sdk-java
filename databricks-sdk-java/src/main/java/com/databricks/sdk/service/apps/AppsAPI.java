@@ -183,11 +183,7 @@ public class AppsAPI {
     return create(new CreateAppRequest().setApp(app));
   }
 
-  /**
-   * Create an app.
-   *
-   * <p>Creates a new app.
-   */
+  /** Creates a new app. */
   public Wait<App, App> create(CreateAppRequest request) {
     App response = impl.create(request);
     return new Wait<>(
@@ -198,11 +194,7 @@ public class AppsAPI {
     return delete(new DeleteAppRequest().setName(name));
   }
 
-  /**
-   * Delete an app.
-   *
-   * <p>Deletes an app.
-   */
+  /** Deletes an app. */
   public App delete(DeleteAppRequest request) {
     return impl.delete(request);
   }
@@ -212,11 +204,7 @@ public class AppsAPI {
         new CreateAppDeploymentRequest().setAppName(appName).setAppDeployment(appDeployment));
   }
 
-  /**
-   * Create an app deployment.
-   *
-   * <p>Creates an app deployment for the app with the supplied name.
-   */
+  /** Creates an app deployment for the app with the supplied name. */
   public Wait<AppDeployment, AppDeployment> deploy(CreateAppDeploymentRequest request) {
     AppDeployment response = impl.deploy(request);
     return new Wait<>(
@@ -230,11 +218,7 @@ public class AppsAPI {
     return get(new GetAppRequest().setName(name));
   }
 
-  /**
-   * Get an app.
-   *
-   * <p>Retrieves information for the app with the supplied name.
-   */
+  /** Retrieves information for the app with the supplied name. */
   public App get(GetAppRequest request) {
     return impl.get(request);
   }
@@ -244,11 +228,7 @@ public class AppsAPI {
         new GetAppDeploymentRequest().setAppName(appName).setDeploymentId(deploymentId));
   }
 
-  /**
-   * Get an app deployment.
-   *
-   * <p>Retrieves information for the app deployment with the supplied name and deployment id.
-   */
+  /** Retrieves information for the app deployment with the supplied name and deployment id. */
   public AppDeployment getDeployment(GetAppDeploymentRequest request) {
     return impl.getDeployment(request);
   }
@@ -257,11 +237,7 @@ public class AppsAPI {
     return getPermissionLevels(new GetAppPermissionLevelsRequest().setAppName(appName));
   }
 
-  /**
-   * Get app permission levels.
-   *
-   * <p>Gets the permission levels that a user can have on an object.
-   */
+  /** Gets the permission levels that a user can have on an object. */
   public GetAppPermissionLevelsResponse getPermissionLevels(GetAppPermissionLevelsRequest request) {
     return impl.getPermissionLevels(request);
   }
@@ -270,20 +246,12 @@ public class AppsAPI {
     return getPermissions(new GetAppPermissionsRequest().setAppName(appName));
   }
 
-  /**
-   * Get app permissions.
-   *
-   * <p>Gets the permissions of an app. Apps can inherit permissions from their root object.
-   */
+  /** Gets the permissions of an app. Apps can inherit permissions from their root object. */
   public AppPermissions getPermissions(GetAppPermissionsRequest request) {
     return impl.getPermissions(request);
   }
 
-  /**
-   * List apps.
-   *
-   * <p>Lists all apps in the workspace.
-   */
+  /** Lists all apps in the workspace. */
   public Iterable<App> list(ListAppsRequest request) {
     return new Paginator<>(
         request,
@@ -302,11 +270,7 @@ public class AppsAPI {
     return listDeployments(new ListAppDeploymentsRequest().setAppName(appName));
   }
 
-  /**
-   * List app deployments.
-   *
-   * <p>Lists all app deployments for the app with the supplied name.
-   */
+  /** Lists all app deployments for the app with the supplied name. */
   public Iterable<AppDeployment> listDeployments(ListAppDeploymentsRequest request) {
     return new Paginator<>(
         request,
@@ -326,11 +290,8 @@ public class AppsAPI {
   }
 
   /**
-   * Set app permissions.
-   *
-   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
-   * direct permissions if none are specified. Objects can inherit permissions from their root
-   * object.
+   * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
+   * permissions if none are specified. Objects can inherit permissions from their root object.
    */
   public AppPermissions setPermissions(AppPermissionsRequest request) {
     return impl.setPermissions(request);
@@ -340,11 +301,7 @@ public class AppsAPI {
     return start(new StartAppRequest().setName(name));
   }
 
-  /**
-   * Start an app.
-   *
-   * <p>Start the last active deployment of the app in the workspace.
-   */
+  /** Start the last active deployment of the app in the workspace. */
   public Wait<App, App> start(StartAppRequest request) {
     App response = impl.start(request);
     return new Wait<>(
@@ -355,11 +312,7 @@ public class AppsAPI {
     return stop(new StopAppRequest().setName(name));
   }
 
-  /**
-   * Stop an app.
-   *
-   * <p>Stops the active deployment of the app in the workspace.
-   */
+  /** Stops the active deployment of the app in the workspace. */
   public Wait<App, App> stop(StopAppRequest request) {
     App response = impl.stop(request);
     return new Wait<>(
@@ -370,11 +323,7 @@ public class AppsAPI {
     return update(new UpdateAppRequest().setName(name).setApp(app));
   }
 
-  /**
-   * Update an app.
-   *
-   * <p>Updates the app with the supplied name.
-   */
+  /** Updates the app with the supplied name. */
   public App update(UpdateAppRequest request) {
     return impl.update(request);
   }
@@ -383,11 +332,7 @@ public class AppsAPI {
     return updatePermissions(new AppPermissionsRequest().setAppName(appName));
   }
 
-  /**
-   * Update app permissions.
-   *
-   * <p>Updates the permissions on an app. Apps can inherit permissions from their root object.
-   */
+  /** Updates the permissions on an app. Apps can inherit permissions from their root object. */
   public AppPermissions updatePermissions(AppPermissionsRequest request) {
     return impl.updatePermissions(request);
   }

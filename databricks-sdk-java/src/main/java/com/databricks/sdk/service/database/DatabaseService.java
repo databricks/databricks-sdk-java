@@ -19,7 +19,14 @@ public interface DatabaseService {
   DatabaseInstance createDatabaseInstance(
       CreateDatabaseInstanceRequest createDatabaseInstanceRequest);
 
-  /** Create a Database Table. */
+  /** Create a role for a Database Instance. */
+  DatabaseInstanceRole createDatabaseInstanceRole(
+      CreateDatabaseInstanceRoleRequest createDatabaseInstanceRoleRequest);
+
+  /**
+   * Create a Database Table. Useful for registering pre-existing PG tables in UC. See
+   * CreateSyncedDatabaseTable for creating synced tables in PG from a source table in UC.
+   */
   DatabaseTable createDatabaseTable(CreateDatabaseTableRequest createDatabaseTableRequest);
 
   /** Create a Synced Database Table. */
@@ -31,6 +38,10 @@ public interface DatabaseService {
 
   /** Delete a Database Instance. */
   void deleteDatabaseInstance(DeleteDatabaseInstanceRequest deleteDatabaseInstanceRequest);
+
+  /** Deletes a role for a Database Instance. */
+  void deleteDatabaseInstanceRole(
+      DeleteDatabaseInstanceRoleRequest deleteDatabaseInstanceRoleRequest);
 
   /** Delete a Database Table. */
   void deleteDatabaseTable(DeleteDatabaseTableRequest deleteDatabaseTableRequest);
@@ -52,12 +63,20 @@ public interface DatabaseService {
   /** Get a Database Instance. */
   DatabaseInstance getDatabaseInstance(GetDatabaseInstanceRequest getDatabaseInstanceRequest);
 
+  /** Gets a role for a Database Instance. */
+  DatabaseInstanceRole getDatabaseInstanceRole(
+      GetDatabaseInstanceRoleRequest getDatabaseInstanceRoleRequest);
+
   /** Get a Database Table. */
   DatabaseTable getDatabaseTable(GetDatabaseTableRequest getDatabaseTableRequest);
 
   /** Get a Synced Database Table. */
   SyncedDatabaseTable getSyncedDatabaseTable(
       GetSyncedDatabaseTableRequest getSyncedDatabaseTableRequest);
+
+  /** START OF PG ROLE APIs Section */
+  ListDatabaseInstanceRolesResponse listDatabaseInstanceRoles(
+      ListDatabaseInstanceRolesRequest listDatabaseInstanceRolesRequest);
 
   /** List Database Instances. */
   ListDatabaseInstancesResponse listDatabaseInstances(

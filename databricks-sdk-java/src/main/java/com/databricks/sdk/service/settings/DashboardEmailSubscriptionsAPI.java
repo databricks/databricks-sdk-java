@@ -27,21 +27,13 @@ public class DashboardEmailSubscriptionsAPI {
     impl = mock;
   }
 
-  /**
-   * Delete the Dashboard Email Subscriptions setting.
-   *
-   * <p>Reverts the Dashboard Email Subscriptions setting to its default value.
-   */
+  /** Reverts the Dashboard Email Subscriptions setting to its default value. */
   public DeleteDashboardEmailSubscriptionsResponse delete(
       DeleteDashboardEmailSubscriptionsRequest request) {
     return impl.delete(request);
   }
 
-  /**
-   * Get the Dashboard Email Subscriptions setting.
-   *
-   * <p>Gets the Dashboard Email Subscriptions setting.
-   */
+  /** Gets the Dashboard Email Subscriptions setting. */
   public DashboardEmailSubscriptions get(GetDashboardEmailSubscriptionsRequest request) {
     return impl.get(request);
   }
@@ -55,11 +47,7 @@ public class DashboardEmailSubscriptionsAPI {
             .setFieldMask(fieldMask));
   }
 
-  /**
-   * Update the Dashboard Email Subscriptions setting.
-   *
-   * <p>Updates the Dashboard Email Subscriptions setting.
-   */
+  /** Updates the Dashboard Email Subscriptions setting. */
   public DashboardEmailSubscriptions update(UpdateDashboardEmailSubscriptionsRequest request) {
     return impl.update(request);
   }

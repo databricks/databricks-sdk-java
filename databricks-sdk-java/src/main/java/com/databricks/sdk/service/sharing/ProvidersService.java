@@ -14,62 +14,48 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface ProvidersService {
   /**
-   * Create an auth provider.
-   *
-   * <p>Creates a new authentication provider minimally based on a name and authentication type. The
+   * Creates a new authentication provider minimally based on a name and authentication type. The
    * caller must be an admin on the metastore.
    */
   ProviderInfo create(CreateProvider createProvider);
 
   /**
-   * Delete a provider.
-   *
-   * <p>Deletes an authentication provider, if the caller is a metastore admin or is the owner of
-   * the provider.
+   * Deletes an authentication provider, if the caller is a metastore admin or is the owner of the
+   * provider.
    */
   void delete(DeleteProviderRequest deleteProviderRequest);
 
   /**
-   * Get a provider.
-   *
-   * <p>Gets a specific authentication provider. The caller must supply the name of the provider,
-   * and must either be a metastore admin or the owner of the provider.
+   * Gets a specific authentication provider. The caller must supply the name of the provider, and
+   * must either be a metastore admin or the owner of the provider.
    */
   ProviderInfo get(GetProviderRequest getProviderRequest);
 
   /**
-   * List providers.
-   *
-   * <p>Gets an array of available authentication providers. The caller must either be a metastore
+   * Gets an array of available authentication providers. The caller must either be a metastore
    * admin or the owner of the providers. Providers not owned by the caller are not included in the
    * response. There is no guarantee of a specific ordering of the elements in the array.
    */
   ListProvidersResponse list(ListProvidersRequest listProvidersRequest);
 
   /**
-   * List assets by provider share.
-   *
-   * <p>Get arrays of assets associated with a specified provider's share. The caller is the
-   * recipient of the share.
+   * Get arrays of assets associated with a specified provider's share. The caller is the recipient
+   * of the share.
    */
   ListProviderShareAssetsResponse listProviderShareAssets(
       ListProviderShareAssetsRequest listProviderShareAssetsRequest);
 
   /**
-   * List shares by Provider.
-   *
-   * <p>Gets an array of a specified provider's shares within the metastore where:
+   * Gets an array of a specified provider's shares within the metastore where:
    *
    * <p>* the caller is a metastore admin, or * the caller is the owner.
    */
   ListProviderSharesResponse listShares(ListSharesRequest listSharesRequest);
 
   /**
-   * Update a provider.
-   *
-   * <p>Updates the information for an authentication provider, if the caller is a metastore admin
-   * or is the owner of the provider. If the update changes the provider name, the caller must be
-   * both a metastore admin and the owner of the provider.
+   * Updates the information for an authentication provider, if the caller is a metastore admin or
+   * is the owner of the provider. If the update changes the provider name, the caller must be both
+   * a metastore admin and the owner of the provider.
    */
   ProviderInfo update(UpdateProvider updateProvider);
 }

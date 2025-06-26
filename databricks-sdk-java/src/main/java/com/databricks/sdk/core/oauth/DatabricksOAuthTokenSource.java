@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
  * Implementation of TokenSource that handles OAuth token exchange for Databricks authentication.
  * This class manages the OAuth token exchange flow using ID tokens to obtain access tokens.
  */
-public class DatabricksOAuthTokenSource extends RefreshableTokenSource {
+public class DatabricksOAuthTokenSource implements TokenSource {
   private static final Logger LOG = LoggerFactory.getLogger(DatabricksOAuthTokenSource.class);
 
   /** OAuth client ID used for token exchange. */
@@ -128,7 +128,7 @@ public class DatabricksOAuthTokenSource extends RefreshableTokenSource {
    * @throws NullPointerException when any of the required parameters are null.
    */
   @Override
-  public Token refresh() {
+  public Token getToken() {
     Objects.requireNonNull(clientId, "ClientID cannot be null");
     Objects.requireNonNull(host, "Host cannot be null");
     Objects.requireNonNull(endpoints, "Endpoints cannot be null");

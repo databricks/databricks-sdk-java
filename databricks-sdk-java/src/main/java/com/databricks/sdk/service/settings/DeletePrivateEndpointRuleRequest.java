@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete a private endpoint rule */
 @Generated
 public class DeletePrivateEndpointRuleRequest {
   /** Your Network Connectvity Configuration ID. */

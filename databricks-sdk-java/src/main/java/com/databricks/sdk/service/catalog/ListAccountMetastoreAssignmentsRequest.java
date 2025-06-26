@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get all workspaces assigned to a metastore */
 @Generated
 public class ListAccountMetastoreAssignmentsRequest {
   /** Unity Catalog metastore ID */

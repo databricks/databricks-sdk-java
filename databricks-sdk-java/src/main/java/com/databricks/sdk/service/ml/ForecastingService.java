@@ -12,19 +12,11 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface ForecastingService {
-  /**
-   * Create a forecasting experiment.
-   *
-   * <p>Creates a serverless forecasting experiment. Returns the experiment ID.
-   */
+  /** Creates a serverless forecasting experiment. Returns the experiment ID. */
   CreateForecastingExperimentResponse createExperiment(
       CreateForecastingExperimentRequest createForecastingExperimentRequest);
 
-  /**
-   * Get a forecasting experiment.
-   *
-   * <p>Public RPC to get forecasting experiment
-   */
+  /** Public RPC to get forecasting experiment */
   ForecastingExperiment getExperiment(
       GetForecastingExperimentRequest getForecastingExperimentRequest);
 }

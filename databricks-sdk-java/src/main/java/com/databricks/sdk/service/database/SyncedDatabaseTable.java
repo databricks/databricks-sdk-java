@@ -25,17 +25,16 @@ public class SyncedDatabaseTable {
   private String databaseInstanceName;
 
   /**
-   * Target Postgres database object (logical database) name for this table. This field is optional
-   * in all scenarios.
+   * Target Postgres database object (logical database) name for this table.
    *
    * <p>When creating a synced table in a registered Postgres catalog, the target Postgres database
    * name is inferred to be that of the registered catalog. If this field is specified in this
    * scenario, the Postgres database name MUST match that of the registered catalog (or the request
    * will be rejected).
    *
-   * <p>When creating a synced table in a standard catalog, the target database name is inferred to
-   * be that of the standard catalog. In this scenario, specifying this field will allow targeting
-   * an arbitrary postgres database.
+   * <p>When creating a synced table in a standard catalog, this field is required. In this
+   * scenario, specifying this field will allow targeting an arbitrary postgres database. Note that
+   * this has implications for the `create_database_objects_is_missing` field in `spec`.
    */
   @JsonProperty("logical_database_name")
   private String logicalDatabaseName;
@@ -47,10 +46,6 @@ public class SyncedDatabaseTable {
   /** Specification of a synced database table. */
   @JsonProperty("spec")
   private SyncedTableSpec spec;
-
-  /** Data serving REST API URL for this table */
-  @JsonProperty("table_serving_url")
-  private String tableServingUrl;
 
   /**
    * The provisioning state of the synced table entity in Unity Catalog. This is distinct from the
@@ -106,15 +101,6 @@ public class SyncedDatabaseTable {
     return spec;
   }
 
-  public SyncedDatabaseTable setTableServingUrl(String tableServingUrl) {
-    this.tableServingUrl = tableServingUrl;
-    return this;
-  }
-
-  public String getTableServingUrl() {
-    return tableServingUrl;
-  }
-
   public SyncedDatabaseTable setUnityCatalogProvisioningState(
       ProvisioningInfoState unityCatalogProvisioningState) {
     this.unityCatalogProvisioningState = unityCatalogProvisioningState;
@@ -135,7 +121,6 @@ public class SyncedDatabaseTable {
         && Objects.equals(logicalDatabaseName, that.logicalDatabaseName)
         && Objects.equals(name, that.name)
         && Objects.equals(spec, that.spec)
-        && Objects.equals(tableServingUrl, that.tableServingUrl)
         && Objects.equals(unityCatalogProvisioningState, that.unityCatalogProvisioningState);
   }
 
@@ -147,7 +132,6 @@ public class SyncedDatabaseTable {
         logicalDatabaseName,
         name,
         spec,
-        tableServingUrl,
         unityCatalogProvisioningState);
   }
 
@@ -159,7 +143,6 @@ public class SyncedDatabaseTable {
         .add("logicalDatabaseName", logicalDatabaseName)
         .add("name", name)
         .add("spec", spec)
-        .add("tableServingUrl", tableServingUrl)
         .add("unityCatalogProvisioningState", unityCatalogProvisioningState)
         .toString();
   }
