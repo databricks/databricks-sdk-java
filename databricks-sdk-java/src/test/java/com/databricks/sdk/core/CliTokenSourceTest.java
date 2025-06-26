@@ -8,7 +8,6 @@ import static org.mockito.Mockito.mockConstruction;
 import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
 
-import com.databricks.sdk.core.oauth.CachedTokenSource;
 import com.databricks.sdk.core.oauth.Token;
 import com.databricks.sdk.core.utils.Environment;
 import com.databricks.sdk.core.utils.OSUtilities;
@@ -129,7 +128,6 @@ public class CliTokenSourceTest {
 
       CliTokenSource tokenSource =
           new CliTokenSource(cmd, "token_type", "access_token", "expiry", env);
-      CachedTokenSource cachedTokenSource = new CachedTokenSource.Builder(tokenSource).build();
 
       String expiryStr = getExpiryStr(dateFormat, Duration.ofMinutes(minutesUntilExpiry));
 
@@ -153,7 +151,7 @@ public class CliTokenSourceTest {
                 when(mock.start()).thenReturn(process);
               })) {
         // Test refresh.
-        Token token = cachedTokenSource.getToken();
+        Token token = tokenSource.getToken();
         assertEquals("Bearer", token.getTokenType());
         assertEquals("test-token", token.getAccessToken());
         assertEquals(shouldBeExpired, token.getExpiry().isBefore(Instant.now()));
