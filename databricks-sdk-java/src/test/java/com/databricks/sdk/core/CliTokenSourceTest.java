@@ -151,7 +151,7 @@ public class CliTokenSourceTest {
                 when(mock.start()).thenReturn(process);
               })) {
         // Test refresh.
-        Token token = tokenSource.refresh();
+        Token token = tokenSource.getToken();
         assertEquals("Bearer", token.getTokenType());
         assertEquals("test-token", token.getAccessToken());
         assertEquals(shouldBeExpired, token.getExpiry().isBefore(Instant.now()));

@@ -13,9 +13,11 @@ import org.slf4j.LoggerFactory;
  *
  * <p>Implements the refresh_token OAuth grant type with optional token caching.
  */
-public class SessionCredentialsTokenSource extends RefreshableTokenSource {
+public class SessionCredentialsTokenSource implements TokenSource {
   private static final Logger LOGGER = LoggerFactory.getLogger(SessionCredentialsTokenSource.class);
 
+  // The token to use for the session
+  private Token token;
   // HTTP client for making token refresh requests
   private final HttpClient hc;
   // OAuth token endpoint URL for refresh requests
@@ -48,7 +50,7 @@ public class SessionCredentialsTokenSource extends RefreshableTokenSource {
       String clientSecret,
       Optional<String> redirectUrl,
       Optional<TokenCache> tokenCache) {
-    super(token);
+    this.token = token;
     this.hc = hc;
     this.tokenUrl = tokenUrl;
     this.clientId = clientId;
@@ -69,7 +71,7 @@ public class SessionCredentialsTokenSource extends RefreshableTokenSource {
    *     request fails.
    */
   @Override
-  protected Token refresh() {
+  public Token getToken() {
     if (this.token == null) {
       throw new DatabricksException("oauth2: token is not set");
     }
@@ -87,16 +89,16 @@ public class SessionCredentialsTokenSource extends RefreshableTokenSource {
       // cross-origin requests
       redirectUrl.ifPresent(url -> headers.put("Origin", url));
     }
-    Token newToken =
-        retrieveToken(
+    this.token =
+        TokenEndpointClient.retrieveToken(
             hc, clientId, clientSecret, tokenUrl, params, headers, AuthParameterPosition.BODY);
 
     // Save the refreshed token directly to cache
     tokenCache.ifPresent(
         cache -> {
-          cache.save(newToken);
+          cache.save(this.token);
           LOGGER.debug("Saved refreshed token to cache");
         });
-    return newToken;
+    return this.token;
   }
 }

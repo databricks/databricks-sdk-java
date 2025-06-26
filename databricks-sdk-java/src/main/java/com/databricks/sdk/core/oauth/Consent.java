@@ -269,7 +269,7 @@ public class Consent implements Serializable {
       headers.put("Origin", this.redirectUrl);
     }
     Token token =
-        RefreshableTokenSource.retrieveToken(
+        TokenEndpointClient.retrieveToken(
             this.hc,
             this.clientId,
             this.clientSecret,
