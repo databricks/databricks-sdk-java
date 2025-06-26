@@ -16,39 +16,25 @@ public interface CustomAppIntegrationService {
   /**
    * Create Custom OAuth App Integration.
    *
-   * <p>Create Custom OAuth App Integration.
-   *
    * <p>You can retrieve the custom OAuth app integration via :method:CustomAppIntegration/get.
    */
   CreateCustomAppIntegrationOutput create(CreateCustomAppIntegration createCustomAppIntegration);
 
   /**
-   * Delete Custom OAuth App Integration.
-   *
-   * <p>Delete an existing Custom OAuth App Integration. You can retrieve the custom OAuth app
+   * Delete an existing Custom OAuth App Integration. You can retrieve the custom OAuth app
    * integration via :method:CustomAppIntegration/get.
    */
   void delete(DeleteCustomAppIntegrationRequest deleteCustomAppIntegrationRequest);
 
-  /**
-   * Get OAuth Custom App Integration.
-   *
-   * <p>Gets the Custom OAuth App Integration for the given integration id.
-   */
+  /** Gets the Custom OAuth App Integration for the given integration id. */
   GetCustomAppIntegrationOutput get(GetCustomAppIntegrationRequest getCustomAppIntegrationRequest);
 
-  /**
-   * Get custom oauth app integrations.
-   *
-   * <p>Get the list of custom OAuth app integrations for the specified Databricks account
-   */
+  /** Get the list of custom OAuth app integrations for the specified Databricks account */
   GetCustomAppIntegrationsOutput list(
       ListCustomAppIntegrationsRequest listCustomAppIntegrationsRequest);
 
   /**
-   * Updates Custom OAuth App Integration.
-   *
-   * <p>Updates an existing custom OAuth App Integration. You can retrieve the custom OAuth app
+   * Updates an existing custom OAuth App Integration. You can retrieve the custom OAuth app
    * integration via :method:CustomAppIntegration/get.
    */
   void update(UpdateCustomAppIntegration updateCustomAppIntegration);

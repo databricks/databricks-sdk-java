@@ -29,20 +29,12 @@ public class DisableLegacyAccessAPI {
     impl = mock;
   }
 
-  /**
-   * Delete Legacy Access Disablement Status.
-   *
-   * <p>Deletes legacy access disablement status.
-   */
+  /** Deletes legacy access disablement status. */
   public DeleteDisableLegacyAccessResponse delete(DeleteDisableLegacyAccessRequest request) {
     return impl.delete(request);
   }
 
-  /**
-   * Retrieve Legacy Access Disablement Status.
-   *
-   * <p>Retrieves legacy access disablement Status.
-   */
+  /** Retrieves legacy access disablement Status. */
   public DisableLegacyAccess get(GetDisableLegacyAccessRequest request) {
     return impl.get(request);
   }
@@ -56,11 +48,7 @@ public class DisableLegacyAccessAPI {
             .setFieldMask(fieldMask));
   }
 
-  /**
-   * Update Legacy Access Disablement Status.
-   *
-   * <p>Updates legacy access disablement status.
-   */
+  /** Updates legacy access disablement status. */
   public DisableLegacyAccess update(UpdateDisableLegacyAccessRequest request) {
     return impl.update(request);
   }

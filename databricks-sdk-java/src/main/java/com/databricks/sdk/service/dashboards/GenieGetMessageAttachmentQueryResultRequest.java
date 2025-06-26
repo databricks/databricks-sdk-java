@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get message attachment SQL query result */
 @Generated
 public class GenieGetMessageAttachmentQueryResultRequest {
   /** Attachment ID */

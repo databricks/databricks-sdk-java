@@ -26,11 +26,7 @@ public class EnableExportNotebookAPI {
     impl = mock;
   }
 
-  /**
-   * Get the Notebook and File exporting setting.
-   *
-   * <p>Gets the Notebook and File exporting setting.
-   */
+  /** Gets the Notebook and File exporting setting. */
   public EnableExportNotebook getEnableExportNotebook() {
     return impl.getEnableExportNotebook();
   }
@@ -45,10 +41,8 @@ public class EnableExportNotebookAPI {
   }
 
   /**
-   * Update the Notebook and File exporting setting.
-   *
-   * <p>Updates the Notebook and File exporting setting. The model follows eventual consistency,
-   * which means the get after the update operation might receive stale values for some time.
+   * Updates the Notebook and File exporting setting. The model follows eventual consistency, which
+   * means the get after the update operation might receive stale values for some time.
    */
   public EnableExportNotebook patchEnableExportNotebook(UpdateEnableExportNotebookRequest request) {
     return impl.patchEnableExportNotebook(request);

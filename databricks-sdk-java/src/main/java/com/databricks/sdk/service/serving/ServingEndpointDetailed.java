@@ -38,6 +38,10 @@ public class ServingEndpointDetailed {
   @JsonProperty("data_plane_info")
   private ModelDataPlaneInfo dataPlaneInfo;
 
+  /** Description of the serving model */
+  @JsonProperty("description")
+  private String description;
+
   /** Endpoint invocation url if route optimization is enabled for endpoint */
   @JsonProperty("endpoint_url")
   private String endpointUrl;
@@ -133,6 +137,15 @@ public class ServingEndpointDetailed {
 
   public ModelDataPlaneInfo getDataPlaneInfo() {
     return dataPlaneInfo;
+  }
+
+  public ServingEndpointDetailed setDescription(String description) {
+    this.description = description;
+    return this;
+  }
+
+  public String getDescription() {
+    return description;
   }
 
   public ServingEndpointDetailed setEndpointUrl(String endpointUrl) {
@@ -237,6 +250,7 @@ public class ServingEndpointDetailed {
         && Objects.equals(creationTimestamp, that.creationTimestamp)
         && Objects.equals(creator, that.creator)
         && Objects.equals(dataPlaneInfo, that.dataPlaneInfo)
+        && Objects.equals(description, that.description)
         && Objects.equals(endpointUrl, that.endpointUrl)
         && Objects.equals(id, that.id)
         && Objects.equals(lastUpdatedTimestamp, that.lastUpdatedTimestamp)
@@ -258,6 +272,7 @@ public class ServingEndpointDetailed {
         creationTimestamp,
         creator,
         dataPlaneInfo,
+        description,
         endpointUrl,
         id,
         lastUpdatedTimestamp,
@@ -279,6 +294,7 @@ public class ServingEndpointDetailed {
         .add("creationTimestamp", creationTimestamp)
         .add("creator", creator)
         .add("dataPlaneInfo", dataPlaneInfo)
+        .add("description", description)
         .add("endpointUrl", endpointUrl)
         .add("id", id)
         .add("lastUpdatedTimestamp", lastUpdatedTimestamp)

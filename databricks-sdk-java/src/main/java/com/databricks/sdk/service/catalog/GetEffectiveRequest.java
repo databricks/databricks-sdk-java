@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get effective permissions */
 @Generated
 public class GetEffectiveRequest {
   /** Full name of securable. */

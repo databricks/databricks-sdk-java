@@ -35,10 +35,8 @@ public class WorkspaceAssignmentAPI {
   }
 
   /**
-   * Delete permissions assignment.
-   *
-   * <p>Deletes the workspace permissions assignment in a given account and workspace for the
-   * specified principal.
+   * Deletes the workspace permissions assignment in a given account and workspace for the specified
+   * principal.
    */
   public void delete(DeleteWorkspaceAssignmentRequest request) {
     impl.delete(request);
@@ -48,11 +46,7 @@ public class WorkspaceAssignmentAPI {
     return get(new GetWorkspaceAssignmentRequest().setWorkspaceId(workspaceId));
   }
 
-  /**
-   * List workspace permissions.
-   *
-   * <p>Get an array of workspace permissions for the specified account and workspace.
-   */
+  /** Get an array of workspace permissions for the specified account and workspace. */
   public WorkspacePermissions get(GetWorkspaceAssignmentRequest request) {
     return impl.get(request);
   }
@@ -62,10 +56,7 @@ public class WorkspaceAssignmentAPI {
   }
 
   /**
-   * Get permission assignments.
-   *
-   * <p>Get the permission assignments for the specified Databricks account and Databricks
-   * workspace.
+   * Get the permission assignments for the specified Databricks account and Databricks workspace.
    */
   public Iterable<PermissionAssignment> list(ListWorkspaceAssignmentRequest request) {
     return new Paginator<>(
@@ -78,9 +69,7 @@ public class WorkspaceAssignmentAPI {
   }
 
   /**
-   * Create or update permissions assignment.
-   *
-   * <p>Creates or updates the workspace permissions assignment in a given account and workspace for
+   * Creates or updates the workspace permissions assignment in a given account and workspace for
    * the specified principal.
    */
   public PermissionAssignment update(UpdateWorkspaceAssignments request) {

@@ -30,11 +30,7 @@ public class AccountServicePrincipalsAPI {
     impl = mock;
   }
 
-  /**
-   * Create a service principal.
-   *
-   * <p>Creates a new service principal in the Databricks account.
-   */
+  /** Creates a new service principal in the Databricks account. */
   public ServicePrincipal create(ServicePrincipal request) {
     return impl.create(request);
   }
@@ -43,11 +39,7 @@ public class AccountServicePrincipalsAPI {
     delete(new DeleteAccountServicePrincipalRequest().setId(id));
   }
 
-  /**
-   * Delete a service principal.
-   *
-   * <p>Delete a single service principal in the Databricks account.
-   */
+  /** Delete a single service principal in the Databricks account. */
   public void delete(DeleteAccountServicePrincipalRequest request) {
     impl.delete(request);
   }
@@ -56,20 +48,12 @@ public class AccountServicePrincipalsAPI {
     return get(new GetAccountServicePrincipalRequest().setId(id));
   }
 
-  /**
-   * Get service principal details.
-   *
-   * <p>Gets the details for a single service principal define in the Databricks account.
-   */
+  /** Gets the details for a single service principal define in the Databricks account. */
   public ServicePrincipal get(GetAccountServicePrincipalRequest request) {
     return impl.get(request);
   }
 
-  /**
-   * List service principals.
-   *
-   * <p>Gets the set of service principals associated with a Databricks account.
-   */
+  /** Gets the set of service principals associated with a Databricks account. */
   public Iterable<ServicePrincipal> list(ListAccountServicePrincipalsRequest request) {
     request.setStartIndex(1L);
     if (request.getCount() == null) {
@@ -94,11 +78,7 @@ public class AccountServicePrincipalsAPI {
     patch(new PartialUpdate().setId(id));
   }
 
-  /**
-   * Update service principal details.
-   *
-   * <p>Partially updates the details of a single service principal in the Databricks account.
-   */
+  /** Partially updates the details of a single service principal in the Databricks account. */
   public void patch(PartialUpdate request) {
     impl.patch(request);
   }
@@ -108,9 +88,7 @@ public class AccountServicePrincipalsAPI {
   }
 
   /**
-   * Replace service principal.
-   *
-   * <p>Updates the details of a single service principal.
+   * Updates the details of a single service principal.
    *
    * <p>This action replaces the existing service principal with the same name.
    */

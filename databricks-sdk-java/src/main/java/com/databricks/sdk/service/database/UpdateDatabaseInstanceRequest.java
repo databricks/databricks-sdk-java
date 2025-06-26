@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Update a Database Instance */
 @Generated
 public class UpdateDatabaseInstanceRequest {
   /**

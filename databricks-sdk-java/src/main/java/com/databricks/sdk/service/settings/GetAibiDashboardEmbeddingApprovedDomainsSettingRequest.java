@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Retrieve the list of domains approved to host embedded AI/BI dashboards */
 @Generated
 public class GetAibiDashboardEmbeddingApprovedDomainsSettingRequest {
   /**

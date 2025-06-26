@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class Sequencing {
-  /** A sequence number, unique and increasing within the control plane. */
+  /** A sequence number, unique and increasing per pipeline. */
   @JsonProperty("control_plane_seq_no")
   private Long controlPlaneSeqNo;
 

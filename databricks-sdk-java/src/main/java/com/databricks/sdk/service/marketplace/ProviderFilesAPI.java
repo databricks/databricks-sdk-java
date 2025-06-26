@@ -36,11 +36,7 @@ public class ProviderFilesAPI {
             .setMimeType(mimeType));
   }
 
-  /**
-   * Create a file.
-   *
-   * <p>Create a file. Currently, only provider icons and attached notebooks are supported.
-   */
+  /** Create a file. Currently, only provider icons and attached notebooks are supported. */
   public CreateFileResponse create(CreateFileRequest request) {
     return impl.create(request);
   }
@@ -49,11 +45,7 @@ public class ProviderFilesAPI {
     delete(new DeleteFileRequest().setFileId(fileId));
   }
 
-  /**
-   * Delete a file.
-   *
-   * <p>Delete a file
-   */
+  /** Delete a file */
   public void delete(DeleteFileRequest request) {
     impl.delete(request);
   }
@@ -62,11 +54,7 @@ public class ProviderFilesAPI {
     return get(new GetFileRequest().setFileId(fileId));
   }
 
-  /**
-   * Get a file.
-   *
-   * <p>Get a file
-   */
+  /** Get a file */
   public GetFileResponse get(GetFileRequest request) {
     return impl.get(request);
   }
@@ -75,11 +63,7 @@ public class ProviderFilesAPI {
     return list(new ListFilesRequest().setFileParent(fileParent));
   }
 
-  /**
-   * List files.
-   *
-   * <p>List files attached to a parent entity.
-   */
+  /** List files attached to a parent entity. */
   public Iterable<FileInfo> list(ListFilesRequest request) {
     return new Paginator<>(
         request,

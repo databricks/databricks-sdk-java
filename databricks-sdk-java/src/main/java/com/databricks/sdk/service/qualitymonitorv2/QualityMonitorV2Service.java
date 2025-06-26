@@ -12,39 +12,19 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface QualityMonitorV2Service {
-  /**
-   * Create a quality monitor.
-   *
-   * <p>Create a quality monitor on UC object
-   */
+  /** Create a quality monitor on UC object */
   QualityMonitor createQualityMonitor(CreateQualityMonitorRequest createQualityMonitorRequest);
 
-  /**
-   * Delete a quality monitor.
-   *
-   * <p>Delete a quality monitor on UC object
-   */
+  /** Delete a quality monitor on UC object */
   void deleteQualityMonitor(DeleteQualityMonitorRequest deleteQualityMonitorRequest);
 
-  /**
-   * Read a quality monitor.
-   *
-   * <p>Read a quality monitor on UC object
-   */
+  /** Read a quality monitor on UC object */
   QualityMonitor getQualityMonitor(GetQualityMonitorRequest getQualityMonitorRequest);
 
-  /**
-   * List quality monitors.
-   *
-   * <p>(Unimplemented) List quality monitors
-   */
+  /** (Unimplemented) List quality monitors */
   ListQualityMonitorResponse listQualityMonitor(
       ListQualityMonitorRequest listQualityMonitorRequest);
 
-  /**
-   * Update a quality monitor.
-   *
-   * <p>(Unimplemented) Update a quality monitor on UC object
-   */
+  /** (Unimplemented) Update a quality monitor on UC object */
   QualityMonitor updateQualityMonitor(UpdateQualityMonitorRequest updateQualityMonitorRequest);
 }

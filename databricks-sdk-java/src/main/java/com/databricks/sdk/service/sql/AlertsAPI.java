@@ -29,11 +29,7 @@ public class AlertsAPI {
     impl = mock;
   }
 
-  /**
-   * Create an alert.
-   *
-   * <p>Creates an alert.
-   */
+  /** Creates an alert. */
   public Alert create(CreateAlertRequest request) {
     return impl.create(request);
   }
@@ -43,11 +39,9 @@ public class AlertsAPI {
   }
 
   /**
-   * Delete an alert.
-   *
-   * <p>Moves an alert to the trash. Trashed alerts immediately disappear from searches and list
-   * views, and can no longer trigger. You can restore a trashed alert through the UI. A trashed
-   * alert is permanently deleted after 30 days.
+   * Moves an alert to the trash. Trashed alerts immediately disappear from searches and list views,
+   * and can no longer trigger. You can restore a trashed alert through the UI. A trashed alert is
+   * permanently deleted after 30 days.
    */
   public void delete(TrashAlertRequest request) {
     impl.delete(request);
@@ -57,19 +51,13 @@ public class AlertsAPI {
     return get(new GetAlertRequest().setId(id));
   }
 
-  /**
-   * Get an alert.
-   *
-   * <p>Gets an alert.
-   */
+  /** Gets an alert. */
   public Alert get(GetAlertRequest request) {
     return impl.get(request);
   }
 
   /**
-   * List alerts.
-   *
-   * <p>Gets a list of alerts accessible to the user, ordered by creation time. **Warning:** Calling
+   * Gets a list of alerts accessible to the user, ordered by creation time. **Warning:** Calling
    * this API concurrently 10 or more times could result in throttling, service degradation, or a
    * temporary ban.
    */
@@ -91,11 +79,7 @@ public class AlertsAPI {
     return update(new UpdateAlertRequest().setId(id).setUpdateMask(updateMask));
   }
 
-  /**
-   * Update an alert.
-   *
-   * <p>Updates an alert.
-   */
+  /** Updates an alert. */
   public Alert update(UpdateAlertRequest request) {
     return impl.update(request);
   }

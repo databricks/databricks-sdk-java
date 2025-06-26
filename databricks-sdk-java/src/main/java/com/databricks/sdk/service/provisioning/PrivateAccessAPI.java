@@ -31,10 +31,8 @@ public class PrivateAccessAPI {
   }
 
   /**
-   * Create private access settings.
-   *
-   * <p>Creates a private access settings object, which specifies how your workspace is accessed
-   * over [AWS PrivateLink]. To use AWS PrivateLink, a workspace must have a private access settings
+   * Creates a private access settings object, which specifies how your workspace is accessed over
+   * [AWS PrivateLink]. To use AWS PrivateLink, a workspace must have a private access settings
    * object referenced by ID in the workspace's `private_access_settings_id` property.
    *
    * <p>You can share one private access settings with multiple workspaces in a single account.
@@ -56,10 +54,8 @@ public class PrivateAccessAPI {
   }
 
   /**
-   * Delete a private access settings object.
-   *
-   * <p>Deletes a private access settings object, which determines how your workspace is accessed
-   * over [AWS PrivateLink].
+   * Deletes a private access settings object, which determines how your workspace is accessed over
+   * [AWS PrivateLink].
    *
    * <p>Before configuring PrivateLink, read the [Databricks article about PrivateLink].",
    *
@@ -76,10 +72,8 @@ public class PrivateAccessAPI {
   }
 
   /**
-   * Get a private access settings object.
-   *
-   * <p>Gets a private access settings object, which specifies how your workspace is accessed over
-   * [AWS PrivateLink].
+   * Gets a private access settings object, which specifies how your workspace is accessed over [AWS
+   * PrivateLink].
    *
    * <p>Before configuring PrivateLink, read the [Databricks article about PrivateLink].",
    *
@@ -91,11 +85,7 @@ public class PrivateAccessAPI {
     return impl.get(request);
   }
 
-  /**
-   * Get all private access settings objects.
-   *
-   * <p>Gets a list of all private access settings objects for an account, specified by ID.
-   */
+  /** Gets a list of all private access settings objects for an account, specified by ID. */
   public Iterable<PrivateAccessSettings> list() {
     return impl.list();
   }
@@ -110,9 +100,7 @@ public class PrivateAccessAPI {
   }
 
   /**
-   * Replace private access settings.
-   *
-   * <p>Updates an existing private access settings object, which specifies how your workspace is
+   * Updates an existing private access settings object, which specifies how your workspace is
    * accessed over [AWS PrivateLink]. To use AWS PrivateLink, a workspace must have a private access
    * settings object referenced by ID in the workspace's `private_access_settings_id` property.
    *

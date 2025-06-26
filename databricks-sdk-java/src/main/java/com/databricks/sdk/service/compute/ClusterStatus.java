@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get status */
 @Generated
 public class ClusterStatus {
   /** Unique identifier of the cluster whose status should be retrieved. */

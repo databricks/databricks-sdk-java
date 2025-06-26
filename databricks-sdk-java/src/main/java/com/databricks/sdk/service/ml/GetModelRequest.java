@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get model */
 @Generated
 public class GetModelRequest {
   /** Registered model unique name identifier. */

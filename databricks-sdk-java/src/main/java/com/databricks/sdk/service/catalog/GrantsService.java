@@ -20,25 +20,15 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface GrantsService {
-  /**
-   * Get permissions.
-   *
-   * <p>Gets the permissions for a securable. Does not include inherited permissions.
-   */
+  /** Gets the permissions for a securable. Does not include inherited permissions. */
   GetPermissionsResponse get(GetGrantRequest getGrantRequest);
 
   /**
-   * Get effective permissions.
-   *
-   * <p>Gets the effective permissions for a securable. Includes inherited permissions from any
-   * parent securables.
+   * Gets the effective permissions for a securable. Includes inherited permissions from any parent
+   * securables.
    */
   EffectivePermissionsList getEffective(GetEffectiveRequest getEffectiveRequest);
 
-  /**
-   * Update permissions.
-   *
-   * <p>Updates the permissions for a securable.
-   */
+  /** Updates the permissions for a securable. */
   UpdatePermissionsResponse update(UpdatePermissions updatePermissions);
 }

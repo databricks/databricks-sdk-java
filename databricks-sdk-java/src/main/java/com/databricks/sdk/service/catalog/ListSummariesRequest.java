@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** List table summaries */
 @Generated
 public class ListSummariesRequest {
   /** Name of parent catalog for tables of interest. */
@@ -16,7 +15,7 @@ public class ListSummariesRequest {
   @QueryParam("catalog_name")
   private String catalogName;
 
-  /** Whether to include a manifest containing capabilities the table has. */
+  /** Whether to include a manifest containing table capabilities in the response. */
   @JsonIgnore
   @QueryParam("include_manifest_capabilities")
   private Boolean includeManifestCapabilities;

@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Read an information of a published dashboard to mint an OAuth token. */
 @Generated
 public class GetPublishedDashboardTokenInfoRequest {
   /** UUID identifying the published dashboard. */

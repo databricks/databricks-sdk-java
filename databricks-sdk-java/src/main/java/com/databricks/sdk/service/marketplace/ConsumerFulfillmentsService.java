@@ -12,18 +12,12 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface ConsumerFulfillmentsService {
-  /**
-   * Get listing content metadata.
-   *
-   * <p>Get a high level preview of the metadata of listing installable content.
-   */
+  /** Get a high level preview of the metadata of listing installable content. */
   GetListingContentMetadataResponse get(
       GetListingContentMetadataRequest getListingContentMetadataRequest);
 
   /**
-   * List all listing fulfillments.
-   *
-   * <p>Get all listings fulfillments associated with a listing. A _fulfillment_ is a potential
+   * Get all listings fulfillments associated with a listing. A _fulfillment_ is a potential
    * installation. Standard installations contain metadata about the attached share or git repo.
    * Only one of these fields will be present. Personalized installations contain metadata about the
    * attached share or git repo, as well as the Delta Sharing recipient type.

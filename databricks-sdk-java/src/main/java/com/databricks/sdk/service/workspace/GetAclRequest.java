@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get secret ACL details */
 @Generated
 public class GetAclRequest {
   /** The principal to fetch ACL information for. */

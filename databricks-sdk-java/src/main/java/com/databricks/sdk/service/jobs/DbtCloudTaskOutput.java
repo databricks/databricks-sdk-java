@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/** Deprecated in favor of DbtPlatformTaskOutput */
 @Generated
 public class DbtCloudTaskOutput {
   /** Id of the job run in dbt Cloud */

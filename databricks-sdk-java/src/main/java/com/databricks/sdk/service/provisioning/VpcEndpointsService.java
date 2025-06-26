@@ -14,10 +14,8 @@ import java.util.Collection;
 @Generated
 public interface VpcEndpointsService {
   /**
-   * Create VPC endpoint configuration.
-   *
-   * <p>Creates a VPC endpoint configuration, which represents a [VPC endpoint] object in AWS used
-   * to communicate privately with Databricks over [AWS PrivateLink].
+   * Creates a VPC endpoint configuration, which represents a [VPC endpoint] object in AWS used to
+   * communicate privately with Databricks over [AWS PrivateLink].
    *
    * <p>After you create the VPC endpoint configuration, the Databricks [endpoint service]
    * automatically accepts the VPC endpoint.
@@ -34,9 +32,7 @@ public interface VpcEndpointsService {
   VpcEndpoint create(CreateVpcEndpointRequest createVpcEndpointRequest);
 
   /**
-   * Delete VPC endpoint configuration.
-   *
-   * <p>Deletes a VPC endpoint configuration, which represents an [AWS VPC endpoint] that can
+   * Deletes a VPC endpoint configuration, which represents an [AWS VPC endpoint] that can
    * communicate privately with Databricks over [AWS PrivateLink].
    *
    * <p>Before configuring PrivateLink, read the [Databricks article about PrivateLink].
@@ -49,9 +45,7 @@ public interface VpcEndpointsService {
   void delete(DeleteVpcEndpointRequest deleteVpcEndpointRequest);
 
   /**
-   * Get a VPC endpoint configuration.
-   *
-   * <p>Gets a VPC endpoint configuration, which represents a [VPC endpoint] object in AWS used to
+   * Gets a VPC endpoint configuration, which represents a [VPC endpoint] object in AWS used to
    * communicate privately with Databricks over [AWS PrivateLink].
    *
    * <p>[AWS PrivateLink]: https://aws.amazon.com/privatelink [VPC endpoint]:
@@ -60,9 +54,7 @@ public interface VpcEndpointsService {
   VpcEndpoint get(GetVpcEndpointRequest getVpcEndpointRequest);
 
   /**
-   * Get all VPC endpoint configurations.
-   *
-   * <p>Gets a list of all VPC endpoints for an account, specified by ID.
+   * Gets a list of all VPC endpoints for an account, specified by ID.
    *
    * <p>Before configuring PrivateLink, read the [Databricks article about PrivateLink].
    *

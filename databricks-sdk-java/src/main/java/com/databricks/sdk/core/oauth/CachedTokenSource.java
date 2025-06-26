@@ -40,7 +40,8 @@ public class CachedTokenSource implements TokenSource {
   // The token source to use for refreshing the token.
   private final TokenSource tokenSource;
   // Whether asynchronous refresh is enabled.
-  private final boolean asyncEnabled;
+  private boolean asyncEnabled =
+      Boolean.parseBoolean(System.getenv("DATABRICKS_ENABLE_EXPERIMENTAL_ASYNC_TOKEN_REFRESH"));
   // Duration before expiry to consider a token as 'stale'.
   private final Duration staleDuration;
   // Additional buffer before expiry to consider a token as expired.

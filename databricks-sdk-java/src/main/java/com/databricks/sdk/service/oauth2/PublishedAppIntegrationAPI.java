@@ -31,8 +31,6 @@ public class PublishedAppIntegrationAPI {
   /**
    * Create Published OAuth App Integration.
    *
-   * <p>Create Published OAuth App Integration.
-   *
    * <p>You can retrieve the published OAuth app integration via
    * :method:PublishedAppIntegration/get.
    */
@@ -45,9 +43,7 @@ public class PublishedAppIntegrationAPI {
   }
 
   /**
-   * Delete Published OAuth App Integration.
-   *
-   * <p>Delete an existing Published OAuth App Integration. You can retrieve the published OAuth app
+   * Delete an existing Published OAuth App Integration. You can retrieve the published OAuth app
    * integration via :method:PublishedAppIntegration/get.
    */
   public void delete(DeletePublishedAppIntegrationRequest request) {
@@ -58,20 +54,12 @@ public class PublishedAppIntegrationAPI {
     return get(new GetPublishedAppIntegrationRequest().setIntegrationId(integrationId));
   }
 
-  /**
-   * Get OAuth Published App Integration.
-   *
-   * <p>Gets the Published OAuth App Integration for the given integration id.
-   */
+  /** Gets the Published OAuth App Integration for the given integration id. */
   public GetPublishedAppIntegrationOutput get(GetPublishedAppIntegrationRequest request) {
     return impl.get(request);
   }
 
-  /**
-   * Get published oauth app integrations.
-   *
-   * <p>Get the list of published OAuth app integrations for the specified Databricks account
-   */
+  /** Get the list of published OAuth app integrations for the specified Databricks account */
   public Iterable<GetPublishedAppIntegrationOutput> list(
       ListPublishedAppIntegrationsRequest request) {
     return new Paginator<>(
@@ -92,10 +80,8 @@ public class PublishedAppIntegrationAPI {
   }
 
   /**
-   * Updates Published OAuth App Integration.
-   *
-   * <p>Updates an existing published OAuth App Integration. You can retrieve the published OAuth
-   * app integration via :method:PublishedAppIntegration/get.
+   * Updates an existing published OAuth App Integration. You can retrieve the published OAuth app
+   * integration via :method:PublishedAppIntegration/get.
    */
   public void update(UpdatePublishedAppIntegration request) {
     impl.update(request);

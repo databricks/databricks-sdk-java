@@ -16,26 +16,14 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface DisableLegacyFeaturesService {
-  /**
-   * Delete the disable legacy features setting.
-   *
-   * <p>Deletes the disable legacy features setting.
-   */
+  /** Deletes the disable legacy features setting. */
   DeleteDisableLegacyFeaturesResponse delete(
       DeleteDisableLegacyFeaturesRequest deleteDisableLegacyFeaturesRequest);
 
-  /**
-   * Get the disable legacy features setting.
-   *
-   * <p>Gets the value of the disable legacy features setting.
-   */
+  /** Gets the value of the disable legacy features setting. */
   DisableLegacyFeatures get(GetDisableLegacyFeaturesRequest getDisableLegacyFeaturesRequest);
 
-  /**
-   * Update the disable legacy features setting.
-   *
-   * <p>Updates the value of the disable legacy features setting.
-   */
+  /** Updates the value of the disable legacy features setting. */
   DisableLegacyFeatures update(
       UpdateDisableLegacyFeaturesRequest updateDisableLegacyFeaturesRequest);
 }

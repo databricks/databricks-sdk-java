@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Gets the named storage credential */
 @Generated
 public class GetAccountStorageCredentialRequest {
   /** Unity Catalog metastore ID */

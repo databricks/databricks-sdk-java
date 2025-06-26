@@ -31,9 +31,7 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface IpAccessListsService {
   /**
-   * Create access list.
-   *
-   * <p>Creates an IP access list for this workspace.
+   * Creates an IP access list for this workspace.
    *
    * <p>A list can be an allow list or a block list. See the top of this file for a description of
    * how the server treats allow lists and block lists at runtime.
@@ -50,31 +48,17 @@ public interface IpAccessListsService {
    */
   CreateIpAccessListResponse create(CreateIpAccessList createIpAccessList);
 
-  /**
-   * Delete access list.
-   *
-   * <p>Deletes an IP access list, specified by its list ID.
-   */
+  /** Deletes an IP access list, specified by its list ID. */
   void delete(DeleteIpAccessListRequest deleteIpAccessListRequest);
 
-  /**
-   * Get access list.
-   *
-   * <p>Gets an IP access list, specified by its list ID.
-   */
+  /** Gets an IP access list, specified by its list ID. */
   FetchIpAccessListResponse get(GetIpAccessListRequest getIpAccessListRequest);
 
-  /**
-   * Get access lists.
-   *
-   * <p>Gets all IP access lists for the specified workspace.
-   */
+  /** Gets all IP access lists for the specified workspace. */
   ListIpAccessListResponse list();
 
   /**
-   * Replace access list.
-   *
-   * <p>Replaces an IP access list, specified by its ID.
+   * Replaces an IP access list, specified by its ID.
    *
    * <p>A list can include allow lists and block lists. See the top of this file for a description
    * of how the server treats allow lists and block lists at run time. When replacing an IP access
@@ -88,9 +72,7 @@ public interface IpAccessListsService {
   void replace(ReplaceIpAccessList replaceIpAccessList);
 
   /**
-   * Update access list.
-   *
-   * <p>Updates an existing IP access list, specified by its ID.
+   * Updates an existing IP access list, specified by its ID.
    *
    * <p>A list can include allow lists and block lists. See the top of this file for a description
    * of how the server treats allow lists and block lists at run time.

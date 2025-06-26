@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete account federation policy */
 @Generated
 public class DeleteAccountFederationPolicyRequest {
   /** The identifier for the federation policy. */

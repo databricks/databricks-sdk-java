@@ -13,19 +13,11 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface LlmProxyPartnerPoweredEnforceService {
-  /**
-   * Get the enforcement status of partner powered AI features account setting.
-   *
-   * <p>Gets the enforcement status of partner powered AI features account setting.
-   */
+  /** Gets the enforcement status of partner powered AI features account setting. */
   LlmProxyPartnerPoweredEnforce get(
       GetLlmProxyPartnerPoweredEnforceRequest getLlmProxyPartnerPoweredEnforceRequest);
 
-  /**
-   * Update the enforcement status of partner powered AI features account setting.
-   *
-   * <p>Updates the enable enforcement status of partner powered AI features account setting.
-   */
+  /** Updates the enable enforcement status of partner powered AI features account setting. */
   LlmProxyPartnerPoweredEnforce update(
       UpdateLlmProxyPartnerPoweredEnforceRequest updateLlmProxyPartnerPoweredEnforceRequest);
 }

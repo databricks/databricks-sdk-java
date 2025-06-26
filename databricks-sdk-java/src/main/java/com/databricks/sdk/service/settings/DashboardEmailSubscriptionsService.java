@@ -14,27 +14,15 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface DashboardEmailSubscriptionsService {
-  /**
-   * Delete the Dashboard Email Subscriptions setting.
-   *
-   * <p>Reverts the Dashboard Email Subscriptions setting to its default value.
-   */
+  /** Reverts the Dashboard Email Subscriptions setting to its default value. */
   DeleteDashboardEmailSubscriptionsResponse delete(
       DeleteDashboardEmailSubscriptionsRequest deleteDashboardEmailSubscriptionsRequest);
 
-  /**
-   * Get the Dashboard Email Subscriptions setting.
-   *
-   * <p>Gets the Dashboard Email Subscriptions setting.
-   */
+  /** Gets the Dashboard Email Subscriptions setting. */
   DashboardEmailSubscriptions get(
       GetDashboardEmailSubscriptionsRequest getDashboardEmailSubscriptionsRequest);
 
-  /**
-   * Update the Dashboard Email Subscriptions setting.
-   *
-   * <p>Updates the Dashboard Email Subscriptions setting.
-   */
+  /** Updates the Dashboard Email Subscriptions setting. */
   DashboardEmailSubscriptions update(
       UpdateDashboardEmailSubscriptionsRequest updateDashboardEmailSubscriptionsRequest);
 }

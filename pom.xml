@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.databricks</groupId>
   <artifactId>databricks-sdk-parent</artifactId>
-  <version>0.53.0</version>
+  <version>0.54.0</version>
   <packaging>pom</packaging>
   <name>Databricks SDK for Java</name>
   <description>The Databricks SDK for Java includes functionality to accelerate development with Java for
@@ -67,6 +67,13 @@
         <configuration>
           <source>8</source>
           <target>8</target>
+          <annotationProcessorPaths>
+            <path>
+              <groupId>com.google.auto.value</groupId>
+              <artifactId>auto-value</artifactId>
+              <version>1.10.4</version>
+            </path>
+          </annotationProcessorPaths>
         </configuration>
       </plugin>
       <plugin>

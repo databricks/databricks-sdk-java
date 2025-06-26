@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get boolean reflecting if table exists */
 @Generated
 public class ExistsRequest {
   /** Full name of the table. */

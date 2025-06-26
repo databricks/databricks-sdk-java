@@ -31,7 +31,7 @@ public class DashboardWidgetsAPI {
         new CreateWidget().setDashboardId(dashboardId).setOptions(options).setWidth(width));
   }
 
-  /** Add widget to a dashboard. */
+  /** Adds a widget to a dashboard */
   public Widget create(CreateWidget request) {
     return impl.create(request);
   }
@@ -40,22 +40,22 @@ public class DashboardWidgetsAPI {
     delete(new DeleteDashboardWidgetRequest().setId(id));
   }
 
-  /** Remove widget. */
+  /** Removes a widget from a dashboard */
   public void delete(DeleteDashboardWidgetRequest request) {
     impl.delete(request);
   }
 
   public Widget update(String id, String dashboardId, WidgetOptions options, long width) {
     return update(
-        new CreateWidget()
+        new UpdateWidgetRequest()
             .setId(id)
             .setDashboardId(dashboardId)
             .setOptions(options)
             .setWidth(width));
   }
 
-  /** Update existing widget. */
-  public Widget update(CreateWidget request) {
+  /** Updates an existing widget */
+  public Widget update(UpdateWidgetRequest request) {
     return impl.update(request);
   }
 

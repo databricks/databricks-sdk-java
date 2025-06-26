@@ -25,17 +25,13 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface PipelinesService {
   /**
-   * Create a pipeline.
-   *
-   * <p>Creates a new data processing pipeline based on the requested configuration. If successful,
+   * Creates a new data processing pipeline based on the requested configuration. If successful,
    * this method returns the ID of the new pipeline.
    */
   CreatePipelineResponse create(CreatePipeline createPipeline);
 
   /**
-   * Delete a pipeline.
-   *
-   * <p>Deletes a pipeline. Deleting a pipeline is a permanent action that stops and removes the
+   * Deletes a pipeline. Deleting a pipeline is a permanent action that stops and removes the
    * pipeline and its tables. You cannot undo this action.
    */
   void delete(DeletePipelineRequest deletePipelineRequest);
@@ -43,87 +39,51 @@ public interface PipelinesService {
   /** Get a pipeline. */
   GetPipelineResponse get(GetPipelineRequest getPipelineRequest);
 
-  /**
-   * Get pipeline permission levels.
-   *
-   * <p>Gets the permission levels that a user can have on an object.
-   */
+  /** Gets the permission levels that a user can have on an object. */
   GetPipelinePermissionLevelsResponse getPermissionLevels(
       GetPipelinePermissionLevelsRequest getPipelinePermissionLevelsRequest);
 
   /**
-   * Get pipeline permissions.
-   *
-   * <p>Gets the permissions of a pipeline. Pipelines can inherit permissions from their root
-   * object.
+   * Gets the permissions of a pipeline. Pipelines can inherit permissions from their root object.
    */
   PipelinePermissions getPermissions(GetPipelinePermissionsRequest getPipelinePermissionsRequest);
 
-  /**
-   * Get a pipeline update.
-   *
-   * <p>Gets an update from an active pipeline.
-   */
+  /** Gets an update from an active pipeline. */
   GetUpdateResponse getUpdate(GetUpdateRequest getUpdateRequest);
 
-  /**
-   * List pipeline events.
-   *
-   * <p>Retrieves events for a pipeline.
-   */
+  /** Retrieves events for a pipeline. */
   ListPipelineEventsResponse listPipelineEvents(
       ListPipelineEventsRequest listPipelineEventsRequest);
 
-  /**
-   * List pipelines.
-   *
-   * <p>Lists pipelines defined in the Delta Live Tables system.
-   */
+  /** Lists pipelines defined in the Delta Live Tables system. */
   ListPipelinesResponse listPipelines(ListPipelinesRequest listPipelinesRequest);
 
-  /**
-   * List pipeline updates.
-   *
-   * <p>List updates for an active pipeline.
-   */
+  /** List updates for an active pipeline. */
   ListUpdatesResponse listUpdates(ListUpdatesRequest listUpdatesRequest);
 
   /**
-   * Set pipeline permissions.
-   *
-   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
-   * direct permissions if none are specified. Objects can inherit permissions from their root
-   * object.
+   * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
+   * permissions if none are specified. Objects can inherit permissions from their root object.
    */
   PipelinePermissions setPermissions(PipelinePermissionsRequest pipelinePermissionsRequest);
 
   /**
-   * Start a pipeline.
-   *
-   * <p>Starts a new update for the pipeline. If there is already an active update for the pipeline,
+   * Starts a new update for the pipeline. If there is already an active update for the pipeline,
    * the request will fail and the active update will remain running.
    */
   StartUpdateResponse startUpdate(StartUpdate startUpdate);
 
   /**
-   * Stop a pipeline.
-   *
-   * <p>Stops the pipeline by canceling the active update. If there is no active update for the
+   * Stops the pipeline by canceling the active update. If there is no active update for the
    * pipeline, this request is a no-op.
    */
   void stop(StopRequest stopRequest);
 
-  /**
-   * Edit a pipeline.
-   *
-   * <p>Updates a pipeline with the supplied configuration.
-   */
+  /** Updates a pipeline with the supplied configuration. */
   void update(EditPipeline editPipeline);
 
   /**
-   * Update pipeline permissions.
-   *
-   * <p>Updates the permissions on a pipeline. Pipelines can inherit permissions from their root
+   * Updates the permissions on a pipeline. Pipelines can inherit permissions from their root
    * object.
    */
   PipelinePermissions updatePermissions(PipelinePermissionsRequest pipelinePermissionsRequest);

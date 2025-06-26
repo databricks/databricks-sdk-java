@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Collection;
 import java.util.Objects;
 
-/** Delete data from index */
 @Generated
 public class DeleteDataVectorIndexRequest {
   /** Name of the vector index where data is to be deleted. Must be a Direct Vector Access Index. */

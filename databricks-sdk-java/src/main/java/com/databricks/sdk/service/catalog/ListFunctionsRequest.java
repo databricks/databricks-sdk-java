@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** List functions */
 @Generated
 public class ListFunctionsRequest {
   /** Name of parent catalog for functions of interest. */

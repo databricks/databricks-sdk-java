@@ -37,9 +37,7 @@ public class ExperimentsAPI {
   }
 
   /**
-   * Create experiment.
-   *
-   * <p>Creates an experiment with a name. Returns the ID of the newly created experiment. Validates
+   * Creates an experiment with a name. Returns the ID of the newly created experiment. Validates
    * that another experiment with the same name does not already exist and fails if another
    * experiment with the same name already exists.
    *
@@ -59,9 +57,7 @@ public class ExperimentsAPI {
   }
 
   /**
-   * Create a run.
-   *
-   * <p>Creates a new run within an experiment. A run is usually a single execution of a machine
+   * Creates a new run within an experiment. A run is usually a single execution of a machine
    * learning or data ETL pipeline. MLflow uses runs to track the `mlflowParam`, `mlflowMetric`, and
    * `mlflowRunTag` associated with a single execution.
    */
@@ -74,10 +70,8 @@ public class ExperimentsAPI {
   }
 
   /**
-   * Delete an experiment.
-   *
-   * <p>Marks an experiment and associated metadata, runs, metrics, params, and tags for deletion.
-   * If the experiment uses FileStore, artifacts associated with the experiment are also deleted.
+   * Marks an experiment and associated metadata, runs, metrics, params, and tags for deletion. If
+   * the experiment uses FileStore, artifacts associated with the experiment are also deleted.
    */
   public void deleteExperiment(DeleteExperiment request) {
     impl.deleteExperiment(request);
@@ -105,11 +99,7 @@ public class ExperimentsAPI {
     deleteRun(new DeleteRun().setRunId(runId));
   }
 
-  /**
-   * Delete a run.
-   *
-   * <p>Marks a run for deletion.
-   */
+  /** Marks a run for deletion. */
   public void deleteRun(DeleteRun request) {
     impl.deleteRun(request);
   }
@@ -120,9 +110,7 @@ public class ExperimentsAPI {
   }
 
   /**
-   * Delete runs by creation time.
-   *
-   * <p>Bulk delete runs in an experiment that were created prior to or at the specified timestamp.
+   * Bulk delete runs in an experiment that were created prior to or at the specified timestamp.
    * Deletes at most max_runs per request. To call this API from a Databricks Notebook in Python,
    * you can use the client code snippet on
    */
@@ -135,10 +123,8 @@ public class ExperimentsAPI {
   }
 
   /**
-   * Delete a tag on a run.
-   *
-   * <p>Deletes a tag on a run. Tags are run metadata that can be updated during a run and after a
-   * run completes.
+   * Deletes a tag on a run. Tags are run metadata that can be updated during a run and after a run
+   * completes.
    */
   public void deleteTag(DeleteTag request) {
     impl.deleteTag(request);
@@ -159,9 +145,7 @@ public class ExperimentsAPI {
   }
 
   /**
-   * Get an experiment by name.
-   *
-   * <p>Gets metadata for an experiment.
+   * Gets metadata for an experiment.
    *
    * <p>This endpoint will return deleted experiments, but prefers the active experiment if an
    * active and deleted experiment share the same name. If multiple deleted experiments share the
@@ -177,11 +161,7 @@ public class ExperimentsAPI {
     return getExperiment(new GetExperimentRequest().setExperimentId(experimentId));
   }
 
-  /**
-   * Get an experiment.
-   *
-   * <p>Gets metadata for an experiment. This method works on deleted experiments.
-   */
+  /** Gets metadata for an experiment. This method works on deleted experiments. */
   public GetExperimentResponse getExperiment(GetExperimentRequest request) {
     return impl.getExperiment(request);
   }
@@ -190,11 +170,7 @@ public class ExperimentsAPI {
     return getHistory(new GetHistoryRequest().setMetricKey(metricKey));
   }
 
-  /**
-   * Get metric history for a run.
-   *
-   * <p>Gets a list of all values for the specified metric for a given run.
-   */
+  /** Gets a list of all values for the specified metric for a given run. */
   public Iterable<Metric> getHistory(GetHistoryRequest request) {
     return new Paginator<>(
         request,
@@ -223,11 +199,7 @@ public class ExperimentsAPI {
         new GetExperimentPermissionLevelsRequest().setExperimentId(experimentId));
   }
 
-  /**
-   * Get experiment permission levels.
-   *
-   * <p>Gets the permission levels that a user can have on an object.
-   */
+  /** Gets the permission levels that a user can have on an object. */
   public GetExperimentPermissionLevelsResponse getPermissionLevels(
       GetExperimentPermissionLevelsRequest request) {
     return impl.getPermissionLevels(request);
@@ -238,9 +210,7 @@ public class ExperimentsAPI {
   }
 
   /**
-   * Get experiment permissions.
-   *
-   * <p>Gets the permissions of an experiment. Experiments can inherit permissions from their root
+   * Gets the permissions of an experiment. Experiments can inherit permissions from their root
    * object.
    */
   public ExperimentPermissions getPermissions(GetExperimentPermissionsRequest request) {
@@ -252,10 +222,8 @@ public class ExperimentsAPI {
   }
 
   /**
-   * Get a run.
-   *
-   * <p>Gets the metadata, metrics, params, and tags for a run. In the case where multiple metrics
-   * with the same key are logged for a run, return only the value with the latest timestamp.
+   * Gets the metadata, metrics, params, and tags for a run. In the case where multiple metrics with
+   * the same key are logged for a run, return only the value with the latest timestamp.
    *
    * <p>If there are multiple values with the latest timestamp, return the maximum of these values.
    */
@@ -264,9 +232,7 @@ public class ExperimentsAPI {
   }
 
   /**
-   * List artifacts.
-   *
-   * <p>List artifacts for a run. Takes an optional `artifact_path` prefix which if specified, the
+   * List artifacts for a run. Takes an optional `artifact_path` prefix which if specified, the
    * response contains only artifacts with the specified prefix. A maximum of 1000 artifacts will be
    * retrieved for UC Volumes. Please call `/api/2.0/fs/directories{directory_path}` for listing
    * artifacts in UC Volumes, which supports pagination. See [List directory contents | Files
@@ -286,11 +252,7 @@ public class ExperimentsAPI {
         });
   }
 
-  /**
-   * List experiments.
-   *
-   * <p>Gets a list of all experiments.
-   */
+  /** Gets a list of all experiments. */
   public Iterable<Experiment> listExperiments(ListExperimentsRequest request) {
     return new Paginator<>(
         request,
@@ -306,9 +268,7 @@ public class ExperimentsAPI {
   }
 
   /**
-   * Log a batch of metrics/params/tags for a run.
-   *
-   * <p>Logs a batch of metrics, params, and tags for a run. If any data failed to be persisted, the
+   * Logs a batch of metrics, params, and tags for a run. If any data failed to be persisted, the
    * server will respond with an error (non-200 status code).
    *
    * <p>In case of error (due to internal server error or an invalid request), partial data may be
@@ -359,14 +319,7 @@ public class ExperimentsAPI {
     logInputs(new LogInputs().setRunId(runId));
   }
 
-  /**
-   * Log inputs to a run.
-   *
-   * <p>**NOTE:** Experimental: This API may change or be removed in a future release without
-   * warning.
-   *
-   * <p>Logs inputs, such as datasets and models, to an MLflow Run.
-   */
+  /** Logs inputs, such as datasets and models, to an MLflow Run. */
   public void logInputs(LogInputs request) {
     impl.logInputs(request);
   }
@@ -376,9 +329,7 @@ public class ExperimentsAPI {
   }
 
   /**
-   * Log params for a logged model.
-   *
-   * <p>Logs params for a logged model. A param is a key-value pair (string key, string value).
+   * Logs params for a logged model. A param is a key-value pair (string key, string value).
    * Examples include hyperparameters used for ML model training. A param can be logged only once
    * for a logged model, and attempting to overwrite an existing param with a different value will
    * result in an error
@@ -392,9 +343,7 @@ public class ExperimentsAPI {
   }
 
   /**
-   * Log a metric for a run.
-   *
-   * <p>Log a metric for a run. A metric is a key-value pair (string key, float value) with an
+   * Log a metric for a run. A metric is a key-value pair (string key, float value) with an
    * associated timestamp. Examples include the various metrics that represent ML model accuracy. A
    * metric can be logged multiple times.
    */
@@ -403,10 +352,10 @@ public class ExperimentsAPI {
   }
 
   /**
-   * Log a model.
+   * **Note:** the [Create a logged model](/api/workspace/experiments/createloggedmodel) API
+   * replaces this endpoint.
    *
-   * <p>**NOTE:** Experimental: This API may change or be removed in a future release without
-   * warning.
+   * <p>Log a model to an MLflow Run.
    */
   public void logModel(LogModel request) {
     impl.logModel(request);
@@ -416,14 +365,7 @@ public class ExperimentsAPI {
     logOutputs(new LogOutputsRequest().setRunId(runId));
   }
 
-  /**
-   * Log outputs from a run.
-   *
-   * <p>**NOTE**: Experimental: This API may change or be removed in a future release without
-   * warning.
-   *
-   * <p>Logs outputs, such as models, from an MLflow Run.
-   */
+  /** Logs outputs, such as models, from an MLflow Run. */
   public void logOutputs(LogOutputsRequest request) {
     impl.logOutputs(request);
   }
@@ -433,11 +375,9 @@ public class ExperimentsAPI {
   }
 
   /**
-   * Log a param for a run.
-   *
-   * <p>Logs a param used for a run. A param is a key-value pair (string key, string value).
-   * Examples include hyperparameters used for ML model training and constant dates and values used
-   * in an ETL pipeline. A param can be logged only once for a run.
+   * Logs a param used for a run. A param is a key-value pair (string key, string value). Examples
+   * include hyperparameters used for ML model training and constant dates and values used in an ETL
+   * pipeline. A param can be logged only once for a run.
    */
   public void logParam(LogParam request) {
     impl.logParam(request);
@@ -448,9 +388,7 @@ public class ExperimentsAPI {
   }
 
   /**
-   * Restore an experiment.
-   *
-   * <p>Restore an experiment marked for deletion. This also restores associated metadata, runs,
+   * Restore an experiment marked for deletion. This also restores associated metadata, runs,
    * metrics, params, and tags. If experiment uses FileStore, underlying artifacts associated with
    * experiment are also restored.
    *
@@ -465,9 +403,7 @@ public class ExperimentsAPI {
   }
 
   /**
-   * Restore a run.
-   *
-   * <p>Restores a deleted run. This also restores associated metadata, runs, metrics, params, and
+   * Restores a deleted run. This also restores associated metadata, runs, metrics, params, and
    * tags.
    *
    * <p>Throws `RESOURCE_DOES_NOT_EXIST` if the run was never created or was permanently deleted.
@@ -482,21 +418,15 @@ public class ExperimentsAPI {
   }
 
   /**
-   * Restore runs by deletion time.
-   *
-   * <p>Bulk restore runs in an experiment that were deleted no earlier than the specified
-   * timestamp. Restores at most max_runs per request. To call this API from a Databricks Notebook
-   * in Python, you can use the client code snippet on
+   * Bulk restore runs in an experiment that were deleted no earlier than the specified timestamp.
+   * Restores at most max_runs per request. To call this API from a Databricks Notebook in Python,
+   * you can use the client code snippet on
    */
   public RestoreRunsResponse restoreRuns(RestoreRuns request) {
     return impl.restoreRuns(request);
   }
 
-  /**
-   * Search experiments.
-   *
-   * <p>Searches for experiments that satisfy specified search criteria.
-   */
+  /** Searches for experiments that satisfy specified search criteria. */
   public Iterable<Experiment> searchExperiments(SearchExperiments request) {
     return new Paginator<>(
         request,
@@ -511,19 +441,13 @@ public class ExperimentsAPI {
         });
   }
 
-  /**
-   * Search logged models.
-   *
-   * <p>Search for Logged Models that satisfy specified search criteria.
-   */
+  /** Search for Logged Models that satisfy specified search criteria. */
   public SearchLoggedModelsResponse searchLoggedModels(SearchLoggedModelsRequest request) {
     return impl.searchLoggedModels(request);
   }
 
   /**
-   * Search for runs.
-   *
-   * <p>Searches for runs that satisfy expressions.
+   * Searches for runs that satisfy expressions.
    *
    * <p>Search expressions can use `mlflowMetric` and `mlflowParam` keys.
    */
@@ -546,11 +470,7 @@ public class ExperimentsAPI {
         new SetExperimentTag().setExperimentId(experimentId).setKey(key).setValue(value));
   }
 
-  /**
-   * Set a tag for an experiment.
-   *
-   * <p>Sets a tag on an experiment. Experiment tags are metadata that can be updated.
-   */
+  /** Sets a tag on an experiment. Experiment tags are metadata that can be updated. */
   public void setExperimentTag(SetExperimentTag request) {
     impl.setExperimentTag(request);
   }
@@ -559,7 +479,7 @@ public class ExperimentsAPI {
     setLoggedModelTags(new SetLoggedModelTagsRequest().setModelId(modelId));
   }
 
-  /** Set a tag for a logged model. */
+  /** Set tags for a logged model. */
   public void setLoggedModelTags(SetLoggedModelTagsRequest request) {
     impl.setLoggedModelTags(request);
   }
@@ -569,11 +489,8 @@ public class ExperimentsAPI {
   }
 
   /**
-   * Set experiment permissions.
-   *
-   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
-   * direct permissions if none are specified. Objects can inherit permissions from their root
-   * object.
+   * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
+   * permissions if none are specified. Objects can inherit permissions from their root object.
    */
   public ExperimentPermissions setPermissions(ExperimentPermissionsRequest request) {
     return impl.setPermissions(request);
@@ -584,9 +501,7 @@ public class ExperimentsAPI {
   }
 
   /**
-   * Set a tag for a run.
-   *
-   * <p>Sets a tag on a run. Tags are run metadata that can be updated during a run and after a run
+   * Sets a tag on a run. Tags are run metadata that can be updated during a run and after a run
    * completes.
    */
   public void setTag(SetTag request) {
@@ -597,11 +512,7 @@ public class ExperimentsAPI {
     updateExperiment(new UpdateExperiment().setExperimentId(experimentId));
   }
 
-  /**
-   * Update an experiment.
-   *
-   * <p>Updates experiment metadata.
-   */
+  /** Updates experiment metadata. */
   public void updateExperiment(UpdateExperiment request) {
     impl.updateExperiment(request);
   }
@@ -611,20 +522,14 @@ public class ExperimentsAPI {
   }
 
   /**
-   * Update experiment permissions.
-   *
-   * <p>Updates the permissions on an experiment. Experiments can inherit permissions from their
-   * root object.
+   * Updates the permissions on an experiment. Experiments can inherit permissions from their root
+   * object.
    */
   public ExperimentPermissions updatePermissions(ExperimentPermissionsRequest request) {
     return impl.updatePermissions(request);
   }
 
-  /**
-   * Update a run.
-   *
-   * <p>Updates run metadata.
-   */
+  /** Updates run metadata. */
   public UpdateRunResponse updateRun(UpdateRun request) {
     return impl.updateRun(request);
   }

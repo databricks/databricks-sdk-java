@@ -24,21 +24,13 @@ public class LlmProxyPartnerPoweredWorkspaceAPI {
     impl = mock;
   }
 
-  /**
-   * Delete the enable partner powered AI features workspace setting.
-   *
-   * <p>Reverts the enable partner powered AI features workspace setting to its default value.
-   */
+  /** Reverts the enable partner powered AI features workspace setting to its default value. */
   public DeleteLlmProxyPartnerPoweredWorkspaceResponse delete(
       DeleteLlmProxyPartnerPoweredWorkspaceRequest request) {
     return impl.delete(request);
   }
 
-  /**
-   * Get the enable partner powered AI features workspace setting.
-   *
-   * <p>Gets the enable partner powered AI features workspace setting.
-   */
+  /** Gets the enable partner powered AI features workspace setting. */
   public LlmProxyPartnerPoweredWorkspace get(GetLlmProxyPartnerPoweredWorkspaceRequest request) {
     return impl.get(request);
   }
@@ -52,11 +44,7 @@ public class LlmProxyPartnerPoweredWorkspaceAPI {
             .setFieldMask(fieldMask));
   }
 
-  /**
-   * Update the enable partner powered AI features workspace setting.
-   *
-   * <p>Updates the enable partner powered AI features workspace setting.
-   */
+  /** Updates the enable partner powered AI features workspace setting. */
   public LlmProxyPartnerPoweredWorkspace update(
       UpdateLlmProxyPartnerPoweredWorkspaceRequest request) {
     return impl.update(request);

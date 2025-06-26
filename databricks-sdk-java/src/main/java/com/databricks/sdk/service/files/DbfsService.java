@@ -14,9 +14,7 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface DbfsService {
   /**
-   * Append data block.
-   *
-   * <p>Appends a block of data to the stream specified by the input handle. If the handle does not
+   * Appends a block of data to the stream specified by the input handle. If the handle does not
    * exist, this call will throw an exception with ``RESOURCE_DOES_NOT_EXIST``.
    *
    * <p>If the block of data exceeds 1 MB, this call will throw an exception with
@@ -25,17 +23,13 @@ public interface DbfsService {
   void addBlock(AddBlock addBlock);
 
   /**
-   * Close the stream.
-   *
-   * <p>Closes the stream specified by the input handle. If the handle does not exist, this call
-   * throws an exception with ``RESOURCE_DOES_NOT_EXIST``.
+   * Closes the stream specified by the input handle. If the handle does not exist, this call throws
+   * an exception with ``RESOURCE_DOES_NOT_EXIST``.
    */
   void close(Close close);
 
   /**
-   * Open a stream.
-   *
-   * <p>Opens a stream to write to a file and returns a handle to this stream. There is a 10 minute
+   * Opens a stream to write to a file and returns a handle to this stream. There is a 10 minute
    * idle timeout on this handle. If a file or directory already exists on the given path and
    * __overwrite__ is set to false, this call will throw an exception with
    * ``RESOURCE_ALREADY_EXISTS``.
@@ -48,11 +42,9 @@ public interface DbfsService {
   CreateResponse create(Create create);
 
   /**
-   * Delete a file/directory.
-   *
-   * <p>Delete the file or directory (optionally recursively delete all files in the directory).
-   * This call throws an exception with `IO_ERROR` if the path is a non-empty directory and
-   * `recursive` is set to `false` or on other similar errors.
+   * Delete the file or directory (optionally recursively delete all files in the directory). This
+   * call throws an exception with `IO_ERROR` if the path is a non-empty directory and `recursive`
+   * is set to `false` or on other similar errors.
    *
    * <p>When you delete a large number of files, the delete operation is done in increments. The
    * call returns a response after approximately 45 seconds with an error message (503 Service
@@ -69,17 +61,13 @@ public interface DbfsService {
   void delete(Delete delete);
 
   /**
-   * Get the information of a file or directory.
-   *
-   * <p>Gets the file information for a file or directory. If the file or directory does not exist,
+   * Gets the file information for a file or directory. If the file or directory does not exist,
    * this call throws an exception with `RESOURCE_DOES_NOT_EXIST`.
    */
   FileInfo getStatus(GetStatusRequest getStatusRequest);
 
   /**
-   * List directory contents or file details.
-   *
-   * <p>List the contents of a directory, or details of the file. If the file or directory does not
+   * List the contents of a directory, or details of the file. If the file or directory does not
    * exist, this call throws an exception with `RESOURCE_DOES_NOT_EXIST`.
    *
    * <p>When calling list on a large directory, the list operation will time out after approximately
@@ -92,9 +80,7 @@ public interface DbfsService {
   ListStatusResponse list(ListDbfsRequest listDbfsRequest);
 
   /**
-   * Create a directory.
-   *
-   * <p>Creates the given directory and necessary parent directories if they do not exist. If a file
+   * Creates the given directory and necessary parent directories if they do not exist. If a file
    * (not a directory) exists at any prefix of the input path, this call throws an exception with
    * `RESOURCE_ALREADY_EXISTS`. **Note**: If this operation fails, it might have succeeded in
    * creating some of the necessary parent directories.
@@ -102,9 +88,7 @@ public interface DbfsService {
   void mkdirs(MkDirs mkDirs);
 
   /**
-   * Move a file.
-   *
-   * <p>Moves a file from one location to another location within DBFS. If the source file does not
+   * Moves a file from one location to another location within DBFS. If the source file does not
    * exist, this call throws an exception with `RESOURCE_DOES_NOT_EXIST`. If a file already exists
    * in the destination path, this call throws an exception with `RESOURCE_ALREADY_EXISTS`. If the
    * given source path is a directory, this call always recursively moves all files.
@@ -112,10 +96,8 @@ public interface DbfsService {
   void move(Move move);
 
   /**
-   * Upload a file.
-   *
-   * <p>Uploads a file through the use of multipart form post. It is mainly used for streaming
-   * uploads, but can also be used as a convenient single call for data upload.
+   * Uploads a file through the use of multipart form post. It is mainly used for streaming uploads,
+   * but can also be used as a convenient single call for data upload.
    *
    * <p>Alternatively you can pass contents as base64 string.
    *
@@ -128,12 +110,10 @@ public interface DbfsService {
   void put(Put put);
 
   /**
-   * Get the contents of a file.
-   *
-   * <p>Returns the contents of a file. If the file does not exist, this call throws an exception
-   * with `RESOURCE_DOES_NOT_EXIST`. If the path is a directory, the read length is negative, or if
-   * the offset is negative, this call throws an exception with `INVALID_PARAMETER_VALUE`. If the
-   * read length exceeds 1 MB, this call throws an exception with `MAX_READ_SIZE_EXCEEDED`.
+   * Returns the contents of a file. If the file does not exist, this call throws an exception with
+   * `RESOURCE_DOES_NOT_EXIST`. If the path is a directory, the read length is negative, or if the
+   * offset is negative, this call throws an exception with `INVALID_PARAMETER_VALUE`. If the read
+   * length exceeds 1 MB, this call throws an exception with `MAX_READ_SIZE_EXCEEDED`.
    *
    * <p>If `offset + length` exceeds the number of bytes in a file, it reads the contents until the
    * end of file.

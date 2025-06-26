@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete an endpoint */
 @Generated
 public class DeleteEndpointRequest {
   /** Name of the vector search endpoint */

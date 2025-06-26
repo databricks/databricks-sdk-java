@@ -34,6 +34,22 @@ class GenieImpl implements GenieService {
   }
 
   @Override
+  public void deleteConversation(GenieDeleteConversationRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/genie/spaces/%s/conversations/%s",
+            request.getSpaceId(), request.getConversationId());
+    try {
+      Request req = new Request("DELETE", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      apiClient.execute(req, DeleteConversationResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public GenieGetMessageQueryResultResponse executeMessageAttachmentQuery(
       GenieExecuteMessageAttachmentQueryRequest request) {
     String path =
@@ -65,47 +81,6 @@ class GenieImpl implements GenieService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GenieGetMessageQueryResultResponse.class);
-    } catch (IOException e) {
-      throw new DatabricksException("IO error: " + e.getMessage(), e);
-    }
-  }
-
-  @Override
-  public GenieGenerateDownloadFullQueryResultResponse generateDownloadFullQueryResult(
-      GenieGenerateDownloadFullQueryResultRequest request) {
-    String path =
-        String.format(
-            "/api/2.0/genie/spaces/%s/conversations/%s/messages/%s/attachments/%s/downloads",
-            request.getSpaceId(),
-            request.getConversationId(),
-            request.getMessageId(),
-            request.getAttachmentId());
-    try {
-      Request req = new Request("POST", path);
-      ApiClient.setQuery(req, request);
-      req.withHeader("Accept", "application/json");
-      return apiClient.execute(req, GenieGenerateDownloadFullQueryResultResponse.class);
-    } catch (IOException e) {
-      throw new DatabricksException("IO error: " + e.getMessage(), e);
-    }
-  }
-
-  @Override
-  public GenieGetDownloadFullQueryResultResponse getDownloadFullQueryResult(
-      GenieGetDownloadFullQueryResultRequest request) {
-    String path =
-        String.format(
-            "/api/2.0/genie/spaces/%s/conversations/%s/messages/%s/attachments/%s/downloads/%s",
-            request.getSpaceId(),
-            request.getConversationId(),
-            request.getMessageId(),
-            request.getAttachmentId(),
-            request.getDownloadId());
-    try {
-      Request req = new Request("GET", path);
-      ApiClient.setQuery(req, request);
-      req.withHeader("Accept", "application/json");
-      return apiClient.execute(req, GenieGetDownloadFullQueryResultResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -198,6 +173,19 @@ class GenieImpl implements GenieService {
   }
 
   @Override
+  public GenieListConversationsResponse listConversations(GenieListConversationsRequest request) {
+    String path = String.format("/api/2.0/genie/spaces/%s/conversations", request.getSpaceId());
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, GenieListConversationsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public GenieListSpacesResponse listSpaces(GenieListSpacesRequest request) {
     String path = "/api/2.0/genie/spaces";
     try {
@@ -221,6 +209,19 @@ class GenieImpl implements GenieService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, GenieStartConversationResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public void trashSpace(GenieTrashSpaceRequest request) {
+    String path = String.format("/api/2.0/genie/spaces/%s", request.getSpaceId());
+    try {
+      Request req = new Request("DELETE", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      apiClient.execute(req, TrashSpaceResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

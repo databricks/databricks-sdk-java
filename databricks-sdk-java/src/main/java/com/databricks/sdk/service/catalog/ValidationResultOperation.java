@@ -4,7 +4,10 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** The operation tested. */
+/**
+ * A enum represents the file operation performed on the external location with the storage
+ * credential
+ */
 @Generated
 public enum ValidationResultOperation {
   DELETE,

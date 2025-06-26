@@ -34,6 +34,10 @@ public class ServingEndpoint {
   @JsonProperty("creator")
   private String creator;
 
+  /** Description of the endpoint */
+  @JsonProperty("description")
+  private String description;
+
   /** System-generated ID of the endpoint, included to be used by the Permissions API. */
   @JsonProperty("id")
   private String id;
@@ -103,6 +107,15 @@ public class ServingEndpoint {
     return creator;
   }
 
+  public ServingEndpoint setDescription(String description) {
+    this.description = description;
+    return this;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
   public ServingEndpoint setId(String id) {
     this.id = id;
     return this;
@@ -167,6 +180,7 @@ public class ServingEndpoint {
         && Objects.equals(config, that.config)
         && Objects.equals(creationTimestamp, that.creationTimestamp)
         && Objects.equals(creator, that.creator)
+        && Objects.equals(description, that.description)
         && Objects.equals(id, that.id)
         && Objects.equals(lastUpdatedTimestamp, that.lastUpdatedTimestamp)
         && Objects.equals(name, that.name)
@@ -183,6 +197,7 @@ public class ServingEndpoint {
         config,
         creationTimestamp,
         creator,
+        description,
         id,
         lastUpdatedTimestamp,
         name,
@@ -199,6 +214,7 @@ public class ServingEndpoint {
         .add("config", config)
         .add("creationTimestamp", creationTimestamp)
         .add("creator", creator)
+        .add("description", description)
         .add("id", id)
         .add("lastUpdatedTimestamp", lastUpdatedTimestamp)
         .add("name", name)

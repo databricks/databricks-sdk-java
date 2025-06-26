@@ -7,17 +7,21 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * The Cloudflare API token configuration. Read more at
+ * https://developers.cloudflare.com/r2/api/s3/tokens/
+ */
 @Generated
 public class CloudflareApiToken {
-  /** The Cloudflare access key id of the token. */
+  /** The access key ID associated with the API token. */
   @JsonProperty("access_key_id")
   private String accessKeyId;
 
-  /** The account id associated with the API token. */
+  /** The ID of the account associated with the API token. */
   @JsonProperty("account_id")
   private String accountId;
 
-  /** The secret access token generated for the access key id */
+  /** The secret access token generated for the above access key ID. */
   @JsonProperty("secret_access_key")
   private String secretAccessKey;
 

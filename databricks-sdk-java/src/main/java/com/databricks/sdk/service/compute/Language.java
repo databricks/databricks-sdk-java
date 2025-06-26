@@ -10,6 +10,9 @@ public enum Language {
   @JsonProperty("python")
   PYTHON,
 
+  @JsonProperty("r")
+  R,
+
   @JsonProperty("scala")
   SCALA,
 

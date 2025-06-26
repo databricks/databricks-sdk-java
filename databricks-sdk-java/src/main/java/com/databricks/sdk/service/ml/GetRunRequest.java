@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get a run */
 @Generated
 public class GetRunRequest {
   /** ID of the run to fetch. Must be provided. */

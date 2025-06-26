@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get recipient federation policy */
 @Generated
 public class GetFederationPolicyRequest {
   /** Name of the policy. This is the name of the policy to be retrieved. */

@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete a function */
 @Generated
 public class DeleteFunctionRequest {
   /** Force deletion even if the function is notempty. */

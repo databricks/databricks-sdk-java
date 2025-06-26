@@ -19,9 +19,7 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface QualityMonitorsService {
   /**
-   * Cancel refresh.
-   *
-   * <p>Cancel an active monitor refresh for the given refresh ID.
+   * Cancel an active monitor refresh for the given refresh ID.
    *
    * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
    * on the table's parent catalog and be an owner of the table's parent schema 3. have the
@@ -33,9 +31,7 @@ public interface QualityMonitorsService {
   void cancelRefresh(CancelRefreshRequest cancelRefreshRequest);
 
   /**
-   * Create a table monitor.
-   *
-   * <p>Creates a new monitor for the specified table.
+   * Creates a new monitor for the specified table.
    *
    * <p>The caller must either: 1. be an owner of the table's parent catalog, have **USE_SCHEMA** on
    * the table's parent schema, and have **SELECT** access on the table 2. have **USE_CATALOG** on
@@ -49,9 +45,7 @@ public interface QualityMonitorsService {
   MonitorInfo create(CreateMonitor createMonitor);
 
   /**
-   * Delete a table monitor.
-   *
-   * <p>Deletes a monitor for the specified table.
+   * Deletes a monitor for the specified table.
    *
    * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
    * on the table's parent catalog and be an owner of the table's parent schema 3. have the
@@ -66,9 +60,7 @@ public interface QualityMonitorsService {
   void delete(DeleteQualityMonitorRequest deleteQualityMonitorRequest);
 
   /**
-   * Get a table monitor.
-   *
-   * <p>Gets a monitor for the specified table.
+   * Gets a monitor for the specified table.
    *
    * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
    * on the table's parent catalog and be an owner of the table's parent schema. 3. have the
@@ -82,9 +74,7 @@ public interface QualityMonitorsService {
   MonitorInfo get(GetQualityMonitorRequest getQualityMonitorRequest);
 
   /**
-   * Get refresh.
-   *
-   * <p>Gets info about a specific monitor refresh using the given refresh ID.
+   * Gets info about a specific monitor refresh using the given refresh ID.
    *
    * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
    * on the table's parent catalog and be an owner of the table's parent schema 3. have the
@@ -96,9 +86,7 @@ public interface QualityMonitorsService {
   MonitorRefreshInfo getRefresh(GetRefreshRequest getRefreshRequest);
 
   /**
-   * List refreshes.
-   *
-   * <p>Gets an array containing the history of the most recent refreshes (up to 25) for this table.
+   * Gets an array containing the history of the most recent refreshes (up to 25) for this table.
    *
    * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
    * on the table's parent catalog and be an owner of the table's parent schema 3. have the
@@ -110,9 +98,7 @@ public interface QualityMonitorsService {
   MonitorRefreshListResponse listRefreshes(ListRefreshesRequest listRefreshesRequest);
 
   /**
-   * Regenerate a monitoring dashboard.
-   *
-   * <p>Regenerates the monitoring dashboard for the specified table.
+   * Regenerates the monitoring dashboard for the specified table.
    *
    * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
    * on the table's parent catalog and be an owner of the table's parent schema 3. have the
@@ -126,10 +112,8 @@ public interface QualityMonitorsService {
       RegenerateDashboardRequest regenerateDashboardRequest);
 
   /**
-   * Queue a metric refresh for a monitor.
-   *
-   * <p>Queues a metric refresh on the monitor for the specified table. The refresh will execute in
-   * the background.
+   * Queues a metric refresh on the monitor for the specified table. The refresh will execute in the
+   * background.
    *
    * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
    * on the table's parent catalog and be an owner of the table's parent schema 3. have the
@@ -141,9 +125,7 @@ public interface QualityMonitorsService {
   MonitorRefreshInfo runRefresh(RunRefreshRequest runRefreshRequest);
 
   /**
-   * Update a table monitor.
-   *
-   * <p>Updates a monitor for the specified table.
+   * Updates a monitor for the specified table.
    *
    * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
    * on the table's parent catalog and be an owner of the table's parent schema 3. have the

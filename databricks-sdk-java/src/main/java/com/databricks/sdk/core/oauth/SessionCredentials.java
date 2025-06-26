@@ -2,11 +2,9 @@ package com.databricks.sdk.core.oauth;
 
 import com.databricks.sdk.core.CredentialsProvider;
 import com.databricks.sdk.core.DatabricksConfig;
-import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.HttpClient;
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,9 +15,23 @@ import org.slf4j.LoggerFactory;
  * requests to an API, and a long-lived refresh token, which can be used to fetch new access tokens.
  * Calling refresh() uses the refresh token to retrieve a new access token to authenticate to APIs.
  */
-public class SessionCredentials implements TokenSource, CredentialsProvider, Serializable {
+public class SessionCredentials implements CredentialsProvider, Serializable {
   private static final long serialVersionUID = 3083941540130596650L;
   private static final Logger LOGGER = LoggerFactory.getLogger(SessionCredentials.class);
+
+  private final SessionCredentialsTokenSource tokenSource;
+
+  private SessionCredentials(Builder b) {
+    this.tokenSource =
+        new SessionCredentialsTokenSource(
+            b.token,
+            b.hc,
+            b.tokenUrl,
+            b.clientId,
+            b.clientSecret,
+            Optional.ofNullable(b.redirectUrl),
+            Optional.ofNullable(b.tokenCache));
+  }
 
   @Override
   public String authType() {
@@ -29,7 +41,7 @@ public class SessionCredentials implements TokenSource, CredentialsProvider, Ser
   @Override
   public OAuthHeaderFactory configure(DatabricksConfig config) {
     CachedTokenSource cachedTokenSource =
-        new CachedTokenSource.Builder(this).withToken(this.token).build();
+        new CachedTokenSource.Builder(tokenSource).withToken(tokenSource.getToken()).build();
     return OAuthHeaderFactory.fromTokenSource(cachedTokenSource);
   }
 
@@ -80,54 +92,5 @@ public class SessionCredentials implements TokenSource, CredentialsProvider, Ser
     public SessionCredentials build() {
       return new SessionCredentials(this);
     }
-  }
-
-  private final HttpClient hc;
-  private final String tokenUrl;
-  private final String redirectUrl;
-  private final String clientId;
-  private final String clientSecret;
-  private final TokenCache tokenCache;
-  protected Token token;
-
-  private SessionCredentials(Builder b) {
-    this.token = b.token;
-    this.hc = b.hc;
-    this.tokenUrl = b.tokenUrl;
-    this.redirectUrl = b.redirectUrl;
-    this.clientId = b.clientId;
-    this.clientSecret = b.clientSecret;
-    this.tokenCache = b.tokenCache;
-  }
-
-  @Override
-  public Token getToken() {
-    if (this.token == null) {
-      throw new DatabricksException("oauth2: token is not set");
-    }
-    String refreshToken = this.token.getRefreshToken();
-    if (refreshToken == null) {
-      throw new DatabricksException("oauth2: token expired and refresh token is not set");
-    }
-
-    Map<String, String> params = new HashMap<>();
-    params.put("grant_type", "refresh_token");
-    params.put("refresh_token", refreshToken);
-    Map<String, String> headers = new HashMap<>();
-    if (tokenUrl.contains("microsoft")) {
-      // Tokens issued for the 'Single-Page Application' client-type may only be redeemed via
-      // cross-origin requests
-      headers.put("Origin", redirectUrl);
-    }
-    this.token =
-        TokenEndpointClient.retrieveToken(
-            hc, clientId, clientSecret, tokenUrl, params, headers, AuthParameterPosition.BODY);
-
-    // Save the refreshed token directly to cache
-    if (tokenCache != null) {
-      tokenCache.save(this.token);
-      LOGGER.debug("Saved refreshed token to cache");
-    }
-    return this.token;
   }
 }

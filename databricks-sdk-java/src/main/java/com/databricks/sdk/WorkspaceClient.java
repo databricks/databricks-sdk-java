@@ -8,8 +8,8 @@ import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.mixin.ClustersExt;
 import com.databricks.sdk.mixin.DbfsExt;
 import com.databricks.sdk.mixin.SecretsExt;
-import com.databricks.sdk.service.aibuilder.CustomLlmsAPI;
-import com.databricks.sdk.service.aibuilder.CustomLlmsService;
+import com.databricks.sdk.service.aibuilder.AiBuilderAPI;
+import com.databricks.sdk.service.aibuilder.AiBuilderService;
 import com.databricks.sdk.service.apps.AppsAPI;
 import com.databricks.sdk.service.apps.AppsService;
 import com.databricks.sdk.service.catalog.ArtifactAllowlistsAPI;
@@ -134,8 +134,12 @@ import com.databricks.sdk.service.marketplace.ProviderProvidersAPI;
 import com.databricks.sdk.service.marketplace.ProviderProvidersService;
 import com.databricks.sdk.service.ml.ExperimentsAPI;
 import com.databricks.sdk.service.ml.ExperimentsService;
+import com.databricks.sdk.service.ml.FeatureStoreAPI;
+import com.databricks.sdk.service.ml.FeatureStoreService;
 import com.databricks.sdk.service.ml.ForecastingAPI;
 import com.databricks.sdk.service.ml.ForecastingService;
+import com.databricks.sdk.service.ml.MaterializedFeaturesAPI;
+import com.databricks.sdk.service.ml.MaterializedFeaturesService;
 import com.databricks.sdk.service.ml.ModelRegistryAPI;
 import com.databricks.sdk.service.ml.ModelRegistryService;
 import com.databricks.sdk.service.pipelines.PipelinesAPI;
@@ -221,6 +225,7 @@ public class WorkspaceClient {
 
   private AccessControlAPI accessControlAPI;
   private AccountAccessControlProxyAPI accountAccessControlProxyAPI;
+  private AiBuilderAPI aiBuilderAPI;
   private AlertsAPI alertsAPI;
   private AlertsLegacyAPI alertsLegacyAPI;
   private AlertsV2API alertsV2API;
@@ -242,7 +247,6 @@ public class WorkspaceClient {
   private CredentialsAPI credentialsAPI;
   private CredentialsManagerAPI credentialsManagerAPI;
   private CurrentUserAPI currentUserAPI;
-  private CustomLlmsAPI customLlmsAPI;
   private DashboardWidgetsAPI dashboardWidgetsAPI;
   private DashboardsAPI dashboardsAPI;
   private DataSourcesAPI dataSourcesAPI;
@@ -251,6 +255,7 @@ public class WorkspaceClient {
   private DbsqlPermissionsAPI dbsqlPermissionsAPI;
   private ExperimentsAPI experimentsAPI;
   private ExternalLocationsAPI externalLocationsAPI;
+  private FeatureStoreAPI featureStoreAPI;
   private FilesAPI filesAPI;
   private FunctionsAPI functionsAPI;
   private GenieAPI genieAPI;
@@ -265,6 +270,7 @@ public class WorkspaceClient {
   private LakeviewAPI lakeviewAPI;
   private LakeviewEmbeddedAPI lakeviewEmbeddedAPI;
   private LibrariesAPI librariesAPI;
+  private MaterializedFeaturesAPI materializedFeaturesAPI;
   private MetastoresAPI metastoresAPI;
   private ModelRegistryAPI modelRegistryAPI;
   private ModelVersionsAPI modelVersionsAPI;
@@ -332,6 +338,7 @@ public class WorkspaceClient {
     apiClient = new ApiClient(config);
     accessControlAPI = new AccessControlAPI(apiClient);
     accountAccessControlProxyAPI = new AccountAccessControlProxyAPI(apiClient);
+    aiBuilderAPI = new AiBuilderAPI(apiClient);
     alertsAPI = new AlertsAPI(apiClient);
     alertsLegacyAPI = new AlertsLegacyAPI(apiClient);
     alertsV2API = new AlertsV2API(apiClient);
@@ -353,7 +360,6 @@ public class WorkspaceClient {
     credentialsAPI = new CredentialsAPI(apiClient);
     credentialsManagerAPI = new CredentialsManagerAPI(apiClient);
     currentUserAPI = new CurrentUserAPI(apiClient);
-    customLlmsAPI = new CustomLlmsAPI(apiClient);
     dashboardWidgetsAPI = new DashboardWidgetsAPI(apiClient);
     dashboardsAPI = new DashboardsAPI(apiClient);
     dataSourcesAPI = new DataSourcesAPI(apiClient);
@@ -362,6 +368,7 @@ public class WorkspaceClient {
     dbsqlPermissionsAPI = new DbsqlPermissionsAPI(apiClient);
     experimentsAPI = new ExperimentsAPI(apiClient);
     externalLocationsAPI = new ExternalLocationsAPI(apiClient);
+    featureStoreAPI = new FeatureStoreAPI(apiClient);
     filesAPI = new FilesAPI(apiClient);
     functionsAPI = new FunctionsAPI(apiClient);
     genieAPI = new GenieAPI(apiClient);
@@ -376,6 +383,7 @@ public class WorkspaceClient {
     lakeviewAPI = new LakeviewAPI(apiClient);
     lakeviewEmbeddedAPI = new LakeviewEmbeddedAPI(apiClient);
     librariesAPI = new LibrariesAPI(apiClient);
+    materializedFeaturesAPI = new MaterializedFeaturesAPI(apiClient);
     metastoresAPI = new MetastoresAPI(apiClient);
     modelRegistryAPI = new ModelRegistryAPI(apiClient);
     modelVersionsAPI = new ModelVersionsAPI(apiClient);
@@ -460,6 +468,11 @@ public class WorkspaceClient {
    */
   public AccountAccessControlProxyAPI accountAccessControlProxy() {
     return accountAccessControlProxyAPI;
+  }
+
+  /** The Custom LLMs service manages state and powers the UI for the Custom LLM product. */
+  public AiBuilderAPI aiBuilder() {
+    return aiBuilderAPI;
   }
 
   /**
@@ -680,11 +693,6 @@ public class WorkspaceClient {
     return currentUserAPI;
   }
 
-  /** The Custom LLMs service manages state and powers the UI for the Custom LLM product. */
-  public CustomLlmsAPI customLlms() {
-    return customLlmsAPI;
-  }
-
   /**
    * This is an evolving API that facilitates the addition and removal of widgets from existing
    * dashboards within the Databricks Workspace. Data structures may change over time.
@@ -785,6 +793,18 @@ public class WorkspaceClient {
    */
   public ExternalLocationsAPI externalLocations() {
     return externalLocationsAPI;
+  }
+
+  /**
+   * A feature store is a centralized repository that enables data scientists to find and share
+   * features. Using a feature store also ensures that the code used to compute feature values is
+   * the same during model training and when the model is used for inference.
+   *
+   * <p>An online store is a low-latency database used for feature lookup during real-time model
+   * inference or serve feature for real-time applications.
+   */
+  public FeatureStoreAPI featureStore() {
+    return featureStoreAPI;
   }
 
   /**
@@ -1001,6 +1021,14 @@ public class WorkspaceClient {
    */
   public LibrariesAPI libraries() {
     return librariesAPI;
+  }
+
+  /**
+   * Materialized Features are columns in tables and views that can be directly used as features to
+   * train and serve ML models.
+   */
+  public MaterializedFeaturesAPI materializedFeatures() {
+    return materializedFeaturesAPI;
   }
 
   /**
@@ -1809,6 +1837,17 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default AiBuilderService with a custom implementation. */
+  public WorkspaceClient withAiBuilderImpl(AiBuilderService aiBuilder) {
+    return this.withAiBuilderAPI(new AiBuilderAPI(aiBuilder));
+  }
+
+  /** Replace the default AiBuilderAPI with a custom implementation. */
+  public WorkspaceClient withAiBuilderAPI(AiBuilderAPI aiBuilder) {
+    this.aiBuilderAPI = aiBuilder;
+    return this;
+  }
+
   /** Replace the default AlertsService with a custom implementation. */
   public WorkspaceClient withAlertsImpl(AlertsService alerts) {
     return this.withAlertsAPI(new AlertsAPI(alerts));
@@ -2046,17 +2085,6 @@ public class WorkspaceClient {
     return this;
   }
 
-  /** Replace the default CustomLlmsService with a custom implementation. */
-  public WorkspaceClient withCustomLlmsImpl(CustomLlmsService customLlms) {
-    return this.withCustomLlmsAPI(new CustomLlmsAPI(customLlms));
-  }
-
-  /** Replace the default CustomLlmsAPI with a custom implementation. */
-  public WorkspaceClient withCustomLlmsAPI(CustomLlmsAPI customLlms) {
-    this.customLlmsAPI = customLlms;
-    return this;
-  }
-
   /** Replace the default DashboardWidgetsService with a custom implementation. */
   public WorkspaceClient withDashboardWidgetsImpl(DashboardWidgetsService dashboardWidgets) {
     return this.withDashboardWidgetsAPI(new DashboardWidgetsAPI(dashboardWidgets));
@@ -2142,6 +2170,17 @@ public class WorkspaceClient {
   /** Replace the default ExternalLocationsAPI with a custom implementation. */
   public WorkspaceClient withExternalLocationsAPI(ExternalLocationsAPI externalLocations) {
     this.externalLocationsAPI = externalLocations;
+    return this;
+  }
+
+  /** Replace the default FeatureStoreService with a custom implementation. */
+  public WorkspaceClient withFeatureStoreImpl(FeatureStoreService featureStore) {
+    return this.withFeatureStoreAPI(new FeatureStoreAPI(featureStore));
+  }
+
+  /** Replace the default FeatureStoreAPI with a custom implementation. */
+  public WorkspaceClient withFeatureStoreAPI(FeatureStoreAPI featureStore) {
+    this.featureStoreAPI = featureStore;
     return this;
   }
 
@@ -2296,6 +2335,18 @@ public class WorkspaceClient {
   /** Replace the default LibrariesAPI with a custom implementation. */
   public WorkspaceClient withLibrariesAPI(LibrariesAPI libraries) {
     this.librariesAPI = libraries;
+    return this;
+  }
+
+  /** Replace the default MaterializedFeaturesService with a custom implementation. */
+  public WorkspaceClient withMaterializedFeaturesImpl(
+      MaterializedFeaturesService materializedFeatures) {
+    return this.withMaterializedFeaturesAPI(new MaterializedFeaturesAPI(materializedFeatures));
+  }
+
+  /** Replace the default MaterializedFeaturesAPI with a custom implementation. */
+  public WorkspaceClient withMaterializedFeaturesAPI(MaterializedFeaturesAPI materializedFeatures) {
+    this.materializedFeaturesAPI = materializedFeatures;
     return this;
   }
 

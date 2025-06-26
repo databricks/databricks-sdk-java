@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Create schedule subscription */
 @Generated
 public class CreateSubscriptionRequest {
   /** UUID identifying the dashboard to which the subscription belongs. */

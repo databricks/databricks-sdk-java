@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get warehouse info */
 @Generated
 public class GetWarehouseRequest {
   /** Required. Id of the SQL warehouse. */

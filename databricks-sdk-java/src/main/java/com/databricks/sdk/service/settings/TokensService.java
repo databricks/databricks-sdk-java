@@ -14,28 +14,20 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface TokensService {
   /**
-   * Create a user token.
-   *
-   * <p>Creates and returns a token for a user. If this call is made through token authentication,
-   * it creates a token with the same client ID as the authenticated token. If the user's token
-   * quota is exceeded, this call returns an error **QUOTA_EXCEEDED**.
+   * Creates and returns a token for a user. If this call is made through token authentication, it
+   * creates a token with the same client ID as the authenticated token. If the user's token quota
+   * is exceeded, this call returns an error **QUOTA_EXCEEDED**.
    */
   CreateTokenResponse create(CreateTokenRequest createTokenRequest);
 
   /**
-   * Revoke token.
-   *
-   * <p>Revokes an access token.
+   * Revokes an access token.
    *
    * <p>If a token with the specified ID is not valid, this call returns an error
    * **RESOURCE_DOES_NOT_EXIST**.
    */
   void delete(RevokeTokenRequest revokeTokenRequest);
 
-  /**
-   * List tokens.
-   *
-   * <p>Lists all the valid tokens for a user-workspace pair.
-   */
+  /** Lists all the valid tokens for a user-workspace pair. */
   ListPublicTokensResponse list();
 }

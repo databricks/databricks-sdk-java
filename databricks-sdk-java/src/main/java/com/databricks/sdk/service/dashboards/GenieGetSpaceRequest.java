@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Get Genie Space */
 @Generated
 public class GenieGetSpaceRequest {
   /** The ID associated with the Genie space */

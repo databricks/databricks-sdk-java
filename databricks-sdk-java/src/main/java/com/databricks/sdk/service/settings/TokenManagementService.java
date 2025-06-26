@@ -13,62 +13,32 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface TokenManagementService {
-  /**
-   * Create on-behalf token.
-   *
-   * <p>Creates a token on behalf of a service principal.
-   */
+  /** Creates a token on behalf of a service principal. */
   CreateOboTokenResponse createOboToken(CreateOboTokenRequest createOboTokenRequest);
 
-  /**
-   * Delete a token.
-   *
-   * <p>Deletes a token, specified by its ID.
-   */
+  /** Deletes a token, specified by its ID. */
   void delete(DeleteTokenManagementRequest deleteTokenManagementRequest);
 
-  /**
-   * Get token info.
-   *
-   * <p>Gets information about a token, specified by its ID.
-   */
+  /** Gets information about a token, specified by its ID. */
   GetTokenResponse get(GetTokenManagementRequest getTokenManagementRequest);
 
-  /**
-   * Get token permission levels.
-   *
-   * <p>Gets the permission levels that a user can have on an object.
-   */
+  /** Gets the permission levels that a user can have on an object. */
   GetTokenPermissionLevelsResponse getPermissionLevels();
 
-  /**
-   * Get token permissions.
-   *
-   * <p>Gets the permissions of all tokens. Tokens can inherit permissions from their root object.
-   */
+  /** Gets the permissions of all tokens. Tokens can inherit permissions from their root object. */
   TokenPermissions getPermissions();
 
-  /**
-   * List all tokens.
-   *
-   * <p>Lists all tokens associated with the specified workspace or user.
-   */
+  /** Lists all tokens associated with the specified workspace or user. */
   ListTokensResponse list(ListTokenManagementRequest listTokenManagementRequest);
 
   /**
-   * Set token permissions.
-   *
-   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
-   * direct permissions if none are specified. Objects can inherit permissions from their root
-   * object.
+   * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
+   * permissions if none are specified. Objects can inherit permissions from their root object.
    */
   TokenPermissions setPermissions(TokenPermissionsRequest tokenPermissionsRequest);
 
   /**
-   * Update token permissions.
-   *
-   * <p>Updates the permissions on all tokens. Tokens can inherit permissions from their root
-   * object.
+   * Updates the permissions on all tokens. Tokens can inherit permissions from their root object.
    */
   TokenPermissions updatePermissions(TokenPermissionsRequest tokenPermissionsRequest);
 }

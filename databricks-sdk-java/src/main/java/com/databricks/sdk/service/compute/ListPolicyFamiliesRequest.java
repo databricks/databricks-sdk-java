@@ -8,7 +8,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** List policy families */
 @Generated
 public class ListPolicyFamiliesRequest {
   /** Maximum number of policy families to return. */

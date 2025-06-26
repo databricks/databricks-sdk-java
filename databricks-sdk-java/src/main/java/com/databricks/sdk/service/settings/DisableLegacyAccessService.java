@@ -16,25 +16,13 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface DisableLegacyAccessService {
-  /**
-   * Delete Legacy Access Disablement Status.
-   *
-   * <p>Deletes legacy access disablement status.
-   */
+  /** Deletes legacy access disablement status. */
   DeleteDisableLegacyAccessResponse delete(
       DeleteDisableLegacyAccessRequest deleteDisableLegacyAccessRequest);
 
-  /**
-   * Retrieve Legacy Access Disablement Status.
-   *
-   * <p>Retrieves legacy access disablement Status.
-   */
+  /** Retrieves legacy access disablement Status. */
   DisableLegacyAccess get(GetDisableLegacyAccessRequest getDisableLegacyAccessRequest);
 
-  /**
-   * Update Legacy Access Disablement Status.
-   *
-   * <p>Updates legacy access disablement status.
-   */
+  /** Updates legacy access disablement status. */
   DisableLegacyAccess update(UpdateDisableLegacyAccessRequest updateDisableLegacyAccessRequest);
 }
