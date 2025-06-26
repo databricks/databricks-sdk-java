@@ -49,7 +49,10 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
         return null;
       }
 
-      CachedTokenSource cachedTokenSource = new CachedTokenSource.Builder(tokenSource).build();
+      CachedTokenSource cachedTokenSource =
+          new CachedTokenSource.Builder(tokenSource)
+              .setAsyncDisabled(config.getDisableAsyncTokenRefresh())
+              .build();
       cachedTokenSource.getToken(); // We need this for checking if databricks CLI is installed.
 
       return OAuthHeaderFactory.fromTokenSource(cachedTokenSource);

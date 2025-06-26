@@ -27,7 +27,10 @@ class ServingEndpointsDataPlaneImpl implements ServingEndpointsDataPlaneService 
     this.servingEndpointsAPI = servingEndpointsAPI;
     this.dataPlaneTokenSource =
         new DataPlaneTokenSource(
-            apiClient.getHttpClient(), config.getTokenSource(), config.getHost());
+            apiClient.getHttpClient(),
+            config.getTokenSource(),
+            config.getHost(),
+            config.getDisableAsyncTokenRefresh());
     this.infos = new ConcurrentHashMap<>();
   }
 

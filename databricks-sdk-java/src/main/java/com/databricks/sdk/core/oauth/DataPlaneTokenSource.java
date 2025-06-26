@@ -17,6 +17,7 @@ public class DataPlaneTokenSource {
   private final HttpClient httpClient;
   private final TokenSource cpTokenSource;
   private final String host;
+  private final boolean asyncDisabled;
   private final ConcurrentHashMap<TokenSourceKey, CachedTokenSource> sourcesCache;
   /**
    * Caching key for {@link EndpointTokenSource}, based on endpoint and authorization details. This
@@ -42,11 +43,13 @@ public class DataPlaneTokenSource {
    * @throws NullPointerException if any parameter is null.
    * @throws IllegalArgumentException if the host is empty.
    */
-  public DataPlaneTokenSource(HttpClient httpClient, TokenSource cpTokenSource, String host) {
+  public DataPlaneTokenSource(
+      HttpClient httpClient, TokenSource cpTokenSource, String host, boolean asyncDisabled) {
     this.httpClient = Objects.requireNonNull(httpClient, "HTTP client cannot be null");
     this.cpTokenSource =
         Objects.requireNonNull(cpTokenSource, "Control plane token source cannot be null");
     this.host = Objects.requireNonNull(host, "Host cannot be null");
+    this.asyncDisabled = asyncDisabled;
 
     if (host.isEmpty()) {
       throw new IllegalArgumentException("Host cannot be empty");
@@ -85,6 +88,7 @@ public class DataPlaneTokenSource {
                 new CachedTokenSource.Builder(
                         new EndpointTokenSource(
                             this.cpTokenSource, k.authDetails(), this.httpClient, this.host))
+                    .setAsyncDisabled(asyncDisabled)
                     .build());
 
     return specificSource.getToken();

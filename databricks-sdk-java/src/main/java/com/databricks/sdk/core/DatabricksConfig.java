@@ -161,7 +161,7 @@ public class DatabricksConfig {
 
   /** Disable asynchronous token refresh when set to true. */
   @ConfigAttribute(env = "DATABRICKS_DISABLE_ASYNC_TOKEN_REFRESH")
-  private boolean disableAsyncTokenRefresh = false;
+  private Boolean disableAsyncTokenRefresh;
 
   public Environment getEnv() {
     return env;
@@ -584,7 +584,7 @@ public class DatabricksConfig {
   }
 
   public boolean getDisableAsyncTokenRefresh() {
-    return disableAsyncTokenRefresh;
+    return disableAsyncTokenRefresh != null && disableAsyncTokenRefresh;
   }
 
   public DatabricksConfig setDisableAsyncTokenRefresh(boolean disableAsyncTokenRefresh) {

@@ -58,7 +58,10 @@ public class GithubOidcCredentialsProvider implements CredentialsProvider {
                         .build())
             .build();
 
-    CachedTokenSource cachedTokenSource = new CachedTokenSource.Builder(clientCredentials).build();
+    CachedTokenSource cachedTokenSource =
+        new CachedTokenSource.Builder(clientCredentials)
+            .setAsyncDisabled(config.getDisableAsyncTokenRefresh())
+            .build();
 
     return () -> {
       Map<String, String> headers = new HashMap<>();

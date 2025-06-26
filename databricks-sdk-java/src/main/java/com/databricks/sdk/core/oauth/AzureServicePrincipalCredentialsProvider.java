@@ -70,6 +70,8 @@ public class AzureServicePrincipalCredentialsProvider implements CredentialsProv
             .withEndpointParametersSupplier(() -> endpointParams)
             .withAuthParameterPosition(AuthParameterPosition.BODY)
             .build();
-    return new CachedTokenSource.Builder(clientCredentials).build();
+    return new CachedTokenSource.Builder(clientCredentials)
+        .setAsyncDisabled(config.getDisableAsyncTokenRefresh())
+        .build();
   }
 }

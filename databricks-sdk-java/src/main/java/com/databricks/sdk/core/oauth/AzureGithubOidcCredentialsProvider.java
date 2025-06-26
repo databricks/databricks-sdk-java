@@ -46,7 +46,10 @@ public class AzureGithubOidcCredentialsProvider implements CredentialsProvider {
             config.getEffectiveAzureLoginAppId(),
             idToken.get(),
             "urn:ietf:params:oauth:client-assertion-type:jwt-bearer");
-    CachedTokenSource cachedTokenSource = new CachedTokenSource.Builder(tokenSource).build();
+    CachedTokenSource cachedTokenSource =
+        new CachedTokenSource.Builder(tokenSource)
+            .setAsyncDisabled(config.getDisableAsyncTokenRefresh())
+            .build();
     return OAuthHeaderFactory.fromTokenSource(cachedTokenSource);
   }
 

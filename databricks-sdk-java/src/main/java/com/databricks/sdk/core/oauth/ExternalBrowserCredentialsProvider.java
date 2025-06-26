@@ -78,7 +78,10 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
                   Optional.of(config.getEffectiveOAuthRedirectUrl()),
                   Optional.of(tokenCache));
 
-          CachedTokenSource cachedTokenSource = new CachedTokenSource.Builder(tokenSource).build();
+          CachedTokenSource cachedTokenSource =
+              new CachedTokenSource.Builder(tokenSource)
+                  .setAsyncDisabled(config.getDisableAsyncTokenRefresh())
+                  .build();
           LOGGER.debug("Using cached token, will immediately refresh");
           cachedTokenSource.getToken();
           return OAuthHeaderFactory.fromTokenSource(cachedTokenSource);
@@ -128,6 +131,9 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
             Optional.ofNullable(config.getEffectiveOAuthRedirectUrl()),
             Optional.ofNullable(tokenCache));
 
-    return new CachedTokenSource.Builder(tokenSource).setToken(token).build();
+    return new CachedTokenSource.Builder(tokenSource)
+        .setToken(token)
+        .setAsyncDisabled(config.getDisableAsyncTokenRefresh())
+        .build();
   }
 }
