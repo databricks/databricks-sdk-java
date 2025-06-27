@@ -184,11 +184,13 @@ public class DataPlaneTokenSourceTest {
       assertThrows(
           expectedException,
           () -> {
-            DataPlaneTokenSource source = new DataPlaneTokenSource(httpClient, cpTokenSource, host);
+            DataPlaneTokenSource source =
+                new DataPlaneTokenSource(httpClient, cpTokenSource, host, false);
             source.getToken(endpoint, authDetails);
           });
     } else {
-      DataPlaneTokenSource source = new DataPlaneTokenSource(httpClient, cpTokenSource, host);
+      DataPlaneTokenSource source =
+          new DataPlaneTokenSource(httpClient, cpTokenSource, host, false);
       Token token = source.getToken(endpoint, authDetails);
       assertNotNull(token);
       assertEquals(expectedToken.getAccessToken(), token.getAccessToken());
@@ -214,7 +216,7 @@ public class DataPlaneTokenSourceTest {
     try (MockedConstruction<EndpointTokenSource> mockedConstruction =
         mockConstruction(EndpointTokenSource.class)) {
       DataPlaneTokenSource source =
-          new DataPlaneTokenSource(mockHttpClient, mockCpTokenSource, TEST_HOST);
+          new DataPlaneTokenSource(mockHttpClient, mockCpTokenSource, TEST_HOST, false);
 
       // First call - should create new EndpointTokenSource
       source.getToken(TEST_ENDPOINT_1, TEST_AUTH_DETAILS_1);

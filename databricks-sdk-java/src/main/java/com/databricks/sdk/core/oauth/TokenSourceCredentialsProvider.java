@@ -41,7 +41,9 @@ public class TokenSourceCredentialsProvider implements CredentialsProvider {
     TokenSource cachedTokenSource =
         (tokenSource instanceof CachedTokenSource)
             ? tokenSource
-            : new CachedTokenSource.Builder(tokenSource).build();
+            : new CachedTokenSource.Builder(tokenSource)
+                .setAsyncDisabled(config.getDisableAsyncTokenRefresh())
+                .build();
 
     try {
       // Validate that we can get a token before returning a HeaderFactory

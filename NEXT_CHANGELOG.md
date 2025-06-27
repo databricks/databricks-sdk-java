@@ -3,6 +3,9 @@
 ## Release v0.55.0
 
 ### New Features and Improvements
+* Enabled asynchronous token refreshes by default. A new `disable_async_token_refresh` configuration option has been added to allow disabling this feature if necessary.
+  To disable asynchronous token refresh, set the environment variable `DATABRICKS_DISABLE_ASYNC_TOKEN_REFRESH=true` or configure it within your configuration object.
+  The previous `DATABRICKS_ENABLE_EXPERIMENTAL_ASYNC_TOKEN_REFRESH` option has been removed as asynchronous refresh is now the default behavior.
 
 ### Bug Fixes
 

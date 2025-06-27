@@ -40,8 +40,7 @@ public class CachedTokenSource implements TokenSource {
   // The token source to use for refreshing the token.
   private final TokenSource tokenSource;
   // Whether asynchronous refresh is enabled.
-  private boolean asyncEnabled =
-      Boolean.parseBoolean(System.getenv("DATABRICKS_ENABLE_EXPERIMENTAL_ASYNC_TOKEN_REFRESH"));
+  private boolean asyncDisabled = false;
   // Duration before expiry to consider a token as 'stale'.
   private final Duration staleDuration;
   // Additional buffer before expiry to consider a token as expired.
@@ -50,7 +49,7 @@ public class CachedTokenSource implements TokenSource {
   private final ClockSupplier clockSupplier;
 
   // The current OAuth token. May be null if not yet fetched.
-  private volatile Token token;
+  protected volatile Token token;
   // Whether a refresh is currently in progress (for async refresh).
   private boolean refreshInProgress = false;
   // Whether the last refresh attempt succeeded.
@@ -58,7 +57,7 @@ public class CachedTokenSource implements TokenSource {
 
   private CachedTokenSource(Builder builder) {
     this.tokenSource = builder.tokenSource;
-    this.asyncEnabled = builder.asyncEnabled;
+    this.asyncDisabled = builder.asyncDisabled;
     this.staleDuration = builder.staleDuration;
     this.expiryBuffer = builder.expiryBuffer;
     this.clockSupplier = builder.clockSupplier;
@@ -73,7 +72,7 @@ public class CachedTokenSource implements TokenSource {
    */
   public static class Builder {
     private final TokenSource tokenSource;
-    private boolean asyncEnabled = false;
+    private boolean asyncDisabled = false;
     private Duration staleDuration = DEFAULT_STALE_DURATION;
     private Duration expiryBuffer = DEFAULT_EXPIRY_BUFFER;
     private ClockSupplier clockSupplier = new UtcClockSupplier();
@@ -110,11 +109,11 @@ public class CachedTokenSource implements TokenSource {
      * current token. When disabled, all refreshes are performed synchronously and will block the
      * calling thread.
      *
-     * @param asyncEnabled True to enable asynchronous refresh, false to disable.
+     * @param asyncDisabled True to disable asynchronous refresh, false to enable.
      * @return This builder instance for method chaining.
      */
-    public Builder setAsyncEnabled(boolean asyncEnabled) {
-      this.asyncEnabled = asyncEnabled;
+    public Builder setAsyncDisabled(boolean asyncDisabled) {
+      this.asyncDisabled = asyncDisabled;
       return this;
     }
 
@@ -182,10 +181,10 @@ public class CachedTokenSource implements TokenSource {
    * @return The current valid token
    */
   public Token getToken() {
-    if (asyncEnabled) {
-      return getTokenAsync();
+    if (asyncDisabled) {
+      return getTokenBlocking();
     }
-    return getTokenBlocking();
+    return getTokenAsync();
   }
 
   /**

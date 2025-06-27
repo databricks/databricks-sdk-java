@@ -38,7 +38,9 @@ public class OAuthM2MServicePrincipalCredentialsProvider implements CredentialsP
               .build();
 
       CachedTokenSource cachedTokenSource =
-          new CachedTokenSource.Builder(clientCredentials).build();
+          new CachedTokenSource.Builder(clientCredentials)
+              .setAsyncDisabled(config.getDisableAsyncTokenRefresh())
+              .build();
 
       return OAuthHeaderFactory.fromTokenSource(cachedTokenSource);
     } catch (IOException e) {

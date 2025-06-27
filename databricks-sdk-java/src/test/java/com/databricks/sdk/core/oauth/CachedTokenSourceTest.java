@@ -23,12 +23,12 @@ public class CachedTokenSourceTest {
 
   private static Stream<Arguments> provideAsyncRefreshScenarios() {
     return Stream.of(
-        Arguments.of("Fresh token, async enabled", FRESH_MINUTES, true, false, INITIAL_TOKEN),
-        Arguments.of("Stale token, async enabled", STALE_MINUTES, true, true, INITIAL_TOKEN),
-        Arguments.of("Expired token, async enabled", EXPIRED_MINUTES, true, true, REFRESH_TOKEN),
-        Arguments.of("Fresh token, async disabled", FRESH_MINUTES, false, false, INITIAL_TOKEN),
-        Arguments.of("Stale token, async disabled", STALE_MINUTES, false, false, INITIAL_TOKEN),
-        Arguments.of("Expired token, async disabled", EXPIRED_MINUTES, false, true, REFRESH_TOKEN));
+        Arguments.of("Fresh token, async enabled", FRESH_MINUTES, false, false, INITIAL_TOKEN),
+        Arguments.of("Stale token, async enabled", STALE_MINUTES, false, true, INITIAL_TOKEN),
+        Arguments.of("Expired token, async enabled", EXPIRED_MINUTES, false, true, REFRESH_TOKEN),
+        Arguments.of("Fresh token, async disabled", FRESH_MINUTES, true, false, INITIAL_TOKEN),
+        Arguments.of("Stale token, async disabled", STALE_MINUTES, true, false, INITIAL_TOKEN),
+        Arguments.of("Expired token, async disabled", EXPIRED_MINUTES, true, true, REFRESH_TOKEN));
   }
 
   @ParameterizedTest(name = "{0}")
@@ -36,7 +36,7 @@ public class CachedTokenSourceTest {
   void testAsyncRefreshParametrized(
       String testName,
       long minutesUntilExpiry,
-      boolean asyncEnabled,
+      boolean asyncDisabled,
       boolean expectRefresh,
       String expectedToken)
       throws Exception {
@@ -67,7 +67,7 @@ public class CachedTokenSourceTest {
 
     CachedTokenSource source =
         new CachedTokenSource.Builder(tokenSource)
-            .setAsyncEnabled(asyncEnabled)
+            .setAsyncDisabled(asyncDisabled)
             .setToken(initialToken)
             .build();
 
@@ -127,7 +127,7 @@ public class CachedTokenSourceTest {
     TestSource testSource = new TestSource();
     CachedTokenSource source =
         new CachedTokenSource.Builder(testSource)
-            .setAsyncEnabled(true)
+            .setAsyncDisabled(false)
             .setToken(staleToken)
             .setClockSupplier(clockSupplier)
             .build();

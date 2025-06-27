@@ -52,7 +52,10 @@ public class AzureCliCredentialsProvider implements CredentialsProvider {
   protected CachedTokenSource getTokenSource(DatabricksConfig config, List<String> cmd) {
     CliTokenSource tokenSource =
         new CliTokenSource(cmd, "tokenType", "accessToken", "expiresOn", config.getEnv());
-    CachedTokenSource cachedTokenSource = new CachedTokenSource.Builder(tokenSource).build();
+    CachedTokenSource cachedTokenSource =
+        new CachedTokenSource.Builder(tokenSource)
+            .setAsyncDisabled(config.getDisableAsyncTokenRefresh())
+            .build();
     cachedTokenSource.getToken(); // Check if the CLI is installed and to validate the config.
     return cachedTokenSource;
   }

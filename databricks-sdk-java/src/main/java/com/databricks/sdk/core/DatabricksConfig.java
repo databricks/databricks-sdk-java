@@ -159,6 +159,10 @@ public class DatabricksConfig {
   @ConfigAttribute(env = "DATABRICKS_OIDC_TOKEN_ENV", auth = "env-oidc")
   private String oidcTokenEnv;
 
+  /** Disable asynchronous token refresh when set to true. */
+  @ConfigAttribute(env = "DATABRICKS_DISABLE_ASYNC_TOKEN_REFRESH")
+  private Boolean disableAsyncTokenRefresh;
+
   public Environment getEnv() {
     return env;
   }
@@ -572,6 +576,15 @@ public class DatabricksConfig {
 
   public DatabricksConfig setOidcTokenEnv(String oidcTokenEnv) {
     this.oidcTokenEnv = oidcTokenEnv;
+    return this;
+  }
+
+  public boolean getDisableAsyncTokenRefresh() {
+    return disableAsyncTokenRefresh != null && disableAsyncTokenRefresh;
+  }
+
+  public DatabricksConfig setDisableAsyncTokenRefresh(boolean disableAsyncTokenRefresh) {
+    this.disableAsyncTokenRefresh = disableAsyncTokenRefresh;
     return this;
   }
 
