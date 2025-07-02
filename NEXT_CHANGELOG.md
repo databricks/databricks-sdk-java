@@ -8,6 +8,7 @@
   The previous `DATABRICKS_ENABLE_EXPERIMENTAL_ASYNC_TOKEN_REFRESH` option has been removed as asynchronous refresh is now the default behavior.
 
 ### Bug Fixes
+- Fix Azure OIDC endpoint selection to support both U2M and M2M authentication flows ([#453](https://github.com/databricks/databricks-sdk-java/pull/454)).
 
 ### Documentation
 
