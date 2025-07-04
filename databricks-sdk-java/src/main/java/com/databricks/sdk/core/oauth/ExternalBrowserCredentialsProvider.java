@@ -112,6 +112,7 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
             .withClientId(clientId)
             .withClientSecret(clientSecret)
             .withHost(config.getHost())
+            .withAccountId(config.getAccountId())
             .withRedirectUrl(config.getEffectiveOAuthRedirectUrl())
             .withScopes(config.getScopes())
             .build();
