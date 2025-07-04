@@ -35,6 +35,7 @@ public class OAuthClient {
     private List<String> scopes;
     private String clientSecret;
     private HttpClient hc;
+    private String accountId;
 
     public Builder() {}
 
@@ -71,6 +72,11 @@ public class OAuthClient {
     public OAuthClient build() throws IOException {
       return new OAuthClient(this);
     }
+
+    public Builder withAccountId(String accountId) {
+      this.accountId = accountId;
+      return this;
+    }
   }
 
   private final String clientId;
@@ -92,7 +98,8 @@ public class OAuthClient {
     this.host = b.host;
     this.hc = b.hc;
 
-    DatabricksConfig config = new DatabricksConfig().setHost(b.host).resolve();
+    DatabricksConfig config =
+        new DatabricksConfig().setHost(b.host).setAccountId(b.accountId).resolve();
     OpenIDConnectEndpoints oidc = config.getOidcEndpoints();
     if (oidc == null) {
       throw new DatabricksException(b.host + " does not support OAuth");
