@@ -13,10 +13,7 @@ public class PublishSpec {
   @JsonProperty("online_store")
   private String onlineStore;
 
-  /**
-   * The full three-part (catalog, schema, table) name of the online table. Auto-generated if not
-   * specified.
-   */
+  /** The full three-part (catalog, schema, table) name of the online table. */
   @JsonProperty("online_table_name")
   private String onlineTableName;
 

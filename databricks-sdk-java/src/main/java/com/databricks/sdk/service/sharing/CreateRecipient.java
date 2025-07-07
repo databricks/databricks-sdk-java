@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateRecipient {
-  /** The delta sharing authentication type. */
+  /** */
   @JsonProperty("authentication_type")
   private AuthenticationType authenticationType;
 

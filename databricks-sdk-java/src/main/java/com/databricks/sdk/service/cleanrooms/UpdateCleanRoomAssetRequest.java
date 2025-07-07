@@ -10,7 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class UpdateCleanRoomAssetRequest {
-  /** Metadata of the clean room asset */
+  /**
+   * The asset to update. The asset's `name` and `asset_type` fields are used to identify the asset
+   * to update.
+   */
   @JsonProperty("asset")
   private CleanRoomAsset asset;
 

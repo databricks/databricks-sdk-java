@@ -13,7 +13,7 @@ public class ExperimentPermissionsDescription {
   @JsonProperty("description")
   private String description;
 
-  /** Permission level */
+  /** */
   @JsonProperty("permission_level")
   private ExperimentPermissionLevel permissionLevel;
 

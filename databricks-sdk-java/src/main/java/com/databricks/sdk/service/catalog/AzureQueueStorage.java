@@ -15,21 +15,21 @@ public class AzureQueueStorage {
 
   /**
    * The AQS queue url in the format https://{storage account}.queue.core.windows.net/{queue name}
-   * REQUIRED for provided_aqs.
+   * Required for provided_aqs.
    */
   @JsonProperty("queue_url")
   private String queueUrl;
 
   /**
    * The resource group for the queue, event grid subscription, and external location storage
-   * account. ONLY REQUIRED for locations with a service principal storage credential
+   * account. Only required for locations with a service principal storage credential
    */
   @JsonProperty("resource_group")
   private String resourceGroup;
 
   /**
-   * OPTIONAL: The subscription id for the queue, event grid subscription, and external location
-   * storage account. REQUIRED for locations with a service principal storage credential
+   * Optional subscription id for the queue, event grid subscription, and external location storage
+   * account. Required for locations with a service principal storage credential
    */
   @JsonProperty("subscription_id")
   private String subscriptionId;

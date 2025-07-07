@@ -46,6 +46,14 @@ public class GetPipelineResponse {
   @JsonProperty("pipeline_id")
   private String pipelineId;
 
+  /**
+   * The user or service principal that the pipeline runs as, if specified in the request. This
+   * field indicates the explicit configuration of `run_as` for the pipeline. To find the value in
+   * all cases, explicit or implicit, use `run_as_user_name`.
+   */
+  @JsonProperty("run_as")
+  private RunAs runAs;
+
   /** Username of the user that the pipeline will run on behalf of. */
   @JsonProperty("run_as_user_name")
   private String runAsUserName;
@@ -139,6 +147,15 @@ public class GetPipelineResponse {
     return pipelineId;
   }
 
+  public GetPipelineResponse setRunAs(RunAs runAs) {
+    this.runAs = runAs;
+    return this;
+  }
+
+  public RunAs getRunAs() {
+    return runAs;
+  }
+
   public GetPipelineResponse setRunAsUserName(String runAsUserName) {
     this.runAsUserName = runAsUserName;
     return this;
@@ -180,6 +197,7 @@ public class GetPipelineResponse {
         && Objects.equals(latestUpdates, that.latestUpdates)
         && Objects.equals(name, that.name)
         && Objects.equals(pipelineId, that.pipelineId)
+        && Objects.equals(runAs, that.runAs)
         && Objects.equals(runAsUserName, that.runAsUserName)
         && Objects.equals(spec, that.spec)
         && Objects.equals(state, that.state);
@@ -197,6 +215,7 @@ public class GetPipelineResponse {
         latestUpdates,
         name,
         pipelineId,
+        runAs,
         runAsUserName,
         spec,
         state);
@@ -214,6 +233,7 @@ public class GetPipelineResponse {
         .add("latestUpdates", latestUpdates)
         .add("name", name)
         .add("pipelineId", pipelineId)
+        .add("runAs", runAs)
         .add("runAsUserName", runAsUserName)
         .add("spec", spec)
         .add("state", state)

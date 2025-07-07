@@ -13,7 +13,7 @@ public class UpdateStateInfo {
   @JsonProperty("creation_time")
   private String creationTime;
 
-  /** The update state. */
+  /** */
   @JsonProperty("state")
   private UpdateStateInfoState state;
 

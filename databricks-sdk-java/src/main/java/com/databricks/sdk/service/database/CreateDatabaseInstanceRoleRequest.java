@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateDatabaseInstanceRoleRequest {
-  /** A DatabaseInstanceRole represents a Postgres role in a database instance. */
+  /** */
   @JsonProperty("database_instance_role")
   private DatabaseInstanceRole databaseInstanceRole;
 

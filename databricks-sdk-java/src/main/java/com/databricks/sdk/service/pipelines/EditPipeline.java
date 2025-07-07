@@ -124,14 +124,7 @@ public class EditPipeline {
   @JsonProperty("root_path")
   private String rootPath;
 
-  /**
-   * Write-only setting, available only in Create/Update calls. Specifies the user or service
-   * principal that the pipeline runs as. If not specified, the pipeline runs as the user who
-   * created the pipeline.
-   *
-   * <p>Only `user_name` or `service_principal_name` can be specified. If both are specified, an
-   * error is thrown.
-   */
+  /** */
   @JsonProperty("run_as")
   private RunAs runAs;
 

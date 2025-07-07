@@ -110,11 +110,11 @@ public class GetWarehouseResponse {
   @JsonProperty("odbc_params")
   private OdbcParams odbcParams;
 
-  /** Configurations whether the warehouse should use spot instances. */
+  /** */
   @JsonProperty("spot_instance_policy")
   private SpotInstancePolicy spotInstancePolicy;
 
-  /** State of the warehouse */
+  /** */
   @JsonProperty("state")
   private State state;
 
@@ -127,10 +127,7 @@ public class GetWarehouseResponse {
   @JsonProperty("tags")
   private EndpointTags tags;
 
-  /**
-   * Warehouse type: `PRO` or `CLASSIC`. If you want to use serverless compute, you must set to
-   * `PRO` and also set the field `enable_serverless_compute` to `true`.
-   */
+  /** */
   @JsonProperty("warehouse_type")
   private GetWarehouseResponseWarehouseType warehouseType;
 

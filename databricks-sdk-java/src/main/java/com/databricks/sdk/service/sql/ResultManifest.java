@@ -19,7 +19,7 @@ public class ResultManifest {
   @JsonProperty("format")
   private Format format;
 
-  /** The schema is an ordered list of column descriptions. */
+  /** */
   @JsonProperty("schema")
   private ResultSchema schema;
 

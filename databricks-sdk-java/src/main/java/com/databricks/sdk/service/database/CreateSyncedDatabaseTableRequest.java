@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateSyncedDatabaseTableRequest {
-  /** Next field marker: 12 */
+  /** */
   @JsonProperty("synced_table")
   private SyncedDatabaseTable syncedTable;
 

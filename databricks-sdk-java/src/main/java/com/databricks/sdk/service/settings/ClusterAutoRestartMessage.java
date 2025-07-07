@@ -17,13 +17,7 @@ public class ClusterAutoRestartMessage {
   @JsonProperty("enabled")
   private Boolean enabled;
 
-  /**
-   * Contains an information about the enablement status judging (e.g. whether the enterprise tier
-   * is enabled) This is only additional information that MUST NOT be used to decide whether the
-   * setting is enabled or not. This is intended to use only for purposes like showing an error
-   * message to the customer with the additional details. For example, using these details we can
-   * check why exactly the feature is disabled for this customer.
-   */
+  /** */
   @JsonProperty("enablement_details")
   private ClusterAutoRestartMessageEnablementDetails enablementDetails;
 

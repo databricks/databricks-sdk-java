@@ -40,7 +40,7 @@ public class RepairHistoryItem {
   @JsonProperty("state")
   private RunState state;
 
-  /** The current status of the run */
+  /** */
   @JsonProperty("status")
   private RunStatus status;
 

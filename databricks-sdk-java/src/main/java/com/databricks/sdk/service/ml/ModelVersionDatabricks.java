@@ -14,23 +14,24 @@ public class ModelVersionDatabricks {
   @JsonProperty("creation_timestamp")
   private Long creationTimestamp;
 
-  /**
-   * Stage of the model version. Valid values are:
-   *
-   * <p>* `None`: The initial stage of a model version.
-   *
-   * <p>* `Staging`: Staging or pre-production stage.
-   *
-   * <p>* `Production`: Production stage.
-   *
-   * <p>* `Archived`: Archived stage.
-   */
+  /** */
   @JsonProperty("current_stage")
-  private Stage currentStage;
+  private String currentStage;
 
   /** User-specified description for the object. */
   @JsonProperty("description")
   private String description;
+
+  /**
+   * Email Subscription Status: This is the subscription status of the user to the model version
+   * Users get subscribed by interacting with the model version.
+   */
+  @JsonProperty("email_subscription_status")
+  private RegistryEmailSubscriptionType emailSubscriptionStatus;
+
+  /** Feature lineage of `model_version`. */
+  @JsonProperty("feature_list")
+  private FeatureList featureList;
 
   /** Time of the object at last update, as a Unix timestamp in milliseconds. */
   @JsonProperty("last_updated_timestamp")
@@ -41,9 +42,13 @@ public class ModelVersionDatabricks {
   private String name;
 
   /**
-   * Permission level of the requesting user on the object. For what is allowed at each level, see
-   * [MLflow Model permissions](..).
+   * Open requests for this `model_versions`. Gap in sequence number is intentional and is done in
+   * order to match field sequence numbers of `ModelVersion` proto message
    */
+  @JsonProperty("open_requests")
+  private Collection<Activity> openRequests;
+
+  /** */
   @JsonProperty("permission_level")
   private PermissionLevel permissionLevel;
 
@@ -66,14 +71,7 @@ public class ModelVersionDatabricks {
   @JsonProperty("source")
   private String source;
 
-  /**
-   * The status of the model version. Valid values are: * `PENDING_REGISTRATION`: Request to
-   * register a new model version is pending as server performs background tasks.
-   *
-   * <p>* `FAILED_REGISTRATION`: Request to register a new model version has failed.
-   *
-   * <p>* `READY`: Model version is ready for use.
-   */
+  /** */
   @JsonProperty("status")
   private Status status;
 
@@ -102,12 +100,12 @@ public class ModelVersionDatabricks {
     return creationTimestamp;
   }
 
-  public ModelVersionDatabricks setCurrentStage(Stage currentStage) {
+  public ModelVersionDatabricks setCurrentStage(String currentStage) {
     this.currentStage = currentStage;
     return this;
   }
 
-  public Stage getCurrentStage() {
+  public String getCurrentStage() {
     return currentStage;
   }
 
@@ -118,6 +116,25 @@ public class ModelVersionDatabricks {
 
   public String getDescription() {
     return description;
+  }
+
+  public ModelVersionDatabricks setEmailSubscriptionStatus(
+      RegistryEmailSubscriptionType emailSubscriptionStatus) {
+    this.emailSubscriptionStatus = emailSubscriptionStatus;
+    return this;
+  }
+
+  public RegistryEmailSubscriptionType getEmailSubscriptionStatus() {
+    return emailSubscriptionStatus;
+  }
+
+  public ModelVersionDatabricks setFeatureList(FeatureList featureList) {
+    this.featureList = featureList;
+    return this;
+  }
+
+  public FeatureList getFeatureList() {
+    return featureList;
   }
 
   public ModelVersionDatabricks setLastUpdatedTimestamp(Long lastUpdatedTimestamp) {
@@ -136,6 +153,15 @@ public class ModelVersionDatabricks {
 
   public String getName() {
     return name;
+  }
+
+  public ModelVersionDatabricks setOpenRequests(Collection<Activity> openRequests) {
+    this.openRequests = openRequests;
+    return this;
+  }
+
+  public Collection<Activity> getOpenRequests() {
+    return openRequests;
   }
 
   public ModelVersionDatabricks setPermissionLevel(PermissionLevel permissionLevel) {
@@ -227,8 +253,11 @@ public class ModelVersionDatabricks {
     return Objects.equals(creationTimestamp, that.creationTimestamp)
         && Objects.equals(currentStage, that.currentStage)
         && Objects.equals(description, that.description)
+        && Objects.equals(emailSubscriptionStatus, that.emailSubscriptionStatus)
+        && Objects.equals(featureList, that.featureList)
         && Objects.equals(lastUpdatedTimestamp, that.lastUpdatedTimestamp)
         && Objects.equals(name, that.name)
+        && Objects.equals(openRequests, that.openRequests)
         && Objects.equals(permissionLevel, that.permissionLevel)
         && Objects.equals(runId, that.runId)
         && Objects.equals(runLink, that.runLink)
@@ -246,8 +275,11 @@ public class ModelVersionDatabricks {
         creationTimestamp,
         currentStage,
         description,
+        emailSubscriptionStatus,
+        featureList,
         lastUpdatedTimestamp,
         name,
+        openRequests,
         permissionLevel,
         runId,
         runLink,
@@ -265,8 +297,11 @@ public class ModelVersionDatabricks {
         .add("creationTimestamp", creationTimestamp)
         .add("currentStage", currentStage)
         .add("description", description)
+        .add("emailSubscriptionStatus", emailSubscriptionStatus)
+        .add("featureList", featureList)
         .add("lastUpdatedTimestamp", lastUpdatedTimestamp)
         .add("name", name)
+        .add("openRequests", openRequests)
         .add("permissionLevel", permissionLevel)
         .add("runId", runId)
         .add("runLink", runLink)

@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateDatabaseTableRequest {
-  /** Next field marker: 13 */
+  /** */
   @JsonProperty("table")
   private DatabaseTable table;
 

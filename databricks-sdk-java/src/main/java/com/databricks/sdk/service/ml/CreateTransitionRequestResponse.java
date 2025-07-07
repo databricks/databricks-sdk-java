@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateTransitionRequestResponse {
-  /** Transition request details. */
+  /** New activity generated for stage transition request. */
   @JsonProperty("request")
   private TransitionRequest request;
 

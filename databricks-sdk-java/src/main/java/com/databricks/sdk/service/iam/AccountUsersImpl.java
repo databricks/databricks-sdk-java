@@ -40,7 +40,7 @@ class AccountUsersImpl implements AccountUsersService {
     try {
       Request req = new Request("DELETE", path);
       ApiClient.setQuery(req, request);
-      apiClient.execute(req, DeleteResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -86,7 +86,7 @@ class AccountUsersImpl implements AccountUsersService {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
       req.withHeader("Content-Type", "application/json");
-      apiClient.execute(req, PatchResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -102,7 +102,7 @@ class AccountUsersImpl implements AccountUsersService {
       Request req = new Request("PUT", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
       req.withHeader("Content-Type", "application/json");
-      apiClient.execute(req, UpdateResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

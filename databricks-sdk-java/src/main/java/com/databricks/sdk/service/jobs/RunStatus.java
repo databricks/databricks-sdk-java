@@ -14,7 +14,7 @@ public class RunStatus {
   @JsonProperty("queue_details")
   private QueueDetails queueDetails;
 
-  /** The current state of the run. */
+  /** */
   @JsonProperty("state")
   private RunLifecycleStateV2State state;
 

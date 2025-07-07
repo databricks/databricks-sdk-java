@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Details required to identify and approve a model version stage transition request. */
 @Generated
 public class ApproveTransitionRequest {
   /** Specifies whether to archive all current model versions in the target stage. */
@@ -33,7 +34,7 @@ public class ApproveTransitionRequest {
    * <p>* `Archived`: Archived stage.
    */
   @JsonProperty("stage")
-  private Stage stage;
+  private String stage;
 
   /** Version of the model. */
   @JsonProperty("version")
@@ -66,12 +67,12 @@ public class ApproveTransitionRequest {
     return name;
   }
 
-  public ApproveTransitionRequest setStage(Stage stage) {
+  public ApproveTransitionRequest setStage(String stage) {
     this.stage = stage;
     return this;
   }
 
-  public Stage getStage() {
+  public String getStage() {
     return stage;
   }
 

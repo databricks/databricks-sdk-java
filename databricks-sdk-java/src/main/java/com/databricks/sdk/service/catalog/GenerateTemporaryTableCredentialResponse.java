@@ -9,25 +9,15 @@ import java.util.Objects;
 
 @Generated
 public class GenerateTemporaryTableCredentialResponse {
-  /**
-   * AWS temporary credentials for API authentication. Read more at
-   * https://docs.aws.amazon.com/STS/latest/APIReference/API_Credentials.html.
-   */
+  /** */
   @JsonProperty("aws_temp_credentials")
   private AwsCredentials awsTempCredentials;
 
-  /**
-   * Azure Active Directory token, essentially the Oauth token for Azure Service Principal or
-   * Managed Identity. Read more at
-   * https://learn.microsoft.com/en-us/azure/databricks/dev-tools/api/latest/aad/service-prin-aad-token
-   */
+  /** */
   @JsonProperty("azure_aad")
   private AzureActiveDirectoryToken azureAad;
 
-  /**
-   * Azure temporary credentials for API authentication. Read more at
-   * https://docs.microsoft.com/en-us/rest/api/storageservices/create-user-delegation-sas
-   */
+  /** */
   @JsonProperty("azure_user_delegation_sas")
   private AzureUserDelegationSas azureUserDelegationSas;
 
@@ -38,17 +28,11 @@ public class GenerateTemporaryTableCredentialResponse {
   @JsonProperty("expiration_time")
   private Long expirationTime;
 
-  /**
-   * GCP temporary credentials for API authentication. Read more at
-   * https://developers.google.com/identity/protocols/oauth2/service-account
-   */
+  /** */
   @JsonProperty("gcp_oauth_token")
   private GcpOauthToken gcpOauthToken;
 
-  /**
-   * R2 temporary credentials for API authentication. Read more at
-   * https://developers.cloudflare.com/r2/api/s3/tokens/.
-   */
+  /** */
   @JsonProperty("r2_temp_credentials")
   private R2Credentials r2TempCredentials;
 

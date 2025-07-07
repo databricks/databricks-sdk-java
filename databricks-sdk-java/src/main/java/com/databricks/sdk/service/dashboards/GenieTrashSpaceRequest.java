@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class GenieTrashSpaceRequest {
-  /** The ID associated with the Genie space to be trashed. */
+  /** The ID associated with the Genie space to be sent to the trash. */
   @JsonIgnore private String spaceId;
 
   public GenieTrashSpaceRequest setSpaceId(String spaceId) {

@@ -69,7 +69,7 @@ public class ListingSummary {
   @JsonProperty("share")
   private ShareInfo share;
 
-  /** Enums */
+  /** */
   @JsonProperty("status")
   private ListingStatus status;
 

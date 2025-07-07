@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class UpdateNetworkPolicyRequest {
-  /** */
+  /** Updated network policy configuration details. */
   @JsonProperty("network_policy")
   private AccountNetworkPolicy networkPolicy;
 

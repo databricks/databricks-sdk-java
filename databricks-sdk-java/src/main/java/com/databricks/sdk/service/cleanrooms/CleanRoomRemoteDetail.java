@@ -30,9 +30,7 @@ public class CleanRoomRemoteDetail {
   @JsonProperty("collaborators")
   private Collection<CleanRoomCollaborator> collaborators;
 
-  /**
-   * The compliance security profile used to process regulated data following compliance standards.
-   */
+  /** */
   @JsonProperty("compliance_security_profile")
   private ComplianceSecurityProfile complianceSecurityProfile;
 

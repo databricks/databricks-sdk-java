@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class EsmEnablementAccountSetting {
-  /** Account level policy for ESM */
+  /** */
   @JsonProperty("esm_enablement_account")
   private EsmEnablementAccount esmEnablementAccount;
 

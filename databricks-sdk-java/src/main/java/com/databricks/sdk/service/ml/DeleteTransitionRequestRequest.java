@@ -41,7 +41,7 @@ public class DeleteTransitionRequestRequest {
    */
   @JsonIgnore
   @QueryParam("stage")
-  private DeleteTransitionRequestStage stage;
+  private String stage;
 
   /** Version of the model. */
   @JsonIgnore
@@ -75,12 +75,12 @@ public class DeleteTransitionRequestRequest {
     return name;
   }
 
-  public DeleteTransitionRequestRequest setStage(DeleteTransitionRequestStage stage) {
+  public DeleteTransitionRequestRequest setStage(String stage) {
     this.stage = stage;
     return this;
   }
 
-  public DeleteTransitionRequestStage getStage() {
+  public String getStage() {
     return stage;
   }
 

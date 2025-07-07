@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class GetIpAccessListResponse {
-  /** Definition of an IP Access list */
+  /** */
   @JsonProperty("ip_access_list")
   private IpAccessListInfo ipAccessList;
 

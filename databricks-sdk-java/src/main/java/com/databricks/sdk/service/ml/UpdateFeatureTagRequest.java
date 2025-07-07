@@ -14,7 +14,7 @@ public class UpdateFeatureTagRequest {
   /** */
   @JsonIgnore private String featureName;
 
-  /** Represents a tag on a feature in a feature table. */
+  /** */
   @JsonProperty("feature_tag")
   private FeatureTag featureTag;
 

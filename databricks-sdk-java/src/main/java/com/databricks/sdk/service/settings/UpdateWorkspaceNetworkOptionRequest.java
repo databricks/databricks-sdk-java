@@ -13,7 +13,7 @@ public class UpdateWorkspaceNetworkOptionRequest {
   /** The workspace ID. */
   @JsonIgnore private Long workspaceId;
 
-  /** */
+  /** The network option details for the workspace. */
   @JsonProperty("workspace_network_option")
   private WorkspaceNetworkOption workspaceNetworkOption;
 

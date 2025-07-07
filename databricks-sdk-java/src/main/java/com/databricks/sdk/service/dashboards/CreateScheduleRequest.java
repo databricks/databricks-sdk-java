@@ -13,7 +13,7 @@ public class CreateScheduleRequest {
   /** UUID identifying the dashboard to which the schedule belongs. */
   @JsonIgnore private String dashboardId;
 
-  /** */
+  /** The schedule to create. A dashboard is limited to 10 schedules. */
   @JsonProperty("schedule")
   private Schedule schedule;
 

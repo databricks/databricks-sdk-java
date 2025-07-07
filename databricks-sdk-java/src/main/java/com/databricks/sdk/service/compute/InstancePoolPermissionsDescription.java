@@ -13,7 +13,7 @@ public class InstancePoolPermissionsDescription {
   @JsonProperty("description")
   private String description;
 
-  /** Permission level */
+  /** */
   @JsonProperty("permission_level")
   private InstancePoolPermissionLevel permissionLevel;
 

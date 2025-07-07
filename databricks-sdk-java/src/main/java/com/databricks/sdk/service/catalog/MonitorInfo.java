@@ -91,7 +91,7 @@ public class MonitorInfo {
   @JsonProperty("snapshot")
   private MonitorSnapshot snapshot;
 
-  /** The status of the monitor. */
+  /** */
   @JsonProperty("status")
   private MonitorInfoStatus status;
 

@@ -10,17 +10,11 @@ import java.util.Objects;
 /** Default rules don't have specific targets. */
 @Generated
 public class NccEgressDefaultRules {
-  /**
-   * The stable AWS IP CIDR blocks. You can use these to configure the firewall of your resources to
-   * allow traffic from your Databricks workspace.
-   */
+  /** */
   @JsonProperty("aws_stable_ip_rule")
   private NccAwsStableIpRule awsStableIpRule;
 
-  /**
-   * The stable Azure service endpoints. You can configure the firewall of your Azure resources to
-   * allow traffic from your Databricks serverless compute resources.
-   */
+  /** */
   @JsonProperty("azure_service_endpoint_rule")
   private NccAzureServiceEndpointRule azureServiceEndpointRule;
 

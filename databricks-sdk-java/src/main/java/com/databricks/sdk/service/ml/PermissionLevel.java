@@ -10,6 +10,7 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public enum PermissionLevel {
+  CAN_CREATE_REGISTERED_MODEL,
   CAN_EDIT,
   CAN_MANAGE,
   CAN_MANAGE_PRODUCTION_VERSIONS,

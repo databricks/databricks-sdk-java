@@ -6,7 +6,7 @@ import com.databricks.sdk.support.Generated;
 /**
  * A clean room uses Delta Sharing and serverless compute to provide a secure and privacy-protecting
  * environment where multiple parties can work together on sensitive enterprise data without direct
- * access to each other’s data.
+ * access to each other's data.
  *
  * <p>This is the high-level interface, that contains generated methods.
  *

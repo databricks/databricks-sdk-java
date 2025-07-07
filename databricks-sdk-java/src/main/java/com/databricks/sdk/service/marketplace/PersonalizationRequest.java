@@ -17,7 +17,7 @@ public class PersonalizationRequest {
   @JsonProperty("consumer_region")
   private RegionInfo consumerRegion;
 
-  /** contact info for the consumer requesting data or performing a listing installation */
+  /** */
   @JsonProperty("contact_info")
   private ContactInfo contactInfo;
 

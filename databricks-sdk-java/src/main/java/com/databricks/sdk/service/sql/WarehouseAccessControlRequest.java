@@ -13,7 +13,7 @@ public class WarehouseAccessControlRequest {
   @JsonProperty("group_name")
   private String groupName;
 
-  /** Permission level */
+  /** */
   @JsonProperty("permission_level")
   private WarehousePermissionLevel permissionLevel;
 

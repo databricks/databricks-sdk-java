@@ -16,7 +16,7 @@ public class CreateSubscriptionRequest {
   /** UUID identifying the schedule to which the subscription belongs. */
   @JsonIgnore private String scheduleId;
 
-  /** */
+  /** The subscription to create. A schedule is limited to 100 subscriptions. */
   @JsonProperty("subscription")
   private Subscription subscription;
 

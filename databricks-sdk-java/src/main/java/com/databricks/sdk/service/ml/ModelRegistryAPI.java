@@ -34,7 +34,7 @@ public class ModelRegistryAPI {
   }
 
   public ApproveTransitionRequestResponse approveTransitionRequest(
-      String name, String version, Stage stage, boolean archiveExistingVersions) {
+      String name, String version, String stage, boolean archiveExistingVersions) {
     return approveTransitionRequest(
         new ApproveTransitionRequest()
             .setName(name)
@@ -67,9 +67,8 @@ public class ModelRegistryAPI {
   }
 
   /**
-   * Creates a new registered model with the name specified in the request body.
-   *
-   * <p>Throws `RESOURCE_ALREADY_EXISTS` if a registered model with the given name exists.
+   * Creates a new registered model with the name specified in the request body. Throws
+   * `RESOURCE_ALREADY_EXISTS` if a registered model with the given name exists.
    */
   public CreateModelResponse createModel(CreateModelRequest request) {
     return impl.createModel(request);
@@ -85,7 +84,7 @@ public class ModelRegistryAPI {
   }
 
   public CreateTransitionRequestResponse createTransitionRequest(
-      String name, String version, Stage stage) {
+      String name, String version, String stage) {
     return createTransitionRequest(
         new CreateTransitionRequest().setName(name).setVersion(version).setStage(stage));
   }
@@ -99,11 +98,7 @@ public class ModelRegistryAPI {
     return createWebhook(new CreateRegistryWebhook().setEvents(events));
   }
 
-  /**
-   * **NOTE**: This endpoint is in Public Preview.
-   *
-   * <p>Creates a registry webhook.
-   */
+  /** **NOTE:** This endpoint is in Public Preview. Creates a registry webhook. */
   public CreateWebhookResponse createWebhook(CreateRegistryWebhook request) {
     return impl.createWebhook(request);
   }
@@ -154,9 +149,9 @@ public class ModelRegistryAPI {
     impl.deleteModelVersionTag(request);
   }
 
-  public void deleteTransitionRequest(
-      String name, String version, DeleteTransitionRequestStage stage, String creator) {
-    deleteTransitionRequest(
+  public DeleteTransitionRequestResponse deleteTransitionRequest(
+      String name, String version, String stage, String creator) {
+    return deleteTransitionRequest(
         new DeleteTransitionRequestRequest()
             .setName(name)
             .setVersion(version)
@@ -165,15 +160,16 @@ public class ModelRegistryAPI {
   }
 
   /** Cancels a model version stage transition request. */
-  public void deleteTransitionRequest(DeleteTransitionRequestRequest request) {
-    impl.deleteTransitionRequest(request);
+  public DeleteTransitionRequestResponse deleteTransitionRequest(
+      DeleteTransitionRequestRequest request) {
+    return impl.deleteTransitionRequest(request);
   }
 
-  /**
-   * **NOTE:** This endpoint is in Public Preview.
-   *
-   * <p>Deletes a registry webhook.
-   */
+  public void deleteWebhook(String id) {
+    deleteWebhook(new DeleteWebhookRequest().setId(id));
+  }
+
+  /** **NOTE:** This endpoint is in Public Preview. Deletes a registry webhook. */
   public void deleteWebhook(DeleteWebhookRequest request) {
     impl.deleteWebhook(request);
   }
@@ -280,11 +276,7 @@ public class ModelRegistryAPI {
         response -> null);
   }
 
-  /**
-   * **NOTE:** This endpoint is in Public Preview.
-   *
-   * <p>Lists all registry webhooks.
-   */
+  /** **NOTE:** This endpoint is in Public Preview. Lists all registry webhooks. */
   public Iterable<RegistryWebhook> listWebhooks(ListWebhooksRequest request) {
     return new Paginator<>(
         request,
@@ -300,7 +292,7 @@ public class ModelRegistryAPI {
   }
 
   public RejectTransitionRequestResponse rejectTransitionRequest(
-      String name, String version, Stage stage) {
+      String name, String version, String stage) {
     return rejectTransitionRequest(
         new RejectTransitionRequest().setName(name).setVersion(version).setStage(stage));
   }
@@ -389,17 +381,13 @@ public class ModelRegistryAPI {
     return testRegistryWebhook(new TestRegistryWebhookRequest().setId(id));
   }
 
-  /**
-   * **NOTE:** This endpoint is in Public Preview.
-   *
-   * <p>Tests a registry webhook.
-   */
+  /** **NOTE:** This endpoint is in Public Preview. Tests a registry webhook. */
   public TestRegistryWebhookResponse testRegistryWebhook(TestRegistryWebhookRequest request) {
     return impl.testRegistryWebhook(request);
   }
 
   public TransitionStageResponse transitionStage(
-      String name, String version, Stage stage, boolean archiveExistingVersions) {
+      String name, String version, String stage, boolean archiveExistingVersions) {
     return transitionStage(
         new TransitionModelVersionStageDatabricks()
             .setName(name)
@@ -410,7 +398,7 @@ public class ModelRegistryAPI {
 
   /**
    * Transition a model version's stage. This is a Databricks workspace version of the [MLflow
-   * endpoint] that also accepts a comment associated with the transition to be recorded.",
+   * endpoint] that also accepts a comment associated with the transition to be recorded.
    *
    * <p>[MLflow endpoint]:
    * https://www.mlflow.org/docs/latest/rest-api.html#transition-modelversion-stage
@@ -428,22 +416,22 @@ public class ModelRegistryAPI {
     return impl.updateComment(request);
   }
 
-  public void updateModel(String name) {
-    updateModel(new UpdateModelRequest().setName(name));
+  public UpdateModelResponse updateModel(String name) {
+    return updateModel(new UpdateModelRequest().setName(name));
   }
 
   /** Updates a registered model. */
-  public void updateModel(UpdateModelRequest request) {
-    impl.updateModel(request);
+  public UpdateModelResponse updateModel(UpdateModelRequest request) {
+    return impl.updateModel(request);
   }
 
-  public void updateModelVersion(String name, String version) {
-    updateModelVersion(new UpdateModelVersionRequest().setName(name).setVersion(version));
+  public UpdateModelVersionResponse updateModelVersion(String name, String version) {
+    return updateModelVersion(new UpdateModelVersionRequest().setName(name).setVersion(version));
   }
 
   /** Updates the model version. */
-  public void updateModelVersion(UpdateModelVersionRequest request) {
-    impl.updateModelVersion(request);
+  public UpdateModelVersionResponse updateModelVersion(UpdateModelVersionRequest request) {
+    return impl.updateModelVersion(request);
   }
 
   public RegisteredModelPermissions updatePermissions(String registeredModelId) {
@@ -459,17 +447,13 @@ public class ModelRegistryAPI {
     return impl.updatePermissions(request);
   }
 
-  public void updateWebhook(String id) {
-    updateWebhook(new UpdateRegistryWebhook().setId(id));
+  public UpdateWebhookResponse updateWebhook(String id) {
+    return updateWebhook(new UpdateRegistryWebhook().setId(id));
   }
 
-  /**
-   * **NOTE:** This endpoint is in Public Preview.
-   *
-   * <p>Updates a registry webhook.
-   */
-  public void updateWebhook(UpdateRegistryWebhook request) {
-    impl.updateWebhook(request);
+  /** **NOTE:** This endpoint is in Public Preview. Updates a registry webhook. */
+  public UpdateWebhookResponse updateWebhook(UpdateRegistryWebhook request) {
+    return impl.updateWebhook(request);
   }
 
   public ModelRegistryService impl() {

@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class GenerateTemporaryServiceCredentialRequest {
-  /** The Azure cloud options to customize the requested temporary credential */
+  /** */
   @JsonProperty("azure_options")
   private GenerateTemporaryServiceCredentialAzureOptions azureOptions;
 
@@ -17,7 +17,7 @@ public class GenerateTemporaryServiceCredentialRequest {
   @JsonProperty("credential_name")
   private String credentialName;
 
-  /** The GCP cloud options to customize the requested temporary credential */
+  /** */
   @JsonProperty("gcp_options")
   private GenerateTemporaryServiceCredentialGcpOptions gcpOptions;
 

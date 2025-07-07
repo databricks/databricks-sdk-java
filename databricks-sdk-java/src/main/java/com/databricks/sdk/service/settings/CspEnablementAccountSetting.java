@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class CspEnablementAccountSetting {
-  /** Account level policy for CSP */
+  /** */
   @JsonProperty("csp_enablement_account")
   private CspEnablementAccount cspEnablementAccount;
 

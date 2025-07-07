@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateCommentResponse {
-  /** Comment details. */
+  /** New comment object */
   @JsonProperty("comment")
   private CommentObject comment;
 

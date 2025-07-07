@@ -10,7 +10,7 @@ import java.util.Objects;
 /** An IP access list was successfully created. */
 @Generated
 public class CreateIpAccessListResponse {
-  /** Definition of an IP Access list */
+  /** */
   @JsonProperty("ip_access_list")
   private IpAccessListInfo ipAccessList;
 

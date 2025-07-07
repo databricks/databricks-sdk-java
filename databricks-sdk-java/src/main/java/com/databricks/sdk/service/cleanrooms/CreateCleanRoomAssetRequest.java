@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateCleanRoomAssetRequest {
-  /** Metadata of the clean room asset */
+  /** */
   @JsonProperty("asset")
   private CleanRoomAsset asset;
 

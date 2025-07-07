@@ -20,8 +20,12 @@ import com.databricks.sdk.service.catalog.ConnectionsAPI;
 import com.databricks.sdk.service.catalog.ConnectionsService;
 import com.databricks.sdk.service.catalog.CredentialsAPI;
 import com.databricks.sdk.service.catalog.CredentialsService;
+import com.databricks.sdk.service.catalog.ExternalLineageAPI;
+import com.databricks.sdk.service.catalog.ExternalLineageService;
 import com.databricks.sdk.service.catalog.ExternalLocationsAPI;
 import com.databricks.sdk.service.catalog.ExternalLocationsService;
+import com.databricks.sdk.service.catalog.ExternalMetadataAPI;
+import com.databricks.sdk.service.catalog.ExternalMetadataService;
 import com.databricks.sdk.service.catalog.FunctionsAPI;
 import com.databricks.sdk.service.catalog.FunctionsService;
 import com.databricks.sdk.service.catalog.GrantsAPI;
@@ -254,7 +258,9 @@ public class WorkspaceClient {
   private DbfsExt dbfsAPI;
   private DbsqlPermissionsAPI dbsqlPermissionsAPI;
   private ExperimentsAPI experimentsAPI;
+  private ExternalLineageAPI externalLineageAPI;
   private ExternalLocationsAPI externalLocationsAPI;
+  private ExternalMetadataAPI externalMetadataAPI;
   private FeatureStoreAPI featureStoreAPI;
   private FilesAPI filesAPI;
   private FunctionsAPI functionsAPI;
@@ -367,7 +373,9 @@ public class WorkspaceClient {
     dbfsAPI = new DbfsExt(apiClient);
     dbsqlPermissionsAPI = new DbsqlPermissionsAPI(apiClient);
     experimentsAPI = new ExperimentsAPI(apiClient);
+    externalLineageAPI = new ExternalLineageAPI(apiClient);
     externalLocationsAPI = new ExternalLocationsAPI(apiClient);
+    externalMetadataAPI = new ExternalMetadataAPI(apiClient);
     featureStoreAPI = new FeatureStoreAPI(apiClient);
     filesAPI = new FilesAPI(apiClient);
     functionsAPI = new FunctionsAPI(apiClient);
@@ -550,7 +558,7 @@ public class WorkspaceClient {
   /**
    * A clean room uses Delta Sharing and serverless compute to provide a secure and
    * privacy-protecting environment where multiple parties can work together on sensitive enterprise
-   * data without direct access to each other’s data.
+   * data without direct access to each other's data.
    */
   public CleanRoomsAPI cleanRooms() {
     return cleanRoomsAPI;
@@ -779,6 +787,18 @@ public class WorkspaceClient {
   }
 
   /**
+   * External Lineage APIs enable defining and managing lineage relationships between Databricks
+   * objects and external systems. These APIs allow users to capture data flows connecting
+   * Databricks tables, models, and file paths with external metadata objects.
+   *
+   * <p>With these APIs, users can create, update, delete, and list lineage relationships with
+   * support for column-level mappings and custom properties.
+   */
+  public ExternalLineageAPI externalLineage() {
+    return externalLineageAPI;
+  }
+
+  /**
    * An external location is an object that combines a cloud storage path with a storage credential
    * that authorizes access to the cloud storage path. Each external location is subject to Unity
    * Catalog access-control policies that control which users and groups can access the credential.
@@ -793,6 +813,18 @@ public class WorkspaceClient {
    */
   public ExternalLocationsAPI externalLocations() {
     return externalLocationsAPI;
+  }
+
+  /**
+   * External Metadata objects enable customers to register and manage metadata about external
+   * systems within Unity Catalog.
+   *
+   * <p>These APIs provide a standardized way to create, update, retrieve, list, and delete external
+   * metadata objects. Fine-grained authorization ensures that only users with appropriate
+   * permissions can view and manage external metadata objects.
+   */
+  public ExternalMetadataAPI externalMetadata() {
+    return externalMetadataAPI;
   }
 
   /**
@@ -2162,6 +2194,17 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default ExternalLineageService with a custom implementation. */
+  public WorkspaceClient withExternalLineageImpl(ExternalLineageService externalLineage) {
+    return this.withExternalLineageAPI(new ExternalLineageAPI(externalLineage));
+  }
+
+  /** Replace the default ExternalLineageAPI with a custom implementation. */
+  public WorkspaceClient withExternalLineageAPI(ExternalLineageAPI externalLineage) {
+    this.externalLineageAPI = externalLineage;
+    return this;
+  }
+
   /** Replace the default ExternalLocationsService with a custom implementation. */
   public WorkspaceClient withExternalLocationsImpl(ExternalLocationsService externalLocations) {
     return this.withExternalLocationsAPI(new ExternalLocationsAPI(externalLocations));
@@ -2170,6 +2213,17 @@ public class WorkspaceClient {
   /** Replace the default ExternalLocationsAPI with a custom implementation. */
   public WorkspaceClient withExternalLocationsAPI(ExternalLocationsAPI externalLocations) {
     this.externalLocationsAPI = externalLocations;
+    return this;
+  }
+
+  /** Replace the default ExternalMetadataService with a custom implementation. */
+  public WorkspaceClient withExternalMetadataImpl(ExternalMetadataService externalMetadata) {
+    return this.withExternalMetadataAPI(new ExternalMetadataAPI(externalMetadata));
+  }
+
+  /** Replace the default ExternalMetadataAPI with a custom implementation. */
+  public WorkspaceClient withExternalMetadataAPI(ExternalMetadataAPI externalMetadata) {
+    this.externalMetadataAPI = externalMetadata;
     return this;
   }
 

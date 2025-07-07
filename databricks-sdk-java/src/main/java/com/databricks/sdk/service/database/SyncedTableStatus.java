@@ -10,10 +10,7 @@ import java.util.Objects;
 /** Status of a synced table. */
 @Generated
 public class SyncedTableStatus {
-  /**
-   * Detailed status of a synced table. Shown if the synced table is in the SYNCED_CONTINUOUS_UPDATE
-   * or the SYNCED_UPDATING_PIPELINE_RESOURCES state.
-   */
+  /** */
   @JsonProperty("continuous_update_status")
   private SyncedTableContinuousUpdateStatus continuousUpdateStatus;
 
@@ -21,10 +18,7 @@ public class SyncedTableStatus {
   @JsonProperty("detailed_state")
   private SyncedTableState detailedState;
 
-  /**
-   * Detailed status of a synced table. Shown if the synced table is in the OFFLINE_FAILED or the
-   * SYNCED_PIPELINE_FAILED state.
-   */
+  /** */
   @JsonProperty("failed_status")
   private SyncedTableFailedStatus failedStatus;
 
@@ -55,17 +49,11 @@ public class SyncedTableStatus {
   @JsonProperty("pipeline_id")
   private String pipelineId;
 
-  /**
-   * Detailed status of a synced table. Shown if the synced table is in the
-   * PROVISIONING_PIPELINE_RESOURCES or the PROVISIONING_INITIAL_SNAPSHOT state.
-   */
+  /** */
   @JsonProperty("provisioning_status")
   private SyncedTableProvisioningStatus provisioningStatus;
 
-  /**
-   * Detailed status of a synced table. Shown if the synced table is in the SYNCED_TRIGGERED_UPDATE
-   * or the SYNCED_NO_PENDING_UPDATE state.
-   */
+  /** */
   @JsonProperty("triggered_update_status")
   private SyncedTableTriggeredUpdateStatus triggeredUpdateStatus;
 

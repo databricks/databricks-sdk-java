@@ -7,6 +7,10 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * The metadata about a secret. Returned when listing secrets. Does not contain the actual secret
+ * value.
+ */
 @Generated
 public class SecretMetadata {
   /** A unique name to identify the secret. */

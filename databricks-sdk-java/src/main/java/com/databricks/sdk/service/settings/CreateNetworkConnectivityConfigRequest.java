@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateNetworkConnectivityConfigRequest {
-  /** Properties of the new network connectivity configuration. */
+  /** */
   @JsonProperty("network_connectivity_config")
   private CreateNetworkConnectivityConfiguration networkConnectivityConfig;
 

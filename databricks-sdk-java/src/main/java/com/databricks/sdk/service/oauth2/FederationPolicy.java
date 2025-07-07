@@ -29,7 +29,7 @@ public class FederationPolicy {
   @JsonProperty("name")
   private String name;
 
-  /** Specifies the policy to use for validating OIDC claims in your federated tokens. */
+  /** */
   @JsonProperty("oidc_policy")
   private OidcFederationPolicy oidcPolicy;
 

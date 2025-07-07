@@ -7,13 +7,18 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * An organizational resource for storing secrets. Secret scopes can be different types
+ * (Databricks-managed, Azure KeyVault backed, etc), and ACLs can be applied to control permissions
+ * for all secrets within a scope.
+ */
 @Generated
 public class SecretScope {
   /** The type of secret scope backend. */
   @JsonProperty("backend_type")
   private ScopeBackendType backendType;
 
-  /** The metadata for the secret scope if the type is `AZURE_KEYVAULT` */
+  /** The metadata for the secret scope if the type is ``AZURE_KEYVAULT`` */
   @JsonProperty("keyvault_metadata")
   private AzureKeyVaultSecretScopeMetadata keyvaultMetadata;
 

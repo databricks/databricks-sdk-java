@@ -280,7 +280,7 @@ public class GenieAPI {
     trashSpace(new GenieTrashSpaceRequest().setSpaceId(spaceId));
   }
 
-  /** Trash a Genie Space. */
+  /** Move a Genie Space to the trash. */
   public void trashSpace(GenieTrashSpaceRequest request) {
     impl.trashSpace(request);
   }

@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class StatementResponse {
-  /** The result manifest provides schema and metadata for the result set. */
+  /** */
   @JsonProperty("manifest")
   private ResultManifest manifest;
 
@@ -24,7 +24,7 @@ public class StatementResponse {
   @JsonProperty("statement_id")
   private String statementId;
 
-  /** The status response includes execution state and if relevant, error information. */
+  /** */
   @JsonProperty("status")
   private StatementStatus status;
 

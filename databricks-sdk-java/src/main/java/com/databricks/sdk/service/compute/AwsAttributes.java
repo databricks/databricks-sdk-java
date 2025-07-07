@@ -10,12 +10,7 @@ import java.util.Objects;
 /** Attributes set during cluster creation which are related to Amazon Web Services. */
 @Generated
 public class AwsAttributes {
-  /**
-   * Availability type used for all subsequent nodes past the `first_on_demand` ones.
-   *
-   * <p>Note: If `first_on_demand` is zero, this availability type will be used for the entire
-   * cluster.
-   */
+  /** */
   @JsonProperty("availability")
   private AwsAvailability availability;
 

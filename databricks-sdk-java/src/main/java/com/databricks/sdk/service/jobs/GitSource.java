@@ -40,10 +40,7 @@ public class GitSource {
   @JsonProperty("git_provider")
   private GitProvider gitProvider;
 
-  /**
-   * Read-only state of the remote repository at the time the job was run. This field is only
-   * included on job runs.
-   */
+  /** */
   @JsonProperty("git_snapshot")
   private GitSnapshot gitSnapshot;
 

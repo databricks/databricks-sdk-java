@@ -13,7 +13,7 @@ public class RepoAccessControlRequest {
   @JsonProperty("group_name")
   private String groupName;
 
-  /** Permission level */
+  /** */
   @JsonProperty("permission_level")
   private RepoPermissionLevel permissionLevel;
 

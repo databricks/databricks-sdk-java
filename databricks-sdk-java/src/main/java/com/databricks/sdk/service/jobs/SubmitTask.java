@@ -90,7 +90,7 @@ public class SubmitTask {
   @JsonProperty("gen_ai_compute_task")
   private GenAiComputeTask genAiComputeTask;
 
-  /** An optional set of health rules that can be defined for this job. */
+  /** */
   @JsonProperty("health")
   private JobsHealthRules health;
 

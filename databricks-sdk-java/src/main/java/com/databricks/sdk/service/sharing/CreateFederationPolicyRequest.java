@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateFederationPolicyRequest {
-  /** */
+  /** Name of the policy. This is the name of the policy to be created. */
   @JsonProperty("policy")
   private FederationPolicy policy;
 

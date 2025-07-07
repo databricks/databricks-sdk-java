@@ -10,12 +10,12 @@ import java.util.Objects;
 
 @Generated
 public class GetSecretRequest {
-  /** The key to fetch secret for. */
+  /** Name of the secret to fetch value information. */
   @JsonIgnore
   @QueryParam("key")
   private String key;
 
-  /** The name of the scope to fetch secret information from. */
+  /** The name of the scope that contains the secret. */
   @JsonIgnore
   @QueryParam("scope")
   private String scope;

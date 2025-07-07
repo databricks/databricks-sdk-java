@@ -22,10 +22,7 @@ public class Network {
   @JsonProperty("error_messages")
   private Collection<NetworkHealth> errorMessages;
 
-  /**
-   * The Google Cloud specific information for this network (for example, the VPC ID, subnet ID, and
-   * secondary IP ranges).
-   */
+  /** */
   @JsonProperty("gcp_network_info")
   private GcpNetworkInfo gcpNetworkInfo;
 
@@ -45,12 +42,7 @@ public class Network {
   @JsonProperty("subnet_ids")
   private Collection<String> subnetIds;
 
-  /**
-   * If specified, contains the VPC endpoints used to allow cluster communication from this VPC over
-   * [AWS PrivateLink].
-   *
-   * <p>[AWS PrivateLink]: https://aws.amazon.com/privatelink/
-   */
+  /** */
   @JsonProperty("vpc_endpoints")
   private NetworkVpcEndpoints vpcEndpoints;
 
@@ -61,10 +53,7 @@ public class Network {
   @JsonProperty("vpc_id")
   private String vpcId;
 
-  /**
-   * The status of this network configuration object in terms of its use in a workspace: *
-   * `UNATTACHED`: Unattached. * `VALID`: Valid. * `BROKEN`: Broken. * `WARNED`: Warned.
-   */
+  /** */
   @JsonProperty("vpc_status")
   private VpcStatus vpcStatus;
 

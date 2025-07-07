@@ -10,10 +10,7 @@ import java.util.Objects;
 /** Status of an online table. */
 @Generated
 public class OnlineTableStatus {
-  /**
-   * Detailed status of an online table. Shown if the online table is in the
-   * ONLINE_CONTINUOUS_UPDATE or the ONLINE_UPDATING_PIPELINE_RESOURCES state.
-   */
+  /** */
   @JsonProperty("continuous_update_status")
   private ContinuousUpdateStatus continuousUpdateStatus;
 
@@ -21,10 +18,7 @@ public class OnlineTableStatus {
   @JsonProperty("detailed_state")
   private OnlineTableState detailedState;
 
-  /**
-   * Detailed status of an online table. Shown if the online table is in the OFFLINE_FAILED or the
-   * ONLINE_PIPELINE_FAILED state.
-   */
+  /** */
   @JsonProperty("failed_status")
   private FailedStatus failedStatus;
 
@@ -32,17 +26,11 @@ public class OnlineTableStatus {
   @JsonProperty("message")
   private String message;
 
-  /**
-   * Detailed status of an online table. Shown if the online table is in the
-   * PROVISIONING_PIPELINE_RESOURCES or the PROVISIONING_INITIAL_SNAPSHOT state.
-   */
+  /** */
   @JsonProperty("provisioning_status")
   private ProvisioningStatus provisioningStatus;
 
-  /**
-   * Detailed status of an online table. Shown if the online table is in the ONLINE_TRIGGERED_UPDATE
-   * or the ONLINE_NO_PENDING_UPDATE state.
-   */
+  /** */
   @JsonProperty("triggered_update_status")
   private TriggeredUpdateStatus triggeredUpdateStatus;
 

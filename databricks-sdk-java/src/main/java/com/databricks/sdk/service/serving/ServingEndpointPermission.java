@@ -18,7 +18,7 @@ public class ServingEndpointPermission {
   @JsonProperty("inherited_from_object")
   private Collection<String> inheritedFromObject;
 
-  /** Permission level */
+  /** */
   @JsonProperty("permission_level")
   private ServingEndpointPermissionLevel permissionLevel;
 

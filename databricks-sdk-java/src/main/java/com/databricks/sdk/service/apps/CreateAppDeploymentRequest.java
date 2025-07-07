@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateAppDeploymentRequest {
-  /** */
+  /** The app deployment configuration. */
   @JsonProperty("app_deployment")
   private AppDeployment appDeployment;
 

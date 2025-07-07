@@ -22,7 +22,7 @@ public class ModelDatabricks {
   @JsonProperty("id")
   private String id;
 
-  /** Time of the object at last update, as a Unix timestamp in milliseconds. */
+  /** Last update time of the object, as a Unix timestamp in milliseconds. */
   @JsonProperty("last_updated_timestamp")
   private Long lastUpdatedTimestamp;
 
@@ -34,10 +34,7 @@ public class ModelDatabricks {
   @JsonProperty("name")
   private String name;
 
-  /**
-   * Permission level of the requesting user on the object. For what is allowed at each level, see
-   * [MLflow Model permissions](..).
-   */
+  /** Permission level granted for the requesting user on this registered model */
   @JsonProperty("permission_level")
   private PermissionLevel permissionLevel;
 

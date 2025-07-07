@@ -14,9 +14,8 @@ public class JobSpecWithoutSecret {
   private String jobId;
 
   /**
-   * URL of the workspace containing the job that this webhook runs. Defaults to the workspace URL
-   * in which the webhook is created. If not specified, the job’s workspace is assumed to be the
-   * same as the webhook’s.
+   * URL of the workspace containing the job that this webhook runs. If not specified, the job’s
+   * workspace URL is assumed to be the same as the workspace where the webhook is created.
    */
   @JsonProperty("workspace_url")
   private String workspaceUrl;

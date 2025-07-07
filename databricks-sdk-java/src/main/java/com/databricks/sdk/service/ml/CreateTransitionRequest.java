@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Details required to create a model version stage transition request. */
 @Generated
 public class CreateTransitionRequest {
   /** User-provided comment on the action. */
@@ -29,7 +30,7 @@ public class CreateTransitionRequest {
    * <p>* `Archived`: Archived stage.
    */
   @JsonProperty("stage")
-  private Stage stage;
+  private String stage;
 
   /** Version of the model. */
   @JsonProperty("version")
@@ -53,12 +54,12 @@ public class CreateTransitionRequest {
     return name;
   }
 
-  public CreateTransitionRequest setStage(Stage stage) {
+  public CreateTransitionRequest setStage(String stage) {
     this.stage = stage;
     return this;
   }
 
-  public Stage getStage() {
+  public String getStage() {
     return stage;
   }
 

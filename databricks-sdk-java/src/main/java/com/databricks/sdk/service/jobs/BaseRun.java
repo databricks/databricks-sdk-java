@@ -166,14 +166,7 @@ public class BaseRun {
   @JsonProperty("run_page_url")
   private String runPageUrl;
 
-  /**
-   * The type of a run. * `JOB_RUN`: Normal job run. A run created with :method:jobs/runNow. *
-   * `WORKFLOW_RUN`: Workflow run. A run created with [dbutils.notebook.run]. * `SUBMIT_RUN`: Submit
-   * run. A run created with :method:jobs/submit.
-   *
-   * <p>[dbutils.notebook.run]:
-   * https://docs.databricks.com/dev-tools/databricks-utils.html#dbutils-workflow
-   */
+  /** */
   @JsonProperty("run_type")
   private RunType runType;
 
@@ -203,7 +196,7 @@ public class BaseRun {
   @JsonProperty("state")
   private RunState state;
 
-  /** The current status of the run */
+  /** */
   @JsonProperty("status")
   private RunStatus status;
 
@@ -216,23 +209,11 @@ public class BaseRun {
   @JsonProperty("tasks")
   private Collection<RunTask> tasks;
 
-  /**
-   * The type of trigger that fired this run.
-   *
-   * <p>* `PERIODIC`: Schedules that periodically trigger runs, such as a cron scheduler. *
-   * `ONE_TIME`: One time triggers that fire a single run. This occurs you triggered a single run on
-   * demand through the UI or the API. * `RETRY`: Indicates a run that is triggered as a retry of a
-   * previously failed run. This occurs when you request to re-run the job in case of failures. *
-   * `RUN_JOB_TASK`: Indicates a run that is triggered using a Run Job task. * `FILE_ARRIVAL`:
-   * Indicates a run that is triggered by a file arrival. * `CONTINUOUS`: Indicates a run that is
-   * triggered by a continuous job. * `TABLE`: Indicates a run that is triggered by a table update.
-   * * `CONTINUOUS_RESTART`: Indicates a run created by user to manually restart a continuous job
-   * run. * `MODEL`: Indicates a run that is triggered by a model update.
-   */
+  /** */
   @JsonProperty("trigger")
   private TriggerType trigger;
 
-  /** Additional details about what triggered the run */
+  /** */
   @JsonProperty("trigger_info")
   private TriggerInfo triggerInfo;
 

@@ -9,17 +9,30 @@ import java.util.Objects;
 
 @Generated
 public class TestRegistryWebhookResponse {
-  /** Test webhook response object. */
-  @JsonProperty("webhook")
-  private TestRegistryWebhook webhook;
+  /** Body of the response from the webhook URL */
+  @JsonProperty("body")
+  private String body;
 
-  public TestRegistryWebhookResponse setWebhook(TestRegistryWebhook webhook) {
-    this.webhook = webhook;
+  /** Status code returned by the webhook URL */
+  @JsonProperty("status_code")
+  private Long statusCode;
+
+  public TestRegistryWebhookResponse setBody(String body) {
+    this.body = body;
     return this;
   }
 
-  public TestRegistryWebhook getWebhook() {
-    return webhook;
+  public String getBody() {
+    return body;
+  }
+
+  public TestRegistryWebhookResponse setStatusCode(Long statusCode) {
+    this.statusCode = statusCode;
+    return this;
+  }
+
+  public Long getStatusCode() {
+    return statusCode;
   }
 
   @Override
@@ -27,16 +40,19 @@ public class TestRegistryWebhookResponse {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     TestRegistryWebhookResponse that = (TestRegistryWebhookResponse) o;
-    return Objects.equals(webhook, that.webhook);
+    return Objects.equals(body, that.body) && Objects.equals(statusCode, that.statusCode);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(webhook);
+    return Objects.hash(body, statusCode);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(TestRegistryWebhookResponse.class).add("webhook", webhook).toString();
+    return new ToStringer(TestRegistryWebhookResponse.class)
+        .add("body", body)
+        .add("statusCode", statusCode)
+        .toString();
   }
 }

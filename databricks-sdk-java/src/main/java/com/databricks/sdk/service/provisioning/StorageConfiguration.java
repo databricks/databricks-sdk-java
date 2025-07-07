@@ -17,7 +17,7 @@ public class StorageConfiguration {
   @JsonProperty("creation_time")
   private Long creationTime;
 
-  /** Root S3 bucket information. */
+  /** */
   @JsonProperty("root_bucket_info")
   private RootBucketInfo rootBucketInfo;
 

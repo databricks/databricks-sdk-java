@@ -9,10 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateDatabaseInstanceRequest {
-  /**
-   * A DatabaseInstance represents a logical Postgres instance, comprised of both compute and
-   * storage.
-   */
+  /** Instance to create. */
   @JsonProperty("database_instance")
   private DatabaseInstance databaseInstance;
 

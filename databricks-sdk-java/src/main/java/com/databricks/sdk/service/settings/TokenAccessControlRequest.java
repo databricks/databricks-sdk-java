@@ -13,7 +13,7 @@ public class TokenAccessControlRequest {
   @JsonProperty("group_name")
   private String groupName;
 
-  /** Permission level */
+  /** */
   @JsonProperty("permission_level")
   private TokenPermissionLevel permissionLevel;
 

@@ -83,7 +83,7 @@ public class JobSettings {
   @JsonProperty("git_source")
   private GitSource gitSource;
 
-  /** An optional set of health rules that can be defined for this job. */
+  /** */
   @JsonProperty("health")
   private JobsHealthRules health;
 
@@ -138,13 +138,7 @@ public class JobSettings {
   @JsonProperty("queue")
   private QueueSettings queue;
 
-  /**
-   * Write-only setting. Specifies the user or service principal that the job runs as. If not
-   * specified, the job runs as the user who created the job.
-   *
-   * <p>Either `user_name` or `service_principal_name` should be specified. If not, an error is
-   * thrown.
-   */
+  /** */
   @JsonProperty("run_as")
   private JobRunAs runAs;
 

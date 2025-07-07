@@ -46,7 +46,7 @@ public class TableInfo {
   @JsonProperty("data_access_configuration_id")
   private String dataAccessConfigurationId;
 
-  /** Data source format */
+  /** */
   @JsonProperty("data_source_format")
   private DataSourceFormat dataSourceFormat;
 
@@ -69,7 +69,7 @@ public class TableInfo {
   @JsonProperty("enable_predictive_optimization")
   private EnablePredictiveOptimization enablePredictiveOptimization;
 
-  /** Encryption options that apply to clients connecting to cloud storage. */
+  /** */
   @JsonProperty("encryption_details")
   private EncryptionDetails encryptionDetails;
 

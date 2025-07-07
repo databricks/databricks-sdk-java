@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Details required to edit a comment on a model version. */
 @Generated
 public class UpdateComment {
   /** User-provided comment on the action. */

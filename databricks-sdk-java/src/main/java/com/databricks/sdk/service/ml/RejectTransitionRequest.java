@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Details required to identify and reject a model version stage transition request. */
 @Generated
 public class RejectTransitionRequest {
   /** User-provided comment on the action. */
@@ -29,7 +30,7 @@ public class RejectTransitionRequest {
    * <p>* `Archived`: Archived stage.
    */
   @JsonProperty("stage")
-  private Stage stage;
+  private String stage;
 
   /** Version of the model. */
   @JsonProperty("version")
@@ -53,12 +54,12 @@ public class RejectTransitionRequest {
     return name;
   }
 
-  public RejectTransitionRequest setStage(Stage stage) {
+  public RejectTransitionRequest setStage(String stage) {
     this.stage = stage;
     return this;
   }
 
-  public Stage getStage() {
+  public String getStage() {
     return stage;
   }
 

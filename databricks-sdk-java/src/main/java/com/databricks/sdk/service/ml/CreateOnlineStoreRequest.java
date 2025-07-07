@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateOnlineStoreRequest {
-  /** An OnlineStore is a logical database instance that stores and serves features online. */
+  /** Online store to create. */
   @JsonProperty("online_store")
   private OnlineStore onlineStore;
 

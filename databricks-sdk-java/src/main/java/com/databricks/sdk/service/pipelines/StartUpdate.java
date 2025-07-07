@@ -11,7 +11,7 @@ import java.util.Objects;
 
 @Generated
 public class StartUpdate {
-  /** What triggered this update. */
+  /** */
   @JsonProperty("cause")
   private StartUpdateCause cause;
 

@@ -24,7 +24,7 @@ public class RecipientInfo {
   @JsonProperty("activation_url")
   private String activationUrl;
 
-  /** The delta sharing authentication type. */
+  /** */
   @JsonProperty("authentication_type")
   private AuthenticationType authenticationType;
 

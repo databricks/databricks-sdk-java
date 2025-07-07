@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class ListTransitionRequestsRequest {
-  /** Name of the model. */
+  /** Name of the registered model. */
   @JsonIgnore
   @QueryParam("name")
   private String name;

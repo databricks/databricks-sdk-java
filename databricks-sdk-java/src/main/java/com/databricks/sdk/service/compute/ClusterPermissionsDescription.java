@@ -13,7 +13,7 @@ public class ClusterPermissionsDescription {
   @JsonProperty("description")
   private String description;
 
-  /** Permission level */
+  /** */
   @JsonProperty("permission_level")
   private ClusterPermissionLevel permissionLevel;
 

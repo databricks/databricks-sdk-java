@@ -24,13 +24,7 @@ public class EgressNetworkPolicyInternetAccessPolicy {
   @JsonProperty("log_only_mode")
   private EgressNetworkPolicyInternetAccessPolicyLogOnlyMode logOnlyMode;
 
-  /**
-   * At which level can Databricks and Databricks managed compute access Internet. FULL_ACCESS:
-   * Databricks can access Internet. No blocking rules will apply. RESTRICTED_ACCESS: Databricks can
-   * only access explicitly allowed internet and storage destinations, as well as UC connections and
-   * external locations. PRIVATE_ACCESS_ONLY (not used): Databricks can only access destinations via
-   * private link.
-   */
+  /** */
   @JsonProperty("restriction_mode")
   private EgressNetworkPolicyInternetAccessPolicyRestrictionMode restrictionMode;
 
