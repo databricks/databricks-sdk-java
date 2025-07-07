@@ -43,7 +43,7 @@ public class SyncedDatabaseTable {
   @JsonProperty("name")
   private String name;
 
-  /** Specification of a synced database table. */
+  /** */
   @JsonProperty("spec")
   private SyncedTableSpec spec;
 

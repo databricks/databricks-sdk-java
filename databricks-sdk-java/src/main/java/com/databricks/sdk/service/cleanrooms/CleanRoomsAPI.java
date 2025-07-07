@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 /**
  * A clean room uses Delta Sharing and serverless compute to provide a secure and privacy-protecting
  * environment where multiple parties can work together on sensitive enterprise data without direct
- * access to each other’s data.
+ * access to each other's data.
  */
 @Generated
 public class CleanRoomsAPI {

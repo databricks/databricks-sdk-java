@@ -9,17 +9,18 @@ import java.util.Objects;
 
 @Generated
 public class TransitionStageResponse {
-  /** */
-  @JsonProperty("model_version")
-  private ModelVersionDatabricks modelVersion;
+  /** Updated model version */
+  @JsonProperty("model_version_databricks")
+  private ModelVersionDatabricks modelVersionDatabricks;
 
-  public TransitionStageResponse setModelVersion(ModelVersionDatabricks modelVersion) {
-    this.modelVersion = modelVersion;
+  public TransitionStageResponse setModelVersionDatabricks(
+      ModelVersionDatabricks modelVersionDatabricks) {
+    this.modelVersionDatabricks = modelVersionDatabricks;
     return this;
   }
 
-  public ModelVersionDatabricks getModelVersion() {
-    return modelVersion;
+  public ModelVersionDatabricks getModelVersionDatabricks() {
+    return modelVersionDatabricks;
   }
 
   @Override
@@ -27,18 +28,18 @@ public class TransitionStageResponse {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     TransitionStageResponse that = (TransitionStageResponse) o;
-    return Objects.equals(modelVersion, that.modelVersion);
+    return Objects.equals(modelVersionDatabricks, that.modelVersionDatabricks);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(modelVersion);
+    return Objects.hash(modelVersionDatabricks);
   }
 
   @Override
   public String toString() {
     return new ToStringer(TransitionStageResponse.class)
-        .add("modelVersion", modelVersion)
+        .add("modelVersionDatabricks", modelVersionDatabricks)
         .toString();
   }
 }

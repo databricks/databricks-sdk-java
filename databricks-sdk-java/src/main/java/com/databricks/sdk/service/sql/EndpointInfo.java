@@ -110,11 +110,11 @@ public class EndpointInfo {
   @JsonProperty("odbc_params")
   private OdbcParams odbcParams;
 
-  /** Configurations whether the warehouse should use spot instances. */
+  /** */
   @JsonProperty("spot_instance_policy")
   private SpotInstancePolicy spotInstancePolicy;
 
-  /** State of the warehouse */
+  /** */
   @JsonProperty("state")
   private State state;
 

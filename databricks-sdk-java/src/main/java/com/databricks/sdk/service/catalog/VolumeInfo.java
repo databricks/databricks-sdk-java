@@ -36,7 +36,7 @@ public class VolumeInfo {
   @JsonProperty("created_by")
   private String createdBy;
 
-  /** Encryption options that apply to clients connecting to cloud storage. */
+  /** */
   @JsonProperty("encryption_details")
   private EncryptionDetails encryptionDetails;
 
@@ -76,13 +76,7 @@ public class VolumeInfo {
   @JsonProperty("volume_id")
   private String volumeId;
 
-  /**
-   * The type of the volume. An external volume is located in the specified external location. A
-   * managed volume is located in the default location which is specified by the parent schema, or
-   * the parent catalog, or the Metastore. [Learn more]
-   *
-   * <p>[Learn more]: https://docs.databricks.com/aws/en/volumes/managed-vs-external
-   */
+  /** */
   @JsonProperty("volume_type")
   private VolumeType volumeType;
 

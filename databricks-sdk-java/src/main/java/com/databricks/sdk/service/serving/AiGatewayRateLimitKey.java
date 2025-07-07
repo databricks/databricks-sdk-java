@@ -10,6 +10,12 @@ public enum AiGatewayRateLimitKey {
   @JsonProperty("endpoint")
   ENDPOINT,
 
+  @JsonProperty("service_principal")
+  SERVICE_PRINCIPAL,
+
   @JsonProperty("user")
   USER,
+
+  @JsonProperty("user_group")
+  USER_GROUP,
 }

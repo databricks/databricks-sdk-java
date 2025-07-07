@@ -9,11 +9,11 @@ import java.util.Objects;
 
 @Generated
 public class CreateScope {
-  /** The metadata for the secret scope if the type is `AZURE_KEYVAULT` */
+  /** The metadata for the secret scope if the type is ``AZURE_KEYVAULT`` */
   @JsonProperty("backend_azure_keyvault")
   private AzureKeyVaultSecretScopeMetadata backendAzureKeyvault;
 
-  /** The principal that is initially granted `MANAGE` permission to the created scope. */
+  /** The principal that is initially granted ``MANAGE`` permission to the created scope. */
   @JsonProperty("initial_manage_principal")
   private String initialManagePrincipal;
 
@@ -22,7 +22,8 @@ public class CreateScope {
   private String scope;
 
   /**
-   * The backend type the scope will be created with. If not specified, will default to `DATABRICKS`
+   * The backend type the scope will be created with. If not specified, will default to
+   * ``DATABRICKS``
    */
   @JsonProperty("scope_backend_type")
   private ScopeBackendType scopeBackendType;

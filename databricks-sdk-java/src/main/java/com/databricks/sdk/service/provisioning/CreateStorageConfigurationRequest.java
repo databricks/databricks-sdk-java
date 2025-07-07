@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateStorageConfigurationRequest {
-  /** Root S3 bucket information. */
+  /** */
   @JsonProperty("root_bucket_info")
   private RootBucketInfo rootBucketInfo;
 

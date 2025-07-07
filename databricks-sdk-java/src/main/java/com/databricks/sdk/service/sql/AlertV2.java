@@ -52,7 +52,12 @@ public class AlertV2 {
   @JsonProperty("query_text")
   private String queryText;
 
-  /** The run as username. This field is set to "Unavailable" if the user has been deleted. */
+  /**
+   * The run as username or application ID of service principal. This field is set to "Unavailable"
+   * if the user has been deleted. On Create and Update, this field can be set to application ID of
+   * an active service principal. Setting this field requires the servicePrincipal/user role. If not
+   * specified it'll default to be request user.
+   */
   @JsonProperty("run_as_user_name")
   private String runAsUserName;
 

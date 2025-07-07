@@ -13,7 +13,7 @@ public class RepoPermissionsDescription {
   @JsonProperty("description")
   private String description;
 
-  /** Permission level */
+  /** */
   @JsonProperty("permission_level")
   private RepoPermissionLevel permissionLevel;
 

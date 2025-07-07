@@ -33,7 +33,7 @@ public class VpcEndpoint {
   @JsonProperty("aws_vpc_endpoint_id")
   private String awsVpcEndpointId;
 
-  /** The Google Cloud specific information for this Private Service Connect endpoint. */
+  /** */
   @JsonProperty("gcp_vpc_endpoint_info")
   private GcpVpcEndpointInfo gcpVpcEndpointInfo;
 
@@ -51,12 +51,7 @@ public class VpcEndpoint {
   @JsonProperty("state")
   private String state;
 
-  /**
-   * This enumeration represents the type of Databricks VPC [endpoint service] that was used when
-   * creating this VPC endpoint.
-   *
-   * <p>[endpoint service]: https://docs.aws.amazon.com/vpc/latest/privatelink/endpoint-service.html
-   */
+  /** */
   @JsonProperty("use_case")
   private EndpointUseCase useCase;
 

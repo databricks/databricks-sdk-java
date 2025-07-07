@@ -24,7 +24,7 @@ public class EndpointHealth {
   @JsonProperty("message")
   private String message;
 
-  /** Health status of the warehouse. */
+  /** */
   @JsonProperty("status")
   private Status status;
 

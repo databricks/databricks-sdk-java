@@ -26,7 +26,7 @@ public class Workspace {
   @JsonProperty("cloud")
   private String cloud;
 
-  /** The general workspace configurations that are specific to cloud providers. */
+  /** */
   @JsonProperty("cloud_resource_container")
   private CloudResourceContainer cloudResourceContainer;
 
@@ -62,31 +62,11 @@ public class Workspace {
   @JsonProperty("external_customer_info")
   private ExternalCustomerInfo externalCustomerInfo;
 
-  /**
-   * The network settings for the workspace. The configurations are only for Databricks-managed
-   * VPCs. It is ignored if you specify a customer-managed VPC in the `network_id` field.", All the
-   * IP range configurations must be mutually exclusive. An attempt to create a workspace fails if
-   * Databricks detects an IP range overlap.
-   *
-   * <p>Specify custom IP ranges in CIDR format. The IP ranges for these fields must not overlap,
-   * and all IP addresses must be entirely within the following ranges: `10.0.0.0/8`,
-   * `100.64.0.0/10`, `172.16.0.0/12`, `192.168.0.0/16`, and `240.0.0.0/4`.
-   *
-   * <p>The sizes of these IP ranges affect the maximum number of nodes for the workspace.
-   *
-   * <p>**Important**: Confirm the IP ranges used by your Databricks workspace before creating the
-   * workspace. You cannot change them after your workspace is deployed. If the IP address ranges
-   * for your Databricks are too small, IP exhaustion can occur, causing your Databricks jobs to
-   * fail. To determine the address range sizes that you need, Databricks provides a calculator as a
-   * Microsoft Excel spreadsheet. See [calculate subnet sizes for a new workspace].
-   *
-   * <p>[calculate subnet sizes for a new workspace]:
-   * https://docs.gcp.databricks.com/administration-guide/cloud-configurations/gcp/network-sizing.html
-   */
+  /** */
   @JsonProperty("gcp_managed_network_config")
   private GcpManagedNetworkConfig gcpManagedNetworkConfig;
 
-  /** The configurations for the GKE cluster of a Databricks workspace. */
+  /** */
   @JsonProperty("gke_config")
   private GkeConfig gkeConfig;
 
@@ -112,11 +92,7 @@ public class Workspace {
   @JsonProperty("network_id")
   private String networkId;
 
-  /**
-   * The pricing tier of the workspace. For pricing tier information, see [AWS Pricing].
-   *
-   * <p>[AWS Pricing]: https://databricks.com/product/aws-pricing
-   */
+  /** */
   @JsonProperty("pricing_tier")
   private PricingTier pricingTier;
 
@@ -150,10 +126,7 @@ public class Workspace {
   @JsonProperty("workspace_name")
   private String workspaceName;
 
-  /**
-   * The status of the workspace. For workspace creation, usually it is set to `PROVISIONING`
-   * initially. Continue to check the status until the status is `RUNNING`.
-   */
+  /** */
   @JsonProperty("workspace_status")
   private WorkspaceStatus workspaceStatus;
 

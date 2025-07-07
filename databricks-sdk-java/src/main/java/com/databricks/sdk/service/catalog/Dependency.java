@@ -13,19 +13,19 @@ import java.util.Objects;
  */
 @Generated
 public class Dependency {
-  /** A connection that is dependent on a SQL object. */
+  /** */
   @JsonProperty("connection")
   private ConnectionDependency connection;
 
-  /** A credential that is dependent on a SQL object. */
+  /** */
   @JsonProperty("credential")
   private CredentialDependency credential;
 
-  /** A function that is dependent on a SQL object. */
+  /** */
   @JsonProperty("function")
   private FunctionDependency function;
 
-  /** A table that is dependent on a SQL object. */
+  /** */
   @JsonProperty("table")
   private TableDependency table;
 

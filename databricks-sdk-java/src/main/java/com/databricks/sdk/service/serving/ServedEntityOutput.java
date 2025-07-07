@@ -52,10 +52,7 @@ public class ServedEntityOutput {
   @JsonProperty("external_model")
   private ExternalModel externalModel;
 
-  /**
-   * All fields are not sensitive as they are hard-coded in the system and made available to
-   * customers.
-   */
+  /** */
   @JsonProperty("foundation_model")
   private FoundationModel foundationModel;
 

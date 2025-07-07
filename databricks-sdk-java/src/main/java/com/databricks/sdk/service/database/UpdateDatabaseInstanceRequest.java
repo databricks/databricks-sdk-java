@@ -11,10 +11,7 @@ import java.util.Objects;
 
 @Generated
 public class UpdateDatabaseInstanceRequest {
-  /**
-   * A DatabaseInstance represents a logical Postgres instance, comprised of both compute and
-   * storage.
-   */
+  /** */
   @JsonProperty("database_instance")
   private DatabaseInstance databaseInstance;
 

@@ -13,7 +13,7 @@ public class InstancePoolAccessControlRequest {
   @JsonProperty("group_name")
   private String groupName;
 
-  /** Permission level */
+  /** */
   @JsonProperty("permission_level")
   private InstancePoolPermissionLevel permissionLevel;
 

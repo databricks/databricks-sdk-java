@@ -13,7 +13,7 @@ public class NetworkWarning {
   @JsonProperty("warning_message")
   private String warningMessage;
 
-  /** The AWS resource associated with this warning: a subnet or a security group. */
+  /** */
   @JsonProperty("warning_type")
   private WarningType warningType;
 

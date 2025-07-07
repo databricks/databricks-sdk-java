@@ -13,7 +13,7 @@ public class RegisteredModelPermissionsDescription {
   @JsonProperty("description")
   private String description;
 
-  /** Permission level */
+  /** */
   @JsonProperty("permission_level")
   private RegisteredModelPermissionLevel permissionLevel;
 

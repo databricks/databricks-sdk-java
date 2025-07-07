@@ -25,6 +25,8 @@ public class SettingsAPI {
 
   private DefaultNamespaceAPI defaultNamespaceAPI;
 
+  private DefaultWarehouseIdAPI defaultWarehouseIdAPI;
+
   private DisableLegacyAccessAPI disableLegacyAccessAPI;
 
   private DisableLegacyDbfsAPI disableLegacyDbfsAPI;
@@ -59,6 +61,8 @@ public class SettingsAPI {
     dashboardEmailSubscriptionsAPI = new DashboardEmailSubscriptionsAPI(apiClient);
 
     defaultNamespaceAPI = new DefaultNamespaceAPI(apiClient);
+
+    defaultWarehouseIdAPI = new DefaultWarehouseIdAPI(apiClient);
 
     disableLegacyAccessAPI = new DisableLegacyAccessAPI(apiClient);
 
@@ -121,6 +125,11 @@ public class SettingsAPI {
    */
   public DefaultNamespaceAPI DefaultNamespace() {
     return defaultNamespaceAPI;
+  }
+
+  /** Warehouse to be selected by default for users in this workspace. */
+  public DefaultWarehouseIdAPI DefaultWarehouseId() {
+    return defaultWarehouseIdAPI;
   }
 
   /** 'Disabling legacy access' has the following impacts: 1. */

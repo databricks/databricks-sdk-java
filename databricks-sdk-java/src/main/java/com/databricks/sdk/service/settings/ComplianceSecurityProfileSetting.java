@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class ComplianceSecurityProfileSetting {
-  /** SHIELD feature: CSP */
+  /** */
   @JsonProperty("compliance_security_profile_workspace")
   private ComplianceSecurityProfile complianceSecurityProfileWorkspace;
 

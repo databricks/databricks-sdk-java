@@ -51,7 +51,7 @@ class ProviderExchangesImpl implements ProviderExchangesService {
       Request req = new Request("DELETE", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
-      apiClient.execute(req, DeleteExchangeResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -65,7 +65,7 @@ class ProviderExchangesImpl implements ProviderExchangesService {
       Request req = new Request("DELETE", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
-      apiClient.execute(req, RemoveExchangeForListingResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

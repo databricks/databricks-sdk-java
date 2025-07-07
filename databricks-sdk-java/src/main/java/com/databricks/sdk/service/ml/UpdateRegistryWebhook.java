@@ -8,6 +8,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * Details required to update a registry webhook. Only the fields that need to be updated should be
+ * specified, and both `http_url_spec` and `job_spec` should not be specified in the same request.
+ */
 @Generated
 public class UpdateRegistryWebhook {
   /** User-specified description for the webhook. */
@@ -60,15 +64,7 @@ public class UpdateRegistryWebhook {
   @JsonProperty("job_spec")
   private JobSpec jobSpec;
 
-  /**
-   * Enable or disable triggering the webhook, or put the webhook into test mode. The default is
-   * `ACTIVE`: * `ACTIVE`: Webhook is triggered when an associated event happens.
-   *
-   * <p>* `DISABLED`: Webhook is not triggered.
-   *
-   * <p>* `TEST_MODE`: Webhook can be triggered through the test endpoint, but is not triggered on a
-   * real event.
-   */
+  /** */
   @JsonProperty("status")
   private RegistryWebhookStatus status;
 

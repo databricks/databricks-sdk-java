@@ -17,11 +17,11 @@ public class CreateExternalLocation {
   @JsonProperty("credential_name")
   private String credentialName;
 
-  /** [Create:OPT Update:OPT] Whether to enable file events on this external location. */
+  /** Whether to enable file events on this external location. */
   @JsonProperty("enable_file_events")
   private Boolean enableFileEvents;
 
-  /** Encryption options that apply to clients connecting to cloud storage. */
+  /** */
   @JsonProperty("encryption_details")
   private EncryptionDetails encryptionDetails;
 
@@ -33,7 +33,7 @@ public class CreateExternalLocation {
   @JsonProperty("fallback")
   private Boolean fallback;
 
-  /** [Create:OPT Update:OPT] File event queue settings. */
+  /** File event queue settings. */
   @JsonProperty("file_event_queue")
   private FileEventQueue fileEventQueue;
 

@@ -10,10 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateNetworkRequest {
-  /**
-   * The Google Cloud specific information for this network (for example, the VPC ID, subnet ID, and
-   * secondary IP ranges).
-   */
+  /** */
   @JsonProperty("gcp_network_info")
   private GcpNetworkInfo gcpNetworkInfo;
 
@@ -35,12 +32,7 @@ public class CreateNetworkRequest {
   @JsonProperty("subnet_ids")
   private Collection<String> subnetIds;
 
-  /**
-   * If specified, contains the VPC endpoints used to allow cluster communication from this VPC over
-   * [AWS PrivateLink].
-   *
-   * <p>[AWS PrivateLink]: https://aws.amazon.com/privatelink/
-   */
+  /** */
   @JsonProperty("vpc_endpoints")
   private NetworkVpcEndpoints vpcEndpoints;
 

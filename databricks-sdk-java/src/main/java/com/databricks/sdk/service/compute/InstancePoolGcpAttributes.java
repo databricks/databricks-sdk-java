@@ -10,10 +10,7 @@ import java.util.Objects;
 /** Attributes set during instance pool creation which are related to GCP. */
 @Generated
 public class InstancePoolGcpAttributes {
-  /**
-   * This field determines whether the instance pool will contain preemptible VMs, on-demand VMs, or
-   * preemptible VMs with a fallback to on-demand VMs if the former is unavailable.
-   */
+  /** */
   @JsonProperty("gcp_availability")
   private GcpAvailability gcpAvailability;
 

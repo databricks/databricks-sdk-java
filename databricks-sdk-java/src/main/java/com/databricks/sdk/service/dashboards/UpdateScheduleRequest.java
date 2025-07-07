@@ -13,7 +13,7 @@ public class UpdateScheduleRequest {
   /** UUID identifying the dashboard to which the schedule belongs. */
   @JsonIgnore private String dashboardId;
 
-  /** */
+  /** The schedule to update. */
   @JsonProperty("schedule")
   private Schedule schedule;
 

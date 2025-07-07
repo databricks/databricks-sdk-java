@@ -18,7 +18,7 @@ public class RepoPermission {
   @JsonProperty("inherited_from_object")
   private Collection<String> inheritedFromObject;
 
-  /** Permission level */
+  /** */
   @JsonProperty("permission_level")
   private RepoPermissionLevel permissionLevel;
 

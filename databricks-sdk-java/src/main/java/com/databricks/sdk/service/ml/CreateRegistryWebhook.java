@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/** Details required to create a registry webhook. */
 @Generated
 public class CreateRegistryWebhook {
   /** User-specified description for the webhook. */
@@ -48,11 +49,11 @@ public class CreateRegistryWebhook {
   @JsonProperty("events")
   private Collection<RegistryWebhookEvent> events;
 
-  /** */
+  /** External HTTPS URL called on event trigger (by using a POST request). */
   @JsonProperty("http_url_spec")
   private HttpUrlSpec httpUrlSpec;
 
-  /** */
+  /** ID of the job that the webhook runs. */
   @JsonProperty("job_spec")
   private JobSpec jobSpec;
 

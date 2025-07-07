@@ -49,7 +49,7 @@ class LibrariesImpl implements LibrariesService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
-      apiClient.execute(req, InstallLibrariesResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -63,7 +63,7 @@ class LibrariesImpl implements LibrariesService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
-      apiClient.execute(req, UninstallLibrariesResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

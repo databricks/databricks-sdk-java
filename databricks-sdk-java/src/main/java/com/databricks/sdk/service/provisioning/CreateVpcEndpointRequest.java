@@ -13,7 +13,7 @@ public class CreateVpcEndpointRequest {
   @JsonProperty("aws_vpc_endpoint_id")
   private String awsVpcEndpointId;
 
-  /** The Google Cloud specific information for this Private Service Connect endpoint. */
+  /** */
   @JsonProperty("gcp_vpc_endpoint_info")
   private GcpVpcEndpointInfo gcpVpcEndpointInfo;
 

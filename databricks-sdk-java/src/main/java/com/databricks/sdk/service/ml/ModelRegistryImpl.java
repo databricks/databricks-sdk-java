@@ -108,7 +108,7 @@ class ModelRegistryImpl implements ModelRegistryService {
       Request req = new Request("DELETE", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
-      apiClient.execute(req, DeleteCommentResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -121,7 +121,7 @@ class ModelRegistryImpl implements ModelRegistryService {
       Request req = new Request("DELETE", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
-      apiClient.execute(req, DeleteModelResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -134,7 +134,7 @@ class ModelRegistryImpl implements ModelRegistryService {
       Request req = new Request("DELETE", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
-      apiClient.execute(req, DeleteModelTagResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -147,7 +147,7 @@ class ModelRegistryImpl implements ModelRegistryService {
       Request req = new Request("DELETE", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
-      apiClient.execute(req, DeleteModelVersionResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -160,20 +160,21 @@ class ModelRegistryImpl implements ModelRegistryService {
       Request req = new Request("DELETE", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
-      apiClient.execute(req, DeleteModelVersionTagResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
   }
 
   @Override
-  public void deleteTransitionRequest(DeleteTransitionRequestRequest request) {
+  public DeleteTransitionRequestResponse deleteTransitionRequest(
+      DeleteTransitionRequestRequest request) {
     String path = "/api/2.0/mlflow/transition-requests/delete";
     try {
       Request req = new Request("DELETE", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
-      apiClient.execute(req, DeleteTransitionRequestResponse.class);
+      return apiClient.execute(req, DeleteTransitionRequestResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -186,7 +187,7 @@ class ModelRegistryImpl implements ModelRegistryService {
       Request req = new Request("DELETE", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
-      apiClient.execute(req, DeleteWebhookResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -379,7 +380,7 @@ class ModelRegistryImpl implements ModelRegistryService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
-      apiClient.execute(req, SetModelTagResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -393,7 +394,7 @@ class ModelRegistryImpl implements ModelRegistryService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
-      apiClient.execute(req, SetModelVersionTagResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -457,28 +458,28 @@ class ModelRegistryImpl implements ModelRegistryService {
   }
 
   @Override
-  public void updateModel(UpdateModelRequest request) {
+  public UpdateModelResponse updateModel(UpdateModelRequest request) {
     String path = "/api/2.0/mlflow/registered-models/update";
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
-      apiClient.execute(req, UpdateModelResponse.class);
+      return apiClient.execute(req, UpdateModelResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
   }
 
   @Override
-  public void updateModelVersion(UpdateModelVersionRequest request) {
+  public UpdateModelVersionResponse updateModelVersion(UpdateModelVersionRequest request) {
     String path = "/api/2.0/mlflow/model-versions/update";
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
-      apiClient.execute(req, UpdateModelVersionResponse.class);
+      return apiClient.execute(req, UpdateModelVersionResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -500,14 +501,14 @@ class ModelRegistryImpl implements ModelRegistryService {
   }
 
   @Override
-  public void updateWebhook(UpdateRegistryWebhook request) {
+  public UpdateWebhookResponse updateWebhook(UpdateRegistryWebhook request) {
     String path = "/api/2.0/mlflow/registry-webhooks/update";
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
-      apiClient.execute(req, UpdateWebhookResponse.class);
+      return apiClient.execute(req, UpdateWebhookResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

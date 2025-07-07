@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class EnhancedSecurityMonitoringSetting {
-  /** SHIELD feature: ESM */
+  /** */
   @JsonProperty("enhanced_security_monitoring_workspace")
   private EnhancedSecurityMonitoring enhancedSecurityMonitoringWorkspace;
 

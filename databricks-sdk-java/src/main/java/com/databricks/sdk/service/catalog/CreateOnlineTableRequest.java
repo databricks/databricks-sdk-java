@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateOnlineTableRequest {
-  /** Online Table information. */
+  /** Specification of the online table to be created. */
   @JsonProperty("table")
   private OnlineTable table;
 

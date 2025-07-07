@@ -7,6 +7,10 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * An item representing an ACL rule applied to the given principal (user or group) on the associated
+ * scope point.
+ */
 @Generated
 public class AclItem {
   /** The permission level applied to the principal. */

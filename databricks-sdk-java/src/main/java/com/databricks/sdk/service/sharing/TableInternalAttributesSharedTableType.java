@@ -6,6 +6,7 @@ import com.databricks.sdk.support.Generated;
 
 @Generated
 public enum TableInternalAttributesSharedTableType {
+  DELTA_ICEBERG_TABLE,
   DIRECTORY_BASED_TABLE,
   FILE_BASED_TABLE,
   FOREIGN_TABLE,

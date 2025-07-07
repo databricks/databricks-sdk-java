@@ -13,10 +13,7 @@ public class NetworkHealth {
   @JsonProperty("error_message")
   private String errorMessage;
 
-  /**
-   * The AWS resource associated with this error: credentials, VPC, subnet, security group, or
-   * network ACL.
-   */
+  /** */
   @JsonProperty("error_type")
   private ErrorType errorType;
 

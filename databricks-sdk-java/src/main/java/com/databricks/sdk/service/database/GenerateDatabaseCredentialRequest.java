@@ -11,6 +11,13 @@ import java.util.Objects;
 /** Generates a credential that can be used to access database instances */
 @Generated
 public class GenerateDatabaseCredentialRequest {
+  /**
+   * The returned token will be scoped to the union of instance_names and instances containing the
+   * specified UC tables, so instance_names is allowed to be empty.
+   */
+  @JsonProperty("claims")
+  private Collection<RequestedClaims> claims;
+
   /** Instances to which the token will be scoped. */
   @JsonProperty("instance_names")
   private Collection<String> instanceNames;
@@ -18,6 +25,15 @@ public class GenerateDatabaseCredentialRequest {
   /** */
   @JsonProperty("request_id")
   private String requestId;
+
+  public GenerateDatabaseCredentialRequest setClaims(Collection<RequestedClaims> claims) {
+    this.claims = claims;
+    return this;
+  }
+
+  public Collection<RequestedClaims> getClaims() {
+    return claims;
+  }
 
   public GenerateDatabaseCredentialRequest setInstanceNames(Collection<String> instanceNames) {
     this.instanceNames = instanceNames;
@@ -42,18 +58,20 @@ public class GenerateDatabaseCredentialRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GenerateDatabaseCredentialRequest that = (GenerateDatabaseCredentialRequest) o;
-    return Objects.equals(instanceNames, that.instanceNames)
+    return Objects.equals(claims, that.claims)
+        && Objects.equals(instanceNames, that.instanceNames)
         && Objects.equals(requestId, that.requestId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(instanceNames, requestId);
+    return Objects.hash(claims, instanceNames, requestId);
   }
 
   @Override
   public String toString() {
     return new ToStringer(GenerateDatabaseCredentialRequest.class)
+        .add("claims", claims)
         .add("instanceNames", instanceNames)
         .add("requestId", requestId)
         .toString();

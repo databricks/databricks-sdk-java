@@ -7,28 +7,17 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Activity recorded for the action. */
+/**
+ * For activities, this contains the activity recorded for the action. For comments, this contains
+ * the comment details. For transition requests, this contains the transition request details.
+ */
 @Generated
 public class Activity {
-  /**
-   * Type of activity. Valid values are: * `APPLIED_TRANSITION`: User applied the corresponding
-   * stage transition.
-   *
-   * <p>* `REQUESTED_TRANSITION`: User requested the corresponding stage transition.
-   *
-   * <p>* `CANCELLED_REQUEST`: User cancelled an existing transition request.
-   *
-   * <p>* `APPROVED_REQUEST`: User approved the corresponding stage transition.
-   *
-   * <p>* `REJECTED_REQUEST`: User rejected the coressponding stage transition.
-   *
-   * <p>* `SYSTEM_TRANSITION`: For events performed as a side effect, such as archiving existing
-   * model versions in a stage.
-   */
+  /** */
   @JsonProperty("activity_type")
   private ActivityType activityType;
 
-  /** User-provided comment associated with the activity. */
+  /** User-provided comment associated with the activity, comment, or transition request. */
   @JsonProperty("comment")
   private String comment;
 
@@ -48,7 +37,7 @@ public class Activity {
    * <p>* `Archived`: Archived stage.
    */
   @JsonProperty("from_stage")
-  private Stage fromStage;
+  private String fromStage;
 
   /** Unique identifier for the object. */
   @JsonProperty("id")
@@ -78,7 +67,7 @@ public class Activity {
    * <p>* `Archived`: Archived stage.
    */
   @JsonProperty("to_stage")
-  private Stage toStage;
+  private String toStage;
 
   /** The username of the user that created the object. */
   @JsonProperty("user_id")
@@ -111,12 +100,12 @@ public class Activity {
     return creationTimestamp;
   }
 
-  public Activity setFromStage(Stage fromStage) {
+  public Activity setFromStage(String fromStage) {
     this.fromStage = fromStage;
     return this;
   }
 
-  public Stage getFromStage() {
+  public String getFromStage() {
     return fromStage;
   }
 
@@ -147,12 +136,12 @@ public class Activity {
     return systemComment;
   }
 
-  public Activity setToStage(Stage toStage) {
+  public Activity setToStage(String toStage) {
     this.toStage = toStage;
     return this;
   }
 
-  public Stage getToStage() {
+  public String getToStage() {
     return toStage;
   }
 

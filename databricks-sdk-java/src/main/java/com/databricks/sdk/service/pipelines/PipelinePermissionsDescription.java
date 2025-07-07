@@ -13,7 +13,7 @@ public class PipelinePermissionsDescription {
   @JsonProperty("description")
   private String description;
 
-  /** Permission level */
+  /** */
   @JsonProperty("permission_level")
   private PipelinePermissionLevel permissionLevel;
 

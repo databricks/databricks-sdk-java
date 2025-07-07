@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Details required to transition a model version's stage. */
 @Generated
 public class TransitionModelVersionStageDatabricks {
   /** Specifies whether to archive all current model versions in the target stage. */
@@ -33,7 +34,7 @@ public class TransitionModelVersionStageDatabricks {
    * <p>* `Archived`: Archived stage.
    */
   @JsonProperty("stage")
-  private Stage stage;
+  private String stage;
 
   /** Version of the model. */
   @JsonProperty("version")
@@ -67,12 +68,12 @@ public class TransitionModelVersionStageDatabricks {
     return name;
   }
 
-  public TransitionModelVersionStageDatabricks setStage(Stage stage) {
+  public TransitionModelVersionStageDatabricks setStage(String stage) {
     this.stage = stage;
     return this;
   }
 
-  public Stage getStage() {
+  public String getStage() {
     return stage;
   }
 

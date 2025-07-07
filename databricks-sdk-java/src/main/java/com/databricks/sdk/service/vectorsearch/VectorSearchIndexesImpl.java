@@ -51,7 +51,7 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
       Request req = new Request("DELETE", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
-      apiClient.execute(req, DeleteIndexResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -133,7 +133,7 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
       Request req = new Request("POST", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
-      apiClient.execute(req, SyncIndexResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

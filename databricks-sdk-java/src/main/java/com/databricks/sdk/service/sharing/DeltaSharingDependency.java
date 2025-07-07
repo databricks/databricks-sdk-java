@@ -10,11 +10,11 @@ import java.util.Objects;
 /** Represents a UC dependency. */
 @Generated
 public class DeltaSharingDependency {
-  /** A Function in UC as a dependency. */
+  /** */
   @JsonProperty("function")
   private DeltaSharingFunctionDependency function;
 
-  /** A Table in UC as a dependency. */
+  /** */
   @JsonProperty("table")
   private DeltaSharingTableDependency table;
 

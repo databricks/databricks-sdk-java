@@ -21,11 +21,11 @@ public class FunctionParameterInfo {
   @JsonProperty("parameter_default")
   private String parameterDefault;
 
-  /** The mode of the function parameter. */
+  /** */
   @JsonProperty("parameter_mode")
   private FunctionParameterMode parameterMode;
 
-  /** The type of function parameter. */
+  /** */
   @JsonProperty("parameter_type")
   private FunctionParameterType parameterType;
 

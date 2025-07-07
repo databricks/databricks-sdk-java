@@ -10,7 +10,7 @@ import java.util.Objects;
 /** The general workspace configurations that are specific to cloud providers. */
 @Generated
 public class CloudResourceContainer {
-  /** The general workspace configurations that are specific to Google Cloud. */
+  /** */
   @JsonProperty("gcp")
   private CustomerFacingGcpCloudResourceContainer gcp;
 

@@ -14,7 +14,7 @@ public class UpdateOnlineStoreRequest {
   /** The name of the online store. This is the unique identifier for the online store. */
   @JsonIgnore private String name;
 
-  /** An OnlineStore is a logical database instance that stores and serves features online. */
+  /** Online store to update. */
   @JsonProperty("online_store")
   private OnlineStore onlineStore;
 

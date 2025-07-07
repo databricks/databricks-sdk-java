@@ -17,7 +17,7 @@ public class CatalogInfo {
   @JsonProperty("browse_only")
   private Boolean browseOnly;
 
-  /** The type of the catalog. */
+  /** */
   @JsonProperty("catalog_type")
   private CatalogType catalogType;
 
@@ -85,11 +85,11 @@ public class CatalogInfo {
   @JsonProperty("provider_name")
   private String providerName;
 
-  /** Status of an asynchronously provisioned resource. */
+  /** */
   @JsonProperty("provisioning_info")
   private ProvisioningInfo provisioningInfo;
 
-  /** The type of Unity Catalog securable. */
+  /** */
   @JsonProperty("securable_type")
   private SecurableType securableType;
 

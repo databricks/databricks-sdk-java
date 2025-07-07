@@ -18,7 +18,7 @@ public class ClusterPermission {
   @JsonProperty("inherited_from_object")
   private Collection<String> inheritedFromObject;
 
-  /** Permission level */
+  /** */
   @JsonProperty("permission_level")
   private ClusterPermissionLevel permissionLevel;
 

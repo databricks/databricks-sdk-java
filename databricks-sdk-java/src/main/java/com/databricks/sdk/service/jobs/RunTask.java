@@ -296,7 +296,7 @@ public class RunTask {
   @JsonProperty("state")
   private RunState state;
 
-  /** The current status of the run */
+  /** */
   @JsonProperty("status")
   private RunStatus status;
 

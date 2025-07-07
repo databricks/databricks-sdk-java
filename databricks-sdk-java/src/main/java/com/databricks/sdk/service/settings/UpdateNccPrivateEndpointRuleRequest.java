@@ -17,10 +17,7 @@ public class UpdateNccPrivateEndpointRuleRequest {
    */
   @JsonIgnore private String networkConnectivityConfigId;
 
-  /**
-   * Properties of the new private endpoint rule. Note that you must approve the endpoint in Azure
-   * portal after initialization.
-   */
+  /** */
   @JsonProperty("private_endpoint_rule")
   private UpdatePrivateEndpointRule privateEndpointRule;
 

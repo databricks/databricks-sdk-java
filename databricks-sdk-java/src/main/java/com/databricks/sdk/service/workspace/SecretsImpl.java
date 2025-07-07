@@ -22,9 +22,8 @@ class SecretsImpl implements SecretsService {
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
-      req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
-      apiClient.execute(req, CreateScopeResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -36,9 +35,8 @@ class SecretsImpl implements SecretsService {
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
-      req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
-      apiClient.execute(req, DeleteAclResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -50,9 +48,8 @@ class SecretsImpl implements SecretsService {
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
-      req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
-      apiClient.execute(req, DeleteScopeResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -66,7 +63,7 @@ class SecretsImpl implements SecretsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
-      apiClient.execute(req, DeleteSecretResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -142,9 +139,8 @@ class SecretsImpl implements SecretsService {
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
-      req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
-      apiClient.execute(req, PutAclResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -156,9 +152,8 @@ class SecretsImpl implements SecretsService {
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
-      req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
-      apiClient.execute(req, PutSecretResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

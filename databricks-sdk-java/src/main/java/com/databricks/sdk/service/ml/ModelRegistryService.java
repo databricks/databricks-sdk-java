@@ -30,9 +30,8 @@ public interface ModelRegistryService {
   CreateCommentResponse createComment(CreateComment createComment);
 
   /**
-   * Creates a new registered model with the name specified in the request body.
-   *
-   * <p>Throws `RESOURCE_ALREADY_EXISTS` if a registered model with the given name exists.
+   * Creates a new registered model with the name specified in the request body. Throws
+   * `RESOURCE_ALREADY_EXISTS` if a registered model with the given name exists.
    */
   CreateModelResponse createModel(CreateModelRequest createModelRequest);
 
@@ -44,11 +43,7 @@ public interface ModelRegistryService {
   CreateTransitionRequestResponse createTransitionRequest(
       CreateTransitionRequest createTransitionRequest);
 
-  /**
-   * **NOTE**: This endpoint is in Public Preview.
-   *
-   * <p>Creates a registry webhook.
-   */
+  /** **NOTE:** This endpoint is in Public Preview. Creates a registry webhook. */
   CreateWebhookResponse createWebhook(CreateRegistryWebhook createRegistryWebhook);
 
   /** Deletes a comment on a model version. */
@@ -67,13 +62,10 @@ public interface ModelRegistryService {
   void deleteModelVersionTag(DeleteModelVersionTagRequest deleteModelVersionTagRequest);
 
   /** Cancels a model version stage transition request. */
-  void deleteTransitionRequest(DeleteTransitionRequestRequest deleteTransitionRequestRequest);
+  DeleteTransitionRequestResponse deleteTransitionRequest(
+      DeleteTransitionRequestRequest deleteTransitionRequestRequest);
 
-  /**
-   * **NOTE:** This endpoint is in Public Preview.
-   *
-   * <p>Deletes a registry webhook.
-   */
+  /** **NOTE:** This endpoint is in Public Preview. Deletes a registry webhook. */
   void deleteWebhook(DeleteWebhookRequest deleteWebhookRequest);
 
   /** Gets the latest version of a registered model. */
@@ -113,11 +105,7 @@ public interface ModelRegistryService {
   ListTransitionRequestsResponse listTransitionRequests(
       ListTransitionRequestsRequest listTransitionRequestsRequest);
 
-  /**
-   * **NOTE:** This endpoint is in Public Preview.
-   *
-   * <p>Lists all registry webhooks.
-   */
+  /** **NOTE:** This endpoint is in Public Preview. Lists all registry webhooks. */
   ListRegistryWebhooks listWebhooks(ListWebhooksRequest listWebhooksRequest);
 
   /** Rejects a model version stage transition request. */
@@ -147,17 +135,13 @@ public interface ModelRegistryService {
   RegisteredModelPermissions setPermissions(
       RegisteredModelPermissionsRequest registeredModelPermissionsRequest);
 
-  /**
-   * **NOTE:** This endpoint is in Public Preview.
-   *
-   * <p>Tests a registry webhook.
-   */
+  /** **NOTE:** This endpoint is in Public Preview. Tests a registry webhook. */
   TestRegistryWebhookResponse testRegistryWebhook(
       TestRegistryWebhookRequest testRegistryWebhookRequest);
 
   /**
    * Transition a model version's stage. This is a Databricks workspace version of the [MLflow
-   * endpoint] that also accepts a comment associated with the transition to be recorded.",
+   * endpoint] that also accepts a comment associated with the transition to be recorded.
    *
    * <p>[MLflow endpoint]:
    * https://www.mlflow.org/docs/latest/rest-api.html#transition-modelversion-stage
@@ -169,10 +153,11 @@ public interface ModelRegistryService {
   UpdateCommentResponse updateComment(UpdateComment updateComment);
 
   /** Updates a registered model. */
-  void updateModel(UpdateModelRequest updateModelRequest);
+  UpdateModelResponse updateModel(UpdateModelRequest updateModelRequest);
 
   /** Updates the model version. */
-  void updateModelVersion(UpdateModelVersionRequest updateModelVersionRequest);
+  UpdateModelVersionResponse updateModelVersion(
+      UpdateModelVersionRequest updateModelVersionRequest);
 
   /**
    * Updates the permissions on a registered model. Registered models can inherit permissions from
@@ -181,10 +166,6 @@ public interface ModelRegistryService {
   RegisteredModelPermissions updatePermissions(
       RegisteredModelPermissionsRequest registeredModelPermissionsRequest);
 
-  /**
-   * **NOTE:** This endpoint is in Public Preview.
-   *
-   * <p>Updates a registry webhook.
-   */
-  void updateWebhook(UpdateRegistryWebhook updateRegistryWebhook);
+  /** **NOTE:** This endpoint is in Public Preview. Updates a registry webhook. */
+  UpdateWebhookResponse updateWebhook(UpdateRegistryWebhook updateRegistryWebhook);
 }

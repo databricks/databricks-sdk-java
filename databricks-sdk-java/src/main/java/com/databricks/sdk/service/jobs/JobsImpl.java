@@ -23,7 +23,7 @@ class JobsImpl implements JobsService {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
       req.withHeader("Content-Type", "application/json");
-      apiClient.execute(req, CancelAllRunsResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -36,7 +36,7 @@ class JobsImpl implements JobsService {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
       req.withHeader("Content-Type", "application/json");
-      apiClient.execute(req, CancelRunResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -63,7 +63,7 @@ class JobsImpl implements JobsService {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
       req.withHeader("Content-Type", "application/json");
-      apiClient.execute(req, DeleteResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -76,7 +76,7 @@ class JobsImpl implements JobsService {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
       req.withHeader("Content-Type", "application/json");
-      apiClient.execute(req, DeleteRunResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -208,7 +208,7 @@ class JobsImpl implements JobsService {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
       req.withHeader("Content-Type", "application/json");
-      apiClient.execute(req, ResetResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -263,7 +263,7 @@ class JobsImpl implements JobsService {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
       req.withHeader("Content-Type", "application/json");
-      apiClient.execute(req, UpdateResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

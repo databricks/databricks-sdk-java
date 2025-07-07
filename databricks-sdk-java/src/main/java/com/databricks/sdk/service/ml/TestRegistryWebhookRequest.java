@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Details required to test a registry webhook. */
 @Generated
 public class TestRegistryWebhookRequest {
   /**

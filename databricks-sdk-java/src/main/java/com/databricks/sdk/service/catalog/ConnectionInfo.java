@@ -58,7 +58,7 @@ public class ConnectionInfo {
   @JsonProperty("properties")
   private Map<String, String> properties;
 
-  /** Status of an asynchronously provisioned resource. */
+  /** */
   @JsonProperty("provisioning_info")
   private ProvisioningInfo provisioningInfo;
 
@@ -66,7 +66,7 @@ public class ConnectionInfo {
   @JsonProperty("read_only")
   private Boolean readOnly;
 
-  /** The type of Unity Catalog securable. */
+  /** */
   @JsonProperty("securable_type")
   private SecurableType securableType;
 

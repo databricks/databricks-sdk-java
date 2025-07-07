@@ -10,12 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class SqlAlertOutput {
-  /**
-   * The state of the SQL alert.
-   *
-   * <p>* UNKNOWN: alert yet to be evaluated * OK: alert evaluated and did not fulfill trigger
-   * conditions * TRIGGERED: alert evaluated and fulfilled trigger conditions
-   */
+  /** */
   @JsonProperty("alert_state")
   private SqlAlertState alertState;
 

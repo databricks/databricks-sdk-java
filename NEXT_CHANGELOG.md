@@ -72,3 +72,42 @@
 * [Breaking] Removed `HIVE_CUSTOM` and `HIVE_SERDE` enum values for `com.databricks.sdk.service.catalog.DataSourceFormat`.
 * [Breaking] Removed `UNKNOWN_SECURABLE_TYPE` enum value for `com.databricks.sdk.service.catalog.SecurableType`.
 * [Breaking] Removed `CANCELLED`, `ERROR`, `QUEUED`, `RUNNING`, `STARTING` and `SUCCESS` enum values for `com.databricks.sdk.service.jobs.DbtCloudRunStatus`.
+* Added `workspaceClient.externalLineage()` service and `workspaceClient.externalMetadata()` service.
+* Added `workspaceClient.defaultWarehouseId()` service.
+* Added `claims` field for `com.databricks.sdk.service.database.GenerateDatabaseCredentialRequest`.
+* Added `activity` field for `com.databricks.sdk.service.ml.DeleteTransitionRequestResponse`.
+* Added `maxResults` field for `com.databricks.sdk.service.ml.ListWebhooksRequest`.
+* Added `body` and `statusCode` fields for `com.databricks.sdk.service.ml.TestRegistryWebhookResponse`.
+* Added `modelVersionDatabricks` field for `com.databricks.sdk.service.ml.TransitionStageResponse`.
+* Added `registeredModel` field for `com.databricks.sdk.service.ml.UpdateModelResponse`.
+* Added `modelVersion` field for `com.databricks.sdk.service.ml.UpdateModelVersionResponse`.
+* Added `webhook` field for `com.databricks.sdk.service.ml.UpdateWebhookResponse`.
+* Added `runAs` field for `com.databricks.sdk.service.pipelines.GetPipelineResponse`.
+* Added `principal` field for `com.databricks.sdk.service.serving.AiGatewayRateLimit`.
+* Added `ANY_STATIC_CREDENTIAL` enum value for `com.databricks.sdk.service.catalog.CredentialType`.
+* Added `TABLE_DELTA_ICEBERG_DELTASHARING` enum value for `com.databricks.sdk.service.catalog.SecurableKind`.
+* Added `SECURITY_AGENTS_FAILED_INITIAL_VERIFICATION` enum value for `com.databricks.sdk.service.compute.TerminationReasonCode`.
+* Added `CAN_CREATE_REGISTERED_MODEL` enum value for `com.databricks.sdk.service.ml.PermissionLevel`.
+* Added `BIGQUERY` enum value for `com.databricks.sdk.service.pipelines.IngestionSourceType`.
+* Added `SERVICE_PRINCIPAL` and `USER_GROUP` enum values for `com.databricks.sdk.service.serving.AiGatewayRateLimitKey`.
+* Added `DELTA_ICEBERG_TABLE` enum value for `com.databricks.sdk.service.sharing.TableInternalAttributesSharedTableType`.
+* [Breaking] Changed `deleteTransitionRequest()`, `updateModel()`, `updateModelVersion()` and `updateWebhook()` methods for `workspaceClient.modelRegistry()` service return type to become non-empty.
+* [Breaking] Changed `deleteWebhook()` method for `workspaceClient.modelRegistry()` service with new required argument order.
+* [Breaking] Changed `fromStage` and `toStage` fields for `com.databricks.sdk.service.ml.Activity` to type `String` class.
+* [Breaking] Changed `stage` field for `com.databricks.sdk.service.ml.ApproveTransitionRequest` to type `String` class.
+* [Breaking] Changed `stage` field for `com.databricks.sdk.service.ml.CreateTransitionRequest` to type `String` class.
+* [Breaking] Changed `stage` field for `com.databricks.sdk.service.ml.DeleteTransitionRequestRequest` to type `String` class.
+* [Breaking] Changed `id` field for `com.databricks.sdk.service.ml.DeleteWebhookRequest` to be required.
+* [Breaking] Changed `key` field for `com.databricks.sdk.service.ml.FeatureTag` to be required.
+* Changed `key` field for `com.databricks.sdk.service.ml.FeatureTag` to be required.
+* [Breaking] Changed `capacity` field for `com.databricks.sdk.service.ml.OnlineStore` to be required.
+* Changed `capacity` field for `com.databricks.sdk.service.ml.OnlineStore` to be required.
+* [Breaking] Changed `onlineTableName` field for `com.databricks.sdk.service.ml.PublishSpec` to be required.
+* [Breaking] Changed `stage` field for `com.databricks.sdk.service.ml.RejectTransitionRequest` to type `String` class.
+* [Breaking] Changed `stage` field for `com.databricks.sdk.service.ml.TransitionModelVersionStageDatabricks` to type `String` class.
+* [Breaking] Changed `toStage` field for `com.databricks.sdk.service.ml.TransitionRequest` to type `String` class.
+* [Breaking] Removed `allowedOptions` and `requiredOptions` fields for `com.databricks.sdk.service.catalog.SecurableKindManifest`.
+* [Breaking] Removed `webhook` field for `com.databricks.sdk.service.ml.TestRegistryWebhookResponse`.
+* [Breaking] Removed `modelVersion` field for `com.databricks.sdk.service.ml.TransitionStageResponse`.
+* [Breaking] Removed `ARCHIVED`, `NONE`, `PRODUCTION` and `STAGING` enum values for `com.databricks.sdk.service.ml.DeleteTransitionRequestStage`.
+* [Breaking] Removed `ARCHIVED`, `NONE`, `PRODUCTION` and `STAGING` enum values for `com.databricks.sdk.service.ml.Stage`.

@@ -74,6 +74,6 @@ public interface GenieService {
   GenieStartConversationResponse startConversation(
       GenieStartConversationMessageRequest genieStartConversationMessageRequest);
 
-  /** Trash a Genie Space. */
+  /** Move a Genie Space to the trash. */
   void trashSpace(GenieTrashSpaceRequest genieTrashSpaceRequest);
 }

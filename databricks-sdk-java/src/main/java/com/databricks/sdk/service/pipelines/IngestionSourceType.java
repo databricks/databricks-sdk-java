@@ -6,6 +6,7 @@ import com.databricks.sdk.support.Generated;
 
 @Generated
 public enum IngestionSourceType {
+  BIGQUERY,
   DYNAMICS365,
   GA4_RAW_DATA,
   MANAGED_POSTGRESQL,

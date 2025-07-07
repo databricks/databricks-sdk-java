@@ -20,7 +20,7 @@ public class GenieListConversationsRequest {
   @QueryParam("page_token")
   private String pageToken;
 
-  /** The ID associated with the Genie space to list conversations from. */
+  /** The ID of the Genie space to retrieve conversations from. */
   @JsonIgnore private String spaceId;
 
   public GenieListConversationsRequest setPageSize(Long pageSize) {

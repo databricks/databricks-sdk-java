@@ -26,7 +26,7 @@ class FilesImpl implements FilesService {
     try {
       Request req = new Request("PUT", path);
       ApiClient.setQuery(req, request);
-      apiClient.execute(req, CreateDirectoryResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -40,7 +40,7 @@ class FilesImpl implements FilesService {
     try {
       Request req = new Request("DELETE", path);
       ApiClient.setQuery(req, request);
-      apiClient.execute(req, DeleteResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -55,7 +55,7 @@ class FilesImpl implements FilesService {
     try {
       Request req = new Request("DELETE", path);
       ApiClient.setQuery(req, request);
-      apiClient.execute(req, DeleteDirectoryResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -85,7 +85,7 @@ class FilesImpl implements FilesService {
     try {
       Request req = new Request("HEAD", path);
       ApiClient.setQuery(req, request);
-      apiClient.execute(req, GetDirectoryMetadataResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -130,7 +130,7 @@ class FilesImpl implements FilesService {
       Request req = new Request("PUT", path, request.getContents());
       ApiClient.setQuery(req, request);
       req.withHeader("Content-Type", "application/octet-stream");
-      apiClient.execute(req, UploadResponse.class);
+      apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

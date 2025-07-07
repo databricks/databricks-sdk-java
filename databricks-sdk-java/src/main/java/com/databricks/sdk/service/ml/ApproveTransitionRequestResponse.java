@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class ApproveTransitionRequestResponse {
-  /** Activity recorded for the action. */
+  /** New activity generated as a result of this operation. */
   @JsonProperty("activity")
   private Activity activity;
 

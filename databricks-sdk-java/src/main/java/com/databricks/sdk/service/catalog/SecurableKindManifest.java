@@ -11,10 +11,6 @@ import java.util.Objects;
 /** Manifest of a specific securable kind. */
 @Generated
 public class SecurableKindManifest {
-  /** A list of allowed option names, consistent with the 'options' field. */
-  @JsonProperty("allowedOptions")
-  private Collection<String> allowedOptions;
-
   /** Privileges that can be assigned to the securable. */
   @JsonProperty("assignable_privileges")
   private Collection<String> assignablePrivileges;
@@ -27,10 +23,6 @@ public class SecurableKindManifest {
   @JsonProperty("options")
   private Collection<OptionSpec> options;
 
-  /** A list of required option names, consistent with the 'options' field. */
-  @JsonProperty("requiredOptions")
-  private Collection<String> requiredOptions;
-
   /** Securable kind to get manifest of. */
   @JsonProperty("securable_kind")
   private SecurableKind securableKind;
@@ -38,15 +30,6 @@ public class SecurableKindManifest {
   /** Securable Type of the kind. */
   @JsonProperty("securable_type")
   private SecurableType securableType;
-
-  public SecurableKindManifest setAllowedOptions(Collection<String> allowedOptions) {
-    this.allowedOptions = allowedOptions;
-    return this;
-  }
-
-  public Collection<String> getAllowedOptions() {
-    return allowedOptions;
-  }
 
   public SecurableKindManifest setAssignablePrivileges(Collection<String> assignablePrivileges) {
     this.assignablePrivileges = assignablePrivileges;
@@ -75,15 +58,6 @@ public class SecurableKindManifest {
     return options;
   }
 
-  public SecurableKindManifest setRequiredOptions(Collection<String> requiredOptions) {
-    this.requiredOptions = requiredOptions;
-    return this;
-  }
-
-  public Collection<String> getRequiredOptions() {
-    return requiredOptions;
-  }
-
   public SecurableKindManifest setSecurableKind(SecurableKind securableKind) {
     this.securableKind = securableKind;
     return this;
@@ -107,35 +81,24 @@ public class SecurableKindManifest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     SecurableKindManifest that = (SecurableKindManifest) o;
-    return Objects.equals(allowedOptions, that.allowedOptions)
-        && Objects.equals(assignablePrivileges, that.assignablePrivileges)
+    return Objects.equals(assignablePrivileges, that.assignablePrivileges)
         && Objects.equals(capabilities, that.capabilities)
         && Objects.equals(options, that.options)
-        && Objects.equals(requiredOptions, that.requiredOptions)
         && Objects.equals(securableKind, that.securableKind)
         && Objects.equals(securableType, that.securableType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        allowedOptions,
-        assignablePrivileges,
-        capabilities,
-        options,
-        requiredOptions,
-        securableKind,
-        securableType);
+    return Objects.hash(assignablePrivileges, capabilities, options, securableKind, securableType);
   }
 
   @Override
   public String toString() {
     return new ToStringer(SecurableKindManifest.class)
-        .add("allowedOptions", allowedOptions)
         .add("assignablePrivileges", assignablePrivileges)
         .add("capabilities", capabilities)
         .add("options", options)
-        .add("requiredOptions", requiredOptions)
         .add("securableKind", securableKind)
         .add("securableType", securableType)
         .toString();

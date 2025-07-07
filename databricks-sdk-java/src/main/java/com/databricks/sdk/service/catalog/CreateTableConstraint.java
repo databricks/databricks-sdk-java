@@ -9,10 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateTableConstraint {
-  /**
-   * A table constraint, as defined by *one* of the following fields being set:
-   * __primary_key_constraint__, __foreign_key_constraint__, __named_table_constraint__.
-   */
+  /** */
   @JsonProperty("constraint")
   private TableConstraint constraint;
 

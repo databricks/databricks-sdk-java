@@ -8,14 +8,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/** Comment details. */
+/**
+ * For activities, this contains the activity recorded for the action. For comments, this contains
+ * the comment details. For transition requests, this contains the transition request details.
+ */
 @Generated
 public class CommentObject {
   /** Array of actions on the activity allowed for the current viewer. */
   @JsonProperty("available_actions")
   private Collection<CommentActivityAction> availableActions;
 
-  /** User-provided comment on the action. */
+  /** User-provided comment associated with the activity, comment, or transition request. */
   @JsonProperty("comment")
   private String comment;
 
@@ -23,7 +26,7 @@ public class CommentObject {
   @JsonProperty("creation_timestamp")
   private Long creationTimestamp;
 
-  /** Comment ID */
+  /** Unique identifier for the object. */
   @JsonProperty("id")
   private String id;
 

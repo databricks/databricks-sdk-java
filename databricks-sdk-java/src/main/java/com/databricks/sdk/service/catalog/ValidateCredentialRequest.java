@@ -10,11 +10,11 @@ import java.util.Objects;
 /** Next ID: 17 */
 @Generated
 public class ValidateCredentialRequest {
-  /** The AWS IAM role configuration */
+  /** */
   @JsonProperty("aws_iam_role")
   private AwsIamRole awsIamRole;
 
-  /** The Azure managed identity configuration. */
+  /** */
   @JsonProperty("azure_managed_identity")
   private AzureManagedIdentity azureManagedIdentity;
 
@@ -22,7 +22,7 @@ public class ValidateCredentialRequest {
   @JsonProperty("credential_name")
   private String credentialName;
 
-  /** GCP long-lived credential. Databricks-created Google Cloud Storage service account. */
+  /** */
   @JsonProperty("databricks_gcp_service_account")
   private DatabricksGcpServiceAccount databricksGcpServiceAccount;
 

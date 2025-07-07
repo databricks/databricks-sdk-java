@@ -8,14 +8,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/** Transition request details. */
+/**
+ * For activities, this contains the activity recorded for the action. For comments, this contains
+ * the comment details. For transition requests, this contains the transition request details.
+ */
 @Generated
 public class TransitionRequest {
   /** Array of actions on the activity allowed for the current viewer. */
   @JsonProperty("available_actions")
   private Collection<ActivityAction> availableActions;
 
-  /** User-provided comment associated with the transition request. */
+  /** User-provided comment associated with the activity, comment, or transition request. */
   @JsonProperty("comment")
   private String comment;
 
@@ -35,7 +38,7 @@ public class TransitionRequest {
    * <p>* `Archived`: Archived stage.
    */
   @JsonProperty("to_stage")
-  private Stage toStage;
+  private String toStage;
 
   /** The username of the user that created the object. */
   @JsonProperty("user_id")
@@ -68,12 +71,12 @@ public class TransitionRequest {
     return creationTimestamp;
   }
 
-  public TransitionRequest setToStage(Stage toStage) {
+  public TransitionRequest setToStage(String toStage) {
     this.toStage = toStage;
     return this;
   }
 
-  public Stage getToStage() {
+  public String getToStage() {
     return toStage;
   }
 

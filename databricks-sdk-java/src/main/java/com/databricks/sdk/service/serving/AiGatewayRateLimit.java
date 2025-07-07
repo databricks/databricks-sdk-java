@@ -14,11 +14,18 @@ public class AiGatewayRateLimit {
   private Long calls;
 
   /**
-   * Key field for a rate limit. Currently, only 'user' and 'endpoint' are supported, with
-   * 'endpoint' being the default if not specified.
+   * Key field for a rate limit. Currently, 'user', 'user_group, 'service_principal', and 'endpoint'
+   * are supported, with 'endpoint' being the default if not specified.
    */
   @JsonProperty("key")
   private AiGatewayRateLimitKey key;
+
+  /**
+   * Principal field for a user, user group, or service principal to apply rate limiting to. Accepts
+   * a user email, group name, or service principal application ID.
+   */
+  @JsonProperty("principal")
+  private String principal;
 
   /** Renewal period field for a rate limit. Currently, only 'minute' is supported. */
   @JsonProperty("renewal_period")
@@ -42,6 +49,15 @@ public class AiGatewayRateLimit {
     return key;
   }
 
+  public AiGatewayRateLimit setPrincipal(String principal) {
+    this.principal = principal;
+    return this;
+  }
+
+  public String getPrincipal() {
+    return principal;
+  }
+
   public AiGatewayRateLimit setRenewalPeriod(AiGatewayRateLimitRenewalPeriod renewalPeriod) {
     this.renewalPeriod = renewalPeriod;
     return this;
@@ -58,12 +74,13 @@ public class AiGatewayRateLimit {
     AiGatewayRateLimit that = (AiGatewayRateLimit) o;
     return Objects.equals(calls, that.calls)
         && Objects.equals(key, that.key)
+        && Objects.equals(principal, that.principal)
         && Objects.equals(renewalPeriod, that.renewalPeriod);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(calls, key, renewalPeriod);
+    return Objects.hash(calls, key, principal, renewalPeriod);
   }
 
   @Override
@@ -71,6 +88,7 @@ public class AiGatewayRateLimit {
     return new ToStringer(AiGatewayRateLimit.class)
         .add("calls", calls)
         .add("key", key)
+        .add("principal", principal)
         .add("renewalPeriod", renewalPeriod)
         .toString();
   }
