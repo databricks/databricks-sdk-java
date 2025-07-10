@@ -17,19 +17,15 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: 8
-          server-id: ossrh
+          server-id: central
           distribution: "adopt"
-          server-username: OSSRH_USERNAME
-          server-password: OSSRH_PASSWORD
+          server-username: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          server-password: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
-          gpg-passphrase: GPG_PASSPHRASE
+          gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
 
       - name: Publish to the Maven Central Repository
         run: mvn -Prelease -DskipTests=true --batch-mode deploy
-        env:
-          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-          OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v1
