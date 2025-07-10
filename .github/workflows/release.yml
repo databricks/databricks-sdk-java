@@ -1,15 +1,19 @@
 name: Release
+
 on:
-  workflow_dispatch:
   push:
+    # Run a real release on pushes to tags like v1.0, v2.3.4, etc.
     tags:
       - "v*"
-  push:
+    # Run a dry-run on pushes to any branch
     branches:
-      - "renaud-hartert_data/maven-migration"
+      - "**"
 
 jobs:
   publish:
+    # Dynamically set the job name based on the trigger
+    name: ${{ startsWith(github.ref, 'refs/tags/') && 'Publish Release' || 'Run Release Dry-Run' }}
+
     runs-on:
       group: databricks-deco-testing-runner-group
       labels: ubuntu-latest-deco
@@ -29,10 +33,19 @@ jobs:
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
 
-      - name: Publish to the Maven Central Repository
+      # This step runs ONLY on branch pushes (dry-run)
+      - name: Run Release Dry-Run (Verify)
+        if: "!startsWith(github.ref, 'refs/tags/')"
         run: mvn -Prelease -DskipTests=true --batch-mode verify
 
+      # This step runs ONLY on tag pushes (real release)
+      - name: Publish to Maven Central Repository (Deploy)
+        if: "startsWith(github.ref, 'refs/tags/')"
+        run: mvn -Prelease -DskipTests=true --batch-mode deploy
+
+      # This step also runs ONLY on tag pushes (real release)
       - name: Create GitHub release
+        if: "startsWith(github.ref, 'refs/tags/')"
         uses: softprops/action-gh-release@v1
         with:
           files: target/*.jar
