@@ -4,6 +4,10 @@ on:
   push:
     tags:
       - "v*"
+  push:
+    branches:
+      - "renaud-hartert_data/maven-migration"
+
 jobs:
   publish:
     runs-on:
@@ -26,7 +30,7 @@ jobs:
           gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
 
       - name: Publish to the Maven Central Repository
-        run: mvn -Prelease -DskipTests=true --batch-mode deploy
+        run: mvn -Prelease -DskipTests=true --batch-mode verify
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v1
