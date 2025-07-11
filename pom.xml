@@ -48,12 +48,6 @@
     <system>GitHub Actions</system>
     <url>https://github.com/databricks/databricks-sdk-java/blob/main/.github/workflows/push.yml</url>
   </ciManagement>
-  <distributionManagement>
-    <repository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-    </repository>
-  </distributionManagement>
   <properties>
     <jacoco.version>0.8.10</jacoco.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -263,35 +257,13 @@
             </executions>
           </plugin>
           <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-gpg-plugin</artifactId>
-            <version>1.6</version>
-            <configuration>
-              <!-- Prevent gpg from using pinentry programs -->
-              <gpgArguments>
-                <arg>--pinentry-mode</arg>
-                <arg>loopback</arg>
-              </gpgArguments>
-            </configuration>
-            <executions>
-              <execution>
-                <id>sign-artifacts</id>
-                <goals>
-                  <goal>sign</goal>
-                </goals>
-                <phase>verify</phase>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.sonatype.plugins</groupId>
-            <artifactId>nexus-staging-maven-plugin</artifactId>
-            <version>1.6.13</version>
+            <groupId>org.sonatype.central</groupId>
+            <artifactId>central-publishing-maven-plugin</artifactId>
+            <version>0.5.0</version>
             <extensions>true</extensions>
             <configuration>
-              <serverId>ossrh</serverId>
-              <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-              <autoReleaseAfterClose>true</autoReleaseAfterClose>
+              <publishingServerId>central</publishingServerId>
+              <autoPublish>true</autoPublish>
             </configuration>
           </plugin>
         </plugins>
