@@ -766,8 +766,6 @@ public class DatabricksConfig {
     return redirectUrl != null ? redirectUrl : "http://localhost:8080/callback";
   }
 
-  private static final String AZURE_AUTH_ENDPOINT = "/aad/auth";
-
   /**
    * [Internal] Load the Azure tenant ID from the Azure Databricks login page. If the tenant ID is
    * already set, this method does nothing.
@@ -778,7 +776,8 @@ public class DatabricksConfig {
       return;
     }
 
-    String loginUrl = host + AZURE_AUTH_ENDPOINT;
+    final String azureAuthEndpoint = "/aad/auth";
+    String loginUrl = host + azureAuthEndpoint;
     logger.debug("Loading tenant ID from {}", loginUrl);
 
     try {
