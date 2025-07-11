@@ -22,12 +22,12 @@ public class AzureServicePrincipalCredentialsProvider implements CredentialsProv
   public OAuthHeaderFactory configure(DatabricksConfig config) {
     if (!config.isAzure()
         || config.getAzureClientId() == null
-        || config.getAzureClientSecret() == null
-        || config.getAzureTenantId() == null) {
+        || config.getAzureClientSecret() == null) {
       return null;
     }
     AzureUtils.ensureHostPresent(
         config, mapper, AzureServicePrincipalCredentialsProvider::tokenSourceFor);
+    config.loadAzureTenantId();
     CachedTokenSource inner = tokenSourceFor(config, config.getEffectiveAzureLoginAppId());
     CachedTokenSource cloud =
         tokenSourceFor(config, config.getAzureEnvironment().getServiceManagementEndpoint());
