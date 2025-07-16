@@ -4,7 +4,6 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** Latest kind: TABLE_DELTA_ICEBERG_DELTASHARING = 252; Next id:253 */
 @Generated
 public enum SecurableKind {
   TABLE_DB_STORAGE,

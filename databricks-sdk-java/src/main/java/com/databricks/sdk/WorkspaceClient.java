@@ -146,6 +146,8 @@ import com.databricks.sdk.service.ml.MaterializedFeaturesAPI;
 import com.databricks.sdk.service.ml.MaterializedFeaturesService;
 import com.databricks.sdk.service.ml.ModelRegistryAPI;
 import com.databricks.sdk.service.ml.ModelRegistryService;
+import com.databricks.sdk.service.oauth2.ServicePrincipalSecretsProxyAPI;
+import com.databricks.sdk.service.oauth2.ServicePrincipalSecretsProxyService;
 import com.databricks.sdk.service.pipelines.PipelinesAPI;
 import com.databricks.sdk.service.pipelines.PipelinesService;
 import com.databricks.sdk.service.qualitymonitorv2.QualityMonitorV2API;
@@ -312,6 +314,7 @@ public class WorkspaceClient {
   private ResourceQuotasAPI resourceQuotasAPI;
   private SchemasAPI schemasAPI;
   private SecretsExt secretsAPI;
+  private ServicePrincipalSecretsProxyAPI servicePrincipalSecretsProxyAPI;
   private ServicePrincipalsAPI servicePrincipalsAPI;
   private ServingEndpointsAPI servingEndpointsAPI;
   private ServingEndpointsDataPlaneAPI servingEndpointsDataPlaneAPI;
@@ -427,6 +430,7 @@ public class WorkspaceClient {
     resourceQuotasAPI = new ResourceQuotasAPI(apiClient);
     schemasAPI = new SchemasAPI(apiClient);
     secretsAPI = new SecretsExt(apiClient);
+    servicePrincipalSecretsProxyAPI = new ServicePrincipalSecretsProxyAPI(apiClient);
     servicePrincipalsAPI = new ServicePrincipalsAPI(apiClient);
     servingEndpointsAPI = new ServingEndpointsAPI(apiClient);
     servingEndpointsDataPlaneAPI =
@@ -1504,6 +1508,27 @@ public class WorkspaceClient {
    */
   public SecretsExt secrets() {
     return secretsAPI;
+  }
+
+  /**
+   * These APIs enable administrators to manage service principal secrets at the workspace level. To
+   * use these APIs, the service principal must be first added to the current workspace.
+   *
+   * <p>You can use the generated secrets to obtain OAuth access tokens for a service principal,
+   * which can then be used to access Databricks Accounts and Workspace APIs. For more information,
+   * see [Authentication using OAuth tokens for service principals].
+   *
+   * <p>In addition, the generated secrets can be used to configure the Databricks Terraform
+   * Providerto authenticate with the service principal. For more information, see [Databricks
+   * Terraform Provider].
+   *
+   * <p>[Authentication using OAuth tokens for service principals]:
+   * https://docs.databricks.com/dev-tools/authentication-oauth.html [Databricks Terraform
+   * Provider]:
+   * https://github.com/databricks/terraform-provider-databricks/blob/master/docs/index.md#authenticating-with-service-principal
+   */
+  public ServicePrincipalSecretsProxyAPI servicePrincipalSecretsProxy() {
+    return servicePrincipalSecretsProxyAPI;
   }
 
   /**
@@ -2815,6 +2840,20 @@ public class WorkspaceClient {
   /** Replace the default SecretsAPI with a custom implementation. */
   public WorkspaceClient withSecretsAPI(SecretsExt secrets) {
     this.secretsAPI = secrets;
+    return this;
+  }
+
+  /** Replace the default ServicePrincipalSecretsProxyService with a custom implementation. */
+  public WorkspaceClient withServicePrincipalSecretsProxyImpl(
+      ServicePrincipalSecretsProxyService servicePrincipalSecretsProxy) {
+    return this.withServicePrincipalSecretsProxyAPI(
+        new ServicePrincipalSecretsProxyAPI(servicePrincipalSecretsProxy));
+  }
+
+  /** Replace the default ServicePrincipalSecretsProxyAPI with a custom implementation. */
+  public WorkspaceClient withServicePrincipalSecretsProxyAPI(
+      ServicePrincipalSecretsProxyAPI servicePrincipalSecretsProxy) {
+    this.servicePrincipalSecretsProxyAPI = servicePrincipalSecretsProxy;
     return this;
   }
 

@@ -15,8 +15,11 @@ import com.databricks.sdk.support.Generated;
 public interface BillableUsageService {
   /**
    * Returns billable usage logs in CSV format for the specified account and date range. For the
-   * data schema, see [CSV file schema]. Note that this method might take multiple minutes to
-   * complete.
+   * data schema, see:
+   *
+   * <p>- AWS: [CSV file schema]. - GCP: [CSV file schema].
+   *
+   * <p>Note that this method might take multiple minutes to complete.
    *
    * <p>**Warning**: Depending on the queried date range, the number of workspaces in the account,
    * the size of the response and the internet speed of the caller, this API may hit a timeout after
@@ -24,7 +27,7 @@ public interface BillableUsageService {
    * ranges.
    *
    * <p>[CSV file schema]:
-   * https://docs.databricks.com/administration-guide/account-settings/usage-analysis.html#schema
+   * https://docs.gcp.databricks.com/administration-guide/account-settings/usage-analysis.html#csv-file-schema
    */
   DownloadResponse download(DownloadRequest downloadRequest);
 }

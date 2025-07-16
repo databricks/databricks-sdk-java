@@ -17,20 +17,6 @@ class DashboardsImpl implements DashboardsService {
   }
 
   @Override
-  public Dashboard create(DashboardPostContent request) {
-    String path = "/api/2.0/preview/sql/dashboards";
-    try {
-      Request req = new Request("POST", path, apiClient.serialize(request));
-      ApiClient.setQuery(req, request);
-      req.withHeader("Accept", "application/json");
-      req.withHeader("Content-Type", "application/json");
-      return apiClient.execute(req, Dashboard.class);
-    } catch (IOException e) {
-      throw new DatabricksException("IO error: " + e.getMessage(), e);
-    }
-  }
-
-  @Override
   public void delete(DeleteDashboardRequest request) {
     String path = String.format("/api/2.0/preview/sql/dashboards/%s", request.getDashboardId());
     try {

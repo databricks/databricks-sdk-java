@@ -28,6 +28,14 @@ public class CreateCredentialsRequest {
   @JsonProperty("git_username")
   private String gitUsername;
 
+  /** if the credential is the default for the given provider */
+  @JsonProperty("is_default_for_provider")
+  private Boolean isDefaultForProvider;
+
+  /** the name of the git credential, used for identification and ease of lookup */
+  @JsonProperty("name")
+  private String name;
+
   /**
    * The personal access token used to authenticate to the corresponding Git provider. For certain
    * providers, support may exist for other types of scoped access tokens. [Learn more].
@@ -55,6 +63,24 @@ public class CreateCredentialsRequest {
     return gitUsername;
   }
 
+  public CreateCredentialsRequest setIsDefaultForProvider(Boolean isDefaultForProvider) {
+    this.isDefaultForProvider = isDefaultForProvider;
+    return this;
+  }
+
+  public Boolean getIsDefaultForProvider() {
+    return isDefaultForProvider;
+  }
+
+  public CreateCredentialsRequest setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public String getName() {
+    return name;
+  }
+
   public CreateCredentialsRequest setPersonalAccessToken(String personalAccessToken) {
     this.personalAccessToken = personalAccessToken;
     return this;
@@ -71,12 +97,14 @@ public class CreateCredentialsRequest {
     CreateCredentialsRequest that = (CreateCredentialsRequest) o;
     return Objects.equals(gitProvider, that.gitProvider)
         && Objects.equals(gitUsername, that.gitUsername)
+        && Objects.equals(isDefaultForProvider, that.isDefaultForProvider)
+        && Objects.equals(name, that.name)
         && Objects.equals(personalAccessToken, that.personalAccessToken);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(gitProvider, gitUsername, personalAccessToken);
+    return Objects.hash(gitProvider, gitUsername, isDefaultForProvider, name, personalAccessToken);
   }
 
   @Override
@@ -84,6 +112,8 @@ public class CreateCredentialsRequest {
     return new ToStringer(CreateCredentialsRequest.class)
         .add("gitProvider", gitProvider)
         .add("gitUsername", gitUsername)
+        .add("isDefaultForProvider", isDefaultForProvider)
+        .add("name", name)
         .add("personalAccessToken", personalAccessToken)
         .toString();
   }

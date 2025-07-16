@@ -10,12 +10,15 @@ import java.util.Objects;
 
 @Generated
 public class ListExternalMetadataRequest {
-  /** */
+  /**
+   * Specifies the maximum number of external metadata objects to return in a single response. The
+   * value must be less than or equal to 1000.
+   */
   @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;
 
-  /** */
+  /** Opaque pagination token to go to next page based on previous query. */
   @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;

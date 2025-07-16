@@ -24,6 +24,14 @@ public class CreateCredentialsResponse {
   @JsonProperty("git_username")
   private String gitUsername;
 
+  /** if the credential is the default for the given provider */
+  @JsonProperty("is_default_for_provider")
+  private Boolean isDefaultForProvider;
+
+  /** the name of the git credential, used for identification and ease of lookup */
+  @JsonProperty("name")
+  private String name;
+
   public CreateCredentialsResponse setCredentialId(Long credentialId) {
     this.credentialId = credentialId;
     return this;
@@ -51,6 +59,24 @@ public class CreateCredentialsResponse {
     return gitUsername;
   }
 
+  public CreateCredentialsResponse setIsDefaultForProvider(Boolean isDefaultForProvider) {
+    this.isDefaultForProvider = isDefaultForProvider;
+    return this;
+  }
+
+  public Boolean getIsDefaultForProvider() {
+    return isDefaultForProvider;
+  }
+
+  public CreateCredentialsResponse setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public String getName() {
+    return name;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -58,12 +84,14 @@ public class CreateCredentialsResponse {
     CreateCredentialsResponse that = (CreateCredentialsResponse) o;
     return Objects.equals(credentialId, that.credentialId)
         && Objects.equals(gitProvider, that.gitProvider)
-        && Objects.equals(gitUsername, that.gitUsername);
+        && Objects.equals(gitUsername, that.gitUsername)
+        && Objects.equals(isDefaultForProvider, that.isDefaultForProvider)
+        && Objects.equals(name, that.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(credentialId, gitProvider, gitUsername);
+    return Objects.hash(credentialId, gitProvider, gitUsername, isDefaultForProvider, name);
   }
 
   @Override
@@ -72,6 +100,8 @@ public class CreateCredentialsResponse {
         .add("credentialId", credentialId)
         .add("gitProvider", gitProvider)
         .add("gitUsername", gitUsername)
+        .add("isDefaultForProvider", isDefaultForProvider)
+        .add("name", name)
         .toString();
   }
 }

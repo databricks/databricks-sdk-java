@@ -17,13 +17,6 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface DashboardsService {
   /**
-   * Creates a new dashboard object. Only the name parameter is required in the POST request JSON
-   * body. Other fields can be included when duplicating dashboards with this API. Databricks does
-   * not recommend designing dashboards exclusively using this API.',
-   */
-  Dashboard create(DashboardPostContent dashboardPostContent);
-
-  /**
    * Moves a dashboard to the trash. Trashed dashboards do not appear in list views or searches, and
    * cannot be shared.
    */

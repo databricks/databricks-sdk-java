@@ -18,7 +18,7 @@ public class CreateServicePrincipalSecretRequest {
   private String lifetime;
 
   /** The service principal ID. */
-  @JsonIgnore private Long servicePrincipalId;
+  @JsonIgnore private String servicePrincipalId;
 
   public CreateServicePrincipalSecretRequest setLifetime(String lifetime) {
     this.lifetime = lifetime;
@@ -29,12 +29,12 @@ public class CreateServicePrincipalSecretRequest {
     return lifetime;
   }
 
-  public CreateServicePrincipalSecretRequest setServicePrincipalId(Long servicePrincipalId) {
+  public CreateServicePrincipalSecretRequest setServicePrincipalId(String servicePrincipalId) {
     this.servicePrincipalId = servicePrincipalId;
     return this;
   }
 
-  public Long getServicePrincipalId() {
+  public String getServicePrincipalId() {
     return servicePrincipalId;
   }
 

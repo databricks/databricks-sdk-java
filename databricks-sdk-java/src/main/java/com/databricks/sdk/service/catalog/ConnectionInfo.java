@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 import java.util.Objects;
 
+/** Next ID: 23 */
 @Generated
 public class ConnectionInfo {
   /** User-provided free-form text description. */
@@ -33,6 +34,10 @@ public class ConnectionInfo {
   /** The type of credential. */
   @JsonProperty("credential_type")
   private CredentialType credentialType;
+
+  /** [Create,Update:OPT] Connection environment settings as EnvironmentSettings object. */
+  @JsonProperty("environment_settings")
+  private EnvironmentSettings environmentSettings;
 
   /** Full name of connection. */
   @JsonProperty("full_name")
@@ -134,6 +139,15 @@ public class ConnectionInfo {
 
   public CredentialType getCredentialType() {
     return credentialType;
+  }
+
+  public ConnectionInfo setEnvironmentSettings(EnvironmentSettings environmentSettings) {
+    this.environmentSettings = environmentSettings;
+    return this;
+  }
+
+  public EnvironmentSettings getEnvironmentSettings() {
+    return environmentSettings;
   }
 
   public ConnectionInfo setFullName(String fullName) {
@@ -255,6 +269,7 @@ public class ConnectionInfo {
         && Objects.equals(createdAt, that.createdAt)
         && Objects.equals(createdBy, that.createdBy)
         && Objects.equals(credentialType, that.credentialType)
+        && Objects.equals(environmentSettings, that.environmentSettings)
         && Objects.equals(fullName, that.fullName)
         && Objects.equals(metastoreId, that.metastoreId)
         && Objects.equals(name, that.name)
@@ -278,6 +293,7 @@ public class ConnectionInfo {
         createdAt,
         createdBy,
         credentialType,
+        environmentSettings,
         fullName,
         metastoreId,
         name,
@@ -301,6 +317,7 @@ public class ConnectionInfo {
         .add("createdAt", createdAt)
         .add("createdBy", createdBy)
         .add("credentialType", credentialType)
+        .add("environmentSettings", environmentSettings)
         .add("fullName", fullName)
         .add("metastoreId", metastoreId)
         .add("name", name)

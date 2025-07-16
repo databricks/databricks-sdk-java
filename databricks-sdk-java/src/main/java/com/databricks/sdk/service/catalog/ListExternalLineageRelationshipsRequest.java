@@ -15,17 +15,24 @@ public class ListExternalLineageRelationshipsRequest {
   @QueryParam("lineage_direction")
   private LineageDirection lineageDirection;
 
-  /** The object to query external lineage relationship on. */
+  /**
+   * The object to query external lineage relationships for. Since this field is a query parameter,
+   * please flatten the nested fields. For example, if the object is a table, the query parameter
+   * should look like: `object_info.table.name=main.sales.customers`
+   */
   @JsonIgnore
   @QueryParam("object_info")
   private ExternalLineageObject objectInfo;
 
-  /** */
+  /**
+   * Specifies the maximum number of external lineage relationships to return in a single response.
+   * The value must be less than or equal to 1000.
+   */
   @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;
 
-  /** */
+  /** Opaque pagination token to go to next page based on previous query. */
   @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;

@@ -30,19 +30,6 @@ public class DashboardsAPI {
     impl = mock;
   }
 
-  public Dashboard create(String name) {
-    return create(new DashboardPostContent().setName(name));
-  }
-
-  /**
-   * Creates a new dashboard object. Only the name parameter is required in the POST request JSON
-   * body. Other fields can be included when duplicating dashboards with this API. Databricks does
-   * not recommend designing dashboards exclusively using this API.',
-   */
-  public Dashboard create(DashboardPostContent request) {
-    return impl.create(request);
-  }
-
   public void delete(String dashboardId) {
     delete(new DeleteDashboardRequest().setDashboardId(dashboardId));
   }

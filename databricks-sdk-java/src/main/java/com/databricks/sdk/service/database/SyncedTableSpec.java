@@ -19,15 +19,25 @@ public class SyncedTableSpec {
   private Boolean createDatabaseObjectsIfMissing;
 
   /**
-   * User-specified ID of a pre-existing pipeline to bin pack. This field is optional, and should be
-   * empty if new_pipeline_spec is set. This field will only be set by the server in response
-   * messages if it is specified in the request. The SyncedTableStatus message will always contain
-   * the effective pipeline ID (either client provided or server generated), however.
+   * At most one of existing_pipeline_id and new_pipeline_spec should be defined.
+   *
+   * <p>If existing_pipeline_id is defined, the synced table will be bin packed into the existing
+   * pipeline referenced. This avoids creating a new pipeline and allows sharing existing compute.
+   * In this case, the scheduling_policy of this synced table must match the scheduling policy of
+   * the existing pipeline.
    */
   @JsonProperty("existing_pipeline_id")
   private String existingPipelineId;
 
-  /** Spec of new pipeline. Should be empty if pipeline_id / existing_pipeline_id is set */
+  /**
+   * At most one of existing_pipeline_id and new_pipeline_spec should be defined.
+   *
+   * <p>If new_pipeline_spec is defined, a new pipeline is created for this synced table. The
+   * location pointed to is used to store intermediate files (checkpoints, event logs etc). The
+   * caller must have write permissions to create Delta tables in the specified catalog and schema.
+   * Again, note this requires write permissions, whereas the source table only requires read
+   * permissions.
+   */
   @JsonProperty("new_pipeline_spec")
   private NewPipelineSpec newPipelineSpec;
 
