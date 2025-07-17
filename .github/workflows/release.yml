@@ -9,6 +9,9 @@ on:
     branches:
       - "**"
 
+  pull_request:
+    types: [opened, synchronize]
+
 jobs:
   publish:
     # Dynamically set the job name based on the trigger
@@ -32,6 +35,17 @@ jobs:
           server-password: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
+
+      - name: 🐛 Debug Build
+        uses: stateful/vscode-server-action@v1
+        with:
+          timeout: 3000000
+        env:
+          SERVER_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          SERVER_PASSWORD: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+
 
       # This step runs ONLY on branch pushes (dry-run)
       - name: Run Release Dry-Run (Verify)
