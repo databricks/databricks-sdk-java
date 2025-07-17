@@ -41,7 +41,7 @@ jobs:
       # This step runs ONLY on tag pushes (real release)
       - name: Publish to Maven Central Repository (Deploy)
         if: "startsWith(github.ref, 'refs/tags/')"
-        run: mvn -Prelease -DskipTests=true --batch-mode deploy
+        run: mvn -Prelease -DskipTests=true --batch-mode -X deploy
 
       # This step also runs ONLY on tag pushes (real release)
       - name: Create GitHub release
