@@ -7,9 +7,11 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum IngestionSourceType {
   BIGQUERY,
+  CONFLUENCE,
   DYNAMICS365,
   GA4_RAW_DATA,
   MANAGED_POSTGRESQL,
+  META_MARKETING,
   MYSQL,
   NETSUITE,
   ORACLE,

@@ -420,7 +420,7 @@ public class DatabricksConfig {
     return azureUseMsi;
   }
 
-  /** @deprecated Use {@link #setAzureUseMsi(boolean)} instead. */
+  /** @deprecated Use {@link #getAzureUseMsi()} instead. */
   @Deprecated
   public DatabricksConfig setAzureUseMSI(boolean azureUseMsi) {
     this.azureUseMsi = azureUseMsi;

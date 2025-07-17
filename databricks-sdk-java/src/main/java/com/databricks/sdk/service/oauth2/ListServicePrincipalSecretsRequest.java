@@ -10,6 +10,11 @@ import java.util.Objects;
 
 @Generated
 public class ListServicePrincipalSecretsRequest {
+  /** */
+  @JsonIgnore
+  @QueryParam("page_size")
+  private Long pageSize;
+
   /**
    * An opaque page token which was the `next_page_token` in the response of the previous request to
    * list the secrets for this service principal. Provide this token to retrieve the next page of
@@ -24,7 +29,16 @@ public class ListServicePrincipalSecretsRequest {
   private String pageToken;
 
   /** The service principal ID. */
-  @JsonIgnore private Long servicePrincipalId;
+  @JsonIgnore private String servicePrincipalId;
+
+  public ListServicePrincipalSecretsRequest setPageSize(Long pageSize) {
+    this.pageSize = pageSize;
+    return this;
+  }
+
+  public Long getPageSize() {
+    return pageSize;
+  }
 
   public ListServicePrincipalSecretsRequest setPageToken(String pageToken) {
     this.pageToken = pageToken;
@@ -35,12 +49,12 @@ public class ListServicePrincipalSecretsRequest {
     return pageToken;
   }
 
-  public ListServicePrincipalSecretsRequest setServicePrincipalId(Long servicePrincipalId) {
+  public ListServicePrincipalSecretsRequest setServicePrincipalId(String servicePrincipalId) {
     this.servicePrincipalId = servicePrincipalId;
     return this;
   }
 
-  public Long getServicePrincipalId() {
+  public String getServicePrincipalId() {
     return servicePrincipalId;
   }
 
@@ -49,18 +63,20 @@ public class ListServicePrincipalSecretsRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ListServicePrincipalSecretsRequest that = (ListServicePrincipalSecretsRequest) o;
-    return Objects.equals(pageToken, that.pageToken)
+    return Objects.equals(pageSize, that.pageSize)
+        && Objects.equals(pageToken, that.pageToken)
         && Objects.equals(servicePrincipalId, that.servicePrincipalId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pageToken, servicePrincipalId);
+    return Objects.hash(pageSize, pageToken, servicePrincipalId);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ListServicePrincipalSecretsRequest.class)
+        .add("pageSize", pageSize)
         .add("pageToken", pageToken)
         .add("servicePrincipalId", servicePrincipalId)
         .toString();

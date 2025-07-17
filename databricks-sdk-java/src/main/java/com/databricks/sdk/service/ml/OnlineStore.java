@@ -26,6 +26,10 @@ public class OnlineStore {
   @JsonProperty("name")
   private String name;
 
+  /** The number of read replicas for the online store. Defaults to 0. */
+  @JsonProperty("read_replica_count")
+  private Long readReplicaCount;
+
   /** The current state of the online store. */
   @JsonProperty("state")
   private OnlineStoreState state;
@@ -66,6 +70,15 @@ public class OnlineStore {
     return name;
   }
 
+  public OnlineStore setReadReplicaCount(Long readReplicaCount) {
+    this.readReplicaCount = readReplicaCount;
+    return this;
+  }
+
+  public Long getReadReplicaCount() {
+    return readReplicaCount;
+  }
+
   public OnlineStore setState(OnlineStoreState state) {
     this.state = state;
     return this;
@@ -84,12 +97,13 @@ public class OnlineStore {
         && Objects.equals(creationTime, that.creationTime)
         && Objects.equals(creator, that.creator)
         && Objects.equals(name, that.name)
+        && Objects.equals(readReplicaCount, that.readReplicaCount)
         && Objects.equals(state, that.state);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(capacity, creationTime, creator, name, state);
+    return Objects.hash(capacity, creationTime, creator, name, readReplicaCount, state);
   }
 
   @Override
@@ -99,6 +113,7 @@ public class OnlineStore {
         .add("creationTime", creationTime)
         .add("creator", creator)
         .add("name", name)
+        .add("readReplicaCount", readReplicaCount)
         .add("state", state)
         .toString();
   }

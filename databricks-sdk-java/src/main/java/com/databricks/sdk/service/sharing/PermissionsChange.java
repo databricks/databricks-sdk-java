@@ -14,7 +14,10 @@ public class PermissionsChange {
   @JsonProperty("add")
   private Collection<String> add;
 
-  /** The principal whose privileges we are changing. */
+  /**
+   * The principal whose privileges we are changing. Only one of principal or principal_id should be
+   * specified, never both at the same time.
+   */
   @JsonProperty("principal")
   private String principal;
 

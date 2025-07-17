@@ -14,14 +14,18 @@ import java.util.Objects;
 @Generated
 public class NewPipelineSpec {
   /**
-   * UC catalog for the pipeline to store intermediate files (checkpoints, event logs etc). This
+   * This field needs to be specified if the destination catalog is a managed postgres catalog.
+   *
+   * <p>UC catalog for the pipeline to store intermediate files (checkpoints, event logs etc). This
    * needs to be a standard catalog where the user has permissions to create Delta tables.
    */
   @JsonProperty("storage_catalog")
   private String storageCatalog;
 
   /**
-   * UC schema for the pipeline to store intermediate files (checkpoints, event logs etc). This
+   * This field needs to be specified if the destination catalog is a managed postgres catalog.
+   *
+   * <p>UC schema for the pipeline to store intermediate files (checkpoints, event logs etc). This
    * needs to be in the standard catalog where the user has permissions to create Delta tables.
    */
   @JsonProperty("storage_schema")

@@ -13,7 +13,7 @@ public class DeleteServicePrincipalSecretRequest {
   @JsonIgnore private String secretId;
 
   /** The service principal ID. */
-  @JsonIgnore private Long servicePrincipalId;
+  @JsonIgnore private String servicePrincipalId;
 
   public DeleteServicePrincipalSecretRequest setSecretId(String secretId) {
     this.secretId = secretId;
@@ -24,12 +24,12 @@ public class DeleteServicePrincipalSecretRequest {
     return secretId;
   }
 
-  public DeleteServicePrincipalSecretRequest setServicePrincipalId(Long servicePrincipalId) {
+  public DeleteServicePrincipalSecretRequest setServicePrincipalId(String servicePrincipalId) {
     this.servicePrincipalId = servicePrincipalId;
     return this;
   }
 
-  public Long getServicePrincipalId() {
+  public String getServicePrincipalId() {
     return servicePrincipalId;
   }
 

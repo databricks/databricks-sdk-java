@@ -138,7 +138,11 @@ public class JobSettings {
   @JsonProperty("queue")
   private QueueSettings queue;
 
-  /** */
+  /**
+   * The user or service principal that the job runs as, if specified in the request. This field
+   * indicates the explicit configuration of `run_as` for the job. To find the value in all cases,
+   * explicit or implicit, use `run_as_user_name`.
+   */
   @JsonProperty("run_as")
   private JobRunAs runAs;
 

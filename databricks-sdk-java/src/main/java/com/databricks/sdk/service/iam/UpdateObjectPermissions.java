@@ -19,8 +19,8 @@ public class UpdateObjectPermissions {
   @JsonIgnore private String requestObjectId;
 
   /**
-   * The type of the request object. Can be one of the following: alerts, authorization, clusters,
-   * cluster-policies, dashboards, dbsql-dashboards, directories, experiments, files,
+   * The type of the request object. Can be one of the following: alerts, alertsv2, authorization,
+   * clusters, cluster-policies, dashboards, dbsql-dashboards, directories, experiments, files,
    * instance-pools, jobs, notebooks, pipelines, queries, registered-models, repos,
    * serving-endpoints, or warehouses.
    */

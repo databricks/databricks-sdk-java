@@ -40,6 +40,12 @@ public class QueryMetrics {
   private Long photonTotalTimeMs;
 
   /**
+   * projected remaining work to be done aggregated across all stages in the query, in milliseconds
+   */
+  @JsonProperty("projected_remaining_task_total_time_ms")
+  private Long projectedRemainingTaskTotalTimeMs;
+
+  /**
    * Timestamp of when the query was enqueued waiting for a cluster to be provisioned for the
    * warehouse. This field is optional and will not appear if the query skipped the provisioning
    * queue.
@@ -79,6 +85,13 @@ public class QueryMetrics {
   @JsonProperty("read_remote_bytes")
   private Long readRemoteBytes;
 
+  /**
+   * number of remaining tasks to complete this is based on the current status and could be bigger
+   * or smaller in the future based on future updates
+   */
+  @JsonProperty("remaining_task_count")
+  private Long remainingTaskCount;
+
   /** Time spent fetching the query results after the execution finished, in milliseconds. */
   @JsonProperty("result_fetch_time_ms")
   private Long resultFetchTimeMs;
@@ -94,6 +107,13 @@ public class QueryMetrics {
   /** Total number of rows read by the query. */
   @JsonProperty("rows_read_count")
   private Long rowsReadCount;
+
+  /**
+   * number of remaining tasks to complete, calculated by autoscaler StatementAnalysis.scala
+   * deprecated: use remaining_task_count instead
+   */
+  @JsonProperty("runnable_tasks")
+  private Long runnableTasks;
 
   /** Size of data temporarily written to disk while executing the query, in bytes. */
   @JsonProperty("spill_to_disk_bytes")
@@ -113,6 +133,14 @@ public class QueryMetrics {
   /** Total execution time of the query from the client’s point of view, in milliseconds. */
   @JsonProperty("total_time_ms")
   private Long totalTimeMs;
+
+  /**
+   * remaining work to be done across all stages in the query, calculated by autoscaler
+   * StatementAnalysis.scala, in milliseconds deprecated: using
+   * projected_remaining_task_total_time_ms instead
+   */
+  @JsonProperty("work_to_be_done")
+  private Long workToBeDone;
 
   /** Size pf persistent data written to cloud object storage in your cloud tenant, in bytes. */
   @JsonProperty("write_remote_bytes")
@@ -161,6 +189,15 @@ public class QueryMetrics {
 
   public Long getPhotonTotalTimeMs() {
     return photonTotalTimeMs;
+  }
+
+  public QueryMetrics setProjectedRemainingTaskTotalTimeMs(Long projectedRemainingTaskTotalTimeMs) {
+    this.projectedRemainingTaskTotalTimeMs = projectedRemainingTaskTotalTimeMs;
+    return this;
+  }
+
+  public Long getProjectedRemainingTaskTotalTimeMs() {
+    return projectedRemainingTaskTotalTimeMs;
   }
 
   public QueryMetrics setProvisioningQueueStartTimestamp(Long provisioningQueueStartTimestamp) {
@@ -244,6 +281,15 @@ public class QueryMetrics {
     return readRemoteBytes;
   }
 
+  public QueryMetrics setRemainingTaskCount(Long remainingTaskCount) {
+    this.remainingTaskCount = remainingTaskCount;
+    return this;
+  }
+
+  public Long getRemainingTaskCount() {
+    return remainingTaskCount;
+  }
+
   public QueryMetrics setResultFetchTimeMs(Long resultFetchTimeMs) {
     this.resultFetchTimeMs = resultFetchTimeMs;
     return this;
@@ -278,6 +324,15 @@ public class QueryMetrics {
 
   public Long getRowsReadCount() {
     return rowsReadCount;
+  }
+
+  public QueryMetrics setRunnableTasks(Long runnableTasks) {
+    this.runnableTasks = runnableTasks;
+    return this;
+  }
+
+  public Long getRunnableTasks() {
+    return runnableTasks;
   }
 
   public QueryMetrics setSpillToDiskBytes(Long spillToDiskBytes) {
@@ -316,6 +371,15 @@ public class QueryMetrics {
     return totalTimeMs;
   }
 
+  public QueryMetrics setWorkToBeDone(Long workToBeDone) {
+    this.workToBeDone = workToBeDone;
+    return this;
+  }
+
+  public Long getWorkToBeDone() {
+    return workToBeDone;
+  }
+
   public QueryMetrics setWriteRemoteBytes(Long writeRemoteBytes) {
     this.writeRemoteBytes = writeRemoteBytes;
     return this;
@@ -335,6 +399,7 @@ public class QueryMetrics {
         && Objects.equals(networkSentBytes, that.networkSentBytes)
         && Objects.equals(overloadingQueueStartTimestamp, that.overloadingQueueStartTimestamp)
         && Objects.equals(photonTotalTimeMs, that.photonTotalTimeMs)
+        && Objects.equals(projectedRemainingTaskTotalTimeMs, that.projectedRemainingTaskTotalTimeMs)
         && Objects.equals(provisioningQueueStartTimestamp, that.provisioningQueueStartTimestamp)
         && Objects.equals(prunedBytes, that.prunedBytes)
         && Objects.equals(prunedFilesCount, that.prunedFilesCount)
@@ -344,14 +409,17 @@ public class QueryMetrics {
         && Objects.equals(readFilesCount, that.readFilesCount)
         && Objects.equals(readPartitionsCount, that.readPartitionsCount)
         && Objects.equals(readRemoteBytes, that.readRemoteBytes)
+        && Objects.equals(remainingTaskCount, that.remainingTaskCount)
         && Objects.equals(resultFetchTimeMs, that.resultFetchTimeMs)
         && Objects.equals(resultFromCache, that.resultFromCache)
         && Objects.equals(rowsProducedCount, that.rowsProducedCount)
         && Objects.equals(rowsReadCount, that.rowsReadCount)
+        && Objects.equals(runnableTasks, that.runnableTasks)
         && Objects.equals(spillToDiskBytes, that.spillToDiskBytes)
         && Objects.equals(taskTimeOverTimeRange, that.taskTimeOverTimeRange)
         && Objects.equals(taskTotalTimeMs, that.taskTotalTimeMs)
         && Objects.equals(totalTimeMs, that.totalTimeMs)
+        && Objects.equals(workToBeDone, that.workToBeDone)
         && Objects.equals(writeRemoteBytes, that.writeRemoteBytes);
   }
 
@@ -363,6 +431,7 @@ public class QueryMetrics {
         networkSentBytes,
         overloadingQueueStartTimestamp,
         photonTotalTimeMs,
+        projectedRemainingTaskTotalTimeMs,
         provisioningQueueStartTimestamp,
         prunedBytes,
         prunedFilesCount,
@@ -372,14 +441,17 @@ public class QueryMetrics {
         readFilesCount,
         readPartitionsCount,
         readRemoteBytes,
+        remainingTaskCount,
         resultFetchTimeMs,
         resultFromCache,
         rowsProducedCount,
         rowsReadCount,
+        runnableTasks,
         spillToDiskBytes,
         taskTimeOverTimeRange,
         taskTotalTimeMs,
         totalTimeMs,
+        workToBeDone,
         writeRemoteBytes);
   }
 
@@ -391,6 +463,7 @@ public class QueryMetrics {
         .add("networkSentBytes", networkSentBytes)
         .add("overloadingQueueStartTimestamp", overloadingQueueStartTimestamp)
         .add("photonTotalTimeMs", photonTotalTimeMs)
+        .add("projectedRemainingTaskTotalTimeMs", projectedRemainingTaskTotalTimeMs)
         .add("provisioningQueueStartTimestamp", provisioningQueueStartTimestamp)
         .add("prunedBytes", prunedBytes)
         .add("prunedFilesCount", prunedFilesCount)
@@ -400,14 +473,17 @@ public class QueryMetrics {
         .add("readFilesCount", readFilesCount)
         .add("readPartitionsCount", readPartitionsCount)
         .add("readRemoteBytes", readRemoteBytes)
+        .add("remainingTaskCount", remainingTaskCount)
         .add("resultFetchTimeMs", resultFetchTimeMs)
         .add("resultFromCache", resultFromCache)
         .add("rowsProducedCount", rowsProducedCount)
         .add("rowsReadCount", rowsReadCount)
+        .add("runnableTasks", runnableTasks)
         .add("spillToDiskBytes", spillToDiskBytes)
         .add("taskTimeOverTimeRange", taskTimeOverTimeRange)
         .add("taskTotalTimeMs", taskTotalTimeMs)
         .add("totalTimeMs", totalTimeMs)
+        .add("workToBeDone", workToBeDone)
         .add("writeRemoteBytes", writeRemoteBytes)
         .toString();
   }

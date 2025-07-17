@@ -32,6 +32,11 @@ public class TableSpecificConfig {
   @JsonProperty("primary_keys")
   private Collection<String> primaryKeys;
 
+  /** */
+  @JsonProperty("query_based_connector_config")
+  private IngestionPipelineDefinitionTableSpecificConfigQueryBasedConnectorConfig
+      queryBasedConnectorConfig;
+
   /**
    * If true, formula fields defined in the table are included in the ingestion. This setting is
    * only valid for the Salesforce connector
@@ -77,6 +82,18 @@ public class TableSpecificConfig {
     return primaryKeys;
   }
 
+  public TableSpecificConfig setQueryBasedConnectorConfig(
+      IngestionPipelineDefinitionTableSpecificConfigQueryBasedConnectorConfig
+          queryBasedConnectorConfig) {
+    this.queryBasedConnectorConfig = queryBasedConnectorConfig;
+    return this;
+  }
+
+  public IngestionPipelineDefinitionTableSpecificConfigQueryBasedConnectorConfig
+      getQueryBasedConnectorConfig() {
+    return queryBasedConnectorConfig;
+  }
+
   public TableSpecificConfig setSalesforceIncludeFormulaFields(
       Boolean salesforceIncludeFormulaFields) {
     this.salesforceIncludeFormulaFields = salesforceIncludeFormulaFields;
@@ -113,6 +130,7 @@ public class TableSpecificConfig {
     return Objects.equals(excludeColumns, that.excludeColumns)
         && Objects.equals(includeColumns, that.includeColumns)
         && Objects.equals(primaryKeys, that.primaryKeys)
+        && Objects.equals(queryBasedConnectorConfig, that.queryBasedConnectorConfig)
         && Objects.equals(salesforceIncludeFormulaFields, that.salesforceIncludeFormulaFields)
         && Objects.equals(scdType, that.scdType)
         && Objects.equals(sequenceBy, that.sequenceBy);
@@ -124,6 +142,7 @@ public class TableSpecificConfig {
         excludeColumns,
         includeColumns,
         primaryKeys,
+        queryBasedConnectorConfig,
         salesforceIncludeFormulaFields,
         scdType,
         sequenceBy);
@@ -135,6 +154,7 @@ public class TableSpecificConfig {
         .add("excludeColumns", excludeColumns)
         .add("includeColumns", includeColumns)
         .add("primaryKeys", primaryKeys)
+        .add("queryBasedConnectorConfig", queryBasedConnectorConfig)
         .add("salesforceIncludeFormulaFields", salesforceIncludeFormulaFields)
         .add("scdType", scdType)
         .add("sequenceBy", sequenceBy)

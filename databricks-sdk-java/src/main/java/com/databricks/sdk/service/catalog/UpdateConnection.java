@@ -11,6 +11,10 @@ import java.util.Objects;
 
 @Generated
 public class UpdateConnection {
+  /** [Create,Update:OPT] Connection environment settings as EnvironmentSettings object. */
+  @JsonProperty("environment_settings")
+  private EnvironmentSettings environmentSettings;
+
   /** Name of the connection. */
   @JsonIgnore private String name;
 
@@ -25,6 +29,15 @@ public class UpdateConnection {
   /** Username of current owner of the connection. */
   @JsonProperty("owner")
   private String owner;
+
+  public UpdateConnection setEnvironmentSettings(EnvironmentSettings environmentSettings) {
+    this.environmentSettings = environmentSettings;
+    return this;
+  }
+
+  public EnvironmentSettings getEnvironmentSettings() {
+    return environmentSettings;
+  }
 
   public UpdateConnection setName(String name) {
     this.name = name;
@@ -67,7 +80,8 @@ public class UpdateConnection {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     UpdateConnection that = (UpdateConnection) o;
-    return Objects.equals(name, that.name)
+    return Objects.equals(environmentSettings, that.environmentSettings)
+        && Objects.equals(name, that.name)
         && Objects.equals(newName, that.newName)
         && Objects.equals(options, that.options)
         && Objects.equals(owner, that.owner);
@@ -75,12 +89,13 @@ public class UpdateConnection {
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, newName, options, owner);
+    return Objects.hash(environmentSettings, name, newName, options, owner);
   }
 
   @Override
   public String toString() {
     return new ToStringer(UpdateConnection.class)
+        .add("environmentSettings", environmentSettings)
         .add("name", name)
         .add("newName", newName)
         .add("options", options)

@@ -4,15 +4,16 @@ package com.databricks.sdk.service.oauth2;
 import com.databricks.sdk.support.Generated;
 
 /**
- * These APIs enable administrators to manage service principal secrets.
+ * These APIs enable administrators to manage service principal secrets at the workspace level. To
+ * use these APIs, the service principal must be first added to the current workspace.
  *
  * <p>You can use the generated secrets to obtain OAuth access tokens for a service principal, which
  * can then be used to access Databricks Accounts and Workspace APIs. For more information, see
  * [Authentication using OAuth tokens for service principals].
  *
- * <p>In addition, the generated secrets can be used to configure the Databricks Terraform Provider
- * to authenticate with the service principal. For more information, see [Databricks Terraform
- * Provider].
+ * <p>In addition, the generated secrets can be used to configure the Databricks Terraform
+ * Providerto authenticate with the service principal. For more information, see [Databricks
+ * Terraform Provider].
  *
  * <p>[Authentication using OAuth tokens for service principals]:
  * https://docs.databricks.com/dev-tools/authentication-oauth.html [Databricks Terraform Provider]:
@@ -23,7 +24,7 @@ import com.databricks.sdk.support.Generated;
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
 @Generated
-public interface ServicePrincipalSecretsService {
+public interface ServicePrincipalSecretsProxyService {
   /** Create a secret for the given service principal. */
   CreateServicePrincipalSecretResponse create(
       CreateServicePrincipalSecretRequest createServicePrincipalSecretRequest);

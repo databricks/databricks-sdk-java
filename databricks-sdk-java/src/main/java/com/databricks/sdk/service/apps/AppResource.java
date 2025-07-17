@@ -9,6 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class AppResource {
+  /** */
+  @JsonProperty("database")
+  private AppResourceDatabase database;
+
   /** Description of the App Resource. */
   @JsonProperty("description")
   private String description;
@@ -36,6 +40,15 @@ public class AppResource {
   /** */
   @JsonProperty("uc_securable")
   private AppResourceUcSecurable ucSecurable;
+
+  public AppResource setDatabase(AppResourceDatabase database) {
+    this.database = database;
+    return this;
+  }
+
+  public AppResourceDatabase getDatabase() {
+    return database;
+  }
 
   public AppResource setDescription(String description) {
     this.description = description;
@@ -105,7 +118,8 @@ public class AppResource {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     AppResource that = (AppResource) o;
-    return Objects.equals(description, that.description)
+    return Objects.equals(database, that.database)
+        && Objects.equals(description, that.description)
         && Objects.equals(job, that.job)
         && Objects.equals(name, that.name)
         && Objects.equals(secret, that.secret)
@@ -116,12 +130,14 @@ public class AppResource {
 
   @Override
   public int hashCode() {
-    return Objects.hash(description, job, name, secret, servingEndpoint, sqlWarehouse, ucSecurable);
+    return Objects.hash(
+        database, description, job, name, secret, servingEndpoint, sqlWarehouse, ucSecurable);
   }
 
   @Override
   public String toString() {
     return new ToStringer(AppResource.class)
+        .add("database", database)
         .add("description", description)
         .add("job", job)
         .add("name", name)

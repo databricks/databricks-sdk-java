@@ -493,7 +493,7 @@ public class AccountClient {
    *
    * <p>You can use the generated secrets to obtain OAuth access tokens for a service principal,
    * which can then be used to access Databricks Accounts and Workspace APIs. For more information,
-   * see [Authentication using OAuth tokens for service principals],
+   * see [Authentication using OAuth tokens for service principals].
    *
    * <p>In addition, the generated secrets can be used to configure the Databricks Terraform
    * Provider to authenticate with the service principal. For more information, see [Databricks
