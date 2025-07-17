@@ -28,10 +28,10 @@ jobs:
           java-version: 8
           server-id: central
           distribution: "adopt"
-          server-username: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
-          server-password: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
+          server-username: MAVEN_CENTRAL_USERNAME
+          server-password: MAVEN_CENTRAL_PASSWORD
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
-          gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
+          gpg-passphrase: GPG_PASSPHRASE
 
       # This step runs ONLY on branch pushes (dry-run)
       - name: Run Release Dry-Run (Verify)
