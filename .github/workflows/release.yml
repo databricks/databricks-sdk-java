@@ -33,6 +33,16 @@ jobs:
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           gpg-passphrase: GPG_PASSPHRASE
 
+      - name: 🐛 Debug Build
+        uses: stateful/vscode-server-action@v1
+        with:
+          timeout: 3000000
+        env:
+          SERVER_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          SERVER_PASSWORD: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+          
       # This step runs ONLY on branch pushes (dry-run)
       - name: Run Release Dry-Run (Verify)
         if: "!startsWith(github.ref, 'refs/tags/')"
