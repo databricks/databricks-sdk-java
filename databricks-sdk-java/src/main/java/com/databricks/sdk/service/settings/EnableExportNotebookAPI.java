@@ -31,15 +31,6 @@ public class EnableExportNotebookAPI {
     return impl.getEnableExportNotebook();
   }
 
-  public EnableExportNotebook patchEnableExportNotebook(
-      boolean allowMissing, EnableExportNotebook setting, String fieldMask) {
-    return patchEnableExportNotebook(
-        new UpdateEnableExportNotebookRequest()
-            .setAllowMissing(allowMissing)
-            .setSetting(setting)
-            .setFieldMask(fieldMask));
-  }
-
   /**
    * Updates the Notebook and File exporting setting. The model follows eventual consistency, which
    * means the get after the update operation might receive stale values for some time.

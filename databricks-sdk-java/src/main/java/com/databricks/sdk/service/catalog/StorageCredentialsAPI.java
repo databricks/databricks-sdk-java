@@ -36,10 +36,6 @@ public class StorageCredentialsAPI {
     impl = mock;
   }
 
-  public StorageCredentialInfo create(String name) {
-    return create(new CreateStorageCredential().setName(name));
-  }
-
   /**
    * Creates a new storage credential.
    *
@@ -92,10 +88,6 @@ public class StorageCredentialsAPI {
           }
           return request.setPageToken(token);
         });
-  }
-
-  public StorageCredentialInfo update(String name) {
-    return update(new UpdateStorageCredential().setName(name));
   }
 
   /**

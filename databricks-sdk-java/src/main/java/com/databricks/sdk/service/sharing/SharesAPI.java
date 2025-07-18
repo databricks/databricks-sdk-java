@@ -29,10 +29,6 @@ public class SharesAPI {
     impl = mock;
   }
 
-  public ShareInfo create(String name) {
-    return create(new CreateShare().setName(name));
-  }
-
   /**
    * Creates a new share for data objects. Data objects can be added after creation with **update**.
    * The caller must be a metastore admin or have the **CREATE_SHARE** privilege on the metastore.
@@ -97,10 +93,6 @@ public class SharesAPI {
     return impl.sharePermissions(request);
   }
 
-  public ShareInfo update(String name) {
-    return update(new UpdateShare().setName(name));
-  }
-
   /**
    * Updates the share with the changes and data objects in the request. The caller must be the
    * owner of the share or a metastore admin.
@@ -120,10 +112,6 @@ public class SharesAPI {
    */
   public ShareInfo update(UpdateShare request) {
     return impl.update(request);
-  }
-
-  public UpdateSharePermissionsResponse updatePermissions(String name) {
-    return updatePermissions(new UpdateSharePermissions().setName(name));
   }
 
   /**

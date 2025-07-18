@@ -77,24 +77,12 @@ public class WorkspaceBindingsAPI {
         });
   }
 
-  public UpdateCatalogWorkspaceBindingsResponse update(String name) {
-    return update(new UpdateWorkspaceBindings().setName(name));
-  }
-
   /**
    * Updates workspace bindings of the catalog. The caller must be a metastore admin or an owner of
    * the catalog.
    */
   public UpdateCatalogWorkspaceBindingsResponse update(UpdateWorkspaceBindings request) {
     return impl.update(request);
-  }
-
-  public UpdateWorkspaceBindingsResponse updateBindings(
-      String securableType, String securableName) {
-    return updateBindings(
-        new UpdateWorkspaceBindingsParameters()
-            .setSecurableType(securableType)
-            .setSecurableName(securableName));
   }
 
   /**

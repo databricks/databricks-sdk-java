@@ -142,10 +142,6 @@ public class WarehousesAPI {
     impl.delete(request);
   }
 
-  public Wait<GetWarehouseResponse, Void> edit(String id) {
-    return edit(new EditWarehouseRequest().setId(id));
-  }
-
   /** Updates the configuration for a SQL warehouse. */
   public Wait<GetWarehouseResponse, Void> edit(EditWarehouseRequest request) {
     impl.edit(request);
@@ -196,10 +192,6 @@ public class WarehousesAPI {
         request, impl::list, ListWarehousesResponse::getWarehouses, response -> null);
   }
 
-  public WarehousePermissions setPermissions(String warehouseId) {
-    return setPermissions(new WarehousePermissionsRequest().setWarehouseId(warehouseId));
-  }
-
   /**
    * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
    * permissions if none are specified. Objects can inherit permissions from their root object.
@@ -213,10 +205,6 @@ public class WarehousesAPI {
     impl.setWorkspaceWarehouseConfig(request);
   }
 
-  public Wait<GetWarehouseResponse, Void> start(String id) {
-    return start(new StartRequest().setId(id));
-  }
-
   /** Starts a SQL warehouse. */
   public Wait<GetWarehouseResponse, Void> start(StartRequest request) {
     impl.start(request);
@@ -224,19 +212,11 @@ public class WarehousesAPI {
         (timeout, callback) -> waitGetWarehouseRunning(request.getId(), timeout, callback));
   }
 
-  public Wait<GetWarehouseResponse, Void> stop(String id) {
-    return stop(new StopRequest().setId(id));
-  }
-
   /** Stops a SQL warehouse. */
   public Wait<GetWarehouseResponse, Void> stop(StopRequest request) {
     impl.stop(request);
     return new Wait<>(
         (timeout, callback) -> waitGetWarehouseStopped(request.getId(), timeout, callback));
-  }
-
-  public WarehousePermissions updatePermissions(String warehouseId) {
-    return updatePermissions(new WarehousePermissionsRequest().setWarehouseId(warehouseId));
   }
 
   /**

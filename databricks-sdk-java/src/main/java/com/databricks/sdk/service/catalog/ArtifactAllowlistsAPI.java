@@ -3,7 +3,6 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
-import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,14 +36,6 @@ public class ArtifactAllowlistsAPI {
    */
   public ArtifactAllowlistInfo get(GetArtifactAllowlistRequest request) {
     return impl.get(request);
-  }
-
-  public ArtifactAllowlistInfo update(
-      ArtifactType artifactType, Collection<ArtifactMatcher> artifactMatchers) {
-    return update(
-        new SetArtifactAllowlist()
-            .setArtifactType(artifactType)
-            .setArtifactMatchers(artifactMatchers));
   }
 
   /**

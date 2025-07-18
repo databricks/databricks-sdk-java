@@ -36,14 +36,6 @@ public class MetastoresAPI {
     impl = mock;
   }
 
-  public void assign(long workspaceId, String metastoreId, String defaultCatalogName) {
-    assign(
-        new CreateMetastoreAssignment()
-            .setWorkspaceId(workspaceId)
-            .setMetastoreId(metastoreId)
-            .setDefaultCatalogName(defaultCatalogName));
-  }
-
   /**
    * Creates a new metastore assignment. If an assignment for the same __workspace_id__ exists, it
    * will be overwritten by the new __metastore_id__ and __default_catalog_name__. The caller must
@@ -51,10 +43,6 @@ public class MetastoresAPI {
    */
   public void assign(CreateMetastoreAssignment request) {
     impl.assign(request);
-  }
-
-  public MetastoreInfo create(String name) {
-    return create(new CreateMetastore().setName(name));
   }
 
   /**
@@ -120,17 +108,13 @@ public class MetastoresAPI {
     return impl.summary();
   }
 
-  public void unassign(long workspaceId, String metastoreId) {
-    unassign(new UnassignRequest().setWorkspaceId(workspaceId).setMetastoreId(metastoreId));
+  public void unassign(long workspaceId) {
+    unassign(new UnassignRequest().setWorkspaceId(workspaceId));
   }
 
   /** Deletes a metastore assignment. The caller must be an account administrator. */
   public void unassign(UnassignRequest request) {
     impl.unassign(request);
-  }
-
-  public MetastoreInfo update(String id) {
-    return update(new UpdateMetastore().setId(id));
   }
 
   /**
@@ -140,10 +124,6 @@ public class MetastoresAPI {
    */
   public MetastoreInfo update(UpdateMetastore request) {
     return impl.update(request);
-  }
-
-  public void updateAssignment(long workspaceId) {
-    updateAssignment(new UpdateMetastoreAssignment().setWorkspaceId(workspaceId));
   }
 
   /**

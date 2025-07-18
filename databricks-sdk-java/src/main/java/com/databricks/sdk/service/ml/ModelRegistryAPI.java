@@ -4,7 +4,6 @@ package com.databricks.sdk.service.ml;
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
-import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,24 +32,10 @@ public class ModelRegistryAPI {
     impl = mock;
   }
 
-  public ApproveTransitionRequestResponse approveTransitionRequest(
-      String name, String version, String stage, boolean archiveExistingVersions) {
-    return approveTransitionRequest(
-        new ApproveTransitionRequest()
-            .setName(name)
-            .setVersion(version)
-            .setStage(stage)
-            .setArchiveExistingVersions(archiveExistingVersions));
-  }
-
   /** Approves a model version stage transition request. */
   public ApproveTransitionRequestResponse approveTransitionRequest(
       ApproveTransitionRequest request) {
     return impl.approveTransitionRequest(request);
-  }
-
-  public CreateCommentResponse createComment(String name, String version, String comment) {
-    return createComment(new CreateComment().setName(name).setVersion(version).setComment(comment));
   }
 
   /**
@@ -62,10 +47,6 @@ public class ModelRegistryAPI {
     return impl.createComment(request);
   }
 
-  public CreateModelResponse createModel(String name) {
-    return createModel(new CreateModelRequest().setName(name));
-  }
-
   /**
    * Creates a new registered model with the name specified in the request body. Throws
    * `RESOURCE_ALREADY_EXISTS` if a registered model with the given name exists.
@@ -74,28 +55,14 @@ public class ModelRegistryAPI {
     return impl.createModel(request);
   }
 
-  public CreateModelVersionResponse createModelVersion(String name, String source) {
-    return createModelVersion(new CreateModelVersionRequest().setName(name).setSource(source));
-  }
-
   /** Creates a model version. */
   public CreateModelVersionResponse createModelVersion(CreateModelVersionRequest request) {
     return impl.createModelVersion(request);
   }
 
-  public CreateTransitionRequestResponse createTransitionRequest(
-      String name, String version, String stage) {
-    return createTransitionRequest(
-        new CreateTransitionRequest().setName(name).setVersion(version).setStage(stage));
-  }
-
   /** Creates a model version stage transition request. */
   public CreateTransitionRequestResponse createTransitionRequest(CreateTransitionRequest request) {
     return impl.createTransitionRequest(request);
-  }
-
-  public CreateWebhookResponse createWebhook(Collection<RegistryWebhookEvent> events) {
-    return createWebhook(new CreateRegistryWebhook().setEvents(events));
   }
 
   /** **NOTE:** This endpoint is in Public Preview. Creates a registry webhook. */
@@ -172,10 +139,6 @@ public class ModelRegistryAPI {
   /** **NOTE:** This endpoint is in Public Preview. Deletes a registry webhook. */
   public void deleteWebhook(DeleteWebhookRequest request) {
     impl.deleteWebhook(request);
-  }
-
-  public Iterable<ModelVersion> getLatestVersions(String name) {
-    return getLatestVersions(new GetLatestVersionsRequest().setName(name));
   }
 
   /** Gets the latest version of a registered model. */
@@ -291,19 +254,9 @@ public class ModelRegistryAPI {
         });
   }
 
-  public RejectTransitionRequestResponse rejectTransitionRequest(
-      String name, String version, String stage) {
-    return rejectTransitionRequest(
-        new RejectTransitionRequest().setName(name).setVersion(version).setStage(stage));
-  }
-
   /** Rejects a model version stage transition request. */
   public RejectTransitionRequestResponse rejectTransitionRequest(RejectTransitionRequest request) {
     return impl.rejectTransitionRequest(request);
-  }
-
-  public RenameModelResponse renameModel(String name) {
-    return renameModel(new RenameModelRequest().setName(name));
   }
 
   /** Renames a registered model. */
@@ -341,32 +294,14 @@ public class ModelRegistryAPI {
         });
   }
 
-  public void setModelTag(String name, String key, String value) {
-    setModelTag(new SetModelTagRequest().setName(name).setKey(key).setValue(value));
-  }
-
   /** Sets a tag on a registered model. */
   public void setModelTag(SetModelTagRequest request) {
     impl.setModelTag(request);
   }
 
-  public void setModelVersionTag(String name, String version, String key, String value) {
-    setModelVersionTag(
-        new SetModelVersionTagRequest()
-            .setName(name)
-            .setVersion(version)
-            .setKey(key)
-            .setValue(value));
-  }
-
   /** Sets a model version tag. */
   public void setModelVersionTag(SetModelVersionTagRequest request) {
     impl.setModelVersionTag(request);
-  }
-
-  public RegisteredModelPermissions setPermissions(String registeredModelId) {
-    return setPermissions(
-        new RegisteredModelPermissionsRequest().setRegisteredModelId(registeredModelId));
   }
 
   /**
@@ -377,23 +312,9 @@ public class ModelRegistryAPI {
     return impl.setPermissions(request);
   }
 
-  public TestRegistryWebhookResponse testRegistryWebhook(String id) {
-    return testRegistryWebhook(new TestRegistryWebhookRequest().setId(id));
-  }
-
   /** **NOTE:** This endpoint is in Public Preview. Tests a registry webhook. */
   public TestRegistryWebhookResponse testRegistryWebhook(TestRegistryWebhookRequest request) {
     return impl.testRegistryWebhook(request);
-  }
-
-  public TransitionStageResponse transitionStage(
-      String name, String version, String stage, boolean archiveExistingVersions) {
-    return transitionStage(
-        new TransitionModelVersionStageDatabricks()
-            .setName(name)
-            .setVersion(version)
-            .setStage(stage)
-            .setArchiveExistingVersions(archiveExistingVersions));
   }
 
   /**
@@ -407,17 +328,9 @@ public class ModelRegistryAPI {
     return impl.transitionStage(request);
   }
 
-  public UpdateCommentResponse updateComment(String id, String comment) {
-    return updateComment(new UpdateComment().setId(id).setComment(comment));
-  }
-
   /** Post an edit to a comment on a model version. */
   public UpdateCommentResponse updateComment(UpdateComment request) {
     return impl.updateComment(request);
-  }
-
-  public UpdateModelResponse updateModel(String name) {
-    return updateModel(new UpdateModelRequest().setName(name));
   }
 
   /** Updates a registered model. */
@@ -425,18 +338,9 @@ public class ModelRegistryAPI {
     return impl.updateModel(request);
   }
 
-  public UpdateModelVersionResponse updateModelVersion(String name, String version) {
-    return updateModelVersion(new UpdateModelVersionRequest().setName(name).setVersion(version));
-  }
-
   /** Updates the model version. */
   public UpdateModelVersionResponse updateModelVersion(UpdateModelVersionRequest request) {
     return impl.updateModelVersion(request);
-  }
-
-  public RegisteredModelPermissions updatePermissions(String registeredModelId) {
-    return updatePermissions(
-        new RegisteredModelPermissionsRequest().setRegisteredModelId(registeredModelId));
   }
 
   /**
@@ -445,10 +349,6 @@ public class ModelRegistryAPI {
    */
   public RegisteredModelPermissions updatePermissions(RegisteredModelPermissionsRequest request) {
     return impl.updatePermissions(request);
-  }
-
-  public UpdateWebhookResponse updateWebhook(String id) {
-    return updateWebhook(new UpdateRegistryWebhook().setId(id));
   }
 
   /** **NOTE:** This endpoint is in Public Preview. Updates a registry webhook. */

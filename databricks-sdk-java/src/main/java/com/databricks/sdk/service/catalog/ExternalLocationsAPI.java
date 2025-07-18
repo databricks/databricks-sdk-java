@@ -35,11 +35,6 @@ public class ExternalLocationsAPI {
     impl = mock;
   }
 
-  public ExternalLocationInfo create(String name, String url, String credentialName) {
-    return create(
-        new CreateExternalLocation().setName(name).setUrl(url).setCredentialName(credentialName));
-  }
-
   /**
    * Creates a new external location entry in the metastore. The caller must be a metastore admin or
    * have the **CREATE_EXTERNAL_LOCATION** privilege on both the metastore and the associated
@@ -91,10 +86,6 @@ public class ExternalLocationsAPI {
           }
           return request.setPageToken(token);
         });
-  }
-
-  public ExternalLocationInfo update(String name) {
-    return update(new UpdateExternalLocation().setName(name));
   }
 
   /**

@@ -36,15 +36,6 @@ public class SqlResultsDownloadAPI {
     return impl.get(request);
   }
 
-  public SqlResultsDownload update(
-      boolean allowMissing, SqlResultsDownload setting, String fieldMask) {
-    return update(
-        new UpdateSqlResultsDownloadRequest()
-            .setAllowMissing(allowMissing)
-            .setSetting(setting)
-            .setFieldMask(fieldMask));
-  }
-
   /** Updates the SQL Results Download setting. */
   public SqlResultsDownload update(UpdateSqlResultsDownloadRequest request) {
     return impl.update(request);

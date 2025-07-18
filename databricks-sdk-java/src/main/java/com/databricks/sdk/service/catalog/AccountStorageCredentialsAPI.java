@@ -24,10 +24,6 @@ public class AccountStorageCredentialsAPI {
     impl = mock;
   }
 
-  public AccountsStorageCredentialInfo create(String metastoreId) {
-    return create(new AccountsCreateStorageCredential().setMetastoreId(metastoreId));
-  }
-
   /**
    * Creates a new storage credential. The request object is specific to the cloud:
    *
@@ -82,13 +78,6 @@ public class AccountStorageCredentialsAPI {
         impl::list,
         ListAccountStorageCredentialsResponse::getStorageCredentials,
         response -> null);
-  }
-
-  public AccountsStorageCredentialInfo update(String metastoreId, String storageCredentialName) {
-    return update(
-        new AccountsUpdateStorageCredential()
-            .setMetastoreId(metastoreId)
-            .setStorageCredentialName(storageCredentialName));
   }
 
   /**

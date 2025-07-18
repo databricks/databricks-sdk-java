@@ -31,10 +31,6 @@ public class FunctionsAPI {
     impl = mock;
   }
 
-  public FunctionInfo create(CreateFunction functionInfo) {
-    return create(new CreateFunctionRequest().setFunctionInfo(functionInfo));
-  }
-
   /**
    * **WARNING: This API is experimental and will change in future versions**
    *
@@ -103,10 +99,6 @@ public class FunctionsAPI {
           }
           return request.setPageToken(token);
         });
-  }
-
-  public FunctionInfo update(String name) {
-    return update(new UpdateFunction().setName(name));
   }
 
   /**

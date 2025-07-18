@@ -72,10 +72,6 @@ public class CustomAppIntegrationAPI {
         });
   }
 
-  public void update(String integrationId) {
-    update(new UpdateCustomAppIntegration().setIntegrationId(integrationId));
-  }
-
   /**
    * Updates an existing custom OAuth App Integration. You can retrieve the custom OAuth app
    * integration via :method:CustomAppIntegration/get.

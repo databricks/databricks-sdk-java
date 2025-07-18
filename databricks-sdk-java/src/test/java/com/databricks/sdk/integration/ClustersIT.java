@@ -11,6 +11,7 @@ import com.databricks.sdk.integration.framework.EnvTest;
 import com.databricks.sdk.mixin.NodeTypeSelector;
 import com.databricks.sdk.mixin.SparkVersionSelector;
 import com.databricks.sdk.service.compute.ClusterEvent;
+import com.databricks.sdk.service.compute.GetEvents;
 import java.util.*;
 import java.util.concurrent.TimeoutException;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,7 @@ public class ClustersIT {
 
   @Test
   void listsEvents(WorkspaceClient w, @EnvOrSkip("TEST_DEFAULT_CLUSTER_ID") String clusterId) {
-    Iterable<ClusterEvent> events = w.clusters().events(clusterId);
+    Iterable<ClusterEvent> events = w.clusters().events(new GetEvents().setClusterId(clusterId));
 
     List<ClusterEvent> all = CollectionUtils.asList(events);
 

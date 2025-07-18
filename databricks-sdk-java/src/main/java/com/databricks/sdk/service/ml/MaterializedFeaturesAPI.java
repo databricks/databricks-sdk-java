@@ -27,14 +27,6 @@ public class MaterializedFeaturesAPI {
     impl = mock;
   }
 
-  public FeatureTag createFeatureTag(String tableName, String featureName, FeatureTag featureTag) {
-    return createFeatureTag(
-        new CreateFeatureTagRequest()
-            .setTableName(tableName)
-            .setFeatureName(featureName)
-            .setFeatureTag(featureTag));
-  }
-
   /** Creates a FeatureTag. */
   public FeatureTag createFeatureTag(CreateFeatureTagRequest request) {
     return impl.createFeatureTag(request);
@@ -91,16 +83,6 @@ public class MaterializedFeaturesAPI {
           }
           return request.setPageToken(token);
         });
-  }
-
-  public FeatureTag updateFeatureTag(
-      String tableName, String featureName, String key, FeatureTag featureTag) {
-    return updateFeatureTag(
-        new UpdateFeatureTagRequest()
-            .setTableName(tableName)
-            .setFeatureName(featureName)
-            .setKey(key)
-            .setFeatureTag(featureTag));
   }
 
   /** Updates a FeatureTag. */

@@ -56,10 +56,6 @@ public class AccountMetastoresAPI {
         null, (Void v) -> impl.list(), ListMetastoresResponse::getMetastores, response -> null);
   }
 
-  public AccountsMetastoreInfo update(String metastoreId) {
-    return update(new AccountsUpdateMetastore().setMetastoreId(metastoreId));
-  }
-
   /** Updates an existing Unity Catalog metastore. */
   public AccountsMetastoreInfo update(AccountsUpdateMetastore request) {
     return impl.update(request);

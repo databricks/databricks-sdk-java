@@ -28,15 +28,6 @@ public class LlmProxyPartnerPoweredAccountAPI {
     return impl.get(request);
   }
 
-  public LlmProxyPartnerPoweredAccount update(
-      boolean allowMissing, LlmProxyPartnerPoweredAccount setting, String fieldMask) {
-    return update(
-        new UpdateLlmProxyPartnerPoweredAccountRequest()
-            .setAllowMissing(allowMissing)
-            .setSetting(setting)
-            .setFieldMask(fieldMask));
-  }
-
   /** Updates the enable partner powered AI features account setting. */
   public LlmProxyPartnerPoweredAccount update(UpdateLlmProxyPartnerPoweredAccountRequest request) {
     return impl.update(request);

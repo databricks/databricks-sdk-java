@@ -36,15 +36,6 @@ public class EnhancedSecurityMonitoringAPI {
     return impl.get(request);
   }
 
-  public EnhancedSecurityMonitoringSetting update(
-      boolean allowMissing, EnhancedSecurityMonitoringSetting setting, String fieldMask) {
-    return update(
-        new UpdateEnhancedSecurityMonitoringSettingRequest()
-            .setAllowMissing(allowMissing)
-            .setSetting(setting)
-            .setFieldMask(fieldMask));
-  }
-
   /**
    * Updates the enhanced security monitoring setting for the workspace. A fresh etag needs to be
    * provided in `PATCH` requests (as part of the setting field). The etag can be retrieved by

@@ -28,15 +28,6 @@ public class ConsumerPersonalizationRequestsAPI {
     impl = mock;
   }
 
-  public CreatePersonalizationRequestResponse create(
-      String listingId, String intendedUse, ConsumerTerms acceptedConsumerTerms) {
-    return create(
-        new CreatePersonalizationRequest()
-            .setListingId(listingId)
-            .setIntendedUse(intendedUse)
-            .setAcceptedConsumerTerms(acceptedConsumerTerms));
-  }
-
   /** Create a personalization request for a listing. */
   public CreatePersonalizationRequestResponse create(CreatePersonalizationRequest request) {
     return impl.create(request);

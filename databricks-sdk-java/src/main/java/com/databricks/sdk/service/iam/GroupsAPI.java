@@ -78,17 +78,9 @@ public class GroupsAPI {
         .withDedupe(Group::getId);
   }
 
-  public void patch(String id) {
-    patch(new PartialUpdate().setId(id));
-  }
-
   /** Partially updates the details of a group. */
   public void patch(PartialUpdate request) {
     impl.patch(request);
-  }
-
-  public void update(String id) {
-    update(new Group().setId(id));
   }
 
   /** Updates the details of a group by replacing the entire group entity. */

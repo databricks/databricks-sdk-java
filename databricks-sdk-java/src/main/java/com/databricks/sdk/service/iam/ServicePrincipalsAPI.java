@@ -74,17 +74,9 @@ public class ServicePrincipalsAPI {
         .withDedupe(ServicePrincipal::getId);
   }
 
-  public void patch(String id) {
-    patch(new PartialUpdate().setId(id));
-  }
-
   /** Partially updates the details of a single service principal in the Databricks workspace. */
   public void patch(PartialUpdate request) {
     impl.patch(request);
-  }
-
-  public void update(String id) {
-    update(new ServicePrincipal().setId(id));
   }
 
   /**

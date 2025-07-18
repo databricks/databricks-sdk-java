@@ -100,10 +100,6 @@ public class ServingEndpointsAPI {
     return impl.buildLogs(request);
   }
 
-  public Wait<ServingEndpointDetailed, ServingEndpointDetailed> create(String name) {
-    return create(new CreateServingEndpoint().setName(name));
-  }
-
   /** Create a new serving endpoint. */
   public Wait<ServingEndpointDetailed, ServingEndpointDetailed> create(
       CreateServingEndpoint request) {
@@ -112,12 +108,6 @@ public class ServingEndpointsAPI {
         (timeout, callback) ->
             waitGetServingEndpointNotUpdating(response.getName(), timeout, callback),
         response);
-  }
-
-  public Wait<ServingEndpointDetailed, ServingEndpointDetailed> createProvisionedThroughputEndpoint(
-      String name, PtEndpointCoreConfig config) {
-    return createProvisionedThroughputEndpoint(
-        new CreatePtEndpointRequest().setName(name).setConfig(config));
   }
 
   /** Create a new PT serving endpoint. */
@@ -196,15 +186,6 @@ public class ServingEndpointsAPI {
     return impl.getPermissions(request);
   }
 
-  public HttpRequestResponse httpRequest(
-      String connectionName, ExternalFunctionRequestHttpMethod method, String path) {
-    return httpRequest(
-        new ExternalFunctionRequest()
-            .setConnectionName(connectionName)
-            .setMethod(method)
-            .setPath(path));
-  }
-
   /** Make external services call using the credentials stored in UC Connection. */
   public HttpRequestResponse httpRequest(ExternalFunctionRequest request) {
     return impl.httpRequest(request);
@@ -225,26 +206,14 @@ public class ServingEndpointsAPI {
     return impl.logs(request);
   }
 
-  public EndpointTags patch(String name) {
-    return patch(new PatchServingEndpointTags().setName(name));
-  }
-
   /** Used to batch add and delete tags from a serving endpoint with a single API call. */
   public EndpointTags patch(PatchServingEndpointTags request) {
     return impl.patch(request);
   }
 
-  public PutResponse put(String name) {
-    return put(new PutRequest().setName(name));
-  }
-
   /** Deprecated: Please use AI Gateway to manage rate limits instead. */
   public PutResponse put(PutRequest request) {
     return impl.put(request);
-  }
-
-  public PutAiGatewayResponse putAiGateway(String name) {
-    return putAiGateway(new PutAiGatewayRequest().setName(name));
   }
 
   /**
@@ -256,18 +225,9 @@ public class ServingEndpointsAPI {
     return impl.putAiGateway(request);
   }
 
-  public QueryEndpointResponse query(String name) {
-    return query(new QueryEndpointInput().setName(name));
-  }
-
   /** Query a serving endpoint. */
   public QueryEndpointResponse query(QueryEndpointInput request) {
     return impl.query(request);
-  }
-
-  public ServingEndpointPermissions setPermissions(String servingEndpointId) {
-    return setPermissions(
-        new ServingEndpointPermissionsRequest().setServingEndpointId(servingEndpointId));
   }
 
   /**
@@ -276,10 +236,6 @@ public class ServingEndpointsAPI {
    */
   public ServingEndpointPermissions setPermissions(ServingEndpointPermissionsRequest request) {
     return impl.setPermissions(request);
-  }
-
-  public Wait<ServingEndpointDetailed, ServingEndpointDetailed> updateConfig(String name) {
-    return updateConfig(new EndpointCoreConfigInput().setName(name));
   }
 
   /**
@@ -296,23 +252,12 @@ public class ServingEndpointsAPI {
         response);
   }
 
-  public ServingEndpointPermissions updatePermissions(String servingEndpointId) {
-    return updatePermissions(
-        new ServingEndpointPermissionsRequest().setServingEndpointId(servingEndpointId));
-  }
-
   /**
    * Updates the permissions on a serving endpoint. Serving endpoints can inherit permissions from
    * their root object.
    */
   public ServingEndpointPermissions updatePermissions(ServingEndpointPermissionsRequest request) {
     return impl.updatePermissions(request);
-  }
-
-  public Wait<ServingEndpointDetailed, ServingEndpointDetailed>
-      updateProvisionedThroughputEndpointConfig(String name, PtEndpointCoreConfig config) {
-    return updateProvisionedThroughputEndpointConfig(
-        new UpdateProvisionedThroughputEndpointConfigRequest().setName(name).setConfig(config));
   }
 
   /**

@@ -26,15 +26,6 @@ public class PermissionMigrationAPI {
     impl = mock;
   }
 
-  public MigratePermissionsResponse migratePermissions(
-      long workspaceId, String fromWorkspaceGroupName, String toAccountGroupName) {
-    return migratePermissions(
-        new MigratePermissionsRequest()
-            .setWorkspaceId(workspaceId)
-            .setFromWorkspaceGroupName(fromWorkspaceGroupName)
-            .setToAccountGroupName(toAccountGroupName));
-  }
-
   /** Migrate Permissions. */
   public MigratePermissionsResponse migratePermissions(MigratePermissionsRequest request) {
     return impl.migratePermissions(request);

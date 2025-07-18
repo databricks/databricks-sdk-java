@@ -31,15 +31,6 @@ public class LlmProxyPartnerPoweredEnforceAPI {
     return impl.get(request);
   }
 
-  public LlmProxyPartnerPoweredEnforce update(
-      boolean allowMissing, LlmProxyPartnerPoweredEnforce setting, String fieldMask) {
-    return update(
-        new UpdateLlmProxyPartnerPoweredEnforceRequest()
-            .setAllowMissing(allowMissing)
-            .setSetting(setting)
-            .setFieldMask(fieldMask));
-  }
-
   /** Updates the enable enforcement status of partner powered AI features account setting. */
   public LlmProxyPartnerPoweredEnforce update(UpdateLlmProxyPartnerPoweredEnforceRequest request) {
     return impl.update(request);

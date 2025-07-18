@@ -75,10 +75,6 @@ public class PublishedAppIntegrationAPI {
         });
   }
 
-  public void update(String integrationId) {
-    update(new UpdatePublishedAppIntegration().setIntegrationId(integrationId));
-  }
-
   /**
    * Updates an existing published OAuth App Integration. You can retrieve the published OAuth app
    * integration via :method:PublishedAppIntegration/get.

@@ -64,10 +64,6 @@ public class BudgetPolicyAPI {
         });
   }
 
-  public BudgetPolicy update(String policyId, BudgetPolicy policy) {
-    return update(new UpdateBudgetPolicyRequest().setPolicyId(policyId).setPolicy(policy));
-  }
-
   /** Updates a policy */
   public BudgetPolicy update(UpdateBudgetPolicyRequest request) {
     return impl.update(request);

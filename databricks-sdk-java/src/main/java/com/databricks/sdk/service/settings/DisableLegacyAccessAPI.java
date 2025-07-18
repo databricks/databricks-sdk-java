@@ -39,15 +39,6 @@ public class DisableLegacyAccessAPI {
     return impl.get(request);
   }
 
-  public DisableLegacyAccess update(
-      boolean allowMissing, DisableLegacyAccess setting, String fieldMask) {
-    return update(
-        new UpdateDisableLegacyAccessRequest()
-            .setAllowMissing(allowMissing)
-            .setSetting(setting)
-            .setFieldMask(fieldMask));
-  }
-
   /** Updates legacy access disablement status. */
   public DisableLegacyAccess update(UpdateDisableLegacyAccessRequest request) {
     return impl.update(request);

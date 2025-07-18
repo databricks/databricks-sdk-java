@@ -28,15 +28,6 @@ public class EnableResultsDownloadingAPI {
     return impl.getEnableResultsDownloading();
   }
 
-  public EnableResultsDownloading patchEnableResultsDownloading(
-      boolean allowMissing, EnableResultsDownloading setting, String fieldMask) {
-    return patchEnableResultsDownloading(
-        new UpdateEnableResultsDownloadingRequest()
-            .setAllowMissing(allowMissing)
-            .setSetting(setting)
-            .setFieldMask(fieldMask));
-  }
-
   /**
    * Updates the Notebook results download setting. The model follows eventual consistency, which
    * means the get after the update operation might receive stale values for some time.

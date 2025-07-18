@@ -4,7 +4,6 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
-import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,12 +32,6 @@ public class ConnectionsAPI {
   /** Constructor for mocks */
   public ConnectionsAPI(ConnectionsService mock) {
     impl = mock;
-  }
-
-  public ConnectionInfo create(
-      String name, ConnectionType connectionType, Map<String, String> options) {
-    return create(
-        new CreateConnection().setName(name).setConnectionType(connectionType).setOptions(options));
   }
 
   /**
@@ -82,10 +75,6 @@ public class ConnectionsAPI {
           }
           return request.setPageToken(token);
         });
-  }
-
-  public ConnectionInfo update(String name, Map<String, String> options) {
-    return update(new UpdateConnection().setName(name).setOptions(options));
   }
 
   /** Updates the connection that matches the supplied name. */

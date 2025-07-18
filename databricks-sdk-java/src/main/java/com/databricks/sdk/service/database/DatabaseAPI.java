@@ -24,31 +24,14 @@ public class DatabaseAPI {
     impl = mock;
   }
 
-  public DatabaseCatalog createDatabaseCatalog(DatabaseCatalog catalog) {
-    return createDatabaseCatalog(new CreateDatabaseCatalogRequest().setCatalog(catalog));
-  }
-
   /** Create a Database Catalog. */
   public DatabaseCatalog createDatabaseCatalog(CreateDatabaseCatalogRequest request) {
     return impl.createDatabaseCatalog(request);
   }
 
-  public DatabaseInstance createDatabaseInstance(DatabaseInstance databaseInstance) {
-    return createDatabaseInstance(
-        new CreateDatabaseInstanceRequest().setDatabaseInstance(databaseInstance));
-  }
-
   /** Create a Database Instance. */
   public DatabaseInstance createDatabaseInstance(CreateDatabaseInstanceRequest request) {
     return impl.createDatabaseInstance(request);
-  }
-
-  public DatabaseInstanceRole createDatabaseInstanceRole(
-      String instanceName, DatabaseInstanceRole databaseInstanceRole) {
-    return createDatabaseInstanceRole(
-        new CreateDatabaseInstanceRoleRequest()
-            .setInstanceName(instanceName)
-            .setDatabaseInstanceRole(databaseInstanceRole));
   }
 
   /** Create a role for a Database Instance. */
@@ -57,21 +40,12 @@ public class DatabaseAPI {
     return impl.createDatabaseInstanceRole(request);
   }
 
-  public DatabaseTable createDatabaseTable(DatabaseTable table) {
-    return createDatabaseTable(new CreateDatabaseTableRequest().setTable(table));
-  }
-
   /**
    * Create a Database Table. Useful for registering pre-existing PG tables in UC. See
    * CreateSyncedDatabaseTable for creating synced tables in PG from a source table in UC.
    */
   public DatabaseTable createDatabaseTable(CreateDatabaseTableRequest request) {
     return impl.createDatabaseTable(request);
-  }
-
-  public SyncedDatabaseTable createSyncedDatabaseTable(SyncedDatabaseTable syncedTable) {
-    return createSyncedDatabaseTable(
-        new CreateSyncedDatabaseTableRequest().setSyncedTable(syncedTable));
   }
 
   /** Create a Synced Database Table. */
@@ -215,15 +189,6 @@ public class DatabaseAPI {
           }
           return request.setPageToken(token);
         });
-  }
-
-  public DatabaseInstance updateDatabaseInstance(
-      String name, DatabaseInstance databaseInstance, String updateMask) {
-    return updateDatabaseInstance(
-        new UpdateDatabaseInstanceRequest()
-            .setName(name)
-            .setDatabaseInstance(databaseInstance)
-            .setUpdateMask(updateMask));
   }
 
   /** Update a Database Instance. */

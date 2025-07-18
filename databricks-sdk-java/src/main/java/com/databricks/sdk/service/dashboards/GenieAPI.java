@@ -92,15 +92,6 @@ public class GenieAPI {
     throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
   }
 
-  public Wait<GenieMessage, GenieMessage> createMessage(
-      String spaceId, String conversationId, String content) {
-    return createMessage(
-        new GenieCreateConversationMessageRequest()
-            .setSpaceId(spaceId)
-            .setConversationId(conversationId)
-            .setContent(content));
-  }
-
   /**
    * Create new message in a [conversation](:method:genie/startconversation). The AI response uses
    * all previously created messages in the conversation to respond.
@@ -129,16 +120,6 @@ public class GenieAPI {
     impl.deleteConversation(request);
   }
 
-  public GenieGetMessageQueryResultResponse executeMessageAttachmentQuery(
-      String spaceId, String conversationId, String messageId, String attachmentId) {
-    return executeMessageAttachmentQuery(
-        new GenieExecuteMessageAttachmentQueryRequest()
-            .setSpaceId(spaceId)
-            .setConversationId(conversationId)
-            .setMessageId(messageId)
-            .setAttachmentId(attachmentId));
-  }
-
   /**
    * Execute the SQL for a message query attachment. Use this API when the query attachment has
    * expired and needs to be re-executed.
@@ -146,15 +127,6 @@ public class GenieAPI {
   public GenieGetMessageQueryResultResponse executeMessageAttachmentQuery(
       GenieExecuteMessageAttachmentQueryRequest request) {
     return impl.executeMessageAttachmentQuery(request);
-  }
-
-  public GenieGetMessageQueryResultResponse executeMessageQuery(
-      String spaceId, String conversationId, String messageId) {
-    return executeMessageQuery(
-        new GenieExecuteMessageQueryRequest()
-            .setSpaceId(spaceId)
-            .setConversationId(conversationId)
-            .setMessageId(messageId));
   }
 
   /** Execute the SQL query in the message. */
@@ -253,12 +225,6 @@ public class GenieAPI {
   /** Get list of Genie Spaces. */
   public GenieListSpacesResponse listSpaces(GenieListSpacesRequest request) {
     return impl.listSpaces(request);
-  }
-
-  public Wait<GenieMessage, GenieStartConversationResponse> startConversation(
-      String spaceId, String content) {
-    return startConversation(
-        new GenieStartConversationMessageRequest().setSpaceId(spaceId).setContent(content));
   }
 
   /** Start a new conversation. */

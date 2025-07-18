@@ -68,10 +68,6 @@ public class NotificationDestinationsAPI {
         });
   }
 
-  public NotificationDestination update(String id) {
-    return update(new UpdateNotificationDestinationRequest().setId(id));
-  }
-
   /**
    * Updates a notification destination. Requires workspace admin permissions. At least one field is
    * required in the request body.

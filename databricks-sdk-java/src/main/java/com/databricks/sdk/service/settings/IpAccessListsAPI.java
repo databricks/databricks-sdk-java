@@ -44,10 +44,6 @@ public class IpAccessListsAPI {
     impl = mock;
   }
 
-  public CreateIpAccessListResponse create(String label, ListType listType) {
-    return create(new CreateIpAccessList().setLabel(label).setListType(listType));
-  }
-
   /**
    * Creates an IP access list for this workspace.
    *
@@ -95,15 +91,6 @@ public class IpAccessListsAPI {
         response -> null);
   }
 
-  public void replace(String ipAccessListId, String label, ListType listType, boolean enabled) {
-    replace(
-        new ReplaceIpAccessList()
-            .setIpAccessListId(ipAccessListId)
-            .setLabel(label)
-            .setListType(listType)
-            .setEnabled(enabled));
-  }
-
   /**
    * Replaces an IP access list, specified by its ID.
    *
@@ -118,10 +105,6 @@ public class IpAccessListsAPI {
    */
   public void replace(ReplaceIpAccessList request) {
     impl.replace(request);
-  }
-
-  public void update(String ipAccessListId) {
-    update(new UpdateIpAccessList().setIpAccessListId(ipAccessListId));
   }
 
   /**

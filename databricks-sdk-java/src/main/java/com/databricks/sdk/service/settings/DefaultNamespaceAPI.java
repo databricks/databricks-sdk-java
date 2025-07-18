@@ -50,15 +50,6 @@ public class DefaultNamespaceAPI {
     return impl.get(request);
   }
 
-  public DefaultNamespaceSetting update(
-      boolean allowMissing, DefaultNamespaceSetting setting, String fieldMask) {
-    return update(
-        new UpdateDefaultNamespaceSettingRequest()
-            .setAllowMissing(allowMissing)
-            .setSetting(setting)
-            .setFieldMask(fieldMask));
-  }
-
   /**
    * Updates the default namespace setting for the workspace. A fresh etag needs to be provided in
    * `PATCH` requests (as part of the setting field). The etag can be retrieved by making a `GET`

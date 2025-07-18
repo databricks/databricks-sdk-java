@@ -23,10 +23,6 @@ public class VpcEndpointsAPI {
     impl = mock;
   }
 
-  public VpcEndpoint create(String vpcEndpointName) {
-    return create(new CreateVpcEndpointRequest().setVpcEndpointName(vpcEndpointName));
-  }
-
   /**
    * Creates a VPC endpoint configuration, which represents a [VPC endpoint] object in AWS used to
    * communicate privately with Databricks over [AWS PrivateLink].

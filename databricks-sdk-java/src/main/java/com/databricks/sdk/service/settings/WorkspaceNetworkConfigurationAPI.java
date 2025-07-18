@@ -44,14 +44,6 @@ public class WorkspaceNetworkConfigurationAPI {
     return impl.getWorkspaceNetworkOptionRpc(request);
   }
 
-  public WorkspaceNetworkOption updateWorkspaceNetworkOptionRpc(
-      long workspaceId, WorkspaceNetworkOption workspaceNetworkOption) {
-    return updateWorkspaceNetworkOptionRpc(
-        new UpdateWorkspaceNetworkOptionRequest()
-            .setWorkspaceId(workspaceId)
-            .setWorkspaceNetworkOption(workspaceNetworkOption));
-  }
-
   /**
    * Updates the network option for a workspace. This operation associates the workspace with the
    * specified network policy. To revert to the default policy, specify 'default-policy' as the

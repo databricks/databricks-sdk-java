@@ -49,14 +49,6 @@ public class RegisteredModelsAPI {
     impl = mock;
   }
 
-  public RegisteredModelInfo create(String catalogName, String schemaName, String name) {
-    return create(
-        new CreateRegisteredModelRequest()
-            .setCatalogName(catalogName)
-            .setSchemaName(schemaName)
-            .setName(name));
-  }
-
   /**
    * Creates a new registered model in Unity Catalog.
    *
@@ -147,14 +139,6 @@ public class RegisteredModelsAPI {
         });
   }
 
-  public RegisteredModelAlias setAlias(String fullName, String alias, long versionNum) {
-    return setAlias(
-        new SetRegisteredModelAliasRequest()
-            .setFullName(fullName)
-            .setAlias(alias)
-            .setVersionNum(versionNum));
-  }
-
   /**
    * Set an alias on the specified registered model.
    *
@@ -164,10 +148,6 @@ public class RegisteredModelsAPI {
    */
   public RegisteredModelAlias setAlias(SetRegisteredModelAliasRequest request) {
     return impl.setAlias(request);
-  }
-
-  public RegisteredModelInfo update(String fullName) {
-    return update(new UpdateRegisteredModelRequest().setFullName(fullName));
   }
 
   /**

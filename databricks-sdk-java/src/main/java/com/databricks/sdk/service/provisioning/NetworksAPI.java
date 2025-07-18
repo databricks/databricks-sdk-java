@@ -26,10 +26,6 @@ public class NetworksAPI {
     impl = mock;
   }
 
-  public Network create(String networkName) {
-    return create(new CreateNetworkRequest().setNetworkName(networkName));
-  }
-
   /**
    * Creates a Databricks network configuration that represents an VPC and its resources. The VPC
    * will be used for new Databricks clusters. This requires a pre-existing VPC and subnets.

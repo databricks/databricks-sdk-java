@@ -38,15 +38,6 @@ public class DashboardEmailSubscriptionsAPI {
     return impl.get(request);
   }
 
-  public DashboardEmailSubscriptions update(
-      boolean allowMissing, DashboardEmailSubscriptions setting, String fieldMask) {
-    return update(
-        new UpdateDashboardEmailSubscriptionsRequest()
-            .setAllowMissing(allowMissing)
-            .setSetting(setting)
-            .setFieldMask(fieldMask));
-  }
-
   /** Updates the Dashboard Email Subscriptions setting. */
   public DashboardEmailSubscriptions update(UpdateDashboardEmailSubscriptionsRequest request) {
     return impl.update(request);

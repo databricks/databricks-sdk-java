@@ -112,10 +112,6 @@ public class QueriesLegacyAPI {
         });
   }
 
-  public void restore(String queryId) {
-    restore(new RestoreQueriesLegacyRequest().setQueryId(queryId));
-  }
-
   /**
    * Restore a query that has been moved to the trash. A restored query appears in list views and
    * searches. You can use restored queries for alerts.
@@ -127,10 +123,6 @@ public class QueriesLegacyAPI {
    */
   public void restore(RestoreQueriesLegacyRequest request) {
     impl.restore(request);
-  }
-
-  public LegacyQuery update(String queryId) {
-    return update(new QueryEditContent().setQueryId(queryId));
   }
 
   /**

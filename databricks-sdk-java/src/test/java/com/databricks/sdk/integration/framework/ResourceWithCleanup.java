@@ -1,9 +1,13 @@
 package com.databricks.sdk.integration.framework;
 
 import com.databricks.sdk.mixin.SecretsExt;
+import com.databricks.sdk.service.catalog.CreateSchema;
+import com.databricks.sdk.service.catalog.CreateVolumeRequestContent;
 import com.databricks.sdk.service.catalog.SchemasAPI;
 import com.databricks.sdk.service.catalog.VolumeType;
 import com.databricks.sdk.service.catalog.VolumesAPI;
+import com.databricks.sdk.service.workspace.CreateScope;
+import com.databricks.sdk.service.workspace.DeleteSecret;
 import com.databricks.sdk.service.workspace.PutSecret;
 
 public class ResourceWithCleanup implements AutoCloseable {
@@ -16,23 +20,29 @@ public class ResourceWithCleanup implements AutoCloseable {
   public static ResourceWithCleanup makeSecret(
       SecretsExt secretsExt, String scope, String key, String value) {
     secretsExt.putSecret(new PutSecret().setScope(scope).setKey(key).setStringValue(value));
-    return new ResourceWithCleanup(() -> secretsExt.deleteSecret(scope, key));
+    return new ResourceWithCleanup(
+        () -> secretsExt.deleteSecret(new DeleteSecret().setScope(scope).setKey(key)));
   }
 
   public static ResourceWithCleanup makeScope(SecretsExt secretsExt, String scope) {
-    secretsExt.createScope(scope);
+    secretsExt.createScope(new CreateScope().setScope(scope));
     return new ResourceWithCleanup(() -> secretsExt.deleteScope(scope));
   }
 
   public static ResourceWithCleanup makeSchema(
       SchemasAPI schemasAPI, String catalogName, String schemaName) {
-    schemasAPI.create(schemaName, catalogName);
+    schemasAPI.create(new CreateSchema().setName(schemaName).setCatalogName(catalogName));
     return new ResourceWithCleanup(() -> schemasAPI.delete(catalogName + "." + schemaName));
   }
 
   public static ResourceWithCleanup makeVolume(
       VolumesAPI volumesAPI, String catalogName, String schemaName, String volumeName) {
-    volumesAPI.create(catalogName, schemaName, volumeName, VolumeType.MANAGED);
+    volumesAPI.create(
+        new CreateVolumeRequestContent()
+            .setCatalogName(catalogName)
+            .setSchemaName(schemaName)
+            .setName(volumeName)
+            .setVolumeType(VolumeType.MANAGED));
     return new ResourceWithCleanup(
         () -> volumesAPI.delete(catalogName + "." + schemaName + "." + volumeName));
   }

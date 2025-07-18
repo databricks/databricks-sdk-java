@@ -24,10 +24,6 @@ public class ProviderProvidersAPI {
     impl = mock;
   }
 
-  public CreateProviderResponse create(ProviderInfo provider) {
-    return create(new CreateProviderRequest().setProvider(provider));
-  }
-
   /** Create a provider */
   public CreateProviderResponse create(CreateProviderRequest request) {
     return impl.create(request);
@@ -64,10 +60,6 @@ public class ProviderProvidersAPI {
           }
           return request.setPageToken(token);
         });
-  }
-
-  public UpdateProviderResponse update(String id, ProviderInfo provider) {
-    return update(new UpdateProviderRequest().setId(id).setProvider(provider));
   }
 
   /** Update provider profile */

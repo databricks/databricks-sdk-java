@@ -30,10 +30,6 @@ public class GitCredentialsAPI {
     impl = mock;
   }
 
-  public CreateCredentialsResponse create(String gitProvider) {
-    return create(new CreateCredentialsRequest().setGitProvider(gitProvider));
-  }
-
   /**
    * Creates a Git credential entry for the user. Only one Git credential per user is supported, so
    * any attempts to create credentials if an entry already exists will fail. Use the PATCH endpoint
@@ -65,11 +61,6 @@ public class GitCredentialsAPI {
   public Iterable<CredentialInfo> list() {
     return new Paginator<>(
         null, (Void v) -> impl.list(), ListCredentialsResponse::getCredentials, response -> null);
-  }
-
-  public void update(long credentialId, String gitProvider) {
-    update(
-        new UpdateCredentialsRequest().setCredentialId(credentialId).setGitProvider(gitProvider));
   }
 
   /** Updates the specified Git credential. */

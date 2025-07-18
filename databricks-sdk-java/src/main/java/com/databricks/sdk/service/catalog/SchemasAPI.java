@@ -29,10 +29,6 @@ public class SchemasAPI {
     impl = mock;
   }
 
-  public SchemaInfo create(String name, String catalogName) {
-    return create(new CreateSchema().setName(name).setCatalogName(catalogName));
-  }
-
   /**
    * Creates a new schema for catalog in the Metatastore. The caller must be a metastore admin, or
    * have the **CREATE_SCHEMA** privilege in the parent catalog.
@@ -87,10 +83,6 @@ public class SchemasAPI {
           }
           return request.setPageToken(token);
         });
-  }
-
-  public SchemaInfo update(String fullName) {
-    return update(new UpdateSchema().setFullName(fullName));
   }
 
   /**

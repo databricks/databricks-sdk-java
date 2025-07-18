@@ -43,17 +43,6 @@ public class AibiDashboardEmbeddingApprovedDomainsAPI {
     return impl.get(request);
   }
 
-  public AibiDashboardEmbeddingApprovedDomainsSetting update(
-      boolean allowMissing,
-      AibiDashboardEmbeddingApprovedDomainsSetting setting,
-      String fieldMask) {
-    return update(
-        new UpdateAibiDashboardEmbeddingApprovedDomainsSettingRequest()
-            .setAllowMissing(allowMissing)
-            .setSetting(setting)
-            .setFieldMask(fieldMask));
-  }
-
   /**
    * Updates the list of domains approved to host embedded AI/BI dashboards. This update will fail
    * if the current workspace access policy is not ALLOW_APPROVED_DOMAINS.

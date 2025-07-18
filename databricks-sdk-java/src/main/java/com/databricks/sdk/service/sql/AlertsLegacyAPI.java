@@ -33,10 +33,6 @@ public class AlertsLegacyAPI {
     impl = mock;
   }
 
-  public LegacyAlert create(String name, AlertOptions options, String queryId) {
-    return create(new CreateAlert().setName(name).setOptions(options).setQueryId(queryId));
-  }
-
   /**
    * Creates an alert. An alert is a Databricks SQL object that periodically runs a query, evaluates
    * a condition of its result, and notifies users or notification destinations if the condition was
@@ -94,11 +90,6 @@ public class AlertsLegacyAPI {
    */
   public Iterable<LegacyAlert> list() {
     return impl.list();
-  }
-
-  public void update(String alertId, String name, AlertOptions options, String queryId) {
-    update(
-        new EditAlert().setAlertId(alertId).setName(name).setOptions(options).setQueryId(queryId));
   }
 
   /**

@@ -84,20 +84,12 @@ public class AccountUsersAPI {
         .withDedupe(User::getId);
   }
 
-  public void patch(String id) {
-    patch(new PartialUpdate().setId(id));
-  }
-
   /**
    * Partially updates a user resource by applying the supplied operations on specific user
    * attributes.
    */
   public void patch(PartialUpdate request) {
     impl.patch(request);
-  }
-
-  public void update(String id) {
-    update(new User().setId(id));
   }
 
   /** Replaces a user's information with the data supplied in request. */

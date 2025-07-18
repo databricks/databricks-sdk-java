@@ -191,10 +191,6 @@ public class PipelinesAPI {
     return impl.listUpdates(request);
   }
 
-  public PipelinePermissions setPermissions(String pipelineId) {
-    return setPermissions(new PipelinePermissionsRequest().setPipelineId(pipelineId));
-  }
-
   /**
    * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
    * permissions if none are specified. Objects can inherit permissions from their root object.
@@ -203,20 +199,12 @@ public class PipelinesAPI {
     return impl.setPermissions(request);
   }
 
-  public StartUpdateResponse startUpdate(String pipelineId) {
-    return startUpdate(new StartUpdate().setPipelineId(pipelineId));
-  }
-
   /**
    * Starts a new update for the pipeline. If there is already an active update for the pipeline,
    * the request will fail and the active update will remain running.
    */
   public StartUpdateResponse startUpdate(StartUpdate request) {
     return impl.startUpdate(request);
-  }
-
-  public Wait<GetPipelineResponse, Void> stop(String pipelineId) {
-    return stop(new StopRequest().setPipelineId(pipelineId));
   }
 
   /**
@@ -229,17 +217,9 @@ public class PipelinesAPI {
         (timeout, callback) -> waitGetPipelineIdle(request.getPipelineId(), timeout, callback));
   }
 
-  public void update(String pipelineId) {
-    update(new EditPipeline().setPipelineId(pipelineId));
-  }
-
   /** Updates a pipeline with the supplied configuration. */
   public void update(EditPipeline request) {
     impl.update(request);
-  }
-
-  public PipelinePermissions updatePermissions(String pipelineId) {
-    return updatePermissions(new PipelinePermissionsRequest().setPipelineId(pipelineId));
   }
 
   /**

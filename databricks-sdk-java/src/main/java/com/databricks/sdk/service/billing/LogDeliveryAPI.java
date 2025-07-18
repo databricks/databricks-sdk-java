@@ -82,13 +82,6 @@ public class LogDeliveryAPI {
     impl = mock;
   }
 
-  public WrappedLogDeliveryConfiguration create(
-      CreateLogDeliveryConfigurationParams logDeliveryConfiguration) {
-    return create(
-        new WrappedCreateLogDeliveryConfiguration()
-            .setLogDeliveryConfiguration(logDeliveryConfiguration));
-  }
-
   /**
    * Creates a new Databricks log delivery configuration to enable delivery of the specified type of
    * logs to your storage location. This requires that you already created a [credential
@@ -141,13 +134,6 @@ public class LogDeliveryAPI {
           }
           return request.setPageToken(token);
         });
-  }
-
-  public void patchStatus(String logDeliveryConfigurationId, LogDeliveryConfigStatus status) {
-    patchStatus(
-        new UpdateLogDeliveryConfigurationStatusRequest()
-            .setLogDeliveryConfigurationId(logDeliveryConfigurationId)
-            .setStatus(status));
   }
 
   /**

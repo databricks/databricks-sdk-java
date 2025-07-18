@@ -39,11 +39,6 @@ public class ServicePrincipalSecretsProxyAPI {
     impl = mock;
   }
 
-  public CreateServicePrincipalSecretResponse create(String servicePrincipalId) {
-    return create(
-        new CreateServicePrincipalSecretRequest().setServicePrincipalId(servicePrincipalId));
-  }
-
   /** Create a secret for the given service principal. */
   public CreateServicePrincipalSecretResponse create(CreateServicePrincipalSecretRequest request) {
     return impl.create(request);

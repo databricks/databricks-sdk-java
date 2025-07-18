@@ -24,11 +24,6 @@ public class QualityMonitorV2API {
     impl = mock;
   }
 
-  public QualityMonitor createQualityMonitor(QualityMonitor qualityMonitor) {
-    return createQualityMonitor(
-        new CreateQualityMonitorRequest().setQualityMonitor(qualityMonitor));
-  }
-
   /** Create a quality monitor on UC object */
   public QualityMonitor createQualityMonitor(CreateQualityMonitorRequest request) {
     return impl.createQualityMonitor(request);
@@ -67,15 +62,6 @@ public class QualityMonitorV2API {
           }
           return request.setPageToken(token);
         });
-  }
-
-  public QualityMonitor updateQualityMonitor(
-      String objectType, String objectId, QualityMonitor qualityMonitor) {
-    return updateQualityMonitor(
-        new UpdateQualityMonitorRequest()
-            .setObjectType(objectType)
-            .setObjectId(objectId)
-            .setQualityMonitor(qualityMonitor));
   }
 
   /** (Unimplemented) Update a quality monitor on UC object */

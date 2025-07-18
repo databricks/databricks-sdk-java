@@ -32,10 +32,6 @@ public class GlobalInitScriptsAPI {
     impl = mock;
   }
 
-  public CreateResponse create(String name, String script) {
-    return create(new GlobalInitScriptCreateRequest().setName(name).setScript(script));
-  }
-
   /** Creates a new global init script in this workspace. */
   public CreateResponse create(GlobalInitScriptCreateRequest request) {
     return impl.create(request);
@@ -67,11 +63,6 @@ public class GlobalInitScriptsAPI {
   public Iterable<GlobalInitScriptDetails> list() {
     return new Paginator<>(
         null, (Void v) -> impl.list(), ListGlobalInitScriptsResponse::getScripts, response -> null);
-  }
-
-  public void update(String scriptId, String name, String script) {
-    update(
-        new GlobalInitScriptUpdateRequest().setScriptId(scriptId).setName(name).setScript(script));
   }
 
   /**

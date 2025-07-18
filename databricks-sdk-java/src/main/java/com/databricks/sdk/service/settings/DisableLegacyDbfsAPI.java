@@ -42,15 +42,6 @@ public class DisableLegacyDbfsAPI {
     return impl.get(request);
   }
 
-  public DisableLegacyDbfs update(
-      boolean allowMissing, DisableLegacyDbfs setting, String fieldMask) {
-    return update(
-        new UpdateDisableLegacyDbfsRequest()
-            .setAllowMissing(allowMissing)
-            .setSetting(setting)
-            .setFieldMask(fieldMask));
-  }
-
   /** Updates the disable legacy DBFS setting for the workspace. */
   public DisableLegacyDbfs update(UpdateDisableLegacyDbfsRequest request) {
     return impl.update(request);

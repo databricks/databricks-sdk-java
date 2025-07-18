@@ -28,10 +28,6 @@ public class ServingEndpointsDataPlaneAPI {
     impl = mock;
   }
 
-  public QueryEndpointResponse query(String name) {
-    return query(new QueryEndpointInput().setName(name));
-  }
-
   /** Query a serving endpoint. */
   public QueryEndpointResponse query(QueryEndpointInput request) {
     return impl.query(request);

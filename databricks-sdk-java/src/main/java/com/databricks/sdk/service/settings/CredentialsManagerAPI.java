@@ -3,7 +3,6 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
-import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,15 +24,6 @@ public class CredentialsManagerAPI {
   /** Constructor for mocks */
   public CredentialsManagerAPI(CredentialsManagerService mock) {
     impl = mock;
-  }
-
-  public ExchangeTokenResponse exchangeToken(
-      PartitionId partitionId, Collection<TokenType> tokenType, Collection<String> scopes) {
-    return exchangeToken(
-        new ExchangeTokenRequest()
-            .setPartitionId(partitionId)
-            .setTokenType(tokenType)
-            .setScopes(scopes));
   }
 
   /**

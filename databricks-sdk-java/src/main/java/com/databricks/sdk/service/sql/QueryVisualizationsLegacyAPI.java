@@ -31,14 +31,6 @@ public class QueryVisualizationsLegacyAPI {
     impl = mock;
   }
 
-  public LegacyVisualization create(Object options, String queryId, String typeValue) {
-    return create(
-        new CreateQueryVisualizationsLegacyRequest()
-            .setOptions(options)
-            .setQueryId(queryId)
-            .setType(typeValue));
-  }
-
   /**
    * Creates visualization in the query.
    *
@@ -65,10 +57,6 @@ public class QueryVisualizationsLegacyAPI {
    */
   public void delete(DeleteQueryVisualizationsLegacyRequest request) {
     impl.delete(request);
-  }
-
-  public LegacyVisualization update(String id) {
-    return update(new LegacyVisualization().setId(id));
   }
 
   /**

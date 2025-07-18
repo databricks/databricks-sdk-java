@@ -28,10 +28,6 @@ public class BudgetsAPI {
     impl = mock;
   }
 
-  public CreateBudgetConfigurationResponse create(CreateBudgetConfigurationBudget budget) {
-    return create(new CreateBudgetConfigurationRequest().setBudget(budget));
-  }
-
   /**
    * Create a new budget configuration for an account. For full details, see
    * https://docs.databricks.com/en/admin/account-settings/budgets.html.
@@ -77,11 +73,6 @@ public class BudgetsAPI {
           }
           return request.setPageToken(token);
         });
-  }
-
-  public UpdateBudgetConfigurationResponse update(
-      String budgetId, UpdateBudgetConfigurationBudget budget) {
-    return update(new UpdateBudgetConfigurationRequest().setBudgetId(budgetId).setBudget(budget));
   }
 
   /**

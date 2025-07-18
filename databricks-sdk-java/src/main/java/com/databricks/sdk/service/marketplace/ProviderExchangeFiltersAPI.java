@@ -24,10 +24,6 @@ public class ProviderExchangeFiltersAPI {
     impl = mock;
   }
 
-  public CreateExchangeFilterResponse create(ExchangeFilter filter) {
-    return create(new CreateExchangeFilterRequest().setFilter(filter));
-  }
-
   /** Add an exchange filter. */
   public CreateExchangeFilterResponse create(CreateExchangeFilterRequest request) {
     return impl.create(request);
@@ -59,10 +55,6 @@ public class ProviderExchangeFiltersAPI {
           }
           return request.setPageToken(token);
         });
-  }
-
-  public UpdateExchangeFilterResponse update(String id, ExchangeFilter filter) {
-    return update(new UpdateExchangeFilterRequest().setId(id).setFilter(filter));
   }
 
   /** Update an exchange filter. */

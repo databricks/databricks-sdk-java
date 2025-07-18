@@ -33,15 +33,6 @@ public class ComplianceSecurityProfileAPI {
     return impl.get(request);
   }
 
-  public ComplianceSecurityProfileSetting update(
-      boolean allowMissing, ComplianceSecurityProfileSetting setting, String fieldMask) {
-    return update(
-        new UpdateComplianceSecurityProfileSettingRequest()
-            .setAllowMissing(allowMissing)
-            .setSetting(setting)
-            .setFieldMask(fieldMask));
-  }
-
   /**
    * Updates the compliance security profile setting for the workspace. A fresh etag needs to be
    * provided in `PATCH` requests (as part of the setting field). The etag can be retrieved by

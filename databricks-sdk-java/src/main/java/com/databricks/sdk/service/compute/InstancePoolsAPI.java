@@ -40,11 +40,6 @@ public class InstancePoolsAPI {
     impl = mock;
   }
 
-  public CreateInstancePoolResponse create(String instancePoolName, String nodeTypeId) {
-    return create(
-        new CreateInstancePool().setInstancePoolName(instancePoolName).setNodeTypeId(nodeTypeId));
-  }
-
   /** Creates a new instance pool using idle and ready-to-use cloud instances. */
   public CreateInstancePoolResponse create(CreateInstancePool request) {
     return impl.create(request);
@@ -60,14 +55,6 @@ public class InstancePoolsAPI {
    */
   public void delete(DeleteInstancePool request) {
     impl.delete(request);
-  }
-
-  public void edit(String instancePoolId, String instancePoolName, String nodeTypeId) {
-    edit(
-        new EditInstancePool()
-            .setInstancePoolId(instancePoolId)
-            .setInstancePoolName(instancePoolName)
-            .setNodeTypeId(nodeTypeId));
   }
 
   /** Modifies the configuration of an existing instance pool. */
@@ -114,21 +101,12 @@ public class InstancePoolsAPI {
         null, (Void v) -> impl.list(), ListInstancePools::getInstancePools, response -> null);
   }
 
-  public InstancePoolPermissions setPermissions(String instancePoolId) {
-    return setPermissions(new InstancePoolPermissionsRequest().setInstancePoolId(instancePoolId));
-  }
-
   /**
    * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
    * permissions if none are specified. Objects can inherit permissions from their root object.
    */
   public InstancePoolPermissions setPermissions(InstancePoolPermissionsRequest request) {
     return impl.setPermissions(request);
-  }
-
-  public InstancePoolPermissions updatePermissions(String instancePoolId) {
-    return updatePermissions(
-        new InstancePoolPermissionsRequest().setInstancePoolId(instancePoolId));
   }
 
   /**

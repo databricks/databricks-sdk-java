@@ -24,13 +24,6 @@ public class AccountMetastoreAssignmentsAPI {
     impl = mock;
   }
 
-  public void create(long workspaceId, String metastoreId) {
-    create(
-        new AccountsCreateMetastoreAssignment()
-            .setWorkspaceId(workspaceId)
-            .setMetastoreId(metastoreId));
-  }
-
   /** Creates an assignment to a metastore for a workspace */
   public void create(AccountsCreateMetastoreAssignment request) {
     impl.create(request);
@@ -72,13 +65,6 @@ public class AccountMetastoreAssignmentsAPI {
         impl::list,
         ListAccountMetastoreAssignmentsResponse::getWorkspaceIds,
         response -> null);
-  }
-
-  public void update(long workspaceId, String metastoreId) {
-    update(
-        new AccountsUpdateMetastoreAssignment()
-            .setWorkspaceId(workspaceId)
-            .setMetastoreId(metastoreId));
   }
 
   /**

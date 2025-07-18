@@ -46,15 +46,6 @@ public class ProviderPersonalizationRequestsAPI {
         });
   }
 
-  public UpdatePersonalizationRequestResponse update(
-      String listingId, String requestId, PersonalizationRequestStatus status) {
-    return update(
-        new UpdatePersonalizationRequestRequest()
-            .setListingId(listingId)
-            .setRequestId(requestId)
-            .setStatus(status));
-  }
-
   /**
    * Update personalization request. This method only permits updating the status of the request.
    */

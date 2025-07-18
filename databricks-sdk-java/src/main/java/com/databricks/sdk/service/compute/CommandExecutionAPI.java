@@ -263,10 +263,6 @@ public class CommandExecutionAPI {
         response);
   }
 
-  public void destroy(String clusterId, String contextId) {
-    destroy(new DestroyContext().setClusterId(clusterId).setContextId(contextId));
-  }
-
   /** Deletes an execution context. */
   public void destroy(DestroyContext request) {
     impl.destroy(request);
