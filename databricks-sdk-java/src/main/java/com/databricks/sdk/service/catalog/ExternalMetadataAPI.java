@@ -31,11 +31,6 @@ public class ExternalMetadataAPI {
     impl = mock;
   }
 
-  public ExternalMetadata createExternalMetadata(ExternalMetadata externalMetadata) {
-    return createExternalMetadata(
-        new CreateExternalMetadataRequest().setExternalMetadata(externalMetadata));
-  }
-
   /**
    * Creates a new external metadata object in the parent metastore if the caller is a metastore
    * admin or has the **CREATE_EXTERNAL_METADATA** privilege. Grants **BROWSE** to all account users
@@ -88,15 +83,6 @@ public class ExternalMetadataAPI {
           }
           return request.setPageToken(token);
         });
-  }
-
-  public ExternalMetadata updateExternalMetadata(
-      String name, ExternalMetadata externalMetadata, String updateMask) {
-    return updateExternalMetadata(
-        new UpdateExternalMetadataRequest()
-            .setName(name)
-            .setExternalMetadata(externalMetadata)
-            .setUpdateMask(updateMask));
   }
 
   /**

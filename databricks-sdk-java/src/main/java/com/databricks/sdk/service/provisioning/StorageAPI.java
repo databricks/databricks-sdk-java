@@ -29,14 +29,6 @@ public class StorageAPI {
     impl = mock;
   }
 
-  public StorageConfiguration create(
-      String storageConfigurationName, RootBucketInfo rootBucketInfo) {
-    return create(
-        new CreateStorageConfigurationRequest()
-            .setStorageConfigurationName(storageConfigurationName)
-            .setRootBucketInfo(rootBucketInfo));
-  }
-
   /**
    * Creates new storage configuration for an account, specified by ID. Uploads a storage
    * configuration object that represents the root AWS S3 bucket in your account. Databricks stores

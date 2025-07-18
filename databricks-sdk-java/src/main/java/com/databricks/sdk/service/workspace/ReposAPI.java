@@ -35,10 +35,6 @@ public class ReposAPI {
     impl = mock;
   }
 
-  public CreateRepoResponse create(String url, String provider) {
-    return create(new CreateRepoRequest().setUrl(url).setProvider(provider));
-  }
-
   /**
    * Creates a repo in the workspace and links it to the remote Git repo specified. Note that repos
    * created programmatically must be linked to a remote Git repo, unlike repos created in the
@@ -103,10 +99,6 @@ public class ReposAPI {
         });
   }
 
-  public RepoPermissions setPermissions(String repoId) {
-    return setPermissions(new RepoPermissionsRequest().setRepoId(repoId));
-  }
-
   /**
    * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
    * permissions if none are specified. Objects can inherit permissions from their root object.
@@ -115,20 +107,12 @@ public class ReposAPI {
     return impl.setPermissions(request);
   }
 
-  public void update(long repoId) {
-    update(new UpdateRepoRequest().setRepoId(repoId));
-  }
-
   /**
    * Updates the repo to a different branch or tag, or updates the repo to the latest commit on the
    * same branch.
    */
   public void update(UpdateRepoRequest request) {
     impl.update(request);
-  }
-
-  public RepoPermissions updatePermissions(String repoId) {
-    return updatePermissions(new RepoPermissionsRequest().setRepoId(repoId));
   }
 
   /** Updates the permissions on a repo. Repos can inherit permissions from their root object. */

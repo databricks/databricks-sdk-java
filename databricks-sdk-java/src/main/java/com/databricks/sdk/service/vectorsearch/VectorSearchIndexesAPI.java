@@ -4,7 +4,6 @@ package com.databricks.sdk.service.vectorsearch;
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
-import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,25 +33,13 @@ public class VectorSearchIndexesAPI {
     impl = mock;
   }
 
-  public VectorIndex createIndex(
-      String name, String endpointName, String primaryKey, VectorIndexType indexType) {
-    return createIndex(
-        new CreateVectorIndexRequest()
-            .setName(name)
-            .setEndpointName(endpointName)
-            .setPrimaryKey(primaryKey)
-            .setIndexType(indexType));
-  }
-
   /** Create a new index. */
   public VectorIndex createIndex(CreateVectorIndexRequest request) {
     return impl.createIndex(request);
   }
 
-  public DeleteDataVectorIndexResponse deleteDataVectorIndex(
-      String indexName, Collection<String> primaryKeys) {
-    return deleteDataVectorIndex(
-        new DeleteDataVectorIndexRequest().setIndexName(indexName).setPrimaryKeys(primaryKeys));
+  public DeleteDataVectorIndexResponse deleteDataVectorIndex(String indexName) {
+    return deleteDataVectorIndex(new DeleteDataVectorIndexRequest().setIndexName(indexName));
   }
 
   /** Handles the deletion of data from a specified vector index. */
@@ -97,17 +84,9 @@ public class VectorSearchIndexesAPI {
         });
   }
 
-  public QueryVectorIndexResponse queryIndex(String indexName, Collection<String> columns) {
-    return queryIndex(new QueryVectorIndexRequest().setIndexName(indexName).setColumns(columns));
-  }
-
   /** Query the specified vector index. */
   public QueryVectorIndexResponse queryIndex(QueryVectorIndexRequest request) {
     return impl.queryIndex(request);
-  }
-
-  public QueryVectorIndexResponse queryNextPage(String indexName) {
-    return queryNextPage(new QueryVectorIndexNextPageRequest().setIndexName(indexName));
   }
 
   /**
@@ -118,10 +97,6 @@ public class VectorSearchIndexesAPI {
     return impl.queryNextPage(request);
   }
 
-  public ScanVectorIndexResponse scanIndex(String indexName) {
-    return scanIndex(new ScanVectorIndexRequest().setIndexName(indexName));
-  }
-
   /**
    * Scan the specified vector index and return the first `num_results` entries after the exclusive
    * `primary_key`.
@@ -130,18 +105,9 @@ public class VectorSearchIndexesAPI {
     return impl.scanIndex(request);
   }
 
-  public void syncIndex(String indexName) {
-    syncIndex(new SyncIndexRequest().setIndexName(indexName));
-  }
-
   /** Triggers a synchronization process for a specified vector index. */
   public void syncIndex(SyncIndexRequest request) {
     impl.syncIndex(request);
-  }
-
-  public UpsertDataVectorIndexResponse upsertDataVectorIndex(String indexName, String inputsJson) {
-    return upsertDataVectorIndex(
-        new UpsertDataVectorIndexRequest().setIndexName(indexName).setInputsJson(inputsJson));
   }
 
   /** Handles the upserting of data into a specified vector index. */

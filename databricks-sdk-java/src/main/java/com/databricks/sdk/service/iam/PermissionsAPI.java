@@ -76,13 +76,6 @@ public class PermissionsAPI {
     return impl.getPermissionLevels(request);
   }
 
-  public ObjectPermissions set(String requestObjectType, String requestObjectId) {
-    return set(
-        new SetObjectPermissions()
-            .setRequestObjectType(requestObjectType)
-            .setRequestObjectId(requestObjectId));
-  }
-
   /**
    * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
    * permissions if none are specified. Objects can inherit permissions from their parent objects or
@@ -90,13 +83,6 @@ public class PermissionsAPI {
    */
   public ObjectPermissions set(SetObjectPermissions request) {
     return impl.set(request);
-  }
-
-  public ObjectPermissions update(String requestObjectType, String requestObjectId) {
-    return update(
-        new UpdateObjectPermissions()
-            .setRequestObjectType(requestObjectType)
-            .setRequestObjectId(requestObjectId));
   }
 
   /**

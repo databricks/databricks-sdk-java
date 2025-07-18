@@ -36,10 +36,6 @@ public class PolicyComplianceForJobsAPI {
     impl = mock;
   }
 
-  public EnforcePolicyComplianceResponse enforceCompliance(long jobId) {
-    return enforceCompliance(new EnforcePolicyComplianceRequest().setJobId(jobId));
-  }
-
   /**
    * Updates a job so the job clusters that are created when running the job (specified in
    * `new_cluster`) are compliant with the current versions of their respective cluster policies.

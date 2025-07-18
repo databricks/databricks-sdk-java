@@ -179,10 +179,6 @@ public class AppsAPI {
     throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
   }
 
-  public Wait<App, App> create(App app) {
-    return create(new CreateAppRequest().setApp(app));
-  }
-
   /** Creates a new app. */
   public Wait<App, App> create(CreateAppRequest request) {
     App response = impl.create(request);
@@ -197,11 +193,6 @@ public class AppsAPI {
   /** Deletes an app. */
   public App delete(DeleteAppRequest request) {
     return impl.delete(request);
-  }
-
-  public Wait<AppDeployment, AppDeployment> deploy(String appName, AppDeployment appDeployment) {
-    return deploy(
-        new CreateAppDeploymentRequest().setAppName(appName).setAppDeployment(appDeployment));
   }
 
   /** Creates an app deployment for the app with the supplied name. */
@@ -285,20 +276,12 @@ public class AppsAPI {
         });
   }
 
-  public AppPermissions setPermissions(String appName) {
-    return setPermissions(new AppPermissionsRequest().setAppName(appName));
-  }
-
   /**
    * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
    * permissions if none are specified. Objects can inherit permissions from their root object.
    */
   public AppPermissions setPermissions(AppPermissionsRequest request) {
     return impl.setPermissions(request);
-  }
-
-  public Wait<App, App> start(String name) {
-    return start(new StartAppRequest().setName(name));
   }
 
   /** Start the last active deployment of the app in the workspace. */
@@ -308,10 +291,6 @@ public class AppsAPI {
         (timeout, callback) -> waitGetAppActive(response.getName(), timeout, callback), response);
   }
 
-  public Wait<App, App> stop(String name) {
-    return stop(new StopAppRequest().setName(name));
-  }
-
   /** Stops the active deployment of the app in the workspace. */
   public Wait<App, App> stop(StopAppRequest request) {
     App response = impl.stop(request);
@@ -319,17 +298,9 @@ public class AppsAPI {
         (timeout, callback) -> waitGetAppStopped(response.getName(), timeout, callback), response);
   }
 
-  public App update(String name, App app) {
-    return update(new UpdateAppRequest().setName(name).setApp(app));
-  }
-
   /** Updates the app with the supplied name. */
   public App update(UpdateAppRequest request) {
     return impl.update(request);
-  }
-
-  public AppPermissions updatePermissions(String appName) {
-    return updatePermissions(new AppPermissionsRequest().setAppName(appName));
   }
 
   /** Updates the permissions on an app. Apps can inherit permissions from their root object. */

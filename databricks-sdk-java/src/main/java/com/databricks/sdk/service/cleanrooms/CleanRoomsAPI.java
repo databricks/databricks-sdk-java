@@ -28,10 +28,6 @@ public class CleanRoomsAPI {
     impl = mock;
   }
 
-  public CleanRoom create(CleanRoom cleanRoom) {
-    return create(new CreateCleanRoomRequest().setCleanRoom(cleanRoom));
-  }
-
   /**
    * Create a new clean room with the specified collaborators. This method is asynchronous; the
    * returned name field inside the clean_room field can be used to poll the clean room status,
@@ -44,14 +40,6 @@ public class CleanRoomsAPI {
    */
   public CleanRoom create(CreateCleanRoomRequest request) {
     return impl.create(request);
-  }
-
-  public CreateCleanRoomOutputCatalogResponse createOutputCatalog(
-      String cleanRoomName, CleanRoomOutputCatalog outputCatalog) {
-    return createOutputCatalog(
-        new CreateCleanRoomOutputCatalogRequest()
-            .setCleanRoomName(cleanRoomName)
-            .setOutputCatalog(outputCatalog));
   }
 
   /** Create the output catalog of the clean room. */
@@ -99,10 +87,6 @@ public class CleanRoomsAPI {
           }
           return request.setPageToken(token);
         });
-  }
-
-  public CleanRoom update(String name) {
-    return update(new UpdateCleanRoomRequest().setName(name));
   }
 
   /**

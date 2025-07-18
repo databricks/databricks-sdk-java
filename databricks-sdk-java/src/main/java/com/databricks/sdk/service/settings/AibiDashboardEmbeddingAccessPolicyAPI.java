@@ -43,15 +43,6 @@ public class AibiDashboardEmbeddingAccessPolicyAPI {
     return impl.get(request);
   }
 
-  public AibiDashboardEmbeddingAccessPolicySetting update(
-      boolean allowMissing, AibiDashboardEmbeddingAccessPolicySetting setting, String fieldMask) {
-    return update(
-        new UpdateAibiDashboardEmbeddingAccessPolicySettingRequest()
-            .setAllowMissing(allowMissing)
-            .setSetting(setting)
-            .setFieldMask(fieldMask));
-  }
-
   /** Updates the AI/BI dashboard embedding access policy at the workspace level. */
   public AibiDashboardEmbeddingAccessPolicySetting update(
       UpdateAibiDashboardEmbeddingAccessPolicySettingRequest request) {

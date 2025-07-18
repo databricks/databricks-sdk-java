@@ -27,10 +27,6 @@ public class ProviderListingsAPI {
     impl = mock;
   }
 
-  public CreateListingResponse create(Listing listing) {
-    return create(new CreateListingRequest().setListing(listing));
-  }
-
   /** Create a new listing */
   public CreateListingResponse create(CreateListingRequest request) {
     return impl.create(request);
@@ -67,10 +63,6 @@ public class ProviderListingsAPI {
           }
           return request.setPageToken(token);
         });
-  }
-
-  public UpdateListingResponse update(String id, Listing listing) {
-    return update(new UpdateListingRequest().setId(id).setListing(listing));
   }
 
   /** Update a listing */

@@ -61,10 +61,6 @@ public class ClusterPoliciesAPI {
     impl.delete(request);
   }
 
-  public void edit(String policyId) {
-    edit(new EditPolicy().setPolicyId(policyId));
-  }
-
   /**
    * Update an existing policy for cluster. This operation may make some clusters governed by the
    * previous policy invalid.
@@ -112,22 +108,12 @@ public class ClusterPoliciesAPI {
         request, impl::list, ListPoliciesResponse::getPolicies, response -> null);
   }
 
-  public ClusterPolicyPermissions setPermissions(String clusterPolicyId) {
-    return setPermissions(
-        new ClusterPolicyPermissionsRequest().setClusterPolicyId(clusterPolicyId));
-  }
-
   /**
    * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
    * permissions if none are specified. Objects can inherit permissions from their root object.
    */
   public ClusterPolicyPermissions setPermissions(ClusterPolicyPermissionsRequest request) {
     return impl.setPermissions(request);
-  }
-
-  public ClusterPolicyPermissions updatePermissions(String clusterPolicyId) {
-    return updatePermissions(
-        new ClusterPolicyPermissionsRequest().setClusterPolicyId(clusterPolicyId));
   }
 
   /**

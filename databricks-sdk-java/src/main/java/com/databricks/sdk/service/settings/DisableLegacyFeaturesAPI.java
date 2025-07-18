@@ -39,15 +39,6 @@ public class DisableLegacyFeaturesAPI {
     return impl.get(request);
   }
 
-  public DisableLegacyFeatures update(
-      boolean allowMissing, DisableLegacyFeatures setting, String fieldMask) {
-    return update(
-        new UpdateDisableLegacyFeaturesRequest()
-            .setAllowMissing(allowMissing)
-            .setSetting(setting)
-            .setFieldMask(fieldMask));
-  }
-
   /** Updates the value of the disable legacy features setting. */
   public DisableLegacyFeatures update(UpdateDisableLegacyFeaturesRequest request) {
     return impl.update(request);

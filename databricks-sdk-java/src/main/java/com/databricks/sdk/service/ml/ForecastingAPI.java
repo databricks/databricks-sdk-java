@@ -78,21 +78,6 @@ public class ForecastingAPI {
     throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
   }
 
-  public Wait<ForecastingExperiment, CreateForecastingExperimentResponse> createExperiment(
-      String trainDataPath,
-      String targetColumn,
-      String timeColumn,
-      String forecastGranularity,
-      long forecastHorizon) {
-    return createExperiment(
-        new CreateForecastingExperimentRequest()
-            .setTrainDataPath(trainDataPath)
-            .setTargetColumn(targetColumn)
-            .setTimeColumn(timeColumn)
-            .setForecastGranularity(forecastGranularity)
-            .setForecastHorizon(forecastHorizon));
-  }
-
   /** Creates a serverless forecasting experiment. Returns the experiment ID. */
   public Wait<ForecastingExperiment, CreateForecastingExperimentResponse> createExperiment(
       CreateForecastingExperimentRequest request) {

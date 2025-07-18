@@ -6,8 +6,10 @@ import com.databricks.sdk.integration.framework.EnvContext;
 import com.databricks.sdk.integration.framework.EnvTest;
 import com.databricks.sdk.integration.framework.NameUtils;
 import com.databricks.sdk.integration.framework.ResourceWithCleanup;
+import com.databricks.sdk.service.files.CreateDirectoryRequest;
 import com.databricks.sdk.service.files.DirectoryEntry;
 import com.databricks.sdk.service.files.GetMetadataResponse;
+import com.databricks.sdk.service.files.UploadRequest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,7 +38,9 @@ public class FilesIT {
           ByteArrayInputStream inputStream = new ByteArrayInputStream(fileContents);
 
           // Write the file to DBFS.
-          workspace.files().upload(fileName, inputStream);
+          workspace
+              .files()
+              .upload(new UploadRequest().setFilePath(fileName).setContents(inputStream));
 
           // Read the file back from DBFS.
           try (InputStream readContents = workspace.files().download(fileName).getContents()) {
@@ -58,7 +62,12 @@ public class FilesIT {
         workspace,
         (volumePath) -> {
           String filePath = NameUtils.uniqueName(volumePath + "/some-file");
-          workspace.files().upload(filePath, createInputStream("Hello, world!"));
+          workspace
+              .files()
+              .upload(
+                  new UploadRequest()
+                      .setFilePath(filePath)
+                      .setContents(createInputStream("Hello, world!")));
           workspace.files().delete(filePath);
         });
   }
@@ -69,7 +78,12 @@ public class FilesIT {
         workspace,
         (volumePath) -> {
           String filePath = NameUtils.uniqueName(volumePath + "/some-file");
-          workspace.files().upload(filePath, createInputStream("Hello, world!"));
+          workspace
+              .files()
+              .upload(
+                  new UploadRequest()
+                      .setFilePath(filePath)
+                      .setContents(createInputStream("Hello, world!")));
 
           // Check header deserialization
           GetMetadataResponse metadata = workspace.files().getMetadata(filePath);
@@ -85,7 +99,9 @@ public class FilesIT {
         workspace,
         (volumePath) -> {
           String directoryPath = NameUtils.uniqueName(volumePath + "/some-directory");
-          workspace.files().createDirectory(directoryPath);
+          workspace
+              .files()
+              .createDirectory(new CreateDirectoryRequest().setDirectoryPath(directoryPath));
         });
   }
 
@@ -96,9 +112,24 @@ public class FilesIT {
         (volumePath) -> {
           String fileContents = "Hello, world!";
           String directoryPath = NameUtils.uniqueName(volumePath + "/some-directory");
-          workspace.files().upload(directoryPath + "/file1.txt", createInputStream(fileContents));
-          workspace.files().upload(directoryPath + "/file2.txt", createInputStream(fileContents));
-          workspace.files().upload(directoryPath + "/file3.txt", createInputStream(fileContents));
+          workspace
+              .files()
+              .upload(
+                  new UploadRequest()
+                      .setFilePath(directoryPath + "/file1.txt")
+                      .setContents(createInputStream(fileContents)));
+          workspace
+              .files()
+              .upload(
+                  new UploadRequest()
+                      .setFilePath(directoryPath + "/file2.txt")
+                      .setContents(createInputStream(fileContents)));
+          workspace
+              .files()
+              .upload(
+                  new UploadRequest()
+                      .setFilePath(directoryPath + "/file3.txt")
+                      .setContents(createInputStream(fileContents)));
 
           // List the contents of the root of the volume.
           Iterable<DirectoryEntry> directoryEntriesIterable =
@@ -115,7 +146,9 @@ public class FilesIT {
         workspace,
         (volumePath) -> {
           String directoryPath = NameUtils.uniqueName(volumePath + "/some-directory");
-          workspace.files().createDirectory(directoryPath);
+          workspace
+              .files()
+              .createDirectory(new CreateDirectoryRequest().setDirectoryPath(directoryPath));
           workspace.files().deleteDirectory(directoryPath);
         });
   }
@@ -126,7 +159,9 @@ public class FilesIT {
         workspace,
         (volumePath) -> {
           String directoryPath = NameUtils.uniqueName(volumePath + "/some-directory");
-          workspace.files().createDirectory(directoryPath);
+          workspace
+              .files()
+              .createDirectory(new CreateDirectoryRequest().setDirectoryPath(directoryPath));
           workspace.files().getDirectoryMetadata(directoryPath);
         });
   }

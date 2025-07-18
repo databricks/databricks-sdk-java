@@ -27,10 +27,6 @@ public class ProvidersAPI {
     impl = mock;
   }
 
-  public ProviderInfo create(String name, AuthenticationType authenticationType) {
-    return create(new CreateProvider().setName(name).setAuthenticationType(authenticationType));
-  }
-
   /**
    * Creates a new authentication provider minimally based on a name and authentication type. The
    * caller must be an admin on the metastore.
@@ -126,10 +122,6 @@ public class ProvidersAPI {
           }
           return request.setPageToken(token);
         });
-  }
-
-  public ProviderInfo update(String name) {
-    return update(new UpdateProvider().setName(name));
   }
 
   /**

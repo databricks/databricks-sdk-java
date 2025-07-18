@@ -39,10 +39,6 @@ public class RecipientsAPI {
     impl = mock;
   }
 
-  public RecipientInfo create(String name, AuthenticationType authenticationType) {
-    return create(new CreateRecipient().setName(name).setAuthenticationType(authenticationType));
-  }
-
   /**
    * Creates a new recipient with the delta sharing authentication type in the metastore. The caller
    * must be a metastore admin or have the **CREATE_RECIPIENT** privilege on the metastore.
@@ -100,13 +96,6 @@ public class RecipientsAPI {
         });
   }
 
-  public RecipientInfo rotateToken(String name, long existingTokenExpireInSeconds) {
-    return rotateToken(
-        new RotateRecipientToken()
-            .setName(name)
-            .setExistingTokenExpireInSeconds(existingTokenExpireInSeconds));
-  }
-
   /**
    * Refreshes the specified recipient's delta sharing authentication token with the provided token
    * info. The caller must be the owner of the recipient.
@@ -125,10 +114,6 @@ public class RecipientsAPI {
    */
   public GetRecipientSharePermissionsResponse sharePermissions(SharePermissionsRequest request) {
     return impl.sharePermissions(request);
-  }
-
-  public RecipientInfo update(String name) {
-    return update(new UpdateRecipient().setName(name));
   }
 
   /**

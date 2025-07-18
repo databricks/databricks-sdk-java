@@ -42,15 +42,6 @@ public class PersonalComputeAPI {
     return impl.get(request);
   }
 
-  public PersonalComputeSetting update(
-      boolean allowMissing, PersonalComputeSetting setting, String fieldMask) {
-    return update(
-        new UpdatePersonalComputeSettingRequest()
-            .setAllowMissing(allowMissing)
-            .setSetting(setting)
-            .setFieldMask(fieldMask));
-  }
-
   /** Updates the value of the Personal Compute setting. */
   public PersonalComputeSetting update(UpdatePersonalComputeSettingRequest request) {
     return impl.update(request);

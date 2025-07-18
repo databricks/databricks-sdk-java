@@ -23,13 +23,6 @@ public class PrivateAccessAPI {
     impl = mock;
   }
 
-  public PrivateAccessSettings create(String privateAccessSettingsName, String region) {
-    return create(
-        new UpsertPrivateAccessSettingsRequest()
-            .setPrivateAccessSettingsName(privateAccessSettingsName)
-            .setRegion(region));
-  }
-
   /**
    * Creates a private access settings object, which specifies how your workspace is accessed over
    * [AWS PrivateLink]. To use AWS PrivateLink, a workspace must have a private access settings
@@ -88,15 +81,6 @@ public class PrivateAccessAPI {
   /** Gets a list of all private access settings objects for an account, specified by ID. */
   public Iterable<PrivateAccessSettings> list() {
     return impl.list();
-  }
-
-  public void replace(
-      String privateAccessSettingsId, String privateAccessSettingsName, String region) {
-    replace(
-        new UpsertPrivateAccessSettingsRequest()
-            .setPrivateAccessSettingsId(privateAccessSettingsId)
-            .setPrivateAccessSettingsName(privateAccessSettingsName)
-            .setRegion(region));
   }
 
   /**

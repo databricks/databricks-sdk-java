@@ -35,15 +35,6 @@ public class LlmProxyPartnerPoweredWorkspaceAPI {
     return impl.get(request);
   }
 
-  public LlmProxyPartnerPoweredWorkspace update(
-      boolean allowMissing, LlmProxyPartnerPoweredWorkspace setting, String fieldMask) {
-    return update(
-        new UpdateLlmProxyPartnerPoweredWorkspaceRequest()
-            .setAllowMissing(allowMissing)
-            .setSetting(setting)
-            .setFieldMask(fieldMask));
-  }
-
   /** Updates the enable partner powered AI features workspace setting. */
   public LlmProxyPartnerPoweredWorkspace update(
       UpdateLlmProxyPartnerPoweredWorkspaceRequest request) {

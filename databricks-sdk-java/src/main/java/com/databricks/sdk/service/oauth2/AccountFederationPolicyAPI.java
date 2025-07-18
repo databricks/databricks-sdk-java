@@ -66,10 +66,6 @@ public class AccountFederationPolicyAPI {
     impl = mock;
   }
 
-  public FederationPolicy create(FederationPolicy policy) {
-    return create(new CreateAccountFederationPolicyRequest().setPolicy(policy));
-  }
-
   /** Create account federation policy. */
   public FederationPolicy create(CreateAccountFederationPolicyRequest request) {
     return impl.create(request);
@@ -106,11 +102,6 @@ public class AccountFederationPolicyAPI {
           }
           return request.setPageToken(token);
         });
-  }
-
-  public FederationPolicy update(String policyId, FederationPolicy policy) {
-    return update(
-        new UpdateAccountFederationPolicyRequest().setPolicyId(policyId).setPolicy(policy));
   }
 
   /** Update account federation policy. */

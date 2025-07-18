@@ -40,10 +40,6 @@ public class QueryVisualizationsAPI {
     impl.delete(request);
   }
 
-  public Visualization update(String id, String updateMask) {
-    return update(new UpdateVisualizationRequest().setId(id).setUpdateMask(updateMask));
-  }
-
   /** Updates a visualization. */
   public Visualization update(UpdateVisualizationRequest request) {
     return impl.update(request);

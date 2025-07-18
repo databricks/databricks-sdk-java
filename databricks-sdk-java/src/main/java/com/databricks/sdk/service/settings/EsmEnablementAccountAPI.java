@@ -33,15 +33,6 @@ public class EsmEnablementAccountAPI {
     return impl.get(request);
   }
 
-  public EsmEnablementAccountSetting update(
-      boolean allowMissing, EsmEnablementAccountSetting setting, String fieldMask) {
-    return update(
-        new UpdateEsmEnablementAccountSettingRequest()
-            .setAllowMissing(allowMissing)
-            .setSetting(setting)
-            .setFieldMask(fieldMask));
-  }
-
   /** Updates the value of the enhanced security monitoring setting for new workspaces. */
   public EsmEnablementAccountSetting update(UpdateEsmEnablementAccountSettingRequest request) {
     return impl.update(request);

@@ -27,10 +27,6 @@ public class DbfsAPI {
     impl = mock;
   }
 
-  public void addBlock(long handle, String data) {
-    addBlock(new AddBlock().setHandle(handle).setData(data));
-  }
-
   /**
    * Appends a block of data to the stream specified by the input handle. If the handle does not
    * exist, this call will throw an exception with ``RESOURCE_DOES_NOT_EXIST``.
@@ -54,10 +50,6 @@ public class DbfsAPI {
     impl.close(request);
   }
 
-  public CreateResponse create(String path) {
-    return create(new Create().setPath(path));
-  }
-
   /**
    * Opens a stream to write to a file and returns a handle to this stream. There is a 10 minute
    * idle timeout on this handle. If a file or directory already exists on the given path and
@@ -71,10 +63,6 @@ public class DbfsAPI {
    */
   public CreateResponse create(Create request) {
     return impl.create(request);
-  }
-
-  public void delete(String path) {
-    delete(new Delete().setPath(path));
   }
 
   /**
@@ -143,10 +131,6 @@ public class DbfsAPI {
     impl.mkdirs(request);
   }
 
-  public void move(String sourcePath, String destinationPath) {
-    move(new Move().setSourcePath(sourcePath).setDestinationPath(destinationPath));
-  }
-
   /**
    * Moves a file from one location to another location within DBFS. If the source file does not
    * exist, this call throws an exception with `RESOURCE_DOES_NOT_EXIST`. If a file already exists
@@ -155,10 +139,6 @@ public class DbfsAPI {
    */
   public void move(Move request) {
     impl.move(request);
-  }
-
-  public void put(String path) {
-    put(new Put().setPath(path));
   }
 
   /**

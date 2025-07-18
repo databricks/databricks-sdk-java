@@ -4,7 +4,6 @@ package com.databricks.sdk.service.compute;
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
-import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,20 +68,12 @@ public class LibrariesAPI {
         request, impl::clusterStatus, ClusterLibraryStatuses::getLibraryStatuses, response -> null);
   }
 
-  public void install(String clusterId, Collection<Library> libraries) {
-    install(new InstallLibraries().setClusterId(clusterId).setLibraries(libraries));
-  }
-
   /**
    * Add libraries to install on a cluster. The installation is asynchronous; it happens in the
    * background after the completion of this request.
    */
   public void install(InstallLibraries request) {
     impl.install(request);
-  }
-
-  public void uninstall(String clusterId, Collection<Library> libraries) {
-    uninstall(new UninstallLibraries().setClusterId(clusterId).setLibraries(libraries));
   }
 
   /**

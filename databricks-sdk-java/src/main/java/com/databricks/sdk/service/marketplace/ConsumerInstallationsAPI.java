@@ -26,10 +26,6 @@ public class ConsumerInstallationsAPI {
     impl = mock;
   }
 
-  public Installation create(String listingId) {
-    return create(new CreateInstallationRequest().setListingId(listingId));
-  }
-
   /** Install payload associated with a Databricks Marketplace listing. */
   public Installation create(CreateInstallationRequest request) {
     return impl.create(request);
@@ -77,15 +73,6 @@ public class ConsumerInstallationsAPI {
           }
           return request.setPageToken(token);
         });
-  }
-
-  public UpdateInstallationResponse update(
-      String listingId, String installationId, InstallationDetail installation) {
-    return update(
-        new UpdateInstallationRequest()
-            .setListingId(listingId)
-            .setInstallationId(installationId)
-            .setInstallation(installation));
   }
 
   /**

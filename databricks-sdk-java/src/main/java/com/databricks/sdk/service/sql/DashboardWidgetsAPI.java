@@ -26,11 +26,6 @@ public class DashboardWidgetsAPI {
     impl = mock;
   }
 
-  public Widget create(String dashboardId, WidgetOptions options, long width) {
-    return create(
-        new CreateWidget().setDashboardId(dashboardId).setOptions(options).setWidth(width));
-  }
-
   /** Adds a widget to a dashboard */
   public Widget create(CreateWidget request) {
     return impl.create(request);
@@ -43,15 +38,6 @@ public class DashboardWidgetsAPI {
   /** Removes a widget from a dashboard */
   public void delete(DeleteDashboardWidgetRequest request) {
     impl.delete(request);
-  }
-
-  public Widget update(String id, String dashboardId, WidgetOptions options, long width) {
-    return update(
-        new UpdateWidgetRequest()
-            .setId(id)
-            .setDashboardId(dashboardId)
-            .setOptions(options)
-            .setWidth(width));
   }
 
   /** Updates an existing widget */

@@ -31,10 +31,6 @@ public class FeatureStoreAPI {
     impl = mock;
   }
 
-  public OnlineStore createOnlineStore(OnlineStore onlineStore) {
-    return createOnlineStore(new CreateOnlineStoreRequest().setOnlineStore(onlineStore));
-  }
-
   /** Create an Online Feature Store. */
   public OnlineStore createOnlineStore(CreateOnlineStoreRequest request) {
     return impl.createOnlineStore(request);
@@ -73,22 +69,9 @@ public class FeatureStoreAPI {
         });
   }
 
-  public PublishTableResponse publishTable(String sourceTableName, PublishSpec publishSpec) {
-    return publishTable(
-        new PublishTableRequest().setSourceTableName(sourceTableName).setPublishSpec(publishSpec));
-  }
-
   /** Publish features. */
   public PublishTableResponse publishTable(PublishTableRequest request) {
     return impl.publishTable(request);
-  }
-
-  public OnlineStore updateOnlineStore(String name, OnlineStore onlineStore, String updateMask) {
-    return updateOnlineStore(
-        new UpdateOnlineStoreRequest()
-            .setName(name)
-            .setOnlineStore(onlineStore)
-            .setUpdateMask(updateMask));
   }
 
   /** Update an Online Feature Store. */

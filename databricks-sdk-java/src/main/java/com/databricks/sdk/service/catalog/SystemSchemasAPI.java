@@ -40,10 +40,6 @@ public class SystemSchemasAPI {
     impl.disable(request);
   }
 
-  public void enable(String metastoreId, String schemaName) {
-    enable(new EnableRequest().setMetastoreId(metastoreId).setSchemaName(schemaName));
-  }
-
   /**
    * Enables the system schema and adds it to the system catalog. The caller must be an account
    * admin or a metastore admin.

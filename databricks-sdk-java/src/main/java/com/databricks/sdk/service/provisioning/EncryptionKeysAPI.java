@@ -3,7 +3,6 @@ package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
-import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,10 +35,6 @@ public class EncryptionKeysAPI {
   /** Constructor for mocks */
   public EncryptionKeysAPI(EncryptionKeysService mock) {
     impl = mock;
-  }
-
-  public CustomerManagedKey create(Collection<KeyUseCase> useCases) {
-    return create(new CreateCustomerManagedKeyRequest().setUseCases(useCases));
   }
 
   /**

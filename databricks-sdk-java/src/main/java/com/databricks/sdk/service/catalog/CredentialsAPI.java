@@ -32,10 +32,6 @@ public class CredentialsAPI {
     impl = mock;
   }
 
-  public CredentialInfo createCredential(String name) {
-    return createCredential(new CreateCredentialRequest().setName(name));
-  }
-
   /**
    * Creates a new credential. The type of credential to be created is determined by the **purpose**
    * field, which should be either **SERVICE** or **STORAGE**.
@@ -58,11 +54,6 @@ public class CredentialsAPI {
    */
   public void deleteCredential(DeleteCredentialRequest request) {
     impl.deleteCredential(request);
-  }
-
-  public TemporaryCredentials generateTemporaryServiceCredential(String credentialName) {
-    return generateTemporaryServiceCredential(
-        new GenerateTemporaryServiceCredentialRequest().setCredentialName(credentialName));
   }
 
   /**
@@ -106,10 +97,6 @@ public class CredentialsAPI {
           }
           return request.setPageToken(token);
         });
-  }
-
-  public CredentialInfo updateCredential(String nameArg) {
-    return updateCredential(new UpdateCredentialRequest().setNameArg(nameArg));
   }
 
   /**

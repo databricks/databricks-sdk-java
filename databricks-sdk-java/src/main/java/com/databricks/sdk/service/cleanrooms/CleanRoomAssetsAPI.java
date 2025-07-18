@@ -27,11 +27,6 @@ public class CleanRoomAssetsAPI {
     impl = mock;
   }
 
-  public CleanRoomAsset create(String cleanRoomName, CleanRoomAsset asset) {
-    return create(
-        new CreateCleanRoomAssetRequest().setCleanRoomName(cleanRoomName).setAsset(asset));
-  }
-
   /**
    * Create a clean room asset —share an asset like a notebook or table into the clean room. For
    * each UC asset that is added through this method, the clean room owner must also have enough
@@ -86,16 +81,6 @@ public class CleanRoomAssetsAPI {
           }
           return request.setPageToken(token);
         });
-  }
-
-  public CleanRoomAsset update(
-      String cleanRoomName, CleanRoomAssetAssetType assetType, String name, CleanRoomAsset asset) {
-    return update(
-        new UpdateCleanRoomAssetRequest()
-            .setCleanRoomName(cleanRoomName)
-            .setAssetType(assetType)
-            .setName(name)
-            .setAsset(asset));
   }
 
   /**

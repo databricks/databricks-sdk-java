@@ -27,10 +27,6 @@ public class TokenManagementAPI {
     impl = mock;
   }
 
-  public CreateOboTokenResponse createOboToken(String applicationId) {
-    return createOboToken(new CreateOboTokenRequest().setApplicationId(applicationId));
-  }
-
   /** Creates a token on behalf of a service principal. */
   public CreateOboTokenResponse createOboToken(CreateOboTokenRequest request) {
     return impl.createOboToken(request);

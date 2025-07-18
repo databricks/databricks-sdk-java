@@ -54,10 +54,6 @@ public class AccountAccessControlAPI {
     return impl.getRuleSet(request);
   }
 
-  public RuleSetResponse updateRuleSet(String name, RuleSetUpdateRequest ruleSet) {
-    return updateRuleSet(new UpdateRuleSetRequest().setName(name).setRuleSet(ruleSet));
-  }
-
   /**
    * Replace the rules of a rule set. First, use get to read the current version of the rule set
    * before modifying it. This pattern helps prevent conflicts between concurrent updates.
