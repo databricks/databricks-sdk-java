@@ -89,6 +89,9 @@ public interface ExperimentsService {
   /** Get a logged model. */
   GetLoggedModelResponse getLoggedModel(GetLoggedModelRequest getLoggedModelRequest);
 
+  /** Batch endpoint for getting logged models from a list of model IDs */
+  GetLoggedModelsRequestResponse getLoggedModels(GetLoggedModelsRequest getLoggedModelsRequest);
+
   /** Gets the permission levels that a user can have on an object. */
   GetExperimentPermissionLevelsResponse getPermissionLevels(
       GetExperimentPermissionLevelsRequest getExperimentPermissionLevelsRequest);

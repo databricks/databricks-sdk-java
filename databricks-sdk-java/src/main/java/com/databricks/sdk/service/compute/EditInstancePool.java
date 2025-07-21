@@ -20,6 +20,13 @@ public class EditInstancePool {
   private Map<String, String> customTags;
 
   /**
+   * For pools with node type flexibility (Fleet-V2), whether auto generated alternate node type ids
+   * are enabled. This field should not be true if node_type_flexibility is set.
+   */
+  @JsonProperty("enable_auto_alternate_node_types")
+  private Boolean enableAutoAlternateNodeTypes;
+
+  /**
    * Automatically terminates the extra instances in the pool cache after they are inactive for this
    * time in minutes if min_idle_instances requirement is already met. If not set, the extra pool
    * instances will be automatically terminated after a default timeout. If specified, the threshold
@@ -53,6 +60,14 @@ public class EditInstancePool {
   private Long minIdleInstances;
 
   /**
+   * For pools with node type flexibility (Fleet-V2), this object contains the information about the
+   * alternate node type ids to use when attempting to launch a cluster if the node type id is not
+   * available. This field should not be set if enable_auto_alternate_node_types is true.
+   */
+  @JsonProperty("node_type_flexibility")
+  private NodeTypeFlexibility nodeTypeFlexibility;
+
+  /**
    * This field encodes, through a single value, the resources available to each of the Spark nodes
    * in this cluster. For example, the Spark nodes can be provisioned and optimized for memory or
    * compute intensive workloads. A list of available node types can be retrieved by using the
@@ -82,6 +97,15 @@ public class EditInstancePool {
 
   public Map<String, String> getCustomTags() {
     return customTags;
+  }
+
+  public EditInstancePool setEnableAutoAlternateNodeTypes(Boolean enableAutoAlternateNodeTypes) {
+    this.enableAutoAlternateNodeTypes = enableAutoAlternateNodeTypes;
+    return this;
+  }
+
+  public Boolean getEnableAutoAlternateNodeTypes() {
+    return enableAutoAlternateNodeTypes;
   }
 
   public EditInstancePool setIdleInstanceAutoterminationMinutes(
@@ -130,6 +154,15 @@ public class EditInstancePool {
     return minIdleInstances;
   }
 
+  public EditInstancePool setNodeTypeFlexibility(NodeTypeFlexibility nodeTypeFlexibility) {
+    this.nodeTypeFlexibility = nodeTypeFlexibility;
+    return this;
+  }
+
+  public NodeTypeFlexibility getNodeTypeFlexibility() {
+    return nodeTypeFlexibility;
+  }
+
   public EditInstancePool setNodeTypeId(String nodeTypeId) {
     this.nodeTypeId = nodeTypeId;
     return this;
@@ -163,12 +196,14 @@ public class EditInstancePool {
     if (o == null || getClass() != o.getClass()) return false;
     EditInstancePool that = (EditInstancePool) o;
     return Objects.equals(customTags, that.customTags)
+        && Objects.equals(enableAutoAlternateNodeTypes, that.enableAutoAlternateNodeTypes)
         && Objects.equals(
             idleInstanceAutoterminationMinutes, that.idleInstanceAutoterminationMinutes)
         && Objects.equals(instancePoolId, that.instancePoolId)
         && Objects.equals(instancePoolName, that.instancePoolName)
         && Objects.equals(maxCapacity, that.maxCapacity)
         && Objects.equals(minIdleInstances, that.minIdleInstances)
+        && Objects.equals(nodeTypeFlexibility, that.nodeTypeFlexibility)
         && Objects.equals(nodeTypeId, that.nodeTypeId)
         && Objects.equals(remoteDiskThroughput, that.remoteDiskThroughput)
         && Objects.equals(totalInitialRemoteDiskSize, that.totalInitialRemoteDiskSize);
@@ -178,11 +213,13 @@ public class EditInstancePool {
   public int hashCode() {
     return Objects.hash(
         customTags,
+        enableAutoAlternateNodeTypes,
         idleInstanceAutoterminationMinutes,
         instancePoolId,
         instancePoolName,
         maxCapacity,
         minIdleInstances,
+        nodeTypeFlexibility,
         nodeTypeId,
         remoteDiskThroughput,
         totalInitialRemoteDiskSize);
@@ -192,11 +229,13 @@ public class EditInstancePool {
   public String toString() {
     return new ToStringer(EditInstancePool.class)
         .add("customTags", customTags)
+        .add("enableAutoAlternateNodeTypes", enableAutoAlternateNodeTypes)
         .add("idleInstanceAutoterminationMinutes", idleInstanceAutoterminationMinutes)
         .add("instancePoolId", instancePoolId)
         .add("instancePoolName", instancePoolName)
         .add("maxCapacity", maxCapacity)
         .add("minIdleInstances", minIdleInstances)
+        .add("nodeTypeFlexibility", nodeTypeFlexibility)
         .add("nodeTypeId", nodeTypeId)
         .add("remoteDiskThroughput", remoteDiskThroughput)
         .add("totalInitialRemoteDiskSize", totalInitialRemoteDiskSize)

@@ -62,6 +62,12 @@ public interface PipelinesService {
   ListUpdatesResponse listUpdates(ListUpdatesRequest listUpdatesRequest);
 
   /**
+   * * Restores a pipeline that was previously deleted, if within the restoration window. All tables
+   * deleted at pipeline deletion will be undropped as well.
+   */
+  RestorePipelineRequestResponse restorePipeline(RestorePipelineRequest restorePipelineRequest);
+
+  /**
    * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
    * permissions if none are specified. Objects can inherit permissions from their root object.
    */

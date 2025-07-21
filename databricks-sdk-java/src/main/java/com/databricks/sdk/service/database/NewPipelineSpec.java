@@ -13,6 +13,10 @@ import java.util.Objects;
  */
 @Generated
 public class NewPipelineSpec {
+  /** Budget policy of this pipeline. */
+  @JsonProperty("budget_policy_id")
+  private String budgetPolicyId;
+
   /**
    * This field needs to be specified if the destination catalog is a managed postgres catalog.
    *
@@ -30,6 +34,15 @@ public class NewPipelineSpec {
    */
   @JsonProperty("storage_schema")
   private String storageSchema;
+
+  public NewPipelineSpec setBudgetPolicyId(String budgetPolicyId) {
+    this.budgetPolicyId = budgetPolicyId;
+    return this;
+  }
+
+  public String getBudgetPolicyId() {
+    return budgetPolicyId;
+  }
 
   public NewPipelineSpec setStorageCatalog(String storageCatalog) {
     this.storageCatalog = storageCatalog;
@@ -54,18 +67,20 @@ public class NewPipelineSpec {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     NewPipelineSpec that = (NewPipelineSpec) o;
-    return Objects.equals(storageCatalog, that.storageCatalog)
+    return Objects.equals(budgetPolicyId, that.budgetPolicyId)
+        && Objects.equals(storageCatalog, that.storageCatalog)
         && Objects.equals(storageSchema, that.storageSchema);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(storageCatalog, storageSchema);
+    return Objects.hash(budgetPolicyId, storageCatalog, storageSchema);
   }
 
   @Override
   public String toString() {
     return new ToStringer(NewPipelineSpec.class)
+        .add("budgetPolicyId", budgetPolicyId)
         .add("storageCatalog", storageCatalog)
         .add("storageSchema", storageSchema)
         .toString();

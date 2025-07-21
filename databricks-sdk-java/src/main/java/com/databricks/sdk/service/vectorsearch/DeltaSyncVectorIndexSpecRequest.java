@@ -18,6 +18,10 @@ public class DeltaSyncVectorIndexSpecRequest {
   @JsonProperty("columns_to_sync")
   private Collection<String> columnsToSync;
 
+  /** The budget policy id applied to the vector search index */
+  @JsonProperty("effective_budget_policy_id")
+  private String effectiveBudgetPolicyId;
+
   /** The columns that contain the embedding source. */
   @JsonProperty("embedding_source_columns")
   private Collection<EmbeddingSourceColumn> embeddingSourceColumns;
@@ -54,6 +58,16 @@ public class DeltaSyncVectorIndexSpecRequest {
 
   public Collection<String> getColumnsToSync() {
     return columnsToSync;
+  }
+
+  public DeltaSyncVectorIndexSpecRequest setEffectiveBudgetPolicyId(
+      String effectiveBudgetPolicyId) {
+    this.effectiveBudgetPolicyId = effectiveBudgetPolicyId;
+    return this;
+  }
+
+  public String getEffectiveBudgetPolicyId() {
+    return effectiveBudgetPolicyId;
   }
 
   public DeltaSyncVectorIndexSpecRequest setEmbeddingSourceColumns(
@@ -110,6 +124,7 @@ public class DeltaSyncVectorIndexSpecRequest {
     if (o == null || getClass() != o.getClass()) return false;
     DeltaSyncVectorIndexSpecRequest that = (DeltaSyncVectorIndexSpecRequest) o;
     return Objects.equals(columnsToSync, that.columnsToSync)
+        && Objects.equals(effectiveBudgetPolicyId, that.effectiveBudgetPolicyId)
         && Objects.equals(embeddingSourceColumns, that.embeddingSourceColumns)
         && Objects.equals(embeddingVectorColumns, that.embeddingVectorColumns)
         && Objects.equals(embeddingWritebackTable, that.embeddingWritebackTable)
@@ -121,6 +136,7 @@ public class DeltaSyncVectorIndexSpecRequest {
   public int hashCode() {
     return Objects.hash(
         columnsToSync,
+        effectiveBudgetPolicyId,
         embeddingSourceColumns,
         embeddingVectorColumns,
         embeddingWritebackTable,
@@ -132,6 +148,7 @@ public class DeltaSyncVectorIndexSpecRequest {
   public String toString() {
     return new ToStringer(DeltaSyncVectorIndexSpecRequest.class)
         .add("columnsToSync", columnsToSync)
+        .add("effectiveBudgetPolicyId", effectiveBudgetPolicyId)
         .add("embeddingSourceColumns", embeddingSourceColumns)
         .add("embeddingVectorColumns", embeddingVectorColumns)
         .add("embeddingWritebackTable", embeddingWritebackTable)

@@ -40,6 +40,8 @@ import com.databricks.sdk.service.catalog.QualityMonitorsAPI;
 import com.databricks.sdk.service.catalog.QualityMonitorsService;
 import com.databricks.sdk.service.catalog.RegisteredModelsAPI;
 import com.databricks.sdk.service.catalog.RegisteredModelsService;
+import com.databricks.sdk.service.catalog.RequestForAccessAPI;
+import com.databricks.sdk.service.catalog.RequestForAccessService;
 import com.databricks.sdk.service.catalog.ResourceQuotasAPI;
 import com.databricks.sdk.service.catalog.ResourceQuotasService;
 import com.databricks.sdk.service.catalog.SchemasAPI;
@@ -87,6 +89,8 @@ import com.databricks.sdk.service.dashboards.LakeviewAPI;
 import com.databricks.sdk.service.dashboards.LakeviewEmbeddedAPI;
 import com.databricks.sdk.service.dashboards.LakeviewEmbeddedService;
 import com.databricks.sdk.service.dashboards.LakeviewService;
+import com.databricks.sdk.service.dashboards.QueryExecutionAPI;
+import com.databricks.sdk.service.dashboards.QueryExecutionService;
 import com.databricks.sdk.service.database.DatabaseAPI;
 import com.databricks.sdk.service.database.DatabaseService;
 import com.databricks.sdk.service.files.DbfsService;
@@ -170,6 +174,8 @@ import com.databricks.sdk.service.settings.TokensAPI;
 import com.databricks.sdk.service.settings.TokensService;
 import com.databricks.sdk.service.settings.WorkspaceConfAPI;
 import com.databricks.sdk.service.settings.WorkspaceConfService;
+import com.databricks.sdk.service.settingsv2.WorkspaceSettingsV2API;
+import com.databricks.sdk.service.settingsv2.WorkspaceSettingsV2Service;
 import com.databricks.sdk.service.sharing.ProvidersAPI;
 import com.databricks.sdk.service.sharing.ProvidersService;
 import com.databricks.sdk.service.sharing.RecipientActivationAPI;
@@ -302,6 +308,7 @@ public class WorkspaceClient {
   private QualityMonitorsAPI qualityMonitorsAPI;
   private QueriesAPI queriesAPI;
   private QueriesLegacyAPI queriesLegacyAPI;
+  private QueryExecutionAPI queryExecutionAPI;
   private QueryHistoryAPI queryHistoryAPI;
   private QueryVisualizationsAPI queryVisualizationsAPI;
   private QueryVisualizationsLegacyAPI queryVisualizationsLegacyAPI;
@@ -311,6 +318,7 @@ public class WorkspaceClient {
   private RedashConfigAPI redashConfigAPI;
   private RegisteredModelsAPI registeredModelsAPI;
   private ReposAPI reposAPI;
+  private RequestForAccessAPI requestForAccessAPI;
   private ResourceQuotasAPI resourceQuotasAPI;
   private SchemasAPI schemasAPI;
   private SecretsExt secretsAPI;
@@ -336,6 +344,7 @@ public class WorkspaceClient {
   private WorkspaceAPI workspaceAPI;
   private WorkspaceBindingsAPI workspaceBindingsAPI;
   private WorkspaceConfAPI workspaceConfAPI;
+  private WorkspaceSettingsV2API workspaceSettingsV2API;
   private ForecastingAPI forecastingAPI;
 
   public WorkspaceClient() {
@@ -418,6 +427,7 @@ public class WorkspaceClient {
     qualityMonitorsAPI = new QualityMonitorsAPI(apiClient);
     queriesAPI = new QueriesAPI(apiClient);
     queriesLegacyAPI = new QueriesLegacyAPI(apiClient);
+    queryExecutionAPI = new QueryExecutionAPI(apiClient);
     queryHistoryAPI = new QueryHistoryAPI(apiClient);
     queryVisualizationsAPI = new QueryVisualizationsAPI(apiClient);
     queryVisualizationsLegacyAPI = new QueryVisualizationsLegacyAPI(apiClient);
@@ -427,6 +437,7 @@ public class WorkspaceClient {
     redashConfigAPI = new RedashConfigAPI(apiClient);
     registeredModelsAPI = new RegisteredModelsAPI(apiClient);
     reposAPI = new ReposAPI(apiClient);
+    requestForAccessAPI = new RequestForAccessAPI(apiClient);
     resourceQuotasAPI = new ResourceQuotasAPI(apiClient);
     schemasAPI = new SchemasAPI(apiClient);
     secretsAPI = new SecretsExt(apiClient);
@@ -453,6 +464,7 @@ public class WorkspaceClient {
     workspaceAPI = new WorkspaceAPI(apiClient);
     workspaceBindingsAPI = new WorkspaceBindingsAPI(apiClient);
     workspaceConfAPI = new WorkspaceConfAPI(apiClient);
+    workspaceSettingsV2API = new WorkspaceSettingsV2API(apiClient);
     forecastingAPI = new ForecastingAPI(apiClient);
   }
 
@@ -1329,6 +1341,11 @@ public class WorkspaceClient {
     return queriesLegacyAPI;
   }
 
+  /** Query execution APIs for AI / BI Dashboards */
+  public QueryExecutionAPI queryExecution() {
+    return queryExecutionAPI;
+  }
+
   /**
    * A service responsible for storing and retrieving the list of queries run against SQL endpoints
    * and serverless compute.
@@ -1469,6 +1486,18 @@ public class WorkspaceClient {
    */
   public ReposAPI repos() {
     return reposAPI;
+  }
+
+  /**
+   * Request for Access enables customers to request access to and manage access request
+   * destinations for Unity Catalog securables.
+   *
+   * <p>These APIs provide a standardized way to update, get, and request to access request
+   * destinations. Fine-grained authorization ensures that only users with appropriate permissions
+   * can manage access request destinations.
+   */
+  public RequestForAccessAPI requestForAccess() {
+    return requestForAccessAPI;
   }
 
   /**
@@ -1862,6 +1891,11 @@ public class WorkspaceClient {
   /** This API allows updating known workspace settings for advanced users. */
   public WorkspaceConfAPI workspaceConf() {
     return workspaceConfAPI;
+  }
+
+  /** APIs to manage workspace level settings */
+  public WorkspaceSettingsV2API workspaceSettingsV2() {
+    return workspaceSettingsV2API;
   }
 
   /** The Forecasting API allows you to create and get serverless forecasting experiments */
@@ -2703,6 +2737,17 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default QueryExecutionService with a custom implementation. */
+  public WorkspaceClient withQueryExecutionImpl(QueryExecutionService queryExecution) {
+    return this.withQueryExecutionAPI(new QueryExecutionAPI(queryExecution));
+  }
+
+  /** Replace the default QueryExecutionAPI with a custom implementation. */
+  public WorkspaceClient withQueryExecutionAPI(QueryExecutionAPI queryExecution) {
+    this.queryExecutionAPI = queryExecution;
+    return this;
+  }
+
   /** Replace the default QueryHistoryService with a custom implementation. */
   public WorkspaceClient withQueryHistoryImpl(QueryHistoryService queryHistory) {
     return this.withQueryHistoryAPI(new QueryHistoryAPI(queryHistory));
@@ -2807,6 +2852,17 @@ public class WorkspaceClient {
   /** Replace the default ReposAPI with a custom implementation. */
   public WorkspaceClient withReposAPI(ReposAPI repos) {
     this.reposAPI = repos;
+    return this;
+  }
+
+  /** Replace the default RequestForAccessService with a custom implementation. */
+  public WorkspaceClient withRequestForAccessImpl(RequestForAccessService requestForAccess) {
+    return this.withRequestForAccessAPI(new RequestForAccessAPI(requestForAccess));
+  }
+
+  /** Replace the default RequestForAccessAPI with a custom implementation. */
+  public WorkspaceClient withRequestForAccessAPI(RequestForAccessAPI requestForAccess) {
+    this.requestForAccessAPI = requestForAccess;
     return this;
   }
 
@@ -3094,6 +3150,18 @@ public class WorkspaceClient {
   /** Replace the default WorkspaceConfAPI with a custom implementation. */
   public WorkspaceClient withWorkspaceConfAPI(WorkspaceConfAPI workspaceConf) {
     this.workspaceConfAPI = workspaceConf;
+    return this;
+  }
+
+  /** Replace the default WorkspaceSettingsV2Service with a custom implementation. */
+  public WorkspaceClient withWorkspaceSettingsV2Impl(
+      WorkspaceSettingsV2Service workspaceSettingsV2) {
+    return this.withWorkspaceSettingsV2API(new WorkspaceSettingsV2API(workspaceSettingsV2));
+  }
+
+  /** Replace the default WorkspaceSettingsV2API with a custom implementation. */
+  public WorkspaceClient withWorkspaceSettingsV2API(WorkspaceSettingsV2API workspaceSettingsV2) {
+    this.workspaceSettingsV2API = workspaceSettingsV2;
     return this;
   }
 

@@ -31,6 +31,10 @@ public class AiGatewayRateLimit {
   @JsonProperty("renewal_period")
   private AiGatewayRateLimitRenewalPeriod renewalPeriod;
 
+  /** Used to specify how many tokens are allowed for a key within the renewal_period. */
+  @JsonProperty("tokens")
+  private Long tokens;
+
   public AiGatewayRateLimit setCalls(Long calls) {
     this.calls = calls;
     return this;
@@ -67,6 +71,15 @@ public class AiGatewayRateLimit {
     return renewalPeriod;
   }
 
+  public AiGatewayRateLimit setTokens(Long tokens) {
+    this.tokens = tokens;
+    return this;
+  }
+
+  public Long getTokens() {
+    return tokens;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -75,12 +88,13 @@ public class AiGatewayRateLimit {
     return Objects.equals(calls, that.calls)
         && Objects.equals(key, that.key)
         && Objects.equals(principal, that.principal)
-        && Objects.equals(renewalPeriod, that.renewalPeriod);
+        && Objects.equals(renewalPeriod, that.renewalPeriod)
+        && Objects.equals(tokens, that.tokens);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(calls, key, principal, renewalPeriod);
+    return Objects.hash(calls, key, principal, renewalPeriod, tokens);
   }
 
   @Override
@@ -90,6 +104,7 @@ public class AiGatewayRateLimit {
         .add("key", key)
         .add("principal", principal)
         .add("renewalPeriod", renewalPeriod)
+        .add("tokens", tokens)
         .toString();
   }
 }
