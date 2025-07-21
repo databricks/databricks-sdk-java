@@ -191,6 +191,18 @@ public class PipelinesAPI {
     return impl.listUpdates(request);
   }
 
+  public RestorePipelineRequestResponse restorePipeline(String pipelineId) {
+    return restorePipeline(new RestorePipelineRequest().setPipelineId(pipelineId));
+  }
+
+  /**
+   * * Restores a pipeline that was previously deleted, if within the restoration window. All tables
+   * deleted at pipeline deletion will be undropped as well.
+   */
+  public RestorePipelineRequestResponse restorePipeline(RestorePipelineRequest request) {
+    return impl.restorePipeline(request);
+  }
+
   public PipelinePermissions setPermissions(String pipelineId) {
     return setPermissions(new PipelinePermissionsRequest().setPipelineId(pipelineId));
   }

@@ -157,6 +157,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/UsageDashbo
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/WrappedCreateLogDeliveryConfiguration.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/WrappedLogDeliveryConfiguration.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/WrappedLogDeliveryConfigurations.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/AccessRequestDestinations.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/AccountMetastoreAssignmentsAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/AccountMetastoreAssignmentsImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/AccountMetastoreAssignmentsService.java linguist-generated=true
@@ -193,6 +194,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/AzureManage
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/AzureQueueStorage.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/AzureServicePrincipal.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/AzureUserDelegationSas.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/BatchCreateAccessRequestsRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/BatchCreateAccessRequestsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/CancelRefreshRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/CatalogInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/CatalogIsolationMode.java linguist-generated=true
@@ -212,6 +215,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/Connections
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ConnectionsImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ConnectionsService.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ContinuousUpdateStatus.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/CreateAccessRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/CreateAccessRequestResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/CreateCatalog.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/CreateConnection.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/CreateCredentialRequest.java linguist-generated=true
@@ -272,6 +277,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/DeltaRuntim
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/DeltaSharingScopeEnum.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/Dependency.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/DependencyList.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/DestinationType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/DisableRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/EffectivePermissionsList.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/EffectivePredictiveOptimizationFlag.java linguist-generated=true
@@ -329,6 +335,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/GenerateTem
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/GenerateTemporaryServiceCredentialRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/GenerateTemporaryTableCredentialRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/GenerateTemporaryTableCredentialResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/GetAccessRequestDestinationsRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/GetAccountMetastoreAssignmentRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/GetAccountMetastoreRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/GetAccountStorageCredentialRequest.java linguist-generated=true
@@ -432,6 +439,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/MonitorRefr
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/MonitorSnapshot.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/MonitorTimeSeries.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/NamedTableConstraint.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/NotificationDestination.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/OnlineTable.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/OnlineTableSpec.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/OnlineTableSpecContinuousSchedulingPolicy.java linguist-generated=true
@@ -447,6 +455,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/OptionSpecO
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/PermissionsChange.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/PipelineProgress.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/PrimaryKeyConstraint.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/Principal.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/PrincipalType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/Privilege.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/PrivilegeAssignment.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ProvisioningInfo.java linguist-generated=true
@@ -465,6 +475,9 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/RegisteredM
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/RegisteredModelsAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/RegisteredModelsImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/RegisteredModelsService.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/RequestForAccessAPI.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/RequestForAccessImpl.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/RequestForAccessService.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ResourceQuotasAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ResourceQuotasImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ResourceQuotasService.java linguist-generated=true
@@ -473,11 +486,15 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/SchemaInfo.
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/SchemasAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/SchemasImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/SchemasService.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/Securable.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/SecurableKind.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/SecurableKindManifest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/SecurableNotificationDestinations.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/SecurablePermissions.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/SecurableType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/SetArtifactAllowlist.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/SetRegisteredModelAliasRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/SpecialDestination.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/SseEncryptionDetails.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/SseEncryptionDetailsAlgorithm.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/StorageCredentialInfo.java linguist-generated=true
@@ -510,6 +527,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/TemporaryTa
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/TemporaryTableCredentialsService.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/TriggeredUpdateStatus.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/UnassignRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/UpdateAccessRequestDestinationsRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/UpdateCatalog.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/UpdateCatalogWorkspaceBindingsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/UpdateConnection.java linguist-generated=true
@@ -657,6 +675,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/ContextStat
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/CreateCluster.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/CreateClusterResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/CreateContext.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/CreateDefaultBaseEnvironmentRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/CreateInstancePool.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/CreateInstancePoolResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/CreatePolicy.java linguist-generated=true
@@ -668,7 +687,11 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/DataPlaneEv
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/DataPlaneEventDetailsEventType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/DataSecurityMode.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/DbfsStorageInfo.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/DefaultBaseEnvironment.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/DefaultBaseEnvironmentCache.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/DefaultBaseEnvironmentCacheStatus.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/DeleteCluster.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/DeleteDefaultBaseEnvironmentRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/DeleteGlobalInitScriptRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/DeleteInstancePool.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/DeletePolicy.java linguist-generated=true
@@ -767,6 +790,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/ListCluster
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/ListClustersSortBy.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/ListClustersSortByDirection.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/ListClustersSortByField.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/ListDefaultBaseEnvironmentsRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/ListDefaultBaseEnvironmentsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/ListGlobalInitScriptsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/ListInstancePools.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/ListInstanceProfilesResponse.java linguist-generated=true
@@ -779,9 +804,11 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/ListSortOrd
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/LocalFileInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/LogAnalyticsInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/LogSyncStatus.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/MaterializedEnvironment.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/MavenLibrary.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/NodeInstanceType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/NodeType.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/NodeTypeFlexibility.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/PendingInstanceError.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/PermanentDeleteCluster.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/PinCluster.java linguist-generated=true
@@ -795,6 +822,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/PolicyFamil
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/PolicyFamily.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/PythonPyPiLibrary.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/RCranLibrary.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/RefreshDefaultBaseEnvironmentsRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/RemoveInstanceProfile.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/ResizeCluster.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/RestartCluster.java linguist-generated=true
@@ -814,11 +842,15 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/UninstallLi
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/UnpinCluster.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/UpdateCluster.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/UpdateClusterResource.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/UpdateDefaultBaseEnvironmentRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/VolumesStorageInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/WorkloadType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/WorkspaceStorageInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/AuthorizationDetails.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/AuthorizationDetailsGrantRule.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/CancelPublishedQueryExecutionRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/CancelQueryExecutionResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/CancelQueryExecutionResponseStatus.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/CreateDashboardRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/CreateScheduleRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/CreateSubscriptionRequest.java linguist-generated=true
@@ -827,6 +859,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/Dashboar
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/DashboardView.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/DeleteScheduleRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/DeleteSubscriptionRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/Empty.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/ExecutePublishedDashboardQueryRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieAttachment.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieConversation.java linguist-generated=true
@@ -835,7 +869,11 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieCre
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieDeleteConversationRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieExecuteMessageAttachmentQueryRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieExecuteMessageQueryRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieGenerateDownloadFullQueryResultRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieGenerateDownloadFullQueryResultResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieGetConversationMessageRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieGetDownloadFullQueryResultRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieGetDownloadFullQueryResultResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieGetMessageAttachmentQueryResultRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieGetMessageQueryResultRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieGetMessageQueryResultResponse.java linguist-generated=true
@@ -855,6 +893,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieSta
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieStartConversationResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GenieTrashSpaceRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GetDashboardRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GetPublishedDashboardEmbeddedRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GetPublishedDashboardRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GetPublishedDashboardTokenInfoRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/GetPublishedDashboardTokenInfoResponse.java linguist-generated=true
@@ -877,8 +916,16 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/MessageE
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/MessageErrorType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/MessageStatus.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/MigrateDashboardRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/PendingStatus.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/PollPublishedQueryStatusRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/PollQueryStatusResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/PollQueryStatusResponseData.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/PublishRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/PublishedDashboard.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/QueryExecutionAPI.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/QueryExecutionImpl.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/QueryExecutionService.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/QueryResponseStatus.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/Result.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/Schedule.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/SchedulePauseStatus.java linguist-generated=true
@@ -886,6 +933,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/Subscrib
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/Subscription.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/SubscriptionSubscriberDestination.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/SubscriptionSubscriberUser.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/SuccessStatus.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/TextAttachment.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/TrashDashboardRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/dashboards/UnpublishDashboardRequest.java linguist-generated=true
@@ -915,6 +963,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/DeleteData
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/DeleteDatabaseTableRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/DeleteSyncedDatabaseTableRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/DeltaTableSyncInfo.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/FailoverDatabaseInstanceRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/FindDatabaseInstanceByUidRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/GenerateDatabaseCredentialRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/GetDatabaseCatalogRequest.java linguist-generated=true
@@ -922,10 +971,14 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/GetDatabas
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/GetDatabaseInstanceRoleRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/GetDatabaseTableRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/GetSyncedDatabaseTableRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/ListDatabaseCatalogsRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/ListDatabaseCatalogsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/ListDatabaseInstanceRolesRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/ListDatabaseInstanceRolesResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/ListDatabaseInstancesRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/ListDatabaseInstancesResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/ListSyncedDatabaseTablesRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/ListSyncedDatabaseTablesResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/NewPipelineSpec.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/ProvisioningInfoState.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/RequestedClaims.java linguist-generated=true
@@ -942,7 +995,9 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/SyncedTabl
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/SyncedTableState.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/SyncedTableStatus.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/SyncedTableTriggeredUpdateStatus.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/UpdateDatabaseCatalogRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/UpdateDatabaseInstanceRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/database/UpdateSyncedDatabaseTableRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/AddBlock.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/Close.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/Create.java linguist-generated=true
@@ -1189,6 +1244,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/ListJobsReques
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/ListJobsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/ListRunsRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/ListRunsResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/ModelTriggerConfiguration.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/ModelTriggerConfigurationCondition.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/NotebookOutput.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/NotebookTask.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/OutputSchemaInfo.java linguist-generated=true
@@ -1268,6 +1325,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/Task.java ling
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TaskDependency.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TaskEmailNotifications.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TaskNotificationSettings.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TaskRetryMode.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TerminationCodeCode.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TerminationDetails.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TerminationTypeType.java linguist-generated=true
@@ -1532,6 +1590,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/GetLatestVersion
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/GetLatestVersionsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/GetLoggedModelRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/GetLoggedModelResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/GetLoggedModelsRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/GetLoggedModelsRequestResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/GetMetricHistoryResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/GetModelRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/GetModelResponse.java linguist-generated=true
@@ -1786,6 +1846,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/Pipelines
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/PipelinesService.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ReportSpec.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/RestartWindow.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/RestorePipelineRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/RestorePipelineRequestResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/RunAs.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/SchemaSpec.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/Sequencing.java linguist-generated=true
@@ -1883,6 +1945,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/provisioning/Worksp
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/provisioning/WorkspacesImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/provisioning/WorkspacesService.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/qualitymonitorv2/AnomalyDetectionConfig.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/qualitymonitorv2/AnomalyDetectionJobType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/qualitymonitorv2/AnomalyDetectionRunStatus.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/qualitymonitorv2/CreateQualityMonitorRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/qualitymonitorv2/DeleteQualityMonitorRequest.java linguist-generated=true
@@ -2335,6 +2398,20 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/WorkspaceN
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/WorkspaceNetworkConfigurationImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/WorkspaceNetworkConfigurationService.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/WorkspaceNetworkOption.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/AccountSettingsV2API.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/AccountSettingsV2Impl.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/AccountSettingsV2Service.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/BooleanMessage.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/GetPublicAccountSettingRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/GetPublicWorkspaceSettingRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/IntegerMessage.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/PatchPublicAccountSettingRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/PatchPublicWorkspaceSettingRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/Setting.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/StringMessage.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/WorkspaceSettingsV2API.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/WorkspaceSettingsV2Impl.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/WorkspaceSettingsV2Service.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sharing/AuthenticationType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sharing/ColumnTypeName.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sharing/CreateFederationPolicyRequest.java linguist-generated=true
@@ -2708,6 +2785,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/Pipeli
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/QueryVectorIndexNextPageRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/QueryVectorIndexRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/QueryVectorIndexResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/RerankerConfig.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/RerankerConfigRerankerParameters.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/ResultData.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/ResultManifest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/ScanVectorIndexRequest.java linguist-generated=true

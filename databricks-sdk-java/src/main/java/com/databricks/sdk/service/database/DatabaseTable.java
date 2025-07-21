@@ -37,6 +37,10 @@ public class DatabaseTable {
   @JsonProperty("name")
   private String name;
 
+  /** Data serving REST API URL for this table */
+  @JsonProperty("table_serving_url")
+  private String tableServingUrl;
+
   public DatabaseTable setDatabaseInstanceName(String databaseInstanceName) {
     this.databaseInstanceName = databaseInstanceName;
     return this;
@@ -64,6 +68,15 @@ public class DatabaseTable {
     return name;
   }
 
+  public DatabaseTable setTableServingUrl(String tableServingUrl) {
+    this.tableServingUrl = tableServingUrl;
+    return this;
+  }
+
+  public String getTableServingUrl() {
+    return tableServingUrl;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -71,12 +84,13 @@ public class DatabaseTable {
     DatabaseTable that = (DatabaseTable) o;
     return Objects.equals(databaseInstanceName, that.databaseInstanceName)
         && Objects.equals(logicalDatabaseName, that.logicalDatabaseName)
-        && Objects.equals(name, that.name);
+        && Objects.equals(name, that.name)
+        && Objects.equals(tableServingUrl, that.tableServingUrl);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(databaseInstanceName, logicalDatabaseName, name);
+    return Objects.hash(databaseInstanceName, logicalDatabaseName, name, tableServingUrl);
   }
 
   @Override
@@ -85,6 +99,7 @@ public class DatabaseTable {
         .add("databaseInstanceName", databaseInstanceName)
         .add("logicalDatabaseName", logicalDatabaseName)
         .add("name", name)
+        .add("tableServingUrl", tableServingUrl)
         .toString();
   }
 }

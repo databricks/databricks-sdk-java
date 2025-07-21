@@ -69,6 +69,35 @@ public class LibrariesAPI {
         request, impl::clusterStatus, ClusterLibraryStatuses::getLibraryStatuses, response -> null);
   }
 
+  public DefaultBaseEnvironment createDefaultBaseEnvironment(
+      DefaultBaseEnvironment defaultBaseEnvironment) {
+    return createDefaultBaseEnvironment(
+        new CreateDefaultBaseEnvironmentRequest()
+            .setDefaultBaseEnvironment(defaultBaseEnvironment));
+  }
+
+  /**
+   * Create a default base environment within workspaces to define the environment version and a
+   * list of dependencies to be used in serverless notebooks and jobs. This process will
+   * asynchronously generate a cache to optimize dependency resolution.
+   */
+  public DefaultBaseEnvironment createDefaultBaseEnvironment(
+      CreateDefaultBaseEnvironmentRequest request) {
+    return impl.createDefaultBaseEnvironment(request);
+  }
+
+  public void deleteDefaultBaseEnvironment(String id) {
+    deleteDefaultBaseEnvironment(new DeleteDefaultBaseEnvironmentRequest().setId(id));
+  }
+
+  /**
+   * Delete the default base environment given an ID. The default base environment may be used by
+   * downstream workloads. Please ensure that the deletion is intentional.
+   */
+  public void deleteDefaultBaseEnvironment(DeleteDefaultBaseEnvironmentRequest request) {
+    impl.deleteDefaultBaseEnvironment(request);
+  }
+
   public void install(String clusterId, Collection<Library> libraries) {
     install(new InstallLibraries().setClusterId(clusterId).setLibraries(libraries));
   }
@@ -81,6 +110,34 @@ public class LibrariesAPI {
     impl.install(request);
   }
 
+  /** List default base environments defined in the workspaces for the requested user. */
+  public Iterable<DefaultBaseEnvironment> listDefaultBaseEnvironments(
+      ListDefaultBaseEnvironmentsRequest request) {
+    return new Paginator<>(
+        request,
+        impl::listDefaultBaseEnvironments,
+        ListDefaultBaseEnvironmentsResponse::getDefaultBaseEnvironments,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
+  public void refreshDefaultBaseEnvironments(Collection<String> ids) {
+    refreshDefaultBaseEnvironments(new RefreshDefaultBaseEnvironmentsRequest().setIds(ids));
+  }
+
+  /**
+   * Refresh the cached default base environments for the given IDs. This process will
+   * asynchronously regenerate the caches. The existing caches remains available until it expires.
+   */
+  public void refreshDefaultBaseEnvironments(RefreshDefaultBaseEnvironmentsRequest request) {
+    impl.refreshDefaultBaseEnvironments(request);
+  }
+
   public void uninstall(String clusterId, Collection<Library> libraries) {
     uninstall(new UninstallLibraries().setClusterId(clusterId).setLibraries(libraries));
   }
@@ -91,6 +148,19 @@ public class LibrariesAPI {
    */
   public void uninstall(UninstallLibraries request) {
     impl.uninstall(request);
+  }
+
+  public DefaultBaseEnvironment updateDefaultBaseEnvironment(String id) {
+    return updateDefaultBaseEnvironment(new UpdateDefaultBaseEnvironmentRequest().setId(id));
+  }
+
+  /**
+   * Update the default base environment for the given ID. This process will asynchronously
+   * regenerate the cache. The existing cache remains available until it expires.
+   */
+  public DefaultBaseEnvironment updateDefaultBaseEnvironment(
+      UpdateDefaultBaseEnvironmentRequest request) {
+    return impl.updateDefaultBaseEnvironment(request);
   }
 
   public LibrariesService impl() {

@@ -21,6 +21,18 @@ public class PermissionsChange {
   @JsonProperty("principal")
   private String principal;
 
+  /**
+   * An opaque internal ID that identifies the principal whose privileges should be removed.
+   *
+   * <p>This field is intended for removing privileges associated with a deleted user. When set,
+   * only the entries specified in the remove field are processed; any entries in the add field will
+   * be rejected.
+   *
+   * <p>Only one of principal or principal_id should be specified, never both at the same time.
+   */
+  @JsonProperty("principal_id")
+  private Long principalId;
+
   /** The set of privileges to remove. */
   @JsonProperty("remove")
   private Collection<String> remove;
@@ -43,6 +55,15 @@ public class PermissionsChange {
     return principal;
   }
 
+  public PermissionsChange setPrincipalId(Long principalId) {
+    this.principalId = principalId;
+    return this;
+  }
+
+  public Long getPrincipalId() {
+    return principalId;
+  }
+
   public PermissionsChange setRemove(Collection<String> remove) {
     this.remove = remove;
     return this;
@@ -59,12 +80,13 @@ public class PermissionsChange {
     PermissionsChange that = (PermissionsChange) o;
     return Objects.equals(add, that.add)
         && Objects.equals(principal, that.principal)
+        && Objects.equals(principalId, that.principalId)
         && Objects.equals(remove, that.remove);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(add, principal, remove);
+    return Objects.hash(add, principal, principalId, remove);
   }
 
   @Override
@@ -72,6 +94,7 @@ public class PermissionsChange {
     return new ToStringer(PermissionsChange.class)
         .add("add", add)
         .add("principal", principal)
+        .add("principalId", principalId)
         .add("remove", remove)
         .toString();
   }

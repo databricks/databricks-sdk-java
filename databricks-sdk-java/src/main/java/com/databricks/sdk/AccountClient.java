@@ -69,6 +69,8 @@ import com.databricks.sdk.service.settings.NetworkPoliciesAPI;
 import com.databricks.sdk.service.settings.NetworkPoliciesService;
 import com.databricks.sdk.service.settings.WorkspaceNetworkConfigurationAPI;
 import com.databricks.sdk.service.settings.WorkspaceNetworkConfigurationService;
+import com.databricks.sdk.service.settingsv2.AccountSettingsV2API;
+import com.databricks.sdk.service.settingsv2.AccountSettingsV2Service;
 import com.databricks.sdk.support.Generated;
 
 /** Entry point for accessing Databricks account-level APIs */
@@ -99,6 +101,7 @@ public class AccountClient {
   private ServicePrincipalSecretsAPI servicePrincipalSecretsAPI;
   private AccountServicePrincipalsAPI servicePrincipalsAPI;
   private AccountSettingsAPI settingsAPI;
+  private AccountSettingsV2API settingsV2API;
   private StorageAPI storageAPI;
   private AccountStorageCredentialsAPI storageCredentialsAPI;
   private UsageDashboardsAPI usageDashboardsAPI;
@@ -139,6 +142,7 @@ public class AccountClient {
     servicePrincipalSecretsAPI = new ServicePrincipalSecretsAPI(apiClient);
     servicePrincipalsAPI = new AccountServicePrincipalsAPI(apiClient);
     settingsAPI = new AccountSettingsAPI(apiClient);
+    settingsV2API = new AccountSettingsV2API(apiClient);
     storageAPI = new StorageAPI(apiClient);
     storageCredentialsAPI = new AccountStorageCredentialsAPI(apiClient);
     usageDashboardsAPI = new UsageDashboardsAPI(apiClient);
@@ -524,6 +528,11 @@ public class AccountClient {
     return settingsAPI;
   }
 
+  /** APIs to manage account level settings */
+  public AccountSettingsV2API settingsV2() {
+    return settingsV2API;
+  }
+
   /**
    * These APIs manage storage configurations for this workspace. A root storage S3 bucket in your
    * account is required to store objects like cluster logs, notebook revisions, and job results.
@@ -866,6 +875,17 @@ public class AccountClient {
   /** Replace the default AccountSettingsAPI with a custom implementation. */
   public AccountClient withSettingsAPI(AccountSettingsAPI accountSettings) {
     this.settingsAPI = accountSettings;
+    return this;
+  }
+
+  /** Replace the default AccountSettingsV2Service with a custom implementation. */
+  public AccountClient withSettingsV2Impl(AccountSettingsV2Service accountSettingsV2) {
+    return this.withSettingsV2API(new AccountSettingsV2API(accountSettingsV2));
+  }
+
+  /** Replace the default AccountSettingsV2API with a custom implementation. */
+  public AccountClient withSettingsV2API(AccountSettingsV2API accountSettingsV2) {
+    this.settingsV2API = accountSettingsV2;
     return this;
   }
 

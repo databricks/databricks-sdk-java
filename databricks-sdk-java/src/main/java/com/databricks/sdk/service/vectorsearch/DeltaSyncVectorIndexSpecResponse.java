@@ -10,6 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class DeltaSyncVectorIndexSpecResponse {
+  /** The budget policy id applied to the vector search index */
+  @JsonProperty("effective_budget_policy_id")
+  private String effectiveBudgetPolicyId;
+
   /** The columns that contain the embedding source. */
   @JsonProperty("embedding_source_columns")
   private Collection<EmbeddingSourceColumn> embeddingSourceColumns;
@@ -42,6 +46,16 @@ public class DeltaSyncVectorIndexSpecResponse {
   /** The name of the source table. */
   @JsonProperty("source_table")
   private String sourceTable;
+
+  public DeltaSyncVectorIndexSpecResponse setEffectiveBudgetPolicyId(
+      String effectiveBudgetPolicyId) {
+    this.effectiveBudgetPolicyId = effectiveBudgetPolicyId;
+    return this;
+  }
+
+  public String getEffectiveBudgetPolicyId() {
+    return effectiveBudgetPolicyId;
+  }
 
   public DeltaSyncVectorIndexSpecResponse setEmbeddingSourceColumns(
       Collection<EmbeddingSourceColumn> embeddingSourceColumns) {
@@ -105,7 +119,8 @@ public class DeltaSyncVectorIndexSpecResponse {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     DeltaSyncVectorIndexSpecResponse that = (DeltaSyncVectorIndexSpecResponse) o;
-    return Objects.equals(embeddingSourceColumns, that.embeddingSourceColumns)
+    return Objects.equals(effectiveBudgetPolicyId, that.effectiveBudgetPolicyId)
+        && Objects.equals(embeddingSourceColumns, that.embeddingSourceColumns)
         && Objects.equals(embeddingVectorColumns, that.embeddingVectorColumns)
         && Objects.equals(embeddingWritebackTable, that.embeddingWritebackTable)
         && Objects.equals(pipelineId, that.pipelineId)
@@ -116,6 +131,7 @@ public class DeltaSyncVectorIndexSpecResponse {
   @Override
   public int hashCode() {
     return Objects.hash(
+        effectiveBudgetPolicyId,
         embeddingSourceColumns,
         embeddingVectorColumns,
         embeddingWritebackTable,
@@ -127,6 +143,7 @@ public class DeltaSyncVectorIndexSpecResponse {
   @Override
   public String toString() {
     return new ToStringer(DeltaSyncVectorIndexSpecResponse.class)
+        .add("effectiveBudgetPolicyId", effectiveBudgetPolicyId)
         .add("embeddingSourceColumns", embeddingSourceColumns)
         .add("embeddingVectorColumns", embeddingVectorColumns)
         .add("embeddingWritebackTable", embeddingWritebackTable)
