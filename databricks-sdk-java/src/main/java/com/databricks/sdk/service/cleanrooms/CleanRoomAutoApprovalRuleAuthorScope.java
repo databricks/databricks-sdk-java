@@ -1,12 +1,10 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 
-package com.databricks.sdk.service.catalog;
+package com.databricks.sdk.service.cleanrooms;
 
 import com.databricks.sdk.support.Generated;
 
 @Generated
-public enum MonitorRefreshInfoTrigger {
-  MANUAL,
-  SCHEDULE,
-  UNKNOWN_TRIGGER,
+public enum CleanRoomAutoApprovalRuleAuthorScope {
+  ANY_AUTHOR,
 }

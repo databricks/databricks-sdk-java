@@ -18,7 +18,9 @@ public class UpdateDatabaseInstanceRequest {
   /** The name of the instance. This is the unique identifier for the instance. */
   @JsonIgnore private String name;
 
-  /** The list of fields to update. */
+  /**
+   * The list of fields to update. This field is not yet supported, and is ignored by the server.
+   */
   @JsonIgnore
   @QueryParam("update_mask")
   private String updateMask;

@@ -13,7 +13,10 @@ public class SharedDataObjectUpdate {
   @JsonProperty("action")
   private SharedDataObjectUpdateAction action;
 
-  /** The data object that is being added, removed, or updated. */
+  /**
+   * The data object that is being added, removed, or updated. The maximum number update data
+   * objects allowed is a 100.
+   */
   @JsonProperty("data_object")
   private SharedDataObject dataObject;
 

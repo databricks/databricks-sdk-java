@@ -10,79 +10,89 @@ import java.util.Objects;
 
 @Generated
 public class MonitorInfo {
-  /** The directory to store monitoring assets (e.g. dashboard, metric tables). */
+  /**
+   * [Create:REQ Update:IGN] Field for specifying the absolute path to a custom directory to store
+   * data-monitoring assets. Normally prepopulated to a default user location via UI and Python
+   * APIs.
+   */
   @JsonProperty("assets_dir")
   private String assetsDir;
 
   /**
-   * Name of the baseline table from which drift metrics are computed from. Columns in the monitored
-   * table should also be present in the baseline table.
+   * [Create:OPT Update:OPT] Baseline table name. Baseline data is used to compute drift from the
+   * data in the monitored `table_name`. The baseline table and the monitored table shall have the
+   * same schema.
    */
   @JsonProperty("baseline_table_name")
   private String baselineTableName;
 
-  /**
-   * Custom metrics to compute on the monitored table. These can be aggregate metrics, derived
-   * metrics (from already computed aggregate metrics), or drift metrics (comparing metrics across
-   * time windows).
-   */
+  /** [Create:OPT Update:OPT] Custom metrics. */
   @JsonProperty("custom_metrics")
   private Collection<MonitorMetric> customMetrics;
 
   /**
-   * Id of dashboard that visualizes the computed metrics. This can be empty if the monitor is in
-   * PENDING state.
+   * [Create:ERR Update:OPT] Id of dashboard that visualizes the computed metrics. This can be empty
+   * if the monitor is in PENDING state.
    */
   @JsonProperty("dashboard_id")
   private String dashboardId;
 
-  /** The data classification config for the monitor. */
+  /** [Create:OPT Update:OPT] Data classification related config. */
   @JsonProperty("data_classification_config")
   private MonitorDataClassificationConfig dataClassificationConfig;
 
   /**
-   * The full name of the drift metrics table. Format:
-   * __catalog_name__.__schema_name__.__table_name__.
+   * [Create:ERR Update:IGN] Table that stores drift metrics data. Format:
+   * `catalog.schema.table_name`.
    */
   @JsonProperty("drift_metrics_table_name")
   private String driftMetricsTableName;
 
-  /** Configuration for monitoring inference logs. */
+  /** */
   @JsonProperty("inference_log")
   private MonitorInferenceLog inferenceLog;
 
-  /** The latest failure message of the monitor (if any). */
+  /** [Create:ERR Update:IGN] The latest error message for a monitor failure. */
   @JsonProperty("latest_monitor_failure_msg")
   private String latestMonitorFailureMsg;
 
-  /** The version of the monitor config (e.g. 1,2,3). If negative, the monitor may be corrupted. */
+  /**
+   * [Create:ERR Update:IGN] Represents the current monitor configuration version in use. The
+   * version will be represented in a numeric fashion (1,2,3...). The field has flexibility to take
+   * on negative values, which can indicate corrupted monitor_version numbers.
+   */
   @JsonProperty("monitor_version")
-  private String monitorVersion;
+  private Long monitorVersion;
 
-  /** The notification settings for the monitor. */
+  /** [Create:OPT Update:OPT] Field for specifying notification settings. */
   @JsonProperty("notifications")
   private MonitorNotifications notifications;
 
-  /** Schema where output metric tables are created. */
+  /**
+   * [Create:REQ Update:REQ] Schema where output tables are created. Needs to be in 2-level format
+   * {catalog}.{schema}
+   */
   @JsonProperty("output_schema_name")
   private String outputSchemaName;
 
   /**
-   * The full name of the profile metrics table. Format:
-   * __catalog_name__.__schema_name__.__table_name__.
+   * [Create:ERR Update:IGN] Table that stores profile metrics data. Format:
+   * `catalog.schema.table_name`.
    */
   @JsonProperty("profile_metrics_table_name")
   private String profileMetricsTableName;
 
-  /** The schedule for automatically updating and refreshing metric tables. */
+  /** [Create:OPT Update:OPT] The monitor schedule. */
   @JsonProperty("schedule")
   private MonitorCronSchedule schedule;
 
   /**
-   * List of column expressions to slice data with for targeted analysis. The data is grouped by
-   * each expression independently, resulting in a separate slice for each predicate and its
-   * complements. For high-cardinality columns, only the top 100 unique values by frequency will
-   * generate slices.
+   * [Create:OPT Update:OPT] List of column expressions to slice data with for targeted analysis.
+   * The data is grouped by each expression independently, resulting in a separate slice for each
+   * predicate and its complements. For example `slicing_exprs=[“col_1”, “col_2 > 10”]` will
+   * generate the following slices: two slices for `col_2 > 10` (True and False), and one slice per
+   * unique value in `col1`. For high-cardinality columns, only the top 100 unique values by
+   * frequency will generate slices.
    */
   @JsonProperty("slicing_exprs")
   private Collection<String> slicingExprs;
@@ -91,13 +101,11 @@ public class MonitorInfo {
   @JsonProperty("snapshot")
   private MonitorSnapshot snapshot;
 
-  /** */
+  /** [Create:ERR Update:IGN] The monitor status. */
   @JsonProperty("status")
   private MonitorInfoStatus status;
 
-  /**
-   * The full name of the table to monitor. Format: __catalog_name__.__schema_name__.__table_name__.
-   */
+  /** [Create:ERR Update:IGN] UC table to monitor. Format: `catalog.schema.table_name` */
   @JsonProperty("table_name")
   private String tableName;
 
@@ -178,12 +186,12 @@ public class MonitorInfo {
     return latestMonitorFailureMsg;
   }
 
-  public MonitorInfo setMonitorVersion(String monitorVersion) {
+  public MonitorInfo setMonitorVersion(Long monitorVersion) {
     this.monitorVersion = monitorVersion;
     return this;
   }
 
-  public String getMonitorVersion() {
+  public Long getMonitorVersion() {
     return monitorVersion;
   }
 

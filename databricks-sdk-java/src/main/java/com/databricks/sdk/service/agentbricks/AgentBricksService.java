@@ -1,5 +1,5 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
-package com.databricks.sdk.service.aibuilder;
+package com.databricks.sdk.service.agentbricks;
 
 import com.databricks.sdk.support.Generated;
 
@@ -11,7 +11,7 @@ import com.databricks.sdk.support.Generated;
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
 @Generated
-public interface AiBuilderService {
+public interface AgentBricksService {
   /** Cancel a Custom LLM Optimization Run. */
   void cancelOptimize(CancelCustomLlmOptimizationRunRequest cancelCustomLlmOptimizationRunRequest);
 

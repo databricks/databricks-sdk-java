@@ -9,11 +9,11 @@ import java.util.Objects;
 
 @Generated
 public class MonitorNotifications {
-  /** Who to send notifications to on monitor failure. */
+  /** Destinations to send notifications on failure/timeout. */
   @JsonProperty("on_failure")
   private MonitorDestination onFailure;
 
-  /** Who to send notifications to when new data classification tags are detected. */
+  /** Destinations to send notifications on new classification tag detected. */
   @JsonProperty("on_new_classification_tag_detected")
   private MonitorDestination onNewClassificationTagDetected;
 

@@ -22,6 +22,10 @@ public interface CleanRoomAssetsService {
    */
   CleanRoomAsset create(CreateCleanRoomAssetRequest createCleanRoomAssetRequest);
 
+  /** submit an asset review */
+  CreateCleanRoomAssetReviewResponse createCleanRoomAssetReview(
+      CreateCleanRoomAssetReviewRequest createCleanRoomAssetReviewRequest);
+
   /** Delete a clean room asset - unshare/remove the asset from the clean room */
   void delete(DeleteCleanRoomAssetRequest deleteCleanRoomAssetRequest);
 

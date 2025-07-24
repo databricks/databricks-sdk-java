@@ -25,6 +25,7 @@ class QualityMonitorsImpl implements QualityMonitorsService {
     try {
       Request req = new Request("POST", path);
       ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -46,12 +47,13 @@ class QualityMonitorsImpl implements QualityMonitorsService {
   }
 
   @Override
-  public void delete(DeleteQualityMonitorRequest request) {
+  public DeleteMonitorResponse delete(DeleteQualityMonitorRequest request) {
     String path = String.format("/api/2.1/unity-catalog/tables/%s/monitor", request.getTableName());
     try {
       Request req = new Request("DELETE", path);
       ApiClient.setQuery(req, request);
-      apiClient.execute(req, Void.class);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, DeleteMonitorResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

@@ -12,52 +12,58 @@ import java.util.Objects;
 @Generated
 public class UpdateMonitor {
   /**
-   * Name of the baseline table from which drift metrics are computed from. Columns in the monitored
-   * table should also be present in the baseline table.
+   * [Create:OPT Update:OPT] Baseline table name. Baseline data is used to compute drift from the
+   * data in the monitored `table_name`. The baseline table and the monitored table shall have the
+   * same schema.
    */
   @JsonProperty("baseline_table_name")
   private String baselineTableName;
 
-  /**
-   * Custom metrics to compute on the monitored table. These can be aggregate metrics, derived
-   * metrics (from already computed aggregate metrics), or drift metrics (comparing metrics across
-   * time windows).
-   */
+  /** [Create:OPT Update:OPT] Custom metrics. */
   @JsonProperty("custom_metrics")
   private Collection<MonitorMetric> customMetrics;
 
   /**
-   * Id of dashboard that visualizes the computed metrics. This can be empty if the monitor is in
-   * PENDING state.
+   * [Create:ERR Update:OPT] Id of dashboard that visualizes the computed metrics. This can be empty
+   * if the monitor is in PENDING state.
    */
   @JsonProperty("dashboard_id")
   private String dashboardId;
 
-  /** The data classification config for the monitor. */
+  /** [Create:OPT Update:OPT] Data classification related config. */
   @JsonProperty("data_classification_config")
   private MonitorDataClassificationConfig dataClassificationConfig;
 
-  /** Configuration for monitoring inference logs. */
+  /** */
   @JsonProperty("inference_log")
   private MonitorInferenceLog inferenceLog;
 
-  /** The notification settings for the monitor. */
+  /** [Create:ERR Update:IGN] The latest error message for a monitor failure. */
+  @JsonProperty("latest_monitor_failure_msg")
+  private String latestMonitorFailureMsg;
+
+  /** [Create:OPT Update:OPT] Field for specifying notification settings. */
   @JsonProperty("notifications")
   private MonitorNotifications notifications;
 
-  /** Schema where output metric tables are created. */
+  /**
+   * [Create:REQ Update:REQ] Schema where output tables are created. Needs to be in 2-level format
+   * {catalog}.{schema}
+   */
   @JsonProperty("output_schema_name")
   private String outputSchemaName;
 
-  /** The schedule for automatically updating and refreshing metric tables. */
+  /** [Create:OPT Update:OPT] The monitor schedule. */
   @JsonProperty("schedule")
   private MonitorCronSchedule schedule;
 
   /**
-   * List of column expressions to slice data with for targeted analysis. The data is grouped by
-   * each expression independently, resulting in a separate slice for each predicate and its
-   * complements. For high-cardinality columns, only the top 100 unique values by frequency will
-   * generate slices.
+   * [Create:OPT Update:OPT] List of column expressions to slice data with for targeted analysis.
+   * The data is grouped by each expression independently, resulting in a separate slice for each
+   * predicate and its complements. For example `slicing_exprs=[“col_1”, “col_2 > 10”]` will
+   * generate the following slices: two slices for `col_2 > 10` (True and False), and one slice per
+   * unique value in `col1`. For high-cardinality columns, only the top 100 unique values by
+   * frequency will generate slices.
    */
   @JsonProperty("slicing_exprs")
   private Collection<String> slicingExprs;
@@ -66,7 +72,10 @@ public class UpdateMonitor {
   @JsonProperty("snapshot")
   private MonitorSnapshot snapshot;
 
-  /** Full name of the table. */
+  /**
+   * UC table name in format `catalog.schema.table_name`. This field corresponds to the
+   * {full_table_name_arg} arg in the endpoint path.
+   */
   @JsonIgnore private String tableName;
 
   /** Configuration for monitoring time series tables. */
@@ -117,6 +126,15 @@ public class UpdateMonitor {
 
   public MonitorInferenceLog getInferenceLog() {
     return inferenceLog;
+  }
+
+  public UpdateMonitor setLatestMonitorFailureMsg(String latestMonitorFailureMsg) {
+    this.latestMonitorFailureMsg = latestMonitorFailureMsg;
+    return this;
+  }
+
+  public String getLatestMonitorFailureMsg() {
+    return latestMonitorFailureMsg;
   }
 
   public UpdateMonitor setNotifications(MonitorNotifications notifications) {
@@ -192,6 +210,7 @@ public class UpdateMonitor {
         && Objects.equals(dashboardId, that.dashboardId)
         && Objects.equals(dataClassificationConfig, that.dataClassificationConfig)
         && Objects.equals(inferenceLog, that.inferenceLog)
+        && Objects.equals(latestMonitorFailureMsg, that.latestMonitorFailureMsg)
         && Objects.equals(notifications, that.notifications)
         && Objects.equals(outputSchemaName, that.outputSchemaName)
         && Objects.equals(schedule, that.schedule)
@@ -209,6 +228,7 @@ public class UpdateMonitor {
         dashboardId,
         dataClassificationConfig,
         inferenceLog,
+        latestMonitorFailureMsg,
         notifications,
         outputSchemaName,
         schedule,
@@ -226,6 +246,7 @@ public class UpdateMonitor {
         .add("dashboardId", dashboardId)
         .add("dataClassificationConfig", dataClassificationConfig)
         .add("inferenceLog", inferenceLog)
+        .add("latestMonitorFailureMsg", latestMonitorFailureMsg)
         .add("notifications", notifications)
         .add("outputSchemaName", outputSchemaName)
         .add("schedule", schedule)

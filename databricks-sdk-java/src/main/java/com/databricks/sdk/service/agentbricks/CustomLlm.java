@@ -1,6 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 
-package com.databricks.sdk.service.aibuilder;
+package com.databricks.sdk.service.agentbricks;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;

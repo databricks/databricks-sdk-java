@@ -9,18 +9,21 @@ import java.util.Objects;
 
 @Generated
 public class CancelRefreshRequest {
-  /** ID of the refresh. */
-  @JsonIgnore private String refreshId;
+  /** */
+  @JsonIgnore private Long refreshId;
 
-  /** Full name of the table. */
+  /**
+   * UC table name in format `catalog.schema.table_name`. table_name is case insensitive and spaces
+   * are disallowed.
+   */
   @JsonIgnore private String tableName;
 
-  public CancelRefreshRequest setRefreshId(String refreshId) {
+  public CancelRefreshRequest setRefreshId(Long refreshId) {
     this.refreshId = refreshId;
     return this;
   }
 
-  public String getRefreshId() {
+  public Long getRefreshId() {
     return refreshId;
   }
 

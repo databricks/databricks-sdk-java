@@ -21,6 +21,10 @@ public class SyncedTablePipelineProgress {
   @JsonProperty("latest_version_currently_processing")
   private Long latestVersionCurrentlyProcessing;
 
+  /** The current phase of the data synchronization pipeline. */
+  @JsonProperty("provisioning_phase")
+  private ProvisioningPhase provisioningPhase;
+
   /** The completion ratio of this update. This is a number between 0 and 1. */
   @JsonProperty("sync_progress_completion")
   private Double syncProgressCompletion;
@@ -53,6 +57,15 @@ public class SyncedTablePipelineProgress {
 
   public Long getLatestVersionCurrentlyProcessing() {
     return latestVersionCurrentlyProcessing;
+  }
+
+  public SyncedTablePipelineProgress setProvisioningPhase(ProvisioningPhase provisioningPhase) {
+    this.provisioningPhase = provisioningPhase;
+    return this;
+  }
+
+  public ProvisioningPhase getProvisioningPhase() {
+    return provisioningPhase;
   }
 
   public SyncedTablePipelineProgress setSyncProgressCompletion(Double syncProgressCompletion) {
@@ -89,6 +102,7 @@ public class SyncedTablePipelineProgress {
     SyncedTablePipelineProgress that = (SyncedTablePipelineProgress) o;
     return Objects.equals(estimatedCompletionTimeSeconds, that.estimatedCompletionTimeSeconds)
         && Objects.equals(latestVersionCurrentlyProcessing, that.latestVersionCurrentlyProcessing)
+        && Objects.equals(provisioningPhase, that.provisioningPhase)
         && Objects.equals(syncProgressCompletion, that.syncProgressCompletion)
         && Objects.equals(syncedRowCount, that.syncedRowCount)
         && Objects.equals(totalRowCount, that.totalRowCount);
@@ -99,6 +113,7 @@ public class SyncedTablePipelineProgress {
     return Objects.hash(
         estimatedCompletionTimeSeconds,
         latestVersionCurrentlyProcessing,
+        provisioningPhase,
         syncProgressCompletion,
         syncedRowCount,
         totalRowCount);
@@ -109,6 +124,7 @@ public class SyncedTablePipelineProgress {
     return new ToStringer(SyncedTablePipelineProgress.class)
         .add("estimatedCompletionTimeSeconds", estimatedCompletionTimeSeconds)
         .add("latestVersionCurrentlyProcessing", latestVersionCurrentlyProcessing)
+        .add("provisioningPhase", provisioningPhase)
         .add("syncProgressCompletion", syncProgressCompletion)
         .add("syncedRowCount", syncedRowCount)
         .add("totalRowCount", totalRowCount)

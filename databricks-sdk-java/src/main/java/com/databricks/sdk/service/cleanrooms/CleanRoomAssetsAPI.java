@@ -38,6 +38,12 @@ public class CleanRoomAssetsAPI {
     return impl.create(request);
   }
 
+  /** submit an asset review */
+  public CreateCleanRoomAssetReviewResponse createCleanRoomAssetReview(
+      CreateCleanRoomAssetReviewRequest request) {
+    return impl.createCleanRoomAssetReview(request);
+  }
+
   public void delete(String cleanRoomName, CleanRoomAssetAssetType assetType, String name) {
     delete(
         new DeleteCleanRoomAssetRequest()

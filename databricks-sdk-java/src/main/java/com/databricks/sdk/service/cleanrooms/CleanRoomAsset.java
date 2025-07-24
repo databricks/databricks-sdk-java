@@ -19,8 +19,8 @@ public class CleanRoomAsset {
   private CleanRoomAssetAssetType assetType;
 
   /**
-   * The name of the clean room this asset belongs to. This is an output-only field to ensure proper
-   * resource identification.
+   * The name of the clean room this asset belongs to. This field is required for create operations
+   * and populated by the server for responses.
    */
   @JsonProperty("clean_room_name")
   private String cleanRoomName;

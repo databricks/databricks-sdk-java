@@ -22,7 +22,7 @@ public class MonitorCronSchedule {
   @JsonProperty("quartz_cron_expression")
   private String quartzCronExpression;
 
-  /** The timezone id (e.g., ``"PST"``) in which to evaluate the quartz expression. */
+  /** The timezone id (e.g., ``PST``) in which to evaluate the quartz expression. */
   @JsonProperty("timezone_id")
   private String timezoneId;
 

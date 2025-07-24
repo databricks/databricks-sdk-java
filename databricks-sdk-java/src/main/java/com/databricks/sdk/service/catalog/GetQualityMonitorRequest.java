@@ -9,7 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class GetQualityMonitorRequest {
-  /** Full name of the table. */
+  /**
+   * UC table name in format `catalog.schema.table_name`. This field corresponds to the
+   * {full_table_name_arg} arg in the endpoint path.
+   */
   @JsonIgnore private String tableName;
 
   public GetQualityMonitorRequest setTableName(String tableName) {

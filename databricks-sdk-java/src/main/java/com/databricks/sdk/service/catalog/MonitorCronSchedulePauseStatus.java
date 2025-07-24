@@ -4,9 +4,14 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** Read only field that indicates whether a schedule is paused or not. */
+/**
+ * Source link:
+ * https://src.dev.databricks.com/databricks/universe/-/blob/elastic-spark-common/api/messages/schedule.proto
+ * Monitoring workflow schedule pause status.
+ */
 @Generated
 public enum MonitorCronSchedulePauseStatus {
   PAUSED,
   UNPAUSED,
+  UNSPECIFIED,
 }
