@@ -4,7 +4,6 @@ package com.databricks.sdk.service.files;
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
-import java.io.InputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,10 +43,6 @@ public class FilesAPI {
   /** Constructor for mocks */
   public FilesAPI(FilesService mock) {
     impl = mock;
-  }
-
-  public void createDirectory(String directoryPath) {
-    createDirectory(new CreateDirectoryRequest().setDirectoryPath(directoryPath));
   }
 
   /**
@@ -145,10 +140,6 @@ public class FilesAPI {
           }
           return request.setPageToken(token);
         });
-  }
-
-  public void upload(String filePath, InputStream contents) {
-    upload(new UploadRequest().setFilePath(filePath).setContents(contents));
   }
 
   /**

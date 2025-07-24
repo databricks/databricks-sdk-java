@@ -55,10 +55,6 @@ public class GrantsAPI {
     return impl.getEffective(request);
   }
 
-  public UpdatePermissionsResponse update(String securableType, String fullName) {
-    return update(new UpdatePermissions().setSecurableType(securableType).setFullName(fullName));
-  }
-
   /** Updates the permissions for a securable. */
   public UpdatePermissionsResponse update(UpdatePermissions request) {
     return impl.update(request);

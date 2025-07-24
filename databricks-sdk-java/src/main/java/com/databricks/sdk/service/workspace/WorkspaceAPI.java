@@ -29,10 +29,6 @@ public class WorkspaceAPI {
     impl = mock;
   }
 
-  public void delete(String path) {
-    delete(new Delete().setPath(path));
-  }
-
   /**
    * Deletes an object or a directory (and optionally recursively deletes all objects in the
    * directory). * If `path` does not exist, this call returns an error `RESOURCE_DOES_NOT_EXIST`. *
@@ -103,10 +99,6 @@ public class WorkspaceAPI {
     return impl.getStatus(request);
   }
 
-  public void importContent(String path) {
-    importContent(new Import().setPath(path));
-  }
-
   /**
    * Imports a workspace object (for example, a notebook or file) or the contents of an entire
    * directory. If `path` already exists and `overwrite` is set to `false`, this call returns an
@@ -146,14 +138,6 @@ public class WorkspaceAPI {
     impl.mkdirs(request);
   }
 
-  public WorkspaceObjectPermissions setPermissions(
-      String workspaceObjectType, String workspaceObjectId) {
-    return setPermissions(
-        new WorkspaceObjectPermissionsRequest()
-            .setWorkspaceObjectType(workspaceObjectType)
-            .setWorkspaceObjectId(workspaceObjectId));
-  }
-
   /**
    * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
    * permissions if none are specified. Objects can inherit permissions from their parent objects or
@@ -161,14 +145,6 @@ public class WorkspaceAPI {
    */
   public WorkspaceObjectPermissions setPermissions(WorkspaceObjectPermissionsRequest request) {
     return impl.setPermissions(request);
-  }
-
-  public WorkspaceObjectPermissions updatePermissions(
-      String workspaceObjectType, String workspaceObjectId) {
-    return updatePermissions(
-        new WorkspaceObjectPermissionsRequest()
-            .setWorkspaceObjectType(workspaceObjectType)
-            .setWorkspaceObjectId(workspaceObjectId));
   }
 
   /**

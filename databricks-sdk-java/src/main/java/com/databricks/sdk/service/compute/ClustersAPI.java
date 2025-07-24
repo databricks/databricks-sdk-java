@@ -142,10 +142,6 @@ public class ClustersAPI {
     throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
   }
 
-  public void changeOwner(String clusterId, String ownerUsername) {
-    changeOwner(new ChangeClusterOwner().setClusterId(clusterId).setOwnerUsername(ownerUsername));
-  }
-
   /**
    * Change the owner of the cluster. You must be an admin and the cluster must be terminated to
    * perform this operation. The service principal application ID can be supplied as an argument to
@@ -153,10 +149,6 @@ public class ClustersAPI {
    */
   public void changeOwner(ChangeClusterOwner request) {
     impl.changeOwner(request);
-  }
-
-  public Wait<ClusterDetails, CreateClusterResponse> create(String sparkVersion) {
-    return create(new CreateCluster().setSparkVersion(sparkVersion));
   }
 
   /**
@@ -197,10 +189,6 @@ public class ClustersAPI {
         (timeout, callback) -> waitGetClusterTerminated(request.getClusterId(), timeout, callback));
   }
 
-  public Wait<ClusterDetails, Void> edit(String clusterId, String sparkVersion) {
-    return edit(new EditCluster().setClusterId(clusterId).setSparkVersion(sparkVersion));
-  }
-
   /**
    * Updates the configuration of a cluster to match the provided attributes and size. A cluster can
    * be updated if it is in a `RUNNING` or `TERMINATED` state.
@@ -219,10 +207,6 @@ public class ClustersAPI {
     impl.edit(request);
     return new Wait<>(
         (timeout, callback) -> waitGetClusterRunning(request.getClusterId(), timeout, callback));
-  }
-
-  public Iterable<ClusterEvent> events(String clusterId) {
-    return events(new GetEvents().setClusterId(clusterId));
   }
 
   /**
@@ -327,10 +311,6 @@ public class ClustersAPI {
     impl.pin(request);
   }
 
-  public Wait<ClusterDetails, Void> resize(String clusterId) {
-    return resize(new ResizeCluster().setClusterId(clusterId));
-  }
-
   /**
    * Resizes a cluster to have a desired number of workers. This will fail unless the cluster is in
    * a `RUNNING` state.
@@ -341,10 +321,6 @@ public class ClustersAPI {
         (timeout, callback) -> waitGetClusterRunning(request.getClusterId(), timeout, callback));
   }
 
-  public Wait<ClusterDetails, Void> restart(String clusterId) {
-    return restart(new RestartCluster().setClusterId(clusterId));
-  }
-
   /**
    * Restarts a Spark cluster with the supplied ID. If the cluster is not currently in a `RUNNING`
    * state, nothing will happen.
@@ -353,10 +329,6 @@ public class ClustersAPI {
     impl.restart(request);
     return new Wait<>(
         (timeout, callback) -> waitGetClusterRunning(request.getClusterId(), timeout, callback));
-  }
-
-  public ClusterPermissions setPermissions(String clusterId) {
-    return setPermissions(new ClusterPermissionsRequest().setClusterId(clusterId));
   }
 
   /**
@@ -404,10 +376,6 @@ public class ClustersAPI {
     impl.unpin(request);
   }
 
-  public Wait<ClusterDetails, Void> update(String clusterId, String updateMask) {
-    return update(new UpdateCluster().setClusterId(clusterId).setUpdateMask(updateMask));
-  }
-
   /**
    * Updates the configuration of a cluster to match the partial set of attributes and size. Denote
    * which fields to update using the `update_mask` field in the request body. A cluster can be
@@ -422,10 +390,6 @@ public class ClustersAPI {
     impl.update(request);
     return new Wait<>(
         (timeout, callback) -> waitGetClusterRunning(request.getClusterId(), timeout, callback));
-  }
-
-  public ClusterPermissions updatePermissions(String clusterId) {
-    return updatePermissions(new ClusterPermissionsRequest().setClusterId(clusterId));
   }
 
   /**

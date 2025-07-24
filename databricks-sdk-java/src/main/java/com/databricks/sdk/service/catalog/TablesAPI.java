@@ -134,10 +134,6 @@ public class TablesAPI {
         });
   }
 
-  public void update(String fullName) {
-    update(new UpdateTableRequest().setFullName(fullName));
-  }
-
   /**
    * Change the owner of the table. The caller must be the owner of the parent catalog, have the
    * **USE_CATALOG** privilege on the parent catalog and be the owner of the parent schema, or be

@@ -42,10 +42,6 @@ public class ProviderProviderAnalyticsDashboardsAPI {
     return impl.getLatestVersion();
   }
 
-  public UpdateProviderAnalyticsDashboardResponse update(String id) {
-    return update(new UpdateProviderAnalyticsDashboardRequest().setId(id));
-  }
-
   /** Update provider analytics dashboard. */
   public UpdateProviderAnalyticsDashboardResponse update(
       UpdateProviderAnalyticsDashboardRequest request) {

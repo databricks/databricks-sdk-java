@@ -32,10 +32,6 @@ public class CatalogsAPI {
     impl = mock;
   }
 
-  public CatalogInfo create(String name) {
-    return create(new CreateCatalog().setName(name));
-  }
-
   /**
    * Creates a new catalog instance in the parent metastore if the caller is a metastore admin or
    * has the **CREATE_CATALOG** privilege.
@@ -86,10 +82,6 @@ public class CatalogsAPI {
           }
           return request.setPageToken(token);
         });
-  }
-
-  public CatalogInfo update(String name) {
-    return update(new UpdateCatalog().setName(name));
   }
 
   /**

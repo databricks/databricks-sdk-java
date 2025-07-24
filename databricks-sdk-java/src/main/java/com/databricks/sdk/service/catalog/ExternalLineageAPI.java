@@ -31,13 +31,6 @@ public class ExternalLineageAPI {
     impl = mock;
   }
 
-  public ExternalLineageRelationship createExternalLineageRelationship(
-      CreateRequestExternalLineage externalLineageRelationship) {
-    return createExternalLineageRelationship(
-        new CreateExternalLineageRelationshipRequest()
-            .setExternalLineageRelationship(externalLineageRelationship));
-  }
-
   /**
    * Creates an external lineage relationship between a Databricks or external metadata object and
    * another external metadata object.
@@ -87,14 +80,6 @@ public class ExternalLineageAPI {
           }
           return request.setPageToken(token);
         });
-  }
-
-  public ExternalLineageRelationship updateExternalLineageRelationship(
-      UpdateRequestExternalLineage externalLineageRelationship, String updateMask) {
-    return updateExternalLineageRelationship(
-        new UpdateExternalLineageRelationshipRequest()
-            .setExternalLineageRelationship(externalLineageRelationship)
-            .setUpdateMask(updateMask));
   }
 
   /**

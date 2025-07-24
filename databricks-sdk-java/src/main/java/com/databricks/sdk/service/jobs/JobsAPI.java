@@ -259,10 +259,6 @@ public class JobsAPI {
         });
   }
 
-  public Wait<Run, RepairRunResponse> repairRun(long runId) {
-    return repairRun(new RepairRun().setRunId(runId));
-  }
-
   /**
    * Re-run one or more tasks. Tasks are re-run as part of the original job run. They use the
    * current job and task settings, and can be viewed in the history for the original job run.
@@ -275,20 +271,12 @@ public class JobsAPI {
         response);
   }
 
-  public void reset(long jobId, JobSettings newSettings) {
-    reset(new ResetJob().setJobId(jobId).setNewSettings(newSettings));
-  }
-
   /**
    * Overwrite all settings for the given job. Use the [_Update_ endpoint](:method:jobs/update) to
    * update job settings partially.
    */
   public void reset(ResetJob request) {
     impl.reset(request);
-  }
-
-  public Wait<Run, RunNowResponse> runNow(long jobId) {
-    return runNow(new RunNow().setJobId(jobId));
   }
 
   /** Run a job and return the `run_id` of the triggered run. */
@@ -298,10 +286,6 @@ public class JobsAPI {
         (timeout, callback) ->
             waitGetRunJobTerminatedOrSkipped(response.getRunId(), timeout, callback),
         response);
-  }
-
-  public JobPermissions setPermissions(String jobId) {
-    return setPermissions(new JobPermissionsRequest().setJobId(jobId));
   }
 
   /**
@@ -325,20 +309,12 @@ public class JobsAPI {
         response);
   }
 
-  public void update(long jobId) {
-    update(new UpdateJob().setJobId(jobId));
-  }
-
   /**
    * Add, update, or remove specific settings of an existing job. Use the [_Reset_
    * endpoint](:method:jobs/reset) to overwrite all job settings.
    */
   public void update(UpdateJob request) {
     impl.update(request);
-  }
-
-  public JobPermissions updatePermissions(String jobId) {
-    return updatePermissions(new JobPermissionsRequest().setJobId(jobId));
   }
 
   /** Updates the permissions on a job. Jobs can inherit permissions from their root object. */

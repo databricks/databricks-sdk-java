@@ -75,17 +75,9 @@ public class DashboardsAPI {
         });
   }
 
-  public void restore(String dashboardId) {
-    restore(new RestoreDashboardRequest().setDashboardId(dashboardId));
-  }
-
   /** A restored dashboard appears in list views and searches and can be shared. */
   public void restore(RestoreDashboardRequest request) {
     impl.restore(request);
-  }
-
-  public Dashboard update(String dashboardId) {
-    return update(new DashboardEditContent().setDashboardId(dashboardId));
   }
 
   /**

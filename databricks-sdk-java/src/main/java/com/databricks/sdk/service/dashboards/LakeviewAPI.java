@@ -27,32 +27,14 @@ public class LakeviewAPI {
     impl = mock;
   }
 
-  public Dashboard create(Dashboard dashboard) {
-    return create(new CreateDashboardRequest().setDashboard(dashboard));
-  }
-
   /** Create a draft dashboard. */
   public Dashboard create(CreateDashboardRequest request) {
     return impl.create(request);
   }
 
-  public Schedule createSchedule(String dashboardId, Schedule schedule) {
-    return createSchedule(
-        new CreateScheduleRequest().setDashboardId(dashboardId).setSchedule(schedule));
-  }
-
   /** Create dashboard schedule. */
   public Schedule createSchedule(CreateScheduleRequest request) {
     return impl.createSchedule(request);
-  }
-
-  public Subscription createSubscription(
-      String dashboardId, String scheduleId, Subscription subscription) {
-    return createSubscription(
-        new CreateSubscriptionRequest()
-            .setDashboardId(dashboardId)
-            .setScheduleId(scheduleId)
-            .setSubscription(subscription));
   }
 
   /** Create schedule subscription. */
@@ -179,17 +161,9 @@ public class LakeviewAPI {
         });
   }
 
-  public Dashboard migrate(String sourceDashboardId) {
-    return migrate(new MigrateDashboardRequest().setSourceDashboardId(sourceDashboardId));
-  }
-
   /** Migrates a classic SQL dashboard to Lakeview. */
   public Dashboard migrate(MigrateDashboardRequest request) {
     return impl.migrate(request);
-  }
-
-  public PublishedDashboard publish(String dashboardId) {
-    return publish(new PublishRequest().setDashboardId(dashboardId));
   }
 
   /** Publish the current draft dashboard. */
@@ -215,21 +189,9 @@ public class LakeviewAPI {
     impl.unpublish(request);
   }
 
-  public Dashboard update(String dashboardId, Dashboard dashboard) {
-    return update(new UpdateDashboardRequest().setDashboardId(dashboardId).setDashboard(dashboard));
-  }
-
   /** Update a draft dashboard. */
   public Dashboard update(UpdateDashboardRequest request) {
     return impl.update(request);
-  }
-
-  public Schedule updateSchedule(String dashboardId, String scheduleId, Schedule schedule) {
-    return updateSchedule(
-        new UpdateScheduleRequest()
-            .setDashboardId(dashboardId)
-            .setScheduleId(scheduleId)
-            .setSchedule(schedule));
   }
 
   /** Update dashboard schedule. */

@@ -46,11 +46,6 @@ public class RecipientFederationPoliciesAPI {
     impl = mock;
   }
 
-  public FederationPolicy create(String recipientName, FederationPolicy policy) {
-    return create(
-        new CreateFederationPolicyRequest().setRecipientName(recipientName).setPolicy(policy));
-  }
-
   /**
    * Create a federation policy for an OIDC_FEDERATION recipient for sharing data from Databricks to
    * non-Databricks recipients. The caller must be the owner of the recipient. When sharing data
@@ -123,14 +118,6 @@ public class RecipientFederationPoliciesAPI {
           }
           return request.setPageToken(token);
         });
-  }
-
-  public FederationPolicy update(String recipientName, String name, FederationPolicy policy) {
-    return update(
-        new UpdateFederationPolicyRequest()
-            .setRecipientName(recipientName)
-            .setName(name)
-            .setPolicy(policy));
   }
 
   /**

@@ -32,16 +32,6 @@ public class VolumesAPI {
     impl = mock;
   }
 
-  public VolumeInfo create(
-      String catalogName, String schemaName, String name, VolumeType volumeType) {
-    return create(
-        new CreateVolumeRequestContent()
-            .setCatalogName(catalogName)
-            .setSchemaName(schemaName)
-            .setName(name)
-            .setVolumeType(volumeType));
-  }
-
   /**
    * Creates a new volume.
    *
@@ -122,10 +112,6 @@ public class VolumesAPI {
    */
   public VolumeInfo read(ReadVolumeRequest request) {
     return impl.read(request);
-  }
-
-  public VolumeInfo update(String name) {
-    return update(new UpdateVolumeRequestContent().setName(name));
   }
 
   /**

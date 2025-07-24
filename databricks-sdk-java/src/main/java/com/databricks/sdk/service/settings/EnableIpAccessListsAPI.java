@@ -36,15 +36,6 @@ public class EnableIpAccessListsAPI {
     return impl.get(request);
   }
 
-  public AccountIpAccessEnable update(
-      boolean allowMissing, AccountIpAccessEnable setting, String fieldMask) {
-    return update(
-        new UpdateAccountIpAccessEnableRequest()
-            .setAllowMissing(allowMissing)
-            .setSetting(setting)
-            .setFieldMask(fieldMask));
-  }
-
   /** Updates the value of the account IP access toggle setting. */
   public AccountIpAccessEnable update(UpdateAccountIpAccessEnableRequest request) {
     return impl.update(request);

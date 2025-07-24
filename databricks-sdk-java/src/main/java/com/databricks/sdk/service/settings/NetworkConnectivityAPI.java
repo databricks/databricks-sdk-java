@@ -34,13 +34,6 @@ public class NetworkConnectivityAPI {
     impl = mock;
   }
 
-  public NetworkConnectivityConfiguration createNetworkConnectivityConfiguration(
-      CreateNetworkConnectivityConfiguration networkConnectivityConfig) {
-    return createNetworkConnectivityConfiguration(
-        new CreateNetworkConnectivityConfigRequest()
-            .setNetworkConnectivityConfig(networkConnectivityConfig));
-  }
-
   /**
    * Creates a network connectivity configuration (NCC), which provides stable Azure service subnets
    * when accessing your Azure Storage accounts. You can also use a network connectivity
@@ -58,14 +51,6 @@ public class NetworkConnectivityAPI {
   public NetworkConnectivityConfiguration createNetworkConnectivityConfiguration(
       CreateNetworkConnectivityConfigRequest request) {
     return impl.createNetworkConnectivityConfiguration(request);
-  }
-
-  public NccPrivateEndpointRule createPrivateEndpointRule(
-      String networkConnectivityConfigId, CreatePrivateEndpointRule privateEndpointRule) {
-    return createPrivateEndpointRule(
-        new CreatePrivateEndpointRuleRequest()
-            .setNetworkConnectivityConfigId(networkConnectivityConfigId)
-            .setPrivateEndpointRule(privateEndpointRule));
   }
 
   /**
@@ -180,19 +165,6 @@ public class NetworkConnectivityAPI {
           }
           return request.setPageToken(token);
         });
-  }
-
-  public NccPrivateEndpointRule updatePrivateEndpointRule(
-      String networkConnectivityConfigId,
-      String privateEndpointRuleId,
-      UpdatePrivateEndpointRule privateEndpointRule,
-      String updateMask) {
-    return updatePrivateEndpointRule(
-        new UpdateNccPrivateEndpointRuleRequest()
-            .setNetworkConnectivityConfigId(networkConnectivityConfigId)
-            .setPrivateEndpointRuleId(privateEndpointRuleId)
-            .setPrivateEndpointRule(privateEndpointRule)
-            .setUpdateMask(updateMask));
   }
 
   /**

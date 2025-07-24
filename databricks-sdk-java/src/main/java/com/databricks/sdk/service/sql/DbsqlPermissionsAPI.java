@@ -56,10 +56,6 @@ public class DbsqlPermissionsAPI {
     return impl.get(request);
   }
 
-  public SetResponse set(ObjectTypePlural objectType, String objectId) {
-    return set(new SetRequest().setObjectType(objectType).setObjectId(objectId));
-  }
-
   /**
    * Sets the access control list (ACL) for a specified object. This operation will complete rewrite
    * the ACL.
@@ -71,12 +67,6 @@ public class DbsqlPermissionsAPI {
    */
   public SetResponse set(SetRequest request) {
     return impl.set(request);
-  }
-
-  public Success transferOwnership(
-      OwnableObjectType objectType, TransferOwnershipObjectId objectId) {
-    return transferOwnership(
-        new TransferOwnershipRequest().setObjectType(objectType).setObjectId(objectId));
   }
 
   /**

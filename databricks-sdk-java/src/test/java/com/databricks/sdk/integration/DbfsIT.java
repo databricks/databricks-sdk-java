@@ -44,7 +44,7 @@ public class DbfsIT {
       // Assert that the contents of the file are the same as what was written out.
       assertArrayEquals(fileContents, readContents);
     } finally {
-      workspace.dbfs().delete(fileName);
+      workspace.dbfs().delete(new Delete().setPath(fileName));
     }
   }
 
@@ -77,7 +77,7 @@ public class DbfsIT {
       // Assert that the contents of the file are the same as what was written out.
       assertArrayEquals(lines, readLines);
     } finally {
-      workspace.dbfs().delete(fileName);
+      workspace.dbfs().delete(new Delete().setPath(fileName));
     }
   }
 

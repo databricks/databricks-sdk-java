@@ -31,10 +31,6 @@ public class NetworkPoliciesAPI {
     impl = mock;
   }
 
-  public AccountNetworkPolicy createNetworkPolicyRpc(AccountNetworkPolicy networkPolicy) {
-    return createNetworkPolicyRpc(new CreateNetworkPolicyRequest().setNetworkPolicy(networkPolicy));
-  }
-
   /**
    * Creates a new network policy to manage which network destinations can be accessed from the
    * Databricks environment.
@@ -74,14 +70,6 @@ public class NetworkPoliciesAPI {
           }
           return request.setPageToken(token);
         });
-  }
-
-  public AccountNetworkPolicy updateNetworkPolicyRpc(
-      String networkPolicyId, AccountNetworkPolicy networkPolicy) {
-    return updateNetworkPolicyRpc(
-        new UpdateNetworkPolicyRequest()
-            .setNetworkPolicyId(networkPolicyId)
-            .setNetworkPolicy(networkPolicy));
   }
 
   /** Updates a network policy. This allows you to modify the configuration of a network policy. */

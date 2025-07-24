@@ -32,10 +32,6 @@ public class ExperimentsAPI {
     impl = mock;
   }
 
-  public CreateExperimentResponse createExperiment(String name) {
-    return createExperiment(new CreateExperiment().setName(name));
-  }
-
   /**
    * Creates an experiment with a name. Returns the ID of the newly created experiment. Validates
    * that another experiment with the same name does not already exist and fails if another
@@ -45,10 +41,6 @@ public class ExperimentsAPI {
    */
   public CreateExperimentResponse createExperiment(CreateExperiment request) {
     return impl.createExperiment(request);
-  }
-
-  public CreateLoggedModelResponse createLoggedModel(String experimentId) {
-    return createLoggedModel(new CreateLoggedModelRequest().setExperimentId(experimentId));
   }
 
   /** Create a logged model. */
@@ -63,10 +55,6 @@ public class ExperimentsAPI {
    */
   public CreateRunResponse createRun(CreateRun request) {
     return impl.createRun(request);
-  }
-
-  public void deleteExperiment(String experimentId) {
-    deleteExperiment(new DeleteExperiment().setExperimentId(experimentId));
   }
 
   /**
@@ -95,18 +83,9 @@ public class ExperimentsAPI {
     impl.deleteLoggedModelTag(request);
   }
 
-  public void deleteRun(String runId) {
-    deleteRun(new DeleteRun().setRunId(runId));
-  }
-
   /** Marks a run for deletion. */
   public void deleteRun(DeleteRun request) {
     impl.deleteRun(request);
-  }
-
-  public DeleteRunsResponse deleteRuns(String experimentId, long maxTimestampMillis) {
-    return deleteRuns(
-        new DeleteRuns().setExperimentId(experimentId).setMaxTimestampMillis(maxTimestampMillis));
   }
 
   /**
@@ -118,21 +97,12 @@ public class ExperimentsAPI {
     return impl.deleteRuns(request);
   }
 
-  public void deleteTag(String runId, String key) {
-    deleteTag(new DeleteTag().setRunId(runId).setKey(key));
-  }
-
   /**
    * Deletes a tag on a run. Tags are run metadata that can be updated during a run and after a run
    * completes.
    */
   public void deleteTag(DeleteTag request) {
     impl.deleteTag(request);
-  }
-
-  public FinalizeLoggedModelResponse finalizeLoggedModel(String modelId, LoggedModelStatus status) {
-    return finalizeLoggedModel(
-        new FinalizeLoggedModelRequest().setModelId(modelId).setStatus(status));
   }
 
   /** Finalize a logged model. */
@@ -315,17 +285,9 @@ public class ExperimentsAPI {
     impl.logBatch(request);
   }
 
-  public void logInputs(String runId) {
-    logInputs(new LogInputs().setRunId(runId));
-  }
-
   /** Logs inputs, such as datasets and models, to an MLflow Run. */
   public void logInputs(LogInputs request) {
     impl.logInputs(request);
-  }
-
-  public void logLoggedModelParams(String modelId) {
-    logLoggedModelParams(new LogLoggedModelParamsRequest().setModelId(modelId));
   }
 
   /**
@@ -336,10 +298,6 @@ public class ExperimentsAPI {
    */
   public void logLoggedModelParams(LogLoggedModelParamsRequest request) {
     impl.logLoggedModelParams(request);
-  }
-
-  public void logMetric(String key, double value, long timestamp) {
-    logMetric(new LogMetric().setKey(key).setValue(value).setTimestamp(timestamp));
   }
 
   /**
@@ -361,17 +319,9 @@ public class ExperimentsAPI {
     impl.logModel(request);
   }
 
-  public void logOutputs(String runId) {
-    logOutputs(new LogOutputsRequest().setRunId(runId));
-  }
-
   /** Logs outputs, such as models, from an MLflow Run. */
   public void logOutputs(LogOutputsRequest request) {
     impl.logOutputs(request);
-  }
-
-  public void logParam(String key, String value) {
-    logParam(new LogParam().setKey(key).setValue(value));
   }
 
   /**
@@ -381,10 +331,6 @@ public class ExperimentsAPI {
    */
   public void logParam(LogParam request) {
     impl.logParam(request);
-  }
-
-  public void restoreExperiment(String experimentId) {
-    restoreExperiment(new RestoreExperiment().setExperimentId(experimentId));
   }
 
   /**
@@ -398,10 +344,6 @@ public class ExperimentsAPI {
     impl.restoreExperiment(request);
   }
 
-  public void restoreRun(String runId) {
-    restoreRun(new RestoreRun().setRunId(runId));
-  }
-
   /**
    * Restores a deleted run. This also restores associated metadata, runs, metrics, params, and
    * tags.
@@ -410,11 +352,6 @@ public class ExperimentsAPI {
    */
   public void restoreRun(RestoreRun request) {
     impl.restoreRun(request);
-  }
-
-  public RestoreRunsResponse restoreRuns(String experimentId, long minTimestampMillis) {
-    return restoreRuns(
-        new RestoreRuns().setExperimentId(experimentId).setMinTimestampMillis(minTimestampMillis));
   }
 
   /**
@@ -465,27 +402,14 @@ public class ExperimentsAPI {
         });
   }
 
-  public void setExperimentTag(String experimentId, String key, String value) {
-    setExperimentTag(
-        new SetExperimentTag().setExperimentId(experimentId).setKey(key).setValue(value));
-  }
-
   /** Sets a tag on an experiment. Experiment tags are metadata that can be updated. */
   public void setExperimentTag(SetExperimentTag request) {
     impl.setExperimentTag(request);
   }
 
-  public void setLoggedModelTags(String modelId) {
-    setLoggedModelTags(new SetLoggedModelTagsRequest().setModelId(modelId));
-  }
-
   /** Set tags for a logged model. */
   public void setLoggedModelTags(SetLoggedModelTagsRequest request) {
     impl.setLoggedModelTags(request);
-  }
-
-  public ExperimentPermissions setPermissions(String experimentId) {
-    return setPermissions(new ExperimentPermissionsRequest().setExperimentId(experimentId));
   }
 
   /**
@@ -496,10 +420,6 @@ public class ExperimentsAPI {
     return impl.setPermissions(request);
   }
 
-  public void setTag(String key, String value) {
-    setTag(new SetTag().setKey(key).setValue(value));
-  }
-
   /**
    * Sets a tag on a run. Tags are run metadata that can be updated during a run and after a run
    * completes.
@@ -508,17 +428,9 @@ public class ExperimentsAPI {
     impl.setTag(request);
   }
 
-  public void updateExperiment(String experimentId) {
-    updateExperiment(new UpdateExperiment().setExperimentId(experimentId));
-  }
-
   /** Updates experiment metadata. */
   public void updateExperiment(UpdateExperiment request) {
     impl.updateExperiment(request);
-  }
-
-  public ExperimentPermissions updatePermissions(String experimentId) {
-    return updatePermissions(new ExperimentPermissionsRequest().setExperimentId(experimentId));
   }
 
   /**

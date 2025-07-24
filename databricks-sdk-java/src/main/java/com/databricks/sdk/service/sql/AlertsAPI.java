@@ -75,10 +75,6 @@ public class AlertsAPI {
         });
   }
 
-  public Alert update(String id, String updateMask) {
-    return update(new UpdateAlertRequest().setId(id).setUpdateMask(updateMask));
-  }
-
   /** Updates an alert. */
   public Alert update(UpdateAlertRequest request) {
     return impl.update(request);

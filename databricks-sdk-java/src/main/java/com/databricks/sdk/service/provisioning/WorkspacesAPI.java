@@ -82,10 +82,6 @@ public class WorkspacesAPI {
     throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
   }
 
-  public Wait<Workspace, Workspace> create(String workspaceName) {
-    return create(new CreateWorkspaceRequest().setWorkspaceName(workspaceName));
-  }
-
   /**
    * Creates a new workspace.
    *
@@ -151,10 +147,6 @@ public class WorkspacesAPI {
    */
   public Iterable<Workspace> list() {
     return impl.list();
-  }
-
-  public Wait<Workspace, Void> update(long workspaceId) {
-    return update(new UpdateWorkspaceRequest().setWorkspaceId(workspaceId));
   }
 
   /**

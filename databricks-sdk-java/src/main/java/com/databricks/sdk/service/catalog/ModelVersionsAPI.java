@@ -111,10 +111,6 @@ public class ModelVersionsAPI {
         });
   }
 
-  public ModelVersionInfo update(String fullName, long version) {
-    return update(new UpdateModelVersionRequest().setFullName(fullName).setVersion(version));
-  }
-
   /**
    * Updates the specified model version.
    *

@@ -112,21 +112,12 @@ public class StatementExecutionAPI {
     impl = mock;
   }
 
-  public void cancelExecution(String statementId) {
-    cancelExecution(new CancelExecutionRequest().setStatementId(statementId));
-  }
-
   /**
    * Requests that an executing statement be canceled. Callers must poll for status to see the
    * terminal state.
    */
   public void cancelExecution(CancelExecutionRequest request) {
     impl.cancelExecution(request);
-  }
-
-  public StatementResponse executeStatement(String statement, String warehouseId) {
-    return executeStatement(
-        new ExecuteStatementRequest().setStatement(statement).setWarehouseId(warehouseId));
   }
 
   /** Execute a SQL statement */

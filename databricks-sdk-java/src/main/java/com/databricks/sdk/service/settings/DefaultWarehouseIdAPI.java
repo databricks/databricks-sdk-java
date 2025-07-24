@@ -36,15 +36,6 @@ public class DefaultWarehouseIdAPI {
     return impl.get(request);
   }
 
-  public DefaultWarehouseId update(
-      boolean allowMissing, DefaultWarehouseId setting, String fieldMask) {
-    return update(
-        new UpdateDefaultWarehouseIdRequest()
-            .setAllowMissing(allowMissing)
-            .setSetting(setting)
-            .setFieldMask(fieldMask));
-  }
-
   /** Updates the Default Warehouse Id setting. */
   public DefaultWarehouseId update(UpdateDefaultWarehouseIdRequest request) {
     return impl.update(request);

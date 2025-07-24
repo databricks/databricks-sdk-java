@@ -31,10 +31,6 @@ public class InstanceProfilesAPI {
     impl = mock;
   }
 
-  public void add(String instanceProfileArn) {
-    add(new AddInstanceProfile().setInstanceProfileArn(instanceProfileArn));
-  }
-
   /**
    * Registers an instance profile in Databricks. In the UI, you can then give users the permission
    * to use this instance profile when launching clusters.
@@ -43,10 +39,6 @@ public class InstanceProfilesAPI {
    */
   public void add(AddInstanceProfile request) {
     impl.add(request);
-  }
-
-  public void edit(String instanceProfileArn) {
-    edit(new InstanceProfile().setInstanceProfileArn(instanceProfileArn));
   }
 
   /**

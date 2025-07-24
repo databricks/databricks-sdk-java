@@ -28,13 +28,6 @@ public class CredentialsAPI {
     impl = mock;
   }
 
-  public Credential create(String credentialsName, CreateCredentialAwsCredentials awsCredentials) {
-    return create(
-        new CreateCredentialRequest()
-            .setCredentialsName(credentialsName)
-            .setAwsCredentials(awsCredentials));
-  }
-
   /**
    * Creates a Databricks credential configuration that represents cloud cross-account credentials
    * for a specified account. Databricks uses this to set up network infrastructure properly to host

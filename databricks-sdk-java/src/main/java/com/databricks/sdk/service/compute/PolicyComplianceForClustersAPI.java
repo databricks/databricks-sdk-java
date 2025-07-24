@@ -35,10 +35,6 @@ public class PolicyComplianceForClustersAPI {
     impl = mock;
   }
 
-  public EnforceClusterComplianceResponse enforceCompliance(String clusterId) {
-    return enforceCompliance(new EnforceClusterComplianceRequest().setClusterId(clusterId));
-  }
-
   /**
    * Updates a cluster to be compliant with the current version of its policy. A cluster can be
    * updated if it is in a `RUNNING` or `TERMINATED` state.

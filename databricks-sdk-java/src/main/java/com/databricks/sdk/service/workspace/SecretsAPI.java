@@ -34,10 +34,6 @@ public class SecretsAPI {
     impl = mock;
   }
 
-  public void createScope(String scope) {
-    createScope(new CreateScope().setScope(scope));
-  }
-
   /**
    * Creates a new secret scope.
    *
@@ -75,10 +71,6 @@ public class SecretsAPI {
    */
   public void createScope(CreateScope request) {
     impl.createScope(request);
-  }
-
-  public void deleteAcl(String scope, String principal) {
-    deleteAcl(new DeleteAcl().setScope(scope).setPrincipal(principal));
   }
 
   /**
@@ -119,10 +111,6 @@ public class SecretsAPI {
    */
   public void deleteScope(DeleteScope request) {
     impl.deleteScope(request);
-  }
-
-  public void deleteSecret(String scope, String key) {
-    deleteSecret(new DeleteSecret().setScope(scope).setKey(key));
   }
 
   /**
@@ -266,10 +254,6 @@ public class SecretsAPI {
         request, impl::listSecrets, ListSecretsResponse::getSecrets, response -> null);
   }
 
-  public void putAcl(String scope, String principal, AclPermission permission) {
-    putAcl(new PutAcl().setScope(scope).setPrincipal(principal).setPermission(permission));
-  }
-
   /**
    * Creates or overwrites the ACL associated with the given principal (user or group) on the
    * specified scope point. In general, a user or group will use the most powerful permission
@@ -302,10 +286,6 @@ public class SecretsAPI {
    */
   public void putAcl(PutAcl request) {
     impl.putAcl(request);
-  }
-
-  public void putSecret(String scope, String key) {
-    putSecret(new PutSecret().setScope(scope).setKey(key));
   }
 
   /**

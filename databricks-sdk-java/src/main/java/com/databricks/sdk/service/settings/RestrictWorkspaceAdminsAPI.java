@@ -51,15 +51,6 @@ public class RestrictWorkspaceAdminsAPI {
     return impl.get(request);
   }
 
-  public RestrictWorkspaceAdminsSetting update(
-      boolean allowMissing, RestrictWorkspaceAdminsSetting setting, String fieldMask) {
-    return update(
-        new UpdateRestrictWorkspaceAdminsSettingRequest()
-            .setAllowMissing(allowMissing)
-            .setSetting(setting)
-            .setFieldMask(fieldMask));
-  }
-
   /**
    * Updates the restrict workspace admins setting for the workspace. A fresh etag needs to be
    * provided in `PATCH` requests (as part of the setting field). The etag can be retrieved by

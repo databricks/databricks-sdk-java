@@ -94,10 +94,6 @@ public class QueriesAPI {
         });
   }
 
-  public Query update(String id, String updateMask) {
-    return update(new UpdateQueryRequest().setId(id).setUpdateMask(updateMask));
-  }
-
   /** Updates a query. */
   public Query update(UpdateQueryRequest request) {
     return impl.update(request);

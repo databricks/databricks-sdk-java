@@ -63,11 +63,6 @@ public class WorkspaceAssignmentAPI {
         request, impl::list, PermissionAssignments::getPermissionAssignments, response -> null);
   }
 
-  public PermissionAssignment update(long workspaceId, long principalId) {
-    return update(
-        new UpdateWorkspaceAssignments().setWorkspaceId(workspaceId).setPrincipalId(principalId));
-  }
-
   /**
    * Creates or updates the workspace permissions assignment in a given account and workspace for
    * the specified principal.

@@ -31,15 +31,6 @@ public class AutomaticClusterUpdateAPI {
     return impl.get(request);
   }
 
-  public AutomaticClusterUpdateSetting update(
-      boolean allowMissing, AutomaticClusterUpdateSetting setting, String fieldMask) {
-    return update(
-        new UpdateAutomaticClusterUpdateSettingRequest()
-            .setAllowMissing(allowMissing)
-            .setSetting(setting)
-            .setFieldMask(fieldMask));
-  }
-
   /**
    * Updates the automatic cluster update setting for the workspace. A fresh etag needs to be
    * provided in `PATCH` requests (as part of the setting field). The etag can be retrieved by

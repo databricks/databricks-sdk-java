@@ -8,7 +8,6 @@ import com.databricks.sdk.support.Paginator;
 import com.databricks.sdk.support.Wait;
 import java.time.Duration;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
 import org.slf4j.Logger;
@@ -80,10 +79,6 @@ public class VectorSearchEndpointsAPI {
     throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
   }
 
-  public Wait<EndpointInfo, EndpointInfo> createEndpoint(String name, EndpointType endpointType) {
-    return createEndpoint(new CreateEndpoint().setName(name).setEndpointType(endpointType));
-  }
-
   /** Create a new endpoint. */
   public Wait<EndpointInfo, EndpointInfo> createEndpoint(CreateEndpoint request) {
     EndpointInfo response = impl.createEndpoint(request);
@@ -126,26 +121,10 @@ public class VectorSearchEndpointsAPI {
         });
   }
 
-  public PatchEndpointBudgetPolicyResponse updateEndpointBudgetPolicy(
-      String endpointName, String budgetPolicyId) {
-    return updateEndpointBudgetPolicy(
-        new PatchEndpointBudgetPolicyRequest()
-            .setEndpointName(endpointName)
-            .setBudgetPolicyId(budgetPolicyId));
-  }
-
   /** Update the budget policy of an endpoint */
   public PatchEndpointBudgetPolicyResponse updateEndpointBudgetPolicy(
       PatchEndpointBudgetPolicyRequest request) {
     return impl.updateEndpointBudgetPolicy(request);
-  }
-
-  public UpdateEndpointCustomTagsResponse updateEndpointCustomTags(
-      String endpointName, Collection<CustomTag> customTags) {
-    return updateEndpointCustomTags(
-        new UpdateEndpointCustomTagsRequest()
-            .setEndpointName(endpointName)
-            .setCustomTags(customTags));
   }
 
   /** Update the custom tags of an endpoint. */

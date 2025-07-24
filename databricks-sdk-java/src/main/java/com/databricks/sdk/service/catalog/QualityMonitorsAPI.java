@@ -31,10 +31,6 @@ public class QualityMonitorsAPI {
     impl = mock;
   }
 
-  public void cancelRefresh(String tableName, String refreshId) {
-    cancelRefresh(new CancelRefreshRequest().setTableName(tableName).setRefreshId(refreshId));
-  }
-
   /**
    * Cancel an active monitor refresh for the given refresh ID.
    *
@@ -47,14 +43,6 @@ public class QualityMonitorsAPI {
    */
   public void cancelRefresh(CancelRefreshRequest request) {
     impl.cancelRefresh(request);
-  }
-
-  public MonitorInfo create(String tableName, String assetsDir, String outputSchemaName) {
-    return create(
-        new CreateMonitor()
-            .setTableName(tableName)
-            .setAssetsDir(assetsDir)
-            .setOutputSchemaName(outputSchemaName));
   }
 
   /**
@@ -150,10 +138,6 @@ public class QualityMonitorsAPI {
     return impl.listRefreshes(request);
   }
 
-  public RegenerateDashboardResponse regenerateDashboard(String tableName) {
-    return regenerateDashboard(new RegenerateDashboardRequest().setTableName(tableName));
-  }
-
   /**
    * Regenerates the monitoring dashboard for the specified table.
    *
@@ -169,10 +153,6 @@ public class QualityMonitorsAPI {
     return impl.regenerateDashboard(request);
   }
 
-  public MonitorRefreshInfo runRefresh(String tableName) {
-    return runRefresh(new RunRefreshRequest().setTableName(tableName));
-  }
-
   /**
    * Queues a metric refresh on the monitor for the specified table. The refresh will execute in the
    * background.
@@ -186,11 +166,6 @@ public class QualityMonitorsAPI {
    */
   public MonitorRefreshInfo runRefresh(RunRefreshRequest request) {
     return impl.runRefresh(request);
-  }
-
-  public MonitorInfo update(String tableName, String outputSchemaName) {
-    return update(
-        new UpdateMonitor().setTableName(tableName).setOutputSchemaName(outputSchemaName));
   }
 
   /**

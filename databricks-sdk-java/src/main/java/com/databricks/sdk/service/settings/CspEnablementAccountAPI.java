@@ -36,15 +36,6 @@ public class CspEnablementAccountAPI {
     return impl.get(request);
   }
 
-  public CspEnablementAccountSetting update(
-      boolean allowMissing, CspEnablementAccountSetting setting, String fieldMask) {
-    return update(
-        new UpdateCspEnablementAccountSettingRequest()
-            .setAllowMissing(allowMissing)
-            .setSetting(setting)
-            .setFieldMask(fieldMask));
-  }
-
   /** Updates the value of the compliance security profile setting for new workspaces. */
   public CspEnablementAccountSetting update(UpdateCspEnablementAccountSettingRequest request) {
     return impl.update(request);

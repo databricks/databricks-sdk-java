@@ -27,15 +27,6 @@ public class ProviderFilesAPI {
     impl = mock;
   }
 
-  public CreateFileResponse create(
-      FileParent fileParent, MarketplaceFileType marketplaceFileType, String mimeType) {
-    return create(
-        new CreateFileRequest()
-            .setFileParent(fileParent)
-            .setMarketplaceFileType(marketplaceFileType)
-            .setMimeType(mimeType));
-  }
-
   /** Create a file. Currently, only provider icons and attached notebooks are supported. */
   public CreateFileResponse create(CreateFileRequest request) {
     return impl.create(request);

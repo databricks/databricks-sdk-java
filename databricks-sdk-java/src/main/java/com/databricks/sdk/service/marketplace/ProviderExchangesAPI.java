@@ -26,18 +26,9 @@ public class ProviderExchangesAPI {
     impl = mock;
   }
 
-  public AddExchangeForListingResponse addListingToExchange(String listingId, String exchangeId) {
-    return addListingToExchange(
-        new AddExchangeForListingRequest().setListingId(listingId).setExchangeId(exchangeId));
-  }
-
   /** Associate an exchange with a listing */
   public AddExchangeForListingResponse addListingToExchange(AddExchangeForListingRequest request) {
     return impl.addListingToExchange(request);
-  }
-
-  public CreateExchangeResponse create(Exchange exchange) {
-    return create(new CreateExchangeRequest().setExchange(exchange));
   }
 
   /** Create an exchange */
@@ -123,10 +114,6 @@ public class ProviderExchangesAPI {
           }
           return request.setPageToken(token);
         });
-  }
-
-  public UpdateExchangeResponse update(String id, Exchange exchange) {
-    return update(new UpdateExchangeRequest().setId(id).setExchange(exchange));
   }
 
   /** Update an exchange */
