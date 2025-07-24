@@ -28,20 +28,28 @@ jobs:
           java-version: 8
           server-id: central
           distribution: "adopt"
-          server-username: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
-          server-password: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
+          server-username: MAVEN_CENTRAL_USERNAME
+          server-password: MAVEN_CENTRAL_PASSWORD
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
-          gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}
-
+          gpg-passphrase: GPG_PASSPHRASE
+          
       # This step runs ONLY on branch pushes (dry-run)
       - name: Run Release Dry-Run (Verify)
         if: "!startsWith(github.ref, 'refs/tags/')"
         run: mvn -Prelease -DskipTests=true --batch-mode verify
+        env:
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+          MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          MAVEN_CENTRAL_PASSWORD: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
 
       # This step runs ONLY on tag pushes (real release)
       - name: Publish to Maven Central Repository (Deploy)
         if: "startsWith(github.ref, 'refs/tags/')"
         run: mvn -Prelease -DskipTests=true --batch-mode deploy
+        env:
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+          MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          MAVEN_CENTRAL_PASSWORD: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
 
       # This step also runs ONLY on tag pushes (real release)
       - name: Create GitHub release
