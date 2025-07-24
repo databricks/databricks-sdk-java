@@ -3,6 +3,7 @@
 package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
@@ -11,10 +12,12 @@ import java.util.Objects;
 public class FileParent {
   /** */
   @JsonProperty("file_parent_type")
+  @QueryParam("file_parent_type")
   private FileParentType fileParentType;
 
   /** TODO make the following fields required */
   @JsonProperty("parent_id")
+  @QueryParam("parent_id")
   private String parentId;
 
   public FileParent setFileParentType(FileParentType fileParentType) {

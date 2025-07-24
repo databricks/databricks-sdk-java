@@ -3,6 +3,7 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
@@ -11,10 +12,12 @@ import java.util.Objects;
 public class ExternalLineageModelVersion {
   /** */
   @JsonProperty("name")
+  @QueryParam("name")
   private String name;
 
   /** */
   @JsonProperty("version")
+  @QueryParam("version")
   private String version;
 
   public ExternalLineageModelVersion setName(String name) {
