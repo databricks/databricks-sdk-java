@@ -11,51 +11,32 @@ import java.util.Objects;
 @Generated
 public class MonitorInferenceLog {
   /**
-   * Granularities for aggregating data into time windows based on their timestamp. Currently the
-   * following static granularities are supported: {``"5 minutes"``, ``"30 minutes"``, ``"1 hour"``,
-   * ``"1 day"``, ``"<n> week(s)"``, ``"1 month"``, ``"1 year"``}.
+   * List of granularities to use when aggregating data into time windows based on their timestamp.
    */
   @JsonProperty("granularities")
   private Collection<String> granularities;
 
-  /** Optional column that contains the ground truth for the prediction. */
+  /** Column for the label. */
   @JsonProperty("label_col")
   private String labelCol;
 
-  /**
-   * Column that contains the id of the model generating the predictions. Metrics will be computed
-   * per model id by default, and also across all model ids.
-   */
+  /** Column for the model identifier. */
   @JsonProperty("model_id_col")
   private String modelIdCol;
 
-  /** Column that contains the output/prediction from the model. */
+  /** Column for the prediction. */
   @JsonProperty("prediction_col")
   private String predictionCol;
 
-  /**
-   * Optional column that contains the prediction probabilities for each class in a classification
-   * problem type. The values in this column should be a map, mapping each class label to the
-   * prediction probability for a given sample. The map should be of PySpark MapType().
-   */
+  /** Column for prediction probabilities */
   @JsonProperty("prediction_proba_col")
   private String predictionProbaCol;
 
-  /**
-   * Problem type the model aims to solve. Determines the type of model-quality metrics that will be
-   * computed.
-   */
+  /** Problem type the model aims to solve. */
   @JsonProperty("problem_type")
   private MonitorInferenceLogProblemType problemType;
 
-  /**
-   * Column that contains the timestamps of requests. The column must be one of the following: - A
-   * ``TimestampType`` column - A column whose values can be converted to timestamps through the
-   * pyspark ``to_timestamp`` [function].
-   *
-   * <p>[function]:
-   * https://spark.apache.org/docs/latest/api/python/reference/pyspark.sql/api/pyspark.sql.functions.to_timestamp.html
-   */
+  /** Column for the timestamp. */
   @JsonProperty("timestamp_col")
   private String timestampCol;
 

@@ -5,12 +5,10 @@ import com.databricks.sdk.support.Generated;
 
 /**
  * A monitor computes and monitors data or model quality metrics for a table over time. It generates
- * metrics tables and a dashboard that you can use to monitor table health and set alerts.
- *
- * <p>Most write operations require the user to be the owner of the table (or its parent schema or
- * parent catalog). Viewing the dashboard, computed metrics, or monitor configuration only requires
- * the user to have **SELECT** privileges on the table (along with **USE_SCHEMA** and
- * **USE_CATALOG**).
+ * metrics tables and a dashboard that you can use to monitor table health and set alerts. Most
+ * write operations require the user to be the owner of the table (or its parent schema or parent
+ * catalog). Viewing the dashboard, computed metrics, or monitor configuration only requires the
+ * user to have **SELECT** privileges on the table (along with **USE_SCHEMA** and **USE_CATALOG**).
  *
  * <p>This is the high-level interface, that contains generated methods.
  *
@@ -18,16 +16,7 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface QualityMonitorsService {
-  /**
-   * Cancel an active monitor refresh for the given refresh ID.
-   *
-   * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
-   * on the table's parent catalog and be an owner of the table's parent schema 3. have the
-   * following permissions: - **USE_CATALOG** on the table's parent catalog - **USE_SCHEMA** on the
-   * table's parent schema - be an owner of the table
-   *
-   * <p>Additionally, the call must be made from the workspace where the monitor was created.
-   */
+  /** Cancels an already-initiated refresh job. */
   void cancelRefresh(CancelRefreshRequest cancelRefreshRequest);
 
   /**
@@ -57,7 +46,7 @@ public interface QualityMonitorsService {
    * <p>Note that the metric tables and dashboard will not be deleted as part of this call; those
    * assets must be manually cleaned up (if desired).
    */
-  void delete(DeleteQualityMonitorRequest deleteQualityMonitorRequest);
+  DeleteMonitorResponse delete(DeleteQualityMonitorRequest deleteQualityMonitorRequest);
 
   /**
    * Gets a monitor for the specified table.

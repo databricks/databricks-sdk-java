@@ -1,6 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 
-package com.databricks.sdk.service.aibuilder;
+package com.databricks.sdk.service.agentbricks;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
@@ -8,11 +8,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 @Generated
-public class DeleteCustomLlmRequest {
+public class GetCustomLlmRequest {
   /** The id of the custom llm */
   @JsonIgnore private String id;
 
-  public DeleteCustomLlmRequest setId(String id) {
+  public GetCustomLlmRequest setId(String id) {
     this.id = id;
     return this;
   }
@@ -25,7 +25,7 @@ public class DeleteCustomLlmRequest {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    DeleteCustomLlmRequest that = (DeleteCustomLlmRequest) o;
+    GetCustomLlmRequest that = (GetCustomLlmRequest) o;
     return Objects.equals(id, that.id);
   }
 
@@ -36,6 +36,6 @@ public class DeleteCustomLlmRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(DeleteCustomLlmRequest.class).add("id", id).toString();
+    return new ToStringer(GetCustomLlmRequest.class).add("id", id).toString();
   }
 }

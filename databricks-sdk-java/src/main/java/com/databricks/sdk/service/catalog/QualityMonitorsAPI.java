@@ -8,12 +8,10 @@ import org.slf4j.LoggerFactory;
 
 /**
  * A monitor computes and monitors data or model quality metrics for a table over time. It generates
- * metrics tables and a dashboard that you can use to monitor table health and set alerts.
- *
- * <p>Most write operations require the user to be the owner of the table (or its parent schema or
- * parent catalog). Viewing the dashboard, computed metrics, or monitor configuration only requires
- * the user to have **SELECT** privileges on the table (along with **USE_SCHEMA** and
- * **USE_CATALOG**).
+ * metrics tables and a dashboard that you can use to monitor table health and set alerts. Most
+ * write operations require the user to be the owner of the table (or its parent schema or parent
+ * catalog). Viewing the dashboard, computed metrics, or monitor configuration only requires the
+ * user to have **SELECT** privileges on the table (along with **USE_SCHEMA** and **USE_CATALOG**).
  */
 @Generated
 public class QualityMonitorsAPI {
@@ -31,16 +29,7 @@ public class QualityMonitorsAPI {
     impl = mock;
   }
 
-  /**
-   * Cancel an active monitor refresh for the given refresh ID.
-   *
-   * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
-   * on the table's parent catalog and be an owner of the table's parent schema 3. have the
-   * following permissions: - **USE_CATALOG** on the table's parent catalog - **USE_SCHEMA** on the
-   * table's parent schema - be an owner of the table
-   *
-   * <p>Additionally, the call must be made from the workspace where the monitor was created.
-   */
+  /** Cancels an already-initiated refresh job. */
   public void cancelRefresh(CancelRefreshRequest request) {
     impl.cancelRefresh(request);
   }
@@ -61,8 +50,8 @@ public class QualityMonitorsAPI {
     return impl.create(request);
   }
 
-  public void delete(String tableName) {
-    delete(new DeleteQualityMonitorRequest().setTableName(tableName));
+  public DeleteMonitorResponse delete(String tableName) {
+    return delete(new DeleteQualityMonitorRequest().setTableName(tableName));
   }
 
   /**
@@ -78,8 +67,8 @@ public class QualityMonitorsAPI {
    * <p>Note that the metric tables and dashboard will not be deleted as part of this call; those
    * assets must be manually cleaned up (if desired).
    */
-  public void delete(DeleteQualityMonitorRequest request) {
-    impl.delete(request);
+  public DeleteMonitorResponse delete(DeleteQualityMonitorRequest request) {
+    return impl.delete(request);
   }
 
   public MonitorInfo get(String tableName) {
@@ -102,7 +91,7 @@ public class QualityMonitorsAPI {
     return impl.get(request);
   }
 
-  public MonitorRefreshInfo getRefresh(String tableName, String refreshId) {
+  public MonitorRefreshInfo getRefresh(String tableName, long refreshId) {
     return getRefresh(new GetRefreshRequest().setTableName(tableName).setRefreshId(refreshId));
   }
 

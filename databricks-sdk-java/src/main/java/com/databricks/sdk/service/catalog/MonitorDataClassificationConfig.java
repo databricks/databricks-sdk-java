@@ -7,9 +7,10 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Data classification related configuration. */
 @Generated
 public class MonitorDataClassificationConfig {
-  /** Whether data classification is enabled. */
+  /** Whether to enable data classification. */
   @JsonProperty("enabled")
   private Boolean enabled;
 

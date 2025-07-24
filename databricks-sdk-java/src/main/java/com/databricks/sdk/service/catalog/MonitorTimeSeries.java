@@ -8,24 +8,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/** Time series analysis configuration. */
 @Generated
 public class MonitorTimeSeries {
   /**
    * Granularities for aggregating data into time windows based on their timestamp. Currently the
-   * following static granularities are supported: {``"5 minutes"``, ``"30 minutes"``, ``"1 hour"``,
-   * ``"1 day"``, ``"<n> week(s)"``, ``"1 month"``, ``"1 year"``}.
+   * following static granularities are supported: {``\"5 minutes\"``, ``\"30 minutes\"``, ``\"1
+   * hour\"``, ``\"1 day\"``, ``\"\u003cn\u003e week(s)\"``, ``\"1 month\"``, ``\"1 year\"``}.
    */
   @JsonProperty("granularities")
   private Collection<String> granularities;
 
-  /**
-   * Column that contains the timestamps of requests. The column must be one of the following: - A
-   * ``TimestampType`` column - A column whose values can be converted to timestamps through the
-   * pyspark ``to_timestamp`` [function].
-   *
-   * <p>[function]:
-   * https://spark.apache.org/docs/latest/api/python/reference/pyspark.sql/api/pyspark.sql.functions.to_timestamp.html
-   */
+  /** Column for the timestamp. */
   @JsonProperty("timestamp_col")
   private String timestampCol;
 

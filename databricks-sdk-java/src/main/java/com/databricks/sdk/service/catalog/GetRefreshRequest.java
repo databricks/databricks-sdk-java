@@ -10,17 +10,17 @@ import java.util.Objects;
 @Generated
 public class GetRefreshRequest {
   /** ID of the refresh. */
-  @JsonIgnore private String refreshId;
+  @JsonIgnore private Long refreshId;
 
   /** Full name of the table. */
   @JsonIgnore private String tableName;
 
-  public GetRefreshRequest setRefreshId(String refreshId) {
+  public GetRefreshRequest setRefreshId(Long refreshId) {
     this.refreshId = refreshId;
     return this;
   }
 
-  public String getRefreshId() {
+  public Long getRefreshId() {
     return refreshId;
   }
 

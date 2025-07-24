@@ -4,7 +4,6 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** The status of the monitor. */
 @Generated
 public enum MonitorInfoStatus {
   MONITOR_STATUS_ACTIVE,

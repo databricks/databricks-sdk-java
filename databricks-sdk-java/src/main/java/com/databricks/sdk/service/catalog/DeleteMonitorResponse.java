@@ -6,9 +6,8 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Snapshot analysis configuration */
 @Generated
-public class MonitorSnapshot {
+public class DeleteMonitorResponse {
 
   @Override
   public boolean equals(Object o) {
@@ -24,6 +23,6 @@ public class MonitorSnapshot {
 
   @Override
   public String toString() {
-    return new ToStringer(MonitorSnapshot.class).toString();
+    return new ToStringer(DeleteMonitorResponse.class).toString();
   }
 }

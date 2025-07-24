@@ -1,5 +1,5 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
-package com.databricks.sdk.service.aibuilder;
+package com.databricks.sdk.service.agentbricks;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.core.DatabricksException;
@@ -7,12 +7,12 @@ import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
 import java.io.IOException;
 
-/** Package-local implementation of AiBuilder */
+/** Package-local implementation of AgentBricks */
 @Generated
-class AiBuilderImpl implements AiBuilderService {
+class AgentBricksImpl implements AgentBricksService {
   private final ApiClient apiClient;
 
-  public AiBuilderImpl(ApiClient apiClient) {
+  public AgentBricksImpl(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
@@ -46,7 +46,7 @@ class AiBuilderImpl implements AiBuilderService {
 
   @Override
   public void deleteCustomLlm(DeleteCustomLlmRequest request) {
-    String path = String.format("/api/2.0/custom-lms/%s", request.getId());
+    String path = String.format("/api/2.0/custom-llms/%s", request.getId());
     try {
       Request req = new Request("DELETE", path);
       ApiClient.setQuery(req, request);

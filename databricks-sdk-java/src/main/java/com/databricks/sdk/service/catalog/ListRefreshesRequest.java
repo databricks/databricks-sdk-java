@@ -9,7 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class ListRefreshesRequest {
-  /** Full name of the table. */
+  /**
+   * UC table name in format `catalog.schema.table_name`. table_name is case insensitive and spaces
+   * are disallowed.
+   */
   @JsonIgnore private String tableName;
 
   public ListRefreshesRequest setTableName(String tableName) {

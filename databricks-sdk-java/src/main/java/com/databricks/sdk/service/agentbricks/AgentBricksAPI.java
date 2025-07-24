@@ -1,5 +1,5 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
-package com.databricks.sdk.service.aibuilder;
+package com.databricks.sdk.service.agentbricks;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
@@ -8,18 +8,18 @@ import org.slf4j.LoggerFactory;
 
 /** The Custom LLMs service manages state and powers the UI for the Custom LLM product. */
 @Generated
-public class AiBuilderAPI {
-  private static final Logger LOG = LoggerFactory.getLogger(AiBuilderAPI.class);
+public class AgentBricksAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(AgentBricksAPI.class);
 
-  private final AiBuilderService impl;
+  private final AgentBricksService impl;
 
   /** Regular-use constructor */
-  public AiBuilderAPI(ApiClient apiClient) {
-    impl = new AiBuilderImpl(apiClient);
+  public AgentBricksAPI(ApiClient apiClient) {
+    impl = new AgentBricksImpl(apiClient);
   }
 
   /** Constructor for mocks */
-  public AiBuilderAPI(AiBuilderService mock) {
+  public AgentBricksAPI(AgentBricksService mock) {
     impl = mock;
   }
 
@@ -61,7 +61,7 @@ public class AiBuilderAPI {
     return impl.updateCustomLlm(request);
   }
 
-  public AiBuilderService impl() {
+  public AgentBricksService impl() {
     return impl;
   }
 }

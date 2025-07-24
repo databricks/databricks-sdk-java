@@ -12,4 +12,5 @@ public enum MonitorRefreshInfoState {
   PENDING,
   RUNNING,
   SUCCESS,
+  UNKNOWN,
 }

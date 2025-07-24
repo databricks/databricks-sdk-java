@@ -8,8 +8,8 @@ import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.mixin.ClustersExt;
 import com.databricks.sdk.mixin.DbfsExt;
 import com.databricks.sdk.mixin.SecretsExt;
-import com.databricks.sdk.service.aibuilder.AiBuilderAPI;
-import com.databricks.sdk.service.aibuilder.AiBuilderService;
+import com.databricks.sdk.service.agentbricks.AgentBricksAPI;
+import com.databricks.sdk.service.agentbricks.AgentBricksService;
 import com.databricks.sdk.service.apps.AppsAPI;
 import com.databricks.sdk.service.apps.AppsService;
 import com.databricks.sdk.service.catalog.ArtifactAllowlistsAPI;
@@ -58,8 +58,12 @@ import com.databricks.sdk.service.catalog.VolumesAPI;
 import com.databricks.sdk.service.catalog.VolumesService;
 import com.databricks.sdk.service.catalog.WorkspaceBindingsAPI;
 import com.databricks.sdk.service.catalog.WorkspaceBindingsService;
+import com.databricks.sdk.service.cleanrooms.CleanRoomAssetRevisionsAPI;
+import com.databricks.sdk.service.cleanrooms.CleanRoomAssetRevisionsService;
 import com.databricks.sdk.service.cleanrooms.CleanRoomAssetsAPI;
 import com.databricks.sdk.service.cleanrooms.CleanRoomAssetsService;
+import com.databricks.sdk.service.cleanrooms.CleanRoomAutoApprovalRulesAPI;
+import com.databricks.sdk.service.cleanrooms.CleanRoomAutoApprovalRulesService;
 import com.databricks.sdk.service.cleanrooms.CleanRoomTaskRunsAPI;
 import com.databricks.sdk.service.cleanrooms.CleanRoomTaskRunsService;
 import com.databricks.sdk.service.cleanrooms.CleanRoomsAPI;
@@ -231,14 +235,16 @@ public class WorkspaceClient {
 
   private AccessControlAPI accessControlAPI;
   private AccountAccessControlProxyAPI accountAccessControlProxyAPI;
-  private AiBuilderAPI aiBuilderAPI;
+  private AgentBricksAPI agentBricksAPI;
   private AlertsAPI alertsAPI;
   private AlertsLegacyAPI alertsLegacyAPI;
   private AlertsV2API alertsV2API;
   private AppsAPI appsAPI;
   private ArtifactAllowlistsAPI artifactAllowlistsAPI;
   private CatalogsAPI catalogsAPI;
+  private CleanRoomAssetRevisionsAPI cleanRoomAssetRevisionsAPI;
   private CleanRoomAssetsAPI cleanRoomAssetsAPI;
+  private CleanRoomAutoApprovalRulesAPI cleanRoomAutoApprovalRulesAPI;
   private CleanRoomTaskRunsAPI cleanRoomTaskRunsAPI;
   private CleanRoomsAPI cleanRoomsAPI;
   private ClusterPoliciesAPI clusterPoliciesAPI;
@@ -347,14 +353,16 @@ public class WorkspaceClient {
     apiClient = new ApiClient(config);
     accessControlAPI = new AccessControlAPI(apiClient);
     accountAccessControlProxyAPI = new AccountAccessControlProxyAPI(apiClient);
-    aiBuilderAPI = new AiBuilderAPI(apiClient);
+    agentBricksAPI = new AgentBricksAPI(apiClient);
     alertsAPI = new AlertsAPI(apiClient);
     alertsLegacyAPI = new AlertsLegacyAPI(apiClient);
     alertsV2API = new AlertsV2API(apiClient);
     appsAPI = new AppsAPI(apiClient);
     artifactAllowlistsAPI = new ArtifactAllowlistsAPI(apiClient);
     catalogsAPI = new CatalogsAPI(apiClient);
+    cleanRoomAssetRevisionsAPI = new CleanRoomAssetRevisionsAPI(apiClient);
     cleanRoomAssetsAPI = new CleanRoomAssetsAPI(apiClient);
+    cleanRoomAutoApprovalRulesAPI = new CleanRoomAutoApprovalRulesAPI(apiClient);
     cleanRoomTaskRunsAPI = new CleanRoomTaskRunsAPI(apiClient);
     cleanRoomsAPI = new CleanRoomsAPI(apiClient);
     clusterPoliciesAPI = new ClusterPoliciesAPI(apiClient);
@@ -483,8 +491,8 @@ public class WorkspaceClient {
   }
 
   /** The Custom LLMs service manages state and powers the UI for the Custom LLM product. */
-  public AiBuilderAPI aiBuilder() {
-    return aiBuilderAPI;
+  public AgentBricksAPI agentBricks() {
+    return agentBricksAPI;
   }
 
   /**
@@ -547,11 +555,27 @@ public class WorkspaceClient {
   }
 
   /**
+   * Clean Room Asset Revisions denote new versions of uploaded assets (e.g. notebooks) in the clean
+   * room.
+   */
+  public CleanRoomAssetRevisionsAPI cleanRoomAssetRevisions() {
+    return cleanRoomAssetRevisionsAPI;
+  }
+
+  /**
    * Clean room assets are data and code objects — Tables, volumes, and notebooks that are shared
    * with the clean room.
    */
   public CleanRoomAssetsAPI cleanRoomAssets() {
     return cleanRoomAssetsAPI;
+  }
+
+  /**
+   * Clean room auto-approval rules automatically create an approval on your behalf when an asset
+   * (e.g. notebook) meeting specific criteria is shared in a clean room.
+   */
+  public CleanRoomAutoApprovalRulesAPI cleanRoomAutoApprovalRules() {
+    return cleanRoomAutoApprovalRulesAPI;
   }
 
   /** Clean room task runs are the executions of notebooks in a clean room. */
@@ -1294,12 +1318,10 @@ public class WorkspaceClient {
   /**
    * A monitor computes and monitors data or model quality metrics for a table over time. It
    * generates metrics tables and a dashboard that you can use to monitor table health and set
-   * alerts.
-   *
-   * <p>Most write operations require the user to be the owner of the table (or its parent schema or
-   * parent catalog). Viewing the dashboard, computed metrics, or monitor configuration only
-   * requires the user to have **SELECT** privileges on the table (along with **USE_SCHEMA** and
-   * **USE_CATALOG**).
+   * alerts. Most write operations require the user to be the owner of the table (or its parent
+   * schema or parent catalog). Viewing the dashboard, computed metrics, or monitor configuration
+   * only requires the user to have **SELECT** privileges on the table (along with **USE_SCHEMA**
+   * and **USE_CATALOG**).
    */
   public QualityMonitorsAPI qualityMonitors() {
     return qualityMonitorsAPI;
@@ -1894,14 +1916,14 @@ public class WorkspaceClient {
     return this;
   }
 
-  /** Replace the default AiBuilderService with a custom implementation. */
-  public WorkspaceClient withAiBuilderImpl(AiBuilderService aiBuilder) {
-    return this.withAiBuilderAPI(new AiBuilderAPI(aiBuilder));
+  /** Replace the default AgentBricksService with a custom implementation. */
+  public WorkspaceClient withAgentBricksImpl(AgentBricksService agentBricks) {
+    return this.withAgentBricksAPI(new AgentBricksAPI(agentBricks));
   }
 
-  /** Replace the default AiBuilderAPI with a custom implementation. */
-  public WorkspaceClient withAiBuilderAPI(AiBuilderAPI aiBuilder) {
-    this.aiBuilderAPI = aiBuilder;
+  /** Replace the default AgentBricksAPI with a custom implementation. */
+  public WorkspaceClient withAgentBricksAPI(AgentBricksAPI agentBricks) {
+    this.agentBricksAPI = agentBricks;
     return this;
   }
 
@@ -1971,6 +1993,20 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default CleanRoomAssetRevisionsService with a custom implementation. */
+  public WorkspaceClient withCleanRoomAssetRevisionsImpl(
+      CleanRoomAssetRevisionsService cleanRoomAssetRevisions) {
+    return this.withCleanRoomAssetRevisionsAPI(
+        new CleanRoomAssetRevisionsAPI(cleanRoomAssetRevisions));
+  }
+
+  /** Replace the default CleanRoomAssetRevisionsAPI with a custom implementation. */
+  public WorkspaceClient withCleanRoomAssetRevisionsAPI(
+      CleanRoomAssetRevisionsAPI cleanRoomAssetRevisions) {
+    this.cleanRoomAssetRevisionsAPI = cleanRoomAssetRevisions;
+    return this;
+  }
+
   /** Replace the default CleanRoomAssetsService with a custom implementation. */
   public WorkspaceClient withCleanRoomAssetsImpl(CleanRoomAssetsService cleanRoomAssets) {
     return this.withCleanRoomAssetsAPI(new CleanRoomAssetsAPI(cleanRoomAssets));
@@ -1979,6 +2015,20 @@ public class WorkspaceClient {
   /** Replace the default CleanRoomAssetsAPI with a custom implementation. */
   public WorkspaceClient withCleanRoomAssetsAPI(CleanRoomAssetsAPI cleanRoomAssets) {
     this.cleanRoomAssetsAPI = cleanRoomAssets;
+    return this;
+  }
+
+  /** Replace the default CleanRoomAutoApprovalRulesService with a custom implementation. */
+  public WorkspaceClient withCleanRoomAutoApprovalRulesImpl(
+      CleanRoomAutoApprovalRulesService cleanRoomAutoApprovalRules) {
+    return this.withCleanRoomAutoApprovalRulesAPI(
+        new CleanRoomAutoApprovalRulesAPI(cleanRoomAutoApprovalRules));
+  }
+
+  /** Replace the default CleanRoomAutoApprovalRulesAPI with a custom implementation. */
+  public WorkspaceClient withCleanRoomAutoApprovalRulesAPI(
+      CleanRoomAutoApprovalRulesAPI cleanRoomAutoApprovalRules) {
+    this.cleanRoomAutoApprovalRulesAPI = cleanRoomAutoApprovalRules;
     return this;
   }
 

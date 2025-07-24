@@ -9,11 +9,11 @@ import java.util.Objects;
 
 @Generated
 public class RegenerateDashboardResponse {
-  /** Id of the regenerated monitoring dashboard. */
+  /** */
   @JsonProperty("dashboard_id")
   private String dashboardId;
 
-  /** The directory where the regenerated dashboard is stored. */
+  /** Parent folder is equivalent to {assets_dir}/{tableName} */
   @JsonProperty("parent_folder")
   private String parentFolder;
 
