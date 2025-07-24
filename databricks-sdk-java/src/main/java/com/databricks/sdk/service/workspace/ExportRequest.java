@@ -28,6 +28,16 @@ public class ExportRequest {
   private ExportFormat format;
 
   /**
+   * This specifies which cell outputs should be included in the export (if the export format allows
+   * it). If not specified, the behavior is determined by the format. For JUPYTER format, the
+   * default is to include all outputs. This is a public endpoint, but only ALL or NONE is
+   * documented publically, DATABRICKS is internal only
+   */
+  @JsonIgnore
+  @QueryParam("outputs")
+  private ExportOutputs outputs;
+
+  /**
    * The absolute path of the object or directory. Exporting a directory is only supported for the
    * `DBC`, `SOURCE`, and `AUTO` format.
    */
@@ -44,6 +54,15 @@ public class ExportRequest {
     return format;
   }
 
+  public ExportRequest setOutputs(ExportOutputs outputs) {
+    this.outputs = outputs;
+    return this;
+  }
+
+  public ExportOutputs getOutputs() {
+    return outputs;
+  }
+
   public ExportRequest setPath(String path) {
     this.path = path;
     return this;
@@ -58,16 +77,22 @@ public class ExportRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ExportRequest that = (ExportRequest) o;
-    return Objects.equals(format, that.format) && Objects.equals(path, that.path);
+    return Objects.equals(format, that.format)
+        && Objects.equals(outputs, that.outputs)
+        && Objects.equals(path, that.path);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(format, path);
+    return Objects.hash(format, outputs, path);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(ExportRequest.class).add("format", format).add("path", path).toString();
+    return new ToStringer(ExportRequest.class)
+        .add("format", format)
+        .add("outputs", outputs)
+        .add("path", path)
+        .toString();
   }
 }

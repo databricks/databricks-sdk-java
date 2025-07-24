@@ -99,6 +99,11 @@ public class DatabaseAPI {
     impl.deleteSyncedDatabaseTable(request);
   }
 
+  /** Failover the primary node of a Database Instance to a secondary. */
+  public DatabaseInstance failoverDatabaseInstance(FailoverDatabaseInstanceRequest request) {
+    return impl.failoverDatabaseInstance(request);
+  }
+
   /** Find a Database Instance by uid. */
   public DatabaseInstance findDatabaseInstanceByUid(FindDatabaseInstanceByUidRequest request) {
     return impl.findDatabaseInstanceByUid(request);
@@ -155,6 +160,25 @@ public class DatabaseAPI {
     return impl.getSyncedDatabaseTable(request);
   }
 
+  public Iterable<DatabaseCatalog> listDatabaseCatalogs(String instanceName) {
+    return listDatabaseCatalogs(new ListDatabaseCatalogsRequest().setInstanceName(instanceName));
+  }
+
+  /** List all Database Catalogs within a Database Instance. */
+  public Iterable<DatabaseCatalog> listDatabaseCatalogs(ListDatabaseCatalogsRequest request) {
+    return new Paginator<>(
+        request,
+        impl::listDatabaseCatalogs,
+        ListDatabaseCatalogsResponse::getDatabaseCatalogs,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
   public Iterable<DatabaseInstanceRole> listDatabaseInstanceRoles(String instanceName) {
     return listDatabaseInstanceRoles(
         new ListDatabaseInstanceRolesRequest().setInstanceName(instanceName));
@@ -191,9 +215,40 @@ public class DatabaseAPI {
         });
   }
 
+  public Iterable<SyncedDatabaseTable> listSyncedDatabaseTables(String instanceName) {
+    return listSyncedDatabaseTables(
+        new ListSyncedDatabaseTablesRequest().setInstanceName(instanceName));
+  }
+
+  /** List all Synced Database Tables within a Database Instance. */
+  public Iterable<SyncedDatabaseTable> listSyncedDatabaseTables(
+      ListSyncedDatabaseTablesRequest request) {
+    return new Paginator<>(
+        request,
+        impl::listSyncedDatabaseTables,
+        ListSyncedDatabaseTablesResponse::getSyncedTables,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
+  /** Updated a Database Catalog. */
+  public DatabaseCatalog updateDatabaseCatalog(UpdateDatabaseCatalogRequest request) {
+    return impl.updateDatabaseCatalog(request);
+  }
+
   /** Update a Database Instance. */
   public DatabaseInstance updateDatabaseInstance(UpdateDatabaseInstanceRequest request) {
     return impl.updateDatabaseInstance(request);
+  }
+
+  /** Update a Synced Database Table. */
+  public SyncedDatabaseTable updateSyncedDatabaseTable(UpdateSyncedDatabaseTableRequest request) {
+    return impl.updateSyncedDatabaseTable(request);
   }
 
   public DatabaseService impl() {

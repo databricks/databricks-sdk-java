@@ -49,6 +49,10 @@ public interface DatabaseService {
   /** Delete a Synced Database Table. */
   void deleteSyncedDatabaseTable(DeleteSyncedDatabaseTableRequest deleteSyncedDatabaseTableRequest);
 
+  /** Failover the primary node of a Database Instance to a secondary. */
+  DatabaseInstance failoverDatabaseInstance(
+      FailoverDatabaseInstanceRequest failoverDatabaseInstanceRequest);
+
   /** Find a Database Instance by uid. */
   DatabaseInstance findDatabaseInstanceByUid(
       FindDatabaseInstanceByUidRequest findDatabaseInstanceByUidRequest);
@@ -74,6 +78,10 @@ public interface DatabaseService {
   SyncedDatabaseTable getSyncedDatabaseTable(
       GetSyncedDatabaseTableRequest getSyncedDatabaseTableRequest);
 
+  /** List all Database Catalogs within a Database Instance. */
+  ListDatabaseCatalogsResponse listDatabaseCatalogs(
+      ListDatabaseCatalogsRequest listDatabaseCatalogsRequest);
+
   /** START OF PG ROLE APIs Section */
   ListDatabaseInstanceRolesResponse listDatabaseInstanceRoles(
       ListDatabaseInstanceRolesRequest listDatabaseInstanceRolesRequest);
@@ -82,7 +90,18 @@ public interface DatabaseService {
   ListDatabaseInstancesResponse listDatabaseInstances(
       ListDatabaseInstancesRequest listDatabaseInstancesRequest);
 
+  /** List all Synced Database Tables within a Database Instance. */
+  ListSyncedDatabaseTablesResponse listSyncedDatabaseTables(
+      ListSyncedDatabaseTablesRequest listSyncedDatabaseTablesRequest);
+
+  /** Updated a Database Catalog. */
+  DatabaseCatalog updateDatabaseCatalog(UpdateDatabaseCatalogRequest updateDatabaseCatalogRequest);
+
   /** Update a Database Instance. */
   DatabaseInstance updateDatabaseInstance(
       UpdateDatabaseInstanceRequest updateDatabaseInstanceRequest);
+
+  /** Update a Synced Database Table. */
+  SyncedDatabaseTable updateSyncedDatabaseTable(
+      UpdateSyncedDatabaseTableRequest updateSyncedDatabaseTableRequest);
 }

@@ -135,6 +135,49 @@ public class GenieAPI {
     return impl.executeMessageQuery(request);
   }
 
+  /**
+   * Initiates a new SQL execution and returns a `download_id` that you can use to track the
+   * progress of the download. The query result is stored in an external link and can be retrieved
+   * using the [Get Download Full Query Result](:method:genie/getdownloadfullqueryresult) API.
+   * Warning: Databricks strongly recommends that you protect the URLs that are returned by the
+   * `EXTERNAL_LINKS` disposition. See [Execute
+   * Statement](:method:statementexecution/executestatement) for more details.
+   */
+  public GenieGenerateDownloadFullQueryResultResponse generateDownloadFullQueryResult(
+      GenieGenerateDownloadFullQueryResultRequest request) {
+    return impl.generateDownloadFullQueryResult(request);
+  }
+
+  public GenieGetDownloadFullQueryResultResponse getDownloadFullQueryResult(
+      String spaceId,
+      String conversationId,
+      String messageId,
+      String attachmentId,
+      String downloadId) {
+    return getDownloadFullQueryResult(
+        new GenieGetDownloadFullQueryResultRequest()
+            .setSpaceId(spaceId)
+            .setConversationId(conversationId)
+            .setMessageId(messageId)
+            .setAttachmentId(attachmentId)
+            .setDownloadId(downloadId));
+  }
+
+  /**
+   * After [Generating a Full Query Result Download](:method:genie/getdownloadfullqueryresult) and
+   * successfully receiving a `download_id`, use this API to poll the download progress. When the
+   * download is complete, the API returns one or more external links to the query result files.
+   * Warning: Databricks strongly recommends that you protect the URLs that are returned by the
+   * `EXTERNAL_LINKS` disposition. You must not set an Authorization header in download requests.
+   * When using the `EXTERNAL_LINKS` disposition, Databricks returns presigned URLs that grant
+   * temporary access to data. See [Execute Statement](:method:statementexecution/executestatement)
+   * for more details.
+   */
+  public GenieGetDownloadFullQueryResultResponse getDownloadFullQueryResult(
+      GenieGetDownloadFullQueryResultRequest request) {
+    return impl.getDownloadFullQueryResult(request);
+  }
+
   public GenieMessage getMessage(String spaceId, String conversationId, String messageId) {
     return getMessage(
         new GenieGetConversationMessageRequest()

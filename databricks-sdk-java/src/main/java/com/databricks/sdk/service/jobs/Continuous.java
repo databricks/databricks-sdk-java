@@ -15,6 +15,12 @@ public class Continuous {
   @JsonProperty("pause_status")
   private PauseStatus pauseStatus;
 
+  /**
+   * Indicate whether the continuous job is applying task level retries or not. Defaults to NEVER.
+   */
+  @JsonProperty("task_retry_mode")
+  private TaskRetryMode taskRetryMode;
+
   public Continuous setPauseStatus(PauseStatus pauseStatus) {
     this.pauseStatus = pauseStatus;
     return this;
@@ -24,21 +30,34 @@ public class Continuous {
     return pauseStatus;
   }
 
+  public Continuous setTaskRetryMode(TaskRetryMode taskRetryMode) {
+    this.taskRetryMode = taskRetryMode;
+    return this;
+  }
+
+  public TaskRetryMode getTaskRetryMode() {
+    return taskRetryMode;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Continuous that = (Continuous) o;
-    return Objects.equals(pauseStatus, that.pauseStatus);
+    return Objects.equals(pauseStatus, that.pauseStatus)
+        && Objects.equals(taskRetryMode, that.taskRetryMode);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pauseStatus);
+    return Objects.hash(pauseStatus, taskRetryMode);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(Continuous.class).add("pauseStatus", pauseStatus).toString();
+    return new ToStringer(Continuous.class)
+        .add("pauseStatus", pauseStatus)
+        .add("taskRetryMode", taskRetryMode)
+        .toString();
   }
 }

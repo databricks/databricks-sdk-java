@@ -140,6 +140,19 @@ class PipelinesImpl implements PipelinesService {
   }
 
   @Override
+  public RestorePipelineRequestResponse restorePipeline(RestorePipelineRequest request) {
+    String path = String.format("/api/2.0/pipelines/%s/restore", request.getPipelineId());
+    try {
+      Request req = new Request("POST", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, RestorePipelineRequestResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public PipelinePermissions setPermissions(PipelinePermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/pipelines/%s", request.getPipelineId());
     try {

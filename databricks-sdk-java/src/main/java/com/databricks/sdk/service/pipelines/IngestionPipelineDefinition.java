@@ -18,6 +18,14 @@ public class IngestionPipelineDefinition {
   private String connectionName;
 
   /**
+   * Immutable. If set to true, the pipeline will ingest tables from the UC foreign catalogs
+   * directly without the need to specify a UC connection or ingestion gateway. The `source_catalog`
+   * fields in objects of IngestionConfig are interpreted as the UC foreign catalogs to ingest from.
+   */
+  @JsonProperty("ingest_from_uc_foreign_catalog")
+  private Boolean ingestFromUcForeignCatalog;
+
+  /**
    * Immutable. Identifier for the gateway that is used by this ingestion pipeline to communicate
    * with the source database. This is used with connectors to databases like SQL Server.
    */
@@ -30,6 +38,10 @@ public class IngestionPipelineDefinition {
    */
   @JsonProperty("objects")
   private Collection<IngestionConfig> objects;
+
+  /** Top-level source configurations */
+  @JsonProperty("source_configurations")
+  private Collection<SourceConfig> sourceConfigurations;
 
   /**
    * The type of the foreign source. The source type will be inferred from the source connection or
@@ -54,6 +66,16 @@ public class IngestionPipelineDefinition {
     return connectionName;
   }
 
+  public IngestionPipelineDefinition setIngestFromUcForeignCatalog(
+      Boolean ingestFromUcForeignCatalog) {
+    this.ingestFromUcForeignCatalog = ingestFromUcForeignCatalog;
+    return this;
+  }
+
+  public Boolean getIngestFromUcForeignCatalog() {
+    return ingestFromUcForeignCatalog;
+  }
+
   public IngestionPipelineDefinition setIngestionGatewayId(String ingestionGatewayId) {
     this.ingestionGatewayId = ingestionGatewayId;
     return this;
@@ -70,6 +92,16 @@ public class IngestionPipelineDefinition {
 
   public Collection<IngestionConfig> getObjects() {
     return objects;
+  }
+
+  public IngestionPipelineDefinition setSourceConfigurations(
+      Collection<SourceConfig> sourceConfigurations) {
+    this.sourceConfigurations = sourceConfigurations;
+    return this;
+  }
+
+  public Collection<SourceConfig> getSourceConfigurations() {
+    return sourceConfigurations;
   }
 
   public IngestionPipelineDefinition setSourceType(IngestionSourceType sourceType) {
@@ -96,8 +128,10 @@ public class IngestionPipelineDefinition {
     if (o == null || getClass() != o.getClass()) return false;
     IngestionPipelineDefinition that = (IngestionPipelineDefinition) o;
     return Objects.equals(connectionName, that.connectionName)
+        && Objects.equals(ingestFromUcForeignCatalog, that.ingestFromUcForeignCatalog)
         && Objects.equals(ingestionGatewayId, that.ingestionGatewayId)
         && Objects.equals(objects, that.objects)
+        && Objects.equals(sourceConfigurations, that.sourceConfigurations)
         && Objects.equals(sourceType, that.sourceType)
         && Objects.equals(tableConfiguration, that.tableConfiguration);
   }
@@ -105,15 +139,23 @@ public class IngestionPipelineDefinition {
   @Override
   public int hashCode() {
     return Objects.hash(
-        connectionName, ingestionGatewayId, objects, sourceType, tableConfiguration);
+        connectionName,
+        ingestFromUcForeignCatalog,
+        ingestionGatewayId,
+        objects,
+        sourceConfigurations,
+        sourceType,
+        tableConfiguration);
   }
 
   @Override
   public String toString() {
     return new ToStringer(IngestionPipelineDefinition.class)
         .add("connectionName", connectionName)
+        .add("ingestFromUcForeignCatalog", ingestFromUcForeignCatalog)
         .add("ingestionGatewayId", ingestionGatewayId)
         .add("objects", objects)
+        .add("sourceConfigurations", sourceConfigurations)
         .add("sourceType", sourceType)
         .add("tableConfiguration", tableConfiguration)
         .toString();
