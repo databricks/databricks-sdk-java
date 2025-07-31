@@ -2426,6 +2426,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/sharing/RetrieveTok
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sharing/RetrieveTokenResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sharing/RotateRecipientToken.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sharing/SecurablePropertiesKvPairs.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/sharing/Share.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sharing/ShareInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sharing/SharePermissionsRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sharing/ShareToPrivilegeAssignment.java linguist-generated=true

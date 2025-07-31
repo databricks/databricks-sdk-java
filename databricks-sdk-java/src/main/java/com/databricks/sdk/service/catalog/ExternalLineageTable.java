@@ -3,6 +3,7 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
@@ -11,6 +12,7 @@ import java.util.Objects;
 public class ExternalLineageTable {
   /** */
   @JsonProperty("name")
+  @QueryParam("name")
   private String name;
 
   public ExternalLineageTable setName(String name) {

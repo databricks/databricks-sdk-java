@@ -271,6 +271,7 @@ public class WorkspaceClient {
   private ExternalMetadataAPI externalMetadataAPI;
   private FeatureStoreAPI featureStoreAPI;
   private FilesAPI filesAPI;
+  private ForecastingAPI forecastingAPI;
   private FunctionsAPI functionsAPI;
   private GenieAPI genieAPI;
   private GitCredentialsAPI gitCredentialsAPI;
@@ -342,7 +343,6 @@ public class WorkspaceClient {
   private WorkspaceAPI workspaceAPI;
   private WorkspaceBindingsAPI workspaceBindingsAPI;
   private WorkspaceConfAPI workspaceConfAPI;
-  private ForecastingAPI forecastingAPI;
 
   public WorkspaceClient() {
     this(ConfigLoader.getDefault());
@@ -389,6 +389,7 @@ public class WorkspaceClient {
     externalMetadataAPI = new ExternalMetadataAPI(apiClient);
     featureStoreAPI = new FeatureStoreAPI(apiClient);
     filesAPI = new FilesAPI(apiClient);
+    forecastingAPI = new ForecastingAPI(apiClient);
     functionsAPI = new FunctionsAPI(apiClient);
     genieAPI = new GenieAPI(apiClient);
     gitCredentialsAPI = new GitCredentialsAPI(apiClient);
@@ -461,7 +462,6 @@ public class WorkspaceClient {
     workspaceAPI = new WorkspaceAPI(apiClient);
     workspaceBindingsAPI = new WorkspaceBindingsAPI(apiClient);
     workspaceConfAPI = new WorkspaceConfAPI(apiClient);
-    forecastingAPI = new ForecastingAPI(apiClient);
   }
 
   /** Constructor for mocks */
@@ -891,6 +891,11 @@ public class WorkspaceClient {
    */
   public FilesAPI files() {
     return filesAPI;
+  }
+
+  /** The Forecasting API allows you to create and get serverless forecasting experiments */
+  public ForecastingAPI forecasting() {
+    return forecastingAPI;
   }
 
   /**
@@ -1886,11 +1891,6 @@ public class WorkspaceClient {
     return workspaceConfAPI;
   }
 
-  /** The Forecasting API allows you to create and get serverless forecasting experiments */
-  public ForecastingAPI forecasting() {
-    return forecastingAPI;
-  }
-
   /** Replace the default AccessControlService with a custom implementation. */
   public WorkspaceClient withAccessControlImpl(AccessControlService accessControl) {
     return this.withAccessControlAPI(new AccessControlAPI(accessControl));
@@ -2321,6 +2321,17 @@ public class WorkspaceClient {
   /** Replace the default FilesAPI with a custom implementation. */
   public WorkspaceClient withFilesAPI(FilesAPI files) {
     this.filesAPI = files;
+    return this;
+  }
+
+  /** Replace the default ForecastingService with a custom implementation. */
+  public WorkspaceClient withForecastingImpl(ForecastingService forecasting) {
+    return this.withForecastingAPI(new ForecastingAPI(forecasting));
+  }
+
+  /** Replace the default ForecastingAPI with a custom implementation. */
+  public WorkspaceClient withForecastingAPI(ForecastingAPI forecasting) {
+    this.forecastingAPI = forecasting;
     return this;
   }
 
@@ -3144,17 +3155,6 @@ public class WorkspaceClient {
   /** Replace the default WorkspaceConfAPI with a custom implementation. */
   public WorkspaceClient withWorkspaceConfAPI(WorkspaceConfAPI workspaceConf) {
     this.workspaceConfAPI = workspaceConf;
-    return this;
-  }
-
-  /** Replace the default ForecastingService with a custom implementation. */
-  public WorkspaceClient withForecastingImpl(ForecastingService forecasting) {
-    return this.withForecastingAPI(new ForecastingAPI(forecasting));
-  }
-
-  /** Replace the default ForecastingAPI with a custom implementation. */
-  public WorkspaceClient withForecastingAPI(ForecastingAPI forecasting) {
-    this.forecastingAPI = forecasting;
     return this;
   }
 
