@@ -2,8 +2,14 @@
 package com.databricks.sdk.service.cleanrooms;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
+import com.databricks.sdk.support.Wait;
+import java.time.Duration;
+import java.util.Arrays;
+import java.util.concurrent.TimeoutException;
+import java.util.function.Consumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,6 +34,44 @@ public class CleanRoomsAPI {
     impl = mock;
   }
 
+  public CleanRoom waitGetCleanRoomActive(String name) throws TimeoutException {
+    return waitGetCleanRoomActive(name, Duration.ofMinutes(20), null);
+  }
+
+  public CleanRoom waitGetCleanRoomActive(
+      String name, Duration timeout, Consumer<CleanRoom> callback) throws TimeoutException {
+    long deadline = System.currentTimeMillis() + timeout.toMillis();
+    java.util.List<CleanRoomStatusEnum> targetStates = Arrays.asList(CleanRoomStatusEnum.ACTIVE);
+    String statusMessage = "polling...";
+    int attempt = 1;
+    while (System.currentTimeMillis() < deadline) {
+      CleanRoom poll = get(new GetCleanRoomRequest().setName(name));
+      CleanRoomStatusEnum status = poll.getStatus();
+      statusMessage = String.format("current status: %s", status);
+      if (targetStates.contains(status)) {
+        return poll;
+      }
+      if (callback != null) {
+        callback.accept(poll);
+      }
+      String prefix = String.format("name=%s", name);
+      int sleep = attempt;
+      if (sleep > 10) {
+        // sleep 10s max per attempt
+        sleep = 10;
+      }
+      LOG.info("{}: ({}) {} (sleeping ~{}s)", prefix, status, statusMessage, sleep);
+      try {
+        Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+        throw new DatabricksException("Current thread was interrupted", e);
+      }
+      attempt++;
+    }
+    throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
+  }
+
   /**
    * Create a new clean room with the specified collaborators. This method is asynchronous; the
    * returned name field inside the clean_room field can be used to poll the clean room status,
@@ -38,8 +82,11 @@ public class CleanRoomsAPI {
    * <p>The caller must be a metastore admin or have the **CREATE_CLEAN_ROOM** privilege on the
    * metastore.
    */
-  public CleanRoom create(CreateCleanRoomRequest request) {
-    return impl.create(request);
+  public Wait<CleanRoom, CleanRoom> create(CreateCleanRoomRequest request) {
+    CleanRoom response = impl.create(request);
+    return new Wait<>(
+        (timeout, callback) -> waitGetCleanRoomActive(response.getName(), timeout, callback),
+        response);
   }
 
   /** Create the output catalog of the clean room. */

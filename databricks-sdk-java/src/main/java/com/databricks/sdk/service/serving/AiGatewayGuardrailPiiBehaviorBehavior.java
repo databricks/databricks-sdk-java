@@ -7,5 +7,6 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum AiGatewayGuardrailPiiBehaviorBehavior {
   BLOCK,
+  MASK,
   NONE,
 }
