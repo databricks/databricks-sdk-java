@@ -23,6 +23,10 @@ import org.slf4j.LoggerFactory;
 public class DatabricksConfig {
 
   private static final Logger logger = LoggerFactory.getLogger(DatabricksConfig.class);
+  
+  /** Azure authentication endpoint for tenant ID discovery */
+  private static final String AZURE_AUTH_ENDPOINT = "/aad/auth";
+  
   private CredentialsProvider credentialsProvider = new DefaultCredentialsProvider();
 
   @ConfigAttribute(env = "DATABRICKS_HOST")
@@ -731,7 +735,7 @@ public class DatabricksConfig {
   }
 
   public DatabricksConfig clone() {
-    return clone(new HashSet<>(Collections.singletonList("logger")));
+    return clone(new HashSet<>(Arrays.asList("logger", "AZURE_AUTH_ENDPOINT")));
   }
 
   public DatabricksConfig newWithWorkspaceHost(String host) {
@@ -742,6 +746,7 @@ public class DatabricksConfig {
                 // ID, and also omits
                 // the account ID.
                 "logger",
+                "AZURE_AUTH_ENDPOINT",
                 "host",
                 "accountId",
                 "azureWorkspaceResourceId",
@@ -765,33 +770,40 @@ public class DatabricksConfig {
   /**
    * [Internal] Load the Azure tenant ID from the Azure Databricks login page. If the tenant ID is
    * already set, this method does nothing.
+   * 
+   * @return true if tenant ID is available (either was already set or successfully loaded), false otherwise
    */
-  public void loadAzureTenantId() {
+  public boolean loadAzureTenantId() {
 
-    if (!isAzure() || azureTenantId != null || host == null) {
-      return;
+    if (azureTenantId != null) {
+      return true; // Tenant ID already available - success
     }
 
-    final String azureAuthEndpoint = "/aad/auth";
-    String loginUrl = host + azureAuthEndpoint;
+    if (!isAzure() || host == null) {
+      return false; // Configuration issue - can't perform operation
+    }
+
+    String loginUrl = host + AZURE_AUTH_ENDPOINT;
     logger.debug("Loading tenant ID from {}", loginUrl);
 
     try {
       String redirectLocation = getRedirectLocation(loginUrl);
       if (redirectLocation == null) {
-        return;
+        return false; // Failed to get redirect location
       }
 
       String extractedTenantId = extractTenantIdFromUrl(redirectLocation);
       if (extractedTenantId == null) {
-        return;
+        return false; // Failed to extract tenant ID
       }
 
       this.azureTenantId = extractedTenantId;
       logger.debug("Loaded tenant ID: {}", this.azureTenantId);
+      return true; // Successfully loaded
 
     } catch (Exception e) {
       logger.warn("Failed to load tenant ID: {}", e.getMessage());
+      return false;
     }
   }
 
@@ -802,9 +814,9 @@ public class DatabricksConfig {
     Response response = getHttpClient().execute(request);
     int statusCode = response.getStatusCode();
 
-    if (statusCode / 100 != 3) {
+    if (statusCode != 302) {
       logger.warn(
-          "Failed to get tenant ID from {}: expected status code 3xx, got {}",
+          "Failed to get tenant ID from {}: expected status code 302, got {}",
           loginUrl,
           statusCode);
       return null;

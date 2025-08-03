@@ -257,7 +257,8 @@ public class DatabricksConfigTest {
       DatabricksConfig config = new DatabricksConfig();
       config.setHost(server.getUrl());
       config.setHttpClient(new CommonsHttpClient.Builder().withTimeoutSeconds(30).build());
-      config.loadAzureTenantId();
+      boolean result = config.loadAzureTenantId();
+      assertFalse(result);
       assertNull(config.getAzureTenantId());
     }
   }
@@ -268,7 +269,8 @@ public class DatabricksConfigTest {
       DatabricksConfig config = new DatabricksConfig();
       config.setHost(server.getUrl());
       config.setHttpClient(new CommonsHttpClient.Builder().withTimeoutSeconds(30).build());
-      config.loadAzureTenantId();
+      boolean result = config.loadAzureTenantId();
+      assertFalse(result);
       assertNull(config.getAzureTenantId());
     }
   }
@@ -286,7 +288,8 @@ public class DatabricksConfigTest {
       DatabricksConfig config = new DatabricksConfig();
       config.setHost(server.getUrl());
       config.setHttpClient(new CommonsHttpClient.Builder().withTimeoutSeconds(30).build());
-      config.loadAzureTenantId();
+      boolean result = config.loadAzureTenantId();
+      assertFalse(result);
       assertNull(config.getAzureTenantId());
     }
   }
@@ -306,7 +309,8 @@ public class DatabricksConfigTest {
       config.setAzureWorkspaceResourceId(
           "/subscriptions/123/resourceGroups/rg/providers/Microsoft.Databricks/workspaces/ws");
       config.setHttpClient(new CommonsHttpClient.Builder().withTimeoutSeconds(30).build());
-      config.loadAzureTenantId();
+      boolean result = config.loadAzureTenantId();
+      assertTrue(result);
       assertEquals("test-tenant-id", config.getAzureTenantId());
     }
   }
@@ -316,7 +320,8 @@ public class DatabricksConfigTest {
     DatabricksConfig config = new DatabricksConfig();
     config.setHost("https://my-workspace.cloud.databricks.com"); // non-azure host
     config.setHttpClient(new CommonsHttpClient.Builder().withTimeoutSeconds(30).build());
-    config.loadAzureTenantId();
+    boolean result = config.loadAzureTenantId();
+    assertFalse(result);
     assertNull(config.getAzureTenantId());
   }
 
@@ -326,7 +331,8 @@ public class DatabricksConfigTest {
     config.setHost("https://adb-123.0.azuredatabricks.net");
     config.setAzureTenantId("existing-tenant-id");
     config.setHttpClient(new CommonsHttpClient.Builder().withTimeoutSeconds(30).build());
-    config.loadAzureTenantId();
+    boolean result = config.loadAzureTenantId();
+    assertTrue(result);
     assertEquals("existing-tenant-id", config.getAzureTenantId());
   }
 
@@ -334,7 +340,8 @@ public class DatabricksConfigTest {
   public void testLoadAzureTenantIdSkipsWhenNoHost() throws IOException {
     DatabricksConfig config = new DatabricksConfig();
     config.setHttpClient(new CommonsHttpClient.Builder().withTimeoutSeconds(30).build());
-    config.loadAzureTenantId();
+    boolean result = config.loadAzureTenantId();
+    assertFalse(result);
     assertNull(config.getAzureTenantId());
   }
 }

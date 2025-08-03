@@ -27,7 +27,12 @@ public class AzureServicePrincipalCredentialsProvider implements CredentialsProv
     }
     AzureUtils.ensureHostPresent(
         config, mapper, AzureServicePrincipalCredentialsProvider::tokenSourceFor);
-    config.loadAzureTenantId();
+        
+    boolean tenantIdLoaded = config.loadAzureTenantId();
+    if (!tenantIdLoaded) {
+      return null;
+    }
+
     CachedTokenSource inner = tokenSourceFor(config, config.getEffectiveAzureLoginAppId());
     CachedTokenSource cloud =
         tokenSourceFor(config, config.getAzureEnvironment().getServiceManagementEndpoint());
