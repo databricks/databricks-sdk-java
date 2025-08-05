@@ -9,7 +9,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 @Generated
-public class ListProvidersRequest {
+public class ListConsumerProvidersRequest {
+  /** */
+  @JsonIgnore
+  @QueryParam("is_featured")
+  private Boolean isFeatured;
+
   /** */
   @JsonIgnore
   @QueryParam("page_size")
@@ -20,7 +25,16 @@ public class ListProvidersRequest {
   @QueryParam("page_token")
   private String pageToken;
 
-  public ListProvidersRequest setPageSize(Long pageSize) {
+  public ListConsumerProvidersRequest setIsFeatured(Boolean isFeatured) {
+    this.isFeatured = isFeatured;
+    return this;
+  }
+
+  public Boolean getIsFeatured() {
+    return isFeatured;
+  }
+
+  public ListConsumerProvidersRequest setPageSize(Long pageSize) {
     this.pageSize = pageSize;
     return this;
   }
@@ -29,7 +43,7 @@ public class ListProvidersRequest {
     return pageSize;
   }
 
-  public ListProvidersRequest setPageToken(String pageToken) {
+  public ListConsumerProvidersRequest setPageToken(String pageToken) {
     this.pageToken = pageToken;
     return this;
   }
@@ -42,18 +56,21 @@ public class ListProvidersRequest {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    ListProvidersRequest that = (ListProvidersRequest) o;
-    return Objects.equals(pageSize, that.pageSize) && Objects.equals(pageToken, that.pageToken);
+    ListConsumerProvidersRequest that = (ListConsumerProvidersRequest) o;
+    return Objects.equals(isFeatured, that.isFeatured)
+        && Objects.equals(pageSize, that.pageSize)
+        && Objects.equals(pageToken, that.pageToken);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pageSize, pageToken);
+    return Objects.hash(isFeatured, pageSize, pageToken);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(ListProvidersRequest.class)
+    return new ToStringer(ListConsumerProvidersRequest.class)
+        .add("isFeatured", isFeatured)
         .add("pageSize", pageSize)
         .add("pageToken", pageToken)
         .toString();

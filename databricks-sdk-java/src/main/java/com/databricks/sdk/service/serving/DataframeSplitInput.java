@@ -10,15 +10,15 @@ import java.util.Objects;
 
 @Generated
 public class DataframeSplitInput {
-  /** */
+  /** Columns array for the dataframe */
   @JsonProperty("columns")
   private Collection<Object> columns;
 
-  /** */
+  /** Data array for the dataframe */
   @JsonProperty("data")
   private Collection<Object> data;
 
-  /** */
+  /** Index array for the dataframe */
   @JsonProperty("index")
   private Collection<Long> index;
 

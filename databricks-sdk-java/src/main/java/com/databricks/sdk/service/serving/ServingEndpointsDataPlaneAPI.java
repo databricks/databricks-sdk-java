@@ -28,7 +28,7 @@ public class ServingEndpointsDataPlaneAPI {
     impl = mock;
   }
 
-  /** Query a serving endpoint. */
+  /** Query a serving endpoint */
   public QueryEndpointResponse query(QueryEndpointInput request) {
     return impl.query(request);
   }

@@ -82,7 +82,7 @@ public interface ServingEndpointsService {
    */
   PutAiGatewayResponse putAiGateway(PutAiGatewayRequest putAiGatewayRequest);
 
-  /** Query a serving endpoint. */
+  /** Query a serving endpoint */
   QueryEndpointResponse query(QueryEndpointInput queryEndpointInput);
 
   /**

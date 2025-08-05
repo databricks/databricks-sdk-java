@@ -24,6 +24,10 @@ public class Result {
   @JsonProperty("statement_id")
   private String statementId;
 
+  /** JWT corresponding to the statement contained in this result */
+  @JsonProperty("statement_id_signature")
+  private String statementIdSignature;
+
   public Result setIsTruncated(Boolean isTruncated) {
     this.isTruncated = isTruncated;
     return this;
@@ -51,6 +55,15 @@ public class Result {
     return statementId;
   }
 
+  public Result setStatementIdSignature(String statementIdSignature) {
+    this.statementIdSignature = statementIdSignature;
+    return this;
+  }
+
+  public String getStatementIdSignature() {
+    return statementIdSignature;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -58,12 +71,13 @@ public class Result {
     Result that = (Result) o;
     return Objects.equals(isTruncated, that.isTruncated)
         && Objects.equals(rowCount, that.rowCount)
-        && Objects.equals(statementId, that.statementId);
+        && Objects.equals(statementId, that.statementId)
+        && Objects.equals(statementIdSignature, that.statementIdSignature);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(isTruncated, rowCount, statementId);
+    return Objects.hash(isTruncated, rowCount, statementId, statementIdSignature);
   }
 
   @Override
@@ -72,6 +86,7 @@ public class Result {
         .add("isTruncated", isTruncated)
         .add("rowCount", rowCount)
         .add("statementId", statementId)
+        .add("statementIdSignature", statementIdSignature)
         .toString();
   }
 }

@@ -42,6 +42,10 @@ public class ServingEndpointDetailed {
   @JsonProperty("description")
   private String description;
 
+  /** Email notification settings. */
+  @JsonProperty("email_notifications")
+  private EmailNotifications emailNotifications;
+
   /** Endpoint invocation url if route optimization is enabled for endpoint */
   @JsonProperty("endpoint_url")
   private String endpointUrl;
@@ -148,6 +152,15 @@ public class ServingEndpointDetailed {
     return description;
   }
 
+  public ServingEndpointDetailed setEmailNotifications(EmailNotifications emailNotifications) {
+    this.emailNotifications = emailNotifications;
+    return this;
+  }
+
+  public EmailNotifications getEmailNotifications() {
+    return emailNotifications;
+  }
+
   public ServingEndpointDetailed setEndpointUrl(String endpointUrl) {
     this.endpointUrl = endpointUrl;
     return this;
@@ -251,6 +264,7 @@ public class ServingEndpointDetailed {
         && Objects.equals(creator, that.creator)
         && Objects.equals(dataPlaneInfo, that.dataPlaneInfo)
         && Objects.equals(description, that.description)
+        && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(endpointUrl, that.endpointUrl)
         && Objects.equals(id, that.id)
         && Objects.equals(lastUpdatedTimestamp, that.lastUpdatedTimestamp)
@@ -273,6 +287,7 @@ public class ServingEndpointDetailed {
         creator,
         dataPlaneInfo,
         description,
+        emailNotifications,
         endpointUrl,
         id,
         lastUpdatedTimestamp,
@@ -295,6 +310,7 @@ public class ServingEndpointDetailed {
         .add("creator", creator)
         .add("dataPlaneInfo", dataPlaneInfo)
         .add("description", description)
+        .add("emailNotifications", emailNotifications)
         .add("endpointUrl", endpointUrl)
         .add("id", id)
         .add("lastUpdatedTimestamp", lastUpdatedTimestamp)
