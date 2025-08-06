@@ -54,7 +54,7 @@ public class QueryEndpointInput {
 
   /**
    * The messages field used ONLY for __chat external & foundation model__ serving endpoints. This
-   * is a map of strings and should only be used with other chat query fields.
+   * is an array of ChatMessage objects and should only be used with other chat query fields.
    */
   @JsonProperty("messages")
   private Collection<ChatMessage> messages;
@@ -67,7 +67,10 @@ public class QueryEndpointInput {
   @JsonProperty("n")
   private Long n;
 
-  /** The name of the serving endpoint. This field is required. */
+  /**
+   * The name of the serving endpoint. This field is required and is provided via the path
+   * parameter.
+   */
   @JsonIgnore private String name;
 
   /**

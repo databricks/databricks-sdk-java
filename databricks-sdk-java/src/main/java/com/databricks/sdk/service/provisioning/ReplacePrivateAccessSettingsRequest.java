@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Generated
-public class UpsertPrivateAccessSettingsRequest {
+public class ReplacePrivateAccessSettingsRequest {
   /**
    * An array of Databricks VPC endpoint IDs. This is the Databricks ID that is returned when
    * registering the VPC endpoint configuration in your Databricks account. This is not the ID of
@@ -52,7 +52,7 @@ public class UpsertPrivateAccessSettingsRequest {
   @JsonProperty("region")
   private String region;
 
-  public UpsertPrivateAccessSettingsRequest setAllowedVpcEndpointIds(
+  public ReplacePrivateAccessSettingsRequest setAllowedVpcEndpointIds(
       Collection<String> allowedVpcEndpointIds) {
     this.allowedVpcEndpointIds = allowedVpcEndpointIds;
     return this;
@@ -62,7 +62,7 @@ public class UpsertPrivateAccessSettingsRequest {
     return allowedVpcEndpointIds;
   }
 
-  public UpsertPrivateAccessSettingsRequest setPrivateAccessLevel(
+  public ReplacePrivateAccessSettingsRequest setPrivateAccessLevel(
       PrivateAccessLevel privateAccessLevel) {
     this.privateAccessLevel = privateAccessLevel;
     return this;
@@ -72,7 +72,7 @@ public class UpsertPrivateAccessSettingsRequest {
     return privateAccessLevel;
   }
 
-  public UpsertPrivateAccessSettingsRequest setPrivateAccessSettingsId(
+  public ReplacePrivateAccessSettingsRequest setPrivateAccessSettingsId(
       String privateAccessSettingsId) {
     this.privateAccessSettingsId = privateAccessSettingsId;
     return this;
@@ -82,7 +82,7 @@ public class UpsertPrivateAccessSettingsRequest {
     return privateAccessSettingsId;
   }
 
-  public UpsertPrivateAccessSettingsRequest setPrivateAccessSettingsName(
+  public ReplacePrivateAccessSettingsRequest setPrivateAccessSettingsName(
       String privateAccessSettingsName) {
     this.privateAccessSettingsName = privateAccessSettingsName;
     return this;
@@ -92,7 +92,7 @@ public class UpsertPrivateAccessSettingsRequest {
     return privateAccessSettingsName;
   }
 
-  public UpsertPrivateAccessSettingsRequest setPublicAccessEnabled(Boolean publicAccessEnabled) {
+  public ReplacePrivateAccessSettingsRequest setPublicAccessEnabled(Boolean publicAccessEnabled) {
     this.publicAccessEnabled = publicAccessEnabled;
     return this;
   }
@@ -101,7 +101,7 @@ public class UpsertPrivateAccessSettingsRequest {
     return publicAccessEnabled;
   }
 
-  public UpsertPrivateAccessSettingsRequest setRegion(String region) {
+  public ReplacePrivateAccessSettingsRequest setRegion(String region) {
     this.region = region;
     return this;
   }
@@ -114,7 +114,7 @@ public class UpsertPrivateAccessSettingsRequest {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    UpsertPrivateAccessSettingsRequest that = (UpsertPrivateAccessSettingsRequest) o;
+    ReplacePrivateAccessSettingsRequest that = (ReplacePrivateAccessSettingsRequest) o;
     return Objects.equals(allowedVpcEndpointIds, that.allowedVpcEndpointIds)
         && Objects.equals(privateAccessLevel, that.privateAccessLevel)
         && Objects.equals(privateAccessSettingsId, that.privateAccessSettingsId)
@@ -136,7 +136,7 @@ public class UpsertPrivateAccessSettingsRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(UpsertPrivateAccessSettingsRequest.class)
+    return new ToStringer(ReplacePrivateAccessSettingsRequest.class)
         .add("allowedVpcEndpointIds", allowedVpcEndpointIds)
         .add("privateAccessLevel", privateAccessLevel)
         .add("privateAccessSettingsId", privateAccessSettingsId)

@@ -30,6 +30,10 @@ public class CreateServingEndpoint {
   @JsonProperty("description")
   private String description;
 
+  /** Email notification settings. */
+  @JsonProperty("email_notifications")
+  private EmailNotifications emailNotifications;
+
   /**
    * The name of the serving endpoint. This field is required and must be unique across a Databricks
    * workspace. An endpoint name can consist of alphanumeric characters, dashes, and underscores.
@@ -88,6 +92,15 @@ public class CreateServingEndpoint {
     return description;
   }
 
+  public CreateServingEndpoint setEmailNotifications(EmailNotifications emailNotifications) {
+    this.emailNotifications = emailNotifications;
+    return this;
+  }
+
+  public EmailNotifications getEmailNotifications() {
+    return emailNotifications;
+  }
+
   public CreateServingEndpoint setName(String name) {
     this.name = name;
     return this;
@@ -133,6 +146,7 @@ public class CreateServingEndpoint {
         && Objects.equals(budgetPolicyId, that.budgetPolicyId)
         && Objects.equals(config, that.config)
         && Objects.equals(description, that.description)
+        && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(name, that.name)
         && Objects.equals(rateLimits, that.rateLimits)
         && Objects.equals(routeOptimized, that.routeOptimized)
@@ -142,7 +156,15 @@ public class CreateServingEndpoint {
   @Override
   public int hashCode() {
     return Objects.hash(
-        aiGateway, budgetPolicyId, config, description, name, rateLimits, routeOptimized, tags);
+        aiGateway,
+        budgetPolicyId,
+        config,
+        description,
+        emailNotifications,
+        name,
+        rateLimits,
+        routeOptimized,
+        tags);
   }
 
   @Override
@@ -152,6 +174,7 @@ public class CreateServingEndpoint {
         .add("budgetPolicyId", budgetPolicyId)
         .add("config", config)
         .add("description", description)
+        .add("emailNotifications", emailNotifications)
         .add("name", name)
         .add("rateLimits", rateLimits)
         .add("routeOptimized", routeOptimized)

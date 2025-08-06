@@ -18,7 +18,7 @@ class PrivateAccessImpl implements PrivateAccessService {
   }
 
   @Override
-  public PrivateAccessSettings create(UpsertPrivateAccessSettingsRequest request) {
+  public PrivateAccessSettings create(CreatePrivateAccessSettingsRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/private-access-settings", apiClient.configuredAccountID());
@@ -76,7 +76,7 @@ class PrivateAccessImpl implements PrivateAccessService {
   }
 
   @Override
-  public void replace(UpsertPrivateAccessSettingsRequest request) {
+  public void replace(ReplacePrivateAccessSettingsRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/private-access-settings/%s",

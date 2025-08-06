@@ -38,7 +38,7 @@ public class PrivateAccessAPI {
    * PrivateLink]:
    * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
    */
-  public PrivateAccessSettings create(UpsertPrivateAccessSettingsRequest request) {
+  public PrivateAccessSettings create(CreatePrivateAccessSettingsRequest request) {
     return impl.create(request);
   }
 
@@ -103,7 +103,7 @@ public class PrivateAccessAPI {
    * PrivateLink]:
    * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
    */
-  public void replace(UpsertPrivateAccessSettingsRequest request) {
+  public void replace(ReplacePrivateAccessSettingsRequest request) {
     impl.replace(request);
   }
 

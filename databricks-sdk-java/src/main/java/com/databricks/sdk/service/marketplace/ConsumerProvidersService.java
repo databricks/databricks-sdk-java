@@ -19,5 +19,5 @@ public interface ConsumerProvidersService {
   GetProviderResponse get(GetProviderRequest getProviderRequest);
 
   /** List all providers in the Databricks Marketplace with at least one visible listing. */
-  ListProvidersResponse list(ListProvidersRequest listProvidersRequest);
+  ListProvidersResponse list(ListConsumerProvidersRequest listConsumerProvidersRequest);
 }

@@ -29,7 +29,7 @@ public interface PrivateAccessService {
    * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
    */
   PrivateAccessSettings create(
-      UpsertPrivateAccessSettingsRequest upsertPrivateAccessSettingsRequest);
+      CreatePrivateAccessSettingsRequest createPrivateAccessSettingsRequest);
 
   /**
    * Deletes a private access settings object, which determines how your workspace is accessed over
@@ -78,5 +78,5 @@ public interface PrivateAccessService {
    * PrivateLink]:
    * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
    */
-  void replace(UpsertPrivateAccessSettingsRequest upsertPrivateAccessSettingsRequest);
+  void replace(ReplacePrivateAccessSettingsRequest replacePrivateAccessSettingsRequest);
 }
