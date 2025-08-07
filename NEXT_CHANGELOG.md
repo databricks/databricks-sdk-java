@@ -6,7 +6,7 @@
 
 ### Bug Fixes
 
-- User provided scopes are now properly propagated in OAuth flows.
+* User provided scopes are now properly propagated in OAuth flows.
 
 ### Documentation
 
