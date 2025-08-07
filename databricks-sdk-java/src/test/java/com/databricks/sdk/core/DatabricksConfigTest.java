@@ -261,11 +261,11 @@ public class DatabricksConfigTest {
     config.setOAuthBrowserAuthTimeout(Duration.ofSeconds(30));
     assertEquals(Duration.ofSeconds(30), config.getOAuthBrowserAuthTimeout());
 
-    config.setOAuthBrowserAuthTimeout(60);
+    config.setOAuthBrowserAuthTimeout(Duration.ofSeconds(60));
     assertEquals(Duration.ofSeconds(60), config.getOAuthBrowserAuthTimeout());
 
-    config.setOAuthBrowserAuthTimeout(0);
-    assertNull(config.getOAuthBrowserAuthTimeout());
+    config.setOAuthBrowserAuthTimeout(Duration.ofSeconds(0));
+    assertEquals(Duration.ZERO, config.getOAuthBrowserAuthTimeout());
   }
 
   @Test

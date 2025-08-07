@@ -614,11 +614,6 @@ public class DatabricksConfig {
     return this;
   }
 
-  public DatabricksConfig setOAuthBrowserAuthTimeout(int seconds) {
-    this.oauthBrowserAuthTimeout = seconds > 0 ? Duration.ofSeconds(seconds) : null;
-    return this;
-  }
-
   public boolean isAzure() {
     if (azureWorkspaceResourceId != null) {
       return true;
