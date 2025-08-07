@@ -359,7 +359,16 @@ public class DatabricksConfig {
     return this;
   }
 
+  /**
+   * Returns the scopes to use for the current configuration. If no scopes were provided, returns
+   * the default "all-apis" scope.
+   *
+   * @return The scopes to use for the current configuration
+   */
   public List<String> getScopes() {
+    if (scopes == null || scopes.isEmpty()) {
+      return Arrays.asList("all-apis");
+    }
     return scopes;
   }
 

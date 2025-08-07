@@ -123,18 +123,8 @@ public class OAuthClient {
     this.isAzure = config.isAzure();
     this.tokenUrl = oidc.getTokenEndpoint();
     this.authUrl = oidc.getAuthorizationEndpoint();
-
-    List<String> scopes = b.scopes;
-    if (scopes == null) {
-      scopes = Arrays.asList("offline_access", "clusters", "sql");
-    }
-    if (config.isAzure()) {
-      scopes =
-          Arrays.asList(
-              config.getEffectiveAzureLoginAppId() + "/user_impersonation", "offline_access");
-    }
-    this.scopes = scopes;
     this.browserTimeout = b.browserTimeout;
+    this.scopes = b.scopes;
   }
 
   public String getHost() {

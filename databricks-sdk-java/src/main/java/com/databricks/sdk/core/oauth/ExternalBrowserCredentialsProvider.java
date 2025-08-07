@@ -5,9 +5,12 @@ import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.DatabricksException;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
 import java.time.Duration;
+import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -107,6 +110,17 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
       DatabricksConfig config, String clientId, String clientSecret, TokenCache tokenCache)
       throws IOException {
     LOGGER.debug("Performing browser authentication");
+
+    // Get user-provided scopes and add required default scopes.
+    Set<String> scopes = new HashSet<>(config.getScopes());
+
+    // Needed to request a refresh token.
+    scopes.add("offline_access");
+
+    if (config.isAzure()) {
+      scopes.add(config.getEffectiveAzureLoginAppId() + "/user_impersonation");
+    }
+
     OAuthClient client =
         new OAuthClient.Builder()
             .withHttpClient(config.getHttpClient())
@@ -115,8 +129,8 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
             .withHost(config.getHost())
             .withAccountId(config.getAccountId())
             .withRedirectUrl(config.getEffectiveOAuthRedirectUrl())
-            .withScopes(config.getScopes())
             .withBrowserTimeout(config.getOAuthBrowserAuthTimeout())
+            .withScopes(new ArrayList<>(scopes))
             .build();
     Consent consent = client.initiateConsent();
 
