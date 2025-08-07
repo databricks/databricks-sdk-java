@@ -297,8 +297,7 @@ public class Consent implements Serializable {
 
   static class CallbackResponseHandler implements HttpHandler {
     private final Logger LOG = LoggerFactory.getLogger(getClass().getName());
-    // Protects params
-    private final Object lock = new Object();
+    protected final Object lock = new Object(); // protected for testing
     private volatile Map<String, String> params;
     private final Optional<Duration> timeout;
 
@@ -343,10 +342,7 @@ public class Consent implements Serializable {
               });
 
       sendSuccess(exchange);
-      synchronized (lock) {
-        params = theseParams;
-        lock.notify();
-      }
+      setParams(theseParams);
     }
 
     private void sendError(
@@ -409,6 +405,13 @@ public class Consent implements Serializable {
           }
         }
         return params;
+      }
+    }
+
+    void setParams(Map<String, String> params) {
+      synchronized (lock) {
+        this.params = params;
+        lock.notify();
       }
     }
   }
