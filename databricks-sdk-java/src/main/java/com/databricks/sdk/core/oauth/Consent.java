@@ -388,6 +388,11 @@ public class Consent implements Serializable {
       exchange.close();
     }
 
+    /** 
+     * Wait and return the params. 
+     * 
+     * This method might throw an exception in case of timeout.
+     */
     public Map<String, String> getParams() {
       synchronized (lock) {
         if (params == null) {
