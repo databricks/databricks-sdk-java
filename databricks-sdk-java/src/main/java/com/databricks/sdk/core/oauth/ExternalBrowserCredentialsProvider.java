@@ -109,7 +109,7 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
       DatabricksConfig config, String clientId, String clientSecret, TokenCache tokenCache)
       throws IOException {
     LOGGER.debug("Performing browser authentication");
-    
+
     // Get user-provided scopes and add required default scopes.
     Set<String> scopes = new HashSet<>(config.getScopes());
 
@@ -119,7 +119,7 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
     if (config.isAzure()) {
       scopes.add(config.getEffectiveAzureLoginAppId() + "/user_impersonation");
     }
-    
+
     OAuthClient client =
         new OAuthClient.Builder()
             .withHttpClient(config.getHttpClient())

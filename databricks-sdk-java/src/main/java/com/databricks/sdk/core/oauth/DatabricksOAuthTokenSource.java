@@ -165,9 +165,6 @@ public class DatabricksOAuthTokenSource implements TokenSource {
     params.put(GRANT_TYPE_PARAM, GRANT_TYPE);
     params.put(SUBJECT_TOKEN_PARAM, idToken.getValue());
     params.put(SUBJECT_TOKEN_TYPE_PARAM, SUBJECT_TOKEN_TYPE);
-    if (scopes == null) {
-      throw new IllegalArgumentException("Scopes cannot be null. Use .scopes() method on the builder to set scopes.");
-    }
     params.put(SCOPE_PARAM, String.join(" ", scopes));
     params.put(CLIENT_ID_PARAM, clientId);
 

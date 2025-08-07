@@ -158,7 +158,7 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
     }
 
     providers.add(new PatCredentialsProvider());
-    providers.add(new BasicCredentialsProvider());        
+    providers.add(new BasicCredentialsProvider());
     providers.add(new OAuthM2MServicePrincipalCredentialsProvider());
 
     // Add OIDC-based providers
