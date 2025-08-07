@@ -45,7 +45,7 @@ class ConfigAttributeAccessor {
       if (value == null || value.trim().isEmpty()) {
         return;
       }
-      
+
       if (field.getType() == String.class) {
         field.set(cfg, value);
       } else if (field.getType() == int.class) {

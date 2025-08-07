@@ -14,13 +14,12 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.time.Duration;
-
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -402,7 +401,8 @@ public class Consent implements Serializable {
               Duration t = timeout.get();
               lock.wait(t.toMillis());
               if (params == null) {
-                throw new DatabricksException("OAuth browser authentication timed out after " + t.getSeconds() + " seconds");
+                throw new DatabricksException(
+                    "OAuth browser authentication timed out after " + t.getSeconds() + " seconds");
               }
             } else {
               lock.wait();

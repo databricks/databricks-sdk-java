@@ -255,18 +255,18 @@ public class DatabricksConfigTest {
   @Test
   public void testOAuthBrowserAuthTimeout() {
     DatabricksConfig config = new DatabricksConfig();
-    
+
     // Test default value (should be null)
     assertNull(config.getOAuthBrowserAuthTimeout());
-    
+
     // Test setting the timeout using Duration
     config.setOAuthBrowserAuthTimeout(Duration.ofSeconds(30));
     assertEquals(Duration.ofSeconds(30), config.getOAuthBrowserAuthTimeout());
-    
+
     // Test setting the timeout using int (backward compatibility)
     config.setOAuthBrowserAuthTimeout(60);
     assertEquals(Duration.ofSeconds(60), config.getOAuthBrowserAuthTimeout());
-    
+
     // Test setting to 0 (should be null for indefinite wait)
     config.setOAuthBrowserAuthTimeout(0);
     assertNull(config.getOAuthBrowserAuthTimeout());
@@ -276,17 +276,17 @@ public class DatabricksConfigTest {
   public void testEnvironmentVariableLoading() {
     // Test that environment variables are now loaded properly for Duration and Integer
     DatabricksConfig config = new DatabricksConfig();
-    
+
     // Set environment variable
     Map<String, String> env = new HashMap<>();
     env.put("DATABRICKS_OAUTH_BROWSER_AUTH_TIMEOUT", "30");
     env.put("DATABRICKS_DEBUG_TRUNCATE_BYTES", "100");
     env.put("DATABRICKS_RATE_LIMIT", "50");
-    
+
     // Resolve config with environment
     Environment environment = new Environment(env, new ArrayList<>(), "Linux");
     config.resolve(environment);
-    
+
     // These should now be loaded properly
     assertEquals(Duration.ofSeconds(30), config.getOAuthBrowserAuthTimeout());
     assertEquals(Integer.valueOf(100), config.getDebugTruncateBytes());
@@ -297,15 +297,15 @@ public class DatabricksConfigTest {
   public void testEnvironmentVariableLoadingZeroTimeout() {
     // Test that environment variable with value 0 results in null Duration
     DatabricksConfig config = new DatabricksConfig();
-    
+
     // Set environment variable to 0
     Map<String, String> env = new HashMap<>();
     env.put("DATABRICKS_OAUTH_BROWSER_AUTH_TIMEOUT", "0");
-    
+
     // Resolve config with environment
     Environment environment = new Environment(env, new ArrayList<>(), "Linux");
     config.resolve(environment);
-    
+
     // Should be null for indefinite wait
     assertNull(config.getOAuthBrowserAuthTimeout());
   }

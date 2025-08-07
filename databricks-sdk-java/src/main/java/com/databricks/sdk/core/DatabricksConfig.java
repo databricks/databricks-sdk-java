@@ -165,8 +165,8 @@ public class DatabricksConfig {
   private Boolean disableAsyncTokenRefresh;
 
   /**
-   * The duration to wait for a browser response during U2M authentication before timing out. 
-   * If set to 0 or null, the connector waits for an indefinite amount of time.
+   * The duration to wait for a browser response during U2M authentication before timing out. If set
+   * to 0 or null, the connector waits for an indefinite amount of time.
    */
   @ConfigAttribute(env = "DATABRICKS_OAUTH_BROWSER_AUTH_TIMEOUT")
   private Duration oauthBrowserAuthTimeout;
