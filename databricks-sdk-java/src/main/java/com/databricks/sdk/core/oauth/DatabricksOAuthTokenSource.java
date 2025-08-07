@@ -4,7 +4,9 @@ import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.HttpClient;
 import com.google.common.base.Strings;
 import java.time.Instant;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import org.slf4j.Logger;
@@ -31,10 +33,11 @@ public class DatabricksOAuthTokenSource implements TokenSource {
   private final IDTokenSource idTokenSource;
   /** HTTP client for making token exchange requests. */
   private final HttpClient httpClient;
+  /** Scopes to request during token exchange. */
+  private final List<String> scopes;
 
   private static final String GRANT_TYPE = "urn:ietf:params:oauth:grant-type:token-exchange";
   private static final String SUBJECT_TOKEN_TYPE = "urn:ietf:params:oauth:token-type:jwt";
-  private static final String SCOPE = "all-apis";
   private static final String GRANT_TYPE_PARAM = "grant_type";
   private static final String SUBJECT_TOKEN_PARAM = "subject_token";
   private static final String SUBJECT_TOKEN_TYPE_PARAM = "subject_token_type";
@@ -49,6 +52,7 @@ public class DatabricksOAuthTokenSource implements TokenSource {
     this.audience = builder.audience;
     this.idTokenSource = builder.idTokenSource;
     this.httpClient = builder.httpClient;
+    this.scopes = builder.scopes == null ? Arrays.asList() : builder.scopes;
   }
 
   /**
@@ -63,6 +67,7 @@ public class DatabricksOAuthTokenSource implements TokenSource {
     private final HttpClient httpClient;
     private String accountId;
     private String audience;
+    private List<String> scopes;
 
     /**
      * Creates a new Builder with required parameters.
@@ -109,6 +114,17 @@ public class DatabricksOAuthTokenSource implements TokenSource {
     }
 
     /**
+     * Sets the scopes to request during token exchange.
+     *
+     * @param scopes The scopes to request.
+     * @return This builder instance.
+     */
+    public Builder scopes(List<String> scopes) {
+      this.scopes = scopes;
+      return this;
+    }
+
+    /**
      * Builds a new DatabricksOAuthTokenSource instance.
      *
      * @return A new DatabricksOAuthTokenSource.
@@ -149,7 +165,10 @@ public class DatabricksOAuthTokenSource implements TokenSource {
     params.put(GRANT_TYPE_PARAM, GRANT_TYPE);
     params.put(SUBJECT_TOKEN_PARAM, idToken.getValue());
     params.put(SUBJECT_TOKEN_TYPE_PARAM, SUBJECT_TOKEN_TYPE);
-    params.put(SCOPE_PARAM, SCOPE);
+    if (scopes == null) {
+      throw new IllegalArgumentException("Scopes cannot be null. Use .scopes() method on the builder to set scopes.");
+    }
+    params.put(SCOPE_PARAM, String.join(" ", scopes));
     params.put(CLIENT_ID_PARAM, clientId);
 
     OAuthResponse response;
