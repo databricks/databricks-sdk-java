@@ -113,10 +113,6 @@ public class Consent implements Serializable {
       return this;
     }
 
-    public Builder withBrowserTimeout(Duration browserTimeout) {
-      return withBrowserTimeout(Optional.of(browserTimeout));
-    }
-
     public Consent build() {
       return new Consent(this);
     }

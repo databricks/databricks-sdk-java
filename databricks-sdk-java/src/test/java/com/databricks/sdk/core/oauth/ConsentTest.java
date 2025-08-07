@@ -19,7 +19,7 @@ public class ConsentTest {
             .withRedirectUrl("http://localhost:8080/callback")
             .withState("test-state")
             .withVerifier("test-verifier")
-            .withBrowserTimeout(Duration.ofSeconds(30))
+            .withBrowserTimeout(Optional.of(Duration.ofSeconds(30)))
             .build();
 
     // Verify that the timeout is properly set

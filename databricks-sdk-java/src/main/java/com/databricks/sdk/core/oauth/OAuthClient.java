@@ -211,7 +211,7 @@ public class OAuthClient {
         .withState(state)
         .withVerifier(verifier)
         .withHttpClient(hc)
-        .withBrowserTimeout(browserTimeout.orElse(Duration.ofSeconds(0)))
+        .withBrowserTimeout(browserTimeout)
         .build();
   }
 }
