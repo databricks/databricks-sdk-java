@@ -18,6 +18,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
+import java.time.Duration;
+
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,6 +56,7 @@ public class Consent implements Serializable {
   private final String redirectUrl;
   private final String clientId;
   private final String clientSecret;
+  private final Optional<Duration> browserTimeout;
 
   public static class Builder {
     private HttpClient hc = new CommonsHttpClient.Builder().withTimeoutSeconds(30).build();
@@ -63,6 +67,7 @@ public class Consent implements Serializable {
     private String redirectUrl;
     private String clientId;
     private String clientSecret;
+    private Optional<Duration> browserTimeout = Optional.empty();
 
     public Builder withHttpClient(HttpClient hc) {
       this.hc = hc;
@@ -104,6 +109,15 @@ public class Consent implements Serializable {
       return this;
     }
 
+    public Builder withBrowserTimeout(Optional<Duration> browserTimeout) {
+      this.browserTimeout = browserTimeout;
+      return this;
+    }
+
+    public Builder withBrowserTimeout(Duration browserTimeout) {
+      return withBrowserTimeout(Optional.of(browserTimeout));
+    }
+
     public Consent build() {
       return new Consent(this);
     }
@@ -119,6 +133,7 @@ public class Consent implements Serializable {
     this.clientId = Objects.requireNonNull(builder.clientId);
     // This may be null for native apps or single-page apps.
     this.clientSecret = builder.clientSecret;
+    this.browserTimeout = builder.browserTimeout;
   }
 
   public Consent setHttpClient(HttpClient hc) {
@@ -153,6 +168,10 @@ public class Consent implements Serializable {
 
   public String getClientSecret() {
     return clientSecret;
+  }
+
+  public Optional<Duration> getBrowserTimeout() {
+    return browserTimeout;
   }
 
   /**
@@ -219,7 +238,8 @@ public class Consent implements Serializable {
               + redirect.getHost()
               + ", redirectUrl host must be one of: localhost, 127.0.0.1");
     }
-    CallbackResponseHandler handler = new CallbackResponseHandler();
+
+    CallbackResponseHandler handler = new CallbackResponseHandler(this.browserTimeout);
     HttpServer httpServer =
         HttpServer.create(new InetSocketAddress(redirect.getHost(), redirect.getPort()), 0);
     httpServer.createContext("/", handler);
@@ -285,6 +305,11 @@ public class Consent implements Serializable {
     // Protects params
     private final Object lock = new Object();
     private volatile Map<String, String> params;
+    private final Optional<Duration> timeout;
+
+    public CallbackResponseHandler(Optional<Duration> timeout) {
+      this.timeout = timeout;
+    }
 
     @Override
     public void handle(HttpExchange exchange) {
@@ -373,7 +398,15 @@ public class Consent implements Serializable {
       synchronized (lock) {
         if (params == null) {
           try {
-            lock.wait();
+            if (timeout.isPresent()) {
+              Duration t = timeout.get();
+              lock.wait(t.toMillis());
+              if (params == null) {
+                throw new DatabricksException("OAuth browser authentication timed out after " + t.getSeconds() + " seconds");
+              }
+            } else {
+              lock.wait();
+            }
           } catch (InterruptedException e) {
             throw new DatabricksException(
                 "Interrupted while waiting for parameters: " + e.getMessage(), e);

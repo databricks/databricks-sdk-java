@@ -9,7 +9,14 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.util.*;
+import java.time.Duration;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Base64;
+import java.util.HashMap;
 import java.util.stream.Collectors;
 
 /**
@@ -36,6 +43,7 @@ public class OAuthClient {
     private String clientSecret;
     private HttpClient hc;
     private String accountId;
+    private Optional<Duration> browserTimeout = Optional.empty();
 
     public Builder() {}
 
@@ -77,6 +85,11 @@ public class OAuthClient {
       this.accountId = accountId;
       return this;
     }
+
+    public Builder withBrowserTimeout(Duration browserTimeout) {
+      this.browserTimeout = Optional.of(browserTimeout);
+      return this;
+    }
   }
 
   private final String clientId;
@@ -90,6 +103,7 @@ public class OAuthClient {
   private final SecureRandom random = new SecureRandom();
   private final boolean isAws;
   private final boolean isAzure;
+  private final Optional<Duration> browserTimeout;
 
   private OAuthClient(Builder b) throws IOException {
     this.clientId = Objects.requireNonNull(b.clientId);
@@ -120,6 +134,7 @@ public class OAuthClient {
               config.getEffectiveAzureLoginAppId() + "/user_impersonation", "offline_access");
     }
     this.scopes = scopes;
+    this.browserTimeout = b.browserTimeout;
   }
 
   public String getHost() {
@@ -207,6 +222,7 @@ public class OAuthClient {
         .withState(state)
         .withVerifier(verifier)
         .withHttpClient(hc)
+        .withBrowserTimeout(browserTimeout.orElse(Duration.ofSeconds(0)))
         .build();
   }
 }

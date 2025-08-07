@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Objects;
 import java.util.Optional;
+import java.time.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -115,6 +116,7 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
             .withAccountId(config.getAccountId())
             .withRedirectUrl(config.getEffectiveOAuthRedirectUrl())
             .withScopes(config.getScopes())
+            .withBrowserTimeout(config.getOAuthBrowserAuthTimeout())
             .build();
     Consent consent = client.initiateConsent();
 

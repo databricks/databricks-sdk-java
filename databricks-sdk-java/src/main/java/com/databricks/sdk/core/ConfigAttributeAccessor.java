@@ -1,6 +1,7 @@
 package com.databricks.sdk.core;
 
 import java.lang.reflect.Field;
+import java.time.Duration;
 import java.util.Map;
 import java.util.Objects;
 
@@ -41,16 +42,25 @@ class ConfigAttributeAccessor {
     // workspace clients or config resolution) are safe
     synchronized (field) {
       field.setAccessible(true);
+      if (value == null || value.trim().isEmpty()) {
+        return;
+      }
+      
       if (field.getType() == String.class) {
         field.set(cfg, value);
       } else if (field.getType() == int.class) {
         field.set(cfg, Integer.parseInt(value));
+      } else if (field.getType() == Integer.class) {
+        field.set(cfg, Integer.parseInt(value));
       } else if (field.getType() == boolean.class) {
         field.set(cfg, Boolean.parseBoolean(value));
+      } else if (field.getType() == Boolean.class) {
+        field.set(cfg, Boolean.parseBoolean(value));
+      } else if (field.getType() == Duration.class) {
+        int seconds = Integer.parseInt(value);
+        field.set(cfg, seconds > 0 ? Duration.ofSeconds(seconds) : null);
       } else if (field.getType() == ProxyConfig.ProxyAuthType.class) {
-        if (value != null) {
-          field.set(cfg, ProxyConfig.ProxyAuthType.valueOf(value));
-        }
+        field.set(cfg, ProxyConfig.ProxyAuthType.valueOf(value));
       }
       field.setAccessible(false);
     }
