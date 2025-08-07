@@ -139,6 +139,7 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
                   config.getHttpClient())
               .audience(config.getTokenAudience())
               .accountId(config.isAccountClient() ? config.getAccountId() : null)
+              .scopes(config.getScopes())
               .build();
 
       providers.add(new TokenSourceCredentialsProvider(oauthTokenSource, namedIdTokenSource.name));

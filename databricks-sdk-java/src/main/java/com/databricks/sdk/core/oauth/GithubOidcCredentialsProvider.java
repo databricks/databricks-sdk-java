@@ -6,7 +6,6 @@ import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.HeaderFactory;
 import com.google.common.collect.ImmutableMap;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,7 +46,7 @@ public class GithubOidcCredentialsProvider implements CredentialsProvider {
             .withHttpClient(config.getHttpClient())
             .withClientId(config.getClientId())
             .withTokenUrl(endpointUrl)
-            .withScopes(Collections.singletonList("all-apis"))
+            .withScopes(config.getScopes())
             .withAuthParameterPosition(AuthParameterPosition.HEADER)
             .withEndpointParametersSupplier(
                 () ->
