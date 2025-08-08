@@ -12,6 +12,7 @@ import com.databricks.sdk.core.oauth.Token;
 import com.databricks.sdk.core.oauth.TokenSource;
 import com.databricks.sdk.core.utils.Environment;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -249,5 +250,36 @@ public class DatabricksConfigTest {
     TokenSource tokenSource = config.getTokenSource();
     assertFalse(tokenSource instanceof ErrorTokenSource);
     assertEquals(tokenSource.getToken().getAccessToken(), "test-token");
+  }
+
+  @Test
+  public void testOAuthBrowserAuthTimeout() {
+    DatabricksConfig config = new DatabricksConfig();
+
+    assertNull(config.getOAuthBrowserAuthTimeout());
+
+    config.setOAuthBrowserAuthTimeout(Duration.ofSeconds(30));
+    assertEquals(Duration.ofSeconds(30), config.getOAuthBrowserAuthTimeout());
+
+    config.setOAuthBrowserAuthTimeout(Duration.ofSeconds(60));
+    assertEquals(Duration.ofSeconds(60), config.getOAuthBrowserAuthTimeout());
+
+    config.setOAuthBrowserAuthTimeout(Duration.ofSeconds(0));
+    assertEquals(Duration.ZERO, config.getOAuthBrowserAuthTimeout());
+  }
+
+  @Test
+  public void testEnvironmentVariableLoading() {
+    Map<String, String> env = new HashMap<>();
+    env.put("DATABRICKS_OAUTH_BROWSER_AUTH_TIMEOUT", "30");
+    env.put("DATABRICKS_DEBUG_TRUNCATE_BYTES", "100");
+    env.put("DATABRICKS_RATE_LIMIT", "50");
+
+    DatabricksConfig config = new DatabricksConfig();
+    config.resolve(new Environment(env, new ArrayList<>(), System.getProperty("os.name")));
+
+    assertEquals(Duration.ofSeconds(30), config.getOAuthBrowserAuthTimeout());
+    assertEquals(Integer.valueOf(100), config.getDebugTruncateBytes());
+    assertEquals(Integer.valueOf(50), config.getRateLimit());
   }
 }

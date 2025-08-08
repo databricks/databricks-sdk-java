@@ -4,6 +4,8 @@
 
 ### New Features and Improvements
 
+* Add option to add a timeout for browser confirmation in the U2M authentication flow.
+
 ### Bug Fixes
 
 * User provided scopes are now properly propagated in OAuth flows.
