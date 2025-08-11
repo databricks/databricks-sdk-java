@@ -12,6 +12,7 @@ import java.util.Map;
  */
 public class AzureServicePrincipalCredentialsProvider implements CredentialsProvider {
   private final ObjectMapper mapper = new ObjectMapper();
+  private String tenantId;
 
   @Override
   public String authType() {
@@ -25,14 +26,15 @@ public class AzureServicePrincipalCredentialsProvider implements CredentialsProv
         || config.getAzureClientSecret() == null) {
       return null;
     }
-    AzureUtils.ensureHostPresent(
-        config, mapper, AzureServicePrincipalCredentialsProvider::tokenSourceFor);
-        
-    boolean tenantIdLoaded = config.loadAzureTenantId();
-    if (!tenantIdLoaded) {
+    
+    this.tenantId = config.getAzureTenantId() != null ? config.getAzureTenantId() : AzureUtils.inferTenantId(config);
+    if (this.tenantId == null) {
       return null;
     }
-
+    
+    AzureUtils.ensureHostPresent(
+        config, mapper, this::tokenSourceFor);
+        
     CachedTokenSource inner = tokenSourceFor(config, config.getEffectiveAzureLoginAppId());
     CachedTokenSource cloud =
         tokenSourceFor(config, config.getAzureEnvironment().getServiceManagementEndpoint());
@@ -60,9 +62,9 @@ public class AzureServicePrincipalCredentialsProvider implements CredentialsProv
    * @return A CachedTokenSource instance capable of fetching OAuth tokens for the specified Azure
    *     resource.
    */
-  private static CachedTokenSource tokenSourceFor(DatabricksConfig config, String resource) {
+  private CachedTokenSource tokenSourceFor(DatabricksConfig config, String resource) {
     String aadEndpoint = config.getAzureEnvironment().getActiveDirectoryEndpoint();
-    String tokenUrl = aadEndpoint + config.getAzureTenantId() + "/oauth2/token";
+    String tokenUrl = aadEndpoint + this.tenantId + "/oauth2/token";
     Map<String, String> endpointParams = new HashMap<>();
     endpointParams.put("resource", resource);
 

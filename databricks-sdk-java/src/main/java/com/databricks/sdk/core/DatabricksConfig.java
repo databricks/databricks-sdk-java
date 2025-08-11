@@ -14,19 +14,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.net.URL;
 import java.util.*;
 import org.apache.http.HttpMessage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class DatabricksConfig {
 
-  private static final Logger logger = LoggerFactory.getLogger(DatabricksConfig.class);
-  
-  /** Azure authentication endpoint for tenant ID discovery */
-  private static final String AZURE_AUTH_ENDPOINT = "/aad/auth";
-  
   private CredentialsProvider credentialsProvider = new DefaultCredentialsProvider();
 
   @ConfigAttribute(env = "DATABRICKS_HOST")
@@ -735,7 +727,7 @@ public class DatabricksConfig {
   }
 
   public DatabricksConfig clone() {
-    return clone(new HashSet<>(Arrays.asList("logger", "AZURE_AUTH_ENDPOINT")));
+    return clone(new HashSet<>());
   }
 
   public DatabricksConfig newWithWorkspaceHost(String host) {
@@ -745,8 +737,6 @@ public class DatabricksConfig {
                 // The config for WorkspaceClient has a different host and Azure Workspace resource
                 // ID, and also omits
                 // the account ID.
-                "logger",
-                "AZURE_AUTH_ENDPOINT",
                 "host",
                 "accountId",
                 "azureWorkspaceResourceId",
@@ -765,89 +755,5 @@ public class DatabricksConfig {
    */
   public String getEffectiveOAuthRedirectUrl() {
     return redirectUrl != null ? redirectUrl : "http://localhost:8080/callback";
-  }
-
-  /**
-   * [Internal] Load the Azure tenant ID from the Azure Databricks login page. If the tenant ID is
-   * already set, this method does nothing.
-   * 
-   * @return true if tenant ID is available (either was already set or successfully loaded), false otherwise
-   */
-  public boolean loadAzureTenantId() {
-
-    if (azureTenantId != null) {
-      return true; // Tenant ID already available - success
-    }
-
-    if (!isAzure() || host == null) {
-      return false; // Configuration issue - can't perform operation
-    }
-
-    String loginUrl = host + AZURE_AUTH_ENDPOINT;
-    logger.debug("Loading tenant ID from {}", loginUrl);
-
-    try {
-      String redirectLocation = getRedirectLocation(loginUrl);
-      if (redirectLocation == null) {
-        return false; // Failed to get redirect location
-      }
-
-      String extractedTenantId = extractTenantIdFromUrl(redirectLocation);
-      if (extractedTenantId == null) {
-        return false; // Failed to extract tenant ID
-      }
-
-      this.azureTenantId = extractedTenantId;
-      logger.debug("Loaded tenant ID: {}", this.azureTenantId);
-      return true; // Successfully loaded
-
-    } catch (Exception e) {
-      logger.warn("Failed to load tenant ID: {}", e.getMessage());
-      return false;
-    }
-  }
-
-  private String getRedirectLocation(String loginUrl) throws IOException {
-
-    Request request = new Request("GET", loginUrl);
-    request.setRedirectionBehavior(false);
-    Response response = getHttpClient().execute(request);
-    int statusCode = response.getStatusCode();
-
-    if (statusCode != 302) {
-      logger.warn(
-          "Failed to get tenant ID from {}: expected status code 302, got {}",
-          loginUrl,
-          statusCode);
-      return null;
-    }
-
-    String location = response.getFirstHeader("Location");
-    if (location == null) {
-      logger.warn("No Location header in response from {}", loginUrl);
-    }
-
-    return location;
-  }
-
-  private String extractTenantIdFromUrl(String redirectUrl) {
-    try {
-      // The Location header has the following form:
-      // https://login.microsoftonline.com/<tenant-id>/oauth2/authorize?...
-      // The domain may change depending on the Azure cloud (e.g. login.microsoftonline.us for US
-      // Government cloud).
-      URL entraIdUrl = new URL(redirectUrl);
-      String[] pathSegments = entraIdUrl.getPath().split("/");
-
-      if (pathSegments.length < 2) {
-        logger.warn("Invalid path in Location header: {}", entraIdUrl.getPath());
-        return null;
-      }
-
-      return pathSegments[1];
-    } catch (Exception e) {
-      logger.warn("Failed to extract tenant ID from URL {}: {}", redirectUrl, e.getMessage());
-      return null;
-    }
   }
 }
