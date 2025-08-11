@@ -1,11 +1,11 @@
 package com.databricks.sdk.core.error;
 
+import com.databricks.sdk.core.error.details.ErrorDetails;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.databricks.sdk.core.error.details.ErrorDetails;
-import java.util.List;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * The union of all JSON error responses from the Databricks APIs, not including HTML responses.
@@ -104,6 +104,11 @@ public class ApiErrorBody {
     if (!details.errorInfo().isPresent()) {
       return Collections.emptyList();
     }
-    return Arrays.asList(new ErrorDetail("type.googleapis.com/google.rpc.ErrorInfo", details.errorInfo().get().reason(), details.errorInfo().get().domain(), details.errorInfo().get().metadata()));  
+    return Arrays.asList(
+        new ErrorDetail(
+            "type.googleapis.com/google.rpc.ErrorInfo",
+            details.errorInfo().get().reason(),
+            details.errorInfo().get().domain(),
+            details.errorInfo().get().metadata()));
   }
 }

@@ -319,21 +319,20 @@ public class ApiClientTest {
 
     Map<String, String> metadata = new HashMap<>();
     metadata.put("etag", "value");
-    
+
     // Create ErrorDetails object instead of List<ErrorDetail>
-    ErrorDetails errorDetails = ErrorDetails.builder()
-        .setErrorInfo(ErrorInfo.builder()
-            .reason("reason")
-            .domain("domain")
-            .metadata(metadata)
-            .build())
-        .setUnknownDetails(Arrays.asList(
-            mapper.createObjectNode()
-                .put("@type", "unrelated")
-                .put("reason", "wrong")
-                .put("domain", "wrongDomain")
-        ))
-        .build();
+    ErrorDetails errorDetails =
+        ErrorDetails.builder()
+            .setErrorInfo(
+                ErrorInfo.builder().reason("reason").domain("domain").metadata(metadata).build())
+            .setUnknownDetails(
+                Arrays.asList(
+                    mapper
+                        .createObjectNode()
+                        .put("@type", "unrelated")
+                        .put("reason", "wrong")
+                        .put("domain", "wrongDomain")))
+            .build();
 
     DatabricksError error =
         runFailingApiClientTest(
@@ -342,14 +341,7 @@ public class ApiClientTest {
                 getTransientError(
                     req,
                     401,
-                    new ApiErrorBody(
-                        "ERROR",
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        errorDetails)),
+                    new ApiErrorBody("ERROR", null, null, null, null, null, errorDetails)),
                 getSuccessResponse(req)),
             MyEndpointResponse.class,
             DatabricksError.class);
