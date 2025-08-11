@@ -3,8 +3,8 @@ package com.databricks.sdk.core.utils;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.databricks.sdk.core.DatabricksConfig;
-import com.databricks.sdk.core.commons.CommonsHttpClient;
 import com.databricks.sdk.core.FixtureServer;
+import com.databricks.sdk.core.commons.CommonsHttpClient;
 import java.io.IOException;
 import org.junit.jupiter.api.Test;
 

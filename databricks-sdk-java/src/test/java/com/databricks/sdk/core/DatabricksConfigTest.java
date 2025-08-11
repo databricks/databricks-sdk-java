@@ -250,5 +250,4 @@ public class DatabricksConfigTest {
     assertFalse(tokenSource instanceof ErrorTokenSource);
     assertEquals(tokenSource.getToken().getAccessToken(), "test-token");
   }
-
 }
