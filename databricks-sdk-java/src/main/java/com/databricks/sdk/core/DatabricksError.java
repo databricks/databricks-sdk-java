@@ -14,8 +14,6 @@ import java.util.stream.Collectors;
  * unrecoverable way and this exception should be thrown, potentially wrapped in another exception.
  */
 public class DatabricksError extends DatabricksException {
-  private static final String ERROR_INFO_TYPE = "type.googleapis.com/google.rpc.ErrorInfo";
-  private final String message;
   private final Throwable cause;
   private final String errorCode;
   private final int statusCode;
@@ -51,14 +49,13 @@ public class DatabricksError extends DatabricksException {
       List<ErrorDetail> details) {
     super(message, cause);
     this.errorCode = errorCode;
-    this.message = message;
     this.cause = cause;
     this.statusCode = statusCode;
     this.details = details == null ? Collections.emptyList() : details;
   }
 
   public List<ErrorDetail> getErrorInfo() {
-    return this.getDetailsByType(ERROR_INFO_TYPE);
+    return this.getDetailsByType("type.googleapis.com/google.rpc.ErrorInfo");
   }
 
   public String getErrorCode() {

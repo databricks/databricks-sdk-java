@@ -2,7 +2,10 @@ package com.databricks.sdk.core.error;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.databricks.sdk.core.error.details.ErrorDetails;
 import java.util.List;
+import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * The union of all JSON error responses from the Databricks APIs, not including HTML responses.
@@ -28,14 +31,14 @@ public class ApiErrorBody {
       @JsonProperty("status") String scimStatus,
       @JsonProperty("scimType") String scimType,
       @JsonProperty("error") String api12Error,
-      @JsonProperty("details") List<ErrorDetail> errorDetails) {
+      @JsonProperty("details") ErrorDetails errorDetails) {
     this.errorCode = errorCode;
     this.message = message;
     this.scimDetail = scimDetail;
     this.scimStatus = scimStatus;
     this.scimType = scimType;
     this.api12Error = api12Error;
-    this.errorDetails = errorDetails;
+    this.errorDetails = fromDetails(errorDetails);
   }
 
   public List<ErrorDetail> getErrorDetails() {
@@ -92,5 +95,15 @@ public class ApiErrorBody {
 
   public void setApi12Error(String api12Error) {
     this.api12Error = api12Error;
+  }
+
+  private static List<ErrorDetail> fromDetails(ErrorDetails details) {
+    if (details == null) {
+      return Collections.emptyList();
+    }
+    if (!details.errorInfo().isPresent()) {
+      return Collections.emptyList();
+    }
+    return Arrays.asList(new ErrorDetail("type.googleapis.com/google.rpc.ErrorInfo", details.errorInfo().get().reason(), details.errorInfo().get().domain(), details.errorInfo().get().metadata()));  
   }
 }
