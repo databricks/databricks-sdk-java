@@ -63,7 +63,7 @@ public abstract class QuotaFailure {
      * @return this builder for method chaining
      */
     @JsonProperty("violations")
-    public abstract Builder violations(List<QuotaFailureViolation> violations);
+    public abstract Builder setViolations(List<QuotaFailureViolation> violations);
 
     /**
      * Builds the QuotaFailure instance.
@@ -142,7 +142,7 @@ public abstract class QuotaFailure {
        * @return this builder for method chaining
        */
       @JsonProperty("subject")
-      public abstract Builder subject(String subject);
+      public abstract Builder setSubject(String subject);
 
       /**
        * Sets the description of the quota violation.
@@ -151,7 +151,7 @@ public abstract class QuotaFailure {
        * @return this builder for method chaining
        */
       @JsonProperty("description")
-      public abstract Builder description(String description);
+      public abstract Builder setDescription(String description);
 
       /**
        * Builds the QuotaFailureViolation instance.

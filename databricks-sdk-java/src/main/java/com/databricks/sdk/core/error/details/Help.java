@@ -76,7 +76,7 @@ public abstract class Help {
      * @return this builder for method chaining
      */
     @JsonProperty("links")
-    public abstract Builder links(List<HelpLink> links);
+    public abstract Builder setLinks(List<HelpLink> links);
 
     /**
      * Builds the Help instance.
@@ -179,7 +179,7 @@ public abstract class Help {
        * @return this builder for method chaining
        */
       @JsonProperty("description")
-      public abstract Builder description(String description);
+      public abstract Builder setDescription(String description);
 
       /**
        * Sets the link URL.
@@ -188,7 +188,7 @@ public abstract class Help {
        * @return this builder for method chaining
        */
       @JsonProperty("url")
-      public abstract Builder url(String url);
+      public abstract Builder setUrl(String url);
 
       /**
        * Builds the HelpLink instance.

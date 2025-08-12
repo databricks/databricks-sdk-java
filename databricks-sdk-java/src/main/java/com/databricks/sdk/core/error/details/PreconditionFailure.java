@@ -69,7 +69,7 @@ public abstract class PreconditionFailure {
      * @return this builder for method chaining
      */
     @JsonProperty("violations")
-    public abstract Builder violations(List<PreconditionFailureViolation> violations);
+    public abstract Builder setViolations(List<PreconditionFailureViolation> violations);
 
     /**
      * Builds the PreconditionFailure instance.
@@ -169,7 +169,7 @@ public abstract class PreconditionFailure {
        * @return this builder for method chaining
        */
       @JsonProperty("type")
-      public abstract Builder type(String type);
+      public abstract Builder setType(String type);
 
       /**
        * Sets the subject of the precondition failure.
@@ -178,7 +178,7 @@ public abstract class PreconditionFailure {
        * @return this builder for method chaining
        */
       @JsonProperty("subject")
-      public abstract Builder subject(String subject);
+      public abstract Builder setSubject(String subject);
 
       /**
        * Sets the description of the precondition failure.
@@ -187,7 +187,7 @@ public abstract class PreconditionFailure {
        * @return this builder for method chaining
        */
       @JsonProperty("description")
-      public abstract Builder description(String description);
+      public abstract Builder setDescription(String description);
 
       /**
        * Builds the PreconditionFailureViolation instance.

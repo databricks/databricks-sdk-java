@@ -78,7 +78,7 @@ public abstract class RequestInfo {
      * @return this builder for method chaining
      */
     @JsonProperty("request_id")
-    public abstract Builder requestId(String requestId);
+    public abstract Builder setRequestId(String requestId);
 
     /**
      * Sets the serving data.
@@ -87,7 +87,7 @@ public abstract class RequestInfo {
      * @return this builder for method chaining
      */
     @JsonProperty("serving_data")
-    public abstract Builder servingData(String servingData);
+    public abstract Builder setServingData(String servingData);
 
     /**
      * Builds the RequestInfo instance.

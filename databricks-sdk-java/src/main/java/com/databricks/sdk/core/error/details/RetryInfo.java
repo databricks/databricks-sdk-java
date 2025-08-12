@@ -75,7 +75,7 @@ public abstract class RetryInfo {
      */
     @JsonProperty("retry_delay")
     @JsonDeserialize(using = RetryInfo.DurationDeserializer.class)
-    public abstract Builder retryDelay(Duration retryDelay);
+    public abstract Builder setRetryDelay(Duration retryDelay);
 
     /**
      * Builds the RetryInfo instance.

@@ -91,7 +91,7 @@ public abstract class DebugInfo {
      * @return this builder for method chaining
      */
     @JsonProperty("stack_entries")
-    public abstract Builder stackEntries(List<String> stackEntries);
+    public abstract Builder setStackEntries(List<String> stackEntries);
 
     /**
      * Sets the additional debugging information.
@@ -100,7 +100,7 @@ public abstract class DebugInfo {
      * @return this builder for method chaining
      */
     @JsonProperty("detail")
-    public abstract Builder detail(String detail);
+    public abstract Builder setDetail(String detail);
 
     /**
      * Builds the DebugInfo instance.

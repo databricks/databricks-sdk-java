@@ -150,7 +150,7 @@ public abstract class ResourceInfo {
      * @return this builder for method chaining
      */
     @JsonProperty("resource_type")
-    public abstract Builder resourceType(String resourceType);
+    public abstract Builder setResourceType(String resourceType);
 
     /**
      * Sets the resource name.
@@ -159,7 +159,7 @@ public abstract class ResourceInfo {
      * @return this builder for method chaining
      */
     @JsonProperty("resource_name")
-    public abstract Builder resourceName(String resourceName);
+    public abstract Builder setResourceName(String resourceName);
 
     /**
      * Sets the resource owner.
@@ -168,7 +168,7 @@ public abstract class ResourceInfo {
      * @return this builder for method chaining
      */
     @JsonProperty("owner")
-    public abstract Builder owner(String owner);
+    public abstract Builder setOwner(String owner);
 
     /**
      * Sets the error description.
@@ -177,7 +177,7 @@ public abstract class ResourceInfo {
      * @return this builder for method chaining
      */
     @JsonProperty("description")
-    public abstract Builder description(String description);
+    public abstract Builder setDescription(String description);
 
     /**
      * Builds the ResourceInfo instance.

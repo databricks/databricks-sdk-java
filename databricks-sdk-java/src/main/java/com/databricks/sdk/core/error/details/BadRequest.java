@@ -71,7 +71,7 @@ public abstract class BadRequest {
      * @return this builder for method chaining
      */
     @JsonProperty("field_violations")
-    public abstract Builder fieldViolations(List<BadRequestFieldViolation> fieldViolations);
+    public abstract Builder setFieldViolations(List<BadRequestFieldViolation> fieldViolations);
 
     /**
      * Builds the BadRequest instance.
@@ -160,7 +160,7 @@ public abstract class BadRequest {
        * @return this builder for method chaining
        */
       @JsonProperty("field")
-      public abstract Builder field(String field);
+      public abstract Builder setField(String field);
 
       /**
        * Sets the violation description.
@@ -169,7 +169,7 @@ public abstract class BadRequest {
        * @return this builder for method chaining
        */
       @JsonProperty("description")
-      public abstract Builder description(String description);
+      public abstract Builder setDescription(String description);
 
       /**
        * Builds the BadRequestFieldViolation instance.

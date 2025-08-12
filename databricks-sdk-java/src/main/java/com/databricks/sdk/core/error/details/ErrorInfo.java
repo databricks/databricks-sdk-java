@@ -85,7 +85,7 @@ public abstract class ErrorInfo {
      * @return this builder for method chaining
      */
     @JsonProperty("reason")
-    public abstract Builder reason(String reason);
+    public abstract Builder setReason(String reason);
 
     /**
      * Sets the domain of the error.
@@ -94,7 +94,7 @@ public abstract class ErrorInfo {
      * @return this builder for method chaining
      */
     @JsonProperty("domain")
-    public abstract Builder domain(String domain);
+    public abstract Builder setDomain(String domain);
 
     /**
      * Sets the additional metadata about the error.
@@ -103,7 +103,7 @@ public abstract class ErrorInfo {
      * @return this builder for method chaining
      */
     @JsonProperty("metadata")
-    public abstract Builder metadata(Map<String, String> metadata);
+    public abstract Builder setMetadata(Map<String, String> metadata);
 
     /**
      * Builds the ErrorInfo instance.
