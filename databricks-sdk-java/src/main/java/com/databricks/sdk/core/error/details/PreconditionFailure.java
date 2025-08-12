@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -76,7 +77,16 @@ public abstract class PreconditionFailure {
      *
      * @return a new PreconditionFailure instance
      */
-    public abstract PreconditionFailure build();
+    public PreconditionFailure build() {
+      if (violations() == null) {
+        setViolations(Collections.emptyList());
+      }
+      return autoBuild();
+    }
+
+    abstract List<PreconditionFailureViolation> violations();
+
+    abstract PreconditionFailure autoBuild();
   }
 
   /**

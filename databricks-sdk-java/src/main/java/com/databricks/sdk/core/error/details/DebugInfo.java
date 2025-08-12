@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -107,6 +108,15 @@ public abstract class DebugInfo {
      *
      * @return a new DebugInfo instance
      */
-    public abstract DebugInfo build();
+    public DebugInfo build() {
+      if (stackEntries() == null) {
+        setStackEntries(Collections.emptyList());
+      }
+      return autoBuild();
+    }
+
+    abstract List<String> stackEntries();
+
+    abstract DebugInfo autoBuild();
   }
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
+import java.util.Collections;
 import java.util.Map;
 
 /**
@@ -110,6 +111,15 @@ public abstract class ErrorInfo {
      *
      * @return a new ErrorInfo instance
      */
-    public abstract ErrorInfo build();
+    public ErrorInfo build() {
+      if (metadata() == null) {
+        setMetadata(Collections.emptyMap());
+      }
+      return autoBuild();
+    }
+
+    abstract Map<String, String> metadata();
+
+    abstract ErrorInfo autoBuild();
   }
 }

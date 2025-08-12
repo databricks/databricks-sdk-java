@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -78,7 +79,16 @@ public abstract class BadRequest {
      *
      * @return a new BadRequest instance
      */
-    public abstract BadRequest build();
+    public BadRequest build() {
+      if (fieldViolations() == null) {
+        setFieldViolations(Collections.emptyList());
+      }
+      return autoBuild();
+    }
+
+    abstract List<BadRequestFieldViolation> fieldViolations();
+
+    abstract BadRequest autoBuild();
   }
 
   /**

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.auto.value.AutoValue;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -83,7 +84,16 @@ public abstract class Help {
      *
      * @return a new Help instance
      */
-    public abstract Help build();
+    public Help build() {
+      if (links() == null) {
+        setLinks(Collections.emptyList());
+      }
+      return autoBuild();
+    }
+
+    abstract List<HelpLink> links();
+
+    abstract Help autoBuild();
   }
 
   /**
