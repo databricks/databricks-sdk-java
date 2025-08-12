@@ -324,7 +324,7 @@ public class ApiClientTest {
     ErrorDetails errorDetails =
         ErrorDetails.builder()
             .setErrorInfo(
-                ErrorInfo.builder().reason("reason").domain("domain").metadata(metadata).build())
+                ErrorInfo.builder().setReason("reason").setDomain("domain").setMetadata(metadata).build())
             .setUnknownDetails(
                 Arrays.asList(
                     mapper
