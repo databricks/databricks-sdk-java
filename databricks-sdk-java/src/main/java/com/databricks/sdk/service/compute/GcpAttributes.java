@@ -23,6 +23,18 @@ public class GcpAttributes {
   private Long bootDiskSize;
 
   /**
+   * The first `first_on_demand` nodes of the cluster will be placed on on-demand instances. This
+   * value should be greater than 0, to make sure the cluster driver node is placed on an on-demand
+   * instance. If this value is greater than or equal to the current cluster size, all nodes will be
+   * placed on on-demand instances. If this value is less than the current cluster size,
+   * `first_on_demand` nodes will be placed on on-demand instances and the remainder will be placed
+   * on `availability` instances. Note that this value does not affect cluster size and cannot
+   * currently be mutated over the lifetime of a cluster.
+   */
+  @JsonProperty("first_on_demand")
+  private Long firstOnDemand;
+
+  /**
    * If provided, the cluster will impersonate the google service account when accessing gcloud
    * services (like GCS). The google service account must have previously been added to the
    * Databricks environment by an account administrator.
@@ -77,6 +89,15 @@ public class GcpAttributes {
     return bootDiskSize;
   }
 
+  public GcpAttributes setFirstOnDemand(Long firstOnDemand) {
+    this.firstOnDemand = firstOnDemand;
+    return this;
+  }
+
+  public Long getFirstOnDemand() {
+    return firstOnDemand;
+  }
+
   public GcpAttributes setGoogleServiceAccount(String googleServiceAccount) {
     this.googleServiceAccount = googleServiceAccount;
     return this;
@@ -120,6 +141,7 @@ public class GcpAttributes {
     GcpAttributes that = (GcpAttributes) o;
     return Objects.equals(availability, that.availability)
         && Objects.equals(bootDiskSize, that.bootDiskSize)
+        && Objects.equals(firstOnDemand, that.firstOnDemand)
         && Objects.equals(googleServiceAccount, that.googleServiceAccount)
         && Objects.equals(localSsdCount, that.localSsdCount)
         && Objects.equals(usePreemptibleExecutors, that.usePreemptibleExecutors)
@@ -131,6 +153,7 @@ public class GcpAttributes {
     return Objects.hash(
         availability,
         bootDiskSize,
+        firstOnDemand,
         googleServiceAccount,
         localSsdCount,
         usePreemptibleExecutors,
@@ -142,6 +165,7 @@ public class GcpAttributes {
     return new ToStringer(GcpAttributes.class)
         .add("availability", availability)
         .add("bootDiskSize", bootDiskSize)
+        .add("firstOnDemand", firstOnDemand)
         .add("googleServiceAccount", googleServiceAccount)
         .add("localSsdCount", localSsdCount)
         .add("usePreemptibleExecutors", usePreemptibleExecutors)

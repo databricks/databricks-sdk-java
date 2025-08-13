@@ -21,7 +21,7 @@ public class CleanRoomAssetNotebook {
   @JsonProperty("notebook_content")
   private String notebookContent;
 
-  /** top-level status derived from all reviews */
+  /** Top-level status derived from all reviews */
   @JsonProperty("review_state")
   private CleanRoomNotebookReviewNotebookReviewState reviewState;
 

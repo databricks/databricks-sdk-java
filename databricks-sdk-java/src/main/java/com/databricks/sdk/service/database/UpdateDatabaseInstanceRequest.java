@@ -19,7 +19,8 @@ public class UpdateDatabaseInstanceRequest {
   @JsonIgnore private String name;
 
   /**
-   * The list of fields to update. This field is not yet supported, and is ignored by the server.
+   * The list of fields to update. If unspecified, all fields will be updated when possible. To wipe
+   * out custom_tags, specify custom_tags in the update_mask with an empty custom_tags map.
    */
   @JsonIgnore
   @QueryParam("update_mask")

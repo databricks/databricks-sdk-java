@@ -187,6 +187,14 @@ public class CreateJob {
   @JsonProperty("trigger")
   private TriggerSettings trigger;
 
+  /**
+   * The id of the user specified usage policy to use for this job. If not specified, a default
+   * usage policy may be applied when creating or modifying the job. See
+   * `effective_budget_policy_id` for the budget policy used by this workload.
+   */
+  @JsonProperty("usage_policy_id")
+  private String usagePolicyId;
+
   /** A collection of system notification IDs to notify when runs of this job begin or complete. */
   @JsonProperty("webhook_notifications")
   private WebhookNotifications webhookNotifications;
@@ -407,6 +415,15 @@ public class CreateJob {
     return trigger;
   }
 
+  public CreateJob setUsagePolicyId(String usagePolicyId) {
+    this.usagePolicyId = usagePolicyId;
+    return this;
+  }
+
+  public String getUsagePolicyId() {
+    return usagePolicyId;
+  }
+
   public CreateJob setWebhookNotifications(WebhookNotifications webhookNotifications) {
     this.webhookNotifications = webhookNotifications;
     return this;
@@ -445,6 +462,7 @@ public class CreateJob {
         && Objects.equals(tasks, that.tasks)
         && Objects.equals(timeoutSeconds, that.timeoutSeconds)
         && Objects.equals(trigger, that.trigger)
+        && Objects.equals(usagePolicyId, that.usagePolicyId)
         && Objects.equals(webhookNotifications, that.webhookNotifications);
   }
 
@@ -475,6 +493,7 @@ public class CreateJob {
         tasks,
         timeoutSeconds,
         trigger,
+        usagePolicyId,
         webhookNotifications);
   }
 
@@ -505,6 +524,7 @@ public class CreateJob {
         .add("tasks", tasks)
         .add("timeoutSeconds", timeoutSeconds)
         .add("trigger", trigger)
+        .add("usagePolicyId", usagePolicyId)
         .add("webhookNotifications", webhookNotifications)
         .toString();
   }
