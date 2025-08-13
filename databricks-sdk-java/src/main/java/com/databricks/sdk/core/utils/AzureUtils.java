@@ -10,11 +10,15 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiFunction;
 
 public class AzureUtils {
+
+  /** Azure authentication endpoint for tenant ID discovery */
+  private static final String AZURE_AUTH_ENDPOINT = "/aad/auth";
 
   public static String getWorkspaceFromJsonResponse(ObjectNode jsonResponse) throws IOException {
     JsonNode properties = jsonResponse.get("properties");
@@ -94,5 +98,75 @@ public class AzureUtils {
             workspace.getAzureWorkspaceInfo().getResourceGroup(),
             workspace.getWorkspaceName());
     return Optional.of(resourceId);
+  }
+
+  /**
+   * Infers the Azure tenant ID from the Databricks workspace login page.
+   *
+   * @param config The DatabricksConfig instance
+   * @return the discovered tenant ID
+   * @throws DatabricksException if tenant ID discovery fails
+   */
+  public static String inferTenantId(DatabricksConfig config) throws DatabricksException {
+
+    if (config.getAzureTenantId() != null) {
+      return config.getAzureTenantId();
+    }
+
+    if (config.getHost() == null) {
+      throw new DatabricksException("Cannot infer tenant ID: host is missing");
+    }
+
+    if (!config.isAzure()) {
+      throw new DatabricksException("Cannot infer tenant ID: workspace is not Azure");
+    }
+
+    String loginUrl = config.getHost() + AZURE_AUTH_ENDPOINT;
+
+    try {
+      String redirectLocation = getRedirectLocation(config, loginUrl);
+      return extractTenantIdFromUrl(redirectLocation);
+
+    } catch (Exception e) {
+      throw new DatabricksException("Failed to infer Azure tenant ID from " + loginUrl, e);
+    }
+  }
+
+  private static String getRedirectLocation(DatabricksConfig config, String loginUrl)
+      throws IOException {
+    Request request = new Request("GET", loginUrl);
+    request.setRedirectionBehavior(false);
+    Response response = config.getHttpClient().execute(request);
+
+    if (response.getStatusCode() != 302) {
+      throw new DatabricksException(
+          "Expected redirect (302) from "
+              + loginUrl
+              + ", got status code: "
+              + response.getStatusCode());
+    }
+
+    String location = response.getFirstHeader("Location");
+    if (location == null) {
+      throw new DatabricksException("No Location header in redirect response from " + loginUrl);
+    }
+
+    return location;
+  }
+
+  private static String extractTenantIdFromUrl(String redirectUrl) throws DatabricksException {
+    try {
+      // Parse: https://login.microsoftonline.com/<tenant-id>/oauth2/authorize?...
+      URL entraIdUrl = new URL(redirectUrl);
+      String[] pathSegments = entraIdUrl.getPath().split("/");
+
+      if (pathSegments.length < 2) {
+        throw new DatabricksException("Invalid path in Location header: " + entraIdUrl.getPath());
+      }
+
+      return pathSegments[1];
+    } catch (Exception e) {
+      throw new DatabricksException("Failed to parse tenant ID from URL " + redirectUrl, e);
+    }
   }
 }
