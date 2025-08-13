@@ -16,7 +16,7 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface SchemasService {
   /**
-   * Creates a new schema for catalog in the Metatastore. The caller must be a metastore admin, or
+   * Creates a new schema for catalog in the Metastore. The caller must be a metastore admin, or
    * have the **CREATE_SCHEMA** privilege in the parent catalog.
    */
   SchemaInfo create(CreateSchema createSchema);

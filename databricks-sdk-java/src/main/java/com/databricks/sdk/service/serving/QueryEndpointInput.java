@@ -12,6 +12,13 @@ import java.util.Objects;
 
 @Generated
 public class QueryEndpointInput {
+  /**
+   * Optional user-provided request identifier that will be recorded in the inference table and the
+   * usage tracking table.
+   */
+  @JsonProperty("client_request_id")
+  private String clientRequestId;
+
   /** Pandas Dataframe input in the records orientation. */
   @JsonProperty("dataframe_records")
   private Collection<Object> dataframeRecords;
@@ -103,6 +110,19 @@ public class QueryEndpointInput {
    */
   @JsonProperty("temperature")
   private Double temperature;
+
+  /** Optional user-provided context that will be recorded in the usage tracking table. */
+  @JsonProperty("usage_context")
+  private Map<String, String> usageContext;
+
+  public QueryEndpointInput setClientRequestId(String clientRequestId) {
+    this.clientRequestId = clientRequestId;
+    return this;
+  }
+
+  public String getClientRequestId() {
+    return clientRequestId;
+  }
 
   public QueryEndpointInput setDataframeRecords(Collection<Object> dataframeRecords) {
     this.dataframeRecords = dataframeRecords;
@@ -230,12 +250,22 @@ public class QueryEndpointInput {
     return temperature;
   }
 
+  public QueryEndpointInput setUsageContext(Map<String, String> usageContext) {
+    this.usageContext = usageContext;
+    return this;
+  }
+
+  public Map<String, String> getUsageContext() {
+    return usageContext;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     QueryEndpointInput that = (QueryEndpointInput) o;
-    return Objects.equals(dataframeRecords, that.dataframeRecords)
+    return Objects.equals(clientRequestId, that.clientRequestId)
+        && Objects.equals(dataframeRecords, that.dataframeRecords)
         && Objects.equals(dataframeSplit, that.dataframeSplit)
         && Objects.equals(extraParams, that.extraParams)
         && Objects.equals(input, that.input)
@@ -248,12 +278,14 @@ public class QueryEndpointInput {
         && Objects.equals(prompt, that.prompt)
         && Objects.equals(stop, that.stop)
         && Objects.equals(stream, that.stream)
-        && Objects.equals(temperature, that.temperature);
+        && Objects.equals(temperature, that.temperature)
+        && Objects.equals(usageContext, that.usageContext);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
+        clientRequestId,
         dataframeRecords,
         dataframeSplit,
         extraParams,
@@ -267,12 +299,14 @@ public class QueryEndpointInput {
         prompt,
         stop,
         stream,
-        temperature);
+        temperature,
+        usageContext);
   }
 
   @Override
   public String toString() {
     return new ToStringer(QueryEndpointInput.class)
+        .add("clientRequestId", clientRequestId)
         .add("dataframeRecords", dataframeRecords)
         .add("dataframeSplit", dataframeSplit)
         .add("extraParams", extraParams)
@@ -287,6 +321,7 @@ public class QueryEndpointInput {
         .add("stop", stop)
         .add("stream", stream)
         .add("temperature", temperature)
+        .add("usageContext", usageContext)
         .toString();
   }
 }

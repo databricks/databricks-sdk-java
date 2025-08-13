@@ -9,15 +9,15 @@ import java.util.Objects;
 
 @Generated
 public class NotebookVersionReview {
-  /** review comment */
+  /** Review comment */
   @JsonProperty("comment")
   private String comment;
 
-  /** etag that identifies the notebook version */
+  /** Etag identifying the notebook version */
   @JsonProperty("etag")
   private String etag;
 
-  /** review outcome */
+  /** Review outcome */
   @JsonProperty("review_state")
   private CleanRoomNotebookReviewNotebookReviewState reviewState;
 
