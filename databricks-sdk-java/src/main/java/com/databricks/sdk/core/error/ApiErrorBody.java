@@ -24,6 +24,16 @@ public class ApiErrorBody {
 
   public ApiErrorBody() {}
 
+  /**
+   * Constructs an ApiErrorBody from the given parameters.
+   *
+   * <p>The error details are converted to a list of ErrorDetail objects. This only supports the
+   * ErrorInfo type.
+   *
+   * @param errorCode The error code.
+   * @param message The error message.
+   * @param scimDetail The SCIM detail.
+   */
   public ApiErrorBody(
       @JsonProperty("error_code") String errorCode,
       @JsonProperty("message") String message,
