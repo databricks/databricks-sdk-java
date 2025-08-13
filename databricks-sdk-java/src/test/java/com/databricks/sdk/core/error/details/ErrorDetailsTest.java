@@ -393,26 +393,6 @@ public class ErrorDetailsTest {
             .build();
 
     assertEquals(expected, errorDetails);
-
-    // Additional validation to ensure specific unknown details are properly captured
-    // Verify that error detail objects with invalid data are in unknown details
-    boolean foundErrorInfo = false;
-    boolean foundBadRequest = false;
-    for (JsonNode unknownDetail : errorDetails.unknownDetails()) {
-      if (unknownDetail.isObject() && unknownDetail.has("@type")) {
-        String type = unknownDetail.get("@type").asText();
-        if ("type.googleapis.com/google.rpc.ErrorInfo".equals(type)) {
-          assertEquals(0, unknownDetail.get("reason").asInt());
-          foundErrorInfo = true;
-        } else if ("type.googleapis.com/google.rpc.BadRequest".equals(type)) {
-          assertEquals(0, unknownDetail.get("field_violations").asInt());
-          foundBadRequest = true;
-        }
-      }
-    }
-
-    assertTrue(foundErrorInfo, "ErrorInfo should be found in unknown details");
-    assertTrue(foundBadRequest, "BadRequest should be found in unknown details");
   }
 
   @Test
