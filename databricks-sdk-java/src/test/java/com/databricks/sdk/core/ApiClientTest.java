@@ -345,7 +345,7 @@ public class ApiClientTest {
             MyEndpointResponse.class,
             DatabricksError.class);
     List<ErrorDetail> responseErrors = error.getErrorInfo();
-    assertEquals(responseErrors.size(), 1);
+    assertEquals(1, responseErrors.size());
     ErrorDetail responseError = responseErrors.get(0);
     assertEquals("type.googleapis.com/google.rpc.ErrorInfo", responseError.getType());
     assertEquals("reason", responseError.getReason());

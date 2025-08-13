@@ -3,6 +3,7 @@ package com.databricks.sdk.core.error;
 import com.databricks.sdk.core.DatabricksError;
 import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.Response;
+import com.databricks.sdk.core.utils.SerDeUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -12,7 +13,7 @@ import org.apache.commons.io.IOUtils;
 
 /** Helper methods for inspecting the response and errors thrown during API requests. */
 public class ApiErrors {
-  private static final ObjectMapper MAPPER = new ObjectMapper();
+  private static final ObjectMapper MAPPER = SerDeUtils.createMapper();
   private static final Pattern HTML_ERROR_REGEX = Pattern.compile("<pre>(.*)</pre>");
   private static final ErrorMapper ERROR_MAPPER = new ErrorMapper();
 

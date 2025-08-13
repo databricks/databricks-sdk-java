@@ -41,6 +41,9 @@ public abstract class ApiErrorBody {
   @JsonProperty("details")
   @Nullable public abstract ErrorDetails errorDetails();
 
+  @JsonProperty("errorDetailsList")
+  @Nullable public abstract List<ErrorDetail> errorDetailsList();
+
   /**
    * Returns a builder for constructing ApiErrorBody instances with the same values as this
    * instance.
@@ -66,6 +69,12 @@ public abstract class ApiErrorBody {
    * @return a list of ErrorDetail objects, or an empty list if errorDetails() is null
    */
   public List<ErrorDetail> getErrorDetailsList() {
+    // If we have a direct errorDetailsList from JSON, use it
+    if (errorDetailsList() != null) {
+      return errorDetailsList();
+    }
+
+    // Fallback to converting from ErrorDetails for backward compatibility
     if (errorDetails() == null) {
       return Collections.emptyList();
     }
@@ -149,6 +158,15 @@ public abstract class ApiErrorBody {
      */
     @JsonProperty("details")
     public abstract Builder setErrorDetails(@Nullable ErrorDetails errorDetails);
+
+    /**
+     * Sets the error details list.
+     *
+     * @param errorDetailsList the error details list
+     * @return this builder for method chaining
+     */
+    @JsonProperty("errorDetailsList")
+    public abstract Builder setErrorDetailsList(@Nullable List<ErrorDetail> errorDetailsList);
 
     /**
      * Builds the ApiErrorBody instance.
