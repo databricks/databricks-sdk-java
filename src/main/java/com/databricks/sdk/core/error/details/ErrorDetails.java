@@ -72,4 +72,4 @@ public abstract class ErrorDetails {
 
     abstract List<JsonNode> unknownDetails();
   }
-} 
+}
