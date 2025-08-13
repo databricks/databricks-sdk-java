@@ -58,6 +58,10 @@ public class SharesAPI {
     return impl.get(request);
   }
 
+  public Iterable<ShareInfo> list(String name) {
+    return list(new ListSharesRequest().setName(name));
+  }
+
   /**
    * Gets an array of data object shares from the metastore. The caller must be a metastore admin or
    * the owner of the share. There is no guarantee of a specific ordering of the elements in the

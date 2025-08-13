@@ -38,7 +38,9 @@ import com.databricks.sdk.support.Generated;
  * invalid configuration. Refer to the state message for further details. * `CLOUD_FAILURE`: The run
  * failed due to a cloud provider issue. Refer to the state message for further details. *
  * `MAX_JOB_QUEUE_SIZE_EXCEEDED`: The run was skipped due to reaching the job level queue size
- * limit. * `DISABLED`: The run was never executed because it was disabled explicitly by the user.
+ * limit. * `DISABLED`: The run was never executed because it was disabled explicitly by the user. *
+ * `BREAKING_CHANGE`: Run failed because of an intentional breaking change in Spark, but it will be
+ * retried with a mitigation config.
  *
  * <p>[Link]:
  * https://kb.databricks.com/en_US/notebooks/too-many-execution-contexts-are-open-right-now

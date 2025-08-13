@@ -17,11 +17,7 @@ public class PublishSpec {
   @JsonProperty("online_table_name")
   private String onlineTableName;
 
-  /**
-   * The publish mode of the pipeline that syncs the online table with the source table. Defaults to
-   * TRIGGERED if not specified. All publish modes require the source table to have Change Data Feed
-   * (CDF) enabled.
-   */
+  /** The publish mode of the pipeline that syncs the online table with the source table. */
   @JsonProperty("publish_mode")
   private PublishSpecPublishMode publishMode;
 

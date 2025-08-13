@@ -36,6 +36,8 @@ import com.databricks.sdk.service.catalog.ModelVersionsAPI;
 import com.databricks.sdk.service.catalog.ModelVersionsService;
 import com.databricks.sdk.service.catalog.OnlineTablesAPI;
 import com.databricks.sdk.service.catalog.OnlineTablesService;
+import com.databricks.sdk.service.catalog.PoliciesAPI;
+import com.databricks.sdk.service.catalog.PoliciesService;
 import com.databricks.sdk.service.catalog.QualityMonitorsAPI;
 import com.databricks.sdk.service.catalog.QualityMonitorsService;
 import com.databricks.sdk.service.catalog.RegisteredModelsAPI;
@@ -52,6 +54,8 @@ import com.databricks.sdk.service.catalog.TableConstraintsAPI;
 import com.databricks.sdk.service.catalog.TableConstraintsService;
 import com.databricks.sdk.service.catalog.TablesAPI;
 import com.databricks.sdk.service.catalog.TablesService;
+import com.databricks.sdk.service.catalog.TemporaryPathCredentialsAPI;
+import com.databricks.sdk.service.catalog.TemporaryPathCredentialsService;
 import com.databricks.sdk.service.catalog.TemporaryTableCredentialsAPI;
 import com.databricks.sdk.service.catalog.TemporaryTableCredentialsService;
 import com.databricks.sdk.service.catalog.VolumesAPI;
@@ -271,6 +275,7 @@ public class WorkspaceClient {
   private ExternalMetadataAPI externalMetadataAPI;
   private FeatureStoreAPI featureStoreAPI;
   private FilesAPI filesAPI;
+  private ForecastingAPI forecastingAPI;
   private FunctionsAPI functionsAPI;
   private GenieAPI genieAPI;
   private GitCredentialsAPI gitCredentialsAPI;
@@ -293,6 +298,7 @@ public class WorkspaceClient {
   private PermissionMigrationAPI permissionMigrationAPI;
   private PermissionsAPI permissionsAPI;
   private PipelinesAPI pipelinesAPI;
+  private PoliciesAPI policiesAPI;
   private PolicyComplianceForClustersAPI policyComplianceForClustersAPI;
   private PolicyComplianceForJobsAPI policyComplianceForJobsAPI;
   private PolicyFamiliesAPI policyFamiliesAPI;
@@ -331,6 +337,7 @@ public class WorkspaceClient {
   private SystemSchemasAPI systemSchemasAPI;
   private TableConstraintsAPI tableConstraintsAPI;
   private TablesAPI tablesAPI;
+  private TemporaryPathCredentialsAPI temporaryPathCredentialsAPI;
   private TemporaryTableCredentialsAPI temporaryTableCredentialsAPI;
   private TokenManagementAPI tokenManagementAPI;
   private TokensAPI tokensAPI;
@@ -342,7 +349,6 @@ public class WorkspaceClient {
   private WorkspaceAPI workspaceAPI;
   private WorkspaceBindingsAPI workspaceBindingsAPI;
   private WorkspaceConfAPI workspaceConfAPI;
-  private ForecastingAPI forecastingAPI;
 
   public WorkspaceClient() {
     this(ConfigLoader.getDefault());
@@ -389,6 +395,7 @@ public class WorkspaceClient {
     externalMetadataAPI = new ExternalMetadataAPI(apiClient);
     featureStoreAPI = new FeatureStoreAPI(apiClient);
     filesAPI = new FilesAPI(apiClient);
+    forecastingAPI = new ForecastingAPI(apiClient);
     functionsAPI = new FunctionsAPI(apiClient);
     genieAPI = new GenieAPI(apiClient);
     gitCredentialsAPI = new GitCredentialsAPI(apiClient);
@@ -411,6 +418,7 @@ public class WorkspaceClient {
     permissionMigrationAPI = new PermissionMigrationAPI(apiClient);
     permissionsAPI = new PermissionsAPI(apiClient);
     pipelinesAPI = new PipelinesAPI(apiClient);
+    policiesAPI = new PoliciesAPI(apiClient);
     policyComplianceForClustersAPI = new PolicyComplianceForClustersAPI(apiClient);
     policyComplianceForJobsAPI = new PolicyComplianceForJobsAPI(apiClient);
     policyFamiliesAPI = new PolicyFamiliesAPI(apiClient);
@@ -450,6 +458,7 @@ public class WorkspaceClient {
     systemSchemasAPI = new SystemSchemasAPI(apiClient);
     tableConstraintsAPI = new TableConstraintsAPI(apiClient);
     tablesAPI = new TablesAPI(apiClient);
+    temporaryPathCredentialsAPI = new TemporaryPathCredentialsAPI(apiClient);
     temporaryTableCredentialsAPI = new TemporaryTableCredentialsAPI(apiClient);
     tokenManagementAPI = new TokenManagementAPI(apiClient);
     tokensAPI = new TokensAPI(apiClient);
@@ -461,7 +470,6 @@ public class WorkspaceClient {
     workspaceAPI = new WorkspaceAPI(apiClient);
     workspaceBindingsAPI = new WorkspaceBindingsAPI(apiClient);
     workspaceConfAPI = new WorkspaceConfAPI(apiClient);
-    forecastingAPI = new ForecastingAPI(apiClient);
   }
 
   /** Constructor for mocks */
@@ -893,6 +901,11 @@ public class WorkspaceClient {
     return filesAPI;
   }
 
+  /** The Forecasting API allows you to create and get serverless forecasting experiments */
+  public ForecastingAPI forecasting() {
+    return forecastingAPI;
+  }
+
   /**
    * Functions implement User-Defined Functions (UDFs) in Unity Catalog.
    *
@@ -1206,6 +1219,18 @@ public class WorkspaceClient {
    */
   public PipelinesAPI pipelines() {
     return pipelinesAPI;
+  }
+
+  /**
+   * Attribute-Based Access Control (ABAC) provides high leverage governance for enforcing
+   * compliance policies in Unity Catalog. With ABAC policies, access is controlled in a
+   * hierarchical and scalable manner, based on data attributes rather than specific resources,
+   * enabling more flexible and comprehensive access control. ABAC policies in Unity Catalog support
+   * conditions on securable properties, governance tags, and environment contexts. Callers must
+   * have the `MANAGE` privilege on a securable to view, create, update, or delete ABAC policies.
+   */
+  public PoliciesAPI policies() {
+    return policiesAPI;
   }
 
   /**
@@ -1757,19 +1782,48 @@ public class WorkspaceClient {
   }
 
   /**
+   * Temporary Path Credentials refer to short-lived, downscoped credentials used to access external
+   * cloud storage locations registered in Databricks. These credentials are employed to provide
+   * secure and time-limited access to data in cloud environments such as AWS, Azure, and Google
+   * Cloud. Each cloud provider has its own type of credentials: AWS uses temporary session tokens
+   * via AWS Security Token Service (STS), Azure utilizes Shared Access Signatures (SAS) for its
+   * data storage services, and Google Cloud supports temporary credentials through OAuth 2.0.
+   *
+   * <p>Temporary path credentials ensure that data access is limited in scope and duration,
+   * reducing the risk of unauthorized access or misuse. To use the temporary path credentials API,
+   * a metastore admin needs to enable the external_access_enabled flag (off by default) at the
+   * metastore level. A user needs to be granted the EXTERNAL USE LOCATION permission by external
+   * location owner. For requests on existing external tables, user also needs to be granted the
+   * EXTERNAL USE SCHEMA permission at the schema level by catalog admin.
+   *
+   * <p>Note that EXTERNAL USE SCHEMA is a schema level permission that can only be granted by
+   * catalog admin explicitly and is not included in schema ownership or ALL PRIVILEGES on the
+   * schema for security reasons. Similarly, EXTERNAL USE LOCATION is an external location level
+   * permission that can only be granted by external location owner explicitly and is not included
+   * in external location ownership or ALL PRIVILEGES on the external location for security reasons.
+   *
+   * <p>This API only supports temporary path credentials for external locations and external
+   * tables, and volumes will be supported in the future.
+   */
+  public TemporaryPathCredentialsAPI temporaryPathCredentials() {
+    return temporaryPathCredentialsAPI;
+  }
+
+  /**
    * Temporary Table Credentials refer to short-lived, downscoped credentials used to access cloud
-   * storage locationswhere table data is stored in Databricks. These credentials are employed to
-   * provide secure and time-limitedaccess to data in cloud environments such as AWS, Azure, and
-   * Google Cloud. Each cloud provider has its own typeof credentials: AWS uses temporary session
-   * tokens via AWS Security Token Service (STS), Azure utilizesShared Access Signatures (SAS) for
-   * its data storage services, and Google Cloud supports temporary credentialsthrough OAuth
-   * 2.0.Temporary table credentials ensure that data access is limited in scope and duration,
-   * reducing the risk ofunauthorized access or misuse. To use the temporary table credentials API,
+   * storage locations where table data is stored in Databricks. These credentials are employed to
+   * provide secure and time-limited access to data in cloud environments such as AWS, Azure, and
+   * Google Cloud. Each cloud provider has its own type of credentials: AWS uses temporary session
+   * tokens via AWS Security Token Service (STS), Azure utilizes Shared Access Signatures (SAS) for
+   * its data storage services, and Google Cloud supports temporary credentials through OAuth 2.0.
+   *
+   * <p>Temporary table credentials ensure that data access is limited in scope and duration,
+   * reducing the risk of unauthorized access or misuse. To use the temporary table credentials API,
    * a metastore admin needs to enable the external_access_enabled flag (off by default) at the
    * metastore level, and user needs to be granted the EXTERNAL USE SCHEMA permission at the schema
    * level by catalog admin. Note that EXTERNAL USE SCHEMA is a schema level permission that can
    * only be granted by catalog admin explicitly and is not included in schema ownership or ALL
-   * PRIVILEGES on the schema for security reason.
+   * PRIVILEGES on the schema for security reasons.
    */
   public TemporaryTableCredentialsAPI temporaryTableCredentials() {
     return temporaryTableCredentialsAPI;
@@ -1884,11 +1938,6 @@ public class WorkspaceClient {
   /** This API allows updating known workspace settings for advanced users. */
   public WorkspaceConfAPI workspaceConf() {
     return workspaceConfAPI;
-  }
-
-  /** The Forecasting API allows you to create and get serverless forecasting experiments */
-  public ForecastingAPI forecasting() {
-    return forecastingAPI;
   }
 
   /** Replace the default AccessControlService with a custom implementation. */
@@ -2324,6 +2373,17 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default ForecastingService with a custom implementation. */
+  public WorkspaceClient withForecastingImpl(ForecastingService forecasting) {
+    return this.withForecastingAPI(new ForecastingAPI(forecasting));
+  }
+
+  /** Replace the default ForecastingAPI with a custom implementation. */
+  public WorkspaceClient withForecastingAPI(ForecastingAPI forecasting) {
+    this.forecastingAPI = forecasting;
+    return this;
+  }
+
   /** Replace the default FunctionsService with a custom implementation. */
   public WorkspaceClient withFunctionsImpl(FunctionsService functions) {
     return this.withFunctionsAPI(new FunctionsAPI(functions));
@@ -2568,6 +2628,17 @@ public class WorkspaceClient {
   /** Replace the default PipelinesAPI with a custom implementation. */
   public WorkspaceClient withPipelinesAPI(PipelinesAPI pipelines) {
     this.pipelinesAPI = pipelines;
+    return this;
+  }
+
+  /** Replace the default PoliciesService with a custom implementation. */
+  public WorkspaceClient withPoliciesImpl(PoliciesService policies) {
+    return this.withPoliciesAPI(new PoliciesAPI(policies));
+  }
+
+  /** Replace the default PoliciesAPI with a custom implementation. */
+  public WorkspaceClient withPoliciesAPI(PoliciesAPI policies) {
+    this.policiesAPI = policies;
     return this;
   }
 
@@ -3020,6 +3091,20 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default TemporaryPathCredentialsService with a custom implementation. */
+  public WorkspaceClient withTemporaryPathCredentialsImpl(
+      TemporaryPathCredentialsService temporaryPathCredentials) {
+    return this.withTemporaryPathCredentialsAPI(
+        new TemporaryPathCredentialsAPI(temporaryPathCredentials));
+  }
+
+  /** Replace the default TemporaryPathCredentialsAPI with a custom implementation. */
+  public WorkspaceClient withTemporaryPathCredentialsAPI(
+      TemporaryPathCredentialsAPI temporaryPathCredentials) {
+    this.temporaryPathCredentialsAPI = temporaryPathCredentials;
+    return this;
+  }
+
   /** Replace the default TemporaryTableCredentialsService with a custom implementation. */
   public WorkspaceClient withTemporaryTableCredentialsImpl(
       TemporaryTableCredentialsService temporaryTableCredentials) {
@@ -3144,17 +3229,6 @@ public class WorkspaceClient {
   /** Replace the default WorkspaceConfAPI with a custom implementation. */
   public WorkspaceClient withWorkspaceConfAPI(WorkspaceConfAPI workspaceConf) {
     this.workspaceConfAPI = workspaceConf;
-    return this;
-  }
-
-  /** Replace the default ForecastingService with a custom implementation. */
-  public WorkspaceClient withForecastingImpl(ForecastingService forecasting) {
-    return this.withForecastingAPI(new ForecastingAPI(forecasting));
-  }
-
-  /** Replace the default ForecastingAPI with a custom implementation. */
-  public WorkspaceClient withForecastingAPI(ForecastingAPI forecasting) {
-    this.forecastingAPI = forecasting;
     return this;
   }
 

@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class EmbeddingsV1ResponseEmbeddingElement {
-  /** */
+  /** The embedding vector */
   @JsonProperty("embedding")
   private Collection<Double> embedding;
 

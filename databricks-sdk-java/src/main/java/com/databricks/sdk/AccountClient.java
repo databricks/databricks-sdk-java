@@ -80,6 +80,7 @@ public class AccountClient {
   private AccountAccessControlAPI accessControlAPI;
   private BillableUsageAPI billableUsageAPI;
   private BudgetPolicyAPI budgetPolicyAPI;
+  private BudgetsAPI budgetsAPI;
   private CredentialsAPI credentialsAPI;
   private CustomAppIntegrationAPI customAppIntegrationAPI;
   private EncryptionKeysAPI encryptionKeysAPI;
@@ -107,7 +108,6 @@ public class AccountClient {
   private WorkspaceAssignmentAPI workspaceAssignmentAPI;
   private WorkspaceNetworkConfigurationAPI workspaceNetworkConfigurationAPI;
   private WorkspacesAPI workspacesAPI;
-  private BudgetsAPI budgetsAPI;
 
   public AccountClient() {
     this(ConfigLoader.getDefault());
@@ -120,6 +120,7 @@ public class AccountClient {
     accessControlAPI = new AccountAccessControlAPI(apiClient);
     billableUsageAPI = new BillableUsageAPI(apiClient);
     budgetPolicyAPI = new BudgetPolicyAPI(apiClient);
+    budgetsAPI = new BudgetsAPI(apiClient);
     credentialsAPI = new CredentialsAPI(apiClient);
     customAppIntegrationAPI = new CustomAppIntegrationAPI(apiClient);
     encryptionKeysAPI = new EncryptionKeysAPI(apiClient);
@@ -147,7 +148,6 @@ public class AccountClient {
     workspaceAssignmentAPI = new WorkspaceAssignmentAPI(apiClient);
     workspaceNetworkConfigurationAPI = new WorkspaceNetworkConfigurationAPI(apiClient);
     workspacesAPI = new WorkspacesAPI(apiClient);
-    budgetsAPI = new BudgetsAPI(apiClient);
   }
 
   /** Constructor for mocks */
@@ -176,6 +176,15 @@ public class AccountClient {
   /** A service serves REST API about Budget policies */
   public BudgetPolicyAPI budgetPolicy() {
     return budgetPolicyAPI;
+  }
+
+  /**
+   * These APIs manage budget configurations for this account. Budgets enable you to monitor usage
+   * across your account. You can set up budgets to either track account-wide spending, or apply
+   * filters to track the spending of specific teams, projects, or workspaces.
+   */
+  public BudgetsAPI budgets() {
+    return budgetsAPI;
   }
 
   /**
@@ -602,15 +611,6 @@ public class AccountClient {
     return workspacesAPI;
   }
 
-  /**
-   * These APIs manage budget configurations for this account. Budgets enable you to monitor usage
-   * across your account. You can set up budgets to either track account-wide spending, or apply
-   * filters to track the spending of specific teams, projects, or workspaces.
-   */
-  public BudgetsAPI budgets() {
-    return budgetsAPI;
-  }
-
   /** Replace the default AccountAccessControlService with a custom implementation. */
   public AccountClient withAccessControlImpl(AccountAccessControlService accountAccessControl) {
     return this.withAccessControlAPI(new AccountAccessControlAPI(accountAccessControl));
@@ -641,6 +641,17 @@ public class AccountClient {
   /** Replace the default BudgetPolicyAPI with a custom implementation. */
   public AccountClient withBudgetPolicyAPI(BudgetPolicyAPI budgetPolicy) {
     this.budgetPolicyAPI = budgetPolicy;
+    return this;
+  }
+
+  /** Replace the default BudgetsService with a custom implementation. */
+  public AccountClient withBudgetsImpl(BudgetsService budgets) {
+    return this.withBudgetsAPI(new BudgetsAPI(budgets));
+  }
+
+  /** Replace the default BudgetsAPI with a custom implementation. */
+  public AccountClient withBudgetsAPI(BudgetsAPI budgets) {
+    this.budgetsAPI = budgets;
     return this;
   }
 
@@ -960,17 +971,6 @@ public class AccountClient {
   /** Replace the default WorkspacesAPI with a custom implementation. */
   public AccountClient withWorkspacesAPI(WorkspacesAPI workspaces) {
     this.workspacesAPI = workspaces;
-    return this;
-  }
-
-  /** Replace the default BudgetsService with a custom implementation. */
-  public AccountClient withBudgetsImpl(BudgetsService budgets) {
-    return this.withBudgetsAPI(new BudgetsAPI(budgets));
-  }
-
-  /** Replace the default BudgetsAPI with a custom implementation. */
-  public AccountClient withBudgetsAPI(BudgetsAPI budgets) {
-    this.budgetsAPI = budgets;
     return this;
   }
 

@@ -36,7 +36,7 @@ public class UserAgent {
   // TODO: check if reading from
   // /META-INF/maven/com.databricks/databrics-sdk-java/pom.properties
   // or getClass().getPackage().getImplementationVersion() is enough.
-  private static final String version = "0.56.0";
+  private static final String version = "0.59.0";
 
   public static void withProduct(String product, String productVersion) {
     UserAgent.product = product;

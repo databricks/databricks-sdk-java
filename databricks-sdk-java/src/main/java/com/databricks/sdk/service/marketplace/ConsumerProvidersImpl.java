@@ -43,7 +43,7 @@ class ConsumerProvidersImpl implements ConsumerProvidersService {
   }
 
   @Override
-  public ListProvidersResponse list(ListProvidersRequest request) {
+  public ListProvidersResponse list(ListConsumerProvidersRequest request) {
     String path = "/api/2.1/marketplace-consumer/providers";
     try {
       Request req = new Request("GET", path);

@@ -2,7 +2,6 @@ package com.databricks.sdk.core.oauth;
 
 import com.databricks.sdk.core.*;
 import java.io.IOException;
-import java.util.Collections;
 
 /**
  * Adds refreshed Databricks machine-to-machine OAuth Bearer token to every request, if
@@ -33,7 +32,7 @@ public class OAuthM2MServicePrincipalCredentialsProvider implements CredentialsP
               .withClientId(config.getClientId())
               .withClientSecret(config.getClientSecret())
               .withTokenUrl(jsonResponse.getTokenEndpoint())
-              .withScopes(Collections.singletonList("all-apis"))
+              .withScopes(config.getScopes())
               .withAuthParameterPosition(AuthParameterPosition.HEADER)
               .build();
 

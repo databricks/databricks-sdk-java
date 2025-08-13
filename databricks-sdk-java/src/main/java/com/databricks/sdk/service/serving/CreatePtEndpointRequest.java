@@ -22,6 +22,10 @@ public class CreatePtEndpointRequest {
   @JsonProperty("config")
   private PtEndpointCoreConfig config;
 
+  /** Email notification settings. */
+  @JsonProperty("email_notifications")
+  private EmailNotifications emailNotifications;
+
   /**
    * The name of the serving endpoint. This field is required and must be unique across a Databricks
    * workspace. An endpoint name can consist of alphanumeric characters, dashes, and underscores.
@@ -60,6 +64,15 @@ public class CreatePtEndpointRequest {
     return config;
   }
 
+  public CreatePtEndpointRequest setEmailNotifications(EmailNotifications emailNotifications) {
+    this.emailNotifications = emailNotifications;
+    return this;
+  }
+
+  public EmailNotifications getEmailNotifications() {
+    return emailNotifications;
+  }
+
   public CreatePtEndpointRequest setName(String name) {
     this.name = name;
     return this;
@@ -86,13 +99,14 @@ public class CreatePtEndpointRequest {
     return Objects.equals(aiGateway, that.aiGateway)
         && Objects.equals(budgetPolicyId, that.budgetPolicyId)
         && Objects.equals(config, that.config)
+        && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(name, that.name)
         && Objects.equals(tags, that.tags);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(aiGateway, budgetPolicyId, config, name, tags);
+    return Objects.hash(aiGateway, budgetPolicyId, config, emailNotifications, name, tags);
   }
 
   @Override
@@ -101,6 +115,7 @@ public class CreatePtEndpointRequest {
         .add("aiGateway", aiGateway)
         .add("budgetPolicyId", budgetPolicyId)
         .add("config", config)
+        .add("emailNotifications", emailNotifications)
         .add("name", name)
         .add("tags", tags)
         .toString();

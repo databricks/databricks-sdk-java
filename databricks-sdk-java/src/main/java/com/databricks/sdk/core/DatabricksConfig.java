@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.time.Duration;
 import java.util.*;
 import org.apache.http.HttpMessage;
 
@@ -162,6 +163,13 @@ public class DatabricksConfig {
   /** Disable asynchronous token refresh when set to true. */
   @ConfigAttribute(env = "DATABRICKS_DISABLE_ASYNC_TOKEN_REFRESH")
   private Boolean disableAsyncTokenRefresh;
+
+  /**
+   * The duration to wait for a browser response during U2M authentication before timing out. If set
+   * to 0 or null, the connector waits for an indefinite amount of time.
+   */
+  @ConfigAttribute(env = "DATABRICKS_OAUTH_BROWSER_AUTH_TIMEOUT")
+  private Duration oauthBrowserAuthTimeout;
 
   public Environment getEnv() {
     return env;
@@ -351,7 +359,16 @@ public class DatabricksConfig {
     return this;
   }
 
+  /**
+   * Returns the scopes to use for the current configuration. If no scopes were provided, returns
+   * the default "all-apis" scope.
+   *
+   * @return The scopes to use for the current configuration
+   */
   public List<String> getScopes() {
+    if (scopes == null || scopes.isEmpty()) {
+      return Arrays.asList("all-apis");
+    }
     return scopes;
   }
 
@@ -585,6 +602,15 @@ public class DatabricksConfig {
 
   public DatabricksConfig setDisableAsyncTokenRefresh(boolean disableAsyncTokenRefresh) {
     this.disableAsyncTokenRefresh = disableAsyncTokenRefresh;
+    return this;
+  }
+
+  public Duration getOAuthBrowserAuthTimeout() {
+    return oauthBrowserAuthTimeout;
+  }
+
+  public DatabricksConfig setOAuthBrowserAuthTimeout(Duration oauthBrowserAuthTimeout) {
+    this.oauthBrowserAuthTimeout = oauthBrowserAuthTimeout;
     return this;
   }
 

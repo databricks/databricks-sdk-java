@@ -4,7 +4,6 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** Latest kind: CONNECTION_SQLSERVER_OAUTH_M2M = 254; Next id:255 */
 @Generated
 public enum SecurableKind {
   TABLE_DB_STORAGE,

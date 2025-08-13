@@ -7,7 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Next field marker: 12 */
+/** Next field marker: 14 */
 @Generated
 public class SyncedDatabaseTable {
   /** Synced Table data synchronization status */
@@ -23,6 +23,18 @@ public class SyncedDatabaseTable {
    */
   @JsonProperty("database_instance_name")
   private String databaseInstanceName;
+
+  /**
+   * The name of the database instance that this table is registered to. This field is always
+   * returned, and for tables inside database catalogs is inferred database instance associated with
+   * the catalog.
+   */
+  @JsonProperty("effective_database_instance_name")
+  private String effectiveDatabaseInstanceName;
+
+  /** The name of the logical database that this table is registered to. */
+  @JsonProperty("effective_logical_database_name")
+  private String effectiveLogicalDatabaseName;
 
   /**
    * Target Postgres database object (logical database) name for this table.
@@ -74,6 +86,25 @@ public class SyncedDatabaseTable {
     return databaseInstanceName;
   }
 
+  public SyncedDatabaseTable setEffectiveDatabaseInstanceName(
+      String effectiveDatabaseInstanceName) {
+    this.effectiveDatabaseInstanceName = effectiveDatabaseInstanceName;
+    return this;
+  }
+
+  public String getEffectiveDatabaseInstanceName() {
+    return effectiveDatabaseInstanceName;
+  }
+
+  public SyncedDatabaseTable setEffectiveLogicalDatabaseName(String effectiveLogicalDatabaseName) {
+    this.effectiveLogicalDatabaseName = effectiveLogicalDatabaseName;
+    return this;
+  }
+
+  public String getEffectiveLogicalDatabaseName() {
+    return effectiveLogicalDatabaseName;
+  }
+
   public SyncedDatabaseTable setLogicalDatabaseName(String logicalDatabaseName) {
     this.logicalDatabaseName = logicalDatabaseName;
     return this;
@@ -118,6 +149,8 @@ public class SyncedDatabaseTable {
     SyncedDatabaseTable that = (SyncedDatabaseTable) o;
     return Objects.equals(dataSynchronizationStatus, that.dataSynchronizationStatus)
         && Objects.equals(databaseInstanceName, that.databaseInstanceName)
+        && Objects.equals(effectiveDatabaseInstanceName, that.effectiveDatabaseInstanceName)
+        && Objects.equals(effectiveLogicalDatabaseName, that.effectiveLogicalDatabaseName)
         && Objects.equals(logicalDatabaseName, that.logicalDatabaseName)
         && Objects.equals(name, that.name)
         && Objects.equals(spec, that.spec)
@@ -129,6 +162,8 @@ public class SyncedDatabaseTable {
     return Objects.hash(
         dataSynchronizationStatus,
         databaseInstanceName,
+        effectiveDatabaseInstanceName,
+        effectiveLogicalDatabaseName,
         logicalDatabaseName,
         name,
         spec,
@@ -140,6 +175,8 @@ public class SyncedDatabaseTable {
     return new ToStringer(SyncedDatabaseTable.class)
         .add("dataSynchronizationStatus", dataSynchronizationStatus)
         .add("databaseInstanceName", databaseInstanceName)
+        .add("effectiveDatabaseInstanceName", effectiveDatabaseInstanceName)
+        .add("effectiveLogicalDatabaseName", effectiveLogicalDatabaseName)
         .add("logicalDatabaseName", logicalDatabaseName)
         .add("name", name)
         .add("spec", spec)

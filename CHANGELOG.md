@@ -1,5 +1,57 @@
 # Version changelog
 
+## Release v0.59.0
+
+### New Features and Improvements
+
+* Add option to add a timeout for browser confirmation in the U2M authentication flow.
+
+### Bug Fixes
+
+* User provided scopes are now properly propagated in OAuth flows.
+* [Warning] Correctly defaults to scope `all-apis` (instead of `clusters sql`) in U2M if no scopes are provided by the users. This change aligns the Java SDK logic with the Python and Go SDK logic.
+
+### API Changes
+* Added `workspaceClient.policies()` service and `workspaceClient.temporaryPathCredentials()` service.
+* Added `create()` method for `workspaceClient.tables()` service.
+* Added `listDatabaseCatalogs()`, `listSyncedDatabaseTables()`, `updateDatabaseCatalog()` and `updateSyncedDatabaseTable()` methods for `workspaceClient.database()` service.
+* Added `firstOnDemand` field for `com.databricks.sdk.service.compute.GcpAttributes`.
+* Added `usagePolicyId` field for `com.databricks.sdk.service.jobs.CreateJob`.
+* Added `usagePolicyId` field for `com.databricks.sdk.service.jobs.JobSettings`.
+* Added `usagePolicyId` field for `com.databricks.sdk.service.jobs.SubmitRun`.
+* Added `clientRequestId` and `usageContext` fields for `com.databricks.sdk.service.serving.QueryEndpointInput`.
+* Added `channelId`, `channelIdSet`, `oauthToken` and `oauthTokenSet` fields for `com.databricks.sdk.service.settings.SlackConfig`.
+* Added `SNAPSHOT` enum value for `com.databricks.sdk.service.ml.PublishSpecPublishMode`.
+* [Breaking] Changed `publishMode` field for `com.databricks.sdk.service.ml.PublishSpec` to be required.
+
+
+## Release v0.58.0
+
+### API Changes
+* Added `statementIdSignature` field for `com.databricks.sdk.service.dashboards.Result`.
+* Added `effectiveDatabaseInstanceName` and `effectiveLogicalDatabaseName` fields for `com.databricks.sdk.service.database.SyncedDatabaseTable`.
+* Added `table` field for `com.databricks.sdk.service.jobs.TriggerStateProto`.
+* Added `emailNotifications` field for `com.databricks.sdk.service.serving.CreatePtEndpointRequest`.
+* Added `emailNotifications` field for `com.databricks.sdk.service.serving.CreateServingEndpoint`.
+* Added `emailNotifications` field for `com.databricks.sdk.service.serving.ServingEndpointDetailed`.
+* [Breaking] Changed `list()` method for `workspaceClient.consumerProviders()` service . New request type is `com.databricks.sdk.service.marketplace.ListConsumerProvidersRequest` class.
+* [Breaking] Changed `create()` method for `accountClient.privateAccess()` service . New request type is `com.databricks.sdk.service.provisioning.CreatePrivateAccessSettingsRequest` class.
+* [Breaking] Changed `create()` method for `accountClient.privateAccess()` service with new required argument order.
+* [Breaking] Changed `replace()` method for `accountClient.privateAccess()` service . New request type is `com.databricks.sdk.service.provisioning.ReplacePrivateAccessSettingsRequest` class.
+* [Breaking] Removed `isFeatured` field for `com.databricks.sdk.service.marketplace.ListProvidersRequest`.
+
+
+## Release v0.57.0
+
+### API Changes
+* Added `share` field for `com.databricks.sdk.service.sharing.ListProviderShareAssetsResponse`.
+* Added `projectedRemainingWallclockTimeMs` field for `com.databricks.sdk.service.sql.QueryMetrics`.
+* Added `MESSAGE_ATTACHMENT_TOO_LONG_ERROR` enum value for `com.databricks.sdk.service.dashboards.MessageErrorType`.
+* Added `MASK` enum value for `com.databricks.sdk.service.serving.AiGatewayGuardrailPiiBehaviorBehavior`.
+* [Breaking] Added waiter for `workspaceClient.cleanRooms().create()` method.
+* [Breaking] Added waiter for `workspaceClient.database().createDatabaseInstance()` method.
+
+
 ## Release v0.56.0
 
 ### Bug Fixes

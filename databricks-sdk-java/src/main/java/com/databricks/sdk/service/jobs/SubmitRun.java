@@ -98,6 +98,13 @@ public class SubmitRun {
   @JsonProperty("timeout_seconds")
   private Long timeoutSeconds;
 
+  /**
+   * The user specified id of the usage policy to use for this one-time run. If not specified, a
+   * default usage policy may be applied when creating or modifying the job.
+   */
+  @JsonProperty("usage_policy_id")
+  private String usagePolicyId;
+
   /** A collection of system notification IDs to notify when the run begins or completes. */
   @JsonProperty("webhook_notifications")
   private WebhookNotifications webhookNotifications;
@@ -219,6 +226,15 @@ public class SubmitRun {
     return timeoutSeconds;
   }
 
+  public SubmitRun setUsagePolicyId(String usagePolicyId) {
+    this.usagePolicyId = usagePolicyId;
+    return this;
+  }
+
+  public String getUsagePolicyId() {
+    return usagePolicyId;
+  }
+
   public SubmitRun setWebhookNotifications(WebhookNotifications webhookNotifications) {
     this.webhookNotifications = webhookNotifications;
     return this;
@@ -246,6 +262,7 @@ public class SubmitRun {
         && Objects.equals(runName, that.runName)
         && Objects.equals(tasks, that.tasks)
         && Objects.equals(timeoutSeconds, that.timeoutSeconds)
+        && Objects.equals(usagePolicyId, that.usagePolicyId)
         && Objects.equals(webhookNotifications, that.webhookNotifications);
   }
 
@@ -265,6 +282,7 @@ public class SubmitRun {
         runName,
         tasks,
         timeoutSeconds,
+        usagePolicyId,
         webhookNotifications);
   }
 
@@ -284,6 +302,7 @@ public class SubmitRun {
         .add("runName", runName)
         .add("tasks", tasks)
         .add("timeoutSeconds", timeoutSeconds)
+        .add("usagePolicyId", usagePolicyId)
         .add("webhookNotifications", webhookNotifications)
         .toString();
   }

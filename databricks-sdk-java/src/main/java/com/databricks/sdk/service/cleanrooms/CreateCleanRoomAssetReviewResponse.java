@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateCleanRoomAssetReviewResponse {
-  /** top-level status derived from all reviews */
+  /** Top-level status derived from all reviews */
   @JsonProperty("notebook_review_state")
   private CleanRoomNotebookReviewNotebookReviewState notebookReviewState;
 

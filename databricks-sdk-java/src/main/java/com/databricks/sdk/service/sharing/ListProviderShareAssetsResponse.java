@@ -19,6 +19,10 @@ public class ListProviderShareAssetsResponse {
   @JsonProperty("notebooks")
   private Collection<NotebookFile> notebooks;
 
+  /** The metadata of the share. */
+  @JsonProperty("share")
+  private Share share;
+
   /** The list of tables in the share. */
   @JsonProperty("tables")
   private Collection<Table> tables;
@@ -43,6 +47,15 @@ public class ListProviderShareAssetsResponse {
 
   public Collection<NotebookFile> getNotebooks() {
     return notebooks;
+  }
+
+  public ListProviderShareAssetsResponse setShare(Share share) {
+    this.share = share;
+    return this;
+  }
+
+  public Share getShare() {
+    return share;
   }
 
   public ListProviderShareAssetsResponse setTables(Collection<Table> tables) {
@@ -70,13 +83,14 @@ public class ListProviderShareAssetsResponse {
     ListProviderShareAssetsResponse that = (ListProviderShareAssetsResponse) o;
     return Objects.equals(functions, that.functions)
         && Objects.equals(notebooks, that.notebooks)
+        && Objects.equals(share, that.share)
         && Objects.equals(tables, that.tables)
         && Objects.equals(volumes, that.volumes);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(functions, notebooks, tables, volumes);
+    return Objects.hash(functions, notebooks, share, tables, volumes);
   }
 
   @Override
@@ -84,6 +98,7 @@ public class ListProviderShareAssetsResponse {
     return new ToStringer(ListProviderShareAssetsResponse.class)
         .add("functions", functions)
         .add("notebooks", notebooks)
+        .add("share", share)
         .add("tables", tables)
         .add("volumes", volumes)
         .toString();

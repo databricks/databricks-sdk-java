@@ -46,6 +46,13 @@ public class QueryMetrics {
   private Long projectedRemainingTaskTotalTimeMs;
 
   /**
+   * projected lower bound on remaining total task time based on
+   * projected_remaining_task_total_time_ms / maximum concurrency
+   */
+  @JsonProperty("projected_remaining_wallclock_time_ms")
+  private Long projectedRemainingWallclockTimeMs;
+
+  /**
    * Timestamp of when the query was enqueued waiting for a cluster to be provisioned for the
    * warehouse. This field is optional and will not appear if the query skipped the provisioning
    * queue.
@@ -198,6 +205,15 @@ public class QueryMetrics {
 
   public Long getProjectedRemainingTaskTotalTimeMs() {
     return projectedRemainingTaskTotalTimeMs;
+  }
+
+  public QueryMetrics setProjectedRemainingWallclockTimeMs(Long projectedRemainingWallclockTimeMs) {
+    this.projectedRemainingWallclockTimeMs = projectedRemainingWallclockTimeMs;
+    return this;
+  }
+
+  public Long getProjectedRemainingWallclockTimeMs() {
+    return projectedRemainingWallclockTimeMs;
   }
 
   public QueryMetrics setProvisioningQueueStartTimestamp(Long provisioningQueueStartTimestamp) {
@@ -400,6 +416,7 @@ public class QueryMetrics {
         && Objects.equals(overloadingQueueStartTimestamp, that.overloadingQueueStartTimestamp)
         && Objects.equals(photonTotalTimeMs, that.photonTotalTimeMs)
         && Objects.equals(projectedRemainingTaskTotalTimeMs, that.projectedRemainingTaskTotalTimeMs)
+        && Objects.equals(projectedRemainingWallclockTimeMs, that.projectedRemainingWallclockTimeMs)
         && Objects.equals(provisioningQueueStartTimestamp, that.provisioningQueueStartTimestamp)
         && Objects.equals(prunedBytes, that.prunedBytes)
         && Objects.equals(prunedFilesCount, that.prunedFilesCount)
@@ -432,6 +449,7 @@ public class QueryMetrics {
         overloadingQueueStartTimestamp,
         photonTotalTimeMs,
         projectedRemainingTaskTotalTimeMs,
+        projectedRemainingWallclockTimeMs,
         provisioningQueueStartTimestamp,
         prunedBytes,
         prunedFilesCount,
@@ -464,6 +482,7 @@ public class QueryMetrics {
         .add("overloadingQueueStartTimestamp", overloadingQueueStartTimestamp)
         .add("photonTotalTimeMs", photonTotalTimeMs)
         .add("projectedRemainingTaskTotalTimeMs", projectedRemainingTaskTotalTimeMs)
+        .add("projectedRemainingWallclockTimeMs", projectedRemainingWallclockTimeMs)
         .add("provisioningQueueStartTimestamp", provisioningQueueStartTimestamp)
         .add("prunedBytes", prunedBytes)
         .add("prunedFilesCount", prunedFilesCount)
