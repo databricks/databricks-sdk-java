@@ -109,17 +109,34 @@ public abstract class RetryInfo {
         throw new IOException("Duration must be a string, got: " + node.getNodeType());
       }
 
-      // Parse duration string like "1.000000001s" or "30s"
       String delayStr = node.asText();
       if (!delayStr.endsWith("s")) {
         throw new IOException("Duration must end with 's' suffix: " + delayStr);
       }
 
+      String numeric = delayStr.substring(0, delayStr.length() - 1).trim();
+      if (numeric.isEmpty()) {
+        throw new IOException("Invalid duration format: " + delayStr);
+      }
+      if (numeric.startsWith("-")) {
+        throw new IOException("Duration must be non-negative: " + delayStr);
+      }
+
+      int dotIdx = numeric.indexOf('.');
+      String secondsPart = dotIdx >= 0 ? numeric.substring(0, dotIdx) : numeric;
+      String fractionPart = dotIdx >= 0 ? numeric.substring(dotIdx + 1) : "";
+
+      if (fractionPart.length() > 9) {
+        throw new IOException("Fractional seconds precision exceeds nanoseconds: " + delayStr);
+      }
+
+      String fractionPadded =
+          fractionPart.isEmpty() ? "" : (fractionPart + "000000000").substring(0, 9);
+
       try {
-        String secondsStr = delayStr.substring(0, delayStr.length() - 1);
-        double seconds = Double.parseDouble(secondsStr);
-        long nanos = (long) (seconds * 1_000_000_000);
-        return Duration.ofNanos(nanos);
+        long seconds = secondsPart.isEmpty() ? 0L : Long.parseLong(secondsPart);
+        long nanos = fractionPadded.isEmpty() ? 0L : Long.parseLong(fractionPadded);
+        return Duration.ofSeconds(seconds, nanos);
       } catch (NumberFormatException e) {
         throw new IOException("Invalid duration format: " + delayStr, e);
       }

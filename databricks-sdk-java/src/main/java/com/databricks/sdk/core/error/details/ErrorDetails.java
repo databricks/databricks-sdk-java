@@ -7,6 +7,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * ErrorDetails contains the error details of an API error. It is the union of known error details
+ * types and unknown details.
+ */
 @AutoValue
 @JsonDeserialize(using = ErrorDetailsDeserializer.class)
 public abstract class ErrorDetails {
