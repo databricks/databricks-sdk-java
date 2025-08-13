@@ -104,6 +104,12 @@
       <artifactId>jackson-datatype-jsr310</artifactId>
       <version>${jackson.version}</version>
     </dependency>
+    <!-- Jackson Guava module needed to serialize/deserialize AutoValue classes -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-guava</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
     <!-- Google Auto Value -->
     <dependency>
       <groupId>com.google.auto.value</groupId>

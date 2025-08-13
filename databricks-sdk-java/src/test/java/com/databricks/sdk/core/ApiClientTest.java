@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.databricks.sdk.core.error.ApiErrorBody;
 import com.databricks.sdk.core.error.ErrorDetail;
 import com.databricks.sdk.core.error.PrivateLinkValidationError;
+import com.databricks.sdk.core.error.details.ErrorDetails;
+import com.databricks.sdk.core.error.details.ErrorInfo;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.utils.FakeTimer;
@@ -317,10 +319,24 @@ public class ApiClientTest {
 
     Map<String, String> metadata = new HashMap<>();
     metadata.put("etag", "value");
-    ErrorDetail errorDetails =
-        new ErrorDetail("type.googleapis.com/google.rpc.ErrorInfo", "reason", "domain", metadata);
-    ErrorDetail unrelatedDetails =
-        new ErrorDetail("unrelated", "wrong", "wrongDomain", new HashMap<>());
+
+    // Create ErrorDetails object instead of List<ErrorDetail>
+    ErrorDetails errorDetails =
+        ErrorDetails.builder()
+            .setErrorInfo(
+                ErrorInfo.builder()
+                    .setReason("reason")
+                    .setDomain("domain")
+                    .setMetadata(metadata)
+                    .build())
+            .setUnknownDetails(
+                Arrays.asList(
+                    mapper
+                        .createObjectNode()
+                        .put("@type", "unrelated")
+                        .put("reason", "wrong")
+                        .put("domain", "wrongDomain")))
+            .build();
 
     DatabricksError error =
         runFailingApiClientTest(
@@ -329,24 +345,17 @@ public class ApiClientTest {
                 getTransientError(
                     req,
                     401,
-                    new ApiErrorBody(
-                        "ERROR",
-                        null,
-                        null,
-                        null,
-                        null,
-                        null,
-                        Arrays.asList(errorDetails, unrelatedDetails))),
+                    new ApiErrorBody("ERROR", null, null, null, null, null, errorDetails)),
                 getSuccessResponse(req)),
             MyEndpointResponse.class,
             DatabricksError.class);
     List<ErrorDetail> responseErrors = error.getErrorInfo();
     assertEquals(responseErrors.size(), 1);
     ErrorDetail responseError = responseErrors.get(0);
-    assertEquals(errorDetails.getType(), responseError.getType());
-    assertEquals(errorDetails.getReason(), responseError.getReason());
-    assertEquals(errorDetails.getMetadata(), responseError.getMetadata());
-    assertEquals(errorDetails.getDomain(), responseError.getDomain());
+    assertEquals("type.googleapis.com/google.rpc.ErrorInfo", responseError.getType());
+    assertEquals("reason", responseError.getReason());
+    assertEquals(metadata, responseError.getMetadata());
+    assertEquals("domain", responseError.getDomain());
   }
 
   @Test

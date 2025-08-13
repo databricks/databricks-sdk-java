@@ -1,7 +1,10 @@
 package com.databricks.sdk.core.error;
 
+import com.databricks.sdk.core.error.details.ErrorDetails;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -21,6 +24,16 @@ public class ApiErrorBody {
 
   public ApiErrorBody() {}
 
+  /**
+   * Constructs an ApiErrorBody from the given parameters.
+   *
+   * <p>The error details are converted to a list of ErrorDetail objects. This only supports the
+   * ErrorInfo type.
+   *
+   * @param errorCode The error code.
+   * @param message The error message.
+   * @param scimDetail The SCIM detail.
+   */
   public ApiErrorBody(
       @JsonProperty("error_code") String errorCode,
       @JsonProperty("message") String message,
@@ -28,14 +41,14 @@ public class ApiErrorBody {
       @JsonProperty("status") String scimStatus,
       @JsonProperty("scimType") String scimType,
       @JsonProperty("error") String api12Error,
-      @JsonProperty("details") List<ErrorDetail> errorDetails) {
+      @JsonProperty("details") ErrorDetails errorDetails) {
     this.errorCode = errorCode;
     this.message = message;
     this.scimDetail = scimDetail;
     this.scimStatus = scimStatus;
     this.scimType = scimType;
     this.api12Error = api12Error;
-    this.errorDetails = errorDetails;
+    this.errorDetails = fromDetails(errorDetails);
   }
 
   public List<ErrorDetail> getErrorDetails() {
@@ -92,5 +105,27 @@ public class ApiErrorBody {
 
   public void setApi12Error(String api12Error) {
     this.api12Error = api12Error;
+  }
+
+  /**
+   * Converts the error details to a list of ErrorDetail objects. This only supports the ErrorInfo
+   * type.
+   *
+   * @param details The error details to convert.
+   * @return A list of ErrorDetail objects.
+   */
+  private static List<ErrorDetail> fromDetails(ErrorDetails details) {
+    if (details == null) {
+      return Collections.emptyList();
+    }
+    if (!details.errorInfo().isPresent()) {
+      return Collections.emptyList();
+    }
+    return Arrays.asList(
+        new ErrorDetail(
+            "type.googleapis.com/google.rpc.ErrorInfo",
+            details.errorInfo().get().reason(),
+            details.errorInfo().get().domain(),
+            details.errorInfo().get().metadata()));
   }
 }
