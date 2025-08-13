@@ -2,14 +2,13 @@
 
 package com.databricks.sdk.core.error.platform;
 
-import com.databricks.sdk.core.error.ErrorDetail;
+import com.databricks.sdk.core.error.details.ErrorDetails;
 import com.databricks.sdk.support.Generated;
-import java.util.List;
 
 /** this error is used as a fallback if the platform-side mapping is missing some reason */
 @Generated
 public class Unknown extends InternalError {
-  public Unknown(String message, List<ErrorDetail> details) {
+  public Unknown(String message, ErrorDetails details) {
     super("UNKNOWN", message, details);
   }
 }

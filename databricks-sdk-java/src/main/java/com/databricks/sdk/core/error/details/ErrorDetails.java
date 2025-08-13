@@ -2,6 +2,7 @@ package com.databricks.sdk.core.error.details;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.auto.value.AutoValue;
 import java.util.Collections;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.Optional;
  */
 @AutoValue
 @JsonDeserialize(using = ErrorDetailsDeserializer.class)
+@JsonSerialize(using = ErrorDetailsSerializer.class)
 public abstract class ErrorDetails {
 
   public abstract Optional<ErrorInfo> errorInfo();
@@ -36,7 +38,7 @@ public abstract class ErrorDetails {
   public abstract List<JsonNode> unknownDetails();
 
   public static Builder builder() {
-    return new AutoValue_ErrorDetails.Builder();
+    return new AutoValue_ErrorDetails.Builder().setUnknownDetails(Collections.emptyList());
   }
 
   @AutoValue.Builder
@@ -61,17 +63,6 @@ public abstract class ErrorDetails {
 
     public abstract Builder setUnknownDetails(List<JsonNode> unknownDetails);
 
-    abstract List<JsonNode> unknownDetails();
-
-    abstract ErrorDetails autoBuild();
-
-    public ErrorDetails build() {
-      try {
-        unknownDetails();
-      } catch (IllegalStateException e) {
-        setUnknownDetails(Collections.emptyList());
-      }
-      return autoBuild();
-    }
+    public abstract ErrorDetails build();
   }
 }

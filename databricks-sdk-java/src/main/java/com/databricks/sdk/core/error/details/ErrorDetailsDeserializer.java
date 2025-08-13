@@ -11,6 +11,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Custom deserializer for ErrorDetails that converts an array of JSON objects into an ErrorDetails
+ * object.
+ */
 public class ErrorDetailsDeserializer extends JsonDeserializer<ErrorDetails> {
 
   private static final String ERROR_INFO_TYPE = "type.googleapis.com/google.rpc.ErrorInfo";

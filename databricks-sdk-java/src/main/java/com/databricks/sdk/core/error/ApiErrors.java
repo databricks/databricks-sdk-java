@@ -2,11 +2,11 @@ package com.databricks.sdk.core.error;
 
 import com.databricks.sdk.core.DatabricksError;
 import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.error.details.ErrorDetails;
 import com.databricks.sdk.core.http.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.io.IOUtils;
@@ -52,7 +52,7 @@ public class ApiErrors {
       errorBody.setErrorCode("SCIM_" + errorBody.getScimStatus());
     }
     if (errorBody.getErrorDetails() == null) {
-      errorBody.setErrorDetails(Collections.emptyList());
+      errorBody.setErrorDetails(ErrorDetails.builder().build());
     }
     return errorBody;
   }
