@@ -14,12 +14,8 @@ import java.net.URL;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiFunction;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class AzureUtils {
-
-  private static final Logger logger = LoggerFactory.getLogger(AzureUtils.class);
 
   /** Azure authentication endpoint for tenant ID discovery */
   private static final String AZURE_AUTH_ENDPOINT = "/aad/auth";
@@ -129,9 +125,7 @@ public class AzureUtils {
 
     try {
       String redirectLocation = getRedirectLocation(config, loginUrl);
-      String extractedTenantId = extractTenantIdFromUrl(redirectLocation);
-      logger.info("Successfully discovered Azure tenant ID: {}", extractedTenantId);
-      return extractedTenantId;
+      return extractTenantIdFromUrl(redirectLocation);
 
     } catch (Exception e) {
       throw new DatabricksException("Failed to infer Azure tenant ID from " + loginUrl, e);
