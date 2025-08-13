@@ -9,23 +9,23 @@ import java.util.Objects;
 
 @Generated
 public class CleanRoomNotebookReview {
-  /** review comment */
+  /** Review comment */
   @JsonProperty("comment")
   private String comment;
 
-  /** timestamp of when the review was submitted */
+  /** When the review was submitted, in epoch milliseconds */
   @JsonProperty("created_at_millis")
   private Long createdAtMillis;
 
-  /** review outcome */
+  /** Review outcome */
   @JsonProperty("review_state")
   private CleanRoomNotebookReviewNotebookReviewState reviewState;
 
-  /** specified when the review was not explicitly made by a user */
+  /** Specified when the review was not explicitly made by a user */
   @JsonProperty("review_sub_reason")
   private CleanRoomNotebookReviewNotebookReviewSubReason reviewSubReason;
 
-  /** collaborator alias of the reviewer */
+  /** Collaborator alias of the reviewer */
   @JsonProperty("reviewer_collaborator_alias")
   private String reviewerCollaboratorAlias;
 

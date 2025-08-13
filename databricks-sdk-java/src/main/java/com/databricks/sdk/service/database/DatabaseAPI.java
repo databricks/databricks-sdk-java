@@ -206,12 +206,36 @@ public class DatabaseAPI {
     return impl.getSyncedDatabaseTable(request);
   }
 
+  public Iterable<DatabaseCatalog> listDatabaseCatalogs(String instanceName) {
+    return listDatabaseCatalogs(new ListDatabaseCatalogsRequest().setInstanceName(instanceName));
+  }
+
+  /** This API is currently unimplemented, but exposed for Terraform support. */
+  public Iterable<DatabaseCatalog> listDatabaseCatalogs(ListDatabaseCatalogsRequest request) {
+    return new Paginator<>(
+        request,
+        impl::listDatabaseCatalogs,
+        ListDatabaseCatalogsResponse::getDatabaseCatalogs,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
   public Iterable<DatabaseInstanceRole> listDatabaseInstanceRoles(String instanceName) {
     return listDatabaseInstanceRoles(
         new ListDatabaseInstanceRolesRequest().setInstanceName(instanceName));
   }
 
-  /** START OF PG ROLE APIs Section */
+  /**
+   * START OF PG ROLE APIs Section These APIs are marked a PUBLIC with stage < PUBLIC_PREVIEW. With
+   * more recent Lakebase V2 plans, we don't plan to ever advance these to PUBLIC_PREVIEW. These
+   * APIs will remain effectively undocumented/UI-only and we'll aim for a new public roles API as
+   * part of V2 PuPr.
+   */
   public Iterable<DatabaseInstanceRole> listDatabaseInstanceRoles(
       ListDatabaseInstanceRolesRequest request) {
     return new Paginator<>(
@@ -242,9 +266,40 @@ public class DatabaseAPI {
         });
   }
 
+  public Iterable<SyncedDatabaseTable> listSyncedDatabaseTables(String instanceName) {
+    return listSyncedDatabaseTables(
+        new ListSyncedDatabaseTablesRequest().setInstanceName(instanceName));
+  }
+
+  /** This API is currently unimplemented, but exposed for Terraform support. */
+  public Iterable<SyncedDatabaseTable> listSyncedDatabaseTables(
+      ListSyncedDatabaseTablesRequest request) {
+    return new Paginator<>(
+        request,
+        impl::listSyncedDatabaseTables,
+        ListSyncedDatabaseTablesResponse::getSyncedTables,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
+  /** This API is currently unimplemented, but exposed for Terraform support. */
+  public DatabaseCatalog updateDatabaseCatalog(UpdateDatabaseCatalogRequest request) {
+    return impl.updateDatabaseCatalog(request);
+  }
+
   /** Update a Database Instance. */
   public DatabaseInstance updateDatabaseInstance(UpdateDatabaseInstanceRequest request) {
     return impl.updateDatabaseInstance(request);
+  }
+
+  /** This API is currently unimplemented, but exposed for Terraform support. */
+  public SyncedDatabaseTable updateSyncedDatabaseTable(UpdateSyncedDatabaseTableRequest request) {
+    return impl.updateSyncedDatabaseTable(request);
   }
 
   public DatabaseService impl() {

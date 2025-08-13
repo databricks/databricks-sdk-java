@@ -22,7 +22,7 @@ public interface CleanRoomAssetsService {
    */
   CleanRoomAsset create(CreateCleanRoomAssetRequest createCleanRoomAssetRequest);
 
-  /** submit an asset review */
+  /** Submit an asset review */
   CreateCleanRoomAssetReviewResponse createCleanRoomAssetReview(
       CreateCleanRoomAssetReviewRequest createCleanRoomAssetReviewRequest);
 

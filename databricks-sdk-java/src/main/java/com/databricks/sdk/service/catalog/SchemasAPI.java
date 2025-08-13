@@ -30,7 +30,7 @@ public class SchemasAPI {
   }
 
   /**
-   * Creates a new schema for catalog in the Metatastore. The caller must be a metastore admin, or
+   * Creates a new schema for catalog in the Metastore. The caller must be a metastore admin, or
    * have the **CREATE_SCHEMA** privilege in the parent catalog.
    */
   public SchemaInfo create(CreateSchema request) {
