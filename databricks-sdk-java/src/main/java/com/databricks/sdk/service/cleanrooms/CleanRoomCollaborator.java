@@ -31,7 +31,7 @@ public class CleanRoomCollaborator {
   private String displayName;
 
   /**
-   * The global Unity Catalog metastore id of the collaborator. The identifier is of format
+   * The global Unity Catalog metastore ID of the collaborator. The identifier is of format
    * cloud:region:metastore-uuid.
    */
   @JsonProperty("global_metastore_id")

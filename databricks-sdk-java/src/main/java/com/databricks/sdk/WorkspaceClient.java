@@ -44,6 +44,8 @@ import com.databricks.sdk.service.catalog.RegisteredModelsAPI;
 import com.databricks.sdk.service.catalog.RegisteredModelsService;
 import com.databricks.sdk.service.catalog.ResourceQuotasAPI;
 import com.databricks.sdk.service.catalog.ResourceQuotasService;
+import com.databricks.sdk.service.catalog.RfaAPI;
+import com.databricks.sdk.service.catalog.RfaService;
 import com.databricks.sdk.service.catalog.SchemasAPI;
 import com.databricks.sdk.service.catalog.SchemasService;
 import com.databricks.sdk.service.catalog.StorageCredentialsAPI;
@@ -324,6 +326,7 @@ public class WorkspaceClient {
   private RegisteredModelsAPI registeredModelsAPI;
   private ReposAPI reposAPI;
   private ResourceQuotasAPI resourceQuotasAPI;
+  private RfaAPI rfaAPI;
   private SchemasAPI schemasAPI;
   private SecretsExt secretsAPI;
   private ServicePrincipalSecretsProxyAPI servicePrincipalSecretsProxyAPI;
@@ -444,6 +447,7 @@ public class WorkspaceClient {
     registeredModelsAPI = new RegisteredModelsAPI(apiClient);
     reposAPI = new ReposAPI(apiClient);
     resourceQuotasAPI = new ResourceQuotasAPI(apiClient);
+    rfaAPI = new RfaAPI(apiClient);
     schemasAPI = new SchemasAPI(apiClient);
     secretsAPI = new SecretsExt(apiClient);
     servicePrincipalSecretsProxyAPI = new ServicePrincipalSecretsProxyAPI(apiClient);
@@ -1530,6 +1534,18 @@ public class WorkspaceClient {
    */
   public ResourceQuotasAPI resourceQuotas() {
     return resourceQuotasAPI;
+  }
+
+  /**
+   * Request for Access enables customers to request access to and manage access request
+   * destinations for Unity Catalog securables.
+   *
+   * <p>These APIs provide a standardized way to update, get, and request to access request
+   * destinations. Fine-grained authorization ensures that only users with appropriate permissions
+   * can manage access request destinations.
+   */
+  public RfaAPI rfa() {
+    return rfaAPI;
   }
 
   /**
@@ -2939,6 +2955,17 @@ public class WorkspaceClient {
   /** Replace the default ResourceQuotasAPI with a custom implementation. */
   public WorkspaceClient withResourceQuotasAPI(ResourceQuotasAPI resourceQuotas) {
     this.resourceQuotasAPI = resourceQuotas;
+    return this;
+  }
+
+  /** Replace the default RfaService with a custom implementation. */
+  public WorkspaceClient withRfaImpl(RfaService rfa) {
+    return this.withRfaAPI(new RfaAPI(rfa));
+  }
+
+  /** Replace the default RfaAPI with a custom implementation. */
+  public WorkspaceClient withRfaAPI(RfaAPI rfa) {
+    this.rfaAPI = rfa;
     return this;
   }
 

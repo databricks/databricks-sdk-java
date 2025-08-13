@@ -18,10 +18,6 @@ public class CreateConnection {
   @JsonProperty("connection_type")
   private ConnectionType connectionType;
 
-  /** [Create,Update:OPT] Connection environment settings as EnvironmentSettings object. */
-  @JsonProperty("environment_settings")
-  private EnvironmentSettings environmentSettings;
-
   /** Name of the connection. */
   @JsonProperty("name")
   private String name;
@@ -54,15 +50,6 @@ public class CreateConnection {
 
   public ConnectionType getConnectionType() {
     return connectionType;
-  }
-
-  public CreateConnection setEnvironmentSettings(EnvironmentSettings environmentSettings) {
-    this.environmentSettings = environmentSettings;
-    return this;
-  }
-
-  public EnvironmentSettings getEnvironmentSettings() {
-    return environmentSettings;
   }
 
   public CreateConnection setName(String name) {
@@ -108,7 +95,6 @@ public class CreateConnection {
     CreateConnection that = (CreateConnection) o;
     return Objects.equals(comment, that.comment)
         && Objects.equals(connectionType, that.connectionType)
-        && Objects.equals(environmentSettings, that.environmentSettings)
         && Objects.equals(name, that.name)
         && Objects.equals(options, that.options)
         && Objects.equals(properties, that.properties)
@@ -117,8 +103,7 @@ public class CreateConnection {
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        comment, connectionType, environmentSettings, name, options, properties, readOnly);
+    return Objects.hash(comment, connectionType, name, options, properties, readOnly);
   }
 
   @Override
@@ -126,7 +111,6 @@ public class CreateConnection {
     return new ToStringer(CreateConnection.class)
         .add("comment", comment)
         .add("connectionType", connectionType)
-        .add("environmentSettings", environmentSettings)
         .add("name", name)
         .add("options", options)
         .add("properties", properties)

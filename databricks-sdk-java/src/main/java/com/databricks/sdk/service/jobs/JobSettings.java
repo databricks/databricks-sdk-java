@@ -185,8 +185,8 @@ public class JobSettings {
 
   /**
    * The id of the user specified usage policy to use for this job. If not specified, a default
-   * usage policy may be applied when creating or modifying the job. See
-   * `effective_budget_policy_id` for the budget policy used by this workload.
+   * usage policy may be applied when creating or modifying the job. See `effective_usage_policy_id`
+   * for the usage policy used by this workload.
    */
   @JsonProperty("usage_policy_id")
   private String usagePolicyId;
