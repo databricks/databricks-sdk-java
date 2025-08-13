@@ -108,42 +108,33 @@ public class AzureUtils {
    * Infers the Azure tenant ID from the Databricks workspace login page.
    *
    * @param config The DatabricksConfig instance
-   * @return the discovered tenant ID, or null if discovery fails
+   * @return the discovered tenant ID
+   * @throws DatabricksException if tenant ID discovery fails
    */
-  public static String inferTenantId(DatabricksConfig config) {
+  public static String inferTenantId(DatabricksConfig config) throws DatabricksException {
+
     if (config.getAzureTenantId() != null) {
       return config.getAzureTenantId();
     }
 
-    if (!config.isAzure() || config.getHost() == null) {
-      logger.warn("Cannot infer tenant ID: workspace is not Azure or host is missing");
-      return null;
+    if (config.getHost() == null) {
+      throw new DatabricksException("Cannot infer tenant ID: host is missing");
+    }
+
+    if (!config.isAzure()) {
+      throw new DatabricksException("Cannot infer tenant ID: workspace is not Azure");
     }
 
     String loginUrl = config.getHost() + AZURE_AUTH_ENDPOINT;
 
     try {
       String redirectLocation = getRedirectLocation(config, loginUrl);
-      if (redirectLocation == null) {
-        logger.warn("Failed to get redirect location from Azure auth endpoint: {}", loginUrl);
-        return null;
-      }
-
       String extractedTenantId = extractTenantIdFromUrl(redirectLocation);
-      if (extractedTenantId == null) {
-        logger.warn("Failed to extract tenant ID from redirect URL: {}", redirectLocation);
-        return null;
-      }
-
       logger.info("Successfully discovered Azure tenant ID: {}", extractedTenantId);
       return extractedTenantId;
 
     } catch (Exception e) {
-      logger.warn(
-          "Exception occurred while inferring Azure tenant ID from {}: {}",
-          loginUrl,
-          e.getMessage());
-      return null;
+      throw new DatabricksException("Failed to infer Azure tenant ID from " + loginUrl, e);
     }
   }
 
@@ -154,36 +145,34 @@ public class AzureUtils {
     Response response = config.getHttpClient().execute(request);
 
     if (response.getStatusCode() != 302) {
-      logger.warn(
-          "Expected redirect (302) from {}, got status code: {}",
-          loginUrl,
-          response.getStatusCode());
-      return null;
+      throw new DatabricksException(
+          "Expected redirect (302) from "
+              + loginUrl
+              + ", got status code: "
+              + response.getStatusCode());
     }
 
     String location = response.getFirstHeader("Location");
     if (location == null) {
-      logger.warn("No Location header in redirect response from {}", loginUrl);
+      throw new DatabricksException("No Location header in redirect response from " + loginUrl);
     }
 
     return location;
   }
 
-  private static String extractTenantIdFromUrl(String redirectUrl) {
+  private static String extractTenantIdFromUrl(String redirectUrl) throws DatabricksException {
     try {
       // Parse: https://login.microsoftonline.com/<tenant-id>/oauth2/authorize?...
       URL entraIdUrl = new URL(redirectUrl);
       String[] pathSegments = entraIdUrl.getPath().split("/");
 
       if (pathSegments.length < 2) {
-        logger.warn("Invalid path in Location header: {}", entraIdUrl.getPath());
-        return null;
+        throw new DatabricksException("Invalid path in Location header: " + entraIdUrl.getPath());
       }
 
       return pathSegments[1];
     } catch (Exception e) {
-      logger.warn("Failed to parse tenant ID from URL {}: {}", redirectUrl, e.getMessage());
-      return null;
+      throw new DatabricksException("Failed to parse tenant ID from URL " + redirectUrl, e);
     }
   }
 }

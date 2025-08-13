@@ -5,12 +5,16 @@ import com.databricks.sdk.core.utils.AzureUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Adds refreshed Azure Active Directory (AAD) Service Principal OAuth tokens to every request,
  * while automatically resolving different Azure environment endpoints.
  */
 public class AzureServicePrincipalCredentialsProvider implements CredentialsProvider {
+  private static final Logger logger =
+      LoggerFactory.getLogger(AzureServicePrincipalCredentialsProvider.class);
   private final ObjectMapper mapper = new ObjectMapper();
   private String tenantId;
 
@@ -27,11 +31,13 @@ public class AzureServicePrincipalCredentialsProvider implements CredentialsProv
       return null;
     }
 
-    this.tenantId =
-        config.getAzureTenantId() != null
-            ? config.getAzureTenantId()
-            : AzureUtils.inferTenantId(config);
-    if (this.tenantId == null) {
+    try {
+      this.tenantId =
+          config.getAzureTenantId() != null
+              ? config.getAzureTenantId()
+              : AzureUtils.inferTenantId(config);
+    } catch (Exception e) {
+      logger.warn("Failed to infer Azure tenant ID: {}", e.getMessage());
       return null;
     }
 
