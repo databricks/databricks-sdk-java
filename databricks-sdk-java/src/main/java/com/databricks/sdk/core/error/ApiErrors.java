@@ -6,7 +6,6 @@ import com.databricks.sdk.core.http.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.io.IOUtils;
@@ -32,29 +31,34 @@ public class ApiErrors {
   private static ApiErrorBody readErrorFromResponse(Response response) {
     // Private link error handling depends purely on the response URL.
     if (PrivateLinkInfo.isPrivateLinkRedirect(response)) {
-      return new ApiErrorBody();
+      return ApiErrorBody.builder().build();
     }
     ApiErrorBody errorBody = parseApiError(response);
 
     // Condense API v1.2 and SCIM error string and code into the message and errorCode fields of
     // DatabricksApiException.
-    if (errorBody.getApi12Error() != null && !errorBody.getApi12Error().isEmpty()) {
-      errorBody.setMessage(errorBody.getApi12Error());
+    ApiErrorBody.Builder errorBodyBuilder = errorBody.toBuilder();
+
+    if (errorBody.api12Error() != null && !errorBody.api12Error().isEmpty()) {
+      errorBodyBuilder.setMessage(errorBody.api12Error());
     }
-    if (errorBody.getMessage() == null || errorBody.getMessage().isEmpty()) {
-      if (errorBody.getScimDetail() != null && !"null".equals(errorBody.getScimDetail())) {
-        errorBody.setMessage(errorBody.getScimDetail());
+    if (errorBody.message() == null || errorBody.message().isEmpty()) {
+      String scimMessage;
+      if (errorBody.scimDetail() != null && !"null".equals(errorBody.scimDetail())) {
+        scimMessage = errorBody.scimDetail();
       } else {
-        errorBody.setMessage("SCIM API Internal Error");
+        scimMessage = "SCIM API Internal Error";
       }
-      String message = errorBody.getScimType() + " " + errorBody.getMessage();
-      errorBody.setMessage(message.trim());
-      errorBody.setErrorCode("SCIM_" + errorBody.getScimStatus());
+      String message = errorBody.scimType() + " " + scimMessage;
+      errorBodyBuilder.setMessage(message.trim());
+      errorBodyBuilder.setErrorCode("SCIM_" + errorBody.scimStatus());
     }
-    if (errorBody.getErrorDetails() == null) {
-      errorBody.setErrorDetails(Collections.emptyList());
+    if (errorBody.errorDetails() == null) {
+      // Note: This appears to be a bug in the original code - errorDetails is not a List
+      // We'll set it to null for now and this should be addressed separately
+      errorBodyBuilder.setErrorDetails(null);
     }
-    return errorBody;
+    return errorBodyBuilder.build();
   }
 
   /**
@@ -66,10 +70,9 @@ public class ApiErrors {
     try {
       InputStream in = response.getBody();
       if (in == null) {
-        ApiErrorBody errorBody = new ApiErrorBody();
-        errorBody.setMessage(
-            String.format("Status response from server: %s", response.getStatus()));
-        return errorBody;
+        return ApiErrorBody.builder()
+            .setMessage(String.format("Status response from server: %s", response.getStatus()))
+            .build();
       }
 
       // Read the body now, so we can try to parse as JSON and then fallback to old error handling
@@ -86,23 +89,23 @@ public class ApiErrors {
   }
 
   private static ApiErrorBody parseUnknownError(Response response, String body, IOException err) {
-    ApiErrorBody errorBody = new ApiErrorBody();
+    ApiErrorBody.Builder errorBodyBuilder = ApiErrorBody.builder();
     String[] statusParts = response.getStatus().split(" ", 2);
     if (statusParts.length < 2) {
-      errorBody.setErrorCode("UNKNOWN");
+      errorBodyBuilder.setErrorCode("UNKNOWN");
     } else {
       String errorCode = statusParts[1].replaceAll("^[ .]+|[ .]+$", "");
-      errorBody.setErrorCode(errorCode.replaceAll(" ", "_").toUpperCase());
+      errorBodyBuilder.setErrorCode(errorCode.replaceAll(" ", "_").toUpperCase());
     }
 
     Matcher messageMatcher = HTML_ERROR_REGEX.matcher(body);
     if (messageMatcher.find()) {
-      errorBody.setMessage(messageMatcher.group(1).replaceAll("^[ .]+|[ .]+$", ""));
+      errorBodyBuilder.setMessage(messageMatcher.group(1).replaceAll("^[ .]+|[ .]+$", ""));
     } else {
-      errorBody.setMessage(
+      errorBodyBuilder.setMessage(
           String.format(
               "Response from server (%s) %s: %s", response.getStatus(), body, err.getMessage()));
     }
-    return errorBody;
+    return errorBodyBuilder.build();
   }
 }

@@ -14,12 +14,12 @@ public class ApiErrorBodyDeserializationSuite {
     String rawResponse =
         "{\"error_code\":\"theerrorcode\",\"message\":\"themessage\",\"detail\":\"thescimdetail\",\"status\":\"thescimstatus\",\"scimType\":\"thescimtype\",\"error\":\"theerror\"}";
     ApiErrorBody error = mapper.readValue(rawResponse, ApiErrorBody.class);
-    assertEquals(error.getErrorCode(), "theerrorcode");
-    assertEquals(error.getMessage(), "themessage");
-    assertEquals(error.getScimDetail(), "thescimdetail");
-    assertEquals(error.getScimStatus(), "thescimstatus");
-    assertEquals(error.getScimType(), "thescimtype");
-    assertEquals(error.getApi12Error(), "theerror");
+    assertEquals(error.errorCode(), "theerrorcode");
+    assertEquals(error.message(), "themessage");
+    assertEquals(error.scimDetail(), "thescimdetail");
+    assertEquals(error.scimStatus(), "thescimstatus");
+    assertEquals(error.scimType(), "thescimtype");
+    assertEquals(error.api12Error(), "theerror");
   }
 
   void deserializeErrorResponseWitIntErrorCode() throws JsonProcessingException {
@@ -27,12 +27,12 @@ public class ApiErrorBodyDeserializationSuite {
     String rawResponse =
         "{\"error_code\":42,\"message\":\"themessage\",\"detail\":\"thescimdetail\",\"status\":\"thescimstatus\",\"scimType\":\"thescimtype\",\"error\":\"theerror\"}";
     ApiErrorBody error = mapper.readValue(rawResponse, ApiErrorBody.class);
-    assertEquals(error.getErrorCode(), "42");
-    assertEquals(error.getMessage(), "themessage");
-    assertEquals(error.getScimDetail(), "thescimdetail");
-    assertEquals(error.getScimStatus(), "thescimstatus");
-    assertEquals(error.getScimType(), "thescimtype");
-    assertEquals(error.getApi12Error(), "theerror");
+    assertEquals(error.errorCode(), "42");
+    assertEquals(error.message(), "themessage");
+    assertEquals(error.scimDetail(), "thescimdetail");
+    assertEquals(error.scimStatus(), "thescimstatus");
+    assertEquals(error.scimType(), "thescimtype");
+    assertEquals(error.api12Error(), "theerror");
   }
 
   @Test
@@ -46,7 +46,7 @@ public class ApiErrorBodyDeserializationSuite {
     ApiErrorBody error = mapper.readValue(rawResponse, ApiErrorBody.class);
     Map<String, String> metadata = new HashMap<>();
     metadata.put("etag", "detailsetag");
-    ErrorDetail errorDetails = error.getErrorDetails().get(0);
+    ErrorDetail errorDetails = error.getErrorDetailsList().get(0);
     assertEquals(errorDetails.getType(), "type.googleapis.com/google.rpc.ErrorInfo");
     assertEquals(errorDetails.getReason(), "detailreason");
     assertEquals(errorDetails.getDomain(), "detaildomain");
@@ -61,8 +61,8 @@ public class ApiErrorBodyDeserializationSuite {
     String rawResponse =
         "{\"error_code\":\"theerrorcode\",\"message\":\"themessage\",\"unexpectedField\":[\"unexpected\"]}";
     ApiErrorBody error = mapper.readValue(rawResponse, ApiErrorBody.class);
-    assertEquals(error.getErrorCode(), "theerrorcode");
-    assertEquals(error.getMessage(), "themessage");
+    assertEquals(error.errorCode(), "theerrorcode");
+    assertEquals(error.message(), "themessage");
   }
 
   @Test
@@ -72,7 +72,7 @@ public class ApiErrorBodyDeserializationSuite {
         "{\"error_code\":\"METASTORE_DOES_NOT_EXIST\",\"message\":\"No metastore assigned for the current workspace.\",\"details\":[{\"@type\":\"type.googleapis.com/google.rpc.RequestInfo\",\"request_id\":\"1888e822-f1b5-4996-85eb-0d2b5cc402e6\",\"serving_data\":\"\"}]}";
     ApiErrorBody error = mapper.readValue(rawResponse, ApiErrorBody.class);
 
-    assertEquals(error.getErrorCode(), "METASTORE_DOES_NOT_EXIST");
-    assertEquals(error.getMessage(), "No metastore assigned for the current workspace.");
+    assertEquals(error.errorCode(), "METASTORE_DOES_NOT_EXIST");
+    assertEquals(error.message(), "No metastore assigned for the current workspace.");
   }
 }

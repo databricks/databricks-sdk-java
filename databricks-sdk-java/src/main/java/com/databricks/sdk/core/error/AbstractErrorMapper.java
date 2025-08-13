@@ -28,14 +28,14 @@ abstract class AbstractErrorMapper {
             "Overriding error with {} (original status code: {}, original error code: {})",
             override.getDebugName(),
             resp.getStatusCode(),
-            errorBody.getErrorCode());
+            errorBody.errorCode());
         return override.makeError(errorBody);
       }
     }
     int code = resp.getStatusCode();
-    String message = errorBody.getMessage();
-    String errorCode = errorBody.getErrorCode();
-    List<ErrorDetail> details = errorBody.getErrorDetails();
+    String message = errorBody.message();
+    String errorCode = errorBody.errorCode();
+    List<ErrorDetail> details = errorBody.getErrorDetailsList();
     if (errorCodeMapping.containsKey(errorCode)) {
       return errorCodeMapping.get(errorCode).create(message, details);
     }

@@ -47,11 +47,11 @@ public class ErrorOverride<T extends DatabricksError> {
       return false;
     }
     if (this.errorCodeMatcher != null
-        && !this.errorCodeMatcher.matcher(body.getErrorCode()).matches()) {
+        && !this.errorCodeMatcher.matcher(body.errorCode()).matches()) {
       return false;
     }
     // Allow matching substring of the error message.
-    if (this.messageMatcher != null && !this.messageMatcher.matcher(body.getMessage()).find()) {
+    if (this.messageMatcher != null && !this.messageMatcher.matcher(body.message()).find()) {
       return false;
     }
     return true;
@@ -70,7 +70,7 @@ public class ErrorOverride<T extends DatabricksError> {
           && parameterTypes[0].equals(String.class)
           && parameterTypes[1].equals(List.class)) {
         try {
-          return (T) constructor.newInstance(body.getMessage(), body.getErrorDetails());
+          return (T) constructor.newInstance(body.message(), body.getErrorDetailsList());
         } catch (Exception e) {
           throw new DatabricksException(
               "Error creating custom error for error type " + this.customError.getName(), e);

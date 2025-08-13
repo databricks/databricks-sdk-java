@@ -263,14 +263,10 @@ public class ApiClientTest {
             getTransientError(
                 req,
                 400,
-                new ApiErrorBody(
-                    "ERROR",
-                    null,
-                    null,
-                    null,
-                    null,
-                    "Workspace 123 does not have any associated worker environments",
-                    null)),
+                ApiErrorBody.builder()
+                    .setErrorCode("ERROR")
+                    .setApi12Error("Workspace 123 does not have any associated worker environments")
+                    .build()),
             getTooManyRequestsResponse(req),
             getTooManyRequestsResponse(req),
             getSuccessResponse(req)),
@@ -300,14 +296,10 @@ public class ApiClientTest {
             getTransientError(
                 req,
                 400,
-                new ApiErrorBody(
-                    "ERROR",
-                    null,
-                    null,
-                    null,
-                    null,
-                    "Workspace 123 does not have any associated worker environments",
-                    null)),
+                ApiErrorBody.builder()
+                    .setErrorCode("ERROR")
+                    .setApi12Error("Workspace 123 does not have any associated worker environments")
+                    .build()),
             getSuccessResponse(req)),
         MyEndpointResponse.class,
         new MyEndpointResponse().setKey("value"));
@@ -345,7 +337,10 @@ public class ApiClientTest {
                 getTransientError(
                     req,
                     401,
-                    new ApiErrorBody("ERROR", null, null, null, null, null, errorDetails)),
+                    ApiErrorBody.builder()
+                        .setErrorCode("ERROR")
+                        .setErrorDetails(errorDetails)
+                        .build()),
                 getSuccessResponse(req)),
             MyEndpointResponse.class,
             DatabricksError.class);
@@ -369,14 +364,10 @@ public class ApiClientTest {
             getTransientError(
                 req,
                 400,
-                new ApiErrorBody(
-                    "ERROR",
-                    "Workspace 123 does not have any associated worker environments",
-                    null,
-                    null,
-                    null,
-                    null,
-                    null)),
+                ApiErrorBody.builder()
+                    .setErrorCode("ERROR")
+                    .setMessage("Workspace 123 does not have any associated worker environments")
+                    .build()),
             getSuccessResponse(req)),
         MyEndpointResponse.class,
         new MyEndpointResponse().setKey("value"));
