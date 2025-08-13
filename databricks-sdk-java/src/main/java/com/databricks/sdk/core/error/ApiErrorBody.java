@@ -97,6 +97,13 @@ public class ApiErrorBody {
     this.api12Error = api12Error;
   }
 
+  /**
+   * Converts the error details to a list of ErrorDetail objects. This only supports the ErrorInfo
+   * type.
+   *
+   * @param details The error details to convert.
+   * @return A list of ErrorDetail objects.
+   */
   private static List<ErrorDetail> fromDetails(ErrorDetails details) {
     if (details == null) {
       return Collections.emptyList();
