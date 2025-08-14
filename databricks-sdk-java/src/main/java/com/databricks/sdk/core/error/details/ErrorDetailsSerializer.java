@@ -116,6 +116,8 @@ public class ErrorDetailsSerializer extends JsonSerializer<ErrorDetails> {
     // Add the @type field.
     if (node instanceof ObjectNode) {
       ((ObjectNode) node).put("@type", type);
+    } else {
+      throw new IllegalArgumentException("Unknown detail type: " + node.getClass().getName());
     }
 
     gen.writeObject(node);
