@@ -11,7 +11,7 @@
   },
   "toolchain": {
     "require": ["mvn", "java"],
-    "setup": ["rm -rf databricks-sdk-java/src/main/java/com/databricks/sdk/service"],
+    "setup": ["find databricks-sdk-java/src/main/java/com/databricks/sdk/service -mindepth 1 -maxdepth 1 -type d ! -name 'iam' -exec rm -rf {} +"],
     "post_generate": ["mvn spotless:apply","mvn --errors clean test"]
   }
 }

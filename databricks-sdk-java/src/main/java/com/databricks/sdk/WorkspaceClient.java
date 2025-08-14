@@ -110,14 +110,20 @@ import com.databricks.sdk.service.iam.CurrentUserAPI;
 import com.databricks.sdk.service.iam.CurrentUserService;
 import com.databricks.sdk.service.iam.GroupsAPI;
 import com.databricks.sdk.service.iam.GroupsService;
+import com.databricks.sdk.service.iam.GroupsV2API;
+import com.databricks.sdk.service.iam.GroupsV2Service;
 import com.databricks.sdk.service.iam.PermissionMigrationAPI;
 import com.databricks.sdk.service.iam.PermissionMigrationService;
 import com.databricks.sdk.service.iam.PermissionsAPI;
 import com.databricks.sdk.service.iam.PermissionsService;
 import com.databricks.sdk.service.iam.ServicePrincipalsAPI;
 import com.databricks.sdk.service.iam.ServicePrincipalsService;
+import com.databricks.sdk.service.iam.ServicePrincipalsV2API;
+import com.databricks.sdk.service.iam.ServicePrincipalsV2Service;
 import com.databricks.sdk.service.iam.UsersAPI;
 import com.databricks.sdk.service.iam.UsersService;
+import com.databricks.sdk.service.iam.UsersV2API;
+import com.databricks.sdk.service.iam.UsersV2Service;
 import com.databricks.sdk.service.jobs.JobsAPI;
 import com.databricks.sdk.service.jobs.JobsService;
 import com.databricks.sdk.service.jobs.PolicyComplianceForJobsAPI;
@@ -240,118 +246,234 @@ public class WorkspaceClient {
   private final DatabricksConfig config;
 
   private AccessControlAPI accessControlAPI;
+
   private AccountAccessControlProxyAPI accountAccessControlProxyAPI;
+
   private AgentBricksAPI agentBricksAPI;
+
   private AlertsAPI alertsAPI;
+
   private AlertsLegacyAPI alertsLegacyAPI;
+
   private AlertsV2API alertsV2API;
+
   private AppsAPI appsAPI;
+
   private ArtifactAllowlistsAPI artifactAllowlistsAPI;
+
   private CatalogsAPI catalogsAPI;
+
   private CleanRoomAssetRevisionsAPI cleanRoomAssetRevisionsAPI;
+
   private CleanRoomAssetsAPI cleanRoomAssetsAPI;
+
   private CleanRoomAutoApprovalRulesAPI cleanRoomAutoApprovalRulesAPI;
+
   private CleanRoomTaskRunsAPI cleanRoomTaskRunsAPI;
+
   private CleanRoomsAPI cleanRoomsAPI;
+
   private ClusterPoliciesAPI clusterPoliciesAPI;
+
   private ClustersExt clustersAPI;
+
   private CommandExecutionAPI commandExecutionAPI;
+
   private ConnectionsAPI connectionsAPI;
+
   private ConsumerFulfillmentsAPI consumerFulfillmentsAPI;
+
   private ConsumerInstallationsAPI consumerInstallationsAPI;
+
   private ConsumerListingsAPI consumerListingsAPI;
+
   private ConsumerPersonalizationRequestsAPI consumerPersonalizationRequestsAPI;
+
   private ConsumerProvidersAPI consumerProvidersAPI;
+
   private CredentialsAPI credentialsAPI;
+
   private CredentialsManagerAPI credentialsManagerAPI;
+
   private CurrentUserAPI currentUserAPI;
+
   private DashboardWidgetsAPI dashboardWidgetsAPI;
+
   private DashboardsAPI dashboardsAPI;
+
   private DataSourcesAPI dataSourcesAPI;
+
   private DatabaseAPI databaseAPI;
+
   private DbfsExt dbfsAPI;
+
   private DbsqlPermissionsAPI dbsqlPermissionsAPI;
+
   private ExperimentsAPI experimentsAPI;
+
   private ExternalLineageAPI externalLineageAPI;
+
   private ExternalLocationsAPI externalLocationsAPI;
+
   private ExternalMetadataAPI externalMetadataAPI;
+
   private FeatureStoreAPI featureStoreAPI;
+
   private FilesAPI filesAPI;
+
   private ForecastingAPI forecastingAPI;
+
   private FunctionsAPI functionsAPI;
+
   private GenieAPI genieAPI;
+
   private GitCredentialsAPI gitCredentialsAPI;
+
   private GlobalInitScriptsAPI globalInitScriptsAPI;
+
   private GrantsAPI grantsAPI;
-  private GroupsAPI groupsAPI;
+
+  private GroupsV2API groupsV2API;
+
   private InstancePoolsAPI instancePoolsAPI;
+
   private InstanceProfilesAPI instanceProfilesAPI;
+
   private IpAccessListsAPI ipAccessListsAPI;
+
   private JobsAPI jobsAPI;
+
   private LakeviewAPI lakeviewAPI;
+
   private LakeviewEmbeddedAPI lakeviewEmbeddedAPI;
+
   private LibrariesAPI librariesAPI;
+
   private MaterializedFeaturesAPI materializedFeaturesAPI;
+
   private MetastoresAPI metastoresAPI;
+
   private ModelRegistryAPI modelRegistryAPI;
+
   private ModelVersionsAPI modelVersionsAPI;
+
   private NotificationDestinationsAPI notificationDestinationsAPI;
+
   private OnlineTablesAPI onlineTablesAPI;
+
   private PermissionMigrationAPI permissionMigrationAPI;
+
   private PermissionsAPI permissionsAPI;
+
   private PipelinesAPI pipelinesAPI;
+
   private PoliciesAPI policiesAPI;
+
   private PolicyComplianceForClustersAPI policyComplianceForClustersAPI;
+
   private PolicyComplianceForJobsAPI policyComplianceForJobsAPI;
+
   private PolicyFamiliesAPI policyFamiliesAPI;
+
   private ProviderExchangeFiltersAPI providerExchangeFiltersAPI;
+
   private ProviderExchangesAPI providerExchangesAPI;
+
   private ProviderFilesAPI providerFilesAPI;
+
   private ProviderListingsAPI providerListingsAPI;
+
   private ProviderPersonalizationRequestsAPI providerPersonalizationRequestsAPI;
+
   private ProviderProviderAnalyticsDashboardsAPI providerProviderAnalyticsDashboardsAPI;
+
   private ProviderProvidersAPI providerProvidersAPI;
+
   private ProvidersAPI providersAPI;
+
   private QualityMonitorV2API qualityMonitorV2API;
+
   private QualityMonitorsAPI qualityMonitorsAPI;
+
   private QueriesAPI queriesAPI;
+
   private QueriesLegacyAPI queriesLegacyAPI;
+
   private QueryHistoryAPI queryHistoryAPI;
+
   private QueryVisualizationsAPI queryVisualizationsAPI;
+
   private QueryVisualizationsLegacyAPI queryVisualizationsLegacyAPI;
+
   private RecipientActivationAPI recipientActivationAPI;
+
   private RecipientFederationPoliciesAPI recipientFederationPoliciesAPI;
+
   private RecipientsAPI recipientsAPI;
+
   private RedashConfigAPI redashConfigAPI;
+
   private RegisteredModelsAPI registeredModelsAPI;
+
   private ReposAPI reposAPI;
+
   private ResourceQuotasAPI resourceQuotasAPI;
+
   private RfaAPI rfaAPI;
+
   private SchemasAPI schemasAPI;
+
   private SecretsExt secretsAPI;
+
   private ServicePrincipalSecretsProxyAPI servicePrincipalSecretsProxyAPI;
-  private ServicePrincipalsAPI servicePrincipalsAPI;
+
+  private ServicePrincipalsV2API servicePrincipalsV2API;
+
   private ServingEndpointsAPI servingEndpointsAPI;
+
   private ServingEndpointsDataPlaneAPI servingEndpointsDataPlaneAPI;
+
   private SettingsAPI settingsAPI;
+
   private SharesAPI sharesAPI;
+
   private StatementExecutionAPI statementExecutionAPI;
+
   private StorageCredentialsAPI storageCredentialsAPI;
+
   private SystemSchemasAPI systemSchemasAPI;
+
   private TableConstraintsAPI tableConstraintsAPI;
+
   private TablesAPI tablesAPI;
+
   private TemporaryPathCredentialsAPI temporaryPathCredentialsAPI;
+
   private TemporaryTableCredentialsAPI temporaryTableCredentialsAPI;
+
   private TokenManagementAPI tokenManagementAPI;
+
   private TokensAPI tokensAPI;
-  private UsersAPI usersAPI;
+
+  private UsersV2API usersV2API;
+
   private VectorSearchEndpointsAPI vectorSearchEndpointsAPI;
+
   private VectorSearchIndexesAPI vectorSearchIndexesAPI;
+
   private VolumesAPI volumesAPI;
+
   private WarehousesAPI warehousesAPI;
+
   private WorkspaceAPI workspaceAPI;
+
   private WorkspaceBindingsAPI workspaceBindingsAPI;
+
   private WorkspaceConfAPI workspaceConfAPI;
+
+  private GroupsAPI groupsAPI;
+  private ServicePrincipalsAPI servicePrincipalsAPI;
+  private UsersAPI usersAPI;
 
   public WorkspaceClient() {
     this(ConfigLoader.getDefault());
@@ -361,119 +483,234 @@ public class WorkspaceClient {
     this.config = config;
     apiClient = new ApiClient(config);
     accessControlAPI = new AccessControlAPI(apiClient);
+
     accountAccessControlProxyAPI = new AccountAccessControlProxyAPI(apiClient);
+
     agentBricksAPI = new AgentBricksAPI(apiClient);
+
     alertsAPI = new AlertsAPI(apiClient);
+
     alertsLegacyAPI = new AlertsLegacyAPI(apiClient);
+
     alertsV2API = new AlertsV2API(apiClient);
+
     appsAPI = new AppsAPI(apiClient);
+
     artifactAllowlistsAPI = new ArtifactAllowlistsAPI(apiClient);
+
     catalogsAPI = new CatalogsAPI(apiClient);
+
     cleanRoomAssetRevisionsAPI = new CleanRoomAssetRevisionsAPI(apiClient);
+
     cleanRoomAssetsAPI = new CleanRoomAssetsAPI(apiClient);
+
     cleanRoomAutoApprovalRulesAPI = new CleanRoomAutoApprovalRulesAPI(apiClient);
+
     cleanRoomTaskRunsAPI = new CleanRoomTaskRunsAPI(apiClient);
+
     cleanRoomsAPI = new CleanRoomsAPI(apiClient);
+
     clusterPoliciesAPI = new ClusterPoliciesAPI(apiClient);
+
     clustersAPI = new ClustersExt(apiClient);
+
     commandExecutionAPI = new CommandExecutionAPI(apiClient);
+
     connectionsAPI = new ConnectionsAPI(apiClient);
+
     consumerFulfillmentsAPI = new ConsumerFulfillmentsAPI(apiClient);
+
     consumerInstallationsAPI = new ConsumerInstallationsAPI(apiClient);
+
     consumerListingsAPI = new ConsumerListingsAPI(apiClient);
+
     consumerPersonalizationRequestsAPI = new ConsumerPersonalizationRequestsAPI(apiClient);
+
     consumerProvidersAPI = new ConsumerProvidersAPI(apiClient);
+
     credentialsAPI = new CredentialsAPI(apiClient);
+
     credentialsManagerAPI = new CredentialsManagerAPI(apiClient);
+
     currentUserAPI = new CurrentUserAPI(apiClient);
+
     dashboardWidgetsAPI = new DashboardWidgetsAPI(apiClient);
+
     dashboardsAPI = new DashboardsAPI(apiClient);
+
     dataSourcesAPI = new DataSourcesAPI(apiClient);
+
     databaseAPI = new DatabaseAPI(apiClient);
+
     dbfsAPI = new DbfsExt(apiClient);
+
     dbsqlPermissionsAPI = new DbsqlPermissionsAPI(apiClient);
+
     experimentsAPI = new ExperimentsAPI(apiClient);
+
     externalLineageAPI = new ExternalLineageAPI(apiClient);
+
     externalLocationsAPI = new ExternalLocationsAPI(apiClient);
+
     externalMetadataAPI = new ExternalMetadataAPI(apiClient);
+
     featureStoreAPI = new FeatureStoreAPI(apiClient);
+
     filesAPI = new FilesAPI(apiClient);
+
     forecastingAPI = new ForecastingAPI(apiClient);
+
     functionsAPI = new FunctionsAPI(apiClient);
+
     genieAPI = new GenieAPI(apiClient);
+
     gitCredentialsAPI = new GitCredentialsAPI(apiClient);
+
     globalInitScriptsAPI = new GlobalInitScriptsAPI(apiClient);
+
     grantsAPI = new GrantsAPI(apiClient);
-    groupsAPI = new GroupsAPI(apiClient);
+
+    groupsV2API = new GroupsV2API(apiClient);
+
     instancePoolsAPI = new InstancePoolsAPI(apiClient);
+
     instanceProfilesAPI = new InstanceProfilesAPI(apiClient);
+
     ipAccessListsAPI = new IpAccessListsAPI(apiClient);
+
     jobsAPI = new JobsAPI(apiClient);
+
     lakeviewAPI = new LakeviewAPI(apiClient);
+
     lakeviewEmbeddedAPI = new LakeviewEmbeddedAPI(apiClient);
+
     librariesAPI = new LibrariesAPI(apiClient);
+
     materializedFeaturesAPI = new MaterializedFeaturesAPI(apiClient);
+
     metastoresAPI = new MetastoresAPI(apiClient);
+
     modelRegistryAPI = new ModelRegistryAPI(apiClient);
+
     modelVersionsAPI = new ModelVersionsAPI(apiClient);
+
     notificationDestinationsAPI = new NotificationDestinationsAPI(apiClient);
+
     onlineTablesAPI = new OnlineTablesAPI(apiClient);
+
     permissionMigrationAPI = new PermissionMigrationAPI(apiClient);
+
     permissionsAPI = new PermissionsAPI(apiClient);
+
     pipelinesAPI = new PipelinesAPI(apiClient);
+
     policiesAPI = new PoliciesAPI(apiClient);
+
     policyComplianceForClustersAPI = new PolicyComplianceForClustersAPI(apiClient);
+
     policyComplianceForJobsAPI = new PolicyComplianceForJobsAPI(apiClient);
+
     policyFamiliesAPI = new PolicyFamiliesAPI(apiClient);
+
     providerExchangeFiltersAPI = new ProviderExchangeFiltersAPI(apiClient);
+
     providerExchangesAPI = new ProviderExchangesAPI(apiClient);
+
     providerFilesAPI = new ProviderFilesAPI(apiClient);
+
     providerListingsAPI = new ProviderListingsAPI(apiClient);
+
     providerPersonalizationRequestsAPI = new ProviderPersonalizationRequestsAPI(apiClient);
+
     providerProviderAnalyticsDashboardsAPI = new ProviderProviderAnalyticsDashboardsAPI(apiClient);
+
     providerProvidersAPI = new ProviderProvidersAPI(apiClient);
+
     providersAPI = new ProvidersAPI(apiClient);
+
     qualityMonitorV2API = new QualityMonitorV2API(apiClient);
+
     qualityMonitorsAPI = new QualityMonitorsAPI(apiClient);
+
     queriesAPI = new QueriesAPI(apiClient);
+
     queriesLegacyAPI = new QueriesLegacyAPI(apiClient);
+
     queryHistoryAPI = new QueryHistoryAPI(apiClient);
+
     queryVisualizationsAPI = new QueryVisualizationsAPI(apiClient);
+
     queryVisualizationsLegacyAPI = new QueryVisualizationsLegacyAPI(apiClient);
+
     recipientActivationAPI = new RecipientActivationAPI(apiClient);
+
     recipientFederationPoliciesAPI = new RecipientFederationPoliciesAPI(apiClient);
+
     recipientsAPI = new RecipientsAPI(apiClient);
+
     redashConfigAPI = new RedashConfigAPI(apiClient);
+
     registeredModelsAPI = new RegisteredModelsAPI(apiClient);
+
     reposAPI = new ReposAPI(apiClient);
+
     resourceQuotasAPI = new ResourceQuotasAPI(apiClient);
+
     rfaAPI = new RfaAPI(apiClient);
+
     schemasAPI = new SchemasAPI(apiClient);
+
     secretsAPI = new SecretsExt(apiClient);
+
     servicePrincipalSecretsProxyAPI = new ServicePrincipalSecretsProxyAPI(apiClient);
-    servicePrincipalsAPI = new ServicePrincipalsAPI(apiClient);
+
+    servicePrincipalsV2API = new ServicePrincipalsV2API(apiClient);
+
     servingEndpointsAPI = new ServingEndpointsAPI(apiClient);
     servingEndpointsDataPlaneAPI =
         new ServingEndpointsDataPlaneAPI(apiClient, config, servingEndpointsAPI);
+
     settingsAPI = new SettingsAPI(apiClient);
+
     sharesAPI = new SharesAPI(apiClient);
+
     statementExecutionAPI = new StatementExecutionAPI(apiClient);
+
     storageCredentialsAPI = new StorageCredentialsAPI(apiClient);
+
     systemSchemasAPI = new SystemSchemasAPI(apiClient);
+
     tableConstraintsAPI = new TableConstraintsAPI(apiClient);
+
     tablesAPI = new TablesAPI(apiClient);
+
     temporaryPathCredentialsAPI = new TemporaryPathCredentialsAPI(apiClient);
+
     temporaryTableCredentialsAPI = new TemporaryTableCredentialsAPI(apiClient);
+
     tokenManagementAPI = new TokenManagementAPI(apiClient);
+
     tokensAPI = new TokensAPI(apiClient);
-    usersAPI = new UsersAPI(apiClient);
+
+    usersV2API = new UsersV2API(apiClient);
+
     vectorSearchEndpointsAPI = new VectorSearchEndpointsAPI(apiClient);
+
     vectorSearchIndexesAPI = new VectorSearchIndexesAPI(apiClient);
+
     volumesAPI = new VolumesAPI(apiClient);
+
     warehousesAPI = new WarehousesAPI(apiClient);
+
     workspaceAPI = new WorkspaceAPI(apiClient);
+
     workspaceBindingsAPI = new WorkspaceBindingsAPI(apiClient);
+
     workspaceConfAPI = new WorkspaceConfAPI(apiClient);
+
+    groupsAPI = new GroupsAPI(apiClient);
+    servicePrincipalsAPI = new ServicePrincipalsAPI(apiClient);
+    usersAPI = new UsersAPI(apiClient);
   }
 
   /** Constructor for mocks */
@@ -981,8 +1218,8 @@ public class WorkspaceClient {
    * assigned as members of groups, and members inherit permissions that are assigned to their
    * group.
    */
-  public GroupsAPI groups() {
-    return groupsAPI;
+  public GroupsV2API groupsV2() {
+    return groupsV2API;
   }
 
   /**
@@ -1601,8 +1838,8 @@ public class WorkspaceClient {
    * interactive users do not need any write, delete, or modify privileges in production. This
    * eliminates the risk of a user overwriting production data by accident.
    */
-  public ServicePrincipalsAPI servicePrincipals() {
-    return servicePrincipalsAPI;
+  public ServicePrincipalsV2API servicePrincipalsV2() {
+    return servicePrincipalsV2API;
   }
 
   /**
@@ -1872,8 +2109,8 @@ public class WorkspaceClient {
    * that user’s account will also be removed from Databricks workspace. This ensures a consistent
    * offboarding process and prevents unauthorized users from accessing sensitive data.
    */
-  public UsersAPI users() {
-    return usersAPI;
+  public UsersV2API usersV2() {
+    return usersV2API;
   }
 
   /** **Endpoint**: Represents the compute resources to host vector search indexes. */
@@ -1954,6 +2191,45 @@ public class WorkspaceClient {
   /** This API allows updating known workspace settings for advanced users. */
   public WorkspaceConfAPI workspaceConf() {
     return workspaceConfAPI;
+  }
+
+  /**
+   * Groups simplify identity management, making it easier to assign access to Databricks workspace,
+   * data, and other securable objects.
+   *
+   * <p>It is best practice to assign access to workspaces and access-control policies in Unity
+   * Catalog to groups, instead of to users individually. All Databricks workspace identities can be
+   * assigned as members of groups, and members inherit permissions that are assigned to their
+   * group.
+   */
+  public GroupsAPI groups() {
+    return groupsAPI;
+  }
+
+  /**
+   * Identities for use with jobs, automated tools, and systems such as scripts, apps, and CI/CD
+   * platforms. Databricks recommends creating service principals to run production jobs or modify
+   * production data. If all processes that act on production data run with service principals,
+   * interactive users do not need any write, delete, or modify privileges in production. This
+   * eliminates the risk of a user overwriting production data by accident.
+   */
+  public ServicePrincipalsAPI servicePrincipals() {
+    return servicePrincipalsAPI;
+  }
+
+  /**
+   * User identities recognized by Databricks and represented by email addresses.
+   *
+   * <p>Databricks recommends using SCIM provisioning to sync users and groups automatically from
+   * your identity provider to your Databricks workspace. SCIM streamlines onboarding a new employee
+   * or team by using your identity provider to create users and groups in Databricks workspace and
+   * give them the proper level of access. When a user leaves your organization or no longer needs
+   * access to Databricks workspace, admins can terminate the user in your identity provider and
+   * that user’s account will also be removed from Databricks workspace. This ensures a consistent
+   * offboarding process and prevents unauthorized users from accessing sensitive data.
+   */
+  public UsersAPI users() {
+    return usersAPI;
   }
 
   /** Replace the default AccessControlService with a custom implementation. */
@@ -2455,14 +2731,14 @@ public class WorkspaceClient {
     return this;
   }
 
-  /** Replace the default GroupsService with a custom implementation. */
-  public WorkspaceClient withGroupsImpl(GroupsService groups) {
-    return this.withGroupsAPI(new GroupsAPI(groups));
+  /** Replace the default GroupsV2Service with a custom implementation. */
+  public WorkspaceClient withGroupsV2Impl(GroupsV2Service groupsV2) {
+    return this.withGroupsV2API(new GroupsV2API(groupsV2));
   }
 
-  /** Replace the default GroupsAPI with a custom implementation. */
-  public WorkspaceClient withGroupsAPI(GroupsAPI groups) {
-    this.groupsAPI = groups;
+  /** Replace the default GroupsV2API with a custom implementation. */
+  public WorkspaceClient withGroupsV2API(GroupsV2API groupsV2) {
+    this.groupsV2API = groupsV2;
     return this;
   }
 
@@ -3005,14 +3281,15 @@ public class WorkspaceClient {
     return this;
   }
 
-  /** Replace the default ServicePrincipalsService with a custom implementation. */
-  public WorkspaceClient withServicePrincipalsImpl(ServicePrincipalsService servicePrincipals) {
-    return this.withServicePrincipalsAPI(new ServicePrincipalsAPI(servicePrincipals));
+  /** Replace the default ServicePrincipalsV2Service with a custom implementation. */
+  public WorkspaceClient withServicePrincipalsV2Impl(
+      ServicePrincipalsV2Service servicePrincipalsV2) {
+    return this.withServicePrincipalsV2API(new ServicePrincipalsV2API(servicePrincipalsV2));
   }
 
-  /** Replace the default ServicePrincipalsAPI with a custom implementation. */
-  public WorkspaceClient withServicePrincipalsAPI(ServicePrincipalsAPI servicePrincipals) {
-    this.servicePrincipalsAPI = servicePrincipals;
+  /** Replace the default ServicePrincipalsV2API with a custom implementation. */
+  public WorkspaceClient withServicePrincipalsV2API(ServicePrincipalsV2API servicePrincipalsV2) {
+    this.servicePrincipalsV2API = servicePrincipalsV2;
     return this;
   }
 
@@ -3168,14 +3445,14 @@ public class WorkspaceClient {
     return this;
   }
 
-  /** Replace the default UsersService with a custom implementation. */
-  public WorkspaceClient withUsersImpl(UsersService users) {
-    return this.withUsersAPI(new UsersAPI(users));
+  /** Replace the default UsersV2Service with a custom implementation. */
+  public WorkspaceClient withUsersV2Impl(UsersV2Service usersV2) {
+    return this.withUsersV2API(new UsersV2API(usersV2));
   }
 
-  /** Replace the default UsersAPI with a custom implementation. */
-  public WorkspaceClient withUsersAPI(UsersAPI users) {
-    this.usersAPI = users;
+  /** Replace the default UsersV2API with a custom implementation. */
+  public WorkspaceClient withUsersV2API(UsersV2API usersV2) {
+    this.usersV2API = usersV2;
     return this;
   }
 
@@ -3256,6 +3533,39 @@ public class WorkspaceClient {
   /** Replace the default WorkspaceConfAPI with a custom implementation. */
   public WorkspaceClient withWorkspaceConfAPI(WorkspaceConfAPI workspaceConf) {
     this.workspaceConfAPI = workspaceConf;
+    return this;
+  }
+
+  /** Replace the default GroupsService with a custom implementation. */
+  public WorkspaceClient withGroupsImpl(GroupsService groups) {
+    return this.withGroupsAPI(new GroupsAPI(groups));
+  }
+
+  /** Replace the default GroupsAPI with a custom implementation. */
+  public WorkspaceClient withGroupsAPI(GroupsAPI groups) {
+    this.groupsAPI = groups;
+    return this;
+  }
+
+  /** Replace the default ServicePrincipalsService with a custom implementation. */
+  public WorkspaceClient withServicePrincipalsImpl(ServicePrincipalsService servicePrincipals) {
+    return this.withServicePrincipalsAPI(new ServicePrincipalsAPI(servicePrincipals));
+  }
+
+  /** Replace the default ServicePrincipalsAPI with a custom implementation. */
+  public WorkspaceClient withServicePrincipalsAPI(ServicePrincipalsAPI servicePrincipals) {
+    this.servicePrincipalsAPI = servicePrincipals;
+    return this;
+  }
+
+  /** Replace the default UsersService with a custom implementation. */
+  public WorkspaceClient withUsersImpl(UsersService users) {
+    return this.withUsersAPI(new UsersAPI(users));
+  }
+
+  /** Replace the default UsersAPI with a custom implementation. */
+  public WorkspaceClient withUsersAPI(UsersAPI users) {
+    this.usersAPI = users;
     return this;
   }
 
