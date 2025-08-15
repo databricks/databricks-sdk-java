@@ -64,6 +64,10 @@ public class Run {
   @JsonProperty("effective_performance_target")
   private PerformanceTarget effectivePerformanceTarget;
 
+  /** The id of the usage policy used by this run for cost attribution purposes. */
+  @JsonProperty("effective_usage_policy_id")
+  private String effectiveUsagePolicyId;
+
   /**
    * The time at which this run ended in epoch milliseconds (milliseconds since 1/1/1970 UTC). This
    * field is set to 0 if the job is still running.
@@ -287,6 +291,15 @@ public class Run {
 
   public PerformanceTarget getEffectivePerformanceTarget() {
     return effectivePerformanceTarget;
+  }
+
+  public Run setEffectiveUsagePolicyId(String effectiveUsagePolicyId) {
+    this.effectiveUsagePolicyId = effectiveUsagePolicyId;
+    return this;
+  }
+
+  public String getEffectiveUsagePolicyId() {
+    return effectiveUsagePolicyId;
   }
 
   public Run setEndTime(Long endTime) {
@@ -553,6 +566,7 @@ public class Run {
         && Objects.equals(creatorUserName, that.creatorUserName)
         && Objects.equals(description, that.description)
         && Objects.equals(effectivePerformanceTarget, that.effectivePerformanceTarget)
+        && Objects.equals(effectiveUsagePolicyId, that.effectiveUsagePolicyId)
         && Objects.equals(endTime, that.endTime)
         && Objects.equals(executionDuration, that.executionDuration)
         && Objects.equals(gitSource, that.gitSource)
@@ -593,6 +607,7 @@ public class Run {
         creatorUserName,
         description,
         effectivePerformanceTarget,
+        effectiveUsagePolicyId,
         endTime,
         executionDuration,
         gitSource,
@@ -633,6 +648,7 @@ public class Run {
         .add("creatorUserName", creatorUserName)
         .add("description", description)
         .add("effectivePerformanceTarget", effectivePerformanceTarget)
+        .add("effectiveUsagePolicyId", effectiveUsagePolicyId)
         .add("endTime", endTime)
         .add("executionDuration", executionDuration)
         .add("gitSource", gitSource)

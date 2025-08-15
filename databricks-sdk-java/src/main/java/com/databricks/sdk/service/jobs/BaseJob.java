@@ -31,6 +31,10 @@ public class BaseJob {
   @JsonProperty("effective_budget_policy_id")
   private String effectiveBudgetPolicyId;
 
+  /** The id of the usage policy used by this job for cost attribution purposes. */
+  @JsonProperty("effective_usage_policy_id")
+  private String effectiveUsagePolicyId;
+
   /**
    * Indicates if the job has more array properties (`tasks`, `job_clusters`) that are not shown.
    * They can be accessed via :method:jobs/get endpoint. It is only relevant for API 2.2
@@ -81,6 +85,15 @@ public class BaseJob {
     return effectiveBudgetPolicyId;
   }
 
+  public BaseJob setEffectiveUsagePolicyId(String effectiveUsagePolicyId) {
+    this.effectiveUsagePolicyId = effectiveUsagePolicyId;
+    return this;
+  }
+
+  public String getEffectiveUsagePolicyId() {
+    return effectiveUsagePolicyId;
+  }
+
   public BaseJob setHasMore(Boolean hasMore) {
     this.hasMore = hasMore;
     return this;
@@ -125,6 +138,7 @@ public class BaseJob {
     return Objects.equals(createdTime, that.createdTime)
         && Objects.equals(creatorUserName, that.creatorUserName)
         && Objects.equals(effectiveBudgetPolicyId, that.effectiveBudgetPolicyId)
+        && Objects.equals(effectiveUsagePolicyId, that.effectiveUsagePolicyId)
         && Objects.equals(hasMore, that.hasMore)
         && Objects.equals(jobId, that.jobId)
         && Objects.equals(settings, that.settings)
@@ -137,6 +151,7 @@ public class BaseJob {
         createdTime,
         creatorUserName,
         effectiveBudgetPolicyId,
+        effectiveUsagePolicyId,
         hasMore,
         jobId,
         settings,
@@ -149,6 +164,7 @@ public class BaseJob {
         .add("createdTime", createdTime)
         .add("creatorUserName", creatorUserName)
         .add("effectiveBudgetPolicyId", effectiveBudgetPolicyId)
+        .add("effectiveUsagePolicyId", effectiveUsagePolicyId)
         .add("hasMore", hasMore)
         .add("jobId", jobId)
         .add("settings", settings)
