@@ -55,7 +55,7 @@ public abstract class PreconditionFailure {
    * @return a new builder instance
    */
   public static Builder builder() {
-    return new AutoValue_PreconditionFailure.Builder();
+    return new AutoValue_PreconditionFailure.Builder().setViolations(Collections.emptyList());
   }
 
   /** Builder for constructing PreconditionFailure instances. */
@@ -77,16 +77,7 @@ public abstract class PreconditionFailure {
      *
      * @return a new PreconditionFailure instance
      */
-    public PreconditionFailure build() {
-      if (violations() == null) {
-        setViolations(Collections.emptyList());
-      }
-      return autoBuild();
-    }
-
-    abstract List<PreconditionFailureViolation> violations();
-
-    abstract PreconditionFailure autoBuild();
+    public abstract PreconditionFailure build();
   }
 
   /**

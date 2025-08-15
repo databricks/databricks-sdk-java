@@ -3,9 +3,6 @@ package com.databricks.sdk.core.error;
 import com.databricks.sdk.core.error.details.ErrorDetails;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * The union of all JSON error responses from the Databricks APIs, not including HTML responses.
@@ -20,7 +17,7 @@ public class ApiErrorBody {
   private String scimStatus;
   private String scimType;
   private String api12Error;
-  private List<ErrorDetail> errorDetails;
+  private ErrorDetails errorDetails;
 
   public ApiErrorBody() {}
 
@@ -48,14 +45,14 @@ public class ApiErrorBody {
     this.scimStatus = scimStatus;
     this.scimType = scimType;
     this.api12Error = api12Error;
-    this.errorDetails = fromDetails(errorDetails);
+    this.errorDetails = errorDetails;
   }
 
-  public List<ErrorDetail> getErrorDetails() {
+  public ErrorDetails getErrorDetails() {
     return errorDetails;
   }
 
-  public void setErrorDetails(List<ErrorDetail> errorDetails) {
+  public void setErrorDetails(ErrorDetails errorDetails) {
     this.errorDetails = errorDetails;
   }
 
@@ -105,27 +102,5 @@ public class ApiErrorBody {
 
   public void setApi12Error(String api12Error) {
     this.api12Error = api12Error;
-  }
-
-  /**
-   * Converts the error details to a list of ErrorDetail objects. This only supports the ErrorInfo
-   * type.
-   *
-   * @param details The error details to convert.
-   * @return A list of ErrorDetail objects.
-   */
-  private static List<ErrorDetail> fromDetails(ErrorDetails details) {
-    if (details == null) {
-      return Collections.emptyList();
-    }
-    if (!details.errorInfo().isPresent()) {
-      return Collections.emptyList();
-    }
-    return Arrays.asList(
-        new ErrorDetail(
-            "type.googleapis.com/google.rpc.ErrorInfo",
-            details.errorInfo().get().reason(),
-            details.errorInfo().get().domain(),
-            details.errorInfo().get().metadata()));
   }
 }

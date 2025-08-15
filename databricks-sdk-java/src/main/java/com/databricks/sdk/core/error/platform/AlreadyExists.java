@@ -2,14 +2,13 @@
 
 package com.databricks.sdk.core.error.platform;
 
-import com.databricks.sdk.core.error.ErrorDetail;
+import com.databricks.sdk.core.error.details.ErrorDetails;
 import com.databricks.sdk.support.Generated;
-import java.util.List;
 
 /** operation was rejected due a conflict with an existing resource */
 @Generated
 public class AlreadyExists extends ResourceConflict {
-  public AlreadyExists(String message, List<ErrorDetail> details) {
+  public AlreadyExists(String message, ErrorDetails details) {
     super("ALREADY_EXISTS", message, details);
   }
 }

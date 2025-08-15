@@ -71,7 +71,7 @@ public abstract class ErrorInfo {
    * @return a new builder instance
    */
   public static Builder builder() {
-    return new AutoValue_ErrorInfo.Builder();
+    return new AutoValue_ErrorInfo.Builder().setMetadata(Collections.emptyMap());
   }
 
   /** Builder for constructing ErrorInfo instances. */
@@ -111,15 +111,6 @@ public abstract class ErrorInfo {
      *
      * @return a new ErrorInfo instance
      */
-    public ErrorInfo build() {
-      if (metadata() == null) {
-        setMetadata(Collections.emptyMap());
-      }
-      return autoBuild();
-    }
-
-    abstract Map<String, String> metadata();
-
-    abstract ErrorInfo autoBuild();
+    public abstract ErrorInfo build();
   }
 }
