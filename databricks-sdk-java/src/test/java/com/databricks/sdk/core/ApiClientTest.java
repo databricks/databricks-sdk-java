@@ -3,13 +3,13 @@ package com.databricks.sdk.core;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.databricks.sdk.core.error.ApiErrorBody;
-import com.databricks.sdk.core.error.ErrorDetail;
 import com.databricks.sdk.core.error.PrivateLinkValidationError;
 import com.databricks.sdk.core.error.details.ErrorDetails;
 import com.databricks.sdk.core.error.details.ErrorInfo;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.utils.FakeTimer;
+import com.databricks.sdk.core.utils.SerDeUtils;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,7 +24,7 @@ import org.apache.http.impl.EnglishReasonPhraseCatalog;
 import org.junit.jupiter.api.Test;
 
 public class ApiClientTest {
-  private final ObjectMapper mapper = new ObjectMapper();
+  private final ObjectMapper mapper = SerDeUtils.createMapper();
 
   static class MyEndpointResponse {
     @JsonProperty("key")
@@ -349,13 +349,8 @@ public class ApiClientTest {
                 getSuccessResponse(req)),
             MyEndpointResponse.class,
             DatabricksError.class);
-    List<ErrorDetail> responseErrors = error.getErrorInfo();
-    assertEquals(responseErrors.size(), 1);
-    ErrorDetail responseError = responseErrors.get(0);
-    assertEquals("type.googleapis.com/google.rpc.ErrorInfo", responseError.getType());
-    assertEquals("reason", responseError.getReason());
-    assertEquals(metadata, responseError.getMetadata());
-    assertEquals("domain", responseError.getDomain());
+
+    assertEquals(errorDetails, error.getErrorDetails());
   }
 
   @Test

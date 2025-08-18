@@ -62,7 +62,7 @@ public abstract class Help {
    * @return a new builder instance
    */
   public static Builder builder() {
-    return new AutoValue_Help.Builder();
+    return new AutoValue_Help.Builder().setLinks(Collections.emptyList());
   }
 
   /** Builder for constructing Help instances. */
@@ -84,16 +84,7 @@ public abstract class Help {
      *
      * @return a new Help instance
      */
-    public Help build() {
-      if (links() == null) {
-        setLinks(Collections.emptyList());
-      }
-      return autoBuild();
-    }
-
-    abstract List<HelpLink> links();
-
-    abstract Help autoBuild();
+    public abstract Help build();
   }
 
   /**

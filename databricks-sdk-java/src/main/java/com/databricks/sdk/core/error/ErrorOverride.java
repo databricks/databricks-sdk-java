@@ -2,9 +2,9 @@ package com.databricks.sdk.core.error;
 
 import com.databricks.sdk.core.DatabricksError;
 import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.error.details.ErrorDetails;
 import com.databricks.sdk.core.http.Response;
 import java.lang.reflect.Constructor;
-import java.util.List;
 import java.util.regex.Pattern;
 
 public class ErrorOverride<T extends DatabricksError> {
@@ -68,7 +68,7 @@ public class ErrorOverride<T extends DatabricksError> {
       // All errors have a 2-argument constructor for the message and the error body.
       if (parameterTypes.length == 2
           && parameterTypes[0].equals(String.class)
-          && parameterTypes[1].equals(List.class)) {
+          && parameterTypes[1].equals(ErrorDetails.class)) {
         try {
           return (T) constructor.newInstance(body.getMessage(), body.getErrorDetails());
         } catch (Exception e) {

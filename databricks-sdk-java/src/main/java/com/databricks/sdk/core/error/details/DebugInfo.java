@@ -77,7 +77,7 @@ public abstract class DebugInfo {
    * @return a new builder instance
    */
   public static Builder builder() {
-    return new AutoValue_DebugInfo.Builder();
+    return new AutoValue_DebugInfo.Builder().setStackEntries(Collections.emptyList());
   }
 
   /** Builder for constructing DebugInfo instances. */
@@ -108,15 +108,6 @@ public abstract class DebugInfo {
      *
      * @return a new DebugInfo instance
      */
-    public DebugInfo build() {
-      if (stackEntries() == null) {
-        setStackEntries(Collections.emptyList());
-      }
-      return autoBuild();
-    }
-
-    abstract List<String> stackEntries();
-
-    abstract DebugInfo autoBuild();
+    public abstract DebugInfo build();
   }
 }

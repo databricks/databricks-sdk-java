@@ -49,7 +49,7 @@ public abstract class QuotaFailure {
    * @return a new builder instance
    */
   public static Builder builder() {
-    return new AutoValue_QuotaFailure.Builder();
+    return new AutoValue_QuotaFailure.Builder().setViolations(Collections.emptyList());
   }
 
   /** Builder for constructing QuotaFailure instances. */
@@ -71,16 +71,7 @@ public abstract class QuotaFailure {
      *
      * @return a new QuotaFailure instance
      */
-    public QuotaFailure build() {
-      if (violations() == null) {
-        setViolations(Collections.emptyList());
-      }
-      return autoBuild();
-    }
-
-    abstract List<QuotaFailureViolation> violations();
-
-    abstract QuotaFailure autoBuild();
+    public abstract QuotaFailure build();
   }
 
   /**

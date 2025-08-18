@@ -1,9 +1,9 @@
 package com.databricks.sdk.core.error;
 
 import com.databricks.sdk.core.DatabricksError;
+import com.databricks.sdk.core.error.details.ErrorDetails;
 import com.databricks.sdk.core.http.Response;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,12 +13,12 @@ abstract class AbstractErrorMapper {
 
   @FunctionalInterface
   protected interface ErrorCodeRule {
-    DatabricksError create(String message, List<ErrorDetail> details);
+    DatabricksError create(String message, ErrorDetails details);
   }
 
   @FunctionalInterface
   protected interface StatusCodeRule {
-    DatabricksError create(String errorCode, String message, List<ErrorDetail> details);
+    DatabricksError create(String errorCode, String message, ErrorDetails details);
   }
 
   public DatabricksError apply(Response resp, ApiErrorBody errorBody) {
@@ -35,7 +35,7 @@ abstract class AbstractErrorMapper {
     int code = resp.getStatusCode();
     String message = errorBody.getMessage();
     String errorCode = errorBody.getErrorCode();
-    List<ErrorDetail> details = errorBody.getErrorDetails();
+    ErrorDetails details = errorBody.getErrorDetails();
     if (errorCodeMapping.containsKey(errorCode)) {
       return errorCodeMapping.get(errorCode).create(message, details);
     }
