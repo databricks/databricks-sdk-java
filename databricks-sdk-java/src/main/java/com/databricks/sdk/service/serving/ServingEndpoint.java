@@ -62,6 +62,10 @@ public class ServingEndpoint {
   @JsonProperty("task")
   private String task;
 
+  /** The usage policy associated with serving endpoint. */
+  @JsonProperty("usage_policy_id")
+  private String usagePolicyId;
+
   public ServingEndpoint setAiGateway(AiGatewayConfig aiGateway) {
     this.aiGateway = aiGateway;
     return this;
@@ -170,6 +174,15 @@ public class ServingEndpoint {
     return task;
   }
 
+  public ServingEndpoint setUsagePolicyId(String usagePolicyId) {
+    this.usagePolicyId = usagePolicyId;
+    return this;
+  }
+
+  public String getUsagePolicyId() {
+    return usagePolicyId;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -186,7 +199,8 @@ public class ServingEndpoint {
         && Objects.equals(name, that.name)
         && Objects.equals(state, that.state)
         && Objects.equals(tags, that.tags)
-        && Objects.equals(task, that.task);
+        && Objects.equals(task, that.task)
+        && Objects.equals(usagePolicyId, that.usagePolicyId);
   }
 
   @Override
@@ -203,7 +217,8 @@ public class ServingEndpoint {
         name,
         state,
         tags,
-        task);
+        task,
+        usagePolicyId);
   }
 
   @Override
@@ -221,6 +236,7 @@ public class ServingEndpoint {
         .add("state", state)
         .add("tags", tags)
         .add("task", task)
+        .add("usagePolicyId", usagePolicyId)
         .toString();
   }
 }

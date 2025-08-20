@@ -46,7 +46,7 @@ public class CleanRoom {
   private CleanRoomOutputCatalog outputCatalog;
 
   /**
-   * This is Databricks username of the owner of the local clean room securable for permission
+   * This is the Databricks username of the owner of the local clean room securable for permission
    * management.
    */
   @JsonProperty("owner")

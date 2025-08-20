@@ -25,6 +25,10 @@ public interface GenieService {
   /** Delete a conversation. */
   void deleteConversation(GenieDeleteConversationRequest genieDeleteConversationRequest);
 
+  /** Delete a conversation message. */
+  void deleteConversationMessage(
+      GenieDeleteConversationMessageRequest genieDeleteConversationMessageRequest);
+
   /**
    * Execute the SQL for a message query attachment. Use this API when the query attachment has
    * expired and needs to be re-executed.
@@ -32,7 +36,10 @@ public interface GenieService {
   GenieGetMessageQueryResultResponse executeMessageAttachmentQuery(
       GenieExecuteMessageAttachmentQueryRequest genieExecuteMessageAttachmentQueryRequest);
 
-  /** Execute the SQL query in the message. */
+  /**
+   * DEPRECATED: Use [Execute Message Attachment Query](:method:genie/executemessageattachmentquery)
+   * instead.
+   */
   GenieGetMessageQueryResultResponse executeMessageQuery(
       GenieExecuteMessageQueryRequest genieExecuteMessageQueryRequest);
 
@@ -47,15 +54,15 @@ public interface GenieService {
       GenieGetMessageAttachmentQueryResultRequest genieGetMessageAttachmentQueryResultRequest);
 
   /**
-   * Get the result of SQL query if the message has a query attachment. This is only available if a
-   * message has a query attachment and the message status is `EXECUTING_QUERY`.
+   * DEPRECATED: Use [Get Message Attachment Query
+   * Result](:method:genie/getmessageattachmentqueryresult) instead.
    */
   GenieGetMessageQueryResultResponse getMessageQueryResult(
       GenieGetMessageQueryResultRequest genieGetMessageQueryResultRequest);
 
   /**
-   * Get the result of SQL query if the message has a query attachment. This is only available if a
-   * message has a query attachment and the message status is `EXECUTING_QUERY` OR `COMPLETED`.
+   * DEPRECATED: Use [Get Message Attachment Query
+   * Result](:method:genie/getmessageattachmentqueryresult) instead.
    */
   GenieGetMessageQueryResultResponse getMessageQueryResultByAttachment(
       GenieGetQueryResultByAttachmentRequest genieGetQueryResultByAttachmentRequest);
@@ -63,12 +70,19 @@ public interface GenieService {
   /** Get details of a Genie Space. */
   GenieSpace getSpace(GenieGetSpaceRequest genieGetSpaceRequest);
 
+  /** List messages in a conversation */
+  GenieListConversationMessagesResponse listConversationMessages(
+      GenieListConversationMessagesRequest genieListConversationMessagesRequest);
+
   /** Get a list of conversations in a Genie Space. */
   GenieListConversationsResponse listConversations(
       GenieListConversationsRequest genieListConversationsRequest);
 
   /** Get list of Genie Spaces. */
   GenieListSpacesResponse listSpaces(GenieListSpacesRequest genieListSpacesRequest);
+
+  /** Send feedback for a message. */
+  void sendMessageFeedback(GenieSendMessageFeedbackRequest genieSendMessageFeedbackRequest);
 
   /** Start a new conversation. */
   GenieStartConversationResponse startConversation(

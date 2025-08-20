@@ -5,7 +5,7 @@ package com.databricks.sdk.core.error.platform;
 import com.databricks.sdk.core.error.details.ErrorDetails;
 import com.databricks.sdk.support.Generated;
 
-/** invalid parameter value */
+/** supplied value for a parameter was invalid */
 @Generated
 public class InvalidParameterValue extends BadRequest {
   public InvalidParameterValue(String message, ErrorDetails details) {

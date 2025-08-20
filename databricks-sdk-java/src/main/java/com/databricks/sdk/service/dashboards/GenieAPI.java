@@ -120,6 +120,19 @@ public class GenieAPI {
     impl.deleteConversation(request);
   }
 
+  public void deleteConversationMessage(String spaceId, String conversationId, String messageId) {
+    deleteConversationMessage(
+        new GenieDeleteConversationMessageRequest()
+            .setSpaceId(spaceId)
+            .setConversationId(conversationId)
+            .setMessageId(messageId));
+  }
+
+  /** Delete a conversation message. */
+  public void deleteConversationMessage(GenieDeleteConversationMessageRequest request) {
+    impl.deleteConversationMessage(request);
+  }
+
   /**
    * Execute the SQL for a message query attachment. Use this API when the query attachment has
    * expired and needs to be re-executed.
@@ -129,7 +142,10 @@ public class GenieAPI {
     return impl.executeMessageAttachmentQuery(request);
   }
 
-  /** Execute the SQL query in the message. */
+  /**
+   * DEPRECATED: Use [Execute Message Attachment Query](:method:genie/executemessageattachmentquery)
+   * instead.
+   */
   public GenieGetMessageQueryResultResponse executeMessageQuery(
       GenieExecuteMessageQueryRequest request) {
     return impl.executeMessageQuery(request);
@@ -177,8 +193,8 @@ public class GenieAPI {
   }
 
   /**
-   * Get the result of SQL query if the message has a query attachment. This is only available if a
-   * message has a query attachment and the message status is `EXECUTING_QUERY`.
+   * DEPRECATED: Use [Get Message Attachment Query
+   * Result](:method:genie/getmessageattachmentqueryresult) instead.
    */
   public GenieGetMessageQueryResultResponse getMessageQueryResult(
       GenieGetMessageQueryResultRequest request) {
@@ -196,8 +212,8 @@ public class GenieAPI {
   }
 
   /**
-   * Get the result of SQL query if the message has a query attachment. This is only available if a
-   * message has a query attachment and the message status is `EXECUTING_QUERY` OR `COMPLETED`.
+   * DEPRECATED: Use [Get Message Attachment Query
+   * Result](:method:genie/getmessageattachmentqueryresult) instead.
    */
   public GenieGetMessageQueryResultResponse getMessageQueryResultByAttachment(
       GenieGetQueryResultByAttachmentRequest request) {
@@ -213,6 +229,20 @@ public class GenieAPI {
     return impl.getSpace(request);
   }
 
+  public GenieListConversationMessagesResponse listConversationMessages(
+      String spaceId, String conversationId) {
+    return listConversationMessages(
+        new GenieListConversationMessagesRequest()
+            .setSpaceId(spaceId)
+            .setConversationId(conversationId));
+  }
+
+  /** List messages in a conversation */
+  public GenieListConversationMessagesResponse listConversationMessages(
+      GenieListConversationMessagesRequest request) {
+    return impl.listConversationMessages(request);
+  }
+
   public GenieListConversationsResponse listConversations(String spaceId) {
     return listConversations(new GenieListConversationsRequest().setSpaceId(spaceId));
   }
@@ -225,6 +255,11 @@ public class GenieAPI {
   /** Get list of Genie Spaces. */
   public GenieListSpacesResponse listSpaces(GenieListSpacesRequest request) {
     return impl.listSpaces(request);
+  }
+
+  /** Send feedback for a message. */
+  public void sendMessageFeedback(GenieSendMessageFeedbackRequest request) {
+    impl.sendMessageFeedback(request);
   }
 
   /** Start a new conversation. */
