@@ -35,7 +35,7 @@ public class PolicyInfo {
   private Collection<String> exceptPrincipals;
 
   /**
-   * Type of securables that the policy should take effect on. Only `table` is supported at this
+   * Type of securables that the policy should take effect on. Only `TABLE` is supported at this
    * moment. Required on create and optional on update.
    */
   @JsonProperty("for_securable_type")
@@ -47,15 +47,15 @@ public class PolicyInfo {
 
   /**
    * Optional list of condition expressions used to match table columns. Only valid when
-   * `for_securable_type` is `table`. When specified, the policy only applies to tables whose
+   * `for_securable_type` is `TABLE`. When specified, the policy only applies to tables whose
    * columns satisfy all match conditions.
    */
   @JsonProperty("match_columns")
   private Collection<MatchColumn> matchColumns;
 
   /**
-   * Name of the policy. Required on create and ignored on update. To update the name, use the
-   * `new_name` field.
+   * Name of the policy. Required on create and optional on update. To rename the policy, set `name`
+   * to a different value on update.
    */
   @JsonProperty("name")
   private String name;
@@ -68,7 +68,7 @@ public class PolicyInfo {
   private String onSecurableFullname;
 
   /**
-   * Type of the securable on which the policy is defined. Only `catalog`, `schema` and `table` are
+   * Type of the securable on which the policy is defined. Only `CATALOG`, `SCHEMA` and `TABLE` are
    * supported at this moment. Required on create and ignored on update.
    */
   @JsonProperty("on_securable_type")

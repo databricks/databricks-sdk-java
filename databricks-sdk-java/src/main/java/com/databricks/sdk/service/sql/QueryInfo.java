@@ -9,6 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class QueryInfo {
+  /** The ID of the cached query if this result retrieved from cache */
+  @JsonProperty("cache_query_id")
+  private String cacheQueryId;
+
   /** SQL Warehouse channel information at the time of query execution */
   @JsonProperty("channel_used")
   private ChannelInfo channelUsed;
@@ -122,6 +126,15 @@ public class QueryInfo {
   /** Warehouse ID. */
   @JsonProperty("warehouse_id")
   private String warehouseId;
+
+  public QueryInfo setCacheQueryId(String cacheQueryId) {
+    this.cacheQueryId = cacheQueryId;
+    return this;
+  }
+
+  public String getCacheQueryId() {
+    return cacheQueryId;
+  }
 
   public QueryInfo setChannelUsed(ChannelInfo channelUsed) {
     this.channelUsed = channelUsed;
@@ -344,7 +357,8 @@ public class QueryInfo {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     QueryInfo that = (QueryInfo) o;
-    return Objects.equals(channelUsed, that.channelUsed)
+    return Objects.equals(cacheQueryId, that.cacheQueryId)
+        && Objects.equals(channelUsed, that.channelUsed)
         && Objects.equals(clientApplication, that.clientApplication)
         && Objects.equals(duration, that.duration)
         && Objects.equals(endpointId, that.endpointId)
@@ -373,6 +387,7 @@ public class QueryInfo {
   @Override
   public int hashCode() {
     return Objects.hash(
+        cacheQueryId,
         channelUsed,
         clientApplication,
         duration,
@@ -402,6 +417,7 @@ public class QueryInfo {
   @Override
   public String toString() {
     return new ToStringer(QueryInfo.class)
+        .add("cacheQueryId", cacheQueryId)
         .add("channelUsed", channelUsed)
         .add("clientApplication", clientApplication)
         .add("duration", duration)

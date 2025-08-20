@@ -9,9 +9,15 @@ import java.util.Objects;
 
 @Generated
 public class EmbeddingSourceColumn {
-  /** Name of the embedding model endpoint */
+  /** Name of the embedding model endpoint, used by default for both ingestion and querying. */
   @JsonProperty("embedding_model_endpoint_name")
   private String embeddingModelEndpointName;
+
+  /**
+   * Name of the embedding model endpoint which, if specified, is used for querying (not ingestion).
+   */
+  @JsonProperty("model_endpoint_name_for_query")
+  private String modelEndpointNameForQuery;
 
   /** Name of the column */
   @JsonProperty("name")
@@ -24,6 +30,15 @@ public class EmbeddingSourceColumn {
 
   public String getEmbeddingModelEndpointName() {
     return embeddingModelEndpointName;
+  }
+
+  public EmbeddingSourceColumn setModelEndpointNameForQuery(String modelEndpointNameForQuery) {
+    this.modelEndpointNameForQuery = modelEndpointNameForQuery;
+    return this;
+  }
+
+  public String getModelEndpointNameForQuery() {
+    return modelEndpointNameForQuery;
   }
 
   public EmbeddingSourceColumn setName(String name) {
@@ -41,18 +56,20 @@ public class EmbeddingSourceColumn {
     if (o == null || getClass() != o.getClass()) return false;
     EmbeddingSourceColumn that = (EmbeddingSourceColumn) o;
     return Objects.equals(embeddingModelEndpointName, that.embeddingModelEndpointName)
+        && Objects.equals(modelEndpointNameForQuery, that.modelEndpointNameForQuery)
         && Objects.equals(name, that.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(embeddingModelEndpointName, name);
+    return Objects.hash(embeddingModelEndpointName, modelEndpointNameForQuery, name);
   }
 
   @Override
   public String toString() {
     return new ToStringer(EmbeddingSourceColumn.class)
         .add("embeddingModelEndpointName", embeddingModelEndpointName)
+        .add("modelEndpointNameForQuery", modelEndpointNameForQuery)
         .add("name", name)
         .toString();
   }

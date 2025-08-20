@@ -29,7 +29,7 @@ public class CleanRoomAssetNotebook {
   @JsonProperty("reviews")
   private Collection<CleanRoomNotebookReview> reviews;
 
-  /** collaborators that can run the notebook */
+  /** Aliases of collaborators that can run the notebook. */
   @JsonProperty("runner_collaborator_aliases")
   private Collection<String> runnerCollaboratorAliases;
 

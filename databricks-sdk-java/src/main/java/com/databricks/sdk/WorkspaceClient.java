@@ -12,6 +12,8 @@ import com.databricks.sdk.service.agentbricks.AgentBricksAPI;
 import com.databricks.sdk.service.agentbricks.AgentBricksService;
 import com.databricks.sdk.service.apps.AppsAPI;
 import com.databricks.sdk.service.apps.AppsService;
+import com.databricks.sdk.service.apps.AppsSettingsAPI;
+import com.databricks.sdk.service.apps.AppsSettingsService;
 import com.databricks.sdk.service.catalog.ArtifactAllowlistsAPI;
 import com.databricks.sdk.service.catalog.ArtifactAllowlistsService;
 import com.databricks.sdk.service.catalog.CatalogsAPI;
@@ -20,6 +22,8 @@ import com.databricks.sdk.service.catalog.ConnectionsAPI;
 import com.databricks.sdk.service.catalog.ConnectionsService;
 import com.databricks.sdk.service.catalog.CredentialsAPI;
 import com.databricks.sdk.service.catalog.CredentialsService;
+import com.databricks.sdk.service.catalog.EntityTagAssignmentsAPI;
+import com.databricks.sdk.service.catalog.EntityTagAssignmentsService;
 import com.databricks.sdk.service.catalog.ExternalLineageAPI;
 import com.databricks.sdk.service.catalog.ExternalLineageService;
 import com.databricks.sdk.service.catalog.ExternalLocationsAPI;
@@ -44,6 +48,8 @@ import com.databricks.sdk.service.catalog.RegisteredModelsAPI;
 import com.databricks.sdk.service.catalog.RegisteredModelsService;
 import com.databricks.sdk.service.catalog.ResourceQuotasAPI;
 import com.databricks.sdk.service.catalog.ResourceQuotasService;
+import com.databricks.sdk.service.catalog.RfaAPI;
+import com.databricks.sdk.service.catalog.RfaService;
 import com.databricks.sdk.service.catalog.SchemasAPI;
 import com.databricks.sdk.service.catalog.SchemasService;
 import com.databricks.sdk.service.catalog.StorageCredentialsAPI;
@@ -178,6 +184,8 @@ import com.databricks.sdk.service.settings.TokensAPI;
 import com.databricks.sdk.service.settings.TokensService;
 import com.databricks.sdk.service.settings.WorkspaceConfAPI;
 import com.databricks.sdk.service.settings.WorkspaceConfService;
+import com.databricks.sdk.service.settingsv2.WorkspaceSettingsV2API;
+import com.databricks.sdk.service.settingsv2.WorkspaceSettingsV2Service;
 import com.databricks.sdk.service.sharing.ProvidersAPI;
 import com.databricks.sdk.service.sharing.ProvidersService;
 import com.databricks.sdk.service.sharing.RecipientActivationAPI;
@@ -218,6 +226,8 @@ import com.databricks.sdk.service.sql.StatementExecutionAPI;
 import com.databricks.sdk.service.sql.StatementExecutionService;
 import com.databricks.sdk.service.sql.WarehousesAPI;
 import com.databricks.sdk.service.sql.WarehousesService;
+import com.databricks.sdk.service.tags.TagPoliciesAPI;
+import com.databricks.sdk.service.tags.TagPoliciesService;
 import com.databricks.sdk.service.vectorsearch.VectorSearchEndpointsAPI;
 import com.databricks.sdk.service.vectorsearch.VectorSearchEndpointsService;
 import com.databricks.sdk.service.vectorsearch.VectorSearchIndexesAPI;
@@ -244,6 +254,7 @@ public class WorkspaceClient {
   private AlertsLegacyAPI alertsLegacyAPI;
   private AlertsV2API alertsV2API;
   private AppsAPI appsAPI;
+  private AppsSettingsAPI appsSettingsAPI;
   private ArtifactAllowlistsAPI artifactAllowlistsAPI;
   private CatalogsAPI catalogsAPI;
   private CleanRoomAssetRevisionsAPI cleanRoomAssetRevisionsAPI;
@@ -269,6 +280,7 @@ public class WorkspaceClient {
   private DatabaseAPI databaseAPI;
   private DbfsExt dbfsAPI;
   private DbsqlPermissionsAPI dbsqlPermissionsAPI;
+  private EntityTagAssignmentsAPI entityTagAssignmentsAPI;
   private ExperimentsAPI experimentsAPI;
   private ExternalLineageAPI externalLineageAPI;
   private ExternalLocationsAPI externalLocationsAPI;
@@ -324,6 +336,7 @@ public class WorkspaceClient {
   private RegisteredModelsAPI registeredModelsAPI;
   private ReposAPI reposAPI;
   private ResourceQuotasAPI resourceQuotasAPI;
+  private RfaAPI rfaAPI;
   private SchemasAPI schemasAPI;
   private SecretsExt secretsAPI;
   private ServicePrincipalSecretsProxyAPI servicePrincipalSecretsProxyAPI;
@@ -337,6 +350,7 @@ public class WorkspaceClient {
   private SystemSchemasAPI systemSchemasAPI;
   private TableConstraintsAPI tableConstraintsAPI;
   private TablesAPI tablesAPI;
+  private TagPoliciesAPI tagPoliciesAPI;
   private TemporaryPathCredentialsAPI temporaryPathCredentialsAPI;
   private TemporaryTableCredentialsAPI temporaryTableCredentialsAPI;
   private TokenManagementAPI tokenManagementAPI;
@@ -349,6 +363,7 @@ public class WorkspaceClient {
   private WorkspaceAPI workspaceAPI;
   private WorkspaceBindingsAPI workspaceBindingsAPI;
   private WorkspaceConfAPI workspaceConfAPI;
+  private WorkspaceSettingsV2API workspaceSettingsV2API;
 
   public WorkspaceClient() {
     this(ConfigLoader.getDefault());
@@ -364,6 +379,7 @@ public class WorkspaceClient {
     alertsLegacyAPI = new AlertsLegacyAPI(apiClient);
     alertsV2API = new AlertsV2API(apiClient);
     appsAPI = new AppsAPI(apiClient);
+    appsSettingsAPI = new AppsSettingsAPI(apiClient);
     artifactAllowlistsAPI = new ArtifactAllowlistsAPI(apiClient);
     catalogsAPI = new CatalogsAPI(apiClient);
     cleanRoomAssetRevisionsAPI = new CleanRoomAssetRevisionsAPI(apiClient);
@@ -389,6 +405,7 @@ public class WorkspaceClient {
     databaseAPI = new DatabaseAPI(apiClient);
     dbfsAPI = new DbfsExt(apiClient);
     dbsqlPermissionsAPI = new DbsqlPermissionsAPI(apiClient);
+    entityTagAssignmentsAPI = new EntityTagAssignmentsAPI(apiClient);
     experimentsAPI = new ExperimentsAPI(apiClient);
     externalLineageAPI = new ExternalLineageAPI(apiClient);
     externalLocationsAPI = new ExternalLocationsAPI(apiClient);
@@ -444,6 +461,7 @@ public class WorkspaceClient {
     registeredModelsAPI = new RegisteredModelsAPI(apiClient);
     reposAPI = new ReposAPI(apiClient);
     resourceQuotasAPI = new ResourceQuotasAPI(apiClient);
+    rfaAPI = new RfaAPI(apiClient);
     schemasAPI = new SchemasAPI(apiClient);
     secretsAPI = new SecretsExt(apiClient);
     servicePrincipalSecretsProxyAPI = new ServicePrincipalSecretsProxyAPI(apiClient);
@@ -458,6 +476,7 @@ public class WorkspaceClient {
     systemSchemasAPI = new SystemSchemasAPI(apiClient);
     tableConstraintsAPI = new TableConstraintsAPI(apiClient);
     tablesAPI = new TablesAPI(apiClient);
+    tagPoliciesAPI = new TagPoliciesAPI(apiClient);
     temporaryPathCredentialsAPI = new TemporaryPathCredentialsAPI(apiClient);
     temporaryTableCredentialsAPI = new TemporaryTableCredentialsAPI(apiClient);
     tokenManagementAPI = new TokenManagementAPI(apiClient);
@@ -470,6 +489,7 @@ public class WorkspaceClient {
     workspaceAPI = new WorkspaceAPI(apiClient);
     workspaceBindingsAPI = new WorkspaceBindingsAPI(apiClient);
     workspaceConfAPI = new WorkspaceConfAPI(apiClient);
+    workspaceSettingsV2API = new WorkspaceSettingsV2API(apiClient);
   }
 
   /** Constructor for mocks */
@@ -539,6 +559,11 @@ public class WorkspaceClient {
    */
   public AppsAPI apps() {
     return appsAPI;
+  }
+
+  /** Apps Settings manage the settings for the Apps service on a customer's Databricks instance. */
+  public AppsSettingsAPI appsSettings() {
+    return appsSettingsAPI;
   }
 
   /**
@@ -807,6 +832,16 @@ public class WorkspaceClient {
    */
   public DbsqlPermissionsAPI dbsqlPermissions() {
     return dbsqlPermissionsAPI;
+  }
+
+  /**
+   * Tags are attributes that include keys and optional values that you can use to organize and
+   * categorize entities in Unity Catalog. Entity tagging is currently supported on catalogs,
+   * schemas, tables (including views), columns, volumes. With these APIs, users can create, update,
+   * delete, and list tag assignments across Unity Catalog entities
+   */
+  public EntityTagAssignmentsAPI entityTagAssignments() {
+    return entityTagAssignmentsAPI;
   }
 
   /**
@@ -1533,6 +1568,18 @@ public class WorkspaceClient {
   }
 
   /**
+   * Request for Access enables customers to request access to and manage access request
+   * destinations for Unity Catalog securables.
+   *
+   * <p>These APIs provide a standardized way to update, get, and request to access request
+   * destinations. Fine-grained authorization ensures that only users with appropriate permissions
+   * can manage access request destinations.
+   */
+  public RfaAPI rfa() {
+    return rfaAPI;
+  }
+
+  /**
    * A schema (also called a database) is the second layer of Unity Catalog’s three-level namespace.
    * A schema organizes tables, views and functions. To access (or list) a table or view in a
    * schema, users must have the USE_SCHEMA data permission on the schema and its parent catalog,
@@ -1781,6 +1828,11 @@ public class WorkspaceClient {
     return tablesAPI;
   }
 
+  /** The Tag Policy API allows you to manage tag policies in Databricks. */
+  public TagPoliciesAPI tagPolicies() {
+    return tagPoliciesAPI;
+  }
+
   /**
    * Temporary Path Credentials refer to short-lived, downscoped credentials used to access external
    * cloud storage locations registered in Databricks. These credentials are employed to provide
@@ -1940,6 +1992,11 @@ public class WorkspaceClient {
     return workspaceConfAPI;
   }
 
+  /** APIs to manage workspace level settings */
+  public WorkspaceSettingsV2API workspaceSettingsV2() {
+    return workspaceSettingsV2API;
+  }
+
   /** Replace the default AccessControlService with a custom implementation. */
   public WorkspaceClient withAccessControlImpl(AccessControlService accessControl) {
     return this.withAccessControlAPI(new AccessControlAPI(accessControl));
@@ -2017,6 +2074,17 @@ public class WorkspaceClient {
   /** Replace the default AppsAPI with a custom implementation. */
   public WorkspaceClient withAppsAPI(AppsAPI apps) {
     this.appsAPI = apps;
+    return this;
+  }
+
+  /** Replace the default AppsSettingsService with a custom implementation. */
+  public WorkspaceClient withAppsSettingsImpl(AppsSettingsService appsSettings) {
+    return this.withAppsSettingsAPI(new AppsSettingsAPI(appsSettings));
+  }
+
+  /** Replace the default AppsSettingsAPI with a custom implementation. */
+  public WorkspaceClient withAppsSettingsAPI(AppsSettingsAPI appsSettings) {
+    this.appsSettingsAPI = appsSettings;
     return this;
   }
 
@@ -2304,6 +2372,18 @@ public class WorkspaceClient {
   /** Replace the default DbsqlPermissionsAPI with a custom implementation. */
   public WorkspaceClient withDbsqlPermissionsAPI(DbsqlPermissionsAPI dbsqlPermissions) {
     this.dbsqlPermissionsAPI = dbsqlPermissions;
+    return this;
+  }
+
+  /** Replace the default EntityTagAssignmentsService with a custom implementation. */
+  public WorkspaceClient withEntityTagAssignmentsImpl(
+      EntityTagAssignmentsService entityTagAssignments) {
+    return this.withEntityTagAssignmentsAPI(new EntityTagAssignmentsAPI(entityTagAssignments));
+  }
+
+  /** Replace the default EntityTagAssignmentsAPI with a custom implementation. */
+  public WorkspaceClient withEntityTagAssignmentsAPI(EntityTagAssignmentsAPI entityTagAssignments) {
+    this.entityTagAssignmentsAPI = entityTagAssignments;
     return this;
   }
 
@@ -2942,6 +3022,17 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default RfaService with a custom implementation. */
+  public WorkspaceClient withRfaImpl(RfaService rfa) {
+    return this.withRfaAPI(new RfaAPI(rfa));
+  }
+
+  /** Replace the default RfaAPI with a custom implementation. */
+  public WorkspaceClient withRfaAPI(RfaAPI rfa) {
+    this.rfaAPI = rfa;
+    return this;
+  }
+
   /** Replace the default SchemasService with a custom implementation. */
   public WorkspaceClient withSchemasImpl(SchemasService schemas) {
     return this.withSchemasAPI(new SchemasAPI(schemas));
@@ -3091,6 +3182,17 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default TagPoliciesService with a custom implementation. */
+  public WorkspaceClient withTagPoliciesImpl(TagPoliciesService tagPolicies) {
+    return this.withTagPoliciesAPI(new TagPoliciesAPI(tagPolicies));
+  }
+
+  /** Replace the default TagPoliciesAPI with a custom implementation. */
+  public WorkspaceClient withTagPoliciesAPI(TagPoliciesAPI tagPolicies) {
+    this.tagPoliciesAPI = tagPolicies;
+    return this;
+  }
+
   /** Replace the default TemporaryPathCredentialsService with a custom implementation. */
   public WorkspaceClient withTemporaryPathCredentialsImpl(
       TemporaryPathCredentialsService temporaryPathCredentials) {
@@ -3229,6 +3331,18 @@ public class WorkspaceClient {
   /** Replace the default WorkspaceConfAPI with a custom implementation. */
   public WorkspaceClient withWorkspaceConfAPI(WorkspaceConfAPI workspaceConf) {
     this.workspaceConfAPI = workspaceConf;
+    return this;
+  }
+
+  /** Replace the default WorkspaceSettingsV2Service with a custom implementation. */
+  public WorkspaceClient withWorkspaceSettingsV2Impl(
+      WorkspaceSettingsV2Service workspaceSettingsV2) {
+    return this.withWorkspaceSettingsV2API(new WorkspaceSettingsV2API(workspaceSettingsV2));
+  }
+
+  /** Replace the default WorkspaceSettingsV2API with a custom implementation. */
+  public WorkspaceClient withWorkspaceSettingsV2API(WorkspaceSettingsV2API workspaceSettingsV2) {
+    this.workspaceSettingsV2API = workspaceSettingsV2;
     return this;
   }
 

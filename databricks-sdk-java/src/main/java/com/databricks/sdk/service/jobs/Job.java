@@ -32,6 +32,10 @@ public class Job {
   @JsonProperty("effective_budget_policy_id")
   private String effectiveBudgetPolicyId;
 
+  /** The id of the usage policy used by this job for cost attribution purposes. */
+  @JsonProperty("effective_usage_policy_id")
+  private String effectiveUsagePolicyId;
+
   /**
    * Indicates if the job has more array properties (`tasks`, `job_clusters`) that are not shown.
    * They can be accessed via :method:jobs/get endpoint. It is only relevant for API 2.2
@@ -98,6 +102,15 @@ public class Job {
     return effectiveBudgetPolicyId;
   }
 
+  public Job setEffectiveUsagePolicyId(String effectiveUsagePolicyId) {
+    this.effectiveUsagePolicyId = effectiveUsagePolicyId;
+    return this;
+  }
+
+  public String getEffectiveUsagePolicyId() {
+    return effectiveUsagePolicyId;
+  }
+
   public Job setHasMore(Boolean hasMore) {
     this.hasMore = hasMore;
     return this;
@@ -160,6 +173,7 @@ public class Job {
     return Objects.equals(createdTime, that.createdTime)
         && Objects.equals(creatorUserName, that.creatorUserName)
         && Objects.equals(effectiveBudgetPolicyId, that.effectiveBudgetPolicyId)
+        && Objects.equals(effectiveUsagePolicyId, that.effectiveUsagePolicyId)
         && Objects.equals(hasMore, that.hasMore)
         && Objects.equals(jobId, that.jobId)
         && Objects.equals(nextPageToken, that.nextPageToken)
@@ -174,6 +188,7 @@ public class Job {
         createdTime,
         creatorUserName,
         effectiveBudgetPolicyId,
+        effectiveUsagePolicyId,
         hasMore,
         jobId,
         nextPageToken,
@@ -188,6 +203,7 @@ public class Job {
         .add("createdTime", createdTime)
         .add("creatorUserName", creatorUserName)
         .add("effectiveBudgetPolicyId", effectiveBudgetPolicyId)
+        .add("effectiveUsagePolicyId", effectiveUsagePolicyId)
         .add("hasMore", hasMore)
         .add("jobId", jobId)
         .add("nextPageToken", nextPageToken)

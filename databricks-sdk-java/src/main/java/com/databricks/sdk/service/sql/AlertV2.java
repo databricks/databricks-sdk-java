@@ -25,6 +25,13 @@ public class AlertV2 {
   @JsonProperty("display_name")
   private String displayName;
 
+  /**
+   * The actual identity that will be used to execute the alert. This is an output-only field that
+   * shows the resolved run-as identity after applying permissions and defaults.
+   */
+  @JsonProperty("effective_run_as")
+  private AlertV2RunAs effectiveRunAs;
+
   /** */
   @JsonProperty("evaluation")
   private AlertV2Evaluation evaluation;
@@ -53,9 +60,20 @@ public class AlertV2 {
   private String queryText;
 
   /**
+   * Specifies the identity that will be used to run the alert. This field allows you to configure
+   * alerts to run as a specific user or service principal. - For user identity: Set `user_name` to
+   * the email of an active workspace user. Users can only set this to their own email. - For
+   * service principal: Set `service_principal_name` to the application ID. Requires the
+   * `servicePrincipal/user` role. If not specified, the alert will run as the request user.
+   */
+  @JsonProperty("run_as")
+  private AlertV2RunAs runAs;
+
+  /**
    * The run as username or application ID of service principal. On Create and Update, this field
    * can be set to application ID of an active service principal. Setting this field requires the
-   * servicePrincipal/user role.
+   * servicePrincipal/user role. Deprecated: Use `run_as` field instead. This field will be removed
+   * in a future release.
    */
   @JsonProperty("run_as_user_name")
   private String runAsUserName;
@@ -106,6 +124,15 @@ public class AlertV2 {
 
   public String getDisplayName() {
     return displayName;
+  }
+
+  public AlertV2 setEffectiveRunAs(AlertV2RunAs effectiveRunAs) {
+    this.effectiveRunAs = effectiveRunAs;
+    return this;
+  }
+
+  public AlertV2RunAs getEffectiveRunAs() {
+    return effectiveRunAs;
   }
 
   public AlertV2 setEvaluation(AlertV2Evaluation evaluation) {
@@ -162,6 +189,15 @@ public class AlertV2 {
     return queryText;
   }
 
+  public AlertV2 setRunAs(AlertV2RunAs runAs) {
+    this.runAs = runAs;
+    return this;
+  }
+
+  public AlertV2RunAs getRunAs() {
+    return runAs;
+  }
+
   public AlertV2 setRunAsUserName(String runAsUserName) {
     this.runAsUserName = runAsUserName;
     return this;
@@ -207,12 +243,14 @@ public class AlertV2 {
         && Objects.equals(customDescription, that.customDescription)
         && Objects.equals(customSummary, that.customSummary)
         && Objects.equals(displayName, that.displayName)
+        && Objects.equals(effectiveRunAs, that.effectiveRunAs)
         && Objects.equals(evaluation, that.evaluation)
         && Objects.equals(id, that.id)
         && Objects.equals(lifecycleState, that.lifecycleState)
         && Objects.equals(ownerUserName, that.ownerUserName)
         && Objects.equals(parentPath, that.parentPath)
         && Objects.equals(queryText, that.queryText)
+        && Objects.equals(runAs, that.runAs)
         && Objects.equals(runAsUserName, that.runAsUserName)
         && Objects.equals(schedule, that.schedule)
         && Objects.equals(updateTime, that.updateTime)
@@ -226,12 +264,14 @@ public class AlertV2 {
         customDescription,
         customSummary,
         displayName,
+        effectiveRunAs,
         evaluation,
         id,
         lifecycleState,
         ownerUserName,
         parentPath,
         queryText,
+        runAs,
         runAsUserName,
         schedule,
         updateTime,
@@ -245,12 +285,14 @@ public class AlertV2 {
         .add("customDescription", customDescription)
         .add("customSummary", customSummary)
         .add("displayName", displayName)
+        .add("effectiveRunAs", effectiveRunAs)
         .add("evaluation", evaluation)
         .add("id", id)
         .add("lifecycleState", lifecycleState)
         .add("ownerUserName", ownerUserName)
         .add("parentPath", parentPath)
         .add("queryText", queryText)
+        .add("runAs", runAs)
         .add("runAsUserName", runAsUserName)
         .add("schedule", schedule)
         .add("updateTime", updateTime)
