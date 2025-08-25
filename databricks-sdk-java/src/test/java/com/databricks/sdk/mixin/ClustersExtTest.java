@@ -123,22 +123,27 @@ class ClustersExtTest {
   private GetSparkVersionsResponse testGetSparkVersionsWithSparkVersion() {
     Collection<SparkVersion> versions = new ArrayList<>();
     // Mock realistic Databricks Runtime versions based on actual API response format
-    versions.add(new SparkVersion()
-        .setName("12.2 LTS (includes Apache Spark 3.3.2, Scala 2.12)")
-        .setKey("12.2.x-scala2.12"));
-    versions.add(new SparkVersion()
-        .setName("13.3 LTS (includes Apache Spark 3.4.1, Scala 2.12)")
-        .setKey("13.3.x-scala2.12"));
-    versions.add(new SparkVersion()
-        .setName("14.3 LTS (includes Apache Spark 3.5.0, Scala 2.12)")
-        .setKey("14.3.x-scala2.12"));
-    versions.add(new SparkVersion()
-        .setName("14.2 ML (includes Apache Spark 3.5.0, Scala 2.12)")
-        .setKey("14.2.x-cpu-ml-scala2.12"));
+    versions.add(
+        new SparkVersion()
+            .setName("12.2 LTS (includes Apache Spark 3.3.2, Scala 2.12)")
+            .setKey("12.2.x-scala2.12"));
+    versions.add(
+        new SparkVersion()
+            .setName("13.3 LTS (includes Apache Spark 3.4.1, Scala 2.12)")
+            .setKey("13.3.x-scala2.12"));
+    versions.add(
+        new SparkVersion()
+            .setName("14.3 LTS (includes Apache Spark 3.5.0, Scala 2.12)")
+            .setKey("14.3.x-scala2.12"));
+    versions.add(
+        new SparkVersion()
+            .setName("14.2 ML (includes Apache Spark 3.5.0, Scala 2.12)")
+            .setKey("14.2.x-cpu-ml-scala2.12"));
     // Add another version with same Spark version to create multiple matches
-    versions.add(new SparkVersion()
-        .setName("14.1 (includes Apache Spark 3.5.0, Scala 2.12)")
-        .setKey("14.1.x-scala2.12"));
+    versions.add(
+        new SparkVersion()
+            .setName("14.1 (includes Apache Spark 3.5.0, Scala 2.12)")
+            .setKey("14.1.x-scala2.12"));
     return new GetSparkVersionsResponse().setVersions(versions);
   }
 
@@ -146,10 +151,10 @@ class ClustersExtTest {
   void sparkVersionWithSparkVersionParameter() {
     ClustersExt clustersExt = new ClustersExt(clustersMock);
     Mockito.doReturn(testGetSparkVersionsWithSparkVersion()).when(clustersMock).sparkVersions();
-    
+
     // Test exact spark version match
-    String sparkVersion = clustersExt.selectSparkVersion(
-        new SparkVersionSelector().withSparkVersion("3.4.1"));
+    String sparkVersion =
+        clustersExt.selectSparkVersion(new SparkVersionSelector().withSparkVersion("3.4.1"));
     assertEquals("13.3.x-scala2.12", sparkVersion);
   }
 
@@ -157,10 +162,12 @@ class ClustersExtTest {
   void sparkVersionWithSparkVersionParameterMultipleMatches() {
     ClustersExt clustersExt = new ClustersExt(clustersMock);
     Mockito.doReturn(testGetSparkVersionsWithSparkVersion()).when(clustersMock).sparkVersions();
-    
-    // Test spark version with multiple matches - should return latest when latest=true is explicitly set
-    String sparkVersion = clustersExt.selectSparkVersion(
-        new SparkVersionSelector().withSparkVersion("3.5.0").withLatest());
+
+    // Test spark version with multiple matches - should return latest when latest=true is
+    // explicitly set
+    String sparkVersion =
+        clustersExt.selectSparkVersion(
+            new SparkVersionSelector().withSparkVersion("3.5.0").withLatest());
     // Should return the highest version (14.3.x) when latest=true and multiple 3.5.0 versions match
     assertEquals("14.3.x-scala2.12", sparkVersion);
   }
@@ -169,10 +176,11 @@ class ClustersExtTest {
   void sparkVersionWithSparkVersionParameterAndML() {
     ClustersExt clustersExt = new ClustersExt(clustersMock);
     Mockito.doReturn(testGetSparkVersionsWithSparkVersion()).when(clustersMock).sparkVersions();
-    
+
     // Test spark version combined with ML requirement
-    String sparkVersion = clustersExt.selectSparkVersion(
-        new SparkVersionSelector().withSparkVersion("3.5.0").withML());
+    String sparkVersion =
+        clustersExt.selectSparkVersion(
+            new SparkVersionSelector().withSparkVersion("3.5.0").withML());
     assertEquals("14.2.x-cpu-ml-scala2.12", sparkVersion);
   }
 
@@ -180,25 +188,29 @@ class ClustersExtTest {
   void sparkVersionWithSparkVersionParameterNoMatch() {
     ClustersExt clustersExt = new ClustersExt(clustersMock);
     Mockito.doReturn(testGetSparkVersionsWithSparkVersion()).when(clustersMock).sparkVersions();
-    
+
     // Test spark version that doesn't exist
-    assertThrows(IllegalArgumentException.class, () -> {
-      clustersExt.selectSparkVersion(
-          new SparkVersionSelector().withSparkVersion("2.4.5"));
-    });
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> {
+          clustersExt.selectSparkVersion(new SparkVersionSelector().withSparkVersion("2.4.5"));
+        });
   }
 
   @Test
   void sparkVersionWithSparkVersionParameterMultipleMatchesLatestFalse() {
     ClustersExt clustersExt = new ClustersExt(clustersMock);
     Mockito.doReturn(testGetSparkVersionsWithSparkVersion()).when(clustersMock).sparkVersions();
-    
+
     // Test spark version with multiple matches and latest=false (default) - should throw exception
     SparkVersionSelector selector = new SparkVersionSelector().withSparkVersion("3.5.0");
     // latest defaults to false, so multiple matches should throw an exception
-    
-    assertThrows(IllegalArgumentException.class, () -> {
-      clustersExt.selectSparkVersion(selector);
-    }, "Expected exception when multiple versions match with latest=false (default)");
+
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> {
+          clustersExt.selectSparkVersion(selector);
+        },
+        "Expected exception when multiple versions match with latest=false (default)");
   }
 }
