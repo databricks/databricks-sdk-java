@@ -50,7 +50,7 @@ public class ClustersExt extends ClustersAPI {
         matches = version.getName().contains("LTS") || version.getKey().contains("-esr-");
       }
       if (matches && selector.sparkVersion != null) {
-        matches = ("Apache Spark " + selector.sparkVersion).equals(version.getName());
+        matches = version.getName().contains("Apache Spark " + selector.sparkVersion);
       }
       if (matches) {
         versions.add(version.getKey());

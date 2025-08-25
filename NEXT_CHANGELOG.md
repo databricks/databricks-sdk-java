@@ -6,6 +6,8 @@
 
 ### Bug Fixes
 
+* Fixed `selectSparkVersion()` method to use contains() instead of equals() for spark version matching.
+
 ### Documentation
 
 ### Internal Changes
