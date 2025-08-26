@@ -1,7 +1,6 @@
 package com.databricks.sdk.mixin;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.core.DatabricksConfig;
@@ -137,11 +136,11 @@ class ClustersExtTest {
     Mockito.doReturn(testGetSparkVersionsWithSparkVersion()).when(clustersMock).sparkVersions();
 
     // Test that sparkVersion parameter works with realistic API response format
-    // This tests the contains() fix - the version name is "13.3 LTS (includes Apache Spark 3.4.1, Scala 2.12)"
+    // This tests the contains() fix - the version name is "13.3 LTS (includes Apache Spark 3.4.1,
+    // Scala 2.12)"
     // not just "Apache Spark 3.4.1", so equals() would fail but contains() works
     String sparkVersion =
         clustersExt.selectSparkVersion(new SparkVersionSelector().withSparkVersion("3.4.1"));
     assertEquals("13.3.x-scala2.12", sparkVersion);
   }
-
 }
