@@ -43,6 +43,7 @@ public class OAuthClient {
     private HttpClient hc;
     private String accountId;
     private Optional<Duration> browserTimeout = Optional.empty();
+    private String discoveryUrl;
 
     public Builder() {}
 
@@ -89,6 +90,11 @@ public class OAuthClient {
       this.browserTimeout = Optional.of(browserTimeout);
       return this;
     }
+
+    public Builder withDiscoveryUrl(String discoveryUrl) {
+      this.discoveryUrl = discoveryUrl;
+      return this;
+    }
   }
 
   private final String clientId;
@@ -112,7 +118,7 @@ public class OAuthClient {
     this.hc = b.hc;
 
     DatabricksConfig config =
-        new DatabricksConfig().setHost(b.host).setAccountId(b.accountId).resolve();
+        new DatabricksConfig().setHost(b.host).setAccountId(b.accountId).setDiscoveryUrl(b.discoveryUrl).resolve();
     OpenIDConnectEndpoints oidc = config.getOidcEndpoints();
     if (oidc == null) {
       throw new DatabricksException(b.host + " does not support OAuth");
