@@ -183,14 +183,14 @@ public class DatabricksConfigTest {
       String discoveryUrl = server.getUrl() + discoveryUrlSuffix;
 
       OpenIDConnectEndpoints oidcEndpoints =
-              new DatabricksConfig()
-                      .setHost(server.getUrl())
-                      .setDiscoveryUrl(discoveryUrl)
-                      .setHttpClient(new CommonsHttpClient.Builder().withTimeoutSeconds(30).build())
-                      .getOidcEndpoints();
+          new DatabricksConfig()
+              .setHost(server.getUrl())
+              .setDiscoveryUrl(discoveryUrl)
+              .setHttpClient(new CommonsHttpClient.Builder().withTimeoutSeconds(30).build())
+              .getOidcEndpoints();
 
       assertEquals(
-              "https://test.auth.endpoint/oidc/v1/authorize", oidcEndpoints.getAuthorizationEndpoint());
+          "https://test.auth.endpoint/oidc/v1/authorize", oidcEndpoints.getAuthorizationEndpoint());
       assertEquals("https://test.auth.endpoint/oidc/v1/token", oidcEndpoints.getTokenEndpoint());
     }
   }
