@@ -170,15 +170,15 @@ public class DatabricksConfigTest {
   public void testDiscoveryEndpointFetchFallback() throws IOException {
     String discoveryUrlSuffix = "/test.discovery.url";
     String OIDCResponse =
-            "{\n"
-                    + "  \"authorization_endpoint\": \"https://test.auth.endpoint/oidc/v1/authorize\",\n"
-                    + "  \"token_endpoint\": \"https://test.auth.endpoint/oidc/v1/token\"\n"
-                    + "}";
+        "{\n"
+            + "  \"authorization_endpoint\": \"https://test.auth.endpoint/oidc/v1/authorize\",\n"
+            + "  \"token_endpoint\": \"https://test.auth.endpoint/oidc/v1/token\"\n"
+            + "}";
 
     try (FixtureServer server =
-                 new FixtureServer()
-                         .with("GET", discoveryUrlSuffix, "", 400)
-                         .with("GET", "/oidc/.well-known/oauth-authorization-server", OIDCResponse, 200)) {
+        new FixtureServer()
+            .with("GET", discoveryUrlSuffix, "", 400)
+            .with("GET", "/oidc/.well-known/oauth-authorization-server", OIDCResponse, 200)) {
 
       String discoveryUrl = server.getUrl() + discoveryUrlSuffix;
 
