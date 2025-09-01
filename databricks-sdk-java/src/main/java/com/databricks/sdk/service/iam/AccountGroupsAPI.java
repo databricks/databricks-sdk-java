@@ -56,7 +56,11 @@ public class AccountGroupsAPI {
     return impl.get(request);
   }
 
-  /** Gets all details of the groups associated with the Databricks account. */
+  /**
+   * Gets all details of the groups associated with the Databricks account. As of 08/22/2025, this
+   * endpoint will not return members. Instead, members should be retrieved by iterating through
+   * `Get group details`.
+   */
   public Iterable<Group> list(ListAccountGroupsRequest request) {
     request.setStartIndex(1L);
     if (request.getCount() == null) {

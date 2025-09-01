@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateCleanRoomAssetReviewRequest {
-  /** Asset type. Can only be NOTEBOOK_FILE. */
+  /** Asset type. Can either be NOTEBOOK_FILE or JAR_ANALYSIS. */
   @JsonIgnore private CleanRoomAssetAssetType assetType;
 
   /** Name of the clean room */
