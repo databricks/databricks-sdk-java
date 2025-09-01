@@ -7,9 +7,9 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Feature for model version. */
+/** Feature for model version. ([ML-57150] Renamed from Feature to LinkedFeature) */
 @Generated
-public class Feature {
+public class LinkedFeature {
   /** Feature name */
   @JsonProperty("feature_name")
   private String featureName;
@@ -22,7 +22,7 @@ public class Feature {
   @JsonProperty("feature_table_name")
   private String featureTableName;
 
-  public Feature setFeatureName(String featureName) {
+  public LinkedFeature setFeatureName(String featureName) {
     this.featureName = featureName;
     return this;
   }
@@ -31,7 +31,7 @@ public class Feature {
     return featureName;
   }
 
-  public Feature setFeatureTableId(String featureTableId) {
+  public LinkedFeature setFeatureTableId(String featureTableId) {
     this.featureTableId = featureTableId;
     return this;
   }
@@ -40,7 +40,7 @@ public class Feature {
     return featureTableId;
   }
 
-  public Feature setFeatureTableName(String featureTableName) {
+  public LinkedFeature setFeatureTableName(String featureTableName) {
     this.featureTableName = featureTableName;
     return this;
   }
@@ -53,7 +53,7 @@ public class Feature {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    Feature that = (Feature) o;
+    LinkedFeature that = (LinkedFeature) o;
     return Objects.equals(featureName, that.featureName)
         && Objects.equals(featureTableId, that.featureTableId)
         && Objects.equals(featureTableName, that.featureTableName);
@@ -66,7 +66,7 @@ public class Feature {
 
   @Override
   public String toString() {
-    return new ToStringer(Feature.class)
+    return new ToStringer(LinkedFeature.class)
         .add("featureName", featureName)
         .add("featureTableId", featureTableId)
         .add("featureTableName", featureTableName)

@@ -31,6 +31,10 @@ public class IngestionPipelineDefinition {
   @JsonProperty("objects")
   private Collection<IngestionConfig> objects;
 
+  /** Top-level source configurations */
+  @JsonProperty("source_configurations")
+  private Collection<SourceConfig> sourceConfigurations;
+
   /**
    * The type of the foreign source. The source type will be inferred from the source connection or
    * ingestion gateway. This field is output only and will be ignored if provided.
@@ -72,6 +76,16 @@ public class IngestionPipelineDefinition {
     return objects;
   }
 
+  public IngestionPipelineDefinition setSourceConfigurations(
+      Collection<SourceConfig> sourceConfigurations) {
+    this.sourceConfigurations = sourceConfigurations;
+    return this;
+  }
+
+  public Collection<SourceConfig> getSourceConfigurations() {
+    return sourceConfigurations;
+  }
+
   public IngestionPipelineDefinition setSourceType(IngestionSourceType sourceType) {
     this.sourceType = sourceType;
     return this;
@@ -98,6 +112,7 @@ public class IngestionPipelineDefinition {
     return Objects.equals(connectionName, that.connectionName)
         && Objects.equals(ingestionGatewayId, that.ingestionGatewayId)
         && Objects.equals(objects, that.objects)
+        && Objects.equals(sourceConfigurations, that.sourceConfigurations)
         && Objects.equals(sourceType, that.sourceType)
         && Objects.equals(tableConfiguration, that.tableConfiguration);
   }
@@ -105,7 +120,12 @@ public class IngestionPipelineDefinition {
   @Override
   public int hashCode() {
     return Objects.hash(
-        connectionName, ingestionGatewayId, objects, sourceType, tableConfiguration);
+        connectionName,
+        ingestionGatewayId,
+        objects,
+        sourceConfigurations,
+        sourceType,
+        tableConfiguration);
   }
 
   @Override
@@ -114,6 +134,7 @@ public class IngestionPipelineDefinition {
         .add("connectionName", connectionName)
         .add("ingestionGatewayId", ingestionGatewayId)
         .add("objects", objects)
+        .add("sourceConfigurations", sourceConfigurations)
         .add("sourceType", sourceType)
         .add("tableConfiguration", tableConfiguration)
         .toString();

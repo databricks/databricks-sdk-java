@@ -10,22 +10,31 @@ import java.util.Objects;
 
 @Generated
 public class GenieSendMessageFeedbackRequest {
+  /** Optional text feedback that will be stored as a comment. */
+  @JsonProperty("comment")
+  private String comment;
+
   /** The ID associated with the conversation. */
   @JsonIgnore private String conversationId;
-
-  /** The rating (POSITIVE, NEGATIVE, or NONE). */
-  @JsonProperty("feedback_rating")
-  private GenieFeedbackRating feedbackRating;
-
-  /** Optional text feedback that will be stored as a comment. */
-  @JsonProperty("feedback_text")
-  private String feedbackText;
 
   /** The ID associated with the message to provide feedback for. */
   @JsonIgnore private String messageId;
 
+  /** The rating (POSITIVE, NEGATIVE, or NONE). */
+  @JsonProperty("rating")
+  private GenieFeedbackRating rating;
+
   /** The ID associated with the Genie space where the message is located. */
   @JsonIgnore private String spaceId;
+
+  public GenieSendMessageFeedbackRequest setComment(String comment) {
+    this.comment = comment;
+    return this;
+  }
+
+  public String getComment() {
+    return comment;
+  }
 
   public GenieSendMessageFeedbackRequest setConversationId(String conversationId) {
     this.conversationId = conversationId;
@@ -36,24 +45,6 @@ public class GenieSendMessageFeedbackRequest {
     return conversationId;
   }
 
-  public GenieSendMessageFeedbackRequest setFeedbackRating(GenieFeedbackRating feedbackRating) {
-    this.feedbackRating = feedbackRating;
-    return this;
-  }
-
-  public GenieFeedbackRating getFeedbackRating() {
-    return feedbackRating;
-  }
-
-  public GenieSendMessageFeedbackRequest setFeedbackText(String feedbackText) {
-    this.feedbackText = feedbackText;
-    return this;
-  }
-
-  public String getFeedbackText() {
-    return feedbackText;
-  }
-
   public GenieSendMessageFeedbackRequest setMessageId(String messageId) {
     this.messageId = messageId;
     return this;
@@ -61,6 +52,15 @@ public class GenieSendMessageFeedbackRequest {
 
   public String getMessageId() {
     return messageId;
+  }
+
+  public GenieSendMessageFeedbackRequest setRating(GenieFeedbackRating rating) {
+    this.rating = rating;
+    return this;
+  }
+
+  public GenieFeedbackRating getRating() {
+    return rating;
   }
 
   public GenieSendMessageFeedbackRequest setSpaceId(String spaceId) {
@@ -77,25 +77,25 @@ public class GenieSendMessageFeedbackRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GenieSendMessageFeedbackRequest that = (GenieSendMessageFeedbackRequest) o;
-    return Objects.equals(conversationId, that.conversationId)
-        && Objects.equals(feedbackRating, that.feedbackRating)
-        && Objects.equals(feedbackText, that.feedbackText)
+    return Objects.equals(comment, that.comment)
+        && Objects.equals(conversationId, that.conversationId)
         && Objects.equals(messageId, that.messageId)
+        && Objects.equals(rating, that.rating)
         && Objects.equals(spaceId, that.spaceId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(conversationId, feedbackRating, feedbackText, messageId, spaceId);
+    return Objects.hash(comment, conversationId, messageId, rating, spaceId);
   }
 
   @Override
   public String toString() {
     return new ToStringer(GenieSendMessageFeedbackRequest.class)
+        .add("comment", comment)
         .add("conversationId", conversationId)
-        .add("feedbackRating", feedbackRating)
-        .add("feedbackText", feedbackText)
         .add("messageId", messageId)
+        .add("rating", rating)
         .add("spaceId", spaceId)
         .toString();
   }
