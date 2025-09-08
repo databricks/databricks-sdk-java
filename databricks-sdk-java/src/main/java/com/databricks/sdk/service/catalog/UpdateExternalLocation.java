@@ -34,7 +34,10 @@ public class UpdateExternalLocation {
   @JsonProperty("fallback")
   private Boolean fallback;
 
-  /** File event queue settings. */
+  /**
+   * File event queue settings. If `enable_file_events` is `true`, must be defined and have exactly
+   * one of the documented properties.
+   */
   @JsonProperty("file_event_queue")
   private FileEventQueue fileEventQueue;
 

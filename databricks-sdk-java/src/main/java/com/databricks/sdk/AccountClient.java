@@ -32,6 +32,8 @@ import com.databricks.sdk.service.iam.AccountUsersAPI;
 import com.databricks.sdk.service.iam.AccountUsersService;
 import com.databricks.sdk.service.iam.WorkspaceAssignmentAPI;
 import com.databricks.sdk.service.iam.WorkspaceAssignmentService;
+import com.databricks.sdk.service.iamv2.AccountIamV2API;
+import com.databricks.sdk.service.iamv2.AccountIamV2Service;
 import com.databricks.sdk.service.oauth2.AccountFederationPolicyAPI;
 import com.databricks.sdk.service.oauth2.AccountFederationPolicyService;
 import com.databricks.sdk.service.oauth2.CustomAppIntegrationAPI;
@@ -88,6 +90,7 @@ public class AccountClient {
   private EncryptionKeysAPI encryptionKeysAPI;
   private AccountFederationPolicyAPI federationPolicyAPI;
   private AccountGroupsAPI groupsAPI;
+  private AccountIamV2API iamV2API;
   private AccountIpAccessListsAPI ipAccessListsAPI;
   private LogDeliveryAPI logDeliveryAPI;
   private AccountMetastoreAssignmentsAPI metastoreAssignmentsAPI;
@@ -129,6 +132,7 @@ public class AccountClient {
     encryptionKeysAPI = new EncryptionKeysAPI(apiClient);
     federationPolicyAPI = new AccountFederationPolicyAPI(apiClient);
     groupsAPI = new AccountGroupsAPI(apiClient);
+    iamV2API = new AccountIamV2API(apiClient);
     ipAccessListsAPI = new AccountIpAccessListsAPI(apiClient);
     logDeliveryAPI = new LogDeliveryAPI(apiClient);
     metastoreAssignmentsAPI = new AccountMetastoreAssignmentsAPI(apiClient);
@@ -289,6 +293,14 @@ public class AccountClient {
    */
   public AccountGroupsAPI groups() {
     return groupsAPI;
+  }
+
+  /**
+   * These APIs are used to manage identities and the workspace access of these identities in
+   * <Databricks>.
+   */
+  public AccountIamV2API iamV2() {
+    return iamV2API;
   }
 
   /**
@@ -718,6 +730,17 @@ public class AccountClient {
   /** Replace the default AccountGroupsAPI with a custom implementation. */
   public AccountClient withGroupsAPI(AccountGroupsAPI accountGroups) {
     this.groupsAPI = accountGroups;
+    return this;
+  }
+
+  /** Replace the default AccountIamV2Service with a custom implementation. */
+  public AccountClient withIamV2Impl(AccountIamV2Service accountIamV2) {
+    return this.withIamV2API(new AccountIamV2API(accountIamV2));
+  }
+
+  /** Replace the default AccountIamV2API with a custom implementation. */
+  public AccountClient withIamV2API(AccountIamV2API accountIamV2) {
+    this.iamV2API = accountIamV2;
     return this;
   }
 

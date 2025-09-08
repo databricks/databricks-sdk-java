@@ -63,6 +63,13 @@ public class Task {
   private Boolean disableAutoOptimization;
 
   /**
+   * An optional flag to disable the task. If set to true, the task will not run even if it is part
+   * of a job.
+   */
+  @JsonProperty("disabled")
+  private Boolean disabled;
+
+  /**
    * An optional set of email addresses that is notified when runs of this task begin or complete as
    * well as when this task is deleted. The default behavior is to not send any emails.
    */
@@ -320,6 +327,15 @@ public class Task {
     return disableAutoOptimization;
   }
 
+  public Task setDisabled(Boolean disabled) {
+    this.disabled = disabled;
+    return this;
+  }
+
+  public Boolean getDisabled() {
+    return disabled;
+  }
+
   public Task setEmailNotifications(TaskEmailNotifications emailNotifications) {
     this.emailNotifications = emailNotifications;
     return this;
@@ -568,6 +584,7 @@ public class Task {
         && Objects.equals(dependsOn, that.dependsOn)
         && Objects.equals(description, that.description)
         && Objects.equals(disableAutoOptimization, that.disableAutoOptimization)
+        && Objects.equals(disabled, that.disabled)
         && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(environmentKey, that.environmentKey)
         && Objects.equals(existingClusterId, that.existingClusterId)
@@ -608,6 +625,7 @@ public class Task {
         dependsOn,
         description,
         disableAutoOptimization,
+        disabled,
         emailNotifications,
         environmentKey,
         existingClusterId,
@@ -648,6 +666,7 @@ public class Task {
         .add("dependsOn", dependsOn)
         .add("description", description)
         .add("disableAutoOptimization", disableAutoOptimization)
+        .add("disabled", disabled)
         .add("emailNotifications", emailNotifications)
         .add("environmentKey", environmentKey)
         .add("existingClusterId", existingClusterId)

@@ -122,6 +122,8 @@ import com.databricks.sdk.service.iam.ServicePrincipalsAPI;
 import com.databricks.sdk.service.iam.ServicePrincipalsService;
 import com.databricks.sdk.service.iam.UsersAPI;
 import com.databricks.sdk.service.iam.UsersService;
+import com.databricks.sdk.service.iamv2.WorkspaceIamV2API;
+import com.databricks.sdk.service.iamv2.WorkspaceIamV2Service;
 import com.databricks.sdk.service.jobs.JobsAPI;
 import com.databricks.sdk.service.jobs.JobsService;
 import com.databricks.sdk.service.jobs.PolicyComplianceForJobsAPI;
@@ -363,6 +365,7 @@ public class WorkspaceClient {
   private WorkspaceAPI workspaceAPI;
   private WorkspaceBindingsAPI workspaceBindingsAPI;
   private WorkspaceConfAPI workspaceConfAPI;
+  private WorkspaceIamV2API workspaceIamV2API;
   private WorkspaceSettingsV2API workspaceSettingsV2API;
 
   public WorkspaceClient() {
@@ -489,6 +492,7 @@ public class WorkspaceClient {
     workspaceAPI = new WorkspaceAPI(apiClient);
     workspaceBindingsAPI = new WorkspaceBindingsAPI(apiClient);
     workspaceConfAPI = new WorkspaceConfAPI(apiClient);
+    workspaceIamV2API = new WorkspaceIamV2API(apiClient);
     workspaceSettingsV2API = new WorkspaceSettingsV2API(apiClient);
   }
 
@@ -1828,7 +1832,7 @@ public class WorkspaceClient {
     return tablesAPI;
   }
 
-  /** The Tag Policy API allows you to manage tag policies in Databricks. */
+  /** The Tag Policy API allows you to manage policies for governed tags in Databricks. */
   public TagPoliciesAPI tagPolicies() {
     return tagPoliciesAPI;
   }
@@ -1990,6 +1994,14 @@ public class WorkspaceClient {
   /** This API allows updating known workspace settings for advanced users. */
   public WorkspaceConfAPI workspaceConf() {
     return workspaceConfAPI;
+  }
+
+  /**
+   * These APIs are used to manage identities and the workspace access of these identities in
+   * <Databricks>.
+   */
+  public WorkspaceIamV2API workspaceIamV2() {
+    return workspaceIamV2API;
   }
 
   /** APIs to manage workspace level settings */
@@ -3331,6 +3343,17 @@ public class WorkspaceClient {
   /** Replace the default WorkspaceConfAPI with a custom implementation. */
   public WorkspaceClient withWorkspaceConfAPI(WorkspaceConfAPI workspaceConf) {
     this.workspaceConfAPI = workspaceConf;
+    return this;
+  }
+
+  /** Replace the default WorkspaceIamV2Service with a custom implementation. */
+  public WorkspaceClient withWorkspaceIamV2Impl(WorkspaceIamV2Service workspaceIamV2) {
+    return this.withWorkspaceIamV2API(new WorkspaceIamV2API(workspaceIamV2));
+  }
+
+  /** Replace the default WorkspaceIamV2API with a custom implementation. */
+  public WorkspaceClient withWorkspaceIamV2API(WorkspaceIamV2API workspaceIamV2) {
+    this.workspaceIamV2API = workspaceIamV2;
     return this;
   }
 

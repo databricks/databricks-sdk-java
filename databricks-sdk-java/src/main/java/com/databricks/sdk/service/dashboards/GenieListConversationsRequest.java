@@ -11,8 +11,8 @@ import java.util.Objects;
 @Generated
 public class GenieListConversationsRequest {
   /**
-   * Include all conversations in the space across all users. Requires "Can Manage" permission on
-   * the space.
+   * Include all conversations in the space across all users. Requires at least CAN MANAGE
+   * permission on the space.
    */
   @JsonIgnore
   @QueryParam("include_all")
