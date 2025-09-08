@@ -13,7 +13,10 @@ public class AlertV2Evaluation {
   @JsonProperty("comparison_operator")
   private ComparisonOperator comparisonOperator;
 
-  /** Alert state if result is empty. */
+  /**
+   * Alert state if result is empty. Please avoid setting this field to be `UNKNOWN` because
+   * `UNKNOWN` state is planned to be deprecated.
+   */
   @JsonProperty("empty_result_state")
   private AlertEvaluationState emptyResultState;
 

@@ -33,13 +33,13 @@ public class FederationPolicy {
   @JsonProperty("oidc_policy")
   private OidcFederationPolicy oidcPolicy;
 
-  /** The ID of the federation policy. */
+  /** The ID of the federation policy. Output only. */
   @JsonProperty("policy_id")
   private String policyId;
 
   /**
-   * The service principal ID that this federation policy applies to. Only set for service principal
-   * federation policies.
+   * The service principal ID that this federation policy applies to. Output only. Only set for
+   * service principal federation policies.
    */
   @JsonProperty("service_principal_id")
   private Long servicePrincipalId;
