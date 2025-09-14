@@ -130,7 +130,7 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
             .withRedirectUrl(config.getEffectiveOAuthRedirectUrl())
             .withBrowserTimeout(config.getOAuthBrowserAuthTimeout())
             .withScopes(new ArrayList<>(scopes))
-            .withDiscoveryUrl(config.getDiscoveryUrl())
+            .withOpenIDConnectEndpoints(config.getOidcEndpoints())
             .build();
     Consent consent = client.initiateConsent();
 
