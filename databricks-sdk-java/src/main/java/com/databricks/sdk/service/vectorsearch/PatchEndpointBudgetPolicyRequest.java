@@ -10,7 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class PatchEndpointBudgetPolicyRequest {
-  /** The budget policy id to be applied */
+  /**
+   * The budget policy id to be applied (hima-sheth) TODO: remove this once we've migrated to usage
+   * policies
+   */
   @JsonProperty("budget_policy_id")
   private String budgetPolicyId;
 

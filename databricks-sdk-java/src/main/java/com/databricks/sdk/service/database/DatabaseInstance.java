@@ -30,6 +30,16 @@ public class DatabaseInstance {
   private String creator;
 
   /**
+   * xref AIP-129. `enable_pg_native_login` is owned by the client, while
+   * `effective_enable_pg_native_login` is owned by the server. `enable_pg_native_login` will only
+   * be set in Create/Update response messages if and only if the user provides the field via the
+   * request. `effective_enable_pg_native_login` on the other hand will always bet set in all
+   * response messages (Create/Update/Get/List).
+   */
+  @JsonProperty("effective_enable_pg_native_login")
+  private Boolean effectiveEnablePgNativeLogin;
+
+  /**
    * xref AIP-129. `enable_readable_secondaries` is owned by the client, while
    * `effective_enable_readable_secondaries` is owned by the server. `enable_readable_secondaries`
    * will only be set in Create/Update response messages if and only if the user provides the field
@@ -66,6 +76,10 @@ public class DatabaseInstance {
    */
   @JsonProperty("effective_stopped")
   private Boolean effectiveStopped;
+
+  /** Whether the instance has PG native password login enabled. Defaults to true. */
+  @JsonProperty("enable_pg_native_login")
+  private Boolean enablePgNativeLogin;
 
   /** Whether to enable secondaries to serve read-only traffic. Defaults to false. */
   @JsonProperty("enable_readable_secondaries")
@@ -160,6 +174,15 @@ public class DatabaseInstance {
     return creator;
   }
 
+  public DatabaseInstance setEffectiveEnablePgNativeLogin(Boolean effectiveEnablePgNativeLogin) {
+    this.effectiveEnablePgNativeLogin = effectiveEnablePgNativeLogin;
+    return this;
+  }
+
+  public Boolean getEffectiveEnablePgNativeLogin() {
+    return effectiveEnablePgNativeLogin;
+  }
+
   public DatabaseInstance setEffectiveEnableReadableSecondaries(
       Boolean effectiveEnableReadableSecondaries) {
     this.effectiveEnableReadableSecondaries = effectiveEnableReadableSecondaries;
@@ -195,6 +218,15 @@ public class DatabaseInstance {
 
   public Boolean getEffectiveStopped() {
     return effectiveStopped;
+  }
+
+  public DatabaseInstance setEnablePgNativeLogin(Boolean enablePgNativeLogin) {
+    this.enablePgNativeLogin = enablePgNativeLogin;
+    return this;
+  }
+
+  public Boolean getEnablePgNativeLogin() {
+    return enablePgNativeLogin;
   }
 
   public DatabaseInstance setEnableReadableSecondaries(Boolean enableReadableSecondaries) {
@@ -305,11 +337,13 @@ public class DatabaseInstance {
         && Objects.equals(childInstanceRefs, that.childInstanceRefs)
         && Objects.equals(creationTime, that.creationTime)
         && Objects.equals(creator, that.creator)
+        && Objects.equals(effectiveEnablePgNativeLogin, that.effectiveEnablePgNativeLogin)
         && Objects.equals(
             effectiveEnableReadableSecondaries, that.effectiveEnableReadableSecondaries)
         && Objects.equals(effectiveNodeCount, that.effectiveNodeCount)
         && Objects.equals(effectiveRetentionWindowInDays, that.effectiveRetentionWindowInDays)
         && Objects.equals(effectiveStopped, that.effectiveStopped)
+        && Objects.equals(enablePgNativeLogin, that.enablePgNativeLogin)
         && Objects.equals(enableReadableSecondaries, that.enableReadableSecondaries)
         && Objects.equals(name, that.name)
         && Objects.equals(nodeCount, that.nodeCount)
@@ -330,10 +364,12 @@ public class DatabaseInstance {
         childInstanceRefs,
         creationTime,
         creator,
+        effectiveEnablePgNativeLogin,
         effectiveEnableReadableSecondaries,
         effectiveNodeCount,
         effectiveRetentionWindowInDays,
         effectiveStopped,
+        enablePgNativeLogin,
         enableReadableSecondaries,
         name,
         nodeCount,
@@ -354,10 +390,12 @@ public class DatabaseInstance {
         .add("childInstanceRefs", childInstanceRefs)
         .add("creationTime", creationTime)
         .add("creator", creator)
+        .add("effectiveEnablePgNativeLogin", effectiveEnablePgNativeLogin)
         .add("effectiveEnableReadableSecondaries", effectiveEnableReadableSecondaries)
         .add("effectiveNodeCount", effectiveNodeCount)
         .add("effectiveRetentionWindowInDays", effectiveRetentionWindowInDays)
         .add("effectiveStopped", effectiveStopped)
+        .add("enablePgNativeLogin", enablePgNativeLogin)
         .add("enableReadableSecondaries", enableReadableSecondaries)
         .add("name", name)
         .add("nodeCount", nodeCount)

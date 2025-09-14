@@ -24,7 +24,7 @@ public class Group {
   @JsonProperty("entitlements")
   private Collection<ComplexValue> entitlements;
 
-  /** */
+  /** external_id should be unique for identifying groups */
   @JsonProperty("externalId")
   private String externalId;
 

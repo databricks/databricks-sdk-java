@@ -10,6 +10,10 @@ import java.util.Objects;
 /** Internal information for D2D sharing that should not be disclosed to external users. */
 @Generated
 public class TableInternalAttributes {
+  /** Managed Delta Metadata location for foreign iceberg tables. */
+  @JsonProperty("auxiliary_managed_location")
+  private String auxiliaryManagedLocation;
+
   /**
    * Will be populated in the reconciliation response for VIEW and FOREIGN_TABLE, with the value of
    * the parent UC entity's storage_location, following the same logic as getManagedEntityPath in
@@ -32,6 +36,15 @@ public class TableInternalAttributes {
   /** The view definition of a shared view. DEPRECATED. */
   @JsonProperty("view_definition")
   private String viewDefinition;
+
+  public TableInternalAttributes setAuxiliaryManagedLocation(String auxiliaryManagedLocation) {
+    this.auxiliaryManagedLocation = auxiliaryManagedLocation;
+    return this;
+  }
+
+  public String getAuxiliaryManagedLocation() {
+    return auxiliaryManagedLocation;
+  }
 
   public TableInternalAttributes setParentStorageLocation(String parentStorageLocation) {
     this.parentStorageLocation = parentStorageLocation;
@@ -74,7 +87,8 @@ public class TableInternalAttributes {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     TableInternalAttributes that = (TableInternalAttributes) o;
-    return Objects.equals(parentStorageLocation, that.parentStorageLocation)
+    return Objects.equals(auxiliaryManagedLocation, that.auxiliaryManagedLocation)
+        && Objects.equals(parentStorageLocation, that.parentStorageLocation)
         && Objects.equals(storageLocation, that.storageLocation)
         && Objects.equals(typeValue, that.typeValue)
         && Objects.equals(viewDefinition, that.viewDefinition);
@@ -82,12 +96,18 @@ public class TableInternalAttributes {
 
   @Override
   public int hashCode() {
-    return Objects.hash(parentStorageLocation, storageLocation, typeValue, viewDefinition);
+    return Objects.hash(
+        auxiliaryManagedLocation,
+        parentStorageLocation,
+        storageLocation,
+        typeValue,
+        viewDefinition);
   }
 
   @Override
   public String toString() {
     return new ToStringer(TableInternalAttributes.class)
+        .add("auxiliaryManagedLocation", auxiliaryManagedLocation)
         .add("parentStorageLocation", parentStorageLocation)
         .add("storageLocation", storageLocation)
         .add("typeValue", typeValue)

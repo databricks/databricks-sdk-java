@@ -7,7 +7,7 @@ import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** The Tag Policy API allows you to manage tag policies in Databricks. */
+/** The Tag Policy API allows you to manage policies for governed tags in Databricks. */
 @Generated
 public class TagPoliciesAPI {
   private static final Logger LOG = LoggerFactory.getLogger(TagPoliciesAPI.class);
@@ -24,7 +24,7 @@ public class TagPoliciesAPI {
     impl = mock;
   }
 
-  /** Creates a new tag policy. */
+  /** Creates a new tag policy, making the associated tag key governed. */
   public TagPolicy createTagPolicy(CreateTagPolicyRequest request) {
     return impl.createTagPolicy(request);
   }
@@ -33,7 +33,7 @@ public class TagPoliciesAPI {
     deleteTagPolicy(new DeleteTagPolicyRequest().setTagKey(tagKey));
   }
 
-  /** Deletes a tag policy by its key. */
+  /** Deletes a tag policy by its associated governed tag's key, leaving that tag key ungoverned. */
   public void deleteTagPolicy(DeleteTagPolicyRequest request) {
     impl.deleteTagPolicy(request);
   }
@@ -42,12 +42,12 @@ public class TagPoliciesAPI {
     return getTagPolicy(new GetTagPolicyRequest().setTagKey(tagKey));
   }
 
-  /** Gets a single tag policy by its key. */
+  /** Gets a single tag policy by its associated governed tag's key. */
   public TagPolicy getTagPolicy(GetTagPolicyRequest request) {
     return impl.getTagPolicy(request);
   }
 
-  /** Lists all tag policies in the account. */
+  /** Lists the tag policies for all governed tags in the account. */
   public Iterable<TagPolicy> listTagPolicies(ListTagPoliciesRequest request) {
     return new Paginator<>(
         request,
@@ -62,7 +62,7 @@ public class TagPoliciesAPI {
         });
   }
 
-  /** Updates an existing tag policy. */
+  /** Updates an existing tag policy for a single governed tag. */
   public TagPolicy updateTagPolicy(UpdateTagPolicyRequest request) {
     return impl.updateTagPolicy(request);
   }

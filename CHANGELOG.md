@@ -1,5 +1,42 @@
 # Version changelog
 
+## Release v0.62.0
+
+### API Changes
+* Added `com.databricks.sdk.service.iamv2` package.
+* Added `accountClient.accountIamV2()` service and `workspaceClient.workspaceIamV2()` service.
+* Added `feedback` field for `com.databricks.sdk.service.dashboards.GenieMessage`.
+* Added `disabled` field for `com.databricks.sdk.service.jobs.Task`.
+* Added `auxiliaryManagedLocation` field for `com.databricks.sdk.service.sharing.TableInternalAttributes`.
+* Added `alerts` field for `com.databricks.sdk.service.sql.ListAlertsV2Response`.
+* Added `NO_ACTIVATED_K8S` and `USAGE_POLICY_ENTITLEMENT_DENIED` enum values for `com.databricks.sdk.service.compute.TerminationReasonCode`.
+* Added `FOREIGN_CATALOG` enum value for `com.databricks.sdk.service.pipelines.IngestionSourceType`.
+* Added `FOREIGN_ICEBERG_TABLE` enum value for `com.databricks.sdk.service.sharing.TableInternalAttributesSharedTableType`.
+* [Breaking] Removed `disabled` field for `com.databricks.sdk.service.jobs.RunTask`.
+
+
+## Release v0.61.0
+
+### Bug Fixes
+
+* Fixed `selectSparkVersion()` method to use contains() instead of equals() for spark version matching.
+
+### API Changes
+* Added `comment` field for `com.databricks.sdk.service.dashboards.GenieSendMessageFeedbackRequest`.
+* [Breaking] Added `rating` field for `com.databricks.sdk.service.dashboards.GenieSendMessageFeedbackRequest`.
+* Added `effectiveEnablePgNativeLogin` and `enablePgNativeLogin` fields for `com.databricks.sdk.service.database.DatabaseInstance`.
+* Added `taskRetryMode` field for `com.databricks.sdk.service.jobs.Continuous`.
+* Added `sourceConfigurations` field for `com.databricks.sdk.service.pipelines.IngestionPipelineDefinition`.
+* Added `appId`, `appIdSet`, `authSecret`, `authSecretSet`, `channelUrl`, `channelUrlSet`, `tenantId` and `tenantIdSet` fields for `com.databricks.sdk.service.settings.MicrosoftTeamsConfig`.
+* Added `ensureRerankerCompatible` field for `com.databricks.sdk.service.vectorsearch.GetIndexRequest`.
+* Added `reranker` field for `com.databricks.sdk.service.vectorsearch.QueryVectorIndexRequest`.
+* [Breaking] Changed `createCleanRoomAssetReview()` method for `workspaceClient.cleanRoomAssets()` service with new required argument order.
+* [Breaking] Changed `sendMessageFeedback()` method for `workspaceClient.genie()` service with new required argument order.
+* Changed `notebookReview` field for `com.databricks.sdk.service.cleanrooms.CreateCleanRoomAssetReviewRequest` to no longer be required.
+* [Breaking] Changed `features` field for `com.databricks.sdk.service.ml.FeatureList` to type List<`com.databricks.sdk.service.ml.LinkedFeature`>.
+* [Breaking] Removed `feedbackRating` and `feedbackText` fields for `com.databricks.sdk.service.dashboards.GenieSendMessageFeedbackRequest`.
+
+
 ## Release v0.60.0
 
 ### New Features and Improvements

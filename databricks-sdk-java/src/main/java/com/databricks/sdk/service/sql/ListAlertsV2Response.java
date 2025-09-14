@@ -11,12 +11,25 @@ import java.util.Objects;
 @Generated
 public class ListAlertsV2Response {
   /** */
+  @JsonProperty("alerts")
+  private Collection<AlertV2> alerts;
+
+  /** */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 
-  /** */
+  /** Deprecated. Use `alerts` instead. */
   @JsonProperty("results")
   private Collection<AlertV2> results;
+
+  public ListAlertsV2Response setAlerts(Collection<AlertV2> alerts) {
+    this.alerts = alerts;
+    return this;
+  }
+
+  public Collection<AlertV2> getAlerts() {
+    return alerts;
+  }
 
   public ListAlertsV2Response setNextPageToken(String nextPageToken) {
     this.nextPageToken = nextPageToken;
@@ -41,18 +54,20 @@ public class ListAlertsV2Response {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ListAlertsV2Response that = (ListAlertsV2Response) o;
-    return Objects.equals(nextPageToken, that.nextPageToken)
+    return Objects.equals(alerts, that.alerts)
+        && Objects.equals(nextPageToken, that.nextPageToken)
         && Objects.equals(results, that.results);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(nextPageToken, results);
+    return Objects.hash(alerts, nextPageToken, results);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ListAlertsV2Response.class)
+        .add("alerts", alerts)
         .add("nextPageToken", nextPageToken)
         .add("results", results)
         .toString();

@@ -4,7 +4,7 @@ package com.databricks.sdk.service.tags;
 import com.databricks.sdk.support.Generated;
 
 /**
- * The Tag Policy API allows you to manage tag policies in Databricks.
+ * The Tag Policy API allows you to manage policies for governed tags in Databricks.
  *
  * <p>This is the high-level interface, that contains generated methods.
  *
@@ -12,18 +12,18 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface TagPoliciesService {
-  /** Creates a new tag policy. */
+  /** Creates a new tag policy, making the associated tag key governed. */
   TagPolicy createTagPolicy(CreateTagPolicyRequest createTagPolicyRequest);
 
-  /** Deletes a tag policy by its key. */
+  /** Deletes a tag policy by its associated governed tag's key, leaving that tag key ungoverned. */
   void deleteTagPolicy(DeleteTagPolicyRequest deleteTagPolicyRequest);
 
-  /** Gets a single tag policy by its key. */
+  /** Gets a single tag policy by its associated governed tag's key. */
   TagPolicy getTagPolicy(GetTagPolicyRequest getTagPolicyRequest);
 
-  /** Lists all tag policies in the account. */
+  /** Lists the tag policies for all governed tags in the account. */
   ListTagPoliciesResponse listTagPolicies(ListTagPoliciesRequest listTagPoliciesRequest);
 
-  /** Updates an existing tag policy. */
+  /** Updates an existing tag policy for a single governed tag. */
   TagPolicy updateTagPolicy(UpdateTagPolicyRequest updateTagPolicyRequest);
 }
