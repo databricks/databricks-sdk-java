@@ -242,7 +242,7 @@ public class DatabricksConfig {
       return (TokenSource) headerFactory;
     }
     return new ErrorTokenSource(
-        String.format("OAuth Token not supported for current auth type %s", authType));
+            String.format("OAuth Token not supported for current auth type %s", authType));
   }
 
   public CredentialsProvider getCredentialsProvider() {
@@ -434,13 +434,17 @@ public class DatabricksConfig {
     return this;
   }
 
-  /** @deprecated Use {@link #getAzureUseMsi()} instead. */
+  /**
+   * @deprecated Use {@link #getAzureUseMsi()} instead.
+   */
   @Deprecated()
   public boolean getAzureUseMSI() {
     return azureUseMsi;
   }
 
-  /** @deprecated Use {@link #getAzureUseMsi()} instead. */
+  /**
+   * @deprecated Use {@link #getAzureUseMsi()} instead.
+   */
   @Deprecated
   public DatabricksConfig setAzureUseMSI(boolean azureUseMsi) {
     this.azureUseMsi = azureUseMsi;
@@ -657,10 +661,10 @@ public class DatabricksConfig {
       }
     } catch (Exception e) {
       LOG.warn(
-          "Failed to fetch OIDC Endpoints using discovery URL: {}. Error: {}. \nDefaulting to fetch OIDC using default endpoint.",
-          discoveryUrl,
-          e.getMessage(),
-          e);
+              "Failed to fetch OIDC Endpoints using discovery URL: {}. Error: {}. \nDefaulting to fetch OIDC using default endpoint.",
+              discoveryUrl,
+              e.getMessage(),
+              e);
     }
     return fetchDefaultOidcEndpoints();
   }
@@ -691,7 +695,7 @@ public class DatabricksConfig {
         return null;
       }
       return new OpenIDConnectEndpoints(
-          realAuthUrl.replaceAll("/authorize", "/token"), realAuthUrl);
+              realAuthUrl.replaceAll("/authorize", "/token"), realAuthUrl);
     }
     if (isAccountClient() && getAccountId() != null) {
       String prefix = getHost() + "/oidc/accounts/" + getAccountId();
@@ -699,14 +703,14 @@ public class DatabricksConfig {
     }
 
     ApiClient apiClient =
-        new ApiClient.Builder()
-            .withHttpClient(getHttpClient())
-            .withGetHostFunc(v -> getHost())
-            .build();
+            new ApiClient.Builder()
+                    .withHttpClient(getHttpClient())
+                    .withGetHostFunc(v -> getHost())
+                    .build();
     try {
       return apiClient.execute(
-          new Request("GET", "/oidc/.well-known/oauth-authorization-server"),
-          OpenIDConnectEndpoints.class);
+              new Request("GET", "/oidc/.well-known/oauth-authorization-server"),
+              OpenIDConnectEndpoints.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -773,18 +777,18 @@ public class DatabricksConfig {
 
   public DatabricksConfig newWithWorkspaceHost(String host) {
     Set<String> fieldsToSkip =
-        new HashSet<>(
-            Arrays.asList(
-                // The config for WorkspaceClient has a different host and Azure Workspace resource
-                // ID, and also omits
-                // the account ID.
-                "host",
-                "accountId",
-                "azureWorkspaceResourceId",
-                // For cloud-native OAuth, we need to reauthenticate as the audience has changed, so
-                // don't cache the
-                // header factory.
-                "headerFactory"));
+            new HashSet<>(
+                    Arrays.asList(
+                            // The config for WorkspaceClient has a different host and Azure Workspace resource
+                            // ID, and also omits
+                            // the account ID.
+                            "host",
+                            "accountId",
+                            "azureWorkspaceResourceId",
+                            // For cloud-native OAuth, we need to reauthenticate as the audience has changed, so
+                            // don't cache the
+                            // header factory.
+                            "headerFactory"));
     return clone(fieldsToSkip).setHost(host);
   }
 
