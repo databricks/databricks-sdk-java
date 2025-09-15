@@ -16,7 +16,8 @@ public class GetAssignableRolesForResourceRequest {
    * <p>Examples | Summary :--- | :--- `resource=accounts/<ACCOUNT_ID>` | A resource name for the
    * account. `resource=accounts/<ACCOUNT_ID>/groups/<GROUP_ID>` | A resource name for the group.
    * `resource=accounts/<ACCOUNT_ID>/servicePrincipals/<SP_ID>` | A resource name for the service
-   * principal.
+   * principal. `resource=accounts/<ACCOUNT_ID>/tagPolicies/<TAG_POLICY_ID>` | A resource name for
+   * the tag policy.
    */
   @JsonIgnore
   @QueryParam("resource")

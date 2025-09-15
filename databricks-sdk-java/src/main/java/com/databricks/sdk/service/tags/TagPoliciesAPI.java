@@ -7,7 +7,13 @@ import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** The Tag Policy API allows you to manage policies for governed tags in Databricks. */
+/**
+ * The Tag Policy API allows you to manage policies for governed tags in Databricks. Permissions for
+ * tag policies can be managed using the [Account Access Control Proxy API].
+ *
+ * <p>[Account Access Control Proxy API]:
+ * https://docs.databricks.com/api/workspace/accountaccesscontrolproxy
+ */
 @Generated
 public class TagPoliciesAPI {
   private static final Logger LOG = LoggerFactory.getLogger(TagPoliciesAPI.class);
