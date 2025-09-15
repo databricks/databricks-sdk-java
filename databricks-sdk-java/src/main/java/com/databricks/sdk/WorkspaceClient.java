@@ -154,6 +154,8 @@ import com.databricks.sdk.service.marketplace.ProviderProvidersAPI;
 import com.databricks.sdk.service.marketplace.ProviderProvidersService;
 import com.databricks.sdk.service.ml.ExperimentsAPI;
 import com.databricks.sdk.service.ml.ExperimentsService;
+import com.databricks.sdk.service.ml.FeatureEngineeringAPI;
+import com.databricks.sdk.service.ml.FeatureEngineeringService;
 import com.databricks.sdk.service.ml.FeatureStoreAPI;
 import com.databricks.sdk.service.ml.FeatureStoreService;
 import com.databricks.sdk.service.ml.ForecastingAPI;
@@ -287,6 +289,7 @@ public class WorkspaceClient {
   private ExternalLineageAPI externalLineageAPI;
   private ExternalLocationsAPI externalLocationsAPI;
   private ExternalMetadataAPI externalMetadataAPI;
+  private FeatureEngineeringAPI featureEngineeringAPI;
   private FeatureStoreAPI featureStoreAPI;
   private FilesAPI filesAPI;
   private ForecastingAPI forecastingAPI;
@@ -413,6 +416,7 @@ public class WorkspaceClient {
     externalLineageAPI = new ExternalLineageAPI(apiClient);
     externalLocationsAPI = new ExternalLocationsAPI(apiClient);
     externalMetadataAPI = new ExternalMetadataAPI(apiClient);
+    featureEngineeringAPI = new FeatureEngineeringAPI(apiClient);
     featureStoreAPI = new FeatureStoreAPI(apiClient);
     filesAPI = new FilesAPI(apiClient);
     forecastingAPI = new ForecastingAPI(apiClient);
@@ -900,6 +904,11 @@ public class WorkspaceClient {
    */
   public ExternalMetadataAPI externalMetadata() {
     return externalMetadataAPI;
+  }
+
+  /** [description] */
+  public FeatureEngineeringAPI featureEngineering() {
+    return featureEngineeringAPI;
   }
 
   /**
@@ -1832,7 +1841,13 @@ public class WorkspaceClient {
     return tablesAPI;
   }
 
-  /** The Tag Policy API allows you to manage policies for governed tags in Databricks. */
+  /**
+   * The Tag Policy API allows you to manage policies for governed tags in Databricks. Permissions
+   * for tag policies can be managed using the [Account Access Control Proxy API].
+   *
+   * <p>[Account Access Control Proxy API]:
+   * https://docs.databricks.com/api/workspace/accountaccesscontrolproxy
+   */
   public TagPoliciesAPI tagPolicies() {
     return tagPoliciesAPI;
   }
@@ -2440,6 +2455,17 @@ public class WorkspaceClient {
   /** Replace the default ExternalMetadataAPI with a custom implementation. */
   public WorkspaceClient withExternalMetadataAPI(ExternalMetadataAPI externalMetadata) {
     this.externalMetadataAPI = externalMetadata;
+    return this;
+  }
+
+  /** Replace the default FeatureEngineeringService with a custom implementation. */
+  public WorkspaceClient withFeatureEngineeringImpl(FeatureEngineeringService featureEngineering) {
+    return this.withFeatureEngineeringAPI(new FeatureEngineeringAPI(featureEngineering));
+  }
+
+  /** Replace the default FeatureEngineeringAPI with a custom implementation. */
+  public WorkspaceClient withFeatureEngineeringAPI(FeatureEngineeringAPI featureEngineering) {
+    this.featureEngineeringAPI = featureEngineering;
     return this;
   }
 

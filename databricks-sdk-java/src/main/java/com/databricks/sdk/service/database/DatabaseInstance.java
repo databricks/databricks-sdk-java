@@ -29,6 +29,10 @@ public class DatabaseInstance {
   @JsonProperty("creator")
   private String creator;
 
+  /** Deprecated. The sku of the instance; this field will always match the value of capacity. */
+  @JsonProperty("effective_capacity")
+  private String effectiveCapacity;
+
   /**
    * xref AIP-129. `enable_pg_native_login` is owned by the client, while
    * `effective_enable_pg_native_login` is owned by the server. `enable_pg_native_login` will only
@@ -50,10 +54,8 @@ public class DatabaseInstance {
   private Boolean effectiveEnableReadableSecondaries;
 
   /**
-   * xref AIP-129. `node_count` is owned by the client, while `effective_node_count` is owned by the
-   * server. `node_count` will only be set in Create/Update response messages if and only if the
-   * user provides the field via the request. `effective_node_count` on the other hand will always
-   * bet set in all response messages (Create/Update/Get/List).
+   * The number of nodes in the instance, composed of 1 primary and 0 or more secondaries. Defaults
+   * to 1 primary and 0 secondaries.
    */
   @JsonProperty("effective_node_count")
   private Long effectiveNodeCount;
@@ -68,16 +70,11 @@ public class DatabaseInstance {
   @JsonProperty("effective_retention_window_in_days")
   private Long effectiveRetentionWindowInDays;
 
-  /**
-   * xref AIP-129. `stopped` is owned by the client, while `effective_stopped` is owned by the
-   * server. `stopped` will only be set in Create/Update response messages if and only if the user
-   * provides the field via the request. `effective_stopped` on the other hand will always bet set
-   * in all response messages (Create/Update/Get/List).
-   */
+  /** Whether the instance is stopped. */
   @JsonProperty("effective_stopped")
   private Boolean effectiveStopped;
 
-  /** Whether the instance has PG native password login enabled. Defaults to true. */
+  /** Whether the instance has PG native password login enabled. Defaults to false. */
   @JsonProperty("enable_pg_native_login")
   private Boolean enablePgNativeLogin;
 
@@ -91,7 +88,8 @@ public class DatabaseInstance {
 
   /**
    * The number of nodes in the instance, composed of 1 primary and 0 or more secondaries. Defaults
-   * to 1 primary and 0 secondaries.
+   * to 1 primary and 0 secondaries. This field is input only, see effective_node_count for the
+   * output.
    */
   @JsonProperty("node_count")
   private Long nodeCount;
@@ -130,7 +128,7 @@ public class DatabaseInstance {
   @JsonProperty("state")
   private DatabaseInstanceState state;
 
-  /** Whether the instance is stopped. */
+  /** Whether to stop the instance. An input only param, see effective_stopped for the output. */
   @JsonProperty("stopped")
   private Boolean stopped;
 
@@ -172,6 +170,15 @@ public class DatabaseInstance {
 
   public String getCreator() {
     return creator;
+  }
+
+  public DatabaseInstance setEffectiveCapacity(String effectiveCapacity) {
+    this.effectiveCapacity = effectiveCapacity;
+    return this;
+  }
+
+  public String getEffectiveCapacity() {
+    return effectiveCapacity;
   }
 
   public DatabaseInstance setEffectiveEnablePgNativeLogin(Boolean effectiveEnablePgNativeLogin) {
@@ -337,6 +344,7 @@ public class DatabaseInstance {
         && Objects.equals(childInstanceRefs, that.childInstanceRefs)
         && Objects.equals(creationTime, that.creationTime)
         && Objects.equals(creator, that.creator)
+        && Objects.equals(effectiveCapacity, that.effectiveCapacity)
         && Objects.equals(effectiveEnablePgNativeLogin, that.effectiveEnablePgNativeLogin)
         && Objects.equals(
             effectiveEnableReadableSecondaries, that.effectiveEnableReadableSecondaries)
@@ -364,6 +372,7 @@ public class DatabaseInstance {
         childInstanceRefs,
         creationTime,
         creator,
+        effectiveCapacity,
         effectiveEnablePgNativeLogin,
         effectiveEnableReadableSecondaries,
         effectiveNodeCount,
@@ -390,6 +399,7 @@ public class DatabaseInstance {
         .add("childInstanceRefs", childInstanceRefs)
         .add("creationTime", creationTime)
         .add("creator", creator)
+        .add("effectiveCapacity", effectiveCapacity)
         .add("effectiveEnablePgNativeLogin", effectiveEnablePgNativeLogin)
         .add("effectiveEnableReadableSecondaries", effectiveEnableReadableSecondaries)
         .add("effectiveNodeCount", effectiveNodeCount)

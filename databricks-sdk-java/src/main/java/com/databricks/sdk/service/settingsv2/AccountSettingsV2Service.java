@@ -12,18 +12,24 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface AccountSettingsV2Service {
-  /** Get a setting value at account level */
+  /**
+   * Get a setting value at account level. See :method:settingsv2/listaccountsettingsmetadata for
+   * list of setting available via public APIs at account level.
+   */
   Setting getPublicAccountSetting(GetPublicAccountSettingRequest getPublicAccountSettingRequest);
 
   /**
-   * List valid setting keys and metadata. These settings are available to referenced via [GET
-   * /api/2.1/settings/{name}](#~1api~1account~1settingsv2~1getpublicaccountsetting) and [PATCH
-   * /api/2.1/settings/{name}](#~1api~1account~1settingsv2~patchpublicaccountsetting) APIs
+   * List valid setting keys and metadata. These settings are available to be referenced via GET
+   * :method:settingsv2/getpublicaccountsetting and PATCH
+   * :method:settingsv2/patchpublicaccountsetting APIs
    */
   ListAccountSettingsMetadataResponse listAccountSettingsMetadata(
       ListAccountSettingsMetadataRequest listAccountSettingsMetadataRequest);
 
-  /** Patch a setting value at account level */
+  /**
+   * Patch a setting value at account level. See :method:settingsv2/listaccountsettingsmetadata for
+   * list of setting available via public APIs at account level.
+   */
   Setting patchPublicAccountSetting(
       PatchPublicAccountSettingRequest patchPublicAccountSettingRequest);
 }

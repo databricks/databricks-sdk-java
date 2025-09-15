@@ -186,7 +186,7 @@ public class WarehousesAPI {
     return impl.getWorkspaceWarehouseConfig();
   }
 
-  /** Lists all SQL warehouses that a user has manager permissions on. */
+  /** Lists all SQL warehouses that a user has access to. */
   public Iterable<EndpointInfo> list(ListWarehousesRequest request) {
     return new Paginator<>(
         request, impl::list, ListWarehousesResponse::getWarehouses, response -> null);

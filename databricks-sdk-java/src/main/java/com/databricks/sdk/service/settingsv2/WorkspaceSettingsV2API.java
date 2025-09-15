@@ -28,15 +28,18 @@ public class WorkspaceSettingsV2API {
     return getPublicWorkspaceSetting(new GetPublicWorkspaceSettingRequest().setName(name));
   }
 
-  /** Get a setting value at workspace level */
+  /**
+   * Get a setting value at workspace level. See :method:settingsv2/listworkspacesettingsmetadata
+   * for list of setting available via public APIs.
+   */
   public Setting getPublicWorkspaceSetting(GetPublicWorkspaceSettingRequest request) {
     return impl.getPublicWorkspaceSetting(request);
   }
 
   /**
-   * List valid setting keys and metadata. These settings are available to referenced via [GET
-   * /api/2.1/settings/{name}](#~1api~1workspace~1settingsv2~1getpublicworkspacesetting) and [PATCH
-   * /api/2.1/settings/{name}](#~1api~1workspace~1settingsv2~patchpublicworkspacesetting) APIs
+   * List valid setting keys and metadata. These settings are available to be referenced via GET
+   * :method:settingsv2/getpublicworkspacesetting and PATCH
+   * :method:settingsv2/patchpublicworkspacesetting APIs
    */
   public Iterable<SettingsMetadata> listWorkspaceSettingsMetadata(
       ListWorkspaceSettingsMetadataRequest request) {
@@ -53,7 +56,10 @@ public class WorkspaceSettingsV2API {
         });
   }
 
-  /** Patch a setting value at workspace level */
+  /**
+   * Patch a setting value at workspace level. See :method:settingsv2/listworkspacesettingsmetadata
+   * for list of setting available via public APIs at workspace level.
+   */
   public Setting patchPublicWorkspaceSetting(PatchPublicWorkspaceSettingRequest request) {
     return impl.patchPublicWorkspaceSetting(request);
   }
