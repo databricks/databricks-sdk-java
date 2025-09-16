@@ -676,7 +676,7 @@ public class DatabricksConfig {
         return null;
       }
       return new OpenIDConnectEndpoints(
-              realAuthUrl.replaceAll("/authorize", "/token"), realAuthUrl);
+          realAuthUrl.replaceAll("/authorize", "/token"), realAuthUrl);
     }
     if (isAccountClient() && getAccountId() != null) {
       String prefix = getHost() + "/oidc/accounts/" + getAccountId();
@@ -690,8 +690,8 @@ public class DatabricksConfig {
             .build();
     try {
       return apiClient.execute(
-              new Request("GET", "/oidc/.well-known/oauth-authorization-server"),
-              OpenIDConnectEndpoints.class);
+          new Request("GET", "/oidc/.well-known/oauth-authorization-server"),
+          OpenIDConnectEndpoints.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
