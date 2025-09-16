@@ -167,35 +167,6 @@ public class DatabricksConfigTest {
   }
 
   @Test
-  public void testDiscoveryEndpointFetchFallback() throws IOException {
-    String discoveryUrlSuffix = "/test.discovery.url";
-    String OIDCResponse =
-        "{\n"
-            + "  \"authorization_endpoint\": \"https://test.auth.endpoint/oidc/v1/authorize\",\n"
-            + "  \"token_endpoint\": \"https://test.auth.endpoint/oidc/v1/token\"\n"
-            + "}";
-
-    try (FixtureServer server =
-        new FixtureServer()
-            .with("GET", discoveryUrlSuffix, "", 400)
-            .with("GET", "/oidc/.well-known/oauth-authorization-server", OIDCResponse, 200)) {
-
-      String discoveryUrl = server.getUrl() + discoveryUrlSuffix;
-
-      OpenIDConnectEndpoints oidcEndpoints =
-          new DatabricksConfig()
-              .setHost(server.getUrl())
-              .setDiscoveryUrl(discoveryUrl)
-              .setHttpClient(new CommonsHttpClient.Builder().withTimeoutSeconds(30).build())
-              .getOidcEndpoints();
-
-      assertEquals(
-          "https://test.auth.endpoint/oidc/v1/authorize", oidcEndpoints.getAuthorizationEndpoint());
-      assertEquals("https://test.auth.endpoint/oidc/v1/token", oidcEndpoints.getTokenEndpoint());
-    }
-  }
-
-  @Test
   public void testNewWithWorkspaceHost() {
     DatabricksConfig config =
         new DatabricksConfig()

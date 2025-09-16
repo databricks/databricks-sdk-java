@@ -17,11 +17,8 @@ import java.lang.reflect.Field;
 import java.time.Duration;
 import java.util.*;
 import org.apache.http.HttpMessage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class DatabricksConfig {
-  private static final Logger LOG = LoggerFactory.getLogger(DatabricksConfig.class);
   private CredentialsProvider credentialsProvider = new DefaultCredentialsProvider();
 
   @ConfigAttribute(env = "DATABRICKS_HOST")
@@ -654,19 +651,7 @@ public class DatabricksConfig {
     if (discoveryUrl == null) {
       return fetchDefaultOidcEndpoints();
     }
-    try {
-      OpenIDConnectEndpoints oidcEndpoints = fetchOidcEndpointsFromDiscovery();
-      if (oidcEndpoints != null) {
-        return oidcEndpoints;
-      }
-    } catch (Exception e) {
-      LOG.warn(
-              "Failed to fetch OIDC Endpoints using discovery URL: {}. Error: {}. \nDefaulting to fetch OIDC using default endpoint.",
-              discoveryUrl,
-              e.getMessage(),
-              e);
-    }
-    return fetchDefaultOidcEndpoints();
+    return fetchOidcEndpointsFromDiscovery();
   }
 
   private OpenIDConnectEndpoints fetchOidcEndpointsFromDiscovery() {
@@ -756,7 +741,6 @@ public class DatabricksConfig {
   }
 
   private DatabricksConfig clone(Set<String> fieldsToSkip) {
-    fieldsToSkip.add("LOG");
     DatabricksConfig newConfig = new DatabricksConfig();
     for (Field f : DatabricksConfig.class.getDeclaredFields()) {
       if (fieldsToSkip.contains(f.getName())) {
