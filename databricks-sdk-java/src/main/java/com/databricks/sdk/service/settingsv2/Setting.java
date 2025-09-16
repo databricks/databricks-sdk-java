@@ -17,17 +17,13 @@ public class Setting {
   @JsonProperty("aibi_dashboard_embedding_approved_domains")
   private AibiDashboardEmbeddingApprovedDomains aibiDashboardEmbeddingApprovedDomains;
 
-  /** todo: Mark these Public after onboarded to DSL */
+  /** */
   @JsonProperty("automatic_cluster_update_workspace")
   private ClusterAutoRestartMessage automaticClusterUpdateWorkspace;
 
   /** */
   @JsonProperty("boolean_val")
   private BooleanMessage booleanVal;
-
-  /** */
-  @JsonProperty("default_data_security_mode")
-  private DefaultDataSecurityModeMessage defaultDataSecurityMode;
 
   /** */
   @JsonProperty("effective_aibi_dashboard_embedding_access_policy")
@@ -44,10 +40,6 @@ public class Setting {
   /** */
   @JsonProperty("effective_boolean_val")
   private BooleanMessage effectiveBooleanVal;
-
-  /** */
-  @JsonProperty("effective_default_data_security_mode")
-  private DefaultDataSecurityModeMessage effectiveDefaultDataSecurityMode;
 
   /** */
   @JsonProperty("effective_integer_val")
@@ -124,16 +116,6 @@ public class Setting {
     return booleanVal;
   }
 
-  public Setting setDefaultDataSecurityMode(
-      DefaultDataSecurityModeMessage defaultDataSecurityMode) {
-    this.defaultDataSecurityMode = defaultDataSecurityMode;
-    return this;
-  }
-
-  public DefaultDataSecurityModeMessage getDefaultDataSecurityMode() {
-    return defaultDataSecurityMode;
-  }
-
   public Setting setEffectiveAibiDashboardEmbeddingAccessPolicy(
       AibiDashboardEmbeddingAccessPolicy effectiveAibiDashboardEmbeddingAccessPolicy) {
     this.effectiveAibiDashboardEmbeddingAccessPolicy = effectiveAibiDashboardEmbeddingAccessPolicy;
@@ -172,16 +154,6 @@ public class Setting {
 
   public BooleanMessage getEffectiveBooleanVal() {
     return effectiveBooleanVal;
-  }
-
-  public Setting setEffectiveDefaultDataSecurityMode(
-      DefaultDataSecurityModeMessage effectiveDefaultDataSecurityMode) {
-    this.effectiveDefaultDataSecurityMode = effectiveDefaultDataSecurityMode;
-    return this;
-  }
-
-  public DefaultDataSecurityModeMessage getEffectiveDefaultDataSecurityMode() {
-    return effectiveDefaultDataSecurityMode;
   }
 
   public Setting setEffectiveIntegerVal(IntegerMessage effectiveIntegerVal) {
@@ -278,7 +250,6 @@ public class Setting {
             aibiDashboardEmbeddingApprovedDomains, that.aibiDashboardEmbeddingApprovedDomains)
         && Objects.equals(automaticClusterUpdateWorkspace, that.automaticClusterUpdateWorkspace)
         && Objects.equals(booleanVal, that.booleanVal)
-        && Objects.equals(defaultDataSecurityMode, that.defaultDataSecurityMode)
         && Objects.equals(
             effectiveAibiDashboardEmbeddingAccessPolicy,
             that.effectiveAibiDashboardEmbeddingAccessPolicy)
@@ -288,7 +259,6 @@ public class Setting {
         && Objects.equals(
             effectiveAutomaticClusterUpdateWorkspace, that.effectiveAutomaticClusterUpdateWorkspace)
         && Objects.equals(effectiveBooleanVal, that.effectiveBooleanVal)
-        && Objects.equals(effectiveDefaultDataSecurityMode, that.effectiveDefaultDataSecurityMode)
         && Objects.equals(effectiveIntegerVal, that.effectiveIntegerVal)
         && Objects.equals(effectivePersonalCompute, that.effectivePersonalCompute)
         && Objects.equals(effectiveRestrictWorkspaceAdmins, that.effectiveRestrictWorkspaceAdmins)
@@ -307,12 +277,10 @@ public class Setting {
         aibiDashboardEmbeddingApprovedDomains,
         automaticClusterUpdateWorkspace,
         booleanVal,
-        defaultDataSecurityMode,
         effectiveAibiDashboardEmbeddingAccessPolicy,
         effectiveAibiDashboardEmbeddingApprovedDomains,
         effectiveAutomaticClusterUpdateWorkspace,
         effectiveBooleanVal,
-        effectiveDefaultDataSecurityMode,
         effectiveIntegerVal,
         effectivePersonalCompute,
         effectiveRestrictWorkspaceAdmins,
@@ -331,7 +299,6 @@ public class Setting {
         .add("aibiDashboardEmbeddingApprovedDomains", aibiDashboardEmbeddingApprovedDomains)
         .add("automaticClusterUpdateWorkspace", automaticClusterUpdateWorkspace)
         .add("booleanVal", booleanVal)
-        .add("defaultDataSecurityMode", defaultDataSecurityMode)
         .add(
             "effectiveAibiDashboardEmbeddingAccessPolicy",
             effectiveAibiDashboardEmbeddingAccessPolicy)
@@ -340,7 +307,6 @@ public class Setting {
             effectiveAibiDashboardEmbeddingApprovedDomains)
         .add("effectiveAutomaticClusterUpdateWorkspace", effectiveAutomaticClusterUpdateWorkspace)
         .add("effectiveBooleanVal", effectiveBooleanVal)
-        .add("effectiveDefaultDataSecurityMode", effectiveDefaultDataSecurityMode)
         .add("effectiveIntegerVal", effectiveIntegerVal)
         .add("effectivePersonalCompute", effectivePersonalCompute)
         .add("effectiveRestrictWorkspaceAdmins", effectiveRestrictWorkspaceAdmins)

@@ -14,6 +14,10 @@ public class GenieAttachment {
   @JsonProperty("attachment_id")
   private String attachmentId;
 
+  /** Follow-up questions suggested by Genie */
+  @JsonProperty("followup_questions")
+  private GenieFollowupQuestionsAttachment followupQuestions;
+
   /** Query Attachment if Genie responds with a SQL query */
   @JsonProperty("query")
   private GenieQueryAttachment query;
@@ -29,6 +33,15 @@ public class GenieAttachment {
 
   public String getAttachmentId() {
     return attachmentId;
+  }
+
+  public GenieAttachment setFollowupQuestions(GenieFollowupQuestionsAttachment followupQuestions) {
+    this.followupQuestions = followupQuestions;
+    return this;
+  }
+
+  public GenieFollowupQuestionsAttachment getFollowupQuestions() {
+    return followupQuestions;
   }
 
   public GenieAttachment setQuery(GenieQueryAttachment query) {
@@ -55,19 +68,21 @@ public class GenieAttachment {
     if (o == null || getClass() != o.getClass()) return false;
     GenieAttachment that = (GenieAttachment) o;
     return Objects.equals(attachmentId, that.attachmentId)
+        && Objects.equals(followupQuestions, that.followupQuestions)
         && Objects.equals(query, that.query)
         && Objects.equals(text, that.text);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(attachmentId, query, text);
+    return Objects.hash(attachmentId, followupQuestions, query, text);
   }
 
   @Override
   public String toString() {
     return new ToStringer(GenieAttachment.class)
         .add("attachmentId", attachmentId)
+        .add("followupQuestions", followupQuestions)
         .add("query", query)
         .add("text", text)
         .toString();

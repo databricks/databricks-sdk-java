@@ -28,15 +28,18 @@ public class AccountSettingsV2API {
     return getPublicAccountSetting(new GetPublicAccountSettingRequest().setName(name));
   }
 
-  /** Get a setting value at account level */
+  /**
+   * Get a setting value at account level. See :method:settingsv2/listaccountsettingsmetadata for
+   * list of setting available via public APIs at account level.
+   */
   public Setting getPublicAccountSetting(GetPublicAccountSettingRequest request) {
     return impl.getPublicAccountSetting(request);
   }
 
   /**
-   * List valid setting keys and metadata. These settings are available to referenced via [GET
-   * /api/2.1/settings/{name}](#~1api~1account~1settingsv2~1getpublicaccountsetting) and [PATCH
-   * /api/2.1/settings/{name}](#~1api~1account~1settingsv2~patchpublicaccountsetting) APIs
+   * List valid setting keys and metadata. These settings are available to be referenced via GET
+   * :method:settingsv2/getpublicaccountsetting and PATCH
+   * :method:settingsv2/patchpublicaccountsetting APIs
    */
   public Iterable<SettingsMetadata> listAccountSettingsMetadata(
       ListAccountSettingsMetadataRequest request) {
@@ -53,7 +56,10 @@ public class AccountSettingsV2API {
         });
   }
 
-  /** Patch a setting value at account level */
+  /**
+   * Patch a setting value at account level. See :method:settingsv2/listaccountsettingsmetadata for
+   * list of setting available via public APIs at account level.
+   */
   public Setting patchPublicAccountSetting(PatchPublicAccountSettingRequest request) {
     return impl.patchPublicAccountSetting(request);
   }
