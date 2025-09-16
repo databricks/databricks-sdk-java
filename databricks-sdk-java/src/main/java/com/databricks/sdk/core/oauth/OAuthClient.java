@@ -119,7 +119,7 @@ public class OAuthClient {
     this.hc = b.hc;
 
     DatabricksConfig config =
-            new DatabricksConfig().setHost(b.host).setAccountId(b.accountId).resolve();
+        new DatabricksConfig().setHost(b.host).setAccountId(b.accountId).resolve();
     openIDConnectEndpoints = b.openIDConnectEndpoints;
     if (openIDConnectEndpoints == null) {
       throw new DatabricksException(b.host + " does not support OAuth");
@@ -190,9 +190,9 @@ public class OAuthClient {
 
   private static String urlEncode(String urlBase, Map<String, String> params) {
     String queryParams =
-            params.entrySet().stream()
-                    .map(entry -> entry.getKey() + "=" + entry.getValue())
-                    .collect(Collectors.joining("&"));
+        params.entrySet().stream()
+            .map(entry -> entry.getKey() + "=" + entry.getValue())
+            .collect(Collectors.joining("&"));
     return urlBase + "?" + queryParams.replaceAll(" ", "%20");
   }
 
@@ -214,15 +214,15 @@ public class OAuthClient {
     String url = urlEncode(authUrl, params);
 
     return new Consent.Builder()
-            .withClientId(clientId)
-            .withClientSecret(clientSecret)
-            .withAuthUrl(url)
-            .withTokenUrl(tokenUrl)
-            .withRedirectUrl(redirectUrl)
-            .withState(state)
-            .withVerifier(verifier)
-            .withHttpClient(hc)
-            .withBrowserTimeout(browserTimeout)
-            .build();
+        .withClientId(clientId)
+        .withClientSecret(clientSecret)
+        .withAuthUrl(url)
+        .withTokenUrl(tokenUrl)
+        .withRedirectUrl(redirectUrl)
+        .withState(state)
+        .withVerifier(verifier)
+        .withHttpClient(hc)
+        .withBrowserTimeout(browserTimeout)
+        .build();
   }
 }
