@@ -49,6 +49,7 @@ public class ExternalBrowserCredentialsProviderTest {
               .withClientId(config.getClientId())
               .withClientSecret(config.getClientSecret())
               .withHost(config.getHost())
+              .withOpenIDConnectEndpoints(config.getOidcEndpoints())
               .withRedirectUrl(config.getEffectiveOAuthRedirectUrl())
               .withScopes(config.getScopes())
               .build();
@@ -94,6 +95,7 @@ public class ExternalBrowserCredentialsProviderTest {
               .withClientId(config.getClientId())
               .withClientSecret(config.getClientSecret())
               .withHost(config.getHost())
+              .withOpenIDConnectEndpoints(config.getOidcEndpoints())
               .withRedirectUrl(config.getEffectiveOAuthRedirectUrl())
               .withScopes(config.getScopes())
               .build();

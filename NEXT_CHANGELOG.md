@@ -4,6 +4,8 @@
 
 ### New Features and Improvements
 
+* Add support for discovery URL for browser based authentication flow.
+
 ### Bug Fixes
 
 ### Documentation

@@ -43,11 +43,17 @@ public class OAuthClient {
     private HttpClient hc;
     private String accountId;
     private Optional<Duration> browserTimeout = Optional.empty();
+    private OpenIDConnectEndpoints openIDConnectEndpoints;
 
     public Builder() {}
 
     public Builder withHttpClient(HttpClient hc) {
       this.hc = hc;
+      return this;
+    }
+
+    public Builder withOpenIDConnectEndpoints(OpenIDConnectEndpoints openIDConnectEndpoints) {
+      this.openIDConnectEndpoints = openIDConnectEndpoints;
       return this;
     }
 
@@ -102,6 +108,7 @@ public class OAuthClient {
   private final SecureRandom random = new SecureRandom();
   private final boolean isAws;
   private final boolean isAzure;
+  private final OpenIDConnectEndpoints openIDConnectEndpoints;
   private final Optional<Duration> browserTimeout;
 
   private OAuthClient(Builder b) throws IOException {
@@ -113,15 +120,15 @@ public class OAuthClient {
 
     DatabricksConfig config =
         new DatabricksConfig().setHost(b.host).setAccountId(b.accountId).resolve();
-    OpenIDConnectEndpoints oidc = config.getOidcEndpoints();
-    if (oidc == null) {
+    openIDConnectEndpoints = b.openIDConnectEndpoints;
+    if (openIDConnectEndpoints == null) {
       throw new DatabricksException(b.host + " does not support OAuth");
     }
 
     this.isAws = config.isAws();
     this.isAzure = config.isAzure();
-    this.tokenUrl = oidc.getTokenEndpoint();
-    this.authUrl = oidc.getAuthorizationEndpoint();
+    this.tokenUrl = openIDConnectEndpoints.getTokenEndpoint();
+    this.authUrl = openIDConnectEndpoints.getAuthorizationEndpoint();
     this.browserTimeout = b.browserTimeout;
     this.scopes = b.scopes;
   }
@@ -136,6 +143,10 @@ public class OAuthClient {
 
   public String getClientSecret() {
     return clientSecret;
+  }
+
+  public OpenIDConnectEndpoints getOidcEndpoints() {
+    return openIDConnectEndpoints;
   }
 
   public String getRedirectUrl() {
