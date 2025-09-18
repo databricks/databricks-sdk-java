@@ -12,6 +12,7 @@ public enum TableInternalAttributesSharedTableType {
   FOREIGN_ICEBERG_TABLE,
   FOREIGN_TABLE,
   MATERIALIZED_VIEW,
+  METRIC_VIEW,
   STREAMING_TABLE,
   VIEW,
 }

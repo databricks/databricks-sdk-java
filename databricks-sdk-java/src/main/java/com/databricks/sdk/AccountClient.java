@@ -26,10 +26,16 @@ import com.databricks.sdk.service.iam.AccountAccessControlAPI;
 import com.databricks.sdk.service.iam.AccountAccessControlService;
 import com.databricks.sdk.service.iam.AccountGroupsAPI;
 import com.databricks.sdk.service.iam.AccountGroupsService;
+import com.databricks.sdk.service.iam.AccountGroupsV2API;
+import com.databricks.sdk.service.iam.AccountGroupsV2Service;
 import com.databricks.sdk.service.iam.AccountServicePrincipalsAPI;
 import com.databricks.sdk.service.iam.AccountServicePrincipalsService;
+import com.databricks.sdk.service.iam.AccountServicePrincipalsV2API;
+import com.databricks.sdk.service.iam.AccountServicePrincipalsV2Service;
 import com.databricks.sdk.service.iam.AccountUsersAPI;
 import com.databricks.sdk.service.iam.AccountUsersService;
+import com.databricks.sdk.service.iam.AccountUsersV2API;
+import com.databricks.sdk.service.iam.AccountUsersV2Service;
 import com.databricks.sdk.service.iam.WorkspaceAssignmentAPI;
 import com.databricks.sdk.service.iam.WorkspaceAssignmentService;
 import com.databricks.sdk.service.iamv2.AccountIamV2API;
@@ -89,7 +95,7 @@ public class AccountClient {
   private CustomAppIntegrationAPI customAppIntegrationAPI;
   private EncryptionKeysAPI encryptionKeysAPI;
   private AccountFederationPolicyAPI federationPolicyAPI;
-  private AccountGroupsAPI groupsAPI;
+  private AccountGroupsV2API groupsV2API;
   private AccountIamV2API iamV2API;
   private AccountIpAccessListsAPI ipAccessListsAPI;
   private LogDeliveryAPI logDeliveryAPI;
@@ -103,17 +109,20 @@ public class AccountClient {
   private PublishedAppIntegrationAPI publishedAppIntegrationAPI;
   private ServicePrincipalFederationPolicyAPI servicePrincipalFederationPolicyAPI;
   private ServicePrincipalSecretsAPI servicePrincipalSecretsAPI;
-  private AccountServicePrincipalsAPI servicePrincipalsAPI;
+  private AccountServicePrincipalsV2API servicePrincipalsV2API;
   private AccountSettingsAPI settingsAPI;
   private AccountSettingsV2API settingsV2API;
   private StorageAPI storageAPI;
   private AccountStorageCredentialsAPI storageCredentialsAPI;
   private UsageDashboardsAPI usageDashboardsAPI;
-  private AccountUsersAPI usersAPI;
+  private AccountUsersV2API usersV2API;
   private VpcEndpointsAPI vpcEndpointsAPI;
   private WorkspaceAssignmentAPI workspaceAssignmentAPI;
   private WorkspaceNetworkConfigurationAPI workspaceNetworkConfigurationAPI;
   private WorkspacesAPI workspacesAPI;
+  private AccountGroupsAPI groupsAPI;
+  private AccountServicePrincipalsAPI servicePrincipalsAPI;
+  private AccountUsersAPI usersAPI;
 
   public AccountClient() {
     this(ConfigLoader.getDefault());
@@ -131,7 +140,7 @@ public class AccountClient {
     customAppIntegrationAPI = new CustomAppIntegrationAPI(apiClient);
     encryptionKeysAPI = new EncryptionKeysAPI(apiClient);
     federationPolicyAPI = new AccountFederationPolicyAPI(apiClient);
-    groupsAPI = new AccountGroupsAPI(apiClient);
+    groupsV2API = new AccountGroupsV2API(apiClient);
     iamV2API = new AccountIamV2API(apiClient);
     ipAccessListsAPI = new AccountIpAccessListsAPI(apiClient);
     logDeliveryAPI = new LogDeliveryAPI(apiClient);
@@ -145,17 +154,20 @@ public class AccountClient {
     publishedAppIntegrationAPI = new PublishedAppIntegrationAPI(apiClient);
     servicePrincipalFederationPolicyAPI = new ServicePrincipalFederationPolicyAPI(apiClient);
     servicePrincipalSecretsAPI = new ServicePrincipalSecretsAPI(apiClient);
-    servicePrincipalsAPI = new AccountServicePrincipalsAPI(apiClient);
+    servicePrincipalsV2API = new AccountServicePrincipalsV2API(apiClient);
     settingsAPI = new AccountSettingsAPI(apiClient);
     settingsV2API = new AccountSettingsV2API(apiClient);
     storageAPI = new StorageAPI(apiClient);
     storageCredentialsAPI = new AccountStorageCredentialsAPI(apiClient);
     usageDashboardsAPI = new UsageDashboardsAPI(apiClient);
-    usersAPI = new AccountUsersAPI(apiClient);
+    usersV2API = new AccountUsersV2API(apiClient);
     vpcEndpointsAPI = new VpcEndpointsAPI(apiClient);
     workspaceAssignmentAPI = new WorkspaceAssignmentAPI(apiClient);
     workspaceNetworkConfigurationAPI = new WorkspaceNetworkConfigurationAPI(apiClient);
     workspacesAPI = new WorkspacesAPI(apiClient);
+    groupsAPI = new AccountGroupsAPI(apiClient);
+    servicePrincipalsAPI = new AccountServicePrincipalsAPI(apiClient);
+    usersAPI = new AccountUsersAPI(apiClient);
   }
 
   /** Constructor for mocks */
@@ -291,8 +303,8 @@ public class AccountClient {
    * assigned as members of groups, and members inherit permissions that are assigned to their
    * group.
    */
-  public AccountGroupsAPI groups() {
-    return groupsAPI;
+  public AccountGroupsV2API groupsV2() {
+    return groupsV2API;
   }
 
   /**
@@ -540,8 +552,8 @@ public class AccountClient {
    * interactive users do not need any write, delete, or modify privileges in production. This
    * eliminates the risk of a user overwriting production data by accident.
    */
-  public AccountServicePrincipalsAPI servicePrincipals() {
-    return servicePrincipalsAPI;
+  public AccountServicePrincipalsV2API servicePrincipalsV2() {
+    return servicePrincipalsV2API;
   }
 
   /** Accounts Settings API allows users to manage settings at the account level. */
@@ -590,8 +602,8 @@ public class AccountClient {
    * user’s account will also be removed from Databricks account. This ensures a consistent
    * offboarding process and prevents unauthorized users from accessing sensitive data.
    */
-  public AccountUsersAPI users() {
-    return usersAPI;
+  public AccountUsersV2API usersV2() {
+    return usersV2API;
   }
 
   /** These APIs manage VPC endpoint configurations for this account. */
@@ -630,6 +642,43 @@ public class AccountClient {
    */
   public WorkspacesAPI workspaces() {
     return workspacesAPI;
+  }
+
+  /**
+   * Groups simplify identity management, making it easier to assign access to Databricks account,
+   * data, and other securable objects.
+   *
+   * <p>It is best practice to assign access to workspaces and access-control policies in Unity
+   * Catalog to groups, instead of to users individually. All Databricks account identities can be
+   * assigned as members of groups, and members inherit permissions that are assigned to their
+   * group.
+   */
+  public AccountGroupsAPI groups() {
+    return groupsAPI;
+  }
+  /**
+   * Identities for use with jobs, automated tools, and systems such as scripts, apps, and CI/CD
+   * platforms. Databricks recommends creating service principals to run production jobs or modify
+   * production data. If all processes that act on production data run with service principals,
+   * interactive users do not need any write, delete, or modify privileges in production. This
+   * eliminates the risk of a user overwriting production data by accident.
+   */
+  public AccountServicePrincipalsAPI servicePrincipals() {
+    return servicePrincipalsAPI;
+  }
+  /**
+   * User identities recognized by Databricks and represented by email addresses.
+   *
+   * <p>Databricks recommends using SCIM provisioning to sync users and groups automatically from
+   * your identity provider to your Databricks account. SCIM streamlines onboarding a new employee
+   * or team by using your identity provider to create users and groups in Databricks account and
+   * give them the proper level of access. When a user leaves your organization or no longer needs
+   * access to Databricks account, admins can terminate the user in your identity provider and that
+   * user’s account will also be removed from Databricks account. This ensures a consistent
+   * offboarding process and prevents unauthorized users from accessing sensitive data.
+   */
+  public AccountUsersAPI users() {
+    return usersAPI;
   }
 
   /** Replace the default AccountAccessControlService with a custom implementation. */
@@ -722,14 +771,14 @@ public class AccountClient {
     return this;
   }
 
-  /** Replace the default AccountGroupsService with a custom implementation. */
-  public AccountClient withGroupsImpl(AccountGroupsService accountGroups) {
-    return this.withGroupsAPI(new AccountGroupsAPI(accountGroups));
+  /** Replace the default AccountGroupsV2Service with a custom implementation. */
+  public AccountClient withGroupsV2Impl(AccountGroupsV2Service accountGroupsV2) {
+    return this.withGroupsV2API(new AccountGroupsV2API(accountGroupsV2));
   }
 
-  /** Replace the default AccountGroupsAPI with a custom implementation. */
-  public AccountClient withGroupsAPI(AccountGroupsAPI accountGroups) {
-    this.groupsAPI = accountGroups;
+  /** Replace the default AccountGroupsV2API with a custom implementation. */
+  public AccountClient withGroupsV2API(AccountGroupsV2API accountGroupsV2) {
+    this.groupsV2API = accountGroupsV2;
     return this;
   }
 
@@ -888,16 +937,17 @@ public class AccountClient {
     return this;
   }
 
-  /** Replace the default AccountServicePrincipalsService with a custom implementation. */
-  public AccountClient withServicePrincipalsImpl(
-      AccountServicePrincipalsService accountServicePrincipals) {
-    return this.withServicePrincipalsAPI(new AccountServicePrincipalsAPI(accountServicePrincipals));
+  /** Replace the default AccountServicePrincipalsV2Service with a custom implementation. */
+  public AccountClient withServicePrincipalsV2Impl(
+      AccountServicePrincipalsV2Service accountServicePrincipalsV2) {
+    return this.withServicePrincipalsV2API(
+        new AccountServicePrincipalsV2API(accountServicePrincipalsV2));
   }
 
-  /** Replace the default AccountServicePrincipalsAPI with a custom implementation. */
-  public AccountClient withServicePrincipalsAPI(
-      AccountServicePrincipalsAPI accountServicePrincipals) {
-    this.servicePrincipalsAPI = accountServicePrincipals;
+  /** Replace the default AccountServicePrincipalsV2API with a custom implementation. */
+  public AccountClient withServicePrincipalsV2API(
+      AccountServicePrincipalsV2API accountServicePrincipalsV2) {
+    this.servicePrincipalsV2API = accountServicePrincipalsV2;
     return this;
   }
 
@@ -959,14 +1009,14 @@ public class AccountClient {
     return this;
   }
 
-  /** Replace the default AccountUsersService with a custom implementation. */
-  public AccountClient withUsersImpl(AccountUsersService accountUsers) {
-    return this.withUsersAPI(new AccountUsersAPI(accountUsers));
+  /** Replace the default AccountUsersV2Service with a custom implementation. */
+  public AccountClient withUsersV2Impl(AccountUsersV2Service accountUsersV2) {
+    return this.withUsersV2API(new AccountUsersV2API(accountUsersV2));
   }
 
-  /** Replace the default AccountUsersAPI with a custom implementation. */
-  public AccountClient withUsersAPI(AccountUsersAPI accountUsers) {
-    this.usersAPI = accountUsers;
+  /** Replace the default AccountUsersV2API with a custom implementation. */
+  public AccountClient withUsersV2API(AccountUsersV2API accountUsersV2) {
+    this.usersV2API = accountUsersV2;
     return this;
   }
 
@@ -1014,6 +1064,41 @@ public class AccountClient {
   /** Replace the default WorkspacesAPI with a custom implementation. */
   public AccountClient withWorkspacesAPI(WorkspacesAPI workspaces) {
     this.workspacesAPI = workspaces;
+    return this;
+  }
+
+  /** Replace the default AccountGroupsService with a custom implementation. */
+  public AccountClient withGroupsImpl(AccountGroupsService accountGroups) {
+    return this.withGroupsAPI(new AccountGroupsAPI(accountGroups));
+  }
+
+  /** Replace the default AccountGroupsAPI with a custom implementation. */
+  public AccountClient withGroupsAPI(AccountGroupsAPI accountGroups) {
+    this.groupsAPI = accountGroups;
+    return this;
+  }
+
+  /** Replace the default AccountServicePrincipalsService with a custom implementation. */
+  public AccountClient withServicePrincipalsImpl(
+      AccountServicePrincipalsService accountServicePrincipals) {
+    return this.withServicePrincipalsAPI(new AccountServicePrincipalsAPI(accountServicePrincipals));
+  }
+
+  /** Replace the default AccountServicePrincipalsAPI with a custom implementation. */
+  public AccountClient withServicePrincipalsAPI(
+      AccountServicePrincipalsAPI accountServicePrincipals) {
+    this.servicePrincipalsAPI = accountServicePrincipals;
+    return this;
+  }
+
+  /** Replace the default AccountUsersService with a custom implementation. */
+  public AccountClient withUsersImpl(AccountUsersService accountUsers) {
+    return this.withUsersAPI(new AccountUsersAPI(accountUsers));
+  }
+
+  /** Replace the default AccountUsersAPI with a custom implementation. */
+  public AccountClient withUsersAPI(AccountUsersAPI accountUsers) {
+    this.usersAPI = accountUsers;
     return this;
   }
 

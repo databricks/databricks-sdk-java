@@ -14,19 +14,17 @@ import org.slf4j.LoggerFactory;
  * original schema, or provide alternate exposed names.
  */
 @Generated
-public class SharesAPI {
+public class SharesAPI extends SharesExtAPI {
   private static final Logger LOG = LoggerFactory.getLogger(SharesAPI.class);
-
-  private final SharesService impl;
 
   /** Regular-use constructor */
   public SharesAPI(ApiClient apiClient) {
-    impl = new SharesImpl(apiClient);
+    super(apiClient);
   }
 
   /** Constructor for mocks */
   public SharesAPI(SharesService mock) {
-    impl = mock;
+    super(mock);
   }
 
   /**
@@ -58,23 +56,19 @@ public class SharesAPI {
     return impl.get(request);
   }
 
-  public Iterable<ShareInfo> list(String name) {
-    return list(new ListSharesRequest().setName(name));
-  }
-
   /**
    * Gets an array of data object shares from the metastore. The caller must be a metastore admin or
    * the owner of the share. There is no guarantee of a specific ordering of the elements in the
    * array.
    */
-  public Iterable<ShareInfo> list(ListSharesRequest request) {
+  public Iterable<ShareInfo> listShares(SharesListRequest request) {
 
     if (request.getMaxResults() == null) {
       request.setMaxResults(0L);
     }
     return new Paginator<>(
         request,
-        impl::list,
+        impl::listShares,
         ListSharesResponse::getShares,
         response -> {
           String token = response.getNextPageToken();
