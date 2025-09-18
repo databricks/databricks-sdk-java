@@ -33,23 +33,11 @@ public class DatabaseInstance {
   @JsonProperty("effective_capacity")
   private String effectiveCapacity;
 
-  /**
-   * xref AIP-129. `enable_pg_native_login` is owned by the client, while
-   * `effective_enable_pg_native_login` is owned by the server. `enable_pg_native_login` will only
-   * be set in Create/Update response messages if and only if the user provides the field via the
-   * request. `effective_enable_pg_native_login` on the other hand will always bet set in all
-   * response messages (Create/Update/Get/List).
-   */
+  /** Whether the instance has PG native password login enabled. */
   @JsonProperty("effective_enable_pg_native_login")
   private Boolean effectiveEnablePgNativeLogin;
 
-  /**
-   * xref AIP-129. `enable_readable_secondaries` is owned by the client, while
-   * `effective_enable_readable_secondaries` is owned by the server. `enable_readable_secondaries`
-   * will only be set in Create/Update response messages if and only if the user provides the field
-   * via the request. `effective_enable_readable_secondaries` on the other hand will always bet set
-   * in all response messages (Create/Update/Get/List).
-   */
+  /** Whether secondaries serving read-only traffic are enabled. Defaults to false. */
   @JsonProperty("effective_enable_readable_secondaries")
   private Boolean effectiveEnableReadableSecondaries;
 
@@ -61,11 +49,8 @@ public class DatabaseInstance {
   private Long effectiveNodeCount;
 
   /**
-   * xref AIP-129. `retention_window_in_days` is owned by the client, while
-   * `effective_retention_window_in_days` is owned by the server. `retention_window_in_days` will
-   * only be set in Create/Update response messages if and only if the user provides the field via
-   * the request. `effective_retention_window_in_days` on the other hand will always bet set in all
-   * response messages (Create/Update/Get/List).
+   * The retention window for the instance. This is the time window in days for which the historical
+   * data is retained.
    */
   @JsonProperty("effective_retention_window_in_days")
   private Long effectiveRetentionWindowInDays;
@@ -74,7 +59,7 @@ public class DatabaseInstance {
   @JsonProperty("effective_stopped")
   private Boolean effectiveStopped;
 
-  /** Whether the instance has PG native password login enabled. Defaults to false. */
+  /** Whether to enable PG native password login on the instance. Defaults to false. */
   @JsonProperty("enable_pg_native_login")
   private Boolean enablePgNativeLogin;
 

@@ -9,11 +9,9 @@ import java.io.IOException;
 
 /** Package-local implementation of Shares */
 @Generated
-class SharesImpl implements SharesService {
-  private final ApiClient apiClient;
-
+class SharesImpl extends SharesExtImpl implements SharesService {
   public SharesImpl(ApiClient apiClient) {
-    this.apiClient = apiClient;
+    super(apiClient);
   }
 
   @Override
@@ -56,7 +54,7 @@ class SharesImpl implements SharesService {
   }
 
   @Override
-  public ListSharesResponse list(ListSharesRequest request) {
+  public ListSharesResponse listShares(SharesListRequest request) {
     String path = "/api/2.1/unity-catalog/shares";
     try {
       Request req = new Request("GET", path);

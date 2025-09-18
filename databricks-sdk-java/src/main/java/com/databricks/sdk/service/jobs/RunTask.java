@@ -24,7 +24,7 @@ public class RunTask {
   /**
    * The task runs a [clean rooms] notebook when the `clean_rooms_notebook_task` field is present.
    *
-   * <p>[clean rooms]: https://docs.databricks.com/en/clean-rooms/index.html
+   * <p>[clean rooms]: https://docs.databricks.com/clean-rooms/index.html
    */
   @JsonProperty("clean_rooms_notebook_task")
   private CleanRoomsNotebookTask cleanRoomsNotebookTask;
@@ -254,21 +254,9 @@ public class RunTask {
   private SparkPythonTask sparkPythonTask;
 
   /**
-   * (Legacy) The task runs the spark-submit script when the `spark_submit_task` field is present.
-   * This task can run only on new clusters and is not compatible with serverless compute.
-   *
-   * <p>In the `new_cluster` specification, `libraries` and `spark_conf` are not supported. Instead,
-   * use `--jars` and `--py-files` to add Java and Python libraries and `--conf` to set the Spark
-   * configurations.
-   *
-   * <p>`master`, `deploy-mode`, and `executor-cores` are automatically configured by Databricks;
-   * you _cannot_ specify them in parameters.
-   *
-   * <p>By default, the Spark submit job uses all available memory (excluding reserved memory for
-   * Databricks services). You can set `--driver-memory`, and `--executor-memory` to a smaller value
-   * to leave some room for off-heap usage.
-   *
-   * <p>The `--jars`, `--py-files`, `--files` arguments support DBFS and S3 paths.
+   * (Legacy) The task runs the spark-submit script when the spark_submit_task field is present.
+   * Databricks recommends using the spark_jar_task instead; see [Spark Submit task for
+   * jobs](/jobs/spark-submit).
    */
   @JsonProperty("spark_submit_task")
   private SparkSubmitTask sparkSubmitTask;

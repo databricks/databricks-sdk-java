@@ -10,12 +10,12 @@ import java.util.Objects;
 
 /** Follow-up questions suggested by Genie */
 @Generated
-public class GenieFollowupQuestionsAttachment {
+public class GenieSuggestedQuestionsAttachment {
   /** The suggested follow-up questions */
   @JsonProperty("questions")
   private Collection<String> questions;
 
-  public GenieFollowupQuestionsAttachment setQuestions(Collection<String> questions) {
+  public GenieSuggestedQuestionsAttachment setQuestions(Collection<String> questions) {
     this.questions = questions;
     return this;
   }
@@ -28,7 +28,7 @@ public class GenieFollowupQuestionsAttachment {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    GenieFollowupQuestionsAttachment that = (GenieFollowupQuestionsAttachment) o;
+    GenieSuggestedQuestionsAttachment that = (GenieSuggestedQuestionsAttachment) o;
     return Objects.equals(questions, that.questions);
   }
 
@@ -39,7 +39,7 @@ public class GenieFollowupQuestionsAttachment {
 
   @Override
   public String toString() {
-    return new ToStringer(GenieFollowupQuestionsAttachment.class)
+    return new ToStringer(GenieSuggestedQuestionsAttachment.class)
         .add("questions", questions)
         .toString();
   }

@@ -25,6 +25,13 @@ public class IngestionPipelineDefinition {
   private String ingestionGatewayId;
 
   /**
+   * Netsuite only configuration. When the field is set for a netsuite connector, the jar stored in
+   * the field will be validated and added to the classpath of pipeline's cluster.
+   */
+  @JsonProperty("netsuite_jar_path")
+  private String netsuiteJarPath;
+
+  /**
    * Required. Settings specifying tables to replicate and the destination for the replicated
    * tables.
    */
@@ -65,6 +72,15 @@ public class IngestionPipelineDefinition {
 
   public String getIngestionGatewayId() {
     return ingestionGatewayId;
+  }
+
+  public IngestionPipelineDefinition setNetsuiteJarPath(String netsuiteJarPath) {
+    this.netsuiteJarPath = netsuiteJarPath;
+    return this;
+  }
+
+  public String getNetsuiteJarPath() {
+    return netsuiteJarPath;
   }
 
   public IngestionPipelineDefinition setObjects(Collection<IngestionConfig> objects) {
@@ -111,6 +127,7 @@ public class IngestionPipelineDefinition {
     IngestionPipelineDefinition that = (IngestionPipelineDefinition) o;
     return Objects.equals(connectionName, that.connectionName)
         && Objects.equals(ingestionGatewayId, that.ingestionGatewayId)
+        && Objects.equals(netsuiteJarPath, that.netsuiteJarPath)
         && Objects.equals(objects, that.objects)
         && Objects.equals(sourceConfigurations, that.sourceConfigurations)
         && Objects.equals(sourceType, that.sourceType)
@@ -122,6 +139,7 @@ public class IngestionPipelineDefinition {
     return Objects.hash(
         connectionName,
         ingestionGatewayId,
+        netsuiteJarPath,
         objects,
         sourceConfigurations,
         sourceType,
@@ -133,6 +151,7 @@ public class IngestionPipelineDefinition {
     return new ToStringer(IngestionPipelineDefinition.class)
         .add("connectionName", connectionName)
         .add("ingestionGatewayId", ingestionGatewayId)
+        .add("netsuiteJarPath", netsuiteJarPath)
         .add("objects", objects)
         .add("sourceConfigurations", sourceConfigurations)
         .add("sourceType", sourceType)

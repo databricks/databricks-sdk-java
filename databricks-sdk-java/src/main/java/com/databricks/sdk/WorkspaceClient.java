@@ -114,14 +114,20 @@ import com.databricks.sdk.service.iam.CurrentUserAPI;
 import com.databricks.sdk.service.iam.CurrentUserService;
 import com.databricks.sdk.service.iam.GroupsAPI;
 import com.databricks.sdk.service.iam.GroupsService;
+import com.databricks.sdk.service.iam.GroupsV2API;
+import com.databricks.sdk.service.iam.GroupsV2Service;
 import com.databricks.sdk.service.iam.PermissionMigrationAPI;
 import com.databricks.sdk.service.iam.PermissionMigrationService;
 import com.databricks.sdk.service.iam.PermissionsAPI;
 import com.databricks.sdk.service.iam.PermissionsService;
 import com.databricks.sdk.service.iam.ServicePrincipalsAPI;
 import com.databricks.sdk.service.iam.ServicePrincipalsService;
+import com.databricks.sdk.service.iam.ServicePrincipalsV2API;
+import com.databricks.sdk.service.iam.ServicePrincipalsV2Service;
 import com.databricks.sdk.service.iam.UsersAPI;
 import com.databricks.sdk.service.iam.UsersService;
+import com.databricks.sdk.service.iam.UsersV2API;
+import com.databricks.sdk.service.iam.UsersV2Service;
 import com.databricks.sdk.service.iamv2.WorkspaceIamV2API;
 import com.databricks.sdk.service.iamv2.WorkspaceIamV2Service;
 import com.databricks.sdk.service.jobs.JobsAPI;
@@ -298,7 +304,7 @@ public class WorkspaceClient {
   private GitCredentialsAPI gitCredentialsAPI;
   private GlobalInitScriptsAPI globalInitScriptsAPI;
   private GrantsAPI grantsAPI;
-  private GroupsAPI groupsAPI;
+  private GroupsV2API groupsV2API;
   private InstancePoolsAPI instancePoolsAPI;
   private InstanceProfilesAPI instanceProfilesAPI;
   private IpAccessListsAPI ipAccessListsAPI;
@@ -345,7 +351,7 @@ public class WorkspaceClient {
   private SchemasAPI schemasAPI;
   private SecretsExt secretsAPI;
   private ServicePrincipalSecretsProxyAPI servicePrincipalSecretsProxyAPI;
-  private ServicePrincipalsAPI servicePrincipalsAPI;
+  private ServicePrincipalsV2API servicePrincipalsV2API;
   private ServingEndpointsAPI servingEndpointsAPI;
   private ServingEndpointsDataPlaneAPI servingEndpointsDataPlaneAPI;
   private SettingsAPI settingsAPI;
@@ -360,7 +366,7 @@ public class WorkspaceClient {
   private TemporaryTableCredentialsAPI temporaryTableCredentialsAPI;
   private TokenManagementAPI tokenManagementAPI;
   private TokensAPI tokensAPI;
-  private UsersAPI usersAPI;
+  private UsersV2API usersV2API;
   private VectorSearchEndpointsAPI vectorSearchEndpointsAPI;
   private VectorSearchIndexesAPI vectorSearchIndexesAPI;
   private VolumesAPI volumesAPI;
@@ -370,6 +376,9 @@ public class WorkspaceClient {
   private WorkspaceConfAPI workspaceConfAPI;
   private WorkspaceIamV2API workspaceIamV2API;
   private WorkspaceSettingsV2API workspaceSettingsV2API;
+  private GroupsAPI groupsAPI;
+  private ServicePrincipalsAPI servicePrincipalsAPI;
+  private UsersAPI usersAPI;
 
   public WorkspaceClient() {
     this(ConfigLoader.getDefault());
@@ -425,7 +434,7 @@ public class WorkspaceClient {
     gitCredentialsAPI = new GitCredentialsAPI(apiClient);
     globalInitScriptsAPI = new GlobalInitScriptsAPI(apiClient);
     grantsAPI = new GrantsAPI(apiClient);
-    groupsAPI = new GroupsAPI(apiClient);
+    groupsV2API = new GroupsV2API(apiClient);
     instancePoolsAPI = new InstancePoolsAPI(apiClient);
     instanceProfilesAPI = new InstanceProfilesAPI(apiClient);
     ipAccessListsAPI = new IpAccessListsAPI(apiClient);
@@ -472,7 +481,7 @@ public class WorkspaceClient {
     schemasAPI = new SchemasAPI(apiClient);
     secretsAPI = new SecretsExt(apiClient);
     servicePrincipalSecretsProxyAPI = new ServicePrincipalSecretsProxyAPI(apiClient);
-    servicePrincipalsAPI = new ServicePrincipalsAPI(apiClient);
+    servicePrincipalsV2API = new ServicePrincipalsV2API(apiClient);
     servingEndpointsAPI = new ServingEndpointsAPI(apiClient);
     servingEndpointsDataPlaneAPI =
         new ServingEndpointsDataPlaneAPI(apiClient, config, servingEndpointsAPI);
@@ -488,7 +497,7 @@ public class WorkspaceClient {
     temporaryTableCredentialsAPI = new TemporaryTableCredentialsAPI(apiClient);
     tokenManagementAPI = new TokenManagementAPI(apiClient);
     tokensAPI = new TokensAPI(apiClient);
-    usersAPI = new UsersAPI(apiClient);
+    usersV2API = new UsersV2API(apiClient);
     vectorSearchEndpointsAPI = new VectorSearchEndpointsAPI(apiClient);
     vectorSearchIndexesAPI = new VectorSearchIndexesAPI(apiClient);
     volumesAPI = new VolumesAPI(apiClient);
@@ -498,6 +507,9 @@ public class WorkspaceClient {
     workspaceConfAPI = new WorkspaceConfAPI(apiClient);
     workspaceIamV2API = new WorkspaceIamV2API(apiClient);
     workspaceSettingsV2API = new WorkspaceSettingsV2API(apiClient);
+    groupsAPI = new GroupsAPI(apiClient);
+    servicePrincipalsAPI = new ServicePrincipalsAPI(apiClient);
+    usersAPI = new UsersAPI(apiClient);
   }
 
   /** Constructor for mocks */
@@ -1025,8 +1037,8 @@ public class WorkspaceClient {
    * assigned as members of groups, and members inherit permissions that are assigned to their
    * group.
    */
-  public GroupsAPI groups() {
-    return groupsAPI;
+  public GroupsV2API groupsV2() {
+    return groupsV2API;
   }
 
   /**
@@ -1645,8 +1657,8 @@ public class WorkspaceClient {
    * interactive users do not need any write, delete, or modify privileges in production. This
    * eliminates the risk of a user overwriting production data by accident.
    */
-  public ServicePrincipalsAPI servicePrincipals() {
-    return servicePrincipalsAPI;
+  public ServicePrincipalsV2API servicePrincipalsV2() {
+    return servicePrincipalsV2API;
   }
 
   /**
@@ -1927,8 +1939,8 @@ public class WorkspaceClient {
    * that user’s account will also be removed from Databricks workspace. This ensures a consistent
    * offboarding process and prevents unauthorized users from accessing sensitive data.
    */
-  public UsersAPI users() {
-    return usersAPI;
+  public UsersV2API usersV2() {
+    return usersV2API;
   }
 
   /** **Endpoint**: Represents the compute resources to host vector search indexes. */
@@ -2022,6 +2034,45 @@ public class WorkspaceClient {
   /** APIs to manage workspace level settings */
   public WorkspaceSettingsV2API workspaceSettingsV2() {
     return workspaceSettingsV2API;
+  }
+
+  /**
+   * Groups simplify identity management, making it easier to assign access to Databricks workspace,
+   * data, and other securable objects.
+   *
+   * <p>It is best practice to assign access to workspaces and access-control policies in Unity
+   * Catalog to groups, instead of to users individually. All Databricks workspace identities can be
+   * assigned as members of groups, and members inherit permissions that are assigned to their
+   * group.
+   */
+  public GroupsAPI groups() {
+    return groupsAPI;
+  }
+
+  /**
+   * Identities for use with jobs, automated tools, and systems such as scripts, apps, and CI/CD
+   * platforms. Databricks recommends creating service principals to run production jobs or modify
+   * production data. If all processes that act on production data run with service principals,
+   * interactive users do not need any write, delete, or modify privileges in production. This
+   * eliminates the risk of a user overwriting production data by accident.
+   */
+  public ServicePrincipalsAPI servicePrincipals() {
+    return servicePrincipalsAPI;
+  }
+
+  /**
+   * User identities recognized by Databricks and represented by email addresses.
+   *
+   * <p>Databricks recommends using SCIM provisioning to sync users and groups automatically from
+   * your identity provider to your Databricks workspace. SCIM streamlines onboarding a new employee
+   * or team by using your identity provider to create users and groups in Databricks workspace and
+   * give them the proper level of access. When a user leaves your organization or no longer needs
+   * access to Databricks workspace, admins can terminate the user in your identity provider and
+   * that user’s account will also be removed from Databricks workspace. This ensures a consistent
+   * offboarding process and prevents unauthorized users from accessing sensitive data.
+   */
+  public UsersAPI users() {
+    return usersAPI;
   }
 
   /** Replace the default AccessControlService with a custom implementation. */
@@ -2557,14 +2608,14 @@ public class WorkspaceClient {
     return this;
   }
 
-  /** Replace the default GroupsService with a custom implementation. */
-  public WorkspaceClient withGroupsImpl(GroupsService groups) {
-    return this.withGroupsAPI(new GroupsAPI(groups));
+  /** Replace the default GroupsV2Service with a custom implementation. */
+  public WorkspaceClient withGroupsV2Impl(GroupsV2Service groupsV2) {
+    return this.withGroupsV2API(new GroupsV2API(groupsV2));
   }
 
-  /** Replace the default GroupsAPI with a custom implementation. */
-  public WorkspaceClient withGroupsAPI(GroupsAPI groups) {
-    this.groupsAPI = groups;
+  /** Replace the default GroupsV2API with a custom implementation. */
+  public WorkspaceClient withGroupsV2API(GroupsV2API groupsV2) {
+    this.groupsV2API = groupsV2;
     return this;
   }
 
@@ -3107,14 +3158,15 @@ public class WorkspaceClient {
     return this;
   }
 
-  /** Replace the default ServicePrincipalsService with a custom implementation. */
-  public WorkspaceClient withServicePrincipalsImpl(ServicePrincipalsService servicePrincipals) {
-    return this.withServicePrincipalsAPI(new ServicePrincipalsAPI(servicePrincipals));
+  /** Replace the default ServicePrincipalsV2Service with a custom implementation. */
+  public WorkspaceClient withServicePrincipalsV2Impl(
+      ServicePrincipalsV2Service servicePrincipalsV2) {
+    return this.withServicePrincipalsV2API(new ServicePrincipalsV2API(servicePrincipalsV2));
   }
 
-  /** Replace the default ServicePrincipalsAPI with a custom implementation. */
-  public WorkspaceClient withServicePrincipalsAPI(ServicePrincipalsAPI servicePrincipals) {
-    this.servicePrincipalsAPI = servicePrincipals;
+  /** Replace the default ServicePrincipalsV2API with a custom implementation. */
+  public WorkspaceClient withServicePrincipalsV2API(ServicePrincipalsV2API servicePrincipalsV2) {
+    this.servicePrincipalsV2API = servicePrincipalsV2;
     return this;
   }
 
@@ -3281,14 +3333,14 @@ public class WorkspaceClient {
     return this;
   }
 
-  /** Replace the default UsersService with a custom implementation. */
-  public WorkspaceClient withUsersImpl(UsersService users) {
-    return this.withUsersAPI(new UsersAPI(users));
+  /** Replace the default UsersV2Service with a custom implementation. */
+  public WorkspaceClient withUsersV2Impl(UsersV2Service usersV2) {
+    return this.withUsersV2API(new UsersV2API(usersV2));
   }
 
-  /** Replace the default UsersAPI with a custom implementation. */
-  public WorkspaceClient withUsersAPI(UsersAPI users) {
-    this.usersAPI = users;
+  /** Replace the default UsersV2API with a custom implementation. */
+  public WorkspaceClient withUsersV2API(UsersV2API usersV2) {
+    this.usersV2API = usersV2;
     return this;
   }
 
@@ -3392,6 +3444,39 @@ public class WorkspaceClient {
   /** Replace the default WorkspaceSettingsV2API with a custom implementation. */
   public WorkspaceClient withWorkspaceSettingsV2API(WorkspaceSettingsV2API workspaceSettingsV2) {
     this.workspaceSettingsV2API = workspaceSettingsV2;
+    return this;
+  }
+
+  /** Replace the default GroupsService with a custom implementation. */
+  public WorkspaceClient withGroupsImpl(GroupsService groups) {
+    return this.withGroupsAPI(new GroupsAPI(groups));
+  }
+
+  /** Replace the default GroupsAPI with a custom implementation. */
+  public WorkspaceClient withGroupsAPI(GroupsAPI groups) {
+    this.groupsAPI = groups;
+    return this;
+  }
+
+  /** Replace the default ServicePrincipalsService with a custom implementation. */
+  public WorkspaceClient withServicePrincipalsImpl(ServicePrincipalsService servicePrincipals) {
+    return this.withServicePrincipalsAPI(new ServicePrincipalsAPI(servicePrincipals));
+  }
+
+  /** Replace the default ServicePrincipalsAPI with a custom implementation. */
+  public WorkspaceClient withServicePrincipalsAPI(ServicePrincipalsAPI servicePrincipals) {
+    this.servicePrincipalsAPI = servicePrincipals;
+    return this;
+  }
+
+  /** Replace the default UsersService with a custom implementation. */
+  public WorkspaceClient withUsersImpl(UsersService users) {
+    return this.withUsersAPI(new UsersAPI(users));
+  }
+
+  /** Replace the default UsersAPI with a custom implementation. */
+  public WorkspaceClient withUsersAPI(UsersAPI users) {
+    this.usersAPI = users;
     return this;
   }
 

@@ -28,12 +28,9 @@ public class DatabaseInstanceRef {
   private String branchTime;
 
   /**
-   * xref AIP-129. `lsn` is owned by the client, while `effective_lsn` is owned by the server. `lsn`
-   * will only be set in Create/Update response messages if and only if the user provides the field
-   * via the request. `effective_lsn` on the other hand will always bet set in all response messages
-   * (Create/Update/Get/List). For a parent ref instance, this is the LSN on the parent instance
-   * from which the instance was created. For a child ref instance, this is the LSN on the instance
-   * from which the child instance was created.
+   * For a parent ref instance, this is the LSN on the parent instance from which the instance was
+   * created. For a child ref instance, this is the LSN on the instance from which the child
+   * instance was created.
    */
   @JsonProperty("effective_lsn")
   private String effectiveLsn;

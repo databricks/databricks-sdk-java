@@ -55,6 +55,10 @@ public class TableSpecificConfig {
   @JsonProperty("sequence_by")
   private Collection<String> sequenceBy;
 
+  /** (Optional) Additional custom parameters for Workday Report */
+  @JsonProperty("workday_report_parameters")
+  private IngestionPipelineDefinitionWorkdayReportParameters workdayReportParameters;
+
   public TableSpecificConfig setExcludeColumns(Collection<String> excludeColumns) {
     this.excludeColumns = excludeColumns;
     return this;
@@ -122,6 +126,16 @@ public class TableSpecificConfig {
     return sequenceBy;
   }
 
+  public TableSpecificConfig setWorkdayReportParameters(
+      IngestionPipelineDefinitionWorkdayReportParameters workdayReportParameters) {
+    this.workdayReportParameters = workdayReportParameters;
+    return this;
+  }
+
+  public IngestionPipelineDefinitionWorkdayReportParameters getWorkdayReportParameters() {
+    return workdayReportParameters;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -133,7 +147,8 @@ public class TableSpecificConfig {
         && Objects.equals(queryBasedConnectorConfig, that.queryBasedConnectorConfig)
         && Objects.equals(salesforceIncludeFormulaFields, that.salesforceIncludeFormulaFields)
         && Objects.equals(scdType, that.scdType)
-        && Objects.equals(sequenceBy, that.sequenceBy);
+        && Objects.equals(sequenceBy, that.sequenceBy)
+        && Objects.equals(workdayReportParameters, that.workdayReportParameters);
   }
 
   @Override
@@ -145,7 +160,8 @@ public class TableSpecificConfig {
         queryBasedConnectorConfig,
         salesforceIncludeFormulaFields,
         scdType,
-        sequenceBy);
+        sequenceBy,
+        workdayReportParameters);
   }
 
   @Override
@@ -158,6 +174,7 @@ public class TableSpecificConfig {
         .add("salesforceIncludeFormulaFields", salesforceIncludeFormulaFields)
         .add("scdType", scdType)
         .add("sequenceBy", sequenceBy)
+        .add("workdayReportParameters", workdayReportParameters)
         .toString();
   }
 }
