@@ -125,6 +125,17 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
                 config.getActionsIdTokenRequestUrl(),
                 config.getActionsIdTokenRequestToken(),
                 config.getHttpClient())));
+
+    // Try to create Azure DevOps token source - if environment variables are missing,
+    // skip this provider gracefully.
+    try {
+      namedIdTokenSources.add(
+          new NamedIDTokenSource(
+              "azure-devops-oidc",
+              new AzureDevOpsIDTokenSource(config.getHttpClient())));
+    } catch (DatabricksException e) {
+      LOG.debug("Azure DevOps OIDC provider not available: {}", e.getMessage());
+    }
     // Add new IDTokenSources and ID providers here. Example:
     // namedIdTokenSources.add(new NamedIDTokenSource("custom-oidc", new CustomIDTokenSource(...)));
 
