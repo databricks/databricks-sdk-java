@@ -13,14 +13,14 @@ import java.util.Objects;
 public class FeatureList {
   /** */
   @JsonProperty("features")
-  private Collection<Feature> features;
+  private Collection<LinkedFeature> features;
 
-  public FeatureList setFeatures(Collection<Feature> features) {
+  public FeatureList setFeatures(Collection<LinkedFeature> features) {
     this.features = features;
     return this;
   }
 
-  public Collection<Feature> getFeatures() {
+  public Collection<LinkedFeature> getFeatures() {
     return features;
   }
 

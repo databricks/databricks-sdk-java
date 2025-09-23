@@ -14,10 +14,12 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,6 +55,7 @@ public class Consent implements Serializable {
   private final String redirectUrl;
   private final String clientId;
   private final String clientSecret;
+  private final Optional<Duration> browserTimeout;
 
   public static class Builder {
     private HttpClient hc = new CommonsHttpClient.Builder().withTimeoutSeconds(30).build();
@@ -63,6 +66,7 @@ public class Consent implements Serializable {
     private String redirectUrl;
     private String clientId;
     private String clientSecret;
+    private Optional<Duration> browserTimeout = Optional.empty();
 
     public Builder withHttpClient(HttpClient hc) {
       this.hc = hc;
@@ -104,6 +108,11 @@ public class Consent implements Serializable {
       return this;
     }
 
+    public Builder withBrowserTimeout(Optional<Duration> browserTimeout) {
+      this.browserTimeout = browserTimeout;
+      return this;
+    }
+
     public Consent build() {
       return new Consent(this);
     }
@@ -119,6 +128,7 @@ public class Consent implements Serializable {
     this.clientId = Objects.requireNonNull(builder.clientId);
     // This may be null for native apps or single-page apps.
     this.clientSecret = builder.clientSecret;
+    this.browserTimeout = builder.browserTimeout;
   }
 
   public Consent setHttpClient(HttpClient hc) {
@@ -153,6 +163,10 @@ public class Consent implements Serializable {
 
   public String getClientSecret() {
     return clientSecret;
+  }
+
+  public Optional<Duration> getBrowserTimeout() {
+    return browserTimeout;
   }
 
   /**
@@ -219,15 +233,19 @@ public class Consent implements Serializable {
               + redirect.getHost()
               + ", redirectUrl host must be one of: localhost, 127.0.0.1");
     }
-    CallbackResponseHandler handler = new CallbackResponseHandler();
+
+    CallbackResponseHandler handler = new CallbackResponseHandler(this.browserTimeout);
     HttpServer httpServer =
         HttpServer.create(new InetSocketAddress(redirect.getHost(), redirect.getPort()), 0);
     httpServer.createContext("/", handler);
     httpServer.start();
-    desktopBrowser();
-    Map<String, String> params = handler.getParams();
-    httpServer.stop(0);
-    return params;
+
+    try {
+      desktopBrowser();
+      return handler.getParams();
+    } finally {
+      httpServer.stop(0);
+    }
   }
 
   /**
@@ -282,9 +300,13 @@ public class Consent implements Serializable {
 
   static class CallbackResponseHandler implements HttpHandler {
     private final Logger LOG = LoggerFactory.getLogger(getClass().getName());
-    // Protects params
-    private final Object lock = new Object();
+    protected final Object lock = new Object(); // protected for testing
     private volatile Map<String, String> params;
+    private final Optional<Duration> timeout;
+
+    public CallbackResponseHandler(Optional<Duration> timeout) {
+      this.timeout = timeout;
+    }
 
     @Override
     public void handle(HttpExchange exchange) {
@@ -323,10 +345,7 @@ public class Consent implements Serializable {
               });
 
       sendSuccess(exchange);
-      synchronized (lock) {
-        params = theseParams;
-        lock.notify();
-      }
+      setParams(theseParams);
     }
 
     private void sendError(
@@ -369,17 +388,38 @@ public class Consent implements Serializable {
       exchange.close();
     }
 
+    /**
+     * Wait and return the params.
+     *
+     * <p>This method might throw an exception in case of timeout.
+     */
     public Map<String, String> getParams() {
       synchronized (lock) {
         if (params == null) {
           try {
-            lock.wait();
+            if (timeout.isPresent()) {
+              Duration t = timeout.get();
+              lock.wait(t.toMillis());
+              if (params == null) {
+                throw new DatabricksException(
+                    "OAuth browser authentication timed out after " + t.getSeconds() + " seconds");
+              }
+            } else {
+              lock.wait();
+            }
           } catch (InterruptedException e) {
             throw new DatabricksException(
                 "Interrupted while waiting for parameters: " + e.getMessage(), e);
           }
         }
         return params;
+      }
+    }
+
+    void setParams(Map<String, String> params) {
+      synchronized (lock) {
+        this.params = params;
+        lock.notify();
       }
     }
   }

@@ -5,13 +5,18 @@ import com.databricks.sdk.core.utils.AzureUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Adds refreshed Azure Active Directory (AAD) Service Principal OAuth tokens to every request,
  * while automatically resolving different Azure environment endpoints.
  */
 public class AzureServicePrincipalCredentialsProvider implements CredentialsProvider {
+  private static final Logger logger =
+      LoggerFactory.getLogger(AzureServicePrincipalCredentialsProvider.class);
   private final ObjectMapper mapper = new ObjectMapper();
+  private String tenantId;
 
   @Override
   public String authType() {
@@ -22,12 +27,22 @@ public class AzureServicePrincipalCredentialsProvider implements CredentialsProv
   public OAuthHeaderFactory configure(DatabricksConfig config) {
     if (!config.isAzure()
         || config.getAzureClientId() == null
-        || config.getAzureClientSecret() == null
-        || config.getAzureTenantId() == null) {
+        || config.getAzureClientSecret() == null) {
       return null;
     }
-    AzureUtils.ensureHostPresent(
-        config, mapper, AzureServicePrincipalCredentialsProvider::tokenSourceFor);
+
+    try {
+      this.tenantId =
+          config.getAzureTenantId() != null
+              ? config.getAzureTenantId()
+              : AzureUtils.inferTenantId(config);
+    } catch (Exception e) {
+      logger.warn("Failed to infer Azure tenant ID: {}", e.getMessage());
+      return null;
+    }
+
+    AzureUtils.ensureHostPresent(config, mapper, this::tokenSourceFor);
+
     CachedTokenSource inner = tokenSourceFor(config, config.getEffectiveAzureLoginAppId());
     CachedTokenSource cloud =
         tokenSourceFor(config, config.getAzureEnvironment().getServiceManagementEndpoint());
@@ -55,9 +70,9 @@ public class AzureServicePrincipalCredentialsProvider implements CredentialsProv
    * @return A CachedTokenSource instance capable of fetching OAuth tokens for the specified Azure
    *     resource.
    */
-  private static CachedTokenSource tokenSourceFor(DatabricksConfig config, String resource) {
+  private CachedTokenSource tokenSourceFor(DatabricksConfig config, String resource) {
     String aadEndpoint = config.getAzureEnvironment().getActiveDirectoryEndpoint();
-    String tokenUrl = aadEndpoint + config.getAzureTenantId() + "/oauth2/token";
+    String tokenUrl = aadEndpoint + this.tenantId + "/oauth2/token";
     Map<String, String> endpointParams = new HashMap<>();
     endpointParams.put("resource", resource);
 

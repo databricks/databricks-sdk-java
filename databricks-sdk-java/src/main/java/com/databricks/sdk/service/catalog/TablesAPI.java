@@ -33,6 +33,33 @@ public class TablesAPI {
     impl = mock;
   }
 
+  /**
+   * Creates a new table in the specified catalog and schema.
+   *
+   * <p>To create an external delta table, the caller must have the **EXTERNAL_USE_SCHEMA**
+   * privilege on the parent schema and the **EXTERNAL_USE_LOCATION** privilege on the external
+   * location. These privileges must always be granted explicitly, and cannot be inherited through
+   * ownership or **ALL_PRIVILEGES**.
+   *
+   * <p>Standard UC permissions needed to create tables still apply: **USE_CATALOG** on the parent
+   * catalog (or ownership of the parent catalog), **CREATE_TABLE** and **USE_SCHEMA** on the parent
+   * schema (or ownership of the parent schema), and **CREATE_EXTERNAL_TABLE** on external location.
+   *
+   * <p>The **columns** field needs to be in a Spark compatible format, so we recommend you use
+   * Spark to create these tables. The API itself does not validate the correctness of the column
+   * spec. If the spec is not Spark compatible, the tables may not be readable by Databricks
+   * Runtime.
+   *
+   * <p>NOTE: The Create Table API for external clients only supports creating **external delta
+   * tables**. The values shown in the respective enums are all values supported by Databricks,
+   * however for this specific Create Table API, only **table_type** **EXTERNAL** and
+   * **data_source_format** **DELTA** are supported. Additionally, column masks are not supported
+   * when creating tables through this API.
+   */
+  public TableInfo create(CreateTableRequest request) {
+    return impl.create(request);
+  }
+
   public void delete(String fullName) {
     delete(new DeleteTableRequest().setFullName(fullName));
   }
@@ -54,11 +81,11 @@ public class TablesAPI {
   /**
    * Gets if a table exists in the metastore for a specific catalog and schema. The caller must
    * satisfy one of the following requirements: * Be a metastore admin * Be the owner of the parent
-   * catalog * Be the owner of the parent schema and have the USE_CATALOG privilege on the parent
-   * catalog * Have the **USE_CATALOG** privilege on the parent catalog and the **USE_SCHEMA**
-   * privilege on the parent schema, and either be the table owner or have the SELECT privilege on
-   * the table. * Have BROWSE privilege on the parent catalog * Have BROWSE privilege on the parent
-   * schema.
+   * catalog * Be the owner of the parent schema and have the **USE_CATALOG** privilege on the
+   * parent catalog * Have the **USE_CATALOG** privilege on the parent catalog and the
+   * **USE_SCHEMA** privilege on the parent schema, and either be the table owner or have the
+   * **SELECT** privilege on the table. * Have **BROWSE** privilege on the parent catalog * Have
+   * **BROWSE** privilege on the parent schema
    */
   public TableExistsResponse exists(ExistsRequest request) {
     return impl.exists(request);
@@ -71,9 +98,9 @@ public class TablesAPI {
   /**
    * Gets a table from the metastore for a specific catalog and schema. The caller must satisfy one
    * of the following requirements: * Be a metastore admin * Be the owner of the parent catalog * Be
-   * the owner of the parent schema and have the USE_CATALOG privilege on the parent catalog * Have
-   * the **USE_CATALOG** privilege on the parent catalog and the **USE_SCHEMA** privilege on the
-   * parent schema, and either be the table owner or have the SELECT privilege on the table.
+   * the owner of the parent schema and have the **USE_CATALOG** privilege on the parent catalog *
+   * Have the **USE_CATALOG** privilege on the parent catalog and the **USE_SCHEMA** privilege on
+   * the parent schema, and either be the table owner or have the **SELECT** privilege on the table.
    */
   public TableInfo get(GetTableRequest request) {
     return impl.get(request);

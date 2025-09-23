@@ -1,9 +1,6 @@
 package com.databricks.sdk.core;
 
-import com.databricks.sdk.core.error.ErrorDetail;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
+import com.databricks.sdk.core.error.details.ErrorDetails;
 
 /**
  * The result of checking whether {@code ApiClient} should retry a request.
@@ -14,51 +11,38 @@ import java.util.stream.Collectors;
  * unrecoverable way and this exception should be thrown, potentially wrapped in another exception.
  */
 public class DatabricksError extends DatabricksException {
-  private static final String ERROR_INFO_TYPE = "type.googleapis.com/google.rpc.ErrorInfo";
-  private final String message;
   private final Throwable cause;
   private final String errorCode;
   private final int statusCode;
-
-  private final List<ErrorDetail> details;
+  private final ErrorDetails errorDetails;
 
   public DatabricksError(int statusCode) {
-    this("", "OK", statusCode, null, Collections.emptyList());
+    this("", "OK", statusCode, null, ErrorDetails.builder().build());
   }
 
   public DatabricksError(String errorCode, String message) {
-    this(errorCode, message, 400, null, Collections.emptyList());
+    this(errorCode, message, 400, null, ErrorDetails.builder().build());
   }
 
   public DatabricksError(String errorCode, String message, int statusCode) {
-    this(errorCode, message, statusCode, null, Collections.emptyList());
+    this(errorCode, message, statusCode, null, ErrorDetails.builder().build());
   }
 
   public DatabricksError(String errorCode, int statusCode, Throwable cause) {
-    this(errorCode, cause.getMessage(), statusCode, cause, Collections.emptyList());
+    this(errorCode, cause.getMessage(), statusCode, cause, ErrorDetails.builder().build());
   }
 
-  public DatabricksError(
-      String errorCode, String message, int statusCode, List<ErrorDetail> details) {
+  public DatabricksError(String errorCode, String message, int statusCode, ErrorDetails details) {
     this(errorCode, message, statusCode, null, details);
   }
 
   private DatabricksError(
-      String errorCode,
-      String message,
-      int statusCode,
-      Throwable cause,
-      List<ErrorDetail> details) {
+      String errorCode, String message, int statusCode, Throwable cause, ErrorDetails details) {
     super(message, cause);
     this.errorCode = errorCode;
-    this.message = message;
     this.cause = cause;
     this.statusCode = statusCode;
-    this.details = details == null ? Collections.emptyList() : details;
-  }
-
-  public List<ErrorDetail> getErrorInfo() {
-    return this.getDetailsByType(ERROR_INFO_TYPE);
+    this.errorDetails = details == null ? ErrorDetails.builder().build() : details;
   }
 
   public String getErrorCode() {
@@ -73,7 +57,7 @@ public class DatabricksError extends DatabricksException {
     return cause;
   }
 
-  List<ErrorDetail> getDetailsByType(String type) {
-    return this.details.stream().filter(e -> e.getType().equals(type)).collect(Collectors.toList());
+  public ErrorDetails getErrorDetails() {
+    return errorDetails;
   }
 }

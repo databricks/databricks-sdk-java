@@ -5,48 +5,87 @@ package com.databricks.sdk.service.ml;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
-/** Feature for model version. */
 @Generated
 public class Feature {
-  /** Feature name */
-  @JsonProperty("feature_name")
-  private String featureName;
+  /** The description of the feature. */
+  @JsonProperty("description")
+  private String description;
 
-  /** Feature table id */
-  @JsonProperty("feature_table_id")
-  private String featureTableId;
+  /** The full three-part name (catalog, schema, name) of the feature. */
+  @JsonProperty("full_name")
+  private String fullName;
 
-  /** Feature table name */
-  @JsonProperty("feature_table_name")
-  private String featureTableName;
+  /** The function by which the feature is computed. */
+  @JsonProperty("function")
+  private Function function;
 
-  public Feature setFeatureName(String featureName) {
-    this.featureName = featureName;
+  /** The input columns from which the feature is computed. */
+  @JsonProperty("inputs")
+  private Collection<String> inputs;
+
+  /** The data source of the feature. */
+  @JsonProperty("source")
+  private DataSource source;
+
+  /** The time window in which the feature is computed. */
+  @JsonProperty("time_window")
+  private TimeWindow timeWindow;
+
+  public Feature setDescription(String description) {
+    this.description = description;
     return this;
   }
 
-  public String getFeatureName() {
-    return featureName;
+  public String getDescription() {
+    return description;
   }
 
-  public Feature setFeatureTableId(String featureTableId) {
-    this.featureTableId = featureTableId;
+  public Feature setFullName(String fullName) {
+    this.fullName = fullName;
     return this;
   }
 
-  public String getFeatureTableId() {
-    return featureTableId;
+  public String getFullName() {
+    return fullName;
   }
 
-  public Feature setFeatureTableName(String featureTableName) {
-    this.featureTableName = featureTableName;
+  public Feature setFunction(Function function) {
+    this.function = function;
     return this;
   }
 
-  public String getFeatureTableName() {
-    return featureTableName;
+  public Function getFunction() {
+    return function;
+  }
+
+  public Feature setInputs(Collection<String> inputs) {
+    this.inputs = inputs;
+    return this;
+  }
+
+  public Collection<String> getInputs() {
+    return inputs;
+  }
+
+  public Feature setSource(DataSource source) {
+    this.source = source;
+    return this;
+  }
+
+  public DataSource getSource() {
+    return source;
+  }
+
+  public Feature setTimeWindow(TimeWindow timeWindow) {
+    this.timeWindow = timeWindow;
+    return this;
+  }
+
+  public TimeWindow getTimeWindow() {
+    return timeWindow;
   }
 
   @Override
@@ -54,22 +93,28 @@ public class Feature {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Feature that = (Feature) o;
-    return Objects.equals(featureName, that.featureName)
-        && Objects.equals(featureTableId, that.featureTableId)
-        && Objects.equals(featureTableName, that.featureTableName);
+    return Objects.equals(description, that.description)
+        && Objects.equals(fullName, that.fullName)
+        && Objects.equals(function, that.function)
+        && Objects.equals(inputs, that.inputs)
+        && Objects.equals(source, that.source)
+        && Objects.equals(timeWindow, that.timeWindow);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(featureName, featureTableId, featureTableName);
+    return Objects.hash(description, fullName, function, inputs, source, timeWindow);
   }
 
   @Override
   public String toString() {
     return new ToStringer(Feature.class)
-        .add("featureName", featureName)
-        .add("featureTableId", featureTableId)
-        .add("featureTableName", featureTableName)
+        .add("description", description)
+        .add("fullName", fullName)
+        .add("function", function)
+        .add("inputs", inputs)
+        .add("source", source)
+        .add("timeWindow", timeWindow)
         .toString();
   }
 }

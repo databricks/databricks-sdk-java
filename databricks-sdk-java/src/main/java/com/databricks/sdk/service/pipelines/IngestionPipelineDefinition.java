@@ -25,11 +25,22 @@ public class IngestionPipelineDefinition {
   private String ingestionGatewayId;
 
   /**
+   * Netsuite only configuration. When the field is set for a netsuite connector, the jar stored in
+   * the field will be validated and added to the classpath of pipeline's cluster.
+   */
+  @JsonProperty("netsuite_jar_path")
+  private String netsuiteJarPath;
+
+  /**
    * Required. Settings specifying tables to replicate and the destination for the replicated
    * tables.
    */
   @JsonProperty("objects")
   private Collection<IngestionConfig> objects;
+
+  /** Top-level source configurations */
+  @JsonProperty("source_configurations")
+  private Collection<SourceConfig> sourceConfigurations;
 
   /**
    * The type of the foreign source. The source type will be inferred from the source connection or
@@ -63,6 +74,15 @@ public class IngestionPipelineDefinition {
     return ingestionGatewayId;
   }
 
+  public IngestionPipelineDefinition setNetsuiteJarPath(String netsuiteJarPath) {
+    this.netsuiteJarPath = netsuiteJarPath;
+    return this;
+  }
+
+  public String getNetsuiteJarPath() {
+    return netsuiteJarPath;
+  }
+
   public IngestionPipelineDefinition setObjects(Collection<IngestionConfig> objects) {
     this.objects = objects;
     return this;
@@ -70,6 +90,16 @@ public class IngestionPipelineDefinition {
 
   public Collection<IngestionConfig> getObjects() {
     return objects;
+  }
+
+  public IngestionPipelineDefinition setSourceConfigurations(
+      Collection<SourceConfig> sourceConfigurations) {
+    this.sourceConfigurations = sourceConfigurations;
+    return this;
+  }
+
+  public Collection<SourceConfig> getSourceConfigurations() {
+    return sourceConfigurations;
   }
 
   public IngestionPipelineDefinition setSourceType(IngestionSourceType sourceType) {
@@ -97,7 +127,9 @@ public class IngestionPipelineDefinition {
     IngestionPipelineDefinition that = (IngestionPipelineDefinition) o;
     return Objects.equals(connectionName, that.connectionName)
         && Objects.equals(ingestionGatewayId, that.ingestionGatewayId)
+        && Objects.equals(netsuiteJarPath, that.netsuiteJarPath)
         && Objects.equals(objects, that.objects)
+        && Objects.equals(sourceConfigurations, that.sourceConfigurations)
         && Objects.equals(sourceType, that.sourceType)
         && Objects.equals(tableConfiguration, that.tableConfiguration);
   }
@@ -105,7 +137,13 @@ public class IngestionPipelineDefinition {
   @Override
   public int hashCode() {
     return Objects.hash(
-        connectionName, ingestionGatewayId, objects, sourceType, tableConfiguration);
+        connectionName,
+        ingestionGatewayId,
+        netsuiteJarPath,
+        objects,
+        sourceConfigurations,
+        sourceType,
+        tableConfiguration);
   }
 
   @Override
@@ -113,7 +151,9 @@ public class IngestionPipelineDefinition {
     return new ToStringer(IngestionPipelineDefinition.class)
         .add("connectionName", connectionName)
         .add("ingestionGatewayId", ingestionGatewayId)
+        .add("netsuiteJarPath", netsuiteJarPath)
         .add("objects", objects)
+        .add("sourceConfigurations", sourceConfigurations)
         .add("sourceType", sourceType)
         .add("tableConfiguration", tableConfiguration)
         .toString();

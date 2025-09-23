@@ -12,11 +12,6 @@ import java.util.Objects;
 public class ListProvidersRequest {
   /** */
   @JsonIgnore
-  @QueryParam("is_featured")
-  private Boolean isFeatured;
-
-  /** */
-  @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;
 
@@ -24,15 +19,6 @@ public class ListProvidersRequest {
   @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
-
-  public ListProvidersRequest setIsFeatured(Boolean isFeatured) {
-    this.isFeatured = isFeatured;
-    return this;
-  }
-
-  public Boolean getIsFeatured() {
-    return isFeatured;
-  }
 
   public ListProvidersRequest setPageSize(Long pageSize) {
     this.pageSize = pageSize;
@@ -57,20 +43,17 @@ public class ListProvidersRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ListProvidersRequest that = (ListProvidersRequest) o;
-    return Objects.equals(isFeatured, that.isFeatured)
-        && Objects.equals(pageSize, that.pageSize)
-        && Objects.equals(pageToken, that.pageToken);
+    return Objects.equals(pageSize, that.pageSize) && Objects.equals(pageToken, that.pageToken);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(isFeatured, pageSize, pageToken);
+    return Objects.hash(pageSize, pageToken);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ListProvidersRequest.class)
-        .add("isFeatured", isFeatured)
         .add("pageSize", pageSize)
         .add("pageToken", pageToken)
         .toString();

@@ -1,5 +1,215 @@
 # Version changelog
 
+## Release v0.64.0
+
+### New Features and Improvements
+
+* Add support for discovery URL for browser based authentication flow.
+
+
+## Release v0.63.0
+
+### API Changes
+* Added `workspaceClient.featureEngineering()` service.
+* Added `javaDependencies` field for `com.databricks.sdk.service.compute.Environment`.
+* Added `followupQuestions` field for `com.databricks.sdk.service.dashboards.GenieAttachment`.
+* Added `effectiveCapacity` field for `com.databricks.sdk.service.database.DatabaseInstance`.
+* Added `createTime` and `updateTime` fields for `com.databricks.sdk.service.tags.TagPolicy`.
+* Added `TABLE_DELTA_UNIFORM_ICEBERG_FOREIGN_DELTASHARING` enum value for `com.databricks.sdk.service.catalog.SecurableKind`.
+* Added `INTERNAL_CATALOG_PATH_OVERLAP_EXCEPTION` enum value for `com.databricks.sdk.service.dashboards.MessageErrorType`.
+* [Breaking] Changed `creationTime` field for `com.databricks.sdk.service.agentbricks.CustomLlm` to type `String` class.
+* [Breaking] Changed `updateMask` field for `com.databricks.sdk.service.agentbricks.UpdateCustomLlmRequest` to type `String` class.
+* [Breaking] Changed `createTime` and `updateTime` fields for `com.databricks.sdk.service.apps.App` to type `String` class.
+* [Breaking] Changed `createTime` and `updateTime` fields for `com.databricks.sdk.service.apps.AppDeployment` to type `String` class.
+* [Breaking] Changed `timestamp` field for `com.databricks.sdk.service.catalog.ContinuousUpdateStatus` to type `String` class.
+* [Breaking] Changed `eventTime` field for `com.databricks.sdk.service.catalog.ExternalLineageExternalMetadataInfo` to type `String` class.
+* [Breaking] Changed `eventTime` field for `com.databricks.sdk.service.catalog.ExternalLineageFileInfo` to type `String` class.
+* [Breaking] Changed `eventTime` field for `com.databricks.sdk.service.catalog.ExternalLineageModelVersionInfo` to type `String` class.
+* [Breaking] Changed `eventTime` field for `com.databricks.sdk.service.catalog.ExternalLineageTableInfo` to type `String` class.
+* [Breaking] Changed `createTime` and `updateTime` fields for `com.databricks.sdk.service.catalog.ExternalMetadata` to type `String` class.
+* [Breaking] Changed `timestamp` field for `com.databricks.sdk.service.catalog.FailedStatus` to type `String` class.
+* [Breaking] Changed `timestamp` field for `com.databricks.sdk.service.catalog.TriggeredUpdateStatus` to type `String` class.
+* [Breaking] Changed `updateMask` field for `com.databricks.sdk.service.catalog.UpdateAccessRequestDestinationsRequest` to type `String` class.
+* [Breaking] Changed `updateMask` field for `com.databricks.sdk.service.catalog.UpdateEntityTagAssignmentRequest` to type `String` class.
+* [Breaking] Changed `updateMask` field for `com.databricks.sdk.service.catalog.UpdateExternalLineageRelationshipRequest` to type `String` class.
+* [Breaking] Changed `updateMask` field for `com.databricks.sdk.service.catalog.UpdateExternalMetadataRequest` to type `String` class.
+* [Breaking] Changed `updateMask` field for `com.databricks.sdk.service.catalog.UpdatePolicyRequest` to type `String` class.
+* [Breaking] Changed `updateMask` field for `com.databricks.sdk.service.compute.UpdateCluster` to type `String` class.
+* [Breaking] Changed `createTime` and `updateTime` fields for `com.databricks.sdk.service.dashboards.Dashboard` to type `String` class.
+* [Breaking] Changed `revisionCreateTime` field for `com.databricks.sdk.service.dashboards.PublishedDashboard` to type `String` class.
+* [Breaking] Changed `createTime` and `updateTime` fields for `com.databricks.sdk.service.dashboards.Schedule` to type `String` class.
+* [Breaking] Changed `createTime` and `updateTime` fields for `com.databricks.sdk.service.dashboards.Subscription` to type `String` class.
+* [Breaking] Changed `expirationTime` field for `com.databricks.sdk.service.database.DatabaseCredential` to type `String` class.
+* [Breaking] Changed `creationTime` field for `com.databricks.sdk.service.database.DatabaseInstance` to type `String` class.
+* [Breaking] Changed `branchTime` field for `com.databricks.sdk.service.database.DatabaseInstanceRef` to type `String` class.
+* [Breaking] Changed `deltaCommitTimestamp` field for `com.databricks.sdk.service.database.DeltaTableSyncInfo` to type `String` class.
+* [Breaking] Changed `timestamp` field for `com.databricks.sdk.service.database.SyncedTableContinuousUpdateStatus` to type `String` class.
+* [Breaking] Changed `timestamp` field for `com.databricks.sdk.service.database.SyncedTableFailedStatus` to type `String` class.
+* [Breaking] Changed `syncEndTimestamp` and `syncStartTimestamp` fields for `com.databricks.sdk.service.database.SyncedTablePosition` to type `String` class.
+* [Breaking] Changed `timestamp` field for `com.databricks.sdk.service.database.SyncedTableTriggeredUpdateStatus` to type `String` class.
+* [Breaking] Changed `updateMask` field for `com.databricks.sdk.service.database.UpdateDatabaseCatalogRequest` to type `String` class.
+* [Breaking] Changed `updateMask` field for `com.databricks.sdk.service.database.UpdateDatabaseInstanceRequest` to type `String` class.
+* [Breaking] Changed `updateMask` field for `com.databricks.sdk.service.database.UpdateSyncedDatabaseTableRequest` to type `String` class.
+* [Breaking] Changed `creationTime` field for `com.databricks.sdk.service.ml.OnlineStore` to type `String` class.
+* [Breaking] Changed `updateMask` field for `com.databricks.sdk.service.ml.UpdateFeatureTagRequest` to type `String` class.
+* [Breaking] Changed `updateMask` field for `com.databricks.sdk.service.ml.UpdateOnlineStoreRequest` to type `String` class.
+* [Breaking] Changed `lifetime` field for `com.databricks.sdk.service.oauth2.CreateServicePrincipalSecretRequest` to type `String` class.
+* [Breaking] Changed `expireTime` field for `com.databricks.sdk.service.oauth2.CreateServicePrincipalSecretResponse` to type `String` class.
+* [Breaking] Changed `createTime` and `updateTime` fields for `com.databricks.sdk.service.oauth2.FederationPolicy` to type `String` class.
+* [Breaking] Changed `expireTime` field for `com.databricks.sdk.service.oauth2.SecretInfo` to type `String` class.
+* [Breaking] Changed `updateMask` field for `com.databricks.sdk.service.oauth2.UpdateAccountFederationPolicyRequest` to type `String` class.
+* [Breaking] Changed `updateMask` field for `com.databricks.sdk.service.oauth2.UpdateServicePrincipalFederationPolicyRequest` to type `String` class.
+* [Breaking] Changed `fieldMask` field for `com.databricks.sdk.service.settings.UpdateAccountIpAccessEnableRequest` to type `String` class.
+* [Breaking] Changed `fieldMask` field for `com.databricks.sdk.service.settings.UpdateAibiDashboardEmbeddingAccessPolicySettingRequest` to type `String` class.
+* [Breaking] Changed `fieldMask` field for `com.databricks.sdk.service.settings.UpdateAibiDashboardEmbeddingApprovedDomainsSettingRequest` to type `String` class.
+* [Breaking] Changed `fieldMask` field for `com.databricks.sdk.service.settings.UpdateAutomaticClusterUpdateSettingRequest` to type `String` class.
+* [Breaking] Changed `fieldMask` field for `com.databricks.sdk.service.settings.UpdateComplianceSecurityProfileSettingRequest` to type `String` class.
+* [Breaking] Changed `fieldMask` field for `com.databricks.sdk.service.settings.UpdateCspEnablementAccountSettingRequest` to type `String` class.
+* [Breaking] Changed `fieldMask` field for `com.databricks.sdk.service.settings.UpdateDashboardEmailSubscriptionsRequest` to type `String` class.
+* [Breaking] Changed `fieldMask` field for `com.databricks.sdk.service.settings.UpdateDefaultNamespaceSettingRequest` to type `String` class.
+* [Breaking] Changed `fieldMask` field for `com.databricks.sdk.service.settings.UpdateDefaultWarehouseIdRequest` to type `String` class.
+* [Breaking] Changed `fieldMask` field for `com.databricks.sdk.service.settings.UpdateDisableLegacyAccessRequest` to type `String` class.
+* [Breaking] Changed `fieldMask` field for `com.databricks.sdk.service.settings.UpdateDisableLegacyDbfsRequest` to type `String` class.
+* [Breaking] Changed `fieldMask` field for `com.databricks.sdk.service.settings.UpdateDisableLegacyFeaturesRequest` to type `String` class.
+* [Breaking] Changed `fieldMask` field for `com.databricks.sdk.service.settings.UpdateEnableExportNotebookRequest` to type `String` class.
+* [Breaking] Changed `fieldMask` field for `com.databricks.sdk.service.settings.UpdateEnableNotebookTableClipboardRequest` to type `String` class.
+* [Breaking] Changed `fieldMask` field for `com.databricks.sdk.service.settings.UpdateEnableResultsDownloadingRequest` to type `String` class.
+* [Breaking] Changed `fieldMask` field for `com.databricks.sdk.service.settings.UpdateEnhancedSecurityMonitoringSettingRequest` to type `String` class.
+* [Breaking] Changed `fieldMask` field for `com.databricks.sdk.service.settings.UpdateEsmEnablementAccountSettingRequest` to type `String` class.
+* [Breaking] Changed `fieldMask` field for `com.databricks.sdk.service.settings.UpdateLlmProxyPartnerPoweredAccountRequest` to type `String` class.
+* [Breaking] Changed `fieldMask` field for `com.databricks.sdk.service.settings.UpdateLlmProxyPartnerPoweredEnforceRequest` to type `String` class.
+* [Breaking] Changed `fieldMask` field for `com.databricks.sdk.service.settings.UpdateLlmProxyPartnerPoweredWorkspaceRequest` to type `String` class.
+* [Breaking] Changed `updateMask` field for `com.databricks.sdk.service.settings.UpdateNccPrivateEndpointRuleRequest` to type `String` class.
+* [Breaking] Changed `fieldMask` field for `com.databricks.sdk.service.settings.UpdatePersonalComputeSettingRequest` to type `String` class.
+* [Breaking] Changed `fieldMask` field for `com.databricks.sdk.service.settings.UpdateRestrictWorkspaceAdminsSettingRequest` to type `String` class.
+* [Breaking] Changed `fieldMask` field for `com.databricks.sdk.service.settings.UpdateSqlResultsDownloadRequest` to type `String` class.
+* [Breaking] Changed `createTime` and `updateTime` fields for `com.databricks.sdk.service.sharing.FederationPolicy` to type `String` class.
+* [Breaking] Changed `updateMask` field for `com.databricks.sdk.service.sharing.UpdateFederationPolicyRequest` to type `String` class.
+* [Breaking] Changed `createTime`, `triggerTime` and `updateTime` fields for `com.databricks.sdk.service.sql.Alert` to type `String` class.
+* [Breaking] Changed `createTime` and `updateTime` fields for `com.databricks.sdk.service.sql.AlertV2` to type `String` class.
+* [Breaking] Changed `lastEvaluatedAt` field for `com.databricks.sdk.service.sql.AlertV2Evaluation` to type `String` class.
+* [Breaking] Changed `createTime`, `triggerTime` and `updateTime` fields for `com.databricks.sdk.service.sql.ListAlertsResponseAlert` to type `String` class.
+* [Breaking] Changed `createTime` and `updateTime` fields for `com.databricks.sdk.service.sql.ListQueryObjectsResponseQuery` to type `String` class.
+* [Breaking] Changed `createTime` and `updateTime` fields for `com.databricks.sdk.service.sql.Query` to type `String` class.
+* [Breaking] Changed `updateMask` field for `com.databricks.sdk.service.sql.UpdateAlertRequest` to type `String` class.
+* [Breaking] Changed `updateMask` field for `com.databricks.sdk.service.sql.UpdateAlertV2Request` to type `String` class.
+* [Breaking] Changed `updateMask` field for `com.databricks.sdk.service.sql.UpdateQueryRequest` to type `String` class.
+* [Breaking] Changed `updateMask` field for `com.databricks.sdk.service.sql.UpdateVisualizationRequest` to type `String` class.
+* [Breaking] Changed `createTime` and `updateTime` fields for `com.databricks.sdk.service.sql.Visualization` to type `String` class.
+* [Breaking] Changed `updateMask` field for `com.databricks.sdk.service.tags.UpdateTagPolicyRequest` to type `String` class.
+* [Breaking] Removed `defaultDataSecurityMode` and `effectiveDefaultDataSecurityMode` fields for `com.databricks.sdk.service.settingsv2.Setting`.
+
+
+## Release v0.62.0
+
+### API Changes
+* Added `com.databricks.sdk.service.iamv2` package.
+* Added `accountClient.accountIamV2()` service and `workspaceClient.workspaceIamV2()` service.
+* Added `feedback` field for `com.databricks.sdk.service.dashboards.GenieMessage`.
+* Added `disabled` field for `com.databricks.sdk.service.jobs.Task`.
+* Added `auxiliaryManagedLocation` field for `com.databricks.sdk.service.sharing.TableInternalAttributes`.
+* Added `alerts` field for `com.databricks.sdk.service.sql.ListAlertsV2Response`.
+* Added `NO_ACTIVATED_K8S` and `USAGE_POLICY_ENTITLEMENT_DENIED` enum values for `com.databricks.sdk.service.compute.TerminationReasonCode`.
+* Added `FOREIGN_CATALOG` enum value for `com.databricks.sdk.service.pipelines.IngestionSourceType`.
+* Added `FOREIGN_ICEBERG_TABLE` enum value for `com.databricks.sdk.service.sharing.TableInternalAttributesSharedTableType`.
+* [Breaking] Removed `disabled` field for `com.databricks.sdk.service.jobs.RunTask`.
+
+
+## Release v0.61.0
+
+### Bug Fixes
+
+* Fixed `selectSparkVersion()` method to use contains() instead of equals() for spark version matching.
+
+### API Changes
+* Added `comment` field for `com.databricks.sdk.service.dashboards.GenieSendMessageFeedbackRequest`.
+* [Breaking] Added `rating` field for `com.databricks.sdk.service.dashboards.GenieSendMessageFeedbackRequest`.
+* Added `effectiveEnablePgNativeLogin` and `enablePgNativeLogin` fields for `com.databricks.sdk.service.database.DatabaseInstance`.
+* Added `taskRetryMode` field for `com.databricks.sdk.service.jobs.Continuous`.
+* Added `sourceConfigurations` field for `com.databricks.sdk.service.pipelines.IngestionPipelineDefinition`.
+* Added `appId`, `appIdSet`, `authSecret`, `authSecretSet`, `channelUrl`, `channelUrlSet`, `tenantId` and `tenantIdSet` fields for `com.databricks.sdk.service.settings.MicrosoftTeamsConfig`.
+* Added `ensureRerankerCompatible` field for `com.databricks.sdk.service.vectorsearch.GetIndexRequest`.
+* Added `reranker` field for `com.databricks.sdk.service.vectorsearch.QueryVectorIndexRequest`.
+* [Breaking] Changed `createCleanRoomAssetReview()` method for `workspaceClient.cleanRoomAssets()` service with new required argument order.
+* [Breaking] Changed `sendMessageFeedback()` method for `workspaceClient.genie()` service with new required argument order.
+* Changed `notebookReview` field for `com.databricks.sdk.service.cleanrooms.CreateCleanRoomAssetReviewRequest` to no longer be required.
+* [Breaking] Changed `features` field for `com.databricks.sdk.service.ml.FeatureList` to type List<`com.databricks.sdk.service.ml.LinkedFeature`>.
+* [Breaking] Removed `feedbackRating` and `feedbackText` fields for `com.databricks.sdk.service.dashboards.GenieSendMessageFeedbackRequest`.
+
+
+## Release v0.60.0
+
+### New Features and Improvements
+- Azure Service Principal credential provider can now automatically discover tenant ID when not explicitly provided
+
+### Bug Fixes
+
+- [Breaking] `DatabricksError` now correctly exposes all Databricks error details types. This change is a breaking change for users depending on the `ErrorDetail` class. The same information can be accessed from `ErrorDetails.errorInfo`.
+
+### API Changes
+* Added `com.databricks.sdk.service.settingsv2` and `com.databricks.sdk.service.tags` packages.
+* Added `workspaceClient.appsSettings()` service.
+* Added `workspaceClient.entityTagAssignments()` service and `workspaceClient.rfa()` service.
+* Added `accountClient.accountSettingsV2()` service and `workspaceClient.workspaceSettingsV2()` service.
+* Added `workspaceClient.tagPolicies()` service.
+* Added `deleteConversationMessage()`, `listConversationMessages()` and `sendMessageFeedback()` methods for `workspaceClient.genie()` service.
+* Added `includeAll` field for `com.databricks.sdk.service.dashboards.GenieListConversationsRequest`.
+* Added `effectiveUsagePolicyId` field for `com.databricks.sdk.service.jobs.BaseJob`.
+* Added `effectiveUsagePolicyId` field for `com.databricks.sdk.service.jobs.BaseRun`.
+* Added `effectiveUsagePolicyId` field for `com.databricks.sdk.service.jobs.Job`.
+* Added `effectiveUsagePolicyId` field for `com.databricks.sdk.service.jobs.Run`.
+* Added `tokens` field for `com.databricks.sdk.service.serving.AiGatewayRateLimit`.
+* Added `usagePolicyId` field for `com.databricks.sdk.service.serving.ServingEndpoint`.
+* Added `effectiveRunAs` and `runAs` fields for `com.databricks.sdk.service.sql.AlertV2`.
+* Added `cacheQueryId` field for `com.databricks.sdk.service.sql.QueryInfo`.
+* Added `modelEndpointNameForQuery` field for `com.databricks.sdk.service.vectorsearch.EmbeddingSourceColumn`.
+* [Breaking] Removed `environmentSettings` field for `com.databricks.sdk.service.catalog.ConnectionInfo`.
+* [Breaking] Removed `environmentSettings` field for `com.databricks.sdk.service.catalog.CreateConnection`.
+* [Breaking] Removed `environmentSettings` field for `com.databricks.sdk.service.catalog.UpdateConnection`.
+* [Breaking] Removed `comment`, `displayName` and `tags` fields for `com.databricks.sdk.service.sharing.Share`.
+
+
+## Release v0.59.0
+
+### New Features and Improvements
+
+* Add option to add a timeout for browser confirmation in the U2M authentication flow.
+
+### Bug Fixes
+
+* User provided scopes are now properly propagated in OAuth flows.
+* [Warning] Correctly defaults to scope `all-apis` (instead of `clusters sql`) in U2M if no scopes are provided by the users. This change aligns the Java SDK logic with the Python and Go SDK logic.
+
+### API Changes
+* Added `workspaceClient.policies()` service and `workspaceClient.temporaryPathCredentials()` service.
+* Added `create()` method for `workspaceClient.tables()` service.
+* Added `listDatabaseCatalogs()`, `listSyncedDatabaseTables()`, `updateDatabaseCatalog()` and `updateSyncedDatabaseTable()` methods for `workspaceClient.database()` service.
+* Added `firstOnDemand` field for `com.databricks.sdk.service.compute.GcpAttributes`.
+* Added `usagePolicyId` field for `com.databricks.sdk.service.jobs.CreateJob`.
+* Added `usagePolicyId` field for `com.databricks.sdk.service.jobs.JobSettings`.
+* Added `usagePolicyId` field for `com.databricks.sdk.service.jobs.SubmitRun`.
+* Added `clientRequestId` and `usageContext` fields for `com.databricks.sdk.service.serving.QueryEndpointInput`.
+* Added `channelId`, `channelIdSet`, `oauthToken` and `oauthTokenSet` fields for `com.databricks.sdk.service.settings.SlackConfig`.
+* Added `SNAPSHOT` enum value for `com.databricks.sdk.service.ml.PublishSpecPublishMode`.
+* [Breaking] Changed `publishMode` field for `com.databricks.sdk.service.ml.PublishSpec` to be required.
+
+
+## Release v0.58.0
+
+### API Changes
+* Added `statementIdSignature` field for `com.databricks.sdk.service.dashboards.Result`.
+* Added `effectiveDatabaseInstanceName` and `effectiveLogicalDatabaseName` fields for `com.databricks.sdk.service.database.SyncedDatabaseTable`.
+* Added `table` field for `com.databricks.sdk.service.jobs.TriggerStateProto`.
+* Added `emailNotifications` field for `com.databricks.sdk.service.serving.CreatePtEndpointRequest`.
+* Added `emailNotifications` field for `com.databricks.sdk.service.serving.CreateServingEndpoint`.
+* Added `emailNotifications` field for `com.databricks.sdk.service.serving.ServingEndpointDetailed`.
+* [Breaking] Changed `list()` method for `workspaceClient.consumerProviders()` service . New request type is `com.databricks.sdk.service.marketplace.ListConsumerProvidersRequest` class.
+* [Breaking] Changed `create()` method for `accountClient.privateAccess()` service . New request type is `com.databricks.sdk.service.provisioning.CreatePrivateAccessSettingsRequest` class.
+* [Breaking] Changed `create()` method for `accountClient.privateAccess()` service with new required argument order.
+* [Breaking] Changed `replace()` method for `accountClient.privateAccess()` service . New request type is `com.databricks.sdk.service.provisioning.ReplacePrivateAccessSettingsRequest` class.
+* [Breaking] Removed `isFeatured` field for `com.databricks.sdk.service.marketplace.ListProvidersRequest`.
+
+
 ## Release v0.57.0
 
 ### API Changes

@@ -14,7 +14,7 @@ import com.databricks.sdk.support.Generated;
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
 @Generated
-public interface SharesService {
+public interface SharesService extends SharesExtService {
   /**
    * Creates a new share for data objects. Data objects can be added after creation with **update**.
    * The caller must be a metastore admin or have the **CREATE_SHARE** privilege on the metastore.
@@ -35,7 +35,7 @@ public interface SharesService {
    * the owner of the share. There is no guarantee of a specific ordering of the elements in the
    * array.
    */
-  ListSharesResponse list(ListSharesRequest listSharesRequest);
+  ListSharesResponse listShares(SharesListRequest sharesListRequest);
 
   /**
    * Gets the permissions for a data share from the metastore. The caller must be a metastore admin

@@ -12,6 +12,8 @@ import com.databricks.sdk.service.agentbricks.AgentBricksAPI;
 import com.databricks.sdk.service.agentbricks.AgentBricksService;
 import com.databricks.sdk.service.apps.AppsAPI;
 import com.databricks.sdk.service.apps.AppsService;
+import com.databricks.sdk.service.apps.AppsSettingsAPI;
+import com.databricks.sdk.service.apps.AppsSettingsService;
 import com.databricks.sdk.service.catalog.ArtifactAllowlistsAPI;
 import com.databricks.sdk.service.catalog.ArtifactAllowlistsService;
 import com.databricks.sdk.service.catalog.CatalogsAPI;
@@ -20,6 +22,8 @@ import com.databricks.sdk.service.catalog.ConnectionsAPI;
 import com.databricks.sdk.service.catalog.ConnectionsService;
 import com.databricks.sdk.service.catalog.CredentialsAPI;
 import com.databricks.sdk.service.catalog.CredentialsService;
+import com.databricks.sdk.service.catalog.EntityTagAssignmentsAPI;
+import com.databricks.sdk.service.catalog.EntityTagAssignmentsService;
 import com.databricks.sdk.service.catalog.ExternalLineageAPI;
 import com.databricks.sdk.service.catalog.ExternalLineageService;
 import com.databricks.sdk.service.catalog.ExternalLocationsAPI;
@@ -36,12 +40,16 @@ import com.databricks.sdk.service.catalog.ModelVersionsAPI;
 import com.databricks.sdk.service.catalog.ModelVersionsService;
 import com.databricks.sdk.service.catalog.OnlineTablesAPI;
 import com.databricks.sdk.service.catalog.OnlineTablesService;
+import com.databricks.sdk.service.catalog.PoliciesAPI;
+import com.databricks.sdk.service.catalog.PoliciesService;
 import com.databricks.sdk.service.catalog.QualityMonitorsAPI;
 import com.databricks.sdk.service.catalog.QualityMonitorsService;
 import com.databricks.sdk.service.catalog.RegisteredModelsAPI;
 import com.databricks.sdk.service.catalog.RegisteredModelsService;
 import com.databricks.sdk.service.catalog.ResourceQuotasAPI;
 import com.databricks.sdk.service.catalog.ResourceQuotasService;
+import com.databricks.sdk.service.catalog.RfaAPI;
+import com.databricks.sdk.service.catalog.RfaService;
 import com.databricks.sdk.service.catalog.SchemasAPI;
 import com.databricks.sdk.service.catalog.SchemasService;
 import com.databricks.sdk.service.catalog.StorageCredentialsAPI;
@@ -52,6 +60,8 @@ import com.databricks.sdk.service.catalog.TableConstraintsAPI;
 import com.databricks.sdk.service.catalog.TableConstraintsService;
 import com.databricks.sdk.service.catalog.TablesAPI;
 import com.databricks.sdk.service.catalog.TablesService;
+import com.databricks.sdk.service.catalog.TemporaryPathCredentialsAPI;
+import com.databricks.sdk.service.catalog.TemporaryPathCredentialsService;
 import com.databricks.sdk.service.catalog.TemporaryTableCredentialsAPI;
 import com.databricks.sdk.service.catalog.TemporaryTableCredentialsService;
 import com.databricks.sdk.service.catalog.VolumesAPI;
@@ -104,14 +114,22 @@ import com.databricks.sdk.service.iam.CurrentUserAPI;
 import com.databricks.sdk.service.iam.CurrentUserService;
 import com.databricks.sdk.service.iam.GroupsAPI;
 import com.databricks.sdk.service.iam.GroupsService;
+import com.databricks.sdk.service.iam.GroupsV2API;
+import com.databricks.sdk.service.iam.GroupsV2Service;
 import com.databricks.sdk.service.iam.PermissionMigrationAPI;
 import com.databricks.sdk.service.iam.PermissionMigrationService;
 import com.databricks.sdk.service.iam.PermissionsAPI;
 import com.databricks.sdk.service.iam.PermissionsService;
 import com.databricks.sdk.service.iam.ServicePrincipalsAPI;
 import com.databricks.sdk.service.iam.ServicePrincipalsService;
+import com.databricks.sdk.service.iam.ServicePrincipalsV2API;
+import com.databricks.sdk.service.iam.ServicePrincipalsV2Service;
 import com.databricks.sdk.service.iam.UsersAPI;
 import com.databricks.sdk.service.iam.UsersService;
+import com.databricks.sdk.service.iam.UsersV2API;
+import com.databricks.sdk.service.iam.UsersV2Service;
+import com.databricks.sdk.service.iamv2.WorkspaceIamV2API;
+import com.databricks.sdk.service.iamv2.WorkspaceIamV2Service;
 import com.databricks.sdk.service.jobs.JobsAPI;
 import com.databricks.sdk.service.jobs.JobsService;
 import com.databricks.sdk.service.jobs.PolicyComplianceForJobsAPI;
@@ -142,6 +160,8 @@ import com.databricks.sdk.service.marketplace.ProviderProvidersAPI;
 import com.databricks.sdk.service.marketplace.ProviderProvidersService;
 import com.databricks.sdk.service.ml.ExperimentsAPI;
 import com.databricks.sdk.service.ml.ExperimentsService;
+import com.databricks.sdk.service.ml.FeatureEngineeringAPI;
+import com.databricks.sdk.service.ml.FeatureEngineeringService;
 import com.databricks.sdk.service.ml.FeatureStoreAPI;
 import com.databricks.sdk.service.ml.FeatureStoreService;
 import com.databricks.sdk.service.ml.ForecastingAPI;
@@ -174,6 +194,8 @@ import com.databricks.sdk.service.settings.TokensAPI;
 import com.databricks.sdk.service.settings.TokensService;
 import com.databricks.sdk.service.settings.WorkspaceConfAPI;
 import com.databricks.sdk.service.settings.WorkspaceConfService;
+import com.databricks.sdk.service.settingsv2.WorkspaceSettingsV2API;
+import com.databricks.sdk.service.settingsv2.WorkspaceSettingsV2Service;
 import com.databricks.sdk.service.sharing.ProvidersAPI;
 import com.databricks.sdk.service.sharing.ProvidersService;
 import com.databricks.sdk.service.sharing.RecipientActivationAPI;
@@ -214,6 +236,8 @@ import com.databricks.sdk.service.sql.StatementExecutionAPI;
 import com.databricks.sdk.service.sql.StatementExecutionService;
 import com.databricks.sdk.service.sql.WarehousesAPI;
 import com.databricks.sdk.service.sql.WarehousesService;
+import com.databricks.sdk.service.tags.TagPoliciesAPI;
+import com.databricks.sdk.service.tags.TagPoliciesService;
 import com.databricks.sdk.service.vectorsearch.VectorSearchEndpointsAPI;
 import com.databricks.sdk.service.vectorsearch.VectorSearchEndpointsService;
 import com.databricks.sdk.service.vectorsearch.VectorSearchIndexesAPI;
@@ -240,6 +264,7 @@ public class WorkspaceClient {
   private AlertsLegacyAPI alertsLegacyAPI;
   private AlertsV2API alertsV2API;
   private AppsAPI appsAPI;
+  private AppsSettingsAPI appsSettingsAPI;
   private ArtifactAllowlistsAPI artifactAllowlistsAPI;
   private CatalogsAPI catalogsAPI;
   private CleanRoomAssetRevisionsAPI cleanRoomAssetRevisionsAPI;
@@ -265,10 +290,12 @@ public class WorkspaceClient {
   private DatabaseAPI databaseAPI;
   private DbfsExt dbfsAPI;
   private DbsqlPermissionsAPI dbsqlPermissionsAPI;
+  private EntityTagAssignmentsAPI entityTagAssignmentsAPI;
   private ExperimentsAPI experimentsAPI;
   private ExternalLineageAPI externalLineageAPI;
   private ExternalLocationsAPI externalLocationsAPI;
   private ExternalMetadataAPI externalMetadataAPI;
+  private FeatureEngineeringAPI featureEngineeringAPI;
   private FeatureStoreAPI featureStoreAPI;
   private FilesAPI filesAPI;
   private ForecastingAPI forecastingAPI;
@@ -277,7 +304,7 @@ public class WorkspaceClient {
   private GitCredentialsAPI gitCredentialsAPI;
   private GlobalInitScriptsAPI globalInitScriptsAPI;
   private GrantsAPI grantsAPI;
-  private GroupsAPI groupsAPI;
+  private GroupsV2API groupsV2API;
   private InstancePoolsAPI instancePoolsAPI;
   private InstanceProfilesAPI instanceProfilesAPI;
   private IpAccessListsAPI ipAccessListsAPI;
@@ -294,6 +321,7 @@ public class WorkspaceClient {
   private PermissionMigrationAPI permissionMigrationAPI;
   private PermissionsAPI permissionsAPI;
   private PipelinesAPI pipelinesAPI;
+  private PoliciesAPI policiesAPI;
   private PolicyComplianceForClustersAPI policyComplianceForClustersAPI;
   private PolicyComplianceForJobsAPI policyComplianceForJobsAPI;
   private PolicyFamiliesAPI policyFamiliesAPI;
@@ -319,10 +347,11 @@ public class WorkspaceClient {
   private RegisteredModelsAPI registeredModelsAPI;
   private ReposAPI reposAPI;
   private ResourceQuotasAPI resourceQuotasAPI;
+  private RfaAPI rfaAPI;
   private SchemasAPI schemasAPI;
   private SecretsExt secretsAPI;
   private ServicePrincipalSecretsProxyAPI servicePrincipalSecretsProxyAPI;
-  private ServicePrincipalsAPI servicePrincipalsAPI;
+  private ServicePrincipalsV2API servicePrincipalsV2API;
   private ServingEndpointsAPI servingEndpointsAPI;
   private ServingEndpointsDataPlaneAPI servingEndpointsDataPlaneAPI;
   private SettingsAPI settingsAPI;
@@ -332,10 +361,12 @@ public class WorkspaceClient {
   private SystemSchemasAPI systemSchemasAPI;
   private TableConstraintsAPI tableConstraintsAPI;
   private TablesAPI tablesAPI;
+  private TagPoliciesAPI tagPoliciesAPI;
+  private TemporaryPathCredentialsAPI temporaryPathCredentialsAPI;
   private TemporaryTableCredentialsAPI temporaryTableCredentialsAPI;
   private TokenManagementAPI tokenManagementAPI;
   private TokensAPI tokensAPI;
-  private UsersAPI usersAPI;
+  private UsersV2API usersV2API;
   private VectorSearchEndpointsAPI vectorSearchEndpointsAPI;
   private VectorSearchIndexesAPI vectorSearchIndexesAPI;
   private VolumesAPI volumesAPI;
@@ -343,6 +374,11 @@ public class WorkspaceClient {
   private WorkspaceAPI workspaceAPI;
   private WorkspaceBindingsAPI workspaceBindingsAPI;
   private WorkspaceConfAPI workspaceConfAPI;
+  private WorkspaceIamV2API workspaceIamV2API;
+  private WorkspaceSettingsV2API workspaceSettingsV2API;
+  private GroupsAPI groupsAPI;
+  private ServicePrincipalsAPI servicePrincipalsAPI;
+  private UsersAPI usersAPI;
 
   public WorkspaceClient() {
     this(ConfigLoader.getDefault());
@@ -358,6 +394,7 @@ public class WorkspaceClient {
     alertsLegacyAPI = new AlertsLegacyAPI(apiClient);
     alertsV2API = new AlertsV2API(apiClient);
     appsAPI = new AppsAPI(apiClient);
+    appsSettingsAPI = new AppsSettingsAPI(apiClient);
     artifactAllowlistsAPI = new ArtifactAllowlistsAPI(apiClient);
     catalogsAPI = new CatalogsAPI(apiClient);
     cleanRoomAssetRevisionsAPI = new CleanRoomAssetRevisionsAPI(apiClient);
@@ -383,10 +420,12 @@ public class WorkspaceClient {
     databaseAPI = new DatabaseAPI(apiClient);
     dbfsAPI = new DbfsExt(apiClient);
     dbsqlPermissionsAPI = new DbsqlPermissionsAPI(apiClient);
+    entityTagAssignmentsAPI = new EntityTagAssignmentsAPI(apiClient);
     experimentsAPI = new ExperimentsAPI(apiClient);
     externalLineageAPI = new ExternalLineageAPI(apiClient);
     externalLocationsAPI = new ExternalLocationsAPI(apiClient);
     externalMetadataAPI = new ExternalMetadataAPI(apiClient);
+    featureEngineeringAPI = new FeatureEngineeringAPI(apiClient);
     featureStoreAPI = new FeatureStoreAPI(apiClient);
     filesAPI = new FilesAPI(apiClient);
     forecastingAPI = new ForecastingAPI(apiClient);
@@ -395,7 +434,7 @@ public class WorkspaceClient {
     gitCredentialsAPI = new GitCredentialsAPI(apiClient);
     globalInitScriptsAPI = new GlobalInitScriptsAPI(apiClient);
     grantsAPI = new GrantsAPI(apiClient);
-    groupsAPI = new GroupsAPI(apiClient);
+    groupsV2API = new GroupsV2API(apiClient);
     instancePoolsAPI = new InstancePoolsAPI(apiClient);
     instanceProfilesAPI = new InstanceProfilesAPI(apiClient);
     ipAccessListsAPI = new IpAccessListsAPI(apiClient);
@@ -412,6 +451,7 @@ public class WorkspaceClient {
     permissionMigrationAPI = new PermissionMigrationAPI(apiClient);
     permissionsAPI = new PermissionsAPI(apiClient);
     pipelinesAPI = new PipelinesAPI(apiClient);
+    policiesAPI = new PoliciesAPI(apiClient);
     policyComplianceForClustersAPI = new PolicyComplianceForClustersAPI(apiClient);
     policyComplianceForJobsAPI = new PolicyComplianceForJobsAPI(apiClient);
     policyFamiliesAPI = new PolicyFamiliesAPI(apiClient);
@@ -437,10 +477,11 @@ public class WorkspaceClient {
     registeredModelsAPI = new RegisteredModelsAPI(apiClient);
     reposAPI = new ReposAPI(apiClient);
     resourceQuotasAPI = new ResourceQuotasAPI(apiClient);
+    rfaAPI = new RfaAPI(apiClient);
     schemasAPI = new SchemasAPI(apiClient);
     secretsAPI = new SecretsExt(apiClient);
     servicePrincipalSecretsProxyAPI = new ServicePrincipalSecretsProxyAPI(apiClient);
-    servicePrincipalsAPI = new ServicePrincipalsAPI(apiClient);
+    servicePrincipalsV2API = new ServicePrincipalsV2API(apiClient);
     servingEndpointsAPI = new ServingEndpointsAPI(apiClient);
     servingEndpointsDataPlaneAPI =
         new ServingEndpointsDataPlaneAPI(apiClient, config, servingEndpointsAPI);
@@ -451,10 +492,12 @@ public class WorkspaceClient {
     systemSchemasAPI = new SystemSchemasAPI(apiClient);
     tableConstraintsAPI = new TableConstraintsAPI(apiClient);
     tablesAPI = new TablesAPI(apiClient);
+    tagPoliciesAPI = new TagPoliciesAPI(apiClient);
+    temporaryPathCredentialsAPI = new TemporaryPathCredentialsAPI(apiClient);
     temporaryTableCredentialsAPI = new TemporaryTableCredentialsAPI(apiClient);
     tokenManagementAPI = new TokenManagementAPI(apiClient);
     tokensAPI = new TokensAPI(apiClient);
-    usersAPI = new UsersAPI(apiClient);
+    usersV2API = new UsersV2API(apiClient);
     vectorSearchEndpointsAPI = new VectorSearchEndpointsAPI(apiClient);
     vectorSearchIndexesAPI = new VectorSearchIndexesAPI(apiClient);
     volumesAPI = new VolumesAPI(apiClient);
@@ -462,6 +505,11 @@ public class WorkspaceClient {
     workspaceAPI = new WorkspaceAPI(apiClient);
     workspaceBindingsAPI = new WorkspaceBindingsAPI(apiClient);
     workspaceConfAPI = new WorkspaceConfAPI(apiClient);
+    workspaceIamV2API = new WorkspaceIamV2API(apiClient);
+    workspaceSettingsV2API = new WorkspaceSettingsV2API(apiClient);
+    groupsAPI = new GroupsAPI(apiClient);
+    servicePrincipalsAPI = new ServicePrincipalsAPI(apiClient);
+    usersAPI = new UsersAPI(apiClient);
   }
 
   /** Constructor for mocks */
@@ -531,6 +579,11 @@ public class WorkspaceClient {
    */
   public AppsAPI apps() {
     return appsAPI;
+  }
+
+  /** Apps Settings manage the settings for the Apps service on a customer's Databricks instance. */
+  public AppsSettingsAPI appsSettings() {
+    return appsSettingsAPI;
   }
 
   /**
@@ -802,6 +855,16 @@ public class WorkspaceClient {
   }
 
   /**
+   * Tags are attributes that include keys and optional values that you can use to organize and
+   * categorize entities in Unity Catalog. Entity tagging is currently supported on catalogs,
+   * schemas, tables (including views), columns, volumes. With these APIs, users can create, update,
+   * delete, and list tag assignments across Unity Catalog entities
+   */
+  public EntityTagAssignmentsAPI entityTagAssignments() {
+    return entityTagAssignmentsAPI;
+  }
+
+  /**
    * Experiments are the primary unit of organization in MLflow; all MLflow runs belong to an
    * experiment. Each experiment lets you visualize, search, and compare runs, as well as download
    * run artifacts or metadata for analysis in other tools. Experiments are maintained in a
@@ -853,6 +916,11 @@ public class WorkspaceClient {
    */
   public ExternalMetadataAPI externalMetadata() {
     return externalMetadataAPI;
+  }
+
+  /** [description] */
+  public FeatureEngineeringAPI featureEngineering() {
+    return featureEngineeringAPI;
   }
 
   /**
@@ -969,8 +1037,8 @@ public class WorkspaceClient {
    * assigned as members of groups, and members inherit permissions that are assigned to their
    * group.
    */
-  public GroupsAPI groups() {
-    return groupsAPI;
+  public GroupsV2API groupsV2() {
+    return groupsV2API;
   }
 
   /**
@@ -1211,6 +1279,18 @@ public class WorkspaceClient {
    */
   public PipelinesAPI pipelines() {
     return pipelinesAPI;
+  }
+
+  /**
+   * Attribute-Based Access Control (ABAC) provides high leverage governance for enforcing
+   * compliance policies in Unity Catalog. With ABAC policies, access is controlled in a
+   * hierarchical and scalable manner, based on data attributes rather than specific resources,
+   * enabling more flexible and comprehensive access control. ABAC policies in Unity Catalog support
+   * conditions on securable properties, governance tags, and environment contexts. Callers must
+   * have the `MANAGE` privilege on a securable to view, create, update, or delete ABAC policies.
+   */
+  public PoliciesAPI policies() {
+    return policiesAPI;
   }
 
   /**
@@ -1513,6 +1593,18 @@ public class WorkspaceClient {
   }
 
   /**
+   * Request for Access enables customers to request access to and manage access request
+   * destinations for Unity Catalog securables.
+   *
+   * <p>These APIs provide a standardized way to update, get, and request to access request
+   * destinations. Fine-grained authorization ensures that only users with appropriate permissions
+   * can manage access request destinations.
+   */
+  public RfaAPI rfa() {
+    return rfaAPI;
+  }
+
+  /**
    * A schema (also called a database) is the second layer of Unity Catalog’s three-level namespace.
    * A schema organizes tables, views and functions. To access (or list) a table or view in a
    * schema, users must have the USE_SCHEMA data permission on the schema and its parent catalog,
@@ -1565,8 +1657,8 @@ public class WorkspaceClient {
    * interactive users do not need any write, delete, or modify privileges in production. This
    * eliminates the risk of a user overwriting production data by accident.
    */
-  public ServicePrincipalsAPI servicePrincipals() {
-    return servicePrincipalsAPI;
+  public ServicePrincipalsV2API servicePrincipalsV2() {
+    return servicePrincipalsV2API;
   }
 
   /**
@@ -1762,19 +1854,59 @@ public class WorkspaceClient {
   }
 
   /**
+   * The Tag Policy API allows you to manage policies for governed tags in Databricks. Permissions
+   * for tag policies can be managed using the [Account Access Control Proxy API].
+   *
+   * <p>[Account Access Control Proxy API]:
+   * https://docs.databricks.com/api/workspace/accountaccesscontrolproxy
+   */
+  public TagPoliciesAPI tagPolicies() {
+    return tagPoliciesAPI;
+  }
+
+  /**
+   * Temporary Path Credentials refer to short-lived, downscoped credentials used to access external
+   * cloud storage locations registered in Databricks. These credentials are employed to provide
+   * secure and time-limited access to data in cloud environments such as AWS, Azure, and Google
+   * Cloud. Each cloud provider has its own type of credentials: AWS uses temporary session tokens
+   * via AWS Security Token Service (STS), Azure utilizes Shared Access Signatures (SAS) for its
+   * data storage services, and Google Cloud supports temporary credentials through OAuth 2.0.
+   *
+   * <p>Temporary path credentials ensure that data access is limited in scope and duration,
+   * reducing the risk of unauthorized access or misuse. To use the temporary path credentials API,
+   * a metastore admin needs to enable the external_access_enabled flag (off by default) at the
+   * metastore level. A user needs to be granted the EXTERNAL USE LOCATION permission by external
+   * location owner. For requests on existing external tables, user also needs to be granted the
+   * EXTERNAL USE SCHEMA permission at the schema level by catalog admin.
+   *
+   * <p>Note that EXTERNAL USE SCHEMA is a schema level permission that can only be granted by
+   * catalog admin explicitly and is not included in schema ownership or ALL PRIVILEGES on the
+   * schema for security reasons. Similarly, EXTERNAL USE LOCATION is an external location level
+   * permission that can only be granted by external location owner explicitly and is not included
+   * in external location ownership or ALL PRIVILEGES on the external location for security reasons.
+   *
+   * <p>This API only supports temporary path credentials for external locations and external
+   * tables, and volumes will be supported in the future.
+   */
+  public TemporaryPathCredentialsAPI temporaryPathCredentials() {
+    return temporaryPathCredentialsAPI;
+  }
+
+  /**
    * Temporary Table Credentials refer to short-lived, downscoped credentials used to access cloud
-   * storage locationswhere table data is stored in Databricks. These credentials are employed to
-   * provide secure and time-limitedaccess to data in cloud environments such as AWS, Azure, and
-   * Google Cloud. Each cloud provider has its own typeof credentials: AWS uses temporary session
-   * tokens via AWS Security Token Service (STS), Azure utilizesShared Access Signatures (SAS) for
-   * its data storage services, and Google Cloud supports temporary credentialsthrough OAuth
-   * 2.0.Temporary table credentials ensure that data access is limited in scope and duration,
-   * reducing the risk ofunauthorized access or misuse. To use the temporary table credentials API,
+   * storage locations where table data is stored in Databricks. These credentials are employed to
+   * provide secure and time-limited access to data in cloud environments such as AWS, Azure, and
+   * Google Cloud. Each cloud provider has its own type of credentials: AWS uses temporary session
+   * tokens via AWS Security Token Service (STS), Azure utilizes Shared Access Signatures (SAS) for
+   * its data storage services, and Google Cloud supports temporary credentials through OAuth 2.0.
+   *
+   * <p>Temporary table credentials ensure that data access is limited in scope and duration,
+   * reducing the risk of unauthorized access or misuse. To use the temporary table credentials API,
    * a metastore admin needs to enable the external_access_enabled flag (off by default) at the
    * metastore level, and user needs to be granted the EXTERNAL USE SCHEMA permission at the schema
    * level by catalog admin. Note that EXTERNAL USE SCHEMA is a schema level permission that can
    * only be granted by catalog admin explicitly and is not included in schema ownership or ALL
-   * PRIVILEGES on the schema for security reason.
+   * PRIVILEGES on the schema for security reasons.
    */
   public TemporaryTableCredentialsAPI temporaryTableCredentials() {
     return temporaryTableCredentialsAPI;
@@ -1807,8 +1939,8 @@ public class WorkspaceClient {
    * that user’s account will also be removed from Databricks workspace. This ensures a consistent
    * offboarding process and prevents unauthorized users from accessing sensitive data.
    */
-  public UsersAPI users() {
-    return usersAPI;
+  public UsersV2API usersV2() {
+    return usersV2API;
   }
 
   /** **Endpoint**: Represents the compute resources to host vector search indexes. */
@@ -1891,6 +2023,58 @@ public class WorkspaceClient {
     return workspaceConfAPI;
   }
 
+  /**
+   * These APIs are used to manage identities and the workspace access of these identities in
+   * <Databricks>.
+   */
+  public WorkspaceIamV2API workspaceIamV2() {
+    return workspaceIamV2API;
+  }
+
+  /** APIs to manage workspace level settings */
+  public WorkspaceSettingsV2API workspaceSettingsV2() {
+    return workspaceSettingsV2API;
+  }
+
+  /**
+   * Groups simplify identity management, making it easier to assign access to Databricks workspace,
+   * data, and other securable objects.
+   *
+   * <p>It is best practice to assign access to workspaces and access-control policies in Unity
+   * Catalog to groups, instead of to users individually. All Databricks workspace identities can be
+   * assigned as members of groups, and members inherit permissions that are assigned to their
+   * group.
+   */
+  public GroupsAPI groups() {
+    return groupsAPI;
+  }
+
+  /**
+   * Identities for use with jobs, automated tools, and systems such as scripts, apps, and CI/CD
+   * platforms. Databricks recommends creating service principals to run production jobs or modify
+   * production data. If all processes that act on production data run with service principals,
+   * interactive users do not need any write, delete, or modify privileges in production. This
+   * eliminates the risk of a user overwriting production data by accident.
+   */
+  public ServicePrincipalsAPI servicePrincipals() {
+    return servicePrincipalsAPI;
+  }
+
+  /**
+   * User identities recognized by Databricks and represented by email addresses.
+   *
+   * <p>Databricks recommends using SCIM provisioning to sync users and groups automatically from
+   * your identity provider to your Databricks workspace. SCIM streamlines onboarding a new employee
+   * or team by using your identity provider to create users and groups in Databricks workspace and
+   * give them the proper level of access. When a user leaves your organization or no longer needs
+   * access to Databricks workspace, admins can terminate the user in your identity provider and
+   * that user’s account will also be removed from Databricks workspace. This ensures a consistent
+   * offboarding process and prevents unauthorized users from accessing sensitive data.
+   */
+  public UsersAPI users() {
+    return usersAPI;
+  }
+
   /** Replace the default AccessControlService with a custom implementation. */
   public WorkspaceClient withAccessControlImpl(AccessControlService accessControl) {
     return this.withAccessControlAPI(new AccessControlAPI(accessControl));
@@ -1968,6 +2152,17 @@ public class WorkspaceClient {
   /** Replace the default AppsAPI with a custom implementation. */
   public WorkspaceClient withAppsAPI(AppsAPI apps) {
     this.appsAPI = apps;
+    return this;
+  }
+
+  /** Replace the default AppsSettingsService with a custom implementation. */
+  public WorkspaceClient withAppsSettingsImpl(AppsSettingsService appsSettings) {
+    return this.withAppsSettingsAPI(new AppsSettingsAPI(appsSettings));
+  }
+
+  /** Replace the default AppsSettingsAPI with a custom implementation. */
+  public WorkspaceClient withAppsSettingsAPI(AppsSettingsAPI appsSettings) {
+    this.appsSettingsAPI = appsSettings;
     return this;
   }
 
@@ -2258,6 +2453,18 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default EntityTagAssignmentsService with a custom implementation. */
+  public WorkspaceClient withEntityTagAssignmentsImpl(
+      EntityTagAssignmentsService entityTagAssignments) {
+    return this.withEntityTagAssignmentsAPI(new EntityTagAssignmentsAPI(entityTagAssignments));
+  }
+
+  /** Replace the default EntityTagAssignmentsAPI with a custom implementation. */
+  public WorkspaceClient withEntityTagAssignmentsAPI(EntityTagAssignmentsAPI entityTagAssignments) {
+    this.entityTagAssignmentsAPI = entityTagAssignments;
+    return this;
+  }
+
   /** Replace the default ExperimentsService with a custom implementation. */
   public WorkspaceClient withExperimentsImpl(ExperimentsService experiments) {
     return this.withExperimentsAPI(new ExperimentsAPI(experiments));
@@ -2299,6 +2506,17 @@ public class WorkspaceClient {
   /** Replace the default ExternalMetadataAPI with a custom implementation. */
   public WorkspaceClient withExternalMetadataAPI(ExternalMetadataAPI externalMetadata) {
     this.externalMetadataAPI = externalMetadata;
+    return this;
+  }
+
+  /** Replace the default FeatureEngineeringService with a custom implementation. */
+  public WorkspaceClient withFeatureEngineeringImpl(FeatureEngineeringService featureEngineering) {
+    return this.withFeatureEngineeringAPI(new FeatureEngineeringAPI(featureEngineering));
+  }
+
+  /** Replace the default FeatureEngineeringAPI with a custom implementation. */
+  public WorkspaceClient withFeatureEngineeringAPI(FeatureEngineeringAPI featureEngineering) {
+    this.featureEngineeringAPI = featureEngineering;
     return this;
   }
 
@@ -2390,14 +2608,14 @@ public class WorkspaceClient {
     return this;
   }
 
-  /** Replace the default GroupsService with a custom implementation. */
-  public WorkspaceClient withGroupsImpl(GroupsService groups) {
-    return this.withGroupsAPI(new GroupsAPI(groups));
+  /** Replace the default GroupsV2Service with a custom implementation. */
+  public WorkspaceClient withGroupsV2Impl(GroupsV2Service groupsV2) {
+    return this.withGroupsV2API(new GroupsV2API(groupsV2));
   }
 
-  /** Replace the default GroupsAPI with a custom implementation. */
-  public WorkspaceClient withGroupsAPI(GroupsAPI groups) {
-    this.groupsAPI = groups;
+  /** Replace the default GroupsV2API with a custom implementation. */
+  public WorkspaceClient withGroupsV2API(GroupsV2API groupsV2) {
+    this.groupsV2API = groupsV2;
     return this;
   }
 
@@ -2579,6 +2797,17 @@ public class WorkspaceClient {
   /** Replace the default PipelinesAPI with a custom implementation. */
   public WorkspaceClient withPipelinesAPI(PipelinesAPI pipelines) {
     this.pipelinesAPI = pipelines;
+    return this;
+  }
+
+  /** Replace the default PoliciesService with a custom implementation. */
+  public WorkspaceClient withPoliciesImpl(PoliciesService policies) {
+    return this.withPoliciesAPI(new PoliciesAPI(policies));
+  }
+
+  /** Replace the default PoliciesAPI with a custom implementation. */
+  public WorkspaceClient withPoliciesAPI(PoliciesAPI policies) {
+    this.policiesAPI = policies;
     return this;
   }
 
@@ -2882,6 +3111,17 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default RfaService with a custom implementation. */
+  public WorkspaceClient withRfaImpl(RfaService rfa) {
+    return this.withRfaAPI(new RfaAPI(rfa));
+  }
+
+  /** Replace the default RfaAPI with a custom implementation. */
+  public WorkspaceClient withRfaAPI(RfaAPI rfa) {
+    this.rfaAPI = rfa;
+    return this;
+  }
+
   /** Replace the default SchemasService with a custom implementation. */
   public WorkspaceClient withSchemasImpl(SchemasService schemas) {
     return this.withSchemasAPI(new SchemasAPI(schemas));
@@ -2918,14 +3158,15 @@ public class WorkspaceClient {
     return this;
   }
 
-  /** Replace the default ServicePrincipalsService with a custom implementation. */
-  public WorkspaceClient withServicePrincipalsImpl(ServicePrincipalsService servicePrincipals) {
-    return this.withServicePrincipalsAPI(new ServicePrincipalsAPI(servicePrincipals));
+  /** Replace the default ServicePrincipalsV2Service with a custom implementation. */
+  public WorkspaceClient withServicePrincipalsV2Impl(
+      ServicePrincipalsV2Service servicePrincipalsV2) {
+    return this.withServicePrincipalsV2API(new ServicePrincipalsV2API(servicePrincipalsV2));
   }
 
-  /** Replace the default ServicePrincipalsAPI with a custom implementation. */
-  public WorkspaceClient withServicePrincipalsAPI(ServicePrincipalsAPI servicePrincipals) {
-    this.servicePrincipalsAPI = servicePrincipals;
+  /** Replace the default ServicePrincipalsV2API with a custom implementation. */
+  public WorkspaceClient withServicePrincipalsV2API(ServicePrincipalsV2API servicePrincipalsV2) {
+    this.servicePrincipalsV2API = servicePrincipalsV2;
     return this;
   }
 
@@ -3031,6 +3272,31 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default TagPoliciesService with a custom implementation. */
+  public WorkspaceClient withTagPoliciesImpl(TagPoliciesService tagPolicies) {
+    return this.withTagPoliciesAPI(new TagPoliciesAPI(tagPolicies));
+  }
+
+  /** Replace the default TagPoliciesAPI with a custom implementation. */
+  public WorkspaceClient withTagPoliciesAPI(TagPoliciesAPI tagPolicies) {
+    this.tagPoliciesAPI = tagPolicies;
+    return this;
+  }
+
+  /** Replace the default TemporaryPathCredentialsService with a custom implementation. */
+  public WorkspaceClient withTemporaryPathCredentialsImpl(
+      TemporaryPathCredentialsService temporaryPathCredentials) {
+    return this.withTemporaryPathCredentialsAPI(
+        new TemporaryPathCredentialsAPI(temporaryPathCredentials));
+  }
+
+  /** Replace the default TemporaryPathCredentialsAPI with a custom implementation. */
+  public WorkspaceClient withTemporaryPathCredentialsAPI(
+      TemporaryPathCredentialsAPI temporaryPathCredentials) {
+    this.temporaryPathCredentialsAPI = temporaryPathCredentials;
+    return this;
+  }
+
   /** Replace the default TemporaryTableCredentialsService with a custom implementation. */
   public WorkspaceClient withTemporaryTableCredentialsImpl(
       TemporaryTableCredentialsService temporaryTableCredentials) {
@@ -3067,14 +3333,14 @@ public class WorkspaceClient {
     return this;
   }
 
-  /** Replace the default UsersService with a custom implementation. */
-  public WorkspaceClient withUsersImpl(UsersService users) {
-    return this.withUsersAPI(new UsersAPI(users));
+  /** Replace the default UsersV2Service with a custom implementation. */
+  public WorkspaceClient withUsersV2Impl(UsersV2Service usersV2) {
+    return this.withUsersV2API(new UsersV2API(usersV2));
   }
 
-  /** Replace the default UsersAPI with a custom implementation. */
-  public WorkspaceClient withUsersAPI(UsersAPI users) {
-    this.usersAPI = users;
+  /** Replace the default UsersV2API with a custom implementation. */
+  public WorkspaceClient withUsersV2API(UsersV2API usersV2) {
+    this.usersV2API = usersV2;
     return this;
   }
 
@@ -3155,6 +3421,62 @@ public class WorkspaceClient {
   /** Replace the default WorkspaceConfAPI with a custom implementation. */
   public WorkspaceClient withWorkspaceConfAPI(WorkspaceConfAPI workspaceConf) {
     this.workspaceConfAPI = workspaceConf;
+    return this;
+  }
+
+  /** Replace the default WorkspaceIamV2Service with a custom implementation. */
+  public WorkspaceClient withWorkspaceIamV2Impl(WorkspaceIamV2Service workspaceIamV2) {
+    return this.withWorkspaceIamV2API(new WorkspaceIamV2API(workspaceIamV2));
+  }
+
+  /** Replace the default WorkspaceIamV2API with a custom implementation. */
+  public WorkspaceClient withWorkspaceIamV2API(WorkspaceIamV2API workspaceIamV2) {
+    this.workspaceIamV2API = workspaceIamV2;
+    return this;
+  }
+
+  /** Replace the default WorkspaceSettingsV2Service with a custom implementation. */
+  public WorkspaceClient withWorkspaceSettingsV2Impl(
+      WorkspaceSettingsV2Service workspaceSettingsV2) {
+    return this.withWorkspaceSettingsV2API(new WorkspaceSettingsV2API(workspaceSettingsV2));
+  }
+
+  /** Replace the default WorkspaceSettingsV2API with a custom implementation. */
+  public WorkspaceClient withWorkspaceSettingsV2API(WorkspaceSettingsV2API workspaceSettingsV2) {
+    this.workspaceSettingsV2API = workspaceSettingsV2;
+    return this;
+  }
+
+  /** Replace the default GroupsService with a custom implementation. */
+  public WorkspaceClient withGroupsImpl(GroupsService groups) {
+    return this.withGroupsAPI(new GroupsAPI(groups));
+  }
+
+  /** Replace the default GroupsAPI with a custom implementation. */
+  public WorkspaceClient withGroupsAPI(GroupsAPI groups) {
+    this.groupsAPI = groups;
+    return this;
+  }
+
+  /** Replace the default ServicePrincipalsService with a custom implementation. */
+  public WorkspaceClient withServicePrincipalsImpl(ServicePrincipalsService servicePrincipals) {
+    return this.withServicePrincipalsAPI(new ServicePrincipalsAPI(servicePrincipals));
+  }
+
+  /** Replace the default ServicePrincipalsAPI with a custom implementation. */
+  public WorkspaceClient withServicePrincipalsAPI(ServicePrincipalsAPI servicePrincipals) {
+    this.servicePrincipalsAPI = servicePrincipals;
+    return this;
+  }
+
+  /** Replace the default UsersService with a custom implementation. */
+  public WorkspaceClient withUsersImpl(UsersService users) {
+    return this.withUsersAPI(new UsersAPI(users));
+  }
+
+  /** Replace the default UsersAPI with a custom implementation. */
+  public WorkspaceClient withUsersAPI(UsersAPI users) {
+    this.usersAPI = users;
     return this;
   }
 

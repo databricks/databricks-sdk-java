@@ -21,6 +21,10 @@ public class GenieSpace {
   @JsonProperty("title")
   private String title;
 
+  /** Warehouse associated with the Genie Space */
+  @JsonProperty("warehouse_id")
+  private String warehouseId;
+
   public GenieSpace setDescription(String description) {
     this.description = description;
     return this;
@@ -48,6 +52,15 @@ public class GenieSpace {
     return title;
   }
 
+  public GenieSpace setWarehouseId(String warehouseId) {
+    this.warehouseId = warehouseId;
+    return this;
+  }
+
+  public String getWarehouseId() {
+    return warehouseId;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -55,12 +68,13 @@ public class GenieSpace {
     GenieSpace that = (GenieSpace) o;
     return Objects.equals(description, that.description)
         && Objects.equals(spaceId, that.spaceId)
-        && Objects.equals(title, that.title);
+        && Objects.equals(title, that.title)
+        && Objects.equals(warehouseId, that.warehouseId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(description, spaceId, title);
+    return Objects.hash(description, spaceId, title, warehouseId);
   }
 
   @Override
@@ -69,6 +83,7 @@ public class GenieSpace {
         .add("description", description)
         .add("spaceId", spaceId)
         .add("title", title)
+        .add("warehouseId", warehouseId)
         .toString();
   }
 }

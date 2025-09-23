@@ -40,7 +40,7 @@ public interface WarehousesService {
   /** Gets the workspace level configuration that is shared by all SQL warehouses in a workspace. */
   GetWorkspaceWarehouseConfigResponse getWorkspaceWarehouseConfig();
 
-  /** Lists all SQL warehouses that a user has manager permissions on. */
+  /** Lists all SQL warehouses that a user has access to. */
   ListWarehousesResponse list(ListWarehousesRequest listWarehousesRequest);
 
   /**

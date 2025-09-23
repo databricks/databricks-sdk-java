@@ -30,6 +30,10 @@ public class GenieMessage {
   @JsonProperty("error")
   private MessageError error;
 
+  /** User feedback for the message if provided */
+  @JsonProperty("feedback")
+  private GenieFeedback feedback;
+
   /** Message ID. Legacy identifier, use message_id instead */
   @JsonProperty("id")
   private String id;
@@ -106,6 +110,15 @@ public class GenieMessage {
     return error;
   }
 
+  public GenieMessage setFeedback(GenieFeedback feedback) {
+    this.feedback = feedback;
+    return this;
+  }
+
+  public GenieFeedback getFeedback() {
+    return feedback;
+  }
+
   public GenieMessage setId(String id) {
     this.id = id;
     return this;
@@ -179,6 +192,7 @@ public class GenieMessage {
         && Objects.equals(conversationId, that.conversationId)
         && Objects.equals(createdTimestamp, that.createdTimestamp)
         && Objects.equals(error, that.error)
+        && Objects.equals(feedback, that.feedback)
         && Objects.equals(id, that.id)
         && Objects.equals(lastUpdatedTimestamp, that.lastUpdatedTimestamp)
         && Objects.equals(messageId, that.messageId)
@@ -196,6 +210,7 @@ public class GenieMessage {
         conversationId,
         createdTimestamp,
         error,
+        feedback,
         id,
         lastUpdatedTimestamp,
         messageId,
@@ -213,6 +228,7 @@ public class GenieMessage {
         .add("conversationId", conversationId)
         .add("createdTimestamp", createdTimestamp)
         .add("error", error)
+        .add("feedback", feedback)
         .add("id", id)
         .add("lastUpdatedTimestamp", lastUpdatedTimestamp)
         .add("messageId", messageId)

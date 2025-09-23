@@ -11,9 +11,9 @@ import java.util.Objects;
 @Generated
 public class CreateCustomLlmRequest {
   /**
-   * Optional: UC path for agent artifacts. If you are using a dataset that you only have read
-   * permissions, please provide a destination path where you have write permissions. Please provide
-   * this in catalog.schema format.
+   * This will soon be deprecated!! Optional: UC path for agent artifacts. If you are using a
+   * dataset that you only have read permissions, please provide a destination path where you have
+   * write permissions. Please provide this in catalog.schema format.
    */
   @JsonProperty("agent_artifact_path")
   private String agentArtifactPath;

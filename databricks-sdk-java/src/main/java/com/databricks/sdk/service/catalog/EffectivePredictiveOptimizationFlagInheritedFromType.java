@@ -4,10 +4,6 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/**
- * The type of the object from which the flag was inherited. If there was no inheritance, this field
- * is left blank.
- */
 @Generated
 public enum EffectivePredictiveOptimizationFlagInheritedFromType {
   CATALOG,

@@ -10,6 +10,14 @@ import java.util.Objects;
 
 @Generated
 public class GenieListConversationsRequest {
+  /**
+   * Include all conversations in the space across all users. Requires at least CAN MANAGE
+   * permission on the space.
+   */
+  @JsonIgnore
+  @QueryParam("include_all")
+  private Boolean includeAll;
+
   /** Maximum number of conversations to return per page */
   @JsonIgnore
   @QueryParam("page_size")
@@ -22,6 +30,15 @@ public class GenieListConversationsRequest {
 
   /** The ID of the Genie space to retrieve conversations from. */
   @JsonIgnore private String spaceId;
+
+  public GenieListConversationsRequest setIncludeAll(Boolean includeAll) {
+    this.includeAll = includeAll;
+    return this;
+  }
+
+  public Boolean getIncludeAll() {
+    return includeAll;
+  }
 
   public GenieListConversationsRequest setPageSize(Long pageSize) {
     this.pageSize = pageSize;
@@ -55,19 +72,21 @@ public class GenieListConversationsRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GenieListConversationsRequest that = (GenieListConversationsRequest) o;
-    return Objects.equals(pageSize, that.pageSize)
+    return Objects.equals(includeAll, that.includeAll)
+        && Objects.equals(pageSize, that.pageSize)
         && Objects.equals(pageToken, that.pageToken)
         && Objects.equals(spaceId, that.spaceId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pageSize, pageToken, spaceId);
+    return Objects.hash(includeAll, pageSize, pageToken, spaceId);
   }
 
   @Override
   public String toString() {
     return new ToStringer(GenieListConversationsRequest.class)
+        .add("includeAll", includeAll)
         .add("pageSize", pageSize)
         .add("pageToken", pageToken)
         .add("spaceId", spaceId)

@@ -118,4 +118,29 @@ class ClustersExtTest {
     String nodeType = clustersExt.selectNodeType(new NodeTypeSelector().withLocalDisk());
     assertEquals("testId1", nodeType);
   }
+
+  private GetSparkVersionsResponse testGetSparkVersionsWithSparkVersion() {
+    Collection<SparkVersion> versions = new ArrayList<>();
+    // Mock realistic Databricks Runtime version based on actual API response format
+    // The key point: version name contains more than just "Apache Spark X.Y.Z"
+    versions.add(
+        new SparkVersion()
+            .setName("13.3 LTS (includes Apache Spark 3.4.1, Scala 2.12)")
+            .setKey("13.3.x-scala2.12"));
+    return new GetSparkVersionsResponse().setVersions(versions);
+  }
+
+  @Test
+  void sparkVersionWithSparkVersionParameter() {
+    ClustersExt clustersExt = new ClustersExt(clustersMock);
+    Mockito.doReturn(testGetSparkVersionsWithSparkVersion()).when(clustersMock).sparkVersions();
+
+    // Test that sparkVersion parameter works with realistic API response format
+    // This tests the contains() fix - the version name is "13.3 LTS (includes Apache Spark 3.4.1,
+    // Scala 2.12)"
+    // not just "Apache Spark 3.4.1", so equals() would fail but contains() works
+    String sparkVersion =
+        clustersExt.selectSparkVersion(new SparkVersionSelector().withSparkVersion("3.4.1"));
+    assertEquals("13.3.x-scala2.12", sparkVersion);
+  }
 }

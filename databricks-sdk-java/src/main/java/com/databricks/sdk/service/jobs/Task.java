@@ -13,7 +13,7 @@ public class Task {
   /**
    * The task runs a [clean rooms] notebook when the `clean_rooms_notebook_task` field is present.
    *
-   * <p>[clean rooms]: https://docs.databricks.com/en/clean-rooms/index.html
+   * <p>[clean rooms]: https://docs.databricks.com/clean-rooms/index.html
    */
   @JsonProperty("clean_rooms_notebook_task")
   private CleanRoomsNotebookTask cleanRoomsNotebookTask;
@@ -61,6 +61,13 @@ public class Task {
   /** An option to disable auto optimization in serverless */
   @JsonProperty("disable_auto_optimization")
   private Boolean disableAutoOptimization;
+
+  /**
+   * An optional flag to disable the task. If set to true, the task will not run even if it is part
+   * of a job.
+   */
+  @JsonProperty("disabled")
+  private Boolean disabled;
 
   /**
    * An optional set of email addresses that is notified when runs of this task begin or complete as
@@ -194,21 +201,9 @@ public class Task {
   private SparkPythonTask sparkPythonTask;
 
   /**
-   * (Legacy) The task runs the spark-submit script when the `spark_submit_task` field is present.
-   * This task can run only on new clusters and is not compatible with serverless compute.
-   *
-   * <p>In the `new_cluster` specification, `libraries` and `spark_conf` are not supported. Instead,
-   * use `--jars` and `--py-files` to add Java and Python libraries and `--conf` to set the Spark
-   * configurations.
-   *
-   * <p>`master`, `deploy-mode`, and `executor-cores` are automatically configured by Databricks;
-   * you _cannot_ specify them in parameters.
-   *
-   * <p>By default, the Spark submit job uses all available memory (excluding reserved memory for
-   * Databricks services). You can set `--driver-memory`, and `--executor-memory` to a smaller value
-   * to leave some room for off-heap usage.
-   *
-   * <p>The `--jars`, `--py-files`, `--files` arguments support DBFS and S3 paths.
+   * (Legacy) The task runs the spark-submit script when the spark_submit_task field is present.
+   * Databricks recommends using the spark_jar_task instead; see [Spark Submit task for
+   * jobs](/jobs/spark-submit).
    */
   @JsonProperty("spark_submit_task")
   private SparkSubmitTask sparkSubmitTask;
@@ -318,6 +313,15 @@ public class Task {
 
   public Boolean getDisableAutoOptimization() {
     return disableAutoOptimization;
+  }
+
+  public Task setDisabled(Boolean disabled) {
+    this.disabled = disabled;
+    return this;
+  }
+
+  public Boolean getDisabled() {
+    return disabled;
   }
 
   public Task setEmailNotifications(TaskEmailNotifications emailNotifications) {
@@ -568,6 +572,7 @@ public class Task {
         && Objects.equals(dependsOn, that.dependsOn)
         && Objects.equals(description, that.description)
         && Objects.equals(disableAutoOptimization, that.disableAutoOptimization)
+        && Objects.equals(disabled, that.disabled)
         && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(environmentKey, that.environmentKey)
         && Objects.equals(existingClusterId, that.existingClusterId)
@@ -608,6 +613,7 @@ public class Task {
         dependsOn,
         description,
         disableAutoOptimization,
+        disabled,
         emailNotifications,
         environmentKey,
         existingClusterId,
@@ -648,6 +654,7 @@ public class Task {
         .add("dependsOn", dependsOn)
         .add("description", description)
         .add("disableAutoOptimization", disableAutoOptimization)
+        .add("disabled", disabled)
         .add("emailNotifications", emailNotifications)
         .add("environmentKey", environmentKey)
         .add("existingClusterId", existingClusterId)

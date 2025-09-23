@@ -1,8 +1,8 @@
 package com.databricks.sdk.core.error;
 
+import com.databricks.sdk.core.error.details.ErrorDetails;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.List;
 
 /**
  * The union of all JSON error responses from the Databricks APIs, not including HTML responses.
@@ -17,10 +17,20 @@ public class ApiErrorBody {
   private String scimStatus;
   private String scimType;
   private String api12Error;
-  private List<ErrorDetail> errorDetails;
+  private ErrorDetails errorDetails;
 
   public ApiErrorBody() {}
 
+  /**
+   * Constructs an ApiErrorBody from the given parameters.
+   *
+   * <p>The error details are converted to a list of ErrorDetail objects. This only supports the
+   * ErrorInfo type.
+   *
+   * @param errorCode The error code.
+   * @param message The error message.
+   * @param scimDetail The SCIM detail.
+   */
   public ApiErrorBody(
       @JsonProperty("error_code") String errorCode,
       @JsonProperty("message") String message,
@@ -28,7 +38,7 @@ public class ApiErrorBody {
       @JsonProperty("status") String scimStatus,
       @JsonProperty("scimType") String scimType,
       @JsonProperty("error") String api12Error,
-      @JsonProperty("details") List<ErrorDetail> errorDetails) {
+      @JsonProperty("details") ErrorDetails errorDetails) {
     this.errorCode = errorCode;
     this.message = message;
     this.scimDetail = scimDetail;
@@ -38,11 +48,11 @@ public class ApiErrorBody {
     this.errorDetails = errorDetails;
   }
 
-  public List<ErrorDetail> getErrorDetails() {
+  public ErrorDetails getErrorDetails() {
     return errorDetails;
   }
 
-  public void setErrorDetails(List<ErrorDetail> errorDetails) {
+  public void setErrorDetails(ErrorDetails errorDetails) {
     this.errorDetails = errorDetails;
   }
 

@@ -18,6 +18,10 @@ public class GenieAttachment {
   @JsonProperty("query")
   private GenieQueryAttachment query;
 
+  /** Follow-up questions suggested by Genie */
+  @JsonProperty("suggested_questions")
+  private GenieSuggestedQuestionsAttachment suggestedQuestions;
+
   /** Text Attachment if Genie responds with text */
   @JsonProperty("text")
   private TextAttachment text;
@@ -40,6 +44,16 @@ public class GenieAttachment {
     return query;
   }
 
+  public GenieAttachment setSuggestedQuestions(
+      GenieSuggestedQuestionsAttachment suggestedQuestions) {
+    this.suggestedQuestions = suggestedQuestions;
+    return this;
+  }
+
+  public GenieSuggestedQuestionsAttachment getSuggestedQuestions() {
+    return suggestedQuestions;
+  }
+
   public GenieAttachment setText(TextAttachment text) {
     this.text = text;
     return this;
@@ -56,12 +70,13 @@ public class GenieAttachment {
     GenieAttachment that = (GenieAttachment) o;
     return Objects.equals(attachmentId, that.attachmentId)
         && Objects.equals(query, that.query)
+        && Objects.equals(suggestedQuestions, that.suggestedQuestions)
         && Objects.equals(text, that.text);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(attachmentId, query, text);
+    return Objects.hash(attachmentId, query, suggestedQuestions, text);
   }
 
   @Override
@@ -69,6 +84,7 @@ public class GenieAttachment {
     return new ToStringer(GenieAttachment.class)
         .add("attachmentId", attachmentId)
         .add("query", query)
+        .add("suggestedQuestions", suggestedQuestions)
         .add("text", text)
         .toString();
   }

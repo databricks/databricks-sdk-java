@@ -34,6 +34,8 @@ public class GetRuleSetRequest {
    * name for a rule set on the group.
    * `name=accounts/<ACCOUNT_ID>/servicePrincipals/<SERVICE_PRINCIPAL_APPLICATION_ID>/ruleSets/default`
    * | A name for a rule set on the service principal.
+   * `name=accounts/<ACCOUNT_ID>/tagPolicies/<TAG_POLICY_ID>/ruleSets/default` | A name for a rule
+   * set on the tag policy.
    */
   @JsonIgnore
   @QueryParam("name")

@@ -21,7 +21,7 @@ public class CleanRoomAssetNotebook {
   @JsonProperty("notebook_content")
   private String notebookContent;
 
-  /** top-level status derived from all reviews */
+  /** Top-level status derived from all reviews */
   @JsonProperty("review_state")
   private CleanRoomNotebookReviewNotebookReviewState reviewState;
 
@@ -29,7 +29,7 @@ public class CleanRoomAssetNotebook {
   @JsonProperty("reviews")
   private Collection<CleanRoomNotebookReview> reviews;
 
-  /** collaborators that can run the notebook */
+  /** Aliases of collaborators that can run the notebook. */
   @JsonProperty("runner_collaborator_aliases")
   private Collection<String> runnerCollaboratorAliases;
 

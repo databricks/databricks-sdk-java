@@ -7,5 +7,6 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum PublishSpecPublishMode {
   CONTINUOUS,
+  SNAPSHOT,
   TRIGGERED,
 }

@@ -2,6 +2,8 @@ package com.databricks.sdk.core.error;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.databricks.sdk.core.error.details.ErrorDetails;
+import com.databricks.sdk.core.error.details.ErrorInfo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.*;
@@ -46,11 +48,18 @@ public class ApiErrorBodyDeserializationSuite {
     ApiErrorBody error = mapper.readValue(rawResponse, ApiErrorBody.class);
     Map<String, String> metadata = new HashMap<>();
     metadata.put("etag", "detailsetag");
-    ErrorDetail errorDetails = error.getErrorDetails().get(0);
-    assertEquals(errorDetails.getType(), "type.googleapis.com/google.rpc.ErrorInfo");
-    assertEquals(errorDetails.getReason(), "detailreason");
-    assertEquals(errorDetails.getDomain(), "detaildomain");
-    assertEquals(errorDetails.getMetadata(), metadata);
+
+    ErrorDetails expectedErrorDetails =
+        ErrorDetails.builder()
+            .setErrorInfo(
+                ErrorInfo.builder()
+                    .setReason("detailreason")
+                    .setDomain("detaildomain")
+                    .setMetadata(metadata)
+                    .build())
+            .build();
+
+    assertEquals(expectedErrorDetails, error.getErrorDetails());
   }
 
   // Test that an ApiErrorBody can be deserialized, even if the response includes unexpected

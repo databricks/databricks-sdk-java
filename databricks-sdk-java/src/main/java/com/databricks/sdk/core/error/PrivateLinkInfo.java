@@ -1,9 +1,9 @@
 package com.databricks.sdk.core.error;
 
 import com.databricks.sdk.core.DatabricksEnvironment;
+import com.databricks.sdk.core.error.details.ErrorDetails;
 import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.utils.Cloud;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,6 +61,6 @@ public class PrivateLinkInfo {
     DatabricksEnvironment env =
         DatabricksEnvironment.getEnvironmentFromHostname(resp.getUrl().getHost());
     PrivateLinkInfo info = PRIVATE_LINK_INFOS.get(env.getCloud());
-    return new PrivateLinkValidationError(info.errorMessage(), Collections.emptyList());
+    return new PrivateLinkValidationError(info.errorMessage(), ErrorDetails.builder().build());
   }
 }

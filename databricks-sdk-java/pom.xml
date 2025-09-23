@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.databricks</groupId>
     <artifactId>databricks-sdk-parent</artifactId>
-    <version>0.57.0</version>
+    <version>0.64.0</version>
   </parent>
   <artifactId>databricks-sdk-java</artifactId>
   <name>Databricks SDK for Java</name>
@@ -102,6 +102,12 @@
     <dependency>
       <groupId>com.fasterxml.jackson.datatype</groupId>
       <artifactId>jackson-datatype-jsr310</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+    <!-- Jackson Guava module needed to serialize/deserialize AutoValue classes -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-guava</artifactId>
       <version>${jackson.version}</version>
     </dependency>
     <!-- Google Auto Value -->

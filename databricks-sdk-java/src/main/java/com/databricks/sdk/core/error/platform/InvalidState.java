@@ -2,14 +2,13 @@
 
 package com.databricks.sdk.core.error.platform;
 
-import com.databricks.sdk.core.error.ErrorDetail;
+import com.databricks.sdk.core.error.details.ErrorDetails;
 import com.databricks.sdk.support.Generated;
-import java.util.List;
 
 /** unexpected state */
 @Generated
 public class InvalidState extends BadRequest {
-  public InvalidState(String message, List<ErrorDetail> details) {
+  public InvalidState(String message, ErrorDetails details) {
     super("INVALID_STATE", message, details);
   }
 }
