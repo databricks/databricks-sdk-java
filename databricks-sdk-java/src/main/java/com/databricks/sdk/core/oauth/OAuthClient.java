@@ -191,7 +191,7 @@ public class OAuthClient {
   }
 
   protected static String urlEncode(String urlBase, Map<String, String> params) {
-    if (params.isEmpty()) {
+    if (params == null || params.isEmpty()) {
       return urlBase;
     }
 
@@ -217,6 +217,11 @@ public class OAuthClient {
   }
 
   public Consent initiateConsent() throws MalformedURLException {
+    if (authUrl == null) {
+      throw new DatabricksException(
+          "Authorization URL is not configured. OAuth endpoints may not be available.");
+    }
+
     String state = tokenUrlSafe(16);
     String verifier = tokenUrlSafe(32);
     byte[] digest = sha256(verifier.getBytes(StandardCharsets.UTF_8));
