@@ -64,7 +64,7 @@ public class ExternalBrowserCredentialsProviderTest {
       assertNotNull(authUrl);
       assertTrue(authUrl.contains("response_type=code"));
       assertTrue(authUrl.contains("client_id=test-client-id"));
-      assertTrue(authUrl.contains("redirect_uri=http://localhost:8080/callback"));
+      assertTrue(authUrl.contains("redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fcallback"));
       assertTrue(authUrl.contains("scope=all-apis"));
     }
   }
@@ -112,7 +112,7 @@ public class ExternalBrowserCredentialsProviderTest {
       assertNotNull(authUrl);
       assertTrue(authUrl.contains("response_type=code"));
       assertTrue(authUrl.contains("client_id=test-client-id"));
-      assertTrue(authUrl.contains("redirect_uri=http://localhost:8010"));
+      assertTrue(authUrl.contains("redirect_uri=http%3A%2F%2Flocalhost%3A8010"));
       assertTrue(authUrl.contains("scope=sql"));
     }
   }
