@@ -136,7 +136,7 @@ public class OAuthClientTest {
 
   @Test
   public void testDeterministicParameterOrdering() {
-    // Test that parameters are always in the same order regardless of insertion order
+    // Test that parameters are always in the same order regardless of insertion order.
     Map<String, String> params1 = new HashMap<>();
     params1.put("z_param", "value1");
     params1.put("a_param", "value2");
@@ -150,7 +150,7 @@ public class OAuthClientTest {
     String result1 = OAuthClient.urlEncode("https://example.com", params1);
     String result2 = OAuthClient.urlEncode("https://example.com", params2);
 
-    // Both should produce identical results (sorted by key)
+    // Both should produce identical results (sorted by key).
     assertEquals(result1, result2);
     assertEquals("https://example.com?a_param=value2&m_param=value3&z_param=value1", result1);
   }
