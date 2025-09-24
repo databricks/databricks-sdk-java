@@ -26,6 +26,93 @@ public class AccountIamV2API {
     impl = mock;
   }
 
+  /** TODO: Write description later when this method is implemented */
+  public Group createGroup(CreateGroupRequest request) {
+    return impl.createGroup(request);
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public ServicePrincipal createServicePrincipal(CreateServicePrincipalRequest request) {
+    return impl.createServicePrincipal(request);
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public User createUser(CreateUserRequest request) {
+    return impl.createUser(request);
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public WorkspaceAccessDetail createWorkspaceAccessDetail(
+      CreateWorkspaceAccessDetailRequest request) {
+    return impl.createWorkspaceAccessDetail(request);
+  }
+
+  public void deleteGroup(long internalId) {
+    deleteGroup(new DeleteGroupRequest().setInternalId(internalId));
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public void deleteGroup(DeleteGroupRequest request) {
+    impl.deleteGroup(request);
+  }
+
+  public void deleteServicePrincipal(long internalId) {
+    deleteServicePrincipal(new DeleteServicePrincipalRequest().setInternalId(internalId));
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public void deleteServicePrincipal(DeleteServicePrincipalRequest request) {
+    impl.deleteServicePrincipal(request);
+  }
+
+  public void deleteUser(long internalId) {
+    deleteUser(new DeleteUserRequest().setInternalId(internalId));
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public void deleteUser(DeleteUserRequest request) {
+    impl.deleteUser(request);
+  }
+
+  public void deleteWorkspaceAccessDetail(long workspaceId, long principalId) {
+    deleteWorkspaceAccessDetail(
+        new DeleteWorkspaceAccessDetailRequest()
+            .setWorkspaceId(workspaceId)
+            .setPrincipalId(principalId));
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public void deleteWorkspaceAccessDetail(DeleteWorkspaceAccessDetailRequest request) {
+    impl.deleteWorkspaceAccessDetail(request);
+  }
+
+  public Group getGroup(long internalId) {
+    return getGroup(new GetGroupRequest().setInternalId(internalId));
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public Group getGroup(GetGroupRequest request) {
+    return impl.getGroup(request);
+  }
+
+  public ServicePrincipal getServicePrincipal(long internalId) {
+    return getServicePrincipal(new GetServicePrincipalRequest().setInternalId(internalId));
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public ServicePrincipal getServicePrincipal(GetServicePrincipalRequest request) {
+    return impl.getServicePrincipal(request);
+  }
+
+  public User getUser(long internalId) {
+    return getUser(new GetUserRequest().setInternalId(internalId));
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public User getUser(GetUserRequest request) {
+    return impl.getUser(request);
+  }
+
   public WorkspaceAccessDetail getWorkspaceAccessDetail(long workspaceId, long principalId) {
     return getWorkspaceAccessDetail(
         new GetWorkspaceAccessDetailRequest()
@@ -42,6 +129,32 @@ public class AccountIamV2API {
    */
   public WorkspaceAccessDetail getWorkspaceAccessDetail(GetWorkspaceAccessDetailRequest request) {
     return impl.getWorkspaceAccessDetail(request);
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public ListGroupsResponse listGroups(ListGroupsRequest request) {
+    return impl.listGroups(request);
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public ListServicePrincipalsResponse listServicePrincipals(ListServicePrincipalsRequest request) {
+    return impl.listServicePrincipals(request);
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public ListUsersResponse listUsers(ListUsersRequest request) {
+    return impl.listUsers(request);
+  }
+
+  public ListWorkspaceAccessDetailsResponse listWorkspaceAccessDetails(long workspaceId) {
+    return listWorkspaceAccessDetails(
+        new ListWorkspaceAccessDetailsRequest().setWorkspaceId(workspaceId));
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public ListWorkspaceAccessDetailsResponse listWorkspaceAccessDetails(
+      ListWorkspaceAccessDetailsRequest request) {
+    return impl.listWorkspaceAccessDetails(request);
   }
 
   /**
@@ -70,6 +183,27 @@ public class AccountIamV2API {
    */
   public ResolveUserResponse resolveUser(ResolveUserRequest request) {
     return impl.resolveUser(request);
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public Group updateGroup(UpdateGroupRequest request) {
+    return impl.updateGroup(request);
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public ServicePrincipal updateServicePrincipal(UpdateServicePrincipalRequest request) {
+    return impl.updateServicePrincipal(request);
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public User updateUser(UpdateUserRequest request) {
+    return impl.updateUser(request);
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public WorkspaceAccessDetail updateWorkspaceAccessDetail(
+      UpdateWorkspaceAccessDetailRequest request) {
+    return impl.updateWorkspaceAccessDetail(request);
   }
 
   public AccountIamV2Service impl() {

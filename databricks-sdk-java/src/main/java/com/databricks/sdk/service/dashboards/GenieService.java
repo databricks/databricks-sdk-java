@@ -22,6 +22,9 @@ public interface GenieService {
   GenieMessage createMessage(
       GenieCreateConversationMessageRequest genieCreateConversationMessageRequest);
 
+  /** Creates a Genie space from a serialized payload. */
+  GenieSpace createSpace(GenieCreateSpaceRequest genieCreateSpaceRequest);
+
   /** Delete a conversation. */
   void deleteConversation(GenieDeleteConversationRequest genieDeleteConversationRequest);
 
@@ -42,6 +45,30 @@ public interface GenieService {
    */
   GenieGetMessageQueryResultResponse executeMessageQuery(
       GenieExecuteMessageQueryRequest genieExecuteMessageQueryRequest);
+
+  /**
+   * Initiates a new SQL execution and returns a `download_id` that you can use to track the
+   * progress of the download. The query result is stored in an external link and can be retrieved
+   * using the [Get Download Full Query Result](:method:genie/getdownloadfullqueryresult) API.
+   * Warning: Databricks strongly recommends that you protect the URLs that are returned by the
+   * `EXTERNAL_LINKS` disposition. See [Execute
+   * Statement](:method:statementexecution/executestatement) for more details.
+   */
+  GenieGenerateDownloadFullQueryResultResponse generateDownloadFullQueryResult(
+      GenieGenerateDownloadFullQueryResultRequest genieGenerateDownloadFullQueryResultRequest);
+
+  /**
+   * After [Generating a Full Query Result Download](:method:genie/getdownloadfullqueryresult) and
+   * successfully receiving a `download_id`, use this API to poll the download progress. When the
+   * download is complete, the API returns one or more external links to the query result files.
+   * Warning: Databricks strongly recommends that you protect the URLs that are returned by the
+   * `EXTERNAL_LINKS` disposition. You must not set an Authorization header in download requests.
+   * When using the `EXTERNAL_LINKS` disposition, Databricks returns presigned URLs that grant
+   * temporary access to data. See [Execute Statement](:method:statementexecution/executestatement)
+   * for more details.
+   */
+  GenieGetDownloadFullQueryResultResponse getDownloadFullQueryResult(
+      GenieGetDownloadFullQueryResultRequest genieGetDownloadFullQueryResultRequest);
 
   /** Get message from conversation. */
   GenieMessage getMessage(GenieGetConversationMessageRequest genieGetConversationMessageRequest);
@@ -90,4 +117,7 @@ public interface GenieService {
 
   /** Move a Genie Space to the trash. */
   void trashSpace(GenieTrashSpaceRequest genieTrashSpaceRequest);
+
+  /** Updates a Genie space with a serialized payload. */
+  GenieSpace updateSpace(GenieUpdateSpaceRequest genieUpdateSpaceRequest);
 }

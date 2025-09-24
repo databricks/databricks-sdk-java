@@ -9,6 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class AnomalyDetectionConfig {
+  /** The type of the last run of the workflow. */
+  @JsonProperty("job_type")
+  private AnomalyDetectionJobType jobType;
+
   /** Run id of the last run of the workflow */
   @JsonProperty("last_run_id")
   private String lastRunId;
@@ -16,6 +20,15 @@ public class AnomalyDetectionConfig {
   /** The status of the last run of the workflow. */
   @JsonProperty("latest_run_status")
   private AnomalyDetectionRunStatus latestRunStatus;
+
+  public AnomalyDetectionConfig setJobType(AnomalyDetectionJobType jobType) {
+    this.jobType = jobType;
+    return this;
+  }
+
+  public AnomalyDetectionJobType getJobType() {
+    return jobType;
+  }
 
   public AnomalyDetectionConfig setLastRunId(String lastRunId) {
     this.lastRunId = lastRunId;
@@ -40,18 +53,20 @@ public class AnomalyDetectionConfig {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     AnomalyDetectionConfig that = (AnomalyDetectionConfig) o;
-    return Objects.equals(lastRunId, that.lastRunId)
+    return Objects.equals(jobType, that.jobType)
+        && Objects.equals(lastRunId, that.lastRunId)
         && Objects.equals(latestRunStatus, that.latestRunStatus);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(lastRunId, latestRunStatus);
+    return Objects.hash(jobType, lastRunId, latestRunStatus);
   }
 
   @Override
   public String toString() {
     return new ToStringer(AnomalyDetectionConfig.class)
+        .add("jobType", jobType)
         .add("lastRunId", lastRunId)
         .add("latestRunStatus", latestRunStatus)
         .toString();

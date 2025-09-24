@@ -164,6 +164,11 @@ public class ExperimentsAPI {
     return impl.getLoggedModel(request);
   }
 
+  /** Batch endpoint for getting logged models from a list of model IDs */
+  public GetLoggedModelsRequestResponse getLoggedModels(GetLoggedModelsRequest request) {
+    return impl.getLoggedModels(request);
+  }
+
   public GetExperimentPermissionLevelsResponse getPermissionLevels(String experimentId) {
     return getPermissionLevels(
         new GetExperimentPermissionLevelsRequest().setExperimentId(experimentId));

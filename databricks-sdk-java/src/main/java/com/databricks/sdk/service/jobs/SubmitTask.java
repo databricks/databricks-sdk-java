@@ -58,6 +58,13 @@ public class SubmitTask {
   private String description;
 
   /**
+   * An optional flag to disable the task. If set to true, the task will not run even if it is part
+   * of a job.
+   */
+  @JsonProperty("disabled")
+  private Boolean disabled;
+
+  /**
    * An optional set of email addresses notified when the task run begins or completes. The default
    * behavior is to not send any emails.
    */
@@ -258,6 +265,15 @@ public class SubmitTask {
 
   public String getDescription() {
     return description;
+  }
+
+  public SubmitTask setDisabled(Boolean disabled) {
+    this.disabled = disabled;
+    return this;
+  }
+
+  public Boolean getDisabled() {
+    return disabled;
   }
 
   public SubmitTask setEmailNotifications(JobEmailNotifications emailNotifications) {
@@ -471,6 +487,7 @@ public class SubmitTask {
         && Objects.equals(dbtTask, that.dbtTask)
         && Objects.equals(dependsOn, that.dependsOn)
         && Objects.equals(description, that.description)
+        && Objects.equals(disabled, that.disabled)
         && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(environmentKey, that.environmentKey)
         && Objects.equals(existingClusterId, that.existingClusterId)
@@ -506,6 +523,7 @@ public class SubmitTask {
         dbtTask,
         dependsOn,
         description,
+        disabled,
         emailNotifications,
         environmentKey,
         existingClusterId,
@@ -541,6 +559,7 @@ public class SubmitTask {
         .add("dbtTask", dbtTask)
         .add("dependsOn", dependsOn)
         .add("description", description)
+        .add("disabled", disabled)
         .add("emailNotifications", emailNotifications)
         .add("environmentKey", environmentKey)
         .add("existingClusterId", existingClusterId)
