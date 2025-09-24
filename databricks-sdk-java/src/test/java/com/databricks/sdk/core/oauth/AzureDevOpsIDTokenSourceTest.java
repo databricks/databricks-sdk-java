@@ -2,92 +2,236 @@ package com.databricks.sdk.core.oauth;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.*;
 
 import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
-import java.io.ByteArrayInputStream;
+import com.databricks.sdk.core.utils.Environment;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
-/**
- * Unit tests for AzureDevOpsIDTokenSource.
- * 
- * Note: These tests focus on the core functionality. Environment variable validation
- * tests are limited since the class now reads directly from System.getenv().
- * Integration tests should be used to test the full environment variable behavior.
- */
+/** Tests for AzureDevOpsIDTokenSource. */
 public class AzureDevOpsIDTokenSourceTest {
 
-  @Mock private HttpClient httpClient;
-  @Mock private Response response;
+  private static final String TEST_ID_TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9...";
+  private static final String TEST_ACCESS_TOKEN = "test-access-token";
+  private static final String TEST_COLLECTION_URI = "https://dev.azure.com/testorg";
+  private static final String TEST_PLAN_ID = "test-plan-id";
+  private static final String TEST_JOB_ID = "test-job-id";
+  private static final String TEST_PROJECT_ID = "test-project-id";
+  private static final String TEST_HOST_TYPE = "build";
 
-  @BeforeEach
-  void setUp() {
-    MockitoAnnotations.openMocks(this);
+  /** Creates a mock Environment with all required Azure DevOps environment variables. */
+  private static Environment createValidEnvironment() {
+    Map<String, String> envVars = new HashMap<>();
+    envVars.put("SYSTEM_ACCESSTOKEN", TEST_ACCESS_TOKEN);
+    envVars.put("SYSTEM_TEAMFOUNDATIONCOLLECTIONURI", TEST_COLLECTION_URI);
+    envVars.put("SYSTEM_PLANID", TEST_PLAN_ID);
+    envVars.put("SYSTEM_JOBID", TEST_JOB_ID);
+    envVars.put("SYSTEM_TEAMPROJECTID", TEST_PROJECT_ID);
+    envVars.put("SYSTEM_HOSTTYPE", TEST_HOST_TYPE);
+    return new Environment(envVars, new String[0], "test");
   }
 
-  @Test
-  void testNullHttpClient() {
-    // Act & Assert
-    DatabricksException exception = assertThrows(DatabricksException.class, 
-        () -> new AzureDevOpsIDTokenSource(null));
-    assertTrue(exception.getMessage().contains("HttpClient cannot be null"));
+  /** Creates a mock Environment missing the specified environment variable. */
+  private static Environment createEnvironmentMissing(String missingVar) {
+    Map<String, String> envVars = new HashMap<>();
+    envVars.put("SYSTEM_ACCESSTOKEN", TEST_ACCESS_TOKEN);
+    envVars.put("SYSTEM_TEAMFOUNDATIONCOLLECTIONURI", TEST_COLLECTION_URI);
+    envVars.put("SYSTEM_PLANID", TEST_PLAN_ID);
+    envVars.put("SYSTEM_JOBID", TEST_JOB_ID);
+    envVars.put("SYSTEM_TEAMPROJECTID", TEST_PROJECT_ID);
+    envVars.put("SYSTEM_HOSTTYPE", TEST_HOST_TYPE);
+    envVars.remove(missingVar); // Remove the specified variable
+    return new Environment(envVars, new String[0], "test");
   }
 
-  /**
-   * Test that audience parameter is ignored (Azure DevOps has hardcoded audience).
-   * This test verifies that the URL construction doesn't include audience parameter.
-   */
-  @Test
-  void testAudienceParameterIgnored() throws IOException {
-    // This test can only run if environment variables are set (e.g., in Azure DevOps)
-    // Skip if not in Azure DevOps environment
-    if (System.getenv("SYSTEM_ACCESSTOKEN") == null) {
-      return; // Skip test if not in Azure DevOps environment
+  /** Creates a mock HttpClient that returns the specified response. */
+  private static HttpClient createHttpMock(
+      String responseBody, int statusCode, IOException exception) throws IOException {
+    HttpClient client = mock(HttpClient.class);
+    if (exception != null) {
+      when(client.execute(any(Request.class))).thenThrow(exception);
+    } else {
+      when(client.execute(any(Request.class))).thenReturn(makeResponse(responseBody, statusCode));
     }
-
-    // Arrange
-    String audience = "https://databricks.com";
-    String expectedToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9...";
-    String responseBody = String.format("{\"oidcToken\":\"%s\"}", expectedToken);
-    
-    when(response.getStatusCode()).thenReturn(200);
-    when(response.getBody()).thenReturn(new ByteArrayInputStream(responseBody.getBytes(StandardCharsets.UTF_8)));
-    when(httpClient.execute(any(Request.class))).thenReturn(response);
-
-    AzureDevOpsIDTokenSource tokenSource = new AzureDevOpsIDTokenSource(httpClient);
-
-    // Act
-    IDToken result = tokenSource.getIDToken(audience);
-
-    // Assert
-    assertNotNull(result);
-    assertEquals(expectedToken, result.getValue());
-
-    // Verify the request URL does NOT include the audience parameter (it's ignored)
-    ArgumentCaptor<Request> requestCaptor = ArgumentCaptor.forClass(Request.class);
-    verify(httpClient).execute(requestCaptor.capture());
-    
-    Request capturedRequest = requestCaptor.getValue();
-    String requestUri = capturedRequest.getUri().toString();
-    assertFalse(requestUri.contains("audience="), 
-        "Audience parameter should be ignored for Azure DevOps OIDC tokens");
-    assertTrue(requestUri.contains("api-version=7.2-preview.1"));
+    return client;
   }
 
-  /**
-   * Note: Most environment variable validation tests are not included here
-   * since the class now reads directly from System.getenv(). These should be
-   * tested in integration tests where the environment can be controlled.
-   * 
-   * The tests below focus on the core HTTP functionality that can be unit tested.
-   */
+  /** Creates a Response with the specified body and status code. */
+  private static Response makeResponse(String body, int statusCode) throws MalformedURLException {
+    return new Response(body, statusCode, "OK", new URL("https://databricks.com/"));
+  }
+
+  /** Creates a mock HttpClient that returns a successful OIDC token response. */
+  private static HttpClient createValidHttpMock() throws IOException {
+    return createHttpMock("{\"oidcToken\":\"" + TEST_ID_TOKEN + "\"}", 200, null);
+  }
+
+  /** Predicate to validate that the HTTP request is constructed correctly. */
+  private static final Predicate<Request> REQUEST_VALIDATOR =
+      request ->
+          request.getMethod().equals("POST")
+              && request.getUri().toString().contains("api-version=7.2-preview.1")
+              && request.getUri().toString().contains(TEST_COLLECTION_URI)
+              && request.getUri().toString().contains(TEST_PROJECT_ID)
+              && request.getUri().toString().contains(TEST_HOST_TYPE)
+              && request.getUri().toString().contains(TEST_PLAN_ID)
+              && request.getUri().toString().contains(TEST_JOB_ID)
+              && request.getHeaders().get("Authorization").equals("Bearer " + TEST_ACCESS_TOKEN)
+              && request.getHeaders().get("Content-Type").equals("application/json");
+
+  private static Stream<Arguments> provideAllTestScenarios() throws IOException {
+    return Stream.of(
+        // Constructor validation tests
+        Arguments.of(
+            "Null HttpClient",
+            null,
+            createValidEnvironment(),
+            null,
+            null,
+            DatabricksException.class),
+        Arguments.of(
+            "Missing SYSTEM_ACCESSTOKEN",
+            mock(HttpClient.class),
+            createEnvironmentMissing("SYSTEM_ACCESSTOKEN"),
+            null,
+            null,
+            DatabricksException.class),
+        Arguments.of(
+            "Missing SYSTEM_TEAMFOUNDATIONCOLLECTIONURI",
+            mock(HttpClient.class),
+            createEnvironmentMissing("SYSTEM_TEAMFOUNDATIONCOLLECTIONURI"),
+            null,
+            null,
+            DatabricksException.class),
+        Arguments.of(
+            "Missing SYSTEM_PLANID",
+            mock(HttpClient.class),
+            createEnvironmentMissing("SYSTEM_PLANID"),
+            null,
+            null,
+            DatabricksException.class),
+        Arguments.of(
+            "Missing SYSTEM_JOBID",
+            mock(HttpClient.class),
+            createEnvironmentMissing("SYSTEM_JOBID"),
+            null,
+            null,
+            DatabricksException.class),
+        Arguments.of(
+            "Missing SYSTEM_TEAMPROJECTID",
+            mock(HttpClient.class),
+            createEnvironmentMissing("SYSTEM_TEAMPROJECTID"),
+            null,
+            null,
+            DatabricksException.class),
+        Arguments.of(
+            "Missing SYSTEM_HOSTTYPE",
+            mock(HttpClient.class),
+            createEnvironmentMissing("SYSTEM_HOSTTYPE"),
+            null,
+            null,
+            DatabricksException.class),
+
+        // HTTP request/response tests
+        Arguments.of(
+            "Successful token retrieval",
+            createValidHttpMock(),
+            createValidEnvironment(),
+            REQUEST_VALIDATOR,
+            TEST_ID_TOKEN,
+            null),
+        Arguments.of(
+            "HTTP request failure",
+            createHttpMock(null, 0, new IOException("Network error")),
+            createValidEnvironment(),
+            null,
+            null,
+            DatabricksException.class),
+        Arguments.of(
+            "Non-200 status code",
+            createHttpMock("Error message", 401, null),
+            createValidEnvironment(),
+            null,
+            null,
+            DatabricksException.class),
+        Arguments.of(
+            "Invalid JSON response",
+            createHttpMock("invalid json", 200, null),
+            createValidEnvironment(),
+            null,
+            null,
+            DatabricksException.class),
+        Arguments.of(
+            "Missing oidcToken field",
+            createHttpMock("{\"someOtherField\":\"value\"}", 200, null),
+            createValidEnvironment(),
+            null,
+            null,
+            DatabricksException.class),
+        Arguments.of(
+            "Empty oidcToken field",
+            createHttpMock("{\"oidcToken\":\"\"}", 200, null),
+            createValidEnvironment(),
+            null,
+            null,
+            DatabricksException.class),
+        Arguments.of(
+            "Null oidcToken field",
+            createHttpMock("{\"oidcToken\":null}", 200, null),
+            createValidEnvironment(),
+            null,
+            null,
+            DatabricksException.class));
+  }
+
+  @ParameterizedTest(name = "{0}")
+  @MethodSource("provideAllTestScenarios")
+  void testAllScenarios(
+      String testName,
+      HttpClient httpClient,
+      Environment environment,
+      Predicate<Request> requestValidator,
+      String expectedToken,
+      Class<? extends Exception> expectedException) {
+
+    if (expectedException != null) {
+      // Test constructor or runtime exceptions
+      assertThrows(
+          expectedException,
+          () -> {
+            AzureDevOpsIDTokenSource tokenSource =
+                new AzureDevOpsIDTokenSource(httpClient, environment);
+            // If constructor succeeds, try getIDToken to trigger runtime exceptions
+            tokenSource.getIDToken("ignored-audience");
+          });
+    } else {
+      // Test successful cases
+      AzureDevOpsIDTokenSource tokenSource = new AzureDevOpsIDTokenSource(httpClient, environment);
+      IDToken token = tokenSource.getIDToken("ignored-audience");
+      assertNotNull(token);
+      assertEquals(expectedToken, token.getValue());
+
+      // Verify the HTTP request was made correctly
+      if (requestValidator != null) {
+        try {
+          verify(httpClient).execute(argThat(request -> requestValidator.test(request)));
+        } catch (IOException e) {
+          fail("Unexpected IOException during request verification: " + e.getMessage());
+        }
+      }
+    }
+  }
 }
