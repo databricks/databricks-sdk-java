@@ -210,7 +210,7 @@ public class OAuthClient {
       return URLEncoder.encode(value, "UTF-8");
     } catch (UnsupportedEncodingException e) {
       // This should never happen. The exception is catched because it is
-      // a "checked" exception that we do not want to propagate to the method 
+      // a "checked" exception that we do not want to propagate to the method
       // signature.
       throw new RuntimeException("UTF-8 encoding not supported", e);
     }
