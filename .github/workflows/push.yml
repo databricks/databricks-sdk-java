@@ -15,11 +15,6 @@ jobs:
         with:
           java-version: 11
 
-      - name: Set up Maven 3.9.11
-        uses: stCarolas/setup-maven@v4.5
-        with:
-          maven-version: 3.9.11
-
       - name: Checkout
         uses: actions/checkout@v2
 
