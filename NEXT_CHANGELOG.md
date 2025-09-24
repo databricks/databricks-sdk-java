@@ -6,6 +6,8 @@
 
 ### Bug Fixes
 
+* Fix OAuthClient to properly encode complex query parameters.
+
 ### Documentation
 
 ### Internal Changes
