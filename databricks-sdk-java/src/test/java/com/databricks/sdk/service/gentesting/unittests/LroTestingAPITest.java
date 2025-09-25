@@ -212,8 +212,7 @@ public class LroTestingAPITest {
           "Test case: " + testCase.name);
     } else {
       TestResource result = operation.waitForCompletion(Optional.of(LroOptions.withTimeout(Duration.ofMinutes(1))));
-      assertEquals(testCase.wantResult.getId(), result.getId(), "Test case: " + testCase.name + " - ID mismatch");
-      assertEquals(testCase.wantResult.getName(), result.getName(), "Test case: " + testCase.name + " - Name mismatch");
+      assertEquals(testCase.wantResult, result, "Test case: " + testCase.name);
     }
   }
 
@@ -324,10 +323,7 @@ public class LroTestingAPITest {
     } else {
       TestResourceOperationMetadata metadata = operation.getMetadata();
       assertNotNull(metadata, "Metadata should not be null for test case: " + testCase.name);
-      assertEquals(testCase.wantMetadata.getResourceId(), metadata.getResourceId(),
-          "Resource ID mismatch for test case: " + testCase.name);
-      assertEquals(testCase.wantMetadata.getProgressPercent(), metadata.getProgressPercent(),
-          "Progress percent mismatch for test case: " + testCase.name);
+      assertEquals(testCase.wantMetadata, metadata, "Metadata mismatch for test case: " + testCase.name);
     }
   }
 
