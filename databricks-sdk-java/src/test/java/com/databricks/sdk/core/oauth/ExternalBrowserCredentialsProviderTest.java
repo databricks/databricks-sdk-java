@@ -29,7 +29,9 @@ public class ExternalBrowserCredentialsProviderTest {
         new FixtureServer.FixtureMapping.Builder()
             .validateMethod("GET")
             .validatePath("/oidc/.well-known/oauth-authorization-server")
-            .withResponse("{\"token_endpoint\": \"tokenEndPointFromServer\"}", 200)
+            .withResponse(
+                "{\"token_endpoint\": \"tokenEndPointFromServer\", \"authorization_endpoint\": \"authEndPointFromServer\"}",
+                200)
             .build();
     try (FixtureServer fixtures = new FixtureServer()) {
       fixtures.with(fixture).with(fixture);
@@ -62,7 +64,7 @@ public class ExternalBrowserCredentialsProviderTest {
       assertNotNull(authUrl);
       assertTrue(authUrl.contains("response_type=code"));
       assertTrue(authUrl.contains("client_id=test-client-id"));
-      assertTrue(authUrl.contains("redirect_uri=http://localhost:8080/callback"));
+      assertTrue(authUrl.contains("redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fcallback"));
       assertTrue(authUrl.contains("scope=all-apis"));
     }
   }
@@ -73,7 +75,9 @@ public class ExternalBrowserCredentialsProviderTest {
         new FixtureServer.FixtureMapping.Builder()
             .validateMethod("GET")
             .validatePath("/oidc/.well-known/oauth-authorization-server")
-            .withResponse("{\"token_endpoint\": \"tokenEndPointFromServer\"}", 200)
+            .withResponse(
+                "{\"token_endpoint\": \"tokenEndPointFromServer\", \"authorization_endpoint\": \"authEndPointFromServer\"}",
+                200)
             .build();
     try (FixtureServer fixtures = new FixtureServer()) {
       fixtures.with(fixture).with(fixture);
@@ -108,7 +112,7 @@ public class ExternalBrowserCredentialsProviderTest {
       assertNotNull(authUrl);
       assertTrue(authUrl.contains("response_type=code"));
       assertTrue(authUrl.contains("client_id=test-client-id"));
-      assertTrue(authUrl.contains("redirect_uri=http://localhost:8010"));
+      assertTrue(authUrl.contains("redirect_uri=http%3A%2F%2Flocalhost%3A8010"));
       assertTrue(authUrl.contains("scope=sql"));
     }
   }

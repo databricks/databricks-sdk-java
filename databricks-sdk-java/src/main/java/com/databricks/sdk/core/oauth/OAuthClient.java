@@ -4,7 +4,9 @@ import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.HttpClient;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -188,15 +190,38 @@ public class OAuthClient {
     }
   }
 
-  private static String urlEncode(String urlBase, Map<String, String> params) {
+  protected static String urlEncode(String urlBase, Map<String, String> params) {
+    if (params == null || params.isEmpty()) {
+      return urlBase;
+    }
+
     String queryParams =
         params.entrySet().stream()
-            .map(entry -> entry.getKey() + "=" + entry.getValue())
+            .sorted(Map.Entry.comparingByKey())
+            .map(entry -> encodeParam(entry.getKey()) + "=" + encodeParam(entry.getValue()))
             .collect(Collectors.joining("&"));
-    return urlBase + "?" + queryParams.replaceAll(" ", "%20");
+
+    String separator = urlBase.contains("?") ? "&" : "?";
+    return urlBase + separator + queryParams;
+  }
+
+  private static String encodeParam(String value) {
+    try {
+      return URLEncoder.encode(value, "UTF-8");
+    } catch (UnsupportedEncodingException e) {
+      // This should never happen. The exception is catched because it is
+      // a "checked" exception that we do not want to propagate to the method
+      // signature.
+      throw new RuntimeException("UTF-8 encoding not supported", e);
+    }
   }
 
   public Consent initiateConsent() throws MalformedURLException {
+    if (authUrl == null) {
+      throw new DatabricksException(
+          "Authorization URL is not configured. OAuth endpoints may not be available.");
+    }
+
     String state = tokenUrlSafe(16);
     String verifier = tokenUrlSafe(32);
     byte[] digest = sha256(verifier.getBytes(StandardCharsets.UTF_8));
