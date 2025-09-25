@@ -12,11 +12,17 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface QualityMonitorV2Service {
+
+  com.databricks.sdk.service.common.Operation createLibrary(
+      CreateLibraryRequest createLibraryRequest);
+
   /** Create a quality monitor on UC object */
   QualityMonitor createQualityMonitor(CreateQualityMonitorRequest createQualityMonitorRequest);
 
   /** Delete a quality monitor on UC object */
   void deleteQualityMonitor(DeleteQualityMonitorRequest deleteQualityMonitorRequest);
+
+  com.databricks.sdk.service.common.Operation getOperation(GetOperationRequest getOperationRequest);
 
   /** Read a quality monitor on UC object */
   QualityMonitor getQualityMonitor(GetQualityMonitorRequest getQualityMonitorRequest);

@@ -17,6 +17,20 @@ class QualityMonitorV2Impl implements QualityMonitorV2Service {
   }
 
   @Override
+  public com.databricks.sdk.service.common.Operation createLibrary(CreateLibraryRequest request) {
+    String path = "/api/3.0/library";
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request.getLibrary()));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, com.databricks.sdk.service.common.Operation.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public QualityMonitor createQualityMonitor(CreateQualityMonitorRequest request) {
     String path = "/api/2.0/quality-monitors";
     try {
@@ -40,6 +54,19 @@ class QualityMonitorV2Impl implements QualityMonitorV2Service {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public com.databricks.sdk.service.common.Operation getOperation(GetOperationRequest request) {
+    String path = String.format("/api/3.0/operations/%s", request.getName());
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, com.databricks.sdk.service.common.Operation.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

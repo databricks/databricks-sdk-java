@@ -1,4 +1,4 @@
-package com.databricks.sdk.service.common;
+package com.databricks.sdk.service.common.lro;
 
 import java.time.Duration;
 import java.util.Objects;
