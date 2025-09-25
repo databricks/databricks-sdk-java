@@ -20,6 +20,8 @@ import java.util.concurrent.TimeoutException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -145,28 +147,27 @@ public class LroTestingAPITest {
     });
   }
 
-  @Test
-  void testLROCreateTestResourceWait() throws Exception {
-    List<WaitTestCase> tests = Arrays.asList(
+  static List<WaitTestCase> waitTestCases() {
+    return Arrays.asList(
         new WaitTestCase(
             "Success",
             Arrays.asList(
                 new HTTPFixture("POST", "/api/2.0/lro-testing/resources",
                     new Operation()
                         .setDone(false)
-                        .setMetadata(createMetadata("test-resource-123", 5))
+                        .setMetadata(createStaticMetadata("test-resource-123", 5))
                         .setName("operations/test-resource-create-12345")),
                 new HTTPFixture("GET", "/api/2.0/lro-testing/operations/operations/test-resource-create-12345?",
                     new Operation()
                         .setDone(false)
-                        .setMetadata(createMetadata("test-resource-123", 75))
+                        .setMetadata(createStaticMetadata("test-resource-123", 75))
                         .setName("operations/test-resource-create-12345")),
                 new HTTPFixture("GET", "/api/2.0/lro-testing/operations/operations/test-resource-create-12345?",
                     new Operation()
                         .setDone(true)
-                        .setMetadata(createMetadata("test-resource-123", 100))
+                        .setMetadata(createStaticMetadata("test-resource-123", 100))
                         .setName("operations/test-resource-create-12345")
-                        .setResponse(createResponse("test-resource-123", "test-resource")))
+                        .setResponse(createStaticResponse("test-resource-123", "test-resource")))
             ),
             new TestResource().setId("test-resource-123").setName("test-resource"),
             false
@@ -177,7 +178,7 @@ public class LroTestingAPITest {
                 new HTTPFixture("POST", "/api/2.0/lro-testing/resources",
                     new Operation()
                         .setDone(false)
-                        .setMetadata(createMetadata("test-resource-123", 5))
+                        .setMetadata(createStaticMetadata("test-resource-123", 5))
                         .setName("operations/test-resource-create-12345")),
                 new HTTPFixture("GET", "/api/2.0/lro-testing/operations/operations/test-resource-create-12345?",
                     new Operation()
@@ -191,39 +192,40 @@ public class LroTestingAPITest {
             true
         )
     );
+  }
 
-    for (WaitTestCase tt : tests) {
-      // Reset mock and apply fixtures
-      reset(mockApiClient);
-      applyFixtures(tt.fixtures);
+  @ParameterizedTest(name = "{0}")
+  @MethodSource("waitTestCases")
+  void testLROCreateTestResourceWait(WaitTestCase testCase) throws Exception {
+    // Reset mock and apply fixtures
+    reset(mockApiClient);
+    applyFixtures(testCase.fixtures);
 
-      // Create API and proper request
-      LroTestingAPI api = new LroTestingAPI(mockApiClient);
-      CreateTestResourceOperation operation = api.createTestResource(
-          new CreateTestResourceRequest().setResource(new TestResource()));
+    // Create API and proper request
+    LroTestingAPI api = new LroTestingAPI(mockApiClient);
+    CreateTestResourceOperation operation = api.createTestResource(
+        new CreateTestResourceRequest().setResource(new TestResource()));
 
-      if (tt.wantErr) {
-        assertThrows(Exception.class, () ->
-            operation.waitForCompletion(Optional.of(LroOptions.withTimeout(Duration.ofMinutes(1)))),
-            "Test case: " + tt.name);
-      } else {
-        TestResource result = operation.waitForCompletion(Optional.of(LroOptions.withTimeout(Duration.ofMinutes(1))));
-        assertEquals(tt.wantResult.getId(), result.getId(), "Test case: " + tt.name + " - ID mismatch");
-        assertEquals(tt.wantResult.getName(), result.getName(), "Test case: " + tt.name + " - Name mismatch");
-      }
+    if (testCase.wantErr) {
+      assertThrows(Exception.class, () ->
+          operation.waitForCompletion(Optional.of(LroOptions.withTimeout(Duration.ofMinutes(1)))),
+          "Test case: " + testCase.name);
+    } else {
+      TestResource result = operation.waitForCompletion(Optional.of(LroOptions.withTimeout(Duration.ofMinutes(1))));
+      assertEquals(testCase.wantResult.getId(), result.getId(), "Test case: " + testCase.name + " - ID mismatch");
+      assertEquals(testCase.wantResult.getName(), result.getName(), "Test case: " + testCase.name + " - Name mismatch");
     }
   }
 
-  @Test
-  void testLROCancelTestResourceCancel() throws Exception {
-    List<CancelTestCase> tests = Arrays.asList(
+  static List<CancelTestCase> cancelTestCases() {
+    return Arrays.asList(
         new CancelTestCase(
             "Success",
             Arrays.asList(
                 new HTTPFixture("POST", "/api/2.0/lro-testing/resources",
                     new Operation()
                         .setDone(false)
-                        .setMetadata(createMetadata("test-resource-123", 5))
+                        .setMetadata(createStaticMetadata("test-resource-123", 5))
                         .setName("operations/test-resource-create-12345")),
                 new HTTPFixture("POST", "/api/2.0/lro-testing/operations/operations/test-resource-create-12345/cancel",
                     new Operation()
@@ -233,66 +235,68 @@ public class LroTestingAPITest {
             false
         )
     );
+  }
 
-    for (CancelTestCase tt : tests) {
-      // Reset mock and apply fixtures
-      reset(mockApiClient);
-      applyFixtures(tt.fixtures);
+  @ParameterizedTest(name = "{0}")
+  @MethodSource("cancelTestCases")
+  void testLROCancelTestResourceCancel(CancelTestCase testCase) throws Exception {
+    // Reset mock and apply fixtures
+    reset(mockApiClient);
+    applyFixtures(testCase.fixtures);
 
-      // Create API and execute test
-      LroTestingAPI api = new LroTestingAPI(mockApiClient);
-      CreateTestResourceOperation operation = api.createTestResource(
-          new CreateTestResourceRequest().setResource(new TestResource()));
+    // Create API and execute test
+    LroTestingAPI api = new LroTestingAPI(mockApiClient);
+    CreateTestResourceOperation operation = api.createTestResource(
+        new CreateTestResourceRequest().setResource(new TestResource()));
 
-      if (tt.wantErr) {
-        assertThrows(Exception.class, () -> operation.cancel(), "Cancel should have failed for test case: " + tt.name);
-      } else {
-        assertDoesNotThrow(() -> operation.cancel(), "Cancel failed for test case: " + tt.name);
-      }
+    if (testCase.wantErr) {
+      assertThrows(Exception.class, () -> operation.cancel(), "Cancel should have failed for test case: " + testCase.name);
+    } else {
+      assertDoesNotThrow(() -> operation.cancel(), "Cancel failed for test case: " + testCase.name);
     }
   }
 
-  @Test
-  void testLROCreateTestResourceName() throws Exception {
-    List<NameTestCase> tests = Arrays.asList(
+  static List<NameTestCase> nameTestCases() {
+    return Arrays.asList(
         new NameTestCase(
             "Success",
             Arrays.asList(
                 new HTTPFixture("POST", "/api/2.0/lro-testing/resources",
                     new Operation()
                         .setDone(false)
-                        .setMetadata(createMetadata("test-resource-123", 5))
+                        .setMetadata(createStaticMetadata("test-resource-123", 5))
                         .setName("operations/test-resource-create-12345"))
             ),
             "operations/test-resource-create-12345"
         )
     );
-
-    for (NameTestCase tt : tests) {
-      // Reset mock and apply fixtures
-      reset(mockApiClient);
-      applyFixtures(tt.fixtures);
-
-      // Create API and execute test
-      LroTestingAPI api = new LroTestingAPI(mockApiClient);
-      CreateTestResourceOperation operation = api.createTestResource(
-          new CreateTestResourceRequest().setResource(new TestResource()));
-      String name = operation.getName();
-
-      assertEquals(tt.wantName, name, "Name mismatch for test case: " + tt.name);
-    }
   }
 
-  @Test
-  void testLROCreateTestResourceMetadata() throws Exception {
-    List<MetadataTestCase> tests = Arrays.asList(
+  @ParameterizedTest(name = "{0}")
+  @MethodSource("nameTestCases")
+  void testLROCreateTestResourceName(NameTestCase testCase) throws Exception {
+    // Reset mock and apply fixtures
+    reset(mockApiClient);
+    applyFixtures(testCase.fixtures);
+
+    // Create API and execute test
+    LroTestingAPI api = new LroTestingAPI(mockApiClient);
+    CreateTestResourceOperation operation = api.createTestResource(
+        new CreateTestResourceRequest().setResource(new TestResource()));
+    String name = operation.getName();
+
+    assertEquals(testCase.wantName, name, "Name mismatch for test case: " + testCase.name);
+  }
+
+  static List<MetadataTestCase> metadataTestCases() {
+    return Arrays.asList(
         new MetadataTestCase(
             "Success",
             Arrays.asList(
                 new HTTPFixture("POST", "/api/2.0/lro-testing/resources",
                     new Operation()
                         .setDone(false)
-                        .setMetadata(createMetadata("test-resource-123", 5))
+                        .setMetadata(createStaticMetadata("test-resource-123", 5))
                         .setName("operations/test-resource-create-12345"))
             ),
             new TestResourceOperationMetadata()
@@ -301,47 +305,48 @@ public class LroTestingAPITest {
             false
         )
     );
+  }
 
-    for (MetadataTestCase tt : tests) {
-      // Reset mock and apply fixtures
-      reset(mockApiClient);
-      applyFixtures(tt.fixtures);
+  @ParameterizedTest(name = "{0}")
+  @MethodSource("metadataTestCases")
+  void testLROCreateTestResourceMetadata(MetadataTestCase testCase) throws Exception {
+    // Reset mock and apply fixtures
+    reset(mockApiClient);
+    applyFixtures(testCase.fixtures);
 
-      // Create API and execute test
-      LroTestingAPI api = new LroTestingAPI(mockApiClient);
-      CreateTestResourceOperation operation = api.createTestResource(
-          new CreateTestResourceRequest().setResource(new TestResource()));
+    // Create API and execute test
+    LroTestingAPI api = new LroTestingAPI(mockApiClient);
+    CreateTestResourceOperation operation = api.createTestResource(
+        new CreateTestResourceRequest().setResource(new TestResource()));
 
-      if (tt.wantErr) {
-        assertThrows(Exception.class, () -> operation.getMetadata(), "Metadata should have failed for test case: " + tt.name);
-      } else {
-        TestResourceOperationMetadata metadata = operation.getMetadata();
-        assertNotNull(metadata, "Metadata should not be null for test case: " + tt.name);
-        assertEquals(tt.wantMetadata.getResourceId(), metadata.getResourceId(),
-            "Resource ID mismatch for test case: " + tt.name);
-        assertEquals(tt.wantMetadata.getProgressPercent(), metadata.getProgressPercent(),
-            "Progress percent mismatch for test case: " + tt.name);
-      }
+    if (testCase.wantErr) {
+      assertThrows(Exception.class, () -> operation.getMetadata(), "Metadata should have failed for test case: " + testCase.name);
+    } else {
+      TestResourceOperationMetadata metadata = operation.getMetadata();
+      assertNotNull(metadata, "Metadata should not be null for test case: " + testCase.name);
+      assertEquals(testCase.wantMetadata.getResourceId(), metadata.getResourceId(),
+          "Resource ID mismatch for test case: " + testCase.name);
+      assertEquals(testCase.wantMetadata.getProgressPercent(), metadata.getProgressPercent(),
+          "Progress percent mismatch for test case: " + testCase.name);
     }
   }
 
-  @Test
-  void testLROCreateTestResourceDone() throws Exception {
-    List<DoneTestCase> tests = Arrays.asList(
+  static List<DoneTestCase> doneTestCases() {
+    return Arrays.asList(
         new DoneTestCase(
             "True",
             Arrays.asList(
                 new HTTPFixture("POST", "/api/2.0/lro-testing/resources",
                     new Operation()
                         .setDone(false)
-                        .setMetadata(createMetadata("test-resource-123", 5))
+                        .setMetadata(createStaticMetadata("test-resource-123", 5))
                         .setName("operations/test-resource-create-12345")),
                 new HTTPFixture("GET", "/api/2.0/lro-testing/operations/operations/test-resource-create-12345?",
                     new Operation()
                         .setDone(true)
-                        .setMetadata(createMetadata("test-resource-123", 100))
+                        .setMetadata(createStaticMetadata("test-resource-123", 100))
                         .setName("operations/test-resource-create-12345")
-                        .setResponse(createResponse("test-resource-123", "test-resource")))
+                        .setResponse(createStaticResponse("test-resource-123", "test-resource")))
             ),
             true,
             false
@@ -352,35 +357,37 @@ public class LroTestingAPITest {
                 new HTTPFixture("POST", "/api/2.0/lro-testing/resources",
                     new Operation()
                         .setDone(false)
-                        .setMetadata(createMetadata("test-resource-123", 5))
+                        .setMetadata(createStaticMetadata("test-resource-123", 5))
                         .setName("operations/test-resource-create-12345")),
                 new HTTPFixture("GET", "/api/2.0/lro-testing/operations/operations/test-resource-create-12345?",
                     new Operation()
                         .setDone(false)
-                        .setMetadata(createMetadata("test-resource-123", 75))
+                        .setMetadata(createStaticMetadata("test-resource-123", 75))
                         .setName("operations/test-resource-create-12345"))
             ),
             false,
             false
         )
     );
+  }
 
-    for (DoneTestCase tt : tests) {
-      // Reset mock and apply fixtures
-      reset(mockApiClient);
-      applyFixtures(tt.fixtures);
+  @ParameterizedTest(name = "{0}")
+  @MethodSource("doneTestCases")
+  void testLROCreateTestResourceDone(DoneTestCase testCase) throws Exception {
+    // Reset mock and apply fixtures
+    reset(mockApiClient);
+    applyFixtures(testCase.fixtures);
 
-      // Create API and execute test
-      LroTestingAPI api = new LroTestingAPI(mockApiClient);
-      CreateTestResourceOperation operation = api.createTestResource(
-          new CreateTestResourceRequest().setResource(new TestResource()));
+    // Create API and execute test
+    LroTestingAPI api = new LroTestingAPI(mockApiClient);
+    CreateTestResourceOperation operation = api.createTestResource(
+        new CreateTestResourceRequest().setResource(new TestResource()));
 
-      if (tt.wantErr) {
-        assertThrows(Exception.class, () -> operation.isDone(), "Done should have failed for test case: " + tt.name);
-      } else {
-        boolean done = operation.isDone();
-        assertEquals(tt.wantDone, done, "Done mismatch for test case: " + tt.name);
-      }
+    if (testCase.wantErr) {
+      assertThrows(Exception.class, () -> operation.isDone(), "Done should have failed for test case: " + testCase.name);
+    } else {
+      boolean done = operation.isDone();
+      assertEquals(testCase.wantDone, done, "Done mismatch for test case: " + testCase.name);
     }
   }
 
@@ -393,6 +400,22 @@ public class LroTestingAPITest {
 
   private JsonNode createResponse(String id, String name) {
     ObjectNode response = objectMapper.createObjectNode();
+    response.put("id", id);
+    response.put("name", name);
+    return response;
+  }
+
+  private static JsonNode createStaticMetadata(String resourceId, int progressPercent) {
+    ObjectMapper staticMapper = new ObjectMapper();
+    ObjectNode metadata = staticMapper.createObjectNode();
+    metadata.put("resource_id", resourceId);
+    metadata.put("progress_percent", progressPercent);
+    return metadata;
+  }
+
+  private static JsonNode createStaticResponse(String id, String name) {
+    ObjectMapper staticMapper = new ObjectMapper();
+    ObjectNode response = staticMapper.createObjectNode();
     response.put("id", id);
     response.put("name", name);
     return response;
