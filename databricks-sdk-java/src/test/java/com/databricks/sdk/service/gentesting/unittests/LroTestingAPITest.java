@@ -1,3 +1,4 @@
+// Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.gentesting.unittests;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,7 +27,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 public class LroTestingAPITest {
   @Mock private ApiClient mockApiClient;
-  private static ObjectMapper objectMapper;
+  private ObjectMapper objectMapper;
 
   static class HTTPFixture {
     String method;
@@ -163,23 +164,51 @@ public class LroTestingAPITest {
                     "/api/2.0/lro-testing/resources",
                     new Operation()
                         .setDone(false)
-                        .setMetadata(new ObjectMapper().readValue("{\"resource_id\": \"test-resource-123\", \"progress_percent\": 5}", Object.class))
+                        .setMetadata(
+                            new ObjectMapper()
+                                .readValue(
+                                    "{\n"
+                                        + "  \"resource_id\":      \"test-resource-123\",\n"
+                                        + "  \"progress_percent\": 5\n"
+                                        + "}",
+                                    Object.class))
                         .setName("operations/test-resource-create-12345")),
                 new HTTPFixture(
                     "GET",
                     "/api/2.0/lro-testing/operations/operations/test-resource-create-12345?",
                     new Operation()
                         .setDone(false)
-                        .setMetadata(new ObjectMapper().readValue("{\"resource_id\": \"test-resource-123\", \"progress_percent\": 75}", Object.class))
+                        .setMetadata(
+                            new ObjectMapper()
+                                .readValue(
+                                    "{\n"
+                                        + "  \"resource_id\":      \"test-resource-123\",\n"
+                                        + "  \"progress_percent\": 75\n"
+                                        + "}",
+                                    Object.class))
                         .setName("operations/test-resource-create-12345")),
                 new HTTPFixture(
                     "GET",
                     "/api/2.0/lro-testing/operations/operations/test-resource-create-12345?",
                     new Operation()
                         .setDone(true)
-                        .setMetadata(new ObjectMapper().readValue("{\"resource_id\": \"test-resource-123\", \"progress_percent\": 100}", Object.class))
+                        .setMetadata(
+                            new ObjectMapper()
+                                .readValue(
+                                    "{\n"
+                                        + "  \"resource_id\":      \"test-resource-123\",\n"
+                                        + "  \"progress_percent\": 100\n"
+                                        + "}",
+                                    Object.class))
                         .setName("operations/test-resource-create-12345")
-                        .setResponse(new ObjectMapper().readValue("{\"id\": \"test-resource-123\", \"name\": \"test-resource\"}", Object.class)))),
+                        .setResponse(
+                            new ObjectMapper()
+                                .readValue(
+                                    "{\n"
+                                        + "  \"id\":          \"test-resource-123\",\n"
+                                        + "  \"name\":        \"test-resource\"\n"
+                                        + "}",
+                                    Object.class)))),
             new TestResource().setId("test-resource-123").setName("test-resource"),
             false),
         new WaitTestCase(
@@ -190,7 +219,14 @@ public class LroTestingAPITest {
                     "/api/2.0/lro-testing/resources",
                     new Operation()
                         .setDone(false)
-                        .setMetadata(new ObjectMapper().readValue("{\"resource_id\": \"test-resource-123\", \"progress_percent\": 5}", Object.class))
+                        .setMetadata(
+                            new ObjectMapper()
+                                .readValue(
+                                    "{\n"
+                                        + "  \"resource_id\":      \"test-resource-123\",\n"
+                                        + "  \"progress_percent\": 5\n"
+                                        + "}",
+                                    Object.class))
                         .setName("operations/test-resource-create-12345")),
                 new HTTPFixture(
                     "GET",
@@ -232,7 +268,8 @@ public class LroTestingAPITest {
     }
   }
 
-  static List<CancelTestCase> cancelTestCases() throws JsonProcessingException, JsonMappingException {
+  static List<CancelTestCase> cancelTestCases()
+      throws JsonProcessingException, JsonMappingException {
     return Arrays.asList(
         new CancelTestCase(
             "Success",
@@ -242,7 +279,14 @@ public class LroTestingAPITest {
                     "/api/2.0/lro-testing/resources",
                     new Operation()
                         .setDone(false)
-                        .setMetadata(new ObjectMapper().readValue("{\"resource_id\": \"test-resource-123\", \"progress_percent\": 5}", Object.class))
+                        .setMetadata(
+                            new ObjectMapper()
+                                .readValue(
+                                    "{\n"
+                                        + "  \"resource_id\":      \"test-resource-123\",\n"
+                                        + "  \"progress_percent\": 5\n"
+                                        + "}",
+                                    Object.class))
                         .setName("operations/test-resource-create-12345")),
                 new HTTPFixture(
                     "POST",
@@ -285,7 +329,14 @@ public class LroTestingAPITest {
                     "/api/2.0/lro-testing/resources",
                     new Operation()
                         .setDone(false)
-                        .setMetadata(new ObjectMapper().readValue("{\"resource_id\": \"test-resource-123\", \"progress_percent\": 5}", Object.class))
+                        .setMetadata(
+                            new ObjectMapper()
+                                .readValue(
+                                    "{\n"
+                                        + "  \"resource_id\":      \"test-resource-123\",\n"
+                                        + "  \"progress_percent\": 5\n"
+                                        + "}",
+                                    Object.class))
                         .setName("operations/test-resource-create-12345"))),
             "operations/test-resource-create-12345"));
   }
@@ -306,7 +357,8 @@ public class LroTestingAPITest {
     assertEquals(testCase.wantName, name, "Name mismatch for test case: " + testCase.name);
   }
 
-  static List<MetadataTestCase> metadataTestCases() throws JsonProcessingException, JsonMappingException {
+  static List<MetadataTestCase> metadataTestCases()
+      throws JsonProcessingException, JsonMappingException {
     return Arrays.asList(
         new MetadataTestCase(
             "Success",
@@ -316,7 +368,14 @@ public class LroTestingAPITest {
                     "/api/2.0/lro-testing/resources",
                     new Operation()
                         .setDone(false)
-                        .setMetadata(new ObjectMapper().readValue("{\"resource_id\": \"test-resource-123\", \"progress_percent\": 5}", Object.class))
+                        .setMetadata(
+                            new ObjectMapper()
+                                .readValue(
+                                    "{\n"
+                                        + "  \"resource_id\":      \"test-resource-123\",\n"
+                                        + "  \"progress_percent\": 5\n"
+                                        + "}",
+                                    Object.class))
                         .setName("operations/test-resource-create-12345"))),
             new TestResourceOperationMetadata()
                 .setProgressPercent(5L)
@@ -349,6 +408,7 @@ public class LroTestingAPITest {
     }
   }
 
+  // Done test cases
   static List<DoneTestCase> doneTestCases() throws JsonProcessingException, JsonMappingException {
     return Arrays.asList(
         new DoneTestCase(
@@ -359,16 +419,37 @@ public class LroTestingAPITest {
                     "/api/2.0/lro-testing/resources",
                     new Operation()
                         .setDone(false)
-                        .setMetadata(new ObjectMapper().readValue("{\"resource_id\": \"test-resource-123\", \"progress_percent\": 5}", Object.class))
+                        .setMetadata(
+                            new ObjectMapper()
+                                .readValue(
+                                    "{\n"
+                                        + "  \"resource_id\":      \"test-resource-123\",\n"
+                                        + "  \"progress_percent\": 5\n"
+                                        + "}",
+                                    Object.class))
                         .setName("operations/test-resource-create-12345")),
                 new HTTPFixture(
                     "GET",
                     "/api/2.0/lro-testing/operations/operations/test-resource-create-12345?",
                     new Operation()
                         .setDone(true)
-                        .setMetadata(new ObjectMapper().readValue("{\"resource_id\": \"test-resource-123\", \"progress_percent\": 100}", Object.class))
+                        .setMetadata(
+                            new ObjectMapper()
+                                .readValue(
+                                    "{\n"
+                                        + "  \"resource_id\":      \"test-resource-123\",\n"
+                                        + "  \"progress_percent\": 100\n"
+                                        + "}",
+                                    Object.class))
                         .setName("operations/test-resource-create-12345")
-                        .setResponse(new ObjectMapper().readValue("{\"id\": \"test-resource-123\", \"name\": \"test-resource\"}", Object.class)))),
+                        .setResponse(
+                            new ObjectMapper()
+                                .readValue(
+                                    "{\n"
+                                        + "  \"id\":          \"test-resource-123\",\n"
+                                        + "  \"name\":        \"test-resource\"\n"
+                                        + "}",
+                                    Object.class)))),
             true,
             false),
         new DoneTestCase(
@@ -379,14 +460,28 @@ public class LroTestingAPITest {
                     "/api/2.0/lro-testing/resources",
                     new Operation()
                         .setDone(false)
-                        .setMetadata(new ObjectMapper().readValue("{\"resource_id\": \"test-resource-123\", \"progress_percent\": 5}", Object.class))
+                        .setMetadata(
+                            new ObjectMapper()
+                                .readValue(
+                                    "{\n"
+                                        + "  \"resource_id\":      \"test-resource-123\",\n"
+                                        + "  \"progress_percent\": 5\n"
+                                        + "}",
+                                    Object.class))
                         .setName("operations/test-resource-create-12345")),
                 new HTTPFixture(
                     "GET",
                     "/api/2.0/lro-testing/operations/operations/test-resource-create-12345?",
                     new Operation()
                         .setDone(false)
-                        .setMetadata(new ObjectMapper().readValue("{\"resource_id\": \"test-resource-123\", \"progress_percent\": 75}", Object.class))
+                        .setMetadata(
+                            new ObjectMapper()
+                                .readValue(
+                                    "{\n"
+                                        + "  \"resource_id\":      \"test-resource-123\",\n"
+                                        + "  \"progress_percent\": 75\n"
+                                        + "}",
+                                    Object.class))
                         .setName("operations/test-resource-create-12345"))),
             false,
             false));
