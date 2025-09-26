@@ -139,12 +139,11 @@ public class LroTestingAPITest {
                         callCount[0], expectedFixture.method, request.getMethod()));
               }
 
-              String expectedPath = expectedFixture.resource.replace("?", "");
-              if (!request.getUrl().contains(expectedPath)
-                  && !request.getUrl().endsWith(expectedPath)) {
+              String expectedPath = expectedFixture.resource;
+              if (!request.getUrl().equals(expectedPath)) {
                 throw new AssertionError(
                     String.format(
-                        "Call %d: Expected URL to contain %s but got %s",
+                        "Call %d: Expected exact URL %s but got %s",
                         callCount[0], expectedPath, request.getUrl()));
               }
 
@@ -175,7 +174,7 @@ public class LroTestingAPITest {
                         .setName("operations/test-resource-create-12345")),
                 new HTTPFixture(
                     "GET",
-                    "/api/2.0/lro-testing/operations/operations/test-resource-create-12345?",
+                    "/api/2.0/lro-testing/operations/operations/test-resource-create-12345",
                     new Operation()
                         .setDone(false)
                         .setMetadata(
@@ -189,7 +188,7 @@ public class LroTestingAPITest {
                         .setName("operations/test-resource-create-12345")),
                 new HTTPFixture(
                     "GET",
-                    "/api/2.0/lro-testing/operations/operations/test-resource-create-12345?",
+                    "/api/2.0/lro-testing/operations/operations/test-resource-create-12345",
                     new Operation()
                         .setDone(true)
                         .setMetadata(
@@ -230,7 +229,7 @@ public class LroTestingAPITest {
                         .setName("operations/test-resource-create-12345")),
                 new HTTPFixture(
                     "GET",
-                    "/api/2.0/lro-testing/operations/operations/test-resource-create-12345?",
+                    "/api/2.0/lro-testing/operations/operations/test-resource-create-12345",
                     new Operation()
                         .setDone(true)
                         .setError(
@@ -430,7 +429,7 @@ public class LroTestingAPITest {
                         .setName("operations/test-resource-create-12345")),
                 new HTTPFixture(
                     "GET",
-                    "/api/2.0/lro-testing/operations/operations/test-resource-create-12345?",
+                    "/api/2.0/lro-testing/operations/operations/test-resource-create-12345",
                     new Operation()
                         .setDone(true)
                         .setMetadata(
@@ -471,7 +470,7 @@ public class LroTestingAPITest {
                         .setName("operations/test-resource-create-12345")),
                 new HTTPFixture(
                     "GET",
-                    "/api/2.0/lro-testing/operations/operations/test-resource-create-12345?",
+                    "/api/2.0/lro-testing/operations/operations/test-resource-create-12345",
                     new Operation()
                         .setDone(false)
                         .setMetadata(
