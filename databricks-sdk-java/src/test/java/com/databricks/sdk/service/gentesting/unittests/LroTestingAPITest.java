@@ -126,14 +126,12 @@ public class LroTestingAPITest {
 
       HTTPFixture expectedFixture = fixtures.get(callCount[0]);
 
-      // Validate HTTP method
       if (!expectedFixture.method.equals(request.getMethod())) {
         throw new AssertionError(String.format(
             "Call %d: Expected method %s but got %s",
             callCount[0], expectedFixture.method, request.getMethod()));
       }
 
-      // Validate URL path
       String expectedPath = expectedFixture.resource.replace("?", "");
       if (!request.getUrl().contains(expectedPath) && !request.getUrl().endsWith(expectedPath)) {
         throw new AssertionError(String.format(
