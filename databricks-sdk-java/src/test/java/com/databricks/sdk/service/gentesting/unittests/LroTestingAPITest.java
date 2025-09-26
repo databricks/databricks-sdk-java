@@ -11,9 +11,9 @@ import com.databricks.sdk.service.common.ErrorCode;
 import com.databricks.sdk.service.common.Operation;
 import com.databricks.sdk.service.common.lro.LroOptions;
 import com.databricks.sdk.service.lrotesting.*;
-import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.time.Duration;
 import java.util.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +26,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 public class LroTestingAPITest {
   @Mock private ApiClient mockApiClient;
-  private ObjectMapper objectMapper;
+  private static ObjectMapper objectMapper;
 
   static class HTTPFixture {
     String method;
@@ -153,7 +153,7 @@ public class LroTestingAPITest {
             });
   }
 
-  static List<WaitTestCase> waitTestCases() {
+  static List<WaitTestCase> waitTestCases() throws JsonProcessingException, JsonMappingException {
     return Arrays.asList(
         new WaitTestCase(
             "Success",
@@ -163,23 +163,23 @@ public class LroTestingAPITest {
                     "/api/2.0/lro-testing/resources",
                     new Operation()
                         .setDone(false)
-                        .setMetadata(createStaticMetadata("test-resource-123", 5))
+                        .setMetadata(new ObjectMapper().readValue("{\"resource_id\": \"test-resource-123\", \"progress_percent\": 5}", Object.class))
                         .setName("operations/test-resource-create-12345")),
                 new HTTPFixture(
                     "GET",
                     "/api/2.0/lro-testing/operations/operations/test-resource-create-12345?",
                     new Operation()
                         .setDone(false)
-                        .setMetadata(createStaticMetadata("test-resource-123", 75))
+                        .setMetadata(new ObjectMapper().readValue("{\"resource_id\": \"test-resource-123\", \"progress_percent\": 75}", Object.class))
                         .setName("operations/test-resource-create-12345")),
                 new HTTPFixture(
                     "GET",
                     "/api/2.0/lro-testing/operations/operations/test-resource-create-12345?",
                     new Operation()
                         .setDone(true)
-                        .setMetadata(createStaticMetadata("test-resource-123", 100))
+                        .setMetadata(new ObjectMapper().readValue("{\"resource_id\": \"test-resource-123\", \"progress_percent\": 100}", Object.class))
                         .setName("operations/test-resource-create-12345")
-                        .setResponse(createStaticResponse("test-resource-123", "test-resource")))),
+                        .setResponse(new ObjectMapper().readValue("{\"id\": \"test-resource-123\", \"name\": \"test-resource\"}", Object.class)))),
             new TestResource().setId("test-resource-123").setName("test-resource"),
             false),
         new WaitTestCase(
@@ -190,7 +190,7 @@ public class LroTestingAPITest {
                     "/api/2.0/lro-testing/resources",
                     new Operation()
                         .setDone(false)
-                        .setMetadata(createStaticMetadata("test-resource-123", 5))
+                        .setMetadata(new ObjectMapper().readValue("{\"resource_id\": \"test-resource-123\", \"progress_percent\": 5}", Object.class))
                         .setName("operations/test-resource-create-12345")),
                 new HTTPFixture(
                     "GET",
@@ -232,7 +232,7 @@ public class LroTestingAPITest {
     }
   }
 
-  static List<CancelTestCase> cancelTestCases() {
+  static List<CancelTestCase> cancelTestCases() throws JsonProcessingException, JsonMappingException {
     return Arrays.asList(
         new CancelTestCase(
             "Success",
@@ -242,7 +242,7 @@ public class LroTestingAPITest {
                     "/api/2.0/lro-testing/resources",
                     new Operation()
                         .setDone(false)
-                        .setMetadata(createStaticMetadata("test-resource-123", 5))
+                        .setMetadata(new ObjectMapper().readValue("{\"resource_id\": \"test-resource-123\", \"progress_percent\": 5}", Object.class))
                         .setName("operations/test-resource-create-12345")),
                 new HTTPFixture(
                     "POST",
@@ -275,7 +275,7 @@ public class LroTestingAPITest {
     }
   }
 
-  static List<NameTestCase> nameTestCases() {
+  static List<NameTestCase> nameTestCases() throws JsonProcessingException, JsonMappingException {
     return Arrays.asList(
         new NameTestCase(
             "Success",
@@ -285,7 +285,7 @@ public class LroTestingAPITest {
                     "/api/2.0/lro-testing/resources",
                     new Operation()
                         .setDone(false)
-                        .setMetadata(createStaticMetadata("test-resource-123", 5))
+                        .setMetadata(new ObjectMapper().readValue("{\"resource_id\": \"test-resource-123\", \"progress_percent\": 5}", Object.class))
                         .setName("operations/test-resource-create-12345"))),
             "operations/test-resource-create-12345"));
   }
@@ -306,7 +306,7 @@ public class LroTestingAPITest {
     assertEquals(testCase.wantName, name, "Name mismatch for test case: " + testCase.name);
   }
 
-  static List<MetadataTestCase> metadataTestCases() {
+  static List<MetadataTestCase> metadataTestCases() throws JsonProcessingException, JsonMappingException {
     return Arrays.asList(
         new MetadataTestCase(
             "Success",
@@ -316,7 +316,7 @@ public class LroTestingAPITest {
                     "/api/2.0/lro-testing/resources",
                     new Operation()
                         .setDone(false)
-                        .setMetadata(createStaticMetadata("test-resource-123", 5))
+                        .setMetadata(new ObjectMapper().readValue("{\"resource_id\": \"test-resource-123\", \"progress_percent\": 5}", Object.class))
                         .setName("operations/test-resource-create-12345"))),
             new TestResourceOperationMetadata()
                 .setProgressPercent(5L)
@@ -349,7 +349,7 @@ public class LroTestingAPITest {
     }
   }
 
-  static List<DoneTestCase> doneTestCases() {
+  static List<DoneTestCase> doneTestCases() throws JsonProcessingException, JsonMappingException {
     return Arrays.asList(
         new DoneTestCase(
             "True",
@@ -359,16 +359,16 @@ public class LroTestingAPITest {
                     "/api/2.0/lro-testing/resources",
                     new Operation()
                         .setDone(false)
-                        .setMetadata(createStaticMetadata("test-resource-123", 5))
+                        .setMetadata(new ObjectMapper().readValue("{\"resource_id\": \"test-resource-123\", \"progress_percent\": 5}", Object.class))
                         .setName("operations/test-resource-create-12345")),
                 new HTTPFixture(
                     "GET",
                     "/api/2.0/lro-testing/operations/operations/test-resource-create-12345?",
                     new Operation()
                         .setDone(true)
-                        .setMetadata(createStaticMetadata("test-resource-123", 100))
+                        .setMetadata(new ObjectMapper().readValue("{\"resource_id\": \"test-resource-123\", \"progress_percent\": 100}", Object.class))
                         .setName("operations/test-resource-create-12345")
-                        .setResponse(createStaticResponse("test-resource-123", "test-resource")))),
+                        .setResponse(new ObjectMapper().readValue("{\"id\": \"test-resource-123\", \"name\": \"test-resource\"}", Object.class)))),
             true,
             false),
         new DoneTestCase(
@@ -379,14 +379,14 @@ public class LroTestingAPITest {
                     "/api/2.0/lro-testing/resources",
                     new Operation()
                         .setDone(false)
-                        .setMetadata(createStaticMetadata("test-resource-123", 5))
+                        .setMetadata(new ObjectMapper().readValue("{\"resource_id\": \"test-resource-123\", \"progress_percent\": 5}", Object.class))
                         .setName("operations/test-resource-create-12345")),
                 new HTTPFixture(
                     "GET",
                     "/api/2.0/lro-testing/operations/operations/test-resource-create-12345?",
                     new Operation()
                         .setDone(false)
-                        .setMetadata(createStaticMetadata("test-resource-123", 75))
+                        .setMetadata(new ObjectMapper().readValue("{\"resource_id\": \"test-resource-123\", \"progress_percent\": 75}", Object.class))
                         .setName("operations/test-resource-create-12345"))),
             false,
             false));
@@ -413,35 +413,5 @@ public class LroTestingAPITest {
       boolean done = operation.isDone();
       assertEquals(testCase.wantDone, done, "Done mismatch for test case: " + testCase.name);
     }
-  }
-
-  private JsonNode createMetadata(String resourceId, int progressPercent) {
-    ObjectNode metadata = objectMapper.createObjectNode();
-    metadata.put("resource_id", resourceId);
-    metadata.put("progress_percent", progressPercent);
-    return metadata;
-  }
-
-  private JsonNode createResponse(String id, String name) {
-    ObjectNode response = objectMapper.createObjectNode();
-    response.put("id", id);
-    response.put("name", name);
-    return response;
-  }
-
-  private static JsonNode createStaticMetadata(String resourceId, int progressPercent) {
-    ObjectMapper staticMapper = new ObjectMapper();
-    ObjectNode metadata = staticMapper.createObjectNode();
-    metadata.put("resource_id", resourceId);
-    metadata.put("progress_percent", progressPercent);
-    return metadata;
-  }
-
-  private static JsonNode createStaticResponse(String id, String name) {
-    ObjectMapper staticMapper = new ObjectMapper();
-    ObjectNode response = staticMapper.createObjectNode();
-    response.put("id", id);
-    response.put("name", name);
-    return response;
   }
 }
