@@ -26,6 +26,92 @@ public class WorkspaceIamV2API {
     impl = mock;
   }
 
+  /** TODO: Write description later when this method is implemented */
+  public Group createGroupProxy(CreateGroupProxyRequest request) {
+    return impl.createGroupProxy(request);
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public ServicePrincipal createServicePrincipalProxy(CreateServicePrincipalProxyRequest request) {
+    return impl.createServicePrincipalProxy(request);
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public User createUserProxy(CreateUserProxyRequest request) {
+    return impl.createUserProxy(request);
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public WorkspaceAccessDetail createWorkspaceAccessDetailLocal(
+      CreateWorkspaceAccessDetailLocalRequest request) {
+    return impl.createWorkspaceAccessDetailLocal(request);
+  }
+
+  public void deleteGroupProxy(long internalId) {
+    deleteGroupProxy(new DeleteGroupProxyRequest().setInternalId(internalId));
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public void deleteGroupProxy(DeleteGroupProxyRequest request) {
+    impl.deleteGroupProxy(request);
+  }
+
+  public void deleteServicePrincipalProxy(long internalId) {
+    deleteServicePrincipalProxy(new DeleteServicePrincipalProxyRequest().setInternalId(internalId));
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public void deleteServicePrincipalProxy(DeleteServicePrincipalProxyRequest request) {
+    impl.deleteServicePrincipalProxy(request);
+  }
+
+  public void deleteUserProxy(long internalId) {
+    deleteUserProxy(new DeleteUserProxyRequest().setInternalId(internalId));
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public void deleteUserProxy(DeleteUserProxyRequest request) {
+    impl.deleteUserProxy(request);
+  }
+
+  public void deleteWorkspaceAccessDetailLocal(long principalId) {
+    deleteWorkspaceAccessDetailLocal(
+        new DeleteWorkspaceAccessDetailLocalRequest().setPrincipalId(principalId));
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public void deleteWorkspaceAccessDetailLocal(DeleteWorkspaceAccessDetailLocalRequest request) {
+    impl.deleteWorkspaceAccessDetailLocal(request);
+  }
+
+  public Group getGroupProxy(long internalId) {
+    return getGroupProxy(new GetGroupProxyRequest().setInternalId(internalId));
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public Group getGroupProxy(GetGroupProxyRequest request) {
+    return impl.getGroupProxy(request);
+  }
+
+  public ServicePrincipal getServicePrincipalProxy(long internalId) {
+    return getServicePrincipalProxy(
+        new GetServicePrincipalProxyRequest().setInternalId(internalId));
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public ServicePrincipal getServicePrincipalProxy(GetServicePrincipalProxyRequest request) {
+    return impl.getServicePrincipalProxy(request);
+  }
+
+  public User getUserProxy(long internalId) {
+    return getUserProxy(new GetUserProxyRequest().setInternalId(internalId));
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public User getUserProxy(GetUserProxyRequest request) {
+    return impl.getUserProxy(request);
+  }
+
   public WorkspaceAccessDetail getWorkspaceAccessDetailLocal(long principalId) {
     return getWorkspaceAccessDetailLocal(
         new GetWorkspaceAccessDetailLocalRequest().setPrincipalId(principalId));
@@ -41,6 +127,28 @@ public class WorkspaceIamV2API {
   public WorkspaceAccessDetail getWorkspaceAccessDetailLocal(
       GetWorkspaceAccessDetailLocalRequest request) {
     return impl.getWorkspaceAccessDetailLocal(request);
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public ListGroupsResponse listGroupsProxy(ListGroupsProxyRequest request) {
+    return impl.listGroupsProxy(request);
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public ListServicePrincipalsResponse listServicePrincipalsProxy(
+      ListServicePrincipalsProxyRequest request) {
+    return impl.listServicePrincipalsProxy(request);
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public ListUsersResponse listUsersProxy(ListUsersProxyRequest request) {
+    return impl.listUsersProxy(request);
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public ListWorkspaceAccessDetailsResponse listWorkspaceAccessDetailsLocal(
+      ListWorkspaceAccessDetailsLocalRequest request) {
+    return impl.listWorkspaceAccessDetailsLocal(request);
   }
 
   /**
@@ -69,6 +177,27 @@ public class WorkspaceIamV2API {
    */
   public ResolveUserResponse resolveUserProxy(ResolveUserProxyRequest request) {
     return impl.resolveUserProxy(request);
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public Group updateGroupProxy(UpdateGroupProxyRequest request) {
+    return impl.updateGroupProxy(request);
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public ServicePrincipal updateServicePrincipalProxy(UpdateServicePrincipalProxyRequest request) {
+    return impl.updateServicePrincipalProxy(request);
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public User updateUserProxy(UpdateUserProxyRequest request) {
+    return impl.updateUserProxy(request);
+  }
+
+  /** TODO: Write description later when this method is implemented */
+  public WorkspaceAccessDetail updateWorkspaceAccessDetailLocal(
+      UpdateWorkspaceAccessDetailLocalRequest request) {
+    return impl.updateWorkspaceAccessDetailLocal(request);
   }
 
   public WorkspaceIamV2Service impl() {

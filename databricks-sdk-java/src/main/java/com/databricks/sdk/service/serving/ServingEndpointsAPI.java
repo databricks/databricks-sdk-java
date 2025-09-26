@@ -252,6 +252,12 @@ public class ServingEndpointsAPI {
         response);
   }
 
+  /** Updates the email and webhook notification settings for an endpoint. */
+  public UpdateInferenceEndpointNotificationsResponse updateNotifications(
+      UpdateInferenceEndpointNotifications request) {
+    return impl.updateNotifications(request);
+  }
+
   /**
    * Updates the permissions on a serving endpoint. Serving endpoints can inherit permissions from
    * their root object.

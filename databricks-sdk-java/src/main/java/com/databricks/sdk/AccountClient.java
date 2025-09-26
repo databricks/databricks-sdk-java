@@ -16,6 +16,8 @@ import com.databricks.sdk.service.billing.LogDeliveryAPI;
 import com.databricks.sdk.service.billing.LogDeliveryService;
 import com.databricks.sdk.service.billing.UsageDashboardsAPI;
 import com.databricks.sdk.service.billing.UsageDashboardsService;
+import com.databricks.sdk.service.billing.UsagePolicyAPI;
+import com.databricks.sdk.service.billing.UsagePolicyService;
 import com.databricks.sdk.service.catalog.AccountMetastoreAssignmentsAPI;
 import com.databricks.sdk.service.catalog.AccountMetastoreAssignmentsService;
 import com.databricks.sdk.service.catalog.AccountMetastoresAPI;
@@ -115,6 +117,7 @@ public class AccountClient {
   private StorageAPI storageAPI;
   private AccountStorageCredentialsAPI storageCredentialsAPI;
   private UsageDashboardsAPI usageDashboardsAPI;
+  private UsagePolicyAPI usagePolicyAPI;
   private AccountUsersV2API usersV2API;
   private VpcEndpointsAPI vpcEndpointsAPI;
   private WorkspaceAssignmentAPI workspaceAssignmentAPI;
@@ -160,6 +163,7 @@ public class AccountClient {
     storageAPI = new StorageAPI(apiClient);
     storageCredentialsAPI = new AccountStorageCredentialsAPI(apiClient);
     usageDashboardsAPI = new UsageDashboardsAPI(apiClient);
+    usagePolicyAPI = new UsagePolicyAPI(apiClient);
     usersV2API = new AccountUsersV2API(apiClient);
     vpcEndpointsAPI = new VpcEndpointsAPI(apiClient);
     workspaceAssignmentAPI = new WorkspaceAssignmentAPI(apiClient);
@@ -591,6 +595,11 @@ public class AccountClient {
     return usageDashboardsAPI;
   }
 
+  /** A service serves REST API about Usage policies */
+  public UsagePolicyAPI usagePolicy() {
+    return usagePolicyAPI;
+  }
+
   /**
    * User identities recognized by Databricks and represented by email addresses.
    *
@@ -1006,6 +1015,17 @@ public class AccountClient {
   /** Replace the default UsageDashboardsAPI with a custom implementation. */
   public AccountClient withUsageDashboardsAPI(UsageDashboardsAPI usageDashboards) {
     this.usageDashboardsAPI = usageDashboards;
+    return this;
+  }
+
+  /** Replace the default UsagePolicyService with a custom implementation. */
+  public AccountClient withUsagePolicyImpl(UsagePolicyService usagePolicy) {
+    return this.withUsagePolicyAPI(new UsagePolicyAPI(usagePolicy));
+  }
+
+  /** Replace the default UsagePolicyAPI with a custom implementation. */
+  public AccountClient withUsagePolicyAPI(UsagePolicyAPI usagePolicy) {
+    this.usagePolicyAPI = usagePolicy;
     return this;
   }
 

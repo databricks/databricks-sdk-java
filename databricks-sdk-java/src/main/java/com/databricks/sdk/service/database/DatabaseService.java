@@ -49,6 +49,10 @@ public interface DatabaseService {
   /** Delete a Synced Database Table. */
   void deleteSyncedDatabaseTable(DeleteSyncedDatabaseTableRequest deleteSyncedDatabaseTableRequest);
 
+  /** Failover the primary node of a Database Instance to a secondary. */
+  DatabaseInstance failoverDatabaseInstance(
+      FailoverDatabaseInstanceRequest failoverDatabaseInstanceRequest);
+
   /** Find a Database Instance by uid. */
   DatabaseInstance findDatabaseInstanceByUid(
       FindDatabaseInstanceByUidRequest findDatabaseInstanceByUidRequest);
@@ -101,6 +105,10 @@ public interface DatabaseService {
   /** Update a Database Instance. */
   DatabaseInstance updateDatabaseInstance(
       UpdateDatabaseInstanceRequest updateDatabaseInstanceRequest);
+
+  /** Update a role for a Database Instance. */
+  DatabaseInstanceRole updateDatabaseInstanceRole(
+      UpdateDatabaseInstanceRoleRequest updateDatabaseInstanceRoleRequest);
 
   /** This API is currently unimplemented, but exposed for Terraform support. */
   SyncedDatabaseTable updateSyncedDatabaseTable(

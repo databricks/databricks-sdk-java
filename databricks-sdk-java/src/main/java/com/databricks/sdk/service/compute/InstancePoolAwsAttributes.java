@@ -15,6 +15,19 @@ public class InstancePoolAwsAttributes {
   private InstancePoolAwsAttributesAvailability availability;
 
   /**
+   * All AWS instances belonging to the instance pool will have this instance profile. If omitted,
+   * instances will initially be launched with the workspace's default instance profile. If defined,
+   * clusters that use the pool will inherit the instance profile, and must not specify their own
+   * instance profile on cluster creation or update. If the pool does not specify an instance
+   * profile, clusters using the pool may specify any instance profile. The instance profile must
+   * have previously been added to the Databricks environment by an account administrator.
+   *
+   * <p>This feature may only be available to certain customer plans.
+   */
+  @JsonProperty("instance_profile_arn")
+  private String instanceProfileArn;
+
+  /**
    * Calculates the bid price for AWS spot instances, as a percentage of the corresponding instance
    * type's on-demand price. For example, if this field is set to 50, and the cluster needs a new
    * `r3.xlarge` spot instance, then the bid price is half of the price of on-demand `r3.xlarge`
@@ -48,6 +61,15 @@ public class InstancePoolAwsAttributes {
     return availability;
   }
 
+  public InstancePoolAwsAttributes setInstanceProfileArn(String instanceProfileArn) {
+    this.instanceProfileArn = instanceProfileArn;
+    return this;
+  }
+
+  public String getInstanceProfileArn() {
+    return instanceProfileArn;
+  }
+
   public InstancePoolAwsAttributes setSpotBidPricePercent(Long spotBidPricePercent) {
     this.spotBidPricePercent = spotBidPricePercent;
     return this;
@@ -72,19 +94,21 @@ public class InstancePoolAwsAttributes {
     if (o == null || getClass() != o.getClass()) return false;
     InstancePoolAwsAttributes that = (InstancePoolAwsAttributes) o;
     return Objects.equals(availability, that.availability)
+        && Objects.equals(instanceProfileArn, that.instanceProfileArn)
         && Objects.equals(spotBidPricePercent, that.spotBidPricePercent)
         && Objects.equals(zoneId, that.zoneId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(availability, spotBidPricePercent, zoneId);
+    return Objects.hash(availability, instanceProfileArn, spotBidPricePercent, zoneId);
   }
 
   @Override
   public String toString() {
     return new ToStringer(InstancePoolAwsAttributes.class)
         .add("availability", availability)
+        .add("instanceProfileArn", instanceProfileArn)
         .add("spotBidPricePercent", spotBidPricePercent)
         .add("zoneId", zoneId)
         .toString();

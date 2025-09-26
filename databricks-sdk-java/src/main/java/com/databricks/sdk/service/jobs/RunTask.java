@@ -85,6 +85,13 @@ public class RunTask {
   private String description;
 
   /**
+   * An optional flag to disable the task. If set to true, the task will not run even if it is part
+   * of a job.
+   */
+  @JsonProperty("disabled")
+  private Boolean disabled;
+
+  /**
    * The actual performance target used by the serverless run during execution. This can differ from
    * the client-set performance target on the request depending on whether the performance mode is
    * supported by the job type.
@@ -401,6 +408,15 @@ public class RunTask {
 
   public String getDescription() {
     return description;
+  }
+
+  public RunTask setDisabled(Boolean disabled) {
+    this.disabled = disabled;
+    return this;
+  }
+
+  public Boolean getDisabled() {
+    return disabled;
   }
 
   public RunTask setEffectivePerformanceTarget(PerformanceTarget effectivePerformanceTarget) {
@@ -734,6 +750,7 @@ public class RunTask {
         && Objects.equals(dbtTask, that.dbtTask)
         && Objects.equals(dependsOn, that.dependsOn)
         && Objects.equals(description, that.description)
+        && Objects.equals(disabled, that.disabled)
         && Objects.equals(effectivePerformanceTarget, that.effectivePerformanceTarget)
         && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(endTime, that.endTime)
@@ -785,6 +802,7 @@ public class RunTask {
         dbtTask,
         dependsOn,
         description,
+        disabled,
         effectivePerformanceTarget,
         emailNotifications,
         endTime,
@@ -836,6 +854,7 @@ public class RunTask {
         .add("dbtTask", dbtTask)
         .add("dependsOn", dependsOn)
         .add("description", description)
+        .add("disabled", disabled)
         .add("effectivePerformanceTarget", effectivePerformanceTarget)
         .add("emailNotifications", emailNotifications)
         .add("endTime", endTime)

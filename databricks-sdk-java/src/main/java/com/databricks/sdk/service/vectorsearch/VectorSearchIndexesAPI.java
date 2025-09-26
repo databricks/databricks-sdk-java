@@ -110,6 +110,12 @@ public class VectorSearchIndexesAPI {
     impl.syncIndex(request);
   }
 
+  /** Update the budget policy of an index */
+  public UpdateVectorIndexUsagePolicyResponse updateIndexBudgetPolicy(
+      UpdateVectorIndexUsagePolicyRequest request) {
+    return impl.updateIndexBudgetPolicy(request);
+  }
+
   /** Handles the upserting of data into a specified vector index. */
   public UpsertDataVectorIndexResponse upsertDataVectorIndex(UpsertDataVectorIndexRequest request) {
     return impl.upsertDataVectorIndex(request);

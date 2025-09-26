@@ -26,6 +26,10 @@ public class GetPipelineResponse {
   @JsonProperty("effective_budget_policy_id")
   private String effectiveBudgetPolicyId;
 
+  /** Serverless usage policy ID of the pipeline. */
+  @JsonProperty("effective_usage_policy_id")
+  private String effectiveUsagePolicyId;
+
   /** The health of a pipeline. */
   @JsonProperty("health")
   private GetPipelineResponseHealth health;
@@ -100,6 +104,15 @@ public class GetPipelineResponse {
 
   public String getEffectiveBudgetPolicyId() {
     return effectiveBudgetPolicyId;
+  }
+
+  public GetPipelineResponse setEffectiveUsagePolicyId(String effectiveUsagePolicyId) {
+    this.effectiveUsagePolicyId = effectiveUsagePolicyId;
+    return this;
+  }
+
+  public String getEffectiveUsagePolicyId() {
+    return effectiveUsagePolicyId;
   }
 
   public GetPipelineResponse setHealth(GetPipelineResponseHealth health) {
@@ -192,6 +205,7 @@ public class GetPipelineResponse {
         && Objects.equals(clusterId, that.clusterId)
         && Objects.equals(creatorUserName, that.creatorUserName)
         && Objects.equals(effectiveBudgetPolicyId, that.effectiveBudgetPolicyId)
+        && Objects.equals(effectiveUsagePolicyId, that.effectiveUsagePolicyId)
         && Objects.equals(health, that.health)
         && Objects.equals(lastModified, that.lastModified)
         && Objects.equals(latestUpdates, that.latestUpdates)
@@ -210,6 +224,7 @@ public class GetPipelineResponse {
         clusterId,
         creatorUserName,
         effectiveBudgetPolicyId,
+        effectiveUsagePolicyId,
         health,
         lastModified,
         latestUpdates,
@@ -228,6 +243,7 @@ public class GetPipelineResponse {
         .add("clusterId", clusterId)
         .add("creatorUserName", creatorUserName)
         .add("effectiveBudgetPolicyId", effectiveBudgetPolicyId)
+        .add("effectiveUsagePolicyId", effectiveUsagePolicyId)
         .add("health", health)
         .add("lastModified", lastModified)
         .add("latestUpdates", latestUpdates)

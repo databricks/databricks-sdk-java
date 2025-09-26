@@ -101,8 +101,14 @@ import com.databricks.sdk.service.dashboards.LakeviewAPI;
 import com.databricks.sdk.service.dashboards.LakeviewEmbeddedAPI;
 import com.databricks.sdk.service.dashboards.LakeviewEmbeddedService;
 import com.databricks.sdk.service.dashboards.LakeviewService;
+import com.databricks.sdk.service.dashboards.QueryExecutionAPI;
+import com.databricks.sdk.service.dashboards.QueryExecutionService;
 import com.databricks.sdk.service.database.DatabaseAPI;
+import com.databricks.sdk.service.database.DatabaseProjectAPI;
+import com.databricks.sdk.service.database.DatabaseProjectService;
 import com.databricks.sdk.service.database.DatabaseService;
+import com.databricks.sdk.service.dataquality.DataQualityAPI;
+import com.databricks.sdk.service.dataquality.DataQualityService;
 import com.databricks.sdk.service.files.DbfsService;
 import com.databricks.sdk.service.files.FilesAPI;
 import com.databricks.sdk.service.files.FilesService;
@@ -236,6 +242,8 @@ import com.databricks.sdk.service.sql.StatementExecutionAPI;
 import com.databricks.sdk.service.sql.StatementExecutionService;
 import com.databricks.sdk.service.sql.WarehousesAPI;
 import com.databricks.sdk.service.sql.WarehousesService;
+import com.databricks.sdk.service.tags.TagAssignmentsAPI;
+import com.databricks.sdk.service.tags.TagAssignmentsService;
 import com.databricks.sdk.service.tags.TagPoliciesAPI;
 import com.databricks.sdk.service.tags.TagPoliciesService;
 import com.databricks.sdk.service.vectorsearch.VectorSearchEndpointsAPI;
@@ -286,8 +294,10 @@ public class WorkspaceClient {
   private CurrentUserAPI currentUserAPI;
   private DashboardWidgetsAPI dashboardWidgetsAPI;
   private DashboardsAPI dashboardsAPI;
+  private DataQualityAPI dataQualityAPI;
   private DataSourcesAPI dataSourcesAPI;
   private DatabaseAPI databaseAPI;
+  private DatabaseProjectAPI databaseProjectAPI;
   private DbfsExt dbfsAPI;
   private DbsqlPermissionsAPI dbsqlPermissionsAPI;
   private EntityTagAssignmentsAPI entityTagAssignmentsAPI;
@@ -337,6 +347,7 @@ public class WorkspaceClient {
   private QualityMonitorsAPI qualityMonitorsAPI;
   private QueriesAPI queriesAPI;
   private QueriesLegacyAPI queriesLegacyAPI;
+  private QueryExecutionAPI queryExecutionAPI;
   private QueryHistoryAPI queryHistoryAPI;
   private QueryVisualizationsAPI queryVisualizationsAPI;
   private QueryVisualizationsLegacyAPI queryVisualizationsLegacyAPI;
@@ -361,6 +372,7 @@ public class WorkspaceClient {
   private SystemSchemasAPI systemSchemasAPI;
   private TableConstraintsAPI tableConstraintsAPI;
   private TablesAPI tablesAPI;
+  private TagAssignmentsAPI tagAssignmentsAPI;
   private TagPoliciesAPI tagPoliciesAPI;
   private TemporaryPathCredentialsAPI temporaryPathCredentialsAPI;
   private TemporaryTableCredentialsAPI temporaryTableCredentialsAPI;
@@ -416,8 +428,10 @@ public class WorkspaceClient {
     currentUserAPI = new CurrentUserAPI(apiClient);
     dashboardWidgetsAPI = new DashboardWidgetsAPI(apiClient);
     dashboardsAPI = new DashboardsAPI(apiClient);
+    dataQualityAPI = new DataQualityAPI(apiClient);
     dataSourcesAPI = new DataSourcesAPI(apiClient);
     databaseAPI = new DatabaseAPI(apiClient);
+    databaseProjectAPI = new DatabaseProjectAPI(apiClient);
     dbfsAPI = new DbfsExt(apiClient);
     dbsqlPermissionsAPI = new DbsqlPermissionsAPI(apiClient);
     entityTagAssignmentsAPI = new EntityTagAssignmentsAPI(apiClient);
@@ -467,6 +481,7 @@ public class WorkspaceClient {
     qualityMonitorsAPI = new QualityMonitorsAPI(apiClient);
     queriesAPI = new QueriesAPI(apiClient);
     queriesLegacyAPI = new QueriesLegacyAPI(apiClient);
+    queryExecutionAPI = new QueryExecutionAPI(apiClient);
     queryHistoryAPI = new QueryHistoryAPI(apiClient);
     queryVisualizationsAPI = new QueryVisualizationsAPI(apiClient);
     queryVisualizationsLegacyAPI = new QueryVisualizationsLegacyAPI(apiClient);
@@ -492,6 +507,7 @@ public class WorkspaceClient {
     systemSchemasAPI = new SystemSchemasAPI(apiClient);
     tableConstraintsAPI = new TableConstraintsAPI(apiClient);
     tablesAPI = new TablesAPI(apiClient);
+    tagAssignmentsAPI = new TagAssignmentsAPI(apiClient);
     tagPoliciesAPI = new TagPoliciesAPI(apiClient);
     temporaryPathCredentialsAPI = new TemporaryPathCredentialsAPI(apiClient);
     temporaryTableCredentialsAPI = new TemporaryTableCredentialsAPI(apiClient);
@@ -801,6 +817,11 @@ public class WorkspaceClient {
     return dashboardsAPI;
   }
 
+  /** Manage the data quality of Unity Catalog objects (currently support `schema` and `table`) */
+  public DataQualityAPI dataQuality() {
+    return dataQualityAPI;
+  }
+
   /**
    * This API is provided to assist you in making new query objects. When creating a query object,
    * you may optionally specify a `data_source_id` for the SQL warehouse against which it will run.
@@ -822,6 +843,11 @@ public class WorkspaceClient {
   /** Database Instances provide access to a database via REST API or direct SQL. */
   public DatabaseAPI database() {
     return databaseAPI;
+  }
+
+  /** Database Projects provide access to a database via REST API or direct SQL. */
+  public DatabaseProjectAPI databaseProject() {
+    return databaseProjectAPI;
   }
 
   /**
@@ -1436,6 +1462,11 @@ public class WorkspaceClient {
     return queriesLegacyAPI;
   }
 
+  /** Query execution APIs for AI / BI Dashboards */
+  public QueryExecutionAPI queryExecution() {
+    return queryExecutionAPI;
+  }
+
   /**
    * A service responsible for storing and retrieving the list of queries run against SQL endpoints
    * and serverless compute.
@@ -1851,6 +1882,11 @@ public class WorkspaceClient {
    */
   public TablesAPI tables() {
     return tablesAPI;
+  }
+
+  /** Manage tag assignments on workspace-scoped objects. */
+  public TagAssignmentsAPI tagAssignments() {
+    return tagAssignmentsAPI;
   }
 
   /**
@@ -2409,6 +2445,17 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default DataQualityService with a custom implementation. */
+  public WorkspaceClient withDataQualityImpl(DataQualityService dataQuality) {
+    return this.withDataQualityAPI(new DataQualityAPI(dataQuality));
+  }
+
+  /** Replace the default DataQualityAPI with a custom implementation. */
+  public WorkspaceClient withDataQualityAPI(DataQualityAPI dataQuality) {
+    this.dataQualityAPI = dataQuality;
+    return this;
+  }
+
   /** Replace the default DataSourcesService with a custom implementation. */
   public WorkspaceClient withDataSourcesImpl(DataSourcesService dataSources) {
     return this.withDataSourcesAPI(new DataSourcesAPI(dataSources));
@@ -2428,6 +2475,17 @@ public class WorkspaceClient {
   /** Replace the default DatabaseAPI with a custom implementation. */
   public WorkspaceClient withDatabaseAPI(DatabaseAPI database) {
     this.databaseAPI = database;
+    return this;
+  }
+
+  /** Replace the default DatabaseProjectService with a custom implementation. */
+  public WorkspaceClient withDatabaseProjectImpl(DatabaseProjectService databaseProject) {
+    return this.withDatabaseProjectAPI(new DatabaseProjectAPI(databaseProject));
+  }
+
+  /** Replace the default DatabaseProjectAPI with a custom implementation. */
+  public WorkspaceClient withDatabaseProjectAPI(DatabaseProjectAPI databaseProject) {
+    this.databaseProjectAPI = databaseProject;
     return this;
   }
 
@@ -2993,6 +3051,17 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default QueryExecutionService with a custom implementation. */
+  public WorkspaceClient withQueryExecutionImpl(QueryExecutionService queryExecution) {
+    return this.withQueryExecutionAPI(new QueryExecutionAPI(queryExecution));
+  }
+
+  /** Replace the default QueryExecutionAPI with a custom implementation. */
+  public WorkspaceClient withQueryExecutionAPI(QueryExecutionAPI queryExecution) {
+    this.queryExecutionAPI = queryExecution;
+    return this;
+  }
+
   /** Replace the default QueryHistoryService with a custom implementation. */
   public WorkspaceClient withQueryHistoryImpl(QueryHistoryService queryHistory) {
     return this.withQueryHistoryAPI(new QueryHistoryAPI(queryHistory));
@@ -3269,6 +3338,17 @@ public class WorkspaceClient {
   /** Replace the default TablesAPI with a custom implementation. */
   public WorkspaceClient withTablesAPI(TablesAPI tables) {
     this.tablesAPI = tables;
+    return this;
+  }
+
+  /** Replace the default TagAssignmentsService with a custom implementation. */
+  public WorkspaceClient withTagAssignmentsImpl(TagAssignmentsService tagAssignments) {
+    return this.withTagAssignmentsAPI(new TagAssignmentsAPI(tagAssignments));
+  }
+
+  /** Replace the default TagAssignmentsAPI with a custom implementation. */
+  public WorkspaceClient withTagAssignmentsAPI(TagAssignmentsAPI tagAssignments) {
+    this.tagAssignmentsAPI = tagAssignments;
     return this;
   }
 

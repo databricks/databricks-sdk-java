@@ -13,6 +13,11 @@ public class GetGrantRequest {
   /** Full name of securable. */
   @JsonIgnore private String fullName;
 
+  /** Optional. If true, also return privilege assignments whose principals have been deleted. */
+  @JsonIgnore
+  @QueryParam("include_deleted_principals")
+  private Boolean includeDeletedPrincipals;
+
   /**
    * Specifies the maximum number of privileges to return (page length). Every PrivilegeAssignment
    * present in a single page response is guaranteed to contain all the privileges granted on the
@@ -48,6 +53,15 @@ public class GetGrantRequest {
 
   public String getFullName() {
     return fullName;
+  }
+
+  public GetGrantRequest setIncludeDeletedPrincipals(Boolean includeDeletedPrincipals) {
+    this.includeDeletedPrincipals = includeDeletedPrincipals;
+    return this;
+  }
+
+  public Boolean getIncludeDeletedPrincipals() {
+    return includeDeletedPrincipals;
   }
 
   public GetGrantRequest setMaxResults(Long maxResults) {
@@ -92,6 +106,7 @@ public class GetGrantRequest {
     if (o == null || getClass() != o.getClass()) return false;
     GetGrantRequest that = (GetGrantRequest) o;
     return Objects.equals(fullName, that.fullName)
+        && Objects.equals(includeDeletedPrincipals, that.includeDeletedPrincipals)
         && Objects.equals(maxResults, that.maxResults)
         && Objects.equals(pageToken, that.pageToken)
         && Objects.equals(principal, that.principal)
@@ -100,13 +115,15 @@ public class GetGrantRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(fullName, maxResults, pageToken, principal, securableType);
+    return Objects.hash(
+        fullName, includeDeletedPrincipals, maxResults, pageToken, principal, securableType);
   }
 
   @Override
   public String toString() {
     return new ToStringer(GetGrantRequest.class)
         .add("fullName", fullName)
+        .add("includeDeletedPrincipals", includeDeletedPrincipals)
         .add("maxResults", maxResults)
         .add("pageToken", pageToken)
         .add("principal", principal)

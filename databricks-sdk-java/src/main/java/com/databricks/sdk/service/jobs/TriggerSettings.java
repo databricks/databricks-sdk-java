@@ -13,6 +13,10 @@ public class TriggerSettings {
   @JsonProperty("file_arrival")
   private FileArrivalTriggerConfiguration fileArrival;
 
+  /** */
+  @JsonProperty("model")
+  private ModelTriggerConfiguration model;
+
   /** Whether this trigger is paused or not. */
   @JsonProperty("pause_status")
   private PauseStatus pauseStatus;
@@ -36,6 +40,15 @@ public class TriggerSettings {
 
   public FileArrivalTriggerConfiguration getFileArrival() {
     return fileArrival;
+  }
+
+  public TriggerSettings setModel(ModelTriggerConfiguration model) {
+    this.model = model;
+    return this;
+  }
+
+  public ModelTriggerConfiguration getModel() {
+    return model;
   }
 
   public TriggerSettings setPauseStatus(PauseStatus pauseStatus) {
@@ -80,6 +93,7 @@ public class TriggerSettings {
     if (o == null || getClass() != o.getClass()) return false;
     TriggerSettings that = (TriggerSettings) o;
     return Objects.equals(fileArrival, that.fileArrival)
+        && Objects.equals(model, that.model)
         && Objects.equals(pauseStatus, that.pauseStatus)
         && Objects.equals(periodic, that.periodic)
         && Objects.equals(table, that.table)
@@ -88,13 +102,14 @@ public class TriggerSettings {
 
   @Override
   public int hashCode() {
-    return Objects.hash(fileArrival, pauseStatus, periodic, table, tableUpdate);
+    return Objects.hash(fileArrival, model, pauseStatus, periodic, table, tableUpdate);
   }
 
   @Override
   public String toString() {
     return new ToStringer(TriggerSettings.class)
         .add("fileArrival", fileArrival)
+        .add("model", model)
         .add("pauseStatus", pauseStatus)
         .add("periodic", periodic)
         .add("table", table)

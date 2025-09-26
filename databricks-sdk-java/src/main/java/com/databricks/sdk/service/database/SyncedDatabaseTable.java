@@ -59,6 +59,10 @@ public class SyncedDatabaseTable {
   @JsonProperty("spec")
   private SyncedTableSpec spec;
 
+  /** Data serving REST API URL for this table */
+  @JsonProperty("table_serving_url")
+  private String tableServingUrl;
+
   /**
    * The provisioning state of the synced table entity in Unity Catalog. This is distinct from the
    * state of the data synchronization pipeline (i.e. the table may be in "ACTIVE" but the pipeline
@@ -132,6 +136,15 @@ public class SyncedDatabaseTable {
     return spec;
   }
 
+  public SyncedDatabaseTable setTableServingUrl(String tableServingUrl) {
+    this.tableServingUrl = tableServingUrl;
+    return this;
+  }
+
+  public String getTableServingUrl() {
+    return tableServingUrl;
+  }
+
   public SyncedDatabaseTable setUnityCatalogProvisioningState(
       ProvisioningInfoState unityCatalogProvisioningState) {
     this.unityCatalogProvisioningState = unityCatalogProvisioningState;
@@ -154,6 +167,7 @@ public class SyncedDatabaseTable {
         && Objects.equals(logicalDatabaseName, that.logicalDatabaseName)
         && Objects.equals(name, that.name)
         && Objects.equals(spec, that.spec)
+        && Objects.equals(tableServingUrl, that.tableServingUrl)
         && Objects.equals(unityCatalogProvisioningState, that.unityCatalogProvisioningState);
   }
 
@@ -167,6 +181,7 @@ public class SyncedDatabaseTable {
         logicalDatabaseName,
         name,
         spec,
+        tableServingUrl,
         unityCatalogProvisioningState);
   }
 
@@ -180,6 +195,7 @@ public class SyncedDatabaseTable {
         .add("logicalDatabaseName", logicalDatabaseName)
         .add("name", name)
         .add("spec", spec)
+        .add("tableServingUrl", tableServingUrl)
         .add("unityCatalogProvisioningState", unityCatalogProvisioningState)
         .toString();
   }

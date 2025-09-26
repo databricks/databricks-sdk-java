@@ -54,6 +54,10 @@ public interface VectorSearchIndexesService {
   /** Triggers a synchronization process for a specified vector index. */
   void syncIndex(SyncIndexRequest syncIndexRequest);
 
+  /** Update the budget policy of an index */
+  UpdateVectorIndexUsagePolicyResponse updateIndexBudgetPolicy(
+      UpdateVectorIndexUsagePolicyRequest updateVectorIndexUsagePolicyRequest);
+
   /** Handles the upserting of data into a specified vector index. */
   UpsertDataVectorIndexResponse upsertDataVectorIndex(
       UpsertDataVectorIndexRequest upsertDataVectorIndexRequest);

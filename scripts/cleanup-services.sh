@@ -15,6 +15,7 @@ EXCLUDES=(
     "sharing/SharesExtService.java"
     "sharing/SharesExtImpl.java"
     "sharing/SharesExtAPI.java"
+    "common/lro/LroOptions.java"
 )
 
 echo "🧹 Cleaning service directory: $SERVICE_DIR"

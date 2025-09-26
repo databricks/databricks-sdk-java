@@ -36,6 +36,10 @@ public class Origin {
   @JsonProperty("flow_name")
   private String flowName;
 
+  /** The UUID of the graph associated with this event, corresponding to a GRAPH_UPDATED event. */
+  @JsonProperty("graph_id")
+  private String graphId;
+
   /** The optional host name where the event was triggered */
   @JsonProperty("host")
   private String host;
@@ -132,6 +136,15 @@ public class Origin {
 
   public String getFlowName() {
     return flowName;
+  }
+
+  public Origin setGraphId(String graphId) {
+    this.graphId = graphId;
+    return this;
+  }
+
+  public String getGraphId() {
+    return graphId;
   }
 
   public Origin setHost(String host) {
@@ -244,6 +257,7 @@ public class Origin {
         && Objects.equals(datasetName, that.datasetName)
         && Objects.equals(flowId, that.flowId)
         && Objects.equals(flowName, that.flowName)
+        && Objects.equals(graphId, that.graphId)
         && Objects.equals(host, that.host)
         && Objects.equals(maintenanceId, that.maintenanceId)
         && Objects.equals(materializationName, that.materializationName)
@@ -266,6 +280,7 @@ public class Origin {
         datasetName,
         flowId,
         flowName,
+        graphId,
         host,
         maintenanceId,
         materializationName,
@@ -288,6 +303,7 @@ public class Origin {
         .add("datasetName", datasetName)
         .add("flowId", flowId)
         .add("flowName", flowName)
+        .add("graphId", graphId)
         .add("host", host)
         .add("maintenanceId", maintenanceId)
         .add("materializationName", materializationName)

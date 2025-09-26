@@ -13,6 +13,42 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface AccountIamV2Service {
+  /** TODO: Write description later when this method is implemented */
+  Group createGroup(CreateGroupRequest createGroupRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  ServicePrincipal createServicePrincipal(
+      CreateServicePrincipalRequest createServicePrincipalRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  User createUser(CreateUserRequest createUserRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  WorkspaceAccessDetail createWorkspaceAccessDetail(
+      CreateWorkspaceAccessDetailRequest createWorkspaceAccessDetailRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  void deleteGroup(DeleteGroupRequest deleteGroupRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  void deleteServicePrincipal(DeleteServicePrincipalRequest deleteServicePrincipalRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  void deleteUser(DeleteUserRequest deleteUserRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  void deleteWorkspaceAccessDetail(
+      DeleteWorkspaceAccessDetailRequest deleteWorkspaceAccessDetailRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  Group getGroup(GetGroupRequest getGroupRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  ServicePrincipal getServicePrincipal(GetServicePrincipalRequest getServicePrincipalRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  User getUser(GetUserRequest getUserRequest);
+
   /**
    * Returns the access details for a principal in a workspace. Allows for checking access details
    * for any provisioned principal (user, service principal, or group) in a workspace. * Provisioned
@@ -22,6 +58,20 @@ public interface AccountIamV2Service {
    */
   WorkspaceAccessDetail getWorkspaceAccessDetail(
       GetWorkspaceAccessDetailRequest getWorkspaceAccessDetailRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  ListGroupsResponse listGroups(ListGroupsRequest listGroupsRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  ListServicePrincipalsResponse listServicePrincipals(
+      ListServicePrincipalsRequest listServicePrincipalsRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  ListUsersResponse listUsers(ListUsersRequest listUsersRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  ListWorkspaceAccessDetailsResponse listWorkspaceAccessDetails(
+      ListWorkspaceAccessDetailsRequest listWorkspaceAccessDetailsRequest);
 
   /**
    * Resolves a group with the given external ID from the customer's IdP. If the group does not
@@ -44,4 +94,18 @@ public interface AccountIamV2Service {
    * this will return an error.
    */
   ResolveUserResponse resolveUser(ResolveUserRequest resolveUserRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  Group updateGroup(UpdateGroupRequest updateGroupRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  ServicePrincipal updateServicePrincipal(
+      UpdateServicePrincipalRequest updateServicePrincipalRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  User updateUser(UpdateUserRequest updateUserRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  WorkspaceAccessDetail updateWorkspaceAccessDetail(
+      UpdateWorkspaceAccessDetailRequest updateWorkspaceAccessDetailRequest);
 }
