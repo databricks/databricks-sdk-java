@@ -95,11 +95,11 @@ public class AzureDevOpsIDTokenSource implements IDTokenSource {
       if (varName.equals("SYSTEM_ACCESSTOKEN")) {
         throw new DatabricksException(
             String.format(
-                "Missing %s, if calling from Azure DevOps Pipeline, please set this env var following https://learn.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml#systemaccesstoken",
+                "Missing environment variable %s, if calling from Azure DevOps Pipeline, please set this env var following https://learn.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml#systemaccesstoken",
                 varName));
       }
       throw new DatabricksException(
-          String.format("Missing %s, likely not calling from Azure DevOps Pipeline", varName));
+          String.format("Missing environment variable %s, likely not calling from Azure DevOps Pipeline", varName));
     }
     return value;
   }
