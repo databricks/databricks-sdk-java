@@ -194,6 +194,20 @@ public class AzureDevOpsIDTokenSourceTest {
             createValidEnvironment(),
             null,
             null,
+            DatabricksException.class),
+        Arguments.of(
+            "Non-string oidcToken field (number)",
+            createHttpMock("{\"oidcToken\":123}", 200, null),
+            createValidEnvironment(),
+            null,
+            null,
+            DatabricksException.class),
+        Arguments.of(
+            "Non-string oidcToken field (object)",
+            createHttpMock("{\"oidcToken\":{\"nested\":\"value\"}}", 200, null),
+            createValidEnvironment(),
+            null,
+            null,
             DatabricksException.class));
   }
 

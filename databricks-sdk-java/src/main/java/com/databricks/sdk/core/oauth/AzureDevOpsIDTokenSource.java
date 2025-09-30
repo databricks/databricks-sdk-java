@@ -15,7 +15,9 @@ import java.io.IOException;
  * the IDTokenSource interface and provides a method for obtaining ID tokens specifically from Azure
  * DevOps Pipeline environment.
  *
- * <p>This implementation relies on the <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/distributedtask/oidctoken/create">Azure DevOps OIDC token API</a>.
+ * <p>This implementation relies on the <a
+ * href="https://learn.microsoft.com/en-us/rest/api/azure/devops/distributedtask/oidctoken/create">Azure
+ * DevOps OIDC token API</a>.
  */
 public class AzureDevOpsIDTokenSource implements IDTokenSource {
   /* Access token for authenticating with Azure DevOps API */
@@ -99,7 +101,9 @@ public class AzureDevOpsIDTokenSource implements IDTokenSource {
                 varName));
       }
       throw new DatabricksException(
-          String.format("Missing environment variable %s, likely not calling from Azure DevOps Pipeline", varName));
+          String.format(
+              "Missing environment variable %s, likely not calling from Azure DevOps Pipeline",
+              varName));
     }
     return value;
   }
@@ -164,15 +168,9 @@ public class AzureDevOpsIDTokenSource implements IDTokenSource {
       throw new DatabricksException("Azure DevOps OIDC token response missing 'oidcToken' field");
     }
 
-    try {
-      String tokenValue = jsonResp.get("oidcToken").textValue();
-    } catch (IllegalArgumentException e) {
-      throw new DatabricksException(
-          "Received invalid OIDC token from Azure DevOps: " + e.getMessage(), e);
-    }
-    
+    String tokenValue = jsonResp.get("oidcToken").textValue();
     if (Strings.isNullOrEmpty(tokenValue)) {
-        throw new DatabricksException("Received empty OIDC token from Azure DevOps");
+      throw new DatabricksException("Received empty OIDC token from Azure DevOps");
     }
     return new IDToken(tokenValue);
   }
