@@ -58,7 +58,7 @@ public class AzureDevOpsIDTokenSource implements IDTokenSource {
    * @throws DatabricksException if httpClient is null or any required environment variables are
    *     missing
    */
-  public AzureDevOpsIDTokenSource(HttpClient httpClient, Environment environment) {
+  protected AzureDevOpsIDTokenSource(HttpClient httpClient, Environment environment) {
     if (httpClient == null) {
       throw new DatabricksException("HttpClient cannot be null");
     }
