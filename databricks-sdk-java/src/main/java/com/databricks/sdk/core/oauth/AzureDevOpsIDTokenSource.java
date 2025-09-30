@@ -120,8 +120,6 @@ public class AzureDevOpsIDTokenSource implements IDTokenSource {
   public IDToken getIDToken(String audience) {
 
     // Build Azure DevOps OIDC endpoint URL.
-    // Format:
-    // {collectionUri}/{teamProjectId}/_apis/distributedtask/hubs/{hostType}/plans/{planId}/jobs/{jobId}/oidctoken?api-version=7.2-preview.1
     String requestUrl =
         String.format(
             "%s/%s/_apis/distributedtask/hubs/%s/plans/%s/jobs/%s/oidctoken?api-version=7.2-preview.1",
