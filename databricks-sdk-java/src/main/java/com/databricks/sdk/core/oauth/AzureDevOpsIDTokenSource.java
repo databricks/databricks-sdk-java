@@ -15,8 +15,7 @@ import java.io.IOException;
  * the IDTokenSource interface and provides a method for obtaining ID tokens specifically from Azure
  * DevOps Pipeline environment.
  *
- * <p>This implementation follows the Azure DevOps OIDC token API as documented at:
- * https://learn.microsoft.com/en-us/rest/api/azure/devops/distributedtask/oidctoken/create
+ * <p>This implementation relies on the <a href="https://learn.microsoft.com/en-us/rest/api/azure/devops/distributedtask/oidctoken/create">Azure DevOps OIDC token API</a>.
  */
 public class AzureDevOpsIDTokenSource implements IDTokenSource {
   /* Access token for authenticating with Azure DevOps API */
