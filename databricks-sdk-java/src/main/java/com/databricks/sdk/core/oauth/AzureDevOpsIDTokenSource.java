@@ -153,8 +153,6 @@ public class AzureDevOpsIDTokenSource implements IDTokenSource {
               + resp.getBody().toString());
     }
 
-    // Parse the JSON response
-    // Azure DevOps returns {"oidcToken":"***"} format, not {"value":"***"} like GitHub Actions
     ObjectNode jsonResp;
     try {
       jsonResp = mapper.readValue(resp.getBody(), ObjectNode.class);
@@ -163,6 +161,7 @@ public class AzureDevOpsIDTokenSource implements IDTokenSource {
           "Failed to parse Azure DevOps OIDC token response: " + e.getMessage(), e);
     }
 
+    // Azure DevOps returns {"oidcToken":"***"} format, not {"value":"***"} like GitHub Actions.
     if (!jsonResp.has("oidcToken")) {
       throw new DatabricksException("Azure DevOps OIDC token response missing 'oidcToken' field");
     }
