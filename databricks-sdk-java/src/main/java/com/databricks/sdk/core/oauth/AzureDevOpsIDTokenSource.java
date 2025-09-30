@@ -168,13 +168,14 @@ public class AzureDevOpsIDTokenSource implements IDTokenSource {
 
     try {
       String tokenValue = jsonResp.get("oidcToken").textValue();
-      if (Strings.isNullOrEmpty(tokenValue)) {
-        throw new DatabricksException("Received empty OIDC token from Azure DevOps");
-      }
-      return new IDToken(tokenValue);
     } catch (IllegalArgumentException e) {
       throw new DatabricksException(
           "Received invalid OIDC token from Azure DevOps: " + e.getMessage(), e);
     }
+    
+    if (Strings.isNullOrEmpty(tokenValue)) {
+        throw new DatabricksException("Received empty OIDC token from Azure DevOps");
+    }
+    return new IDToken(tokenValue);
   }
 }
