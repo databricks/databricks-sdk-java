@@ -271,6 +271,21 @@ class ServingEndpointsImpl implements ServingEndpointsService {
   }
 
   @Override
+  public UpdateInferenceEndpointNotificationsResponse updateNotifications(
+      UpdateInferenceEndpointNotifications request) {
+    String path = String.format("/api/2.0/serving-endpoints/%s/notifications", request.getName());
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, UpdateInferenceEndpointNotificationsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public ServingEndpointPermissions updatePermissions(ServingEndpointPermissionsRequest request) {
     String path =
         String.format("/api/2.0/permissions/serving-endpoints/%s", request.getServingEndpointId());

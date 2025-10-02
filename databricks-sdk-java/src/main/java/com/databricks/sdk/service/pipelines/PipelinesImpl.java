@@ -17,6 +17,19 @@ class PipelinesImpl implements PipelinesService {
   }
 
   @Override
+  public ApplyEnvironmentRequestResponse applyEnvironment(ApplyEnvironmentRequest request) {
+    String path = String.format("/api/2.0/pipelines/%s/environment/apply", request.getPipelineId());
+    try {
+      Request req = new Request("POST", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ApplyEnvironmentRequestResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public CreatePipelineResponse create(CreatePipeline request) {
     String path = "/api/2.0/pipelines";
     try {
@@ -134,6 +147,19 @@ class PipelinesImpl implements PipelinesService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListUpdatesResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public RestorePipelineRequestResponse restorePipeline(RestorePipelineRequest request) {
+    String path = String.format("/api/2.0/pipelines/%s/restore", request.getPipelineId());
+    try {
+      Request req = new Request("POST", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, RestorePipelineRequestResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

@@ -90,6 +90,14 @@ public class PipelinesAPI {
   }
 
   /**
+   * * Applies the current pipeline environment onto the pipeline compute. The environment applied
+   * can be used by subsequent dev-mode updates.
+   */
+  public ApplyEnvironmentRequestResponse applyEnvironment(ApplyEnvironmentRequest request) {
+    return impl.applyEnvironment(request);
+  }
+
+  /**
    * Creates a new data processing pipeline based on the requested configuration. If successful,
    * this method returns the ID of the new pipeline.
    */
@@ -189,6 +197,14 @@ public class PipelinesAPI {
   /** List updates for an active pipeline. */
   public ListUpdatesResponse listUpdates(ListUpdatesRequest request) {
     return impl.listUpdates(request);
+  }
+
+  /**
+   * * Restores a pipeline that was previously deleted, if within the restoration window. All tables
+   * deleted at pipeline deletion will be undropped as well.
+   */
+  public RestorePipelineRequestResponse restorePipeline(RestorePipelineRequest request) {
+    return impl.restorePipeline(request);
   }
 
   /**

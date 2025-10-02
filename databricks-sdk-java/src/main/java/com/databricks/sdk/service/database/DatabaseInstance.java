@@ -29,9 +29,20 @@ public class DatabaseInstance {
   @JsonProperty("creator")
   private String creator;
 
+  /**
+   * Custom tags associated with the instance. This field is only included on create and update
+   * responses.
+   */
+  @JsonProperty("custom_tags")
+  private Collection<CustomTag> customTags;
+
   /** Deprecated. The sku of the instance; this field will always match the value of capacity. */
   @JsonProperty("effective_capacity")
   private String effectiveCapacity;
+
+  /** The recorded custom tags associated with the instance. */
+  @JsonProperty("effective_custom_tags")
+  private Collection<CustomTag> effectiveCustomTags;
 
   /** Whether the instance has PG native password login enabled. */
   @JsonProperty("effective_enable_pg_native_login")
@@ -58,6 +69,10 @@ public class DatabaseInstance {
   /** Whether the instance is stopped. */
   @JsonProperty("effective_stopped")
   private Boolean effectiveStopped;
+
+  /** The policy that is applied to the instance. */
+  @JsonProperty("effective_usage_policy_id")
+  private String effectiveUsagePolicyId;
 
   /** Whether to enable PG native password login on the instance. Defaults to false. */
   @JsonProperty("enable_pg_native_login")
@@ -121,6 +136,10 @@ public class DatabaseInstance {
   @JsonProperty("uid")
   private String uid;
 
+  /** The desired usage policy to associate with the instance. */
+  @JsonProperty("usage_policy_id")
+  private String usagePolicyId;
+
   public DatabaseInstance setCapacity(String capacity) {
     this.capacity = capacity;
     return this;
@@ -157,6 +176,15 @@ public class DatabaseInstance {
     return creator;
   }
 
+  public DatabaseInstance setCustomTags(Collection<CustomTag> customTags) {
+    this.customTags = customTags;
+    return this;
+  }
+
+  public Collection<CustomTag> getCustomTags() {
+    return customTags;
+  }
+
   public DatabaseInstance setEffectiveCapacity(String effectiveCapacity) {
     this.effectiveCapacity = effectiveCapacity;
     return this;
@@ -164,6 +192,15 @@ public class DatabaseInstance {
 
   public String getEffectiveCapacity() {
     return effectiveCapacity;
+  }
+
+  public DatabaseInstance setEffectiveCustomTags(Collection<CustomTag> effectiveCustomTags) {
+    this.effectiveCustomTags = effectiveCustomTags;
+    return this;
+  }
+
+  public Collection<CustomTag> getEffectiveCustomTags() {
+    return effectiveCustomTags;
   }
 
   public DatabaseInstance setEffectiveEnablePgNativeLogin(Boolean effectiveEnablePgNativeLogin) {
@@ -210,6 +247,15 @@ public class DatabaseInstance {
 
   public Boolean getEffectiveStopped() {
     return effectiveStopped;
+  }
+
+  public DatabaseInstance setEffectiveUsagePolicyId(String effectiveUsagePolicyId) {
+    this.effectiveUsagePolicyId = effectiveUsagePolicyId;
+    return this;
+  }
+
+  public String getEffectiveUsagePolicyId() {
+    return effectiveUsagePolicyId;
   }
 
   public DatabaseInstance setEnablePgNativeLogin(Boolean enablePgNativeLogin) {
@@ -320,6 +366,15 @@ public class DatabaseInstance {
     return uid;
   }
 
+  public DatabaseInstance setUsagePolicyId(String usagePolicyId) {
+    this.usagePolicyId = usagePolicyId;
+    return this;
+  }
+
+  public String getUsagePolicyId() {
+    return usagePolicyId;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -329,13 +384,16 @@ public class DatabaseInstance {
         && Objects.equals(childInstanceRefs, that.childInstanceRefs)
         && Objects.equals(creationTime, that.creationTime)
         && Objects.equals(creator, that.creator)
+        && Objects.equals(customTags, that.customTags)
         && Objects.equals(effectiveCapacity, that.effectiveCapacity)
+        && Objects.equals(effectiveCustomTags, that.effectiveCustomTags)
         && Objects.equals(effectiveEnablePgNativeLogin, that.effectiveEnablePgNativeLogin)
         && Objects.equals(
             effectiveEnableReadableSecondaries, that.effectiveEnableReadableSecondaries)
         && Objects.equals(effectiveNodeCount, that.effectiveNodeCount)
         && Objects.equals(effectiveRetentionWindowInDays, that.effectiveRetentionWindowInDays)
         && Objects.equals(effectiveStopped, that.effectiveStopped)
+        && Objects.equals(effectiveUsagePolicyId, that.effectiveUsagePolicyId)
         && Objects.equals(enablePgNativeLogin, that.enablePgNativeLogin)
         && Objects.equals(enableReadableSecondaries, that.enableReadableSecondaries)
         && Objects.equals(name, that.name)
@@ -347,7 +405,8 @@ public class DatabaseInstance {
         && Objects.equals(retentionWindowInDays, that.retentionWindowInDays)
         && Objects.equals(state, that.state)
         && Objects.equals(stopped, that.stopped)
-        && Objects.equals(uid, that.uid);
+        && Objects.equals(uid, that.uid)
+        && Objects.equals(usagePolicyId, that.usagePolicyId);
   }
 
   @Override
@@ -357,12 +416,15 @@ public class DatabaseInstance {
         childInstanceRefs,
         creationTime,
         creator,
+        customTags,
         effectiveCapacity,
+        effectiveCustomTags,
         effectiveEnablePgNativeLogin,
         effectiveEnableReadableSecondaries,
         effectiveNodeCount,
         effectiveRetentionWindowInDays,
         effectiveStopped,
+        effectiveUsagePolicyId,
         enablePgNativeLogin,
         enableReadableSecondaries,
         name,
@@ -374,7 +436,8 @@ public class DatabaseInstance {
         retentionWindowInDays,
         state,
         stopped,
-        uid);
+        uid,
+        usagePolicyId);
   }
 
   @Override
@@ -384,12 +447,15 @@ public class DatabaseInstance {
         .add("childInstanceRefs", childInstanceRefs)
         .add("creationTime", creationTime)
         .add("creator", creator)
+        .add("customTags", customTags)
         .add("effectiveCapacity", effectiveCapacity)
+        .add("effectiveCustomTags", effectiveCustomTags)
         .add("effectiveEnablePgNativeLogin", effectiveEnablePgNativeLogin)
         .add("effectiveEnableReadableSecondaries", effectiveEnableReadableSecondaries)
         .add("effectiveNodeCount", effectiveNodeCount)
         .add("effectiveRetentionWindowInDays", effectiveRetentionWindowInDays)
         .add("effectiveStopped", effectiveStopped)
+        .add("effectiveUsagePolicyId", effectiveUsagePolicyId)
         .add("enablePgNativeLogin", enablePgNativeLogin)
         .add("enableReadableSecondaries", enableReadableSecondaries)
         .add("name", name)
@@ -402,6 +468,7 @@ public class DatabaseInstance {
         .add("state", state)
         .add("stopped", stopped)
         .add("uid", uid)
+        .add("usagePolicyId", usagePolicyId)
         .toString();
   }
 }

@@ -21,6 +21,10 @@ public class CreateEndpoint {
   @JsonProperty("name")
   private String name;
 
+  /** The usage policy id to be applied once we've migrated to usage policies */
+  @JsonProperty("usage_policy_id")
+  private String usagePolicyId;
+
   public CreateEndpoint setBudgetPolicyId(String budgetPolicyId) {
     this.budgetPolicyId = budgetPolicyId;
     return this;
@@ -48,6 +52,15 @@ public class CreateEndpoint {
     return name;
   }
 
+  public CreateEndpoint setUsagePolicyId(String usagePolicyId) {
+    this.usagePolicyId = usagePolicyId;
+    return this;
+  }
+
+  public String getUsagePolicyId() {
+    return usagePolicyId;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -55,12 +68,13 @@ public class CreateEndpoint {
     CreateEndpoint that = (CreateEndpoint) o;
     return Objects.equals(budgetPolicyId, that.budgetPolicyId)
         && Objects.equals(endpointType, that.endpointType)
-        && Objects.equals(name, that.name);
+        && Objects.equals(name, that.name)
+        && Objects.equals(usagePolicyId, that.usagePolicyId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(budgetPolicyId, endpointType, name);
+    return Objects.hash(budgetPolicyId, endpointType, name, usagePolicyId);
   }
 
   @Override
@@ -69,6 +83,7 @@ public class CreateEndpoint {
         .add("budgetPolicyId", budgetPolicyId)
         .add("endpointType", endpointType)
         .add("name", name)
+        .add("usagePolicyId", usagePolicyId)
         .toString();
   }
 }

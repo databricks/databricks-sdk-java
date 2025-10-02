@@ -13,6 +13,10 @@ public class DatabaseCatalog {
   @JsonProperty("create_database_if_not_exists")
   private Boolean createDatabaseIfNotExists;
 
+  /** The branch_id of the database branch associated with the catalog. */
+  @JsonProperty("database_branch_id")
+  private String databaseBranchId;
+
   /** The name of the DatabaseInstance housing the database. */
   @JsonProperty("database_instance_name")
   private String databaseInstanceName;
@@ -20,6 +24,10 @@ public class DatabaseCatalog {
   /** The name of the database (in a instance) associated with the catalog. */
   @JsonProperty("database_name")
   private String databaseName;
+
+  /** The project_id of the database project associated with the catalog. */
+  @JsonProperty("database_project_id")
+  private String databaseProjectId;
 
   /** The name of the catalog in UC. */
   @JsonProperty("name")
@@ -38,6 +46,15 @@ public class DatabaseCatalog {
     return createDatabaseIfNotExists;
   }
 
+  public DatabaseCatalog setDatabaseBranchId(String databaseBranchId) {
+    this.databaseBranchId = databaseBranchId;
+    return this;
+  }
+
+  public String getDatabaseBranchId() {
+    return databaseBranchId;
+  }
+
   public DatabaseCatalog setDatabaseInstanceName(String databaseInstanceName) {
     this.databaseInstanceName = databaseInstanceName;
     return this;
@@ -54,6 +71,15 @@ public class DatabaseCatalog {
 
   public String getDatabaseName() {
     return databaseName;
+  }
+
+  public DatabaseCatalog setDatabaseProjectId(String databaseProjectId) {
+    this.databaseProjectId = databaseProjectId;
+    return this;
+  }
+
+  public String getDatabaseProjectId() {
+    return databaseProjectId;
   }
 
   public DatabaseCatalog setName(String name) {
@@ -80,23 +106,34 @@ public class DatabaseCatalog {
     if (o == null || getClass() != o.getClass()) return false;
     DatabaseCatalog that = (DatabaseCatalog) o;
     return Objects.equals(createDatabaseIfNotExists, that.createDatabaseIfNotExists)
+        && Objects.equals(databaseBranchId, that.databaseBranchId)
         && Objects.equals(databaseInstanceName, that.databaseInstanceName)
         && Objects.equals(databaseName, that.databaseName)
+        && Objects.equals(databaseProjectId, that.databaseProjectId)
         && Objects.equals(name, that.name)
         && Objects.equals(uid, that.uid);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(createDatabaseIfNotExists, databaseInstanceName, databaseName, name, uid);
+    return Objects.hash(
+        createDatabaseIfNotExists,
+        databaseBranchId,
+        databaseInstanceName,
+        databaseName,
+        databaseProjectId,
+        name,
+        uid);
   }
 
   @Override
   public String toString() {
     return new ToStringer(DatabaseCatalog.class)
         .add("createDatabaseIfNotExists", createDatabaseIfNotExists)
+        .add("databaseBranchId", databaseBranchId)
         .add("databaseInstanceName", databaseInstanceName)
         .add("databaseName", databaseName)
+        .add("databaseProjectId", databaseProjectId)
         .add("name", name)
         .add("uid", uid)
         .toString();

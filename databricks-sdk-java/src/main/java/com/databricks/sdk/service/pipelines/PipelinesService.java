@@ -25,6 +25,12 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface PipelinesService {
   /**
+   * * Applies the current pipeline environment onto the pipeline compute. The environment applied
+   * can be used by subsequent dev-mode updates.
+   */
+  ApplyEnvironmentRequestResponse applyEnvironment(ApplyEnvironmentRequest applyEnvironmentRequest);
+
+  /**
    * Creates a new data processing pipeline based on the requested configuration. If successful,
    * this method returns the ID of the new pipeline.
    */
@@ -60,6 +66,12 @@ public interface PipelinesService {
 
   /** List updates for an active pipeline. */
   ListUpdatesResponse listUpdates(ListUpdatesRequest listUpdatesRequest);
+
+  /**
+   * * Restores a pipeline that was previously deleted, if within the restoration window. All tables
+   * deleted at pipeline deletion will be undropped as well.
+   */
+  RestorePipelineRequestResponse restorePipeline(RestorePipelineRequest restorePipelineRequest);
 
   /**
    * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct

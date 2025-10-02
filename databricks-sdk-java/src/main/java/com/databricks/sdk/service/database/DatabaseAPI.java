@@ -150,6 +150,11 @@ public class DatabaseAPI {
     impl.deleteSyncedDatabaseTable(request);
   }
 
+  /** Failover the primary node of a Database Instance to a secondary. */
+  public DatabaseInstance failoverDatabaseInstance(FailoverDatabaseInstanceRequest request) {
+    return impl.failoverDatabaseInstance(request);
+  }
+
   /** Find a Database Instance by uid. */
   public DatabaseInstance findDatabaseInstanceByUid(FindDatabaseInstanceByUidRequest request) {
     return impl.findDatabaseInstanceByUid(request);
@@ -295,6 +300,12 @@ public class DatabaseAPI {
   /** Update a Database Instance. */
   public DatabaseInstance updateDatabaseInstance(UpdateDatabaseInstanceRequest request) {
     return impl.updateDatabaseInstance(request);
+  }
+
+  /** Update a role for a Database Instance. */
+  public DatabaseInstanceRole updateDatabaseInstanceRole(
+      UpdateDatabaseInstanceRoleRequest request) {
+    return impl.updateDatabaseInstanceRole(request);
   }
 
   /** This API is currently unimplemented, but exposed for Terraform support. */

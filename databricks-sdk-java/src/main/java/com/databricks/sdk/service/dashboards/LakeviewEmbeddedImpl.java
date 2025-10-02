@@ -17,6 +17,21 @@ class LakeviewEmbeddedImpl implements LakeviewEmbeddedService {
   }
 
   @Override
+  public void getPublishedDashboardEmbedded(GetPublishedDashboardEmbeddedRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/lakeview/dashboards/%s/published/embedded", request.getDashboardId());
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      apiClient.execute(req, Void.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public GetPublishedDashboardTokenInfoResponse getPublishedDashboardTokenInfo(
       GetPublishedDashboardTokenInfoRequest request) {
     String path =
