@@ -15,7 +15,7 @@ public class ExecuteStatementRequest {
    * data representations and might not match the final size in the requested `format`. If the
    * result was truncated due to the byte limit, then `truncated` in the response is set to `true`.
    * When using `EXTERNAL_LINKS` disposition, a default `byte_limit` of 100 GiB is applied if
-   * `byte_limit` is not explcitly set.
+   * `byte_limit` is not explicitly set.
    */
   @JsonProperty("byte_limit")
   private Long byteLimit;
@@ -29,7 +29,29 @@ public class ExecuteStatementRequest {
   @JsonProperty("catalog")
   private String catalog;
 
-  /** */
+  /**
+   * The fetch disposition provides two modes of fetching results: `INLINE` and `EXTERNAL_LINKS`.
+   *
+   * <p>Statements executed with `INLINE` disposition will return result data inline, in
+   * `JSON_ARRAY` format, in a series of chunks. If a given statement produces a result set with a
+   * size larger than 25 MiB, that statement execution is aborted, and no result set will be
+   * available.
+   *
+   * <p>**NOTE** Byte limits are computed based upon internal representations of the result set
+   * data, and might not match the sizes visible in JSON responses.
+   *
+   * <p>Statements executed with `EXTERNAL_LINKS` disposition will return result data as external
+   * links: URLs that point to cloud storage internal to the workspace. Using `EXTERNAL_LINKS`
+   * disposition allows statements to generate arbitrarily sized result sets for fetching up to 100
+   * GiB. The resulting links have two important properties:
+   *
+   * <p>1. They point to resources _external_ to the Databricks compute; therefore any associated
+   * authentication information (typically a personal access token, OAuth token, or similar) _must
+   * be removed_ when fetching from these links.
+   *
+   * <p>2. These are URLs with a specific expiration, indicated in the response. The behavior when
+   * attempting to use an expired link is cloud specific.
+   */
   @JsonProperty("disposition")
   private Disposition disposition;
 
@@ -93,13 +115,13 @@ public class ExecuteStatementRequest {
    *
    * <p>For example, the following statement contains two parameters, `my_name` and `my_date`:
    *
-   * <p>SELECT * FROM my_table WHERE name = :my_name AND date = :my_date
+   * <p>``` SELECT * FROM my_table WHERE name = :my_name AND date = :my_date ```
    *
    * <p>The parameters can be passed in the request body as follows:
    *
-   * <p>{ ..., "statement": "SELECT * FROM my_table WHERE name = :my_name AND date = :my_date",
+   * <p>` { ..., "statement": "SELECT * FROM my_table WHERE name = :my_name AND date = :my_date",
    * "parameters": [ { "name": "my_name", "value": "the name" }, { "name": "my_date", "value":
-   * "2020-01-01", "type": "DATE" } ] }
+   * "2020-01-01", "type": "DATE" } ] } `
    *
    * <p>Currently, positional parameters denoted by a `?` marker are not supported by the Databricks
    * SQL Statement Execution API.

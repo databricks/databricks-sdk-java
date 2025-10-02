@@ -32,7 +32,7 @@ class WorkspacesImpl implements WorkspacesService {
   }
 
   @Override
-  public void delete(DeleteWorkspaceRequest request) {
+  public Workspace delete(DeleteWorkspaceRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s",
@@ -41,7 +41,7 @@ class WorkspacesImpl implements WorkspacesService {
       Request req = new Request("DELETE", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
-      apiClient.execute(req, Void.class);
+      return apiClient.execute(req, Workspace.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -72,17 +72,18 @@ class WorkspacesImpl implements WorkspacesService {
   }
 
   @Override
-  public void update(UpdateWorkspaceRequest request) {
+  public Workspace update(UpdateWorkspaceRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s",
             apiClient.configuredAccountID(), request.getWorkspaceId());
     try {
-      Request req = new Request("PATCH", path, apiClient.serialize(request));
+      Request req =
+          new Request("PATCH", path, apiClient.serialize(request.getCustomerFacingWorkspace()));
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
-      apiClient.execute(req, Void.class);
+      return apiClient.execute(req, Workspace.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

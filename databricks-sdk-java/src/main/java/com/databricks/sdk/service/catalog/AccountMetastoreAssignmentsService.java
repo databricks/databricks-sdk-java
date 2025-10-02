@@ -13,14 +13,16 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface AccountMetastoreAssignmentsService {
   /** Creates an assignment to a metastore for a workspace */
-  void create(AccountsCreateMetastoreAssignment accountsCreateMetastoreAssignment);
+  AccountsCreateMetastoreAssignmentResponse create(
+      AccountsCreateMetastoreAssignment accountsCreateMetastoreAssignment);
 
   /** Deletes a metastore assignment to a workspace, leaving the workspace with no metastore. */
-  void delete(DeleteAccountMetastoreAssignmentRequest deleteAccountMetastoreAssignmentRequest);
+  AccountsDeleteMetastoreAssignmentResponse delete(
+      DeleteAccountMetastoreAssignmentRequest deleteAccountMetastoreAssignmentRequest);
 
   /**
    * Gets the metastore assignment, if any, for the workspace specified by ID. If the workspace is
-   * assigned a metastore, the mappig will be returned. If no metastore is assigned to the
+   * assigned a metastore, the mapping will be returned. If no metastore is assigned to the
    * workspace, the assignment will not be found and a 404 returned.
    */
   AccountsMetastoreAssignment get(
@@ -34,5 +36,6 @@ public interface AccountMetastoreAssignmentsService {
    * Updates an assignment to a metastore for a workspace. Currently, only the default catalog may
    * be updated.
    */
-  void update(AccountsUpdateMetastoreAssignment accountsUpdateMetastoreAssignment);
+  AccountsUpdateMetastoreAssignmentResponse update(
+      AccountsUpdateMetastoreAssignment accountsUpdateMetastoreAssignment);
 }

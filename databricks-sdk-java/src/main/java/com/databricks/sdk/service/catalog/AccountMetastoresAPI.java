@@ -28,36 +28,39 @@ public class AccountMetastoresAPI {
   }
 
   /** Creates a Unity Catalog metastore. */
-  public AccountsMetastoreInfo create(AccountsCreateMetastore request) {
+  public AccountsCreateMetastoreResponse create(AccountsCreateMetastore request) {
     return impl.create(request);
   }
 
-  public void delete(String metastoreId) {
-    delete(new DeleteAccountMetastoreRequest().setMetastoreId(metastoreId));
+  public AccountsDeleteMetastoreResponse delete(String metastoreId) {
+    return delete(new DeleteAccountMetastoreRequest().setMetastoreId(metastoreId));
   }
 
   /** Deletes a Unity Catalog metastore for an account, both specified by ID. */
-  public void delete(DeleteAccountMetastoreRequest request) {
-    impl.delete(request);
+  public AccountsDeleteMetastoreResponse delete(DeleteAccountMetastoreRequest request) {
+    return impl.delete(request);
   }
 
-  public AccountsMetastoreInfo get(String metastoreId) {
+  public AccountsGetMetastoreResponse get(String metastoreId) {
     return get(new GetAccountMetastoreRequest().setMetastoreId(metastoreId));
   }
 
   /** Gets a Unity Catalog metastore from an account, both specified by ID. */
-  public AccountsMetastoreInfo get(GetAccountMetastoreRequest request) {
+  public AccountsGetMetastoreResponse get(GetAccountMetastoreRequest request) {
     return impl.get(request);
   }
 
   /** Gets all Unity Catalog metastores associated with an account specified by ID. */
   public Iterable<MetastoreInfo> list() {
     return new Paginator<>(
-        null, (Void v) -> impl.list(), ListMetastoresResponse::getMetastores, response -> null);
+        null,
+        (Void v) -> impl.list(),
+        AccountsListMetastoresResponse::getMetastores,
+        response -> null);
   }
 
   /** Updates an existing Unity Catalog metastore. */
-  public AccountsMetastoreInfo update(AccountsUpdateMetastore request) {
+  public AccountsUpdateMetastoreResponse update(AccountsUpdateMetastore request) {
     return impl.update(request);
   }
 

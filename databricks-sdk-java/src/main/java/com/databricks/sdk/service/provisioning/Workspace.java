@@ -14,7 +14,7 @@ public class Workspace {
   @JsonProperty("account_id")
   private String accountId;
 
-  /** The AWS region of the workspace data plane (for example, `us-west-2`). */
+  /** */
   @JsonProperty("aws_region")
   private String awsRegion;
 
@@ -29,6 +29,10 @@ public class Workspace {
   /** */
   @JsonProperty("cloud_resource_container")
   private CloudResourceContainer cloudResourceContainer;
+
+  /** The compute mode of the workspace. */
+  @JsonProperty("compute_mode")
+  private CustomerFacingComputeMode computeMode;
 
   /** Time in epoch milliseconds when the workspace was created. */
   @JsonProperty("creation_time")
@@ -46,21 +50,9 @@ public class Workspace {
   @JsonProperty("custom_tags")
   private Map<String, String> customTags;
 
-  /**
-   * The deployment name defines part of the subdomain for the workspace. The workspace URL for web
-   * application and REST APIs is `<deployment-name>.cloud.databricks.com`.
-   *
-   * <p>This value must be unique across all non-deleted deployments across all AWS regions.
-   */
+  /** */
   @JsonProperty("deployment_name")
   private String deploymentName;
-
-  /**
-   * If this workspace is for a external customer, then external_customer_info is populated. If this
-   * workspace is not for a external customer, then external_customer_info is empty.
-   */
-  @JsonProperty("external_customer_info")
-  private ExternalCustomerInfo externalCustomerInfo;
 
   /** */
   @JsonProperty("gcp_managed_network_config")
@@ -69,10 +61,6 @@ public class Workspace {
   /** */
   @JsonProperty("gke_config")
   private GkeConfig gkeConfig;
-
-  /** Whether no public IP is enabled for the workspace. */
-  @JsonProperty("is_no_public_ip_enabled")
-  private Boolean isNoPublicIpEnabled;
 
   /**
    * The Google Cloud region of the workspace data plane in your Google account (for example,
@@ -86,8 +74,20 @@ public class Workspace {
   private String managedServicesCustomerManagedKeyId;
 
   /**
-   * The network configuration ID that is attached to the workspace. This field is available only if
-   * the network is a customer-managed network.
+   * The network configuration for the workspace.
+   *
+   * <p>DEPRECATED. Use `network_id` instead.
+   */
+  @JsonProperty("network")
+  private WorkspaceNetwork network;
+
+  /** The object ID of network connectivity config. */
+  @JsonProperty("network_connectivity_config_id")
+  private String networkConnectivityConfigId;
+
+  /**
+   * If this workspace is BYO VPC, then the network_id will be populated. If this workspace is not
+   * BYO VPC, then the network_id will be empty.
    */
   @JsonProperty("network_id")
   private String networkId;
@@ -118,6 +118,10 @@ public class Workspace {
   @JsonProperty("storage_customer_managed_key_id")
   private String storageCustomerManagedKeyId;
 
+  /** The storage mode of the workspace. */
+  @JsonProperty("storage_mode")
+  private CustomerFacingStorageMode storageMode;
+
   /** A unique integer ID for the workspace */
   @JsonProperty("workspace_id")
   private Long workspaceId;
@@ -126,7 +130,7 @@ public class Workspace {
   @JsonProperty("workspace_name")
   private String workspaceName;
 
-  /** */
+  /** The status of a workspace */
   @JsonProperty("workspace_status")
   private WorkspaceStatus workspaceStatus;
 
@@ -179,6 +183,15 @@ public class Workspace {
     return cloudResourceContainer;
   }
 
+  public Workspace setComputeMode(CustomerFacingComputeMode computeMode) {
+    this.computeMode = computeMode;
+    return this;
+  }
+
+  public CustomerFacingComputeMode getComputeMode() {
+    return computeMode;
+  }
+
   public Workspace setCreationTime(Long creationTime) {
     this.creationTime = creationTime;
     return this;
@@ -215,15 +228,6 @@ public class Workspace {
     return deploymentName;
   }
 
-  public Workspace setExternalCustomerInfo(ExternalCustomerInfo externalCustomerInfo) {
-    this.externalCustomerInfo = externalCustomerInfo;
-    return this;
-  }
-
-  public ExternalCustomerInfo getExternalCustomerInfo() {
-    return externalCustomerInfo;
-  }
-
   public Workspace setGcpManagedNetworkConfig(GcpManagedNetworkConfig gcpManagedNetworkConfig) {
     this.gcpManagedNetworkConfig = gcpManagedNetworkConfig;
     return this;
@@ -240,15 +244,6 @@ public class Workspace {
 
   public GkeConfig getGkeConfig() {
     return gkeConfig;
-  }
-
-  public Workspace setIsNoPublicIpEnabled(Boolean isNoPublicIpEnabled) {
-    this.isNoPublicIpEnabled = isNoPublicIpEnabled;
-    return this;
-  }
-
-  public Boolean getIsNoPublicIpEnabled() {
-    return isNoPublicIpEnabled;
   }
 
   public Workspace setLocation(String location) {
@@ -268,6 +263,24 @@ public class Workspace {
 
   public String getManagedServicesCustomerManagedKeyId() {
     return managedServicesCustomerManagedKeyId;
+  }
+
+  public Workspace setNetwork(WorkspaceNetwork network) {
+    this.network = network;
+    return this;
+  }
+
+  public WorkspaceNetwork getNetwork() {
+    return network;
+  }
+
+  public Workspace setNetworkConnectivityConfigId(String networkConnectivityConfigId) {
+    this.networkConnectivityConfigId = networkConnectivityConfigId;
+    return this;
+  }
+
+  public String getNetworkConnectivityConfigId() {
+    return networkConnectivityConfigId;
   }
 
   public Workspace setNetworkId(String networkId) {
@@ -313,6 +326,15 @@ public class Workspace {
 
   public String getStorageCustomerManagedKeyId() {
     return storageCustomerManagedKeyId;
+  }
+
+  public Workspace setStorageMode(CustomerFacingStorageMode storageMode) {
+    this.storageMode = storageMode;
+    return this;
+  }
+
+  public CustomerFacingStorageMode getStorageMode() {
+    return storageMode;
   }
 
   public Workspace setWorkspaceId(Long workspaceId) {
@@ -361,22 +383,24 @@ public class Workspace {
         && Objects.equals(azureWorkspaceInfo, that.azureWorkspaceInfo)
         && Objects.equals(cloud, that.cloud)
         && Objects.equals(cloudResourceContainer, that.cloudResourceContainer)
+        && Objects.equals(computeMode, that.computeMode)
         && Objects.equals(creationTime, that.creationTime)
         && Objects.equals(credentialsId, that.credentialsId)
         && Objects.equals(customTags, that.customTags)
         && Objects.equals(deploymentName, that.deploymentName)
-        && Objects.equals(externalCustomerInfo, that.externalCustomerInfo)
         && Objects.equals(gcpManagedNetworkConfig, that.gcpManagedNetworkConfig)
         && Objects.equals(gkeConfig, that.gkeConfig)
-        && Objects.equals(isNoPublicIpEnabled, that.isNoPublicIpEnabled)
         && Objects.equals(location, that.location)
         && Objects.equals(
             managedServicesCustomerManagedKeyId, that.managedServicesCustomerManagedKeyId)
+        && Objects.equals(network, that.network)
+        && Objects.equals(networkConnectivityConfigId, that.networkConnectivityConfigId)
         && Objects.equals(networkId, that.networkId)
         && Objects.equals(pricingTier, that.pricingTier)
         && Objects.equals(privateAccessSettingsId, that.privateAccessSettingsId)
         && Objects.equals(storageConfigurationId, that.storageConfigurationId)
         && Objects.equals(storageCustomerManagedKeyId, that.storageCustomerManagedKeyId)
+        && Objects.equals(storageMode, that.storageMode)
         && Objects.equals(workspaceId, that.workspaceId)
         && Objects.equals(workspaceName, that.workspaceName)
         && Objects.equals(workspaceStatus, that.workspaceStatus)
@@ -391,21 +415,23 @@ public class Workspace {
         azureWorkspaceInfo,
         cloud,
         cloudResourceContainer,
+        computeMode,
         creationTime,
         credentialsId,
         customTags,
         deploymentName,
-        externalCustomerInfo,
         gcpManagedNetworkConfig,
         gkeConfig,
-        isNoPublicIpEnabled,
         location,
         managedServicesCustomerManagedKeyId,
+        network,
+        networkConnectivityConfigId,
         networkId,
         pricingTier,
         privateAccessSettingsId,
         storageConfigurationId,
         storageCustomerManagedKeyId,
+        storageMode,
         workspaceId,
         workspaceName,
         workspaceStatus,
@@ -420,21 +446,23 @@ public class Workspace {
         .add("azureWorkspaceInfo", azureWorkspaceInfo)
         .add("cloud", cloud)
         .add("cloudResourceContainer", cloudResourceContainer)
+        .add("computeMode", computeMode)
         .add("creationTime", creationTime)
         .add("credentialsId", credentialsId)
         .add("customTags", customTags)
         .add("deploymentName", deploymentName)
-        .add("externalCustomerInfo", externalCustomerInfo)
         .add("gcpManagedNetworkConfig", gcpManagedNetworkConfig)
         .add("gkeConfig", gkeConfig)
-        .add("isNoPublicIpEnabled", isNoPublicIpEnabled)
         .add("location", location)
         .add("managedServicesCustomerManagedKeyId", managedServicesCustomerManagedKeyId)
+        .add("network", network)
+        .add("networkConnectivityConfigId", networkConnectivityConfigId)
         .add("networkId", networkId)
         .add("pricingTier", pricingTier)
         .add("privateAccessSettingsId", privateAccessSettingsId)
         .add("storageConfigurationId", storageConfigurationId)
         .add("storageCustomerManagedKeyId", storageCustomerManagedKeyId)
+        .add("storageMode", storageMode)
         .add("workspaceId", workspaceId)
         .add("workspaceName", workspaceName)
         .add("workspaceStatus", workspaceStatus)
