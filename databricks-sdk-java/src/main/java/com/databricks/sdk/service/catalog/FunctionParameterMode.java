@@ -4,7 +4,6 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** The mode of the function parameter. */
 @Generated
 public enum FunctionParameterMode {
   IN,

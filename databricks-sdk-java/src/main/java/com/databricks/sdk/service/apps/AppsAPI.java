@@ -81,6 +81,55 @@ public class AppsAPI {
     throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
   }
 
+  public AppUpdate waitGetUpdateAppSucceeded(String appName) throws TimeoutException {
+    return waitGetUpdateAppSucceeded(appName, Duration.ofMinutes(20), null);
+  }
+
+  public AppUpdate waitGetUpdateAppSucceeded(
+      String appName, Duration timeout, Consumer<AppUpdate> callback) throws TimeoutException {
+    long deadline = System.currentTimeMillis() + timeout.toMillis();
+    java.util.List<AppUpdateUpdateStatusUpdateState> targetStates =
+        Arrays.asList(AppUpdateUpdateStatusUpdateState.SUCCEEDED);
+    java.util.List<AppUpdateUpdateStatusUpdateState> failureStates =
+        Arrays.asList(AppUpdateUpdateStatusUpdateState.FAILED);
+    String statusMessage = "polling...";
+    int attempt = 1;
+    while (System.currentTimeMillis() < deadline) {
+      AppUpdate poll = getUpdate(new GetAppUpdateRequest().setAppName(appName));
+      AppUpdateUpdateStatusUpdateState status = poll.getStatus().getState();
+      statusMessage = String.format("current status: %s", status);
+      if (poll.getStatus() != null) {
+        statusMessage = poll.getStatus().getMessage();
+      }
+      if (targetStates.contains(status)) {
+        return poll;
+      }
+      if (callback != null) {
+        callback.accept(poll);
+      }
+      if (failureStates.contains(status)) {
+        String msg = String.format("failed to reach SUCCEEDED, got %s: %s", status, statusMessage);
+        throw new IllegalStateException(msg);
+      }
+
+      String prefix = String.format("appName=%s", appName);
+      int sleep = attempt;
+      if (sleep > 10) {
+        // sleep 10s max per attempt
+        sleep = 10;
+      }
+      LOG.info("{}: ({}) {} (sleeping ~{}s)", prefix, status, statusMessage, sleep);
+      try {
+        Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+        throw new DatabricksException("Current thread was interrupted", e);
+      }
+      attempt++;
+    }
+    throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
+  }
+
   public AppDeployment waitGetDeploymentAppSucceeded(String appName, String deploymentId)
       throws TimeoutException {
     return waitGetDeploymentAppSucceeded(appName, deploymentId, Duration.ofMinutes(20), null);
@@ -186,6 +235,17 @@ public class AppsAPI {
         (timeout, callback) -> waitGetAppActive(response.getName(), timeout, callback), response);
   }
 
+  /**
+   * Creates an app update and starts the update process. The update process is asynchronous and the
+   * status of the update can be checked with the GetAppUpdate method.
+   */
+  public Wait<AppUpdate, AppUpdate> createUpdate(AsyncUpdateAppRequest request) {
+    AppUpdate response = impl.createUpdate(request);
+    return new Wait<>(
+        (timeout, callback) -> waitGetUpdateAppSucceeded(request.getAppName(), timeout, callback),
+        response);
+  }
+
   public App delete(String name) {
     return delete(new DeleteAppRequest().setName(name));
   }
@@ -240,6 +300,15 @@ public class AppsAPI {
   /** Gets the permissions of an app. Apps can inherit permissions from their root object. */
   public AppPermissions getPermissions(GetAppPermissionsRequest request) {
     return impl.getPermissions(request);
+  }
+
+  public AppUpdate getUpdate(String appName) {
+    return getUpdate(new GetAppUpdateRequest().setAppName(appName));
+  }
+
+  /** Gets the status of an app update. */
+  public AppUpdate getUpdate(GetAppUpdateRequest request) {
+    return impl.getUpdate(request);
   }
 
   /** Lists all apps in the workspace. */

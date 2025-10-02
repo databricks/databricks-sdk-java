@@ -17,7 +17,8 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
   }
 
   @Override
-  public void create(AccountsCreateMetastoreAssignment request) {
+  public AccountsCreateMetastoreAssignmentResponse create(
+      AccountsCreateMetastoreAssignment request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s/metastores/%s",
@@ -27,14 +28,15 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
-      apiClient.execute(req, Void.class);
+      return apiClient.execute(req, AccountsCreateMetastoreAssignmentResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
   }
 
   @Override
-  public void delete(DeleteAccountMetastoreAssignmentRequest request) {
+  public AccountsDeleteMetastoreAssignmentResponse delete(
+      DeleteAccountMetastoreAssignmentRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s/metastores/%s",
@@ -43,7 +45,7 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
       Request req = new Request("DELETE", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
-      apiClient.execute(req, Void.class);
+      return apiClient.execute(req, AccountsDeleteMetastoreAssignmentResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -83,7 +85,8 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
   }
 
   @Override
-  public void update(AccountsUpdateMetastoreAssignment request) {
+  public AccountsUpdateMetastoreAssignmentResponse update(
+      AccountsUpdateMetastoreAssignment request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s/metastores/%s",
@@ -93,7 +96,7 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
-      apiClient.execute(req, Void.class);
+      return apiClient.execute(req, AccountsUpdateMetastoreAssignmentResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

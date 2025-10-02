@@ -38,11 +38,11 @@ public interface CredentialsService {
    * Deletes a Databricks credential configuration object for an account, both specified by ID. You
    * cannot delete a credential that is associated with any workspace.
    */
-  void delete(DeleteCredentialRequest deleteCredentialRequest);
+  Credential delete(DeleteCredentialRequest deleteCredentialRequest);
 
   /** Gets a Databricks credential configuration object for an account, both specified by ID. */
   Credential get(GetCredentialRequest getCredentialRequest);
 
-  /** Gets all Databricks credential configurations associated with an account specified by ID. */
+  /** List Databricks credential configuration objects for an account, specified by ID. */
   Collection<Credential> list();
 }

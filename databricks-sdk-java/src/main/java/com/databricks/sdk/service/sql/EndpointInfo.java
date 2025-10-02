@@ -70,7 +70,7 @@ public class EndpointInfo {
   /**
    * Maximum number of clusters that the autoscaler will create to handle concurrent queries.
    *
-   * <p>Supported values: - Must be >= min_num_clusters - Must be <= 30.
+   * <p>Supported values: - Must be >= min_num_clusters - Must be <= 40.
    *
    * <p>Defaults to min_clusters if unset.
    */
@@ -110,11 +110,11 @@ public class EndpointInfo {
   @JsonProperty("odbc_params")
   private OdbcParams odbcParams;
 
-  /** */
+  /** Configurations whether the endpoint should use spot instances. */
   @JsonProperty("spot_instance_policy")
   private SpotInstancePolicy spotInstancePolicy;
 
-  /** */
+  /** state of the endpoint */
   @JsonProperty("state")
   private State state;
 

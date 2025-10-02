@@ -33,7 +33,7 @@ class CredentialsImpl implements CredentialsService {
   }
 
   @Override
-  public void delete(DeleteCredentialRequest request) {
+  public Credential delete(DeleteCredentialRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/credentials/%s",
@@ -42,7 +42,7 @@ class CredentialsImpl implements CredentialsService {
       Request req = new Request("DELETE", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
-      apiClient.execute(req, Void.class);
+      return apiClient.execute(req, Credential.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

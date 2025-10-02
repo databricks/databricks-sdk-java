@@ -25,20 +25,20 @@ public class AccountStorageCredentialsAPI {
   }
 
   /**
-   * Creates a new storage credential. The request object is specific to the cloud:
+   * Creates a new storage credential. The request object is specific to the cloud: - **AwsIamRole**
+   * for AWS credentials - **AzureServicePrincipal** for Azure credentials -
+   * **GcpServiceAccountKey** for GCP credentials
    *
-   * <p>* **AwsIamRole** for AWS credentials * **AzureServicePrincipal** for Azure credentials *
-   * **GcpServiceAcountKey** for GCP credentials.
-   *
-   * <p>The caller must be a metastore admin and have the **CREATE_STORAGE_CREDENTIAL** privilege on
+   * <p>The caller must be a metastore admin and have the `CREATE_STORAGE_CREDENTIAL` privilege on
    * the metastore.
    */
-  public AccountsStorageCredentialInfo create(AccountsCreateStorageCredential request) {
+  public AccountsCreateStorageCredentialInfo create(AccountsCreateStorageCredential request) {
     return impl.create(request);
   }
 
-  public void delete(String metastoreId, String storageCredentialName) {
-    delete(
+  public AccountsDeleteStorageCredentialResponse delete(
+      String metastoreId, String storageCredentialName) {
+    return delete(
         new DeleteAccountStorageCredentialRequest()
             .setMetastoreId(metastoreId)
             .setStorageCredentialName(storageCredentialName));
@@ -48,8 +48,9 @@ public class AccountStorageCredentialsAPI {
    * Deletes a storage credential from the metastore. The caller must be an owner of the storage
    * credential.
    */
-  public void delete(DeleteAccountStorageCredentialRequest request) {
-    impl.delete(request);
+  public AccountsDeleteStorageCredentialResponse delete(
+      DeleteAccountStorageCredentialRequest request) {
+    return impl.delete(request);
   }
 
   public AccountsStorageCredentialInfo get(String metastoreId, String storageCredentialName) {
@@ -82,9 +83,9 @@ public class AccountStorageCredentialsAPI {
 
   /**
    * Updates a storage credential on the metastore. The caller must be the owner of the storage
-   * credential. If the caller is a metastore admin, only the __owner__ credential can be changed.
+   * credential. If the caller is a metastore admin, only the **owner** credential can be changed.
    */
-  public AccountsStorageCredentialInfo update(AccountsUpdateStorageCredential request) {
+  public AccountsUpdateStorageCredentialResponse update(AccountsUpdateStorageCredential request) {
     return impl.update(request);
   }
 

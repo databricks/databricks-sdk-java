@@ -8,17 +8,32 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/** * */
 @Generated
 public class PrivateAccessSettings {
-  /** The Databricks account ID that hosts the credential. */
+  /** The Databricks account ID that hosts the private access settings. */
   @JsonProperty("account_id")
   private String accountId;
 
-  /** An array of Databricks VPC endpoint IDs. */
+  /**
+   * An array of Databricks VPC endpoint IDs. This is the Databricks ID that is returned when
+   * registering the VPC endpoint configuration in your Databricks account. This is not the ID of
+   * the VPC endpoint in AWS. Only used when private_access_level is set to ENDPOINT. This is an
+   * allow list of VPC endpoints that in your account that can connect to your workspace over AWS
+   * PrivateLink. If hybrid access to your workspace is enabled by setting public_access_enabled to
+   * true, this control only works for PrivateLink connections. To control how your workspace is
+   * accessed via public internet, see IP access lists.
+   */
   @JsonProperty("allowed_vpc_endpoint_ids")
   private Collection<String> allowedVpcEndpointIds;
 
-  /** */
+  /**
+   * The private access level controls which VPC endpoints can connect to the UI or API of any
+   * workspace that attaches this private access settings object. `ACCOUNT` level access (the
+   * default) allows only VPC endpoints that are registered in your Databricks account connect to
+   * your workspace. `ENDPOINT` level access allows only specified VPC endpoints connect to your
+   * workspace. For details, see allowed_vpc_endpoint_ids.
+   */
   @JsonProperty("private_access_level")
   private PrivateAccessLevel privateAccessLevel;
 
@@ -32,14 +47,13 @@ public class PrivateAccessSettings {
 
   /**
    * Determines if the workspace can be accessed over public internet. For fully private workspaces,
-   * you can optionally specify `false`, but only if you implement both the front-end and the
-   * back-end PrivateLink connections. Otherwise, specify `true`, which means that public access is
-   * enabled.
+   * you can optionally specify false, but only if you implement both the front-end and the back-end
+   * PrivateLink connections. Otherwise, specify true, which means that public access is enabled.
    */
   @JsonProperty("public_access_enabled")
   private Boolean publicAccessEnabled;
 
-  /** The cloud region for workspaces attached to this private access settings object. */
+  /** The AWS region for workspaces attached to this private access settings object. */
   @JsonProperty("region")
   private String region;
 

@@ -4,7 +4,6 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 
-/** Warehouse type: `PRO` or `CLASSIC`. */
 @Generated
 public enum WarehouseTypePairWarehouseType {
   CLASSIC,

@@ -7,26 +7,16 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** The configurations for the GKE cluster of a Databricks workspace. */
+/** The configurations of the GKE cluster used by the GCP workspace. */
 @Generated
 public class GkeConfig {
-  /**
-   * Specifies the network connectivity types for the GKE nodes and the GKE master network.
-   *
-   * <p>Set to `PRIVATE_NODE_PUBLIC_MASTER` for a private GKE cluster for the workspace. The GKE
-   * nodes will not have public IPs.
-   *
-   * <p>Set to `PUBLIC_NODE_PUBLIC_MASTER` for a public GKE cluster. The nodes of a public GKE
-   * cluster have public IP addresses.
-   */
+  /** The type of network connectivity of the GKE cluster. */
   @JsonProperty("connectivity_type")
   private GkeConfigConnectivityType connectivityType;
 
   /**
-   * The IP range from which to allocate GKE cluster master resources. This field will be ignored if
-   * GKE private cluster is not enabled.
-   *
-   * <p>It must be exactly as big as `/28`.
+   * The IP range that will be used to allocate GKE cluster master resources from. This field must
+   * not be set if gke_cluster_type=PUBLIC_NODE_PUBLIC_MASTER.
    */
   @JsonProperty("master_ip_range")
   private String masterIpRange;

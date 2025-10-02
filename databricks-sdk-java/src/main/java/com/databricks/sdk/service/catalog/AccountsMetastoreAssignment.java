@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** The workspace metastore assignment was successfully returned. */
 @Generated
 public class AccountsMetastoreAssignment {
   /** */

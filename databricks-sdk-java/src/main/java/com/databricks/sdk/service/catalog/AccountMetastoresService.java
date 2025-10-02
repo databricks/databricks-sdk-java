@@ -14,17 +14,18 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface AccountMetastoresService {
   /** Creates a Unity Catalog metastore. */
-  AccountsMetastoreInfo create(AccountsCreateMetastore accountsCreateMetastore);
+  AccountsCreateMetastoreResponse create(AccountsCreateMetastore accountsCreateMetastore);
 
   /** Deletes a Unity Catalog metastore for an account, both specified by ID. */
-  void delete(DeleteAccountMetastoreRequest deleteAccountMetastoreRequest);
+  AccountsDeleteMetastoreResponse delete(
+      DeleteAccountMetastoreRequest deleteAccountMetastoreRequest);
 
   /** Gets a Unity Catalog metastore from an account, both specified by ID. */
-  AccountsMetastoreInfo get(GetAccountMetastoreRequest getAccountMetastoreRequest);
+  AccountsGetMetastoreResponse get(GetAccountMetastoreRequest getAccountMetastoreRequest);
 
   /** Gets all Unity Catalog metastores associated with an account specified by ID. */
-  ListMetastoresResponse list();
+  AccountsListMetastoresResponse list();
 
   /** Updates an existing Unity Catalog metastore. */
-  AccountsMetastoreInfo update(AccountsUpdateMetastore accountsUpdateMetastore);
+  AccountsUpdateMetastoreResponse update(AccountsUpdateMetastore accountsUpdateMetastore);
 }

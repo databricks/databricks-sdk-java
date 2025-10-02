@@ -12,7 +12,7 @@ public class GetAccountStorageCredentialRequest {
   /** Unity Catalog metastore ID */
   @JsonIgnore private String metastoreId;
 
-  /** Name of the storage credential. */
+  /** Required. Name of the storage credential. */
   @JsonIgnore private String storageCredentialName;
 
   public GetAccountStorageCredentialRequest setMetastoreId(String metastoreId) {

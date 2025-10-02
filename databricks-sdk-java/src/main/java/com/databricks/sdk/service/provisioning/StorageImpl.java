@@ -34,7 +34,7 @@ class StorageImpl implements StorageService {
   }
 
   @Override
-  public void delete(DeleteStorageRequest request) {
+  public StorageConfiguration delete(DeleteStorageRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/storage-configurations/%s",
@@ -43,7 +43,7 @@ class StorageImpl implements StorageService {
       Request req = new Request("DELETE", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
-      apiClient.execute(req, Void.class);
+      return apiClient.execute(req, StorageConfiguration.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
