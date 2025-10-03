@@ -53,6 +53,14 @@ public class Job {
   private String nextPageToken;
 
   /**
+   * Path of the job object in workspace file tree, including file extension. If absent, the job
+   * doesn't have a workspace object. Example:
+   * /Workspace/user@example.com/my_project/my_job.job.json
+   */
+  @JsonProperty("path")
+  private String path;
+
+  /**
    * The email of an active workspace user or the application ID of a service principal that the job
    * runs as. This value can be changed by setting the `run_as` field when creating or updating a
    * job.
@@ -138,6 +146,15 @@ public class Job {
     return nextPageToken;
   }
 
+  public Job setPath(String path) {
+    this.path = path;
+    return this;
+  }
+
+  public String getPath() {
+    return path;
+  }
+
   public Job setRunAsUserName(String runAsUserName) {
     this.runAsUserName = runAsUserName;
     return this;
@@ -177,6 +194,7 @@ public class Job {
         && Objects.equals(hasMore, that.hasMore)
         && Objects.equals(jobId, that.jobId)
         && Objects.equals(nextPageToken, that.nextPageToken)
+        && Objects.equals(path, that.path)
         && Objects.equals(runAsUserName, that.runAsUserName)
         && Objects.equals(settings, that.settings)
         && Objects.equals(triggerState, that.triggerState);
@@ -192,6 +210,7 @@ public class Job {
         hasMore,
         jobId,
         nextPageToken,
+        path,
         runAsUserName,
         settings,
         triggerState);
@@ -207,6 +226,7 @@ public class Job {
         .add("hasMore", hasMore)
         .add("jobId", jobId)
         .add("nextPageToken", nextPageToken)
+        .add("path", path)
         .add("runAsUserName", runAsUserName)
         .add("settings", settings)
         .add("triggerState", triggerState)

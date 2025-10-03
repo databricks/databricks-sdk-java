@@ -8,6 +8,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * This is an incremental edit functionality, so all fields except id are optional. If a field is
+ * set, the corresponding configuration in the SQL warehouse is modified. If a field is unset, the
+ * existing configuration value in the SQL warehouse is retained. Thus, this API is not idempotent.
+ */
 @Generated
 public class EditWarehouseRequest {
   /**
@@ -48,7 +53,7 @@ public class EditWarehouseRequest {
   @JsonProperty("enable_photon")
   private Boolean enablePhoton;
 
-  /** Configures whether the warehouse should use serverless compute. */
+  /** Configures whether the warehouse should use serverless compute */
   @JsonProperty("enable_serverless_compute")
   private Boolean enableServerlessCompute;
 
@@ -62,7 +67,7 @@ public class EditWarehouseRequest {
   /**
    * Maximum number of clusters that the autoscaler will create to handle concurrent queries.
    *
-   * <p>Supported values: - Must be >= min_num_clusters - Must be <= 30.
+   * <p>Supported values: - Must be >= min_num_clusters - Must be <= 40.
    *
    * <p>Defaults to min_clusters if unset.
    */
@@ -90,7 +95,7 @@ public class EditWarehouseRequest {
   @JsonProperty("name")
   private String name;
 
-  /** */
+  /** Configurations whether the endpoint should use spot instances. */
   @JsonProperty("spot_instance_policy")
   private SpotInstancePolicy spotInstancePolicy;
 
@@ -103,7 +108,10 @@ public class EditWarehouseRequest {
   @JsonProperty("tags")
   private EndpointTags tags;
 
-  /** */
+  /**
+   * Warehouse type: `PRO` or `CLASSIC`. If you want to use serverless compute, you must set to
+   * `PRO` and also set the field `enable_serverless_compute` to `true`.
+   */
   @JsonProperty("warehouse_type")
   private EditWarehouseRequestWarehouseType warehouseType;
 

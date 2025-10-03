@@ -19,6 +19,14 @@ public class ListCatalogsRequest {
   private Boolean includeBrowse;
 
   /**
+   * Whether to include catalogs not bound to the workspace. Effective only if the user has
+   * permission to update the catalog–workspace binding.
+   */
+  @JsonIgnore
+  @QueryParam("include_unbound")
+  private Boolean includeUnbound;
+
+  /**
    * Maximum number of catalogs to return. - when set to 0, the page length is set to a server
    * configured value (recommended); - when set to a value greater than 0, the page length is the
    * minimum of this value and a server configured value; - when set to a value less than 0, an
@@ -45,6 +53,15 @@ public class ListCatalogsRequest {
     return includeBrowse;
   }
 
+  public ListCatalogsRequest setIncludeUnbound(Boolean includeUnbound) {
+    this.includeUnbound = includeUnbound;
+    return this;
+  }
+
+  public Boolean getIncludeUnbound() {
+    return includeUnbound;
+  }
+
   public ListCatalogsRequest setMaxResults(Long maxResults) {
     this.maxResults = maxResults;
     return this;
@@ -69,19 +86,21 @@ public class ListCatalogsRequest {
     if (o == null || getClass() != o.getClass()) return false;
     ListCatalogsRequest that = (ListCatalogsRequest) o;
     return Objects.equals(includeBrowse, that.includeBrowse)
+        && Objects.equals(includeUnbound, that.includeUnbound)
         && Objects.equals(maxResults, that.maxResults)
         && Objects.equals(pageToken, that.pageToken);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(includeBrowse, maxResults, pageToken);
+    return Objects.hash(includeBrowse, includeUnbound, maxResults, pageToken);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ListCatalogsRequest.class)
         .add("includeBrowse", includeBrowse)
+        .add("includeUnbound", includeUnbound)
         .add("maxResults", maxResults)
         .add("pageToken", pageToken)
         .toString();

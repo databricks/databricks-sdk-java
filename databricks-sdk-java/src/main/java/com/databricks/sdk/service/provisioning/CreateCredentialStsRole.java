@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateCredentialStsRole {
-  /** The Amazon Resource Name (ARN) of the cross account role. */
+  /** The Amazon Resource Name (ARN) of the cross account IAM role. */
   @JsonProperty("role_arn")
   private String roleArn;
 

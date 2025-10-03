@@ -30,7 +30,7 @@ class StatementExecutionImpl implements StatementExecutionService {
 
   @Override
   public StatementResponse executeStatement(ExecuteStatementRequest request) {
-    String path = "/api/2.0/sql/statements/";
+    String path = "/api/2.0/sql/statements";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);

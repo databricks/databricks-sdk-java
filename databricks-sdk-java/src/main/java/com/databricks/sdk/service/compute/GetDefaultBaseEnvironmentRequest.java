@@ -15,6 +15,11 @@ public class GetDefaultBaseEnvironmentRequest {
   @QueryParam("id")
   private String id;
 
+  /** */
+  @JsonIgnore
+  @QueryParam("trace_id")
+  private String traceId;
+
   public GetDefaultBaseEnvironmentRequest setId(String id) {
     this.id = id;
     return this;
@@ -24,21 +29,33 @@ public class GetDefaultBaseEnvironmentRequest {
     return id;
   }
 
+  public GetDefaultBaseEnvironmentRequest setTraceId(String traceId) {
+    this.traceId = traceId;
+    return this;
+  }
+
+  public String getTraceId() {
+    return traceId;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetDefaultBaseEnvironmentRequest that = (GetDefaultBaseEnvironmentRequest) o;
-    return Objects.equals(id, that.id);
+    return Objects.equals(id, that.id) && Objects.equals(traceId, that.traceId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id);
+    return Objects.hash(id, traceId);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(GetDefaultBaseEnvironmentRequest.class).add("id", id).toString();
+    return new ToStringer(GetDefaultBaseEnvironmentRequest.class)
+        .add("id", id)
+        .add("traceId", traceId)
+        .toString();
   }
 }

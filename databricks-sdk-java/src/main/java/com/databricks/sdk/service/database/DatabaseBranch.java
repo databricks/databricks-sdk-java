@@ -33,6 +33,10 @@ public class DatabaseBranch {
   @JsonProperty("effective_default")
   private Boolean effectiveDefault;
 
+  /** Whether the branch is protected. */
+  @JsonProperty("is_protected")
+  private Boolean isProtected;
+
   /** The logical size of the branch. */
   @JsonProperty("logical_size_bytes")
   private Long logicalSizeBytes;
@@ -112,6 +116,15 @@ public class DatabaseBranch {
 
   public Boolean getEffectiveDefault() {
     return effectiveDefault;
+  }
+
+  public DatabaseBranch setIsProtected(Boolean isProtected) {
+    this.isProtected = isProtected;
+    return this;
+  }
+
+  public Boolean getIsProtected() {
+    return isProtected;
   }
 
   public DatabaseBranch setLogicalSizeBytes(Long logicalSizeBytes) {
@@ -196,6 +209,7 @@ public class DatabaseBranch {
         && Objects.equals(currentState, that.currentState)
         && Objects.equals(defaultValue, that.defaultValue)
         && Objects.equals(effectiveDefault, that.effectiveDefault)
+        && Objects.equals(isProtected, that.isProtected)
         && Objects.equals(logicalSizeBytes, that.logicalSizeBytes)
         && Objects.equals(parentId, that.parentId)
         && Objects.equals(parentLsn, that.parentLsn)
@@ -214,6 +228,7 @@ public class DatabaseBranch {
         currentState,
         defaultValue,
         effectiveDefault,
+        isProtected,
         logicalSizeBytes,
         parentId,
         parentLsn,
@@ -232,6 +247,7 @@ public class DatabaseBranch {
         .add("currentState", currentState)
         .add("defaultValue", defaultValue)
         .add("effectiveDefault", effectiveDefault)
+        .add("isProtected", isProtected)
         .add("logicalSizeBytes", logicalSizeBytes)
         .add("parentId", parentId)
         .add("parentLsn", parentLsn)

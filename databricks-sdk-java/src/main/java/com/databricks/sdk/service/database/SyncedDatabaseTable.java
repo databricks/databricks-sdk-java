@@ -7,12 +7,16 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Next field marker: 14 */
+/** Next field marker: 18 */
 @Generated
 public class SyncedDatabaseTable {
   /** Synced Table data synchronization status */
   @JsonProperty("data_synchronization_status")
   private SyncedTableStatus dataSynchronizationStatus;
+
+  /** The branch_id of the database branch associated with the table. */
+  @JsonProperty("database_branch_id")
+  private String databaseBranchId;
 
   /**
    * Name of the target database instance. This is required when creating synced database tables in
@@ -24,6 +28,14 @@ public class SyncedDatabaseTable {
   @JsonProperty("database_instance_name")
   private String databaseInstanceName;
 
+  /** The project_id of the database project associated with the table. */
+  @JsonProperty("database_project_id")
+  private String databaseProjectId;
+
+  /** The branch_id of the database branch associated with the table. */
+  @JsonProperty("effective_database_branch_id")
+  private String effectiveDatabaseBranchId;
+
   /**
    * The name of the database instance that this table is registered to. This field is always
    * returned, and for tables inside database catalogs is inferred database instance associated with
@@ -31,6 +43,10 @@ public class SyncedDatabaseTable {
    */
   @JsonProperty("effective_database_instance_name")
   private String effectiveDatabaseInstanceName;
+
+  /** The project_id of the database project associated with the table. */
+  @JsonProperty("effective_database_project_id")
+  private String effectiveDatabaseProjectId;
 
   /** The name of the logical database that this table is registered to. */
   @JsonProperty("effective_logical_database_name")
@@ -81,6 +97,15 @@ public class SyncedDatabaseTable {
     return dataSynchronizationStatus;
   }
 
+  public SyncedDatabaseTable setDatabaseBranchId(String databaseBranchId) {
+    this.databaseBranchId = databaseBranchId;
+    return this;
+  }
+
+  public String getDatabaseBranchId() {
+    return databaseBranchId;
+  }
+
   public SyncedDatabaseTable setDatabaseInstanceName(String databaseInstanceName) {
     this.databaseInstanceName = databaseInstanceName;
     return this;
@@ -88,6 +113,24 @@ public class SyncedDatabaseTable {
 
   public String getDatabaseInstanceName() {
     return databaseInstanceName;
+  }
+
+  public SyncedDatabaseTable setDatabaseProjectId(String databaseProjectId) {
+    this.databaseProjectId = databaseProjectId;
+    return this;
+  }
+
+  public String getDatabaseProjectId() {
+    return databaseProjectId;
+  }
+
+  public SyncedDatabaseTable setEffectiveDatabaseBranchId(String effectiveDatabaseBranchId) {
+    this.effectiveDatabaseBranchId = effectiveDatabaseBranchId;
+    return this;
+  }
+
+  public String getEffectiveDatabaseBranchId() {
+    return effectiveDatabaseBranchId;
   }
 
   public SyncedDatabaseTable setEffectiveDatabaseInstanceName(
@@ -98,6 +141,15 @@ public class SyncedDatabaseTable {
 
   public String getEffectiveDatabaseInstanceName() {
     return effectiveDatabaseInstanceName;
+  }
+
+  public SyncedDatabaseTable setEffectiveDatabaseProjectId(String effectiveDatabaseProjectId) {
+    this.effectiveDatabaseProjectId = effectiveDatabaseProjectId;
+    return this;
+  }
+
+  public String getEffectiveDatabaseProjectId() {
+    return effectiveDatabaseProjectId;
   }
 
   public SyncedDatabaseTable setEffectiveLogicalDatabaseName(String effectiveLogicalDatabaseName) {
@@ -161,8 +213,12 @@ public class SyncedDatabaseTable {
     if (o == null || getClass() != o.getClass()) return false;
     SyncedDatabaseTable that = (SyncedDatabaseTable) o;
     return Objects.equals(dataSynchronizationStatus, that.dataSynchronizationStatus)
+        && Objects.equals(databaseBranchId, that.databaseBranchId)
         && Objects.equals(databaseInstanceName, that.databaseInstanceName)
+        && Objects.equals(databaseProjectId, that.databaseProjectId)
+        && Objects.equals(effectiveDatabaseBranchId, that.effectiveDatabaseBranchId)
         && Objects.equals(effectiveDatabaseInstanceName, that.effectiveDatabaseInstanceName)
+        && Objects.equals(effectiveDatabaseProjectId, that.effectiveDatabaseProjectId)
         && Objects.equals(effectiveLogicalDatabaseName, that.effectiveLogicalDatabaseName)
         && Objects.equals(logicalDatabaseName, that.logicalDatabaseName)
         && Objects.equals(name, that.name)
@@ -175,8 +231,12 @@ public class SyncedDatabaseTable {
   public int hashCode() {
     return Objects.hash(
         dataSynchronizationStatus,
+        databaseBranchId,
         databaseInstanceName,
+        databaseProjectId,
+        effectiveDatabaseBranchId,
         effectiveDatabaseInstanceName,
+        effectiveDatabaseProjectId,
         effectiveLogicalDatabaseName,
         logicalDatabaseName,
         name,
@@ -189,8 +249,12 @@ public class SyncedDatabaseTable {
   public String toString() {
     return new ToStringer(SyncedDatabaseTable.class)
         .add("dataSynchronizationStatus", dataSynchronizationStatus)
+        .add("databaseBranchId", databaseBranchId)
         .add("databaseInstanceName", databaseInstanceName)
+        .add("databaseProjectId", databaseProjectId)
+        .add("effectiveDatabaseBranchId", effectiveDatabaseBranchId)
         .add("effectiveDatabaseInstanceName", effectiveDatabaseInstanceName)
+        .add("effectiveDatabaseProjectId", effectiveDatabaseProjectId)
         .add("effectiveLogicalDatabaseName", effectiveLogicalDatabaseName)
         .add("logicalDatabaseName", logicalDatabaseName)
         .add("name", name)

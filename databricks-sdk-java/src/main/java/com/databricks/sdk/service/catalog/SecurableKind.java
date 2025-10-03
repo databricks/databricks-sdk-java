@@ -4,7 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** Latest kind: CONNECTION_SHAREPOINT_OAUTH_M2M = 264; Next id:265 */
+/** Latest kind: CONNECTION_REDSHIFT_IAM = 265; Next id:266 */
 @Generated
 public enum SecurableKind {
   TABLE_DB_STORAGE,

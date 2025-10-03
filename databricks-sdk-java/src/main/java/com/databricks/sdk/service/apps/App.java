@@ -26,6 +26,10 @@ public class App {
   private String budgetPolicyId;
 
   /** */
+  @JsonProperty("compute_size")
+  private ComputeSize computeSize;
+
+  /** */
   @JsonProperty("compute_status")
   private ComputeStatus computeStatus;
 
@@ -147,6 +151,15 @@ public class App {
 
   public String getBudgetPolicyId() {
     return budgetPolicyId;
+  }
+
+  public App setComputeSize(ComputeSize computeSize) {
+    this.computeSize = computeSize;
+    return this;
+  }
+
+  public ComputeSize getComputeSize() {
+    return computeSize;
   }
 
   public App setComputeStatus(ComputeStatus computeStatus) {
@@ -355,6 +368,7 @@ public class App {
     return Objects.equals(activeDeployment, that.activeDeployment)
         && Objects.equals(appStatus, that.appStatus)
         && Objects.equals(budgetPolicyId, that.budgetPolicyId)
+        && Objects.equals(computeSize, that.computeSize)
         && Objects.equals(computeStatus, that.computeStatus)
         && Objects.equals(createTime, that.createTime)
         && Objects.equals(creator, that.creator)
@@ -385,6 +399,7 @@ public class App {
         activeDeployment,
         appStatus,
         budgetPolicyId,
+        computeSize,
         computeStatus,
         createTime,
         creator,
@@ -415,6 +430,7 @@ public class App {
         .add("activeDeployment", activeDeployment)
         .add("appStatus", appStatus)
         .add("budgetPolicyId", budgetPolicyId)
+        .add("computeSize", computeSize)
         .add("computeStatus", computeStatus)
         .add("createTime", createTime)
         .add("creator", creator)

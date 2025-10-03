@@ -46,6 +46,26 @@ public class DatabaseProject {
   @JsonProperty("effective_budget_policy_id")
   private String effectiveBudgetPolicyId;
 
+  /** */
+  @JsonProperty("effective_default_endpoint_settings")
+  private DatabaseProjectDefaultEndpointSettings effectiveDefaultEndpointSettings;
+
+  /** */
+  @JsonProperty("effective_display_name")
+  private String effectiveDisplayName;
+
+  /** */
+  @JsonProperty("effective_history_retention_duration")
+  private String effectiveHistoryRetentionDuration;
+
+  /** */
+  @JsonProperty("effective_pg_version")
+  private Long effectivePgVersion;
+
+  /** */
+  @JsonProperty("effective_settings")
+  private DatabaseProjectSettings effectiveSettings;
+
   /**
    * The number of seconds to retain the shared history for point in time recovery for all branches
    * in this project.
@@ -53,11 +73,7 @@ public class DatabaseProject {
   @JsonProperty("history_retention_duration")
   private String historyRetentionDuration;
 
-  /**
-   * The major Postgres version number. NOTE: fields could be either user-set or server-set. we
-   * can't have fields that are optionally user-provided and server-set to default value. TODO: this
-   * needs an effective variant or make REQUIRED
-   */
+  /** The major Postgres version number. */
   @JsonProperty("pg_version")
   private Long pgVersion;
 
@@ -153,6 +169,53 @@ public class DatabaseProject {
     return effectiveBudgetPolicyId;
   }
 
+  public DatabaseProject setEffectiveDefaultEndpointSettings(
+      DatabaseProjectDefaultEndpointSettings effectiveDefaultEndpointSettings) {
+    this.effectiveDefaultEndpointSettings = effectiveDefaultEndpointSettings;
+    return this;
+  }
+
+  public DatabaseProjectDefaultEndpointSettings getEffectiveDefaultEndpointSettings() {
+    return effectiveDefaultEndpointSettings;
+  }
+
+  public DatabaseProject setEffectiveDisplayName(String effectiveDisplayName) {
+    this.effectiveDisplayName = effectiveDisplayName;
+    return this;
+  }
+
+  public String getEffectiveDisplayName() {
+    return effectiveDisplayName;
+  }
+
+  public DatabaseProject setEffectiveHistoryRetentionDuration(
+      String effectiveHistoryRetentionDuration) {
+    this.effectiveHistoryRetentionDuration = effectiveHistoryRetentionDuration;
+    return this;
+  }
+
+  public String getEffectiveHistoryRetentionDuration() {
+    return effectiveHistoryRetentionDuration;
+  }
+
+  public DatabaseProject setEffectivePgVersion(Long effectivePgVersion) {
+    this.effectivePgVersion = effectivePgVersion;
+    return this;
+  }
+
+  public Long getEffectivePgVersion() {
+    return effectivePgVersion;
+  }
+
+  public DatabaseProject setEffectiveSettings(DatabaseProjectSettings effectiveSettings) {
+    this.effectiveSettings = effectiveSettings;
+    return this;
+  }
+
+  public DatabaseProjectSettings getEffectiveSettings() {
+    return effectiveSettings;
+  }
+
   public DatabaseProject setHistoryRetentionDuration(String historyRetentionDuration) {
     this.historyRetentionDuration = historyRetentionDuration;
     return this;
@@ -220,6 +283,11 @@ public class DatabaseProject {
         && Objects.equals(defaultEndpointSettings, that.defaultEndpointSettings)
         && Objects.equals(displayName, that.displayName)
         && Objects.equals(effectiveBudgetPolicyId, that.effectiveBudgetPolicyId)
+        && Objects.equals(effectiveDefaultEndpointSettings, that.effectiveDefaultEndpointSettings)
+        && Objects.equals(effectiveDisplayName, that.effectiveDisplayName)
+        && Objects.equals(effectiveHistoryRetentionDuration, that.effectiveHistoryRetentionDuration)
+        && Objects.equals(effectivePgVersion, that.effectivePgVersion)
+        && Objects.equals(effectiveSettings, that.effectiveSettings)
         && Objects.equals(historyRetentionDuration, that.historyRetentionDuration)
         && Objects.equals(pgVersion, that.pgVersion)
         && Objects.equals(projectId, that.projectId)
@@ -239,6 +307,11 @@ public class DatabaseProject {
         defaultEndpointSettings,
         displayName,
         effectiveBudgetPolicyId,
+        effectiveDefaultEndpointSettings,
+        effectiveDisplayName,
+        effectiveHistoryRetentionDuration,
+        effectivePgVersion,
+        effectiveSettings,
         historyRetentionDuration,
         pgVersion,
         projectId,
@@ -258,6 +331,11 @@ public class DatabaseProject {
         .add("defaultEndpointSettings", defaultEndpointSettings)
         .add("displayName", displayName)
         .add("effectiveBudgetPolicyId", effectiveBudgetPolicyId)
+        .add("effectiveDefaultEndpointSettings", effectiveDefaultEndpointSettings)
+        .add("effectiveDisplayName", effectiveDisplayName)
+        .add("effectiveHistoryRetentionDuration", effectiveHistoryRetentionDuration)
+        .add("effectivePgVersion", effectivePgVersion)
+        .add("effectiveSettings", effectiveSettings)
         .add("historyRetentionDuration", historyRetentionDuration)
         .add("pgVersion", pgVersion)
         .add("projectId", projectId)

@@ -7,42 +7,35 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/**
- * The Google Cloud specific information for this network (for example, the VPC ID, subnet ID, and
- * secondary IP ranges).
- */
 @Generated
 public class GcpNetworkInfo {
-  /** The Google Cloud project ID of the VPC network. */
+  /** The GCP project ID for network resources. This project is where the VPC and subnet resides. */
   @JsonProperty("network_project_id")
   private String networkProjectId;
 
   /**
-   * The name of the secondary IP range for pods. A Databricks-managed GKE cluster uses this IP
-   * range for its pods. This secondary IP range can be used by only one workspace.
+   * Name of the secondary range within the subnet that will be used by GKE as Pod IP range. This is
+   * BYO VPC specific. DB VPC uses network.getGcpManagedNetworkConfig.getGkeClusterPodIpRange
    */
   @JsonProperty("pod_ip_range_name")
   private String podIpRangeName;
 
-  /**
-   * The name of the secondary IP range for services. A Databricks-managed GKE cluster uses this IP
-   * range for its services. This secondary IP range can be used by only one workspace.
-   */
+  /** Name of the secondary range within the subnet that will be used by GKE as Service IP range. */
   @JsonProperty("service_ip_range_name")
   private String serviceIpRangeName;
 
-  /** The ID of the subnet associated with this network. */
+  /**
+   * The customer-provided Subnet ID that will be available to Clusters in Workspaces using this
+   * Network.
+   */
   @JsonProperty("subnet_id")
   private String subnetId;
 
-  /** The Google Cloud region of the workspace data plane (for example, `us-east4`). */
+  /** */
   @JsonProperty("subnet_region")
   private String subnetRegion;
 
-  /**
-   * The ID of the VPC associated with this network. VPC IDs can be used in multiple network
-   * configurations.
-   */
+  /** The customer-provided VPC ID. */
   @JsonProperty("vpc_id")
   private String vpcId;
 
