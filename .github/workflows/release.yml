@@ -51,9 +51,24 @@ jobs:
           MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
           MAVEN_CENTRAL_PASSWORD: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
 
+      - name: Write release notes to file
+        run: |
+          if [[ "${{ github.ref }}" == refs/tags/v* ]]; then
+            RELEASE_NOTES_DIR=/tmp/release-notes
+            mkdir -p "$RELEASE_NOTES_DIR"
+            RELEASE_NOTES_FILE="$RELEASE_NOTES_DIR/release-notes.md"
+            git for-each-ref --format='%(contents)' ${{ github.ref }} > "$RELEASE_NOTES_FILE"
+            echo "Release notes file: $RELEASE_NOTES_FILE"
+            echo "Release notes contents:"
+            cat "$RELEASE_NOTES_FILE"
+          else
+            echo "Not a release tag, skipping release notes"
+          fi
+
       # This step also runs ONLY on tag pushes (real release)
       - name: Create GitHub release
         if: "startsWith(github.ref, 'refs/tags/')"
         uses: softprops/action-gh-release@v1
         with:
-          files: target/*.jar
+          files: databricks-sdk-java/target/*.jar
+          body_path: /tmp/release-notes/release-notes.md
