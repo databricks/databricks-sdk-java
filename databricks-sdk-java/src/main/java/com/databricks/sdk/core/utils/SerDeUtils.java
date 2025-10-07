@@ -14,6 +14,7 @@ public class SerDeUtils {
     mapper
         .registerModule(new JavaTimeModule())
         .registerModule(new GuavaModule())
+        .registerModule(new ProtobufModule())
         .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
         .configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
         .configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true)
