@@ -11,14 +11,6 @@ import java.util.Objects;
 @Generated
 public class ListStorageCredentialsRequest {
   /**
-   * Whether to include credentials not bound to the workspace. Effective only if the user has
-   * permission to update the credential–workspace binding.
-   */
-  @JsonIgnore
-  @QueryParam("include_unbound")
-  private Boolean includeUnbound;
-
-  /**
    * Maximum number of storage credentials to return. If not set, all the storage credentials are
    * returned (not recommended). - when set to a value greater than 0, the page length is the
    * minimum of this value and a server configured value; - when set to 0, the page length is set to
@@ -33,15 +25,6 @@ public class ListStorageCredentialsRequest {
   @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
-
-  public ListStorageCredentialsRequest setIncludeUnbound(Boolean includeUnbound) {
-    this.includeUnbound = includeUnbound;
-    return this;
-  }
-
-  public Boolean getIncludeUnbound() {
-    return includeUnbound;
-  }
 
   public ListStorageCredentialsRequest setMaxResults(Long maxResults) {
     this.maxResults = maxResults;
@@ -66,20 +49,17 @@ public class ListStorageCredentialsRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ListStorageCredentialsRequest that = (ListStorageCredentialsRequest) o;
-    return Objects.equals(includeUnbound, that.includeUnbound)
-        && Objects.equals(maxResults, that.maxResults)
-        && Objects.equals(pageToken, that.pageToken);
+    return Objects.equals(maxResults, that.maxResults) && Objects.equals(pageToken, that.pageToken);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(includeUnbound, maxResults, pageToken);
+    return Objects.hash(maxResults, pageToken);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ListStorageCredentialsRequest.class)
-        .add("includeUnbound", includeUnbound)
         .add("maxResults", maxResults)
         .add("pageToken", pageToken)
         .toString();
