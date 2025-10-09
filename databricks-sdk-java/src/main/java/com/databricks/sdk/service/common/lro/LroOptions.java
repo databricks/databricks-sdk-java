@@ -93,6 +93,6 @@ public class LroOptions {
 
   @Override
   public String toString() {
-    return "LroOptions{" + "timeout=" + timeout + '}';
+    return "LroOptions{ timeout= " + timeout + " }";
   }
 }
