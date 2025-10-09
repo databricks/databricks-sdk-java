@@ -5,7 +5,8 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * Options for configuring long-running operation behavior.
+ * Options for configuring long-running operation behavior. This class is not ready for use and can
+ * be changed in backward incompatible ways.
  *
  * <p>This class provides configuration options for long-running operations, such as timeouts and
  * other behavioral settings.
