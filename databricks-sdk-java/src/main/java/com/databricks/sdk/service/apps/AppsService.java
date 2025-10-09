@@ -16,6 +16,12 @@ public interface AppsService {
   /** Creates a new app. */
   App create(CreateAppRequest createAppRequest);
 
+  /**
+   * Creates an app update and starts the update process. The update process is asynchronous and the
+   * status of the update can be checked with the GetAppUpdate method.
+   */
+  AppUpdate createUpdate(AsyncUpdateAppRequest asyncUpdateAppRequest);
+
   /** Deletes an app. */
   App delete(DeleteAppRequest deleteAppRequest);
 
@@ -34,6 +40,9 @@ public interface AppsService {
 
   /** Gets the permissions of an app. Apps can inherit permissions from their root object. */
   AppPermissions getPermissions(GetAppPermissionsRequest getAppPermissionsRequest);
+
+  /** Gets the status of an app update. */
+  AppUpdate getUpdate(GetAppUpdateRequest getAppUpdateRequest);
 
   /** Lists all apps in the workspace. */
   ListAppsResponse list(ListAppsRequest listAppsRequest);

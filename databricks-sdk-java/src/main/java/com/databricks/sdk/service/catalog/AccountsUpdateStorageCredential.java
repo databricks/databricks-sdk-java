@@ -8,24 +8,32 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** The storage credential to update. */
 @Generated
 public class AccountsUpdateStorageCredential {
   /** */
   @JsonProperty("credential_info")
-  private UpdateStorageCredential credentialInfo;
+  private UpdateAccountsStorageCredential credentialInfo;
 
   /** Unity Catalog metastore ID */
   @JsonIgnore private String metastoreId;
 
+  /**
+   * Optional. Supplying true to this argument skips validation of the updated set of credentials.
+   */
+  @JsonProperty("skip_validation")
+  private Boolean skipValidation;
+
   /** Name of the storage credential. */
   @JsonIgnore private String storageCredentialName;
 
-  public AccountsUpdateStorageCredential setCredentialInfo(UpdateStorageCredential credentialInfo) {
+  public AccountsUpdateStorageCredential setCredentialInfo(
+      UpdateAccountsStorageCredential credentialInfo) {
     this.credentialInfo = credentialInfo;
     return this;
   }
 
-  public UpdateStorageCredential getCredentialInfo() {
+  public UpdateAccountsStorageCredential getCredentialInfo() {
     return credentialInfo;
   }
 
@@ -36,6 +44,15 @@ public class AccountsUpdateStorageCredential {
 
   public String getMetastoreId() {
     return metastoreId;
+  }
+
+  public AccountsUpdateStorageCredential setSkipValidation(Boolean skipValidation) {
+    this.skipValidation = skipValidation;
+    return this;
+  }
+
+  public Boolean getSkipValidation() {
+    return skipValidation;
   }
 
   public AccountsUpdateStorageCredential setStorageCredentialName(String storageCredentialName) {
@@ -54,12 +71,13 @@ public class AccountsUpdateStorageCredential {
     AccountsUpdateStorageCredential that = (AccountsUpdateStorageCredential) o;
     return Objects.equals(credentialInfo, that.credentialInfo)
         && Objects.equals(metastoreId, that.metastoreId)
+        && Objects.equals(skipValidation, that.skipValidation)
         && Objects.equals(storageCredentialName, that.storageCredentialName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(credentialInfo, metastoreId, storageCredentialName);
+    return Objects.hash(credentialInfo, metastoreId, skipValidation, storageCredentialName);
   }
 
   @Override
@@ -67,6 +85,7 @@ public class AccountsUpdateStorageCredential {
     return new ToStringer(AccountsUpdateStorageCredential.class)
         .add("credentialInfo", credentialInfo)
         .add("metastoreId", metastoreId)
+        .add("skipValidation", skipValidation)
         .add("storageCredentialName", storageCredentialName)
         .toString();
   }

@@ -9,7 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class GcpKeyInfo {
-  /** The GCP KMS key's resource name */
+  /**
+   * Globally unique kms key resource id of the form
+   * projects/testProjectId/locations/us-east4/keyRings/gcpCmkKeyRing/cryptoKeys/cmk-eastus4
+   */
   @JsonProperty("kms_key_id")
   private String kmsKeyId;
 

@@ -32,17 +32,10 @@ public interface VpcEndpointsService {
   VpcEndpoint create(CreateVpcEndpointRequest createVpcEndpointRequest);
 
   /**
-   * Deletes a VPC endpoint configuration, which represents an [AWS VPC endpoint] that can
-   * communicate privately with Databricks over [AWS PrivateLink].
-   *
-   * <p>Before configuring PrivateLink, read the [Databricks article about PrivateLink].
-   *
-   * <p>[AWS PrivateLink]: https://aws.amazon.com/privatelink [AWS VPC endpoint]:
-   * https://docs.aws.amazon.com/vpc/latest/privatelink/concepts.html [Databricks article about
-   * PrivateLink]:
-   * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
+   * Deletes a Databricks VPC endpoint configuration. You cannot delete a VPC endpoint configuration
+   * that is associated with any workspace.
    */
-  void delete(DeleteVpcEndpointRequest deleteVpcEndpointRequest);
+  VpcEndpoint delete(DeleteVpcEndpointRequest deleteVpcEndpointRequest);
 
   /**
    * Gets a VPC endpoint configuration, which represents a [VPC endpoint] object in AWS used to
@@ -53,13 +46,6 @@ public interface VpcEndpointsService {
    */
   VpcEndpoint get(GetVpcEndpointRequest getVpcEndpointRequest);
 
-  /**
-   * Gets a list of all VPC endpoints for an account, specified by ID.
-   *
-   * <p>Before configuring PrivateLink, read the [Databricks article about PrivateLink].
-   *
-   * <p>[Databricks article about PrivateLink]:
-   * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
-   */
+  /** Lists Databricks VPC endpoint configurations for an account. */
   Collection<VpcEndpoint> list();
 }

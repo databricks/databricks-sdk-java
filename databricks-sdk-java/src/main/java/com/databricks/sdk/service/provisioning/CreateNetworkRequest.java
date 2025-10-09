@@ -37,8 +37,8 @@ public class CreateNetworkRequest {
   private NetworkVpcEndpoints vpcEndpoints;
 
   /**
-   * The ID of the VPC associated with this network. VPC IDs can be used in multiple network
-   * configurations.
+   * The ID of the VPC associated with this network configuration. VPC IDs can be used in multiple
+   * networks.
    */
   @JsonProperty("vpc_id")
   private String vpcId;

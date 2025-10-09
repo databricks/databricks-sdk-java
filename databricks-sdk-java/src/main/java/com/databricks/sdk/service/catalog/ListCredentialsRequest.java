@@ -11,6 +11,14 @@ import java.util.Objects;
 @Generated
 public class ListCredentialsRequest {
   /**
+   * Whether to include credentials not bound to the workspace. Effective only if the user has
+   * permission to update the credential–workspace binding.
+   */
+  @JsonIgnore
+  @QueryParam("include_unbound")
+  private Boolean includeUnbound;
+
+  /**
    * Maximum number of credentials to return. - If not set, the default max page size is used. -
    * When set to a value greater than 0, the page length is the minimum of this value and a
    * server-configured value. - When set to 0, the page length is set to a server-configured value
@@ -29,6 +37,15 @@ public class ListCredentialsRequest {
   @JsonIgnore
   @QueryParam("purpose")
   private CredentialPurpose purpose;
+
+  public ListCredentialsRequest setIncludeUnbound(Boolean includeUnbound) {
+    this.includeUnbound = includeUnbound;
+    return this;
+  }
+
+  public Boolean getIncludeUnbound() {
+    return includeUnbound;
+  }
 
   public ListCredentialsRequest setMaxResults(Long maxResults) {
     this.maxResults = maxResults;
@@ -62,19 +79,21 @@ public class ListCredentialsRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ListCredentialsRequest that = (ListCredentialsRequest) o;
-    return Objects.equals(maxResults, that.maxResults)
+    return Objects.equals(includeUnbound, that.includeUnbound)
+        && Objects.equals(maxResults, that.maxResults)
         && Objects.equals(pageToken, that.pageToken)
         && Objects.equals(purpose, that.purpose);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(maxResults, pageToken, purpose);
+    return Objects.hash(includeUnbound, maxResults, pageToken, purpose);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ListCredentialsRequest.class)
+        .add("includeUnbound", includeUnbound)
         .add("maxResults", maxResults)
         .add("pageToken", pageToken)
         .add("purpose", purpose)

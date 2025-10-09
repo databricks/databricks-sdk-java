@@ -4,7 +4,6 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** The type of function parameter. */
 @Generated
 public enum FunctionParameterType {
   COLUMN,

@@ -7,7 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** The general workspace configurations that are specific to cloud providers. */
 @Generated
 public class CloudResourceContainer {
   /** */
