@@ -18,6 +18,10 @@ public class CustomerManagedKey {
   @JsonProperty("aws_key_info")
   private AwsKeyInfo awsKeyInfo;
 
+  /** */
+  @JsonProperty("azure_key_info")
+  private AzureKeyInfo azureKeyInfo;
+
   /** Time in epoch milliseconds when the customer key was created. */
   @JsonProperty("creation_time")
   private Long creationTime;
@@ -50,6 +54,15 @@ public class CustomerManagedKey {
 
   public AwsKeyInfo getAwsKeyInfo() {
     return awsKeyInfo;
+  }
+
+  public CustomerManagedKey setAzureKeyInfo(AzureKeyInfo azureKeyInfo) {
+    this.azureKeyInfo = azureKeyInfo;
+    return this;
+  }
+
+  public AzureKeyInfo getAzureKeyInfo() {
+    return azureKeyInfo;
   }
 
   public CustomerManagedKey setCreationTime(Long creationTime) {
@@ -95,6 +108,7 @@ public class CustomerManagedKey {
     CustomerManagedKey that = (CustomerManagedKey) o;
     return Objects.equals(accountId, that.accountId)
         && Objects.equals(awsKeyInfo, that.awsKeyInfo)
+        && Objects.equals(azureKeyInfo, that.azureKeyInfo)
         && Objects.equals(creationTime, that.creationTime)
         && Objects.equals(customerManagedKeyId, that.customerManagedKeyId)
         && Objects.equals(gcpKeyInfo, that.gcpKeyInfo)
@@ -104,7 +118,13 @@ public class CustomerManagedKey {
   @Override
   public int hashCode() {
     return Objects.hash(
-        accountId, awsKeyInfo, creationTime, customerManagedKeyId, gcpKeyInfo, useCases);
+        accountId,
+        awsKeyInfo,
+        azureKeyInfo,
+        creationTime,
+        customerManagedKeyId,
+        gcpKeyInfo,
+        useCases);
   }
 
   @Override
@@ -112,6 +132,7 @@ public class CustomerManagedKey {
     return new ToStringer(CustomerManagedKey.class)
         .add("accountId", accountId)
         .add("awsKeyInfo", awsKeyInfo)
+        .add("azureKeyInfo", azureKeyInfo)
         .add("creationTime", creationTime)
         .add("customerManagedKeyId", customerManagedKeyId)
         .add("gcpKeyInfo", gcpKeyInfo)

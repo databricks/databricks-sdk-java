@@ -13,22 +13,22 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface AccountStorageCredentialsService {
   /**
-   * Creates a new storage credential. The request object is specific to the cloud:
+   * Creates a new storage credential. The request object is specific to the cloud: - **AwsIamRole**
+   * for AWS credentials - **AzureServicePrincipal** for Azure credentials -
+   * **GcpServiceAccountKey** for GCP credentials
    *
-   * <p>* **AwsIamRole** for AWS credentials * **AzureServicePrincipal** for Azure credentials *
-   * **GcpServiceAcountKey** for GCP credentials.
-   *
-   * <p>The caller must be a metastore admin and have the **CREATE_STORAGE_CREDENTIAL** privilege on
+   * <p>The caller must be a metastore admin and have the `CREATE_STORAGE_CREDENTIAL` privilege on
    * the metastore.
    */
-  AccountsStorageCredentialInfo create(
+  AccountsCreateStorageCredentialInfo create(
       AccountsCreateStorageCredential accountsCreateStorageCredential);
 
   /**
    * Deletes a storage credential from the metastore. The caller must be an owner of the storage
    * credential.
    */
-  void delete(DeleteAccountStorageCredentialRequest deleteAccountStorageCredentialRequest);
+  AccountsDeleteStorageCredentialResponse delete(
+      DeleteAccountStorageCredentialRequest deleteAccountStorageCredentialRequest);
 
   /**
    * Gets a storage credential from the metastore. The caller must be a metastore admin, the owner
@@ -43,8 +43,8 @@ public interface AccountStorageCredentialsService {
 
   /**
    * Updates a storage credential on the metastore. The caller must be the owner of the storage
-   * credential. If the caller is a metastore admin, only the __owner__ credential can be changed.
+   * credential. If the caller is a metastore admin, only the **owner** credential can be changed.
    */
-  AccountsStorageCredentialInfo update(
+  AccountsUpdateStorageCredentialResponse update(
       AccountsUpdateStorageCredential accountsUpdateStorageCredential);
 }

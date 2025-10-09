@@ -25,20 +25,22 @@ public class AccountMetastoreAssignmentsAPI {
   }
 
   /** Creates an assignment to a metastore for a workspace */
-  public void create(AccountsCreateMetastoreAssignment request) {
-    impl.create(request);
+  public AccountsCreateMetastoreAssignmentResponse create(
+      AccountsCreateMetastoreAssignment request) {
+    return impl.create(request);
   }
 
-  public void delete(long workspaceId, String metastoreId) {
-    delete(
+  public AccountsDeleteMetastoreAssignmentResponse delete(long workspaceId, String metastoreId) {
+    return delete(
         new DeleteAccountMetastoreAssignmentRequest()
             .setWorkspaceId(workspaceId)
             .setMetastoreId(metastoreId));
   }
 
   /** Deletes a metastore assignment to a workspace, leaving the workspace with no metastore. */
-  public void delete(DeleteAccountMetastoreAssignmentRequest request) {
-    impl.delete(request);
+  public AccountsDeleteMetastoreAssignmentResponse delete(
+      DeleteAccountMetastoreAssignmentRequest request) {
+    return impl.delete(request);
   }
 
   public AccountsMetastoreAssignment get(long workspaceId) {
@@ -47,7 +49,7 @@ public class AccountMetastoreAssignmentsAPI {
 
   /**
    * Gets the metastore assignment, if any, for the workspace specified by ID. If the workspace is
-   * assigned a metastore, the mappig will be returned. If no metastore is assigned to the
+   * assigned a metastore, the mapping will be returned. If no metastore is assigned to the
    * workspace, the assignment will not be found and a 404 returned.
    */
   public AccountsMetastoreAssignment get(GetAccountMetastoreAssignmentRequest request) {
@@ -71,8 +73,9 @@ public class AccountMetastoreAssignmentsAPI {
    * Updates an assignment to a metastore for a workspace. Currently, only the default catalog may
    * be updated.
    */
-  public void update(AccountsUpdateMetastoreAssignment request) {
-    impl.update(request);
+  public AccountsUpdateMetastoreAssignmentResponse update(
+      AccountsUpdateMetastoreAssignment request) {
+    return impl.update(request);
   }
 
   public AccountMetastoreAssignmentsService impl() {

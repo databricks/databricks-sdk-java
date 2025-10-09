@@ -7,13 +7,9 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** The general workspace configurations that are specific to Google Cloud. */
 @Generated
 public class CustomerFacingGcpCloudResourceContainer {
-  /**
-   * The Google Cloud project ID, which the workspace uses to instantiate cloud resources for your
-   * workspace.
-   */
+  /** */
   @JsonProperty("project_id")
   private String projectId;
 

@@ -26,6 +26,13 @@ public class UpdateShare {
   @JsonProperty("owner")
   private String owner;
 
+  /**
+   * Serverless budget policy id (can only be created/updated when calling data-sharing service)
+   * [Create,Update:IGN]
+   */
+  @JsonProperty("serverless_budget_policy_id")
+  private String serverlessBudgetPolicyId;
+
   /** Storage root URL for the share. */
   @JsonProperty("storage_root")
   private String storageRoot;
@@ -70,6 +77,15 @@ public class UpdateShare {
     return owner;
   }
 
+  public UpdateShare setServerlessBudgetPolicyId(String serverlessBudgetPolicyId) {
+    this.serverlessBudgetPolicyId = serverlessBudgetPolicyId;
+    return this;
+  }
+
+  public String getServerlessBudgetPolicyId() {
+    return serverlessBudgetPolicyId;
+  }
+
   public UpdateShare setStorageRoot(String storageRoot) {
     this.storageRoot = storageRoot;
     return this;
@@ -97,13 +113,15 @@ public class UpdateShare {
         && Objects.equals(name, that.name)
         && Objects.equals(newName, that.newName)
         && Objects.equals(owner, that.owner)
+        && Objects.equals(serverlessBudgetPolicyId, that.serverlessBudgetPolicyId)
         && Objects.equals(storageRoot, that.storageRoot)
         && Objects.equals(updates, that.updates);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comment, name, newName, owner, storageRoot, updates);
+    return Objects.hash(
+        comment, name, newName, owner, serverlessBudgetPolicyId, storageRoot, updates);
   }
 
   @Override
@@ -113,6 +131,7 @@ public class UpdateShare {
         .add("name", name)
         .add("newName", newName)
         .add("owner", owner)
+        .add("serverlessBudgetPolicyId", serverlessBudgetPolicyId)
         .add("storageRoot", storageRoot)
         .add("updates", updates)
         .toString();

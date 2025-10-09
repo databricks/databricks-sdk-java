@@ -24,6 +24,11 @@ public class QualityMonitorV2API {
     impl = mock;
   }
 
+  public CreateLibraryOperation createLibrary(CreateLibraryRequest request) {
+    com.databricks.sdk.service.common.Operation operation = impl.createLibrary(request);
+    return new CreateLibraryOperation(impl, operation);
+  }
+
   /** Create a quality monitor on UC object */
   public QualityMonitor createQualityMonitor(CreateQualityMonitorRequest request) {
     return impl.createQualityMonitor(request);
@@ -37,6 +42,14 @@ public class QualityMonitorV2API {
   /** Delete a quality monitor on UC object */
   public void deleteQualityMonitor(DeleteQualityMonitorRequest request) {
     impl.deleteQualityMonitor(request);
+  }
+
+  public com.databricks.sdk.service.common.Operation getOperation(String name) {
+    return getOperation(new GetOperationRequest().setName(name));
+  }
+
+  public com.databricks.sdk.service.common.Operation getOperation(GetOperationRequest request) {
+    return impl.getOperation(request);
   }
 
   public QualityMonitor getQualityMonitor(String objectType, String objectId) {

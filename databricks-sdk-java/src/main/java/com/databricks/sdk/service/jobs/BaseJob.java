@@ -48,6 +48,14 @@ public class BaseJob {
   private Long jobId;
 
   /**
+   * Path of the job object in workspace file tree, including file extension. If absent, the job
+   * doesn't have a workspace object. Example:
+   * /Workspace/user@example.com/my_project/my_job.job.json
+   */
+  @JsonProperty("path")
+  private String path;
+
+  /**
    * Settings for this job and all of its runs. These settings can be updated using the `resetJob`
    * method.
    */
@@ -112,6 +120,15 @@ public class BaseJob {
     return jobId;
   }
 
+  public BaseJob setPath(String path) {
+    this.path = path;
+    return this;
+  }
+
+  public String getPath() {
+    return path;
+  }
+
   public BaseJob setSettings(JobSettings settings) {
     this.settings = settings;
     return this;
@@ -141,6 +158,7 @@ public class BaseJob {
         && Objects.equals(effectiveUsagePolicyId, that.effectiveUsagePolicyId)
         && Objects.equals(hasMore, that.hasMore)
         && Objects.equals(jobId, that.jobId)
+        && Objects.equals(path, that.path)
         && Objects.equals(settings, that.settings)
         && Objects.equals(triggerState, that.triggerState);
   }
@@ -154,6 +172,7 @@ public class BaseJob {
         effectiveUsagePolicyId,
         hasMore,
         jobId,
+        path,
         settings,
         triggerState);
   }
@@ -167,6 +186,7 @@ public class BaseJob {
         .add("effectiveUsagePolicyId", effectiveUsagePolicyId)
         .add("hasMore", hasMore)
         .add("jobId", jobId)
+        .add("path", path)
         .add("settings", settings)
         .add("triggerState", triggerState)
         .toString();

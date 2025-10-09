@@ -15,6 +15,14 @@ public class UpdateCatalog {
   @JsonProperty("comment")
   private String comment;
 
+  /** Status of conversion of FOREIGN catalog to UC Native catalog. */
+  @JsonProperty("conversion_info")
+  private ConversionInfo conversionInfo;
+
+  /** Disaster Recovery replication state snapshot. */
+  @JsonProperty("dr_replication_info")
+  private DrReplicationInfo drReplicationInfo;
+
   /** Whether predictive optimization should be enabled for this object and objects under it. */
   @JsonProperty("enable_predictive_optimization")
   private EnablePredictiveOptimization enablePredictiveOptimization;
@@ -52,6 +60,24 @@ public class UpdateCatalog {
 
   public String getComment() {
     return comment;
+  }
+
+  public UpdateCatalog setConversionInfo(ConversionInfo conversionInfo) {
+    this.conversionInfo = conversionInfo;
+    return this;
+  }
+
+  public ConversionInfo getConversionInfo() {
+    return conversionInfo;
+  }
+
+  public UpdateCatalog setDrReplicationInfo(DrReplicationInfo drReplicationInfo) {
+    this.drReplicationInfo = drReplicationInfo;
+    return this;
+  }
+
+  public DrReplicationInfo getDrReplicationInfo() {
+    return drReplicationInfo;
   }
 
   public UpdateCatalog setEnablePredictiveOptimization(
@@ -124,6 +150,8 @@ public class UpdateCatalog {
     if (o == null || getClass() != o.getClass()) return false;
     UpdateCatalog that = (UpdateCatalog) o;
     return Objects.equals(comment, that.comment)
+        && Objects.equals(conversionInfo, that.conversionInfo)
+        && Objects.equals(drReplicationInfo, that.drReplicationInfo)
         && Objects.equals(enablePredictiveOptimization, that.enablePredictiveOptimization)
         && Objects.equals(isolationMode, that.isolationMode)
         && Objects.equals(name, that.name)
@@ -137,6 +165,8 @@ public class UpdateCatalog {
   public int hashCode() {
     return Objects.hash(
         comment,
+        conversionInfo,
+        drReplicationInfo,
         enablePredictiveOptimization,
         isolationMode,
         name,
@@ -150,6 +180,8 @@ public class UpdateCatalog {
   public String toString() {
     return new ToStringer(UpdateCatalog.class)
         .add("comment", comment)
+        .add("conversionInfo", conversionInfo)
+        .add("drReplicationInfo", drReplicationInfo)
         .add("enablePredictiveOptimization", enablePredictiveOptimization)
         .add("isolationMode", isolationMode)
         .add("name", name)

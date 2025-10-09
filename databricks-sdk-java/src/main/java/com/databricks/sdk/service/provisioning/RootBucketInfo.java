@@ -7,10 +7,9 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Root S3 bucket information. */
 @Generated
 public class RootBucketInfo {
-  /** The name of the S3 bucket. */
+  /** Name of the S3 bucket */
   @JsonProperty("bucket_name")
   private String bucketName;
 

@@ -25,6 +25,7 @@ public enum SystemType {
   SAP,
   SERVICENOW,
   SNOWFLAKE,
+  STREAM_NATIVE,
   TABLEAU,
   TERADATA,
   WORKDAY,

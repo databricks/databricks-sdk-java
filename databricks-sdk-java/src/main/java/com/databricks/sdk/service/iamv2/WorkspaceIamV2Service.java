@@ -13,6 +13,44 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface WorkspaceIamV2Service {
+  /** TODO: Write description later when this method is implemented */
+  Group createGroupProxy(CreateGroupProxyRequest createGroupProxyRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  ServicePrincipal createServicePrincipalProxy(
+      CreateServicePrincipalProxyRequest createServicePrincipalProxyRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  User createUserProxy(CreateUserProxyRequest createUserProxyRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  WorkspaceAccessDetail createWorkspaceAccessDetailLocal(
+      CreateWorkspaceAccessDetailLocalRequest createWorkspaceAccessDetailLocalRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  void deleteGroupProxy(DeleteGroupProxyRequest deleteGroupProxyRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  void deleteServicePrincipalProxy(
+      DeleteServicePrincipalProxyRequest deleteServicePrincipalProxyRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  void deleteUserProxy(DeleteUserProxyRequest deleteUserProxyRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  void deleteWorkspaceAccessDetailLocal(
+      DeleteWorkspaceAccessDetailLocalRequest deleteWorkspaceAccessDetailLocalRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  Group getGroupProxy(GetGroupProxyRequest getGroupProxyRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  ServicePrincipal getServicePrincipalProxy(
+      GetServicePrincipalProxyRequest getServicePrincipalProxyRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  User getUserProxy(GetUserProxyRequest getUserProxyRequest);
+
   /**
    * Returns the access details for a principal in the current workspace. Allows for checking access
    * details for any provisioned principal (user, service principal, or group) in the current
@@ -22,6 +60,20 @@ public interface WorkspaceIamV2Service {
    */
   WorkspaceAccessDetail getWorkspaceAccessDetailLocal(
       GetWorkspaceAccessDetailLocalRequest getWorkspaceAccessDetailLocalRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  ListGroupsResponse listGroupsProxy(ListGroupsProxyRequest listGroupsProxyRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  ListServicePrincipalsResponse listServicePrincipalsProxy(
+      ListServicePrincipalsProxyRequest listServicePrincipalsProxyRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  ListUsersResponse listUsersProxy(ListUsersProxyRequest listUsersProxyRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  ListWorkspaceAccessDetailsResponse listWorkspaceAccessDetailsLocal(
+      ListWorkspaceAccessDetailsLocalRequest listWorkspaceAccessDetailsLocalRequest);
 
   /**
    * Resolves a group with the given external ID from the customer's IdP. If the group does not
@@ -44,4 +96,18 @@ public interface WorkspaceIamV2Service {
    * this will return an error.
    */
   ResolveUserResponse resolveUserProxy(ResolveUserProxyRequest resolveUserProxyRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  Group updateGroupProxy(UpdateGroupProxyRequest updateGroupProxyRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  ServicePrincipal updateServicePrincipalProxy(
+      UpdateServicePrincipalProxyRequest updateServicePrincipalProxyRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  User updateUserProxy(UpdateUserProxyRequest updateUserProxyRequest);
+
+  /** TODO: Write description later when this method is implemented */
+  WorkspaceAccessDetail updateWorkspaceAccessDetailLocal(
+      UpdateWorkspaceAccessDetailLocalRequest updateWorkspaceAccessDetailLocalRequest);
 }

@@ -18,6 +18,14 @@ public class CreateCatalog {
   @JsonProperty("connection_name")
   private String connectionName;
 
+  /** Status of conversion of FOREIGN catalog to UC Native catalog. */
+  @JsonProperty("conversion_info")
+  private ConversionInfo conversionInfo;
+
+  /** Disaster Recovery replication state snapshot. */
+  @JsonProperty("dr_replication_info")
+  private DrReplicationInfo drReplicationInfo;
+
   /** Name of catalog. */
   @JsonProperty("name")
   private String name;
@@ -63,6 +71,24 @@ public class CreateCatalog {
 
   public String getConnectionName() {
     return connectionName;
+  }
+
+  public CreateCatalog setConversionInfo(ConversionInfo conversionInfo) {
+    this.conversionInfo = conversionInfo;
+    return this;
+  }
+
+  public ConversionInfo getConversionInfo() {
+    return conversionInfo;
+  }
+
+  public CreateCatalog setDrReplicationInfo(DrReplicationInfo drReplicationInfo) {
+    this.drReplicationInfo = drReplicationInfo;
+    return this;
+  }
+
+  public DrReplicationInfo getDrReplicationInfo() {
+    return drReplicationInfo;
   }
 
   public CreateCatalog setName(String name) {
@@ -126,6 +152,8 @@ public class CreateCatalog {
     CreateCatalog that = (CreateCatalog) o;
     return Objects.equals(comment, that.comment)
         && Objects.equals(connectionName, that.connectionName)
+        && Objects.equals(conversionInfo, that.conversionInfo)
+        && Objects.equals(drReplicationInfo, that.drReplicationInfo)
         && Objects.equals(name, that.name)
         && Objects.equals(options, that.options)
         && Objects.equals(properties, that.properties)
@@ -137,7 +165,16 @@ public class CreateCatalog {
   @Override
   public int hashCode() {
     return Objects.hash(
-        comment, connectionName, name, options, properties, providerName, shareName, storageRoot);
+        comment,
+        connectionName,
+        conversionInfo,
+        drReplicationInfo,
+        name,
+        options,
+        properties,
+        providerName,
+        shareName,
+        storageRoot);
   }
 
   @Override
@@ -145,6 +182,8 @@ public class CreateCatalog {
     return new ToStringer(CreateCatalog.class)
         .add("comment", comment)
         .add("connectionName", connectionName)
+        .add("conversionInfo", conversionInfo)
+        .add("drReplicationInfo", drReplicationInfo)
         .add("name", name)
         .add("options", options)
         .add("properties", properties)
