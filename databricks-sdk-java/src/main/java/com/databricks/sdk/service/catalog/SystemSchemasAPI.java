@@ -55,6 +55,14 @@ public class SystemSchemasAPI {
   /**
    * Gets an array of system schemas for a metastore. The caller must be an account admin or a
    * metastore admin.
+   *
+   * <p>NOTE: we recommend using max_results=0 to use the paginated version of this API. Unpaginated
+   * calls will be deprecated soon.
+   *
+   * <p>PAGINATION BEHAVIOR: When using pagination (max_results >= 0), a page may contain zero
+   * results while still providing a next_page_token. Clients must continue reading pages until
+   * next_page_token is absent, which is the only indication that the end of results has been
+   * reached. This behavior follows Google AIP-158 guidelines.
    */
   public Iterable<SystemSchemaInfo> list(ListSystemSchemasRequest request) {
     return new Paginator<>(

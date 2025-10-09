@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** The metastore assignment to update. */
 @Generated
 public class AccountsUpdateMetastoreAssignment {
   /** */

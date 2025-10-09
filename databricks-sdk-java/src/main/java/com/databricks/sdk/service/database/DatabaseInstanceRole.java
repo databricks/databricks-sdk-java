@@ -10,13 +10,21 @@ import java.util.Objects;
 /** A DatabaseInstanceRole represents a Postgres role in a database instance. */
 @Generated
 public class DatabaseInstanceRole {
-  /** API-exposed Postgres role attributes */
+  /** The desired API-exposed Postgres role attribute to associate with the role. Optional. */
   @JsonProperty("attributes")
   private DatabaseInstanceRoleAttributes attributes;
+
+  /** The attributes that are applied to the role. */
+  @JsonProperty("effective_attributes")
+  private DatabaseInstanceRoleAttributes effectiveAttributes;
 
   /** The type of the role. */
   @JsonProperty("identity_type")
   private DatabaseInstanceRoleIdentityType identityType;
+
+  /** */
+  @JsonProperty("instance_name")
+  private String instanceName;
 
   /** An enum value for a standard role that this role is a member of. */
   @JsonProperty("membership_role")
@@ -35,6 +43,16 @@ public class DatabaseInstanceRole {
     return attributes;
   }
 
+  public DatabaseInstanceRole setEffectiveAttributes(
+      DatabaseInstanceRoleAttributes effectiveAttributes) {
+    this.effectiveAttributes = effectiveAttributes;
+    return this;
+  }
+
+  public DatabaseInstanceRoleAttributes getEffectiveAttributes() {
+    return effectiveAttributes;
+  }
+
   public DatabaseInstanceRole setIdentityType(DatabaseInstanceRoleIdentityType identityType) {
     this.identityType = identityType;
     return this;
@@ -42,6 +60,15 @@ public class DatabaseInstanceRole {
 
   public DatabaseInstanceRoleIdentityType getIdentityType() {
     return identityType;
+  }
+
+  public DatabaseInstanceRole setInstanceName(String instanceName) {
+    this.instanceName = instanceName;
+    return this;
+  }
+
+  public String getInstanceName() {
+    return instanceName;
   }
 
   public DatabaseInstanceRole setMembershipRole(DatabaseInstanceRoleMembershipRole membershipRole) {
@@ -68,21 +95,26 @@ public class DatabaseInstanceRole {
     if (o == null || getClass() != o.getClass()) return false;
     DatabaseInstanceRole that = (DatabaseInstanceRole) o;
     return Objects.equals(attributes, that.attributes)
+        && Objects.equals(effectiveAttributes, that.effectiveAttributes)
         && Objects.equals(identityType, that.identityType)
+        && Objects.equals(instanceName, that.instanceName)
         && Objects.equals(membershipRole, that.membershipRole)
         && Objects.equals(name, that.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(attributes, identityType, membershipRole, name);
+    return Objects.hash(
+        attributes, effectiveAttributes, identityType, instanceName, membershipRole, name);
   }
 
   @Override
   public String toString() {
     return new ToStringer(DatabaseInstanceRole.class)
         .add("attributes", attributes)
+        .add("effectiveAttributes", effectiveAttributes)
         .add("identityType", identityType)
+        .add("instanceName", instanceName)
         .add("membershipRole", membershipRole)
         .add("name", name)
         .toString();

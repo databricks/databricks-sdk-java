@@ -5,10 +5,22 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 @Generated
 public class CreateRegisteredModelRequest {
+  /** List of aliases associated with the registered model */
+  @JsonProperty("aliases")
+  private Collection<RegisteredModelAlias> aliases;
+
+  /**
+   * Indicates whether the principal is limited to retrieving metadata for the associated object
+   * through the BROWSE privilege when include_browse is enabled in the request.
+   */
+  @JsonProperty("browse_only")
+  private Boolean browseOnly;
+
   /** The name of the catalog where the schema and the registered model reside */
   @JsonProperty("catalog_name")
   private String catalogName;
@@ -17,9 +29,29 @@ public class CreateRegisteredModelRequest {
   @JsonProperty("comment")
   private String comment;
 
+  /** Creation timestamp of the registered model in milliseconds since the Unix epoch */
+  @JsonProperty("created_at")
+  private Long createdAt;
+
+  /** The identifier of the user who created the registered model */
+  @JsonProperty("created_by")
+  private String createdBy;
+
+  /** The three-level (fully qualified) name of the registered model */
+  @JsonProperty("full_name")
+  private String fullName;
+
+  /** The unique identifier of the metastore */
+  @JsonProperty("metastore_id")
+  private String metastoreId;
+
   /** The name of the registered model */
   @JsonProperty("name")
   private String name;
+
+  /** The identifier of the user who owns the registered model */
+  @JsonProperty("owner")
+  private String owner;
 
   /** The name of the schema where the registered model resides */
   @JsonProperty("schema_name")
@@ -28,6 +60,32 @@ public class CreateRegisteredModelRequest {
   /** The storage location on the cloud under which model version data files are stored */
   @JsonProperty("storage_location")
   private String storageLocation;
+
+  /** Last-update timestamp of the registered model in milliseconds since the Unix epoch */
+  @JsonProperty("updated_at")
+  private Long updatedAt;
+
+  /** The identifier of the user who updated the registered model last time */
+  @JsonProperty("updated_by")
+  private String updatedBy;
+
+  public CreateRegisteredModelRequest setAliases(Collection<RegisteredModelAlias> aliases) {
+    this.aliases = aliases;
+    return this;
+  }
+
+  public Collection<RegisteredModelAlias> getAliases() {
+    return aliases;
+  }
+
+  public CreateRegisteredModelRequest setBrowseOnly(Boolean browseOnly) {
+    this.browseOnly = browseOnly;
+    return this;
+  }
+
+  public Boolean getBrowseOnly() {
+    return browseOnly;
+  }
 
   public CreateRegisteredModelRequest setCatalogName(String catalogName) {
     this.catalogName = catalogName;
@@ -47,6 +105,42 @@ public class CreateRegisteredModelRequest {
     return comment;
   }
 
+  public CreateRegisteredModelRequest setCreatedAt(Long createdAt) {
+    this.createdAt = createdAt;
+    return this;
+  }
+
+  public Long getCreatedAt() {
+    return createdAt;
+  }
+
+  public CreateRegisteredModelRequest setCreatedBy(String createdBy) {
+    this.createdBy = createdBy;
+    return this;
+  }
+
+  public String getCreatedBy() {
+    return createdBy;
+  }
+
+  public CreateRegisteredModelRequest setFullName(String fullName) {
+    this.fullName = fullName;
+    return this;
+  }
+
+  public String getFullName() {
+    return fullName;
+  }
+
+  public CreateRegisteredModelRequest setMetastoreId(String metastoreId) {
+    this.metastoreId = metastoreId;
+    return this;
+  }
+
+  public String getMetastoreId() {
+    return metastoreId;
+  }
+
   public CreateRegisteredModelRequest setName(String name) {
     this.name = name;
     return this;
@@ -54,6 +148,15 @@ public class CreateRegisteredModelRequest {
 
   public String getName() {
     return name;
+  }
+
+  public CreateRegisteredModelRequest setOwner(String owner) {
+    this.owner = owner;
+    return this;
+  }
+
+  public String getOwner() {
+    return owner;
   }
 
   public CreateRegisteredModelRequest setSchemaName(String schemaName) {
@@ -74,31 +177,81 @@ public class CreateRegisteredModelRequest {
     return storageLocation;
   }
 
+  public CreateRegisteredModelRequest setUpdatedAt(Long updatedAt) {
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+  public Long getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public CreateRegisteredModelRequest setUpdatedBy(String updatedBy) {
+    this.updatedBy = updatedBy;
+    return this;
+  }
+
+  public String getUpdatedBy() {
+    return updatedBy;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CreateRegisteredModelRequest that = (CreateRegisteredModelRequest) o;
-    return Objects.equals(catalogName, that.catalogName)
+    return Objects.equals(aliases, that.aliases)
+        && Objects.equals(browseOnly, that.browseOnly)
+        && Objects.equals(catalogName, that.catalogName)
         && Objects.equals(comment, that.comment)
+        && Objects.equals(createdAt, that.createdAt)
+        && Objects.equals(createdBy, that.createdBy)
+        && Objects.equals(fullName, that.fullName)
+        && Objects.equals(metastoreId, that.metastoreId)
         && Objects.equals(name, that.name)
+        && Objects.equals(owner, that.owner)
         && Objects.equals(schemaName, that.schemaName)
-        && Objects.equals(storageLocation, that.storageLocation);
+        && Objects.equals(storageLocation, that.storageLocation)
+        && Objects.equals(updatedAt, that.updatedAt)
+        && Objects.equals(updatedBy, that.updatedBy);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(catalogName, comment, name, schemaName, storageLocation);
+    return Objects.hash(
+        aliases,
+        browseOnly,
+        catalogName,
+        comment,
+        createdAt,
+        createdBy,
+        fullName,
+        metastoreId,
+        name,
+        owner,
+        schemaName,
+        storageLocation,
+        updatedAt,
+        updatedBy);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CreateRegisteredModelRequest.class)
+        .add("aliases", aliases)
+        .add("browseOnly", browseOnly)
         .add("catalogName", catalogName)
         .add("comment", comment)
+        .add("createdAt", createdAt)
+        .add("createdBy", createdBy)
+        .add("fullName", fullName)
+        .add("metastoreId", metastoreId)
         .add("name", name)
+        .add("owner", owner)
         .add("schemaName", schemaName)
         .add("storageLocation", storageLocation)
+        .add("updatedAt", updatedAt)
+        .add("updatedBy", updatedBy)
         .toString();
   }
 }

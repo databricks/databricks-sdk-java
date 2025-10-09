@@ -19,11 +19,19 @@ public class Results {
   @JsonProperty("data")
   private Object data;
 
-  /** The image filename */
+  /**
+   * The image data in one of the following formats:
+   *
+   * <p>1. A Data URL with base64-encoded image data: `data:image/{type};base64,{base64-data}`.
+   * Example: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUA...`
+   *
+   * <p>2. A FileStore file path for large images: `/plots/{filename}.png`. Example:
+   * `/plots/b6a7ad70-fb2c-4353-8aed-3f1e015174a4.png`
+   */
   @JsonProperty("fileName")
   private String fileName;
 
-  /** */
+  /** List of image data for multiple images. Each element follows the same format as file_name. */
   @JsonProperty("fileNames")
   private Collection<String> fileNames;
 

@@ -30,6 +30,10 @@ public class CreatePrivateEndpointRule {
   @JsonProperty("endpoint_service")
   private String endpointService;
 
+  /** */
+  @JsonProperty("gcp_endpoint_spec")
+  private GcpEndpointSpec gcpEndpointSpec;
+
   /**
    * Not used by customer-managed private endpoint services.
    *
@@ -72,6 +76,15 @@ public class CreatePrivateEndpointRule {
     return endpointService;
   }
 
+  public CreatePrivateEndpointRule setGcpEndpointSpec(GcpEndpointSpec gcpEndpointSpec) {
+    this.gcpEndpointSpec = gcpEndpointSpec;
+    return this;
+  }
+
+  public GcpEndpointSpec getGcpEndpointSpec() {
+    return gcpEndpointSpec;
+  }
+
   public CreatePrivateEndpointRule setGroupId(String groupId) {
     this.groupId = groupId;
     return this;
@@ -106,6 +119,7 @@ public class CreatePrivateEndpointRule {
     CreatePrivateEndpointRule that = (CreatePrivateEndpointRule) o;
     return Objects.equals(domainNames, that.domainNames)
         && Objects.equals(endpointService, that.endpointService)
+        && Objects.equals(gcpEndpointSpec, that.gcpEndpointSpec)
         && Objects.equals(groupId, that.groupId)
         && Objects.equals(resourceId, that.resourceId)
         && Objects.equals(resourceNames, that.resourceNames);
@@ -113,7 +127,8 @@ public class CreatePrivateEndpointRule {
 
   @Override
   public int hashCode() {
-    return Objects.hash(domainNames, endpointService, groupId, resourceId, resourceNames);
+    return Objects.hash(
+        domainNames, endpointService, gcpEndpointSpec, groupId, resourceId, resourceNames);
   }
 
   @Override
@@ -121,6 +136,7 @@ public class CreatePrivateEndpointRule {
     return new ToStringer(CreatePrivateEndpointRule.class)
         .add("domainNames", domainNames)
         .add("endpointService", endpointService)
+        .add("gcpEndpointSpec", gcpEndpointSpec)
         .add("groupId", groupId)
         .add("resourceId", resourceId)
         .add("resourceNames", resourceNames)

@@ -70,7 +70,7 @@ public class GetWarehouseResponse {
   /**
    * Maximum number of clusters that the autoscaler will create to handle concurrent queries.
    *
-   * <p>Supported values: - Must be >= min_num_clusters - Must be <= 30.
+   * <p>Supported values: - Must be >= min_num_clusters - Must be <= 40.
    *
    * <p>Defaults to min_clusters if unset.
    */
@@ -110,11 +110,11 @@ public class GetWarehouseResponse {
   @JsonProperty("odbc_params")
   private OdbcParams odbcParams;
 
-  /** */
+  /** Configurations whether the endpoint should use spot instances. */
   @JsonProperty("spot_instance_policy")
   private SpotInstancePolicy spotInstancePolicy;
 
-  /** */
+  /** state of the endpoint */
   @JsonProperty("state")
   private State state;
 
@@ -127,7 +127,10 @@ public class GetWarehouseResponse {
   @JsonProperty("tags")
   private EndpointTags tags;
 
-  /** */
+  /**
+   * Warehouse type: `PRO` or `CLASSIC`. If you want to use serverless compute, you must set to
+   * `PRO` and also set the field `enable_serverless_compute` to `true`.
+   */
   @JsonProperty("warehouse_type")
   private GetWarehouseResponseWarehouseType warehouseType;
 

@@ -25,6 +25,10 @@ public class GetWorkspaceWarehouseConfigResponse {
   @JsonProperty("data_access_config")
   private Collection<EndpointConfPair> dataAccessConfig;
 
+  /** Enable Serverless compute for SQL warehouses */
+  @JsonProperty("enable_serverless_compute")
+  private Boolean enableServerlessCompute;
+
   /**
    * List of Warehouse Types allowed in this workspace (limits allowed value of the type field in
    * CreateWarehouse and EditWarehouse). Note: Some types cannot be disabled, they don't need to be
@@ -43,7 +47,10 @@ public class GetWorkspaceWarehouseConfigResponse {
   @JsonProperty("google_service_account")
   private String googleServiceAccount;
 
-  /** AWS Only: Instance profile used to pass IAM role to the cluster */
+  /**
+   * AWS Only: The instance profile used to pass an IAM role to the SQL warehouses. This
+   * configuration is also applied to the workspace's serverless compute for notebooks and jobs.
+   */
   @JsonProperty("instance_profile_arn")
   private String instanceProfileArn;
 
@@ -81,6 +88,16 @@ public class GetWorkspaceWarehouseConfigResponse {
 
   public Collection<EndpointConfPair> getDataAccessConfig() {
     return dataAccessConfig;
+  }
+
+  public GetWorkspaceWarehouseConfigResponse setEnableServerlessCompute(
+      Boolean enableServerlessCompute) {
+    this.enableServerlessCompute = enableServerlessCompute;
+    return this;
+  }
+
+  public Boolean getEnableServerlessCompute() {
+    return enableServerlessCompute;
   }
 
   public GetWorkspaceWarehouseConfigResponse setEnabledWarehouseTypes(
@@ -148,6 +165,7 @@ public class GetWorkspaceWarehouseConfigResponse {
     return Objects.equals(channel, that.channel)
         && Objects.equals(configParam, that.configParam)
         && Objects.equals(dataAccessConfig, that.dataAccessConfig)
+        && Objects.equals(enableServerlessCompute, that.enableServerlessCompute)
         && Objects.equals(enabledWarehouseTypes, that.enabledWarehouseTypes)
         && Objects.equals(globalParam, that.globalParam)
         && Objects.equals(googleServiceAccount, that.googleServiceAccount)
@@ -162,6 +180,7 @@ public class GetWorkspaceWarehouseConfigResponse {
         channel,
         configParam,
         dataAccessConfig,
+        enableServerlessCompute,
         enabledWarehouseTypes,
         globalParam,
         googleServiceAccount,
@@ -176,6 +195,7 @@ public class GetWorkspaceWarehouseConfigResponse {
         .add("channel", channel)
         .add("configParam", configParam)
         .add("dataAccessConfig", dataAccessConfig)
+        .add("enableServerlessCompute", enableServerlessCompute)
         .add("enabledWarehouseTypes", enabledWarehouseTypes)
         .add("globalParam", globalParam)
         .add("googleServiceAccount", googleServiceAccount)

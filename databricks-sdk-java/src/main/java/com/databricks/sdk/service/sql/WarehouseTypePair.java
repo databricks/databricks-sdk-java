@@ -7,6 +7,10 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * * Configuration values to enable or disable the access to specific warehouse types in the
+ * workspace.
+ */
 @Generated
 public class WarehouseTypePair {
   /**
@@ -16,7 +20,7 @@ public class WarehouseTypePair {
   @JsonProperty("enabled")
   private Boolean enabled;
 
-  /** Warehouse type: `PRO` or `CLASSIC`. */
+  /** */
   @JsonProperty("warehouse_type")
   private WarehouseTypePairWarehouseType warehouseType;
 

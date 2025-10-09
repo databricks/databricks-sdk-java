@@ -18,6 +18,10 @@ public class AppResource {
   private String description;
 
   /** */
+  @JsonProperty("genie_space")
+  private AppResourceGenieSpace genieSpace;
+
+  /** */
   @JsonProperty("job")
   private AppResourceJob job;
 
@@ -57,6 +61,15 @@ public class AppResource {
 
   public String getDescription() {
     return description;
+  }
+
+  public AppResource setGenieSpace(AppResourceGenieSpace genieSpace) {
+    this.genieSpace = genieSpace;
+    return this;
+  }
+
+  public AppResourceGenieSpace getGenieSpace() {
+    return genieSpace;
   }
 
   public AppResource setJob(AppResourceJob job) {
@@ -120,6 +133,7 @@ public class AppResource {
     AppResource that = (AppResource) o;
     return Objects.equals(database, that.database)
         && Objects.equals(description, that.description)
+        && Objects.equals(genieSpace, that.genieSpace)
         && Objects.equals(job, that.job)
         && Objects.equals(name, that.name)
         && Objects.equals(secret, that.secret)
@@ -131,7 +145,15 @@ public class AppResource {
   @Override
   public int hashCode() {
     return Objects.hash(
-        database, description, job, name, secret, servingEndpoint, sqlWarehouse, ucSecurable);
+        database,
+        description,
+        genieSpace,
+        job,
+        name,
+        secret,
+        servingEndpoint,
+        sqlWarehouse,
+        ucSecurable);
   }
 
   @Override
@@ -139,6 +161,7 @@ public class AppResource {
     return new ToStringer(AppResource.class)
         .add("database", database)
         .add("description", description)
+        .add("genieSpace", genieSpace)
         .add("job", job)
         .add("name", name)
         .add("secret", secret)

@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateFunction {
-  /** Name of parent catalog. */
+  /** Name of parent Catalog. */
   @JsonProperty("catalog_name")
   private String catalogName;
 
@@ -33,7 +33,7 @@ public class CreateFunction {
   @JsonProperty("full_data_type")
   private String fullDataType;
 
-  /** */
+  /** Function input parameters. */
   @JsonProperty("input_params")
   private FunctionParameterInfos inputParams;
 
@@ -63,8 +63,8 @@ public class CreateFunction {
 
   /**
    * Function language. When **EXTERNAL** is used, the language of the routine function should be
-   * specified in the __external_language__ field, and the __return_params__ of the function cannot
-   * be used (as **TABLE** return type is not supported), and the __sql_data_access__ field must be
+   * specified in the **external_language** field, and the **return_params** of the function cannot
+   * be used (as **TABLE** return type is not supported), and the **sql_data_access** field must be
    * **NO_SQL**.
    */
   @JsonProperty("routine_body")
@@ -74,11 +74,11 @@ public class CreateFunction {
   @JsonProperty("routine_definition")
   private String routineDefinition;
 
-  /** Function dependencies. */
+  /** function dependencies. */
   @JsonProperty("routine_dependencies")
   private DependencyList routineDependencies;
 
-  /** Name of parent schema relative to its parent catalog. */
+  /** Name of parent Schema relative to its parent Catalog. */
   @JsonProperty("schema_name")
   private String schemaName;
 

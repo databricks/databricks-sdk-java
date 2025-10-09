@@ -32,7 +32,7 @@ class NetworksImpl implements NetworksService {
   }
 
   @Override
-  public void delete(DeleteNetworkRequest request) {
+  public Network delete(DeleteNetworkRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/networks/%s",
@@ -41,7 +41,7 @@ class NetworksImpl implements NetworksService {
       Request req = new Request("DELETE", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
-      apiClient.execute(req, Void.class);
+      return apiClient.execute(req, Network.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

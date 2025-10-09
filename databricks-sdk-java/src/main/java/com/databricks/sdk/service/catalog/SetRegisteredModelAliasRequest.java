@@ -4,18 +4,17 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 @Generated
 public class SetRegisteredModelAliasRequest {
   /** The name of the alias */
-  @JsonProperty("alias")
-  private String alias;
+  @JsonIgnore private String alias;
 
-  /** Full name of the registered model */
-  @JsonProperty("full_name")
-  private String fullName;
+  /** The three-level (fully qualified) name of the registered model */
+  @JsonIgnore private String fullName;
 
   /** The version number of the model version to which the alias points */
   @JsonProperty("version_num")

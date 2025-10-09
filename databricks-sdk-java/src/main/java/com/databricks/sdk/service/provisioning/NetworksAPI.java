@@ -34,8 +34,8 @@ public class NetworksAPI {
     return impl.create(request);
   }
 
-  public void delete(String networkId) {
-    delete(new DeleteNetworkRequest().setNetworkId(networkId));
+  public Network delete(String networkId) {
+    return delete(new DeleteNetworkRequest().setNetworkId(networkId));
   }
 
   /**
@@ -44,8 +44,8 @@ public class NetworksAPI {
    *
    * <p>This operation is available only if your account is on the E2 version of the platform.
    */
-  public void delete(DeleteNetworkRequest request) {
-    impl.delete(request);
+  public Network delete(DeleteNetworkRequest request) {
+    return impl.delete(request);
   }
 
   public Network get(String networkId) {
@@ -57,11 +57,7 @@ public class NetworksAPI {
     return impl.get(request);
   }
 
-  /**
-   * Gets a list of all Databricks network configurations for an account, specified by ID.
-   *
-   * <p>This operation is available only if your account is on the E2 version of the platform.
-   */
+  /** Lists Databricks network configurations for an account. */
   public Iterable<Network> list() {
     return impl.list();
   }

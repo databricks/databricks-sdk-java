@@ -26,6 +26,10 @@ public class App {
   private String budgetPolicyId;
 
   /** */
+  @JsonProperty("compute_size")
+  private ComputeSize computeSize;
+
+  /** */
   @JsonProperty("compute_status")
   private ComputeStatus computeStatus;
 
@@ -51,6 +55,10 @@ public class App {
   /** */
   @JsonProperty("effective_budget_policy_id")
   private String effectiveBudgetPolicyId;
+
+  /** */
+  @JsonProperty("effective_usage_policy_id")
+  private String effectiveUsagePolicyId;
 
   /** The effective api scopes granted to the user access token. */
   @JsonProperty("effective_user_api_scopes")
@@ -111,6 +119,10 @@ public class App {
   private String url;
 
   /** */
+  @JsonProperty("usage_policy_id")
+  private String usagePolicyId;
+
+  /** */
   @JsonProperty("user_api_scopes")
   private Collection<String> userApiScopes;
 
@@ -139,6 +151,15 @@ public class App {
 
   public String getBudgetPolicyId() {
     return budgetPolicyId;
+  }
+
+  public App setComputeSize(ComputeSize computeSize) {
+    this.computeSize = computeSize;
+    return this;
+  }
+
+  public ComputeSize getComputeSize() {
+    return computeSize;
   }
 
   public App setComputeStatus(ComputeStatus computeStatus) {
@@ -193,6 +214,15 @@ public class App {
 
   public String getEffectiveBudgetPolicyId() {
     return effectiveBudgetPolicyId;
+  }
+
+  public App setEffectiveUsagePolicyId(String effectiveUsagePolicyId) {
+    this.effectiveUsagePolicyId = effectiveUsagePolicyId;
+    return this;
+  }
+
+  public String getEffectiveUsagePolicyId() {
+    return effectiveUsagePolicyId;
   }
 
   public App setEffectiveUserApiScopes(Collection<String> effectiveUserApiScopes) {
@@ -312,6 +342,15 @@ public class App {
     return url;
   }
 
+  public App setUsagePolicyId(String usagePolicyId) {
+    this.usagePolicyId = usagePolicyId;
+    return this;
+  }
+
+  public String getUsagePolicyId() {
+    return usagePolicyId;
+  }
+
   public App setUserApiScopes(Collection<String> userApiScopes) {
     this.userApiScopes = userApiScopes;
     return this;
@@ -329,12 +368,14 @@ public class App {
     return Objects.equals(activeDeployment, that.activeDeployment)
         && Objects.equals(appStatus, that.appStatus)
         && Objects.equals(budgetPolicyId, that.budgetPolicyId)
+        && Objects.equals(computeSize, that.computeSize)
         && Objects.equals(computeStatus, that.computeStatus)
         && Objects.equals(createTime, that.createTime)
         && Objects.equals(creator, that.creator)
         && Objects.equals(defaultSourceCodePath, that.defaultSourceCodePath)
         && Objects.equals(description, that.description)
         && Objects.equals(effectiveBudgetPolicyId, that.effectiveBudgetPolicyId)
+        && Objects.equals(effectiveUsagePolicyId, that.effectiveUsagePolicyId)
         && Objects.equals(effectiveUserApiScopes, that.effectiveUserApiScopes)
         && Objects.equals(id, that.id)
         && Objects.equals(name, that.name)
@@ -348,6 +389,7 @@ public class App {
         && Objects.equals(updateTime, that.updateTime)
         && Objects.equals(updater, that.updater)
         && Objects.equals(url, that.url)
+        && Objects.equals(usagePolicyId, that.usagePolicyId)
         && Objects.equals(userApiScopes, that.userApiScopes);
   }
 
@@ -357,12 +399,14 @@ public class App {
         activeDeployment,
         appStatus,
         budgetPolicyId,
+        computeSize,
         computeStatus,
         createTime,
         creator,
         defaultSourceCodePath,
         description,
         effectiveBudgetPolicyId,
+        effectiveUsagePolicyId,
         effectiveUserApiScopes,
         id,
         name,
@@ -376,6 +420,7 @@ public class App {
         updateTime,
         updater,
         url,
+        usagePolicyId,
         userApiScopes);
   }
 
@@ -385,12 +430,14 @@ public class App {
         .add("activeDeployment", activeDeployment)
         .add("appStatus", appStatus)
         .add("budgetPolicyId", budgetPolicyId)
+        .add("computeSize", computeSize)
         .add("computeStatus", computeStatus)
         .add("createTime", createTime)
         .add("creator", creator)
         .add("defaultSourceCodePath", defaultSourceCodePath)
         .add("description", description)
         .add("effectiveBudgetPolicyId", effectiveBudgetPolicyId)
+        .add("effectiveUsagePolicyId", effectiveUsagePolicyId)
         .add("effectiveUserApiScopes", effectiveUserApiScopes)
         .add("id", id)
         .add("name", name)
@@ -404,6 +451,7 @@ public class App {
         .add("updateTime", updateTime)
         .add("updater", updater)
         .add("url", url)
+        .add("usagePolicyId", usagePolicyId)
         .add("userApiScopes", userApiScopes)
         .toString();
   }

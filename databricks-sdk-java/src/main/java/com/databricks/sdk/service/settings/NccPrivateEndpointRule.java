@@ -72,6 +72,10 @@ public class NccPrivateEndpointRule {
   @JsonProperty("endpoint_service")
   private String endpointService;
 
+  /** */
+  @JsonProperty("gcp_endpoint_spec")
+  private GcpEndpointSpec gcpEndpointSpec;
+
   /**
    * Not used by customer-managed private endpoint services.
    *
@@ -200,6 +204,15 @@ public class NccPrivateEndpointRule {
     return endpointService;
   }
 
+  public NccPrivateEndpointRule setGcpEndpointSpec(GcpEndpointSpec gcpEndpointSpec) {
+    this.gcpEndpointSpec = gcpEndpointSpec;
+    return this;
+  }
+
+  public GcpEndpointSpec getGcpEndpointSpec() {
+    return gcpEndpointSpec;
+  }
+
   public NccPrivateEndpointRule setGroupId(String groupId) {
     this.groupId = groupId;
     return this;
@@ -277,6 +290,7 @@ public class NccPrivateEndpointRule {
         && Objects.equals(enabled, that.enabled)
         && Objects.equals(endpointName, that.endpointName)
         && Objects.equals(endpointService, that.endpointService)
+        && Objects.equals(gcpEndpointSpec, that.gcpEndpointSpec)
         && Objects.equals(groupId, that.groupId)
         && Objects.equals(networkConnectivityConfigId, that.networkConnectivityConfigId)
         && Objects.equals(resourceId, that.resourceId)
@@ -298,6 +312,7 @@ public class NccPrivateEndpointRule {
         enabled,
         endpointName,
         endpointService,
+        gcpEndpointSpec,
         groupId,
         networkConnectivityConfigId,
         resourceId,
@@ -319,6 +334,7 @@ public class NccPrivateEndpointRule {
         .add("enabled", enabled)
         .add("endpointName", endpointName)
         .add("endpointService", endpointService)
+        .add("gcpEndpointSpec", gcpEndpointSpec)
         .add("groupId", groupId)
         .add("networkConnectivityConfigId", networkConnectivityConfigId)
         .add("resourceId", resourceId)

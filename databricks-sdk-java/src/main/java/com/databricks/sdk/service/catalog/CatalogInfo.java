@@ -29,6 +29,10 @@ public class CatalogInfo {
   @JsonProperty("connection_name")
   private String connectionName;
 
+  /** Status of conversion of FOREIGN catalog to UC Native catalog. */
+  @JsonProperty("conversion_info")
+  private ConversionInfo conversionInfo;
+
   /** Time at which this catalog was created, in epoch milliseconds. */
   @JsonProperty("created_at")
   private Long createdAt;
@@ -36,6 +40,10 @@ public class CatalogInfo {
   /** Username of catalog creator. */
   @JsonProperty("created_by")
   private String createdBy;
+
+  /** Disaster Recovery replication state snapshot. */
+  @JsonProperty("dr_replication_info")
+  private DrReplicationInfo drReplicationInfo;
 
   /** */
   @JsonProperty("effective_predictive_optimization_flag")
@@ -149,6 +157,15 @@ public class CatalogInfo {
     return connectionName;
   }
 
+  public CatalogInfo setConversionInfo(ConversionInfo conversionInfo) {
+    this.conversionInfo = conversionInfo;
+    return this;
+  }
+
+  public ConversionInfo getConversionInfo() {
+    return conversionInfo;
+  }
+
   public CatalogInfo setCreatedAt(Long createdAt) {
     this.createdAt = createdAt;
     return this;
@@ -165,6 +182,15 @@ public class CatalogInfo {
 
   public String getCreatedBy() {
     return createdBy;
+  }
+
+  public CatalogInfo setDrReplicationInfo(DrReplicationInfo drReplicationInfo) {
+    this.drReplicationInfo = drReplicationInfo;
+    return this;
+  }
+
+  public DrReplicationInfo getDrReplicationInfo() {
+    return drReplicationInfo;
   }
 
   public CatalogInfo setEffectivePredictiveOptimizationFlag(
@@ -331,8 +357,10 @@ public class CatalogInfo {
         && Objects.equals(catalogType, that.catalogType)
         && Objects.equals(comment, that.comment)
         && Objects.equals(connectionName, that.connectionName)
+        && Objects.equals(conversionInfo, that.conversionInfo)
         && Objects.equals(createdAt, that.createdAt)
         && Objects.equals(createdBy, that.createdBy)
+        && Objects.equals(drReplicationInfo, that.drReplicationInfo)
         && Objects.equals(
             effectivePredictiveOptimizationFlag, that.effectivePredictiveOptimizationFlag)
         && Objects.equals(enablePredictiveOptimization, that.enablePredictiveOptimization)
@@ -360,8 +388,10 @@ public class CatalogInfo {
         catalogType,
         comment,
         connectionName,
+        conversionInfo,
         createdAt,
         createdBy,
+        drReplicationInfo,
         effectivePredictiveOptimizationFlag,
         enablePredictiveOptimization,
         fullName,
@@ -388,8 +418,10 @@ public class CatalogInfo {
         .add("catalogType", catalogType)
         .add("comment", comment)
         .add("connectionName", connectionName)
+        .add("conversionInfo", conversionInfo)
         .add("createdAt", createdAt)
         .add("createdBy", createdBy)
+        .add("drReplicationInfo", drReplicationInfo)
         .add("effectivePredictiveOptimizationFlag", effectivePredictiveOptimizationFlag)
         .add("enablePredictiveOptimization", enablePredictiveOptimization)
         .add("fullName", fullName)

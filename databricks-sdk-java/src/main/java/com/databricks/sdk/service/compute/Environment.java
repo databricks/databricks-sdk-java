@@ -36,13 +36,9 @@ public class Environment {
   @JsonProperty("environment_version")
   private String environmentVersion;
 
-  /** Use `java_dependencies` instead. */
-  @JsonProperty("jar_dependencies")
-  private Collection<String> jarDependencies;
-
   /**
-   * List of jar dependencies, should be string representing volume paths. For example:
-   * `/Volumes/path/to/test.jar`.
+   * List of java dependencies. Each dependency is a string representing a java library path. For
+   * example: `/Volumes/path/to/test.jar`.
    */
   @JsonProperty("java_dependencies")
   private Collection<String> javaDependencies;
@@ -74,15 +70,6 @@ public class Environment {
     return environmentVersion;
   }
 
-  public Environment setJarDependencies(Collection<String> jarDependencies) {
-    this.jarDependencies = jarDependencies;
-    return this;
-  }
-
-  public Collection<String> getJarDependencies() {
-    return jarDependencies;
-  }
-
   public Environment setJavaDependencies(Collection<String> javaDependencies) {
     this.javaDependencies = javaDependencies;
     return this;
@@ -100,14 +87,12 @@ public class Environment {
     return Objects.equals(client, that.client)
         && Objects.equals(dependencies, that.dependencies)
         && Objects.equals(environmentVersion, that.environmentVersion)
-        && Objects.equals(jarDependencies, that.jarDependencies)
         && Objects.equals(javaDependencies, that.javaDependencies);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        client, dependencies, environmentVersion, jarDependencies, javaDependencies);
+    return Objects.hash(client, dependencies, environmentVersion, javaDependencies);
   }
 
   @Override
@@ -116,7 +101,6 @@ public class Environment {
         .add("client", client)
         .add("dependencies", dependencies)
         .add("environmentVersion", environmentVersion)
-        .add("jarDependencies", jarDependencies)
         .add("javaDependencies", javaDependencies)
         .toString();
   }

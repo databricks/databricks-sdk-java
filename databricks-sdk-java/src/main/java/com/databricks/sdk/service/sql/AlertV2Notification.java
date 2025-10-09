@@ -10,6 +10,20 @@ import java.util.Objects;
 
 @Generated
 public class AlertV2Notification {
+  /**
+   * The actual behavior of whether to notify alert subscribers when alert returns back to normal.
+   * This is an output-only field.
+   */
+  @JsonProperty("effective_notify_on_ok")
+  private Boolean effectiveNotifyOnOk;
+
+  /**
+   * The actual number of seconds an alert must wait after being triggered to rearm itself. This is
+   * an output-only field.
+   */
+  @JsonProperty("effective_retrigger_seconds")
+  private Long effectiveRetriggerSeconds;
+
   /** Whether to notify alert subscribers when alert returns back to normal. */
   @JsonProperty("notify_on_ok")
   private Boolean notifyOnOk;
@@ -24,6 +38,24 @@ public class AlertV2Notification {
   /** */
   @JsonProperty("subscriptions")
   private Collection<AlertV2Subscription> subscriptions;
+
+  public AlertV2Notification setEffectiveNotifyOnOk(Boolean effectiveNotifyOnOk) {
+    this.effectiveNotifyOnOk = effectiveNotifyOnOk;
+    return this;
+  }
+
+  public Boolean getEffectiveNotifyOnOk() {
+    return effectiveNotifyOnOk;
+  }
+
+  public AlertV2Notification setEffectiveRetriggerSeconds(Long effectiveRetriggerSeconds) {
+    this.effectiveRetriggerSeconds = effectiveRetriggerSeconds;
+    return this;
+  }
+
+  public Long getEffectiveRetriggerSeconds() {
+    return effectiveRetriggerSeconds;
+  }
 
   public AlertV2Notification setNotifyOnOk(Boolean notifyOnOk) {
     this.notifyOnOk = notifyOnOk;
@@ -57,19 +89,28 @@ public class AlertV2Notification {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     AlertV2Notification that = (AlertV2Notification) o;
-    return Objects.equals(notifyOnOk, that.notifyOnOk)
+    return Objects.equals(effectiveNotifyOnOk, that.effectiveNotifyOnOk)
+        && Objects.equals(effectiveRetriggerSeconds, that.effectiveRetriggerSeconds)
+        && Objects.equals(notifyOnOk, that.notifyOnOk)
         && Objects.equals(retriggerSeconds, that.retriggerSeconds)
         && Objects.equals(subscriptions, that.subscriptions);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(notifyOnOk, retriggerSeconds, subscriptions);
+    return Objects.hash(
+        effectiveNotifyOnOk,
+        effectiveRetriggerSeconds,
+        notifyOnOk,
+        retriggerSeconds,
+        subscriptions);
   }
 
   @Override
   public String toString() {
     return new ToStringer(AlertV2Notification.class)
+        .add("effectiveNotifyOnOk", effectiveNotifyOnOk)
+        .add("effectiveRetriggerSeconds", effectiveRetriggerSeconds)
         .add("notifyOnOk", notifyOnOk)
         .add("retriggerSeconds", retriggerSeconds)
         .add("subscriptions", subscriptions)

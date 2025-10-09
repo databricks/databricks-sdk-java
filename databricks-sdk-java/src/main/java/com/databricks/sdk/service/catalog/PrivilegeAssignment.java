@@ -17,6 +17,13 @@ public class PrivilegeAssignment {
   @JsonProperty("principal")
   private String principal;
 
+  /**
+   * Unique identifier of the principal. For active principals, both `principal` and `principal_id`
+   * are present.
+   */
+  @JsonProperty("principal_id")
+  private Long principalId;
+
   /** The privileges assigned to the principal. */
   @JsonProperty("privileges")
   private Collection<Privilege> privileges;
@@ -28,6 +35,15 @@ public class PrivilegeAssignment {
 
   public String getPrincipal() {
     return principal;
+  }
+
+  public PrivilegeAssignment setPrincipalId(Long principalId) {
+    this.principalId = principalId;
+    return this;
+  }
+
+  public Long getPrincipalId() {
+    return principalId;
   }
 
   public PrivilegeAssignment setPrivileges(Collection<Privilege> privileges) {
@@ -44,18 +60,21 @@ public class PrivilegeAssignment {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     PrivilegeAssignment that = (PrivilegeAssignment) o;
-    return Objects.equals(principal, that.principal) && Objects.equals(privileges, that.privileges);
+    return Objects.equals(principal, that.principal)
+        && Objects.equals(principalId, that.principalId)
+        && Objects.equals(privileges, that.privileges);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(principal, privileges);
+    return Objects.hash(principal, principalId, privileges);
   }
 
   @Override
   public String toString() {
     return new ToStringer(PrivilegeAssignment.class)
         .add("principal", principal)
+        .add("principalId", principalId)
         .add("privileges", privileges)
         .toString();
   }

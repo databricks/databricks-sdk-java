@@ -4,7 +4,6 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** The security type of the function. */
 @Generated
 public enum FunctionInfoSecurityType {
   DEFINER,

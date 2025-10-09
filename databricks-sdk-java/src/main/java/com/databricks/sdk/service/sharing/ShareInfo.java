@@ -34,6 +34,13 @@ public class ShareInfo {
   @JsonProperty("owner")
   private String owner;
 
+  /**
+   * Serverless budget policy id (can only be created/updated when calling data-sharing service)
+   * [Create,Update:IGN]
+   */
+  @JsonProperty("serverless_budget_policy_id")
+  private String serverlessBudgetPolicyId;
+
   /** Storage Location URL (full path) for the share. */
   @JsonProperty("storage_location")
   private String storageLocation;
@@ -104,6 +111,15 @@ public class ShareInfo {
     return owner;
   }
 
+  public ShareInfo setServerlessBudgetPolicyId(String serverlessBudgetPolicyId) {
+    this.serverlessBudgetPolicyId = serverlessBudgetPolicyId;
+    return this;
+  }
+
+  public String getServerlessBudgetPolicyId() {
+    return serverlessBudgetPolicyId;
+  }
+
   public ShareInfo setStorageLocation(String storageLocation) {
     this.storageLocation = storageLocation;
     return this;
@@ -151,6 +167,7 @@ public class ShareInfo {
         && Objects.equals(name, that.name)
         && Objects.equals(objects, that.objects)
         && Objects.equals(owner, that.owner)
+        && Objects.equals(serverlessBudgetPolicyId, that.serverlessBudgetPolicyId)
         && Objects.equals(storageLocation, that.storageLocation)
         && Objects.equals(storageRoot, that.storageRoot)
         && Objects.equals(updatedAt, that.updatedAt)
@@ -166,6 +183,7 @@ public class ShareInfo {
         name,
         objects,
         owner,
+        serverlessBudgetPolicyId,
         storageLocation,
         storageRoot,
         updatedAt,
@@ -181,6 +199,7 @@ public class ShareInfo {
         .add("name", name)
         .add("objects", objects)
         .add("owner", owner)
+        .add("serverlessBudgetPolicyId", serverlessBudgetPolicyId)
         .add("storageLocation", storageLocation)
         .add("storageRoot", storageRoot)
         .add("updatedAt", updatedAt)

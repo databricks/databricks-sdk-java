@@ -32,6 +32,10 @@ public class UpdatePrivateEndpointRule {
   @JsonProperty("enabled")
   private Boolean enabled;
 
+  /** */
+  @JsonProperty("gcp_endpoint_spec")
+  private GcpEndpointSpec gcpEndpointSpec;
+
   /**
    * Only used by private endpoints towards AWS S3 service.
    *
@@ -61,6 +65,15 @@ public class UpdatePrivateEndpointRule {
     return enabled;
   }
 
+  public UpdatePrivateEndpointRule setGcpEndpointSpec(GcpEndpointSpec gcpEndpointSpec) {
+    this.gcpEndpointSpec = gcpEndpointSpec;
+    return this;
+  }
+
+  public GcpEndpointSpec getGcpEndpointSpec() {
+    return gcpEndpointSpec;
+  }
+
   public UpdatePrivateEndpointRule setResourceNames(Collection<String> resourceNames) {
     this.resourceNames = resourceNames;
     return this;
@@ -77,12 +90,13 @@ public class UpdatePrivateEndpointRule {
     UpdatePrivateEndpointRule that = (UpdatePrivateEndpointRule) o;
     return Objects.equals(domainNames, that.domainNames)
         && Objects.equals(enabled, that.enabled)
+        && Objects.equals(gcpEndpointSpec, that.gcpEndpointSpec)
         && Objects.equals(resourceNames, that.resourceNames);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(domainNames, enabled, resourceNames);
+    return Objects.hash(domainNames, enabled, gcpEndpointSpec, resourceNames);
   }
 
   @Override
@@ -90,6 +104,7 @@ public class UpdatePrivateEndpointRule {
     return new ToStringer(UpdatePrivateEndpointRule.class)
         .add("domainNames", domainNames)
         .add("enabled", enabled)
+        .add("gcpEndpointSpec", gcpEndpointSpec)
         .add("resourceNames", resourceNames)
         .toString();
   }

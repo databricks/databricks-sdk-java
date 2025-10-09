@@ -42,14 +42,58 @@ public interface LibrariesService {
   ClusterLibraryStatuses clusterStatus(ClusterStatus clusterStatus);
 
   /**
+   * Create a default base environment within workspaces to define the environment version and a
+   * list of dependencies to be used in serverless notebooks and jobs. This process will
+   * asynchronously generate a cache to optimize dependency resolution.
+   */
+  DefaultBaseEnvironment createDefaultBaseEnvironment(
+      CreateDefaultBaseEnvironmentRequest createDefaultBaseEnvironmentRequest);
+
+  /**
+   * Delete the default base environment given an ID. The default base environment may be used by
+   * downstream workloads. Please ensure that the deletion is intentional.
+   */
+  void deleteDefaultBaseEnvironment(
+      DeleteDefaultBaseEnvironmentRequest deleteDefaultBaseEnvironmentRequest);
+
+  /** Return the default base environment details for a given ID. */
+  DefaultBaseEnvironment getDefaultBaseEnvironment(
+      GetDefaultBaseEnvironmentRequest getDefaultBaseEnvironmentRequest);
+
+  /**
    * Add libraries to install on a cluster. The installation is asynchronous; it happens in the
    * background after the completion of this request.
    */
   void install(InstallLibraries installLibraries);
+
+  /** List default base environments defined in the workspaces for the requested user. */
+  ListDefaultBaseEnvironmentsResponse listDefaultBaseEnvironments(
+      ListDefaultBaseEnvironmentsRequest listDefaultBaseEnvironmentsRequest);
+
+  /**
+   * Refresh the cached default base environments for the given IDs. This process will
+   * asynchronously regenerate the caches. The existing caches remains available until it expires.
+   */
+  void refreshDefaultBaseEnvironments(
+      RefreshDefaultBaseEnvironmentsRequest refreshDefaultBaseEnvironmentsRequest);
 
   /**
    * Set libraries to uninstall from a cluster. The libraries won't be uninstalled until the cluster
    * is restarted. A request to uninstall a library that is not currently installed is ignored.
    */
   void uninstall(UninstallLibraries uninstallLibraries);
+
+  /**
+   * Update the default base environment for the given ID. This process will asynchronously
+   * regenerate the cache. The existing cache remains available until it expires.
+   */
+  DefaultBaseEnvironment updateDefaultBaseEnvironment(
+      UpdateDefaultBaseEnvironmentRequest updateDefaultBaseEnvironmentRequest);
+
+  /**
+   * Set the default base environment for the workspace. This marks the specified DBE as the
+   * workspace default.
+   */
+  DefaultBaseEnvironment updateDefaultDefaultBaseEnvironment(
+      UpdateDefaultDefaultBaseEnvironmentRequest updateDefaultDefaultBaseEnvironmentRequest);
 }

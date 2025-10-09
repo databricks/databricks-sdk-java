@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** The mapping from workspace to metastore. */
 @Generated
 public class AccountsCreateMetastoreAssignment {
   /** */
