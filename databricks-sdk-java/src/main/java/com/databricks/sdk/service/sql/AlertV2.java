@@ -25,6 +25,10 @@ public class AlertV2 {
   @JsonProperty("display_name")
   private String displayName;
 
+  /** The actual workspace path of the folder containing the alert. This is an output-only field. */
+  @JsonProperty("effective_parent_path")
+  private String effectiveParentPath;
+
   /**
    * The actual identity that will be used to execute the alert. This is an output-only field that
    * shows the resolved run-as identity after applying permissions and defaults.
@@ -124,6 +128,15 @@ public class AlertV2 {
 
   public String getDisplayName() {
     return displayName;
+  }
+
+  public AlertV2 setEffectiveParentPath(String effectiveParentPath) {
+    this.effectiveParentPath = effectiveParentPath;
+    return this;
+  }
+
+  public String getEffectiveParentPath() {
+    return effectiveParentPath;
   }
 
   public AlertV2 setEffectiveRunAs(AlertV2RunAs effectiveRunAs) {
@@ -243,6 +256,7 @@ public class AlertV2 {
         && Objects.equals(customDescription, that.customDescription)
         && Objects.equals(customSummary, that.customSummary)
         && Objects.equals(displayName, that.displayName)
+        && Objects.equals(effectiveParentPath, that.effectiveParentPath)
         && Objects.equals(effectiveRunAs, that.effectiveRunAs)
         && Objects.equals(evaluation, that.evaluation)
         && Objects.equals(id, that.id)
@@ -264,6 +278,7 @@ public class AlertV2 {
         customDescription,
         customSummary,
         displayName,
+        effectiveParentPath,
         effectiveRunAs,
         evaluation,
         id,
@@ -285,6 +300,7 @@ public class AlertV2 {
         .add("customDescription", customDescription)
         .add("customSummary", customSummary)
         .add("displayName", displayName)
+        .add("effectiveParentPath", effectiveParentPath)
         .add("effectiveRunAs", effectiveRunAs)
         .add("evaluation", evaluation)
         .add("id", id)

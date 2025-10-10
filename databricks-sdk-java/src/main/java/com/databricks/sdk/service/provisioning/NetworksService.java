@@ -26,15 +26,11 @@ public interface NetworksService {
    *
    * <p>This operation is available only if your account is on the E2 version of the platform.
    */
-  void delete(DeleteNetworkRequest deleteNetworkRequest);
+  Network delete(DeleteNetworkRequest deleteNetworkRequest);
 
   /** Gets a Databricks network configuration, which represents a cloud VPC and its resources. */
   Network get(GetNetworkRequest getNetworkRequest);
 
-  /**
-   * Gets a list of all Databricks network configurations for an account, specified by ID.
-   *
-   * <p>This operation is available only if your account is on the E2 version of the platform.
-   */
+  /** Lists Databricks network configurations for an account. */
   Collection<Network> list();
 }

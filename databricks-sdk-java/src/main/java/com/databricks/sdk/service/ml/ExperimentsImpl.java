@@ -209,6 +209,19 @@ class ExperimentsImpl implements ExperimentsService {
   }
 
   @Override
+  public GetLoggedModelsRequestResponse getLoggedModels(GetLoggedModelsRequest request) {
+    String path = "/api/2.0/mlflow/logged-models:batchGet";
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, GetLoggedModelsRequestResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public GetExperimentPermissionLevelsResponse getPermissionLevels(
       GetExperimentPermissionLevelsRequest request) {
     String path =

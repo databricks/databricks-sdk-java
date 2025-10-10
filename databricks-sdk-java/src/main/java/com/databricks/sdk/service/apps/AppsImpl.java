@@ -31,6 +31,20 @@ class AppsImpl implements AppsService {
   }
 
   @Override
+  public AppUpdate createUpdate(AsyncUpdateAppRequest request) {
+    String path = String.format("/api/2.0/apps/%s/update", request.getAppName());
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, AppUpdate.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public App delete(DeleteAppRequest request) {
     String path = String.format("/api/2.0/apps/%s", request.getName());
     try {
@@ -107,6 +121,19 @@ class AppsImpl implements AppsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, AppPermissions.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public AppUpdate getUpdate(GetAppUpdateRequest request) {
+    String path = String.format("/api/2.0/apps/%s/update", request.getAppName());
+    try {
+      Request req = new Request("GET", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, AppUpdate.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

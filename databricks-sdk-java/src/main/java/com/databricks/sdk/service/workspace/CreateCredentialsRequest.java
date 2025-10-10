@@ -10,6 +10,15 @@ import java.util.Objects;
 @Generated
 public class CreateCredentialsRequest {
   /**
+   * The authenticating email associated with your Git provider user account. Used for
+   * authentication with the remote repository and also sets the author & committer identity for
+   * commits. Required for most Git providers except AWS CodeCommit. Learn more at
+   * https://docs.databricks.com/aws/en/repos/get-access-tokens-from-git-provider
+   */
+  @JsonProperty("git_email")
+  private String gitEmail;
+
+  /**
    * Git provider. This field is case-insensitive. The available Git providers are `gitHub`,
    * `bitbucketCloud`, `gitLab`, `azureDevOpsServices`, `gitHubEnterprise`, `bitbucketServer`,
    * `gitLabEnterpriseEdition` and `awsCodeCommit`.
@@ -18,12 +27,10 @@ public class CreateCredentialsRequest {
   private String gitProvider;
 
   /**
-   * The username or email provided with your Git provider account, depending on which provider you
-   * are using. For GitHub, GitHub Enterprise Server, or Azure DevOps Services, either email or
-   * username may be used. For GitLab, GitLab Enterprise Edition, email must be used. For AWS
-   * CodeCommit, BitBucket or BitBucket Server, username must be used. For all other providers
-   * please see your provider's Personal Access Token authentication documentation to see what is
-   * supported.
+   * The username provided with your Git provider account and associated with the credential. For
+   * most Git providers it is only used to set the Git committer & author names for commits, however
+   * it may be required for authentication depending on your Git provider / token requirements.
+   * Required for AWS CodeCommit.
    */
   @JsonProperty("git_username")
   private String gitUsername;
@@ -44,6 +51,15 @@ public class CreateCredentialsRequest {
    */
   @JsonProperty("personal_access_token")
   private String personalAccessToken;
+
+  public CreateCredentialsRequest setGitEmail(String gitEmail) {
+    this.gitEmail = gitEmail;
+    return this;
+  }
+
+  public String getGitEmail() {
+    return gitEmail;
+  }
 
   public CreateCredentialsRequest setGitProvider(String gitProvider) {
     this.gitProvider = gitProvider;
@@ -95,7 +111,8 @@ public class CreateCredentialsRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CreateCredentialsRequest that = (CreateCredentialsRequest) o;
-    return Objects.equals(gitProvider, that.gitProvider)
+    return Objects.equals(gitEmail, that.gitEmail)
+        && Objects.equals(gitProvider, that.gitProvider)
         && Objects.equals(gitUsername, that.gitUsername)
         && Objects.equals(isDefaultForProvider, that.isDefaultForProvider)
         && Objects.equals(name, that.name)
@@ -104,12 +121,14 @@ public class CreateCredentialsRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(gitProvider, gitUsername, isDefaultForProvider, name, personalAccessToken);
+    return Objects.hash(
+        gitEmail, gitProvider, gitUsername, isDefaultForProvider, name, personalAccessToken);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CreateCredentialsRequest.class)
+        .add("gitEmail", gitEmail)
         .add("gitProvider", gitProvider)
         .add("gitUsername", gitUsername)
         .add("isDefaultForProvider", isDefaultForProvider)

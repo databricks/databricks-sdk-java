@@ -189,7 +189,16 @@ public class WarehousesAPI {
   /** Lists all SQL warehouses that a user has access to. */
   public Iterable<EndpointInfo> list(ListWarehousesRequest request) {
     return new Paginator<>(
-        request, impl::list, ListWarehousesResponse::getWarehouses, response -> null);
+        request,
+        impl::list,
+        ListWarehousesResponse::getWarehouses,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   /**

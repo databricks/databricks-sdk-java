@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class DeletePrivateAccesRequest {
-  /** Databricks Account API private access settings ID. */
+  /** */
   @JsonIgnore private String privateAccessSettingsId;
 
   public DeletePrivateAccesRequest setPrivateAccessSettingsId(String privateAccessSettingsId) {

@@ -13,6 +13,7 @@ public enum ComplianceStandard {
   FEDRAMP_IL5,
   FEDRAMP_MODERATE,
   GERMANY_C5,
+  GERMANY_TISAX,
   HIPAA,
   HITRUST,
   IRAP_PROTECTED,

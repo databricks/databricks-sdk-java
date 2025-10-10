@@ -9,6 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class CronSchedule {
+  /** The actual pause status of the schedule. This is an output-only field. */
+  @JsonProperty("effective_pause_status")
+  private SchedulePauseStatus effectivePauseStatus;
+
   /** Indicate whether this schedule is paused or not. */
   @JsonProperty("pause_status")
   private SchedulePauseStatus pauseStatus;
@@ -29,6 +33,15 @@ public class CronSchedule {
    */
   @JsonProperty("timezone_id")
   private String timezoneId;
+
+  public CronSchedule setEffectivePauseStatus(SchedulePauseStatus effectivePauseStatus) {
+    this.effectivePauseStatus = effectivePauseStatus;
+    return this;
+  }
+
+  public SchedulePauseStatus getEffectivePauseStatus() {
+    return effectivePauseStatus;
+  }
 
   public CronSchedule setPauseStatus(SchedulePauseStatus pauseStatus) {
     this.pauseStatus = pauseStatus;
@@ -62,19 +75,21 @@ public class CronSchedule {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CronSchedule that = (CronSchedule) o;
-    return Objects.equals(pauseStatus, that.pauseStatus)
+    return Objects.equals(effectivePauseStatus, that.effectivePauseStatus)
+        && Objects.equals(pauseStatus, that.pauseStatus)
         && Objects.equals(quartzCronSchedule, that.quartzCronSchedule)
         && Objects.equals(timezoneId, that.timezoneId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pauseStatus, quartzCronSchedule, timezoneId);
+    return Objects.hash(effectivePauseStatus, pauseStatus, quartzCronSchedule, timezoneId);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CronSchedule.class)
+        .add("effectivePauseStatus", effectivePauseStatus)
         .add("pauseStatus", pauseStatus)
         .add("quartzCronSchedule", quartzCronSchedule)
         .add("timezoneId", timezoneId)

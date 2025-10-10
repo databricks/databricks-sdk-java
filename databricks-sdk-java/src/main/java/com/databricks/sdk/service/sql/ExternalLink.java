@@ -28,7 +28,11 @@ public class ExternalLink {
   @JsonProperty("expiration")
   private String expiration;
 
-  /** */
+  /**
+   * A URL pointing to a chunk of result data, hosted by an external service, with a short
+   * expiration time (<= 15 minutes). As this URL contains a temporary credential, it should be
+   * considered sensitive and the client should not expose this URL in a log.
+   */
   @JsonProperty("external_link")
   private String externalLink;
 
@@ -44,7 +48,7 @@ public class ExternalLink {
   /**
    * When fetching, provides the `chunk_index` for the _next_ chunk. If absent, indicates there are
    * no more chunks. The next chunk can be fetched with a
-   * :method:statementexecution/getStatementResultChunkN request.
+   * :method:statementexecution/getstatementresultchunkn request.
    */
   @JsonProperty("next_chunk_index")
   private Long nextChunkIndex;

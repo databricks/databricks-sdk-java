@@ -41,6 +41,13 @@ public class UpdateInfo {
   @JsonProperty("full_refresh_selection")
   private Collection<String> fullRefreshSelection;
 
+  /**
+   * Indicates whether the update is either part of a continuous job run, or running in legacy
+   * continuous pipeline mode.
+   */
+  @JsonProperty("mode")
+  private UpdateMode mode;
+
   /** The ID of the pipeline. */
   @JsonProperty("pipeline_id")
   private String pipelineId;
@@ -122,6 +129,15 @@ public class UpdateInfo {
     return fullRefreshSelection;
   }
 
+  public UpdateInfo setMode(UpdateMode mode) {
+    this.mode = mode;
+    return this;
+  }
+
+  public UpdateMode getMode() {
+    return mode;
+  }
+
   public UpdateInfo setPipelineId(String pipelineId) {
     this.pipelineId = pipelineId;
     return this;
@@ -178,6 +194,7 @@ public class UpdateInfo {
         && Objects.equals(creationTime, that.creationTime)
         && Objects.equals(fullRefresh, that.fullRefresh)
         && Objects.equals(fullRefreshSelection, that.fullRefreshSelection)
+        && Objects.equals(mode, that.mode)
         && Objects.equals(pipelineId, that.pipelineId)
         && Objects.equals(refreshSelection, that.refreshSelection)
         && Objects.equals(state, that.state)
@@ -194,6 +211,7 @@ public class UpdateInfo {
         creationTime,
         fullRefresh,
         fullRefreshSelection,
+        mode,
         pipelineId,
         refreshSelection,
         state,
@@ -210,6 +228,7 @@ public class UpdateInfo {
         .add("creationTime", creationTime)
         .add("fullRefresh", fullRefresh)
         .add("fullRefreshSelection", fullRefreshSelection)
+        .add("mode", mode)
         .add("pipelineId", pipelineId)
         .add("refreshSelection", refreshSelection)
         .add("state", state)

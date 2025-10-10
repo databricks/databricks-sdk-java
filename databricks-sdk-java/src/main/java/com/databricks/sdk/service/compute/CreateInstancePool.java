@@ -39,6 +39,13 @@ public class CreateInstancePool {
   private DiskSpec diskSpec;
 
   /**
+   * For pools with node type flexibility (Fleet-V2), whether auto generated alternate node type ids
+   * are enabled. This field should not be true if node_type_flexibility is set.
+   */
+  @JsonProperty("enable_auto_alternate_node_types")
+  private Boolean enableAutoAlternateNodeTypes;
+
+  /**
    * Autoscaling Local Storage: when enabled, this instances in this pool will dynamically acquire
    * additional disk space when its Spark workers are running low on disk space. In AWS, this
    * feature requires specific AWS permissions to function correctly - refer to the User Guide for
@@ -82,6 +89,14 @@ public class CreateInstancePool {
   /** Minimum number of idle instances to keep in the instance pool */
   @JsonProperty("min_idle_instances")
   private Long minIdleInstances;
+
+  /**
+   * For pools with node type flexibility (Fleet-V2), this object contains the information about the
+   * alternate node type ids to use when attempting to launch a cluster if the node type id is not
+   * available. This field should not be set if enable_auto_alternate_node_types is true.
+   */
+  @JsonProperty("node_type_flexibility")
+  private NodeTypeFlexibility nodeTypeFlexibility;
 
   /**
    * This field encodes, through a single value, the resources available to each of the Spark nodes
@@ -154,6 +169,15 @@ public class CreateInstancePool {
     return diskSpec;
   }
 
+  public CreateInstancePool setEnableAutoAlternateNodeTypes(Boolean enableAutoAlternateNodeTypes) {
+    this.enableAutoAlternateNodeTypes = enableAutoAlternateNodeTypes;
+    return this;
+  }
+
+  public Boolean getEnableAutoAlternateNodeTypes() {
+    return enableAutoAlternateNodeTypes;
+  }
+
   public CreateInstancePool setEnableElasticDisk(Boolean enableElasticDisk) {
     this.enableElasticDisk = enableElasticDisk;
     return this;
@@ -207,6 +231,15 @@ public class CreateInstancePool {
 
   public Long getMinIdleInstances() {
     return minIdleInstances;
+  }
+
+  public CreateInstancePool setNodeTypeFlexibility(NodeTypeFlexibility nodeTypeFlexibility) {
+    this.nodeTypeFlexibility = nodeTypeFlexibility;
+    return this;
+  }
+
+  public NodeTypeFlexibility getNodeTypeFlexibility() {
+    return nodeTypeFlexibility;
   }
 
   public CreateInstancePool setNodeTypeId(String nodeTypeId) {
@@ -264,6 +297,7 @@ public class CreateInstancePool {
         && Objects.equals(azureAttributes, that.azureAttributes)
         && Objects.equals(customTags, that.customTags)
         && Objects.equals(diskSpec, that.diskSpec)
+        && Objects.equals(enableAutoAlternateNodeTypes, that.enableAutoAlternateNodeTypes)
         && Objects.equals(enableElasticDisk, that.enableElasticDisk)
         && Objects.equals(gcpAttributes, that.gcpAttributes)
         && Objects.equals(
@@ -271,6 +305,7 @@ public class CreateInstancePool {
         && Objects.equals(instancePoolName, that.instancePoolName)
         && Objects.equals(maxCapacity, that.maxCapacity)
         && Objects.equals(minIdleInstances, that.minIdleInstances)
+        && Objects.equals(nodeTypeFlexibility, that.nodeTypeFlexibility)
         && Objects.equals(nodeTypeId, that.nodeTypeId)
         && Objects.equals(preloadedDockerImages, that.preloadedDockerImages)
         && Objects.equals(preloadedSparkVersions, that.preloadedSparkVersions)
@@ -285,12 +320,14 @@ public class CreateInstancePool {
         azureAttributes,
         customTags,
         diskSpec,
+        enableAutoAlternateNodeTypes,
         enableElasticDisk,
         gcpAttributes,
         idleInstanceAutoterminationMinutes,
         instancePoolName,
         maxCapacity,
         minIdleInstances,
+        nodeTypeFlexibility,
         nodeTypeId,
         preloadedDockerImages,
         preloadedSparkVersions,
@@ -305,12 +342,14 @@ public class CreateInstancePool {
         .add("azureAttributes", azureAttributes)
         .add("customTags", customTags)
         .add("diskSpec", diskSpec)
+        .add("enableAutoAlternateNodeTypes", enableAutoAlternateNodeTypes)
         .add("enableElasticDisk", enableElasticDisk)
         .add("gcpAttributes", gcpAttributes)
         .add("idleInstanceAutoterminationMinutes", idleInstanceAutoterminationMinutes)
         .add("instancePoolName", instancePoolName)
         .add("maxCapacity", maxCapacity)
         .add("minIdleInstances", minIdleInstances)
+        .add("nodeTypeFlexibility", nodeTypeFlexibility)
         .add("nodeTypeId", nodeTypeId)
         .add("preloadedDockerImages", preloadedDockerImages)
         .add("preloadedSparkVersions", preloadedSparkVersions)
