@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class DeleteWorkspaceRequest {
-  /** Workspace ID. */
+  /** */
   @JsonIgnore private Long workspaceId;
 
   public DeleteWorkspaceRequest setWorkspaceId(Long workspaceId) {

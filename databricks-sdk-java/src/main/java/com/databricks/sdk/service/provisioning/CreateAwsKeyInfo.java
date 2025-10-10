@@ -13,17 +13,18 @@ public class CreateAwsKeyInfo {
   @JsonProperty("key_alias")
   private String keyAlias;
 
-  /**
-   * The AWS KMS key's Amazon Resource Name (ARN). Note that the key's AWS region is inferred from
-   * the ARN.
-   */
+  /** The AWS KMS key's Amazon Resource Name (ARN). */
   @JsonProperty("key_arn")
   private String keyArn;
 
+  /** The AWS KMS key region. */
+  @JsonProperty("key_region")
+  private String keyRegion;
+
   /**
-   * This field applies only if the `use_cases` property includes `STORAGE`. If this is set to
-   * `true` or omitted, the key is also used to encrypt cluster EBS volumes. To not use this key
-   * also for encrypting EBS volumes, set this to `false`.
+   * This field applies only if the `use_cases` property includes `STORAGE`. If this is set to true
+   * or omitted, the key is also used to encrypt cluster EBS volumes. If you do not want to use this
+   * key for encrypting EBS volumes, set to false.
    */
   @JsonProperty("reuse_key_for_cluster_volumes")
   private Boolean reuseKeyForClusterVolumes;
@@ -46,6 +47,15 @@ public class CreateAwsKeyInfo {
     return keyArn;
   }
 
+  public CreateAwsKeyInfo setKeyRegion(String keyRegion) {
+    this.keyRegion = keyRegion;
+    return this;
+  }
+
+  public String getKeyRegion() {
+    return keyRegion;
+  }
+
   public CreateAwsKeyInfo setReuseKeyForClusterVolumes(Boolean reuseKeyForClusterVolumes) {
     this.reuseKeyForClusterVolumes = reuseKeyForClusterVolumes;
     return this;
@@ -62,12 +72,13 @@ public class CreateAwsKeyInfo {
     CreateAwsKeyInfo that = (CreateAwsKeyInfo) o;
     return Objects.equals(keyAlias, that.keyAlias)
         && Objects.equals(keyArn, that.keyArn)
+        && Objects.equals(keyRegion, that.keyRegion)
         && Objects.equals(reuseKeyForClusterVolumes, that.reuseKeyForClusterVolumes);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(keyAlias, keyArn, reuseKeyForClusterVolumes);
+    return Objects.hash(keyAlias, keyArn, keyRegion, reuseKeyForClusterVolumes);
   }
 
   @Override
@@ -75,6 +86,7 @@ public class CreateAwsKeyInfo {
     return new ToStringer(CreateAwsKeyInfo.class)
         .add("keyAlias", keyAlias)
         .add("keyArn", keyArn)
+        .add("keyRegion", keyRegion)
         .add("reuseKeyForClusterVolumes", reuseKeyForClusterVolumes)
         .toString();
   }

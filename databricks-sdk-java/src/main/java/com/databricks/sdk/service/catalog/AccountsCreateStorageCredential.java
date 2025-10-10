@@ -12,17 +12,25 @@ import java.util.Objects;
 public class AccountsCreateStorageCredential {
   /** */
   @JsonProperty("credential_info")
-  private CreateStorageCredential credentialInfo;
+  private CreateAccountsStorageCredential credentialInfo;
 
   /** Unity Catalog metastore ID */
   @JsonIgnore private String metastoreId;
 
-  public AccountsCreateStorageCredential setCredentialInfo(CreateStorageCredential credentialInfo) {
+  /**
+   * Optional, default false. Supplying true to this argument skips validation of the created set of
+   * credentials.
+   */
+  @JsonProperty("skip_validation")
+  private Boolean skipValidation;
+
+  public AccountsCreateStorageCredential setCredentialInfo(
+      CreateAccountsStorageCredential credentialInfo) {
     this.credentialInfo = credentialInfo;
     return this;
   }
 
-  public CreateStorageCredential getCredentialInfo() {
+  public CreateAccountsStorageCredential getCredentialInfo() {
     return credentialInfo;
   }
 
@@ -35,18 +43,28 @@ public class AccountsCreateStorageCredential {
     return metastoreId;
   }
 
+  public AccountsCreateStorageCredential setSkipValidation(Boolean skipValidation) {
+    this.skipValidation = skipValidation;
+    return this;
+  }
+
+  public Boolean getSkipValidation() {
+    return skipValidation;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     AccountsCreateStorageCredential that = (AccountsCreateStorageCredential) o;
     return Objects.equals(credentialInfo, that.credentialInfo)
-        && Objects.equals(metastoreId, that.metastoreId);
+        && Objects.equals(metastoreId, that.metastoreId)
+        && Objects.equals(skipValidation, that.skipValidation);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(credentialInfo, metastoreId);
+    return Objects.hash(credentialInfo, metastoreId, skipValidation);
   }
 
   @Override
@@ -54,6 +72,7 @@ public class AccountsCreateStorageCredential {
     return new ToStringer(AccountsCreateStorageCredential.class)
         .add("credentialInfo", credentialInfo)
         .add("metastoreId", metastoreId)
+        .add("skipValidation", skipValidation)
         .toString();
   }
 }

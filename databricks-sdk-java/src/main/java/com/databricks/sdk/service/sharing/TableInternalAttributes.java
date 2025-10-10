@@ -5,6 +5,7 @@ package com.databricks.sdk.service.sharing;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 /** Internal information for D2D sharing that should not be disclosed to external users. */
@@ -13,6 +14,13 @@ public class TableInternalAttributes {
   /** Managed Delta Metadata location for foreign iceberg tables. */
   @JsonProperty("auxiliary_managed_location")
   private String auxiliaryManagedLocation;
+
+  /**
+   * Storage locations of all table dependencies for shared views. Used on the recipient side for
+   * SEG (Secure Egress Gateway) whitelisting.
+   */
+  @JsonProperty("dependency_storage_locations")
+  private Collection<String> dependencyStorageLocations;
 
   /**
    * Will be populated in the reconciliation response for VIEW and FOREIGN_TABLE, with the value of
@@ -44,6 +52,16 @@ public class TableInternalAttributes {
 
   public String getAuxiliaryManagedLocation() {
     return auxiliaryManagedLocation;
+  }
+
+  public TableInternalAttributes setDependencyStorageLocations(
+      Collection<String> dependencyStorageLocations) {
+    this.dependencyStorageLocations = dependencyStorageLocations;
+    return this;
+  }
+
+  public Collection<String> getDependencyStorageLocations() {
+    return dependencyStorageLocations;
   }
 
   public TableInternalAttributes setParentStorageLocation(String parentStorageLocation) {
@@ -88,6 +106,7 @@ public class TableInternalAttributes {
     if (o == null || getClass() != o.getClass()) return false;
     TableInternalAttributes that = (TableInternalAttributes) o;
     return Objects.equals(auxiliaryManagedLocation, that.auxiliaryManagedLocation)
+        && Objects.equals(dependencyStorageLocations, that.dependencyStorageLocations)
         && Objects.equals(parentStorageLocation, that.parentStorageLocation)
         && Objects.equals(storageLocation, that.storageLocation)
         && Objects.equals(typeValue, that.typeValue)
@@ -98,6 +117,7 @@ public class TableInternalAttributes {
   public int hashCode() {
     return Objects.hash(
         auxiliaryManagedLocation,
+        dependencyStorageLocations,
         parentStorageLocation,
         storageLocation,
         typeValue,
@@ -108,6 +128,7 @@ public class TableInternalAttributes {
   public String toString() {
     return new ToStringer(TableInternalAttributes.class)
         .add("auxiliaryManagedLocation", auxiliaryManagedLocation)
+        .add("dependencyStorageLocations", dependencyStorageLocations)
         .add("parentStorageLocation", parentStorageLocation)
         .add("storageLocation", storageLocation)
         .add("typeValue", typeValue)

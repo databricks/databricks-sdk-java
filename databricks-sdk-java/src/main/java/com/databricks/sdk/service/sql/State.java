@@ -4,7 +4,7 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 
-/** State of the warehouse */
+/** * State of a warehouse. */
 @Generated
 public enum State {
   DELETED,

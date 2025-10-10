@@ -8,12 +8,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/**
- * If specified, contains the VPC endpoints used to allow cluster communication from this VPC over
- * [AWS PrivateLink].
- *
- * <p>[AWS PrivateLink]: https://aws.amazon.com/privatelink/
- */
 @Generated
 public class NetworkVpcEndpoints {
   /**

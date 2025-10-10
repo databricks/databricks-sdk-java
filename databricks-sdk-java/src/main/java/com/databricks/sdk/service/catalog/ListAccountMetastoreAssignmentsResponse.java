@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/** The list of workspaces to which the given metastore is assigned. */
+/** The metastore assignments were successfully returned. */
 @Generated
 public class ListAccountMetastoreAssignmentsResponse {
   /** */

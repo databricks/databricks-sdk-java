@@ -7,13 +7,14 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** The metastore was successfully returned. */
 @Generated
-public class AccountsMetastoreInfo {
+public class AccountsGetMetastoreResponse {
   /** */
   @JsonProperty("metastore_info")
   private MetastoreInfo metastoreInfo;
 
-  public AccountsMetastoreInfo setMetastoreInfo(MetastoreInfo metastoreInfo) {
+  public AccountsGetMetastoreResponse setMetastoreInfo(MetastoreInfo metastoreInfo) {
     this.metastoreInfo = metastoreInfo;
     return this;
   }
@@ -26,7 +27,7 @@ public class AccountsMetastoreInfo {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    AccountsMetastoreInfo that = (AccountsMetastoreInfo) o;
+    AccountsGetMetastoreResponse that = (AccountsGetMetastoreResponse) o;
     return Objects.equals(metastoreInfo, that.metastoreInfo);
   }
 
@@ -37,7 +38,7 @@ public class AccountsMetastoreInfo {
 
   @Override
   public String toString() {
-    return new ToStringer(AccountsMetastoreInfo.class)
+    return new ToStringer(AccountsGetMetastoreResponse.class)
         .add("metastoreInfo", metastoreInfo)
         .toString();
   }

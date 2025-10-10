@@ -13,11 +13,11 @@ public class CreateVpcEndpointRequest {
   @JsonProperty("aws_vpc_endpoint_id")
   private String awsVpcEndpointId;
 
-  /** */
+  /** The cloud info of this vpc endpoint. */
   @JsonProperty("gcp_vpc_endpoint_info")
   private GcpVpcEndpointInfo gcpVpcEndpointInfo;
 
-  /** The AWS region in which this VPC endpoint object exists. */
+  /** The region in which this VPC endpoint object exists. */
   @JsonProperty("region")
   private String region;
 

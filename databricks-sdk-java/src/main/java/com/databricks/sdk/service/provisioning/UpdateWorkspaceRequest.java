@@ -3,159 +3,52 @@
 package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Map;
 import java.util.Objects;
 
 @Generated
 public class UpdateWorkspaceRequest {
-  /**
-   * The AWS region of the workspace's data plane (for example, `us-west-2`). This parameter is
-   * available only for updating failed workspaces.
-   */
-  @JsonProperty("aws_region")
-  private String awsRegion;
-
-  /**
-   * ID of the workspace's credential configuration object. This parameter is available for updating
-   * both failed and running workspaces.
-   */
-  @JsonProperty("credentials_id")
-  private String credentialsId;
-
-  /**
-   * The custom tags key-value pairing that is attached to this workspace. The key-value pair is a
-   * string of utf-8 characters. The value can be an empty string, with maximum length of 255
-   * characters. The key can be of maximum length of 127 characters, and cannot be empty.
-   */
-  @JsonProperty("custom_tags")
-  private Map<String, String> customTags;
-
-  /**
-   * The ID of the workspace's managed services encryption key configuration object. This parameter
-   * is available only for updating failed workspaces.
-   */
-  @JsonProperty("managed_services_customer_managed_key_id")
-  private String managedServicesCustomerManagedKeyId;
-
   /** */
-  @JsonProperty("network_connectivity_config_id")
-  private String networkConnectivityConfigId;
+  @JsonProperty("customer_facing_workspace")
+  private Workspace customerFacingWorkspace;
 
   /**
-   * The ID of the workspace's network configuration object. Used only if you already use a
-   * customer-managed VPC. For failed workspaces only, you can switch from a Databricks-managed VPC
-   * to a customer-managed VPC by updating the workspace to add a network configuration ID.
+   * The field mask must be a single string, with multiple fields separated by commas (no spaces).
+   * The field path is relative to the resource object, using a dot (`.`) to navigate sub-fields
+   * (e.g., `author.given_name`). Specification of elements in sequence or map fields is not
+   * allowed, as only the entire collection field can be specified. Field names must exactly match
+   * the resource field names.
+   *
+   * <p>A field mask of `*` indicates full replacement. It’s recommended to always explicitly list
+   * the fields being updated and avoid using `*` wildcards, as it can lead to unintended results if
+   * the API changes in the future.
    */
-  @JsonProperty("network_id")
-  private String networkId;
+  @JsonIgnore
+  @QueryParam("update_mask")
+  private String updateMask;
 
-  /**
-   * The ID of the workspace's private access settings configuration object. This parameter is
-   * available only for updating failed workspaces.
-   */
-  @JsonProperty("private_access_settings_id")
-  private String privateAccessSettingsId;
-
-  /**
-   * The ID of the workspace's storage configuration object. This parameter is available only for
-   * updating failed workspaces.
-   */
-  @JsonProperty("storage_configuration_id")
-  private String storageConfigurationId;
-
-  /**
-   * The ID of the key configuration object for workspace storage. This parameter is available for
-   * updating both failed and running workspaces.
-   */
-  @JsonProperty("storage_customer_managed_key_id")
-  private String storageCustomerManagedKeyId;
-
-  /** Workspace ID. */
+  /** A unique integer ID for the workspace */
   @JsonIgnore private Long workspaceId;
 
-  public UpdateWorkspaceRequest setAwsRegion(String awsRegion) {
-    this.awsRegion = awsRegion;
+  public UpdateWorkspaceRequest setCustomerFacingWorkspace(Workspace customerFacingWorkspace) {
+    this.customerFacingWorkspace = customerFacingWorkspace;
     return this;
   }
 
-  public String getAwsRegion() {
-    return awsRegion;
+  public Workspace getCustomerFacingWorkspace() {
+    return customerFacingWorkspace;
   }
 
-  public UpdateWorkspaceRequest setCredentialsId(String credentialsId) {
-    this.credentialsId = credentialsId;
+  public UpdateWorkspaceRequest setUpdateMask(String updateMask) {
+    this.updateMask = updateMask;
     return this;
   }
 
-  public String getCredentialsId() {
-    return credentialsId;
-  }
-
-  public UpdateWorkspaceRequest setCustomTags(Map<String, String> customTags) {
-    this.customTags = customTags;
-    return this;
-  }
-
-  public Map<String, String> getCustomTags() {
-    return customTags;
-  }
-
-  public UpdateWorkspaceRequest setManagedServicesCustomerManagedKeyId(
-      String managedServicesCustomerManagedKeyId) {
-    this.managedServicesCustomerManagedKeyId = managedServicesCustomerManagedKeyId;
-    return this;
-  }
-
-  public String getManagedServicesCustomerManagedKeyId() {
-    return managedServicesCustomerManagedKeyId;
-  }
-
-  public UpdateWorkspaceRequest setNetworkConnectivityConfigId(String networkConnectivityConfigId) {
-    this.networkConnectivityConfigId = networkConnectivityConfigId;
-    return this;
-  }
-
-  public String getNetworkConnectivityConfigId() {
-    return networkConnectivityConfigId;
-  }
-
-  public UpdateWorkspaceRequest setNetworkId(String networkId) {
-    this.networkId = networkId;
-    return this;
-  }
-
-  public String getNetworkId() {
-    return networkId;
-  }
-
-  public UpdateWorkspaceRequest setPrivateAccessSettingsId(String privateAccessSettingsId) {
-    this.privateAccessSettingsId = privateAccessSettingsId;
-    return this;
-  }
-
-  public String getPrivateAccessSettingsId() {
-    return privateAccessSettingsId;
-  }
-
-  public UpdateWorkspaceRequest setStorageConfigurationId(String storageConfigurationId) {
-    this.storageConfigurationId = storageConfigurationId;
-    return this;
-  }
-
-  public String getStorageConfigurationId() {
-    return storageConfigurationId;
-  }
-
-  public UpdateWorkspaceRequest setStorageCustomerManagedKeyId(String storageCustomerManagedKeyId) {
-    this.storageCustomerManagedKeyId = storageCustomerManagedKeyId;
-    return this;
-  }
-
-  public String getStorageCustomerManagedKeyId() {
-    return storageCustomerManagedKeyId;
+  public String getUpdateMask() {
+    return updateMask;
   }
 
   public UpdateWorkspaceRequest setWorkspaceId(Long workspaceId) {
@@ -172,46 +65,21 @@ public class UpdateWorkspaceRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     UpdateWorkspaceRequest that = (UpdateWorkspaceRequest) o;
-    return Objects.equals(awsRegion, that.awsRegion)
-        && Objects.equals(credentialsId, that.credentialsId)
-        && Objects.equals(customTags, that.customTags)
-        && Objects.equals(
-            managedServicesCustomerManagedKeyId, that.managedServicesCustomerManagedKeyId)
-        && Objects.equals(networkConnectivityConfigId, that.networkConnectivityConfigId)
-        && Objects.equals(networkId, that.networkId)
-        && Objects.equals(privateAccessSettingsId, that.privateAccessSettingsId)
-        && Objects.equals(storageConfigurationId, that.storageConfigurationId)
-        && Objects.equals(storageCustomerManagedKeyId, that.storageCustomerManagedKeyId)
+    return Objects.equals(customerFacingWorkspace, that.customerFacingWorkspace)
+        && Objects.equals(updateMask, that.updateMask)
         && Objects.equals(workspaceId, that.workspaceId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        awsRegion,
-        credentialsId,
-        customTags,
-        managedServicesCustomerManagedKeyId,
-        networkConnectivityConfigId,
-        networkId,
-        privateAccessSettingsId,
-        storageConfigurationId,
-        storageCustomerManagedKeyId,
-        workspaceId);
+    return Objects.hash(customerFacingWorkspace, updateMask, workspaceId);
   }
 
   @Override
   public String toString() {
     return new ToStringer(UpdateWorkspaceRequest.class)
-        .add("awsRegion", awsRegion)
-        .add("credentialsId", credentialsId)
-        .add("customTags", customTags)
-        .add("managedServicesCustomerManagedKeyId", managedServicesCustomerManagedKeyId)
-        .add("networkConnectivityConfigId", networkConnectivityConfigId)
-        .add("networkId", networkId)
-        .add("privateAccessSettingsId", privateAccessSettingsId)
-        .add("storageConfigurationId", storageConfigurationId)
-        .add("storageCustomerManagedKeyId", storageCustomerManagedKeyId)
+        .add("customerFacingWorkspace", customerFacingWorkspace)
+        .add("updateMask", updateMask)
         .add("workspaceId", workspaceId)
         .toString();
   }

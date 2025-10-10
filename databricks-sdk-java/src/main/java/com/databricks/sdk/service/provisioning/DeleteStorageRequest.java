@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class DeleteStorageRequest {
-  /** Databricks Account API storage configuration ID. */
+  /** */
   @JsonIgnore private String storageConfigurationId;
 
   public DeleteStorageRequest setStorageConfigurationId(String storageConfigurationId) {

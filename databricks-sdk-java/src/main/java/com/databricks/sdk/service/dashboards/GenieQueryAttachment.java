@@ -5,6 +5,7 @@ package com.databricks.sdk.service.dashboards;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 @Generated
@@ -20,6 +21,10 @@ public class GenieQueryAttachment {
   /** Time when the user updated the query last */
   @JsonProperty("last_updated_timestamp")
   private Long lastUpdatedTimestamp;
+
+  /** */
+  @JsonProperty("parameters")
+  private Collection<QueryAttachmentParameter> parameters;
 
   /** AI generated SQL query */
   @JsonProperty("query")
@@ -67,6 +72,15 @@ public class GenieQueryAttachment {
     return lastUpdatedTimestamp;
   }
 
+  public GenieQueryAttachment setParameters(Collection<QueryAttachmentParameter> parameters) {
+    this.parameters = parameters;
+    return this;
+  }
+
+  public Collection<QueryAttachmentParameter> getParameters() {
+    return parameters;
+  }
+
   public GenieQueryAttachment setQuery(String query) {
     this.query = query;
     return this;
@@ -111,6 +125,7 @@ public class GenieQueryAttachment {
     return Objects.equals(description, that.description)
         && Objects.equals(id, that.id)
         && Objects.equals(lastUpdatedTimestamp, that.lastUpdatedTimestamp)
+        && Objects.equals(parameters, that.parameters)
         && Objects.equals(query, that.query)
         && Objects.equals(queryResultMetadata, that.queryResultMetadata)
         && Objects.equals(statementId, that.statementId)
@@ -120,7 +135,14 @@ public class GenieQueryAttachment {
   @Override
   public int hashCode() {
     return Objects.hash(
-        description, id, lastUpdatedTimestamp, query, queryResultMetadata, statementId, title);
+        description,
+        id,
+        lastUpdatedTimestamp,
+        parameters,
+        query,
+        queryResultMetadata,
+        statementId,
+        title);
   }
 
   @Override
@@ -129,6 +151,7 @@ public class GenieQueryAttachment {
         .add("description", description)
         .add("id", id)
         .add("lastUpdatedTimestamp", lastUpdatedTimestamp)
+        .add("parameters", parameters)
         .add("query", query)
         .add("queryResultMetadata", queryResultMetadata)
         .add("statementId", statementId)

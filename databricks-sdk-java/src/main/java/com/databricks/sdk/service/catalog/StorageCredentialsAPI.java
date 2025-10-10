@@ -75,6 +75,14 @@ public class StorageCredentialsAPI {
    * limited to only those storage credentials the caller has permission to access. If the caller is
    * a metastore admin, retrieval of credentials is unrestricted. There is no guarantee of a
    * specific ordering of the elements in the array.
+   *
+   * <p>NOTE: we recommend using max_results=0 to use the paginated version of this API. Unpaginated
+   * calls will be deprecated soon.
+   *
+   * <p>PAGINATION BEHAVIOR: When using pagination (max_results >= 0), a page may contain zero
+   * results while still providing a next_page_token. Clients must continue reading pages until
+   * next_page_token is absent, which is the only indication that the end of results has been
+   * reached. This behavior follows Google AIP-158 guidelines.
    */
   public Iterable<StorageCredentialInfo> list(ListStorageCredentialsRequest request) {
     return new Paginator<>(

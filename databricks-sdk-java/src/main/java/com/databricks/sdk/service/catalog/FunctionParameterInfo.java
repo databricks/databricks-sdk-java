@@ -13,7 +13,7 @@ public class FunctionParameterInfo {
   @JsonProperty("comment")
   private String comment;
 
-  /** Name of parameter. */
+  /** Name of Parameter. */
   @JsonProperty("name")
   private String name;
 
@@ -21,11 +21,11 @@ public class FunctionParameterInfo {
   @JsonProperty("parameter_default")
   private String parameterDefault;
 
-  /** */
+  /** Function parameter mode. */
   @JsonProperty("parameter_mode")
   private FunctionParameterMode parameterMode;
 
-  /** */
+  /** Function parameter type. */
   @JsonProperty("parameter_type")
   private FunctionParameterType parameterType;
 
@@ -41,7 +41,7 @@ public class FunctionParameterInfo {
   @JsonProperty("type_json")
   private String typeJson;
 
-  /** */
+  /** Name of type (INT, STRUCT, MAP, etc.) */
   @JsonProperty("type_name")
   private ColumnTypeName typeName;
 

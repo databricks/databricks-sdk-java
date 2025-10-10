@@ -8,14 +8,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Properties of the metastore to change. */
 @Generated
 public class AccountsUpdateMetastore {
   /** Unity Catalog metastore ID */
   @JsonIgnore private String metastoreId;
 
-  /** */
+  /** Properties of the metastore to change. */
   @JsonProperty("metastore_info")
-  private UpdateMetastore metastoreInfo;
+  private UpdateAccountsMetastore metastoreInfo;
 
   public AccountsUpdateMetastore setMetastoreId(String metastoreId) {
     this.metastoreId = metastoreId;
@@ -26,12 +27,12 @@ public class AccountsUpdateMetastore {
     return metastoreId;
   }
 
-  public AccountsUpdateMetastore setMetastoreInfo(UpdateMetastore metastoreInfo) {
+  public AccountsUpdateMetastore setMetastoreInfo(UpdateAccountsMetastore metastoreInfo) {
     this.metastoreInfo = metastoreInfo;
     return this;
   }
 
-  public UpdateMetastore getMetastoreInfo() {
+  public UpdateAccountsMetastore getMetastoreInfo() {
     return metastoreInfo;
   }
 

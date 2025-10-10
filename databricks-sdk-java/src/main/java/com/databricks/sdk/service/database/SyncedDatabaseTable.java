@@ -7,7 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Next field marker: 14 */
+/** Next field marker: 18 */
 @Generated
 public class SyncedDatabaseTable {
   /** Synced Table data synchronization status */

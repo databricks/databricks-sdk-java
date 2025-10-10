@@ -17,21 +17,21 @@ class AccountMetastoresImpl implements AccountMetastoresService {
   }
 
   @Override
-  public AccountsMetastoreInfo create(AccountsCreateMetastore request) {
+  public AccountsCreateMetastoreResponse create(AccountsCreateMetastore request) {
     String path = String.format("/api/2.0/accounts/%s/metastores", apiClient.configuredAccountID());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
-      return apiClient.execute(req, AccountsMetastoreInfo.class);
+      return apiClient.execute(req, AccountsCreateMetastoreResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
   }
 
   @Override
-  public void delete(DeleteAccountMetastoreRequest request) {
+  public AccountsDeleteMetastoreResponse delete(DeleteAccountMetastoreRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/metastores/%s",
@@ -40,14 +40,14 @@ class AccountMetastoresImpl implements AccountMetastoresService {
       Request req = new Request("DELETE", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
-      apiClient.execute(req, Void.class);
+      return apiClient.execute(req, AccountsDeleteMetastoreResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
   }
 
   @Override
-  public AccountsMetastoreInfo get(GetAccountMetastoreRequest request) {
+  public AccountsGetMetastoreResponse get(GetAccountMetastoreRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/metastores/%s",
@@ -56,26 +56,26 @@ class AccountMetastoresImpl implements AccountMetastoresService {
       Request req = new Request("GET", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
-      return apiClient.execute(req, AccountsMetastoreInfo.class);
+      return apiClient.execute(req, AccountsGetMetastoreResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
   }
 
   @Override
-  public ListMetastoresResponse list() {
+  public AccountsListMetastoresResponse list() {
     String path = String.format("/api/2.0/accounts/%s/metastores", apiClient.configuredAccountID());
     try {
       Request req = new Request("GET", path);
       req.withHeader("Accept", "application/json");
-      return apiClient.execute(req, ListMetastoresResponse.class);
+      return apiClient.execute(req, AccountsListMetastoresResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
   }
 
   @Override
-  public AccountsMetastoreInfo update(AccountsUpdateMetastore request) {
+  public AccountsUpdateMetastoreResponse update(AccountsUpdateMetastore request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/metastores/%s",
@@ -85,7 +85,7 @@ class AccountMetastoresImpl implements AccountMetastoresService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
-      return apiClient.execute(req, AccountsMetastoreInfo.class);
+      return apiClient.execute(req, AccountsUpdateMetastoreResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

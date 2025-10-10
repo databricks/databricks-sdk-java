@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class DeleteVpcEndpointRequest {
-  /** Databricks VPC endpoint ID. */
+  /** */
   @JsonIgnore private String vpcEndpointId;
 
   public DeleteVpcEndpointRequest setVpcEndpointId(String vpcEndpointId) {

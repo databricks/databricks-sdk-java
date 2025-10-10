@@ -7,14 +7,14 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Creates a new SQL warehouse. */
 @Generated
 public class CreateWarehouseRequest {
   /**
    * The amount of time in minutes that a SQL warehouse must be idle (i.e., no RUNNING queries)
    * before it is automatically stopped.
    *
-   * <p>Supported values: - Must be >= 0 mins for serverless warehouses - Must be == 0 or >= 10 mins
-   * for non-serverless warehouses - 0 indicates no autostop.
+   * <p>Supported values: - Must be == 0 or >= 10 mins - 0 indicates no autostop.
    *
    * <p>Defaults to 120 mins
    */
@@ -59,7 +59,7 @@ public class CreateWarehouseRequest {
   /**
    * Maximum number of clusters that the autoscaler will create to handle concurrent queries.
    *
-   * <p>Supported values: - Must be >= min_num_clusters - Must be <= 30.
+   * <p>Supported values: - Must be >= min_num_clusters - Must be <= 40.
    *
    * <p>Defaults to min_clusters if unset.
    */
@@ -87,7 +87,7 @@ public class CreateWarehouseRequest {
   @JsonProperty("name")
   private String name;
 
-  /** */
+  /** Configurations whether the endpoint should use spot instances. */
   @JsonProperty("spot_instance_policy")
   private SpotInstancePolicy spotInstancePolicy;
 
@@ -100,7 +100,10 @@ public class CreateWarehouseRequest {
   @JsonProperty("tags")
   private EndpointTags tags;
 
-  /** */
+  /**
+   * Warehouse type: `PRO` or `CLASSIC`. If you want to use serverless compute, you must set to
+   * `PRO` and also set the field `enable_serverless_compute` to `true`.
+   */
   @JsonProperty("warehouse_type")
   private CreateWarehouseRequestWarehouseType warehouseType;
 

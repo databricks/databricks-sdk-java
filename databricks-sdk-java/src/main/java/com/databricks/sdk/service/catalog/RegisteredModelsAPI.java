@@ -30,8 +30,8 @@ import org.slf4j.LoggerFactory;
  * metadata (comments, aliases) create a new model version, or update permissions on the registered
  * model, users must be owners of the registered model.
  *
- * <p>Note: The securable type for models is "FUNCTION". When using REST APIs (e.g. tagging, grants)
- * that specify a securable type, use "FUNCTION" as the securable type.
+ * <p>Note: The securable type for models is FUNCTION. When using REST APIs (e.g. tagging, grants)
+ * that specify a securable type, use FUNCTION as the securable type.
  */
 @Generated
 public class RegisteredModelsAPI {

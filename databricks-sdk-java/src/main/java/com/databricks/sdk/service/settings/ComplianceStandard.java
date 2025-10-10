@@ -4,7 +4,10 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 
-/** Compliance stardard for SHIELD customers */
+/**
+ * Compliance standard for SHIELD customers. See README.md for how instructions of how to add new
+ * standards.
+ */
 @Generated
 public enum ComplianceStandard {
   CANADA_PROTECTED_B,
@@ -13,6 +16,7 @@ public enum ComplianceStandard {
   FEDRAMP_IL5,
   FEDRAMP_MODERATE,
   GERMANY_C5,
+  GERMANY_TISAX,
   HIPAA,
   HITRUST,
   IRAP_PROTECTED,

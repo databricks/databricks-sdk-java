@@ -19,6 +19,14 @@ public class ListExternalLocationsRequest {
   private Boolean includeBrowse;
 
   /**
+   * Whether to include external locations not bound to the workspace. Effective only if the user
+   * has permission to update the location–workspace binding.
+   */
+  @JsonIgnore
+  @QueryParam("include_unbound")
+  private Boolean includeUnbound;
+
+  /**
    * Maximum number of external locations to return. If not set, all the external locations are
    * returned (not recommended). - when set to a value greater than 0, the page length is the
    * minimum of this value and a server configured value; - when set to 0, the page length is set to
@@ -41,6 +49,15 @@ public class ListExternalLocationsRequest {
 
   public Boolean getIncludeBrowse() {
     return includeBrowse;
+  }
+
+  public ListExternalLocationsRequest setIncludeUnbound(Boolean includeUnbound) {
+    this.includeUnbound = includeUnbound;
+    return this;
+  }
+
+  public Boolean getIncludeUnbound() {
+    return includeUnbound;
   }
 
   public ListExternalLocationsRequest setMaxResults(Long maxResults) {
@@ -67,19 +84,21 @@ public class ListExternalLocationsRequest {
     if (o == null || getClass() != o.getClass()) return false;
     ListExternalLocationsRequest that = (ListExternalLocationsRequest) o;
     return Objects.equals(includeBrowse, that.includeBrowse)
+        && Objects.equals(includeUnbound, that.includeUnbound)
         && Objects.equals(maxResults, that.maxResults)
         && Objects.equals(pageToken, that.pageToken);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(includeBrowse, maxResults, pageToken);
+    return Objects.hash(includeBrowse, includeUnbound, maxResults, pageToken);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ListExternalLocationsRequest.class)
         .add("includeBrowse", includeBrowse)
+        .add("includeUnbound", includeUnbound)
         .add("maxResults", maxResults)
         .add("pageToken", pageToken)
         .toString();

@@ -43,23 +43,16 @@ public class VpcEndpointsAPI {
     return impl.create(request);
   }
 
-  public void delete(String vpcEndpointId) {
-    delete(new DeleteVpcEndpointRequest().setVpcEndpointId(vpcEndpointId));
+  public VpcEndpoint delete(String vpcEndpointId) {
+    return delete(new DeleteVpcEndpointRequest().setVpcEndpointId(vpcEndpointId));
   }
 
   /**
-   * Deletes a VPC endpoint configuration, which represents an [AWS VPC endpoint] that can
-   * communicate privately with Databricks over [AWS PrivateLink].
-   *
-   * <p>Before configuring PrivateLink, read the [Databricks article about PrivateLink].
-   *
-   * <p>[AWS PrivateLink]: https://aws.amazon.com/privatelink [AWS VPC endpoint]:
-   * https://docs.aws.amazon.com/vpc/latest/privatelink/concepts.html [Databricks article about
-   * PrivateLink]:
-   * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
+   * Deletes a Databricks VPC endpoint configuration. You cannot delete a VPC endpoint configuration
+   * that is associated with any workspace.
    */
-  public void delete(DeleteVpcEndpointRequest request) {
-    impl.delete(request);
+  public VpcEndpoint delete(DeleteVpcEndpointRequest request) {
+    return impl.delete(request);
   }
 
   public VpcEndpoint get(String vpcEndpointId) {
@@ -77,14 +70,7 @@ public class VpcEndpointsAPI {
     return impl.get(request);
   }
 
-  /**
-   * Gets a list of all VPC endpoints for an account, specified by ID.
-   *
-   * <p>Before configuring PrivateLink, read the [Databricks article about PrivateLink].
-   *
-   * <p>[Databricks article about PrivateLink]:
-   * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
-   */
+  /** Lists Databricks VPC endpoint configurations for an account. */
   public Iterable<VpcEndpoint> list() {
     return impl.list();
   }

@@ -7,26 +7,25 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** The Google Cloud specific information for this Private Service Connect endpoint. */
 @Generated
 public class GcpVpcEndpointInfo {
-  /** Region of the PSC endpoint. */
+  /** */
   @JsonProperty("endpoint_region")
   private String endpointRegion;
 
-  /** The Google Cloud project ID of the VPC network where the PSC connection resides. */
+  /** */
   @JsonProperty("project_id")
   private String projectId;
 
-  /** The unique ID of this PSC connection. */
+  /** */
   @JsonProperty("psc_connection_id")
   private String pscConnectionId;
 
-  /** The name of the PSC endpoint in the Google Cloud project. */
+  /** */
   @JsonProperty("psc_endpoint_name")
   private String pscEndpointName;
 
-  /** The service attachment this PSC connection connects to. */
+  /** */
   @JsonProperty("service_attachment_id")
   private String serviceAttachmentId;
 

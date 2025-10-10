@@ -16,7 +16,7 @@ public class FunctionInfo {
   @JsonProperty("browse_only")
   private Boolean browseOnly;
 
-  /** Name of parent catalog. */
+  /** Name of parent Catalog. */
   @JsonProperty("catalog_name")
   private String catalogName;
 
@@ -48,7 +48,7 @@ public class FunctionInfo {
   @JsonProperty("full_data_type")
   private String fullDataType;
 
-  /** Full name of function, in form of __catalog_name__.__schema_name__.__function__name__ */
+  /** Full name of Function, in form of **catalog_name**.**schema_name**.**function_name** */
   @JsonProperty("full_name")
   private String fullName;
 
@@ -56,7 +56,7 @@ public class FunctionInfo {
   @JsonProperty("function_id")
   private String functionId;
 
-  /** */
+  /** Function input parameters. */
   @JsonProperty("input_params")
   private FunctionParameterInfos inputParams;
 
@@ -76,7 +76,7 @@ public class FunctionInfo {
   @JsonProperty("name")
   private String name;
 
-  /** Username of current owner of function. */
+  /** Username of current owner of the function. */
   @JsonProperty("owner")
   private String owner;
 
@@ -94,8 +94,8 @@ public class FunctionInfo {
 
   /**
    * Function language. When **EXTERNAL** is used, the language of the routine function should be
-   * specified in the __external_language__ field, and the __return_params__ of the function cannot
-   * be used (as **TABLE** return type is not supported), and the __sql_data_access__ field must be
+   * specified in the **external_language** field, and the **return_params** of the function cannot
+   * be used (as **TABLE** return type is not supported), and the **sql_data_access** field must be
    * **NO_SQL**.
    */
   @JsonProperty("routine_body")
@@ -105,11 +105,11 @@ public class FunctionInfo {
   @JsonProperty("routine_definition")
   private String routineDefinition;
 
-  /** Function dependencies. */
+  /** function dependencies. */
   @JsonProperty("routine_dependencies")
   private DependencyList routineDependencies;
 
-  /** Name of parent schema relative to its parent catalog. */
+  /** Name of parent Schema relative to its parent Catalog. */
   @JsonProperty("schema_name")
   private String schemaName;
 
@@ -129,11 +129,11 @@ public class FunctionInfo {
   @JsonProperty("sql_path")
   private String sqlPath;
 
-  /** Time at which this function was created, in epoch milliseconds. */
+  /** Time at which this function was last modified, in epoch milliseconds. */
   @JsonProperty("updated_at")
   private Long updatedAt;
 
-  /** Username of user who last modified function. */
+  /** Username of user who last modified the function. */
   @JsonProperty("updated_by")
   private String updatedBy;
 

@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class StorageConfiguration {
-  /** The Databricks account ID that hosts the credential. */
+  /** The Databricks account ID associated with this storage configuration. */
   @JsonProperty("account_id")
   private String accountId;
 
@@ -17,7 +17,17 @@ public class StorageConfiguration {
   @JsonProperty("creation_time")
   private Long creationTime;
 
-  /** */
+  /**
+   * Optional IAM role that is used to access the workspace catalog which is created during
+   * workspace creation for UC by Default. If a storage configuration with this field populated is
+   * used to create a workspace, then a workspace catalog is created together with the workspace.
+   * The workspace catalog shares the root bucket with internal workspace storage (including DBFS
+   * root) but uses a dedicated bucket path prefix.
+   */
+  @JsonProperty("role_arn")
+  private String roleArn;
+
+  /** The root bucket information for the storage configuration. */
   @JsonProperty("root_bucket_info")
   private RootBucketInfo rootBucketInfo;
 
@@ -45,6 +55,15 @@ public class StorageConfiguration {
 
   public Long getCreationTime() {
     return creationTime;
+  }
+
+  public StorageConfiguration setRoleArn(String roleArn) {
+    this.roleArn = roleArn;
+    return this;
+  }
+
+  public String getRoleArn() {
+    return roleArn;
   }
 
   public StorageConfiguration setRootBucketInfo(RootBucketInfo rootBucketInfo) {
@@ -81,6 +100,7 @@ public class StorageConfiguration {
     StorageConfiguration that = (StorageConfiguration) o;
     return Objects.equals(accountId, that.accountId)
         && Objects.equals(creationTime, that.creationTime)
+        && Objects.equals(roleArn, that.roleArn)
         && Objects.equals(rootBucketInfo, that.rootBucketInfo)
         && Objects.equals(storageConfigurationId, that.storageConfigurationId)
         && Objects.equals(storageConfigurationName, that.storageConfigurationName);
@@ -89,7 +109,12 @@ public class StorageConfiguration {
   @Override
   public int hashCode() {
     return Objects.hash(
-        accountId, creationTime, rootBucketInfo, storageConfigurationId, storageConfigurationName);
+        accountId,
+        creationTime,
+        roleArn,
+        rootBucketInfo,
+        storageConfigurationId,
+        storageConfigurationName);
   }
 
   @Override
@@ -97,6 +122,7 @@ public class StorageConfiguration {
     return new ToStringer(StorageConfiguration.class)
         .add("accountId", accountId)
         .add("creationTime", creationTime)
+        .add("roleArn", roleArn)
         .add("rootBucketInfo", rootBucketInfo)
         .add("storageConfigurationId", storageConfigurationId)
         .add("storageConfigurationName", storageConfigurationName)

@@ -13,13 +13,24 @@ public class CreateCredentialsResponse {
   @JsonProperty("credential_id")
   private Long credentialId;
 
+  /**
+   * The authenticating email associated with your Git provider user account. Used for
+   * authentication with the remote repository and also sets the author & committer identity for
+   * commits. Required for most Git providers except AWS CodeCommit. Learn more at
+   * https://docs.databricks.com/aws/en/repos/get-access-tokens-from-git-provider
+   */
+  @JsonProperty("git_email")
+  private String gitEmail;
+
   /** The Git provider associated with the credential. */
   @JsonProperty("git_provider")
   private String gitProvider;
 
   /**
-   * The username or email provided with your Git provider account and associated with the
-   * credential.
+   * The username provided with your Git provider account and associated with the credential. For
+   * most Git providers it is only used to set the Git committer & author names for commits, however
+   * it may be required for authentication depending on your Git provider / token requirements.
+   * Required for AWS CodeCommit.
    */
   @JsonProperty("git_username")
   private String gitUsername;
@@ -39,6 +50,15 @@ public class CreateCredentialsResponse {
 
   public Long getCredentialId() {
     return credentialId;
+  }
+
+  public CreateCredentialsResponse setGitEmail(String gitEmail) {
+    this.gitEmail = gitEmail;
+    return this;
+  }
+
+  public String getGitEmail() {
+    return gitEmail;
   }
 
   public CreateCredentialsResponse setGitProvider(String gitProvider) {
@@ -83,6 +103,7 @@ public class CreateCredentialsResponse {
     if (o == null || getClass() != o.getClass()) return false;
     CreateCredentialsResponse that = (CreateCredentialsResponse) o;
     return Objects.equals(credentialId, that.credentialId)
+        && Objects.equals(gitEmail, that.gitEmail)
         && Objects.equals(gitProvider, that.gitProvider)
         && Objects.equals(gitUsername, that.gitUsername)
         && Objects.equals(isDefaultForProvider, that.isDefaultForProvider)
@@ -91,13 +112,15 @@ public class CreateCredentialsResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(credentialId, gitProvider, gitUsername, isDefaultForProvider, name);
+    return Objects.hash(
+        credentialId, gitEmail, gitProvider, gitUsername, isDefaultForProvider, name);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CreateCredentialsResponse.class)
         .add("credentialId", credentialId)
+        .add("gitEmail", gitEmail)
         .add("gitProvider", gitProvider)
         .add("gitUsername", gitUsername)
         .add("isDefaultForProvider", isDefaultForProvider)

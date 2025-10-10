@@ -7,18 +7,19 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Properties of the new metastore. */
 @Generated
 public class AccountsCreateMetastore {
   /** */
   @JsonProperty("metastore_info")
-  private CreateMetastore metastoreInfo;
+  private CreateAccountsMetastore metastoreInfo;
 
-  public AccountsCreateMetastore setMetastoreInfo(CreateMetastore metastoreInfo) {
+  public AccountsCreateMetastore setMetastoreInfo(CreateAccountsMetastore metastoreInfo) {
     this.metastoreInfo = metastoreInfo;
     return this;
   }
 
-  public CreateMetastore getMetastoreInfo() {
+  public CreateAccountsMetastore getMetastoreInfo() {
     return metastoreInfo;
   }
 

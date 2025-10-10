@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class GetCredentialRequest {
-  /** Databricks Account API credential configuration ID */
+  /** Credential configuration ID */
   @JsonIgnore private String credentialsId;
 
   public GetCredentialRequest setCredentialsId(String credentialsId) {

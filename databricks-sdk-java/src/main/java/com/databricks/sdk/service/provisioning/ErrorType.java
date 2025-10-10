@@ -6,8 +6,8 @@ import com.databricks.sdk.support.Generated;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * The AWS resource associated with this error: credentials, VPC, subnet, security group, or network
- * ACL.
+ * ErrorType and WarningType are used to represent the type of error or warning by NetworkHealth and
+ * NetworkWarning defined in central/api/accounts/accounts.proto
  */
 @Generated
 public enum ErrorType {

@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/** The metastore storage credentials were successfully returned. */
 @Generated
 public class ListAccountStorageCredentialsResponse {
   /** An array of metastore storage credentials. */

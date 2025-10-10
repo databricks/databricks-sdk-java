@@ -14,6 +14,15 @@ public class UpdateCredentialsRequest {
   @JsonIgnore private Long credentialId;
 
   /**
+   * The authenticating email associated with your Git provider user account. Used for
+   * authentication with the remote repository and also sets the author & committer identity for
+   * commits. Required for most Git providers except AWS CodeCommit. Learn more at
+   * https://docs.databricks.com/aws/en/repos/get-access-tokens-from-git-provider
+   */
+  @JsonProperty("git_email")
+  private String gitEmail;
+
+  /**
    * Git provider. This field is case-insensitive. The available Git providers are `gitHub`,
    * `bitbucketCloud`, `gitLab`, `azureDevOpsServices`, `gitHubEnterprise`, `bitbucketServer`,
    * `gitLabEnterpriseEdition` and `awsCodeCommit`.
@@ -22,12 +31,10 @@ public class UpdateCredentialsRequest {
   private String gitProvider;
 
   /**
-   * The username or email provided with your Git provider account, depending on which provider you
-   * are using. For GitHub, GitHub Enterprise Server, or Azure DevOps Services, either email or
-   * username may be used. For GitLab, GitLab Enterprise Edition, email must be used. For AWS
-   * CodeCommit, BitBucket or BitBucket Server, username must be used. For all other providers
-   * please see your provider's Personal Access Token authentication documentation to see what is
-   * supported.
+   * The username provided with your Git provider account and associated with the credential. For
+   * most Git providers it is only used to set the Git committer & author names for commits, however
+   * it may be required for authentication depending on your Git provider / token requirements.
+   * Required for AWS CodeCommit.
    */
   @JsonProperty("git_username")
   private String gitUsername;
@@ -56,6 +63,15 @@ public class UpdateCredentialsRequest {
 
   public Long getCredentialId() {
     return credentialId;
+  }
+
+  public UpdateCredentialsRequest setGitEmail(String gitEmail) {
+    this.gitEmail = gitEmail;
+    return this;
+  }
+
+  public String getGitEmail() {
+    return gitEmail;
   }
 
   public UpdateCredentialsRequest setGitProvider(String gitProvider) {
@@ -109,6 +125,7 @@ public class UpdateCredentialsRequest {
     if (o == null || getClass() != o.getClass()) return false;
     UpdateCredentialsRequest that = (UpdateCredentialsRequest) o;
     return Objects.equals(credentialId, that.credentialId)
+        && Objects.equals(gitEmail, that.gitEmail)
         && Objects.equals(gitProvider, that.gitProvider)
         && Objects.equals(gitUsername, that.gitUsername)
         && Objects.equals(isDefaultForProvider, that.isDefaultForProvider)
@@ -119,13 +136,20 @@ public class UpdateCredentialsRequest {
   @Override
   public int hashCode() {
     return Objects.hash(
-        credentialId, gitProvider, gitUsername, isDefaultForProvider, name, personalAccessToken);
+        credentialId,
+        gitEmail,
+        gitProvider,
+        gitUsername,
+        isDefaultForProvider,
+        name,
+        personalAccessToken);
   }
 
   @Override
   public String toString() {
     return new ToStringer(UpdateCredentialsRequest.class)
         .add("credentialId", credentialId)
+        .add("gitEmail", gitEmail)
         .add("gitProvider", gitProvider)
         .add("gitUsername", gitUsername)
         .add("isDefaultForProvider", isDefaultForProvider)

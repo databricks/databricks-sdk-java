@@ -9,25 +9,9 @@ import java.util.Objects;
 
 @Generated
 public class StsRole {
-  /**
-   * The external ID that needs to be trusted by the cross-account role. This is always your
-   * Databricks account ID.
-   */
-  @JsonProperty("external_id")
-  private String externalId;
-
-  /** The Amazon Resource Name (ARN) of the cross account role. */
+  /** The Amazon Resource Name (ARN) of the cross account IAM role. */
   @JsonProperty("role_arn")
   private String roleArn;
-
-  public StsRole setExternalId(String externalId) {
-    this.externalId = externalId;
-    return this;
-  }
-
-  public String getExternalId() {
-    return externalId;
-  }
 
   public StsRole setRoleArn(String roleArn) {
     this.roleArn = roleArn;
@@ -43,19 +27,16 @@ public class StsRole {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     StsRole that = (StsRole) o;
-    return Objects.equals(externalId, that.externalId) && Objects.equals(roleArn, that.roleArn);
+    return Objects.equals(roleArn, that.roleArn);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(externalId, roleArn);
+    return Objects.hash(roleArn);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(StsRole.class)
-        .add("externalId", externalId)
-        .add("roleArn", roleArn)
-        .toString();
+    return new ToStringer(StsRole.class).add("roleArn", roleArn).toString();
   }
 }

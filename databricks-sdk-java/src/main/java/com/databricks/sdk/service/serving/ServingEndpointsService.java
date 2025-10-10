@@ -99,6 +99,10 @@ public interface ServingEndpointsService {
    */
   ServingEndpointDetailed updateConfig(EndpointCoreConfigInput endpointCoreConfigInput);
 
+  /** Updates the email and webhook notification settings for an endpoint. */
+  UpdateInferenceEndpointNotificationsResponse updateNotifications(
+      UpdateInferenceEndpointNotifications updateInferenceEndpointNotifications);
+
   /**
    * Updates the permissions on a serving endpoint. Serving endpoints can inherit permissions from
    * their root object.
