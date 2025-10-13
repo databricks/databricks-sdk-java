@@ -34,7 +34,7 @@ class EncryptionKeysImpl implements EncryptionKeysService {
   }
 
   @Override
-  public void delete(DeleteEncryptionKeyRequest request) {
+  public CustomerManagedKey delete(DeleteEncryptionKeyRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/customer-managed-keys/%s",
@@ -43,7 +43,7 @@ class EncryptionKeysImpl implements EncryptionKeysService {
       Request req = new Request("DELETE", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
-      apiClient.execute(req, Void.class);
+      return apiClient.execute(req, CustomerManagedKey.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

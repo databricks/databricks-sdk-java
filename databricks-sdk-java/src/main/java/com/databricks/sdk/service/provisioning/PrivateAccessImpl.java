@@ -34,7 +34,7 @@ class PrivateAccessImpl implements PrivateAccessService {
   }
 
   @Override
-  public void delete(DeletePrivateAccesRequest request) {
+  public PrivateAccessSettings delete(DeletePrivateAccesRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/private-access-settings/%s",
@@ -43,7 +43,7 @@ class PrivateAccessImpl implements PrivateAccessService {
       Request req = new Request("DELETE", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
-      apiClient.execute(req, Void.class);
+      return apiClient.execute(req, PrivateAccessSettings.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -76,17 +76,19 @@ class PrivateAccessImpl implements PrivateAccessService {
   }
 
   @Override
-  public void replace(ReplacePrivateAccessSettingsRequest request) {
+  public PrivateAccessSettings replace(ReplacePrivateAccessSettingsRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/private-access-settings/%s",
             apiClient.configuredAccountID(), request.getPrivateAccessSettingsId());
     try {
-      Request req = new Request("PUT", path, apiClient.serialize(request));
+      Request req =
+          new Request(
+              "PUT", path, apiClient.serialize(request.getCustomerFacingPrivateAccessSettings()));
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
-      apiClient.execute(req, Void.class);
+      return apiClient.execute(req, PrivateAccessSettings.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

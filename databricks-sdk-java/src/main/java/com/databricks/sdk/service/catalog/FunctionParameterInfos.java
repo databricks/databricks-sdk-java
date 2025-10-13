@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class FunctionParameterInfos {
-  /** The array of __FunctionParameterInfo__ definitions of the function's parameters. */
+  /** */
   @JsonProperty("parameters")
   private Collection<FunctionParameterInfo> parameters;
 

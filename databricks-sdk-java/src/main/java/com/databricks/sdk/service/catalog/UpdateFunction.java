@@ -16,7 +16,7 @@ public class UpdateFunction {
    */
   @JsonIgnore private String name;
 
-  /** Username of current owner of function. */
+  /** Username of current owner of the function. */
   @JsonProperty("owner")
   private String owner;
 

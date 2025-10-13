@@ -103,6 +103,8 @@ import com.databricks.sdk.service.dashboards.LakeviewEmbeddedService;
 import com.databricks.sdk.service.dashboards.LakeviewService;
 import com.databricks.sdk.service.database.DatabaseAPI;
 import com.databricks.sdk.service.database.DatabaseService;
+import com.databricks.sdk.service.dataquality.DataQualityAPI;
+import com.databricks.sdk.service.dataquality.DataQualityService;
 import com.databricks.sdk.service.files.DbfsService;
 import com.databricks.sdk.service.files.FilesAPI;
 import com.databricks.sdk.service.files.FilesService;
@@ -286,6 +288,7 @@ public class WorkspaceClient {
   private CurrentUserAPI currentUserAPI;
   private DashboardWidgetsAPI dashboardWidgetsAPI;
   private DashboardsAPI dashboardsAPI;
+  private DataQualityAPI dataQualityAPI;
   private DataSourcesAPI dataSourcesAPI;
   private DatabaseAPI databaseAPI;
   private DbfsExt dbfsAPI;
@@ -416,6 +419,7 @@ public class WorkspaceClient {
     currentUserAPI = new CurrentUserAPI(apiClient);
     dashboardWidgetsAPI = new DashboardWidgetsAPI(apiClient);
     dashboardsAPI = new DashboardsAPI(apiClient);
+    dataQualityAPI = new DataQualityAPI(apiClient);
     dataSourcesAPI = new DataSourcesAPI(apiClient);
     databaseAPI = new DatabaseAPI(apiClient);
     dbfsAPI = new DbfsExt(apiClient);
@@ -799,6 +803,11 @@ public class WorkspaceClient {
    */
   public DashboardsAPI dashboards() {
     return dashboardsAPI;
+  }
+
+  /** Manage the data quality of Unity Catalog objects (currently support `schema` and `table`) */
+  public DataQualityAPI dataQuality() {
+    return dataQualityAPI;
   }
 
   /**
@@ -1555,8 +1564,8 @@ public class WorkspaceClient {
    * version metadata (comments, aliases) create a new model version, or update permissions on the
    * registered model, users must be owners of the registered model.
    *
-   * <p>Note: The securable type for models is "FUNCTION". When using REST APIs (e.g. tagging,
-   * grants) that specify a securable type, use "FUNCTION" as the securable type.
+   * <p>Note: The securable type for models is FUNCTION. When using REST APIs (e.g. tagging, grants)
+   * that specify a securable type, use FUNCTION as the securable type.
    */
   public RegisteredModelsAPI registeredModels() {
     return registeredModelsAPI;
@@ -1727,16 +1736,16 @@ public class WorkspaceClient {
    * has not yet finished. This can be set to either `CONTINUE`, to fallback to asynchronous mode,
    * or it can be set to `CANCEL`, which cancels the statement.
    *
-   * <p>In summary: - Synchronous mode - `wait_timeout=30s` and `on_wait_timeout=CANCEL` - The call
-   * waits up to 30 seconds; if the statement execution finishes within this time, the result data
-   * is returned directly in the response. If the execution takes longer than 30 seconds, the
-   * execution is canceled and the call returns with a `CANCELED` state. - Asynchronous mode -
-   * `wait_timeout=0s` (`on_wait_timeout` is ignored) - The call doesn't wait for the statement to
-   * finish but returns directly with a statement ID. The status of the statement execution can be
-   * polled by issuing :method:statementexecution/getStatement with the statement ID. Once the
+   * <p>In summary: - **Synchronous mode** (`wait_timeout=30s` and `on_wait_timeout=CANCEL`): The
+   * call waits up to 30 seconds; if the statement execution finishes within this time, the result
+   * data is returned directly in the response. If the execution takes longer than 30 seconds, the
+   * execution is canceled and the call returns with a `CANCELED` state. - **Asynchronous mode**
+   * (`wait_timeout=0s` and `on_wait_timeout` is ignored): The call doesn't wait for the statement
+   * to finish but returns directly with a statement ID. The status of the statement execution can
+   * be polled by issuing :method:statementexecution/getStatement with the statement ID. Once the
    * execution has succeeded, this call also returns the result and metadata in the response. -
-   * Hybrid mode (default) - `wait_timeout=10s` and `on_wait_timeout=CONTINUE` - The call waits for
-   * up to 10 seconds; if the statement execution finishes within this time, the result data is
+   * **[Default] Hybrid mode** (`wait_timeout=10s` and `on_wait_timeout=CONTINUE`): The call waits
+   * for up to 10 seconds; if the statement execution finishes within this time, the result data is
    * returned directly in the response. If the execution takes longer than 10 seconds, a statement
    * ID is returned. The statement ID can be used to fetch status and results in the same way as in
    * the asynchronous mode.
@@ -2406,6 +2415,17 @@ public class WorkspaceClient {
   /** Replace the default DashboardsAPI with a custom implementation. */
   public WorkspaceClient withDashboardsAPI(DashboardsAPI dashboards) {
     this.dashboardsAPI = dashboards;
+    return this;
+  }
+
+  /** Replace the default DataQualityService with a custom implementation. */
+  public WorkspaceClient withDataQualityImpl(DataQualityService dataQuality) {
+    return this.withDataQualityAPI(new DataQualityAPI(dataQuality));
+  }
+
+  /** Replace the default DataQualityAPI with a custom implementation. */
+  public WorkspaceClient withDataQualityAPI(DataQualityAPI dataQuality) {
+    this.dataQualityAPI = dataQuality;
     return this;
   }
 

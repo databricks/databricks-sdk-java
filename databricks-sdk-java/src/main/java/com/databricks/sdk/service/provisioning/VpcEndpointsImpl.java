@@ -33,7 +33,7 @@ class VpcEndpointsImpl implements VpcEndpointsService {
   }
 
   @Override
-  public void delete(DeleteVpcEndpointRequest request) {
+  public VpcEndpoint delete(DeleteVpcEndpointRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/vpc-endpoints/%s",
@@ -42,7 +42,7 @@ class VpcEndpointsImpl implements VpcEndpointsService {
       Request req = new Request("DELETE", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
-      apiClient.execute(req, Void.class);
+      return apiClient.execute(req, VpcEndpoint.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
