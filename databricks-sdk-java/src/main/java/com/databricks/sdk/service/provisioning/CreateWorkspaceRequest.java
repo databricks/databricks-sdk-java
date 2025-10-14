@@ -90,6 +90,14 @@ public class CreateWorkspaceRequest {
   private String managedServicesCustomerManagedKeyId;
 
   /**
+   * The object ID of network connectivity config. Once assigned, the workspace serverless compute
+   * resources use the same set of stable IP CIDR blocks and optional private link to access your
+   * resources.
+   */
+  @JsonProperty("network_connectivity_config_id")
+  private String networkConnectivityConfigId;
+
+  /**
    * The ID of the workspace's network configuration object. To use AWS PrivateLink, this field is
    * required.
    */
@@ -231,6 +239,15 @@ public class CreateWorkspaceRequest {
     return managedServicesCustomerManagedKeyId;
   }
 
+  public CreateWorkspaceRequest setNetworkConnectivityConfigId(String networkConnectivityConfigId) {
+    this.networkConnectivityConfigId = networkConnectivityConfigId;
+    return this;
+  }
+
+  public String getNetworkConnectivityConfigId() {
+    return networkConnectivityConfigId;
+  }
+
   public CreateWorkspaceRequest setNetworkId(String networkId) {
     this.networkId = networkId;
     return this;
@@ -302,6 +319,7 @@ public class CreateWorkspaceRequest {
         && Objects.equals(location, that.location)
         && Objects.equals(
             managedServicesCustomerManagedKeyId, that.managedServicesCustomerManagedKeyId)
+        && Objects.equals(networkConnectivityConfigId, that.networkConnectivityConfigId)
         && Objects.equals(networkId, that.networkId)
         && Objects.equals(pricingTier, that.pricingTier)
         && Objects.equals(privateAccessSettingsId, that.privateAccessSettingsId)
@@ -324,6 +342,7 @@ public class CreateWorkspaceRequest {
         gkeConfig,
         location,
         managedServicesCustomerManagedKeyId,
+        networkConnectivityConfigId,
         networkId,
         pricingTier,
         privateAccessSettingsId,
@@ -346,6 +365,7 @@ public class CreateWorkspaceRequest {
         .add("gkeConfig", gkeConfig)
         .add("location", location)
         .add("managedServicesCustomerManagedKeyId", managedServicesCustomerManagedKeyId)
+        .add("networkConnectivityConfigId", networkConnectivityConfigId)
         .add("networkId", networkId)
         .add("pricingTier", pricingTier)
         .add("privateAccessSettingsId", privateAccessSettingsId)

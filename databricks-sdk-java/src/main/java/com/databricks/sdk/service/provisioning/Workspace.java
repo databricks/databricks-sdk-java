@@ -22,7 +22,7 @@ public class Workspace {
   @JsonProperty("azure_workspace_info")
   private AzureWorkspaceInfo azureWorkspaceInfo;
 
-  /** The cloud name. This field always has the value `gcp`. */
+  /** The cloud name. This field can have values like `azure`, `gcp`. */
   @JsonProperty("cloud")
   private String cloud;
 
