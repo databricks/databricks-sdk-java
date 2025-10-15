@@ -124,6 +124,10 @@ public class DatabricksConfig {
   /** Number of seconds for HTTP timeout */
   @ConfigAttribute() private Integer httpTimeoutSeconds;
 
+  /** Maximum number of retry attempts for failed requests. Default is 4. */
+  @ConfigAttribute(env = "DATABRICKS_MAX_RETRIES")
+  private Integer maxRetries;
+
   /** Truncate JSON fields in JSON above this limit. Default is 96. */
   @ConfigAttribute(env = "DATABRICKS_DEBUG_TRUNCATE_BYTES")
   private Integer debugTruncateBytes;
@@ -534,6 +538,15 @@ public class DatabricksConfig {
 
   public DatabricksConfig setHttpTimeoutSeconds(int httpTimeoutSeconds) {
     this.httpTimeoutSeconds = httpTimeoutSeconds;
+    return this;
+  }
+
+  public Integer getMaxRetries() {
+    return maxRetries;
+  }
+
+  public DatabricksConfig setMaxRetries(int maxRetries) {
+    this.maxRetries = maxRetries;
     return this;
   }
 

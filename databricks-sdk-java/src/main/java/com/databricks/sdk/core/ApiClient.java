@@ -37,6 +37,7 @@ public class ApiClient {
     private Function<Void, String> getHostFunc;
     private Function<Void, String> getAuthTypeFunc;
     private Integer debugTruncateBytes;
+    private Integer maxRetries;
     private HttpClient httpClient;
     private String accountId;
     private RetryStrategyPicker retryStrategyPicker;
@@ -48,6 +49,7 @@ public class ApiClient {
       this.getAuthTypeFunc = v -> config.getAuthType();
       this.httpClient = config.getHttpClient();
       this.debugTruncateBytes = config.getDebugTruncateBytes();
+      this.maxRetries = config.getMaxRetries();
       this.accountId = config.getAccountId();
       this.retryStrategyPicker = new RequestBasedRetryStrategyPicker(config.getHost());
       this.isDebugHeaders = config.isDebugHeaders();
@@ -81,6 +83,11 @@ public class ApiClient {
 
     public Builder withRetryStrategyPicker(RetryStrategyPicker retryStrategyPicker) {
       this.retryStrategyPicker = retryStrategyPicker;
+      return this;
+    }
+
+    public Builder withMaxRetries(int maxRetries) {
+      this.maxRetries = maxRetries;
       return this;
     }
 
@@ -145,7 +152,7 @@ public class ApiClient {
       debugTruncateBytes = 96;
     }
 
-    maxAttempts = 4;
+    maxAttempts = builder.maxRetries != null ? builder.maxRetries : 4;
     mapper = SerDeUtils.createMapper();
     random = new Random();
     bodyLogger = new BodyLogger(mapper, 1024, debugTruncateBytes);

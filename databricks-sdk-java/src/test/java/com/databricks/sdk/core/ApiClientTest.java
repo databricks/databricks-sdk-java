@@ -279,6 +279,36 @@ public class ApiClientTest {
   }
 
   @Test
+  void failAfterConfigurableRetries() throws IOException {
+    Request req = getBasicRequest();
+
+    // Test with custom maxRetries=2
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setHost("http://my.host")
+            .setMaxRetries(2)
+            .setCredentialsProvider(new DummyCredentialsProvider());
+
+    ApiClient client =
+        getApiClient(
+            config,
+            req,
+            Arrays.asList(
+                getTooManyRequestsResponse(req),
+                getTooManyRequestsResponse(req),
+                getSuccessResponse(req))); // Would succeed on attempt 3, but maxRetries=2
+
+    DatabricksException exception =
+        assertThrows(
+            DatabricksException.class,
+            () ->
+                client.execute(
+                    new Request("GET", req.getUri().getPath()), MyEndpointResponse.class));
+
+    assertTrue(exception.getMessage().contains("failed after 2 retries"));
+  }
+
+  @Test
   void testEmptyBody() throws IOException {
     MyEndpointResponse response = new MyEndpointResponse();
     Request request = getBasicRequest();

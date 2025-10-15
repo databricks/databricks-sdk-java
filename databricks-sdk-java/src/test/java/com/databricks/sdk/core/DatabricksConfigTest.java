@@ -282,4 +282,21 @@ public class DatabricksConfigTest {
     assertEquals(Integer.valueOf(100), config.getDebugTruncateBytes());
     assertEquals(Integer.valueOf(50), config.getRateLimit());
   }
+
+  @Test
+  public void testMaxRetriesSetAndGet() {
+    DatabricksConfig config = new DatabricksConfig().setMaxRetries(10);
+    assertEquals(Integer.valueOf(10), config.getMaxRetries());
+  }
+
+  @Test
+  public void testMaxRetriesEnvironmentVariable() {
+    Map<String, String> env = new HashMap<>();
+    env.put("DATABRICKS_MAX_RETRIES", "15");
+
+    DatabricksConfig config = new DatabricksConfig();
+    config.resolve(new Environment(env, new ArrayList<>(), System.getProperty("os.name")));
+
+    assertEquals(Integer.valueOf(15), config.getMaxRetries());
+  }
 }
