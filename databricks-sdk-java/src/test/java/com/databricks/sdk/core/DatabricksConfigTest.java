@@ -282,4 +282,21 @@ public class DatabricksConfigTest {
     assertEquals(Integer.valueOf(100), config.getDebugTruncateBytes());
     assertEquals(Integer.valueOf(50), config.getRateLimit());
   }
+
+  @Test
+  public void testDisableRetriesSetAndGet() {
+    DatabricksConfig config = new DatabricksConfig().setDisableRetries(true);
+    assertEquals(true, config.getDisableRetries());
+  }
+
+  @Test
+  public void testDisableRetriesEnvironmentVariable() {
+    Map<String, String> env = new HashMap<>();
+    env.put("DATABRICKS_DISABLE_RETRIES", "true");
+
+    DatabricksConfig config = new DatabricksConfig();
+    config.resolve(new Environment(env, new ArrayList<>(), System.getProperty("os.name")));
+
+    assertEquals(true, config.getDisableRetries());
+  }
 }

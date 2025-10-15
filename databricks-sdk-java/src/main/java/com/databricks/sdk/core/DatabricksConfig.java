@@ -164,6 +164,10 @@ public class DatabricksConfig {
   @ConfigAttribute(env = "DATABRICKS_DISABLE_ASYNC_TOKEN_REFRESH")
   private Boolean disableAsyncTokenRefresh;
 
+  /** Disable retries by default when set to true. */
+  @ConfigAttribute(env = "DATABRICKS_DISABLE_RETRIES")
+  private Boolean disableRetries;
+
   /**
    * The duration to wait for a browser response during U2M authentication before timing out. If set
    * to 0 or null, the connector waits for an indefinite amount of time.
@@ -606,6 +610,15 @@ public class DatabricksConfig {
 
   public DatabricksConfig setDisableAsyncTokenRefresh(boolean disableAsyncTokenRefresh) {
     this.disableAsyncTokenRefresh = disableAsyncTokenRefresh;
+    return this;
+  }
+
+  public boolean getDisableRetries() {
+    return disableRetries != null && disableRetries;
+  }
+
+  public DatabricksConfig setDisableRetries(boolean disableRetries) {
+    this.disableRetries = disableRetries;
     return this;
   }
 
