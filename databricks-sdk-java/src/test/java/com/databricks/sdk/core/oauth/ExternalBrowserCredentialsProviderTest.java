@@ -16,6 +16,7 @@ import java.net.URL;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
@@ -550,5 +551,54 @@ public class ExternalBrowserCredentialsProviderTest {
 
     // Verify token was saved after browser auth (for the new token)
     Mockito.verify(mockTokenCache, Mockito.times(1)).save(any(Token.class));
+  }
+
+  @Test
+  void doNotAddOfflineAccessScopeWhenDisableOauthRefreshTokenIsTrue() {
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setHost("https://test.databricks.com")
+            .setClientId("test-client-id")
+            .setDisableOauthRefreshToken(true)
+            .setScopes(Arrays.asList("my-test-scope"));
+
+    ExternalBrowserCredentialsProvider provider = new ExternalBrowserCredentialsProvider();
+    List<String> scopes = provider.getScopes(config);
+
+    assertEquals(1, scopes.size());
+    assertTrue(scopes.contains("my-test-scope"));
+  }
+
+  @Test
+  void doNotRemoveUserProvidedScopesWhenDisableOauthRefreshTokenIsTrue() {
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setHost("https://test.databricks.com")
+            .setClientId("test-client-id")
+            .setDisableOauthRefreshToken(true)
+            .setScopes(Arrays.asList("my-test-scope", "offline_access"));
+
+    ExternalBrowserCredentialsProvider provider = new ExternalBrowserCredentialsProvider();
+    List<String> scopes = provider.getScopes(config);
+
+    assertEquals(2, scopes.size());
+    assertTrue(scopes.contains("offline_access"));
+    assertTrue(scopes.contains("my-test-scope"));
+  }
+
+  @Test
+  void addOfflineAccessScopeWhenDisableOauthRefreshTokenIsFalse() {
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setHost("https://test.databricks.com")
+            .setClientId("test-client-id")
+            .setScopes(Arrays.asList("my-test-scope"));
+
+    ExternalBrowserCredentialsProvider provider = new ExternalBrowserCredentialsProvider();
+    List<String> scopes = provider.getScopes(config);
+
+    assertEquals(2, scopes.size());
+    assertTrue(scopes.contains("offline_access"));
+    assertTrue(scopes.contains("my-test-scope"));
   }
 }

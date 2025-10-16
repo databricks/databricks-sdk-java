@@ -299,4 +299,27 @@ public class DatabricksConfigTest {
 
     assertEquals(true, config.getDisableRetries());
   }
+
+  @Test
+  public void testDisableOauthRefreshTokenDefaultValue() {
+    DatabricksConfig config = new DatabricksConfig();
+    assertEquals(false, config.getDisableOauthRefreshToken());
+  }
+
+  @Test
+  public void testDisableOauthRefreshTokenSetAndGet() {
+    DatabricksConfig config = new DatabricksConfig().setDisableOauthRefreshToken(true);
+    assertEquals(true, config.getDisableOauthRefreshToken());
+  }
+
+  @Test
+  public void testDisableOauthRefreshTokenEnvironmentVariable() {
+    Map<String, String> env = new HashMap<>();
+    env.put("DATABRICKS_DISABLE_OAUTH_REFRESH_TOKEN", "true");
+
+    DatabricksConfig config = new DatabricksConfig();
+    config.resolve(new Environment(env, new ArrayList<>(), System.getProperty("os.name")));
+
+    assertEquals(true, config.getDisableOauthRefreshToken());
+  }
 }

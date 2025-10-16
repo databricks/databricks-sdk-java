@@ -175,6 +175,14 @@ public class DatabricksConfig {
   @ConfigAttribute(env = "DATABRICKS_OAUTH_BROWSER_AUTH_TIMEOUT")
   private Duration oauthBrowserAuthTimeout;
 
+  /**
+   * Disable automatically adding the offline_access scope to the OAuth authentication
+   * request to request refresh tokens. Note that this does not remove the scope if it 
+   * is explicitly provided by the user.
+   */
+  @ConfigAttribute(env = "DATABRICKS_DISABLE_OAUTH_REFRESH_TOKEN")
+  private Boolean disableOauthRefreshToken;
+
   public Environment getEnv() {
     return env;
   }
@@ -628,6 +636,15 @@ public class DatabricksConfig {
 
   public DatabricksConfig setOAuthBrowserAuthTimeout(Duration oauthBrowserAuthTimeout) {
     this.oauthBrowserAuthTimeout = oauthBrowserAuthTimeout;
+    return this;
+  }
+
+  public boolean getDisableOauthRefreshToken() {
+    return disableOauthRefreshToken != null && disableOauthRefreshToken;
+  }
+
+  public DatabricksConfig setDisableOauthRefreshToken(boolean disable) {
+    this.disableOauthRefreshToken = disable;
     return this;
   }
 
