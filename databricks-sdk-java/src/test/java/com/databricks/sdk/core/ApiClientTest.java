@@ -411,6 +411,40 @@ public class ApiClientTest {
   }
 
   @Test
+  void verifyNoRetryWhenRetriesDisabled() throws IOException {
+    Request req = getBasicRequest();
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setHost("http://my.host")
+            .setDisableRetries(true)
+            .setCredentialsProvider(new DummyCredentialsProvider());
+    ApiClient client =
+        getApiClient(
+            config, req, Arrays.asList(getTooManyRequestsResponse(req), getSuccessResponse(req)));
+
+    DatabricksError exception =
+        assertThrows(
+            DatabricksError.class,
+            () ->
+                client.execute(
+                    new Request("GET", req.getUri().getPath()), MyEndpointResponse.class));
+
+    assertEquals("TOO_MANY_REQUESTS", exception.getErrorCode());
+    assertEquals(429, exception.getStatusCode());
+  }
+
+  @Test
+  void verifyRetriesWorkWhenEnabled() throws IOException {
+    Request req = getBasicRequest();
+    // Verify that the client retries by default.
+    runApiClientTest(
+        req,
+        Arrays.asList(getTooManyRequestsResponse(req), getSuccessResponse(req)),
+        MyEndpointResponse.class,
+        new MyEndpointResponse().setKey("value")); // should succeed after retry
+  }
+
+  @Test
   void populateHostFromCredentialProvider() throws IOException {
     Request req = getBasicRequest();
     DatabricksConfig config =
