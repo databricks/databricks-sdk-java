@@ -109,9 +109,9 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
   protected List<String> getScopes(DatabricksConfig config) {
     // Get user-provided scopes and add required default scopes.
     Set<String> scopes = new HashSet<>(config.getScopes());
-    // Requesting a refresh token is most of the time the right thing to do to enable
-    // long-lived access to the API. However, some Identity Providers do not support
-    // refresh tokens.
+    // Requesting a refresh token is most of the time the right thing to do from a 
+    // user perspective to enable long-lived access to the API. However, some Identity 
+    // Providers do not support refresh tokens.
     if (!config.getDisableOauthRefreshToken()) {
       scopes.add("offline_access");
     }
