@@ -22,9 +22,9 @@ public class AwsKeyInfo {
   private String keyRegion;
 
   /**
-   * This field applies only if the `use_cases` property includes `STORAGE`. If this is set to
-   * `true` or omitted, the key is also used to encrypt cluster EBS volumes. If you do not want to
-   * use this key for encrypting EBS volumes, set to `false`.
+   * This field applies only if the `use_cases` property includes `STORAGE`. If this is set to true
+   * or omitted, the key is also used to encrypt cluster EBS volumes. If you do not want to use this
+   * key for encrypting EBS volumes, set to false.
    */
   @JsonProperty("reuse_key_for_cluster_volumes")
   private Boolean reuseKeyForClusterVolumes;

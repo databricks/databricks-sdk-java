@@ -34,11 +34,17 @@ public class Network {
   @JsonProperty("network_name")
   private String networkName;
 
-  /** */
+  /**
+   * IDs of one to five security groups associated with this network. Security group IDs **cannot**
+   * be used in multiple network configurations.
+   */
   @JsonProperty("security_group_ids")
   private Collection<String> securityGroupIds;
 
-  /** */
+  /**
+   * IDs of at least two subnets associated with this network. Subnet IDs **cannot** be used in
+   * multiple network configurations.
+   */
   @JsonProperty("subnet_ids")
   private Collection<String> subnetIds;
 

@@ -6,6 +6,7 @@ import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.RequestOptions;
 import com.databricks.sdk.core.http.Response;
+import com.databricks.sdk.core.retry.NoRetryStrategyPicker;
 import com.databricks.sdk.core.retry.RequestBasedRetryStrategyPicker;
 import com.databricks.sdk.core.retry.RetryStrategy;
 import com.databricks.sdk.core.retry.RetryStrategyPicker;
@@ -49,8 +50,14 @@ public class ApiClient {
       this.httpClient = config.getHttpClient();
       this.debugTruncateBytes = config.getDebugTruncateBytes();
       this.accountId = config.getAccountId();
-      this.retryStrategyPicker = new RequestBasedRetryStrategyPicker(config.getHost());
       this.isDebugHeaders = config.isDebugHeaders();
+
+      if (config.getDisableRetries()) {
+        this.retryStrategyPicker = new NoRetryStrategyPicker();
+      } else {
+        this.retryStrategyPicker = new RequestBasedRetryStrategyPicker(config.getHost());
+      }
+
       return this;
     }
 

@@ -14,13 +14,6 @@ public class ModelVersionInfo {
   @JsonProperty("aliases")
   private Collection<RegisteredModelAlias> aliases;
 
-  /**
-   * Indicates whether the principal is limited to retrieving metadata for the associated object
-   * through the BROWSE privilege when include_browse is enabled in the request.
-   */
-  @JsonProperty("browse_only")
-  private Boolean browseOnly;
-
   /** The name of the catalog containing the model version */
   @JsonProperty("catalog_name")
   private String catalogName;
@@ -107,15 +100,6 @@ public class ModelVersionInfo {
 
   public Collection<RegisteredModelAlias> getAliases() {
     return aliases;
-  }
-
-  public ModelVersionInfo setBrowseOnly(Boolean browseOnly) {
-    this.browseOnly = browseOnly;
-    return this;
-  }
-
-  public Boolean getBrowseOnly() {
-    return browseOnly;
   }
 
   public ModelVersionInfo setCatalogName(String catalogName) {
@@ -277,7 +261,6 @@ public class ModelVersionInfo {
     if (o == null || getClass() != o.getClass()) return false;
     ModelVersionInfo that = (ModelVersionInfo) o;
     return Objects.equals(aliases, that.aliases)
-        && Objects.equals(browseOnly, that.browseOnly)
         && Objects.equals(catalogName, that.catalogName)
         && Objects.equals(comment, that.comment)
         && Objects.equals(createdAt, that.createdAt)
@@ -301,7 +284,6 @@ public class ModelVersionInfo {
   public int hashCode() {
     return Objects.hash(
         aliases,
-        browseOnly,
         catalogName,
         comment,
         createdAt,
@@ -325,7 +307,6 @@ public class ModelVersionInfo {
   public String toString() {
     return new ToStringer(ModelVersionInfo.class)
         .add("aliases", aliases)
-        .add("browseOnly", browseOnly)
         .add("catalogName", catalogName)
         .add("comment", comment)
         .add("createdAt", createdAt)

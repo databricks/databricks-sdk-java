@@ -1,10 +1,11 @@
 # NEXT CHANGELOG
 
-## Release v0.66.0
+## Release v0.67.0
 
 ### New Features and Improvements
 
-* Add native support for Azure DevOps OIDC authentication.
+* Add a new config attribute `DATABRICKS_DISABLE_RETRIES` to disable the 
+  default retry mechanism.
 
 ### Bug Fixes
 
