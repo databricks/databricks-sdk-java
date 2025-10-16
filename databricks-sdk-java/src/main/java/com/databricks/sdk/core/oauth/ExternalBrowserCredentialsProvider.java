@@ -7,9 +7,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.List;
 import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -110,7 +110,7 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
     // Get user-provided scopes and add required default scopes.
     Set<String> scopes = new HashSet<>(config.getScopes());
     // Requesting a refresh token is most of the time the right thing to do to enable
-    // long-lived access to the API. However, some Identity Providers do not support 
+    // long-lived access to the API. However, some Identity Providers do not support
     // refresh tokens.
     if (!config.getDisableOauthRefreshToken()) {
       scopes.add("offline_access");
