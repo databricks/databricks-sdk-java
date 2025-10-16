@@ -120,14 +120,6 @@ public class RecipientFederationPoliciesAPI {
         });
   }
 
-  /**
-   * Updates an existing federation policy for an OIDC_RECIPIENT. The caller must be the owner of
-   * the recipient.
-   */
-  public FederationPolicy update(UpdateFederationPolicyRequest request) {
-    return impl.update(request);
-  }
-
   public RecipientFederationPoliciesService impl() {
     return impl;
   }

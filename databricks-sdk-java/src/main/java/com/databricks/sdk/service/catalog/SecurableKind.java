@@ -4,7 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** Latest kind: CONNECTION_REDSHIFT_IAM = 265; Next id:266 */
+/** Latest kind: CONNECTION_SALESFORCE_OAUTH_MTLS = 268; Next id:269 */
 @Generated
 public enum SecurableKind {
   TABLE_DB_STORAGE,

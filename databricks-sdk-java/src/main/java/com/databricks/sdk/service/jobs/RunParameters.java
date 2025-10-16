@@ -14,6 +14,11 @@ public class RunParameters {
   /**
    * An array of commands to execute for jobs with the dbt task, for example `"dbt_commands": ["dbt
    * deps", "dbt seed", "dbt deps", "dbt seed", "dbt run"]`
+   *
+   * <p>⚠ **Deprecation note** Use [job parameters] to pass information down to tasks.
+   *
+   * <p>[job parameters]:
+   * https://docs.databricks.com/jobs/job-parameters.html#job-parameter-pushdown
    */
   @JsonProperty("dbt_commands")
   private Collection<String> dbtCommands;
@@ -25,9 +30,10 @@ public class RunParameters {
    * cannot be specified in conjunction with notebook_params. The JSON representation of this field
    * (for example `{"jar_params":["john doe","35"]}`) cannot exceed 10,000 bytes.
    *
-   * <p>Use [Task parameter variables] to set parameters containing information about job runs.
+   * <p>⚠ **Deprecation note** Use [job parameters] to pass information down to tasks.
    *
-   * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
+   * <p>[job parameters]:
+   * https://docs.databricks.com/jobs/job-parameters.html#job-parameter-pushdown
    */
   @JsonProperty("jar_params")
   private Collection<String> jarParams;
@@ -41,13 +47,13 @@ public class RunParameters {
    *
    * <p>notebook_params cannot be specified in conjunction with jar_params.
    *
-   * <p>Use [Task parameter variables] to set parameters containing information about job runs.
+   * <p>⚠ **Deprecation note** Use [job parameters] to pass information down to tasks.
    *
    * <p>The JSON representation of this field (for example `{"notebook_params":{"name":"john
    * doe","age":"35"}}`) cannot exceed 10,000 bytes.
    *
-   * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
-   * [dbutils.widgets.get]: https://docs.databricks.com/dev-tools/databricks-utils.html
+   * <p>[dbutils.widgets.get]: https://docs.databricks.com/dev-tools/databricks-utils.html [job
+   * parameters]: https://docs.databricks.com/jobs/job-parameters.html#job-parameter-pushdown
    */
   @JsonProperty("notebook_params")
   private Map<String, String> notebookParams;
@@ -66,7 +72,7 @@ public class RunParameters {
    * `run-now`, it would overwrite the parameters specified in job setting. The JSON representation
    * of this field (for example `{"python_params":["john doe","35"]}`) cannot exceed 10,000 bytes.
    *
-   * <p>Use [Task parameter variables] to set parameters containing information about job runs.
+   * <p>⚠ **Deprecation note** Use [job parameters] to pass information down to tasks.
    *
    * <p>Important
    *
@@ -74,7 +80,8 @@ public class RunParameters {
    * characters returns an error. Examples of invalid, non-ASCII characters are Chinese, Japanese
    * kanjis, and emojis.
    *
-   * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
+   * <p>[job parameters]:
+   * https://docs.databricks.com/jobs/job-parameters.html#job-parameter-pushdown
    */
   @JsonProperty("python_params")
   private Collection<String> pythonParams;
@@ -86,7 +93,7 @@ public class RunParameters {
    * parameters specified in job setting. The JSON representation of this field (for example
    * `{"python_params":["john doe","35"]}`) cannot exceed 10,000 bytes.
    *
-   * <p>Use [Task parameter variables] to set parameters containing information about job runs
+   * <p>⚠ **Deprecation note** Use [job parameters] to pass information down to tasks.
    *
    * <p>Important
    *
@@ -94,7 +101,8 @@ public class RunParameters {
    * characters returns an error. Examples of invalid, non-ASCII characters are Chinese, Japanese
    * kanjis, and emojis.
    *
-   * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
+   * <p>[job parameters]:
+   * https://docs.databricks.com/jobs/job-parameters.html#job-parameter-pushdown
    */
   @JsonProperty("spark_submit_params")
   private Collection<String> sparkSubmitParams;
@@ -102,6 +110,11 @@ public class RunParameters {
   /**
    * A map from keys to values for jobs with SQL task, for example `"sql_params": {"name": "john
    * doe", "age": "35"}`. The SQL alert task does not support custom parameters.
+   *
+   * <p>⚠ **Deprecation note** Use [job parameters] to pass information down to tasks.
+   *
+   * <p>[job parameters]:
+   * https://docs.databricks.com/jobs/job-parameters.html#job-parameter-pushdown
    */
   @JsonProperty("sql_params")
   private Map<String, String> sqlParams;

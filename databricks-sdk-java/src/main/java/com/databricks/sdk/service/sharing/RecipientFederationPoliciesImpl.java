@@ -78,21 +78,4 @@ class RecipientFederationPoliciesImpl implements RecipientFederationPoliciesServ
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
   }
-
-  @Override
-  public FederationPolicy update(UpdateFederationPolicyRequest request) {
-    String path =
-        String.format(
-            "/api/2.0/data-sharing/recipients/%s/federation-policies/%s",
-            request.getRecipientName(), request.getName());
-    try {
-      Request req = new Request("PATCH", path, apiClient.serialize(request.getPolicy()));
-      ApiClient.setQuery(req, request);
-      req.withHeader("Accept", "application/json");
-      req.withHeader("Content-Type", "application/json");
-      return apiClient.execute(req, FederationPolicy.class);
-    } catch (IOException e) {
-      throw new DatabricksException("IO error: " + e.getMessage(), e);
-    }
-  }
 }
