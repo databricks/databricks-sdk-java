@@ -44,7 +44,7 @@ public class DataProfilingConfig {
   @JsonProperty("effective_warehouse_id")
   private String effectiveWarehouseId;
 
-  /** Configuration for monitoring inference log tables. */
+  /** `Analysis Configuration` for monitoring inference log tables. */
   @JsonProperty("inference_log")
   private InferenceLogConfig inferenceLog;
 
@@ -94,7 +94,7 @@ public class DataProfilingConfig {
   @JsonProperty("slicing_exprs")
   private Collection<String> slicingExprs;
 
-  /** Configuration for monitoring snapshot tables. */
+  /** `Analysis Configuration` for monitoring snapshot tables. */
   @JsonProperty("snapshot")
   private SnapshotConfig snapshot;
 
@@ -102,7 +102,7 @@ public class DataProfilingConfig {
   @JsonProperty("status")
   private DataProfilingStatus status;
 
-  /** Configuration for monitoring time series tables. */
+  /** `Analysis Configuration` for monitoring time series tables. */
   @JsonProperty("time_series")
   private TimeSeriesConfig timeSeries;
 

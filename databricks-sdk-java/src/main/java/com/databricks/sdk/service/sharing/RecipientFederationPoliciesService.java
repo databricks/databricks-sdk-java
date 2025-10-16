@@ -74,10 +74,4 @@ public interface RecipientFederationPoliciesService {
    * non-Databricks recipients. The caller must have read access to the recipient.
    */
   ListFederationPoliciesResponse list(ListFederationPoliciesRequest listFederationPoliciesRequest);
-
-  /**
-   * Updates an existing federation policy for an OIDC_RECIPIENT. The caller must be the owner of
-   * the recipient.
-   */
-  FederationPolicy update(UpdateFederationPolicyRequest updateFederationPolicyRequest);
 }
