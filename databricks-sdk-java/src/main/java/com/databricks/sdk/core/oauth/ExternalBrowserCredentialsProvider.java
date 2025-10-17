@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -105,20 +106,25 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
     }
   }
 
+  protected List<String> getScopes(DatabricksConfig config) {
+    // Get user-provided scopes and add required default scopes.
+    Set<String> scopes = new HashSet<>(config.getScopes());
+    // Requesting a refresh token is most of the time the right thing to do from a
+    // user perspective to enable long-lived access to the API. However, some Identity
+    // Providers do not support refresh tokens.
+    if (!config.getDisableOauthRefreshToken()) {
+      scopes.add("offline_access");
+    }
+    if (config.isAzure()) {
+      scopes.add(config.getEffectiveAzureLoginAppId() + "/user_impersonation");
+    }
+    return new ArrayList<>(scopes);
+  }
+
   CachedTokenSource performBrowserAuth(
       DatabricksConfig config, String clientId, String clientSecret, TokenCache tokenCache)
       throws IOException {
     LOGGER.debug("Performing browser authentication");
-
-    // Get user-provided scopes and add required default scopes.
-    Set<String> scopes = new HashSet<>(config.getScopes());
-
-    // Needed to request a refresh token.
-    scopes.add("offline_access");
-
-    if (config.isAzure()) {
-      scopes.add(config.getEffectiveAzureLoginAppId() + "/user_impersonation");
-    }
 
     OAuthClient client =
         new OAuthClient.Builder()
@@ -129,7 +135,7 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
             .withAccountId(config.getAccountId())
             .withRedirectUrl(config.getEffectiveOAuthRedirectUrl())
             .withBrowserTimeout(config.getOAuthBrowserAuthTimeout())
-            .withScopes(new ArrayList<>(scopes))
+            .withScopes(getScopes(config))
             .withOpenIDConnectEndpoints(config.getOidcEndpoints())
             .build();
     Consent consent = client.initiateConsent();
