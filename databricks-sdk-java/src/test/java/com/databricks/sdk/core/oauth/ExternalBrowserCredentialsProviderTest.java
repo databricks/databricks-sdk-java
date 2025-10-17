@@ -247,16 +247,10 @@ public class ExternalBrowserCredentialsProviderTest {
 
   @Test
   void cacheWithValidTokenTest() throws IOException {
-    // Create mock HTTP client for token refresh
+    // Create mock HTTP client (shouldn't be called for valid token)
     HttpClient mockHttpClient = Mockito.mock(HttpClient.class);
-    String refreshResponse =
-        "{\"access_token\": \"refreshed_access_token\", \"token_type\": \"Bearer\", \"expires_in\": \"3600\", \"refresh_token\": \"new_refresh_token\"}";
-    URL url = new URL("https://test.databricks.com/");
-    Mockito.doAnswer(invocation -> new Response(refreshResponse, url))
-        .when(mockHttpClient)
-        .execute(any(Request.class));
 
-    // Create an valid token with valid refresh token
+    // Create a valid token with valid refresh token (expires in 1 hour - FRESH state)
     Instant futureTime = Instant.now().plusSeconds(3600);
     Token validToken = new Token("valid_access_token", "Bearer", "valid_refresh_token", futureTime);
 
@@ -272,14 +266,14 @@ public class ExternalBrowserCredentialsProviderTest {
             .setClientId("test-client-id")
             .setHttpClient(mockHttpClient);
 
-    // We need to provide OIDC endpoints for token refresh
+    // We need to provide OIDC endpoints
     OpenIDConnectEndpoints endpoints =
         new OpenIDConnectEndpoints(
             "https://test.databricks.com/token", "https://test.databricks.com/authorize");
 
-    // Create our provider with the mock token cache and mock the browser auth method
+    // Create our provider with the mock token cache
     ExternalBrowserCredentialsProvider provider =
-        Mockito.spy(new ExternalBrowserCredentialsProvider(mockTokenCache));
+        new ExternalBrowserCredentialsProvider(mockTokenCache);
 
     // Spy on the config to inject the endpoints
     DatabricksConfig spyConfig = Mockito.spy(config);
@@ -287,18 +281,22 @@ public class ExternalBrowserCredentialsProviderTest {
 
     // Configure provider
     HeaderFactory headerFactory = provider.configure(spyConfig);
+    assertNotNull(headerFactory, "HeaderFactory should be created");
 
-    // Verify headers contain the refreshed token even though the cached token is valid
+    // Verify headers contain the CACHED valid token (no refresh needed!)
     Map<String, String> headers = headerFactory.headers();
-    assertEquals("Bearer refreshed_access_token", headers.get("Authorization"));
+    assertEquals(
+        "Bearer valid_access_token",
+        headers.get("Authorization"),
+        "Should use cached valid token without refreshing");
 
     // Verify token was loaded from cache
     Mockito.verify(mockTokenCache, Mockito.times(1)).load();
 
-    // Verify HTTP call was made to refresh the token
-    Mockito.verify(mockHttpClient, Mockito.times(1)).execute(any(Request.class));
+    // Verify NO HTTP call was made (token is still valid, no refresh needed)
+    Mockito.verify(mockHttpClient, Mockito.never()).execute(any(Request.class));
 
-    // Verify performBrowserAuth was NOT called since refresh succeeded
+    // Verify performBrowserAuth was NOT called since cached token is valid
     Mockito.verify(provider, Mockito.never())
         .performBrowserAuth(
             any(DatabricksConfig.class),
@@ -306,23 +304,8 @@ public class ExternalBrowserCredentialsProviderTest {
             any(String.class),
             any(TokenCache.class));
 
-    // Verify token was saved back to cache
-    Mockito.verify(mockTokenCache, Mockito.times(1)).save(any(Token.class));
-
-    // Capture the token that was saved to cache to verify it's the refreshed token
-    ArgumentCaptor<Token> tokenCaptor = ArgumentCaptor.forClass(Token.class);
-    Mockito.verify(mockTokenCache).save(tokenCaptor.capture());
-    Token savedToken = tokenCaptor.getValue();
-
-    // Verify the saved token contains the refreshed values from the HTTP response
-    assertEquals(
-        "refreshed_access_token",
-        savedToken.getAccessToken(),
-        "Should save refreshed access token to cache");
-    assertEquals(
-        "new_refresh_token",
-        savedToken.getRefreshToken(),
-        "Should save new refresh token to cache");
+    // Verify token was NOT saved back to cache (we're using the cached one as-is)
+    Mockito.verify(mockTokenCache, Mockito.never()).save(any(Token.class));
   }
 
   @Test
