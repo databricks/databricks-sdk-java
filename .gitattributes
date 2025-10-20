@@ -1,4 +1,5 @@
 LroTestingAPITest.java linguist-generated=true
+MarshallTest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/AccountClient.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/WorkspaceClient.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/core/error/ErrorMapper.java linguist-generated=true
