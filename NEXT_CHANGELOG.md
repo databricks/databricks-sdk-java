@@ -8,6 +8,8 @@
   refresh tokens by default (by adding the `offline_access` scope) in OAuth exchanges. This 
   option does not remove the scope from the user provided scopes if present.
 
+* Fix 'external-browser' auth type to use the token if it is valid instead of forceful refresh everytime.
+
 ### Bug Fixes
 
 ### Documentation
