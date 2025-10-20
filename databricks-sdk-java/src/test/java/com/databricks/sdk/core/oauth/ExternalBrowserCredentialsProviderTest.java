@@ -269,11 +269,12 @@ public class ExternalBrowserCredentialsProviderTest {
     // We need to provide OIDC endpoints
     OpenIDConnectEndpoints endpoints =
         new OpenIDConnectEndpoints(
-            "https://test.databricks.com/token", "https://test.databricks.com/authorize");
+            "https://test.databricks.com/oidc/v1/token",
+            "https://test.databricks.com/oidc/v1/authorize");
 
     // Create our provider with the mock token cache
     ExternalBrowserCredentialsProvider provider =
-        new ExternalBrowserCredentialsProvider(mockTokenCache);
+        Mockito.spy(new ExternalBrowserCredentialsProvider(mockTokenCache));
 
     // Spy on the config to inject the endpoints
     DatabricksConfig spyConfig = Mockito.spy(config);
@@ -339,7 +340,8 @@ public class ExternalBrowserCredentialsProviderTest {
     // We need to provide OIDC endpoints for token refresh
     OpenIDConnectEndpoints endpoints =
         new OpenIDConnectEndpoints(
-            "https://test.databricks.com/token", "https://test.databricks.com/authorize");
+            "https://test.databricks.com/oidc/v1/token",
+            "https://test.databricks.com/oidc/v1/authorize");
 
     // Create our provider with the mock token cache
     ExternalBrowserCredentialsProvider provider =
@@ -438,7 +440,8 @@ public class ExternalBrowserCredentialsProviderTest {
     // We need to provide OIDC endpoints for token refresh attempt
     OpenIDConnectEndpoints endpoints =
         new OpenIDConnectEndpoints(
-            "https://test.databricks.com/token", "https://test.databricks.com/authorize");
+            "https://test.databricks.com/oidc/v1/token",
+            "https://test.databricks.com/oidc/v1/authorize");
 
     // Create our provider and mock the browser auth method
     ExternalBrowserCredentialsProvider provider =

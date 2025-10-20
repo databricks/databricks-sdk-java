@@ -87,7 +87,7 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
                   .setToken(cachedToken)
                   .setAsyncDisabled(config.getDisableAsyncTokenRefresh())
                   .build();
-          LOGGER.debug("Using cached token, will immediately refresh");
+          LOGGER.debug("Using cached token, will refresh if necessary");
           cachedTokenSource.getToken();
           return OAuthHeaderFactory.fromTokenSource(cachedTokenSource);
         } catch (Exception e) {
