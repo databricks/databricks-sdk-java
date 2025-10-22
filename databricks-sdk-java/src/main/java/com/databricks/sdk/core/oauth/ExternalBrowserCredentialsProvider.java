@@ -67,7 +67,7 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
 
       // First try to use the cached token if available (will return null if disabled)
       Token cachedToken = tokenCache.load();
-      if (cachedToken != null && cachedToken.getRefreshToken() != null) {
+      if (cachedToken != null) {
         LOGGER.debug("Found cached token for {}:{}", config.getHost(), clientId);
 
         try {
@@ -84,9 +84,10 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
 
           CachedTokenSource cachedTokenSource =
               new CachedTokenSource.Builder(tokenSource)
+                  .setToken(cachedToken)
                   .setAsyncDisabled(config.getDisableAsyncTokenRefresh())
                   .build();
-          LOGGER.debug("Using cached token, will immediately refresh");
+          LOGGER.debug("Using cached token, will refresh if necessary");
           cachedTokenSource.getToken();
           return OAuthHeaderFactory.fromTokenSource(cachedTokenSource);
         } catch (Exception e) {
