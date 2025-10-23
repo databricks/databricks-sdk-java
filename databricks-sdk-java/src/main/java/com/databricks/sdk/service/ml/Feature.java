@@ -14,6 +14,10 @@ public class Feature {
   @JsonProperty("description")
   private String description;
 
+  /** The filter condition applied to the source data before aggregation. */
+  @JsonProperty("filter_condition")
+  private String filterCondition;
+
   /** The full three-part name (catalog, schema, name) of the feature. */
   @JsonProperty("full_name")
   private String fullName;
@@ -41,6 +45,15 @@ public class Feature {
 
   public String getDescription() {
     return description;
+  }
+
+  public Feature setFilterCondition(String filterCondition) {
+    this.filterCondition = filterCondition;
+    return this;
+  }
+
+  public String getFilterCondition() {
+    return filterCondition;
   }
 
   public Feature setFullName(String fullName) {
@@ -94,6 +107,7 @@ public class Feature {
     if (o == null || getClass() != o.getClass()) return false;
     Feature that = (Feature) o;
     return Objects.equals(description, that.description)
+        && Objects.equals(filterCondition, that.filterCondition)
         && Objects.equals(fullName, that.fullName)
         && Objects.equals(function, that.function)
         && Objects.equals(inputs, that.inputs)
@@ -103,13 +117,15 @@ public class Feature {
 
   @Override
   public int hashCode() {
-    return Objects.hash(description, fullName, function, inputs, source, timeWindow);
+    return Objects.hash(
+        description, filterCondition, fullName, function, inputs, source, timeWindow);
   }
 
   @Override
   public String toString() {
     return new ToStringer(Feature.class)
         .add("description", description)
+        .add("filterCondition", filterCondition)
         .add("fullName", fullName)
         .add("function", function)
         .add("inputs", inputs)

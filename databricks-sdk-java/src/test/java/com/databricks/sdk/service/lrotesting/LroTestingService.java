@@ -18,6 +18,8 @@ public interface LroTestingService {
   /** Simple method to create test resource for LRO testing */
   Operation createTestResource(CreateTestResourceRequest createTestResourceRequest);
 
+  Operation deleteTestResource(DeleteTestResourceRequest deleteTestResourceRequest);
+
   Operation getOperation(GetOperationRequest getOperationRequest);
 
   /** Simple method to get test resource */

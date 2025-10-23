@@ -8,6 +8,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * Clean Rooms notebook task for V1 Clean Room service (GA). Replaces the deprecated
+ * CleanRoomNotebookTask (defined above) which was for V0 service.
+ */
 @Generated
 public class CleanRoomsNotebookTask {
   /** The clean room that the notebook belongs to. */

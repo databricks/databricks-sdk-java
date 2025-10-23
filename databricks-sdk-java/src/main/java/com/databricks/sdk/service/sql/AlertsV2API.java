@@ -43,7 +43,7 @@ public class AlertsV2API {
     return new Paginator<>(
         request,
         impl::listAlerts,
-        ListAlertsV2Response::getResults,
+        ListAlertsV2Response::getAlerts,
         response -> {
           String token = response.getNextPageToken();
           if (token == null || token.isEmpty()) {

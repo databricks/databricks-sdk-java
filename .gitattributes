@@ -1,4 +1,6 @@
+HttpPathTest.java linguist-generated=true
 LroTestingAPITest.java linguist-generated=true
+MarshallTest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/AccountClient.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/WorkspaceClient.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/core/error/ErrorMapper.java linguist-generated=true
@@ -1681,6 +1683,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CreateForecastin
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CreateForecastingExperimentResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CreateLoggedModelRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CreateLoggedModelResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CreateMaterializedFeatureRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CreateModelRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CreateModelResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CreateModelVersionRequest.java linguist-generated=true
@@ -1701,6 +1704,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/DeleteFeatureReq
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/DeleteFeatureTagRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/DeleteLoggedModelRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/DeleteLoggedModelTagRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/DeleteMaterializedFeatureRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/DeleteModelRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/DeleteModelTagRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/DeleteModelVersionRequest.java linguist-generated=true
@@ -1766,6 +1770,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/GetLatestVersion
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/GetLatestVersionsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/GetLoggedModelRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/GetLoggedModelResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/GetMaterializedFeatureRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/GetMetricHistoryResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/GetModelRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/GetModelResponse.java linguist-generated=true
@@ -1793,6 +1798,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ListFeatureTagsR
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ListFeatureTagsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ListFeaturesRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ListFeaturesResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ListMaterializedFeaturesRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ListMaterializedFeaturesResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ListModelsRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ListModelsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ListOnlineStoresRequest.java linguist-generated=true
@@ -1814,6 +1821,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/LoggedModelInfo.
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/LoggedModelParameter.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/LoggedModelStatus.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/LoggedModelTag.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/MaterializedFeature.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/MaterializedFeaturePipelineScheduleState.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/MaterializedFeaturesAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/MaterializedFeaturesImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/MaterializedFeaturesService.java linguist-generated=true
@@ -1830,6 +1839,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ModelVersion.jav
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ModelVersionDatabricks.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ModelVersionStatus.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ModelVersionTag.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/OfflineStoreConfig.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/OnlineStore.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/OnlineStoreState.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/Param.java linguist-generated=true
@@ -1892,6 +1902,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/UpdateCommentRes
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/UpdateExperiment.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/UpdateFeatureRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/UpdateFeatureTagRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/UpdateMaterializedFeatureRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/UpdateModelRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/UpdateModelResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/UpdateModelVersionRequest.java linguist-generated=true
@@ -3143,6 +3154,8 @@ databricks-sdk-java/src/test/java/com/databricks/sdk/service/lrotesting/CancelOp
 databricks-sdk-java/src/test/java/com/databricks/sdk/service/lrotesting/CreateTestResourceOperation.java linguist-generated=true
 databricks-sdk-java/src/test/java/com/databricks/sdk/service/lrotesting/CreateTestResourceRequest.java linguist-generated=true
 databricks-sdk-java/src/test/java/com/databricks/sdk/service/lrotesting/DatabricksServiceExceptionWithDetailsProto.java linguist-generated=true
+databricks-sdk-java/src/test/java/com/databricks/sdk/service/lrotesting/DeleteTestResourceOperation.java linguist-generated=true
+databricks-sdk-java/src/test/java/com/databricks/sdk/service/lrotesting/DeleteTestResourceRequest.java linguist-generated=true
 databricks-sdk-java/src/test/java/com/databricks/sdk/service/lrotesting/ErrorCode.java linguist-generated=true
 databricks-sdk-java/src/test/java/com/databricks/sdk/service/lrotesting/GetOperationRequest.java linguist-generated=true
 databricks-sdk-java/src/test/java/com/databricks/sdk/service/lrotesting/GetTestResourceRequest.java linguist-generated=true

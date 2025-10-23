@@ -15,15 +15,34 @@ public interface FeatureEngineeringService {
   /** Create a Feature. */
   Feature createFeature(CreateFeatureRequest createFeatureRequest);
 
+  /** Create a materialized feature. */
+  MaterializedFeature createMaterializedFeature(
+      CreateMaterializedFeatureRequest createMaterializedFeatureRequest);
+
   /** Delete a Feature. */
   void deleteFeature(DeleteFeatureRequest deleteFeatureRequest);
+
+  /** Delete a materialized feature. */
+  void deleteMaterializedFeature(DeleteMaterializedFeatureRequest deleteMaterializedFeatureRequest);
 
   /** Get a Feature. */
   Feature getFeature(GetFeatureRequest getFeatureRequest);
 
+  /** Get a materialized feature. */
+  MaterializedFeature getMaterializedFeature(
+      GetMaterializedFeatureRequest getMaterializedFeatureRequest);
+
   /** List Features. */
   ListFeaturesResponse listFeatures(ListFeaturesRequest listFeaturesRequest);
 
+  /** List materialized features. */
+  ListMaterializedFeaturesResponse listMaterializedFeatures(
+      ListMaterializedFeaturesRequest listMaterializedFeaturesRequest);
+
   /** Update a Feature. */
   Feature updateFeature(UpdateFeatureRequest updateFeatureRequest);
+
+  /** Update a materialized feature (pause/resume). */
+  MaterializedFeature updateMaterializedFeature(
+      UpdateMaterializedFeatureRequest updateMaterializedFeatureRequest);
 }
