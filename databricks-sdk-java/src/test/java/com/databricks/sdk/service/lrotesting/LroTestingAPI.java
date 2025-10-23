@@ -33,6 +33,15 @@ public class LroTestingAPI {
     return new CreateTestResourceOperation(impl, operation);
   }
 
+  public DeleteTestResourceOperation deleteTestResource(String resourceId) {
+    return deleteTestResource(new DeleteTestResourceRequest().setResourceId(resourceId));
+  }
+
+  public DeleteTestResourceOperation deleteTestResource(DeleteTestResourceRequest request) {
+    Operation operation = impl.deleteTestResource(request);
+    return new DeleteTestResourceOperation(impl, operation);
+  }
+
   public Operation getOperation(String name) {
     return getOperation(new GetOperationRequest().setName(name));
   }

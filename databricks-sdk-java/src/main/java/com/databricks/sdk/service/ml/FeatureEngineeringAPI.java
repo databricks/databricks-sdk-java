@@ -29,6 +29,11 @@ public class FeatureEngineeringAPI {
     return impl.createFeature(request);
   }
 
+  /** Create a materialized feature. */
+  public MaterializedFeature createMaterializedFeature(CreateMaterializedFeatureRequest request) {
+    return impl.createMaterializedFeature(request);
+  }
+
   public void deleteFeature(String fullName) {
     deleteFeature(new DeleteFeatureRequest().setFullName(fullName));
   }
@@ -38,6 +43,16 @@ public class FeatureEngineeringAPI {
     impl.deleteFeature(request);
   }
 
+  public void deleteMaterializedFeature(String materializedFeatureId) {
+    deleteMaterializedFeature(
+        new DeleteMaterializedFeatureRequest().setMaterializedFeatureId(materializedFeatureId));
+  }
+
+  /** Delete a materialized feature. */
+  public void deleteMaterializedFeature(DeleteMaterializedFeatureRequest request) {
+    impl.deleteMaterializedFeature(request);
+  }
+
   public Feature getFeature(String fullName) {
     return getFeature(new GetFeatureRequest().setFullName(fullName));
   }
@@ -45,6 +60,16 @@ public class FeatureEngineeringAPI {
   /** Get a Feature. */
   public Feature getFeature(GetFeatureRequest request) {
     return impl.getFeature(request);
+  }
+
+  public MaterializedFeature getMaterializedFeature(String materializedFeatureId) {
+    return getMaterializedFeature(
+        new GetMaterializedFeatureRequest().setMaterializedFeatureId(materializedFeatureId));
+  }
+
+  /** Get a materialized feature. */
+  public MaterializedFeature getMaterializedFeature(GetMaterializedFeatureRequest request) {
+    return impl.getMaterializedFeature(request);
   }
 
   /** List Features. */
@@ -62,9 +87,30 @@ public class FeatureEngineeringAPI {
         });
   }
 
+  /** List materialized features. */
+  public Iterable<MaterializedFeature> listMaterializedFeatures(
+      ListMaterializedFeaturesRequest request) {
+    return new Paginator<>(
+        request,
+        impl::listMaterializedFeatures,
+        ListMaterializedFeaturesResponse::getMaterializedFeatures,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
   /** Update a Feature. */
   public Feature updateFeature(UpdateFeatureRequest request) {
     return impl.updateFeature(request);
+  }
+
+  /** Update a materialized feature (pause/resume). */
+  public MaterializedFeature updateMaterializedFeature(UpdateMaterializedFeatureRequest request) {
+    return impl.updateMaterializedFeature(request);
   }
 
   public FeatureEngineeringService impl() {

@@ -44,6 +44,19 @@ class LroTestingImpl implements LroTestingService {
   }
 
   @Override
+  public Operation deleteTestResource(DeleteTestResourceRequest request) {
+    String path = String.format("/api/2.0/lro-testing/resources/%s", request.getResourceId());
+    try {
+      Request req = new Request("DELETE", path);
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, Operation.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public Operation getOperation(GetOperationRequest request) {
     String path = String.format("/api/2.0/lro-testing/operations/%s", request.getName());
     try {
