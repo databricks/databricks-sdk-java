@@ -1,5 +1,12 @@
 # Version changelog
 
+## Release v0.67.3
+
+### Security Vulnerabilities
+
+* Bump com.google.protobuf:protobuf-java-util from 3.24.2 to 3.25.5.
+
+
 ## Release v0.67.2
 
 ### Security Vulnerabilities
