@@ -1,11 +1,11 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 
-package com.databricks.sdk.service.apps;
+package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 
 @Generated
-public enum AppManifestAppResourceUcSecurableSpecUcSecurableType {
-  TABLE,
-  VOLUME,
+public enum AlertLifecycleState {
+  ACTIVE,
+  TRASHED,
 }

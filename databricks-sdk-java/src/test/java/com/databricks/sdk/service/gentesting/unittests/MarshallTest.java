@@ -125,6 +125,66 @@ public class MarshallTest {
     cases.add(new MarshallTestCase("RequiredFieldsNoInput", new RequiredFields(), "{}"));
     cases.add(
         new MarshallTestCase(
+            "RequiredFieldsExplicitDefaults",
+            new RequiredFields()
+                .setRequiredBool(false)
+                .setRequiredDuration("0s")
+                .setRequiredFieldMask("")
+                .setRequiredInt32(0L)
+                .setRequiredInt64(0L)
+                .setRequiredListValue(new ArrayList<>())
+                .setRequiredMessage(new NestedMessage())
+                .setRequiredString("")
+                .setRequiredStruct(new HashMap<>())
+                .setRequiredTimestamp("1970-01-01T00:00:00Z")
+                .setRequiredValue("{}")
+                .setTestRequiredEnum(TestEnum.TEST_ENUM_ONE),
+            "{"
+                + "    \"required_string\": \"\","
+                + "    \"required_int32\": 0,"
+                + "    \"required_int64\": 0,"
+                + "    \"required_bool\": false,"
+                + "    \"required_value\": \"{}\","
+                + "    \"required_list_value\": [],"
+                + "    \"required_struct\": {},"
+                + "    \"required_message\": {},"
+                + "    \"test_required_enum\": \"TEST_ENUM_ONE\","
+                + "    \"required_duration\": \"0s\","
+                + "    \"required_field_mask\": \"\","
+                + "    \"required_timestamp\": \"1970-01-01T00:00:00Z\""
+                + "  }"));
+    cases.add(
+        new MarshallTestCase(
+            "RequiredFieldsNonDefaults",
+            new RequiredFields()
+                .setRequiredBool(true)
+                .setRequiredDuration("7200s")
+                .setRequiredFieldMask("required_string,required_int32")
+                .setRequiredInt32(42L)
+                .setRequiredInt64(1234567890123456789L)
+                .setRequiredListValue(new ArrayList<>())
+                .setRequiredMessage(new NestedMessage())
+                .setRequiredString("non_default_string")
+                .setRequiredStruct(new HashMap<>())
+                .setRequiredTimestamp("2023-12-31T23:59:59Z")
+                .setRequiredValue("{}")
+                .setTestRequiredEnum(TestEnum.TEST_ENUM_TWO),
+            "{"
+                + "  \"required_string\": \"non_default_string\","
+                + "  \"required_int32\": 42,"
+                + "  \"required_int64\": 1234567890123456789,"
+                + "  \"required_bool\": true,"
+                + "  \"required_message\": {},"
+                + "  \"required_value\": \"{}\","
+                + "  \"required_list_value\": [],"
+                + "  \"required_struct\": {},"
+                + "  \"test_required_enum\": \"TEST_ENUM_TWO\","
+                + "  \"required_duration\": \"7200s\","
+                + "  \"required_field_mask\": \"required_string,required_int32\","
+                + "  \"required_timestamp\": \"2023-12-31T23:59:59Z\""
+                + "}"));
+    cases.add(
+        new MarshallTestCase(
             "RequiredFieldsWithNestedMessage",
             new RequiredFields()
                 .setRequiredMessage(new NestedMessage().setOptionalString("nested_value")),

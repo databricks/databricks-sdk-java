@@ -8,5 +8,6 @@ import com.databricks.sdk.support.Generated;
 public enum AppManifestAppResourceUcSecurableSpecUcSecurablePermission {
   MANAGE,
   READ_VOLUME,
+  SELECT,
   WRITE_VOLUME,
 }

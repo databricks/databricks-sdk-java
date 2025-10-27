@@ -1673,6 +1673,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ApproveTransitio
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ApproveTransitionRequestResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CommentActivityAction.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CommentObject.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ContinuousWindow.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CreateComment.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CreateCommentResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CreateExperiment.java linguist-generated=true
@@ -1890,6 +1891,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/SetLoggedModelTa
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/SetModelTagRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/SetModelVersionTagRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/SetTag.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/SlidingWindow.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/Status.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/TestRegistryWebhookRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/TestRegistryWebhookResponse.java linguist-generated=true
@@ -1897,6 +1899,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/TimeWindow.java 
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/TransitionModelVersionStageDatabricks.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/TransitionRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/TransitionStageResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/TumblingWindow.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/UpdateComment.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/UpdateCommentResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/UpdateExperiment.java linguist-generated=true
@@ -2734,6 +2737,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/AlertCondition.
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/AlertConditionOperand.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/AlertConditionThreshold.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/AlertEvaluationState.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/AlertLifecycleState.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/AlertOperandColumn.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/AlertOperandValue.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/AlertOperator.java linguist-generated=true
