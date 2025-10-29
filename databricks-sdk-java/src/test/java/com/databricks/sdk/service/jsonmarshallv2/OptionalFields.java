@@ -6,6 +6,10 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.google.protobuf.Duration;
+import com.google.protobuf.FieldMask;
+import com.google.protobuf.Timestamp;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
@@ -15,7 +19,7 @@ public class OptionalFields {
   /** */
   @JsonProperty("duration")
   @QueryParam("duration")
-  private String duration;
+  private Duration duration;
 
   /**
    * The field mask must be a single string, with multiple fields separated by commas (no spaces).
@@ -26,7 +30,7 @@ public class OptionalFields {
    */
   @JsonProperty("field_mask")
   @QueryParam("field_mask")
-  private String fieldMask;
+  private FieldMask fieldMask;
 
   /** Legacy Well Known types */
   @JsonProperty("legacy_duration")
@@ -52,7 +56,7 @@ public class OptionalFields {
   /** */
   @JsonProperty("list_value")
   @QueryParam("list_value")
-  private Collection<Object /* MISSING TYPE */> listValue;
+  private Collection<JsonNode> listValue;
 
   /** Lint disable reason: This is a dummy field used to test SDK Generation logic. */
   @JsonProperty("map")
@@ -87,7 +91,7 @@ public class OptionalFields {
   /** */
   @JsonProperty("struct")
   @QueryParam("struct")
-  private Map<String, Object /* MISSING TYPE */> structValue;
+  private Map<String, JsonNode> structValue;
 
   /** */
   @JsonProperty("test_enum")
@@ -97,28 +101,28 @@ public class OptionalFields {
   /** */
   @JsonProperty("timestamp")
   @QueryParam("timestamp")
-  private String timestamp;
+  private Timestamp timestamp;
 
   /** */
   @JsonProperty("value")
   @QueryParam("value")
-  private Object /* MISSING TYPE */ value;
+  private JsonNode value;
 
-  public OptionalFields setDuration(String duration) {
+  public OptionalFields setDuration(Duration duration) {
     this.duration = duration;
     return this;
   }
 
-  public String getDuration() {
+  public Duration getDuration() {
     return duration;
   }
 
-  public OptionalFields setFieldMask(String fieldMask) {
+  public OptionalFields setFieldMask(FieldMask fieldMask) {
     this.fieldMask = fieldMask;
     return this;
   }
 
-  public String getFieldMask() {
+  public FieldMask getFieldMask() {
     return fieldMask;
   }
 
@@ -149,12 +153,12 @@ public class OptionalFields {
     return legacyTimestamp;
   }
 
-  public OptionalFields setListValue(Collection<Object /* MISSING TYPE */> listValue) {
+  public OptionalFields setListValue(Collection<JsonNode> listValue) {
     this.listValue = listValue;
     return this;
   }
 
-  public Collection<Object /* MISSING TYPE */> getListValue() {
+  public Collection<JsonNode> getListValue() {
     return listValue;
   }
 
@@ -212,12 +216,12 @@ public class OptionalFields {
     return optionalString;
   }
 
-  public OptionalFields setStruct(Map<String, Object /* MISSING TYPE */> structValue) {
+  public OptionalFields setStruct(Map<String, JsonNode> structValue) {
     this.structValue = structValue;
     return this;
   }
 
-  public Map<String, Object /* MISSING TYPE */> getStruct() {
+  public Map<String, JsonNode> getStruct() {
     return structValue;
   }
 
@@ -230,21 +234,21 @@ public class OptionalFields {
     return testEnum;
   }
 
-  public OptionalFields setTimestamp(String timestamp) {
+  public OptionalFields setTimestamp(Timestamp timestamp) {
     this.timestamp = timestamp;
     return this;
   }
 
-  public String getTimestamp() {
+  public Timestamp getTimestamp() {
     return timestamp;
   }
 
-  public OptionalFields setValue(Object /* MISSING TYPE */ value) {
+  public OptionalFields setValue(JsonNode value) {
     this.value = value;
     return this;
   }
 
-  public Object /* MISSING TYPE */ getValue() {
+  public JsonNode getValue() {
     return value;
   }
 

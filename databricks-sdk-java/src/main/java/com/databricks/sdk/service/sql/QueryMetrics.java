@@ -60,7 +60,7 @@ public class QueryMetrics {
   @JsonProperty("provisioning_queue_start_timestamp")
   private Long provisioningQueueStartTimestamp;
 
-  /** Total number of bytes in all tables not read due to pruning */
+  /** Total number of file bytes in all tables not read due to pruning */
   @JsonProperty("pruned_bytes")
   private Long prunedBytes;
 
@@ -79,6 +79,10 @@ public class QueryMetrics {
   /** Size of persistent data read from the cache, in bytes. */
   @JsonProperty("read_cache_bytes")
   private Long readCacheBytes;
+
+  /** Total number of file bytes in all tables read */
+  @JsonProperty("read_files_bytes")
+  private Long readFilesBytes;
 
   /** Number of files read after pruning */
   @JsonProperty("read_files_count")
@@ -270,6 +274,15 @@ public class QueryMetrics {
     return readCacheBytes;
   }
 
+  public QueryMetrics setReadFilesBytes(Long readFilesBytes) {
+    this.readFilesBytes = readFilesBytes;
+    return this;
+  }
+
+  public Long getReadFilesBytes() {
+    return readFilesBytes;
+  }
+
   public QueryMetrics setReadFilesCount(Long readFilesCount) {
     this.readFilesCount = readFilesCount;
     return this;
@@ -423,6 +436,7 @@ public class QueryMetrics {
         && Objects.equals(queryCompilationStartTimestamp, that.queryCompilationStartTimestamp)
         && Objects.equals(readBytes, that.readBytes)
         && Objects.equals(readCacheBytes, that.readCacheBytes)
+        && Objects.equals(readFilesBytes, that.readFilesBytes)
         && Objects.equals(readFilesCount, that.readFilesCount)
         && Objects.equals(readPartitionsCount, that.readPartitionsCount)
         && Objects.equals(readRemoteBytes, that.readRemoteBytes)
@@ -456,6 +470,7 @@ public class QueryMetrics {
         queryCompilationStartTimestamp,
         readBytes,
         readCacheBytes,
+        readFilesBytes,
         readFilesCount,
         readPartitionsCount,
         readRemoteBytes,
@@ -489,6 +504,7 @@ public class QueryMetrics {
         .add("queryCompilationStartTimestamp", queryCompilationStartTimestamp)
         .add("readBytes", readBytes)
         .add("readCacheBytes", readCacheBytes)
+        .add("readFilesBytes", readFilesBytes)
         .add("readFilesCount", readFilesCount)
         .add("readPartitionsCount", readPartitionsCount)
         .add("readRemoteBytes", readRemoteBytes)

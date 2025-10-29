@@ -6,6 +6,8 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.protobuf.Duration;
+import com.google.protobuf.Timestamp;
 import java.util.Objects;
 
 @Generated
@@ -13,7 +15,7 @@ public class NestedMessage {
   /** */
   @JsonProperty("optional_duration")
   @QueryParam("optional_duration")
-  private String optionalDuration;
+  private Duration optionalDuration;
 
   /** */
   @JsonProperty("optional_string")
@@ -23,14 +25,14 @@ public class NestedMessage {
   /** */
   @JsonProperty("optional_timestamp")
   @QueryParam("optional_timestamp")
-  private String optionalTimestamp;
+  private Timestamp optionalTimestamp;
 
-  public NestedMessage setOptionalDuration(String optionalDuration) {
+  public NestedMessage setOptionalDuration(Duration optionalDuration) {
     this.optionalDuration = optionalDuration;
     return this;
   }
 
-  public String getOptionalDuration() {
+  public Duration getOptionalDuration() {
     return optionalDuration;
   }
 
@@ -43,12 +45,12 @@ public class NestedMessage {
     return optionalString;
   }
 
-  public NestedMessage setOptionalTimestamp(String optionalTimestamp) {
+  public NestedMessage setOptionalTimestamp(Timestamp optionalTimestamp) {
     this.optionalTimestamp = optionalTimestamp;
     return this;
   }
 
-  public String getOptionalTimestamp() {
+  public Timestamp getOptionalTimestamp() {
     return optionalTimestamp;
   }
 
