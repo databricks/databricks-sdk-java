@@ -24,6 +24,7 @@ class DbsqlPermissionsImpl implements DbsqlPermissionsService {
             request.getObjectType(), request.getObjectId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetResponse.class);
@@ -40,6 +41,7 @@ class DbsqlPermissionsImpl implements DbsqlPermissionsService {
             request.getObjectType(), request.getObjectId());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -57,6 +59,7 @@ class DbsqlPermissionsImpl implements DbsqlPermissionsService {
             request.getObjectType(), request.getObjectId());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

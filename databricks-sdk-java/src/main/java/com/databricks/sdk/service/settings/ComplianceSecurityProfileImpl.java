@@ -21,6 +21,7 @@ class ComplianceSecurityProfileImpl implements ComplianceSecurityProfileService 
     String path = "/api/2.0/settings/types/shield_csp_enablement_ws_db/names/default";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ComplianceSecurityProfileSetting.class);
@@ -35,6 +36,7 @@ class ComplianceSecurityProfileImpl implements ComplianceSecurityProfileService 
     String path = "/api/2.0/settings/types/shield_csp_enablement_ws_db/names/default";
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

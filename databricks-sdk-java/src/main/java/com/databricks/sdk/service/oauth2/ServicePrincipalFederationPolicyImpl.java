@@ -24,6 +24,7 @@ class ServicePrincipalFederationPolicyImpl implements ServicePrincipalFederation
             apiClient.configuredAccountID(), request.getServicePrincipalId());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request.getPolicy()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -43,6 +44,7 @@ class ServicePrincipalFederationPolicyImpl implements ServicePrincipalFederation
             request.getPolicyId());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -61,6 +63,7 @@ class ServicePrincipalFederationPolicyImpl implements ServicePrincipalFederation
             request.getPolicyId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, FederationPolicy.class);
@@ -78,6 +81,7 @@ class ServicePrincipalFederationPolicyImpl implements ServicePrincipalFederation
             apiClient.configuredAccountID(), request.getServicePrincipalId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListFederationPoliciesResponse.class);
@@ -96,6 +100,7 @@ class ServicePrincipalFederationPolicyImpl implements ServicePrincipalFederation
             request.getPolicyId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getPolicy()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

@@ -42,7 +42,7 @@ public class AlertV2 {
 
   /** Indicates whether the query is trashed. */
   @JsonProperty("lifecycle_state")
-  private LifecycleState lifecycleState;
+  private AlertLifecycleState lifecycleState;
 
   /** The owner's username. This field is set to "Unavailable" if the user has been deleted. */
   @JsonProperty("owner_user_name")
@@ -153,12 +153,12 @@ public class AlertV2 {
     return id;
   }
 
-  public AlertV2 setLifecycleState(LifecycleState lifecycleState) {
+  public AlertV2 setLifecycleState(AlertLifecycleState lifecycleState) {
     this.lifecycleState = lifecycleState;
     return this;
   }
 
-  public LifecycleState getLifecycleState() {
+  public AlertLifecycleState getLifecycleState() {
     return lifecycleState;
   }
 

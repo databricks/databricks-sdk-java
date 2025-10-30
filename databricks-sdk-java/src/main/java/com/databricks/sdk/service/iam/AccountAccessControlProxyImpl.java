@@ -22,6 +22,7 @@ class AccountAccessControlProxyImpl implements AccountAccessControlProxyService 
     String path = "/api/2.0/preview/accounts/access-control/assignable-roles";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetAssignableRolesForResourceResponse.class);
@@ -35,6 +36,7 @@ class AccountAccessControlProxyImpl implements AccountAccessControlProxyService 
     String path = "/api/2.0/preview/accounts/access-control/rule-sets";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, RuleSetResponse.class);
@@ -48,6 +50,7 @@ class AccountAccessControlProxyImpl implements AccountAccessControlProxyService 
     String path = "/api/2.0/preview/accounts/access-control/rule-sets";
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

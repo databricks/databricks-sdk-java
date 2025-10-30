@@ -21,6 +21,7 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/scopes/create";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, Void.class);
@@ -34,6 +35,7 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/acls/delete";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, Void.class);
@@ -47,6 +49,7 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/scopes/delete";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, Void.class);
@@ -60,6 +63,7 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/delete";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -74,6 +78,7 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/acls/get";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, AclItem.class);
@@ -87,6 +92,7 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/get";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetSecretResponse.class);
@@ -100,6 +106,7 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/acls/list";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListAclsResponse.class);
@@ -113,6 +120,7 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/scopes/list";
     try {
       Request req = new Request("GET", path);
+
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListScopesResponse.class);
     } catch (IOException e) {
@@ -125,6 +133,7 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/list";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListSecretsResponse.class);
@@ -138,6 +147,7 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/acls/put";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, Void.class);
@@ -151,6 +161,7 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/put";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, Void.class);

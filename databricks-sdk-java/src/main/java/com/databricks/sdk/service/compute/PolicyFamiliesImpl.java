@@ -21,6 +21,7 @@ class PolicyFamiliesImpl implements PolicyFamiliesService {
     String path = String.format("/api/2.0/policy-families/%s", request.getPolicyFamilyId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, PolicyFamily.class);
@@ -34,6 +35,7 @@ class PolicyFamiliesImpl implements PolicyFamiliesService {
     String path = "/api/2.0/policy-families";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListPolicyFamiliesResponse.class);

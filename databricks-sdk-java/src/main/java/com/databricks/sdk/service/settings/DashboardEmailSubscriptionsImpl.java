@@ -22,6 +22,7 @@ class DashboardEmailSubscriptionsImpl implements DashboardEmailSubscriptionsServ
     String path = "/api/2.0/settings/types/dashboard_email_subscriptions/names/default";
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, DeleteDashboardEmailSubscriptionsResponse.class);
@@ -35,6 +36,7 @@ class DashboardEmailSubscriptionsImpl implements DashboardEmailSubscriptionsServ
     String path = "/api/2.0/settings/types/dashboard_email_subscriptions/names/default";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, DashboardEmailSubscriptions.class);
@@ -48,6 +50,7 @@ class DashboardEmailSubscriptionsImpl implements DashboardEmailSubscriptionsServ
     String path = "/api/2.0/settings/types/dashboard_email_subscriptions/names/default";
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

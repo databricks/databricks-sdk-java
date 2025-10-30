@@ -21,6 +21,7 @@ class DashboardsImpl implements DashboardsService {
     String path = String.format("/api/2.0/preview/sql/dashboards/%s", request.getDashboardId());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -34,6 +35,7 @@ class DashboardsImpl implements DashboardsService {
     String path = String.format("/api/2.0/preview/sql/dashboards/%s", request.getDashboardId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, Dashboard.class);
@@ -47,6 +49,7 @@ class DashboardsImpl implements DashboardsService {
     String path = "/api/2.0/preview/sql/dashboards";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListResponse.class);
@@ -61,6 +64,7 @@ class DashboardsImpl implements DashboardsService {
         String.format("/api/2.0/preview/sql/dashboards/trash/%s", request.getDashboardId());
     try {
       Request req = new Request("POST", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -74,6 +78,7 @@ class DashboardsImpl implements DashboardsService {
     String path = String.format("/api/2.0/preview/sql/dashboards/%s", request.getDashboardId());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

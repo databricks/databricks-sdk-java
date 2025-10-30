@@ -21,6 +21,7 @@ class RedashConfigImpl implements RedashConfigService {
     String path = "/api/2.0/redash-v2/config";
     try {
       Request req = new Request("GET", path);
+
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ClientConfig.class);
     } catch (IOException e) {

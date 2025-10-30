@@ -24,6 +24,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
             apiClient.configuredAccountID(), request.getWorkspaceId(), request.getPrincipalId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, WorkspaceAccessDetail.class);
@@ -40,6 +41,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
             apiClient.configuredAccountID());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -58,6 +60,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
             apiClient.configuredAccountID());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -75,6 +78,7 @@ class AccountIamV2Impl implements AccountIamV2Service {
             apiClient.configuredAccountID());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

@@ -24,6 +24,7 @@ class ModelVersionsImpl implements ModelVersionsService {
             request.getFullName(), request.getVersion());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
@@ -39,6 +40,7 @@ class ModelVersionsImpl implements ModelVersionsService {
             request.getFullName(), request.getVersion());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ModelVersionInfo.class);
@@ -55,6 +57,7 @@ class ModelVersionsImpl implements ModelVersionsService {
             request.getFullName(), request.getAlias());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ModelVersionInfo.class);
@@ -68,6 +71,7 @@ class ModelVersionsImpl implements ModelVersionsService {
     String path = String.format("/api/2.1/unity-catalog/models/%s/versions", request.getFullName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListModelVersionsResponse.class);
@@ -84,6 +88,7 @@ class ModelVersionsImpl implements ModelVersionsService {
             request.getFullName(), request.getVersion());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

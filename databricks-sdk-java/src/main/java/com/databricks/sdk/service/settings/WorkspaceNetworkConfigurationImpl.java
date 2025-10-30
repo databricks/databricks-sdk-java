@@ -25,6 +25,7 @@ class WorkspaceNetworkConfigurationImpl implements WorkspaceNetworkConfiguration
             apiClient.configuredAccountID(), request.getWorkspaceId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, WorkspaceNetworkOption.class);
@@ -43,6 +44,7 @@ class WorkspaceNetworkConfigurationImpl implements WorkspaceNetworkConfiguration
     try {
       Request req =
           new Request("PUT", path, apiClient.serialize(request.getWorkspaceNetworkOption()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

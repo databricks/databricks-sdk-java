@@ -21,6 +21,7 @@ class PermissionMigrationImpl implements PermissionMigrationService {
     String path = "/api/2.0/permissionmigration";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

@@ -21,6 +21,7 @@ class AccessControlImpl implements AccessControlService {
     String path = "/api/2.0/access-control/check-policy-v2";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, CheckPolicyResponse.class);

@@ -21,6 +21,7 @@ class BudgetsImpl implements BudgetsService {
     String path = String.format("/api/2.1/accounts/%s/budgets", apiClient.configuredAccountID());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -38,6 +39,7 @@ class BudgetsImpl implements BudgetsService {
             apiClient.configuredAccountID(), request.getBudgetId());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -54,6 +56,7 @@ class BudgetsImpl implements BudgetsService {
             apiClient.configuredAccountID(), request.getBudgetId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetBudgetConfigurationResponse.class);
@@ -67,6 +70,7 @@ class BudgetsImpl implements BudgetsService {
     String path = String.format("/api/2.1/accounts/%s/budgets", apiClient.configuredAccountID());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListBudgetConfigurationsResponse.class);
@@ -83,6 +87,7 @@ class BudgetsImpl implements BudgetsService {
             apiClient.configuredAccountID(), request.getBudgetId());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
