@@ -24,6 +24,7 @@ class PermissionsImpl implements PermissionsService {
             request.getRequestObjectType(), request.getRequestObjectId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ObjectPermissions.class);
@@ -40,6 +41,7 @@ class PermissionsImpl implements PermissionsService {
             request.getRequestObjectType(), request.getRequestObjectId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetPermissionLevelsResponse.class);
@@ -56,6 +58,7 @@ class PermissionsImpl implements PermissionsService {
             request.getRequestObjectType(), request.getRequestObjectId());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -73,6 +76,7 @@ class PermissionsImpl implements PermissionsService {
             request.getRequestObjectType(), request.getRequestObjectId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

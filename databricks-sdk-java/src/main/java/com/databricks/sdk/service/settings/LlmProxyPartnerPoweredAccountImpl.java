@@ -24,6 +24,7 @@ class LlmProxyPartnerPoweredAccountImpl implements LlmProxyPartnerPoweredAccount
             apiClient.configuredAccountID());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, LlmProxyPartnerPoweredAccount.class);
@@ -40,6 +41,7 @@ class LlmProxyPartnerPoweredAccountImpl implements LlmProxyPartnerPoweredAccount
             apiClient.configuredAccountID());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

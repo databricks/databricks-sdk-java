@@ -21,6 +21,7 @@ class QueryHistoryImpl implements QueryHistoryService {
     String path = "/api/2.0/sql/history/queries";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListQueriesResponse.class);

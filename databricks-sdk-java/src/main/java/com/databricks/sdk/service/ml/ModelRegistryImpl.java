@@ -22,6 +22,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/transition-requests/approve";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -36,6 +37,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/comments/create";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -50,6 +52,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/registered-models/create";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -64,6 +67,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/model-versions/create";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -78,6 +82,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/transition-requests/create";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -92,6 +97,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/registry-webhooks/create";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -106,6 +112,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/comments/delete";
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -119,6 +126,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/registered-models/delete";
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -132,6 +140,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/registered-models/delete-tag";
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -145,6 +154,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/model-versions/delete";
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -158,6 +168,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/model-versions/delete-tag";
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -172,6 +183,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/transition-requests/delete";
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, DeleteTransitionRequestResponse.class);
@@ -185,6 +197,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/registry-webhooks/delete";
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -198,6 +211,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/registered-models/get-latest-versions";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -212,6 +226,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/databricks/registered-models/get";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetModelResponse.class);
@@ -225,6 +240,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/model-versions/get";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetModelVersionResponse.class);
@@ -239,6 +255,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/model-versions/get-download-uri";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetModelVersionDownloadUriResponse.class);
@@ -256,6 +273,7 @@ class ModelRegistryImpl implements ModelRegistryService {
             request.getRegisteredModelId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetRegisteredModelPermissionLevelsResponse.class);
@@ -270,6 +288,7 @@ class ModelRegistryImpl implements ModelRegistryService {
         String.format("/api/2.0/permissions/registered-models/%s", request.getRegisteredModelId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, RegisteredModelPermissions.class);
@@ -283,6 +302,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/registered-models/list";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListModelsResponse.class);
@@ -297,6 +317,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/transition-requests/list";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListTransitionRequestsResponse.class);
@@ -310,6 +331,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/registry-webhooks/list";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListRegistryWebhooks.class);
@@ -323,6 +345,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/transition-requests/reject";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -337,6 +360,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/registered-models/rename";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -351,6 +375,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/model-versions/search";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, SearchModelVersionsResponse.class);
@@ -364,6 +389,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/registered-models/search";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, SearchModelsResponse.class);
@@ -377,6 +403,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/registered-models/set-tag";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -391,6 +418,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/model-versions/set-tag";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -406,6 +434,7 @@ class ModelRegistryImpl implements ModelRegistryService {
         String.format("/api/2.0/permissions/registered-models/%s", request.getRegisteredModelId());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -420,6 +449,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/registry-webhooks/test";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -434,6 +464,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/databricks/model-versions/transition-stage";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -448,6 +479,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/comments/update";
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -462,6 +494,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/registered-models/update";
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -476,6 +509,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/model-versions/update";
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -491,6 +525,7 @@ class ModelRegistryImpl implements ModelRegistryService {
         String.format("/api/2.0/permissions/registered-models/%s", request.getRegisteredModelId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -505,6 +540,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/registry-webhooks/update";
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

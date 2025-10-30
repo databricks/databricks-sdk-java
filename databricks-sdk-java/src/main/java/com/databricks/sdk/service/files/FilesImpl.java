@@ -25,6 +25,7 @@ class FilesImpl implements FilesService {
             Encoding.encodeMultiSegmentPathParameter(request.getDirectoryPath()));
     try {
       Request req = new Request("PUT", path);
+
       ApiClient.setQuery(req, request);
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
@@ -39,6 +40,7 @@ class FilesImpl implements FilesService {
             "/api/2.0/fs/files%s", Encoding.encodeMultiSegmentPathParameter(request.getFilePath()));
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
@@ -54,6 +56,7 @@ class FilesImpl implements FilesService {
             Encoding.encodeMultiSegmentPathParameter(request.getDirectoryPath()));
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
@@ -68,6 +71,7 @@ class FilesImpl implements FilesService {
             "/api/2.0/fs/files%s", Encoding.encodeMultiSegmentPathParameter(request.getFilePath()));
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/octet-stream");
       return apiClient.execute(req, DownloadResponse.class);
@@ -84,6 +88,7 @@ class FilesImpl implements FilesService {
             Encoding.encodeMultiSegmentPathParameter(request.getDirectoryPath()));
     try {
       Request req = new Request("HEAD", path);
+
       ApiClient.setQuery(req, request);
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
@@ -98,6 +103,7 @@ class FilesImpl implements FilesService {
             "/api/2.0/fs/files%s", Encoding.encodeMultiSegmentPathParameter(request.getFilePath()));
     try {
       Request req = new Request("HEAD", path);
+
       ApiClient.setQuery(req, request);
       return apiClient.execute(req, GetMetadataResponse.class);
     } catch (IOException e) {
@@ -113,6 +119,7 @@ class FilesImpl implements FilesService {
             Encoding.encodeMultiSegmentPathParameter(request.getDirectoryPath()));
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListDirectoryResponse.class);
@@ -128,6 +135,7 @@ class FilesImpl implements FilesService {
             "/api/2.0/fs/files%s", Encoding.encodeMultiSegmentPathParameter(request.getFilePath()));
     try {
       Request req = new Request("PUT", path, request.getContents());
+
       ApiClient.setQuery(req, request);
       req.withHeader("Content-Type", "application/octet-stream");
       apiClient.execute(req, Void.class);

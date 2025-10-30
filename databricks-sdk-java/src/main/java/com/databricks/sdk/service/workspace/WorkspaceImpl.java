@@ -21,6 +21,7 @@ class WorkspaceImpl implements WorkspaceService {
     String path = "/api/2.0/workspace/delete";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -35,6 +36,7 @@ class WorkspaceImpl implements WorkspaceService {
     String path = "/api/2.0/workspace/export";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ExportResponse.class);
@@ -52,6 +54,7 @@ class WorkspaceImpl implements WorkspaceService {
             request.getWorkspaceObjectType(), request.getWorkspaceObjectId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetWorkspaceObjectPermissionLevelsResponse.class);
@@ -68,6 +71,7 @@ class WorkspaceImpl implements WorkspaceService {
             request.getWorkspaceObjectType(), request.getWorkspaceObjectId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, WorkspaceObjectPermissions.class);
@@ -81,6 +85,7 @@ class WorkspaceImpl implements WorkspaceService {
     String path = "/api/2.0/workspace/get-status";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ObjectInfo.class);
@@ -94,6 +99,7 @@ class WorkspaceImpl implements WorkspaceService {
     String path = "/api/2.0/workspace/import";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -108,6 +114,7 @@ class WorkspaceImpl implements WorkspaceService {
     String path = "/api/2.0/workspace/list";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListResponse.class);
@@ -121,6 +128,7 @@ class WorkspaceImpl implements WorkspaceService {
     String path = "/api/2.0/workspace/mkdirs";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -138,6 +146,7 @@ class WorkspaceImpl implements WorkspaceService {
             request.getWorkspaceObjectType(), request.getWorkspaceObjectId());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -155,6 +164,7 @@ class WorkspaceImpl implements WorkspaceService {
             request.getWorkspaceObjectType(), request.getWorkspaceObjectId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

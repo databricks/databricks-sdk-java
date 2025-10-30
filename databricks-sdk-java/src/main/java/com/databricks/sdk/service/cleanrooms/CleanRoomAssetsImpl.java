@@ -21,6 +21,7 @@ class CleanRoomAssetsImpl implements CleanRoomAssetsService {
     String path = String.format("/api/2.0/clean-rooms/%s/assets", request.getCleanRoomName());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request.getAsset()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -39,6 +40,7 @@ class CleanRoomAssetsImpl implements CleanRoomAssetsService {
             request.getCleanRoomName(), request.getAssetType(), request.getName());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -56,6 +58,7 @@ class CleanRoomAssetsImpl implements CleanRoomAssetsService {
             request.getCleanRoomName(), request.getAssetType(), request.getName());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -72,6 +75,7 @@ class CleanRoomAssetsImpl implements CleanRoomAssetsService {
             request.getCleanRoomName(), request.getAssetType(), request.getName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, CleanRoomAsset.class);
@@ -85,6 +89,7 @@ class CleanRoomAssetsImpl implements CleanRoomAssetsService {
     String path = String.format("/api/2.0/clean-rooms/%s/assets", request.getCleanRoomName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListCleanRoomAssetsResponse.class);
@@ -101,6 +106,7 @@ class CleanRoomAssetsImpl implements CleanRoomAssetsService {
             request.getCleanRoomName(), request.getAssetType(), request.getName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getAsset()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

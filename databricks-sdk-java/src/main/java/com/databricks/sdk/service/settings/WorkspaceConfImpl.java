@@ -30,6 +30,7 @@ class WorkspaceConfImpl implements WorkspaceConfService {
     String path = "/api/2.0/workspace-conf";
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, Void.class);

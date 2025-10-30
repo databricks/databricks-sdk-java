@@ -21,6 +21,7 @@ class JsonMarshallV2Impl implements JsonMarshallV2Service {
     String path = String.format("/api/2.0/json-marshall/%s", request.getName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, Resource.class);

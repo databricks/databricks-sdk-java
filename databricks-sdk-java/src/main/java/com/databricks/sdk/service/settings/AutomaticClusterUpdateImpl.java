@@ -21,6 +21,7 @@ class AutomaticClusterUpdateImpl implements AutomaticClusterUpdateService {
     String path = "/api/2.0/settings/types/automatic_cluster_update/names/default";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, AutomaticClusterUpdateSetting.class);
@@ -34,6 +35,7 @@ class AutomaticClusterUpdateImpl implements AutomaticClusterUpdateService {
     String path = "/api/2.0/settings/types/automatic_cluster_update/names/default";
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

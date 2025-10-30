@@ -21,6 +21,7 @@ class ExternalMetadataImpl implements ExternalMetadataService {
     String path = "/api/2.0/lineage-tracking/external-metadata";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request.getExternalMetadata()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -36,6 +37,7 @@ class ExternalMetadataImpl implements ExternalMetadataService {
         String.format("/api/2.0/lineage-tracking/external-metadata/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -50,6 +52,7 @@ class ExternalMetadataImpl implements ExternalMetadataService {
         String.format("/api/2.0/lineage-tracking/external-metadata/%s", request.getName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ExternalMetadata.class);
@@ -63,6 +66,7 @@ class ExternalMetadataImpl implements ExternalMetadataService {
     String path = "/api/2.0/lineage-tracking/external-metadata";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListExternalMetadataResponse.class);
@@ -77,6 +81,7 @@ class ExternalMetadataImpl implements ExternalMetadataService {
         String.format("/api/2.0/lineage-tracking/external-metadata/%s", request.getName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getExternalMetadata()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

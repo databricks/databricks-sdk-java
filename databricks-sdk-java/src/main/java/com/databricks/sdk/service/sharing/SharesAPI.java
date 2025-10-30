@@ -49,17 +49,17 @@ public class SharesAPI extends SharesExtAPI {
   }
 
   /**
-   * Gets a data object share from the metastore. The caller must be a metastore admin or the owner
-   * of the share.
+   * Gets a data object share from the metastore. The caller must have the USE_SHARE privilege on
+   * the metastore or be the owner of the share.
    */
   public ShareInfo get(GetShareRequest request) {
     return impl.get(request);
   }
 
   /**
-   * Gets an array of data object shares from the metastore. The caller must be a metastore admin or
-   * the owner of the share. There is no guarantee of a specific ordering of the elements in the
-   * array.
+   * Gets an array of data object shares from the metastore. If the caller has the USE_SHARE
+   * privilege on the metastore, all shares are returned. Otherwise, only shares owned by the caller
+   * are returned. There is no guarantee of a specific ordering of the elements in the array.
    */
   public Iterable<ShareInfo> listShares(SharesListRequest request) {
 
@@ -84,8 +84,8 @@ public class SharesAPI extends SharesExtAPI {
   }
 
   /**
-   * Gets the permissions for a data share from the metastore. The caller must be a metastore admin
-   * or the owner of the share.
+   * Gets the permissions for a data share from the metastore. The caller must have the USE_SHARE
+   * privilege on the metastore or be the owner of the share.
    */
   public GetSharePermissionsResponse sharePermissions(SharePermissionsRequest request) {
     return impl.sharePermissions(request);
@@ -113,11 +113,11 @@ public class SharesAPI extends SharesExtAPI {
   }
 
   /**
-   * Updates the permissions for a data share in the metastore. The caller must be a metastore admin
-   * or an owner of the share.
+   * Updates the permissions for a data share in the metastore. The caller must have both the
+   * USE_SHARE and SET_SHARE_PERMISSION privileges on the metastore, or be the owner of the share.
    *
-   * <p>For new recipient grants, the user must also be the recipient owner or metastore admin.
-   * recipient revocations do not require additional privileges.
+   * <p>For new recipient grants, the user must also be the owner of the recipients. recipient
+   * revocations do not require additional privileges.
    */
   public UpdateSharePermissionsResponse updatePermissions(UpdateSharePermissions request) {
     return impl.updatePermissions(request);

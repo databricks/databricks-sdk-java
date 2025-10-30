@@ -21,6 +21,7 @@ class TablesImpl implements TablesService {
     String path = "/api/2.1/unity-catalog/tables";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -35,6 +36,7 @@ class TablesImpl implements TablesService {
     String path = String.format("/api/2.1/unity-catalog/tables/%s", request.getFullName());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -48,6 +50,7 @@ class TablesImpl implements TablesService {
     String path = String.format("/api/2.1/unity-catalog/tables/%s/exists", request.getFullName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, TableExistsResponse.class);
@@ -61,6 +64,7 @@ class TablesImpl implements TablesService {
     String path = String.format("/api/2.1/unity-catalog/tables/%s", request.getFullName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, TableInfo.class);
@@ -74,6 +78,7 @@ class TablesImpl implements TablesService {
     String path = "/api/2.1/unity-catalog/tables";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListTablesResponse.class);
@@ -87,6 +92,7 @@ class TablesImpl implements TablesService {
     String path = "/api/2.1/unity-catalog/table-summaries";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListTableSummariesResponse.class);
@@ -100,6 +106,7 @@ class TablesImpl implements TablesService {
     String path = String.format("/api/2.1/unity-catalog/tables/%s", request.getFullName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
