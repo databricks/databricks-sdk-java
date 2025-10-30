@@ -3017,7 +3017,7 @@ OpenAPI SHA: bcbf6e851e3d82fd910940910dd31c10c059746c, Date: 2023-10-02
 * Fixed Files API integration test ([#150](https://github.com/databricks/databricks-sdk-java/pull/150)).
 
 
-## Release v0.8.0 (2023-09-04)
+## Release v0.8.0 (2023-09-05)
 
 * Adding mock constructor method for WorkspaceClient to support mocked ApiClient ([#144](https://github.com/databricks/databricks-sdk-java/pull/144)).
 
@@ -3747,6 +3747,6 @@ Dependency updates:
  * Bump jackson.version from 2.15.1 to 2.15.2 ([#101](https://github.com/databricks/databricks-sdk-java/pull/101)).
  * Bump maven-failsafe-plugin from 3.1.0 to 3.1.2 ([#103](https://github.com/databricks/databricks-sdk-java/pull/103)).
 
-## Release v0.1.1 (2023-07-17)
+## Release v0.1.1 (2023-06-08)
 
  * Usable version
