@@ -1,6 +1,6 @@
 # Version changelog
 
-## Release v0.68.0
+## Release v0.68.0 (2025-10-30)
 
 ### Documentation
 
@@ -25,14 +25,14 @@
 * [Breaking] Remove `duration` and `offset` fields for `com.databricks.sdk.service.ml.TimeWindow`.
 
 
-## Release v0.67.3
+## Release v0.67.3 (2025-10-24)
 
 ### Security Vulnerabilities
 
 * Bump com.google.protobuf:protobuf-java-util from 3.24.2 to 3.25.5.
 
 
-## Release v0.67.2
+## Release v0.67.2 (2025-10-23)
 
 ### Security Vulnerabilities
 
@@ -53,7 +53,7 @@
 * [Breaking] Remove `results` field for `com.databricks.sdk.service.sql.ListAlertsV2Response`.
 
 
-## Release v0.67.1
+## Release v0.67.1 (2025-10-22)
 
 ### New Features and Improvements
 
@@ -62,7 +62,7 @@
   option does not remove the scope from the user provided scopes if present.
 
 
-## Release v0.67.0
+## Release v0.67.0 (2025-10-16)
 
 ### New Features and Improvements
 
@@ -79,7 +79,7 @@
 * [Breaking] Remove `update()` method for `workspaceClient.recipientFederationPolicies()` service.
 
 
-## Release v0.66.0
+## Release v0.66.0 (2025-10-13)
 
 ### New Features and Improvements
 
@@ -181,7 +181,7 @@
 * [Breaking] Remove `STATUS_UNSPECIFIED` enum value for `com.databricks.sdk.service.sql.Status`.
 
 
-## Release v0.65.0
+## Release v0.65.0 (2025-09-25)
 
 ### Bug Fixes
 
@@ -230,14 +230,14 @@
 * [Breaking] Removed `comment` field for `com.databricks.sdk.service.dashboards.GenieSendMessageFeedbackRequest`.
 
 
-## Release v0.64.0
+## Release v0.64.0 (2025-09-17)
 
 ### New Features and Improvements
 
 * Add support for discovery URL for browser based authentication flow.
 
 
-## Release v0.63.0
+## Release v0.63.0 (2025-09-15)
 
 ### API Changes
 * Added `workspaceClient.featureEngineering()` service.
@@ -330,7 +330,7 @@
 * [Breaking] Removed `defaultDataSecurityMode` and `effectiveDefaultDataSecurityMode` fields for `com.databricks.sdk.service.settingsv2.Setting`.
 
 
-## Release v0.62.0
+## Release v0.62.0 (2025-09-08)
 
 ### API Changes
 * Added `com.databricks.sdk.service.iamv2` package.
@@ -345,7 +345,7 @@
 * [Breaking] Removed `disabled` field for `com.databricks.sdk.service.jobs.RunTask`.
 
 
-## Release v0.61.0
+## Release v0.61.0 (2025-09-01)
 
 ### Bug Fixes
 
@@ -367,7 +367,7 @@
 * [Breaking] Removed `feedbackRating` and `feedbackText` fields for `com.databricks.sdk.service.dashboards.GenieSendMessageFeedbackRequest`.
 
 
-## Release v0.60.0
+## Release v0.60.0 (2025-08-20)
 
 ### New Features and Improvements
 - Azure Service Principal credential provider can now automatically discover tenant ID when not explicitly provided
@@ -399,7 +399,7 @@
 * [Breaking] Removed `comment`, `displayName` and `tags` fields for `com.databricks.sdk.service.sharing.Share`.
 
 
-## Release v0.59.0
+## Release v0.59.0 (2025-08-13)
 
 ### New Features and Improvements
 
@@ -424,7 +424,7 @@
 * [Breaking] Changed `publishMode` field for `com.databricks.sdk.service.ml.PublishSpec` to be required.
 
 
-## Release v0.58.0
+## Release v0.58.0 (2025-08-06)
 
 ### API Changes
 * Added `statementIdSignature` field for `com.databricks.sdk.service.dashboards.Result`.
@@ -440,7 +440,7 @@
 * [Breaking] Removed `isFeatured` field for `com.databricks.sdk.service.marketplace.ListProvidersRequest`.
 
 
-## Release v0.57.0
+## Release v0.57.0 (2025-07-31)
 
 ### API Changes
 * Added `share` field for `com.databricks.sdk.service.sharing.ListProviderShareAssetsResponse`.
@@ -451,7 +451,7 @@
 * [Breaking] Added waiter for `workspaceClient.database().createDatabaseInstance()` method.
 
 
-## Release v0.56.0
+## Release v0.56.0 (2025-07-24)
 
 ### Bug Fixes
 - [BREAKING] Removed shortcut methods for POST/PUT/PATCH operations.
@@ -493,7 +493,7 @@ use the corresponding methods that accept full request objects instead.
 * [Breaking] Removed `com.databricks.sdk.service.aibuilder` package.
 
 
-## Release v0.55.0
+## Release v0.55.0 (2025-07-17)
 
 ### New Features and Improvements
 * Enabled asynchronous token refreshes by default. A new `disable_async_token_refresh` configuration option has been added to allow disabling this feature if necessary.
@@ -628,7 +628,7 @@ use the corresponding methods that accept full request objects instead.
 * [Breaking] Removed `range` and `ifUnmodifiedSince` fields for `com.databricks.sdk.service.files.GetMetadataRequest`.
 
 
-## Release v0.54.0
+## Release v0.54.0 (2025-06-18)
 
 ### New Features and Improvements
 * [Experimental] Add support for asynchronous token refresh ([#464](https://github.com/databricks/databricks-sdk-java/pull/465)).
@@ -639,7 +639,7 @@ use the corresponding methods that accept full request objects instead.
   Note: This feature and its configuration are experimental and may be removed in future releases.
 
 
-## Release v0.53.0
+## Release v0.53.0 (2025-06-05)
 
 ### API Changes
 * Added `com.databricks.sdk.service.aibuilder`, `com.databricks.sdk.service.database` and `com.databricks.sdk.service.qualitymonitorv2` packages.
@@ -708,7 +708,7 @@ use the corresponding methods that accept full request objects instead.
 * [Breaking] Removed `INTERNAL` and `INTERNAL_AND_EXTERNAL` enum values for `com.databricks.sdk.service.catalog.UpdateMetastoreDeltaSharingScope`.
 
 
-## Release v0.52.0
+## Release v0.52.0 (2025-05-27)
 
 ### New Features and Improvements
 * Added Direct-to-Dataplane API support, allowing users to query route optimized model serving endpoints ([#453](https://github.com/databricks/databricks-sdk-java/pull/453)).
@@ -738,7 +738,7 @@ use the corresponding methods that accept full request objects instead.
 * [Breaking] Changed `catalogType` field for `com.databricks.sdk.service.catalog.SchemaInfo` to type `com.databricks.sdk.service.catalog.CatalogType` class.
 
 
-## Release v0.51.0
+## Release v0.51.0 (2025-05-21)
 
 ### Internal Changes
 * Added support for .cloud.databricks.mil domains ([#435](https://github.com/databricks/databricks-sdk-java/pull/435)).
@@ -771,7 +771,7 @@ use the corresponding methods that accept full request objects instead.
 * [Breaking] Removed `accessPoint` field for `com.databricks.sdk.service.catalog.UpdateExternalLocation`.
 
 
-## Release v0.50.0
+## Release v0.50.0 (2025-05-19)
 
 ### Internal Changes
 * Capture DatabricksError when retrying API calls ([#427](https://github.com/databricks/databricks-sdk-java/pull/427)).
@@ -816,7 +816,7 @@ use the corresponding methods that accept full request objects instead.
 * [Breaking] Removed `CATALOG`, `CREDENTIAL`, `EXTERNAL_LOCATION` and `STORAGE_CREDENTIAL` enum values for `com.databricks.sdk.service.catalog.UpdateBindingsSecurableType`.
 
 
-## Release v0.49.0
+## Release v0.49.0 (2025-05-02)
 
 ### Bug Fixes
 * Fixed the deserialization of responses in VectorSearchAPI's `queryIndex()` method ([#440](https://github.com/databricks/databricks-sdk-java/pull/440)).
@@ -841,7 +841,7 @@ use the corresponding methods that accept full request objects instead.
 * [Breaking] Changed waiter for `workspaceClient.genie().createMessage()` method.
 
 
-## Release v0.48.0
+## Release v0.48.0 (2025-04-30)
 
 ### New Features and Improvements
  * Introduce support for Databricks Workload Identity Federation in GitHub workflows ([423](https://github.com/databricks/databricks-sdk-java/pull/423)).
@@ -871,7 +871,7 @@ use the corresponding methods that accept full request objects instead.
 * [Breaking] Removed `BLOB`, `DFS`, `MYSQL_SERVER` and `SQL_SERVER` enum values for `com.databricks.sdk.service.settings.NccAzurePrivateEndpointRuleGroupId`.
 
 
-## Release v0.47.0
+## Release v0.47.0 (2025-04-24)
 
 ### API Changes
 * Added `updateEndpointBudgetPolicy()` and `updateEndpointCustomTags()` methods for `workspaceClient.vectorSearchEndpoints()` service.
@@ -893,13 +893,13 @@ use the corresponding methods that accept full request objects instead.
 * [Breaking] Removed `nullValue` field for `com.databricks.sdk.service.vectorsearch.Value`.
 
 
-## Release v0.46.0
+## Release v0.46.0 (2025-04-22)
 
 ### New Features and Improvements
  * Added `TokenCache` to `ExternalBrowserCredentialsProvider` to reduce number of authentications needed for U2M OAuth.
 
 
-## Release v0.45.0
+## Release v0.45.0 (2025-04-14)
 
 ### API Changes
 * Added `workspaceClient.enableExportNotebook()` service, `workspaceClient.enableNotebookTableClipboard()` service and `workspaceClient.enableResultsDownloading()` service.
@@ -930,13 +930,13 @@ use the corresponding methods that accept full request objects instead.
 * [Breaking] Removed `workspaceClient.pipelines().waitGetPipelineRunning()` method.
 
 
-## Release v0.44.0
+## Release v0.44.0 (2025-04-10)
 
 ### Bug Fixes
 * Fix issue deserializing HTTP responses with an empty body ([#426](https://github.com/databricks/databricks-sdk-java/pull/426)).
 
 
-## Release v0.43.0
+## Release v0.43.0 (2025-03-26)
 
 ### API Changes
 * Added `generateDownloadFullQueryResult()` method for `workspaceClient.genie()` service.
@@ -972,7 +972,7 @@ use the corresponding methods that accept full request objects instead.
 * [Breaking] Removed `aliases`, `comment`, `dataType`, `dependencyList`, `fullDataType`, `id`, `inputParams`, `name`, `properties`, `routineDefinition`, `schema`, `securableKind`, `share`, `shareId`, `storageLocation` and `tags` fields for `com.databricks.sdk.service.sharing.Function`.
 
 
-## Release v0.42.0
+## Release v0.42.0 (2025-03-11)
 
 ### Internal Changes
 * Update Jobs ListRuns API to support paginated responses ([#411](https://github.com/databricks/databricks-sdk-java/pull/411))
@@ -1041,7 +1041,7 @@ use the corresponding methods that accept full request objects instead.
 * [Breaking] Removed `ACTIVE_ONLY`, `ALL` and `DELETED_ONLY` enum values for `com.databricks.sdk.service.ml.SearchRunsRunViewType`.
 
 
-## [Release] Release v0.41.0
+## Release v0.41.0 (2025-02-11)
 
 ### API Changes:
 
@@ -1054,7 +1054,7 @@ use the corresponding methods that accept full request objects instead.
 OpenAPI SHA: 99f644e72261ef5ecf8d74db20f4b7a1e09723cc, Date: 2025-02-11
 
 
-## [Release] Release v0.40.0
+## Release v0.40.0 (2025-02-03)
 
 ### Bug Fixes
 
@@ -1116,7 +1116,7 @@ OpenAPI SHA: 99f644e72261ef5ecf8d74db20f4b7a1e09723cc, Date: 2025-02-11
 OpenAPI SHA: c72c58f97b950fcb924a90ef164bcb10cfcd5ece, Date: 2025-02-03
 
 
-## [Release] Release v0.39.0
+## Release v0.39.0 (2025-01-20)
 
 ### Internal Changes
 
@@ -1144,7 +1144,7 @@ OpenAPI SHA: c72c58f97b950fcb924a90ef164bcb10cfcd5ece, Date: 2025-02-03
 OpenAPI SHA: 779817ed8d63031f5ea761fbd25ee84f38feec0d, Date: 2025-01-08
 
 
-## [Release] Release v0.38.0
+## Release v0.38.0 (2024-12-17)
 
 ### API Changes:
 
@@ -1164,7 +1164,7 @@ OpenAPI SHA: 779817ed8d63031f5ea761fbd25ee84f38feec0d, Date: 2025-01-08
 OpenAPI SHA: a6a317df8327c9b1e5cb59a03a42ffa2aabeef6d, Date: 2024-12-16
 
 
-## [Release] Release v0.37.0
+## Release v0.37.0 (2024-12-10)
 
 ### Internal Changes
 
@@ -1187,7 +1187,7 @@ OpenAPI SHA: a6a317df8327c9b1e5cb59a03a42ffa2aabeef6d, Date: 2024-12-16
 OpenAPI SHA: 7016dcbf2e011459416cf408ce21143bcc4b3a25, Date: 2024-12-05
 
 
-## [Release] Release v0.36.0
+## Release v0.36.0 (2024-11-20)
 
 ### Internal Changes
 
@@ -1209,7 +1209,7 @@ OpenAPI SHA: 7016dcbf2e011459416cf408ce21143bcc4b3a25, Date: 2024-12-05
 
 OpenAPI SHA: f2385add116e3716c8a90a0b68e204deb40f996c, Date: 2024-11-15
 
-## [Release] Release v0.35.0
+## Release v0.35.0 (2024-11-07)
 
 ### New Features and Improvements
 
@@ -1277,7 +1277,7 @@ OpenAPI SHA: f2385add116e3716c8a90a0b68e204deb40f996c, Date: 2024-11-15
 OpenAPI SHA: d25296d2f4aa7bd6195c816fdf82e0f960f775da, Date: 2024-11-07
 
 
-## [Release] Release v0.34.0
+## Release v0.34.0 (2024-10-22)
 
 ### New Features and Improvements
 
@@ -1291,7 +1291,7 @@ OpenAPI SHA: d25296d2f4aa7bd6195c816fdf82e0f960f775da, Date: 2024-11-07
 
 
 
-## [Release] Release v0.33.0
+## Release v0.33.0 (2024-10-18)
 
 ### Bug Fixes
 
@@ -1349,7 +1349,7 @@ OpenAPI SHA: d25296d2f4aa7bd6195c816fdf82e0f960f775da, Date: 2024-11-07
 OpenAPI SHA: cf9c61453990df0f9453670f2fe68e1b128647a2, Date: 2024-10-14
 
 
-## [Release] Release v0.32.2
+## Release v0.32.2 (2024-10-08)
 
 ### Bug Fixes
 
@@ -1358,7 +1358,7 @@ OpenAPI SHA: cf9c61453990df0f9453670f2fe68e1b128647a2, Date: 2024-10-14
 
 
 
-## [Release] Release v0.32.1
+## Release v0.32.1 (2024-10-03)
 
 ### Bug Fixes
 
@@ -1367,7 +1367,7 @@ OpenAPI SHA: cf9c61453990df0f9453670f2fe68e1b128647a2, Date: 2024-10-14
 
 
 
-## [Release] Release v0.32.0
+## Release v0.32.0 (2024-09-26)
 
 ### Bug Fixes
 
@@ -1417,7 +1417,7 @@ OpenAPI SHA: cf9c61453990df0f9453670f2fe68e1b128647a2, Date: 2024-10-14
 OpenAPI SHA: 6f6b1371e640f2dfeba72d365ac566368656f6b6, Date: 2024-09-19
 
 
-## [Release] Release v0.31.1
+## Release v0.31.1 (2024-09-16)
 
 ### New Features and Improvements
 
@@ -1432,7 +1432,7 @@ OpenAPI SHA: 6f6b1371e640f2dfeba72d365ac566368656f6b6, Date: 2024-09-19
 
 
 
-## [Release] Release v0.31.0
+## Release v0.31.0 (2024-09-04)
 
 ### New Features and Improvements
 
@@ -1468,7 +1468,7 @@ OpenAPI SHA: 6f6b1371e640f2dfeba72d365ac566368656f6b6, Date: 2024-09-19
 OpenAPI SHA: d05898328669a3f8ab0c2ecee37db2673d3ea3f7, Date: 2024-09-04
 
 
-## [Release] Release v0.30.0
+## Release v0.30.0 (2024-08-21)
 
 ### API Changes:
 
@@ -1492,7 +1492,7 @@ OpenAPI SHA: d05898328669a3f8ab0c2ecee37db2673d3ea3f7, Date: 2024-09-04
 OpenAPI SHA: 3eae49b444cac5a0118a3503e5b7ecef7f96527a, Date: 2024-08-21
 
 
-## [Release] Release v0.29.0
+## Release v0.29.0 (2024-08-13)
 
 ### Internal Changes
 
@@ -1535,7 +1535,7 @@ OpenAPI SHA: 3eae49b444cac5a0118a3503e5b7ecef7f96527a, Date: 2024-08-21
 OpenAPI SHA: f98c07f9c71f579de65d2587bb0292f83d10e55d, Date: 2024-08-12
 
 
-## [Release] Release v0.28.0
+## Release v0.28.0 (2024-08-01)
 
 ### Bug Fixes
 
@@ -1686,7 +1686,7 @@ OpenAPI SHA: f98c07f9c71f579de65d2587bb0292f83d10e55d, Date: 2024-08-12
 OpenAPI SHA: cde487f4948666f7eff0f7566cd0d2704bb2e2fa, Date: 2024-08-01
 
 
-## 0.27.1
+## Release v0.27.1 (2024-07-12)
 
 ### New Features and Improvements
  * Specify proxy auth explicitly when using system proxy ([#300](https://github.com/databricks/databricks-sdk-java/pull/300)).
@@ -1700,7 +1700,7 @@ OpenAPI SHA: cde487f4948666f7eff0f7566cd0d2704bb2e2fa, Date: 2024-08-01
  * Run AccountClientIT test only for aws-prod-ucacct ([#311](https://github.com/databricks/databricks-sdk-java/pull/311)).
 
 
-## 0.27.0
+## Release v0.27.0 (2024-06-25)
 
 ### Improvements
  
@@ -1763,7 +1763,7 @@ OpenAPI SHA: cde487f4948666f7eff0f7566cd0d2704bb2e2fa, Date: 2024-08-01
 
 OpenAPI SHA: 7437dabb9dadee402c1fc060df4c1ce8cc5369f0, Date: 2024-06-24
 
-## 0.26.0
+## Release v0.26.0 (2024-05-23)
 
 ### Improvements
 
@@ -1819,7 +1819,7 @@ OpenAPI SHA: 7437dabb9dadee402c1fc060df4c1ce8cc5369f0, Date: 2024-06-24
 
 OpenAPI SHA: 7eb5ad9a2ed3e3f1055968a2d1014ac92c06fe92, Date: 2024-05-21
 
-## 0.25.0
+## Release v0.25.0 (2024-05-15)
 
 ### New Features and Improvements
 * Fix OIDC Endpoint Fetching in DatabricksConfig for Workspace Clients ([#277](https://github.com/databricks/databricks-sdk-java/pull/277)).
@@ -1910,14 +1910,14 @@ OpenAPI SHA: 84f9315bc9cdcf3917f764cf608255a74271ab2c, Date: 2024-05-06
 * Fix test that was picking up configuration from the environment ([#287](https://github.com/databricks/databricks-sdk-java/pull/287)).
 
 
-## 0.24.1
+## Release v0.24.1 (2024-04-24)
 
 * Fixed interrupt handling ([#272](https://github.com/databricks/databricks-sdk-java/pull/272)).
 * Added README for proxy and minor fix ([#273](https://github.com/databricks/databricks-sdk-java/pull/273)).
 
 
 
-## 0.24.0
+## Release v0.24.0 (2024-04-24)
 
 * Added retry strategy based on idempotency of requests ([#264](https://github.com/databricks/databricks-sdk-java/pull/264)).
 * Fixde remaining Java integration tests ([#265](https://github.com/databricks/databricks-sdk-java/pull/265)).
@@ -1958,7 +1958,7 @@ API Changes:
 OpenAPI SHA: 06d330f43d92c1be864d4638c672cd0723e20a51, Date: 2024-04-22
 
 
-## 0.23.0
+## Release v0.23.0 (2024-04-12)
 
 ### Improvements and Bug Fixes
 * Introduce more specific exceptions, like `NotFound`, `AlreadyExists`, `BadRequest`, `PermissionDenied`, `InternalError`, and others ([#185](https://github.com/databricks/databricks-sdk-java/pull/185), [#257](https://github.com/databricks/databricks-sdk-java/pull/257)).
@@ -2080,7 +2080,7 @@ API Changes:
 OpenAPI SHA: 94684175b8bd65f8701f89729351f8069e8309c9, Date: 2024-04-11
 
 
-## 0.22.0
+## Release v0.22.0 (2024-04-02)
 
 Improvements and Bug Fixes
 * Properly escape multi-segment path parameters ([#252](https://github.com/databricks/databricks-sdk-java/pull/252)).
@@ -2141,7 +2141,7 @@ API Changes:
 OpenAPI SHA: d38528c3e47dd81c9bdbd918272a3e49d36e09ce, Date: 2024-03-27
 
 
-## 0.21.0
+## Release v0.21.0 (2024-03-20)
 
 
 API Changes:
@@ -2245,7 +2245,7 @@ API Changes:
 OpenAPI SHA: 93763b0d7ae908520c229c786fff28b8fd623261, Date: 2024-03-20
 
 
-## 0.20.0
+## Release v0.20.0 (2024-03-04)
 
 ### Features and Improvements
   * Added basic support for HTTP proxies ([#241](https://github.com/databricks/databricks-sdk-java/pull/241)).
@@ -2338,7 +2338,7 @@ OpenAPI SHA: 93763b0d7ae908520c229c786fff28b8fd623261, Date: 2024-03-20
 OpenAPI SHA: d855b30f25a06fe84f25214efa20e7f1fffcdf9e, Date: 2024-03-04
 
 
-## 0.19.0
+## Release v0.19.0 (2024-02-19)
 
 Internal Changes:
 
@@ -2428,7 +2428,7 @@ API Changes:
 OpenAPI SHA: cdd76a98a4fca7008572b3a94427566dd286c63b, Date: 2024-02-19
 
 
-## 0.18.0
+## Release v0.18.0 (2024-02-09)
 
 * Derive config file name from attribute name ([#216](https://github.com/databricks/databricks-sdk-java/pull/216)).
 ```
@@ -2554,7 +2554,7 @@ Dependency updates:
 
  * Bump org.apache.maven.plugins:maven-failsafe-plugin from 3.1.2 to 3.2.5 ([#206](https://github.com/databricks/databricks-sdk-java/pull/206)).
 
-## 0.17.1
+## Release v0.17.1 (2024-01-29)
 
 Major changes:
 
@@ -2567,7 +2567,7 @@ Bug fixes:
 
 
 
-## 0.17.0
+## Release v0.17.0 (2024-01-23)
 
 Bugfixes:
 
@@ -2616,7 +2616,7 @@ API Changes:
 OpenAPI SHA: e05401ed5dd4974c5333d737ec308a7d451f749f, Date: 2024-01-23
 
 
-## 0.16.0
+## Release v0.16.0 (2024-01-10)
 
 * Update to OpenAPI spec ([#204](https://github.com/databricks/databricks-sdk-java/pull/204)).
 
@@ -2635,7 +2635,7 @@ API Changes:
 OpenAPI SHA: a7a9dc025bb80303e676bf3708942c6aa06689f1, Date: 2024-01-04
 
 
-## 0.15.0
+## Release v0.15.0 (2023-12-20)
 
 * Better Java examples ([#200](https://github.com/databricks/databricks-sdk-java/pull/200)).
 
@@ -2663,7 +2663,7 @@ API Changes:
 OpenAPI SHA: d3853c8dee5806d04da2ae8910f273ffb35719a5, Date: 2023-12-14
 
 
-## 0.14.0
+## Release v0.14.0 (2023-12-12)
 
 Other changes:
 
@@ -2777,7 +2777,7 @@ API Changes:
 OpenAPI SHA: 63caa3cb0c05045e81d3dcf2451fa990d8670f36, Date: 2023-12-12
 
 
-## 0.13.0
+## Release v0.13.0 (2023-11-29)
 
 Bug fixes:
 
@@ -2802,7 +2802,7 @@ API Changes:
 
 OpenAPI SHA: 22f09783eb8a84d52026f856be3b2068f9498db3, Date: 2023-11-23
 
-## 0.12.0
+## Release v0.12.0 (2023-11-10)
 
 * Implemented notebook-native auth for the Java SDK ([#171](https://github.com/databricks/databricks-sdk-java/pull/171)).
 * Addeded regression question to github issue template ([#176](https://github.com/databricks/databricks-sdk-java/pull/176)).
@@ -2848,7 +2848,7 @@ API Changes:
 OpenAPI SHA: e7b127cb07af8dd4d8c61c7cc045c8910cdbb02a, Date: 2023-11-08
 
 
-## 0.11.0
+## Release v0.11.0 (2023-10-25)
 
 * Adjust token expiry window to 40 seconds because of Azure ([#170](https://github.com/databricks/databricks-sdk-java/pull/170)).
 * Use same logic as Go SDK for DatabricksConfig.isAzure() ([#174](https://github.com/databricks/databricks-sdk-java/pull/174)).
@@ -2871,7 +2871,7 @@ Dependency updates:
  * Bump org.slf4j:slf4j-reload4j from 2.0.7 to 2.0.9 ([#147](https://github.com/databricks/databricks-sdk-java/pull/147)).
  * Bump org.apache.maven.plugins:maven-javadoc-plugin from 3.5.0 to 3.6.0 ([#156](https://github.com/databricks/databricks-sdk-java/pull/156)).
 
-## 0.10.0
+## Release v0.10.0 (2023-10-12)
 
 * Don't fail codegen if the tree was already removed ([#164](https://github.com/databricks/databricks-sdk-java/pull/164)).
 * Update OpenAPI spec to 12 Oct 2023 ([#165](https://github.com/databricks/databricks-sdk-java/pull/165)).
@@ -2932,7 +2932,7 @@ API Changes:
 OpenAPI SHA: 493a76554afd3afdd15dc858773d01643f80352a, Date: 2023-10-12
 
 
-## 0.9.0
+## Release v0.9.0 (2023-10-03)
 
 * Add additional error metadata to API errors ([#153](https://github.com/databricks/databricks-sdk-java/pull/153)).
 * Bugfix: Chunk streaming request bodies only ([#157](https://github.com/databricks/databricks-sdk-java/pull/157)).
@@ -3011,13 +3011,13 @@ API Changes:
 OpenAPI SHA: bcbf6e851e3d82fd910940910dd31c10c059746c, Date: 2023-10-02
 
 
-## 0.8.1
+## Release v0.8.1 (2023-09-11)
 
 * Added support for Azure authentication when WorkspaceResourceID is provided ([#145](https://github.com/databricks/databricks-sdk-java/pull/145)).
 * Fixed Files API integration test ([#150](https://github.com/databricks/databricks-sdk-java/pull/150)).
 
 
-## 0.8.0
+## Release v0.8.0 (2023-09-04)
 
 * Adding mock constructor method for WorkspaceClient to support mocked ApiClient ([#144](https://github.com/databricks/databricks-sdk-java/pull/144)).
 
@@ -3051,7 +3051,7 @@ API Changes:
 * Added `com.databricks.sdk.service.sql.WidgetPosition` class.
 
 OpenAPI SHA: 09a7fa63d9ae243e5407941f200960ca14d48b07, Date: 2023-09-04
-## 0.7.0
+## Release v0.7.0 (2023-08-29)
 
 * Added support for propagating Request Headers through API Client ([#135](https://github.com/databricks/databricks-sdk-java/pull/135)).
 * Added support for InputStream for streaming request and response bodies ([#138](https://github.com/databricks/databricks-sdk-java/pull/138)).
@@ -3124,7 +3124,7 @@ API Changes:
  * Added `com.databricks.sdk.service.sql.StatementParameterListItem` class.
 
 OpenAPI SHA: 5d0ccbb790d341eae8e85321a685a9e9e2d5bf24, Date: 2023-08-29
-## 0.6.0
+## Release v0.6.0 (2023-08-18)
 
 * Added support for `dbutils.secrets` ([#132](https://github.com/databricks/databricks-sdk-java/pull/132)).
 * Added retry in `w.clusters().ensureClusterIsRunning(id)` when cluster is simultaneously started by two different processes ([#134](https://github.com/databricks/databricks-sdk-java/pull/134)).
@@ -3182,7 +3182,7 @@ API Renames:
 OpenAPI SHA: beff621d7b3e1d59244e2e34fc53a496f310e130, Date: 2023-08-17
 
 
-## 0.5.0
+## Release v0.5.0 (2023-08-14)
 
 
 API Changes:
@@ -3215,7 +3215,7 @@ Bug fixes:
 OpenAPI SHA: 1e3533f94335f0e6c5d9262bc1fea95b3ddcb0e1, Date: 2023-08-11
 
 
-## 0.4.0
+## Release v0.4.0 (2023-08-07)
 
 To simplify documentation and management of object permissions, this release features a major reorganization of how permissions APIs are structured in the SDK. Rather than using a single `Permissions.Get()` API for all services, each service supporting permissions has its own permissions APIs. Follow these steps to migrate to the current SDK:
 
@@ -3433,7 +3433,7 @@ API Changes:
 OpenAPI SHA: 386b65ecdc825b9c3ed4aa7ca88e2e5baf9d87df, Date: 2023-08-07
 
 
-## 0.3.0
+## Release v0.3.0 (2023-07-27)
 
 * Handled nested query parameters in ApiClient.withQuery ([#125](https://github.com/databricks/databricks-sdk-java/pull/125)). This fixes issues with filters when listing query history.
 
@@ -3465,7 +3465,7 @@ API Changes:
 OpenAPI SHA: fbdd0fa3e83fed2c798a58d376529bdb1285b915, Date: 2023-07-26
 
 
-## 0.2.0
+## Release v0.2.0 (2023-07-18)
 
 * Synchronize auth permutation tests with Go SDK ([#108](https://github.com/databricks/databricks-sdk-java/pull/108)).
 * Regenerated from OpenAPI spec ([#112](https://github.com/databricks/databricks-sdk-java/pull/112)).
@@ -3747,6 +3747,6 @@ Dependency updates:
  * Bump jackson.version from 2.15.1 to 2.15.2 ([#101](https://github.com/databricks/databricks-sdk-java/pull/101)).
  * Bump maven-failsafe-plugin from 3.1.0 to 3.1.2 ([#103](https://github.com/databricks/databricks-sdk-java/pull/103)).
 
-## 0.1.1
+## Release v0.1.1 (2023-07-17)
 
  * Usable version
