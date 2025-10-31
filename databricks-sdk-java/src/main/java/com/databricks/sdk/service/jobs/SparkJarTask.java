@@ -11,8 +11,11 @@ import java.util.Objects;
 @Generated
 public class SparkJarTask {
   /**
-   * Deprecated since 04/2016. Provide a `jar` through the `libraries` field instead. For an
-   * example, see :method:jobs/create.
+   * Deprecated since 04/2016. For classic compute, provide a `jar` through the `libraries` field
+   * instead. For serverless compute, provide a `jar` though the `java_dependencies` field inside
+   * the `environments` list.
+   *
+   * <p>See the examples of classic and serverless compute usage at the top of the page.
    */
   @JsonProperty("jar_uri")
   private String jarUri;
