@@ -22,6 +22,7 @@ class ConsumerFulfillmentsImpl implements ConsumerFulfillmentsService {
         String.format("/api/2.1/marketplace-consumer/listings/%s/content", request.getListingId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetListingContentMetadataResponse.class);
@@ -37,6 +38,7 @@ class ConsumerFulfillmentsImpl implements ConsumerFulfillmentsService {
             "/api/2.1/marketplace-consumer/listings/%s/fulfillments", request.getListingId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListFulfillmentsResponse.class);

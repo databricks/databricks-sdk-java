@@ -23,6 +23,7 @@ class ExternalLineageImpl implements ExternalLineageService {
     try {
       Request req =
           new Request("POST", path, apiClient.serialize(request.getExternalLineageRelationship()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -37,6 +38,7 @@ class ExternalLineageImpl implements ExternalLineageService {
     String path = "/api/2.0/lineage-tracking/external-lineage";
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -51,6 +53,7 @@ class ExternalLineageImpl implements ExternalLineageService {
     String path = "/api/2.0/lineage-tracking/external-lineage";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListExternalLineageRelationshipsResponse.class);
@@ -66,6 +69,7 @@ class ExternalLineageImpl implements ExternalLineageService {
     try {
       Request req =
           new Request("PATCH", path, apiClient.serialize(request.getExternalLineageRelationship()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

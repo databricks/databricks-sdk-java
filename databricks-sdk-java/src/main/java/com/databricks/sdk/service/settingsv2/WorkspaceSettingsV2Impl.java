@@ -21,6 +21,7 @@ class WorkspaceSettingsV2Impl implements WorkspaceSettingsV2Service {
     String path = String.format("/api/2.1/settings/%s", request.getName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, Setting.class);
@@ -35,6 +36,7 @@ class WorkspaceSettingsV2Impl implements WorkspaceSettingsV2Service {
     String path = "/api/2.1/settings-metadata";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListWorkspaceSettingsMetadataResponse.class);
@@ -48,6 +50,7 @@ class WorkspaceSettingsV2Impl implements WorkspaceSettingsV2Service {
     String path = String.format("/api/2.1/settings/%s", request.getName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getSetting()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

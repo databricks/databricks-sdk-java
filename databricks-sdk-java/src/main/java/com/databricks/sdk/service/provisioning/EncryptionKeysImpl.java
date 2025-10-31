@@ -24,6 +24,7 @@ class EncryptionKeysImpl implements EncryptionKeysService {
             "/api/2.0/accounts/%s/customer-managed-keys", apiClient.configuredAccountID());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -41,6 +42,7 @@ class EncryptionKeysImpl implements EncryptionKeysService {
             apiClient.configuredAccountID(), request.getCustomerManagedKeyId());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, CustomerManagedKey.class);
@@ -57,6 +59,7 @@ class EncryptionKeysImpl implements EncryptionKeysService {
             apiClient.configuredAccountID(), request.getCustomerManagedKeyId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, CustomerManagedKey.class);

@@ -27,6 +27,7 @@ class CleanRoomAssetRevisionsImpl implements CleanRoomAssetRevisionsService {
             request.getEtag());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, CleanRoomAsset.class);
@@ -43,6 +44,7 @@ class CleanRoomAssetRevisionsImpl implements CleanRoomAssetRevisionsService {
             request.getCleanRoomName(), request.getAssetType(), request.getName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListCleanRoomAssetRevisionsResponse.class);

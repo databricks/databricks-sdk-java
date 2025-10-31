@@ -9,30 +9,43 @@ import java.util.Objects;
 
 @Generated
 public class TimeWindow {
-  /** The duration of the time window. */
-  @JsonProperty("duration")
-  private String duration;
+  /** */
+  @JsonProperty("continuous")
+  private ContinuousWindow continuous;
 
-  /** The offset of the time window. */
-  @JsonProperty("offset")
-  private String offset;
+  /** */
+  @JsonProperty("sliding")
+  private SlidingWindow sliding;
 
-  public TimeWindow setDuration(String duration) {
-    this.duration = duration;
+  /** */
+  @JsonProperty("tumbling")
+  private TumblingWindow tumbling;
+
+  public TimeWindow setContinuous(ContinuousWindow continuous) {
+    this.continuous = continuous;
     return this;
   }
 
-  public String getDuration() {
-    return duration;
+  public ContinuousWindow getContinuous() {
+    return continuous;
   }
 
-  public TimeWindow setOffset(String offset) {
-    this.offset = offset;
+  public TimeWindow setSliding(SlidingWindow sliding) {
+    this.sliding = sliding;
     return this;
   }
 
-  public String getOffset() {
-    return offset;
+  public SlidingWindow getSliding() {
+    return sliding;
+  }
+
+  public TimeWindow setTumbling(TumblingWindow tumbling) {
+    this.tumbling = tumbling;
+    return this;
+  }
+
+  public TumblingWindow getTumbling() {
+    return tumbling;
   }
 
   @Override
@@ -40,19 +53,22 @@ public class TimeWindow {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     TimeWindow that = (TimeWindow) o;
-    return Objects.equals(duration, that.duration) && Objects.equals(offset, that.offset);
+    return Objects.equals(continuous, that.continuous)
+        && Objects.equals(sliding, that.sliding)
+        && Objects.equals(tumbling, that.tumbling);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(duration, offset);
+    return Objects.hash(continuous, sliding, tumbling);
   }
 
   @Override
   public String toString() {
     return new ToStringer(TimeWindow.class)
-        .add("duration", duration)
-        .add("offset", offset)
+        .add("continuous", continuous)
+        .add("sliding", sliding)
+        .add("tumbling", tumbling)
         .toString();
   }
 }

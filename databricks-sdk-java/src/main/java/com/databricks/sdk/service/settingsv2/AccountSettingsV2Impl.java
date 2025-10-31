@@ -23,6 +23,7 @@ class AccountSettingsV2Impl implements AccountSettingsV2Service {
             "/api/2.1/accounts/%s/settings/%s", apiClient.configuredAccountID(), request.getName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, Setting.class);
@@ -38,6 +39,7 @@ class AccountSettingsV2Impl implements AccountSettingsV2Service {
         String.format("/api/2.1/accounts/%s/settings-metadata", apiClient.configuredAccountID());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListAccountSettingsMetadataResponse.class);
@@ -53,6 +55,7 @@ class AccountSettingsV2Impl implements AccountSettingsV2Service {
             "/api/2.1/accounts/%s/settings/%s", apiClient.configuredAccountID(), request.getName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getSetting()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

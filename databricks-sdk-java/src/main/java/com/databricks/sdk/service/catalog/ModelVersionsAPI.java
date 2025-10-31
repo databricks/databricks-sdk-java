@@ -96,6 +96,10 @@ public class ModelVersionsAPI {
    *
    * <p>There is no guarantee of a specific ordering of the elements in the response. The elements
    * in the response will not contain any aliases or tags.
+   *
+   * <p>PAGINATION BEHAVIOR: The API is by default paginated, a page may contain zero results while
+   * still providing a next_page_token. Clients must continue reading pages until next_page_token is
+   * absent, which is the only indication that the end of results has been reached.
    */
   public Iterable<ModelVersionInfo> list(ListModelVersionsRequest request) {
     return new Paginator<>(

@@ -160,6 +160,10 @@ public class EditPipeline {
   @JsonProperty("trigger")
   private PipelineTrigger trigger;
 
+  /** Usage policy of this pipeline. */
+  @JsonProperty("usage_policy_id")
+  private String usagePolicyId;
+
   public EditPipeline setAllowDuplicateNames(Boolean allowDuplicateNames) {
     this.allowDuplicateNames = allowDuplicateNames;
     return this;
@@ -439,6 +443,15 @@ public class EditPipeline {
     return trigger;
   }
 
+  public EditPipeline setUsagePolicyId(String usagePolicyId) {
+    this.usagePolicyId = usagePolicyId;
+    return this;
+  }
+
+  public String getUsagePolicyId() {
+    return usagePolicyId;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -474,7 +487,8 @@ public class EditPipeline {
         && Objects.equals(storage, that.storage)
         && Objects.equals(tags, that.tags)
         && Objects.equals(target, that.target)
-        && Objects.equals(trigger, that.trigger);
+        && Objects.equals(trigger, that.trigger)
+        && Objects.equals(usagePolicyId, that.usagePolicyId);
   }
 
   @Override
@@ -510,7 +524,8 @@ public class EditPipeline {
         storage,
         tags,
         target,
-        trigger);
+        trigger,
+        usagePolicyId);
   }
 
   @Override
@@ -547,6 +562,7 @@ public class EditPipeline {
         .add("tags", tags)
         .add("target", target)
         .add("trigger", trigger)
+        .add("usagePolicyId", usagePolicyId)
         .toString();
   }
 }

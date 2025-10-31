@@ -21,6 +21,7 @@ class InstanceProfilesImpl implements InstanceProfilesService {
     String path = "/api/2.0/instance-profiles/add";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -35,6 +36,7 @@ class InstanceProfilesImpl implements InstanceProfilesService {
     String path = "/api/2.0/instance-profiles/edit";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -49,6 +51,7 @@ class InstanceProfilesImpl implements InstanceProfilesService {
     String path = "/api/2.0/instance-profiles/list";
     try {
       Request req = new Request("GET", path);
+
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListInstanceProfilesResponse.class);
     } catch (IOException e) {
@@ -61,6 +64,7 @@ class InstanceProfilesImpl implements InstanceProfilesService {
     String path = "/api/2.0/instance-profiles/remove";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
