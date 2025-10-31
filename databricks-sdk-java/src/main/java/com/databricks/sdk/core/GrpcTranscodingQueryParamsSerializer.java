@@ -2,6 +2,7 @@ package com.databricks.sdk.core;
 
 import com.databricks.sdk.support.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.protobuf.FieldMask;
 import java.lang.reflect.Field;
 import java.util.*;
 
@@ -118,6 +119,8 @@ public class GrpcTranscodingQueryParamsSerializer {
             || Iterable.class.isAssignableFrom(type)
             || type.isEnum()) {
           result.put(name, value);
+        } else if (FieldMask.class.isAssignableFrom(type)) {
+          result.put(name, String.join(",", ((FieldMask) value).getPathsList()));
         } else {
           // recursively flatten the object
           Map<String, Object> flattened = flattenObject(value, false);
