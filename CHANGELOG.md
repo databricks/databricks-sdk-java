@@ -9,6 +9,10 @@
 * Add `experimentalIsUnifiedHost` field to `DatabricksConfig` to mark unified hosts
 * Add `getHostType()` and `getConfigType()` methods to `DatabricksConfig`
 * Add X-Databricks-Org-Id header support for unified host workspace requests
+* Improve validation in `AccountClient` and `WorkspaceClient` constructors:
+  * `AccountClient` now validates that `accountId` is set and `workspaceId` is not set
+  * `WorkspaceClient` now validates that host is not an account host
+  * `WorkspaceClient` with unified host now requires `workspaceId` to be set
 
 ### Deprecations
 * Deprecate `isAccountClient()` method in `DatabricksConfig`. Use `getHostType()` or `getConfigType()` instead.

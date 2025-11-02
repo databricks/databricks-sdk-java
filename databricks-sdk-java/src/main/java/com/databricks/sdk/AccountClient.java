@@ -130,6 +130,23 @@ public class AccountClient {
 
   public AccountClient(DatabricksConfig config) {
     this.config = config;
+
+    // Validate configuration for AccountClient
+    if (config.getAccountId() == null || config.getAccountId().isEmpty()) {
+      throw new IllegalArgumentException(
+          "Invalid Databricks Account configuration - account_id missing");
+    }
+    if (config.getHostType() == DatabricksConfig.HostType.WORKSPACE_HOST) {
+      throw new IllegalArgumentException(
+          "Invalid Databricks Account configuration - host is not an account host");
+    }
+    // WorkspaceId must NOT be present in a config used with account client because
+    // unified hosts route calls based on the presence of the X-Databricks-Org-Id header.
+    if (config.getWorkspaceId() != null && !config.getWorkspaceId().isEmpty()) {
+      throw new IllegalArgumentException(
+          "WorkspaceId must not be set when using AccountClient");
+    }
+
     apiClient = new ApiClient(config);
 
     accessControlAPI = new AccountAccessControlAPI(apiClient);
