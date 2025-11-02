@@ -1,5 +1,22 @@
 # Version changelog
 
+## Unreleased
+
+### New Features and Improvements
+* Add support for unified hosts, i.e. hosts that support both workspace-level and account-level operations
+* Add `HostType` and `ConfigType` enums to `DatabricksConfig` for better host type management
+* Add `workspaceId` field to `DatabricksConfig` for workspace clients on unified hosts
+* Add `experimentalIsUnifiedHost` field to `DatabricksConfig` to mark unified hosts
+* Add `getHostType()` and `getConfigType()` methods to `DatabricksConfig`
+* Add X-Databricks-Org-Id header support for unified host workspace requests
+
+### Deprecations
+* Deprecate `isAccountClient()` method in `DatabricksConfig`. Use `getHostType()` or `getConfigType()` instead.
+
+### Internal Changes
+* Update OAuth endpoint discovery to support unified hosts
+* Update credential providers to use `getHostType()` instead of `isAccountClient()`
+
 ## Release v0.68.0 (2025-10-30)
 
 ### Documentation

@@ -148,7 +148,10 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
                   namedIdTokenSource.idTokenSource,
                   config.getHttpClient())
               .audience(config.getTokenAudience())
-              .accountId(config.isAccountClient() ? config.getAccountId() : null)
+              .accountId(
+                  config.getHostType() != DatabricksConfig.HostType.WORKSPACE_HOST
+                      ? config.getAccountId()
+                      : null)
               .scopes(config.getScopes())
               .build();
 

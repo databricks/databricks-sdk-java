@@ -1115,6 +1115,9 @@ public class AccountClient {
         this.config.getDatabricksEnvironment().getDeploymentUrl(workspace.getDeploymentName());
     DatabricksConfig config = this.config.newWithWorkspaceHost(host);
     AzureUtils.getAzureWorkspaceResourceId(workspace).map(config::setAzureWorkspaceResourceId);
+    if (workspace.getWorkspaceId() != null) {
+      config.setWorkspaceId(String.valueOf(workspace.getWorkspaceId()));
+    }
     return new WorkspaceClient(config);
   }
 }

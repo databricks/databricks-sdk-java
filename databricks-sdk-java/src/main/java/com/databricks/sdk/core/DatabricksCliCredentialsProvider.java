@@ -29,7 +29,7 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
     }
     List<String> cmd =
         new ArrayList<>(Arrays.asList(cliPath, "auth", "token", "--host", config.getHost()));
-    if (config.isAccountClient()) {
+    if (config.getHostType() != DatabricksConfig.HostType.WORKSPACE_HOST) {
       cmd.add("--account-id");
       cmd.add(config.getAccountId());
     }
