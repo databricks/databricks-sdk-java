@@ -40,6 +40,8 @@ public class ApiClient {
     private Integer debugTruncateBytes;
     private HttpClient httpClient;
     private String accountId;
+    private String workspaceId;
+    private DatabricksConfig.HostType hostType;
     private RetryStrategyPicker retryStrategyPicker;
     private boolean isDebugHeaders;
 
@@ -50,6 +52,8 @@ public class ApiClient {
       this.httpClient = config.getHttpClient();
       this.debugTruncateBytes = config.getDebugTruncateBytes();
       this.accountId = config.getAccountId();
+      this.workspaceId = config.getWorkspaceId();
+      this.hostType = config.getHostType();
       this.isDebugHeaders = config.isDebugHeaders();
 
       if (config.getDisableRetries()) {
@@ -112,6 +116,8 @@ public class ApiClient {
   private final Function<Void, String> getHostFunc;
   private final Function<Void, String> getAuthTypeFunc;
   private final String accountId;
+  private final String workspaceId;
+  private final DatabricksConfig.HostType hostType;
   private final boolean isDebugHeaders;
   private static final String RETRY_AFTER_HEADER = "retry-after";
 
@@ -141,6 +147,8 @@ public class ApiClient {
     this.getAuthTypeFunc = builder.getAuthTypeFunc != null ? builder.getAuthTypeFunc : v -> "";
     this.httpClient = builder.httpClient;
     this.accountId = builder.accountId;
+    this.workspaceId = builder.workspaceId;
+    this.hostType = builder.hostType;
     this.retryStrategyPicker =
         builder.retryStrategyPicker != null
             ? builder.retryStrategyPicker
@@ -239,6 +247,16 @@ public class ApiClient {
         userAgent += String.format(" auth/%s", authType);
       }
       in.withHeader("User-Agent", userAgent);
+
+      // Unified hosts use X-Databricks-Org-Id header to determine which workspace to route the
+      // request to. The header must not be set for account-level API requests, otherwise the
+      // request will fail. This relies on the assumption that workspaceId is only set for
+      // workspace client configs.
+      if (hostType == DatabricksConfig.HostType.UNIFIED_HOST
+          && workspaceId != null
+          && !workspaceId.isEmpty()) {
+        in.withHeader("X-Databricks-Org-Id", workspaceId);
+      }
 
       options.applyOptions(in);
 

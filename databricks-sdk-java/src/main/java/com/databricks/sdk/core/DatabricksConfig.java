@@ -19,6 +19,28 @@ import java.util.*;
 import org.apache.http.HttpMessage;
 
 public class DatabricksConfig {
+  /** HostType represents the type of API the configured host supports. */
+  public enum HostType {
+    /** WorkspaceHost supports only workspace-level APIs. */
+    WORKSPACE_HOST,
+    /** AccountHost supports only account-level APIs. */
+    ACCOUNT_HOST,
+    /** UnifiedHost supports both workspace-level and account-level APIs. */
+    UNIFIED_HOST
+  }
+
+  /** ConfigType represents the type of API this config is valid for. */
+  public enum ConfigType {
+    /** WorkspaceConfig is valid for workspace-level API requests. */
+    WORKSPACE_CONFIG,
+    /** AccountConfig is valid for account-level API requests. */
+    ACCOUNT_CONFIG,
+    /**
+     * InvalidConfig is returned when the config is not valid for either workspace-level or
+     * account-level APIs.
+     */
+    INVALID_CONFIG
+  }
   private CredentialsProvider credentialsProvider = new DefaultCredentialsProvider();
 
   @ConfigAttribute(env = "DATABRICKS_HOST")
@@ -26,6 +48,14 @@ public class DatabricksConfig {
 
   @ConfigAttribute(env = "DATABRICKS_ACCOUNT_ID")
   private String accountId;
+
+  /** Databricks Workspace ID for Workspace clients when working with unified hosts. */
+  @ConfigAttribute(env = "DATABRICKS_WORKSPACE_ID")
+  private String workspaceId;
+
+  /** Marker for unified hosts. Will be redundant once we can recognize unified hosts by their hostname. */
+  @ConfigAttribute(env = "DATABRICKS_EXPERIMENTAL_IS_UNIFIED_HOST")
+  private Boolean experimentalIsUnifiedHost;
 
   @ConfigAttribute(env = "DATABRICKS_TOKEN", auth = "pat", sensitive = true)
   private String token;
@@ -287,6 +317,24 @@ public class DatabricksConfig {
 
   public DatabricksConfig setAccountId(String accountId) {
     this.accountId = accountId;
+    return this;
+  }
+
+  public String getWorkspaceId() {
+    return workspaceId;
+  }
+
+  public DatabricksConfig setWorkspaceId(String workspaceId) {
+    this.workspaceId = workspaceId;
+    return this;
+  }
+
+  public boolean getExperimentalIsUnifiedHost() {
+    return experimentalIsUnifiedHost != null && experimentalIsUnifiedHost;
+  }
+
+  public DatabricksConfig setExperimentalIsUnifiedHost(boolean experimentalIsUnifiedHost) {
+    this.experimentalIsUnifiedHost = experimentalIsUnifiedHost;
     return this;
   }
 
@@ -670,11 +718,65 @@ public class DatabricksConfig {
     return this.getDatabricksEnvironment().getCloud() == Cloud.AWS;
   }
 
+  /**
+   * Returns true if client is configured for Accounts API. Panics if the config has the unified
+   * host flag set.
+   *
+   * @deprecated Use {@link #getHostType()} if possible, or {@link #getConfigType()} if necessary.
+   */
+  @Deprecated
   public boolean isAccountClient() {
+    if (getExperimentalIsUnifiedHost()) {
+      throw new IllegalStateException(
+          "isAccountClient cannot be used with unified hosts; use getHostType() instead");
+    }
     if (host == null) {
       return false;
     }
     return host.startsWith("https://accounts.") || host.startsWith("https://accounts-dod.");
+  }
+
+  /** Returns the type of host that the client is configured for. */
+  public HostType getHostType() {
+    if (getExperimentalIsUnifiedHost()) {
+      return HostType.UNIFIED_HOST;
+    }
+
+    if (host == null) {
+      return HostType.WORKSPACE_HOST;
+    }
+
+    if (host.startsWith("https://accounts.") || host.startsWith("https://accounts-dod.")) {
+      return HostType.ACCOUNT_HOST;
+    }
+
+    return HostType.WORKSPACE_HOST;
+  }
+
+  /**
+   * Returns the type of config that the client is configured for. Returns InvalidConfig if the
+   * config is invalid. Use of this method should be avoided where possible, because we plan to
+   * remove WorkspaceClient and AccountClient in favor of a single unified client in the future.
+   */
+  public ConfigType getConfigType() {
+    HostType hostType = getHostType();
+    switch (hostType) {
+      case ACCOUNT_HOST:
+        return ConfigType.ACCOUNT_CONFIG;
+      case WORKSPACE_HOST:
+        return ConfigType.WORKSPACE_CONFIG;
+      case UNIFIED_HOST:
+        if (accountId == null || accountId.isEmpty()) {
+          // All unified host configs must have an account ID
+          return ConfigType.INVALID_CONFIG;
+        }
+        if (workspaceId != null && !workspaceId.isEmpty()) {
+          return ConfigType.WORKSPACE_CONFIG;
+        }
+        return ConfigType.ACCOUNT_CONFIG;
+      default:
+        return ConfigType.INVALID_CONFIG;
+    }
   }
 
   public OpenIDConnectEndpoints getOidcEndpoints() throws IOException {
@@ -712,23 +814,49 @@ public class DatabricksConfig {
       return new OpenIDConnectEndpoints(
           realAuthUrl.replaceAll("/authorize", "/token"), realAuthUrl);
     }
-    if (isAccountClient() && getAccountId() != null) {
-      String prefix = getHost() + "/oidc/accounts/" + getAccountId();
-      return new OpenIDConnectEndpoints(prefix + "/v1/token", prefix + "/v1/authorize");
-    }
 
-    ApiClient apiClient =
-        new ApiClient.Builder()
-            .withHttpClient(getHttpClient())
-            .withGetHostFunc(v -> getHost())
-            .build();
-    try {
-      return apiClient.execute(
-          new Request("GET", "/oidc/.well-known/oauth-authorization-server"),
-          OpenIDConnectEndpoints.class);
-    } catch (IOException e) {
-      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    HostType hostType = getHostType();
+    switch (hostType) {
+      case ACCOUNT_HOST:
+        if (getAccountId() != null) {
+          String prefix = getHost() + "/oidc/accounts/" + getAccountId();
+          return new OpenIDConnectEndpoints(prefix + "/v1/token", prefix + "/v1/authorize");
+        }
+        break;
+      case UNIFIED_HOST:
+        if (getAccountId() != null) {
+          ApiClient apiClient =
+              new ApiClient.Builder()
+                  .withHttpClient(getHttpClient())
+                  .withGetHostFunc(v -> getHost())
+                  .build();
+          try {
+            String discoveryPath =
+                "/oidc/accounts/" + getAccountId() + "/.well-known/oauth-authorization-server";
+            return apiClient.execute(
+                new Request("GET", discoveryPath), OpenIDConnectEndpoints.class);
+          } catch (IOException e) {
+            throw new DatabricksException("IO error: " + e.getMessage(), e);
+          }
+        }
+        break;
+      case WORKSPACE_HOST:
+        ApiClient apiClient =
+            new ApiClient.Builder()
+                .withHttpClient(getHttpClient())
+                .withGetHostFunc(v -> getHost())
+                .build();
+        try {
+          return apiClient.execute(
+              new Request("GET", "/oidc/.well-known/oauth-authorization-server"),
+              OpenIDConnectEndpoints.class);
+        } catch (IOException e) {
+          throw new DatabricksException("IO error: " + e.getMessage(), e);
+        }
+      default:
+        break;
     }
+    return null;
   }
 
   @Override
@@ -795,9 +923,10 @@ public class DatabricksConfig {
             Arrays.asList(
                 // The config for WorkspaceClient has a different host and Azure Workspace resource
                 // ID, and also omits
-                // the account ID.
+                // the account ID and workspace ID.
                 "host",
                 "accountId",
+                "workspaceId",
                 "azureWorkspaceResourceId",
                 // For cloud-native OAuth, we need to reauthenticate as the audience has changed, so
                 // don't cache the

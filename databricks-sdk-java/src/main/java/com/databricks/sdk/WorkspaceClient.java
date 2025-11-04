@@ -389,6 +389,19 @@ public class WorkspaceClient {
 
   public WorkspaceClient(DatabricksConfig config) {
     this.config = config;
+
+    // Validate configuration for WorkspaceClient
+    DatabricksConfig.HostType hostType = config.getHostType();
+    if (hostType == DatabricksConfig.HostType.ACCOUNT_HOST) {
+      throw new IllegalArgumentException(
+          "Invalid Databricks Workspace configuration - host is not a workspace host");
+    }
+    if (hostType == DatabricksConfig.HostType.UNIFIED_HOST
+        && (config.getWorkspaceId() == null || config.getWorkspaceId().isEmpty())) {
+      throw new IllegalArgumentException(
+          "WorkspaceId must be set when using WorkspaceClient with unified host");
+    }
+
     apiClient = new ApiClient(config);
     accessControlAPI = new AccessControlAPI(apiClient);
     accountAccessControlProxyAPI = new AccountAccessControlProxyAPI(apiClient);
