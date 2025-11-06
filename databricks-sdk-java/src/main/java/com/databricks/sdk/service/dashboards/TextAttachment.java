@@ -17,6 +17,10 @@ public class TextAttachment {
   @JsonProperty("id")
   private String id;
 
+  /** Purpose/intent of this text attachment */
+  @JsonProperty("purpose")
+  private TextAttachmentPurpose purpose;
+
   public TextAttachment setContent(String content) {
     this.content = content;
     return this;
@@ -35,21 +39,36 @@ public class TextAttachment {
     return id;
   }
 
+  public TextAttachment setPurpose(TextAttachmentPurpose purpose) {
+    this.purpose = purpose;
+    return this;
+  }
+
+  public TextAttachmentPurpose getPurpose() {
+    return purpose;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     TextAttachment that = (TextAttachment) o;
-    return Objects.equals(content, that.content) && Objects.equals(id, that.id);
+    return Objects.equals(content, that.content)
+        && Objects.equals(id, that.id)
+        && Objects.equals(purpose, that.purpose);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(content, id);
+    return Objects.hash(content, id, purpose);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(TextAttachment.class).add("content", content).add("id", id).toString();
+    return new ToStringer(TextAttachment.class)
+        .add("content", content)
+        .add("id", id)
+        .add("purpose", purpose)
+        .toString();
   }
 }

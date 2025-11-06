@@ -4,19 +4,19 @@ package com.databricks.sdk.service.pipelines;
 import com.databricks.sdk.support.Generated;
 
 /**
- * The Delta Live Tables API allows you to create, edit, delete, start, and view details about
- * pipelines.
+ * The Lakeflow Spark Declarative Pipelines API allows you to create, edit, delete, start, and view
+ * details about pipelines.
  *
- * <p>Delta Live Tables is a framework for building reliable, maintainable, and testable data
- * processing pipelines. You define the transformations to perform on your data, and Delta Live
- * Tables manages task orchestration, cluster management, monitoring, data quality, and error
- * handling.
+ * <p>Spark Declarative Pipelines is a framework for building reliable, maintainable, and testable
+ * data processing pipelines. You define the transformations to perform on your data, and Spark
+ * Declarative Pipelines manages task orchestration, cluster management, monitoring, data quality,
+ * and error handling.
  *
- * <p>Instead of defining your data pipelines using a series of separate Apache Spark tasks, Delta
- * Live Tables manages how your data is transformed based on a target schema you define for each
- * processing step. You can also enforce data quality with Delta Live Tables expectations.
- * Expectations allow you to define expected data quality and specify how to handle records that
- * fail those expectations.
+ * <p>Instead of defining your data pipelines using a series of separate Apache Spark tasks, Spark
+ * Declarative Pipelines manages how your data is transformed based on a target schema you define
+ * for each processing step. You can also enforce data quality with Spark Declarative Pipelines
+ * expectations. Expectations allow you to define expected data quality and specify how to handle
+ * records that fail those expectations.
  *
  * <p>This is the high-level interface, that contains generated methods.
  *
@@ -55,7 +55,7 @@ public interface PipelinesService {
   ListPipelineEventsResponse listPipelineEvents(
       ListPipelineEventsRequest listPipelineEventsRequest);
 
-  /** Lists pipelines defined in the Delta Live Tables system. */
+  /** Lists pipelines defined in the Spark Declarative Pipelines system. */
   ListPipelinesResponse listPipelines(ListPipelinesRequest listPipelinesRequest);
 
   /** List updates for an active pipeline. */
