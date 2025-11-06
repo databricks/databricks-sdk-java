@@ -4,7 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** Latest kind: CONNECTION_AWS_SECRETS_MANAGER = 270; Next id:271 */
+/** Latest kind: CONNECTION_POSTGRESQL_AWS_SERVICE_CRED = 271; Next id:272 */
 @Generated
 public enum SecurableKind {
   TABLE_DB_STORAGE,
