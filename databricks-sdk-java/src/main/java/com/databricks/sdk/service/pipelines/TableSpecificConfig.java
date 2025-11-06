@@ -49,8 +49,8 @@ public class TableSpecificConfig {
   private TableSpecificConfigScdType scdType;
 
   /**
-   * The column names specifying the logical order of events in the source data. Delta Live Tables
-   * uses this sequencing to handle change events that arrive out of order.
+   * The column names specifying the logical order of events in the source data. Spark Declarative
+   * Pipelines uses this sequencing to handle change events that arrive out of order.
    */
   @JsonProperty("sequence_by")
   private Collection<String> sequenceBy;

@@ -96,6 +96,10 @@ public class FunctionsAPI {
    * reached.
    */
   public Iterable<FunctionInfo> list(ListFunctionsRequest request) {
+
+    if (request.getMaxResults() == null) {
+      request.setMaxResults(0L);
+    }
     return new Paginator<>(
         request,
         impl::list,

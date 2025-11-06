@@ -11,7 +11,7 @@ import com.databricks.sdk.support.Generated;
  * multi-task workflow with complex dependencies. Databricks manages the task orchestration, cluster
  * management, monitoring, and error reporting for all of your jobs. You can run your jobs
  * immediately or periodically through an easy-to-use scheduling system. You can implement job tasks
- * using notebooks, JARS, Delta Live Tables pipelines, or Python, Scala, Spark submit, and Java
+ * using notebooks, JARS, Spark Declarative Pipelines, or Python, Scala, Spark submit, and Java
  * applications.
  *
  * <p>You should never hard code secrets or store them in plain text. Use the [Secrets CLI] to
