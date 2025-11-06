@@ -95,6 +95,10 @@ public class MetastoresAPI {
    * reached.
    */
   public Iterable<MetastoreInfo> list(ListMetastoresRequest request) {
+
+    if (request.getMaxResults() == null) {
+      request.setMaxResults(0L);
+    }
     return new Paginator<>(
         request,
         impl::list,

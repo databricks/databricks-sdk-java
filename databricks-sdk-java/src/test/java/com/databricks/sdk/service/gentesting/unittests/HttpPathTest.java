@@ -15,6 +15,7 @@ import com.databricks.sdk.service.httpcallv2.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.protobuf.FieldMask;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
@@ -173,7 +174,10 @@ public class HttpPathTest {
                         .setQueryParamString("query_string_val")
                         .setQueryParamInt(999L)
                         .setQueryParamBool(true)
-                        .setFieldMask("field.mask.value"));
+                        .setFieldMask(
+                            FieldMask.newBuilder()
+                                .addAllPaths(Arrays.asList("field.mask.value".split(", ")))
+                                .build()));
               } catch (Exception e) {
                 throw new RuntimeException(e);
               }
@@ -353,7 +357,10 @@ public class HttpPathTest {
                         .setQueryParamString("query_string_val")
                         .setQueryParamInt(999L)
                         .setQueryParamBool(true)
-                        .setFieldMask("field.mask.value"));
+                        .setFieldMask(
+                            FieldMask.newBuilder()
+                                .addAllPaths(Arrays.asList("field.mask.value".split(", ")))
+                                .build()));
               } catch (Exception e) {
                 throw new RuntimeException(e);
               }
