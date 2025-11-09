@@ -256,6 +256,9 @@ public class ApiClient {
         databricksError = ApiErrors.getDatabricksError(response);
       } catch (IOException e) {
         LOG.debug("Request {} failed", in, e);
+        // TODO: This is necesarry for backward compatibility as the code used
+        // to allow retries on IO errors. However, it is not clear if this is
+        // something we should continue to support.
         databricksError = new DatabricksError("IO_ERROR", 523, e);
         response = null;
       }
@@ -269,7 +272,7 @@ public class ApiClient {
       }
 
       // Retry after a backoff.
-      long sleepMillis = response != null ? getBackoffMillis(response, attemptNumber) : 1000;
+      long sleepMillis = getBackoffMillis(response, attemptNumber);
       LOG.debug(
           String.format("Retry %s in %dms", in.getRequestLine(), sleepMillis), databricksError);
       try {
