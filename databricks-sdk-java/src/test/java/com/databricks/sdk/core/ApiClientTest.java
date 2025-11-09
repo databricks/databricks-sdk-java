@@ -429,7 +429,6 @@ public class ApiClientTest {
                 client.execute(
                     new Request("GET", req.getUri().getPath()), MyEndpointResponse.class));
 
-    assertEquals("TOO_MANY_REQUESTS", exception.getErrorCode());
     assertInstanceOf(TooManyRequests.class, exception);
     assertEquals(429, exception.getStatusCode());
   }

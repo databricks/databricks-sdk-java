@@ -68,7 +68,7 @@ public class ApiErrors {
     // SCIM error handling.
     //
     // TODO: This code is brittle and should likely be refactored to a more
-    // robust solution to detect SCIM errors. This will likely involve 
+    // robust solution to detect SCIM errors. This will likely involve
     // parsing the SCIM error at the API call level rather than normalizing.
     if (Strings.isNullOrEmpty(errorBody.getScimDetail())) {
       return;
