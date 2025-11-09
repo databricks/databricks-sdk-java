@@ -239,25 +239,27 @@ public class ApiClient {
       options.applyOptions(in);
 
       Response response;
+      DatabricksError databricksError;
+      
       try {
         response = httpClient.execute(in);
         if (LOG.isDebugEnabled()) {
           LOG.debug(makeLogRecord(in, response));
         }
+        
+        if (isResponseSuccessful(response)) {
+          return response; // stop here if the request succeeded
+        }
+        
+        // The request did not succeed. Though, some errors are retriable and
+        // should be retried with exponential backoff.
+        databricksError = ApiErrors.getDatabricksError(response);
       } catch (IOException e) {
         LOG.debug("Request {} failed", in, e);
-        // TODO: Evaluate whether this is actually the right thing to do
-        // compared to propagating the exception "as is".
-        throw new DatabricksError("IO_ERROR", 523, e);
+        databricksError = new DatabricksError("IO_ERROR", 523, e);
+        response = null;
       }
 
-      if (isResponseSuccessful(response)) {
-        return response; // stop here if the request succeeded
-      }
-
-      // The request did not succeed. Though, some errors are retriable and
-      // should be retried with exponential backoff.
-      DatabricksError databricksError = ApiErrors.getDatabricksError(response);
       if (!retryStrategy.isRetriable(databricksError)) {
         throw databricksError;
       }
@@ -267,7 +269,7 @@ public class ApiClient {
       }
 
       // Retry after a backoff.
-      long sleepMillis = getBackoffMillis(response, attemptNumber);
+      long sleepMillis = response != null ? getBackoffMillis(response, attemptNumber) : 1000;
       LOG.debug(
           String.format("Retry %s in %dms", in.getRequestLine(), sleepMillis), databricksError);
       try {
