@@ -240,17 +240,17 @@ public class ApiClient {
 
       Response response;
       DatabricksError databricksError;
-      
+
       try {
         response = httpClient.execute(in);
         if (LOG.isDebugEnabled()) {
           LOG.debug(makeLogRecord(in, response));
         }
-        
+
         if (isResponseSuccessful(response)) {
           return response; // stop here if the request succeeded
         }
-        
+
         // The request did not succeed. Though, some errors are retriable and
         // should be retried with exponential backoff.
         databricksError = ApiErrors.getDatabricksError(response);
