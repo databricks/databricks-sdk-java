@@ -21,6 +21,7 @@ class ConsumerProvidersImpl implements ConsumerProvidersService {
     String path = "/api/2.1/marketplace-consumer/providers:batchGet";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, BatchGetProvidersResponse.class);
@@ -34,6 +35,7 @@ class ConsumerProvidersImpl implements ConsumerProvidersService {
     String path = String.format("/api/2.1/marketplace-consumer/providers/%s", request.getId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetProviderResponse.class);
@@ -47,6 +49,7 @@ class ConsumerProvidersImpl implements ConsumerProvidersService {
     String path = "/api/2.1/marketplace-consumer/providers";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListProvidersResponse.class);

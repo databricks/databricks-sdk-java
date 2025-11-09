@@ -59,8 +59,8 @@ public interface RecipientsService {
   RecipientInfo rotateToken(RotateRecipientToken rotateRecipientToken);
 
   /**
-   * Gets the share permissions for the specified Recipient. The caller must be a metastore admin or
-   * the owner of the Recipient.
+   * Gets the share permissions for the specified Recipient. The caller must have the USE_RECIPIENT
+   * privilege on the metastore or be the owner of the Recipient.
    */
   GetRecipientSharePermissionsResponse sharePermissions(
       SharePermissionsRequest sharePermissionsRequest);

@@ -24,6 +24,7 @@ class RecipientActivationImpl implements RecipientActivationService {
             request.getActivationUrl());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -39,6 +40,7 @@ class RecipientActivationImpl implements RecipientActivationService {
             "/api/2.1/unity-catalog/public/data_sharing_activation/%s", request.getActivationUrl());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, RetrieveTokenResponse.class);

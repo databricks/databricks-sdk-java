@@ -6,6 +6,7 @@ import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
 import java.io.IOException;
+import java.util.UUID;
 
 /** Package-local implementation of Database */
 @Generated
@@ -21,6 +22,7 @@ class DatabaseImpl implements DatabaseService {
     String path = "/api/2.0/database/catalogs";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request.getCatalog()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -35,6 +37,7 @@ class DatabaseImpl implements DatabaseService {
     String path = "/api/2.0/database/instances";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request.getDatabaseInstance()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -51,6 +54,7 @@ class DatabaseImpl implements DatabaseService {
     try {
       Request req =
           new Request("POST", path, apiClient.serialize(request.getDatabaseInstanceRole()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -65,6 +69,7 @@ class DatabaseImpl implements DatabaseService {
     String path = "/api/2.0/database/tables";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request.getTable()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -79,6 +84,7 @@ class DatabaseImpl implements DatabaseService {
     String path = "/api/2.0/database/synced_tables";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request.getSyncedTable()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -93,6 +99,7 @@ class DatabaseImpl implements DatabaseService {
     String path = String.format("/api/2.0/database/catalogs/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -106,6 +113,7 @@ class DatabaseImpl implements DatabaseService {
     String path = String.format("/api/2.0/database/instances/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -122,6 +130,7 @@ class DatabaseImpl implements DatabaseService {
             request.getInstanceName(), request.getName());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -135,6 +144,7 @@ class DatabaseImpl implements DatabaseService {
     String path = String.format("/api/2.0/database/tables/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -148,6 +158,7 @@ class DatabaseImpl implements DatabaseService {
     String path = String.format("/api/2.0/database/synced_tables/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -161,6 +172,7 @@ class DatabaseImpl implements DatabaseService {
     String path = "/api/2.0/database/instances:findByUid";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, DatabaseInstance.class);
@@ -174,6 +186,10 @@ class DatabaseImpl implements DatabaseService {
     String path = "/api/2.0/database/credentials";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
+      if (request.getRequestId() == null || request.getRequestId().isEmpty()) {
+        request.setRequestId(UUID.randomUUID().toString());
+      }
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -188,6 +204,7 @@ class DatabaseImpl implements DatabaseService {
     String path = String.format("/api/2.0/database/catalogs/%s", request.getName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, DatabaseCatalog.class);
@@ -201,6 +218,7 @@ class DatabaseImpl implements DatabaseService {
     String path = String.format("/api/2.0/database/instances/%s", request.getName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, DatabaseInstance.class);
@@ -217,6 +235,7 @@ class DatabaseImpl implements DatabaseService {
             request.getInstanceName(), request.getName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, DatabaseInstanceRole.class);
@@ -230,6 +249,7 @@ class DatabaseImpl implements DatabaseService {
     String path = String.format("/api/2.0/database/tables/%s", request.getName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, DatabaseTable.class);
@@ -243,6 +263,7 @@ class DatabaseImpl implements DatabaseService {
     String path = String.format("/api/2.0/database/synced_tables/%s", request.getName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, SyncedDatabaseTable.class);
@@ -257,6 +278,7 @@ class DatabaseImpl implements DatabaseService {
         String.format("/api/2.0/database/instances/%s/catalogs", request.getInstanceName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListDatabaseCatalogsResponse.class);
@@ -271,6 +293,7 @@ class DatabaseImpl implements DatabaseService {
     String path = String.format("/api/2.0/database/instances/%s/roles", request.getInstanceName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListDatabaseInstanceRolesResponse.class);
@@ -284,6 +307,7 @@ class DatabaseImpl implements DatabaseService {
     String path = "/api/2.0/database/instances";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListDatabaseInstancesResponse.class);
@@ -299,6 +323,7 @@ class DatabaseImpl implements DatabaseService {
         String.format("/api/2.0/database/instances/%s/synced_tables", request.getInstanceName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListSyncedDatabaseTablesResponse.class);
@@ -312,6 +337,7 @@ class DatabaseImpl implements DatabaseService {
     String path = String.format("/api/2.0/database/catalogs/%s", request.getName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getDatabaseCatalog()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -326,6 +352,7 @@ class DatabaseImpl implements DatabaseService {
     String path = String.format("/api/2.0/database/instances/%s", request.getName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getDatabaseInstance()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -340,6 +367,7 @@ class DatabaseImpl implements DatabaseService {
     String path = String.format("/api/2.0/database/synced_tables/%s", request.getName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getSyncedTable()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

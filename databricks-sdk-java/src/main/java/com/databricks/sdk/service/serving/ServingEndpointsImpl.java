@@ -24,6 +24,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
             request.getName(), request.getServedModelName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, BuildLogsResponse.class);
@@ -37,6 +38,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     String path = "/api/2.0/serving-endpoints";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -52,6 +54,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     String path = "/api/2.0/serving-endpoints/pt";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -66,6 +69,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     String path = String.format("/api/2.0/serving-endpoints/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
@@ -78,6 +82,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     String path = String.format("/api/2.0/serving-endpoints/%s/metrics", request.getName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "text/plain");
       return apiClient.execute(req, ExportMetricsResponse.class);
@@ -91,6 +96,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     String path = String.format("/api/2.0/serving-endpoints/%s", request.getName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ServingEndpointDetailed.class);
@@ -104,6 +110,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     String path = String.format("/api/2.0/serving-endpoints/%s/openapi", request.getName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "text/plain");
       return apiClient.execute(req, GetOpenApiResponse.class);
@@ -121,6 +128,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
             request.getServingEndpointId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetServingEndpointPermissionLevelsResponse.class);
@@ -135,6 +143,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
         String.format("/api/2.0/permissions/serving-endpoints/%s", request.getServingEndpointId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ServingEndpointPermissions.class);
@@ -148,6 +157,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     String path = "/api/2.0/external-function";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "text/plain");
       req.withHeader("Content-Type", "application/json");
@@ -162,6 +172,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     String path = "/api/2.0/serving-endpoints";
     try {
       Request req = new Request("GET", path);
+
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListEndpointsResponse.class);
     } catch (IOException e) {
@@ -177,6 +188,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
             request.getName(), request.getServedModelName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ServerLogsResponse.class);
@@ -190,6 +202,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     String path = String.format("/api/2.0/serving-endpoints/%s/tags", request.getName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -204,6 +217,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     String path = String.format("/api/2.0/serving-endpoints/%s/rate-limits", request.getName());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -218,6 +232,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     String path = String.format("/api/2.0/serving-endpoints/%s/ai-gateway", request.getName());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -232,6 +247,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     String path = String.format("/serving-endpoints/%s/invocations", request.getName());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -247,6 +263,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
         String.format("/api/2.0/permissions/serving-endpoints/%s", request.getServingEndpointId());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -261,6 +278,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     String path = String.format("/api/2.0/serving-endpoints/%s/config", request.getName());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -276,6 +294,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     String path = String.format("/api/2.0/serving-endpoints/%s/notifications", request.getName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -291,6 +310,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
         String.format("/api/2.0/permissions/serving-endpoints/%s", request.getServingEndpointId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -306,6 +326,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     String path = String.format("/api/2.0/serving-endpoints/pt/%s/config", request.getName());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

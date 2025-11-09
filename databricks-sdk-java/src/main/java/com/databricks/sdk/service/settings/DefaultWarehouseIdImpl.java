@@ -21,6 +21,7 @@ class DefaultWarehouseIdImpl implements DefaultWarehouseIdService {
     String path = "/api/2.0/settings/types/default_warehouse_id/names/default";
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, DeleteDefaultWarehouseIdResponse.class);
@@ -34,6 +35,7 @@ class DefaultWarehouseIdImpl implements DefaultWarehouseIdService {
     String path = "/api/2.0/settings/types/default_warehouse_id/names/default";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, DefaultWarehouseId.class);
@@ -47,6 +49,7 @@ class DefaultWarehouseIdImpl implements DefaultWarehouseIdService {
     String path = "/api/2.0/settings/types/default_warehouse_id/names/default";
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

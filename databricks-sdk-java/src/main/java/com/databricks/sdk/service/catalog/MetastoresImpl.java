@@ -22,6 +22,7 @@ class MetastoresImpl implements MetastoresService {
         String.format("/api/2.1/unity-catalog/workspaces/%s/metastore", request.getWorkspaceId());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -36,6 +37,7 @@ class MetastoresImpl implements MetastoresService {
     String path = "/api/2.1/unity-catalog/metastores";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -50,6 +52,7 @@ class MetastoresImpl implements MetastoresService {
     String path = "/api/2.1/unity-catalog/current-metastore-assignment";
     try {
       Request req = new Request("GET", path);
+
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, MetastoreAssignment.class);
     } catch (IOException e) {
@@ -62,6 +65,7 @@ class MetastoresImpl implements MetastoresService {
     String path = String.format("/api/2.1/unity-catalog/metastores/%s", request.getId());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -75,6 +79,7 @@ class MetastoresImpl implements MetastoresService {
     String path = String.format("/api/2.1/unity-catalog/metastores/%s", request.getId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, MetastoreInfo.class);
@@ -88,6 +93,7 @@ class MetastoresImpl implements MetastoresService {
     String path = "/api/2.1/unity-catalog/metastores";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListMetastoresResponse.class);
@@ -101,6 +107,7 @@ class MetastoresImpl implements MetastoresService {
     String path = "/api/2.1/unity-catalog/metastore_summary";
     try {
       Request req = new Request("GET", path);
+
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetMetastoreSummaryResponse.class);
     } catch (IOException e) {
@@ -114,6 +121,7 @@ class MetastoresImpl implements MetastoresService {
         String.format("/api/2.1/unity-catalog/workspaces/%s/metastore", request.getWorkspaceId());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -127,6 +135,7 @@ class MetastoresImpl implements MetastoresService {
     String path = String.format("/api/2.1/unity-catalog/metastores/%s", request.getId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -142,6 +151,7 @@ class MetastoresImpl implements MetastoresService {
         String.format("/api/2.1/unity-catalog/workspaces/%s/metastore", request.getWorkspaceId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

@@ -24,6 +24,7 @@ class LakeviewEmbeddedImpl implements LakeviewEmbeddedService {
             "/api/2.0/lakeview/dashboards/%s/published/tokeninfo", request.getDashboardId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetPublishedDashboardTokenInfoResponse.class);

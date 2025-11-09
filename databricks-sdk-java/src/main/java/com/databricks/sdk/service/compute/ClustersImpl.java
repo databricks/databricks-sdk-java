@@ -21,6 +21,7 @@ class ClustersImpl implements ClustersService {
     String path = "/api/2.1/clusters/change-owner";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -35,6 +36,7 @@ class ClustersImpl implements ClustersService {
     String path = "/api/2.1/clusters/create";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -49,6 +51,7 @@ class ClustersImpl implements ClustersService {
     String path = "/api/2.1/clusters/delete";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -63,6 +66,7 @@ class ClustersImpl implements ClustersService {
     String path = "/api/2.1/clusters/edit";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -77,6 +81,7 @@ class ClustersImpl implements ClustersService {
     String path = "/api/2.1/clusters/events";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -91,6 +96,7 @@ class ClustersImpl implements ClustersService {
     String path = "/api/2.1/clusters/get";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ClusterDetails.class);
@@ -106,6 +112,7 @@ class ClustersImpl implements ClustersService {
         String.format("/api/2.0/permissions/clusters/%s/permissionLevels", request.getClusterId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetClusterPermissionLevelsResponse.class);
@@ -119,6 +126,7 @@ class ClustersImpl implements ClustersService {
     String path = String.format("/api/2.0/permissions/clusters/%s", request.getClusterId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ClusterPermissions.class);
@@ -132,6 +140,7 @@ class ClustersImpl implements ClustersService {
     String path = "/api/2.1/clusters/list";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListClustersResponse.class);
@@ -145,6 +154,7 @@ class ClustersImpl implements ClustersService {
     String path = "/api/2.1/clusters/list-node-types";
     try {
       Request req = new Request("GET", path);
+
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListNodeTypesResponse.class);
     } catch (IOException e) {
@@ -157,6 +167,7 @@ class ClustersImpl implements ClustersService {
     String path = "/api/2.1/clusters/list-zones";
     try {
       Request req = new Request("GET", path);
+
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListAvailableZonesResponse.class);
     } catch (IOException e) {
@@ -169,6 +180,7 @@ class ClustersImpl implements ClustersService {
     String path = "/api/2.1/clusters/permanent-delete";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -183,6 +195,7 @@ class ClustersImpl implements ClustersService {
     String path = "/api/2.1/clusters/pin";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -197,6 +210,7 @@ class ClustersImpl implements ClustersService {
     String path = "/api/2.1/clusters/resize";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -211,6 +225,7 @@ class ClustersImpl implements ClustersService {
     String path = "/api/2.1/clusters/restart";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -225,6 +240,7 @@ class ClustersImpl implements ClustersService {
     String path = String.format("/api/2.0/permissions/clusters/%s", request.getClusterId());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -239,6 +255,7 @@ class ClustersImpl implements ClustersService {
     String path = "/api/2.1/clusters/spark-versions";
     try {
       Request req = new Request("GET", path);
+
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetSparkVersionsResponse.class);
     } catch (IOException e) {
@@ -251,6 +268,7 @@ class ClustersImpl implements ClustersService {
     String path = "/api/2.1/clusters/start";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -265,6 +283,7 @@ class ClustersImpl implements ClustersService {
     String path = "/api/2.1/clusters/unpin";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -279,6 +298,7 @@ class ClustersImpl implements ClustersService {
     String path = "/api/2.1/clusters/update";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -293,6 +313,7 @@ class ClustersImpl implements ClustersService {
     String path = String.format("/api/2.0/permissions/clusters/%s", request.getClusterId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

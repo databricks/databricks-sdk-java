@@ -57,6 +57,10 @@ public interface VolumesService {
    * parent catalog and the **USE_SCHEMA** privilege on the parent schema.
    *
    * <p>There is no guarantee of a specific ordering of the elements in the array.
+   *
+   * <p>PAGINATION BEHAVIOR: The API is by default paginated, a page may contain zero results while
+   * still providing a next_page_token. Clients must continue reading pages until next_page_token is
+   * absent, which is the only indication that the end of results has been reached.
    */
   ListVolumesResponseContent list(ListVolumesRequest listVolumesRequest);
 

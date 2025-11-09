@@ -21,6 +21,7 @@ class ConsumerListingsImpl implements ConsumerListingsService {
     String path = "/api/2.1/marketplace-consumer/listings:batchGet";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, BatchGetListingsResponse.class);
@@ -34,6 +35,7 @@ class ConsumerListingsImpl implements ConsumerListingsService {
     String path = String.format("/api/2.1/marketplace-consumer/listings/%s", request.getId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetListingResponse.class);
@@ -47,6 +49,7 @@ class ConsumerListingsImpl implements ConsumerListingsService {
     String path = "/api/2.1/marketplace-consumer/listings";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListListingsResponse.class);
@@ -60,6 +63,7 @@ class ConsumerListingsImpl implements ConsumerListingsService {
     String path = "/api/2.1/marketplace-consumer/search-listings";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, SearchListingsResponse.class);

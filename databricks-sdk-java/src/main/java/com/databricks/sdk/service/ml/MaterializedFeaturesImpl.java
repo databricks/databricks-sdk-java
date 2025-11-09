@@ -24,6 +24,7 @@ class MaterializedFeaturesImpl implements MaterializedFeaturesService {
             request.getTableName(), request.getFeatureName());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request.getFeatureTag()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -41,6 +42,7 @@ class MaterializedFeaturesImpl implements MaterializedFeaturesService {
             request.getTableName(), request.getFeatureName(), request.getKey());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -57,6 +59,7 @@ class MaterializedFeaturesImpl implements MaterializedFeaturesService {
             request.getTableName(), request.getFeatureName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, FeatureLineage.class);
@@ -73,6 +76,7 @@ class MaterializedFeaturesImpl implements MaterializedFeaturesService {
             request.getTableName(), request.getFeatureName(), request.getKey());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, FeatureTag.class);
@@ -89,6 +93,7 @@ class MaterializedFeaturesImpl implements MaterializedFeaturesService {
             request.getTableName(), request.getFeatureName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListFeatureTagsResponse.class);
@@ -105,6 +110,7 @@ class MaterializedFeaturesImpl implements MaterializedFeaturesService {
             request.getTableName(), request.getFeatureName(), request.getKey());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getFeatureTag()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

@@ -6,6 +6,7 @@ import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
 import java.io.IOException;
+import java.util.UUID;
 
 /** Package-local implementation of ProviderPersonalizationRequests */
 @Generated
@@ -22,6 +23,7 @@ class ProviderPersonalizationRequestsImpl implements ProviderPersonalizationRequ
     String path = "/api/2.0/marketplace-provider/personalization-requests";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListAllPersonalizationRequestsResponse.class);
@@ -38,6 +40,10 @@ class ProviderPersonalizationRequestsImpl implements ProviderPersonalizationRequ
             request.getListingId(), request.getRequestId());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
+
+      if (request.getRequestId() == null || request.getRequestId().isEmpty()) {
+        request.setRequestId(UUID.randomUUID().toString());
+      }
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

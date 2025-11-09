@@ -22,6 +22,7 @@ class NetworksImpl implements NetworksService {
     String path = String.format("/api/2.0/accounts/%s/networks", apiClient.configuredAccountID());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -39,6 +40,7 @@ class NetworksImpl implements NetworksService {
             apiClient.configuredAccountID(), request.getNetworkId());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, Network.class);
@@ -55,6 +57,7 @@ class NetworksImpl implements NetworksService {
             apiClient.configuredAccountID(), request.getNetworkId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, Network.class);
