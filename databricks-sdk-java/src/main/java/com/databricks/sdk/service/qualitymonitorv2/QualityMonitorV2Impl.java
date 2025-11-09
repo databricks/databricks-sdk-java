@@ -21,6 +21,7 @@ class QualityMonitorV2Impl implements QualityMonitorV2Service {
     String path = "/api/2.0/quality-monitors";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request.getQualityMonitor()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -37,6 +38,7 @@ class QualityMonitorV2Impl implements QualityMonitorV2Service {
             "/api/2.0/quality-monitors/%s/%s", request.getObjectType(), request.getObjectId());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -52,6 +54,7 @@ class QualityMonitorV2Impl implements QualityMonitorV2Service {
             "/api/2.0/quality-monitors/%s/%s", request.getObjectType(), request.getObjectId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, QualityMonitor.class);
@@ -65,6 +68,7 @@ class QualityMonitorV2Impl implements QualityMonitorV2Service {
     String path = "/api/2.0/quality-monitors";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListQualityMonitorResponse.class);
@@ -80,6 +84,7 @@ class QualityMonitorV2Impl implements QualityMonitorV2Service {
             "/api/2.0/quality-monitors/%s/%s", request.getObjectType(), request.getObjectId());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request.getQualityMonitor()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

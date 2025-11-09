@@ -25,21 +25,21 @@ public interface SharesService extends SharesExtService {
   void delete(DeleteShareRequest deleteShareRequest);
 
   /**
-   * Gets a data object share from the metastore. The caller must be a metastore admin or the owner
-   * of the share.
+   * Gets a data object share from the metastore. The caller must have the USE_SHARE privilege on
+   * the metastore or be the owner of the share.
    */
   ShareInfo get(GetShareRequest getShareRequest);
 
   /**
-   * Gets an array of data object shares from the metastore. The caller must be a metastore admin or
-   * the owner of the share. There is no guarantee of a specific ordering of the elements in the
-   * array.
+   * Gets an array of data object shares from the metastore. If the caller has the USE_SHARE
+   * privilege on the metastore, all shares are returned. Otherwise, only shares owned by the caller
+   * are returned. There is no guarantee of a specific ordering of the elements in the array.
    */
   ListSharesResponse listShares(SharesListRequest sharesListRequest);
 
   /**
-   * Gets the permissions for a data share from the metastore. The caller must be a metastore admin
-   * or the owner of the share.
+   * Gets the permissions for a data share from the metastore. The caller must have the USE_SHARE
+   * privilege on the metastore or be the owner of the share.
    */
   GetSharePermissionsResponse sharePermissions(SharePermissionsRequest sharePermissionsRequest);
 
@@ -63,11 +63,11 @@ public interface SharesService extends SharesExtService {
   ShareInfo update(UpdateShare updateShare);
 
   /**
-   * Updates the permissions for a data share in the metastore. The caller must be a metastore admin
-   * or an owner of the share.
+   * Updates the permissions for a data share in the metastore. The caller must have both the
+   * USE_SHARE and SET_SHARE_PERMISSION privileges on the metastore, or be the owner of the share.
    *
-   * <p>For new recipient grants, the user must also be the recipient owner or metastore admin.
-   * recipient revocations do not require additional privileges.
+   * <p>For new recipient grants, the user must also be the owner of the recipients. recipient
+   * revocations do not require additional privileges.
    */
   UpdateSharePermissionsResponse updatePermissions(UpdateSharePermissions updateSharePermissions);
 }

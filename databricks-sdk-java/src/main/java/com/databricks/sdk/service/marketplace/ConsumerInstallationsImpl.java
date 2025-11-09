@@ -23,6 +23,7 @@ class ConsumerInstallationsImpl implements ConsumerInstallationsService {
             "/api/2.1/marketplace-consumer/listings/%s/installations", request.getListingId());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -40,6 +41,7 @@ class ConsumerInstallationsImpl implements ConsumerInstallationsService {
             request.getListingId(), request.getInstallationId());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -53,6 +55,7 @@ class ConsumerInstallationsImpl implements ConsumerInstallationsService {
     String path = "/api/2.1/marketplace-consumer/installations";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListAllInstallationsResponse.class);
@@ -68,6 +71,7 @@ class ConsumerInstallationsImpl implements ConsumerInstallationsService {
             "/api/2.1/marketplace-consumer/listings/%s/installations", request.getListingId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListInstallationsResponse.class);
@@ -84,6 +88,7 @@ class ConsumerInstallationsImpl implements ConsumerInstallationsService {
             request.getListingId(), request.getInstallationId());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

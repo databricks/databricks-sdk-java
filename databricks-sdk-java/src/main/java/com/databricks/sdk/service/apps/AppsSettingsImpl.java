@@ -21,6 +21,7 @@ class AppsSettingsImpl implements AppsSettingsService {
     String path = "/api/2.0/apps-settings/templates";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request.getTemplate()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -35,6 +36,7 @@ class AppsSettingsImpl implements AppsSettingsService {
     String path = String.format("/api/2.0/apps-settings/templates/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, CustomTemplate.class);
@@ -48,6 +50,7 @@ class AppsSettingsImpl implements AppsSettingsService {
     String path = String.format("/api/2.0/apps-settings/templates/%s", request.getName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, CustomTemplate.class);
@@ -61,6 +64,7 @@ class AppsSettingsImpl implements AppsSettingsService {
     String path = "/api/2.0/apps-settings/templates";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListCustomTemplatesResponse.class);
@@ -74,6 +78,7 @@ class AppsSettingsImpl implements AppsSettingsService {
     String path = String.format("/api/2.0/apps-settings/templates/%s", request.getName());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request.getTemplate()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

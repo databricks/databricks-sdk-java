@@ -124,6 +124,10 @@ public class RegisteredModelsAPI {
    * schema.
    *
    * <p>There is no guarantee of a specific ordering of the elements in the response.
+   *
+   * <p>PAGINATION BEHAVIOR: The API is by default paginated, a page may contain zero results while
+   * still providing a next_page_token. Clients must continue reading pages until next_page_token is
+   * absent, which is the only indication that the end of results has been reached.
    */
   public Iterable<RegisteredModelInfo> list(ListRegisteredModelsRequest request) {
     return new Paginator<>(

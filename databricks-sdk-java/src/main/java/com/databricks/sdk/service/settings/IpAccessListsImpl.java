@@ -21,6 +21,7 @@ class IpAccessListsImpl implements IpAccessListsService {
     String path = "/api/2.0/ip-access-lists";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -35,6 +36,7 @@ class IpAccessListsImpl implements IpAccessListsService {
     String path = String.format("/api/2.0/ip-access-lists/%s", request.getIpAccessListId());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
@@ -47,6 +49,7 @@ class IpAccessListsImpl implements IpAccessListsService {
     String path = String.format("/api/2.0/ip-access-lists/%s", request.getIpAccessListId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, FetchIpAccessListResponse.class);
@@ -60,6 +63,7 @@ class IpAccessListsImpl implements IpAccessListsService {
     String path = "/api/2.0/ip-access-lists";
     try {
       Request req = new Request("GET", path);
+
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListIpAccessListResponse.class);
     } catch (IOException e) {
@@ -72,6 +76,7 @@ class IpAccessListsImpl implements IpAccessListsService {
     String path = String.format("/api/2.0/ip-access-lists/%s", request.getIpAccessListId());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, Void.class);
@@ -85,6 +90,7 @@ class IpAccessListsImpl implements IpAccessListsService {
     String path = String.format("/api/2.0/ip-access-lists/%s", request.getIpAccessListId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, Void.class);

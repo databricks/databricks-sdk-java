@@ -6,5 +6,6 @@ import com.databricks.sdk.support.Generated;
 
 @Generated
 public enum AppManifestAppResourceUcSecurableSpecUcSecurableType {
+  TABLE,
   VOLUME,
 }

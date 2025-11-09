@@ -21,6 +21,7 @@ class LakeviewImpl implements LakeviewService {
     String path = "/api/2.0/lakeview/dashboards";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request.getDashboard()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -36,6 +37,7 @@ class LakeviewImpl implements LakeviewService {
         String.format("/api/2.0/lakeview/dashboards/%s/schedules", request.getDashboardId());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request.getSchedule()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -53,6 +55,7 @@ class LakeviewImpl implements LakeviewService {
             request.getDashboardId(), request.getScheduleId());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request.getSubscription()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -70,6 +73,7 @@ class LakeviewImpl implements LakeviewService {
             request.getDashboardId(), request.getScheduleId());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -86,6 +90,7 @@ class LakeviewImpl implements LakeviewService {
             request.getDashboardId(), request.getScheduleId(), request.getSubscriptionId());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -99,6 +104,7 @@ class LakeviewImpl implements LakeviewService {
     String path = String.format("/api/2.0/lakeview/dashboards/%s", request.getDashboardId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, Dashboard.class);
@@ -113,6 +119,7 @@ class LakeviewImpl implements LakeviewService {
         String.format("/api/2.0/lakeview/dashboards/%s/published", request.getDashboardId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, PublishedDashboard.class);
@@ -129,6 +136,7 @@ class LakeviewImpl implements LakeviewService {
             request.getDashboardId(), request.getScheduleId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, Schedule.class);
@@ -145,6 +153,7 @@ class LakeviewImpl implements LakeviewService {
             request.getDashboardId(), request.getScheduleId(), request.getSubscriptionId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, Subscription.class);
@@ -158,6 +167,7 @@ class LakeviewImpl implements LakeviewService {
     String path = "/api/2.0/lakeview/dashboards";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListDashboardsResponse.class);
@@ -172,6 +182,7 @@ class LakeviewImpl implements LakeviewService {
         String.format("/api/2.0/lakeview/dashboards/%s/schedules", request.getDashboardId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListSchedulesResponse.class);
@@ -188,6 +199,7 @@ class LakeviewImpl implements LakeviewService {
             request.getDashboardId(), request.getScheduleId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListSubscriptionsResponse.class);
@@ -201,6 +213,7 @@ class LakeviewImpl implements LakeviewService {
     String path = "/api/2.0/lakeview/dashboards/migrate";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -216,6 +229,7 @@ class LakeviewImpl implements LakeviewService {
         String.format("/api/2.0/lakeview/dashboards/%s/published", request.getDashboardId());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -230,6 +244,7 @@ class LakeviewImpl implements LakeviewService {
     String path = String.format("/api/2.0/lakeview/dashboards/%s", request.getDashboardId());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -244,6 +259,7 @@ class LakeviewImpl implements LakeviewService {
         String.format("/api/2.0/lakeview/dashboards/%s/published", request.getDashboardId());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -257,6 +273,7 @@ class LakeviewImpl implements LakeviewService {
     String path = String.format("/api/2.0/lakeview/dashboards/%s", request.getDashboardId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getDashboard()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -274,6 +291,7 @@ class LakeviewImpl implements LakeviewService {
             request.getDashboardId(), request.getScheduleId());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request.getSchedule()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

@@ -23,6 +23,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
         String.format("/api/2.0/identity/workspaceAccessDetails/%s", request.getPrincipalId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, WorkspaceAccessDetail.class);
@@ -36,6 +37,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
     String path = "/api/2.0/identity/groups/resolveByExternalId";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -51,6 +53,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
     String path = "/api/2.0/identity/servicePrincipals/resolveByExternalId";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -65,6 +68,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
     String path = "/api/2.0/identity/users/resolveByExternalId";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

@@ -21,6 +21,7 @@ class CommandExecutionImpl implements CommandExecutionService {
     String path = "/api/1.2/commands/cancel";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -35,6 +36,7 @@ class CommandExecutionImpl implements CommandExecutionService {
     String path = "/api/1.2/commands/status";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, CommandStatusResponse.class);
@@ -48,6 +50,7 @@ class CommandExecutionImpl implements CommandExecutionService {
     String path = "/api/1.2/contexts/status";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ContextStatusResponse.class);
@@ -61,6 +64,7 @@ class CommandExecutionImpl implements CommandExecutionService {
     String path = "/api/1.2/contexts/create";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -75,6 +79,7 @@ class CommandExecutionImpl implements CommandExecutionService {
     String path = "/api/1.2/contexts/destroy";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -89,6 +94,7 @@ class CommandExecutionImpl implements CommandExecutionService {
     String path = "/api/1.2/commands/execute";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

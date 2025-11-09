@@ -21,6 +21,7 @@ class AgentBricksImpl implements AgentBricksService {
     String path = String.format("/api/2.0/custom-llms/%s/optimize/cancel", request.getId());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -35,6 +36,7 @@ class AgentBricksImpl implements AgentBricksService {
     String path = "/api/2.0/custom-llms";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -49,6 +51,7 @@ class AgentBricksImpl implements AgentBricksService {
     String path = String.format("/api/2.0/custom-llms/%s", request.getId());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -62,6 +65,7 @@ class AgentBricksImpl implements AgentBricksService {
     String path = String.format("/api/2.0/custom-llms/%s", request.getId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, CustomLlm.class);
@@ -75,6 +79,7 @@ class AgentBricksImpl implements AgentBricksService {
     String path = String.format("/api/2.0/custom-llms/%s/optimize", request.getId());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -89,6 +94,7 @@ class AgentBricksImpl implements AgentBricksService {
     String path = String.format("/api/2.0/custom-llms/%s", request.getId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

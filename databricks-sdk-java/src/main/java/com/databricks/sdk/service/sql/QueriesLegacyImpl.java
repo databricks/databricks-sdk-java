@@ -21,6 +21,7 @@ class QueriesLegacyImpl implements QueriesLegacyService {
     String path = "/api/2.0/preview/sql/queries";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -35,6 +36,7 @@ class QueriesLegacyImpl implements QueriesLegacyService {
     String path = String.format("/api/2.0/preview/sql/queries/%s", request.getQueryId());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -48,6 +50,7 @@ class QueriesLegacyImpl implements QueriesLegacyService {
     String path = String.format("/api/2.0/preview/sql/queries/%s", request.getQueryId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, LegacyQuery.class);
@@ -61,6 +64,7 @@ class QueriesLegacyImpl implements QueriesLegacyService {
     String path = "/api/2.0/preview/sql/queries";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, QueryList.class);
@@ -74,6 +78,7 @@ class QueriesLegacyImpl implements QueriesLegacyService {
     String path = String.format("/api/2.0/preview/sql/queries/trash/%s", request.getQueryId());
     try {
       Request req = new Request("POST", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -87,6 +92,7 @@ class QueriesLegacyImpl implements QueriesLegacyService {
     String path = String.format("/api/2.0/preview/sql/queries/%s", request.getQueryId());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
