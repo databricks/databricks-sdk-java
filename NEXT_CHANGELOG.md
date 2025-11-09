@@ -6,6 +6,8 @@
 
 ### Bug Fixes
 
+* Fix HTTP 429 (Too Many Requests) responses to correctly return `TooManyRequests` exception instead of generic `DatabricksError`.
+
 ### Security Vulnerabilities
 
 ### Documentation
