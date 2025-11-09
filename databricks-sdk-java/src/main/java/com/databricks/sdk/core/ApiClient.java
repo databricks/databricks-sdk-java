@@ -221,9 +221,6 @@ public class ApiClient {
     while (true) {
       attemptNumber++;
 
-      IOException err = null;
-      Response out = null;
-
       // Authenticate the request. Failures should not be retried.
       in.withHeaders(authenticateFunc.apply(null));
 
@@ -239,27 +236,28 @@ public class ApiClient {
         userAgent += String.format(" auth/%s", authType);
       }
       in.withHeader("User-Agent", userAgent);
-
       options.applyOptions(in);
 
-      // Make the request, catching any exceptions, as we may want to retry.
+      Response response;
       try {
-        out = httpClient.execute(in);
+        response = httpClient.execute(in);
         if (LOG.isDebugEnabled()) {
-          LOG.debug(makeLogRecord(in, out));
+          LOG.debug(makeLogRecord(in, response));
         }
       } catch (IOException e) {
-        err = e;
         LOG.debug("Request {} failed", in, e);
+        // TODO: Evaluate whether this is actually the right thing to do
+        // compared to propagating the exception "as is".
+        throw new DatabricksError("IO_ERROR", 523, e);
       }
 
-      // Check if the request succeeded
-      if (isRequestSuccessful(out, err)) {
-        return out;
+      if (isResponseSuccessful(response)) {
+        return response; // stop here if the request succeeded
       }
-      // The request did not succeed.
-      // Check if the request cannot be retried: if yes, retry after backoff, else throw the error.
-      DatabricksError databricksError = ApiErrors.getDatabricksError(out, err);
+
+      // The request did not succeed. Though, some errors are retriable and
+      // should be retried with exponential backoff.
+      DatabricksError databricksError = ApiErrors.getDatabricksError(response);
       if (!retryStrategy.isRetriable(databricksError)) {
         throw databricksError;
       }
@@ -269,7 +267,7 @@ public class ApiClient {
       }
 
       // Retry after a backoff.
-      long sleepMillis = getBackoffMillis(out, attemptNumber);
+      long sleepMillis = getBackoffMillis(response, attemptNumber);
       LOG.debug(
           String.format("Retry %s in %dms", in.getRequestLine(), sleepMillis), databricksError);
       try {
@@ -281,9 +279,8 @@ public class ApiClient {
     }
   }
 
-  private boolean isRequestSuccessful(Response response, Exception e) {
-    return e == null
-        && response.getStatusCode() >= 200
+  private boolean isResponseSuccessful(Response response) {
+    return response.getStatusCode() >= 200
         && response.getStatusCode() < 300
         && !PrivateLinkInfo.isPrivateLinkRedirect(response);
   }
