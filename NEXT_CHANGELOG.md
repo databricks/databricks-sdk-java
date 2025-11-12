@@ -3,6 +3,7 @@
 ## Release v0.70.0
 
 ### New Features and Improvements
+* Increase maximum number of concurrent HTTP connections per Workspace from 2 to 20.
 
 ### Bug Fixes
 
