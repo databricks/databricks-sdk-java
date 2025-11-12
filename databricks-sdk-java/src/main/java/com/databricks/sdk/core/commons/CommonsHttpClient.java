@@ -141,7 +141,11 @@ public class CommonsHttpClient implements HttpClient {
     } else {
       PoolingHttpClientConnectionManager connectionManager =
           new PoolingHttpClientConnectionManager();
+      // Total number of connections allowed by the connection manager.
       connectionManager.setMaxTotal(100);
+      // Maximum number of connections per route. In most cases, this means per Workspace.
+      // DataPlane resources have a dedicated route and are not subject to this limit.
+      connectionManager.setDefaultMaxPerRoute(20);
       httpClientBuilder.setConnectionManager(connectionManager);
     }
     if (builder.requestRetryHandler != null) {
