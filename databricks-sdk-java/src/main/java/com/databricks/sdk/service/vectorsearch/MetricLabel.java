@@ -7,17 +7,18 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Label for a metric */
 @Generated
-public class ColumnInfo {
-  /** Name of the column. */
+public class MetricLabel {
+  /** Label name */
   @JsonProperty("name")
   private String name;
 
-  /** Data type of the column (e.g., "string", "int", "array<float>") */
-  @JsonProperty("type_text")
-  private String typeText;
+  /** Label value */
+  @JsonProperty("value")
+  private String value;
 
-  public ColumnInfo setName(String name) {
+  public MetricLabel setName(String name) {
     this.name = name;
     return this;
   }
@@ -26,30 +27,30 @@ public class ColumnInfo {
     return name;
   }
 
-  public ColumnInfo setTypeText(String typeText) {
-    this.typeText = typeText;
+  public MetricLabel setValue(String value) {
+    this.value = value;
     return this;
   }
 
-  public String getTypeText() {
-    return typeText;
+  public String getValue() {
+    return value;
   }
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    ColumnInfo that = (ColumnInfo) o;
-    return Objects.equals(name, that.name) && Objects.equals(typeText, that.typeText);
+    MetricLabel that = (MetricLabel) o;
+    return Objects.equals(name, that.name) && Objects.equals(value, that.value);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, typeText);
+    return Objects.hash(name, value);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(ColumnInfo.class).add("name", name).add("typeText", typeText).toString();
+    return new ToStringer(MetricLabel.class).add("name", name).add("value", value).toString();
   }
 }

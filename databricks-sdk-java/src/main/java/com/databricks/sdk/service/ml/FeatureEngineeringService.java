@@ -12,6 +12,10 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface FeatureEngineeringService {
+  /** Batch create materialized features. */
+  BatchCreateMaterializedFeaturesResponse batchCreateMaterializedFeatures(
+      BatchCreateMaterializedFeaturesRequest batchCreateMaterializedFeaturesRequest);
+
   /** Create a Feature. */
   Feature createFeature(CreateFeatureRequest createFeatureRequest);
 

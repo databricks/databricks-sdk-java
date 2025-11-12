@@ -1116,7 +1116,7 @@ public class WorkspaceClient {
    * multi-task workflow with complex dependencies. Databricks manages the task orchestration,
    * cluster management, monitoring, and error reporting for all of your jobs. You can run your jobs
    * immediately or periodically through an easy-to-use scheduling system. You can implement job
-   * tasks using notebooks, JARS, Delta Live Tables pipelines, or Python, Scala, Spark submit, and
+   * tasks using notebooks, JARS, Spark Declarative Pipelines, or Python, Scala, Spark submit, and
    * Java applications.
    *
    * <p>You should never hard code secrets or store them in plain text. Use the [Secrets CLI] to
@@ -1272,19 +1272,19 @@ public class WorkspaceClient {
   }
 
   /**
-   * The Delta Live Tables API allows you to create, edit, delete, start, and view details about
-   * pipelines.
+   * The Lakeflow Spark Declarative Pipelines API allows you to create, edit, delete, start, and
+   * view details about pipelines.
    *
-   * <p>Delta Live Tables is a framework for building reliable, maintainable, and testable data
-   * processing pipelines. You define the transformations to perform on your data, and Delta Live
-   * Tables manages task orchestration, cluster management, monitoring, data quality, and error
-   * handling.
+   * <p>Spark Declarative Pipelines is a framework for building reliable, maintainable, and testable
+   * data processing pipelines. You define the transformations to perform on your data, and Spark
+   * Declarative Pipelines manages task orchestration, cluster management, monitoring, data quality,
+   * and error handling.
    *
-   * <p>Instead of defining your data pipelines using a series of separate Apache Spark tasks, Delta
-   * Live Tables manages how your data is transformed based on a target schema you define for each
-   * processing step. You can also enforce data quality with Delta Live Tables expectations.
-   * Expectations allow you to define expected data quality and specify how to handle records that
-   * fail those expectations.
+   * <p>Instead of defining your data pipelines using a series of separate Apache Spark tasks, Spark
+   * Declarative Pipelines manages how your data is transformed based on a target schema you define
+   * for each processing step. You can also enforce data quality with Spark Declarative Pipelines
+   * expectations. Expectations allow you to define expected data quality and specify how to handle
+   * records that fail those expectations.
    */
   public PipelinesAPI pipelines() {
     return pipelinesAPI;
@@ -1602,12 +1602,10 @@ public class WorkspaceClient {
   }
 
   /**
-   * Request for Access enables customers to request access to and manage access request
-   * destinations for Unity Catalog securables.
+   * Request for Access enables users to request access for Unity Catalog securables.
    *
-   * <p>These APIs provide a standardized way to update, get, and request to access request
-   * destinations. Fine-grained authorization ensures that only users with appropriate permissions
-   * can manage access request destinations.
+   * <p>These APIs provide a standardized way for securable owners (or users with MANAGE privileges)
+   * to manage access request destinations.
    */
   public RfaAPI rfa() {
     return rfaAPI;
