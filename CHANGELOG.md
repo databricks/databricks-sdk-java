@@ -1,5 +1,15 @@
 # Version changelog
 
+## Release v0.70.0 (2025-11-13)
+
+### New Features and Improvements
+* Increase maximum number of concurrent HTTP connections per Workspace from 2 to 20.
+
+### Bug Fixes
+
+* Fix HTTP 429 (Too Many Requests) responses to correctly return `TooManyRequests` exception instead of generic `DatabricksError`.
+
+
 ## Release v0.69.0 (2025-11-05)
 
 ### Bug Fixes
