@@ -72,6 +72,10 @@ public class WorkspaceBindingsAPI {
    * reached.
    */
   public Iterable<WorkspaceBinding> getBindings(GetBindingsRequest request) {
+
+    if (request.getMaxResults() == null) {
+      request.setMaxResults(0L);
+    }
     return new Paginator<>(
         request,
         impl::getBindings,

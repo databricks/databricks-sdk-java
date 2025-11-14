@@ -21,7 +21,6 @@ import org.slf4j.LoggerFactory;
 @Generated
 public class CreateTestResourceOperation {
   private static final Logger LOG = LoggerFactory.getLogger(CreateTestResourceOperation.class);
-  private static final Duration DEFAULT_TIMEOUT = Duration.ofMinutes(20);
 
   private final LroTestingService impl;
   private Operation operation;
@@ -34,8 +33,8 @@ public class CreateTestResourceOperation {
   }
 
   /**
-   * Wait for the operation to complete and return the resulting TestResource. Uses the default
-   * timeout of 20 minutes.
+   * Wait for the operation to complete and return the resulting TestResource. Waits indefinitely if
+   * no timeout is specified.
    *
    * @return the created TestResource
    * @throws TimeoutException if the operation doesn't complete within the timeout
@@ -54,8 +53,11 @@ public class CreateTestResourceOperation {
    * @throws DatabricksException if the operation fails
    */
   public TestResource waitForCompletion(Optional<LroOptions> options) throws TimeoutException {
-    Duration timeout = options.flatMap(LroOptions::getTimeout).orElse(DEFAULT_TIMEOUT);
-    long deadline = System.currentTimeMillis() + timeout.toMillis();
+    Optional<Duration> timeout = options.flatMap(LroOptions::getTimeout);
+    long deadline =
+        timeout.isPresent()
+            ? System.currentTimeMillis() + timeout.get().toMillis()
+            : Long.MAX_VALUE;
     String statusMessage = "polling operation...";
     int attempt = 1;
 
@@ -107,8 +109,11 @@ public class CreateTestResourceOperation {
       attempt++;
     }
 
-    throw new TimeoutException(
-        String.format("Operation timed out after %s: %s", timeout, statusMessage));
+    String timeoutMessage =
+        timeout.isPresent()
+            ? String.format("Operation timed out after %s: %s", timeout.get(), statusMessage)
+            : String.format("Operation timed out: %s", statusMessage);
+    throw new TimeoutException(timeoutMessage);
   }
 
   /**

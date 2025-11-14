@@ -85,6 +85,10 @@ public class StorageCredentialsAPI {
    * reached.
    */
   public Iterable<StorageCredentialInfo> list(ListStorageCredentialsRequest request) {
+
+    if (request.getMaxResults() == null) {
+      request.setMaxResults(0L);
+    }
     return new Paginator<>(
         request,
         impl::list,

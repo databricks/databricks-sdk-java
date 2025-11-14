@@ -10,4 +10,6 @@ public enum EndpointStatusState {
   OFFLINE,
   ONLINE,
   PROVISIONING,
+  RED_STATE,
+  YELLOW_STATE,
 }

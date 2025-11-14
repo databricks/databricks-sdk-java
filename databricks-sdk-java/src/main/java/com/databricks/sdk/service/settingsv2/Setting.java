@@ -9,55 +9,95 @@ import java.util.Objects;
 
 @Generated
 public class Setting {
-  /** */
+  /**
+   * Setting value for aibi_dashboard_embedding_access_policy setting. This is the setting value set
+   * by consumers, check effective_aibi_dashboard_embedding_access_policy for final setting value.
+   */
   @JsonProperty("aibi_dashboard_embedding_access_policy")
   private AibiDashboardEmbeddingAccessPolicy aibiDashboardEmbeddingAccessPolicy;
 
-  /** */
+  /**
+   * Setting value for aibi_dashboard_embedding_approved_domains setting. This is the setting value
+   * set by consumers, check effective_aibi_dashboard_embedding_approved_domains for final setting
+   * value.
+   */
   @JsonProperty("aibi_dashboard_embedding_approved_domains")
   private AibiDashboardEmbeddingApprovedDomains aibiDashboardEmbeddingApprovedDomains;
 
-  /** */
+  /**
+   * Setting value for automatic_cluster_update_workspace setting. This is the setting value set by
+   * consumers, check effective_automatic_cluster_update_workspace for final setting value.
+   */
   @JsonProperty("automatic_cluster_update_workspace")
   private ClusterAutoRestartMessage automaticClusterUpdateWorkspace;
 
-  /** */
+  /**
+   * Setting value for boolean type setting. This is the setting value set by consumers, check
+   * effective_boolean_val for final setting value.
+   */
   @JsonProperty("boolean_val")
   private BooleanMessage booleanVal;
 
-  /** */
+  /**
+   * Effective setting value for aibi_dashboard_embedding_access_policy setting. This is the final
+   * effective value of setting. To set a value use aibi_dashboard_embedding_access_policy.
+   */
   @JsonProperty("effective_aibi_dashboard_embedding_access_policy")
   private AibiDashboardEmbeddingAccessPolicy effectiveAibiDashboardEmbeddingAccessPolicy;
 
-  /** */
+  /**
+   * Effective setting value for aibi_dashboard_embedding_approved_domains setting. This is the
+   * final effective value of setting. To set a value use aibi_dashboard_embedding_approved_domains.
+   */
   @JsonProperty("effective_aibi_dashboard_embedding_approved_domains")
   private AibiDashboardEmbeddingApprovedDomains effectiveAibiDashboardEmbeddingApprovedDomains;
 
-  /** */
+  /**
+   * Effective setting value for automatic_cluster_update_workspace setting. This is the final
+   * effective value of setting. To set a value use automatic_cluster_update_workspace.
+   */
   @JsonProperty("effective_automatic_cluster_update_workspace")
   private ClusterAutoRestartMessage effectiveAutomaticClusterUpdateWorkspace;
 
-  /** */
+  /**
+   * Effective setting value for boolean type setting. This is the final effective value of setting.
+   * To set a value use boolean_val.
+   */
   @JsonProperty("effective_boolean_val")
   private BooleanMessage effectiveBooleanVal;
 
-  /** */
+  /**
+   * Effective setting value for integer type setting. This is the final effective value of setting.
+   * To set a value use integer_val.
+   */
   @JsonProperty("effective_integer_val")
   private IntegerMessage effectiveIntegerVal;
 
-  /** */
+  /**
+   * Effective setting value for personal_compute setting. This is the final effective value of
+   * setting. To set a value use personal_compute.
+   */
   @JsonProperty("effective_personal_compute")
   private PersonalComputeMessage effectivePersonalCompute;
 
-  /** */
+  /**
+   * Effective setting value for restrict_workspace_admins setting. This is the final effective
+   * value of setting. To set a value use restrict_workspace_admins.
+   */
   @JsonProperty("effective_restrict_workspace_admins")
   private RestrictWorkspaceAdminsMessage effectiveRestrictWorkspaceAdmins;
 
-  /** */
+  /**
+   * Effective setting value for string type setting. This is the final effective value of setting.
+   * To set a value use string_val.
+   */
   @JsonProperty("effective_string_val")
   private StringMessage effectiveStringVal;
 
-  /** */
+  /**
+   * Setting value for integer type setting. This is the setting value set by consumers, check
+   * effective_integer_val for final setting value.
+   */
   @JsonProperty("integer_val")
   private IntegerMessage integerVal;
 
@@ -65,15 +105,24 @@ public class Setting {
   @JsonProperty("name")
   private String name;
 
-  /** */
+  /**
+   * Setting value for personal_compute setting. This is the setting value set by consumers, check
+   * effective_personal_compute for final setting value.
+   */
   @JsonProperty("personal_compute")
   private PersonalComputeMessage personalCompute;
 
-  /** */
+  /**
+   * Setting value for restrict_workspace_admins setting. This is the setting value set by
+   * consumers, check effective_restrict_workspace_admins for final setting value.
+   */
   @JsonProperty("restrict_workspace_admins")
   private RestrictWorkspaceAdminsMessage restrictWorkspaceAdmins;
 
-  /** */
+  /**
+   * Setting value for string type setting. This is the setting value set by consumers, check
+   * effective_string_val for final setting value.
+   */
   @JsonProperty("string_val")
   private StringMessage stringVal;
 

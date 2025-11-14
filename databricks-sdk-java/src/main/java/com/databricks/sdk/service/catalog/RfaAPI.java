@@ -7,12 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Request for Access enables customers to request access to and manage access request destinations
- * for Unity Catalog securables.
+ * Request for Access enables users to request access for Unity Catalog securables.
  *
- * <p>These APIs provide a standardized way to update, get, and request to access request
- * destinations. Fine-grained authorization ensures that only users with appropriate permissions can
- * manage access request destinations.
+ * <p>These APIs provide a standardized way for securable owners (or users with MANAGE privileges)
+ * to manage access request destinations.
  */
 @Generated
 public class RfaAPI {

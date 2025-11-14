@@ -7,6 +7,8 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum
     CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRulePrivateLinkConnectionState {
+  CREATE_FAILED,
+  CREATING,
   DISCONNECTED,
   ESTABLISHED,
   EXPIRED,

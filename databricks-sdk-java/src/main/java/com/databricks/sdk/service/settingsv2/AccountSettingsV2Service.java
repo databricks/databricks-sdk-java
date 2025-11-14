@@ -28,7 +28,9 @@ public interface AccountSettingsV2Service {
 
   /**
    * Patch a setting value at account level. See :method:settingsv2/listaccountsettingsmetadata for
-   * list of setting available via public APIs at account level.
+   * list of setting available via public APIs at account level. To determine the correct field to
+   * include in a patch request, refer to the type field of the setting returned in the
+   * :method:settingsv2/listaccountsettingsmetadata response.
    */
   Setting patchPublicAccountSetting(
       PatchPublicAccountSettingRequest patchPublicAccountSettingRequest);

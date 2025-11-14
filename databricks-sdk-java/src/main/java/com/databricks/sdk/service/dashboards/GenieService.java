@@ -22,6 +22,9 @@ public interface GenieService {
   GenieMessage createMessage(
       GenieCreateConversationMessageRequest genieCreateConversationMessageRequest);
 
+  /** Creates a Genie space from a serialized payload. */
+  GenieSpace createSpace(GenieCreateSpaceRequest genieCreateSpaceRequest);
+
   /** Delete a conversation. */
   void deleteConversation(GenieDeleteConversationRequest genieDeleteConversationRequest);
 
@@ -90,4 +93,7 @@ public interface GenieService {
 
   /** Move a Genie Space to the trash. */
   void trashSpace(GenieTrashSpaceRequest genieTrashSpaceRequest);
+
+  /** Updates a Genie space with a serialized payload. */
+  GenieSpace updateSpace(GenieUpdateSpaceRequest genieUpdateSpaceRequest);
 }

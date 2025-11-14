@@ -24,6 +24,12 @@ public class FeatureEngineeringAPI {
     impl = mock;
   }
 
+  /** Batch create materialized features. */
+  public BatchCreateMaterializedFeaturesResponse batchCreateMaterializedFeatures(
+      BatchCreateMaterializedFeaturesRequest request) {
+    return impl.batchCreateMaterializedFeatures(request);
+  }
+
   /** Create a Feature. */
   public Feature createFeature(CreateFeatureRequest request) {
     return impl.createFeature(request);

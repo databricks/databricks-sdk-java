@@ -39,6 +39,13 @@ public class StartUpdate {
   private Collection<String> refreshSelection;
 
   /**
+   * The information about the requested rewind operation. If specified this is a rewind mode
+   * update.
+   */
+  @JsonProperty("rewind_spec")
+  private RewindSpec rewindSpec;
+
+  /**
    * If true, this update only validates the correctness of pipeline source code but does not
    * materialize or publish any datasets.
    */
@@ -90,6 +97,15 @@ public class StartUpdate {
     return refreshSelection;
   }
 
+  public StartUpdate setRewindSpec(RewindSpec rewindSpec) {
+    this.rewindSpec = rewindSpec;
+    return this;
+  }
+
+  public RewindSpec getRewindSpec() {
+    return rewindSpec;
+  }
+
   public StartUpdate setValidateOnly(Boolean validateOnly) {
     this.validateOnly = validateOnly;
     return this;
@@ -109,13 +125,20 @@ public class StartUpdate {
         && Objects.equals(fullRefreshSelection, that.fullRefreshSelection)
         && Objects.equals(pipelineId, that.pipelineId)
         && Objects.equals(refreshSelection, that.refreshSelection)
+        && Objects.equals(rewindSpec, that.rewindSpec)
         && Objects.equals(validateOnly, that.validateOnly);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        cause, fullRefresh, fullRefreshSelection, pipelineId, refreshSelection, validateOnly);
+        cause,
+        fullRefresh,
+        fullRefreshSelection,
+        pipelineId,
+        refreshSelection,
+        rewindSpec,
+        validateOnly);
   }
 
   @Override
@@ -126,6 +149,7 @@ public class StartUpdate {
         .add("fullRefreshSelection", fullRefreshSelection)
         .add("pipelineId", pipelineId)
         .add("refreshSelection", refreshSelection)
+        .add("rewindSpec", rewindSpec)
         .add("validateOnly", validateOnly)
         .toString();
   }

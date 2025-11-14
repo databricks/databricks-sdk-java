@@ -17,6 +17,22 @@ class FeatureEngineeringImpl implements FeatureEngineeringService {
   }
 
   @Override
+  public BatchCreateMaterializedFeaturesResponse batchCreateMaterializedFeatures(
+      BatchCreateMaterializedFeaturesRequest request) {
+    String path = "/api/2.0/feature-engineering/materialized-features:batchCreate";
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, BatchCreateMaterializedFeaturesResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public Feature createFeature(CreateFeatureRequest request) {
     String path = "/api/2.0/feature-engineering/features";
     try {

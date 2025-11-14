@@ -10,8 +10,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.protobuf.FieldMask;
+import com.google.protobuf.util.Durations;
+import com.google.protobuf.util.Timestamps;
+import java.text.ParseException;
 import java.util.*;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -21,7 +24,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 public class MarshallTest {
   @Mock private ApiClient mockApiClient;
-  private ObjectMapper objectMapper;
+  private static final ObjectMapper objectMapper = SerDeUtils.createMapper();
 
   static class MarshallTestCase {
     String name;
@@ -35,13 +38,8 @@ public class MarshallTest {
     }
   }
 
-  @BeforeEach
-  void setUp() {
-    objectMapper = SerDeUtils.createMapper();
-  }
-
   static List<MarshallTestCase> marshallTestCases()
-      throws JsonProcessingException, JsonMappingException {
+      throws JsonProcessingException, JsonMappingException, ParseException {
     List<MarshallTestCase> cases = new ArrayList<>();
     cases.add(
         new MarshallTestCase(
@@ -98,17 +96,21 @@ public class MarshallTest {
     cases.add(
         new MarshallTestCase(
             "OptionalDuration",
-            new OptionalFields().setDuration("3600s"),
+            new OptionalFields().setDuration(Durations.parse("3600s")),
             "{" + "  \"duration\": \"3600s\"" + "}"));
     cases.add(
         new MarshallTestCase(
             "OptionalFieldMask",
-            new OptionalFields().setFieldMask("optional_string,optional_int32"),
+            new OptionalFields()
+                .setFieldMask(
+                    FieldMask.newBuilder()
+                        .addAllPaths(Arrays.asList("optional_string,optional_int32".split(", ")))
+                        .build()),
             "{" + "  \"field_mask\": \"optional_string,optional_int32\"" + "}"));
     cases.add(
         new MarshallTestCase(
             "OptionalTimestamp",
-            new OptionalFields().setTimestamp("2023-01-01T00:00:00Z"),
+            new OptionalFields().setTimestamp(Timestamps.parse("2023-01-01T00:00:00Z")),
             "{" + "  \"timestamp\": \"2023-01-01T00:00:00Z\"" + "}"));
     cases.add(
         new MarshallTestCase(
@@ -128,56 +130,60 @@ public class MarshallTest {
             "RequiredFieldsExplicitDefaults",
             new RequiredFields()
                 .setRequiredBool(false)
-                .setRequiredDuration("0s")
-                .setRequiredFieldMask("")
+                .setRequiredDuration(Durations.parse("0s"))
+                .setRequiredFieldMask(
+                    FieldMask.newBuilder().addAllPaths(Arrays.asList("".split(", "))).build())
                 .setRequiredInt32(0L)
                 .setRequiredInt64(0L)
                 .setRequiredListValue(new ArrayList<>())
                 .setRequiredMessage(new NestedMessage())
                 .setRequiredString("")
                 .setRequiredStruct(new HashMap<>())
-                .setRequiredTimestamp("1970-01-01T00:00:00Z")
-                .setRequiredValue("{}")
+                .setRequiredTimestamp(Timestamps.parse("1970-01-01T00:00:00Z"))
+                .setRequiredValue(objectMapper.readTree("{}"))
                 .setTestRequiredEnum(TestEnum.TEST_ENUM_ONE),
             "{"
-                + "    \"required_string\": \"\","
-                + "    \"required_int32\": 0,"
-                + "    \"required_int64\": 0,"
-                + "    \"required_bool\": false,"
-                + "    \"required_value\": \"{}\","
-                + "    \"required_list_value\": [],"
-                + "    \"required_struct\": {},"
-                + "    \"required_message\": {},"
-                + "    \"test_required_enum\": \"TEST_ENUM_ONE\","
-                + "    \"required_duration\": \"0s\","
-                + "    \"required_field_mask\": \"\","
-                + "    \"required_timestamp\": \"1970-01-01T00:00:00Z\""
-                + "  }"));
+                + "  \"required_string\": \"\","
+                + "  \"required_int32\": 0,"
+                + "  \"required_int64\": 0,"
+                + "  \"required_bool\": false,"
+                + "  \"required_value\": {},"
+                + "  \"required_list_value\": [],"
+                + "  \"required_struct\": {},"
+                + "  \"required_message\": {},"
+                + "  \"test_required_enum\": \"TEST_ENUM_ONE\","
+                + "  \"required_duration\": \"0s\","
+                + "  \"required_field_mask\": \"\","
+                + "  \"required_timestamp\": \"1970-01-01T00:00:00Z\""
+                + "}"));
     cases.add(
         new MarshallTestCase(
             "RequiredFieldsNonDefaults",
             new RequiredFields()
                 .setRequiredBool(true)
-                .setRequiredDuration("7200s")
-                .setRequiredFieldMask("required_string,required_int32")
+                .setRequiredDuration(Durations.parse("7200s"))
+                .setRequiredFieldMask(
+                    FieldMask.newBuilder()
+                        .addAllPaths(Arrays.asList("required_string,required_int32".split(", ")))
+                        .build())
                 .setRequiredInt32(42L)
                 .setRequiredInt64(1234567890123456789L)
                 .setRequiredListValue(new ArrayList<>())
                 .setRequiredMessage(new NestedMessage())
                 .setRequiredString("non_default_string")
                 .setRequiredStruct(new HashMap<>())
-                .setRequiredTimestamp("2023-12-31T23:59:59Z")
-                .setRequiredValue("{}")
+                .setRequiredTimestamp(Timestamps.parse("2023-12-31T23:59:59Z"))
+                .setRequiredValue(objectMapper.readTree("{\"key\": \"value\"}"))
                 .setTestRequiredEnum(TestEnum.TEST_ENUM_TWO),
             "{"
                 + "  \"required_string\": \"non_default_string\","
                 + "  \"required_int32\": 42,"
                 + "  \"required_int64\": 1234567890123456789,"
                 + "  \"required_bool\": true,"
-                + "  \"required_message\": {},"
-                + "  \"required_value\": \"{}\","
+                + "  \"required_value\": {\"key\": \"value\"},"
                 + "  \"required_list_value\": [],"
                 + "  \"required_struct\": {},"
+                + "  \"required_message\": {},"
                 + "  \"test_required_enum\": \"TEST_ENUM_TWO\","
                 + "  \"required_duration\": \"7200s\","
                 + "  \"required_field_mask\": \"required_string,required_int32\","
@@ -241,19 +247,32 @@ public class MarshallTest {
     cases.add(
         new MarshallTestCase(
             "RepeatedDuration",
-            new RepeatedFields().setRepeatedDuration(Arrays.asList("60s", "120s", "180s")),
+            new RepeatedFields()
+                .setRepeatedDuration(
+                    Arrays.asList(
+                        Durations.parse("60s"), Durations.parse("120s"), Durations.parse("180s"))),
             "{" + "  \"repeated_duration\": [\"60s\", \"120s\", \"180s\"]" + "}"));
     cases.add(
         new MarshallTestCase(
             "RepeatedFieldMask",
-            new RepeatedFields().setRepeatedFieldMask(Arrays.asList("field1", "field2,field3")),
+            new RepeatedFields()
+                .setRepeatedFieldMask(
+                    Arrays.asList(
+                        FieldMask.newBuilder()
+                            .addAllPaths(Arrays.asList("field1".split(", ")))
+                            .build(),
+                        FieldMask.newBuilder()
+                            .addAllPaths(Arrays.asList("field2,field3".split(", ")))
+                            .build())),
             "{" + "  \"repeated_field_mask\": [\"field1\", \"field2,field3\"]" + "}"));
     cases.add(
         new MarshallTestCase(
             "RepeatedTimestamp",
             new RepeatedFields()
                 .setRepeatedTimestamp(
-                    Arrays.asList("2023-01-01T00:00:00Z", "2023-01-02T00:00:00Z")),
+                    Arrays.asList(
+                        Timestamps.parse("2023-01-01T00:00:00Z"),
+                        Timestamps.parse("2023-01-02T00:00:00Z"))),
             "{"
                 + "  \"repeated_timestamp\": [\"2023-01-01T00:00:00Z\", \"2023-01-02T00:00:00Z\"]"
                 + "}"));

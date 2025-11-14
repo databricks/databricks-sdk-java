@@ -12,7 +12,11 @@ public class GetWorkspaceObjectPermissionsRequest {
   /** The workspace object for which to get or manage permissions. */
   @JsonIgnore private String workspaceObjectId;
 
-  /** The workspace object type for which to get or manage permissions. */
+  /**
+   * The workspace object type for which to get or manage permissions. Could be one of the
+   * following: alerts, alertsv2, dashboards, dbsql-dashboards, directories, experiments, files,
+   * genie, notebooks, queries
+   */
   @JsonIgnore private String workspaceObjectType;
 
   public GetWorkspaceObjectPermissionsRequest setWorkspaceObjectId(String workspaceObjectId) {

@@ -30,8 +30,9 @@ public interface AccountGroupsV2Service {
 
   /**
    * Gets all details of the groups associated with the Databricks account. As of 08/22/2025, this
-   * endpoint will not return members. Instead, members should be retrieved by iterating through
-   * `Get group details`.
+   * endpoint will no longer return members. Instead, members should be retrieved by iterating
+   * through `Get group details`. Existing accounts that rely on this attribute will not be impacted
+   * and will continue receiving member data as before.
    */
   ListAccountGroupsResponse list(ListAccountGroupsRequest listAccountGroupsRequest);
 

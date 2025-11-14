@@ -74,6 +74,22 @@ class VectorSearchEndpointsImpl implements VectorSearchEndpointsService {
   }
 
   @Override
+  public RetrieveUserVisibleMetricsResponse retrieveUserVisibleMetrics(
+      RetrieveUserVisibleMetricsRequest request) {
+    String path = String.format("/api/2.0/vector-search/endpoints/%s/metrics", request.getName());
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, RetrieveUserVisibleMetricsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public PatchEndpointBudgetPolicyResponse updateEndpointBudgetPolicy(
       PatchEndpointBudgetPolicyRequest request) {
     String path =

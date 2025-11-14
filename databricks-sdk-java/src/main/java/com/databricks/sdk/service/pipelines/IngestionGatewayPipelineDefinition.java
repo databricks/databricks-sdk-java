@@ -23,14 +23,18 @@ public class IngestionGatewayPipelineDefinition {
   @JsonProperty("connection_name")
   private String connectionName;
 
+  /** Optional, Internal. Parameters required to establish an initial connection with the source. */
+  @JsonProperty("connection_parameters")
+  private ConnectionParameters connectionParameters;
+
   /** Required, Immutable. The name of the catalog for the gateway pipeline's storage location. */
   @JsonProperty("gateway_storage_catalog")
   private String gatewayStorageCatalog;
 
   /**
    * Optional. The Unity Catalog-compatible name for the gateway storage location. This is the
-   * destination to use for the data that is extracted by the gateway. Delta Live Tables system will
-   * automatically create the storage location under the catalog and schema.
+   * destination to use for the data that is extracted by the gateway. Spark Declarative Pipelines
+   * system will automatically create the storage location under the catalog and schema.
    */
   @JsonProperty("gateway_storage_name")
   private String gatewayStorageName;
@@ -55,6 +59,16 @@ public class IngestionGatewayPipelineDefinition {
 
   public String getConnectionName() {
     return connectionName;
+  }
+
+  public IngestionGatewayPipelineDefinition setConnectionParameters(
+      ConnectionParameters connectionParameters) {
+    this.connectionParameters = connectionParameters;
+    return this;
+  }
+
+  public ConnectionParameters getConnectionParameters() {
+    return connectionParameters;
   }
 
   public IngestionGatewayPipelineDefinition setGatewayStorageCatalog(String gatewayStorageCatalog) {
@@ -91,6 +105,7 @@ public class IngestionGatewayPipelineDefinition {
     IngestionGatewayPipelineDefinition that = (IngestionGatewayPipelineDefinition) o;
     return Objects.equals(connectionId, that.connectionId)
         && Objects.equals(connectionName, that.connectionName)
+        && Objects.equals(connectionParameters, that.connectionParameters)
         && Objects.equals(gatewayStorageCatalog, that.gatewayStorageCatalog)
         && Objects.equals(gatewayStorageName, that.gatewayStorageName)
         && Objects.equals(gatewayStorageSchema, that.gatewayStorageSchema);
@@ -101,6 +116,7 @@ public class IngestionGatewayPipelineDefinition {
     return Objects.hash(
         connectionId,
         connectionName,
+        connectionParameters,
         gatewayStorageCatalog,
         gatewayStorageName,
         gatewayStorageSchema);
@@ -111,6 +127,7 @@ public class IngestionGatewayPipelineDefinition {
     return new ToStringer(IngestionGatewayPipelineDefinition.class)
         .add("connectionId", connectionId)
         .add("connectionName", connectionName)
+        .add("connectionParameters", connectionParameters)
         .add("gatewayStorageCatalog", gatewayStorageCatalog)
         .add("gatewayStorageName", gatewayStorageName)
         .add("gatewayStorageSchema", gatewayStorageSchema)

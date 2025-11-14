@@ -31,7 +31,7 @@ public class MaterializedFeature {
 
   /** */
   @JsonProperty("online_store_config")
-  private OnlineStore onlineStoreConfig;
+  private OnlineStoreConfig onlineStoreConfig;
 
   /** The schedule state of the materialization pipeline. */
   @JsonProperty("pipeline_schedule_state")
@@ -80,12 +80,12 @@ public class MaterializedFeature {
     return offlineStoreConfig;
   }
 
-  public MaterializedFeature setOnlineStoreConfig(OnlineStore onlineStoreConfig) {
+  public MaterializedFeature setOnlineStoreConfig(OnlineStoreConfig onlineStoreConfig) {
     this.onlineStoreConfig = onlineStoreConfig;
     return this;
   }
 
-  public OnlineStore getOnlineStoreConfig() {
+  public OnlineStoreConfig getOnlineStoreConfig() {
     return onlineStoreConfig;
   }
 

@@ -42,7 +42,7 @@ public class QueryVectorIndexRequest {
   @JsonProperty("query_text")
   private String queryText;
 
-  /** The query type to use. Choices are `ANN` and `HYBRID`. Defaults to `ANN`. */
+  /** The query type to use. Choices are `ANN` and `HYBRID` and `FULL_TEXT`. Defaults to `ANN`. */
   @JsonProperty("query_type")
   private String queryType;
 

@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class AlertV2OperandColumn {
-  /** */
+  /** If not set, the behavior is equivalent to using `First row` in the UI. */
   @JsonProperty("aggregation")
   private Aggregation aggregation;
 
