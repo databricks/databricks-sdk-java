@@ -79,6 +79,10 @@ public class CatalogsAPI {
    * reached.
    */
   public Iterable<CatalogInfo> list(ListCatalogsRequest request) {
+
+    if (request.getMaxResults() == null) {
+      request.setMaxResults(0L);
+    }
     return new Paginator<>(
         request,
         impl::list,
