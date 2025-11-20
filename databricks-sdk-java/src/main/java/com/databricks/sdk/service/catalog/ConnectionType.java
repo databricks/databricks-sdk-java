@@ -15,7 +15,6 @@ public enum ConnectionType {
   HTTP,
   MYSQL,
   ORACLE,
-  PALANTIR,
   POSTGRESQL,
   POWER_BI,
   REDSHIFT,

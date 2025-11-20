@@ -6,6 +6,10 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.google.protobuf.Duration;
+import com.google.protobuf.FieldMask;
+import com.google.protobuf.Timestamp;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
@@ -20,7 +24,7 @@ public class RequiredFields {
   /** */
   @JsonProperty("required_duration")
   @QueryParam("required_duration")
-  private String requiredDuration;
+  private Duration requiredDuration;
 
   /**
    * The field mask must be a single string, with multiple fields separated by commas (no spaces).
@@ -31,7 +35,7 @@ public class RequiredFields {
    */
   @JsonProperty("required_field_mask")
   @QueryParam("required_field_mask")
-  private String requiredFieldMask;
+  private FieldMask requiredFieldMask;
 
   /** */
   @JsonProperty("required_int32")
@@ -46,7 +50,7 @@ public class RequiredFields {
   /** */
   @JsonProperty("required_list_value")
   @QueryParam("required_list_value")
-  private Collection<Object /* MISSING TYPE */> requiredListValue;
+  private Collection<JsonNode> requiredListValue;
 
   /** */
   @JsonProperty("required_message")
@@ -61,17 +65,17 @@ public class RequiredFields {
   /** */
   @JsonProperty("required_struct")
   @QueryParam("required_struct")
-  private Map<String, Object /* MISSING TYPE */> requiredStruct;
+  private Map<String, JsonNode> requiredStruct;
 
   /** */
   @JsonProperty("required_timestamp")
   @QueryParam("required_timestamp")
-  private String requiredTimestamp;
+  private Timestamp requiredTimestamp;
 
   /** */
   @JsonProperty("required_value")
   @QueryParam("required_value")
-  private Object /* MISSING TYPE */ requiredValue;
+  private JsonNode requiredValue;
 
   /** */
   @JsonProperty("test_required_enum")
@@ -87,21 +91,21 @@ public class RequiredFields {
     return requiredBool;
   }
 
-  public RequiredFields setRequiredDuration(String requiredDuration) {
+  public RequiredFields setRequiredDuration(Duration requiredDuration) {
     this.requiredDuration = requiredDuration;
     return this;
   }
 
-  public String getRequiredDuration() {
+  public Duration getRequiredDuration() {
     return requiredDuration;
   }
 
-  public RequiredFields setRequiredFieldMask(String requiredFieldMask) {
+  public RequiredFields setRequiredFieldMask(FieldMask requiredFieldMask) {
     this.requiredFieldMask = requiredFieldMask;
     return this;
   }
 
-  public String getRequiredFieldMask() {
+  public FieldMask getRequiredFieldMask() {
     return requiredFieldMask;
   }
 
@@ -123,13 +127,12 @@ public class RequiredFields {
     return requiredInt64;
   }
 
-  public RequiredFields setRequiredListValue(
-      Collection<Object /* MISSING TYPE */> requiredListValue) {
+  public RequiredFields setRequiredListValue(Collection<JsonNode> requiredListValue) {
     this.requiredListValue = requiredListValue;
     return this;
   }
 
-  public Collection<Object /* MISSING TYPE */> getRequiredListValue() {
+  public Collection<JsonNode> getRequiredListValue() {
     return requiredListValue;
   }
 
@@ -151,30 +154,30 @@ public class RequiredFields {
     return requiredString;
   }
 
-  public RequiredFields setRequiredStruct(Map<String, Object /* MISSING TYPE */> requiredStruct) {
+  public RequiredFields setRequiredStruct(Map<String, JsonNode> requiredStruct) {
     this.requiredStruct = requiredStruct;
     return this;
   }
 
-  public Map<String, Object /* MISSING TYPE */> getRequiredStruct() {
+  public Map<String, JsonNode> getRequiredStruct() {
     return requiredStruct;
   }
 
-  public RequiredFields setRequiredTimestamp(String requiredTimestamp) {
+  public RequiredFields setRequiredTimestamp(Timestamp requiredTimestamp) {
     this.requiredTimestamp = requiredTimestamp;
     return this;
   }
 
-  public String getRequiredTimestamp() {
+  public Timestamp getRequiredTimestamp() {
     return requiredTimestamp;
   }
 
-  public RequiredFields setRequiredValue(Object /* MISSING TYPE */ requiredValue) {
+  public RequiredFields setRequiredValue(JsonNode requiredValue) {
     this.requiredValue = requiredValue;
     return this;
   }
 
-  public Object /* MISSING TYPE */ getRequiredValue() {
+  public JsonNode getRequiredValue() {
     return requiredValue;
   }
 
