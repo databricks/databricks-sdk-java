@@ -49,7 +49,7 @@
     <url>https://github.com/databricks/databricks-sdk-java/blob/main/.github/workflows/push.yml</url>
   </ciManagement>
   <properties>
-    <jacoco.version>0.8.10</jacoco.version>
+    <jacoco.version>0.8.14</jacoco.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <build>
