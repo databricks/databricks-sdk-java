@@ -8,11 +8,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The Tag Policy API allows you to manage policies for governed tags in Databricks. Permissions for
- * tag policies can be managed using the [Account Access Control Proxy API].
+ * The Tag Policy API allows you to manage policies for governed tags in Databricks. For Terraform
+ * usage, see the [Tag Policy Terraform documentation]. Permissions for tag policies can be managed
+ * using the [Account Access Control Proxy API].
  *
  * <p>[Account Access Control Proxy API]:
- * https://docs.databricks.com/api/workspace/accountaccesscontrolproxy
+ * https://docs.databricks.com/api/workspace/accountaccesscontrolproxy [Tag Policy Terraform
+ * documentation]:
+ * https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/tag_policy
  */
 @Generated
 public class TagPoliciesAPI {
@@ -30,7 +33,16 @@ public class TagPoliciesAPI {
     impl = mock;
   }
 
-  /** Creates a new tag policy, making the associated tag key governed. */
+  /**
+   * Creates a new tag policy, making the associated tag key governed. For Terraform usage, see the
+   * [Tag Policy Terraform documentation]. To manage permissions for tag policies, use the [Account
+   * Access Control Proxy API].
+   *
+   * <p>[Account Access Control Proxy API]:
+   * https://docs.databricks.com/api/workspace/accountaccesscontrolproxy [Tag Policy Terraform
+   * documentation]:
+   * https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/tag_policy
+   */
   public TagPolicy createTagPolicy(CreateTagPolicyRequest request) {
     return impl.createTagPolicy(request);
   }
@@ -39,7 +51,13 @@ public class TagPoliciesAPI {
     deleteTagPolicy(new DeleteTagPolicyRequest().setTagKey(tagKey));
   }
 
-  /** Deletes a tag policy by its associated governed tag's key, leaving that tag key ungoverned. */
+  /**
+   * Deletes a tag policy by its associated governed tag's key, leaving that tag key ungoverned. For
+   * Terraform usage, see the [Tag Policy Terraform documentation].
+   *
+   * <p>[Tag Policy Terraform documentation]:
+   * https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/tag_policy
+   */
   public void deleteTagPolicy(DeleteTagPolicyRequest request) {
     impl.deleteTagPolicy(request);
   }
@@ -48,12 +66,30 @@ public class TagPoliciesAPI {
     return getTagPolicy(new GetTagPolicyRequest().setTagKey(tagKey));
   }
 
-  /** Gets a single tag policy by its associated governed tag's key. */
+  /**
+   * Gets a single tag policy by its associated governed tag's key. For Terraform usage, see the
+   * [Tag Policy Terraform documentation]. To list granted permissions for tag policies, use the
+   * [Account Access Control Proxy API].
+   *
+   * <p>[Account Access Control Proxy API]:
+   * https://docs.databricks.com/api/workspace/accountaccesscontrolproxy [Tag Policy Terraform
+   * documentation]:
+   * https://registry.terraform.io/providers/databricks/databricks/latest/docs/data-sources/tag_policy
+   */
   public TagPolicy getTagPolicy(GetTagPolicyRequest request) {
     return impl.getTagPolicy(request);
   }
 
-  /** Lists the tag policies for all governed tags in the account. */
+  /**
+   * Lists the tag policies for all governed tags in the account. For Terraform usage, see the [Tag
+   * Policy Terraform documentation]. To list granted permissions for tag policies, use the [Account
+   * Access Control Proxy API].
+   *
+   * <p>[Account Access Control Proxy API]:
+   * https://docs.databricks.com/api/workspace/accountaccesscontrolproxy [Tag Policy Terraform
+   * documentation]:
+   * https://registry.terraform.io/providers/databricks/databricks/latest/docs/data-sources/tag_policies
+   */
   public Iterable<TagPolicy> listTagPolicies(ListTagPoliciesRequest request) {
     return new Paginator<>(
         request,
@@ -68,7 +104,16 @@ public class TagPoliciesAPI {
         });
   }
 
-  /** Updates an existing tag policy for a single governed tag. */
+  /**
+   * Updates an existing tag policy for a single governed tag. For Terraform usage, see the [Tag
+   * Policy Terraform documentation]. To manage permissions for tag policies, use the [Account
+   * Access Control Proxy API].
+   *
+   * <p>[Account Access Control Proxy API]:
+   * https://docs.databricks.com/api/workspace/accountaccesscontrolproxy [Tag Policy Terraform
+   * documentation]:
+   * https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/tag_policy
+   */
   public TagPolicy updateTagPolicy(UpdateTagPolicyRequest request) {
     return impl.updateTagPolicy(request);
   }

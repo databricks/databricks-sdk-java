@@ -6,7 +6,6 @@ import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
 import java.io.IOException;
-import java.util.UUID;
 
 /** Package-local implementation of ProviderPersonalizationRequests */
 @Generated
@@ -41,9 +40,6 @@ class ProviderPersonalizationRequestsImpl implements ProviderPersonalizationRequ
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
 
-      if (request.getRequestId() == null || request.getRequestId().isEmpty()) {
-        request.setRequestId(UUID.randomUUID().toString());
-      }
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

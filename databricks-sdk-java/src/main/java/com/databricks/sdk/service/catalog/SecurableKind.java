@@ -4,7 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** Latest kind: CONNECTION_AWS_SECRETS_MANAGER = 270; Next id:271 */
+/** Latest kind: SECRET_EXTERNAL_AWS_SECRETS_MANAGER = 273; Next id:274 */
 @Generated
 public enum SecurableKind {
   TABLE_DB_STORAGE,
@@ -41,7 +41,6 @@ public enum SecurableKind {
   TABLE_FOREIGN_MYSQL,
   TABLE_FOREIGN_NETSUITE,
   TABLE_FOREIGN_ORACLE,
-  TABLE_FOREIGN_PALANTIR,
   TABLE_FOREIGN_POSTGRESQL,
   TABLE_FOREIGN_REDSHIFT,
   TABLE_FOREIGN_SALESFORCE,

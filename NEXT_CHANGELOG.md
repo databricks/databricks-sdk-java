@@ -13,3 +13,30 @@
 ### Internal Changes
 
 ### API Changes
+* Add `createSpace()` and `updateSpace()` methods for `workspaceClient.genie()` service.
+* Add `batchCreateMaterializedFeatures()`, `createKafkaConfig()`, `deleteKafkaConfig()`, `getKafkaConfig()`, `listKafkaConfigs()` and `updateKafkaConfig()` methods for `workspaceClient.featureEngineering()` service.
+* Add `deleteOnlineTable()` method for `workspaceClient.featureStore()` service.
+* Add `retrieveUserVisibleMetrics()` method for `workspaceClient.vectorSearchEndpoints()` service.
+* Add `majorVersion` field for `com.databricks.sdk.service.billing.CreateBillingUsageDashboardRequest`.
+* Add `includeSerializedSpace` field for `com.databricks.sdk.service.dashboards.GenieGetSpaceRequest`.
+* Add `serializedSpace` field for `com.databricks.sdk.service.dashboards.GenieSpace`.
+* Add `purpose` field for `com.databricks.sdk.service.dashboards.TextAttachment`.
+* Add `budgetPolicyId` field for `com.databricks.sdk.service.database.NewPipelineSpec`.
+* Add `model` field for `com.databricks.sdk.service.jobs.TriggerSettings`.
+* Add `kafkaSource` field for `com.databricks.sdk.service.ml.DataSource`.
+* Add `lineageContext` field for `com.databricks.sdk.service.ml.Feature`.
+* Add `connectionParameters` field for `com.databricks.sdk.service.pipelines.IngestionGatewayPipelineDefinition`.
+* Add `ingestFromUcForeignCatalog` field for `com.databricks.sdk.service.pipelines.IngestionPipelineDefinition`.
+* Add `rewindSpec` field for `com.databricks.sdk.service.pipelines.StartUpdate`.
+* Add `typeText` field for `com.databricks.sdk.service.vectorsearch.ColumnInfo`.
+* Add `AUTOSCALE_V2` enum value for `com.databricks.sdk.service.compute.EventDetailsCause`.
+* Add `UNSUPPORTED_CONVERSATION_TYPE_EXCEPTION` enum value for `com.databricks.sdk.service.dashboards.MessageErrorType`.
+* Add `FOREIGN_CATALOG` enum value for `com.databricks.sdk.service.pipelines.IngestionSourceType`.
+* Add `CREATING` and `CREATE_FAILED` enum values for `com.databricks.sdk.service.settings.CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRulePrivateLinkConnectionState`.
+* Add `CREATING` and `CREATE_FAILED` enum values for `com.databricks.sdk.service.settings.NccAzurePrivateEndpointRuleConnectionState`.
+* Add `RED_STATE` and `YELLOW_STATE` enum values for `com.databricks.sdk.service.vectorsearch.EndpointStatusState`.
+* Change `destinations` field for `com.databricks.sdk.service.catalog.AccessRequestDestinations` to no longer be required.
+* [Breaking] Change `destinations` field for `com.databricks.sdk.service.catalog.AccessRequestDestinations` to no longer be required.
+* Change `tableNames` field for `com.databricks.sdk.service.jobs.TableUpdateTriggerConfiguration` to be required.
+* [Breaking] Change `tableNames` field for `com.databricks.sdk.service.jobs.TableUpdateTriggerConfiguration` to be required.
+* [Breaking] Change `onlineStoreConfig` field for `com.databricks.sdk.service.ml.MaterializedFeature` to type `com.databricks.sdk.service.ml.OnlineStoreConfig` class.

@@ -7,6 +7,7 @@ import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.protobuf.FieldMask;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -21,7 +22,7 @@ public class UpdateResourceRequest {
    */
   @JsonIgnore
   @QueryParam("field_mask")
-  private String fieldMask;
+  private FieldMask fieldMask;
 
   /** */
   @JsonIgnore private Boolean nestedPathParamBool;
@@ -66,12 +67,12 @@ public class UpdateResourceRequest {
   @JsonProperty("resource")
   private Resource resource;
 
-  public UpdateResourceRequest setFieldMask(String fieldMask) {
+  public UpdateResourceRequest setFieldMask(FieldMask fieldMask) {
     this.fieldMask = fieldMask;
     return this;
   }
 
-  public String getFieldMask() {
+  public FieldMask getFieldMask() {
     return fieldMask;
   }
 

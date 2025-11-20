@@ -45,6 +45,15 @@ public class FeatureStoreAPI {
     impl.deleteOnlineStore(request);
   }
 
+  public void deleteOnlineTable(String onlineTableName) {
+    deleteOnlineTable(new DeleteOnlineTableRequest().setOnlineTableName(onlineTableName));
+  }
+
+  /** Delete online table. */
+  public void deleteOnlineTable(DeleteOnlineTableRequest request) {
+    impl.deleteOnlineTable(request);
+  }
+
   public OnlineStore getOnlineStore(String name) {
     return getOnlineStore(new GetOnlineStoreRequest().setName(name));
   }

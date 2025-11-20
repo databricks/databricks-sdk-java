@@ -35,6 +35,21 @@ class GenieImpl implements GenieService {
   }
 
   @Override
+  public GenieSpace createSpace(GenieCreateSpaceRequest request) {
+    String path = "/api/2.0/genie/spaces";
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, GenieSpace.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public void deleteConversation(GenieDeleteConversationRequest request) {
     String path =
         String.format(
@@ -288,6 +303,21 @@ class GenieImpl implements GenieService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public GenieSpace updateSpace(GenieUpdateSpaceRequest request) {
+    String path = String.format("/api/2.0/genie/spaces/%s", request.getSpaceId());
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, GenieSpace.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

@@ -101,9 +101,9 @@ public class AwsAttributes {
    * be of a form like "us-west-2a". The provided availability zone must be in the same region as
    * the Databricks deployment. For example, "us-west-2a" is not a valid zone id if the Databricks
    * deployment resides in the "us-east-1" region. This is an optional field at cluster creation,
-   * and if not specified, a default zone will be used. If the zone specified is "auto", will try to
-   * place cluster in a zone with high availability, and will retry placement in a different AZ if
-   * there is not enough capacity.
+   * and if not specified, the zone "auto" will be used. If the zone specified is "auto", will try
+   * to place cluster in a zone with high availability, and will retry placement in a different AZ
+   * if there is not enough capacity.
    *
    * <p>The list of available zones as well as the default value can be found by using the `List
    * Zones` method.
