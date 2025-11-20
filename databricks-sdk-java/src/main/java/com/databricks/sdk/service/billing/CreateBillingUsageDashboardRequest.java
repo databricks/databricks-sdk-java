@@ -16,6 +16,10 @@ public class CreateBillingUsageDashboardRequest {
   @JsonProperty("dashboard_type")
   private UsageDashboardType dashboardType;
 
+  /** The major version of the usage dashboard template to use. Defaults to VERSION_1. */
+  @JsonProperty("major_version")
+  private UsageDashboardMajorVersion majorVersion;
+
   /** The workspace ID of the workspace in which the usage dashboard is created. */
   @JsonProperty("workspace_id")
   private Long workspaceId;
@@ -27,6 +31,16 @@ public class CreateBillingUsageDashboardRequest {
 
   public UsageDashboardType getDashboardType() {
     return dashboardType;
+  }
+
+  public CreateBillingUsageDashboardRequest setMajorVersion(
+      UsageDashboardMajorVersion majorVersion) {
+    this.majorVersion = majorVersion;
+    return this;
+  }
+
+  public UsageDashboardMajorVersion getMajorVersion() {
+    return majorVersion;
   }
 
   public CreateBillingUsageDashboardRequest setWorkspaceId(Long workspaceId) {
@@ -44,18 +58,20 @@ public class CreateBillingUsageDashboardRequest {
     if (o == null || getClass() != o.getClass()) return false;
     CreateBillingUsageDashboardRequest that = (CreateBillingUsageDashboardRequest) o;
     return Objects.equals(dashboardType, that.dashboardType)
+        && Objects.equals(majorVersion, that.majorVersion)
         && Objects.equals(workspaceId, that.workspaceId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(dashboardType, workspaceId);
+    return Objects.hash(dashboardType, majorVersion, workspaceId);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CreateBillingUsageDashboardRequest.class)
         .add("dashboardType", dashboardType)
+        .add("majorVersion", majorVersion)
         .add("workspaceId", workspaceId)
         .toString();
   }

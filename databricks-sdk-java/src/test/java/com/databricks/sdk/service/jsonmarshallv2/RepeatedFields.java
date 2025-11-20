@@ -6,6 +6,10 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.google.protobuf.Duration;
+import com.google.protobuf.FieldMask;
+import com.google.protobuf.Timestamp;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
@@ -20,12 +24,12 @@ public class RepeatedFields {
   /** */
   @JsonProperty("repeated_duration")
   @QueryParam("repeated_duration")
-  private Collection<String> repeatedDuration;
+  private Collection<Duration> repeatedDuration;
 
   /** */
   @JsonProperty("repeated_field_mask")
   @QueryParam("repeated_field_mask")
-  private Collection<String> repeatedFieldMask;
+  private Collection<FieldMask> repeatedFieldMask;
 
   /** */
   @JsonProperty("repeated_int32")
@@ -40,7 +44,7 @@ public class RepeatedFields {
   /** */
   @JsonProperty("repeated_list_value")
   @QueryParam("repeated_list_value")
-  private Collection<Collection<Object /* MISSING TYPE */>> repeatedListValue;
+  private Collection<Collection<JsonNode>> repeatedListValue;
 
   /** */
   @JsonProperty("repeated_message")
@@ -55,17 +59,17 @@ public class RepeatedFields {
   /** */
   @JsonProperty("repeated_struct")
   @QueryParam("repeated_struct")
-  private Collection<Map<String, Object /* MISSING TYPE */>> repeatedStruct;
+  private Collection<Map<String, JsonNode>> repeatedStruct;
 
   /** */
   @JsonProperty("repeated_timestamp")
   @QueryParam("repeated_timestamp")
-  private Collection<String> repeatedTimestamp;
+  private Collection<Timestamp> repeatedTimestamp;
 
   /** */
   @JsonProperty("repeated_value")
   @QueryParam("repeated_value")
-  private Collection<Object /* MISSING TYPE */> repeatedValue;
+  private Collection<JsonNode> repeatedValue;
 
   /** */
   @JsonProperty("test_repeated_enum")
@@ -81,21 +85,21 @@ public class RepeatedFields {
     return repeatedBool;
   }
 
-  public RepeatedFields setRepeatedDuration(Collection<String> repeatedDuration) {
+  public RepeatedFields setRepeatedDuration(Collection<Duration> repeatedDuration) {
     this.repeatedDuration = repeatedDuration;
     return this;
   }
 
-  public Collection<String> getRepeatedDuration() {
+  public Collection<Duration> getRepeatedDuration() {
     return repeatedDuration;
   }
 
-  public RepeatedFields setRepeatedFieldMask(Collection<String> repeatedFieldMask) {
+  public RepeatedFields setRepeatedFieldMask(Collection<FieldMask> repeatedFieldMask) {
     this.repeatedFieldMask = repeatedFieldMask;
     return this;
   }
 
-  public Collection<String> getRepeatedFieldMask() {
+  public Collection<FieldMask> getRepeatedFieldMask() {
     return repeatedFieldMask;
   }
 
@@ -117,13 +121,12 @@ public class RepeatedFields {
     return repeatedInt64;
   }
 
-  public RepeatedFields setRepeatedListValue(
-      Collection<Collection<Object /* MISSING TYPE */>> repeatedListValue) {
+  public RepeatedFields setRepeatedListValue(Collection<Collection<JsonNode>> repeatedListValue) {
     this.repeatedListValue = repeatedListValue;
     return this;
   }
 
-  public Collection<Collection<Object /* MISSING TYPE */>> getRepeatedListValue() {
+  public Collection<Collection<JsonNode>> getRepeatedListValue() {
     return repeatedListValue;
   }
 
@@ -145,31 +148,30 @@ public class RepeatedFields {
     return repeatedString;
   }
 
-  public RepeatedFields setRepeatedStruct(
-      Collection<Map<String, Object /* MISSING TYPE */>> repeatedStruct) {
+  public RepeatedFields setRepeatedStruct(Collection<Map<String, JsonNode>> repeatedStruct) {
     this.repeatedStruct = repeatedStruct;
     return this;
   }
 
-  public Collection<Map<String, Object /* MISSING TYPE */>> getRepeatedStruct() {
+  public Collection<Map<String, JsonNode>> getRepeatedStruct() {
     return repeatedStruct;
   }
 
-  public RepeatedFields setRepeatedTimestamp(Collection<String> repeatedTimestamp) {
+  public RepeatedFields setRepeatedTimestamp(Collection<Timestamp> repeatedTimestamp) {
     this.repeatedTimestamp = repeatedTimestamp;
     return this;
   }
 
-  public Collection<String> getRepeatedTimestamp() {
+  public Collection<Timestamp> getRepeatedTimestamp() {
     return repeatedTimestamp;
   }
 
-  public RepeatedFields setRepeatedValue(Collection<Object /* MISSING TYPE */> repeatedValue) {
+  public RepeatedFields setRepeatedValue(Collection<JsonNode> repeatedValue) {
     this.repeatedValue = repeatedValue;
     return this;
   }
 
-  public Collection<Object /* MISSING TYPE */> getRepeatedValue() {
+  public Collection<JsonNode> getRepeatedValue() {
     return repeatedValue;
   }
 

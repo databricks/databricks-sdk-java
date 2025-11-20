@@ -30,6 +30,16 @@ public class Feature {
   @JsonProperty("inputs")
   private Collection<String> inputs;
 
+  /**
+   * WARNING: This field is primarily intended for internal use by Databricks systems and is
+   * automatically populated when features are created through Databricks notebooks or jobs. Users
+   * should not manually set this field as incorrect values may lead to inaccurate lineage tracking
+   * or unexpected behavior. This field will be set by feature-engineering client and should be left
+   * unset by SDK and terraform users.
+   */
+  @JsonProperty("lineage_context")
+  private LineageContext lineageContext;
+
   /** The data source of the feature. */
   @JsonProperty("source")
   private DataSource source;
@@ -83,6 +93,15 @@ public class Feature {
     return inputs;
   }
 
+  public Feature setLineageContext(LineageContext lineageContext) {
+    this.lineageContext = lineageContext;
+    return this;
+  }
+
+  public LineageContext getLineageContext() {
+    return lineageContext;
+  }
+
   public Feature setSource(DataSource source) {
     this.source = source;
     return this;
@@ -111,6 +130,7 @@ public class Feature {
         && Objects.equals(fullName, that.fullName)
         && Objects.equals(function, that.function)
         && Objects.equals(inputs, that.inputs)
+        && Objects.equals(lineageContext, that.lineageContext)
         && Objects.equals(source, that.source)
         && Objects.equals(timeWindow, that.timeWindow);
   }
@@ -118,7 +138,14 @@ public class Feature {
   @Override
   public int hashCode() {
     return Objects.hash(
-        description, filterCondition, fullName, function, inputs, source, timeWindow);
+        description,
+        filterCondition,
+        fullName,
+        function,
+        inputs,
+        lineageContext,
+        source,
+        timeWindow);
   }
 
   @Override
@@ -129,6 +156,7 @@ public class Feature {
         .add("fullName", fullName)
         .add("function", function)
         .add("inputs", inputs)
+        .add("lineageContext", lineageContext)
         .add("source", source)
         .add("timeWindow", timeWindow)
         .toString();
