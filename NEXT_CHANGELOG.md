@@ -13,3 +13,4 @@
 ### Internal Changes
 
 ### API Changes
+* Add `workspaceClient.workspaceEntityTagAssignments()` service.
