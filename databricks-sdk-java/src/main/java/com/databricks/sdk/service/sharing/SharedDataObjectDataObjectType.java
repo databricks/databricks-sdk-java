@@ -7,6 +7,7 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum SharedDataObjectDataObjectType {
   FEATURE_SPEC,
+  FOREIGN_TABLE,
   FUNCTION,
   MATERIALIZED_VIEW,
   MODEL,
@@ -15,4 +16,5 @@ public enum SharedDataObjectDataObjectType {
   STREAMING_TABLE,
   TABLE,
   VIEW,
+  VOLUME,
 }
