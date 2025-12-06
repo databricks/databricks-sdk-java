@@ -110,8 +110,7 @@ public class EditCluster {
 
   /**
    * Autoscaling Local Storage: when enabled, this cluster will dynamically acquire additional disk
-   * space when its Spark workers are running low on disk space. This feature requires specific AWS
-   * permissions to function correctly - refer to the User Guide for more details.
+   * space when its Spark workers are running low on disk space.
    */
   @JsonProperty("enable_elastic_disk")
   private Boolean enableElasticDisk;

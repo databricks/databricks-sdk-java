@@ -240,6 +240,8 @@ import com.databricks.sdk.service.sql.WarehousesAPI;
 import com.databricks.sdk.service.sql.WarehousesService;
 import com.databricks.sdk.service.tags.TagPoliciesAPI;
 import com.databricks.sdk.service.tags.TagPoliciesService;
+import com.databricks.sdk.service.tags.WorkspaceEntityTagAssignmentsAPI;
+import com.databricks.sdk.service.tags.WorkspaceEntityTagAssignmentsService;
 import com.databricks.sdk.service.vectorsearch.VectorSearchEndpointsAPI;
 import com.databricks.sdk.service.vectorsearch.VectorSearchEndpointsService;
 import com.databricks.sdk.service.vectorsearch.VectorSearchIndexesAPI;
@@ -377,6 +379,7 @@ public class WorkspaceClient {
   private WorkspaceAPI workspaceAPI;
   private WorkspaceBindingsAPI workspaceBindingsAPI;
   private WorkspaceConfAPI workspaceConfAPI;
+  private WorkspaceEntityTagAssignmentsAPI workspaceEntityTagAssignmentsAPI;
   private WorkspaceIamV2API workspaceIamV2API;
   private WorkspaceSettingsV2API workspaceSettingsV2API;
   private GroupsAPI groupsAPI;
@@ -509,6 +512,7 @@ public class WorkspaceClient {
     workspaceAPI = new WorkspaceAPI(apiClient);
     workspaceBindingsAPI = new WorkspaceBindingsAPI(apiClient);
     workspaceConfAPI = new WorkspaceConfAPI(apiClient);
+    workspaceEntityTagAssignmentsAPI = new WorkspaceEntityTagAssignmentsAPI(apiClient);
     workspaceIamV2API = new WorkspaceIamV2API(apiClient);
     workspaceSettingsV2API = new WorkspaceSettingsV2API(apiClient);
     groupsAPI = new GroupsAPI(apiClient);
@@ -2033,6 +2037,11 @@ public class WorkspaceClient {
     return workspaceConfAPI;
   }
 
+  /** Manage tag assignments on workspace-scoped objects. */
+  public WorkspaceEntityTagAssignmentsAPI workspaceEntityTagAssignments() {
+    return workspaceEntityTagAssignmentsAPI;
+  }
+
   /**
    * These APIs are used to manage identities and the workspace access of these identities in
    * <Databricks>.
@@ -3442,6 +3451,20 @@ public class WorkspaceClient {
   /** Replace the default WorkspaceConfAPI with a custom implementation. */
   public WorkspaceClient withWorkspaceConfAPI(WorkspaceConfAPI workspaceConf) {
     this.workspaceConfAPI = workspaceConf;
+    return this;
+  }
+
+  /** Replace the default WorkspaceEntityTagAssignmentsService with a custom implementation. */
+  public WorkspaceClient withWorkspaceEntityTagAssignmentsImpl(
+      WorkspaceEntityTagAssignmentsService workspaceEntityTagAssignments) {
+    return this.withWorkspaceEntityTagAssignmentsAPI(
+        new WorkspaceEntityTagAssignmentsAPI(workspaceEntityTagAssignments));
+  }
+
+  /** Replace the default WorkspaceEntityTagAssignmentsAPI with a custom implementation. */
+  public WorkspaceClient withWorkspaceEntityTagAssignmentsAPI(
+      WorkspaceEntityTagAssignmentsAPI workspaceEntityTagAssignments) {
+    this.workspaceEntityTagAssignmentsAPI = workspaceEntityTagAssignments;
     return this;
   }
 
