@@ -17,6 +17,21 @@ class PipelinesImpl implements PipelinesService {
   }
 
   @Override
+  public ClonePipelineResponse clone(ClonePipelineRequest request) {
+    String path = String.format("/api/2.0/pipelines/%s/clone", request.getPipelineId());
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, ClonePipelineResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public CreatePipelineResponse create(CreatePipeline request) {
     String path = "/api/2.0/pipelines";
     try {

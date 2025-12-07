@@ -90,6 +90,15 @@ public class PipelinesAPI {
   }
 
   /**
+   * Creates a new pipeline using Unity Catalog from a pipeline using Hive Metastore. This method
+   * returns the ID of the newly created clone. Additionally, this method starts an update for the
+   * newly created pipeline.
+   */
+  public ClonePipelineResponse clone(ClonePipelineRequest request) {
+    return impl.clone(request);
+  }
+
+  /**
    * Creates a new data processing pipeline based on the requested configuration. If successful,
    * this method returns the ID of the new pipeline.
    */
