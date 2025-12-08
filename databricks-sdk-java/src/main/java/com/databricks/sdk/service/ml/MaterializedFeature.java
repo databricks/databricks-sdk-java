@@ -10,6 +10,13 @@ import java.util.Objects;
 /** A materialized feature represents a feature that is continuously computed and stored. */
 @Generated
 public class MaterializedFeature {
+  /**
+   * The quartz cron expression that defines the schedule of the materialization pipeline. The
+   * schedule is evaluated in the UTC timezone.
+   */
+  @JsonProperty("cron_schedule")
+  private String cronSchedule;
+
   /** The full name of the feature in Unity Catalog. */
   @JsonProperty("feature_name")
   private String featureName;
@@ -43,6 +50,15 @@ public class MaterializedFeature {
    */
   @JsonProperty("table_name")
   private String tableName;
+
+  public MaterializedFeature setCronSchedule(String cronSchedule) {
+    this.cronSchedule = cronSchedule;
+    return this;
+  }
+
+  public String getCronSchedule() {
+    return cronSchedule;
+  }
 
   public MaterializedFeature setFeatureName(String featureName) {
     this.featureName = featureName;
@@ -113,7 +129,8 @@ public class MaterializedFeature {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     MaterializedFeature that = (MaterializedFeature) o;
-    return Objects.equals(featureName, that.featureName)
+    return Objects.equals(cronSchedule, that.cronSchedule)
+        && Objects.equals(featureName, that.featureName)
         && Objects.equals(lastMaterializationTime, that.lastMaterializationTime)
         && Objects.equals(materializedFeatureId, that.materializedFeatureId)
         && Objects.equals(offlineStoreConfig, that.offlineStoreConfig)
@@ -125,6 +142,7 @@ public class MaterializedFeature {
   @Override
   public int hashCode() {
     return Objects.hash(
+        cronSchedule,
         featureName,
         lastMaterializationTime,
         materializedFeatureId,
@@ -137,6 +155,7 @@ public class MaterializedFeature {
   @Override
   public String toString() {
     return new ToStringer(MaterializedFeature.class)
+        .add("cronSchedule", cronSchedule)
         .add("featureName", featureName)
         .add("lastMaterializationTime", lastMaterializationTime)
         .add("materializedFeatureId", materializedFeatureId)

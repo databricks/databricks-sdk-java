@@ -25,6 +25,13 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface PipelinesService {
   /**
+   * Creates a new pipeline using Unity Catalog from a pipeline using Hive Metastore. This method
+   * returns the ID of the newly created clone. Additionally, this method starts an update for the
+   * newly created pipeline.
+   */
+  ClonePipelineResponse clone(ClonePipelineRequest clonePipelineRequest);
+
+  /**
    * Creates a new data processing pipeline based on the requested configuration. If successful,
    * this method returns the ID of the new pipeline.
    */
