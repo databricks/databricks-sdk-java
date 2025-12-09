@@ -4,7 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** Latest kind: SECRET_EXTERNAL_AWS_SECRETS_MANAGER = 273; Next id:274 */
+/** Latest kind: CONNECTION_KAFKA_SASL = 279; Next id: 280 */
 @Generated
 public enum SecurableKind {
   TABLE_DB_STORAGE,
