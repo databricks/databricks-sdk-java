@@ -240,6 +240,8 @@ import com.databricks.sdk.service.sql.WarehousesAPI;
 import com.databricks.sdk.service.sql.WarehousesService;
 import com.databricks.sdk.service.tags.TagPoliciesAPI;
 import com.databricks.sdk.service.tags.TagPoliciesService;
+import com.databricks.sdk.service.tags.WorkspaceEntityTagAssignmentsAPI;
+import com.databricks.sdk.service.tags.WorkspaceEntityTagAssignmentsService;
 import com.databricks.sdk.service.vectorsearch.VectorSearchEndpointsAPI;
 import com.databricks.sdk.service.vectorsearch.VectorSearchEndpointsService;
 import com.databricks.sdk.service.vectorsearch.VectorSearchIndexesAPI;
@@ -377,6 +379,7 @@ public class WorkspaceClient {
   private WorkspaceAPI workspaceAPI;
   private WorkspaceBindingsAPI workspaceBindingsAPI;
   private WorkspaceConfAPI workspaceConfAPI;
+  private WorkspaceEntityTagAssignmentsAPI workspaceEntityTagAssignmentsAPI;
   private WorkspaceIamV2API workspaceIamV2API;
   private WorkspaceSettingsV2API workspaceSettingsV2API;
   private GroupsAPI groupsAPI;
@@ -509,6 +512,7 @@ public class WorkspaceClient {
     workspaceAPI = new WorkspaceAPI(apiClient);
     workspaceBindingsAPI = new WorkspaceBindingsAPI(apiClient);
     workspaceConfAPI = new WorkspaceConfAPI(apiClient);
+    workspaceEntityTagAssignmentsAPI = new WorkspaceEntityTagAssignmentsAPI(apiClient);
     workspaceIamV2API = new WorkspaceIamV2API(apiClient);
     workspaceSettingsV2API = new WorkspaceSettingsV2API(apiClient);
     groupsAPI = new GroupsAPI(apiClient);
@@ -563,8 +567,8 @@ public class WorkspaceClient {
    * more users and/or notification destinations if the condition was met. Alerts can be scheduled
    * using the `sql_task` type of the Jobs API, e.g. :method:jobs/create.
    *
-   * <p>**Note**: A new version of the Databricks SQL API is now available. Please see the latest
-   * version. [Learn more]
+   * <p>**Warning**: This API is deprecated. Please see the latest version of the Databricks SQL
+   * API. [Learn more]
    *
    * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
@@ -820,7 +824,8 @@ public class WorkspaceClient {
    * workspace. We advise you to use any text editor, REST client, or `grep` to search the response
    * from this API for the name of your SQL warehouse as it appears in Databricks SQL.
    *
-   * <p>**Note**: A new version of the Databricks SQL API is now available. [Learn more]
+   * <p>**Warning**: This API is deprecated. Please see the latest version of the Databricks SQL
+   * API. [Learn more]
    *
    * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
@@ -855,7 +860,8 @@ public class WorkspaceClient {
    * <p>- `CAN_MANAGE`: Allows all actions: read, run, edit, delete, modify permissions (superset of
    * `CAN_RUN`)
    *
-   * <p>**Note**: A new version of the Databricks SQL API is now available. [Learn more]
+   * <p>**Warning**: This API is deprecated. Please see the latest version of the Databricks SQL
+   * API. [Learn more]
    *
    * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
@@ -1436,8 +1442,8 @@ public class WorkspaceClient {
    * the target SQL warehouse, query text, name, description, tags, parameters, and visualizations.
    * Queries can be scheduled using the `sql_task` type of the Jobs API, e.g. :method:jobs/create.
    *
-   * <p>**Note**: A new version of the Databricks SQL API is now available. Please see the latest
-   * version. [Learn more]
+   * <p>**Warning**: This API is deprecated. Please see the latest version of the Databricks SQL
+   * API. [Learn more]
    *
    * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
@@ -1465,8 +1471,8 @@ public class WorkspaceClient {
    * This is an evolving API that facilitates the addition and removal of vizualisations from
    * existing queries within the Databricks Workspace. Data structures may change over time.
    *
-   * <p>**Note**: A new version of the Databricks SQL API is now available. Please see the latest
-   * version. [Learn more]
+   * <p>**Warning**: This API is deprecated. Please see the latest version of the Databricks SQL
+   * API. [Learn more]
    *
    * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
@@ -2031,6 +2037,11 @@ public class WorkspaceClient {
   /** This API allows updating known workspace settings for advanced users. */
   public WorkspaceConfAPI workspaceConf() {
     return workspaceConfAPI;
+  }
+
+  /** Manage tag assignments on workspace-scoped objects. */
+  public WorkspaceEntityTagAssignmentsAPI workspaceEntityTagAssignments() {
+    return workspaceEntityTagAssignmentsAPI;
   }
 
   /**
@@ -3442,6 +3453,20 @@ public class WorkspaceClient {
   /** Replace the default WorkspaceConfAPI with a custom implementation. */
   public WorkspaceClient withWorkspaceConfAPI(WorkspaceConfAPI workspaceConf) {
     this.workspaceConfAPI = workspaceConf;
+    return this;
+  }
+
+  /** Replace the default WorkspaceEntityTagAssignmentsService with a custom implementation. */
+  public WorkspaceClient withWorkspaceEntityTagAssignmentsImpl(
+      WorkspaceEntityTagAssignmentsService workspaceEntityTagAssignments) {
+    return this.withWorkspaceEntityTagAssignmentsAPI(
+        new WorkspaceEntityTagAssignmentsAPI(workspaceEntityTagAssignments));
+  }
+
+  /** Replace the default WorkspaceEntityTagAssignmentsAPI with a custom implementation. */
+  public WorkspaceClient withWorkspaceEntityTagAssignmentsAPI(
+      WorkspaceEntityTagAssignmentsAPI workspaceEntityTagAssignments) {
+    this.workspaceEntityTagAssignmentsAPI = workspaceEntityTagAssignments;
     return this;
   }
 
