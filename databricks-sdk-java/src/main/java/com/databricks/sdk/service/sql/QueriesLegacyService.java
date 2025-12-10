@@ -8,8 +8,8 @@ import com.databricks.sdk.support.Generated;
  * target SQL warehouse, query text, name, description, tags, parameters, and visualizations.
  * Queries can be scheduled using the `sql_task` type of the Jobs API, e.g. :method:jobs/create.
  *
- * <p>**Note**: A new version of the Databricks SQL API is now available. Please see the latest
- * version. [Learn more]
+ * <p>**Warning**: This API is deprecated. Please see the latest version of the Databricks SQL API.
+ * [Learn more]
  *
  * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
  *
@@ -29,8 +29,7 @@ public interface QueriesLegacyService {
    *
    * <p>**Note**: You cannot add a visualization until you create the query.
    *
-   * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
-   * :method:queries/create instead. [Learn more]
+   * <p>**Warning**: This API is deprecated. Please use :method:queries/create instead. [Learn more]
    *
    * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
@@ -40,8 +39,7 @@ public interface QueriesLegacyService {
    * Moves a query to the trash. Trashed queries immediately disappear from searches and list views,
    * and they cannot be used for alerts. The trash is deleted after 30 days.
    *
-   * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
-   * :method:queries/delete instead. [Learn more]
+   * <p>**Warning**: This API is deprecated. Please use :method:queries/delete instead. [Learn more]
    *
    * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
@@ -51,8 +49,7 @@ public interface QueriesLegacyService {
    * Retrieve a query object definition along with contextual permissions information about the
    * currently authenticated user.
    *
-   * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
-   * :method:queries/get instead. [Learn more]
+   * <p>**Warning**: This API is deprecated. Please use :method:queries/get instead. [Learn more]
    *
    * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
@@ -64,8 +61,7 @@ public interface QueriesLegacyService {
    * <p>**Warning**: Calling this API concurrently 10 or more times could result in throttling,
    * service degradation, or a temporary ban.
    *
-   * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
-   * :method:queries/list instead. [Learn more]
+   * <p>**Warning**: This API is deprecated. Please use :method:queries/list instead. [Learn more]
    *
    * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
@@ -75,8 +71,7 @@ public interface QueriesLegacyService {
    * Restore a query that has been moved to the trash. A restored query appears in list views and
    * searches. You can use restored queries for alerts.
    *
-   * <p>**Note**: A new version of the Databricks SQL API is now available. Please see the latest
-   * version. [Learn more]
+   * <p>**Warning**: This API is deprecated. Please see the latest version. [Learn more]
    *
    * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
@@ -87,8 +82,7 @@ public interface QueriesLegacyService {
    *
    * <p>**Note**: You cannot undo this operation.
    *
-   * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
-   * :method:queries/update instead. [Learn more]
+   * <p>**Warning**: This API is deprecated. Please use :method:queries/update instead. [Learn more]
    *
    * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
