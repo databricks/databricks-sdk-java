@@ -6,6 +6,7 @@ import com.databricks.sdk.core.error.ApiErrorBody;
 import com.databricks.sdk.core.error.PrivateLinkValidationError;
 import com.databricks.sdk.core.error.details.ErrorDetails;
 import com.databricks.sdk.core.error.details.ErrorInfo;
+import com.databricks.sdk.core.error.platform.TooManyRequests;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.utils.FakeTimer;
@@ -235,8 +236,7 @@ public class ApiClientTest {
             "Request GET /api/my/endpoint failed after 4 retries");
     assertInstanceOf(DatabricksError.class, exception.getCause());
     DatabricksError cause = (DatabricksError) exception.getCause();
-    assertEquals(cause.getErrorCode(), "TOO_MANY_REQUESTS");
-    assertEquals(cause.getStatusCode(), 429);
+    assertInstanceOf(TooManyRequests.class, cause);
   }
 
   @Test
@@ -429,7 +429,7 @@ public class ApiClientTest {
                 client.execute(
                     new Request("GET", req.getUri().getPath()), MyEndpointResponse.class));
 
-    assertEquals("TOO_MANY_REQUESTS", exception.getErrorCode());
+    assertInstanceOf(TooManyRequests.class, exception);
     assertEquals(429, exception.getStatusCode());
   }
 

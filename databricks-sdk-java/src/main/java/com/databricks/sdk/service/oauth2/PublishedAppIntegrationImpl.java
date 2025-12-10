@@ -24,6 +24,7 @@ class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
             apiClient.configuredAccountID());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -41,6 +42,7 @@ class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
             apiClient.configuredAccountID(), request.getIntegrationId());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -57,6 +59,7 @@ class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
             apiClient.configuredAccountID(), request.getIntegrationId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetPublishedAppIntegrationOutput.class);
@@ -73,6 +76,7 @@ class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
             apiClient.configuredAccountID());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetPublishedAppIntegrationsOutput.class);
@@ -89,6 +93,7 @@ class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
             apiClient.configuredAccountID(), request.getIntegrationId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

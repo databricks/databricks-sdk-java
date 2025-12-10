@@ -24,6 +24,7 @@ class HttpCallV2Impl implements HttpCallV2Service {
             request.getPathParamString(), request.getPathParamInt(), request.getPathParamBool());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -41,6 +42,7 @@ class HttpCallV2Impl implements HttpCallV2Service {
             request.getPathParamString(), request.getPathParamInt(), request.getPathParamBool());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, Resource.class);
@@ -59,6 +61,7 @@ class HttpCallV2Impl implements HttpCallV2Service {
             request.getNestedPathParamBool());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getResource()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

@@ -6,6 +6,7 @@ import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.support.Generated;
 import java.io.IOException;
+import java.util.UUID;
 
 /** Package-local implementation of BudgetPolicy */
 @Generated
@@ -22,6 +23,10 @@ class BudgetPolicyImpl implements BudgetPolicyService {
         String.format("/api/2.1/accounts/%s/budget-policies", apiClient.configuredAccountID());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
+      if (request.getRequestId() == null || request.getRequestId().isEmpty()) {
+        request.setRequestId(UUID.randomUUID().toString());
+      }
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -39,6 +44,7 @@ class BudgetPolicyImpl implements BudgetPolicyService {
             apiClient.configuredAccountID(), request.getPolicyId());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -55,6 +61,7 @@ class BudgetPolicyImpl implements BudgetPolicyService {
             apiClient.configuredAccountID(), request.getPolicyId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, BudgetPolicy.class);
@@ -69,6 +76,7 @@ class BudgetPolicyImpl implements BudgetPolicyService {
         String.format("/api/2.1/accounts/%s/budget-policies", apiClient.configuredAccountID());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListBudgetPoliciesResponse.class);
@@ -85,6 +93,7 @@ class BudgetPolicyImpl implements BudgetPolicyService {
             apiClient.configuredAccountID(), request.getPolicyId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getPolicy()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

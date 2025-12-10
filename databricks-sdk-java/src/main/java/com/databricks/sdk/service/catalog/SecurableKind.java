@@ -4,7 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** Latest kind: CONNECTION_SALESFORCE_OAUTH_MTLS = 268; Next id:269 */
+/** Latest kind: CONNECTION_CROWDSTRIKE_EVENT_STREAM_M2M = 281; Next id: 282 */
 @Generated
 public enum SecurableKind {
   TABLE_DB_STORAGE,
@@ -41,7 +41,6 @@ public enum SecurableKind {
   TABLE_FOREIGN_MYSQL,
   TABLE_FOREIGN_NETSUITE,
   TABLE_FOREIGN_ORACLE,
-  TABLE_FOREIGN_PALANTIR,
   TABLE_FOREIGN_POSTGRESQL,
   TABLE_FOREIGN_REDSHIFT,
   TABLE_FOREIGN_SALESFORCE,

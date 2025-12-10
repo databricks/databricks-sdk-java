@@ -13,6 +13,15 @@ public class GenieSpace {
   @JsonProperty("description")
   private String description;
 
+  /**
+   * The contents of the Genie Space in serialized string form. This field is excluded in List Genie
+   * spaces responses. Use the [Get Genie Space](:method:genie/getspace) API to retrieve an example
+   * response, which includes the `serialized_space` field. This field provides the structure of the
+   * JSON string that represents the space's layout and components.
+   */
+  @JsonProperty("serialized_space")
+  private String serializedSpace;
+
   /** Genie space ID */
   @JsonProperty("space_id")
   private String spaceId;
@@ -32,6 +41,15 @@ public class GenieSpace {
 
   public String getDescription() {
     return description;
+  }
+
+  public GenieSpace setSerializedSpace(String serializedSpace) {
+    this.serializedSpace = serializedSpace;
+    return this;
+  }
+
+  public String getSerializedSpace() {
+    return serializedSpace;
   }
 
   public GenieSpace setSpaceId(String spaceId) {
@@ -67,6 +85,7 @@ public class GenieSpace {
     if (o == null || getClass() != o.getClass()) return false;
     GenieSpace that = (GenieSpace) o;
     return Objects.equals(description, that.description)
+        && Objects.equals(serializedSpace, that.serializedSpace)
         && Objects.equals(spaceId, that.spaceId)
         && Objects.equals(title, that.title)
         && Objects.equals(warehouseId, that.warehouseId);
@@ -74,13 +93,14 @@ public class GenieSpace {
 
   @Override
   public int hashCode() {
-    return Objects.hash(description, spaceId, title, warehouseId);
+    return Objects.hash(description, serializedSpace, spaceId, title, warehouseId);
   }
 
   @Override
   public String toString() {
     return new ToStringer(GenieSpace.class)
         .add("description", description)
+        .add("serializedSpace", serializedSpace)
         .add("spaceId", spaceId)
         .add("title", title)
         .add("warehouseId", warehouseId)

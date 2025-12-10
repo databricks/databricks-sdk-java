@@ -21,7 +21,10 @@ public class SettingsMetadata {
   @JsonProperty("name")
   private String name;
 
-  /** Type of the setting. To set this setting, the value sent must match this type. */
+  /**
+   * Sample message depicting the type of the setting. To set this setting, the value sent must
+   * match this type.
+   */
   @JsonProperty("type")
   private String typeValue;
 

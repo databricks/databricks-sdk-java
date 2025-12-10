@@ -10,8 +10,8 @@ import java.util.Collection;
  * more users and/or notification destinations if the condition was met. Alerts can be scheduled
  * using the `sql_task` type of the Jobs API, e.g. :method:jobs/create.
  *
- * <p>**Note**: A new version of the Databricks SQL API is now available. Please see the latest
- * version. [Learn more]
+ * <p>**Warning**: This API is deprecated. Please see the latest version of the Databricks SQL API.
+ * [Learn more]
  *
  * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
  *
@@ -26,8 +26,7 @@ public interface AlertsLegacyService {
    * a condition of its result, and notifies users or notification destinations if the condition was
    * met.
    *
-   * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
-   * :method:alerts/create instead. [Learn more]
+   * <p>**Warning**: This API is deprecated. Please use :method:alerts/create instead. [Learn more]
    *
    * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
@@ -37,8 +36,7 @@ public interface AlertsLegacyService {
    * Deletes an alert. Deleted alerts are no longer accessible and cannot be restored. **Note**:
    * Unlike queries and dashboards, alerts cannot be moved to the trash.
    *
-   * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
-   * :method:alerts/delete instead. [Learn more]
+   * <p>**Warning**: This API is deprecated. Please use :method:alerts/delete instead. [Learn more]
    *
    * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
@@ -47,8 +45,7 @@ public interface AlertsLegacyService {
   /**
    * Gets an alert.
    *
-   * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
-   * :method:alerts/get instead. [Learn more]
+   * <p>**Warning**: This API is deprecated. Please use :method:alerts/get instead. [Learn more]
    *
    * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
@@ -57,8 +54,7 @@ public interface AlertsLegacyService {
   /**
    * Gets a list of alerts.
    *
-   * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
-   * :method:alerts/list instead. [Learn more]
+   * <p>**Warning**: This API is deprecated. Please use :method:alerts/list instead. [Learn more]
    *
    * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
@@ -67,8 +63,7 @@ public interface AlertsLegacyService {
   /**
    * Updates an alert.
    *
-   * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
-   * :method:alerts/update instead. [Learn more]
+   * <p>**Warning**: This API is deprecated. Please use :method:alerts/update instead. [Learn more]
    *
    * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */

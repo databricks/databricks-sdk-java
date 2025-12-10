@@ -25,6 +25,7 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
     try {
       Request req =
           new Request("POST", path, apiClient.serialize(request.getNetworkConnectivityConfig()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -44,6 +45,7 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
     try {
       Request req =
           new Request("POST", path, apiClient.serialize(request.getPrivateEndpointRule()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -62,6 +64,7 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
             apiClient.configuredAccountID(), request.getNetworkConnectivityConfigId());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -81,6 +84,7 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
             request.getPrivateEndpointRuleId());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, NccPrivateEndpointRule.class);
@@ -98,6 +102,7 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
             apiClient.configuredAccountID(), request.getNetworkConnectivityConfigId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, NetworkConnectivityConfiguration.class);
@@ -116,6 +121,7 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
             request.getPrivateEndpointRuleId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, NccPrivateEndpointRule.class);
@@ -132,6 +138,7 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
             "/api/2.0/accounts/%s/network-connectivity-configs", apiClient.configuredAccountID());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListNetworkConnectivityConfigurationsResponse.class);
@@ -149,6 +156,7 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
             apiClient.configuredAccountID(), request.getNetworkConnectivityConfigId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListPrivateEndpointRulesResponse.class);
@@ -169,6 +177,7 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
     try {
       Request req =
           new Request("PATCH", path, apiClient.serialize(request.getPrivateEndpointRule()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

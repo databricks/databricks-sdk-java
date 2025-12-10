@@ -21,6 +21,7 @@ class PoliciesImpl implements PoliciesService {
     String path = "/api/2.1/unity-catalog/policies";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request.getPolicyInfo()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -38,6 +39,7 @@ class PoliciesImpl implements PoliciesService {
             request.getOnSecurableType(), request.getOnSecurableFullname(), request.getName());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, DeletePolicyResponse.class);
@@ -54,6 +56,7 @@ class PoliciesImpl implements PoliciesService {
             request.getOnSecurableType(), request.getOnSecurableFullname(), request.getName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, PolicyInfo.class);
@@ -70,6 +73,7 @@ class PoliciesImpl implements PoliciesService {
             request.getOnSecurableType(), request.getOnSecurableFullname());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListPoliciesResponse.class);
@@ -86,6 +90,7 @@ class PoliciesImpl implements PoliciesService {
             request.getOnSecurableType(), request.getOnSecurableFullname(), request.getName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getPolicyInfo()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

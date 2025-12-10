@@ -23,6 +23,7 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
             "/api/2.0/accounts/%s/oauth2/custom-app-integrations", apiClient.configuredAccountID());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -40,6 +41,7 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
             apiClient.configuredAccountID(), request.getIntegrationId());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -56,6 +58,7 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
             apiClient.configuredAccountID(), request.getIntegrationId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetCustomAppIntegrationOutput.class);
@@ -71,6 +74,7 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
             "/api/2.0/accounts/%s/oauth2/custom-app-integrations", apiClient.configuredAccountID());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetCustomAppIntegrationsOutput.class);
@@ -87,6 +91,7 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
             apiClient.configuredAccountID(), request.getIntegrationId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

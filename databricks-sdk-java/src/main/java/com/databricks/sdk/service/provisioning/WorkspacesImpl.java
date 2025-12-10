@@ -22,6 +22,7 @@ class WorkspacesImpl implements WorkspacesService {
     String path = String.format("/api/2.0/accounts/%s/workspaces", apiClient.configuredAccountID());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -39,6 +40,7 @@ class WorkspacesImpl implements WorkspacesService {
             apiClient.configuredAccountID(), request.getWorkspaceId());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, Workspace.class);
@@ -55,6 +57,7 @@ class WorkspacesImpl implements WorkspacesService {
             apiClient.configuredAccountID(), request.getWorkspaceId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, Workspace.class);
@@ -80,6 +83,7 @@ class WorkspacesImpl implements WorkspacesService {
     try {
       Request req =
           new Request("PATCH", path, apiClient.serialize(request.getCustomerFacingWorkspace()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

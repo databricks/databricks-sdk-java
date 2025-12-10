@@ -130,7 +130,10 @@ public class ProxyUtils {
         .setDefaultCredentialsProvider(credsProvider)
         .setDefaultAuthSchemeRegistry(
             RegistryBuilder.<AuthSchemeProvider>create()
-                .register(AuthSchemes.SPNEGO, new SPNegoSchemeFactory(true))
+                // Use SPNegoSchemeFactory with useCanonicalHostname=false to defer hostname
+                // canonicalization to the Kerberos library based on krb5.conf settings
+                // (rdns, dns_canonicalize_hostname) rather than forcing canonicalization.
+                .register(AuthSchemes.SPNEGO, new SPNegoSchemeFactory(true, false))
                 .build());
   }
 

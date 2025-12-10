@@ -24,6 +24,7 @@ class DataQualityImpl implements DataQualityService {
             request.getObjectType(), request.getObjectId(), request.getRefreshId());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -38,6 +39,7 @@ class DataQualityImpl implements DataQualityService {
     String path = "/api/data-quality/v1/monitors";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request.getMonitor()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -55,6 +57,7 @@ class DataQualityImpl implements DataQualityService {
             request.getObjectType(), request.getObjectId());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request.getRefresh()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -71,6 +74,7 @@ class DataQualityImpl implements DataQualityService {
             "/api/data-quality/v1/monitors/%s/%s", request.getObjectType(), request.getObjectId());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -87,6 +91,7 @@ class DataQualityImpl implements DataQualityService {
             request.getObjectType(), request.getObjectId(), request.getRefreshId());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -102,6 +107,7 @@ class DataQualityImpl implements DataQualityService {
             "/api/data-quality/v1/monitors/%s/%s", request.getObjectType(), request.getObjectId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, Monitor.class);
@@ -118,6 +124,7 @@ class DataQualityImpl implements DataQualityService {
             request.getObjectType(), request.getObjectId(), request.getRefreshId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, Refresh.class);
@@ -131,6 +138,7 @@ class DataQualityImpl implements DataQualityService {
     String path = "/api/data-quality/v1/monitors";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListMonitorResponse.class);
@@ -147,6 +155,7 @@ class DataQualityImpl implements DataQualityService {
             request.getObjectType(), request.getObjectId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListRefreshResponse.class);
@@ -162,6 +171,7 @@ class DataQualityImpl implements DataQualityService {
             "/api/data-quality/v1/monitors/%s/%s", request.getObjectType(), request.getObjectId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getMonitor()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -179,6 +189,7 @@ class DataQualityImpl implements DataQualityService {
             request.getObjectType(), request.getObjectId(), request.getRefreshId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getRefresh()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

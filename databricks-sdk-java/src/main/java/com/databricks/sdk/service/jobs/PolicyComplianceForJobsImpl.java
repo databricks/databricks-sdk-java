@@ -21,6 +21,7 @@ class PolicyComplianceForJobsImpl implements PolicyComplianceForJobsService {
     String path = "/api/2.0/policies/jobs/enforce-compliance";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -35,6 +36,7 @@ class PolicyComplianceForJobsImpl implements PolicyComplianceForJobsService {
     String path = "/api/2.0/policies/jobs/get-compliance";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GetPolicyComplianceResponse.class);
@@ -48,6 +50,7 @@ class PolicyComplianceForJobsImpl implements PolicyComplianceForJobsService {
     String path = "/api/2.0/policies/jobs/list-compliance";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListJobComplianceForPolicyResponse.class);

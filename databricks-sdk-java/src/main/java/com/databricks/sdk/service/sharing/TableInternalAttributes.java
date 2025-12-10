@@ -22,6 +22,10 @@ public class TableInternalAttributes {
   @JsonProperty("dependency_storage_locations")
   private Collection<String> dependencyStorageLocations;
 
+  /** Whether the table has uniform enabled. */
+  @JsonProperty("has_delta_uniform_iceberg")
+  private Boolean hasDeltaUniformIceberg;
+
   /**
    * Will be populated in the reconciliation response for VIEW and FOREIGN_TABLE, with the value of
    * the parent UC entity's storage_location, following the same logic as getManagedEntityPath in
@@ -62,6 +66,15 @@ public class TableInternalAttributes {
 
   public Collection<String> getDependencyStorageLocations() {
     return dependencyStorageLocations;
+  }
+
+  public TableInternalAttributes setHasDeltaUniformIceberg(Boolean hasDeltaUniformIceberg) {
+    this.hasDeltaUniformIceberg = hasDeltaUniformIceberg;
+    return this;
+  }
+
+  public Boolean getHasDeltaUniformIceberg() {
+    return hasDeltaUniformIceberg;
   }
 
   public TableInternalAttributes setParentStorageLocation(String parentStorageLocation) {
@@ -107,6 +120,7 @@ public class TableInternalAttributes {
     TableInternalAttributes that = (TableInternalAttributes) o;
     return Objects.equals(auxiliaryManagedLocation, that.auxiliaryManagedLocation)
         && Objects.equals(dependencyStorageLocations, that.dependencyStorageLocations)
+        && Objects.equals(hasDeltaUniformIceberg, that.hasDeltaUniformIceberg)
         && Objects.equals(parentStorageLocation, that.parentStorageLocation)
         && Objects.equals(storageLocation, that.storageLocation)
         && Objects.equals(typeValue, that.typeValue)
@@ -118,6 +132,7 @@ public class TableInternalAttributes {
     return Objects.hash(
         auxiliaryManagedLocation,
         dependencyStorageLocations,
+        hasDeltaUniformIceberg,
         parentStorageLocation,
         storageLocation,
         typeValue,
@@ -129,6 +144,7 @@ public class TableInternalAttributes {
     return new ToStringer(TableInternalAttributes.class)
         .add("auxiliaryManagedLocation", auxiliaryManagedLocation)
         .add("dependencyStorageLocations", dependencyStorageLocations)
+        .add("hasDeltaUniformIceberg", hasDeltaUniformIceberg)
         .add("parentStorageLocation", parentStorageLocation)
         .add("storageLocation", storageLocation)
         .add("typeValue", typeValue)

@@ -110,6 +110,11 @@ public class GenieAPI {
         response);
   }
 
+  /** Creates a Genie space from a serialized payload. */
+  public GenieSpace createSpace(GenieCreateSpaceRequest request) {
+    return impl.createSpace(request);
+  }
+
   public void deleteConversation(String spaceId, String conversationId) {
     deleteConversation(
         new GenieDeleteConversationRequest().setSpaceId(spaceId).setConversationId(conversationId));
@@ -284,6 +289,11 @@ public class GenieAPI {
   /** Move a Genie Space to the trash. */
   public void trashSpace(GenieTrashSpaceRequest request) {
     impl.trashSpace(request);
+  }
+
+  /** Updates a Genie space with a serialized payload. */
+  public GenieSpace updateSpace(GenieUpdateSpaceRequest request) {
+    return impl.updateSpace(request);
   }
 
   public GenieService impl() {

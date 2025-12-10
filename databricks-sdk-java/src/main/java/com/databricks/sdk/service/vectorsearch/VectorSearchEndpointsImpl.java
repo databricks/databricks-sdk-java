@@ -21,6 +21,7 @@ class VectorSearchEndpointsImpl implements VectorSearchEndpointsService {
     String path = "/api/2.0/vector-search/endpoints";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -35,6 +36,7 @@ class VectorSearchEndpointsImpl implements VectorSearchEndpointsService {
     String path = String.format("/api/2.0/vector-search/endpoints/%s", request.getEndpointName());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -48,6 +50,7 @@ class VectorSearchEndpointsImpl implements VectorSearchEndpointsService {
     String path = String.format("/api/2.0/vector-search/endpoints/%s", request.getEndpointName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, EndpointInfo.class);
@@ -61,9 +64,26 @@ class VectorSearchEndpointsImpl implements VectorSearchEndpointsService {
     String path = "/api/2.0/vector-search/endpoints";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListEndpointResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public RetrieveUserVisibleMetricsResponse retrieveUserVisibleMetrics(
+      RetrieveUserVisibleMetricsRequest request) {
+    String path = String.format("/api/2.0/vector-search/endpoints/%s/metrics", request.getName());
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, RetrieveUserVisibleMetricsResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -77,6 +97,7 @@ class VectorSearchEndpointsImpl implements VectorSearchEndpointsService {
             "/api/2.0/vector-search/endpoints/%s/budget-policy", request.getEndpointName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -93,6 +114,7 @@ class VectorSearchEndpointsImpl implements VectorSearchEndpointsService {
         String.format("/api/2.0/vector-search/endpoints/%s/tags", request.getEndpointName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

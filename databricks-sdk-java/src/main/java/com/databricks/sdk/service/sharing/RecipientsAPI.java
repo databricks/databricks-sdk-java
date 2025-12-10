@@ -109,8 +109,8 @@ public class RecipientsAPI {
   }
 
   /**
-   * Gets the share permissions for the specified Recipient. The caller must be a metastore admin or
-   * the owner of the Recipient.
+   * Gets the share permissions for the specified Recipient. The caller must have the USE_RECIPIENT
+   * privilege on the metastore or be the owner of the Recipient.
    */
   public GetRecipientSharePermissionsResponse sharePermissions(SharePermissionsRequest request) {
     return impl.sharePermissions(request);

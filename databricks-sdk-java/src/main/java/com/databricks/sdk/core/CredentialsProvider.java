@@ -26,11 +26,11 @@ public interface CredentialsProvider {
   /**
    * Creates and returns a new HeaderFactory to authenticate requests to the Databricks API.
    *
+   * <p>Note: A new HeaderFactory instance is returned on each invocation.
+   *
    * <p><b>This method is called internally by the SDK</b> during client initialization and should
    * not be invoked directly by users. The SDK will call this method to obtain a HeaderFactory that
    * will be used to add authentication headers to each API request.
-   *
-   * <p>Note: A new HeaderFactory instance is returned on each invocation.
    *
    * @param config the Databricks configuration to use for authentication
    * @return a new HeaderFactory configured for authenticating API requests

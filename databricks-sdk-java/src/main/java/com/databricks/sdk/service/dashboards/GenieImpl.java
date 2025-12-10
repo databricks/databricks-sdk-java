@@ -24,10 +24,26 @@ class GenieImpl implements GenieService {
             request.getSpaceId(), request.getConversationId());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, GenieMessage.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public GenieSpace createSpace(GenieCreateSpaceRequest request) {
+    String path = "/api/2.0/genie/spaces";
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, GenieSpace.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -41,6 +57,7 @@ class GenieImpl implements GenieService {
             request.getSpaceId(), request.getConversationId());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -57,6 +74,7 @@ class GenieImpl implements GenieService {
             request.getSpaceId(), request.getConversationId(), request.getMessageId());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
@@ -77,6 +95,7 @@ class GenieImpl implements GenieService {
             request.getAttachmentId());
     try {
       Request req = new Request("POST", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GenieGetMessageQueryResultResponse.class);
@@ -94,6 +113,7 @@ class GenieImpl implements GenieService {
             request.getSpaceId(), request.getConversationId(), request.getMessageId());
     try {
       Request req = new Request("POST", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GenieGetMessageQueryResultResponse.class);
@@ -110,6 +130,7 @@ class GenieImpl implements GenieService {
             request.getSpaceId(), request.getConversationId(), request.getMessageId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GenieMessage.class);
@@ -130,6 +151,7 @@ class GenieImpl implements GenieService {
             request.getAttachmentId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GenieGetMessageQueryResultResponse.class);
@@ -147,6 +169,7 @@ class GenieImpl implements GenieService {
             request.getSpaceId(), request.getConversationId(), request.getMessageId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GenieGetMessageQueryResultResponse.class);
@@ -167,6 +190,7 @@ class GenieImpl implements GenieService {
             request.getAttachmentId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GenieGetMessageQueryResultResponse.class);
@@ -180,6 +204,7 @@ class GenieImpl implements GenieService {
     String path = String.format("/api/2.0/genie/spaces/%s", request.getSpaceId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GenieSpace.class);
@@ -197,6 +222,7 @@ class GenieImpl implements GenieService {
             request.getSpaceId(), request.getConversationId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GenieListConversationMessagesResponse.class);
@@ -210,6 +236,7 @@ class GenieImpl implements GenieService {
     String path = String.format("/api/2.0/genie/spaces/%s/conversations", request.getSpaceId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GenieListConversationsResponse.class);
@@ -223,6 +250,7 @@ class GenieImpl implements GenieService {
     String path = "/api/2.0/genie/spaces";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GenieListSpacesResponse.class);
@@ -239,6 +267,7 @@ class GenieImpl implements GenieService {
             request.getSpaceId(), request.getConversationId(), request.getMessageId());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -255,6 +284,7 @@ class GenieImpl implements GenieService {
         String.format("/api/2.0/genie/spaces/%s/start-conversation", request.getSpaceId());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -269,9 +299,25 @@ class GenieImpl implements GenieService {
     String path = String.format("/api/2.0/genie/spaces/%s", request.getSpaceId());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public GenieSpace updateSpace(GenieUpdateSpaceRequest request) {
+    String path = String.format("/api/2.0/genie/spaces/%s", request.getSpaceId());
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, GenieSpace.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

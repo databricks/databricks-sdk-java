@@ -6,6 +6,7 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.protobuf.FieldMask;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -20,7 +21,7 @@ public class GetResourceRequest {
    */
   @JsonIgnore
   @QueryParam("field_mask")
-  private String fieldMask;
+  private FieldMask fieldMask;
 
   /** */
   @JsonIgnore
@@ -61,12 +62,12 @@ public class GetResourceRequest {
   @QueryParam("repeated_query_param")
   private Collection<String> repeatedQueryParam;
 
-  public GetResourceRequest setFieldMask(String fieldMask) {
+  public GetResourceRequest setFieldMask(FieldMask fieldMask) {
     this.fieldMask = fieldMask;
     return this;
   }
 
-  public String getFieldMask() {
+  public FieldMask getFieldMask() {
     return fieldMask;
   }
 
