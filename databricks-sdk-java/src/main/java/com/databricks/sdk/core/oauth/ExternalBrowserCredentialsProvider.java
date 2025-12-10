@@ -3,6 +3,7 @@ package com.databricks.sdk.core.oauth;
 import com.databricks.sdk.core.CredentialsProvider;
 import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.support.InternalApi;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import org.slf4j.LoggerFactory;
  * browser for the user to authorize the application. Uses a specified TokenCache or creates a
  * default one if none is provided.
  */
+@InternalApi
 public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
   private static final Logger LOGGER =
       LoggerFactory.getLogger(ExternalBrowserCredentialsProvider.class);

@@ -1,10 +1,12 @@
 package com.databricks.sdk.core;
 
+import com.databricks.sdk.support.InternalApi;
 import java.lang.reflect.Field;
 import java.time.Duration;
 import java.util.Map;
 import java.util.Objects;
 
+@InternalApi
 class ConfigAttributeAccessor {
   private final ConfigAttribute configAttribute;
   private final Field field;

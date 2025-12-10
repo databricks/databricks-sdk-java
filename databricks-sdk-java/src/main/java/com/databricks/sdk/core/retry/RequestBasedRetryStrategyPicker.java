@@ -1,6 +1,7 @@
 package com.databricks.sdk.core.retry;
 
 import com.databricks.sdk.core.http.Request;
+import com.databricks.sdk.support.InternalApi;
 import java.util.AbstractMap;
 import java.util.Arrays;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.stream.Collectors;
  * A RetryStrategyPicker that selects a retry strategy based on whether the request is idempotent or
  * not.
  */
+@InternalApi
 public class RequestBasedRetryStrategyPicker implements RetryStrategyPicker {
   private static final List<Request> IDEMPOTENT_REQUESTS =
       Arrays.asList(

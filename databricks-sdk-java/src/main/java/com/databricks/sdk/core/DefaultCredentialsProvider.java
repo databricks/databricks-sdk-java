@@ -1,6 +1,7 @@
 package com.databricks.sdk.core;
 
 import com.databricks.sdk.core.oauth.*;
+import com.databricks.sdk.support.InternalApi;
 import com.google.common.base.Strings;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.slf4j.LoggerFactory;
  * Personal Access Tokens (PAT), OAuth, Azure, Google, and OpenID Connect (OIDC). The provider
  * attempts each authentication method in sequence until a valid credential is obtained.
  */
+@InternalApi
 public class DefaultCredentialsProvider implements CredentialsProvider {
   private static final Logger LOG = LoggerFactory.getLogger(DefaultCredentialsProvider.class);
 

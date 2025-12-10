@@ -1,7 +1,9 @@
 package com.databricks.sdk.core.http;
 
+import com.databricks.sdk.support.InternalApi;
 import java.util.*;
 
+@InternalApi
 public class FormRequest extends Request {
   public FormRequest(String url, Map<String, String> form) {
     this(POST, url, form);

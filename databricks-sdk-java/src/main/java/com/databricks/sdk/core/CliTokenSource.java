@@ -4,6 +4,7 @@ import com.databricks.sdk.core.oauth.Token;
 import com.databricks.sdk.core.oauth.TokenSource;
 import com.databricks.sdk.core.utils.Environment;
 import com.databricks.sdk.core.utils.OSUtils;
+import com.databricks.sdk.support.InternalApi;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
@@ -18,6 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 import org.apache.commons.io.IOUtils;
 
+@InternalApi
 public class CliTokenSource implements TokenSource {
   private List<String> cmd;
   private String tokenTypeField;

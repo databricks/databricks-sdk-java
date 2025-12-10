@@ -14,6 +14,7 @@ import com.databricks.sdk.core.utils.SerDeUtils;
 import com.databricks.sdk.core.utils.SystemTimer;
 import com.databricks.sdk.core.utils.Timer;
 import com.databricks.sdk.support.Header;
+import com.databricks.sdk.support.InternalApi;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,6 +32,7 @@ import org.slf4j.LoggerFactory;
  * Simplified REST API client with retries, JSON POJO SerDe through Jackson and exception POJO
  * guessing
  */
+@InternalApi
 public class ApiClient {
   public static class Builder {
     private Timer timer;

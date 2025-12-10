@@ -2,6 +2,7 @@ package com.databricks.sdk.core.oauth;
 
 import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.HttpClient;
+import com.databricks.sdk.support.InternalApi;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -13,6 +14,7 @@ import org.slf4j.LoggerFactory;
  *
  * <p>Implements the refresh_token OAuth grant type with optional token caching.
  */
+@InternalApi
 public class SessionCredentialsTokenSource implements TokenSource {
   private static final Logger LOGGER = LoggerFactory.getLogger(SessionCredentialsTokenSource.class);
 

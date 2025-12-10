@@ -1,12 +1,14 @@
 package com.databricks.sdk.core.oauth;
 
 import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.support.InternalApi;
 import java.util.Objects;
 
 /**
  * A TokenSource implementation that always throws an error when attempting to get a token. This is
  * used when the header factory is not an OAuthHeaderFactory.
  */
+@InternalApi
 public class ErrorTokenSource implements TokenSource {
   private final String errorMessage;
 

@@ -1,8 +1,10 @@
 package com.databricks.sdk.core.utils;
 
+import com.databricks.sdk.support.InternalApi;
 import java.io.IOException;
 import java.io.InputStream;
 
+@InternalApi
 public class CustomCloseInputStream extends InputStream {
   private final InputStream inputStream;
   private final Runnable cleanup;

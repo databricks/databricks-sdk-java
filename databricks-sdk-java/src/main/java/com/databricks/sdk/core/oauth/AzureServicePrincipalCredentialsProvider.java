@@ -2,6 +2,7 @@ package com.databricks.sdk.core.oauth;
 
 import com.databricks.sdk.core.*;
 import com.databricks.sdk.core.utils.AzureUtils;
+import com.databricks.sdk.support.InternalApi;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
  * Adds refreshed Azure Active Directory (AAD) Service Principal OAuth tokens to every request,
  * while automatically resolving different Azure environment endpoints.
  */
+@InternalApi
 public class AzureServicePrincipalCredentialsProvider implements CredentialsProvider {
   private static final Logger logger =
       LoggerFactory.getLogger(AzureServicePrincipalCredentialsProvider.class);

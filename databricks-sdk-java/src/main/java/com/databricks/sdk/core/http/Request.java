@@ -1,6 +1,7 @@
 package com.databricks.sdk.core.http;
 
 import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.support.InternalApi;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
@@ -8,6 +9,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
+@InternalApi
 public class Request {
   public static final String GET = "GET";
   public static final String HEAD = "HEAD";

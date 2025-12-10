@@ -1,9 +1,11 @@
 package com.databricks.sdk.core.retry;
 
 import com.databricks.sdk.core.DatabricksError;
+import com.databricks.sdk.support.InternalApi;
 import java.util.Arrays;
 import java.util.List;
 
+@InternalApi
 public class RetryUtils {
   private static final List<String> TRANSIENT_ERROR_STRING_MATCHES =
       Arrays.asList(

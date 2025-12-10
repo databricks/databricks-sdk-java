@@ -3,6 +3,7 @@ package com.databricks.sdk.core.oauth;
 import com.databricks.sdk.core.CredentialsProvider;
 import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.http.HttpClient;
+import com.databricks.sdk.support.InternalApi;
 import java.io.Serializable;
 import java.util.Optional;
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import org.slf4j.LoggerFactory;
  * requests to an API, and a long-lived refresh token, which can be used to fetch new access tokens.
  * Calling refresh() uses the refresh token to retrieve a new access token to authenticate to APIs.
  */
+@InternalApi
 public class SessionCredentials implements CredentialsProvider, Serializable {
   private static final long serialVersionUID = 3083941540130596650L;
   private static final Logger LOGGER = LoggerFactory.getLogger(SessionCredentials.class);

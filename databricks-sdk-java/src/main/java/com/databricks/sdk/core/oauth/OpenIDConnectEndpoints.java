@@ -1,5 +1,6 @@
 package com.databricks.sdk.core.oauth;
 
+import com.databricks.sdk.support.InternalApi;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.net.MalformedURLException;
@@ -9,6 +10,7 @@ import java.net.MalformedURLException;
  * href="https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfigurationRequest">the
  * OIDC spec</a>.
  */
+@InternalApi
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OpenIDConnectEndpoints {
   @JsonProperty("token_endpoint")

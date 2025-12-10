@@ -1,5 +1,6 @@
 package com.databricks.sdk.core.error.details;
 
+import com.databricks.sdk.support.InternalApi;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
@@ -15,6 +16,7 @@ import java.util.List;
  * Custom deserializer for ErrorDetails that converts an array of JSON objects into an ErrorDetails
  * object.
  */
+@InternalApi
 public class ErrorDetailsDeserializer extends JsonDeserializer<ErrorDetails> {
 
   private static final String ERROR_INFO_TYPE = "type.googleapis.com/google.rpc.ErrorInfo";

@@ -3,6 +3,7 @@ package com.databricks.sdk.core.oauth;
 import com.databricks.sdk.core.*;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
+import com.databricks.sdk.support.InternalApi;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.util.Optional;
  * OIDC token for an Azure Active Directory (AAD) Service Principal OAuth token. This class handles
  * the process of obtaining, refreshing, and attaching the necessary tokens to each HTTP request.
  */
+@InternalApi
 public class AzureGithubOidcCredentialsProvider implements CredentialsProvider {
   private final ObjectMapper mapper = new ObjectMapper();
 

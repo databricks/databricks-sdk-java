@@ -1,9 +1,11 @@
 package com.databricks.sdk.core;
 
+import com.databricks.sdk.support.InternalApi;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
+@InternalApi
 public class BasicCredentialsProvider implements CredentialsProvider {
   public static final String BASIC = "basic";
 

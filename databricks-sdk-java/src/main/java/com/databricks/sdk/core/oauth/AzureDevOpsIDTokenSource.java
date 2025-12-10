@@ -5,6 +5,7 @@ import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.utils.Environment;
+import com.databricks.sdk.support.InternalApi;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.base.Strings;
@@ -19,6 +20,7 @@ import java.io.IOException;
  * href="https://learn.microsoft.com/en-us/rest/api/azure/devops/distributedtask/oidctoken/create">Azure
  * DevOps OIDC token API</a>.
  */
+@InternalApi
 public class AzureDevOpsIDTokenSource implements IDTokenSource {
   /* Access token for authenticating with Azure DevOps API */
   private final String azureDevOpsAccessToken;
