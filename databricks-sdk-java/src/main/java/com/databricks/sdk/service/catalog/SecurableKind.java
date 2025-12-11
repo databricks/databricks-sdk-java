@@ -4,7 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** Latest kind: CONNECTION_CROWDSTRIKE_EVENT_STREAM_M2M = 281; Next id: 282 */
+/** Latest kind: CONNECTION_WORKDAY_ACTIVITY_LOGGING_OAUTH_REFRESH_TOKEN = 282; Next id:283 */
 @Generated
 public enum SecurableKind {
   TABLE_DB_STORAGE,
