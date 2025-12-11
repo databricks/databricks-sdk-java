@@ -1,8 +1,10 @@
 package com.databricks.sdk.core.utils;
 
+import com.databricks.sdk.support.InternalApi;
 import java.util.List;
 
 /** OS-specific functionality needed by the SDK. */
+@InternalApi
 public interface OSUtilities {
   /**
    * Returns a list of strings representing an executable command for the current operating system,

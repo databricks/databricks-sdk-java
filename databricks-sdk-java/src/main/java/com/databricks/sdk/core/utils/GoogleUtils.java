@@ -1,8 +1,10 @@
 package com.databricks.sdk.core.utils;
 
+import com.databricks.sdk.support.InternalApi;
 import java.util.Arrays;
 import java.util.List;
 
+@InternalApi
 public class GoogleUtils {
   public static List<String> GCP_SCOPES =
       Arrays.asList(

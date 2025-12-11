@@ -1,5 +1,6 @@
 package com.databricks.sdk.core;
 
+import com.databricks.sdk.support.InternalApi;
 import com.databricks.sdk.support.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.protobuf.FieldMask;
@@ -17,6 +18,7 @@ import java.util.*;
  * href="https://cloud.google.com/endpoints/docs/grpc-service-config/reference/rpc/google.api#google.api.HttpRule">the
  * documentation for gRPC transcoding</a> for more details.
  */
+@InternalApi
 public class GrpcTranscodingQueryParamsSerializer {
   public static class QueryParamPair {
     private final String key;

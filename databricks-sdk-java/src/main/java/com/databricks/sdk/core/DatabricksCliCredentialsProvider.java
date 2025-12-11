@@ -3,10 +3,12 @@ package com.databricks.sdk.core;
 import com.databricks.sdk.core.oauth.CachedTokenSource;
 import com.databricks.sdk.core.oauth.OAuthHeaderFactory;
 import com.databricks.sdk.core.utils.OSUtils;
+import com.databricks.sdk.support.InternalApi;
 import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@InternalApi
 public class DatabricksCliCredentialsProvider implements CredentialsProvider {
 
   private static final Logger LOG = LoggerFactory.getLogger(DatabricksCliCredentialsProvider.class);

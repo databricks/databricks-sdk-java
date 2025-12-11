@@ -4,9 +4,11 @@ import com.databricks.sdk.core.DatabricksError;
 import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.error.details.ErrorDetails;
 import com.databricks.sdk.core.http.Response;
+import com.databricks.sdk.support.InternalApi;
 import java.lang.reflect.Constructor;
 import java.util.regex.Pattern;
 
+@InternalApi
 public class ErrorOverride<T extends DatabricksError> {
   private final String debugName;
   private final Pattern pathRegex;

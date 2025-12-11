@@ -1,8 +1,10 @@
 package com.databricks.sdk.core;
 
+import com.databricks.sdk.support.InternalApi;
 import java.util.HashMap;
 import java.util.Map;
 
+@InternalApi
 public class PatCredentialsProvider implements CredentialsProvider {
   public static final String PAT = "pat";
 

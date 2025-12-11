@@ -3,11 +3,13 @@ package com.databricks.sdk.core.error;
 import com.databricks.sdk.core.DatabricksError;
 import com.databricks.sdk.core.error.details.ErrorDetails;
 import com.databricks.sdk.core.http.Response;
+import com.databricks.sdk.support.InternalApi;
 import java.util.HashMap;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@InternalApi
 abstract class AbstractErrorMapper {
   private static final Logger LOG = LoggerFactory.getLogger(AbstractErrorMapper.class);
 

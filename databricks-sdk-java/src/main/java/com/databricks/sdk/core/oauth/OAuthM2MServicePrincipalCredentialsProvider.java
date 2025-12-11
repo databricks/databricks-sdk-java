@@ -1,12 +1,14 @@
 package com.databricks.sdk.core.oauth;
 
 import com.databricks.sdk.core.*;
+import com.databricks.sdk.support.InternalApi;
 import java.io.IOException;
 
 /**
  * Adds refreshed Databricks machine-to-machine OAuth Bearer token to every request, if
  * /oidc/.well-known/oauth-authorization-server is available on the given host.
  */
+@InternalApi
 public class OAuthM2MServicePrincipalCredentialsProvider implements CredentialsProvider {
 
   @Override

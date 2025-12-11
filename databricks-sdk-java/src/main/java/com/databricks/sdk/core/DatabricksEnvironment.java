@@ -1,9 +1,11 @@
 package com.databricks.sdk.core;
 
 import com.databricks.sdk.core.utils.Cloud;
+import com.databricks.sdk.support.InternalApi;
 import java.util.Arrays;
 import java.util.List;
 
+@InternalApi
 public class DatabricksEnvironment {
   private Cloud cloud;
   private String dnsZone;

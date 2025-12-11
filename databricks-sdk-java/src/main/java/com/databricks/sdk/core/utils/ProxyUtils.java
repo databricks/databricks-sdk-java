@@ -2,6 +2,7 @@ package com.databricks.sdk.core.utils;
 
 import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.ProxyConfig;
+import com.databricks.sdk.support.InternalApi;
 import java.security.Principal;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthSchemeProvider;
@@ -20,6 +21,7 @@ import org.apache.http.impl.client.ProxyAuthenticationStrategy;
  * This class is used to setup the proxy configs for the http client. This includes setting up the
  * proxy host, port, and authentication.
  */
+@InternalApi
 public class ProxyUtils {
 
   /**

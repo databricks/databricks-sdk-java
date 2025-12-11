@@ -1,6 +1,7 @@
 package com.databricks.sdk.core.http;
 
 import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.support.InternalApi;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -10,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+@InternalApi
 public class Response {
   private Request request;
   private URL url;

@@ -1,6 +1,7 @@
 package com.databricks.sdk.core.oauth;
 
 import com.databricks.sdk.core.utils.SerDeUtils;
+import com.databricks.sdk.support.InternalApi;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
@@ -11,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /** A TokenCache implementation that stores tokens as plain files. */
+@InternalApi
 public class FileTokenCache implements TokenCache {
   private static final Logger LOGGER = LoggerFactory.getLogger(FileTokenCache.class);
 

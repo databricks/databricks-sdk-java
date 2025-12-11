@@ -1,6 +1,7 @@
 package com.databricks.sdk.core.oauth;
 
 import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.support.InternalApi;
 import com.google.common.base.Strings;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
  *
  * @see IDTokenSource
  */
+@InternalApi
 public class FileIDTokenSource implements IDTokenSource {
   /* The path to the file containing the ID token. */
   private final String filePath;

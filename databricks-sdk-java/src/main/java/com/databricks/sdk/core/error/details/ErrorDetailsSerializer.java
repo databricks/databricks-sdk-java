@@ -1,5 +1,6 @@
 package com.databricks.sdk.core.error.details;
 
+import com.databricks.sdk.support.InternalApi;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.JsonSerializer;
@@ -12,6 +13,7 @@ import java.io.IOException;
  * Custom serializer for ErrorDetails that converts the object back to the array format expected by
  * the ErrorDetailsDeserializer.
  */
+@InternalApi
 public class ErrorDetailsSerializer extends JsonSerializer<ErrorDetails> {
 
   @Override

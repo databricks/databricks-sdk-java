@@ -4,6 +4,7 @@ import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
+import com.databricks.sdk.support.InternalApi;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.base.Strings;
@@ -14,6 +15,7 @@ import java.io.IOException;
  * IDTokenSource interface and provides a method for obtaining ID tokens specifically from GitHub
  * Actions environment.
  */
+@InternalApi
 public class GithubIDTokenSource implements IDTokenSource {
   /* URL endpoint for requesting ID tokens from GitHub Actions */
   private final String actionsIDTokenRequestURL;
