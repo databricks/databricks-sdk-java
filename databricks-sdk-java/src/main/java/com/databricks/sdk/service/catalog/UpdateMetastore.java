@@ -25,6 +25,10 @@ public class UpdateMetastore {
   @JsonProperty("delta_sharing_scope")
   private DeltaSharingScopeEnum deltaSharingScope;
 
+  /** Whether to allow non-DBR clients to directly access entities under the metastore. */
+  @JsonProperty("external_access_enabled")
+  private Boolean externalAccessEnabled;
+
   /** Unique ID of the metastore. */
   @JsonIgnore private String id;
 
@@ -70,6 +74,15 @@ public class UpdateMetastore {
 
   public DeltaSharingScopeEnum getDeltaSharingScope() {
     return deltaSharingScope;
+  }
+
+  public UpdateMetastore setExternalAccessEnabled(Boolean externalAccessEnabled) {
+    this.externalAccessEnabled = externalAccessEnabled;
+    return this;
+  }
+
+  public Boolean getExternalAccessEnabled() {
+    return externalAccessEnabled;
   }
 
   public UpdateMetastore setId(String id) {
@@ -127,6 +140,7 @@ public class UpdateMetastore {
             deltaSharingRecipientTokenLifetimeInSeconds,
             that.deltaSharingRecipientTokenLifetimeInSeconds)
         && Objects.equals(deltaSharingScope, that.deltaSharingScope)
+        && Objects.equals(externalAccessEnabled, that.externalAccessEnabled)
         && Objects.equals(id, that.id)
         && Objects.equals(newName, that.newName)
         && Objects.equals(owner, that.owner)
@@ -140,6 +154,7 @@ public class UpdateMetastore {
         deltaSharingOrganizationName,
         deltaSharingRecipientTokenLifetimeInSeconds,
         deltaSharingScope,
+        externalAccessEnabled,
         id,
         newName,
         owner,
@@ -155,6 +170,7 @@ public class UpdateMetastore {
             "deltaSharingRecipientTokenLifetimeInSeconds",
             deltaSharingRecipientTokenLifetimeInSeconds)
         .add("deltaSharingScope", deltaSharingScope)
+        .add("externalAccessEnabled", externalAccessEnabled)
         .add("id", id)
         .add("newName", newName)
         .add("owner", owner)

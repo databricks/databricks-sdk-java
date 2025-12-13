@@ -24,6 +24,10 @@ public class UpdateAccountsMetastore {
   @JsonProperty("delta_sharing_scope")
   private DeltaSharingScopeEnum deltaSharingScope;
 
+  /** Whether to allow non-DBR clients to directly access entities under the metastore. */
+  @JsonProperty("external_access_enabled")
+  private Boolean externalAccessEnabled;
+
   /** The owner of the metastore. */
   @JsonProperty("owner")
   private String owner;
@@ -65,6 +69,15 @@ public class UpdateAccountsMetastore {
     return deltaSharingScope;
   }
 
+  public UpdateAccountsMetastore setExternalAccessEnabled(Boolean externalAccessEnabled) {
+    this.externalAccessEnabled = externalAccessEnabled;
+    return this;
+  }
+
+  public Boolean getExternalAccessEnabled() {
+    return externalAccessEnabled;
+  }
+
   public UpdateAccountsMetastore setOwner(String owner) {
     this.owner = owner;
     return this;
@@ -102,6 +115,7 @@ public class UpdateAccountsMetastore {
             deltaSharingRecipientTokenLifetimeInSeconds,
             that.deltaSharingRecipientTokenLifetimeInSeconds)
         && Objects.equals(deltaSharingScope, that.deltaSharingScope)
+        && Objects.equals(externalAccessEnabled, that.externalAccessEnabled)
         && Objects.equals(owner, that.owner)
         && Objects.equals(privilegeModelVersion, that.privilegeModelVersion)
         && Objects.equals(storageRootCredentialId, that.storageRootCredentialId);
@@ -113,6 +127,7 @@ public class UpdateAccountsMetastore {
         deltaSharingOrganizationName,
         deltaSharingRecipientTokenLifetimeInSeconds,
         deltaSharingScope,
+        externalAccessEnabled,
         owner,
         privilegeModelVersion,
         storageRootCredentialId);
@@ -126,6 +141,7 @@ public class UpdateAccountsMetastore {
             "deltaSharingRecipientTokenLifetimeInSeconds",
             deltaSharingRecipientTokenLifetimeInSeconds)
         .add("deltaSharingScope", deltaSharingScope)
+        .add("externalAccessEnabled", externalAccessEnabled)
         .add("owner", owner)
         .add("privilegeModelVersion", privilegeModelVersion)
         .add("storageRootCredentialId", storageRootCredentialId)
