@@ -72,6 +72,10 @@ public class CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRule {
   @JsonProperty("endpoint_service")
   private String endpointService;
 
+  /** */
+  @JsonProperty("error_message")
+  private String errorMessage;
+
   /**
    * The ID of a network connectivity configuration, which is the parent resource of this private
    * endpoint rule object.
@@ -185,6 +189,16 @@ public class CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRule {
     return endpointService;
   }
 
+  public CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRule setErrorMessage(
+      String errorMessage) {
+    this.errorMessage = errorMessage;
+    return this;
+  }
+
+  public String getErrorMessage() {
+    return errorMessage;
+  }
+
   public CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRule
       setNetworkConnectivityConfigId(String networkConnectivityConfigId) {
     this.networkConnectivityConfigId = networkConnectivityConfigId;
@@ -248,6 +262,7 @@ public class CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRule {
         && Objects.equals(domainNames, that.domainNames)
         && Objects.equals(enabled, that.enabled)
         && Objects.equals(endpointService, that.endpointService)
+        && Objects.equals(errorMessage, that.errorMessage)
         && Objects.equals(networkConnectivityConfigId, that.networkConnectivityConfigId)
         && Objects.equals(resourceNames, that.resourceNames)
         && Objects.equals(ruleId, that.ruleId)
@@ -266,6 +281,7 @@ public class CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRule {
         domainNames,
         enabled,
         endpointService,
+        errorMessage,
         networkConnectivityConfigId,
         resourceNames,
         ruleId,
@@ -284,6 +300,7 @@ public class CustomerFacingNetworkConnectivityConfigAwsPrivateEndpointRule {
         .add("domainNames", domainNames)
         .add("enabled", enabled)
         .add("endpointService", endpointService)
+        .add("errorMessage", errorMessage)
         .add("networkConnectivityConfigId", networkConnectivityConfigId)
         .add("resourceNames", resourceNames)
         .add("ruleId", ruleId)
