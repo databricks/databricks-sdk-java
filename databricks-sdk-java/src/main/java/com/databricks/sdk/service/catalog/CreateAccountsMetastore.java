@@ -9,6 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class CreateAccountsMetastore {
+  /** Whether to allow non-DBR clients to directly access entities under the metastore. */
+  @JsonProperty("external_access_enabled")
+  private Boolean externalAccessEnabled;
+
   /** The user-specified name of the metastore. */
   @JsonProperty("name")
   private String name;
@@ -20,6 +24,15 @@ public class CreateAccountsMetastore {
   /** The storage root URL for metastore */
   @JsonProperty("storage_root")
   private String storageRoot;
+
+  public CreateAccountsMetastore setExternalAccessEnabled(Boolean externalAccessEnabled) {
+    this.externalAccessEnabled = externalAccessEnabled;
+    return this;
+  }
+
+  public Boolean getExternalAccessEnabled() {
+    return externalAccessEnabled;
+  }
 
   public CreateAccountsMetastore setName(String name) {
     this.name = name;
@@ -53,19 +66,21 @@ public class CreateAccountsMetastore {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CreateAccountsMetastore that = (CreateAccountsMetastore) o;
-    return Objects.equals(name, that.name)
+    return Objects.equals(externalAccessEnabled, that.externalAccessEnabled)
+        && Objects.equals(name, that.name)
         && Objects.equals(region, that.region)
         && Objects.equals(storageRoot, that.storageRoot);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, region, storageRoot);
+    return Objects.hash(externalAccessEnabled, name, region, storageRoot);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CreateAccountsMetastore.class)
+        .add("externalAccessEnabled", externalAccessEnabled)
         .add("name", name)
         .add("region", region)
         .add("storageRoot", storageRoot)
