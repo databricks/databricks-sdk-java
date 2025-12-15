@@ -176,6 +176,8 @@ import com.databricks.sdk.service.oauth2.ServicePrincipalSecretsProxyAPI;
 import com.databricks.sdk.service.oauth2.ServicePrincipalSecretsProxyService;
 import com.databricks.sdk.service.pipelines.PipelinesAPI;
 import com.databricks.sdk.service.pipelines.PipelinesService;
+import com.databricks.sdk.service.postgres.PostgresAPI;
+import com.databricks.sdk.service.postgres.PostgresService;
 import com.databricks.sdk.service.qualitymonitorv2.QualityMonitorV2API;
 import com.databricks.sdk.service.qualitymonitorv2.QualityMonitorV2Service;
 import com.databricks.sdk.service.serving.ServingEndpointsAPI;
@@ -330,6 +332,7 @@ public class WorkspaceClient {
   private PolicyComplianceForClustersAPI policyComplianceForClustersAPI;
   private PolicyComplianceForJobsAPI policyComplianceForJobsAPI;
   private PolicyFamiliesAPI policyFamiliesAPI;
+  private PostgresAPI postgresAPI;
   private ProviderExchangeFiltersAPI providerExchangeFiltersAPI;
   private ProviderExchangesAPI providerExchangesAPI;
   private ProviderFilesAPI providerFilesAPI;
@@ -462,6 +465,7 @@ public class WorkspaceClient {
     policyComplianceForClustersAPI = new PolicyComplianceForClustersAPI(apiClient);
     policyComplianceForJobsAPI = new PolicyComplianceForJobsAPI(apiClient);
     policyFamiliesAPI = new PolicyFamiliesAPI(apiClient);
+    postgresAPI = new PostgresAPI(apiClient);
     providerExchangeFiltersAPI = new ProviderExchangeFiltersAPI(apiClient);
     providerExchangesAPI = new ProviderExchangesAPI(apiClient);
     providerFilesAPI = new ProviderFilesAPI(apiClient);
@@ -1354,6 +1358,11 @@ public class WorkspaceClient {
    */
   public PolicyFamiliesAPI policyFamilies() {
     return policyFamiliesAPI;
+  }
+
+  /** The Postgres API provides access to a Postgres database via REST API or direct SQL. */
+  public PostgresAPI postgres() {
+    return postgresAPI;
   }
 
   /** Marketplace exchanges filters curate which groups can access an exchange. */
@@ -2879,6 +2888,17 @@ public class WorkspaceClient {
   /** Replace the default PolicyFamiliesAPI with a custom implementation. */
   public WorkspaceClient withPolicyFamiliesAPI(PolicyFamiliesAPI policyFamilies) {
     this.policyFamiliesAPI = policyFamilies;
+    return this;
+  }
+
+  /** Replace the default PostgresService with a custom implementation. */
+  public WorkspaceClient withPostgresImpl(PostgresService postgres) {
+    return this.withPostgresAPI(new PostgresAPI(postgres));
+  }
+
+  /** Replace the default PostgresAPI with a custom implementation. */
+  public WorkspaceClient withPostgresAPI(PostgresAPI postgres) {
+    this.postgresAPI = postgres;
     return this;
   }
 

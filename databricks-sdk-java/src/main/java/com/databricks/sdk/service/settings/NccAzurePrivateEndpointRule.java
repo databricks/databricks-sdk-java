@@ -53,6 +53,10 @@ public class NccAzurePrivateEndpointRule {
   @JsonProperty("endpoint_name")
   private String endpointName;
 
+  /** */
+  @JsonProperty("error_message")
+  private String errorMessage;
+
   /**
    * Only used by private endpoints to Azure first-party services.
    *
@@ -136,6 +140,15 @@ public class NccAzurePrivateEndpointRule {
     return endpointName;
   }
 
+  public NccAzurePrivateEndpointRule setErrorMessage(String errorMessage) {
+    this.errorMessage = errorMessage;
+    return this;
+  }
+
+  public String getErrorMessage() {
+    return errorMessage;
+  }
+
   public NccAzurePrivateEndpointRule setGroupId(String groupId) {
     this.groupId = groupId;
     return this;
@@ -193,6 +206,7 @@ public class NccAzurePrivateEndpointRule {
         && Objects.equals(deactivatedAt, that.deactivatedAt)
         && Objects.equals(domainNames, that.domainNames)
         && Objects.equals(endpointName, that.endpointName)
+        && Objects.equals(errorMessage, that.errorMessage)
         && Objects.equals(groupId, that.groupId)
         && Objects.equals(networkConnectivityConfigId, that.networkConnectivityConfigId)
         && Objects.equals(resourceId, that.resourceId)
@@ -209,6 +223,7 @@ public class NccAzurePrivateEndpointRule {
         deactivatedAt,
         domainNames,
         endpointName,
+        errorMessage,
         groupId,
         networkConnectivityConfigId,
         resourceId,
@@ -225,6 +240,7 @@ public class NccAzurePrivateEndpointRule {
         .add("deactivatedAt", deactivatedAt)
         .add("domainNames", domainNames)
         .add("endpointName", endpointName)
+        .add("errorMessage", errorMessage)
         .add("groupId", groupId)
         .add("networkConnectivityConfigId", networkConnectivityConfigId)
         .add("resourceId", resourceId)
