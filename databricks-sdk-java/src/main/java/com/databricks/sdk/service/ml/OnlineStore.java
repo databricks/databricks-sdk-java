@@ -34,6 +34,10 @@ public class OnlineStore {
   @JsonProperty("state")
   private OnlineStoreState state;
 
+  /** The usage policy applied to the online store to track billing. */
+  @JsonProperty("usage_policy_id")
+  private String usagePolicyId;
+
   public OnlineStore setCapacity(String capacity) {
     this.capacity = capacity;
     return this;
@@ -88,6 +92,15 @@ public class OnlineStore {
     return state;
   }
 
+  public OnlineStore setUsagePolicyId(String usagePolicyId) {
+    this.usagePolicyId = usagePolicyId;
+    return this;
+  }
+
+  public String getUsagePolicyId() {
+    return usagePolicyId;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -98,12 +111,14 @@ public class OnlineStore {
         && Objects.equals(creator, that.creator)
         && Objects.equals(name, that.name)
         && Objects.equals(readReplicaCount, that.readReplicaCount)
-        && Objects.equals(state, that.state);
+        && Objects.equals(state, that.state)
+        && Objects.equals(usagePolicyId, that.usagePolicyId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(capacity, creationTime, creator, name, readReplicaCount, state);
+    return Objects.hash(
+        capacity, creationTime, creator, name, readReplicaCount, state, usagePolicyId);
   }
 
   @Override
@@ -115,6 +130,7 @@ public class OnlineStore {
         .add("name", name)
         .add("readReplicaCount", readReplicaCount)
         .add("state", state)
+        .add("usagePolicyId", usagePolicyId)
         .toString();
   }
 }
