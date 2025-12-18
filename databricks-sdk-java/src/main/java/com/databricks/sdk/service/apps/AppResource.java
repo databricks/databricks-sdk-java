@@ -18,6 +18,10 @@ public class AppResource {
   private String description;
 
   /** */
+  @JsonProperty("experiment")
+  private AppResourceExperiment experiment;
+
+  /** */
   @JsonProperty("genie_space")
   private AppResourceGenieSpace genieSpace;
 
@@ -61,6 +65,15 @@ public class AppResource {
 
   public String getDescription() {
     return description;
+  }
+
+  public AppResource setExperiment(AppResourceExperiment experiment) {
+    this.experiment = experiment;
+    return this;
+  }
+
+  public AppResourceExperiment getExperiment() {
+    return experiment;
   }
 
   public AppResource setGenieSpace(AppResourceGenieSpace genieSpace) {
@@ -133,6 +146,7 @@ public class AppResource {
     AppResource that = (AppResource) o;
     return Objects.equals(database, that.database)
         && Objects.equals(description, that.description)
+        && Objects.equals(experiment, that.experiment)
         && Objects.equals(genieSpace, that.genieSpace)
         && Objects.equals(job, that.job)
         && Objects.equals(name, that.name)
@@ -147,6 +161,7 @@ public class AppResource {
     return Objects.hash(
         database,
         description,
+        experiment,
         genieSpace,
         job,
         name,
@@ -161,6 +176,7 @@ public class AppResource {
     return new ToStringer(AppResource.class)
         .add("database", database)
         .add("description", description)
+        .add("experiment", experiment)
         .add("genieSpace", genieSpace)
         .add("job", job)
         .add("name", name)

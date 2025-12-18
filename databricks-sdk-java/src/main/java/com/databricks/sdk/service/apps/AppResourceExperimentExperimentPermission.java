@@ -5,10 +5,8 @@ package com.databricks.sdk.service.apps;
 import com.databricks.sdk.support.Generated;
 
 @Generated
-public enum AppResourceUcSecurableUcSecurablePermission {
-  EXECUTE,
-  READ_VOLUME,
-  SELECT,
-  USE_CONNECTION,
-  WRITE_VOLUME,
+public enum AppResourceExperimentExperimentPermission {
+  CAN_EDIT,
+  CAN_MANAGE,
+  CAN_READ,
 }
