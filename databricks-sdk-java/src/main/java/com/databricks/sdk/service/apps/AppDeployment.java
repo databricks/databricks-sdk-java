@@ -25,6 +25,10 @@ public class AppDeployment {
   @JsonProperty("deployment_id")
   private String deploymentId;
 
+  /** Git repository to use as the source for the app deployment. */
+  @JsonProperty("git_source")
+  private GitSource gitSource;
+
   /** The mode of which the deployment will manage the source code. */
   @JsonProperty("mode")
   private AppDeploymentMode mode;
@@ -83,6 +87,15 @@ public class AppDeployment {
     return deploymentId;
   }
 
+  public AppDeployment setGitSource(GitSource gitSource) {
+    this.gitSource = gitSource;
+    return this;
+  }
+
+  public GitSource getGitSource() {
+    return gitSource;
+  }
+
   public AppDeployment setMode(AppDeploymentMode mode) {
     this.mode = mode;
     return this;
@@ -128,6 +141,7 @@ public class AppDeployment {
         && Objects.equals(creator, that.creator)
         && Objects.equals(deploymentArtifacts, that.deploymentArtifacts)
         && Objects.equals(deploymentId, that.deploymentId)
+        && Objects.equals(gitSource, that.gitSource)
         && Objects.equals(mode, that.mode)
         && Objects.equals(sourceCodePath, that.sourceCodePath)
         && Objects.equals(status, that.status)
@@ -141,6 +155,7 @@ public class AppDeployment {
         creator,
         deploymentArtifacts,
         deploymentId,
+        gitSource,
         mode,
         sourceCodePath,
         status,
@@ -154,6 +169,7 @@ public class AppDeployment {
         .add("creator", creator)
         .add("deploymentArtifacts", deploymentArtifacts)
         .add("deploymentId", deploymentId)
+        .add("gitSource", gitSource)
         .add("mode", mode)
         .add("sourceCodePath", sourceCodePath)
         .add("status", status)

@@ -64,6 +64,13 @@ public class App {
   @JsonProperty("effective_user_api_scopes")
   private Collection<String> effectiveUserApiScopes;
 
+  /**
+   * Git repository configuration for app deployments. When specified, deployments can reference
+   * code from this repository by providing only the git reference (branch, tag, or commit).
+   */
+  @JsonProperty("git_repository")
+  private GitRepository gitRepository;
+
   /** The unique identifier of the app. */
   @JsonProperty("id")
   private String id;
@@ -234,6 +241,15 @@ public class App {
     return effectiveUserApiScopes;
   }
 
+  public App setGitRepository(GitRepository gitRepository) {
+    this.gitRepository = gitRepository;
+    return this;
+  }
+
+  public GitRepository getGitRepository() {
+    return gitRepository;
+  }
+
   public App setId(String id) {
     this.id = id;
     return this;
@@ -377,6 +393,7 @@ public class App {
         && Objects.equals(effectiveBudgetPolicyId, that.effectiveBudgetPolicyId)
         && Objects.equals(effectiveUsagePolicyId, that.effectiveUsagePolicyId)
         && Objects.equals(effectiveUserApiScopes, that.effectiveUserApiScopes)
+        && Objects.equals(gitRepository, that.gitRepository)
         && Objects.equals(id, that.id)
         && Objects.equals(name, that.name)
         && Objects.equals(oauth2AppClientId, that.oauth2AppClientId)
@@ -408,6 +425,7 @@ public class App {
         effectiveBudgetPolicyId,
         effectiveUsagePolicyId,
         effectiveUserApiScopes,
+        gitRepository,
         id,
         name,
         oauth2AppClientId,
@@ -439,6 +457,7 @@ public class App {
         .add("effectiveBudgetPolicyId", effectiveBudgetPolicyId)
         .add("effectiveUsagePolicyId", effectiveUsagePolicyId)
         .add("effectiveUserApiScopes", effectiveUserApiScopes)
+        .add("gitRepository", gitRepository)
         .add("id", id)
         .add("name", name)
         .add("oauth2AppClientId", oauth2AppClientId)
