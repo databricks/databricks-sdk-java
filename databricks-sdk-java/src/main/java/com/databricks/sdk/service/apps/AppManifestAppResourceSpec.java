@@ -18,6 +18,10 @@ public class AppManifestAppResourceSpec {
   private String description;
 
   /** */
+  @JsonProperty("experiment_spec")
+  private AppManifestAppResourceExperimentSpec experimentSpec;
+
+  /** */
   @JsonProperty("job_spec")
   private AppManifestAppResourceJobSpec jobSpec;
 
@@ -48,6 +52,16 @@ public class AppManifestAppResourceSpec {
 
   public String getDescription() {
     return description;
+  }
+
+  public AppManifestAppResourceSpec setExperimentSpec(
+      AppManifestAppResourceExperimentSpec experimentSpec) {
+    this.experimentSpec = experimentSpec;
+    return this;
+  }
+
+  public AppManifestAppResourceExperimentSpec getExperimentSpec() {
+    return experimentSpec;
   }
 
   public AppManifestAppResourceSpec setJobSpec(AppManifestAppResourceJobSpec jobSpec) {
@@ -113,6 +127,7 @@ public class AppManifestAppResourceSpec {
     if (o == null || getClass() != o.getClass()) return false;
     AppManifestAppResourceSpec that = (AppManifestAppResourceSpec) o;
     return Objects.equals(description, that.description)
+        && Objects.equals(experimentSpec, that.experimentSpec)
         && Objects.equals(jobSpec, that.jobSpec)
         && Objects.equals(name, that.name)
         && Objects.equals(secretSpec, that.secretSpec)
@@ -125,6 +140,7 @@ public class AppManifestAppResourceSpec {
   public int hashCode() {
     return Objects.hash(
         description,
+        experimentSpec,
         jobSpec,
         name,
         secretSpec,
@@ -137,6 +153,7 @@ public class AppManifestAppResourceSpec {
   public String toString() {
     return new ToStringer(AppManifestAppResourceSpec.class)
         .add("description", description)
+        .add("experimentSpec", experimentSpec)
         .add("jobSpec", jobSpec)
         .add("name", name)
         .add("secretSpec", secretSpec)

@@ -13,3 +13,16 @@
 ### Internal Changes
 
 ### API Changes
+* Add `gitRepository` field for `com.databricks.sdk.service.apps.App`.
+* Add `gitSource` field for `com.databricks.sdk.service.apps.AppDeployment`.
+* Add `experimentSpec` field for `com.databricks.sdk.service.apps.AppManifestAppResourceSpec`.
+* Add `experiment` field for `com.databricks.sdk.service.apps.AppResource`.
+* Add `gitRepository` field for `com.databricks.sdk.service.apps.AppUpdate`.
+* Add `excludedTableFullNames` field for `com.databricks.sdk.service.dataquality.AnomalyDetectionConfig`.
+* Add `groupName` field for `com.databricks.sdk.service.jobs.JobRunAs`.
+* Add `rowFilter` field for `com.databricks.sdk.service.pipelines.TableSpecificConfig`.
+* Add `excludedTableFullNames` field for `com.databricks.sdk.service.qualitymonitorv2.AnomalyDetectionConfig`.
+* Add `EXECUTE` and `USE_CONNECTION` enum values for `com.databricks.sdk.service.apps.AppManifestAppResourceUcSecurableSpecUcSecurablePermission`.
+* Add `FUNCTION` and `CONNECTION` enum values for `com.databricks.sdk.service.apps.AppManifestAppResourceUcSecurableSpecUcSecurableType`.
+* Add `SELECT`, `EXECUTE` and `USE_CONNECTION` enum values for `com.databricks.sdk.service.apps.AppResourceUcSecurableUcSecurablePermission`.
+* Add `TABLE`, `FUNCTION` and `CONNECTION` enum values for `com.databricks.sdk.service.apps.AppResourceUcSecurableUcSecurableType`.
