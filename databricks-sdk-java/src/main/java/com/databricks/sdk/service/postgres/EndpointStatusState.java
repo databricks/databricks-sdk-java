@@ -6,7 +6,7 @@ import com.databricks.sdk.support.Generated;
 
 /** The state of the compute endpoint. */
 @Generated
-public enum EndpointState {
+public enum EndpointStatusState {
   ACTIVE,
   IDLE,
   INIT,
