@@ -2,9 +2,13 @@ package com.databricks.sdk.core;
 
 import com.databricks.sdk.support.InternalApi;
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
 import java.time.Duration;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @InternalApi
 class ConfigAttributeAccessor {
@@ -63,6 +67,21 @@ class ConfigAttributeAccessor {
         field.set(cfg, seconds > 0 ? Duration.ofSeconds(seconds) : null);
       } else if (field.getType() == ProxyConfig.ProxyAuthType.class) {
         field.set(cfg, ProxyConfig.ProxyAuthType.valueOf(value));
+      } else if (List.class.isAssignableFrom(field.getType())) {
+        // Handle List<String> fields (e.g., scopes)
+        // Parse comma and/or whitespace separated values from environment variable or config file
+        if (field.getGenericType() instanceof ParameterizedType) {
+          ParameterizedType paramType = (ParameterizedType) field.getGenericType();
+          if (paramType.getActualTypeArguments().length > 0
+              && paramType.getActualTypeArguments()[0] == String.class) {
+            // Split by commas and/or whitespace and filter out empty strings
+            List<String> list =
+                Arrays.stream(value.trim().split("[,\\s]+"))
+                    .filter(s -> !s.isEmpty())
+                    .collect(Collectors.toList());
+            field.set(cfg, list);
+          }
+        }
       }
       field.setAccessible(false);
     }
@@ -91,6 +110,9 @@ class ConfigAttributeAccessor {
   }
 
   public String getAsString(Object value) {
+    if (value instanceof List) {
+      return String.join(" ", (List<String>) value);
+    }
     return value.toString();
   }
 

@@ -204,11 +204,19 @@ public class DatabricksConfig {
     try {
       ConfigLoader.resolve(this);
       ConfigLoader.validate(this);
+      sortScopes();
       ConfigLoader.fixHostIfNeeded(this);
       initHttp();
       return this;
     } catch (DatabricksException e) {
       throw ConfigLoader.makeNicerError(e.getMessage(), e, this);
+    }
+  }
+
+  /** Sort scopes in-place for better de-duplication in the refresh token cache. */
+  private void sortScopes() {
+    if (scopes != null && !scopes.isEmpty()) {
+      java.util.Collections.sort(scopes);
     }
   }
 
