@@ -160,7 +160,8 @@ public class TableInfo {
    * View dependencies (when table_type == **VIEW** or **MATERIALIZED_VIEW**, **STREAMING_TABLE**) -
    * when DependencyList is None, the dependency is not provided; - when DependencyList is an empty
    * list, the dependency is provided but is empty; - when DependencyList is not an empty list,
-   * dependencies are provided and recorded.
+   * dependencies are provided and recorded. Note: this field is not set in the output of the
+   * __listTables__ API.
    */
   @JsonProperty("view_dependencies")
   private DependencyList viewDependencies;
