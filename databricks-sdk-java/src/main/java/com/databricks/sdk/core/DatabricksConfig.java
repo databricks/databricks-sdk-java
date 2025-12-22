@@ -36,7 +36,7 @@ public class DatabricksConfig {
   @ConfigAttribute(env = "DATABRICKS_CLIENT_SECRET", auth = "oauth", sensitive = true)
   private String clientSecret;
 
-  @ConfigAttribute(env = "DATABRICKS_SCOPES", auth = "oauth")
+  @ConfigAttribute(auth = "oauth")
   private List<String> scopes;
 
   @ConfigAttribute(env = "DATABRICKS_REDIRECT_URL", auth = "oauth")
