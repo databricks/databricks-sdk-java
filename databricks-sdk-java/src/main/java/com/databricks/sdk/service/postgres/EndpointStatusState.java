@@ -4,12 +4,10 @@ package com.databricks.sdk.service.postgres;
 
 import com.databricks.sdk.support.Generated;
 
-/** The state of the database branch. */
+/** The state of the compute endpoint. */
 @Generated
-public enum BranchState {
-  ARCHIVED,
-  IMPORTING,
+public enum EndpointStatusState {
+  ACTIVE,
+  IDLE,
   INIT,
-  READY,
-  RESETTING,
 }
