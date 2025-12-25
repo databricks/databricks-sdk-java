@@ -42,6 +42,12 @@ public class PostgresAPI {
     return new CreateProjectOperation(impl, operation);
   }
 
+  /** Create a role for a branch. */
+  public CreateRoleOperation createRole(CreateRoleRequest request) {
+    Operation operation = impl.createRole(request);
+    return new CreateRoleOperation(impl, operation);
+  }
+
   public void deleteBranch(String name) {
     deleteBranch(new DeleteBranchRequest().setName(name));
   }
@@ -67,6 +73,16 @@ public class PostgresAPI {
   /** Delete a Project. */
   public void deleteProject(DeleteProjectRequest request) {
     impl.deleteProject(request);
+  }
+
+  public DeleteRoleOperation deleteRole(String name) {
+    return deleteRole(new DeleteRoleRequest().setName(name));
+  }
+
+  /** Delete a role in a branch. */
+  public DeleteRoleOperation deleteRole(DeleteRoleRequest request) {
+    Operation operation = impl.deleteRole(request);
+    return new DeleteRoleOperation(impl, operation);
   }
 
   public Branch getBranch(String name) {
@@ -103,6 +119,15 @@ public class PostgresAPI {
   /** Get a Project. */
   public Project getProject(GetProjectRequest request) {
     return impl.getProject(request);
+  }
+
+  public Role getRole(String name) {
+    return getRole(new GetRoleRequest().setName(name));
+  }
+
+  /** Get a Role. */
+  public Role getRole(GetRoleRequest request) {
+    return impl.getRole(request);
   }
 
   public Iterable<Branch> listBranches(String parent) {
@@ -149,6 +174,25 @@ public class PostgresAPI {
         request,
         impl::listProjects,
         ListProjectsResponse::getProjects,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
+  public Iterable<Role> listRoles(String parent) {
+    return listRoles(new ListRolesRequest().setParent(parent));
+  }
+
+  /** List Roles. */
+  public Iterable<Role> listRoles(ListRolesRequest request) {
+    return new Paginator<>(
+        request,
+        impl::listRoles,
+        ListRolesResponse::getRoles,
         response -> {
           String token = response.getNextPageToken();
           if (token == null || token.isEmpty()) {

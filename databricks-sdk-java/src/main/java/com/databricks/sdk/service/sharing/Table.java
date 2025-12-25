@@ -10,6 +10,13 @@ import java.util.Objects;
 
 @Generated
 public class Table {
+  /**
+   * The access modes supported for this table (e.g., "url", "dir"). Used for open sharing to
+   * indicate how the table can be accessed.
+   */
+  @JsonProperty("access_modes")
+  private Collection<String> accessModes;
+
   /** The comment of the table. */
   @JsonProperty("comment")
   private String comment;
@@ -46,9 +53,22 @@ public class Table {
   @JsonProperty("share_id")
   private String shareId;
 
+  /** The cloud storage location of the table for open sharing. */
+  @JsonProperty("storage_location")
+  private String storageLocation;
+
   /** The Tags of the table. */
   @JsonProperty("tags")
   private Collection<com.databricks.sdk.service.catalog.TagKeyValue> tags;
+
+  public Table setAccessModes(Collection<String> accessModes) {
+    this.accessModes = accessModes;
+    return this;
+  }
+
+  public Collection<String> getAccessModes() {
+    return accessModes;
+  }
 
   public Table setComment(String comment) {
     this.comment = comment;
@@ -131,6 +151,15 @@ public class Table {
     return shareId;
   }
 
+  public Table setStorageLocation(String storageLocation) {
+    this.storageLocation = storageLocation;
+    return this;
+  }
+
+  public String getStorageLocation() {
+    return storageLocation;
+  }
+
   public Table setTags(Collection<com.databricks.sdk.service.catalog.TagKeyValue> tags) {
     this.tags = tags;
     return this;
@@ -145,7 +174,8 @@ public class Table {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Table that = (Table) o;
-    return Objects.equals(comment, that.comment)
+    return Objects.equals(accessModes, that.accessModes)
+        && Objects.equals(comment, that.comment)
         && Objects.equals(id, that.id)
         && Objects.equals(internalAttributes, that.internalAttributes)
         && Objects.equals(materializationNamespace, that.materializationNamespace)
@@ -154,12 +184,14 @@ public class Table {
         && Objects.equals(schema, that.schema)
         && Objects.equals(share, that.share)
         && Objects.equals(shareId, that.shareId)
+        && Objects.equals(storageLocation, that.storageLocation)
         && Objects.equals(tags, that.tags);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
+        accessModes,
         comment,
         id,
         internalAttributes,
@@ -169,12 +201,14 @@ public class Table {
         schema,
         share,
         shareId,
+        storageLocation,
         tags);
   }
 
   @Override
   public String toString() {
     return new ToStringer(Table.class)
+        .add("accessModes", accessModes)
         .add("comment", comment)
         .add("id", id)
         .add("internalAttributes", internalAttributes)
@@ -184,6 +218,7 @@ public class Table {
         .add("schema", schema)
         .add("share", share)
         .add("shareId", shareId)
+        .add("storageLocation", storageLocation)
         .add("tags", tags)
         .toString();
   }

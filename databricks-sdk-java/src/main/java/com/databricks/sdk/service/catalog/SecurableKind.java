@@ -4,7 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** Latest kind: CONNECTION_GOOGLE_ADS_OAUTH_U2M_WITH_DT = 284; Next id:285 */
+/** Latest kind: CONNECTION_TIKTOK_ADS_U2M = 285; Next id: 286 */
 @Generated
 public enum SecurableKind {
   TABLE_DB_STORAGE,
