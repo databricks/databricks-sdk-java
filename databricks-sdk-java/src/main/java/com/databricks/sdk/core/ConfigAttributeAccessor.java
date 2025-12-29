@@ -69,14 +69,15 @@ class ConfigAttributeAccessor {
         field.set(cfg, ProxyConfig.ProxyAuthType.valueOf(value));
       } else if (List.class.isAssignableFrom(field.getType())) {
         // Handle List<String> fields (e.g., scopes)
-        // Parse comma and/or whitespace separated values from environment variable or config file.
+        // Parse comma-separated values from environment variable or config file.
         if (field.getGenericType() instanceof ParameterizedType) {
           ParameterizedType paramType = (ParameterizedType) field.getGenericType();
           if (paramType.getActualTypeArguments().length > 0
               && paramType.getActualTypeArguments()[0] == String.class) {
-            // Split by commas and/or whitespace and filter out empty strings
+            // Split by comma, trim each value, and filter out empty strings
             List<String> list =
-                Arrays.stream(value.trim().split("[,\\s]+"))
+                Arrays.stream(value.trim().split(","))
+                    .map(String::trim)
                     .filter(s -> !s.isEmpty())
                     .collect(Collectors.toList());
             field.set(cfg, list);
