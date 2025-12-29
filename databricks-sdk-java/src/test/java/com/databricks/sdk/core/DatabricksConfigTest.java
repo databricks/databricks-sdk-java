@@ -14,10 +14,15 @@ import com.databricks.sdk.core.utils.Environment;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public class DatabricksConfigTest {
   @Test
@@ -321,5 +326,36 @@ public class DatabricksConfigTest {
     config.resolve(new Environment(env, new ArrayList<>(), System.getProperty("os.name")));
 
     assertEquals(true, config.getDisableOauthRefreshToken());
+  }
+
+  // Config File Scope Parsing Tests
+  private static Stream<Arguments> provideConfigFileScopesTestCases() {
+    return Stream.of(
+        Arguments.of("Empty scopes defaults to all-apis", "scope-empty", Arrays.asList("all-apis")),
+        Arguments.of("Single scope", "scope-single", Arrays.asList("clusters:read")),
+        Arguments.of(
+            "Multiple scopes sorted alphabetically",
+            "scope-multiple",
+            Arrays.asList(
+                "clusters",
+                "files:read",
+                "iam:read",
+                "jobs",
+                "mlflow",
+                "model-serving:read",
+                "pipelines")));
+  }
+
+  @ParameterizedTest(name = "{0}")
+  @MethodSource("provideConfigFileScopesTestCases")
+  public void testConfigFileScopes(String testName, String profile, List<String> expectedScopes) {
+    Map<String, String> env = new HashMap<>();
+    env.put("HOME", "src/test/resources/testdata");
+
+    DatabricksConfig config = new DatabricksConfig().setProfile(profile);
+    config.resolve(new Environment(env, new ArrayList<>(), System.getProperty("os.name")));
+
+    List<String> scopes = config.getScopes();
+    assertIterableEquals(expectedScopes, scopes);
   }
 }

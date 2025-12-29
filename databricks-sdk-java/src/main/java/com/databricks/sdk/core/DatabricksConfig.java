@@ -36,7 +36,7 @@ public class DatabricksConfig {
   @ConfigAttribute(env = "DATABRICKS_CLIENT_SECRET", auth = "oauth", sensitive = true)
   private String clientSecret;
 
-  @ConfigAttribute(env = "DATABRICKS_SCOPES", auth = "oauth")
+  @ConfigAttribute(auth = "oauth")
   private List<String> scopes;
 
   @ConfigAttribute(env = "DATABRICKS_REDIRECT_URL", auth = "oauth")
@@ -204,11 +204,19 @@ public class DatabricksConfig {
     try {
       ConfigLoader.resolve(this);
       ConfigLoader.validate(this);
+      sortScopes();
       ConfigLoader.fixHostIfNeeded(this);
       initHttp();
       return this;
     } catch (DatabricksException e) {
       throw ConfigLoader.makeNicerError(e.getMessage(), e, this);
+    }
+  }
+
+  // Sort scopes in-place for better de-duplication in the refresh token cache.
+  private void sortScopes() {
+    if (scopes != null && !scopes.isEmpty()) {
+      java.util.Collections.sort(scopes);
     }
   }
 
