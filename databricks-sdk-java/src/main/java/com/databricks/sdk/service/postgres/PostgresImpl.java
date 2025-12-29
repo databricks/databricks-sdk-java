@@ -62,6 +62,21 @@ class PostgresImpl implements PostgresService {
   }
 
   @Override
+  public Operation createRole(CreateRoleRequest request) {
+    String path = String.format("/api/2.0/postgres/%s/roles", request.getParent());
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request.getRole()));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, Operation.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public void deleteBranch(DeleteBranchRequest request) {
     String path = String.format("/api/2.0/postgres/%s", request.getName());
     try {
@@ -98,6 +113,20 @@ class PostgresImpl implements PostgresService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, Void.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public Operation deleteRole(DeleteRoleRequest request) {
+    String path = String.format("/api/2.0/postgres/%s", request.getName());
+    try {
+      Request req = new Request("DELETE", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, Operation.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -160,6 +189,20 @@ class PostgresImpl implements PostgresService {
   }
 
   @Override
+  public Role getRole(GetRoleRequest request) {
+    String path = String.format("/api/2.0/postgres/%s", request.getName());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, Role.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public ListBranchesResponse listBranches(ListBranchesRequest request) {
     String path = String.format("/api/2.0/postgres/%s/branches", request.getParent());
     try {
@@ -196,6 +239,20 @@ class PostgresImpl implements PostgresService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListProjectsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public ListRolesResponse listRoles(ListRolesRequest request) {
+    String path = String.format("/api/2.0/postgres/%s/roles", request.getParent());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ListRolesResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
