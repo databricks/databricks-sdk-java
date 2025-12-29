@@ -113,9 +113,7 @@ class ConfigAttributeAccessor {
   public String getAsString(Object value) {
     if (value instanceof List) {
       List<?> list = (List<?>) value;
-      return list.stream()
-          .map(Object::toString)
-          .collect(Collectors.joining(", ", "[", "]"));
+      return list.stream().map(Object::toString).collect(Collectors.joining(", ", "[", "]"));
     }
     return value.toString();
   }
