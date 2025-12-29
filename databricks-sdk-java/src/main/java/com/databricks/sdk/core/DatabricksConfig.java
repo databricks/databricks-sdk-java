@@ -213,7 +213,7 @@ public class DatabricksConfig {
     }
   }
 
-  /** Sort scopes in-place for better de-duplication in the refresh token cache. */
+  // Sort scopes in-place for better de-duplication in the refresh token cache.
   private void sortScopes() {
     if (scopes != null && !scopes.isEmpty()) {
       java.util.Collections.sort(scopes);

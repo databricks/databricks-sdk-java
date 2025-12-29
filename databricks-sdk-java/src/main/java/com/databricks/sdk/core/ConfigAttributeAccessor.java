@@ -69,7 +69,7 @@ class ConfigAttributeAccessor {
         field.set(cfg, ProxyConfig.ProxyAuthType.valueOf(value));
       } else if (List.class.isAssignableFrom(field.getType())) {
         // Handle List<String> fields (e.g., scopes)
-        // Parse comma and/or whitespace separated values from environment variable or config file
+        // Parse comma and/or whitespace separated values from environment variable or config file.
         if (field.getGenericType() instanceof ParameterizedType) {
           ParameterizedType paramType = (ParameterizedType) field.getGenericType();
           if (paramType.getActualTypeArguments().length > 0
@@ -111,7 +111,10 @@ class ConfigAttributeAccessor {
 
   public String getAsString(Object value) {
     if (value instanceof List) {
-      return String.join(" ", (List<String>) value);
+      List<?> list = (List<?>) value;
+      return list.stream()
+          .map(Object::toString)
+          .collect(Collectors.joining(", ", "[", "]"));
     }
     return value.toString();
   }

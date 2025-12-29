@@ -329,7 +329,6 @@ public class DatabricksConfigTest {
   }
 
   // Config File Scope Parsing Tests
-
   private static Stream<Arguments> provideConfigFileScopesTestCases() {
     return Stream.of(
         Arguments.of("Empty scopes defaults to all-apis", "scope-empty", Arrays.asList("all-apis")),
@@ -357,9 +356,6 @@ public class DatabricksConfigTest {
     config.resolve(new Environment(env, new ArrayList<>(), System.getProperty("os.name")));
 
     List<String> scopes = config.getScopes();
-    assertEquals(expectedScopes.size(), scopes.size());
-    for (int i = 0; i < expectedScopes.size(); i++) {
-      assertEquals(expectedScopes.get(i), scopes.get(i));
-    }
+    assertIterableEquals(expectedScopes, scopes);
   }
 }
