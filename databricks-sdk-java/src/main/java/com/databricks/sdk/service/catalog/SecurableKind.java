@@ -4,7 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** Latest kind: CONNECTION_TIKTOK_ADS_U2M = 285; Next id: 286 */
+/** Latest kind: CONNECTION_ONELAKE = 289; Next id:290 */
 @Generated
 public enum SecurableKind {
   TABLE_DB_STORAGE,
