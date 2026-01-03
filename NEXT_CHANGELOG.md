@@ -35,3 +35,6 @@
 * Add `createRole()`, `deleteRole()`, `getRole()` and `listRoles()` methods for `workspaceClient.postgres()` service.
 * Add `destinationSourceSecurable` field for `com.databricks.sdk.service.catalog.AccessRequestDestinations`.
 * Add `accessModes` and `storageLocation` fields for `com.databricks.sdk.service.sharing.Table`.
+* Add `command` and `envVars` fields for `com.databricks.sdk.service.apps.AppDeployment`.
+* Add `fullName` and `securableType` fields for `com.databricks.sdk.service.catalog.AccessRequestDestinations`.
+* [Breaking] Change `deleteKafkaConfig()` method for `workspaceClient.featureEngineering()` service . Method path has changed.

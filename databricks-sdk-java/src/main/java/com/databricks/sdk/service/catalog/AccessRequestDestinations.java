@@ -29,9 +29,23 @@ public class AccessRequestDestinations {
   @JsonProperty("destinations")
   private Collection<NotificationDestination> destinations;
 
+  /**
+   * The full name of the securable. Redundant with the name in the securable object, but necessary
+   * for Terraform integration
+   */
+  @JsonProperty("full_name")
+  private String fullName;
+
   /** The securable for which the access request destinations are being modified or read. */
   @JsonProperty("securable")
   private Securable securable;
+
+  /**
+   * The type of the securable. Redundant with the type in the securable object, but necessary for
+   * Terraform integration
+   */
+  @JsonProperty("securable_type")
+  private String securableType;
 
   public AccessRequestDestinations setAreAnyDestinationsHidden(Boolean areAnyDestinationsHidden) {
     this.areAnyDestinationsHidden = areAnyDestinationsHidden;
@@ -62,6 +76,15 @@ public class AccessRequestDestinations {
     return destinations;
   }
 
+  public AccessRequestDestinations setFullName(String fullName) {
+    this.fullName = fullName;
+    return this;
+  }
+
+  public String getFullName() {
+    return fullName;
+  }
+
   public AccessRequestDestinations setSecurable(Securable securable) {
     this.securable = securable;
     return this;
@@ -69,6 +92,15 @@ public class AccessRequestDestinations {
 
   public Securable getSecurable() {
     return securable;
+  }
+
+  public AccessRequestDestinations setSecurableType(String securableType) {
+    this.securableType = securableType;
+    return this;
+  }
+
+  public String getSecurableType() {
+    return securableType;
   }
 
   @Override
@@ -79,13 +111,20 @@ public class AccessRequestDestinations {
     return Objects.equals(areAnyDestinationsHidden, that.areAnyDestinationsHidden)
         && Objects.equals(destinationSourceSecurable, that.destinationSourceSecurable)
         && Objects.equals(destinations, that.destinations)
-        && Objects.equals(securable, that.securable);
+        && Objects.equals(fullName, that.fullName)
+        && Objects.equals(securable, that.securable)
+        && Objects.equals(securableType, that.securableType);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        areAnyDestinationsHidden, destinationSourceSecurable, destinations, securable);
+        areAnyDestinationsHidden,
+        destinationSourceSecurable,
+        destinations,
+        fullName,
+        securable,
+        securableType);
   }
 
   @Override
@@ -94,7 +133,9 @@ public class AccessRequestDestinations {
         .add("areAnyDestinationsHidden", areAnyDestinationsHidden)
         .add("destinationSourceSecurable", destinationSourceSecurable)
         .add("destinations", destinations)
+        .add("fullName", fullName)
         .add("securable", securable)
+        .add("securableType", securableType)
         .toString();
   }
 }
