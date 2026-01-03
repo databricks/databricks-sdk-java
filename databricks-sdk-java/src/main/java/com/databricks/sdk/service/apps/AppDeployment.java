@@ -5,10 +5,18 @@ package com.databricks.sdk.service.apps;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 @Generated
 public class AppDeployment {
+  /**
+   * The command with which to run the app. This will override the command specified in the app.yaml
+   * file.
+   */
+  @JsonProperty("command")
+  private Collection<String> command;
+
   /** The creation time of the deployment. Formatted timestamp in ISO 6801. */
   @JsonProperty("create_time")
   private String createTime;
@@ -24,6 +32,13 @@ public class AppDeployment {
   /** The unique id of the deployment. */
   @JsonProperty("deployment_id")
   private String deploymentId;
+
+  /**
+   * The environment variables to set in the app runtime environment. This will override the
+   * environment variables specified in the app.yaml file.
+   */
+  @JsonProperty("env_vars")
+  private Collection<EnvVar> envVars;
 
   /** Git repository to use as the source for the app deployment. */
   @JsonProperty("git_source")
@@ -50,6 +65,15 @@ public class AppDeployment {
   /** The update time of the deployment. Formatted timestamp in ISO 6801. */
   @JsonProperty("update_time")
   private String updateTime;
+
+  public AppDeployment setCommand(Collection<String> command) {
+    this.command = command;
+    return this;
+  }
+
+  public Collection<String> getCommand() {
+    return command;
+  }
 
   public AppDeployment setCreateTime(String createTime) {
     this.createTime = createTime;
@@ -85,6 +109,15 @@ public class AppDeployment {
 
   public String getDeploymentId() {
     return deploymentId;
+  }
+
+  public AppDeployment setEnvVars(Collection<EnvVar> envVars) {
+    this.envVars = envVars;
+    return this;
+  }
+
+  public Collection<EnvVar> getEnvVars() {
+    return envVars;
   }
 
   public AppDeployment setGitSource(GitSource gitSource) {
@@ -137,10 +170,12 @@ public class AppDeployment {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     AppDeployment that = (AppDeployment) o;
-    return Objects.equals(createTime, that.createTime)
+    return Objects.equals(command, that.command)
+        && Objects.equals(createTime, that.createTime)
         && Objects.equals(creator, that.creator)
         && Objects.equals(deploymentArtifacts, that.deploymentArtifacts)
         && Objects.equals(deploymentId, that.deploymentId)
+        && Objects.equals(envVars, that.envVars)
         && Objects.equals(gitSource, that.gitSource)
         && Objects.equals(mode, that.mode)
         && Objects.equals(sourceCodePath, that.sourceCodePath)
@@ -151,10 +186,12 @@ public class AppDeployment {
   @Override
   public int hashCode() {
     return Objects.hash(
+        command,
         createTime,
         creator,
         deploymentArtifacts,
         deploymentId,
+        envVars,
         gitSource,
         mode,
         sourceCodePath,
@@ -165,10 +202,12 @@ public class AppDeployment {
   @Override
   public String toString() {
     return new ToStringer(AppDeployment.class)
+        .add("command", command)
         .add("createTime", createTime)
         .add("creator", creator)
         .add("deploymentArtifacts", deploymentArtifacts)
         .add("deploymentId", deploymentId)
+        .add("envVars", envVars)
         .add("gitSource", gitSource)
         .add("mode", mode)
         .add("sourceCodePath", sourceCodePath)

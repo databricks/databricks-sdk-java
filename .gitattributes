@@ -78,6 +78,7 @@
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/apps/CustomTemplate.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/apps/DeleteAppRequest.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/apps/DeleteCustomTemplateRequest.java linguist-generated=true
+/home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/apps/EnvVar.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/apps/GetAppDeploymentRequest.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/apps/GetAppPermissionLevelsRequest.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/apps/GetAppPermissionLevelsResponse.java linguist-generated=true
