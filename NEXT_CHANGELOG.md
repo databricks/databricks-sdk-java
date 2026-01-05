@@ -38,3 +38,4 @@
 * Add `command` and `envVars` fields for `com.databricks.sdk.service.apps.AppDeployment`.
 * Add `fullName` and `securableType` fields for `com.databricks.sdk.service.catalog.AccessRequestDestinations`.
 * [Breaking] Change `deleteKafkaConfig()` method for `workspaceClient.featureEngineering()` service . Method path has changed.
+* [Breaking] Change long-running operation configuration for `workspaceClient.postgres().deleteRole()` method . Long running operation response type changed to `Void class`.
