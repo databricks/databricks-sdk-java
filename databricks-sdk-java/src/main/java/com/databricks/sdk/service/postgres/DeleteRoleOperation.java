@@ -33,26 +33,26 @@ public class DeleteRoleOperation {
   }
 
   /**
-   * Wait for the operation to complete and return the resulting Role. Waits indefinitely if no
-   * timeout is specified.
+   * Wait for the operation to complete and return the resulting . Waits indefinitely if no timeout
+   * is specified.
    *
-   * @return the created Role
+   * @return the created
    * @throws TimeoutException if the operation doesn't complete within the timeout
    * @throws DatabricksException if the operation fails
    */
-  public Role waitForCompletion() throws TimeoutException {
-    return waitForCompletion(Optional.empty());
+  public void waitForCompletion() throws TimeoutException {
+    waitForCompletion(Optional.empty());
   }
 
   /**
-   * Wait for the operation to complete and return the resulting Role.
+   * Wait for the operation to complete and return the resulting .
    *
    * @param options the options for configuring the wait behavior, can be empty for defaults
-   * @return the created Role
+   * @return the created
    * @throws TimeoutException if the operation doesn't complete within the timeout
    * @throws DatabricksException if the operation fails
    */
-  public Role waitForCompletion(Optional<LroOptions> options) throws TimeoutException {
+  public void waitForCompletion(Optional<LroOptions> options) throws TimeoutException {
     Optional<Duration> timeout = options.flatMap(LroOptions::getTimeout);
     long deadline =
         timeout.isPresent()
@@ -88,9 +88,9 @@ public class DeleteRoleOperation {
 
         try {
           JsonNode responseJson = objectMapper.valueToTree(operation.getResponse());
-          return objectMapper.treeToValue(responseJson, Role.class);
+          objectMapper.treeToValue(responseJson, Void.class);
         } catch (JsonProcessingException e) {
-          throw new DatabricksException("Failed to unmarshal role response: " + e.getMessage(), e);
+          throw new DatabricksException("Failed to unmarshal  response: " + e.getMessage(), e);
         }
       }
 
