@@ -17,35 +17,13 @@ public class AccessRequestDestinations {
   @JsonProperty("are_any_destinations_hidden")
   private Boolean areAnyDestinationsHidden;
 
-  /**
-   * The source securable from which the destinations are inherited. Either the same value as
-   * securable (if destination is set directly on the securable) or the nearest parent securable
-   * with destinations set.
-   */
-  @JsonProperty("destination_source_securable")
-  private Securable destinationSourceSecurable;
-
   /** The access request destinations for the securable. */
   @JsonProperty("destinations")
   private Collection<NotificationDestination> destinations;
 
-  /**
-   * The full name of the securable. Redundant with the name in the securable object, but necessary
-   * for Terraform integration
-   */
-  @JsonProperty("full_name")
-  private String fullName;
-
-  /** The securable for which the access request destinations are being modified or read. */
+  /** The securable for which the access request destinations are being retrieved. */
   @JsonProperty("securable")
   private Securable securable;
-
-  /**
-   * The type of the securable. Redundant with the type in the securable object, but necessary for
-   * Terraform integration
-   */
-  @JsonProperty("securable_type")
-  private String securableType;
 
   public AccessRequestDestinations setAreAnyDestinationsHidden(Boolean areAnyDestinationsHidden) {
     this.areAnyDestinationsHidden = areAnyDestinationsHidden;
@@ -54,16 +32,6 @@ public class AccessRequestDestinations {
 
   public Boolean getAreAnyDestinationsHidden() {
     return areAnyDestinationsHidden;
-  }
-
-  public AccessRequestDestinations setDestinationSourceSecurable(
-      Securable destinationSourceSecurable) {
-    this.destinationSourceSecurable = destinationSourceSecurable;
-    return this;
-  }
-
-  public Securable getDestinationSourceSecurable() {
-    return destinationSourceSecurable;
   }
 
   public AccessRequestDestinations setDestinations(
@@ -76,15 +44,6 @@ public class AccessRequestDestinations {
     return destinations;
   }
 
-  public AccessRequestDestinations setFullName(String fullName) {
-    this.fullName = fullName;
-    return this;
-  }
-
-  public String getFullName() {
-    return fullName;
-  }
-
   public AccessRequestDestinations setSecurable(Securable securable) {
     this.securable = securable;
     return this;
@@ -94,48 +53,27 @@ public class AccessRequestDestinations {
     return securable;
   }
 
-  public AccessRequestDestinations setSecurableType(String securableType) {
-    this.securableType = securableType;
-    return this;
-  }
-
-  public String getSecurableType() {
-    return securableType;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     AccessRequestDestinations that = (AccessRequestDestinations) o;
     return Objects.equals(areAnyDestinationsHidden, that.areAnyDestinationsHidden)
-        && Objects.equals(destinationSourceSecurable, that.destinationSourceSecurable)
         && Objects.equals(destinations, that.destinations)
-        && Objects.equals(fullName, that.fullName)
-        && Objects.equals(securable, that.securable)
-        && Objects.equals(securableType, that.securableType);
+        && Objects.equals(securable, that.securable);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        areAnyDestinationsHidden,
-        destinationSourceSecurable,
-        destinations,
-        fullName,
-        securable,
-        securableType);
+    return Objects.hash(areAnyDestinationsHidden, destinations, securable);
   }
 
   @Override
   public String toString() {
     return new ToStringer(AccessRequestDestinations.class)
         .add("areAnyDestinationsHidden", areAnyDestinationsHidden)
-        .add("destinationSourceSecurable", destinationSourceSecurable)
         .add("destinations", destinations)
-        .add("fullName", fullName)
         .add("securable", securable)
-        .add("securableType", securableType)
         .toString();
   }
 }

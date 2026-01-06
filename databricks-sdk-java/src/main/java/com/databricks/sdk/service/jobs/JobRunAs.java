@@ -17,13 +17,6 @@ import java.util.Objects;
 @Generated
 public class JobRunAs {
   /**
-   * Group name of an account group assigned to the workspace. Setting this field requires being a
-   * member of the group.
-   */
-  @JsonProperty("group_name")
-  private String groupName;
-
-  /**
    * Application ID of an active service principal. Setting this field requires the
    * `servicePrincipal/user` role.
    */
@@ -36,15 +29,6 @@ public class JobRunAs {
    */
   @JsonProperty("user_name")
   private String userName;
-
-  public JobRunAs setGroupName(String groupName) {
-    this.groupName = groupName;
-    return this;
-  }
-
-  public String getGroupName() {
-    return groupName;
-  }
 
   public JobRunAs setServicePrincipalName(String servicePrincipalName) {
     this.servicePrincipalName = servicePrincipalName;
@@ -69,20 +53,18 @@ public class JobRunAs {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     JobRunAs that = (JobRunAs) o;
-    return Objects.equals(groupName, that.groupName)
-        && Objects.equals(servicePrincipalName, that.servicePrincipalName)
+    return Objects.equals(servicePrincipalName, that.servicePrincipalName)
         && Objects.equals(userName, that.userName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(groupName, servicePrincipalName, userName);
+    return Objects.hash(servicePrincipalName, userName);
   }
 
   @Override
   public String toString() {
     return new ToStringer(JobRunAs.class)
-        .add("groupName", groupName)
         .add("servicePrincipalName", servicePrincipalName)
         .add("userName", userName)
         .toString();

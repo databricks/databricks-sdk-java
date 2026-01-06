@@ -95,7 +95,8 @@ class FeatureEngineeringImpl implements FeatureEngineeringService {
   @Override
   public void deleteKafkaConfig(DeleteKafkaConfigRequest request) {
     String path =
-        String.format("/api/2.0/feature-engineering/features/kafka-configs/%s", request.getName());
+        String.format(
+            "/api/2.0/feature-engineering/features/kafka-configs/kafka/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
 

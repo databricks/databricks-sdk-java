@@ -6,8 +6,5 @@ import com.databricks.sdk.support.Generated;
 
 @Generated
 public enum AppResourceUcSecurableUcSecurableType {
-  CONNECTION,
-  FUNCTION,
-  TABLE,
   VOLUME,
 }

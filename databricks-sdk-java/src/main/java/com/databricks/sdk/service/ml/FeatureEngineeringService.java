@@ -19,10 +19,7 @@ public interface FeatureEngineeringService {
   /** Create a Feature. */
   Feature createFeature(CreateFeatureRequest createFeatureRequest);
 
-  /**
-   * Create a Kafka config. During PrPr, Kafka configs can be read and used when creating features
-   * under the entire metastore. Only the creator of the Kafka config can delete it.
-   */
+  /** Create a Kafka config. */
   KafkaConfig createKafkaConfig(CreateKafkaConfigRequest createKafkaConfigRequest);
 
   /** Create a materialized feature. */
@@ -32,10 +29,7 @@ public interface FeatureEngineeringService {
   /** Delete a Feature. */
   void deleteFeature(DeleteFeatureRequest deleteFeatureRequest);
 
-  /**
-   * Delete a Kafka config. During PrPr, Kafka configs can be read and used when creating features
-   * under the entire metastore. Only the creator of the Kafka config can delete it.
-   */
+  /** Delete a Kafka config. */
   void deleteKafkaConfig(DeleteKafkaConfigRequest deleteKafkaConfigRequest);
 
   /** Delete a materialized feature. */
@@ -44,10 +38,7 @@ public interface FeatureEngineeringService {
   /** Get a Feature. */
   Feature getFeature(GetFeatureRequest getFeatureRequest);
 
-  /**
-   * Get a Kafka config. During PrPr, Kafka configs can be read and used when creating features
-   * under the entire metastore. Only the creator of the Kafka config can delete it.
-   */
+  /** Get a Kafka config. */
   KafkaConfig getKafkaConfig(GetKafkaConfigRequest getKafkaConfigRequest);
 
   /** Get a materialized feature. */
@@ -57,10 +48,7 @@ public interface FeatureEngineeringService {
   /** List Features. */
   ListFeaturesResponse listFeatures(ListFeaturesRequest listFeaturesRequest);
 
-  /**
-   * List Kafka configs. During PrPr, Kafka configs can be read and used when creating features
-   * under the entire metastore. Only the creator of the Kafka config can delete it.
-   */
+  /** List Kafka configs. */
   ListKafkaConfigsResponse listKafkaConfigs(ListKafkaConfigsRequest listKafkaConfigsRequest);
 
   /** List materialized features. */
@@ -70,10 +58,7 @@ public interface FeatureEngineeringService {
   /** Update a Feature. */
   Feature updateFeature(UpdateFeatureRequest updateFeatureRequest);
 
-  /**
-   * Update a Kafka config. During PrPr, Kafka configs can be read and used when creating features
-   * under the entire metastore. Only the creator of the Kafka config can delete it.
-   */
+  /** Update a Kafka config. */
   KafkaConfig updateKafkaConfig(UpdateKafkaConfigRequest updateKafkaConfigRequest);
 
   /** Update a materialized feature (pause/resume). */

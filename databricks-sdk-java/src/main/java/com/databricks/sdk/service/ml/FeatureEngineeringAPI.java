@@ -35,10 +35,7 @@ public class FeatureEngineeringAPI {
     return impl.createFeature(request);
   }
 
-  /**
-   * Create a Kafka config. During PrPr, Kafka configs can be read and used when creating features
-   * under the entire metastore. Only the creator of the Kafka config can delete it.
-   */
+  /** Create a Kafka config. */
   public KafkaConfig createKafkaConfig(CreateKafkaConfigRequest request) {
     return impl.createKafkaConfig(request);
   }
@@ -61,10 +58,7 @@ public class FeatureEngineeringAPI {
     deleteKafkaConfig(new DeleteKafkaConfigRequest().setName(name));
   }
 
-  /**
-   * Delete a Kafka config. During PrPr, Kafka configs can be read and used when creating features
-   * under the entire metastore. Only the creator of the Kafka config can delete it.
-   */
+  /** Delete a Kafka config. */
   public void deleteKafkaConfig(DeleteKafkaConfigRequest request) {
     impl.deleteKafkaConfig(request);
   }
@@ -92,10 +86,7 @@ public class FeatureEngineeringAPI {
     return getKafkaConfig(new GetKafkaConfigRequest().setName(name));
   }
 
-  /**
-   * Get a Kafka config. During PrPr, Kafka configs can be read and used when creating features
-   * under the entire metastore. Only the creator of the Kafka config can delete it.
-   */
+  /** Get a Kafka config. */
   public KafkaConfig getKafkaConfig(GetKafkaConfigRequest request) {
     return impl.getKafkaConfig(request);
   }
@@ -125,10 +116,7 @@ public class FeatureEngineeringAPI {
         });
   }
 
-  /**
-   * List Kafka configs. During PrPr, Kafka configs can be read and used when creating features
-   * under the entire metastore. Only the creator of the Kafka config can delete it.
-   */
+  /** List Kafka configs. */
   public Iterable<KafkaConfig> listKafkaConfigs(ListKafkaConfigsRequest request) {
     return new Paginator<>(
         request,
@@ -164,10 +152,7 @@ public class FeatureEngineeringAPI {
     return impl.updateFeature(request);
   }
 
-  /**
-   * Update a Kafka config. During PrPr, Kafka configs can be read and used when creating features
-   * under the entire metastore. Only the creator of the Kafka config can delete it.
-   */
+  /** Update a Kafka config. */
   public KafkaConfig updateKafkaConfig(UpdateKafkaConfigRequest request) {
     return impl.updateKafkaConfig(request);
   }

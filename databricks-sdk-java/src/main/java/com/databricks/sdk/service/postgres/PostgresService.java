@@ -21,9 +21,6 @@ public interface PostgresService {
   /** Create a Project. */
   Operation createProject(CreateProjectRequest createProjectRequest);
 
-  /** Create a role for a branch. */
-  Operation createRole(CreateRoleRequest createRoleRequest);
-
   /** Delete a Branch. */
   void deleteBranch(DeleteBranchRequest deleteBranchRequest);
 
@@ -32,9 +29,6 @@ public interface PostgresService {
 
   /** Delete a Project. */
   void deleteProject(DeleteProjectRequest deleteProjectRequest);
-
-  /** Delete a role in a branch. */
-  Operation deleteRole(DeleteRoleRequest deleteRoleRequest);
 
   /** Get a Branch. */
   Branch getBranch(GetBranchRequest getBranchRequest);
@@ -48,9 +42,6 @@ public interface PostgresService {
   /** Get a Project. */
   Project getProject(GetProjectRequest getProjectRequest);
 
-  /** Get a Role. */
-  Role getRole(GetRoleRequest getRoleRequest);
-
   /** List Branches. */
   ListBranchesResponse listBranches(ListBranchesRequest listBranchesRequest);
 
@@ -59,9 +50,6 @@ public interface PostgresService {
 
   /** List Projects. */
   ListProjectsResponse listProjects(ListProjectsRequest listProjectsRequest);
-
-  /** List Roles. */
-  ListRolesResponse listRoles(ListRolesRequest listRolesRequest);
 
   /** Update a Branch. */
   Operation updateBranch(UpdateBranchRequest updateBranchRequest);

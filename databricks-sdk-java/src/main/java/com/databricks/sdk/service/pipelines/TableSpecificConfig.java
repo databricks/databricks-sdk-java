@@ -38,13 +38,6 @@ public class TableSpecificConfig {
       queryBasedConnectorConfig;
 
   /**
-   * (Optional, Immutable) The row filter condition to be applied to the table. It must not contain
-   * the WHERE keyword, only the actual filter condition. It must be in DBSQL format.
-   */
-  @JsonProperty("row_filter")
-  private String rowFilter;
-
-  /**
    * If true, formula fields defined in the table are included in the ingestion. This setting is
    * only valid for the Salesforce connector
    */
@@ -105,15 +98,6 @@ public class TableSpecificConfig {
     return queryBasedConnectorConfig;
   }
 
-  public TableSpecificConfig setRowFilter(String rowFilter) {
-    this.rowFilter = rowFilter;
-    return this;
-  }
-
-  public String getRowFilter() {
-    return rowFilter;
-  }
-
   public TableSpecificConfig setSalesforceIncludeFormulaFields(
       Boolean salesforceIncludeFormulaFields) {
     this.salesforceIncludeFormulaFields = salesforceIncludeFormulaFields;
@@ -161,7 +145,6 @@ public class TableSpecificConfig {
         && Objects.equals(includeColumns, that.includeColumns)
         && Objects.equals(primaryKeys, that.primaryKeys)
         && Objects.equals(queryBasedConnectorConfig, that.queryBasedConnectorConfig)
-        && Objects.equals(rowFilter, that.rowFilter)
         && Objects.equals(salesforceIncludeFormulaFields, that.salesforceIncludeFormulaFields)
         && Objects.equals(scdType, that.scdType)
         && Objects.equals(sequenceBy, that.sequenceBy)
@@ -175,7 +158,6 @@ public class TableSpecificConfig {
         includeColumns,
         primaryKeys,
         queryBasedConnectorConfig,
-        rowFilter,
         salesforceIncludeFormulaFields,
         scdType,
         sequenceBy,
@@ -189,7 +171,6 @@ public class TableSpecificConfig {
         .add("includeColumns", includeColumns)
         .add("primaryKeys", primaryKeys)
         .add("queryBasedConnectorConfig", queryBasedConnectorConfig)
-        .add("rowFilter", rowFilter)
         .add("salesforceIncludeFormulaFields", salesforceIncludeFormulaFields)
         .add("scdType", scdType)
         .add("sequenceBy", sequenceBy)

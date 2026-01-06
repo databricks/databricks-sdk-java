@@ -23,10 +23,6 @@ public class AppUpdate {
   private String description;
 
   /** */
-  @JsonProperty("git_repository")
-  private GitRepository gitRepository;
-
-  /** */
   @JsonProperty("resources")
   private Collection<AppResource> resources;
 
@@ -67,15 +63,6 @@ public class AppUpdate {
 
   public String getDescription() {
     return description;
-  }
-
-  public AppUpdate setGitRepository(GitRepository gitRepository) {
-    this.gitRepository = gitRepository;
-    return this;
-  }
-
-  public GitRepository getGitRepository() {
-    return gitRepository;
   }
 
   public AppUpdate setResources(Collection<AppResource> resources) {
@@ -122,7 +109,6 @@ public class AppUpdate {
     return Objects.equals(budgetPolicyId, that.budgetPolicyId)
         && Objects.equals(computeSize, that.computeSize)
         && Objects.equals(description, that.description)
-        && Objects.equals(gitRepository, that.gitRepository)
         && Objects.equals(resources, that.resources)
         && Objects.equals(status, that.status)
         && Objects.equals(usagePolicyId, that.usagePolicyId)
@@ -132,14 +118,7 @@ public class AppUpdate {
   @Override
   public int hashCode() {
     return Objects.hash(
-        budgetPolicyId,
-        computeSize,
-        description,
-        gitRepository,
-        resources,
-        status,
-        usagePolicyId,
-        userApiScopes);
+        budgetPolicyId, computeSize, description, resources, status, usagePolicyId, userApiScopes);
   }
 
   @Override
@@ -148,7 +127,6 @@ public class AppUpdate {
         .add("budgetPolicyId", budgetPolicyId)
         .add("computeSize", computeSize)
         .add("description", description)
-        .add("gitRepository", gitRepository)
         .add("resources", resources)
         .add("status", status)
         .add("usagePolicyId", usagePolicyId)
