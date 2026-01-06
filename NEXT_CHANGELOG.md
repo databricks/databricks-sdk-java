@@ -39,3 +39,5 @@
 * Add `fullName` and `securableType` fields for `com.databricks.sdk.service.catalog.AccessRequestDestinations`.
 * [Breaking] Change `deleteKafkaConfig()` method for `workspaceClient.featureEngineering()` service . Method path has changed.
 * [Breaking] Change long-running operation configuration for `workspaceClient.postgres().deleteRole()` method . Long running operation response type changed to `Void class`.
+* Add `TABLE_DELTASHARING_OPEN_DIR_BASED` enum value for `com.databricks.sdk.service.catalog.SecurableKind`.
+* [Breaking] Remove `accessModes` and `storageLocation` fields for `com.databricks.sdk.service.sharing.Table`.
