@@ -6,6 +6,8 @@ import com.databricks.sdk.support.Generated;
 
 @Generated
 public enum NccPrivateEndpointRulePrivateLinkConnectionState {
+  CREATE_FAILED,
+  CREATING,
   DISCONNECTED,
   ESTABLISHED,
   EXPIRED,

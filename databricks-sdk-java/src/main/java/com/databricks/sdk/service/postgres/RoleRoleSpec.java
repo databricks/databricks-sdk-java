@@ -20,7 +20,11 @@ public class RoleRoleSpec {
   @JsonProperty("auth_method")
   private RoleAuthMethod authMethod;
 
-  /** The type of the role. */
+  /**
+   * The type of the role. When specifying a managed-identity, the chosen role_id must be a valid:
+   *
+   * <p>* application ID for SERVICE_PRINCIPAL * user email for USER * group name for GROUP
+   */
   @JsonProperty("identity_type")
   private RoleIdentityType identityType;
 
