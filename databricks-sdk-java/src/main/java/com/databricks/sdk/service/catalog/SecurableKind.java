@@ -4,13 +4,14 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** Latest kind: CONNECTION_ONELAKE = 289; Next id:290 */
+/** Latest kind: TABLE_DELTASHARING_OPEN_DIR_BASED = 290; Next id:291 */
 @Generated
 public enum SecurableKind {
   TABLE_DB_STORAGE,
   TABLE_DELTA,
   TABLE_DELTASHARING,
   TABLE_DELTASHARING_MUTABLE,
+  TABLE_DELTASHARING_OPEN_DIR_BASED,
   TABLE_DELTA_EXTERNAL,
   TABLE_DELTA_ICEBERG_DELTASHARING,
   TABLE_DELTA_ICEBERG_MANAGED,
