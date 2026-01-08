@@ -26,7 +26,10 @@ public class NccPrivateEndpointRule {
    * and is ready to use in your serverless compute resources. - REJECTED: Connection was rejected
    * by the private link resource owner. - DISCONNECTED: Connection was removed by the private link
    * resource owner, the private endpoint becomes informative and should be deleted for clean-up. -
-   * EXPIRED: If the endpoint was created but not approved in 14 days, it will be EXPIRED.
+   * EXPIRED: If the endpoint was created but not approved in 14 days, it will be EXPIRED. -
+   * CREATING: The endpoint creation is in progress. Once successfully created, the state will
+   * transition to PENDING. - CREATE_FAILED: The endpoint creation failed. You can check the
+   * error_message field for more details.
    */
   @JsonProperty("connection_state")
   private NccPrivateEndpointRulePrivateLinkConnectionState connectionState;
