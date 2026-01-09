@@ -4,7 +4,7 @@ package com.databricks.sdk.service.apps;
 import com.databricks.sdk.support.Generated;
 
 /**
- * Apps run directly on a customer’s Databricks instance, integrate with their data, use and extend
+ * Apps run directly on a customer's Databricks instance, integrate with their data, use and extend
  * Databricks services, and enable users to interact through single sign-on.
  *
  * <p>This is the high-level interface, that contains generated methods.

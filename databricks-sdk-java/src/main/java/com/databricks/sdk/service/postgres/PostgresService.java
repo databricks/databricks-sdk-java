@@ -25,13 +25,13 @@ public interface PostgresService {
   Operation createRole(CreateRoleRequest createRoleRequest);
 
   /** Delete a Branch. */
-  void deleteBranch(DeleteBranchRequest deleteBranchRequest);
+  Operation deleteBranch(DeleteBranchRequest deleteBranchRequest);
 
   /** Delete an Endpoint. */
-  void deleteEndpoint(DeleteEndpointRequest deleteEndpointRequest);
+  Operation deleteEndpoint(DeleteEndpointRequest deleteEndpointRequest);
 
   /** Delete a Project. */
-  void deleteProject(DeleteProjectRequest deleteProjectRequest);
+  Operation deleteProject(DeleteProjectRequest deleteProjectRequest);
 
   /** Delete a role in a branch. */
   Operation deleteRole(DeleteRoleRequest deleteRoleRequest);

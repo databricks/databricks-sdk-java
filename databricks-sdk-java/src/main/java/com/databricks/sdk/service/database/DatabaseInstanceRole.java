@@ -14,7 +14,11 @@ public class DatabaseInstanceRole {
   @JsonProperty("attributes")
   private DatabaseInstanceRoleAttributes attributes;
 
-  /** The attributes that are applied to the role. */
+  /**
+   * The attributes that are applied to the role. This is an output only field that contains the
+   * value computed from the input field combined with server side defaults. Use the field without
+   * the effective_ prefix to set the value.
+   */
   @JsonProperty("effective_attributes")
   private DatabaseInstanceRoleAttributes effectiveAttributes;
 

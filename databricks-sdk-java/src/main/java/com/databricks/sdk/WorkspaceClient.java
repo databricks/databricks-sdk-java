@@ -586,7 +586,7 @@ public class WorkspaceClient {
   }
 
   /**
-   * Apps run directly on a customer’s Databricks instance, integrate with their data, use and
+   * Apps run directly on a customer's Databricks instance, integrate with their data, use and
    * extend Databricks services, and enable users to interact through single sign-on.
    */
   public AppsAPI apps() {
@@ -1419,7 +1419,10 @@ public class WorkspaceClient {
     return providersAPI;
   }
 
-  /** Manage data quality of UC objects (currently support `schema`) */
+  /**
+   * [DEPRECATED] This API is deprecated. Please use the Data Quality Monitoring API instead (REST:
+   * /api/data-quality/v1/monitors). Manage data quality of UC objects (currently support `schema`).
+   */
   public QualityMonitorV2API qualityMonitorV2() {
     return qualityMonitorV2API;
   }

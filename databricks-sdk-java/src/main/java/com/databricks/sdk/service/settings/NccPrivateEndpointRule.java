@@ -75,6 +75,10 @@ public class NccPrivateEndpointRule {
   @JsonProperty("endpoint_service")
   private String endpointService;
 
+  /** */
+  @JsonProperty("error_message")
+  private String errorMessage;
+
   /**
    * Not used by customer-managed private endpoint services.
    *
@@ -203,6 +207,15 @@ public class NccPrivateEndpointRule {
     return endpointService;
   }
 
+  public NccPrivateEndpointRule setErrorMessage(String errorMessage) {
+    this.errorMessage = errorMessage;
+    return this;
+  }
+
+  public String getErrorMessage() {
+    return errorMessage;
+  }
+
   public NccPrivateEndpointRule setGroupId(String groupId) {
     this.groupId = groupId;
     return this;
@@ -280,6 +293,7 @@ public class NccPrivateEndpointRule {
         && Objects.equals(enabled, that.enabled)
         && Objects.equals(endpointName, that.endpointName)
         && Objects.equals(endpointService, that.endpointService)
+        && Objects.equals(errorMessage, that.errorMessage)
         && Objects.equals(groupId, that.groupId)
         && Objects.equals(networkConnectivityConfigId, that.networkConnectivityConfigId)
         && Objects.equals(resourceId, that.resourceId)
@@ -301,6 +315,7 @@ public class NccPrivateEndpointRule {
         enabled,
         endpointName,
         endpointService,
+        errorMessage,
         groupId,
         networkConnectivityConfigId,
         resourceId,
@@ -322,6 +337,7 @@ public class NccPrivateEndpointRule {
         .add("enabled", enabled)
         .add("endpointName", endpointName)
         .add("endpointService", endpointService)
+        .add("errorMessage", errorMessage)
         .add("groupId", groupId)
         .add("networkConnectivityConfigId", networkConnectivityConfigId)
         .add("resourceId", resourceId)

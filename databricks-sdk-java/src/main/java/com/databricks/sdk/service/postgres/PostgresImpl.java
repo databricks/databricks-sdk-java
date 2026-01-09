@@ -77,42 +77,42 @@ class PostgresImpl implements PostgresService {
   }
 
   @Override
-  public void deleteBranch(DeleteBranchRequest request) {
+  public Operation deleteBranch(DeleteBranchRequest request) {
     String path = String.format("/api/2.0/postgres/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
-      apiClient.execute(req, Void.class);
+      return apiClient.execute(req, Operation.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
   }
 
   @Override
-  public void deleteEndpoint(DeleteEndpointRequest request) {
+  public Operation deleteEndpoint(DeleteEndpointRequest request) {
     String path = String.format("/api/2.0/postgres/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
-      apiClient.execute(req, Void.class);
+      return apiClient.execute(req, Operation.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
   }
 
   @Override
-  public void deleteProject(DeleteProjectRequest request) {
+  public Operation deleteProject(DeleteProjectRequest request) {
     String path = String.format("/api/2.0/postgres/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
-      apiClient.execute(req, Void.class);
+      return apiClient.execute(req, Operation.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

@@ -32,6 +32,10 @@ public class UpdatePrivateEndpointRule {
   @JsonProperty("enabled")
   private Boolean enabled;
 
+  /** */
+  @JsonProperty("error_message")
+  private String errorMessage;
+
   /**
    * Only used by private endpoints towards AWS S3 service.
    *
@@ -61,6 +65,15 @@ public class UpdatePrivateEndpointRule {
     return enabled;
   }
 
+  public UpdatePrivateEndpointRule setErrorMessage(String errorMessage) {
+    this.errorMessage = errorMessage;
+    return this;
+  }
+
+  public String getErrorMessage() {
+    return errorMessage;
+  }
+
   public UpdatePrivateEndpointRule setResourceNames(Collection<String> resourceNames) {
     this.resourceNames = resourceNames;
     return this;
@@ -77,12 +90,13 @@ public class UpdatePrivateEndpointRule {
     UpdatePrivateEndpointRule that = (UpdatePrivateEndpointRule) o;
     return Objects.equals(domainNames, that.domainNames)
         && Objects.equals(enabled, that.enabled)
+        && Objects.equals(errorMessage, that.errorMessage)
         && Objects.equals(resourceNames, that.resourceNames);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(domainNames, enabled, resourceNames);
+    return Objects.hash(domainNames, enabled, errorMessage, resourceNames);
   }
 
   @Override
@@ -90,6 +104,7 @@ public class UpdatePrivateEndpointRule {
     return new ToStringer(UpdatePrivateEndpointRule.class)
         .add("domainNames", domainNames)
         .add("enabled", enabled)
+        .add("errorMessage", errorMessage)
         .add("resourceNames", resourceNames)
         .toString();
   }

@@ -2086,14 +2086,16 @@
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/CreateRoleOperation.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/CreateRoleRequest.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/DatabricksServiceExceptionWithDetailsProto.java linguist-generated=true
+/home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/DeleteBranchOperation.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/DeleteBranchRequest.java linguist-generated=true
+/home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/DeleteEndpointOperation.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/DeleteEndpointRequest.java linguist-generated=true
+/home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/DeleteProjectOperation.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/DeleteProjectRequest.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/DeleteRoleOperation.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/DeleteRoleRequest.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/Endpoint.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/EndpointOperationMetadata.java linguist-generated=true
-/home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/EndpointPoolerMode.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/EndpointSettings.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/EndpointSpec.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/EndpointStatus.java linguist-generated=true
