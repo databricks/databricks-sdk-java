@@ -15,10 +15,6 @@ public class EndpointSettings {
   @JsonProperty("pg_settings")
   private Map<String, String> pgSettings;
 
-  /** A raw representation of PgBouncer settings. */
-  @JsonProperty("pgbouncer_settings")
-  private Map<String, String> pgbouncerSettings;
-
   public EndpointSettings setPgSettings(Map<String, String> pgSettings) {
     this.pgSettings = pgSettings;
     return this;
@@ -28,34 +24,21 @@ public class EndpointSettings {
     return pgSettings;
   }
 
-  public EndpointSettings setPgbouncerSettings(Map<String, String> pgbouncerSettings) {
-    this.pgbouncerSettings = pgbouncerSettings;
-    return this;
-  }
-
-  public Map<String, String> getPgbouncerSettings() {
-    return pgbouncerSettings;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     EndpointSettings that = (EndpointSettings) o;
-    return Objects.equals(pgSettings, that.pgSettings)
-        && Objects.equals(pgbouncerSettings, that.pgbouncerSettings);
+    return Objects.equals(pgSettings, that.pgSettings);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pgSettings, pgbouncerSettings);
+    return Objects.hash(pgSettings);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(EndpointSettings.class)
-        .add("pgSettings", pgSettings)
-        .add("pgbouncerSettings", pgbouncerSettings)
-        .toString();
+    return new ToStringer(EndpointSettings.class).add("pgSettings", pgSettings).toString();
   }
 }

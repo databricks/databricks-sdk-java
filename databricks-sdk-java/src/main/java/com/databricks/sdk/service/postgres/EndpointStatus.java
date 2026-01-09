@@ -51,10 +51,6 @@ public class EndpointStatus {
   private EndpointStatusState pendingState;
 
   /** */
-  @JsonProperty("pooler_mode")
-  private EndpointPoolerMode poolerMode;
-
-  /** */
   @JsonProperty("settings")
   private EndpointSettings settings;
 
@@ -142,15 +138,6 @@ public class EndpointStatus {
     return pendingState;
   }
 
-  public EndpointStatus setPoolerMode(EndpointPoolerMode poolerMode) {
-    this.poolerMode = poolerMode;
-    return this;
-  }
-
-  public EndpointPoolerMode getPoolerMode() {
-    return poolerMode;
-  }
-
   public EndpointStatus setSettings(EndpointSettings settings) {
     this.settings = settings;
     return this;
@@ -200,7 +187,6 @@ public class EndpointStatus {
         && Objects.equals(host, that.host)
         && Objects.equals(lastActiveTime, that.lastActiveTime)
         && Objects.equals(pendingState, that.pendingState)
-        && Objects.equals(poolerMode, that.poolerMode)
         && Objects.equals(settings, that.settings)
         && Objects.equals(startTime, that.startTime)
         && Objects.equals(suspendTime, that.suspendTime)
@@ -218,7 +204,6 @@ public class EndpointStatus {
         host,
         lastActiveTime,
         pendingState,
-        poolerMode,
         settings,
         startTime,
         suspendTime,
@@ -236,7 +221,6 @@ public class EndpointStatus {
         .add("host", host)
         .add("lastActiveTime", lastActiveTime)
         .add("pendingState", pendingState)
-        .add("poolerMode", poolerMode)
         .add("settings", settings)
         .add("startTime", startTime)
         .add("suspendTime", suspendTime)

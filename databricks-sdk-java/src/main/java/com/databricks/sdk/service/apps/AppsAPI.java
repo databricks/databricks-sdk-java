@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Apps run directly on a customer’s Databricks instance, integrate with their data, use and extend
+ * Apps run directly on a customer's Databricks instance, integrate with their data, use and extend
  * Databricks services, and enable users to interact through single sign-on.
  */
 @Generated

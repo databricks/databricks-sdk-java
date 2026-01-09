@@ -31,10 +31,6 @@ public class EndpointSpec {
   private EndpointType endpointType;
 
   /** */
-  @JsonProperty("pooler_mode")
-  private EndpointPoolerMode poolerMode;
-
-  /** */
   @JsonProperty("settings")
   private EndpointSettings settings;
 
@@ -78,15 +74,6 @@ public class EndpointSpec {
     return endpointType;
   }
 
-  public EndpointSpec setPoolerMode(EndpointPoolerMode poolerMode) {
-    this.poolerMode = poolerMode;
-    return this;
-  }
-
-  public EndpointPoolerMode getPoolerMode() {
-    return poolerMode;
-  }
-
   public EndpointSpec setSettings(EndpointSettings settings) {
     this.settings = settings;
     return this;
@@ -114,7 +101,6 @@ public class EndpointSpec {
         && Objects.equals(autoscalingLimitMinCu, that.autoscalingLimitMinCu)
         && Objects.equals(disabled, that.disabled)
         && Objects.equals(endpointType, that.endpointType)
-        && Objects.equals(poolerMode, that.poolerMode)
         && Objects.equals(settings, that.settings)
         && Objects.equals(suspendTimeoutDuration, that.suspendTimeoutDuration);
   }
@@ -126,7 +112,6 @@ public class EndpointSpec {
         autoscalingLimitMinCu,
         disabled,
         endpointType,
-        poolerMode,
         settings,
         suspendTimeoutDuration);
   }
@@ -138,7 +123,6 @@ public class EndpointSpec {
         .add("autoscalingLimitMinCu", autoscalingLimitMinCu)
         .add("disabled", disabled)
         .add("endpointType", endpointType)
-        .add("poolerMode", poolerMode)
         .add("settings", settings)
         .add("suspendTimeoutDuration", suspendTimeoutDuration)
         .toString();

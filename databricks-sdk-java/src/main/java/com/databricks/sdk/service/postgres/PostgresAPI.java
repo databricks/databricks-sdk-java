@@ -48,31 +48,34 @@ public class PostgresAPI {
     return new CreateRoleOperation(impl, operation);
   }
 
-  public void deleteBranch(String name) {
-    deleteBranch(new DeleteBranchRequest().setName(name));
+  public DeleteBranchOperation deleteBranch(String name) {
+    return deleteBranch(new DeleteBranchRequest().setName(name));
   }
 
   /** Delete a Branch. */
-  public void deleteBranch(DeleteBranchRequest request) {
-    impl.deleteBranch(request);
+  public DeleteBranchOperation deleteBranch(DeleteBranchRequest request) {
+    Operation operation = impl.deleteBranch(request);
+    return new DeleteBranchOperation(impl, operation);
   }
 
-  public void deleteEndpoint(String name) {
-    deleteEndpoint(new DeleteEndpointRequest().setName(name));
+  public DeleteEndpointOperation deleteEndpoint(String name) {
+    return deleteEndpoint(new DeleteEndpointRequest().setName(name));
   }
 
   /** Delete an Endpoint. */
-  public void deleteEndpoint(DeleteEndpointRequest request) {
-    impl.deleteEndpoint(request);
+  public DeleteEndpointOperation deleteEndpoint(DeleteEndpointRequest request) {
+    Operation operation = impl.deleteEndpoint(request);
+    return new DeleteEndpointOperation(impl, operation);
   }
 
-  public void deleteProject(String name) {
-    deleteProject(new DeleteProjectRequest().setName(name));
+  public DeleteProjectOperation deleteProject(String name) {
+    return deleteProject(new DeleteProjectRequest().setName(name));
   }
 
   /** Delete a Project. */
-  public void deleteProject(DeleteProjectRequest request) {
-    impl.deleteProject(request);
+  public DeleteProjectOperation deleteProject(DeleteProjectRequest request) {
+    Operation operation = impl.deleteProject(request);
+    return new DeleteProjectOperation(impl, operation);
   }
 
   public DeleteRoleOperation deleteRole(String name) {

@@ -24,10 +24,6 @@ public class ProjectDefaultEndpointSettings {
   @JsonProperty("pg_settings")
   private Map<String, String> pgSettings;
 
-  /** A raw representation of PgBouncer settings. */
-  @JsonProperty("pgbouncer_settings")
-  private Map<String, String> pgbouncerSettings;
-
   /** Duration of inactivity after which the compute endpoint is automatically suspended. */
   @JsonProperty("suspend_timeout_duration")
   private Duration suspendTimeoutDuration;
@@ -59,16 +55,6 @@ public class ProjectDefaultEndpointSettings {
     return pgSettings;
   }
 
-  public ProjectDefaultEndpointSettings setPgbouncerSettings(
-      Map<String, String> pgbouncerSettings) {
-    this.pgbouncerSettings = pgbouncerSettings;
-    return this;
-  }
-
-  public Map<String, String> getPgbouncerSettings() {
-    return pgbouncerSettings;
-  }
-
   public ProjectDefaultEndpointSettings setSuspendTimeoutDuration(Duration suspendTimeoutDuration) {
     this.suspendTimeoutDuration = suspendTimeoutDuration;
     return this;
@@ -86,18 +72,13 @@ public class ProjectDefaultEndpointSettings {
     return Objects.equals(autoscalingLimitMaxCu, that.autoscalingLimitMaxCu)
         && Objects.equals(autoscalingLimitMinCu, that.autoscalingLimitMinCu)
         && Objects.equals(pgSettings, that.pgSettings)
-        && Objects.equals(pgbouncerSettings, that.pgbouncerSettings)
         && Objects.equals(suspendTimeoutDuration, that.suspendTimeoutDuration);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        autoscalingLimitMaxCu,
-        autoscalingLimitMinCu,
-        pgSettings,
-        pgbouncerSettings,
-        suspendTimeoutDuration);
+        autoscalingLimitMaxCu, autoscalingLimitMinCu, pgSettings, suspendTimeoutDuration);
   }
 
   @Override
@@ -106,7 +87,6 @@ public class ProjectDefaultEndpointSettings {
         .add("autoscalingLimitMaxCu", autoscalingLimitMaxCu)
         .add("autoscalingLimitMinCu", autoscalingLimitMinCu)
         .add("pgSettings", pgSettings)
-        .add("pgbouncerSettings", pgbouncerSettings)
         .add("suspendTimeoutDuration", suspendTimeoutDuration)
         .toString();
   }

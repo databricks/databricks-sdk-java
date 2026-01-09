@@ -11,9 +11,7 @@ import java.util.Objects;
 /** Databricks Error that is returned by all Databricks APIs. */
 @Generated
 public class DatabricksServiceExceptionWithDetailsProto {
-  /**
-   * @pbjson-skip
-   */
+  /** */
   @JsonProperty("details")
   private Collection<Object> details;
 
