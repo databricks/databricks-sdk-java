@@ -12,6 +12,8 @@
 
 ### Internal Changes
 
+* Use Databricks OIDC endpoints for Azure authentication flows ([463](https://github.com/databricks/databricks-sdk-java/pull/463)).
+
 ### API Changes
 * Add `TABLE_DELTASHARING_OPEN_DIR_BASED` enum value for `com.databricks.sdk.service.catalog.SecurableKind`.
 * Add `CREATING` and `CREATE_FAILED` enum values for `com.databricks.sdk.service.settings.NccPrivateEndpointRulePrivateLinkConnectionState`.
