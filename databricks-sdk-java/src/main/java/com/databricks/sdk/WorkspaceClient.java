@@ -1428,7 +1428,10 @@ public class WorkspaceClient {
   }
 
   /**
-   * A monitor computes and monitors data or model quality metrics for a table over time. It
+   * [DEPRECATED] This API is deprecated. Please use the Data Quality Monitors API instead (REST:
+   * /api/data-quality/v1/monitors), which manages both Data Profiling and Anomaly Detection.
+   *
+   * <p>A monitor computes and monitors data or model quality metrics for a table over time. It
    * generates metrics tables and a dashboard that you can use to monitor table health and set
    * alerts. Most write operations require the user to be the owner of the table (or its parent
    * schema or parent catalog). Viewing the dashboard, computed metrics, or monitor configuration
