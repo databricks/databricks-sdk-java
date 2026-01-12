@@ -31,7 +31,8 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
     }
     List<String> cmd =
         new ArrayList<>(Arrays.asList(cliPath, "auth", "token", "--host", config.getHost()));
-    if (config.isAccountClient()) {
+    if (config.getClientType() == ClientType.ACCOUNT
+        || config.getClientType() == ClientType.ACCOUNT_ON_UNIFIED) {
       cmd.add("--account-id");
       cmd.add(config.getAccountId());
     }
