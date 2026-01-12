@@ -758,13 +758,8 @@ public class DatabricksConfig {
   /**
    * Determines the type of host based on configuration settings and host URL.
    *
-   * <p>Detection logic:
-   *
-   * <ol>
-   *   <li>If experimentalIsUnifiedHost is true → UNIFIED
-   *   <li>If host starts with "accounts." or "accounts-dod." → ACCOUNTS
-   *   <li>Otherwise → WORKSPACE
-   * </ol>
+   * <p>Returns UNIFIED if experimentalIsUnifiedHost is true, ACCOUNTS if the host starts with
+   * "accounts." or "accounts-dod.", and WORKSPACE otherwise.
    *
    * @return The detected host type
    */
@@ -784,14 +779,9 @@ public class DatabricksConfig {
   /**
    * Determines the client type based on host type and workspace ID configuration.
    *
-   * <p>Client type logic:
-   *
-   * <ul>
-   *   <li>UNIFIED host + workspaceId set → WORKSPACE_ON_UNIFIED
-   *   <li>UNIFIED host + no workspaceId → ACCOUNT_ON_UNIFIED
-   *   <li>ACCOUNTS host → ACCOUNT
-   *   <li>WORKSPACE host → WORKSPACE
-   * </ul>
+   * <p>For unified hosts, returns WORKSPACE_ON_UNIFIED if a workspace ID is set, or
+   * ACCOUNT_ON_UNIFIED otherwise. For traditional hosts, returns ACCOUNT or WORKSPACE based on the
+   * host type.
    *
    * @return The determined client type
    */
