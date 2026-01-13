@@ -5,6 +5,7 @@ package com.databricks.sdk;
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.core.ConfigLoader;
 import com.databricks.sdk.core.DatabricksConfig;
+import com.databricks.sdk.core.HostType;
 import com.databricks.sdk.core.utils.AzureUtils;
 import com.databricks.sdk.service.billing.BillableUsageAPI;
 import com.databricks.sdk.service.billing.BillableUsageService;
@@ -1110,7 +1111,25 @@ public class AccountClient {
     return config;
   }
 
+  /**
+   * Creates a WorkspaceClient configured for the specified workspace.
+   *
+   * <p>For unified hosts, this sets the workspace ID on the config instead of changing the host.
+   * For traditional account hosts, this resolves the workspace deployment URL and creates a config
+   * with the workspace host.
+   *
+   * @param workspace The workspace to create a client for
+   * @return A configured WorkspaceClient for the specified workspace
+   */
   public WorkspaceClient getWorkspaceClient(Workspace workspace) {
+    // For unified hosts, reuse the same host and set workspace ID
+    if (this.config.getHostType() == HostType.UNIFIED) {
+      DatabricksConfig workspaceConfig = this.config.clone();
+      workspaceConfig.setWorkspaceId(String.valueOf(workspace.getWorkspaceId()));
+      return new WorkspaceClient(workspaceConfig);
+    }
+
+    // For traditional account hosts, get workspace deployment URL
     String host =
         this.config.getDatabricksEnvironment().getDeploymentUrl(workspace.getDeploymentName());
     DatabricksConfig config = this.config.newWithWorkspaceHost(host);

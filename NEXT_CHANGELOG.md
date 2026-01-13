@@ -4,6 +4,7 @@
 
 ### New Features and Improvements
 
+* Add support for unified hosts with experimental flag.
 * Increase async cache stale period from 3 to 5 minutes to cover the maximum monthly downtime of a 99.99% uptime SLA.
 
 ### Bug Fixes
