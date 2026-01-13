@@ -2230,11 +2230,15 @@
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/qualitymonitorv2/GetQualityMonitorRequest.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/qualitymonitorv2/ListQualityMonitorRequest.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/qualitymonitorv2/ListQualityMonitorResponse.java linguist-generated=true
+/home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/qualitymonitorv2/PercentNullValidityCheck.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/qualitymonitorv2/QualityMonitor.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/qualitymonitorv2/QualityMonitorV2API.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/qualitymonitorv2/QualityMonitorV2Impl.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/qualitymonitorv2/QualityMonitorV2Service.java linguist-generated=true
+/home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/qualitymonitorv2/RangeValidityCheck.java linguist-generated=true
+/home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/qualitymonitorv2/UniquenessValidityCheck.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/qualitymonitorv2/UpdateQualityMonitorRequest.java linguist-generated=true
+/home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/qualitymonitorv2/ValidityCheckConfiguration.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/serving/Ai21LabsConfig.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/serving/AiGatewayConfig.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/serving/AiGatewayGuardrailParameters.java linguist-generated=true

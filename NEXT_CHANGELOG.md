@@ -31,3 +31,5 @@
 * [Breaking] Remove `poolerMode` field for `com.databricks.sdk.service.postgres.EndpointSpec`.
 * [Breaking] Remove `poolerMode` field for `com.databricks.sdk.service.postgres.EndpointStatus`.
 * [Breaking] Remove `pgbouncerSettings` field for `com.databricks.sdk.service.postgres.ProjectDefaultEndpointSettings`.
+* Add `owner` field for `com.databricks.sdk.service.postgres.ProjectStatus`.
+* Add `validityCheckConfigurations` field for `com.databricks.sdk.service.qualitymonitorv2.QualityMonitor`.
