@@ -31,6 +31,10 @@ public class ProjectStatus {
   @JsonProperty("history_retention_duration")
   private Duration historyRetentionDuration;
 
+  /** The email of the project owner. */
+  @JsonProperty("owner")
+  private String owner;
+
   /** The effective major Postgres version number. */
   @JsonProperty("pg_version")
   private Long pgVersion;
@@ -89,6 +93,15 @@ public class ProjectStatus {
     return historyRetentionDuration;
   }
 
+  public ProjectStatus setOwner(String owner) {
+    this.owner = owner;
+    return this;
+  }
+
+  public String getOwner() {
+    return owner;
+  }
+
   public ProjectStatus setPgVersion(Long pgVersion) {
     this.pgVersion = pgVersion;
     return this;
@@ -126,6 +139,7 @@ public class ProjectStatus {
         && Objects.equals(defaultEndpointSettings, that.defaultEndpointSettings)
         && Objects.equals(displayName, that.displayName)
         && Objects.equals(historyRetentionDuration, that.historyRetentionDuration)
+        && Objects.equals(owner, that.owner)
         && Objects.equals(pgVersion, that.pgVersion)
         && Objects.equals(settings, that.settings)
         && Objects.equals(syntheticStorageSizeBytes, that.syntheticStorageSizeBytes);
@@ -139,6 +153,7 @@ public class ProjectStatus {
         defaultEndpointSettings,
         displayName,
         historyRetentionDuration,
+        owner,
         pgVersion,
         settings,
         syntheticStorageSizeBytes);
@@ -152,6 +167,7 @@ public class ProjectStatus {
         .add("defaultEndpointSettings", defaultEndpointSettings)
         .add("displayName", displayName)
         .add("historyRetentionDuration", historyRetentionDuration)
+        .add("owner", owner)
         .add("pgVersion", pgVersion)
         .add("settings", settings)
         .add("syntheticStorageSizeBytes", syntheticStorageSizeBytes)
