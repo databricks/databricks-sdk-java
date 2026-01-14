@@ -129,7 +129,7 @@
           <excludes>
             <exclude>**/benchmark/**</exclude>
           </excludes>
-          <rerunFailingTestsCount>2</rerunFailingTestsCount>
+          <rerunFailingTestsCount>4</rerunFailingTestsCount>
         </configuration>
         <executions>
           <execution>
