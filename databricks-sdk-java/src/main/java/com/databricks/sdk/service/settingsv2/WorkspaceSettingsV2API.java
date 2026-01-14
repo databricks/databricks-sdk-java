@@ -61,6 +61,8 @@ public class WorkspaceSettingsV2API {
    * for list of setting available via public APIs at workspace level. To determine the correct
    * field to include in a patch request, refer to the type field of the setting returned in the
    * :method:settingsv2/listworkspacesettingsmetadata response.
+   *
+   * <p>Note: Page refresh is required for changes to take effect in UI.
    */
   public Setting patchPublicWorkspaceSetting(PatchPublicWorkspaceSettingRequest request) {
     return impl.patchPublicWorkspaceSetting(request);
