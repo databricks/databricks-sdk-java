@@ -34,3 +34,8 @@
 * Add `owner` field for `com.databricks.sdk.service.postgres.ProjectStatus`.
 * Add `validityCheckConfigurations` field for `com.databricks.sdk.service.qualitymonitorv2.QualityMonitor`.
 * Add `burstScalingEnabled` field for `com.databricks.sdk.service.serving.PtServedModel`.
+* Add `SYSTEM_MANAGED` enum value for `com.databricks.sdk.service.jobs.JobDeploymentKind`.
+* [Breaking] Change `createBranch()`, `createEndpoint()` and `createProject()` methods for `workspaceClient.postgres()` service with new required argument order.
+* [Breaking] Change `branchId` field for `com.databricks.sdk.service.postgres.CreateBranchRequest` to be required.
+* [Breaking] Change `endpointId` field for `com.databricks.sdk.service.postgres.CreateEndpointRequest` to be required.
+* [Breaking] Change `projectId` field for `com.databricks.sdk.service.postgres.CreateProjectRequest` to be required.
