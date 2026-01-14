@@ -35,3 +35,4 @@
 * [Breaking] Remove `pgbouncerSettings` field for `com.databricks.sdk.service.postgres.ProjectDefaultEndpointSettings`.
 * Add `owner` field for `com.databricks.sdk.service.postgres.ProjectStatus`.
 * Add `validityCheckConfigurations` field for `com.databricks.sdk.service.qualitymonitorv2.QualityMonitor`.
+* Add `burstScalingEnabled` field for `com.databricks.sdk.service.serving.PtServedModel`.
