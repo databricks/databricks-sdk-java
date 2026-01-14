@@ -10,6 +10,14 @@ import java.util.Objects;
 @Generated
 public class PtServedModel {
   /**
+   * Whether burst scaling is enabled. When enabled (default), the endpoint can automatically scale
+   * up beyond provisioned capacity to handle traffic spikes. When disabled, the endpoint maintains
+   * fixed capacity at provisioned_model_units.
+   */
+  @JsonProperty("burst_scaling_enabled")
+  private Boolean burstScalingEnabled;
+
+  /**
    * The name of the entity to be served. The entity may be a model in the Databricks Model
    * Registry, a model in the Unity Catalog (UC), or a function of type FEATURE_SPEC in the UC. If
    * it is a UC object, the full name of the object should be given in the form of
@@ -34,6 +42,15 @@ public class PtServedModel {
   /** The number of model units to be provisioned. */
   @JsonProperty("provisioned_model_units")
   private Long provisionedModelUnits;
+
+  public PtServedModel setBurstScalingEnabled(Boolean burstScalingEnabled) {
+    this.burstScalingEnabled = burstScalingEnabled;
+    return this;
+  }
+
+  public Boolean getBurstScalingEnabled() {
+    return burstScalingEnabled;
+  }
 
   public PtServedModel setEntityName(String entityName) {
     this.entityName = entityName;
@@ -76,7 +93,8 @@ public class PtServedModel {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     PtServedModel that = (PtServedModel) o;
-    return Objects.equals(entityName, that.entityName)
+    return Objects.equals(burstScalingEnabled, that.burstScalingEnabled)
+        && Objects.equals(entityName, that.entityName)
         && Objects.equals(entityVersion, that.entityVersion)
         && Objects.equals(name, that.name)
         && Objects.equals(provisionedModelUnits, that.provisionedModelUnits);
@@ -84,12 +102,14 @@ public class PtServedModel {
 
   @Override
   public int hashCode() {
-    return Objects.hash(entityName, entityVersion, name, provisionedModelUnits);
+    return Objects.hash(
+        burstScalingEnabled, entityName, entityVersion, name, provisionedModelUnits);
   }
 
   @Override
   public String toString() {
     return new ToStringer(PtServedModel.class)
+        .add("burstScalingEnabled", burstScalingEnabled)
         .add("entityName", entityName)
         .add("entityVersion", entityVersion)
         .add("name", name)
