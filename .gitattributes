@@ -1980,6 +1980,7 @@
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/oauth2/UpdateCustomAppIntegration.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/oauth2/UpdatePublishedAppIntegration.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/oauth2/UpdateServicePrincipalFederationPolicyRequest.java linguist-generated=true
+/home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/AutoFullRefreshPolicy.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ClonePipelineRequest.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ClonePipelineResponse.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ConnectionParameters.java linguist-generated=true
@@ -2021,6 +2022,7 @@
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/MaturityLevel.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/NotebookLibrary.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/Notifications.java linguist-generated=true
+/home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/OperationTimeWindow.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/Origin.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/PathPattern.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/PipelineAccessControlRequest.java linguist-generated=true
@@ -2095,6 +2097,7 @@
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/DeleteRoleOperation.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/DeleteRoleRequest.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/Endpoint.java linguist-generated=true
+/home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/EndpointHosts.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/EndpointOperationMetadata.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/EndpointSettings.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/EndpointSpec.java linguist-generated=true

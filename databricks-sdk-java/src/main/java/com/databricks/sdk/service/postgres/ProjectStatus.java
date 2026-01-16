@@ -6,7 +6,6 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.protobuf.Duration;
-import com.google.protobuf.Timestamp;
 import java.util.Objects;
 
 @Generated
@@ -14,10 +13,6 @@ public class ProjectStatus {
   /** The logical size limit for a branch. */
   @JsonProperty("branch_logical_size_limit_bytes")
   private Long branchLogicalSizeLimitBytes;
-
-  /** The most recent time when any endpoint of this project was active. */
-  @JsonProperty("compute_last_active_time")
-  private Timestamp computeLastActiveTime;
 
   /** The effective default endpoint settings. */
   @JsonProperty("default_endpoint_settings")
@@ -54,15 +49,6 @@ public class ProjectStatus {
 
   public Long getBranchLogicalSizeLimitBytes() {
     return branchLogicalSizeLimitBytes;
-  }
-
-  public ProjectStatus setComputeLastActiveTime(Timestamp computeLastActiveTime) {
-    this.computeLastActiveTime = computeLastActiveTime;
-    return this;
-  }
-
-  public Timestamp getComputeLastActiveTime() {
-    return computeLastActiveTime;
   }
 
   public ProjectStatus setDefaultEndpointSettings(
@@ -135,7 +121,6 @@ public class ProjectStatus {
     if (o == null || getClass() != o.getClass()) return false;
     ProjectStatus that = (ProjectStatus) o;
     return Objects.equals(branchLogicalSizeLimitBytes, that.branchLogicalSizeLimitBytes)
-        && Objects.equals(computeLastActiveTime, that.computeLastActiveTime)
         && Objects.equals(defaultEndpointSettings, that.defaultEndpointSettings)
         && Objects.equals(displayName, that.displayName)
         && Objects.equals(historyRetentionDuration, that.historyRetentionDuration)
@@ -149,7 +134,6 @@ public class ProjectStatus {
   public int hashCode() {
     return Objects.hash(
         branchLogicalSizeLimitBytes,
-        computeLastActiveTime,
         defaultEndpointSettings,
         displayName,
         historyRetentionDuration,
@@ -163,7 +147,6 @@ public class ProjectStatus {
   public String toString() {
     return new ToStringer(ProjectStatus.class)
         .add("branchLogicalSizeLimitBytes", branchLogicalSizeLimitBytes)
-        .add("computeLastActiveTime", computeLastActiveTime)
         .add("defaultEndpointSettings", defaultEndpointSettings)
         .add("displayName", displayName)
         .add("historyRetentionDuration", historyRetentionDuration)
