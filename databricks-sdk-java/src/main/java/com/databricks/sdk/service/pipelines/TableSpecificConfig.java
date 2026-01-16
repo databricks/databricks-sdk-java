@@ -11,6 +11,16 @@ import java.util.Objects;
 @Generated
 public class TableSpecificConfig {
   /**
+   * (Optional, Mutable) Policy for auto full refresh, if enabled pipeline will automatically try to
+   * fix issues by doing a full refresh on the table in the retry run. auto_full_refresh_policy in
+   * table configuration will override the above level auto_full_refresh_policy. For example, {
+   * "auto_full_refresh_policy": { "enabled": true, "min_interval_hours": 23, } } If unspecified,
+   * auto full refresh is disabled.
+   */
+  @JsonProperty("auto_full_refresh_policy")
+  private AutoFullRefreshPolicy autoFullRefreshPolicy;
+
+  /**
    * A list of column names to be excluded for the ingestion. When not specified, include_columns
    * fully controls what columns to be ingested. When specified, all other columns including future
    * ones will be automatically included for ingestion. This field in mutually exclusive with
@@ -65,6 +75,15 @@ public class TableSpecificConfig {
   /** (Optional) Additional custom parameters for Workday Report */
   @JsonProperty("workday_report_parameters")
   private IngestionPipelineDefinitionWorkdayReportParameters workdayReportParameters;
+
+  public TableSpecificConfig setAutoFullRefreshPolicy(AutoFullRefreshPolicy autoFullRefreshPolicy) {
+    this.autoFullRefreshPolicy = autoFullRefreshPolicy;
+    return this;
+  }
+
+  public AutoFullRefreshPolicy getAutoFullRefreshPolicy() {
+    return autoFullRefreshPolicy;
+  }
 
   public TableSpecificConfig setExcludeColumns(Collection<String> excludeColumns) {
     this.excludeColumns = excludeColumns;
@@ -157,7 +176,8 @@ public class TableSpecificConfig {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     TableSpecificConfig that = (TableSpecificConfig) o;
-    return Objects.equals(excludeColumns, that.excludeColumns)
+    return Objects.equals(autoFullRefreshPolicy, that.autoFullRefreshPolicy)
+        && Objects.equals(excludeColumns, that.excludeColumns)
         && Objects.equals(includeColumns, that.includeColumns)
         && Objects.equals(primaryKeys, that.primaryKeys)
         && Objects.equals(queryBasedConnectorConfig, that.queryBasedConnectorConfig)
@@ -171,6 +191,7 @@ public class TableSpecificConfig {
   @Override
   public int hashCode() {
     return Objects.hash(
+        autoFullRefreshPolicy,
         excludeColumns,
         includeColumns,
         primaryKeys,
@@ -185,6 +206,7 @@ public class TableSpecificConfig {
   @Override
   public String toString() {
     return new ToStringer(TableSpecificConfig.class)
+        .add("autoFullRefreshPolicy", autoFullRefreshPolicy)
         .add("excludeColumns", excludeColumns)
         .add("includeColumns", includeColumns)
         .add("primaryKeys", primaryKeys)

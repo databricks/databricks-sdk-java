@@ -7,6 +7,6 @@ import com.databricks.sdk.support.Generated;
 /** The compute endpoint type. Either `read_write` or `read_only`. */
 @Generated
 public enum EndpointType {
-  READ_ONLY,
-  READ_WRITE,
+  ENDPOINT_TYPE_READ_ONLY,
+  ENDPOINT_TYPE_READ_WRITE,
 }
