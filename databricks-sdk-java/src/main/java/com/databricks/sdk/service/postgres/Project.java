@@ -14,11 +14,17 @@ public class Project {
   @JsonProperty("create_time")
   private Timestamp createTime;
 
-  /** The resource name of the project. Format: projects/{project_id} */
+  /**
+   * The resource name of the project. This field is output-only and constructed by the system.
+   * Format: `projects/{project_id}`
+   */
   @JsonProperty("name")
   private String name;
 
-  /** The desired state of a Project. */
+  /**
+   * The spec contains the project configuration, including display_name, pg_version (Postgres
+   * version), history_retention_duration, and default_endpoint_settings.
+   */
   @JsonProperty("spec")
   private ProjectSpec spec;
 
@@ -26,7 +32,7 @@ public class Project {
   @JsonProperty("status")
   private ProjectStatus status;
 
-  /** System generated unique ID for the project. */
+  /** System-generated unique ID for the project. */
   @JsonProperty("uid")
   private String uid;
 

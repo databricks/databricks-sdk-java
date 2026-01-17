@@ -15,25 +15,31 @@ public class Endpoint {
   private Timestamp createTime;
 
   /**
-   * The resource name of the endpoint. Format:
-   * projects/{project_id}/branches/{branch_id}/endpoints/{endpoint_id}
+   * The resource name of the endpoint. This field is output-only and constructed by the system.
+   * Format: `projects/{project_id}/branches/{branch_id}/endpoints/{endpoint_id}`
    */
   @JsonProperty("name")
   private String name;
 
-  /** The branch containing this endpoint. Format: projects/{project_id}/branches/{branch_id} */
+  /**
+   * The branch containing this endpoint (API resource hierarchy). Format:
+   * projects/{project_id}/branches/{branch_id}
+   */
   @JsonProperty("parent")
   private String parent;
 
-  /** The desired state of an Endpoint. */
+  /**
+   * The spec contains the compute endpoint configuration, including autoscaling limits, suspend
+   * timeout, and disabled state.
+   */
   @JsonProperty("spec")
   private EndpointSpec spec;
 
-  /** The current status of an Endpoint. */
+  /** Current operational status of the compute endpoint. */
   @JsonProperty("status")
   private EndpointStatus status;
 
-  /** System generated unique ID for the endpoint. */
+  /** System-generated unique ID for the endpoint. */
   @JsonProperty("uid")
   private String uid;
 

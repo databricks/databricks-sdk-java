@@ -22,8 +22,8 @@ public class UpdateEndpointRequest {
   private Endpoint endpoint;
 
   /**
-   * The resource name of the endpoint. Format:
-   * projects/{project_id}/branches/{branch_id}/endpoints/{endpoint_id}
+   * The resource name of the endpoint. This field is output-only and constructed by the system.
+   * Format: `projects/{project_id}/branches/{branch_id}/endpoints/{endpoint_id}`
    */
   @JsonIgnore private String name;
 

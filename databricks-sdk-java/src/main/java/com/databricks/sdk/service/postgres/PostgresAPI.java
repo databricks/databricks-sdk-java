@@ -7,7 +7,30 @@ import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** The Postgres API provides access to a Postgres database via REST API or direct SQL. */
+/**
+ * Use the Postgres API to create and manage Lakebase Autoscaling Postgres infrastructure, including
+ * projects, branches, compute endpoints, and roles.
+ *
+ * <p>This API manages database infrastructure only. To query or modify data, use the Data API or
+ * direct SQL connections.
+ *
+ * <p>**About resource IDs and names**
+ *
+ * <p>Lakebase APIs use hierarchical resource names in API paths to identify resources, such as
+ * `projects/{project_id}/branches/{branch_id}/endpoints/{endpoint_id}`.
+ *
+ * <p>When creating a resource, you may optionally provide the final ID component (for example,
+ * `project_id`, `branch_id`, or `endpoint_id`). If you do not, the system generates an identifier
+ * and uses it as the ID component.
+ *
+ * <p>The `name` field is output-only and represents the full resource path. Note: The term
+ * *resource name* in this API refers to this full, hierarchical identifier (for example,
+ * `projects/{project_id}`), not the `display_name` field. The `display_name` is a separate,
+ * user-visible label shown in the UI.
+ *
+ * <p>The `uid` field is a system-generated, immutable identifier intended for internal reference
+ * and should not be used to address or locate resources.
+ */
 @Generated
 public class PostgresAPI {
   private static final Logger LOG = LoggerFactory.getLogger(PostgresAPI.class);
@@ -24,25 +47,28 @@ public class PostgresAPI {
     impl = mock;
   }
 
-  /** Create a Branch. */
+  /** Creates a new database branch in the project. */
   public CreateBranchOperation createBranch(CreateBranchRequest request) {
     Operation operation = impl.createBranch(request);
     return new CreateBranchOperation(impl, operation);
   }
 
-  /** Create an Endpoint. */
+  /** Creates a new compute endpoint in the branch. */
   public CreateEndpointOperation createEndpoint(CreateEndpointRequest request) {
     Operation operation = impl.createEndpoint(request);
     return new CreateEndpointOperation(impl, operation);
   }
 
-  /** Create a Project. */
+  /**
+   * Creates a new Lakebase Autoscaling Postgres database project, which contains branches and
+   * compute endpoints.
+   */
   public CreateProjectOperation createProject(CreateProjectRequest request) {
     Operation operation = impl.createProject(request);
     return new CreateProjectOperation(impl, operation);
   }
 
-  /** Create a role for a branch. */
+  /** Creates a new Postgres role in the branch. */
   public CreateRoleOperation createRole(CreateRoleRequest request) {
     Operation operation = impl.createRole(request);
     return new CreateRoleOperation(impl, operation);
@@ -52,7 +78,7 @@ public class PostgresAPI {
     return deleteBranch(new DeleteBranchRequest().setName(name));
   }
 
-  /** Delete a Branch. */
+  /** Deletes the specified database branch. */
   public DeleteBranchOperation deleteBranch(DeleteBranchRequest request) {
     Operation operation = impl.deleteBranch(request);
     return new DeleteBranchOperation(impl, operation);
@@ -62,7 +88,7 @@ public class PostgresAPI {
     return deleteEndpoint(new DeleteEndpointRequest().setName(name));
   }
 
-  /** Delete an Endpoint. */
+  /** Deletes the specified compute endpoint. */
   public DeleteEndpointOperation deleteEndpoint(DeleteEndpointRequest request) {
     Operation operation = impl.deleteEndpoint(request);
     return new DeleteEndpointOperation(impl, operation);
@@ -72,7 +98,7 @@ public class PostgresAPI {
     return deleteProject(new DeleteProjectRequest().setName(name));
   }
 
-  /** Delete a Project. */
+  /** Deletes the specified database project. */
   public DeleteProjectOperation deleteProject(DeleteProjectRequest request) {
     Operation operation = impl.deleteProject(request);
     return new DeleteProjectOperation(impl, operation);
@@ -82,7 +108,7 @@ public class PostgresAPI {
     return deleteRole(new DeleteRoleRequest().setName(name));
   }
 
-  /** Delete a role in a branch. */
+  /** Deletes the specified Postgres role. */
   public DeleteRoleOperation deleteRole(DeleteRoleRequest request) {
     Operation operation = impl.deleteRole(request);
     return new DeleteRoleOperation(impl, operation);
@@ -92,7 +118,7 @@ public class PostgresAPI {
     return getBranch(new GetBranchRequest().setName(name));
   }
 
-  /** Get a Branch. */
+  /** Retrieves information about the specified database branch. */
   public Branch getBranch(GetBranchRequest request) {
     return impl.getBranch(request);
   }
@@ -101,7 +127,10 @@ public class PostgresAPI {
     return getEndpoint(new GetEndpointRequest().setName(name));
   }
 
-  /** Get an Endpoint. */
+  /**
+   * Retrieves information about the specified compute endpoint, including its connection details
+   * and operational state.
+   */
   public Endpoint getEndpoint(GetEndpointRequest request) {
     return impl.getEndpoint(request);
   }
@@ -110,7 +139,7 @@ public class PostgresAPI {
     return getOperation(new GetOperationRequest().setName(name));
   }
 
-  /** Get an Operation. */
+  /** Retrieves the status of a long-running operation. */
   public Operation getOperation(GetOperationRequest request) {
     return impl.getOperation(request);
   }
@@ -119,7 +148,7 @@ public class PostgresAPI {
     return getProject(new GetProjectRequest().setName(name));
   }
 
-  /** Get a Project. */
+  /** Retrieves information about the specified database project. */
   public Project getProject(GetProjectRequest request) {
     return impl.getProject(request);
   }
@@ -128,7 +157,10 @@ public class PostgresAPI {
     return getRole(new GetRoleRequest().setName(name));
   }
 
-  /** Get a Role. */
+  /**
+   * Retrieves information about the specified Postgres role, including its authentication method
+   * and permissions.
+   */
   public Role getRole(GetRoleRequest request) {
     return impl.getRole(request);
   }
@@ -137,7 +169,7 @@ public class PostgresAPI {
     return listBranches(new ListBranchesRequest().setParent(parent));
   }
 
-  /** List Branches. */
+  /** Returns a paginated list of database branches in the project. */
   public Iterable<Branch> listBranches(ListBranchesRequest request) {
     return new Paginator<>(
         request,
@@ -156,7 +188,7 @@ public class PostgresAPI {
     return listEndpoints(new ListEndpointsRequest().setParent(parent));
   }
 
-  /** List Endpoints. */
+  /** Returns a paginated list of compute endpoints in the branch. */
   public Iterable<Endpoint> listEndpoints(ListEndpointsRequest request) {
     return new Paginator<>(
         request,
@@ -171,7 +203,10 @@ public class PostgresAPI {
         });
   }
 
-  /** List Projects. */
+  /**
+   * Returns a paginated list of database projects in the workspace that the user has permission to
+   * access.
+   */
   public Iterable<Project> listProjects(ListProjectsRequest request) {
     return new Paginator<>(
         request,
@@ -190,7 +225,7 @@ public class PostgresAPI {
     return listRoles(new ListRolesRequest().setParent(parent));
   }
 
-  /** List Roles. */
+  /** Returns a paginated list of Postgres roles in the branch. */
   public Iterable<Role> listRoles(ListRolesRequest request) {
     return new Paginator<>(
         request,
@@ -205,19 +240,25 @@ public class PostgresAPI {
         });
   }
 
-  /** Update a Branch. */
+  /**
+   * Updates the specified database branch. You can set this branch as the project's default branch,
+   * or protect/unprotect it.
+   */
   public UpdateBranchOperation updateBranch(UpdateBranchRequest request) {
     Operation operation = impl.updateBranch(request);
     return new UpdateBranchOperation(impl, operation);
   }
 
-  /** Update an Endpoint. */
+  /**
+   * Updates the specified compute endpoint. You can update autoscaling limits, suspend timeout, or
+   * enable/disable the compute endpoint.
+   */
   public UpdateEndpointOperation updateEndpoint(UpdateEndpointRequest request) {
     Operation operation = impl.updateEndpoint(request);
     return new UpdateEndpointOperation(impl, operation);
   }
 
-  /** Update a Project. */
+  /** Updates the specified database project. */
   public UpdateProjectOperation updateProject(UpdateProjectRequest request) {
     Operation operation = impl.updateProject(request);
     return new UpdateProjectOperation(impl, operation);

@@ -19,11 +19,11 @@ public class CreateRoleRequest {
   private Role role;
 
   /**
-   * The ID to use for the Role, which will become the final component of the branch's resource
-   * name. This ID becomes the role in postgres.
+   * The ID to use for the Role, which will become the final component of the role's resource name.
+   * This ID becomes the role in Postgres.
    *
-   * <p>This value should be 4-63 characters, and only use characters available in DNS names, as
-   * defined by RFC-1123
+   * <p>This value should be 4-63 characters, and valid characters are lowercase letters, numbers,
+   * and hyphens, as defined by RFC 1123.
    */
   @JsonIgnore
   @QueryParam("role_id")

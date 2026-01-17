@@ -18,6 +18,10 @@ public class BranchStatus {
   @JsonProperty("default")
   private Boolean defaultValue;
 
+  /** Absolute expiration time for the branch. Empty if expiration is disabled. */
+  @JsonProperty("expire_time")
+  private Timestamp expireTime;
+
   /** Whether the branch is protected. */
   @JsonProperty("is_protected")
   private Boolean isProtected;
@@ -65,6 +69,15 @@ public class BranchStatus {
 
   public Boolean getDefault() {
     return defaultValue;
+  }
+
+  public BranchStatus setExpireTime(Timestamp expireTime) {
+    this.expireTime = expireTime;
+    return this;
+  }
+
+  public Timestamp getExpireTime() {
+    return expireTime;
   }
 
   public BranchStatus setIsProtected(Boolean isProtected) {
@@ -137,6 +150,7 @@ public class BranchStatus {
     BranchStatus that = (BranchStatus) o;
     return Objects.equals(currentState, that.currentState)
         && Objects.equals(defaultValue, that.defaultValue)
+        && Objects.equals(expireTime, that.expireTime)
         && Objects.equals(isProtected, that.isProtected)
         && Objects.equals(logicalSizeBytes, that.logicalSizeBytes)
         && Objects.equals(pendingState, that.pendingState)
@@ -151,6 +165,7 @@ public class BranchStatus {
     return Objects.hash(
         currentState,
         defaultValue,
+        expireTime,
         isProtected,
         logicalSizeBytes,
         pendingState,
@@ -165,6 +180,7 @@ public class BranchStatus {
     return new ToStringer(BranchStatus.class)
         .add("currentState", currentState)
         .add("defaultValue", defaultValue)
+        .add("expireTime", expireTime)
         .add("isProtected", isProtected)
         .add("logicalSizeBytes", logicalSizeBytes)
         .add("pendingState", pendingState)

@@ -21,7 +21,7 @@ public class RoleRoleSpec {
   private RoleAuthMethod authMethod;
 
   /**
-   * The type of the role. When specifying a managed-identity, the chosen role_id must be a valid:
+   * The type of role. When specifying a managed-identity, the chosen role_id must be a valid:
    *
    * <p>* application ID for SERVICE_PRINCIPAL * user email for USER * group name for GROUP
    */

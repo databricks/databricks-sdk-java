@@ -10,11 +10,11 @@ import java.util.Objects;
 
 @Generated
 public class ListEndpointsResponse {
-  /** List of endpoints. */
+  /** List of compute endpoints in the branch. */
   @JsonProperty("endpoints")
   private Collection<Endpoint> endpoints;
 
-  /** Pagination token to request the next page of endpoints. */
+  /** Token to request the next page of compute endpoints. */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 
