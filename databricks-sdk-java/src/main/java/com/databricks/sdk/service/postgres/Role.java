@@ -16,7 +16,8 @@ public class Role {
   private Timestamp createTime;
 
   /**
-   * The resource name of the role. Format: projects/{project_id}/branch/{branch_id}/roles/{role_id}
+   * The resource name of the role. Format:
+   * projects/{project_id}/branches/{branch_id}/roles/{role_id}
    */
   @JsonProperty("name")
   private String name;
@@ -25,11 +26,17 @@ public class Role {
   @JsonProperty("parent")
   private String parent;
 
-  /** The desired state of the Role. */
+  /**
+   * The spec contains the role configuration, including identity type, authentication method, and
+   * role attributes.
+   */
   @JsonProperty("spec")
   private RoleRoleSpec spec;
 
-  /** The observed state of the Role. */
+  /**
+   * Current status of the role, including its identity type, authentication method, and role
+   * attributes.
+   */
   @JsonProperty("status")
   private RoleRoleStatus status;
 

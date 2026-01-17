@@ -97,6 +97,10 @@ public class EditCluster {
   @JsonProperty("driver_instance_pool_id")
   private String driverInstancePoolId;
 
+  /** Flexible node type configuration for the driver node. */
+  @JsonProperty("driver_node_type_flexibility")
+  private NodeTypeFlexibility driverNodeTypeFlexibility;
+
   /**
    * The node type of the Spark driver. Note that this field is optional; if unset, the driver node
    * type will be set as the same value as `node_type_id` defined above.
@@ -255,6 +259,10 @@ public class EditCluster {
   @JsonProperty("use_ml_runtime")
   private Boolean useMlRuntime;
 
+  /** Flexible node type configuration for worker nodes. */
+  @JsonProperty("worker_node_type_flexibility")
+  private NodeTypeFlexibility workerNodeTypeFlexibility;
+
   /** */
   @JsonProperty("workload_type")
   private WorkloadType workloadType;
@@ -365,6 +373,15 @@ public class EditCluster {
 
   public String getDriverInstancePoolId() {
     return driverInstancePoolId;
+  }
+
+  public EditCluster setDriverNodeTypeFlexibility(NodeTypeFlexibility driverNodeTypeFlexibility) {
+    this.driverNodeTypeFlexibility = driverNodeTypeFlexibility;
+    return this;
+  }
+
+  public NodeTypeFlexibility getDriverNodeTypeFlexibility() {
+    return driverNodeTypeFlexibility;
   }
 
   public EditCluster setDriverNodeTypeId(String driverNodeTypeId) {
@@ -547,6 +564,15 @@ public class EditCluster {
     return useMlRuntime;
   }
 
+  public EditCluster setWorkerNodeTypeFlexibility(NodeTypeFlexibility workerNodeTypeFlexibility) {
+    this.workerNodeTypeFlexibility = workerNodeTypeFlexibility;
+    return this;
+  }
+
+  public NodeTypeFlexibility getWorkerNodeTypeFlexibility() {
+    return workerNodeTypeFlexibility;
+  }
+
   public EditCluster setWorkloadType(WorkloadType workloadType) {
     this.workloadType = workloadType;
     return this;
@@ -573,6 +599,7 @@ public class EditCluster {
         && Objects.equals(dataSecurityMode, that.dataSecurityMode)
         && Objects.equals(dockerImage, that.dockerImage)
         && Objects.equals(driverInstancePoolId, that.driverInstancePoolId)
+        && Objects.equals(driverNodeTypeFlexibility, that.driverNodeTypeFlexibility)
         && Objects.equals(driverNodeTypeId, that.driverNodeTypeId)
         && Objects.equals(enableElasticDisk, that.enableElasticDisk)
         && Objects.equals(enableLocalDiskEncryption, that.enableLocalDiskEncryption)
@@ -593,6 +620,7 @@ public class EditCluster {
         && Objects.equals(sshPublicKeys, that.sshPublicKeys)
         && Objects.equals(totalInitialRemoteDiskSize, that.totalInitialRemoteDiskSize)
         && Objects.equals(useMlRuntime, that.useMlRuntime)
+        && Objects.equals(workerNodeTypeFlexibility, that.workerNodeTypeFlexibility)
         && Objects.equals(workloadType, that.workloadType);
   }
 
@@ -611,6 +639,7 @@ public class EditCluster {
         dataSecurityMode,
         dockerImage,
         driverInstancePoolId,
+        driverNodeTypeFlexibility,
         driverNodeTypeId,
         enableElasticDisk,
         enableLocalDiskEncryption,
@@ -631,6 +660,7 @@ public class EditCluster {
         sshPublicKeys,
         totalInitialRemoteDiskSize,
         useMlRuntime,
+        workerNodeTypeFlexibility,
         workloadType);
   }
 
@@ -649,6 +679,7 @@ public class EditCluster {
         .add("dataSecurityMode", dataSecurityMode)
         .add("dockerImage", dockerImage)
         .add("driverInstancePoolId", driverInstancePoolId)
+        .add("driverNodeTypeFlexibility", driverNodeTypeFlexibility)
         .add("driverNodeTypeId", driverNodeTypeId)
         .add("enableElasticDisk", enableElasticDisk)
         .add("enableLocalDiskEncryption", enableLocalDiskEncryption)
@@ -669,6 +700,7 @@ public class EditCluster {
         .add("sshPublicKeys", sshPublicKeys)
         .add("totalInitialRemoteDiskSize", totalInitialRemoteDiskSize)
         .add("useMlRuntime", useMlRuntime)
+        .add("workerNodeTypeFlexibility", workerNodeTypeFlexibility)
         .add("workloadType", workloadType)
         .toString();
   }

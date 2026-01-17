@@ -16,10 +16,11 @@ public class CreateBranchRequest {
   private Branch branch;
 
   /**
-   * The ID to use for the Branch, which will become the final component of the branch's resource
-   * name.
-   *
-   * <p>This value should be 4-63 characters, and valid characters are /[a-z][0-9]-/.
+   * The ID to use for the Branch. This becomes the final component of the branch's resource name.
+   * This value should be 4-63 characters. Valid characters are lowercase letters, numbers, and
+   * hyphens, as defined by RFC 1123. Examples: - With custom ID: `staging` → name becomes
+   * `projects/{project_id}/branches/staging` - Without custom ID: system generates slug → name
+   * becomes `projects/{project_id}/branches/br-example-name-x1y2z3a4`
    */
   @JsonIgnore
   @QueryParam("branch_id")

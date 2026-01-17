@@ -12,7 +12,7 @@ import java.util.Objects;
 public class DeleteRoleRequest {
   /**
    * The resource name of the postgres role. Format:
-   * projects/{project_id}/branch/{branch_id}/roles/{role_id}
+   * projects/{project_id}/branches/{branch_id}/roles/{role_id}
    */
   @JsonIgnore private String name;
 

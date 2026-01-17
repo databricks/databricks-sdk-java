@@ -34,10 +34,6 @@ public class ProjectStatus {
   @JsonProperty("pg_version")
   private Long pgVersion;
 
-  /** The effective project settings. */
-  @JsonProperty("settings")
-  private ProjectSettings settings;
-
   /** The current space occupied by the project in storage. */
   @JsonProperty("synthetic_storage_size_bytes")
   private Long syntheticStorageSizeBytes;
@@ -97,15 +93,6 @@ public class ProjectStatus {
     return pgVersion;
   }
 
-  public ProjectStatus setSettings(ProjectSettings settings) {
-    this.settings = settings;
-    return this;
-  }
-
-  public ProjectSettings getSettings() {
-    return settings;
-  }
-
   public ProjectStatus setSyntheticStorageSizeBytes(Long syntheticStorageSizeBytes) {
     this.syntheticStorageSizeBytes = syntheticStorageSizeBytes;
     return this;
@@ -126,7 +113,6 @@ public class ProjectStatus {
         && Objects.equals(historyRetentionDuration, that.historyRetentionDuration)
         && Objects.equals(owner, that.owner)
         && Objects.equals(pgVersion, that.pgVersion)
-        && Objects.equals(settings, that.settings)
         && Objects.equals(syntheticStorageSizeBytes, that.syntheticStorageSizeBytes);
   }
 
@@ -139,7 +125,6 @@ public class ProjectStatus {
         historyRetentionDuration,
         owner,
         pgVersion,
-        settings,
         syntheticStorageSizeBytes);
   }
 
@@ -152,7 +137,6 @@ public class ProjectStatus {
         .add("historyRetentionDuration", historyRetentionDuration)
         .add("owner", owner)
         .add("pgVersion", pgVersion)
-        .add("settings", settings)
         .add("syntheticStorageSizeBytes", syntheticStorageSizeBytes)
         .toString();
   }

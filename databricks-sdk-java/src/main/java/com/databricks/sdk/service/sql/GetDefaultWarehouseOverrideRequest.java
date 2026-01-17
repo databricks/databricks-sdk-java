@@ -1,6 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 
-package com.databricks.sdk.service.postgres;
+package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
@@ -8,14 +8,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 @Generated
-public class GetBranchRequest {
+public class GetDefaultWarehouseOverrideRequest {
   /**
-   * The resource name of the branch to retrieve. Format:
-   * `projects/{project_id}/branches/{branch_id}`
+   * Required. The resource name of the default warehouse override to retrieve. Format:
+   * default-warehouse-overrides/{default_warehouse_override_id} The default_warehouse_override_id
+   * can be a numeric user ID or the literal string "me" for the current user.
    */
   @JsonIgnore private String name;
 
-  public GetBranchRequest setName(String name) {
+  public GetDefaultWarehouseOverrideRequest setName(String name) {
     this.name = name;
     return this;
   }
@@ -28,7 +29,7 @@ public class GetBranchRequest {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    GetBranchRequest that = (GetBranchRequest) o;
+    GetDefaultWarehouseOverrideRequest that = (GetDefaultWarehouseOverrideRequest) o;
     return Objects.equals(name, that.name);
   }
 
@@ -39,6 +40,6 @@ public class GetBranchRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(GetBranchRequest.class).add("name", name).toString();
+    return new ToStringer(GetDefaultWarehouseOverrideRequest.class).add("name", name).toString();
   }
 }

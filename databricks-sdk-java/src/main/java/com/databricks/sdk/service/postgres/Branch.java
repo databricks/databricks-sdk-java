@@ -14,15 +14,23 @@ public class Branch {
   @JsonProperty("create_time")
   private Timestamp createTime;
 
-  /** The resource name of the branch. Format: projects/{project_id}/branches/{branch_id} */
+  /**
+   * The resource name of the branch. This field is output-only and constructed by the system.
+   * Format: `projects/{project_id}/branches/{branch_id}`
+   */
   @JsonProperty("name")
   private String name;
 
-  /** The project containing this branch. Format: projects/{project_id} */
+  /**
+   * The project containing this branch (API resource hierarchy). Format: projects/{project_id}
+   *
+   * <p>Note: This field indicates where the branch exists in the resource hierarchy. For
+   * point-in-time branching from another branch, see `spec.source_branch`.
+   */
   @JsonProperty("parent")
   private String parent;
 
-  /** The desired state of a Branch. */
+  /** The spec contains the branch configuration. */
   @JsonProperty("spec")
   private BranchSpec spec;
 
@@ -30,7 +38,7 @@ public class Branch {
   @JsonProperty("status")
   private BranchStatus status;
 
-  /** System generated unique ID for the branch. */
+  /** System-generated unique ID for the branch. */
   @JsonProperty("uid")
   private String uid;
 
