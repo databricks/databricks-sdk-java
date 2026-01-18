@@ -45,3 +45,4 @@
 * [Breaking] Remove `default` field for `com.databricks.sdk.service.postgres.BranchSpec`.
 * [Breaking] Remove `settings` field for `com.databricks.sdk.service.postgres.ProjectSpec`.
 * [Breaking] Remove `settings` field for `com.databricks.sdk.service.postgres.ProjectStatus`.
+* Add `noExpiry` field for `com.databricks.sdk.service.postgres.BranchSpec`.

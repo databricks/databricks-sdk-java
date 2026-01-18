@@ -23,6 +23,13 @@ public class BranchSpec {
   private Boolean isProtected;
 
   /**
+   * Explicitly disable expiration. When set to true, the branch will not expire. If set to false,
+   * the request is invalid; provide either ttl or expire_time instead.
+   */
+  @JsonProperty("no_expiry")
+  private Boolean noExpiry;
+
+  /**
    * The name of the source branch from which this branch was created (data lineage for
    * point-in-time recovery). If not specified, defaults to the project's default branch. Format:
    * projects/{project_id}/branches/{branch_id}
@@ -38,10 +45,7 @@ public class BranchSpec {
   @JsonProperty("source_branch_time")
   private Timestamp sourceBranchTime;
 
-  /**
-   * Relative time-to-live duration. When set, the branch will expire at creation_time + ttl. Set to
-   * -1 second to explicitly disable expiration.
-   */
+  /** Relative time-to-live duration. When set, the branch will expire at creation_time + ttl. */
   @JsonProperty("ttl")
   private Duration ttl;
 
@@ -61,6 +65,15 @@ public class BranchSpec {
 
   public Boolean getIsProtected() {
     return isProtected;
+  }
+
+  public BranchSpec setNoExpiry(Boolean noExpiry) {
+    this.noExpiry = noExpiry;
+    return this;
+  }
+
+  public Boolean getNoExpiry() {
+    return noExpiry;
   }
 
   public BranchSpec setSourceBranch(String sourceBranch) {
@@ -106,6 +119,7 @@ public class BranchSpec {
     BranchSpec that = (BranchSpec) o;
     return Objects.equals(expireTime, that.expireTime)
         && Objects.equals(isProtected, that.isProtected)
+        && Objects.equals(noExpiry, that.noExpiry)
         && Objects.equals(sourceBranch, that.sourceBranch)
         && Objects.equals(sourceBranchLsn, that.sourceBranchLsn)
         && Objects.equals(sourceBranchTime, that.sourceBranchTime)
@@ -115,7 +129,7 @@ public class BranchSpec {
   @Override
   public int hashCode() {
     return Objects.hash(
-        expireTime, isProtected, sourceBranch, sourceBranchLsn, sourceBranchTime, ttl);
+        expireTime, isProtected, noExpiry, sourceBranch, sourceBranchLsn, sourceBranchTime, ttl);
   }
 
   @Override
@@ -123,6 +137,7 @@ public class BranchSpec {
     return new ToStringer(BranchSpec.class)
         .add("expireTime", expireTime)
         .add("isProtected", isProtected)
+        .add("noExpiry", noExpiry)
         .add("sourceBranch", sourceBranch)
         .add("sourceBranchLsn", sourceBranchLsn)
         .add("sourceBranchTime", sourceBranchTime)
