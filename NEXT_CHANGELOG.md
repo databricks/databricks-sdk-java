@@ -47,3 +47,5 @@
 * [Breaking] Remove `settings` field for `com.databricks.sdk.service.postgres.ProjectStatus`.
 * Add `noExpiry` field for `com.databricks.sdk.service.postgres.BranchSpec`.
 * Add `stderr` field for `com.databricks.sdk.service.compute.InitScriptInfoAndExecutionDetails`.
+* Add `generateDatabaseCredential()` method for `workspaceClient.postgres()` service.
+* Add `getPublicAccountUserPreference()`, `listAccountUserPreferencesMetadata()` and `patchPublicAccountUserPreference()` methods for `accountClient.accountSettingsV2()` service.

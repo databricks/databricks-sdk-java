@@ -133,6 +133,21 @@ class PostgresImpl implements PostgresService {
   }
 
   @Override
+  public DatabaseCredential generateDatabaseCredential(GenerateDatabaseCredentialRequest request) {
+    String path = "/api/2.0/postgres/credentials";
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, DatabaseCredential.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public Branch getBranch(GetBranchRequest request) {
     String path = String.format("/api/2.0/postgres/%s", request.getName());
     try {
