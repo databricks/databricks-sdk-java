@@ -15,7 +15,7 @@ public class ListEndpointsRequest {
   @QueryParam("page_size")
   private Long pageSize;
 
-  /** Pagination token to go to the next page of Endpoints. Requests first page if absent. */
+  /** Page token from a previous response. If not provided, returns the first page. */
   @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;

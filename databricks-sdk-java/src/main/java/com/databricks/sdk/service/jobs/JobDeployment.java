@@ -12,7 +12,8 @@ public class JobDeployment {
   /**
    * The kind of deployment that manages the job.
    *
-   * <p>* `BUNDLE`: The job is managed by Databricks Asset Bundle.
+   * <p>* `BUNDLE`: The job is managed by Databricks Asset Bundle. * `SYSTEM_MANAGED`: The job is
+   * managed by Databricks and is read-only.
    */
   @JsonProperty("kind")
   private JobDeploymentKind kind;

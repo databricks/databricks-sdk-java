@@ -101,6 +101,10 @@ public class GetInstancePool {
   @JsonProperty("min_idle_instances")
   private Long minIdleInstances;
 
+  /** Flexible node type configuration for the pool. */
+  @JsonProperty("node_type_flexibility")
+  private NodeTypeFlexibility nodeTypeFlexibility;
+
   /**
    * This field encodes, through a single value, the resources available to each of the Spark nodes
    * in this cluster. For example, the Spark nodes can be provisioned and optimized for memory or
@@ -257,6 +261,15 @@ public class GetInstancePool {
     return minIdleInstances;
   }
 
+  public GetInstancePool setNodeTypeFlexibility(NodeTypeFlexibility nodeTypeFlexibility) {
+    this.nodeTypeFlexibility = nodeTypeFlexibility;
+    return this;
+  }
+
+  public NodeTypeFlexibility getNodeTypeFlexibility() {
+    return nodeTypeFlexibility;
+  }
+
   public GetInstancePool setNodeTypeId(String nodeTypeId) {
     this.nodeTypeId = nodeTypeId;
     return this;
@@ -347,6 +360,7 @@ public class GetInstancePool {
         && Objects.equals(instancePoolName, that.instancePoolName)
         && Objects.equals(maxCapacity, that.maxCapacity)
         && Objects.equals(minIdleInstances, that.minIdleInstances)
+        && Objects.equals(nodeTypeFlexibility, that.nodeTypeFlexibility)
         && Objects.equals(nodeTypeId, that.nodeTypeId)
         && Objects.equals(preloadedDockerImages, that.preloadedDockerImages)
         && Objects.equals(preloadedSparkVersions, that.preloadedSparkVersions)
@@ -372,6 +386,7 @@ public class GetInstancePool {
         instancePoolName,
         maxCapacity,
         minIdleInstances,
+        nodeTypeFlexibility,
         nodeTypeId,
         preloadedDockerImages,
         preloadedSparkVersions,
@@ -397,6 +412,7 @@ public class GetInstancePool {
         .add("instancePoolName", instancePoolName)
         .add("maxCapacity", maxCapacity)
         .add("minIdleInstances", minIdleInstances)
+        .add("nodeTypeFlexibility", nodeTypeFlexibility)
         .add("nodeTypeId", nodeTypeId)
         .add("preloadedDockerImages", preloadedDockerImages)
         .add("preloadedSparkVersions", preloadedSparkVersions)

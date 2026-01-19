@@ -10,11 +10,11 @@ import java.util.Objects;
 
 @Generated
 public class ListBranchesResponse {
-  /** List of branches. */
+  /** List of database branches in the project. */
   @JsonProperty("branches")
   private Collection<Branch> branches;
 
-  /** Pagination token to request the next page of branches. */
+  /** Token to request the next page of database branches. */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 

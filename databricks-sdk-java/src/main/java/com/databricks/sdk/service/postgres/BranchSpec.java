@@ -5,21 +5,33 @@ package com.databricks.sdk.service.postgres;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.protobuf.Duration;
 import com.google.protobuf.Timestamp;
 import java.util.Objects;
 
 @Generated
 public class BranchSpec {
-  /** Whether the branch is the project's default branch. */
-  @JsonProperty("default")
-  private Boolean defaultValue;
+  /** Absolute expiration timestamp. When set, the branch will expire at this time. */
+  @JsonProperty("expire_time")
+  private Timestamp expireTime;
 
-  /** Whether the branch is protected. */
+  /**
+   * When set to true, protects the branch from deletion and reset. Associated compute endpoints and
+   * the project cannot be deleted while the branch is protected.
+   */
   @JsonProperty("is_protected")
   private Boolean isProtected;
 
   /**
-   * The name of the source branch from which this branch was created. Format:
+   * Explicitly disable expiration. When set to true, the branch will not expire. If set to false,
+   * the request is invalid; provide either ttl or expire_time instead.
+   */
+  @JsonProperty("no_expiry")
+  private Boolean noExpiry;
+
+  /**
+   * The name of the source branch from which this branch was created (data lineage for
+   * point-in-time recovery). If not specified, defaults to the project's default branch. Format:
    * projects/{project_id}/branches/{branch_id}
    */
   @JsonProperty("source_branch")
@@ -33,13 +45,17 @@ public class BranchSpec {
   @JsonProperty("source_branch_time")
   private Timestamp sourceBranchTime;
 
-  public BranchSpec setDefault(Boolean defaultValue) {
-    this.defaultValue = defaultValue;
+  /** Relative time-to-live duration. When set, the branch will expire at creation_time + ttl. */
+  @JsonProperty("ttl")
+  private Duration ttl;
+
+  public BranchSpec setExpireTime(Timestamp expireTime) {
+    this.expireTime = expireTime;
     return this;
   }
 
-  public Boolean getDefault() {
-    return defaultValue;
+  public Timestamp getExpireTime() {
+    return expireTime;
   }
 
   public BranchSpec setIsProtected(Boolean isProtected) {
@@ -49,6 +65,15 @@ public class BranchSpec {
 
   public Boolean getIsProtected() {
     return isProtected;
+  }
+
+  public BranchSpec setNoExpiry(Boolean noExpiry) {
+    this.noExpiry = noExpiry;
+    return this;
+  }
+
+  public Boolean getNoExpiry() {
+    return noExpiry;
   }
 
   public BranchSpec setSourceBranch(String sourceBranch) {
@@ -78,31 +103,45 @@ public class BranchSpec {
     return sourceBranchTime;
   }
 
+  public BranchSpec setTtl(Duration ttl) {
+    this.ttl = ttl;
+    return this;
+  }
+
+  public Duration getTtl() {
+    return ttl;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     BranchSpec that = (BranchSpec) o;
-    return Objects.equals(defaultValue, that.defaultValue)
+    return Objects.equals(expireTime, that.expireTime)
         && Objects.equals(isProtected, that.isProtected)
+        && Objects.equals(noExpiry, that.noExpiry)
         && Objects.equals(sourceBranch, that.sourceBranch)
         && Objects.equals(sourceBranchLsn, that.sourceBranchLsn)
-        && Objects.equals(sourceBranchTime, that.sourceBranchTime);
+        && Objects.equals(sourceBranchTime, that.sourceBranchTime)
+        && Objects.equals(ttl, that.ttl);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(defaultValue, isProtected, sourceBranch, sourceBranchLsn, sourceBranchTime);
+    return Objects.hash(
+        expireTime, isProtected, noExpiry, sourceBranch, sourceBranchLsn, sourceBranchTime, ttl);
   }
 
   @Override
   public String toString() {
     return new ToStringer(BranchSpec.class)
-        .add("defaultValue", defaultValue)
+        .add("expireTime", expireTime)
         .add("isProtected", isProtected)
+        .add("noExpiry", noExpiry)
         .add("sourceBranch", sourceBranch)
         .add("sourceBranchLsn", sourceBranchLsn)
         .add("sourceBranchTime", sourceBranchTime)
+        .add("ttl", ttl)
         .toString();
   }
 }

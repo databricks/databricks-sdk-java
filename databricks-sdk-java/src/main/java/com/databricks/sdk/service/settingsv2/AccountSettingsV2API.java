@@ -61,6 +61,8 @@ public class AccountSettingsV2API {
    * list of setting available via public APIs at account level. To determine the correct field to
    * include in a patch request, refer to the type field of the setting returned in the
    * :method:settingsv2/listaccountsettingsmetadata response.
+   *
+   * <p>Note: Page refresh is required for changes to take effect in UI.
    */
   public Setting patchPublicAccountSetting(PatchPublicAccountSettingRequest request) {
     return impl.patchPublicAccountSetting(request);

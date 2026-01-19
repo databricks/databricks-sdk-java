@@ -10,11 +10,11 @@ import java.util.Objects;
 
 @Generated
 public class ListRolesResponse {
-  /** Pagination token to request the next page of roles. */
+  /** Token to request the next page of Postgres roles. */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 
-  /** List of roles. */
+  /** List of Postgres roles in the branch. */
   @JsonProperty("roles")
   private Collection<Role> roles;
 

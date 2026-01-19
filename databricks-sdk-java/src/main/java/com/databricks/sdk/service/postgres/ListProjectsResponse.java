@@ -10,11 +10,11 @@ import java.util.Objects;
 
 @Generated
 public class ListProjectsResponse {
-  /** Pagination token to request the next page of projects. */
+  /** Token to request the next page of database projects. */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 
-  /** List of projects. */
+  /** List of all database projects in the workspace that the user has permission to access. */
   @JsonProperty("projects")
   private Collection<Project> projects;
 

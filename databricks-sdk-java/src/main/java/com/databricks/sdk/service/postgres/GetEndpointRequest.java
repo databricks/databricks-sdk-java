@@ -10,8 +10,8 @@ import java.util.Objects;
 @Generated
 public class GetEndpointRequest {
   /**
-   * The name of the Endpoint to retrieve. Format:
-   * projects/{project_id}/branches/{branch_id}/endpoints/{endpoint_id}
+   * The resource name of the endpoint to retrieve. Format:
+   * `projects/{project_id}/branches/{branch_id}/endpoints/{endpoint_id}`
    */
   @JsonIgnore private String name;
 

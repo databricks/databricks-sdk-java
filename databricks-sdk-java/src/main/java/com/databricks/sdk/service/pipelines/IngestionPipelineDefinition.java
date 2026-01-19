@@ -17,6 +17,10 @@ public class IngestionPipelineDefinition {
   @JsonProperty("connection_name")
   private String connectionName;
 
+  /** (Optional) A window that specifies a set of time ranges for snapshot queries in CDC. */
+  @JsonProperty("full_refresh_window")
+  private OperationTimeWindow fullRefreshWindow;
+
   /**
    * Immutable. If set to true, the pipeline will ingest tables from the UC foreign catalogs
    * directly without the need to specify a UC connection or ingestion gateway. The `source_catalog`
@@ -71,6 +75,15 @@ public class IngestionPipelineDefinition {
 
   public String getConnectionName() {
     return connectionName;
+  }
+
+  public IngestionPipelineDefinition setFullRefreshWindow(OperationTimeWindow fullRefreshWindow) {
+    this.fullRefreshWindow = fullRefreshWindow;
+    return this;
+  }
+
+  public OperationTimeWindow getFullRefreshWindow() {
+    return fullRefreshWindow;
   }
 
   public IngestionPipelineDefinition setIngestFromUcForeignCatalog(
@@ -144,6 +157,7 @@ public class IngestionPipelineDefinition {
     if (o == null || getClass() != o.getClass()) return false;
     IngestionPipelineDefinition that = (IngestionPipelineDefinition) o;
     return Objects.equals(connectionName, that.connectionName)
+        && Objects.equals(fullRefreshWindow, that.fullRefreshWindow)
         && Objects.equals(ingestFromUcForeignCatalog, that.ingestFromUcForeignCatalog)
         && Objects.equals(ingestionGatewayId, that.ingestionGatewayId)
         && Objects.equals(netsuiteJarPath, that.netsuiteJarPath)
@@ -157,6 +171,7 @@ public class IngestionPipelineDefinition {
   public int hashCode() {
     return Objects.hash(
         connectionName,
+        fullRefreshWindow,
         ingestFromUcForeignCatalog,
         ingestionGatewayId,
         netsuiteJarPath,
@@ -170,6 +185,7 @@ public class IngestionPipelineDefinition {
   public String toString() {
     return new ToStringer(IngestionPipelineDefinition.class)
         .add("connectionName", connectionName)
+        .add("fullRefreshWindow", fullRefreshWindow)
         .add("ingestFromUcForeignCatalog", ingestFromUcForeignCatalog)
         .add("ingestionGatewayId", ingestionGatewayId)
         .add("netsuiteJarPath", netsuiteJarPath)

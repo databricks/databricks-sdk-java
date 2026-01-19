@@ -5,6 +5,7 @@ package com.databricks.sdk.service.qualitymonitorv2;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 @Generated
@@ -20,6 +21,10 @@ public class QualityMonitor {
   /** The type of the monitored object. Can be one of the following: schema. */
   @JsonProperty("object_type")
   private String objectType;
+
+  /** Validity check configurations for anomaly detection. */
+  @JsonProperty("validity_check_configurations")
+  private Collection<ValidityCheckConfiguration> validityCheckConfigurations;
 
   public QualityMonitor setAnomalyDetectionConfig(AnomalyDetectionConfig anomalyDetectionConfig) {
     this.anomalyDetectionConfig = anomalyDetectionConfig;
@@ -48,6 +53,16 @@ public class QualityMonitor {
     return objectType;
   }
 
+  public QualityMonitor setValidityCheckConfigurations(
+      Collection<ValidityCheckConfiguration> validityCheckConfigurations) {
+    this.validityCheckConfigurations = validityCheckConfigurations;
+    return this;
+  }
+
+  public Collection<ValidityCheckConfiguration> getValidityCheckConfigurations() {
+    return validityCheckConfigurations;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -55,12 +70,13 @@ public class QualityMonitor {
     QualityMonitor that = (QualityMonitor) o;
     return Objects.equals(anomalyDetectionConfig, that.anomalyDetectionConfig)
         && Objects.equals(objectId, that.objectId)
-        && Objects.equals(objectType, that.objectType);
+        && Objects.equals(objectType, that.objectType)
+        && Objects.equals(validityCheckConfigurations, that.validityCheckConfigurations);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(anomalyDetectionConfig, objectId, objectType);
+    return Objects.hash(anomalyDetectionConfig, objectId, objectType, validityCheckConfigurations);
   }
 
   @Override
@@ -69,6 +85,7 @@ public class QualityMonitor {
         .add("anomalyDetectionConfig", anomalyDetectionConfig)
         .add("objectId", objectId)
         .add("objectType", objectType)
+        .add("validityCheckConfigurations", validityCheckConfigurations)
         .toString();
   }
 }

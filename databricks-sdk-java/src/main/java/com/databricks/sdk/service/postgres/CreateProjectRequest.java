@@ -16,10 +16,11 @@ public class CreateProjectRequest {
   private Project project;
 
   /**
-   * The ID to use for the Project, which will become the final component of the project's resource
-   * name.
-   *
-   * <p>This value should be 4-63 characters, and valid characters are /[a-z][0-9]-/.
+   * The ID to use for the Project. This becomes the final component of the project's resource name.
+   * This value should be 4-63 characters. Valid characters are lowercase letters, numbers, and
+   * hyphens, as defined by RFC 1123. Examples: - With custom ID: `production` → name becomes
+   * `projects/production` - Without custom ID: system generates UUID → name becomes
+   * `projects/a7f89b2c-3d4e-5f6g-7h8i-9j0k1l2m3n4o`
    */
   @JsonIgnore
   @QueryParam("project_id")

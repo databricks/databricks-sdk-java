@@ -16,10 +16,12 @@ public class CreateEndpointRequest {
   private Endpoint endpoint;
 
   /**
-   * The ID to use for the Endpoint, which will become the final component of the endpoint's
-   * resource name.
-   *
-   * <p>This value should be 4-63 characters, and valid characters are /[a-z][0-9]-/.
+   * The ID to use for the Endpoint. This becomes the final component of the endpoint's resource
+   * name. This value should be 4-63 characters. Valid characters are lowercase letters, numbers,
+   * and hyphens, as defined by RFC 1123. Examples: - With custom ID: `primary` → name becomes
+   * `projects/{project_id}/branches/{branch_id}/endpoints/primary` - Without custom ID: system
+   * generates slug → name becomes
+   * `projects/{project_id}/branches/{branch_id}/endpoints/ep-example-name-x1y2z3a4`
    */
   @JsonIgnore
   @QueryParam("endpoint_id")

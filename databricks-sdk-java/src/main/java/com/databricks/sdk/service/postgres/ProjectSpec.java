@@ -29,10 +29,6 @@ public class ProjectSpec {
   @JsonProperty("pg_version")
   private Long pgVersion;
 
-  /** */
-  @JsonProperty("settings")
-  private ProjectSettings settings;
-
   public ProjectSpec setDefaultEndpointSettings(
       ProjectDefaultEndpointSettings defaultEndpointSettings) {
     this.defaultEndpointSettings = defaultEndpointSettings;
@@ -70,15 +66,6 @@ public class ProjectSpec {
     return pgVersion;
   }
 
-  public ProjectSpec setSettings(ProjectSettings settings) {
-    this.settings = settings;
-    return this;
-  }
-
-  public ProjectSettings getSettings() {
-    return settings;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -87,14 +74,12 @@ public class ProjectSpec {
     return Objects.equals(defaultEndpointSettings, that.defaultEndpointSettings)
         && Objects.equals(displayName, that.displayName)
         && Objects.equals(historyRetentionDuration, that.historyRetentionDuration)
-        && Objects.equals(pgVersion, that.pgVersion)
-        && Objects.equals(settings, that.settings);
+        && Objects.equals(pgVersion, that.pgVersion);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        defaultEndpointSettings, displayName, historyRetentionDuration, pgVersion, settings);
+    return Objects.hash(defaultEndpointSettings, displayName, historyRetentionDuration, pgVersion);
   }
 
   @Override
@@ -104,7 +89,6 @@ public class ProjectSpec {
         .add("displayName", displayName)
         .add("historyRetentionDuration", historyRetentionDuration)
         .add("pgVersion", pgVersion)
-        .add("settings", settings)
         .toString();
   }
 }

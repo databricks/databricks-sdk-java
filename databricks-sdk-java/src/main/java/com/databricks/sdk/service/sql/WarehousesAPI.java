@@ -133,6 +133,15 @@ public class WarehousesAPI {
         response);
   }
 
+  /**
+   * Creates a new default warehouse override for a user. Users can create their own override.
+   * Admins can create overrides for any user.
+   */
+  public DefaultWarehouseOverride createDefaultWarehouseOverride(
+      CreateDefaultWarehouseOverrideRequest request) {
+    return impl.createDefaultWarehouseOverride(request);
+  }
+
   public void delete(String id) {
     delete(new DeleteWarehouseRequest().setId(id));
   }
@@ -140,6 +149,19 @@ public class WarehousesAPI {
   /** Deletes a SQL warehouse. */
   public void delete(DeleteWarehouseRequest request) {
     impl.delete(request);
+  }
+
+  public void deleteDefaultWarehouseOverride(String name) {
+    deleteDefaultWarehouseOverride(new DeleteDefaultWarehouseOverrideRequest().setName(name));
+  }
+
+  /**
+   * Deletes the default warehouse override for a user. Users can delete their own override. Admins
+   * can delete overrides for any user. After deletion, the workspace default warehouse will be
+   * used.
+   */
+  public void deleteDefaultWarehouseOverride(DeleteDefaultWarehouseOverrideRequest request) {
+    impl.deleteDefaultWarehouseOverride(request);
   }
 
   /** Updates the configuration for a SQL warehouse. */
@@ -156,6 +178,20 @@ public class WarehousesAPI {
   /** Gets the information for a single SQL warehouse. */
   public GetWarehouseResponse get(GetWarehouseRequest request) {
     return impl.get(request);
+  }
+
+  public DefaultWarehouseOverride getDefaultWarehouseOverride(String name) {
+    return getDefaultWarehouseOverride(new GetDefaultWarehouseOverrideRequest().setName(name));
+  }
+
+  /**
+   * Returns the default warehouse override for a user. Users can fetch their own override. Admins
+   * can fetch overrides for any user. If no override exists, the UI will fallback to the workspace
+   * default warehouse.
+   */
+  public DefaultWarehouseOverride getDefaultWarehouseOverride(
+      GetDefaultWarehouseOverrideRequest request) {
+    return impl.getDefaultWarehouseOverride(request);
   }
 
   public GetWarehousePermissionLevelsResponse getPermissionLevels(String warehouseId) {
@@ -202,6 +238,25 @@ public class WarehousesAPI {
   }
 
   /**
+   * Lists all default warehouse overrides in the workspace. Only workspace administrators can list
+   * all overrides.
+   */
+  public Iterable<DefaultWarehouseOverride> listDefaultWarehouseOverrides(
+      ListDefaultWarehouseOverridesRequest request) {
+    return new Paginator<>(
+        request,
+        impl::listDefaultWarehouseOverrides,
+        ListDefaultWarehouseOverridesResponse::getDefaultWarehouseOverrides,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
+  /**
    * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
    * permissions if none are specified. Objects can inherit permissions from their root object.
    */
@@ -226,6 +281,15 @@ public class WarehousesAPI {
     impl.stop(request);
     return new Wait<>(
         (timeout, callback) -> waitGetWarehouseStopped(request.getId(), timeout, callback));
+  }
+
+  /**
+   * Updates an existing default warehouse override for a user. Users can update their own override.
+   * Admins can update overrides for any user.
+   */
+  public DefaultWarehouseOverride updateDefaultWarehouseOverride(
+      UpdateDefaultWarehouseOverrideRequest request) {
+    return impl.updateDefaultWarehouseOverride(request);
   }
 
   /**

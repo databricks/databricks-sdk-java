@@ -21,7 +21,10 @@ public class UpdateBranchRequest {
   @JsonProperty("branch")
   private Branch branch;
 
-  /** The resource name of the branch. Format: projects/{project_id}/branches/{branch_id} */
+  /**
+   * The resource name of the branch. This field is output-only and constructed by the system.
+   * Format: `projects/{project_id}/branches/{branch_id}`
+   */
   @JsonIgnore private String name;
 
   /** The list of fields to update. If unspecified, all fields will be updated when possible. */
