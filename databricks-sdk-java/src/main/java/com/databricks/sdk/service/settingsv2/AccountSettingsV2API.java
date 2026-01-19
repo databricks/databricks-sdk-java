@@ -36,6 +36,22 @@ public class AccountSettingsV2API {
     return impl.getPublicAccountSetting(request);
   }
 
+  public UserPreference getPublicAccountUserPreference(String userId, String name) {
+    return getPublicAccountUserPreference(
+        new GetPublicAccountUserPreferenceRequest().setUserId(userId).setName(name));
+  }
+
+  /**
+   * Get a user preference for a specific user. User preferences are personal settings that allow
+   * individual customization without affecting other users. See
+   * :method:settingsv2/listaccountuserpreferencesmetadata for list of user preferences available
+   * via public APIs.
+   */
+  public UserPreference getPublicAccountUserPreference(
+      GetPublicAccountUserPreferenceRequest request) {
+    return impl.getPublicAccountUserPreference(request);
+  }
+
   /**
    * List valid setting keys and metadata. These settings are available to be referenced via GET
    * :method:settingsv2/getpublicaccountsetting and PATCH
@@ -56,6 +72,33 @@ public class AccountSettingsV2API {
         });
   }
 
+  public Iterable<SettingsMetadata> listAccountUserPreferencesMetadata(String userId) {
+    return listAccountUserPreferencesMetadata(
+        new ListAccountUserPreferencesMetadataRequest().setUserId(userId));
+  }
+
+  /**
+   * List valid user preferences and their metadata for a specific user. User preferences are
+   * personal settings that allow individual customization without affecting other users. These
+   * settings are available to be referenced via GET
+   * :method:settingsv2/getpublicaccountuserpreference and PATCH
+   * :method:settingsv2/patchpublicaccountuserpreference APIs
+   */
+  public Iterable<SettingsMetadata> listAccountUserPreferencesMetadata(
+      ListAccountUserPreferencesMetadataRequest request) {
+    return new Paginator<>(
+        request,
+        impl::listAccountUserPreferencesMetadata,
+        ListAccountUserPreferencesMetadataResponse::getSettingsMetadata,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
   /**
    * Patch a setting value at account level. See :method:settingsv2/listaccountsettingsmetadata for
    * list of setting available via public APIs at account level. To determine the correct field to
@@ -66,6 +109,19 @@ public class AccountSettingsV2API {
    */
   public Setting patchPublicAccountSetting(PatchPublicAccountSettingRequest request) {
     return impl.patchPublicAccountSetting(request);
+  }
+
+  /**
+   * Update a user preference for a specific user. User preferences are personal settings that allow
+   * individual customization without affecting other users. See
+   * :method:settingsv2/listaccountuserpreferencesmetadata for list of user preferences available
+   * via public APIs.
+   *
+   * <p>Note: Page refresh is required for changes to take effect in UI.
+   */
+  public UserPreference patchPublicAccountUserPreference(
+      PatchPublicAccountUserPreferenceRequest request) {
+    return impl.patchPublicAccountUserPreference(request);
   }
 
   public AccountSettingsV2Service impl() {

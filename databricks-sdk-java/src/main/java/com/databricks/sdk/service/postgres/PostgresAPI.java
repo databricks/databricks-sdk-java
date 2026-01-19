@@ -114,6 +114,11 @@ public class PostgresAPI {
     return new DeleteRoleOperation(impl, operation);
   }
 
+  /** Generate OAuth credentials for a Postgres database. */
+  public DatabaseCredential generateDatabaseCredential(GenerateDatabaseCredentialRequest request) {
+    return impl.generateDatabaseCredential(request);
+  }
+
   public Branch getBranch(String name) {
     return getBranch(new GetBranchRequest().setName(name));
   }
