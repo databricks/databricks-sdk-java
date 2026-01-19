@@ -18,23 +18,6 @@ import java.time.Duration;
 import java.util.*;
 import org.apache.http.HttpMessage;
 
-/**
- * Configuration for Databricks SDK clients.
- *
- * <p>This class holds all configuration needed to authenticate and connect to Databricks services,
- * including support for:
- *
- * <ul>
- *   <li>Traditional workspace and account hosts
- *   <li>Unified hosts (SPOG) that support both workspace and account operations
- *   <li>Multiple authentication methods (PAT, OAuth, Azure, etc.)
- * </ul>
- *
- * <p><b>Unified Host Support:</b> When using a unified host, set {@code experimentalIsUnifiedHost}
- * to {@code true} and optionally provide a {@code workspaceId} for workspace-scoped operations. Use
- * {@link #getHostType()} and {@link #getClientType()} instead of the deprecated {@link
- * #isAccountClient()} method.
- */
 public class DatabricksConfig {
   private CredentialsProvider credentialsProvider = new DefaultCredentialsProvider();
 
@@ -45,9 +28,7 @@ public class DatabricksConfig {
   private String accountId;
 
   /**
-   * Workspace ID for unified host operations. When using a unified host that supports both
-   * workspace and account-level operations, this field specifies which workspace context to operate
-   * under for workspace-level API calls.
+   * Workspace ID for unified host operations.
    *
    * <p><b>Note:</b> This API is experimental and may change or be removed in future releases
    * without notice.
@@ -56,8 +37,7 @@ public class DatabricksConfig {
   private String workspaceId;
 
   /**
-   * Flag to explicitly mark a host as a unified host. When true, the host is treated as supporting
-   * both workspace and account-level operations through a single endpoint.
+   * Flag to explicitly mark a host as a unified host.
    *
    * <p><b>Note:</b> This API is experimental and may change or be removed in future releases
    * without notice.
@@ -755,14 +735,7 @@ public class DatabricksConfig {
     return host.startsWith("https://accounts.") || host.startsWith("https://accounts-dod.");
   }
 
-  /**
-   * Determines the type of host based on configuration settings and host URL.
-   *
-   * <p>Returns UNIFIED if experimentalIsUnifiedHost is true, ACCOUNTS if the host starts with
-   * "accounts." or "accounts-dod.", and WORKSPACE otherwise.
-   *
-   * @return The detected host type
-   */
+  /** Returns the host type based on configuration settings and host URL. */
   public HostType getHostType() {
     if (experimentalIsUnifiedHost != null && experimentalIsUnifiedHost) {
       return HostType.UNIFIED;
@@ -776,15 +749,7 @@ public class DatabricksConfig {
     return HostType.WORKSPACE;
   }
 
-  /**
-   * Determines the client type based on host type and workspace ID configuration.
-   *
-   * <p>For unified hosts, returns WORKSPACE_ON_UNIFIED if a workspace ID is set, or
-   * ACCOUNT_ON_UNIFIED otherwise. For traditional hosts, returns ACCOUNT or WORKSPACE based on the
-   * host type.
-   *
-   * @return The determined client type
-   */
+  /** Returns the client type based on host type and workspace ID configuration. */
   public ClientType getClientType() {
     HostType hostType = getHostType();
     switch (hostType) {
@@ -820,17 +785,6 @@ public class DatabricksConfig {
     return null;
   }
 
-  /**
-   * Fetches OIDC endpoints for unified hosts using the account ID.
-   *
-   * <p>For unified hosts, the OIDC endpoints follow the pattern:
-   * {host}/oidc/accounts/{accountId}/v1/{token|authorize}
-   *
-   * @param accountId The account ID to use for endpoint construction
-   * @return OpenIDConnectEndpoints configured for the unified host
-   * @throws DatabricksException if accountId is null or empty
-   * @throws IOException if endpoint construction fails
-   */
   private OpenIDConnectEndpoints getUnifiedOidcEndpoints(String accountId) throws IOException {
     if (accountId == null || accountId.isEmpty()) {
       throw new DatabricksException(

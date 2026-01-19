@@ -1111,16 +1111,6 @@ public class AccountClient {
     return config;
   }
 
-  /**
-   * Creates a WorkspaceClient configured for the specified workspace.
-   *
-   * <p>For unified hosts, this sets the workspace ID on the config instead of changing the host.
-   * For traditional account hosts, this resolves the workspace deployment URL and creates a config
-   * with the workspace host.
-   *
-   * @param workspace The workspace to create a client for
-   * @return A configured WorkspaceClient for the specified workspace
-   */
   public WorkspaceClient getWorkspaceClient(Workspace workspace) {
     // For unified hosts, reuse the same host and set workspace ID
     if (this.config.getHostType() == HostType.UNIFIED) {
