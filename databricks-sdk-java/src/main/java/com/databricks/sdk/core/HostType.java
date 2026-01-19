@@ -2,25 +2,15 @@ package com.databricks.sdk.core;
 
 import com.databricks.sdk.support.InternalApi;
 
-/**
- * Represents the type of Databricks host being used.
- *
- * <p>This determines which APIs are available and how authentication should be handled:
- *
- * <ul>
- *   <li>WORKSPACE: Traditional workspace host (e.g., adb-*.azuredatabricks.net)
- *   <li>ACCOUNTS: Traditional account host (e.g., accounts.cloud.databricks.com)
- *   <li>UNIFIED: Unified host supporting both workspace and account operations
- * </ul>
- */
+/** Represents the type of Databricks host being used. */
 @InternalApi
 public enum HostType {
-  /** Traditional workspace host - supports workspace-level APIs only */
+  /** Traditional workspace host. */
   WORKSPACE,
 
-  /** Traditional accounts host - supports account-level APIs only */
+  /** Traditional accounts host. */
   ACCOUNTS,
 
-  /** Unified host - supports both workspace and account APIs based on context */
+  /** Unified host supporting both workspace and account operations. */
   UNIFIED
 }

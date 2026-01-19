@@ -5,9 +5,6 @@ import java.util.Map;
 
 /**
  * HeaderFactory wrapper that adds X-Databricks-Org-Id header for unified host workspace operations.
- *
- * <p>When making workspace-level API calls to a unified host, this header is required to specify
- * which workspace context the operation should execute in.
  */
 class UnifiedHostHeaderFactory implements HeaderFactory {
   private final HeaderFactory delegate;
