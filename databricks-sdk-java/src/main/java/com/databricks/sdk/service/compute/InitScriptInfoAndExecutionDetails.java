@@ -62,6 +62,13 @@ public class InitScriptInfoAndExecutionDetails {
   private InitScriptExecutionDetailsInitScriptExecutionStatus status;
 
   /**
+   * The stderr output from the init script execution. Only populated when init scripts debug is
+   * enabled and script execution fails.
+   */
+  @JsonProperty("stderr")
+  private String stderr;
+
+  /**
    * destination needs to be provided. e.g. `{ \"volumes\" : { \"destination\" :
    * \"/Volumes/my-init.sh\" } }`
    */
@@ -149,6 +156,15 @@ public class InitScriptInfoAndExecutionDetails {
     return status;
   }
 
+  public InitScriptInfoAndExecutionDetails setStderr(String stderr) {
+    this.stderr = stderr;
+    return this;
+  }
+
+  public String getStderr() {
+    return stderr;
+  }
+
   public InitScriptInfoAndExecutionDetails setVolumes(VolumesStorageInfo volumes) {
     this.volumes = volumes;
     return this;
@@ -180,6 +196,7 @@ public class InitScriptInfoAndExecutionDetails {
         && Objects.equals(gcs, that.gcs)
         && Objects.equals(s3, that.s3)
         && Objects.equals(status, that.status)
+        && Objects.equals(stderr, that.stderr)
         && Objects.equals(volumes, that.volumes)
         && Objects.equals(workspace, that.workspace);
   }
@@ -195,6 +212,7 @@ public class InitScriptInfoAndExecutionDetails {
         gcs,
         s3,
         status,
+        stderr,
         volumes,
         workspace);
   }
@@ -210,6 +228,7 @@ public class InitScriptInfoAndExecutionDetails {
         .add("gcs", gcs)
         .add("s3", s3)
         .add("status", status)
+        .add("stderr", stderr)
         .add("volumes", volumes)
         .add("workspace", workspace)
         .toString();

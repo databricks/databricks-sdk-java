@@ -12,11 +12,11 @@ import java.util.Objects;
 /** A collection of settings for a compute endpoint. */
 @Generated
 public class ProjectDefaultEndpointSettings {
-  /** The maximum number of Compute Units. */
+  /** The maximum number of Compute Units. Minimum value is 0.5. */
   @JsonProperty("autoscaling_limit_max_cu")
   private Double autoscalingLimitMaxCu;
 
-  /** The minimum number of Compute Units. */
+  /** The minimum number of Compute Units. Minimum value is 0.5. */
   @JsonProperty("autoscaling_limit_min_cu")
   private Double autoscalingLimitMinCu;
 
@@ -24,7 +24,11 @@ public class ProjectDefaultEndpointSettings {
   @JsonProperty("pg_settings")
   private Map<String, String> pgSettings;
 
-  /** Duration of inactivity after which the compute endpoint is automatically suspended. */
+  /**
+   * Duration of inactivity after which the compute endpoint is automatically suspended. Supported
+   * values: -1s (never suspend), 0s (use default), or value should be between 60s and 604800s (1
+   * minute to 1 week).
+   */
   @JsonProperty("suspend_timeout_duration")
   private Duration suspendTimeoutDuration;
 

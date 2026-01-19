@@ -14,18 +14,18 @@ public class ProjectSpec {
   @JsonProperty("default_endpoint_settings")
   private ProjectDefaultEndpointSettings defaultEndpointSettings;
 
-  /** Human-readable project name. */
+  /** Human-readable project name. Length should be between 1 and 256 characters. */
   @JsonProperty("display_name")
   private String displayName;
 
   /**
    * The number of seconds to retain the shared history for point in time recovery for all branches
-   * in this project.
+   * in this project. Value should be between 0s and 2592000s (up to 30 days).
    */
   @JsonProperty("history_retention_duration")
   private Duration historyRetentionDuration;
 
-  /** The major Postgres version number. */
+  /** The major Postgres version number. Supported versions are 16 and 17. */
   @JsonProperty("pg_version")
   private Long pgVersion;
 
