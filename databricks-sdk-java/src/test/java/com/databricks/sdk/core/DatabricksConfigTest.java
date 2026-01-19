@@ -401,8 +401,9 @@ public class DatabricksConfigTest {
 
   @Test
   public void testGetClientTypeWorkspaceOnUnified() {
+    // For unified hosts with workspaceId, client type is WORKSPACE
     assertEquals(
-        ClientType.WORKSPACE_ON_UNIFIED,
+        ClientType.WORKSPACE,
         new DatabricksConfig()
             .setHost("https://unified.databricks.com")
             .setExperimentalIsUnifiedHost(true)
@@ -412,8 +413,9 @@ public class DatabricksConfigTest {
 
   @Test
   public void testGetClientTypeAccountOnUnified() {
+    // For unified hosts without workspaceId, client type is ACCOUNT
     assertEquals(
-        ClientType.ACCOUNT_ON_UNIFIED,
+        ClientType.ACCOUNT,
         new DatabricksConfig()
             .setHost("https://unified.databricks.com")
             .setExperimentalIsUnifiedHost(true)

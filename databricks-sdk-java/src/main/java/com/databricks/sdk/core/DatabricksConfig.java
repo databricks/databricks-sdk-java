@@ -28,19 +28,15 @@ public class DatabricksConfig {
   private String accountId;
 
   /**
-   * Workspace ID for unified host operations.
-   *
-   * <p><b>Note:</b> This API is experimental and may change or be removed in future releases
-   * without notice.
+   * Workspace ID for unified host operations. Note: This API is experimental and may change or be
+   * removed in future releases without notice.
    */
   @ConfigAttribute(env = "DATABRICKS_WORKSPACE_ID")
   private String workspaceId;
 
   /**
-   * Flag to explicitly mark a host as a unified host.
-   *
-   * <p><b>Note:</b> This API is experimental and may change or be removed in future releases
-   * without notice.
+   * Flag to explicitly mark a host as a unified host. Note: This API is experimental and may change
+   * or be removed in future releases without notice.
    */
   @ConfigAttribute(env = "DATABRICKS_EXPERIMENTAL_IS_UNIFIED_HOST")
   private Boolean experimentalIsUnifiedHost;
@@ -61,10 +57,8 @@ public class DatabricksConfig {
   private String redirectUrl;
 
   /**
-   * The OpenID Connect discovery URL used to retrieve OIDC configuration and endpoints.
-   *
-   * <p><b>Note:</b> This API is experimental and may change or be removed in future releases
-   * without notice.
+   * The OpenID Connect discovery URL used to retrieve OIDC configuration and endpoints. Note: This
+   * API is experimental and may change or be removed in future releases without notice.
    */
   @ConfigAttribute(env = "DATABRICKS_DISCOVERY_URL")
   private String discoveryUrl;
@@ -256,7 +250,7 @@ public class DatabricksConfig {
 
         // For unified hosts with workspace operations, wrap the header factory
         // to inject the X-Databricks-Org-Id header
-        if (getClientType() == ClientType.WORKSPACE_ON_UNIFIED) {
+        if (getHostType() == HostType.UNIFIED && workspaceId != null && !workspaceId.isEmpty()) {
           headerFactory = new UnifiedHostHeaderFactory(rawHeaderFactory, workspaceId);
         } else {
           headerFactory = rawHeaderFactory;
@@ -754,9 +748,10 @@ public class DatabricksConfig {
     HostType hostType = getHostType();
     switch (hostType) {
       case UNIFIED:
+        // For unified hosts, client type depends on whether workspaceId is set
         return (workspaceId != null && !workspaceId.isEmpty())
-            ? ClientType.WORKSPACE_ON_UNIFIED
-            : ClientType.ACCOUNT_ON_UNIFIED;
+            ? ClientType.WORKSPACE
+            : ClientType.ACCOUNT;
       case ACCOUNTS:
         return ClientType.ACCOUNT;
       case WORKSPACE:

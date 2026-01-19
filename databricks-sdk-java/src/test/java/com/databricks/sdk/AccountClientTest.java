@@ -55,8 +55,11 @@ public class AccountClientTest {
     // Should have workspace ID set
     assertEquals("123456", workspaceClient.config().getWorkspaceId());
 
-    // Should be workspace-on-unified client type
-    assertEquals(ClientType.WORKSPACE_ON_UNIFIED, workspaceClient.config().getClientType());
+    // Should be workspace client type (on unified host)
+    assertEquals(ClientType.WORKSPACE, workspaceClient.config().getClientType());
+
+    // Host type should still be unified
+    assertEquals(HostType.UNIFIED, workspaceClient.config().getHostType());
   }
 
   @Test

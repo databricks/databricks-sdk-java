@@ -151,10 +151,7 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
                   config.getHttpClient())
               .audience(config.getTokenAudience())
               .accountId(
-                  (config.getClientType() == ClientType.ACCOUNT
-                          || config.getClientType() == ClientType.ACCOUNT_ON_UNIFIED)
-                      ? config.getAccountId()
-                      : null)
+                  config.getClientType() == ClientType.ACCOUNT ? config.getAccountId() : null)
               .scopes(config.getScopes())
               .build();
 

@@ -89,13 +89,13 @@ public class UnifiedHostTest {
             "https://unified.databricks.com",
             null,
             true,
-            ClientType.ACCOUNT_ON_UNIFIED),
+            ClientType.ACCOUNT),
         Arguments.of(
             "Unified with workspace ID",
             "https://unified.databricks.com",
             "123456",
             true,
-            ClientType.WORKSPACE_ON_UNIFIED));
+            ClientType.WORKSPACE));
   }
 
   @ParameterizedTest(name = "{0}")
@@ -182,7 +182,7 @@ public class UnifiedHostTest {
     assertEquals(HostType.UNIFIED, config.getHostType());
     assertEquals("987654321", config.getWorkspaceId());
     assertEquals("account-abc", config.getAccountId());
-    assertEquals(ClientType.WORKSPACE_ON_UNIFIED, config.getClientType());
+    assertEquals(ClientType.WORKSPACE, config.getClientType());
   }
 
   // --- UnifiedHostHeaderFactory Tests ---

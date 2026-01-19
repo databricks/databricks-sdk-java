@@ -5,15 +5,9 @@ import com.databricks.sdk.support.InternalApi;
 /** Represents the type of Databricks client being used for API operations. */
 @InternalApi
 public enum ClientType {
-  /** Traditional workspace client. */
+  /** Workspace client (traditional or unified host with workspaceId). */
   WORKSPACE,
 
-  /** Traditional account client. */
-  ACCOUNT,
-
-  /** Workspace-scoped client on unified host. */
-  WORKSPACE_ON_UNIFIED,
-
-  /** Account-scoped client on unified host. */
-  ACCOUNT_ON_UNIFIED
+  /** Account client (traditional or unified host without workspaceId). */
+  ACCOUNT
 }
