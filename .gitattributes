@@ -3204,6 +3204,7 @@
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/workspace/Language.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/workspace/ListAclsRequest.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/workspace/ListAclsResponse.java linguist-generated=true
+/home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/workspace/ListCredentialsRequest.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/workspace/ListCredentialsResponse.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/workspace/ListReposRequest.java linguist-generated=true
 /home/ubuntu/workspace/databricks-sdk-java/databricks-sdk-java/src/main/java/com/databricks/sdk/service/workspace/ListReposResponse.java linguist-generated=true

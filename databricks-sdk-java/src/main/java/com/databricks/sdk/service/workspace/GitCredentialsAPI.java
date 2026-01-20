@@ -57,10 +57,10 @@ public class GitCredentialsAPI {
     return impl.get(request);
   }
 
-  /** Lists the calling user's Git credentials. One credential per user is supported. */
-  public Iterable<CredentialInfo> list() {
+  /** Lists the calling user's Git credentials. */
+  public Iterable<CredentialInfo> list(ListCredentialsRequest request) {
     return new Paginator<>(
-        null, (Void v) -> impl.list(), ListCredentialsResponse::getCredentials, response -> null);
+        request, impl::list, ListCredentialsResponse::getCredentials, response -> null);
   }
 
   /** Updates the specified Git credential. */
