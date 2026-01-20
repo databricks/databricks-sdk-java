@@ -27,9 +27,7 @@ public class DatabricksConfig {
   @ConfigAttribute(env = "DATABRICKS_ACCOUNT_ID")
   private String accountId;
 
-  /**
-   * Workspace ID for unified host operations. 
-   */
+  /** Workspace ID for unified host operations. */
   @ConfigAttribute(env = "DATABRICKS_WORKSPACE_ID")
   private String workspaceId;
 
