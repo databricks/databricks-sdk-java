@@ -247,18 +247,17 @@ public class DatabricksConfig {
       if (headerFactory == null) {
         // Calling authenticate without resolve
         ConfigLoader.fixHostIfNeeded(this);
-        HeaderFactory rawHeaderFactory = credentialsProvider.configure(this);
+        headerFactory = credentialsProvider.configure(this);
         setAuthType(credentialsProvider.authType());
-
-        // For unified hosts with workspace operations, wrap the header factory
-        // to inject the X-Databricks-Org-Id header
-        if (getHostType() == HostType.UNIFIED && workspaceId != null && !workspaceId.isEmpty()) {
-          headerFactory = new UnifiedHostHeaderFactory(rawHeaderFactory, workspaceId);
-        } else {
-          headerFactory = rawHeaderFactory;
-        }
       }
-      return headerFactory.headers();
+      Map<String, String> headers = new HashMap<>(headerFactory.headers());
+
+      // For unified hosts with workspace operations, add the X-Databricks-Org-Id header
+      if (getHostType() == HostType.UNIFIED && workspaceId != null && !workspaceId.isEmpty()) {
+        headers.put("X-Databricks-Org-Id", workspaceId);
+      }
+
+      return headers;
     } catch (DatabricksException e) {
       String msg = String.format("%s auth: %s", credentialsProvider.authType(), e.getMessage());
       DatabricksException wrapperException = new DatabricksException(msg, e);
@@ -270,31 +269,15 @@ public class DatabricksConfig {
     if (headerFactory == null) {
       try {
         ConfigLoader.fixHostIfNeeded(this);
-        HeaderFactory rawHeaderFactory = credentialsProvider.configure(this);
+        headerFactory = credentialsProvider.configure(this);
         setAuthType(credentialsProvider.authType());
-
-        // For unified hosts with workspace operations, wrap the header factory
-        // to inject the X-Databricks-Org-Id header
-        if (getHostType() == HostType.UNIFIED && workspaceId != null && !workspaceId.isEmpty()) {
-          headerFactory = new UnifiedHostHeaderFactory(rawHeaderFactory, workspaceId);
-        } else {
-          headerFactory = rawHeaderFactory;
-        }
       } catch (Exception e) {
         return new ErrorTokenSource("Failed to get token source: " + e.getMessage());
       }
     }
 
-    // For unified hosts, the underlying token source is wrapped, so extract it
-    HeaderFactory underlyingFactory = headerFactory;
-    if (headerFactory instanceof UnifiedHostHeaderFactory) {
-      // UnifiedHostHeaderFactory wraps an OAuthHeaderFactory, we need to get the delegate
-      // For token source purposes, we return the underlying OAuth token source
-      underlyingFactory = ((UnifiedHostHeaderFactory) headerFactory).getDelegate();
-    }
-
-    if (underlyingFactory instanceof OAuthHeaderFactory) {
-      return (TokenSource) underlyingFactory;
+    if (headerFactory instanceof OAuthHeaderFactory) {
+      return (TokenSource) headerFactory;
     }
     return new ErrorTokenSource(
         String.format("OAuth Token not supported for current auth type %s", authType));
