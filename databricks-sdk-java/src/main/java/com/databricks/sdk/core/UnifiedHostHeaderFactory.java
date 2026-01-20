@@ -33,4 +33,9 @@ class UnifiedHostHeaderFactory implements HeaderFactory {
     headers.put("X-Databricks-Org-Id", workspaceId);
     return headers;
   }
+
+  /** Returns the underlying header factory delegate. */
+  public HeaderFactory getDelegate() {
+    return delegate;
+  }
 }
