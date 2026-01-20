@@ -60,6 +60,10 @@ public interface PostgresService {
   /** Deletes the specified Postgres role. */
   Operation deleteRole(DeleteRoleRequest deleteRoleRequest);
 
+  /** Generate OAuth credentials for a Postgres database. */
+  DatabaseCredential generateDatabaseCredential(
+      GenerateDatabaseCredentialRequest generateDatabaseCredentialRequest);
+
   /** Retrieves information about the specified database branch. */
   Branch getBranch(GetBranchRequest getBranchRequest);
 

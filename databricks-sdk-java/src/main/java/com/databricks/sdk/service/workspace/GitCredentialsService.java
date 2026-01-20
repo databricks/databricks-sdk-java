@@ -29,8 +29,8 @@ public interface GitCredentialsService {
   /** Gets the Git credential with the specified credential ID. */
   GetCredentialsResponse get(GetCredentialsRequest getCredentialsRequest);
 
-  /** Lists the calling user's Git credentials. One credential per user is supported. */
-  ListCredentialsResponse list();
+  /** Lists the calling user's Git credentials. */
+  ListCredentialsResponse list(ListCredentialsRequest listCredentialsRequest);
 
   /** Updates the specified Git credential. */
   void update(UpdateCredentialsRequest updateCredentialsRequest);

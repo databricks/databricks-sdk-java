@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class ListEndpointsRequest {
-  /** Upper bound for items returned. */
+  /** Upper bound for items returned. Cannot be negative. */
   @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;

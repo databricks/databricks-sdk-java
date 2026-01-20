@@ -17,9 +17,9 @@ public class CreateProjectRequest {
 
   /**
    * The ID to use for the Project. This becomes the final component of the project's resource name.
-   * This value should be 4-63 characters. Valid characters are lowercase letters, numbers, and
-   * hyphens, as defined by RFC 1123. Examples: - With custom ID: `production` → name becomes
-   * `projects/production` - Without custom ID: system generates UUID → name becomes
+   * The ID must be 1-63 characters long, start with a lowercase letter, and contain only lowercase
+   * letters, numbers, and hyphens (RFC 1123). Examples: - With custom ID: `production` → name
+   * becomes `projects/production` - Without custom ID: system generates UUID → name becomes
    * `projects/a7f89b2c-3d4e-5f6g-7h8i-9j0k1l2m3n4o`
    */
   @JsonIgnore

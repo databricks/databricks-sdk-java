@@ -19,12 +19,31 @@ public interface AccountSettingsV2Service {
   Setting getPublicAccountSetting(GetPublicAccountSettingRequest getPublicAccountSettingRequest);
 
   /**
+   * Get a user preference for a specific user. User preferences are personal settings that allow
+   * individual customization without affecting other users. See
+   * :method:settingsv2/listaccountuserpreferencesmetadata for list of user preferences available
+   * via public APIs.
+   */
+  UserPreference getPublicAccountUserPreference(
+      GetPublicAccountUserPreferenceRequest getPublicAccountUserPreferenceRequest);
+
+  /**
    * List valid setting keys and metadata. These settings are available to be referenced via GET
    * :method:settingsv2/getpublicaccountsetting and PATCH
    * :method:settingsv2/patchpublicaccountsetting APIs
    */
   ListAccountSettingsMetadataResponse listAccountSettingsMetadata(
       ListAccountSettingsMetadataRequest listAccountSettingsMetadataRequest);
+
+  /**
+   * List valid user preferences and their metadata for a specific user. User preferences are
+   * personal settings that allow individual customization without affecting other users. These
+   * settings are available to be referenced via GET
+   * :method:settingsv2/getpublicaccountuserpreference and PATCH
+   * :method:settingsv2/patchpublicaccountuserpreference APIs
+   */
+  ListAccountUserPreferencesMetadataResponse listAccountUserPreferencesMetadata(
+      ListAccountUserPreferencesMetadataRequest listAccountUserPreferencesMetadataRequest);
 
   /**
    * Patch a setting value at account level. See :method:settingsv2/listaccountsettingsmetadata for
@@ -36,4 +55,15 @@ public interface AccountSettingsV2Service {
    */
   Setting patchPublicAccountSetting(
       PatchPublicAccountSettingRequest patchPublicAccountSettingRequest);
+
+  /**
+   * Update a user preference for a specific user. User preferences are personal settings that allow
+   * individual customization without affecting other users. See
+   * :method:settingsv2/listaccountuserpreferencesmetadata for list of user preferences available
+   * via public APIs.
+   *
+   * <p>Note: Page refresh is required for changes to take effect in UI.
+   */
+  UserPreference patchPublicAccountUserPreference(
+      PatchPublicAccountUserPreferenceRequest patchPublicAccountUserPreferenceRequest);
 }
