@@ -1114,9 +1114,8 @@ public class AccountClient {
   public WorkspaceClient getWorkspaceClient(Workspace workspace) {
     // For unified hosts, reuse the same host and set workspace ID
     if (this.config.getHostType() == HostType.UNIFIED) {
-      DatabricksConfig workspaceConfig = this.config.clone();
-      workspaceConfig.setWorkspaceId(String.valueOf(workspace.getWorkspaceId()));
-      return new WorkspaceClient(workspaceConfig);
+      this.config.setWorkspaceId(String.valueOf(workspace.getWorkspaceId()));
+      return new WorkspaceClient(this.config);
     }
 
     // For traditional account hosts, get workspace deployment URL
