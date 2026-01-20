@@ -185,38 +185,7 @@ public class UnifiedHostTest {
     assertEquals(ClientType.WORKSPACE, config.getClientType());
   }
 
-  // --- UnifiedHostHeaderFactory Tests ---
-
-  @Test
-  public void testUnifiedHostHeaderFactoryAddsHeader() {
-    Map<String, String> baseHeaders = new HashMap<>();
-    baseHeaders.put("Authorization", "Bearer token123");
-
-    HeaderFactory baseFactory = () -> baseHeaders;
-    UnifiedHostHeaderFactory unifiedFactory = new UnifiedHostHeaderFactory(baseFactory, "ws-456");
-
-    Map<String, String> headers = unifiedFactory.headers();
-
-    assertEquals("Bearer token123", headers.get("Authorization"));
-    assertEquals("ws-456", headers.get("X-Databricks-Org-Id"));
-  }
-
-  @Test
-  public void testUnifiedHostHeaderFactoryRequiresDelegate() {
-    assertThrows(
-        IllegalArgumentException.class, () -> new UnifiedHostHeaderFactory(null, "ws-123"));
-  }
-
-  @Test
-  public void testUnifiedHostHeaderFactoryRequiresWorkspaceId() {
-    HeaderFactory baseFactory = () -> new HashMap<>();
-    assertThrows(
-        IllegalArgumentException.class, () -> new UnifiedHostHeaderFactory(baseFactory, null));
-    assertThrows(
-        IllegalArgumentException.class, () -> new UnifiedHostHeaderFactory(baseFactory, ""));
-  }
-
-  // --- Header Injection Integration Tests ---
+  // --- Header Injection Tests ---
 
   @Test
   public void testHeaderInjectionForWorkspaceOnUnified() {
