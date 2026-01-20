@@ -57,8 +57,10 @@ public class DatabricksConfig {
   private String redirectUrl;
 
   /**
-   * The OpenID Connect discovery URL used to retrieve OIDC configuration and endpoints. Note: This
-   * API is experimental and may change or be removed in future releases without notice.
+   * The OpenID Connect discovery URL used to retrieve OIDC configuration and endpoints.
+   *
+   * <p><b>Note:</b> This API is experimental and may change or be removed in future releases
+   * without notice.
    */
   @ConfigAttribute(env = "DATABRICKS_DISCOVERY_URL")
   private String discoveryUrl;
