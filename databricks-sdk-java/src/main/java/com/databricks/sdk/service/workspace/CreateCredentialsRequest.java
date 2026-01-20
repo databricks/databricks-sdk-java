@@ -52,6 +52,13 @@ public class CreateCredentialsRequest {
   @JsonProperty("personal_access_token")
   private String personalAccessToken;
 
+  /**
+   * The ID of the service principal whose credentials will be modified. Only service principal
+   * managers can perform this action.
+   */
+  @JsonProperty("principal_id")
+  private Long principalId;
+
   public CreateCredentialsRequest setGitEmail(String gitEmail) {
     this.gitEmail = gitEmail;
     return this;
@@ -106,6 +113,15 @@ public class CreateCredentialsRequest {
     return personalAccessToken;
   }
 
+  public CreateCredentialsRequest setPrincipalId(Long principalId) {
+    this.principalId = principalId;
+    return this;
+  }
+
+  public Long getPrincipalId() {
+    return principalId;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -116,13 +132,20 @@ public class CreateCredentialsRequest {
         && Objects.equals(gitUsername, that.gitUsername)
         && Objects.equals(isDefaultForProvider, that.isDefaultForProvider)
         && Objects.equals(name, that.name)
-        && Objects.equals(personalAccessToken, that.personalAccessToken);
+        && Objects.equals(personalAccessToken, that.personalAccessToken)
+        && Objects.equals(principalId, that.principalId);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        gitEmail, gitProvider, gitUsername, isDefaultForProvider, name, personalAccessToken);
+        gitEmail,
+        gitProvider,
+        gitUsername,
+        isDefaultForProvider,
+        name,
+        personalAccessToken,
+        principalId);
   }
 
   @Override
@@ -134,6 +157,7 @@ public class CreateCredentialsRequest {
         .add("isDefaultForProvider", isDefaultForProvider)
         .add("name", name)
         .add("personalAccessToken", personalAccessToken)
+        .add("principalId", principalId)
         .toString();
   }
 }
