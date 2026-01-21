@@ -1,5 +1,15 @@
 # Version changelog
 
+## Release v0.77.0 (2026-01-21)
+
+### API Changes
+* Add `principalId` field for `com.databricks.sdk.service.workspace.CreateCredentialsRequest`.
+* Add `principalId` field for `com.databricks.sdk.service.workspace.DeleteCredentialsRequest`.
+* Add `principalId` field for `com.databricks.sdk.service.workspace.GetCredentialsRequest`.
+* Add `principalId` field for `com.databricks.sdk.service.workspace.ListCredentialsRequest`.
+* Add `principalId` field for `com.databricks.sdk.service.workspace.UpdateCredentialsRequest`.
+
+
 ## Release v0.76.0 (2026-01-20)
 
 ### API Changes
