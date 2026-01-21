@@ -25,9 +25,8 @@ public class ProjectDefaultEndpointSettings {
   private Map<String, String> pgSettings;
 
   /**
-   * Duration of inactivity after which the compute endpoint is automatically suspended. Supported
-   * values: -1s (never suspend), 0s (use default), or value should be between 60s and 604800s (1
-   * minute to 1 week).
+   * Duration of inactivity after which the compute endpoint is automatically suspended. If
+   * specified should be between 60s and 604800s (1 minute to 1 week).
    */
   @JsonProperty("suspend_timeout_duration")
   private Duration suspendTimeoutDuration;

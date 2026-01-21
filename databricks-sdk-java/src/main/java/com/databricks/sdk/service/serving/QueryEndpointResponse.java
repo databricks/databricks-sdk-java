@@ -7,6 +7,7 @@ import com.databricks.sdk.support.Header;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -53,6 +54,10 @@ public class QueryEndpointResponse {
    */
   @JsonProperty("object")
   private QueryEndpointResponseObject object;
+
+  /** The outputs of the feature serving endpoint. */
+  @JsonProperty("outputs")
+  private Collection<JsonNode> outputs;
 
   /** The predictions returned by the serving endpoint. */
   @JsonProperty("predictions")
@@ -127,6 +132,15 @@ public class QueryEndpointResponse {
     return object;
   }
 
+  public QueryEndpointResponse setOutputs(Collection<JsonNode> outputs) {
+    this.outputs = outputs;
+    return this;
+  }
+
+  public Collection<JsonNode> getOutputs() {
+    return outputs;
+  }
+
   public QueryEndpointResponse setPredictions(Collection<Object> predictions) {
     this.predictions = predictions;
     return this;
@@ -165,6 +179,7 @@ public class QueryEndpointResponse {
         && Objects.equals(id, that.id)
         && Objects.equals(model, that.model)
         && Objects.equals(object, that.object)
+        && Objects.equals(outputs, that.outputs)
         && Objects.equals(predictions, that.predictions)
         && Objects.equals(servedModelName, that.servedModelName)
         && Objects.equals(usage, that.usage);
@@ -173,7 +188,7 @@ public class QueryEndpointResponse {
   @Override
   public int hashCode() {
     return Objects.hash(
-        choices, created, data, id, model, object, predictions, servedModelName, usage);
+        choices, created, data, id, model, object, outputs, predictions, servedModelName, usage);
   }
 
   @Override
@@ -185,6 +200,7 @@ public class QueryEndpointResponse {
         .add("id", id)
         .add("model", model)
         .add("object", object)
+        .add("outputs", outputs)
         .add("predictions", predictions)
         .add("servedModelName", servedModelName)
         .add("usage", usage)
