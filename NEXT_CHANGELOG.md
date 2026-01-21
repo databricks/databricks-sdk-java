@@ -13,3 +13,5 @@
 ### Internal Changes
 
 ### API Changes
+* Add `outputs` field for `com.databricks.sdk.service.serving.QueryEndpointResponse`.
+* Add `sessionId` field for `com.databricks.sdk.service.sql.QueryInfo`.

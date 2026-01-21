@@ -97,6 +97,13 @@ public class QueryInfo {
   @JsonProperty("rows_produced")
   private Long rowsProduced;
 
+  /**
+   * The spark session UUID that query ran on. This is either the Spark Connect, DBSQL, or SDP
+   * session ID.
+   */
+  @JsonProperty("session_id")
+  private String sessionId;
+
   /** URL to the Spark UI query plan. */
   @JsonProperty("spark_ui_url")
   private String sparkUiUrl;
@@ -298,6 +305,15 @@ public class QueryInfo {
     return rowsProduced;
   }
 
+  public QueryInfo setSessionId(String sessionId) {
+    this.sessionId = sessionId;
+    return this;
+  }
+
+  public String getSessionId() {
+    return sessionId;
+  }
+
   public QueryInfo setSparkUiUrl(String sparkUiUrl) {
     this.sparkUiUrl = sparkUiUrl;
     return this;
@@ -376,6 +392,7 @@ public class QueryInfo {
         && Objects.equals(queryStartTimeMs, that.queryStartTimeMs)
         && Objects.equals(queryText, that.queryText)
         && Objects.equals(rowsProduced, that.rowsProduced)
+        && Objects.equals(sessionId, that.sessionId)
         && Objects.equals(sparkUiUrl, that.sparkUiUrl)
         && Objects.equals(statementType, that.statementType)
         && Objects.equals(status, that.status)
@@ -406,6 +423,7 @@ public class QueryInfo {
         queryStartTimeMs,
         queryText,
         rowsProduced,
+        sessionId,
         sparkUiUrl,
         statementType,
         status,
@@ -436,6 +454,7 @@ public class QueryInfo {
         .add("queryStartTimeMs", queryStartTimeMs)
         .add("queryText", queryText)
         .add("rowsProduced", rowsProduced)
+        .add("sessionId", sessionId)
         .add("sparkUiUrl", sparkUiUrl)
         .add("statementType", statementType)
         .add("status", status)
