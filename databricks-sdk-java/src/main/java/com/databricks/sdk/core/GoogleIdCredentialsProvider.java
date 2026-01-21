@@ -69,7 +69,7 @@ public class GoogleIdCredentialsProvider implements CredentialsProvider {
         throw new DatabricksException(message, e);
       }
 
-      if (config.isAccountClient()) {
+      if (config.getClientType() == ClientType.ACCOUNT) {
         try {
           headers.put(
               SA_ACCESS_TOKEN_HEADER, gcpScopedCredentials.refreshAccessToken().getTokenValue());

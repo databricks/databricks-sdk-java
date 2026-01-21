@@ -66,7 +66,7 @@ public class GoogleCredentialsCredentialsProvider implements CredentialsProvider
       Map<String, String> headers = new HashMap<>();
       headers.put("Authorization", String.format("Bearer %s", idToken.getTokenValue()));
 
-      if (config.isAccountClient()) {
+      if (config.getClientType() == ClientType.ACCOUNT) {
         AccessToken token;
         try {
           token = finalServiceAccountCredentials.createScoped(GCP_SCOPES).refreshAccessToken();

@@ -98,6 +98,7 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
     // TODO: refactor the code so that the IdTokenSources are created within the
     // configure call of their corresponding CredentialsProvider. This will allow
     // us to simplify the code by validating IdTokenSources when they are created.
+    // This would also need to be updated to support unified hosts.
     OpenIDConnectEndpoints endpoints = null;
     try {
       endpoints = config.getOidcEndpoints();
@@ -150,7 +151,8 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
                   namedIdTokenSource.idTokenSource,
                   config.getHttpClient())
               .audience(config.getTokenAudience())
-              .accountId(config.isAccountClient() ? config.getAccountId() : null)
+              .accountId(
+                  config.getClientType() == ClientType.ACCOUNT ? config.getAccountId() : null)
               .scopes(config.getScopes())
               .build();
 

@@ -4,6 +4,8 @@
 
 ### New Features and Improvements
 
+* Add support for unified hosts with experimental flag.
+
 ### Bug Fixes
 
 ### Security Vulnerabilities

@@ -358,4 +358,67 @@ public class DatabricksConfigTest {
     List<String> scopes = config.getScopes();
     assertIterableEquals(expectedScopes, scopes);
   }
+
+  // --- Unified Host Tests (added for SPOG support) ---
+
+  @Test
+  public void testGetHostTypeWorkspace() {
+    assertEquals(
+        HostType.WORKSPACE,
+        new DatabricksConfig().setHost("https://adb-123.azuredatabricks.net").getHostType());
+  }
+
+  @Test
+  public void testGetHostTypeAccounts() {
+    assertEquals(
+        HostType.ACCOUNTS,
+        new DatabricksConfig().setHost("https://accounts.cloud.databricks.com").getHostType());
+  }
+
+  @Test
+  public void testGetHostTypeUnified() {
+    assertEquals(
+        HostType.UNIFIED,
+        new DatabricksConfig()
+            .setHost("https://unified.databricks.com")
+            .setExperimentalIsUnifiedHost(true)
+            .getHostType());
+  }
+
+  @Test
+  public void testGetClientTypeWorkspace() {
+    assertEquals(
+        ClientType.WORKSPACE,
+        new DatabricksConfig().setHost("https://adb-123.azuredatabricks.net").getClientType());
+  }
+
+  @Test
+  public void testGetClientTypeAccount() {
+    assertEquals(
+        ClientType.ACCOUNT,
+        new DatabricksConfig().setHost("https://accounts.cloud.databricks.com").getClientType());
+  }
+
+  @Test
+  public void testGetClientTypeWorkspaceOnUnified() {
+    // For unified hosts with workspaceId, client type is WORKSPACE
+    assertEquals(
+        ClientType.WORKSPACE,
+        new DatabricksConfig()
+            .setHost("https://unified.databricks.com")
+            .setExperimentalIsUnifiedHost(true)
+            .setWorkspaceId("123456")
+            .getClientType());
+  }
+
+  @Test
+  public void testGetClientTypeAccountOnUnified() {
+    // For unified hosts without workspaceId, client type is ACCOUNT
+    assertEquals(
+        ClientType.ACCOUNT,
+        new DatabricksConfig()
+            .setHost("https://unified.databricks.com")
+            .setExperimentalIsUnifiedHost(true)
+            .getClientType());
+  }
 }
