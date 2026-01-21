@@ -30,6 +30,13 @@ public class EndpointSpec {
   @JsonProperty("endpoint_type")
   private EndpointType endpointType;
 
+  /**
+   * When set to true, explicitly disables automatic suspension (never suspend). Should be set to
+   * true when provided.
+   */
+  @JsonProperty("no_suspension")
+  private Boolean noSuspension;
+
   /** */
   @JsonProperty("settings")
   private EndpointSettings settings;
@@ -77,6 +84,15 @@ public class EndpointSpec {
     return endpointType;
   }
 
+  public EndpointSpec setNoSuspension(Boolean noSuspension) {
+    this.noSuspension = noSuspension;
+    return this;
+  }
+
+  public Boolean getNoSuspension() {
+    return noSuspension;
+  }
+
   public EndpointSpec setSettings(EndpointSettings settings) {
     this.settings = settings;
     return this;
@@ -104,6 +120,7 @@ public class EndpointSpec {
         && Objects.equals(autoscalingLimitMinCu, that.autoscalingLimitMinCu)
         && Objects.equals(disabled, that.disabled)
         && Objects.equals(endpointType, that.endpointType)
+        && Objects.equals(noSuspension, that.noSuspension)
         && Objects.equals(settings, that.settings)
         && Objects.equals(suspendTimeoutDuration, that.suspendTimeoutDuration);
   }
@@ -115,6 +132,7 @@ public class EndpointSpec {
         autoscalingLimitMinCu,
         disabled,
         endpointType,
+        noSuspension,
         settings,
         suspendTimeoutDuration);
   }
@@ -126,6 +144,7 @@ public class EndpointSpec {
         .add("autoscalingLimitMinCu", autoscalingLimitMinCu)
         .add("disabled", disabled)
         .add("endpointType", endpointType)
+        .add("noSuspension", noSuspension)
         .add("settings", settings)
         .add("suspendTimeoutDuration", suspendTimeoutDuration)
         .toString();

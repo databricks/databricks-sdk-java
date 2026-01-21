@@ -20,6 +20,13 @@ public class ProjectDefaultEndpointSettings {
   @JsonProperty("autoscaling_limit_min_cu")
   private Double autoscalingLimitMinCu;
 
+  /**
+   * When set to true, explicitly disables automatic suspension (never suspend). Should be set to
+   * true when provided.
+   */
+  @JsonProperty("no_suspension")
+  private Boolean noSuspension;
+
   /** A raw representation of Postgres settings. */
   @JsonProperty("pg_settings")
   private Map<String, String> pgSettings;
@@ -49,6 +56,15 @@ public class ProjectDefaultEndpointSettings {
     return autoscalingLimitMinCu;
   }
 
+  public ProjectDefaultEndpointSettings setNoSuspension(Boolean noSuspension) {
+    this.noSuspension = noSuspension;
+    return this;
+  }
+
+  public Boolean getNoSuspension() {
+    return noSuspension;
+  }
+
   public ProjectDefaultEndpointSettings setPgSettings(Map<String, String> pgSettings) {
     this.pgSettings = pgSettings;
     return this;
@@ -74,6 +90,7 @@ public class ProjectDefaultEndpointSettings {
     ProjectDefaultEndpointSettings that = (ProjectDefaultEndpointSettings) o;
     return Objects.equals(autoscalingLimitMaxCu, that.autoscalingLimitMaxCu)
         && Objects.equals(autoscalingLimitMinCu, that.autoscalingLimitMinCu)
+        && Objects.equals(noSuspension, that.noSuspension)
         && Objects.equals(pgSettings, that.pgSettings)
         && Objects.equals(suspendTimeoutDuration, that.suspendTimeoutDuration);
   }
@@ -81,7 +98,11 @@ public class ProjectDefaultEndpointSettings {
   @Override
   public int hashCode() {
     return Objects.hash(
-        autoscalingLimitMaxCu, autoscalingLimitMinCu, pgSettings, suspendTimeoutDuration);
+        autoscalingLimitMaxCu,
+        autoscalingLimitMinCu,
+        noSuspension,
+        pgSettings,
+        suspendTimeoutDuration);
   }
 
   @Override
@@ -89,6 +110,7 @@ public class ProjectDefaultEndpointSettings {
     return new ToStringer(ProjectDefaultEndpointSettings.class)
         .add("autoscalingLimitMaxCu", autoscalingLimitMaxCu)
         .add("autoscalingLimitMinCu", autoscalingLimitMinCu)
+        .add("noSuspension", noSuspension)
         .add("pgSettings", pgSettings)
         .add("suspendTimeoutDuration", suspendTimeoutDuration)
         .toString();
