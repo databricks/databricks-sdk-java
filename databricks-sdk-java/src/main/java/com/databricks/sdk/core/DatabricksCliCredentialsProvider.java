@@ -20,15 +20,14 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
     return DATABRICKS_CLI;
   }
 
-  CliTokenSource getDatabricksCliTokenSource(DatabricksConfig config) {
-    String cliPath = config.getDatabricksCliPath();
-    if (cliPath == null) {
-      cliPath = OSUtils.get(config.getEnv()).getDatabricksCliPath();
-    }
-    if (cliPath == null) {
-      LOG.debug("Databricks CLI could not be found");
-      return null;
-    }
+  /**
+   * Builds the CLI command arguments for the databricks auth token command.
+   *
+   * @param cliPath Path to the databricks CLI executable
+   * @param config Configuration containing host, account ID, workspace ID, etc.
+   * @return List of command arguments
+   */
+  List<String> buildCliCommand(String cliPath, DatabricksConfig config) {
     List<String> cmd =
         new ArrayList<>(Arrays.asList(cliPath, "auth", "token", "--host", config.getHost()));
     if (config.getExperimentalIsUnifiedHost() != null && config.getExperimentalIsUnifiedHost()) {
@@ -46,6 +45,19 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
       cmd.add("--account-id");
       cmd.add(config.getAccountId());
     }
+    return cmd;
+  }
+
+  private CliTokenSource getDatabricksCliTokenSource(DatabricksConfig config) {
+    String cliPath = config.getDatabricksCliPath();
+    if (cliPath == null) {
+      cliPath = OSUtils.get(config.getEnv()).getDatabricksCliPath();
+    }
+    if (cliPath == null) {
+      LOG.debug("Databricks CLI could not be found");
+      return null;
+    }
+    List<String> cmd = buildCliCommand(cliPath, config);
     return new CliTokenSource(cmd, "token_type", "access_token", "expiry", config.getEnv());
   }
 
