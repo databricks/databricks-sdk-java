@@ -1,5 +1,11 @@
 # Version changelog
 
+## Release v0.79.0 (2026-01-22)
+
+### API Changes
+* Add `force` field for `com.databricks.sdk.service.pipelines.DeletePipelineRequest`.
+
+
 ## Release v0.78.0 (2026-01-22)
 
 ### New Features and Improvements
