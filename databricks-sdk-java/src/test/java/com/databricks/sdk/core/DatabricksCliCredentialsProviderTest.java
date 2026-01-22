@@ -33,7 +33,8 @@ class DatabricksCliCredentialsProviderTest {
     List<String> cmd = provider.buildCliCommand(CLI_PATH, config);
 
     assertEquals(
-        Arrays.asList(CLI_PATH, "auth", "token", "--host", ACCOUNT_HOST, "--account-id", ACCOUNT_ID),
+        Arrays.asList(
+            CLI_PATH, "auth", "token", "--host", ACCOUNT_HOST, "--account-id", ACCOUNT_ID),
         cmd);
   }
 
@@ -134,7 +135,8 @@ class DatabricksCliCredentialsProviderTest {
     List<String> cmd = provider.buildCliCommand(CLI_PATH, config);
 
     assertEquals(
-        Arrays.asList(CLI_PATH, "auth", "token", "--host", ACCOUNT_HOST, "--account-id", ACCOUNT_ID),
+        Arrays.asList(
+            CLI_PATH, "auth", "token", "--host", ACCOUNT_HOST, "--account-id", ACCOUNT_ID),
         cmd);
   }
 }
