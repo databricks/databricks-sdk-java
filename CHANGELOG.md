@@ -1,5 +1,18 @@
 # Version changelog
 
+## Release v0.78.0 (2026-01-22)
+
+### New Features and Improvements
+
+* Add support for unified hosts with experimental flag.
+
+### API Changes
+* Add `outputs` field for `com.databricks.sdk.service.serving.QueryEndpointResponse`.
+* Add `sessionId` field for `com.databricks.sdk.service.sql.QueryInfo`.
+* Add `noSuspension` field for `com.databricks.sdk.service.postgres.EndpointSpec`.
+* Add `noSuspension` field for `com.databricks.sdk.service.postgres.ProjectDefaultEndpointSettings`.
+
+
 ## Release v0.77.0 (2026-01-21)
 
 ### API Changes
