@@ -31,7 +31,18 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
     }
     List<String> cmd =
         new ArrayList<>(Arrays.asList(cliPath, "auth", "token", "--host", config.getHost()));
-    if (config.getClientType() == ClientType.ACCOUNT) {
+    if (config.getExperimentalIsUnifiedHost() != null && config.getExperimentalIsUnifiedHost()) {
+      // For unified hosts, pass account_id, workspace_id, and experimental flag
+      cmd.add("--experimental-is-unified-host");
+      if (config.getAccountId() != null) {
+        cmd.add("--account-id");
+        cmd.add(config.getAccountId());
+      }
+      if (config.getWorkspaceId() != null) {
+        cmd.add("--workspace-id");
+        cmd.add(config.getWorkspaceId());
+      }
+    } else if (config.getClientType() == ClientType.ACCOUNT) {
       cmd.add("--account-id");
       cmd.add(config.getAccountId());
     }
