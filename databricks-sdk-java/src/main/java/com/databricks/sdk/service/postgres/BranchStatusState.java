@@ -4,7 +4,7 @@ package com.databricks.sdk.service.postgres;
 
 import com.databricks.sdk.support.Generated;
 
-/** The state of the database branch. */
+/** The state of the branch. */
 @Generated
 public enum BranchStatusState {
   ARCHIVED,

@@ -15,8 +15,8 @@ public class Endpoint {
   private Timestamp createTime;
 
   /**
-   * The resource name of the endpoint. This field is output-only and constructed by the system.
-   * Format: `projects/{project_id}/branches/{branch_id}/endpoints/{endpoint_id}`
+   * Output only. The full resource path of the endpoint. Format:
+   * projects/{project_id}/branches/{branch_id}/endpoints/{endpoint_id}
    */
   @JsonProperty("name")
   private String name;

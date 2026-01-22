@@ -15,8 +15,8 @@ public class Branch {
   private Timestamp createTime;
 
   /**
-   * The resource name of the branch. This field is output-only and constructed by the system.
-   * Format: `projects/{project_id}/branches/{branch_id}`
+   * Output only. The full resource path of the branch. Format:
+   * projects/{project_id}/branches/{branch_id}
    */
   @JsonProperty("name")
   private String name;
@@ -25,7 +25,7 @@ public class Branch {
    * The project containing this branch (API resource hierarchy). Format: projects/{project_id}
    *
    * <p>Note: This field indicates where the branch exists in the resource hierarchy. For
-   * point-in-time branching from another branch, see `spec.source_branch`.
+   * point-in-time branching from another branch, see `status.source_branch`.
    */
   @JsonProperty("parent")
   private String parent;

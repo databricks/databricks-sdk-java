@@ -11,7 +11,7 @@ import java.util.Objects;
 @Generated
 public class DeleteRoleRequest {
   /**
-   * The resource name of the postgres role. Format:
+   * The full resource path of the role to delete. Format:
    * projects/{project_id}/branches/{branch_id}/roles/{role_id}
    */
   @JsonIgnore private String name;
