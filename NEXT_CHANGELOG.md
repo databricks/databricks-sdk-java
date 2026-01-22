@@ -13,3 +13,4 @@
 ### Internal Changes
 
 ### API Changes
+* Add `force` field for `com.databricks.sdk.service.pipelines.DeletePipelineRequest`.

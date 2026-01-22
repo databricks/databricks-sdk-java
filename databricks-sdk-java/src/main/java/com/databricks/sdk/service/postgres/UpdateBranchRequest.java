@@ -22,8 +22,8 @@ public class UpdateBranchRequest {
   private Branch branch;
 
   /**
-   * The resource name of the branch. This field is output-only and constructed by the system.
-   * Format: `projects/{project_id}/branches/{branch_id}`
+   * Output only. The full resource path of the branch. Format:
+   * projects/{project_id}/branches/{branch_id}
    */
   @JsonIgnore private String name;
 

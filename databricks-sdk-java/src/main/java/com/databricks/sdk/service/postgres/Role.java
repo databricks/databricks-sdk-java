@@ -16,7 +16,7 @@ public class Role {
   private Timestamp createTime;
 
   /**
-   * The resource name of the role. Format:
+   * Output only. The full resource path of the role. Format:
    * projects/{project_id}/branches/{branch_id}/roles/{role_id}
    */
   @JsonProperty("name")

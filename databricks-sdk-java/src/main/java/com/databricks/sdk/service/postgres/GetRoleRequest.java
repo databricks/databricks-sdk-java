@@ -10,7 +10,7 @@ import java.util.Objects;
 @Generated
 public class GetRoleRequest {
   /**
-   * The name of the Role to retrieve. Format:
+   * The full resource path of the role to retrieve. Format:
    * projects/{project_id}/branches/{branch_id}/roles/{role_id}
    */
   @JsonIgnore private String name;

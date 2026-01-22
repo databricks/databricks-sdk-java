@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class DeleteProjectRequest {
-  /** The name of the Project to delete. Format: projects/{project_id} */
+  /** The full resource path of the project to delete. Format: projects/{project_id} */
   @JsonIgnore private String name;
 
   public DeleteProjectRequest setName(String name) {

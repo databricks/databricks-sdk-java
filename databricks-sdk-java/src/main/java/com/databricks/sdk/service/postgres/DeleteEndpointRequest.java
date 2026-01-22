@@ -10,7 +10,7 @@ import java.util.Objects;
 @Generated
 public class DeleteEndpointRequest {
   /**
-   * The name of the Endpoint to delete. Format:
+   * The full resource path of the endpoint to delete. Format:
    * projects/{project_id}/branches/{branch_id}/endpoints/{endpoint_id}
    */
   @JsonIgnore private String name;

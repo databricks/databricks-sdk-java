@@ -9,7 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class DeleteBranchRequest {
-  /** The name of the Branch to delete. Format: projects/{project_id}/branches/{branch_id} */
+  /**
+   * The full resource path of the branch to delete. Format:
+   * projects/{project_id}/branches/{branch_id}
+   */
   @JsonIgnore private String name;
 
   public DeleteBranchRequest setName(String name) {

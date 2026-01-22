@@ -14,10 +14,7 @@ public class Project {
   @JsonProperty("create_time")
   private Timestamp createTime;
 
-  /**
-   * The resource name of the project. This field is output-only and constructed by the system.
-   * Format: `projects/{project_id}`
-   */
+  /** Output only. The full resource path of the project. Format: projects/{project_id} */
   @JsonProperty("name")
   private String name;
 

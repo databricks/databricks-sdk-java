@@ -10,8 +10,8 @@ import java.util.Objects;
 @Generated
 public class GetBranchRequest {
   /**
-   * The resource name of the branch to retrieve. Format:
-   * `projects/{project_id}/branches/{branch_id}`
+   * The full resource path of the branch to retrieve. Format:
+   * projects/{project_id}/branches/{branch_id}
    */
   @JsonIgnore private String name;
 

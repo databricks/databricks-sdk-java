@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class GetProjectRequest {
-  /** The resource name of the project to retrieve. Format: `projects/{project_id}` */
+  /** The full resource path of the project to retrieve. Format: projects/{project_id} */
   @JsonIgnore private String name;
 
   public GetProjectRequest setName(String name) {

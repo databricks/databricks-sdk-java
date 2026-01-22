@@ -12,10 +12,7 @@ import java.util.Objects;
 
 @Generated
 public class UpdateProjectRequest {
-  /**
-   * The resource name of the project. This field is output-only and constructed by the system.
-   * Format: `projects/{project_id}`
-   */
+  /** Output only. The full resource path of the project. Format: projects/{project_id} */
   @JsonIgnore private String name;
 
   /**
