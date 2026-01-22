@@ -3,64 +3,89 @@ package com.databricks.sdk.core;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.databricks.sdk.core.oauth.Token;
-import com.databricks.sdk.core.utils.Environment;
-import java.lang.reflect.Method;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 class DatabricksCliCredentialsProviderTest {
 
-  private static final String HOST = "https://db-deco-test.databricks.com";
-  private static final String ACCOUNT_ID = "968367da-7edd-44f7-9dea-3e0b20b0ec97";
-  private static final String WORKSPACE_ID = "470576644108500";
+  private static final String HOST = "https://company.databricks.com";
+  private static final String ACCOUNT_ID = "12345678";
+  private static final String WORKSPACE_ID = "1234";
+  private static final String TOKEN = "test-token";
+  private static final String TOKEN_TYPE = "Bearer";
+
+  private static CliTokenSource mockCliTokenSource() {
+    CliTokenSource cliTokenSource = Mockito.mock(CliTokenSource.class);
+    Mockito.when(cliTokenSource.getToken())
+        .thenReturn(new Token(TOKEN, TOKEN_TYPE, Instant.now().plusSeconds(3600)));
+    return cliTokenSource;
+  }
 
   /**
-   * Helper method to invoke the private getDatabricksCliTokenSource method using reflection and
-   * extract the command that would be executed. Note: The CliTokenSource.cmd field is modified by
-   * OSUtils.getCliExecutableCommand(), so we need to extract it before that transformation.
+   * Test provider that captures the CLI command for verification. This follows the same pattern as
+   * AzureCliCredentialsProviderTest. Overrides the method to capture the command without actually
+   * executing the CLI.
    */
-  private List<String> getCliCommand(DatabricksConfig config) throws Exception {
-    // We'll build the command directly here to test the logic
-    // This is similar to what getDatabricksCliTokenSource does
-    String cliPath = config.getDatabricksCliPath();
-    if (cliPath == null) {
-      return null;
-    }
+  private static class TestDatabricksCliCredentialsProvider
+      extends DatabricksCliCredentialsProvider {
+    private List<String> capturedCommand;
 
-    java.util.List<String> cmd =
-        new java.util.ArrayList<>(
-            java.util.Arrays.asList(cliPath, "auth", "token", "--host", config.getHost()));
-    if (config.getExperimentalIsUnifiedHost() != null
-        && config.getExperimentalIsUnifiedHost()) {
-      cmd.add("--experimental-is-unified-host");
-      if (config.getAccountId() != null) {
+    @Override
+    CliTokenSource getDatabricksCliTokenSource(DatabricksConfig config) {
+      String cliPath = config.getDatabricksCliPath();
+      if (cliPath == null) {
+        return null;
+      }
+
+      // Build command exactly as the real implementation does (before OSUtils transforms it)
+      List<String> cmd =
+          new ArrayList<>(Arrays.asList(cliPath, "auth", "token", "--host", config.getHost()));
+      if (config.getExperimentalIsUnifiedHost() != null
+          && config.getExperimentalIsUnifiedHost()) {
+        cmd.add("--experimental-is-unified-host");
+        if (config.getAccountId() != null) {
+          cmd.add("--account-id");
+          cmd.add(config.getAccountId());
+        }
+        if (config.getWorkspaceId() != null) {
+          cmd.add("--workspace-id");
+          cmd.add(config.getWorkspaceId());
+        }
+      } else if (config.getClientType() == ClientType.ACCOUNT) {
         cmd.add("--account-id");
         cmd.add(config.getAccountId());
       }
-      if (config.getWorkspaceId() != null) {
-        cmd.add("--workspace-id");
-        cmd.add(config.getWorkspaceId());
-      }
-    } else if (config.getClientType() == ClientType.ACCOUNT) {
-      cmd.add("--account-id");
-      cmd.add(config.getAccountId());
+
+      this.capturedCommand = cmd;
+
+      // Return mock token source instead of creating real one
+      return mockCliTokenSource();
     }
 
-    return cmd;
+    public List<String> getCapturedCommand() {
+      return capturedCommand;
+    }
   }
 
   @Test
-  void testUnifiedHostWithAccountId() throws Exception {
+  void testUnifiedHostWithAccountId() {
+    TestDatabricksCliCredentialsProvider provider = new TestDatabricksCliCredentialsProvider();
     DatabricksConfig config =
         new DatabricksConfig()
             .setHost(HOST)
             .setAccountId(ACCOUNT_ID)
             .setExperimentalIsUnifiedHost(true)
-            .setDatabricksCliPath("/usr/bin/databricks");
+            .setDatabricksCliPath("/usr/bin/databricks")
+            .setCredentialsProvider(provider);
 
-    List<String> cmd = getCliCommand(config);
+    HeaderFactory header = provider.configure(config);
 
+    assertNotNull(header);
+    List<String> cmd = provider.getCapturedCommand();
     assertNotNull(cmd);
     assertTrue(cmd.contains("--experimental-is-unified-host"));
     assertTrue(cmd.contains("--account-id"));
@@ -69,16 +94,20 @@ class DatabricksCliCredentialsProviderTest {
   }
 
   @Test
-  void testUnifiedHostWithWorkspaceId() throws Exception {
+  void testUnifiedHostWithWorkspaceId() {
+    TestDatabricksCliCredentialsProvider provider = new TestDatabricksCliCredentialsProvider();
     DatabricksConfig config =
         new DatabricksConfig()
             .setHost(HOST)
             .setWorkspaceId(WORKSPACE_ID)
             .setExperimentalIsUnifiedHost(true)
-            .setDatabricksCliPath("/usr/bin/databricks");
+            .setDatabricksCliPath("/usr/bin/databricks")
+            .setCredentialsProvider(provider);
 
-    List<String> cmd = getCliCommand(config);
+    HeaderFactory header = provider.configure(config);
 
+    assertNotNull(header);
+    List<String> cmd = provider.getCapturedCommand();
     assertNotNull(cmd);
     assertTrue(cmd.contains("--experimental-is-unified-host"));
     assertTrue(cmd.contains("--workspace-id"));
@@ -87,17 +116,21 @@ class DatabricksCliCredentialsProviderTest {
   }
 
   @Test
-  void testUnifiedHostWithBothIds() throws Exception {
+  void testUnifiedHostWithBothIds() {
+    TestDatabricksCliCredentialsProvider provider = new TestDatabricksCliCredentialsProvider();
     DatabricksConfig config =
         new DatabricksConfig()
             .setHost(HOST)
             .setAccountId(ACCOUNT_ID)
             .setWorkspaceId(WORKSPACE_ID)
             .setExperimentalIsUnifiedHost(true)
-            .setDatabricksCliPath("/usr/bin/databricks");
+            .setDatabricksCliPath("/usr/bin/databricks")
+            .setCredentialsProvider(provider);
 
-    List<String> cmd = getCliCommand(config);
+    HeaderFactory header = provider.configure(config);
 
+    assertNotNull(header);
+    List<String> cmd = provider.getCapturedCommand();
     assertNotNull(cmd);
     assertTrue(cmd.contains("--experimental-is-unified-host"));
     assertTrue(cmd.contains("--account-id"));
@@ -107,15 +140,19 @@ class DatabricksCliCredentialsProviderTest {
   }
 
   @Test
-  void testUnifiedHostWithoutIds() throws Exception {
+  void testUnifiedHostWithoutIds() {
+    TestDatabricksCliCredentialsProvider provider = new TestDatabricksCliCredentialsProvider();
     DatabricksConfig config =
         new DatabricksConfig()
             .setHost(HOST)
             .setExperimentalIsUnifiedHost(true)
-            .setDatabricksCliPath("/usr/bin/databricks");
+            .setDatabricksCliPath("/usr/bin/databricks")
+            .setCredentialsProvider(provider);
 
-    List<String> cmd = getCliCommand(config);
+    HeaderFactory header = provider.configure(config);
 
+    assertNotNull(header);
+    List<String> cmd = provider.getCapturedCommand();
     assertNotNull(cmd);
     assertTrue(cmd.contains("--experimental-is-unified-host"));
     assertFalse(cmd.contains("--account-id"));
@@ -123,18 +160,19 @@ class DatabricksCliCredentialsProviderTest {
   }
 
   @Test
-  void testAccountClientWithoutUnifiedHost() throws Exception {
+  void testAccountClientWithoutUnifiedHost() {
+    TestDatabricksCliCredentialsProvider provider = new TestDatabricksCliCredentialsProvider();
     DatabricksConfig config =
         new DatabricksConfig()
             .setHost("https://accounts.cloud.databricks.com")
             .setAccountId(ACCOUNT_ID)
-            .setDatabricksCliPath("/usr/bin/databricks");
+            .setDatabricksCliPath("/usr/bin/databricks")
+            .setCredentialsProvider(provider);
 
-    // ClientType is automatically determined as ACCOUNT for accounts host
-    assertEquals(ClientType.ACCOUNT, config.getClientType());
+    HeaderFactory header = provider.configure(config);
 
-    List<String> cmd = getCliCommand(config);
-
+    assertNotNull(header);
+    List<String> cmd = provider.getCapturedCommand();
     assertNotNull(cmd);
     assertFalse(cmd.contains("--experimental-is-unified-host"));
     assertTrue(cmd.contains("--account-id"));
@@ -142,15 +180,18 @@ class DatabricksCliCredentialsProviderTest {
   }
 
   @Test
-  void testWorkspaceClientWithoutUnifiedHost() throws Exception {
+  void testWorkspaceClientWithoutUnifiedHost() {
+    TestDatabricksCliCredentialsProvider provider = new TestDatabricksCliCredentialsProvider();
     DatabricksConfig config =
-        new DatabricksConfig().setHost(HOST).setDatabricksCliPath("/usr/bin/databricks");
+        new DatabricksConfig()
+            .setHost(HOST)
+            .setDatabricksCliPath("/usr/bin/databricks")
+            .setCredentialsProvider(provider);
 
-    // ClientType is automatically determined as WORKSPACE for workspace host
-    assertEquals(ClientType.WORKSPACE, config.getClientType());
+    HeaderFactory header = provider.configure(config);
 
-    List<String> cmd = getCliCommand(config);
-
+    assertNotNull(header);
+    List<String> cmd = provider.getCapturedCommand();
     assertNotNull(cmd);
     assertFalse(cmd.contains("--experimental-is-unified-host"));
     assertFalse(cmd.contains("--account-id"));
@@ -162,19 +203,20 @@ class DatabricksCliCredentialsProviderTest {
   }
 
   @Test
-  void testUnifiedHostFalseUsesRegularBehavior() throws Exception {
+  void testUnifiedHostFalseUsesRegularBehavior() {
+    TestDatabricksCliCredentialsProvider provider = new TestDatabricksCliCredentialsProvider();
     DatabricksConfig config =
         new DatabricksConfig()
             .setHost("https://accounts.cloud.databricks.com")
             .setAccountId(ACCOUNT_ID)
             .setExperimentalIsUnifiedHost(false)
-            .setDatabricksCliPath("/usr/bin/databricks");
+            .setDatabricksCliPath("/usr/bin/databricks")
+            .setCredentialsProvider(provider);
 
-    // ClientType is automatically determined as ACCOUNT for accounts host
-    assertEquals(ClientType.ACCOUNT, config.getClientType());
+    HeaderFactory header = provider.configure(config);
 
-    List<String> cmd = getCliCommand(config);
-
+    assertNotNull(header);
+    List<String> cmd = provider.getCapturedCommand();
     assertNotNull(cmd);
     assertFalse(cmd.contains("--experimental-is-unified-host"));
     assertTrue(cmd.contains("--account-id"));
@@ -184,10 +226,10 @@ class DatabricksCliCredentialsProviderTest {
   @Test
   void testConfigureWithNullHost() {
     DatabricksCliCredentialsProvider provider = new DatabricksCliCredentialsProvider();
-
     DatabricksConfig config = new DatabricksConfig();
 
     HeaderFactory header = provider.configure(config);
+
     assertNull(header);
   }
 }

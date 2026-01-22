@@ -20,7 +20,7 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
     return DATABRICKS_CLI;
   }
 
-  private CliTokenSource getDatabricksCliTokenSource(DatabricksConfig config) {
+  CliTokenSource getDatabricksCliTokenSource(DatabricksConfig config) {
     String cliPath = config.getDatabricksCliPath();
     if (cliPath == null) {
       cliPath = OSUtils.get(config.getEnv()).getDatabricksCliPath();
