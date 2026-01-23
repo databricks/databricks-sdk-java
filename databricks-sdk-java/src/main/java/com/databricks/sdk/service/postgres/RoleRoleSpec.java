@@ -28,6 +28,17 @@ public class RoleRoleSpec {
   @JsonProperty("identity_type")
   private RoleIdentityType identityType;
 
+  /**
+   * The name of the Postgres role.
+   *
+   * <p>This expects a valid Postgres identifier as specified in the link below.
+   * https://www.postgresql.org/docs/current/sql-syntax-lexical.html#SQL-SYNTAX-IDENTIFIERS
+   *
+   * <p>Required when creating the Role.
+   */
+  @JsonProperty("postgres_role")
+  private String postgresRole;
+
   public RoleRoleSpec setAuthMethod(RoleAuthMethod authMethod) {
     this.authMethod = authMethod;
     return this;
@@ -46,18 +57,28 @@ public class RoleRoleSpec {
     return identityType;
   }
 
+  public RoleRoleSpec setPostgresRole(String postgresRole) {
+    this.postgresRole = postgresRole;
+    return this;
+  }
+
+  public String getPostgresRole() {
+    return postgresRole;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     RoleRoleSpec that = (RoleRoleSpec) o;
     return Objects.equals(authMethod, that.authMethod)
-        && Objects.equals(identityType, that.identityType);
+        && Objects.equals(identityType, that.identityType)
+        && Objects.equals(postgresRole, that.postgresRole);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(authMethod, identityType);
+    return Objects.hash(authMethod, identityType, postgresRole);
   }
 
   @Override
@@ -65,6 +86,7 @@ public class RoleRoleSpec {
     return new ToStringer(RoleRoleSpec.class)
         .add("authMethod", authMethod)
         .add("identityType", identityType)
+        .add("postgresRole", postgresRole)
         .toString();
   }
 }
