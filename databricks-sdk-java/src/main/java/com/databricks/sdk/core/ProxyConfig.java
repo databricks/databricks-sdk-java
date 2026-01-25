@@ -9,6 +9,7 @@ public class ProxyConfig {
   private String username;
   private String password;
   private ProxyAuthType proxyAuthType;
+  private String scheme;
   private Boolean useSystemProperties;
   // a list of hosts that should be reached directly, bypassing the proxy.
   // This is a list of patterns separated by '|'. The patterns may start or end with a '*' for
@@ -70,6 +71,15 @@ public class ProxyConfig {
 
   public ProxyConfig setProxyAuthType(ProxyAuthType proxyAuthType) {
     this.proxyAuthType = proxyAuthType;
+    return this;
+  }
+
+  public String getScheme() {
+    return scheme;
+  }
+
+  public ProxyConfig setScheme(String scheme) {
+    this.scheme = scheme;
     return this;
   }
 

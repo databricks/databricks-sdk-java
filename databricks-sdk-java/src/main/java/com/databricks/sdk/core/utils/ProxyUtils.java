@@ -35,14 +35,15 @@ public class ProxyUtils {
     Integer proxyPort = null;
     String proxyUser = null;
     String proxyPassword = null;
+    String proxyScheme = null;
     ProxyConfig.ProxyAuthType proxyAuthType = null;
     if (config.getUseSystemProperties() != null && config.getUseSystemProperties()) {
       builder.useSystemProperties();
-      String protocol = System.getProperty("https.proxyHost") != null ? "https" : "http";
-      proxyHost = System.getProperty(protocol + ".proxyHost");
-      proxyPort = Integer.parseInt(System.getProperty(protocol + ".proxyPort"));
-      proxyUser = System.getProperty(protocol + ".proxyUser");
-      proxyPassword = System.getProperty(protocol + ".proxyPassword");
+      proxyScheme = System.getProperty("https.proxyHost") != null ? "https" : "http";
+      proxyHost = System.getProperty(proxyScheme + ".proxyHost");
+      proxyPort = Integer.parseInt(System.getProperty(proxyScheme + ".proxyPort"));
+      proxyUser = System.getProperty(proxyScheme + ".proxyUser");
+      proxyPassword = System.getProperty(proxyScheme + ".proxyPassword");
       proxyAuthType = config.getProxyAuthType();
     }
     // Override system properties if proxy configuration is explicitly set
@@ -52,7 +53,8 @@ public class ProxyUtils {
       proxyUser = config.getUsername();
       proxyPassword = config.getPassword();
       proxyAuthType = config.getProxyAuthType();
-      builder.setProxy(new HttpHost(proxyHost, proxyPort));
+      proxyScheme = config.getScheme();
+      builder.setProxy(new HttpHost(proxyHost, proxyPort, proxyScheme));
     }
     if (proxyHost == null) {
       // No proxy is set in system properties or in the config
@@ -60,7 +62,7 @@ public class ProxyUtils {
     }
     if (config.getNonProxyHosts() != null) {
       builder.setRoutePlanner(
-          new CustomRoutePlanner(new HttpHost(proxyHost, proxyPort), config.getNonProxyHosts()));
+          new CustomRoutePlanner(new HttpHost(proxyHost, proxyPort, proxyScheme), config.getNonProxyHosts()));
     }
     setupProxyAuth(proxyHost, proxyPort, proxyAuthType, proxyUser, proxyPassword, builder);
   }
