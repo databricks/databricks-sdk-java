@@ -24,6 +24,8 @@ public class CreateRoleRequest {
    *
    * <p>This value should be 4-63 characters, and valid characters are lowercase letters, numbers,
    * and hyphens, as defined by RFC 1123.
+   *
+   * <p>If role_id is not specified in the request, it is generated automatically.
    */
   @JsonIgnore
   @QueryParam("role_id")
