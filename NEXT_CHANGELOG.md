@@ -5,6 +5,7 @@
 ### New Features and Improvements
 
 ### Bug Fixes
+ * `UserAgent.env()` no longer throws `NullPointerException` when `PATH` variable is not found
 
 ### Security Vulnerabilities
 
