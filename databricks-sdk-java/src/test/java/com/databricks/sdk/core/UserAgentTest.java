@@ -101,4 +101,13 @@ public class UserAgentTest {
     Assertions.assertTrue(UserAgent.asString().contains("cicd/gitlab"));
     UserAgent.env = null;
   }
+
+  @Test
+  public void testEnvNoPath() {
+    // Fix NullPointerException when System.getenv() returns null or missing PATH property
+    UserAgent.env = null;
+    Environment environment = UserAgent.env();
+    Assertions.assertNotNull(environment);
+    UserAgent.env = null;
+  }
 }
