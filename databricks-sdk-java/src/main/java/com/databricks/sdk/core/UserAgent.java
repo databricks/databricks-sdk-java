@@ -33,10 +33,21 @@ public class UserAgent {
 
   private static final ArrayList<Info> otherInfo = new ArrayList<>();
 
-  // TODO: check if reading from
-  // /META-INF/maven/com.databricks/databrics-sdk-java/pom.properties
-  // or getClass().getPackage().getImplementationVersion() is enough.
-  private static final String version = "0.79.0";
+  // Try to get version from package metadata or fallback to hardcoded value
+  private static final String version;
+  static {
+    String v = null;
+    try {
+      Package pkg = UserAgent.class.getPackage();
+      if (pkg != null) {
+        v = pkg.getImplementationVersion();
+      }
+    } catch (Exception ignored) {}
+    if (v == null) {
+      v = "0.79.0";
+    }
+    version = v;
+  }
 
   public static void withProduct(String product, String productVersion) {
     UserAgent.product = product;
@@ -233,11 +244,16 @@ public class UserAgent {
 
   private static Environment env() {
     if (env == null) {
-      env =
-          new Environment(
-              System.getenv(),
-              System.getenv("PATH").split(File.pathSeparator),
-              System.getProperty("os.name"));
+      Map<String, String> sysEnv = System.getenv();
+      if (sysEnv == null) {
+        sysEnv = Collections.emptyMap();
+      }
+      String pathVar = sysEnv.get("PATH");
+      String[] pathArr = pathVar != null ? pathVar.split(File.pathSeparator) : new String[0];
+      env = new Environment(
+          sysEnv,
+          pathArr,
+          System.getProperty("os.name"));
     }
     return env;
   }
