@@ -33,6 +33,10 @@ public class ClonePipelineRequest {
   @JsonProperty("channel")
   private String channel;
 
+  /** The type of clone to perform. Currently, only deep copies are supported */
+  @JsonProperty("clone_mode")
+  private CloneMode cloneMode;
+
   /** Cluster settings for this pipeline deployment. */
   @JsonProperty("clusters")
   private Collection<PipelineCluster> clusters;
@@ -192,6 +196,15 @@ public class ClonePipelineRequest {
 
   public String getChannel() {
     return channel;
+  }
+
+  public ClonePipelineRequest setCloneMode(CloneMode cloneMode) {
+    this.cloneMode = cloneMode;
+    return this;
+  }
+
+  public CloneMode getCloneMode() {
+    return cloneMode;
   }
 
   public ClonePipelineRequest setClusters(Collection<PipelineCluster> clusters) {
@@ -448,6 +461,7 @@ public class ClonePipelineRequest {
         && Objects.equals(budgetPolicyId, that.budgetPolicyId)
         && Objects.equals(catalog, that.catalog)
         && Objects.equals(channel, that.channel)
+        && Objects.equals(cloneMode, that.cloneMode)
         && Objects.equals(clusters, that.clusters)
         && Objects.equals(configuration, that.configuration)
         && Objects.equals(continuous, that.continuous)
@@ -484,6 +498,7 @@ public class ClonePipelineRequest {
         budgetPolicyId,
         catalog,
         channel,
+        cloneMode,
         clusters,
         configuration,
         continuous,
@@ -520,6 +535,7 @@ public class ClonePipelineRequest {
         .add("budgetPolicyId", budgetPolicyId)
         .add("catalog", catalog)
         .add("channel", channel)
+        .add("cloneMode", cloneMode)
         .add("clusters", clusters)
         .add("configuration", configuration)
         .add("continuous", continuous)
