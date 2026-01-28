@@ -11,17 +11,16 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 @EnvContext("account")
 @DisabledIfEnvironmentVariable(named = "ARM_CLIENT_ID", matches = ".*")
+// Skipping this test for GCP because this api is not enabled in GCP.
+@DisabledIfEnvironmentVariable(named = "CLOUD_PROVIDER", matches = "GCP")
 @ExtendWith(EnvTest.class)
 public class CredentialsIT {
   @Test
   void lists(AccountClient a) {
-    // Skipping this test for GCP because this api is not enabled in GCP.
-    if (!a.config().isGcp()) {
-      Iterable<Credential> list = a.credentials().list();
+    Iterable<Credential> list = a.credentials().list();
 
-      java.util.List<Credential> all = CollectionUtils.asList(list);
+    java.util.List<Credential> all = CollectionUtils.asList(list);
 
-      CollectionUtils.assertUnique(all);
-    }
+    CollectionUtils.assertUnique(all);
   }
 }
