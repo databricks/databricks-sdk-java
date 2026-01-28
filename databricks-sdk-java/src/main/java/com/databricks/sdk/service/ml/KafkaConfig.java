@@ -14,6 +14,15 @@ public class KafkaConfig {
   @JsonProperty("auth_config")
   private AuthConfig authConfig;
 
+  /**
+   * A user-provided and managed source for backfilling data. Historical data is used when creating
+   * a training set from streaming features linked to this Kafka config. In the future, a separate
+   * table will be maintained by Databricks for forward filling data. The schema for this source
+   * must match exactly that of the key and value schemas specified for this Kafka config.
+   */
+  @JsonProperty("backfill_source")
+  private BackfillSource backfillSource;
+
   /** A comma-separated list of host/port pairs pointing to Kafka cluster. */
   @JsonProperty("bootstrap_servers")
   private String bootstrapServers;
@@ -58,6 +67,15 @@ public class KafkaConfig {
 
   public AuthConfig getAuthConfig() {
     return authConfig;
+  }
+
+  public KafkaConfig setBackfillSource(BackfillSource backfillSource) {
+    this.backfillSource = backfillSource;
+    return this;
+  }
+
+  public BackfillSource getBackfillSource() {
+    return backfillSource;
   }
 
   public KafkaConfig setBootstrapServers(String bootstrapServers) {
@@ -120,6 +138,7 @@ public class KafkaConfig {
     if (o == null || getClass() != o.getClass()) return false;
     KafkaConfig that = (KafkaConfig) o;
     return Objects.equals(authConfig, that.authConfig)
+        && Objects.equals(backfillSource, that.backfillSource)
         && Objects.equals(bootstrapServers, that.bootstrapServers)
         && Objects.equals(extraOptions, that.extraOptions)
         && Objects.equals(keySchema, that.keySchema)
@@ -131,13 +150,21 @@ public class KafkaConfig {
   @Override
   public int hashCode() {
     return Objects.hash(
-        authConfig, bootstrapServers, extraOptions, keySchema, name, subscriptionMode, valueSchema);
+        authConfig,
+        backfillSource,
+        bootstrapServers,
+        extraOptions,
+        keySchema,
+        name,
+        subscriptionMode,
+        valueSchema);
   }
 
   @Override
   public String toString() {
     return new ToStringer(KafkaConfig.class)
         .add("authConfig", authConfig)
+        .add("backfillSource", backfillSource)
         .add("bootstrapServers", bootstrapServers)
         .add("extraOptions", extraOptions)
         .add("keySchema", keySchema)

@@ -11,7 +11,7 @@ import java.util.Objects;
 @Generated
 public class ListCredentialsRequest {
   /**
-   * The ID of the service principal whose credentials will be modified. Only service principal
+   * The ID of the service principal whose credentials will be listed. Only service principal
    * managers can perform this action.
    */
   @JsonIgnore
