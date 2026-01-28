@@ -1683,6 +1683,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ActivityType.jav
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ApproveTransitionRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ApproveTransitionRequestResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/AuthConfig.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/BackfillSource.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/BatchCreateMaterializedFeaturesRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/BatchCreateMaterializedFeaturesResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ColumnIdentifier.java linguist-generated=true

@@ -10,6 +10,14 @@ import java.util.Objects;
 
 @Generated
 public class ServedModelOutput {
+  /**
+   * Whether burst scaling is enabled. When enabled (default), the endpoint can automatically scale
+   * up beyond provisioned capacity to handle traffic spikes. When disabled, the endpoint maintains
+   * fixed capacity at provisioned_model_units.
+   */
+  @JsonProperty("burst_scaling_enabled")
+  private Boolean burstScalingEnabled;
+
   /** */
   @JsonProperty("creation_timestamp")
   private Long creationTimestamp;
@@ -98,6 +106,15 @@ public class ServedModelOutput {
    */
   @JsonProperty("workload_type")
   private ServingModelWorkloadType workloadType;
+
+  public ServedModelOutput setBurstScalingEnabled(Boolean burstScalingEnabled) {
+    this.burstScalingEnabled = burstScalingEnabled;
+    return this;
+  }
+
+  public Boolean getBurstScalingEnabled() {
+    return burstScalingEnabled;
+  }
 
   public ServedModelOutput setCreationTimestamp(Long creationTimestamp) {
     this.creationTimestamp = creationTimestamp;
@@ -230,7 +247,8 @@ public class ServedModelOutput {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ServedModelOutput that = (ServedModelOutput) o;
-    return Objects.equals(creationTimestamp, that.creationTimestamp)
+    return Objects.equals(burstScalingEnabled, that.burstScalingEnabled)
+        && Objects.equals(creationTimestamp, that.creationTimestamp)
         && Objects.equals(creator, that.creator)
         && Objects.equals(environmentVars, that.environmentVars)
         && Objects.equals(instanceProfileArn, that.instanceProfileArn)
@@ -249,6 +267,7 @@ public class ServedModelOutput {
   @Override
   public int hashCode() {
     return Objects.hash(
+        burstScalingEnabled,
         creationTimestamp,
         creator,
         environmentVars,
@@ -268,6 +287,7 @@ public class ServedModelOutput {
   @Override
   public String toString() {
     return new ToStringer(ServedModelOutput.class)
+        .add("burstScalingEnabled", burstScalingEnabled)
         .add("creationTimestamp", creationTimestamp)
         .add("creator", creator)
         .add("environmentVars", environmentVars)

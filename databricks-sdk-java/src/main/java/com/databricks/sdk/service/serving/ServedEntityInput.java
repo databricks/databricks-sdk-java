@@ -11,6 +11,14 @@ import java.util.Objects;
 @Generated
 public class ServedEntityInput {
   /**
+   * Whether burst scaling is enabled. When enabled (default), the endpoint can automatically scale
+   * up beyond provisioned capacity to handle traffic spikes. When disabled, the endpoint maintains
+   * fixed capacity at provisioned_model_units.
+   */
+  @JsonProperty("burst_scaling_enabled")
+  private Boolean burstScalingEnabled;
+
+  /**
    * The name of the entity to be served. The entity may be a model in the Databricks Model
    * Registry, a model in the Unity Catalog (UC), or a function of type FEATURE_SPEC in the UC. If
    * it is a UC object, the full name of the object should be given in the form of
@@ -111,6 +119,15 @@ public class ServedEntityInput {
    */
   @JsonProperty("workload_type")
   private ServingModelWorkloadType workloadType;
+
+  public ServedEntityInput setBurstScalingEnabled(Boolean burstScalingEnabled) {
+    this.burstScalingEnabled = burstScalingEnabled;
+    return this;
+  }
+
+  public Boolean getBurstScalingEnabled() {
+    return burstScalingEnabled;
+  }
 
   public ServedEntityInput setEntityName(String entityName) {
     this.entityName = entityName;
@@ -243,7 +260,8 @@ public class ServedEntityInput {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ServedEntityInput that = (ServedEntityInput) o;
-    return Objects.equals(entityName, that.entityName)
+    return Objects.equals(burstScalingEnabled, that.burstScalingEnabled)
+        && Objects.equals(entityName, that.entityName)
         && Objects.equals(entityVersion, that.entityVersion)
         && Objects.equals(environmentVars, that.environmentVars)
         && Objects.equals(externalModel, that.externalModel)
@@ -262,6 +280,7 @@ public class ServedEntityInput {
   @Override
   public int hashCode() {
     return Objects.hash(
+        burstScalingEnabled,
         entityName,
         entityVersion,
         environmentVars,
@@ -281,6 +300,7 @@ public class ServedEntityInput {
   @Override
   public String toString() {
     return new ToStringer(ServedEntityInput.class)
+        .add("burstScalingEnabled", burstScalingEnabled)
         .add("entityName", entityName)
         .add("entityVersion", entityVersion)
         .add("environmentVars", environmentVars)

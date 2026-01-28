@@ -10,6 +10,14 @@ import java.util.Objects;
 
 @Generated
 public class ServedEntityOutput {
+  /**
+   * Whether burst scaling is enabled. When enabled (default), the endpoint can automatically scale
+   * up beyond provisioned capacity to handle traffic spikes. When disabled, the endpoint maintains
+   * fixed capacity at provisioned_model_units.
+   */
+  @JsonProperty("burst_scaling_enabled")
+  private Boolean burstScalingEnabled;
+
   /** */
   @JsonProperty("creation_timestamp")
   private Long creationTimestamp;
@@ -127,6 +135,15 @@ public class ServedEntityOutput {
    */
   @JsonProperty("workload_type")
   private ServingModelWorkloadType workloadType;
+
+  public ServedEntityOutput setBurstScalingEnabled(Boolean burstScalingEnabled) {
+    this.burstScalingEnabled = burstScalingEnabled;
+    return this;
+  }
+
+  public Boolean getBurstScalingEnabled() {
+    return burstScalingEnabled;
+  }
 
   public ServedEntityOutput setCreationTimestamp(Long creationTimestamp) {
     this.creationTimestamp = creationTimestamp;
@@ -295,7 +312,8 @@ public class ServedEntityOutput {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ServedEntityOutput that = (ServedEntityOutput) o;
-    return Objects.equals(creationTimestamp, that.creationTimestamp)
+    return Objects.equals(burstScalingEnabled, that.burstScalingEnabled)
+        && Objects.equals(creationTimestamp, that.creationTimestamp)
         && Objects.equals(creator, that.creator)
         && Objects.equals(entityName, that.entityName)
         && Objects.equals(entityVersion, that.entityVersion)
@@ -318,6 +336,7 @@ public class ServedEntityOutput {
   @Override
   public int hashCode() {
     return Objects.hash(
+        burstScalingEnabled,
         creationTimestamp,
         creator,
         entityName,
@@ -341,6 +360,7 @@ public class ServedEntityOutput {
   @Override
   public String toString() {
     return new ToStringer(ServedEntityOutput.class)
+        .add("burstScalingEnabled", burstScalingEnabled)
         .add("creationTimestamp", creationTimestamp)
         .add("creator", creator)
         .add("entityName", entityName)
