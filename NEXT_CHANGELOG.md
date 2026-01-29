@@ -13,3 +13,4 @@
 ### Internal Changes
 
 ### API Changes
+* [Breaking] Change `createRole()` method for `workspaceClient.postgres()` service. HTTP method/verb has changed.
