@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.databricks</groupId>
     <artifactId>databricks-sdk-parent</artifactId>
-    <version>0.81.0</version>
+    <version>0.82.0</version>
   </parent>
   <artifactId>databricks-sdk-java</artifactId>
   <name>Databricks SDK for Java</name>
