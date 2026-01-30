@@ -13,7 +13,10 @@ public class ListTagAssignmentsRequest {
   /** The identifier of the entity to which the tag is assigned */
   @JsonIgnore private String entityId;
 
-  /** The type of entity to which the tag is assigned. Allowed values are dashboards, geniespaces */
+  /**
+   * The type of entity to which the tag is assigned. Allowed values are apps, dashboards,
+   * geniespaces
+   */
   @JsonIgnore private String entityType;
 
   /** Optional. Maximum number of tag assignments to return in a single page */

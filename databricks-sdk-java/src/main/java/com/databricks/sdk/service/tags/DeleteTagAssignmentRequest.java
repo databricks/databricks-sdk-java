@@ -12,7 +12,10 @@ public class DeleteTagAssignmentRequest {
   /** The identifier of the entity to which the tag is assigned */
   @JsonIgnore private String entityId;
 
-  /** The type of entity to which the tag is assigned. Allowed values are dashboards, geniespaces */
+  /**
+   * The type of entity to which the tag is assigned. Allowed values are apps, dashboards,
+   * geniespaces
+   */
   @JsonIgnore private String entityType;
 
   /** The key of the tag. The characters , . : / - = and leading/trailing spaces are not allowed */

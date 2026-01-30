@@ -65,7 +65,7 @@ class PostgresImpl implements PostgresService {
   public Operation createRole(CreateRoleRequest request) {
     String path = String.format("/api/2.0/postgres/%s/roles", request.getParent());
     try {
-      Request req = new Request("PATCH", path, apiClient.serialize(request.getRole()));
+      Request req = new Request("POST", path, apiClient.serialize(request.getRole()));
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");

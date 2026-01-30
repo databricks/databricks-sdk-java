@@ -13,7 +13,10 @@ public class TagAssignment {
   @JsonProperty("entity_id")
   private String entityId;
 
-  /** The type of entity to which the tag is assigned. Allowed values are dashboards, geniespaces */
+  /**
+   * The type of entity to which the tag is assigned. Allowed values are apps, dashboards,
+   * geniespaces
+   */
   @JsonProperty("entity_type")
   private String entityType;
 
