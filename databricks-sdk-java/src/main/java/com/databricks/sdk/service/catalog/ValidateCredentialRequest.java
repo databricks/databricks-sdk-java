@@ -7,7 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Next ID: 17 */
+/** Next ID: 18 */
 @Generated
 public class ValidateCredentialRequest {
   /** */
