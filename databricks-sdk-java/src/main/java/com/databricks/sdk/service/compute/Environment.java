@@ -15,6 +15,17 @@ import java.util.Objects;
  */
 @Generated
 public class Environment {
+  /**
+   * The `base_environment` key refers to an `env.yaml` file that specifies an environment version
+   * and a collection of dependencies required for the environment setup. This `env.yaml` file may
+   * itself include a `base_environment` reference pointing to another `env_1.yaml` file. However,
+   * when used as a base environment, `env_1.yaml` (or further nested references) will not be
+   * processed or included in the final environment, meaning that the resolution of
+   * `base_environment` references is not recursive.
+   */
+  @JsonProperty("base_environment")
+  private String baseEnvironment;
+
   /** Use `environment_version` instead. */
   @JsonProperty("client")
   private String client;
@@ -42,6 +53,15 @@ public class Environment {
    */
   @JsonProperty("java_dependencies")
   private Collection<String> javaDependencies;
+
+  public Environment setBaseEnvironment(String baseEnvironment) {
+    this.baseEnvironment = baseEnvironment;
+    return this;
+  }
+
+  public String getBaseEnvironment() {
+    return baseEnvironment;
+  }
 
   public Environment setClient(String client) {
     this.client = client;
@@ -84,7 +104,8 @@ public class Environment {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Environment that = (Environment) o;
-    return Objects.equals(client, that.client)
+    return Objects.equals(baseEnvironment, that.baseEnvironment)
+        && Objects.equals(client, that.client)
         && Objects.equals(dependencies, that.dependencies)
         && Objects.equals(environmentVersion, that.environmentVersion)
         && Objects.equals(javaDependencies, that.javaDependencies);
@@ -92,12 +113,14 @@ public class Environment {
 
   @Override
   public int hashCode() {
-    return Objects.hash(client, dependencies, environmentVersion, javaDependencies);
+    return Objects.hash(
+        baseEnvironment, client, dependencies, environmentVersion, javaDependencies);
   }
 
   @Override
   public String toString() {
     return new ToStringer(Environment.class)
+        .add("baseEnvironment", baseEnvironment)
         .add("client", client)
         .add("dependencies", dependencies)
         .add("environmentVersion", environmentVersion)
