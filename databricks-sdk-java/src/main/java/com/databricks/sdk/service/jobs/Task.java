@@ -18,6 +18,10 @@ public class Task {
   @JsonProperty("clean_rooms_notebook_task")
   private CleanRoomsNotebookTask cleanRoomsNotebookTask;
 
+  /** Task level compute configuration. */
+  @JsonProperty("compute")
+  private Compute compute;
+
   /**
    * The task evaluates a condition that can be used to control the execution of other tasks when
    * the `condition_task` field is present. The condition task does not require a cluster to execute
@@ -241,6 +245,15 @@ public class Task {
 
   public CleanRoomsNotebookTask getCleanRoomsNotebookTask() {
     return cleanRoomsNotebookTask;
+  }
+
+  public Task setCompute(Compute compute) {
+    this.compute = compute;
+    return this;
+  }
+
+  public Compute getCompute() {
+    return compute;
   }
 
   public Task setConditionTask(ConditionTask conditionTask) {
@@ -564,6 +577,7 @@ public class Task {
     if (o == null || getClass() != o.getClass()) return false;
     Task that = (Task) o;
     return Objects.equals(cleanRoomsNotebookTask, that.cleanRoomsNotebookTask)
+        && Objects.equals(compute, that.compute)
         && Objects.equals(conditionTask, that.conditionTask)
         && Objects.equals(dashboardTask, that.dashboardTask)
         && Objects.equals(dbtCloudTask, that.dbtCloudTask)
@@ -605,6 +619,7 @@ public class Task {
   public int hashCode() {
     return Objects.hash(
         cleanRoomsNotebookTask,
+        compute,
         conditionTask,
         dashboardTask,
         dbtCloudTask,
@@ -646,6 +661,7 @@ public class Task {
   public String toString() {
     return new ToStringer(Task.class)
         .add("cleanRoomsNotebookTask", cleanRoomsNotebookTask)
+        .add("compute", compute)
         .add("conditionTask", conditionTask)
         .add("dashboardTask", dashboardTask)
         .add("dbtCloudTask", dbtCloudTask)

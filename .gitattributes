@@ -843,6 +843,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/GlobalInitS
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/GlobalInitScriptsAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/GlobalInitScriptsImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/GlobalInitScriptsService.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/HardwareAcceleratorType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/InitScriptEventDetails.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/InitScriptExecutionDetailsInitScriptExecutionStatus.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/InitScriptInfo.java linguist-generated=true
@@ -1342,6 +1343,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/CleanRoomsNote
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/CleanRoomsNotebookTaskCleanRoomsNotebookTaskOutput.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/ClusterInstance.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/ClusterSpec.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/Compute.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/ComputeConfig.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/Condition.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/ConditionTask.java linguist-generated=true
