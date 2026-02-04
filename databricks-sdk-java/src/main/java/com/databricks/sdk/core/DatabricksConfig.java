@@ -249,11 +249,6 @@ public class DatabricksConfig {
       }
       Map<String, String> headers = new HashMap<>(headerFactory.headers());
 
-      // For unified hosts with workspace operations, add the X-Databricks-Org-Id header
-      if (getHostType() == HostType.UNIFIED && workspaceId != null && !workspaceId.isEmpty()) {
-        headers.put("X-Databricks-Org-Id", workspaceId);
-      }
-
       return headers;
     } catch (DatabricksException e) {
       String msg = String.format("%s auth: %s", credentialsProvider.authType(), e.getMessage());

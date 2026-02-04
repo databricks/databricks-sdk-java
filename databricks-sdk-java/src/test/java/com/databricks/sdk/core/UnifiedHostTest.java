@@ -2,8 +2,15 @@ package com.databricks.sdk.core;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.databricks.sdk.AccountClient;
+import com.databricks.sdk.WorkspaceClient;
+import com.databricks.sdk.core.http.HttpClient;
+import com.databricks.sdk.core.http.Request;
+import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.oauth.OpenIDConnectEndpoints;
 import com.databricks.sdk.core.utils.Environment;
+import com.databricks.sdk.service.iam.ListAccountUsersRequest;
+import com.databricks.sdk.service.jobs.ListJobsRequest;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Stream;
@@ -188,47 +195,107 @@ public class UnifiedHostTest {
   // --- Header Injection Tests ---
 
   @Test
-  public void testHeaderInjectionForWorkspaceOnUnified() {
+  public void testHeaderInjectionForWorkspaceOnUnified() throws IOException {
     String workspaceId = "123456789";
+
+    // Create a capturing HTTP client to verify headers
+    final Request[] capturedRequest = new Request[1];
+    HttpClient capturingClient =
+        new HttpClient() {
+          @Override
+          public Response execute(Request request) throws IOException {
+            capturedRequest[0] = request;
+            // Return a minimal valid response
+            return new Response(
+                request, 200, "OK", Collections.emptyMap(), "{\"jobs\": [], \"has_more\": false}");
+          }
+        };
 
     DatabricksConfig config =
         new DatabricksConfig()
             .setHost("https://unified.databricks.com")
             .setExperimentalIsUnifiedHost(true)
             .setWorkspaceId(workspaceId)
-            .setToken("test-token");
+            .setToken("test-token")
+            .setHttpClient(capturingClient);
 
-    Map<String, String> headers = config.authenticate();
+    WorkspaceClient client = new WorkspaceClient(config);
 
-    assertEquals("Bearer test-token", headers.get("Authorization"));
-    assertEquals(workspaceId, headers.get("X-Databricks-Org-Id"));
+    // Make a service call - this should inject the X-Databricks-Org-Id header
+    client.jobs().list(new ListJobsRequest());
+
+    // Verify the header was injected
+    assertNotNull(capturedRequest[0], "Request should have been captured");
+    assertEquals(workspaceId, capturedRequest[0].getHeaders().get("X-Databricks-Org-Id"));
   }
 
   @Test
-  public void testNoHeaderInjectionForAccountOnUnified() {
+  public void testNoHeaderInjectionForAccountOnUnified() throws IOException {
+    String workspaceId = "123456789";
+
+    // Create a capturing HTTP client to verify headers
+    final Request[] capturedRequest = new Request[1];
+    HttpClient capturingClient =
+        new HttpClient() {
+          @Override
+          public Response execute(Request request) throws IOException {
+            capturedRequest[0] = request;
+            // Return a minimal valid response for account users list
+            return new Response(request, 200, "OK", Collections.emptyMap(), "{\"resources\": []}");
+          }
+        };
+
     DatabricksConfig config =
         new DatabricksConfig()
             .setHost("https://unified.databricks.com")
             .setExperimentalIsUnifiedHost(true)
-            .setToken("test-token");
-    // No workspace ID set
+            .setWorkspaceId(workspaceId)
+            .setAccountId("test-account")
+            .setToken("test-token")
+            .setHttpClient(capturingClient);
 
-    Map<String, String> headers = config.authenticate();
+    AccountClient client = new AccountClient(config);
 
-    assertEquals("Bearer test-token", headers.get("Authorization"));
-    assertNull(headers.get("X-Databricks-Org-Id"));
+    // Make an account-level service call - should NOT inject workspace ID header
+    client.users().list(new ListAccountUsersRequest());
+
+    // Verify the header was NOT injected (account-level operation)
+    assertNotNull(capturedRequest[0], "Request should have been captured");
+    assertNull(
+        capturedRequest[0].getHeaders().get("X-Databricks-Org-Id"),
+        "Workspace ID header should not be present for account operations");
   }
 
   @Test
-  public void testNoHeaderInjectionForTraditionalWorkspace() {
+  public void testNoHeaderInjectionForTraditionalWorkspace() throws IOException {
+    // Create a capturing HTTP client to verify headers
+    final Request[] capturedRequest = new Request[1];
+    HttpClient capturingClient =
+        new HttpClient() {
+          @Override
+          public Response execute(Request request) throws IOException {
+            capturedRequest[0] = request;
+            // Return a minimal valid response
+            return new Response(
+                request, 200, "OK", Collections.emptyMap(), "{\"jobs\": [], \"has_more\": false}");
+          }
+        };
+
     DatabricksConfig config =
         new DatabricksConfig()
             .setHost("https://adb-123.azuredatabricks.net")
-            .setToken("test-token");
+            .setToken("test-token")
+            .setHttpClient(capturingClient);
 
-    Map<String, String> headers = config.authenticate();
+    WorkspaceClient client = new WorkspaceClient(config);
 
-    assertEquals("Bearer test-token", headers.get("Authorization"));
-    assertNull(headers.get("X-Databricks-Org-Id"));
+    // Make a service call
+    client.jobs().list(new ListJobsRequest());
+
+    // Verify the header was NOT injected (traditional workspace, no workspace ID set)
+    assertNotNull(capturedRequest[0], "Request should have been captured");
+    assertNull(
+        capturedRequest[0].getHeaders().get("X-Databricks-Org-Id"),
+        "Workspace ID header should not be present for traditional workspaces");
   }
 }

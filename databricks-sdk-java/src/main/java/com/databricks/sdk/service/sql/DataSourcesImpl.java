@@ -20,6 +20,9 @@ class DataSourcesImpl implements DataSourcesService {
     String path = "/api/2.0/preview/sql/data_sources";
     Request req = new Request("GET", path);
     req.withHeader("Accept", "application/json");
+    if (apiClient.workspaceId() != null) {
+      req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+    }
     return apiClient.getCollection(req, DataSource.class);
   }
 }

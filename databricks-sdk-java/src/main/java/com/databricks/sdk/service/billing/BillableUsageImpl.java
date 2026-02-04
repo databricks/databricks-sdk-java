@@ -25,6 +25,9 @@ class BillableUsageImpl implements BillableUsageService {
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "text/plain");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, DownloadResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);

@@ -28,6 +28,9 @@ class PrivateAccessImpl implements PrivateAccessService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, PrivateAccessSettings.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -45,6 +48,9 @@ class PrivateAccessImpl implements PrivateAccessService {
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, PrivateAccessSettings.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -62,6 +68,9 @@ class PrivateAccessImpl implements PrivateAccessService {
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, PrivateAccessSettings.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -75,6 +84,9 @@ class PrivateAccessImpl implements PrivateAccessService {
             "/api/2.0/accounts/%s/private-access-settings", apiClient.configuredAccountID());
     Request req = new Request("GET", path);
     req.withHeader("Accept", "application/json");
+    if (apiClient.workspaceId() != null) {
+      req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+    }
     return apiClient.getCollection(req, PrivateAccessSettings.class);
   }
 
@@ -92,6 +104,9 @@ class PrivateAccessImpl implements PrivateAccessService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, PrivateAccessSettings.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
