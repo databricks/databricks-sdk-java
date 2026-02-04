@@ -483,4 +483,30 @@ public class ApiClientTest {
                     new Request("GET", req.getUri().getPath()), MyEndpointResponse.class));
     assertTrue(e.getMessage().contains("AWS PrivateLink"));
   }
+
+  @Test
+  void testDefaultWorkspaceIdReturnsNullWhenNotSet() {
+    Request req = getBasicRequest();
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setHost("http://my.host")
+            .setCredentialsProvider(new DummyCredentialsProvider());
+    ApiClient client =
+        getApiClient(config, req, Collections.singletonList(getSuccessResponse(req)));
+    assertNull(client.workspaceId());
+  }
+
+  @Test
+  void testDefaultWorkspaceIdReturnsValueFromConfig() {
+    String expectedWorkspaceId = "test-workspace-123";
+    Request req = getBasicRequest();
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setHost("http://my.host")
+            .setWorkspaceId(expectedWorkspaceId)
+            .setCredentialsProvider(new DummyCredentialsProvider());
+    ApiClient client =
+        getApiClient(config, req, Collections.singletonList(getSuccessResponse(req)));
+    assertEquals(expectedWorkspaceId, client.workspaceId());
+  }
 }
