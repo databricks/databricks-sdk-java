@@ -42,6 +42,7 @@ public class ApiClient {
     private Integer debugTruncateBytes;
     private HttpClient httpClient;
     private String accountId;
+    private String workspaceId;
     private RetryStrategyPicker retryStrategyPicker;
     private boolean isDebugHeaders;
 
@@ -52,6 +53,7 @@ public class ApiClient {
       this.httpClient = config.getHttpClient();
       this.debugTruncateBytes = config.getDebugTruncateBytes();
       this.accountId = config.getAccountId();
+      this.workspaceId = config.getWorkspaceId();
       this.isDebugHeaders = config.isDebugHeaders();
 
       if (config.getDisableRetries()) {
@@ -114,6 +116,7 @@ public class ApiClient {
   private final Function<Void, String> getHostFunc;
   private final Function<Void, String> getAuthTypeFunc;
   private final String accountId;
+  private final String workspaceId;
   private final boolean isDebugHeaders;
   private static final String RETRY_AFTER_HEADER = "retry-after";
 
@@ -123,6 +126,10 @@ public class ApiClient {
 
   public String configuredAccountID() {
     return accountId;
+  }
+
+  public String workspaceId() {
+    return workspaceId;
   }
 
   public ApiClient(DatabricksConfig config) {
@@ -143,6 +150,7 @@ public class ApiClient {
     this.getAuthTypeFunc = builder.getAuthTypeFunc != null ? builder.getAuthTypeFunc : v -> "";
     this.httpClient = builder.httpClient;
     this.accountId = builder.accountId;
+    this.workspaceId = builder.workspaceId;
     this.retryStrategyPicker =
         builder.retryStrategyPicker != null
             ? builder.retryStrategyPicker
