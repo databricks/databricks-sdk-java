@@ -60,21 +60,18 @@ public class PolicyInfo {
   @JsonProperty("name")
   private String name;
 
-  /**
-   * Full name of the securable on which the policy is defined. Required on create and ignored on
-   * update.
-   */
+  /** Full name of the securable on which the policy is defined. Required on create. */
   @JsonProperty("on_securable_fullname")
   private String onSecurableFullname;
 
   /**
    * Type of the securable on which the policy is defined. Only `CATALOG`, `SCHEMA` and `TABLE` are
-   * supported at this moment. Required on create and ignored on update.
+   * supported at this moment. Required on create.
    */
   @JsonProperty("on_securable_type")
   private SecurableType onSecurableType;
 
-  /** Type of the policy. Required on create and ignored on update. */
+  /** Type of the policy. Required on create. */
   @JsonProperty("policy_type")
   private PolicyType policyType;
 

@@ -18,7 +18,10 @@ public class UpdateExternalLocation {
   @JsonProperty("credential_name")
   private String credentialName;
 
-  /** Whether to enable file events on this external location. */
+  /**
+   * Whether to enable file events on this external location. Default to `true`. Set to `false` to
+   * disable file events.
+   */
   @JsonProperty("enable_file_events")
   private Boolean enableFileEvents;
 
@@ -35,8 +38,8 @@ public class UpdateExternalLocation {
   private Boolean fallback;
 
   /**
-   * File event queue settings. If `enable_file_events` is `true`, must be defined and have exactly
-   * one of the documented properties.
+   * File event queue settings. If `enable_file_events` is not `false`, must be defined and have
+   * exactly one of the documented properties.
    */
   @JsonProperty("file_event_queue")
   private FileEventQueue fileEventQueue;
