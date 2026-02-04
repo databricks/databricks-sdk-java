@@ -52,7 +52,7 @@ public class ApiClient {
       this.getAuthTypeFunc = v -> config.getAuthType();
       this.httpClient = config.getHttpClient();
       this.debugTruncateBytes = config.getDebugTruncateBytes();
-      this.accountId = config.getAccountId();
+       this.accountId = config.getAccountId();
       this.workspaceId = config.getWorkspaceId();
       this.isDebugHeaders = config.isDebugHeaders();
 
