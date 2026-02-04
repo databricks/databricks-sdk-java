@@ -15,7 +15,7 @@ public class GcpPubsub {
 
   /**
    * The Pub/Sub subscription name in the format projects/{project}/subscriptions/{subscription
-   * name} Required for provided_pubsub.
+   * name}. Only required for provided_pubsub.
    */
   @JsonProperty("subscription_name")
   private String subscriptionName;
