@@ -4,7 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** Latest kind: CONNECTION_WORKDAY_HCM_USERNAME_PASSWORD = 293; Next id: 294 */
+/** Latest kind: CONNECTION_ONE_PASSWORD_EVENT_LOGS_BEARER_TOKEN = 294; Next id: 295 */
 @Generated
 public enum SecurableKind {
   TABLE_DB_STORAGE,

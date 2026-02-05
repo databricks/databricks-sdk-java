@@ -13,3 +13,9 @@
 ### Internal Changes
 
 ### API Changes
+* Add `id` field for `com.databricks.sdk.service.sharing.CreateRecipient`.
+* Add `id` field for `com.databricks.sdk.service.sharing.RecipientInfo`.
+* Add `id` field for `com.databricks.sdk.service.sharing.UpdateRecipient`.
+* Add `queryTags` field for `com.databricks.sdk.service.sql.ExecuteStatementRequest`.
+* Add `queryTags` field for `com.databricks.sdk.service.sql.QueryInfo`.
+* Add `UC_VOLUME_MISCONFIGURED` enum value for `com.databricks.sdk.service.compute.EventType`.

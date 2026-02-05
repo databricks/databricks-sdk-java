@@ -35,6 +35,12 @@ public class RoleRoleSpec {
    * https://www.postgresql.org/docs/current/sql-syntax-lexical.html#SQL-SYNTAX-IDENTIFIERS
    *
    * <p>Required when creating the Role.
+   *
+   * <p>If you wish to create a Postgres Role backed by a managed Databricks identity, then
+   * postgres_role must be one of the following:
+   *
+   * <p>1. user email for IdentityType.USER 2. app ID for IdentityType.SERVICE_PRINCIPAL 2. group
+   * name for IdentityType.GROUP
    */
   @JsonProperty("postgres_role")
   private String postgresRole;
