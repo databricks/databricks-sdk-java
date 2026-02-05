@@ -18,6 +18,10 @@ public class UpdateRecipient {
   @JsonProperty("expiration_time")
   private Long expirationTime;
 
+  /** [Create,Update:IGN] common - id of the recipient */
+  @JsonProperty("id")
+  private String id;
+
   /** IP Access List */
   @JsonProperty("ip_access_list")
   private IpAccessList ipAccessList;
@@ -57,6 +61,15 @@ public class UpdateRecipient {
 
   public Long getExpirationTime() {
     return expirationTime;
+  }
+
+  public UpdateRecipient setId(String id) {
+    this.id = id;
+    return this;
+  }
+
+  public String getId() {
+    return id;
   }
 
   public UpdateRecipient setIpAccessList(IpAccessList ipAccessList) {
@@ -111,6 +124,7 @@ public class UpdateRecipient {
     UpdateRecipient that = (UpdateRecipient) o;
     return Objects.equals(comment, that.comment)
         && Objects.equals(expirationTime, that.expirationTime)
+        && Objects.equals(id, that.id)
         && Objects.equals(ipAccessList, that.ipAccessList)
         && Objects.equals(name, that.name)
         && Objects.equals(newName, that.newName)
@@ -121,7 +135,7 @@ public class UpdateRecipient {
   @Override
   public int hashCode() {
     return Objects.hash(
-        comment, expirationTime, ipAccessList, name, newName, owner, propertiesKvpairs);
+        comment, expirationTime, id, ipAccessList, name, newName, owner, propertiesKvpairs);
   }
 
   @Override
@@ -129,6 +143,7 @@ public class UpdateRecipient {
     return new ToStringer(UpdateRecipient.class)
         .add("comment", comment)
         .add("expirationTime", expirationTime)
+        .add("id", id)
         .add("ipAccessList", ipAccessList)
         .add("name", name)
         .add("newName", newName)
