@@ -25,6 +25,9 @@ class ExperimentsImpl implements ExperimentsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, CreateExperimentResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -40,6 +43,9 @@ class ExperimentsImpl implements ExperimentsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, CreateLoggedModelResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -55,6 +61,9 @@ class ExperimentsImpl implements ExperimentsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, CreateRunResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -70,6 +79,9 @@ class ExperimentsImpl implements ExperimentsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -84,6 +96,9 @@ class ExperimentsImpl implements ExperimentsService {
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -100,6 +115,9 @@ class ExperimentsImpl implements ExperimentsService {
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -115,6 +133,9 @@ class ExperimentsImpl implements ExperimentsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -130,6 +151,9 @@ class ExperimentsImpl implements ExperimentsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, DeleteRunsResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -145,6 +169,9 @@ class ExperimentsImpl implements ExperimentsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -160,6 +187,9 @@ class ExperimentsImpl implements ExperimentsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, FinalizeLoggedModelResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -174,6 +204,9 @@ class ExperimentsImpl implements ExperimentsService {
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, GetExperimentByNameResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -188,6 +221,9 @@ class ExperimentsImpl implements ExperimentsService {
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, GetExperimentResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -202,6 +238,9 @@ class ExperimentsImpl implements ExperimentsService {
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, GetMetricHistoryResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -216,6 +255,9 @@ class ExperimentsImpl implements ExperimentsService {
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, GetLoggedModelResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -233,6 +275,9 @@ class ExperimentsImpl implements ExperimentsService {
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, GetExperimentPermissionLevelsResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -247,6 +292,9 @@ class ExperimentsImpl implements ExperimentsService {
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, ExperimentPermissions.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -261,6 +309,9 @@ class ExperimentsImpl implements ExperimentsService {
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, GetRunResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -275,6 +326,9 @@ class ExperimentsImpl implements ExperimentsService {
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, ListArtifactsResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -289,6 +343,9 @@ class ExperimentsImpl implements ExperimentsService {
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, ListExperimentsResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -304,6 +361,9 @@ class ExperimentsImpl implements ExperimentsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -319,6 +379,9 @@ class ExperimentsImpl implements ExperimentsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -334,6 +397,9 @@ class ExperimentsImpl implements ExperimentsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -349,6 +415,9 @@ class ExperimentsImpl implements ExperimentsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -364,6 +433,9 @@ class ExperimentsImpl implements ExperimentsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -379,6 +451,9 @@ class ExperimentsImpl implements ExperimentsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -394,6 +469,9 @@ class ExperimentsImpl implements ExperimentsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -409,6 +487,9 @@ class ExperimentsImpl implements ExperimentsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -424,6 +505,9 @@ class ExperimentsImpl implements ExperimentsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -439,6 +523,9 @@ class ExperimentsImpl implements ExperimentsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, RestoreRunsResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -454,6 +541,9 @@ class ExperimentsImpl implements ExperimentsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, SearchExperimentsResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -469,6 +559,9 @@ class ExperimentsImpl implements ExperimentsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, SearchLoggedModelsResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -484,6 +577,9 @@ class ExperimentsImpl implements ExperimentsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, SearchRunsResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -499,6 +595,9 @@ class ExperimentsImpl implements ExperimentsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -514,6 +613,9 @@ class ExperimentsImpl implements ExperimentsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -529,6 +631,9 @@ class ExperimentsImpl implements ExperimentsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, ExperimentPermissions.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -544,6 +649,9 @@ class ExperimentsImpl implements ExperimentsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -559,6 +667,9 @@ class ExperimentsImpl implements ExperimentsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -574,6 +685,9 @@ class ExperimentsImpl implements ExperimentsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, ExperimentPermissions.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -589,6 +703,9 @@ class ExperimentsImpl implements ExperimentsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, UpdateRunResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);

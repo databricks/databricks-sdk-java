@@ -27,6 +27,9 @@ class ResourceQuotasImpl implements ResourceQuotasService {
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, GetQuotaResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -41,6 +44,9 @@ class ResourceQuotasImpl implements ResourceQuotasService {
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, ListQuotasResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);

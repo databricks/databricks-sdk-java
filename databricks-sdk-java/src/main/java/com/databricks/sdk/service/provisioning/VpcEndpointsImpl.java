@@ -27,6 +27,9 @@ class VpcEndpointsImpl implements VpcEndpointsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, VpcEndpoint.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -44,6 +47,9 @@ class VpcEndpointsImpl implements VpcEndpointsService {
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, VpcEndpoint.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -61,6 +67,9 @@ class VpcEndpointsImpl implements VpcEndpointsService {
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, VpcEndpoint.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -73,6 +82,9 @@ class VpcEndpointsImpl implements VpcEndpointsService {
         String.format("/api/2.0/accounts/%s/vpc-endpoints", apiClient.configuredAccountID());
     Request req = new Request("GET", path);
     req.withHeader("Accept", "application/json");
+    if (apiClient.workspaceId() != null) {
+      req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+    }
     return apiClient.getCollection(req, VpcEndpoint.class);
   }
 }

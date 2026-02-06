@@ -26,6 +26,9 @@ class MetastoresImpl implements MetastoresService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -41,6 +44,9 @@ class MetastoresImpl implements MetastoresService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, MetastoreInfo.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -54,6 +60,9 @@ class MetastoresImpl implements MetastoresService {
       Request req = new Request("GET", path);
 
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, MetastoreAssignment.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -68,6 +77,9 @@ class MetastoresImpl implements MetastoresService {
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -82,6 +94,9 @@ class MetastoresImpl implements MetastoresService {
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, MetastoreInfo.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -96,6 +111,9 @@ class MetastoresImpl implements MetastoresService {
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, ListMetastoresResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -109,6 +127,9 @@ class MetastoresImpl implements MetastoresService {
       Request req = new Request("GET", path);
 
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, GetMetastoreSummaryResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -124,6 +145,9 @@ class MetastoresImpl implements MetastoresService {
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -139,6 +163,9 @@ class MetastoresImpl implements MetastoresService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, MetastoreInfo.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -155,6 +182,9 @@ class MetastoresImpl implements MetastoresService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);

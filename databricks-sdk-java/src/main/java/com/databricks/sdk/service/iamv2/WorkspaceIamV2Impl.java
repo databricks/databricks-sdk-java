@@ -26,6 +26,9 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, WorkspaceAccessDetail.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -41,6 +44,9 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, ResolveGroupResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -57,6 +63,9 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, ResolveServicePrincipalResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -72,6 +81,9 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, ResolveUserResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);

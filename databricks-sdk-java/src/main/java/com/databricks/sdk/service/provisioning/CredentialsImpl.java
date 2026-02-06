@@ -27,6 +27,9 @@ class CredentialsImpl implements CredentialsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, Credential.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -44,6 +47,9 @@ class CredentialsImpl implements CredentialsService {
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, Credential.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -61,6 +67,9 @@ class CredentialsImpl implements CredentialsService {
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, Credential.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -73,6 +82,9 @@ class CredentialsImpl implements CredentialsService {
         String.format("/api/2.0/accounts/%s/credentials", apiClient.configuredAccountID());
     Request req = new Request("GET", path);
     req.withHeader("Accept", "application/json");
+    if (apiClient.workspaceId() != null) {
+      req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+    }
     return apiClient.getCollection(req, Credential.class);
   }
 }
