@@ -3036,6 +3036,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/QueryParameter.
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/QueryPostContent.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/QueryStatementType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/QueryStatus.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/QueryTag.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/QueryVisualizationsAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/QueryVisualizationsImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/QueryVisualizationsLegacyAPI.java linguist-generated=true

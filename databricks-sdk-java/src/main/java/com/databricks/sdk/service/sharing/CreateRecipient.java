@@ -29,6 +29,10 @@ public class CreateRecipient {
   @JsonProperty("expiration_time")
   private Long expirationTime;
 
+  /** [Create,Update:IGN] common - id of the recipient */
+  @JsonProperty("id")
+  private String id;
+
   /** IP Access List */
   @JsonProperty("ip_access_list")
   private IpAccessList ipAccessList;
@@ -92,6 +96,15 @@ public class CreateRecipient {
     return expirationTime;
   }
 
+  public CreateRecipient setId(String id) {
+    this.id = id;
+    return this;
+  }
+
+  public String getId() {
+    return id;
+  }
+
   public CreateRecipient setIpAccessList(IpAccessList ipAccessList) {
     this.ipAccessList = ipAccessList;
     return this;
@@ -146,6 +159,7 @@ public class CreateRecipient {
         && Objects.equals(comment, that.comment)
         && Objects.equals(dataRecipientGlobalMetastoreId, that.dataRecipientGlobalMetastoreId)
         && Objects.equals(expirationTime, that.expirationTime)
+        && Objects.equals(id, that.id)
         && Objects.equals(ipAccessList, that.ipAccessList)
         && Objects.equals(name, that.name)
         && Objects.equals(owner, that.owner)
@@ -160,6 +174,7 @@ public class CreateRecipient {
         comment,
         dataRecipientGlobalMetastoreId,
         expirationTime,
+        id,
         ipAccessList,
         name,
         owner,
@@ -174,6 +189,7 @@ public class CreateRecipient {
         .add("comment", comment)
         .add("dataRecipientGlobalMetastoreId", dataRecipientGlobalMetastoreId)
         .add("expirationTime", expirationTime)
+        .add("id", id)
         .add("ipAccessList", ipAccessList)
         .add("name", name)
         .add("owner", owner)

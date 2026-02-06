@@ -1,6 +1,6 @@
 # NEXT CHANGELOG
 
-## Release v0.85.0
+## Release v0.86.0
 
 ### New Features and Improvements
 * Add support for single Profile for Account and Workspace operations in Unified Mode.
@@ -14,4 +14,9 @@
 ### Internal Changes
 
 ### API Changes
-* [Breaking] Change `username` field for `com.databricks.sdk.service.iamv2.User` to no longer be required.
+* Add `id` field for `com.databricks.sdk.service.sharing.CreateRecipient`.
+* Add `id` field for `com.databricks.sdk.service.sharing.RecipientInfo`.
+* Add `id` field for `com.databricks.sdk.service.sharing.UpdateRecipient`.
+* Add `queryTags` field for `com.databricks.sdk.service.sql.ExecuteStatementRequest`.
+* Add `queryTags` field for `com.databricks.sdk.service.sql.QueryInfo`.
+* Add `UC_VOLUME_MISCONFIGURED` enum value for `com.databricks.sdk.service.compute.EventType`.
