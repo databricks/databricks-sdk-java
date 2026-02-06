@@ -16,7 +16,7 @@ public class CreateTokenRequest {
   /**
    * The lifetime of the token, in seconds.
    *
-   * <p>If the lifetime is not specified, this token remains valid indefinitely.
+   * <p>If the lifetime is not specified, this token remains valid for 2 years.
    */
   @JsonProperty("lifetime_seconds")
   private Long lifetimeSeconds;
