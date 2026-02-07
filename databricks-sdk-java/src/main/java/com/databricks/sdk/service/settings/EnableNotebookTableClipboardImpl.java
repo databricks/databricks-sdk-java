@@ -23,6 +23,9 @@ class EnableNotebookTableClipboardImpl implements EnableNotebookTableClipboardSe
       Request req = new Request("GET", path);
 
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, EnableNotebookTableClipboard.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -39,6 +42,9 @@ class EnableNotebookTableClipboardImpl implements EnableNotebookTableClipboardSe
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, EnableNotebookTableClipboard.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
