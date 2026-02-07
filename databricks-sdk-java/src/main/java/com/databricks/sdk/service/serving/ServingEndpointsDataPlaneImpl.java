@@ -63,6 +63,9 @@ class ServingEndpointsDataPlaneImpl implements ServingEndpointsDataPlaneService 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       RequestOptions options =
           new RequestOptions()
               .withAuthorization(token.getTokenType() + " " + token.getAccessToken())

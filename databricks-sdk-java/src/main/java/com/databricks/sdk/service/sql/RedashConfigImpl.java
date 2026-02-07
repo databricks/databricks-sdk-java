@@ -23,6 +23,9 @@ class RedashConfigImpl implements RedashConfigService {
       Request req = new Request("GET", path);
 
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, ClientConfig.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
