@@ -798,7 +798,7 @@ public class DatabricksConfig {
     }
 
     if (isAzure() && getAzureClientId() != null) {
-          ApiClient apiClient =
+      ApiClient apiClient =
           new ApiClient.Builder()
               .withHttpClient(getHttpClient())
               .withGetHostFunc(v -> getHost())

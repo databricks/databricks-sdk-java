@@ -4,11 +4,9 @@ import com.databricks.sdk.AccountClient;
 import com.databricks.sdk.core.oauth.OpenIDConnectEndpoints;
 import com.databricks.sdk.integration.framework.EnvContext;
 import com.databricks.sdk.integration.framework.EnvTest;
-
 import java.io.IOException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-
 
 @EnvContext("ucacct")
 @ExtendWith(EnvTest.class)
@@ -22,10 +20,12 @@ public class OidcUcAccountEndpointIT {
       assert endpoints.getAuthorizationEndpoint().equals(host + "/oidc/v1/authorize");
       assert endpoints.getTokenEndpoint().equals(host + "/oidc/v1/token");
     } else {
-      assert endpoints.getAuthorizationEndpoint().equals(host + "/oidc/accounts/" + accountId + "/v1/authorize");
-      assert endpoints.getTokenEndpoint().equals(host + "/oidc/accounts/" + accountId + "/v1/token");
+      assert endpoints
+          .getAuthorizationEndpoint()
+          .equals(host + "/oidc/accounts/" + accountId + "/v1/authorize");
+      assert endpoints
+          .getTokenEndpoint()
+          .equals(host + "/oidc/accounts/" + accountId + "/v1/token");
     }
   }
-
-  
 }
