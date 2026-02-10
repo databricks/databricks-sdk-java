@@ -1,6 +1,9 @@
 package com.databricks.sdk.core.oauth;
 
 import com.databricks.sdk.core.DatabricksConfig;
+import com.databricks.sdk.core.http.Request;
+import com.databricks.sdk.core.http.Response;
+import java.io.IOException;
 
 /** Utility methods for OAuth client credentials resolution. */
 public class OAuthClientUtils {
@@ -38,5 +41,31 @@ public class OAuthClientUtils {
       return config.getAzureClientSecret();
     }
     return null;
+  }
+
+  /**
+   * Resolves the OAuth OIDC endpoints from the configuration. Prioritizes regular OIDC endpoints, then Azure OIDC endpoints.
+   * If the client ID and client secret are provided, the OIDC endpoints are fetched from the discovery URL.
+   * If the Azure client ID and client secret are provided, the OIDC endpoints are fetched from the Azure AD endpoint.
+   * If no client ID and client secret are provided, the OIDC endpoints are fetched from the default OIDC endpoints.
+   * @param config The Databricks configuration
+   * @return The resolved OIDC endpoints
+   * @throws IOException if the OIDC endpoints cannot be resolved
+   */
+  public static OpenIDConnectEndpoints resolveOidcEndpoints(DatabricksConfig config) throws IOException {
+    if (config.getClientId() != null && config.getClientSecret() != null) {
+      return config.getOidcEndpoints();
+    } else if (config.getAzureClientId() != null && config.getAzureClientSecret() != null) { 
+        Request request = new Request("GET", config.getHost() + "/oidc/oauth2/v2.0/authorize");
+        request.setRedirectionBehavior(false);
+        Response resp = config.getHttpClient().execute(request);
+        String realAuthUrl = resp.getFirstHeader("location");
+        if (realAuthUrl == null) {
+          return null;
+        }
+        return new OpenIDConnectEndpoints(
+            realAuthUrl.replaceAll("/authorize", "/token"), realAuthUrl);
+    }
+    return config.getOidcEndpoints();
   }
 }
