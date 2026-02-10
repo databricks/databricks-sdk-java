@@ -787,7 +787,20 @@ public class DatabricksConfig {
     return new OpenIDConnectEndpoints(prefix + "/v1/token", prefix + "/v1/authorize");
   }
 
-  private OpenIDConnectEndpoints fetchOidcEndpointsFromWellKnown() throws IOException {
+  private OpenIDConnectEndpoints fetchDefaultOidcEndpoints() throws IOException {
+    if (getHost() == null) {
+      return null;
+    }
+
+    // For unified hosts, use account-based OIDC endpoints
+    if (getHostType() == HostType.UNIFIED) {
+      return getUnifiedOidcEndpoints(getAccountId());
+    }
+    if (isAccountClient() && getAccountId() != null) {
+      String prefix = getHost() + "/oidc/accounts/" + getAccountId();
+      return new OpenIDConnectEndpoints(prefix + "/v1/token", prefix + "/v1/authorize");
+    }
+
     ApiClient apiClient =
         new ApiClient.Builder()
             .withHttpClient(getHttpClient())
@@ -800,27 +813,6 @@ public class DatabricksConfig {
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
-  }
-
-  private OpenIDConnectEndpoints fetchDefaultOidcEndpoints() throws IOException {
-    if (getHost() == null) {
-      return null;
-    }
-
-    // For unified hosts, use account-based OIDC endpoints
-    if (getHostType() == HostType.UNIFIED) {
-      return getUnifiedOidcEndpoints(getAccountId());
-    }
-
-    if (isAzure() && getAzureClientId() != null) {
-      return fetchOidcEndpointsFromWellKnown();
-    }
-    if (isAccountClient() && getAccountId() != null) {
-      String prefix = getHost() + "/oidc/accounts/" + getAccountId();
-      return new OpenIDConnectEndpoints(prefix + "/v1/token", prefix + "/v1/authorize");
-    }
-
-    return fetchOidcEndpointsFromWellKnown();
   }
 
   @Override
