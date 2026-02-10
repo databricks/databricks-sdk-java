@@ -58,6 +58,13 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
     // Use the utility class to resolve client ID and client secret
     String clientId = OAuthClientUtils.resolveClientId(config);
     String clientSecret = OAuthClientUtils.resolveClientSecret(config);
+    OpenIDConnectEndpoints oidcEndpoints = null;
+    try {
+      oidcEndpoints = OAuthClientUtils.resolveOidcEndpoints(config);
+    } catch (IOException e) {
+      LOGGER.error("Failed to resolve OIDC endpoints: {}", e.getMessage());
+      return null;
+    }
 
     try {
       if (tokenCache == null) {
@@ -78,7 +85,7 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
               new SessionCredentialsTokenSource(
                   cachedToken,
                   config.getHttpClient(),
-                  config.getOidcEndpoints().getTokenEndpoint(),
+                  oidcEndpoints.getTokenEndpoint(),
                   clientId,
                   clientSecret,
                   Optional.of(config.getEffectiveOAuthRedirectUrl()),
@@ -100,7 +107,7 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
 
       // If no cached token or refresh failed, perform browser auth
       CachedTokenSource cachedTokenSource =
-          performBrowserAuth(config, clientId, clientSecret, tokenCache);
+          performBrowserAuth(config, clientId, clientSecret, tokenCache, oidcEndpoints);
       tokenCache.save(cachedTokenSource.getToken());
       return OAuthHeaderFactory.fromTokenSource(cachedTokenSource);
     } catch (IOException | DatabricksException e) {
@@ -109,7 +116,7 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
     }
   }
 
-  protected List<String> getScopes(DatabricksConfig config) {
+  protected List<String> getScopes(DatabricksConfig config, OpenIDConnectEndpoints oidcEndpoints) {
     // Get user-provided scopes and add required default scopes.
     Set<String> scopes = new HashSet<>(config.getScopes());
     // Requesting a refresh token is most of the time the right thing to do from a
@@ -125,7 +132,11 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
   }
 
   CachedTokenSource performBrowserAuth(
-      DatabricksConfig config, String clientId, String clientSecret, TokenCache tokenCache)
+      DatabricksConfig config,
+      String clientId,
+      String clientSecret,
+      TokenCache tokenCache,
+      OpenIDConnectEndpoints oidcEndpoints)
       throws IOException {
     LOGGER.debug("Performing browser authentication");
 
@@ -138,8 +149,8 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
             .withAccountId(config.getAccountId())
             .withRedirectUrl(config.getEffectiveOAuthRedirectUrl())
             .withBrowserTimeout(config.getOAuthBrowserAuthTimeout())
-            .withScopes(getScopes(config))
-            .withOpenIDConnectEndpoints(config.getOidcEndpoints())
+            .withScopes(getScopes(config, oidcEndpoints))
+            .withOpenIDConnectEndpoints(oidcEndpoints)
             .build();
     Consent consent = client.initiateConsent();
 
@@ -151,7 +162,7 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
         new SessionCredentialsTokenSource(
             token,
             config.getHttpClient(),
-            config.getOidcEndpoints().getTokenEndpoint(),
+            oidcEndpoints.getTokenEndpoint(),
             config.getClientId(),
             config.getClientSecret(),
             Optional.ofNullable(config.getEffectiveOAuthRedirectUrl()),
