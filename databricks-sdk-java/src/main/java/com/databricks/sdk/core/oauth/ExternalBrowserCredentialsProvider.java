@@ -59,7 +59,7 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
     String clientId = OAuthClientUtils.resolveClientId(config);
     String clientSecret = OAuthClientUtils.resolveClientSecret(config);
     OpenIDConnectEndpoints oidcEndpoints = null;
-    try  {
+    try {
       oidcEndpoints = OAuthClientUtils.resolveOidcEndpoints(config);
     } catch (IOException e) {
       LOGGER.error("Failed to resolve OIDC endpoints: {}", e.getMessage());
@@ -132,7 +132,11 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
   }
 
   CachedTokenSource performBrowserAuth(
-      DatabricksConfig config, String clientId, String clientSecret, TokenCache tokenCache, OpenIDConnectEndpoints oidcEndpoints)
+      DatabricksConfig config,
+      String clientId,
+      String clientSecret,
+      TokenCache tokenCache,
+      OpenIDConnectEndpoints oidcEndpoints)
       throws IOException {
     LOGGER.debug("Performing browser authentication");
 
