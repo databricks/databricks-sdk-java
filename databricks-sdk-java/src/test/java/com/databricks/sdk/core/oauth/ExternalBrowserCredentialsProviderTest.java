@@ -7,7 +7,6 @@ import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.FixtureServer;
 import com.databricks.sdk.core.HeaderFactory;
-import com.databricks.sdk.core.OpenIDConnectEndpoints;
 import com.databricks.sdk.core.commons.CommonsHttpClient;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
