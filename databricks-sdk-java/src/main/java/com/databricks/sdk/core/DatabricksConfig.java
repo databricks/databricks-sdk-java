@@ -796,18 +796,6 @@ public class DatabricksConfig {
     if (getHostType() == HostType.UNIFIED) {
       return getUnifiedOidcEndpoints(getAccountId());
     }
-
-    if (isAzure() && getAzureClientId() != null) {
-      Request request = new Request("GET", getHost() + "/oidc/oauth2/v2.0/authorize");
-      request.setRedirectionBehavior(false);
-      Response resp = getHttpClient().execute(request);
-      String realAuthUrl = resp.getFirstHeader("location");
-      if (realAuthUrl == null) {
-        return null;
-      }
-      return new OpenIDConnectEndpoints(
-          realAuthUrl.replaceAll("/authorize", "/token"), realAuthUrl);
-    }
     if (isAccountClient() && getAccountId() != null) {
       String prefix = getHost() + "/oidc/accounts/" + getAccountId();
       return new OpenIDConnectEndpoints(prefix + "/v1/token", prefix + "/v1/authorize");
