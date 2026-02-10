@@ -61,6 +61,10 @@ public class GitSource {
   @JsonProperty("job_source")
   private JobSource jobSource;
 
+  /** */
+  @JsonProperty("sparse_checkout")
+  private SparseCheckout sparseCheckout;
+
   public GitSource setGitBranch(String gitBranch) {
     this.gitBranch = gitBranch;
     return this;
@@ -124,6 +128,15 @@ public class GitSource {
     return jobSource;
   }
 
+  public GitSource setSparseCheckout(SparseCheckout sparseCheckout) {
+    this.sparseCheckout = sparseCheckout;
+    return this;
+  }
+
+  public SparseCheckout getSparseCheckout() {
+    return sparseCheckout;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -135,12 +148,14 @@ public class GitSource {
         && Objects.equals(gitSnapshot, that.gitSnapshot)
         && Objects.equals(gitTag, that.gitTag)
         && Objects.equals(gitUrl, that.gitUrl)
-        && Objects.equals(jobSource, that.jobSource);
+        && Objects.equals(jobSource, that.jobSource)
+        && Objects.equals(sparseCheckout, that.sparseCheckout);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(gitBranch, gitCommit, gitProvider, gitSnapshot, gitTag, gitUrl, jobSource);
+    return Objects.hash(
+        gitBranch, gitCommit, gitProvider, gitSnapshot, gitTag, gitUrl, jobSource, sparseCheckout);
   }
 
   @Override
@@ -153,6 +168,7 @@ public class GitSource {
         .add("gitTag", gitTag)
         .add("gitUrl", gitUrl)
         .add("jobSource", jobSource)
+        .add("sparseCheckout", sparseCheckout)
         .toString();
   }
 }

@@ -13,3 +13,5 @@
 ### Internal Changes
 
 ### API Changes
+* Add `sourceType`, `updateTime` and `updatedBy` fields for `com.databricks.sdk.service.catalog.EntityTagAssignment`.
+* Add `sparseCheckout` field for `com.databricks.sdk.service.jobs.GitSource`.
