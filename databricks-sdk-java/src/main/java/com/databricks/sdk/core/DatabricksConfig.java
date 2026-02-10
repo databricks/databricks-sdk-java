@@ -798,18 +798,15 @@ public class DatabricksConfig {
     }
 
     if (isAzure() && getAzureClientId() != null) {
-      ApiClient apiClient =
-          new ApiClient.Builder()
-              .withHttpClient(getHttpClient())
-              .withGetHostFunc(v -> getHost())
-              .build();
-      try {
-        return apiClient.execute(
-            new Request("GET", "/oidc/.well-known/oauth-authorization-server"),
-            OpenIDConnectEndpoints.class);
-      } catch (IOException e) {
-        throw new DatabricksException("IO error: " + e.getMessage(), e);
+      Request request = new Request("GET", getHost() + "/oidc/oauth2/v2.0/authorize");
+      request.setRedirectionBehavior(false);
+      Response resp = getHttpClient().execute(request);
+      String realAuthUrl = resp.getFirstHeader("location");
+      if (realAuthUrl == null) {
+        return null;
       }
+      return new OpenIDConnectEndpoints(
+          realAuthUrl.replaceAll("/authorize", "/token"), realAuthUrl);
     }
     if (isAccountClient() && getAccountId() != null) {
       String prefix = getHost() + "/oidc/accounts/" + getAccountId();
