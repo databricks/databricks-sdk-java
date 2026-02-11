@@ -598,6 +598,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/TableType.j
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/TablesAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/TablesImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/TablesService.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/TagAssignmentSourceType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/TagKeyValue.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/TemporaryCredentials.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/TemporaryPathCredentialsAPI.java linguist-generated=true
@@ -1480,6 +1481,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/Source.java li
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/SparkJarTask.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/SparkPythonTask.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/SparkSubmitTask.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/SparseCheckout.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/SqlAlertOutput.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/SqlAlertState.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/SqlDashboardOutput.java linguist-generated=true

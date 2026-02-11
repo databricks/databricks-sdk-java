@@ -4,7 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** Latest kind: CONNECTION_OKTA_SYSTEM_LOGS_SSWS_TOKEN = 295; Next id: 296 */
+/** Latest kind: CONNECTION_AKAMAI_WAF_EDGEGRID = 296; Next id: 297 */
 @Generated
 public enum SecurableKind {
   TABLE_DB_STORAGE,

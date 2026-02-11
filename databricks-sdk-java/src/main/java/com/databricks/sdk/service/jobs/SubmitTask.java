@@ -61,6 +61,10 @@ public class SubmitTask {
   @JsonProperty("description")
   private String description;
 
+  /** An option to disable auto optimization in serverless */
+  @JsonProperty("disable_auto_optimization")
+  private Boolean disableAutoOptimization;
+
   /**
    * An optional set of email addresses notified when the task run begins or completes. The default
    * behavior is to not send any emails.
@@ -105,6 +109,22 @@ public class SubmitTask {
   @JsonProperty("libraries")
   private Collection<com.databricks.sdk.service.compute.Library> libraries;
 
+  /**
+   * An optional maximum number of times to retry an unsuccessful run. A run is considered to be
+   * unsuccessful if it completes with the `FAILED` result_state or `INTERNAL_ERROR`
+   * `life_cycle_state`. The value `-1` means to retry indefinitely and the value `0` means to never
+   * retry.
+   */
+  @JsonProperty("max_retries")
+  private Long maxRetries;
+
+  /**
+   * An optional minimal interval in milliseconds between the start of the failed run and the
+   * subsequent retry run. The default behavior is that unsuccessful runs are immediately retried.
+   */
+  @JsonProperty("min_retry_interval_millis")
+  private Long minRetryIntervalMillis;
+
   /** If new_cluster, a description of a new cluster that is created for each run. */
   @JsonProperty("new_cluster")
   private com.databricks.sdk.service.compute.ClusterSpec newCluster;
@@ -136,6 +156,13 @@ public class SubmitTask {
   /** The task runs a Python wheel when the `python_wheel_task` field is present. */
   @JsonProperty("python_wheel_task")
   private PythonWheelTask pythonWheelTask;
+
+  /**
+   * An optional policy to specify whether to retry a job when it times out. The default behavior is
+   * to not retry on timeout.
+   */
+  @JsonProperty("retry_on_timeout")
+  private Boolean retryOnTimeout;
 
   /**
    * An optional value indicating the condition that determines whether the task should be run once
@@ -273,6 +300,15 @@ public class SubmitTask {
     return description;
   }
 
+  public SubmitTask setDisableAutoOptimization(Boolean disableAutoOptimization) {
+    this.disableAutoOptimization = disableAutoOptimization;
+    return this;
+  }
+
+  public Boolean getDisableAutoOptimization() {
+    return disableAutoOptimization;
+  }
+
   public SubmitTask setEmailNotifications(JobEmailNotifications emailNotifications) {
     this.emailNotifications = emailNotifications;
     return this;
@@ -336,6 +372,24 @@ public class SubmitTask {
     return libraries;
   }
 
+  public SubmitTask setMaxRetries(Long maxRetries) {
+    this.maxRetries = maxRetries;
+    return this;
+  }
+
+  public Long getMaxRetries() {
+    return maxRetries;
+  }
+
+  public SubmitTask setMinRetryIntervalMillis(Long minRetryIntervalMillis) {
+    this.minRetryIntervalMillis = minRetryIntervalMillis;
+    return this;
+  }
+
+  public Long getMinRetryIntervalMillis() {
+    return minRetryIntervalMillis;
+  }
+
   public SubmitTask setNewCluster(com.databricks.sdk.service.compute.ClusterSpec newCluster) {
     this.newCluster = newCluster;
     return this;
@@ -388,6 +442,15 @@ public class SubmitTask {
 
   public PythonWheelTask getPythonWheelTask() {
     return pythonWheelTask;
+  }
+
+  public SubmitTask setRetryOnTimeout(Boolean retryOnTimeout) {
+    this.retryOnTimeout = retryOnTimeout;
+    return this;
+  }
+
+  public Boolean getRetryOnTimeout() {
+    return retryOnTimeout;
   }
 
   public SubmitTask setRunIf(RunIf runIf) {
@@ -485,6 +548,7 @@ public class SubmitTask {
         && Objects.equals(dbtTask, that.dbtTask)
         && Objects.equals(dependsOn, that.dependsOn)
         && Objects.equals(description, that.description)
+        && Objects.equals(disableAutoOptimization, that.disableAutoOptimization)
         && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(environmentKey, that.environmentKey)
         && Objects.equals(existingClusterId, that.existingClusterId)
@@ -492,12 +556,15 @@ public class SubmitTask {
         && Objects.equals(genAiComputeTask, that.genAiComputeTask)
         && Objects.equals(health, that.health)
         && Objects.equals(libraries, that.libraries)
+        && Objects.equals(maxRetries, that.maxRetries)
+        && Objects.equals(minRetryIntervalMillis, that.minRetryIntervalMillis)
         && Objects.equals(newCluster, that.newCluster)
         && Objects.equals(notebookTask, that.notebookTask)
         && Objects.equals(notificationSettings, that.notificationSettings)
         && Objects.equals(pipelineTask, that.pipelineTask)
         && Objects.equals(powerBiTask, that.powerBiTask)
         && Objects.equals(pythonWheelTask, that.pythonWheelTask)
+        && Objects.equals(retryOnTimeout, that.retryOnTimeout)
         && Objects.equals(runIf, that.runIf)
         && Objects.equals(runJobTask, that.runJobTask)
         && Objects.equals(sparkJarTask, that.sparkJarTask)
@@ -521,6 +588,7 @@ public class SubmitTask {
         dbtTask,
         dependsOn,
         description,
+        disableAutoOptimization,
         emailNotifications,
         environmentKey,
         existingClusterId,
@@ -528,12 +596,15 @@ public class SubmitTask {
         genAiComputeTask,
         health,
         libraries,
+        maxRetries,
+        minRetryIntervalMillis,
         newCluster,
         notebookTask,
         notificationSettings,
         pipelineTask,
         powerBiTask,
         pythonWheelTask,
+        retryOnTimeout,
         runIf,
         runJobTask,
         sparkJarTask,
@@ -557,6 +628,7 @@ public class SubmitTask {
         .add("dbtTask", dbtTask)
         .add("dependsOn", dependsOn)
         .add("description", description)
+        .add("disableAutoOptimization", disableAutoOptimization)
         .add("emailNotifications", emailNotifications)
         .add("environmentKey", environmentKey)
         .add("existingClusterId", existingClusterId)
@@ -564,12 +636,15 @@ public class SubmitTask {
         .add("genAiComputeTask", genAiComputeTask)
         .add("health", health)
         .add("libraries", libraries)
+        .add("maxRetries", maxRetries)
+        .add("minRetryIntervalMillis", minRetryIntervalMillis)
         .add("newCluster", newCluster)
         .add("notebookTask", notebookTask)
         .add("notificationSettings", notificationSettings)
         .add("pipelineTask", pipelineTask)
         .add("powerBiTask", powerBiTask)
         .add("pythonWheelTask", pythonWheelTask)
+        .add("retryOnTimeout", retryOnTimeout)
         .add("runIf", runIf)
         .add("runJobTask", runJobTask)
         .add("sparkJarTask", sparkJarTask)

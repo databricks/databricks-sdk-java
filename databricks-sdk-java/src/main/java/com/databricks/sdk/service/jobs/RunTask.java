@@ -88,6 +88,10 @@ public class RunTask {
   @JsonProperty("description")
   private String description;
 
+  /** An option to disable auto optimization in serverless */
+  @JsonProperty("disable_auto_optimization")
+  private Boolean disableAutoOptimization;
+
   /**
    * The actual performance target used by the serverless run during execution. This can differ from
    * the client-set performance target on the request depending on whether the performance mode is
@@ -175,6 +179,22 @@ public class RunTask {
   @JsonProperty("libraries")
   private Collection<com.databricks.sdk.service.compute.Library> libraries;
 
+  /**
+   * An optional maximum number of times to retry an unsuccessful run. A run is considered to be
+   * unsuccessful if it completes with the `FAILED` result_state or `INTERNAL_ERROR`
+   * `life_cycle_state`. The value `-1` means to retry indefinitely and the value `0` means to never
+   * retry.
+   */
+  @JsonProperty("max_retries")
+  private Long maxRetries;
+
+  /**
+   * An optional minimal interval in milliseconds between the start of the failed run and the
+   * subsequent retry run. The default behavior is that unsuccessful runs are immediately retried.
+   */
+  @JsonProperty("min_retry_interval_millis")
+  private Long minRetryIntervalMillis;
+
   /** If new_cluster, a description of a new cluster that is created for each run. */
   @JsonProperty("new_cluster")
   private com.databricks.sdk.service.compute.ClusterSpec newCluster;
@@ -214,6 +234,13 @@ public class RunTask {
   /** Parameter values including resolved references */
   @JsonProperty("resolved_values")
   private ResolvedValues resolvedValues;
+
+  /**
+   * An optional policy to specify whether to retry a job when it times out. The default behavior is
+   * to not retry on timeout.
+   */
+  @JsonProperty("retry_on_timeout")
+  private Boolean retryOnTimeout;
 
   /** The time in milliseconds it took the job run and all of its repairs to finish. */
   @JsonProperty("run_duration")
@@ -416,6 +443,15 @@ public class RunTask {
     return description;
   }
 
+  public RunTask setDisableAutoOptimization(Boolean disableAutoOptimization) {
+    this.disableAutoOptimization = disableAutoOptimization;
+    return this;
+  }
+
+  public Boolean getDisableAutoOptimization() {
+    return disableAutoOptimization;
+  }
+
   public RunTask setEffectivePerformanceTarget(PerformanceTarget effectivePerformanceTarget) {
     this.effectivePerformanceTarget = effectivePerformanceTarget;
     return this;
@@ -515,6 +551,24 @@ public class RunTask {
     return libraries;
   }
 
+  public RunTask setMaxRetries(Long maxRetries) {
+    this.maxRetries = maxRetries;
+    return this;
+  }
+
+  public Long getMaxRetries() {
+    return maxRetries;
+  }
+
+  public RunTask setMinRetryIntervalMillis(Long minRetryIntervalMillis) {
+    this.minRetryIntervalMillis = minRetryIntervalMillis;
+    return this;
+  }
+
+  public Long getMinRetryIntervalMillis() {
+    return minRetryIntervalMillis;
+  }
+
   public RunTask setNewCluster(com.databricks.sdk.service.compute.ClusterSpec newCluster) {
     this.newCluster = newCluster;
     return this;
@@ -585,6 +639,15 @@ public class RunTask {
 
   public ResolvedValues getResolvedValues() {
     return resolvedValues;
+  }
+
+  public RunTask setRetryOnTimeout(Boolean retryOnTimeout) {
+    this.retryOnTimeout = retryOnTimeout;
+    return this;
+  }
+
+  public Boolean getRetryOnTimeout() {
+    return retryOnTimeout;
   }
 
   public RunTask setRunDuration(Long runDuration) {
@@ -748,6 +811,7 @@ public class RunTask {
         && Objects.equals(dbtTask, that.dbtTask)
         && Objects.equals(dependsOn, that.dependsOn)
         && Objects.equals(description, that.description)
+        && Objects.equals(disableAutoOptimization, that.disableAutoOptimization)
         && Objects.equals(effectivePerformanceTarget, that.effectivePerformanceTarget)
         && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(endTime, that.endTime)
@@ -759,6 +823,8 @@ public class RunTask {
         && Objects.equals(gitSource, that.gitSource)
         && Objects.equals(jobClusterKey, that.jobClusterKey)
         && Objects.equals(libraries, that.libraries)
+        && Objects.equals(maxRetries, that.maxRetries)
+        && Objects.equals(minRetryIntervalMillis, that.minRetryIntervalMillis)
         && Objects.equals(newCluster, that.newCluster)
         && Objects.equals(notebookTask, that.notebookTask)
         && Objects.equals(notificationSettings, that.notificationSettings)
@@ -767,6 +833,7 @@ public class RunTask {
         && Objects.equals(pythonWheelTask, that.pythonWheelTask)
         && Objects.equals(queueDuration, that.queueDuration)
         && Objects.equals(resolvedValues, that.resolvedValues)
+        && Objects.equals(retryOnTimeout, that.retryOnTimeout)
         && Objects.equals(runDuration, that.runDuration)
         && Objects.equals(runId, that.runId)
         && Objects.equals(runIf, that.runIf)
@@ -800,6 +867,7 @@ public class RunTask {
         dbtTask,
         dependsOn,
         description,
+        disableAutoOptimization,
         effectivePerformanceTarget,
         emailNotifications,
         endTime,
@@ -811,6 +879,8 @@ public class RunTask {
         gitSource,
         jobClusterKey,
         libraries,
+        maxRetries,
+        minRetryIntervalMillis,
         newCluster,
         notebookTask,
         notificationSettings,
@@ -819,6 +889,7 @@ public class RunTask {
         pythonWheelTask,
         queueDuration,
         resolvedValues,
+        retryOnTimeout,
         runDuration,
         runId,
         runIf,
@@ -852,6 +923,7 @@ public class RunTask {
         .add("dbtTask", dbtTask)
         .add("dependsOn", dependsOn)
         .add("description", description)
+        .add("disableAutoOptimization", disableAutoOptimization)
         .add("effectivePerformanceTarget", effectivePerformanceTarget)
         .add("emailNotifications", emailNotifications)
         .add("endTime", endTime)
@@ -863,6 +935,8 @@ public class RunTask {
         .add("gitSource", gitSource)
         .add("jobClusterKey", jobClusterKey)
         .add("libraries", libraries)
+        .add("maxRetries", maxRetries)
+        .add("minRetryIntervalMillis", minRetryIntervalMillis)
         .add("newCluster", newCluster)
         .add("notebookTask", notebookTask)
         .add("notificationSettings", notificationSettings)
@@ -871,6 +945,7 @@ public class RunTask {
         .add("pythonWheelTask", pythonWheelTask)
         .add("queueDuration", queueDuration)
         .add("resolvedValues", resolvedValues)
+        .add("retryOnTimeout", retryOnTimeout)
         .add("runDuration", runDuration)
         .add("runId", runId)
         .add("runIf", runIf)
