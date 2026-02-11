@@ -35,6 +35,14 @@ public class Subscription {
   @JsonProperty("schedule_id")
   private String scheduleId;
 
+  /**
+   * Controls whether notifications are sent to the subscriber for scheduled dashboard refreshes. If
+   * not defined, defaults to false in the backend to match the current behavior (refresh and
+   * notify)
+   */
+  @JsonProperty("skip_notify")
+  private Boolean skipNotify;
+
   /** Subscriber details for users and destinations to be added as subscribers to the schedule. */
   @JsonProperty("subscriber")
   private Subscriber subscriber;
@@ -92,6 +100,15 @@ public class Subscription {
     return scheduleId;
   }
 
+  public Subscription setSkipNotify(Boolean skipNotify) {
+    this.skipNotify = skipNotify;
+    return this;
+  }
+
+  public Boolean getSkipNotify() {
+    return skipNotify;
+  }
+
   public Subscription setSubscriber(Subscriber subscriber) {
     this.subscriber = subscriber;
     return this;
@@ -129,6 +146,7 @@ public class Subscription {
         && Objects.equals(dashboardId, that.dashboardId)
         && Objects.equals(etag, that.etag)
         && Objects.equals(scheduleId, that.scheduleId)
+        && Objects.equals(skipNotify, that.skipNotify)
         && Objects.equals(subscriber, that.subscriber)
         && Objects.equals(subscriptionId, that.subscriptionId)
         && Objects.equals(updateTime, that.updateTime);
@@ -142,6 +160,7 @@ public class Subscription {
         dashboardId,
         etag,
         scheduleId,
+        skipNotify,
         subscriber,
         subscriptionId,
         updateTime);
@@ -155,6 +174,7 @@ public class Subscription {
         .add("dashboardId", dashboardId)
         .add("etag", etag)
         .add("scheduleId", scheduleId)
+        .add("skipNotify", skipNotify)
         .add("subscriber", subscriber)
         .add("subscriptionId", subscriptionId)
         .add("updateTime", updateTime)

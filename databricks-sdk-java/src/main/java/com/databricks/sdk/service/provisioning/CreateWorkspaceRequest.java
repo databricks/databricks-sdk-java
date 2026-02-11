@@ -14,7 +14,10 @@ public class CreateWorkspaceRequest {
   @JsonProperty("aws_region")
   private String awsRegion;
 
-  /** The cloud name. This field always has the value `gcp`. */
+  /**
+   * DEPRECATED: This field is being ignored by the server and will be removed in the future. The
+   * cloud name. This field always has the value `gcp`.
+   */
   @JsonProperty("cloud")
   private String cloud;
 
