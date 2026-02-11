@@ -57,7 +57,7 @@ public class OAuthClientUtils {
   public static OpenIDConnectEndpoints resolveOidcEndpoints(DatabricksConfig config)
       throws IOException {
     if (config.getClientId() != null && config.getClientSecret() != null) {
-      return config.getOidcEndpoints();
+      return config.getDatabricksOidcEndpoints();
     } else if (config.getAzureClientId() != null && config.getAzureClientSecret() != null) {
       Request request = new Request("GET", config.getHost() + "/oidc/oauth2/v2.0/authorize");
       request.setRedirectionBehavior(false);
@@ -69,6 +69,6 @@ public class OAuthClientUtils {
       return new OpenIDConnectEndpoints(
           realAuthUrl.replaceAll("/authorize", "/token"), realAuthUrl);
     }
-    return config.getOidcEndpoints();
+    return config.getDatabricksOidcEndpoints();
   }
 }
