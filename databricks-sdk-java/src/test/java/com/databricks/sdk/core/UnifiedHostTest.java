@@ -119,7 +119,7 @@ public class UnifiedHostTest {
             .setExperimentalIsUnifiedHost(true)
             .setAccountId("test-account-123");
 
-    OpenIDConnectEndpoints endpoints = config.getOidcEndpoints();
+    OpenIDConnectEndpoints endpoints = config.getDatabricksOidcEndpoints();
 
     assertEquals(
         "https://unified.databricks.com/oidc/accounts/test-account-123/v1/authorize",
@@ -138,7 +138,7 @@ public class UnifiedHostTest {
     // No account ID set
 
     DatabricksException exception =
-        assertThrows(DatabricksException.class, () -> config.getOidcEndpoints());
+        assertThrows(DatabricksException.class, () -> config.getDatabricksOidcEndpoints());
     assertTrue(exception.getMessage().contains("account_id is required"));
   }
 

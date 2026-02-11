@@ -27,7 +27,7 @@ public class OAuthM2MServicePrincipalCredentialsProvider implements CredentialsP
     // TODO: Azure returns 404 for UC workspace after redirecting to
     // https://login.microsoftonline.com/{cfg.azure_tenant_id}/.well-known/oauth-authorization-server
     try {
-      OpenIDConnectEndpoints jsonResponse = config.getOidcEndpoints();
+      OpenIDConnectEndpoints jsonResponse = config.getDatabricksOidcEndpoints();
       ClientCredentials clientCredentials =
           new ClientCredentials.Builder()
               .withHttpClient(config.getHttpClient())

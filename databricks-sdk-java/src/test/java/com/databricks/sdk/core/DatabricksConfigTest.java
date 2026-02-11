@@ -108,7 +108,7 @@ public class DatabricksConfigTest {
       c.resolve(
           new Environment(new HashMap<>(), new ArrayList<String>(), System.getProperty("os.name")));
       assertEquals(
-          c.getOidcEndpoints().getAuthorizationEndpoint(),
+          c.getDatabricksOidcEndpoints().getAuthorizationEndpoint(),
           "https://test-workspace.cloud.databricks.com/oidc/v1/authorize");
     }
   }
@@ -128,7 +128,7 @@ public class DatabricksConfigTest {
       c.resolve(
           new Environment(new HashMap<>(), new ArrayList<String>(), System.getProperty("os.name")));
       assertEquals(
-          c.getOidcEndpoints().getAuthorizationEndpoint(),
+          c.getDatabricksOidcEndpoints().getAuthorizationEndpoint(),
           "https://test-workspace.cloud.databricks.com/oidc/v1/authorize");
     }
   }
@@ -139,7 +139,7 @@ public class DatabricksConfigTest {
         new DatabricksConfig()
             .setHost("https://accounts.cloud.databricks.com")
             .setAccountId("1234567890")
-            .getOidcEndpoints()
+            .getDatabricksOidcEndpoints()
             .getAuthorizationEndpoint(),
         "https://accounts.cloud.databricks.com/oidc/accounts/1234567890/v1/authorize");
   }
@@ -163,7 +163,7 @@ public class DatabricksConfigTest {
               .setHost(server.getUrl())
               .setDiscoveryUrl(discoveryUrl)
               .setHttpClient(new CommonsHttpClient.Builder().withTimeoutSeconds(30).build())
-              .getOidcEndpoints();
+              .getDatabricksOidcEndpoints();
 
       assertEquals(
           oidcEndpoints.getAuthorizationEndpoint(), "https://test.auth.endpoint/oidc/v1/authorize");

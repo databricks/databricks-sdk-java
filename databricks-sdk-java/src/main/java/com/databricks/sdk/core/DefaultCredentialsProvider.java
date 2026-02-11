@@ -101,7 +101,7 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
     // This would also need to be updated to support unified hosts.
     OpenIDConnectEndpoints endpoints = null;
     try {
-      endpoints = config.getOidcEndpoints();
+      endpoints = config.getDatabricksOidcEndpoints();
     } catch (Exception e) {
       LOG.warn("Failed to get OpenID Connect endpoints", e);
     }

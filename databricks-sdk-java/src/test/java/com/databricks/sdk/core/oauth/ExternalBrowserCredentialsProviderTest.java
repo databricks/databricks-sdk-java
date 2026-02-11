@@ -44,7 +44,8 @@ public class ExternalBrowserCredentialsProviderTest {
               .setHttpClient(new CommonsHttpClient.Builder().withTimeoutSeconds(30).build());
       config.resolve();
 
-      assertEquals("tokenEndPointFromServer", config.getOidcEndpoints().getTokenEndpoint());
+      assertEquals(
+          "tokenEndPointFromServer", config.getDatabricksOidcEndpoints().getTokenEndpoint());
 
       OAuthClient testClient =
           new OAuthClient.Builder()
@@ -52,7 +53,7 @@ public class ExternalBrowserCredentialsProviderTest {
               .withClientId(config.getClientId())
               .withClientSecret(config.getClientSecret())
               .withHost(config.getHost())
-              .withOpenIDConnectEndpoints(config.getOidcEndpoints())
+              .withOpenIDConnectEndpoints(config.getDatabricksOidcEndpoints())
               .withRedirectUrl(config.getEffectiveOAuthRedirectUrl())
               .withScopes(config.getScopes())
               .build();
@@ -92,7 +93,8 @@ public class ExternalBrowserCredentialsProviderTest {
               .setScopes(Arrays.asList("sql"));
       config.resolve();
 
-      assertEquals("tokenEndPointFromServer", config.getOidcEndpoints().getTokenEndpoint());
+      assertEquals(
+          "tokenEndPointFromServer", config.getDatabricksOidcEndpoints().getTokenEndpoint());
 
       OAuthClient testClient =
           new OAuthClient.Builder()
@@ -100,7 +102,7 @@ public class ExternalBrowserCredentialsProviderTest {
               .withClientId(config.getClientId())
               .withClientSecret(config.getClientSecret())
               .withHost(config.getHost())
-              .withOpenIDConnectEndpoints(config.getOidcEndpoints())
+              .withOpenIDConnectEndpoints(config.getDatabricksOidcEndpoints())
               .withRedirectUrl(config.getEffectiveOAuthRedirectUrl())
               .withScopes(config.getScopes())
               .build();
@@ -129,8 +131,9 @@ public class ExternalBrowserCredentialsProviderTest {
     config.resolve();
 
     String prefix = "https://accounts.cloud.databricks.com/oidc/accounts/" + config.getAccountId();
-    assertEquals(prefix + "/v1/token", config.getOidcEndpoints().getTokenEndpoint());
-    assertEquals(prefix + "/v1/authorize", config.getOidcEndpoints().getAuthorizationEndpoint());
+    assertEquals(prefix + "/v1/token", config.getDatabricksOidcEndpoints().getTokenEndpoint());
+    assertEquals(
+        prefix + "/v1/authorize", config.getDatabricksOidcEndpoints().getAuthorizationEndpoint());
   }
 
   @Test
@@ -278,7 +281,7 @@ public class ExternalBrowserCredentialsProviderTest {
 
     // Spy on the config to inject the endpoints.
     DatabricksConfig spyConfig = Mockito.spy(config);
-    Mockito.doReturn(endpoints).when(spyConfig).getOidcEndpoints();
+    Mockito.doReturn(endpoints).when(spyConfig).getDatabricksOidcEndpoints();
 
     // Configure provider.
     HeaderFactory headerFactory = provider.configure(spyConfig);
@@ -343,7 +346,7 @@ public class ExternalBrowserCredentialsProviderTest {
 
     // Spy on the config to inject the endpoints.
     DatabricksConfig spyConfig = Mockito.spy(config);
-    Mockito.doReturn(endpoints).when(spyConfig).getOidcEndpoints();
+    Mockito.doReturn(endpoints).when(spyConfig).getDatabricksOidcEndpoints();
 
     // Configure provider.
     HeaderFactory headerFactory = provider.configure(spyConfig);
@@ -415,7 +418,7 @@ public class ExternalBrowserCredentialsProviderTest {
 
     // Spy on the config to inject the endpoints
     DatabricksConfig spyConfig = Mockito.spy(config);
-    Mockito.doReturn(endpoints).when(spyConfig).getOidcEndpoints();
+    Mockito.doReturn(endpoints).when(spyConfig).getDatabricksOidcEndpoints();
 
     // Configure provider
     HeaderFactory headerFactory = provider.configure(spyConfig);
@@ -524,7 +527,7 @@ public class ExternalBrowserCredentialsProviderTest {
 
     // Spy on the config to inject the endpoints
     DatabricksConfig spyConfig = Mockito.spy(config);
-    Mockito.doReturn(endpoints).when(spyConfig).getOidcEndpoints();
+    Mockito.doReturn(endpoints).when(spyConfig).getDatabricksOidcEndpoints();
 
     // Configure provider
     HeaderFactory headerFactory = provider.configure(spyConfig);
@@ -610,7 +613,7 @@ public class ExternalBrowserCredentialsProviderTest {
             "https://test.databricks.com/oidc/v1/token",
             "https://test.databricks.com/oidc/v1/authorize");
     DatabricksConfig spyConfig = Mockito.spy(config);
-    Mockito.doReturn(endpoints).when(spyConfig).getOidcEndpoints();
+    Mockito.doReturn(endpoints).when(spyConfig).getDatabricksOidcEndpoints();
 
     // Configure provider
     HeaderFactory headerFactory = provider.configure(spyConfig);
@@ -738,7 +741,7 @@ public class ExternalBrowserCredentialsProviderTest {
             "https://test.azuredatabricks.net/oidc/v1/token",
             "https://test.azuredatabricks.net/oidc/v1/authorize");
     DatabricksConfig spyConfig = Mockito.spy(config);
-    Mockito.doReturn(endpoints).when(spyConfig).getOidcEndpoints();
+    Mockito.doReturn(endpoints).when(spyConfig).getDatabricksOidcEndpoints();
 
     // Configure provider
     HeaderFactory headerFactory = provider.configure(spyConfig);

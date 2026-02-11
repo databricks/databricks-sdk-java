@@ -758,7 +758,46 @@ public class DatabricksConfig {
     }
   }
 
+  /**
+   * @deprecated Use {@link #getDatabricksOidcEndpoints()} instead. This method incorrectly returns
+   *     Azure OIDC endpoints when azure_client_id is set, even for Databricks OAuth flows that
+   *     don't use Azure authentication. This caused bugs where Databricks M2M OAuth would fail when
+   *     ARM_CLIENT_ID was set for other purposes. Use instead: - getDatabricksOidcEndpoints(): For
+   *     Databricks OAuth (oauth-m2m, external-browser, etc.). -
+   *     getAzureEntraIdWorkspaceEndpoints(): For Azure Entra ID OIDC endpoints.
+   * @return The OIDC endpoints. This method dinamically returns the OIDC endpoints based on the
+   *     config.
+   */
+  @Deprecated
   public OpenIDConnectEndpoints getOidcEndpoints() throws IOException {
+    if (isAzure() && getAzureClientId() != null) {
+      return getAzureEntraIdWorkspaceEndpoints();
+    }
+    return getDatabricksOidcEndpoints();
+  }
+
+  /**
+   * @return The Azure Entra ID OIDC endpoints.
+   */
+  public OpenIDConnectEndpoints getAzureEntraIdWorkspaceEndpoints() throws IOException {
+    if (isAzure() && getAzureClientId() != null) {
+      Request request = new Request("GET", getHost() + "/oidc/oauth2/v2.0/authorize");
+      request.setRedirectionBehavior(false);
+      Response resp = getHttpClient().execute(request);
+      String realAuthUrl = resp.getFirstHeader("location");
+      if (realAuthUrl == null) {
+        return null;
+      }
+      return new OpenIDConnectEndpoints(
+          realAuthUrl.replaceAll("/authorize", "/token"), realAuthUrl);
+    }
+    return null;
+  }
+
+  /**
+   * @return The Databricks OIDC endpoints.
+   */
+  public OpenIDConnectEndpoints getDatabricksOidcEndpoints() throws IOException {
     if (discoveryUrl == null) {
       return fetchDefaultOidcEndpoints();
     }
