@@ -1,5 +1,16 @@
 # Version changelog
 
+## Release v0.88.0 (2026-02-12)
+
+### API Changes
+* Add `sourceType`, `updateTime` and `updatedBy` fields for `com.databricks.sdk.service.catalog.EntityTagAssignment`.
+* Add `skipNotify` field for `com.databricks.sdk.service.dashboards.Subscription`.
+* Add `sparseCheckout` field for `com.databricks.sdk.service.jobs.GitSource`.
+* Add `disableAutoOptimization`, `maxRetries`, `minRetryIntervalMillis` and `retryOnTimeout` fields for `com.databricks.sdk.service.jobs.RunTask`.
+* Add `disableAutoOptimization`, `maxRetries`, `minRetryIntervalMillis` and `retryOnTimeout` fields for `com.databricks.sdk.service.jobs.SubmitTask`.
+* Add `EDGEGRID_AKAMAI` enum value for `com.databricks.sdk.service.catalog.CredentialType`.
+
+
 ## Release v0.87.0 (2026-02-11)
 
 ### Bug Fixes

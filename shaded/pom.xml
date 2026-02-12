@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <properties>
-    <sdk.version>0.87.0</sdk.version>
+    <sdk.version>0.88.0</sdk.version>
   </properties>
 
   <groupId>com.databricks</groupId>
