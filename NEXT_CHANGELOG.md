@@ -13,3 +13,6 @@
 ### Internal Changes
 
 ### API Changes
+* Add `com.databricks.sdk.service.networking` package.
+* Add `accountClient.endpoints()` service.
+* Add `filterCondition` and `transformations` fields for `com.databricks.sdk.service.ml.DeltaTableSource`.

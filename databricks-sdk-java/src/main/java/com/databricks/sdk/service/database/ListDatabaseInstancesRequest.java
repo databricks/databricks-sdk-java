@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class ListDatabaseInstancesRequest {
-  /** Upper bound for items returned. */
+  /** Upper bound for items returned. The maximum value is 100. */
   @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;
