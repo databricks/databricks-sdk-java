@@ -1928,6 +1928,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/SetModelTagReque
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/SetModelVersionTagRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/SetTag.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/SlidingWindow.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/SqlTransformation.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/Status.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/SubscriptionMode.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/TestRegistryWebhookRequest.java linguist-generated=true
@@ -1955,6 +1956,18 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/UpdateRunRespons
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/UpdateRunStatus.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/UpdateWebhookResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ViewType.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/networking/AzurePrivateEndpointInfo.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/networking/CreateEndpointRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/networking/DeleteEndpointRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/networking/Endpoint.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/networking/EndpointState.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/networking/EndpointUseCase.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/networking/EndpointsAPI.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/networking/EndpointsImpl.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/networking/EndpointsService.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/networking/GetEndpointRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/networking/ListEndpointsRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/networking/ListEndpointsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/oauth2/AccountFederationPolicyAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/oauth2/AccountFederationPolicyImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/oauth2/AccountFederationPolicyService.java linguist-generated=true
