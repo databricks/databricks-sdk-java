@@ -1,5 +1,6 @@
 package com.databricks.sdk.core;
 
+import static com.databricks.sdk.core.DatabricksCliCredentialsProvider.ERR_CUSTOM_SCOPES_NOT_SUPPORTED;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
@@ -138,5 +139,51 @@ class DatabricksCliCredentialsProviderTest {
         Arrays.asList(
             CLI_PATH, "auth", "token", "--host", ACCOUNT_HOST, "--account-id", ACCOUNT_ID),
         cmd);
+  }
+
+  @Test
+  void testConfigure_ErrorsWhenScopesExplicitlySet() {
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setHost(HOST)
+            .setDatabricksCliPath(CLI_PATH)
+            .setScopes(Arrays.asList("sql"));
+
+    DatabricksException e =
+        assertThrows(DatabricksException.class, () -> provider.configure(config));
+    assertEquals(ERR_CUSTOM_SCOPES_NOT_SUPPORTED, e.getMessage());
+  }
+
+  @Test
+  void testConfigure_SkipsWhenCliNotFoundEvenWithScopes() {
+    // When CLI is not available, the provider should return null (skip)
+    // rather than throwing an error about scopes.
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setHost(HOST)
+            .setScopes(Arrays.asList("sql"));
+
+    assertNull(provider.configure(config));
+  }
+
+  @Test
+  void testConfigure_NoErrorWhenNoScopes() {
+    DatabricksConfig config = new DatabricksConfig().setHost(HOST);
+
+    try {
+      provider.configure(config);
+    } catch (Exception e) {
+      // May fail for other reasons (CLI not found, env not set), but must not be the scope error
+      assertNotEquals(ERR_CUSTOM_SCOPES_NOT_SUPPORTED, e.getMessage());
+    }
+  }
+
+  @Test
+  void testScopesExplicitlySetFlag() {
+    DatabricksConfig config = new DatabricksConfig();
+    assertFalse(config.isScopesExplicitlySet());
+
+    config.setScopes(Arrays.asList("sql", "clusters"));
+    assertTrue(config.isScopesExplicitlySet());
   }
 }

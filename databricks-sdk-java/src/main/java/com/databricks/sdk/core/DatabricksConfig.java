@@ -50,6 +50,12 @@ public class DatabricksConfig {
   @ConfigAttribute(auth = "oauth")
   private List<String> scopes;
 
+  // Temporary field to track if scopes were explicitly set by the user.
+  // This is used to ensure users don't set explicit scopes when using 
+  // `databricks-cli` auth, as it does not respect the scopes.
+  // TODO: Remove this field once the `auth token` command supports scopes.
+  private boolean scopesExplicitlySet = false;
+
   @ConfigAttribute(env = "DATABRICKS_REDIRECT_URL", auth = "oauth")
   private String redirectUrl;
 
@@ -430,7 +436,12 @@ public class DatabricksConfig {
 
   public DatabricksConfig setScopes(List<String> scopes) {
     this.scopes = scopes;
+    this.scopesExplicitlySet = true;
     return this;
+  }
+
+  public boolean isScopesExplicitlySet() {
+    return scopesExplicitlySet;
   }
 
   public String getProfile() {

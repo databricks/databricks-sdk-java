@@ -15,6 +15,10 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
 
   public static final String DATABRICKS_CLI = "databricks-cli";
 
+  static final String ERR_CUSTOM_SCOPES_NOT_SUPPORTED =
+      "custom scopes are not supported with databricks-cli auth; "
+          + "scopes are determined by what was last used when logging in with `databricks auth login`";
+
   @Override
   public String authType() {
     return DATABRICKS_CLI;
@@ -72,6 +76,10 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
       CliTokenSource tokenSource = getDatabricksCliTokenSource(config);
       if (tokenSource == null) {
         return null;
+      }
+
+      if (config.isScopesExplicitlySet()) {
+        throw new DatabricksException(ERR_CUSTOM_SCOPES_NOT_SUPPORTED);
       }
 
       CachedTokenSource cachedTokenSource =
