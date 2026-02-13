@@ -16,3 +16,5 @@
 * Add `com.databricks.sdk.service.networking` package.
 * Add `accountClient.endpoints()` service.
 * Add `filterCondition` and `transformations` fields for `com.databricks.sdk.service.ml.DeltaTableSource`.
+* Add `budgetPolicyId` and `customTags` fields for `com.databricks.sdk.service.postgres.ProjectSpec`.
+* Add `budgetPolicyId` and `customTags` fields for `com.databricks.sdk.service.postgres.ProjectStatus`.

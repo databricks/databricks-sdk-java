@@ -4,7 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** Latest kind: CONNECTION_AKAMAI_WAF_EDGEGRID = 296; Next id: 297 */
+/** Latest kind: CONNECTION_M365_AUDIT_LOGS_OAUTH_M2M = 297; Next id: 298 */
 @Generated
 public enum SecurableKind {
   TABLE_DB_STORAGE,
