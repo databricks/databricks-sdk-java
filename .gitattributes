@@ -2174,6 +2174,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/PostgresAP
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/PostgresImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/PostgresService.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/Project.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/ProjectCustomTag.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/ProjectDefaultEndpointSettings.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/ProjectOperationMetadata.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/ProjectSpec.java linguist-generated=true

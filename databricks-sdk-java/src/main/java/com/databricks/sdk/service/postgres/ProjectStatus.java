@@ -6,6 +6,7 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.protobuf.Duration;
+import java.util.Collection;
 import java.util.Objects;
 
 @Generated
@@ -13,6 +14,14 @@ public class ProjectStatus {
   /** The logical size limit for a branch. */
   @JsonProperty("branch_logical_size_limit_bytes")
   private Long branchLogicalSizeLimitBytes;
+
+  /** The budget policy that is applied to the project. */
+  @JsonProperty("budget_policy_id")
+  private String budgetPolicyId;
+
+  /** The effective custom tags associated with the project. */
+  @JsonProperty("custom_tags")
+  private Collection<ProjectCustomTag> customTags;
 
   /** The effective default endpoint settings. */
   @JsonProperty("default_endpoint_settings")
@@ -45,6 +54,24 @@ public class ProjectStatus {
 
   public Long getBranchLogicalSizeLimitBytes() {
     return branchLogicalSizeLimitBytes;
+  }
+
+  public ProjectStatus setBudgetPolicyId(String budgetPolicyId) {
+    this.budgetPolicyId = budgetPolicyId;
+    return this;
+  }
+
+  public String getBudgetPolicyId() {
+    return budgetPolicyId;
+  }
+
+  public ProjectStatus setCustomTags(Collection<ProjectCustomTag> customTags) {
+    this.customTags = customTags;
+    return this;
+  }
+
+  public Collection<ProjectCustomTag> getCustomTags() {
+    return customTags;
   }
 
   public ProjectStatus setDefaultEndpointSettings(
@@ -108,6 +135,8 @@ public class ProjectStatus {
     if (o == null || getClass() != o.getClass()) return false;
     ProjectStatus that = (ProjectStatus) o;
     return Objects.equals(branchLogicalSizeLimitBytes, that.branchLogicalSizeLimitBytes)
+        && Objects.equals(budgetPolicyId, that.budgetPolicyId)
+        && Objects.equals(customTags, that.customTags)
         && Objects.equals(defaultEndpointSettings, that.defaultEndpointSettings)
         && Objects.equals(displayName, that.displayName)
         && Objects.equals(historyRetentionDuration, that.historyRetentionDuration)
@@ -120,6 +149,8 @@ public class ProjectStatus {
   public int hashCode() {
     return Objects.hash(
         branchLogicalSizeLimitBytes,
+        budgetPolicyId,
+        customTags,
         defaultEndpointSettings,
         displayName,
         historyRetentionDuration,
@@ -132,6 +163,8 @@ public class ProjectStatus {
   public String toString() {
     return new ToStringer(ProjectStatus.class)
         .add("branchLogicalSizeLimitBytes", branchLogicalSizeLimitBytes)
+        .add("budgetPolicyId", budgetPolicyId)
+        .add("customTags", customTags)
         .add("defaultEndpointSettings", defaultEndpointSettings)
         .add("displayName", displayName)
         .add("historyRetentionDuration", historyRetentionDuration)

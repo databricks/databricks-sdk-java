@@ -6,10 +6,28 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.protobuf.Duration;
+import java.util.Collection;
 import java.util.Objects;
 
 @Generated
 public class ProjectSpec {
+  /**
+   * The desired budget policy to associate with the project. See status.budget_policy_id for the
+   * policy that is actually applied to the project.
+   */
+  @JsonProperty("budget_policy_id")
+  private String budgetPolicyId;
+
+  /**
+   * Custom tags to associate with the project. Forwarded to LBM for billing and cost tracking. To
+   * update tags, provide the new tag list and include "spec.custom_tags" in the update_mask. To
+   * clear all tags, provide an empty list and include "spec.custom_tags" in the update_mask. To
+   * preserve existing tags, omit this field from the update_mask (or use wildcard "*" which
+   * auto-excludes empty tags).
+   */
+  @JsonProperty("custom_tags")
+  private Collection<ProjectCustomTag> customTags;
+
   /** */
   @JsonProperty("default_endpoint_settings")
   private ProjectDefaultEndpointSettings defaultEndpointSettings;
@@ -28,6 +46,24 @@ public class ProjectSpec {
   /** The major Postgres version number. Supported versions are 16 and 17. */
   @JsonProperty("pg_version")
   private Long pgVersion;
+
+  public ProjectSpec setBudgetPolicyId(String budgetPolicyId) {
+    this.budgetPolicyId = budgetPolicyId;
+    return this;
+  }
+
+  public String getBudgetPolicyId() {
+    return budgetPolicyId;
+  }
+
+  public ProjectSpec setCustomTags(Collection<ProjectCustomTag> customTags) {
+    this.customTags = customTags;
+    return this;
+  }
+
+  public Collection<ProjectCustomTag> getCustomTags() {
+    return customTags;
+  }
 
   public ProjectSpec setDefaultEndpointSettings(
       ProjectDefaultEndpointSettings defaultEndpointSettings) {
@@ -71,7 +107,9 @@ public class ProjectSpec {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ProjectSpec that = (ProjectSpec) o;
-    return Objects.equals(defaultEndpointSettings, that.defaultEndpointSettings)
+    return Objects.equals(budgetPolicyId, that.budgetPolicyId)
+        && Objects.equals(customTags, that.customTags)
+        && Objects.equals(defaultEndpointSettings, that.defaultEndpointSettings)
         && Objects.equals(displayName, that.displayName)
         && Objects.equals(historyRetentionDuration, that.historyRetentionDuration)
         && Objects.equals(pgVersion, that.pgVersion);
@@ -79,12 +117,20 @@ public class ProjectSpec {
 
   @Override
   public int hashCode() {
-    return Objects.hash(defaultEndpointSettings, displayName, historyRetentionDuration, pgVersion);
+    return Objects.hash(
+        budgetPolicyId,
+        customTags,
+        defaultEndpointSettings,
+        displayName,
+        historyRetentionDuration,
+        pgVersion);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ProjectSpec.class)
+        .add("budgetPolicyId", budgetPolicyId)
+        .add("customTags", customTags)
         .add("defaultEndpointSettings", defaultEndpointSettings)
         .add("displayName", displayName)
         .add("historyRetentionDuration", historyRetentionDuration)
