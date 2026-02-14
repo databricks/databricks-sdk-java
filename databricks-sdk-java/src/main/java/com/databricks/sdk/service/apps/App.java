@@ -113,6 +113,10 @@ public class App {
   @JsonProperty("service_principal_name")
   private String servicePrincipalName;
 
+  /** Name of the space this app belongs to. */
+  @JsonProperty("space")
+  private String space;
+
   /** The update time of the app. Formatted timestamp in ISO 6801. */
   @JsonProperty("update_time")
   private String updateTime;
@@ -331,6 +335,15 @@ public class App {
     return servicePrincipalName;
   }
 
+  public App setSpace(String space) {
+    this.space = space;
+    return this;
+  }
+
+  public String getSpace() {
+    return space;
+  }
+
   public App setUpdateTime(String updateTime) {
     this.updateTime = updateTime;
     return this;
@@ -403,6 +416,7 @@ public class App {
         && Objects.equals(servicePrincipalClientId, that.servicePrincipalClientId)
         && Objects.equals(servicePrincipalId, that.servicePrincipalId)
         && Objects.equals(servicePrincipalName, that.servicePrincipalName)
+        && Objects.equals(space, that.space)
         && Objects.equals(updateTime, that.updateTime)
         && Objects.equals(updater, that.updater)
         && Objects.equals(url, that.url)
@@ -435,6 +449,7 @@ public class App {
         servicePrincipalClientId,
         servicePrincipalId,
         servicePrincipalName,
+        space,
         updateTime,
         updater,
         url,
@@ -467,6 +482,7 @@ public class App {
         .add("servicePrincipalClientId", servicePrincipalClientId)
         .add("servicePrincipalId", servicePrincipalId)
         .add("servicePrincipalName", servicePrincipalName)
+        .add("space", space)
         .add("updateTime", updateTime)
         .add("updater", updater)
         .add("url", url)

@@ -18,3 +18,7 @@
 * Add `filterCondition` and `transformations` fields for `com.databricks.sdk.service.ml.DeltaTableSource`.
 * Add `budgetPolicyId` and `customTags` fields for `com.databricks.sdk.service.postgres.ProjectSpec`.
 * Add `budgetPolicyId` and `customTags` fields for `com.databricks.sdk.service.postgres.ProjectStatus`.
+* Add `createSpace()`, `deleteSpace()`, `getSpace()`, `getSpaceOperation()`, `listSpaces()` and `updateSpace()` methods for `workspaceClient.apps()` service.
+* Add `space` field for `com.databricks.sdk.service.apps.App`.
+* Add `space` field for `com.databricks.sdk.service.apps.ListAppsRequest`.
+* [Breaking] Remove `filterCondition` and `transformations` fields for `com.databricks.sdk.service.ml.DeltaTableSource`.
