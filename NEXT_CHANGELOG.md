@@ -6,6 +6,8 @@
 
 ### Bug Fixes
 
+* Fixed inconsistent Azure environment resolution between `getAzureEnvironment()` and `getDatabricksEnvironment()` methods ([#XXX](https://github.com/databricks/databricks-sdk-java/pull/XXX))
+
 ### Security Vulnerabilities
 
 ### Documentation
