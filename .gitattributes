@@ -549,6 +549,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/PipelinePro
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/PoliciesAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/PoliciesImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/PoliciesService.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/PolicyFunctionArgument.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/PolicyInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/PolicyType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/PrimaryKeyConstraint.java linguist-generated=true

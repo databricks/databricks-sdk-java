@@ -15,6 +15,14 @@ public class ColumnMask {
   private String functionName;
 
   /**
+   * The list of additional table columns or literals to be passed as additional arguments to a
+   * column mask function. This is the replacement of the deprecated using_column_names field and
+   * carries information about the types (alias or constant) of the arguments to the mask function.
+   */
+  @JsonProperty("using_arguments")
+  private Collection<PolicyFunctionArgument> usingArguments;
+
+  /**
    * The list of additional table columns to be passed as input to the column mask function. The
    * first arg of the mask function should be of the type of the column being masked and the types
    * of the rest of the args should match the types of columns in 'using_column_names'.
@@ -29,6 +37,15 @@ public class ColumnMask {
 
   public String getFunctionName() {
     return functionName;
+  }
+
+  public ColumnMask setUsingArguments(Collection<PolicyFunctionArgument> usingArguments) {
+    this.usingArguments = usingArguments;
+    return this;
+  }
+
+  public Collection<PolicyFunctionArgument> getUsingArguments() {
+    return usingArguments;
   }
 
   public ColumnMask setUsingColumnNames(Collection<String> usingColumnNames) {
@@ -46,18 +63,20 @@ public class ColumnMask {
     if (o == null || getClass() != o.getClass()) return false;
     ColumnMask that = (ColumnMask) o;
     return Objects.equals(functionName, that.functionName)
+        && Objects.equals(usingArguments, that.usingArguments)
         && Objects.equals(usingColumnNames, that.usingColumnNames);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(functionName, usingColumnNames);
+    return Objects.hash(functionName, usingArguments, usingColumnNames);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ColumnMask.class)
         .add("functionName", functionName)
+        .add("usingArguments", usingArguments)
         .add("usingColumnNames", usingColumnNames)
         .toString();
   }
