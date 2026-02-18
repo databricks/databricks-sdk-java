@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * [DEPRECATED] This API is deprecated. Please use the Data Quality Monitors API instead (REST:
+ * Deprecated: Please use the Data Quality Monitors API instead (REST:
  * /api/data-quality/v1/monitors), which manages both Data Profiling and Anomaly Detection.
  *
  * <p>A monitor computes and monitors data or model quality metrics for a table over time. It
@@ -34,16 +34,16 @@ public class QualityMonitorsAPI {
   }
 
   /**
-   * [DEPRECATED] Cancels an already-initiated refresh job. Use Data Quality Monitors API instead
-   * (/api/data-quality/v1/monitors).
+   * Deprecated: Use Data Quality Monitors API instead (/api/data-quality/v1/monitors). Cancels an
+   * already-initiated refresh job.
    */
   public void cancelRefresh(CancelRefreshRequest request) {
     impl.cancelRefresh(request);
   }
 
   /**
-   * [DEPRECATED] Creates a new monitor for the specified table. Use Data Quality Monitors API
-   * instead (/api/data-quality/v1/monitors).
+   * Deprecated: Use Data Quality Monitors API instead (/api/data-quality/v1/monitors). Creates a
+   * new monitor for the specified table.
    *
    * <p>The caller must either: 1. be an owner of the table's parent catalog, have **USE_SCHEMA** on
    * the table's parent schema, and have **SELECT** access on the table 2. have **USE_CATALOG** on
@@ -63,8 +63,8 @@ public class QualityMonitorsAPI {
   }
 
   /**
-   * [DEPRECATED] Deletes a monitor for the specified table. Use Data Quality Monitors API instead
-   * (/api/data-quality/v1/monitors).
+   * Deprecated: Use Data Quality Monitors API instead (/api/data-quality/v1/monitors). Deletes a
+   * monitor for the specified table.
    *
    * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
    * on the table's parent catalog and be an owner of the table's parent schema 3. have the
@@ -85,8 +85,8 @@ public class QualityMonitorsAPI {
   }
 
   /**
-   * [DEPRECATED] Gets a monitor for the specified table. Use Data Quality Monitors API instead
-   * (/api/data-quality/v1/monitors).
+   * Deprecated: Use Data Quality Monitors API instead (/api/data-quality/v1/monitors). Gets a
+   * monitor for the specified table.
    *
    * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
    * on the table's parent catalog and be an owner of the table's parent schema. 3. have the
@@ -106,8 +106,8 @@ public class QualityMonitorsAPI {
   }
 
   /**
-   * [DEPRECATED] Gets info about a specific monitor refresh using the given refresh ID. Use Data
-   * Quality Monitors API instead (/api/data-quality/v1/monitors).
+   * Deprecated: Use Data Quality Monitors API instead (/api/data-quality/v1/monitors). Gets info
+   * about a specific monitor refresh using the given refresh ID.
    *
    * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
    * on the table's parent catalog and be an owner of the table's parent schema 3. have the
@@ -125,8 +125,8 @@ public class QualityMonitorsAPI {
   }
 
   /**
-   * [DEPRECATED] Gets an array containing the history of the most recent refreshes (up to 25) for
-   * this table. Use Data Quality Monitors API instead (/api/data-quality/v1/monitors).
+   * Deprecated: Use Data Quality Monitors API instead (/api/data-quality/v1/monitors). Gets an
+   * array containing the history of the most recent refreshes (up to 25) for this table.
    *
    * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
    * on the table's parent catalog and be an owner of the table's parent schema 3. have the
@@ -140,8 +140,8 @@ public class QualityMonitorsAPI {
   }
 
   /**
-   * [DEPRECATED] Regenerates the monitoring dashboard for the specified table. Use Data Quality
-   * Monitors API instead (/api/data-quality/v1/monitors).
+   * Deprecated: Use Data Quality Monitors API instead (/api/data-quality/v1/monitors). Regenerates
+   * the monitoring dashboard for the specified table.
    *
    * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
    * on the table's parent catalog and be an owner of the table's parent schema 3. have the
@@ -156,8 +156,8 @@ public class QualityMonitorsAPI {
   }
 
   /**
-   * [DEPRECATED] Queues a metric refresh on the monitor for the specified table. Use Data Quality
-   * Monitors API instead (/api/data-quality/v1/monitors). The refresh will execute in the
+   * Deprecated: Use Data Quality Monitors API instead (/api/data-quality/v1/monitors). Queues a
+   * metric refresh on the monitor for the specified table. The refresh will execute in the
    * background.
    *
    * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
@@ -172,8 +172,8 @@ public class QualityMonitorsAPI {
   }
 
   /**
-   * [DEPRECATED] Updates a monitor for the specified table. Use Data Quality Monitors API instead
-   * (/api/data-quality/v1/monitors).
+   * Deprecated: Use Data Quality Monitors API instead (/api/data-quality/v1/monitors). Updates a
+   * monitor for the specified table.
    *
    * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
    * on the table's parent catalog and be an owner of the table's parent schema 3. have the

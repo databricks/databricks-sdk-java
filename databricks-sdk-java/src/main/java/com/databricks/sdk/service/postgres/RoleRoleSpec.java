@@ -5,10 +5,15 @@ package com.databricks.sdk.service.postgres;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 @Generated
 public class RoleRoleSpec {
+  /** The desired API-exposed Postgres role attribute to associate with the role. Optional. */
+  @JsonProperty("attributes")
+  private RoleAttributes attributes;
+
   /**
    * If auth_method is left unspecified, a meaningful authentication method is derived from the
    * identity_type: * For the managed identities, OAUTH is used. * For the regular postgres roles,
@@ -28,6 +33,10 @@ public class RoleRoleSpec {
   @JsonProperty("identity_type")
   private RoleIdentityType identityType;
 
+  /** An enum value for a standard role that this role is a member of. */
+  @JsonProperty("membership_roles")
+  private Collection<RoleMembershipRole> membershipRoles;
+
   /**
    * The name of the Postgres role.
    *
@@ -44,6 +53,15 @@ public class RoleRoleSpec {
    */
   @JsonProperty("postgres_role")
   private String postgresRole;
+
+  public RoleRoleSpec setAttributes(RoleAttributes attributes) {
+    this.attributes = attributes;
+    return this;
+  }
+
+  public RoleAttributes getAttributes() {
+    return attributes;
+  }
 
   public RoleRoleSpec setAuthMethod(RoleAuthMethod authMethod) {
     this.authMethod = authMethod;
@@ -63,6 +81,15 @@ public class RoleRoleSpec {
     return identityType;
   }
 
+  public RoleRoleSpec setMembershipRoles(Collection<RoleMembershipRole> membershipRoles) {
+    this.membershipRoles = membershipRoles;
+    return this;
+  }
+
+  public Collection<RoleMembershipRole> getMembershipRoles() {
+    return membershipRoles;
+  }
+
   public RoleRoleSpec setPostgresRole(String postgresRole) {
     this.postgresRole = postgresRole;
     return this;
@@ -77,21 +104,25 @@ public class RoleRoleSpec {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     RoleRoleSpec that = (RoleRoleSpec) o;
-    return Objects.equals(authMethod, that.authMethod)
+    return Objects.equals(attributes, that.attributes)
+        && Objects.equals(authMethod, that.authMethod)
         && Objects.equals(identityType, that.identityType)
+        && Objects.equals(membershipRoles, that.membershipRoles)
         && Objects.equals(postgresRole, that.postgresRole);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(authMethod, identityType, postgresRole);
+    return Objects.hash(attributes, authMethod, identityType, membershipRoles, postgresRole);
   }
 
   @Override
   public String toString() {
     return new ToStringer(RoleRoleSpec.class)
+        .add("attributes", attributes)
         .add("authMethod", authMethod)
         .add("identityType", identityType)
+        .add("membershipRoles", membershipRoles)
         .add("postgresRole", postgresRole)
         .toString();
   }

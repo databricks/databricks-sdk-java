@@ -13,3 +13,6 @@
 ### Internal Changes
 
 ### API Changes
+* Add `attributes` and `membershipRoles` fields for `com.databricks.sdk.service.postgres.RoleRoleSpec`.
+* Add `membershipRoles` field for `com.databricks.sdk.service.postgres.RoleRoleStatus`.
+* Add `GENERAL_ACCESS` enum value for `com.databricks.sdk.service.provisioning.EndpointUseCase`.

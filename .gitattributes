@@ -2202,8 +2202,10 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/RequestedC
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/RequestedClaimsPermissionSet.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/RequestedResource.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/Role.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/RoleAttributes.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/RoleAuthMethod.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/RoleIdentityType.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/RoleMembershipRole.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/RoleOperationMetadata.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/RoleRoleSpec.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/RoleRoleStatus.java linguist-generated=true
