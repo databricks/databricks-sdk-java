@@ -1,5 +1,15 @@
 # Version changelog
 
+## Release v0.90.0 (2026-02-18)
+
+### API Changes
+* Add `usingArguments` field for `com.databricks.sdk.service.catalog.ColumnMask`.
+* Add `effectiveEnableFileEvents` field for `com.databricks.sdk.service.catalog.CreateExternalLocation`.
+* Add `effectiveEnableFileEvents` field for `com.databricks.sdk.service.catalog.ExternalLocationInfo`.
+* Add `inputArguments` field for `com.databricks.sdk.service.catalog.TableRowFilter`.
+* Add `effectiveEnableFileEvents` field for `com.databricks.sdk.service.catalog.UpdateExternalLocation`.
+
+
 ## Release v0.89.0 (2026-02-17)
 
 ### API Changes
