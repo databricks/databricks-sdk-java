@@ -4,7 +4,7 @@ package com.databricks.sdk.service.qualitymonitorv2;
 import com.databricks.sdk.support.Generated;
 
 /**
- * [DEPRECATED] This API is deprecated. Please use the Data Quality Monitoring API instead (REST:
+ * Deprecated: Please use the Data Quality Monitoring API instead (REST:
  * /api/data-quality/v1/monitors). Manage data quality of UC objects (currently support `schema`).
  *
  * <p>This is the high-level interface, that contains generated methods.
@@ -14,27 +14,33 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface QualityMonitorV2Service {
   /**
-   * [DEPRECATED] Create a quality monitor on UC object. Use Data Quality Monitoring API instead.
+   * Deprecated: Use Data Quality Monitoring API instead (/api/data-quality/v1/monitors). Create a
+   * quality monitor on UC object.
    */
   QualityMonitor createQualityMonitor(CreateQualityMonitorRequest createQualityMonitorRequest);
 
   /**
-   * [DEPRECATED] Delete a quality monitor on UC object. Use Data Quality Monitoring API instead.
+   * Deprecated: Use Data Quality Monitoring API instead (/api/data-quality/v1/monitors). Delete a
+   * quality monitor on UC object.
    */
   void deleteQualityMonitor(DeleteQualityMonitorRequest deleteQualityMonitorRequest);
 
-  /** [DEPRECATED] Read a quality monitor on UC object. Use Data Quality Monitoring API instead. */
+  /**
+   * Deprecated: Use Data Quality Monitoring API instead (/api/data-quality/v1/monitors). Read a
+   * quality monitor on UC object.
+   */
   QualityMonitor getQualityMonitor(GetQualityMonitorRequest getQualityMonitorRequest);
 
   /**
-   * [DEPRECATED] (Unimplemented) List quality monitors. Use Data Quality Monitoring API instead.
+   * Deprecated: Use Data Quality Monitoring API instead (/api/data-quality/v1/monitors).
+   * (Unimplemented) List quality monitors.
    */
   ListQualityMonitorResponse listQualityMonitor(
       ListQualityMonitorRequest listQualityMonitorRequest);
 
   /**
-   * [DEPRECATED] (Unimplemented) Update a quality monitor on UC object. Use Data Quality Monitoring
-   * API instead.
+   * Deprecated: Use Data Quality Monitoring API instead (/api/data-quality/v1/monitors).
+   * (Unimplemented) Update a quality monitor on UC object.
    */
   QualityMonitor updateQualityMonitor(UpdateQualityMonitorRequest updateQualityMonitorRequest);
 }

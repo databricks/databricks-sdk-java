@@ -1433,7 +1433,7 @@ public class WorkspaceClient {
   }
 
   /**
-   * [DEPRECATED] This API is deprecated. Please use the Data Quality Monitoring API instead (REST:
+   * Deprecated: Please use the Data Quality Monitoring API instead (REST:
    * /api/data-quality/v1/monitors). Manage data quality of UC objects (currently support `schema`).
    */
   public QualityMonitorV2API qualityMonitorV2() {
@@ -1441,7 +1441,7 @@ public class WorkspaceClient {
   }
 
   /**
-   * [DEPRECATED] This API is deprecated. Please use the Data Quality Monitors API instead (REST:
+   * Deprecated: Please use the Data Quality Monitors API instead (REST:
    * /api/data-quality/v1/monitors), which manages both Data Profiling and Anomaly Detection.
    *
    * <p>A monitor computes and monitors data or model quality metrics for a table over time. It
