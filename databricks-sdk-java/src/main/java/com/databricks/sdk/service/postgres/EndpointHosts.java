@@ -18,6 +18,15 @@ public class EndpointHosts {
   @JsonProperty("host")
   private String host;
 
+  /**
+   * An optionally defined read-only host for the endpoint, without pooling. For read-only
+   * endpoints, this attribute is always defined and is equivalent to host. For read-write
+   * endpoints, this attribute is defined if the enclosing endpoint is a group with greater than 1
+   * computes configured, and has readable secondaries enabled.
+   */
+  @JsonProperty("read_only_host")
+  private String readOnlyHost;
+
   public EndpointHosts setHost(String host) {
     this.host = host;
     return this;
@@ -27,21 +36,33 @@ public class EndpointHosts {
     return host;
   }
 
+  public EndpointHosts setReadOnlyHost(String readOnlyHost) {
+    this.readOnlyHost = readOnlyHost;
+    return this;
+  }
+
+  public String getReadOnlyHost() {
+    return readOnlyHost;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     EndpointHosts that = (EndpointHosts) o;
-    return Objects.equals(host, that.host);
+    return Objects.equals(host, that.host) && Objects.equals(readOnlyHost, that.readOnlyHost);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(host);
+    return Objects.hash(host, readOnlyHost);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(EndpointHosts.class).add("host", host).toString();
+    return new ToStringer(EndpointHosts.class)
+        .add("host", host)
+        .add("readOnlyHost", readOnlyHost)
+        .toString();
   }
 }

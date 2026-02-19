@@ -2166,6 +2166,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/DeleteProj
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/DeleteRoleOperation.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/DeleteRoleRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/Endpoint.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/EndpointGroupSpec.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/EndpointGroupStatus.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/EndpointHosts.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/EndpointOperationMetadata.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/EndpointSettings.java linguist-generated=true
@@ -2180,6 +2182,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/GetEndpoin
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/GetOperationRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/GetProjectRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/GetRoleRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/InitialEndpointSpec.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/ListBranchesRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/ListBranchesResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/ListEndpointsRequest.java linguist-generated=true

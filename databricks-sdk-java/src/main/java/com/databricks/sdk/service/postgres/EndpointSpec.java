@@ -31,6 +31,14 @@ public class EndpointSpec {
   private EndpointType endpointType;
 
   /**
+   * Settings for optional HA configuration of the endpoint. If unspecified, the endpoint defaults
+   * to non HA settings, with a single compute backing the endpoint (and no readable secondaries for
+   * Read/Write endpoints).
+   */
+  @JsonProperty("group")
+  private EndpointGroupSpec group;
+
+  /**
    * When set to true, explicitly disables automatic suspension (never suspend). Should be set to
    * true when provided.
    */
@@ -84,6 +92,15 @@ public class EndpointSpec {
     return endpointType;
   }
 
+  public EndpointSpec setGroup(EndpointGroupSpec group) {
+    this.group = group;
+    return this;
+  }
+
+  public EndpointGroupSpec getGroup() {
+    return group;
+  }
+
   public EndpointSpec setNoSuspension(Boolean noSuspension) {
     this.noSuspension = noSuspension;
     return this;
@@ -120,6 +137,7 @@ public class EndpointSpec {
         && Objects.equals(autoscalingLimitMinCu, that.autoscalingLimitMinCu)
         && Objects.equals(disabled, that.disabled)
         && Objects.equals(endpointType, that.endpointType)
+        && Objects.equals(group, that.group)
         && Objects.equals(noSuspension, that.noSuspension)
         && Objects.equals(settings, that.settings)
         && Objects.equals(suspendTimeoutDuration, that.suspendTimeoutDuration);
@@ -132,6 +150,7 @@ public class EndpointSpec {
         autoscalingLimitMinCu,
         disabled,
         endpointType,
+        group,
         noSuspension,
         settings,
         suspendTimeoutDuration);
@@ -144,6 +163,7 @@ public class EndpointSpec {
         .add("autoscalingLimitMinCu", autoscalingLimitMinCu)
         .add("disabled", disabled)
         .add("endpointType", endpointType)
+        .add("group", group)
         .add("noSuspension", noSuspension)
         .add("settings", settings)
         .add("suspendTimeoutDuration", suspendTimeoutDuration)

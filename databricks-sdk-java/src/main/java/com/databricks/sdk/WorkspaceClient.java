@@ -808,6 +808,11 @@ public class WorkspaceClient {
    * to duplicate multiple dashboards at once since you can get a dashboard definition with a GET
    * request and then POST it to create a new one. Dashboards can be scheduled using the `sql_task`
    * type of the Jobs API, e.g. :method:jobs/create.
+   *
+   * <p>**Warning**: This API is deprecated. Please use the AI/BI Dashboards API instead. [Learn
+   * more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/dashboards/
    */
   public DashboardsAPI dashboards() {
     return dashboardsAPI;
