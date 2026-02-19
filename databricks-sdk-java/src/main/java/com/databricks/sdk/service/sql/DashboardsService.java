@@ -10,6 +10,10 @@ import com.databricks.sdk.support.Generated;
  * and then POST it to create a new one. Dashboards can be scheduled using the `sql_task` type of
  * the Jobs API, e.g. :method:jobs/create.
  *
+ * <p>**Warning**: This API is deprecated. Please use the AI/BI Dashboards API instead. [Learn more]
+ *
+ * <p>[Learn more]: https://docs.databricks.com/en/dashboards/
+ *
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
@@ -19,12 +23,22 @@ public interface DashboardsService {
   /**
    * Moves a dashboard to the trash. Trashed dashboards do not appear in list views or searches, and
    * cannot be shared.
+   *
+   * <p>**Warning**: This API is deprecated. Please use the AI/BI Dashboards API instead. [Learn
+   * more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/dashboards/
    */
   void delete(DeleteDashboardRequest deleteDashboardRequest);
 
   /**
    * Returns a JSON representation of a dashboard object, including its visualization and query
    * objects.
+   *
+   * <p>**Warning**: This API is deprecated. Please use the AI/BI Dashboards API instead. [Learn
+   * more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/dashboards/
    */
   Dashboard get(GetDashboardRequest getDashboardRequest);
 
@@ -33,10 +47,22 @@ public interface DashboardsService {
    *
    * <p>**Warning**: Calling this API concurrently 10 or more times could result in throttling,
    * service degradation, or a temporary ban.
+   *
+   * <p>**Warning**: This API is deprecated. Please use the AI/BI Dashboards API instead. [Learn
+   * more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/dashboards/
    */
   ListResponse list(ListDashboardsRequest listDashboardsRequest);
 
-  /** A restored dashboard appears in list views and searches and can be shared. */
+  /**
+   * A restored dashboard appears in list views and searches and can be shared.
+   *
+   * <p>**Warning**: This API is deprecated. Please use the AI/BI Dashboards API instead. [Learn
+   * more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/dashboards/
+   */
   void restore(RestoreDashboardRequest restoreDashboardRequest);
 
   /**
@@ -44,6 +70,11 @@ public interface DashboardsService {
    * object. It does not add, modify, or remove widgets.
    *
    * <p>**Note**: You cannot undo this operation.
+   *
+   * <p>**Warning**: This API is deprecated. Please use the AI/BI Dashboards API instead. [Learn
+   * more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/dashboards/
    */
   Dashboard update(DashboardEditContent dashboardEditContent);
 }

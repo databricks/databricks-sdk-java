@@ -34,6 +34,10 @@ public class EndpointStatus {
   @JsonProperty("endpoint_type")
   private EndpointType endpointType;
 
+  /** Details on the HA configuration of the endpoint. */
+  @JsonProperty("group")
+  private EndpointGroupStatus group;
+
   /** Contains host information for connecting to the endpoint. */
   @JsonProperty("hosts")
   private EndpointHosts hosts;
@@ -95,6 +99,15 @@ public class EndpointStatus {
     return endpointType;
   }
 
+  public EndpointStatus setGroup(EndpointGroupStatus group) {
+    this.group = group;
+    return this;
+  }
+
+  public EndpointGroupStatus getGroup() {
+    return group;
+  }
+
   public EndpointStatus setHosts(EndpointHosts hosts) {
     this.hosts = hosts;
     return this;
@@ -141,6 +154,7 @@ public class EndpointStatus {
         && Objects.equals(currentState, that.currentState)
         && Objects.equals(disabled, that.disabled)
         && Objects.equals(endpointType, that.endpointType)
+        && Objects.equals(group, that.group)
         && Objects.equals(hosts, that.hosts)
         && Objects.equals(pendingState, that.pendingState)
         && Objects.equals(settings, that.settings)
@@ -155,6 +169,7 @@ public class EndpointStatus {
         currentState,
         disabled,
         endpointType,
+        group,
         hosts,
         pendingState,
         settings,
@@ -169,6 +184,7 @@ public class EndpointStatus {
         .add("currentState", currentState)
         .add("disabled", disabled)
         .add("endpointType", endpointType)
+        .add("group", group)
         .add("hosts", hosts)
         .add("pendingState", pendingState)
         .add("settings", settings)

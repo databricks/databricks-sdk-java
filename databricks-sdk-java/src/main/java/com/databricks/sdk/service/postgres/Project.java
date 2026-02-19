@@ -14,6 +14,16 @@ public class Project {
   @JsonProperty("create_time")
   private Timestamp createTime;
 
+  /**
+   * Configuration settings for the initial Read/Write endpoint created inside the default branch
+   * for a newly created project. If omitted, the initial endpoint created will have default
+   * settings, without high availability configured. This field does not apply to any endpoints
+   * created after project creation. Use spec.default_endpoint_settings to configure default
+   * settings for endpoints created after project creation.
+   */
+  @JsonProperty("initial_endpoint_spec")
+  private InitialEndpointSpec initialEndpointSpec;
+
   /** Output only. The full resource path of the project. Format: projects/{project_id} */
   @JsonProperty("name")
   private String name;
@@ -44,6 +54,15 @@ public class Project {
 
   public Timestamp getCreateTime() {
     return createTime;
+  }
+
+  public Project setInitialEndpointSpec(InitialEndpointSpec initialEndpointSpec) {
+    this.initialEndpointSpec = initialEndpointSpec;
+    return this;
+  }
+
+  public InitialEndpointSpec getInitialEndpointSpec() {
+    return initialEndpointSpec;
   }
 
   public Project setName(String name) {
@@ -97,6 +116,7 @@ public class Project {
     if (o == null || getClass() != o.getClass()) return false;
     Project that = (Project) o;
     return Objects.equals(createTime, that.createTime)
+        && Objects.equals(initialEndpointSpec, that.initialEndpointSpec)
         && Objects.equals(name, that.name)
         && Objects.equals(spec, that.spec)
         && Objects.equals(status, that.status)
@@ -106,13 +126,14 @@ public class Project {
 
   @Override
   public int hashCode() {
-    return Objects.hash(createTime, name, spec, status, uid, updateTime);
+    return Objects.hash(createTime, initialEndpointSpec, name, spec, status, uid, updateTime);
   }
 
   @Override
   public String toString() {
     return new ToStringer(Project.class)
         .add("createTime", createTime)
+        .add("initialEndpointSpec", initialEndpointSpec)
         .add("name", name)
         .add("spec", spec)
         .add("status", status)

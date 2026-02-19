@@ -13,3 +13,8 @@
 ### Internal Changes
 
 ### API Changes
+* Add `readOnlyHost` field for `com.databricks.sdk.service.postgres.EndpointHosts`.
+* Add `group` field for `com.databricks.sdk.service.postgres.EndpointSpec`.
+* Add `group` field for `com.databricks.sdk.service.postgres.EndpointStatus`.
+* Add `initialEndpointSpec` field for `com.databricks.sdk.service.postgres.Project`.
+* Add `DEGRADED` enum value for `com.databricks.sdk.service.postgres.EndpointStatusState`.
