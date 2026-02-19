@@ -1,5 +1,13 @@
 # Version changelog
 
+## Release v0.91.0 (2026-02-19)
+
+### API Changes
+* Add `attributes` and `membershipRoles` fields for `com.databricks.sdk.service.postgres.RoleRoleSpec`.
+* Add `membershipRoles` field for `com.databricks.sdk.service.postgres.RoleRoleStatus`.
+* Add `GENERAL_ACCESS` enum value for `com.databricks.sdk.service.provisioning.EndpointUseCase`.
+
+
 ## Release v0.90.0 (2026-02-18)
 
 ### API Changes
