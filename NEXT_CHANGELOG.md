@@ -10,6 +10,8 @@
 
 ### Documentation
 
+* Added "Retries" section to README.
+
 ### Internal Changes
 
 ### API Changes
