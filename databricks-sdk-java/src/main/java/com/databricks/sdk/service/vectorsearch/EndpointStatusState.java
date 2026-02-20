@@ -7,7 +7,10 @@ import com.databricks.sdk.support.Generated;
 /** Current state of the endpoint */
 @Generated
 public enum EndpointStatusState {
+  DELETED,
   OFFLINE,
   ONLINE,
   PROVISIONING,
+  RED_STATE,
+  YELLOW_STATE,
 }

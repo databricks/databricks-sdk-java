@@ -42,7 +42,7 @@ public class QueryVectorIndexRequest {
   @JsonProperty("query_text")
   private String queryText;
 
-  /** The query type to use. Choices are `ANN` and `HYBRID`. Defaults to `ANN`. */
+  /** The query type to use. Choices are `ANN` and `HYBRID` and `FULL_TEXT`. Defaults to `ANN`. */
   @JsonProperty("query_type")
   private String queryType;
 
@@ -53,7 +53,14 @@ public class QueryVectorIndexRequest {
   @JsonProperty("query_vector")
   private Collection<Double> queryVector;
 
-  /** */
+  /**
+   * If set, the top 50 results are reranked with the Databricks Reranker model before returning the
+   * `num_results` results to the user. The setting `columns_to_rerank` selects which columns are
+   * used for reranking. For each datapoint, the columns selected are concatenated before being sent
+   * to the reranking model. See
+   * https://docs.databricks.com/aws/en/vector-search/query-vector-search#rerank for more
+   * information.
+   */
   @JsonProperty("reranker")
   private RerankerConfig reranker;
 

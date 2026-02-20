@@ -21,9 +21,13 @@ class RecipientsImpl implements RecipientsService {
     String path = "/api/2.1/unity-catalog/recipients";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, RecipientInfo.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -35,7 +39,11 @@ class RecipientsImpl implements RecipientsService {
     String path = String.format("/api/2.1/unity-catalog/recipients/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -47,8 +55,12 @@ class RecipientsImpl implements RecipientsService {
     String path = String.format("/api/2.1/unity-catalog/recipients/%s", request.getName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, RecipientInfo.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -60,8 +72,12 @@ class RecipientsImpl implements RecipientsService {
     String path = "/api/2.1/unity-catalog/recipients";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, ListRecipientsResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -74,9 +90,13 @@ class RecipientsImpl implements RecipientsService {
         String.format("/api/2.1/unity-catalog/recipients/%s/rotate-token", request.getName());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, RecipientInfo.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -89,8 +109,12 @@ class RecipientsImpl implements RecipientsService {
         String.format("/api/2.1/unity-catalog/recipients/%s/share-permissions", request.getName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, GetRecipientSharePermissionsResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -102,9 +126,13 @@ class RecipientsImpl implements RecipientsService {
     String path = String.format("/api/2.1/unity-catalog/recipients/%s", request.getName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, RecipientInfo.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);

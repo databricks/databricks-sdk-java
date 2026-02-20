@@ -21,9 +21,13 @@ class PoliciesImpl implements PoliciesService {
     String path = "/api/2.1/unity-catalog/policies";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request.getPolicyInfo()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, PolicyInfo.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -38,8 +42,12 @@ class PoliciesImpl implements PoliciesService {
             request.getOnSecurableType(), request.getOnSecurableFullname(), request.getName());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, DeletePolicyResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -54,8 +62,12 @@ class PoliciesImpl implements PoliciesService {
             request.getOnSecurableType(), request.getOnSecurableFullname(), request.getName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, PolicyInfo.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -70,8 +82,12 @@ class PoliciesImpl implements PoliciesService {
             request.getOnSecurableType(), request.getOnSecurableFullname());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, ListPoliciesResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -86,9 +102,13 @@ class PoliciesImpl implements PoliciesService {
             request.getOnSecurableType(), request.getOnSecurableFullname(), request.getName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getPolicyInfo()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, PolicyInfo.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);

@@ -24,6 +24,7 @@ class ServicePrincipalSecretsImpl implements ServicePrincipalSecretsService {
             apiClient.configuredAccountID(), request.getServicePrincipalId());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -43,6 +44,7 @@ class ServicePrincipalSecretsImpl implements ServicePrincipalSecretsService {
             request.getSecretId());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
@@ -58,6 +60,7 @@ class ServicePrincipalSecretsImpl implements ServicePrincipalSecretsService {
             apiClient.configuredAccountID(), request.getServicePrincipalId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListServicePrincipalSecretsResponse.class);

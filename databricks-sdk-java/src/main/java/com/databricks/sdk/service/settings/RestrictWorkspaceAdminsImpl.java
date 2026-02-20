@@ -22,8 +22,12 @@ class RestrictWorkspaceAdminsImpl implements RestrictWorkspaceAdminsService {
     String path = "/api/2.0/settings/types/restrict_workspace_admins/names/default";
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, DeleteRestrictWorkspaceAdminsSettingResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -35,8 +39,12 @@ class RestrictWorkspaceAdminsImpl implements RestrictWorkspaceAdminsService {
     String path = "/api/2.0/settings/types/restrict_workspace_admins/names/default";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, RestrictWorkspaceAdminsSetting.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -49,9 +57,13 @@ class RestrictWorkspaceAdminsImpl implements RestrictWorkspaceAdminsService {
     String path = "/api/2.0/settings/types/restrict_workspace_admins/names/default";
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, RestrictWorkspaceAdminsSetting.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);

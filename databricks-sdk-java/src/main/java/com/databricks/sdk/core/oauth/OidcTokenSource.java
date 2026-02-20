@@ -4,6 +4,7 @@ import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.FormRequest;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Response;
+import com.databricks.sdk.support.InternalApi;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
@@ -15,6 +16,7 @@ import java.time.Instant;
  * protocol. It communicates with an OAuth server to request access tokens using the client
  * credentials grant type instead of a client secret.
  */
+@InternalApi
 class OidcTokenSource implements TokenSource {
 
   private final HttpClient httpClient;

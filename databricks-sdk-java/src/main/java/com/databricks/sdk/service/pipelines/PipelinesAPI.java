@@ -14,19 +14,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The Delta Live Tables API allows you to create, edit, delete, start, and view details about
- * pipelines.
+ * The Lakeflow Spark Declarative Pipelines API allows you to create, edit, delete, start, and view
+ * details about pipelines.
  *
- * <p>Delta Live Tables is a framework for building reliable, maintainable, and testable data
- * processing pipelines. You define the transformations to perform on your data, and Delta Live
- * Tables manages task orchestration, cluster management, monitoring, data quality, and error
- * handling.
+ * <p>Spark Declarative Pipelines is a framework for building reliable, maintainable, and testable
+ * data processing pipelines. You define the transformations to perform on your data, and Spark
+ * Declarative Pipelines manages task orchestration, cluster management, monitoring, data quality,
+ * and error handling.
  *
- * <p>Instead of defining your data pipelines using a series of separate Apache Spark tasks, Delta
- * Live Tables manages how your data is transformed based on a target schema you define for each
- * processing step. You can also enforce data quality with Delta Live Tables expectations.
- * Expectations allow you to define expected data quality and specify how to handle records that
- * fail those expectations.
+ * <p>Instead of defining your data pipelines using a series of separate Apache Spark tasks, Spark
+ * Declarative Pipelines manages how your data is transformed based on a target schema you define
+ * for each processing step. You can also enforce data quality with Spark Declarative Pipelines
+ * expectations. Expectations allow you to define expected data quality and specify how to handle
+ * records that fail those expectations.
  */
 @Generated
 public class PipelinesAPI {
@@ -90,6 +90,15 @@ public class PipelinesAPI {
   }
 
   /**
+   * Creates a new pipeline using Unity Catalog from a pipeline using Hive Metastore. This method
+   * returns the ID of the newly created clone. Additionally, this method starts an update for the
+   * newly created pipeline.
+   */
+  public ClonePipelineResponse clone(ClonePipelineRequest request) {
+    return impl.clone(request);
+  }
+
+  /**
    * Creates a new data processing pipeline based on the requested configuration. If successful,
    * this method returns the ID of the new pipeline.
    */
@@ -102,8 +111,9 @@ public class PipelinesAPI {
   }
 
   /**
-   * Deletes a pipeline. Deleting a pipeline is a permanent action that stops and removes the
-   * pipeline and its tables. You cannot undo this action.
+   * Deletes a pipeline. If the pipeline publishes to Unity Catalog, pipeline deletion will cascade
+   * to all pipeline tables. Please reach out to Databricks support for assistance to undo this
+   * action.
    */
   public void delete(DeletePipelineRequest request) {
     impl.delete(request);
@@ -167,7 +177,7 @@ public class PipelinesAPI {
         });
   }
 
-  /** Lists pipelines defined in the Delta Live Tables system. */
+  /** Lists pipelines defined in the Spark Declarative Pipelines system. */
   public Iterable<PipelineStateInfo> listPipelines(ListPipelinesRequest request) {
     return new Paginator<>(
         request,

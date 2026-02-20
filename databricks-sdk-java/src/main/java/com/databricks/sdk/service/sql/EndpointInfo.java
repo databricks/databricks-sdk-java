@@ -30,7 +30,7 @@ public class EndpointInfo {
    * queries, please tune max_num_clusters.
    *
    * <p>Supported values: - 2X-Small - X-Small - Small - Medium - Large - X-Large - 2X-Large -
-   * 3X-Large - 4X-Large
+   * 3X-Large - 4X-Large - 5X-Large
    */
   @JsonProperty("cluster_size")
   private String clusterSize;
@@ -42,7 +42,7 @@ public class EndpointInfo {
   /**
    * Configures whether the warehouse should use Photon optimized clusters.
    *
-   * <p>Defaults to false.
+   * <p>Defaults to true.
    */
   @JsonProperty("enable_photon")
   private Boolean enablePhoton;

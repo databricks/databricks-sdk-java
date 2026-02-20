@@ -62,8 +62,20 @@ public class WorkspaceBindingsAPI {
   /**
    * Gets workspace bindings of the securable. The caller must be a metastore admin or an owner of
    * the securable.
+   *
+   * <p>NOTE: we recommend using max_results=0 to use the paginated version of this API. Unpaginated
+   * calls will be deprecated soon.
+   *
+   * <p>PAGINATION BEHAVIOR: When using pagination (max_results >= 0), a page may contain zero
+   * results while still providing a next_page_token. Clients must continue reading pages until
+   * next_page_token is absent, which is the only indication that the end of results has been
+   * reached.
    */
   public Iterable<WorkspaceBinding> getBindings(GetBindingsRequest request) {
+
+    if (request.getMaxResults() == null) {
+      request.setMaxResults(0L);
+    }
     return new Paginator<>(
         request,
         impl::getBindings,

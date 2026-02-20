@@ -6,6 +6,7 @@ import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.oauth.*;
 import com.databricks.sdk.service.provisioning.Workspace;
+import com.databricks.sdk.support.InternalApi;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -15,6 +16,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiFunction;
 
+@InternalApi
 public class AzureUtils {
 
   /** Azure authentication endpoint for tenant ID discovery */

@@ -1,5 +1,6 @@
 package com.databricks.sdk.core.http;
 
+import com.databricks.sdk.support.InternalApi;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -10,6 +11,7 @@ import java.util.BitSet;
  *
  * <p>Adapted from URLEncodingUtils.java from Apache's HttpClient library.
  */
+@InternalApi
 public class Encoding {
 
   /**

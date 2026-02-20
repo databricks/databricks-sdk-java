@@ -30,6 +30,10 @@ public class CreatePrivateEndpointRule {
   @JsonProperty("endpoint_service")
   private String endpointService;
 
+  /** */
+  @JsonProperty("error_message")
+  private String errorMessage;
+
   /**
    * Not used by customer-managed private endpoint services.
    *
@@ -72,6 +76,15 @@ public class CreatePrivateEndpointRule {
     return endpointService;
   }
 
+  public CreatePrivateEndpointRule setErrorMessage(String errorMessage) {
+    this.errorMessage = errorMessage;
+    return this;
+  }
+
+  public String getErrorMessage() {
+    return errorMessage;
+  }
+
   public CreatePrivateEndpointRule setGroupId(String groupId) {
     this.groupId = groupId;
     return this;
@@ -106,6 +119,7 @@ public class CreatePrivateEndpointRule {
     CreatePrivateEndpointRule that = (CreatePrivateEndpointRule) o;
     return Objects.equals(domainNames, that.domainNames)
         && Objects.equals(endpointService, that.endpointService)
+        && Objects.equals(errorMessage, that.errorMessage)
         && Objects.equals(groupId, that.groupId)
         && Objects.equals(resourceId, that.resourceId)
         && Objects.equals(resourceNames, that.resourceNames);
@@ -113,7 +127,8 @@ public class CreatePrivateEndpointRule {
 
   @Override
   public int hashCode() {
-    return Objects.hash(domainNames, endpointService, groupId, resourceId, resourceNames);
+    return Objects.hash(
+        domainNames, endpointService, errorMessage, groupId, resourceId, resourceNames);
   }
 
   @Override
@@ -121,6 +136,7 @@ public class CreatePrivateEndpointRule {
     return new ToStringer(CreatePrivateEndpointRule.class)
         .add("domainNames", domainNames)
         .add("endpointService", endpointService)
+        .add("errorMessage", errorMessage)
         .add("groupId", groupId)
         .add("resourceId", resourceId)
         .add("resourceNames", resourceNames)

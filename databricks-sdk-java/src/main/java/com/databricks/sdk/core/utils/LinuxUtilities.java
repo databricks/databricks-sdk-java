@@ -1,9 +1,11 @@
 package com.databricks.sdk.core.utils;
 
+import com.databricks.sdk.support.InternalApi;
 import java.util.Arrays;
 import java.util.List;
 
 /** Linux specific utilities. */
+@InternalApi
 public class LinuxUtilities implements OSUtilities {
   private final Environment env;
 

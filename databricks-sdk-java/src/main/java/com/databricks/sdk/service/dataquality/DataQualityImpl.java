@@ -24,9 +24,13 @@ class DataQualityImpl implements DataQualityService {
             request.getObjectType(), request.getObjectId(), request.getRefreshId());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, CancelRefreshResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -38,9 +42,13 @@ class DataQualityImpl implements DataQualityService {
     String path = "/api/data-quality/v1/monitors";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request.getMonitor()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, Monitor.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -55,9 +63,13 @@ class DataQualityImpl implements DataQualityService {
             request.getObjectType(), request.getObjectId());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request.getRefresh()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, Refresh.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -71,8 +83,12 @@ class DataQualityImpl implements DataQualityService {
             "/api/data-quality/v1/monitors/%s/%s", request.getObjectType(), request.getObjectId());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -87,8 +103,12 @@ class DataQualityImpl implements DataQualityService {
             request.getObjectType(), request.getObjectId(), request.getRefreshId());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -102,8 +122,12 @@ class DataQualityImpl implements DataQualityService {
             "/api/data-quality/v1/monitors/%s/%s", request.getObjectType(), request.getObjectId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, Monitor.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -118,8 +142,12 @@ class DataQualityImpl implements DataQualityService {
             request.getObjectType(), request.getObjectId(), request.getRefreshId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, Refresh.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -131,8 +159,12 @@ class DataQualityImpl implements DataQualityService {
     String path = "/api/data-quality/v1/monitors";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, ListMonitorResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -147,8 +179,12 @@ class DataQualityImpl implements DataQualityService {
             request.getObjectType(), request.getObjectId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, ListRefreshResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -162,9 +198,13 @@ class DataQualityImpl implements DataQualityService {
             "/api/data-quality/v1/monitors/%s/%s", request.getObjectType(), request.getObjectId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getMonitor()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, Monitor.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -179,9 +219,13 @@ class DataQualityImpl implements DataQualityService {
             request.getObjectType(), request.getObjectId(), request.getRefreshId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getRefresh()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, Refresh.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);

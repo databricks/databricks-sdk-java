@@ -24,9 +24,23 @@ public class FeatureEngineeringAPI {
     impl = mock;
   }
 
+  /** Batch create materialized features. */
+  public BatchCreateMaterializedFeaturesResponse batchCreateMaterializedFeatures(
+      BatchCreateMaterializedFeaturesRequest request) {
+    return impl.batchCreateMaterializedFeatures(request);
+  }
+
   /** Create a Feature. */
   public Feature createFeature(CreateFeatureRequest request) {
     return impl.createFeature(request);
+  }
+
+  /**
+   * Create a Kafka config. During PrPr, Kafka configs can be read and used when creating features
+   * under the entire metastore. Only the creator of the Kafka config can delete it.
+   */
+  public KafkaConfig createKafkaConfig(CreateKafkaConfigRequest request) {
+    return impl.createKafkaConfig(request);
   }
 
   /** Create a materialized feature. */
@@ -41,6 +55,18 @@ public class FeatureEngineeringAPI {
   /** Delete a Feature. */
   public void deleteFeature(DeleteFeatureRequest request) {
     impl.deleteFeature(request);
+  }
+
+  public void deleteKafkaConfig(String name) {
+    deleteKafkaConfig(new DeleteKafkaConfigRequest().setName(name));
+  }
+
+  /**
+   * Delete a Kafka config. During PrPr, Kafka configs can be read and used when creating features
+   * under the entire metastore. Only the creator of the Kafka config can delete it.
+   */
+  public void deleteKafkaConfig(DeleteKafkaConfigRequest request) {
+    impl.deleteKafkaConfig(request);
   }
 
   public void deleteMaterializedFeature(String materializedFeatureId) {
@@ -62,6 +88,18 @@ public class FeatureEngineeringAPI {
     return impl.getFeature(request);
   }
 
+  public KafkaConfig getKafkaConfig(String name) {
+    return getKafkaConfig(new GetKafkaConfigRequest().setName(name));
+  }
+
+  /**
+   * Get a Kafka config. During PrPr, Kafka configs can be read and used when creating features
+   * under the entire metastore. Only the creator of the Kafka config can delete it.
+   */
+  public KafkaConfig getKafkaConfig(GetKafkaConfigRequest request) {
+    return impl.getKafkaConfig(request);
+  }
+
   public MaterializedFeature getMaterializedFeature(String materializedFeatureId) {
     return getMaterializedFeature(
         new GetMaterializedFeatureRequest().setMaterializedFeatureId(materializedFeatureId));
@@ -78,6 +116,24 @@ public class FeatureEngineeringAPI {
         request,
         impl::listFeatures,
         ListFeaturesResponse::getFeatures,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
+  /**
+   * List Kafka configs. During PrPr, Kafka configs can be read and used when creating features
+   * under the entire metastore. Only the creator of the Kafka config can delete it.
+   */
+  public Iterable<KafkaConfig> listKafkaConfigs(ListKafkaConfigsRequest request) {
+    return new Paginator<>(
+        request,
+        impl::listKafkaConfigs,
+        ListKafkaConfigsResponse::getKafkaConfigs,
         response -> {
           String token = response.getNextPageToken();
           if (token == null || token.isEmpty()) {
@@ -106,6 +162,14 @@ public class FeatureEngineeringAPI {
   /** Update a Feature. */
   public Feature updateFeature(UpdateFeatureRequest request) {
     return impl.updateFeature(request);
+  }
+
+  /**
+   * Update a Kafka config. During PrPr, Kafka configs can be read and used when creating features
+   * under the entire metastore. Only the creator of the Kafka config can delete it.
+   */
+  public KafkaConfig updateKafkaConfig(UpdateKafkaConfigRequest request) {
+    return impl.updateKafkaConfig(request);
   }
 
   /** Update a materialized feature (pause/resume). */

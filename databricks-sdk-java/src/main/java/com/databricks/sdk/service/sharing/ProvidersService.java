@@ -33,8 +33,10 @@ public interface ProvidersService {
 
   /**
    * Gets an array of available authentication providers. The caller must either be a metastore
-   * admin or the owner of the providers. Providers not owned by the caller are not included in the
-   * response. There is no guarantee of a specific ordering of the elements in the array.
+   * admin, have the **USE_PROVIDER** privilege on the providers, or be the owner of the providers.
+   * Providers not owned by the caller and for which the caller does not have the **USE_PROVIDER**
+   * privilege are not included in the response. There is no guarantee of a specific ordering of the
+   * elements in the array.
    */
   ListProvidersResponse list(ListProvidersRequest listProvidersRequest);
 

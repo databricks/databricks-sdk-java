@@ -2,6 +2,7 @@ package com.databricks.sdk.core.utils;
 
 import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.ProxyConfig;
+import com.databricks.sdk.support.InternalApi;
 import java.security.Principal;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthSchemeProvider;
@@ -20,6 +21,7 @@ import org.apache.http.impl.client.ProxyAuthenticationStrategy;
  * This class is used to setup the proxy configs for the http client. This includes setting up the
  * proxy host, port, and authentication.
  */
+@InternalApi
 public class ProxyUtils {
 
   /**
@@ -128,7 +130,10 @@ public class ProxyUtils {
         .setDefaultCredentialsProvider(credsProvider)
         .setDefaultAuthSchemeRegistry(
             RegistryBuilder.<AuthSchemeProvider>create()
-                .register(AuthSchemes.SPNEGO, new SPNegoSchemeFactory(true))
+                // Use SPNegoSchemeFactory with useCanonicalHostname=false to defer hostname
+                // canonicalization to the Kerberos library based on krb5.conf settings
+                // (rdns, dns_canonicalize_hostname) rather than forcing canonicalization.
+                .register(AuthSchemes.SPNEGO, new SPNegoSchemeFactory(true, false))
                 .build());
   }
 

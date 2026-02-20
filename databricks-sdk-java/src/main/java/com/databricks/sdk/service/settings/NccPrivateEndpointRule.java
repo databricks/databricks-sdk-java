@@ -26,7 +26,10 @@ public class NccPrivateEndpointRule {
    * and is ready to use in your serverless compute resources. - REJECTED: Connection was rejected
    * by the private link resource owner. - DISCONNECTED: Connection was removed by the private link
    * resource owner, the private endpoint becomes informative and should be deleted for clean-up. -
-   * EXPIRED: If the endpoint was created but not approved in 14 days, it will be EXPIRED.
+   * EXPIRED: If the endpoint was created but not approved in 14 days, it will be EXPIRED. -
+   * CREATING: The endpoint creation is in progress. Once successfully created, the state will
+   * transition to PENDING. - CREATE_FAILED: The endpoint creation failed. You can check the
+   * error_message field for more details.
    */
   @JsonProperty("connection_state")
   private NccPrivateEndpointRulePrivateLinkConnectionState connectionState;
@@ -71,6 +74,10 @@ public class NccPrivateEndpointRule {
    */
   @JsonProperty("endpoint_service")
   private String endpointService;
+
+  /** */
+  @JsonProperty("error_message")
+  private String errorMessage;
 
   /**
    * Not used by customer-managed private endpoint services.
@@ -200,6 +207,15 @@ public class NccPrivateEndpointRule {
     return endpointService;
   }
 
+  public NccPrivateEndpointRule setErrorMessage(String errorMessage) {
+    this.errorMessage = errorMessage;
+    return this;
+  }
+
+  public String getErrorMessage() {
+    return errorMessage;
+  }
+
   public NccPrivateEndpointRule setGroupId(String groupId) {
     this.groupId = groupId;
     return this;
@@ -277,6 +293,7 @@ public class NccPrivateEndpointRule {
         && Objects.equals(enabled, that.enabled)
         && Objects.equals(endpointName, that.endpointName)
         && Objects.equals(endpointService, that.endpointService)
+        && Objects.equals(errorMessage, that.errorMessage)
         && Objects.equals(groupId, that.groupId)
         && Objects.equals(networkConnectivityConfigId, that.networkConnectivityConfigId)
         && Objects.equals(resourceId, that.resourceId)
@@ -298,6 +315,7 @@ public class NccPrivateEndpointRule {
         enabled,
         endpointName,
         endpointService,
+        errorMessage,
         groupId,
         networkConnectivityConfigId,
         resourceId,
@@ -319,6 +337,7 @@ public class NccPrivateEndpointRule {
         .add("enabled", enabled)
         .add("endpointName", endpointName)
         .add("endpointService", endpointService)
+        .add("errorMessage", errorMessage)
         .add("groupId", groupId)
         .add("networkConnectivityConfigId", networkConnectivityConfigId)
         .add("resourceId", resourceId)

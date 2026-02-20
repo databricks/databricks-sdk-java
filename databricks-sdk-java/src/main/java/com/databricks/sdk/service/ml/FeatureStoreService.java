@@ -23,6 +23,9 @@ public interface FeatureStoreService {
   /** Delete an Online Feature Store. */
   void deleteOnlineStore(DeleteOnlineStoreRequest deleteOnlineStoreRequest);
 
+  /** Delete online table. */
+  void deleteOnlineTable(DeleteOnlineTableRequest deleteOnlineTableRequest);
+
   /** Get an Online Feature Store. */
   OnlineStore getOnlineStore(GetOnlineStoreRequest getOnlineStoreRequest);
 

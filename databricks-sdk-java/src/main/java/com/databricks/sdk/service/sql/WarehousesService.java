@@ -17,14 +17,37 @@ public interface WarehousesService {
   /** Creates a new SQL warehouse. */
   CreateWarehouseResponse create(CreateWarehouseRequest createWarehouseRequest);
 
+  /**
+   * Creates a new default warehouse override for a user. Users can create their own override.
+   * Admins can create overrides for any user.
+   */
+  DefaultWarehouseOverride createDefaultWarehouseOverride(
+      CreateDefaultWarehouseOverrideRequest createDefaultWarehouseOverrideRequest);
+
   /** Deletes a SQL warehouse. */
   void delete(DeleteWarehouseRequest deleteWarehouseRequest);
+
+  /**
+   * Deletes the default warehouse override for a user. Users can delete their own override. Admins
+   * can delete overrides for any user. After deletion, the workspace default warehouse will be
+   * used.
+   */
+  void deleteDefaultWarehouseOverride(
+      DeleteDefaultWarehouseOverrideRequest deleteDefaultWarehouseOverrideRequest);
 
   /** Updates the configuration for a SQL warehouse. */
   void edit(EditWarehouseRequest editWarehouseRequest);
 
   /** Gets the information for a single SQL warehouse. */
   GetWarehouseResponse get(GetWarehouseRequest getWarehouseRequest);
+
+  /**
+   * Returns the default warehouse override for a user. Users can fetch their own override. Admins
+   * can fetch overrides for any user. If no override exists, the UI will fallback to the workspace
+   * default warehouse.
+   */
+  DefaultWarehouseOverride getDefaultWarehouseOverride(
+      GetDefaultWarehouseOverrideRequest getDefaultWarehouseOverrideRequest);
 
   /** Gets the permission levels that a user can have on an object. */
   GetWarehousePermissionLevelsResponse getPermissionLevels(
@@ -44,6 +67,13 @@ public interface WarehousesService {
   ListWarehousesResponse list(ListWarehousesRequest listWarehousesRequest);
 
   /**
+   * Lists all default warehouse overrides in the workspace. Only workspace administrators can list
+   * all overrides.
+   */
+  ListDefaultWarehouseOverridesResponse listDefaultWarehouseOverrides(
+      ListDefaultWarehouseOverridesRequest listDefaultWarehouseOverridesRequest);
+
+  /**
    * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
    * permissions if none are specified. Objects can inherit permissions from their root object.
    */
@@ -58,6 +88,13 @@ public interface WarehousesService {
 
   /** Stops a SQL warehouse. */
   void stop(StopRequest stopRequest);
+
+  /**
+   * Updates an existing default warehouse override for a user. Users can update their own override.
+   * Admins can update overrides for any user.
+   */
+  DefaultWarehouseOverride updateDefaultWarehouseOverride(
+      UpdateDefaultWarehouseOverrideRequest updateDefaultWarehouseOverrideRequest);
 
   /**
    * Updates the permissions on a SQL warehouse. SQL warehouses can inherit permissions from their

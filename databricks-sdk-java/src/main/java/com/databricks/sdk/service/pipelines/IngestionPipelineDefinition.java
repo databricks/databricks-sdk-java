@@ -11,15 +11,35 @@ import java.util.Objects;
 @Generated
 public class IngestionPipelineDefinition {
   /**
-   * Immutable. The Unity Catalog connection that this ingestion pipeline uses to communicate with
-   * the source. This is used with connectors for applications like Salesforce, Workday, and so on.
+   * The Unity Catalog connection that this ingestion pipeline uses to communicate with the source.
+   * This is used with both connectors for applications like Salesforce, Workday, and so on, and
+   * also database connectors like Oracle, (connector_type = QUERY_BASED OR connector_type = CDC).
+   * If connection name corresponds to database connectors like Oracle, and connector_type is not
+   * provided then connector_type defaults to QUERY_BASED. If connector_type is passed as CDC we use
+   * Combined Cdc Managed Ingestion pipeline. Under certain conditions, this can be replaced with
+   * ingestion_gateway_id to change the connector to Cdc Managed Ingestion Pipeline with Gateway
+   * pipeline.
    */
   @JsonProperty("connection_name")
   private String connectionName;
 
+  /** (Optional) A window that specifies a set of time ranges for snapshot queries in CDC. */
+  @JsonProperty("full_refresh_window")
+  private OperationTimeWindow fullRefreshWindow;
+
   /**
-   * Immutable. Identifier for the gateway that is used by this ingestion pipeline to communicate
-   * with the source database. This is used with connectors to databases like SQL Server.
+   * Immutable. If set to true, the pipeline will ingest tables from the UC foreign catalogs
+   * directly without the need to specify a UC connection or ingestion gateway. The `source_catalog`
+   * fields in objects of IngestionConfig are interpreted as the UC foreign catalogs to ingest from.
+   */
+  @JsonProperty("ingest_from_uc_foreign_catalog")
+  private Boolean ingestFromUcForeignCatalog;
+
+  /**
+   * Identifier for the gateway that is used by this ingestion pipeline to communicate with the
+   * source database. This is used with CDC connectors to databases like SQL Server using a gateway
+   * pipeline (connector_type = CDC). Under certain conditions, this can be replaced with
+   * connection_name to change the connector to Combined Cdc Managed Ingestion Pipeline.
    */
   @JsonProperty("ingestion_gateway_id")
   private String ingestionGatewayId;
@@ -63,6 +83,25 @@ public class IngestionPipelineDefinition {
 
   public String getConnectionName() {
     return connectionName;
+  }
+
+  public IngestionPipelineDefinition setFullRefreshWindow(OperationTimeWindow fullRefreshWindow) {
+    this.fullRefreshWindow = fullRefreshWindow;
+    return this;
+  }
+
+  public OperationTimeWindow getFullRefreshWindow() {
+    return fullRefreshWindow;
+  }
+
+  public IngestionPipelineDefinition setIngestFromUcForeignCatalog(
+      Boolean ingestFromUcForeignCatalog) {
+    this.ingestFromUcForeignCatalog = ingestFromUcForeignCatalog;
+    return this;
+  }
+
+  public Boolean getIngestFromUcForeignCatalog() {
+    return ingestFromUcForeignCatalog;
   }
 
   public IngestionPipelineDefinition setIngestionGatewayId(String ingestionGatewayId) {
@@ -126,6 +165,8 @@ public class IngestionPipelineDefinition {
     if (o == null || getClass() != o.getClass()) return false;
     IngestionPipelineDefinition that = (IngestionPipelineDefinition) o;
     return Objects.equals(connectionName, that.connectionName)
+        && Objects.equals(fullRefreshWindow, that.fullRefreshWindow)
+        && Objects.equals(ingestFromUcForeignCatalog, that.ingestFromUcForeignCatalog)
         && Objects.equals(ingestionGatewayId, that.ingestionGatewayId)
         && Objects.equals(netsuiteJarPath, that.netsuiteJarPath)
         && Objects.equals(objects, that.objects)
@@ -138,6 +179,8 @@ public class IngestionPipelineDefinition {
   public int hashCode() {
     return Objects.hash(
         connectionName,
+        fullRefreshWindow,
+        ingestFromUcForeignCatalog,
         ingestionGatewayId,
         netsuiteJarPath,
         objects,
@@ -150,6 +193,8 @@ public class IngestionPipelineDefinition {
   public String toString() {
     return new ToStringer(IngestionPipelineDefinition.class)
         .add("connectionName", connectionName)
+        .add("fullRefreshWindow", fullRefreshWindow)
+        .add("ingestFromUcForeignCatalog", ingestFromUcForeignCatalog)
         .add("ingestionGatewayId", ingestionGatewayId)
         .add("netsuiteJarPath", netsuiteJarPath)
         .add("objects", objects)

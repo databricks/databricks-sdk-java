@@ -50,6 +50,7 @@ public class DatabricksAuthManualTest implements ConfigResolving {
         createConfigWithMockClient()
             .setAuthType("azure-cli")
             .setHost("https://x")
+            .setAzureEnvironment("PUBLIC")
             .setAzureWorkspaceResourceId(azureWorkspaceResourceId);
     resolveConfig(config, env);
     Map<String, String> headers = config.authenticate();

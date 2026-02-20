@@ -5,6 +5,7 @@ package com.databricks.sdk;
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.core.ConfigLoader;
 import com.databricks.sdk.core.DatabricksConfig;
+import com.databricks.sdk.core.HostType;
 import com.databricks.sdk.core.utils.AzureUtils;
 import com.databricks.sdk.service.billing.BillableUsageAPI;
 import com.databricks.sdk.service.billing.BillableUsageService;
@@ -40,6 +41,8 @@ import com.databricks.sdk.service.iam.WorkspaceAssignmentAPI;
 import com.databricks.sdk.service.iam.WorkspaceAssignmentService;
 import com.databricks.sdk.service.iamv2.AccountIamV2API;
 import com.databricks.sdk.service.iamv2.AccountIamV2Service;
+import com.databricks.sdk.service.networking.EndpointsAPI;
+import com.databricks.sdk.service.networking.EndpointsService;
 import com.databricks.sdk.service.oauth2.AccountFederationPolicyAPI;
 import com.databricks.sdk.service.oauth2.AccountFederationPolicyService;
 import com.databricks.sdk.service.oauth2.CustomAppIntegrationAPI;
@@ -94,6 +97,7 @@ public class AccountClient {
   private CredentialsAPI credentialsAPI;
   private CustomAppIntegrationAPI customAppIntegrationAPI;
   private EncryptionKeysAPI encryptionKeysAPI;
+  private EndpointsAPI endpointsAPI;
   private AccountFederationPolicyAPI federationPolicyAPI;
   private AccountGroupsV2API groupsV2API;
   private AccountIamV2API iamV2API;
@@ -139,6 +143,7 @@ public class AccountClient {
     credentialsAPI = new CredentialsAPI(apiClient);
     customAppIntegrationAPI = new CustomAppIntegrationAPI(apiClient);
     encryptionKeysAPI = new EncryptionKeysAPI(apiClient);
+    endpointsAPI = new EndpointsAPI(apiClient);
     federationPolicyAPI = new AccountFederationPolicyAPI(apiClient);
     groupsV2API = new AccountGroupsV2API(apiClient);
     iamV2API = new AccountIamV2API(apiClient);
@@ -243,6 +248,11 @@ public class AccountClient {
    */
   public EncryptionKeysAPI encryptionKeys() {
     return encryptionKeysAPI;
+  }
+
+  /** These APIs manage endpoint configurations for this account. */
+  public EndpointsAPI endpoints() {
+    return endpointsAPI;
   }
 
   /**
@@ -759,6 +769,17 @@ public class AccountClient {
     return this;
   }
 
+  /** Replace the default EndpointsService with a custom implementation. */
+  public AccountClient withEndpointsImpl(EndpointsService endpoints) {
+    return this.withEndpointsAPI(new EndpointsAPI(endpoints));
+  }
+
+  /** Replace the default EndpointsAPI with a custom implementation. */
+  public AccountClient withEndpointsAPI(EndpointsAPI endpoints) {
+    this.endpointsAPI = endpoints;
+    return this;
+  }
+
   /** Replace the default AccountFederationPolicyService with a custom implementation. */
   public AccountClient withFederationPolicyImpl(
       AccountFederationPolicyService accountFederationPolicy) {
@@ -1111,6 +1132,13 @@ public class AccountClient {
   }
 
   public WorkspaceClient getWorkspaceClient(Workspace workspace) {
+    // For unified hosts, reuse the same host and set workspace ID
+    if (this.config.getHostType() == HostType.UNIFIED) {
+      this.config.setWorkspaceId(String.valueOf(workspace.getWorkspaceId()));
+      return new WorkspaceClient(this.config);
+    }
+
+    // For traditional account hosts, get workspace deployment URL
     String host =
         this.config.getDatabricksEnvironment().getDeploymentUrl(workspace.getDeploymentName());
     DatabricksConfig config = this.config.newWithWorkspaceHost(host);

@@ -79,13 +79,16 @@ public interface TablesService {
    * privilege on the parent catalog and the **USE_SCHEMA** privilege on the parent schema. There is
    * no guarantee of a specific ordering of the elements in the array.
    *
+   * <p>NOTE: **view_dependencies** and **table_constraints** are not returned by ListTables
+   * queries.
+   *
    * <p>NOTE: we recommend using max_results=0 to use the paginated version of this API. Unpaginated
    * calls will be deprecated soon.
    *
    * <p>PAGINATION BEHAVIOR: When using pagination (max_results >= 0), a page may contain zero
    * results while still providing a next_page_token. Clients must continue reading pages until
    * next_page_token is absent, which is the only indication that the end of results has been
-   * reached. This behavior follows Google AIP-158 guidelines.
+   * reached.
    */
   ListTablesResponse list(ListTablesRequest listTablesRequest);
 
@@ -100,6 +103,10 @@ public interface TablesService {
    * has ownership or the **USE_CATALOG** privilege on the parent catalog.
    *
    * <p>There is no guarantee of a specific ordering of the elements in the array.
+   *
+   * <p>PAGINATION BEHAVIOR: The API is by default paginated, a page may contain zero results while
+   * still providing a next_page_token. Clients must continue reading pages until next_page_token is
+   * absent, which is the only indication that the end of results has been reached.
    */
   ListTableSummariesResponse listSummaries(ListSummariesRequest listSummariesRequest);
 

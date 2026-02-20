@@ -7,7 +7,10 @@ import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** Manage data quality of UC objects (currently support `schema`) */
+/**
+ * Deprecated: Please use the Data Quality Monitoring API instead (REST:
+ * /api/data-quality/v1/monitors). Manage data quality of UC objects (currently support `schema`).
+ */
 @Generated
 public class QualityMonitorV2API {
   private static final Logger LOG = LoggerFactory.getLogger(QualityMonitorV2API.class);
@@ -24,7 +27,10 @@ public class QualityMonitorV2API {
     impl = mock;
   }
 
-  /** Create a quality monitor on UC object */
+  /**
+   * Deprecated: Use Data Quality Monitoring API instead (/api/data-quality/v1/monitors). Create a
+   * quality monitor on UC object.
+   */
   public QualityMonitor createQualityMonitor(CreateQualityMonitorRequest request) {
     return impl.createQualityMonitor(request);
   }
@@ -34,7 +40,10 @@ public class QualityMonitorV2API {
         new DeleteQualityMonitorRequest().setObjectType(objectType).setObjectId(objectId));
   }
 
-  /** Delete a quality monitor on UC object */
+  /**
+   * Deprecated: Use Data Quality Monitoring API instead (/api/data-quality/v1/monitors). Delete a
+   * quality monitor on UC object.
+   */
   public void deleteQualityMonitor(DeleteQualityMonitorRequest request) {
     impl.deleteQualityMonitor(request);
   }
@@ -44,12 +53,18 @@ public class QualityMonitorV2API {
         new GetQualityMonitorRequest().setObjectType(objectType).setObjectId(objectId));
   }
 
-  /** Read a quality monitor on UC object */
+  /**
+   * Deprecated: Use Data Quality Monitoring API instead (/api/data-quality/v1/monitors). Read a
+   * quality monitor on UC object.
+   */
   public QualityMonitor getQualityMonitor(GetQualityMonitorRequest request) {
     return impl.getQualityMonitor(request);
   }
 
-  /** (Unimplemented) List quality monitors */
+  /**
+   * Deprecated: Use Data Quality Monitoring API instead (/api/data-quality/v1/monitors).
+   * (Unimplemented) List quality monitors.
+   */
   public Iterable<QualityMonitor> listQualityMonitor(ListQualityMonitorRequest request) {
     return new Paginator<>(
         request,
@@ -64,7 +79,10 @@ public class QualityMonitorV2API {
         });
   }
 
-  /** (Unimplemented) Update a quality monitor on UC object */
+  /**
+   * Deprecated: Use Data Quality Monitoring API instead (/api/data-quality/v1/monitors).
+   * (Unimplemented) Update a quality monitor on UC object.
+   */
   public QualityMonitor updateQualityMonitor(UpdateQualityMonitorRequest request) {
     return impl.updateQualityMonitor(request);
   }

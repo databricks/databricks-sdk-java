@@ -5,6 +5,7 @@ package com.databricks.sdk.service.sql;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 @Generated
@@ -89,6 +90,10 @@ public class QueryInfo {
   @JsonProperty("query_start_time_ms")
   private Long queryStartTimeMs;
 
+  /** A query execution can be optionally annotated with query tags */
+  @JsonProperty("query_tags")
+  private Collection<QueryTag> queryTags;
+
   /** The text of the query. */
   @JsonProperty("query_text")
   private String queryText;
@@ -96,6 +101,13 @@ public class QueryInfo {
   /** The number of results returned by the query. */
   @JsonProperty("rows_produced")
   private Long rowsProduced;
+
+  /**
+   * The spark session UUID that query ran on. This is either the Spark Connect, DBSQL, or SDP
+   * session ID.
+   */
+  @JsonProperty("session_id")
+  private String sessionId;
 
   /** URL to the Spark UI query plan. */
   @JsonProperty("spark_ui_url")
@@ -280,6 +292,15 @@ public class QueryInfo {
     return queryStartTimeMs;
   }
 
+  public QueryInfo setQueryTags(Collection<QueryTag> queryTags) {
+    this.queryTags = queryTags;
+    return this;
+  }
+
+  public Collection<QueryTag> getQueryTags() {
+    return queryTags;
+  }
+
   public QueryInfo setQueryText(String queryText) {
     this.queryText = queryText;
     return this;
@@ -296,6 +317,15 @@ public class QueryInfo {
 
   public Long getRowsProduced() {
     return rowsProduced;
+  }
+
+  public QueryInfo setSessionId(String sessionId) {
+    this.sessionId = sessionId;
+    return this;
+  }
+
+  public String getSessionId() {
+    return sessionId;
   }
 
   public QueryInfo setSparkUiUrl(String sparkUiUrl) {
@@ -374,8 +404,10 @@ public class QueryInfo {
         && Objects.equals(queryId, that.queryId)
         && Objects.equals(querySource, that.querySource)
         && Objects.equals(queryStartTimeMs, that.queryStartTimeMs)
+        && Objects.equals(queryTags, that.queryTags)
         && Objects.equals(queryText, that.queryText)
         && Objects.equals(rowsProduced, that.rowsProduced)
+        && Objects.equals(sessionId, that.sessionId)
         && Objects.equals(sparkUiUrl, that.sparkUiUrl)
         && Objects.equals(statementType, that.statementType)
         && Objects.equals(status, that.status)
@@ -404,8 +436,10 @@ public class QueryInfo {
         queryId,
         querySource,
         queryStartTimeMs,
+        queryTags,
         queryText,
         rowsProduced,
+        sessionId,
         sparkUiUrl,
         statementType,
         status,
@@ -434,8 +468,10 @@ public class QueryInfo {
         .add("queryId", queryId)
         .add("querySource", querySource)
         .add("queryStartTimeMs", queryStartTimeMs)
+        .add("queryTags", queryTags)
         .add("queryText", queryText)
         .add("rowsProduced", rowsProduced)
+        .add("sessionId", sessionId)
         .add("sparkUiUrl", sparkUiUrl)
         .add("statementType", statementType)
         .add("status", status)

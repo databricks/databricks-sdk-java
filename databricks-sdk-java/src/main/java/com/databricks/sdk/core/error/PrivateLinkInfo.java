@@ -4,9 +4,11 @@ import com.databricks.sdk.core.DatabricksEnvironment;
 import com.databricks.sdk.core.error.details.ErrorDetails;
 import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.utils.Cloud;
+import com.databricks.sdk.support.InternalApi;
 import java.util.HashMap;
 import java.util.Map;
 
+@InternalApi
 public class PrivateLinkInfo {
   private final String serviceName;
   private final String endpointName;

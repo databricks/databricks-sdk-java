@@ -1,6 +1,7 @@
 package com.databricks.sdk.core;
 
 import com.databricks.sdk.core.oauth.*;
+import com.databricks.sdk.support.InternalApi;
 import com.google.common.base.Strings;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.slf4j.LoggerFactory;
  * Personal Access Tokens (PAT), OAuth, Azure, Google, and OpenID Connect (OIDC). The provider
  * attempts each authentication method in sequence until a valid credential is obtained.
  */
+@InternalApi
 public class DefaultCredentialsProvider implements CredentialsProvider {
   private static final Logger LOG = LoggerFactory.getLogger(DefaultCredentialsProvider.class);
 
@@ -96,9 +98,10 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
     // TODO: refactor the code so that the IdTokenSources are created within the
     // configure call of their corresponding CredentialsProvider. This will allow
     // us to simplify the code by validating IdTokenSources when they are created.
+    // This would also need to be updated to support unified hosts.
     OpenIDConnectEndpoints endpoints = null;
     try {
-      endpoints = config.getOidcEndpoints();
+      endpoints = config.getDatabricksOidcEndpoints();
     } catch (Exception e) {
       LOG.warn("Failed to get OpenID Connect endpoints", e);
     }
@@ -148,7 +151,8 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
                   namedIdTokenSource.idTokenSource,
                   config.getHttpClient())
               .audience(config.getTokenAudience())
-              .accountId(config.isAccountClient() ? config.getAccountId() : null)
+              .accountId(
+                  config.getClientType() == ClientType.ACCOUNT ? config.getAccountId() : null)
               .scopes(config.getScopes())
               .build();
 

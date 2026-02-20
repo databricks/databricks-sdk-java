@@ -1,6 +1,7 @@
 package com.databricks.sdk.core;
 
 import com.databricks.sdk.core.utils.Environment;
+import com.databricks.sdk.support.InternalApi;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -15,6 +16,7 @@ import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@InternalApi
 public class ConfigLoader {
   private static final Logger LOG = LoggerFactory.getLogger(ConfigLoader.class);
 

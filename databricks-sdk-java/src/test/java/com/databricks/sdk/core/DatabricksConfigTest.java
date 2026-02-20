@@ -14,10 +14,15 @@ import com.databricks.sdk.core.utils.Environment;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 public class DatabricksConfigTest {
   @Test
@@ -103,7 +108,7 @@ public class DatabricksConfigTest {
       c.resolve(
           new Environment(new HashMap<>(), new ArrayList<String>(), System.getProperty("os.name")));
       assertEquals(
-          c.getOidcEndpoints().getAuthorizationEndpoint(),
+          c.getDatabricksOidcEndpoints().getAuthorizationEndpoint(),
           "https://test-workspace.cloud.databricks.com/oidc/v1/authorize");
     }
   }
@@ -123,7 +128,7 @@ public class DatabricksConfigTest {
       c.resolve(
           new Environment(new HashMap<>(), new ArrayList<String>(), System.getProperty("os.name")));
       assertEquals(
-          c.getOidcEndpoints().getAuthorizationEndpoint(),
+          c.getDatabricksOidcEndpoints().getAuthorizationEndpoint(),
           "https://test-workspace.cloud.databricks.com/oidc/v1/authorize");
     }
   }
@@ -134,7 +139,7 @@ public class DatabricksConfigTest {
         new DatabricksConfig()
             .setHost("https://accounts.cloud.databricks.com")
             .setAccountId("1234567890")
-            .getOidcEndpoints()
+            .getDatabricksOidcEndpoints()
             .getAuthorizationEndpoint(),
         "https://accounts.cloud.databricks.com/oidc/accounts/1234567890/v1/authorize");
   }
@@ -158,7 +163,7 @@ public class DatabricksConfigTest {
               .setHost(server.getUrl())
               .setDiscoveryUrl(discoveryUrl)
               .setHttpClient(new CommonsHttpClient.Builder().withTimeoutSeconds(30).build())
-              .getOidcEndpoints();
+              .getDatabricksOidcEndpoints();
 
       assertEquals(
           oidcEndpoints.getAuthorizationEndpoint(), "https://test.auth.endpoint/oidc/v1/authorize");
@@ -321,5 +326,99 @@ public class DatabricksConfigTest {
     config.resolve(new Environment(env, new ArrayList<>(), System.getProperty("os.name")));
 
     assertEquals(true, config.getDisableOauthRefreshToken());
+  }
+
+  // Config File Scope Parsing Tests
+  private static Stream<Arguments> provideConfigFileScopesTestCases() {
+    return Stream.of(
+        Arguments.of("Empty scopes defaults to all-apis", "scope-empty", Arrays.asList("all-apis")),
+        Arguments.of("Single scope", "scope-single", Arrays.asList("clusters:read")),
+        Arguments.of(
+            "Multiple scopes sorted alphabetically",
+            "scope-multiple",
+            Arrays.asList(
+                "clusters",
+                "files:read",
+                "iam:read",
+                "jobs",
+                "mlflow",
+                "model-serving:read",
+                "pipelines")));
+  }
+
+  @ParameterizedTest(name = "{0}")
+  @MethodSource("provideConfigFileScopesTestCases")
+  public void testConfigFileScopes(String testName, String profile, List<String> expectedScopes) {
+    Map<String, String> env = new HashMap<>();
+    env.put("HOME", "src/test/resources/testdata");
+
+    DatabricksConfig config = new DatabricksConfig().setProfile(profile);
+    config.resolve(new Environment(env, new ArrayList<>(), System.getProperty("os.name")));
+
+    List<String> scopes = config.getScopes();
+    assertIterableEquals(expectedScopes, scopes);
+  }
+
+  // --- Unified Host Tests (added for SPOG support) ---
+
+  @Test
+  public void testGetHostTypeWorkspace() {
+    assertEquals(
+        HostType.WORKSPACE,
+        new DatabricksConfig().setHost("https://adb-123.azuredatabricks.net").getHostType());
+  }
+
+  @Test
+  public void testGetHostTypeAccounts() {
+    assertEquals(
+        HostType.ACCOUNTS,
+        new DatabricksConfig().setHost("https://accounts.cloud.databricks.com").getHostType());
+  }
+
+  @Test
+  public void testGetHostTypeUnified() {
+    assertEquals(
+        HostType.UNIFIED,
+        new DatabricksConfig()
+            .setHost("https://unified.databricks.com")
+            .setExperimentalIsUnifiedHost(true)
+            .getHostType());
+  }
+
+  @Test
+  public void testGetClientTypeWorkspace() {
+    assertEquals(
+        ClientType.WORKSPACE,
+        new DatabricksConfig().setHost("https://adb-123.azuredatabricks.net").getClientType());
+  }
+
+  @Test
+  public void testGetClientTypeAccount() {
+    assertEquals(
+        ClientType.ACCOUNT,
+        new DatabricksConfig().setHost("https://accounts.cloud.databricks.com").getClientType());
+  }
+
+  @Test
+  public void testGetClientTypeWorkspaceOnUnified() {
+    // For unified hosts with workspaceId, client type is WORKSPACE
+    assertEquals(
+        ClientType.WORKSPACE,
+        new DatabricksConfig()
+            .setHost("https://unified.databricks.com")
+            .setExperimentalIsUnifiedHost(true)
+            .setWorkspaceId("123456")
+            .getClientType());
+  }
+
+  @Test
+  public void testGetClientTypeAccountOnUnified() {
+    // For unified hosts without workspaceId, client type is ACCOUNT
+    assertEquals(
+        ClientType.ACCOUNT,
+        new DatabricksConfig()
+            .setHost("https://unified.databricks.com")
+            .setExperimentalIsUnifiedHost(true)
+            .getClientType());
   }
 }

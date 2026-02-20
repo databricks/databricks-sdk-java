@@ -1,5 +1,6 @@
 package com.databricks.sdk.core;
 
+import com.databricks.sdk.support.InternalApi;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
  * the token. This token should be available wherever the DBUtils API is accessible (i.e. in the
  * Spark driver).
  */
+@InternalApi
 public class NotebookNativeCredentialsProvider implements CredentialsProvider {
   private static final Logger LOG =
       LoggerFactory.getLogger(NotebookNativeCredentialsProvider.class);

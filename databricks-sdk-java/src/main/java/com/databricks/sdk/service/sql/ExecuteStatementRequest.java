@@ -136,6 +136,18 @@ public class ExecuteStatementRequest {
   private Collection<StatementParameterListItem> parameters;
 
   /**
+   * An array of query tags to annotate a SQL statement. A query tag consists of a non-empty key
+   * and, optionally, a value. To represent a NULL value, either omit the `value` field or manually
+   * set it to `null` or white space. Refer to the SQL language reference for the format
+   * specification of query tags. There's no significance to the order of tags. Only one value per
+   * key will be recorded. A sequence in excess of 20 query tags will be coerced to 20. Example:
+   *
+   * <p>{ ..., "query_tags": [ { "key": "team", "value": "eng" }, { "key": "some key only tag" } ] }
+   */
+  @JsonProperty("query_tags")
+  private Collection<QueryTag> queryTags;
+
+  /**
    * Applies the given row limit to the statement's result set, but unlike the `LIMIT` clause in
    * SQL, it also sets the `truncated` field in the response to indicate whether the result was
    * trimmed due to the limit or not.
@@ -239,6 +251,15 @@ public class ExecuteStatementRequest {
     return parameters;
   }
 
+  public ExecuteStatementRequest setQueryTags(Collection<QueryTag> queryTags) {
+    this.queryTags = queryTags;
+    return this;
+  }
+
+  public Collection<QueryTag> getQueryTags() {
+    return queryTags;
+  }
+
   public ExecuteStatementRequest setRowLimit(Long rowLimit) {
     this.rowLimit = rowLimit;
     return this;
@@ -295,6 +316,7 @@ public class ExecuteStatementRequest {
         && Objects.equals(format, that.format)
         && Objects.equals(onWaitTimeout, that.onWaitTimeout)
         && Objects.equals(parameters, that.parameters)
+        && Objects.equals(queryTags, that.queryTags)
         && Objects.equals(rowLimit, that.rowLimit)
         && Objects.equals(schema, that.schema)
         && Objects.equals(statement, that.statement)
@@ -311,6 +333,7 @@ public class ExecuteStatementRequest {
         format,
         onWaitTimeout,
         parameters,
+        queryTags,
         rowLimit,
         schema,
         statement,
@@ -327,6 +350,7 @@ public class ExecuteStatementRequest {
         .add("format", format)
         .add("onWaitTimeout", onWaitTimeout)
         .add("parameters", parameters)
+        .add("queryTags", queryTags)
         .add("rowLimit", rowLimit)
         .add("schema", schema)
         .add("statement", statement)

@@ -27,6 +27,17 @@ public class DatabricksConfig {
   @ConfigAttribute(env = "DATABRICKS_ACCOUNT_ID")
   private String accountId;
 
+  /** Workspace ID for unified host operations. */
+  @ConfigAttribute(env = "DATABRICKS_WORKSPACE_ID")
+  private String workspaceId;
+
+  /**
+   * Flag to explicitly mark a host as a unified host. Note: This API is experimental and may change
+   * or be removed in future releases without notice.
+   */
+  @ConfigAttribute(env = "DATABRICKS_EXPERIMENTAL_IS_UNIFIED_HOST")
+  private Boolean experimentalIsUnifiedHost;
+
   @ConfigAttribute(env = "DATABRICKS_TOKEN", auth = "pat", sensitive = true)
   private String token;
 
@@ -36,7 +47,7 @@ public class DatabricksConfig {
   @ConfigAttribute(env = "DATABRICKS_CLIENT_SECRET", auth = "oauth", sensitive = true)
   private String clientSecret;
 
-  @ConfigAttribute(env = "DATABRICKS_SCOPES", auth = "oauth")
+  @ConfigAttribute(auth = "oauth")
   private List<String> scopes;
 
   @ConfigAttribute(env = "DATABRICKS_REDIRECT_URL", auth = "oauth")
@@ -204,11 +215,19 @@ public class DatabricksConfig {
     try {
       ConfigLoader.resolve(this);
       ConfigLoader.validate(this);
+      sortScopes();
       ConfigLoader.fixHostIfNeeded(this);
       initHttp();
       return this;
     } catch (DatabricksException e) {
       throw ConfigLoader.makeNicerError(e.getMessage(), e, this);
+    }
+  }
+
+  // Sort scopes in-place for better de-duplication in the refresh token cache.
+  private void sortScopes() {
+    if (scopes != null && !scopes.isEmpty()) {
+      java.util.Collections.sort(scopes);
     }
   }
 
@@ -228,7 +247,14 @@ public class DatabricksConfig {
         headerFactory = credentialsProvider.configure(this);
         setAuthType(credentialsProvider.authType());
       }
-      return headerFactory.headers();
+      Map<String, String> headers = new HashMap<>(headerFactory.headers());
+
+      // For unified hosts with workspace operations, add the X-Databricks-Org-Id header
+      if (getHostType() == HostType.UNIFIED && workspaceId != null && !workspaceId.isEmpty()) {
+        headers.put("X-Databricks-Org-Id", workspaceId);
+      }
+
+      return headers;
     } catch (DatabricksException e) {
       String msg = String.format("%s auth: %s", credentialsProvider.authType(), e.getMessage());
       DatabricksException wrapperException = new DatabricksException(msg, e);
@@ -287,6 +313,24 @@ public class DatabricksConfig {
 
   public DatabricksConfig setAccountId(String accountId) {
     this.accountId = accountId;
+    return this;
+  }
+
+  public String getWorkspaceId() {
+    return workspaceId;
+  }
+
+  public DatabricksConfig setWorkspaceId(String workspaceId) {
+    this.workspaceId = workspaceId;
+    return this;
+  }
+
+  public Boolean getExperimentalIsUnifiedHost() {
+    return experimentalIsUnifiedHost;
+  }
+
+  public DatabricksConfig setExperimentalIsUnifiedHost(Boolean experimentalIsUnifiedHost) {
+    this.experimentalIsUnifiedHost = experimentalIsUnifiedHost;
     return this;
   }
 
@@ -488,11 +532,7 @@ public class DatabricksConfig {
   }
 
   public AzureEnvironment getAzureEnvironment() {
-    String env = "PUBLIC";
-    if (azureEnvironment != null) {
-      env = azureEnvironment;
-    }
-    return AzureEnvironment.getEnvironment(env);
+    return getDatabricksEnvironment().getAzureEnvironment();
   }
 
   public DatabricksConfig setAzureEnvironment(String azureEnvironment) {
@@ -671,13 +711,89 @@ public class DatabricksConfig {
   }
 
   public boolean isAccountClient() {
+    if (getHostType() == HostType.UNIFIED) {
+      throw new DatabricksException(
+          "Cannot determine account client status for unified hosts. "
+              + "Use getHostType() or getClientType() instead. "
+              + "For unified hosts, client type depends on whether workspaceId is set.");
+    }
     if (host == null) {
       return false;
     }
     return host.startsWith("https://accounts.") || host.startsWith("https://accounts-dod.");
   }
 
+  /** Returns the host type based on configuration settings and host URL. */
+  public HostType getHostType() {
+    if (experimentalIsUnifiedHost != null && experimentalIsUnifiedHost) {
+      return HostType.UNIFIED;
+    }
+    if (host == null) {
+      return HostType.WORKSPACE;
+    }
+    if (host.startsWith("https://accounts.") || host.startsWith("https://accounts-dod.")) {
+      return HostType.ACCOUNTS;
+    }
+    return HostType.WORKSPACE;
+  }
+
+  /** Returns the client type based on host type and workspace ID configuration. */
+  public ClientType getClientType() {
+    HostType hostType = getHostType();
+    switch (hostType) {
+      case UNIFIED:
+        // For unified hosts, client type depends on whether workspaceId is set
+        return (workspaceId != null && !workspaceId.isEmpty())
+            ? ClientType.WORKSPACE
+            : ClientType.ACCOUNT;
+      case ACCOUNTS:
+        return ClientType.ACCOUNT;
+      case WORKSPACE:
+      default:
+        return ClientType.WORKSPACE;
+    }
+  }
+
+  /**
+   * @deprecated Use {@link #getDatabricksOidcEndpoints()} instead. This method incorrectly returns
+   *     Azure OIDC endpoints when azure_client_id is set, even for Databricks OAuth flows that
+   *     don't use Azure authentication. This caused bugs where Databricks M2M OAuth would fail when
+   *     ARM_CLIENT_ID was set for other purposes. Use instead: - getDatabricksOidcEndpoints(): For
+   *     Databricks OAuth (oauth-m2m, external-browser, etc.). -
+   *     getAzureEntraIdWorkspaceEndpoints(): For Azure Entra ID OIDC endpoints.
+   * @return The OIDC endpoints. This method dinamically returns the OIDC endpoints based on the
+   *     config.
+   */
+  @Deprecated
   public OpenIDConnectEndpoints getOidcEndpoints() throws IOException {
+    if (isAzure() && getAzureClientId() != null) {
+      return getAzureEntraIdWorkspaceEndpoints();
+    }
+    return getDatabricksOidcEndpoints();
+  }
+
+  /**
+   * @return The Azure Entra ID OIDC endpoints.
+   */
+  public OpenIDConnectEndpoints getAzureEntraIdWorkspaceEndpoints() throws IOException {
+    if (isAzure() && getAzureClientId() != null) {
+      Request request = new Request("GET", getHost() + "/oidc/oauth2/v2.0/authorize");
+      request.setRedirectionBehavior(false);
+      Response resp = getHttpClient().execute(request);
+      String realAuthUrl = resp.getFirstHeader("location");
+      if (realAuthUrl == null) {
+        return null;
+      }
+      return new OpenIDConnectEndpoints(
+          realAuthUrl.replaceAll("/authorize", "/token"), realAuthUrl);
+    }
+    return null;
+  }
+
+  /**
+   * @return The Databricks OIDC endpoints.
+   */
+  public OpenIDConnectEndpoints getDatabricksOidcEndpoints() throws IOException {
     if (discoveryUrl == null) {
       return fetchDefaultOidcEndpoints();
     }
@@ -697,20 +813,23 @@ public class DatabricksConfig {
     return null;
   }
 
+  private OpenIDConnectEndpoints getUnifiedOidcEndpoints(String accountId) throws IOException {
+    if (accountId == null || accountId.isEmpty()) {
+      throw new DatabricksException(
+          "account_id is required for unified host OIDC endpoint discovery");
+    }
+    String prefix = getHost() + "/oidc/accounts/" + accountId;
+    return new OpenIDConnectEndpoints(prefix + "/v1/token", prefix + "/v1/authorize");
+  }
+
   private OpenIDConnectEndpoints fetchDefaultOidcEndpoints() throws IOException {
     if (getHost() == null) {
       return null;
     }
-    if (isAzure() && getAzureClientId() != null) {
-      Request request = new Request("GET", getHost() + "/oidc/oauth2/v2.0/authorize");
-      request.setRedirectionBehavior(false);
-      Response resp = getHttpClient().execute(request);
-      String realAuthUrl = resp.getFirstHeader("location");
-      if (realAuthUrl == null) {
-        return null;
-      }
-      return new OpenIDConnectEndpoints(
-          realAuthUrl.replaceAll("/authorize", "/token"), realAuthUrl);
+
+    // For unified hosts, use account-based OIDC endpoints
+    if (getHostType() == HostType.UNIFIED) {
+      return getUnifiedOidcEndpoints(getAccountId());
     }
     if (isAccountClient() && getAccountId() != null) {
       String prefix = getHost() + "/oidc/accounts/" + getAccountId();
@@ -748,10 +867,11 @@ public class DatabricksConfig {
       return this.databricksEnvironment;
     }
 
-    if (this.host == null && this.azureWorkspaceResourceId != null) {
+    if ((this.host == null || this.azureEnvironment != null)
+        && this.azureWorkspaceResourceId != null) {
       String azureEnv = "PUBLIC";
-      if (this.azureEnvironment != null) {
-        azureEnv = this.azureEnvironment;
+      if (this.azureEnvironment != null && !this.azureEnvironment.isEmpty()) {
+        azureEnv = this.azureEnvironment.toUpperCase();
       }
       for (DatabricksEnvironment env : DatabricksEnvironment.ALL_ENVIRONMENTS) {
         if (env.getCloud() != Cloud.AZURE) {

@@ -4,11 +4,7 @@ package com.databricks.sdk.service.lrotesting;
 
 import com.databricks.sdk.support.Generated;
 
-/**
- * Legacy definition of the ErrorCode enum. Please keep in sync with api-base/proto/error_code.proto
- * (except status code mapping annotations as this file doesn't have them). Will be removed
- * eventually, pending the ScalaPB 0.4 cleanup.
- */
+/** Error codes returned by Databricks APIs to indicate specific failure conditions. */
 @Generated
 public enum ErrorCode {
   ABORTED,

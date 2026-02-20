@@ -1,5 +1,8 @@
 package com.databricks.sdk.core;
 
+import com.databricks.sdk.support.InternalApi;
+
+@InternalApi
 public class ProxyConfig {
   private String host;
   private Integer port;

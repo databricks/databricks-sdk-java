@@ -4,11 +4,12 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** Next Id: 14 */
+/** Next Id: 16 */
 @Generated
 public enum CredentialType {
   ANY_STATIC_CREDENTIAL,
   BEARER_TOKEN,
+  EDGEGRID_AKAMAI,
   OAUTH_ACCESS_TOKEN,
   OAUTH_M2M,
   OAUTH_MTLS,
@@ -19,6 +20,7 @@ public enum CredentialType {
   OIDC_TOKEN,
   PEM_PRIVATE_KEY,
   SERVICE_CREDENTIAL,
+  SSWS_TOKEN,
   UNKNOWN_CREDENTIAL_TYPE,
   USERNAME_PASSWORD,
 }

@@ -1,6 +1,7 @@
 package com.databricks.sdk.core.oauth;
 
 import com.databricks.sdk.core.http.HttpClient;
+import com.databricks.sdk.support.InternalApi;
 import com.google.auto.value.AutoValue;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
@@ -13,6 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * {@link EndpointTokenSource} instances are used to efficiently reuse tokens for repeated requests
  * to the same endpoint with the same authorization context.
  */
+@InternalApi
 public class DataPlaneTokenSource {
   private final HttpClient httpClient;
   private final TokenSource cpTokenSource;

@@ -21,8 +21,12 @@ class WorkspaceSettingsV2Impl implements WorkspaceSettingsV2Service {
     String path = String.format("/api/2.1/settings/%s", request.getName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, Setting.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -35,8 +39,12 @@ class WorkspaceSettingsV2Impl implements WorkspaceSettingsV2Service {
     String path = "/api/2.1/settings-metadata";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, ListWorkspaceSettingsMetadataResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -48,9 +56,13 @@ class WorkspaceSettingsV2Impl implements WorkspaceSettingsV2Service {
     String path = String.format("/api/2.1/settings/%s", request.getName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getSetting()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, Setting.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);

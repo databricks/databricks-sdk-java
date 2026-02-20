@@ -17,14 +17,55 @@ class FeatureEngineeringImpl implements FeatureEngineeringService {
   }
 
   @Override
+  public BatchCreateMaterializedFeaturesResponse batchCreateMaterializedFeatures(
+      BatchCreateMaterializedFeaturesRequest request) {
+    String path = "/api/2.0/feature-engineering/materialized-features:batchCreate";
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, BatchCreateMaterializedFeaturesResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public Feature createFeature(CreateFeatureRequest request) {
     String path = "/api/2.0/feature-engineering/features";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request.getFeature()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, Feature.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public KafkaConfig createKafkaConfig(CreateKafkaConfigRequest request) {
+    String path = "/api/2.0/feature-engineering/features/kafka-configs";
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request.getKafkaConfig()));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, KafkaConfig.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -36,9 +77,13 @@ class FeatureEngineeringImpl implements FeatureEngineeringService {
     try {
       Request req =
           new Request("POST", path, apiClient.serialize(request.getMaterializedFeature()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, MaterializedFeature.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -50,8 +95,30 @@ class FeatureEngineeringImpl implements FeatureEngineeringService {
     String path = String.format("/api/2.0/feature-engineering/features/%s", request.getFullName());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      apiClient.execute(req, Void.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public void deleteKafkaConfig(DeleteKafkaConfigRequest request) {
+    String path =
+        String.format("/api/2.0/feature-engineering/features/kafka-configs/%s", request.getName());
+    try {
+      Request req = new Request("DELETE", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -66,8 +133,12 @@ class FeatureEngineeringImpl implements FeatureEngineeringService {
             request.getMaterializedFeatureId());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -79,9 +150,31 @@ class FeatureEngineeringImpl implements FeatureEngineeringService {
     String path = String.format("/api/2.0/feature-engineering/features/%s", request.getFullName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, Feature.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public KafkaConfig getKafkaConfig(GetKafkaConfigRequest request) {
+    String path =
+        String.format("/api/2.0/feature-engineering/features/kafka-configs/%s", request.getName());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, KafkaConfig.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -95,8 +188,12 @@ class FeatureEngineeringImpl implements FeatureEngineeringService {
             request.getMaterializedFeatureId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, MaterializedFeature.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -108,9 +205,30 @@ class FeatureEngineeringImpl implements FeatureEngineeringService {
     String path = "/api/2.0/feature-engineering/features";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, ListFeaturesResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public ListKafkaConfigsResponse listKafkaConfigs(ListKafkaConfigsRequest request) {
+    String path = "/api/2.0/feature-engineering/features/kafka-configs";
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, ListKafkaConfigsResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -122,8 +240,12 @@ class FeatureEngineeringImpl implements FeatureEngineeringService {
     String path = "/api/2.0/feature-engineering/materialized-features";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, ListMaterializedFeaturesResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -135,10 +257,33 @@ class FeatureEngineeringImpl implements FeatureEngineeringService {
     String path = String.format("/api/2.0/feature-engineering/features/%s", request.getFullName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getFeature()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, Feature.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public KafkaConfig updateKafkaConfig(UpdateKafkaConfigRequest request) {
+    String path =
+        String.format("/api/2.0/feature-engineering/features/kafka-configs/%s", request.getName());
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request.getKafkaConfig()));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, KafkaConfig.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -153,9 +298,13 @@ class FeatureEngineeringImpl implements FeatureEngineeringService {
     try {
       Request req =
           new Request("PATCH", path, apiClient.serialize(request.getMaterializedFeature()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, MaterializedFeature.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);

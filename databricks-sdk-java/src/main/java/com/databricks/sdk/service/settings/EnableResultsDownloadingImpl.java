@@ -21,7 +21,11 @@ class EnableResultsDownloadingImpl implements EnableResultsDownloadingService {
     String path = "/api/2.0/settings/types/enable-results-downloading/names/default";
     try {
       Request req = new Request("GET", path);
+
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, EnableResultsDownloading.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -34,9 +38,13 @@ class EnableResultsDownloadingImpl implements EnableResultsDownloadingService {
     String path = "/api/2.0/settings/types/enable-results-downloading/names/default";
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, EnableResultsDownloading.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);

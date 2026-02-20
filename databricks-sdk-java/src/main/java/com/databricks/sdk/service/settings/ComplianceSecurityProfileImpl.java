@@ -21,8 +21,12 @@ class ComplianceSecurityProfileImpl implements ComplianceSecurityProfileService 
     String path = "/api/2.0/settings/types/shield_csp_enablement_ws_db/names/default";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, ComplianceSecurityProfileSetting.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -35,9 +39,13 @@ class ComplianceSecurityProfileImpl implements ComplianceSecurityProfileService 
     String path = "/api/2.0/settings/types/shield_csp_enablement_ws_db/names/default";
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, ComplianceSecurityProfileSetting.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);

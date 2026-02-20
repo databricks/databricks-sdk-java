@@ -22,7 +22,10 @@ public class GenieAttachment {
   @JsonProperty("suggested_questions")
   private GenieSuggestedQuestionsAttachment suggestedQuestions;
 
-  /** Text Attachment if Genie responds with text */
+  /**
+   * Text Attachment if Genie responds with text. This also contains the final summary when
+   * available.
+   */
   @JsonProperty("text")
   private TextAttachment text;
 

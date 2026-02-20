@@ -1,9 +1,11 @@
 package com.databricks.sdk.core.utils;
 
+import com.databricks.sdk.support.InternalApi;
 import java.util.Arrays;
 import java.util.List;
 
 /** MacOS specific utilities. */
+@InternalApi
 public class MacOSUtilities implements OSUtilities {
   private final Environment env;
 

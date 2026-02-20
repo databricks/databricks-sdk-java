@@ -22,7 +22,11 @@ class ProviderProviderAnalyticsDashboardsImpl
     String path = "/api/2.0/marketplace-provider/analytics_dashboard";
     try {
       Request req = new Request("POST", path);
+
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, ProviderAnalyticsDashboard.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -34,7 +38,11 @@ class ProviderProviderAnalyticsDashboardsImpl
     String path = "/api/2.0/marketplace-provider/analytics_dashboard";
     try {
       Request req = new Request("GET", path);
+
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, ListProviderAnalyticsDashboardResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -46,7 +54,11 @@ class ProviderProviderAnalyticsDashboardsImpl
     String path = "/api/2.0/marketplace-provider/analytics_dashboard/latest";
     try {
       Request req = new Request("GET", path);
+
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, GetLatestVersionProviderAnalyticsDashboardResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -60,9 +72,13 @@ class ProviderProviderAnalyticsDashboardsImpl
         String.format("/api/2.0/marketplace-provider/analytics_dashboard/%s", request.getId());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, UpdateProviderAnalyticsDashboardResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);

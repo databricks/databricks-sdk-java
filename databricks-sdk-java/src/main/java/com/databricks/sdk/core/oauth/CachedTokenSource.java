@@ -30,8 +30,9 @@ public class CachedTokenSource implements TokenSource {
   }
 
   private static final Logger logger = LoggerFactory.getLogger(CachedTokenSource.class);
-  // Default duration before expiry to consider a token as 'stale'.
-  private static final Duration DEFAULT_STALE_DURATION = Duration.ofMinutes(3);
+  // Default duration before expiry to consider a token as 'stale'. This value is chosen to cover
+  // the maximum monthly downtime allowed by a 99.99% uptime SLA (~4.38 minutes).
+  private static final Duration DEFAULT_STALE_DURATION = Duration.ofMinutes(5);
   // Default additional buffer before expiry to consider a token as expired.
   // This is 40 seconds by default since Azure Databricks rejects tokens that are within 30 seconds
   // of expiry.

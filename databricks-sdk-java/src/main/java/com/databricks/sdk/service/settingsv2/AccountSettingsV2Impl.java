@@ -23,9 +23,28 @@ class AccountSettingsV2Impl implements AccountSettingsV2Service {
             "/api/2.1/accounts/%s/settings/%s", apiClient.configuredAccountID(), request.getName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, Setting.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public UserPreference getPublicAccountUserPreference(
+      GetPublicAccountUserPreferenceRequest request) {
+    String path =
+        String.format(
+            "/api/2.1/accounts/%s/users/%s/settings/%s",
+            apiClient.configuredAccountID(), request.getUserId(), request.getName());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, UserPreference.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -38,9 +57,28 @@ class AccountSettingsV2Impl implements AccountSettingsV2Service {
         String.format("/api/2.1/accounts/%s/settings-metadata", apiClient.configuredAccountID());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListAccountSettingsMetadataResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public ListAccountUserPreferencesMetadataResponse listAccountUserPreferencesMetadata(
+      ListAccountUserPreferencesMetadataRequest request) {
+    String path =
+        String.format(
+            "/api/2.1/accounts/%s/users/%s/settings-metadata",
+            apiClient.configuredAccountID(), request.getUserId());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ListAccountUserPreferencesMetadataResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -53,10 +91,30 @@ class AccountSettingsV2Impl implements AccountSettingsV2Service {
             "/api/2.1/accounts/%s/settings/%s", apiClient.configuredAccountID(), request.getName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getSetting()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, Setting.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public UserPreference patchPublicAccountUserPreference(
+      PatchPublicAccountUserPreferenceRequest request) {
+    String path =
+        String.format(
+            "/api/2.1/accounts/%s/users/%s/settings/%s",
+            apiClient.configuredAccountID(), request.getUserId(), request.getName());
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request.getSetting()));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, UserPreference.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

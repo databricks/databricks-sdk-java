@@ -22,6 +22,9 @@ class WorkspaceConfImpl implements WorkspaceConfService {
     String path = "/api/2.0/workspace-conf";
     Request req = new Request("GET", path);
     req.withHeader("Accept", "application/json");
+    if (apiClient.workspaceId() != null) {
+      req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+    }
     return apiClient.getStringMap(req);
   }
 
@@ -30,8 +33,12 @@ class WorkspaceConfImpl implements WorkspaceConfService {
     String path = "/api/2.0/workspace-conf";
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);

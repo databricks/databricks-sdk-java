@@ -25,7 +25,11 @@ class FilesImpl implements FilesService {
             Encoding.encodeMultiSegmentPathParameter(request.getDirectoryPath()));
     try {
       Request req = new Request("PUT", path);
+
       ApiClient.setQuery(req, request);
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -39,7 +43,11 @@ class FilesImpl implements FilesService {
             "/api/2.0/fs/files%s", Encoding.encodeMultiSegmentPathParameter(request.getFilePath()));
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -54,7 +62,11 @@ class FilesImpl implements FilesService {
             Encoding.encodeMultiSegmentPathParameter(request.getDirectoryPath()));
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -68,8 +80,12 @@ class FilesImpl implements FilesService {
             "/api/2.0/fs/files%s", Encoding.encodeMultiSegmentPathParameter(request.getFilePath()));
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/octet-stream");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, DownloadResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -84,7 +100,11 @@ class FilesImpl implements FilesService {
             Encoding.encodeMultiSegmentPathParameter(request.getDirectoryPath()));
     try {
       Request req = new Request("HEAD", path);
+
       ApiClient.setQuery(req, request);
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -98,7 +118,11 @@ class FilesImpl implements FilesService {
             "/api/2.0/fs/files%s", Encoding.encodeMultiSegmentPathParameter(request.getFilePath()));
     try {
       Request req = new Request("HEAD", path);
+
       ApiClient.setQuery(req, request);
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, GetMetadataResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -113,8 +137,12 @@ class FilesImpl implements FilesService {
             Encoding.encodeMultiSegmentPathParameter(request.getDirectoryPath()));
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, ListDirectoryResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -128,8 +156,12 @@ class FilesImpl implements FilesService {
             "/api/2.0/fs/files%s", Encoding.encodeMultiSegmentPathParameter(request.getFilePath()));
     try {
       Request req = new Request("PUT", path, request.getContents());
+
       ApiClient.setQuery(req, request);
       req.withHeader("Content-Type", "application/octet-stream");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);

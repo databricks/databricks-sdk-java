@@ -22,6 +22,9 @@ public interface GenieService {
   GenieMessage createMessage(
       GenieCreateConversationMessageRequest genieCreateConversationMessageRequest);
 
+  /** Creates a Genie space from a serialized payload. */
+  GenieSpace createSpace(GenieCreateSpaceRequest genieCreateSpaceRequest);
+
   /** Delete a conversation. */
   void deleteConversation(GenieDeleteConversationRequest genieDeleteConversationRequest);
 
@@ -42,6 +45,58 @@ public interface GenieService {
    */
   GenieGetMessageQueryResultResponse executeMessageQuery(
       GenieExecuteMessageQueryRequest genieExecuteMessageQueryRequest);
+
+  /**
+   * Initiates a new SQL execution and returns a `download_id` and `download_id_signature` that you
+   * can use to track the progress of the download. The query result is stored in an external link
+   * and can be retrieved using the [Get Download Full Query
+   * Result](:method:genie/getdownloadfullqueryresult) API. Both `download_id` and
+   * `download_id_signature` must be provided when calling the Get endpoint.
+   *
+   * <p>----
+   *
+   * <p>### **Warning: Databricks strongly recommends that you protect the URLs that are returned by
+   * the `EXTERNAL_LINKS` disposition.**
+   *
+   * <p>When you use the `EXTERNAL_LINKS` disposition, a short-lived, URL is generated, which can be
+   * used to download the results directly from . As a short-lived is embedded in this URL, you
+   * should protect the URL.
+   *
+   * <p>Because URLs are already generated with embedded temporary s, you must not set an
+   * `Authorization` header in the download requests.
+   *
+   * <p>See [Execute Statement](:method:statementexecution/executestatement) for more details.
+   *
+   * <p>----
+   */
+  GenieGenerateDownloadFullQueryResultResponse generateDownloadFullQueryResult(
+      GenieGenerateDownloadFullQueryResultRequest genieGenerateDownloadFullQueryResultRequest);
+
+  /**
+   * After [Generating a Full Query Result Download](:method:genie/generatedownloadfullqueryresult)
+   * and successfully receiving a `download_id` and `download_id_signature`, use this API to poll
+   * the download progress. Both `download_id` and `download_id_signature` are required to call this
+   * endpoint. When the download is complete, the API returns the result in the `EXTERNAL_LINKS`
+   * disposition, containing one or more external links to the query result files.
+   *
+   * <p>----
+   *
+   * <p>### **Warning: Databricks strongly recommends that you protect the URLs that are returned by
+   * the `EXTERNAL_LINKS` disposition.**
+   *
+   * <p>When you use the `EXTERNAL_LINKS` disposition, a short-lived, URL is generated, which can be
+   * used to download the results directly from . As a short-lived is embedded in this URL, you
+   * should protect the URL.
+   *
+   * <p>Because URLs are already generated with embedded temporary s, you must not set an
+   * `Authorization` header in the download requests.
+   *
+   * <p>See [Execute Statement](:method:statementexecution/executestatement) for more details.
+   *
+   * <p>----
+   */
+  GenieGetDownloadFullQueryResultResponse getDownloadFullQueryResult(
+      GenieGetDownloadFullQueryResultRequest genieGetDownloadFullQueryResultRequest);
 
   /** Get message from conversation. */
   GenieMessage getMessage(GenieGetConversationMessageRequest genieGetConversationMessageRequest);
@@ -90,4 +145,7 @@ public interface GenieService {
 
   /** Move a Genie Space to the trash. */
   void trashSpace(GenieTrashSpaceRequest genieTrashSpaceRequest);
+
+  /** Updates a Genie space with a serialized payload. */
+  GenieSpace updateSpace(GenieUpdateSpaceRequest genieUpdateSpaceRequest);
 }

@@ -11,6 +11,14 @@ import java.util.Objects;
 @Generated
 public class ServedModelInput {
   /**
+   * Whether burst scaling is enabled. When enabled (default), the endpoint can automatically scale
+   * up beyond provisioned capacity to handle traffic spikes. When disabled, the endpoint maintains
+   * fixed capacity at provisioned_model_units.
+   */
+  @JsonProperty("burst_scaling_enabled")
+  private Boolean burstScalingEnabled;
+
+  /**
    * An object containing a set of optional, user-specified environment variable key-value pairs
    * used for serving this entity. Note: this is an experimental feature and subject to change.
    * Example entity environment variables that refer to Databricks secrets: `{"OPENAI_API_KEY":
@@ -94,6 +102,15 @@ public class ServedModelInput {
    */
   @JsonProperty("workload_type")
   private ServedModelInputWorkloadType workloadType;
+
+  public ServedModelInput setBurstScalingEnabled(Boolean burstScalingEnabled) {
+    this.burstScalingEnabled = burstScalingEnabled;
+    return this;
+  }
+
+  public Boolean getBurstScalingEnabled() {
+    return burstScalingEnabled;
+  }
 
   public ServedModelInput setEnvironmentVars(Map<String, String> environmentVars) {
     this.environmentVars = environmentVars;
@@ -217,7 +234,8 @@ public class ServedModelInput {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ServedModelInput that = (ServedModelInput) o;
-    return Objects.equals(environmentVars, that.environmentVars)
+    return Objects.equals(burstScalingEnabled, that.burstScalingEnabled)
+        && Objects.equals(environmentVars, that.environmentVars)
         && Objects.equals(instanceProfileArn, that.instanceProfileArn)
         && Objects.equals(maxProvisionedConcurrency, that.maxProvisionedConcurrency)
         && Objects.equals(maxProvisionedThroughput, that.maxProvisionedThroughput)
@@ -235,6 +253,7 @@ public class ServedModelInput {
   @Override
   public int hashCode() {
     return Objects.hash(
+        burstScalingEnabled,
         environmentVars,
         instanceProfileArn,
         maxProvisionedConcurrency,
@@ -253,6 +272,7 @@ public class ServedModelInput {
   @Override
   public String toString() {
     return new ToStringer(ServedModelInput.class)
+        .add("burstScalingEnabled", burstScalingEnabled)
         .add("environmentVars", environmentVars)
         .add("instanceProfileArn", instanceProfileArn)
         .add("maxProvisionedConcurrency", maxProvisionedConcurrency)

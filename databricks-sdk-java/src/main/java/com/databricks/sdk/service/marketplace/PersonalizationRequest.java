@@ -57,7 +57,10 @@ public class PersonalizationRequest {
   @JsonProperty("recipient_type")
   private DeltaSharingRecipientType recipientType;
 
-  /** */
+  /**
+   * Share information is required for data listings but should be empty/ignored for non-data
+   * listings (MCP and App).
+   */
   @JsonProperty("share")
   private ShareInfo share;
 

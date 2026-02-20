@@ -2,6 +2,7 @@ package com.databricks.sdk.core.oauth;
 
 import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.HttpClient;
+import com.databricks.sdk.support.InternalApi;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +14,7 @@ import org.slf4j.LoggerFactory;
  * Represents a token source that exchanges a control plane token for an endpoint-specific dataplane
  * token. It utilizes an underlying {@link TokenSource} to obtain the initial control plane token.
  */
+@InternalApi
 public class EndpointTokenSource implements TokenSource {
   private static final Logger LOG = LoggerFactory.getLogger(EndpointTokenSource.class);
   private static final String JWT_GRANT_TYPE = "urn:ietf:params:oauth:grant-type:jwt-bearer";

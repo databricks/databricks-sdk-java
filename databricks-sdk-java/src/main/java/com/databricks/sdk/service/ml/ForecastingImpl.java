@@ -22,9 +22,13 @@ class ForecastingImpl implements ForecastingService {
     String path = "/api/2.0/automl/create-forecasting-experiment";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, CreateForecastingExperimentResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -37,8 +41,12 @@ class ForecastingImpl implements ForecastingService {
         String.format("/api/2.0/automl/get-forecasting-experiment/%s", request.getExperimentId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, ForecastingExperiment.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);

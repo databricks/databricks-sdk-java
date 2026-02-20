@@ -22,9 +22,13 @@ class RfaImpl implements RfaService {
     String path = "/api/3.0/rfa/requests";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, BatchCreateAccessRequestsResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -39,8 +43,12 @@ class RfaImpl implements RfaService {
             "/api/3.0/rfa/destinations/%s/%s", request.getSecurableType(), request.getFullName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, AccessRequestDestinations.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -54,9 +62,13 @@ class RfaImpl implements RfaService {
     try {
       Request req =
           new Request("PATCH", path, apiClient.serialize(request.getAccessRequestDestinations()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, AccessRequestDestinations.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);

@@ -1,10 +1,16 @@
 package com.databricks.sdk.core;
 
+import com.databricks.sdk.support.InternalApi;
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
 import java.time.Duration;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
+@InternalApi
 class ConfigAttributeAccessor {
   private final ConfigAttribute configAttribute;
   private final Field field;
@@ -61,6 +67,22 @@ class ConfigAttributeAccessor {
         field.set(cfg, seconds > 0 ? Duration.ofSeconds(seconds) : null);
       } else if (field.getType() == ProxyConfig.ProxyAuthType.class) {
         field.set(cfg, ProxyConfig.ProxyAuthType.valueOf(value));
+      } else if (List.class.isAssignableFrom(field.getType())) {
+        // Handle List<String> fields (e.g., scopes)
+        // Parse comma-separated values from environment variable or config file.
+        if (field.getGenericType() instanceof ParameterizedType) {
+          ParameterizedType paramType = (ParameterizedType) field.getGenericType();
+          if (paramType.getActualTypeArguments().length > 0
+              && paramType.getActualTypeArguments()[0] == String.class) {
+            // Split by comma, trim each value, and filter out empty strings
+            List<String> list =
+                Arrays.stream(value.trim().split(","))
+                    .map(String::trim)
+                    .filter(s -> !s.isEmpty())
+                    .collect(Collectors.toList());
+            field.set(cfg, list);
+          }
+        }
       }
       field.setAccessible(false);
     }
@@ -89,6 +111,10 @@ class ConfigAttributeAccessor {
   }
 
   public String getAsString(Object value) {
+    if (value instanceof List) {
+      List<?> list = (List<?>) value;
+      return list.stream().map(Object::toString).collect(Collectors.joining(", ", "[", "]"));
+    }
     return value.toString();
   }
 

@@ -1,5 +1,6 @@
 package com.databricks.sdk.core.utils;
 
+import com.databricks.sdk.support.InternalApi;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -15,6 +16,7 @@ import com.google.protobuf.util.Timestamps;
 import java.io.IOException;
 
 /** Jackson module for serializing and deserializing Google Protocol Buffers types. */
+@InternalApi
 public class ProtobufModule extends SimpleModule {
 
   public ProtobufModule() {

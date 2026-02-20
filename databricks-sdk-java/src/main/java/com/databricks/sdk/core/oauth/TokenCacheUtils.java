@@ -1,5 +1,6 @@
 package com.databricks.sdk.core.oauth;
 
+import com.databricks.sdk.support.InternalApi;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -8,6 +9,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 /** Utility methods for TokenCache implementations. */
+@InternalApi
 public class TokenCacheUtils {
   // Base path for token cache files
   private static final String BASE_PATH = ".config/databricks-sdk-java/oauth";

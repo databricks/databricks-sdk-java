@@ -13,6 +13,10 @@ public class TriggerSettings {
   @JsonProperty("file_arrival")
   private FileArrivalTriggerConfiguration fileArrival;
 
+  /** */
+  @JsonProperty("model")
+  private ModelTriggerConfiguration model;
+
   /** Whether this trigger is paused or not. */
   @JsonProperty("pause_status")
   private PauseStatus pauseStatus;
@@ -20,10 +24,6 @@ public class TriggerSettings {
   /** Periodic trigger settings. */
   @JsonProperty("periodic")
   private PeriodicTriggerConfiguration periodic;
-
-  /** Old table trigger settings name. Deprecated in favor of `table_update`. */
-  @JsonProperty("table")
-  private TableUpdateTriggerConfiguration table;
 
   /** */
   @JsonProperty("table_update")
@@ -36,6 +36,15 @@ public class TriggerSettings {
 
   public FileArrivalTriggerConfiguration getFileArrival() {
     return fileArrival;
+  }
+
+  public TriggerSettings setModel(ModelTriggerConfiguration model) {
+    this.model = model;
+    return this;
+  }
+
+  public ModelTriggerConfiguration getModel() {
+    return model;
   }
 
   public TriggerSettings setPauseStatus(PauseStatus pauseStatus) {
@@ -56,15 +65,6 @@ public class TriggerSettings {
     return periodic;
   }
 
-  public TriggerSettings setTable(TableUpdateTriggerConfiguration table) {
-    this.table = table;
-    return this;
-  }
-
-  public TableUpdateTriggerConfiguration getTable() {
-    return table;
-  }
-
   public TriggerSettings setTableUpdate(TableUpdateTriggerConfiguration tableUpdate) {
     this.tableUpdate = tableUpdate;
     return this;
@@ -80,24 +80,24 @@ public class TriggerSettings {
     if (o == null || getClass() != o.getClass()) return false;
     TriggerSettings that = (TriggerSettings) o;
     return Objects.equals(fileArrival, that.fileArrival)
+        && Objects.equals(model, that.model)
         && Objects.equals(pauseStatus, that.pauseStatus)
         && Objects.equals(periodic, that.periodic)
-        && Objects.equals(table, that.table)
         && Objects.equals(tableUpdate, that.tableUpdate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(fileArrival, pauseStatus, periodic, table, tableUpdate);
+    return Objects.hash(fileArrival, model, pauseStatus, periodic, tableUpdate);
   }
 
   @Override
   public String toString() {
     return new ToStringer(TriggerSettings.class)
         .add("fileArrival", fileArrival)
+        .add("model", model)
         .add("pauseStatus", pauseStatus)
         .add("periodic", periodic)
-        .add("table", table)
         .add("tableUpdate", tableUpdate)
         .toString();
   }

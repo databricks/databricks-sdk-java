@@ -21,9 +21,13 @@ class AlertsV2Impl implements AlertsV2Service {
     String path = "/api/2.0/alerts";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request.getAlert()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, AlertV2.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -35,8 +39,12 @@ class AlertsV2Impl implements AlertsV2Service {
     String path = String.format("/api/2.0/alerts/%s", request.getId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, AlertV2.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -48,8 +56,12 @@ class AlertsV2Impl implements AlertsV2Service {
     String path = "/api/2.0/alerts";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, ListAlertsV2Response.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -61,8 +73,12 @@ class AlertsV2Impl implements AlertsV2Service {
     String path = String.format("/api/2.0/alerts/%s", request.getId());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -74,9 +90,13 @@ class AlertsV2Impl implements AlertsV2Service {
     String path = String.format("/api/2.0/alerts/%s", request.getId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getAlert()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, AlertV2.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);

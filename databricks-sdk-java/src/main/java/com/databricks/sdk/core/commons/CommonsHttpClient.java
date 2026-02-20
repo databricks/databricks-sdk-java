@@ -10,6 +10,7 @@ import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.utils.CustomCloseInputStream;
 import com.databricks.sdk.core.utils.ProxyUtils;
+import com.databricks.sdk.support.InternalApi;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -37,6 +38,7 @@ import org.apache.http.protocol.HttpContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@InternalApi
 public class CommonsHttpClient implements HttpClient {
   /**
    * Builder for CommonsHttpClient. This class is used to construct instances of CommonsHttpClient
@@ -141,7 +143,11 @@ public class CommonsHttpClient implements HttpClient {
     } else {
       PoolingHttpClientConnectionManager connectionManager =
           new PoolingHttpClientConnectionManager();
+      // Total number of connections allowed by the connection manager.
       connectionManager.setMaxTotal(100);
+      // Maximum number of connections per route. In most cases, this means per Workspace.
+      // DataPlane resources have a dedicated route and are not subject to this limit.
+      connectionManager.setDefaultMaxPerRoute(20);
       httpClientBuilder.setConnectionManager(connectionManager);
     }
     if (builder.requestRetryHandler != null) {

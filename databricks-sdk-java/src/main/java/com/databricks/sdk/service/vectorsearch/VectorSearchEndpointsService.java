@@ -24,6 +24,13 @@ public interface VectorSearchEndpointsService {
   /** List all vector search endpoints in the workspace. */
   ListEndpointResponse listEndpoints(ListEndpointsRequest listEndpointsRequest);
 
+  /** Update an endpoint */
+  EndpointInfo patchEndpoint(PatchEndpointRequest patchEndpointRequest);
+
+  /** Retrieve user-visible metrics for an endpoint */
+  RetrieveUserVisibleMetricsResponse retrieveUserVisibleMetrics(
+      RetrieveUserVisibleMetricsRequest retrieveUserVisibleMetricsRequest);
+
   /** Update the budget policy of an endpoint */
   PatchEndpointBudgetPolicyResponse updateEndpointBudgetPolicy(
       PatchEndpointBudgetPolicyRequest patchEndpointBudgetPolicyRequest);

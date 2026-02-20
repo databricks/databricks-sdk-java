@@ -56,9 +56,20 @@ public class App {
   @JsonProperty("effective_budget_policy_id")
   private String effectiveBudgetPolicyId;
 
+  /** */
+  @JsonProperty("effective_usage_policy_id")
+  private String effectiveUsagePolicyId;
+
   /** The effective api scopes granted to the user access token. */
   @JsonProperty("effective_user_api_scopes")
   private Collection<String> effectiveUserApiScopes;
+
+  /**
+   * Git repository configuration for app deployments. When specified, deployments can reference
+   * code from this repository by providing only the git reference (branch, tag, or commit).
+   */
+  @JsonProperty("git_repository")
+  private GitRepository gitRepository;
 
   /** The unique identifier of the app. */
   @JsonProperty("id")
@@ -102,6 +113,10 @@ public class App {
   @JsonProperty("service_principal_name")
   private String servicePrincipalName;
 
+  /** Name of the space this app belongs to. */
+  @JsonProperty("space")
+  private String space;
+
   /** The update time of the app. Formatted timestamp in ISO 6801. */
   @JsonProperty("update_time")
   private String updateTime;
@@ -113,6 +128,10 @@ public class App {
   /** The URL of the app once it is deployed. */
   @JsonProperty("url")
   private String url;
+
+  /** */
+  @JsonProperty("usage_policy_id")
+  private String usagePolicyId;
 
   /** */
   @JsonProperty("user_api_scopes")
@@ -208,6 +227,15 @@ public class App {
     return effectiveBudgetPolicyId;
   }
 
+  public App setEffectiveUsagePolicyId(String effectiveUsagePolicyId) {
+    this.effectiveUsagePolicyId = effectiveUsagePolicyId;
+    return this;
+  }
+
+  public String getEffectiveUsagePolicyId() {
+    return effectiveUsagePolicyId;
+  }
+
   public App setEffectiveUserApiScopes(Collection<String> effectiveUserApiScopes) {
     this.effectiveUserApiScopes = effectiveUserApiScopes;
     return this;
@@ -215,6 +243,15 @@ public class App {
 
   public Collection<String> getEffectiveUserApiScopes() {
     return effectiveUserApiScopes;
+  }
+
+  public App setGitRepository(GitRepository gitRepository) {
+    this.gitRepository = gitRepository;
+    return this;
+  }
+
+  public GitRepository getGitRepository() {
+    return gitRepository;
   }
 
   public App setId(String id) {
@@ -298,6 +335,15 @@ public class App {
     return servicePrincipalName;
   }
 
+  public App setSpace(String space) {
+    this.space = space;
+    return this;
+  }
+
+  public String getSpace() {
+    return space;
+  }
+
   public App setUpdateTime(String updateTime) {
     this.updateTime = updateTime;
     return this;
@@ -325,6 +371,15 @@ public class App {
     return url;
   }
 
+  public App setUsagePolicyId(String usagePolicyId) {
+    this.usagePolicyId = usagePolicyId;
+    return this;
+  }
+
+  public String getUsagePolicyId() {
+    return usagePolicyId;
+  }
+
   public App setUserApiScopes(Collection<String> userApiScopes) {
     this.userApiScopes = userApiScopes;
     return this;
@@ -349,7 +404,9 @@ public class App {
         && Objects.equals(defaultSourceCodePath, that.defaultSourceCodePath)
         && Objects.equals(description, that.description)
         && Objects.equals(effectiveBudgetPolicyId, that.effectiveBudgetPolicyId)
+        && Objects.equals(effectiveUsagePolicyId, that.effectiveUsagePolicyId)
         && Objects.equals(effectiveUserApiScopes, that.effectiveUserApiScopes)
+        && Objects.equals(gitRepository, that.gitRepository)
         && Objects.equals(id, that.id)
         && Objects.equals(name, that.name)
         && Objects.equals(oauth2AppClientId, that.oauth2AppClientId)
@@ -359,9 +416,11 @@ public class App {
         && Objects.equals(servicePrincipalClientId, that.servicePrincipalClientId)
         && Objects.equals(servicePrincipalId, that.servicePrincipalId)
         && Objects.equals(servicePrincipalName, that.servicePrincipalName)
+        && Objects.equals(space, that.space)
         && Objects.equals(updateTime, that.updateTime)
         && Objects.equals(updater, that.updater)
         && Objects.equals(url, that.url)
+        && Objects.equals(usagePolicyId, that.usagePolicyId)
         && Objects.equals(userApiScopes, that.userApiScopes);
   }
 
@@ -378,7 +437,9 @@ public class App {
         defaultSourceCodePath,
         description,
         effectiveBudgetPolicyId,
+        effectiveUsagePolicyId,
         effectiveUserApiScopes,
+        gitRepository,
         id,
         name,
         oauth2AppClientId,
@@ -388,9 +449,11 @@ public class App {
         servicePrincipalClientId,
         servicePrincipalId,
         servicePrincipalName,
+        space,
         updateTime,
         updater,
         url,
+        usagePolicyId,
         userApiScopes);
   }
 
@@ -407,7 +470,9 @@ public class App {
         .add("defaultSourceCodePath", defaultSourceCodePath)
         .add("description", description)
         .add("effectiveBudgetPolicyId", effectiveBudgetPolicyId)
+        .add("effectiveUsagePolicyId", effectiveUsagePolicyId)
         .add("effectiveUserApiScopes", effectiveUserApiScopes)
+        .add("gitRepository", gitRepository)
         .add("id", id)
         .add("name", name)
         .add("oauth2AppClientId", oauth2AppClientId)
@@ -417,9 +482,11 @@ public class App {
         .add("servicePrincipalClientId", servicePrincipalClientId)
         .add("servicePrincipalId", servicePrincipalId)
         .add("servicePrincipalName", servicePrincipalName)
+        .add("space", space)
         .add("updateTime", updateTime)
         .add("updater", updater)
         .add("url", url)
+        .add("usagePolicyId", usagePolicyId)
         .add("userApiScopes", userApiScopes)
         .toString();
   }

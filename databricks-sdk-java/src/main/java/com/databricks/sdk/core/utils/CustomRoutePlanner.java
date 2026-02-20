@@ -1,5 +1,6 @@
 package com.databricks.sdk.core.utils;
 
+import com.databricks.sdk.support.InternalApi;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,6 +18,7 @@ import org.apache.http.protocol.HttpContext;
  * Custom route planner that routes requests via a proxy, except for hosts that match a list of
  * non-proxy hosts.
  */
+@InternalApi
 public class CustomRoutePlanner implements HttpRoutePlanner {
   private final DefaultProxyRoutePlanner defaultRoutePlanner;
   private final List<Pattern> nonProxyHostRegex;

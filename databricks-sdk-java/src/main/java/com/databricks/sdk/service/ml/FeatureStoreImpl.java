@@ -21,9 +21,13 @@ class FeatureStoreImpl implements FeatureStoreService {
     String path = "/api/2.0/feature-store/online-stores";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request.getOnlineStore()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, OnlineStore.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -35,8 +39,30 @@ class FeatureStoreImpl implements FeatureStoreService {
     String path = String.format("/api/2.0/feature-store/online-stores/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      apiClient.execute(req, Void.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public void deleteOnlineTable(DeleteOnlineTableRequest request) {
+    String path =
+        String.format("/api/2.0/feature-store/online-tables/%s", request.getOnlineTableName());
+    try {
+      Request req = new Request("DELETE", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -48,8 +74,12 @@ class FeatureStoreImpl implements FeatureStoreService {
     String path = String.format("/api/2.0/feature-store/online-stores/%s", request.getName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, OnlineStore.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -61,8 +91,12 @@ class FeatureStoreImpl implements FeatureStoreService {
     String path = "/api/2.0/feature-store/online-stores";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, ListOnlineStoresResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -75,9 +109,13 @@ class FeatureStoreImpl implements FeatureStoreService {
         String.format("/api/2.0/feature-store/tables/%s/publish", request.getSourceTableName());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, PublishTableResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -89,9 +127,13 @@ class FeatureStoreImpl implements FeatureStoreService {
     String path = String.format("/api/2.0/feature-store/online-stores/%s", request.getName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getOnlineStore()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, OnlineStore.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);

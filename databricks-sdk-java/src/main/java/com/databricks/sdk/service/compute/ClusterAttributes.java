@@ -83,6 +83,10 @@ public class ClusterAttributes {
   @JsonProperty("driver_instance_pool_id")
   private String driverInstancePoolId;
 
+  /** Flexible node type configuration for the driver node. */
+  @JsonProperty("driver_node_type_flexibility")
+  private NodeTypeFlexibility driverNodeTypeFlexibility;
+
   /**
    * The node type of the Spark driver. Note that this field is optional; if unset, the driver node
    * type will be set as the same value as `node_type_id` defined above.
@@ -96,8 +100,7 @@ public class ClusterAttributes {
 
   /**
    * Autoscaling Local Storage: when enabled, this cluster will dynamically acquire additional disk
-   * space when its Spark workers are running low on disk space. This feature requires specific AWS
-   * permissions to function correctly - refer to the User Guide for more details.
+   * space when its Spark workers are running low on disk space.
    */
   @JsonProperty("enable_elastic_disk")
   private Boolean enableElasticDisk;
@@ -229,6 +232,10 @@ public class ClusterAttributes {
   @JsonProperty("use_ml_runtime")
   private Boolean useMlRuntime;
 
+  /** Flexible node type configuration for worker nodes. */
+  @JsonProperty("worker_node_type_flexibility")
+  private NodeTypeFlexibility workerNodeTypeFlexibility;
+
   /** */
   @JsonProperty("workload_type")
   private WorkloadType workloadType;
@@ -312,6 +319,16 @@ public class ClusterAttributes {
 
   public String getDriverInstancePoolId() {
     return driverInstancePoolId;
+  }
+
+  public ClusterAttributes setDriverNodeTypeFlexibility(
+      NodeTypeFlexibility driverNodeTypeFlexibility) {
+    this.driverNodeTypeFlexibility = driverNodeTypeFlexibility;
+    return this;
+  }
+
+  public NodeTypeFlexibility getDriverNodeTypeFlexibility() {
+    return driverNodeTypeFlexibility;
   }
 
   public ClusterAttributes setDriverNodeTypeId(String driverNodeTypeId) {
@@ -485,6 +502,16 @@ public class ClusterAttributes {
     return useMlRuntime;
   }
 
+  public ClusterAttributes setWorkerNodeTypeFlexibility(
+      NodeTypeFlexibility workerNodeTypeFlexibility) {
+    this.workerNodeTypeFlexibility = workerNodeTypeFlexibility;
+    return this;
+  }
+
+  public NodeTypeFlexibility getWorkerNodeTypeFlexibility() {
+    return workerNodeTypeFlexibility;
+  }
+
   public ClusterAttributes setWorkloadType(WorkloadType workloadType) {
     this.workloadType = workloadType;
     return this;
@@ -508,6 +535,7 @@ public class ClusterAttributes {
         && Objects.equals(dataSecurityMode, that.dataSecurityMode)
         && Objects.equals(dockerImage, that.dockerImage)
         && Objects.equals(driverInstancePoolId, that.driverInstancePoolId)
+        && Objects.equals(driverNodeTypeFlexibility, that.driverNodeTypeFlexibility)
         && Objects.equals(driverNodeTypeId, that.driverNodeTypeId)
         && Objects.equals(enableElasticDisk, that.enableElasticDisk)
         && Objects.equals(enableLocalDiskEncryption, that.enableLocalDiskEncryption)
@@ -527,6 +555,7 @@ public class ClusterAttributes {
         && Objects.equals(sshPublicKeys, that.sshPublicKeys)
         && Objects.equals(totalInitialRemoteDiskSize, that.totalInitialRemoteDiskSize)
         && Objects.equals(useMlRuntime, that.useMlRuntime)
+        && Objects.equals(workerNodeTypeFlexibility, that.workerNodeTypeFlexibility)
         && Objects.equals(workloadType, that.workloadType);
   }
 
@@ -542,6 +571,7 @@ public class ClusterAttributes {
         dataSecurityMode,
         dockerImage,
         driverInstancePoolId,
+        driverNodeTypeFlexibility,
         driverNodeTypeId,
         enableElasticDisk,
         enableLocalDiskEncryption,
@@ -561,6 +591,7 @@ public class ClusterAttributes {
         sshPublicKeys,
         totalInitialRemoteDiskSize,
         useMlRuntime,
+        workerNodeTypeFlexibility,
         workloadType);
   }
 
@@ -576,6 +607,7 @@ public class ClusterAttributes {
         .add("dataSecurityMode", dataSecurityMode)
         .add("dockerImage", dockerImage)
         .add("driverInstancePoolId", driverInstancePoolId)
+        .add("driverNodeTypeFlexibility", driverNodeTypeFlexibility)
         .add("driverNodeTypeId", driverNodeTypeId)
         .add("enableElasticDisk", enableElasticDisk)
         .add("enableLocalDiskEncryption", enableLocalDiskEncryption)
@@ -595,6 +627,7 @@ public class ClusterAttributes {
         .add("sshPublicKeys", sshPublicKeys)
         .add("totalInitialRemoteDiskSize", totalInitialRemoteDiskSize)
         .add("useMlRuntime", useMlRuntime)
+        .add("workerNodeTypeFlexibility", workerNodeTypeFlexibility)
         .add("workloadType", workloadType)
         .toString();
   }

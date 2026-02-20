@@ -23,9 +23,13 @@ class ExternalLineageImpl implements ExternalLineageService {
     try {
       Request req =
           new Request("POST", path, apiClient.serialize(request.getExternalLineageRelationship()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, ExternalLineageRelationship.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -37,8 +41,12 @@ class ExternalLineageImpl implements ExternalLineageService {
     String path = "/api/2.0/lineage-tracking/external-lineage";
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -51,8 +59,12 @@ class ExternalLineageImpl implements ExternalLineageService {
     String path = "/api/2.0/lineage-tracking/external-lineage";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, ListExternalLineageRelationshipsResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -66,9 +78,13 @@ class ExternalLineageImpl implements ExternalLineageService {
     try {
       Request req =
           new Request("PATCH", path, apiClient.serialize(request.getExternalLineageRelationship()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, ExternalLineageRelationship.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);

@@ -1,9 +1,11 @@
 package com.databricks.sdk.core.utils;
 
+import com.databricks.sdk.support.InternalApi;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+@InternalApi
 public class Environment {
   private final Map<String, String> env;
   private final List<String> path;

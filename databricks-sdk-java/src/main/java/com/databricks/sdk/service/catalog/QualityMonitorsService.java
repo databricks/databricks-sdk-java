@@ -4,11 +4,15 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 
 /**
- * A monitor computes and monitors data or model quality metrics for a table over time. It generates
- * metrics tables and a dashboard that you can use to monitor table health and set alerts. Most
- * write operations require the user to be the owner of the table (or its parent schema or parent
- * catalog). Viewing the dashboard, computed metrics, or monitor configuration only requires the
- * user to have **SELECT** privileges on the table (along with **USE_SCHEMA** and **USE_CATALOG**).
+ * Deprecated: Please use the Data Quality Monitors API instead (REST:
+ * /api/data-quality/v1/monitors), which manages both Data Profiling and Anomaly Detection.
+ *
+ * <p>A monitor computes and monitors data or model quality metrics for a table over time. It
+ * generates metrics tables and a dashboard that you can use to monitor table health and set alerts.
+ * Most write operations require the user to be the owner of the table (or its parent schema or
+ * parent catalog). Viewing the dashboard, computed metrics, or monitor configuration only requires
+ * the user to have **SELECT** privileges on the table (along with **USE_SCHEMA** and
+ * **USE_CATALOG**).
  *
  * <p>This is the high-level interface, that contains generated methods.
  *
@@ -16,11 +20,15 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface QualityMonitorsService {
-  /** Cancels an already-initiated refresh job. */
+  /**
+   * Deprecated: Use Data Quality Monitors API instead (/api/data-quality/v1/monitors). Cancels an
+   * already-initiated refresh job.
+   */
   void cancelRefresh(CancelRefreshRequest cancelRefreshRequest);
 
   /**
-   * Creates a new monitor for the specified table.
+   * Deprecated: Use Data Quality Monitors API instead (/api/data-quality/v1/monitors). Creates a
+   * new monitor for the specified table.
    *
    * <p>The caller must either: 1. be an owner of the table's parent catalog, have **USE_SCHEMA** on
    * the table's parent schema, and have **SELECT** access on the table 2. have **USE_CATALOG** on
@@ -34,7 +42,8 @@ public interface QualityMonitorsService {
   MonitorInfo create(CreateMonitor createMonitor);
 
   /**
-   * Deletes a monitor for the specified table.
+   * Deprecated: Use Data Quality Monitors API instead (/api/data-quality/v1/monitors). Deletes a
+   * monitor for the specified table.
    *
    * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
    * on the table's parent catalog and be an owner of the table's parent schema 3. have the
@@ -49,7 +58,8 @@ public interface QualityMonitorsService {
   DeleteMonitorResponse delete(DeleteQualityMonitorRequest deleteQualityMonitorRequest);
 
   /**
-   * Gets a monitor for the specified table.
+   * Deprecated: Use Data Quality Monitors API instead (/api/data-quality/v1/monitors). Gets a
+   * monitor for the specified table.
    *
    * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
    * on the table's parent catalog and be an owner of the table's parent schema. 3. have the
@@ -63,7 +73,8 @@ public interface QualityMonitorsService {
   MonitorInfo get(GetQualityMonitorRequest getQualityMonitorRequest);
 
   /**
-   * Gets info about a specific monitor refresh using the given refresh ID.
+   * Deprecated: Use Data Quality Monitors API instead (/api/data-quality/v1/monitors). Gets info
+   * about a specific monitor refresh using the given refresh ID.
    *
    * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
    * on the table's parent catalog and be an owner of the table's parent schema 3. have the
@@ -75,7 +86,8 @@ public interface QualityMonitorsService {
   MonitorRefreshInfo getRefresh(GetRefreshRequest getRefreshRequest);
 
   /**
-   * Gets an array containing the history of the most recent refreshes (up to 25) for this table.
+   * Deprecated: Use Data Quality Monitors API instead (/api/data-quality/v1/monitors). Gets an
+   * array containing the history of the most recent refreshes (up to 25) for this table.
    *
    * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
    * on the table's parent catalog and be an owner of the table's parent schema 3. have the
@@ -87,7 +99,8 @@ public interface QualityMonitorsService {
   MonitorRefreshListResponse listRefreshes(ListRefreshesRequest listRefreshesRequest);
 
   /**
-   * Regenerates the monitoring dashboard for the specified table.
+   * Deprecated: Use Data Quality Monitors API instead (/api/data-quality/v1/monitors). Regenerates
+   * the monitoring dashboard for the specified table.
    *
    * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
    * on the table's parent catalog and be an owner of the table's parent schema 3. have the
@@ -101,7 +114,8 @@ public interface QualityMonitorsService {
       RegenerateDashboardRequest regenerateDashboardRequest);
 
   /**
-   * Queues a metric refresh on the monitor for the specified table. The refresh will execute in the
+   * Deprecated: Use Data Quality Monitors API instead (/api/data-quality/v1/monitors). Queues a
+   * metric refresh on the monitor for the specified table. The refresh will execute in the
    * background.
    *
    * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
@@ -114,7 +128,8 @@ public interface QualityMonitorsService {
   MonitorRefreshInfo runRefresh(RunRefreshRequest runRefreshRequest);
 
   /**
-   * Updates a monitor for the specified table.
+   * Deprecated: Use Data Quality Monitors API instead (/api/data-quality/v1/monitors). Updates a
+   * monitor for the specified table.
    *
    * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
    * on the table's parent catalog and be an owner of the table's parent schema 3. have the

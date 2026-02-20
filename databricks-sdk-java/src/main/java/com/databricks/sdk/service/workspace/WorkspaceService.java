@@ -57,7 +57,7 @@ public interface WorkspaceService {
    * directory. If `path` already exists and `overwrite` is set to `false`, this call returns an
    * error `RESOURCE_ALREADY_EXISTS`. To import a directory, you can use either the `DBC` format or
    * the `SOURCE` format with the `language` field unset. To import a single file as `SOURCE`, you
-   * must set the `language` field.
+   * must set the `language` field. Zip files within directories are not supported.
    */
   void importContent(Import importContent);
 

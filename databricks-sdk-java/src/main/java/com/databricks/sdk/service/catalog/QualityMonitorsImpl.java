@@ -24,8 +24,12 @@ class QualityMonitorsImpl implements QualityMonitorsService {
             request.getTableName(), request.getRefreshId());
     try {
       Request req = new Request("POST", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -37,9 +41,13 @@ class QualityMonitorsImpl implements QualityMonitorsService {
     String path = String.format("/api/2.1/unity-catalog/tables/%s/monitor", request.getTableName());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, MonitorInfo.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -51,8 +59,12 @@ class QualityMonitorsImpl implements QualityMonitorsService {
     String path = String.format("/api/2.1/unity-catalog/tables/%s/monitor", request.getTableName());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, DeleteMonitorResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -64,8 +76,12 @@ class QualityMonitorsImpl implements QualityMonitorsService {
     String path = String.format("/api/2.1/unity-catalog/tables/%s/monitor", request.getTableName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, MonitorInfo.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -80,8 +96,12 @@ class QualityMonitorsImpl implements QualityMonitorsService {
             request.getTableName(), request.getRefreshId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, MonitorRefreshInfo.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -94,8 +114,12 @@ class QualityMonitorsImpl implements QualityMonitorsService {
         String.format("/api/2.1/unity-catalog/tables/%s/monitor/refreshes", request.getTableName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, MonitorRefreshListResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -109,9 +133,13 @@ class QualityMonitorsImpl implements QualityMonitorsService {
             "/api/2.1/quality-monitoring/tables/%s/monitor/dashboard", request.getTableName());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, RegenerateDashboardResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -124,8 +152,12 @@ class QualityMonitorsImpl implements QualityMonitorsService {
         String.format("/api/2.1/unity-catalog/tables/%s/monitor/refreshes", request.getTableName());
     try {
       Request req = new Request("POST", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, MonitorRefreshInfo.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -137,9 +169,13 @@ class QualityMonitorsImpl implements QualityMonitorsService {
     String path = String.format("/api/2.1/unity-catalog/tables/%s/monitor", request.getTableName());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, MonitorInfo.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);

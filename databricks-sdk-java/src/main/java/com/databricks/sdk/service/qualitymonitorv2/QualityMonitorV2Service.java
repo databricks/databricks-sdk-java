@@ -4,7 +4,8 @@ package com.databricks.sdk.service.qualitymonitorv2;
 import com.databricks.sdk.support.Generated;
 
 /**
- * Manage data quality of UC objects (currently support `schema`)
+ * Deprecated: Please use the Data Quality Monitoring API instead (REST:
+ * /api/data-quality/v1/monitors). Manage data quality of UC objects (currently support `schema`).
  *
  * <p>This is the high-level interface, that contains generated methods.
  *
@@ -12,19 +13,34 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface QualityMonitorV2Service {
-  /** Create a quality monitor on UC object */
+  /**
+   * Deprecated: Use Data Quality Monitoring API instead (/api/data-quality/v1/monitors). Create a
+   * quality monitor on UC object.
+   */
   QualityMonitor createQualityMonitor(CreateQualityMonitorRequest createQualityMonitorRequest);
 
-  /** Delete a quality monitor on UC object */
+  /**
+   * Deprecated: Use Data Quality Monitoring API instead (/api/data-quality/v1/monitors). Delete a
+   * quality monitor on UC object.
+   */
   void deleteQualityMonitor(DeleteQualityMonitorRequest deleteQualityMonitorRequest);
 
-  /** Read a quality monitor on UC object */
+  /**
+   * Deprecated: Use Data Quality Monitoring API instead (/api/data-quality/v1/monitors). Read a
+   * quality monitor on UC object.
+   */
   QualityMonitor getQualityMonitor(GetQualityMonitorRequest getQualityMonitorRequest);
 
-  /** (Unimplemented) List quality monitors */
+  /**
+   * Deprecated: Use Data Quality Monitoring API instead (/api/data-quality/v1/monitors).
+   * (Unimplemented) List quality monitors.
+   */
   ListQualityMonitorResponse listQualityMonitor(
       ListQualityMonitorRequest listQualityMonitorRequest);
 
-  /** (Unimplemented) Update a quality monitor on UC object */
+  /**
+   * Deprecated: Use Data Quality Monitoring API instead (/api/data-quality/v1/monitors).
+   * (Unimplemented) Update a quality monitor on UC object.
+   */
   QualityMonitor updateQualityMonitor(UpdateQualityMonitorRequest updateQualityMonitorRequest);
 }

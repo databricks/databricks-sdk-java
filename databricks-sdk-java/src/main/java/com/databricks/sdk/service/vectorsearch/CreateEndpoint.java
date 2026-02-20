@@ -17,6 +17,13 @@ public class CreateEndpoint {
   @JsonProperty("endpoint_type")
   private EndpointType endpointType;
 
+  /**
+   * Min QPS for the endpoint. Mutually exclusive with num_replicas. The actual replica count is
+   * calculated at index creation/sync time based on this value.
+   */
+  @JsonProperty("min_qps")
+  private Long minQps;
+
   /** Name of the vector search endpoint */
   @JsonProperty("name")
   private String name;
@@ -39,6 +46,15 @@ public class CreateEndpoint {
     return endpointType;
   }
 
+  public CreateEndpoint setMinQps(Long minQps) {
+    this.minQps = minQps;
+    return this;
+  }
+
+  public Long getMinQps() {
+    return minQps;
+  }
+
   public CreateEndpoint setName(String name) {
     this.name = name;
     return this;
@@ -55,12 +71,13 @@ public class CreateEndpoint {
     CreateEndpoint that = (CreateEndpoint) o;
     return Objects.equals(budgetPolicyId, that.budgetPolicyId)
         && Objects.equals(endpointType, that.endpointType)
+        && Objects.equals(minQps, that.minQps)
         && Objects.equals(name, that.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(budgetPolicyId, endpointType, name);
+    return Objects.hash(budgetPolicyId, endpointType, minQps, name);
   }
 
   @Override
@@ -68,6 +85,7 @@ public class CreateEndpoint {
     return new ToStringer(CreateEndpoint.class)
         .add("budgetPolicyId", budgetPolicyId)
         .add("endpointType", endpointType)
+        .add("minQps", minQps)
         .add("name", name)
         .toString();
   }

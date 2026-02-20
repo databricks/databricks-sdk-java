@@ -6,6 +6,7 @@ import com.databricks.sdk.core.http.FormRequest;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
+import com.databricks.sdk.support.InternalApi;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.time.Instant;
@@ -23,6 +24,7 @@ import org.slf4j.LoggerFactory;
  * using the provided HTTP client and request parameters. It handles the HTTP request and parses the
  * JSON response into an {@link OAuthResponse} object.
  */
+@InternalApi
 public final class TokenEndpointClient {
   private static final Logger LOG = LoggerFactory.getLogger(TokenEndpointClient.class);
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();

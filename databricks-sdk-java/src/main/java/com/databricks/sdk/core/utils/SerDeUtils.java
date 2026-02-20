@@ -1,5 +1,6 @@
 package com.databricks.sdk.core.utils;
 
+import com.databricks.sdk.support.InternalApi;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,6 +9,7 @@ import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 /** Utilities for serialization and deserialization in the Databricks Java SDK. */
+@InternalApi
 public class SerDeUtils {
   public static ObjectMapper createMapper() {
     ObjectMapper mapper = new ObjectMapper();

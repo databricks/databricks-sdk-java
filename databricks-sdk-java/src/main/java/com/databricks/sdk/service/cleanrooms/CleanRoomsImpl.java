@@ -21,9 +21,13 @@ class CleanRoomsImpl implements CleanRoomsService {
     String path = "/api/2.0/clean-rooms";
     try {
       Request req = new Request("POST", path, apiClient.serialize(request.getCleanRoom()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, CleanRoom.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -37,9 +41,13 @@ class CleanRoomsImpl implements CleanRoomsService {
         String.format("/api/2.0/clean-rooms/%s/output-catalogs", request.getCleanRoomName());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request.getOutputCatalog()));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, CreateCleanRoomOutputCatalogResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -51,8 +59,12 @@ class CleanRoomsImpl implements CleanRoomsService {
     String path = String.format("/api/2.0/clean-rooms/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -64,8 +76,12 @@ class CleanRoomsImpl implements CleanRoomsService {
     String path = String.format("/api/2.0/clean-rooms/%s", request.getName());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, CleanRoom.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -77,8 +93,12 @@ class CleanRoomsImpl implements CleanRoomsService {
     String path = "/api/2.0/clean-rooms";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, ListCleanRoomsResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -90,9 +110,13 @@ class CleanRoomsImpl implements CleanRoomsService {
     String path = String.format("/api/2.0/clean-rooms/%s", request.getName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, CleanRoom.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);

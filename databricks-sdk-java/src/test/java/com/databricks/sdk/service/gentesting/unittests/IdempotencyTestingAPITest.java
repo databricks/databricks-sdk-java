@@ -1,0 +1,211 @@
+// Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
+package com.databricks.sdk.service.gentesting.unittests;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksConfig;
+import com.databricks.sdk.core.DummyCredentialsProvider;
+import com.databricks.sdk.core.DummyHttpClient;
+import com.databricks.sdk.core.http.Request;
+import com.databricks.sdk.core.http.Response;
+import com.databricks.sdk.service.idempotencytesting.*;
+import java.util.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
+
+public class IdempotencyTestingAPITest {
+
+  static class WithRequestIDTestCase {
+    String name;
+    CreateTestResourceRequest apiRequest;
+    Request httpRequest;
+    List<Response> httpResponses;
+    TestResource wantResult;
+    boolean wantErr;
+
+    WithRequestIDTestCase(
+        String name,
+        CreateTestResourceRequest apiRequest,
+        Request httpRequest,
+        List<Response> httpResponses,
+        TestResource wantResult,
+        boolean wantErr) {
+      this.name = name;
+      this.apiRequest = apiRequest;
+      this.httpRequest = httpRequest;
+      this.httpResponses = httpResponses;
+      this.wantResult = wantResult;
+      this.wantErr = wantErr;
+    }
+  }
+
+  static List<WithRequestIDTestCase> withRequestIDTestCases() {
+    return Arrays.asList(
+        new WithRequestIDTestCase(
+            "RetryWithProvidedRequestID",
+            new CreateTestResourceRequest()
+                .setTestResource(
+                    new TestResource().setId("test-resource-123").setName("test-resource"))
+                .setRequestId("test-request-id-12345"),
+            new Request(
+                "POST", "https://test.databricks.com/api/2.0/idempotency-testing/resources"),
+            Arrays.asList(
+                new Response(
+                    new Request(
+                        "POST",
+                        "https://test.databricks.com/api/2.0/idempotency-testing/resources"),
+                    503,
+                    "Service Unavailable",
+                    Collections.emptyMap(),
+                    "{\"error_code\":\"TEMPORARILY_UNAVAILABLE\",\"message\":\"Service temporarily unavailable\"}"),
+                new Response(
+                    new Request(
+                        "POST",
+                        "https://test.databricks.com/api/2.0/idempotency-testing/resources"),
+                    200,
+                    "OK",
+                    Collections.emptyMap(),
+                    "{\"id\":\"test-resource-123\",\"name\":\"test-resource\"}")),
+            new TestResource().setId("test-resource-123").setName("test-resource"),
+            false));
+  }
+
+  @ParameterizedTest(name = "{0}")
+  @MethodSource("withRequestIDTestCases")
+  void testIdempotencyWithRequestID(WithRequestIDTestCase testCase) throws Exception {
+    // Setup: Create DummyHttpClient with sequential responses for retries
+    DummyHttpClient httpClient = new DummyHttpClient();
+    for (Response response : testCase.httpResponses) {
+      httpClient.with(testCase.httpRequest, response);
+    }
+
+    // Create config with DummyCredentialsProvider (no OIDC discovery)
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setHost("https://test.databricks.com")
+            .setCredentialsProvider(new DummyCredentialsProvider())
+            .setHttpClient(httpClient);
+
+    ApiClient apiClient = new ApiClient(config);
+    IdempotencyTestingAPI api = new IdempotencyTestingAPI(apiClient);
+
+    // Execute and verify
+    if (testCase.wantErr) {
+      assertThrows(
+          Exception.class,
+          () -> api.createTestResource(testCase.apiRequest),
+          "Test case: " + testCase.name);
+    } else {
+      TestResource result = api.createTestResource(testCase.apiRequest);
+      assertEquals(testCase.wantResult, result, "Test case: " + testCase.name);
+    }
+    // Request ID matching is implicitly verified by DummyHttpClient's request matching
+  }
+
+  static class AutoRequestIDTestCase {
+    String name;
+    CreateTestResourceRequest apiRequest;
+    Request httpRequest;
+    List<Response> httpResponses;
+    TestResource wantResult;
+    boolean wantErr;
+
+    AutoRequestIDTestCase(
+        String name,
+        CreateTestResourceRequest apiRequest,
+        Request httpRequest,
+        List<Response> httpResponses,
+        TestResource wantResult,
+        boolean wantErr) {
+      this.name = name;
+      this.apiRequest = apiRequest;
+      this.httpRequest = httpRequest;
+      this.httpResponses = httpResponses;
+      this.wantResult = wantResult;
+      this.wantErr = wantErr;
+    }
+  }
+
+  static List<AutoRequestIDTestCase> autoRequestIDTestCases() {
+    return Arrays.asList(
+        new AutoRequestIDTestCase(
+            "RetryWithAutoGeneratedRequestID",
+            new CreateTestResourceRequest()
+                .setTestResource(
+                    new TestResource().setId("test-resource-123").setName("test-resource")),
+            new Request(
+                "POST", "https://test.databricks.com/api/2.0/idempotency-testing/resources"),
+            Arrays.asList(
+                new Response(
+                    new Request(
+                        "POST",
+                        "https://test.databricks.com/api/2.0/idempotency-testing/resources"),
+                    503,
+                    "Service Unavailable",
+                    Collections.emptyMap(),
+                    "{\"error_code\":\"TEMPORARILY_UNAVAILABLE\",\"message\":\"Service temporarily unavailable\"}"),
+                new Response(
+                    new Request(
+                        "POST",
+                        "https://test.databricks.com/api/2.0/idempotency-testing/resources"),
+                    200,
+                    "OK",
+                    Collections.emptyMap(),
+                    "{\"id\":\"test-resource-123\",\"name\":\"test-resource\"}")),
+            new TestResource().setId("test-resource-123").setName("test-resource"),
+            false));
+  }
+
+  @ParameterizedTest(name = "{0}")
+  @MethodSource("autoRequestIDTestCases")
+  void testIdempotencyAutoRequestID(AutoRequestIDTestCase testCase) throws Exception {
+    // Setup: Create DummyHttpClient with sequential responses for retries
+    DummyHttpClient realClient = new DummyHttpClient();
+    for (Response response : testCase.httpResponses) {
+      realClient.with(testCase.httpRequest, response);
+    }
+
+    // Spy on the client to capture requests
+    DummyHttpClient spyClient = Mockito.spy(realClient);
+
+    // Create config with DummyCredentialsProvider (no OIDC discovery)
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setHost("https://test.databricks.com")
+            .setCredentialsProvider(new DummyCredentialsProvider())
+            .setHttpClient(spyClient);
+
+    ApiClient apiClient = new ApiClient(config);
+    IdempotencyTestingAPI api = new IdempotencyTestingAPI(apiClient);
+
+    // Execute and verify
+    if (testCase.wantErr) {
+      assertThrows(
+          Exception.class,
+          () -> api.createTestResource(testCase.apiRequest),
+          "Test case: " + testCase.name);
+    } else {
+      TestResource result = api.createTestResource(testCase.apiRequest);
+      assertEquals(testCase.wantResult, result, "Test case: " + testCase.name);
+
+      // Capture and verify request IDs
+      ArgumentCaptor<Request> requestCaptor = ArgumentCaptor.forClass(Request.class);
+      verify(spyClient, times(2)).execute(requestCaptor.capture());
+
+      List<Request> capturedRequests = requestCaptor.getAllValues();
+      String firstRequestId = capturedRequests.get(0).getQuery().get("request_id").get(0);
+      String secondRequestId = capturedRequests.get(1).getQuery().get("request_id").get(0);
+
+      assertNotNull(firstRequestId, "Auto-generated request_id should not be null");
+      assertFalse(firstRequestId.isEmpty(), "Auto-generated request_id should not be empty");
+      assertEquals(
+          firstRequestId,
+          secondRequestId,
+          "Both retry attempts should use the same auto-generated request_id");
+    }
+  }
+}

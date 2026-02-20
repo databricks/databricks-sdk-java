@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Apps run directly on a customer’s Databricks instance, integrate with their data, use and extend
+ * Apps run directly on a customer's Databricks instance, integrate with their data, use and extend
  * Databricks services, and enable users to interact through single sign-on.
  */
 @Generated
@@ -235,6 +235,12 @@ public class AppsAPI {
         (timeout, callback) -> waitGetAppActive(response.getName(), timeout, callback), response);
   }
 
+  /** Creates a new app space. */
+  public CreateSpaceOperation createSpace(CreateSpaceRequest request) {
+    Operation operation = impl.createSpace(request);
+    return new CreateSpaceOperation(impl, operation);
+  }
+
   /**
    * Creates an app update and starts the update process. The update process is asynchronous and the
    * status of the update can be checked with the GetAppUpdate method.
@@ -253,6 +259,16 @@ public class AppsAPI {
   /** Deletes an app. */
   public App delete(DeleteAppRequest request) {
     return impl.delete(request);
+  }
+
+  public DeleteSpaceOperation deleteSpace(String name) {
+    return deleteSpace(new DeleteSpaceRequest().setName(name));
+  }
+
+  /** Deletes an app space. */
+  public DeleteSpaceOperation deleteSpace(DeleteSpaceRequest request) {
+    Operation operation = impl.deleteSpace(request);
+    return new DeleteSpaceOperation(impl, operation);
   }
 
   /** Creates an app deployment for the app with the supplied name. */
@@ -302,6 +318,24 @@ public class AppsAPI {
     return impl.getPermissions(request);
   }
 
+  public Space getSpace(String name) {
+    return getSpace(new GetSpaceRequest().setName(name));
+  }
+
+  /** Retrieves information for the app space with the supplied name. */
+  public Space getSpace(GetSpaceRequest request) {
+    return impl.getSpace(request);
+  }
+
+  public Operation getSpaceOperation(String name) {
+    return getSpaceOperation(new GetOperationRequest().setName(name));
+  }
+
+  /** Gets the status of an app space update operation. */
+  public Operation getSpaceOperation(GetOperationRequest request) {
+    return impl.getSpaceOperation(request);
+  }
+
   public AppUpdate getUpdate(String appName) {
     return getUpdate(new GetAppUpdateRequest().setAppName(appName));
   }
@@ -345,6 +379,21 @@ public class AppsAPI {
         });
   }
 
+  /** Lists all app spaces in the workspace. */
+  public Iterable<Space> listSpaces(ListSpacesRequest request) {
+    return new Paginator<>(
+        request,
+        impl::listSpaces,
+        ListSpacesResponse::getSpaces,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
   /**
    * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
    * permissions if none are specified. Objects can inherit permissions from their root object.
@@ -375,6 +424,15 @@ public class AppsAPI {
   /** Updates the permissions on an app. Apps can inherit permissions from their root object. */
   public AppPermissions updatePermissions(AppPermissionsRequest request) {
     return impl.updatePermissions(request);
+  }
+
+  /**
+   * Updates an app space. The update process is asynchronous and the status of the update can be
+   * checked with the GetSpaceOperation method.
+   */
+  public UpdateSpaceOperation updateSpace(UpdateSpaceRequest request) {
+    Operation operation = impl.updateSpace(request);
+    return new UpdateSpaceOperation(impl, operation);
   }
 
   public AppsService impl() {

@@ -21,8 +21,12 @@ class DefaultWarehouseIdImpl implements DefaultWarehouseIdService {
     String path = "/api/2.0/settings/types/default_warehouse_id/names/default";
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, DeleteDefaultWarehouseIdResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -34,8 +38,12 @@ class DefaultWarehouseIdImpl implements DefaultWarehouseIdService {
     String path = "/api/2.0/settings/types/default_warehouse_id/names/default";
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, DefaultWarehouseId.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
@@ -47,9 +55,13 @@ class DefaultWarehouseIdImpl implements DefaultWarehouseIdService {
     String path = "/api/2.0/settings/types/default_warehouse_id/names/default";
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
       return apiClient.execute(req, DefaultWarehouseId.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);

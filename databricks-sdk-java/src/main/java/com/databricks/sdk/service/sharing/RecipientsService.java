@@ -38,9 +38,9 @@ public interface RecipientsService {
   void delete(DeleteRecipientRequest deleteRecipientRequest);
 
   /**
-   * Gets a share recipient from the metastore if:
-   *
-   * <p>* the caller is the owner of the share recipient, or: * is a metastore admin
+   * Gets a share recipient from the metastore. The caller must be one of: * A user with
+   * **USE_RECIPIENT** privilege on the metastore * The owner of the share recipient * A metastore
+   * admin
    */
   RecipientInfo get(GetRecipientRequest getRecipientRequest);
 
@@ -59,8 +59,8 @@ public interface RecipientsService {
   RecipientInfo rotateToken(RotateRecipientToken rotateRecipientToken);
 
   /**
-   * Gets the share permissions for the specified Recipient. The caller must be a metastore admin or
-   * the owner of the Recipient.
+   * Gets the share permissions for the specified Recipient. The caller must have the
+   * **USE_RECIPIENT** privilege on the metastore or be the owner of the Recipient.
    */
   GetRecipientSharePermissionsResponse sharePermissions(
       SharePermissionsRequest sharePermissionsRequest);

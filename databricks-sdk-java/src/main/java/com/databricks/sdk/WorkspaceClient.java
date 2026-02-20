@@ -176,6 +176,8 @@ import com.databricks.sdk.service.oauth2.ServicePrincipalSecretsProxyAPI;
 import com.databricks.sdk.service.oauth2.ServicePrincipalSecretsProxyService;
 import com.databricks.sdk.service.pipelines.PipelinesAPI;
 import com.databricks.sdk.service.pipelines.PipelinesService;
+import com.databricks.sdk.service.postgres.PostgresAPI;
+import com.databricks.sdk.service.postgres.PostgresService;
 import com.databricks.sdk.service.qualitymonitorv2.QualityMonitorV2API;
 import com.databricks.sdk.service.qualitymonitorv2.QualityMonitorV2Service;
 import com.databricks.sdk.service.serving.ServingEndpointsAPI;
@@ -240,6 +242,8 @@ import com.databricks.sdk.service.sql.WarehousesAPI;
 import com.databricks.sdk.service.sql.WarehousesService;
 import com.databricks.sdk.service.tags.TagPoliciesAPI;
 import com.databricks.sdk.service.tags.TagPoliciesService;
+import com.databricks.sdk.service.tags.WorkspaceEntityTagAssignmentsAPI;
+import com.databricks.sdk.service.tags.WorkspaceEntityTagAssignmentsService;
 import com.databricks.sdk.service.vectorsearch.VectorSearchEndpointsAPI;
 import com.databricks.sdk.service.vectorsearch.VectorSearchEndpointsService;
 import com.databricks.sdk.service.vectorsearch.VectorSearchIndexesAPI;
@@ -328,6 +332,7 @@ public class WorkspaceClient {
   private PolicyComplianceForClustersAPI policyComplianceForClustersAPI;
   private PolicyComplianceForJobsAPI policyComplianceForJobsAPI;
   private PolicyFamiliesAPI policyFamiliesAPI;
+  private PostgresAPI postgresAPI;
   private ProviderExchangeFiltersAPI providerExchangeFiltersAPI;
   private ProviderExchangesAPI providerExchangesAPI;
   private ProviderFilesAPI providerFilesAPI;
@@ -377,6 +382,7 @@ public class WorkspaceClient {
   private WorkspaceAPI workspaceAPI;
   private WorkspaceBindingsAPI workspaceBindingsAPI;
   private WorkspaceConfAPI workspaceConfAPI;
+  private WorkspaceEntityTagAssignmentsAPI workspaceEntityTagAssignmentsAPI;
   private WorkspaceIamV2API workspaceIamV2API;
   private WorkspaceSettingsV2API workspaceSettingsV2API;
   private GroupsAPI groupsAPI;
@@ -459,6 +465,7 @@ public class WorkspaceClient {
     policyComplianceForClustersAPI = new PolicyComplianceForClustersAPI(apiClient);
     policyComplianceForJobsAPI = new PolicyComplianceForJobsAPI(apiClient);
     policyFamiliesAPI = new PolicyFamiliesAPI(apiClient);
+    postgresAPI = new PostgresAPI(apiClient);
     providerExchangeFiltersAPI = new ProviderExchangeFiltersAPI(apiClient);
     providerExchangesAPI = new ProviderExchangesAPI(apiClient);
     providerFilesAPI = new ProviderFilesAPI(apiClient);
@@ -509,6 +516,7 @@ public class WorkspaceClient {
     workspaceAPI = new WorkspaceAPI(apiClient);
     workspaceBindingsAPI = new WorkspaceBindingsAPI(apiClient);
     workspaceConfAPI = new WorkspaceConfAPI(apiClient);
+    workspaceEntityTagAssignmentsAPI = new WorkspaceEntityTagAssignmentsAPI(apiClient);
     workspaceIamV2API = new WorkspaceIamV2API(apiClient);
     workspaceSettingsV2API = new WorkspaceSettingsV2API(apiClient);
     groupsAPI = new GroupsAPI(apiClient);
@@ -563,8 +571,8 @@ public class WorkspaceClient {
    * more users and/or notification destinations if the condition was met. Alerts can be scheduled
    * using the `sql_task` type of the Jobs API, e.g. :method:jobs/create.
    *
-   * <p>**Note**: A new version of the Databricks SQL API is now available. Please see the latest
-   * version. [Learn more]
+   * <p>**Warning**: This API is deprecated. Please see the latest version of the Databricks SQL
+   * API. [Learn more]
    *
    * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
@@ -578,7 +586,7 @@ public class WorkspaceClient {
   }
 
   /**
-   * Apps run directly on a customer’s Databricks instance, integrate with their data, use and
+   * Apps run directly on a customer's Databricks instance, integrate with their data, use and
    * extend Databricks services, and enable users to interact through single sign-on.
    */
   public AppsAPI apps() {
@@ -800,6 +808,11 @@ public class WorkspaceClient {
    * to duplicate multiple dashboards at once since you can get a dashboard definition with a GET
    * request and then POST it to create a new one. Dashboards can be scheduled using the `sql_task`
    * type of the Jobs API, e.g. :method:jobs/create.
+   *
+   * <p>**Warning**: This API is deprecated. Please use the AI/BI Dashboards API instead. [Learn
+   * more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/dashboards/
    */
   public DashboardsAPI dashboards() {
     return dashboardsAPI;
@@ -820,7 +833,8 @@ public class WorkspaceClient {
    * workspace. We advise you to use any text editor, REST client, or `grep` to search the response
    * from this API for the name of your SQL warehouse as it appears in Databricks SQL.
    *
-   * <p>**Note**: A new version of the Databricks SQL API is now available. [Learn more]
+   * <p>**Warning**: This API is deprecated. Please see the latest version of the Databricks SQL
+   * API. [Learn more]
    *
    * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
@@ -855,7 +869,8 @@ public class WorkspaceClient {
    * <p>- `CAN_MANAGE`: Allows all actions: read, run, edit, delete, modify permissions (superset of
    * `CAN_RUN`)
    *
-   * <p>**Note**: A new version of the Databricks SQL API is now available. [Learn more]
+   * <p>**Warning**: This API is deprecated. Please see the latest version of the Databricks SQL
+   * API. [Learn more]
    *
    * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
@@ -1116,7 +1131,7 @@ public class WorkspaceClient {
    * multi-task workflow with complex dependencies. Databricks manages the task orchestration,
    * cluster management, monitoring, and error reporting for all of your jobs. You can run your jobs
    * immediately or periodically through an easy-to-use scheduling system. You can implement job
-   * tasks using notebooks, JARS, Delta Live Tables pipelines, or Python, Scala, Spark submit, and
+   * tasks using notebooks, JARS, Spark Declarative Pipelines, or Python, Scala, Spark submit, and
    * Java applications.
    *
    * <p>You should never hard code secrets or store them in plain text. Use the [Secrets CLI] to
@@ -1272,19 +1287,19 @@ public class WorkspaceClient {
   }
 
   /**
-   * The Delta Live Tables API allows you to create, edit, delete, start, and view details about
-   * pipelines.
+   * The Lakeflow Spark Declarative Pipelines API allows you to create, edit, delete, start, and
+   * view details about pipelines.
    *
-   * <p>Delta Live Tables is a framework for building reliable, maintainable, and testable data
-   * processing pipelines. You define the transformations to perform on your data, and Delta Live
-   * Tables manages task orchestration, cluster management, monitoring, data quality, and error
-   * handling.
+   * <p>Spark Declarative Pipelines is a framework for building reliable, maintainable, and testable
+   * data processing pipelines. You define the transformations to perform on your data, and Spark
+   * Declarative Pipelines manages task orchestration, cluster management, monitoring, data quality,
+   * and error handling.
    *
-   * <p>Instead of defining your data pipelines using a series of separate Apache Spark tasks, Delta
-   * Live Tables manages how your data is transformed based on a target schema you define for each
-   * processing step. You can also enforce data quality with Delta Live Tables expectations.
-   * Expectations allow you to define expected data quality and specify how to handle records that
-   * fail those expectations.
+   * <p>Instead of defining your data pipelines using a series of separate Apache Spark tasks, Spark
+   * Declarative Pipelines manages how your data is transformed based on a target schema you define
+   * for each processing step. You can also enforce data quality with Spark Declarative Pipelines
+   * expectations. Expectations allow you to define expected data quality and specify how to handle
+   * records that fail those expectations.
    */
   public PipelinesAPI pipelines() {
     return pipelinesAPI;
@@ -1350,6 +1365,24 @@ public class WorkspaceClient {
     return policyFamiliesAPI;
   }
 
+  /**
+   * Use the Postgres API to create and manage Lakebase Autoscaling Postgres infrastructure,
+   * including projects, branches, compute endpoints, and roles.
+   *
+   * <p>This API manages database infrastructure only. To query or modify data, use the Data API or
+   * direct SQL connections.
+   *
+   * <p>**About resource IDs and names**
+   *
+   * <p>Resources are identified by hierarchical resource names like
+   * `projects/{project_id}/branches/{branch_id}/endpoints/{endpoint_id}`. The `name` field on each
+   * resource contains this full path and is output-only. Note that `name` refers to this resource
+   * path, not the user-visible `display_name`.
+   */
+  public PostgresAPI postgres() {
+    return postgresAPI;
+  }
+
   /** Marketplace exchanges filters curate which groups can access an exchange. */
   public ProviderExchangeFiltersAPI providerExchangeFilters() {
     return providerExchangeFiltersAPI;
@@ -1404,13 +1437,19 @@ public class WorkspaceClient {
     return providersAPI;
   }
 
-  /** Manage data quality of UC objects (currently support `schema`) */
+  /**
+   * Deprecated: Please use the Data Quality Monitoring API instead (REST:
+   * /api/data-quality/v1/monitors). Manage data quality of UC objects (currently support `schema`).
+   */
   public QualityMonitorV2API qualityMonitorV2() {
     return qualityMonitorV2API;
   }
 
   /**
-   * A monitor computes and monitors data or model quality metrics for a table over time. It
+   * Deprecated: Please use the Data Quality Monitors API instead (REST:
+   * /api/data-quality/v1/monitors), which manages both Data Profiling and Anomaly Detection.
+   *
+   * <p>A monitor computes and monitors data or model quality metrics for a table over time. It
    * generates metrics tables and a dashboard that you can use to monitor table health and set
    * alerts. Most write operations require the user to be the owner of the table (or its parent
    * schema or parent catalog). Viewing the dashboard, computed metrics, or monitor configuration
@@ -1436,8 +1475,8 @@ public class WorkspaceClient {
    * the target SQL warehouse, query text, name, description, tags, parameters, and visualizations.
    * Queries can be scheduled using the `sql_task` type of the Jobs API, e.g. :method:jobs/create.
    *
-   * <p>**Note**: A new version of the Databricks SQL API is now available. Please see the latest
-   * version. [Learn more]
+   * <p>**Warning**: This API is deprecated. Please see the latest version of the Databricks SQL
+   * API. [Learn more]
    *
    * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
@@ -1465,8 +1504,8 @@ public class WorkspaceClient {
    * This is an evolving API that facilitates the addition and removal of vizualisations from
    * existing queries within the Databricks Workspace. Data structures may change over time.
    *
-   * <p>**Note**: A new version of the Databricks SQL API is now available. Please see the latest
-   * version. [Learn more]
+   * <p>**Warning**: This API is deprecated. Please see the latest version of the Databricks SQL
+   * API. [Learn more]
    *
    * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
@@ -1602,12 +1641,10 @@ public class WorkspaceClient {
   }
 
   /**
-   * Request for Access enables customers to request access to and manage access request
-   * destinations for Unity Catalog securables.
+   * Request for Access enables users to request access for Unity Catalog securables.
    *
-   * <p>These APIs provide a standardized way to update, get, and request to access request
-   * destinations. Fine-grained authorization ensures that only users with appropriate permissions
-   * can manage access request destinations.
+   * <p>These APIs provide a standardized way for securable owners (or users with MANAGE privileges)
+   * to manage access request destinations.
    */
   public RfaAPI rfa() {
     return rfaAPI;
@@ -1863,11 +1900,14 @@ public class WorkspaceClient {
   }
 
   /**
-   * The Tag Policy API allows you to manage policies for governed tags in Databricks. Permissions
-   * for tag policies can be managed using the [Account Access Control Proxy API].
+   * The Tag Policy API allows you to manage policies for governed tags in Databricks. For Terraform
+   * usage, see the [Tag Policy Terraform documentation]. Permissions for tag policies can be
+   * managed using the [Account Access Control Proxy API].
    *
    * <p>[Account Access Control Proxy API]:
-   * https://docs.databricks.com/api/workspace/accountaccesscontrolproxy
+   * https://docs.databricks.com/api/workspace/accountaccesscontrolproxy [Tag Policy Terraform
+   * documentation]:
+   * https://registry.terraform.io/providers/databricks/databricks/latest/docs/resources/tag_policy
    */
   public TagPoliciesAPI tagPolicies() {
     return tagPoliciesAPI;
@@ -2030,6 +2070,11 @@ public class WorkspaceClient {
   /** This API allows updating known workspace settings for advanced users. */
   public WorkspaceConfAPI workspaceConf() {
     return workspaceConfAPI;
+  }
+
+  /** Manage tag assignments on workspace-scoped objects. */
+  public WorkspaceEntityTagAssignmentsAPI workspaceEntityTagAssignments() {
+    return workspaceEntityTagAssignmentsAPI;
   }
 
   /**
@@ -2870,6 +2915,17 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default PostgresService with a custom implementation. */
+  public WorkspaceClient withPostgresImpl(PostgresService postgres) {
+    return this.withPostgresAPI(new PostgresAPI(postgres));
+  }
+
+  /** Replace the default PostgresAPI with a custom implementation. */
+  public WorkspaceClient withPostgresAPI(PostgresAPI postgres) {
+    this.postgresAPI = postgres;
+    return this;
+  }
+
   /** Replace the default ProviderExchangeFiltersService with a custom implementation. */
   public WorkspaceClient withProviderExchangeFiltersImpl(
       ProviderExchangeFiltersService providerExchangeFilters) {
@@ -3441,6 +3497,20 @@ public class WorkspaceClient {
   /** Replace the default WorkspaceConfAPI with a custom implementation. */
   public WorkspaceClient withWorkspaceConfAPI(WorkspaceConfAPI workspaceConf) {
     this.workspaceConfAPI = workspaceConf;
+    return this;
+  }
+
+  /** Replace the default WorkspaceEntityTagAssignmentsService with a custom implementation. */
+  public WorkspaceClient withWorkspaceEntityTagAssignmentsImpl(
+      WorkspaceEntityTagAssignmentsService workspaceEntityTagAssignments) {
+    return this.withWorkspaceEntityTagAssignmentsAPI(
+        new WorkspaceEntityTagAssignmentsAPI(workspaceEntityTagAssignments));
+  }
+
+  /** Replace the default WorkspaceEntityTagAssignmentsAPI with a custom implementation. */
+  public WorkspaceClient withWorkspaceEntityTagAssignmentsAPI(
+      WorkspaceEntityTagAssignmentsAPI workspaceEntityTagAssignments) {
+    this.workspaceEntityTagAssignmentsAPI = workspaceEntityTagAssignments;
     return this;
   }
 

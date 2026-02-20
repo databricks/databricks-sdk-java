@@ -45,6 +45,14 @@ public class PipelineEvent {
   @JsonProperty("timestamp")
   private String timestamp;
 
+  /**
+   * Information about which fields were truncated from this event due to size constraints. If empty
+   * or absent, no truncation occurred. See https://docs.databricks.com/en/ldp/monitor-event-logs
+   * for information on retrieving complete event data.
+   */
+  @JsonProperty("truncation")
+  private Truncation truncation;
+
   public PipelineEvent setError(ErrorDetail error) {
     this.error = error;
     return this;
@@ -126,6 +134,15 @@ public class PipelineEvent {
     return timestamp;
   }
 
+  public PipelineEvent setTruncation(Truncation truncation) {
+    this.truncation = truncation;
+    return this;
+  }
+
+  public Truncation getTruncation() {
+    return truncation;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -139,13 +156,23 @@ public class PipelineEvent {
         && Objects.equals(message, that.message)
         && Objects.equals(origin, that.origin)
         && Objects.equals(sequence, that.sequence)
-        && Objects.equals(timestamp, that.timestamp);
+        && Objects.equals(timestamp, that.timestamp)
+        && Objects.equals(truncation, that.truncation);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        error, eventType, id, level, maturityLevel, message, origin, sequence, timestamp);
+        error,
+        eventType,
+        id,
+        level,
+        maturityLevel,
+        message,
+        origin,
+        sequence,
+        timestamp,
+        truncation);
   }
 
   @Override
@@ -160,6 +187,7 @@ public class PipelineEvent {
         .add("origin", origin)
         .add("sequence", sequence)
         .add("timestamp", timestamp)
+        .add("truncation", truncation)
         .toString();
   }
 }

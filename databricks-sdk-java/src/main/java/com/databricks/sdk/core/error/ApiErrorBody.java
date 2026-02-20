@@ -1,6 +1,7 @@
 package com.databricks.sdk.core.error;
 
 import com.databricks.sdk.core.error.details.ErrorDetails;
+import com.databricks.sdk.support.InternalApi;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -10,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * <p>Unknown properties in the response should be ignored.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@InternalApi
 public class ApiErrorBody {
   private String errorCode;
   private String message;

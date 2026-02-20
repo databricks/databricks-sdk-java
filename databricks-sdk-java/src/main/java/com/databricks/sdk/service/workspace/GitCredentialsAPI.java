@@ -31,9 +31,8 @@ public class GitCredentialsAPI {
   }
 
   /**
-   * Creates a Git credential entry for the user. Only one Git credential per user is supported, so
-   * any attempts to create credentials if an entry already exists will fail. Use the PATCH endpoint
-   * to update existing credentials, or the DELETE endpoint to delete existing credentials.
+   * Creates a Git credential entry for the user. Use the PATCH endpoint to update existing
+   * credentials, or the DELETE endpoint to delete existing credentials.
    */
   public CreateCredentialsResponse create(CreateCredentialsRequest request) {
     return impl.create(request);
@@ -57,10 +56,10 @@ public class GitCredentialsAPI {
     return impl.get(request);
   }
 
-  /** Lists the calling user's Git credentials. One credential per user is supported. */
-  public Iterable<CredentialInfo> list() {
+  /** Lists the calling user's Git credentials. */
+  public Iterable<CredentialInfo> list(ListCredentialsRequest request) {
     return new Paginator<>(
-        null, (Void v) -> impl.list(), ListCredentialsResponse::getCredentials, response -> null);
+        request, impl::list, ListCredentialsResponse::getCredentials, response -> null);
   }
 
   /** Updates the specified Git credential. */

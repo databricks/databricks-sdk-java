@@ -8,18 +8,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/**
- * Serialization format for DatabricksServiceException with error details. This message doesn't work
- * for ScalaPB-04 as google.protobuf.Any is only available to ScalaPB-09. Note the definition of
- * this message should be in sync with DatabricksServiceExceptionProto defined in
- * /api-base/proto/legacy/databricks.proto except the later one doesn't have the error details field
- * defined.
- */
+/** Databricks Error that is returned by all Databricks APIs. */
 @Generated
 public class DatabricksServiceExceptionWithDetailsProto {
-  /**
-   * @pbjson-skip
-   */
+  /** */
   @JsonProperty("details")
   private Collection<Object> details;
 

@@ -1,6 +1,7 @@
 package com.databricks.sdk.core.utils;
 
 import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.support.InternalApi;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,6 +14,7 @@ import org.slf4j.LoggerFactory;
  * OSUtils is an interface that provides utility methods for determining the current operating
  * system and returning executable command based on the operating system.
  */
+@InternalApi
 public class OSUtils {
   private static final Logger LOG = LoggerFactory.getLogger(OSUtils.class);
 

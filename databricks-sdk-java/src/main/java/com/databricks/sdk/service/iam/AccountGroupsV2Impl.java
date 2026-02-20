@@ -22,6 +22,7 @@ class AccountGroupsV2Impl implements AccountGroupsV2Service {
         String.format("/api/2.0/accounts/%s/scim/v2/Groups", apiClient.configuredAccountID());
     try {
       Request req = new Request("POST", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
@@ -39,6 +40,7 @@ class AccountGroupsV2Impl implements AccountGroupsV2Service {
             apiClient.configuredAccountID(), request.getId());
     try {
       Request req = new Request("DELETE", path);
+
       ApiClient.setQuery(req, request);
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
@@ -54,6 +56,7 @@ class AccountGroupsV2Impl implements AccountGroupsV2Service {
             apiClient.configuredAccountID(), request.getId());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, AccountGroup.class);
@@ -68,6 +71,7 @@ class AccountGroupsV2Impl implements AccountGroupsV2Service {
         String.format("/api/2.0/accounts/%s/scim/v2/Groups", apiClient.configuredAccountID());
     try {
       Request req = new Request("GET", path);
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, ListAccountGroupsResponse.class);
@@ -84,6 +88,7 @@ class AccountGroupsV2Impl implements AccountGroupsV2Service {
             apiClient.configuredAccountID(), request.getId());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Content-Type", "application/json");
       apiClient.execute(req, Void.class);
@@ -100,6 +105,7 @@ class AccountGroupsV2Impl implements AccountGroupsV2Service {
             apiClient.configuredAccountID(), request.getId());
     try {
       Request req = new Request("PUT", path, apiClient.serialize(request));
+
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");

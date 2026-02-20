@@ -1,5 +1,6 @@
 package com.databricks.sdk.core.http;
 
+import com.databricks.sdk.support.InternalApi;
 import java.util.function.Function;
 
 /**
@@ -8,6 +9,7 @@ import java.util.function.Function;
  *
  * <p>Experimental: this class is experimental and subject to change in backward incompatible ways.
  */
+@InternalApi
 public class RequestOptions {
   private Function<Request, Request> authenticateFunc;
   private Function<Request, Request> urlFunc;

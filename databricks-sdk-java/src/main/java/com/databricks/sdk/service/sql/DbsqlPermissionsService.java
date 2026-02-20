@@ -17,7 +17,8 @@ import com.databricks.sdk.support.Generated;
  * <p>- `CAN_MANAGE`: Allows all actions: read, run, edit, delete, modify permissions (superset of
  * `CAN_RUN`)
  *
- * <p>**Note**: A new version of the Databricks SQL API is now available. [Learn more]
+ * <p>**Warning**: This API is deprecated. Please see the latest version of the Databricks SQL API.
+ * [Learn more]
  *
  * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
  *
@@ -30,8 +31,8 @@ public interface DbsqlPermissionsService {
   /**
    * Gets a JSON representation of the access control list (ACL) for a specified object.
    *
-   * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
-   * :method:workspace/getpermissions instead. [Learn more]
+   * <p>**Warning**: This API is deprecated. Please use :method:workspace/getpermissions instead.
+   * [Learn more]
    *
    * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
@@ -41,8 +42,8 @@ public interface DbsqlPermissionsService {
    * Sets the access control list (ACL) for a specified object. This operation will complete rewrite
    * the ACL.
    *
-   * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
-   * :method:workspace/setpermissions instead. [Learn more]
+   * <p>**Warning**: This API is deprecated. Please use :method:workspace/setpermissions instead.
+   * [Learn more]
    *
    * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
@@ -52,8 +53,8 @@ public interface DbsqlPermissionsService {
    * Transfers ownership of a dashboard, query, or alert to an active user. Requires an admin API
    * key.
    *
-   * <p>**Note**: A new version of the Databricks SQL API is now available. For queries and alerts,
-   * please use :method:queries/update and :method:alerts/update respectively instead. [Learn more]
+   * <p>**Warning**: This API is deprecated. For queries and alerts, please use
+   * :method:queries/update and :method:alerts/update respectively instead. [Learn more]
    *
    * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
