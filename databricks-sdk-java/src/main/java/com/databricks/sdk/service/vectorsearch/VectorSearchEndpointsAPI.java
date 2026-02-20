@@ -121,6 +121,11 @@ public class VectorSearchEndpointsAPI {
         });
   }
 
+  /** Update an endpoint */
+  public EndpointInfo patchEndpoint(PatchEndpointRequest request) {
+    return impl.patchEndpoint(request);
+  }
+
   /** Retrieve user-visible metrics for an endpoint */
   public RetrieveUserVisibleMetricsResponse retrieveUserVisibleMetrics(
       RetrieveUserVisibleMetricsRequest request) {

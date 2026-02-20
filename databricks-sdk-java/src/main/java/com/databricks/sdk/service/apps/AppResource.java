@@ -10,6 +10,10 @@ import java.util.Objects;
 @Generated
 public class AppResource {
   /** */
+  @JsonProperty("app")
+  private AppResourceApp app;
+
+  /** */
   @JsonProperty("database")
   private AppResourceDatabase database;
 
@@ -48,6 +52,15 @@ public class AppResource {
   /** */
   @JsonProperty("uc_securable")
   private AppResourceUcSecurable ucSecurable;
+
+  public AppResource setApp(AppResourceApp app) {
+    this.app = app;
+    return this;
+  }
+
+  public AppResourceApp getApp() {
+    return app;
+  }
 
   public AppResource setDatabase(AppResourceDatabase database) {
     this.database = database;
@@ -144,7 +157,8 @@ public class AppResource {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     AppResource that = (AppResource) o;
-    return Objects.equals(database, that.database)
+    return Objects.equals(app, that.app)
+        && Objects.equals(database, that.database)
         && Objects.equals(description, that.description)
         && Objects.equals(experiment, that.experiment)
         && Objects.equals(genieSpace, that.genieSpace)
@@ -159,6 +173,7 @@ public class AppResource {
   @Override
   public int hashCode() {
     return Objects.hash(
+        app,
         database,
         description,
         experiment,
@@ -174,6 +189,7 @@ public class AppResource {
   @Override
   public String toString() {
     return new ToStringer(AppResource.class)
+        .add("app", app)
         .add("database", database)
         .add("description", description)
         .add("experiment", experiment)
