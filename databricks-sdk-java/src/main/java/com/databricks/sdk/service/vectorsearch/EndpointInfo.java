@@ -54,6 +54,10 @@ public class EndpointInfo {
   @JsonProperty("num_indexes")
   private Long numIndexes;
 
+  /** Scaling information for the endpoint */
+  @JsonProperty("scaling_info")
+  private EndpointScalingInfo scalingInfo;
+
   public EndpointInfo setCreationTimestamp(Long creationTimestamp) {
     this.creationTimestamp = creationTimestamp;
     return this;
@@ -153,6 +157,15 @@ public class EndpointInfo {
     return numIndexes;
   }
 
+  public EndpointInfo setScalingInfo(EndpointScalingInfo scalingInfo) {
+    this.scalingInfo = scalingInfo;
+    return this;
+  }
+
+  public EndpointScalingInfo getScalingInfo() {
+    return scalingInfo;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -168,7 +181,8 @@ public class EndpointInfo {
         && Objects.equals(lastUpdatedTimestamp, that.lastUpdatedTimestamp)
         && Objects.equals(lastUpdatedUser, that.lastUpdatedUser)
         && Objects.equals(name, that.name)
-        && Objects.equals(numIndexes, that.numIndexes);
+        && Objects.equals(numIndexes, that.numIndexes)
+        && Objects.equals(scalingInfo, that.scalingInfo);
   }
 
   @Override
@@ -184,7 +198,8 @@ public class EndpointInfo {
         lastUpdatedTimestamp,
         lastUpdatedUser,
         name,
-        numIndexes);
+        numIndexes,
+        scalingInfo);
   }
 
   @Override
@@ -201,6 +216,7 @@ public class EndpointInfo {
         .add("lastUpdatedUser", lastUpdatedUser)
         .add("name", name)
         .add("numIndexes", numIndexes)
+        .add("scalingInfo", scalingInfo)
         .toString();
   }
 }

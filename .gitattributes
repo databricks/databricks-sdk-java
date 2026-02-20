@@ -65,6 +65,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/apps/AppPermissions
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/apps/AppPermissionsDescription.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/apps/AppPermissionsRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/apps/AppResource.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/apps/AppResourceApp.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/apps/AppResourceDatabase.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/apps/AppResourceDatabaseDatabasePermission.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/apps/AppResourceExperiment.java linguist-generated=true
@@ -3190,6 +3191,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/Direct
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/EmbeddingSourceColumn.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/EmbeddingVectorColumn.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/EndpointInfo.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/EndpointScalingInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/EndpointStatus.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/EndpointStatusState.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/EndpointType.java linguist-generated=true
@@ -3208,6 +3210,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/Metric
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/MiniVectorIndex.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/PatchEndpointBudgetPolicyRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/PatchEndpointBudgetPolicyResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/PatchEndpointRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/PipelineType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/QueryVectorIndexNextPageRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/QueryVectorIndexRequest.java linguist-generated=true
@@ -3218,6 +3221,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/Result
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/ResultManifest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/RetrieveUserVisibleMetricsRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/RetrieveUserVisibleMetricsResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/ScalingChangeState.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/ScanVectorIndexRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/ScanVectorIndexResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/vectorsearch/Struct.java linguist-generated=true

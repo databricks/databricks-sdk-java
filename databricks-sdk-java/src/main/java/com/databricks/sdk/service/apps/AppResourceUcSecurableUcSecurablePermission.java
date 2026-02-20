@@ -7,6 +7,7 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum AppResourceUcSecurableUcSecurablePermission {
   EXECUTE,
+  MODIFY,
   READ_VOLUME,
   SELECT,
   USE_CONNECTION,

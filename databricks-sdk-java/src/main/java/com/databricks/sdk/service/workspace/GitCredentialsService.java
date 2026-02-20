@@ -17,9 +17,8 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface GitCredentialsService {
   /**
-   * Creates a Git credential entry for the user. Only one Git credential per user is supported, so
-   * any attempts to create credentials if an entry already exists will fail. Use the PATCH endpoint
-   * to update existing credentials, or the DELETE endpoint to delete existing credentials.
+   * Creates a Git credential entry for the user. Use the PATCH endpoint to update existing
+   * credentials, or the DELETE endpoint to delete existing credentials.
    */
   CreateCredentialsResponse create(CreateCredentialsRequest createCredentialsRequest);
 
