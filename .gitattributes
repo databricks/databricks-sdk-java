@@ -2118,6 +2118,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/Pipelines
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/PipelinesService.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/PostgresCatalogConfig.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/PostgresSlotConfig.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ReplaceWhereOverride.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ReportSpec.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/RestartWindow.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/RewindDatasetSpec.java linguist-generated=true
