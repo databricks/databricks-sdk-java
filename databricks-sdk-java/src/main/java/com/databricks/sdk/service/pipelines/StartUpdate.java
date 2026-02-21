@@ -39,6 +39,13 @@ public class StartUpdate {
   private Collection<String> refreshSelection;
 
   /**
+   * A list of predicate overrides for replace_where flows in this update. Only replace_where flows
+   * may be specified. Flows not listed use their original predicate.
+   */
+  @JsonProperty("replace_where_overrides")
+  private Collection<ReplaceWhereOverride> replaceWhereOverrides;
+
+  /**
    * The information about the requested rewind operation. If specified this is a rewind mode
    * update.
    */
@@ -97,6 +104,16 @@ public class StartUpdate {
     return refreshSelection;
   }
 
+  public StartUpdate setReplaceWhereOverrides(
+      Collection<ReplaceWhereOverride> replaceWhereOverrides) {
+    this.replaceWhereOverrides = replaceWhereOverrides;
+    return this;
+  }
+
+  public Collection<ReplaceWhereOverride> getReplaceWhereOverrides() {
+    return replaceWhereOverrides;
+  }
+
   public StartUpdate setRewindSpec(RewindSpec rewindSpec) {
     this.rewindSpec = rewindSpec;
     return this;
@@ -125,6 +142,7 @@ public class StartUpdate {
         && Objects.equals(fullRefreshSelection, that.fullRefreshSelection)
         && Objects.equals(pipelineId, that.pipelineId)
         && Objects.equals(refreshSelection, that.refreshSelection)
+        && Objects.equals(replaceWhereOverrides, that.replaceWhereOverrides)
         && Objects.equals(rewindSpec, that.rewindSpec)
         && Objects.equals(validateOnly, that.validateOnly);
   }
@@ -137,6 +155,7 @@ public class StartUpdate {
         fullRefreshSelection,
         pipelineId,
         refreshSelection,
+        replaceWhereOverrides,
         rewindSpec,
         validateOnly);
   }
@@ -149,6 +168,7 @@ public class StartUpdate {
         .add("fullRefreshSelection", fullRefreshSelection)
         .add("pipelineId", pipelineId)
         .add("refreshSelection", refreshSelection)
+        .add("replaceWhereOverrides", replaceWhereOverrides)
         .add("rewindSpec", rewindSpec)
         .add("validateOnly", validateOnly)
         .toString();
