@@ -13,6 +13,7 @@ The Databricks SDK for Java includes functionality to accelerate development wit
 - [Code examples](#code-examples)
 - [Long-running operations](#long-running-operations)
 - [Paginated responses](#paginated-responses)
+- [Retries](#retries)
 - [Single-sign-on with OAuth](#single-sign-on-sso-with-oauth)
 - [Error handling](#error-handling)
 - [Logging](#logging)
@@ -339,6 +340,10 @@ summary.stream()
    .sorted(Comparator.comparing(JobSummary::getLastFinished).reversed())
    .forEach(jobSummary -> LOGGER.info("Latest: {}", jobSummary));
 ```
+
+## Retries
+
+The SDK automatically retries failed requests that are safe to retry. This includes HTTP 429 (Too Many Requests) and 503 (Service Unavailable) responses, as well as network-level errors such as connection resets and timeouts. The SDK uses a backoff strategy with jitter between retry attempts to avoid overwhelming the service. Retry behavior can be adjusted through the SDK configuration.
 
 ## Single-Sign-On (SSO) with OAuth
 
