@@ -207,6 +207,10 @@ public class CachedTokenSource implements TokenSource {
   }
 
   private Duration computeStaleDuration(Token t) {
+    if (t.getExpiry() == null) {
+      return Duration.ZERO; // Tokens with no expiry are considered permanent.
+    }
+
     Duration ttl = Duration.between(Instant.now(clockSupplier.getClock()), t.getExpiry());
 
     if (ttl.compareTo(Duration.ZERO) <= 0) {
@@ -226,6 +230,10 @@ public class CachedTokenSource implements TokenSource {
     if (t == null) {
       return TokenState.EXPIRED;
     }
+    if (t.getExpiry() == null) {
+      return TokenState.FRESH; // Tokens with no expiry are considered permanent.
+    }
+
     Duration lifeTime = Duration.between(Instant.now(clockSupplier.getClock()), t.getExpiry());
     if (lifeTime.compareTo(expiryBuffer) <= 0) {
       return TokenState.EXPIRED;
