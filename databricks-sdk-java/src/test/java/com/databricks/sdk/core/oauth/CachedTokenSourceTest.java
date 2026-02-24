@@ -64,8 +64,7 @@ public class CachedTokenSourceTest {
             true,
             INITIAL_TOKEN),
         Arguments.of(
-            "Expired token, async disabled", EXPIRED_MINUTES, 0L, true, true, REFRESH_TOKEN)
-        );
+            "Expired token, async disabled", EXPIRED_MINUTES, 0L, true, true, REFRESH_TOKEN));
   }
 
   @ParameterizedTest(name = "{0}")
