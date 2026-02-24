@@ -39,12 +39,33 @@ public class CachedTokenSourceTest {
   private static Stream<Arguments> provideAsyncRefreshScenarios() {
     return Stream.of(
         Arguments.of("Fresh token, async enabled", FRESH_MINUTES, 0L, false, false, INITIAL_TOKEN),
-        Arguments.of("Stale token, async enabled", STALE_MINUTES, STALE_ADVANCE_MINUTES, false, true, INITIAL_TOKEN),
-        Arguments.of("Expired token, async enabled", EXPIRED_MINUTES, 0L, false, true, REFRESH_TOKEN),
+        Arguments.of(
+            "Stale token, async enabled",
+            STALE_MINUTES,
+            STALE_ADVANCE_MINUTES,
+            false,
+            true,
+            INITIAL_TOKEN),
+        Arguments.of(
+            "Expired token, async enabled", EXPIRED_MINUTES, 0L, false, true, REFRESH_TOKEN),
         Arguments.of("Fresh token, async disabled", FRESH_MINUTES, 0L, true, false, INITIAL_TOKEN),
-        Arguments.of("Stale token, async disabled", STALE_MINUTES, STALE_ADVANCE_MINUTES, true, false, INITIAL_TOKEN),
-        Arguments.of("Stale token, capped stale duration, async enabled", CAPPED_STALE_MINUTES, CAPPED_STALE_ADVANCE_MINUTES, false, true, INITIAL_TOKEN),
-        Arguments.of("Expired token, async disabled", EXPIRED_MINUTES, 0L, true, true, REFRESH_TOKEN));
+        Arguments.of(
+            "Stale token, async disabled",
+            STALE_MINUTES,
+            STALE_ADVANCE_MINUTES,
+            true,
+            false,
+            INITIAL_TOKEN),
+        Arguments.of(
+            "Stale token, capped stale duration, async enabled",
+            CAPPED_STALE_MINUTES,
+            CAPPED_STALE_ADVANCE_MINUTES,
+            false,
+            true,
+            INITIAL_TOKEN),
+        Arguments.of(
+            "Expired token, async disabled", EXPIRED_MINUTES, 0L, true, true, REFRESH_TOKEN)
+        );
   }
 
   @ParameterizedTest(name = "{0}")
@@ -67,7 +88,11 @@ public class CachedTokenSourceTest {
             null,
             Instant.now(clockSupplier.getClock()).plus(Duration.ofMinutes(minutesUntilExpiry)));
     Token refreshedToken =
-        new Token(REFRESH_TOKEN, TOKEN_TYPE, null, Instant.now(clockSupplier.getClock()).plus(Duration.ofMinutes(10)));
+        new Token(
+            REFRESH_TOKEN,
+            TOKEN_TYPE,
+            null,
+            Instant.now(clockSupplier.getClock()).plus(Duration.ofMinutes(10)));
     CountDownLatch refreshCalled = new CountDownLatch(1);
 
     TokenSource tokenSource =

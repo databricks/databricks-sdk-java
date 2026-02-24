@@ -73,7 +73,7 @@ public class CachedTokenSource implements TokenSource {
     this.expiryBuffer = builder.expiryBuffer;
     this.clockSupplier = builder.clockSupplier;
     this.token = builder.token;
-    
+
     if (this.useDynamicStaleDuration && this.token != null) {
       this.dynamicStaleDuration = computeStaleDuration(this.token);
     } else {
@@ -212,7 +212,7 @@ public class CachedTokenSource implements TokenSource {
     if (ttl.compareTo(Duration.ZERO) <= 0) {
       return Duration.ZERO;
     }
-    
+
     Duration halfTtl = ttl.dividedBy(2);
     return halfTtl.compareTo(MAX_STALE_DURATION) > 0 ? MAX_STALE_DURATION : halfTtl;
   }
