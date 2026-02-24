@@ -258,18 +258,22 @@ public class CachedTokenSource implements TokenSource {
         return token;
       }
       lastRefreshSucceeded = false;
+      Token newToken;
       try {
-        token = tokenSource.getToken();
+        newToken = tokenSource.getToken();
       } catch (Exception e) {
         logger.error("Failed to refresh token synchronously", e);
         throw e;
       }
       lastRefreshSucceeded = true;
 
-      // Update the stale duration only after ensuring that the token is refreshed successfully.
-      if (useDynamicStaleDuration) {
-        dynamicStaleDuration = computeStaleDuration(token);
+      // Write dynamicStaleDuration before publishing the new token via the volatile write,
+      // so unsynchronized readers that see the new token are guaranteed to also see the
+      // updated dynamicStaleDuration.
+      if (useDynamicStaleDuration && newToken != null) {
+        dynamicStaleDuration = computeStaleDuration(newToken);
       }
+      token = newToken;
       return token;
     }
   }
@@ -314,13 +318,14 @@ public class CachedTokenSource implements TokenSource {
               // Attempt to refresh the token in the background.
               Token newToken = tokenSource.getToken();
               synchronized (this) {
+                // Write dynamicStaleDuration before publishing the new token via the volatile
+                // write, so unsynchronized readers that see the new token are guaranteed to also
+                // see the updated dynamicStaleDuration.
+                if (useDynamicStaleDuration && newToken != null) {
+                  dynamicStaleDuration = computeStaleDuration(newToken);
+                }
                 token = newToken;
                 refreshInProgress = false;
-
-                // Update the stale duration only after ensuring that the token is refreshed successfully.
-                if (useDynamicStaleDuration) {
-                  dynamicStaleDuration = computeStaleDuration(token);
-                }
               }
             } catch (Exception e) {
               synchronized (this) {
