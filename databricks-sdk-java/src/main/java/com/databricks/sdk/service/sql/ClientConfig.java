@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class ClientConfig {
-  /** */
+  /** allow_custom_js_visualizations is not supported/implemneted. */
   @JsonProperty("allow_custom_js_visualizations")
   private Boolean allowCustomJsVisualizations;
 
