@@ -9,7 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class TagAssignment {
-  /** The identifier of the entity to which the tag is assigned */
+  /**
+   * The identifier of the entity to which the tag is assigned. For apps, the entity_id is the app
+   * name
+   */
   @JsonProperty("entity_id")
   private String entityId;
 

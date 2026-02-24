@@ -6,6 +6,7 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Objects;
 
 @Generated
@@ -40,6 +41,10 @@ public class UpdateInfo {
    */
   @JsonProperty("full_refresh_selection")
   private Collection<String> fullRefreshSelection;
+
+  /** Key/value map of parameters used to initiate the update */
+  @JsonProperty("parameters")
+  private Map<String, String> parameters;
 
   /** The ID of the pipeline. */
   @JsonProperty("pipeline_id")
@@ -122,6 +127,15 @@ public class UpdateInfo {
     return fullRefreshSelection;
   }
 
+  public UpdateInfo setParameters(Map<String, String> parameters) {
+    this.parameters = parameters;
+    return this;
+  }
+
+  public Map<String, String> getParameters() {
+    return parameters;
+  }
+
   public UpdateInfo setPipelineId(String pipelineId) {
     this.pipelineId = pipelineId;
     return this;
@@ -178,6 +192,7 @@ public class UpdateInfo {
         && Objects.equals(creationTime, that.creationTime)
         && Objects.equals(fullRefresh, that.fullRefresh)
         && Objects.equals(fullRefreshSelection, that.fullRefreshSelection)
+        && Objects.equals(parameters, that.parameters)
         && Objects.equals(pipelineId, that.pipelineId)
         && Objects.equals(refreshSelection, that.refreshSelection)
         && Objects.equals(state, that.state)
@@ -194,6 +209,7 @@ public class UpdateInfo {
         creationTime,
         fullRefresh,
         fullRefreshSelection,
+        parameters,
         pipelineId,
         refreshSelection,
         state,
@@ -210,6 +226,7 @@ public class UpdateInfo {
         .add("creationTime", creationTime)
         .add("fullRefresh", fullRefresh)
         .add("fullRefreshSelection", fullRefreshSelection)
+        .add("parameters", parameters)
         .add("pipelineId", pipelineId)
         .add("refreshSelection", refreshSelection)
         .add("state", state)

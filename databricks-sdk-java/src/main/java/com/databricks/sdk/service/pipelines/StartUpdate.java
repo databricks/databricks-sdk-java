@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Objects;
 
 @Generated
@@ -26,6 +27,10 @@ public class StartUpdate {
    */
   @JsonProperty("full_refresh_selection")
   private Collection<String> fullRefreshSelection;
+
+  /** Key/value map of parameters to pass to the pipeline execution */
+  @JsonProperty("parameters")
+  private Map<String, String> parameters;
 
   /** */
   @JsonIgnore private String pipelineId;
@@ -86,6 +91,15 @@ public class StartUpdate {
     return fullRefreshSelection;
   }
 
+  public StartUpdate setParameters(Map<String, String> parameters) {
+    this.parameters = parameters;
+    return this;
+  }
+
+  public Map<String, String> getParameters() {
+    return parameters;
+  }
+
   public StartUpdate setPipelineId(String pipelineId) {
     this.pipelineId = pipelineId;
     return this;
@@ -140,6 +154,7 @@ public class StartUpdate {
     return Objects.equals(cause, that.cause)
         && Objects.equals(fullRefresh, that.fullRefresh)
         && Objects.equals(fullRefreshSelection, that.fullRefreshSelection)
+        && Objects.equals(parameters, that.parameters)
         && Objects.equals(pipelineId, that.pipelineId)
         && Objects.equals(refreshSelection, that.refreshSelection)
         && Objects.equals(replaceWhereOverrides, that.replaceWhereOverrides)
@@ -153,6 +168,7 @@ public class StartUpdate {
         cause,
         fullRefresh,
         fullRefreshSelection,
+        parameters,
         pipelineId,
         refreshSelection,
         replaceWhereOverrides,
@@ -166,6 +182,7 @@ public class StartUpdate {
         .add("cause", cause)
         .add("fullRefresh", fullRefresh)
         .add("fullRefreshSelection", fullRefreshSelection)
+        .add("parameters", parameters)
         .add("pipelineId", pipelineId)
         .add("refreshSelection", refreshSelection)
         .add("replaceWhereOverrides", replaceWhereOverrides)
