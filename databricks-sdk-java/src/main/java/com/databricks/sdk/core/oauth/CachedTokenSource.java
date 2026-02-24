@@ -33,6 +33,11 @@ public class CachedTokenSource implements TokenSource {
   // Default duration before expiry to consider a token as 'stale'. This value is chosen to cover
   // the maximum monthly downtime allowed by a 99.99% uptime SLA (~4.38 minutes).
   private static final Duration DEFAULT_STALE_DURATION = Duration.ofMinutes(5);
+  // The maximum stale duration that can be achieved before expiry to consider a token as 'stale'
+  // when using the dynamic stale duration method. This value is chosen to cover the maximum
+  // monthly downtime allowed by a 99.99% uptime SLA (~4.38 minutes) while increasing the likelihood
+  // that the token is refreshed asynchronously if the auth server is down.
+  private static final Duration MAX_STALE_DURATION = Duration.ofMinutes(20);
   // Default additional buffer before expiry to consider a token as expired.
   // This is 40 seconds by default since Azure Databricks rejects tokens that are within 30 seconds
   // of expiry.
@@ -42,8 +47,12 @@ public class CachedTokenSource implements TokenSource {
   private final TokenSource tokenSource;
   // Whether asynchronous refresh is enabled.
   private boolean asyncDisabled = false;
-  // Duration before expiry to consider a token as 'stale'.
+  // The legacy duration before expiry to consider a token as 'stale'.
   private final Duration staleDuration;
+  // Whether to use the dynamic stale duration computation or defer to the legacy duration.
+  private final boolean useDynamicStaleDuration;
+  // The dynamically computed duration before expiry to consider a token as 'stale'.
+  private volatile Duration dynamicStaleDuration;
   // Additional buffer before expiry to consider a token as expired.
   private final Duration expiryBuffer;
   // Clock supplier for current time.
@@ -60,9 +69,16 @@ public class CachedTokenSource implements TokenSource {
     this.tokenSource = builder.tokenSource;
     this.asyncDisabled = builder.asyncDisabled;
     this.staleDuration = builder.staleDuration;
+    this.useDynamicStaleDuration = builder.useDynamicStaleDuration;
     this.expiryBuffer = builder.expiryBuffer;
     this.clockSupplier = builder.clockSupplier;
     this.token = builder.token;
+    
+    if (this.useDynamicStaleDuration && this.token != null) {
+      this.dynamicStaleDuration = computeStaleDuration(this.token);
+    } else {
+      this.dynamicStaleDuration = MAX_STALE_DURATION;
+    }
   }
 
   /**
@@ -75,6 +91,7 @@ public class CachedTokenSource implements TokenSource {
     private final TokenSource tokenSource;
     private boolean asyncDisabled = false;
     private Duration staleDuration = DEFAULT_STALE_DURATION;
+    private boolean useDynamicStaleDuration = true;
     private Duration expiryBuffer = DEFAULT_EXPIRY_BUFFER;
     private ClockSupplier clockSupplier = new UtcClockSupplier();
     private Token token;
@@ -130,6 +147,7 @@ public class CachedTokenSource implements TokenSource {
      */
     public Builder setStaleDuration(Duration staleDuration) {
       this.staleDuration = staleDuration;
+      this.useDynamicStaleDuration = false;
       return this;
     }
 
@@ -188,6 +206,17 @@ public class CachedTokenSource implements TokenSource {
     return getTokenAsync();
   }
 
+  private Duration computeStaleDuration(Token t) {
+    Duration ttl = Duration.between(Instant.now(clockSupplier.getClock()), t.getExpiry());
+
+    if (ttl.compareTo(Duration.ZERO) <= 0) {
+      return Duration.ZERO;
+    }
+    
+    Duration halfTtl = ttl.dividedBy(2);
+    return halfTtl.compareTo(MAX_STALE_DURATION) > 0 ? MAX_STALE_DURATION : halfTtl;
+  }
+
   /**
    * Determine the state of the current token (fresh, stale, or expired).
    *
@@ -201,7 +230,8 @@ public class CachedTokenSource implements TokenSource {
     if (lifeTime.compareTo(expiryBuffer) <= 0) {
       return TokenState.EXPIRED;
     }
-    if (lifeTime.compareTo(staleDuration) <= 0) {
+    Duration usedStaleDuration = useDynamicStaleDuration ? dynamicStaleDuration : staleDuration;
+    if (lifeTime.compareTo(usedStaleDuration) <= 0) {
       return TokenState.STALE;
     }
     return TokenState.FRESH;
@@ -235,6 +265,11 @@ public class CachedTokenSource implements TokenSource {
         throw e;
       }
       lastRefreshSucceeded = true;
+
+      // Update the stale duration only after ensuring that the token is refreshed successfully.
+      if (useDynamicStaleDuration) {
+        dynamicStaleDuration = computeStaleDuration(token);
+      }
       return token;
     }
   }
@@ -281,6 +316,11 @@ public class CachedTokenSource implements TokenSource {
               synchronized (this) {
                 token = newToken;
                 refreshInProgress = false;
+
+                // Update the stale duration only after ensuring that the token is refreshed successfully.
+                if (useDynamicStaleDuration) {
+                  dynamicStaleDuration = computeStaleDuration(token);
+                }
               }
             } catch (Exception e) {
               synchronized (this) {
