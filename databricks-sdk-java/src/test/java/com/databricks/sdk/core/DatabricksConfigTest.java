@@ -462,8 +462,7 @@ public class DatabricksConfigTest {
       DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
       config.resolve(emptyEnv());
       HostMetadata meta = config.getHostMetadata();
-      assertEquals(
-          "https://acc.databricks.com/oidc/accounts/{account_id}", meta.getOidcEndpoint());
+      assertEquals("https://acc.databricks.com/oidc/accounts/{account_id}", meta.getOidcEndpoint());
       assertNull(meta.getAccountId());
       assertNull(meta.getWorkspaceId());
     }
