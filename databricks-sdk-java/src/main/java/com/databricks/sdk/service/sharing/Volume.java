@@ -21,10 +21,6 @@ public class Volume {
   @JsonProperty("id")
   private String id;
 
-  /** Internal attributes for D2D sharing that should not be disclosed to external users. */
-  @JsonProperty("internal_attributes")
-  private VolumeInternalAttributes internalAttributes;
-
   /** The name of the volume. */
   @JsonProperty("name")
   private String name;
@@ -61,15 +57,6 @@ public class Volume {
 
   public String getId() {
     return id;
-  }
-
-  public Volume setInternalAttributes(VolumeInternalAttributes internalAttributes) {
-    this.internalAttributes = internalAttributes;
-    return this;
-  }
-
-  public VolumeInternalAttributes getInternalAttributes() {
-    return internalAttributes;
   }
 
   public Volume setName(String name) {
@@ -124,7 +111,6 @@ public class Volume {
     Volume that = (Volume) o;
     return Objects.equals(comment, that.comment)
         && Objects.equals(id, that.id)
-        && Objects.equals(internalAttributes, that.internalAttributes)
         && Objects.equals(name, that.name)
         && Objects.equals(schema, that.schema)
         && Objects.equals(share, that.share)
@@ -134,7 +120,7 @@ public class Volume {
 
   @Override
   public int hashCode() {
-    return Objects.hash(comment, id, internalAttributes, name, schema, share, shareId, tags);
+    return Objects.hash(comment, id, name, schema, share, shareId, tags);
   }
 
   @Override
@@ -142,7 +128,6 @@ public class Volume {
     return new ToStringer(Volume.class)
         .add("comment", comment)
         .add("id", id)
-        .add("internalAttributes", internalAttributes)
         .add("name", name)
         .add("schema", schema)
         .add("share", share)
