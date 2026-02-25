@@ -5,6 +5,7 @@ import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.oauth.ErrorTokenSource;
+import com.databricks.sdk.core.oauth.HostMetadata;
 import com.databricks.sdk.core.oauth.OAuthHeaderFactory;
 import com.databricks.sdk.core.oauth.OpenIDConnectEndpoints;
 import com.databricks.sdk.core.oauth.TokenSource;
@@ -798,6 +799,32 @@ public class DatabricksConfig {
       return fetchDefaultOidcEndpoints();
     }
     return fetchOidcEndpointsFromDiscovery();
+  }
+
+  /**
+   * [Experimental] Fetch the raw Databricks well-known configuration from
+   * {host}/.well-known/databricks-config.
+   *
+   * <p><b>Note:</b> This API is experimental and may change or be removed in future releases
+   * without notice.
+   *
+   * @return Parsed {@link HostMetadata} as returned by the server.
+   * @throws DatabricksException if the request fails or the server returns a non-200 status.
+   */
+  HostMetadata getHostMetadata() throws IOException {
+    String url = host + "/.well-known/databricks-config";
+    try {
+      Request request = new Request("GET", url);
+      Response resp = getHttpClient().execute(request);
+      if (resp.getStatusCode() != 200) {
+        throw new DatabricksException(
+            "Failed to fetch host metadata from " + url + ": HTTP " + resp.getStatusCode());
+      }
+      return new ObjectMapper().readValue(resp.getBody(), HostMetadata.class);
+    } catch (IOException e) {
+      throw new DatabricksException(
+          "Failed to fetch host metadata from " + url + ": " + e.getMessage(), e);
+    }
   }
 
   private OpenIDConnectEndpoints fetchOidcEndpointsFromDiscovery() {
