@@ -48,7 +48,7 @@ public class CachedTokenSource implements TokenSource {
   // Whether asynchronous refresh is enabled.
   private boolean asyncDisabled = false;
   // The legacy duration before expiry to consider a token as 'stale'.
-  private final Duration staleDuration;
+  private final Duration staticStaleDuration;
   // Whether to use the dynamic stale duration computation or defer to the legacy duration.
   private final boolean useDynamicStaleDuration;
   // The dynamically computed duration before expiry to consider a token as 'stale'.
@@ -68,7 +68,7 @@ public class CachedTokenSource implements TokenSource {
   private CachedTokenSource(Builder builder) {
     this.tokenSource = builder.tokenSource;
     this.asyncDisabled = builder.asyncDisabled;
-    this.staleDuration = builder.staleDuration;
+    this.staticStaleDuration = builder.staleDuration;
     this.useDynamicStaleDuration = builder.useDynamicStaleDuration;
     this.expiryBuffer = builder.expiryBuffer;
     this.clockSupplier = builder.clockSupplier;
@@ -77,7 +77,7 @@ public class CachedTokenSource implements TokenSource {
     if (this.useDynamicStaleDuration && this.token != null) {
       this.dynamicStaleDuration = computeStaleDuration(this.token);
     } else {
-      this.dynamicStaleDuration = MAX_STALE_DURATION;
+      this.dynamicStaleDuration = Duration.ofMinutes(0);
     }
   }
 
@@ -238,8 +238,8 @@ public class CachedTokenSource implements TokenSource {
     if (lifeTime.compareTo(expiryBuffer) <= 0) {
       return TokenState.EXPIRED;
     }
-    Duration usedStaleDuration = useDynamicStaleDuration ? dynamicStaleDuration : staleDuration;
-    if (lifeTime.compareTo(usedStaleDuration) <= 0) {
+    Duration staleDuration = useDynamicStaleDuration ? dynamicStaleDuration : staticStaleDuration;
+    if (lifeTime.compareTo(staleDuration) <= 0) {
       return TokenState.STALE;
     }
     return TokenState.FRESH;
