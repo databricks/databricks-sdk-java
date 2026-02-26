@@ -138,8 +138,7 @@ public class CliTokenSource implements TokenSource {
         }
         // getMessage() returns the clean stderr-based message; getFullOutput() exposes
         // both streams so the caller can check for "unknown flag: --profile" in either.
-        throw new CliCommandException(
-            "cannot get access token: " + stderr, stdout + "\n" + stderr);
+        throw new CliCommandException("cannot get access token: " + stderr, stdout + "\n" + stderr);
       }
       JsonNode jsonNode = new ObjectMapper().readTree(stdout);
       String tokenType = jsonNode.get(tokenTypeField).asText();
