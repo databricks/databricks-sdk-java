@@ -249,11 +249,6 @@ public class DatabricksConfig {
       }
       Map<String, String> headers = new HashMap<>(headerFactory.headers());
 
-      // For unified hosts with workspace operations, add the X-Databricks-Org-Id header
-      if (getHostType() == HostType.UNIFIED && workspaceId != null && !workspaceId.isEmpty()) {
-        headers.put("X-Databricks-Org-Id", workspaceId);
-      }
-
       return headers;
     } catch (DatabricksException e) {
       String msg = String.format("%s auth: %s", credentialsProvider.authType(), e.getMessage());
@@ -487,17 +482,13 @@ public class DatabricksConfig {
     return this;
   }
 
-  /**
-   * @deprecated Use {@link #getAzureUseMsi()} instead.
-   */
+  /** @deprecated Use {@link #getAzureUseMsi()} instead. */
   @Deprecated()
   public boolean getAzureUseMSI() {
     return azureUseMsi;
   }
 
-  /**
-   * @deprecated Use {@link #getAzureUseMsi()} instead.
-   */
+  /** @deprecated Use {@link #getAzureUseMsi()} instead. */
   @Deprecated
   public DatabricksConfig setAzureUseMSI(boolean azureUseMsi) {
     this.azureUseMsi = azureUseMsi;
@@ -772,9 +763,7 @@ public class DatabricksConfig {
     return getDatabricksOidcEndpoints();
   }
 
-  /**
-   * @return The Azure Entra ID OIDC endpoints.
-   */
+  /** @return The Azure Entra ID OIDC endpoints. */
   public OpenIDConnectEndpoints getAzureEntraIdWorkspaceEndpoints() throws IOException {
     if (isAzure() && getAzureClientId() != null) {
       Request request = new Request("GET", getHost() + "/oidc/oauth2/v2.0/authorize");
@@ -790,9 +779,7 @@ public class DatabricksConfig {
     return null;
   }
 
-  /**
-   * @return The Databricks OIDC endpoints.
-   */
+  /** @return The Databricks OIDC endpoints. */
   public OpenIDConnectEndpoints getDatabricksOidcEndpoints() throws IOException {
     if (discoveryUrl == null) {
       return fetchDefaultOidcEndpoints();
