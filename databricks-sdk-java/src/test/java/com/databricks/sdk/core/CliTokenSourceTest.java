@@ -269,7 +269,8 @@ public class CliTokenSourceTest {
               } else {
                 Process successProcess = mock(Process.class);
                 when(successProcess.getInputStream())
-                    .thenReturn(new ByteArrayInputStream(validTokenJson("fallback-token").getBytes()));
+                    .thenReturn(
+                        new ByteArrayInputStream(validTokenJson("fallback-token").getBytes()));
                 when(successProcess.getErrorStream())
                     .thenReturn(new ByteArrayInputStream(new byte[0]));
                 when(successProcess.waitFor()).thenReturn(0);
@@ -304,8 +305,7 @@ public class CliTokenSourceTest {
                 Process failProcess = mock(Process.class);
                 when(failProcess.getInputStream())
                     .thenReturn(
-                        new ByteArrayInputStream(
-                            "Error: unknown flag: --profile".getBytes()));
+                        new ByteArrayInputStream("Error: unknown flag: --profile".getBytes()));
                 when(failProcess.getErrorStream())
                     .thenReturn(new ByteArrayInputStream(new byte[0]));
                 when(failProcess.waitFor()).thenReturn(1);
@@ -313,7 +313,8 @@ public class CliTokenSourceTest {
               } else {
                 Process successProcess = mock(Process.class);
                 when(successProcess.getInputStream())
-                    .thenReturn(new ByteArrayInputStream(validTokenJson("fallback-token").getBytes()));
+                    .thenReturn(
+                        new ByteArrayInputStream(validTokenJson("fallback-token").getBytes()));
                 when(successProcess.getErrorStream())
                     .thenReturn(new ByteArrayInputStream(new byte[0]));
                 when(successProcess.waitFor()).thenReturn(0);
@@ -344,8 +345,7 @@ public class CliTokenSourceTest {
             ProcessBuilder.class,
             (pb, context) -> {
               Process failProcess = mock(Process.class);
-              when(failProcess.getInputStream())
-                  .thenReturn(new ByteArrayInputStream(new byte[0]));
+              when(failProcess.getInputStream()).thenReturn(new ByteArrayInputStream(new byte[0]));
               when(failProcess.getErrorStream())
                   .thenReturn(
                       new ByteArrayInputStream(
@@ -353,8 +353,7 @@ public class CliTokenSourceTest {
               when(failProcess.waitFor()).thenReturn(1);
               when(pb.start()).thenReturn(failProcess);
             })) {
-      DatabricksException ex =
-          assertThrows(DatabricksException.class, tokenSource::getToken);
+      DatabricksException ex = assertThrows(DatabricksException.class, tokenSource::getToken);
       assertTrue(ex.getMessage().contains("databricks OAuth is not configured"));
       assertEquals(1, mocked.constructed().size());
     }
@@ -376,16 +375,14 @@ public class CliTokenSourceTest {
             ProcessBuilder.class,
             (pb, context) -> {
               Process failProcess = mock(Process.class);
-              when(failProcess.getInputStream())
-                  .thenReturn(new ByteArrayInputStream(new byte[0]));
+              when(failProcess.getInputStream()).thenReturn(new ByteArrayInputStream(new byte[0]));
               when(failProcess.getErrorStream())
                   .thenReturn(
                       new ByteArrayInputStream("Error: unknown flag: --profile".getBytes()));
               when(failProcess.waitFor()).thenReturn(1);
               when(pb.start()).thenReturn(failProcess);
             })) {
-      DatabricksException ex =
-          assertThrows(DatabricksException.class, tokenSource::getToken);
+      DatabricksException ex = assertThrows(DatabricksException.class, tokenSource::getToken);
       assertTrue(ex.getMessage().contains("unknown flag: --profile"));
       assertEquals(1, mocked.constructed().size());
     }
