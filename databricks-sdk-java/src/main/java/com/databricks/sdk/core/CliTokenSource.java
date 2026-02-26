@@ -18,14 +18,39 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @InternalApi
 public class CliTokenSource implements TokenSource {
+  private static final Logger LOG = LoggerFactory.getLogger(CliTokenSource.class);
+
   private List<String> cmd;
   private String tokenTypeField;
   private String accessTokenField;
   private String expiryField;
   private Environment env;
+  // fallbackCmd is tried when the primary command fails with "unknown flag: --profile",
+  // indicating the CLI is too old to support --profile. Can be removed once support
+  // for CLI versions predating --profile is dropped.
+  // See: https://github.com/databricks/databricks-sdk-go/pull/1497
+  private List<String> fallbackCmd;
+
+  /**
+   * Internal exception that carries the clean stderr message but exposes full output for checks.
+   */
+  static class CliCommandException extends IOException {
+    private final String fullOutput;
+
+    CliCommandException(String message, String fullOutput) {
+      super(message);
+      this.fullOutput = fullOutput;
+    }
+
+    String getFullOutput() {
+      return fullOutput;
+    }
+  }
 
   public CliTokenSource(
       List<String> cmd,
@@ -33,12 +58,24 @@ public class CliTokenSource implements TokenSource {
       String accessTokenField,
       String expiryField,
       Environment env) {
+    this(cmd, tokenTypeField, accessTokenField, expiryField, env, null);
+  }
+
+  public CliTokenSource(
+      List<String> cmd,
+      String tokenTypeField,
+      String accessTokenField,
+      String expiryField,
+      Environment env,
+      List<String> fallbackCmd) {
     super();
     this.cmd = OSUtils.get(env).getCliExecutableCommand(cmd);
     this.tokenTypeField = tokenTypeField;
     this.accessTokenField = accessTokenField;
     this.expiryField = expiryField;
     this.env = env;
+    this.fallbackCmd =
+        fallbackCmd != null ? OSUtils.get(env).getCliExecutableCommand(fallbackCmd) : null;
   }
 
   /**
@@ -87,10 +124,9 @@ public class CliTokenSource implements TokenSource {
     return new String(bytes);
   }
 
-  @Override
-  public Token getToken() {
+  private Token execCliCommand(List<String> cmdToRun) throws IOException {
     try {
-      ProcessBuilder processBuilder = new ProcessBuilder(cmd);
+      ProcessBuilder processBuilder = new ProcessBuilder(cmdToRun);
       processBuilder.environment().putAll(env.getEnv());
       Process process = processBuilder.start();
       String stdout = getProcessStream(process.getInputStream());
@@ -99,9 +135,11 @@ public class CliTokenSource implements TokenSource {
       if (exitCode != 0) {
         if (stderr.contains("not found")) {
           throw new DatabricksException(stderr);
-        } else {
-          throw new IOException(stderr);
         }
+        // getMessage() returns the clean stderr-based message; getFullOutput() exposes
+        // both streams so the caller can check for "unknown flag: --profile" in either.
+        throw new CliCommandException(
+            "cannot get access token: " + stderr.trim(), stdout + "\n" + stderr);
       }
       JsonNode jsonNode = new ObjectMapper().readTree(stdout);
       String tokenType = jsonNode.get(tokenTypeField).asText();
@@ -111,8 +149,33 @@ public class CliTokenSource implements TokenSource {
       return new Token(accessToken, tokenType, expiresOn);
     } catch (DatabricksException e) {
       throw e;
-    } catch (InterruptedException | IOException e) {
-      throw new DatabricksException("cannot get access token: " + e.getMessage(), e);
+    } catch (InterruptedException e) {
+      throw new IOException("cannot get access token: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public Token getToken() {
+    try {
+      return execCliCommand(this.cmd);
+    } catch (IOException e) {
+      String textToCheck =
+          e instanceof CliCommandException
+              ? ((CliCommandException) e).getFullOutput()
+              : e.getMessage();
+      if (fallbackCmd != null
+          && textToCheck != null
+          && textToCheck.contains("unknown flag: --profile")) {
+        LOG.warn(
+            "Databricks CLI does not support --profile flag. Falling back to --host. "
+                + "Please upgrade your CLI to the latest version.");
+        try {
+          return execCliCommand(this.fallbackCmd);
+        } catch (IOException fallbackException) {
+          throw new DatabricksException(fallbackException.getMessage(), fallbackException);
+        }
+      }
+      throw new DatabricksException(e.getMessage(), e);
     }
   }
 }

@@ -21,13 +21,13 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
   }
 
   /**
-   * Builds the CLI command arguments for the databricks auth token command.
+   * Builds the CLI command arguments using --host (legacy path).
    *
    * @param cliPath Path to the databricks CLI executable
    * @param config Configuration containing host, account ID, workspace ID, etc.
    * @return List of command arguments
    */
-  List<String> buildCliCommand(String cliPath, DatabricksConfig config) {
+  static List<String> buildHostArgs(String cliPath, DatabricksConfig config) {
     List<String> cmd =
         new ArrayList<>(Arrays.asList(cliPath, "auth", "token", "--host", config.getHost()));
     if (config.getExperimentalIsUnifiedHost() != null && config.getExperimentalIsUnifiedHost()) {
@@ -57,8 +57,26 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
       LOG.debug("Databricks CLI could not be found");
       return null;
     }
-    List<String> cmd = buildCliCommand(cliPath, config);
-    return new CliTokenSource(cmd, "token_type", "access_token", "expiry", config.getEnv());
+
+    List<String> cmd;
+    List<String> fallbackCmd = null;
+
+    if (config.getProfile() != null) {
+      // When profile is set, use --profile as the primary command.
+      // The profile contains the full config (host, account_id, etc.).
+      cmd =
+          new ArrayList<>(
+              Arrays.asList(cliPath, "auth", "token", "--profile", config.getProfile()));
+      // Build a --host fallback for older CLIs that don't support --profile.
+      if (config.getHost() != null) {
+        fallbackCmd = buildHostArgs(cliPath, config);
+      }
+    } else {
+      cmd = buildHostArgs(cliPath, config);
+    }
+
+    return new CliTokenSource(
+        cmd, "token_type", "access_token", "expiry", config.getEnv(), fallbackCmd);
   }
 
   @Override
