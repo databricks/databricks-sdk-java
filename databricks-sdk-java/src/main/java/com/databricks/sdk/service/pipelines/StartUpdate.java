@@ -51,6 +51,14 @@ public class StartUpdate {
   private Collection<ReplaceWhereOverride> replaceWhereOverrides;
 
   /**
+   * A list of flows for which this update should reset the streaming checkpoint. This selection
+   * will not clear the data in the flow's target table. Flows in this list may also appear in
+   * refresh_selection and full_refresh_selection.
+   */
+  @JsonProperty("reset_checkpoint_selection")
+  private Collection<String> resetCheckpointSelection;
+
+  /**
    * The information about the requested rewind operation. If specified this is a rewind mode
    * update.
    */
@@ -128,6 +136,15 @@ public class StartUpdate {
     return replaceWhereOverrides;
   }
 
+  public StartUpdate setResetCheckpointSelection(Collection<String> resetCheckpointSelection) {
+    this.resetCheckpointSelection = resetCheckpointSelection;
+    return this;
+  }
+
+  public Collection<String> getResetCheckpointSelection() {
+    return resetCheckpointSelection;
+  }
+
   public StartUpdate setRewindSpec(RewindSpec rewindSpec) {
     this.rewindSpec = rewindSpec;
     return this;
@@ -158,6 +175,7 @@ public class StartUpdate {
         && Objects.equals(pipelineId, that.pipelineId)
         && Objects.equals(refreshSelection, that.refreshSelection)
         && Objects.equals(replaceWhereOverrides, that.replaceWhereOverrides)
+        && Objects.equals(resetCheckpointSelection, that.resetCheckpointSelection)
         && Objects.equals(rewindSpec, that.rewindSpec)
         && Objects.equals(validateOnly, that.validateOnly);
   }
@@ -172,6 +190,7 @@ public class StartUpdate {
         pipelineId,
         refreshSelection,
         replaceWhereOverrides,
+        resetCheckpointSelection,
         rewindSpec,
         validateOnly);
   }
@@ -186,6 +205,7 @@ public class StartUpdate {
         .add("pipelineId", pipelineId)
         .add("refreshSelection", refreshSelection)
         .add("replaceWhereOverrides", replaceWhereOverrides)
+        .add("resetCheckpointSelection", resetCheckpointSelection)
         .add("rewindSpec", rewindSpec)
         .add("validateOnly", validateOnly)
         .toString();
