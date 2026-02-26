@@ -13,3 +13,7 @@
 ### Internal Changes
 
 ### API Changes
+* Add `dataframeSchema`, `filterCondition` and `transformationSql` fields for `com.databricks.sdk.service.ml.DeltaTableSource`.
+* Add `environmentVersion` field for `com.databricks.sdk.service.pipelines.PipelinesEnvironment`.
+* Add `resetCheckpointSelection` field for `com.databricks.sdk.service.pipelines.StartUpdate`.
+* [Breaking] Remove `oauth2AppClientId` and `oauth2AppIntegrationId` fields for `com.databricks.sdk.service.apps.Space`.

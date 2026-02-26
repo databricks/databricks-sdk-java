@@ -42,14 +42,6 @@ public class Space {
   @JsonProperty("name")
   private String name;
 
-  /** The OAuth2 app client ID for the app space. */
-  @JsonProperty("oauth2_app_client_id")
-  private String oauth2AppClientId;
-
-  /** The OAuth2 app integration ID for the app space. */
-  @JsonProperty("oauth2_app_integration_id")
-  private String oauth2AppIntegrationId;
-
   /**
    * Resources for the app space. Resources configured at the space level are available to all apps
    * in the space.
@@ -152,24 +144,6 @@ public class Space {
     return name;
   }
 
-  public Space setOauth2AppClientId(String oauth2AppClientId) {
-    this.oauth2AppClientId = oauth2AppClientId;
-    return this;
-  }
-
-  public String getOauth2AppClientId() {
-    return oauth2AppClientId;
-  }
-
-  public Space setOauth2AppIntegrationId(String oauth2AppIntegrationId) {
-    this.oauth2AppIntegrationId = oauth2AppIntegrationId;
-    return this;
-  }
-
-  public String getOauth2AppIntegrationId() {
-    return oauth2AppIntegrationId;
-  }
-
   public Space setResources(Collection<AppResource> resources) {
     this.resources = resources;
     return this;
@@ -263,8 +237,6 @@ public class Space {
         && Objects.equals(effectiveUserApiScopes, that.effectiveUserApiScopes)
         && Objects.equals(id, that.id)
         && Objects.equals(name, that.name)
-        && Objects.equals(oauth2AppClientId, that.oauth2AppClientId)
-        && Objects.equals(oauth2AppIntegrationId, that.oauth2AppIntegrationId)
         && Objects.equals(resources, that.resources)
         && Objects.equals(servicePrincipalClientId, that.servicePrincipalClientId)
         && Objects.equals(servicePrincipalId, that.servicePrincipalId)
@@ -286,8 +258,6 @@ public class Space {
         effectiveUserApiScopes,
         id,
         name,
-        oauth2AppClientId,
-        oauth2AppIntegrationId,
         resources,
         servicePrincipalClientId,
         servicePrincipalId,
@@ -309,8 +279,6 @@ public class Space {
         .add("effectiveUserApiScopes", effectiveUserApiScopes)
         .add("id", id)
         .add("name", name)
-        .add("oauth2AppClientId", oauth2AppClientId)
-        .add("oauth2AppIntegrationId", oauth2AppIntegrationId)
         .add("resources", resources)
         .add("servicePrincipalClientId", servicePrincipalClientId)
         .add("servicePrincipalId", servicePrincipalId)
