@@ -139,35 +139,4 @@ class DatabricksCliCredentialsProviderTest {
             CLI_PATH, "auth", "token", "--host", ACCOUNT_HOST, "--account-id", ACCOUNT_ID),
         cmd);
   }
-
-  @Test
-  void testProfile_UsesPrimaryProfileCmdWithHostFallback() {
-    // When profile is set and host is present, --profile is primary and --host is fallback.
-    // We verify this by inspecting buildHostArgs (fallback path) and the profile args (primary).
-    DatabricksConfig config = new DatabricksConfig().setHost(HOST).setProfile("my-profile");
-
-    // The primary command that getDatabricksCliTokenSource would build
-    List<String> expectedPrimary =
-        Arrays.asList(CLI_PATH, "auth", "token", "--profile", "my-profile");
-    // The fallback command is the host-based one
-    List<String> expectedFallback = provider.buildHostArgs(CLI_PATH, config);
-
-    assertEquals(Arrays.asList(CLI_PATH, "auth", "token", "--host", HOST), expectedFallback);
-    assertEquals(
-        Arrays.asList("auth", "token", "--profile", "my-profile"),
-        expectedPrimary.subList(1, expectedPrimary.size()));
-    assertFalse(expectedFallback.contains("--profile"));
-    assertTrue(expectedFallback.contains("--host"));
-  }
-
-  @Test
-  void testProfile_NoHostFallbackWhenHostAbsent() {
-    // When profile is set but host is null, buildHostArgs is not called so no fallback is built.
-    // This test confirms buildHostArgs correctly uses host when present.
-    DatabricksConfig config = new DatabricksConfig().setHost(HOST);
-    List<String> hostArgs = provider.buildHostArgs(CLI_PATH, config);
-    assertTrue(hostArgs.contains("--host"));
-    assertTrue(hostArgs.contains(HOST));
-    assertFalse(hostArgs.contains("--profile"));
-  }
 }

@@ -27,7 +27,7 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
    * @param config Configuration containing host, account ID, workspace ID, etc.
    * @return List of command arguments
    */
-  static List<String> buildHostArgs(String cliPath, DatabricksConfig config) {
+  List<String> buildHostArgs(String cliPath, DatabricksConfig config) {
     List<String> cmd =
         new ArrayList<>(Arrays.asList(cliPath, "auth", "token", "--host", config.getHost()));
     if (config.getExperimentalIsUnifiedHost() != null && config.getExperimentalIsUnifiedHost()) {
