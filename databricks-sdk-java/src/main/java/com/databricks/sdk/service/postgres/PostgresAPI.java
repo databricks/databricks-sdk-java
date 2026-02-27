@@ -43,6 +43,16 @@ public class PostgresAPI {
     return new CreateBranchOperation(impl, operation);
   }
 
+  /**
+   * Create a Database.
+   *
+   * <p>Creates a database in the specified branch. A branch can have multiple databases.
+   */
+  public CreateDatabaseOperation createDatabase(CreateDatabaseRequest request) {
+    Operation operation = impl.createDatabase(request);
+    return new CreateDatabaseOperation(impl, operation);
+  }
+
   /** Creates a new compute endpoint in the branch. */
   public CreateEndpointOperation createEndpoint(CreateEndpointRequest request) {
     Operation operation = impl.createEndpoint(request);
@@ -72,6 +82,16 @@ public class PostgresAPI {
   public DeleteBranchOperation deleteBranch(DeleteBranchRequest request) {
     Operation operation = impl.deleteBranch(request);
     return new DeleteBranchOperation(impl, operation);
+  }
+
+  public DeleteDatabaseOperation deleteDatabase(String name) {
+    return deleteDatabase(new DeleteDatabaseRequest().setName(name));
+  }
+
+  /** Delete a Database. */
+  public DeleteDatabaseOperation deleteDatabase(DeleteDatabaseRequest request) {
+    Operation operation = impl.deleteDatabase(request);
+    return new DeleteDatabaseOperation(impl, operation);
   }
 
   public DeleteEndpointOperation deleteEndpoint(String name) {
@@ -116,6 +136,15 @@ public class PostgresAPI {
   /** Retrieves information about the specified database branch. */
   public Branch getBranch(GetBranchRequest request) {
     return impl.getBranch(request);
+  }
+
+  public Database getDatabase(String name) {
+    return getDatabase(new GetDatabaseRequest().setName(name));
+  }
+
+  /** Get a Database. */
+  public Database getDatabase(GetDatabaseRequest request) {
+    return impl.getDatabase(request);
   }
 
   public Endpoint getEndpoint(String name) {
@@ -170,6 +199,25 @@ public class PostgresAPI {
         request,
         impl::listBranches,
         ListBranchesResponse::getBranches,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
+  public Iterable<Database> listDatabases(String parent) {
+    return listDatabases(new ListDatabasesRequest().setParent(parent));
+  }
+
+  /** List Databases. */
+  public Iterable<Database> listDatabases(ListDatabasesRequest request) {
+    return new Paginator<>(
+        request,
+        impl::listDatabases,
+        ListDatabasesResponse::getDatabases,
         response -> {
           String token = response.getNextPageToken();
           if (token == null || token.isEmpty()) {
@@ -242,6 +290,12 @@ public class PostgresAPI {
   public UpdateBranchOperation updateBranch(UpdateBranchRequest request) {
     Operation operation = impl.updateBranch(request);
     return new UpdateBranchOperation(impl, operation);
+  }
+
+  /** Update a Database. */
+  public UpdateDatabaseOperation updateDatabase(UpdateDatabaseRequest request) {
+    Operation operation = impl.updateDatabase(request);
+    return new UpdateDatabaseOperation(impl, operation);
   }
 
   /**

@@ -35,6 +35,24 @@ class PostgresImpl implements PostgresService {
   }
 
   @Override
+  public Operation createDatabase(CreateDatabaseRequest request) {
+    String path = String.format("/api/2.0/postgres/%s/databases", request.getParent());
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request.getDatabase()));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Operation.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public Operation createEndpoint(CreateEndpointRequest request) {
     String path = String.format("/api/2.0/postgres/%s/endpoints", request.getParent());
     try {
@@ -90,6 +108,23 @@ class PostgresImpl implements PostgresService {
 
   @Override
   public Operation deleteBranch(DeleteBranchRequest request) {
+    String path = String.format("/api/2.0/postgres/%s", request.getName());
+    try {
+      Request req = new Request("DELETE", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Operation.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public Operation deleteDatabase(DeleteDatabaseRequest request) {
     String path = String.format("/api/2.0/postgres/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
@@ -192,6 +227,23 @@ class PostgresImpl implements PostgresService {
   }
 
   @Override
+  public Database getDatabase(GetDatabaseRequest request) {
+    String path = String.format("/api/2.0/postgres/%s", request.getName());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Database.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public Endpoint getEndpoint(GetEndpointRequest request) {
     String path = String.format("/api/2.0/postgres/%s", request.getName());
     try {
@@ -277,6 +329,23 @@ class PostgresImpl implements PostgresService {
   }
 
   @Override
+  public ListDatabasesResponse listDatabases(ListDatabasesRequest request) {
+    String path = String.format("/api/2.0/postgres/%s/databases", request.getParent());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, ListDatabasesResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public ListEndpointsResponse listEndpoints(ListEndpointsRequest request) {
     String path = String.format("/api/2.0/postgres/%s/endpoints", request.getParent());
     try {
@@ -332,6 +401,24 @@ class PostgresImpl implements PostgresService {
     String path = String.format("/api/2.0/postgres/%s", request.getName());
     try {
       Request req = new Request("PATCH", path, apiClient.serialize(request.getBranch()));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Operation.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public Operation updateDatabase(UpdateDatabaseRequest request) {
+    String path = String.format("/api/2.0/postgres/%s", request.getName());
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request.getDatabase()));
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");

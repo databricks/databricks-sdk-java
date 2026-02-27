@@ -38,6 +38,10 @@ public class AppResource {
   private String name;
 
   /** */
+  @JsonProperty("postgres")
+  private AppResourcePostgres postgres;
+
+  /** */
   @JsonProperty("secret")
   private AppResourceSecret secret;
 
@@ -116,6 +120,15 @@ public class AppResource {
     return name;
   }
 
+  public AppResource setPostgres(AppResourcePostgres postgres) {
+    this.postgres = postgres;
+    return this;
+  }
+
+  public AppResourcePostgres getPostgres() {
+    return postgres;
+  }
+
   public AppResource setSecret(AppResourceSecret secret) {
     this.secret = secret;
     return this;
@@ -164,6 +177,7 @@ public class AppResource {
         && Objects.equals(genieSpace, that.genieSpace)
         && Objects.equals(job, that.job)
         && Objects.equals(name, that.name)
+        && Objects.equals(postgres, that.postgres)
         && Objects.equals(secret, that.secret)
         && Objects.equals(servingEndpoint, that.servingEndpoint)
         && Objects.equals(sqlWarehouse, that.sqlWarehouse)
@@ -180,6 +194,7 @@ public class AppResource {
         genieSpace,
         job,
         name,
+        postgres,
         secret,
         servingEndpoint,
         sqlWarehouse,
@@ -196,6 +211,7 @@ public class AppResource {
         .add("genieSpace", genieSpace)
         .add("job", job)
         .add("name", name)
+        .add("postgres", postgres)
         .add("secret", secret)
         .add("servingEndpoint", servingEndpoint)
         .add("sqlWarehouse", sqlWarehouse)
