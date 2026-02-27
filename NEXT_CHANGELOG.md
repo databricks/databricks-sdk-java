@@ -17,3 +17,5 @@
 * Add `environmentVersion` field for `com.databricks.sdk.service.pipelines.PipelinesEnvironment`.
 * Add `resetCheckpointSelection` field for `com.databricks.sdk.service.pipelines.StartUpdate`.
 * [Breaking] Remove `oauth2AppClientId` and `oauth2AppIntegrationId` fields for `com.databricks.sdk.service.apps.Space`.
+* Add `createDatabase()`, `deleteDatabase()`, `getDatabase()`, `listDatabases()` and `updateDatabase()` methods for `workspaceClient.postgres()` service.
+* Add `postgres` field for `com.databricks.sdk.service.apps.AppResource`.

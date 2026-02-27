@@ -1,6 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 
-package com.databricks.sdk.service.networking;
+package com.databricks.sdk.service.postgres;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
@@ -9,23 +9,24 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 @Generated
-public class ListEndpointsRequest {
-  /** */
+public class ListDatabasesRequest {
+  /** Upper bound for items returned. */
   @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;
 
-  /** */
+  /** Pagination token to go to the next page of Databases. Requests first page if absent. */
   @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 
   /**
-   * The parent resource name of the account to list endpoints for. Format: `accounts/{account_id}`.
+   * The Branch that owns this collection of databases. Format:
+   * projects/{project_id}/branches/{branch_id}
    */
   @JsonIgnore private String parent;
 
-  public ListEndpointsRequest setPageSize(Long pageSize) {
+  public ListDatabasesRequest setPageSize(Long pageSize) {
     this.pageSize = pageSize;
     return this;
   }
@@ -34,7 +35,7 @@ public class ListEndpointsRequest {
     return pageSize;
   }
 
-  public ListEndpointsRequest setPageToken(String pageToken) {
+  public ListDatabasesRequest setPageToken(String pageToken) {
     this.pageToken = pageToken;
     return this;
   }
@@ -43,7 +44,7 @@ public class ListEndpointsRequest {
     return pageToken;
   }
 
-  public ListEndpointsRequest setParent(String parent) {
+  public ListDatabasesRequest setParent(String parent) {
     this.parent = parent;
     return this;
   }
@@ -56,7 +57,7 @@ public class ListEndpointsRequest {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    ListEndpointsRequest that = (ListEndpointsRequest) o;
+    ListDatabasesRequest that = (ListDatabasesRequest) o;
     return Objects.equals(pageSize, that.pageSize)
         && Objects.equals(pageToken, that.pageToken)
         && Objects.equals(parent, that.parent);
@@ -69,7 +70,7 @@ public class ListEndpointsRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(ListEndpointsRequest.class)
+    return new ToStringer(ListDatabasesRequest.class)
         .add("pageSize", pageSize)
         .add("pageToken", pageToken)
         .add("parent", parent)
