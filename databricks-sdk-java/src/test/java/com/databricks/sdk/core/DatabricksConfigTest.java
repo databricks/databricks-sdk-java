@@ -479,4 +479,36 @@ public class DatabricksConfigTest {
       assertTrue(ex.getMessage().contains("Failed to fetch host metadata"));
     }
   }
+
+  // --- discoveryUrl / OIDC endpoint tests ---
+
+  @Test
+  public void testDiscoveryUrlFromEnv() {
+    Map<String, String> env = new HashMap<>();
+    env.put("DATABRICKS_DISCOVERY_URL", "https://custom.idp.example.com/oidc");
+    DatabricksConfig config = new DatabricksConfig();
+    config.resolve(new Environment(env, new ArrayList<>(), System.getProperty("os.name")));
+    assertEquals("https://custom.idp.example.com/oidc", config.getDiscoveryUrl());
+  }
+
+  @Test
+  public void testDatabricksOidcEndpointsUsesDiscoveryUrl() throws IOException {
+    String discoveryUrlSuffix = "/oidc";
+    String discoveryUrlResponse =
+        "{\"authorization_endpoint\":\"https://ws.databricks.com/oidc/v1/authorize\","
+            + "\"token_endpoint\":\"https://ws.databricks.com/oidc/v1/token\"}";
+    try (FixtureServer server =
+        new FixtureServer().with("GET", discoveryUrlSuffix, discoveryUrlResponse, 200)) {
+      String discoveryUrl = server.getUrl() + discoveryUrlSuffix;
+      OpenIDConnectEndpoints endpoints =
+          new DatabricksConfig()
+              .setHost(server.getUrl())
+              .setDiscoveryUrl(discoveryUrl)
+              .setHttpClient(new CommonsHttpClient.Builder().withTimeoutSeconds(30).build())
+              .getDatabricksOidcEndpoints();
+      assertEquals(
+          "https://ws.databricks.com/oidc/v1/authorize", endpoints.getAuthorizationEndpoint());
+      assertEquals("https://ws.databricks.com/oidc/v1/token", endpoints.getTokenEndpoint());
+    }
+  }
 }
