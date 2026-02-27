@@ -827,6 +827,45 @@ public class DatabricksConfig {
     }
   }
 
+  /**
+   * [Experimental] Populate missing config fields from the host's /.well-known/databricks-config
+   * discovery endpoint.
+   *
+   * <p>Fills in {@code accountId}, {@code workspaceId}, and {@code discoveryUrl} (derived from
+   * {@code oidc_endpoint}, with any {@code {account_id}} placeholder substituted) if not already
+   * set.
+   *
+   * <p><b>Note:</b> This API is experimental and may change or be removed in future releases
+   * without notice.
+   *
+   * @throws DatabricksException if {@code accountId} cannot be resolved or {@code oidc_endpoint} is
+   *     missing from the host metadata.
+   */
+  void resolveHostMetadata() throws IOException {
+    if (host == null) {
+      return;
+    }
+    HostMetadata meta = getHostMetadata();
+    if (accountId == null && meta.getAccountId() != null) {
+      accountId = meta.getAccountId();
+    }
+    if (accountId == null) {
+      throw new DatabricksException(
+          "account_id is not configured and could not be resolved from host metadata");
+    }
+    if (workspaceId == null && meta.getWorkspaceId() != null) {
+      workspaceId = meta.getWorkspaceId();
+    }
+    if (discoveryUrl == null) {
+      if (meta.getOidcEndpoint() != null && !meta.getOidcEndpoint().isEmpty()) {
+        discoveryUrl = meta.getOidcEndpoint().replace("{account_id}", accountId);
+      } else {
+        throw new DatabricksException(
+            "discovery_url is not configured and could not be resolved from host metadata");
+      }
+    }
+  }
+
   private OpenIDConnectEndpoints fetchOidcEndpointsFromDiscovery() {
     try {
       Request request = new Request("GET", discoveryUrl);

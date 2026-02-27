@@ -480,6 +480,105 @@ public class DatabricksConfigTest {
     }
   }
 
+  // --- resolveHostMetadata tests ---
+
+  @Test
+  public void testResolveHostMetadataWorkspacePopulatesAllFields() throws IOException {
+    String response =
+        "{\"oidc_endpoint\":\"https://ws.databricks.com/oidc\","
+            + "\"account_id\":\""
+            + DUMMY_ACCOUNT_ID
+            + "\","
+            + "\"workspace_id\":\""
+            + DUMMY_WORKSPACE_ID
+            + "\"}";
+    try (FixtureServer server =
+        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+      DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
+      config.resolve(emptyEnv());
+      config.resolveHostMetadata();
+      assertEquals(DUMMY_ACCOUNT_ID, config.getAccountId());
+      assertEquals(DUMMY_WORKSPACE_ID, config.getWorkspaceId());
+      assertEquals("https://ws.databricks.com/oidc", config.getDiscoveryUrl());
+    }
+  }
+
+  @Test
+  public void testResolveHostMetadataAccountSubstitutesAccountId() throws IOException {
+    String response =
+        "{\"oidc_endpoint\":\"https://acc.databricks.com/oidc/accounts/{account_id}\"}";
+    try (FixtureServer server =
+        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+      DatabricksConfig config =
+          new DatabricksConfig().setHost(server.getUrl()).setAccountId(DUMMY_ACCOUNT_ID);
+      config.resolve(emptyEnv());
+      config.resolveHostMetadata();
+      assertEquals(
+          "https://acc.databricks.com/oidc/accounts/" + DUMMY_ACCOUNT_ID, config.getDiscoveryUrl());
+    }
+  }
+
+  @Test
+  public void testResolveHostMetadataDoesNotOverwriteExistingFields() throws IOException {
+    String existingAccountId = "existing-account-id";
+    String existingWorkspaceId = "existing-workspace-id";
+    String response =
+        "{\"oidc_endpoint\":\"https://ws.databricks.com/oidc\","
+            + "\"account_id\":\"other-account\","
+            + "\"workspace_id\":\"other-ws\"}";
+    try (FixtureServer server =
+        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+      DatabricksConfig config =
+          new DatabricksConfig()
+              .setHost(server.getUrl())
+              .setAccountId(existingAccountId)
+              .setWorkspaceId(existingWorkspaceId);
+      config.resolve(emptyEnv());
+      config.resolveHostMetadata();
+      assertEquals(existingAccountId, config.getAccountId());
+      assertEquals(existingWorkspaceId, config.getWorkspaceId());
+    }
+  }
+
+  @Test
+  public void testResolveHostMetadataRaisesWhenAccountIdUnresolvable() throws IOException {
+    String response =
+        "{\"oidc_endpoint\":\"https://acc.databricks.com/oidc/accounts/{account_id}\"}";
+    try (FixtureServer server =
+        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+      DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
+      config.resolve(emptyEnv());
+      DatabricksException ex =
+          assertThrows(DatabricksException.class, () -> config.resolveHostMetadata());
+      assertTrue(ex.getMessage().contains("account_id is not configured"));
+    }
+  }
+
+  @Test
+  public void testResolveHostMetadataRaisesWhenOidcEndpointMissing() throws IOException {
+    String response = "{\"account_id\":\"" + DUMMY_ACCOUNT_ID + "\"}";
+    try (FixtureServer server =
+        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+      DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
+      config.resolve(emptyEnv());
+      DatabricksException ex =
+          assertThrows(DatabricksException.class, () -> config.resolveHostMetadata());
+      assertTrue(ex.getMessage().contains("discovery_url is not configured"));
+    }
+  }
+
+  @Test
+  public void testResolveHostMetadataRaisesOnHttpError() throws IOException {
+    try (FixtureServer server =
+        new FixtureServer().with("GET", "/.well-known/databricks-config", "{}", 500)) {
+      DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
+      config.resolve(emptyEnv());
+      DatabricksException ex =
+          assertThrows(DatabricksException.class, () -> config.resolveHostMetadata());
+      assertTrue(ex.getMessage().contains("Failed to fetch host metadata"));
+    }
+  }
+
   // --- discoveryUrl / OIDC endpoint tests ---
 
   @Test
