@@ -2,6 +2,7 @@ package com.databricks.sdk.core;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockConstruction;
@@ -27,9 +28,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -211,6 +214,177 @@ public class CliTokenSourceTest {
     } else {
       Instant parsedInstant = CliTokenSource.parseExpiry(input);
       assertEquals(expectedInstant, parsedInstant);
+    }
+  }
+
+  // ---- Fallback tests for --profile flag handling ----
+
+  private CliTokenSource makeTokenSource(
+      Environment env, List<String> primaryCmd, List<String> fallbackCmd) {
+    OSUtilities osUtils = mock(OSUtilities.class);
+    when(osUtils.getCliExecutableCommand(any())).thenAnswer(inv -> inv.getArgument(0));
+    try (MockedStatic<OSUtils> mockedOSUtils = mockStatic(OSUtils.class)) {
+      mockedOSUtils.when(() -> OSUtils.get(any())).thenReturn(osUtils);
+      return new CliTokenSource(
+          primaryCmd, "token_type", "access_token", "expiry", env, fallbackCmd);
+    }
+  }
+
+  private String validTokenJson(String accessToken) {
+    String expiry =
+        ZonedDateTime.now()
+            .plusHours(1)
+            .format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX"));
+    return String.format(
+        "{\"token_type\":\"Bearer\",\"access_token\":\"%s\",\"expiry\":\"%s\"}",
+        accessToken, expiry);
+  }
+
+  @Test
+  public void testFallbackOnUnknownProfileFlagInStderr() {
+    Environment env = mock(Environment.class);
+    when(env.getEnv()).thenReturn(new HashMap<>());
+
+    List<String> primaryCmd =
+        Arrays.asList("databricks", "auth", "token", "--profile", "my-profile");
+    List<String> fallbackCmdList =
+        Arrays.asList("databricks", "auth", "token", "--host", "https://workspace.databricks.com");
+
+    CliTokenSource tokenSource = makeTokenSource(env, primaryCmd, fallbackCmdList);
+
+    AtomicInteger callCount = new AtomicInteger(0);
+    try (MockedConstruction<ProcessBuilder> mocked =
+        mockConstruction(
+            ProcessBuilder.class,
+            (pb, context) -> {
+              if (callCount.getAndIncrement() == 0) {
+                Process failProcess = mock(Process.class);
+                when(failProcess.getInputStream())
+                    .thenReturn(new ByteArrayInputStream(new byte[0]));
+                when(failProcess.getErrorStream())
+                    .thenReturn(
+                        new ByteArrayInputStream("Error: unknown flag: --profile".getBytes()));
+                when(failProcess.waitFor()).thenReturn(1);
+                when(pb.start()).thenReturn(failProcess);
+              } else {
+                Process successProcess = mock(Process.class);
+                when(successProcess.getInputStream())
+                    .thenReturn(
+                        new ByteArrayInputStream(validTokenJson("fallback-token").getBytes()));
+                when(successProcess.getErrorStream())
+                    .thenReturn(new ByteArrayInputStream(new byte[0]));
+                when(successProcess.waitFor()).thenReturn(0);
+                when(pb.start()).thenReturn(successProcess);
+              }
+            })) {
+      Token token = tokenSource.getToken();
+      assertEquals("fallback-token", token.getAccessToken());
+      assertEquals(2, mocked.constructed().size());
+    }
+  }
+
+  @Test
+  public void testFallbackTriggeredWhenUnknownFlagInStdout() {
+    // Fallback triggers even when "unknown flag" appears in stdout rather than stderr.
+    Environment env = mock(Environment.class);
+    when(env.getEnv()).thenReturn(new HashMap<>());
+
+    List<String> primaryCmd =
+        Arrays.asList("databricks", "auth", "token", "--profile", "my-profile");
+    List<String> fallbackCmdList =
+        Arrays.asList("databricks", "auth", "token", "--host", "https://workspace.databricks.com");
+
+    CliTokenSource tokenSource = makeTokenSource(env, primaryCmd, fallbackCmdList);
+
+    AtomicInteger callCount = new AtomicInteger(0);
+    try (MockedConstruction<ProcessBuilder> mocked =
+        mockConstruction(
+            ProcessBuilder.class,
+            (pb, context) -> {
+              if (callCount.getAndIncrement() == 0) {
+                Process failProcess = mock(Process.class);
+                when(failProcess.getInputStream())
+                    .thenReturn(
+                        new ByteArrayInputStream("Error: unknown flag: --profile".getBytes()));
+                when(failProcess.getErrorStream())
+                    .thenReturn(new ByteArrayInputStream(new byte[0]));
+                when(failProcess.waitFor()).thenReturn(1);
+                when(pb.start()).thenReturn(failProcess);
+              } else {
+                Process successProcess = mock(Process.class);
+                when(successProcess.getInputStream())
+                    .thenReturn(
+                        new ByteArrayInputStream(validTokenJson("fallback-token").getBytes()));
+                when(successProcess.getErrorStream())
+                    .thenReturn(new ByteArrayInputStream(new byte[0]));
+                when(successProcess.waitFor()).thenReturn(0);
+                when(pb.start()).thenReturn(successProcess);
+              }
+            })) {
+      Token token = tokenSource.getToken();
+      assertEquals("fallback-token", token.getAccessToken());
+      assertEquals(2, mocked.constructed().size());
+    }
+  }
+
+  @Test
+  public void testNoFallbackOnRealAuthError() {
+    // When the primary fails with a real error (not unknown flag), no fallback is attempted.
+    Environment env = mock(Environment.class);
+    when(env.getEnv()).thenReturn(new HashMap<>());
+
+    List<String> primaryCmd =
+        Arrays.asList("databricks", "auth", "token", "--profile", "my-profile");
+    List<String> fallbackCmdList =
+        Arrays.asList("databricks", "auth", "token", "--host", "https://workspace.databricks.com");
+
+    CliTokenSource tokenSource = makeTokenSource(env, primaryCmd, fallbackCmdList);
+
+    try (MockedConstruction<ProcessBuilder> mocked =
+        mockConstruction(
+            ProcessBuilder.class,
+            (pb, context) -> {
+              Process failProcess = mock(Process.class);
+              when(failProcess.getInputStream()).thenReturn(new ByteArrayInputStream(new byte[0]));
+              when(failProcess.getErrorStream())
+                  .thenReturn(
+                      new ByteArrayInputStream(
+                          "databricks OAuth is not configured for this host".getBytes()));
+              when(failProcess.waitFor()).thenReturn(1);
+              when(pb.start()).thenReturn(failProcess);
+            })) {
+      DatabricksException ex = assertThrows(DatabricksException.class, tokenSource::getToken);
+      assertTrue(ex.getMessage().contains("databricks OAuth is not configured"));
+      assertEquals(1, mocked.constructed().size());
+    }
+  }
+
+  @Test
+  public void testNoFallbackWhenFallbackCmdNotSet() {
+    // When fallbackCmd is null and the primary fails with unknown flag, original error propagates.
+    Environment env = mock(Environment.class);
+    when(env.getEnv()).thenReturn(new HashMap<>());
+
+    List<String> primaryCmd =
+        Arrays.asList("databricks", "auth", "token", "--profile", "my-profile");
+
+    CliTokenSource tokenSource = makeTokenSource(env, primaryCmd, null);
+
+    try (MockedConstruction<ProcessBuilder> mocked =
+        mockConstruction(
+            ProcessBuilder.class,
+            (pb, context) -> {
+              Process failProcess = mock(Process.class);
+              when(failProcess.getInputStream()).thenReturn(new ByteArrayInputStream(new byte[0]));
+              when(failProcess.getErrorStream())
+                  .thenReturn(
+                      new ByteArrayInputStream("Error: unknown flag: --profile".getBytes()));
+              when(failProcess.waitFor()).thenReturn(1);
+              when(pb.start()).thenReturn(failProcess);
+            })) {
+      DatabricksException ex = assertThrows(DatabricksException.class, tokenSource::getToken);
+      assertTrue(ex.getMessage().contains("unknown flag: --profile"));
+      assertEquals(1, mocked.constructed().size());
     }
   }
 }
