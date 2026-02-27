@@ -6,6 +6,7 @@ import static org.mockito.Mockito.*;
 import com.databricks.sdk.core.commons.CommonsHttpClient;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.oauth.ErrorTokenSource;
+import com.databricks.sdk.core.oauth.HostMetadata;
 import com.databricks.sdk.core.oauth.OAuthHeaderFactory;
 import com.databricks.sdk.core.oauth.OpenIDConnectEndpoints;
 import com.databricks.sdk.core.oauth.Token;
@@ -420,5 +421,62 @@ public class DatabricksConfigTest {
             .setHost("https://unified.databricks.com")
             .setExperimentalIsUnifiedHost(true)
             .getClientType());
+  }
+
+  // --- HostMetadata tests ---
+
+  private static final String DUMMY_ACCOUNT_ID = "00000000-0000-0000-0000-000000000001";
+  private static final String DUMMY_WORKSPACE_ID = "111111111111111";
+
+  private static Environment emptyEnv() {
+    return new Environment(new HashMap<>(), new ArrayList<>(), System.getProperty("os.name"));
+  }
+
+  @Test
+  public void testGetHostMetadataWorkspaceStaticOidcEndpoint() throws IOException {
+    String response =
+        "{\"oidc_endpoint\":\"https://ws.databricks.com/oidc\","
+            + "\"account_id\":\""
+            + DUMMY_ACCOUNT_ID
+            + "\","
+            + "\"workspace_id\":\""
+            + DUMMY_WORKSPACE_ID
+            + "\"}";
+    try (FixtureServer server =
+        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+      DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
+      config.resolve(emptyEnv());
+      HostMetadata meta = config.getHostMetadata();
+      assertEquals("https://ws.databricks.com/oidc", meta.getOidcEndpoint());
+      assertEquals(DUMMY_ACCOUNT_ID, meta.getAccountId());
+      assertEquals(DUMMY_WORKSPACE_ID, meta.getWorkspaceId());
+    }
+  }
+
+  @Test
+  public void testGetHostMetadataAccountRawOidcTemplate() throws IOException {
+    String response =
+        "{\"oidc_endpoint\":\"https://acc.databricks.com/oidc/accounts/{account_id}\"}";
+    try (FixtureServer server =
+        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+      DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
+      config.resolve(emptyEnv());
+      HostMetadata meta = config.getHostMetadata();
+      assertEquals("https://acc.databricks.com/oidc/accounts/{account_id}", meta.getOidcEndpoint());
+      assertNull(meta.getAccountId());
+      assertNull(meta.getWorkspaceId());
+    }
+  }
+
+  @Test
+  public void testGetHostMetadataRaisesOnHttpError() throws IOException {
+    try (FixtureServer server =
+        new FixtureServer().with("GET", "/.well-known/databricks-config", "{}", 404)) {
+      DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
+      config.resolve(emptyEnv());
+      DatabricksException ex =
+          assertThrows(DatabricksException.class, () -> config.getHostMetadata());
+      assertTrue(ex.getMessage().contains("Failed to fetch host metadata"));
+    }
   }
 }
