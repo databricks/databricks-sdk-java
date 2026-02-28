@@ -52,10 +52,6 @@ public class EditInstancePool {
   @JsonProperty("min_idle_instances")
   private Long minIdleInstances;
 
-  /** Flexible node type configuration for the pool. */
-  @JsonProperty("node_type_flexibility")
-  private NodeTypeFlexibility nodeTypeFlexibility;
-
   /**
    * This field encodes, through a single value, the resources available to each of the Spark nodes
    * in this cluster. For example, the Spark nodes can be provisioned and optimized for memory or
@@ -134,15 +130,6 @@ public class EditInstancePool {
     return minIdleInstances;
   }
 
-  public EditInstancePool setNodeTypeFlexibility(NodeTypeFlexibility nodeTypeFlexibility) {
-    this.nodeTypeFlexibility = nodeTypeFlexibility;
-    return this;
-  }
-
-  public NodeTypeFlexibility getNodeTypeFlexibility() {
-    return nodeTypeFlexibility;
-  }
-
   public EditInstancePool setNodeTypeId(String nodeTypeId) {
     this.nodeTypeId = nodeTypeId;
     return this;
@@ -182,7 +169,6 @@ public class EditInstancePool {
         && Objects.equals(instancePoolName, that.instancePoolName)
         && Objects.equals(maxCapacity, that.maxCapacity)
         && Objects.equals(minIdleInstances, that.minIdleInstances)
-        && Objects.equals(nodeTypeFlexibility, that.nodeTypeFlexibility)
         && Objects.equals(nodeTypeId, that.nodeTypeId)
         && Objects.equals(remoteDiskThroughput, that.remoteDiskThroughput)
         && Objects.equals(totalInitialRemoteDiskSize, that.totalInitialRemoteDiskSize);
@@ -197,7 +183,6 @@ public class EditInstancePool {
         instancePoolName,
         maxCapacity,
         minIdleInstances,
-        nodeTypeFlexibility,
         nodeTypeId,
         remoteDiskThroughput,
         totalInitialRemoteDiskSize);
@@ -212,7 +197,6 @@ public class EditInstancePool {
         .add("instancePoolName", instancePoolName)
         .add("maxCapacity", maxCapacity)
         .add("minIdleInstances", minIdleInstances)
-        .add("nodeTypeFlexibility", nodeTypeFlexibility)
         .add("nodeTypeId", nodeTypeId)
         .add("remoteDiskThroughput", remoteDiskThroughput)
         .add("totalInitialRemoteDiskSize", totalInitialRemoteDiskSize)

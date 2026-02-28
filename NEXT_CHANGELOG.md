@@ -20,3 +20,6 @@
 * [Breaking] Remove `oauth2AppClientId` and `oauth2AppIntegrationId` fields for `com.databricks.sdk.service.apps.Space`.
 * Add `createDatabase()`, `deleteDatabase()`, `getDatabase()`, `listDatabases()` and `updateDatabase()` methods for `workspaceClient.postgres()` service.
 * Add `postgres` field for `com.databricks.sdk.service.apps.AppResource`.
+* Add `enablePgNativeLogin` field for `com.databricks.sdk.service.postgres.ProjectSpec`.
+* Add `enablePgNativeLogin` field for `com.databricks.sdk.service.postgres.ProjectStatus`.
+* [Breaking] Remove `nodeTypeFlexibility` field for `com.databricks.sdk.service.compute.EditInstancePool`.
