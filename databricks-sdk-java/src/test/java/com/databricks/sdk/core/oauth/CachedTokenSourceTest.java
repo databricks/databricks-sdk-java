@@ -17,18 +17,54 @@ public class CachedTokenSourceTest {
   private static final String TOKEN_TYPE = "Bearer";
   private static final String INITIAL_TOKEN = "initial-token";
   private static final String REFRESH_TOKEN = "refreshed-token";
+
   private static final long FRESH_MINUTES = 10;
-  private static final long STALE_MINUTES = 1;
+
+  // Token TTL for the stale scenario: 4 minutes.
+  // dynamicStaleDuration = min(4/2, 20) = 2 min.
+  // After advancing the clock by STALE_ADVANCE_MINUTES = 3, lifeTime = 1 min.
+  // 1 min ≤ 2 min (stale) and 1 min > 40s (not expired) → STALE.
+  private static final long STALE_MINUTES = 4;
+  private static final long STALE_ADVANCE_MINUTES = 3;
+
+  // Token TTL for the capped stale duration scenario: 60 minutes.
+  // dynamicStaleDuration = min(60/2, 20) = 20 min (MAX_STALE_DURATION cap).
+  // After advancing the clock by CAPPED_STALE_ADVANCE_MINUTES = 41, lifeTime = 19 min.
+  // 19 min ≤ 20 min (stale) and 19 min > 40s (not expired) → STALE.
+  private static final long CAPPED_STALE_MINUTES = 60;
+  private static final long CAPPED_STALE_ADVANCE_MINUTES = 41;
+
   private static final long EXPIRED_MINUTES = -1;
 
   private static Stream<Arguments> provideAsyncRefreshScenarios() {
     return Stream.of(
-        Arguments.of("Fresh token, async enabled", FRESH_MINUTES, false, false, INITIAL_TOKEN),
-        Arguments.of("Stale token, async enabled", STALE_MINUTES, false, true, INITIAL_TOKEN),
-        Arguments.of("Expired token, async enabled", EXPIRED_MINUTES, false, true, REFRESH_TOKEN),
-        Arguments.of("Fresh token, async disabled", FRESH_MINUTES, true, false, INITIAL_TOKEN),
-        Arguments.of("Stale token, async disabled", STALE_MINUTES, true, false, INITIAL_TOKEN),
-        Arguments.of("Expired token, async disabled", EXPIRED_MINUTES, true, true, REFRESH_TOKEN));
+        Arguments.of("Fresh token, async enabled", FRESH_MINUTES, 0L, false, false, INITIAL_TOKEN),
+        Arguments.of(
+            "Stale token, async enabled",
+            STALE_MINUTES,
+            STALE_ADVANCE_MINUTES,
+            false,
+            true,
+            INITIAL_TOKEN),
+        Arguments.of(
+            "Expired token, async enabled", EXPIRED_MINUTES, 0L, false, true, REFRESH_TOKEN),
+        Arguments.of("Fresh token, async disabled", FRESH_MINUTES, 0L, true, false, INITIAL_TOKEN),
+        Arguments.of(
+            "Stale token, async disabled",
+            STALE_MINUTES,
+            STALE_ADVANCE_MINUTES,
+            true,
+            false,
+            INITIAL_TOKEN),
+        Arguments.of(
+            "Stale token, capped stale duration, async enabled",
+            CAPPED_STALE_MINUTES,
+            CAPPED_STALE_ADVANCE_MINUTES,
+            false,
+            true,
+            INITIAL_TOKEN),
+        Arguments.of(
+            "Expired token, async disabled", EXPIRED_MINUTES, 0L, true, true, REFRESH_TOKEN));
   }
 
   @ParameterizedTest(name = "{0}")
@@ -36,19 +72,26 @@ public class CachedTokenSourceTest {
   void testAsyncRefreshParametrized(
       String testName,
       long minutesUntilExpiry,
+      long clockAdvanceMinutes,
       boolean asyncDisabled,
       boolean expectRefresh,
       String expectedToken)
       throws Exception {
+
+    TestClockSupplier clockSupplier = new TestClockSupplier(Instant.now());
 
     Token initialToken =
         new Token(
             INITIAL_TOKEN,
             TOKEN_TYPE,
             null,
-            Instant.now().plus(Duration.ofMinutes(minutesUntilExpiry)));
+            Instant.now(clockSupplier.getClock()).plus(Duration.ofMinutes(minutesUntilExpiry)));
     Token refreshedToken =
-        new Token(REFRESH_TOKEN, TOKEN_TYPE, null, Instant.now().plus(Duration.ofMinutes(10)));
+        new Token(
+            REFRESH_TOKEN,
+            TOKEN_TYPE,
+            null,
+            Instant.now(clockSupplier.getClock()).plus(Duration.ofMinutes(10)));
     CountDownLatch refreshCalled = new CountDownLatch(1);
 
     TokenSource tokenSource =
@@ -69,7 +112,11 @@ public class CachedTokenSourceTest {
         new CachedTokenSource.Builder(tokenSource)
             .setAsyncDisabled(asyncDisabled)
             .setToken(initialToken)
+            .setClockSupplier(clockSupplier)
             .build();
+
+    // Advance the clock to put the token in the expected state before calling getToken().
+    clockSupplier.advanceTime(Duration.ofMinutes(clockAdvanceMinutes));
 
     Token token = source.getToken();
 
@@ -90,13 +137,13 @@ public class CachedTokenSourceTest {
     // Create a mutable clock supplier that we can control
     TestClockSupplier clockSupplier = new TestClockSupplier(Instant.now());
 
-    // Create a token that will be stale (2 minutes until expiry)
+    // Create a token with a TTL of 4 minutes that will be stale in 3 minutes.
     Token staleToken =
         new Token(
             INITIAL_TOKEN,
             TOKEN_TYPE,
             null,
-            Instant.now(clockSupplier.getClock()).plus(Duration.ofMinutes(2)));
+            Instant.now(clockSupplier.getClock()).plus(Duration.ofMinutes(4)));
 
     class TestSource implements TokenSource {
       int refreshCallCount = 0;
@@ -131,6 +178,9 @@ public class CachedTokenSourceTest {
             .setToken(staleToken)
             .setClockSupplier(clockSupplier)
             .build();
+
+    // Advance clock to put the token in the stale window.
+    clockSupplier.advanceTime(Duration.ofMinutes(3));
 
     // First call triggers async refresh, which fails
     // Should return stale token immediately (async refresh)
