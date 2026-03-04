@@ -136,6 +136,8 @@ import com.databricks.sdk.service.jobs.JobsAPI;
 import com.databricks.sdk.service.jobs.JobsService;
 import com.databricks.sdk.service.jobs.PolicyComplianceForJobsAPI;
 import com.databricks.sdk.service.jobs.PolicyComplianceForJobsService;
+import com.databricks.sdk.service.knowledgeassistants.KnowledgeAssistantsAPI;
+import com.databricks.sdk.service.knowledgeassistants.KnowledgeAssistantsService;
 import com.databricks.sdk.service.marketplace.ConsumerFulfillmentsAPI;
 import com.databricks.sdk.service.marketplace.ConsumerFulfillmentsService;
 import com.databricks.sdk.service.marketplace.ConsumerInstallationsAPI;
@@ -316,6 +318,7 @@ public class WorkspaceClient {
   private InstanceProfilesAPI instanceProfilesAPI;
   private IpAccessListsAPI ipAccessListsAPI;
   private JobsAPI jobsAPI;
+  private KnowledgeAssistantsAPI knowledgeAssistantsAPI;
   private LakeviewAPI lakeviewAPI;
   private LakeviewEmbeddedAPI lakeviewEmbeddedAPI;
   private LibrariesAPI librariesAPI;
@@ -449,6 +452,7 @@ public class WorkspaceClient {
     instanceProfilesAPI = new InstanceProfilesAPI(apiClient);
     ipAccessListsAPI = new IpAccessListsAPI(apiClient);
     jobsAPI = new JobsAPI(apiClient);
+    knowledgeAssistantsAPI = new KnowledgeAssistantsAPI(apiClient);
     lakeviewAPI = new LakeviewAPI(apiClient);
     lakeviewEmbeddedAPI = new LakeviewEmbeddedAPI(apiClient);
     librariesAPI = new LibrariesAPI(apiClient);
@@ -1144,6 +1148,11 @@ public class WorkspaceClient {
    */
   public JobsAPI jobs() {
     return jobsAPI;
+  }
+
+  /** Manage Knowledge Assistants and related resources. */
+  public KnowledgeAssistantsAPI knowledgeAssistants() {
+    return knowledgeAssistantsAPI;
   }
 
   /**
@@ -2725,6 +2734,18 @@ public class WorkspaceClient {
   /** Replace the default JobsAPI with a custom implementation. */
   public WorkspaceClient withJobsAPI(JobsAPI jobs) {
     this.jobsAPI = jobs;
+    return this;
+  }
+
+  /** Replace the default KnowledgeAssistantsService with a custom implementation. */
+  public WorkspaceClient withKnowledgeAssistantsImpl(
+      KnowledgeAssistantsService knowledgeAssistants) {
+    return this.withKnowledgeAssistantsAPI(new KnowledgeAssistantsAPI(knowledgeAssistants));
+  }
+
+  /** Replace the default KnowledgeAssistantsAPI with a custom implementation. */
+  public WorkspaceClient withKnowledgeAssistantsAPI(KnowledgeAssistantsAPI knowledgeAssistants) {
+    this.knowledgeAssistantsAPI = knowledgeAssistants;
     return this;
   }
 

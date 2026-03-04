@@ -13,3 +13,5 @@
 ### Internal Changes
 
 ### API Changes
+* Add `com.databricks.sdk.service.knowledgeassistants` package.
+* Add `workspaceClient.knowledgeAssistants()` service.
