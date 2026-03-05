@@ -1,10 +1,14 @@
 package com.databricks.sdk.core;
 
 import com.databricks.sdk.core.oauth.*;
+import com.databricks.sdk.core.utils.Cloud;
 import com.databricks.sdk.support.InternalApi;
 import com.google.common.base.Strings;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +21,21 @@ import org.slf4j.LoggerFactory;
 @InternalApi
 public class DefaultCredentialsProvider implements CredentialsProvider {
   private static final Logger LOG = LoggerFactory.getLogger(DefaultCredentialsProvider.class);
+
+  // cloudRequirements declares the cloud each strategy requires. DefaultCredentialsProvider uses
+  // this to skip cloud-specific strategies in auto-detect mode when the host cloud does not match.
+  // Cloud filtering is bypassed when authType is explicitly set.
+  private static final Map<String, Cloud> CLOUD_REQUIREMENTS;
+
+  static {
+    Map<String, Cloud> m = new HashMap<>();
+    m.put("github-oidc-azure", Cloud.AZURE);
+    m.put("azure-client-secret", Cloud.AZURE);
+    m.put("azure-cli", Cloud.AZURE);
+    m.put("google-credentials", Cloud.GCP);
+    m.put("google-id", Cloud.GCP);
+    CLOUD_REQUIREMENTS = Collections.unmodifiableMap(m);
+  }
 
   /* List of credential providers that will be tried in sequence */
   private List<CredentialsProvider> providers = new ArrayList<>();
@@ -40,6 +59,11 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
 
   public DefaultCredentialsProvider() {}
 
+  /** For testing: creates a provider with a fixed list of credential providers. */
+  DefaultCredentialsProvider(List<CredentialsProvider> providers) {
+    this.providers = new ArrayList<>(providers);
+  }
+
   /**
    * Returns the current authentication type being used
    *
@@ -60,13 +84,24 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
   @Override
   public synchronized HeaderFactory configure(DatabricksConfig config) {
     addDefaultCredentialsProviders(config);
+    boolean explicitAuthType = config.getAuthType() != null && !config.getAuthType().isEmpty();
     for (CredentialsProvider provider : providers) {
-      if (config.getAuthType() != null
-          && !config.getAuthType().isEmpty()
-          && !provider.authType().equals(config.getAuthType())) {
+      if (explicitAuthType && !provider.authType().equals(config.getAuthType())) {
         LOG.info(
             "Ignoring {} auth, because {} is preferred", provider.authType(), config.getAuthType());
         continue;
+      }
+      // In auto-detect mode, skip cloud-specific strategies whose required cloud does not match
+      // the detected host cloud. When authType is explicitly set, cloud filtering is bypassed so
+      // that users can request any strategy regardless of detected cloud (e.g. "azure-cli" on GCP).
+      if (!explicitAuthType) {
+        Cloud requiredCloud = CLOUD_REQUIREMENTS.get(provider.authType());
+        if (requiredCloud != null
+            && config.getDatabricksEnvironment().getCloud() != requiredCloud) {
+          LOG.debug(
+              "Skipping \"{}\" auth: not configured for {}", provider.authType(), requiredCloud);
+          continue;
+        }
       }
       try {
         LOG.info("Trying {} auth", provider.authType());

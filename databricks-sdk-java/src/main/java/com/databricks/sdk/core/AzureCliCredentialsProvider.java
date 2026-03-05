@@ -77,10 +77,6 @@ public class AzureCliCredentialsProvider implements CredentialsProvider {
 
   @Override
   public OAuthHeaderFactory configure(DatabricksConfig config) {
-    if (!config.isAzure()) {
-      return null;
-    }
-
     try {
       AzureUtils.ensureHostPresent(config, mapper, this::tokenSourceFor);
       String resource = config.getEffectiveAzureLoginAppId();

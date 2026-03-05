@@ -30,7 +30,7 @@ public class GoogleCredentialsCredentialsProvider implements CredentialsProvider
   public HeaderFactory configure(DatabricksConfig config) {
     String host = config.getHost();
     String googleCredentials = config.getGoogleCredentials();
-    if (host == null || googleCredentials == null || !config.isGcp()) {
+    if (host == null || googleCredentials == null) {
       return null;
     }
 
