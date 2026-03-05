@@ -13,3 +13,6 @@
 ### Internal Changes
 
 ### API Changes
+* Add `com.databricks.sdk.service.dataclassification` and `com.databricks.sdk.service.knowledgeassistants` packages.
+* Add `workspaceClient.dataClassification()` service.
+* Add `workspaceClient.knowledgeAssistants()` service.
