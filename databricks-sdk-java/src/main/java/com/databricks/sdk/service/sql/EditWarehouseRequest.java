@@ -48,7 +48,7 @@ public class EditWarehouseRequest {
   /**
    * Configures whether the warehouse should use Photon optimized clusters.
    *
-   * <p>Defaults to false.
+   * <p>Defaults to true.
    */
   @JsonProperty("enable_photon")
   private Boolean enablePhoton;

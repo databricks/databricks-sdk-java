@@ -17,6 +17,13 @@ public class AppResourceUcSecurable {
   @JsonProperty("securable_full_name")
   private String securableFullName;
 
+  /**
+   * The securable kind from Unity Catalog. See
+   * https://docs.databricks.com/api/workspace/tables/get#securable_kind_manifest-securable_kind.
+   */
+  @JsonProperty("securable_kind")
+  private String securableKind;
+
   /** */
   @JsonProperty("securable_type")
   private AppResourceUcSecurableUcSecurableType securableType;
@@ -40,6 +47,15 @@ public class AppResourceUcSecurable {
     return securableFullName;
   }
 
+  public AppResourceUcSecurable setSecurableKind(String securableKind) {
+    this.securableKind = securableKind;
+    return this;
+  }
+
+  public String getSecurableKind() {
+    return securableKind;
+  }
+
   public AppResourceUcSecurable setSecurableType(
       AppResourceUcSecurableUcSecurableType securableType) {
     this.securableType = securableType;
@@ -57,12 +73,13 @@ public class AppResourceUcSecurable {
     AppResourceUcSecurable that = (AppResourceUcSecurable) o;
     return Objects.equals(permission, that.permission)
         && Objects.equals(securableFullName, that.securableFullName)
+        && Objects.equals(securableKind, that.securableKind)
         && Objects.equals(securableType, that.securableType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(permission, securableFullName, securableType);
+    return Objects.hash(permission, securableFullName, securableKind, securableType);
   }
 
   @Override
@@ -70,6 +87,7 @@ public class AppResourceUcSecurable {
     return new ToStringer(AppResourceUcSecurable.class)
         .add("permission", permission)
         .add("securableFullName", securableFullName)
+        .add("securableKind", securableKind)
         .add("securableType", securableType)
         .toString();
   }

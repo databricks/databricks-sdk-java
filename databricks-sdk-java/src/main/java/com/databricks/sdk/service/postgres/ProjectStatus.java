@@ -31,6 +31,10 @@ public class ProjectStatus {
   @JsonProperty("display_name")
   private String displayName;
 
+  /** Whether to enable PG native password login on all endpoints in this project. */
+  @JsonProperty("enable_pg_native_login")
+  private Boolean enablePgNativeLogin;
+
   /** The effective number of seconds to retain the shared history for point in time recovery. */
   @JsonProperty("history_retention_duration")
   private Duration historyRetentionDuration;
@@ -93,6 +97,15 @@ public class ProjectStatus {
     return displayName;
   }
 
+  public ProjectStatus setEnablePgNativeLogin(Boolean enablePgNativeLogin) {
+    this.enablePgNativeLogin = enablePgNativeLogin;
+    return this;
+  }
+
+  public Boolean getEnablePgNativeLogin() {
+    return enablePgNativeLogin;
+  }
+
   public ProjectStatus setHistoryRetentionDuration(Duration historyRetentionDuration) {
     this.historyRetentionDuration = historyRetentionDuration;
     return this;
@@ -139,6 +152,7 @@ public class ProjectStatus {
         && Objects.equals(customTags, that.customTags)
         && Objects.equals(defaultEndpointSettings, that.defaultEndpointSettings)
         && Objects.equals(displayName, that.displayName)
+        && Objects.equals(enablePgNativeLogin, that.enablePgNativeLogin)
         && Objects.equals(historyRetentionDuration, that.historyRetentionDuration)
         && Objects.equals(owner, that.owner)
         && Objects.equals(pgVersion, that.pgVersion)
@@ -153,6 +167,7 @@ public class ProjectStatus {
         customTags,
         defaultEndpointSettings,
         displayName,
+        enablePgNativeLogin,
         historyRetentionDuration,
         owner,
         pgVersion,
@@ -167,6 +182,7 @@ public class ProjectStatus {
         .add("customTags", customTags)
         .add("defaultEndpointSettings", defaultEndpointSettings)
         .add("displayName", displayName)
+        .add("enablePgNativeLogin", enablePgNativeLogin)
         .add("historyRetentionDuration", historyRetentionDuration)
         .add("owner", owner)
         .add("pgVersion", pgVersion)

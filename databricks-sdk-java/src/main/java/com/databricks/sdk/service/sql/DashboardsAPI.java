@@ -13,6 +13,10 @@ import org.slf4j.LoggerFactory;
  * duplicate multiple dashboards at once since you can get a dashboard definition with a GET request
  * and then POST it to create a new one. Dashboards can be scheduled using the `sql_task` type of
  * the Jobs API, e.g. :method:jobs/create.
+ *
+ * <p>**Warning**: This API is deprecated. Please use the AI/BI Dashboards API instead. [Learn more]
+ *
+ * <p>[Learn more]: https://docs.databricks.com/en/dashboards/
  */
 @Generated
 public class DashboardsAPI {
@@ -37,6 +41,11 @@ public class DashboardsAPI {
   /**
    * Moves a dashboard to the trash. Trashed dashboards do not appear in list views or searches, and
    * cannot be shared.
+   *
+   * <p>**Warning**: This API is deprecated. Please use the AI/BI Dashboards API instead. [Learn
+   * more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/dashboards/
    */
   public void delete(DeleteDashboardRequest request) {
     impl.delete(request);
@@ -49,6 +58,11 @@ public class DashboardsAPI {
   /**
    * Returns a JSON representation of a dashboard object, including its visualization and query
    * objects.
+   *
+   * <p>**Warning**: This API is deprecated. Please use the AI/BI Dashboards API instead. [Learn
+   * more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/dashboards/
    */
   public Dashboard get(GetDashboardRequest request) {
     return impl.get(request);
@@ -59,6 +73,11 @@ public class DashboardsAPI {
    *
    * <p>**Warning**: Calling this API concurrently 10 or more times could result in throttling,
    * service degradation, or a temporary ban.
+   *
+   * <p>**Warning**: This API is deprecated. Please use the AI/BI Dashboards API instead. [Learn
+   * more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/dashboards/
    */
   public Iterable<Dashboard> list(ListDashboardsRequest request) {
     request.setPage(1L);
@@ -75,7 +94,14 @@ public class DashboardsAPI {
         });
   }
 
-  /** A restored dashboard appears in list views and searches and can be shared. */
+  /**
+   * A restored dashboard appears in list views and searches and can be shared.
+   *
+   * <p>**Warning**: This API is deprecated. Please use the AI/BI Dashboards API instead. [Learn
+   * more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/dashboards/
+   */
   public void restore(RestoreDashboardRequest request) {
     impl.restore(request);
   }
@@ -85,6 +111,11 @@ public class DashboardsAPI {
    * object. It does not add, modify, or remove widgets.
    *
    * <p>**Note**: You cannot undo this operation.
+   *
+   * <p>**Warning**: This API is deprecated. Please use the AI/BI Dashboards API instead. [Learn
+   * more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/dashboards/
    */
   public Dashboard update(DashboardEditContent request) {
     return impl.update(request);

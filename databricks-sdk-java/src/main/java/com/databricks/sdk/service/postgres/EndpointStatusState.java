@@ -8,6 +8,7 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum EndpointStatusState {
   ACTIVE,
+  DEGRADED,
   IDLE,
   INIT,
 }

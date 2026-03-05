@@ -20,7 +20,9 @@ public class ListEndpointsRequest {
   @QueryParam("page_token")
   private String pageToken;
 
-  /** */
+  /**
+   * The parent resource name of the account to list endpoints for. Format: `accounts/{account_id}`.
+   */
   @JsonIgnore private String parent;
 
   public ListEndpointsRequest setPageSize(Long pageSize) {

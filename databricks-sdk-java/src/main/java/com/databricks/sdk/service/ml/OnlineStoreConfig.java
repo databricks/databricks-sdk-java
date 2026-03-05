@@ -12,6 +12,7 @@ import java.util.Objects;
 public class OnlineStoreConfig {
   /**
    * The Unity Catalog catalog name. This name is also used as the Lakebase logical database name.
+   * Quoting is handled by the backend where needed, do not pre-quote it.
    */
   @JsonProperty("catalog_name")
   private String catalogName;
@@ -20,7 +21,10 @@ public class OnlineStoreConfig {
   @JsonProperty("online_store_name")
   private String onlineStoreName;
 
-  /** The Unity Catalog schema name. */
+  /**
+   * The Unity Catalog schema name. This name is also used as the Lakebase schema name under the
+   * database. Quoting is handled by the backend where needed, do not pre-quote it.
+   */
   @JsonProperty("schema_name")
   private String schemaName;
 

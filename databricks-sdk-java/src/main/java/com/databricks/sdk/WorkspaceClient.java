@@ -808,6 +808,11 @@ public class WorkspaceClient {
    * to duplicate multiple dashboards at once since you can get a dashboard definition with a GET
    * request and then POST it to create a new one. Dashboards can be scheduled using the `sql_task`
    * type of the Jobs API, e.g. :method:jobs/create.
+   *
+   * <p>**Warning**: This API is deprecated. Please use the AI/BI Dashboards API instead. [Learn
+   * more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/dashboards/
    */
   public DashboardsAPI dashboards() {
     return dashboardsAPI;
@@ -1433,7 +1438,7 @@ public class WorkspaceClient {
   }
 
   /**
-   * [DEPRECATED] This API is deprecated. Please use the Data Quality Monitoring API instead (REST:
+   * Deprecated: Please use the Data Quality Monitoring API instead (REST:
    * /api/data-quality/v1/monitors). Manage data quality of UC objects (currently support `schema`).
    */
   public QualityMonitorV2API qualityMonitorV2() {
@@ -1441,7 +1446,7 @@ public class WorkspaceClient {
   }
 
   /**
-   * [DEPRECATED] This API is deprecated. Please use the Data Quality Monitors API instead (REST:
+   * Deprecated: Please use the Data Quality Monitors API instead (REST:
    * /api/data-quality/v1/monitors), which manages both Data Profiling and Anomaly Detection.
    *
    * <p>A monitor computes and monitors data or model quality metrics for a table over time. It

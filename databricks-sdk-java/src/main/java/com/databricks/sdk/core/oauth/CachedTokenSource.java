@@ -33,6 +33,11 @@ public class CachedTokenSource implements TokenSource {
   // Default duration before expiry to consider a token as 'stale'. This value is chosen to cover
   // the maximum monthly downtime allowed by a 99.99% uptime SLA (~4.38 minutes).
   private static final Duration DEFAULT_STALE_DURATION = Duration.ofMinutes(5);
+  // The maximum stale duration that can be achieved before expiry to consider a token as 'stale'
+  // when using the dynamic stale duration method. This value is chosen to cover the maximum
+  // monthly downtime allowed by a 99.99% uptime SLA (~4.38 minutes) while increasing the likelihood
+  // that the token is refreshed asynchronously if the auth server is down.
+  private static final Duration MAX_STALE_DURATION = Duration.ofMinutes(20);
   // Default additional buffer before expiry to consider a token as expired.
   // This is 40 seconds by default since Azure Databricks rejects tokens that are within 30 seconds
   // of expiry.
@@ -42,8 +47,12 @@ public class CachedTokenSource implements TokenSource {
   private final TokenSource tokenSource;
   // Whether asynchronous refresh is enabled.
   private boolean asyncDisabled = false;
-  // Duration before expiry to consider a token as 'stale'.
-  private final Duration staleDuration;
+  // The legacy duration before expiry to consider a token as 'stale'.
+  private final Duration staticStaleDuration;
+  // Whether to use the dynamic stale duration computation or defer to the legacy duration.
+  private final boolean useDynamicStaleDuration;
+  // The dynamically computed duration before expiry to consider a token as 'stale'.
+  private volatile Duration dynamicStaleDuration;
   // Additional buffer before expiry to consider a token as expired.
   private final Duration expiryBuffer;
   // Clock supplier for current time.
@@ -59,10 +68,17 @@ public class CachedTokenSource implements TokenSource {
   private CachedTokenSource(Builder builder) {
     this.tokenSource = builder.tokenSource;
     this.asyncDisabled = builder.asyncDisabled;
-    this.staleDuration = builder.staleDuration;
+    this.staticStaleDuration = builder.staleDuration;
+    this.useDynamicStaleDuration = builder.useDynamicStaleDuration;
     this.expiryBuffer = builder.expiryBuffer;
     this.clockSupplier = builder.clockSupplier;
     this.token = builder.token;
+
+    if (this.useDynamicStaleDuration && this.token != null) {
+      this.dynamicStaleDuration = computeStaleDuration(this.token);
+    } else {
+      this.dynamicStaleDuration = Duration.ofMinutes(0);
+    }
   }
 
   /**
@@ -75,6 +91,7 @@ public class CachedTokenSource implements TokenSource {
     private final TokenSource tokenSource;
     private boolean asyncDisabled = false;
     private Duration staleDuration = DEFAULT_STALE_DURATION;
+    private boolean useDynamicStaleDuration = true;
     private Duration expiryBuffer = DEFAULT_EXPIRY_BUFFER;
     private ClockSupplier clockSupplier = new UtcClockSupplier();
     private Token token;
@@ -130,6 +147,7 @@ public class CachedTokenSource implements TokenSource {
      */
     public Builder setStaleDuration(Duration staleDuration) {
       this.staleDuration = staleDuration;
+      this.useDynamicStaleDuration = false;
       return this;
     }
 
@@ -188,6 +206,21 @@ public class CachedTokenSource implements TokenSource {
     return getTokenAsync();
   }
 
+  private Duration computeStaleDuration(Token t) {
+    if (t.getExpiry() == null) {
+      return Duration.ZERO; // Tokens with no expiry are considered permanent.
+    }
+
+    Duration ttl = Duration.between(Instant.now(clockSupplier.getClock()), t.getExpiry());
+
+    if (ttl.compareTo(Duration.ZERO) <= 0) {
+      return Duration.ZERO;
+    }
+
+    Duration halfTtl = ttl.dividedBy(2);
+    return halfTtl.compareTo(MAX_STALE_DURATION) > 0 ? MAX_STALE_DURATION : halfTtl;
+  }
+
   /**
    * Determine the state of the current token (fresh, stale, or expired).
    *
@@ -197,10 +230,15 @@ public class CachedTokenSource implements TokenSource {
     if (t == null) {
       return TokenState.EXPIRED;
     }
+    if (t.getExpiry() == null) {
+      return TokenState.FRESH; // Tokens with no expiry are considered permanent.
+    }
+
     Duration lifeTime = Duration.between(Instant.now(clockSupplier.getClock()), t.getExpiry());
     if (lifeTime.compareTo(expiryBuffer) <= 0) {
       return TokenState.EXPIRED;
     }
+    Duration staleDuration = useDynamicStaleDuration ? dynamicStaleDuration : staticStaleDuration;
     if (lifeTime.compareTo(staleDuration) <= 0) {
       return TokenState.STALE;
     }
@@ -228,13 +266,22 @@ public class CachedTokenSource implements TokenSource {
         return token;
       }
       lastRefreshSucceeded = false;
+      Token newToken;
       try {
-        token = tokenSource.getToken();
+        newToken = tokenSource.getToken();
       } catch (Exception e) {
         logger.error("Failed to refresh token synchronously", e);
         throw e;
       }
       lastRefreshSucceeded = true;
+
+      // Write dynamicStaleDuration before publishing the new token via the volatile write,
+      // so unsynchronized readers that see the new token are guaranteed to also see the
+      // updated dynamicStaleDuration.
+      if (useDynamicStaleDuration && newToken != null) {
+        dynamicStaleDuration = computeStaleDuration(newToken);
+      }
+      token = newToken;
       return token;
     }
   }
@@ -279,6 +326,12 @@ public class CachedTokenSource implements TokenSource {
               // Attempt to refresh the token in the background.
               Token newToken = tokenSource.getToken();
               synchronized (this) {
+                // Write dynamicStaleDuration before publishing the new token via the volatile
+                // write, so unsynchronized readers that see the new token are guaranteed to also
+                // see the updated dynamicStaleDuration.
+                if (useDynamicStaleDuration && newToken != null) {
+                  dynamicStaleDuration = computeStaleDuration(newToken);
+                }
                 token = newToken;
                 refreshInProgress = false;
               }

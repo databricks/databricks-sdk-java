@@ -18,10 +18,6 @@ public class Table {
   @JsonProperty("id")
   private String id;
 
-  /** Internal information for D2D sharing that should not be disclosed to external users. */
-  @JsonProperty("internal_attributes")
-  private TableInternalAttributes internalAttributes;
-
   /** The catalog and schema of the materialized table */
   @JsonProperty("materialization_namespace")
   private String materializationNamespace;
@@ -66,15 +62,6 @@ public class Table {
 
   public String getId() {
     return id;
-  }
-
-  public Table setInternalAttributes(TableInternalAttributes internalAttributes) {
-    this.internalAttributes = internalAttributes;
-    return this;
-  }
-
-  public TableInternalAttributes getInternalAttributes() {
-    return internalAttributes;
   }
 
   public Table setMaterializationNamespace(String materializationNamespace) {
@@ -147,7 +134,6 @@ public class Table {
     Table that = (Table) o;
     return Objects.equals(comment, that.comment)
         && Objects.equals(id, that.id)
-        && Objects.equals(internalAttributes, that.internalAttributes)
         && Objects.equals(materializationNamespace, that.materializationNamespace)
         && Objects.equals(materializedTableName, that.materializedTableName)
         && Objects.equals(name, that.name)
@@ -162,7 +148,6 @@ public class Table {
     return Objects.hash(
         comment,
         id,
-        internalAttributes,
         materializationNamespace,
         materializedTableName,
         name,
@@ -177,7 +162,6 @@ public class Table {
     return new ToStringer(Table.class)
         .add("comment", comment)
         .add("id", id)
-        .add("internalAttributes", internalAttributes)
         .add("materializationNamespace", materializationNamespace)
         .add("materializedTableName", materializedTableName)
         .add("name", name)

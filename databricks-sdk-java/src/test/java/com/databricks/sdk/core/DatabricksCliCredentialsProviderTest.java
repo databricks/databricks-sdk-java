@@ -19,19 +19,19 @@ class DatabricksCliCredentialsProviderTest {
   private final DatabricksCliCredentialsProvider provider = new DatabricksCliCredentialsProvider();
 
   @Test
-  void testBuildCliCommand_WorkspaceHost() {
+  void testBuildHostArgs_WorkspaceHost() {
     DatabricksConfig config = new DatabricksConfig().setHost(HOST);
 
-    List<String> cmd = provider.buildCliCommand(CLI_PATH, config);
+    List<String> cmd = provider.buildHostArgs(CLI_PATH, config);
 
     assertEquals(Arrays.asList(CLI_PATH, "auth", "token", "--host", HOST), cmd);
   }
 
   @Test
-  void testBuildCliCommand_AccountHost() {
+  void testBuildHostArgs_AccountHost() {
     DatabricksConfig config = new DatabricksConfig().setHost(ACCOUNT_HOST).setAccountId(ACCOUNT_ID);
 
-    List<String> cmd = provider.buildCliCommand(CLI_PATH, config);
+    List<String> cmd = provider.buildHostArgs(CLI_PATH, config);
 
     assertEquals(
         Arrays.asList(
@@ -40,7 +40,7 @@ class DatabricksCliCredentialsProviderTest {
   }
 
   @Test
-  void testBuildCliCommand_UnifiedHost_WithAccountIdAndWorkspaceId() {
+  void testBuildHostArgs_UnifiedHost_WithAccountIdAndWorkspaceId() {
     DatabricksConfig config =
         new DatabricksConfig()
             .setHost(UNIFIED_HOST)
@@ -48,7 +48,7 @@ class DatabricksCliCredentialsProviderTest {
             .setAccountId(ACCOUNT_ID)
             .setWorkspaceId(WORKSPACE_ID);
 
-    List<String> cmd = provider.buildCliCommand(CLI_PATH, config);
+    List<String> cmd = provider.buildHostArgs(CLI_PATH, config);
 
     assertEquals(
         Arrays.asList(
@@ -66,14 +66,14 @@ class DatabricksCliCredentialsProviderTest {
   }
 
   @Test
-  void testBuildCliCommand_UnifiedHost_WithAccountIdOnly() {
+  void testBuildHostArgs_UnifiedHost_WithAccountIdOnly() {
     DatabricksConfig config =
         new DatabricksConfig()
             .setHost(UNIFIED_HOST)
             .setExperimentalIsUnifiedHost(true)
             .setAccountId(ACCOUNT_ID);
 
-    List<String> cmd = provider.buildCliCommand(CLI_PATH, config);
+    List<String> cmd = provider.buildHostArgs(CLI_PATH, config);
 
     assertEquals(
         Arrays.asList(
@@ -89,14 +89,14 @@ class DatabricksCliCredentialsProviderTest {
   }
 
   @Test
-  void testBuildCliCommand_UnifiedHost_WithWorkspaceIdOnly() {
+  void testBuildHostArgs_UnifiedHost_WithWorkspaceIdOnly() {
     DatabricksConfig config =
         new DatabricksConfig()
             .setHost(UNIFIED_HOST)
             .setExperimentalIsUnifiedHost(true)
             .setWorkspaceId(WORKSPACE_ID);
 
-    List<String> cmd = provider.buildCliCommand(CLI_PATH, config);
+    List<String> cmd = provider.buildHostArgs(CLI_PATH, config);
 
     assertEquals(
         Arrays.asList(
@@ -112,11 +112,11 @@ class DatabricksCliCredentialsProviderTest {
   }
 
   @Test
-  void testBuildCliCommand_UnifiedHost_WithNoAccountIdOrWorkspaceId() {
+  void testBuildHostArgs_UnifiedHost_WithNoAccountIdOrWorkspaceId() {
     DatabricksConfig config =
         new DatabricksConfig().setHost(UNIFIED_HOST).setExperimentalIsUnifiedHost(true);
 
-    List<String> cmd = provider.buildCliCommand(CLI_PATH, config);
+    List<String> cmd = provider.buildHostArgs(CLI_PATH, config);
 
     assertEquals(
         Arrays.asList(
@@ -125,7 +125,7 @@ class DatabricksCliCredentialsProviderTest {
   }
 
   @Test
-  void testBuildCliCommand_UnifiedHostFalse_WithAccountHost() {
+  void testBuildHostArgs_UnifiedHostFalse_WithAccountHost() {
     // When experimentalIsUnifiedHost is explicitly false, should fall back to account-id logic
     DatabricksConfig config =
         new DatabricksConfig()
@@ -133,7 +133,7 @@ class DatabricksCliCredentialsProviderTest {
             .setExperimentalIsUnifiedHost(false)
             .setAccountId(ACCOUNT_ID);
 
-    List<String> cmd = provider.buildCliCommand(CLI_PATH, config);
+    List<String> cmd = provider.buildHostArgs(CLI_PATH, config);
 
     assertEquals(
         Arrays.asList(

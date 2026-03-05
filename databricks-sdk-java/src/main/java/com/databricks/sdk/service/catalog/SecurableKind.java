@@ -4,7 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** Latest kind: CONNECTION_M365_AUDIT_LOGS_OAUTH_M2M = 297; Next id: 298 */
+/** Latest kind: EXTERNAL_LOCATION_ONELAKE_MANAGED = 299; Next id: 300 */
 @Generated
 public enum SecurableKind {
   TABLE_DB_STORAGE,

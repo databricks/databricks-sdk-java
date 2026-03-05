@@ -11,7 +11,10 @@ import java.util.Objects;
 
 @Generated
 public class UpdateTagAssignmentRequest {
-  /** The identifier of the entity to which the tag is assigned */
+  /**
+   * The identifier of the entity to which the tag is assigned. For apps, the entity_id is the app
+   * name
+   */
   @JsonIgnore private String entityId;
 
   /**

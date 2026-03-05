@@ -37,6 +37,12 @@ public class ProjectSpec {
   private String displayName;
 
   /**
+   * Whether to enable PG native password login on all endpoints in this project. Defaults to true.
+   */
+  @JsonProperty("enable_pg_native_login")
+  private Boolean enablePgNativeLogin;
+
+  /**
    * The number of seconds to retain the shared history for point in time recovery for all branches
    * in this project. Value should be between 0s and 2592000s (up to 30 days).
    */
@@ -84,6 +90,15 @@ public class ProjectSpec {
     return displayName;
   }
 
+  public ProjectSpec setEnablePgNativeLogin(Boolean enablePgNativeLogin) {
+    this.enablePgNativeLogin = enablePgNativeLogin;
+    return this;
+  }
+
+  public Boolean getEnablePgNativeLogin() {
+    return enablePgNativeLogin;
+  }
+
   public ProjectSpec setHistoryRetentionDuration(Duration historyRetentionDuration) {
     this.historyRetentionDuration = historyRetentionDuration;
     return this;
@@ -111,6 +126,7 @@ public class ProjectSpec {
         && Objects.equals(customTags, that.customTags)
         && Objects.equals(defaultEndpointSettings, that.defaultEndpointSettings)
         && Objects.equals(displayName, that.displayName)
+        && Objects.equals(enablePgNativeLogin, that.enablePgNativeLogin)
         && Objects.equals(historyRetentionDuration, that.historyRetentionDuration)
         && Objects.equals(pgVersion, that.pgVersion);
   }
@@ -122,6 +138,7 @@ public class ProjectSpec {
         customTags,
         defaultEndpointSettings,
         displayName,
+        enablePgNativeLogin,
         historyRetentionDuration,
         pgVersion);
   }
@@ -133,6 +150,7 @@ public class ProjectSpec {
         .add("customTags", customTags)
         .add("defaultEndpointSettings", defaultEndpointSettings)
         .add("displayName", displayName)
+        .add("enablePgNativeLogin", enablePgNativeLogin)
         .add("historyRetentionDuration", historyRetentionDuration)
         .add("pgVersion", pgVersion)
         .toString();

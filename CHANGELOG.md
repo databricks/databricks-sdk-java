@@ -1,5 +1,112 @@
 # Version changelog
 
+## Release v0.96.0 (2026-03-03)
+
+### Internal Changes
+* Implement dynamic auth token stale period based on initial token lifetime. Increased up to 20 mins for standard OAuth with proportionally shorter periods for short-lived tokens. Manually setting the stale period using the CachedTokeSource builder reverts the behaviour to the legacy fixed stale duration.
+
+
+## Release v0.95.0 (2026-03-02)
+
+### Bug Fixes
+* Pass `--profile` to CLI token source when profile is set, and add `--host` fallback for older CLIs that don't support `--profile` ([#682](https://github.com/databricks/databricks-sdk-java/pull/682)).
+
+### API Changes
+* Add `dataframeSchema`, `filterCondition` and `transformationSql` fields for `com.databricks.sdk.service.ml.DeltaTableSource`.
+* Add `environmentVersion` field for `com.databricks.sdk.service.pipelines.PipelinesEnvironment`.
+* Add `resetCheckpointSelection` field for `com.databricks.sdk.service.pipelines.StartUpdate`.
+* [Breaking] Remove `oauth2AppClientId` and `oauth2AppIntegrationId` fields for `com.databricks.sdk.service.apps.Space`.
+* Add `createDatabase()`, `deleteDatabase()`, `getDatabase()`, `listDatabases()` and `updateDatabase()` methods for `workspaceClient.postgres()` service.
+* Add `postgres` field for `com.databricks.sdk.service.apps.AppResource`.
+* Add `enablePgNativeLogin` field for `com.databricks.sdk.service.postgres.ProjectSpec`.
+* Add `enablePgNativeLogin` field for `com.databricks.sdk.service.postgres.ProjectStatus`.
+* [Breaking] Remove `nodeTypeFlexibility` field for `com.databricks.sdk.service.compute.EditInstancePool`.
+
+
+## Release v0.94.0 (2026-02-26)
+
+### API Changes
+* Add `effectivePublishingMode` field for `com.databricks.sdk.service.pipelines.GetPipelineResponse`.
+* Add `DBR_AUTOSCALE` enum value for `com.databricks.sdk.service.compute.EventDetailsCause`.
+* Change `outputCatalog` field for `com.databricks.sdk.service.cleanrooms.CreateCleanRoomOutputCatalogResponse` to be required.
+* [Breaking] Remove `internalAttributes` field for `com.databricks.sdk.service.sharing.Table`.
+* [Breaking] Remove `internalAttributes` field for `com.databricks.sdk.service.sharing.Volume`.
+
+
+## Release v0.93.0 (2026-02-25)
+
+### API Changes
+* Add `parameters` field for `com.databricks.sdk.service.pipelines.StartUpdate`.
+* Add `parameters` field for `com.databricks.sdk.service.pipelines.UpdateInfo`.
+* [Breaking] Change `getDownloadFullQueryResult()` method for `workspaceClient.genie()` service with new required argument order.
+* [Breaking] Change `name` field for `com.databricks.sdk.service.apps.Space` to be required.
+* Change `name` field for `com.databricks.sdk.service.apps.Space` to be required.
+* [Breaking] Change `id` and `userId` fields for `com.databricks.sdk.service.dashboards.GenieConversation` to no longer be required.
+* [Breaking] Change `createdTimestamp` and `title` fields for `com.databricks.sdk.service.dashboards.GenieConversationSummary` to no longer be required.
+* [Breaking] Change `downloadIdSignature` field for `com.databricks.sdk.service.dashboards.GenieGetDownloadFullQueryResultRequest` to be required.
+* [Breaking] Change `id` field for `com.databricks.sdk.service.dashboards.GenieMessage` to no longer be required.
+
+
+## Release v0.92.0 (2026-02-24)
+
+### Bug Fixes
+
+* Fixed inconsistent Azure environment resolution between `getAzureEnvironment()` and `getDatabricksEnvironment()` methods ([#XXX](https://github.com/databricks/databricks-sdk-java/pull/XXX))
+
+### Documentation
+
+* Added "Retries" section to README.
+
+### API Changes
+* Add `readOnlyHost` field for `com.databricks.sdk.service.postgres.EndpointHosts`.
+* Add `group` field for `com.databricks.sdk.service.postgres.EndpointSpec`.
+* Add `group` field for `com.databricks.sdk.service.postgres.EndpointStatus`.
+* Add `initialEndpointSpec` field for `com.databricks.sdk.service.postgres.Project`.
+* Add `DEGRADED` enum value for `com.databricks.sdk.service.postgres.EndpointStatusState`.
+* Add `patchEndpoint()` method for `workspaceClient.vectorSearchEndpoints()` service.
+* Add `app` field for `com.databricks.sdk.service.apps.AppResource`.
+* Add `securableKind` field for `com.databricks.sdk.service.apps.AppResourceUcSecurable`.
+* Add `minQps` field for `com.databricks.sdk.service.vectorsearch.CreateEndpoint`.
+* Add `scalingInfo` field for `com.databricks.sdk.service.vectorsearch.EndpointInfo`.
+* Add `MODIFY` enum value for `com.databricks.sdk.service.apps.AppResourceUcSecurableUcSecurablePermission`.
+* Add `COULD_NOT_GET_DASHBOARD_SCHEMA_EXCEPTION` enum value for `com.databricks.sdk.service.dashboards.MessageErrorType`.
+* Add `replaceWhereOverrides` field for `com.databricks.sdk.service.pipelines.StartUpdate`.
+* Add `HIVEMETASTORE_CONNECTIVITY_FAILURE` enum value for `com.databricks.sdk.service.compute.TerminationReasonCode`.
+* Add `HIVEMETASTORE_CONNECTIVITY_FAILURE` enum value for `com.databricks.sdk.service.sql.TerminationReasonCode`.
+
+
+## Release v0.91.0 (2026-02-19)
+
+### API Changes
+* Add `attributes` and `membershipRoles` fields for `com.databricks.sdk.service.postgres.RoleRoleSpec`.
+* Add `membershipRoles` field for `com.databricks.sdk.service.postgres.RoleRoleStatus`.
+* Add `GENERAL_ACCESS` enum value for `com.databricks.sdk.service.provisioning.EndpointUseCase`.
+
+
+## Release v0.90.0 (2026-02-18)
+
+### API Changes
+* Add `usingArguments` field for `com.databricks.sdk.service.catalog.ColumnMask`.
+* Add `effectiveEnableFileEvents` field for `com.databricks.sdk.service.catalog.CreateExternalLocation`.
+* Add `effectiveEnableFileEvents` field for `com.databricks.sdk.service.catalog.ExternalLocationInfo`.
+* Add `inputArguments` field for `com.databricks.sdk.service.catalog.TableRowFilter`.
+* Add `effectiveEnableFileEvents` field for `com.databricks.sdk.service.catalog.UpdateExternalLocation`.
+
+
+## Release v0.89.0 (2026-02-17)
+
+### API Changes
+* Add `com.databricks.sdk.service.networking` package.
+* Add `accountClient.endpoints()` service.
+* Add `filterCondition` and `transformations` fields for `com.databricks.sdk.service.ml.DeltaTableSource`.
+* Add `budgetPolicyId` and `customTags` fields for `com.databricks.sdk.service.postgres.ProjectSpec`.
+* Add `budgetPolicyId` and `customTags` fields for `com.databricks.sdk.service.postgres.ProjectStatus`.
+* Add `createSpace()`, `deleteSpace()`, `getSpace()`, `getSpaceOperation()`, `listSpaces()` and `updateSpace()` methods for `workspaceClient.apps()` service.
+* Add `space` field for `com.databricks.sdk.service.apps.App`.
+* Add `space` field for `com.databricks.sdk.service.apps.ListAppsRequest`.
+* [Breaking] Remove `filterCondition` and `transformations` fields for `com.databricks.sdk.service.ml.DeltaTableSource`.
+
+
 ## Release v0.88.0 (2026-02-12)
 
 ### API Changes

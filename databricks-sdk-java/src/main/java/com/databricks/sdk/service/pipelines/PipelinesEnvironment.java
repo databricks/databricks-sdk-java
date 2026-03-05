@@ -25,6 +25,22 @@ public class PipelinesEnvironment {
   @JsonProperty("dependencies")
   private Collection<String> dependencies;
 
+  /**
+   * The environment version of the serverless Python environment used to execute customer Python
+   * code. Each environment version includes a specific Python version and a curated set of
+   * pre-installed libraries with defined versions, providing a stable and reproducible execution
+   * environment.
+   *
+   * <p>Databricks supports a three-year lifecycle for each environment version. For available
+   * versions and their included packages, see
+   * https://docs.databricks.com/aws/en/release-notes/serverless/environment-version/
+   *
+   * <p>The value should be a string representing the environment version number, for example:
+   * `"4"`.
+   */
+  @JsonProperty("environment_version")
+  private String environmentVersion;
+
   public PipelinesEnvironment setDependencies(Collection<String> dependencies) {
     this.dependencies = dependencies;
     return this;
@@ -34,21 +50,34 @@ public class PipelinesEnvironment {
     return dependencies;
   }
 
+  public PipelinesEnvironment setEnvironmentVersion(String environmentVersion) {
+    this.environmentVersion = environmentVersion;
+    return this;
+  }
+
+  public String getEnvironmentVersion() {
+    return environmentVersion;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     PipelinesEnvironment that = (PipelinesEnvironment) o;
-    return Objects.equals(dependencies, that.dependencies);
+    return Objects.equals(dependencies, that.dependencies)
+        && Objects.equals(environmentVersion, that.environmentVersion);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(dependencies);
+    return Objects.hash(dependencies, environmentVersion);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(PipelinesEnvironment.class).add("dependencies", dependencies).toString();
+    return new ToStringer(PipelinesEnvironment.class)
+        .add("dependencies", dependencies)
+        .add("environmentVersion", environmentVersion)
+        .toString();
   }
 }

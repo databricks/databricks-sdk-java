@@ -18,9 +18,14 @@ public class UpdateExternalLocation {
   @JsonProperty("credential_name")
   private String credentialName;
 
+  /** The effective value of `enable_file_events` after applying server-side defaults. */
+  @JsonProperty("effective_enable_file_events")
+  private Boolean effectiveEnableFileEvents;
+
   /**
    * Whether to enable file events on this external location. Default to `true`. Set to `false` to
-   * disable file events.
+   * disable file events. The actual applied value may differ due to server-side defaults; check
+   * `effective_enable_file_events` for the effective state.
    */
   @JsonProperty("enable_file_events")
   private Boolean enableFileEvents;
@@ -91,6 +96,15 @@ public class UpdateExternalLocation {
 
   public String getCredentialName() {
     return credentialName;
+  }
+
+  public UpdateExternalLocation setEffectiveEnableFileEvents(Boolean effectiveEnableFileEvents) {
+    this.effectiveEnableFileEvents = effectiveEnableFileEvents;
+    return this;
+  }
+
+  public Boolean getEffectiveEnableFileEvents() {
+    return effectiveEnableFileEvents;
   }
 
   public UpdateExternalLocation setEnableFileEvents(Boolean enableFileEvents) {
@@ -208,6 +222,7 @@ public class UpdateExternalLocation {
     UpdateExternalLocation that = (UpdateExternalLocation) o;
     return Objects.equals(comment, that.comment)
         && Objects.equals(credentialName, that.credentialName)
+        && Objects.equals(effectiveEnableFileEvents, that.effectiveEnableFileEvents)
         && Objects.equals(enableFileEvents, that.enableFileEvents)
         && Objects.equals(encryptionDetails, that.encryptionDetails)
         && Objects.equals(fallback, that.fallback)
@@ -227,6 +242,7 @@ public class UpdateExternalLocation {
     return Objects.hash(
         comment,
         credentialName,
+        effectiveEnableFileEvents,
         enableFileEvents,
         encryptionDetails,
         fallback,
@@ -246,6 +262,7 @@ public class UpdateExternalLocation {
     return new ToStringer(UpdateExternalLocation.class)
         .add("comment", comment)
         .add("credentialName", credentialName)
+        .add("effectiveEnableFileEvents", effectiveEnableFileEvents)
         .add("enableFileEvents", enableFileEvents)
         .add("encryptionDetails", encryptionDetails)
         .add("fallback", fallback)

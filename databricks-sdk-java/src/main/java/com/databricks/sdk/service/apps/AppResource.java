@@ -10,6 +10,10 @@ import java.util.Objects;
 @Generated
 public class AppResource {
   /** */
+  @JsonProperty("app")
+  private AppResourceApp app;
+
+  /** */
   @JsonProperty("database")
   private AppResourceDatabase database;
 
@@ -34,6 +38,10 @@ public class AppResource {
   private String name;
 
   /** */
+  @JsonProperty("postgres")
+  private AppResourcePostgres postgres;
+
+  /** */
   @JsonProperty("secret")
   private AppResourceSecret secret;
 
@@ -48,6 +56,15 @@ public class AppResource {
   /** */
   @JsonProperty("uc_securable")
   private AppResourceUcSecurable ucSecurable;
+
+  public AppResource setApp(AppResourceApp app) {
+    this.app = app;
+    return this;
+  }
+
+  public AppResourceApp getApp() {
+    return app;
+  }
 
   public AppResource setDatabase(AppResourceDatabase database) {
     this.database = database;
@@ -103,6 +120,15 @@ public class AppResource {
     return name;
   }
 
+  public AppResource setPostgres(AppResourcePostgres postgres) {
+    this.postgres = postgres;
+    return this;
+  }
+
+  public AppResourcePostgres getPostgres() {
+    return postgres;
+  }
+
   public AppResource setSecret(AppResourceSecret secret) {
     this.secret = secret;
     return this;
@@ -144,12 +170,14 @@ public class AppResource {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     AppResource that = (AppResource) o;
-    return Objects.equals(database, that.database)
+    return Objects.equals(app, that.app)
+        && Objects.equals(database, that.database)
         && Objects.equals(description, that.description)
         && Objects.equals(experiment, that.experiment)
         && Objects.equals(genieSpace, that.genieSpace)
         && Objects.equals(job, that.job)
         && Objects.equals(name, that.name)
+        && Objects.equals(postgres, that.postgres)
         && Objects.equals(secret, that.secret)
         && Objects.equals(servingEndpoint, that.servingEndpoint)
         && Objects.equals(sqlWarehouse, that.sqlWarehouse)
@@ -159,12 +187,14 @@ public class AppResource {
   @Override
   public int hashCode() {
     return Objects.hash(
+        app,
         database,
         description,
         experiment,
         genieSpace,
         job,
         name,
+        postgres,
         secret,
         servingEndpoint,
         sqlWarehouse,
@@ -174,12 +204,14 @@ public class AppResource {
   @Override
   public String toString() {
     return new ToStringer(AppResource.class)
+        .add("app", app)
         .add("database", database)
         .add("description", description)
         .add("experiment", experiment)
         .add("genieSpace", genieSpace)
         .add("job", job)
         .add("name", name)
+        .add("postgres", postgres)
         .add("secret", secret)
         .add("servingEndpoint", servingEndpoint)
         .add("sqlWarehouse", sqlWarehouse)

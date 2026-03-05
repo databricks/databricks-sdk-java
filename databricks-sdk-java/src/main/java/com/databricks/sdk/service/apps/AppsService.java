@@ -16,6 +16,9 @@ public interface AppsService {
   /** Creates a new app. */
   App create(CreateAppRequest createAppRequest);
 
+  /** Creates a new app space. */
+  Operation createSpace(CreateSpaceRequest createSpaceRequest);
+
   /**
    * Creates an app update and starts the update process. The update process is asynchronous and the
    * status of the update can be checked with the GetAppUpdate method.
@@ -24,6 +27,9 @@ public interface AppsService {
 
   /** Deletes an app. */
   App delete(DeleteAppRequest deleteAppRequest);
+
+  /** Deletes an app space. */
+  Operation deleteSpace(DeleteSpaceRequest deleteSpaceRequest);
 
   /** Creates an app deployment for the app with the supplied name. */
   AppDeployment deploy(CreateAppDeploymentRequest createAppDeploymentRequest);
@@ -41,6 +47,12 @@ public interface AppsService {
   /** Gets the permissions of an app. Apps can inherit permissions from their root object. */
   AppPermissions getPermissions(GetAppPermissionsRequest getAppPermissionsRequest);
 
+  /** Retrieves information for the app space with the supplied name. */
+  Space getSpace(GetSpaceRequest getSpaceRequest);
+
+  /** Gets the status of an app space update operation. */
+  Operation getSpaceOperation(GetOperationRequest getOperationRequest);
+
   /** Gets the status of an app update. */
   AppUpdate getUpdate(GetAppUpdateRequest getAppUpdateRequest);
 
@@ -49,6 +61,9 @@ public interface AppsService {
 
   /** Lists all app deployments for the app with the supplied name. */
   ListAppDeploymentsResponse listDeployments(ListAppDeploymentsRequest listAppDeploymentsRequest);
+
+  /** Lists all app spaces in the workspace. */
+  ListSpacesResponse listSpaces(ListSpacesRequest listSpacesRequest);
 
   /**
    * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
@@ -67,4 +82,10 @@ public interface AppsService {
 
   /** Updates the permissions on an app. Apps can inherit permissions from their root object. */
   AppPermissions updatePermissions(AppPermissionsRequest appPermissionsRequest);
+
+  /**
+   * Updates an app space. The update process is asynchronous and the status of the update can be
+   * checked with the GetSpaceOperation method.
+   */
+  Operation updateSpace(UpdateSpaceRequest updateSpaceRequest);
 }

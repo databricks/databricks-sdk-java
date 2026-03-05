@@ -36,9 +36,14 @@ public class ExternalLocationInfo {
   @JsonProperty("credential_name")
   private String credentialName;
 
+  /** The effective value of `enable_file_events` after applying server-side defaults. */
+  @JsonProperty("effective_enable_file_events")
+  private Boolean effectiveEnableFileEvents;
+
   /**
    * Whether to enable file events on this external location. Default to `true`. Set to `false` to
-   * disable file events.
+   * disable file events. The actual applied value may differ due to server-side defaults; check
+   * `effective_enable_file_events` for the effective state.
    */
   @JsonProperty("enable_file_events")
   private Boolean enableFileEvents;
@@ -146,6 +151,15 @@ public class ExternalLocationInfo {
 
   public String getCredentialName() {
     return credentialName;
+  }
+
+  public ExternalLocationInfo setEffectiveEnableFileEvents(Boolean effectiveEnableFileEvents) {
+    this.effectiveEnableFileEvents = effectiveEnableFileEvents;
+    return this;
+  }
+
+  public Boolean getEffectiveEnableFileEvents() {
+    return effectiveEnableFileEvents;
   }
 
   public ExternalLocationInfo setEnableFileEvents(Boolean enableFileEvents) {
@@ -267,6 +281,7 @@ public class ExternalLocationInfo {
         && Objects.equals(createdBy, that.createdBy)
         && Objects.equals(credentialId, that.credentialId)
         && Objects.equals(credentialName, that.credentialName)
+        && Objects.equals(effectiveEnableFileEvents, that.effectiveEnableFileEvents)
         && Objects.equals(enableFileEvents, that.enableFileEvents)
         && Objects.equals(encryptionDetails, that.encryptionDetails)
         && Objects.equals(fallback, that.fallback)
@@ -290,6 +305,7 @@ public class ExternalLocationInfo {
         createdBy,
         credentialId,
         credentialName,
+        effectiveEnableFileEvents,
         enableFileEvents,
         encryptionDetails,
         fallback,
@@ -313,6 +329,7 @@ public class ExternalLocationInfo {
         .add("createdBy", createdBy)
         .add("credentialId", credentialId)
         .add("credentialName", credentialName)
+        .add("effectiveEnableFileEvents", effectiveEnableFileEvents)
         .add("enableFileEvents", enableFileEvents)
         .add("encryptionDetails", encryptionDetails)
         .add("fallback", fallback)

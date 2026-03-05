@@ -15,6 +15,14 @@ public class TableRowFilter {
   private String functionName;
 
   /**
+   * The list of additional table columns or literals to be passed as additional arguments to a row
+   * filter function. This is the replacement of the deprecated input_column_names field and carries
+   * information about the types (alias or constant) of the arguments to the filter function.
+   */
+  @JsonProperty("input_arguments")
+  private Collection<PolicyFunctionArgument> inputArguments;
+
+  /**
    * The list of table columns to be passed as input to the row filter function. The column types
    * should match the types of the filter function arguments.
    */
@@ -28,6 +36,15 @@ public class TableRowFilter {
 
   public String getFunctionName() {
     return functionName;
+  }
+
+  public TableRowFilter setInputArguments(Collection<PolicyFunctionArgument> inputArguments) {
+    this.inputArguments = inputArguments;
+    return this;
+  }
+
+  public Collection<PolicyFunctionArgument> getInputArguments() {
+    return inputArguments;
   }
 
   public TableRowFilter setInputColumnNames(Collection<String> inputColumnNames) {
@@ -45,18 +62,20 @@ public class TableRowFilter {
     if (o == null || getClass() != o.getClass()) return false;
     TableRowFilter that = (TableRowFilter) o;
     return Objects.equals(functionName, that.functionName)
+        && Objects.equals(inputArguments, that.inputArguments)
         && Objects.equals(inputColumnNames, that.inputColumnNames);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(functionName, inputColumnNames);
+    return Objects.hash(functionName, inputArguments, inputColumnNames);
   }
 
   @Override
   public String toString() {
     return new ToStringer(TableRowFilter.class)
         .add("functionName", functionName)
+        .add("inputArguments", inputArguments)
         .add("inputColumnNames", inputColumnNames)
         .toString();
   }

@@ -10,6 +10,7 @@ public enum EventDetailsCause {
   AUTORECOVERY,
   AUTOSCALE,
   AUTOSCALE_V2,
+  DBR_AUTOSCALE,
   REPLACE_BAD_NODES,
   USER_REQUEST,
 }

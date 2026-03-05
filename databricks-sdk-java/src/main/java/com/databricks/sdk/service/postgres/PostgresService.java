@@ -26,6 +26,13 @@ public interface PostgresService {
   /** Creates a new database branch in the project. */
   Operation createBranch(CreateBranchRequest createBranchRequest);
 
+  /**
+   * Create a Database.
+   *
+   * <p>Creates a database in the specified branch. A branch can have multiple databases.
+   */
+  Operation createDatabase(CreateDatabaseRequest createDatabaseRequest);
+
   /** Creates a new compute endpoint in the branch. */
   Operation createEndpoint(CreateEndpointRequest createEndpointRequest);
 
@@ -40,6 +47,9 @@ public interface PostgresService {
 
   /** Deletes the specified database branch. */
   Operation deleteBranch(DeleteBranchRequest deleteBranchRequest);
+
+  /** Delete a Database. */
+  Operation deleteDatabase(DeleteDatabaseRequest deleteDatabaseRequest);
 
   /** Deletes the specified compute endpoint. */
   Operation deleteEndpoint(DeleteEndpointRequest deleteEndpointRequest);
@@ -56,6 +66,9 @@ public interface PostgresService {
 
   /** Retrieves information about the specified database branch. */
   Branch getBranch(GetBranchRequest getBranchRequest);
+
+  /** Get a Database. */
+  Database getDatabase(GetDatabaseRequest getDatabaseRequest);
 
   /**
    * Retrieves information about the specified compute endpoint, including its connection details
@@ -78,6 +91,9 @@ public interface PostgresService {
   /** Returns a paginated list of database branches in the project. */
   ListBranchesResponse listBranches(ListBranchesRequest listBranchesRequest);
 
+  /** List Databases. */
+  ListDatabasesResponse listDatabases(ListDatabasesRequest listDatabasesRequest);
+
   /** Returns a paginated list of compute endpoints in the branch. */
   ListEndpointsResponse listEndpoints(ListEndpointsRequest listEndpointsRequest);
 
@@ -95,6 +111,9 @@ public interface PostgresService {
    * or protect/unprotect it.
    */
   Operation updateBranch(UpdateBranchRequest updateBranchRequest);
+
+  /** Update a Database. */
+  Operation updateDatabase(UpdateDatabaseRequest updateDatabaseRequest);
 
   /**
    * Updates the specified compute endpoint. You can update autoscaling limits, suspend timeout, or
