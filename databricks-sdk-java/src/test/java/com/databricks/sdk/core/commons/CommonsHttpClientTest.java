@@ -9,8 +9,8 @@ import com.databricks.sdk.core.http.Response;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.*;
-import org.apache.http.client.config.RequestConfig;
 import org.apache.commons.io.IOUtils;
+import org.apache.http.client.config.RequestConfig;
 import org.junit.jupiter.api.Test;
 
 class CommonsHttpClientTest {
