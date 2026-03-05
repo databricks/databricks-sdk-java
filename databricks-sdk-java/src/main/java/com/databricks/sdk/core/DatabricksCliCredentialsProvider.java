@@ -2,8 +2,12 @@ package com.databricks.sdk.core;
 
 import com.databricks.sdk.core.oauth.CachedTokenSource;
 import com.databricks.sdk.core.oauth.OAuthHeaderFactory;
+import com.databricks.sdk.core.oauth.Token;
 import com.databricks.sdk.core.utils.OSUtils;
 import com.databricks.sdk.support.InternalApi;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,9 +19,14 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
 
   public static final String DATABRICKS_CLI = "databricks-cli";
 
-  static final String ERR_CUSTOM_SCOPES_NOT_SUPPORTED =
-      "custom scopes are not supported with databricks-cli auth; "
-          + "scopes are determined by what was last used when logging in with `databricks auth login`";
+  private static final ObjectMapper MAPPER = new ObjectMapper();
+
+  /**
+   * offline_access controls whether the IdP issues a refresh token. It does not grant any API
+   * permissions, so its presence or absence should not cause a scope mismatch error.
+   */
+  private static final Set<String> SCOPES_IGNORED_FOR_COMPARISON =
+      Collections.singleton("offline_access");
 
   @Override
   public String authType() {
@@ -96,15 +105,16 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
         return null;
       }
 
-      if (config.isScopesExplicitlySet()) {
-        throw new DatabricksException(ERR_CUSTOM_SCOPES_NOT_SUPPORTED);
-      }
-
       CachedTokenSource cachedTokenSource =
           new CachedTokenSource.Builder(tokenSource)
               .setAsyncDisabled(config.getDisableAsyncTokenRefresh())
               .build();
-      cachedTokenSource.getToken(); // We need this for checking if databricks CLI is installed.
+      Token token =
+          cachedTokenSource.getToken(); // We need this for checking if databricks CLI is installed.
+
+      if (config.isScopesExplicitlySet()) {
+        validateTokenScopes(token, config.getScopes(), config.getHost());
+      }
 
       return OAuthHeaderFactory.fromTokenSource(cachedTokenSource);
     } catch (DatabricksException e) {
@@ -117,7 +127,108 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
         LOG.info("OAuth not configured or not available");
         return null;
       }
+      // Scope validation failed. When the user explicitly selected databricks-cli auth,
+      // surface the mismatch immediately so they get an actionable error. When we're being
+      // tried as part of the default credential chain, step aside so other providers get
+      // a chance.
+      if (stderr.contains("do not match the configured scopes")) {
+        if (DATABRICKS_CLI.equals(config.getAuthType())) {
+          throw e;
+        }
+        LOG.warn("Databricks CLI token scope mismatch, skipping: {}", e.getMessage());
+        return null;
+      }
       throw e;
     }
+  }
+
+  /**
+   * Validate that the token's scopes match the requested scopes from the config.
+   *
+   * <p>The {@code databricks auth token} command does not accept scopes yet. It returns whatever
+   * token was cached from the last {@code databricks auth login}. If a user configures specific
+   * scopes in the SDK config but their cached CLI token was issued with different scopes, requests
+   * will silently use the wrong scopes. This check surfaces that mismatch early with an actionable
+   * error telling the user how to re-authenticate with the correct scopes.
+   */
+  static void validateTokenScopes(Token token, List<String> requestedScopes, String host) {
+    Map<String, Object> claims = getJwtClaims(token.getAccessToken());
+    if (claims == null) {
+      LOG.debug("Could not decode token as JWT to validate scopes");
+      return;
+    }
+
+    Object tokenScopesRaw = claims.get("scope");
+    if (tokenScopesRaw == null) {
+      LOG.debug("Token does not contain 'scope' claim, skipping scope validation");
+      return;
+    }
+
+    Set<String> tokenScopes = parseScopeClaim(tokenScopesRaw);
+    if (tokenScopes == null) {
+      LOG.debug("Unexpected 'scope' claim type: {}", tokenScopesRaw.getClass());
+      return;
+    }
+
+    tokenScopes.removeAll(SCOPES_IGNORED_FOR_COMPARISON);
+    Set<String> requested = new HashSet<>(requestedScopes);
+    requested.removeAll(SCOPES_IGNORED_FOR_COMPARISON);
+
+    if (!tokenScopes.equals(requested)) {
+      List<String> sortedTokenScopes = new ArrayList<>(tokenScopes);
+      Collections.sort(sortedTokenScopes);
+      List<String> sortedRequested = new ArrayList<>(requested);
+      Collections.sort(sortedRequested);
+
+      // Build a re-auth command hint with scopes (excluding offline_access)
+      String scopesArg = String.join(",", sortedRequested);
+
+      throw new DatabricksException(
+          String.format(
+              "Token issued by Databricks CLI has scopes %s which do not match "
+                  + "the configured scopes %s. Please re-authenticate with the desired scopes "
+                  + "by running `databricks auth login --host %s --scopes %s`.",
+              sortedTokenScopes, sortedRequested, host, scopesArg));
+    }
+  }
+
+  /**
+   * Decode a JWT access token and return its payload claims. Returns null if the token is not a
+   * valid JWT.
+   */
+  private static Map<String, Object> getJwtClaims(String accessToken) {
+    try {
+      String[] parts = accessToken.split("\\.");
+      if (parts.length != 3) {
+        LOG.debug(
+            "Tried to decode access token as JWT, but failed: {} components", parts.length);
+        return null;
+      }
+      byte[] payloadBytes = Base64.getUrlDecoder().decode(parts[1]);
+      String payloadJson = new String(payloadBytes, StandardCharsets.UTF_8);
+      @SuppressWarnings("unchecked")
+      Map<String, Object> claims = MAPPER.readValue(payloadJson, Map.class);
+      return claims;
+    } catch (Exception e) {
+      LOG.debug("Failed to decode JWT claims: {}", e.getMessage());
+      return null;
+    }
+  }
+
+  /**
+   * Parse the JWT "scope" claim, which can be either a space-delimited string or a JSON array.
+   * Returns null if the type is unexpected.
+   */
+  private static Set<String> parseScopeClaim(Object scopeClaim) {
+    if (scopeClaim instanceof String) {
+      return new HashSet<>(Arrays.asList(((String) scopeClaim).split("\\s+")));
+    } else if (scopeClaim instanceof List) {
+      Set<String> scopes = new HashSet<>();
+      for (Object s : (List<?>) scopeClaim) {
+        scopes.add(String.valueOf(s));
+      }
+      return scopes;
+    }
+    return null;
   }
 }
