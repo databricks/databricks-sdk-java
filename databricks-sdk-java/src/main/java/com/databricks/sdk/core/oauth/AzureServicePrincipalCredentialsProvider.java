@@ -27,9 +27,7 @@ public class AzureServicePrincipalCredentialsProvider implements CredentialsProv
 
   @Override
   public OAuthHeaderFactory configure(DatabricksConfig config) {
-    if (!config.isAzure()
-        || config.getAzureClientId() == null
-        || config.getAzureClientSecret() == null) {
+    if (config.getAzureClientId() == null || config.getAzureClientSecret() == null) {
       return null;
     }
 
