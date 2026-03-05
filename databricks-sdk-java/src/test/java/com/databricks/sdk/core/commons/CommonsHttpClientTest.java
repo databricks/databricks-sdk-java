@@ -9,6 +9,7 @@ import com.databricks.sdk.core.http.Response;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.*;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
 
@@ -85,6 +86,23 @@ class CommonsHttpClientTest {
       assertEquals(HttpURLConnection.HTTP_MOVED_TEMP, out.getStatusCode());
       assertTrue(out.getAllHeaders().containsKey("Location"));
       assertEquals("http://example.com", out.getHeaders("Location").get(0));
+    }
+  }
+
+  @Test
+  public void testCustomRequestConfig() throws IOException {
+    try (FixtureServer fixtures = new FixtureServer().with("GET", "/foo", "ok", 200)) {
+      RequestConfig requestConfig =
+          RequestConfig.custom()
+              .setConnectTimeout(10_000)
+              .setSocketTimeout(900_000)
+              .setConnectionRequestTimeout(300_000)
+              .build();
+      HttpClient httpClient =
+          new CommonsHttpClient.Builder().withRequestConfig(requestConfig).build();
+      Request in = new Request("GET", fixtures.getUrl() + "/foo");
+      Response out = httpClient.execute(in);
+      assertEquals("ok", out.getDebugBody().trim());
     }
   }
 
