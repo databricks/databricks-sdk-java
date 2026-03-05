@@ -47,8 +47,7 @@ class DefaultCredentialsProviderTest {
     assertThrows(DatabricksException.class, () -> provider.configure(config));
 
     assertFalse(
-        azureCli.wasCalled(),
-        "azure-cli should be skipped on a GCP host in auto-detect mode");
+        azureCli.wasCalled(), "azure-cli should be skipped on a GCP host in auto-detect mode");
   }
 
   /**
@@ -62,9 +61,7 @@ class DefaultCredentialsProviderTest {
         new DefaultCredentialsProvider(Collections.singletonList(azureCli));
 
     DatabricksConfig config =
-        new DatabricksConfig()
-            .setHost("https://xyz.gcp.databricks.com/")
-            .setAuthType("azure-cli");
+        new DatabricksConfig().setHost("https://xyz.gcp.databricks.com/").setAuthType("azure-cli");
     // configure() throws because azure-cli returns null; that's expected
     assertThrows(DatabricksException.class, () -> provider.configure(config));
 
