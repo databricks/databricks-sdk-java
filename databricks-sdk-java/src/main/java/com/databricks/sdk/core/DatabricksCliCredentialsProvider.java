@@ -5,7 +5,6 @@ import com.databricks.sdk.core.oauth.OAuthHeaderFactory;
 import com.databricks.sdk.core.oauth.Token;
 import com.databricks.sdk.core.utils.OSUtils;
 import com.databricks.sdk.support.InternalApi;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -200,8 +199,7 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
     try {
       String[] parts = accessToken.split("\\.");
       if (parts.length != 3) {
-        LOG.debug(
-            "Tried to decode access token as JWT, but failed: {} components", parts.length);
+        LOG.debug("Tried to decode access token as JWT, but failed: {} components", parts.length);
         return null;
       }
       byte[] payloadBytes = Base64.getUrlDecoder().decode(parts[1]);

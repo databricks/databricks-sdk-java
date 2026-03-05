@@ -25,9 +25,7 @@ class DatabricksCliScopeValidationTest {
               .withoutPadding()
               .encodeToString("{\"alg\":\"none\"}".getBytes(StandardCharsets.UTF_8));
       String payload =
-          Base64.getUrlEncoder()
-              .withoutPadding()
-              .encodeToString(MAPPER.writeValueAsBytes(claims));
+          Base64.getUrlEncoder().withoutPadding().encodeToString(MAPPER.writeValueAsBytes(claims));
       return header + "." + payload + ".sig";
     } catch (Exception e) {
       throw new RuntimeException(e);
@@ -89,13 +87,11 @@ class DatabricksCliScopeValidationTest {
       assertThrows(
           DatabricksException.class,
           () ->
-              DatabricksCliCredentialsProvider.validateTokenScopes(
-                  token, configuredScopes, HOST));
+              DatabricksCliCredentialsProvider.validateTokenScopes(token, configuredScopes, HOST));
     } else {
       assertDoesNotThrow(
           () ->
-              DatabricksCliCredentialsProvider.validateTokenScopes(
-                  token, configuredScopes, HOST));
+              DatabricksCliCredentialsProvider.validateTokenScopes(token, configuredScopes, HOST));
     }
   }
 
