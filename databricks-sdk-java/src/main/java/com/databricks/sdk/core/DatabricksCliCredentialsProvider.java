@@ -119,10 +119,13 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
       if (config.isScopesExplicitlySet()) {
         List<String> scopes = config.getScopes();
         effectiveSource =
-            () -> {
-              Token t = tokenSource.getToken();
-              validateTokenScopes(t, scopes, host);
-              return t;
+            new TokenSource() {
+              @Override
+              public Token getToken() {
+                Token t = tokenSource.getToken();
+                validateTokenScopes(t, scopes, host);
+                return t;
+              }
             };
       } else {
         effectiveSource = tokenSource;
