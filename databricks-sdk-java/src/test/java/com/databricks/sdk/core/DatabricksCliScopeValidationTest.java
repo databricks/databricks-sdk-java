@@ -85,7 +85,7 @@ class DatabricksCliScopeValidationTest {
 
     if (expectError) {
       assertThrows(
-          DatabricksException.class,
+          DatabricksCliCredentialsProvider.ScopeMismatchException.class,
           () ->
               DatabricksCliCredentialsProvider.validateTokenScopes(token, configuredScopes, HOST));
     } else {
@@ -116,14 +116,17 @@ class DatabricksCliScopeValidationTest {
   @Test
   void testErrorMessageContainsReauthCommand() {
     Token token = makeToken(Collections.singletonMap("scope", "all-apis"));
-    DatabricksException e =
+    DatabricksCliCredentialsProvider.ScopeMismatchException e =
         assertThrows(
-            DatabricksException.class,
+            DatabricksCliCredentialsProvider.ScopeMismatchException.class,
             () ->
                 DatabricksCliCredentialsProvider.validateTokenScopes(
                     token, Arrays.asList("sql", "offline_access"), HOST));
     assertTrue(
-        e.getMessage().contains("databricks auth login --host " + HOST + " --scopes sql"),
+        e.getMessage().contains("databricks auth login"),
         "Expected re-auth command in error message, got: " + e.getMessage());
+    assertTrue(
+        e.getMessage().contains("do not match the configured scopes"),
+        "Expected scope mismatch details in error message, got: " + e.getMessage());
   }
 }

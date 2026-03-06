@@ -3,8 +3,10 @@ package com.databricks.sdk.core;
 import com.databricks.sdk.core.oauth.CachedTokenSource;
 import com.databricks.sdk.core.oauth.OAuthHeaderFactory;
 import com.databricks.sdk.core.oauth.Token;
+import com.databricks.sdk.core.oauth.TokenSource;
 import com.databricks.sdk.core.utils.OSUtils;
 import com.databricks.sdk.support.InternalApi;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -19,6 +21,13 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
   public static final String DATABRICKS_CLI = "databricks-cli";
 
   private static final ObjectMapper MAPPER = new ObjectMapper();
+
+  /** Thrown when the cached CLI token's scopes don't match the SDK's configured scopes. */
+  static class ScopeMismatchException extends DatabricksException {
+    ScopeMismatchException(String message) {
+      super(message);
+    }
+  }
 
   /**
    * offline_access controls whether the IdP issues a refresh token. It does not grant any API
@@ -104,18 +113,38 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
         return null;
       }
 
-      CachedTokenSource cachedTokenSource =
-          new CachedTokenSource.Builder(tokenSource)
-              .setAsyncDisabled(config.getDisableAsyncTokenRefresh())
-              .build();
-      Token token =
-          cachedTokenSource.getToken(); // We need this for checking if databricks CLI is installed.
-
+      // Wrap the token source with scope validation so that every token — both the
+      // initial fetch and subsequent refreshes — is checked against the configured scopes.
+      TokenSource effectiveSource;
       if (config.isScopesExplicitlySet()) {
-        validateTokenScopes(token, config.getScopes(), config.getHost());
+        List<String> scopes = config.getScopes();
+        effectiveSource =
+            () -> {
+              Token t = tokenSource.getToken();
+              validateTokenScopes(t, scopes, host);
+              return t;
+            };
+      } else {
+        effectiveSource = tokenSource;
       }
 
+      CachedTokenSource cachedTokenSource =
+          new CachedTokenSource.Builder(effectiveSource)
+              .setAsyncDisabled(config.getDisableAsyncTokenRefresh())
+              .build();
+      cachedTokenSource.getToken(); // We need this for checking if databricks CLI is installed.
+
       return OAuthHeaderFactory.fromTokenSource(cachedTokenSource);
+    } catch (ScopeMismatchException e) {
+      // Scope validation failed. When the user explicitly selected databricks-cli auth,
+      // surface the mismatch immediately so they get an actionable error. When we're being
+      // tried as part of the default credential chain, step aside so other providers get
+      // a chance.
+      if (DATABRICKS_CLI.equals(config.getAuthType())) {
+        throw e;
+      }
+      LOG.warn("Databricks CLI token scope mismatch, skipping: {}", e.getMessage());
+      return null;
     } catch (DatabricksException e) {
       String stderr = e.getMessage();
       if (stderr.contains("not found")) {
@@ -124,17 +153,6 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
       }
       if (stderr.contains("databricks OAuth is not")) {
         LOG.info("OAuth not configured or not available");
-        return null;
-      }
-      // Scope validation failed. When the user explicitly selected databricks-cli auth,
-      // surface the mismatch immediately so they get an actionable error. When we're being
-      // tried as part of the default credential chain, step aside so other providers get
-      // a chance.
-      if (stderr.contains("do not match the configured scopes")) {
-        if (DATABRICKS_CLI.equals(config.getAuthType())) {
-          throw e;
-        }
-        LOG.warn("Databricks CLI token scope mismatch, skipping: {}", e.getMessage());
         return null;
       }
       throw e;
@@ -179,15 +197,13 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
       List<String> sortedRequested = new ArrayList<>(requested);
       Collections.sort(sortedRequested);
 
-      // Build a re-auth command hint with scopes (excluding offline_access)
-      String scopesArg = String.join(",", sortedRequested);
-
-      throw new DatabricksException(
+      throw new ScopeMismatchException(
           String.format(
               "Token issued by Databricks CLI has scopes %s which do not match "
-                  + "the configured scopes %s. Please re-authenticate with the desired scopes "
-                  + "by running `databricks auth login --host %s --scopes %s`.",
-              sortedTokenScopes, sortedRequested, host, scopesArg));
+                  + "the configured scopes %s. Please re-authenticate "
+                  + "with the desired scopes by running `databricks auth login` with the --scopes flag."
+                  + "Scopes default to all-apis.",
+              sortedTokenScopes, sortedRequested));
     }
   }
 
@@ -196,18 +212,18 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
    * valid JWT.
    */
   private static Map<String, Object> getJwtClaims(String accessToken) {
+    String[] parts = accessToken.split("\\.");
+    if (parts.length != 3) {
+      LOG.debug("Tried to decode access token as JWT, but failed: {} components", parts.length);
+      return null;
+    }
     try {
-      String[] parts = accessToken.split("\\.");
-      if (parts.length != 3) {
-        LOG.debug("Tried to decode access token as JWT, but failed: {} components", parts.length);
-        return null;
-      }
       byte[] payloadBytes = Base64.getUrlDecoder().decode(parts[1]);
       String payloadJson = new String(payloadBytes, StandardCharsets.UTF_8);
       @SuppressWarnings("unchecked")
       Map<String, Object> claims = MAPPER.readValue(payloadJson, Map.class);
       return claims;
-    } catch (Exception e) {
+    } catch (IllegalArgumentException | JsonProcessingException e) {
       LOG.debug("Failed to decode JWT claims: {}", e.getMessage());
       return null;
     }

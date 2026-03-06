@@ -435,11 +435,11 @@ public class DatabricksConfig {
   }
 
   /**
-   * Returns true if scopes were explicitly configured (either directly in code or loaded from a CLI
-   * profile/config file). When scopes are not set, getScopes() defaults to ["all-apis"], which
+   * Returns true if scopes were explicitly configured (either directly in code or loaded from a
+   * config file). When scopes are not set, getScopes() defaults to ["all-apis"], which
    * would cause false-positive mismatches during scope validation.
    */
-  public boolean isScopesExplicitlySet() {
+  boolean isScopesExplicitlySet() {
     return scopes != null && !scopes.isEmpty();
   }
 
