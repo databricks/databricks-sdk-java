@@ -17,7 +17,7 @@ public class DeleteTagAssignmentRequest {
 
   /**
    * The type of entity to which the tag is assigned. Allowed values are apps, dashboards,
-   * geniespaces
+   * geniespaces, notebooks
    */
   @JsonIgnore private String entityType;
 

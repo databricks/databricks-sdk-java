@@ -10,7 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class KafkaSource {
-  /** The entity column identifiers of the Kafka source. */
+  /**
+   * Deprecated: Use Feature.entity instead. Kept for backwards compatibility. The entity column
+   * identifiers of the Kafka source.
+   */
   @JsonProperty("entity_column_identifiers")
   private Collection<ColumnIdentifier> entityColumnIdentifiers;
 
@@ -21,7 +24,10 @@ public class KafkaSource {
   @JsonProperty("name")
   private String name;
 
-  /** The timeseries column identifier of the Kafka source. */
+  /**
+   * Deprecated: Use Feature.timeseries_column instead. Kept for backwards compatibility. The
+   * timeseries column identifier of the Kafka source.
+   */
   @JsonProperty("timeseries_column_identifier")
   private ColumnIdentifier timeseriesColumnIdentifier;
 
