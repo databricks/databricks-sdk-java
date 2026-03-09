@@ -1,5 +1,11 @@
 # Version changelog
 
+## Release v0.97.0 (2026-03-09)
+
+### New Features and Improvements
+ * Add `withRequestConfig(RequestConfig)` to `CommonsHttpClient.Builder` for fine-grained timeout control ([#691](https://github.com/databricks/databricks-sdk-java/pull/691)).
+
+
 ## Release v0.96.0 (2026-03-03)
 
 ### Internal Changes
