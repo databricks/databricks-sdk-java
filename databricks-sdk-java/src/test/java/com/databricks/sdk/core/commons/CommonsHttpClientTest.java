@@ -7,9 +7,12 @@ import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.net.HttpURLConnection;
 import java.util.*;
 import org.apache.commons.io.IOUtils;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.Configurable;
 import org.junit.jupiter.api.Test;
 
 class CommonsHttpClientTest {
@@ -86,6 +89,24 @@ class CommonsHttpClientTest {
       assertTrue(out.getAllHeaders().containsKey("Location"));
       assertEquals("http://example.com", out.getHeaders("Location").get(0));
     }
+  }
+
+  @Test
+  public void testCustomRequestConfig() throws Exception {
+    RequestConfig requestConfig =
+        RequestConfig.custom()
+            .setConnectTimeout(10_000)
+            .setSocketTimeout(900_000)
+            .setConnectionRequestTimeout(300_000)
+            .build();
+    CommonsHttpClient httpClient =
+        new CommonsHttpClient.Builder().withRequestConfig(requestConfig).build();
+
+    // Verify that the custom RequestConfig is passed to the underlying Apache HttpClient.
+    Field hcField = CommonsHttpClient.class.getDeclaredField("hc");
+    hcField.setAccessible(true);
+    Configurable internalClient = (Configurable) hcField.get(httpClient);
+    assertSame(requestConfig, internalClient.getConfig());
   }
 
   @Test

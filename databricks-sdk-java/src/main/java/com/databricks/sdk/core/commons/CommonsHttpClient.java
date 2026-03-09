@@ -47,6 +47,7 @@ public class CommonsHttpClient implements HttpClient {
   public static class Builder {
     private DatabricksConfig databricksConfig;
     private Integer timeoutSeconds;
+    private RequestConfig requestConfig;
     private ProxyConfig proxyConfig;
     private SSLConnectionSocketFactory sslSocketFactory;
     private PoolingHttpClientConnectionManager connectionManager;
@@ -65,11 +66,24 @@ public class CommonsHttpClient implements HttpClient {
 
     /**
      * @param timeoutSeconds The timeout in seconds to use for the HttpClient. This will override
-     *     any timeout set in the DatabricksConfig.
+     *     any timeout set in the DatabricksConfig. Sets all three Apache HttpClient timeouts
+     *     (connect, socket, connection request) to the same value. For fine-grained control, use
+     *     {@link #withRequestConfig(RequestConfig)} instead.
      * @return This builder.
      */
     public Builder withTimeoutSeconds(int timeoutSeconds) {
       this.timeoutSeconds = timeoutSeconds;
+      return this;
+    }
+
+    /**
+     * @param requestConfig The Apache {@link RequestConfig} to use for the HttpClient. When set,
+     *     this takes precedence over {@link #withTimeoutSeconds(int)} and any timeout from {@link
+     *     DatabricksConfig}.
+     * @return This builder.
+     */
+    public Builder withRequestConfig(RequestConfig requestConfig) {
+      this.requestConfig = requestConfig;
       return this;
     }
 
@@ -121,17 +135,12 @@ public class CommonsHttpClient implements HttpClient {
   private final CloseableHttpClient hc;
 
   private CommonsHttpClient(Builder builder) {
-    int timeoutSeconds = 300;
-    if (builder.databricksConfig != null
-        && builder.databricksConfig.getHttpTimeoutSeconds() != null) {
-      timeoutSeconds = builder.databricksConfig.getHttpTimeoutSeconds();
-    }
-    if (builder.timeoutSeconds != null) {
-      timeoutSeconds = builder.timeoutSeconds;
-    }
-    int timeout = timeoutSeconds * 1000;
+    RequestConfig requestConfig =
+        builder.requestConfig != null
+            ? builder.requestConfig
+            : makeDefaultRequestConfig(builder.databricksConfig, builder.timeoutSeconds);
     HttpClientBuilder httpClientBuilder =
-        HttpClientBuilder.create().setDefaultRequestConfig(makeRequestConfig(timeout));
+        HttpClientBuilder.create().setDefaultRequestConfig(requestConfig);
     if (builder.proxyConfig != null) {
       ProxyUtils.setupProxy(builder.proxyConfig, httpClientBuilder);
     }
@@ -156,7 +165,16 @@ public class CommonsHttpClient implements HttpClient {
     hc = httpClientBuilder.build();
   }
 
-  private RequestConfig makeRequestConfig(int timeout) {
+  private static RequestConfig makeDefaultRequestConfig(
+      DatabricksConfig databricksConfig, Integer timeoutSecondsOverride) {
+    int timeoutSeconds = 300;
+    if (databricksConfig != null && databricksConfig.getHttpTimeoutSeconds() != null) {
+      timeoutSeconds = databricksConfig.getHttpTimeoutSeconds();
+    }
+    if (timeoutSecondsOverride != null) {
+      timeoutSeconds = timeoutSecondsOverride;
+    }
+    int timeout = timeoutSeconds * 1000;
     return RequestConfig.custom()
         .setConnectionRequestTimeout(timeout)
         .setConnectTimeout(timeout)
