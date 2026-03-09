@@ -72,6 +72,23 @@ public interface GenieService {
   GenieGenerateDownloadFullQueryResultResponse generateDownloadFullQueryResult(
       GenieGenerateDownloadFullQueryResultRequest genieGenerateDownloadFullQueryResultRequest);
 
+  /** Create and run evaluations for multiple benchmark questions in a Genie space. */
+  GenieEvalRunResponse genieCreateEvalRun(GenieCreateEvalRunRequest genieCreateEvalRunRequest);
+
+  /** Get details for evaluation results. */
+  GenieEvalResultDetails genieGetEvalResultDetails(
+      GenieGetEvalResultDetailsRequest genieGetEvalResultDetailsRequest);
+
+  /** Get evaluation run details. */
+  GenieEvalRunResponse genieGetEvalRun(GenieGetEvalRunRequest genieGetEvalRunRequest);
+
+  /** List evaluation results for a specific evaluation run. */
+  GenieListEvalResultsResponse genieListEvalResults(
+      GenieListEvalResultsRequest genieListEvalResultsRequest);
+
+  /** Lists all evaluation runs in a space. */
+  GenieListEvalRunsResponse genieListEvalRuns(GenieListEvalRunsRequest genieListEvalRunsRequest);
+
   /**
    * After [Generating a Full Query Result Download](:method:genie/generatedownloadfullqueryresult)
    * and successfully receiving a `download_id` and `download_id_signature`, use this API to poll

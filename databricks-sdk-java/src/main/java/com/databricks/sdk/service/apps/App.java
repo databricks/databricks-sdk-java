@@ -117,6 +117,10 @@ public class App {
   @JsonProperty("space")
   private String space;
 
+  /** */
+  @JsonProperty("telemetry_export_destinations")
+  private Collection<TelemetryExportDestination> telemetryExportDestinations;
+
   /** The update time of the app. Formatted timestamp in ISO 6801. */
   @JsonProperty("update_time")
   private String updateTime;
@@ -344,6 +348,16 @@ public class App {
     return space;
   }
 
+  public App setTelemetryExportDestinations(
+      Collection<TelemetryExportDestination> telemetryExportDestinations) {
+    this.telemetryExportDestinations = telemetryExportDestinations;
+    return this;
+  }
+
+  public Collection<TelemetryExportDestination> getTelemetryExportDestinations() {
+    return telemetryExportDestinations;
+  }
+
   public App setUpdateTime(String updateTime) {
     this.updateTime = updateTime;
     return this;
@@ -417,6 +431,7 @@ public class App {
         && Objects.equals(servicePrincipalId, that.servicePrincipalId)
         && Objects.equals(servicePrincipalName, that.servicePrincipalName)
         && Objects.equals(space, that.space)
+        && Objects.equals(telemetryExportDestinations, that.telemetryExportDestinations)
         && Objects.equals(updateTime, that.updateTime)
         && Objects.equals(updater, that.updater)
         && Objects.equals(url, that.url)
@@ -450,6 +465,7 @@ public class App {
         servicePrincipalId,
         servicePrincipalName,
         space,
+        telemetryExportDestinations,
         updateTime,
         updater,
         url,
@@ -483,6 +499,7 @@ public class App {
         .add("servicePrincipalId", servicePrincipalId)
         .add("servicePrincipalName", servicePrincipalName)
         .add("space", space)
+        .add("telemetryExportDestinations", telemetryExportDestinations)
         .add("updateTime", updateTime)
         .add("updater", updater)
         .add("url", url)

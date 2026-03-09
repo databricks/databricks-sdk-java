@@ -165,6 +165,101 @@ class GenieImpl implements GenieService {
   }
 
   @Override
+  public GenieEvalRunResponse genieCreateEvalRun(GenieCreateEvalRunRequest request) {
+    String path = String.format("/api/2.0/genie/spaces/%s/eval-runs", request.getSpaceId());
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, GenieEvalRunResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public GenieEvalResultDetails genieGetEvalResultDetails(
+      GenieGetEvalResultDetailsRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/genie/spaces/%s/eval-runs/%s/results/%s",
+            request.getSpaceId(), request.getEvalRunId(), request.getResultId());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, GenieEvalResultDetails.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public GenieEvalRunResponse genieGetEvalRun(GenieGetEvalRunRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/genie/spaces/%s/eval-runs/%s", request.getSpaceId(), request.getEvalRunId());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, GenieEvalRunResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public GenieListEvalResultsResponse genieListEvalResults(GenieListEvalResultsRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/genie/spaces/%s/eval-runs/%s/results",
+            request.getSpaceId(), request.getEvalRunId());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, GenieListEvalResultsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public GenieListEvalRunsResponse genieListEvalRuns(GenieListEvalRunsRequest request) {
+    String path = String.format("/api/2.0/genie/spaces/%s/eval-runs", request.getSpaceId());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, GenieListEvalRunsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public GenieGetDownloadFullQueryResultResponse getDownloadFullQueryResult(
       GenieGetDownloadFullQueryResultRequest request) {
     String path =

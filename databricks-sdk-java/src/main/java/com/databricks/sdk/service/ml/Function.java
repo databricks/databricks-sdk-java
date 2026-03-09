@@ -10,11 +10,17 @@ import java.util.Objects;
 
 @Generated
 public class Function {
-  /** Extra parameters for parameterized functions. */
+  /**
+   * Deprecated: Use the function oneof with AggregationFunction instead. Kept for backwards
+   * compatibility. Extra parameters for parameterized functions.
+   */
   @JsonProperty("extra_parameters")
   private Collection<FunctionExtraParameter> extraParameters;
 
-  /** The type of the function. */
+  /**
+   * Deprecated: Use the function oneof with AggregationFunction instead. Kept for backwards
+   * compatibility. The type of the function.
+   */
   @JsonProperty("function_type")
   private FunctionFunctionType functionType;
 
