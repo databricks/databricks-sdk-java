@@ -184,6 +184,55 @@ public class GenieAPI {
     return impl.generateDownloadFullQueryResult(request);
   }
 
+  /** Create and run evaluations for multiple benchmark questions in a Genie space. */
+  public GenieEvalRunResponse genieCreateEvalRun(GenieCreateEvalRunRequest request) {
+    return impl.genieCreateEvalRun(request);
+  }
+
+  public GenieEvalResultDetails genieGetEvalResultDetails(
+      String spaceId, String evalRunId, String resultId) {
+    return genieGetEvalResultDetails(
+        new GenieGetEvalResultDetailsRequest()
+            .setSpaceId(spaceId)
+            .setEvalRunId(evalRunId)
+            .setResultId(resultId));
+  }
+
+  /** Get details for evaluation results. */
+  public GenieEvalResultDetails genieGetEvalResultDetails(
+      GenieGetEvalResultDetailsRequest request) {
+    return impl.genieGetEvalResultDetails(request);
+  }
+
+  public GenieEvalRunResponse genieGetEvalRun(String spaceId, String evalRunId) {
+    return genieGetEvalRun(
+        new GenieGetEvalRunRequest().setSpaceId(spaceId).setEvalRunId(evalRunId));
+  }
+
+  /** Get evaluation run details. */
+  public GenieEvalRunResponse genieGetEvalRun(GenieGetEvalRunRequest request) {
+    return impl.genieGetEvalRun(request);
+  }
+
+  public GenieListEvalResultsResponse genieListEvalResults(String spaceId, String evalRunId) {
+    return genieListEvalResults(
+        new GenieListEvalResultsRequest().setSpaceId(spaceId).setEvalRunId(evalRunId));
+  }
+
+  /** List evaluation results for a specific evaluation run. */
+  public GenieListEvalResultsResponse genieListEvalResults(GenieListEvalResultsRequest request) {
+    return impl.genieListEvalResults(request);
+  }
+
+  public GenieListEvalRunsResponse genieListEvalRuns(String spaceId) {
+    return genieListEvalRuns(new GenieListEvalRunsRequest().setSpaceId(spaceId));
+  }
+
+  /** Lists all evaluation runs in a space. */
+  public GenieListEvalRunsResponse genieListEvalRuns(GenieListEvalRunsRequest request) {
+    return impl.genieListEvalRuns(request);
+  }
+
   public GenieGetDownloadFullQueryResultResponse getDownloadFullQueryResult(
       String spaceId,
       String conversationId,

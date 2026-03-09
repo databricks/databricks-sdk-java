@@ -4,6 +4,10 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 
+/**
+ * Deprecated: Use the function-specific messages in AggregationFunction.function_type oneof
+ * instead. Kept for backwards compatibility.
+ */
 @Generated
 public enum FunctionFunctionType {
   APPROX_COUNT_DISTINCT,

@@ -7,6 +7,11 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * Deprecated: Use typed fields on function-specific messages (e.g.
+ * ApproxPercentileFunction.percentile) or AggregationFunction.ExtraParameter instead. Kept for
+ * backwards compatibility.
+ */
 @Generated
 public class FunctionExtraParameter {
   /** The name of the parameter. */

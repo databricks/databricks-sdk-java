@@ -14,7 +14,11 @@ public class Feature {
   @JsonProperty("description")
   private String description;
 
-  /** The filter condition applied to the source data before aggregation. */
+  /**
+   * Deprecated: Use DeltaTableSource.filter_condition or KafkaSource.filter_condition instead. Kept
+   * for backwards compatibility. The filter condition applied to the source data before
+   * aggregation.
+   */
   @JsonProperty("filter_condition")
   private String filterCondition;
 
@@ -26,16 +30,19 @@ public class Feature {
   @JsonProperty("function")
   private Function function;
 
-  /** The input columns from which the feature is computed. */
+  /**
+   * Deprecated: Use AggregationFunction.inputs instead. Kept for backwards compatibility. The input
+   * columns from which the feature is computed.
+   */
   @JsonProperty("inputs")
   private Collection<String> inputs;
 
   /**
-   * WARNING: This field is primarily intended for internal use by Databricks systems and is
-   * automatically populated when features are created through Databricks notebooks or jobs. Users
-   * should not manually set this field as incorrect values may lead to inaccurate lineage tracking
-   * or unexpected behavior. This field will be set by feature-engineering client and should be left
-   * unset by SDK and terraform users.
+   * Lineage context information for this feature. WARNING: This field is primarily intended for
+   * internal use by Databricks systems and is automatically populated when features are created
+   * through Databricks notebooks or jobs. Users should not manually set this field as incorrect
+   * values may lead to inaccurate lineage tracking or unexpected behavior. This field will be set
+   * by feature-engineering client and should be left unset by SDK and terraform users.
    */
   @JsonProperty("lineage_context")
   private LineageContext lineageContext;
@@ -44,7 +51,10 @@ public class Feature {
   @JsonProperty("source")
   private DataSource source;
 
-  /** The time window in which the feature is computed. */
+  /**
+   * Deprecated: Use Function.aggregation_function.time_window instead. Kept for backwards
+   * compatibility. The time window in which the feature is computed.
+   */
   @JsonProperty("time_window")
   private TimeWindow timeWindow;
 

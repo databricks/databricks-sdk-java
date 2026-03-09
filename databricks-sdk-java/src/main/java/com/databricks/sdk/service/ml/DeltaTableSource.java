@@ -18,7 +18,10 @@ public class DeltaTableSource {
   @JsonProperty("dataframe_schema")
   private String dataframeSchema;
 
-  /** The entity columns of the Delta table. */
+  /**
+   * Deprecated: Use Feature.entity instead. Kept for backwards compatibility. The entity columns of
+   * the Delta table.
+   */
   @JsonProperty("entity_columns")
   private Collection<String> entityColumns;
 
@@ -33,7 +36,10 @@ public class DeltaTableSource {
   @JsonProperty("full_name")
   private String fullName;
 
-  /** The timeseries column of the Delta table. */
+  /**
+   * Deprecated: Use Feature.timeseries_column instead. Kept for backwards compatibility. The
+   * timeseries column of the Delta table.
+   */
   @JsonProperty("timeseries_column")
   private String timeseriesColumn;
 
