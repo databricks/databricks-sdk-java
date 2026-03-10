@@ -53,7 +53,7 @@ public class CachedTokenSource implements TokenSource {
   private final Duration staticStaleDuration;
   // Whether to use the dynamic stale duration computation or defer to the legacy duration.
   private final boolean useLegacyStaleDuration;
-  // The dynamically computed duration before expiry to consider a token as 'stale'.
+  // The earliest time at which the cached token should be considered stale.
   private volatile Instant staleAfter;
   // Additional buffer before expiry to consider a token as expired.
   private final Duration expiryBuffer;
@@ -199,13 +199,7 @@ public class CachedTokenSource implements TokenSource {
    * @param t The token to cache. May be null.
    */
   private void updateToken(Token t) {
-    if (t == null) {
-      this.staleAfter = null;
-      this.token = t;
-      return;
-    }
-
-    if (t.getExpiry() == null) {
+    if (t == null || t.getExpiry() == null) {
       this.staleAfter = null;
       this.token = t;
       return;
@@ -239,11 +233,9 @@ public class CachedTokenSource implements TokenSource {
    * auth service is unhealthy.
    */
   private void handleFailedAsyncRefresh() {
-    synchronized (this) {
-      if (this.staleAfter != null) {
-        Instant now = Instant.now(clockSupplier.getClock());
-        this.staleAfter = now.plus(ASYNC_REFRESH_RETRY_BACKOFF);
-      }
+    if (this.staleAfter != null) {
+      Instant now = Instant.now(clockSupplier.getClock());
+      this.staleAfter = now.plus(ASYNC_REFRESH_RETRY_BACKOFF);
     }
   }
 
@@ -373,7 +365,7 @@ public class CachedTokenSource implements TokenSource {
           try {
             Token newToken = tokenSource.getToken();
             synchronized (this) {
-              if (!cachedTokenIsNewer(newToken)) {
+              if (newToken != null && !cachedTokenIsNewer(newToken)) {
                 updateToken(newToken);
               }
               refreshInProgress = false;
