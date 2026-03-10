@@ -1,5 +1,15 @@
 # Version changelog
 
+## Release v0.98.0 (2026-03-10)
+
+### API Changes
+* Add `com.databricks.sdk.service.dataclassification` and `com.databricks.sdk.service.knowledgeassistants` packages.
+* Add `workspaceClient.dataClassification()` service.
+* Add `workspaceClient.knowledgeAssistants()` service.
+* Add `genieCreateEvalRun()`, `genieGetEvalResultDetails()`, `genieGetEvalRun()`, `genieListEvalResults()` and `genieListEvalRuns()` methods for `workspaceClient.genie()` service.
+* Add `telemetryExportDestinations` field for `com.databricks.sdk.service.apps.App`.
+
+
 ## Release v0.97.0 (2026-03-09)
 
 ### New Features and Improvements
