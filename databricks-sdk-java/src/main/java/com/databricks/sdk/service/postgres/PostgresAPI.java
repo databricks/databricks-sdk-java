@@ -313,6 +313,12 @@ public class PostgresAPI {
     return new UpdateProjectOperation(impl, operation);
   }
 
+  /** Update a role for a branch. */
+  public UpdateRoleOperation updateRole(UpdateRoleRequest request) {
+    Operation operation = impl.updateRole(request);
+    return new UpdateRoleOperation(impl, operation);
+  }
+
   public PostgresService impl() {
     return impl;
   }

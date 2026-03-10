@@ -14,6 +14,10 @@ public class Feature {
   @JsonProperty("description")
   private String description;
 
+  /** The entity columns for the feature, used as aggregation keys and for query-time lookup. */
+  @JsonProperty("entities")
+  private Collection<EntityColumn> entities;
+
   /**
    * Deprecated: Use DeltaTableSource.filter_condition or KafkaSource.filter_condition instead. Kept
    * for backwards compatibility. The filter condition applied to the source data before
@@ -58,6 +62,10 @@ public class Feature {
   @JsonProperty("time_window")
   private TimeWindow timeWindow;
 
+  /** Column recording time, used for point-in-time joins, backfills, and aggregations. */
+  @JsonProperty("timeseries_column")
+  private TimeseriesColumn timeseriesColumn;
+
   public Feature setDescription(String description) {
     this.description = description;
     return this;
@@ -65,6 +73,15 @@ public class Feature {
 
   public String getDescription() {
     return description;
+  }
+
+  public Feature setEntities(Collection<EntityColumn> entities) {
+    this.entities = entities;
+    return this;
+  }
+
+  public Collection<EntityColumn> getEntities() {
+    return entities;
   }
 
   public Feature setFilterCondition(String filterCondition) {
@@ -130,38 +147,52 @@ public class Feature {
     return timeWindow;
   }
 
+  public Feature setTimeseriesColumn(TimeseriesColumn timeseriesColumn) {
+    this.timeseriesColumn = timeseriesColumn;
+    return this;
+  }
+
+  public TimeseriesColumn getTimeseriesColumn() {
+    return timeseriesColumn;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Feature that = (Feature) o;
     return Objects.equals(description, that.description)
+        && Objects.equals(entities, that.entities)
         && Objects.equals(filterCondition, that.filterCondition)
         && Objects.equals(fullName, that.fullName)
         && Objects.equals(function, that.function)
         && Objects.equals(inputs, that.inputs)
         && Objects.equals(lineageContext, that.lineageContext)
         && Objects.equals(source, that.source)
-        && Objects.equals(timeWindow, that.timeWindow);
+        && Objects.equals(timeWindow, that.timeWindow)
+        && Objects.equals(timeseriesColumn, that.timeseriesColumn);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
         description,
+        entities,
         filterCondition,
         fullName,
         function,
         inputs,
         lineageContext,
         source,
-        timeWindow);
+        timeWindow,
+        timeseriesColumn);
   }
 
   @Override
   public String toString() {
     return new ToStringer(Feature.class)
         .add("description", description)
+        .add("entities", entities)
         .add("filterCondition", filterCondition)
         .add("fullName", fullName)
         .add("function", function)
@@ -169,6 +200,7 @@ public class Feature {
         .add("lineageContext", lineageContext)
         .add("source", source)
         .add("timeWindow", timeWindow)
+        .add("timeseriesColumn", timeseriesColumn)
         .toString();
   }
 }

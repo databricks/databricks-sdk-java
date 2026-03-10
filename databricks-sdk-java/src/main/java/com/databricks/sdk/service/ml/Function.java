@@ -10,6 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class Function {
+  /** An aggregation function applied over a time window. */
+  @JsonProperty("aggregation_function")
+  private AggregationFunction aggregationFunction;
+
   /**
    * Deprecated: Use the function oneof with AggregationFunction instead. Kept for backwards
    * compatibility. Extra parameters for parameterized functions.
@@ -23,6 +27,15 @@ public class Function {
    */
   @JsonProperty("function_type")
   private FunctionFunctionType functionType;
+
+  public Function setAggregationFunction(AggregationFunction aggregationFunction) {
+    this.aggregationFunction = aggregationFunction;
+    return this;
+  }
+
+  public AggregationFunction getAggregationFunction() {
+    return aggregationFunction;
+  }
 
   public Function setExtraParameters(Collection<FunctionExtraParameter> extraParameters) {
     this.extraParameters = extraParameters;
@@ -47,18 +60,20 @@ public class Function {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Function that = (Function) o;
-    return Objects.equals(extraParameters, that.extraParameters)
+    return Objects.equals(aggregationFunction, that.aggregationFunction)
+        && Objects.equals(extraParameters, that.extraParameters)
         && Objects.equals(functionType, that.functionType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(extraParameters, functionType);
+    return Objects.hash(aggregationFunction, extraParameters, functionType);
   }
 
   @Override
   public String toString() {
     return new ToStringer(Function.class)
+        .add("aggregationFunction", aggregationFunction)
         .add("extraParameters", extraParameters)
         .add("functionType", functionType)
         .toString();

@@ -10,6 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class RoleRoleStatus {
+  /** The PG role attributes associated with the role. */
+  @JsonProperty("attributes")
+  private RoleAttributes attributes;
+
   /** */
   @JsonProperty("auth_method")
   private RoleAuthMethod authMethod;
@@ -25,6 +29,15 @@ public class RoleRoleStatus {
   /** The name of the Postgres role. */
   @JsonProperty("postgres_role")
   private String postgresRole;
+
+  public RoleRoleStatus setAttributes(RoleAttributes attributes) {
+    this.attributes = attributes;
+    return this;
+  }
+
+  public RoleAttributes getAttributes() {
+    return attributes;
+  }
 
   public RoleRoleStatus setAuthMethod(RoleAuthMethod authMethod) {
     this.authMethod = authMethod;
@@ -67,7 +80,8 @@ public class RoleRoleStatus {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     RoleRoleStatus that = (RoleRoleStatus) o;
-    return Objects.equals(authMethod, that.authMethod)
+    return Objects.equals(attributes, that.attributes)
+        && Objects.equals(authMethod, that.authMethod)
         && Objects.equals(identityType, that.identityType)
         && Objects.equals(membershipRoles, that.membershipRoles)
         && Objects.equals(postgresRole, that.postgresRole);
@@ -75,12 +89,13 @@ public class RoleRoleStatus {
 
   @Override
   public int hashCode() {
-    return Objects.hash(authMethod, identityType, membershipRoles, postgresRole);
+    return Objects.hash(attributes, authMethod, identityType, membershipRoles, postgresRole);
   }
 
   @Override
   public String toString() {
     return new ToStringer(RoleRoleStatus.class)
+        .add("attributes", attributes)
         .add("authMethod", authMethod)
         .add("identityType", identityType)
         .add("membershipRoles", membershipRoles)

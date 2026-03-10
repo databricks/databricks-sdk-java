@@ -123,4 +123,7 @@ public interface PostgresService {
 
   /** Updates the specified database project. */
   Operation updateProject(UpdateProjectRequest updateProjectRequest);
+
+  /** Update a role for a branch. */
+  Operation updateRole(UpdateRoleRequest updateRoleRequest);
 }
