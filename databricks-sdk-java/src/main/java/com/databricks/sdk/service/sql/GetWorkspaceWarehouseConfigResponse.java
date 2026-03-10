@@ -25,7 +25,7 @@ public class GetWorkspaceWarehouseConfigResponse {
   @JsonProperty("data_access_config")
   private Collection<EndpointConfPair> dataAccessConfig;
 
-  /** Enable Serverless compute for SQL warehouses */
+  /** Deprecated: only setting this to true is allowed. */
   @JsonProperty("enable_serverless_compute")
   private Boolean enableServerlessCompute;
 

@@ -17,6 +17,10 @@ public class KafkaSource {
   @JsonProperty("entity_column_identifiers")
   private Collection<ColumnIdentifier> entityColumnIdentifiers;
 
+  /** The filter condition applied to the source data before aggregation. */
+  @JsonProperty("filter_condition")
+  private String filterCondition;
+
   /**
    * Name of the Kafka source, used to identify it. This is used to look up the corresponding
    * KafkaConfig object. Can be distinct from topic name.
@@ -39,6 +43,15 @@ public class KafkaSource {
 
   public Collection<ColumnIdentifier> getEntityColumnIdentifiers() {
     return entityColumnIdentifiers;
+  }
+
+  public KafkaSource setFilterCondition(String filterCondition) {
+    this.filterCondition = filterCondition;
+    return this;
+  }
+
+  public String getFilterCondition() {
+    return filterCondition;
   }
 
   public KafkaSource setName(String name) {
@@ -65,19 +78,21 @@ public class KafkaSource {
     if (o == null || getClass() != o.getClass()) return false;
     KafkaSource that = (KafkaSource) o;
     return Objects.equals(entityColumnIdentifiers, that.entityColumnIdentifiers)
+        && Objects.equals(filterCondition, that.filterCondition)
         && Objects.equals(name, that.name)
         && Objects.equals(timeseriesColumnIdentifier, that.timeseriesColumnIdentifier);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(entityColumnIdentifiers, name, timeseriesColumnIdentifier);
+    return Objects.hash(entityColumnIdentifiers, filterCondition, name, timeseriesColumnIdentifier);
   }
 
   @Override
   public String toString() {
     return new ToStringer(KafkaSource.class)
         .add("entityColumnIdentifiers", entityColumnIdentifiers)
+        .add("filterCondition", filterCondition)
         .add("name", name)
         .add("timeseriesColumnIdentifier", timeseriesColumnIdentifier)
         .toString();
