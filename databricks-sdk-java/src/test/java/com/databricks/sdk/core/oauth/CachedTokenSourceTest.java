@@ -54,6 +54,12 @@ public class CachedTokenSourceTest {
     return (Instant) staleAfterField.get(source);
   }
 
+  private static boolean getRefreshInProgress(CachedTokenSource source) throws Exception {
+    Field f = CachedTokenSource.class.getDeclaredField("refreshInProgress");
+    f.setAccessible(true);
+    return (boolean) f.get(source);
+  }
+
   /**
    * Polls a condition until it becomes true or the timeout expires. This keeps the async-refresh
    * tests deterministic without relying on long fixed sleeps.
@@ -266,8 +272,10 @@ public class CachedTokenSourceTest {
 
     Instant backoffThreshold = BASE_TIME.plus(Duration.ofMinutes(7));
     awaitCondition(
-        "staleAfter should be pushed forward by the async refresh backoff",
-        () -> backoffThreshold.equals(getStaleAfterUnchecked(source)));
+        "async refresh cycle should complete (staleAfter pushed forward, refreshInProgress reset)",
+        () ->
+            backoffThreshold.equals(getStaleAfterUnchecked(source))
+                && !getRefreshInProgressUnchecked(source));
 
     assertEquals(INITIAL_TOKEN, source.getToken().getAccessToken());
     assertFalse(
@@ -302,8 +310,10 @@ public class CachedTokenSourceTest {
 
     Instant backoffThreshold = BASE_TIME.plus(Duration.ofMinutes(7));
     awaitCondition(
-        "staleAfter should be pushed forward by the async refresh backoff",
-        () -> backoffThreshold.equals(getStaleAfterUnchecked(source)));
+        "async refresh cycle should complete (staleAfter pushed forward, refreshInProgress reset)",
+        () ->
+            backoffThreshold.equals(getStaleAfterUnchecked(source))
+                && !getRefreshInProgressUnchecked(source));
 
     clockSupplier.advanceTime(Duration.ofMinutes(2));
 
@@ -320,7 +330,8 @@ public class CachedTokenSourceTest {
   /**
    * Verifies that an async refresh result is discarded when the cache already holds a token with a
    * later expiry. This covers the concurrent scenario where a blocking refresh runs while an async
-   * refresh is in flight: the async result is older and should not overwrite the newer cached token.
+   * refresh is in flight: the async result is older and should not overwrite the newer cached
+   * token.
    */
   @Test
   void testAsyncRefreshDiscardsOlderToken() throws Exception {
@@ -360,9 +371,7 @@ public class CachedTokenSourceTest {
     clockSupplier.advanceTime(Duration.ofMinutes(6));
     Token staleResult = source.getToken();
     assertEquals(INITIAL_TOKEN, staleResult.getAccessToken());
-    assertTrue(
-        asyncRefreshStarted.await(1, TimeUnit.SECONDS),
-        "Async refresh should have started");
+    assertTrue(asyncRefreshStarted.await(1, TimeUnit.SECONDS), "Async refresh should have started");
 
     // While async refresh is blocked, advance time so the token expires and force a blocking
     // refresh that installs a newer token.
@@ -374,15 +383,7 @@ public class CachedTokenSourceTest {
     allowAsyncToFinish.countDown();
     awaitCondition(
         "refreshInProgress should be reset after the async refresh completes",
-        () -> {
-          try {
-            Field f = CachedTokenSource.class.getDeclaredField("refreshInProgress");
-            f.setAccessible(true);
-            return !(boolean) f.get(source);
-          } catch (Exception e) {
-            throw new RuntimeException(e);
-          }
-        });
+        () -> !getRefreshInProgressUnchecked(source));
 
     assertEquals(
         "newer-blocking-token",
@@ -409,6 +410,14 @@ public class CachedTokenSourceTest {
   private static Instant getStaleAfterUnchecked(CachedTokenSource source) {
     try {
       return getStaleAfter(source);
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  private static boolean getRefreshInProgressUnchecked(CachedTokenSource source) {
+    try {
+      return getRefreshInProgress(source);
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
