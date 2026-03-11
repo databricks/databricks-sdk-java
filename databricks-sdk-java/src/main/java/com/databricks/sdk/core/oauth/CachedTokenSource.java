@@ -221,7 +221,9 @@ public class CachedTokenSource implements TokenSource {
     }
 
     // Publish the token after staleAfter so readers that observe the new token also observe the
-    // stale threshold computed for that token.
+    // stale threshold computed for that token. Note: handleFailedAsyncRefresh writes staleAfter
+    // without a subsequent volatile token write, so a concurrent reader may briefly see a stale
+    // staleAfter value; the only consequence is one extra async trigger, which is harmless.
     this.token = t;
   }
 
@@ -353,8 +355,9 @@ public class CachedTokenSource implements TokenSource {
    * succeeded.
    */
   private synchronized void triggerAsyncRefresh() {
-    // Check token state again inside the synchronized block to avoid triggering a refresh if
-    // another thread updated the token in the meantime.
+    // Re-check inside the synchronized block: another thread may have updated the token.
+    // Only STALE triggers async refresh; EXPIRED tokens are handled by getTokenBlocking, so
+    // an async attempt is unnecessary and would race with the blocking path.
     if (refreshInProgress || getTokenState(token) != TokenState.STALE) {
       return;
     }
@@ -368,13 +371,15 @@ public class CachedTokenSource implements TokenSource {
               if (newToken != null && !cachedTokenIsNewer(newToken)) {
                 updateToken(newToken);
               }
-              refreshInProgress = false;
             }
           } catch (Exception e) {
             synchronized (this) {
               handleFailedAsyncRefresh();
-              refreshInProgress = false;
               logger.error("Asynchronous token refresh failed", e);
+            }
+          } finally {
+            synchronized (this) {
+              refreshInProgress = false;
             }
           }
         });

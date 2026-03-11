@@ -318,6 +318,79 @@ public class CachedTokenSourceTest {
   }
 
   /**
+   * Verifies that an async refresh result is discarded when the cache already holds a token with a
+   * later expiry. This covers the concurrent scenario where a blocking refresh runs while an async
+   * refresh is in flight: the async result is older and should not overwrite the newer cached token.
+   */
+  @Test
+  void testAsyncRefreshDiscardsOlderToken() throws Exception {
+    TestClockSupplier clockSupplier = new TestClockSupplier(BASE_TIME);
+
+    Token olderRefreshToken =
+        tokenExpiringAt("older-async-token", BASE_TIME.plus(Duration.ofMinutes(8)));
+    Token newerBlockingToken =
+        tokenExpiringAt("newer-blocking-token", BASE_TIME.plus(Duration.ofMinutes(20)));
+
+    CountDownLatch asyncRefreshStarted = new CountDownLatch(1);
+    CountDownLatch allowAsyncToFinish = new CountDownLatch(1);
+    AtomicInteger refreshCallCount = new AtomicInteger();
+
+    TokenSource tokenSource =
+        () -> {
+          int call = refreshCallCount.incrementAndGet();
+          if (call == 1) {
+            asyncRefreshStarted.countDown();
+            try {
+              allowAsyncToFinish.await(5, TimeUnit.SECONDS);
+            } catch (InterruptedException e) {
+              Thread.currentThread().interrupt();
+            }
+            return olderRefreshToken;
+          }
+          return newerBlockingToken;
+        };
+
+    CachedTokenSource source =
+        new CachedTokenSource.Builder(tokenSource)
+            .setToken(tokenExpiringAt(INITIAL_TOKEN, BASE_TIME.plus(Duration.ofMinutes(10))))
+            .setClockSupplier(clockSupplier)
+            .build();
+
+    // Advance clock so the token is stale, triggering an async refresh.
+    clockSupplier.advanceTime(Duration.ofMinutes(6));
+    Token staleResult = source.getToken();
+    assertEquals(INITIAL_TOKEN, staleResult.getAccessToken());
+    assertTrue(
+        asyncRefreshStarted.await(1, TimeUnit.SECONDS),
+        "Async refresh should have started");
+
+    // While async refresh is blocked, advance time so the token expires and force a blocking
+    // refresh that installs a newer token.
+    clockSupplier.advanceTime(Duration.ofMinutes(4));
+    Token blockingResult = source.getToken();
+    assertEquals("newer-blocking-token", blockingResult.getAccessToken());
+
+    // Let the async refresh finish — its older token should be discarded.
+    allowAsyncToFinish.countDown();
+    awaitCondition(
+        "refreshInProgress should be reset after the async refresh completes",
+        () -> {
+          try {
+            Field f = CachedTokenSource.class.getDeclaredField("refreshInProgress");
+            f.setAccessible(true);
+            return !(boolean) f.get(source);
+          } catch (Exception e) {
+            throw new RuntimeException(e);
+          }
+        });
+
+    assertEquals(
+        "newer-blocking-token",
+        source.getToken().getAccessToken(),
+        "The newer blocking token should still be cached after the older async result is discarded");
+  }
+
+  /**
    * Builds a CachedTokenSource whose initial token is already stale. The clock is advanced past the
    * dynamic staleAfter threshold so the very first getToken call triggers an async refresh.
    */
