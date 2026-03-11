@@ -95,6 +95,17 @@ public class ConfigLoader {
     String profile = cfg.getProfile();
     boolean hasExplicitProfile = !isNullOrEmpty(profile);
     if (!hasExplicitProfile) {
+      SubnodeConfiguration settings = ini.getSection("__settings__");
+      if (settings != null && !settings.isEmpty()) {
+        String defaultProfile = settings.getString("default_profile");
+        if (!isNullOrEmpty(defaultProfile) && !"__settings__".equals(defaultProfile)) {
+          profile = defaultProfile;
+          hasExplicitProfile = true;
+          cfg.setProfile(profile);
+        }
+      }
+    }
+    if (!hasExplicitProfile) {
       profile = "DEFAULT";
     }
     SubnodeConfiguration section = ini.getSection(profile);
