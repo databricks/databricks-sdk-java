@@ -139,4 +139,13 @@ class DatabricksCliCredentialsProviderTest {
             CLI_PATH, "auth", "token", "--host", ACCOUNT_HOST, "--account-id", ACCOUNT_ID),
         cmd);
   }
+
+  @Test
+  void testScopesExplicitlySetFlag() {
+    DatabricksConfig config = new DatabricksConfig();
+    assertFalse(config.isScopesExplicitlySet());
+
+    config.setScopes(Arrays.asList("sql", "clusters"));
+    assertTrue(config.isScopesExplicitlySet());
+  }
 }
