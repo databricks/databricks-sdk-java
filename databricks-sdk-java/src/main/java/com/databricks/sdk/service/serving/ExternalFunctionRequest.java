@@ -37,6 +37,15 @@ public class ExternalFunctionRequest {
   @JsonProperty("path")
   private String path;
 
+  /**
+   * Optional subdomain to prepend to the connection URL's host. If provided, this will be added as
+   * a prefix to the connection URL's host. For example, if the connection URL is
+   * `https://api.example.com/v1` and `sub_domain` is `"custom"`, the resulting URL will be
+   * `https://custom.api.example.com/v1`.
+   */
+  @JsonProperty("sub_domain")
+  private String subDomain;
+
   public ExternalFunctionRequest setConnectionName(String connectionName) {
     this.connectionName = connectionName;
     return this;
@@ -91,6 +100,15 @@ public class ExternalFunctionRequest {
     return path;
   }
 
+  public ExternalFunctionRequest setSubDomain(String subDomain) {
+    this.subDomain = subDomain;
+    return this;
+  }
+
+  public String getSubDomain() {
+    return subDomain;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -101,12 +119,13 @@ public class ExternalFunctionRequest {
         && Objects.equals(json, that.json)
         && Objects.equals(method, that.method)
         && Objects.equals(params, that.params)
-        && Objects.equals(path, that.path);
+        && Objects.equals(path, that.path)
+        && Objects.equals(subDomain, that.subDomain);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(connectionName, headers, json, method, params, path);
+    return Objects.hash(connectionName, headers, json, method, params, path, subDomain);
   }
 
   @Override
@@ -118,6 +137,7 @@ public class ExternalFunctionRequest {
         .add("method", method)
         .add("params", params)
         .add("path", path)
+        .add("subDomain", subDomain)
         .toString();
   }
 }

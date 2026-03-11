@@ -23,6 +23,19 @@ public class IngestionPipelineDefinition {
   @JsonProperty("connection_name")
   private String connectionName;
 
+  /** (Optional) Connector Type for sources. Ex: CDC, Query Based. */
+  @JsonProperty("connector_type")
+  private ConnectorType connectorType;
+
+  /**
+   * (Optional) Location of staged data storage. This is required for migration from Cdc Managed
+   * Ingestion Pipeline with Gateway pipeline to Combined Cdc Managed Ingestion Pipeline. If not
+   * specified, the volume for staged data will be created in catalog and schema/target specified in
+   * the top level pipeline definition.
+   */
+  @JsonProperty("data_staging_options")
+  private DataStagingOptions dataStagingOptions;
+
   /** (Optional) A window that specifies a set of time ranges for snapshot queries in CDC. */
   @JsonProperty("full_refresh_window")
   private OperationTimeWindow fullRefreshWindow;
@@ -83,6 +96,24 @@ public class IngestionPipelineDefinition {
 
   public String getConnectionName() {
     return connectionName;
+  }
+
+  public IngestionPipelineDefinition setConnectorType(ConnectorType connectorType) {
+    this.connectorType = connectorType;
+    return this;
+  }
+
+  public ConnectorType getConnectorType() {
+    return connectorType;
+  }
+
+  public IngestionPipelineDefinition setDataStagingOptions(DataStagingOptions dataStagingOptions) {
+    this.dataStagingOptions = dataStagingOptions;
+    return this;
+  }
+
+  public DataStagingOptions getDataStagingOptions() {
+    return dataStagingOptions;
   }
 
   public IngestionPipelineDefinition setFullRefreshWindow(OperationTimeWindow fullRefreshWindow) {
@@ -165,6 +196,8 @@ public class IngestionPipelineDefinition {
     if (o == null || getClass() != o.getClass()) return false;
     IngestionPipelineDefinition that = (IngestionPipelineDefinition) o;
     return Objects.equals(connectionName, that.connectionName)
+        && Objects.equals(connectorType, that.connectorType)
+        && Objects.equals(dataStagingOptions, that.dataStagingOptions)
         && Objects.equals(fullRefreshWindow, that.fullRefreshWindow)
         && Objects.equals(ingestFromUcForeignCatalog, that.ingestFromUcForeignCatalog)
         && Objects.equals(ingestionGatewayId, that.ingestionGatewayId)
@@ -179,6 +212,8 @@ public class IngestionPipelineDefinition {
   public int hashCode() {
     return Objects.hash(
         connectionName,
+        connectorType,
+        dataStagingOptions,
         fullRefreshWindow,
         ingestFromUcForeignCatalog,
         ingestionGatewayId,
@@ -193,6 +228,8 @@ public class IngestionPipelineDefinition {
   public String toString() {
     return new ToStringer(IngestionPipelineDefinition.class)
         .add("connectionName", connectionName)
+        .add("connectorType", connectorType)
+        .add("dataStagingOptions", dataStagingOptions)
         .add("fullRefreshWindow", fullRefreshWindow)
         .add("ingestFromUcForeignCatalog", ingestFromUcForeignCatalog)
         .add("ingestionGatewayId", ingestionGatewayId)

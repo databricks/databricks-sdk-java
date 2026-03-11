@@ -40,6 +40,38 @@ public class Origin {
   @JsonProperty("host")
   private String host;
 
+  /**
+   * The name of the source catalog name (if known) from whose data ingestion is described by this
+   * event.
+   */
+  @JsonProperty("ingestion_source_catalog_name")
+  private String ingestionSourceCatalogName;
+
+  /**
+   * The name of the source UC connection (if known) from whose data ingestion is described by this
+   * event.
+   */
+  @JsonProperty("ingestion_source_connection_name")
+  private String ingestionSourceConnectionName;
+
+  /**
+   * The name of the source schema name (if known) from whose data ingestion is described by this
+   * event.
+   */
+  @JsonProperty("ingestion_source_schema_name")
+  private String ingestionSourceSchemaName;
+
+  /**
+   * The name of the source table name (if known) from whose data ingestion is described by this
+   * event.
+   */
+  @JsonProperty("ingestion_source_table_name")
+  private String ingestionSourceTableName;
+
+  /** An optional implementation-defined source table version of a dataset being (re)ingested. */
+  @JsonProperty("ingestion_source_table_version")
+  private String ingestionSourceTableVersion;
+
   /** The id of a maintenance run. Globally unique. */
   @JsonProperty("maintenance_id")
   private String maintenanceId;
@@ -141,6 +173,51 @@ public class Origin {
 
   public String getHost() {
     return host;
+  }
+
+  public Origin setIngestionSourceCatalogName(String ingestionSourceCatalogName) {
+    this.ingestionSourceCatalogName = ingestionSourceCatalogName;
+    return this;
+  }
+
+  public String getIngestionSourceCatalogName() {
+    return ingestionSourceCatalogName;
+  }
+
+  public Origin setIngestionSourceConnectionName(String ingestionSourceConnectionName) {
+    this.ingestionSourceConnectionName = ingestionSourceConnectionName;
+    return this;
+  }
+
+  public String getIngestionSourceConnectionName() {
+    return ingestionSourceConnectionName;
+  }
+
+  public Origin setIngestionSourceSchemaName(String ingestionSourceSchemaName) {
+    this.ingestionSourceSchemaName = ingestionSourceSchemaName;
+    return this;
+  }
+
+  public String getIngestionSourceSchemaName() {
+    return ingestionSourceSchemaName;
+  }
+
+  public Origin setIngestionSourceTableName(String ingestionSourceTableName) {
+    this.ingestionSourceTableName = ingestionSourceTableName;
+    return this;
+  }
+
+  public String getIngestionSourceTableName() {
+    return ingestionSourceTableName;
+  }
+
+  public Origin setIngestionSourceTableVersion(String ingestionSourceTableVersion) {
+    this.ingestionSourceTableVersion = ingestionSourceTableVersion;
+    return this;
+  }
+
+  public String getIngestionSourceTableVersion() {
+    return ingestionSourceTableVersion;
   }
 
   public Origin setMaintenanceId(String maintenanceId) {
@@ -245,6 +322,11 @@ public class Origin {
         && Objects.equals(flowId, that.flowId)
         && Objects.equals(flowName, that.flowName)
         && Objects.equals(host, that.host)
+        && Objects.equals(ingestionSourceCatalogName, that.ingestionSourceCatalogName)
+        && Objects.equals(ingestionSourceConnectionName, that.ingestionSourceConnectionName)
+        && Objects.equals(ingestionSourceSchemaName, that.ingestionSourceSchemaName)
+        && Objects.equals(ingestionSourceTableName, that.ingestionSourceTableName)
+        && Objects.equals(ingestionSourceTableVersion, that.ingestionSourceTableVersion)
         && Objects.equals(maintenanceId, that.maintenanceId)
         && Objects.equals(materializationName, that.materializationName)
         && Objects.equals(orgId, that.orgId)
@@ -267,6 +349,11 @@ public class Origin {
         flowId,
         flowName,
         host,
+        ingestionSourceCatalogName,
+        ingestionSourceConnectionName,
+        ingestionSourceSchemaName,
+        ingestionSourceTableName,
+        ingestionSourceTableVersion,
         maintenanceId,
         materializationName,
         orgId,
@@ -289,6 +376,11 @@ public class Origin {
         .add("flowId", flowId)
         .add("flowName", flowName)
         .add("host", host)
+        .add("ingestionSourceCatalogName", ingestionSourceCatalogName)
+        .add("ingestionSourceConnectionName", ingestionSourceConnectionName)
+        .add("ingestionSourceSchemaName", ingestionSourceSchemaName)
+        .add("ingestionSourceTableName", ingestionSourceTableName)
+        .add("ingestionSourceTableVersion", ingestionSourceTableVersion)
         .add("maintenanceId", maintenanceId)
         .add("materializationName", materializationName)
         .add("orgId", orgId)
