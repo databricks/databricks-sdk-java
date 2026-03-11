@@ -73,19 +73,24 @@ public class DefaultProfileTest implements ConfigResolving {
     assertEquals("https://default.cloud.databricks.com", config.getHost());
   }
 
-  /** Test 5: default_profile = __settings__ is rejected and falls back to DEFAULT */
+  /** Test 5: default_profile = __settings__ is rejected */
   @Test
   public void testSettingsSelfReferenceIsRejected() {
     StaticEnv env =
         new StaticEnv()
             .with("HOME", TestOSUtils.resource("/testdata/default_profile_settings_self_ref"));
     DatabricksConfig config = createConfigWithMockClient();
-    resolveConfig(config, env);
-    config.authenticate();
 
-    // __settings__ as a profile target should be ignored, falling back to [DEFAULT]
-    assertEquals("https://default.cloud.databricks.com", config.getHost());
-    assertEquals("pat", config.getAuthType());
+    DatabricksException ex =
+        assertThrows(
+            DatabricksException.class,
+            () -> {
+              resolveConfig(config, env);
+              config.authenticate();
+            });
+    assertTrue(
+        ex.getMessage().contains("has no __settings__ profile configured"),
+        "Error should reject __settings__ as a profile target: " + ex.getMessage());
   }
 
   /** Test 6: Explicit --profile overrides default_profile */
@@ -101,6 +106,26 @@ public class DefaultProfileTest implements ConfigResolving {
 
     assertEquals("pat", config.getAuthType());
     assertEquals("https://other.cloud.databricks.com", config.getHost());
+  }
+
+  @Test
+  public void testExplicitSettingsSectionProfileIsRejected() {
+    StaticEnv env =
+        new StaticEnv()
+            .with("DATABRICKS_CONFIG_PROFILE", "__settings__")
+            .with("HOME", TestOSUtils.resource("/testdata/default_profile"));
+    DatabricksConfig config = createConfigWithMockClient();
+
+    DatabricksException ex =
+        assertThrows(
+            DatabricksException.class,
+            () -> {
+              resolveConfig(config, env);
+              config.authenticate();
+            });
+    assertTrue(
+        ex.getMessage().contains("has no __settings__ profile configured"),
+        "Error should reject __settings__ as a profile target: " + ex.getMessage());
   }
 
   /** Test 7: default_profile pointing to nonexistent section */
