@@ -24,7 +24,8 @@ public class EncodingTest {
         Arguments.of("encodes space", "a b", "a%20b"),
         Arguments.of("encodes braces", "a{b}", "a%7Bb%7D"),
         Arguments.of("preserves sub-delims", "a$b(c)d+e", "a$b(c)d+e"),
-        Arguments.of("preserves dots and hyphens", "catalog.schema.table-name", "catalog.schema.table-name"),
+        Arguments.of(
+            "preserves dots and hyphens", "catalog.schema.table-name", "catalog.schema.table-name"),
         Arguments.of(
             "customer table name from issue",
             "catalog.schema.df$(dfs)sdf+fds-sdf0123456789_abcdefghijklmnopqrstuvwxyz|",
