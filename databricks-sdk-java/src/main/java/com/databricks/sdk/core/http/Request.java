@@ -125,7 +125,7 @@ public class Request {
       if (uri.getAuthority() != null) {
         updatedUriString.append(uri.getAuthority());
       }
-      updatedUriString.append(uri.getPath());
+      updatedUriString.append(uri.getRawPath());
       if (!rawQuery.isEmpty()) {
         updatedUriString.append("?").append(rawQuery);
       }
@@ -139,9 +139,9 @@ public class Request {
 
   public String getRequestLine() {
     URI uri = getUri();
-    String path = uri.getPath();
+    String path = uri.getRawPath();
     if (!query.isEmpty()) {
-      path += "?" + uri.getQuery();
+      path += "?" + uri.getRawQuery();
     }
     return String.format("%s %s", method, path);
   }
