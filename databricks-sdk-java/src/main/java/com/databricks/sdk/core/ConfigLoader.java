@@ -112,7 +112,8 @@ public class ConfigLoader {
     if (!hasExplicitProfile && !hasDefaultProfileSetting) {
       profile = "DEFAULT";
     }
-    SubnodeConfiguration section = SETTINGS_SECTION.equals(profile) ? null : ini.getSection(profile);
+    SubnodeConfiguration section =
+        SETTINGS_SECTION.equals(profile) ? null : ini.getSection(profile);
     boolean sectionNotPresent = section == null || section.isEmpty();
     if (sectionNotPresent && !hasExplicitProfile && !hasDefaultProfileSetting) {
       LOG.info("{} has no {} profile configured", configFile, profile);

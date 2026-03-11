@@ -22,8 +22,7 @@ public class DefaultProfileTest implements ConfigResolving {
   /** Test 1: default_profile resolves correctly and is written back to config */
   @Test
   public void testDefaultProfileResolvesCorrectly() {
-    StaticEnv env =
-        new StaticEnv().with("HOME", TestOSUtils.resource("/testdata/default_profile"));
+    StaticEnv env = new StaticEnv().with("HOME", TestOSUtils.resource("/testdata/default_profile"));
     DatabricksConfig config = createConfigWithMockClient();
     resolveConfig(config, env);
     config.authenticate();
@@ -37,8 +36,7 @@ public class DefaultProfileTest implements ConfigResolving {
   @Test
   public void testDefaultProfileTakesPrecedenceOverDefault() {
     StaticEnv env =
-        new StaticEnv()
-            .with("HOME", TestOSUtils.resource("/testdata/default_profile_precedence"));
+        new StaticEnv().with("HOME", TestOSUtils.resource("/testdata/default_profile_precedence"));
     DatabricksConfig config = createConfigWithMockClient();
     resolveConfig(config, env);
     config.authenticate();
@@ -132,8 +130,7 @@ public class DefaultProfileTest implements ConfigResolving {
   @Test
   public void testDefaultProfileNonexistentSection() {
     StaticEnv env =
-        new StaticEnv()
-            .with("HOME", TestOSUtils.resource("/testdata/default_profile_nonexistent"));
+        new StaticEnv().with("HOME", TestOSUtils.resource("/testdata/default_profile_nonexistent"));
     DatabricksConfig config = createConfigWithMockClient();
 
     DatabricksException ex =
