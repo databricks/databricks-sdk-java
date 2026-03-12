@@ -13,3 +13,7 @@
 ### Internal Changes
 
 ### API Changes
+* Add `alertOutput` field for `com.databricks.sdk.service.jobs.RunOutput`.
+* Add `alertTask` field for `com.databricks.sdk.service.jobs.RunTask`.
+* Add `alertTask` field for `com.databricks.sdk.service.jobs.SubmitTask`.
+* Add `alertTask` field for `com.databricks.sdk.service.jobs.Task`.

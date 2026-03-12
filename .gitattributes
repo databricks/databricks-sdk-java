@@ -1383,6 +1383,10 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/iamv2/WorkspaceIamV
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/iamv2/WorkspaceIamV2Impl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/iamv2/WorkspaceIamV2Service.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/iamv2/WorkspacePermission.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/AlertEvaluationState.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/AlertTask.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/AlertTaskOutput.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/AlertTaskSubscriber.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/AuthenticationMethod.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/BaseJob.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/BaseRun.java linguist-generated=true

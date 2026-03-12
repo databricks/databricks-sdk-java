@@ -44,7 +44,7 @@ public class ProjectSpec {
 
   /**
    * The number of seconds to retain the shared history for point in time recovery for all branches
-   * in this project. Value should be between 0s and 2592000s (up to 30 days).
+   * in this project. Value should be between 172800s (2 days) and 2592000s (30 days).
    */
   @JsonProperty("history_retention_duration")
   private Duration historyRetentionDuration;

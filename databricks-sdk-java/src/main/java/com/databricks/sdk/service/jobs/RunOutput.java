@@ -10,6 +10,10 @@ import java.util.Objects;
 /** Run output was retrieved successfully. */
 @Generated
 public class RunOutput {
+  /** The output of an alert task, if available */
+  @JsonProperty("alert_output")
+  private AlertTaskOutput alertOutput;
+
   /** The output of a clean rooms notebook task, if available */
   @JsonProperty("clean_rooms_notebook_output")
   private CleanRoomsNotebookTaskCleanRoomsNotebookTaskOutput cleanRoomsNotebookOutput;
@@ -84,6 +88,15 @@ public class RunOutput {
   /** The output of a SQL task, if available. */
   @JsonProperty("sql_output")
   private SqlOutput sqlOutput;
+
+  public RunOutput setAlertOutput(AlertTaskOutput alertOutput) {
+    this.alertOutput = alertOutput;
+    return this;
+  }
+
+  public AlertTaskOutput getAlertOutput() {
+    return alertOutput;
+  }
 
   public RunOutput setCleanRoomsNotebookOutput(
       CleanRoomsNotebookTaskCleanRoomsNotebookTaskOutput cleanRoomsNotebookOutput) {
@@ -217,7 +230,8 @@ public class RunOutput {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     RunOutput that = (RunOutput) o;
-    return Objects.equals(cleanRoomsNotebookOutput, that.cleanRoomsNotebookOutput)
+    return Objects.equals(alertOutput, that.alertOutput)
+        && Objects.equals(cleanRoomsNotebookOutput, that.cleanRoomsNotebookOutput)
         && Objects.equals(dashboardOutput, that.dashboardOutput)
         && Objects.equals(dbtCloudOutput, that.dbtCloudOutput)
         && Objects.equals(dbtOutput, that.dbtOutput)
@@ -236,6 +250,7 @@ public class RunOutput {
   @Override
   public int hashCode() {
     return Objects.hash(
+        alertOutput,
         cleanRoomsNotebookOutput,
         dashboardOutput,
         dbtCloudOutput,
@@ -255,6 +270,7 @@ public class RunOutput {
   @Override
   public String toString() {
     return new ToStringer(RunOutput.class)
+        .add("alertOutput", alertOutput)
         .add("cleanRoomsNotebookOutput", cleanRoomsNotebookOutput)
         .add("dashboardOutput", dashboardOutput)
         .add("dbtCloudOutput", dbtCloudOutput)
