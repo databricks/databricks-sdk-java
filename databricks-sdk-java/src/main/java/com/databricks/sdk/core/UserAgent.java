@@ -256,6 +256,7 @@ public class UserAgent {
         new AgentDef("CLAUDECODE", "claude-code"), // https://github.com/anthropics/claude-code
         new AgentDef("CLINE_ACTIVE", "cline"), // https://github.com/cline/cline (v3.24.0+)
         new AgentDef("CODEX_CI", "codex"), // https://github.com/openai/codex
+        new AgentDef("COPILOT_CLI", "copilot-cli"), // https://github.com/features/copilot
         new AgentDef("CURSOR_AGENT", "cursor"), // Closed source
         new AgentDef("GEMINI_CLI", "gemini-cli"), // https://google-gemini.github.io/gemini-cli
         new AgentDef("OPENCODE", "opencode")); // https://github.com/opencode-ai/opencode

@@ -164,6 +164,17 @@ public class UserAgentTest {
   }
 
   @Test
+  public void testAgentProviderCopilotCli() {
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("COPILOT_CLI", "1");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/copilot-cli"));
+  }
+
+  @Test
   public void testAgentProviderCursor() {
     setupAgentEnv(
         new HashMap<String, String>() {
