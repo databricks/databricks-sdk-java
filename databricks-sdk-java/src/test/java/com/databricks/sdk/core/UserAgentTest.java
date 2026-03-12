@@ -4,10 +4,16 @@ import com.databricks.sdk.core.utils.Environment;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class UserAgentTest {
+
+  @AfterEach
+  void tearDown() {
+    cleanupAgentEnv();
+  }
 
   private void setupAgentEnv(Map<String, String> envMap) {
     UserAgent.agentProvider = null;
@@ -80,7 +86,6 @@ public class UserAgentTest {
     UserAgent.env =
         new Environment(new HashMap<>(), new ArrayList<>(), System.getProperty("os.name"));
     Assertions.assertFalse(UserAgent.asString().contains("cicd"));
-    UserAgent.env = null;
   }
 
   @Test
@@ -96,7 +101,6 @@ public class UserAgentTest {
             new ArrayList<>(),
             System.getProperty("os.name"));
     Assertions.assertTrue(UserAgent.asString().contains("cicd/github"));
-    UserAgent.env = null;
   }
 
   @Test
@@ -113,7 +117,6 @@ public class UserAgentTest {
             new ArrayList<>(),
             System.getProperty("os.name"));
     Assertions.assertTrue(UserAgent.asString().contains("cicd/gitlab"));
-    UserAgent.env = null;
   }
 
   @Test
@@ -125,7 +128,6 @@ public class UserAgentTest {
           }
         });
     Assertions.assertTrue(UserAgent.asString().contains("agent/antigravity"));
-    cleanupAgentEnv();
   }
 
   @Test
@@ -137,7 +139,6 @@ public class UserAgentTest {
           }
         });
     Assertions.assertTrue(UserAgent.asString().contains("agent/claude-code"));
-    cleanupAgentEnv();
   }
 
   @Test
@@ -149,7 +150,6 @@ public class UserAgentTest {
           }
         });
     Assertions.assertTrue(UserAgent.asString().contains("agent/cline"));
-    cleanupAgentEnv();
   }
 
   @Test
@@ -161,7 +161,6 @@ public class UserAgentTest {
           }
         });
     Assertions.assertTrue(UserAgent.asString().contains("agent/codex"));
-    cleanupAgentEnv();
   }
 
   @Test
@@ -173,7 +172,6 @@ public class UserAgentTest {
           }
         });
     Assertions.assertTrue(UserAgent.asString().contains("agent/cursor"));
-    cleanupAgentEnv();
   }
 
   @Test
@@ -185,7 +183,6 @@ public class UserAgentTest {
           }
         });
     Assertions.assertTrue(UserAgent.asString().contains("agent/gemini-cli"));
-    cleanupAgentEnv();
   }
 
   @Test
@@ -197,14 +194,12 @@ public class UserAgentTest {
           }
         });
     Assertions.assertTrue(UserAgent.asString().contains("agent/opencode"));
-    cleanupAgentEnv();
   }
 
   @Test
   public void testAgentProviderNoAgent() {
     setupAgentEnv(new HashMap<>());
     Assertions.assertFalse(UserAgent.asString().contains("agent/"));
-    cleanupAgentEnv();
   }
 
   @Test
@@ -217,7 +212,6 @@ public class UserAgentTest {
           }
         });
     Assertions.assertFalse(UserAgent.asString().contains("agent/"));
-    cleanupAgentEnv();
   }
 
   @Test
@@ -229,7 +223,6 @@ public class UserAgentTest {
           }
         });
     Assertions.assertFalse(UserAgent.asString().contains("agent/"));
-    cleanupAgentEnv();
   }
 
   @Test
@@ -255,6 +248,5 @@ public class UserAgentTest {
             System.getProperty("os.name"));
     Assertions.assertTrue(UserAgent.asString().contains("agent/cursor"));
     Assertions.assertFalse(UserAgent.asString().contains("agent/claude-code"));
-    cleanupAgentEnv();
   }
 }
