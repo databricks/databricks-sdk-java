@@ -2,10 +2,12 @@ package com.databricks.sdk.core;
 
 import com.databricks.sdk.core.utils.Environment;
 import java.io.File;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -129,6 +131,10 @@ public class UserAgent {
     if (!cicdProvider.isEmpty()) {
       segments.add(String.format("cicd/%s", cicdProvider));
     }
+    String agent = agentProvider();
+    if (agent != null && !agent.isEmpty()) {
+      segments.add(String.format("agent/%s", agent));
+    }
     // Concurrent iteration over ArrayList must be guarded with synchronized.
     synchronized (otherInfo) {
       segments.addAll(
@@ -167,6 +173,8 @@ public class UserAgent {
   // are immediately visible to all threads. It prevents instruction
   // reordering by the compiler.
   protected static volatile String cicdProvider = null;
+
+  protected static volatile String agentProvider = null;
 
   protected static Environment env = null;
 
@@ -229,6 +237,54 @@ public class UserAgent {
       }
     }
     return cicdProvider;
+  }
+
+  // Canonical list of known AI coding agents.
+  // Keep this list in sync with databricks-sdk-go and databricks-sdk-py.
+  private static List<Map.Entry<String, String>> listKnownAgents() {
+    return Arrays.asList(
+        new AbstractMap.SimpleEntry<>("ANTIGRAVITY_AGENT", "antigravity"), // Closed source (Google)
+        new AbstractMap.SimpleEntry<>(
+            "CLAUDECODE", "claude-code"), // https://github.com/anthropics/claude-code
+        new AbstractMap.SimpleEntry<>(
+            "CLINE_ACTIVE", "cline"), // https://github.com/cline/cline (v3.24.0+)
+        new AbstractMap.SimpleEntry<>("CODEX_CI", "codex"), // https://github.com/openai/codex
+        new AbstractMap.SimpleEntry<>("CURSOR_AGENT", "cursor"), // Closed source
+        new AbstractMap.SimpleEntry<>(
+            "GEMINI_CLI", "gemini-cli"), // https://google-gemini.github.io/gemini-cli
+        new AbstractMap.SimpleEntry<>(
+            "OPENCODE", "opencode")); // https://github.com/opencode-ai/opencode
+  }
+
+  // Looks up the active agent provider based on environment variables.
+  // Returns the agent name if exactly one is set (non-empty).
+  // Returns empty string if zero or multiple agents detected.
+  private static String lookupAgentProvider(Environment env) {
+    String detected = "";
+    int count = 0;
+    for (Map.Entry<String, String> agent : listKnownAgents()) {
+      String value = env.get(agent.getKey());
+      if (value != null && !value.isEmpty()) {
+        detected = agent.getValue();
+        count++;
+      }
+    }
+    if (count == 1) {
+      return detected;
+    }
+    return "";
+  }
+
+  // Thread-safe lazy initialization of agent provider detection
+  private static String agentProvider() {
+    if (agentProvider == null) {
+      synchronized (UserAgent.class) {
+        if (agentProvider == null) {
+          agentProvider = lookupAgentProvider(env());
+        }
+      }
+    }
+    return agentProvider;
   }
 
   private static Environment env() {

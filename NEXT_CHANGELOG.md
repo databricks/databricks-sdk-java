@@ -3,6 +3,7 @@
 ## Release v0.101.0
 
 ### New Features and Improvements
+* Added automatic detection of AI coding agents (Claude Code, Cursor, Cline, Codex, Gemini CLI, OpenCode, Antigravity) in the user-agent string. The SDK now appends `agent/<name>` to HTTP request headers when running inside a known AI agent environment.
 
 ### Bug Fixes
 

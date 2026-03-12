@@ -3,10 +3,24 @@ package com.databricks.sdk.core;
 import com.databricks.sdk.core.utils.Environment;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class UserAgentTest {
+
+  private void setupAgentEnv(Map<String, String> envMap) {
+    UserAgent.agentProvider = null;
+    UserAgent.cicdProvider = null;
+    UserAgent.env = new Environment(envMap, new ArrayList<>(), System.getProperty("os.name"));
+  }
+
+  private void cleanupAgentEnv() {
+    UserAgent.env = null;
+    UserAgent.agentProvider = null;
+    UserAgent.cicdProvider = null;
+  }
+
   @Test
   public void testUserAgent() {
     UserAgent.withProduct("product", "productVersion");
@@ -100,5 +114,147 @@ public class UserAgentTest {
             System.getProperty("os.name"));
     Assertions.assertTrue(UserAgent.asString().contains("cicd/gitlab"));
     UserAgent.env = null;
+  }
+
+  @Test
+  public void testAgentProviderAntigravity() {
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("ANTIGRAVITY_AGENT", "1");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/antigravity"));
+    cleanupAgentEnv();
+  }
+
+  @Test
+  public void testAgentProviderClaudeCode() {
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("CLAUDECODE", "1");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/claude-code"));
+    cleanupAgentEnv();
+  }
+
+  @Test
+  public void testAgentProviderCline() {
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("CLINE_ACTIVE", "1");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/cline"));
+    cleanupAgentEnv();
+  }
+
+  @Test
+  public void testAgentProviderCodex() {
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("CODEX_CI", "1");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/codex"));
+    cleanupAgentEnv();
+  }
+
+  @Test
+  public void testAgentProviderCursor() {
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("CURSOR_AGENT", "1");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/cursor"));
+    cleanupAgentEnv();
+  }
+
+  @Test
+  public void testAgentProviderGeminiCli() {
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("GEMINI_CLI", "1");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/gemini-cli"));
+    cleanupAgentEnv();
+  }
+
+  @Test
+  public void testAgentProviderOpencode() {
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("OPENCODE", "1");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/opencode"));
+    cleanupAgentEnv();
+  }
+
+  @Test
+  public void testAgentProviderNoAgent() {
+    setupAgentEnv(new HashMap<>());
+    Assertions.assertFalse(UserAgent.asString().contains("agent/"));
+    cleanupAgentEnv();
+  }
+
+  @Test
+  public void testAgentProviderMultipleAgents() {
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("CLAUDECODE", "1");
+            put("CURSOR_AGENT", "1");
+          }
+        });
+    Assertions.assertFalse(UserAgent.asString().contains("agent/"));
+    cleanupAgentEnv();
+  }
+
+  @Test
+  public void testAgentProviderEmptyValue() {
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("CLAUDECODE", "");
+          }
+        });
+    Assertions.assertFalse(UserAgent.asString().contains("agent/"));
+    cleanupAgentEnv();
+  }
+
+  @Test
+  public void testAgentProviderCached() {
+    // Set up with cursor agent
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("CURSOR_AGENT", "1");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/cursor"));
+
+    // Change env after caching. Cached result should persist.
+    UserAgent.env =
+        new Environment(
+            new HashMap<String, String>() {
+              {
+                put("CLAUDECODE", "1");
+              }
+            },
+            new ArrayList<>(),
+            System.getProperty("os.name"));
+    Assertions.assertTrue(UserAgent.asString().contains("agent/cursor"));
+    Assertions.assertFalse(UserAgent.asString().contains("agent/claude-code"));
+    cleanupAgentEnv();
   }
 }
