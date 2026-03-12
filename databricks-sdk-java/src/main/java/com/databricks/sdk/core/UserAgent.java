@@ -2,12 +2,10 @@ package com.databricks.sdk.core;
 
 import com.databricks.sdk.core.utils.Environment;
 import java.io.File;
-import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -132,7 +130,7 @@ public class UserAgent {
       segments.add(String.format("cicd/%s", cicdProvider));
     }
     String agent = agentProvider();
-    if (agent != null && !agent.isEmpty()) {
+    if (!agent.isEmpty()) {
       segments.add(String.format("agent/%s", agent));
     }
     // Concurrent iteration over ArrayList must be guarded with synchronized.
@@ -239,21 +237,28 @@ public class UserAgent {
     return cicdProvider;
   }
 
+  // Maps an environment variable to an agent product name.
+  private static class AgentDef {
+    private final String envVar;
+    private final String product;
+
+    AgentDef(String envVar, String product) {
+      this.envVar = envVar;
+      this.product = product;
+    }
+  }
+
   // Canonical list of known AI coding agents.
   // Keep this list in sync with databricks-sdk-go and databricks-sdk-py.
-  private static List<Map.Entry<String, String>> listKnownAgents() {
+  private static List<AgentDef> listKnownAgents() {
     return Arrays.asList(
-        new AbstractMap.SimpleEntry<>("ANTIGRAVITY_AGENT", "antigravity"), // Closed source (Google)
-        new AbstractMap.SimpleEntry<>(
-            "CLAUDECODE", "claude-code"), // https://github.com/anthropics/claude-code
-        new AbstractMap.SimpleEntry<>(
-            "CLINE_ACTIVE", "cline"), // https://github.com/cline/cline (v3.24.0+)
-        new AbstractMap.SimpleEntry<>("CODEX_CI", "codex"), // https://github.com/openai/codex
-        new AbstractMap.SimpleEntry<>("CURSOR_AGENT", "cursor"), // Closed source
-        new AbstractMap.SimpleEntry<>(
-            "GEMINI_CLI", "gemini-cli"), // https://google-gemini.github.io/gemini-cli
-        new AbstractMap.SimpleEntry<>(
-            "OPENCODE", "opencode")); // https://github.com/opencode-ai/opencode
+        new AgentDef("ANTIGRAVITY_AGENT", "antigravity"), // Closed source (Google)
+        new AgentDef("CLAUDECODE", "claude-code"), // https://github.com/anthropics/claude-code
+        new AgentDef("CLINE_ACTIVE", "cline"), // https://github.com/cline/cline (v3.24.0+)
+        new AgentDef("CODEX_CI", "codex"), // https://github.com/openai/codex
+        new AgentDef("CURSOR_AGENT", "cursor"), // Closed source
+        new AgentDef("GEMINI_CLI", "gemini-cli"), // https://google-gemini.github.io/gemini-cli
+        new AgentDef("OPENCODE", "opencode")); // https://github.com/opencode-ai/opencode
   }
 
   // Looks up the active agent provider based on environment variables.
@@ -262,11 +267,14 @@ public class UserAgent {
   private static String lookupAgentProvider(Environment env) {
     String detected = "";
     int count = 0;
-    for (Map.Entry<String, String> agent : listKnownAgents()) {
-      String value = env.get(agent.getKey());
+    for (AgentDef agent : listKnownAgents()) {
+      String value = env.get(agent.envVar);
       if (value != null && !value.isEmpty()) {
-        detected = agent.getValue();
+        detected = agent.product;
         count++;
+        if (count > 1) {
+          return "";
+        }
       }
     }
     if (count == 1) {
