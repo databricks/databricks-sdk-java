@@ -11,6 +11,10 @@ import java.util.Objects;
 /** Used when outputting a child run, in GetRun or ListRuns. */
 @Generated
 public class RunTask {
+  /** New alert v2 task */
+  @JsonProperty("alert_task")
+  private AlertTask alertTask;
+
   /**
    * The sequence number of this run attempt for a triggered job run. The initial attempt of a run
    * has an attempt_number of 0. If the initial run attempt fails, and the job has a retry policy
@@ -334,6 +338,15 @@ public class RunTask {
    */
   @JsonProperty("webhook_notifications")
   private WebhookNotifications webhookNotifications;
+
+  public RunTask setAlertTask(AlertTask alertTask) {
+    this.alertTask = alertTask;
+    return this;
+  }
+
+  public AlertTask getAlertTask() {
+    return alertTask;
+  }
 
   public RunTask setAttemptNumber(Long attemptNumber) {
     this.attemptNumber = attemptNumber;
@@ -799,7 +812,8 @@ public class RunTask {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     RunTask that = (RunTask) o;
-    return Objects.equals(attemptNumber, that.attemptNumber)
+    return Objects.equals(alertTask, that.alertTask)
+        && Objects.equals(attemptNumber, that.attemptNumber)
         && Objects.equals(cleanRoomsNotebookTask, that.cleanRoomsNotebookTask)
         && Objects.equals(cleanupDuration, that.cleanupDuration)
         && Objects.equals(clusterInstance, that.clusterInstance)
@@ -855,6 +869,7 @@ public class RunTask {
   @Override
   public int hashCode() {
     return Objects.hash(
+        alertTask,
         attemptNumber,
         cleanRoomsNotebookTask,
         cleanupDuration,
@@ -911,6 +926,7 @@ public class RunTask {
   @Override
   public String toString() {
     return new ToStringer(RunTask.class)
+        .add("alertTask", alertTask)
         .add("attemptNumber", attemptNumber)
         .add("cleanRoomsNotebookTask", cleanRoomsNotebookTask)
         .add("cleanupDuration", cleanupDuration)
