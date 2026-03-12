@@ -1,5 +1,16 @@
 # Version changelog
 
+## Release v0.100.0 (2026-03-12)
+
+### Internal Changes
+* Add retry with backoff to `CachedTokenSource` async refresh so that a failed background refresh no longer disables async until a blocking call succeeds.
+
+### API Changes
+* Add `connectorType` and `dataStagingOptions` fields for `com.databricks.sdk.service.pipelines.IngestionPipelineDefinition`.
+* Add `ingestionSourceCatalogName`, `ingestionSourceConnectionName`, `ingestionSourceSchemaName`, `ingestionSourceTableName` and `ingestionSourceTableVersion` fields for `com.databricks.sdk.service.pipelines.Origin`.
+* Add `subDomain` field for `com.databricks.sdk.service.serving.ExternalFunctionRequest`.
+
+
 ## Release v0.99.0 (2026-03-11)
 
 ### API Changes
