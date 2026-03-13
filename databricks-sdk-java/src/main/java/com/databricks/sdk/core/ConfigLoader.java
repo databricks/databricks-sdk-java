@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 @InternalApi
 public class ConfigLoader {
   private static final Logger LOG = LoggerFactory.getLogger(ConfigLoader.class);
+  private static final String SETTINGS_SECTION = "__settings__";
 
   private static final List<ConfigAttributeAccessor> accessors = attributeAccessors();
 
@@ -94,18 +95,36 @@ public class ConfigLoader {
 
     String profile = cfg.getProfile();
     boolean hasExplicitProfile = !isNullOrEmpty(profile);
+    boolean hasDefaultProfileSetting = false;
     if (!hasExplicitProfile) {
+      SubnodeConfiguration settings = ini.getSection(SETTINGS_SECTION);
+      if (settings != null && !settings.isEmpty()) {
+        String defaultProfile = settings.getString("default_profile");
+        if (defaultProfile != null) {
+          defaultProfile = defaultProfile.trim();
+        }
+        if (!isNullOrEmpty(defaultProfile)) {
+          profile = defaultProfile;
+          hasDefaultProfileSetting = true;
+        }
+      }
+    }
+    if (!hasExplicitProfile && !hasDefaultProfileSetting) {
       profile = "DEFAULT";
     }
-    SubnodeConfiguration section = ini.getSection(profile);
+    SubnodeConfiguration section =
+        SETTINGS_SECTION.equals(profile) ? null : ini.getSection(profile);
     boolean sectionNotPresent = section == null || section.isEmpty();
-    if (sectionNotPresent && !hasExplicitProfile) {
+    if (sectionNotPresent && !hasExplicitProfile && !hasDefaultProfileSetting) {
       LOG.info("{} has no {} profile configured", configFile, profile);
       return;
     }
     if (sectionNotPresent) {
       String msg = String.format("resolve: %s has no %s profile configured", configFile, profile);
       throw new DatabricksException(msg);
+    }
+    if (hasDefaultProfileSetting) {
+      cfg.setProfile(profile);
     }
 
     for (ConfigAttributeAccessor accessor : accessors) {
