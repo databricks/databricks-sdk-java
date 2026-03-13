@@ -1,6 +1,6 @@
 # NEXT CHANGELOG
 
-## Release v0.100.0
+## Release v0.101.0
 
 ### New Features and Improvements
 
@@ -11,6 +11,11 @@
 ### Documentation
 
 ### Internal Changes
-* Add retry with backoff to `CachedTokenSource` async refresh so that a failed background refresh no longer disables async until a blocking call succeeds.
 
 ### API Changes
+* Add `alertOutput` field for `com.databricks.sdk.service.jobs.RunOutput`.
+* Add `alertTask` field for `com.databricks.sdk.service.jobs.RunTask`.
+* Add `alertTask` field for `com.databricks.sdk.service.jobs.SubmitTask`.
+* Add `alertTask` field for `com.databricks.sdk.service.jobs.Task`.
+* Add `com.databricks.sdk.service.environments` package.
+* Add `workspaceClient.environments()` service.
