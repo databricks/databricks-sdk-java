@@ -27,8 +27,8 @@ public class ListWarehousesRequest {
   private String pageToken;
 
   /**
-   * Service Principal which will be used to fetch the list of endpoints. If not specified, SQL
-   * Gateway will use the user from the session header.
+   * Deprecated: this field is ignored by the server. Service Principal which will be used to fetch
+   * the list of endpoints. If not specified, SQL Gateway will use the user from the session header.
    */
   @JsonIgnore
   @QueryParam("run_as_user_id")
