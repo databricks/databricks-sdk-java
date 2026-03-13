@@ -22,9 +22,6 @@ public class DeleteRoleRequest {
    *
    * <p>NOTE: setting this requires spinning up a compute to succeed, since it involves running SQL
    * queries.
-   *
-   * <p>TODO: #LKB-7187 implement reassign_owned_to on LBM side. This might end-up being a
-   * synchronous query when this parameter is used.
    */
   @JsonIgnore
   @QueryParam("reassign_owned_to")
