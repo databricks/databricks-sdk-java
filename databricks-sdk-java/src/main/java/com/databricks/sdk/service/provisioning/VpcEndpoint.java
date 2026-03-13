@@ -59,7 +59,7 @@ public class VpcEndpoint {
    * This enumeration represents the type of Databricks VPC endpoint service that was used when
    * creating this VPC endpoint. If the VPC endpoint connects to the Databricks control plane for
    * either the front-end connection or the back-end REST API connection, the value is
-   * WORKSPACE_ACCESS. If the VPC endpoint connects to the Databricks workspace for the back-end
+   * GENERAL_ACCESS. If the VPC endpoint connects to the Databricks workspace for the back-end
    * secure cluster connectivity relay, the value is DATAPLANE_RELAY_ACCESS.
    */
   @JsonProperty("use_case")
