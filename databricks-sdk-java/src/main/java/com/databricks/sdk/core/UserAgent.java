@@ -129,6 +129,10 @@ public class UserAgent {
     if (!cicdProvider.isEmpty()) {
       segments.add(String.format("cicd/%s", cicdProvider));
     }
+    String agent = agentProvider();
+    if (!agent.isEmpty()) {
+      segments.add(String.format("agent/%s", agent));
+    }
     // Concurrent iteration over ArrayList must be guarded with synchronized.
     synchronized (otherInfo) {
       segments.addAll(
@@ -167,6 +171,8 @@ public class UserAgent {
   // are immediately visible to all threads. It prevents instruction
   // reordering by the compiler.
   protected static volatile String cicdProvider = null;
+
+  protected static volatile String agentProvider = null;
 
   protected static Environment env = null;
 
@@ -229,6 +235,65 @@ public class UserAgent {
       }
     }
     return cicdProvider;
+  }
+
+  // Maps an environment variable to an agent product name.
+  private static class AgentDef {
+    private final String envVar;
+    private final String product;
+
+    AgentDef(String envVar, String product) {
+      this.envVar = envVar;
+      this.product = product;
+    }
+  }
+
+  // Canonical list of known AI coding agents.
+  // Keep this list in sync with databricks-sdk-go and databricks-sdk-py.
+  private static List<AgentDef> listKnownAgents() {
+    return Arrays.asList(
+        new AgentDef("ANTIGRAVITY_AGENT", "antigravity"), // Closed source (Google)
+        new AgentDef("CLAUDECODE", "claude-code"), // https://github.com/anthropics/claude-code
+        new AgentDef("CLINE_ACTIVE", "cline"), // https://github.com/cline/cline (v3.24.0+)
+        new AgentDef("CODEX_CI", "codex"), // https://github.com/openai/codex
+        new AgentDef("COPILOT_CLI", "copilot-cli"), // https://github.com/features/copilot
+        new AgentDef("CURSOR_AGENT", "cursor"), // Closed source
+        new AgentDef("GEMINI_CLI", "gemini-cli"), // https://google-gemini.github.io/gemini-cli
+        new AgentDef("OPENCODE", "opencode")); // https://github.com/opencode-ai/opencode
+  }
+
+  // Looks up the active agent provider based on environment variables.
+  // Returns the agent name if exactly one is set (non-empty).
+  // Returns empty string if zero or multiple agents detected.
+  private static String lookupAgentProvider(Environment env) {
+    String detected = "";
+    int count = 0;
+    for (AgentDef agent : listKnownAgents()) {
+      String value = env.get(agent.envVar);
+      if (value != null && !value.isEmpty()) {
+        detected = agent.product;
+        count++;
+        if (count > 1) {
+          return "";
+        }
+      }
+    }
+    if (count == 1) {
+      return detected;
+    }
+    return "";
+  }
+
+  // Thread-safe lazy initialization of agent provider detection
+  private static String agentProvider() {
+    if (agentProvider == null) {
+      synchronized (UserAgent.class) {
+        if (agentProvider == null) {
+          agentProvider = lookupAgentProvider(env());
+        }
+      }
+    }
+    return agentProvider;
   }
 
   private static Environment env() {
