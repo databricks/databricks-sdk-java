@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 /** Utilities for serialization and deserialization in the Databricks Java SDK. */
@@ -16,6 +17,7 @@ public class SerDeUtils {
     mapper
         .registerModule(new JavaTimeModule())
         .registerModule(new GuavaModule())
+        .registerModule(new Jdk8Module())
         .registerModule(new ProtobufModule())
         .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
         .configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
