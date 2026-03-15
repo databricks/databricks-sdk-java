@@ -259,7 +259,8 @@ public class UserAgent {
         new AgentDef("COPILOT_CLI", "copilot-cli"), // https://github.com/features/copilot
         new AgentDef("CURSOR_AGENT", "cursor"), // Closed source
         new AgentDef("GEMINI_CLI", "gemini-cli"), // https://google-gemini.github.io/gemini-cli
-        new AgentDef("OPENCODE", "opencode")); // https://github.com/opencode-ai/opencode
+        new AgentDef("OPENCODE", "opencode"), // https://github.com/opencode-ai/opencode
+        new AgentDef("OPENCLAW_SHELL", "openclaw")); // https://github.com/anthropics/openclaw
   }
 
   // Looks up the active agent provider based on environment variables.

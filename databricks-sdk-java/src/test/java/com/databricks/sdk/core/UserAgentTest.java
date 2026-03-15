@@ -208,6 +208,17 @@ public class UserAgentTest {
   }
 
   @Test
+  public void testAgentProviderOpenclaw() {
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("OPENCLAW_SHELL", "exec");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/openclaw"));
+  }
+
+  @Test
   public void testAgentProviderNoAgent() {
     setupAgentEnv(new HashMap<>());
     Assertions.assertFalse(UserAgent.asString().contains("agent/"));
