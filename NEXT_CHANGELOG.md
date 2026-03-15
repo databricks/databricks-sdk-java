@@ -19,3 +19,4 @@
 * Add `alertTask` field for `com.databricks.sdk.service.jobs.Task`.
 * Add `com.databricks.sdk.service.environments` package.
 * Add `workspaceClient.environments()` service.
+* Add `CAN_CREATE_APP` enum value for `com.databricks.sdk.service.iam.PermissionLevel`.
