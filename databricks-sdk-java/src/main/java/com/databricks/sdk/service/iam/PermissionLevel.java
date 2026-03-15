@@ -10,6 +10,7 @@ public enum PermissionLevel {
   CAN_ATTACH_TO,
   CAN_BIND,
   CAN_CREATE,
+  CAN_CREATE_APP,
   CAN_EDIT,
   CAN_EDIT_METADATA,
   CAN_MANAGE,
