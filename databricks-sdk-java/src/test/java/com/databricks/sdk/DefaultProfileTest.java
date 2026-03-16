@@ -87,7 +87,7 @@ public class DefaultProfileTest implements ConfigResolving {
               config.authenticate();
             });
     assertTrue(
-        ex.getMessage().contains("has no __settings__ profile configured"),
+        ex.getMessage().contains("reserved section name"),
         "Error should reject __settings__ as a profile target: " + ex.getMessage());
   }
 
@@ -122,7 +122,7 @@ public class DefaultProfileTest implements ConfigResolving {
               config.authenticate();
             });
     assertTrue(
-        ex.getMessage().contains("has no __settings__ profile configured"),
+        ex.getMessage().contains("reserved section name"),
         "Error should reject __settings__ as a profile target: " + ex.getMessage());
   }
 
