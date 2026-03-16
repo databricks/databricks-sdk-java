@@ -135,8 +135,7 @@ public class ConfigLoader {
    * @return a two-element array: [profileName, "true"/"false" for isFallback]
    * @throws DatabricksException if the resolved profile is the reserved __settings__ section
    */
-  static String[] resolveProfile(
-      String requestedProfile, INIConfiguration ini, String configFile) {
+  static String[] resolveProfile(String requestedProfile, INIConfiguration ini, String configFile) {
     if (!isNullOrEmpty(requestedProfile)) {
       if (SETTINGS_SECTION.equals(requestedProfile)) {
         throw new DatabricksException(
