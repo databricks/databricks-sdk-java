@@ -13,3 +13,4 @@
 ### Internal Changes
 
 ### API Changes
+* Add `parentPath` field for `com.databricks.sdk.service.dashboards.GenieSpace`.

@@ -13,6 +13,10 @@ public class GenieSpace {
   @JsonProperty("description")
   private String description;
 
+  /** Parent folder path of the Genie Space */
+  @JsonProperty("parent_path")
+  private String parentPath;
+
   /**
    * The contents of the Genie Space in serialized string form. This field is excluded in List Genie
    * spaces responses. Use the [Get Genie Space](:method:genie/getspace) API to retrieve an example
@@ -41,6 +45,15 @@ public class GenieSpace {
 
   public String getDescription() {
     return description;
+  }
+
+  public GenieSpace setParentPath(String parentPath) {
+    this.parentPath = parentPath;
+    return this;
+  }
+
+  public String getParentPath() {
+    return parentPath;
   }
 
   public GenieSpace setSerializedSpace(String serializedSpace) {
@@ -85,6 +98,7 @@ public class GenieSpace {
     if (o == null || getClass() != o.getClass()) return false;
     GenieSpace that = (GenieSpace) o;
     return Objects.equals(description, that.description)
+        && Objects.equals(parentPath, that.parentPath)
         && Objects.equals(serializedSpace, that.serializedSpace)
         && Objects.equals(spaceId, that.spaceId)
         && Objects.equals(title, that.title)
@@ -93,13 +107,14 @@ public class GenieSpace {
 
   @Override
   public int hashCode() {
-    return Objects.hash(description, serializedSpace, spaceId, title, warehouseId);
+    return Objects.hash(description, parentPath, serializedSpace, spaceId, title, warehouseId);
   }
 
   @Override
   public String toString() {
     return new ToStringer(GenieSpace.class)
         .add("description", description)
+        .add("parentPath", parentPath)
         .add("serializedSpace", serializedSpace)
         .add("spaceId", spaceId)
         .add("title", title)

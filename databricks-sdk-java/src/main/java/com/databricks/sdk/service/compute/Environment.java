@@ -11,7 +11,7 @@ import java.util.Objects;
 /**
  * The environment entity used to preserve serverless environment side panel, jobs' environment for
  * non-notebook task, and DLT's environment for classic and serverless pipelines. In this minimal
- * environment spec, only pip dependencies are supported.
+ * environment spec, only pip and java dependencies are supported.
  */
 @Generated
 public class Environment {
@@ -41,8 +41,9 @@ public class Environment {
   private Collection<String> dependencies;
 
   /**
-   * Required. Environment version used by the environment. Each version comes with a specific
-   * Python version and a set of Python packages. The version is a string, consisting of an integer.
+   * Either `environment_version` or `base_environment` needs to be provided. Environment version
+   * used by the environment. Each version comes with a specific Python version and a set of Python
+   * packages. The version is a string, consisting of an integer.
    */
   @JsonProperty("environment_version")
   private String environmentVersion;
