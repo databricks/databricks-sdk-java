@@ -13,3 +13,5 @@
 ### Internal Changes
 
 ### API Changes
+* Add `disableGovTagCreation` field for `com.databricks.sdk.service.settings.RestrictWorkspaceAdminsMessage`.
+* Add `disableGovTagCreation` field for `com.databricks.sdk.service.settingsv2.RestrictWorkspaceAdminsMessage`.
