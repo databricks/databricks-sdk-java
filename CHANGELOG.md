@@ -1,5 +1,11 @@
 # Version changelog
 
+## Release v0.102.0 (2026-03-18)
+
+### API Changes
+* Add `parentPath` field for `com.databricks.sdk.service.dashboards.GenieSpace`.
+
+
 ## Release v0.101.0 (2026-03-16)
 
 ### API Changes
