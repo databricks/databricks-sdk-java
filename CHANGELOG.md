@@ -1,5 +1,12 @@
 # Version changelog
 
+## Release v0.103.0 (2026-03-19)
+
+### API Changes
+* Add `disableGovTagCreation` field for `com.databricks.sdk.service.settings.RestrictWorkspaceAdminsMessage`.
+* Add `disableGovTagCreation` field for `com.databricks.sdk.service.settingsv2.RestrictWorkspaceAdminsMessage`.
+
+
 ## Release v0.102.0 (2026-03-18)
 
 ### API Changes
