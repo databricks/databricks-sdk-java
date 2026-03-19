@@ -69,15 +69,11 @@ public class GoogleIdCredentialsProvider implements CredentialsProvider {
         throw new DatabricksException(message, e);
       }
 
-      if (config.getClientType() == ClientType.ACCOUNT) {
-        try {
-          headers.put(
-              SA_ACCESS_TOKEN_HEADER, gcpScopedCredentials.refreshAccessToken().getTokenValue());
-        } catch (IOException e) {
-          String message = "Failed to refresh access token from scoped id token credentials.";
-          LOG.error(message + e);
-          throw new DatabricksException(message, e);
-        }
+      try {
+        headers.put(
+            SA_ACCESS_TOKEN_HEADER, gcpScopedCredentials.refreshAccessToken().getTokenValue());
+      } catch (IOException e) {
+        LOG.warn("Failed to refresh GCP SA access token, skipping header: {}", e.getMessage());
       }
 
       return headers;
