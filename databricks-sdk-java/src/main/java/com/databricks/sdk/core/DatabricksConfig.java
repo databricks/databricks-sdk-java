@@ -884,6 +884,10 @@ public class DatabricksConfig {
             "discovery_url is not configured and could not be resolved from host metadata");
       }
     }
+    // For account hosts, use the accountId as the token audience if not already set.
+    if (tokenAudience == null && getClientType() == ClientType.ACCOUNT && accountId != null) {
+      tokenAudience = accountId;
+    }
   }
 
   private OpenIDConnectEndpoints fetchOidcEndpointsFromDiscovery() {
