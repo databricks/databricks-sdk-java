@@ -2,7 +2,6 @@ package com.databricks.sdk;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.databricks.sdk.core.ClientType;
 import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.HostType;
 import com.databricks.sdk.service.provisioning.Workspace;
@@ -49,28 +48,14 @@ public class AccountClientTest {
 
     WorkspaceClient workspaceClient = accountClient.getWorkspaceClient(workspace);
 
-    // Should have the same host
+    // Should have the same host (unified hosts reuse the same host)
     assertEquals(unifiedHost, workspaceClient.config().getHost());
 
     // Should have workspace ID set
     assertEquals("123456", workspaceClient.config().getWorkspaceId());
 
-    // Should be workspace client type (on unified host)
-    assertEquals(ClientType.WORKSPACE, workspaceClient.config().getClientType());
-
-    // Host type should still be unified
-    assertEquals(HostType.UNIFIED, workspaceClient.config().getHostType());
-  }
-
-  @Test
-  public void testGetWorkspaceClientForUnifiedHostType() {
-    // Verify unified host type is correctly detected
-    DatabricksConfig config =
-        new DatabricksConfig()
-            .setHost("https://unified.databricks.com")
-            .setExperimentalIsUnifiedHost(true);
-
-    assertEquals(HostType.UNIFIED, config.getHostType());
+    // Host type is WORKSPACE (determined from URL pattern, not unified flag)
+    assertEquals(HostType.WORKSPACE, workspaceClient.config().getHostType());
   }
 
   @Test

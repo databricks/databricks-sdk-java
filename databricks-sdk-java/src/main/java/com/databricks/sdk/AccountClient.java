@@ -5,7 +5,7 @@ package com.databricks.sdk;
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.core.ConfigLoader;
 import com.databricks.sdk.core.DatabricksConfig;
-import com.databricks.sdk.core.HostType;
+import com.databricks.sdk.core.DatabricksEnvironment;
 import com.databricks.sdk.core.utils.AzureUtils;
 import com.databricks.sdk.service.billing.BillableUsageAPI;
 import com.databricks.sdk.service.billing.BillableUsageService;
@@ -1131,18 +1131,47 @@ public class AccountClient {
   }
 
   public WorkspaceClient getWorkspaceClient(Workspace workspace) {
-    // For unified hosts, clone config and set workspace ID
-    if (this.config.getHostType() == HostType.UNIFIED) {
+    String host =
+        workspaceHost(
+            this.config.getDatabricksEnvironment(),
+            this.config.getHost(),
+            workspace.getDeploymentName());
+    if (host.equals(this.config.getHost())) {
+      // SPOG/unified: reuse the same host, clone config and set workspace ID
       DatabricksConfig workspaceConfig = this.config.clone();
       workspaceConfig.setWorkspaceId(String.valueOf(workspace.getWorkspaceId()));
       return new WorkspaceClient(workspaceConfig);
     }
-
-    // For traditional account hosts, get workspace deployment URL
-    String host =
-        this.config.getDatabricksEnvironment().getDeploymentUrl(workspace.getDeploymentName());
+    // Traditional: use the deployment URL
     DatabricksConfig config = this.config.newWithWorkspaceHost(host);
     AzureUtils.getAzureWorkspaceResourceId(workspace).map(config::setAzureWorkspaceResourceId);
     return new WorkspaceClient(config);
+  }
+
+  /**
+   * Determines the workspace host URL. For SPOG hosts (no DNS zone or host doesn't match the DNS
+   * zone pattern), returns the account host as-is. For traditional hosts, builds the deployment
+   * URL.
+   */
+  private static String workspaceHost(
+      DatabricksEnvironment env, String accountHost, String deploymentName) {
+    if (env.getDnsZone() == null || env.getDnsZone().isEmpty()) {
+      return accountHost;
+    }
+    if (accountHost != null) {
+      String normalized = accountHost;
+      if (!normalized.contains("://")) {
+        normalized = "https://" + normalized;
+      }
+      try {
+        java.net.URL url = new java.net.URL(normalized);
+        if (url.getHost() != null && url.getHost().endsWith(env.getDnsZone())) {
+          return env.getDeploymentUrl(deploymentName);
+        }
+      } catch (java.net.MalformedURLException e) {
+        // Fall through to return accountHost
+      }
+    }
+    return accountHost;
   }
 }
