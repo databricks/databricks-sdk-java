@@ -123,7 +123,7 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
               @Override
               public Token getToken() {
                 Token t = tokenSource.getToken();
-                validateTokenScopes(t, scopes, host);
+                validateTokenScopes(t, scopes);
                 return t;
               }
             };
@@ -171,7 +171,7 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
    * will silently use the wrong scopes. This check surfaces that mismatch early with an actionable
    * error telling the user how to re-authenticate with the correct scopes.
    */
-  static void validateTokenScopes(Token token, List<String> requestedScopes, String host) {
+  static void validateTokenScopes(Token token, List<String> requestedScopes) {
     Map<String, Object> claims = getJwtClaims(token.getAccessToken());
     if (claims == null) {
       LOG.debug("Could not decode token as JWT to validate scopes");
@@ -204,7 +204,7 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
           String.format(
               "Token issued by Databricks CLI has scopes %s which do not match "
                   + "the configured scopes %s. Please re-authenticate "
-                  + "with the desired scopes by running `databricks auth login` with the --scopes flag."
+                  + "with the desired scopes by running `databricks auth login` with the --scopes flag. "
                   + "Scopes default to all-apis.",
               sortedTokenScopes, sortedRequested));
     }
@@ -212,7 +212,8 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
 
   /**
    * Decode a JWT access token and return its payload claims. Returns null if the token is not a
-   * valid JWT.
+   * valid JWT. No signature verification is performed — the token was already authenticated by the
+   * CLI, and we only need to read the scope claim for comparison.
    */
   private static Map<String, Object> getJwtClaims(String accessToken) {
     String[] parts = accessToken.split("\\.");
@@ -233,18 +234,12 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
   }
 
   /**
-   * Parse the JWT "scope" claim, which can be either a space-delimited string or a JSON array.
-   * Returns null if the type is unexpected.
+   * Parse the JWT "scope" claim. Per RFC 9068, this is a space-delimited string. Returns null if
+   * the type is unexpected.
    */
   private static Set<String> parseScopeClaim(Object scopeClaim) {
     if (scopeClaim instanceof String) {
       return new HashSet<>(Arrays.asList(((String) scopeClaim).split("\\s+")));
-    } else if (scopeClaim instanceof List) {
-      Set<String> scopes = new HashSet<>();
-      for (Object s : (List<?>) scopeClaim) {
-        scopes.add(String.valueOf(s));
-      }
-      return scopes;
     }
     return null;
   }

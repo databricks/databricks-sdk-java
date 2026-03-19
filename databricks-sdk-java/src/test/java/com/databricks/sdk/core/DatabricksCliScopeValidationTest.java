@@ -14,7 +14,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 class DatabricksCliScopeValidationTest {
 
-  private static final String HOST = "https://my-workspace.cloud.databricks.com";
   private static final ObjectMapper MAPPER = new ObjectMapper();
 
   /** Builds a fake JWT (header.payload.signature) with the given claims. */
@@ -62,16 +61,24 @@ class DatabricksCliScopeValidationTest {
             Arrays.asList("all-apis", "offline_access"),
             false,
             "offline_access_in_config_only"),
-        // Scope claim as list instead of string.
+        // Order should not matter.
         Arguments.of(
-            new HashMap<String, Object>() {
-              {
-                put("scope", Arrays.asList("sql", "offline_access"));
-              }
-            },
+            Collections.singletonMap("scope", "clusters sql"),
+            Arrays.asList("sql", "clusters"),
+            false,
+            "multiple_scopes_order_independent"),
+        // Partial overlap is still a mismatch.
+        Arguments.of(
+            Collections.singletonMap("scope", "sql clusters"),
+            Arrays.asList("sql", "compute"),
+            true,
+            "multiple_scopes_partial_overlap_mismatch"),
+        // No scope claim in token — validation is skipped.
+        Arguments.of(
+            Collections.singletonMap("sub", "user@example.com"),
             Collections.singletonList("sql"),
             false,
-            "scope_as_list"));
+            "no_scope_claim_skips_validation"));
   }
 
   @ParameterizedTest(name = "{3}")
@@ -86,22 +93,11 @@ class DatabricksCliScopeValidationTest {
     if (expectError) {
       assertThrows(
           DatabricksCliCredentialsProvider.ScopeMismatchException.class,
-          () ->
-              DatabricksCliCredentialsProvider.validateTokenScopes(token, configuredScopes, HOST));
+          () -> DatabricksCliCredentialsProvider.validateTokenScopes(token, configuredScopes));
     } else {
       assertDoesNotThrow(
-          () ->
-              DatabricksCliCredentialsProvider.validateTokenScopes(token, configuredScopes, HOST));
+          () -> DatabricksCliCredentialsProvider.validateTokenScopes(token, configuredScopes));
     }
-  }
-
-  @Test
-  void testNoScopeClaimSkipsValidation() {
-    Token token = makeToken(Collections.singletonMap("sub", "user@example.com"));
-    assertDoesNotThrow(
-        () ->
-            DatabricksCliCredentialsProvider.validateTokenScopes(
-                token, Collections.singletonList("sql"), HOST));
   }
 
   @Test
@@ -110,7 +106,7 @@ class DatabricksCliScopeValidationTest {
     assertDoesNotThrow(
         () ->
             DatabricksCliCredentialsProvider.validateTokenScopes(
-                token, Collections.singletonList("sql"), HOST));
+                token, Collections.singletonList("sql")));
   }
 
   @Test
@@ -121,12 +117,27 @@ class DatabricksCliScopeValidationTest {
             DatabricksCliCredentialsProvider.ScopeMismatchException.class,
             () ->
                 DatabricksCliCredentialsProvider.validateTokenScopes(
-                    token, Arrays.asList("sql", "offline_access"), HOST));
+                    token, Arrays.asList("sql", "offline_access")));
     assertTrue(
         e.getMessage().contains("databricks auth login"),
         "Expected re-auth command in error message, got: " + e.getMessage());
     assertTrue(
         e.getMessage().contains("do not match the configured scopes"),
         "Expected scope mismatch details in error message, got: " + e.getMessage());
+  }
+
+  @Test
+  void testScopesExplicitlySetFlag() {
+    DatabricksConfig config = new DatabricksConfig();
+    assertFalse(config.isScopesExplicitlySet());
+
+    config.setScopes(Arrays.asList("sql", "clusters"));
+    assertTrue(config.isScopesExplicitlySet());
+
+    config.setScopes(Collections.emptyList());
+    assertFalse(config.isScopesExplicitlySet(), "Empty list should not count as explicitly set");
+
+    config.setScopes(null);
+    assertFalse(config.isScopesExplicitlySet(), "null should not count as explicitly set");
   }
 }
