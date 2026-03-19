@@ -192,13 +192,20 @@ public class IdempotencyTestingAPITest {
       TestResource result = api.createTestResource(testCase.apiRequest);
       assertEquals(testCase.wantResult, result, "Test case: " + testCase.name);
 
-      // Capture and verify request IDs
+      // Capture and verify request IDs (atLeast(2) accounts for metadata resolution call)
       ArgumentCaptor<Request> requestCaptor = ArgumentCaptor.forClass(Request.class);
-      verify(spyClient, times(2)).execute(requestCaptor.capture());
+      verify(spyClient, atLeast(2)).execute(requestCaptor.capture());
 
+      // Filter to only the API requests (skip metadata resolution calls)
       List<Request> capturedRequests = requestCaptor.getAllValues();
-      String firstRequestId = capturedRequests.get(0).getQuery().get("request_id").get(0);
-      String secondRequestId = capturedRequests.get(1).getQuery().get("request_id").get(0);
+      List<Request> apiRequests = new java.util.ArrayList<>();
+      for (Request req : capturedRequests) {
+        if (!req.getUrl().contains(".well-known/databricks-config")) {
+          apiRequests.add(req);
+        }
+      }
+      String firstRequestId = apiRequests.get(0).getQuery().get("request_id").get(0);
+      String secondRequestId = apiRequests.get(1).getQuery().get("request_id").get(0);
 
       assertNotNull(firstRequestId, "Auto-generated request_id should not be null");
       assertFalse(firstRequestId.isEmpty(), "Auto-generated request_id should not be empty");
