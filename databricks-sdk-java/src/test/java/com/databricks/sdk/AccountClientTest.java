@@ -72,4 +72,40 @@ public class AccountClientTest {
 
     assertEquals(HostType.UNIFIED, config.getHostType());
   }
+
+  @Test
+  public void testGetWorkspaceClientForSpogHostDoesNotMutateAccountConfig() {
+    String spogHost = "https://mycompany.databricks.com";
+    DatabricksConfig accountConfig =
+        new DatabricksConfig()
+            .setHost(spogHost)
+            .setExperimentalIsUnifiedHost(true)
+            .setAccountId("test-account")
+            .setToken("test-token");
+
+    AccountClient accountClient = new AccountClient(accountConfig);
+
+    // Get workspace client for first workspace
+    Workspace workspace1 = new Workspace();
+    workspace1.setWorkspaceId(111L);
+    workspace1.setDeploymentName("ws-1");
+    WorkspaceClient wc1 = accountClient.getWorkspaceClient(workspace1);
+
+    // Get workspace client for second workspace
+    Workspace workspace2 = new Workspace();
+    workspace2.setWorkspaceId(222L);
+    workspace2.setDeploymentName("ws-2");
+    WorkspaceClient wc2 = accountClient.getWorkspaceClient(workspace2);
+
+    // Each workspace client should have its own workspace ID
+    assertEquals("111", wc1.config().getWorkspaceId());
+    assertEquals("222", wc2.config().getWorkspaceId());
+
+    // Account config should not have been mutated
+    assertNull(accountConfig.getWorkspaceId());
+
+    // Both should share the same SPOG host
+    assertEquals(spogHost, wc1.config().getHost());
+    assertEquals(spogHost, wc2.config().getHost());
+  }
 }
