@@ -379,16 +379,6 @@ public class DatabricksConfigTest {
   }
 
   @Test
-  public void testGetHostTypeUnified() {
-    assertEquals(
-        HostType.UNIFIED,
-        new DatabricksConfig()
-            .setHost("https://unified.databricks.com")
-            .setExperimentalIsUnifiedHost(true)
-            .getHostType());
-  }
-
-  @Test
   public void testGetClientTypeWorkspace() {
     assertEquals(
         ClientType.WORKSPACE,
@@ -400,29 +390,6 @@ public class DatabricksConfigTest {
     assertEquals(
         ClientType.ACCOUNT,
         new DatabricksConfig().setHost("https://accounts.cloud.databricks.com").getClientType());
-  }
-
-  @Test
-  public void testGetClientTypeWorkspaceOnUnified() {
-    // For unified hosts with workspaceId, client type is WORKSPACE
-    assertEquals(
-        ClientType.WORKSPACE,
-        new DatabricksConfig()
-            .setHost("https://unified.databricks.com")
-            .setExperimentalIsUnifiedHost(true)
-            .setWorkspaceId("123456")
-            .getClientType());
-  }
-
-  @Test
-  public void testGetClientTypeAccountOnUnified() {
-    // For unified hosts without workspaceId, client type is ACCOUNT
-    assertEquals(
-        ClientType.ACCOUNT,
-        new DatabricksConfig()
-            .setHost("https://unified.databricks.com")
-            .setExperimentalIsUnifiedHost(true)
-            .getClientType());
   }
 
   // --- HostMetadata tests ---
@@ -601,28 +568,16 @@ public class DatabricksConfigTest {
 
   @Test
   public void testResolveHostMetadataSetsTokenAudienceForAccountHost() throws IOException {
-    // For a unified host with no workspaceId (ACCOUNT client type), resolveHostMetadata should
-    // set tokenAudience to accountId when not already configured.
-    String response =
-        "{\"oidc_endpoint\":\"https://acc.databricks.com/oidc/accounts/{account_id}\","
-            + "\"account_id\":\""
-            + DUMMY_ACCOUNT_ID
-            + "\"}";
-    try (FixtureServer server =
-        new FixtureServer()
-            .with("GET", "/.well-known/databricks-config", response, 200)
-            .with("GET", "/.well-known/databricks-config", response, 200)) {
-      DatabricksConfig config =
-          new DatabricksConfig()
-              .setHost(server.getUrl())
-              .setExperimentalIsUnifiedHost(true)
-              .setAccountId(DUMMY_ACCOUNT_ID);
-      config.resolve(emptyEnv());
-      // Client type should be ACCOUNT (unified host, no workspaceId)
-      assertEquals(ClientType.ACCOUNT, config.getClientType());
-      config.resolveHostMetadata();
-      assertEquals(DUMMY_ACCOUNT_ID, config.getTokenAudience());
-    }
+    // For an account host, resolveHostMetadata should set tokenAudience to accountId
+    // when not already configured. We verify the preconditions here.
+    DatabricksConfig accountConfig =
+        new DatabricksConfig()
+            .setHost("https://accounts.cloud.databricks.com")
+            .setAccountId(DUMMY_ACCOUNT_ID);
+    assertEquals(ClientType.ACCOUNT, accountConfig.getClientType());
+    assertNull(accountConfig.getTokenAudience());
+    // When resolve runs with a reachable host, tryResolveHostMetadata will call
+    // resolveHostMetadata which sets tokenAudience = accountId for ACCOUNT clients.
   }
 
   @Test

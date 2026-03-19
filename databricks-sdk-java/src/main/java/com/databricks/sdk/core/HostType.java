@@ -9,8 +9,5 @@ public enum HostType {
   WORKSPACE,
 
   /** Traditional accounts host. */
-  ACCOUNTS,
-
-  /** Unified host supporting both workspace and account operations. */
-  UNIFIED
+  ACCOUNTS
 }
