@@ -240,7 +240,7 @@ public class DatabricksConfig {
     }
     try {
       resolveHostMetadata();
-    } catch (Exception e) {
+    } catch (Throwable e) {
       LOG.debug("Failed to resolve host metadata: {}", e.getMessage());
     }
   }
