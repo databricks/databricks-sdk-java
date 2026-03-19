@@ -99,6 +99,7 @@ public class DatabricksConfigTest {
   public void testWorkspaceLevelOidcEndpointsWithAccountId() throws IOException {
     try (FixtureServer server =
         new FixtureServer()
+            .with("GET", "/.well-known/databricks-config", "{}", 404)
             .with(
                 "GET",
                 "/oidc/.well-known/oauth-authorization-server",
@@ -118,6 +119,7 @@ public class DatabricksConfigTest {
   public void testWorkspaceLevelOidcEndpointsRetries() throws IOException {
     try (FixtureServer server =
         new FixtureServer()
+            .with("GET", "/.well-known/databricks-config", "{}", 404)
             .with("GET", "/oidc/.well-known/oauth-authorization-server", "", 429)
             .with(
                 "GET",
@@ -443,7 +445,9 @@ public class DatabricksConfigTest {
             + DUMMY_WORKSPACE_ID
             + "\"}";
     try (FixtureServer server =
-        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+        new FixtureServer()
+            .with("GET", "/.well-known/databricks-config", response, 200)
+            .with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
       config.resolve(emptyEnv());
       HostMetadata meta = config.getHostMetadata();
@@ -458,7 +462,9 @@ public class DatabricksConfigTest {
     String response =
         "{\"oidc_endpoint\":\"https://acc.databricks.com/oidc/accounts/{account_id}\"}";
     try (FixtureServer server =
-        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+        new FixtureServer()
+            .with("GET", "/.well-known/databricks-config", response, 200)
+            .with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
       config.resolve(emptyEnv());
       HostMetadata meta = config.getHostMetadata();
@@ -471,7 +477,9 @@ public class DatabricksConfigTest {
   @Test
   public void testGetHostMetadataRaisesOnHttpError() throws IOException {
     try (FixtureServer server =
-        new FixtureServer().with("GET", "/.well-known/databricks-config", "{}", 404)) {
+        new FixtureServer()
+            .with("GET", "/.well-known/databricks-config", "{}", 404)
+            .with("GET", "/.well-known/databricks-config", "{}", 404)) {
       DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
       config.resolve(emptyEnv());
       DatabricksException ex =
@@ -493,7 +501,9 @@ public class DatabricksConfigTest {
             + DUMMY_WORKSPACE_ID
             + "\"}";
     try (FixtureServer server =
-        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+        new FixtureServer()
+            .with("GET", "/.well-known/databricks-config", response, 200)
+            .with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
       config.resolve(emptyEnv());
       config.resolveHostMetadata();
@@ -508,7 +518,9 @@ public class DatabricksConfigTest {
     String response =
         "{\"oidc_endpoint\":\"https://acc.databricks.com/oidc/accounts/{account_id}\"}";
     try (FixtureServer server =
-        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+        new FixtureServer()
+            .with("GET", "/.well-known/databricks-config", response, 200)
+            .with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config =
           new DatabricksConfig().setHost(server.getUrl()).setAccountId(DUMMY_ACCOUNT_ID);
       config.resolve(emptyEnv());
@@ -527,7 +539,9 @@ public class DatabricksConfigTest {
             + "\"account_id\":\"other-account\","
             + "\"workspace_id\":\"other-ws\"}";
     try (FixtureServer server =
-        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+        new FixtureServer()
+            .with("GET", "/.well-known/databricks-config", response, 200)
+            .with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config =
           new DatabricksConfig()
               .setHost(server.getUrl())
@@ -545,7 +559,9 @@ public class DatabricksConfigTest {
     String response =
         "{\"oidc_endpoint\":\"https://acc.databricks.com/oidc/accounts/{account_id}\"}";
     try (FixtureServer server =
-        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+        new FixtureServer()
+            .with("GET", "/.well-known/databricks-config", response, 200)
+            .with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
       config.resolve(emptyEnv());
       DatabricksException ex =
@@ -558,7 +574,9 @@ public class DatabricksConfigTest {
   public void testResolveHostMetadataRaisesWhenOidcEndpointMissing() throws IOException {
     String response = "{\"account_id\":\"" + DUMMY_ACCOUNT_ID + "\"}";
     try (FixtureServer server =
-        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+        new FixtureServer()
+            .with("GET", "/.well-known/databricks-config", response, 200)
+            .with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
       config.resolve(emptyEnv());
       DatabricksException ex =
@@ -570,7 +588,9 @@ public class DatabricksConfigTest {
   @Test
   public void testResolveHostMetadataRaisesOnHttpError() throws IOException {
     try (FixtureServer server =
-        new FixtureServer().with("GET", "/.well-known/databricks-config", "{}", 500)) {
+        new FixtureServer()
+            .with("GET", "/.well-known/databricks-config", "{}", 500)
+            .with("GET", "/.well-known/databricks-config", "{}", 500)) {
       DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
       config.resolve(emptyEnv());
       DatabricksException ex =
