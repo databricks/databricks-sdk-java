@@ -18,8 +18,12 @@ import java.lang.reflect.Field;
 import java.time.Duration;
 import java.util.*;
 import org.apache.http.HttpMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DatabricksConfig {
+  private static final Logger LOG = LoggerFactory.getLogger(DatabricksConfig.class);
+
   private CredentialsProvider credentialsProvider = new DefaultCredentialsProvider();
 
   @ConfigAttribute(env = "DATABRICKS_HOST")
@@ -219,9 +223,25 @@ public class DatabricksConfig {
       sortScopes();
       ConfigLoader.fixHostIfNeeded(this);
       initHttp();
+      tryResolveHostMetadata();
       return this;
     } catch (DatabricksException e) {
       throw ConfigLoader.makeNicerError(e.getMessage(), e, this);
+    }
+  }
+
+  /**
+   * Attempts to resolve host metadata from the well-known endpoint. Logs a warning and continues if
+   * metadata resolution fails, since not all hosts support the discovery endpoint.
+   */
+  private void tryResolveHostMetadata() {
+    if (host == null) {
+      return;
+    }
+    try {
+      resolveHostMetadata();
+    } catch (Exception e) {
+      LOG.debug("Failed to resolve host metadata: {}", e.getMessage());
     }
   }
 
@@ -960,6 +980,9 @@ public class DatabricksConfig {
     DatabricksConfig newConfig = new DatabricksConfig();
     for (Field f : DatabricksConfig.class.getDeclaredFields()) {
       if (fieldsToSkip.contains(f.getName())) {
+        continue;
+      }
+      if (java.lang.reflect.Modifier.isStatic(f.getModifiers())) {
         continue;
       }
       try {
