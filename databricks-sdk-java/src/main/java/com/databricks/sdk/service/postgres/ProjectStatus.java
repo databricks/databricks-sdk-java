@@ -23,6 +23,10 @@ public class ProjectStatus {
   @JsonProperty("custom_tags")
   private Collection<ProjectCustomTag> customTags;
 
+  /** The full resource path of the default branch of the project */
+  @JsonProperty("default_branch")
+  private String defaultBranch;
+
   /** The effective default endpoint settings. */
   @JsonProperty("default_endpoint_settings")
   private ProjectDefaultEndpointSettings defaultEndpointSettings;
@@ -76,6 +80,15 @@ public class ProjectStatus {
 
   public Collection<ProjectCustomTag> getCustomTags() {
     return customTags;
+  }
+
+  public ProjectStatus setDefaultBranch(String defaultBranch) {
+    this.defaultBranch = defaultBranch;
+    return this;
+  }
+
+  public String getDefaultBranch() {
+    return defaultBranch;
   }
 
   public ProjectStatus setDefaultEndpointSettings(
@@ -150,6 +163,7 @@ public class ProjectStatus {
     return Objects.equals(branchLogicalSizeLimitBytes, that.branchLogicalSizeLimitBytes)
         && Objects.equals(budgetPolicyId, that.budgetPolicyId)
         && Objects.equals(customTags, that.customTags)
+        && Objects.equals(defaultBranch, that.defaultBranch)
         && Objects.equals(defaultEndpointSettings, that.defaultEndpointSettings)
         && Objects.equals(displayName, that.displayName)
         && Objects.equals(enablePgNativeLogin, that.enablePgNativeLogin)
@@ -165,6 +179,7 @@ public class ProjectStatus {
         branchLogicalSizeLimitBytes,
         budgetPolicyId,
         customTags,
+        defaultBranch,
         defaultEndpointSettings,
         displayName,
         enablePgNativeLogin,
@@ -180,6 +195,7 @@ public class ProjectStatus {
         .add("branchLogicalSizeLimitBytes", branchLogicalSizeLimitBytes)
         .add("budgetPolicyId", budgetPolicyId)
         .add("customTags", customTags)
+        .add("defaultBranch", defaultBranch)
         .add("defaultEndpointSettings", defaultEndpointSettings)
         .add("displayName", displayName)
         .add("enablePgNativeLogin", enablePgNativeLogin)

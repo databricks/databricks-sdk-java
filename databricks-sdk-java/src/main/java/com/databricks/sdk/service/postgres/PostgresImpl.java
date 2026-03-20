@@ -35,6 +35,24 @@ class PostgresImpl implements PostgresService {
   }
 
   @Override
+  public Operation createCatalog(CreateCatalogRequest request) {
+    String path = "/api/2.0/postgres/catalogs";
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request.getCatalog()));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Operation.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public Operation createDatabase(CreateDatabaseRequest request) {
     String path = String.format("/api/2.0/postgres/%s/databases", request.getParent());
     try {
@@ -107,7 +125,42 @@ class PostgresImpl implements PostgresService {
   }
 
   @Override
+  public Operation createSyncedTable(CreateSyncedTableRequest request) {
+    String path = "/api/2.0/postgres/synced_tables";
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request.getSyncedTable()));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Operation.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public Operation deleteBranch(DeleteBranchRequest request) {
+    String path = String.format("/api/2.0/postgres/%s", request.getName());
+    try {
+      Request req = new Request("DELETE", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Operation.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public Operation deleteCatalog(DeleteCatalogRequest request) {
     String path = String.format("/api/2.0/postgres/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
@@ -192,6 +245,23 @@ class PostgresImpl implements PostgresService {
   }
 
   @Override
+  public Operation deleteSyncedTable(DeleteSyncedTableRequest request) {
+    String path = String.format("/api/2.0/postgres/%s", request.getName());
+    try {
+      Request req = new Request("DELETE", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Operation.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public DatabaseCredential generateDatabaseCredential(GenerateDatabaseCredentialRequest request) {
     String path = "/api/2.0/postgres/credentials";
     try {
@@ -221,6 +291,23 @@ class PostgresImpl implements PostgresService {
         req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, Branch.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public Catalog getCatalog(GetCatalogRequest request) {
+    String path = String.format("/api/2.0/postgres/%s", request.getName());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Catalog.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -306,6 +393,23 @@ class PostgresImpl implements PostgresService {
         req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, Role.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public SyncedTable getSyncedTable(GetSyncedTableRequest request) {
+    String path = String.format("/api/2.0/postgres/%s", request.getName());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, SyncedTable.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

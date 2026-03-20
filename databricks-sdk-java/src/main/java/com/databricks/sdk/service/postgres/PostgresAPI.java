@@ -43,6 +43,12 @@ public class PostgresAPI {
     return new CreateBranchOperation(impl, operation);
   }
 
+  /** Register a Postgres database in the Unity Catalog. */
+  public CreateCatalogOperation createCatalog(CreateCatalogRequest request) {
+    Operation operation = impl.createCatalog(request);
+    return new CreateCatalogOperation(impl, operation);
+  }
+
   /**
    * Create a Database.
    *
@@ -74,6 +80,12 @@ public class PostgresAPI {
     return new CreateRoleOperation(impl, operation);
   }
 
+  /** Create a Synced Table. */
+  public CreateSyncedTableOperation createSyncedTable(CreateSyncedTableRequest request) {
+    Operation operation = impl.createSyncedTable(request);
+    return new CreateSyncedTableOperation(impl, operation);
+  }
+
   public DeleteBranchOperation deleteBranch(String name) {
     return deleteBranch(new DeleteBranchRequest().setName(name));
   }
@@ -82,6 +94,16 @@ public class PostgresAPI {
   public DeleteBranchOperation deleteBranch(DeleteBranchRequest request) {
     Operation operation = impl.deleteBranch(request);
     return new DeleteBranchOperation(impl, operation);
+  }
+
+  public DeleteCatalogOperation deleteCatalog(String name) {
+    return deleteCatalog(new DeleteCatalogRequest().setName(name));
+  }
+
+  /** Delete a Database Catalog. */
+  public DeleteCatalogOperation deleteCatalog(DeleteCatalogRequest request) {
+    Operation operation = impl.deleteCatalog(request);
+    return new DeleteCatalogOperation(impl, operation);
   }
 
   public DeleteDatabaseOperation deleteDatabase(String name) {
@@ -124,6 +146,16 @@ public class PostgresAPI {
     return new DeleteRoleOperation(impl, operation);
   }
 
+  public DeleteSyncedTableOperation deleteSyncedTable(String name) {
+    return deleteSyncedTable(new DeleteSyncedTableRequest().setName(name));
+  }
+
+  /** Delete a Synced Table. */
+  public DeleteSyncedTableOperation deleteSyncedTable(DeleteSyncedTableRequest request) {
+    Operation operation = impl.deleteSyncedTable(request);
+    return new DeleteSyncedTableOperation(impl, operation);
+  }
+
   /** Generate OAuth credentials for a Postgres database. */
   public DatabaseCredential generateDatabaseCredential(GenerateDatabaseCredentialRequest request) {
     return impl.generateDatabaseCredential(request);
@@ -136,6 +168,15 @@ public class PostgresAPI {
   /** Retrieves information about the specified database branch. */
   public Branch getBranch(GetBranchRequest request) {
     return impl.getBranch(request);
+  }
+
+  public Catalog getCatalog(String name) {
+    return getCatalog(new GetCatalogRequest().setName(name));
+  }
+
+  /** Get a Database Catalog. */
+  public Catalog getCatalog(GetCatalogRequest request) {
+    return impl.getCatalog(request);
   }
 
   public Database getDatabase(String name) {
@@ -187,6 +228,15 @@ public class PostgresAPI {
    */
   public Role getRole(GetRoleRequest request) {
     return impl.getRole(request);
+  }
+
+  public SyncedTable getSyncedTable(String name) {
+    return getSyncedTable(new GetSyncedTableRequest().setName(name));
+  }
+
+  /** Get a Synced Table. */
+  public SyncedTable getSyncedTable(GetSyncedTableRequest request) {
+    return impl.getSyncedTable(request);
   }
 
   public Iterable<Branch> listBranches(String parent) {

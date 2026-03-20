@@ -14,6 +14,10 @@ public class Function {
   @JsonProperty("aggregation_function")
   private AggregationFunction aggregationFunction;
 
+  /** Selects the latest value of a single column in a data source */
+  @JsonProperty("column_selection")
+  private ColumnSelection columnSelection;
+
   /**
    * Deprecated: Use the function oneof with AggregationFunction instead. Kept for backwards
    * compatibility. Extra parameters for parameterized functions.
@@ -35,6 +39,15 @@ public class Function {
 
   public AggregationFunction getAggregationFunction() {
     return aggregationFunction;
+  }
+
+  public Function setColumnSelection(ColumnSelection columnSelection) {
+    this.columnSelection = columnSelection;
+    return this;
+  }
+
+  public ColumnSelection getColumnSelection() {
+    return columnSelection;
   }
 
   public Function setExtraParameters(Collection<FunctionExtraParameter> extraParameters) {
@@ -61,19 +74,21 @@ public class Function {
     if (o == null || getClass() != o.getClass()) return false;
     Function that = (Function) o;
     return Objects.equals(aggregationFunction, that.aggregationFunction)
+        && Objects.equals(columnSelection, that.columnSelection)
         && Objects.equals(extraParameters, that.extraParameters)
         && Objects.equals(functionType, that.functionType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(aggregationFunction, extraParameters, functionType);
+    return Objects.hash(aggregationFunction, columnSelection, extraParameters, functionType);
   }
 
   @Override
   public String toString() {
     return new ToStringer(Function.class)
         .add("aggregationFunction", aggregationFunction)
+        .add("columnSelection", columnSelection)
         .add("extraParameters", extraParameters)
         .add("functionType", functionType)
         .toString();
