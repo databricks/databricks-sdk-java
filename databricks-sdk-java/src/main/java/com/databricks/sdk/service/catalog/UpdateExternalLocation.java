@@ -23,6 +23,15 @@ public class UpdateExternalLocation {
   private Boolean effectiveEnableFileEvents;
 
   /**
+   * The effective file event queue configuration after applying server-side defaults. Always
+   * populated when a queue is provisioned, regardless of whether the user explicitly set
+   * `enable_file_events`. Use this field instead of `file_event_queue` for reading the actual queue
+   * state.
+   */
+  @JsonProperty("effective_file_event_queue")
+  private FileEventQueue effectiveFileEventQueue;
+
+  /**
    * Whether to enable file events on this external location. Default to `true`. Set to `false` to
    * disable file events. The actual applied value may differ due to server-side defaults; check
    * `effective_enable_file_events` for the effective state.
@@ -105,6 +114,15 @@ public class UpdateExternalLocation {
 
   public Boolean getEffectiveEnableFileEvents() {
     return effectiveEnableFileEvents;
+  }
+
+  public UpdateExternalLocation setEffectiveFileEventQueue(FileEventQueue effectiveFileEventQueue) {
+    this.effectiveFileEventQueue = effectiveFileEventQueue;
+    return this;
+  }
+
+  public FileEventQueue getEffectiveFileEventQueue() {
+    return effectiveFileEventQueue;
   }
 
   public UpdateExternalLocation setEnableFileEvents(Boolean enableFileEvents) {
@@ -223,6 +241,7 @@ public class UpdateExternalLocation {
     return Objects.equals(comment, that.comment)
         && Objects.equals(credentialName, that.credentialName)
         && Objects.equals(effectiveEnableFileEvents, that.effectiveEnableFileEvents)
+        && Objects.equals(effectiveFileEventQueue, that.effectiveFileEventQueue)
         && Objects.equals(enableFileEvents, that.enableFileEvents)
         && Objects.equals(encryptionDetails, that.encryptionDetails)
         && Objects.equals(fallback, that.fallback)
@@ -243,6 +262,7 @@ public class UpdateExternalLocation {
         comment,
         credentialName,
         effectiveEnableFileEvents,
+        effectiveFileEventQueue,
         enableFileEvents,
         encryptionDetails,
         fallback,
@@ -263,6 +283,7 @@ public class UpdateExternalLocation {
         .add("comment", comment)
         .add("credentialName", credentialName)
         .add("effectiveEnableFileEvents", effectiveEnableFileEvents)
+        .add("effectiveFileEventQueue", effectiveFileEventQueue)
         .add("enableFileEvents", enableFileEvents)
         .add("encryptionDetails", encryptionDetails)
         .add("fallback", fallback)

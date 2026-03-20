@@ -1801,6 +1801,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/BackfillSource.j
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/BatchCreateMaterializedFeaturesRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/BatchCreateMaterializedFeaturesResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ColumnIdentifier.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ColumnSelection.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CommentActivityAction.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CommentObject.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ContinuousWindow.java linguist-generated=true
@@ -2249,8 +2250,14 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/BranchOper
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/BranchSpec.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/BranchStatus.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/BranchStatusState.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/Catalog.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/CatalogCatalogSpec.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/CatalogCatalogStatus.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/CatalogOperationMetadata.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/CreateBranchOperation.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/CreateBranchRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/CreateCatalogOperation.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/CreateCatalogRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/CreateDatabaseOperation.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/CreateDatabaseRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/CreateEndpointOperation.java linguist-generated=true
@@ -2259,6 +2266,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/CreateProj
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/CreateProjectRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/CreateRoleOperation.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/CreateRoleRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/CreateSyncedTableOperation.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/CreateSyncedTableRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/Database.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/DatabaseCredential.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/DatabaseDatabaseSpec.java linguist-generated=true
@@ -2267,6 +2276,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/DatabaseOp
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/DatabricksServiceExceptionWithDetailsProto.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/DeleteBranchOperation.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/DeleteBranchRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/DeleteCatalogOperation.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/DeleteCatalogRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/DeleteDatabaseOperation.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/DeleteDatabaseRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/DeleteEndpointOperation.java linguist-generated=true
@@ -2275,6 +2286,9 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/DeleteProj
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/DeleteProjectRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/DeleteRoleOperation.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/DeleteRoleRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/DeleteSyncedTableOperation.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/DeleteSyncedTableRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/DeltaTableSyncInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/Endpoint.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/EndpointGroupSpec.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/EndpointGroupStatus.java linguist-generated=true
@@ -2288,11 +2302,13 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/EndpointTy
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/ErrorCode.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/GenerateDatabaseCredentialRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/GetBranchRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/GetCatalogRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/GetDatabaseRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/GetEndpointRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/GetOperationRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/GetProjectRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/GetRoleRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/GetSyncedTableRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/InitialEndpointSpec.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/ListBranchesRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/ListBranchesResponse.java linguist-generated=true
@@ -2304,6 +2320,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/ListProjec
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/ListProjectsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/ListRolesRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/ListRolesResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/NewPipelineSpec.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/Operation.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/PostgresAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/PostgresImpl.java linguist-generated=true
@@ -2314,6 +2331,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/ProjectDef
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/ProjectOperationMetadata.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/ProjectSpec.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/ProjectStatus.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/ProvisioningInfoState.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/ProvisioningPhase.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/RequestedClaims.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/RequestedClaimsPermissionSet.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/RequestedResource.java linguist-generated=true
@@ -2325,6 +2344,14 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/RoleMember
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/RoleOperationMetadata.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/RoleRoleSpec.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/RoleRoleStatus.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/SyncedTable.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/SyncedTableOperationMetadata.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/SyncedTablePipelineProgress.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/SyncedTablePosition.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/SyncedTableState.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/SyncedTableSyncedTableSpec.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/SyncedTableSyncedTableSpecSyncedTableSchedulingPolicy.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/SyncedTableSyncedTableStatus.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/UpdateBranchOperation.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/UpdateBranchRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/UpdateDatabaseOperation.java linguist-generated=true
