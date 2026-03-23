@@ -647,9 +647,7 @@ public class DatabricksConfigTest {
     try (FixtureServer server =
         new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config =
-          new DatabricksConfig()
-              .setHost(server.getUrl())
-              .setExperimentalIsUnifiedHost(true);
+          new DatabricksConfig().setHost(server.getUrl()).setExperimentalIsUnifiedHost(true);
       config.resolve(emptyEnv());
       assertEquals(DUMMY_ACCOUNT_ID, config.getAccountId());
       assertEquals(DUMMY_WORKSPACE_ID, config.getWorkspaceId());
@@ -674,11 +672,10 @@ public class DatabricksConfigTest {
   public void testEnsureResolvedHostMetadataFailureNonFatal() throws IOException {
     try (FixtureServer server =
         new FixtureServer()
-            .with("GET", "/.well-known/databricks-config", "{\"error\": \"internal error\"}", 500)) {
+            .with(
+                "GET", "/.well-known/databricks-config", "{\"error\": \"internal error\"}", 500)) {
       DatabricksConfig config =
-          new DatabricksConfig()
-              .setHost(server.getUrl())
-              .setExperimentalIsUnifiedHost(true);
+          new DatabricksConfig().setHost(server.getUrl()).setExperimentalIsUnifiedHost(true);
       // Should not throw — metadata failure is non-fatal
       config.resolve(emptyEnv());
       assertNull(config.getAccountId());
@@ -692,9 +689,7 @@ public class DatabricksConfigTest {
     try (FixtureServer server =
         new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config =
-          new DatabricksConfig()
-              .setHost(server.getUrl())
-              .setExperimentalIsUnifiedHost(true);
+          new DatabricksConfig().setHost(server.getUrl()).setExperimentalIsUnifiedHost(true);
       config.resolve(emptyEnv());
       assertEquals(DUMMY_ACCOUNT_ID, config.getAccountId());
       assertNull(config.getDiscoveryUrl());
@@ -709,9 +704,7 @@ public class DatabricksConfigTest {
     try (FixtureServer server =
         new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config =
-          new DatabricksConfig()
-              .setHost(server.getUrl())
-              .setExperimentalIsUnifiedHost(true);
+          new DatabricksConfig().setHost(server.getUrl()).setExperimentalIsUnifiedHost(true);
       config.resolve(emptyEnv());
       // DiscoveryURL should not be set because account_id is empty and placeholder can't be
       // substituted
