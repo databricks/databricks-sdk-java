@@ -996,6 +996,7 @@ public class DatabricksConfig {
       if (fieldsToSkip.contains(f.getName())) {
         continue;
       }
+      // Skip static fields (e.g. LOG) — they are shared across instances and cannot be set.
       if (java.lang.reflect.Modifier.isStatic(f.getModifiers())) {
         continue;
       }
