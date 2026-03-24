@@ -2,9 +2,7 @@ package com.databricks.sdk.core;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.databricks.sdk.core.oauth.OpenIDConnectEndpoints;
 import com.databricks.sdk.core.utils.Environment;
-import java.io.IOException;
 import java.util.*;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
@@ -13,10 +11,11 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 /**
- * Tests for unified host support (SPOG).
+ * Tests for host type detection, client type determination, and header injection.
  *
- * <p>Covers host type detection, client type determination, header injection, and OIDC endpoint
- * resolution for unified hosts.
+ * <p>After removing the UNIFIED host type, host type is determined solely from the URL pattern.
+ * Host metadata resolution (via /.well-known/databricks-config) populates accountId, workspaceId,
+ * and discoveryUrl automatically during config init.
  */
 public class UnifiedHostTest {
 
@@ -44,22 +43,10 @@ public class UnifiedHostTest {
   }
 
   @Test
-  public void testHostTypeUnifiedExplicitFlag() {
-    DatabricksConfig config =
-        new DatabricksConfig()
-            .setHost("https://unified.databricks.com")
-            .setExperimentalIsUnifiedHost(true);
-    assertEquals(HostType.UNIFIED, config.getHostType());
-  }
-
-  @Test
-  public void testHostTypeUnifiedOverridesAccounts() {
-    // Even if host looks like accounts, explicit flag takes precedence
-    DatabricksConfig config =
-        new DatabricksConfig()
-            .setHost("https://accounts.cloud.databricks.com")
-            .setExperimentalIsUnifiedHost(true);
-    assertEquals(HostType.UNIFIED, config.getHostType());
+  public void testHostTypeForNonAccountsHost() {
+    // A host that is not an accounts host is always WORKSPACE, regardless of any flags
+    DatabricksConfig config = new DatabricksConfig().setHost("https://mycompany.databricks.com");
+    assertEquals(HostType.WORKSPACE, config.getHostType());
   }
 
   @Test
@@ -72,163 +59,58 @@ public class UnifiedHostTest {
 
   private static Stream<Arguments> provideClientTypeTestCases() {
     return Stream.of(
+        Arguments.of("Workspace host", "https://adb-123.azuredatabricks.net", ClientType.WORKSPACE),
+        Arguments.of("Account host", "https://accounts.cloud.databricks.com", ClientType.ACCOUNT),
         Arguments.of(
-            "Workspace host",
-            "https://adb-123.azuredatabricks.net",
-            null,
-            false,
-            ClientType.WORKSPACE),
-        Arguments.of(
-            "Account host",
-            "https://accounts.cloud.databricks.com",
-            null,
-            false,
-            ClientType.ACCOUNT),
-        Arguments.of(
-            "Unified without workspace ID",
-            "https://unified.databricks.com",
-            null,
-            true,
-            ClientType.ACCOUNT),
-        Arguments.of(
-            "Unified with workspace ID",
-            "https://unified.databricks.com",
-            "123456",
-            true,
-            ClientType.WORKSPACE));
+            "Non-accounts host", "https://mycompany.databricks.com", ClientType.WORKSPACE));
   }
 
   @ParameterizedTest(name = "{0}")
   @MethodSource("provideClientTypeTestCases")
-  public void testClientType(
-      String testName, String host, String workspaceId, boolean isUnified, ClientType expected) {
-    DatabricksConfig config = new DatabricksConfig().setHost(host).setWorkspaceId(workspaceId);
-    if (isUnified) {
-      config.setExperimentalIsUnifiedHost(true);
-    }
+  public void testClientType(String testName, String host, ClientType expected) {
+    DatabricksConfig config = new DatabricksConfig().setHost(host);
     assertEquals(expected, config.getClientType());
   }
 
-  // --- OIDC Endpoint Tests ---
+  // --- isAccountClient() Tests ---
 
   @Test
-  public void testOidcEndpointsForUnifiedHost() throws IOException {
-    DatabricksConfig config =
-        new DatabricksConfig()
-            .setHost("https://unified.databricks.com")
-            .setExperimentalIsUnifiedHost(true)
-            .setAccountId("test-account-123");
-
-    OpenIDConnectEndpoints endpoints = config.getDatabricksOidcEndpoints();
-
-    assertEquals(
-        "https://unified.databricks.com/oidc/accounts/test-account-123/v1/authorize",
-        endpoints.getAuthorizationEndpoint());
-    assertEquals(
-        "https://unified.databricks.com/oidc/accounts/test-account-123/v1/token",
-        endpoints.getTokenEndpoint());
-  }
-
-  @Test
-  public void testOidcEndpointsForUnifiedHostMissingAccountId() {
-    DatabricksConfig config =
-        new DatabricksConfig()
-            .setHost("https://unified.databricks.com")
-            .setExperimentalIsUnifiedHost(true);
-    // No account ID set
-
-    DatabricksException exception =
-        assertThrows(DatabricksException.class, () -> config.getDatabricksOidcEndpoints());
-    assertTrue(exception.getMessage().contains("account_id is required"));
-  }
-
-  // --- isAccountClient() Deprecation Tests ---
-
-  @Test
-  public void testIsAccountClientThrowsForUnifiedHost() {
-    DatabricksConfig config =
-        new DatabricksConfig()
-            .setHost("https://unified.databricks.com")
-            .setExperimentalIsUnifiedHost(true);
-
-    DatabricksException exception =
-        assertThrows(DatabricksException.class, config::isAccountClient);
-    assertTrue(exception.getMessage().contains("Cannot determine account client status"));
-    assertTrue(exception.getMessage().contains("getHostType()"));
-  }
-
-  @Test
-  public void testIsAccountClientWorksFineForTraditionalHosts() {
+  public void testIsAccountClientForAccountsHost() {
     assertTrue(
         new DatabricksConfig().setHost("https://accounts.cloud.databricks.com").isAccountClient());
+  }
 
+  @Test
+  public void testIsAccountClientForWorkspaceHost() {
     assertFalse(
         new DatabricksConfig().setHost("https://adb-123.azuredatabricks.net").isAccountClient());
+  }
+
+  @Test
+  public void testIsAccountClientForNonAccountsHost() {
+    // Non-accounts hosts are not account clients, even with experimentalIsUnifiedHost set
+    assertFalse(
+        new DatabricksConfig()
+            .setHost("https://mycompany.databricks.com")
+            .setExperimentalIsUnifiedHost(true)
+            .isAccountClient());
   }
 
   // --- Environment Variable Tests ---
 
   @Test
-  public void testUnifiedHostFromEnvironmentVariables() {
+  public void testWorkspaceIdFromEnvironmentVariables() {
     Map<String, String> env = new HashMap<>();
-    env.put("DATABRICKS_HOST", "https://unified.databricks.com");
-    env.put("DATABRICKS_EXPERIMENTAL_IS_UNIFIED_HOST", "true");
+    env.put("DATABRICKS_HOST", "https://mycompany.databricks.com");
     env.put("DATABRICKS_WORKSPACE_ID", "987654321");
     env.put("DATABRICKS_ACCOUNT_ID", "account-abc");
 
     DatabricksConfig config = new DatabricksConfig();
     config.resolve(new Environment(env, new ArrayList<>(), System.getProperty("os.name")));
 
-    assertEquals(HostType.UNIFIED, config.getHostType());
+    assertEquals(HostType.WORKSPACE, config.getHostType());
     assertEquals("987654321", config.getWorkspaceId());
     assertEquals("account-abc", config.getAccountId());
     assertEquals(ClientType.WORKSPACE, config.getClientType());
-  }
-
-  // --- Header Injection Tests ---
-
-  @Test
-  public void testHeaderInjectionForWorkspaceOnUnified() {
-    String workspaceId = "123456789";
-
-    DatabricksConfig config =
-        new DatabricksConfig()
-            .setHost("https://unified.databricks.com")
-            .setExperimentalIsUnifiedHost(true)
-            .setWorkspaceId(workspaceId)
-            .setToken("test-token");
-
-    Map<String, String> headers = config.authenticate();
-
-    assertEquals("Bearer test-token", headers.get("Authorization"));
-    assertEquals(workspaceId, headers.get("X-Databricks-Org-Id"));
-  }
-
-  @Test
-  public void testNoHeaderInjectionForAccountOnUnified() {
-    DatabricksConfig config =
-        new DatabricksConfig()
-            .setHost("https://unified.databricks.com")
-            .setExperimentalIsUnifiedHost(true)
-            .setToken("test-token");
-    // No workspace ID set
-
-    Map<String, String> headers = config.authenticate();
-
-    assertEquals("Bearer test-token", headers.get("Authorization"));
-    assertNull(headers.get("X-Databricks-Org-Id"));
-  }
-
-  @Test
-  public void testNoHeaderInjectionForTraditionalWorkspace() {
-    DatabricksConfig config =
-        new DatabricksConfig()
-            .setHost("https://adb-123.azuredatabricks.net")
-            .setToken("test-token");
-
-    Map<String, String> headers = config.authenticate();
-
-    assertEquals("Bearer test-token", headers.get("Authorization"));
-    assertNull(headers.get("X-Databricks-Org-Id"));
   }
 }
