@@ -21,3 +21,4 @@
 * Add `cascade` field for `com.databricks.sdk.service.pipelines.DeletePipelineRequest`.
 * Add `defaultBranch` field for `com.databricks.sdk.service.postgres.ProjectSpec`.
 * Add `defaultBranch` field for `com.databricks.sdk.service.postgres.ProjectStatus`.
+* Add `ingress` and `ingressDryRun` fields for `com.databricks.sdk.service.settings.AccountNetworkPolicy`.
