@@ -15,11 +15,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.net.URI;
 import java.time.Duration;
 import java.util.*;
 import org.apache.http.HttpMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DatabricksConfig {
+  private static final Logger LOG = LoggerFactory.getLogger(DatabricksConfig.class);
+
   private CredentialsProvider credentialsProvider = new DefaultCredentialsProvider();
 
   @ConfigAttribute(env = "DATABRICKS_HOST")
@@ -219,9 +224,29 @@ public class DatabricksConfig {
       sortScopes();
       ConfigLoader.fixHostIfNeeded(this);
       initHttp();
+      tryResolveHostMetadata();
       return this;
     } catch (DatabricksException e) {
       throw ConfigLoader.makeNicerError(e.getMessage(), e, this);
+    }
+  }
+
+  /**
+   * Attempts to resolve host metadata from the well-known endpoint. Only called for unified hosts.
+   * Logs a warning and continues if metadata resolution fails, since not all hosts support the
+   * discovery endpoint.
+   */
+  private void tryResolveHostMetadata() {
+    if (host == null) {
+      return;
+    }
+    if (experimentalIsUnifiedHost == null || !experimentalIsUnifiedHost) {
+      return;
+    }
+    try {
+      resolveHostMetadata();
+    } catch (Exception e) {
+      LOG.warn("Failed to resolve host metadata: {}. Falling back to user config.", e.getMessage());
     }
   }
 
@@ -832,14 +857,15 @@ public class DatabricksConfig {
    * discovery endpoint.
    *
    * <p>Fills in {@code accountId}, {@code workspaceId}, and {@code discoveryUrl} (derived from
-   * {@code oidc_endpoint}, with any {@code {account_id}} placeholder substituted) if not already
-   * set.
+   * {@code oidc_endpoint}, with {@code /.well-known/oauth-authorization-server} appended and any
+   * {@code {account_id}} placeholder substituted) if not already set.
+   *
+   * <p>Errors from the metadata endpoint are non-fatal: a warning is logged and the method returns
+   * without modifying the config. This mirrors the Go SDK behavior where metadata resolution is
+   * best-effort during config init.
    *
    * <p><b>Note:</b> This API is experimental and may change or be removed in future releases
    * without notice.
-   *
-   * @throws DatabricksException if {@code accountId} cannot be resolved or {@code oidc_endpoint} is
-   *     missing from the host metadata.
    */
   void resolveHostMetadata() throws IOException {
     if (host == null) {
@@ -847,22 +873,30 @@ public class DatabricksConfig {
     }
     HostMetadata meta = getHostMetadata();
     if (accountId == null && meta.getAccountId() != null) {
+      LOG.debug("Resolved account_id from host metadata: \"{}\"", meta.getAccountId());
       accountId = meta.getAccountId();
     }
-    if (accountId == null) {
-      throw new DatabricksException(
-          "account_id is not configured and could not be resolved from host metadata");
-    }
     if (workspaceId == null && meta.getWorkspaceId() != null) {
+      LOG.debug("Resolved workspace_id from host metadata: \"{}\"", meta.getWorkspaceId());
       workspaceId = meta.getWorkspaceId();
     }
     if (discoveryUrl == null) {
-      if (meta.getOidcEndpoint() != null && !meta.getOidcEndpoint().isEmpty()) {
-        discoveryUrl = meta.getOidcEndpoint().replace("{account_id}", accountId);
-      } else {
-        throw new DatabricksException(
-            "discovery_url is not configured and could not be resolved from host metadata");
+      if (meta.getOidcEndpoint() == null || meta.getOidcEndpoint().isEmpty()) {
+        LOG.warn("Host metadata missing oidc_endpoint; skipping discovery URL resolution");
+        return;
       }
+      String oidcRoot = meta.getOidcEndpoint();
+      if (oidcRoot.contains("{account_id}")) {
+        if (accountId == null || accountId.isEmpty()) {
+          LOG.warn(
+              "Host metadata oidc_endpoint contains {account_id} placeholder but account_id is not set; skipping discovery URL resolution");
+          return;
+        }
+        oidcRoot = oidcRoot.replace("{account_id}", accountId);
+      }
+      URI oidcUri = URI.create(oidcRoot.endsWith("/") ? oidcRoot : oidcRoot + "/");
+      discoveryUrl = oidcUri.resolve(".well-known/oauth-authorization-server").toString();
+      LOG.debug("Resolved discovery_url from host metadata: \"{}\"", discoveryUrl);
     }
   }
 
@@ -960,6 +994,10 @@ public class DatabricksConfig {
     DatabricksConfig newConfig = new DatabricksConfig();
     for (Field f : DatabricksConfig.class.getDeclaredFields()) {
       if (fieldsToSkip.contains(f.getName())) {
+        continue;
+      }
+      // Skip static fields (e.g. LOG) — they are shared across instances and cannot be set.
+      if (java.lang.reflect.Modifier.isStatic(f.getModifiers())) {
         continue;
       }
       try {
