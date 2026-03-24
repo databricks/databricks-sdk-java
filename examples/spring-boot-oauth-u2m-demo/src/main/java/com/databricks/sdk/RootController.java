@@ -22,7 +22,6 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -51,10 +50,7 @@ public class RootController {
       model.addAttribute("clientSecret", client.getClientSecret());
       model.addAttribute("hostname", client.getHost());
     }
-    SessionCredentials sessionCreds = (SessionCredentials) session.getAttribute("sessionCreds");
-    if (sessionCreds != null) {
-      model.addAttribute("authenticated", true);
-    }
+    model.addAttribute("authenticated", session.getAttribute("sessionCreds") != null);
     return "index";
   }
 
@@ -69,7 +65,7 @@ public class RootController {
       @RequestParam(name="client_secret") String clientSecret,
       @RequestParam(name="hostname") String hostname) throws IOException {
     DatabricksConfig config = new DatabricksConfig().setHost(hostname).setHttpClient(hc).resolve();
-    OpenIDConnectEndpoints oidcEndpoints = config.getOidcEndpoints();
+    OpenIDConnectEndpoints oidcEndpoints = config.getDatabricksOidcEndpoints();
     client = new OAuthClient.Builder()
         .withClientId(clientId)
         .withClientSecret(clientSecret)
@@ -77,7 +73,7 @@ public class RootController {
         .withRedirectUrl(getRedirectUrl())
         .withHttpClient(hc)
         .withOpenIDConnectEndpoints(oidcEndpoints)
-        .withScopes(Arrays.asList("all-apis", "offline_access"))
+        .withScopes(List.of("all-apis", "offline_access"))
         .build();
     return "redirect:/";
   }
