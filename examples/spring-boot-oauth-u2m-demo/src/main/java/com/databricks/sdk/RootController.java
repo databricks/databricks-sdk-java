@@ -4,12 +4,12 @@ import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.oauth.Consent;
 import com.databricks.sdk.core.oauth.OAuthClient;
+import com.databricks.sdk.core.oauth.OpenIDConnectEndpoints;
 import com.databricks.sdk.core.oauth.SessionCredentials;
 import com.databricks.sdk.service.compute.ClusterDetails;
 import com.databricks.sdk.service.compute.ListClustersRequest;
+import com.databricks.sdk.service.oauth2.CreateCustomAppIntegration;
 import com.databricks.sdk.service.oauth2.CreateCustomAppIntegrationOutput;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -18,10 +18,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -30,9 +31,6 @@ import java.util.Map;
 public class RootController {
   @Autowired
   private HttpClient hc;
-
-  @Autowired
-  private ObjectMapper mapper;
 
   // Initialized by initializeApp(). This should be initialized in a more Spring-friendly way.
   private OAuthClient client;
@@ -47,7 +45,7 @@ public class RootController {
   }
 
   @GetMapping("/")
-  public String index(HttpSession session, Model model) throws JsonProcessingException {
+  public String index(HttpSession session, Model model) {
     if (client != null) {
       model.addAttribute("clientId", client.getClientId());
       model.addAttribute("clientSecret", client.getClientSecret());
@@ -55,7 +53,7 @@ public class RootController {
     }
     SessionCredentials sessionCreds = (SessionCredentials) session.getAttribute("sessionCreds");
     if (sessionCreds != null) {
-      model.addAttribute("sessionCreds", mapper.writeValueAsString(sessionCreds.getToken()));
+      model.addAttribute("authenticated", true);
     }
     return "index";
   }
@@ -70,12 +68,16 @@ public class RootController {
       @RequestParam(name="client_id") String clientId,
       @RequestParam(name="client_secret") String clientSecret,
       @RequestParam(name="hostname") String hostname) throws IOException {
+    DatabricksConfig config = new DatabricksConfig().setHost(hostname).setHttpClient(hc).resolve();
+    OpenIDConnectEndpoints oidcEndpoints = config.getOidcEndpoints();
     client = new OAuthClient.Builder()
         .withClientId(clientId)
         .withClientSecret(clientSecret)
         .withHost(hostname)
         .withRedirectUrl(getRedirectUrl())
         .withHttpClient(hc)
+        .withOpenIDConnectEndpoints(oidcEndpoints)
+        .withScopes(Arrays.asList("all-apis", "offline_access"))
         .build();
     return "redirect:/";
   }
@@ -104,13 +106,15 @@ public class RootController {
         .setHttpClient(hc);
     AccountClient account = new AccountClient(c);
     CreateCustomAppIntegrationOutput result = account.customAppIntegration().create(
-        "java-sdk-demo", Collections.singletonList(getRedirectUrl()));
+        new CreateCustomAppIntegration()
+            .setName("java-sdk-demo")
+            .setRedirectUrls(Collections.singletonList(getRedirectUrl())));
 
     return initializeApp(result.getClientId(), result.getClientSecret(), hostname);
   }
 
   @GetMapping("/authenticate")
-  public String authenticate(HttpSession session, Model model) throws MalformedURLException, JsonProcessingException {
+  public String authenticate(HttpSession session, Model model) throws MalformedURLException {
     if (client == null) {
       model.addAttribute("authError", "Client is not yet initialized. Please login first.");
       return index(session, model);
