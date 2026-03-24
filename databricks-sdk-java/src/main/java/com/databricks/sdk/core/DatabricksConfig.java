@@ -245,7 +245,7 @@ public class DatabricksConfig {
     }
     try {
       resolveHostMetadata();
-    } catch (Exception e) {
+    } catch (Throwable e) {
       LOG.warn("Failed to resolve host metadata: {}. Falling back to user config.", e.getMessage());
     }
   }
