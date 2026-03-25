@@ -17,6 +17,18 @@ public class AccountNetworkPolicy {
   @JsonProperty("egress")
   private NetworkPolicyEgress egress;
 
+  /** The network policies applying for ingress traffic. */
+  @JsonProperty("ingress")
+  private CustomerFacingIngressNetworkPolicy ingress;
+
+  /**
+   * The ingress policy for dry run mode. Dry run will always run even if the request is allowed by
+   * the ingress policy. When this field is set, the policy will be evaluated and emit logs only
+   * without blocking requests.
+   */
+  @JsonProperty("ingress_dry_run")
+  private CustomerFacingIngressNetworkPolicy ingressDryRun;
+
   /** The unique identifier for the network policy. */
   @JsonProperty("network_policy_id")
   private String networkPolicyId;
@@ -39,6 +51,24 @@ public class AccountNetworkPolicy {
     return egress;
   }
 
+  public AccountNetworkPolicy setIngress(CustomerFacingIngressNetworkPolicy ingress) {
+    this.ingress = ingress;
+    return this;
+  }
+
+  public CustomerFacingIngressNetworkPolicy getIngress() {
+    return ingress;
+  }
+
+  public AccountNetworkPolicy setIngressDryRun(CustomerFacingIngressNetworkPolicy ingressDryRun) {
+    this.ingressDryRun = ingressDryRun;
+    return this;
+  }
+
+  public CustomerFacingIngressNetworkPolicy getIngressDryRun() {
+    return ingressDryRun;
+  }
+
   public AccountNetworkPolicy setNetworkPolicyId(String networkPolicyId) {
     this.networkPolicyId = networkPolicyId;
     return this;
@@ -55,12 +85,14 @@ public class AccountNetworkPolicy {
     AccountNetworkPolicy that = (AccountNetworkPolicy) o;
     return Objects.equals(accountId, that.accountId)
         && Objects.equals(egress, that.egress)
+        && Objects.equals(ingress, that.ingress)
+        && Objects.equals(ingressDryRun, that.ingressDryRun)
         && Objects.equals(networkPolicyId, that.networkPolicyId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(accountId, egress, networkPolicyId);
+    return Objects.hash(accountId, egress, ingress, ingressDryRun, networkPolicyId);
   }
 
   @Override
@@ -68,6 +100,8 @@ public class AccountNetworkPolicy {
     return new ToStringer(AccountNetworkPolicy.class)
         .add("accountId", accountId)
         .add("egress", egress)
+        .add("ingress", ingress)
+        .add("ingressDryRun", ingressDryRun)
         .add("networkPolicyId", networkPolicyId)
         .toString();
   }

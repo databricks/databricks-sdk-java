@@ -26,6 +26,9 @@ public interface PostgresService {
   /** Creates a new database branch in the project. */
   Operation createBranch(CreateBranchRequest createBranchRequest);
 
+  /** Register a Postgres database in the Unity Catalog. */
+  Operation createCatalog(CreateCatalogRequest createCatalogRequest);
+
   /**
    * Create a Database.
    *
@@ -45,8 +48,14 @@ public interface PostgresService {
   /** Creates a new Postgres role in the branch. */
   Operation createRole(CreateRoleRequest createRoleRequest);
 
+  /** Create a Synced Table. */
+  Operation createSyncedTable(CreateSyncedTableRequest createSyncedTableRequest);
+
   /** Deletes the specified database branch. */
   Operation deleteBranch(DeleteBranchRequest deleteBranchRequest);
+
+  /** Delete a Database Catalog. */
+  Operation deleteCatalog(DeleteCatalogRequest deleteCatalogRequest);
 
   /** Delete a Database. */
   Operation deleteDatabase(DeleteDatabaseRequest deleteDatabaseRequest);
@@ -60,12 +69,18 @@ public interface PostgresService {
   /** Deletes the specified Postgres role. */
   Operation deleteRole(DeleteRoleRequest deleteRoleRequest);
 
+  /** Delete a Synced Table. */
+  Operation deleteSyncedTable(DeleteSyncedTableRequest deleteSyncedTableRequest);
+
   /** Generate OAuth credentials for a Postgres database. */
   DatabaseCredential generateDatabaseCredential(
       GenerateDatabaseCredentialRequest generateDatabaseCredentialRequest);
 
   /** Retrieves information about the specified database branch. */
   Branch getBranch(GetBranchRequest getBranchRequest);
+
+  /** Get a Database Catalog. */
+  Catalog getCatalog(GetCatalogRequest getCatalogRequest);
 
   /** Get a Database. */
   Database getDatabase(GetDatabaseRequest getDatabaseRequest);
@@ -87,6 +102,9 @@ public interface PostgresService {
    * and permissions.
    */
   Role getRole(GetRoleRequest getRoleRequest);
+
+  /** Get a Synced Table. */
+  SyncedTable getSyncedTable(GetSyncedTableRequest getSyncedTableRequest);
 
   /** Returns a paginated list of database branches in the project. */
   ListBranchesResponse listBranches(ListBranchesRequest listBranchesRequest);

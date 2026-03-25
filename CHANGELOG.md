@@ -1,5 +1,41 @@
 # Version changelog
 
+## Release v0.103.0 (2026-03-19)
+
+### API Changes
+* Add `disableGovTagCreation` field for `com.databricks.sdk.service.settings.RestrictWorkspaceAdminsMessage`.
+* Add `disableGovTagCreation` field for `com.databricks.sdk.service.settingsv2.RestrictWorkspaceAdminsMessage`.
+
+
+## Release v0.102.0 (2026-03-18)
+
+### API Changes
+* Add `parentPath` field for `com.databricks.sdk.service.dashboards.GenieSpace`.
+
+
+## Release v0.101.0 (2026-03-16)
+
+### API Changes
+* Add `alertOutput` field for `com.databricks.sdk.service.jobs.RunOutput`.
+* Add `alertTask` field for `com.databricks.sdk.service.jobs.RunTask`.
+* Add `alertTask` field for `com.databricks.sdk.service.jobs.SubmitTask`.
+* Add `alertTask` field for `com.databricks.sdk.service.jobs.Task`.
+* Add `com.databricks.sdk.service.environments` package.
+* Add `workspaceClient.environments()` service.
+* Add `CAN_CREATE_APP` enum value for `com.databricks.sdk.service.iam.PermissionLevel`.
+
+
+## Release v0.100.0 (2026-03-12)
+
+### Internal Changes
+* Add retry with backoff to `CachedTokenSource` async refresh so that a failed background refresh no longer disables async until a blocking call succeeds.
+
+### API Changes
+* Add `connectorType` and `dataStagingOptions` fields for `com.databricks.sdk.service.pipelines.IngestionPipelineDefinition`.
+* Add `ingestionSourceCatalogName`, `ingestionSourceConnectionName`, `ingestionSourceSchemaName`, `ingestionSourceTableName` and `ingestionSourceTableVersion` fields for `com.databricks.sdk.service.pipelines.Origin`.
+* Add `subDomain` field for `com.databricks.sdk.service.serving.ExternalFunctionRequest`.
+
+
 ## Release v0.99.0 (2026-03-11)
 
 ### API Changes

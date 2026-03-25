@@ -28,6 +28,13 @@ public class ProjectSpec {
   @JsonProperty("custom_tags")
   private Collection<ProjectCustomTag> customTags;
 
+  /**
+   * The full resource path for the default branch of the project Format:
+   * projects/{project_id}/branches/{branch_id}
+   */
+  @JsonProperty("default_branch")
+  private String defaultBranch;
+
   /** */
   @JsonProperty("default_endpoint_settings")
   private ProjectDefaultEndpointSettings defaultEndpointSettings;
@@ -44,7 +51,7 @@ public class ProjectSpec {
 
   /**
    * The number of seconds to retain the shared history for point in time recovery for all branches
-   * in this project. Value should be between 0s and 2592000s (up to 30 days).
+   * in this project. Value should be between 172800s (2 days) and 2592000s (30 days).
    */
   @JsonProperty("history_retention_duration")
   private Duration historyRetentionDuration;
@@ -69,6 +76,15 @@ public class ProjectSpec {
 
   public Collection<ProjectCustomTag> getCustomTags() {
     return customTags;
+  }
+
+  public ProjectSpec setDefaultBranch(String defaultBranch) {
+    this.defaultBranch = defaultBranch;
+    return this;
+  }
+
+  public String getDefaultBranch() {
+    return defaultBranch;
   }
 
   public ProjectSpec setDefaultEndpointSettings(
@@ -124,6 +140,7 @@ public class ProjectSpec {
     ProjectSpec that = (ProjectSpec) o;
     return Objects.equals(budgetPolicyId, that.budgetPolicyId)
         && Objects.equals(customTags, that.customTags)
+        && Objects.equals(defaultBranch, that.defaultBranch)
         && Objects.equals(defaultEndpointSettings, that.defaultEndpointSettings)
         && Objects.equals(displayName, that.displayName)
         && Objects.equals(enablePgNativeLogin, that.enablePgNativeLogin)
@@ -136,6 +153,7 @@ public class ProjectSpec {
     return Objects.hash(
         budgetPolicyId,
         customTags,
+        defaultBranch,
         defaultEndpointSettings,
         displayName,
         enablePgNativeLogin,
@@ -148,6 +166,7 @@ public class ProjectSpec {
     return new ToStringer(ProjectSpec.class)
         .add("budgetPolicyId", budgetPolicyId)
         .add("customTags", customTags)
+        .add("defaultBranch", defaultBranch)
         .add("defaultEndpointSettings", defaultEndpointSettings)
         .add("displayName", displayName)
         .add("enablePgNativeLogin", enablePgNativeLogin)

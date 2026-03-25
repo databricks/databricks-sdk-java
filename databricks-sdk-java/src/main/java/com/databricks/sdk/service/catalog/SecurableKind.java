@@ -4,7 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** Latest kind: CONNECTION_OUTLOOK_OAUTH_M2M = 300; Next id: 301 */
+/** Latest kind: CONNECTION_GOOGLE_DRIVE_SERVICE_ACCOUNT = 301; Next id: 302 */
 @Generated
 public enum SecurableKind {
   TABLE_DB_STORAGE,

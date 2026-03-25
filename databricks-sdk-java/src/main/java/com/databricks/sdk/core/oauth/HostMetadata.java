@@ -20,12 +20,22 @@ public class HostMetadata {
   @JsonProperty("workspace_id")
   private String workspaceId;
 
+  @JsonProperty("cloud")
+  private String cloud;
+
   public HostMetadata() {}
 
   public HostMetadata(String oidcEndpoint, String accountId, String workspaceId) {
     this.oidcEndpoint = oidcEndpoint;
     this.accountId = accountId;
     this.workspaceId = workspaceId;
+  }
+
+  public HostMetadata(String oidcEndpoint, String accountId, String workspaceId, String cloud) {
+    this.oidcEndpoint = oidcEndpoint;
+    this.accountId = accountId;
+    this.workspaceId = workspaceId;
+    this.cloud = cloud;
   }
 
   public String getOidcEndpoint() {
@@ -38,5 +48,9 @@ public class HostMetadata {
 
   public String getWorkspaceId() {
     return workspaceId;
+  }
+
+  public String getCloud() {
+    return cloud;
   }
 }

@@ -107,6 +107,8 @@ import com.databricks.sdk.service.dataclassification.DataClassificationAPI;
 import com.databricks.sdk.service.dataclassification.DataClassificationService;
 import com.databricks.sdk.service.dataquality.DataQualityAPI;
 import com.databricks.sdk.service.dataquality.DataQualityService;
+import com.databricks.sdk.service.environments.EnvironmentsAPI;
+import com.databricks.sdk.service.environments.EnvironmentsService;
 import com.databricks.sdk.service.files.DbfsService;
 import com.databricks.sdk.service.files.FilesAPI;
 import com.databricks.sdk.service.files.FilesService;
@@ -303,6 +305,7 @@ public class WorkspaceClient {
   private DbfsExt dbfsAPI;
   private DbsqlPermissionsAPI dbsqlPermissionsAPI;
   private EntityTagAssignmentsAPI entityTagAssignmentsAPI;
+  private EnvironmentsAPI environmentsAPI;
   private ExperimentsAPI experimentsAPI;
   private ExternalLineageAPI externalLineageAPI;
   private ExternalLocationsAPI externalLocationsAPI;
@@ -438,6 +441,7 @@ public class WorkspaceClient {
     dbfsAPI = new DbfsExt(apiClient);
     dbsqlPermissionsAPI = new DbsqlPermissionsAPI(apiClient);
     entityTagAssignmentsAPI = new EntityTagAssignmentsAPI(apiClient);
+    environmentsAPI = new EnvironmentsAPI(apiClient);
     experimentsAPI = new ExperimentsAPI(apiClient);
     externalLineageAPI = new ExternalLineageAPI(apiClient);
     externalLocationsAPI = new ExternalLocationsAPI(apiClient);
@@ -903,6 +907,17 @@ public class WorkspaceClient {
    */
   public EntityTagAssignmentsAPI entityTagAssignments() {
     return entityTagAssignmentsAPI;
+  }
+
+  /**
+   * APIs to manage environment resources.
+   *
+   * <p>The Environments API provides management capabilities for different types of environments
+   * including workspace-level base environments that define the environment version and
+   * dependencies to be used in serverless notebooks and jobs.
+   */
+  public EnvironmentsAPI environments() {
+    return environmentsAPI;
   }
 
   /**
@@ -2056,7 +2071,9 @@ public class WorkspaceClient {
   }
 
   /**
-   * The Workspace API allows you to list, import, export, and delete notebooks and folders.
+   * The Workspace API allows you to list, import, export, and delete workspace objects such as
+   * notebooks, files, folders, and dashboards. Additionally, it provides endpoints to manage
+   * permissions for any workspace object.
    *
    * <p>A notebook is a web-based interface to a document that contains runnable code,
    * visualizations, and explanatory text.
@@ -2560,6 +2577,17 @@ public class WorkspaceClient {
   /** Replace the default EntityTagAssignmentsAPI with a custom implementation. */
   public WorkspaceClient withEntityTagAssignmentsAPI(EntityTagAssignmentsAPI entityTagAssignments) {
     this.entityTagAssignmentsAPI = entityTagAssignments;
+    return this;
+  }
+
+  /** Replace the default EnvironmentsService with a custom implementation. */
+  public WorkspaceClient withEnvironmentsImpl(EnvironmentsService environments) {
+    return this.withEnvironmentsAPI(new EnvironmentsAPI(environments));
+  }
+
+  /** Replace the default EnvironmentsAPI with a custom implementation. */
+  public WorkspaceClient withEnvironmentsAPI(EnvironmentsAPI environments) {
+    this.environmentsAPI = environments;
     return this;
   }
 

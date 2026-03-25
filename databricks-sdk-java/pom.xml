@@ -5,13 +5,13 @@
   <parent>
     <groupId>com.databricks</groupId>
     <artifactId>databricks-sdk-parent</artifactId>
-    <version>0.99.0</version>
+    <version>0.103.0</version>
   </parent>
   <artifactId>databricks-sdk-java</artifactId>
   <name>Databricks SDK for Java</name>
   <properties>
     <httpclient.version>4.5.14</httpclient.version>
-    <jackson.version>2.15.2</jackson.version>
+    <jackson.version>2.18.6</jackson.version>
     <junit-bom.version>5.10.0</junit-bom.version>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
@@ -108,6 +108,12 @@
     <dependency>
       <groupId>com.fasterxml.jackson.datatype</groupId>
       <artifactId>jackson-datatype-guava</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+    <!-- Jackson JDK8 module needed to serialize/deserialize java.util.Optional -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-jdk8</artifactId>
       <version>${jackson.version}</version>
     </dependency>
     <!-- Google Auto Value -->

@@ -10,6 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class SubmitTask {
+  /** New alert v2 task */
+  @JsonProperty("alert_task")
+  private AlertTask alertTask;
+
   /**
    * The task runs a [clean rooms] notebook when the `clean_rooms_notebook_task` field is present.
    *
@@ -218,6 +222,15 @@ public class SubmitTask {
    */
   @JsonProperty("webhook_notifications")
   private WebhookNotifications webhookNotifications;
+
+  public SubmitTask setAlertTask(AlertTask alertTask) {
+    this.alertTask = alertTask;
+    return this;
+  }
+
+  public AlertTask getAlertTask() {
+    return alertTask;
+  }
 
   public SubmitTask setCleanRoomsNotebookTask(CleanRoomsNotebookTask cleanRoomsNotebookTask) {
     this.cleanRoomsNotebookTask = cleanRoomsNotebookTask;
@@ -539,7 +552,8 @@ public class SubmitTask {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     SubmitTask that = (SubmitTask) o;
-    return Objects.equals(cleanRoomsNotebookTask, that.cleanRoomsNotebookTask)
+    return Objects.equals(alertTask, that.alertTask)
+        && Objects.equals(cleanRoomsNotebookTask, that.cleanRoomsNotebookTask)
         && Objects.equals(compute, that.compute)
         && Objects.equals(conditionTask, that.conditionTask)
         && Objects.equals(dashboardTask, that.dashboardTask)
@@ -579,6 +593,7 @@ public class SubmitTask {
   @Override
   public int hashCode() {
     return Objects.hash(
+        alertTask,
         cleanRoomsNotebookTask,
         compute,
         conditionTask,
@@ -619,6 +634,7 @@ public class SubmitTask {
   @Override
   public String toString() {
     return new ToStringer(SubmitTask.class)
+        .add("alertTask", alertTask)
         .add("cleanRoomsNotebookTask", cleanRoomsNotebookTask)
         .add("compute", compute)
         .add("conditionTask", conditionTask)
