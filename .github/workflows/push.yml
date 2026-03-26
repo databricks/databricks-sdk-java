@@ -55,3 +55,17 @@ jobs:
 
       - name: Check Unit Tests
         run: mvn --errors test
+
+  check-lock:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up JDK 11
+        uses: actions/setup-java@b6e674f4b717d7b0ae3baee0fbe79f498905dfde # v1.4.4
+        with:
+          java-version: 11
+
+      - name: Checkout
+        uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # v2.7.0
+
+      - name: Validate lockfile
+        run: make check-lock
