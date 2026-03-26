@@ -4,8 +4,8 @@ import com.databricks.sdk.support.InternalApi;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 
 /**
  * A CredentialsProvider that uses the API token from the command context to authenticate.

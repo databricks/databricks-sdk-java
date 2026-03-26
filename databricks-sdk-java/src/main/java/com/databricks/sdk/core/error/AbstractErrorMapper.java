@@ -6,8 +6,8 @@ import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.support.InternalApi;
 import java.util.HashMap;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 
 @InternalApi
 abstract class AbstractErrorMapper {

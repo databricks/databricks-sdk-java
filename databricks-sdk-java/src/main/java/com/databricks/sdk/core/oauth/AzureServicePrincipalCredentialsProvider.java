@@ -6,8 +6,8 @@ import com.databricks.sdk.support.InternalApi;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
 import java.util.Map;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 
 /**
  * Adds refreshed Azure Active Directory (AAD) Service Principal OAuth tokens to every request,

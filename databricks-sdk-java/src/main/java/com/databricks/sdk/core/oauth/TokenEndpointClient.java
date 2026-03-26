@@ -14,8 +14,8 @@ import java.util.Base64;
 import java.util.Map;
 import java.util.Objects;
 import org.apache.http.HttpHeaders;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 
 /**
  * Client for interacting with an OAuth token endpoint.

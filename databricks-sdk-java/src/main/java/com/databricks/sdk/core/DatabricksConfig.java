@@ -19,8 +19,8 @@ import java.net.URI;
 import java.time.Duration;
 import java.util.*;
 import org.apache.http.HttpMessage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 
 public class DatabricksConfig {
   private static final Logger LOG = LoggerFactory.getLogger(DatabricksConfig.class);

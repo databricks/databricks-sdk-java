@@ -5,8 +5,8 @@ import com.databricks.sdk.support.InternalApi;
 import com.google.common.base.Strings;
 import java.util.ArrayList;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 
 /**
  * The DefaultCredentialsProvider is the primary authentication handler for the Databricks SDK. It
