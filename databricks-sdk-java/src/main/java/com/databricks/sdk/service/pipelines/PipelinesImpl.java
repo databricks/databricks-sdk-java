@@ -17,6 +17,23 @@ class PipelinesImpl implements PipelinesService {
   }
 
   @Override
+  public ApplyEnvironmentRequestResponse applyEnvironment(ApplyEnvironmentRequest request) {
+    String path = String.format("/api/2.0/pipelines/%s/environment/apply", request.getPipelineId());
+    try {
+      Request req = new Request("POST", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, ApplyEnvironmentRequestResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public ClonePipelineResponse clone(ClonePipelineRequest request) {
     String path = String.format("/api/2.0/pipelines/%s/clone", request.getPipelineId());
     try {

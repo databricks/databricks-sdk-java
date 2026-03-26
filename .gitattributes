@@ -66,6 +66,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/apps/AppPermissions
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/apps/AppPermissionsRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/apps/AppResource.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/apps/AppResourceApp.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/apps/AppResourceAppAppPermission.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/apps/AppResourceDatabase.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/apps/AppResourceDatabaseDatabasePermission.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/apps/AppResourceExperiment.java linguist-generated=true
@@ -2146,6 +2147,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/oauth2/UpdateAccoun
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/oauth2/UpdateCustomAppIntegration.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/oauth2/UpdatePublishedAppIntegration.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/oauth2/UpdateServicePrincipalFederationPolicyRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ApplyEnvironmentRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ApplyEnvironmentRequestResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/AutoFullRefreshPolicy.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/CloneMode.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ClonePipelineRequest.java linguist-generated=true
@@ -2760,6 +2763,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/ExchangeTo
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/ExchangeTokenRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/ExchangeTokenResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/FetchIpAccessListResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/GcpEndpoint.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/GenericWebhookConfig.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/GetAccountIpAccessEnableRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/GetAccountIpAccessListRequest.java linguist-generated=true
