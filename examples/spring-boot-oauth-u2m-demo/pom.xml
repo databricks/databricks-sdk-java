@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.6.4</version>
+    <version>3.5.12</version>
     <relativePath></relativePath>
   </parent>
 
@@ -17,8 +17,11 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <!-- Override transitive dependency version to fix known CVE.
+         This can likely be removed when upgrading to a newer Spring Boot version. -->
+    <jackson-bom.version>2.21.2</jackson-bom.version>
   </properties>
 
   <dependencies>
@@ -38,10 +41,6 @@
       <groupId>com.databricks</groupId>
       <artifactId>databricks-sdk-java</artifactId>
       <version>0.103.0</version>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.datatype</groupId>
-      <artifactId>jackson-datatype-jsr310</artifactId>
     </dependency>
   </dependencies>
 </project>
