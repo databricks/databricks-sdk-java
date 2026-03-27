@@ -19,10 +19,9 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
-    <!-- Override transitive dependency versions to fix known CVEs.
-         These can likely be removed when upgrading to a newer Spring Boot version. -->
+    <!-- Override transitive dependency version to fix known CVE.
+         This can likely be removed when upgrading to a newer Spring Boot version. -->
     <jackson-bom.version>2.21.2</jackson-bom.version>
-    <commons-lang3.version>3.18.0</commons-lang3.version>
   </properties>
 
   <dependencies>
