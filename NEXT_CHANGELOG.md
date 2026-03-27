@@ -12,6 +12,7 @@
 ### Documentation
 
 ### Internal Changes
+* Introduced a logging abstraction (`com.databricks.sdk.core.logging`) to decouple the SDK from a specific logging backend.
 
 ### API Changes
 * Add `createCatalog()`, `createSyncedTable()`, `deleteCatalog()`, `deleteSyncedTable()`, `getCatalog()` and `getSyncedTable()` methods for `workspaceClient.postgres()` service.
