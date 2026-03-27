@@ -23,3 +23,13 @@
 * Add `defaultBranch` field for `com.databricks.sdk.service.postgres.ProjectSpec`.
 * Add `defaultBranch` field for `com.databricks.sdk.service.postgres.ProjectStatus`.
 * Add `ingress` and `ingressDryRun` fields for `com.databricks.sdk.service.settings.AccountNetworkPolicy`.
+* Add `applyEnvironment()` method for `workspaceClient.pipelines()` service.
+* Add `name` and `permission` fields for `com.databricks.sdk.service.apps.AppResourceApp`.
+* Add `connectorOptions` field for `com.databricks.sdk.service.pipelines.SchemaSpec`.
+* Add `connectorOptions` field for `com.databricks.sdk.service.pipelines.TableSpec`.
+* Add `gcpEndpoint` field for `com.databricks.sdk.service.settings.CreatePrivateEndpointRule`.
+* Add `gcpEndpoint` field for `com.databricks.sdk.service.settings.NccPrivateEndpointRule`.
+* Add `gcpEndpoint` field for `com.databricks.sdk.service.settings.UpdatePrivateEndpointRule`.
+* Add `TABLE_DELTA_UNIFORM_ICEBERG_EXTERNAL_DELTASHARING` enum value for `com.databricks.sdk.service.catalog.SecurableKind`.
+* Add `GOOGLE_DRIVE` enum value for `com.databricks.sdk.service.pipelines.IngestionSourceType`.
+* [Breaking] Remove `project` field for `com.databricks.sdk.service.postgres.SyncedTableSyncedTableSpec`.

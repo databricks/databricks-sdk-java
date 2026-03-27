@@ -9,6 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class SchemaSpec {
+  /** (Optional) Source Specific Connector Options */
+  @JsonProperty("connector_options")
+  private ConnectorOptions connectorOptions;
+
   /** Required. Destination catalog to store tables. */
   @JsonProperty("destination_catalog")
   private String destinationCatalog;
@@ -36,6 +40,15 @@ public class SchemaSpec {
    */
   @JsonProperty("table_configuration")
   private TableSpecificConfig tableConfiguration;
+
+  public SchemaSpec setConnectorOptions(ConnectorOptions connectorOptions) {
+    this.connectorOptions = connectorOptions;
+    return this;
+  }
+
+  public ConnectorOptions getConnectorOptions() {
+    return connectorOptions;
+  }
 
   public SchemaSpec setDestinationCatalog(String destinationCatalog) {
     this.destinationCatalog = destinationCatalog;
@@ -87,7 +100,8 @@ public class SchemaSpec {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     SchemaSpec that = (SchemaSpec) o;
-    return Objects.equals(destinationCatalog, that.destinationCatalog)
+    return Objects.equals(connectorOptions, that.connectorOptions)
+        && Objects.equals(destinationCatalog, that.destinationCatalog)
         && Objects.equals(destinationSchema, that.destinationSchema)
         && Objects.equals(sourceCatalog, that.sourceCatalog)
         && Objects.equals(sourceSchema, that.sourceSchema)
@@ -97,12 +111,18 @@ public class SchemaSpec {
   @Override
   public int hashCode() {
     return Objects.hash(
-        destinationCatalog, destinationSchema, sourceCatalog, sourceSchema, tableConfiguration);
+        connectorOptions,
+        destinationCatalog,
+        destinationSchema,
+        sourceCatalog,
+        sourceSchema,
+        tableConfiguration);
   }
 
   @Override
   public String toString() {
     return new ToStringer(SchemaSpec.class)
+        .add("connectorOptions", connectorOptions)
         .add("destinationCatalog", destinationCatalog)
         .add("destinationSchema", destinationSchema)
         .add("sourceCatalog", sourceCatalog)
