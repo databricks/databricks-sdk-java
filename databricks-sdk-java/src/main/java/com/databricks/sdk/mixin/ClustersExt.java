@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 
 public class ClustersExt extends ClustersAPI {
   private static final Logger LOG = LoggerFactory.getLogger(ClustersExt.class);

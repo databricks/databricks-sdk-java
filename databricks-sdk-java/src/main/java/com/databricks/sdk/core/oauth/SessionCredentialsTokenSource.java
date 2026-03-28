@@ -6,8 +6,8 @@ import com.databricks.sdk.support.InternalApi;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 
 /**
  * TokenSource that handles OAuth token refresh for SessionCredentials.

@@ -10,8 +10,8 @@ import com.google.auth.oauth2.IdTokenProvider;
 import com.google.auth.oauth2.ImpersonatedCredentials;
 import java.io.IOException;
 import java.util.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 
 @InternalApi
 public class GoogleIdCredentialsProvider implements CredentialsProvider {

@@ -6,8 +6,8 @@ import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.support.InternalApi;
 import java.io.Serializable;
 import java.util.Optional;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 
 /**
  * An implementation of RefreshableTokenSource implementing the refresh_token OAuth grant type.
