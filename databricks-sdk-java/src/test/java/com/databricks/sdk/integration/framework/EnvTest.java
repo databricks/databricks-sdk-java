@@ -45,42 +45,16 @@ public class EnvTest
     TEST_EXECUTION_RULES_BY_ENV = new HashMap<>();
     TEST_EXECUTION_RULES_BY_ENV.put(
         "workspace",
-        (env) -> {
-          if (env.containsKey("DATABRICKS_ACCOUNT_ID")) {
-            return disabled("Skipping workspace-level test in account environment");
-          }
-          return enabled("okay to run");
-        });
+        (env) -> skipIfNotEnvironmentType(env, "WORKSPACE"));
     TEST_EXECUTION_RULES_BY_ENV.put(
         "ucws",
-        (env) -> {
-          if (env.containsKey("DATABRICKS_ACCOUNT_ID")) {
-            return disabled("Skipping workspace-level test in account environment");
-          } else if (!env.containsKey("TEST_METASTORE_ID")) {
-            return disabled(
-                "Skipping Unity Catalog workspace-level test in non-Unity Catalog environment");
-          }
-          return enabled("okay to run");
-        });
+        (env) -> skipIfNotEnvironmentType(env, "UC_WORKSPACE"));
     TEST_EXECUTION_RULES_BY_ENV.put(
         "account",
-        (env) -> {
-          if (!env.containsKey("DATABRICKS_ACCOUNT_ID")) {
-            return disabled("Skipping account-level test in workspace environment");
-          }
-          return enabled("okay to run");
-        });
+        (env) -> skipIfNotEnvironmentType(env, "ACCOUNT"));
     TEST_EXECUTION_RULES_BY_ENV.put(
         "ucacct",
-        (env) -> {
-          if (!env.containsKey("DATABRICKS_ACCOUNT_ID")) {
-            return disabled("Skipping account-level test in workspace environment");
-          } else if (!env.containsKey("TEST_METASTORE_ID")) {
-            return disabled(
-                "Skipping Unity Catalog account-level test in non-Unity Catalog environment");
-          }
-          return enabled("okay to run");
-        });
+        (env) -> skipIfNotEnvironmentType(env, "UC_ACCOUNT"));
     MAPPER = makeObjectMapper();
   }
 
@@ -127,10 +101,11 @@ public class EnvTest
     if (methodParams.isPresent()) {
       for (Parameter parameter : methodParams.get()) {
         Class<?> type = parameter.getType();
-        boolean hasAccount = env.containsKey("DATABRICKS_ACCOUNT_ID");
-        if (type == WorkspaceClient.class && hasAccount) {
+        String envType = env.getOrDefault("TEST_ENVIRONMENT_TYPE", "");
+        boolean isAccountEnv = envType.equals("ACCOUNT") || envType.equals("UC_ACCOUNT");
+        if (type == WorkspaceClient.class && isAccountEnv) {
           return ConditionEvaluationResult.disabled("Can't use workspace client in account env");
-        } else if (type == AccountClient.class && !hasAccount) {
+        } else if (type == AccountClient.class && !isAccountEnv) {
           return ConditionEvaluationResult.disabled("Can't use account client in workspace env");
         } else if (type == String.class) {
           EnvOrSkip envOrSkip = parameter.getAnnotation(EnvOrSkip.class);
@@ -307,6 +282,23 @@ public class EnvTest
         format(
             "Environment variable [%s] with value [%s] does not match regular expression [%s]",
             name, actual, regex));
+  }
+
+  /**
+   * Skips the test if TEST_ENVIRONMENT_TYPE doesn't match the expected type. TEST_ENVIRONMENT_TYPE
+   * values: "ACCOUNT", "WORKSPACE", "UC_ACCOUNT", "UC_WORKSPACE".
+   */
+  private static ConditionEvaluationResult skipIfNotEnvironmentType(
+      Map<String, String> env, String expectedType) {
+    String envType = env.get("TEST_ENVIRONMENT_TYPE");
+    if (envType == null || envType.isEmpty()) {
+      return disabled("Skipping test because TEST_ENVIRONMENT_TYPE is not set");
+    }
+    if (!envType.equals(expectedType)) {
+      return disabled(
+          format("Skipping %s test in %s environment", expectedType, envType));
+    }
+    return enabled("okay to run");
   }
 
   private static ObjectMapper makeObjectMapper() {
