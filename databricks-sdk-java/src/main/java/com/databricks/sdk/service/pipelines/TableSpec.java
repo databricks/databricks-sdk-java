@@ -9,6 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class TableSpec {
+  /** (Optional) Source Specific Connector Options */
+  @JsonProperty("connector_options")
+  private ConnectorOptions connectorOptions;
+
   /** Required. Destination catalog to store table. */
   @JsonProperty("destination_catalog")
   private String destinationCatalog;
@@ -42,6 +46,15 @@ public class TableSpec {
    */
   @JsonProperty("table_configuration")
   private TableSpecificConfig tableConfiguration;
+
+  public TableSpec setConnectorOptions(ConnectorOptions connectorOptions) {
+    this.connectorOptions = connectorOptions;
+    return this;
+  }
+
+  public ConnectorOptions getConnectorOptions() {
+    return connectorOptions;
+  }
 
   public TableSpec setDestinationCatalog(String destinationCatalog) {
     this.destinationCatalog = destinationCatalog;
@@ -111,7 +124,8 @@ public class TableSpec {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     TableSpec that = (TableSpec) o;
-    return Objects.equals(destinationCatalog, that.destinationCatalog)
+    return Objects.equals(connectorOptions, that.connectorOptions)
+        && Objects.equals(destinationCatalog, that.destinationCatalog)
         && Objects.equals(destinationSchema, that.destinationSchema)
         && Objects.equals(destinationTable, that.destinationTable)
         && Objects.equals(sourceCatalog, that.sourceCatalog)
@@ -123,6 +137,7 @@ public class TableSpec {
   @Override
   public int hashCode() {
     return Objects.hash(
+        connectorOptions,
         destinationCatalog,
         destinationSchema,
         destinationTable,
@@ -135,6 +150,7 @@ public class TableSpec {
   @Override
   public String toString() {
     return new ToStringer(TableSpec.class)
+        .add("connectorOptions", connectorOptions)
         .add("destinationCatalog", destinationCatalog)
         .add("destinationSchema", destinationSchema)
         .add("destinationTable", destinationTable)

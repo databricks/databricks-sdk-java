@@ -9,7 +9,14 @@ import java.util.Objects;
 
 @Generated
 public class TimeseriesColumn {
-  /** The name of the timeseries column. */
+  /**
+   * The name of the timeseries column. For Kafka sources, use dot-prefixed path notation to
+   * reference fields within the key or value schema (e.g., "value.event_timestamp"). For nested
+   * fields, the leaf node name (e.g., "event_timestamp" from "value.event_details.event_timestamp")
+   * is what will be present in materialized tables and expected to match at query time.
+   * TODO(FS-939): Colon-prefixed notation (e.g., "value:event_timestamp") is supported for
+   * backwards compatibility but is deprecated; migrate to dot notation.
+   */
   @JsonProperty("name")
   private String name;
 

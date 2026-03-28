@@ -79,6 +79,10 @@ public class NccPrivateEndpointRule {
   @JsonProperty("error_message")
   private String errorMessage;
 
+  /** */
+  @JsonProperty("gcp_endpoint")
+  private GcpEndpoint gcpEndpoint;
+
   /**
    * Not used by customer-managed private endpoint services.
    *
@@ -216,6 +220,15 @@ public class NccPrivateEndpointRule {
     return errorMessage;
   }
 
+  public NccPrivateEndpointRule setGcpEndpoint(GcpEndpoint gcpEndpoint) {
+    this.gcpEndpoint = gcpEndpoint;
+    return this;
+  }
+
+  public GcpEndpoint getGcpEndpoint() {
+    return gcpEndpoint;
+  }
+
   public NccPrivateEndpointRule setGroupId(String groupId) {
     this.groupId = groupId;
     return this;
@@ -294,6 +307,7 @@ public class NccPrivateEndpointRule {
         && Objects.equals(endpointName, that.endpointName)
         && Objects.equals(endpointService, that.endpointService)
         && Objects.equals(errorMessage, that.errorMessage)
+        && Objects.equals(gcpEndpoint, that.gcpEndpoint)
         && Objects.equals(groupId, that.groupId)
         && Objects.equals(networkConnectivityConfigId, that.networkConnectivityConfigId)
         && Objects.equals(resourceId, that.resourceId)
@@ -316,6 +330,7 @@ public class NccPrivateEndpointRule {
         endpointName,
         endpointService,
         errorMessage,
+        gcpEndpoint,
         groupId,
         networkConnectivityConfigId,
         resourceId,
@@ -338,6 +353,7 @@ public class NccPrivateEndpointRule {
         .add("endpointName", endpointName)
         .add("endpointService", endpointService)
         .add("errorMessage", errorMessage)
+        .add("gcpEndpoint", gcpEndpoint)
         .add("groupId", groupId)
         .add("networkConnectivityConfigId", networkConnectivityConfigId)
         .add("resourceId", resourceId)
