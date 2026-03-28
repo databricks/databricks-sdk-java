@@ -26,8 +26,7 @@ public class AzureGithubOidcCredentialsProvider implements CredentialsProvider {
 
   @Override
   public OAuthHeaderFactory configure(DatabricksConfig config) {
-    if (!config.isAzure()
-        || config.getAzureClientId() == null
+    if (config.getAzureClientId() == null
         || config.getAzureTenantId() == null
         || config.getHost() == null) {
       return null;

@@ -27,7 +27,7 @@ public class GoogleIdCredentialsProvider implements CredentialsProvider {
   public HeaderFactory configure(DatabricksConfig config) {
     String host = config.getHost();
     String googleServiceAccount = config.getGoogleServiceAccount();
-    if (host == null || googleServiceAccount == null || !config.isGcp()) {
+    if (host == null || googleServiceAccount == null) {
       return null;
     }
 
