@@ -93,9 +93,9 @@ public class ConfigLoader {
     INIConfiguration ini = parseDatabricksCfg(configFile, isDefaultConfig);
     if (ini == null) return;
 
-    String[] resolved = resolveProfile(cfg.getProfile(), ini, configFile.toString());
-    String profile = resolved[0];
-    boolean isFallback = "true".equals(resolved[1]);
+    ResolvedProfile resolved = resolveProfile(cfg.getProfile(), ini, configFile.toString());
+    String profile = resolved.name;
+    boolean isFallback = resolved.isFallback;
 
     SubnodeConfiguration section = ini.getSection(profile);
     boolean sectionNotPresent = section == null || section.isEmpty();
@@ -121,6 +121,16 @@ public class ConfigLoader {
     }
   }
 
+  static class ResolvedProfile {
+    final String name;
+    final boolean isFallback;
+
+    ResolvedProfile(String name, boolean isFallback) {
+      this.name = name;
+      this.isFallback = isFallback;
+    }
+  }
+
   /**
    * Resolves which profile to use from the config file.
    *
@@ -132,10 +142,10 @@ public class ConfigLoader {
    *   <li>{@code "DEFAULT"} with isFallback=true
    * </ol>
    *
-   * @return a two-element array: [profileName, "true"/"false" for isFallback]
    * @throws DatabricksException if the resolved profile is the reserved __settings__ section
    */
-  static String[] resolveProfile(String requestedProfile, INIConfiguration ini, String configFile) {
+  static ResolvedProfile resolveProfile(
+      String requestedProfile, INIConfiguration ini, String configFile) {
     if (!isNullOrEmpty(requestedProfile)) {
       if (SETTINGS_SECTION.equals(requestedProfile)) {
         throw new DatabricksException(
@@ -143,7 +153,7 @@ public class ConfigLoader {
                 "%s: %s is a reserved section name and cannot be used as a profile",
                 configFile, SETTINGS_SECTION));
       }
-      return new String[] {requestedProfile, "false"};
+      return new ResolvedProfile(requestedProfile, false);
     }
 
     SubnodeConfiguration settings = ini.getSection(SETTINGS_SECTION);
@@ -159,11 +169,11 @@ public class ConfigLoader {
                   "%s: %s is a reserved section name and cannot be used as a profile",
                   configFile, SETTINGS_SECTION));
         }
-        return new String[] {defaultProfile, "false"};
+        return new ResolvedProfile(defaultProfile, false);
       }
     }
 
-    return new String[] {"DEFAULT", "true"};
+    return new ResolvedProfile("DEFAULT", true);
   }
 
   private static INIConfiguration parseDatabricksCfg(String configFile, boolean isDefaultConfig) {
