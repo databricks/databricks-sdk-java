@@ -13,6 +13,7 @@
 
 ### Internal Changes
 * Introduced a logging abstraction (`com.databricks.sdk.core.logging`) to decouple the SDK from a specific logging backend.
+* Added `java.util.logging` as a supported alternative logging backend. Activate it with `LoggerFactory.setDefault(JulLoggerFactory.INSTANCE)`.
 
 ### API Changes
 * Add `createCatalog()`, `createSyncedTable()`, `deleteCatalog()`, `deleteSyncedTable()`, `getCatalog()` and `getSyncedTable()` methods for `workspaceClient.postgres()` service.
