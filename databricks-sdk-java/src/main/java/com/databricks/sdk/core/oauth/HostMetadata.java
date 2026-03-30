@@ -26,6 +26,9 @@ public class HostMetadata {
   @JsonProperty("host_type")
   private String hostType;
 
+  @JsonProperty("default_oidc_audience")
+  private String defaultOidcAudience;
+
   public HostMetadata() {}
 
   public HostMetadata(String oidcEndpoint, String accountId, String workspaceId) {
@@ -59,5 +62,9 @@ public class HostMetadata {
 
   public String getHostType() {
     return hostType;
+  }
+
+  public String getDefaultOidcAudience() {
+    return defaultOidcAudience;
   }
 }
