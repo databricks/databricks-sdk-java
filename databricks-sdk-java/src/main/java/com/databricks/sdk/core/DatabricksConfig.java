@@ -775,8 +775,15 @@ public class DatabricksConfig {
     return host.startsWith("https://accounts.") || host.startsWith("https://accounts-dod.");
   }
 
-  /** Returns the host type based on configuration settings and host URL. */
+  /**
+   * Returns the host type based on configuration settings and host URL. When host metadata has been
+   * resolved (via /.well-known/databricks-config), the resolved host type is returned directly.
+   * Otherwise, the host type is inferred from URL patterns as a fallback.
+   */
   public HostType getHostType() {
+    if (resolvedHostType != null) {
+      return resolvedHostType;
+    }
     if (experimentalIsUnifiedHost != null && experimentalIsUnifiedHost) {
       return HostType.UNIFIED;
     }
