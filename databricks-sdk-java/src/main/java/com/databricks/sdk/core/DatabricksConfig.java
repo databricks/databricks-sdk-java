@@ -907,6 +907,10 @@ public class DatabricksConfig {
       discoveryUrl = oidcUri.resolve(".well-known/oauth-authorization-server").toString();
       LOG.debug("Resolved discovery_url from host metadata: \"{}\"", discoveryUrl);
     }
+    // For account hosts, use the accountId as the token audience if not already set.
+    if (tokenAudience == null && getClientType() == ClientType.ACCOUNT && accountId != null) {
+      tokenAudience = accountId;
+    }
   }
 
   private OpenIDConnectEndpoints fetchOidcEndpointsFromDiscovery() {

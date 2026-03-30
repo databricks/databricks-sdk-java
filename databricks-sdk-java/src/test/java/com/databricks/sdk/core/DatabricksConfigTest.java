@@ -586,6 +586,52 @@ public class DatabricksConfigTest {
     }
   }
 
+  @Test
+  public void testResolveHostMetadataSetsTokenAudienceForAccountHost() throws IOException {
+    // For a unified host with no workspaceId (ACCOUNT client type), resolveHostMetadata should
+    // set tokenAudience to accountId when not already configured.
+    String response =
+        "{\"oidc_endpoint\":\"https://acc.databricks.com/oidc/accounts/{account_id}\","
+            + "\"account_id\":\""
+            + DUMMY_ACCOUNT_ID
+            + "\"}";
+    try (FixtureServer server =
+        new FixtureServer()
+            .with("GET", "/.well-known/databricks-config", response, 200)
+            .with("GET", "/.well-known/databricks-config", response, 200)) {
+      DatabricksConfig config =
+          new DatabricksConfig()
+              .setHost(server.getUrl())
+              .setExperimentalIsUnifiedHost(true)
+              .setAccountId(DUMMY_ACCOUNT_ID);
+      config.resolve(emptyEnv());
+      // Client type should be ACCOUNT (unified host, no workspaceId)
+      assertEquals(ClientType.ACCOUNT, config.getClientType());
+      config.resolveHostMetadata();
+      assertEquals(DUMMY_ACCOUNT_ID, config.getTokenAudience());
+    }
+  }
+
+  @Test
+  public void testResolveHostMetadataDoesNotOverwriteTokenAudience() throws IOException {
+    String response =
+        "{\"oidc_endpoint\":\"https://acc.databricks.com/oidc/accounts/{account_id}\","
+            + "\"account_id\":\""
+            + DUMMY_ACCOUNT_ID
+            + "\"}";
+    try (FixtureServer server =
+        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+      DatabricksConfig config =
+          new DatabricksConfig()
+              .setHost(server.getUrl())
+              .setAccountId(DUMMY_ACCOUNT_ID)
+              .setTokenAudience("custom-audience");
+      config.resolve(emptyEnv());
+      config.resolveHostMetadata();
+      assertEquals("custom-audience", config.getTokenAudience());
+    }
+  }
+
   // --- tryResolveHostMetadata (config init) tests ---
 
   @Test
