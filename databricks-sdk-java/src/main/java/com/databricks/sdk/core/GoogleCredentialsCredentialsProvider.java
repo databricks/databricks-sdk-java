@@ -66,17 +66,12 @@ public class GoogleCredentialsCredentialsProvider implements CredentialsProvider
       Map<String, String> headers = new HashMap<>();
       headers.put("Authorization", String.format("Bearer %s", idToken.getTokenValue()));
 
-      if (config.getClientType() == ClientType.ACCOUNT) {
-        AccessToken token;
-        try {
-          token = finalServiceAccountCredentials.createScoped(GCP_SCOPES).refreshAccessToken();
-        } catch (IOException e) {
-          String message =
-              "Failed to refresh access token from Google service account credentials.";
-          LOG.error(message + e);
-          throw new DatabricksException(message, e);
-        }
+      try {
+        AccessToken token =
+            finalServiceAccountCredentials.createScoped(GCP_SCOPES).refreshAccessToken();
         headers.put(SA_ACCESS_TOKEN_HEADER, token.getTokenValue());
+      } catch (IOException e) {
+        LOG.warn("Failed to refresh GCP SA access token, skipping header: {}", e.getMessage());
       }
 
       return headers;
