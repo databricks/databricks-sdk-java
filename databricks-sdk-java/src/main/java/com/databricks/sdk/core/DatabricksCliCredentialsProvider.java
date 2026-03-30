@@ -1,5 +1,7 @@
 package com.databricks.sdk.core;
 
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.core.oauth.CachedTokenSource;
 import com.databricks.sdk.core.oauth.OAuthHeaderFactory;
 import com.databricks.sdk.core.oauth.Token;
@@ -10,8 +12,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @InternalApi
 public class DatabricksCliCredentialsProvider implements CredentialsProvider {

@@ -3,6 +3,8 @@ package com.databricks.sdk.core;
 import static com.databricks.sdk.core.utils.GoogleUtils.GCP_SCOPES;
 import static com.databricks.sdk.core.utils.GoogleUtils.SA_ACCESS_TOKEN_HEADER;
 
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.support.InternalApi;
 import com.google.auth.oauth2.*;
 import com.google.auth.oauth2.IdTokenProvider.Option;
@@ -12,8 +14,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @InternalApi
 public class GoogleCredentialsCredentialsProvider implements CredentialsProvider {

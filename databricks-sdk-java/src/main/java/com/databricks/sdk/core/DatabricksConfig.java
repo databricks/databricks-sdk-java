@@ -4,6 +4,8 @@ import com.databricks.sdk.core.commons.CommonsHttpClient;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.core.oauth.ErrorTokenSource;
 import com.databricks.sdk.core.oauth.HostMetadata;
 import com.databricks.sdk.core.oauth.OAuthHeaderFactory;
@@ -19,8 +21,6 @@ import java.net.URI;
 import java.time.Duration;
 import java.util.*;
 import org.apache.http.HttpMessage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class DatabricksConfig {
   private static final Logger LOG = LoggerFactory.getLogger(DatabricksConfig.class);
