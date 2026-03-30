@@ -34,14 +34,8 @@ public class ExternalBrowserCredentialsProviderTest {
                 "{\"token_endpoint\": \"tokenEndPointFromServer\", \"authorization_endpoint\": \"authEndPointFromServer\"}",
                 200)
             .build();
-    FixtureServer.FixtureMapping wellKnownFixture =
-        new FixtureServer.FixtureMapping.Builder()
-            .validateMethod("GET")
-            .validatePath("/.well-known/databricks-config")
-            .withResponse("{}", 404)
-            .build();
     try (FixtureServer fixtures = new FixtureServer()) {
-      fixtures.with(wellKnownFixture).with(fixture).with(fixture);
+      fixtures.with(fixture).with(fixture);
       DatabricksConfig config =
           new DatabricksConfig()
               .setAuthType("external-browser")
@@ -87,14 +81,8 @@ public class ExternalBrowserCredentialsProviderTest {
                 "{\"token_endpoint\": \"tokenEndPointFromServer\", \"authorization_endpoint\": \"authEndPointFromServer\"}",
                 200)
             .build();
-    FixtureServer.FixtureMapping wellKnownFixture =
-        new FixtureServer.FixtureMapping.Builder()
-            .validateMethod("GET")
-            .validatePath("/.well-known/databricks-config")
-            .withResponse("{}", 404)
-            .build();
     try (FixtureServer fixtures = new FixtureServer()) {
-      fixtures.with(wellKnownFixture).with(fixture).with(fixture);
+      fixtures.with(fixture).with(fixture);
       DatabricksConfig config =
           new DatabricksConfig()
               .setAuthType("external-browser")
@@ -138,7 +126,9 @@ public class ExternalBrowserCredentialsProviderTest {
         new DatabricksConfig()
             .setAuthType("external-browser")
             .setHost("https://accounts.cloud.databricks.com")
+            .setHttpClient(new CommonsHttpClient.Builder().withTimeoutSeconds(30).build())
             .setAccountId("testAccountId");
+    config.resolve();
 
     String prefix = "https://accounts.cloud.databricks.com/oidc/accounts/" + config.getAccountId();
     assertEquals(prefix + "/v1/token", config.getDatabricksOidcEndpoints().getTokenEndpoint());
