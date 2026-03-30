@@ -25,9 +25,25 @@ public class LoggerFactoryTest {
   }
 
   @Test
+  void setDefaultSwitchesToJul() {
+    LoggerFactory.setDefault(JulLoggerFactory.INSTANCE);
+    Logger logger = LoggerFactory.getLogger(LoggerFactoryTest.class);
+    assertNotNull(logger);
+    logger.info("setDefaultSwitchesToJul test message via JUL");
+  }
+
+  @Test
   void getLoggerByNameWorks() {
     Logger logger = LoggerFactory.getLogger("com.example.Test");
     assertNotNull(logger);
     logger.info("getLoggerByNameWorks test message");
+  }
+
+  @Test
+  void getLoggerByNameWorksWithJul() {
+    LoggerFactory.setDefault(JulLoggerFactory.INSTANCE);
+    Logger logger = LoggerFactory.getLogger("com.example.Test");
+    assertNotNull(logger);
+    logger.info("getLoggerByNameWorksWithJul test message");
   }
 }
