@@ -17,5 +17,6 @@
 
 ### Internal Changes
 * Added parametrized unit tests covering PAT, Basic, OAuth M2M, GitHub OIDC, Env OIDC, File OIDC, Azure Client Secret, and Azure GitHub OIDC against six host profiles (LW, NW, LA, NA, SPOGW, SPOGA) across AWS, Azure, and GCP (138 subtests total). Mirrors databricks-sdk-go PR #1627 and databricks-sdk-py PR #1357.
+* Migrated internal SDK classes to the logging abstraction. The SDK now supports SLF4J, `java.util.logging`, or a custom backend via `LoggerFactory.setDefault()`.
 
 ### API Changes
