@@ -165,6 +165,12 @@ public class IdempotencyTestingAPITest {
   void testIdempotencyAutoRequestID(AutoRequestIDTestCase testCase) throws Exception {
     // Setup: Create DummyHttpClient with sequential responses for retries
     DummyHttpClient realClient = new DummyHttpClient();
+    // Add a response for the host metadata discovery call
+    Request metadataRequest =
+        new Request("GET", "https://test.databricks.com/.well-known/databricks-config");
+    realClient.with(
+        metadataRequest,
+        new Response(metadataRequest, 200, "OK", Collections.emptyMap(), "{}"));
     for (Response response : testCase.httpResponses) {
       realClient.with(testCase.httpRequest, response);
     }
@@ -193,12 +199,13 @@ public class IdempotencyTestingAPITest {
       assertEquals(testCase.wantResult, result, "Test case: " + testCase.name);
 
       // Capture and verify request IDs
+      // 3 calls: host metadata discovery + 2 API calls (initial + retry)
       ArgumentCaptor<Request> requestCaptor = ArgumentCaptor.forClass(Request.class);
-      verify(spyClient, times(2)).execute(requestCaptor.capture());
+      verify(spyClient, times(3)).execute(requestCaptor.capture());
 
       List<Request> capturedRequests = requestCaptor.getAllValues();
-      String firstRequestId = capturedRequests.get(0).getQuery().get("request_id").get(0);
-      String secondRequestId = capturedRequests.get(1).getQuery().get("request_id").get(0);
+      String firstRequestId = capturedRequests.get(1).getQuery().get("request_id").get(0);
+      String secondRequestId = capturedRequests.get(2).getQuery().get("request_id").get(0);
 
       assertNotNull(firstRequestId, "Auto-generated request_id should not be null");
       assertFalse(firstRequestId.isEmpty(), "Auto-generated request_id should not be empty");
