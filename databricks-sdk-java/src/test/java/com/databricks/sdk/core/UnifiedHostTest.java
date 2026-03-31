@@ -231,4 +231,71 @@ public class UnifiedHostTest {
     assertEquals("Bearer test-token", headers.get("Authorization"));
     assertNull(headers.get("X-Databricks-Org-Id"));
   }
+
+  // --- Resolved host type from metadata tests ---
+
+  @Test
+  public void testMetadataWorkspaceOverridesAccountLikeUrl() {
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setHost("https://accounts.cloud.databricks.com")
+            .setResolvedHostType(HostType.WORKSPACE);
+    assertEquals(HostType.WORKSPACE, config.getHostType());
+  }
+
+  @Test
+  public void testMetadataAccountOverridesWorkspaceLikeUrl() {
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setHost("https://my-workspace.cloud.databricks.com")
+            .setResolvedHostType(HostType.ACCOUNTS);
+    assertEquals(HostType.ACCOUNTS, config.getHostType());
+  }
+
+  @Test
+  public void testMetadataUnifiedIsReturned() {
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setHost("https://my-workspace.cloud.databricks.com")
+            .setResolvedHostType(HostType.UNIFIED);
+    assertEquals(HostType.UNIFIED, config.getHostType());
+  }
+
+  @Test
+  public void testFallsBackToUrlMatchingWhenResolvedHostTypeNull() {
+    DatabricksConfig config =
+        new DatabricksConfig().setHost("https://accounts.cloud.databricks.com");
+    // resolvedHostType is null by default
+    assertEquals(HostType.ACCOUNTS, config.getHostType());
+  }
+
+  @Test
+  public void testMetadataOverridesExperimentalFlag() {
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setHost("https://my-workspace.cloud.databricks.com")
+            .setExperimentalIsUnifiedHost(true)
+            .setResolvedHostType(HostType.ACCOUNTS);
+    // Resolved host type takes priority over experimental flag
+    assertEquals(HostType.ACCOUNTS, config.getHostType());
+  }
+
+  @Test
+  public void testEndToEndResolveToGetHostType() throws IOException {
+    String response =
+        "{\"oidc_endpoint\":\"https://ws.databricks.com/oidc\","
+            + "\"account_id\":\"test-account\","
+            + "\"host_type\":\"unified\"}";
+    try (FixtureServer server =
+        new FixtureServer()
+            .with("GET", "/.well-known/databricks-config", response, 200)
+            .with("GET", "/.well-known/databricks-config", response, 200)) {
+      DatabricksConfig config =
+          new DatabricksConfig().setHost(server.getUrl()).setExperimentalIsUnifiedHost(true);
+      config.resolve(
+          new Environment(new HashMap<>(), new ArrayList<>(), System.getProperty("os.name")));
+      // After resolve(), tryResolveHostMetadata() should have set resolvedHostType
+      assertEquals(HostType.UNIFIED, config.getHostType());
+    }
+  }
 }
