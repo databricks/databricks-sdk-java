@@ -1,13 +1,13 @@
 package com.databricks.sdk.core.retry;
 
 import com.databricks.sdk.core.DatabricksError;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 import java.net.*;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * This class is used to determine if a non-idempotent request should be retried. We essentially

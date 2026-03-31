@@ -4,6 +4,8 @@ import static com.databricks.sdk.service.compute.CloudProviderNodeStatus.*;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.core.DatabricksError;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.service.compute.*;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -13,8 +15,6 @@ import java.util.List;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class ClustersExt extends ClustersAPI {
   private static final Logger LOG = LoggerFactory.getLogger(ClustersExt.class);
