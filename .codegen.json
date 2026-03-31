@@ -12,6 +12,9 @@
   "toolchain": {
     "require": ["mvn", "java"],
     "setup": ["bash scripts/cleanup-services.sh"],
-    "post_generate": ["mvn spotless:apply","mvn --errors clean test"]
+    "post_generate": ["mvn spotless:apply","mvn --errors clean test"],
+    "post_tagging": {
+      "mvn io.github.chains-project:maven-lockfile:5.5.2:generate": ["lockfile.json", "databricks-sdk-java/lockfile.json"]
+    }
   }
 }
