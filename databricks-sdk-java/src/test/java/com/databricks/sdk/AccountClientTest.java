@@ -36,7 +36,6 @@ public class AccountClientTest {
     DatabricksConfig accountConfig =
         new DatabricksConfig()
             .setHost(unifiedHost)
-            .setExperimentalIsUnifiedHost(true)
             .setAccountId("test-account")
             .setToken("test-token");
 
@@ -64,7 +63,6 @@ public class AccountClientTest {
     DatabricksConfig accountConfig =
         new DatabricksConfig()
             .setHost(spogHost)
-            .setExperimentalIsUnifiedHost(true)
             .setAccountId("test-account")
             .setToken("test-token");
 

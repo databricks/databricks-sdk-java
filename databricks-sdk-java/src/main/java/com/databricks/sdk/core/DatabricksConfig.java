@@ -232,15 +232,11 @@ public class DatabricksConfig {
   }
 
   /**
-   * Attempts to resolve host metadata from the well-known endpoint. Only called for unified hosts.
-   * Logs a warning and continues if metadata resolution fails, since not all hosts support the
-   * discovery endpoint.
+   * Attempts to resolve host metadata from the well-known endpoint. Logs a warning and continues if
+   * metadata resolution fails, since not all hosts support the discovery endpoint.
    */
   private void tryResolveHostMetadata() {
     if (host == null) {
-      return;
-    }
-    if (experimentalIsUnifiedHost == null || !experimentalIsUnifiedHost) {
       return;
     }
     try {

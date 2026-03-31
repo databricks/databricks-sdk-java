@@ -399,6 +399,11 @@ public class DatabricksConfigTest {
     return new Environment(new HashMap<>(), new ArrayList<>(), System.getProperty("os.name"));
   }
 
+  // Note: getHostMetadata() is package-private and not called directly by users. It is invoked
+  // internally by resolve() during config init. These tests call it explicitly to verify the raw
+  // response parsing, so we register the well-known fixture twice: once consumed by resolve(),
+  // and once for the explicit getHostMetadata() call under test.
+
   @Test
   public void testGetHostMetadataWorkspaceStaticOidcEndpoint() throws IOException {
     String response =
@@ -410,7 +415,9 @@ public class DatabricksConfigTest {
             + DUMMY_WORKSPACE_ID
             + "\"}";
     try (FixtureServer server =
-        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+        new FixtureServer()
+            .with("GET", "/.well-known/databricks-config", response, 200)
+            .with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
       config.resolve(emptyEnv());
       HostMetadata meta = config.getHostMetadata();
@@ -425,7 +432,9 @@ public class DatabricksConfigTest {
     String response =
         "{\"oidc_endpoint\":\"https://acc.databricks.com/oidc/accounts/{account_id}\"}";
     try (FixtureServer server =
-        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+        new FixtureServer()
+            .with("GET", "/.well-known/databricks-config", response, 200)
+            .with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
       config.resolve(emptyEnv());
       HostMetadata meta = config.getHostMetadata();
@@ -438,7 +447,9 @@ public class DatabricksConfigTest {
   @Test
   public void testGetHostMetadataRaisesOnHttpError() throws IOException {
     try (FixtureServer server =
-        new FixtureServer().with("GET", "/.well-known/databricks-config", "{}", 404)) {
+        new FixtureServer()
+            .with("GET", "/.well-known/databricks-config", "{}", 404)
+            .with("GET", "/.well-known/databricks-config", "{}", 404)) {
       DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
       config.resolve(emptyEnv());
       DatabricksException ex =
@@ -463,7 +474,6 @@ public class DatabricksConfigTest {
         new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
       config.resolve(emptyEnv());
-      config.resolveHostMetadata();
       assertEquals(DUMMY_ACCOUNT_ID, config.getAccountId());
       assertEquals(DUMMY_WORKSPACE_ID, config.getWorkspaceId());
       assertEquals(
@@ -481,7 +491,6 @@ public class DatabricksConfigTest {
       DatabricksConfig config =
           new DatabricksConfig().setHost(server.getUrl()).setAccountId(DUMMY_ACCOUNT_ID);
       config.resolve(emptyEnv());
-      config.resolveHostMetadata();
       assertEquals(
           "https://acc.databricks.com/oidc/accounts/"
               + DUMMY_ACCOUNT_ID
@@ -506,7 +515,6 @@ public class DatabricksConfigTest {
               .setAccountId(existingAccountId)
               .setWorkspaceId(existingWorkspaceId);
       config.resolve(emptyEnv());
-      config.resolveHostMetadata();
       assertEquals(existingAccountId, config.getAccountId());
       assertEquals(existingWorkspaceId, config.getWorkspaceId());
     }
@@ -521,7 +529,6 @@ public class DatabricksConfigTest {
         new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
       config.resolve(emptyEnv());
-      config.resolveHostMetadata();
       // DiscoveryURL should not be set because account_id is empty and placeholder can't be
       // substituted
       assertNull(config.getDiscoveryUrl());
@@ -535,7 +542,6 @@ public class DatabricksConfigTest {
         new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
       config.resolve(emptyEnv());
-      config.resolveHostMetadata();
       assertEquals(DUMMY_ACCOUNT_ID, config.getAccountId());
       assertNull(config.getDiscoveryUrl());
     }
@@ -544,7 +550,9 @@ public class DatabricksConfigTest {
   @Test
   public void testResolveHostMetadataRaisesOnHttpError() throws IOException {
     try (FixtureServer server =
-        new FixtureServer().with("GET", "/.well-known/databricks-config", "{}", 500)) {
+        new FixtureServer()
+            .with("GET", "/.well-known/databricks-config", "{}", 500)
+            .with("GET", "/.well-known/databricks-config", "{}", 500)) {
       DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
       config.resolve(emptyEnv());
       DatabricksException ex =
@@ -582,7 +590,6 @@ public class DatabricksConfigTest {
               .setAccountId(DUMMY_ACCOUNT_ID)
               .setTokenAudience("custom-audience");
       config.resolve(emptyEnv());
-      config.resolveHostMetadata();
       assertEquals("custom-audience", config.getTokenAudience());
     }
   }
@@ -590,7 +597,7 @@ public class DatabricksConfigTest {
   // --- tryResolveHostMetadata (config init) tests ---
 
   @Test
-  public void testEnsureResolvedResolvesHostMetadataWhenUnifiedHost() throws IOException {
+  public void testEnsureResolvedResolvesHostMetadataWhenHostSet() throws IOException {
     String response =
         "{\"oidc_endpoint\":\"https://ws.databricks.com/oidc\","
             + "\"account_id\":\""
@@ -601,8 +608,7 @@ public class DatabricksConfigTest {
             + "\"}";
     try (FixtureServer server =
         new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
-      DatabricksConfig config =
-          new DatabricksConfig().setHost(server.getUrl()).setExperimentalIsUnifiedHost(true);
+      DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
       config.resolve(emptyEnv());
       assertEquals(DUMMY_ACCOUNT_ID, config.getAccountId());
       assertEquals(DUMMY_WORKSPACE_ID, config.getWorkspaceId());
@@ -613,8 +619,9 @@ public class DatabricksConfigTest {
   }
 
   @Test
-  public void testEnsureResolvedSkipsHostMetadataWhenNotUnified() throws IOException {
-    // No metadata endpoint fixture — if it were called, the fixture server would fail
+  public void testEnsureResolvedHostMetadataNotFoundNonFatal() throws IOException {
+    // When host metadata endpoint returns 404, resolve should still succeed
+    // (auto-stubbed by FixtureServer)
     try (FixtureServer server = new FixtureServer()) {
       DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
       config.resolve(emptyEnv());
@@ -629,8 +636,7 @@ public class DatabricksConfigTest {
         new FixtureServer()
             .with(
                 "GET", "/.well-known/databricks-config", "{\"error\": \"internal error\"}", 500)) {
-      DatabricksConfig config =
-          new DatabricksConfig().setHost(server.getUrl()).setExperimentalIsUnifiedHost(true);
+      DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
       // Should not throw — metadata failure is non-fatal
       config.resolve(emptyEnv());
       assertNull(config.getAccountId());
@@ -643,8 +649,7 @@ public class DatabricksConfigTest {
     String response = "{\"account_id\":\"" + DUMMY_ACCOUNT_ID + "\"}";
     try (FixtureServer server =
         new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
-      DatabricksConfig config =
-          new DatabricksConfig().setHost(server.getUrl()).setExperimentalIsUnifiedHost(true);
+      DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
       config.resolve(emptyEnv());
       assertEquals(DUMMY_ACCOUNT_ID, config.getAccountId());
       assertNull(config.getDiscoveryUrl());
@@ -658,8 +663,7 @@ public class DatabricksConfigTest {
         "{\"oidc_endpoint\":\"https://acc.databricks.com/oidc/accounts/{account_id}\"}";
     try (FixtureServer server =
         new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
-      DatabricksConfig config =
-          new DatabricksConfig().setHost(server.getUrl()).setExperimentalIsUnifiedHost(true);
+      DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
       config.resolve(emptyEnv());
       // DiscoveryURL should not be set because account_id is empty and placeholder can't be
       // substituted
