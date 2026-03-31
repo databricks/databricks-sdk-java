@@ -90,9 +90,7 @@ public class UnifiedHostTest {
   public void testIsAccountClientForNonAccountsHost() {
     // Non-accounts hosts are not account clients
     assertFalse(
-        new DatabricksConfig()
-            .setHost("https://mycompany.databricks.com")
-            .isAccountClient());
+        new DatabricksConfig().setHost("https://mycompany.databricks.com").isAccountClient());
   }
 
   // --- Environment Variable Tests ---

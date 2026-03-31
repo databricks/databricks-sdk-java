@@ -169,8 +169,7 @@ public class IdempotencyTestingAPITest {
     Request metadataRequest =
         new Request("GET", "https://test.databricks.com/.well-known/databricks-config");
     realClient.with(
-        metadataRequest,
-        new Response(metadataRequest, 200, "OK", Collections.emptyMap(), "{}"));
+        metadataRequest, new Response(metadataRequest, 200, "OK", Collections.emptyMap(), "{}"));
     for (Response response : testCase.httpResponses) {
       realClient.with(testCase.httpRequest, response);
     }

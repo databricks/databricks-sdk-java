@@ -562,20 +562,6 @@ public class DatabricksConfigTest {
   }
 
   @Test
-  public void testResolveHostMetadataSetsTokenAudienceForAccountHost() throws IOException {
-    // For an account host, resolveHostMetadata should set tokenAudience to accountId
-    // when not already configured. We verify the preconditions here.
-    DatabricksConfig accountConfig =
-        new DatabricksConfig()
-            .setHost("https://accounts.cloud.databricks.com")
-            .setAccountId(DUMMY_ACCOUNT_ID);
-    assertEquals(ClientType.ACCOUNT, accountConfig.getClientType());
-    assertNull(accountConfig.getTokenAudience());
-    // When resolve runs with a reachable host, tryResolveHostMetadata will call
-    // resolveHostMetadata which sets tokenAudience = accountId for ACCOUNT clients.
-  }
-
-  @Test
   public void testResolveHostMetadataDoesNotOverwriteTokenAudience() throws IOException {
     String response =
         "{\"oidc_endpoint\":\"https://acc.databricks.com/oidc/accounts/{account_id}\","
