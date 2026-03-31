@@ -163,6 +163,12 @@ public class DatabricksConfig {
   private DatabricksEnvironment databricksEnvironment;
 
   /**
+   * The host type resolved from the /.well-known/databricks-config discovery endpoint. When set,
+   * this takes priority over URL-based host type detection in {@link #getHostType()}.
+   */
+  private HostType resolvedHostType;
+
+  /**
    * When using Workload Identity Federation, the audience to specify when fetching an ID token from
    * the ID token supplier.
    */
@@ -723,6 +729,17 @@ public class DatabricksConfig {
     return this;
   }
 
+  /** Returns the host type resolved from host metadata, or {@code null} if not yet resolved. */
+  HostType getResolvedHostType() {
+    return resolvedHostType;
+  }
+
+  /** Sets the resolved host type. Package-private for testing. */
+  DatabricksConfig setResolvedHostType(HostType resolvedHostType) {
+    this.resolvedHostType = resolvedHostType;
+    return this;
+  }
+
   public boolean isAzure() {
     if (azureWorkspaceResourceId != null) {
       return true;
@@ -888,6 +905,13 @@ public class DatabricksConfig {
     if (workspaceId == null && meta.getWorkspaceId() != null) {
       LOG.debug("Resolved workspace_id from host metadata: \"{}\"", meta.getWorkspaceId());
       workspaceId = meta.getWorkspaceId();
+    }
+    if (resolvedHostType == null && meta.getHostType() != null) {
+      HostType ht = HostType.fromApiValue(meta.getHostType());
+      if (ht != null) {
+        LOG.debug("Resolved host_type from host metadata: \"{}\"", ht);
+        resolvedHostType = ht;
+      }
     }
     if (discoveryUrl == null) {
       if (meta.getOidcEndpoint() == null || meta.getOidcEndpoint().isEmpty()) {
