@@ -1,0 +1,9 @@
+<settings>
+  <mirrors>
+    <mirror>
+      <id>databricks-maven-proxy</id>
+      <mirrorOf>central</mirrorOf>
+      <url>https://maven-proxy.dev.databricks.com</url>
+    </mirror>
+  </mirrors>
+</settings>

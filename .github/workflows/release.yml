@@ -32,7 +32,10 @@ jobs:
           server-password: MAVEN_CENTRAL_PASSWORD
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           gpg-passphrase: GPG_PASSPHRASE
-          
+
+      - name: Configure Maven proxy
+        run: python3 .github/inject-maven-mirror.py ~/.m2/settings.xml
+
       # This step runs ONLY on branch pushes (dry-run)
       - name: Run Release Dry-Run (Verify)
         if: "!startsWith(github.ref, 'refs/tags/')"
