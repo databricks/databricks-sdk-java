@@ -80,6 +80,40 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
     return forceCmd;
   }
 
+  List<CliTokenSource.CliCommand> buildCommands(String cliPath, DatabricksConfig config) {
+    List<CliTokenSource.CliCommand> commands = new ArrayList<>();
+
+    boolean hasProfile = config.getProfile() != null;
+    boolean hasHost = config.getHost() != null;
+
+    if (hasProfile) {
+      List<String> profileCmd = buildProfileArgs(cliPath, config);
+
+      commands.add(
+          new CliTokenSource.CliCommand(
+              withForceRefresh(profileCmd),
+              Arrays.asList("--force-refresh", "--profile"),
+              "Databricks CLI does not support --force-refresh flag. "
+                  + "Falling back to regular token fetch. "
+                  + "Please upgrade your CLI to the latest version."));
+
+      commands.add(
+          new CliTokenSource.CliCommand(
+              profileCmd,
+              Collections.singletonList("--profile"),
+              "Databricks CLI does not support --profile flag. Falling back to --host. "
+                  + "Please upgrade your CLI to the latest version."));
+    }
+
+    if (hasHost) {
+      commands.add(
+          new CliTokenSource.CliCommand(
+              buildHostArgs(cliPath, config), Collections.emptyList(), null));
+    }
+
+    return commands;
+  }
+
   private CliTokenSource getDatabricksCliTokenSource(DatabricksConfig config) {
     String cliPath = config.getDatabricksCliPath();
     if (cliPath == null) {
@@ -90,29 +124,8 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
       return null;
     }
 
-    List<String> cmd;
-    List<String> fallbackCmd = null;
-    List<String> secondFallbackCmd = null;
-
-    if (config.getProfile() != null) {
-      List<String> profileArgs = buildProfileArgs(cliPath, config);
-      cmd = withForceRefresh(profileArgs);
-      fallbackCmd = profileArgs;
-      if (config.getHost() != null) {
-        secondFallbackCmd = buildHostArgs(cliPath, config);
-      }
-    } else {
-      cmd = buildHostArgs(cliPath, config);
-    }
-
-    return new CliTokenSource(
-        cmd,
-        "token_type",
-        "access_token",
-        "expiry",
-        config.getEnv(),
-        fallbackCmd,
-        secondFallbackCmd);
+    return CliTokenSource.fromCommands(
+        buildCommands(cliPath, config), "token_type", "access_token", "expiry", config.getEnv());
   }
 
   @Override

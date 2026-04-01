@@ -24,6 +24,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -233,12 +234,35 @@ public class CliTokenSourceTest {
 
   private CliTokenSource makeTokenSource(
       Environment env, List<String> cmd, List<String> fallbackCmd, List<String> secondFallbackCmd) {
+    List<CliTokenSource.CliCommand> commands = new ArrayList<>();
+
+    commands.add(
+        new CliTokenSource.CliCommand(
+            cmd,
+            fallbackCmd != null
+                ? Arrays.asList("--force-refresh", "--profile")
+                : Collections.emptyList(),
+            fallbackCmd != null ? "fallback" : null));
+
+    if (fallbackCmd != null) {
+      commands.add(
+          new CliTokenSource.CliCommand(
+              fallbackCmd,
+              secondFallbackCmd != null
+                  ? Collections.singletonList("--profile")
+                  : Collections.emptyList(),
+              secondFallbackCmd != null ? "second fallback" : null));
+    }
+
+    if (secondFallbackCmd != null) {
+      commands.add(new CliTokenSource.CliCommand(secondFallbackCmd, Collections.emptyList(), null));
+    }
+
     OSUtilities osUtils = mock(OSUtilities.class);
     when(osUtils.getCliExecutableCommand(any())).thenAnswer(inv -> inv.getArgument(0));
     try (MockedStatic<OSUtils> mockedOSUtils = mockStatic(OSUtils.class)) {
       mockedOSUtils.when(() -> OSUtils.get(any())).thenReturn(osUtils);
-      return new CliTokenSource(
-          cmd, "token_type", "access_token", "expiry", env, fallbackCmd, secondFallbackCmd);
+      return CliTokenSource.fromCommands(commands, "token_type", "access_token", "expiry", env);
     }
   }
 
@@ -545,6 +569,50 @@ public class CliTokenSourceTest {
       Token token = tokenSource.getToken();
       assertEquals("fallback-token", token.getAccessToken());
       assertEquals(2, mocked.constructed().size());
+    }
+  }
+
+  @Test
+  public void testActiveCommandIndexPersists() {
+    Environment env = mock(Environment.class);
+    when(env.getEnv()).thenReturn(new HashMap<>());
+
+    CliTokenSource tokenSource = makeTokenSource(env, FORCE_CMD, PROFILE_CMD);
+
+    AtomicInteger callCount = new AtomicInteger(0);
+    try (MockedConstruction<ProcessBuilder> mocked =
+        mockConstruction(
+            ProcessBuilder.class,
+            (pb, context) -> {
+              int call = callCount.getAndIncrement();
+              if (call == 0) {
+                Process failProcess = mock(Process.class);
+                when(failProcess.getInputStream())
+                    .thenReturn(new ByteArrayInputStream(new byte[0]));
+                when(failProcess.getErrorStream())
+                    .thenReturn(
+                        new ByteArrayInputStream(
+                            "Error: unknown flag: --force-refresh".getBytes()));
+                when(failProcess.waitFor()).thenReturn(1);
+                when(pb.start()).thenReturn(failProcess);
+              } else {
+                Process successProcess = mock(Process.class);
+                when(successProcess.getInputStream())
+                    .thenReturn(
+                        new ByteArrayInputStream(validTokenJson("profile-token").getBytes()));
+                when(successProcess.getErrorStream())
+                    .thenReturn(new ByteArrayInputStream(new byte[0]));
+                when(successProcess.waitFor()).thenReturn(0);
+                when(pb.start()).thenReturn(successProcess);
+              }
+            })) {
+      Token first = tokenSource.getToken();
+      assertEquals("profile-token", first.getAccessToken());
+      assertEquals(2, mocked.constructed().size());
+
+      Token second = tokenSource.getToken();
+      assertEquals("profile-token", second.getAccessToken());
+      assertEquals(3, mocked.constructed().size());
     }
   }
 }

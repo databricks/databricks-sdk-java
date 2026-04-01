@@ -14,6 +14,7 @@
 ### Documentation
 
 ### Internal Changes
+* Generalized CLI token source into a progressive command attempt list, replacing the fixed three-field approach with an extensible chain.
 
 ### API Changes
 * Add `createCatalog()`, `createSyncedTable()`, `deleteCatalog()`, `deleteSyncedTable()`, `getCatalog()` and `getSyncedTable()` methods for `workspaceClient.postgres()` service.
