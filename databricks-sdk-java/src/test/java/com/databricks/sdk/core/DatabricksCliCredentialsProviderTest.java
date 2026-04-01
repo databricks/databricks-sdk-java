@@ -139,4 +139,15 @@ class DatabricksCliCredentialsProviderTest {
             CLI_PATH, "auth", "token", "--host", ACCOUNT_HOST, "--account-id", ACCOUNT_ID),
         cmd);
   }
+
+  // ---- Profile args construction tests ----
+
+  @Test
+  void testBuildProfileArgs() {
+    DatabricksConfig config = new DatabricksConfig().setProfile("my-profile");
+
+    List<String> cmd = provider.buildProfileArgs(CLI_PATH, config);
+
+    assertEquals(Arrays.asList(CLI_PATH, "auth", "token", "--profile", "my-profile"), cmd);
+  }
 }
