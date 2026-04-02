@@ -22,8 +22,7 @@ public class HostMetadataIT {
 
   @Test
   void testResolvePopulatesFieldsFromMetadata(@EnvOrSkip("DATABRICKS_HOST") String host) {
-    DatabricksConfig config =
-        new DatabricksConfig().setHost(host).setExperimentalIsUnifiedHost(true);
+    DatabricksConfig config = new DatabricksConfig().setHost(host);
     config.resolve();
 
     LOG.info(

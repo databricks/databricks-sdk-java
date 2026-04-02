@@ -464,6 +464,10 @@ public class HttpPathTest {
         .thenAnswer(
             invocation -> {
               Request request = invocation.getArgument(0);
+              // Handle host metadata discovery call
+              if (request.getUri().toString().equals(HOST + "/.well-known/databricks-config")) {
+                return new Response("{}", 200, "OK", new URL(HOST));
+              }
               String expectedUrl = HOST + testCase.path;
               if (!request.getUri().toString().equals(expectedUrl)) {
                 throw new AssertionError(
