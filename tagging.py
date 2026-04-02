@@ -181,6 +181,10 @@ def update_version_references(tag_info: TagInfo) -> None:
         # Replace the version in the file content
         updated_content = re.sub(previous_version, new_version, content)
 
+        # Write to disk so post_tagging commands see the updated version.
+        with open(loc, "w") as file:
+            file.write(updated_content)
+
         gh.add_file(loc, updated_content)
 
 
@@ -390,6 +394,25 @@ def generate_commit_message(tag_infos: List[TagInfo]) -> str:
     )
 
 
+def run_post_tagging() -> None:
+    """Runs post_tagging commands from .codegen.json and stages their declared output files."""
+    codegen_path = os.path.join(os.getcwd(), CODEGEN_FILE_NAME)
+    with open(codegen_path, "r") as file:
+        codegen = json.load(file)
+
+    post_tagging = codegen.get("toolchain", {}).get("post_tagging", {})
+    if not post_tagging:
+        return
+
+    for cmd, files in post_tagging.items():
+        print(f"Running post_tagging command: {cmd}")
+        subprocess.run(cmd, shell=True, cwd=os.getcwd(), check=True)
+        for filepath in files:
+            loc = os.path.join(os.getcwd(), filepath)
+            with open(loc, "r") as fh:
+                gh.add_file(loc, fh.read())
+
+
 def push_changes(tag_infos: List[TagInfo]) -> None:
     """Pushes changes to the remote repository after handling possible merge conflicts."""
 
@@ -400,6 +423,8 @@ def push_changes(tag_infos: List[TagInfo]) -> None:
     metadata = {"timestamp": datetime.now(tz=timezone.utc).strftime("%Y-%m-%d %H:%M:%S%z")}
     content = json.dumps(metadata, indent=4)
     gh.add_file(file_name, content)
+
+    run_post_tagging()
 
     gh.commit_and_push(commit_message)
 
