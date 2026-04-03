@@ -34,6 +34,10 @@ public class CreatePrivateEndpointRule {
   @JsonProperty("error_message")
   private String errorMessage;
 
+  /** */
+  @JsonProperty("gcp_endpoint")
+  private GcpEndpoint gcpEndpoint;
+
   /**
    * Not used by customer-managed private endpoint services.
    *
@@ -85,6 +89,15 @@ public class CreatePrivateEndpointRule {
     return errorMessage;
   }
 
+  public CreatePrivateEndpointRule setGcpEndpoint(GcpEndpoint gcpEndpoint) {
+    this.gcpEndpoint = gcpEndpoint;
+    return this;
+  }
+
+  public GcpEndpoint getGcpEndpoint() {
+    return gcpEndpoint;
+  }
+
   public CreatePrivateEndpointRule setGroupId(String groupId) {
     this.groupId = groupId;
     return this;
@@ -120,6 +133,7 @@ public class CreatePrivateEndpointRule {
     return Objects.equals(domainNames, that.domainNames)
         && Objects.equals(endpointService, that.endpointService)
         && Objects.equals(errorMessage, that.errorMessage)
+        && Objects.equals(gcpEndpoint, that.gcpEndpoint)
         && Objects.equals(groupId, that.groupId)
         && Objects.equals(resourceId, that.resourceId)
         && Objects.equals(resourceNames, that.resourceNames);
@@ -128,7 +142,13 @@ public class CreatePrivateEndpointRule {
   @Override
   public int hashCode() {
     return Objects.hash(
-        domainNames, endpointService, errorMessage, groupId, resourceId, resourceNames);
+        domainNames,
+        endpointService,
+        errorMessage,
+        gcpEndpoint,
+        groupId,
+        resourceId,
+        resourceNames);
   }
 
   @Override
@@ -137,6 +157,7 @@ public class CreatePrivateEndpointRule {
         .add("domainNames", domainNames)
         .add("endpointService", endpointService)
         .add("errorMessage", errorMessage)
+        .add("gcpEndpoint", gcpEndpoint)
         .add("groupId", groupId)
         .add("resourceId", resourceId)
         .add("resourceNames", resourceNames)

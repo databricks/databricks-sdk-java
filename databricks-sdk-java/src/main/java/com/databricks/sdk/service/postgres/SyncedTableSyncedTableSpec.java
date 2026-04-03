@@ -62,14 +62,6 @@ public class SyncedTableSyncedTableSpec {
   @JsonProperty("primary_key_columns")
   private Collection<String> primaryKeyColumns;
 
-  /**
-   * The full resource name of the project associated with the table.
-   *
-   * <p>Format: "projects/{project_id}".
-   */
-  @JsonProperty("project")
-  private String project;
-
   /** Scheduling policy of the underlying pipeline. */
   @JsonProperty("scheduling_policy")
   private SyncedTableSyncedTableSpecSyncedTableSchedulingPolicy schedulingPolicy;
@@ -144,15 +136,6 @@ public class SyncedTableSyncedTableSpec {
     return primaryKeyColumns;
   }
 
-  public SyncedTableSyncedTableSpec setProject(String project) {
-    this.project = project;
-    return this;
-  }
-
-  public String getProject() {
-    return project;
-  }
-
   public SyncedTableSyncedTableSpec setSchedulingPolicy(
       SyncedTableSyncedTableSpecSyncedTableSchedulingPolicy schedulingPolicy) {
     this.schedulingPolicy = schedulingPolicy;
@@ -192,7 +175,6 @@ public class SyncedTableSyncedTableSpec {
         && Objects.equals(newPipelineSpec, that.newPipelineSpec)
         && Objects.equals(postgresDatabase, that.postgresDatabase)
         && Objects.equals(primaryKeyColumns, that.primaryKeyColumns)
-        && Objects.equals(project, that.project)
         && Objects.equals(schedulingPolicy, that.schedulingPolicy)
         && Objects.equals(sourceTableFullName, that.sourceTableFullName)
         && Objects.equals(timeseriesKey, that.timeseriesKey);
@@ -207,7 +189,6 @@ public class SyncedTableSyncedTableSpec {
         newPipelineSpec,
         postgresDatabase,
         primaryKeyColumns,
-        project,
         schedulingPolicy,
         sourceTableFullName,
         timeseriesKey);
@@ -222,7 +203,6 @@ public class SyncedTableSyncedTableSpec {
         .add("newPipelineSpec", newPipelineSpec)
         .add("postgresDatabase", postgresDatabase)
         .add("primaryKeyColumns", primaryKeyColumns)
-        .add("project", project)
         .add("schedulingPolicy", schedulingPolicy)
         .add("sourceTableFullName", sourceTableFullName)
         .add("timeseriesKey", timeseriesKey)
