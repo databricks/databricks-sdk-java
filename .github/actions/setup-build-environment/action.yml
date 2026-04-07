@@ -1,0 +1,23 @@
+name: Setup build environment
+description: Set up JDK with JFrog OIDC authentication for hardened runners
+
+inputs:
+  java-version:
+    description: "Java version to install"
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Setup JFrog CLI with OIDC
+      if: runner.os != 'macOS'
+      uses: jfrog/setup-jfrog-cli@279b1f629f43dd5bc658d8361ac4802a7ef8d2d5 # v4.9.1
+      env:
+        JF_URL: https://databricks.jfrog.io
+      with:
+        oidc-provider-name: github-actions
+
+    - name: Set up JDK
+      uses: actions/setup-java@b6e674f4b717d7b0ae3baee0fbe79f498905dfde # v1.4.4
+      with:
+        java-version: ${{ inputs.java-version }}
