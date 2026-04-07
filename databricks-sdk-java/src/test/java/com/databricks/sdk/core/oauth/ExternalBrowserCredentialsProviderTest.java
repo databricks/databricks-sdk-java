@@ -122,11 +122,27 @@ public class ExternalBrowserCredentialsProviderTest {
 
   @Test
   void openIDConnectEndPointsTestAccounts() throws IOException {
+    HttpClient mockHttpClient = Mockito.mock(HttpClient.class);
+    // Mock the host metadata call (resolve) to return 404, matching FixtureServer auto-stub
+    // behavior. The actual OIDC endpoints for account clients are computed locally without HTTP.
+    Mockito.doAnswer(
+            invocation -> {
+              Request req = invocation.getArgument(0);
+              if (req.getUrl().contains("/.well-known/databricks-config")) {
+                return new Response(
+                    "{\"error_code\":\"NOT_FOUND\",\"message\":\"not found\"}",
+                    new URL(req.getUrl()));
+              }
+              throw new IOException("Unexpected request: " + req.getUrl());
+            })
+        .when(mockHttpClient)
+        .execute(any(Request.class));
+
     DatabricksConfig config =
         new DatabricksConfig()
             .setAuthType("external-browser")
             .setHost("https://accounts.cloud.databricks.com")
-            .setHttpClient(new CommonsHttpClient.Builder().withTimeoutSeconds(30).build())
+            .setHttpClient(mockHttpClient)
             .setAccountId("testAccountId");
     config.resolve();
 
