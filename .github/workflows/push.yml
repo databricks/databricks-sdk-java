@@ -44,17 +44,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os:
-          - name: linux
+        os: [macos-latest, ubuntu-latest]
+        java-version: [8, 11, 17, 20] # 20 is the latest version as of 2023 and 17 is the latest LTS
+        include:
+          - os: ubuntu-latest
             runner:
               group: databricks-protected-runner-group
               labels: linux-ubuntu-latest
-          - name: macos
+          - os: macos-latest
             runner: macos-latest
-        java-version: [8, 11, 17, 20] # 20 is the latest version as of 2023 and 17 is the latest LTS
 
-    name: "unit-tests (${{ matrix.os.name }}, java ${{ matrix.java-version }})"
-    runs-on: ${{ matrix.os.runner }}
+    runs-on: ${{ matrix.runner }}
 
     steps:
       - name: Checkout
