@@ -75,7 +75,45 @@ jobs:
       - name: Check Unit Tests
         run: mvn --errors test
 
+  # TODO: Remove this job after the lockfile is regenerated.
+  regen-lockfile:
+    if: github.event_name == 'pull_request'
+    runs-on:
+      group: databricks-protected-runner-group
+      labels: linux-ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # v2.7.0
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Setup build environment
+        uses: ./.github/actions/setup-build-environment
+        with:
+          java-version: 11
+
+      - name: Regenerate lockfile
+        run: make lock
+
+      - name: Normalize JFrog URLs
+        run: make fix-lockfile
+
+      - name: Commit if changed
+        run: |
+          git diff --quiet -- '**/lockfile.json' && exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add '**/lockfile.json'
+          git commit -m "Regenerate lockfile for commons-configuration2 2.13.0"
+          git push
+
   check-lock:
+    needs: regen-lockfile
     runs-on:
       group: databricks-protected-runner-group
       labels: linux-ubuntu-latest
@@ -83,6 +121,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # v2.7.0
+        with:
+          ref: ${{ github.head_ref }}
 
       - name: Setup build environment
         uses: ./.github/actions/setup-build-environment
