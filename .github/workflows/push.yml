@@ -35,6 +35,11 @@ jobs:
       - name: Check formatting
         run: mvn --errors spotless:check
 
+      - name: Check for JFrog proxy URLs in lockfiles
+        run: |
+          make fix-lockfile
+          git diff --exit-code -- '**/lockfile.json'
+
   unit-tests:
     strategy:
       fail-fast: false
