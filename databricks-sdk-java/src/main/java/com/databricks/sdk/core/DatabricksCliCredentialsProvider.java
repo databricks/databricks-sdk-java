@@ -58,6 +58,17 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
     return cmd;
   }
 
+  List<String> buildProfileArgs(String cliPath, DatabricksConfig config) {
+    return new ArrayList<>(
+        Arrays.asList(cliPath, "auth", "token", "--profile", config.getProfile()));
+  }
+
+  private static List<String> withForceRefresh(List<String> cmd) {
+    List<String> forceCmd = new ArrayList<>(cmd);
+    forceCmd.add("--force-refresh");
+    return forceCmd;
+  }
+
   private CliTokenSource getDatabricksCliTokenSource(DatabricksConfig config) {
     String cliPath = config.getDatabricksCliPath();
     if (cliPath == null) {
@@ -70,23 +81,27 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
 
     List<String> cmd;
     List<String> fallbackCmd = null;
+    List<String> secondFallbackCmd = null;
 
     if (config.getProfile() != null) {
-      // When profile is set, use --profile as the primary command.
-      // The profile contains the full config (host, account_id, etc.).
-      cmd =
-          new ArrayList<>(
-              Arrays.asList(cliPath, "auth", "token", "--profile", config.getProfile()));
-      // Build a --host fallback for older CLIs that don't support --profile.
+      List<String> profileArgs = buildProfileArgs(cliPath, config);
+      cmd = withForceRefresh(profileArgs);
+      fallbackCmd = profileArgs;
       if (config.getHost() != null) {
-        fallbackCmd = buildHostArgs(cliPath, config);
+        secondFallbackCmd = buildHostArgs(cliPath, config);
       }
     } else {
       cmd = buildHostArgs(cliPath, config);
     }
 
     return new CliTokenSource(
-        cmd, "token_type", "access_token", "expiry", config.getEnv(), fallbackCmd);
+        cmd,
+        "token_type",
+        "access_token",
+        "expiry",
+        config.getEnv(),
+        fallbackCmd,
+        secondFallbackCmd);
   }
 
   @Override

@@ -26,15 +26,12 @@ public class CliTokenSource implements TokenSource {
   private static final Logger LOG = LoggerFactory.getLogger(CliTokenSource.class);
 
   private List<String> cmd;
+  private List<String> fallbackCmd;
+  private List<String> secondFallbackCmd;
   private String tokenTypeField;
   private String accessTokenField;
   private String expiryField;
   private Environment env;
-  // fallbackCmd is tried when the primary command fails with "unknown flag: --profile",
-  // indicating the CLI is too old to support --profile. Can be removed once support
-  // for CLI versions predating --profile is dropped.
-  // See: https://github.com/databricks/databricks-sdk-go/pull/1497
-  private List<String> fallbackCmd;
 
   /**
    * Internal exception that carries the clean stderr message but exposes full output for checks.
@@ -58,7 +55,7 @@ public class CliTokenSource implements TokenSource {
       String accessTokenField,
       String expiryField,
       Environment env) {
-    this(cmd, tokenTypeField, accessTokenField, expiryField, env, null);
+    this(cmd, tokenTypeField, accessTokenField, expiryField, env, null, null);
   }
 
   public CliTokenSource(
@@ -67,8 +64,8 @@ public class CliTokenSource implements TokenSource {
       String accessTokenField,
       String expiryField,
       Environment env,
-      List<String> fallbackCmd) {
-    super();
+      List<String> fallbackCmd,
+      List<String> secondFallbackCmd) {
     this.cmd = OSUtils.get(env).getCliExecutableCommand(cmd);
     this.tokenTypeField = tokenTypeField;
     this.accessTokenField = accessTokenField;
@@ -76,6 +73,10 @@ public class CliTokenSource implements TokenSource {
     this.env = env;
     this.fallbackCmd =
         fallbackCmd != null ? OSUtils.get(env).getCliExecutableCommand(fallbackCmd) : null;
+    this.secondFallbackCmd =
+        secondFallbackCmd != null
+            ? OSUtils.get(env).getCliExecutableCommand(secondFallbackCmd)
+            : null;
   }
 
   /**
@@ -153,27 +154,47 @@ public class CliTokenSource implements TokenSource {
     }
   }
 
+  private String getErrorText(IOException e) {
+    return e instanceof CliCommandException
+        ? ((CliCommandException) e).getFullOutput()
+        : e.getMessage();
+  }
+
+  private boolean isUnknownFlagError(String errorText) {
+    return errorText != null && errorText.contains("unknown flag:");
+  }
+
   @Override
   public Token getToken() {
     try {
       return execCliCommand(this.cmd);
     } catch (IOException e) {
-      String textToCheck =
-          e instanceof CliCommandException
-              ? ((CliCommandException) e).getFullOutput()
-              : e.getMessage();
-      if (fallbackCmd != null
-          && textToCheck != null
-          && textToCheck.contains("unknown flag: --profile")) {
+      if (fallbackCmd != null && isUnknownFlagError(getErrorText(e))) {
         LOG.warn(
-            "Databricks CLI does not support --profile flag. Falling back to --host. "
+            "CLI does not support some flags used by this SDK. "
+                + "Falling back to a compatible command. "
                 + "Please upgrade your CLI to the latest version.");
-        try {
-          return execCliCommand(this.fallbackCmd);
-        } catch (IOException fallbackException) {
-          throw new DatabricksException(fallbackException.getMessage(), fallbackException);
-        }
+      } else {
+        throw new DatabricksException(e.getMessage(), e);
       }
+    }
+
+    try {
+      return execCliCommand(this.fallbackCmd);
+    } catch (IOException e) {
+      if (secondFallbackCmd != null && isUnknownFlagError(getErrorText(e))) {
+        LOG.warn(
+            "CLI does not support some flags used by this SDK. "
+                + "Falling back to a compatible command. "
+                + "Please upgrade your CLI to the latest version.");
+      } else {
+        throw new DatabricksException(e.getMessage(), e);
+      }
+    }
+
+    try {
+      return execCliCommand(this.secondFallbackCmd);
+    } catch (IOException e) {
       throw new DatabricksException(e.getMessage(), e);
     }
   }
