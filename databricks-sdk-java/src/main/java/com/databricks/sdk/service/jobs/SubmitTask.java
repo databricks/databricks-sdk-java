@@ -10,7 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class SubmitTask {
-  /** New alert v2 task */
+  /**
+   * The task evaluates a Databricks alert and sends notifications to subscribers when the
+   * `alert_task` field is present.
+   */
   @JsonProperty("alert_task")
   private AlertTask alertTask;
 

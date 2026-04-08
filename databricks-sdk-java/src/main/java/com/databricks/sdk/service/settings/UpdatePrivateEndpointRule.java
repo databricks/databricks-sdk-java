@@ -36,6 +36,10 @@ public class UpdatePrivateEndpointRule {
   @JsonProperty("error_message")
   private String errorMessage;
 
+  /** */
+  @JsonProperty("gcp_endpoint")
+  private GcpEndpoint gcpEndpoint;
+
   /**
    * Only used by private endpoints towards AWS S3 service.
    *
@@ -74,6 +78,15 @@ public class UpdatePrivateEndpointRule {
     return errorMessage;
   }
 
+  public UpdatePrivateEndpointRule setGcpEndpoint(GcpEndpoint gcpEndpoint) {
+    this.gcpEndpoint = gcpEndpoint;
+    return this;
+  }
+
+  public GcpEndpoint getGcpEndpoint() {
+    return gcpEndpoint;
+  }
+
   public UpdatePrivateEndpointRule setResourceNames(Collection<String> resourceNames) {
     this.resourceNames = resourceNames;
     return this;
@@ -91,12 +104,13 @@ public class UpdatePrivateEndpointRule {
     return Objects.equals(domainNames, that.domainNames)
         && Objects.equals(enabled, that.enabled)
         && Objects.equals(errorMessage, that.errorMessage)
+        && Objects.equals(gcpEndpoint, that.gcpEndpoint)
         && Objects.equals(resourceNames, that.resourceNames);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(domainNames, enabled, errorMessage, resourceNames);
+    return Objects.hash(domainNames, enabled, errorMessage, gcpEndpoint, resourceNames);
   }
 
   @Override
@@ -105,6 +119,7 @@ public class UpdatePrivateEndpointRule {
         .add("domainNames", domainNames)
         .add("enabled", enabled)
         .add("errorMessage", errorMessage)
+        .add("gcpEndpoint", gcpEndpoint)
         .add("resourceNames", resourceNames)
         .toString();
   }
