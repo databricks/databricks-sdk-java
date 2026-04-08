@@ -28,8 +28,25 @@ jobs:
       - name: Build JAR
         run: mvn --errors package -DskipTests -pl databricks-sdk-java
 
-      - name: Security scan
-        uses: databricks-eng/gh-action-scan@1c260de6986f77d8c505975ce434830a7afdb95f # main
+      - name: Checkout scanner
+        uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # v2.7.0
         with:
-          artifact-path: databricks-sdk-java/target/
-          artifact-name: databricks-sdk-java
+          repository: databricks-eng/gh-action-scan
+          path: .scan
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run security scan
+        run: |
+          chmod +x .scan/scan.sh
+          .scan/scan.sh \
+            --artifact-path databricks-sdk-java/target/ \
+            --artifact-name databricks-sdk-java \
+            --output-dir ./scan-results
+
+      - name: Upload scan results
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
+        with:
+          name: security-scan-results
+          path: ./scan-results/
+          if-no-files-found: warn
