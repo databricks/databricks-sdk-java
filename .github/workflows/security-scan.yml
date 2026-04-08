@@ -7,7 +7,7 @@ on:
       - java-security
 
 jobs:
-  build:
+  build-and-scan:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -28,15 +28,8 @@ jobs:
       - name: Build JAR
         run: mvn --errors package -DskipTests -pl databricks-sdk-java
 
-      - name: Upload build artifact
-        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
+      - name: Security scan
+        uses: databricks-eng/gh-action-scan@v1.0.0
         with:
-          name: build-artifact
-          path: databricks-sdk-java/target/*.jar
-
-  security-scan:
-    needs: build
-    uses: databricks-eng/gh-action-scan/.github/workflows/scan.yml@v1.0.0
-    with:
-      download-artifact: build-artifact
-      artifact-name: databricks-sdk-java
+          artifact-path: databricks-sdk-java/target/
+          artifact-name: databricks-sdk-java
