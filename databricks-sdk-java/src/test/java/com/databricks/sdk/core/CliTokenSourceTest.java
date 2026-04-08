@@ -24,6 +24,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +41,13 @@ import org.mockito.MockedConstruction;
 import org.mockito.MockedStatic;
 
 public class CliTokenSourceTest {
+  private static final List<String> FORCE_CMD =
+      Arrays.asList("databricks", "auth", "token", "--profile", "my-profile", "--force-refresh");
+  private static final List<String> PROFILE_CMD =
+      Arrays.asList("databricks", "auth", "token", "--profile", "my-profile");
+  private static final List<String> HOST_CMD =
+      Arrays.asList("databricks", "auth", "token", "--host", "https://workspace.databricks.com");
+
   String getExpiryStr(String dateFormat, Duration offset) {
     ZonedDateTime futureExpiry = ZonedDateTime.now().plus(offset);
     return futureExpiry.format(DateTimeFormatter.ofPattern(dateFormat));
@@ -217,16 +225,44 @@ public class CliTokenSourceTest {
     }
   }
 
-  // ---- Fallback tests for --profile flag handling ----
+  // ---- Fallback tests for --profile and --force-refresh flag handling ----
 
   private CliTokenSource makeTokenSource(
-      Environment env, List<String> primaryCmd, List<String> fallbackCmd) {
+      Environment env, List<String> cmd, List<String> fallbackCmd) {
+    return makeTokenSource(env, cmd, fallbackCmd, null);
+  }
+
+  private CliTokenSource makeTokenSource(
+      Environment env, List<String> cmd, List<String> fallbackCmd, List<String> secondFallbackCmd) {
+    List<CliTokenSource.CliCommand> commands = new ArrayList<>();
+
+    commands.add(
+        new CliTokenSource.CliCommand(
+            cmd,
+            fallbackCmd != null
+                ? Arrays.asList("--force-refresh", "--profile")
+                : Collections.emptyList(),
+            fallbackCmd != null ? "fallback" : null));
+
+    if (fallbackCmd != null) {
+      commands.add(
+          new CliTokenSource.CliCommand(
+              fallbackCmd,
+              secondFallbackCmd != null
+                  ? Collections.singletonList("--profile")
+                  : Collections.emptyList(),
+              secondFallbackCmd != null ? "second fallback" : null));
+    }
+
+    if (secondFallbackCmd != null) {
+      commands.add(new CliTokenSource.CliCommand(secondFallbackCmd, Collections.emptyList(), null));
+    }
+
     OSUtilities osUtils = mock(OSUtilities.class);
     when(osUtils.getCliExecutableCommand(any())).thenAnswer(inv -> inv.getArgument(0));
     try (MockedStatic<OSUtils> mockedOSUtils = mockStatic(OSUtils.class)) {
       mockedOSUtils.when(() -> OSUtils.get(any())).thenReturn(osUtils);
-      return new CliTokenSource(
-          primaryCmd, "token_type", "access_token", "expiry", env, fallbackCmd);
+      return CliTokenSource.fromCommands(commands, "token_type", "access_token", "expiry", env);
     }
   }
 
@@ -245,12 +281,7 @@ public class CliTokenSourceTest {
     Environment env = mock(Environment.class);
     when(env.getEnv()).thenReturn(new HashMap<>());
 
-    List<String> primaryCmd =
-        Arrays.asList("databricks", "auth", "token", "--profile", "my-profile");
-    List<String> fallbackCmdList =
-        Arrays.asList("databricks", "auth", "token", "--host", "https://workspace.databricks.com");
-
-    CliTokenSource tokenSource = makeTokenSource(env, primaryCmd, fallbackCmdList);
+    CliTokenSource tokenSource = makeTokenSource(env, PROFILE_CMD, HOST_CMD);
 
     AtomicInteger callCount = new AtomicInteger(0);
     try (MockedConstruction<ProcessBuilder> mocked =
@@ -285,16 +316,10 @@ public class CliTokenSourceTest {
 
   @Test
   public void testFallbackTriggeredWhenUnknownFlagInStdout() {
-    // Fallback triggers even when "unknown flag" appears in stdout rather than stderr.
     Environment env = mock(Environment.class);
     when(env.getEnv()).thenReturn(new HashMap<>());
 
-    List<String> primaryCmd =
-        Arrays.asList("databricks", "auth", "token", "--profile", "my-profile");
-    List<String> fallbackCmdList =
-        Arrays.asList("databricks", "auth", "token", "--host", "https://workspace.databricks.com");
-
-    CliTokenSource tokenSource = makeTokenSource(env, primaryCmd, fallbackCmdList);
+    CliTokenSource tokenSource = makeTokenSource(env, PROFILE_CMD, HOST_CMD);
 
     AtomicInteger callCount = new AtomicInteger(0);
     try (MockedConstruction<ProcessBuilder> mocked =
@@ -329,16 +354,10 @@ public class CliTokenSourceTest {
 
   @Test
   public void testNoFallbackOnRealAuthError() {
-    // When the primary fails with a real error (not unknown flag), no fallback is attempted.
     Environment env = mock(Environment.class);
     when(env.getEnv()).thenReturn(new HashMap<>());
 
-    List<String> primaryCmd =
-        Arrays.asList("databricks", "auth", "token", "--profile", "my-profile");
-    List<String> fallbackCmdList =
-        Arrays.asList("databricks", "auth", "token", "--host", "https://workspace.databricks.com");
-
-    CliTokenSource tokenSource = makeTokenSource(env, primaryCmd, fallbackCmdList);
+    CliTokenSource tokenSource = makeTokenSource(env, PROFILE_CMD, HOST_CMD);
 
     try (MockedConstruction<ProcessBuilder> mocked =
         mockConstruction(
@@ -361,14 +380,10 @@ public class CliTokenSourceTest {
 
   @Test
   public void testNoFallbackWhenFallbackCmdNotSet() {
-    // When fallbackCmd is null and the primary fails with unknown flag, original error propagates.
     Environment env = mock(Environment.class);
     when(env.getEnv()).thenReturn(new HashMap<>());
 
-    List<String> primaryCmd =
-        Arrays.asList("databricks", "auth", "token", "--profile", "my-profile");
-
-    CliTokenSource tokenSource = makeTokenSource(env, primaryCmd, null);
+    CliTokenSource tokenSource = makeTokenSource(env, PROFILE_CMD, null);
 
     try (MockedConstruction<ProcessBuilder> mocked =
         mockConstruction(
@@ -385,6 +400,219 @@ public class CliTokenSourceTest {
       DatabricksException ex = assertThrows(DatabricksException.class, tokenSource::getToken);
       assertTrue(ex.getMessage().contains("unknown flag: --profile"));
       assertEquals(1, mocked.constructed().size());
+    }
+  }
+
+  // ---- Force-refresh tests ----
+
+  @Test
+  public void testForceCmdSucceedsAndFallbacksNotRun() {
+    Environment env = mock(Environment.class);
+    when(env.getEnv()).thenReturn(new HashMap<>());
+
+    CliTokenSource tokenSource = makeTokenSource(env, FORCE_CMD, PROFILE_CMD, HOST_CMD);
+
+    try (MockedConstruction<ProcessBuilder> mocked =
+        mockConstruction(
+            ProcessBuilder.class,
+            (pb, context) -> {
+              Process successProcess = mock(Process.class);
+              when(successProcess.getInputStream())
+                  .thenReturn(new ByteArrayInputStream(validTokenJson("forced-token").getBytes()));
+              when(successProcess.getErrorStream())
+                  .thenReturn(new ByteArrayInputStream(new byte[0]));
+              when(successProcess.waitFor()).thenReturn(0);
+              when(pb.start()).thenReturn(successProcess);
+            })) {
+      Token token = tokenSource.getToken();
+      assertEquals("forced-token", token.getAccessToken());
+      assertEquals(1, mocked.constructed().size());
+    }
+  }
+
+  @Test
+  public void testCmdFailsWithUnknownFlagFallsBackToFallbackCmd() {
+    Environment env = mock(Environment.class);
+    when(env.getEnv()).thenReturn(new HashMap<>());
+
+    CliTokenSource tokenSource = makeTokenSource(env, FORCE_CMD, PROFILE_CMD);
+
+    AtomicInteger callCount = new AtomicInteger(0);
+    try (MockedConstruction<ProcessBuilder> mocked =
+        mockConstruction(
+            ProcessBuilder.class,
+            (pb, context) -> {
+              if (callCount.getAndIncrement() == 0) {
+                Process failProcess = mock(Process.class);
+                when(failProcess.getInputStream())
+                    .thenReturn(new ByteArrayInputStream(new byte[0]));
+                when(failProcess.getErrorStream())
+                    .thenReturn(
+                        new ByteArrayInputStream(
+                            "Error: unknown flag: --force-refresh".getBytes()));
+                when(failProcess.waitFor()).thenReturn(1);
+                when(pb.start()).thenReturn(failProcess);
+              } else {
+                Process successProcess = mock(Process.class);
+                when(successProcess.getInputStream())
+                    .thenReturn(
+                        new ByteArrayInputStream(validTokenJson("profile-token").getBytes()));
+                when(successProcess.getErrorStream())
+                    .thenReturn(new ByteArrayInputStream(new byte[0]));
+                when(successProcess.waitFor()).thenReturn(0);
+                when(pb.start()).thenReturn(successProcess);
+              }
+            })) {
+      Token token = tokenSource.getToken();
+      assertEquals("profile-token", token.getAccessToken());
+      assertEquals(2, mocked.constructed().size());
+    }
+  }
+
+  @Test
+  public void testCmdAndFallbackBothFailFallsThroughToSecondFallback() {
+    Environment env = mock(Environment.class);
+    when(env.getEnv()).thenReturn(new HashMap<>());
+
+    CliTokenSource tokenSource = makeTokenSource(env, FORCE_CMD, PROFILE_CMD, HOST_CMD);
+
+    AtomicInteger callCount = new AtomicInteger(0);
+    try (MockedConstruction<ProcessBuilder> mocked =
+        mockConstruction(
+            ProcessBuilder.class,
+            (pb, context) -> {
+              int call = callCount.getAndIncrement();
+              if (call <= 1) {
+                // Both forceCmd and profileCmd fail with unknown --profile
+                Process failProcess = mock(Process.class);
+                when(failProcess.getInputStream())
+                    .thenReturn(new ByteArrayInputStream(new byte[0]));
+                when(failProcess.getErrorStream())
+                    .thenReturn(
+                        new ByteArrayInputStream("Error: unknown flag: --profile".getBytes()));
+                when(failProcess.waitFor()).thenReturn(1);
+                when(pb.start()).thenReturn(failProcess);
+              } else {
+                Process successProcess = mock(Process.class);
+                when(successProcess.getInputStream())
+                    .thenReturn(new ByteArrayInputStream(validTokenJson("host-token").getBytes()));
+                when(successProcess.getErrorStream())
+                    .thenReturn(new ByteArrayInputStream(new byte[0]));
+                when(successProcess.waitFor()).thenReturn(0);
+                when(pb.start()).thenReturn(successProcess);
+              }
+            })) {
+      Token token = tokenSource.getToken();
+      assertEquals("host-token", token.getAccessToken());
+      assertEquals(3, mocked.constructed().size());
+    }
+  }
+
+  @Test
+  public void testRealAuthErrorDoesNotFallBack() {
+    Environment env = mock(Environment.class);
+    when(env.getEnv()).thenReturn(new HashMap<>());
+
+    CliTokenSource tokenSource = makeTokenSource(env, FORCE_CMD, PROFILE_CMD);
+
+    try (MockedConstruction<ProcessBuilder> mocked =
+        mockConstruction(
+            ProcessBuilder.class,
+            (pb, context) -> {
+              Process failProcess = mock(Process.class);
+              when(failProcess.getInputStream()).thenReturn(new ByteArrayInputStream(new byte[0]));
+              when(failProcess.getErrorStream())
+                  .thenReturn(
+                      new ByteArrayInputStream(
+                          "databricks OAuth is not configured for this host".getBytes()));
+              when(failProcess.waitFor()).thenReturn(1);
+              when(pb.start()).thenReturn(failProcess);
+            })) {
+      DatabricksException ex = assertThrows(DatabricksException.class, tokenSource::getToken);
+      assertTrue(ex.getMessage().contains("databricks OAuth is not configured"));
+      assertEquals(1, mocked.constructed().size());
+    }
+  }
+
+  @Test
+  public void testTwoLevelFallbackWithNoSecondFallback() {
+    Environment env = mock(Environment.class);
+    when(env.getEnv()).thenReturn(new HashMap<>());
+
+    CliTokenSource tokenSource = makeTokenSource(env, PROFILE_CMD, HOST_CMD);
+
+    AtomicInteger callCount = new AtomicInteger(0);
+    try (MockedConstruction<ProcessBuilder> mocked =
+        mockConstruction(
+            ProcessBuilder.class,
+            (pb, context) -> {
+              if (callCount.getAndIncrement() == 0) {
+                Process failProcess = mock(Process.class);
+                when(failProcess.getInputStream())
+                    .thenReturn(new ByteArrayInputStream(new byte[0]));
+                when(failProcess.getErrorStream())
+                    .thenReturn(
+                        new ByteArrayInputStream("Error: unknown flag: --profile".getBytes()));
+                when(failProcess.waitFor()).thenReturn(1);
+                when(pb.start()).thenReturn(failProcess);
+              } else {
+                Process successProcess = mock(Process.class);
+                when(successProcess.getInputStream())
+                    .thenReturn(
+                        new ByteArrayInputStream(validTokenJson("fallback-token").getBytes()));
+                when(successProcess.getErrorStream())
+                    .thenReturn(new ByteArrayInputStream(new byte[0]));
+                when(successProcess.waitFor()).thenReturn(0);
+                when(pb.start()).thenReturn(successProcess);
+              }
+            })) {
+      Token token = tokenSource.getToken();
+      assertEquals("fallback-token", token.getAccessToken());
+      assertEquals(2, mocked.constructed().size());
+    }
+  }
+
+  @Test
+  public void testActiveCommandIndexPersists() {
+    Environment env = mock(Environment.class);
+    when(env.getEnv()).thenReturn(new HashMap<>());
+
+    CliTokenSource tokenSource = makeTokenSource(env, FORCE_CMD, PROFILE_CMD);
+
+    AtomicInteger callCount = new AtomicInteger(0);
+    try (MockedConstruction<ProcessBuilder> mocked =
+        mockConstruction(
+            ProcessBuilder.class,
+            (pb, context) -> {
+              int call = callCount.getAndIncrement();
+              if (call == 0) {
+                Process failProcess = mock(Process.class);
+                when(failProcess.getInputStream())
+                    .thenReturn(new ByteArrayInputStream(new byte[0]));
+                when(failProcess.getErrorStream())
+                    .thenReturn(
+                        new ByteArrayInputStream(
+                            "Error: unknown flag: --force-refresh".getBytes()));
+                when(failProcess.waitFor()).thenReturn(1);
+                when(pb.start()).thenReturn(failProcess);
+              } else {
+                Process successProcess = mock(Process.class);
+                when(successProcess.getInputStream())
+                    .thenReturn(
+                        new ByteArrayInputStream(validTokenJson("profile-token").getBytes()));
+                when(successProcess.getErrorStream())
+                    .thenReturn(new ByteArrayInputStream(new byte[0]));
+                when(successProcess.waitFor()).thenReturn(0);
+                when(pb.start()).thenReturn(successProcess);
+              }
+            })) {
+      Token first = tokenSource.getToken();
+      assertEquals("profile-token", first.getAccessToken());
+      assertEquals(2, mocked.constructed().size());
+
+      Token second = tokenSource.getToken();
+      assertEquals("profile-token", second.getAccessToken());
+      assertEquals(3, mocked.constructed().size());
     }
   }
 }
