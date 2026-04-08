@@ -29,7 +29,7 @@ jobs:
         run: mvn --errors package -DskipTests -pl databricks-sdk-java
 
       - name: Security scan
-        uses: databricks-eng/gh-action-scan@v1.0.0
+        uses: databricks-eng/gh-action-scan@1c260de6986f77d8c505975ce434830a7afdb95f # main
         with:
           artifact-path: databricks-sdk-java/target/
           artifact-name: databricks-sdk-java
