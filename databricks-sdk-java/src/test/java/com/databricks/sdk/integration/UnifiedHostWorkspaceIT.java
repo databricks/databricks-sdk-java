@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-@EnvContext("ucacct")
+@EnvContext("account")
 @ExtendWith(EnvTest.class)
 @EnabledIfEnvironmentVariable(named = "UNIFIED_HOST", matches = ".+")
 public class UnifiedHostWorkspaceIT {
@@ -21,13 +21,15 @@ public class UnifiedHostWorkspaceIT {
   void currentUserMe(
       AccountClient a,
       @EnvOrSkip("UNIFIED_HOST") String unifiedHost,
-      @EnvOrSkip("TEST_WORKSPACE_ID") String workspaceId) {
+      @EnvOrSkip("TEST_WORKSPACE_ID") String workspaceId,
+      @EnvOrSkip("TEST_ACCOUNT_ID") String accountId) {
     DatabricksConfig config =
         new DatabricksConfig()
             .setHost(unifiedHost)
             .setClientId(a.config().getClientId())
             .setClientSecret(a.config().getClientSecret())
-            .setWorkspaceId(workspaceId);
+            .setWorkspaceId(workspaceId)
+            .setAccountId(accountId);
 
     WorkspaceClient ws = new WorkspaceClient(config);
 
