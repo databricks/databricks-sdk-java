@@ -10,6 +10,7 @@ import com.databricks.sdk.integration.framework.EnvOrSkip;
 import com.databricks.sdk.integration.framework.EnvTest;
 import com.databricks.sdk.service.iam.User;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -17,7 +18,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 @ExtendWith(EnvTest.class)
 @EnabledIfEnvironmentVariable(named = "UNIFIED_HOST", matches = ".+")
 public class UnifiedHostWorkspaceIT {
+  // google-credentials uses a GCP ID token with target_audience=cfg.host.
+  // On the unified host this produces the same token for both account and workspace
+  // requests (identical OIDC exchange, identical audience). Account-level APIs accept
+  // this token, but workspace-level APIs return 401. The X-Databricks-Org-Id header
+  // is set correctly. This appears to be a server-side limitation on unified hosts.
   @Test
+  @DisabledIfEnvironmentVariable(named = "CLOUD_PROVIDER", matches = "GCP")
   void currentUserMe(
       AccountClient a,
       @EnvOrSkip("UNIFIED_HOST") String unifiedHost,
