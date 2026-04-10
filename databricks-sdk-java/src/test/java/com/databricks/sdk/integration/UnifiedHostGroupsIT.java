@@ -10,6 +10,7 @@ import com.databricks.sdk.integration.framework.EnvOrSkip;
 import com.databricks.sdk.integration.framework.EnvTest;
 import com.databricks.sdk.service.iam.Group;
 import com.databricks.sdk.service.iam.ListGroupsRequest;
+import java.util.Iterator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
@@ -36,7 +37,9 @@ public class UnifiedHostGroupsIT {
     WorkspaceClient ws = new WorkspaceClient(config);
 
     Iterable<Group> groups = ws.groups().list(new ListGroupsRequest().setAttributes("displayName"));
-    Group first = groups.iterator().next();
+    Iterator<Group> it = groups.iterator();
+    assertTrue(it.hasNext(), "Expected at least one group");
+    Group first = it.next();
     assertNotNull(first.getDisplayName());
   }
 }
