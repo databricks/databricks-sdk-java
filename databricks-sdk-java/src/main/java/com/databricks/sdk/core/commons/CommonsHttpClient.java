@@ -8,6 +8,8 @@ import com.databricks.sdk.core.ProxyConfig;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.core.utils.CustomCloseInputStream;
 import com.databricks.sdk.core.utils.ProxyUtils;
 import com.databricks.sdk.support.InternalApi;
@@ -35,8 +37,6 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @InternalApi
 public class CommonsHttpClient implements HttpClient {

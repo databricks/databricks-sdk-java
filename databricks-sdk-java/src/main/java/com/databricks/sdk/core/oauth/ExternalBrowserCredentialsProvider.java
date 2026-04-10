@@ -3,6 +3,8 @@ package com.databricks.sdk.core.oauth;
 import com.databricks.sdk.core.CredentialsProvider;
 import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.support.InternalApi;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -12,8 +14,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * A {@code CredentialsProvider} which implements the Authorization Code + PKCE flow by opening a
