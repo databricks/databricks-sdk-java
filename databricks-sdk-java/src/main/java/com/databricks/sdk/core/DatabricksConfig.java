@@ -163,6 +163,12 @@ public class DatabricksConfig {
   private DatabricksEnvironment databricksEnvironment;
 
   /**
+   * The host type resolved from the /.well-known/databricks-config discovery endpoint. When set,
+   * this takes priority over URL-based host type detection in {@link #getHostType()}.
+   */
+  private HostType resolvedHostType;
+
+  /**
    * When using Workload Identity Federation, the audience to specify when fetching an ID token from
    * the ID token supplier.
    */
@@ -714,6 +720,17 @@ public class DatabricksConfig {
     return this;
   }
 
+  /** Returns the host type resolved from host metadata, or {@code null} if not yet resolved. */
+  HostType getResolvedHostType() {
+    return resolvedHostType;
+  }
+
+  /** Sets the resolved host type. Package-private for testing. */
+  DatabricksConfig setResolvedHostType(HostType resolvedHostType) {
+    this.resolvedHostType = resolvedHostType;
+    return this;
+  }
+
   public boolean isAzure() {
     if (azureWorkspaceResourceId != null) {
       return true;
@@ -743,8 +760,15 @@ public class DatabricksConfig {
     return host.startsWith("https://accounts.") || host.startsWith("https://accounts-dod.");
   }
 
-  /** Returns the host type based on the host URL pattern. */
+  /**
+   * Returns the host type based on configuration settings and host URL. When host metadata has been
+   * resolved (via /.well-known/databricks-config), the resolved host type is returned directly.
+   * Otherwise, the host type is inferred from URL patterns as a fallback.
+   */
   public HostType getHostType() {
+    if (resolvedHostType != null) {
+      return resolvedHostType;
+    }
     if (host == null) {
       return HostType.WORKSPACE;
     }
@@ -866,6 +890,13 @@ public class DatabricksConfig {
       LOG.debug("Resolved workspace_id from host metadata: \"{}\"", meta.getWorkspaceId());
       workspaceId = meta.getWorkspaceId();
     }
+    if (resolvedHostType == null && meta.getHostType() != null) {
+      HostType ht = HostType.fromApiValue(meta.getHostType());
+      if (ht != null) {
+        LOG.debug("Resolved host_type from host metadata: \"{}\"", ht);
+        resolvedHostType = ht;
+      }
+    }
     if (discoveryUrl == null) {
       if (meta.getOidcEndpoint() == null || meta.getOidcEndpoint().isEmpty()) {
         LOG.warn("Host metadata missing oidc_endpoint; skipping discovery URL resolution");
@@ -884,8 +915,17 @@ public class DatabricksConfig {
       discoveryUrl = oidcUri.resolve(".well-known/oauth-authorization-server").toString();
       LOG.debug("Resolved discovery_url from host metadata: \"{}\"", discoveryUrl);
     }
-    // For account hosts, use the accountId as the token audience if not already set.
+    if (tokenAudience == null
+        && meta.getDefaultOidcAudience() != null
+        && !meta.getDefaultOidcAudience().isEmpty()) {
+      LOG.debug(
+          "Resolved token_audience from host metadata default_oidc_audience: \"{}\"",
+          meta.getDefaultOidcAudience());
+      tokenAudience = meta.getDefaultOidcAudience();
+    }
+    // Fallback: for account hosts, use the accountId as the token audience if not already set.
     if (tokenAudience == null && getClientType() == ClientType.ACCOUNT && accountId != null) {
+      LOG.debug("Setting token_audience to account_id for account host: \"{}\"", accountId);
       tokenAudience = accountId;
     }
   }

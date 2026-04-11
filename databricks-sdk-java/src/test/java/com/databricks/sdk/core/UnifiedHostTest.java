@@ -3,6 +3,7 @@ package com.databricks.sdk.core;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.databricks.sdk.core.utils.Environment;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
@@ -11,11 +12,11 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 /**
- * Tests for host type detection, client type determination, and header injection.
+ * Tests for host type detection, client type determination, and resolved host type from metadata.
  *
- * <p>After removing the UNIFIED host type, host type is determined solely from the URL pattern.
- * Host metadata resolution (via /.well-known/databricks-config) populates accountId, workspaceId,
- * and discoveryUrl automatically during config init.
+ * <p>Host type is determined by resolvedHostType (from /.well-known/databricks-config metadata)
+ * when available, falling back to URL pattern matching. Host metadata resolution also populates
+ * accountId, workspaceId, and discoveryUrl automatically during config init.
  */
 public class UnifiedHostTest {
 
@@ -96,18 +97,83 @@ public class UnifiedHostTest {
   // --- Environment Variable Tests ---
 
   @Test
-  public void testWorkspaceIdFromEnvironmentVariables() {
-    Map<String, String> env = new HashMap<>();
-    env.put("DATABRICKS_HOST", "https://mycompany.databricks.com");
-    env.put("DATABRICKS_WORKSPACE_ID", "987654321");
-    env.put("DATABRICKS_ACCOUNT_ID", "account-abc");
+  public void testWorkspaceIdFromEnvironmentVariables() throws IOException {
+    try (FixtureServer server = new FixtureServer()) {
+      Map<String, String> env = new HashMap<>();
+      env.put("DATABRICKS_HOST", server.getUrl());
+      env.put("DATABRICKS_WORKSPACE_ID", "987654321");
+      env.put("DATABRICKS_ACCOUNT_ID", "account-abc");
 
-    DatabricksConfig config = new DatabricksConfig();
-    config.resolve(new Environment(env, new ArrayList<>(), System.getProperty("os.name")));
+      DatabricksConfig config = new DatabricksConfig();
+      config.resolve(new Environment(env, new ArrayList<>(), System.getProperty("os.name")));
 
+      assertEquals(HostType.WORKSPACE, config.getHostType());
+      assertEquals("987654321", config.getWorkspaceId());
+      assertEquals("account-abc", config.getAccountId());
+      assertEquals(ClientType.WORKSPACE, config.getClientType());
+    }
+  }
+
+  // --- Resolved host type from metadata tests ---
+
+  @Test
+  public void testMetadataWorkspaceOverridesAccountLikeUrl() {
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setHost("https://accounts.cloud.databricks.com")
+            .setResolvedHostType(HostType.WORKSPACE);
     assertEquals(HostType.WORKSPACE, config.getHostType());
-    assertEquals("987654321", config.getWorkspaceId());
-    assertEquals("account-abc", config.getAccountId());
-    assertEquals(ClientType.WORKSPACE, config.getClientType());
+  }
+
+  @Test
+  public void testMetadataAccountOverridesWorkspaceLikeUrl() {
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setHost("https://my-workspace.cloud.databricks.com")
+            .setResolvedHostType(HostType.ACCOUNTS);
+    assertEquals(HostType.ACCOUNTS, config.getHostType());
+  }
+
+  @Test
+  public void testMetadataUnifiedIsReturned() {
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setHost("https://my-workspace.cloud.databricks.com")
+            .setResolvedHostType(HostType.UNIFIED);
+    assertEquals(HostType.UNIFIED, config.getHostType());
+  }
+
+  @Test
+  public void testFallsBackToUrlMatchingWhenResolvedHostTypeNull() {
+    DatabricksConfig config =
+        new DatabricksConfig().setHost("https://accounts.cloud.databricks.com");
+    // resolvedHostType is null by default
+    assertEquals(HostType.ACCOUNTS, config.getHostType());
+  }
+
+  @Test
+  public void testResolvedHostTypeTakesPriorityOverUrlMatching() {
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setHost("https://my-workspace.cloud.databricks.com")
+            .setResolvedHostType(HostType.ACCOUNTS);
+    // Resolved host type takes priority over URL-based detection
+    assertEquals(HostType.ACCOUNTS, config.getHostType());
+  }
+
+  @Test
+  public void testEndToEndResolveToGetHostType() throws IOException {
+    String response =
+        "{\"oidc_endpoint\":\"https://ws.databricks.com/oidc\","
+            + "\"account_id\":\"test-account\","
+            + "\"host_type\":\"unified\"}";
+    try (FixtureServer server =
+        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+      DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
+      config.resolve(
+          new Environment(new HashMap<>(), new ArrayList<>(), System.getProperty("os.name")));
+      // After resolve(), tryResolveHostMetadata() should have set resolvedHostType
+      assertEquals(HostType.UNIFIED, config.getHostType());
+    }
   }
 }
