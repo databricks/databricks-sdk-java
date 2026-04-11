@@ -173,8 +173,11 @@ public class FixtureServer implements Closeable {
     }
   }
 
+  private static final String WELL_KNOWN_PATH = "/.well-known/databricks-config";
+
   private final HttpServer server;
   private final List<FixtureMapping> fixtures = new ArrayList<>();
+  private boolean hasWellKnownFixture = false;
 
   public FixtureServer() throws IOException {
     HttpHandler handler = new FixtureHandler();
@@ -194,6 +197,21 @@ public class FixtureServer implements Closeable {
     }
 
     private void handlerInner(HttpExchange exchange) throws IOException {
+      // Auto-stub the host metadata endpoint with 404 to prevent config resolution
+      // from interfering with test assertions. This handles two cases:
+      // 1. No well-known fixture registered: always auto-stub.
+      // 2. Well-known fixtures registered but queue is empty (already consumed): auto-stub
+      //    so that repeated calls (e.g. resolve() + explicit getHostMetadata()) don't fail.
+      if ("GET".equals(exchange.getRequestMethod())
+          && "/.well-known/databricks-config".equals(exchange.getRequestURI().getPath())
+          && (!hasWellKnownFixture || fixtures.isEmpty())) {
+        respond(
+            exchange,
+            404,
+            "{\"error_code\":\"NOT_FOUND\",\"message\":\"auto-stubbed by test framework\"}");
+        return;
+      }
+
       if (fixtures.isEmpty()) {
         respondInternalServerError(exchange, "No fixtures defined");
         return;
@@ -245,6 +263,9 @@ public class FixtureServer implements Closeable {
   }
 
   public FixtureServer with(String method, String path, String response, int statusCode) {
+    if (WELL_KNOWN_PATH.equals(path)) {
+      hasWellKnownFixture = true;
+    }
     FixtureMapping fixture =
         new FixtureMapping.Builder()
             .validateMethod(method)
