@@ -23,6 +23,9 @@ public class HostMetadata {
   @JsonProperty("cloud")
   private String cloud;
 
+  @JsonProperty("host_type")
+  private String hostType;
+
   public HostMetadata() {}
 
   public HostMetadata(String oidcEndpoint, String accountId, String workspaceId) {
@@ -52,5 +55,9 @@ public class HostMetadata {
 
   public String getCloud() {
     return cloud;
+  }
+
+  public String getHostType() {
+    return hostType;
   }
 }

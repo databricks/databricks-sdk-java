@@ -657,6 +657,92 @@ public class DatabricksConfigTest {
     }
   }
 
+  // --- resolveHostMetadata host type tests ---
+
+  @Test
+  public void testResolveHostMetadataPopulatesResolvedHostType() throws IOException {
+    String response =
+        "{\"oidc_endpoint\":\"https://ws.databricks.com/oidc\","
+            + "\"account_id\":\""
+            + DUMMY_ACCOUNT_ID
+            + "\","
+            + "\"host_type\":\"workspace\"}";
+    try (FixtureServer server =
+        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+      DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
+      config.resolve(emptyEnv());
+      assertEquals(HostType.WORKSPACE, config.getResolvedHostType());
+    }
+  }
+
+  @Test
+  public void testResolveHostMetadataDoesNotOverwriteExistingHostType() throws IOException {
+    String response =
+        "{\"oidc_endpoint\":\"https://ws.databricks.com/oidc\","
+            + "\"account_id\":\""
+            + DUMMY_ACCOUNT_ID
+            + "\","
+            + "\"host_type\":\"workspace\"}";
+    try (FixtureServer server =
+        new FixtureServer()
+            .with("GET", "/.well-known/databricks-config", response, 200)
+            .with("GET", "/.well-known/databricks-config", response, 200)) {
+      DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
+      config.resolve(emptyEnv());
+      config.setResolvedHostType(HostType.UNIFIED);
+      config.resolveHostMetadata();
+      assertEquals(HostType.UNIFIED, config.getResolvedHostType());
+    }
+  }
+
+  @Test
+  public void testResolveHostMetadataUnknownHostTypeIgnored() throws IOException {
+    String response =
+        "{\"oidc_endpoint\":\"https://ws.databricks.com/oidc\","
+            + "\"account_id\":\""
+            + DUMMY_ACCOUNT_ID
+            + "\","
+            + "\"host_type\":\"unknown_value\"}";
+    try (FixtureServer server =
+        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+      DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
+      config.resolve(emptyEnv());
+      assertNull(config.getResolvedHostType());
+    }
+  }
+
+  @Test
+  public void testResolveHostMetadataHostTypeAccount() throws IOException {
+    String response =
+        "{\"oidc_endpoint\":\"https://ws.databricks.com/oidc\","
+            + "\"account_id\":\""
+            + DUMMY_ACCOUNT_ID
+            + "\","
+            + "\"host_type\":\"account\"}";
+    try (FixtureServer server =
+        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+      DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
+      config.resolve(emptyEnv());
+      assertEquals(HostType.ACCOUNTS, config.getResolvedHostType());
+    }
+  }
+
+  @Test
+  public void testResolveHostMetadataHostTypeUnified() throws IOException {
+    String response =
+        "{\"oidc_endpoint\":\"https://ws.databricks.com/oidc\","
+            + "\"account_id\":\""
+            + DUMMY_ACCOUNT_ID
+            + "\","
+            + "\"host_type\":\"unified\"}";
+    try (FixtureServer server =
+        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+      DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
+      config.resolve(emptyEnv());
+      assertEquals(HostType.UNIFIED, config.getResolvedHostType());
+    }
+  }
+
   // --- discoveryUrl / OIDC endpoint tests ---
 
   @Test
