@@ -173,22 +173,24 @@ public class DatabricksConfigTest {
   }
 
   @Test
-  public void testNewWithWorkspaceHost() {
-    DatabricksConfig config =
-        new DatabricksConfig()
-            .setAuthType("oauth-m2m")
-            .setClientId("my-client-id")
-            .setClientSecret("my-client-secret")
-            .setAccountId("account-id")
-            .setHost("https://account.cloud.databricks.com");
-    String workspaceHost = "https://workspace.cloud.databricks.com";
+  public void testNewWithWorkspaceHost() throws IOException {
+    try (FixtureServer server = new FixtureServer()) {
+      String workspaceHost = server.getUrl();
+      DatabricksConfig config =
+          new DatabricksConfig()
+              .setAuthType("oauth-m2m")
+              .setClientId("my-client-id")
+              .setClientSecret("my-client-secret")
+              .setAccountId("account-id")
+              .setHost("https://account.cloud.databricks.com");
 
-    DatabricksConfig newWorkspaceConfig = config.newWithWorkspaceHost(workspaceHost).resolve();
+      DatabricksConfig newWorkspaceConfig = config.newWithWorkspaceHost(workspaceHost).resolve();
 
-    assert newWorkspaceConfig.getHost().equals(workspaceHost);
-    assert newWorkspaceConfig.getAuthType().equals("oauth-m2m");
-    assert newWorkspaceConfig.getClientId().equals("my-client-id");
-    assert newWorkspaceConfig.getClientSecret().equals("my-client-secret");
+      assert newWorkspaceConfig.getHost().equals(workspaceHost);
+      assert newWorkspaceConfig.getAuthType().equals("oauth-m2m");
+      assert newWorkspaceConfig.getClientId().equals("my-client-id");
+      assert newWorkspaceConfig.getClientSecret().equals("my-client-secret");
+    }
   }
 
   @Test
