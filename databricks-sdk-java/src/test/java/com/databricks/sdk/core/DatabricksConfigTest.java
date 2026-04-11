@@ -668,7 +668,9 @@ public class DatabricksConfigTest {
             + "\","
             + "\"host_type\":\"workspace\"}";
     try (FixtureServer server =
-        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+        new FixtureServer()
+            .with("GET", "/.well-known/databricks-config", response, 200)
+            .with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
       config.resolve(emptyEnv());
       config.resolveHostMetadata();
@@ -685,7 +687,9 @@ public class DatabricksConfigTest {
             + "\","
             + "\"host_type\":\"workspace\"}";
     try (FixtureServer server =
-        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+        new FixtureServer()
+            .with("GET", "/.well-known/databricks-config", response, 200)
+            .with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
       config.resolve(emptyEnv());
       config.setResolvedHostType(HostType.UNIFIED);
@@ -703,7 +707,9 @@ public class DatabricksConfigTest {
             + "\","
             + "\"host_type\":\"unknown_value\"}";
     try (FixtureServer server =
-        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+        new FixtureServer()
+            .with("GET", "/.well-known/databricks-config", response, 200)
+            .with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
       config.resolve(emptyEnv());
       config.resolveHostMetadata();
@@ -720,7 +726,9 @@ public class DatabricksConfigTest {
             + "\","
             + "\"host_type\":\"account\"}";
     try (FixtureServer server =
-        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+        new FixtureServer()
+            .with("GET", "/.well-known/databricks-config", response, 200)
+            .with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
       config.resolve(emptyEnv());
       config.resolveHostMetadata();
@@ -737,7 +745,9 @@ public class DatabricksConfigTest {
             + "\","
             + "\"host_type\":\"unified\"}";
     try (FixtureServer server =
-        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+        new FixtureServer()
+            .with("GET", "/.well-known/databricks-config", response, 200)
+            .with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
       config.resolve(emptyEnv());
       config.resolveHostMetadata();
