@@ -3,6 +3,7 @@ package com.databricks.sdk.core;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.databricks.sdk.core.utils.Environment;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
@@ -11,11 +12,11 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 /**
- * Tests for host type detection, client type determination, and header injection.
+ * Tests for host type detection, client type determination, and resolved host type from metadata.
  *
- * <p>After removing the UNIFIED host type, host type is determined solely from the URL pattern.
- * Host metadata resolution (via /.well-known/databricks-config) populates accountId, workspaceId,
- * and discoveryUrl automatically during config init.
+ * <p>Host type is determined by resolvedHostType (from /.well-known/databricks-config metadata)
+ * when available, falling back to URL pattern matching. Host metadata resolution also populates
+ * accountId, workspaceId, and discoveryUrl automatically during config init.
  */
 public class UnifiedHostTest {
 
@@ -111,53 +112,6 @@ public class UnifiedHostTest {
     assertEquals(ClientType.WORKSPACE, config.getClientType());
   }
 
-  // --- Header Injection Tests ---
-
-  @Test
-  public void testHeaderInjectionForWorkspaceOnUnified() {
-    String workspaceId = "123456789";
-
-    DatabricksConfig config =
-        new DatabricksConfig()
-            .setHost("https://unified.databricks.com")
-            .setExperimentalIsUnifiedHost(true)
-            .setWorkspaceId(workspaceId)
-            .setToken("test-token");
-
-    Map<String, String> headers = config.authenticate();
-
-    assertEquals("Bearer test-token", headers.get("Authorization"));
-    assertEquals(workspaceId, headers.get("X-Databricks-Org-Id"));
-  }
-
-  @Test
-  public void testNoHeaderInjectionForAccountOnUnified() {
-    DatabricksConfig config =
-        new DatabricksConfig()
-            .setHost("https://unified.databricks.com")
-            .setExperimentalIsUnifiedHost(true)
-            .setToken("test-token");
-    // No workspace ID set
-
-    Map<String, String> headers = config.authenticate();
-
-    assertEquals("Bearer test-token", headers.get("Authorization"));
-    assertNull(headers.get("X-Databricks-Org-Id"));
-  }
-
-  @Test
-  public void testNoHeaderInjectionForTraditionalWorkspace() {
-    DatabricksConfig config =
-        new DatabricksConfig()
-            .setHost("https://adb-123.azuredatabricks.net")
-            .setToken("test-token");
-
-    Map<String, String> headers = config.authenticate();
-
-    assertEquals("Bearer test-token", headers.get("Authorization"));
-    assertNull(headers.get("X-Databricks-Org-Id"));
-  }
-
   // --- Resolved host type from metadata tests ---
 
   @Test
@@ -196,13 +150,12 @@ public class UnifiedHostTest {
   }
 
   @Test
-  public void testMetadataOverridesExperimentalFlag() {
+  public void testResolvedHostTypeTakesPriorityOverUrlMatching() {
     DatabricksConfig config =
         new DatabricksConfig()
             .setHost("https://my-workspace.cloud.databricks.com")
-            .setExperimentalIsUnifiedHost(true)
             .setResolvedHostType(HostType.ACCOUNTS);
-    // Resolved host type takes priority over experimental flag
+    // Resolved host type takes priority over URL-based detection
     assertEquals(HostType.ACCOUNTS, config.getHostType());
   }
 
@@ -216,8 +169,7 @@ public class UnifiedHostTest {
         new FixtureServer()
             .with("GET", "/.well-known/databricks-config", response, 200)
             .with("GET", "/.well-known/databricks-config", response, 200)) {
-      DatabricksConfig config =
-          new DatabricksConfig().setHost(server.getUrl()).setExperimentalIsUnifiedHost(true);
+      DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
       config.resolve(
           new Environment(new HashMap<>(), new ArrayList<>(), System.getProperty("os.name")));
       // After resolve(), tryResolveHostMetadata() should have set resolvedHostType

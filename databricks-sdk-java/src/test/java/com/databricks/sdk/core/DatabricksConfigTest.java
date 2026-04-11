@@ -668,7 +668,9 @@ public class DatabricksConfigTest {
             + "\","
             + "\"host_type\":\"workspace\"}";
     try (FixtureServer server =
-        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+        new FixtureServer()
+            .with("GET", "/.well-known/databricks-config", response, 200)
+            .with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
       config.resolve(emptyEnv());
       config.resolveHostMetadata();
@@ -685,7 +687,9 @@ public class DatabricksConfigTest {
             + "\","
             + "\"host_type\":\"workspace\"}";
     try (FixtureServer server =
-        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+        new FixtureServer()
+            .with("GET", "/.well-known/databricks-config", response, 200)
+            .with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
       config.resolve(emptyEnv());
       config.setResolvedHostType(HostType.UNIFIED);
@@ -703,7 +707,9 @@ public class DatabricksConfigTest {
             + "\","
             + "\"host_type\":\"unknown_value\"}";
     try (FixtureServer server =
-        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+        new FixtureServer()
+            .with("GET", "/.well-known/databricks-config", response, 200)
+            .with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
       config.resolve(emptyEnv());
       config.resolveHostMetadata();
@@ -720,7 +726,9 @@ public class DatabricksConfigTest {
             + "\","
             + "\"host_type\":\"account\"}";
     try (FixtureServer server =
-        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+        new FixtureServer()
+            .with("GET", "/.well-known/databricks-config", response, 200)
+            .with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
       config.resolve(emptyEnv());
       config.resolveHostMetadata();
@@ -737,7 +745,9 @@ public class DatabricksConfigTest {
             + "\","
             + "\"host_type\":\"unified\"}";
     try (FixtureServer server =
-        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+        new FixtureServer()
+            .with("GET", "/.well-known/databricks-config", response, 200)
+            .with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
       config.resolve(emptyEnv());
       config.resolveHostMetadata();
@@ -756,7 +766,9 @@ public class DatabricksConfigTest {
             + "\","
             + "\"default_oidc_audience\":\"https://ws.databricks.com/oidc/v1/token\"}";
     try (FixtureServer server =
-        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+        new FixtureServer()
+            .with("GET", "/.well-known/databricks-config", response, 200)
+            .with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
       config.resolve(emptyEnv());
       config.resolveHostMetadata();
@@ -773,18 +785,14 @@ public class DatabricksConfigTest {
             + "\"account_id\":\""
             + DUMMY_ACCOUNT_ID
             + "\","
+            + "\"host_type\":\"account\","
             + "\"default_oidc_audience\":\"custom-audience\"}";
     try (FixtureServer server =
-        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+        new FixtureServer()
+            .with("GET", "/.well-known/databricks-config", response, 200)
+            .with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config =
-          new DatabricksConfig()
-              .setHost(server.getUrl())
-              .setExperimentalIsUnifiedHost(true)
-              .setAccountId(DUMMY_ACCOUNT_ID);
-      // Note: need two fixtures — resolve() consumes first one (unified host triggers
-      // tryResolveHostMetadata)
-      // Instead, don't set unified — just test direct call
-      config = new DatabricksConfig().setHost(server.getUrl()).setAccountId(DUMMY_ACCOUNT_ID);
+          new DatabricksConfig().setHost(server.getUrl()).setAccountId(DUMMY_ACCOUNT_ID);
       config.resolve(emptyEnv());
       config.resolveHostMetadata();
       // Should use default_oidc_audience, NOT account_id
@@ -802,7 +810,9 @@ public class DatabricksConfigTest {
             + "\","
             + "\"default_oidc_audience\":\"metadata-audience\"}";
     try (FixtureServer server =
-        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+        new FixtureServer()
+            .with("GET", "/.well-known/databricks-config", response, 200)
+            .with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config =
           new DatabricksConfig().setHost(server.getUrl()).setTokenAudience("existing-audience");
       config.resolve(emptyEnv());
@@ -815,24 +825,23 @@ public class DatabricksConfigTest {
   public void testResolveHostMetadataFallsBackToAccountIdWhenNoDefaultOidcAudience()
       throws IOException {
     // When no default_oidc_audience, should fall back to account_id for account hosts.
-    // Use unified host flag so getClientType() returns ACCOUNT (no workspaceId).
+    // Use host_type=account in metadata so getClientType() returns ACCOUNT.
     String response =
         "{\"oidc_endpoint\":\"https://acc.databricks.com/oidc/accounts/{account_id}\","
             + "\"account_id\":\""
             + DUMMY_ACCOUNT_ID
-            + "\"}";
+            + "\","
+            + "\"host_type\":\"account\"}";
     try (FixtureServer server =
         new FixtureServer()
-            .with("GET", "/.well-known/databricks-config", response, 200)
             .with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config =
           new DatabricksConfig()
               .setHost(server.getUrl())
-              .setAccountId(DUMMY_ACCOUNT_ID)
-              .setExperimentalIsUnifiedHost(true);
+              .setAccountId(DUMMY_ACCOUNT_ID);
       config.resolve(emptyEnv());
-      // resolve() with unified flag triggers tryResolveHostMetadata() consuming first fixture.
-      // Now call again with second fixture to verify account_id fallback.
+      // resolve() triggers tryResolveHostMetadata() which sets resolvedHostType=ACCOUNTS,
+      // then the tokenAudience fallback sets tokenAudience to accountId.
       assertEquals(DUMMY_ACCOUNT_ID, config.getTokenAudience());
     }
   }
