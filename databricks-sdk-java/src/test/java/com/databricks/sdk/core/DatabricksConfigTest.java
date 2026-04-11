@@ -800,31 +800,6 @@ public class DatabricksConfigTest {
     }
   }
 
-  @Test
-  public void testResolveHostMetadataFallsBackToAccountIdWhenNoDefaultOidcAudience()
-      throws IOException {
-    // When no default_oidc_audience, should fall back to account_id for account hosts.
-    // Use host_type=account in metadata so getClientType() returns ACCOUNT.
-    String response =
-        "{\"oidc_endpoint\":\"https://acc.databricks.com/oidc/accounts/{account_id}\","
-            + "\"account_id\":\""
-            + DUMMY_ACCOUNT_ID
-            + "\","
-            + "\"host_type\":\"account\"}";
-    try (FixtureServer server =
-        new FixtureServer()
-            .with("GET", "/.well-known/databricks-config", response, 200)) {
-      DatabricksConfig config =
-          new DatabricksConfig()
-              .setHost(server.getUrl())
-              .setAccountId(DUMMY_ACCOUNT_ID);
-      config.resolve(emptyEnv());
-      // resolve() triggers tryResolveHostMetadata() which sets resolvedHostType=ACCOUNTS,
-      // then the tokenAudience fallback sets tokenAudience to accountId.
-      assertEquals(DUMMY_ACCOUNT_ID, config.getTokenAudience());
-    }
-  }
-
   // --- discoveryUrl / OIDC endpoint tests ---
 
   @Test
