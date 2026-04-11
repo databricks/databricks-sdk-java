@@ -3,6 +3,7 @@ package com.databricks.sdk.core;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.databricks.sdk.core.utils.Environment;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
@@ -96,18 +97,20 @@ public class UnifiedHostTest {
   // --- Environment Variable Tests ---
 
   @Test
-  public void testWorkspaceIdFromEnvironmentVariables() {
-    Map<String, String> env = new HashMap<>();
-    env.put("DATABRICKS_HOST", "https://mycompany.databricks.com");
-    env.put("DATABRICKS_WORKSPACE_ID", "987654321");
-    env.put("DATABRICKS_ACCOUNT_ID", "account-abc");
+  public void testWorkspaceIdFromEnvironmentVariables() throws IOException {
+    try (FixtureServer server = new FixtureServer()) {
+      Map<String, String> env = new HashMap<>();
+      env.put("DATABRICKS_HOST", server.getUrl());
+      env.put("DATABRICKS_WORKSPACE_ID", "987654321");
+      env.put("DATABRICKS_ACCOUNT_ID", "account-abc");
 
-    DatabricksConfig config = new DatabricksConfig();
-    config.resolve(new Environment(env, new ArrayList<>(), System.getProperty("os.name")));
+      DatabricksConfig config = new DatabricksConfig();
+      config.resolve(new Environment(env, new ArrayList<>(), System.getProperty("os.name")));
 
-    assertEquals(HostType.WORKSPACE, config.getHostType());
-    assertEquals("987654321", config.getWorkspaceId());
-    assertEquals("account-abc", config.getAccountId());
-    assertEquals(ClientType.WORKSPACE, config.getClientType());
+      assertEquals(HostType.WORKSPACE, config.getHostType());
+      assertEquals("987654321", config.getWorkspaceId());
+      assertEquals("account-abc", config.getAccountId());
+      assertEquals(ClientType.WORKSPACE, config.getClientType());
+    }
   }
 }
