@@ -56,7 +56,8 @@ public class AccountClientTest {
       // Should have workspace ID set
       assertEquals("123456", workspaceClient.config().getWorkspaceId());
 
-      // Host type is WORKSPACE (no resolved host type from metadata, URL doesn't match accounts pattern)
+      // Host type is WORKSPACE (no resolved host type from metadata, URL doesn't match accounts
+      // pattern)
       assertEquals(HostType.WORKSPACE, workspaceClient.config().getHostType());
     }
   }
