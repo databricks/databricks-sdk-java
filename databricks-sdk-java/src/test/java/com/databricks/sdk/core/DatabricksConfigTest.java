@@ -814,12 +814,9 @@ public class DatabricksConfigTest {
             + "\","
             + "\"host_type\":\"account\"}";
     try (FixtureServer server =
-        new FixtureServer()
-            .with("GET", "/.well-known/databricks-config", response, 200)) {
+        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config =
-          new DatabricksConfig()
-              .setHost(server.getUrl())
-              .setAccountId(DUMMY_ACCOUNT_ID);
+          new DatabricksConfig().setHost(server.getUrl()).setAccountId(DUMMY_ACCOUNT_ID);
       config.resolve(emptyEnv());
       // resolve() triggers tryResolveHostMetadata() which sets resolvedHostType=ACCOUNTS,
       // then the tokenAudience fallback sets tokenAudience to accountId.

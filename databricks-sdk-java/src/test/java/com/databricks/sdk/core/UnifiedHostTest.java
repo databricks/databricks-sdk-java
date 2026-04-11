@@ -168,8 +168,7 @@ public class UnifiedHostTest {
             + "\"account_id\":\"test-account\","
             + "\"host_type\":\"unified\"}";
     try (FixtureServer server =
-        new FixtureServer()
-            .with("GET", "/.well-known/databricks-config", response, 200)) {
+        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
       config.resolve(
           new Environment(new HashMap<>(), new ArrayList<>(), System.getProperty("os.name")));
