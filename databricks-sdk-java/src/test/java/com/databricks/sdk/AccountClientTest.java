@@ -3,8 +3,10 @@ package com.databricks.sdk;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.databricks.sdk.core.DatabricksConfig;
+import com.databricks.sdk.core.FixtureServer;
 import com.databricks.sdk.core.HostType;
 import com.databricks.sdk.service.provisioning.Workspace;
+import java.io.IOException;
 import org.junit.jupiter.api.Test;
 
 public class AccountClientTest {
@@ -31,30 +33,32 @@ public class AccountClientTest {
   }
 
   @Test
-  public void testGetWorkspaceClientForUnifiedHost() {
-    String unifiedHost = "https://unified.databricks.com";
-    DatabricksConfig accountConfig =
-        new DatabricksConfig()
-            .setHost(unifiedHost)
-            .setAccountId("test-account")
-            .setToken("test-token");
+  public void testGetWorkspaceClientForUnifiedHost() throws IOException {
+    try (FixtureServer server = new FixtureServer()) {
+      String unifiedHost = server.getUrl();
+      DatabricksConfig accountConfig =
+          new DatabricksConfig()
+              .setHost(unifiedHost)
+              .setAccountId("test-account")
+              .setToken("test-token");
 
-    AccountClient accountClient = new AccountClient(accountConfig);
+      AccountClient accountClient = new AccountClient(accountConfig);
 
-    Workspace workspace = new Workspace();
-    workspace.setWorkspaceId(123456L);
-    workspace.setDeploymentName("test-workspace");
+      Workspace workspace = new Workspace();
+      workspace.setWorkspaceId(123456L);
+      workspace.setDeploymentName("test-workspace");
 
-    WorkspaceClient workspaceClient = accountClient.getWorkspaceClient(workspace);
+      WorkspaceClient workspaceClient = accountClient.getWorkspaceClient(workspace);
 
-    // Should have the same host (unified hosts reuse the same host)
-    assertEquals(unifiedHost, workspaceClient.config().getHost());
+      // Should have the same host (non-matching DNS zone means SPOG path)
+      assertEquals(unifiedHost, workspaceClient.config().getHost());
 
-    // Should have workspace ID set
-    assertEquals("123456", workspaceClient.config().getWorkspaceId());
+      // Should have workspace ID set
+      assertEquals("123456", workspaceClient.config().getWorkspaceId());
 
-    // Host type is WORKSPACE (determined from URL pattern, not unified flag)
-    assertEquals(HostType.WORKSPACE, workspaceClient.config().getHostType());
+      // Host type is WORKSPACE (no resolved host type from metadata, URL doesn't match accounts pattern)
+      assertEquals(HostType.WORKSPACE, workspaceClient.config().getHostType());
+    }
   }
 
   @Test
