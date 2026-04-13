@@ -6,7 +6,7 @@ import java.util.function.Supplier;
  * Logging contract used throughout the SDK.
  *
  * <p>Extend this class to provide a custom logging implementation, then register it via a custom
- * {@link LoggerFactory} subclass and {@link LoggerFactory#setDefault}.
+ * {@link ILoggerFactory} and {@link LoggerFactory#setDefault}.
  */
 public abstract class Logger {
 

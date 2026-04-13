@@ -13,16 +13,12 @@ class Slf4jLogger extends Logger {
 
   @Override
   public void debug(String msg) {
-    if (delegate.isDebugEnabled()) {
-      delegate.debug(msg);
-    }
+    delegate.debug(msg);
   }
 
   @Override
   public void debug(String format, Object... args) {
-    if (delegate.isDebugEnabled()) {
-      delegate.debug(format, args);
-    }
+    delegate.debug(format, args);
   }
 
   @Override

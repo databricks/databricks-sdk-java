@@ -3,7 +3,7 @@ package com.databricks.sdk.core.logging;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * Creates and configures {@link Logger} instances for the SDK.
+ * Static entry point for obtaining {@link Logger} instances.
  *
  * <p>By default, logging goes through SLF4J. Users can override the backend programmatically before
  * creating any SDK client:
@@ -13,20 +13,22 @@ import java.util.concurrent.atomic.AtomicReference;
  * WorkspaceClient ws = new WorkspaceClient();
  * }</pre>
  *
- * <p>Extend this class to provide a fully custom logging backend.
+ * <p>Implement {@link ILoggerFactory} to provide a fully custom logging backend.
  */
-public abstract class LoggerFactory {
+public final class LoggerFactory {
 
-  private static final AtomicReference<LoggerFactory> defaultFactory = new AtomicReference<>();
+  private static final AtomicReference<ILoggerFactory> defaultFactory = new AtomicReference<>();
+
+  private LoggerFactory() {}
 
   /** Returns a logger for the given class, using the current default factory. */
   public static Logger getLogger(Class<?> type) {
-    return getDefault().createLogger(type);
+    return getDefault().getLogger(type);
   }
 
   /** Returns a logger with the given name, using the current default factory. */
   public static Logger getLogger(String name) {
-    return getDefault().createLogger(name);
+    return getDefault().getLogger(name);
   }
 
   /**
@@ -35,31 +37,19 @@ public abstract class LoggerFactory {
    * <p>Must be called before creating any SDK client or calling {@link #getLogger}. Loggers already
    * obtained will not be affected by subsequent calls.
    */
-  public static void setDefault(LoggerFactory factory) {
+  public static void setDefault(ILoggerFactory factory) {
     if (factory == null) {
-      throw new IllegalArgumentException("LoggerFactory must not be null");
+      throw new IllegalArgumentException("ILoggerFactory must not be null");
     }
     defaultFactory.set(factory);
   }
 
-  static LoggerFactory getDefault() {
-    LoggerFactory f = defaultFactory.get();
+  static ILoggerFactory getDefault() {
+    ILoggerFactory f = defaultFactory.get();
     if (f != null) {
       return f;
     }
     defaultFactory.compareAndSet(null, Slf4jLoggerFactory.INSTANCE);
     return defaultFactory.get();
   }
-
-  /**
-   * Creates a {@link Logger} for the given class. Subclasses obtain the backend logger (e.g. SLF4J)
-   * and return an adapter.
-   */
-  protected abstract Logger createLogger(Class<?> type);
-
-  /**
-   * Creates a {@link Logger} for the given name. Subclasses obtain the backend logger and return an
-   * adapter.
-   */
-  protected abstract Logger createLogger(String name);
 }
