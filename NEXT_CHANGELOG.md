@@ -4,6 +4,7 @@
 
 ### New Features and Improvements
 * Added automatic detection of AI coding agents (Antigravity, Claude Code, Cline, Codex, Copilot CLI, Cursor, Gemini CLI, OpenCode) in the user-agent string. The SDK now appends `agent/<name>` to HTTP request headers when running inside a known AI agent environment.
+* Pass `--force-refresh` to Databricks CLI `auth token` command so the SDK always receives a fresh token instead of a potentially stale one from the CLI's internal cache. Falls back gracefully on older CLIs that do not support this flag.
 
 ### Bug Fixes
 * Added `X-Databricks-Org-Id` header to deprecated workspace SCIM APIs (Groups, ServicePrincipals, Users) for SPOG host compatibility.
@@ -14,6 +15,7 @@
 ### Documentation
 
 ### Internal Changes
+* Generalized CLI token source into a progressive command attempt list, replacing the fixed three-field approach with an extensible chain.
 
 ### API Changes
 * Add `createCatalog()`, `createSyncedTable()`, `deleteCatalog()`, `deleteSyncedTable()`, `getCatalog()` and `getSyncedTable()` methods for `workspaceClient.postgres()` service.
