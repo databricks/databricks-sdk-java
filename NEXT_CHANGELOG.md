@@ -14,6 +14,7 @@
 ### Documentation
 
 ### Internal Changes
+* Added host metadata resolution via `/.well-known/databricks-config` endpoint during config initialization. Automatically populates `accountId`, `workspaceId`, `discoveryUrl`, and `tokenAudience` from the `token_federation_default_oidc_audiences` field in the metadata response.
 
 ### API Changes
 * Add `createCatalog()`, `createSyncedTable()`, `deleteCatalog()`, `deleteSyncedTable()`, `getCatalog()` and `getSyncedTable()` methods for `workspaceClient.postgres()` service.
