@@ -745,16 +745,16 @@ public class DatabricksConfigTest {
     }
   }
 
-  // --- resolveHostMetadata default_oidc_audience tests ---
+  // --- resolveHostMetadata token_federation_default_oidc_audiences tests ---
 
   @Test
-  public void testResolveHostMetadataSetsTokenAudienceFromDefaultOidcAudience() throws IOException {
+  public void testResolveHostMetadataSetsTokenAudienceFromOidcAudiences() throws IOException {
     String response =
         "{\"oidc_endpoint\":\"https://ws.databricks.com/oidc\","
             + "\"account_id\":\""
             + DUMMY_ACCOUNT_ID
             + "\","
-            + "\"default_oidc_audience\":\"https://ws.databricks.com/oidc/v1/token\"}";
+            + "\"token_federation_default_oidc_audiences\":[\"https://ws.databricks.com/oidc/v1/token\"]}";
     try (FixtureServer server =
         new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
@@ -764,35 +764,35 @@ public class DatabricksConfigTest {
   }
 
   @Test
-  public void testResolveHostMetadataDefaultOidcAudiencePriorityOverAccountIdFallback()
+  public void testResolveHostMetadataOidcAudiencesPriorityOverAccountIdFallback()
       throws IOException {
-    // default_oidc_audience should take priority over the account_id fallback for account hosts
+    // token_federation_default_oidc_audiences should take priority over account_id fallback
     String response =
         "{\"oidc_endpoint\":\"https://acc.databricks.com/oidc/accounts/{account_id}\","
             + "\"account_id\":\""
             + DUMMY_ACCOUNT_ID
             + "\","
             + "\"host_type\":\"account\","
-            + "\"default_oidc_audience\":\"custom-audience\"}";
+            + "\"token_federation_default_oidc_audiences\":[\"custom-audience\"]}";
     try (FixtureServer server =
         new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config =
           new DatabricksConfig().setHost(server.getUrl()).setAccountId(DUMMY_ACCOUNT_ID);
       config.resolve(emptyEnv());
-      // Should use default_oidc_audience, NOT account_id
+      // Should use first element of token_federation_default_oidc_audiences, NOT account_id
       assertEquals("custom-audience", config.getTokenAudience());
     }
   }
 
   @Test
-  public void testResolveHostMetadataDoesNotOverrideExistingTokenAudienceWithOidcAudience()
+  public void testResolveHostMetadataDoesNotOverrideExistingTokenAudienceWithOidcAudiences()
       throws IOException {
     String response =
         "{\"oidc_endpoint\":\"https://ws.databricks.com/oidc\","
             + "\"account_id\":\""
             + DUMMY_ACCOUNT_ID
             + "\","
-            + "\"default_oidc_audience\":\"metadata-audience\"}";
+            + "\"token_federation_default_oidc_audiences\":[\"metadata-audience\"]}";
     try (FixtureServer server =
         new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
       DatabricksConfig config =
@@ -803,10 +803,9 @@ public class DatabricksConfigTest {
   }
 
   @Test
-  public void testResolveHostMetadataFallsBackToAccountIdWhenNoDefaultOidcAudience()
-      throws IOException {
-    // When no default_oidc_audience, should fall back to account_id for account hosts.
-    // Use host_type=account in metadata so getClientType() returns ACCOUNT.
+  public void testResolveHostMetadataFallsBackToAccountIdWhenNoOidcAudiences() throws IOException {
+    // When no token_federation_default_oidc_audiences, should fall back to account_id for account
+    // hosts. Use host_type=account in metadata so getClientType() returns ACCOUNT.
     String response =
         "{\"oidc_endpoint\":\"https://acc.databricks.com/oidc/accounts/{account_id}\","
             + "\"account_id\":\""

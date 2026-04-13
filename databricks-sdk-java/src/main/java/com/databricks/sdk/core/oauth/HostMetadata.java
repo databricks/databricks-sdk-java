@@ -2,6 +2,7 @@ package com.databricks.sdk.core.oauth;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 
 /**
  * [Experimental] Parsed response from the /.well-known/databricks-config discovery endpoint.
@@ -26,8 +27,8 @@ public class HostMetadata {
   @JsonProperty("host_type")
   private String hostType;
 
-  @JsonProperty("default_oidc_audience")
-  private String defaultOidcAudience;
+  @JsonProperty("token_federation_default_oidc_audiences")
+  private List<String> tokenFederationDefaultOidcAudiences;
 
   public HostMetadata() {}
 
@@ -64,7 +65,7 @@ public class HostMetadata {
     return hostType;
   }
 
-  public String getDefaultOidcAudience() {
-    return defaultOidcAudience;
+  public List<String> getTokenFederationDefaultOidcAudiences() {
+    return tokenFederationDefaultOidcAudiences;
   }
 }
