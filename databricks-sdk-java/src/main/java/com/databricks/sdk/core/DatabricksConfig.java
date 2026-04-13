@@ -908,13 +908,12 @@ public class DatabricksConfig {
       discoveryUrl = oidcUri.resolve(".well-known/oauth-authorization-server").toString();
       LOG.debug("Resolved discovery_url from host metadata: \"{}\"", discoveryUrl);
     }
-    if (tokenAudience == null
-        && meta.getDefaultOidcAudience() != null
-        && !meta.getDefaultOidcAudience().isEmpty()) {
+    List<String> audiences = meta.getTokenFederationDefaultOidcAudiences();
+    if (tokenAudience == null && audiences != null && !audiences.isEmpty()) {
       LOG.debug(
-          "Resolved token_audience from host metadata default_oidc_audience: \"{}\"",
-          meta.getDefaultOidcAudience());
-      tokenAudience = meta.getDefaultOidcAudience();
+          "Resolved token_audience from host metadata token_federation_default_oidc_audiences: \"{}\"",
+          audiences.get(0));
+      tokenAudience = audiences.get(0);
     }
     // Fallback: for account hosts, use the accountId as the token audience if not already set.
     if (tokenAudience == null && getClientType() == ClientType.ACCOUNT && accountId != null) {
