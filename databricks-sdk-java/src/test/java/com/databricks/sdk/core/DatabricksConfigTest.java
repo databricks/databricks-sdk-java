@@ -693,6 +693,91 @@ public class DatabricksConfigTest {
     }
   }
 
+  @Test
+  public void testResolveHostMetadataNoAudiencesFieldLeavesTokenAudienceNull() throws IOException {
+    // When token_federation_default_oidc_audiences is absent, tokenAudience stays null
+    String response =
+        "{\"oidc_endpoint\":\"https://ws.databricks.com/oidc\","
+            + "\"account_id\":\""
+            + DUMMY_ACCOUNT_ID
+            + "\"}";
+    try (FixtureServer server =
+        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+      DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
+      config.resolve(emptyEnv());
+      assertNull(config.getTokenAudience());
+    }
+  }
+
+  @Test
+  public void testResolveHostMetadataEmptyAudiencesListLeavesTokenAudienceNull()
+      throws IOException {
+    // When token_federation_default_oidc_audiences is an empty array, tokenAudience stays null
+    String response =
+        "{\"oidc_endpoint\":\"https://ws.databricks.com/oidc\","
+            + "\"account_id\":\""
+            + DUMMY_ACCOUNT_ID
+            + "\","
+            + "\"token_federation_default_oidc_audiences\":[]}";
+    try (FixtureServer server =
+        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+      DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
+      config.resolve(emptyEnv());
+      assertNull(config.getTokenAudience());
+    }
+  }
+
+  @Test
+  public void testResolveHostMetadataEmptyStringAudienceSetsTokenAudience() throws IOException {
+    // When first element is empty string, tokenAudience is set to empty string
+    String response =
+        "{\"oidc_endpoint\":\"https://ws.databricks.com/oidc\","
+            + "\"account_id\":\""
+            + DUMMY_ACCOUNT_ID
+            + "\","
+            + "\"token_federation_default_oidc_audiences\":[\"\"]}";
+    try (FixtureServer server =
+        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+      DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
+      config.resolve(emptyEnv());
+      assertEquals("", config.getTokenAudience());
+    }
+  }
+
+  @Test
+  public void testResolveHostMetadataMultipleAudiencesPicksFirst() throws IOException {
+    // When multiple audiences, the first element is used
+    String response =
+        "{\"oidc_endpoint\":\"https://ws.databricks.com/oidc\","
+            + "\"account_id\":\""
+            + DUMMY_ACCOUNT_ID
+            + "\","
+            + "\"token_federation_default_oidc_audiences\":[\"first-audience\",\"second-audience\",\"third-audience\"]}";
+    try (FixtureServer server =
+        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+      DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
+      config.resolve(emptyEnv());
+      assertEquals("first-audience", config.getTokenAudience());
+    }
+  }
+
+  @Test
+  public void testResolveHostMetadataNullFirstAudienceLeavesTokenAudienceNull() throws IOException {
+    // When first element is null, tokenAudience stays null
+    String response =
+        "{\"oidc_endpoint\":\"https://ws.databricks.com/oidc\","
+            + "\"account_id\":\""
+            + DUMMY_ACCOUNT_ID
+            + "\","
+            + "\"token_federation_default_oidc_audiences\":[null,\"second-audience\"]}";
+    try (FixtureServer server =
+        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+      DatabricksConfig config = new DatabricksConfig().setHost(server.getUrl());
+      config.resolve(emptyEnv());
+      assertNull(config.getTokenAudience());
+    }
+  }
+
   // --- discoveryUrl / OIDC endpoint tests ---
 
   @Test
