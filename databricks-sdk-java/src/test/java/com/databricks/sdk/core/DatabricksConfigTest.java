@@ -694,6 +694,28 @@ public class DatabricksConfigTest {
   }
 
   @Test
+  public void testResolveHostMetadataOidcAudiencesPriorityOverAccountIdFallback()
+      throws IOException {
+    // token_federation_default_oidc_audiences should take priority over the account_id fallback.
+    // The audiences check runs before the fallback, so once tokenAudience is set from audiences,
+    // the fallback's null check prevents it from overriding.
+    String response =
+        "{\"oidc_endpoint\":\"https://acc.databricks.com/oidc/accounts/{account_id}\","
+            + "\"account_id\":\""
+            + DUMMY_ACCOUNT_ID
+            + "\","
+            + "\"token_federation_default_oidc_audiences\":[\"custom-audience\"]}";
+    try (FixtureServer server =
+        new FixtureServer().with("GET", "/.well-known/databricks-config", response, 200)) {
+      DatabricksConfig config =
+          new DatabricksConfig().setHost(server.getUrl()).setAccountId(DUMMY_ACCOUNT_ID);
+      config.resolve(emptyEnv());
+      // Should use first element of token_federation_default_oidc_audiences, NOT account_id
+      assertEquals("custom-audience", config.getTokenAudience());
+    }
+  }
+
+  @Test
   public void testResolveHostMetadataNoAudiencesFieldLeavesTokenAudienceNull() throws IOException {
     // When token_federation_default_oidc_audiences is absent, tokenAudience stays null
     String response =
