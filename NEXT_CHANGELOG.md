@@ -16,6 +16,7 @@
 
 ### Internal Changes
 * Introduced a logging abstraction (`com.databricks.sdk.core.logging`) to decouple the SDK from a specific logging backend.
+* Added `token_federation_default_oidc_audiences` resolution from host metadata. The SDK now sets `tokenAudience` from the first element of this field during config initialization, with fallback to `accountId` for account hosts.
 
 ### API Changes
 * Add `createCatalog()`, `createSyncedTable()`, `deleteCatalog()`, `deleteSyncedTable()`, `getCatalog()` and `getSyncedTable()` methods for `workspaceClient.postgres()` service.
