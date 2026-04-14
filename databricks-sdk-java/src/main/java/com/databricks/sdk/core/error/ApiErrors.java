@@ -116,27 +116,18 @@ public class ApiErrors {
     try {
       return Optional.of(MAPPER.readValue(body, ApiErrorBody.class));
     } catch (IOException e) {
-      return Optional.of(parseUnknownError(response, body, e));
+      return Optional.of(parseUnknownError(body));
     }
   }
 
-  private static ApiErrorBody parseUnknownError(Response response, String body, IOException err) {
+  private static ApiErrorBody parseUnknownError(String body) {
     ApiErrorBody errorBody = new ApiErrorBody();
-    String[] statusParts = response.getStatus().split(" ", 2);
-    if (statusParts.length < 2) {
-      errorBody.setErrorCode("UNKNOWN");
-    } else {
-      String errorCode = statusParts[1].replaceAll("^[ .]+|[ .]+$", "");
-      errorBody.setErrorCode(errorCode.replaceAll(" ", "_").toUpperCase());
-    }
-
+    errorBody.setErrorCode(""); // non-null to avoid NPE
     Matcher messageMatcher = HTML_ERROR_REGEX.matcher(body);
     if (messageMatcher.find()) {
-      errorBody.setMessage(messageMatcher.group(1).replaceAll("^[ .]+|[ .]+$", ""));
+      errorBody.setMessage(messageMatcher.group(1));
     } else {
-      errorBody.setMessage(
-          String.format(
-              "Response from server (%s) %s: %s", response.getStatus(), body, err.getMessage()));
+      errorBody.setMessage(body);
     }
     return errorBody;
   }
