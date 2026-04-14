@@ -125,6 +125,7 @@ public class ApiErrors {
     errorBody.setErrorCode(""); // non-null to avoid NPE
     Matcher messageMatcher = HTML_ERROR_REGEX.matcher(body);
     if (messageMatcher.find()) {
+      errorBody.setMessage(messageMatcher.group(1));
     } else {
       errorBody.setMessage(body);
     }
