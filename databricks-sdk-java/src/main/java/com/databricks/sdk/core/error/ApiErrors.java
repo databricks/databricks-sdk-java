@@ -122,9 +122,9 @@ public class ApiErrors {
 
   private static ApiErrorBody parseUnknownError(String body) {
     ApiErrorBody errorBody = new ApiErrorBody();
+    errorBody.setErrorCode(""); // non-null to avoid NPE
     Matcher messageMatcher = HTML_ERROR_REGEX.matcher(body);
     if (messageMatcher.find()) {
-      errorBody.setMessage(messageMatcher.group(1).replaceAll("^[ .]+|[ .]+$", ""));
     } else {
       errorBody.setMessage(body);
     }
