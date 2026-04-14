@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * creating any SDK client:
  *
  * <pre>{@code
- * LoggerFactory.setDefault(myCustomFactory);
+ * LoggerFactory.setDefault(JulLoggerFactory.INSTANCE);
  * WorkspaceClient ws = new WorkspaceClient();
  * }</pre>
  *
