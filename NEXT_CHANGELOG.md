@@ -3,6 +3,7 @@
 ## Release v0.104.0
 
 ### New Features and Improvements
+* Add support for authentication through Azure Managed Service Identity (MSI) via the new `azure-msi` credential provider.
 * Added automatic detection of AI coding agents (Antigravity, Claude Code, Cline, Codex, Copilot CLI, Cursor, Gemini CLI, OpenCode) in the user-agent string. The SDK now appends `agent/<name>` to HTTP request headers when running inside a known AI agent environment.
 
 ### Bug Fixes
