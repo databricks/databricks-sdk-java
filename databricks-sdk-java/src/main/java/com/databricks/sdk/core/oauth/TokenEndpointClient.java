@@ -92,6 +92,16 @@ public final class TokenEndpointClient {
           String.format(
               "Token request failed with error: %s - %s", response.getErrorCode(), errorSummary));
     }
+    if (response.getAccessToken() == null || response.getAccessToken().isEmpty()) {
+      throw new DatabricksException(
+          String.format(
+              "Token request to %s returned a response with no access_token", tokenEndpointUrl));
+    }
+    if (response.getTokenType() == null || response.getTokenType().isEmpty()) {
+      throw new DatabricksException(
+          String.format(
+              "Token request to %s returned a response with no token_type", tokenEndpointUrl));
+    }
     LOG.debug("Successfully obtained token response from {}", tokenEndpointUrl);
     return response;
   }
@@ -142,6 +152,15 @@ public final class TokenEndpointClient {
       OAuthResponse resp = apiClient.execute(req, OAuthResponse.class);
       if (resp.getErrorCode() != null) {
         throw new IllegalArgumentException(resp.getErrorCode() + ": " + resp.getErrorSummary());
+      }
+      if (resp.getAccessToken() == null || resp.getAccessToken().isEmpty()) {
+        throw new DatabricksException(
+            String.format(
+                "Token request to %s returned a response with no access_token", tokenUrl));
+      }
+      if (resp.getTokenType() == null || resp.getTokenType().isEmpty()) {
+        throw new DatabricksException(
+            String.format("Token request to %s returned a response with no token_type", tokenUrl));
       }
       Instant expiry = Instant.now().plusSeconds(resp.getExpiresIn());
       return new Token(resp.getAccessToken(), resp.getTokenType(), resp.getRefreshToken(), expiry);

@@ -34,6 +34,14 @@ class TokenEndpointClientTest {
         "{"
             + "\"error\":\"invalid_client\","
             + "\"error_description\":\"Client authentication failed\"}";
+    // Response with no access_token
+    String noAccessTokenJson = "{" + "\"token_type\":\"Bearer\"," + "\"expires_in\":3600" + "}";
+    // Response with no token_type
+    String noTokenTypeJson =
+        "{" + "\"access_token\":\"test-access-token\"," + "\"expires_in\":3600" + "}";
+    // Response with empty access_token
+    String emptyAccessTokenJson =
+        "{" + "\"access_token\":\"\"," + "\"token_type\":\"Bearer\"," + "\"expires_in\":3600" + "}";
     // Malformed JSON
     String malformedJson = "{not valid json}";
 
@@ -53,6 +61,24 @@ class TokenEndpointClientTest {
     when(mockMalformedClient.execute(any(FormRequest.class)))
         .thenReturn(
             new Response(malformedJson, 200, "OK", new URL("https://test.databricks.com/")));
+
+    // Mock HttpClient for no access_token
+    HttpClient mockNoAccessTokenClient = mock(HttpClient.class);
+    when(mockNoAccessTokenClient.execute(any(FormRequest.class)))
+        .thenReturn(
+            new Response(noAccessTokenJson, 200, "OK", new URL("https://test.databricks.com/")));
+
+    // Mock HttpClient for no token_type
+    HttpClient mockNoTokenTypeClient = mock(HttpClient.class);
+    when(mockNoTokenTypeClient.execute(any(FormRequest.class)))
+        .thenReturn(
+            new Response(noTokenTypeJson, 200, "OK", new URL("https://test.databricks.com/")));
+
+    // Mock HttpClient for empty access_token
+    HttpClient mockEmptyAccessTokenClient = mock(HttpClient.class);
+    when(mockEmptyAccessTokenClient.execute(any(FormRequest.class)))
+        .thenReturn(
+            new Response(emptyAccessTokenJson, 200, "OK", new URL("https://test.databricks.com/")));
 
     // Mock HttpClient for IOException
     HttpClient mockIOExceptionClient = mock(HttpClient.class);
@@ -136,6 +162,36 @@ class TokenEndpointClientTest {
             TOKEN_ENDPOINT_URL,
             null,
             NullPointerException.class,
+            null,
+            null,
+            0,
+            null),
+        Arguments.of(
+            "Missing access_token in response",
+            mockNoAccessTokenClient,
+            TOKEN_ENDPOINT_URL,
+            PARAMS,
+            DatabricksException.class,
+            null,
+            null,
+            0,
+            null),
+        Arguments.of(
+            "Missing token_type in response",
+            mockNoTokenTypeClient,
+            TOKEN_ENDPOINT_URL,
+            PARAMS,
+            DatabricksException.class,
+            null,
+            null,
+            0,
+            null),
+        Arguments.of(
+            "Empty access_token in response",
+            mockEmptyAccessTokenClient,
+            TOKEN_ENDPOINT_URL,
+            PARAMS,
+            DatabricksException.class,
             null,
             null,
             0,
