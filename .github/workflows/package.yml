@@ -21,6 +21,13 @@ jobs:
       labels: linux-ubuntu-latest
     timeout-minutes: 20
     steps:
+      - name: Validate tag format
+        run: |
+          if [[ ! "${{ inputs.tag }}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-.+)?$ ]]; then
+            echo "::error::Invalid tag format '${{ inputs.tag }}'. Expected vX.Y.Z or vX.Y.Z-suffix (e.g. v0.35.0, v0.0.0-test.1)."
+            exit 1
+          fi
+
       - name: Checkout
         uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # v2.7.0
         with:
@@ -94,12 +101,8 @@ jobs:
         env:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: |
-          VERSION=$(python3 -c "
-          import xml.etree.ElementTree as ET
-          ns = '{http://maven.apache.org/POM/4.0.0}'
-          root = ET.parse('pom.xml').getroot()
-          print(root.findtext(ns + 'version'))
-          ")
+          VERSION="${{ inputs.tag }}"
+          VERSION="${VERSION#v}"
           echo "Version: ${VERSION}"
 
           # The repo is a multi-module Maven project:
