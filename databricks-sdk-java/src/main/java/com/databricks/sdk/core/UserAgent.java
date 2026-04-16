@@ -299,11 +299,9 @@ public class UserAgent {
 
   private static Environment env() {
     if (env == null) {
-      env =
-          new Environment(
-              System.getenv(),
-              System.getenv("PATH").split(File.pathSeparator),
-              System.getProperty("os.name"));
+      String pathEnv = System.getenv("PATH");
+      String[] pathEntries = pathEnv != null ? pathEnv.split(File.pathSeparator) : new String[0];
+      env = new Environment(System.getenv(), pathEntries, System.getProperty("os.name"));
     }
     return env;
   }
