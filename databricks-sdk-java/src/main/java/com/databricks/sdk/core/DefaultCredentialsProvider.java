@@ -66,15 +66,19 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
           && !provider.authType().equals(config.getAuthType())) {
         LOG.info(
             "Ignoring {} auth, because {} is preferred", provider.authType(), config.getAuthType());
+        System.out.println("[credential-chain] SKIP " + provider.authType() + " (not preferred)");
         continue;
       }
       try {
         LOG.info("Trying {} auth", provider.authType());
+        System.out.println("[credential-chain] TRYING " + provider.authType() + " ...");
         HeaderFactory headerFactory = provider.configure(config);
         if (headerFactory == null) {
+          System.out.println("[credential-chain] " + provider.authType() + " -> not applicable");
           continue;
         }
         authType = provider.authType();
+        System.out.println("[credential-chain] " + provider.authType() + " -> SUCCESS ✓");
         return headerFactory;
       } catch (DatabricksException e) {
         throw new DatabricksException(
