@@ -7,9 +7,9 @@
   "mavenPlugins": [],
   "metaData": {
     "environment": {
-      "osName": "Linux",
-      "mavenVersion": "3.9.9",
-      "javaVersion": "11.0.30"
+      "osName": "Mac OS X",
+      "mavenVersion": "3.9.14",
+      "javaVersion": "25.0.2"
     },
     "config": {
       "includeMavenPlugins": false,
