@@ -45,6 +45,8 @@ class EndpointTokenSourceTest {
             + "\"error\":\"invalid_client\","
             + "\"error_description\":\"Client authentication failed\"}";
 
+    String noAccessTokenJson = "{" + "\"token_type\":\"Bearer\"," + "\"expires_in\":3600" + "}";
+
     String malformedJson = "{not valid json}";
 
     // Mock DatabricksOAuthTokenSource for control plane token
@@ -68,6 +70,12 @@ class EndpointTokenSourceTest {
     when(mockMalformedClient.execute(any()))
         .thenReturn(
             new Response(malformedJson, 200, "OK", new URL("https://test.databricks.com/")));
+
+    // Mock HttpClient for no access_token
+    HttpClient mockNoAccessTokenClient = mock(HttpClient.class);
+    when(mockNoAccessTokenClient.execute(any()))
+        .thenReturn(
+            new Response(noAccessTokenJson, 200, "OK", new URL("https://test.databricks.com/")));
 
     // Mock HttpClient for IOException
     HttpClient mockIOExceptionClient = mock(HttpClient.class);
@@ -180,6 +188,17 @@ class EndpointTokenSourceTest {
             mockSuccessClient,
             "",
             IllegalArgumentException.class,
+            null,
+            null,
+            null,
+            0),
+        Arguments.of(
+            "Missing access_token in response",
+            mockCpTokenSource,
+            TEST_AUTH_DETAILS,
+            mockNoAccessTokenClient,
+            TEST_HOST,
+            DatabricksException.class,
             null,
             null,
             null,
