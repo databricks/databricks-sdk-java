@@ -1,0 +1,168 @@
+# This workflow builds, signs, and uploads artifacts for the release workflow in
+# secure-public-registry-releases-eng to consume. It does not need to be triggered manually.
+name: Package
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "The version tag to package (e.g. v0.35.0)."
+        required: true
+        type: string
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  package:
+    runs-on:
+      group: databricks-protected-runner-group
+      labels: linux-ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Validate tag format
+        run: |
+          if [[ ! "${{ inputs.tag }}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-.+)?$ ]]; then
+            echo "::error::Invalid tag format '${{ inputs.tag }}'. Expected vX.Y.Z or vX.Y.Z-suffix (e.g. v0.35.0, v0.0.0-test.1)."
+            exit 1
+          fi
+
+      - name: Checkout
+        uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # v2.7.0
+        with:
+          ref: ${{ inputs.tag }}
+
+      - name: Cache Maven packages
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Setup JFrog CLI with OIDC
+        id: jfrog
+        uses: jfrog/setup-jfrog-cli@279b1f629f43dd5bc658d8361ac4802a7ef8d2d5 # v4.9.1
+        env:
+          JF_URL: https://databricks.jfrog.io
+        with:
+          oidc-provider-name: github-actions
+
+      - name: Set up Java
+        uses: actions/setup-java@17f84c3641ba7b8f6deff6309fc4c864478f5d62 # v3.14.1
+        with:
+          java-version: 8
+          distribution: adopt
+          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+          gpg-passphrase: GPG_PASSPHRASE
+
+      - name: Configure Maven for JFrog
+        run: |
+          mkdir -p ~/.m2
+          cat > ~/.m2/settings.xml << EOF
+          <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+            <mirrors>
+              <mirror>
+                <id>jfrog-maven</id>
+                <url>https://databricks.jfrog.io/artifactory/db-maven/</url>
+                <mirrorOf>*</mirrorOf>
+              </mirror>
+            </mirrors>
+            <servers>
+              <server>
+                <id>jfrog-maven</id>
+                <username>${{ steps.jfrog.outputs.oidc-user }}</username>
+                <password><![CDATA[${{ steps.jfrog.outputs.oidc-token }}]]></password>
+              </server>
+              <server>
+                <id>gpg.passphrase</id>
+                <passphrase>\${env.GPG_PASSPHRASE}</passphrase>
+              </server>
+            </servers>
+          </settings>
+          EOF
+
+      # The -Prelease profile activates central-publishing-maven-plugin with
+      # <extensions>true</extensions>, which Maven tries to resolve at startup.
+      # JFrog's db-maven mirror cannot proxy this plugin, so the build fails.
+      # Instead, we build without -Prelease and handle sources, javadoc, and
+      # GPG signing manually.
+      - name: Build
+        run: mvn -DskipTests=true --batch-mode install
+
+      - name: Generate sources and javadoc
+        run: |
+          mvn source:jar-no-fork -pl databricks-sdk-java --batch-mode
+          mvn javadoc:jar -pl databricks-sdk-java --batch-mode -Ddoclint=none
+
+      - name: Stage and sign release artifacts
+        env:
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+        run: |
+          VERSION="${{ inputs.tag }}"
+          VERSION="${VERSION#v}"
+          echo "Version: ${VERSION}"
+
+          # The repo is a multi-module Maven project:
+          #   databricks-sdk-parent (root pom.xml, packaging=pom) — shared build config
+          #   └── databricks-sdk-java (the actual SDK JAR)
+          # Both must be published to Maven Central. The parent is POM-only;
+          # the child includes the JAR, sources, javadoc, and its own POM.
+
+          # --- Stage child module artifacts (databricks-sdk-java) ---
+          CHILD_DIR=staging/child
+          mkdir -p "${CHILD_DIR}"
+          cp databricks-sdk-java/target/databricks-sdk-java-${VERSION}.jar "${CHILD_DIR}/"
+          cp databricks-sdk-java/target/databricks-sdk-java-${VERSION}-sources.jar "${CHILD_DIR}/"
+          cp databricks-sdk-java/target/databricks-sdk-java-${VERSION}-javadoc.jar "${CHILD_DIR}/"
+          cp databricks-sdk-java/pom.xml "${CHILD_DIR}/databricks-sdk-java-${VERSION}.pom"
+
+          # --- Stage parent POM (databricks-sdk-parent) ---
+          PARENT_DIR=staging/parent
+          mkdir -p "${PARENT_DIR}"
+          cp pom.xml "${PARENT_DIR}/databricks-sdk-parent-${VERSION}.pom"
+
+          # --- GPG sign all artifacts ---
+          for dir in "${CHILD_DIR}" "${PARENT_DIR}"; do
+            for file in "${dir}"/*.jar "${dir}"/*.pom; do
+              [[ -f "$file" ]] || continue
+              gpg --batch --armor --pinentry-mode loopback \
+                --passphrase "${GPG_PASSPHRASE}" \
+                --detach-sign "${file}"
+            done
+          done
+
+          echo "--- Child artifacts ---"
+          ls -lh "${CHILD_DIR}/"
+          echo "--- Parent artifacts ---"
+          ls -lh "${PARENT_DIR}/"
+
+      - name: Upload child artifacts
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: maven-child
+          path: staging/child/
+          if-no-files-found: error
+
+      - name: Upload parent artifacts
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: maven-parent
+          path: staging/parent/
+          if-no-files-found: error
+
+      - name: Write release notes
+        run: |
+          mkdir -p staging/release-notes
+          git for-each-ref --format='%(body)' "refs/tags/${{ inputs.tag }}" > staging/release-notes/release-notes.md
+          echo "Release notes:"
+          cat staging/release-notes/release-notes.md
+
+      - name: Upload release notes
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        with:
+          name: release-notes
+          path: staging/release-notes/
+          if-no-files-found: error
