@@ -504,7 +504,7 @@ public class DatabricksConfig {
     return this;
   }
 
-  public boolean getAzureUseMsi() {
+  public Boolean getAzureUseMsi() {
     return azureUseMsi;
   }
 

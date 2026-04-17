@@ -179,6 +179,7 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
     addOIDCCredentialsProviders(config);
 
     providers.add(new AzureGithubOidcCredentialsProvider());
+    providers.add(new AzureMsiCredentialsProvider());
     providers.add(new AzureServicePrincipalCredentialsProvider());
     providers.add(new AzureCliCredentialsProvider());
     providers.add(new ExternalBrowserCredentialsProvider());
