@@ -1142,6 +1142,7 @@ public class AccountClient {
       workspaceConfig.setWorkspaceId(String.valueOf(workspace.getWorkspaceId()));
       return new WorkspaceClient(workspaceConfig);
     }
+
     // Traditional: use the deployment URL
     DatabricksConfig config = this.config.newWithWorkspaceHost(host);
     AzureUtils.getAzureWorkspaceResourceId(workspace).map(config::setAzureWorkspaceResourceId);

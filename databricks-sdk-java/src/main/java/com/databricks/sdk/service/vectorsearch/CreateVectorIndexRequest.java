@@ -21,6 +21,10 @@ public class CreateVectorIndexRequest {
   @JsonProperty("endpoint_name")
   private String endpointName;
 
+  /** The subtype of the index. Use `HYBRID` or `FULL_TEXT`. `VECTOR` is not supported. */
+  @JsonProperty("index_subtype")
+  private IndexSubtype indexSubtype;
+
   /** */
   @JsonProperty("index_type")
   private VectorIndexType indexType;
@@ -62,6 +66,15 @@ public class CreateVectorIndexRequest {
     return endpointName;
   }
 
+  public CreateVectorIndexRequest setIndexSubtype(IndexSubtype indexSubtype) {
+    this.indexSubtype = indexSubtype;
+    return this;
+  }
+
+  public IndexSubtype getIndexSubtype() {
+    return indexSubtype;
+  }
+
   public CreateVectorIndexRequest setIndexType(VectorIndexType indexType) {
     this.indexType = indexType;
     return this;
@@ -97,6 +110,7 @@ public class CreateVectorIndexRequest {
     return Objects.equals(deltaSyncIndexSpec, that.deltaSyncIndexSpec)
         && Objects.equals(directAccessIndexSpec, that.directAccessIndexSpec)
         && Objects.equals(endpointName, that.endpointName)
+        && Objects.equals(indexSubtype, that.indexSubtype)
         && Objects.equals(indexType, that.indexType)
         && Objects.equals(name, that.name)
         && Objects.equals(primaryKey, that.primaryKey);
@@ -105,7 +119,13 @@ public class CreateVectorIndexRequest {
   @Override
   public int hashCode() {
     return Objects.hash(
-        deltaSyncIndexSpec, directAccessIndexSpec, endpointName, indexType, name, primaryKey);
+        deltaSyncIndexSpec,
+        directAccessIndexSpec,
+        endpointName,
+        indexSubtype,
+        indexType,
+        name,
+        primaryKey);
   }
 
   @Override
@@ -114,6 +134,7 @@ public class CreateVectorIndexRequest {
         .add("deltaSyncIndexSpec", deltaSyncIndexSpec)
         .add("directAccessIndexSpec", directAccessIndexSpec)
         .add("endpointName", endpointName)
+        .add("indexSubtype", indexSubtype)
         .add("indexType", indexType)
         .add("name", name)
         .add("primaryKey", primaryKey)

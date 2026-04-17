@@ -10,9 +10,22 @@ import java.util.Objects;
 /** Feedback containing rating and optional comment */
 @Generated
 public class GenieFeedback {
+  /** Optional feedback comment text */
+  @JsonProperty("comment")
+  private String comment;
+
   /** The feedback rating */
   @JsonProperty("rating")
   private GenieFeedbackRating rating;
+
+  public GenieFeedback setComment(String comment) {
+    this.comment = comment;
+    return this;
+  }
+
+  public String getComment() {
+    return comment;
+  }
 
   public GenieFeedback setRating(GenieFeedbackRating rating) {
     this.rating = rating;
@@ -28,16 +41,19 @@ public class GenieFeedback {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GenieFeedback that = (GenieFeedback) o;
-    return Objects.equals(rating, that.rating);
+    return Objects.equals(comment, that.comment) && Objects.equals(rating, that.rating);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(rating);
+    return Objects.hash(comment, rating);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(GenieFeedback.class).add("rating", rating).toString();
+    return new ToStringer(GenieFeedback.class)
+        .add("comment", comment)
+        .add("rating", rating)
+        .toString();
   }
 }

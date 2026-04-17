@@ -28,6 +28,9 @@ public interface AppsService {
   /** Deletes an app. */
   App delete(DeleteAppRequest deleteAppRequest);
 
+  /** Deletes the thumbnail for an app. */
+  void deleteAppThumbnail(DeleteAppThumbnailRequest deleteAppThumbnailRequest);
+
   /** Deletes an app space. */
   Operation deleteSpace(DeleteSpaceRequest deleteSpaceRequest);
 
@@ -79,6 +82,9 @@ public interface AppsService {
 
   /** Updates the app with the supplied name. */
   App update(UpdateAppRequest updateAppRequest);
+
+  /** Updates the thumbnail for an app. */
+  AppThumbnail updateAppThumbnail(UpdateAppThumbnailRequest updateAppThumbnailRequest);
 
   /** Updates the permissions on an app. Apps can inherit permissions from their root object. */
   AppPermissions updatePermissions(AppPermissionsRequest appPermissionsRequest);

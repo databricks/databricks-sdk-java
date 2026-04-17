@@ -110,6 +110,11 @@ public class GenieAPI {
         response);
   }
 
+  /** Create a comment on a conversation message. */
+  public GenieMessageComment createMessageComment(GenieCreateMessageCommentRequest request) {
+    return impl.createMessageComment(request);
+  }
+
   /** Creates a Genie space from a serialized payload. */
   public GenieSpace createSpace(GenieCreateSpaceRequest request) {
     return impl.createSpace(request);
@@ -354,6 +359,20 @@ public class GenieAPI {
     return impl.getSpace(request);
   }
 
+  public GenieListConversationCommentsResponse listConversationComments(
+      String spaceId, String conversationId) {
+    return listConversationComments(
+        new GenieListConversationCommentsRequest()
+            .setSpaceId(spaceId)
+            .setConversationId(conversationId));
+  }
+
+  /** List all comments across all messages in a conversation. */
+  public GenieListConversationCommentsResponse listConversationComments(
+      GenieListConversationCommentsRequest request) {
+    return impl.listConversationComments(request);
+  }
+
   public GenieListConversationMessagesResponse listConversationMessages(
       String spaceId, String conversationId) {
     return listConversationMessages(
@@ -375,6 +394,21 @@ public class GenieAPI {
   /** Get a list of conversations in a Genie Space. */
   public GenieListConversationsResponse listConversations(GenieListConversationsRequest request) {
     return impl.listConversations(request);
+  }
+
+  public GenieListMessageCommentsResponse listMessageComments(
+      String spaceId, String conversationId, String messageId) {
+    return listMessageComments(
+        new GenieListMessageCommentsRequest()
+            .setSpaceId(spaceId)
+            .setConversationId(conversationId)
+            .setMessageId(messageId));
+  }
+
+  /** List comments on a specific conversation message. */
+  public GenieListMessageCommentsResponse listMessageComments(
+      GenieListMessageCommentsRequest request) {
+    return impl.listMessageComments(request);
   }
 
   /** Get list of Genie Spaces. */

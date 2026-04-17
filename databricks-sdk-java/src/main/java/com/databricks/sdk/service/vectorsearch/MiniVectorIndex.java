@@ -17,6 +17,10 @@ public class MiniVectorIndex {
   @JsonProperty("endpoint_name")
   private String endpointName;
 
+  /** The subtype of the index. */
+  @JsonProperty("index_subtype")
+  private IndexSubtype indexSubtype;
+
   /** */
   @JsonProperty("index_type")
   private VectorIndexType indexType;
@@ -45,6 +49,15 @@ public class MiniVectorIndex {
 
   public String getEndpointName() {
     return endpointName;
+  }
+
+  public MiniVectorIndex setIndexSubtype(IndexSubtype indexSubtype) {
+    this.indexSubtype = indexSubtype;
+    return this;
+  }
+
+  public IndexSubtype getIndexSubtype() {
+    return indexSubtype;
   }
 
   public MiniVectorIndex setIndexType(VectorIndexType indexType) {
@@ -81,6 +94,7 @@ public class MiniVectorIndex {
     MiniVectorIndex that = (MiniVectorIndex) o;
     return Objects.equals(creator, that.creator)
         && Objects.equals(endpointName, that.endpointName)
+        && Objects.equals(indexSubtype, that.indexSubtype)
         && Objects.equals(indexType, that.indexType)
         && Objects.equals(name, that.name)
         && Objects.equals(primaryKey, that.primaryKey);
@@ -88,7 +102,7 @@ public class MiniVectorIndex {
 
   @Override
   public int hashCode() {
-    return Objects.hash(creator, endpointName, indexType, name, primaryKey);
+    return Objects.hash(creator, endpointName, indexSubtype, indexType, name, primaryKey);
   }
 
   @Override
@@ -96,6 +110,7 @@ public class MiniVectorIndex {
     return new ToStringer(MiniVectorIndex.class)
         .add("creator", creator)
         .add("endpointName", endpointName)
+        .add("indexSubtype", indexSubtype)
         .add("indexType", indexType)
         .add("name", name)
         .add("primaryKey", primaryKey)

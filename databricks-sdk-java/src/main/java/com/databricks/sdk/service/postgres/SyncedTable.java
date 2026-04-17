@@ -38,7 +38,7 @@ public class SyncedTable {
   @JsonProperty("status")
   private SyncedTableSyncedTableStatus status;
 
-  /** */
+  /** The Unity Catalog table ID for this synced table. */
   @JsonProperty("uid")
   private String uid;
 

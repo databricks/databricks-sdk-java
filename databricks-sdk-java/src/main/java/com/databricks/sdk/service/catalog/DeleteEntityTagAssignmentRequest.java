@@ -12,10 +12,7 @@ public class DeleteEntityTagAssignmentRequest {
   /** The fully qualified name of the entity to which the tag is assigned */
   @JsonIgnore private String entityName;
 
-  /**
-   * The type of the entity to which the tag is assigned. Allowed values are: catalogs, schemas,
-   * tables, columns, volumes.
-   */
+  /** The type of the entity to which the tag is assigned. */
   @JsonIgnore private String entityType;
 
   /** Required. The key of the tag to delete */

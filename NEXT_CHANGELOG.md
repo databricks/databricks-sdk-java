@@ -29,3 +29,34 @@
 * Add `defaultBranch` field for `com.databricks.sdk.service.postgres.ProjectSpec`.
 * Add `defaultBranch` field for `com.databricks.sdk.service.postgres.ProjectStatus`.
 * Add `ingress` and `ingressDryRun` fields for `com.databricks.sdk.service.settings.AccountNetworkPolicy`.
+* Add `deleteAppThumbnail()` and `updateAppThumbnail()` methods for `workspaceClient.apps()` service.
+* Add `createMessageComment()`, `listConversationComments()` and `listMessageComments()` methods for `workspaceClient.genie()` service.
+* Add `applyEnvironment()` method for `workspaceClient.pipelines()` service.
+* Add `name` and `permission` fields for `com.databricks.sdk.service.apps.AppResourceApp`.
+* Add `managedEncryptionSettings` field for `com.databricks.sdk.service.catalog.CatalogInfo`.
+* Add `managedEncryptionSettings` field for `com.databricks.sdk.service.catalog.CreateCatalog`.
+* Add `managedEncryptionSettings` field for `com.databricks.sdk.service.catalog.UpdateCatalog`.
+* Add `comment` field for `com.databricks.sdk.service.dashboards.GenieFeedback`.
+* Add `thoughts` field for `com.databricks.sdk.service.dashboards.GenieQueryAttachment`.
+* Add `comment` field for `com.databricks.sdk.service.dashboards.GenieSendMessageFeedbackRequest`.
+* Add `requestSource` field for `com.databricks.sdk.service.ml.DataSource`.
+* Add `isOnline` field for `com.databricks.sdk.service.ml.MaterializedFeature`.
+* Add `connectorOptions` field for `com.databricks.sdk.service.pipelines.SchemaSpec`.
+* Add `connectorOptions` field for `com.databricks.sdk.service.pipelines.TableSpec`.
+* Add `scopes` field for `com.databricks.sdk.service.settings.CreateOboTokenRequest`.
+* Add `gcpEndpoint` field for `com.databricks.sdk.service.settings.CreatePrivateEndpointRule`.
+* Add `scopes` field for `com.databricks.sdk.service.settings.CreateTokenRequest`.
+* Add `gcpEndpoint` field for `com.databricks.sdk.service.settings.NccPrivateEndpointRule`.
+* Add `gcpEndpoint` field for `com.databricks.sdk.service.settings.UpdatePrivateEndpointRule`.
+* Add `sqlState` field for `com.databricks.sdk.service.sql.StatementStatus`.
+* Add `usagePolicyId` field for `com.databricks.sdk.service.vectorsearch.CreateEndpoint`.
+* Add `indexSubtype` field for `com.databricks.sdk.service.vectorsearch.CreateVectorIndexRequest`.
+* Add `budgetPolicyId` field for `com.databricks.sdk.service.vectorsearch.EndpointInfo`.
+* Add `indexSubtype` field for `com.databricks.sdk.service.vectorsearch.MiniVectorIndex`.
+* Add `budgetPolicyId` field for `com.databricks.sdk.service.vectorsearch.PatchEndpointBudgetPolicyResponse`.
+* Add `indexSubtype` field for `com.databricks.sdk.service.vectorsearch.VectorIndex`.
+* Add `TABLE_DELTA_UNIFORM_ICEBERG_EXTERNAL_DELTASHARING` enum value for `com.databricks.sdk.service.catalog.SecurableKind`.
+* Add `GOOGLE_DRIVE` enum value for `com.databricks.sdk.service.pipelines.IngestionSourceType`.
+* Add `STORAGE_OPTIMIZED` enum value for `com.databricks.sdk.service.vectorsearch.EndpointType`.
+* [Breaking] Remove `project` field for `com.databricks.sdk.service.postgres.SyncedTableSyncedTableSpec`.
+* [Breaking] Remove `apps` and `lakebase` fields for `com.databricks.sdk.service.settings.CustomerFacingIngressNetworkPolicyRequestDestination`.

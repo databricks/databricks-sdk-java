@@ -19,8 +19,8 @@ public class RoleRoleSpec {
    * identity_type: * For the managed identities, OAUTH is used. * For the regular postgres roles,
    * authentication based on postgres passwords is used.
    *
-   * <p>NOTE: this is ignored for the Databricks identity type GROUP, and NO_LOGIN is implicitly
-   * assumed instead for the GROUP identity type.
+   * <p>NOTE: for the Databricks identity type GROUP, LAKEBASE_OAUTH_V1 is the default auth method
+   * (group can login as well).
    */
   @JsonProperty("auth_method")
   private RoleAuthMethod authMethod;

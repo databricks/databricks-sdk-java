@@ -38,6 +38,27 @@ class GenieImpl implements GenieService {
   }
 
   @Override
+  public GenieMessageComment createMessageComment(GenieCreateMessageCommentRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/genie/spaces/%s/conversations/%s/messages/%s/comments",
+            request.getSpaceId(), request.getConversationId(), request.getMessageId());
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, GenieMessageComment.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public GenieSpace createSpace(GenieCreateSpaceRequest request) {
     String path = "/api/2.0/genie/spaces";
     try {
@@ -391,6 +412,27 @@ class GenieImpl implements GenieService {
   }
 
   @Override
+  public GenieListConversationCommentsResponse listConversationComments(
+      GenieListConversationCommentsRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/genie/spaces/%s/conversations/%s/list-comments",
+            request.getSpaceId(), request.getConversationId());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, GenieListConversationCommentsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public GenieListConversationMessagesResponse listConversationMessages(
       GenieListConversationMessagesRequest request) {
     String path =
@@ -423,6 +465,27 @@ class GenieImpl implements GenieService {
         req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, GenieListConversationsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public GenieListMessageCommentsResponse listMessageComments(
+      GenieListMessageCommentsRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/genie/spaces/%s/conversations/%s/messages/%s/comments",
+            request.getSpaceId(), request.getConversationId(), request.getMessageId());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, GenieListMessageCommentsResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

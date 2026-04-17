@@ -41,6 +41,10 @@ public class GenieQueryAttachment {
   @JsonProperty("statement_id")
   private String statementId;
 
+  /** Insights into how Genie came to generate the SQL. */
+  @JsonProperty("thoughts")
+  private Collection<Thought> thoughts;
+
   /** Name of the query */
   @JsonProperty("title")
   private String title;
@@ -108,6 +112,15 @@ public class GenieQueryAttachment {
     return statementId;
   }
 
+  public GenieQueryAttachment setThoughts(Collection<Thought> thoughts) {
+    this.thoughts = thoughts;
+    return this;
+  }
+
+  public Collection<Thought> getThoughts() {
+    return thoughts;
+  }
+
   public GenieQueryAttachment setTitle(String title) {
     this.title = title;
     return this;
@@ -129,6 +142,7 @@ public class GenieQueryAttachment {
         && Objects.equals(query, that.query)
         && Objects.equals(queryResultMetadata, that.queryResultMetadata)
         && Objects.equals(statementId, that.statementId)
+        && Objects.equals(thoughts, that.thoughts)
         && Objects.equals(title, that.title);
   }
 
@@ -142,6 +156,7 @@ public class GenieQueryAttachment {
         query,
         queryResultMetadata,
         statementId,
+        thoughts,
         title);
   }
 
@@ -155,6 +170,7 @@ public class GenieQueryAttachment {
         .add("query", query)
         .add("queryResultMetadata", queryResultMetadata)
         .add("statementId", statementId)
+        .add("thoughts", thoughts)
         .add("title", title)
         .toString();
   }

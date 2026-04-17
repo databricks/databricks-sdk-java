@@ -261,6 +261,15 @@ public class AppsAPI {
     return impl.delete(request);
   }
 
+  public void deleteAppThumbnail(String name) {
+    deleteAppThumbnail(new DeleteAppThumbnailRequest().setName(name));
+  }
+
+  /** Deletes the thumbnail for an app. */
+  public void deleteAppThumbnail(DeleteAppThumbnailRequest request) {
+    impl.deleteAppThumbnail(request);
+  }
+
   public DeleteSpaceOperation deleteSpace(String name) {
     return deleteSpace(new DeleteSpaceRequest().setName(name));
   }
@@ -419,6 +428,11 @@ public class AppsAPI {
   /** Updates the app with the supplied name. */
   public App update(UpdateAppRequest request) {
     return impl.update(request);
+  }
+
+  /** Updates the thumbnail for an app. */
+  public AppThumbnail updateAppThumbnail(UpdateAppThumbnailRequest request) {
+    return impl.updateAppThumbnail(request);
   }
 
   /** Updates the permissions on an app. Apps can inherit permissions from their root object. */

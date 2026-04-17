@@ -26,6 +26,10 @@ public class UpdateCatalog {
   @JsonProperty("isolation_mode")
   private CatalogIsolationMode isolationMode;
 
+  /** Control CMK encryption for managed catalog data */
+  @JsonProperty("managed_encryption_settings")
+  private EncryptionSettings managedEncryptionSettings;
+
   /** The name of the catalog. */
   @JsonIgnore private String name;
 
@@ -71,6 +75,15 @@ public class UpdateCatalog {
 
   public CatalogIsolationMode getIsolationMode() {
     return isolationMode;
+  }
+
+  public UpdateCatalog setManagedEncryptionSettings(EncryptionSettings managedEncryptionSettings) {
+    this.managedEncryptionSettings = managedEncryptionSettings;
+    return this;
+  }
+
+  public EncryptionSettings getManagedEncryptionSettings() {
+    return managedEncryptionSettings;
   }
 
   public UpdateCatalog setName(String name) {
@@ -126,6 +139,7 @@ public class UpdateCatalog {
     return Objects.equals(comment, that.comment)
         && Objects.equals(enablePredictiveOptimization, that.enablePredictiveOptimization)
         && Objects.equals(isolationMode, that.isolationMode)
+        && Objects.equals(managedEncryptionSettings, that.managedEncryptionSettings)
         && Objects.equals(name, that.name)
         && Objects.equals(newName, that.newName)
         && Objects.equals(options, that.options)
@@ -139,6 +153,7 @@ public class UpdateCatalog {
         comment,
         enablePredictiveOptimization,
         isolationMode,
+        managedEncryptionSettings,
         name,
         newName,
         options,
@@ -152,6 +167,7 @@ public class UpdateCatalog {
         .add("comment", comment)
         .add("enablePredictiveOptimization", enablePredictiveOptimization)
         .add("isolationMode", isolationMode)
+        .add("managedEncryptionSettings", managedEncryptionSettings)
         .add("name", name)
         .add("newName", newName)
         .add("options", options)

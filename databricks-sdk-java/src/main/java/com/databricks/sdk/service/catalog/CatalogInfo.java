@@ -56,6 +56,10 @@ public class CatalogInfo {
   @JsonProperty("isolation_mode")
   private CatalogIsolationMode isolationMode;
 
+  /** Control CMK encryption for managed catalog data */
+  @JsonProperty("managed_encryption_settings")
+  private EncryptionSettings managedEncryptionSettings;
+
   /** Unique identifier of parent metastore. */
   @JsonProperty("metastore_id")
   private String metastoreId;
@@ -205,6 +209,15 @@ public class CatalogInfo {
     return isolationMode;
   }
 
+  public CatalogInfo setManagedEncryptionSettings(EncryptionSettings managedEncryptionSettings) {
+    this.managedEncryptionSettings = managedEncryptionSettings;
+    return this;
+  }
+
+  public EncryptionSettings getManagedEncryptionSettings() {
+    return managedEncryptionSettings;
+  }
+
   public CatalogInfo setMetastoreId(String metastoreId) {
     this.metastoreId = metastoreId;
     return this;
@@ -338,6 +351,7 @@ public class CatalogInfo {
         && Objects.equals(enablePredictiveOptimization, that.enablePredictiveOptimization)
         && Objects.equals(fullName, that.fullName)
         && Objects.equals(isolationMode, that.isolationMode)
+        && Objects.equals(managedEncryptionSettings, that.managedEncryptionSettings)
         && Objects.equals(metastoreId, that.metastoreId)
         && Objects.equals(name, that.name)
         && Objects.equals(options, that.options)
@@ -366,6 +380,7 @@ public class CatalogInfo {
         enablePredictiveOptimization,
         fullName,
         isolationMode,
+        managedEncryptionSettings,
         metastoreId,
         name,
         options,
@@ -394,6 +409,7 @@ public class CatalogInfo {
         .add("enablePredictiveOptimization", enablePredictiveOptimization)
         .add("fullName", fullName)
         .add("isolationMode", isolationMode)
+        .add("managedEncryptionSettings", managedEncryptionSettings)
         .add("metastoreId", metastoreId)
         .add("name", name)
         .add("options", options)

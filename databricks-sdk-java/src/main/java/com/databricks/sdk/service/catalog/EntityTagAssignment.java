@@ -15,10 +15,7 @@ public class EntityTagAssignment {
   @JsonProperty("entity_name")
   private String entityName;
 
-  /**
-   * The type of the entity to which the tag is assigned. Allowed values are: catalogs, schemas,
-   * tables, columns, volumes.
-   */
+  /** The type of the entity to which the tag is assigned. */
   @JsonProperty("entity_type")
   private String entityType;
 

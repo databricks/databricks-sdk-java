@@ -10,9 +10,10 @@ import java.util.Objects;
 @Generated
 public class ColumnIdentifier {
   /**
-   * String representation of the column name or variant expression path. For nested fields, the
-   * leaf value is what will be present in materialized tables and expected to match at query time.
-   * For example, the leaf node of value:trip_details.location_details.pickup_zip is pickup_zip.
+   * String representation of the column name using dot-prefixed path notation. For nested fields,
+   * the leaf value is what will be present in materialized tables and expected to match at query
+   * time. For example, the leaf node of value.trip_details.location_details.pickup_zip is
+   * pickup_zip.
    */
   @JsonProperty("variant_expr_path")
   private String variantExprPath;
