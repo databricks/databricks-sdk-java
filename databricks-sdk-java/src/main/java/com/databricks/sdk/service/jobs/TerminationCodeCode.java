@@ -40,7 +40,9 @@ import com.databricks.sdk.support.Generated;
  * `MAX_JOB_QUEUE_SIZE_EXCEEDED`: The run was skipped due to reaching the job level queue size
  * limit. * `DISABLED`: The run was never executed because it was disabled explicitly by the user. *
  * `BREAKING_CHANGE`: Run failed because of an intentional breaking change in Spark, but it will be
- * retried with a mitigation config.
+ * retried with a mitigation config. * `CLUSTER_TERMINATED_BY_USER`: The run failed because the
+ * externally managed cluster entered an unusable state, likely due to the user terminating or
+ * restarting it outside the jobs service.
  *
  * <p>[Link]:
  * https://kb.databricks.com/en_US/notebooks/too-many-execution-contexts-are-open-right-now

@@ -5,6 +5,7 @@ package com.databricks.sdk.service.settings;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 /** Configuration details for creating on-behalf tokens. */
@@ -21,6 +22,10 @@ public class CreateOboTokenRequest {
   /** The number of seconds before the token expires. */
   @JsonProperty("lifetime_seconds")
   private Long lifetimeSeconds;
+
+  /** */
+  @JsonProperty("scopes")
+  private Collection<String> scopes;
 
   public CreateOboTokenRequest setApplicationId(String applicationId) {
     this.applicationId = applicationId;
@@ -49,6 +54,15 @@ public class CreateOboTokenRequest {
     return lifetimeSeconds;
   }
 
+  public CreateOboTokenRequest setScopes(Collection<String> scopes) {
+    this.scopes = scopes;
+    return this;
+  }
+
+  public Collection<String> getScopes() {
+    return scopes;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -56,12 +70,13 @@ public class CreateOboTokenRequest {
     CreateOboTokenRequest that = (CreateOboTokenRequest) o;
     return Objects.equals(applicationId, that.applicationId)
         && Objects.equals(comment, that.comment)
-        && Objects.equals(lifetimeSeconds, that.lifetimeSeconds);
+        && Objects.equals(lifetimeSeconds, that.lifetimeSeconds)
+        && Objects.equals(scopes, that.scopes);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(applicationId, comment, lifetimeSeconds);
+    return Objects.hash(applicationId, comment, lifetimeSeconds, scopes);
   }
 
   @Override
@@ -70,6 +85,7 @@ public class CreateOboTokenRequest {
         .add("applicationId", applicationId)
         .add("comment", comment)
         .add("lifetimeSeconds", lifetimeSeconds)
+        .add("scopes", scopes)
         .toString();
   }
 }

@@ -5,6 +5,7 @@ package com.databricks.sdk.service.settings;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 @Generated
@@ -20,6 +21,10 @@ public class CreateTokenRequest {
    */
   @JsonProperty("lifetime_seconds")
   private Long lifetimeSeconds;
+
+  /** Optional scopes of the token. */
+  @JsonProperty("scopes")
+  private Collection<String> scopes;
 
   public CreateTokenRequest setComment(String comment) {
     this.comment = comment;
@@ -39,18 +44,28 @@ public class CreateTokenRequest {
     return lifetimeSeconds;
   }
 
+  public CreateTokenRequest setScopes(Collection<String> scopes) {
+    this.scopes = scopes;
+    return this;
+  }
+
+  public Collection<String> getScopes() {
+    return scopes;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CreateTokenRequest that = (CreateTokenRequest) o;
     return Objects.equals(comment, that.comment)
-        && Objects.equals(lifetimeSeconds, that.lifetimeSeconds);
+        && Objects.equals(lifetimeSeconds, that.lifetimeSeconds)
+        && Objects.equals(scopes, that.scopes);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comment, lifetimeSeconds);
+    return Objects.hash(comment, lifetimeSeconds, scopes);
   }
 
   @Override
@@ -58,6 +73,7 @@ public class CreateTokenRequest {
     return new ToStringer(CreateTokenRequest.class)
         .add("comment", comment)
         .add("lifetimeSeconds", lifetimeSeconds)
+        .add("scopes", scopes)
         .toString();
   }
 }

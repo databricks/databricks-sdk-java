@@ -19,7 +19,49 @@ public class GenieEvalResultDetails {
   @JsonProperty("assessment")
   private GenieEvalAssessment assessment;
 
-  /** Reasons for the assessment score. */
+  /**
+   * Reasons for the assessment score.
+   *
+   * <p>Assessment reasons describe why a Genie response was scored as BAD.
+   *
+   * <p>Deterministic values (compared against the ground truth result): - EMPTY_RESULT: Genie's
+   * generated SQL results were empty for this benchmark question. - RESULT_MISSING_ROWS: Genie's
+   * generated SQL response is missing rows from the provided ground truth SQL. - RESULT_EXTRA_ROWS:
+   * Genie's generated SQL response has more rows than the provided ground truth SQL. -
+   * RESULT_MISSING_COLUMNS: Genie's generated SQL response is missing columns from the provided
+   * ground truth SQL. - RESULT_EXTRA_COLUMNS: Genie's generated SQL response has more columns than
+   * the provided ground truth SQL. - SINGLE_CELL_DIFFERENCE: Single value result was produced but
+   * differs from ground truth result. - EMPTY_GOOD_SQL: The benchmark SQL returned an empty result.
+   * - COLUMN_TYPE_DIFFERENCE: The values between the results match but the column type is
+   * different.
+   *
+   * <p>LLM judge ratings explain the factors driving BAD results: -
+   * LLM_JUDGE_MISSING_OR_INCORRECT_FILTER: Genie's generated SQL is missing a WHERE clause
+   * condition or has incorrect filter logic that excludes/includes wrong data. -
+   * LLM_JUDGE_INCOMPLETE_OR_PARTIAL_OUTPUT: Genie's generated SQL returns only some of the
+   * requested data or columns, missing parts of what the ground truth SQL returns. -
+   * LLM_JUDGE_MISINTERPRETATION_OF_USER_REQUEST: Genie's generated SQL fundamentally misunderstands
+   * what the user is asking for, addressing the wrong question or goal. -
+   * LLM_JUDGE_INSTRUCTION_COMPLIANCE_OR_MISSING_BUSINESS_LOGIC: Genie's generated SQL fails to
+   * apply specified instructions or business logic that should be followed. -
+   * LLM_JUDGE_INCORRECT_METRIC_CALCULATION: Genie's generated SQL uses incorrect logic or makes
+   * wrong assumptions when calculating metrics. - LLM_JUDGE_INCORRECT_TABLE_OR_FIELD_USAGE: Genie's
+   * generated SQL references wrong tables, columns, or uses fields that don't match the ground
+   * truth SQL's intent. - LLM_JUDGE_INCORRECT_FUNCTION_USAGE: Genie's generated SQL uses SQL
+   * functions incorrectly or inappropriately (wrong parameters, wrong function for the task, etc.).
+   * - LLM_JUDGE_MISSING_OR_INCORRECT_JOIN: Genie's generated SQL is missing necessary joins between
+   * tables or has incorrect join conditions/types that produce wrong results. -
+   * LLM_JUDGE_MISSING_OR_INCORRECT_AGGREGATION: Genie's generated SQL is missing GROUP BY clauses
+   * or has incorrect grouping that doesn't match the requested aggregation level. -
+   * LLM_JUDGE_FORMATTING_ERROR: Genie's generated SQL output has incorrect formatting, ordering
+   * (ORDER BY), or presentation issues that don't match expectations. - LLM_JUDGE_OTHER: LLM judge
+   * identified an error that doesn't fall into other categories.
+   *
+   * <p>Deprecated LLM judge values (kept for backward compatibility, do not use): -
+   * LLM_JUDGE_MISSING_JOIN (deprecated) - LLM_JUDGE_WRONG_FILTER (deprecated) -
+   * LLM_JUDGE_WRONG_AGGREGATION (deprecated) - LLM_JUDGE_WRONG_COLUMNS (deprecated) -
+   * LLM_JUDGE_SYNTAX_ERROR (deprecated) - LLM_JUDGE_SEMANTIC_ERROR (deprecated)
+   */
   @JsonProperty("assessment_reasons")
   private Collection<ScoreReason> assessmentReasons;
 
