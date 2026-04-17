@@ -248,6 +248,16 @@ public class UserAgentTest {
   }
 
   @Test
+  public void testEnvWithNullPath() {
+    UserAgent.env =
+        new Environment(new HashMap<>(), new ArrayList<>(), System.getProperty("os.name"));
+    UserAgent.cicdProvider = null;
+    UserAgent.agentProvider = null;
+    String userAgent = UserAgent.asString();
+    Assertions.assertTrue(userAgent.contains("databricks-sdk-java/"));
+  }
+
+  @Test
   public void testAgentProviderCached() {
     // Set up with cursor agent
     setupAgentEnv(
