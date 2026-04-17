@@ -63,16 +63,12 @@ public class AzureMsiCredentialsProvider implements CredentialsProvider {
   }
 
   /**
-   * Null-safe check for the azureUseMsi config flag. The underlying field is a boxed Boolean, but
-   * the getter auto-unboxes to primitive boolean, which would NPE when the field is null. This
-   * helper treats null as false.
+   * Null-safe check for the azureUseMsi config flag. The underlying field is a boxed Boolean, so we
+   * avoid auto-unboxing which would NPE when the field is null.
    */
   private static boolean isAzureUseMsi(DatabricksConfig config) {
-    try {
-      return config.getAzureUseMsi();
-    } catch (NullPointerException e) {
-      return false;
-    }
+    Boolean flag = config.getAzureUseMsi();
+    return flag != null && flag;
   }
 
   /**
