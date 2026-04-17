@@ -72,7 +72,7 @@ public class DatabricksOAuthTokenSource implements TokenSource {
     /**
      * Creates a new Builder with required parameters.
      *
-     * @param clientId OAuth client ID.
+     * @param clientId OAuth client ID, or null for web OAuth2 flows that don't require one.
      * @param host Databricks host URL.
      * @param endpoints OpenID Connect endpoints configuration.
      * @param idTokenSource Source of ID tokens.
@@ -145,15 +145,11 @@ public class DatabricksOAuthTokenSource implements TokenSource {
    */
   @Override
   public Token getToken() {
-    Objects.requireNonNull(clientId, "ClientID cannot be null");
     Objects.requireNonNull(host, "Host cannot be null");
     Objects.requireNonNull(endpoints, "Endpoints cannot be null");
     Objects.requireNonNull(idTokenSource, "IDTokenSource cannot be null");
     Objects.requireNonNull(httpClient, "HttpClient cannot be null");
 
-    if (clientId.isEmpty()) {
-      throw new IllegalArgumentException("ClientID cannot be empty");
-    }
     if (host.isEmpty()) {
       throw new IllegalArgumentException("Host cannot be empty");
     }
@@ -166,7 +162,9 @@ public class DatabricksOAuthTokenSource implements TokenSource {
     params.put(SUBJECT_TOKEN_PARAM, idToken.getValue());
     params.put(SUBJECT_TOKEN_TYPE_PARAM, SUBJECT_TOKEN_TYPE);
     params.put(SCOPE_PARAM, String.join(" ", scopes));
-    params.put(CLIENT_ID_PARAM, clientId);
+    if (!Strings.isNullOrEmpty(clientId)) {
+      params.put(CLIENT_ID_PARAM, clientId);
+    }
 
     OAuthResponse response;
     try {

@@ -108,7 +108,7 @@ class DatabricksOAuthTokenSourceTest {
       final String errorJson = mapper.writeValueAsString(errorResponse);
       final String successJson = mapper.writeValueAsString(successResponse);
 
-      // Create the expected request that will be used in all test cases
+      // Create the expected request with client_id for standard test cases
       Map<String, String> formParams = new HashMap<>();
       formParams.put("client_id", TEST_CLIENT_ID);
       formParams.put("subject_token", TEST_ID_TOKEN);
@@ -116,6 +116,14 @@ class DatabricksOAuthTokenSourceTest {
       formParams.put("grant_type", "urn:ietf:params:oauth:grant-type:token-exchange");
       formParams.put("scope", "all-apis");
       FormRequest expectedRequest = new FormRequest(TEST_TOKEN_ENDPOINT, formParams);
+
+      // Create the expected request without client_id for null/empty client ID cases
+      Map<String, String> noClientIdFormParams = new HashMap<>();
+      noClientIdFormParams.put("subject_token", TEST_ID_TOKEN);
+      noClientIdFormParams.put("subject_token_type", "urn:ietf:params:oauth:token-type:jwt");
+      noClientIdFormParams.put("grant_type", "urn:ietf:params:oauth:grant-type:token-exchange");
+      noClientIdFormParams.put("scope", "all-apis");
+      FormRequest noClientIdRequest = new FormRequest(TEST_TOKEN_ENDPOINT, noClientIdFormParams);
 
       return Stream.of(
           // Token exchange test cases
@@ -198,27 +206,27 @@ class DatabricksOAuthTokenSourceTest {
               DatabricksException.class),
           // Parameter validation test cases
           new TestCase(
-              "Null client ID",
+              "Null client ID omits client_id from request",
               null,
               TEST_HOST,
               testEndpoints,
               testIdTokenSource,
-              createMockHttpClient(expectedRequest, 200, successJson),
+              createMockHttpClient(noClientIdRequest, 200, successJson),
               null,
               null,
-              null,
-              NullPointerException.class),
+              TEST_TOKEN_ENDPOINT,
+              null),
           new TestCase(
-              "Empty client ID",
+              "Empty client ID omits client_id from request",
               "",
               TEST_HOST,
               testEndpoints,
               testIdTokenSource,
-              createMockHttpClient(expectedRequest, 200, successJson),
+              createMockHttpClient(noClientIdRequest, 200, successJson),
               null,
               null,
-              null,
-              IllegalArgumentException.class),
+              TEST_TOKEN_ENDPOINT,
+              null),
           new TestCase(
               "Null host",
               TEST_CLIENT_ID,
