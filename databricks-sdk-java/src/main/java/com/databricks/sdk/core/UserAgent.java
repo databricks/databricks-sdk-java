@@ -287,19 +287,19 @@ public class UserAgent {
   // treated purely as a fallback for agents that have no explicit matcher, or
   // for agents we do not yet specifically recognize.
   //
-  // For each agent, it fires if ANY of its matchers fires. The function counts
-  // how many distinct agents matched:
+  // The function counts how many distinct agents matched via explicit env vars:
   //   - Exactly one agent matched: return its product name.
-  //   - More than one agent matched: return "" (ambiguity).
+  //   - More than one agent matched: return "multiple". Agent env vars can be
+  //     stacked when one agent invokes another as a subagent (e.g. Claude Code
+  //     spawning a Cursor CLI subprocess), so the child process inherits env
+  //     vars from multiple layers.
   //   - Zero agents matched: if the agents.md standard AGENT env var is set to
   //     a known product name, return that product name. If it is set to any
   //     other non-empty value, return "unknown". Otherwise return "".
   //
-  // Unlike CI/CD detection (which returns the first match), agent detection
-  // uses an ambiguity guard because agent env vars can be stacked (e.g.,
-  // running Cline inside Cursor). Because explicit matchers win over AGENT,
-  // e.g. AGENT=cursor + CLAUDECODE=1 yields "claude-code", and
-  // AGENT=goose + CLAUDECODE=1 also yields "claude-code".
+  // Because explicit matchers win over AGENT, e.g. AGENT=cursor + CLAUDECODE=1
+  // yields "claude-code", and AGENT=goose + CLAUDECODE=1 also yields
+  // "claude-code".
   private static String lookupAgentProvider(Environment env) {
     List<KnownAgent> agents = listKnownAgents();
 
@@ -310,11 +310,18 @@ public class UserAgent {
       }
     }
 
+    // Known BYOK false positive: Copilot CLI users often set COPILOT_MODEL
+    // alongside COPILOT_CLI. Treat that pair as a single copilot-cli signal
+    // rather than a stacked multi-agent setup.
+    if (matches.contains("copilot-cli") && matches.contains("copilot-vscode")) {
+      matches.removeIf(m -> m.equals("copilot-vscode"));
+    }
+
     if (matches.size() == 1) {
       return matches.get(0);
     }
     if (matches.size() > 1) {
-      return ""; // ambiguity
+      return "multiple";
     }
     return agentEnvFallback(env, agents);
   }

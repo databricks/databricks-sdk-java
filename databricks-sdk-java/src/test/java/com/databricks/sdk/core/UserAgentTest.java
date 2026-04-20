@@ -415,12 +415,10 @@ public class UserAgentTest {
   }
 
   @Test
-  public void testAgentProviderCopilotCliAndCopilotVscodeAmbiguous() {
-    // Copilot CLI can be invoked with BYOK models, which may also set
-    // COPILOT_MODEL. In that case both copilot-cli and copilot-vscode
-    // matchers fire on different products, so detection is ambiguous.
-    // This is intentional: ambiguity is preferred over silently picking
-    // one product.
+  public void testAgentProviderCopilotCliAndCopilotVscodeCollapseToCopilotCli() {
+    // Copilot CLI users (BYOK mode) often set COPILOT_MODEL alongside
+    // COPILOT_CLI. Treat the pair as a single copilot-cli signal rather
+    // than a stacked multi-agent setup.
     setupAgentEnv(
         new HashMap<String, String>() {
           {
@@ -428,7 +426,22 @@ public class UserAgentTest {
             put("COPILOT_MODEL", "gpt-4");
           }
         });
-    Assertions.assertFalse(UserAgent.asString().contains("agent/"));
+    Assertions.assertTrue(UserAgent.asString().contains("agent/copilot-cli"));
+  }
+
+  @Test
+  public void testAgentProviderCopilotByokCollapseStillMultiple() {
+    // The Copilot BYOK collapse only drops the copilot-vscode match. If
+    // another agent is also present, the result is still "multiple".
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("COPILOT_CLI", "1");
+            put("COPILOT_MODEL", "gpt-4");
+            put("CLAUDECODE", "1");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/multiple"));
   }
 
   @Test
@@ -439,6 +452,8 @@ public class UserAgentTest {
 
   @Test
   public void testAgentProviderMultipleAgents() {
+    // Nested agents (e.g. Claude Code spawning a Cursor CLI subagent) set
+    // multiple explicit matchers on the same process.
     setupAgentEnv(
         new HashMap<String, String>() {
           {
@@ -446,7 +461,20 @@ public class UserAgentTest {
             put("CURSOR_AGENT", "1");
           }
         });
-    Assertions.assertFalse(UserAgent.asString().contains("agent/"));
+    Assertions.assertTrue(UserAgent.asString().contains("agent/multiple"));
+  }
+
+  @Test
+  public void testAgentProviderThreeStackedAgents() {
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("CLAUDECODE", "1");
+            put("CURSOR_AGENT", "1");
+            put("AUGMENT_AGENT", "1");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/multiple"));
   }
 
   @Test
