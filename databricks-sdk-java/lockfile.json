@@ -1,7 +1,7 @@
 {
   "artifactId": "databricks-sdk-java",
   "groupId": "com.databricks",
-  "version": "0.103.0",
+  "version": "0.104.0",
   "lockFileVersion": 1,
   "dependencies": [
     {

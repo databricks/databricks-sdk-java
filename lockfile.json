@@ -1,7 +1,7 @@
 {
   "artifactId": "databricks-sdk-parent",
   "groupId": "com.databricks",
-  "version": "0.103.0",
+  "version": "0.104.0",
   "lockFileVersion": 1,
   "dependencies": [],
   "mavenPlugins": [],
@@ -9,7 +9,7 @@
     "environment": {
       "osName": "Mac OS X",
       "mavenVersion": "3.9.14",
-      "javaVersion": "25.0.2"
+      "javaVersion": "11.0.12"
     },
     "config": {
       "includeMavenPlugins": false,
