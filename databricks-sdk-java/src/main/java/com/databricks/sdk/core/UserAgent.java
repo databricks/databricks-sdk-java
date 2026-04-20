@@ -298,12 +298,16 @@ public class UserAgent {
         new KnownAgent(
             "amp",
             Arrays.asList(
-                new EnvMatcher("AMP_CURRENT_THREAD_ID"), new EnvMatcher(AGENT_ENV_VAR, "amp"))),
+                new EnvMatcher("AMP_CURRENT_THREAD_ID"),
+                new EnvMatcher(AGENT_ENV_VAR, "amp"))), // https://ampcode.com/
         new KnownAgent(
             "antigravity",
             Collections.singletonList(
                 new EnvMatcher("ANTIGRAVITY_AGENT"))), // Closed source (Google)
-        new KnownAgent("augment", Collections.singletonList(new EnvMatcher("AUGMENT_AGENT"))),
+        new KnownAgent(
+            "augment",
+            Collections.singletonList(
+                new EnvMatcher("AUGMENT_AGENT"))), // https://www.augmentcode.com/
         new KnownAgent(
             "claude-code",
             Collections.singletonList(
@@ -320,9 +324,9 @@ public class UserAgent {
             "copilot-cli",
             Collections.singletonList(
                 new EnvMatcher("COPILOT_CLI"))), // https://github.com/features/copilot
+        // VS Code Copilot terminal; best-effort heuristic, not officially identified.
         new KnownAgent(
-            "copilot-vscode",
-            Collections.singletonList(new EnvMatcher("COPILOT_MODEL"))), // VS Code Copilot
+            "copilot-vscode", Collections.singletonList(new EnvMatcher("COPILOT_MODEL"))),
         new KnownAgent(
             "cursor", Collections.singletonList(new EnvMatcher("CURSOR_AGENT"))), // Closed source
         new KnownAgent(
@@ -332,17 +336,23 @@ public class UserAgent {
         new KnownAgent(
             "goose",
             Arrays.asList(
-                new EnvMatcher("GOOSE_TERMINAL"), new EnvMatcher(AGENT_ENV_VAR, "goose"))),
-        new KnownAgent("kiro", Collections.singletonList(new EnvMatcher("KIRO"))),
+                new EnvMatcher("GOOSE_TERMINAL"),
+                new EnvMatcher(AGENT_ENV_VAR, "goose"))), // https://block.github.io/goose/
+        new KnownAgent(
+            "kiro",
+            Collections.singletonList(new EnvMatcher("KIRO"))), // https://kiro.dev/ (Amazon)
+        new KnownAgent(
+            "openclaw",
+            Collections.singletonList(
+                new EnvMatcher("OPENCLAW_SHELL"))), // https://github.com/anthropics/openclaw
         new KnownAgent(
             "opencode",
             Collections.singletonList(
                 new EnvMatcher("OPENCODE"))), // https://github.com/opencode-ai/opencode
         new KnownAgent(
-            "openclaw",
+            "windsurf",
             Collections.singletonList(
-                new EnvMatcher("OPENCLAW_SHELL"))), // https://github.com/anthropics/openclaw
-        new KnownAgent("windsurf", Collections.singletonList(new EnvMatcher("WINDSURF_AGENT"))));
+                new EnvMatcher("WINDSURF_AGENT")))); // https://codeium.com/windsurf (Codeium)
   }
 
   // Looks up the active agent provider based on environment variables.
@@ -352,15 +362,18 @@ public class UserAgent {
   //   - Exactly one agent matched: return its product name.
   //   - More than one agent matched: return "" (ambiguity).
   //   - Zero agents matched: if the agents.md standard AGENT env var is set to
-  //     any non-empty value, return "unknown". Otherwise return "".
+  //     a known product name, return that product name. If it is set to any
+  //     other non-empty value, return "unknown". Otherwise return "".
   //
   // Unlike CI/CD detection (which returns the first match), agent detection
   // uses an ambiguity guard because agent env vars can be stacked (e.g.,
-  // running Cline inside Cursor).
+  // running Cline inside Cursor). Known matchers always win over the AGENT
+  // fallback, so e.g. AGENT=cursor + CLAUDECODE=1 yields "claude-code".
   private static String lookupAgentProvider(Environment env) {
+    List<KnownAgent> knownAgents = listKnownAgents();
     String detected = "";
     int count = 0;
-    for (KnownAgent agent : listKnownAgents()) {
+    for (KnownAgent agent : knownAgents) {
       if (agent.fires(env)) {
         detected = agent.product;
         count++;
@@ -375,6 +388,11 @@ public class UserAgent {
     if (count == 0) {
       String agentValue = env.get(AGENT_ENV_VAR);
       if (agentValue != null && !agentValue.isEmpty()) {
+        for (KnownAgent agent : knownAgents) {
+          if (agent.product.equals(agentValue)) {
+            return agentValue;
+          }
+        }
         return "unknown";
       }
     }

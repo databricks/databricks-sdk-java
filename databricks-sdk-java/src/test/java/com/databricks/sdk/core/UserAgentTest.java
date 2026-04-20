@@ -296,6 +296,45 @@ public class UserAgentTest {
   }
 
   @Test
+  public void testAgentProviderAgentEnvAmp() {
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("AGENT", "amp");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/amp"));
+  }
+
+  @Test
+  public void testAgentProviderAgentEnvCursor() {
+    // AGENT=cursor with no cursor-specific env var. Falls through to the
+    // AGENT fallback and matches "cursor" as a known product name.
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("AGENT", "cursor");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/cursor"));
+  }
+
+  @Test
+  public void testAgentProviderKnownMatcherWinsOverAgentFallback() {
+    // Known matchers always win over the AGENT fallback. AGENT=somethingweird
+    // alone would yield "unknown", but CLAUDECODE=1 takes precedence.
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("AGENT", "somethingweird");
+            put("CLAUDECODE", "1");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/claude-code"));
+    Assertions.assertFalse(UserAgent.asString().contains("agent/unknown"));
+  }
+
+  @Test
   public void testAgentProviderGooseBothMatchers() {
     // GOOSE_TERMINAL and AGENT=goose both fire the goose matcher. Since they
     // both identify the same agent, this is NOT ambiguous.
