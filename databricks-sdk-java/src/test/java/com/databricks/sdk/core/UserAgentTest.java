@@ -219,6 +219,232 @@ public class UserAgentTest {
   }
 
   @Test
+  public void testAgentProviderAmp() {
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("AMP_CURRENT_THREAD_ID", "thread-123");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/amp"));
+  }
+
+  @Test
+  public void testAgentProviderAugment() {
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("AUGMENT_AGENT", "1");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/augment"));
+  }
+
+  @Test
+  public void testAgentProviderCopilotVscode() {
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("COPILOT_MODEL", "gpt-4");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/copilot-vscode"));
+  }
+
+  @Test
+  public void testAgentProviderGoose() {
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("GOOSE_TERMINAL", "1");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/goose"));
+  }
+
+  @Test
+  public void testAgentProviderKiro() {
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("KIRO", "1");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/kiro"));
+  }
+
+  @Test
+  public void testAgentProviderWindsurf() {
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("WINDSURF_AGENT", "1");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/windsurf"));
+  }
+
+  @Test
+  public void testAgentProviderAgentEnvGoose() {
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("AGENT", "goose");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/goose"));
+  }
+
+  @Test
+  public void testAgentProviderAgentEnvAmp() {
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("AGENT", "amp");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/amp"));
+  }
+
+  @Test
+  public void testAgentProviderAgentEnvCursor() {
+    // AGENT=cursor with no cursor-specific env var. Falls through to the
+    // AGENT fallback and matches "cursor" as a known product name.
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("AGENT", "cursor");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/cursor"));
+  }
+
+  @Test
+  public void testAgentProviderKnownMatcherWinsOverAgentFallback() {
+    // Known matchers always win over the AGENT fallback. AGENT=somethingweird
+    // alone would yield "unknown", but CLAUDECODE=1 takes precedence.
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("AGENT", "somethingweird");
+            put("CLAUDECODE", "1");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/claude-code"));
+    Assertions.assertFalse(UserAgent.asString().contains("agent/unknown"));
+  }
+
+  @Test
+  public void testAgentProviderGooseBothMatchers() {
+    // GOOSE_TERMINAL and AGENT=goose both fire the goose matcher. Since they
+    // both identify the same agent, this is NOT ambiguous.
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("GOOSE_TERMINAL", "1");
+            put("AGENT", "goose");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/goose"));
+  }
+
+  @Test
+  public void testAgentProviderAmpBothMatchers() {
+    // AMP_CURRENT_THREAD_ID and AGENT=amp both identify amp, not ambiguous.
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("AMP_CURRENT_THREAD_ID", "thread-123");
+            put("AGENT", "amp");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/amp"));
+  }
+
+  @Test
+  public void testAgentProviderAgentEnvUnknown() {
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("AGENT", "someweirdthing");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/unknown"));
+  }
+
+  @Test
+  public void testAgentProviderAgentEnvEmpty() {
+    // AGENT="" should not trigger the unknown fallback.
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("AGENT", "");
+          }
+        });
+    Assertions.assertFalse(UserAgent.asString().contains("agent/"));
+  }
+
+  @Test
+  public void testAgentProviderExplicitEnvWinsOverAgentEnv() {
+    // CLAUDECODE=1 is an explicit matcher and wins over AGENT=goose (which
+    // is only consulted as a fallback when no explicit matcher fires).
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("AGENT", "goose");
+            put("CLAUDECODE", "1");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/claude-code"));
+  }
+
+  @Test
+  public void testAgentProviderExplicitEnvWinsOverKnownAgentEnv() {
+    // GOOSE_TERMINAL=1 is an explicit matcher; AGENT=cursor (even though
+    // "cursor" is a known product name) is ignored because an explicit
+    // matcher already fired.
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("GOOSE_TERMINAL", "1");
+            put("AGENT", "cursor");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/goose"));
+    Assertions.assertFalse(UserAgent.asString().contains("agent/cursor"));
+  }
+
+  @Test
+  public void testAgentProviderCopilotCliAndCopilotVscodeCollapseToCopilotCli() {
+    // Copilot CLI users (BYOK mode) often set COPILOT_MODEL alongside
+    // COPILOT_CLI. Treat the pair as a single copilot-cli signal rather
+    // than a stacked multi-agent setup.
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("COPILOT_CLI", "1");
+            put("COPILOT_MODEL", "gpt-4");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/copilot-cli"));
+  }
+
+  @Test
+  public void testAgentProviderCopilotByokCollapseStillMultiple() {
+    // The Copilot BYOK collapse only drops the copilot-vscode match. If
+    // another agent is also present, the result is still "multiple".
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("COPILOT_CLI", "1");
+            put("COPILOT_MODEL", "gpt-4");
+            put("CLAUDECODE", "1");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/multiple"));
+  }
+
+  @Test
   public void testAgentProviderNoAgent() {
     setupAgentEnv(new HashMap<>());
     Assertions.assertFalse(UserAgent.asString().contains("agent/"));
@@ -226,6 +452,8 @@ public class UserAgentTest {
 
   @Test
   public void testAgentProviderMultipleAgents() {
+    // Nested agents (e.g. Claude Code spawning a Cursor CLI subagent) set
+    // multiple explicit matchers on the same process.
     setupAgentEnv(
         new HashMap<String, String>() {
           {
@@ -233,18 +461,33 @@ public class UserAgentTest {
             put("CURSOR_AGENT", "1");
           }
         });
-    Assertions.assertFalse(UserAgent.asString().contains("agent/"));
+    Assertions.assertTrue(UserAgent.asString().contains("agent/multiple"));
   }
 
   @Test
-  public void testAgentProviderEmptyValue() {
+  public void testAgentProviderThreeStackedAgents() {
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("CLAUDECODE", "1");
+            put("CURSOR_AGENT", "1");
+            put("AUGMENT_AGENT", "1");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/multiple"));
+  }
+
+  @Test
+  public void testAgentProviderEmptyValueStillSet() {
+    // Empty string still counts as "set" for presence-only matchers,
+    // matching databricks-sdk-go semantics.
     setupAgentEnv(
         new HashMap<String, String>() {
           {
             put("CLAUDECODE", "");
           }
         });
-    Assertions.assertFalse(UserAgent.asString().contains("agent/"));
+    Assertions.assertTrue(UserAgent.asString().contains("agent/claude-code"));
   }
 
   @Test

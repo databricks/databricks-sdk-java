@@ -237,52 +237,109 @@ public class UserAgent {
     return cicdProvider;
   }
 
-  // Maps an environment variable to an agent product name.
-  private static class AgentDef {
+  // Describes a single AI coding agent: the env var that identifies it and the
+  // product name reported in the user agent.
+  private static class KnownAgent {
     private final String envVar;
     private final String product;
 
-    AgentDef(String envVar, String product) {
+    KnownAgent(String envVar, String product) {
       this.envVar = envVar;
       this.product = product;
     }
   }
 
+  // The agents.md standard env var. When set to a value we don't specifically
+  // recognize, detection falls back to "unknown".
+  private static final String AGENT_ENV_VAR = "AGENT";
+
   // Canonical list of known AI coding agents.
   // Keep this list in sync with databricks-sdk-go and databricks-sdk-py.
-  private static List<AgentDef> listKnownAgents() {
+  // Agents are listed alphabetically by product name.
+  private static List<KnownAgent> listKnownAgents() {
     return Arrays.asList(
-        new AgentDef("ANTIGRAVITY_AGENT", "antigravity"), // Closed source (Google)
-        new AgentDef("CLAUDECODE", "claude-code"), // https://github.com/anthropics/claude-code
-        new AgentDef("CLINE_ACTIVE", "cline"), // https://github.com/cline/cline (v3.24.0+)
-        new AgentDef("CODEX_CI", "codex"), // https://github.com/openai/codex
-        new AgentDef("COPILOT_CLI", "copilot-cli"), // https://github.com/features/copilot
-        new AgentDef("CURSOR_AGENT", "cursor"), // Closed source
-        new AgentDef("GEMINI_CLI", "gemini-cli"), // https://google-gemini.github.io/gemini-cli
-        new AgentDef("OPENCODE", "opencode"), // https://github.com/opencode-ai/opencode
-        new AgentDef("OPENCLAW_SHELL", "openclaw")); // https://github.com/anthropics/openclaw
+        new KnownAgent(
+            "AMP_CURRENT_THREAD_ID",
+            "amp"), // https://ampcode.com/ (also sets AGENT=amp, handled centrally)
+        new KnownAgent("ANTIGRAVITY_AGENT", "antigravity"), // Closed source (Google)
+        new KnownAgent("AUGMENT_AGENT", "augment"), // https://www.augmentcode.com/
+        new KnownAgent("CLAUDECODE", "claude-code"), // https://github.com/anthropics/claude-code
+        new KnownAgent("CLINE_ACTIVE", "cline"), // https://github.com/cline/cline (v3.24.0+)
+        new KnownAgent("CODEX_CI", "codex"), // https://github.com/openai/codex
+        new KnownAgent("COPILOT_CLI", "copilot-cli"), // https://github.com/features/copilot
+        // VS Code Copilot terminal; best-effort heuristic, not officially identified.
+        new KnownAgent("COPILOT_MODEL", "copilot-vscode"),
+        new KnownAgent("CURSOR_AGENT", "cursor"), // Closed source
+        new KnownAgent("GEMINI_CLI", "gemini-cli"), // https://google-gemini.github.io/gemini-cli
+        new KnownAgent(
+            "GOOSE_TERMINAL",
+            "goose"), // https://block.github.io/goose/ (also sets AGENT=goose, handled centrally)
+        new KnownAgent("KIRO", "kiro"), // https://kiro.dev/ (Amazon)
+        new KnownAgent("OPENCLAW_SHELL", "openclaw"), // https://github.com/anthropics/openclaw
+        new KnownAgent("OPENCODE", "opencode"), // https://github.com/opencode-ai/opencode
+        new KnownAgent("WINDSURF_AGENT", "windsurf")); // https://codeium.com/windsurf (Codeium)
   }
 
   // Looks up the active agent provider based on environment variables.
-  // Returns the agent name if exactly one is set (non-empty).
-  // Returns empty string if zero or multiple agents detected.
+  //
+  // Explicit env var matchers (e.g. CLAUDECODE, GOOSE_TERMINAL) always take
+  // precedence over the generic AGENT=<name> signal. The AGENT env var is
+  // treated purely as a fallback for agents that have no explicit matcher, or
+  // for agents we do not yet specifically recognize.
+  //
+  // The function counts how many distinct agents matched via explicit env vars:
+  //   - Exactly one agent matched: return its product name.
+  //   - More than one agent matched: return "multiple". Agent env vars can be
+  //     stacked when one agent invokes another as a subagent (e.g. Claude Code
+  //     spawning a Cursor CLI subprocess), so the child process inherits env
+  //     vars from multiple layers.
+  //   - Zero agents matched: if the agents.md standard AGENT env var is set to
+  //     a known product name, return that product name. If it is set to any
+  //     other non-empty value, return "unknown". Otherwise return "".
+  //
+  // Because explicit matchers win over AGENT, e.g. AGENT=cursor + CLAUDECODE=1
+  // yields "claude-code", and AGENT=goose + CLAUDECODE=1 also yields
+  // "claude-code".
   private static String lookupAgentProvider(Environment env) {
-    String detected = "";
-    int count = 0;
-    for (AgentDef agent : listKnownAgents()) {
-      String value = env.get(agent.envVar);
-      if (value != null && !value.isEmpty()) {
-        detected = agent.product;
-        count++;
-        if (count > 1) {
-          return "";
-        }
+    List<KnownAgent> agents = listKnownAgents();
+
+    List<String> matches = new ArrayList<>();
+    for (KnownAgent a : agents) {
+      if (env.get(a.envVar) != null) {
+        matches.add(a.product);
       }
     }
-    if (count == 1) {
-      return detected;
+
+    // Known BYOK false positive: Copilot CLI users often set COPILOT_MODEL
+    // alongside COPILOT_CLI. Treat that pair as a single copilot-cli signal
+    // rather than a stacked multi-agent setup.
+    if (matches.contains("copilot-cli") && matches.contains("copilot-vscode")) {
+      matches.removeIf(m -> m.equals("copilot-vscode"));
     }
-    return "";
+
+    if (matches.size() == 1) {
+      return matches.get(0);
+    }
+    if (matches.size() > 1) {
+      return "multiple";
+    }
+    return agentEnvFallback(env, agents);
+  }
+
+  // agentEnvFallback honors the agents.md AGENT=<name> standard.
+  // Returns the value if it matches a known product name, "unknown" if AGENT
+  // is set to any other non-empty value, and "" if AGENT is unset or empty.
+  private static String agentEnvFallback(Environment env, List<KnownAgent> agents) {
+    String v = env.get(AGENT_ENV_VAR);
+    if (v == null || v.isEmpty()) {
+      return "";
+    }
+    for (KnownAgent a : agents) {
+      if (a.product.equals(v)) {
+        return v;
+      }
+    }
+    return "unknown";
   }
 
   // Thread-safe lazy initialization of agent provider detection
