@@ -237,52 +237,15 @@ public class UserAgent {
     return cicdProvider;
   }
 
-  // Matches an environment variable. If value is empty, matching is
-  // presence-only (any value, including empty string, counts as a match). If
-  // value is non-empty, the env var must be set to exactly that value.
-  private static class EnvMatcher {
-    private final String envVar;
-    private final String value;
-
-    EnvMatcher(String envVar) {
-      this(envVar, "");
-    }
-
-    EnvMatcher(String envVar, String value) {
-      this.envVar = envVar;
-      this.value = value;
-    }
-
-    boolean fires(Environment env) {
-      String v = env.get(envVar);
-      if (v == null) {
-        return false;
-      }
-      if (value.isEmpty()) {
-        return true;
-      }
-      return v.equals(value);
-    }
-  }
-
-  // Describes a single AI coding agent and the environment matchers that
-  // identify it. The agent is detected if ANY matcher in matchAny fires.
+  // Describes a single AI coding agent: the env var that identifies it and the
+  // product name reported in the user agent.
   private static class KnownAgent {
+    private final String envVar;
     private final String product;
-    private final List<EnvMatcher> matchAny;
 
-    KnownAgent(String product, List<EnvMatcher> matchAny) {
+    KnownAgent(String envVar, String product) {
+      this.envVar = envVar;
       this.product = product;
-      this.matchAny = matchAny;
-    }
-
-    boolean fires(Environment env) {
-      for (EnvMatcher m : matchAny) {
-        if (m.fires(env)) {
-          return true;
-        }
-      }
-      return false;
     }
   }
 
@@ -295,64 +258,26 @@ public class UserAgent {
   // Agents are listed alphabetically by product name.
   private static List<KnownAgent> listKnownAgents() {
     return Arrays.asList(
-        // Amp also sets AGENT=amp; handled by the central AGENT fallback.
         new KnownAgent(
-            "amp",
-            Collections.singletonList(
-                new EnvMatcher("AMP_CURRENT_THREAD_ID"))), // https://ampcode.com/
-        new KnownAgent(
-            "antigravity",
-            Collections.singletonList(
-                new EnvMatcher("ANTIGRAVITY_AGENT"))), // Closed source (Google)
-        new KnownAgent(
-            "augment",
-            Collections.singletonList(
-                new EnvMatcher("AUGMENT_AGENT"))), // https://www.augmentcode.com/
-        new KnownAgent(
-            "claude-code",
-            Collections.singletonList(
-                new EnvMatcher("CLAUDECODE"))), // https://github.com/anthropics/claude-code
-        new KnownAgent(
-            "cline",
-            Collections.singletonList(
-                new EnvMatcher("CLINE_ACTIVE"))), // https://github.com/cline/cline (v3.24.0+)
-        new KnownAgent(
-            "codex",
-            Collections.singletonList(
-                new EnvMatcher("CODEX_CI"))), // https://github.com/openai/codex
-        new KnownAgent(
-            "copilot-cli",
-            Collections.singletonList(
-                new EnvMatcher("COPILOT_CLI"))), // https://github.com/features/copilot
+            "AMP_CURRENT_THREAD_ID",
+            "amp"), // https://ampcode.com/ (also sets AGENT=amp, handled centrally)
+        new KnownAgent("ANTIGRAVITY_AGENT", "antigravity"), // Closed source (Google)
+        new KnownAgent("AUGMENT_AGENT", "augment"), // https://www.augmentcode.com/
+        new KnownAgent("CLAUDECODE", "claude-code"), // https://github.com/anthropics/claude-code
+        new KnownAgent("CLINE_ACTIVE", "cline"), // https://github.com/cline/cline (v3.24.0+)
+        new KnownAgent("CODEX_CI", "codex"), // https://github.com/openai/codex
+        new KnownAgent("COPILOT_CLI", "copilot-cli"), // https://github.com/features/copilot
         // VS Code Copilot terminal; best-effort heuristic, not officially identified.
+        new KnownAgent("COPILOT_MODEL", "copilot-vscode"),
+        new KnownAgent("CURSOR_AGENT", "cursor"), // Closed source
+        new KnownAgent("GEMINI_CLI", "gemini-cli"), // https://google-gemini.github.io/gemini-cli
         new KnownAgent(
-            "copilot-vscode", Collections.singletonList(new EnvMatcher("COPILOT_MODEL"))),
-        new KnownAgent(
-            "cursor", Collections.singletonList(new EnvMatcher("CURSOR_AGENT"))), // Closed source
-        new KnownAgent(
-            "gemini-cli",
-            Collections.singletonList(
-                new EnvMatcher("GEMINI_CLI"))), // https://google-gemini.github.io/gemini-cli
-        // Goose also sets AGENT=goose; handled by the central AGENT fallback.
-        new KnownAgent(
-            "goose",
-            Collections.singletonList(
-                new EnvMatcher("GOOSE_TERMINAL"))), // https://block.github.io/goose/
-        new KnownAgent(
-            "kiro",
-            Collections.singletonList(new EnvMatcher("KIRO"))), // https://kiro.dev/ (Amazon)
-        new KnownAgent(
-            "openclaw",
-            Collections.singletonList(
-                new EnvMatcher("OPENCLAW_SHELL"))), // https://github.com/anthropics/openclaw
-        new KnownAgent(
-            "opencode",
-            Collections.singletonList(
-                new EnvMatcher("OPENCODE"))), // https://github.com/opencode-ai/opencode
-        new KnownAgent(
-            "windsurf",
-            Collections.singletonList(
-                new EnvMatcher("WINDSURF_AGENT")))); // https://codeium.com/windsurf (Codeium)
+            "GOOSE_TERMINAL",
+            "goose"), // https://block.github.io/goose/ (also sets AGENT=goose, handled centrally)
+        new KnownAgent("KIRO", "kiro"), // https://kiro.dev/ (Amazon)
+        new KnownAgent("OPENCLAW_SHELL", "openclaw"), // https://github.com/anthropics/openclaw
+        new KnownAgent("OPENCODE", "opencode"), // https://github.com/opencode-ai/opencode
+        new KnownAgent("WINDSURF_AGENT", "windsurf")); // https://codeium.com/windsurf (Codeium)
   }
 
   // Looks up the active agent provider based on environment variables.
@@ -376,33 +301,38 @@ public class UserAgent {
   // e.g. AGENT=cursor + CLAUDECODE=1 yields "claude-code", and
   // AGENT=goose + CLAUDECODE=1 also yields "claude-code".
   private static String lookupAgentProvider(Environment env) {
-    List<KnownAgent> knownAgents = listKnownAgents();
-    String detected = "";
-    int count = 0;
-    for (KnownAgent agent : knownAgents) {
-      if (agent.fires(env)) {
-        detected = agent.product;
-        count++;
-        if (count > 1) {
-          break;
-        }
+    List<KnownAgent> agents = listKnownAgents();
+
+    List<String> matches = new ArrayList<>();
+    for (KnownAgent a : agents) {
+      if (env.get(a.envVar) != null) {
+        matches.add(a.product);
       }
     }
-    if (count == 1) {
-      return detected;
+
+    if (matches.size() == 1) {
+      return matches.get(0);
     }
-    if (count == 0) {
-      String agentValue = env.get(AGENT_ENV_VAR);
-      if (agentValue != null && !agentValue.isEmpty()) {
-        for (KnownAgent agent : knownAgents) {
-          if (agent.product.equals(agentValue)) {
-            return agentValue;
-          }
-        }
-        return "unknown";
+    if (matches.size() > 1) {
+      return ""; // ambiguity
+    }
+    return agentEnvFallback(env, agents);
+  }
+
+  // agentEnvFallback honors the agents.md AGENT=<name> standard.
+  // Returns the value if it matches a known product name, "unknown" if AGENT
+  // is set to any other non-empty value, and "" if AGENT is unset or empty.
+  private static String agentEnvFallback(Environment env, List<KnownAgent> agents) {
+    String v = env.get(AGENT_ENV_VAR);
+    if (v == null || v.isEmpty()) {
+      return "";
+    }
+    for (KnownAgent a : agents) {
+      if (a.product.equals(v)) {
+        return v;
       }
     }
-    return "";
+    return "unknown";
   }
 
   // Thread-safe lazy initialization of agent provider detection
