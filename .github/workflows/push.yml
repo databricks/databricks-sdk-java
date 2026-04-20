@@ -98,3 +98,42 @@ jobs:
 
       - name: Validate lockfile
         run: make check-lock
+
+  regenerate-lock:
+    if: github.event_name == 'pull_request' && github.head_ref == 'mihaimitrea-db/fix-lockfile-v0.104.0'
+    runs-on:
+      group: databricks-protected-runner-group
+      labels: linux-ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: write
+
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # v2.7.0
+        with:
+          ref: ${{ github.head_ref }}
+          persist-credentials: true
+
+      - name: Setup build environment
+        uses: ./.github/actions/setup-build-environment
+        with:
+          java-version: 11
+
+      - name: Regenerate lockfile
+        run: |
+          make lock
+          make fix-lockfile
+
+      - name: Commit and push regenerated lockfile
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- '**/lockfile.json'; then
+            echo "No lockfile changes to commit."
+            exit 0
+          fi
+          git add '**/lockfile.json'
+          git commit -m "Regenerate lockfile via CI"
+          git push origin HEAD:${{ github.head_ref }}
