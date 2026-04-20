@@ -237,50 +237,146 @@ public class UserAgent {
     return cicdProvider;
   }
 
-  // Maps an environment variable to an agent product name.
-  private static class AgentDef {
+  // Matches an environment variable. If value is empty, matching is
+  // presence-only (any value, including empty string, counts as a match). If
+  // value is non-empty, the env var must be set to exactly that value.
+  private static class EnvMatcher {
     private final String envVar;
-    private final String product;
+    private final String value;
 
-    AgentDef(String envVar, String product) {
+    EnvMatcher(String envVar) {
+      this(envVar, "");
+    }
+
+    EnvMatcher(String envVar, String value) {
       this.envVar = envVar;
-      this.product = product;
+      this.value = value;
+    }
+
+    boolean fires(Environment env) {
+      String v = env.get(envVar);
+      if (v == null) {
+        return false;
+      }
+      if (value.isEmpty()) {
+        return true;
+      }
+      return v.equals(value);
     }
   }
 
+  // Describes a single AI coding agent and the environment matchers that
+  // identify it. The agent is detected if ANY matcher in matchAny fires.
+  private static class KnownAgent {
+    private final String product;
+    private final List<EnvMatcher> matchAny;
+
+    KnownAgent(String product, List<EnvMatcher> matchAny) {
+      this.product = product;
+      this.matchAny = matchAny;
+    }
+
+    boolean fires(Environment env) {
+      for (EnvMatcher m : matchAny) {
+        if (m.fires(env)) {
+          return true;
+        }
+      }
+      return false;
+    }
+  }
+
+  // The agents.md standard env var. When set to a value we don't specifically
+  // recognize, detection falls back to "unknown".
+  private static final String AGENT_ENV_VAR = "AGENT";
+
   // Canonical list of known AI coding agents.
   // Keep this list in sync with databricks-sdk-go and databricks-sdk-py.
-  private static List<AgentDef> listKnownAgents() {
+  // Agents are listed alphabetically by product name.
+  private static List<KnownAgent> listKnownAgents() {
     return Arrays.asList(
-        new AgentDef("ANTIGRAVITY_AGENT", "antigravity"), // Closed source (Google)
-        new AgentDef("CLAUDECODE", "claude-code"), // https://github.com/anthropics/claude-code
-        new AgentDef("CLINE_ACTIVE", "cline"), // https://github.com/cline/cline (v3.24.0+)
-        new AgentDef("CODEX_CI", "codex"), // https://github.com/openai/codex
-        new AgentDef("COPILOT_CLI", "copilot-cli"), // https://github.com/features/copilot
-        new AgentDef("CURSOR_AGENT", "cursor"), // Closed source
-        new AgentDef("GEMINI_CLI", "gemini-cli"), // https://google-gemini.github.io/gemini-cli
-        new AgentDef("OPENCODE", "opencode"), // https://github.com/opencode-ai/opencode
-        new AgentDef("OPENCLAW_SHELL", "openclaw")); // https://github.com/anthropics/openclaw
+        new KnownAgent(
+            "amp",
+            Arrays.asList(
+                new EnvMatcher("AMP_CURRENT_THREAD_ID"), new EnvMatcher(AGENT_ENV_VAR, "amp"))),
+        new KnownAgent(
+            "antigravity",
+            Collections.singletonList(
+                new EnvMatcher("ANTIGRAVITY_AGENT"))), // Closed source (Google)
+        new KnownAgent("augment", Collections.singletonList(new EnvMatcher("AUGMENT_AGENT"))),
+        new KnownAgent(
+            "claude-code",
+            Collections.singletonList(
+                new EnvMatcher("CLAUDECODE"))), // https://github.com/anthropics/claude-code
+        new KnownAgent(
+            "cline",
+            Collections.singletonList(
+                new EnvMatcher("CLINE_ACTIVE"))), // https://github.com/cline/cline (v3.24.0+)
+        new KnownAgent(
+            "codex",
+            Collections.singletonList(
+                new EnvMatcher("CODEX_CI"))), // https://github.com/openai/codex
+        new KnownAgent(
+            "copilot-cli",
+            Collections.singletonList(
+                new EnvMatcher("COPILOT_CLI"))), // https://github.com/features/copilot
+        new KnownAgent(
+            "copilot-vscode",
+            Collections.singletonList(new EnvMatcher("COPILOT_MODEL"))), // VS Code Copilot
+        new KnownAgent(
+            "cursor", Collections.singletonList(new EnvMatcher("CURSOR_AGENT"))), // Closed source
+        new KnownAgent(
+            "gemini-cli",
+            Collections.singletonList(
+                new EnvMatcher("GEMINI_CLI"))), // https://google-gemini.github.io/gemini-cli
+        new KnownAgent(
+            "goose",
+            Arrays.asList(
+                new EnvMatcher("GOOSE_TERMINAL"), new EnvMatcher(AGENT_ENV_VAR, "goose"))),
+        new KnownAgent("kiro", Collections.singletonList(new EnvMatcher("KIRO"))),
+        new KnownAgent(
+            "opencode",
+            Collections.singletonList(
+                new EnvMatcher("OPENCODE"))), // https://github.com/opencode-ai/opencode
+        new KnownAgent(
+            "openclaw",
+            Collections.singletonList(
+                new EnvMatcher("OPENCLAW_SHELL"))), // https://github.com/anthropics/openclaw
+        new KnownAgent("windsurf", Collections.singletonList(new EnvMatcher("WINDSURF_AGENT"))));
   }
 
   // Looks up the active agent provider based on environment variables.
-  // Returns the agent name if exactly one is set (non-empty).
-  // Returns empty string if zero or multiple agents detected.
+  //
+  // For each agent, it fires if ANY of its matchers fires. The function counts
+  // how many distinct agents matched:
+  //   - Exactly one agent matched: return its product name.
+  //   - More than one agent matched: return "" (ambiguity).
+  //   - Zero agents matched: if the agents.md standard AGENT env var is set to
+  //     any non-empty value, return "unknown". Otherwise return "".
+  //
+  // Unlike CI/CD detection (which returns the first match), agent detection
+  // uses an ambiguity guard because agent env vars can be stacked (e.g.,
+  // running Cline inside Cursor).
   private static String lookupAgentProvider(Environment env) {
     String detected = "";
     int count = 0;
-    for (AgentDef agent : listKnownAgents()) {
-      String value = env.get(agent.envVar);
-      if (value != null && !value.isEmpty()) {
+    for (KnownAgent agent : listKnownAgents()) {
+      if (agent.fires(env)) {
         detected = agent.product;
         count++;
         if (count > 1) {
-          return "";
+          break;
         }
       }
     }
     if (count == 1) {
       return detected;
+    }
+    if (count == 0) {
+      String agentValue = env.get(AGENT_ENV_VAR);
+      if (agentValue != null && !agentValue.isEmpty()) {
+        return "unknown";
+      }
     }
     return "";
   }
