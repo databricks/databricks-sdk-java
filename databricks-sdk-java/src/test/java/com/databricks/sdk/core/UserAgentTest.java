@@ -385,13 +385,47 @@ public class UserAgentTest {
   }
 
   @Test
-  public void testAgentProviderAgentEnvAmbiguity() {
-    // AGENT=goose fires goose, CLAUDECODE=1 fires claude-code. Ambiguity.
+  public void testAgentProviderExplicitEnvWinsOverAgentEnv() {
+    // CLAUDECODE=1 is an explicit matcher and wins over AGENT=goose (which
+    // is only consulted as a fallback when no explicit matcher fires).
     setupAgentEnv(
         new HashMap<String, String>() {
           {
             put("AGENT", "goose");
             put("CLAUDECODE", "1");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/claude-code"));
+  }
+
+  @Test
+  public void testAgentProviderExplicitEnvWinsOverKnownAgentEnv() {
+    // GOOSE_TERMINAL=1 is an explicit matcher; AGENT=cursor (even though
+    // "cursor" is a known product name) is ignored because an explicit
+    // matcher already fired.
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("GOOSE_TERMINAL", "1");
+            put("AGENT", "cursor");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/goose"));
+    Assertions.assertFalse(UserAgent.asString().contains("agent/cursor"));
+  }
+
+  @Test
+  public void testAgentProviderCopilotCliAndCopilotVscodeAmbiguous() {
+    // Copilot CLI can be invoked with BYOK models, which may also set
+    // COPILOT_MODEL. In that case both copilot-cli and copilot-vscode
+    // matchers fire on different products, so detection is ambiguous.
+    // This is intentional: ambiguity is preferred over silently picking
+    // one product.
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("COPILOT_CLI", "1");
+            put("COPILOT_MODEL", "gpt-4");
           }
         });
     Assertions.assertFalse(UserAgent.asString().contains("agent/"));

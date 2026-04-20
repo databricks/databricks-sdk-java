@@ -295,11 +295,11 @@ public class UserAgent {
   // Agents are listed alphabetically by product name.
   private static List<KnownAgent> listKnownAgents() {
     return Arrays.asList(
+        // Amp also sets AGENT=amp; handled by the central AGENT fallback.
         new KnownAgent(
             "amp",
-            Arrays.asList(
-                new EnvMatcher("AMP_CURRENT_THREAD_ID"),
-                new EnvMatcher(AGENT_ENV_VAR, "amp"))), // https://ampcode.com/
+            Collections.singletonList(
+                new EnvMatcher("AMP_CURRENT_THREAD_ID"))), // https://ampcode.com/
         new KnownAgent(
             "antigravity",
             Collections.singletonList(
@@ -333,11 +333,11 @@ public class UserAgent {
             "gemini-cli",
             Collections.singletonList(
                 new EnvMatcher("GEMINI_CLI"))), // https://google-gemini.github.io/gemini-cli
+        // Goose also sets AGENT=goose; handled by the central AGENT fallback.
         new KnownAgent(
             "goose",
-            Arrays.asList(
-                new EnvMatcher("GOOSE_TERMINAL"),
-                new EnvMatcher(AGENT_ENV_VAR, "goose"))), // https://block.github.io/goose/
+            Collections.singletonList(
+                new EnvMatcher("GOOSE_TERMINAL"))), // https://block.github.io/goose/
         new KnownAgent(
             "kiro",
             Collections.singletonList(new EnvMatcher("KIRO"))), // https://kiro.dev/ (Amazon)
@@ -357,6 +357,11 @@ public class UserAgent {
 
   // Looks up the active agent provider based on environment variables.
   //
+  // Explicit env var matchers (e.g. CLAUDECODE, GOOSE_TERMINAL) always take
+  // precedence over the generic AGENT=<name> signal. The AGENT env var is
+  // treated purely as a fallback for agents that have no explicit matcher, or
+  // for agents we do not yet specifically recognize.
+  //
   // For each agent, it fires if ANY of its matchers fires. The function counts
   // how many distinct agents matched:
   //   - Exactly one agent matched: return its product name.
@@ -367,8 +372,9 @@ public class UserAgent {
   //
   // Unlike CI/CD detection (which returns the first match), agent detection
   // uses an ambiguity guard because agent env vars can be stacked (e.g.,
-  // running Cline inside Cursor). Known matchers always win over the AGENT
-  // fallback, so e.g. AGENT=cursor + CLAUDECODE=1 yields "claude-code".
+  // running Cline inside Cursor). Because explicit matchers win over AGENT,
+  // e.g. AGENT=cursor + CLAUDECODE=1 yields "claude-code", and
+  // AGENT=goose + CLAUDECODE=1 also yields "claude-code".
   private static String lookupAgentProvider(Environment env) {
     List<KnownAgent> knownAgents = listKnownAgents();
     String detected = "";
