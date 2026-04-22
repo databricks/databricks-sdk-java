@@ -19,9 +19,12 @@ runs:
         oidc-provider-name: github-actions
 
     - name: Set up JDK
-      uses: actions/setup-java@b6e674f4b717d7b0ae3baee0fbe79f498905dfde # v1.4.4
+      uses: actions/setup-java@17f84c3641ba7b8f6deff6309fc4c864478f5d62 # v3.14.1
       with:
         java-version: ${{ inputs.java-version }}
+        # zulu ships Java 8 on arm64 macOS (as the matrix requires); adopt does not.
+        # zulu is also the default that setup-java v1.4.4 used before this bump.
+        distribution: "zulu"
 
     - name: Configure Maven for JFrog
       if: runner.os != 'macOS'
