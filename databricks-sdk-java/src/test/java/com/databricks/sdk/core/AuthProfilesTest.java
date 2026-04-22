@@ -25,12 +25,10 @@ import org.junit.jupiter.params.provider.MethodSource;
  * Parametrized auth tests that exercise each auth type against multiple host profiles (LW, NW, LA,
  * NA, SPOGW, SPOGA) across AWS, Azure and GCP.
  *
- * <p>Mirrors databricks-sdk-go PR #1627 and databricks-sdk-py PR #1357. Go injects a {@code
- * HostMetadataResolver} function on {@code Config}; Java has no such seam, so instead every test
- * mocks {@code GET /.well-known/databricks-config} and calls {@link DatabricksConfig#resolve} so
- * that {@link DatabricksConfig#resolveHostMetadata()} actually runs and populates {@code
- * discoveryUrl} (and, for bare-host profiles, {@code accountId} and {@code workspaceId}) from the
- * mocked metadata response — the production code path that Go's resolver injection shortcuts.
+ * <p>{@link DatabricksConfig} has no seam for injecting a fake host metadata resolver, so each test
+ * mocks the {@code GET /.well-known/databricks-config} HTTP endpoint instead. Calling {@link
+ * DatabricksConfig#resolve} then runs the full production path: HTTP call, JSON parsing, and field
+ * population of {@code discoveryUrl}, {@code accountId}, and {@code workspaceId}.
  *
  * <p>Host profiles:
  *
@@ -112,9 +110,10 @@ public class AuthProfilesTest {
       sb.append("{");
       sb.append("\"oidc_endpoint\":\"").append(metadataOidcEndpoint()).append("\"");
       sb.append(",\"account_id\":\"").append(TEST_ACCOUNT_ID).append("\"");
-      if (kind != ProfileKind.ACCOUNT && kind != ProfileKind.UNIFIED) {
-        sb.append(",\"workspace_id\":\"").append(TEST_WORKSPACE_ID).append("\"");
-      } else if (kind == ProfileKind.UNIFIED && configWorkspaceId != null) {
+      // Workspace profiles always advertise a workspace_id; unified profiles only when the
+      // caller configured one (matches SPOGA vs SPOGW).
+      if (kind == ProfileKind.WORKSPACE
+          || (kind == ProfileKind.UNIFIED && configWorkspaceId != null)) {
         sb.append(",\"workspace_id\":\"").append(TEST_WORKSPACE_ID).append("\"");
       }
       sb.append(",\"cloud\":\"").append(cloud).append("\"");
@@ -268,13 +267,13 @@ public class AuthProfilesTest {
   }
 
   private static Environment emptyEnvironment() {
-    return new Environment(new HashMap<>(), new String[0], "Linux");
+    return new Environment(new HashMap<>(), new String[0], System.getProperty("os.name"));
   }
 
   private static Environment environmentWith(String key, String value) {
     Map<String, String> m = new HashMap<>();
     m.put(key, value);
-    return new Environment(m, new String[0], "Linux");
+    return new Environment(m, new String[0], System.getProperty("os.name"));
   }
 
   // ---- PAT -------------------------------------------------------------------
