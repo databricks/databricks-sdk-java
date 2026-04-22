@@ -37,13 +37,6 @@ public class DatabricksConfig {
   @ConfigAttribute(env = "DATABRICKS_WORKSPACE_ID")
   private String workspaceId;
 
-  /**
-   * Flag to explicitly mark a host as a unified host. Note: This API is experimental and may change
-   * or be removed in future releases without notice.
-   */
-  @ConfigAttribute(env = "DATABRICKS_EXPERIMENTAL_IS_UNIFIED_HOST")
-  private Boolean experimentalIsUnifiedHost;
-
   @ConfigAttribute(env = "DATABRICKS_TOKEN", auth = "pat", sensitive = true)
   private String token;
 
@@ -339,15 +332,6 @@ public class DatabricksConfig {
 
   public DatabricksConfig setWorkspaceId(String workspaceId) {
     this.workspaceId = workspaceId;
-    return this;
-  }
-
-  public Boolean getExperimentalIsUnifiedHost() {
-    return experimentalIsUnifiedHost;
-  }
-
-  public DatabricksConfig setExperimentalIsUnifiedHost(Boolean experimentalIsUnifiedHost) {
-    this.experimentalIsUnifiedHost = experimentalIsUnifiedHost;
     return this;
   }
 
