@@ -22,21 +22,25 @@ public class Request {
   private final Map<String, String> headers = new HashMap<>();
   private final Map<String, List<String>> query = new TreeMap<>();
   private Optional<Boolean> redirectionBehavior = Optional.empty();
+
   /**
    * The body of the request for requests with streaming bodies. At most one of {@link #bodyStream}
    * and {@link #bodyString} can be non-null.
    */
   private final InputStream bodyStream;
+
   /**
    * The body of the request for requests with string bodies. At most one of {@link #bodyStream} and
    * {@link #bodyString} can be non-null.
    */
   private final String bodyString;
+
   /**
    * Whether the body of the request is a streaming body. At most one of {@link #isBodyStreaming}
    * and {@link #isBodyString} can be true.
    */
   private final boolean isBodyStreaming;
+
   /**
    * Whether the body of the request is a string body. At most one of {@link #isBodyStreaming} and
    * {@link #isBodyString} can be true.

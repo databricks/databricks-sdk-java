@@ -389,6 +389,7 @@ public class LroTestingAPITest {
           testCase.wantMetadata, metadata, "Metadata mismatch for test case: " + testCase.name);
     }
   }
+
   // Done test cases.
   static List<DoneTestCase> doneTestCases() throws JsonProcessingException, JsonMappingException {
     return Arrays.asList(
