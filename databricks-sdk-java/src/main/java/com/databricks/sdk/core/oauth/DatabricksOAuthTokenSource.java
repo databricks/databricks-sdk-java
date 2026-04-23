@@ -21,18 +21,25 @@ public class DatabricksOAuthTokenSource implements TokenSource {
 
   /** OAuth client ID used for token exchange. */
   private final String clientId;
+
   /** Databricks host URL. */
   private final String host;
+
   /** Databricks account ID, used as audience if provided. */
   private final String accountId;
+
   /** OpenID Connect endpoints configuration. */
   private final OpenIDConnectEndpoints endpoints;
+
   /** Custom audience value for token exchange. */
   private final String audience;
+
   /** Source of ID tokens used in token exchange. */
   private final IDTokenSource idTokenSource;
+
   /** HTTP client for making token exchange requests. */
   private final HttpClient httpClient;
+
   /** Scopes to request during token exchange. */
   private final List<String> scopes;
 

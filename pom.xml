@@ -83,7 +83,13 @@
         <configuration>
           <java>
             <!--            <cleanthat/> This can be added after we drop java 8 support -->
-            <googleJavaFormat/>
+            <googleJavaFormat>
+              <!-- 1.22.0 is the last GJF release that supports JRE 11 (1.23+ requires JRE 17).
+                   Needed to support newer JDKs (e.g. the code-generator's JDK 25) where the
+                   spotless-bundled default (1.15.0) fails with NoSuchMethodError against
+                   javac internals (Log$DeferredDiagnosticHandler.getDiagnostics). -->
+              <version>1.22.0</version>
+            </googleJavaFormat>
             <importOrder/>
             <removeUnusedImports/>
             <formatAnnotations/>

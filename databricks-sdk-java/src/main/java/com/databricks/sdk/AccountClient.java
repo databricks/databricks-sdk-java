@@ -665,6 +665,7 @@ public class AccountClient {
   public AccountGroupsAPI groups() {
     return groupsAPI;
   }
+
   /**
    * Identities for use with jobs, automated tools, and systems such as scripts, apps, and CI/CD
    * platforms. Databricks recommends creating service principals to run production jobs or modify
@@ -675,6 +676,7 @@ public class AccountClient {
   public AccountServicePrincipalsAPI servicePrincipals() {
     return servicePrincipalsAPI;
   }
+
   /**
    * User identities recognized by Databricks and represented by email addresses.
    *
