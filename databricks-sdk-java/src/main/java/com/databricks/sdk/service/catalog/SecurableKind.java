@@ -4,7 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** Latest kind: CONNECTION_VEEVA_VAULT_OAUTH_M2M = 311; Next id: 312 */
+/** Latest kind: ENDPOINT_LLM_PROVIDER = 317; Next id: 318 */
 @Generated
 public enum SecurableKind {
   TABLE_DB_STORAGE,

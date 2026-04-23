@@ -30,4 +30,12 @@ public interface TokensService {
 
   /** Lists all the valid tokens for a user-workspace pair. */
   ListPublicTokensResponse list();
+
+  /**
+   * Updates the comment or scopes of a token.
+   *
+   * <p>If a token with the specified ID is not valid, this call returns an error
+   * **RESOURCE_DOES_NOT_EXIST**.
+   */
+  UpdateTokenResponse update(UpdateTokenRequest updateTokenRequest);
 }

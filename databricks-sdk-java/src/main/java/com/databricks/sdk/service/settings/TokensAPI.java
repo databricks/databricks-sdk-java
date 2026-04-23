@@ -56,6 +56,16 @@ public class TokensAPI {
         null, (Void v) -> impl.list(), ListPublicTokensResponse::getTokenInfos, response -> null);
   }
 
+  /**
+   * Updates the comment or scopes of a token.
+   *
+   * <p>If a token with the specified ID is not valid, this call returns an error
+   * **RESOURCE_DOES_NOT_EXIST**.
+   */
+  public UpdateTokenResponse update(UpdateTokenRequest request) {
+    return impl.update(request);
+  }
+
   public TokensService impl() {
     return impl;
   }

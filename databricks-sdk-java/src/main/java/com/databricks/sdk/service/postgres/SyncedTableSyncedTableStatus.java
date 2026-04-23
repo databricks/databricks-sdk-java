@@ -41,6 +41,14 @@ public class SyncedTableSyncedTableStatus {
   @JsonProperty("pipeline_id")
   private String pipelineId;
 
+  /**
+   * The full resource name of the project associated with the table.
+   *
+   * <p>Format: "projects/{project_id}".
+   */
+  @JsonProperty("project")
+  private String project;
+
   /** The current phase of the data synchronization pipeline. */
   @JsonProperty("provisioning_phase")
   private ProvisioningPhase provisioningPhase;
@@ -114,6 +122,15 @@ public class SyncedTableSyncedTableStatus {
     return pipelineId;
   }
 
+  public SyncedTableSyncedTableStatus setProject(String project) {
+    this.project = project;
+    return this;
+  }
+
+  public String getProject() {
+    return project;
+  }
+
   public SyncedTableSyncedTableStatus setProvisioningPhase(ProvisioningPhase provisioningPhase) {
     this.provisioningPhase = provisioningPhase;
     return this;
@@ -145,6 +162,7 @@ public class SyncedTableSyncedTableStatus {
         && Objects.equals(message, that.message)
         && Objects.equals(ongoingSyncProgress, that.ongoingSyncProgress)
         && Objects.equals(pipelineId, that.pipelineId)
+        && Objects.equals(project, that.project)
         && Objects.equals(provisioningPhase, that.provisioningPhase)
         && Objects.equals(unityCatalogProvisioningState, that.unityCatalogProvisioningState);
   }
@@ -159,6 +177,7 @@ public class SyncedTableSyncedTableStatus {
         message,
         ongoingSyncProgress,
         pipelineId,
+        project,
         provisioningPhase,
         unityCatalogProvisioningState);
   }
@@ -173,6 +192,7 @@ public class SyncedTableSyncedTableStatus {
         .add("message", message)
         .add("ongoingSyncProgress", ongoingSyncProgress)
         .add("pipelineId", pipelineId)
+        .add("project", project)
         .add("provisioningPhase", provisioningPhase)
         .add("unityCatalogProvisioningState", unityCatalogProvisioningState)
         .toString();

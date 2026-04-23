@@ -51,6 +51,17 @@ public class ProjectStatus {
   @JsonProperty("pg_version")
   private Long pgVersion;
 
+  /**
+   * The short identifier of the project, suitable for showing to the users. For a project with name
+   * `projects/my-project`, the project_id is `my-project`.
+   *
+   * <p>Use this field when building UI components that display projects to users (e.g., a drop-down
+   * selector). Prefer showing `project_id` instead of the full resource name from `Project.name`,
+   * which follows the `projects/{project_id}` format and is not user-friendly.
+   */
+  @JsonProperty("project_id")
+  private String projectId;
+
   /** The current space occupied by the project in storage. */
   @JsonProperty("synthetic_storage_size_bytes")
   private Long syntheticStorageSizeBytes;
@@ -146,6 +157,15 @@ public class ProjectStatus {
     return pgVersion;
   }
 
+  public ProjectStatus setProjectId(String projectId) {
+    this.projectId = projectId;
+    return this;
+  }
+
+  public String getProjectId() {
+    return projectId;
+  }
+
   public ProjectStatus setSyntheticStorageSizeBytes(Long syntheticStorageSizeBytes) {
     this.syntheticStorageSizeBytes = syntheticStorageSizeBytes;
     return this;
@@ -170,6 +190,7 @@ public class ProjectStatus {
         && Objects.equals(historyRetentionDuration, that.historyRetentionDuration)
         && Objects.equals(owner, that.owner)
         && Objects.equals(pgVersion, that.pgVersion)
+        && Objects.equals(projectId, that.projectId)
         && Objects.equals(syntheticStorageSizeBytes, that.syntheticStorageSizeBytes);
   }
 
@@ -186,6 +207,7 @@ public class ProjectStatus {
         historyRetentionDuration,
         owner,
         pgVersion,
+        projectId,
         syntheticStorageSizeBytes);
   }
 
@@ -202,6 +224,7 @@ public class ProjectStatus {
         .add("historyRetentionDuration", historyRetentionDuration)
         .add("owner", owner)
         .add("pgVersion", pgVersion)
+        .add("projectId", projectId)
         .add("syntheticStorageSizeBytes", syntheticStorageSizeBytes)
         .toString();
   }

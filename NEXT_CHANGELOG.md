@@ -20,3 +20,27 @@
 * Migrated internal SDK classes to the logging abstraction. The SDK now supports SLF4J, `java.util.logging`, or a custom backend via `LoggerFactory.setDefault()`.
 
 ### API Changes
+* Add `com.databricks.sdk.service.supervisoragents` package.
+* Add `workspaceClient.secretsUc()` service.
+* Add `workspaceClient.supervisorAgents()` service.
+* Add `update()` method for `workspaceClient.tokens()` service.
+* Add `etag` field for `com.databricks.sdk.service.dashboards.GenieSpace`.
+* Add `etag` field for `com.databricks.sdk.service.dashboards.GenieUpdateSpaceRequest`.
+* Add `branchId` field for `com.databricks.sdk.service.postgres.BranchStatus`.
+* Add `catalogId` field for `com.databricks.sdk.service.postgres.CatalogCatalogStatus`.
+* Add `databaseId` field for `com.databricks.sdk.service.postgres.DatabaseDatabaseStatus`.
+* Add `endpointId` field for `com.databricks.sdk.service.postgres.EndpointStatus`.
+* Add `projectId` field for `com.databricks.sdk.service.postgres.ProjectStatus`.
+* Add `roleId` field for `com.databricks.sdk.service.postgres.RoleRoleStatus`.
+* Add `project` field for `com.databricks.sdk.service.postgres.SyncedTableSyncedTableStatus`.
+* Add `manual` field for `com.databricks.sdk.service.provisioning.CreateGcpKeyInfo`.
+* Add `manual` field for `com.databricks.sdk.service.provisioning.GcpKeyInfo`.
+* Add `appsRuntime` and `lakebaseRuntime` fields for `com.databricks.sdk.service.settings.CustomerFacingIngressNetworkPolicyRequestDestination`.
+* Add `blockedInternetDestinations` field for `com.databricks.sdk.service.settings.EgressNetworkPolicyNetworkAccessPolicy`.
+* Add `columnsToSync` field for `com.databricks.sdk.service.vectorsearch.DeltaSyncVectorIndexSpecResponse`.
+* Add `BREAKING_CHANGE` enum value for `com.databricks.sdk.service.jobs.TerminationCodeCode`.
+* [Breaking] Change `updateCatalogConfig()` method for `workspaceClient.dataClassification()` service. Method path has changed.
+* [Breaking] Change `updateDefaultWorkspaceBaseEnvironment()` method for `workspaceClient.environments()` service. Method path has changed.
+* [Breaking] Change `updateKnowledgeAssistant()` method for `workspaceClient.knowledgeAssistants()` service. Method path has changed.
+* [Breaking] Change `updateBranch()`, `updateDatabase()`, `updateEndpoint()`, `updateProject()` and `updateRole()` methods for `workspaceClient.postgres()` service. Method path has changed.
+* [Breaking] Change `updateDefaultWarehouseOverride()` method for `workspaceClient.warehouses()` service. Method path has changed.
