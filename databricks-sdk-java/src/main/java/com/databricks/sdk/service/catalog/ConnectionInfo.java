@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 import java.util.Objects;
 
-/** Next ID: 25 */
 @Generated
 public class ConnectionInfo {
   /** User-provided free-form text description. */

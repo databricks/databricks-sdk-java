@@ -18,10 +18,10 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface WorkspaceService {
   /**
-   * Deprecated: use WorkspaceHierarchyService.DeleteTreeNode instead. Deletes an object or a
-   * directory (and optionally recursively deletes all objects in the directory). * If `path` does
-   * not exist, this call returns an error `RESOURCE_DOES_NOT_EXIST`. * If `path` is a non-empty
-   * directory and `recursive` is set to `false`, this call returns an error `DIRECTORY_NOT_EMPTY`.
+   * Deletes an object or a directory (and optionally recursively deletes all objects in the
+   * directory). * If `path` does not exist, this call returns an error `RESOURCE_DOES_NOT_EXIST`. *
+   * If `path` is a non-empty directory and `recursive` is set to `false`, this call returns an
+   * error `DIRECTORY_NOT_EMPTY`.
    *
    * <p>Object deletion cannot be undone and deleting a directory recursively is not atomic.
    */
@@ -49,8 +49,8 @@ public interface WorkspaceService {
       GetWorkspaceObjectPermissionsRequest getWorkspaceObjectPermissionsRequest);
 
   /**
-   * Deprecated: use WorkspaceHierarchyService.GetTreeNode instead. Gets the status of an object or
-   * a directory. If `path` does not exist, this call returns an error `RESOURCE_DOES_NOT_EXIST`.
+   * Gets the status of an object or a directory. If `path` does not exist, this call returns an
+   * error `RESOURCE_DOES_NOT_EXIST`.
    */
   ObjectInfo getStatus(GetStatusRequest getStatusRequest);
 
@@ -64,17 +64,15 @@ public interface WorkspaceService {
   void importContent(Import importContent);
 
   /**
-   * Deprecated: use WorkspaceHierarchyService.ListTreeNodes instead. Lists the contents of a
-   * directory, or the object if it is not a directory. If the input path does not exist, this call
-   * returns an error `RESOURCE_DOES_NOT_EXIST`.
+   * Lists the contents of a directory, or the object if it is not a directory. If the input path
+   * does not exist, this call returns an error `RESOURCE_DOES_NOT_EXIST`.
    */
   ListResponse list(ListWorkspaceRequest listWorkspaceRequest);
 
   /**
-   * Deprecated: use WorkspaceHierarchyService.CreateTreeNode instead. Creates the specified
-   * directory (and necessary parent directories if they do not exist). If there is an object (not a
-   * directory) at any prefix of the input path, this call returns an error
-   * `RESOURCE_ALREADY_EXISTS`.
+   * Creates the specified directory (and necessary parent directories if they do not exist). If
+   * there is an object (not a directory) at any prefix of the input path, this call returns an
+   * error `RESOURCE_ALREADY_EXISTS`.
    *
    * <p>Note that if this operation fails it may have succeeded in creating some of the necessary
    * parent directories.

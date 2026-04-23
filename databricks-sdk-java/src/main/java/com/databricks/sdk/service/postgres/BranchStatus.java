@@ -10,6 +10,17 @@ import java.util.Objects;
 
 @Generated
 public class BranchStatus {
+  /**
+   * The short identifier of the branch, suitable for showing to the users. For a branch with name
+   * `projects/my-project/branches/my-branch`, the branch_id is `my-branch`.
+   *
+   * <p>Use this field when building UI components that display branches to users (e.g., a drop-down
+   * selector). Prefer showing `branch_id` instead of the full resource name from `Branch.name`,
+   * which follows the `projects/{project_id}/branches/{branch_id}` format and is not user-friendly.
+   */
+  @JsonProperty("branch_id")
+  private String branchId;
+
   /** The branch's state, indicating if it is initializing, ready for use, or archived. */
   @JsonProperty("current_state")
   private BranchStatusState currentState;
@@ -52,6 +63,15 @@ public class BranchStatus {
   /** A timestamp indicating when the `current_state` began. */
   @JsonProperty("state_change_time")
   private Timestamp stateChangeTime;
+
+  public BranchStatus setBranchId(String branchId) {
+    this.branchId = branchId;
+    return this;
+  }
+
+  public String getBranchId() {
+    return branchId;
+  }
 
   public BranchStatus setCurrentState(BranchStatusState currentState) {
     this.currentState = currentState;
@@ -148,7 +168,8 @@ public class BranchStatus {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     BranchStatus that = (BranchStatus) o;
-    return Objects.equals(currentState, that.currentState)
+    return Objects.equals(branchId, that.branchId)
+        && Objects.equals(currentState, that.currentState)
         && Objects.equals(defaultValue, that.defaultValue)
         && Objects.equals(expireTime, that.expireTime)
         && Objects.equals(isProtected, that.isProtected)
@@ -163,6 +184,7 @@ public class BranchStatus {
   @Override
   public int hashCode() {
     return Objects.hash(
+        branchId,
         currentState,
         defaultValue,
         expireTime,
@@ -178,6 +200,7 @@ public class BranchStatus {
   @Override
   public String toString() {
     return new ToStringer(BranchStatus.class)
+        .add("branchId", branchId)
         .add("currentState", currentState)
         .add("defaultValue", defaultValue)
         .add("expireTime", expireTime)

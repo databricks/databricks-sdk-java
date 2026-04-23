@@ -30,6 +30,18 @@ public class RoleRoleStatus {
   @JsonProperty("postgres_role")
   private String postgresRole;
 
+  /**
+   * The short identifier of the role, suitable for showing to the users. For a role with name
+   * `projects/my-project/branches/my-branch/roles/my-role`, the role_id is `my-role`.
+   *
+   * <p>Use this field when building UI components that display roles to users (e.g., a drop-down
+   * selector). Prefer showing `role_id` instead of the full resource name from `Role.name`, which
+   * follows the `projects/{project_id}/branches/{branch_id}/roles/{role_id}` format and is not
+   * user-friendly.
+   */
+  @JsonProperty("role_id")
+  private String roleId;
+
   public RoleRoleStatus setAttributes(RoleAttributes attributes) {
     this.attributes = attributes;
     return this;
@@ -75,6 +87,15 @@ public class RoleRoleStatus {
     return postgresRole;
   }
 
+  public RoleRoleStatus setRoleId(String roleId) {
+    this.roleId = roleId;
+    return this;
+  }
+
+  public String getRoleId() {
+    return roleId;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -84,12 +105,14 @@ public class RoleRoleStatus {
         && Objects.equals(authMethod, that.authMethod)
         && Objects.equals(identityType, that.identityType)
         && Objects.equals(membershipRoles, that.membershipRoles)
-        && Objects.equals(postgresRole, that.postgresRole);
+        && Objects.equals(postgresRole, that.postgresRole)
+        && Objects.equals(roleId, that.roleId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(attributes, authMethod, identityType, membershipRoles, postgresRole);
+    return Objects.hash(
+        attributes, authMethod, identityType, membershipRoles, postgresRole, roleId);
   }
 
   @Override
@@ -100,6 +123,7 @@ public class RoleRoleStatus {
         .add("identityType", identityType)
         .add("membershipRoles", membershipRoles)
         .add("postgresRole", postgresRole)
+        .add("roleId", roleId)
         .toString();
   }
 }

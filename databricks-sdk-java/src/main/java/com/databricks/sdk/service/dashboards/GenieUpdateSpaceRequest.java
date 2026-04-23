@@ -15,6 +15,13 @@ public class GenieUpdateSpaceRequest {
   private String description;
 
   /**
+   * ETag returned by a previous GET or UPDATE. When set, the update will fail if the space has been
+   * modified since. Omit to apply the update unconditionally.
+   */
+  @JsonProperty("etag")
+  private String etag;
+
+  /**
    * The contents of the Genie Space in serialized string form (full replacement). Use the [Get
    * Genie Space](:method:genie/getspace) API to retrieve an example response, which includes the
    * `serialized_space` field. This field provides the structure of the JSON string that represents
@@ -41,6 +48,15 @@ public class GenieUpdateSpaceRequest {
 
   public String getDescription() {
     return description;
+  }
+
+  public GenieUpdateSpaceRequest setEtag(String etag) {
+    this.etag = etag;
+    return this;
+  }
+
+  public String getEtag() {
+    return etag;
   }
 
   public GenieUpdateSpaceRequest setSerializedSpace(String serializedSpace) {
@@ -85,6 +101,7 @@ public class GenieUpdateSpaceRequest {
     if (o == null || getClass() != o.getClass()) return false;
     GenieUpdateSpaceRequest that = (GenieUpdateSpaceRequest) o;
     return Objects.equals(description, that.description)
+        && Objects.equals(etag, that.etag)
         && Objects.equals(serializedSpace, that.serializedSpace)
         && Objects.equals(spaceId, that.spaceId)
         && Objects.equals(title, that.title)
@@ -93,13 +110,14 @@ public class GenieUpdateSpaceRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(description, serializedSpace, spaceId, title, warehouseId);
+    return Objects.hash(description, etag, serializedSpace, spaceId, title, warehouseId);
   }
 
   @Override
   public String toString() {
     return new ToStringer(GenieUpdateSpaceRequest.class)
         .add("description", description)
+        .add("etag", etag)
         .add("serializedSpace", serializedSpace)
         .add("spaceId", spaceId)
         .add("title", title)

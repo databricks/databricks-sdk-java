@@ -52,6 +52,8 @@ import com.databricks.sdk.service.catalog.RfaAPI;
 import com.databricks.sdk.service.catalog.RfaService;
 import com.databricks.sdk.service.catalog.SchemasAPI;
 import com.databricks.sdk.service.catalog.SchemasService;
+import com.databricks.sdk.service.catalog.SecretsUcAPI;
+import com.databricks.sdk.service.catalog.SecretsUcService;
 import com.databricks.sdk.service.catalog.StorageCredentialsAPI;
 import com.databricks.sdk.service.catalog.StorageCredentialsService;
 import com.databricks.sdk.service.catalog.SystemSchemasAPI;
@@ -246,6 +248,8 @@ import com.databricks.sdk.service.sql.StatementExecutionAPI;
 import com.databricks.sdk.service.sql.StatementExecutionService;
 import com.databricks.sdk.service.sql.WarehousesAPI;
 import com.databricks.sdk.service.sql.WarehousesService;
+import com.databricks.sdk.service.supervisoragents.SupervisorAgentsAPI;
+import com.databricks.sdk.service.supervisoragents.SupervisorAgentsService;
 import com.databricks.sdk.service.tags.TagPoliciesAPI;
 import com.databricks.sdk.service.tags.TagPoliciesService;
 import com.databricks.sdk.service.tags.WorkspaceEntityTagAssignmentsAPI;
@@ -367,6 +371,7 @@ public class WorkspaceClient {
   private RfaAPI rfaAPI;
   private SchemasAPI schemasAPI;
   private SecretsExt secretsAPI;
+  private SecretsUcAPI secretsUcAPI;
   private ServicePrincipalSecretsProxyAPI servicePrincipalSecretsProxyAPI;
   private ServicePrincipalsV2API servicePrincipalsV2API;
   private ServingEndpointsAPI servingEndpointsAPI;
@@ -375,6 +380,7 @@ public class WorkspaceClient {
   private SharesAPI sharesAPI;
   private StatementExecutionAPI statementExecutionAPI;
   private StorageCredentialsAPI storageCredentialsAPI;
+  private SupervisorAgentsAPI supervisorAgentsAPI;
   private SystemSchemasAPI systemSchemasAPI;
   private TableConstraintsAPI tableConstraintsAPI;
   private TablesAPI tablesAPI;
@@ -503,6 +509,7 @@ public class WorkspaceClient {
     rfaAPI = new RfaAPI(apiClient);
     schemasAPI = new SchemasAPI(apiClient);
     secretsAPI = new SecretsExt(apiClient);
+    secretsUcAPI = new SecretsUcAPI(apiClient);
     servicePrincipalSecretsProxyAPI = new ServicePrincipalSecretsProxyAPI(apiClient);
     servicePrincipalsV2API = new ServicePrincipalsV2API(apiClient);
     servingEndpointsAPI = new ServingEndpointsAPI(apiClient);
@@ -512,6 +519,7 @@ public class WorkspaceClient {
     sharesAPI = new SharesAPI(apiClient);
     statementExecutionAPI = new StatementExecutionAPI(apiClient);
     storageCredentialsAPI = new StorageCredentialsAPI(apiClient);
+    supervisorAgentsAPI = new SupervisorAgentsAPI(apiClient);
     systemSchemasAPI = new SystemSchemasAPI(apiClient);
     tableConstraintsAPI = new TableConstraintsAPI(apiClient);
     tablesAPI = new TablesAPI(apiClient);
@@ -1005,10 +1013,6 @@ public class WorkspaceClient {
    * HTTP methods GET, HEAD, PUT, and DELETE to manage files and directories specified using their
    * URI path. The path is always absolute.
    *
-   * <p>Some Files API client features are currently experimental. To enable them, set
-   * `enable_experimental_files_api_client = True` in your configuration profile or use the
-   * environment variable `DATABRICKS_ENABLE_EXPERIMENTAL_FILES_API_CLIENT=True`.
-   *
    * <p>Use of Files API may incur Databricks data transfer charges.
    *
    * <p>[Unity Catalog volumes]: https://docs.databricks.com/en/connect/unity-catalog/volumes.html
@@ -1298,8 +1302,8 @@ public class WorkspaceClient {
    * which users can manage or use apps. * **[Cluster permissions](:service:clusters)** — Manage
    * which users can manage, restart, or attach to clusters. * **[Cluster policy
    * permissions](:service:clusterpolicies)** — Manage which users can use cluster policies. *
-   * **[Delta Live Tables pipeline permissions](:service:pipelines)** — Manage which users can view,
-   * manage, run, cancel, or own a Delta Live Tables pipeline. * **[Job
+   * **[Spark Declarative Pipelines permissions](:service:pipelines)** — Manage which users can
+   * view, manage, run, cancel, or own a Spark Declarative Pipeline. * **[Job
    * permissions](:service:jobs)** — Manage which users can view, manage, trigger, cancel, or own a
    * job. * **[MLflow experiment permissions](:service:experiments)** — Manage which users can read,
    * edit, or manage MLflow experiments. * **[MLflow registered model
@@ -1713,6 +1717,18 @@ public class WorkspaceClient {
   }
 
   /**
+   * A secret is a Unity Catalog securable object that stores sensitive credential data (such as
+   * passwords, tokens, and keys) within a three-level namespace
+   * (**catalog_name.schema_name.secret_name**).
+   *
+   * <p>Secrets can be managed using standard Unity Catalog permissions and are scoped to a schema
+   * within a catalog.
+   */
+  public SecretsUcAPI secretsUc() {
+    return secretsUcAPI;
+  }
+
+  /**
    * These APIs enable administrators to manage service principal secrets at the workspace level. To
    * use these APIs, the service principal must be first added to the current workspace.
    *
@@ -1897,6 +1913,11 @@ public class WorkspaceClient {
     return storageCredentialsAPI;
   }
 
+  /** Manage Supervisor Agents and related resources. */
+  public SupervisorAgentsAPI supervisorAgents() {
+    return supervisorAgentsAPI;
+  }
+
   /**
    * A system schema is a schema that lives within the system catalog. A system schema may contain
    * information about customer usage of Unity Catalog such as audit-logs, billing-logs, lineage
@@ -1963,10 +1984,10 @@ public class WorkspaceClient {
    * a metastore admin needs to enable the external_access_enabled flag (off by default) at the
    * metastore level. A user needs to be granted the EXTERNAL USE LOCATION permission by external
    * location owner. For requests on existing external tables, user also needs to be granted the
-   * EXTERNAL USE SCHEMA permission at the schema level by catalog admin.
+   * EXTERNAL USE SCHEMA permission at the schema level by catalog owner.
    *
    * <p>Note that EXTERNAL USE SCHEMA is a schema level permission that can only be granted by
-   * catalog admin explicitly and is not included in schema ownership or ALL PRIVILEGES on the
+   * catalog owner explicitly and is not included in schema ownership or ALL PRIVILEGES on the
    * schema for security reasons. Similarly, EXTERNAL USE LOCATION is an external location level
    * permission that can only be granted by external location owner explicitly and is not included
    * in external location ownership or ALL PRIVILEGES on the external location for security reasons.
@@ -1990,8 +2011,8 @@ public class WorkspaceClient {
    * reducing the risk of unauthorized access or misuse. To use the temporary table credentials API,
    * a metastore admin needs to enable the external_access_enabled flag (off by default) at the
    * metastore level, and user needs to be granted the EXTERNAL USE SCHEMA permission at the schema
-   * level by catalog admin. Note that EXTERNAL USE SCHEMA is a schema level permission that can
-   * only be granted by catalog admin explicitly and is not included in schema ownership or ALL
+   * level by catalog owner. Note that EXTERNAL USE SCHEMA is a schema level permission that can
+   * only be granted by catalog owner explicitly and is not included in schema ownership or ALL
    * PRIVILEGES on the schema for security reasons.
    */
   public TemporaryTableCredentialsAPI temporaryTableCredentials() {
@@ -3293,6 +3314,17 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default SecretsUcService with a custom implementation. */
+  public WorkspaceClient withSecretsUcImpl(SecretsUcService secretsUc) {
+    return this.withSecretsUcAPI(new SecretsUcAPI(secretsUc));
+  }
+
+  /** Replace the default SecretsUcAPI with a custom implementation. */
+  public WorkspaceClient withSecretsUcAPI(SecretsUcAPI secretsUc) {
+    this.secretsUcAPI = secretsUc;
+    return this;
+  }
+
   /** Replace the default ServicePrincipalSecretsProxyService with a custom implementation. */
   public WorkspaceClient withServicePrincipalSecretsProxyImpl(
       ServicePrincipalSecretsProxyService servicePrincipalSecretsProxy) {
@@ -3385,6 +3417,17 @@ public class WorkspaceClient {
   /** Replace the default StorageCredentialsAPI with a custom implementation. */
   public WorkspaceClient withStorageCredentialsAPI(StorageCredentialsAPI storageCredentials) {
     this.storageCredentialsAPI = storageCredentials;
+    return this;
+  }
+
+  /** Replace the default SupervisorAgentsService with a custom implementation. */
+  public WorkspaceClient withSupervisorAgentsImpl(SupervisorAgentsService supervisorAgents) {
+    return this.withSupervisorAgentsAPI(new SupervisorAgentsAPI(supervisorAgents));
+  }
+
+  /** Replace the default SupervisorAgentsAPI with a custom implementation. */
+  public WorkspaceClient withSupervisorAgentsAPI(SupervisorAgentsAPI supervisorAgents) {
+    this.supervisorAgentsAPI = supervisorAgents;
     return this;
   }
 

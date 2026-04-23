@@ -49,6 +49,8 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public enum TerminationCodeCode {
+  BREAKING_CHANGE, // Run failed because of an intentional breaking change in Spark, but it will be
+  // retried with a mitigation config.
   BUDGET_POLICY_LIMIT_EXCEEDED,
   CANCELED, // The run was canceled during execution by the <Databricks> platform; for
   // example, if the maximum run duration was exceeded.

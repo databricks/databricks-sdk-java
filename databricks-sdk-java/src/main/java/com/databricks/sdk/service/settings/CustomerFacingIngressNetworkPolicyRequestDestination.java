@@ -17,6 +17,14 @@ public class CustomerFacingIngressNetworkPolicyRequestDestination {
   private Boolean allDestinations;
 
   /** */
+  @JsonProperty("apps_runtime")
+  private CustomerFacingIngressNetworkPolicyAppsRuntimeDestination appsRuntime;
+
+  /** */
+  @JsonProperty("lakebase_runtime")
+  private CustomerFacingIngressNetworkPolicyLakebaseRuntimeDestination lakebaseRuntime;
+
+  /** */
   @JsonProperty("workspace_api")
   private CustomerFacingIngressNetworkPolicyWorkspaceApiDestination workspaceApi;
 
@@ -32,6 +40,26 @@ public class CustomerFacingIngressNetworkPolicyRequestDestination {
 
   public Boolean getAllDestinations() {
     return allDestinations;
+  }
+
+  public CustomerFacingIngressNetworkPolicyRequestDestination setAppsRuntime(
+      CustomerFacingIngressNetworkPolicyAppsRuntimeDestination appsRuntime) {
+    this.appsRuntime = appsRuntime;
+    return this;
+  }
+
+  public CustomerFacingIngressNetworkPolicyAppsRuntimeDestination getAppsRuntime() {
+    return appsRuntime;
+  }
+
+  public CustomerFacingIngressNetworkPolicyRequestDestination setLakebaseRuntime(
+      CustomerFacingIngressNetworkPolicyLakebaseRuntimeDestination lakebaseRuntime) {
+    this.lakebaseRuntime = lakebaseRuntime;
+    return this;
+  }
+
+  public CustomerFacingIngressNetworkPolicyLakebaseRuntimeDestination getLakebaseRuntime() {
+    return lakebaseRuntime;
   }
 
   public CustomerFacingIngressNetworkPolicyRequestDestination setWorkspaceApi(
@@ -61,19 +89,23 @@ public class CustomerFacingIngressNetworkPolicyRequestDestination {
     CustomerFacingIngressNetworkPolicyRequestDestination that =
         (CustomerFacingIngressNetworkPolicyRequestDestination) o;
     return Objects.equals(allDestinations, that.allDestinations)
+        && Objects.equals(appsRuntime, that.appsRuntime)
+        && Objects.equals(lakebaseRuntime, that.lakebaseRuntime)
         && Objects.equals(workspaceApi, that.workspaceApi)
         && Objects.equals(workspaceUi, that.workspaceUi);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(allDestinations, workspaceApi, workspaceUi);
+    return Objects.hash(allDestinations, appsRuntime, lakebaseRuntime, workspaceApi, workspaceUi);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CustomerFacingIngressNetworkPolicyRequestDestination.class)
         .add("allDestinations", allDestinations)
+        .add("appsRuntime", appsRuntime)
+        .add("lakebaseRuntime", lakebaseRuntime)
         .add("workspaceApi", workspaceApi)
         .add("workspaceUi", workspaceUi)
         .toString();

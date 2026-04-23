@@ -23,6 +23,13 @@ public class CreateGcpKeyInfo {
   @JsonProperty("kms_key_id")
   private String kmsKeyId;
 
+  /**
+   * When true, Databricks will not use OAuth to grant the service account access to the KMS key.
+   * The customer is responsible for granting access manually.
+   */
+  @JsonProperty("manual")
+  private Boolean manual;
+
   public CreateGcpKeyInfo setGcpServiceAccount(GcpServiceAccount gcpServiceAccount) {
     this.gcpServiceAccount = gcpServiceAccount;
     return this;
@@ -41,18 +48,28 @@ public class CreateGcpKeyInfo {
     return kmsKeyId;
   }
 
+  public CreateGcpKeyInfo setManual(Boolean manual) {
+    this.manual = manual;
+    return this;
+  }
+
+  public Boolean getManual() {
+    return manual;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CreateGcpKeyInfo that = (CreateGcpKeyInfo) o;
     return Objects.equals(gcpServiceAccount, that.gcpServiceAccount)
-        && Objects.equals(kmsKeyId, that.kmsKeyId);
+        && Objects.equals(kmsKeyId, that.kmsKeyId)
+        && Objects.equals(manual, that.manual);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(gcpServiceAccount, kmsKeyId);
+    return Objects.hash(gcpServiceAccount, kmsKeyId, manual);
   }
 
   @Override
@@ -60,6 +77,7 @@ public class CreateGcpKeyInfo {
     return new ToStringer(CreateGcpKeyInfo.class)
         .add("gcpServiceAccount", gcpServiceAccount)
         .add("kmsKeyId", kmsKeyId)
+        .add("manual", manual)
         .toString();
   }
 }
