@@ -23,12 +23,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # v2.7.0
 
-      - name: Cache Maven packages
-        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
+      # No Maven cache on purpose. A cache hit masks the JFrog resolution
+      # failure: the central-publishing-maven-plugin gets restored from a
+      # previous run instead of being fetched fresh through the mirror.
 
       - name: Setup JFrog CLI with OIDC
         id: jfrog
