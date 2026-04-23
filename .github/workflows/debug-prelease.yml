@@ -1,0 +1,76 @@
+# Debug-only workflow to reproduce the JFrog `-Prelease` failure for a
+# discussion with JFrog support. Scoped to the debug branch so it cannot run
+# elsewhere. Intentionally has no release/publish side effects: no artifact
+# uploads, no GPG signing, no tag required.
+name: Debug -Prelease against JFrog
+
+on:
+  push:
+    branches:
+      - debug/jfrog-prelease-repro
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  prelease-repro:
+    runs-on:
+      group: databricks-protected-runner-group
+      labels: linux-ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # v2.7.0
+
+      - name: Cache Maven packages
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Setup JFrog CLI with OIDC
+        id: jfrog
+        uses: jfrog/setup-jfrog-cli@279b1f629f43dd5bc658d8361ac4802a7ef8d2d5 # v4.9.1
+        env:
+          JF_URL: https://databricks.jfrog.io
+        with:
+          oidc-provider-name: github-actions
+
+      - name: Set up Java
+        uses: actions/setup-java@17f84c3641ba7b8f6deff6309fc4c864478f5d62 # v3.14.1
+        with:
+          java-version: 8
+          distribution: adopt
+
+      - name: Configure Maven for JFrog
+        run: |
+          mkdir -p ~/.m2
+          cat > ~/.m2/settings.xml << EOF
+          <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+            <mirrors>
+              <mirror>
+                <id>jfrog-maven</id>
+                <url>https://databricks.jfrog.io/artifactory/db-maven/</url>
+                <mirrorOf>*</mirrorOf>
+              </mirror>
+            </mirrors>
+            <servers>
+              <server>
+                <id>jfrog-maven</id>
+                <username>${{ steps.jfrog.outputs.oidc-user }}</username>
+                <password><![CDATA[${{ steps.jfrog.outputs.oidc-token }}]]></password>
+              </server>
+            </servers>
+          </settings>
+          EOF
+
+      # This is the step that fails. The -Prelease profile activates
+      # central-publishing-maven-plugin with <extensions>true</extensions>,
+      # which Maven tries to resolve from the JFrog db-maven mirror at startup.
+      # We expect this to fail so JFrog can see the exact error.
+      - name: Build with -Prelease (expected to fail)
+        run: mvn -Prelease -DskipTests=true --batch-mode -X install
