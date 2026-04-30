@@ -34,6 +34,10 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
   // --profile support added in CLI v0.207.1: https://github.com/databricks/cli/pull/855
   static final DatabricksCliVersion CLI_VERSION_FOR_PROFILE = new DatabricksCliVersion(0, 207, 1);
 
+  // --force-refresh support added in CLI v0.296.0: https://github.com/databricks/cli/pull/4767
+  static final DatabricksCliVersion CLI_VERSION_FOR_FORCE_REFRESH =
+      new DatabricksCliVersion(0, 296, 0);
+
   // 5-second cap on `databricks version` so a hung CLI (slow first-run scan, antivirus, blocked
   // stdin) does not wedge SDK init indefinitely.
   private static final long VERSION_PROBE_TIMEOUT_SECONDS = 5;
@@ -163,12 +167,39 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
   }
 
   /**
-   * Builds the {@code auth token} command for the given CLI version.
+   * Builds the full {@code auth token} command, including capability-gated flags.
    *
-   * <p>Falls back to {@code --host} when {@code --profile} is either not configured or not
-   * supported by the installed CLI.
+   * <p>Delegates the profile/host decision to {@link #buildCoreCliCommand} and appends {@code
+   * --force-refresh} when the installed CLI supports it.
    */
   List<String> buildCliCommand(
+      String cliPath, DatabricksConfig config, DatabricksCliVersion version) {
+    List<String> cmd = buildCoreCliCommand(cliPath, config, version);
+    if (version.atLeast(CLI_VERSION_FOR_FORCE_REFRESH)) {
+      cmd.add("--force-refresh");
+    } else if (version.equals(DatabricksCliVersion.UNKNOWN) || version.isDefaultDevBuild()) {
+      // Detection failed or no version metadata — we can't prove the CLI lacks --force-refresh,
+      // just failed to confirm it. The version probe already logged the underlying cause.
+      LOG.warn(
+          "Could not confirm --force-refresh support for Databricks CLI {} (requires >= {}). "
+              + "The CLI's token cache may provide stale tokens.",
+          version,
+          CLI_VERSION_FOR_FORCE_REFRESH);
+    } else {
+      LOG.warn(
+          "Databricks CLI {} does not support --force-refresh (requires >= {}). "
+              + "The CLI's token cache may provide stale tokens.",
+          version,
+          CLI_VERSION_FOR_FORCE_REFRESH);
+    }
+    return cmd;
+  }
+
+  /**
+   * Builds the base {@code auth token} command without capability-gated flags. Falls back to {@code
+   * --host} when {@code --profile} is either not configured or not supported by the installed CLI.
+   */
+  List<String> buildCoreCliCommand(
       String cliPath, DatabricksConfig config, DatabricksCliVersion version) {
     if (config.getProfile() == null) {
       return buildHostArgs(cliPath, config);

@@ -15,5 +15,6 @@
 
 ### Internal Changes
 * Detect Databricks CLI version at init time via `databricks version --output json`, enabling version-gated flag support. Successful detections are cached per CLI path; subprocess failures fall back to the most conservative command and are retried on the next call.
+* Pass `--force-refresh` to Databricks CLI `auth token` command (when the installed CLI is >= v0.296.0) so the SDK always receives a freshly minted token instead of a potentially stale one from the CLI's internal cache.
 
 ### API Changes
