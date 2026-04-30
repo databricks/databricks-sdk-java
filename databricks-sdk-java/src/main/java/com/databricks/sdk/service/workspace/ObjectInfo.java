@@ -16,7 +16,10 @@ public class ObjectInfo {
   @JsonProperty("created_at")
   private Long createdAt;
 
-  /** The language of the object. This value is set only if the object type is ``NOTEBOOK``. */
+  /**
+   * The language of the object. This value is set only if the object type is ``NOTEBOOK``. For
+   * Jupyter (.ipynb) notebooks, this is always ``PYTHON``.
+   */
   @JsonProperty("language")
   private Language language;
 

@@ -11,7 +11,10 @@ import java.util.Objects;
 
 @Generated
 public class BranchSpec {
-  /** Absolute expiration timestamp. When set, the branch will expire at this time. */
+  /**
+   * Absolute expiration timestamp. When set, the branch will expire at this time. Mutually
+   * exclusive with `ttl` and `no_expiry`. When updating, use `spec.expiration` in the update_mask.
+   */
   @JsonProperty("expire_time")
   private Timestamp expireTime;
 
@@ -24,7 +27,8 @@ public class BranchSpec {
 
   /**
    * Explicitly disable expiration. When set to true, the branch will not expire. If set to false,
-   * the request is invalid; provide either ttl or expire_time instead.
+   * the request is invalid; provide either ttl or expire_time instead. Mutually exclusive with
+   * `expire_time` and `ttl`. When updating, use `spec.expiration` in the update_mask.
    */
   @JsonProperty("no_expiry")
   private Boolean noExpiry;
@@ -45,7 +49,11 @@ public class BranchSpec {
   @JsonProperty("source_branch_time")
   private Timestamp sourceBranchTime;
 
-  /** Relative time-to-live duration. When set, the branch will expire at creation_time + ttl. */
+  /**
+   * Relative time-to-live duration. When set, the branch will expire at creation_time + ttl.
+   * Mutually exclusive with `expire_time` and `no_expiry`. When updating, use `spec.expiration` in
+   * the update_mask.
+   */
   @JsonProperty("ttl")
   private Duration ttl;
 

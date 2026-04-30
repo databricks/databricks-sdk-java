@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class SchemaConfig {
-  /** Schema of the JSON object in standard IETF JSON schema format (https://json-schema.org/) */
+  /** Schema of the JSON object in standard IETF JSON schema format (https://json-schema.org/). */
   @JsonProperty("json_schema")
   private String jsonSchema;
 

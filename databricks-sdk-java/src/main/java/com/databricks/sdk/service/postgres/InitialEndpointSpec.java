@@ -7,9 +7,10 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Configuration for the initial Read/Write endpoint created during project creation. */
 @Generated
 public class InitialEndpointSpec {
-  /** Settings for HA configuration of the endpoint */
+  /** Settings for HA configuration of the endpoint. */
   @JsonProperty("group")
   private EndpointGroupSpec group;
 

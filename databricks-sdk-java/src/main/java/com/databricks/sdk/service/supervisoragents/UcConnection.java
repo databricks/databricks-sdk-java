@@ -7,14 +7,14 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Databricks connection. Supported connection: external mcp server. */
+/** Databricks UC connection. Supported connection: external mcp server. */
 @Generated
-public class Connection {
+public class UcConnection {
   /** */
   @JsonProperty("name")
   private String name;
 
-  public Connection setName(String name) {
+  public UcConnection setName(String name) {
     this.name = name;
     return this;
   }
@@ -27,7 +27,7 @@ public class Connection {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    Connection that = (Connection) o;
+    UcConnection that = (UcConnection) o;
     return Objects.equals(name, that.name);
   }
 
@@ -38,6 +38,6 @@ public class Connection {
 
   @Override
   public String toString() {
-    return new ToStringer(Connection.class).add("name", name).toString();
+    return new ToStringer(UcConnection.class).add("name", name).toString();
   }
 }

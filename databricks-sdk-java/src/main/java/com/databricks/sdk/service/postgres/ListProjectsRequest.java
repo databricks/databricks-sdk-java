@@ -20,6 +20,15 @@ public class ListProjectsRequest {
   @QueryParam("page_token")
   private String pageToken;
 
+  /**
+   * Whether to include soft-deleted projects in the response. When true, soft-deleted projects are
+   * included alongside active projects. Hard-deleted and already-purged projects are never
+   * returned.
+   */
+  @JsonIgnore
+  @QueryParam("show_deleted")
+  private Boolean showDeleted;
+
   public ListProjectsRequest setPageSize(Long pageSize) {
     this.pageSize = pageSize;
     return this;
@@ -38,17 +47,28 @@ public class ListProjectsRequest {
     return pageToken;
   }
 
+  public ListProjectsRequest setShowDeleted(Boolean showDeleted) {
+    this.showDeleted = showDeleted;
+    return this;
+  }
+
+  public Boolean getShowDeleted() {
+    return showDeleted;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ListProjectsRequest that = (ListProjectsRequest) o;
-    return Objects.equals(pageSize, that.pageSize) && Objects.equals(pageToken, that.pageToken);
+    return Objects.equals(pageSize, that.pageSize)
+        && Objects.equals(pageToken, that.pageToken)
+        && Objects.equals(showDeleted, that.showDeleted);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pageSize, pageToken);
+    return Objects.hash(pageSize, pageToken, showDeleted);
   }
 
   @Override
@@ -56,6 +76,7 @@ public class ListProjectsRequest {
     return new ToStringer(ListProjectsRequest.class)
         .add("pageSize", pageSize)
         .add("pageToken", pageToken)
+        .add("showDeleted", showDeleted)
         .toString();
   }
 }

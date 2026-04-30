@@ -4,7 +4,7 @@ package com.databricks.sdk.service.postgres;
 
 import com.databricks.sdk.support.Generated;
 
-/** Copied from database_table_statuses.proto to decouple SDK packages. */
+/** The current phase of the data synchronization pipeline. */
 @Generated
 public enum ProvisioningPhase {
   PROVISIONING_PHASE_INDEX_SCAN,

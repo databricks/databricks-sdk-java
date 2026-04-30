@@ -2,9 +2,9 @@
 package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.support.Generated;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * These APIs manage usage dashboards for this account. Usage dashboards enable you to gain insights

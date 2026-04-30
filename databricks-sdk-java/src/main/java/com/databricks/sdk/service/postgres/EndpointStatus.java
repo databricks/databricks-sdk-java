@@ -10,7 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class EndpointStatus {
-  /** The maximum number of Compute Units. */
+  /**
+   * The maximum number of Compute Units. The maximum value is 64. The difference between the
+   * minimum and maximum Compute Units (max - min) must not exceed 16.
+   */
   @JsonProperty("autoscaling_limit_max_cu")
   private Double autoscalingLimitMaxCu;
 
