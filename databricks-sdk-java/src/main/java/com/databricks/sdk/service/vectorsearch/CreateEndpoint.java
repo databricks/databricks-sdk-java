@@ -18,8 +18,9 @@ public class CreateEndpoint {
   private EndpointType endpointType;
 
   /**
-   * Min QPS for the endpoint. Mutually exclusive with num_replicas. The actual replica count is
-   * calculated at index creation/sync time based on this value.
+   * Deprecated: use target_qps. Min QPS for the endpoint. Mutually exclusive with num_replicas.
+   * Kept at PUBLIC_BETA with deprecated = true so generated SDK surfaces keep the field with a
+   * deprecation marker; hiding completely is a follow-up PR.
    */
   @JsonProperty("min_qps")
   private Long minQps;

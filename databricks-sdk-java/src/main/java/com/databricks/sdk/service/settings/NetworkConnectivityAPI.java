@@ -2,10 +2,10 @@
 package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * These APIs provide configurations for the network connectivity of your workspaces for serverless
@@ -93,7 +93,7 @@ public class NetworkConnectivityAPI {
   /**
    * Initiates deleting a private endpoint rule. If the connection state is PENDING or EXPIRED, the
    * private endpoint is immediately deleted. Otherwise, the private endpoint is deactivated and
-   * will be deleted after seven days of deactivation. When a private endpoint is deactivated, the
+   * will be deleted after one day of deactivation. When a private endpoint is deactivated, the
    * `deactivated` field is set to `true` and the private endpoint is not available to your
    * serverless compute resources.
    */

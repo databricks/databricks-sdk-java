@@ -66,6 +66,8 @@ import com.databricks.sdk.service.catalog.TemporaryPathCredentialsAPI;
 import com.databricks.sdk.service.catalog.TemporaryPathCredentialsService;
 import com.databricks.sdk.service.catalog.TemporaryTableCredentialsAPI;
 import com.databricks.sdk.service.catalog.TemporaryTableCredentialsService;
+import com.databricks.sdk.service.catalog.TemporaryVolumeCredentialsAPI;
+import com.databricks.sdk.service.catalog.TemporaryVolumeCredentialsService;
 import com.databricks.sdk.service.catalog.VolumesAPI;
 import com.databricks.sdk.service.catalog.VolumesService;
 import com.databricks.sdk.service.catalog.WorkspaceBindingsAPI;
@@ -387,6 +389,7 @@ public class WorkspaceClient {
   private TagPoliciesAPI tagPoliciesAPI;
   private TemporaryPathCredentialsAPI temporaryPathCredentialsAPI;
   private TemporaryTableCredentialsAPI temporaryTableCredentialsAPI;
+  private TemporaryVolumeCredentialsAPI temporaryVolumeCredentialsAPI;
   private TokenManagementAPI tokenManagementAPI;
   private TokensAPI tokensAPI;
   private UsersV2API usersV2API;
@@ -526,6 +529,7 @@ public class WorkspaceClient {
     tagPoliciesAPI = new TagPoliciesAPI(apiClient);
     temporaryPathCredentialsAPI = new TemporaryPathCredentialsAPI(apiClient);
     temporaryTableCredentialsAPI = new TemporaryTableCredentialsAPI(apiClient);
+    temporaryVolumeCredentialsAPI = new TemporaryVolumeCredentialsAPI(apiClient);
     tokenManagementAPI = new TokenManagementAPI(apiClient);
     tokensAPI = new TokensAPI(apiClient);
     usersV2API = new UsersV2API(apiClient);
@@ -2020,6 +2024,26 @@ public class WorkspaceClient {
   }
 
   /**
+   * Temporary Volume Credentials refer to short-lived, downscoped credentials used to access cloud
+   * storage locations where volume data is stored in Databricks. These credentials are employed to
+   * provide secure and time-limited access to data in cloud environments such as AWS, Azure, and
+   * Google Cloud. Each cloud provider has its own type of credentials: AWS uses temporary session
+   * tokens via AWS Security Token Service (STS), Azure utilizes Shared Access Signatures (SAS) for
+   * its data storage services, and Google Cloud supports temporary credentials through OAuth 2.0.
+   *
+   * <p>Temporary volume credentials ensure that data access is limited in scope and duration,
+   * reducing the risk of unauthorized access or misuse. To use the temporary volume credentials
+   * API, a metastore admin needs to enable the external_access_enabled flag (off by default) at the
+   * metastore level, and user needs to be granted the EXTERNAL USE SCHEMA permission at the schema
+   * level by catalog owner. Note that EXTERNAL USE SCHEMA is a schema level permission that can
+   * only be granted by catalog owner explicitly and is not included in schema ownership or ALL
+   * PRIVILEGES on the schema for security reasons.
+   */
+  public TemporaryVolumeCredentialsAPI temporaryVolumeCredentials() {
+    return temporaryVolumeCredentialsAPI;
+  }
+
+  /**
    * Enables administrators to get all tokens and delete tokens for other users. Admins can either
    * get every token, get a specific token by ID, or get all tokens for a particular user.
    */
@@ -3500,6 +3524,20 @@ public class WorkspaceClient {
   public WorkspaceClient withTemporaryTableCredentialsAPI(
       TemporaryTableCredentialsAPI temporaryTableCredentials) {
     this.temporaryTableCredentialsAPI = temporaryTableCredentials;
+    return this;
+  }
+
+  /** Replace the default TemporaryVolumeCredentialsService with a custom implementation. */
+  public WorkspaceClient withTemporaryVolumeCredentialsImpl(
+      TemporaryVolumeCredentialsService temporaryVolumeCredentials) {
+    return this.withTemporaryVolumeCredentialsAPI(
+        new TemporaryVolumeCredentialsAPI(temporaryVolumeCredentials));
+  }
+
+  /** Replace the default TemporaryVolumeCredentialsAPI with a custom implementation. */
+  public WorkspaceClient withTemporaryVolumeCredentialsAPI(
+      TemporaryVolumeCredentialsAPI temporaryVolumeCredentials) {
+    this.temporaryVolumeCredentialsAPI = temporaryVolumeCredentials;
     return this;
   }
 

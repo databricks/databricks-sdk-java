@@ -13,10 +13,6 @@ public class Tool {
   @JsonProperty("app")
   private App app;
 
-  /** */
-  @JsonProperty("connection")
-  private Connection connection;
-
   /** Description of what this tool does (user-facing). */
   @JsonProperty("description")
   private String description;
@@ -42,11 +38,16 @@ public class Tool {
   private String toolId;
 
   /**
-   * Tool type. Must be one of: "genie_space", "knowledge_assistant", "uc_function", "connection",
-   * "app", "volume", "lakeview_dashboard", "serving_endpoint".
+   * Tool type. Must be one of: "genie_space", "knowledge_assistant", "uc_function",
+   * "uc_connection", "app", "volume", "lakeview_dashboard", "serving_endpoint", "uc_table",
+   * "vector_search_index".
    */
   @JsonProperty("tool_type")
   private String toolType;
+
+  /** */
+  @JsonProperty("uc_connection")
+  private UcConnection ucConnection;
 
   /** */
   @JsonProperty("uc_function")
@@ -63,15 +64,6 @@ public class Tool {
 
   public App getApp() {
     return app;
-  }
-
-  public Tool setConnection(Connection connection) {
-    this.connection = connection;
-    return this;
-  }
-
-  public Connection getConnection() {
-    return connection;
   }
 
   public Tool setDescription(String description) {
@@ -137,6 +129,15 @@ public class Tool {
     return toolType;
   }
 
+  public Tool setUcConnection(UcConnection ucConnection) {
+    this.ucConnection = ucConnection;
+    return this;
+  }
+
+  public UcConnection getUcConnection() {
+    return ucConnection;
+  }
+
   public Tool setUcFunction(UcFunction ucFunction) {
     this.ucFunction = ucFunction;
     return this;
@@ -161,7 +162,6 @@ public class Tool {
     if (o == null || getClass() != o.getClass()) return false;
     Tool that = (Tool) o;
     return Objects.equals(app, that.app)
-        && Objects.equals(connection, that.connection)
         && Objects.equals(description, that.description)
         && Objects.equals(genieSpace, that.genieSpace)
         && Objects.equals(id, that.id)
@@ -169,6 +169,7 @@ public class Tool {
         && Objects.equals(name, that.name)
         && Objects.equals(toolId, that.toolId)
         && Objects.equals(toolType, that.toolType)
+        && Objects.equals(ucConnection, that.ucConnection)
         && Objects.equals(ucFunction, that.ucFunction)
         && Objects.equals(volume, that.volume);
   }
@@ -177,7 +178,6 @@ public class Tool {
   public int hashCode() {
     return Objects.hash(
         app,
-        connection,
         description,
         genieSpace,
         id,
@@ -185,6 +185,7 @@ public class Tool {
         name,
         toolId,
         toolType,
+        ucConnection,
         ucFunction,
         volume);
   }
@@ -193,7 +194,6 @@ public class Tool {
   public String toString() {
     return new ToStringer(Tool.class)
         .add("app", app)
-        .add("connection", connection)
         .add("description", description)
         .add("genieSpace", genieSpace)
         .add("id", id)
@@ -201,6 +201,7 @@ public class Tool {
         .add("name", name)
         .add("toolId", toolId)
         .add("toolType", toolType)
+        .add("ucConnection", ucConnection)
         .add("ucFunction", ucFunction)
         .add("volume", volume)
         .toString();

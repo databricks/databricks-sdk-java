@@ -10,7 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class EndpointSpec {
-  /** The maximum number of Compute Units. Minimum value is 0.5. */
+  /**
+   * The maximum number of Compute Units. The maximum value is 64. The difference between the
+   * minimum and maximum Compute Units (max - min) must not exceed 16.
+   */
   @JsonProperty("autoscaling_limit_max_cu")
   private Double autoscalingLimitMaxCu;
 
@@ -40,7 +43,8 @@ public class EndpointSpec {
 
   /**
    * When set to true, explicitly disables automatic suspension (never suspend). Should be set to
-   * true when provided.
+   * true when provided. Mutually exclusive with `suspend_timeout_duration`. When updating, use
+   * `spec.suspension` in the update_mask.
    */
   @JsonProperty("no_suspension")
   private Boolean noSuspension;
@@ -51,7 +55,8 @@ public class EndpointSpec {
 
   /**
    * Duration of inactivity after which the compute endpoint is automatically suspended. If
-   * specified should be between 60s and 604800s (1 minute to 1 week).
+   * specified should be between 60s and 604800s (1 minute to 1 week). Mutually exclusive with
+   * `no_suspension`. When updating, use `spec.suspension` in the update_mask.
    */
   @JsonProperty("suspend_timeout_duration")
   private Duration suspendTimeoutDuration;

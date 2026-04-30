@@ -31,6 +31,11 @@ public class CreateEndpointRequest {
    */
   @JsonIgnore private String parent;
 
+  /** If true, update the endpoint if it already exists instead of returning an error. */
+  @JsonIgnore
+  @QueryParam("replace_existing")
+  private Boolean replaceExisting;
+
   public CreateEndpointRequest setEndpoint(Endpoint endpoint) {
     this.endpoint = endpoint;
     return this;
@@ -58,6 +63,15 @@ public class CreateEndpointRequest {
     return parent;
   }
 
+  public CreateEndpointRequest setReplaceExisting(Boolean replaceExisting) {
+    this.replaceExisting = replaceExisting;
+    return this;
+  }
+
+  public Boolean getReplaceExisting() {
+    return replaceExisting;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -65,12 +79,13 @@ public class CreateEndpointRequest {
     CreateEndpointRequest that = (CreateEndpointRequest) o;
     return Objects.equals(endpoint, that.endpoint)
         && Objects.equals(endpointId, that.endpointId)
-        && Objects.equals(parent, that.parent);
+        && Objects.equals(parent, that.parent)
+        && Objects.equals(replaceExisting, that.replaceExisting);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(endpoint, endpointId, parent);
+    return Objects.hash(endpoint, endpointId, parent, replaceExisting);
   }
 
   @Override
@@ -79,6 +94,7 @@ public class CreateEndpointRequest {
         .add("endpoint", endpoint)
         .add("endpointId", endpointId)
         .add("parent", parent)
+        .add("replaceExisting", replaceExisting)
         .toString();
   }
 }

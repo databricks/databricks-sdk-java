@@ -7,10 +7,13 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** SHIELD feature: ESM */
+/**
+ * SHIELD feature: ESM Enhanced Security Monitoring (ESM) enables additional security monitoring on
+ * the workspace.
+ */
 @Generated
 public class EnhancedSecurityMonitoring {
-  /** */
+  /** Whether Enhanced Security Monitoring (ESM) is enabled on the workspace. */
   @JsonProperty("is_enabled")
   private Boolean isEnabled;
 

@@ -14,8 +14,9 @@ public class PatchEndpointRequest {
   @JsonIgnore private String endpointName;
 
   /**
-   * Min QPS for the endpoint. Positive integer sets QPS target; -1 resets to default scaling
-   * behavior.
+   * Deprecated: use target_qps. Min QPS for the endpoint. Positive integer sets QPS target; -1
+   * resets to default scaling behavior. Kept at PUBLIC_BETA with deprecated = true so generated SDK
+   * surfaces keep the field with a deprecation marker; hiding completely is a follow-up PR.
    */
   @JsonProperty("min_qps")
   private Long minQps;

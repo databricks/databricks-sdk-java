@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class RequestedResource {
-  /** */
+  /** The full Unity Catalog table name. */
   @JsonProperty("table_name")
   private String tableName;
 

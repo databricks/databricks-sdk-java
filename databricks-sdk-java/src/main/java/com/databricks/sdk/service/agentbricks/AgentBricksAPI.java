@@ -2,9 +2,9 @@
 package com.databricks.sdk.service.agentbricks;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.support.Generated;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /** The Custom LLMs service manages state and powers the UI for the Custom LLM product. */
 @Generated
