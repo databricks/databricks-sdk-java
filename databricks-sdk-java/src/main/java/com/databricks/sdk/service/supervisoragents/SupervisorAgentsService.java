@@ -17,7 +17,8 @@ public interface SupervisorAgentsService {
 
   /**
    * Creates a Tool under a Supervisor Agent. Specify one of "genie_space", "knowledge_assistant",
-   * "uc_function", "connection", "app", "volume", "lakeview_dashboard" in the request body.
+   * "uc_function", "uc_connection", "app", "volume", "lakeview_dashboard", "uc_table",
+   * "vector_search_index" in the request body.
    */
   Tool createTool(CreateToolRequest createToolRequest);
 

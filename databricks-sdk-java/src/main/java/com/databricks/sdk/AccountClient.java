@@ -23,6 +23,8 @@ import com.databricks.sdk.service.catalog.AccountMetastoresAPI;
 import com.databricks.sdk.service.catalog.AccountMetastoresService;
 import com.databricks.sdk.service.catalog.AccountStorageCredentialsAPI;
 import com.databricks.sdk.service.catalog.AccountStorageCredentialsService;
+import com.databricks.sdk.service.disasterrecovery.DisasterRecoveryAPI;
+import com.databricks.sdk.service.disasterrecovery.DisasterRecoveryService;
 import com.databricks.sdk.service.iam.AccountAccessControlAPI;
 import com.databricks.sdk.service.iam.AccountAccessControlService;
 import com.databricks.sdk.service.iam.AccountGroupsAPI;
@@ -96,6 +98,7 @@ public class AccountClient {
   private BudgetsAPI budgetsAPI;
   private CredentialsAPI credentialsAPI;
   private CustomAppIntegrationAPI customAppIntegrationAPI;
+  private DisasterRecoveryAPI disasterRecoveryAPI;
   private EncryptionKeysAPI encryptionKeysAPI;
   private EndpointsAPI endpointsAPI;
   private AccountFederationPolicyAPI federationPolicyAPI;
@@ -142,6 +145,7 @@ public class AccountClient {
     budgetsAPI = new BudgetsAPI(apiClient);
     credentialsAPI = new CredentialsAPI(apiClient);
     customAppIntegrationAPI = new CustomAppIntegrationAPI(apiClient);
+    disasterRecoveryAPI = new DisasterRecoveryAPI(apiClient);
     encryptionKeysAPI = new EncryptionKeysAPI(apiClient);
     endpointsAPI = new EndpointsAPI(apiClient);
     federationPolicyAPI = new AccountFederationPolicyAPI(apiClient);
@@ -228,6 +232,11 @@ public class AccountClient {
    */
   public CustomAppIntegrationAPI customAppIntegration() {
     return customAppIntegrationAPI;
+  }
+
+  /** Manage disaster recovery configurations and execute failover operations. */
+  public DisasterRecoveryAPI disasterRecovery() {
+    return disasterRecoveryAPI;
   }
 
   /**
@@ -756,6 +765,17 @@ public class AccountClient {
   /** Replace the default CustomAppIntegrationAPI with a custom implementation. */
   public AccountClient withCustomAppIntegrationAPI(CustomAppIntegrationAPI customAppIntegration) {
     this.customAppIntegrationAPI = customAppIntegration;
+    return this;
+  }
+
+  /** Replace the default DisasterRecoveryService with a custom implementation. */
+  public AccountClient withDisasterRecoveryImpl(DisasterRecoveryService disasterRecovery) {
+    return this.withDisasterRecoveryAPI(new DisasterRecoveryAPI(disasterRecovery));
+  }
+
+  /** Replace the default DisasterRecoveryAPI with a custom implementation. */
+  public AccountClient withDisasterRecoveryAPI(DisasterRecoveryAPI disasterRecovery) {
+    this.disasterRecoveryAPI = disasterRecovery;
     return this;
   }
 

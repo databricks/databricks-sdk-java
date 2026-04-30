@@ -2,10 +2,10 @@
 package com.databricks.sdk.service.knowledgeassistants;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /** Manage Knowledge Assistants and related resources. */
 @Generated
@@ -24,6 +24,11 @@ public class KnowledgeAssistantsAPI {
     impl = mock;
   }
 
+  /** Creates an example for a Knowledge Assistant. */
+  public Example createExample(CreateExampleRequest request) {
+    return impl.createExample(request);
+  }
+
   /** Creates a Knowledge Assistant. */
   public KnowledgeAssistant createKnowledgeAssistant(CreateKnowledgeAssistantRequest request) {
     return impl.createKnowledgeAssistant(request);
@@ -32,6 +37,15 @@ public class KnowledgeAssistantsAPI {
   /** Creates a Knowledge Source under a Knowledge Assistant. */
   public KnowledgeSource createKnowledgeSource(CreateKnowledgeSourceRequest request) {
     return impl.createKnowledgeSource(request);
+  }
+
+  public void deleteExample(String name) {
+    deleteExample(new DeleteExampleRequest().setName(name));
+  }
+
+  /** Deletes an example from a Knowledge Assistant. */
+  public void deleteExample(DeleteExampleRequest request) {
+    impl.deleteExample(request);
   }
 
   public void deleteKnowledgeAssistant(String name) {
@@ -52,6 +66,15 @@ public class KnowledgeAssistantsAPI {
     impl.deleteKnowledgeSource(request);
   }
 
+  public Example getExample(String name) {
+    return getExample(new GetExampleRequest().setName(name));
+  }
+
+  /** Gets an example from a Knowledge Assistant. */
+  public Example getExample(GetExampleRequest request) {
+    return impl.getExample(request);
+  }
+
   public KnowledgeAssistant getKnowledgeAssistant(String name) {
     return getKnowledgeAssistant(new GetKnowledgeAssistantRequest().setName(name));
   }
@@ -68,6 +91,53 @@ public class KnowledgeAssistantsAPI {
   /** Gets a Knowledge Source. */
   public KnowledgeSource getKnowledgeSource(GetKnowledgeSourceRequest request) {
     return impl.getKnowledgeSource(request);
+  }
+
+  public GetKnowledgeAssistantPermissionLevelsResponse getPermissionLevels(
+      String knowledgeAssistantId) {
+    return getPermissionLevels(
+        new GetKnowledgeAssistantPermissionLevelsRequest()
+            .setKnowledgeAssistantId(knowledgeAssistantId));
+  }
+
+  /** Gets the permission levels that a user can have on an object. */
+  public GetKnowledgeAssistantPermissionLevelsResponse getPermissionLevels(
+      GetKnowledgeAssistantPermissionLevelsRequest request) {
+    return impl.getPermissionLevels(request);
+  }
+
+  public KnowledgeAssistantPermissions getPermissions(String knowledgeAssistantId) {
+    return getPermissions(
+        new GetKnowledgeAssistantPermissionsRequest()
+            .setKnowledgeAssistantId(knowledgeAssistantId));
+  }
+
+  /**
+   * Gets the permissions of a knowledge assistant. Knowledge assistants can inherit permissions
+   * from their root object.
+   */
+  public KnowledgeAssistantPermissions getPermissions(
+      GetKnowledgeAssistantPermissionsRequest request) {
+    return impl.getPermissions(request);
+  }
+
+  public Iterable<Example> listExamples(String parent) {
+    return listExamples(new ListExamplesRequest().setParent(parent));
+  }
+
+  /** Lists examples under a Knowledge Assistant. */
+  public Iterable<Example> listExamples(ListExamplesRequest request) {
+    return new Paginator<>(
+        request,
+        impl::listExamples,
+        ListExamplesResponse::getExamples,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   /** List Knowledge Assistants */
@@ -106,11 +176,25 @@ public class KnowledgeAssistantsAPI {
   }
 
   /**
+   * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
+   * permissions if none are specified. Objects can inherit permissions from their root object.
+   */
+  public KnowledgeAssistantPermissions setPermissions(
+      KnowledgeAssistantPermissionsRequest request) {
+    return impl.setPermissions(request);
+  }
+
+  /**
    * Sync all non-index Knowledge Sources for a Knowledge Assistant (index sources do not require
    * sync)
    */
   public void syncKnowledgeSources(SyncKnowledgeSourcesRequest request) {
     impl.syncKnowledgeSources(request);
+  }
+
+  /** Updates an example in a Knowledge Assistant. */
+  public Example updateExample(UpdateExampleRequest request) {
+    return impl.updateExample(request);
   }
 
   /** Updates a Knowledge Assistant. */
@@ -121,6 +205,15 @@ public class KnowledgeAssistantsAPI {
   /** Updates a Knowledge Source. */
   public KnowledgeSource updateKnowledgeSource(UpdateKnowledgeSourceRequest request) {
     return impl.updateKnowledgeSource(request);
+  }
+
+  /**
+   * Updates the permissions on a knowledge assistant. Knowledge assistants can inherit permissions
+   * from their root object.
+   */
+  public KnowledgeAssistantPermissions updatePermissions(
+      KnowledgeAssistantPermissionsRequest request) {
+    return impl.updatePermissions(request);
   }
 
   public KnowledgeAssistantsService impl() {

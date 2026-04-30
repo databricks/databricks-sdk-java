@@ -15,7 +15,14 @@ public class Project {
   private Timestamp createTime;
 
   /**
-   * Configuration settings for the initial Read/Write endpoint created inside the default branch
+   * A timestamp indicating when the project was soft-deleted. Empty if the project is not deleted,
+   * otherwise set to a timestamp in the past.
+   */
+  @JsonProperty("delete_time")
+  private Timestamp deleteTime;
+
+  /**
+   * Configuration settings for the initial Read/Write endpoint created inside the initial branch
    * for a newly created project. If omitted, the initial endpoint created will have default
    * settings, without high availability configured. This field does not apply to any endpoints
    * created after project creation. Use spec.default_endpoint_settings to configure default
@@ -27,6 +34,13 @@ public class Project {
   /** Output only. The full resource path of the project. Format: projects/{project_id} */
   @JsonProperty("name")
   private String name;
+
+  /**
+   * A timestamp indicating when the project is scheduled for permanent deletion. Empty if the
+   * project is not deleted, otherwise set to a timestamp in the future.
+   */
+  @JsonProperty("purge_time")
+  private Timestamp purgeTime;
 
   /**
    * The spec contains the project configuration, including display_name, pg_version (Postgres
@@ -56,6 +70,15 @@ public class Project {
     return createTime;
   }
 
+  public Project setDeleteTime(Timestamp deleteTime) {
+    this.deleteTime = deleteTime;
+    return this;
+  }
+
+  public Timestamp getDeleteTime() {
+    return deleteTime;
+  }
+
   public Project setInitialEndpointSpec(InitialEndpointSpec initialEndpointSpec) {
     this.initialEndpointSpec = initialEndpointSpec;
     return this;
@@ -72,6 +95,15 @@ public class Project {
 
   public String getName() {
     return name;
+  }
+
+  public Project setPurgeTime(Timestamp purgeTime) {
+    this.purgeTime = purgeTime;
+    return this;
+  }
+
+  public Timestamp getPurgeTime() {
+    return purgeTime;
   }
 
   public Project setSpec(ProjectSpec spec) {
@@ -116,8 +148,10 @@ public class Project {
     if (o == null || getClass() != o.getClass()) return false;
     Project that = (Project) o;
     return Objects.equals(createTime, that.createTime)
+        && Objects.equals(deleteTime, that.deleteTime)
         && Objects.equals(initialEndpointSpec, that.initialEndpointSpec)
         && Objects.equals(name, that.name)
+        && Objects.equals(purgeTime, that.purgeTime)
         && Objects.equals(spec, that.spec)
         && Objects.equals(status, that.status)
         && Objects.equals(uid, that.uid)
@@ -126,15 +160,26 @@ public class Project {
 
   @Override
   public int hashCode() {
-    return Objects.hash(createTime, initialEndpointSpec, name, spec, status, uid, updateTime);
+    return Objects.hash(
+        createTime,
+        deleteTime,
+        initialEndpointSpec,
+        name,
+        purgeTime,
+        spec,
+        status,
+        uid,
+        updateTime);
   }
 
   @Override
   public String toString() {
     return new ToStringer(Project.class)
         .add("createTime", createTime)
+        .add("deleteTime", deleteTime)
         .add("initialEndpointSpec", initialEndpointSpec)
         .add("name", name)
+        .add("purgeTime", purgeTime)
         .add("spec", spec)
         .add("status", status)
         .add("uid", uid)

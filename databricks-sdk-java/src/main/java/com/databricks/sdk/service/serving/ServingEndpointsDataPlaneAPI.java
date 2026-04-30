@@ -3,9 +3,9 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.core.DatabricksConfig;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.support.Generated;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Serving endpoints DataPlane provides a set of operations to interact with data plane endpoints

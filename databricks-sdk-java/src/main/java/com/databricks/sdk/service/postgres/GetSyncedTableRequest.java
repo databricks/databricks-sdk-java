@@ -10,8 +10,8 @@ import java.util.Objects;
 @Generated
 public class GetSyncedTableRequest {
   /**
-   * Format: "synced_tables/{catalog}.{schema}.{table}", where (catalog, schema, table) are the
-   * entity names in the Unity Catalog.
+   * The Full resource name of the synced table. Format: "synced_tables/{catalog}.{schema}.{table}",
+   * where (catalog, schema, table) are the entity names in the Unity Catalog.
    */
   @JsonIgnore private String name;
 

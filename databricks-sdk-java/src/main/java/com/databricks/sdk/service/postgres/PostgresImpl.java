@@ -501,6 +501,24 @@ class PostgresImpl implements PostgresService {
   }
 
   @Override
+  public Operation undeleteProject(UndeleteProjectRequest request) {
+    String path = String.format("/api/2.0/postgres/%s/undelete", request.getName());
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Operation.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public Operation updateBranch(UpdateBranchRequest request) {
     String path = String.format("/api/2.0/postgres/%s", request.getName());
     try {

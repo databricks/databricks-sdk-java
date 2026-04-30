@@ -4,9 +4,7 @@ package com.databricks.sdk.service.postgres;
 
 import com.databricks.sdk.support.Generated;
 
-/**
- * The state of a synced table. Copied from database_table_statuses.proto to decouple SDK packages.
- */
+/** The state of a synced table. */
 @Generated
 public enum SyncedTableState {
   SYNCED_TABLE_OFFLINE,

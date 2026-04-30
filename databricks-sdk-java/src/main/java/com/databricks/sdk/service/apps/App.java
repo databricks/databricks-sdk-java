@@ -121,6 +121,10 @@ public class App {
   @JsonProperty("telemetry_export_destinations")
   private Collection<TelemetryExportDestination> telemetryExportDestinations;
 
+  /** The URL of the thumbnail image for the app. */
+  @JsonProperty("thumbnail_url")
+  private String thumbnailUrl;
+
   /** The update time of the app. Formatted timestamp in ISO 6801. */
   @JsonProperty("update_time")
   private String updateTime;
@@ -358,6 +362,15 @@ public class App {
     return telemetryExportDestinations;
   }
 
+  public App setThumbnailUrl(String thumbnailUrl) {
+    this.thumbnailUrl = thumbnailUrl;
+    return this;
+  }
+
+  public String getThumbnailUrl() {
+    return thumbnailUrl;
+  }
+
   public App setUpdateTime(String updateTime) {
     this.updateTime = updateTime;
     return this;
@@ -432,6 +445,7 @@ public class App {
         && Objects.equals(servicePrincipalName, that.servicePrincipalName)
         && Objects.equals(space, that.space)
         && Objects.equals(telemetryExportDestinations, that.telemetryExportDestinations)
+        && Objects.equals(thumbnailUrl, that.thumbnailUrl)
         && Objects.equals(updateTime, that.updateTime)
         && Objects.equals(updater, that.updater)
         && Objects.equals(url, that.url)
@@ -466,6 +480,7 @@ public class App {
         servicePrincipalName,
         space,
         telemetryExportDestinations,
+        thumbnailUrl,
         updateTime,
         updater,
         url,
@@ -500,6 +515,7 @@ public class App {
         .add("servicePrincipalName", servicePrincipalName)
         .add("space", space)
         .add("telemetryExportDestinations", telemetryExportDestinations)
+        .add("thumbnailUrl", thumbnailUrl)
         .add("updateTime", updateTime)
         .add("updater", updater)
         .add("url", url)

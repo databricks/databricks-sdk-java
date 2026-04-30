@@ -2,10 +2,10 @@
 package com.databricks.sdk.service.supervisoragents;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /** Manage Supervisor Agents and related resources. */
 @Generated
@@ -31,7 +31,8 @@ public class SupervisorAgentsAPI {
 
   /**
    * Creates a Tool under a Supervisor Agent. Specify one of "genie_space", "knowledge_assistant",
-   * "uc_function", "connection", "app", "volume", "lakeview_dashboard" in the request body.
+   * "uc_function", "uc_connection", "app", "volume", "lakeview_dashboard", "uc_table",
+   * "vector_search_index" in the request body.
    */
   public Tool createTool(CreateToolRequest request) {
     return impl.createTool(request);
