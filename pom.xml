@@ -49,7 +49,11 @@
     <url>https://github.com/databricks/databricks-sdk-java/blob/main/.github/workflows/push.yml</url>
   </ciManagement>
   <properties>
-    <jacoco.version>0.8.10</jacoco.version>
+    <!-- 0.8.13 supports Java 24 officially and instruments JDK 25 class
+         files in practice (next JaCoCo release should add 25 officially).
+         Required for the code-generator's JDK 25 environment running
+         `mvn clean test` with JaCoCo's prepare-agent attached. -->
+    <jacoco.version>0.8.13</jacoco.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <build>

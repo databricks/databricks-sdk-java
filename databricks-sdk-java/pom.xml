@@ -17,6 +17,11 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <!-- 5.x starting from 5.0.0 requires JRE 11 -->
     <mockito.version>4.11.0</mockito.version>
+    <!-- Override Mockito's transitive Byte Buddy. Mockito 4.11 ships
+         Byte Buddy ~1.12, which only supports class file format up to
+         Java 20; running tests on JDK 25 fails with `Java 25 (69) is
+         not supported`. 1.17.5 supports JDK 25 and stays Java 8 compatible. -->
+    <bytebuddy.version>1.17.5</bytebuddy.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <slf4j.version>2.0.9</slf4j.version>
   </properties>
@@ -28,6 +33,16 @@
         <version>${junit-bom.version}</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>net.bytebuddy</groupId>
+        <artifactId>byte-buddy</artifactId>
+        <version>${bytebuddy.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>net.bytebuddy</groupId>
+        <artifactId>byte-buddy-agent</artifactId>
+        <version>${bytebuddy.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
