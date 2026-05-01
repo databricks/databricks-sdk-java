@@ -2,10 +2,10 @@
 package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Marketplace exchanges allow providers to share their listings with a curated set of customers.

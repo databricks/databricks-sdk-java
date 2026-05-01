@@ -5,7 +5,7 @@ package com.databricks.sdk;
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.core.ConfigLoader;
 import com.databricks.sdk.core.DatabricksConfig;
-import com.databricks.sdk.core.HostType;
+import com.databricks.sdk.core.DatabricksEnvironment;
 import com.databricks.sdk.core.utils.AzureUtils;
 import com.databricks.sdk.service.billing.BillableUsageAPI;
 import com.databricks.sdk.service.billing.BillableUsageService;
@@ -23,6 +23,8 @@ import com.databricks.sdk.service.catalog.AccountMetastoresAPI;
 import com.databricks.sdk.service.catalog.AccountMetastoresService;
 import com.databricks.sdk.service.catalog.AccountStorageCredentialsAPI;
 import com.databricks.sdk.service.catalog.AccountStorageCredentialsService;
+import com.databricks.sdk.service.disasterrecovery.DisasterRecoveryAPI;
+import com.databricks.sdk.service.disasterrecovery.DisasterRecoveryService;
 import com.databricks.sdk.service.iam.AccountAccessControlAPI;
 import com.databricks.sdk.service.iam.AccountAccessControlService;
 import com.databricks.sdk.service.iam.AccountGroupsAPI;
@@ -96,6 +98,7 @@ public class AccountClient {
   private BudgetsAPI budgetsAPI;
   private CredentialsAPI credentialsAPI;
   private CustomAppIntegrationAPI customAppIntegrationAPI;
+  private DisasterRecoveryAPI disasterRecoveryAPI;
   private EncryptionKeysAPI encryptionKeysAPI;
   private EndpointsAPI endpointsAPI;
   private AccountFederationPolicyAPI federationPolicyAPI;
@@ -142,6 +145,7 @@ public class AccountClient {
     budgetsAPI = new BudgetsAPI(apiClient);
     credentialsAPI = new CredentialsAPI(apiClient);
     customAppIntegrationAPI = new CustomAppIntegrationAPI(apiClient);
+    disasterRecoveryAPI = new DisasterRecoveryAPI(apiClient);
     encryptionKeysAPI = new EncryptionKeysAPI(apiClient);
     endpointsAPI = new EndpointsAPI(apiClient);
     federationPolicyAPI = new AccountFederationPolicyAPI(apiClient);
@@ -228,6 +232,11 @@ public class AccountClient {
    */
   public CustomAppIntegrationAPI customAppIntegration() {
     return customAppIntegrationAPI;
+  }
+
+  /** Manage disaster recovery configurations and execute failover operations. */
+  public DisasterRecoveryAPI disasterRecovery() {
+    return disasterRecoveryAPI;
   }
 
   /**
@@ -665,6 +674,7 @@ public class AccountClient {
   public AccountGroupsAPI groups() {
     return groupsAPI;
   }
+
   /**
    * Identities for use with jobs, automated tools, and systems such as scripts, apps, and CI/CD
    * platforms. Databricks recommends creating service principals to run production jobs or modify
@@ -675,6 +685,7 @@ public class AccountClient {
   public AccountServicePrincipalsAPI servicePrincipals() {
     return servicePrincipalsAPI;
   }
+
   /**
    * User identities recognized by Databricks and represented by email addresses.
    *
@@ -754,6 +765,17 @@ public class AccountClient {
   /** Replace the default CustomAppIntegrationAPI with a custom implementation. */
   public AccountClient withCustomAppIntegrationAPI(CustomAppIntegrationAPI customAppIntegration) {
     this.customAppIntegrationAPI = customAppIntegration;
+    return this;
+  }
+
+  /** Replace the default DisasterRecoveryService with a custom implementation. */
+  public AccountClient withDisasterRecoveryImpl(DisasterRecoveryService disasterRecovery) {
+    return this.withDisasterRecoveryAPI(new DisasterRecoveryAPI(disasterRecovery));
+  }
+
+  /** Replace the default DisasterRecoveryAPI with a custom implementation. */
+  public AccountClient withDisasterRecoveryAPI(DisasterRecoveryAPI disasterRecovery) {
+    this.disasterRecoveryAPI = disasterRecovery;
     return this;
   }
 
@@ -1131,18 +1153,48 @@ public class AccountClient {
   }
 
   public WorkspaceClient getWorkspaceClient(Workspace workspace) {
-    // For unified hosts, clone config and set workspace ID
-    if (this.config.getHostType() == HostType.UNIFIED) {
+    String host =
+        workspaceHost(
+            this.config.getDatabricksEnvironment(),
+            this.config.getHost(),
+            workspace.getDeploymentName());
+    if (host.equals(this.config.getHost())) {
+      // SPOG/unified: reuse the same host, clone config and set workspace ID
       DatabricksConfig workspaceConfig = this.config.clone();
       workspaceConfig.setWorkspaceId(String.valueOf(workspace.getWorkspaceId()));
       return new WorkspaceClient(workspaceConfig);
     }
 
-    // For traditional account hosts, get workspace deployment URL
-    String host =
-        this.config.getDatabricksEnvironment().getDeploymentUrl(workspace.getDeploymentName());
+    // Traditional: use the deployment URL
     DatabricksConfig config = this.config.newWithWorkspaceHost(host);
     AzureUtils.getAzureWorkspaceResourceId(workspace).map(config::setAzureWorkspaceResourceId);
     return new WorkspaceClient(config);
+  }
+
+  /**
+   * Determines the workspace host URL. For SPOG hosts (no DNS zone or host doesn't match the DNS
+   * zone pattern), returns the account host as-is. For traditional hosts, builds the deployment
+   * URL.
+   */
+  private static String workspaceHost(
+      DatabricksEnvironment env, String accountHost, String deploymentName) {
+    if (env.getDnsZone() == null || env.getDnsZone().isEmpty()) {
+      return accountHost;
+    }
+    if (accountHost != null) {
+      String normalized = accountHost;
+      if (!normalized.contains("://")) {
+        normalized = "https://" + normalized;
+      }
+      try {
+        java.net.URL url = new java.net.URL(normalized);
+        if (url.getHost() != null && url.getHost().endsWith(env.getDnsZone())) {
+          return env.getDeploymentUrl(deploymentName);
+        }
+      } catch (java.net.MalformedURLException e) {
+        // Fall through to return accountHost
+      }
+    }
+    return accountHost;
   }
 }

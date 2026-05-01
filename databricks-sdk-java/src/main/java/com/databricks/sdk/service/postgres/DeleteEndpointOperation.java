@@ -2,6 +2,8 @@
 package com.databricks.sdk.service.postgres;
 
 import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.core.utils.SerDeUtils;
 import com.databricks.sdk.service.common.lro.LroOptions;
 import com.databricks.sdk.support.Generated;
@@ -11,8 +13,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.Duration;
 import java.util.Optional;
 import java.util.concurrent.TimeoutException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Wrapper for interacting with a long-running deleteEndpoint operation. Provides methods to wait

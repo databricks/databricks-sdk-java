@@ -8,14 +8,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/** SHIELD feature: CSP */
+/**
+ * SHIELD feature: CSP Compliance Security Profile (CSP) enables enhanced compliance controls on the
+ * workspace.
+ */
 @Generated
 public class ComplianceSecurityProfile {
-  /** Set by customers when they request Compliance Security Profile (CSP) */
+  /** Compliance standards selected by the customer for this Compliance Security Profile. */
   @JsonProperty("compliance_standards")
   private Collection<ComplianceStandard> complianceStandards;
 
-  /** */
+  /** Whether Compliance Security Profile (CSP) is enabled on the workspace. */
   @JsonProperty("is_enabled")
   private Boolean isEnabled;
 

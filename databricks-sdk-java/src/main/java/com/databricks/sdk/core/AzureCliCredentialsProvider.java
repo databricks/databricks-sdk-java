@@ -1,5 +1,7 @@
 package com.databricks.sdk.core;
 
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.core.oauth.CachedTokenSource;
 import com.databricks.sdk.core.oauth.OAuthHeaderFactory;
 import com.databricks.sdk.core.oauth.Token;
@@ -7,8 +9,6 @@ import com.databricks.sdk.core.utils.AzureUtils;
 import com.databricks.sdk.support.InternalApi;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @InternalApi
 public class AzureCliCredentialsProvider implements CredentialsProvider {

@@ -18,8 +18,9 @@ public class CreateEndpoint {
   private EndpointType endpointType;
 
   /**
-   * Min QPS for the endpoint. Mutually exclusive with num_replicas. The actual replica count is
-   * calculated at index creation/sync time based on this value.
+   * Deprecated: use target_qps. Min QPS for the endpoint. Mutually exclusive with num_replicas.
+   * Kept at PUBLIC_BETA with deprecated = true so generated SDK surfaces keep the field with a
+   * deprecation marker; hiding completely is a follow-up PR.
    */
   @JsonProperty("min_qps")
   private Long minQps;
@@ -27,6 +28,10 @@ public class CreateEndpoint {
   /** Name of the vector search endpoint */
   @JsonProperty("name")
   private String name;
+
+  /** The usage policy id to be applied once we've migrated to usage policies */
+  @JsonProperty("usage_policy_id")
+  private String usagePolicyId;
 
   public CreateEndpoint setBudgetPolicyId(String budgetPolicyId) {
     this.budgetPolicyId = budgetPolicyId;
@@ -64,6 +69,15 @@ public class CreateEndpoint {
     return name;
   }
 
+  public CreateEndpoint setUsagePolicyId(String usagePolicyId) {
+    this.usagePolicyId = usagePolicyId;
+    return this;
+  }
+
+  public String getUsagePolicyId() {
+    return usagePolicyId;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -72,12 +86,13 @@ public class CreateEndpoint {
     return Objects.equals(budgetPolicyId, that.budgetPolicyId)
         && Objects.equals(endpointType, that.endpointType)
         && Objects.equals(minQps, that.minQps)
-        && Objects.equals(name, that.name);
+        && Objects.equals(name, that.name)
+        && Objects.equals(usagePolicyId, that.usagePolicyId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(budgetPolicyId, endpointType, minQps, name);
+    return Objects.hash(budgetPolicyId, endpointType, minQps, name, usagePolicyId);
   }
 
   @Override
@@ -87,6 +102,7 @@ public class CreateEndpoint {
         .add("endpointType", endpointType)
         .add("minQps", minQps)
         .add("name", name)
+        .add("usagePolicyId", usagePolicyId)
         .toString();
   }
 }

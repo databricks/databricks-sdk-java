@@ -18,6 +18,10 @@ public class CreateCatalog {
   @JsonProperty("connection_name")
   private String connectionName;
 
+  /** Control CMK encryption for managed catalog data */
+  @JsonProperty("managed_encryption_settings")
+  private EncryptionSettings managedEncryptionSettings;
+
   /** Name of catalog. */
   @JsonProperty("name")
   private String name;
@@ -63,6 +67,15 @@ public class CreateCatalog {
 
   public String getConnectionName() {
     return connectionName;
+  }
+
+  public CreateCatalog setManagedEncryptionSettings(EncryptionSettings managedEncryptionSettings) {
+    this.managedEncryptionSettings = managedEncryptionSettings;
+    return this;
+  }
+
+  public EncryptionSettings getManagedEncryptionSettings() {
+    return managedEncryptionSettings;
   }
 
   public CreateCatalog setName(String name) {
@@ -126,6 +139,7 @@ public class CreateCatalog {
     CreateCatalog that = (CreateCatalog) o;
     return Objects.equals(comment, that.comment)
         && Objects.equals(connectionName, that.connectionName)
+        && Objects.equals(managedEncryptionSettings, that.managedEncryptionSettings)
         && Objects.equals(name, that.name)
         && Objects.equals(options, that.options)
         && Objects.equals(properties, that.properties)
@@ -137,7 +151,15 @@ public class CreateCatalog {
   @Override
   public int hashCode() {
     return Objects.hash(
-        comment, connectionName, name, options, properties, providerName, shareName, storageRoot);
+        comment,
+        connectionName,
+        managedEncryptionSettings,
+        name,
+        options,
+        properties,
+        providerName,
+        shareName,
+        storageRoot);
   }
 
   @Override
@@ -145,6 +167,7 @@ public class CreateCatalog {
     return new ToStringer(CreateCatalog.class)
         .add("comment", comment)
         .add("connectionName", connectionName)
+        .add("managedEncryptionSettings", managedEncryptionSettings)
         .add("name", name)
         .add("options", options)
         .add("properties", properties)

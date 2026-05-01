@@ -1,5 +1,7 @@
 package com.databricks.sdk.core;
 
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.core.utils.Environment;
 import com.databricks.sdk.support.InternalApi;
 import java.io.FileNotFoundException;
@@ -13,12 +15,11 @@ import java.util.*;
 import org.apache.commons.configuration2.INIConfiguration;
 import org.apache.commons.configuration2.SubnodeConfiguration;
 import org.apache.commons.configuration2.ex.ConfigurationException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @InternalApi
 public class ConfigLoader {
   private static final Logger LOG = LoggerFactory.getLogger(ConfigLoader.class);
+  private static final String SETTINGS_SECTION = "__settings__";
 
   private static final List<ConfigAttributeAccessor> accessors = attributeAccessors();
 
@@ -92,20 +93,23 @@ public class ConfigLoader {
     INIConfiguration ini = parseDatabricksCfg(configFile, isDefaultConfig);
     if (ini == null) return;
 
-    String profile = cfg.getProfile();
-    boolean hasExplicitProfile = !isNullOrEmpty(profile);
-    if (!hasExplicitProfile) {
-      profile = "DEFAULT";
-    }
+    ResolvedProfile resolved = resolveProfile(cfg.getProfile(), ini, configFile.toString());
+    String profile = resolved.name;
+    boolean isFallback = resolved.isFallback;
+
     SubnodeConfiguration section = ini.getSection(profile);
     boolean sectionNotPresent = section == null || section.isEmpty();
-    if (sectionNotPresent && !hasExplicitProfile) {
-      LOG.info("{} has no {} profile configured", configFile, profile);
-      return;
-    }
     if (sectionNotPresent) {
+      if (isFallback) {
+        LOG.info("{} has no {} profile configured", configFile, profile);
+        return;
+      }
       String msg = String.format("resolve: %s has no %s profile configured", configFile, profile);
       throw new DatabricksException(msg);
+    }
+
+    if (!isFallback) {
+      cfg.setProfile(profile);
     }
 
     for (ConfigAttributeAccessor accessor : accessors) {
@@ -115,6 +119,61 @@ public class ConfigLoader {
       }
       accessor.setValueOnConfig(cfg, value);
     }
+  }
+
+  static class ResolvedProfile {
+    final String name;
+    final boolean isFallback;
+
+    ResolvedProfile(String name, boolean isFallback) {
+      this.name = name;
+      this.isFallback = isFallback;
+    }
+  }
+
+  /**
+   * Resolves which profile to use from the config file.
+   *
+   * <p>Resolution order:
+   *
+   * <ol>
+   *   <li>Explicit profile (flag, env var, or programmatic config) with isFallback=false
+   *   <li>{@code [__settings__].default_profile} with isFallback=false
+   *   <li>{@code "DEFAULT"} with isFallback=true
+   * </ol>
+   *
+   * @throws DatabricksException if the resolved profile is the reserved __settings__ section
+   */
+  static ResolvedProfile resolveProfile(
+      String requestedProfile, INIConfiguration ini, String configFile) {
+    if (!isNullOrEmpty(requestedProfile)) {
+      if (SETTINGS_SECTION.equals(requestedProfile)) {
+        throw new DatabricksException(
+            String.format(
+                "%s: %s is a reserved section name and cannot be used as a profile",
+                configFile, SETTINGS_SECTION));
+      }
+      return new ResolvedProfile(requestedProfile, false);
+    }
+
+    SubnodeConfiguration settings = ini.getSection(SETTINGS_SECTION);
+    if (settings != null && !settings.isEmpty()) {
+      String defaultProfile = settings.getString("default_profile");
+      if (defaultProfile != null) {
+        defaultProfile = defaultProfile.trim();
+      }
+      if (!isNullOrEmpty(defaultProfile)) {
+        if (SETTINGS_SECTION.equals(defaultProfile)) {
+          throw new DatabricksException(
+              String.format(
+                  "%s: %s is a reserved section name and cannot be used as a profile",
+                  configFile, SETTINGS_SECTION));
+        }
+        return new ResolvedProfile(defaultProfile, false);
+      }
+    }
+
+    return new ResolvedProfile("DEFAULT", true);
   }
 
   private static INIConfiguration parseDatabricksCfg(String configFile, boolean isDefaultConfig) {

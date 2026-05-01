@@ -8,12 +8,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 @Generated
-public class CustomerFacingIngressNetworkPolicyAppsDestination {
+public class CustomerFacingIngressNetworkPolicyAppsRuntimeDestination {
   /** Must be set to true. */
   @JsonProperty("all_destinations")
   private Boolean allDestinations;
 
-  public CustomerFacingIngressNetworkPolicyAppsDestination setAllDestinations(
+  public CustomerFacingIngressNetworkPolicyAppsRuntimeDestination setAllDestinations(
       Boolean allDestinations) {
     this.allDestinations = allDestinations;
     return this;
@@ -27,8 +27,8 @@ public class CustomerFacingIngressNetworkPolicyAppsDestination {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    CustomerFacingIngressNetworkPolicyAppsDestination that =
-        (CustomerFacingIngressNetworkPolicyAppsDestination) o;
+    CustomerFacingIngressNetworkPolicyAppsRuntimeDestination that =
+        (CustomerFacingIngressNetworkPolicyAppsRuntimeDestination) o;
     return Objects.equals(allDestinations, that.allDestinations);
   }
 
@@ -39,7 +39,7 @@ public class CustomerFacingIngressNetworkPolicyAppsDestination {
 
   @Override
   public String toString() {
-    return new ToStringer(CustomerFacingIngressNetworkPolicyAppsDestination.class)
+    return new ToStringer(CustomerFacingIngressNetworkPolicyAppsRuntimeDestination.class)
         .add("allDestinations", allDestinations)
         .toString();
   }

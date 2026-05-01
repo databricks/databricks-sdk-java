@@ -3,14 +3,14 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Wait;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Genie provides a no-code experience for business users, powered by AI/BI. Analysts set up spaces
@@ -108,6 +108,11 @@ public class GenieAPI {
                 timeout,
                 callback),
         response);
+  }
+
+  /** Create a comment on a conversation message. */
+  public GenieMessageComment createMessageComment(GenieCreateMessageCommentRequest request) {
+    return impl.createMessageComment(request);
   }
 
   /** Creates a Genie space from a serialized payload. */
@@ -354,6 +359,20 @@ public class GenieAPI {
     return impl.getSpace(request);
   }
 
+  public GenieListConversationCommentsResponse listConversationComments(
+      String spaceId, String conversationId) {
+    return listConversationComments(
+        new GenieListConversationCommentsRequest()
+            .setSpaceId(spaceId)
+            .setConversationId(conversationId));
+  }
+
+  /** List all comments across all messages in a conversation. */
+  public GenieListConversationCommentsResponse listConversationComments(
+      GenieListConversationCommentsRequest request) {
+    return impl.listConversationComments(request);
+  }
+
   public GenieListConversationMessagesResponse listConversationMessages(
       String spaceId, String conversationId) {
     return listConversationMessages(
@@ -375,6 +394,21 @@ public class GenieAPI {
   /** Get a list of conversations in a Genie Space. */
   public GenieListConversationsResponse listConversations(GenieListConversationsRequest request) {
     return impl.listConversations(request);
+  }
+
+  public GenieListMessageCommentsResponse listMessageComments(
+      String spaceId, String conversationId, String messageId) {
+    return listMessageComments(
+        new GenieListMessageCommentsRequest()
+            .setSpaceId(spaceId)
+            .setConversationId(conversationId)
+            .setMessageId(messageId));
+  }
+
+  /** List comments on a specific conversation message. */
+  public GenieListMessageCommentsResponse listMessageComments(
+      GenieListMessageCommentsRequest request) {
+    return impl.listMessageComments(request);
   }
 
   /** Get list of Genie Spaces. */

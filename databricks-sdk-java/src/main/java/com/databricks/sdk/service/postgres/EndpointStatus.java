@@ -10,7 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class EndpointStatus {
-  /** The maximum number of Compute Units. */
+  /**
+   * The maximum number of Compute Units. The maximum value is 64. The difference between the
+   * minimum and maximum Compute Units (max - min) must not exceed 16.
+   */
   @JsonProperty("autoscaling_limit_max_cu")
   private Double autoscalingLimitMaxCu;
 
@@ -29,6 +32,20 @@ public class EndpointStatus {
    */
   @JsonProperty("disabled")
   private Boolean disabled;
+
+  /**
+   * The short identifier of the endpoint, suitable for showing to the users. For an endpoint with
+   * name `projects/my-project/branches/my-branch/endpoints/my-endpoint`, the endpoint_id is
+   * `my-endpoint`.
+   *
+   * <p>Use this field when building UI components that display endpoints to users (e.g., a
+   * drop-down selector). Prefer showing `endpoint_id` instead of the full resource name from
+   * `Endpoint.name`, which follows the
+   * `projects/{project_id}/branches/{branch_id}/endpoints/{endpoint_id}` format and is not
+   * user-friendly.
+   */
+  @JsonProperty("endpoint_id")
+  private String endpointId;
 
   /** The endpoint type. A branch can only have one READ_WRITE endpoint. */
   @JsonProperty("endpoint_type")
@@ -88,6 +105,15 @@ public class EndpointStatus {
 
   public Boolean getDisabled() {
     return disabled;
+  }
+
+  public EndpointStatus setEndpointId(String endpointId) {
+    this.endpointId = endpointId;
+    return this;
+  }
+
+  public String getEndpointId() {
+    return endpointId;
   }
 
   public EndpointStatus setEndpointType(EndpointType endpointType) {
@@ -153,6 +179,7 @@ public class EndpointStatus {
         && Objects.equals(autoscalingLimitMinCu, that.autoscalingLimitMinCu)
         && Objects.equals(currentState, that.currentState)
         && Objects.equals(disabled, that.disabled)
+        && Objects.equals(endpointId, that.endpointId)
         && Objects.equals(endpointType, that.endpointType)
         && Objects.equals(group, that.group)
         && Objects.equals(hosts, that.hosts)
@@ -168,6 +195,7 @@ public class EndpointStatus {
         autoscalingLimitMinCu,
         currentState,
         disabled,
+        endpointId,
         endpointType,
         group,
         hosts,
@@ -183,6 +211,7 @@ public class EndpointStatus {
         .add("autoscalingLimitMinCu", autoscalingLimitMinCu)
         .add("currentState", currentState)
         .add("disabled", disabled)
+        .add("endpointId", endpointId)
         .add("endpointType", endpointType)
         .add("group", group)
         .add("hosts", hosts)

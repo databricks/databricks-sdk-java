@@ -1,0 +1,24 @@
+{
+  "artifactId": "databricks-sdk-parent",
+  "groupId": "com.databricks",
+  "version": "0.106.0",
+  "lockFileVersion": 1,
+  "dependencies": [],
+  "mavenPlugins": [],
+  "metaData": {
+    "environment": {
+      "osName": "Mac OS X",
+      "mavenVersion": "3.9.14",
+      "javaVersion": "11.0.12"
+    },
+    "config": {
+      "includeMavenPlugins": false,
+      "allowValidationFailure": false,
+      "includeEnvironment": true,
+      "reduced": false,
+      "mavenLockfileVersion": "5.5.2",
+      "checksumMode": "local",
+      "checksumAlgorithm": "SHA-256"
+    }
+  }
+}

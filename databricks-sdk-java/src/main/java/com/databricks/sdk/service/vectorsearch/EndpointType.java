@@ -8,4 +8,5 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum EndpointType {
   STANDARD,
+  STORAGE_OPTIMIZED,
 }

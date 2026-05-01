@@ -29,7 +29,7 @@ public class ClonePipelineRequest {
   @JsonProperty("catalog")
   private String catalog;
 
-  /** DLT Release Channel that specifies which version to use. */
+  /** SDP Release Channel that specifies which version to use. */
   @JsonProperty("channel")
   private String channel;
 

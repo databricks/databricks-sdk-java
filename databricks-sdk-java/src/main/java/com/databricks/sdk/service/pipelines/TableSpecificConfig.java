@@ -61,7 +61,7 @@ public class TableSpecificConfig {
   @JsonProperty("salesforce_include_formula_fields")
   private Boolean salesforceIncludeFormulaFields;
 
-  /** The SCD type to use to ingest the table. */
+  /** */
   @JsonProperty("scd_type")
   private TableSpecificConfigScdType scdType;
 

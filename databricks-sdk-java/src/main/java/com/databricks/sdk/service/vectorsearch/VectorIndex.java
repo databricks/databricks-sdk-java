@@ -25,6 +25,10 @@ public class VectorIndex {
   @JsonProperty("endpoint_name")
   private String endpointName;
 
+  /** The subtype of the index. */
+  @JsonProperty("index_subtype")
+  private IndexSubtype indexSubtype;
+
   /** */
   @JsonProperty("index_type")
   private VectorIndexType indexType;
@@ -77,6 +81,15 @@ public class VectorIndex {
     return endpointName;
   }
 
+  public VectorIndex setIndexSubtype(IndexSubtype indexSubtype) {
+    this.indexSubtype = indexSubtype;
+    return this;
+  }
+
+  public IndexSubtype getIndexSubtype() {
+    return indexSubtype;
+  }
+
   public VectorIndex setIndexType(VectorIndexType indexType) {
     this.indexType = indexType;
     return this;
@@ -122,6 +135,7 @@ public class VectorIndex {
         && Objects.equals(deltaSyncIndexSpec, that.deltaSyncIndexSpec)
         && Objects.equals(directAccessIndexSpec, that.directAccessIndexSpec)
         && Objects.equals(endpointName, that.endpointName)
+        && Objects.equals(indexSubtype, that.indexSubtype)
         && Objects.equals(indexType, that.indexType)
         && Objects.equals(name, that.name)
         && Objects.equals(primaryKey, that.primaryKey)
@@ -135,6 +149,7 @@ public class VectorIndex {
         deltaSyncIndexSpec,
         directAccessIndexSpec,
         endpointName,
+        indexSubtype,
         indexType,
         name,
         primaryKey,
@@ -148,6 +163,7 @@ public class VectorIndex {
         .add("deltaSyncIndexSpec", deltaSyncIndexSpec)
         .add("directAccessIndexSpec", directAccessIndexSpec)
         .add("endpointName", endpointName)
+        .add("indexSubtype", indexSubtype)
         .add("indexType", indexType)
         .add("name", name)
         .add("primaryKey", primaryKey)

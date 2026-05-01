@@ -9,9 +9,22 @@ import java.util.Objects;
 
 @Generated
 public class PatchEndpointBudgetPolicyResponse {
+  /** */
+  @JsonProperty("budget_policy_id")
+  private String budgetPolicyId;
+
   /** The budget policy applied to the vector search endpoint. */
   @JsonProperty("effective_budget_policy_id")
   private String effectiveBudgetPolicyId;
+
+  public PatchEndpointBudgetPolicyResponse setBudgetPolicyId(String budgetPolicyId) {
+    this.budgetPolicyId = budgetPolicyId;
+    return this;
+  }
+
+  public String getBudgetPolicyId() {
+    return budgetPolicyId;
+  }
 
   public PatchEndpointBudgetPolicyResponse setEffectiveBudgetPolicyId(
       String effectiveBudgetPolicyId) {
@@ -28,17 +41,19 @@ public class PatchEndpointBudgetPolicyResponse {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     PatchEndpointBudgetPolicyResponse that = (PatchEndpointBudgetPolicyResponse) o;
-    return Objects.equals(effectiveBudgetPolicyId, that.effectiveBudgetPolicyId);
+    return Objects.equals(budgetPolicyId, that.budgetPolicyId)
+        && Objects.equals(effectiveBudgetPolicyId, that.effectiveBudgetPolicyId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(effectiveBudgetPolicyId);
+    return Objects.hash(budgetPolicyId, effectiveBudgetPolicyId);
   }
 
   @Override
   public String toString() {
     return new ToStringer(PatchEndpointBudgetPolicyResponse.class)
+        .add("budgetPolicyId", budgetPolicyId)
         .add("effectiveBudgetPolicyId", effectiveBudgetPolicyId)
         .toString();
   }

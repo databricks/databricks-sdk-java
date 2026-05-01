@@ -4,6 +4,8 @@ import com.databricks.sdk.core.commons.CommonsHttpClient;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.core.oauth.ErrorTokenSource;
 import com.databricks.sdk.core.oauth.HostMetadata;
 import com.databricks.sdk.core.oauth.OAuthHeaderFactory;
@@ -19,8 +21,6 @@ import java.net.URI;
 import java.time.Duration;
 import java.util.*;
 import org.apache.http.HttpMessage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class DatabricksConfig {
   private static final Logger LOG = LoggerFactory.getLogger(DatabricksConfig.class);
@@ -36,13 +36,6 @@ public class DatabricksConfig {
   /** Workspace ID for unified host operations. */
   @ConfigAttribute(env = "DATABRICKS_WORKSPACE_ID")
   private String workspaceId;
-
-  /**
-   * Flag to explicitly mark a host as a unified host. Note: This API is experimental and may change
-   * or be removed in future releases without notice.
-   */
-  @ConfigAttribute(env = "DATABRICKS_EXPERIMENTAL_IS_UNIFIED_HOST")
-  private Boolean experimentalIsUnifiedHost;
 
   @ConfigAttribute(env = "DATABRICKS_TOKEN", auth = "pat", sensitive = true)
   private String token;
@@ -232,15 +225,11 @@ public class DatabricksConfig {
   }
 
   /**
-   * Attempts to resolve host metadata from the well-known endpoint. Only called for unified hosts.
-   * Logs a warning and continues if metadata resolution fails, since not all hosts support the
-   * discovery endpoint.
+   * Attempts to resolve host metadata from the well-known endpoint. Logs a warning and continues if
+   * metadata resolution fails, since not all hosts support the discovery endpoint.
    */
   private void tryResolveHostMetadata() {
     if (host == null) {
-      return;
-    }
-    if (experimentalIsUnifiedHost == null || !experimentalIsUnifiedHost) {
       return;
     }
     try {
@@ -274,11 +263,6 @@ public class DatabricksConfig {
         setAuthType(credentialsProvider.authType());
       }
       Map<String, String> headers = new HashMap<>(headerFactory.headers());
-
-      // For unified hosts with workspace operations, add the X-Databricks-Org-Id header
-      if (getHostType() == HostType.UNIFIED && workspaceId != null && !workspaceId.isEmpty()) {
-        headers.put("X-Databricks-Org-Id", workspaceId);
-      }
 
       return headers;
     } catch (DatabricksException e) {
@@ -348,15 +332,6 @@ public class DatabricksConfig {
 
   public DatabricksConfig setWorkspaceId(String workspaceId) {
     this.workspaceId = workspaceId;
-    return this;
-  }
-
-  public Boolean getExperimentalIsUnifiedHost() {
-    return experimentalIsUnifiedHost;
-  }
-
-  public DatabricksConfig setExperimentalIsUnifiedHost(Boolean experimentalIsUnifiedHost) {
-    this.experimentalIsUnifiedHost = experimentalIsUnifiedHost;
     return this;
   }
 
@@ -513,7 +488,7 @@ public class DatabricksConfig {
     return this;
   }
 
-  public boolean getAzureUseMsi() {
+  public Boolean getAzureUseMsi() {
     return azureUseMsi;
   }
 
@@ -746,23 +721,14 @@ public class DatabricksConfig {
   }
 
   public boolean isAccountClient() {
-    if (getHostType() == HostType.UNIFIED) {
-      throw new DatabricksException(
-          "Cannot determine account client status for unified hosts. "
-              + "Use getHostType() or getClientType() instead. "
-              + "For unified hosts, client type depends on whether workspaceId is set.");
-    }
     if (host == null) {
       return false;
     }
     return host.startsWith("https://accounts.") || host.startsWith("https://accounts-dod.");
   }
 
-  /** Returns the host type based on configuration settings and host URL. */
+  /** Returns the host type based on the host URL pattern. */
   public HostType getHostType() {
-    if (experimentalIsUnifiedHost != null && experimentalIsUnifiedHost) {
-      return HostType.UNIFIED;
-    }
     if (host == null) {
       return HostType.WORKSPACE;
     }
@@ -772,15 +738,10 @@ public class DatabricksConfig {
     return HostType.WORKSPACE;
   }
 
-  /** Returns the client type based on host type and workspace ID configuration. */
+  /** Returns the client type based on host type. */
   public ClientType getClientType() {
     HostType hostType = getHostType();
     switch (hostType) {
-      case UNIFIED:
-        // For unified hosts, client type depends on whether workspaceId is set
-        return (workspaceId != null && !workspaceId.isEmpty())
-            ? ClientType.WORKSPACE
-            : ClientType.ACCOUNT;
       case ACCOUNTS:
         return ClientType.ACCOUNT;
       case WORKSPACE:
@@ -907,6 +868,18 @@ public class DatabricksConfig {
       discoveryUrl = oidcUri.resolve(".well-known/oauth-authorization-server").toString();
       LOG.debug("Resolved discovery_url from host metadata: \"{}\"", discoveryUrl);
     }
+    List<String> audiences = meta.getTokenFederationDefaultOidcAudiences();
+    if (tokenAudience == null && audiences != null && !audiences.isEmpty()) {
+      LOG.debug(
+          "Resolved token_audience from host metadata token_federation_default_oidc_audiences: \"{}\"",
+          audiences.get(0));
+      tokenAudience = audiences.get(0);
+    }
+    // Fallback: for account hosts, use the accountId as the token audience if not already set.
+    if (tokenAudience == null && getClientType() == ClientType.ACCOUNT && accountId != null) {
+      LOG.debug("Setting token_audience to account_id for account host: \"{}\"", accountId);
+      tokenAudience = accountId;
+    }
   }
 
   private OpenIDConnectEndpoints fetchOidcEndpointsFromDiscovery() {
@@ -922,24 +895,11 @@ public class DatabricksConfig {
     return null;
   }
 
-  private OpenIDConnectEndpoints getUnifiedOidcEndpoints(String accountId) throws IOException {
-    if (accountId == null || accountId.isEmpty()) {
-      throw new DatabricksException(
-          "account_id is required for unified host OIDC endpoint discovery");
-    }
-    String prefix = getHost() + "/oidc/accounts/" + accountId;
-    return new OpenIDConnectEndpoints(prefix + "/v1/token", prefix + "/v1/authorize");
-  }
-
   private OpenIDConnectEndpoints fetchDefaultOidcEndpoints() throws IOException {
     if (getHost() == null) {
       return null;
     }
 
-    // For unified hosts, use account-based OIDC endpoints
-    if (getHostType() == HostType.UNIFIED) {
-      return getUnifiedOidcEndpoints(getAccountId());
-    }
     if (isAccountClient() && getAccountId() != null) {
       String prefix = getHost() + "/oidc/accounts/" + getAccountId();
       return new OpenIDConnectEndpoints(prefix + "/v1/token", prefix + "/v1/authorize");

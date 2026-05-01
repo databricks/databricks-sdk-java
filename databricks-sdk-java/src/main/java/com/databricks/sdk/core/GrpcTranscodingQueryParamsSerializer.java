@@ -37,6 +37,7 @@ public class GrpcTranscodingQueryParamsSerializer {
       return value;
     }
   }
+
   /**
    * Serializes an object into a map of query parameter values compatible with gRPC-transcoding.
    *

@@ -22,6 +22,12 @@ public class MaterializedFeature {
   private String featureName;
 
   /**
+   * True if this is an online materialized feature. False if it is an offline materialized feature.
+   */
+  @JsonProperty("is_online")
+  private Boolean isOnline;
+
+  /**
    * The timestamp when the pipeline last ran and updated the materialized feature values. If the
    * pipeline has not run yet, this field will be null.
    */
@@ -67,6 +73,15 @@ public class MaterializedFeature {
 
   public String getFeatureName() {
     return featureName;
+  }
+
+  public MaterializedFeature setIsOnline(Boolean isOnline) {
+    this.isOnline = isOnline;
+    return this;
+  }
+
+  public Boolean getIsOnline() {
+    return isOnline;
   }
 
   public MaterializedFeature setLastMaterializationTime(String lastMaterializationTime) {
@@ -131,6 +146,7 @@ public class MaterializedFeature {
     MaterializedFeature that = (MaterializedFeature) o;
     return Objects.equals(cronSchedule, that.cronSchedule)
         && Objects.equals(featureName, that.featureName)
+        && Objects.equals(isOnline, that.isOnline)
         && Objects.equals(lastMaterializationTime, that.lastMaterializationTime)
         && Objects.equals(materializedFeatureId, that.materializedFeatureId)
         && Objects.equals(offlineStoreConfig, that.offlineStoreConfig)
@@ -144,6 +160,7 @@ public class MaterializedFeature {
     return Objects.hash(
         cronSchedule,
         featureName,
+        isOnline,
         lastMaterializationTime,
         materializedFeatureId,
         offlineStoreConfig,
@@ -157,6 +174,7 @@ public class MaterializedFeature {
     return new ToStringer(MaterializedFeature.class)
         .add("cronSchedule", cronSchedule)
         .add("featureName", featureName)
+        .add("isOnline", isOnline)
         .add("lastMaterializationTime", lastMaterializationTime)
         .add("materializedFeatureId", materializedFeatureId)
         .add("offlineStoreConfig", offlineStoreConfig)

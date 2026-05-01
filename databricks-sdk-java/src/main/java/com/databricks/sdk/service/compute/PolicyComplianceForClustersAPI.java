@@ -2,10 +2,10 @@
 package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * The policy compliance APIs allow you to view and manage the policy compliance status of clusters
@@ -45,7 +45,7 @@ public class PolicyComplianceForClustersAPI {
    * <p>If a cluster is updated while in a `TERMINATED` state, it will remain `TERMINATED`. The next
    * time the cluster is started, the new attributes will take effect.
    *
-   * <p>Clusters created by the Databricks Jobs, DLT, or Models services cannot be enforced by this
+   * <p>Clusters created by the Databricks Jobs, SDP, or Models services cannot be enforced by this
    * API. Instead, use the "Enforce job policy compliance" API to enforce policy compliance on jobs.
    */
   public EnforceClusterComplianceResponse enforceCompliance(

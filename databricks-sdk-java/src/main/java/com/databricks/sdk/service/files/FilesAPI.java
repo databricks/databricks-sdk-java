@@ -2,10 +2,10 @@
 package com.databricks.sdk.service.files;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * The Files API is a standard HTTP API that allows you to read, write, list, and delete files and
@@ -20,10 +20,6 @@ import org.slf4j.LoggerFactory;
  * one for working with directories (`/fs/directories`). Both endpoints use the standard HTTP
  * methods GET, HEAD, PUT, and DELETE to manage files and directories specified using their URI
  * path. The path is always absolute.
- *
- * <p>Some Files API client features are currently experimental. To enable them, set
- * `enable_experimental_files_api_client = True` in your configuration profile or use the
- * environment variable `DATABRICKS_ENABLE_EXPERIMENTAL_FILES_API_CLIENT=True`.
  *
  * <p>Use of Files API may incur Databricks data transfer charges.
  *

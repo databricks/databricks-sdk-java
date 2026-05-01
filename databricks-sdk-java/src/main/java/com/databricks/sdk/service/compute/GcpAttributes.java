@@ -23,6 +23,13 @@ public class GcpAttributes {
   private Long bootDiskSize;
 
   /**
+   * The confidential computing technology for this cluster's instances. Currently only SEV_SNP is
+   * supported, and only on N2D instance types. When not set, no confidential computing is applied.
+   */
+  @JsonProperty("confidential_compute_type")
+  private ConfidentialComputeType confidentialComputeType;
+
+  /**
    * The first `first_on_demand` nodes of the cluster will be placed on on-demand instances. This
    * value should be greater than 0, to make sure the cluster driver node is placed on an on-demand
    * instance. If this value is greater than or equal to the current cluster size, all nodes will be
@@ -89,6 +96,15 @@ public class GcpAttributes {
     return bootDiskSize;
   }
 
+  public GcpAttributes setConfidentialComputeType(ConfidentialComputeType confidentialComputeType) {
+    this.confidentialComputeType = confidentialComputeType;
+    return this;
+  }
+
+  public ConfidentialComputeType getConfidentialComputeType() {
+    return confidentialComputeType;
+  }
+
   public GcpAttributes setFirstOnDemand(Long firstOnDemand) {
     this.firstOnDemand = firstOnDemand;
     return this;
@@ -141,6 +157,7 @@ public class GcpAttributes {
     GcpAttributes that = (GcpAttributes) o;
     return Objects.equals(availability, that.availability)
         && Objects.equals(bootDiskSize, that.bootDiskSize)
+        && Objects.equals(confidentialComputeType, that.confidentialComputeType)
         && Objects.equals(firstOnDemand, that.firstOnDemand)
         && Objects.equals(googleServiceAccount, that.googleServiceAccount)
         && Objects.equals(localSsdCount, that.localSsdCount)
@@ -153,6 +170,7 @@ public class GcpAttributes {
     return Objects.hash(
         availability,
         bootDiskSize,
+        confidentialComputeType,
         firstOnDemand,
         googleServiceAccount,
         localSsdCount,
@@ -165,6 +183,7 @@ public class GcpAttributes {
     return new ToStringer(GcpAttributes.class)
         .add("availability", availability)
         .add("bootDiskSize", bootDiskSize)
+        .add("confidentialComputeType", confidentialComputeType)
         .add("firstOnDemand", firstOnDemand)
         .add("googleServiceAccount", googleServiceAccount)
         .add("localSsdCount", localSsdCount)

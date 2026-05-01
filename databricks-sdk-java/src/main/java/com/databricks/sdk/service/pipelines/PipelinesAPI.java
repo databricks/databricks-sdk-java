@@ -3,6 +3,8 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
 import com.databricks.sdk.support.Wait;
@@ -10,8 +12,6 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * The Lakeflow Spark Declarative Pipelines API allows you to create, edit, delete, start, and view
@@ -87,6 +87,14 @@ public class PipelinesAPI {
       attempt++;
     }
     throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
+  }
+
+  /**
+   * * Applies the current pipeline environment onto the pipeline compute. The environment applied
+   * can be used by subsequent dev-mode updates.
+   */
+  public ApplyEnvironmentRequestResponse applyEnvironment(ApplyEnvironmentRequest request) {
+    return impl.applyEnvironment(request);
   }
 
   /**

@@ -15,6 +15,13 @@ public class StatementStatus {
   private ServiceError error;
 
   /**
+   * SQLSTATE error code returned when the statement execution fails. Only populated when the
+   * statement status is `FAILED`.
+   */
+  @JsonProperty("sql_state")
+  private String sqlState;
+
+  /**
    * Statement execution state: - `PENDING`: waiting for warehouse - `RUNNING`: running -
    * `SUCCEEDED`: execution was successful, result data available for fetch - `FAILED`: execution
    * failed; reason for failure described in accompanying error message - `CANCELED`: user canceled;
@@ -33,6 +40,15 @@ public class StatementStatus {
     return error;
   }
 
+  public StatementStatus setSqlState(String sqlState) {
+    this.sqlState = sqlState;
+    return this;
+  }
+
+  public String getSqlState() {
+    return sqlState;
+  }
+
   public StatementStatus setState(StatementState state) {
     this.state = state;
     return this;
@@ -47,16 +63,22 @@ public class StatementStatus {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     StatementStatus that = (StatementStatus) o;
-    return Objects.equals(error, that.error) && Objects.equals(state, that.state);
+    return Objects.equals(error, that.error)
+        && Objects.equals(sqlState, that.sqlState)
+        && Objects.equals(state, that.state);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(error, state);
+    return Objects.hash(error, sqlState, state);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(StatementStatus.class).add("error", error).add("state", state).toString();
+    return new ToStringer(StatementStatus.class)
+        .add("error", error)
+        .add("sqlState", sqlState)
+        .add("state", state)
+        .toString();
   }
 }

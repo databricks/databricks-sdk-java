@@ -39,6 +39,16 @@ public interface EncryptionKeysService {
    *
    * <p>This operation is available only if your account is on the E2 version of the platform or on
    * a select custom plan that allows multiple workspaces per account.
+   *
+   * <p>**GCP only**: To create a customer-managed key on GCP, you must include the
+   * `X-Databricks-GCP-SA-Access-Token` HTTP header in your request. This header must contain a
+   * Google Cloud OAuth access token with the `cloud-platform` scope. The Google identity associated
+   * with the token must also have the `setIamPermissions` and `getIamPermissions` IAM permissions
+   * on the key resource. For details on obtaining this token, see [Authenticate with Google ID
+   * tokens].
+   *
+   * <p>[Authenticate with Google ID tokens]:
+   * https://docs.databricks.com/gcp/en/dev-tools/auth/authentication-google-id.html
    */
   CustomerManagedKey create(CreateCustomerManagedKeyRequest createCustomerManagedKeyRequest);
 

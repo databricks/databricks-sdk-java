@@ -26,6 +26,15 @@ public class EgressNetworkPolicyNetworkAccessPolicy {
   private Collection<EgressNetworkPolicyNetworkAccessPolicyStorageDestination>
       allowedStorageDestinations;
 
+  /**
+   * List of internet destinations that serverless workloads are blocked from accessing. These
+   * destinations are enforced when restriction mode is RESTRICTED_ACCESS or DRY_RUN. Currently
+   * supports DNS_NAME type only; IP_RANGE support is planned.
+   */
+  @JsonProperty("blocked_internet_destinations")
+  private Collection<EgressNetworkPolicyNetworkAccessPolicyInternetDestination>
+      blockedInternetDestinations;
+
   /** Optional. When policy_enforcement is not provided, we default to ENFORCE_MODE_ALL_SERVICES */
   @JsonProperty("policy_enforcement")
   private EgressNetworkPolicyNetworkAccessPolicyPolicyEnforcement policyEnforcement;
@@ -58,6 +67,18 @@ public class EgressNetworkPolicyNetworkAccessPolicy {
     return allowedStorageDestinations;
   }
 
+  public EgressNetworkPolicyNetworkAccessPolicy setBlockedInternetDestinations(
+      Collection<EgressNetworkPolicyNetworkAccessPolicyInternetDestination>
+          blockedInternetDestinations) {
+    this.blockedInternetDestinations = blockedInternetDestinations;
+    return this;
+  }
+
+  public Collection<EgressNetworkPolicyNetworkAccessPolicyInternetDestination>
+      getBlockedInternetDestinations() {
+    return blockedInternetDestinations;
+  }
+
   public EgressNetworkPolicyNetworkAccessPolicy setPolicyEnforcement(
       EgressNetworkPolicyNetworkAccessPolicyPolicyEnforcement policyEnforcement) {
     this.policyEnforcement = policyEnforcement;
@@ -85,6 +106,7 @@ public class EgressNetworkPolicyNetworkAccessPolicy {
     EgressNetworkPolicyNetworkAccessPolicy that = (EgressNetworkPolicyNetworkAccessPolicy) o;
     return Objects.equals(allowedInternetDestinations, that.allowedInternetDestinations)
         && Objects.equals(allowedStorageDestinations, that.allowedStorageDestinations)
+        && Objects.equals(blockedInternetDestinations, that.blockedInternetDestinations)
         && Objects.equals(policyEnforcement, that.policyEnforcement)
         && Objects.equals(restrictionMode, that.restrictionMode);
   }
@@ -94,6 +116,7 @@ public class EgressNetworkPolicyNetworkAccessPolicy {
     return Objects.hash(
         allowedInternetDestinations,
         allowedStorageDestinations,
+        blockedInternetDestinations,
         policyEnforcement,
         restrictionMode);
   }
@@ -103,6 +126,7 @@ public class EgressNetworkPolicyNetworkAccessPolicy {
     return new ToStringer(EgressNetworkPolicyNetworkAccessPolicy.class)
         .add("allowedInternetDestinations", allowedInternetDestinations)
         .add("allowedStorageDestinations", allowedStorageDestinations)
+        .add("blockedInternetDestinations", blockedInternetDestinations)
         .add("policyEnforcement", policyEnforcement)
         .add("restrictionMode", restrictionMode)
         .toString();

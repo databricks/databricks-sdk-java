@@ -10,6 +10,14 @@ import java.util.Objects;
 
 @Generated
 public class EndpointInfo {
+  /**
+   * Discussed here: https://databricks.atlassian.net/wiki/x/OQDlCQE Additional documentation:
+   * https://aip.dev.databricks.com/129 the user selected budget policy id for the endpoint
+   * (client-side)
+   */
+  @JsonProperty("budget_policy_id")
+  private String budgetPolicyId;
+
   /** Timestamp of endpoint creation */
   @JsonProperty("creation_timestamp")
   private Long creationTimestamp;
@@ -57,6 +65,15 @@ public class EndpointInfo {
   /** Scaling information for the endpoint */
   @JsonProperty("scaling_info")
   private EndpointScalingInfo scalingInfo;
+
+  public EndpointInfo setBudgetPolicyId(String budgetPolicyId) {
+    this.budgetPolicyId = budgetPolicyId;
+    return this;
+  }
+
+  public String getBudgetPolicyId() {
+    return budgetPolicyId;
+  }
 
   public EndpointInfo setCreationTimestamp(Long creationTimestamp) {
     this.creationTimestamp = creationTimestamp;
@@ -171,7 +188,8 @@ public class EndpointInfo {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     EndpointInfo that = (EndpointInfo) o;
-    return Objects.equals(creationTimestamp, that.creationTimestamp)
+    return Objects.equals(budgetPolicyId, that.budgetPolicyId)
+        && Objects.equals(creationTimestamp, that.creationTimestamp)
         && Objects.equals(creator, that.creator)
         && Objects.equals(customTags, that.customTags)
         && Objects.equals(effectiveBudgetPolicyId, that.effectiveBudgetPolicyId)
@@ -188,6 +206,7 @@ public class EndpointInfo {
   @Override
   public int hashCode() {
     return Objects.hash(
+        budgetPolicyId,
         creationTimestamp,
         creator,
         customTags,
@@ -205,6 +224,7 @@ public class EndpointInfo {
   @Override
   public String toString() {
     return new ToStringer(EndpointInfo.class)
+        .add("budgetPolicyId", budgetPolicyId)
         .add("creationTimestamp", creationTimestamp)
         .add("creator", creator)
         .add("customTags", customTags)

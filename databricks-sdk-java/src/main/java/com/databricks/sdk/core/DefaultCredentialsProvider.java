@@ -1,12 +1,12 @@
 package com.databricks.sdk.core;
 
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.core.oauth.*;
 import com.databricks.sdk.support.InternalApi;
 import com.google.common.base.Strings;
 import java.util.ArrayList;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * The DefaultCredentialsProvider is the primary authentication handler for the Databricks SDK. It
@@ -179,6 +179,7 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
     addOIDCCredentialsProviders(config);
 
     providers.add(new AzureGithubOidcCredentialsProvider());
+    providers.add(new AzureMsiCredentialsProvider());
     providers.add(new AzureServicePrincipalCredentialsProvider());
     providers.add(new AzureCliCredentialsProvider());
     providers.add(new ExternalBrowserCredentialsProvider());

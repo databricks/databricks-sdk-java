@@ -2,10 +2,10 @@
 package com.databricks.sdk.service.postgres;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Use the Postgres API to create and manage Lakebase Autoscaling Postgres infrastructure, including
@@ -331,6 +331,12 @@ public class PostgresAPI {
           }
           return request.setPageToken(token);
         });
+  }
+
+  /** Undeletes a soft-deleted project. */
+  public UndeleteProjectOperation undeleteProject(UndeleteProjectRequest request) {
+    Operation operation = impl.undeleteProject(request);
+    return new UndeleteProjectOperation(impl, operation);
   }
 
   /**

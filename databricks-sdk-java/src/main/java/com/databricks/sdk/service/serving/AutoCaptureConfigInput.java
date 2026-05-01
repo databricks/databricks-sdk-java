@@ -7,6 +7,10 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * Deprecated: legacy inference table configuration. Please use AI Gateway inference tables instead.
+ * See https://docs.databricks.com/aws/en/ai-gateway/inference-tables.
+ */
 @Generated
 public class AutoCaptureConfigInput {
   /**

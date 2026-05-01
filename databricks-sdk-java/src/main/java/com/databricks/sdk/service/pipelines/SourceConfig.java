@@ -13,6 +13,10 @@ public class SourceConfig {
   @JsonProperty("catalog")
   private SourceCatalogConfig catalog;
 
+  /** */
+  @JsonProperty("google_ads_config")
+  private GoogleAdsConfig googleAdsConfig;
+
   public SourceConfig setCatalog(SourceCatalogConfig catalog) {
     this.catalog = catalog;
     return this;
@@ -22,21 +26,34 @@ public class SourceConfig {
     return catalog;
   }
 
+  public SourceConfig setGoogleAdsConfig(GoogleAdsConfig googleAdsConfig) {
+    this.googleAdsConfig = googleAdsConfig;
+    return this;
+  }
+
+  public GoogleAdsConfig getGoogleAdsConfig() {
+    return googleAdsConfig;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     SourceConfig that = (SourceConfig) o;
-    return Objects.equals(catalog, that.catalog);
+    return Objects.equals(catalog, that.catalog)
+        && Objects.equals(googleAdsConfig, that.googleAdsConfig);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(catalog);
+    return Objects.hash(catalog, googleAdsConfig);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(SourceConfig.class).add("catalog", catalog).toString();
+    return new ToStringer(SourceConfig.class)
+        .add("catalog", catalog)
+        .add("googleAdsConfig", googleAdsConfig)
+        .toString();
   }
 }

@@ -28,6 +28,11 @@ public class CreateBranchRequest {
   /** The Project where this Branch will be created. Format: projects/{project_id} */
   @JsonIgnore private String parent;
 
+  /** If true, update the branch if it already exists instead of returning an error. */
+  @JsonIgnore
+  @QueryParam("replace_existing")
+  private Boolean replaceExisting;
+
   public CreateBranchRequest setBranch(Branch branch) {
     this.branch = branch;
     return this;
@@ -55,6 +60,15 @@ public class CreateBranchRequest {
     return parent;
   }
 
+  public CreateBranchRequest setReplaceExisting(Boolean replaceExisting) {
+    this.replaceExisting = replaceExisting;
+    return this;
+  }
+
+  public Boolean getReplaceExisting() {
+    return replaceExisting;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -62,12 +76,13 @@ public class CreateBranchRequest {
     CreateBranchRequest that = (CreateBranchRequest) o;
     return Objects.equals(branch, that.branch)
         && Objects.equals(branchId, that.branchId)
-        && Objects.equals(parent, that.parent);
+        && Objects.equals(parent, that.parent)
+        && Objects.equals(replaceExisting, that.replaceExisting);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(branch, branchId, parent);
+    return Objects.hash(branch, branchId, parent, replaceExisting);
   }
 
   @Override
@@ -76,6 +91,7 @@ public class CreateBranchRequest {
         .add("branch", branch)
         .add("branchId", branchId)
         .add("parent", parent)
+        .add("replaceExisting", replaceExisting)
         .toString();
   }
 }

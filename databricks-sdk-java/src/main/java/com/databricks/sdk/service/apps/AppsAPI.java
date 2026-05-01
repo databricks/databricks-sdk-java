@@ -3,6 +3,8 @@ package com.databricks.sdk.service.apps;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
 import com.databricks.sdk.support.Wait;
@@ -10,8 +12,6 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Apps run directly on a customer's Databricks instance, integrate with their data, use and extend
@@ -261,6 +261,15 @@ public class AppsAPI {
     return impl.delete(request);
   }
 
+  public void deleteAppThumbnail(String name) {
+    deleteAppThumbnail(new DeleteAppThumbnailRequest().setName(name));
+  }
+
+  /** Deletes the thumbnail for an app. */
+  public void deleteAppThumbnail(DeleteAppThumbnailRequest request) {
+    impl.deleteAppThumbnail(request);
+  }
+
   public DeleteSpaceOperation deleteSpace(String name) {
     return deleteSpace(new DeleteSpaceRequest().setName(name));
   }
@@ -419,6 +428,11 @@ public class AppsAPI {
   /** Updates the app with the supplied name. */
   public App update(UpdateAppRequest request) {
     return impl.update(request);
+  }
+
+  /** Updates the thumbnail for an app. */
+  public AppThumbnail updateAppThumbnail(UpdateAppThumbnailRequest request) {
+    return impl.updateAppThumbnail(request);
   }
 
   /** Updates the permissions on an app. Apps can inherit permissions from their root object. */

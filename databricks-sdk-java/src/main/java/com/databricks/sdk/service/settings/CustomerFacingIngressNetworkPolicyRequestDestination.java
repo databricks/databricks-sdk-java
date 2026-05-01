@@ -17,18 +17,18 @@ public class CustomerFacingIngressNetworkPolicyRequestDestination {
   private Boolean allDestinations;
 
   /** */
-  @JsonProperty("apps")
-  private CustomerFacingIngressNetworkPolicyAppsDestination apps;
+  @JsonProperty("apps_runtime")
+  private CustomerFacingIngressNetworkPolicyAppsRuntimeDestination appsRuntime;
 
   /** */
-  @JsonProperty("lakebase")
-  private CustomerFacingIngressNetworkPolicyLakebaseDestination lakebase;
+  @JsonProperty("lakebase_runtime")
+  private CustomerFacingIngressNetworkPolicyLakebaseRuntimeDestination lakebaseRuntime;
 
   /** */
   @JsonProperty("workspace_api")
   private CustomerFacingIngressNetworkPolicyWorkspaceApiDestination workspaceApi;
 
-  /** */
+  /** Workspace destinations */
   @JsonProperty("workspace_ui")
   private CustomerFacingIngressNetworkPolicyWorkspaceUiDestination workspaceUi;
 
@@ -42,24 +42,24 @@ public class CustomerFacingIngressNetworkPolicyRequestDestination {
     return allDestinations;
   }
 
-  public CustomerFacingIngressNetworkPolicyRequestDestination setApps(
-      CustomerFacingIngressNetworkPolicyAppsDestination apps) {
-    this.apps = apps;
+  public CustomerFacingIngressNetworkPolicyRequestDestination setAppsRuntime(
+      CustomerFacingIngressNetworkPolicyAppsRuntimeDestination appsRuntime) {
+    this.appsRuntime = appsRuntime;
     return this;
   }
 
-  public CustomerFacingIngressNetworkPolicyAppsDestination getApps() {
-    return apps;
+  public CustomerFacingIngressNetworkPolicyAppsRuntimeDestination getAppsRuntime() {
+    return appsRuntime;
   }
 
-  public CustomerFacingIngressNetworkPolicyRequestDestination setLakebase(
-      CustomerFacingIngressNetworkPolicyLakebaseDestination lakebase) {
-    this.lakebase = lakebase;
+  public CustomerFacingIngressNetworkPolicyRequestDestination setLakebaseRuntime(
+      CustomerFacingIngressNetworkPolicyLakebaseRuntimeDestination lakebaseRuntime) {
+    this.lakebaseRuntime = lakebaseRuntime;
     return this;
   }
 
-  public CustomerFacingIngressNetworkPolicyLakebaseDestination getLakebase() {
-    return lakebase;
+  public CustomerFacingIngressNetworkPolicyLakebaseRuntimeDestination getLakebaseRuntime() {
+    return lakebaseRuntime;
   }
 
   public CustomerFacingIngressNetworkPolicyRequestDestination setWorkspaceApi(
@@ -89,23 +89,23 @@ public class CustomerFacingIngressNetworkPolicyRequestDestination {
     CustomerFacingIngressNetworkPolicyRequestDestination that =
         (CustomerFacingIngressNetworkPolicyRequestDestination) o;
     return Objects.equals(allDestinations, that.allDestinations)
-        && Objects.equals(apps, that.apps)
-        && Objects.equals(lakebase, that.lakebase)
+        && Objects.equals(appsRuntime, that.appsRuntime)
+        && Objects.equals(lakebaseRuntime, that.lakebaseRuntime)
         && Objects.equals(workspaceApi, that.workspaceApi)
         && Objects.equals(workspaceUi, that.workspaceUi);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(allDestinations, apps, lakebase, workspaceApi, workspaceUi);
+    return Objects.hash(allDestinations, appsRuntime, lakebaseRuntime, workspaceApi, workspaceUi);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CustomerFacingIngressNetworkPolicyRequestDestination.class)
         .add("allDestinations", allDestinations)
-        .add("apps", apps)
-        .add("lakebase", lakebase)
+        .add("appsRuntime", appsRuntime)
+        .add("lakebaseRuntime", lakebaseRuntime)
         .add("workspaceApi", workspaceApi)
         .add("workspaceUi", workspaceUi)
         .toString();

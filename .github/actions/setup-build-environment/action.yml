@@ -1,0 +1,53 @@
+name: Setup build environment
+description: Set up JDK with JFrog Artifactory as Maven mirror for hardened runners
+
+inputs:
+  java-version:
+    description: "Java version to install"
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Setup JFrog CLI with OIDC
+      if: runner.os != 'macOS'
+      id: jfrog
+      uses: jfrog/setup-jfrog-cli@279b1f629f43dd5bc658d8361ac4802a7ef8d2d5 # v4.9.1
+      env:
+        JF_URL: https://databricks.jfrog.io
+      with:
+        oidc-provider-name: github-actions
+
+    - name: Set up JDK
+      uses: actions/setup-java@17f84c3641ba7b8f6deff6309fc4c864478f5d62 # v3.14.1
+      with:
+        java-version: ${{ inputs.java-version }}
+        # zulu ships Java 8 on arm64 macOS (as the matrix requires); adopt does not.
+        # zulu is also the default that setup-java v1.4.4 used before this bump.
+        distribution: "zulu"
+
+    - name: Configure Maven for JFrog
+      if: runner.os != 'macOS'
+      shell: bash
+      run: |
+        mkdir -p ~/.m2
+        cat > ~/.m2/settings.xml << EOF
+        <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+          <mirrors>
+            <mirror>
+              <id>jfrog-maven</id>
+              <url>https://databricks.jfrog.io/artifactory/db-maven/</url>
+              <mirrorOf>*</mirrorOf>
+            </mirror>
+          </mirrors>
+          <servers>
+            <server>
+              <id>jfrog-maven</id>
+              <username>${{ steps.jfrog.outputs.oidc-user }}</username>
+              <password><![CDATA[${{ steps.jfrog.outputs.oidc-token }}]]></password>
+            </server>
+          </servers>
+        </settings>
+        EOF

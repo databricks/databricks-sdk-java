@@ -15,8 +15,8 @@ public class GetPermissionLevelsRequest {
   /**
    * The type of the request object. Can be one of the following: alerts, alertsv2, authorization,
    * clusters, cluster-policies, dashboards, database-projects, dbsql-dashboards, directories,
-   * experiments, files, genie, instance-pools, jobs, notebooks, pipelines, queries,
-   * registered-models, repos, serving-endpoints, or warehouses.
+   * experiments, files, genie, instance-pools, jobs, knowledge-assistants, notebooks, pipelines,
+   * queries, registered-models, repos, serving-endpoints, or warehouses.
    */
   @JsonIgnore private String requestObjectType;
 

@@ -13,6 +13,13 @@ public class GenieSpace {
   @JsonProperty("description")
   private String description;
 
+  /**
+   * ETag for this space. Pass this value back in the update request to prevent overwriting
+   * concurrent changes.
+   */
+  @JsonProperty("etag")
+  private String etag;
+
   /** Parent folder path of the Genie Space */
   @JsonProperty("parent_path")
   private String parentPath;
@@ -45,6 +52,15 @@ public class GenieSpace {
 
   public String getDescription() {
     return description;
+  }
+
+  public GenieSpace setEtag(String etag) {
+    this.etag = etag;
+    return this;
+  }
+
+  public String getEtag() {
+    return etag;
   }
 
   public GenieSpace setParentPath(String parentPath) {
@@ -98,6 +114,7 @@ public class GenieSpace {
     if (o == null || getClass() != o.getClass()) return false;
     GenieSpace that = (GenieSpace) o;
     return Objects.equals(description, that.description)
+        && Objects.equals(etag, that.etag)
         && Objects.equals(parentPath, that.parentPath)
         && Objects.equals(serializedSpace, that.serializedSpace)
         && Objects.equals(spaceId, that.spaceId)
@@ -107,13 +124,15 @@ public class GenieSpace {
 
   @Override
   public int hashCode() {
-    return Objects.hash(description, parentPath, serializedSpace, spaceId, title, warehouseId);
+    return Objects.hash(
+        description, etag, parentPath, serializedSpace, spaceId, title, warehouseId);
   }
 
   @Override
   public String toString() {
     return new ToStringer(GenieSpace.class)
         .add("description", description)
+        .add("etag", etag)
         .add("parentPath", parentPath)
         .add("serializedSpace", serializedSpace)
         .add("spaceId", spaceId)

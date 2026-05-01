@@ -6,6 +6,8 @@ import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.RequestOptions;
 import com.databricks.sdk.core.http.Response;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.core.retry.NoRetryStrategyPicker;
 import com.databricks.sdk.core.retry.RequestBasedRetryStrategyPicker;
 import com.databricks.sdk.core.retry.RetryStrategy;
@@ -25,8 +27,6 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.function.Function;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Simplified REST API client with retries, JSON POJO SerDe through Jackson and exception POJO
@@ -253,9 +253,8 @@ public class ApiClient {
 
       try {
         response = httpClient.execute(in);
-        if (LOG.isDebugEnabled()) {
-          LOG.debug(makeLogRecord(in, response));
-        }
+        Response resp = response;
+        LOG.debug(() -> makeLogRecord(in, resp));
 
         if (isResponseSuccessful(response)) {
           return response; // stop here if the request succeeded

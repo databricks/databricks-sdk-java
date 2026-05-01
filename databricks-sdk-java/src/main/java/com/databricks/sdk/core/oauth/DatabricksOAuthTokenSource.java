@@ -2,6 +2,8 @@ package com.databricks.sdk.core.oauth;
 
 import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.HttpClient;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 import com.google.common.base.Strings;
 import java.time.Instant;
 import java.util.Arrays;
@@ -9,8 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Implementation of TokenSource that handles OAuth token exchange for Databricks authentication.
@@ -21,18 +21,25 @@ public class DatabricksOAuthTokenSource implements TokenSource {
 
   /** OAuth client ID used for token exchange. */
   private final String clientId;
+
   /** Databricks host URL. */
   private final String host;
+
   /** Databricks account ID, used as audience if provided. */
   private final String accountId;
+
   /** OpenID Connect endpoints configuration. */
   private final OpenIDConnectEndpoints endpoints;
+
   /** Custom audience value for token exchange. */
   private final String audience;
+
   /** Source of ID tokens used in token exchange. */
   private final IDTokenSource idTokenSource;
+
   /** HTTP client for making token exchange requests. */
   private final HttpClient httpClient;
+
   /** Scopes to request during token exchange. */
   private final List<String> scopes;
 

@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.databricks</groupId>
   <artifactId>databricks-sdk-parent</artifactId>
-  <version>0.103.0</version>
+  <version>0.106.0</version>
   <packaging>pom</packaging>
   <name>Databricks SDK for Java</name>
   <description>The Databricks SDK for Java includes functionality to accelerate development with Java for
@@ -83,7 +83,13 @@
         <configuration>
           <java>
             <!--            <cleanthat/> This can be added after we drop java 8 support -->
-            <googleJavaFormat/>
+            <googleJavaFormat>
+              <!-- 1.27.0 is the first GJF release with the fix for the JDK 23+
+                   Log$DeferredDiagnosticHandler signature change (required for the
+                   code-generator's JDK 25 environment). Requires JRE 17+ to run, which
+                   is why the fmt CI job (.github/workflows/push.yml) pins JDK 17. -->
+              <version>1.27.0</version>
+            </googleJavaFormat>
             <importOrder/>
             <removeUnusedImports/>
             <formatAnnotations/>
@@ -188,6 +194,11 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>io.github.chains-project</groupId>
+        <artifactId>maven-lockfile</artifactId>
+        <version>5.5.2</version>
       </plugin>
     </plugins>
   </build>

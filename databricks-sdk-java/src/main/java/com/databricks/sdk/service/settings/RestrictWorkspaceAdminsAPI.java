@@ -2,9 +2,9 @@
 package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.support.Generated;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * The Restrict Workspace Admins setting lets you control the capabilities of workspace admins. With

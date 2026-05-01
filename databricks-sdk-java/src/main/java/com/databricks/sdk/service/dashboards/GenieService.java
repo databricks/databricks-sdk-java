@@ -22,6 +22,10 @@ public interface GenieService {
   GenieMessage createMessage(
       GenieCreateConversationMessageRequest genieCreateConversationMessageRequest);
 
+  /** Create a comment on a conversation message. */
+  GenieMessageComment createMessageComment(
+      GenieCreateMessageCommentRequest genieCreateMessageCommentRequest);
+
   /** Creates a Genie space from a serialized payload. */
   GenieSpace createSpace(GenieCreateSpaceRequest genieCreateSpaceRequest);
 
@@ -142,6 +146,10 @@ public interface GenieService {
   /** Get details of a Genie Space. */
   GenieSpace getSpace(GenieGetSpaceRequest genieGetSpaceRequest);
 
+  /** List all comments across all messages in a conversation. */
+  GenieListConversationCommentsResponse listConversationComments(
+      GenieListConversationCommentsRequest genieListConversationCommentsRequest);
+
   /** List messages in a conversation */
   GenieListConversationMessagesResponse listConversationMessages(
       GenieListConversationMessagesRequest genieListConversationMessagesRequest);
@@ -149,6 +157,10 @@ public interface GenieService {
   /** Get a list of conversations in a Genie Space. */
   GenieListConversationsResponse listConversations(
       GenieListConversationsRequest genieListConversationsRequest);
+
+  /** List comments on a specific conversation message. */
+  GenieListMessageCommentsResponse listMessageComments(
+      GenieListMessageCommentsRequest genieListMessageCommentsRequest);
 
   /** Get list of Genie Spaces. */
   GenieListSpacesResponse listSpaces(GenieListSpacesRequest genieListSpacesRequest);

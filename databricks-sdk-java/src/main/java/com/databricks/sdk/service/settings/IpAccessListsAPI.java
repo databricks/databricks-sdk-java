@@ -2,10 +2,10 @@
 package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * IP Access List enables admins to configure IP access lists.

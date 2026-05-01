@@ -21,10 +21,7 @@ public class CustomerFacingIngressNetworkPolicyPublicIngressRule {
   @JsonProperty("destination")
   private CustomerFacingIngressNetworkPolicyRequestDestination destination;
 
-  /**
-   * User-provided name for this ingress rule. Helps identify which rule caused a request to be
-   * denied or dry-run denied.
-   */
+  /** The label for this ingress rule. */
   @JsonProperty("label")
   private String label;
 

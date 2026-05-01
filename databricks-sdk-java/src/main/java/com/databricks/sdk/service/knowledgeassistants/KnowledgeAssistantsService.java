@@ -12,6 +12,9 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface KnowledgeAssistantsService {
+  /** Creates an example for a Knowledge Assistant. */
+  Example createExample(CreateExampleRequest createExampleRequest);
+
   /** Creates a Knowledge Assistant. */
   KnowledgeAssistant createKnowledgeAssistant(
       CreateKnowledgeAssistantRequest createKnowledgeAssistantRequest);
@@ -19,11 +22,17 @@ public interface KnowledgeAssistantsService {
   /** Creates a Knowledge Source under a Knowledge Assistant. */
   KnowledgeSource createKnowledgeSource(CreateKnowledgeSourceRequest createKnowledgeSourceRequest);
 
+  /** Deletes an example from a Knowledge Assistant. */
+  void deleteExample(DeleteExampleRequest deleteExampleRequest);
+
   /** Deletes a Knowledge Assistant. */
   void deleteKnowledgeAssistant(DeleteKnowledgeAssistantRequest deleteKnowledgeAssistantRequest);
 
   /** Deletes a Knowledge Source. */
   void deleteKnowledgeSource(DeleteKnowledgeSourceRequest deleteKnowledgeSourceRequest);
+
+  /** Gets an example from a Knowledge Assistant. */
+  Example getExample(GetExampleRequest getExampleRequest);
 
   /** Gets a Knowledge Assistant. */
   KnowledgeAssistant getKnowledgeAssistant(
@@ -31,6 +40,20 @@ public interface KnowledgeAssistantsService {
 
   /** Gets a Knowledge Source. */
   KnowledgeSource getKnowledgeSource(GetKnowledgeSourceRequest getKnowledgeSourceRequest);
+
+  /** Gets the permission levels that a user can have on an object. */
+  GetKnowledgeAssistantPermissionLevelsResponse getPermissionLevels(
+      GetKnowledgeAssistantPermissionLevelsRequest getKnowledgeAssistantPermissionLevelsRequest);
+
+  /**
+   * Gets the permissions of a knowledge assistant. Knowledge assistants can inherit permissions
+   * from their root object.
+   */
+  KnowledgeAssistantPermissions getPermissions(
+      GetKnowledgeAssistantPermissionsRequest getKnowledgeAssistantPermissionsRequest);
+
+  /** Lists examples under a Knowledge Assistant. */
+  ListExamplesResponse listExamples(ListExamplesRequest listExamplesRequest);
 
   /** List Knowledge Assistants */
   ListKnowledgeAssistantsResponse listKnowledgeAssistants(
@@ -41,10 +64,20 @@ public interface KnowledgeAssistantsService {
       ListKnowledgeSourcesRequest listKnowledgeSourcesRequest);
 
   /**
+   * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
+   * permissions if none are specified. Objects can inherit permissions from their root object.
+   */
+  KnowledgeAssistantPermissions setPermissions(
+      KnowledgeAssistantPermissionsRequest knowledgeAssistantPermissionsRequest);
+
+  /**
    * Sync all non-index Knowledge Sources for a Knowledge Assistant (index sources do not require
    * sync)
    */
   void syncKnowledgeSources(SyncKnowledgeSourcesRequest syncKnowledgeSourcesRequest);
+
+  /** Updates an example in a Knowledge Assistant. */
+  Example updateExample(UpdateExampleRequest updateExampleRequest);
 
   /** Updates a Knowledge Assistant. */
   KnowledgeAssistant updateKnowledgeAssistant(
@@ -52,4 +85,11 @@ public interface KnowledgeAssistantsService {
 
   /** Updates a Knowledge Source. */
   KnowledgeSource updateKnowledgeSource(UpdateKnowledgeSourceRequest updateKnowledgeSourceRequest);
+
+  /**
+   * Updates the permissions on a knowledge assistant. Knowledge assistants can inherit permissions
+   * from their root object.
+   */
+  KnowledgeAssistantPermissions updatePermissions(
+      KnowledgeAssistantPermissionsRequest knowledgeAssistantPermissionsRequest);
 }

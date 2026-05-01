@@ -11,10 +11,9 @@ import java.util.Objects;
 @Generated
 public class EndpointPendingConfig {
   /**
-   * Configuration for Inference Tables which automatically logs requests and responses to Unity
-   * Catalog. Note: this field is deprecated for creating new provisioned throughput endpoints, or
-   * updating existing provisioned throughput endpoints that never have inference table configured;
-   * in these cases please use AI Gateway to manage inference tables.
+   * Configuration for legacy Inference Tables which automatically log requests and responses to
+   * Unity Catalog. Deprecated: please use AI Gateway inference tables instead. See
+   * https://docs.databricks.com/aws/en/ai-gateway/inference-tables.
    */
   @JsonProperty("auto_capture_config")
   private AutoCaptureConfigOutput autoCaptureConfig;

@@ -2,10 +2,10 @@
 package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.logging.Logger;
+import com.databricks.sdk.core.logging.LoggerFactory;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * The Token API allows you to create, list, and revoke tokens that can be used to authenticate and
@@ -54,6 +54,16 @@ public class TokensAPI {
   public Iterable<PublicTokenInfo> list() {
     return new Paginator<>(
         null, (Void v) -> impl.list(), ListPublicTokensResponse::getTokenInfos, response -> null);
+  }
+
+  /**
+   * Updates the comment or scopes of a token.
+   *
+   * <p>If a token with the specified ID is not valid, this call returns an error
+   * **RESOURCE_DOES_NOT_EXIST**.
+   */
+  public UpdateTokenResponse update(UpdateTokenRequest request) {
+    return impl.update(request);
   }
 
   public TokensService impl() {

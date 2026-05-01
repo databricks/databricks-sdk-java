@@ -9,7 +9,12 @@ import java.util.Objects;
 
 @Generated
 public class EndpointScalingInfo {
-  /** The minimum QPS target requested for the endpoint. */
+  /**
+   * Deprecated: use requested_target_qps. Kept at PUBLIC_BETA with deprecated = true so generated
+   * SDK surfaces (Go, Java, TypeScript, Terraform) keep exposing the field with a deprecation
+   * marker rather than losing it on next regeneration. Hiding completely (visibility =
+   * PUBLIC_UNDOCUMENTED) is a follow-up PR once downstream consumers have migrated.
+   */
   @JsonProperty("requested_min_qps")
   private Long requestedMinQps;
 
