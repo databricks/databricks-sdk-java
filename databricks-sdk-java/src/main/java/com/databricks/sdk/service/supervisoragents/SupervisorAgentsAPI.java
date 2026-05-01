@@ -24,6 +24,11 @@ public class SupervisorAgentsAPI {
     impl = mock;
   }
 
+  /** Creates an example for a Supervisor Agent. */
+  public Example createExample(CreateExampleRequest request) {
+    return impl.createExample(request);
+  }
+
   /** Creates a new Supervisor Agent. */
   public SupervisorAgent createSupervisorAgent(CreateSupervisorAgentRequest request) {
     return impl.createSupervisorAgent(request);
@@ -32,10 +37,19 @@ public class SupervisorAgentsAPI {
   /**
    * Creates a Tool under a Supervisor Agent. Specify one of "genie_space", "knowledge_assistant",
    * "uc_function", "uc_connection", "app", "volume", "lakeview_dashboard", "uc_table",
-   * "vector_search_index" in the request body.
+   * "vector_search_index", "catalog", "schema" in the request body.
    */
   public Tool createTool(CreateToolRequest request) {
     return impl.createTool(request);
+  }
+
+  public void deleteExample(String name) {
+    deleteExample(new DeleteExampleRequest().setName(name));
+  }
+
+  /** Deletes an example from a Supervisor Agent. */
+  public void deleteExample(DeleteExampleRequest request) {
+    impl.deleteExample(request);
   }
 
   public void deleteSupervisorAgent(String name) {
@@ -56,6 +70,39 @@ public class SupervisorAgentsAPI {
     impl.deleteTool(request);
   }
 
+  public Example getExample(String name) {
+    return getExample(new GetExampleRequest().setName(name));
+  }
+
+  /** Gets an example from a Supervisor Agent. */
+  public Example getExample(GetExampleRequest request) {
+    return impl.getExample(request);
+  }
+
+  public GetSupervisorAgentPermissionLevelsResponse getPermissionLevels(String supervisorAgentId) {
+    return getPermissionLevels(
+        new GetSupervisorAgentPermissionLevelsRequest().setSupervisorAgentId(supervisorAgentId));
+  }
+
+  /** Gets the permission levels that a user can have on an object. */
+  public GetSupervisorAgentPermissionLevelsResponse getPermissionLevels(
+      GetSupervisorAgentPermissionLevelsRequest request) {
+    return impl.getPermissionLevels(request);
+  }
+
+  public SupervisorAgentPermissions getPermissions(String supervisorAgentId) {
+    return getPermissions(
+        new GetSupervisorAgentPermissionsRequest().setSupervisorAgentId(supervisorAgentId));
+  }
+
+  /**
+   * Gets the permissions of a supervisor agent. Supervisor agents can inherit permissions from
+   * their root object.
+   */
+  public SupervisorAgentPermissions getPermissions(GetSupervisorAgentPermissionsRequest request) {
+    return impl.getPermissions(request);
+  }
+
   public SupervisorAgent getSupervisorAgent(String name) {
     return getSupervisorAgent(new GetSupervisorAgentRequest().setName(name));
   }
@@ -72,6 +119,25 @@ public class SupervisorAgentsAPI {
   /** Gets a Tool. */
   public Tool getTool(GetToolRequest request) {
     return impl.getTool(request);
+  }
+
+  public Iterable<Example> listExamples(String parent) {
+    return listExamples(new ListExamplesRequest().setParent(parent));
+  }
+
+  /** Lists examples under a Supervisor Agent. */
+  public Iterable<Example> listExamples(ListExamplesRequest request) {
+    return new Paginator<>(
+        request,
+        impl::listExamples,
+        ListExamplesResponse::getExamples,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   /** Lists Supervisor Agents. */
@@ -106,6 +172,27 @@ public class SupervisorAgentsAPI {
           }
           return request.setPageToken(token);
         });
+  }
+
+  /**
+   * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
+   * permissions if none are specified. Objects can inherit permissions from their root object.
+   */
+  public SupervisorAgentPermissions setPermissions(SupervisorAgentPermissionsRequest request) {
+    return impl.setPermissions(request);
+  }
+
+  /** Updates an example in a Supervisor Agent. */
+  public Example updateExample(UpdateExampleRequest request) {
+    return impl.updateExample(request);
+  }
+
+  /**
+   * Updates the permissions on a supervisor agent. Supervisor agents can inherit permissions from
+   * their root object.
+   */
+  public SupervisorAgentPermissions updatePermissions(SupervisorAgentPermissionsRequest request) {
+    return impl.updatePermissions(request);
   }
 
   /**

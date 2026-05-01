@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class PipelineTask {
-  /** If true, triggers a full refresh on the delta live table. */
+  /** If true, triggers a full refresh on the spark declarative pipeline. */
   @JsonProperty("full_refresh")
   private Boolean fullRefresh;
 

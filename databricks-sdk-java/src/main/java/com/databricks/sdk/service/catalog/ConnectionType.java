@@ -14,6 +14,7 @@ public enum ConnectionType {
   GLUE,
   HIVE_METASTORE,
   HTTP,
+  META_MARKETING,
   MYSQL,
   ORACLE,
   POSTGRESQL,

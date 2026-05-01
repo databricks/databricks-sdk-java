@@ -4,7 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** Latest kind: CONNECTION_SLACK_ACCESS_AND_INTEGRATION_LOGS_OAUTH_U2M = 319; Next id: 320 */
+/** Latest kind: RECIPIENT_EMAIL_DATABRICKS = 325; Next id: 326 */
 @Generated
 public enum SecurableKind {
   TABLE_DB_STORAGE,
