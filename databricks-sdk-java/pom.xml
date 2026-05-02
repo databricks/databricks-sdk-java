@@ -10,6 +10,11 @@
   <artifactId>databricks-sdk-java</artifactId>
   <name>Databricks SDK for Java</name>
   <properties>
+    <!-- Override Mockito's transitive Byte Buddy. Mockito 4.11 ships
+         Byte Buddy ~1.12, which only supports class file format up to
+         Java 20; running tests on JDK 25 fails with `Java 25 (69) is
+         not supported`. 1.17.5 supports JDK 25 and stays Java 8 compatible. -->
+    <bytebuddy.version>1.17.5</bytebuddy.version>
     <httpclient.version>4.5.14</httpclient.version>
     <jackson.version>2.18.6</jackson.version>
     <junit-bom.version>5.10.0</junit-bom.version>
@@ -28,6 +33,16 @@
         <version>${junit-bom.version}</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>net.bytebuddy</groupId>
+        <artifactId>byte-buddy</artifactId>
+        <version>${bytebuddy.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>net.bytebuddy</groupId>
+        <artifactId>byte-buddy-agent</artifactId>
+        <version>${bytebuddy.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
