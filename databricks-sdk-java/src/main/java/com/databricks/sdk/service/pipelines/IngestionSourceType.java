@@ -13,6 +13,7 @@ public enum IngestionSourceType {
   GA4_RAW_DATA,
   GOOGLE_DRIVE,
   MANAGED_POSTGRESQL,
+  META_MARKETING,
   MYSQL,
   NETSUITE,
   ORACLE,
