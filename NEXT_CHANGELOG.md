@@ -23,3 +23,4 @@
 * [Breaking] Change `guidelines` field for `com.databricks.sdk.service.knowledgeassistants.Example` to no longer be required.
 * Change `description` field for `com.databricks.sdk.service.supervisoragents.Tool` to no longer be required.
 * [Breaking] Change `description` field for `com.databricks.sdk.service.supervisoragents.Tool` to no longer be required.
+* Add `ZENDESK` enum value for `com.databricks.sdk.service.catalog.ConnectionType`.

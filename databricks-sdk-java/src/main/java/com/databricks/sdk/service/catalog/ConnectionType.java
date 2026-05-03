@@ -29,4 +29,5 @@ public enum ConnectionType {
   TERADATA,
   UNKNOWN_CONNECTION_TYPE,
   WORKDAY_RAAS,
+  ZENDESK,
 }
