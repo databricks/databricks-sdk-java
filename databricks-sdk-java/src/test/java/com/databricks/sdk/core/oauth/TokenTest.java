@@ -29,4 +29,20 @@ class TokenTest {
     assertEquals(refreshToken, token.getRefreshToken());
     assertEquals(currentInstant.plusSeconds(300), token.getExpiry());
   }
+
+  @Test
+  void canonicalTokenTypeNormalizesBearerCasing() {
+    Instant expiry = currentInstant.plusSeconds(300);
+    assertEquals("Bearer", new Token(accessToken, "Bearer", expiry).getCanonicalTokenType());
+    assertEquals("Bearer", new Token(accessToken, "bearer", expiry).getCanonicalTokenType());
+    assertEquals("Bearer", new Token(accessToken, "BEARER", expiry).getCanonicalTokenType());
+    assertEquals("Bearer", new Token(accessToken, "BeArEr", expiry).getCanonicalTokenType());
+  }
+
+  @Test
+  void canonicalTokenTypePreservesNonBearerSchemes() {
+    Instant expiry = currentInstant.plusSeconds(300);
+    assertEquals("Custom", new Token(accessToken, "Custom", expiry).getCanonicalTokenType());
+    assertEquals("MAC", new Token(accessToken, "MAC", expiry).getCanonicalTokenType());
+  }
 }
