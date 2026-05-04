@@ -51,7 +51,8 @@ public interface OAuthHeaderFactory extends HeaderFactory, TokenSource {
       public Map<String, String> headers() {
         Token token = tokenSource.getToken();
         Map<String, String> headers = new HashMap<>();
-        headers.put("Authorization", token.getTokenType() + " " + token.getAccessToken());
+        headers.put(
+            "Authorization", token.getCanonicalTokenType() + " " + token.getAccessToken());
         return headers;
       }
     };
