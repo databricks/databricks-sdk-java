@@ -46,6 +46,10 @@ public class ConnectorOptions {
   @JsonProperty("tiktok_ads_options")
   private TikTokAdsOptions tiktokAdsOptions;
 
+  /** */
+  @JsonProperty("zendesk_support_options")
+  private ZendeskSupportOptions zendeskSupportOptions;
+
   public ConnectorOptions setConfluenceOptions(ConfluenceConnectorOptions confluenceOptions) {
     this.confluenceOptions = confluenceOptions;
     return this;
@@ -127,6 +131,15 @@ public class ConnectorOptions {
     return tiktokAdsOptions;
   }
 
+  public ConnectorOptions setZendeskSupportOptions(ZendeskSupportOptions zendeskSupportOptions) {
+    this.zendeskSupportOptions = zendeskSupportOptions;
+    return this;
+  }
+
+  public ZendeskSupportOptions getZendeskSupportOptions() {
+    return zendeskSupportOptions;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -140,7 +153,8 @@ public class ConnectorOptions {
         && Objects.equals(outlookOptions, that.outlookOptions)
         && Objects.equals(sharepointOptions, that.sharepointOptions)
         && Objects.equals(smartsheetOptions, that.smartsheetOptions)
-        && Objects.equals(tiktokAdsOptions, that.tiktokAdsOptions);
+        && Objects.equals(tiktokAdsOptions, that.tiktokAdsOptions)
+        && Objects.equals(zendeskSupportOptions, that.zendeskSupportOptions);
   }
 
   @Override
@@ -154,7 +168,8 @@ public class ConnectorOptions {
         outlookOptions,
         sharepointOptions,
         smartsheetOptions,
-        tiktokAdsOptions);
+        tiktokAdsOptions,
+        zendeskSupportOptions);
   }
 
   @Override
@@ -169,6 +184,7 @@ public class ConnectorOptions {
         .add("sharepointOptions", sharepointOptions)
         .add("smartsheetOptions", smartsheetOptions)
         .add("tiktokAdsOptions", tiktokAdsOptions)
+        .add("zendeskSupportOptions", zendeskSupportOptions)
         .toString();
   }
 }

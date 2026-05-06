@@ -27,3 +27,15 @@
 * Change `description` field for `com.databricks.sdk.service.supervisoragents.Tool` to no longer be required.
 * [Breaking] Change `description` field for `com.databricks.sdk.service.supervisoragents.Tool` to no longer be required.
 * Add `ZENDESK` enum value for `com.databricks.sdk.service.catalog.ConnectionType`.
+* Add `r2TempCredentials` field for `com.databricks.sdk.service.catalog.TemporaryCredentials`.
+* Add `zendeskSupportOptions` field for `com.databricks.sdk.service.pipelines.ConnectorOptions`.
+* Add `azureKeyInfo` field for `com.databricks.sdk.service.provisioning.CreateCustomerManagedKeyRequest`.
+* Add `targetQps` field for `com.databricks.sdk.service.vectorsearch.CreateEndpoint`.
+* Add `columnsToIndex` field for `com.databricks.sdk.service.vectorsearch.DeltaSyncVectorIndexSpecRequest`.
+* Add `columnsToIndex` field for `com.databricks.sdk.service.vectorsearch.DeltaSyncVectorIndexSpecResponse`.
+* Add `requestedTargetQps` field for `com.databricks.sdk.service.vectorsearch.EndpointScalingInfo`.
+* Add `targetQps` field for `com.databricks.sdk.service.vectorsearch.PatchEndpointRequest`.
+* Add `JIRA` and `ZENDESK` enum values for `com.databricks.sdk.service.pipelines.IngestionSourceType`.
+* [Breaking] Remove `minQps` field for `com.databricks.sdk.service.vectorsearch.CreateEndpoint`.
+* [Breaking] Remove `requestedMinQps` field for `com.databricks.sdk.service.vectorsearch.EndpointScalingInfo`.
+* [Breaking] Remove `minQps` field for `com.databricks.sdk.service.vectorsearch.PatchEndpointRequest`.
