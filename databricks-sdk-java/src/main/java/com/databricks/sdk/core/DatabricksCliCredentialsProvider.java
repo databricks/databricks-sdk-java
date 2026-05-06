@@ -6,12 +6,20 @@ import com.databricks.sdk.core.oauth.CachedTokenSource;
 import com.databricks.sdk.core.oauth.OAuthHeaderFactory;
 import com.databricks.sdk.core.oauth.Token;
 import com.databricks.sdk.core.oauth.TokenSource;
+import com.databricks.sdk.core.utils.Environment;
 import com.databricks.sdk.core.utils.OSUtils;
 import com.databricks.sdk.support.InternalApi;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
+import org.apache.commons.io.IOUtils;
 
 @InternalApi
 public class DatabricksCliCredentialsProvider implements CredentialsProvider {
@@ -21,6 +29,28 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
   public static final String DATABRICKS_CLI = "databricks-cli";
 
   private static final ObjectMapper MAPPER = new ObjectMapper();
+
+  // ---- Version detection ----
+
+  // --profile support added in CLI v0.207.1: https://github.com/databricks/cli/pull/855
+  static final DatabricksCliVersion CLI_VERSION_FOR_PROFILE = new DatabricksCliVersion(0, 207, 1);
+
+  // 5-second cap on `databricks version` so a hung CLI (slow first-run scan, antivirus, blocked
+  // stdin) does not wedge SDK init indefinitely.
+  private static final long VERSION_PROBE_TIMEOUT_SECONDS = 5;
+
+  // Successful version probes keyed by cliPath. Subprocess failures (timeouts, non-zero exit,
+  // IO errors) and probes that returned UNKNOWN due to unparseable output are deliberately not
+  // cached, so a transient error does not pin every later token source to the conservative
+  // fallback for the rest of the process lifetime.
+  private static final Map<String, DatabricksCliVersion> VERSION_CACHE = new ConcurrentHashMap<>();
+
+  /** Test-only hook to clear the cross-test version cache. Package-private. */
+  static void clearVersionCache() {
+    VERSION_CACHE.clear();
+  }
+
+  // ---- Scope validation ----
 
   /** Thrown when the cached CLI token's scopes don't match the SDK's configured scopes. */
   static class ScopeMismatchException extends DatabricksException {
@@ -36,57 +66,11 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
   private static final Set<String> SCOPES_IGNORED_FOR_COMPARISON =
       Collections.singleton("offline_access");
 
+  // ---- Public API ----
+
   @Override
   public String authType() {
     return DATABRICKS_CLI;
-  }
-
-  /**
-   * Builds the CLI command arguments using --host (legacy path).
-   *
-   * @param cliPath Path to the databricks CLI executable
-   * @param config Configuration containing host, account ID, workspace ID, etc.
-   * @return List of command arguments
-   */
-  List<String> buildHostArgs(String cliPath, DatabricksConfig config) {
-    List<String> cmd =
-        new ArrayList<>(Arrays.asList(cliPath, "auth", "token", "--host", config.getHost()));
-    if (config.getClientType() == ClientType.ACCOUNT) {
-      cmd.add("--account-id");
-      cmd.add(config.getAccountId());
-    }
-    return cmd;
-  }
-
-  private CliTokenSource getDatabricksCliTokenSource(DatabricksConfig config) {
-    String cliPath = config.getDatabricksCliPath();
-    if (cliPath == null) {
-      cliPath = OSUtils.get(config.getEnv()).getDatabricksCliPath();
-    }
-    if (cliPath == null) {
-      LOG.debug("Databricks CLI could not be found");
-      return null;
-    }
-
-    List<String> cmd;
-    List<String> fallbackCmd = null;
-
-    if (config.getProfile() != null) {
-      // When profile is set, use --profile as the primary command.
-      // The profile contains the full config (host, account_id, etc.).
-      cmd =
-          new ArrayList<>(
-              Arrays.asList(cliPath, "auth", "token", "--profile", config.getProfile()));
-      // Build a --host fallback for older CLIs that don't support --profile.
-      if (config.getHost() != null) {
-        fallbackCmd = buildHostArgs(cliPath, config);
-      }
-    } else {
-      cmd = buildHostArgs(cliPath, config);
-    }
-
-    return new CliTokenSource(
-        cmd, "token_type", "access_token", "expiry", config.getEnv(), fallbackCmd);
   }
 
   @Override
@@ -150,6 +134,248 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
       throw e;
     }
   }
+
+  // ---- Token source construction ----
+
+  private CliTokenSource getDatabricksCliTokenSource(DatabricksConfig config) {
+    String cliPath = config.getDatabricksCliPath();
+    if (cliPath == null) {
+      cliPath = OSUtils.get(config.getEnv()).getDatabricksCliPath();
+    }
+    if (cliPath == null) {
+      LOG.debug("Databricks CLI could not be found");
+      return null;
+    }
+
+    List<String> cmd = resolveCliCommand(cliPath, config);
+    return new CliTokenSource(cmd, "token_type", "access_token", "expiry", config.getEnv());
+  }
+
+  /**
+   * Detects the installed CLI version and builds the {@code auth token} command. Falls back to the
+   * most conservative command when version detection fails.
+   */
+  List<String> resolveCliCommand(String cliPath, DatabricksConfig config) {
+    DatabricksCliVersion version = getCliVersion(cliPath, config.getEnv());
+    return buildCliCommand(cliPath, config, version);
+  }
+
+  /**
+   * Builds the {@code auth token} command for the given CLI version.
+   *
+   * <p>Falls back to {@code --host} when {@code --profile} is either not configured or not
+   * supported by the installed CLI.
+   */
+  List<String> buildCliCommand(
+      String cliPath, DatabricksConfig config, DatabricksCliVersion version) {
+    if (config.getProfile() == null) {
+      return buildHostArgs(cliPath, config);
+    }
+
+    // Flag --profile is a global CLI flag and is recognized for all commands even the ones that
+    // do not support it. Only use --profile in CLI versions known to support it in `auth token`.
+    if (!version.atLeast(CLI_VERSION_FOR_PROFILE)) {
+      if (version.isDefaultDevBuild()) {
+        // A default-marker dev build has no injected version, so every feature gate fails.
+        // Surface an informational hint so users know why their feature flags aren't taking
+        // effect.
+        LOG.info(
+            "Databricks CLI {} is a development build; feature detection will use conservative "
+                + "fallbacks. Rebuild the CLI with an explicit version to enable capability-based "
+                + "flag selection.",
+            version);
+      } else if (version.equals(DatabricksCliVersion.UNKNOWN)) {
+        LOG.warn(
+            "Could not confirm --profile support for Databricks CLI {} (requires >= {}). "
+                + "Falling back to --host.",
+            version,
+            CLI_VERSION_FOR_PROFILE);
+      } else {
+        LOG.warn(
+            "Databricks CLI {} does not support --profile (requires >= {}). "
+                + "Falling back to --host.",
+            version,
+            CLI_VERSION_FOR_PROFILE);
+      }
+      return buildHostArgs(cliPath, config);
+    }
+
+    return new ArrayList<>(
+        Arrays.asList(cliPath, "auth", "token", "--profile", config.getProfile()));
+  }
+
+  /**
+   * Builds the CLI command arguments using --host (legacy path).
+   *
+   * @param cliPath Path to the databricks CLI executable
+   * @param config Configuration containing host, account ID, workspace ID, etc.
+   * @return List of command arguments
+   */
+  List<String> buildHostArgs(String cliPath, DatabricksConfig config) {
+    if (config.getHost() == null) {
+      // Without this guard a null host would silently produce ["--host", null] and surface as
+      // an obscure NPE deep inside ProcessBuilder.start(). The production path is gated by
+      // configure()'s early return, but a future caller (or a direct unit test) could bypass it.
+      throw new DatabricksException(
+          "Cannot build Databricks CLI auth command: config.host is required");
+    }
+    List<String> cmd =
+        new ArrayList<>(Arrays.asList(cliPath, "auth", "token", "--host", config.getHost()));
+    if (config.getClientType() == ClientType.ACCOUNT) {
+      cmd.add("--account-id");
+      cmd.add(config.getAccountId());
+    }
+    return cmd;
+  }
+
+  // ---- Version detection ----
+
+  /**
+   * Returns the CLI version, catching subprocess failures so the caller can proceed with the
+   * conservative fallback. Successful results are cached for the process lifetime; failures (both
+   * subprocess errors and parse-UNKNOWN results) are not cached and will be retried on the next
+   * call. Concurrent cold-cache calls for the same CLI path are single-flight: only one probe runs,
+   * the rest wait for its result.
+   */
+  DatabricksCliVersion getCliVersion(String cliPath, Environment env) {
+    // Normalize the cache key so different textual paths to the same binary (relative vs.
+    // absolute, redundant separators, ./ or ../ segments) share a single cache entry.
+    String key = Paths.get(cliPath).toAbsolutePath().normalize().toString();
+    // computeIfAbsent gives us single-flight semantics per key: ConcurrentHashMap holds a
+    // per-bucket lock during the lambda, so a second concurrent caller for the same key blocks
+    // until the first probe completes and then sees the cached value.
+    DatabricksCliVersion version =
+        VERSION_CACHE.computeIfAbsent(
+            key,
+            k -> {
+              try {
+                return probeCliVersion(cliPath, env);
+              } catch (IOException e) {
+                LOG.warn(
+                    "Failed to detect Databricks CLI version: {}. "
+                        + "Falling back to conservative flag set.",
+                    e.getMessage(),
+                    e);
+                return DatabricksCliVersion.UNKNOWN;
+              }
+            });
+    // Don't cache UNKNOWN: a transient probe failure or a parseable-but-malformed payload
+    // would otherwise pin every later token source to the conservative fallback for the rest
+    // of the process lifetime. Strip it after computeIfAbsent so the next call re-probes.
+    if (version.equals(DatabricksCliVersion.UNKNOWN)) {
+      VERSION_CACHE.remove(key, DatabricksCliVersion.UNKNOWN);
+    }
+    return version;
+  }
+
+  /**
+   * Runs {@code databricks version --output json} and returns the parsed {@link
+   * DatabricksCliVersion}.
+   *
+   * <p>Reads stdout after {@code waitFor} returns. This is safe only because the {@code version}
+   * subcommand emits a fixed-shape JSON blob (~200 bytes) that fits well within any platform's pipe
+   * buffer (>= 4 KB on Windows, ~64 KB on Linux/macOS). Do not reuse this method for
+   * unbounded-output subcommands — the pattern would deadlock if the child ever filled the pipe.
+   */
+  DatabricksCliVersion probeCliVersion(String cliPath, Environment env) throws IOException {
+    List<String> versionArgs = Arrays.asList(cliPath, "version", "--output", "json");
+    List<String> cmd = OSUtils.get(env).getCliExecutableCommand(versionArgs);
+
+    ProcessBuilder pb = new ProcessBuilder(cmd);
+    pb.environment().putAll(env.getEnv());
+    // Merge stderr into stdout so we drain a single stream and surface any stderr diagnostics
+    // in the same message on non-zero exit.
+    pb.redirectErrorStream(true);
+    Process process = pb.start();
+
+    boolean exited;
+    try {
+      exited = process.waitFor(VERSION_PROBE_TIMEOUT_SECONDS, TimeUnit.SECONDS);
+    } catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      destroyAndAwait(process);
+      throw new IOException("interrupted waiting for `databricks version`", e);
+    }
+
+    if (!exited) {
+      destroyAndAwait(process);
+      throw new IOException(
+          "timed out after "
+              + VERSION_PROBE_TIMEOUT_SECONDS
+              + "s waiting for `databricks version`");
+    }
+
+    // Process exited cleanly. Read stdout BEFORE any destroyForcibly call: on Linux/OpenJDK 11+
+    // calling destroyForcibly on an already-exited process closes the parent-side end of the
+    // stdout pipe, which would make readStream throw "Stream closed".
+    String output = readStream(process.getInputStream());
+    if (process.exitValue() != 0) {
+      throw new IOException(
+          "`databricks version` exited with code " + process.exitValue() + ": " + output.trim());
+    }
+    return parseCliVersion(output);
+  }
+
+  /**
+   * Best-effort cleanup for the timeout / interrupted paths. {@code destroyForcibly()} is
+   * asynchronous on some platforms; await briefly so the OS releases the process handle and FDs
+   * before we return.
+   */
+  private static void destroyAndAwait(Process process) {
+    try {
+      process.destroyForcibly().waitFor(1, TimeUnit.SECONDS);
+    } catch (InterruptedException ignored) {
+      Thread.currentThread().interrupt();
+    }
+  }
+
+  /**
+   * Parses the JSON output of {@code databricks version --output json}.
+   *
+   * <p>Takes Major/Minor/Patch from the JSON's pre-parsed numeric fields. The Prerelease field and
+   * the Version string are intentionally ignored: for our feature-gate purposes the base triple is
+   * sufficient, and the (0, 0, 0) case already identifies the default dev build (a CLI built
+   * without version metadata leaves these fields at their zero defaults).
+   *
+   * <p>Returns {@link DatabricksCliVersion#UNKNOWN} on failure so that an unparseable version
+   * disables every feature gate.
+   */
+  DatabricksCliVersion parseCliVersion(String output) {
+    try {
+      JsonNode node = MAPPER.readTree(output);
+      JsonNode major = node.get("Major");
+      JsonNode minor = node.get("Minor");
+      JsonNode patch = node.get("Patch");
+      if (major == null || minor == null || patch == null) {
+        LOG.debug(
+            "Failed to parse Databricks CLI version: missing Major/Minor/Patch in {}", output);
+        return DatabricksCliVersion.UNKNOWN;
+      }
+      // JsonNode.asInt() silently coerces strings, JSON null, arrays, and objects to 0, which
+      // would collide with the dev-build sentinel (0,0,0). Only accept genuine integers so a
+      // garbage payload returns UNKNOWN instead of "valid dev build".
+      if (!major.isIntegralNumber() || !minor.isIntegralNumber() || !patch.isIntegralNumber()) {
+        LOG.debug(
+            "Failed to parse Databricks CLI version: non-integer Major/Minor/Patch in {}", output);
+        return DatabricksCliVersion.UNKNOWN;
+      }
+      return new DatabricksCliVersion(major.asInt(), minor.asInt(), patch.asInt());
+    } catch (JsonProcessingException e) {
+      LOG.debug(
+          "Failed to parse Databricks CLI version from output: {} ({})", output, e.getMessage());
+      return DatabricksCliVersion.UNKNOWN;
+    }
+  }
+
+  private static String readStream(InputStream stream) throws IOException {
+    try {
+      return new String(IOUtils.toByteArray(stream), StandardCharsets.UTF_8);
+    } finally {
+      stream.close();
+    }
+  }
+
+  // ---- Scope validation ----
 
   /**
    * Validate that the token's scopes match the requested scopes from the config.
