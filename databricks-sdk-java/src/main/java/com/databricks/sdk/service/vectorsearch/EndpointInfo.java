@@ -10,11 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class EndpointInfo {
-  /**
-   * Discussed here: https://databricks.atlassian.net/wiki/x/OQDlCQE Additional documentation:
-   * https://aip.dev.databricks.com/129 the user selected budget policy id for the endpoint
-   * (client-side)
-   */
+  /** The user-selected budget policy id for the endpoint. */
   @JsonProperty("budget_policy_id")
   private String budgetPolicyId;
 

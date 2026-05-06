@@ -12,6 +12,7 @@ public enum IngestionSourceType {
   FOREIGN_CATALOG,
   GA4_RAW_DATA,
   GOOGLE_DRIVE,
+  JIRA,
   MANAGED_POSTGRESQL,
   META_MARKETING,
   MYSQL,
@@ -24,4 +25,5 @@ public enum IngestionSourceType {
   SQLSERVER,
   TERADATA,
   WORKDAY_RAAS,
+  ZENDESK,
 }

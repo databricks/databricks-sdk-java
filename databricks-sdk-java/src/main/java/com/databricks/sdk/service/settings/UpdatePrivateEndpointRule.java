@@ -24,10 +24,9 @@ public class UpdatePrivateEndpointRule {
   private Collection<String> domainNames;
 
   /**
-   * Only used by private endpoints towards an AWS S3 service.
-   *
-   * <p>Update this field to activate/deactivate this private endpoint to allow egress access from
-   * serverless compute resources.
+   * Update this field to activate/deactivate this private endpoint to allow egress access from
+   * serverless compute resources. Only honored for first-party services on each cloud (e.g. AWS
+   * S3).
    */
   @JsonProperty("enabled")
   private Boolean enabled;

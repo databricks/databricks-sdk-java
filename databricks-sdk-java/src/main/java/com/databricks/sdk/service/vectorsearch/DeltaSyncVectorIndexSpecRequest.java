@@ -11,6 +11,15 @@ import java.util.Objects;
 @Generated
 public class DeltaSyncVectorIndexSpecRequest {
   /**
+   * [Optional] Alias for columns_to_sync. Select the columns to include in the vector index. If you
+   * leave this field blank, all columns from the source table are included. The primary key column
+   * and embedding source column or embedding vector column are always included. Only one of
+   * columns_to_sync or columns_to_index may be specified.
+   */
+  @JsonProperty("columns_to_index")
+  private Collection<String> columnsToIndex;
+
+  /**
    * [Optional] Select the columns to sync with the vector index. If you leave this field blank, all
    * columns from the source table are synced with the index. The primary key column and embedding
    * source column or embedding vector column are always synced.
@@ -46,6 +55,15 @@ public class DeltaSyncVectorIndexSpecRequest {
   /** The name of the source table. */
   @JsonProperty("source_table")
   private String sourceTable;
+
+  public DeltaSyncVectorIndexSpecRequest setColumnsToIndex(Collection<String> columnsToIndex) {
+    this.columnsToIndex = columnsToIndex;
+    return this;
+  }
+
+  public Collection<String> getColumnsToIndex() {
+    return columnsToIndex;
+  }
 
   public DeltaSyncVectorIndexSpecRequest setColumnsToSync(Collection<String> columnsToSync) {
     this.columnsToSync = columnsToSync;
@@ -109,7 +127,8 @@ public class DeltaSyncVectorIndexSpecRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     DeltaSyncVectorIndexSpecRequest that = (DeltaSyncVectorIndexSpecRequest) o;
-    return Objects.equals(columnsToSync, that.columnsToSync)
+    return Objects.equals(columnsToIndex, that.columnsToIndex)
+        && Objects.equals(columnsToSync, that.columnsToSync)
         && Objects.equals(embeddingSourceColumns, that.embeddingSourceColumns)
         && Objects.equals(embeddingVectorColumns, that.embeddingVectorColumns)
         && Objects.equals(embeddingWritebackTable, that.embeddingWritebackTable)
@@ -120,6 +139,7 @@ public class DeltaSyncVectorIndexSpecRequest {
   @Override
   public int hashCode() {
     return Objects.hash(
+        columnsToIndex,
         columnsToSync,
         embeddingSourceColumns,
         embeddingVectorColumns,
@@ -131,6 +151,7 @@ public class DeltaSyncVectorIndexSpecRequest {
   @Override
   public String toString() {
     return new ToStringer(DeltaSyncVectorIndexSpecRequest.class)
+        .add("columnsToIndex", columnsToIndex)
         .add("columnsToSync", columnsToSync)
         .add("embeddingSourceColumns", embeddingSourceColumns)
         .add("embeddingVectorColumns", embeddingVectorColumns)

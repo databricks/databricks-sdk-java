@@ -14,12 +14,11 @@ public class PatchEndpointRequest {
   @JsonIgnore private String endpointName;
 
   /**
-   * Deprecated: use target_qps. Min QPS for the endpoint. Positive integer sets QPS target; -1
-   * resets to default scaling behavior. Kept at PUBLIC_BETA with deprecated = true so generated SDK
-   * surfaces keep the field with a deprecation marker; hiding completely is a follow-up PR.
+   * Target QPS for the endpoint. Best-effort; the system does not guarantee this QPS will be
+   * achieved.
    */
-  @JsonProperty("min_qps")
-  private Long minQps;
+  @JsonProperty("target_qps")
+  private Long targetQps;
 
   public PatchEndpointRequest setEndpointName(String endpointName) {
     this.endpointName = endpointName;
@@ -30,13 +29,13 @@ public class PatchEndpointRequest {
     return endpointName;
   }
 
-  public PatchEndpointRequest setMinQps(Long minQps) {
-    this.minQps = minQps;
+  public PatchEndpointRequest setTargetQps(Long targetQps) {
+    this.targetQps = targetQps;
     return this;
   }
 
-  public Long getMinQps() {
-    return minQps;
+  public Long getTargetQps() {
+    return targetQps;
   }
 
   @Override
@@ -44,19 +43,20 @@ public class PatchEndpointRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     PatchEndpointRequest that = (PatchEndpointRequest) o;
-    return Objects.equals(endpointName, that.endpointName) && Objects.equals(minQps, that.minQps);
+    return Objects.equals(endpointName, that.endpointName)
+        && Objects.equals(targetQps, that.targetQps);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(endpointName, minQps);
+    return Objects.hash(endpointName, targetQps);
   }
 
   @Override
   public String toString() {
     return new ToStringer(PatchEndpointRequest.class)
         .add("endpointName", endpointName)
-        .add("minQps", minQps)
+        .add("targetQps", targetQps)
         .toString();
   }
 }

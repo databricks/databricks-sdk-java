@@ -2344,6 +2344,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/UpdateInf
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/UpdateInfoState.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/UpdateStateInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/UpdateStateInfoState.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ZendeskSupportOptions.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/Branch.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/BranchOperationMetadata.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/BranchSpec.java linguist-generated=true
@@ -2469,6 +2470,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/provisioning/AzureK
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/provisioning/AzureWorkspaceInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/provisioning/CloudResourceContainer.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/provisioning/CreateAwsKeyInfo.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/provisioning/CreateAzureKeyInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/provisioning/CreateCredentialAwsCredentials.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/provisioning/CreateCredentialRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/provisioning/CreateCredentialStsRole.java linguist-generated=true

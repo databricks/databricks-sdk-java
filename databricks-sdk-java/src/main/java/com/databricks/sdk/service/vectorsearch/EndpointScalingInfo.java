@@ -10,25 +10,23 @@ import java.util.Objects;
 @Generated
 public class EndpointScalingInfo {
   /**
-   * Deprecated: use requested_target_qps. Kept at PUBLIC_BETA with deprecated = true so generated
-   * SDK surfaces (Go, Java, TypeScript, Terraform) keep exposing the field with a deprecation
-   * marker rather than losing it on next regeneration. Hiding completely (visibility =
-   * PUBLIC_UNDOCUMENTED) is a follow-up PR once downstream consumers have migrated.
+   * The requested QPS target for the endpoint. Best-effort; the system does not guarantee this QPS
+   * will be achieved.
    */
-  @JsonProperty("requested_min_qps")
-  private Long requestedMinQps;
+  @JsonProperty("requested_target_qps")
+  private Long requestedTargetQps;
 
   /** The current state of the scaling change request. */
   @JsonProperty("state")
   private ScalingChangeState state;
 
-  public EndpointScalingInfo setRequestedMinQps(Long requestedMinQps) {
-    this.requestedMinQps = requestedMinQps;
+  public EndpointScalingInfo setRequestedTargetQps(Long requestedTargetQps) {
+    this.requestedTargetQps = requestedTargetQps;
     return this;
   }
 
-  public Long getRequestedMinQps() {
-    return requestedMinQps;
+  public Long getRequestedTargetQps() {
+    return requestedTargetQps;
   }
 
   public EndpointScalingInfo setState(ScalingChangeState state) {
@@ -45,19 +43,19 @@ public class EndpointScalingInfo {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     EndpointScalingInfo that = (EndpointScalingInfo) o;
-    return Objects.equals(requestedMinQps, that.requestedMinQps)
+    return Objects.equals(requestedTargetQps, that.requestedTargetQps)
         && Objects.equals(state, that.state);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(requestedMinQps, state);
+    return Objects.hash(requestedTargetQps, state);
   }
 
   @Override
   public String toString() {
     return new ToStringer(EndpointScalingInfo.class)
-        .add("requestedMinQps", requestedMinQps)
+        .add("requestedTargetQps", requestedTargetQps)
         .add("state", state)
         .toString();
   }

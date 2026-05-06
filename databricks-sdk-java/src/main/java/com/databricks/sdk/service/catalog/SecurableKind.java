@@ -4,7 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** Latest kind: CONNECTION_RABBITMQ = 326; Next id: 327 */
+/** Latest kind: MODEL_SERVICE_STANDARD = 327; Next id: 328 */
 @Generated
 public enum SecurableKind {
   TABLE_DB_STORAGE,

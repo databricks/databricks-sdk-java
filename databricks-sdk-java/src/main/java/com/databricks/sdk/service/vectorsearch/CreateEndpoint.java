@@ -17,17 +17,17 @@ public class CreateEndpoint {
   @JsonProperty("endpoint_type")
   private EndpointType endpointType;
 
-  /**
-   * Deprecated: use target_qps. Min QPS for the endpoint. Mutually exclusive with num_replicas.
-   * Kept at PUBLIC_BETA with deprecated = true so generated SDK surfaces keep the field with a
-   * deprecation marker; hiding completely is a follow-up PR.
-   */
-  @JsonProperty("min_qps")
-  private Long minQps;
-
   /** Name of the vector search endpoint */
   @JsonProperty("name")
   private String name;
+
+  /**
+   * Target QPS for the endpoint. Mutually exclusive with num_replicas. The actual replica count is
+   * calculated at index creation/sync time based on this value. Best-effort target; the system does
+   * not guarantee this QPS will be achieved.
+   */
+  @JsonProperty("target_qps")
+  private Long targetQps;
 
   /** The usage policy id to be applied once we've migrated to usage policies */
   @JsonProperty("usage_policy_id")
@@ -51,15 +51,6 @@ public class CreateEndpoint {
     return endpointType;
   }
 
-  public CreateEndpoint setMinQps(Long minQps) {
-    this.minQps = minQps;
-    return this;
-  }
-
-  public Long getMinQps() {
-    return minQps;
-  }
-
   public CreateEndpoint setName(String name) {
     this.name = name;
     return this;
@@ -67,6 +58,15 @@ public class CreateEndpoint {
 
   public String getName() {
     return name;
+  }
+
+  public CreateEndpoint setTargetQps(Long targetQps) {
+    this.targetQps = targetQps;
+    return this;
+  }
+
+  public Long getTargetQps() {
+    return targetQps;
   }
 
   public CreateEndpoint setUsagePolicyId(String usagePolicyId) {
@@ -85,14 +85,14 @@ public class CreateEndpoint {
     CreateEndpoint that = (CreateEndpoint) o;
     return Objects.equals(budgetPolicyId, that.budgetPolicyId)
         && Objects.equals(endpointType, that.endpointType)
-        && Objects.equals(minQps, that.minQps)
         && Objects.equals(name, that.name)
+        && Objects.equals(targetQps, that.targetQps)
         && Objects.equals(usagePolicyId, that.usagePolicyId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(budgetPolicyId, endpointType, minQps, name, usagePolicyId);
+    return Objects.hash(budgetPolicyId, endpointType, name, targetQps, usagePolicyId);
   }
 
   @Override
@@ -100,8 +100,8 @@ public class CreateEndpoint {
     return new ToStringer(CreateEndpoint.class)
         .add("budgetPolicyId", budgetPolicyId)
         .add("endpointType", endpointType)
-        .add("minQps", minQps)
         .add("name", name)
+        .add("targetQps", targetQps)
         .add("usagePolicyId", usagePolicyId)
         .toString();
   }
