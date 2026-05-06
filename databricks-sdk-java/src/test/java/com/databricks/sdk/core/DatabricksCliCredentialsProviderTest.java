@@ -2,8 +2,8 @@ package com.databricks.sdk.core;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockConstruction;
@@ -16,7 +16,6 @@ import com.databricks.sdk.core.utils.Environment;
 import com.databricks.sdk.core.utils.OSUtilities;
 import com.databricks.sdk.core.utils.OSUtils;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -112,33 +111,56 @@ class DatabricksCliCredentialsProviderTest {
   private static Stream<Arguments> buildCliCommandCases() {
     return Stream.of(
         Arguments.of(
-            "host only — old CLI",
+            "host only — old CLI, no force-refresh",
             new DatabricksConfig().setHost(HOST),
             new DatabricksCliVersion(0, 200, 0),
             Arrays.asList(CLI_PATH, "auth", "token", "--host", HOST)),
         Arguments.of(
-            "account host — old CLI",
+            "host only — new CLI, with force-refresh",
+            new DatabricksConfig().setHost(HOST),
+            DatabricksCliCredentialsProvider.CLI_VERSION_FOR_FORCE_REFRESH,
+            Arrays.asList(CLI_PATH, "auth", "token", "--host", HOST, "--force-refresh")),
+        Arguments.of(
+            "account host — old CLI, no force-refresh",
             new DatabricksConfig().setHost(ACCOUNT_HOST).setAccountId(ACCOUNT_ID),
             new DatabricksCliVersion(0, 200, 0),
             Arrays.asList(
                 CLI_PATH, "auth", "token", "--host", ACCOUNT_HOST, "--account-id", ACCOUNT_ID)),
         Arguments.of(
-            "profile with new CLI — uses --profile",
+            "account host — new CLI, with force-refresh",
+            new DatabricksConfig().setHost(ACCOUNT_HOST).setAccountId(ACCOUNT_ID),
+            DatabricksCliCredentialsProvider.CLI_VERSION_FOR_FORCE_REFRESH,
+            Arrays.asList(
+                CLI_PATH,
+                "auth",
+                "token",
+                "--host",
+                ACCOUNT_HOST,
+                "--account-id",
+                ACCOUNT_ID,
+                "--force-refresh")),
+        Arguments.of(
+            "profile with profile-supporting CLI — uses --profile, no force-refresh",
             new DatabricksConfig().setProfile(PROFILE).setHost(HOST),
             DatabricksCliCredentialsProvider.CLI_VERSION_FOR_PROFILE,
             Arrays.asList(CLI_PATH, "auth", "token", "--profile", PROFILE)),
         Arguments.of(
-            "profile with old CLI — falls back to --host",
+            "profile with newest CLI — uses --profile and --force-refresh",
+            new DatabricksConfig().setProfile(PROFILE).setHost(HOST),
+            DatabricksCliCredentialsProvider.CLI_VERSION_FOR_FORCE_REFRESH,
+            Arrays.asList(CLI_PATH, "auth", "token", "--profile", PROFILE, "--force-refresh")),
+        Arguments.of(
+            "profile with old CLI — falls back to --host, no force-refresh",
             new DatabricksConfig().setProfile(PROFILE).setHost(HOST),
             new DatabricksCliVersion(0, 207, 0),
             Arrays.asList(CLI_PATH, "auth", "token", "--host", HOST)),
         Arguments.of(
-            "unknown version — falls back to --host",
+            "unknown version — falls back to --host, no force-refresh",
             new DatabricksConfig().setProfile(PROFILE).setHost(HOST),
             DatabricksCliVersion.UNKNOWN,
             Arrays.asList(CLI_PATH, "auth", "token", "--host", HOST)),
         Arguments.of(
-            "dev build — falls back to --host",
+            "dev build — falls back to --host, no force-refresh",
             new DatabricksConfig().setProfile(PROFILE).setHost(HOST),
             new DatabricksCliVersion(0, 0, 0),
             Arrays.asList(CLI_PATH, "auth", "token", "--host", HOST)));
@@ -366,7 +388,6 @@ class DatabricksCliCredentialsProviderTest {
     Process process = mock(Process.class);
     when(process.getInputStream())
         .thenReturn(new ByteArrayInputStream(stdout.getBytes(StandardCharsets.UTF_8)));
-    when(process.getOutputStream()).thenReturn(new ByteArrayOutputStream());
     when(process.waitFor(anyLong(), any(TimeUnit.class))).thenReturn(exited);
     when(process.exitValue()).thenReturn(exitCode);
     // destroyForcibly() returns the Process so callers can chain .waitFor(...) on it.
@@ -398,7 +419,7 @@ class DatabricksCliCredentialsProviderTest {
             mockConstruction(
                 ProcessBuilder.class,
                 (pb, ctx) -> {
-                  when(pb.redirectErrorStream(anyBoolean())).thenReturn(pb);
+                  when(pb.redirectErrorStream(eq(true))).thenReturn(pb);
                   when(pb.start()).thenReturn(process);
                 })) {
       mockedOSUtils.when(() -> OSUtils.get(any())).thenReturn(osUtils);
@@ -427,7 +448,7 @@ class DatabricksCliCredentialsProviderTest {
             mockConstruction(
                 ProcessBuilder.class,
                 (pb, ctx) -> {
-                  when(pb.redirectErrorStream(anyBoolean())).thenReturn(pb);
+                  when(pb.redirectErrorStream(eq(true))).thenReturn(pb);
                   when(pb.start()).thenReturn(process);
                 })) {
       mockedOSUtils.when(() -> OSUtils.get(any())).thenReturn(osUtils);
@@ -451,7 +472,7 @@ class DatabricksCliCredentialsProviderTest {
             mockConstruction(
                 ProcessBuilder.class,
                 (pb, ctx) -> {
-                  when(pb.redirectErrorStream(anyBoolean())).thenReturn(pb);
+                  when(pb.redirectErrorStream(eq(true))).thenReturn(pb);
                   when(pb.start()).thenReturn(process);
                 })) {
       mockedOSUtils.when(() -> OSUtils.get(any())).thenReturn(osUtils);

@@ -35,6 +35,10 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
   // --profile support added in CLI v0.207.1: https://github.com/databricks/cli/pull/855
   static final DatabricksCliVersion CLI_VERSION_FOR_PROFILE = new DatabricksCliVersion(0, 207, 1);
 
+  // --force-refresh support added in CLI v0.296.0: https://github.com/databricks/cli/pull/4767
+  static final DatabricksCliVersion CLI_VERSION_FOR_FORCE_REFRESH =
+      new DatabricksCliVersion(0, 296, 0);
+
   // 5-second cap on `databricks version` so a hung CLI (slow first-run scan, antivirus, blocked
   // stdin) does not wedge SDK init indefinitely.
   private static final long VERSION_PROBE_TIMEOUT_SECONDS = 5;
@@ -161,12 +165,40 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
   }
 
   /**
-   * Builds the {@code auth token} command for the given CLI version.
+   * Builds the full {@code auth token} command, including capability-gated flags.
    *
-   * <p>Falls back to {@code --host} when {@code --profile} is either not configured or not
-   * supported by the installed CLI.
+   * <p>Delegates the profile/host decision to {@link #buildCoreCliCommand} and appends {@code
+   * --force-refresh} when the installed CLI supports it.
    */
   List<String> buildCliCommand(
+      String cliPath, DatabricksConfig config, DatabricksCliVersion version) {
+    List<String> cmd = buildCoreCliCommand(cliPath, config, version);
+    if (version.atLeast(CLI_VERSION_FOR_FORCE_REFRESH)) {
+      cmd.add("--force-refresh");
+    } else if (version.isDefaultDevBuild()) {
+      // Dev build — getCliVersion already emitted the dev-build INFO at the probe site.
+    } else if (version.equals(DatabricksCliVersion.UNKNOWN)) {
+      // We didn't actually prove the CLI lacks --force-refresh; we just failed to confirm it.
+      LOG.warn(
+          "Could not confirm --force-refresh support for Databricks CLI {} (requires >= {}). "
+              + "The CLI's token cache may provide stale tokens.",
+          version,
+          CLI_VERSION_FOR_FORCE_REFRESH);
+    } else {
+      LOG.warn(
+          "Databricks CLI {} does not support --force-refresh (requires >= {}). "
+              + "The CLI's token cache may provide stale tokens.",
+          version,
+          CLI_VERSION_FOR_FORCE_REFRESH);
+    }
+    return cmd;
+  }
+
+  /**
+   * Builds the base {@code auth token} command without capability-gated flags. Falls back to {@code
+   * --host} when {@code --profile} is either not configured or not supported by the installed CLI.
+   */
+  List<String> buildCoreCliCommand(
       String cliPath, DatabricksConfig config, DatabricksCliVersion version) {
     if (config.getProfile() == null) {
       return buildHostArgs(cliPath, config);
@@ -176,14 +208,7 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
     // do not support it. Only use --profile in CLI versions known to support it in `auth token`.
     if (!version.atLeast(CLI_VERSION_FOR_PROFILE)) {
       if (version.isDefaultDevBuild()) {
-        // A default-marker dev build has no injected version, so every feature gate fails.
-        // Surface an informational hint so users know why their feature flags aren't taking
-        // effect.
-        LOG.info(
-            "Databricks CLI {} is a development build; feature detection will use conservative "
-                + "fallbacks. Rebuild the CLI with an explicit version to enable capability-based "
-                + "flag selection.",
-            version);
+        // Dev build — getCliVersion already emitted the dev-build INFO at the probe site.
       } else if (version.equals(DatabricksCliVersion.UNKNOWN)) {
         LOG.warn(
             "Could not confirm --profile support for Databricks CLI {} (requires >= {}). "
@@ -254,11 +279,21 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
                 LOG.warn(
                     "Failed to detect Databricks CLI version: {}. "
                         + "Falling back to conservative flag set.",
-                    e.getMessage(),
-                    e);
+                    e.getMessage());
+                LOG.debug("CLI version probe failure stack:", e);
                 return DatabricksCliVersion.UNKNOWN;
               }
             });
+    if (version.isDefaultDevBuild()) {
+      // A default-marker dev build has no injected version, so every feature gate falls back to
+      // the conservative path. Emit once at the probe site so callers see the explanation even
+      // on the host-only code path that never consults a per-flag gate.
+      LOG.info(
+          "Databricks CLI {} is a development build; feature detection will use conservative "
+              + "fallbacks. Rebuild the CLI with an explicit version to enable capability-based "
+              + "flag selection.",
+          version);
+    }
     // Don't cache UNKNOWN: a transient probe failure or a parseable-but-malformed payload
     // would otherwise pin every later token source to the conservative fallback for the rest
     // of the process lifetime. Strip it after computeIfAbsent so the next call re-probes.
