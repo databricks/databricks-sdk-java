@@ -37,7 +37,8 @@ public class SupervisorAgentsAPI {
   /**
    * Creates a Tool under a Supervisor Agent. Specify one of "genie_space", "knowledge_assistant",
    * "uc_function", "uc_connection", "app", "volume", "lakeview_dashboard", "uc_table",
-   * "vector_search_index", "catalog", "schema", "supervisor_agent" in the request body.
+   * "vector_search_index", "catalog", "schema", "supervisor_agent", "web_search" in the request
+   * body.
    */
   public Tool createTool(CreateToolRequest request) {
     return impl.createTool(request);

@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Generated
-public class CustomerFacingIngressNetworkPolicyWorkspaceApiDestination {
+public class CustomerFacingIngressNetworkPolicyAccountApiDestination {
   /** Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. */
   @JsonProperty("scope_qualifier")
   private CustomerFacingIngressNetworkPolicyApiScopeQualifier scopeQualifier;
@@ -18,7 +18,7 @@ public class CustomerFacingIngressNetworkPolicyWorkspaceApiDestination {
   @JsonProperty("scopes")
   private Collection<String> scopes;
 
-  public CustomerFacingIngressNetworkPolicyWorkspaceApiDestination setScopeQualifier(
+  public CustomerFacingIngressNetworkPolicyAccountApiDestination setScopeQualifier(
       CustomerFacingIngressNetworkPolicyApiScopeQualifier scopeQualifier) {
     this.scopeQualifier = scopeQualifier;
     return this;
@@ -28,7 +28,7 @@ public class CustomerFacingIngressNetworkPolicyWorkspaceApiDestination {
     return scopeQualifier;
   }
 
-  public CustomerFacingIngressNetworkPolicyWorkspaceApiDestination setScopes(
+  public CustomerFacingIngressNetworkPolicyAccountApiDestination setScopes(
       Collection<String> scopes) {
     this.scopes = scopes;
     return this;
@@ -42,8 +42,8 @@ public class CustomerFacingIngressNetworkPolicyWorkspaceApiDestination {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    CustomerFacingIngressNetworkPolicyWorkspaceApiDestination that =
-        (CustomerFacingIngressNetworkPolicyWorkspaceApiDestination) o;
+    CustomerFacingIngressNetworkPolicyAccountApiDestination that =
+        (CustomerFacingIngressNetworkPolicyAccountApiDestination) o;
     return Objects.equals(scopeQualifier, that.scopeQualifier)
         && Objects.equals(scopes, that.scopes);
   }
@@ -55,7 +55,7 @@ public class CustomerFacingIngressNetworkPolicyWorkspaceApiDestination {
 
   @Override
   public String toString() {
-    return new ToStringer(CustomerFacingIngressNetworkPolicyWorkspaceApiDestination.class)
+    return new ToStringer(CustomerFacingIngressNetworkPolicyAccountApiDestination.class)
         .add("scopeQualifier", scopeQualifier)
         .add("scopes", scopes)
         .toString();

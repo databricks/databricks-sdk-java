@@ -106,6 +106,31 @@ public class VectorSearchEndpointsAPI {
     return impl.getEndpoint(request);
   }
 
+  public GetVectorSearchEndpointPermissionLevelsResponse getPermissionLevels(String endpointId) {
+    return getPermissionLevels(
+        new GetVectorSearchEndpointPermissionLevelsRequest().setEndpointId(endpointId));
+  }
+
+  /** Gets the permission levels that a user can have on an object. */
+  public GetVectorSearchEndpointPermissionLevelsResponse getPermissionLevels(
+      GetVectorSearchEndpointPermissionLevelsRequest request) {
+    return impl.getPermissionLevels(request);
+  }
+
+  public VectorSearchEndpointPermissions getPermissions(String endpointId) {
+    return getPermissions(
+        new GetVectorSearchEndpointPermissionsRequest().setEndpointId(endpointId));
+  }
+
+  /**
+   * Gets the permissions of a vector search endpoint. Vector search endpoints can inherit
+   * permissions from their root object.
+   */
+  public VectorSearchEndpointPermissions getPermissions(
+      GetVectorSearchEndpointPermissionsRequest request) {
+    return impl.getPermissions(request);
+  }
+
   /** List all vector search endpoints in the workspace. */
   public Iterable<EndpointInfo> listEndpoints(ListEndpointsRequest request) {
     return new Paginator<>(
@@ -132,6 +157,15 @@ public class VectorSearchEndpointsAPI {
     return impl.retrieveUserVisibleMetrics(request);
   }
 
+  /**
+   * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
+   * permissions if none are specified. Objects can inherit permissions from their root object.
+   */
+  public VectorSearchEndpointPermissions setPermissions(
+      VectorSearchEndpointPermissionsRequest request) {
+    return impl.setPermissions(request);
+  }
+
   /** Update the budget policy of an endpoint */
   public PatchEndpointBudgetPolicyResponse updateEndpointBudgetPolicy(
       PatchEndpointBudgetPolicyRequest request) {
@@ -142,6 +176,15 @@ public class VectorSearchEndpointsAPI {
   public UpdateEndpointCustomTagsResponse updateEndpointCustomTags(
       UpdateEndpointCustomTagsRequest request) {
     return impl.updateEndpointCustomTags(request);
+  }
+
+  /**
+   * Updates the permissions on a vector search endpoint. Vector search endpoints can inherit
+   * permissions from their root object.
+   */
+  public VectorSearchEndpointPermissions updatePermissions(
+      VectorSearchEndpointPermissionsRequest request) {
+    return impl.updatePermissions(request);
   }
 
   public VectorSearchEndpointsService impl() {

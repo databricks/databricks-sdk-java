@@ -40,7 +40,7 @@ public class Tool {
   /**
    * Tool type. Must be one of: "genie_space", "knowledge_assistant", "uc_function",
    * "uc_connection", "app", "volume", "lakeview_dashboard", "serving_endpoint", "uc_table",
-   * "vector_search_index", "catalog", "schema", "supervisor_agent".
+   * "vector_search_index", "catalog", "schema", "supervisor_agent", "web_search".
    */
   @JsonProperty("tool_type")
   private String toolType;

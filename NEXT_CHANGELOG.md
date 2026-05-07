@@ -39,3 +39,8 @@
 * [Breaking] Remove `minQps` field for `com.databricks.sdk.service.vectorsearch.CreateEndpoint`.
 * [Breaking] Remove `requestedMinQps` field for `com.databricks.sdk.service.vectorsearch.EndpointScalingInfo`.
 * [Breaking] Remove `minQps` field for `com.databricks.sdk.service.vectorsearch.PatchEndpointRequest`.
+* Add `getPermissionLevels()`, `getPermissions()`, `setPermissions()` and `updatePermissions()` methods for `workspaceClient.vectorSearchEndpoints()` service.
+* Add `privateAccess` field for `com.databricks.sdk.service.settings.CustomerFacingIngressNetworkPolicy`.
+* Add `accountApi`, `accountDatabricksOne` and `accountUi` fields for `com.databricks.sdk.service.settings.CustomerFacingIngressNetworkPolicyRequestDestination`.
+* Add `scopeQualifier` field for `com.databricks.sdk.service.settings.CustomerFacingIngressNetworkPolicyWorkspaceApiDestination`.
+* Add `displayName` and `previewPhase` fields for `com.databricks.sdk.service.settingsv2.SettingsMetadata`.

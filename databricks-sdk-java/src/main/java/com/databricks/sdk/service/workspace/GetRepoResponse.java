@@ -25,7 +25,11 @@ public class GetRepoResponse {
   @JsonProperty("path")
   private String path;
 
-  /** Git provider of the linked Git repository. */
+  /**
+   * Git provider of the linked Git repository, e.g. `gitHub`, `azureDevOpsServices`,
+   * `bitbucketServer` (Bitbucket Data Center), `gitLabEnterpriseEdition` (GitLab Self-Managed), or
+   * `awsCodeCommit` (deprecated).
+   */
   @JsonProperty("provider")
   private String provider;
 

@@ -69,6 +69,46 @@ class VectorSearchEndpointsImpl implements VectorSearchEndpointsService {
   }
 
   @Override
+  public GetVectorSearchEndpointPermissionLevelsResponse getPermissionLevels(
+      GetVectorSearchEndpointPermissionLevelsRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/permissions/vector-search-endpoints/%s/permissionLevels",
+            request.getEndpointId());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, GetVectorSearchEndpointPermissionLevelsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public VectorSearchEndpointPermissions getPermissions(
+      GetVectorSearchEndpointPermissionsRequest request) {
+    String path =
+        String.format("/api/2.0/permissions/vector-search-endpoints/%s", request.getEndpointId());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, VectorSearchEndpointPermissions.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public ListEndpointResponse listEndpoints(ListEndpointsRequest request) {
     String path = "/api/2.0/vector-search/endpoints";
     try {
@@ -123,6 +163,26 @@ class VectorSearchEndpointsImpl implements VectorSearchEndpointsService {
   }
 
   @Override
+  public VectorSearchEndpointPermissions setPermissions(
+      VectorSearchEndpointPermissionsRequest request) {
+    String path =
+        String.format("/api/2.0/permissions/vector-search-endpoints/%s", request.getEndpointId());
+    try {
+      Request req = new Request("PUT", path, apiClient.serialize(request));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, VectorSearchEndpointPermissions.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public PatchEndpointBudgetPolicyResponse updateEndpointBudgetPolicy(
       PatchEndpointBudgetPolicyRequest request) {
     String path =
@@ -158,6 +218,26 @@ class VectorSearchEndpointsImpl implements VectorSearchEndpointsService {
         req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, UpdateEndpointCustomTagsResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public VectorSearchEndpointPermissions updatePermissions(
+      VectorSearchEndpointPermissionsRequest request) {
+    String path =
+        String.format("/api/2.0/permissions/vector-search-endpoints/%s", request.getEndpointId());
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, VectorSearchEndpointPermissions.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
