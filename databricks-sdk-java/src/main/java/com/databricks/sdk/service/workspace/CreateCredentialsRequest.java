@@ -20,8 +20,10 @@ public class CreateCredentialsRequest {
 
   /**
    * Git provider. This field is case-insensitive. The available Git providers are `gitHub`,
-   * `bitbucketCloud`, `gitLab`, `azureDevOpsServices`, `gitHubEnterprise`, `bitbucketServer`,
-   * `gitLabEnterpriseEdition` and `awsCodeCommit`.
+   * `bitbucketCloud`, `gitLab`, `azureDevOpsServices` (Azure DevOps Services, including Microsoft
+   * Entra ID authentication), `gitHubEnterprise`, `bitbucketServer` (Bitbucket Data Center),
+   * `gitLabEnterpriseEdition` (GitLab Self-Managed), and `awsCodeCommit` (deprecated by AWS, not
+   * accepting new customers).
    */
   @JsonProperty("git_provider")
   private String gitProvider;

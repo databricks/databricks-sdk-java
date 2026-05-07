@@ -21,6 +21,18 @@ public interface VectorSearchEndpointsService {
   /** Get details for a single vector search endpoint. */
   EndpointInfo getEndpoint(GetEndpointRequest getEndpointRequest);
 
+  /** Gets the permission levels that a user can have on an object. */
+  GetVectorSearchEndpointPermissionLevelsResponse getPermissionLevels(
+      GetVectorSearchEndpointPermissionLevelsRequest
+          getVectorSearchEndpointPermissionLevelsRequest);
+
+  /**
+   * Gets the permissions of a vector search endpoint. Vector search endpoints can inherit
+   * permissions from their root object.
+   */
+  VectorSearchEndpointPermissions getPermissions(
+      GetVectorSearchEndpointPermissionsRequest getVectorSearchEndpointPermissionsRequest);
+
   /** List all vector search endpoints in the workspace. */
   ListEndpointResponse listEndpoints(ListEndpointsRequest listEndpointsRequest);
 
@@ -31,6 +43,13 @@ public interface VectorSearchEndpointsService {
   RetrieveUserVisibleMetricsResponse retrieveUserVisibleMetrics(
       RetrieveUserVisibleMetricsRequest retrieveUserVisibleMetricsRequest);
 
+  /**
+   * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
+   * permissions if none are specified. Objects can inherit permissions from their root object.
+   */
+  VectorSearchEndpointPermissions setPermissions(
+      VectorSearchEndpointPermissionsRequest vectorSearchEndpointPermissionsRequest);
+
   /** Update the budget policy of an endpoint */
   PatchEndpointBudgetPolicyResponse updateEndpointBudgetPolicy(
       PatchEndpointBudgetPolicyRequest patchEndpointBudgetPolicyRequest);
@@ -38,4 +57,11 @@ public interface VectorSearchEndpointsService {
   /** Update the custom tags of an endpoint. */
   UpdateEndpointCustomTagsResponse updateEndpointCustomTags(
       UpdateEndpointCustomTagsRequest updateEndpointCustomTagsRequest);
+
+  /**
+   * Updates the permissions on a vector search endpoint. Vector search endpoints can inherit
+   * permissions from their root object.
+   */
+  VectorSearchEndpointPermissions updatePermissions(
+      VectorSearchEndpointPermissionsRequest vectorSearchEndpointPermissionsRequest);
 }
