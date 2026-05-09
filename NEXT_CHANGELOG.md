@@ -44,3 +44,4 @@
 * Add `accountApi`, `accountDatabricksOne` and `accountUi` fields for `com.databricks.sdk.service.settings.CustomerFacingIngressNetworkPolicyRequestDestination`.
 * Add `scopeQualifier` field for `com.databricks.sdk.service.settings.CustomerFacingIngressNetworkPolicyWorkspaceApiDestination`.
 * Add `displayName` and `previewPhase` fields for `com.databricks.sdk.service.settingsv2.SettingsMetadata`.
+* Add `kafkaOptions` field for `com.databricks.sdk.service.pipelines.ConnectorOptions`.
