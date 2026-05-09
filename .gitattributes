@@ -2270,6 +2270,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/Ingestion
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/IngestionPipelineDefinitionWorkdayReportParametersQueryKeyValue.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/IngestionSourceType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/JiraConnectorOptions.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/JsonTransformerOptions.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/KafkaOptions.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ListPipelineEventsRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ListPipelineEventsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ListPipelinesRequest.java linguist-generated=true
@@ -2337,6 +2339,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/TableSpec
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/TikTokAdsOptions.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/TikTokAdsOptionsTikTokDataLevel.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/TikTokAdsOptionsTikTokReportType.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/Transformer.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/TransformerFormat.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/Truncation.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/TruncationTruncationDetail.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/UpdateInfo.java linguist-generated=true

@@ -27,6 +27,10 @@ public class ConnectorOptions {
   private JiraConnectorOptions jiraOptions;
 
   /** */
+  @JsonProperty("kafka_options")
+  private KafkaOptions kafkaOptions;
+
+  /** */
   @JsonProperty("meta_ads_options")
   private MetaMarketingOptions metaAdsOptions;
 
@@ -84,6 +88,15 @@ public class ConnectorOptions {
 
   public JiraConnectorOptions getJiraOptions() {
     return jiraOptions;
+  }
+
+  public ConnectorOptions setKafkaOptions(KafkaOptions kafkaOptions) {
+    this.kafkaOptions = kafkaOptions;
+    return this;
+  }
+
+  public KafkaOptions getKafkaOptions() {
+    return kafkaOptions;
   }
 
   public ConnectorOptions setMetaAdsOptions(MetaMarketingOptions metaAdsOptions) {
@@ -149,6 +162,7 @@ public class ConnectorOptions {
         && Objects.equals(gdriveOptions, that.gdriveOptions)
         && Objects.equals(googleAdsOptions, that.googleAdsOptions)
         && Objects.equals(jiraOptions, that.jiraOptions)
+        && Objects.equals(kafkaOptions, that.kafkaOptions)
         && Objects.equals(metaAdsOptions, that.metaAdsOptions)
         && Objects.equals(outlookOptions, that.outlookOptions)
         && Objects.equals(sharepointOptions, that.sharepointOptions)
@@ -164,6 +178,7 @@ public class ConnectorOptions {
         gdriveOptions,
         googleAdsOptions,
         jiraOptions,
+        kafkaOptions,
         metaAdsOptions,
         outlookOptions,
         sharepointOptions,
@@ -179,6 +194,7 @@ public class ConnectorOptions {
         .add("gdriveOptions", gdriveOptions)
         .add("googleAdsOptions", googleAdsOptions)
         .add("jiraOptions", jiraOptions)
+        .add("kafkaOptions", kafkaOptions)
         .add("metaAdsOptions", metaAdsOptions)
         .add("outlookOptions", outlookOptions)
         .add("sharepointOptions", sharepointOptions)
