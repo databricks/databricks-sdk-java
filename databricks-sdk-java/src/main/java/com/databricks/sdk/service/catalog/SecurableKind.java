@@ -4,7 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** Latest kind: MODEL_SERVICE_STANDARD = 327; Next id: 328 */
+/** Latest kind: FEATURE_STANDARD = 328; Next id: 329 */
 @Generated
 public enum SecurableKind {
   TABLE_DB_STORAGE,
