@@ -45,3 +45,6 @@
 * Add `scopeQualifier` field for `com.databricks.sdk.service.settings.CustomerFacingIngressNetworkPolicyWorkspaceApiDestination`.
 * Add `displayName` and `previewPhase` fields for `com.databricks.sdk.service.settingsv2.SettingsMetadata`.
 * Add `kafkaOptions` field for `com.databricks.sdk.service.pipelines.ConnectorOptions`.
+* Add `disabled` field for `com.databricks.sdk.service.jobs.RunTask`.
+* Add `disabled` field for `com.databricks.sdk.service.jobs.SubmitTask`.
+* Add `HUBSPOT`, `GITHUB`, `OUTLOOK` and `SMARTSHEET` enum values for `com.databricks.sdk.service.catalog.ConnectionType`.
