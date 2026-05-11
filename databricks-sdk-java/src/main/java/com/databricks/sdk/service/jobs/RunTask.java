@@ -100,6 +100,13 @@ public class RunTask {
   private Boolean disableAutoOptimization;
 
   /**
+   * An optional flag to disable the task. If set to true, the task will not run even if it is part
+   * of a job.
+   */
+  @JsonProperty("disabled")
+  private Boolean disabled;
+
+  /**
    * The actual performance target used by the serverless run during execution. This can differ from
    * the client-set performance target on the request depending on whether the performance mode is
    * supported by the job type.
@@ -468,6 +475,15 @@ public class RunTask {
     return disableAutoOptimization;
   }
 
+  public RunTask setDisabled(Boolean disabled) {
+    this.disabled = disabled;
+    return this;
+  }
+
+  public Boolean getDisabled() {
+    return disabled;
+  }
+
   public RunTask setEffectivePerformanceTarget(PerformanceTarget effectivePerformanceTarget) {
     this.effectivePerformanceTarget = effectivePerformanceTarget;
     return this;
@@ -829,6 +845,7 @@ public class RunTask {
         && Objects.equals(dependsOn, that.dependsOn)
         && Objects.equals(description, that.description)
         && Objects.equals(disableAutoOptimization, that.disableAutoOptimization)
+        && Objects.equals(disabled, that.disabled)
         && Objects.equals(effectivePerformanceTarget, that.effectivePerformanceTarget)
         && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(endTime, that.endTime)
@@ -886,6 +903,7 @@ public class RunTask {
         dependsOn,
         description,
         disableAutoOptimization,
+        disabled,
         effectivePerformanceTarget,
         emailNotifications,
         endTime,
@@ -943,6 +961,7 @@ public class RunTask {
         .add("dependsOn", dependsOn)
         .add("description", description)
         .add("disableAutoOptimization", disableAutoOptimization)
+        .add("disabled", disabled)
         .add("effectivePerformanceTarget", effectivePerformanceTarget)
         .add("emailNotifications", emailNotifications)
         .add("endTime", endTime)
