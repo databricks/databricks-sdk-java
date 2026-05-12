@@ -50,7 +50,7 @@ public class EndpointInfo {
   @JsonProperty("last_updated_user")
   private String lastUpdatedUser;
 
-  /** Name of the vector search endpoint */
+  /** Name of the AI Search endpoint */
   @JsonProperty("name")
   private String name;
 

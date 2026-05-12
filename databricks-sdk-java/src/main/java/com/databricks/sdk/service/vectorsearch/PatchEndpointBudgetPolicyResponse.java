@@ -13,7 +13,7 @@ public class PatchEndpointBudgetPolicyResponse {
   @JsonProperty("budget_policy_id")
   private String budgetPolicyId;
 
-  /** The budget policy applied to the vector search endpoint. */
+  /** The budget policy applied to the AI Search endpoint. */
   @JsonProperty("effective_budget_policy_id")
   private String effectiveBudgetPolicyId;
 

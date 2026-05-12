@@ -4,7 +4,7 @@ package com.databricks.sdk.service.vectorsearch;
 import com.databricks.sdk.support.Generated;
 
 /**
- * **Endpoint**: Represents the compute resources to host vector search indexes.
+ * **Endpoint**: Represents the compute resources to host AI Search indexes.
  *
  * <p>This is the high-level interface, that contains generated methods.
  *
@@ -15,10 +15,10 @@ public interface VectorSearchEndpointsService {
   /** Create a new endpoint. */
   EndpointInfo createEndpoint(CreateEndpoint createEndpoint);
 
-  /** Delete a vector search endpoint. */
+  /** Delete an AI Search endpoint. */
   void deleteEndpoint(DeleteEndpointRequest deleteEndpointRequest);
 
-  /** Get details for a single vector search endpoint. */
+  /** Get details for a single AI Search endpoint. */
   EndpointInfo getEndpoint(GetEndpointRequest getEndpointRequest);
 
   /** Gets the permission levels that a user can have on an object. */
@@ -33,7 +33,7 @@ public interface VectorSearchEndpointsService {
   VectorSearchEndpointPermissions getPermissions(
       GetVectorSearchEndpointPermissionsRequest getVectorSearchEndpointPermissionsRequest);
 
-  /** List all vector search endpoints in the workspace. */
+  /** List all AI Search endpoints in the workspace. */
   ListEndpointResponse listEndpoints(ListEndpointsRequest listEndpointsRequest);
 
   /** Update an endpoint */

@@ -15,3 +15,4 @@
 ### Internal Changes
 
 ### API Changes
+* [Breaking] Remove `unspecifiedResourceName` field for `com.databricks.sdk.service.postgres.RequestedResource`.
