@@ -9,11 +9,11 @@ import java.util.Objects;
 
 @Generated
 public class CustomTag {
-  /** Key field for a vector search endpoint tag. */
+  /** Key field for an AI Search endpoint tag. */
   @JsonProperty("key")
   private String key;
 
-  /** [Optional] Value field for a vector search endpoint tag. */
+  /** [Optional] Value field for an AI Search endpoint tag. */
   @JsonProperty("value")
   private String value;
 

@@ -15,8 +15,8 @@ public class GenerateDatabaseCredentialRequest {
   private Collection<RequestedClaims> claims;
 
   /**
-   * This field is not yet supported. The endpoint for which this credential will be generated.
-   * Format: projects/{project_id}/branches/{branch_id}/endpoints/{endpoint_id}
+   * The endpoint resource name for which this credential will be generated. Format:
+   * projects/{project_id}/branches/{branch_id}/endpoints/{endpoint_id}
    */
   @JsonProperty("endpoint")
   private String endpoint;

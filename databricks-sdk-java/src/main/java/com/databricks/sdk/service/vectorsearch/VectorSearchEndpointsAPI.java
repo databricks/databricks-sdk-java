@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
 
-/** **Endpoint**: Represents the compute resources to host vector search indexes. */
+/** **Endpoint**: Represents the compute resources to host AI Search indexes. */
 @Generated
 public class VectorSearchEndpointsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(VectorSearchEndpointsAPI.class);
@@ -92,7 +92,7 @@ public class VectorSearchEndpointsAPI {
     deleteEndpoint(new DeleteEndpointRequest().setEndpointName(endpointName));
   }
 
-  /** Delete a vector search endpoint. */
+  /** Delete an AI Search endpoint. */
   public void deleteEndpoint(DeleteEndpointRequest request) {
     impl.deleteEndpoint(request);
   }
@@ -101,7 +101,7 @@ public class VectorSearchEndpointsAPI {
     return getEndpoint(new GetEndpointRequest().setEndpointName(endpointName));
   }
 
-  /** Get details for a single vector search endpoint. */
+  /** Get details for a single AI Search endpoint. */
   public EndpointInfo getEndpoint(GetEndpointRequest request) {
     return impl.getEndpoint(request);
   }
@@ -131,7 +131,7 @@ public class VectorSearchEndpointsAPI {
     return impl.getPermissions(request);
   }
 
-  /** List all vector search endpoints in the workspace. */
+  /** List all AI Search endpoints in the workspace. */
   public Iterable<EndpointInfo> listEndpoints(ListEndpointsRequest request) {
     return new Paginator<>(
         request,
