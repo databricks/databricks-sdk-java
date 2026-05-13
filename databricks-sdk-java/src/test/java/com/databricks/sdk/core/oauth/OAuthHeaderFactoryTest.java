@@ -36,7 +36,19 @@ public class OAuthHeaderFactoryTest {
         Arguments.of(
             "Token with custom type",
             new Token(TOKEN_VALUE, "Custom", expiry),
-            Collections.singletonMap("Authorization", "Custom " + TOKEN_VALUE)));
+            Collections.singletonMap("Authorization", "Custom " + TOKEN_VALUE)),
+        Arguments.of(
+            "Lowercase bearer is canonicalized",
+            new Token(TOKEN_VALUE, "bearer", expiry),
+            Collections.singletonMap("Authorization", "Bearer " + TOKEN_VALUE)),
+        Arguments.of(
+            "Uppercase BEARER is canonicalized",
+            new Token(TOKEN_VALUE, "BEARER", expiry),
+            Collections.singletonMap("Authorization", "Bearer " + TOKEN_VALUE)),
+        Arguments.of(
+            "Mixed-case BeArEr is canonicalized",
+            new Token(TOKEN_VALUE, "BeArEr", expiry),
+            Collections.singletonMap("Authorization", "Bearer " + TOKEN_VALUE)));
   }
 
   @ParameterizedTest(name = "{0}")
