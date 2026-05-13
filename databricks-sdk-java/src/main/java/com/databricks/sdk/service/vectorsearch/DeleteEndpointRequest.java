@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class DeleteEndpointRequest {
-  /** Name of the vector search endpoint */
+  /** Name of the AI Search endpoint */
   @JsonIgnore private String endpointName;
 
   public DeleteEndpointRequest setEndpointName(String endpointName) {

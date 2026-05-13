@@ -4,7 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** Next Id: 124 */
+/** Next Id: 125 */
 @Generated
 public enum ConnectionType {
   BIGQUERY,

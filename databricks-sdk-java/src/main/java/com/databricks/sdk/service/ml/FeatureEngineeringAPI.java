@@ -110,6 +110,11 @@ public class FeatureEngineeringAPI {
     return impl.getMaterializedFeature(request);
   }
 
+  public Iterable<Feature> listFeatures(String catalogName, String schemaName) {
+    return listFeatures(
+        new ListFeaturesRequest().setCatalogName(catalogName).setSchemaName(schemaName));
+  }
+
   /** List Features. */
   public Iterable<Feature> listFeatures(ListFeaturesRequest request) {
     return new Paginator<>(

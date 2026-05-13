@@ -10,11 +10,11 @@ import java.util.Objects;
 
 @Generated
 public class UpdateEndpointCustomTagsResponse {
-  /** All the custom tags that are applied to the vector search endpoint. */
+  /** All the custom tags that are applied to the AI Search endpoint. */
   @JsonProperty("custom_tags")
   private Collection<CustomTag> customTags;
 
-  /** The name of the vector search endpoint whose custom tags were updated. */
+  /** The name of the AI Search endpoint whose custom tags were updated. */
   @JsonProperty("name")
   private String name;
 

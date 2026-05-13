@@ -17,7 +17,7 @@ public class CreateEndpoint {
   @JsonProperty("endpoint_type")
   private EndpointType endpointType;
 
-  /** Name of the vector search endpoint */
+  /** Name of the AI Search endpoint */
   @JsonProperty("name")
   private String name;
 
