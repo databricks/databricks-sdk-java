@@ -37,7 +37,9 @@ public class ExperimentsAPI {
    * that another experiment with the same name does not already exist and fails if another
    * experiment with the same name already exists.
    *
-   * <p>Throws `RESOURCE_ALREADY_EXISTS` if an experiment with the given name exists.
+   * <p>Throws `RESOURCE_ALREADY_EXISTS` if an experiment with the given name exists. Note: In some
+   * contexts, this error may be remapped to `ALREADY_EXISTS`. To be safe, clients should check for
+   * both error codes.
    */
   public CreateExperimentResponse createExperiment(CreateExperiment request) {
     return impl.createExperiment(request);

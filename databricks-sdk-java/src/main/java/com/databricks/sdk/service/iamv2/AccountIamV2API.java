@@ -26,6 +26,34 @@ public class AccountIamV2API {
     impl = mock;
   }
 
+  /**
+   * Creates a workspace assignment detail for a principal. Entitlement grants are applied
+   * individually and non-atomically — if a failure occurs partway through, the principal will be
+   * assigned to the workspace but with only a subset of the requested entitlements. Use
+   * GetWorkspaceAssignmentDetail to confirm which entitlements were successfully granted.
+   */
+  public WorkspaceAssignmentDetail createWorkspaceAssignmentDetail(
+      CreateWorkspaceAssignmentDetailRequest request) {
+    return impl.createWorkspaceAssignmentDetail(request);
+  }
+
+  public void deleteWorkspaceAssignmentDetail(long workspaceId, long principalId) {
+    deleteWorkspaceAssignmentDetail(
+        new DeleteWorkspaceAssignmentDetailRequest()
+            .setWorkspaceId(workspaceId)
+            .setPrincipalId(principalId));
+  }
+
+  /**
+   * Deletes a workspace assignment detail for a principal, revoking all associated entitlements.
+   * Entitlement revocations are applied individually and non-atomically — if a failure occurs
+   * partway through, the principal remains assigned with a subset of its original entitlements, and
+   * the operation is safe to retry.
+   */
+  public void deleteWorkspaceAssignmentDetail(DeleteWorkspaceAssignmentDetailRequest request) {
+    impl.deleteWorkspaceAssignmentDetail(request);
+  }
+
   public WorkspaceAccessDetail getWorkspaceAccessDetail(long workspaceId, long principalId) {
     return getWorkspaceAccessDetail(
         new GetWorkspaceAccessDetailRequest()
@@ -42,6 +70,31 @@ public class AccountIamV2API {
    */
   public WorkspaceAccessDetail getWorkspaceAccessDetail(GetWorkspaceAccessDetailRequest request) {
     return impl.getWorkspaceAccessDetail(request);
+  }
+
+  public WorkspaceAssignmentDetail getWorkspaceAssignmentDetail(
+      long workspaceId, long principalId) {
+    return getWorkspaceAssignmentDetail(
+        new GetWorkspaceAssignmentDetailRequest()
+            .setWorkspaceId(workspaceId)
+            .setPrincipalId(principalId));
+  }
+
+  /** Returns the assignment details for a principal in a workspace. */
+  public WorkspaceAssignmentDetail getWorkspaceAssignmentDetail(
+      GetWorkspaceAssignmentDetailRequest request) {
+    return impl.getWorkspaceAssignmentDetail(request);
+  }
+
+  public ListWorkspaceAssignmentDetailsResponse listWorkspaceAssignmentDetails(long workspaceId) {
+    return listWorkspaceAssignmentDetails(
+        new ListWorkspaceAssignmentDetailsRequest().setWorkspaceId(workspaceId));
+  }
+
+  /** Lists workspace assignment details for a workspace. */
+  public ListWorkspaceAssignmentDetailsResponse listWorkspaceAssignmentDetails(
+      ListWorkspaceAssignmentDetailsRequest request) {
+    return impl.listWorkspaceAssignmentDetails(request);
   }
 
   /**
@@ -70,6 +123,17 @@ public class AccountIamV2API {
    */
   public ResolveUserResponse resolveUser(ResolveUserRequest request) {
     return impl.resolveUser(request);
+  }
+
+  /**
+   * Updates the entitlements of a directly assigned principal in a workspace. Entitlement changes
+   * are applied individually and non-atomically — if a failure occurs partway through, only a
+   * subset of the requested changes may have been applied. Use GetWorkspaceAssignmentDetail to
+   * confirm the final state.
+   */
+  public WorkspaceAssignmentDetail updateWorkspaceAssignmentDetail(
+      UpdateWorkspaceAssignmentDetailRequest request) {
+    return impl.updateWorkspaceAssignmentDetail(request);
   }
 
   public AccountIamV2Service impl() {
