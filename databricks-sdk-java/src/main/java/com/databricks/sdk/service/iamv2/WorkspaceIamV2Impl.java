@@ -17,6 +17,45 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
   }
 
   @Override
+  public WorkspaceAssignmentDetail createWorkspaceAssignmentDetailProxy(
+      CreateWorkspaceAssignmentDetailProxyRequest request) {
+    String path = "/api/2.0/identity/workspaceAssignmentDetails";
+    try {
+      Request req =
+          new Request("POST", path, apiClient.serialize(request.getWorkspaceAssignmentDetail()));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, WorkspaceAssignmentDetail.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public void deleteWorkspaceAssignmentDetailProxy(
+      DeleteWorkspaceAssignmentDetailProxyRequest request) {
+    String path =
+        String.format("/api/2.0/identity/workspaceAssignmentDetails/%s", request.getPrincipalId());
+    try {
+      Request req = new Request("DELETE", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      apiClient.execute(req, Void.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public WorkspaceAccessDetail getWorkspaceAccessDetailLocal(
       GetWorkspaceAccessDetailLocalRequest request) {
     String path =
@@ -30,6 +69,43 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
         req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, WorkspaceAccessDetail.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public WorkspaceAssignmentDetail getWorkspaceAssignmentDetailProxy(
+      GetWorkspaceAssignmentDetailProxyRequest request) {
+    String path =
+        String.format("/api/2.0/identity/workspaceAssignmentDetails/%s", request.getPrincipalId());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, WorkspaceAssignmentDetail.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public ListWorkspaceAssignmentDetailsResponse listWorkspaceAssignmentDetailsProxy(
+      ListWorkspaceAssignmentDetailsProxyRequest request) {
+    String path = "/api/2.0/identity/workspaceAssignmentDetails";
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, ListWorkspaceAssignmentDetailsResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -85,6 +161,27 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
         req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ResolveUserResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public WorkspaceAssignmentDetail updateWorkspaceAssignmentDetailProxy(
+      UpdateWorkspaceAssignmentDetailProxyRequest request) {
+    String path =
+        String.format("/api/2.0/identity/workspaceAssignmentDetails/%s", request.getPrincipalId());
+    try {
+      Request req =
+          new Request("PATCH", path, apiClient.serialize(request.getWorkspaceAssignmentDetail()));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, WorkspaceAssignmentDetail.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
