@@ -56,7 +56,10 @@ public class ProjectSpec {
   @JsonProperty("history_retention_duration")
   private Duration historyRetentionDuration;
 
-  /** The major Postgres version number. Supported versions are 16 and 17. */
+  /**
+   * The major Postgres version number. The set of supported versions may vary; consult the API
+   * documentation for currently accepted values.
+   */
   @JsonProperty("pg_version")
   private Long pgVersion;
 
