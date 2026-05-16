@@ -25,6 +25,13 @@ public class Setting {
   private AibiDashboardEmbeddingApprovedDomains aibiDashboardEmbeddingApprovedDomains;
 
   /**
+   * Setting value for allowed_apps_user_api_scopes setting. This is the setting value set by
+   * consumers, check effective_allowed_apps_user_api_scopes for final setting value.
+   */
+  @JsonProperty("allowed_apps_user_api_scopes")
+  private AllowedAppsUserApiScopesMessage allowedAppsUserApiScopes;
+
+  /**
    * Setting value for automatic_cluster_update_workspace setting. This is the setting value set by
    * consumers, check effective_automatic_cluster_update_workspace for final setting value.
    */
@@ -51,6 +58,13 @@ public class Setting {
    */
   @JsonProperty("effective_aibi_dashboard_embedding_approved_domains")
   private AibiDashboardEmbeddingApprovedDomains effectiveAibiDashboardEmbeddingApprovedDomains;
+
+  /**
+   * Effective setting value for allowed_apps_user_api_scopes setting. This is the final effective
+   * value of setting. To set a value use allowed_apps_user_api_scopes.
+   */
+  @JsonProperty("effective_allowed_apps_user_api_scopes")
+  private AllowedAppsUserApiScopesMessage effectiveAllowedAppsUserApiScopes;
 
   /**
    * Effective setting value for automatic_cluster_update_workspace setting. This is the final
@@ -146,6 +160,16 @@ public class Setting {
     return aibiDashboardEmbeddingApprovedDomains;
   }
 
+  public Setting setAllowedAppsUserApiScopes(
+      AllowedAppsUserApiScopesMessage allowedAppsUserApiScopes) {
+    this.allowedAppsUserApiScopes = allowedAppsUserApiScopes;
+    return this;
+  }
+
+  public AllowedAppsUserApiScopesMessage getAllowedAppsUserApiScopes() {
+    return allowedAppsUserApiScopes;
+  }
+
   public Setting setAutomaticClusterUpdateWorkspace(
       ClusterAutoRestartMessage automaticClusterUpdateWorkspace) {
     this.automaticClusterUpdateWorkspace = automaticClusterUpdateWorkspace;
@@ -184,6 +208,16 @@ public class Setting {
 
   public AibiDashboardEmbeddingApprovedDomains getEffectiveAibiDashboardEmbeddingApprovedDomains() {
     return effectiveAibiDashboardEmbeddingApprovedDomains;
+  }
+
+  public Setting setEffectiveAllowedAppsUserApiScopes(
+      AllowedAppsUserApiScopesMessage effectiveAllowedAppsUserApiScopes) {
+    this.effectiveAllowedAppsUserApiScopes = effectiveAllowedAppsUserApiScopes;
+    return this;
+  }
+
+  public AllowedAppsUserApiScopesMessage getEffectiveAllowedAppsUserApiScopes() {
+    return effectiveAllowedAppsUserApiScopes;
   }
 
   public Setting setEffectiveAutomaticClusterUpdateWorkspace(
@@ -297,6 +331,7 @@ public class Setting {
             aibiDashboardEmbeddingAccessPolicy, that.aibiDashboardEmbeddingAccessPolicy)
         && Objects.equals(
             aibiDashboardEmbeddingApprovedDomains, that.aibiDashboardEmbeddingApprovedDomains)
+        && Objects.equals(allowedAppsUserApiScopes, that.allowedAppsUserApiScopes)
         && Objects.equals(automaticClusterUpdateWorkspace, that.automaticClusterUpdateWorkspace)
         && Objects.equals(booleanVal, that.booleanVal)
         && Objects.equals(
@@ -305,6 +340,7 @@ public class Setting {
         && Objects.equals(
             effectiveAibiDashboardEmbeddingApprovedDomains,
             that.effectiveAibiDashboardEmbeddingApprovedDomains)
+        && Objects.equals(effectiveAllowedAppsUserApiScopes, that.effectiveAllowedAppsUserApiScopes)
         && Objects.equals(
             effectiveAutomaticClusterUpdateWorkspace, that.effectiveAutomaticClusterUpdateWorkspace)
         && Objects.equals(effectiveBooleanVal, that.effectiveBooleanVal)
@@ -324,10 +360,12 @@ public class Setting {
     return Objects.hash(
         aibiDashboardEmbeddingAccessPolicy,
         aibiDashboardEmbeddingApprovedDomains,
+        allowedAppsUserApiScopes,
         automaticClusterUpdateWorkspace,
         booleanVal,
         effectiveAibiDashboardEmbeddingAccessPolicy,
         effectiveAibiDashboardEmbeddingApprovedDomains,
+        effectiveAllowedAppsUserApiScopes,
         effectiveAutomaticClusterUpdateWorkspace,
         effectiveBooleanVal,
         effectiveIntegerVal,
@@ -346,6 +384,7 @@ public class Setting {
     return new ToStringer(Setting.class)
         .add("aibiDashboardEmbeddingAccessPolicy", aibiDashboardEmbeddingAccessPolicy)
         .add("aibiDashboardEmbeddingApprovedDomains", aibiDashboardEmbeddingApprovedDomains)
+        .add("allowedAppsUserApiScopes", allowedAppsUserApiScopes)
         .add("automaticClusterUpdateWorkspace", automaticClusterUpdateWorkspace)
         .add("booleanVal", booleanVal)
         .add(
@@ -354,6 +393,7 @@ public class Setting {
         .add(
             "effectiveAibiDashboardEmbeddingApprovedDomains",
             effectiveAibiDashboardEmbeddingApprovedDomains)
+        .add("effectiveAllowedAppsUserApiScopes", effectiveAllowedAppsUserApiScopes)
         .add("effectiveAutomaticClusterUpdateWorkspace", effectiveAutomaticClusterUpdateWorkspace)
         .add("effectiveBooleanVal", effectiveBooleanVal)
         .add("effectiveIntegerVal", effectiveIntegerVal)

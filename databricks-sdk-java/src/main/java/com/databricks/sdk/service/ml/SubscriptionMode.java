@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Deprecated: Use KafkaSubscriptionMode instead. */
 @Generated
 public class SubscriptionMode {
   /**

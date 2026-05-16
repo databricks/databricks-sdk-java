@@ -127,10 +127,11 @@ class GenieImpl implements GenieService {
             request.getMessageId(),
             request.getAttachmentId());
     try {
-      Request req = new Request("POST", path);
+      Request req = new Request("POST", path, apiClient.serialize(request));
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
         req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
       }
@@ -148,10 +149,11 @@ class GenieImpl implements GenieService {
             "/api/2.0/genie/spaces/%s/conversations/%s/messages/%s/execute-query",
             request.getSpaceId(), request.getConversationId(), request.getMessageId());
     try {
-      Request req = new Request("POST", path);
+      Request req = new Request("POST", path, apiClient.serialize(request));
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
         req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
       }
@@ -172,10 +174,11 @@ class GenieImpl implements GenieService {
             request.getMessageId(),
             request.getAttachmentId());
     try {
-      Request req = new Request("POST", path);
+      Request req = new Request("POST", path, apiClient.serialize(request));
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
         req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
       }

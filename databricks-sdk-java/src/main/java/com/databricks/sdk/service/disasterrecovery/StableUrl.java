@@ -14,6 +14,15 @@ import java.util.Objects;
 @Generated
 public class StableUrl {
   /**
+   * Fully qualified resource name of the FailoverGroup this stable URL is currently linked to, in
+   * the format `accounts/{account_id}/failover-groups/{failover_group_id}`. Empty when the stable
+   * URL is not attached to any failover group. Server-controlled: written by CreateFailoverGroup /
+   * UpdateFailoverGroup on link, cleared by DeleteFailoverGroup / UpdateFailoverGroup on unlink.
+   */
+  @JsonProperty("failover_group_name")
+  private String failoverGroupName;
+
+  /**
    * The workspace this stable URL is initially bound to. Used only in Create requests to associate
    * the stable URL with a workspace. Not returned in responses. Mirrors
    * FailoverGroup.initial_primary_region semantics.
@@ -32,6 +41,15 @@ public class StableUrl {
    */
   @JsonProperty("url")
   private String url;
+
+  public StableUrl setFailoverGroupName(String failoverGroupName) {
+    this.failoverGroupName = failoverGroupName;
+    return this;
+  }
+
+  public String getFailoverGroupName() {
+    return failoverGroupName;
+  }
 
   public StableUrl setInitialWorkspaceId(String initialWorkspaceId) {
     this.initialWorkspaceId = initialWorkspaceId;
@@ -65,19 +83,21 @@ public class StableUrl {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     StableUrl that = (StableUrl) o;
-    return Objects.equals(initialWorkspaceId, that.initialWorkspaceId)
+    return Objects.equals(failoverGroupName, that.failoverGroupName)
+        && Objects.equals(initialWorkspaceId, that.initialWorkspaceId)
         && Objects.equals(name, that.name)
         && Objects.equals(url, that.url);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(initialWorkspaceId, name, url);
+    return Objects.hash(failoverGroupName, initialWorkspaceId, name, url);
   }
 
   @Override
   public String toString() {
     return new ToStringer(StableUrl.class)
+        .add("failoverGroupName", failoverGroupName)
         .add("initialWorkspaceId", initialWorkspaceId)
         .add("name", name)
         .add("url", url)

@@ -26,6 +26,34 @@ public class WorkspaceIamV2API {
     impl = mock;
   }
 
+  /**
+   * Creates a workspace assignment detail for a principal (workspace-level proxy). Entitlement
+   * grants are applied individually and non-atomically — if a failure occurs partway through, the
+   * principal will be assigned to the workspace but with only a subset of the requested
+   * entitlements. Use GetWorkspaceAssignmentDetail to confirm which entitlements were successfully
+   * granted.
+   */
+  public WorkspaceAssignmentDetail createWorkspaceAssignmentDetailProxy(
+      CreateWorkspaceAssignmentDetailProxyRequest request) {
+    return impl.createWorkspaceAssignmentDetailProxy(request);
+  }
+
+  public void deleteWorkspaceAssignmentDetailProxy(long principalId) {
+    deleteWorkspaceAssignmentDetailProxy(
+        new DeleteWorkspaceAssignmentDetailProxyRequest().setPrincipalId(principalId));
+  }
+
+  /**
+   * Deletes a workspace assignment detail for a principal (workspace-level proxy), revoking all
+   * associated entitlements. Entitlement revocations are applied individually and non-atomically —
+   * if a failure occurs partway through, the principal remains assigned with a subset of its
+   * original entitlements, and the operation is safe to retry.
+   */
+  public void deleteWorkspaceAssignmentDetailProxy(
+      DeleteWorkspaceAssignmentDetailProxyRequest request) {
+    impl.deleteWorkspaceAssignmentDetailProxy(request);
+  }
+
   public WorkspaceAccessDetail getWorkspaceAccessDetailLocal(long principalId) {
     return getWorkspaceAccessDetailLocal(
         new GetWorkspaceAccessDetailLocalRequest().setPrincipalId(principalId));
@@ -41,6 +69,23 @@ public class WorkspaceIamV2API {
   public WorkspaceAccessDetail getWorkspaceAccessDetailLocal(
       GetWorkspaceAccessDetailLocalRequest request) {
     return impl.getWorkspaceAccessDetailLocal(request);
+  }
+
+  public WorkspaceAssignmentDetail getWorkspaceAssignmentDetailProxy(long principalId) {
+    return getWorkspaceAssignmentDetailProxy(
+        new GetWorkspaceAssignmentDetailProxyRequest().setPrincipalId(principalId));
+  }
+
+  /** Returns the assignment details for a principal in a workspace (workspace-level proxy). */
+  public WorkspaceAssignmentDetail getWorkspaceAssignmentDetailProxy(
+      GetWorkspaceAssignmentDetailProxyRequest request) {
+    return impl.getWorkspaceAssignmentDetailProxy(request);
+  }
+
+  /** Lists workspace assignment details for a workspace (workspace-level proxy). */
+  public ListWorkspaceAssignmentDetailsResponse listWorkspaceAssignmentDetailsProxy(
+      ListWorkspaceAssignmentDetailsProxyRequest request) {
+    return impl.listWorkspaceAssignmentDetailsProxy(request);
   }
 
   /**
@@ -69,6 +114,17 @@ public class WorkspaceIamV2API {
    */
   public ResolveUserResponse resolveUserProxy(ResolveUserProxyRequest request) {
     return impl.resolveUserProxy(request);
+  }
+
+  /**
+   * Updates the entitlements of a directly assigned principal in a workspace (workspace-level
+   * proxy). Entitlement changes are applied individually and non-atomically — if a failure occurs
+   * partway through, only a subset of the requested changes may have been applied. Use
+   * GetWorkspaceAssignmentDetail to confirm the final state.
+   */
+  public WorkspaceAssignmentDetail updateWorkspaceAssignmentDetailProxy(
+      UpdateWorkspaceAssignmentDetailProxyRequest request) {
+    return impl.updateWorkspaceAssignmentDetailProxy(request);
   }
 
   public WorkspaceIamV2Service impl() {

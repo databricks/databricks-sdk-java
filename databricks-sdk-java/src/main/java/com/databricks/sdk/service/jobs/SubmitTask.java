@@ -167,6 +167,10 @@ public class SubmitTask {
   @JsonProperty("power_bi_task")
   private PowerBiTask powerBiTask;
 
+  /** The task runs a Python operator task. */
+  @JsonProperty("python_operator_task")
+  private PythonOperatorTask pythonOperatorTask;
+
   /** The task runs a Python wheel when the `python_wheel_task` field is present. */
   @JsonProperty("python_wheel_task")
   private PythonWheelTask pythonWheelTask;
@@ -467,6 +471,15 @@ public class SubmitTask {
     return powerBiTask;
   }
 
+  public SubmitTask setPythonOperatorTask(PythonOperatorTask pythonOperatorTask) {
+    this.pythonOperatorTask = pythonOperatorTask;
+    return this;
+  }
+
+  public PythonOperatorTask getPythonOperatorTask() {
+    return pythonOperatorTask;
+  }
+
   public SubmitTask setPythonWheelTask(PythonWheelTask pythonWheelTask) {
     this.pythonWheelTask = pythonWheelTask;
     return this;
@@ -597,6 +610,7 @@ public class SubmitTask {
         && Objects.equals(notificationSettings, that.notificationSettings)
         && Objects.equals(pipelineTask, that.pipelineTask)
         && Objects.equals(powerBiTask, that.powerBiTask)
+        && Objects.equals(pythonOperatorTask, that.pythonOperatorTask)
         && Objects.equals(pythonWheelTask, that.pythonWheelTask)
         && Objects.equals(retryOnTimeout, that.retryOnTimeout)
         && Objects.equals(runIf, that.runIf)
@@ -639,6 +653,7 @@ public class SubmitTask {
         notificationSettings,
         pipelineTask,
         powerBiTask,
+        pythonOperatorTask,
         pythonWheelTask,
         retryOnTimeout,
         runIf,
@@ -681,6 +696,7 @@ public class SubmitTask {
         .add("notificationSettings", notificationSettings)
         .add("pipelineTask", pipelineTask)
         .add("powerBiTask", powerBiTask)
+        .add("pythonOperatorTask", pythonOperatorTask)
         .add("pythonWheelTask", pythonWheelTask)
         .add("retryOnTimeout", retryOnTimeout)
         .add("runIf", runIf)
