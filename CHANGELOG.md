@@ -1,5 +1,13 @@
 # Version changelog
 
+## Release v0.110.0 (2026-05-19)
+
+### API Changes
+* Add `fullRefreshSelection`, `refreshFlowSelection`, `refreshSelection` and `resetCheckpointSelection` fields for `com.databricks.sdk.service.jobs.PipelineParams`.
+* Add `fullRefreshSelection`, `refreshFlowSelection`, `refreshSelection` and `resetCheckpointSelection` fields for `com.databricks.sdk.service.jobs.PipelineTask`.
+* Add `effectiveOperationalEmailCustomRecipient` and `operationalEmailCustomRecipient` fields for `com.databricks.sdk.service.settingsv2.Setting`.
+
+
 ## Release v0.109.0 (2026-05-18)
 
 ### API Changes
