@@ -3088,6 +3088,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/ListAcco
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/ListAccountUserPreferencesMetadataResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/ListWorkspaceSettingsMetadataRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/ListWorkspaceSettingsMetadataResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/OperationalEmailCustomRecipientMessage.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/PatchPublicAccountSettingRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/PatchPublicAccountUserPreferenceRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/PatchPublicWorkspaceSettingRequest.java linguist-generated=true

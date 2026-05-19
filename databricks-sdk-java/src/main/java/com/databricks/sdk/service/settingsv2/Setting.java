@@ -88,6 +88,13 @@ public class Setting {
   private IntegerMessage effectiveIntegerVal;
 
   /**
+   * Effective setting value for operational_email_custom_recipient setting. This is the final
+   * effective value of setting. To set a value use operational_email_custom_recipient.
+   */
+  @JsonProperty("effective_operational_email_custom_recipient")
+  private OperationalEmailCustomRecipientMessage effectiveOperationalEmailCustomRecipient;
+
+  /**
    * Effective setting value for personal_compute setting. This is the final effective value of
    * setting. To set a value use personal_compute.
    */
@@ -118,6 +125,13 @@ public class Setting {
   /** Name of the setting. */
   @JsonProperty("name")
   private String name;
+
+  /**
+   * Setting value for operational_email_custom_recipient setting. This is the setting value set by
+   * consumers, check effective_operational_email_custom_recipient for final setting value.
+   */
+  @JsonProperty("operational_email_custom_recipient")
+  private OperationalEmailCustomRecipientMessage operationalEmailCustomRecipient;
 
   /**
    * Setting value for personal_compute setting. This is the setting value set by consumers, check
@@ -248,6 +262,16 @@ public class Setting {
     return effectiveIntegerVal;
   }
 
+  public Setting setEffectiveOperationalEmailCustomRecipient(
+      OperationalEmailCustomRecipientMessage effectiveOperationalEmailCustomRecipient) {
+    this.effectiveOperationalEmailCustomRecipient = effectiveOperationalEmailCustomRecipient;
+    return this;
+  }
+
+  public OperationalEmailCustomRecipientMessage getEffectiveOperationalEmailCustomRecipient() {
+    return effectiveOperationalEmailCustomRecipient;
+  }
+
   public Setting setEffectivePersonalCompute(PersonalComputeMessage effectivePersonalCompute) {
     this.effectivePersonalCompute = effectivePersonalCompute;
     return this;
@@ -292,6 +316,16 @@ public class Setting {
 
   public String getName() {
     return name;
+  }
+
+  public Setting setOperationalEmailCustomRecipient(
+      OperationalEmailCustomRecipientMessage operationalEmailCustomRecipient) {
+    this.operationalEmailCustomRecipient = operationalEmailCustomRecipient;
+    return this;
+  }
+
+  public OperationalEmailCustomRecipientMessage getOperationalEmailCustomRecipient() {
+    return operationalEmailCustomRecipient;
   }
 
   public Setting setPersonalCompute(PersonalComputeMessage personalCompute) {
@@ -345,11 +379,14 @@ public class Setting {
             effectiveAutomaticClusterUpdateWorkspace, that.effectiveAutomaticClusterUpdateWorkspace)
         && Objects.equals(effectiveBooleanVal, that.effectiveBooleanVal)
         && Objects.equals(effectiveIntegerVal, that.effectiveIntegerVal)
+        && Objects.equals(
+            effectiveOperationalEmailCustomRecipient, that.effectiveOperationalEmailCustomRecipient)
         && Objects.equals(effectivePersonalCompute, that.effectivePersonalCompute)
         && Objects.equals(effectiveRestrictWorkspaceAdmins, that.effectiveRestrictWorkspaceAdmins)
         && Objects.equals(effectiveStringVal, that.effectiveStringVal)
         && Objects.equals(integerVal, that.integerVal)
         && Objects.equals(name, that.name)
+        && Objects.equals(operationalEmailCustomRecipient, that.operationalEmailCustomRecipient)
         && Objects.equals(personalCompute, that.personalCompute)
         && Objects.equals(restrictWorkspaceAdmins, that.restrictWorkspaceAdmins)
         && Objects.equals(stringVal, that.stringVal);
@@ -369,11 +406,13 @@ public class Setting {
         effectiveAutomaticClusterUpdateWorkspace,
         effectiveBooleanVal,
         effectiveIntegerVal,
+        effectiveOperationalEmailCustomRecipient,
         effectivePersonalCompute,
         effectiveRestrictWorkspaceAdmins,
         effectiveStringVal,
         integerVal,
         name,
+        operationalEmailCustomRecipient,
         personalCompute,
         restrictWorkspaceAdmins,
         stringVal);
@@ -397,11 +436,13 @@ public class Setting {
         .add("effectiveAutomaticClusterUpdateWorkspace", effectiveAutomaticClusterUpdateWorkspace)
         .add("effectiveBooleanVal", effectiveBooleanVal)
         .add("effectiveIntegerVal", effectiveIntegerVal)
+        .add("effectiveOperationalEmailCustomRecipient", effectiveOperationalEmailCustomRecipient)
         .add("effectivePersonalCompute", effectivePersonalCompute)
         .add("effectiveRestrictWorkspaceAdmins", effectiveRestrictWorkspaceAdmins)
         .add("effectiveStringVal", effectiveStringVal)
         .add("integerVal", integerVal)
         .add("name", name)
+        .add("operationalEmailCustomRecipient", operationalEmailCustomRecipient)
         .add("personalCompute", personalCompute)
         .add("restrictWorkspaceAdmins", restrictWorkspaceAdmins)
         .add("stringVal", stringVal)
