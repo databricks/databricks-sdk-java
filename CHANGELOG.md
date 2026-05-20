@@ -1,5 +1,13 @@
 # Version changelog
 
+## Release v0.111.0 (2026-05-20)
+
+### API Changes
+* Add `com.databricks.sdk.service.bundle` package.
+* Add `workspaceClient.bundle()` service.
+* Add `mtlsConfig` field for `com.databricks.sdk.service.ml.AuthConfig`.
+
+
 ## Release v0.110.0 (2026-05-19)
 
 ### API Changes
