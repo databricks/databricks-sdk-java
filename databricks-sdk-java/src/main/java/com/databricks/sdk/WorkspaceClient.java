@@ -14,6 +14,8 @@ import com.databricks.sdk.service.apps.AppsAPI;
 import com.databricks.sdk.service.apps.AppsService;
 import com.databricks.sdk.service.apps.AppsSettingsAPI;
 import com.databricks.sdk.service.apps.AppsSettingsService;
+import com.databricks.sdk.service.bundle.BundleAPI;
+import com.databricks.sdk.service.bundle.BundleService;
 import com.databricks.sdk.service.catalog.ArtifactAllowlistsAPI;
 import com.databricks.sdk.service.catalog.ArtifactAllowlistsService;
 import com.databricks.sdk.service.catalog.CatalogsAPI;
@@ -284,6 +286,7 @@ public class WorkspaceClient {
   private AppsAPI appsAPI;
   private AppsSettingsAPI appsSettingsAPI;
   private ArtifactAllowlistsAPI artifactAllowlistsAPI;
+  private BundleAPI bundleAPI;
   private CatalogsAPI catalogsAPI;
   private CleanRoomAssetRevisionsAPI cleanRoomAssetRevisionsAPI;
   private CleanRoomAssetsAPI cleanRoomAssetsAPI;
@@ -423,6 +426,7 @@ public class WorkspaceClient {
     appsAPI = new AppsAPI(apiClient);
     appsSettingsAPI = new AppsSettingsAPI(apiClient);
     artifactAllowlistsAPI = new ArtifactAllowlistsAPI(apiClient);
+    bundleAPI = new BundleAPI(apiClient);
     catalogsAPI = new CatalogsAPI(apiClient);
     cleanRoomAssetRevisionsAPI = new CleanRoomAssetRevisionsAPI(apiClient);
     cleanRoomAssetsAPI = new CleanRoomAssetsAPI(apiClient);
@@ -628,6 +632,11 @@ public class WorkspaceClient {
    */
   public ArtifactAllowlistsAPI artifactAllowlists() {
     return artifactAllowlistsAPI;
+  }
+
+  /** Service for managing bundle deployment metadata. */
+  public BundleAPI bundle() {
+    return bundleAPI;
   }
 
   /**
@@ -2309,6 +2318,17 @@ public class WorkspaceClient {
   /** Replace the default ArtifactAllowlistsAPI with a custom implementation. */
   public WorkspaceClient withArtifactAllowlistsAPI(ArtifactAllowlistsAPI artifactAllowlists) {
     this.artifactAllowlistsAPI = artifactAllowlists;
+    return this;
+  }
+
+  /** Replace the default BundleService with a custom implementation. */
+  public WorkspaceClient withBundleImpl(BundleService bundle) {
+    return this.withBundleAPI(new BundleAPI(bundle));
+  }
+
+  /** Replace the default BundleAPI with a custom implementation. */
+  public WorkspaceClient withBundleAPI(BundleAPI bundle) {
+    this.bundleAPI = bundle;
     return this;
   }
 
