@@ -1404,6 +1404,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/iam/ListSortOrder.j
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/iam/ListUsersRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/iam/ListUsersResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/iam/ListWorkspaceAssignmentRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/iam/MeRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/iam/MigratePermissionsRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/iam/MigratePermissionsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/iam/Name.java linguist-generated=true
@@ -2507,6 +2508,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/SyncedTabl
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/SyncedTableSyncedTableSpec.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/SyncedTableSyncedTableSpecSyncedTableSchedulingPolicy.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/SyncedTableSyncedTableStatus.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/UndeleteBranchOperation.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/UndeleteBranchRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/UndeleteProjectOperation.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/UndeleteProjectRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/postgres/UpdateBranchOperation.java linguist-generated=true

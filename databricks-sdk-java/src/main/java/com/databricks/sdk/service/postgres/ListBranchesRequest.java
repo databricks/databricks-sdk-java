@@ -23,6 +23,14 @@ public class ListBranchesRequest {
   /** The Project that owns this collection of branches. Format: projects/{project_id} */
   @JsonIgnore private String parent;
 
+  /**
+   * Whether to include soft-deleted branches in the response. When true, deleted branches are
+   * included alongside active branches. Purged branches are never returned.
+   */
+  @JsonIgnore
+  @QueryParam("show_deleted")
+  private Boolean showDeleted;
+
   public ListBranchesRequest setPageSize(Long pageSize) {
     this.pageSize = pageSize;
     return this;
@@ -50,6 +58,15 @@ public class ListBranchesRequest {
     return parent;
   }
 
+  public ListBranchesRequest setShowDeleted(Boolean showDeleted) {
+    this.showDeleted = showDeleted;
+    return this;
+  }
+
+  public Boolean getShowDeleted() {
+    return showDeleted;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -57,12 +74,13 @@ public class ListBranchesRequest {
     ListBranchesRequest that = (ListBranchesRequest) o;
     return Objects.equals(pageSize, that.pageSize)
         && Objects.equals(pageToken, that.pageToken)
-        && Objects.equals(parent, that.parent);
+        && Objects.equals(parent, that.parent)
+        && Objects.equals(showDeleted, that.showDeleted);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pageSize, pageToken, parent);
+    return Objects.hash(pageSize, pageToken, parent, showDeleted);
   }
 
   @Override
@@ -71,6 +89,7 @@ public class ListBranchesRequest {
         .add("pageSize", pageSize)
         .add("pageToken", pageToken)
         .add("parent", parent)
+        .add("showDeleted", showDeleted)
         .toString();
   }
 }

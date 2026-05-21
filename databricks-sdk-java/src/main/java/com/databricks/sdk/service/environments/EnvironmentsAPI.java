@@ -91,7 +91,21 @@ public class EnvironmentsAPI {
     return impl.getWorkspaceBaseEnvironment(request);
   }
 
-  /** Lists all WorkspaceBaseEnvironments in the workspace. */
+  /**
+   * Lists all WorkspaceBaseEnvironments in the workspace.
+   *
+   * <p>Databricks provides the following base environments:
+   *
+   * <p>- `workspace-base-environments/databricks_ai_...`: includes popular AI and deep learning
+   * packages for serverless GPU compute.
+   *
+   * <p>- `workspace-base-environments/databricks_ml_...`: includes popular ML packages for
+   * serverless compute.
+   *
+   * <p>Databricks-provided base environments are versioned. For example,
+   * `workspace-base-environments/databricks_ml_v5` corresponds to the ML environment built on
+   * environment version 5.
+   */
   public Iterable<WorkspaceBaseEnvironment> listWorkspaceBaseEnvironments(
       ListWorkspaceBaseEnvironmentsRequest request) {
     return new Paginator<>(

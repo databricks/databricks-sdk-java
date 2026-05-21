@@ -4,12 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/**
- * Specific variant of a SecurableType: identifies the concrete implementation or backing system for
- * a UC securable (e.g. CATALOG_STANDARD vs CATALOG_DELTASHARING; MEMORY_STORE_STANDARD for
- * Conversations-backed memory stores). Used to dispatch type-specific handling in the entity model.
- * Latest kind: MEMORY_STORE_STANDARD = 330; Next id: 331
- */
+/** Latest kind: MODEL_SERVICE_SYSTEM_DELTASHARING = 330; Next id: 331 */
 @Generated
 public enum SecurableKind {
   TABLE_DB_STORAGE,
