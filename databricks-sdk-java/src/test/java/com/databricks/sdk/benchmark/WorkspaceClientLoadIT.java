@@ -7,6 +7,7 @@ import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.integration.framework.EnvContext;
 import com.databricks.sdk.integration.framework.EnvOrSkip;
 import com.databricks.sdk.integration.framework.EnvTest;
+import com.databricks.sdk.service.iam.MeRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
@@ -46,7 +47,7 @@ public class WorkspaceClientLoadIT {
             WorkspaceClient w = new WorkspaceClient(config);
 
             // This should not throw an exception.
-            w.currentUser().me();
+            w.currentUser().me(new MeRequest());
 
             return true;
           } catch (Exception e) {

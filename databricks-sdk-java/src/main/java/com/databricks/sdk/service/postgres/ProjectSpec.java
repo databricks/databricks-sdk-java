@@ -44,7 +44,7 @@ public class ProjectSpec {
   private String displayName;
 
   /**
-   * Whether to enable PG native password login on all endpoints in this project. Defaults to true.
+   * Whether to enable PG native password login on all endpoints in this project. Defaults to false.
    */
   @JsonProperty("enable_pg_native_login")
   private Boolean enablePgNativeLogin;

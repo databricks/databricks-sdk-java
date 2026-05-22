@@ -17,11 +17,12 @@ class CurrentUserImpl implements CurrentUserService {
   }
 
   @Override
-  public User me() {
+  public User me(MeRequest request) {
     String path = "/api/2.0/preview/scim/v2/Me";
     try {
       Request req = new Request("GET", path);
 
+      ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
         req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());

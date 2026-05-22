@@ -8,6 +8,7 @@ import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.integration.framework.EnvContext;
 import com.databricks.sdk.integration.framework.EnvOrSkip;
 import com.databricks.sdk.integration.framework.EnvTest;
+import com.databricks.sdk.service.iam.MeRequest;
 import com.databricks.sdk.service.iam.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
@@ -40,7 +41,7 @@ public class UnifiedHostWorkspaceIT {
 
     WorkspaceClient ws = new WorkspaceClient(config);
 
-    User me = ws.currentUser().me();
+    User me = ws.currentUser().me(new MeRequest());
     assertNotNull(me.getUserName(), "Expected non-empty UserName");
   }
 }

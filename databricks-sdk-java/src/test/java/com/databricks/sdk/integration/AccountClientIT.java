@@ -5,6 +5,7 @@ import com.databricks.sdk.WorkspaceClient;
 import com.databricks.sdk.integration.framework.EnvContext;
 import com.databricks.sdk.integration.framework.EnvOrSkip;
 import com.databricks.sdk.integration.framework.EnvTest;
+import com.databricks.sdk.service.iam.MeRequest;
 import com.databricks.sdk.service.provisioning.Workspace;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,6 +20,6 @@ public class AccountClientIT {
     long workspaceId = Long.parseLong(workspaceIdStr);
     Workspace workspace = a.workspaces().get(workspaceId);
     WorkspaceClient w = a.getWorkspaceClient(workspace);
-    assert w.currentUser().me().getActive();
+    assert w.currentUser().me(new MeRequest()).getActive();
   }
 }

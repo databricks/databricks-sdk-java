@@ -4,6 +4,7 @@ import com.databricks.sdk.WorkspaceClient;
 import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.service.compute.ClusterDetails;
 import com.databricks.sdk.service.compute.CreateCluster;
+import com.databricks.sdk.service.iam.MeRequest;
 import com.databricks.sdk.service.jobs.*;
 import com.databricks.sdk.support.Wait;
 
@@ -69,7 +70,7 @@ public class TriggerJobToRunPythonProgram {
      @return a list of strings that contains the results of the job for each task in the job
      */
     private static List<String> triggerJobOn(WorkspaceClient testWorkspace, ClusterDetails cluster) {
-        String pyFileOnDBFS = String.format("/home/%s/java-sdk-test-sample.py", testWorkspace.currentUser().me().getUserName());
+        String pyFileOnDBFS = String.format("/home/%s/java-sdk-test-sample.py", testWorkspace.currentUser().me(new MeRequest()).getUserName());
         String pyProgram = getSamplePythonProgram();
 
         try {
