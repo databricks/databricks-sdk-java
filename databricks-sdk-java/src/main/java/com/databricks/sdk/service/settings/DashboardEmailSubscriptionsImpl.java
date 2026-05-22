@@ -26,7 +26,7 @@ class DashboardEmailSubscriptionsImpl implements DashboardEmailSubscriptionsServ
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, DeleteDashboardEmailSubscriptionsResponse.class);
     } catch (IOException e) {
@@ -43,7 +43,7 @@ class DashboardEmailSubscriptionsImpl implements DashboardEmailSubscriptionsServ
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, DashboardEmailSubscriptions.class);
     } catch (IOException e) {
@@ -61,7 +61,7 @@ class DashboardEmailSubscriptionsImpl implements DashboardEmailSubscriptionsServ
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, DashboardEmailSubscriptions.class);
     } catch (IOException e) {

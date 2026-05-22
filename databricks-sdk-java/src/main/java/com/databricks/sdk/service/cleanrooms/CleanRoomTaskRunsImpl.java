@@ -25,7 +25,7 @@ class CleanRoomTaskRunsImpl implements CleanRoomTaskRunsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ListCleanRoomNotebookTaskRunsResponse.class);
     } catch (IOException e) {

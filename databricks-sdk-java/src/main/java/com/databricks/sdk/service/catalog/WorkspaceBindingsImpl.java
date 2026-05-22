@@ -26,7 +26,7 @@ class WorkspaceBindingsImpl implements WorkspaceBindingsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, GetCatalogWorkspaceBindingsResponse.class);
     } catch (IOException e) {
@@ -46,7 +46,7 @@ class WorkspaceBindingsImpl implements WorkspaceBindingsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, GetWorkspaceBindingsResponse.class);
     } catch (IOException e) {
@@ -65,7 +65,7 @@ class WorkspaceBindingsImpl implements WorkspaceBindingsService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, UpdateCatalogWorkspaceBindingsResponse.class);
     } catch (IOException e) {
@@ -86,7 +86,7 @@ class WorkspaceBindingsImpl implements WorkspaceBindingsService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, UpdateWorkspaceBindingsResponse.class);
     } catch (IOException e) {
