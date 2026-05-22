@@ -7,6 +7,7 @@ import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.integration.framework.EnvContext;
 import com.databricks.sdk.integration.framework.EnvOrSkip;
 import com.databricks.sdk.integration.framework.EnvTest;
+import com.databricks.sdk.service.iam.MeRequest;
 import com.databricks.sdk.service.iam.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,7 +38,7 @@ public class DatabricksOidcWorkspaceIT {
     WorkspaceClient ws = new WorkspaceClient(config);
 
     // Call the "me" API
-    User me = ws.currentUser().me();
+    User me = ws.currentUser().me(new MeRequest());
 
     // Verify we got a valid response
     assertNotNull(me.getUserName(), "Expected non-empty UserName");
@@ -64,7 +65,7 @@ public class DatabricksOidcWorkspaceIT {
     WorkspaceClient ws = new WorkspaceClient(config);
 
     // Call the "me" API
-    User me = ws.currentUser().me();
+    User me = ws.currentUser().me(new MeRequest());
 
     // Verify we got a valid response
     assertNotNull(me.getUserName(), "Expected non-empty UserName");

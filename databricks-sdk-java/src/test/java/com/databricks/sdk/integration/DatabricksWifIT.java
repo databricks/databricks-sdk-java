@@ -63,7 +63,7 @@ public class DatabricksWifIT {
 
     WorkspaceClient ws = new WorkspaceClient(config);
 
-    ws.currentUser().me();
+    ws.currentUser().me(new MeRequest());
   }
 
   // This test cannot run on local machines. We use ACTIONS_ID_TOKEN_REQUEST_URL
