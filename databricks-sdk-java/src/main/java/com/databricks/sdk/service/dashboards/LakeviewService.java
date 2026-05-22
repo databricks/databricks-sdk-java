@@ -55,6 +55,9 @@ public interface LakeviewService {
   /** Publish the current draft dashboard. */
   PublishedDashboard publish(PublishRequest publishRequest);
 
+  /** Revert a dashboard's definition in draft mode to the last published version. */
+  RevertDashboardResponse revert(RevertDashboardRequest revertDashboardRequest);
+
   /** Trash a dashboard. */
   void trash(TrashDashboardRequest trashDashboardRequest);
 

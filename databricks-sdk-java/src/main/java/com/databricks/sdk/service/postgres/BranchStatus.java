@@ -29,6 +29,10 @@ public class BranchStatus {
   @JsonProperty("default")
   private Boolean defaultValue;
 
+  /** A timestamp indicating when the branch was deleted. Empty if the branch is not deleted. */
+  @JsonProperty("delete_time")
+  private Timestamp deleteTime;
+
   /** Absolute expiration time for the branch. Empty if expiration is disabled. */
   @JsonProperty("expire_time")
   private Timestamp expireTime;
@@ -44,6 +48,13 @@ public class BranchStatus {
   /** The pending state of the branch, if a state transition is in progress. */
   @JsonProperty("pending_state")
   private BranchStatusState pendingState;
+
+  /**
+   * A timestamp indicating when the branch is scheduled to be purged. Empty if the branch is not
+   * deleted, otherwise set to a timestamp in the future.
+   */
+  @JsonProperty("purge_time")
+  private Timestamp purgeTime;
 
   /**
    * The name of the source branch from which this branch was created. Format:
@@ -91,6 +102,15 @@ public class BranchStatus {
     return defaultValue;
   }
 
+  public BranchStatus setDeleteTime(Timestamp deleteTime) {
+    this.deleteTime = deleteTime;
+    return this;
+  }
+
+  public Timestamp getDeleteTime() {
+    return deleteTime;
+  }
+
   public BranchStatus setExpireTime(Timestamp expireTime) {
     this.expireTime = expireTime;
     return this;
@@ -125,6 +145,15 @@ public class BranchStatus {
 
   public BranchStatusState getPendingState() {
     return pendingState;
+  }
+
+  public BranchStatus setPurgeTime(Timestamp purgeTime) {
+    this.purgeTime = purgeTime;
+    return this;
+  }
+
+  public Timestamp getPurgeTime() {
+    return purgeTime;
   }
 
   public BranchStatus setSourceBranch(String sourceBranch) {
@@ -171,10 +200,12 @@ public class BranchStatus {
     return Objects.equals(branchId, that.branchId)
         && Objects.equals(currentState, that.currentState)
         && Objects.equals(defaultValue, that.defaultValue)
+        && Objects.equals(deleteTime, that.deleteTime)
         && Objects.equals(expireTime, that.expireTime)
         && Objects.equals(isProtected, that.isProtected)
         && Objects.equals(logicalSizeBytes, that.logicalSizeBytes)
         && Objects.equals(pendingState, that.pendingState)
+        && Objects.equals(purgeTime, that.purgeTime)
         && Objects.equals(sourceBranch, that.sourceBranch)
         && Objects.equals(sourceBranchLsn, that.sourceBranchLsn)
         && Objects.equals(sourceBranchTime, that.sourceBranchTime)
@@ -187,10 +218,12 @@ public class BranchStatus {
         branchId,
         currentState,
         defaultValue,
+        deleteTime,
         expireTime,
         isProtected,
         logicalSizeBytes,
         pendingState,
+        purgeTime,
         sourceBranch,
         sourceBranchLsn,
         sourceBranchTime,
@@ -203,10 +236,12 @@ public class BranchStatus {
         .add("branchId", branchId)
         .add("currentState", currentState)
         .add("defaultValue", defaultValue)
+        .add("deleteTime", deleteTime)
         .add("expireTime", expireTime)
         .add("isProtected", isProtected)
         .add("logicalSizeBytes", logicalSizeBytes)
         .add("pendingState", pendingState)
+        .add("purgeTime", purgeTime)
         .add("sourceBranch", sourceBranch)
         .add("sourceBranchLsn", sourceBranchLsn)
         .add("sourceBranchTime", sourceBranchTime)

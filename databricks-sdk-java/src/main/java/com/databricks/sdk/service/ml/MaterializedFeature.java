@@ -34,15 +34,15 @@ public class MaterializedFeature {
   @JsonProperty("last_materialization_time")
   private String lastMaterializationTime;
 
-  /** Unique identifier for the materialized feature. */
+  /** Server-assigned unique identifier for the materialized feature. */
   @JsonProperty("materialized_feature_id")
   private String materializedFeatureId;
 
-  /** */
+  /** Destination for writing feature values to an offline Delta table. */
   @JsonProperty("offline_store_config")
   private OfflineStoreConfig offlineStoreConfig;
 
-  /** */
+  /** Destination for writing feature values to an online Lakebase table. */
   @JsonProperty("online_store_config")
   private OnlineStoreConfig onlineStoreConfig;
 

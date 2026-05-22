@@ -282,6 +282,24 @@ class LakeviewImpl implements LakeviewService {
   }
 
   @Override
+  public RevertDashboardResponse revert(RevertDashboardRequest request) {
+    String path = String.format("/api/2.0/lakeview/dashboards/%s/revert", request.getDashboardId());
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, RevertDashboardResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public void trash(TrashDashboardRequest request) {
     String path = String.format("/api/2.0/lakeview/dashboards/%s", request.getDashboardId());
     try {

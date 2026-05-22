@@ -124,6 +124,9 @@ public interface PostgresService {
   /** Returns a paginated list of Postgres roles in the branch. */
   ListRolesResponse listRoles(ListRolesRequest listRolesRequest);
 
+  /** Undeletes the specified database branch. */
+  Operation undeleteBranch(UndeleteBranchRequest undeleteBranchRequest);
+
   /** Undeletes a soft-deleted project. */
   Operation undeleteProject(UndeleteProjectRequest undeleteProjectRequest);
 

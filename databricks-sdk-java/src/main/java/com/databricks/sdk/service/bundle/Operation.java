@@ -37,10 +37,7 @@ public class Operation {
   @JsonProperty("name")
   private String name;
 
-  /**
-   * ID reference for the actual resource in the workspace (e.g. the job ID, pipeline ID). Should be
-   * unset for delete operations.
-   */
+  /** ID reference for the actual resource in the workspace (e.g. the job ID, pipeline ID). */
   @JsonProperty("resource_id")
   private String resourceId;
 
