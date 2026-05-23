@@ -10,14 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class BranchStatus {
-  /**
-   * The short identifier of the branch, suitable for showing to the users. For a branch with name
-   * `projects/my-project/branches/my-branch`, the branch_id is `my-branch`.
-   *
-   * <p>Use this field when building UI components that display branches to users (e.g., a drop-down
-   * selector). Prefer showing `branch_id` instead of the full resource name from `Branch.name`,
-   * which follows the `projects/{project_id}/branches/{branch_id}` format and is not user-friendly.
-   */
+  /** Part of the resource name. */
   @JsonProperty("branch_id")
   private String branchId;
 
