@@ -1952,6 +1952,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CreateRunRespons
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CreateTransitionRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CreateTransitionRequestResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CreateWebhookResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/CronSchedule.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/DataSource.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/Dataset.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/DatasetInput.java linguist-generated=true
@@ -2174,8 +2175,11 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/SlidingWindow.ja
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/Status.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/StddevPopFunction.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/StddevSampFunction.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/StreamingMode.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/StreamingModeStreamingModeType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/SubscriptionMode.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/SumFunction.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/TableTrigger.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/TestRegistryWebhookRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/TestRegistryWebhookResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/TimeWindow.java linguist-generated=true

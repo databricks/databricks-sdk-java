@@ -53,6 +53,10 @@ public class SyncedTableSyncedTableStatus {
   @JsonProperty("provisioning_phase")
   private ProvisioningPhase provisioningPhase;
 
+  /** Part of the resource name. */
+  @JsonProperty("synced_table_id")
+  private String syncedTableId;
+
   /** The provisioning state of the synced table entity in Unity Catalog. */
   @JsonProperty("unity_catalog_provisioning_state")
   private ProvisioningInfoState unityCatalogProvisioningState;
@@ -140,6 +144,15 @@ public class SyncedTableSyncedTableStatus {
     return provisioningPhase;
   }
 
+  public SyncedTableSyncedTableStatus setSyncedTableId(String syncedTableId) {
+    this.syncedTableId = syncedTableId;
+    return this;
+  }
+
+  public String getSyncedTableId() {
+    return syncedTableId;
+  }
+
   public SyncedTableSyncedTableStatus setUnityCatalogProvisioningState(
       ProvisioningInfoState unityCatalogProvisioningState) {
     this.unityCatalogProvisioningState = unityCatalogProvisioningState;
@@ -164,6 +177,7 @@ public class SyncedTableSyncedTableStatus {
         && Objects.equals(pipelineId, that.pipelineId)
         && Objects.equals(project, that.project)
         && Objects.equals(provisioningPhase, that.provisioningPhase)
+        && Objects.equals(syncedTableId, that.syncedTableId)
         && Objects.equals(unityCatalogProvisioningState, that.unityCatalogProvisioningState);
   }
 
@@ -179,6 +193,7 @@ public class SyncedTableSyncedTableStatus {
         pipelineId,
         project,
         provisioningPhase,
+        syncedTableId,
         unityCatalogProvisioningState);
   }
 
@@ -194,6 +209,7 @@ public class SyncedTableSyncedTableStatus {
         .add("pipelineId", pipelineId)
         .add("project", project)
         .add("provisioningPhase", provisioningPhase)
+        .add("syncedTableId", syncedTableId)
         .add("unityCatalogProvisioningState", unityCatalogProvisioningState)
         .toString();
   }

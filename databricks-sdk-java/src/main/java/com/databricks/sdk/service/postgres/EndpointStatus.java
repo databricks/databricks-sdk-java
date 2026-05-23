@@ -33,17 +33,7 @@ public class EndpointStatus {
   @JsonProperty("disabled")
   private Boolean disabled;
 
-  /**
-   * The short identifier of the endpoint, suitable for showing to the users. For an endpoint with
-   * name `projects/my-project/branches/my-branch/endpoints/my-endpoint`, the endpoint_id is
-   * `my-endpoint`.
-   *
-   * <p>Use this field when building UI components that display endpoints to users (e.g., a
-   * drop-down selector). Prefer showing `endpoint_id` instead of the full resource name from
-   * `Endpoint.name`, which follows the
-   * `projects/{project_id}/branches/{branch_id}/endpoints/{endpoint_id}` format and is not
-   * user-friendly.
-   */
+  /** Part of the resource name. */
   @JsonProperty("endpoint_id")
   private String endpointId;
 

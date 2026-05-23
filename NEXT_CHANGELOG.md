@@ -30,3 +30,5 @@
 * [Breaking] Change `cliVersion` field for `com.databricks.sdk.service.bundle.Version` to be required.
 * [Breaking] Change `tags` field for `com.databricks.sdk.service.marketplace.ListListingsRequest` to type `com.databricks.sdk.service.marketplace.ListingTag` class.
 * [Breaking] Change pagination for `workspaceClient.clusters().events()` method.
+* Add `cronScheduleTrigger`, `streamingMode` and `tableTrigger` fields for `com.databricks.sdk.service.ml.MaterializedFeature`.
+* Add `syncedTableId` field for `com.databricks.sdk.service.postgres.SyncedTableSyncedTableStatus`.
