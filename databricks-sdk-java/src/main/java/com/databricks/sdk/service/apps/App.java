@@ -25,6 +25,14 @@ public class App {
   @JsonProperty("budget_policy_id")
   private String budgetPolicyId;
 
+  /** Maximum number of app instances. Must be set together with `compute_min_instances`. */
+  @JsonProperty("compute_max_instances")
+  private Long computeMaxInstances;
+
+  /** Minimum number of app instances. Must be set together with `compute_max_instances`. */
+  @JsonProperty("compute_min_instances")
+  private Long computeMinInstances;
+
   /** */
   @JsonProperty("compute_size")
   private ComputeSize computeSize;
@@ -170,6 +178,24 @@ public class App {
 
   public String getBudgetPolicyId() {
     return budgetPolicyId;
+  }
+
+  public App setComputeMaxInstances(Long computeMaxInstances) {
+    this.computeMaxInstances = computeMaxInstances;
+    return this;
+  }
+
+  public Long getComputeMaxInstances() {
+    return computeMaxInstances;
+  }
+
+  public App setComputeMinInstances(Long computeMinInstances) {
+    this.computeMinInstances = computeMinInstances;
+    return this;
+  }
+
+  public Long getComputeMinInstances() {
+    return computeMinInstances;
   }
 
   public App setComputeSize(ComputeSize computeSize) {
@@ -424,6 +450,8 @@ public class App {
     return Objects.equals(activeDeployment, that.activeDeployment)
         && Objects.equals(appStatus, that.appStatus)
         && Objects.equals(budgetPolicyId, that.budgetPolicyId)
+        && Objects.equals(computeMaxInstances, that.computeMaxInstances)
+        && Objects.equals(computeMinInstances, that.computeMinInstances)
         && Objects.equals(computeSize, that.computeSize)
         && Objects.equals(computeStatus, that.computeStatus)
         && Objects.equals(createTime, that.createTime)
@@ -459,6 +487,8 @@ public class App {
         activeDeployment,
         appStatus,
         budgetPolicyId,
+        computeMaxInstances,
+        computeMinInstances,
         computeSize,
         computeStatus,
         createTime,
@@ -494,6 +524,8 @@ public class App {
         .add("activeDeployment", activeDeployment)
         .add("appStatus", appStatus)
         .add("budgetPolicyId", budgetPolicyId)
+        .add("computeMaxInstances", computeMaxInstances)
+        .add("computeMinInstances", computeMinInstances)
         .add("computeSize", computeSize)
         .add("computeStatus", computeStatus)
         .add("createTime", createTime)

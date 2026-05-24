@@ -32,3 +32,5 @@
 * [Breaking] Change pagination for `workspaceClient.clusters().events()` method.
 * Add `cronScheduleTrigger`, `streamingMode` and `tableTrigger` fields for `com.databricks.sdk.service.ml.MaterializedFeature`.
 * Add `syncedTableId` field for `com.databricks.sdk.service.postgres.SyncedTableSyncedTableStatus`.
+* Add `computeMaxInstances` and `computeMinInstances` fields for `com.databricks.sdk.service.apps.App`.
+* Add `computeMaxInstances` and `computeMinInstances` fields for `com.databricks.sdk.service.apps.AppUpdate`.
