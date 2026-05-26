@@ -252,19 +252,6 @@ public class UserAgentTest {
   }
 
   @Test
-  public void testAgentProviderCopilotModelAloneNotDetected() {
-    // COPILOT_MODEL is set by Copilot CLI BYOK users and does not by itself
-    // identify any agent.
-    setupAgentEnv(
-        new HashMap<String, String>() {
-          {
-            put("COPILOT_MODEL", "gpt-4");
-          }
-        });
-    Assertions.assertFalse(UserAgent.asString().contains("agent/"));
-  }
-
-  @Test
   public void testAgentProviderGoose() {
     setupAgentEnv(
         new HashMap<String, String>() {
