@@ -18,14 +18,7 @@ public class CatalogCatalogStatus {
   @JsonProperty("branch")
   private String branch;
 
-  /**
-   * The short identifier of the catalog, suitable for showing to the users. For a catalog with name
-   * `catalogs/my-catalog`, the catalog_id is `my-catalog`.
-   *
-   * <p>Use this field when building UI components that display catalogs to users (e.g., a drop-down
-   * selector). Prefer showing `catalog_id` instead of the full resource name from `Catalog.name`,
-   * which follows the `catalogs/{catalog_id}` format and is not user-friendly.
-   */
+  /** Part of the resource name. */
   @JsonProperty("catalog_id")
   private String catalogId;
 

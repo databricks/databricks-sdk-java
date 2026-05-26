@@ -14,6 +14,14 @@ public class AppUpdate {
   @JsonProperty("budget_policy_id")
   private String budgetPolicyId;
 
+  /** Maximum number of app instances. Must be set together with `compute_min_instances`. */
+  @JsonProperty("compute_max_instances")
+  private Long computeMaxInstances;
+
+  /** Minimum number of app instances. Must be set together with `compute_max_instances`. */
+  @JsonProperty("compute_min_instances")
+  private Long computeMinInstances;
+
   /** */
   @JsonProperty("compute_size")
   private ComputeSize computeSize;
@@ -49,6 +57,24 @@ public class AppUpdate {
 
   public String getBudgetPolicyId() {
     return budgetPolicyId;
+  }
+
+  public AppUpdate setComputeMaxInstances(Long computeMaxInstances) {
+    this.computeMaxInstances = computeMaxInstances;
+    return this;
+  }
+
+  public Long getComputeMaxInstances() {
+    return computeMaxInstances;
+  }
+
+  public AppUpdate setComputeMinInstances(Long computeMinInstances) {
+    this.computeMinInstances = computeMinInstances;
+    return this;
+  }
+
+  public Long getComputeMinInstances() {
+    return computeMinInstances;
   }
 
   public AppUpdate setComputeSize(ComputeSize computeSize) {
@@ -120,6 +146,8 @@ public class AppUpdate {
     if (o == null || getClass() != o.getClass()) return false;
     AppUpdate that = (AppUpdate) o;
     return Objects.equals(budgetPolicyId, that.budgetPolicyId)
+        && Objects.equals(computeMaxInstances, that.computeMaxInstances)
+        && Objects.equals(computeMinInstances, that.computeMinInstances)
         && Objects.equals(computeSize, that.computeSize)
         && Objects.equals(description, that.description)
         && Objects.equals(gitRepository, that.gitRepository)
@@ -133,6 +161,8 @@ public class AppUpdate {
   public int hashCode() {
     return Objects.hash(
         budgetPolicyId,
+        computeMaxInstances,
+        computeMinInstances,
         computeSize,
         description,
         gitRepository,
@@ -146,6 +176,8 @@ public class AppUpdate {
   public String toString() {
     return new ToStringer(AppUpdate.class)
         .add("budgetPolicyId", budgetPolicyId)
+        .add("computeMaxInstances", computeMaxInstances)
+        .add("computeMinInstances", computeMinInstances)
         .add("computeSize", computeSize)
         .add("description", description)
         .add("gitRepository", gitRepository)
