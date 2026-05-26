@@ -4,7 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** Latest kind: AGENT_SERVICE_STANDARD = 331; Next id: 332 */
+/** Latest kind: CONNECTION_ICEBERG_REST_OAUTH_M2M = 336; Next id: 337 */
 @Generated
 public enum SecurableKind {
   TABLE_DB_STORAGE,
