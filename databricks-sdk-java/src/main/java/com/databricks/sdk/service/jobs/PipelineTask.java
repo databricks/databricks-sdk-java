@@ -6,6 +6,7 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Objects;
 
 @Generated
@@ -21,6 +22,13 @@ public class PipelineTask {
   /** The full name of the pipeline task to execute. */
   @JsonProperty("pipeline_id")
   private String pipelineId;
+
+  /**
+   * Key/value-map of parameters passed to the pipeline execution. Limited to 10k characters in
+   * total.
+   */
+  @JsonProperty("pipeline_task_parameters")
+  private Map<String, String> pipelineTaskParameters;
 
   /**
    * Flow names to selectively refresh. These are unioned with other selective refresh options
@@ -64,6 +72,15 @@ public class PipelineTask {
     return pipelineId;
   }
 
+  public PipelineTask setPipelineTaskParameters(Map<String, String> pipelineTaskParameters) {
+    this.pipelineTaskParameters = pipelineTaskParameters;
+    return this;
+  }
+
+  public Map<String, String> getPipelineTaskParameters() {
+    return pipelineTaskParameters;
+  }
+
   public PipelineTask setRefreshFlowSelection(Collection<String> refreshFlowSelection) {
     this.refreshFlowSelection = refreshFlowSelection;
     return this;
@@ -99,6 +116,7 @@ public class PipelineTask {
     return Objects.equals(fullRefresh, that.fullRefresh)
         && Objects.equals(fullRefreshSelection, that.fullRefreshSelection)
         && Objects.equals(pipelineId, that.pipelineId)
+        && Objects.equals(pipelineTaskParameters, that.pipelineTaskParameters)
         && Objects.equals(refreshFlowSelection, that.refreshFlowSelection)
         && Objects.equals(refreshSelection, that.refreshSelection)
         && Objects.equals(resetCheckpointSelection, that.resetCheckpointSelection);
@@ -110,6 +128,7 @@ public class PipelineTask {
         fullRefresh,
         fullRefreshSelection,
         pipelineId,
+        pipelineTaskParameters,
         refreshFlowSelection,
         refreshSelection,
         resetCheckpointSelection);
@@ -121,6 +140,7 @@ public class PipelineTask {
         .add("fullRefresh", fullRefresh)
         .add("fullRefreshSelection", fullRefreshSelection)
         .add("pipelineId", pipelineId)
+        .add("pipelineTaskParameters", pipelineTaskParameters)
         .add("refreshFlowSelection", refreshFlowSelection)
         .add("refreshSelection", refreshSelection)
         .add("resetCheckpointSelection", resetCheckpointSelection)

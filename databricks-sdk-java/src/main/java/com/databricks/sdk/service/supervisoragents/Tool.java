@@ -40,9 +40,9 @@ public class Tool {
   /**
    * Tool type. Must be one of: "genie_space", "knowledge_assistant", "uc_function",
    * "uc_connection", "app", "volume", "dashboard", "serving_endpoint", "table",
-   * "vector_search_index", "catalog", "schema", "supervisor_agent", "web_search". The legacy values
-   * "lakeview_dashboard" and "uc_table" are also accepted and remain equivalent to "dashboard" and
-   * "table" respectively.
+   * "vector_search_index", "catalog", "schema", "supervisor_agent", "web_search", "skill". The
+   * legacy values "lakeview_dashboard" and "uc_table" are also accepted and remain equivalent to
+   * "dashboard" and "table" respectively.
    */
   @JsonProperty("tool_type")
   private String toolType;

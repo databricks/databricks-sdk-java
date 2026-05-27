@@ -1641,6 +1641,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/ResolvedCondit
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/ResolvedDbtTaskValues.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/ResolvedNotebookTaskValues.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/ResolvedParamPairValues.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/ResolvedPipelineTaskValues.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/ResolvedPythonWheelTaskValues.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/ResolvedRunJobTaskValues.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/ResolvedStringParamsValues.java linguist-generated=true
