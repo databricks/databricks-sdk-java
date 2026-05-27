@@ -241,14 +241,14 @@ public class UserAgentTest {
   }
 
   @Test
-  public void testAgentProviderCopilotVscode() {
+  public void testAgentProviderVscodeAgent() {
     setupAgentEnv(
         new HashMap<String, String>() {
           {
-            put("COPILOT_MODEL", "gpt-4");
+            put("VSCODE_AGENT", "1");
           }
         });
-    Assertions.assertTrue(UserAgent.asString().contains("agent/copilot-vscode"));
+    Assertions.assertTrue(UserAgent.asString().contains("agent/vscode-agent"));
   }
 
   @Test
@@ -415,30 +415,14 @@ public class UserAgentTest {
   }
 
   @Test
-  public void testAgentProviderCopilotCliAndCopilotVscodeCollapseToCopilotCli() {
-    // Copilot CLI users (BYOK mode) often set COPILOT_MODEL alongside
-    // COPILOT_CLI. Treat the pair as a single copilot-cli signal rather
-    // than a stacked multi-agent setup.
+  public void testAgentProviderVscodeAgentAndCopilotCliReportsMultiple() {
+    // VSCODE_AGENT can legitimately stack with other agents (e.g. running
+    // Copilot CLI from a VS Code agent terminal).
     setupAgentEnv(
         new HashMap<String, String>() {
           {
+            put("VSCODE_AGENT", "1");
             put("COPILOT_CLI", "1");
-            put("COPILOT_MODEL", "gpt-4");
-          }
-        });
-    Assertions.assertTrue(UserAgent.asString().contains("agent/copilot-cli"));
-  }
-
-  @Test
-  public void testAgentProviderCopilotByokCollapseStillMultiple() {
-    // The Copilot BYOK collapse only drops the copilot-vscode match. If
-    // another agent is also present, the result is still "multiple".
-    setupAgentEnv(
-        new HashMap<String, String>() {
-          {
-            put("COPILOT_CLI", "1");
-            put("COPILOT_MODEL", "gpt-4");
-            put("CLAUDECODE", "1");
           }
         });
     Assertions.assertTrue(UserAgent.asString().contains("agent/multiple"));
