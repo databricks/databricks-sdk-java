@@ -6,6 +6,7 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Objects;
 
 @Generated
@@ -45,6 +46,13 @@ public class GetPipelineResponse {
   /** A human friendly identifier for the pipeline, taken from the `spec`. */
   @JsonProperty("name")
   private String name;
+
+  /**
+   * Key/value map of default parameters to use for pipeline execution. Maximum total size: 10k
+   * characters (JSON format)
+   */
+  @JsonProperty("parameters")
+  private Map<String, String> parameters;
 
   /** The ID of the pipeline. */
   @JsonProperty("pipeline_id")
@@ -151,6 +159,15 @@ public class GetPipelineResponse {
     return name;
   }
 
+  public GetPipelineResponse setParameters(Map<String, String> parameters) {
+    this.parameters = parameters;
+    return this;
+  }
+
+  public Map<String, String> getParameters() {
+    return parameters;
+  }
+
   public GetPipelineResponse setPipelineId(String pipelineId) {
     this.pipelineId = pipelineId;
     return this;
@@ -210,6 +227,7 @@ public class GetPipelineResponse {
         && Objects.equals(lastModified, that.lastModified)
         && Objects.equals(latestUpdates, that.latestUpdates)
         && Objects.equals(name, that.name)
+        && Objects.equals(parameters, that.parameters)
         && Objects.equals(pipelineId, that.pipelineId)
         && Objects.equals(runAs, that.runAs)
         && Objects.equals(runAsUserName, that.runAsUserName)
@@ -229,6 +247,7 @@ public class GetPipelineResponse {
         lastModified,
         latestUpdates,
         name,
+        parameters,
         pipelineId,
         runAs,
         runAsUserName,
@@ -248,6 +267,7 @@ public class GetPipelineResponse {
         .add("lastModified", lastModified)
         .add("latestUpdates", latestUpdates)
         .add("name", name)
+        .add("parameters", parameters)
         .add("pipelineId", pipelineId)
         .add("runAs", runAs)
         .add("runAsUserName", runAsUserName)

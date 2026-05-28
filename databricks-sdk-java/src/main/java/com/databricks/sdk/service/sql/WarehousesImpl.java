@@ -269,10 +269,11 @@ class WarehousesImpl implements WarehousesService {
   public void start(StartRequest request) {
     String path = String.format("/api/2.0/sql/warehouses/%s/start", request.getId());
     try {
-      Request req = new Request("POST", path);
+      Request req = new Request("POST", path, apiClient.serialize(request));
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
         req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
       }
@@ -286,10 +287,11 @@ class WarehousesImpl implements WarehousesService {
   public void stop(StopRequest request) {
     String path = String.format("/api/2.0/sql/warehouses/%s/stop", request.getId());
     try {
-      Request req = new Request("POST", path);
+      Request req = new Request("POST", path, apiClient.serialize(request));
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
         req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
       }
