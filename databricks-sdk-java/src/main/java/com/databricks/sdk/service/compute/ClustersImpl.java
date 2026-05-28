@@ -26,7 +26,7 @@ class ClustersImpl implements ClustersService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
@@ -44,7 +44,7 @@ class ClustersImpl implements ClustersService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, CreateClusterResponse.class);
     } catch (IOException e) {
@@ -62,7 +62,7 @@ class ClustersImpl implements ClustersService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
@@ -80,7 +80,7 @@ class ClustersImpl implements ClustersService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
@@ -98,7 +98,7 @@ class ClustersImpl implements ClustersService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, GetEventsResponse.class);
     } catch (IOException e) {
@@ -115,7 +115,7 @@ class ClustersImpl implements ClustersService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ClusterDetails.class);
     } catch (IOException e) {
@@ -134,7 +134,7 @@ class ClustersImpl implements ClustersService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, GetClusterPermissionLevelsResponse.class);
     } catch (IOException e) {
@@ -151,7 +151,7 @@ class ClustersImpl implements ClustersService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ClusterPermissions.class);
     } catch (IOException e) {
@@ -168,7 +168,7 @@ class ClustersImpl implements ClustersService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ListClustersResponse.class);
     } catch (IOException e) {
@@ -184,7 +184,7 @@ class ClustersImpl implements ClustersService {
 
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ListNodeTypesResponse.class);
     } catch (IOException e) {
@@ -200,7 +200,7 @@ class ClustersImpl implements ClustersService {
 
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ListAvailableZonesResponse.class);
     } catch (IOException e) {
@@ -218,7 +218,7 @@ class ClustersImpl implements ClustersService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
@@ -236,7 +236,7 @@ class ClustersImpl implements ClustersService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
@@ -254,7 +254,7 @@ class ClustersImpl implements ClustersService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
@@ -272,7 +272,7 @@ class ClustersImpl implements ClustersService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
@@ -290,7 +290,7 @@ class ClustersImpl implements ClustersService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ClusterPermissions.class);
     } catch (IOException e) {
@@ -306,7 +306,7 @@ class ClustersImpl implements ClustersService {
 
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, GetSparkVersionsResponse.class);
     } catch (IOException e) {
@@ -324,7 +324,7 @@ class ClustersImpl implements ClustersService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
@@ -342,7 +342,7 @@ class ClustersImpl implements ClustersService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
@@ -360,7 +360,7 @@ class ClustersImpl implements ClustersService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
@@ -378,7 +378,7 @@ class ClustersImpl implements ClustersService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ClusterPermissions.class);
     } catch (IOException e) {

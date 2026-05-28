@@ -26,7 +26,7 @@ class QueriesLegacyImpl implements QueriesLegacyService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, LegacyQuery.class);
     } catch (IOException e) {
@@ -43,7 +43,7 @@ class QueriesLegacyImpl implements QueriesLegacyService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
@@ -60,7 +60,7 @@ class QueriesLegacyImpl implements QueriesLegacyService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, LegacyQuery.class);
     } catch (IOException e) {
@@ -77,7 +77,7 @@ class QueriesLegacyImpl implements QueriesLegacyService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, QueryList.class);
     } catch (IOException e) {
@@ -94,7 +94,7 @@ class QueriesLegacyImpl implements QueriesLegacyService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
@@ -112,7 +112,7 @@ class QueriesLegacyImpl implements QueriesLegacyService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, LegacyQuery.class);
     } catch (IOException e) {

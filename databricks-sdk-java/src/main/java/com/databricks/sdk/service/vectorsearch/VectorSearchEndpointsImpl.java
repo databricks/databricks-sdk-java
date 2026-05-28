@@ -26,7 +26,7 @@ class VectorSearchEndpointsImpl implements VectorSearchEndpointsService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, EndpointInfo.class);
     } catch (IOException e) {
@@ -43,7 +43,7 @@ class VectorSearchEndpointsImpl implements VectorSearchEndpointsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
@@ -60,7 +60,7 @@ class VectorSearchEndpointsImpl implements VectorSearchEndpointsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, EndpointInfo.class);
     } catch (IOException e) {
@@ -81,7 +81,7 @@ class VectorSearchEndpointsImpl implements VectorSearchEndpointsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, GetVectorSearchEndpointPermissionLevelsResponse.class);
     } catch (IOException e) {
@@ -100,7 +100,7 @@ class VectorSearchEndpointsImpl implements VectorSearchEndpointsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, VectorSearchEndpointPermissions.class);
     } catch (IOException e) {
@@ -117,7 +117,7 @@ class VectorSearchEndpointsImpl implements VectorSearchEndpointsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ListEndpointResponse.class);
     } catch (IOException e) {
@@ -135,7 +135,7 @@ class VectorSearchEndpointsImpl implements VectorSearchEndpointsService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, EndpointInfo.class);
     } catch (IOException e) {
@@ -154,7 +154,7 @@ class VectorSearchEndpointsImpl implements VectorSearchEndpointsService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, RetrieveUserVisibleMetricsResponse.class);
     } catch (IOException e) {
@@ -174,7 +174,7 @@ class VectorSearchEndpointsImpl implements VectorSearchEndpointsService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, VectorSearchEndpointPermissions.class);
     } catch (IOException e) {
@@ -195,7 +195,7 @@ class VectorSearchEndpointsImpl implements VectorSearchEndpointsService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, PatchEndpointBudgetPolicyResponse.class);
     } catch (IOException e) {
@@ -215,7 +215,7 @@ class VectorSearchEndpointsImpl implements VectorSearchEndpointsService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, UpdateEndpointCustomTagsResponse.class);
     } catch (IOException e) {
@@ -235,7 +235,7 @@ class VectorSearchEndpointsImpl implements VectorSearchEndpointsService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, VectorSearchEndpointPermissions.class);
     } catch (IOException e) {

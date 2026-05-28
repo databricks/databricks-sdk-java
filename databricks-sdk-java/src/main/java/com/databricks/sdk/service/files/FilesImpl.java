@@ -28,7 +28,7 @@ class FilesImpl implements FilesService {
 
       ApiClient.setQuery(req, request);
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
@@ -46,7 +46,7 @@ class FilesImpl implements FilesService {
 
       ApiClient.setQuery(req, request);
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
@@ -65,7 +65,7 @@ class FilesImpl implements FilesService {
 
       ApiClient.setQuery(req, request);
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
@@ -84,7 +84,7 @@ class FilesImpl implements FilesService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/octet-stream");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, DownloadResponse.class);
     } catch (IOException e) {
@@ -103,7 +103,7 @@ class FilesImpl implements FilesService {
 
       ApiClient.setQuery(req, request);
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
@@ -121,7 +121,7 @@ class FilesImpl implements FilesService {
 
       ApiClient.setQuery(req, request);
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, GetMetadataResponse.class);
     } catch (IOException e) {
@@ -141,7 +141,7 @@ class FilesImpl implements FilesService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ListDirectoryResponse.class);
     } catch (IOException e) {
@@ -160,7 +160,7 @@ class FilesImpl implements FilesService {
       ApiClient.setQuery(req, request);
       req.withHeader("Content-Type", "application/octet-stream");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {

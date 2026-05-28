@@ -28,7 +28,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, BuildLogsResponse.class);
     } catch (IOException e) {
@@ -46,7 +46,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ServingEndpointDetailed.class);
     } catch (IOException e) {
@@ -65,7 +65,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ServingEndpointDetailed.class);
     } catch (IOException e) {
@@ -81,7 +81,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
 
       ApiClient.setQuery(req, request);
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
@@ -98,7 +98,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "text/plain");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ExportMetricsResponse.class);
     } catch (IOException e) {
@@ -115,7 +115,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ServingEndpointDetailed.class);
     } catch (IOException e) {
@@ -132,7 +132,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "text/plain");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, GetOpenApiResponse.class);
     } catch (IOException e) {
@@ -153,7 +153,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, GetServingEndpointPermissionLevelsResponse.class);
     } catch (IOException e) {
@@ -171,7 +171,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ServingEndpointPermissions.class);
     } catch (IOException e) {
@@ -189,7 +189,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
       req.withHeader("Accept", "text/plain");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, HttpRequestResponse.class);
     } catch (IOException e) {
@@ -205,7 +205,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
 
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ListEndpointsResponse.class);
     } catch (IOException e) {
@@ -225,7 +225,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ServerLogsResponse.class);
     } catch (IOException e) {
@@ -243,7 +243,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, EndpointTags.class);
     } catch (IOException e) {
@@ -261,7 +261,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, PutResponse.class);
     } catch (IOException e) {
@@ -279,7 +279,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, PutAiGatewayResponse.class);
     } catch (IOException e) {
@@ -297,7 +297,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, QueryEndpointResponse.class);
     } catch (IOException e) {
@@ -316,7 +316,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ServingEndpointPermissions.class);
     } catch (IOException e) {
@@ -334,7 +334,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ServingEndpointDetailed.class);
     } catch (IOException e) {
@@ -353,7 +353,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, UpdateInferenceEndpointNotificationsResponse.class);
     } catch (IOException e) {
@@ -372,7 +372,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ServingEndpointPermissions.class);
     } catch (IOException e) {
@@ -391,7 +391,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ServingEndpointDetailed.class);
     } catch (IOException e) {

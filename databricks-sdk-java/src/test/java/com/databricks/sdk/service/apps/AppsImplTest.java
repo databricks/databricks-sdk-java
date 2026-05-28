@@ -41,4 +41,42 @@ public class AppsImplTest {
                 }),
             eq(App.class));
   }
+
+  // On unified ("SPOG") hosts, workspace-scoped requests must carry an
+  // X-Databricks-Workspace-Id header so the gateway can route them to the
+  // correct workspace. When ApiClient#workspaceId() returns a value, every
+  // generated *Impl must forward it on the request; when it returns null,
+  // the header must be omitted (so calls to legacy single-workspace hosts
+  // don't pick up an empty value).
+  @Test
+  public void testWorkspaceIdHeaderSentWhenConfigured() throws IOException {
+    ApiClient apiClient = Mockito.mock(ApiClient.class);
+    when(apiClient.workspaceId()).thenReturn("7474644166319138");
+    when(apiClient.execute(any(), any())).thenReturn(null);
+
+    AppsService apps = new AppsImpl(apiClient);
+    apps.list(new ListAppsRequest());
+
+    verify(apiClient)
+        .execute(
+            argThat(
+                (Request req) ->
+                    "7474644166319138".equals(req.getHeaders().get("X-Databricks-Workspace-Id"))),
+            any());
+  }
+
+  @Test
+  public void testWorkspaceIdHeaderOmittedWhenUnset() throws IOException {
+    ApiClient apiClient = Mockito.mock(ApiClient.class);
+    when(apiClient.workspaceId()).thenReturn(null);
+    when(apiClient.execute(any(), any())).thenReturn(null);
+
+    AppsService apps = new AppsImpl(apiClient);
+    apps.list(new ListAppsRequest());
+
+    verify(apiClient)
+        .execute(
+            argThat((Request req) -> !req.getHeaders().containsKey("X-Databricks-Workspace-Id")),
+            any());
+  }
 }

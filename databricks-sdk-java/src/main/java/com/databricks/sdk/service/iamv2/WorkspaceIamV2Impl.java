@@ -28,7 +28,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, WorkspaceAssignmentDetail.class);
     } catch (IOException e) {
@@ -47,7 +47,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
@@ -66,7 +66,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, WorkspaceAccessDetail.class);
     } catch (IOException e) {
@@ -85,7 +85,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, WorkspaceAssignmentDetail.class);
     } catch (IOException e) {
@@ -103,7 +103,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ListWorkspaceAssignmentDetailsResponse.class);
     } catch (IOException e) {
@@ -121,7 +121,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ResolveGroupResponse.class);
     } catch (IOException e) {
@@ -140,7 +140,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ResolveServicePrincipalResponse.class);
     } catch (IOException e) {
@@ -158,7 +158,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ResolveUserResponse.class);
     } catch (IOException e) {
@@ -179,7 +179,7 @@ class WorkspaceIamV2Impl implements WorkspaceIamV2Service {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, WorkspaceAssignmentDetail.class);
     } catch (IOException e) {

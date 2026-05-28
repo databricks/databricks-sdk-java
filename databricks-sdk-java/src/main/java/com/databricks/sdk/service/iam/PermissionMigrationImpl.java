@@ -26,7 +26,7 @@ class PermissionMigrationImpl implements PermissionMigrationService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, MigratePermissionsResponse.class);
     } catch (IOException e) {

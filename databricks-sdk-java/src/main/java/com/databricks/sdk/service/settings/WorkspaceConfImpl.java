@@ -23,7 +23,7 @@ class WorkspaceConfImpl implements WorkspaceConfService {
     Request req = new Request("GET", path);
     req.withHeader("Accept", "application/json");
     if (apiClient.workspaceId() != null) {
-      req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
     }
     return apiClient.getStringMap(req);
   }
@@ -37,7 +37,7 @@ class WorkspaceConfImpl implements WorkspaceConfService {
       ApiClient.setQuery(req, request);
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {

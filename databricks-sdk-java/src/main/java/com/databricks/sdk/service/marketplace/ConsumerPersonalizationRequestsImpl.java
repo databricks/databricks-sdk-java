@@ -29,7 +29,7 @@ class ConsumerPersonalizationRequestsImpl implements ConsumerPersonalizationRequ
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, CreatePersonalizationRequestResponse.class);
     } catch (IOException e) {
@@ -49,7 +49,7 @@ class ConsumerPersonalizationRequestsImpl implements ConsumerPersonalizationRequ
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, GetPersonalizationRequestResponse.class);
     } catch (IOException e) {
@@ -67,7 +67,7 @@ class ConsumerPersonalizationRequestsImpl implements ConsumerPersonalizationRequ
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ListAllPersonalizationRequestsResponse.class);
     } catch (IOException e) {
