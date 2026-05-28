@@ -1,5 +1,18 @@
 # Version changelog
 
+## Release v0.113.0 (2026-05-28)
+
+### API Changes
+* Add `createStream()`, `deleteStream()`, `getStream()`, `listStreams()` and `updateStream()` methods for `workspaceClient.featureEngineering()` service.
+* Add `parameters` field for `com.databricks.sdk.service.jobs.PipelineTask`.
+* Add `pipelineTask` field for `com.databricks.sdk.service.jobs.ResolvedValues`.
+* Add `parameters` field for `com.databricks.sdk.service.pipelines.CreatePipeline`.
+* Add `parameters` field for `com.databricks.sdk.service.pipelines.EditPipeline`.
+* Add `parameters` field for `com.databricks.sdk.service.pipelines.GetPipelineResponse`.
+* [Breaking] Remove `catalogId` field for `com.databricks.sdk.service.postgres.CatalogCatalogStatus`.
+* [Breaking] Remove `syncedTableId` field for `com.databricks.sdk.service.postgres.SyncedTableSyncedTableStatus`.
+
+
 ## Release v0.112.0 (2026-05-25)
 
 ### API Changes
