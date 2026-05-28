@@ -1,6 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 
-package com.databricks.sdk.service.disasterrecovery;
+package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
@@ -9,29 +9,23 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 @Generated
-public class ListFailoverGroupsRequest {
-  /**
-   * Maximum number of failover groups to return per page: - when set to a value greater than 0, the
-   * page length is the minimum of this value and a server configured value; - when set to 0 or
-   * unset, the page length is set to a server configured value (recommended); - when set to a value
-   * less than 0, an invalid parameter error is returned.
-   */
+public class ListStreamsRequest {
+  /** The maximum number of results to return. */
   @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;
 
-  /**
-   * Page token received from a previous ListFailoverGroups call. Provide this to retrieve the
-   * subsequent page.
-   */
+  /** Pagination token to go to the next page based on a previous query. */
   @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 
-  /** The parent resource. Format: accounts/{account_id}. */
-  @JsonIgnore private String parent;
+  /** Two-part name (catalog.schema) of the parent under which to list Streams. */
+  @JsonIgnore
+  @QueryParam("parent")
+  private String parent;
 
-  public ListFailoverGroupsRequest setPageSize(Long pageSize) {
+  public ListStreamsRequest setPageSize(Long pageSize) {
     this.pageSize = pageSize;
     return this;
   }
@@ -40,7 +34,7 @@ public class ListFailoverGroupsRequest {
     return pageSize;
   }
 
-  public ListFailoverGroupsRequest setPageToken(String pageToken) {
+  public ListStreamsRequest setPageToken(String pageToken) {
     this.pageToken = pageToken;
     return this;
   }
@@ -49,7 +43,7 @@ public class ListFailoverGroupsRequest {
     return pageToken;
   }
 
-  public ListFailoverGroupsRequest setParent(String parent) {
+  public ListStreamsRequest setParent(String parent) {
     this.parent = parent;
     return this;
   }
@@ -62,7 +56,7 @@ public class ListFailoverGroupsRequest {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    ListFailoverGroupsRequest that = (ListFailoverGroupsRequest) o;
+    ListStreamsRequest that = (ListStreamsRequest) o;
     return Objects.equals(pageSize, that.pageSize)
         && Objects.equals(pageToken, that.pageToken)
         && Objects.equals(parent, that.parent);
@@ -75,7 +69,7 @@ public class ListFailoverGroupsRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(ListFailoverGroupsRequest.class)
+    return new ToStringer(ListStreamsRequest.class)
         .add("pageSize", pageSize)
         .add("pageToken", pageToken)
         .add("parent", parent)

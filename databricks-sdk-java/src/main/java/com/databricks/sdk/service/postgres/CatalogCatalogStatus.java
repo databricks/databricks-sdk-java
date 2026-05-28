@@ -18,10 +18,6 @@ public class CatalogCatalogStatus {
   @JsonProperty("branch")
   private String branch;
 
-  /** Part of the resource name. */
-  @JsonProperty("catalog_id")
-  private String catalogId;
-
   /** The name of the Postgres database associated with the catalog. */
   @JsonProperty("postgres_database")
   private String postgresDatabase;
@@ -41,15 +37,6 @@ public class CatalogCatalogStatus {
 
   public String getBranch() {
     return branch;
-  }
-
-  public CatalogCatalogStatus setCatalogId(String catalogId) {
-    this.catalogId = catalogId;
-    return this;
-  }
-
-  public String getCatalogId() {
-    return catalogId;
   }
 
   public CatalogCatalogStatus setPostgresDatabase(String postgresDatabase) {
@@ -76,21 +63,19 @@ public class CatalogCatalogStatus {
     if (o == null || getClass() != o.getClass()) return false;
     CatalogCatalogStatus that = (CatalogCatalogStatus) o;
     return Objects.equals(branch, that.branch)
-        && Objects.equals(catalogId, that.catalogId)
         && Objects.equals(postgresDatabase, that.postgresDatabase)
         && Objects.equals(project, that.project);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(branch, catalogId, postgresDatabase, project);
+    return Objects.hash(branch, postgresDatabase, project);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CatalogCatalogStatus.class)
         .add("branch", branch)
-        .add("catalogId", catalogId)
         .add("postgresDatabase", postgresDatabase)
         .add("project", project)
         .toString();

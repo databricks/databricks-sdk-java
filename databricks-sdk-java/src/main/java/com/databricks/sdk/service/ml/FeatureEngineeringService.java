@@ -29,6 +29,9 @@ public interface FeatureEngineeringService {
   MaterializedFeature createMaterializedFeature(
       CreateMaterializedFeatureRequest createMaterializedFeatureRequest);
 
+  /** Create a Stream, a governed UC entity representing an external streaming data source. */
+  Stream createStream(CreateStreamRequest createStreamRequest);
+
   /** Delete a Feature. */
   void deleteFeature(DeleteFeatureRequest deleteFeatureRequest);
 
@@ -40,6 +43,9 @@ public interface FeatureEngineeringService {
 
   /** Delete a materialized feature. */
   void deleteMaterializedFeature(DeleteMaterializedFeatureRequest deleteMaterializedFeatureRequest);
+
+  /** Delete a Stream by its full three-part name (catalog.schema.stream). */
+  void deleteStream(DeleteStreamRequest deleteStreamRequest);
 
   /** Get a Feature. */
   Feature getFeature(GetFeatureRequest getFeatureRequest);
@@ -54,6 +60,9 @@ public interface FeatureEngineeringService {
   MaterializedFeature getMaterializedFeature(
       GetMaterializedFeatureRequest getMaterializedFeatureRequest);
 
+  /** Get a Stream by its full three-part name (catalog.schema.stream). */
+  Stream getStream(GetStreamRequest getStreamRequest);
+
   /** List Features. */
   ListFeaturesResponse listFeatures(ListFeaturesRequest listFeaturesRequest);
 
@@ -67,6 +76,9 @@ public interface FeatureEngineeringService {
   ListMaterializedFeaturesResponse listMaterializedFeatures(
       ListMaterializedFeaturesRequest listMaterializedFeaturesRequest);
 
+  /** List Streams under a given catalog.schema parent. */
+  ListStreamsResponse listStreams(ListStreamsRequest listStreamsRequest);
+
   /** Update a Feature. */
   Feature updateFeature(UpdateFeatureRequest updateFeatureRequest);
 
@@ -79,4 +91,7 @@ public interface FeatureEngineeringService {
   /** Update a materialized feature (pause/resume). */
   MaterializedFeature updateMaterializedFeature(
       UpdateMaterializedFeatureRequest updateMaterializedFeatureRequest);
+
+  /** Update a Stream. Only fields listed in `update_mask` are mutated. */
+  Stream updateStream(UpdateStreamRequest updateStreamRequest);
 }

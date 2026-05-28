@@ -48,6 +48,11 @@ public class FeatureEngineeringAPI {
     return impl.createMaterializedFeature(request);
   }
 
+  /** Create a Stream, a governed UC entity representing an external streaming data source. */
+  public Stream createStream(CreateStreamRequest request) {
+    return impl.createStream(request);
+  }
+
   public void deleteFeature(String fullName) {
     deleteFeature(new DeleteFeatureRequest().setFullName(fullName));
   }
@@ -79,6 +84,15 @@ public class FeatureEngineeringAPI {
     impl.deleteMaterializedFeature(request);
   }
 
+  public void deleteStream(String name) {
+    deleteStream(new DeleteStreamRequest().setName(name));
+  }
+
+  /** Delete a Stream by its full three-part name (catalog.schema.stream). */
+  public void deleteStream(DeleteStreamRequest request) {
+    impl.deleteStream(request);
+  }
+
   public Feature getFeature(String fullName) {
     return getFeature(new GetFeatureRequest().setFullName(fullName));
   }
@@ -108,6 +122,15 @@ public class FeatureEngineeringAPI {
   /** Get a materialized feature. */
   public MaterializedFeature getMaterializedFeature(GetMaterializedFeatureRequest request) {
     return impl.getMaterializedFeature(request);
+  }
+
+  public Stream getStream(String name) {
+    return getStream(new GetStreamRequest().setName(name));
+  }
+
+  /** Get a Stream by its full three-part name (catalog.schema.stream). */
+  public Stream getStream(GetStreamRequest request) {
+    return impl.getStream(request);
   }
 
   public Iterable<Feature> listFeatures(String catalogName, String schemaName) {
@@ -164,6 +187,21 @@ public class FeatureEngineeringAPI {
         });
   }
 
+  /** List Streams under a given catalog.schema parent. */
+  public Iterable<Stream> listStreams(ListStreamsRequest request) {
+    return new Paginator<>(
+        request,
+        impl::listStreams,
+        ListStreamsResponse::getStreams,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
   /** Update a Feature. */
   public Feature updateFeature(UpdateFeatureRequest request) {
     return impl.updateFeature(request);
@@ -180,6 +218,11 @@ public class FeatureEngineeringAPI {
   /** Update a materialized feature (pause/resume). */
   public MaterializedFeature updateMaterializedFeature(UpdateMaterializedFeatureRequest request) {
     return impl.updateMaterializedFeature(request);
+  }
+
+  /** Update a Stream. Only fields listed in `update_mask` are mutated. */
+  public Stream updateStream(UpdateStreamRequest request) {
+    return impl.updateStream(request);
   }
 
   public FeatureEngineeringService impl() {

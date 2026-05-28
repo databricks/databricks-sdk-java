@@ -22,6 +22,10 @@ public class ResolvedValues {
   private ResolvedNotebookTaskValues notebookTask;
 
   /** */
+  @JsonProperty("pipeline_task")
+  private ResolvedPipelineTaskValues pipelineTask;
+
+  /** */
   @JsonProperty("python_wheel_task")
   private ResolvedPythonWheelTaskValues pythonWheelTask;
 
@@ -74,6 +78,15 @@ public class ResolvedValues {
 
   public ResolvedNotebookTaskValues getNotebookTask() {
     return notebookTask;
+  }
+
+  public ResolvedValues setPipelineTask(ResolvedPipelineTaskValues pipelineTask) {
+    this.pipelineTask = pipelineTask;
+    return this;
+  }
+
+  public ResolvedPipelineTaskValues getPipelineTask() {
+    return pipelineTask;
   }
 
   public ResolvedValues setPythonWheelTask(ResolvedPythonWheelTaskValues pythonWheelTask) {
@@ -147,6 +160,7 @@ public class ResolvedValues {
     return Objects.equals(conditionTask, that.conditionTask)
         && Objects.equals(dbtTask, that.dbtTask)
         && Objects.equals(notebookTask, that.notebookTask)
+        && Objects.equals(pipelineTask, that.pipelineTask)
         && Objects.equals(pythonWheelTask, that.pythonWheelTask)
         && Objects.equals(runJobTask, that.runJobTask)
         && Objects.equals(simulationTask, that.simulationTask)
@@ -162,6 +176,7 @@ public class ResolvedValues {
         conditionTask,
         dbtTask,
         notebookTask,
+        pipelineTask,
         pythonWheelTask,
         runJobTask,
         simulationTask,
@@ -177,6 +192,7 @@ public class ResolvedValues {
         .add("conditionTask", conditionTask)
         .add("dbtTask", dbtTask)
         .add("notebookTask", notebookTask)
+        .add("pipelineTask", pipelineTask)
         .add("pythonWheelTask", pythonWheelTask)
         .add("runJobTask", runJobTask)
         .add("simulationTask", simulationTask)

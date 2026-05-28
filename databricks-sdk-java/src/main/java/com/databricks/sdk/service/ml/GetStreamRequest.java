@@ -1,42 +1,41 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 
-package com.databricks.sdk.service.sql;
+package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Starts a SQL warehouse. This API is idempotent. */
 @Generated
-public class StartRequest {
-  /** Required. Id of the SQL warehouse. */
-  @JsonIgnore private String id;
+public class GetStreamRequest {
+  /** Full three-part name (catalog.schema.stream) of the Stream to get. */
+  @JsonIgnore private String name;
 
-  public StartRequest setId(String id) {
-    this.id = id;
+  public GetStreamRequest setName(String name) {
+    this.name = name;
     return this;
   }
 
-  public String getId() {
-    return id;
+  public String getName() {
+    return name;
   }
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    StartRequest that = (StartRequest) o;
-    return Objects.equals(id, that.id);
+    GetStreamRequest that = (GetStreamRequest) o;
+    return Objects.equals(name, that.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id);
+    return Objects.hash(name);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(StartRequest.class).add("id", id).toString();
+    return new ToStringer(GetStreamRequest.class).add("name", name).toString();
   }
 }

@@ -91,6 +91,24 @@ class FeatureEngineeringImpl implements FeatureEngineeringService {
   }
 
   @Override
+  public Stream createStream(CreateStreamRequest request) {
+    String path = "/api/2.0/feature-engineering/streams";
+    try {
+      Request req = new Request("POST", path, apiClient.serialize(request.getStream()));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Stream.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public void deleteFeature(DeleteFeatureRequest request) {
     String path = String.format("/api/2.0/feature-engineering/features/%s", request.getFullName());
     try {
@@ -131,6 +149,23 @@ class FeatureEngineeringImpl implements FeatureEngineeringService {
         String.format(
             "/api/2.0/feature-engineering/materialized-features/%s",
             request.getMaterializedFeatureId());
+    try {
+      Request req = new Request("DELETE", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      apiClient.execute(req, Void.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public void deleteStream(DeleteStreamRequest request) {
+    String path = String.format("/api/2.0/feature-engineering/streams/%s", request.getName());
     try {
       Request req = new Request("DELETE", path);
 
@@ -201,6 +236,23 @@ class FeatureEngineeringImpl implements FeatureEngineeringService {
   }
 
   @Override
+  public Stream getStream(GetStreamRequest request) {
+    String path = String.format("/api/2.0/feature-engineering/streams/%s", request.getName());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Stream.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public ListFeaturesResponse listFeatures(ListFeaturesRequest request) {
     String path = "/api/2.0/feature-engineering/features";
     try {
@@ -247,6 +299,23 @@ class FeatureEngineeringImpl implements FeatureEngineeringService {
         req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ListMaterializedFeaturesResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public ListStreamsResponse listStreams(ListStreamsRequest request) {
+    String path = "/api/2.0/feature-engineering/streams";
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, ListStreamsResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -306,6 +375,24 @@ class FeatureEngineeringImpl implements FeatureEngineeringService {
         req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, MaterializedFeature.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public Stream updateStream(UpdateStreamRequest request) {
+    String path = String.format("/api/2.0/feature-engineering/streams/%s", request.getName());
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request.getStream()));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, Stream.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

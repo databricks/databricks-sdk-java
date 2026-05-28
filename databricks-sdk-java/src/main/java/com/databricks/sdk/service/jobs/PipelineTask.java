@@ -6,6 +6,7 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Objects;
 
 @Generated
@@ -17,6 +18,13 @@ public class PipelineTask {
   /** A list of tables to update with fullRefresh. */
   @JsonProperty("full_refresh_selection")
   private Collection<String> fullRefreshSelection;
+
+  /**
+   * Key/value-map of parameters passed to the pipeline execution. Limited to 10k characters in
+   * total.
+   */
+  @JsonProperty("parameters")
+  private Map<String, String> parameters;
 
   /** The full name of the pipeline task to execute. */
   @JsonProperty("pipeline_id")
@@ -53,6 +61,15 @@ public class PipelineTask {
 
   public Collection<String> getFullRefreshSelection() {
     return fullRefreshSelection;
+  }
+
+  public PipelineTask setParameters(Map<String, String> parameters) {
+    this.parameters = parameters;
+    return this;
+  }
+
+  public Map<String, String> getParameters() {
+    return parameters;
   }
 
   public PipelineTask setPipelineId(String pipelineId) {
@@ -98,6 +115,7 @@ public class PipelineTask {
     PipelineTask that = (PipelineTask) o;
     return Objects.equals(fullRefresh, that.fullRefresh)
         && Objects.equals(fullRefreshSelection, that.fullRefreshSelection)
+        && Objects.equals(parameters, that.parameters)
         && Objects.equals(pipelineId, that.pipelineId)
         && Objects.equals(refreshFlowSelection, that.refreshFlowSelection)
         && Objects.equals(refreshSelection, that.refreshSelection)
@@ -109,6 +127,7 @@ public class PipelineTask {
     return Objects.hash(
         fullRefresh,
         fullRefreshSelection,
+        parameters,
         pipelineId,
         refreshFlowSelection,
         refreshSelection,
@@ -120,6 +139,7 @@ public class PipelineTask {
     return new ToStringer(PipelineTask.class)
         .add("fullRefresh", fullRefresh)
         .add("fullRefreshSelection", fullRefreshSelection)
+        .add("parameters", parameters)
         .add("pipelineId", pipelineId)
         .add("refreshFlowSelection", refreshFlowSelection)
         .add("refreshSelection", refreshSelection)
