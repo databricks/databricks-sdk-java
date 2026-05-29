@@ -151,4 +151,22 @@ class TokenManagementImpl implements TokenManagementService {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
   }
+
+  @Override
+  public TokenInfo updateTokenManagement(UpdateTokenManagementRequest request) {
+    String path = String.format("/api/2.0/token-management/tokens/%s", request.getTokenId());
+    try {
+      Request req = new Request("PATCH", path, apiClient.serialize(request));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      if (apiClient.workspaceId() != null) {
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
+      }
+      return apiClient.execute(req, TokenInfo.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
 }

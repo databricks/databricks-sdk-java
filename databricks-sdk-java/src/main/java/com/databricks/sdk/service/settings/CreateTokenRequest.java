@@ -10,6 +10,13 @@ import java.util.Objects;
 
 @Generated
 public class CreateTokenRequest {
+  /**
+   * Whether to enable autoscoping for this token. When true, the token will automatically collect
+   * inferred API path scopes as it is used.
+   */
+  @JsonProperty("autoscope_enabled")
+  private Boolean autoscopeEnabled;
+
   /** Optional description to attach to the token. */
   @JsonProperty("comment")
   private String comment;
@@ -25,6 +32,15 @@ public class CreateTokenRequest {
   /** Optional scopes of the token. */
   @JsonProperty("scopes")
   private Collection<String> scopes;
+
+  public CreateTokenRequest setAutoscopeEnabled(Boolean autoscopeEnabled) {
+    this.autoscopeEnabled = autoscopeEnabled;
+    return this;
+  }
+
+  public Boolean getAutoscopeEnabled() {
+    return autoscopeEnabled;
+  }
 
   public CreateTokenRequest setComment(String comment) {
     this.comment = comment;
@@ -58,19 +74,21 @@ public class CreateTokenRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CreateTokenRequest that = (CreateTokenRequest) o;
-    return Objects.equals(comment, that.comment)
+    return Objects.equals(autoscopeEnabled, that.autoscopeEnabled)
+        && Objects.equals(comment, that.comment)
         && Objects.equals(lifetimeSeconds, that.lifetimeSeconds)
         && Objects.equals(scopes, that.scopes);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comment, lifetimeSeconds, scopes);
+    return Objects.hash(autoscopeEnabled, comment, lifetimeSeconds, scopes);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CreateTokenRequest.class)
+        .add("autoscopeEnabled", autoscopeEnabled)
         .add("comment", comment)
         .add("lifetimeSeconds", lifetimeSeconds)
         .add("scopes", scopes)

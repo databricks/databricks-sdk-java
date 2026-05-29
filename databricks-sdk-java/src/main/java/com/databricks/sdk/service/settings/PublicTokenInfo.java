@@ -5,10 +5,19 @@ package com.databricks.sdk.service.settings;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 @Generated
 public class PublicTokenInfo {
+  /** Output only. The autoscope state of this token. */
+  @JsonProperty("autoscope_state")
+  private com.databricks.sdk.service.iam.AutoscopeState autoscopeState;
+
+  /** Output only. Scopes inferred from offline backfill processing. */
+  @JsonProperty("backfill_scopes")
+  private Collection<String> backfillScopes;
+
   /** Comment the token was created with, if applicable. */
   @JsonProperty("comment")
   private String comment;
@@ -21,9 +30,36 @@ public class PublicTokenInfo {
   @JsonProperty("expiry_time")
   private Long expiryTime;
 
+  /** Output only. Inferred API path scopes collected for this token when autoscope is enabled. */
+  @JsonProperty("inferred_scopes")
+  private Collection<String> inferredScopes;
+
+  /** Scope of the token was created with, if applicable. */
+  @JsonProperty("scopes")
+  private Collection<String> scopes;
+
   /** The ID of this token. */
   @JsonProperty("token_id")
   private String tokenId;
+
+  public PublicTokenInfo setAutoscopeState(
+      com.databricks.sdk.service.iam.AutoscopeState autoscopeState) {
+    this.autoscopeState = autoscopeState;
+    return this;
+  }
+
+  public com.databricks.sdk.service.iam.AutoscopeState getAutoscopeState() {
+    return autoscopeState;
+  }
+
+  public PublicTokenInfo setBackfillScopes(Collection<String> backfillScopes) {
+    this.backfillScopes = backfillScopes;
+    return this;
+  }
+
+  public Collection<String> getBackfillScopes() {
+    return backfillScopes;
+  }
 
   public PublicTokenInfo setComment(String comment) {
     this.comment = comment;
@@ -52,6 +88,24 @@ public class PublicTokenInfo {
     return expiryTime;
   }
 
+  public PublicTokenInfo setInferredScopes(Collection<String> inferredScopes) {
+    this.inferredScopes = inferredScopes;
+    return this;
+  }
+
+  public Collection<String> getInferredScopes() {
+    return inferredScopes;
+  }
+
+  public PublicTokenInfo setScopes(Collection<String> scopes) {
+    this.scopes = scopes;
+    return this;
+  }
+
+  public Collection<String> getScopes() {
+    return scopes;
+  }
+
   public PublicTokenInfo setTokenId(String tokenId) {
     this.tokenId = tokenId;
     return this;
@@ -66,23 +120,39 @@ public class PublicTokenInfo {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     PublicTokenInfo that = (PublicTokenInfo) o;
-    return Objects.equals(comment, that.comment)
+    return Objects.equals(autoscopeState, that.autoscopeState)
+        && Objects.equals(backfillScopes, that.backfillScopes)
+        && Objects.equals(comment, that.comment)
         && Objects.equals(creationTime, that.creationTime)
         && Objects.equals(expiryTime, that.expiryTime)
+        && Objects.equals(inferredScopes, that.inferredScopes)
+        && Objects.equals(scopes, that.scopes)
         && Objects.equals(tokenId, that.tokenId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comment, creationTime, expiryTime, tokenId);
+    return Objects.hash(
+        autoscopeState,
+        backfillScopes,
+        comment,
+        creationTime,
+        expiryTime,
+        inferredScopes,
+        scopes,
+        tokenId);
   }
 
   @Override
   public String toString() {
     return new ToStringer(PublicTokenInfo.class)
+        .add("autoscopeState", autoscopeState)
+        .add("backfillScopes", backfillScopes)
         .add("comment", comment)
         .add("creationTime", creationTime)
         .add("expiryTime", expiryTime)
+        .add("inferredScopes", inferredScopes)
+        .add("scopes", scopes)
         .add("tokenId", tokenId)
         .toString();
   }

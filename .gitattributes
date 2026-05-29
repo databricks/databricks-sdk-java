@@ -1348,6 +1348,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/iam/AccountUsersV2A
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/iam/AccountUsersV2Impl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/iam/AccountUsersV2Service.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/iam/Actor.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/iam/AutoscopeState.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/iam/CheckPolicyRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/iam/CheckPolicyResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/iam/ComplexValue.java linguist-generated=true
@@ -3114,6 +3115,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/UpdatePers
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/UpdatePrivateEndpointRule.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/UpdateRestrictWorkspaceAdminsSettingRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/UpdateSqlResultsDownloadRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/UpdateTokenManagementRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/UpdateTokenRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/UpdateTokenResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/UpdateWorkspaceNetworkOptionRequest.java linguist-generated=true
