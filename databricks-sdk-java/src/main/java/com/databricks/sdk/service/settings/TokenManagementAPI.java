@@ -81,6 +81,11 @@ public class TokenManagementAPI {
     return impl.updatePermissions(request);
   }
 
+  /** Updates a token, specified by its ID. */
+  public TokenInfo updateTokenManagement(UpdateTokenManagementRequest request) {
+    return impl.updateTokenManagement(request);
+  }
+
   public TokenManagementService impl() {
     return impl;
   }

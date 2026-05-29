@@ -41,4 +41,7 @@ public interface TokenManagementService {
    * Updates the permissions on all tokens. Tokens can inherit permissions from their root object.
    */
   TokenPermissions updatePermissions(TokenPermissionsRequest tokenPermissionsRequest);
+
+  /** Updates a token, specified by its ID. */
+  TokenInfo updateTokenManagement(UpdateTokenManagementRequest updateTokenManagementRequest);
 }

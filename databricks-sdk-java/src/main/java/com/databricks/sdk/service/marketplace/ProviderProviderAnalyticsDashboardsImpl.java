@@ -24,6 +24,7 @@ class ProviderProviderAnalyticsDashboardsImpl
       Request req = new Request("POST", path);
 
       req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
         req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }

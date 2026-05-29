@@ -162,10 +162,11 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
   public void syncIndex(SyncIndexRequest request) {
     String path = String.format("/api/2.0/vector-search/indexes/%s/sync", request.getIndexName());
     try {
-      Request req = new Request("POST", path);
+      Request req = new Request("POST", path, apiClient.serialize(request));
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
         req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }

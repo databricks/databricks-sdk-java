@@ -13,12 +13,12 @@ import java.util.Objects;
  * For the list of supported token scopes, see https://docs.databricks.com/api/workspace/api/scopes.
  */
 @Generated
-public class UpdateTokenRequest {
+public class UpdateTokenManagementRequest {
   /** */
   @JsonProperty("token")
-  private PublicTokenInfo token;
+  private TokenInfo token;
 
-  /** The SHA-256 hash of the token to be updated. */
+  /** ID of the token. */
   @JsonIgnore private String tokenId;
 
   /**
@@ -37,16 +37,16 @@ public class UpdateTokenRequest {
   @JsonProperty("update_mask")
   private FieldMask updateMask;
 
-  public UpdateTokenRequest setToken(PublicTokenInfo token) {
+  public UpdateTokenManagementRequest setToken(TokenInfo token) {
     this.token = token;
     return this;
   }
 
-  public PublicTokenInfo getToken() {
+  public TokenInfo getToken() {
     return token;
   }
 
-  public UpdateTokenRequest setTokenId(String tokenId) {
+  public UpdateTokenManagementRequest setTokenId(String tokenId) {
     this.tokenId = tokenId;
     return this;
   }
@@ -55,7 +55,7 @@ public class UpdateTokenRequest {
     return tokenId;
   }
 
-  public UpdateTokenRequest setUpdateMask(FieldMask updateMask) {
+  public UpdateTokenManagementRequest setUpdateMask(FieldMask updateMask) {
     this.updateMask = updateMask;
     return this;
   }
@@ -68,7 +68,7 @@ public class UpdateTokenRequest {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    UpdateTokenRequest that = (UpdateTokenRequest) o;
+    UpdateTokenManagementRequest that = (UpdateTokenManagementRequest) o;
     return Objects.equals(token, that.token)
         && Objects.equals(tokenId, that.tokenId)
         && Objects.equals(updateMask, that.updateMask);
@@ -81,7 +81,7 @@ public class UpdateTokenRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(UpdateTokenRequest.class)
+    return new ToStringer(UpdateTokenManagementRequest.class)
         .add("token", token)
         .add("tokenId", tokenId)
         .add("updateMask", updateMask)
