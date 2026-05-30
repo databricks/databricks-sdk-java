@@ -7,6 +7,7 @@
 ### Breaking Changes
 
 ### Bug Fixes
+* Cannonicalize Bearer tokenType in Authorization headers
 
 ### Security Vulnerabilities
 
@@ -24,3 +25,4 @@
 * Add `autoscopeState`, `backfillScopes`, `inferredScopes` and `scopes` fields for `com.databricks.sdk.service.settings.PublicTokenInfo`.
 * Add `autoscopeState`, `backfillScopes`, `inferredScopes` and `scopes` fields for `com.databricks.sdk.service.settings.TokenInfo`.
 * Add `resourceType` field for `com.databricks.sdk.service.bundle.Operation`.
+* Add `getCanonicalTokenType()` method for `com.databricks.sdk.core.oauth.Token`

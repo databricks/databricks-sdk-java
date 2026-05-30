@@ -52,6 +52,22 @@ public class Token {
   }
 
   /**
+   * Returns the token type canonicalized for use as the Authorization header scheme. Per RFC 6749
+   * §5.1 / RFC 6750 §2.1, identity providers may return {@code token_type} in any case (e.g.
+   * "bearer", "BEARER"). Some downstream servers and proxies reject anything other than the
+   * canonical "Bearer" capitalization, so we normalize that scheme here. Other schemes are returned
+   * unchanged.
+   *
+   * @return the canonicalized token type
+   */
+  public String getCanonicalTokenType() {
+    if ("bearer".equalsIgnoreCase(tokenType)) {
+      return "Bearer";
+    }
+    return tokenType;
+  }
+
+  /**
    * Returns the refresh token, if available. May be null for non-refreshable tokens.
    *
    * @return the refresh token or null
