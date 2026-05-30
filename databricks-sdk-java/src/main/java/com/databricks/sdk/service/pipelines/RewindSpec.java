@@ -22,7 +22,10 @@ public class RewindSpec {
   @JsonProperty("dry_run")
   private Boolean dryRun;
 
-  /** The base timestamp to rewind to. Must be specified. */
+  /**
+   * The base timestamp to rewind to. Exactly one of rewind_timestamp or rewind_point_id must be
+   * specified.
+   */
   @JsonProperty("rewind_timestamp")
   private String rewindTimestamp;
 

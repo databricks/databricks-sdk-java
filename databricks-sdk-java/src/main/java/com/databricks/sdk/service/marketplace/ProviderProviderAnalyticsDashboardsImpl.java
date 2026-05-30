@@ -24,8 +24,9 @@ class ProviderProviderAnalyticsDashboardsImpl
       Request req = new Request("POST", path);
 
       req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ProviderAnalyticsDashboard.class);
     } catch (IOException e) {
@@ -41,7 +42,7 @@ class ProviderProviderAnalyticsDashboardsImpl
 
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ListProviderAnalyticsDashboardResponse.class);
     } catch (IOException e) {
@@ -57,7 +58,7 @@ class ProviderProviderAnalyticsDashboardsImpl
 
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, GetLatestVersionProviderAnalyticsDashboardResponse.class);
     } catch (IOException e) {
@@ -77,7 +78,7 @@ class ProviderProviderAnalyticsDashboardsImpl
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, UpdateProviderAnalyticsDashboardResponse.class);
     } catch (IOException e) {

@@ -15,6 +15,10 @@ public class CreateOboTokenRequest {
   @JsonProperty("application_id")
   private String applicationId;
 
+  /** Whether to enable autoscoping for this token. */
+  @JsonProperty("autoscope_enabled")
+  private Boolean autoscopeEnabled;
+
   /** Comment that describes the purpose of the token. */
   @JsonProperty("comment")
   private String comment;
@@ -34,6 +38,15 @@ public class CreateOboTokenRequest {
 
   public String getApplicationId() {
     return applicationId;
+  }
+
+  public CreateOboTokenRequest setAutoscopeEnabled(Boolean autoscopeEnabled) {
+    this.autoscopeEnabled = autoscopeEnabled;
+    return this;
+  }
+
+  public Boolean getAutoscopeEnabled() {
+    return autoscopeEnabled;
   }
 
   public CreateOboTokenRequest setComment(String comment) {
@@ -69,6 +82,7 @@ public class CreateOboTokenRequest {
     if (o == null || getClass() != o.getClass()) return false;
     CreateOboTokenRequest that = (CreateOboTokenRequest) o;
     return Objects.equals(applicationId, that.applicationId)
+        && Objects.equals(autoscopeEnabled, that.autoscopeEnabled)
         && Objects.equals(comment, that.comment)
         && Objects.equals(lifetimeSeconds, that.lifetimeSeconds)
         && Objects.equals(scopes, that.scopes);
@@ -76,13 +90,14 @@ public class CreateOboTokenRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(applicationId, comment, lifetimeSeconds, scopes);
+    return Objects.hash(applicationId, autoscopeEnabled, comment, lifetimeSeconds, scopes);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CreateOboTokenRequest.class)
         .add("applicationId", applicationId)
+        .add("autoscopeEnabled", autoscopeEnabled)
         .add("comment", comment)
         .add("lifetimeSeconds", lifetimeSeconds)
         .add("scopes", scopes)

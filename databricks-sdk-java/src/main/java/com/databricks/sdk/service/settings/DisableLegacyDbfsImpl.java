@@ -25,7 +25,7 @@ class DisableLegacyDbfsImpl implements DisableLegacyDbfsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, DeleteDisableLegacyDbfsResponse.class);
     } catch (IOException e) {
@@ -42,7 +42,7 @@ class DisableLegacyDbfsImpl implements DisableLegacyDbfsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, DisableLegacyDbfs.class);
     } catch (IOException e) {
@@ -60,7 +60,7 @@ class DisableLegacyDbfsImpl implements DisableLegacyDbfsService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, DisableLegacyDbfs.class);
     } catch (IOException e) {

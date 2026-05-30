@@ -15,7 +15,7 @@ public class UpdateMaterializedFeatureRequest {
   @JsonProperty("materialized_feature")
   private MaterializedFeature materializedFeature;
 
-  /** Unique identifier for the materialized feature. */
+  /** Server-assigned unique identifier for the materialized feature. */
   @JsonIgnore private String materializedFeatureId;
 
   /**

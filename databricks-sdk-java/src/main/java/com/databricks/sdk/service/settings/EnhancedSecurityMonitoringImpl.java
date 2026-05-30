@@ -26,7 +26,7 @@ class EnhancedSecurityMonitoringImpl implements EnhancedSecurityMonitoringServic
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, EnhancedSecurityMonitoringSetting.class);
     } catch (IOException e) {
@@ -45,7 +45,7 @@ class EnhancedSecurityMonitoringImpl implements EnhancedSecurityMonitoringServic
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, EnhancedSecurityMonitoringSetting.class);
     } catch (IOException e) {

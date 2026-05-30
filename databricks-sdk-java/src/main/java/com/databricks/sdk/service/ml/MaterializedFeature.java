@@ -17,6 +17,10 @@ public class MaterializedFeature {
   @JsonProperty("cron_schedule")
   private String cronSchedule;
 
+  /** A cron-based schedule trigger for the materialization pipeline. */
+  @JsonProperty("cron_schedule_trigger")
+  private CronSchedule cronScheduleTrigger;
+
   /** The full name of the feature in Unity Catalog. */
   @JsonProperty("feature_name")
   private String featureName;
@@ -34,15 +38,15 @@ public class MaterializedFeature {
   @JsonProperty("last_materialization_time")
   private String lastMaterializationTime;
 
-  /** Unique identifier for the materialized feature. */
+  /** Server-assigned unique identifier for the materialized feature. */
   @JsonProperty("materialized_feature_id")
   private String materializedFeatureId;
 
-  /** */
+  /** Destination for writing feature values to an offline Delta table. */
   @JsonProperty("offline_store_config")
   private OfflineStoreConfig offlineStoreConfig;
 
-  /** */
+  /** Destination for writing feature values to an online Lakebase table. */
   @JsonProperty("online_store_config")
   private OnlineStoreConfig onlineStoreConfig;
 
@@ -51,11 +55,23 @@ public class MaterializedFeature {
   private MaterializedFeaturePipelineScheduleState pipelineScheduleState;
 
   /**
+   * The Structured Streaming trigger mode used for materialization. Real-time mode (RTM) targets
+   * sub-second latency for operational workloads; micro-batch mode (MBM) favors cost efficiency for
+   * ETL and analytics workloads.
+   */
+  @JsonProperty("streaming_mode")
+  private StreamingMode streamingMode;
+
+  /**
    * The fully qualified Unity Catalog path to the table containing the materialized feature (Delta
    * table or Lakebase table). Output only.
    */
   @JsonProperty("table_name")
   private String tableName;
+
+  /** A trigger that fires when the upstream source table changes. */
+  @JsonProperty("table_trigger")
+  private TableTrigger tableTrigger;
 
   public MaterializedFeature setCronSchedule(String cronSchedule) {
     this.cronSchedule = cronSchedule;
@@ -64,6 +80,15 @@ public class MaterializedFeature {
 
   public String getCronSchedule() {
     return cronSchedule;
+  }
+
+  public MaterializedFeature setCronScheduleTrigger(CronSchedule cronScheduleTrigger) {
+    this.cronScheduleTrigger = cronScheduleTrigger;
+    return this;
+  }
+
+  public CronSchedule getCronScheduleTrigger() {
+    return cronScheduleTrigger;
   }
 
   public MaterializedFeature setFeatureName(String featureName) {
@@ -130,6 +155,15 @@ public class MaterializedFeature {
     return pipelineScheduleState;
   }
 
+  public MaterializedFeature setStreamingMode(StreamingMode streamingMode) {
+    this.streamingMode = streamingMode;
+    return this;
+  }
+
+  public StreamingMode getStreamingMode() {
+    return streamingMode;
+  }
+
   public MaterializedFeature setTableName(String tableName) {
     this.tableName = tableName;
     return this;
@@ -139,12 +173,22 @@ public class MaterializedFeature {
     return tableName;
   }
 
+  public MaterializedFeature setTableTrigger(TableTrigger tableTrigger) {
+    this.tableTrigger = tableTrigger;
+    return this;
+  }
+
+  public TableTrigger getTableTrigger() {
+    return tableTrigger;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     MaterializedFeature that = (MaterializedFeature) o;
     return Objects.equals(cronSchedule, that.cronSchedule)
+        && Objects.equals(cronScheduleTrigger, that.cronScheduleTrigger)
         && Objects.equals(featureName, that.featureName)
         && Objects.equals(isOnline, that.isOnline)
         && Objects.equals(lastMaterializationTime, that.lastMaterializationTime)
@@ -152,13 +196,16 @@ public class MaterializedFeature {
         && Objects.equals(offlineStoreConfig, that.offlineStoreConfig)
         && Objects.equals(onlineStoreConfig, that.onlineStoreConfig)
         && Objects.equals(pipelineScheduleState, that.pipelineScheduleState)
-        && Objects.equals(tableName, that.tableName);
+        && Objects.equals(streamingMode, that.streamingMode)
+        && Objects.equals(tableName, that.tableName)
+        && Objects.equals(tableTrigger, that.tableTrigger);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
         cronSchedule,
+        cronScheduleTrigger,
         featureName,
         isOnline,
         lastMaterializationTime,
@@ -166,13 +213,16 @@ public class MaterializedFeature {
         offlineStoreConfig,
         onlineStoreConfig,
         pipelineScheduleState,
-        tableName);
+        streamingMode,
+        tableName,
+        tableTrigger);
   }
 
   @Override
   public String toString() {
     return new ToStringer(MaterializedFeature.class)
         .add("cronSchedule", cronSchedule)
+        .add("cronScheduleTrigger", cronScheduleTrigger)
         .add("featureName", featureName)
         .add("isOnline", isOnline)
         .add("lastMaterializationTime", lastMaterializationTime)
@@ -180,7 +230,9 @@ public class MaterializedFeature {
         .add("offlineStoreConfig", offlineStoreConfig)
         .add("onlineStoreConfig", onlineStoreConfig)
         .add("pipelineScheduleState", pipelineScheduleState)
+        .add("streamingMode", streamingMode)
         .add("tableName", tableName)
+        .add("tableTrigger", tableTrigger)
         .toString();
   }
 }

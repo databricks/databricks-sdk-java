@@ -14,7 +14,7 @@ public class PatchEndpointBudgetPolicyRequest {
   @JsonProperty("budget_policy_id")
   private String budgetPolicyId;
 
-  /** Name of the vector search endpoint */
+  /** Name of the AI Search endpoint */
   @JsonIgnore private String endpointName;
 
   public PatchEndpointBudgetPolicyRequest setBudgetPolicyId(String budgetPolicyId) {

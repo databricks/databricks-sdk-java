@@ -11,11 +11,11 @@ import java.util.Objects;
 
 @Generated
 public class UpdateEndpointCustomTagsRequest {
-  /** The new custom tags for the vector search endpoint */
+  /** The new custom tags for the AI Search endpoint */
   @JsonProperty("custom_tags")
   private Collection<CustomTag> customTags;
 
-  /** Name of the vector search endpoint */
+  /** Name of the AI Search endpoint */
   @JsonIgnore private String endpointName;
 
   public UpdateEndpointCustomTagsRequest setCustomTags(Collection<CustomTag> customTags) {

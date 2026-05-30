@@ -36,7 +36,7 @@ public class UserAgent {
   // TODO: check if reading from
   // /META-INF/maven/com.databricks/databrics-sdk-java/pom.properties
   // or getClass().getPackage().getImplementationVersion() is enough.
-  private static final String version = "0.106.0";
+  private static final String version = "0.113.0";
 
   public static void withProduct(String product, String productVersion) {
     UserAgent.product = product;
@@ -267,8 +267,6 @@ public class UserAgent {
         new KnownAgent("CLINE_ACTIVE", "cline"), // https://github.com/cline/cline (v3.24.0+)
         new KnownAgent("CODEX_CI", "codex"), // https://github.com/openai/codex
         new KnownAgent("COPILOT_CLI", "copilot-cli"), // https://github.com/features/copilot
-        // VS Code Copilot terminal; best-effort heuristic, not officially identified.
-        new KnownAgent("COPILOT_MODEL", "copilot-vscode"),
         new KnownAgent("CURSOR_AGENT", "cursor"), // Closed source
         new KnownAgent("GEMINI_CLI", "gemini-cli"), // https://google-gemini.github.io/gemini-cli
         new KnownAgent(
@@ -277,6 +275,9 @@ public class UserAgent {
         new KnownAgent("KIRO", "kiro"), // https://kiro.dev/ (Amazon)
         new KnownAgent("OPENCLAW_SHELL", "openclaw"), // https://github.com/anthropics/openclaw
         new KnownAgent("OPENCODE", "opencode"), // https://github.com/opencode-ai/opencode
+        // Set by VS Code 1.121+ for agent-initiated terminal commands
+        // (https://code.visualstudio.com/updates/v1_121).
+        new KnownAgent("VSCODE_AGENT", "vscode-agent"),
         new KnownAgent("WINDSURF_AGENT", "windsurf")); // https://codeium.com/windsurf (Codeium)
   }
 
@@ -308,13 +309,6 @@ public class UserAgent {
       if (env.get(a.envVar) != null) {
         matches.add(a.product);
       }
-    }
-
-    // Known BYOK false positive: Copilot CLI users often set COPILOT_MODEL
-    // alongside COPILOT_CLI. Treat that pair as a single copilot-cli signal
-    // rather than a stacked multi-agent setup.
-    if (matches.contains("copilot-cli") && matches.contains("copilot-vscode")) {
-      matches.removeIf(m -> m.equals("copilot-vscode"));
     }
 
     if (matches.size() == 1) {

@@ -9,6 +9,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.protobuf.FieldMask;
 import java.util.Objects;
 
+/**
+ * For the list of supported token scopes, see https://docs.databricks.com/api/workspace/api/scopes.
+ */
 @Generated
 public class UpdateTokenRequest {
   /** */
@@ -19,8 +22,7 @@ public class UpdateTokenRequest {
   @JsonIgnore private String tokenId;
 
   /**
-   * A list of field name under PublicTokenInfo, For example in request use {"update_mask":
-   * "comment,scopes"}
+   * A list of field name under token, For example, {"update_mask": "comment,scopes"}
    *
    * <p>The field mask must be a single string, with multiple fields separated by commas (no
    * spaces). The field path is relative to the resource object, using a dot (`.`) to navigate

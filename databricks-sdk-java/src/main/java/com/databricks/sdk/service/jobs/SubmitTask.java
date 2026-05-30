@@ -73,6 +73,13 @@ public class SubmitTask {
   private Boolean disableAutoOptimization;
 
   /**
+   * An optional flag to disable the task. If set to true, the task will not run even if it is part
+   * of a job.
+   */
+  @JsonProperty("disabled")
+  private Boolean disabled;
+
+  /**
    * An optional set of email addresses notified when the task run begins or completes. The default
    * behavior is to not send any emails.
    */
@@ -159,6 +166,10 @@ public class SubmitTask {
    */
   @JsonProperty("power_bi_task")
   private PowerBiTask powerBiTask;
+
+  /** The task runs a Python operator task. */
+  @JsonProperty("python_operator_task")
+  private PythonOperatorTask pythonOperatorTask;
 
   /** The task runs a Python wheel when the `python_wheel_task` field is present. */
   @JsonProperty("python_wheel_task")
@@ -325,6 +336,15 @@ public class SubmitTask {
     return disableAutoOptimization;
   }
 
+  public SubmitTask setDisabled(Boolean disabled) {
+    this.disabled = disabled;
+    return this;
+  }
+
+  public Boolean getDisabled() {
+    return disabled;
+  }
+
   public SubmitTask setEmailNotifications(JobEmailNotifications emailNotifications) {
     this.emailNotifications = emailNotifications;
     return this;
@@ -451,6 +471,15 @@ public class SubmitTask {
     return powerBiTask;
   }
 
+  public SubmitTask setPythonOperatorTask(PythonOperatorTask pythonOperatorTask) {
+    this.pythonOperatorTask = pythonOperatorTask;
+    return this;
+  }
+
+  public PythonOperatorTask getPythonOperatorTask() {
+    return pythonOperatorTask;
+  }
+
   public SubmitTask setPythonWheelTask(PythonWheelTask pythonWheelTask) {
     this.pythonWheelTask = pythonWheelTask;
     return this;
@@ -566,6 +595,7 @@ public class SubmitTask {
         && Objects.equals(dependsOn, that.dependsOn)
         && Objects.equals(description, that.description)
         && Objects.equals(disableAutoOptimization, that.disableAutoOptimization)
+        && Objects.equals(disabled, that.disabled)
         && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(environmentKey, that.environmentKey)
         && Objects.equals(existingClusterId, that.existingClusterId)
@@ -580,6 +610,7 @@ public class SubmitTask {
         && Objects.equals(notificationSettings, that.notificationSettings)
         && Objects.equals(pipelineTask, that.pipelineTask)
         && Objects.equals(powerBiTask, that.powerBiTask)
+        && Objects.equals(pythonOperatorTask, that.pythonOperatorTask)
         && Objects.equals(pythonWheelTask, that.pythonWheelTask)
         && Objects.equals(retryOnTimeout, that.retryOnTimeout)
         && Objects.equals(runIf, that.runIf)
@@ -607,6 +638,7 @@ public class SubmitTask {
         dependsOn,
         description,
         disableAutoOptimization,
+        disabled,
         emailNotifications,
         environmentKey,
         existingClusterId,
@@ -621,6 +653,7 @@ public class SubmitTask {
         notificationSettings,
         pipelineTask,
         powerBiTask,
+        pythonOperatorTask,
         pythonWheelTask,
         retryOnTimeout,
         runIf,
@@ -648,6 +681,7 @@ public class SubmitTask {
         .add("dependsOn", dependsOn)
         .add("description", description)
         .add("disableAutoOptimization", disableAutoOptimization)
+        .add("disabled", disabled)
         .add("emailNotifications", emailNotifications)
         .add("environmentKey", environmentKey)
         .add("existingClusterId", existingClusterId)
@@ -662,6 +696,7 @@ public class SubmitTask {
         .add("notificationSettings", notificationSettings)
         .add("pipelineTask", pipelineTask)
         .add("powerBiTask", powerBiTask)
+        .add("pythonOperatorTask", pythonOperatorTask)
         .add("pythonWheelTask", pythonWheelTask)
         .add("retryOnTimeout", retryOnTimeout)
         .add("runIf", runIf)

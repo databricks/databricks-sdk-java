@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
 
-/** **Endpoint**: Represents the compute resources to host vector search indexes. */
+/** **Endpoint**: Represents the compute resources to host AI Search indexes. */
 @Generated
 public class VectorSearchEndpointsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(VectorSearchEndpointsAPI.class);
@@ -92,7 +92,7 @@ public class VectorSearchEndpointsAPI {
     deleteEndpoint(new DeleteEndpointRequest().setEndpointName(endpointName));
   }
 
-  /** Delete a vector search endpoint. */
+  /** Delete an AI Search endpoint. */
   public void deleteEndpoint(DeleteEndpointRequest request) {
     impl.deleteEndpoint(request);
   }
@@ -101,12 +101,37 @@ public class VectorSearchEndpointsAPI {
     return getEndpoint(new GetEndpointRequest().setEndpointName(endpointName));
   }
 
-  /** Get details for a single vector search endpoint. */
+  /** Get details for a single AI Search endpoint. */
   public EndpointInfo getEndpoint(GetEndpointRequest request) {
     return impl.getEndpoint(request);
   }
 
-  /** List all vector search endpoints in the workspace. */
+  public GetVectorSearchEndpointPermissionLevelsResponse getPermissionLevels(String endpointId) {
+    return getPermissionLevels(
+        new GetVectorSearchEndpointPermissionLevelsRequest().setEndpointId(endpointId));
+  }
+
+  /** Gets the permission levels that a user can have on an object. */
+  public GetVectorSearchEndpointPermissionLevelsResponse getPermissionLevels(
+      GetVectorSearchEndpointPermissionLevelsRequest request) {
+    return impl.getPermissionLevels(request);
+  }
+
+  public VectorSearchEndpointPermissions getPermissions(String endpointId) {
+    return getPermissions(
+        new GetVectorSearchEndpointPermissionsRequest().setEndpointId(endpointId));
+  }
+
+  /**
+   * Gets the permissions of a vector search endpoint. Vector search endpoints can inherit
+   * permissions from their root object.
+   */
+  public VectorSearchEndpointPermissions getPermissions(
+      GetVectorSearchEndpointPermissionsRequest request) {
+    return impl.getPermissions(request);
+  }
+
+  /** List all AI Search endpoints in the workspace. */
   public Iterable<EndpointInfo> listEndpoints(ListEndpointsRequest request) {
     return new Paginator<>(
         request,
@@ -132,6 +157,15 @@ public class VectorSearchEndpointsAPI {
     return impl.retrieveUserVisibleMetrics(request);
   }
 
+  /**
+   * Sets permissions on an object, replacing existing permissions if they exist. Deletes all direct
+   * permissions if none are specified. Objects can inherit permissions from their root object.
+   */
+  public VectorSearchEndpointPermissions setPermissions(
+      VectorSearchEndpointPermissionsRequest request) {
+    return impl.setPermissions(request);
+  }
+
   /** Update the budget policy of an endpoint */
   public PatchEndpointBudgetPolicyResponse updateEndpointBudgetPolicy(
       PatchEndpointBudgetPolicyRequest request) {
@@ -142,6 +176,15 @@ public class VectorSearchEndpointsAPI {
   public UpdateEndpointCustomTagsResponse updateEndpointCustomTags(
       UpdateEndpointCustomTagsRequest request) {
     return impl.updateEndpointCustomTags(request);
+  }
+
+  /**
+   * Updates the permissions on a vector search endpoint. Vector search endpoints can inherit
+   * permissions from their root object.
+   */
+  public VectorSearchEndpointPermissions updatePermissions(
+      VectorSearchEndpointPermissionsRequest request) {
+    return impl.updatePermissions(request);
   }
 
   public VectorSearchEndpointsService impl() {

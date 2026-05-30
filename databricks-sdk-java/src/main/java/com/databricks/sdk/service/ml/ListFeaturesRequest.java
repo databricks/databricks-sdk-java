@@ -10,6 +10,11 @@ import java.util.Objects;
 
 @Generated
 public class ListFeaturesRequest {
+  /** Name of parent catalog for features of interest. */
+  @JsonIgnore
+  @QueryParam("catalog_name")
+  private String catalogName;
+
   /** The maximum number of results to return. */
   @JsonIgnore
   @QueryParam("page_size")
@@ -19,6 +24,20 @@ public class ListFeaturesRequest {
   @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
+
+  /** Name of parent schema relative to its parent catalog. */
+  @JsonIgnore
+  @QueryParam("schema_name")
+  private String schemaName;
+
+  public ListFeaturesRequest setCatalogName(String catalogName) {
+    this.catalogName = catalogName;
+    return this;
+  }
+
+  public String getCatalogName() {
+    return catalogName;
+  }
 
   public ListFeaturesRequest setPageSize(Long pageSize) {
     this.pageSize = pageSize;
@@ -38,24 +57,38 @@ public class ListFeaturesRequest {
     return pageToken;
   }
 
+  public ListFeaturesRequest setSchemaName(String schemaName) {
+    this.schemaName = schemaName;
+    return this;
+  }
+
+  public String getSchemaName() {
+    return schemaName;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ListFeaturesRequest that = (ListFeaturesRequest) o;
-    return Objects.equals(pageSize, that.pageSize) && Objects.equals(pageToken, that.pageToken);
+    return Objects.equals(catalogName, that.catalogName)
+        && Objects.equals(pageSize, that.pageSize)
+        && Objects.equals(pageToken, that.pageToken)
+        && Objects.equals(schemaName, that.schemaName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pageSize, pageToken);
+    return Objects.hash(catalogName, pageSize, pageToken, schemaName);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ListFeaturesRequest.class)
+        .add("catalogName", catalogName)
         .add("pageSize", pageSize)
         .add("pageToken", pageToken)
+        .add("schemaName", schemaName)
         .toString();
   }
 }

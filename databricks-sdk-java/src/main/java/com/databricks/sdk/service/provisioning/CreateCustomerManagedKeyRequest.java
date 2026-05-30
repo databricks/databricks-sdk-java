@@ -15,6 +15,10 @@ public class CreateCustomerManagedKeyRequest {
   private CreateAwsKeyInfo awsKeyInfo;
 
   /** */
+  @JsonProperty("azure_key_info")
+  private CreateAzureKeyInfo azureKeyInfo;
+
+  /** */
   @JsonProperty("gcp_key_info")
   private CreateGcpKeyInfo gcpKeyInfo;
 
@@ -29,6 +33,15 @@ public class CreateCustomerManagedKeyRequest {
 
   public CreateAwsKeyInfo getAwsKeyInfo() {
     return awsKeyInfo;
+  }
+
+  public CreateCustomerManagedKeyRequest setAzureKeyInfo(CreateAzureKeyInfo azureKeyInfo) {
+    this.azureKeyInfo = azureKeyInfo;
+    return this;
+  }
+
+  public CreateAzureKeyInfo getAzureKeyInfo() {
+    return azureKeyInfo;
   }
 
   public CreateCustomerManagedKeyRequest setGcpKeyInfo(CreateGcpKeyInfo gcpKeyInfo) {
@@ -55,19 +68,21 @@ public class CreateCustomerManagedKeyRequest {
     if (o == null || getClass() != o.getClass()) return false;
     CreateCustomerManagedKeyRequest that = (CreateCustomerManagedKeyRequest) o;
     return Objects.equals(awsKeyInfo, that.awsKeyInfo)
+        && Objects.equals(azureKeyInfo, that.azureKeyInfo)
         && Objects.equals(gcpKeyInfo, that.gcpKeyInfo)
         && Objects.equals(useCases, that.useCases);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(awsKeyInfo, gcpKeyInfo, useCases);
+    return Objects.hash(awsKeyInfo, azureKeyInfo, gcpKeyInfo, useCases);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CreateCustomerManagedKeyRequest.class)
         .add("awsKeyInfo", awsKeyInfo)
+        .add("azureKeyInfo", azureKeyInfo)
         .add("gcpKeyInfo", gcpKeyInfo)
         .add("useCases", useCases)
         .toString();

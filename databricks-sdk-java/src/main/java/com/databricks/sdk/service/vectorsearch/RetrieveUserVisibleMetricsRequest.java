@@ -24,7 +24,7 @@ public class RetrieveUserVisibleMetricsRequest {
   @JsonProperty("metrics")
   private Collection<Metric> metrics;
 
-  /** Vector search endpoint name */
+  /** AI Search endpoint name */
   @JsonIgnore private String name;
 
   /** Token for pagination */

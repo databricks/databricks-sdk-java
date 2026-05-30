@@ -8,6 +8,7 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum BranchStatusState {
   ARCHIVED,
+  DELETED,
   IMPORTING,
   INIT,
   READY,

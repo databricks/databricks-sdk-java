@@ -171,6 +171,11 @@ public class LakeviewAPI {
     return impl.publish(request);
   }
 
+  /** Revert a dashboard's definition in draft mode to the last published version. */
+  public RevertDashboardResponse revert(RevertDashboardRequest request) {
+    return impl.revert(request);
+  }
+
   public void trash(String dashboardId) {
     trash(new TrashDashboardRequest().setDashboardId(dashboardId));
   }

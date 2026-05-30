@@ -21,6 +21,10 @@ public class GenieUpdateSpaceRequest {
   @JsonProperty("etag")
   private String etag;
 
+  /** Parent workspace folder path to move this Genie space under. */
+  @JsonProperty("parent_path")
+  private String parentPath;
+
   /**
    * The contents of the Genie Space in serialized string form (full replacement). Use the [Get
    * Genie Space](:method:genie/getspace) API to retrieve an example response, which includes the
@@ -57,6 +61,15 @@ public class GenieUpdateSpaceRequest {
 
   public String getEtag() {
     return etag;
+  }
+
+  public GenieUpdateSpaceRequest setParentPath(String parentPath) {
+    this.parentPath = parentPath;
+    return this;
+  }
+
+  public String getParentPath() {
+    return parentPath;
   }
 
   public GenieUpdateSpaceRequest setSerializedSpace(String serializedSpace) {
@@ -102,6 +115,7 @@ public class GenieUpdateSpaceRequest {
     GenieUpdateSpaceRequest that = (GenieUpdateSpaceRequest) o;
     return Objects.equals(description, that.description)
         && Objects.equals(etag, that.etag)
+        && Objects.equals(parentPath, that.parentPath)
         && Objects.equals(serializedSpace, that.serializedSpace)
         && Objects.equals(spaceId, that.spaceId)
         && Objects.equals(title, that.title)
@@ -110,7 +124,8 @@ public class GenieUpdateSpaceRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(description, etag, serializedSpace, spaceId, title, warehouseId);
+    return Objects.hash(
+        description, etag, parentPath, serializedSpace, spaceId, title, warehouseId);
   }
 
   @Override
@@ -118,6 +133,7 @@ public class GenieUpdateSpaceRequest {
     return new ToStringer(GenieUpdateSpaceRequest.class)
         .add("description", description)
         .add("etag", etag)
+        .add("parentPath", parentPath)
         .add("serializedSpace", serializedSpace)
         .add("spaceId", spaceId)
         .add("title", title)

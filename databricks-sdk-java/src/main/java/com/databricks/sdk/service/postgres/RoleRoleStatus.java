@@ -30,15 +30,7 @@ public class RoleRoleStatus {
   @JsonProperty("postgres_role")
   private String postgresRole;
 
-  /**
-   * The short identifier of the role, suitable for showing to the users. For a role with name
-   * `projects/my-project/branches/my-branch/roles/my-role`, the role_id is `my-role`.
-   *
-   * <p>Use this field when building UI components that display roles to users (e.g., a drop-down
-   * selector). Prefer showing `role_id` instead of the full resource name from `Role.name`, which
-   * follows the `projects/{project_id}/branches/{branch_id}/roles/{role_id}` format and is not
-   * user-friendly.
-   */
+  /** Part of the resource name. */
   @JsonProperty("role_id")
   private String roleId;
 

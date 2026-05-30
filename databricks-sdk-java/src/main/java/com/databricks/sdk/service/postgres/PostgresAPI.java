@@ -333,6 +333,12 @@ public class PostgresAPI {
         });
   }
 
+  /** Undeletes the specified database branch. */
+  public UndeleteBranchOperation undeleteBranch(UndeleteBranchRequest request) {
+    Operation operation = impl.undeleteBranch(request);
+    return new UndeleteBranchOperation(impl, operation);
+  }
+
   /** Undeletes a soft-deleted project. */
   public UndeleteProjectOperation undeleteProject(UndeleteProjectRequest request) {
     Operation operation = impl.undeleteProject(request);

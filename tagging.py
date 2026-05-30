@@ -129,6 +129,22 @@ class Version:
         return self.bump_minor()
 
 
+def _read_local_head_sha() -> str:
+    """
+    Returns the SHA of the local working tree's HEAD via ``git rev-parse``.
+    """
+    return subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
+
+
+class MainAdvancedError(Exception):
+    """
+    Raised when ``origin/main`` has advanced since the workflow's
+    checkout — i.e., another commit landed during this run. The local
+    working tree is now stale, so any commit produced from it would
+    silently revert whatever the concurrent push added.
+    """
+
+
 # GitHub does not support signing commits for GitHub Apps directly.
 # This class replaces usages for git commands such as "git add", "git commit", and "git push".
 @dataclass
@@ -137,8 +153,12 @@ class GitHubRepo:
         self.repo = repo
         self.changed_files: list[InputGitTreeElement] = []
         self.ref = "heads/main"
-        head_ref = self.repo.get_git_ref(self.ref)
-        self.sha = head_ref.object.sha
+        # Anchor ``self.sha`` to the **local checkout** rather than a
+        # live API call. ``actions/checkout`` populates the working tree
+        # at this SHA, and every subsequent file read in this run is
+        # against that tree; the API HEAD is only relevant when we go
+        # to push.
+        self.sha = _read_local_head_sha()
 
     # Replaces "git add file"
     def add_file(self, loc: str, content: str):
@@ -151,12 +171,19 @@ class GitHubRepo:
     # Replaces "git commit && git push"
     def commit_and_push(self, message: str):
         head_ref = self.repo.get_git_ref(self.ref)
+        if head_ref.object.sha != self.sha:
+            raise MainAdvancedError(
+                f"origin/main advanced from {self.sha} to {head_ref.object.sha} "
+                f"during this run. Local working tree is stale; aborting before "
+                f"the commit would silently revert the new content. Re-run the "
+                f"workflow."
+            )
         base_tree = self.repo.get_git_tree(sha=head_ref.object.sha)
         new_tree = self.repo.create_git_tree(self.changed_files, base_tree)
         parent_commit = self.repo.get_git_commit(head_ref.object.sha)
 
         new_commit = self.repo.create_git_commit(message=message, tree=new_tree, parents=[parent_commit])
-        # Update branch reference
+        # Update branch reference.
         head_ref.edit(new_commit.sha)
         self.sha = new_commit.sha
 
@@ -165,8 +192,7 @@ class GitHubRepo:
         if sha:
             self.sha = sha
         else:
-            head_ref = self.repo.get_git_ref(self.ref)
-            self.sha = head_ref.object.sha
+            self.sha = _read_local_head_sha()
 
     def tag(self, tag_name: str, tag_message: str):
         # Create a tag pointing to the new commit
@@ -417,6 +443,18 @@ def get_previous_tag_info(package: Package) -> Optional[TagInfo]:
     return TagInfo(package=package, version=version, content=latest_release)
 
 
+def _load_codegen_config() -> Dict:
+    """
+    Loads ``.codegen.json`` from the repo root. Returns an empty dict when
+    the file is missing.
+    """
+    package_file_path = os.path.join(os.getcwd(), CODEGEN_FILE_NAME)
+    if not os.path.exists(package_file_path):
+        return {}
+    with open(package_file_path, "r") as file:
+        return json.load(file)
+
+
 def get_next_tag_info(package: Package) -> Optional[TagInfo]:
     """
     Extracts the changes from the "NEXT_CHANGELOG.md" file.
@@ -435,7 +473,11 @@ def get_next_tag_info(package: Package) -> Optional[TagInfo]:
     # Ensure there is exactly one empty line before each section
     next_changelog = re.sub(r"(\n*)(###[^\n]+)", r"\n\n\2", next_changelog)
 
-    if not re.search(r"###", next_changelog):
+    # By default, packages whose NEXT_CHANGELOG.md has no populated
+    # sections are skipped — there's nothing meaningful to release.
+    # Repos like sdk-js which are still in development can opt in
+    # by setting ``allow_empty_changelog: true`` in .codegen.json.
+    if not re.search(r"###", next_changelog) and not _load_codegen_config().get("allow_empty_changelog", False):
         print("All sections are empty. No changes will be made to the changelog.")
         return None
 
@@ -525,6 +567,131 @@ def is_tag_applied(tag: TagInfo) -> bool:
         raise Exception(f"Git command failed: {e.stderr.strip() or e}") from e
 
 
+def find_last_release_tag(package: Package) -> Optional[str]:
+    """
+    Returns the most recent ``<package>/v*`` tag in the repository, or
+    ``None`` if no such tag exists. Tags are sorted by semver ordering
+    (``--sort=-v:refname``) so pre-releases sort below their stable
+    counterparts.
+
+    :raises Exception: If the git command fails.
+    """
+    pattern = f"{package.name}/v*" if package.name else "v*"
+    try:
+        output = subprocess.check_output(
+            ["git", "tag", "--list", pattern, "--sort=-v:refname"],
+            stderr=subprocess.PIPE,
+            text=True,
+        ).strip()
+    except subprocess.CalledProcessError as e:
+        raise Exception(f"Git command failed: {e.stderr.strip() or e}") from e
+    if not output:
+        return None
+    return output.split("\n")[0].strip()
+
+
+def has_commits_since_tag(tag: str, path: str) -> bool:
+    """
+    Returns True iff at least one commit reachable from HEAD but not from
+    ``tag`` touches ``path``. Used to detect that a sibling dependency has
+    unreleased changes that would ship stale if we tagged a dependent
+    without re-tagging the dependency.
+
+    :raises Exception: If the git command fails.
+    """
+    args = ["git", "log", "--oneline", f"{tag}..HEAD", "--", path or "."]
+    try:
+        output = subprocess.check_output(args, stderr=subprocess.PIPE, text=True).strip()
+    except subprocess.CalledProcessError as e:
+        raise Exception(f"Git command failed: {e.stderr.strip() or e}") from e
+    return bool(output)
+
+
+def check_dependency_freshness(tag_infos: List[TagInfo], all_packages: List[Package]) -> None:
+    """
+    Hard-fails when a package being released depends on a sibling package
+    that has unreleased commits since its last tag.
+
+    Why: dependency rewrites (``stage_version_updates``) only fire for
+    siblings that are *also* being released. Without this check, releasing
+    package_a alone — when package_b has commits since its last tag —
+    publishes ``package_a@new`` pinning the *old* package_b artifact, which
+    won't have the changes package_a's source depends on. The check is
+    commit-based (not changelog-based) so a missing ``NEXT_CHANGELOG.md``
+    entry on package_b is still caught.
+
+    No-op when ``.codegen.json`` declares no dependency pattern (legacy
+    SDKs without per-package wiring).
+    """
+    if not tag_infos:
+        return
+
+    package_file_path = os.path.join(os.getcwd(), CODEGEN_FILE_NAME)
+    with open(package_file_path, "r") as file:
+        codegen = json.load(file)
+
+    name_template = codegen.get("dependency_name_template", "")
+    dep_patterns = codegen.get("dependency_pattern", {})
+    if not name_template or not dep_patterns:
+        return
+
+    releasing_paths = {info.package.path for info in tag_infos}
+    by_dep_name: Dict[str, Package] = {}
+    for pkg in all_packages:
+        if not pkg.name:
+            continue
+        by_dep_name[name_template.replace("$PACKAGE", pkg.name)] = pkg
+
+    issues: List[str] = []
+    for info in tag_infos:
+        for filename, pattern in dep_patterns.items():
+            loc = os.path.join(os.getcwd(), info.package.path, filename)
+            if not os.path.exists(loc):
+                continue
+            with open(loc, "r") as f:
+                content = f.read()
+
+            for dep_name, dep_pkg in by_dep_name.items():
+                if dep_pkg.path == info.package.path:
+                    continue
+                if dep_pkg.path in releasing_paths:
+                    continue
+
+                # Same regex construction used by ``rewrite_dependencies``,
+                # so "is this dep referenced?" matches "would the rewrite
+                # touch it?". Keeps the two in lockstep.
+                regex = (
+                    re.escape(pattern)
+                    .replace(re.escape("$DEPENDENCY"), re.escape(dep_name))
+                    .replace(re.escape("$VERSION"), Version.PATTERN)
+                )
+                if not re.search(regex, content):
+                    continue
+
+                last_tag = find_last_release_tag(dep_pkg)
+                if last_tag is None:
+                    # No prior tag means the dep was never released; we
+                    # can't reason about staleness. Surface it anyway so
+                    # the human resolves it explicitly.
+                    issues.append(
+                        f"{info.package.name} depends on {dep_pkg.name}, "
+                        f"which has never been released. Release "
+                        f"{dep_pkg.name} first or include it in this run."
+                    )
+                    continue
+                if has_commits_since_tag(last_tag, dep_pkg.path):
+                    issues.append(
+                        f"{info.package.name} depends on {dep_pkg.name}, "
+                        f"which has commits since {last_tag} but is not "
+                        f"being released. Either release {dep_pkg.name} "
+                        f"as well, or hold this release until its changes "
+                        f"are reverted."
+                    )
+
+    if issues:
+        raise Exception("Dependency freshness check failed:\n  - " + "\n  - ".join(issues))
+
+
 def find_last_tags() -> List[TagInfo]:
     """
     Finds the last tags for each package.
@@ -558,11 +725,11 @@ def generate_commit_message(tag_infos: List[TagInfo]) -> str:
             raise Exception("Multiple packages found in legacy mode")
         return f"[Release] Release v{info.version}\n\n{info.content}"
 
-    # Sort tag_infos by package name for consistency
+    # Sort tag_infos by package name for consistency.
     tag_infos.sort(key=lambda info: info.package.name)
-    return "Release\n\n" + "\n\n".join(
-        f"## {info.package.name}/v{info.version}\n\n{info.content}" for info in tag_infos
-    )
+    titles = ", ".join(f"{info.package.name}/v{info.version}" for info in tag_infos)
+    body = "\n\n".join(f"## {info.package.name}/v{info.version}\n\n{info.content}" for info in tag_infos)
+    return f"[Release] {titles}\n\n{body}"
 
 
 def push_changes(tag_infos: List[TagInfo]) -> None:
@@ -585,20 +752,17 @@ def reset_repository(hash: Optional[str] = None) -> None:
 
     :param hash: The commit hash to reset to. If None, it resets to HEAD.
     """
-    # Fetch the latest changes from the remote repository
+    # Fetch the latest changes from the remote repository.
     subprocess.run(["git", "fetch"])
 
-    # Determine the commit hash (default to origin/main if none is provided)
+    # Determine the commit hash (default to origin/main if none is provided).
     commit_hash = hash or "origin/main"
 
-    # Reset in memory changed files and the commit hash
+    # ``git reset --hard`` must land before ``gh.reset(None)``, since
+    # ``gh.reset(None)`` reads ``git rev-parse HEAD`` to anchor
+    # ``self.sha`` to the local working tree.
+    subprocess.run(["git", "reset", "--hard", commit_hash], check=True)
     gh.reset(hash)
-
-    # Construct the Git reset command
-    command = ["git", "reset", "--hard", commit_hash]
-
-    # Execute the git reset command
-    subprocess.run(command, check=True)
 
 
 def retry_function(
@@ -617,6 +781,12 @@ def retry_function(
     while attempts <= max_attempts:
         try:
             return func()  # Call the function
+        except MainAdvancedError:
+            # Permanent failure: another commit landed on main during
+            # this run, so the local tree is stale. Retrying with the
+            # same stale tree would just hit the same mismatch — only
+            # a fresh workflow run against the new main can recover.
+            raise
         except Exception as e:
             attempts += 1
             print(f"Attempt {attempts} failed: {e}")
@@ -628,21 +798,115 @@ def retry_function(
                 raise e  # Re-raise the exception after max retries
 
 
-def update_changelogs(packages: List[Package]) -> List[TagInfo]:
+def update_changelogs(selected_packages: List[Package], all_packages: List[Package]) -> List[TagInfo]:
     """
     Updates changelogs and pushes the commits.
+
+    ``selected_packages`` are the packages whose ``NEXT_CHANGELOG.md`` is
+    consulted to decide what gets released this run. ``all_packages`` is
+    the full repo inventory used for cross-package dep rewrites.
+
+    The freshness check is deliberately *not* called here. ``process``
+    runs it before entering the retry loop so a freshness violation
+    fails fast — the check is deterministic against the same git state,
+    so wrapping it in retry would just delay the same failure five
+    times.
     """
-    tag_infos = [info for info in (process_package(package) for package in packages) if info is not None]
+    tag_infos = [info for info in (process_package(package) for package in selected_packages) if info is not None]
     # If any package was changed, stage version updates and push.
     if tag_infos:
-        stage_version_updates(tag_infos, packages)
+        stage_version_updates(tag_infos, all_packages)
         push_changes(tag_infos)
     return tag_infos
+
+
+def preview_tag_infos(packages: List[Package]) -> List[TagInfo]:
+    """
+    Read-only sibling of ``process_package``: returns the TagInfos that
+    would be released for ``packages`` without writing any changelog
+    edits. ``process`` calls this before the retry loop so the freshness
+    check has a snapshot to validate against. ``process_package`` will
+    re-derive the same TagInfos when ``update_changelogs`` runs; the
+    duplication is just a couple of NEXT_CHANGELOG.md reads.
+    """
+    return [info for info in (get_next_tag_info(package) for package in packages) if info is not None]
+
+
+def order_tag_infos_by_dependency(tag_infos: List[TagInfo]) -> List[TagInfo]:
+    """
+    Returns ``tag_infos`` in topological order: every package appears
+    after every sibling it depends on.
+    """
+    if not tag_infos:
+        return list(tag_infos)
+
+    if any(not info.package.name for info in tag_infos) and len(tag_infos) > 1:
+        raise Exception("Multiple packages found in legacy mode")
+
+    package_file_path = os.path.join(os.getcwd(), CODEGEN_FILE_NAME)
+    with open(package_file_path, "r") as file:
+        codegen = json.load(file)
+
+    name_template = codegen.get("dependency_name_template", "")
+    dep_patterns = codegen.get("dependency_pattern", {})
+    if not name_template or not dep_patterns:
+        return list(tag_infos)
+
+    by_dep_name: Dict[str, TagInfo] = {
+        name_template.replace("$PACKAGE", info.package.name): info for info in tag_infos if info.package.name
+    }
+
+    # Adjacency: path -> set of paths it depends on (within tag_infos).
+    deps: Dict[str, set] = {info.package.path: set() for info in tag_infos}
+    for info in tag_infos:
+        for filename, pattern in dep_patterns.items():
+            loc = os.path.join(os.getcwd(), info.package.path, filename)
+            if not os.path.exists(loc):
+                continue
+            with open(loc, "r") as f:
+                content = f.read()
+            for dep_name, dep_info in by_dep_name.items():
+                if dep_info.package.path == info.package.path:
+                    continue
+                regex = (
+                    re.escape(pattern)
+                    .replace(re.escape("$DEPENDENCY"), re.escape(dep_name))
+                    .replace(re.escape("$VERSION"), Version.PATTERN)
+                )
+                if re.search(regex, content):
+                    deps[info.package.path].add(dep_info.package.path)
+
+    # Stable topological sort: at each step, emit every node whose deps
+    # are already emitted, alphabetically by package name. Ties broken
+    # alphabetically so the manifest is reproducible across runs.
+    emitted: set = set()
+    ordered: List[TagInfo] = []
+    while len(ordered) < len(tag_infos):
+        ready = sorted(
+            (
+                info
+                for info in tag_infos
+                if info.package.path not in emitted and deps[info.package.path].issubset(emitted)
+            ),
+            key=lambda info: info.package.name,
+        )
+        if not ready:
+            remaining = [info.package.name for info in tag_infos if info.package.path not in emitted]
+            raise Exception(f"Cyclic dependency detected among packages: {remaining}")
+        for info in ready:
+            ordered.append(info)
+            emitted.add(info.package.path)
+    return ordered
 
 
 def push_tags(tag_infos: List[TagInfo]) -> None:
     """
     Creates and pushes tags to the repository.
+
+    Tags are emitted in topological order — dependencies before
+    dependents — so downstream publishing pipelines reading
+    ``created_tags.json`` can walk it sequentially without re-deriving
+    the dependency graph. See ``order_tag_infos_by_dependency``.
 
     As a side effect, writes the names of successfully created tags to
     ``./created_tags.json`` so that workflows triggering this script can
@@ -657,6 +921,7 @@ def push_tags(tag_infos: List[TagInfo]) -> None:
     exception is re-raised, so recovery-mode runs still surface their
     output.
     """
+    tag_infos = order_tag_infos_by_dependency(tag_infos)
     created: List[str] = []
     try:
         for tag_info in tag_infos:
@@ -755,12 +1020,24 @@ def process():
         push_tags(pending_tags)
         return
 
-    packages = find_packages()
-    # If packages are specified as an argument, only process those packages.
+    all_packages = find_packages()
+    # If packages are specified as an argument, only release those — but
+    # dep rewrites and the freshness check still operate over the full
+    # set.
+    selected_packages = all_packages
     if package_names:
-        packages = [package for package in packages if package.name in package_names]
+        selected_packages = [package for package in all_packages if package.name in package_names]
 
-    pending_tags = retry_function(func=lambda: update_changelogs(packages), cleanup=reset_repository)
+    # Run the freshness check against a read-only preview before the
+    # retry loop, since the check is deterministic. A freshness
+    # violation fails the run immediately, with no commits, no tags, no
+    # retry storm.
+    check_dependency_freshness(preview_tag_infos(selected_packages), all_packages)
+
+    pending_tags = retry_function(
+        func=lambda: update_changelogs(selected_packages, all_packages),
+        cleanup=reset_repository,
+    )
     push_tags(pending_tags)
 
 

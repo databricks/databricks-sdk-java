@@ -17,6 +17,43 @@ class AccountIamV2Impl implements AccountIamV2Service {
   }
 
   @Override
+  public WorkspaceAssignmentDetail createWorkspaceAssignmentDetail(
+      CreateWorkspaceAssignmentDetailRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/identity/accounts/%s/workspaces/%s/workspaceAssignmentDetails",
+            apiClient.configuredAccountID(), request.getWorkspaceId());
+    try {
+      Request req =
+          new Request("POST", path, apiClient.serialize(request.getWorkspaceAssignmentDetail()));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, WorkspaceAssignmentDetail.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public void deleteWorkspaceAssignmentDetail(DeleteWorkspaceAssignmentDetailRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/identity/accounts/%s/workspaces/%s/workspaceAssignmentDetails/%s",
+            apiClient.configuredAccountID(), request.getWorkspaceId(), request.getPrincipalId());
+    try {
+      Request req = new Request("DELETE", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      apiClient.execute(req, Void.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
   public WorkspaceAccessDetail getWorkspaceAccessDetail(GetWorkspaceAccessDetailRequest request) {
     String path =
         String.format(
@@ -28,6 +65,42 @@ class AccountIamV2Impl implements AccountIamV2Service {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, WorkspaceAccessDetail.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public WorkspaceAssignmentDetail getWorkspaceAssignmentDetail(
+      GetWorkspaceAssignmentDetailRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/identity/accounts/%s/workspaces/%s/workspaceAssignmentDetails/%s",
+            apiClient.configuredAccountID(), request.getWorkspaceId(), request.getPrincipalId());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, WorkspaceAssignmentDetail.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public ListWorkspaceAssignmentDetailsResponse listWorkspaceAssignmentDetails(
+      ListWorkspaceAssignmentDetailsRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/identity/accounts/%s/workspaces/%s/workspaceAssignmentDetails",
+            apiClient.configuredAccountID(), request.getWorkspaceId());
+    try {
+      Request req = new Request("GET", path);
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      return apiClient.execute(req, ListWorkspaceAssignmentDetailsResponse.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -83,6 +156,26 @@ class AccountIamV2Impl implements AccountIamV2Service {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       return apiClient.execute(req, ResolveUserResponse.class);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
+  @Override
+  public WorkspaceAssignmentDetail updateWorkspaceAssignmentDetail(
+      UpdateWorkspaceAssignmentDetailRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/identity/accounts/%s/workspaces/%s/workspaceAssignmentDetails/%s",
+            apiClient.configuredAccountID(), request.getWorkspaceId(), request.getPrincipalId());
+    try {
+      Request req =
+          new Request("PATCH", path, apiClient.serialize(request.getWorkspaceAssignmentDetail()));
+
+      ApiClient.setQuery(req, request);
+      req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
+      return apiClient.execute(req, WorkspaceAssignmentDetail.class);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

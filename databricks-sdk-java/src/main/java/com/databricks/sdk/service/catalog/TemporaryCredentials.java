@@ -28,6 +28,10 @@ public class TemporaryCredentials {
   @JsonProperty("gcp_oauth_token")
   private GcpOauthToken gcpOauthToken;
 
+  /** */
+  @JsonProperty("r2_temp_credentials")
+  private R2Credentials r2TempCredentials;
+
   public TemporaryCredentials setAwsTempCredentials(AwsCredentials awsTempCredentials) {
     this.awsTempCredentials = awsTempCredentials;
     return this;
@@ -64,6 +68,15 @@ public class TemporaryCredentials {
     return gcpOauthToken;
   }
 
+  public TemporaryCredentials setR2TempCredentials(R2Credentials r2TempCredentials) {
+    this.r2TempCredentials = r2TempCredentials;
+    return this;
+  }
+
+  public R2Credentials getR2TempCredentials() {
+    return r2TempCredentials;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -72,12 +85,14 @@ public class TemporaryCredentials {
     return Objects.equals(awsTempCredentials, that.awsTempCredentials)
         && Objects.equals(azureAad, that.azureAad)
         && Objects.equals(expirationTime, that.expirationTime)
-        && Objects.equals(gcpOauthToken, that.gcpOauthToken);
+        && Objects.equals(gcpOauthToken, that.gcpOauthToken)
+        && Objects.equals(r2TempCredentials, that.r2TempCredentials);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(awsTempCredentials, azureAad, expirationTime, gcpOauthToken);
+    return Objects.hash(
+        awsTempCredentials, azureAad, expirationTime, gcpOauthToken, r2TempCredentials);
   }
 
   @Override
@@ -87,6 +102,7 @@ public class TemporaryCredentials {
         .add("azureAad", azureAad)
         .add("expirationTime", expirationTime)
         .add("gcpOauthToken", gcpOauthToken)
+        .add("r2TempCredentials", r2TempCredentials)
         .toString();
   }
 }

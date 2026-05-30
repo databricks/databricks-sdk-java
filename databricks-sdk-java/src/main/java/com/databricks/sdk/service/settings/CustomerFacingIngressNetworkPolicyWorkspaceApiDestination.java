@@ -10,9 +10,23 @@ import java.util.Objects;
 
 @Generated
 public class CustomerFacingIngressNetworkPolicyWorkspaceApiDestination {
+  /** Qualifies the breadth of API access for the listed scopes. See ApiScopeQualifier. */
+  @JsonProperty("scope_qualifier")
+  private CustomerFacingIngressNetworkPolicyApiScopeQualifier scopeQualifier;
+
   /** */
   @JsonProperty("scopes")
   private Collection<String> scopes;
+
+  public CustomerFacingIngressNetworkPolicyWorkspaceApiDestination setScopeQualifier(
+      CustomerFacingIngressNetworkPolicyApiScopeQualifier scopeQualifier) {
+    this.scopeQualifier = scopeQualifier;
+    return this;
+  }
+
+  public CustomerFacingIngressNetworkPolicyApiScopeQualifier getScopeQualifier() {
+    return scopeQualifier;
+  }
 
   public CustomerFacingIngressNetworkPolicyWorkspaceApiDestination setScopes(
       Collection<String> scopes) {
@@ -30,17 +44,19 @@ public class CustomerFacingIngressNetworkPolicyWorkspaceApiDestination {
     if (o == null || getClass() != o.getClass()) return false;
     CustomerFacingIngressNetworkPolicyWorkspaceApiDestination that =
         (CustomerFacingIngressNetworkPolicyWorkspaceApiDestination) o;
-    return Objects.equals(scopes, that.scopes);
+    return Objects.equals(scopeQualifier, that.scopeQualifier)
+        && Objects.equals(scopes, that.scopes);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(scopes);
+    return Objects.hash(scopeQualifier, scopes);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CustomerFacingIngressNetworkPolicyWorkspaceApiDestination.class)
+        .add("scopeQualifier", scopeQualifier)
         .add("scopes", scopes)
         .toString();
   }

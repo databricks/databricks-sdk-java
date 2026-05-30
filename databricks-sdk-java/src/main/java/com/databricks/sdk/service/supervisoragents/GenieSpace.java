@@ -9,7 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class GenieSpace {
-  /** The ID of the genie space. */
+  /**
+   * Deprecated: use space_id instead. Still REQUIRED for backward compatibility until a future API
+   * version removes it.
+   */
   @JsonProperty("id")
   private String id;
 

@@ -26,7 +26,7 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, VectorIndex.class);
     } catch (IOException e) {
@@ -44,7 +44,7 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, DeleteDataVectorIndexResponse.class);
     } catch (IOException e) {
@@ -61,7 +61,7 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
@@ -78,7 +78,7 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, VectorIndex.class);
     } catch (IOException e) {
@@ -95,7 +95,7 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ListVectorIndexesResponse.class);
     } catch (IOException e) {
@@ -113,7 +113,7 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, QueryVectorIndexResponse.class);
     } catch (IOException e) {
@@ -132,7 +132,7 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, QueryVectorIndexResponse.class);
     } catch (IOException e) {
@@ -150,7 +150,7 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, ScanVectorIndexResponse.class);
     } catch (IOException e) {
@@ -162,12 +162,13 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
   public void syncIndex(SyncIndexRequest request) {
     String path = String.format("/api/2.0/vector-search/indexes/%s/sync", request.getIndexName());
     try {
-      Request req = new Request("POST", path);
+      Request req = new Request("POST", path, apiClient.serialize(request));
 
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
+      req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       apiClient.execute(req, Void.class);
     } catch (IOException e) {
@@ -186,7 +187,7 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, UpsertDataVectorIndexResponse.class);
     } catch (IOException e) {

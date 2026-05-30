@@ -14,6 +14,10 @@ public class TimeWindow {
   private ContinuousWindow continuous;
 
   /** */
+  @JsonProperty("rolling")
+  private RollingWindow rolling;
+
+  /** */
   @JsonProperty("sliding")
   private SlidingWindow sliding;
 
@@ -28,6 +32,15 @@ public class TimeWindow {
 
   public ContinuousWindow getContinuous() {
     return continuous;
+  }
+
+  public TimeWindow setRolling(RollingWindow rolling) {
+    this.rolling = rolling;
+    return this;
+  }
+
+  public RollingWindow getRolling() {
+    return rolling;
   }
 
   public TimeWindow setSliding(SlidingWindow sliding) {
@@ -54,19 +67,21 @@ public class TimeWindow {
     if (o == null || getClass() != o.getClass()) return false;
     TimeWindow that = (TimeWindow) o;
     return Objects.equals(continuous, that.continuous)
+        && Objects.equals(rolling, that.rolling)
         && Objects.equals(sliding, that.sliding)
         && Objects.equals(tumbling, that.tumbling);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(continuous, sliding, tumbling);
+    return Objects.hash(continuous, rolling, sliding, tumbling);
   }
 
   @Override
   public String toString() {
     return new ToStringer(TimeWindow.class)
         .add("continuous", continuous)
+        .add("rolling", rolling)
         .add("sliding", sliding)
         .add("tumbling", tumbling)
         .toString();

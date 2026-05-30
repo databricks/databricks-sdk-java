@@ -99,6 +99,13 @@ public class CreatePipeline {
   @JsonProperty("notifications")
   private Collection<Notifications> notifications;
 
+  /**
+   * Key/value map of default parameters to use for pipeline execution. Maximum total size: 10k
+   * characters (JSON format)
+   */
+  @JsonProperty("parameters")
+  private Map<String, String> parameters;
+
   /** Whether Photon is enabled for this pipeline. */
   @JsonProperty("photon")
   private Boolean photon;
@@ -335,6 +342,15 @@ public class CreatePipeline {
     return notifications;
   }
 
+  public CreatePipeline setParameters(Map<String, String> parameters) {
+    this.parameters = parameters;
+    return this;
+  }
+
+  public Map<String, String> getParameters() {
+    return parameters;
+  }
+
   public CreatePipeline setPhoton(Boolean photon) {
     this.photon = photon;
     return this;
@@ -459,6 +475,7 @@ public class CreatePipeline {
         && Objects.equals(libraries, that.libraries)
         && Objects.equals(name, that.name)
         && Objects.equals(notifications, that.notifications)
+        && Objects.equals(parameters, that.parameters)
         && Objects.equals(photon, that.photon)
         && Objects.equals(restartWindow, that.restartWindow)
         && Objects.equals(rootPath, that.rootPath)
@@ -495,6 +512,7 @@ public class CreatePipeline {
         libraries,
         name,
         notifications,
+        parameters,
         photon,
         restartWindow,
         rootPath,
@@ -531,6 +549,7 @@ public class CreatePipeline {
         .add("libraries", libraries)
         .add("name", name)
         .add("notifications", notifications)
+        .add("parameters", parameters)
         .add("photon", photon)
         .add("restartWindow", restartWindow)
         .add("rootPath", rootPath)

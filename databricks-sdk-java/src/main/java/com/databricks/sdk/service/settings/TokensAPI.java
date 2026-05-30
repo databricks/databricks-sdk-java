@@ -59,8 +59,7 @@ public class TokensAPI {
   /**
    * Updates the comment or scopes of a token.
    *
-   * <p>If a token with the specified ID is not valid, this call returns an error
-   * **RESOURCE_DOES_NOT_EXIST**.
+   * <p>If a token with the specified ID is not valid, this call returns an error **NOT_FOUND**.
    */
   public UpdateTokenResponse update(UpdateTokenRequest request) {
     return impl.update(request);

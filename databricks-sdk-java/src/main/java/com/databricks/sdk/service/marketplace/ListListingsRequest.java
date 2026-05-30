@@ -51,10 +51,10 @@ public class ListListingsRequest {
   @QueryParam("provider_ids")
   private Collection<String> providerIds;
 
-  /** Matches any of the following tags */
+  /** Matches listings with this tag */
   @JsonIgnore
   @QueryParam("tags")
-  private Collection<ListingTag> tags;
+  private ListingTag tags;
 
   public ListListingsRequest setAssets(Collection<AssetType> assets) {
     this.assets = assets;
@@ -128,12 +128,12 @@ public class ListListingsRequest {
     return providerIds;
   }
 
-  public ListListingsRequest setTags(Collection<ListingTag> tags) {
+  public ListListingsRequest setTags(ListingTag tags) {
     this.tags = tags;
     return this;
   }
 
-  public Collection<ListingTag> getTags() {
+  public ListingTag getTags() {
     return tags;
   }
 

@@ -25,6 +25,13 @@ public class Setting {
   private AibiDashboardEmbeddingApprovedDomains aibiDashboardEmbeddingApprovedDomains;
 
   /**
+   * Setting value for allowed_apps_user_api_scopes setting. This is the setting value set by
+   * consumers, check effective_allowed_apps_user_api_scopes for final setting value.
+   */
+  @JsonProperty("allowed_apps_user_api_scopes")
+  private AllowedAppsUserApiScopesMessage allowedAppsUserApiScopes;
+
+  /**
    * Setting value for automatic_cluster_update_workspace setting. This is the setting value set by
    * consumers, check effective_automatic_cluster_update_workspace for final setting value.
    */
@@ -53,6 +60,13 @@ public class Setting {
   private AibiDashboardEmbeddingApprovedDomains effectiveAibiDashboardEmbeddingApprovedDomains;
 
   /**
+   * Effective setting value for allowed_apps_user_api_scopes setting. This is the final effective
+   * value of setting. To set a value use allowed_apps_user_api_scopes.
+   */
+  @JsonProperty("effective_allowed_apps_user_api_scopes")
+  private AllowedAppsUserApiScopesMessage effectiveAllowedAppsUserApiScopes;
+
+  /**
    * Effective setting value for automatic_cluster_update_workspace setting. This is the final
    * effective value of setting. To set a value use automatic_cluster_update_workspace.
    */
@@ -72,6 +86,13 @@ public class Setting {
    */
   @JsonProperty("effective_integer_val")
   private IntegerMessage effectiveIntegerVal;
+
+  /**
+   * Effective setting value for operational_email_custom_recipient setting. This is the final
+   * effective value of setting. To set a value use operational_email_custom_recipient.
+   */
+  @JsonProperty("effective_operational_email_custom_recipient")
+  private OperationalEmailCustomRecipientMessage effectiveOperationalEmailCustomRecipient;
 
   /**
    * Effective setting value for personal_compute setting. This is the final effective value of
@@ -104,6 +125,13 @@ public class Setting {
   /** Name of the setting. */
   @JsonProperty("name")
   private String name;
+
+  /**
+   * Setting value for operational_email_custom_recipient setting. This is the setting value set by
+   * consumers, check effective_operational_email_custom_recipient for final setting value.
+   */
+  @JsonProperty("operational_email_custom_recipient")
+  private OperationalEmailCustomRecipientMessage operationalEmailCustomRecipient;
 
   /**
    * Setting value for personal_compute setting. This is the setting value set by consumers, check
@@ -146,6 +174,16 @@ public class Setting {
     return aibiDashboardEmbeddingApprovedDomains;
   }
 
+  public Setting setAllowedAppsUserApiScopes(
+      AllowedAppsUserApiScopesMessage allowedAppsUserApiScopes) {
+    this.allowedAppsUserApiScopes = allowedAppsUserApiScopes;
+    return this;
+  }
+
+  public AllowedAppsUserApiScopesMessage getAllowedAppsUserApiScopes() {
+    return allowedAppsUserApiScopes;
+  }
+
   public Setting setAutomaticClusterUpdateWorkspace(
       ClusterAutoRestartMessage automaticClusterUpdateWorkspace) {
     this.automaticClusterUpdateWorkspace = automaticClusterUpdateWorkspace;
@@ -186,6 +224,16 @@ public class Setting {
     return effectiveAibiDashboardEmbeddingApprovedDomains;
   }
 
+  public Setting setEffectiveAllowedAppsUserApiScopes(
+      AllowedAppsUserApiScopesMessage effectiveAllowedAppsUserApiScopes) {
+    this.effectiveAllowedAppsUserApiScopes = effectiveAllowedAppsUserApiScopes;
+    return this;
+  }
+
+  public AllowedAppsUserApiScopesMessage getEffectiveAllowedAppsUserApiScopes() {
+    return effectiveAllowedAppsUserApiScopes;
+  }
+
   public Setting setEffectiveAutomaticClusterUpdateWorkspace(
       ClusterAutoRestartMessage effectiveAutomaticClusterUpdateWorkspace) {
     this.effectiveAutomaticClusterUpdateWorkspace = effectiveAutomaticClusterUpdateWorkspace;
@@ -212,6 +260,16 @@ public class Setting {
 
   public IntegerMessage getEffectiveIntegerVal() {
     return effectiveIntegerVal;
+  }
+
+  public Setting setEffectiveOperationalEmailCustomRecipient(
+      OperationalEmailCustomRecipientMessage effectiveOperationalEmailCustomRecipient) {
+    this.effectiveOperationalEmailCustomRecipient = effectiveOperationalEmailCustomRecipient;
+    return this;
+  }
+
+  public OperationalEmailCustomRecipientMessage getEffectiveOperationalEmailCustomRecipient() {
+    return effectiveOperationalEmailCustomRecipient;
   }
 
   public Setting setEffectivePersonalCompute(PersonalComputeMessage effectivePersonalCompute) {
@@ -260,6 +318,16 @@ public class Setting {
     return name;
   }
 
+  public Setting setOperationalEmailCustomRecipient(
+      OperationalEmailCustomRecipientMessage operationalEmailCustomRecipient) {
+    this.operationalEmailCustomRecipient = operationalEmailCustomRecipient;
+    return this;
+  }
+
+  public OperationalEmailCustomRecipientMessage getOperationalEmailCustomRecipient() {
+    return operationalEmailCustomRecipient;
+  }
+
   public Setting setPersonalCompute(PersonalComputeMessage personalCompute) {
     this.personalCompute = personalCompute;
     return this;
@@ -297,6 +365,7 @@ public class Setting {
             aibiDashboardEmbeddingAccessPolicy, that.aibiDashboardEmbeddingAccessPolicy)
         && Objects.equals(
             aibiDashboardEmbeddingApprovedDomains, that.aibiDashboardEmbeddingApprovedDomains)
+        && Objects.equals(allowedAppsUserApiScopes, that.allowedAppsUserApiScopes)
         && Objects.equals(automaticClusterUpdateWorkspace, that.automaticClusterUpdateWorkspace)
         && Objects.equals(booleanVal, that.booleanVal)
         && Objects.equals(
@@ -305,15 +374,19 @@ public class Setting {
         && Objects.equals(
             effectiveAibiDashboardEmbeddingApprovedDomains,
             that.effectiveAibiDashboardEmbeddingApprovedDomains)
+        && Objects.equals(effectiveAllowedAppsUserApiScopes, that.effectiveAllowedAppsUserApiScopes)
         && Objects.equals(
             effectiveAutomaticClusterUpdateWorkspace, that.effectiveAutomaticClusterUpdateWorkspace)
         && Objects.equals(effectiveBooleanVal, that.effectiveBooleanVal)
         && Objects.equals(effectiveIntegerVal, that.effectiveIntegerVal)
+        && Objects.equals(
+            effectiveOperationalEmailCustomRecipient, that.effectiveOperationalEmailCustomRecipient)
         && Objects.equals(effectivePersonalCompute, that.effectivePersonalCompute)
         && Objects.equals(effectiveRestrictWorkspaceAdmins, that.effectiveRestrictWorkspaceAdmins)
         && Objects.equals(effectiveStringVal, that.effectiveStringVal)
         && Objects.equals(integerVal, that.integerVal)
         && Objects.equals(name, that.name)
+        && Objects.equals(operationalEmailCustomRecipient, that.operationalEmailCustomRecipient)
         && Objects.equals(personalCompute, that.personalCompute)
         && Objects.equals(restrictWorkspaceAdmins, that.restrictWorkspaceAdmins)
         && Objects.equals(stringVal, that.stringVal);
@@ -324,18 +397,22 @@ public class Setting {
     return Objects.hash(
         aibiDashboardEmbeddingAccessPolicy,
         aibiDashboardEmbeddingApprovedDomains,
+        allowedAppsUserApiScopes,
         automaticClusterUpdateWorkspace,
         booleanVal,
         effectiveAibiDashboardEmbeddingAccessPolicy,
         effectiveAibiDashboardEmbeddingApprovedDomains,
+        effectiveAllowedAppsUserApiScopes,
         effectiveAutomaticClusterUpdateWorkspace,
         effectiveBooleanVal,
         effectiveIntegerVal,
+        effectiveOperationalEmailCustomRecipient,
         effectivePersonalCompute,
         effectiveRestrictWorkspaceAdmins,
         effectiveStringVal,
         integerVal,
         name,
+        operationalEmailCustomRecipient,
         personalCompute,
         restrictWorkspaceAdmins,
         stringVal);
@@ -346,6 +423,7 @@ public class Setting {
     return new ToStringer(Setting.class)
         .add("aibiDashboardEmbeddingAccessPolicy", aibiDashboardEmbeddingAccessPolicy)
         .add("aibiDashboardEmbeddingApprovedDomains", aibiDashboardEmbeddingApprovedDomains)
+        .add("allowedAppsUserApiScopes", allowedAppsUserApiScopes)
         .add("automaticClusterUpdateWorkspace", automaticClusterUpdateWorkspace)
         .add("booleanVal", booleanVal)
         .add(
@@ -354,14 +432,17 @@ public class Setting {
         .add(
             "effectiveAibiDashboardEmbeddingApprovedDomains",
             effectiveAibiDashboardEmbeddingApprovedDomains)
+        .add("effectiveAllowedAppsUserApiScopes", effectiveAllowedAppsUserApiScopes)
         .add("effectiveAutomaticClusterUpdateWorkspace", effectiveAutomaticClusterUpdateWorkspace)
         .add("effectiveBooleanVal", effectiveBooleanVal)
         .add("effectiveIntegerVal", effectiveIntegerVal)
+        .add("effectiveOperationalEmailCustomRecipient", effectiveOperationalEmailCustomRecipient)
         .add("effectivePersonalCompute", effectivePersonalCompute)
         .add("effectiveRestrictWorkspaceAdmins", effectiveRestrictWorkspaceAdmins)
         .add("effectiveStringVal", effectiveStringVal)
         .add("integerVal", integerVal)
         .add("name", name)
+        .add("operationalEmailCustomRecipient", operationalEmailCustomRecipient)
         .add("personalCompute", personalCompute)
         .add("restrictWorkspaceAdmins", restrictWorkspaceAdmins)
         .add("stringVal", stringVal)

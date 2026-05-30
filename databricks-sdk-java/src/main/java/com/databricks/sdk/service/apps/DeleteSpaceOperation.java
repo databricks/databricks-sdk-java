@@ -89,6 +89,7 @@ public class DeleteSpaceOperation {
         try {
           JsonNode responseJson = objectMapper.valueToTree(operation.getResponse());
           objectMapper.treeToValue(responseJson, Void.class);
+          return;
         } catch (JsonProcessingException e) {
           throw new DatabricksException("Failed to unmarshal  response: " + e.getMessage(), e);
         }

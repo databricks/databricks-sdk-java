@@ -14,6 +14,25 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface WorkspaceIamV2Service {
   /**
+   * Creates a workspace assignment detail for a principal (workspace-level proxy). Entitlement
+   * grants are applied individually and non-atomically — if a failure occurs partway through, the
+   * principal will be assigned to the workspace but with only a subset of the requested
+   * entitlements. Use GetWorkspaceAssignmentDetail to confirm which entitlements were successfully
+   * granted.
+   */
+  WorkspaceAssignmentDetail createWorkspaceAssignmentDetailProxy(
+      CreateWorkspaceAssignmentDetailProxyRequest createWorkspaceAssignmentDetailProxyRequest);
+
+  /**
+   * Deletes a workspace assignment detail for a principal (workspace-level proxy), revoking all
+   * associated entitlements. Entitlement revocations are applied individually and non-atomically —
+   * if a failure occurs partway through, the principal remains assigned with a subset of its
+   * original entitlements, and the operation is safe to retry.
+   */
+  void deleteWorkspaceAssignmentDetailProxy(
+      DeleteWorkspaceAssignmentDetailProxyRequest deleteWorkspaceAssignmentDetailProxyRequest);
+
+  /**
    * Returns the access details for a principal in the current workspace. Allows for checking access
    * details for any provisioned principal (user, service principal, or group) in the current
    * workspace. * Provisioned principal here refers to one that has been synced into Databricks from
@@ -22,6 +41,14 @@ public interface WorkspaceIamV2Service {
    */
   WorkspaceAccessDetail getWorkspaceAccessDetailLocal(
       GetWorkspaceAccessDetailLocalRequest getWorkspaceAccessDetailLocalRequest);
+
+  /** Returns the assignment details for a principal in a workspace (workspace-level proxy). */
+  WorkspaceAssignmentDetail getWorkspaceAssignmentDetailProxy(
+      GetWorkspaceAssignmentDetailProxyRequest getWorkspaceAssignmentDetailProxyRequest);
+
+  /** Lists workspace assignment details for a workspace (workspace-level proxy). */
+  ListWorkspaceAssignmentDetailsResponse listWorkspaceAssignmentDetailsProxy(
+      ListWorkspaceAssignmentDetailsProxyRequest listWorkspaceAssignmentDetailsProxyRequest);
 
   /**
    * Resolves a group with the given external ID from the customer's IdP. If the group does not
@@ -44,4 +71,13 @@ public interface WorkspaceIamV2Service {
    * this will return an error.
    */
   ResolveUserResponse resolveUserProxy(ResolveUserProxyRequest resolveUserProxyRequest);
+
+  /**
+   * Updates the entitlements of a directly assigned principal in a workspace (workspace-level
+   * proxy). Entitlement changes are applied individually and non-atomically — if a failure occurs
+   * partway through, only a subset of the requested changes may have been applied. Use
+   * GetWorkspaceAssignmentDetail to confirm the final state.
+   */
+  WorkspaceAssignmentDetail updateWorkspaceAssignmentDetailProxy(
+      UpdateWorkspaceAssignmentDetailProxyRequest updateWorkspaceAssignmentDetailProxyRequest);
 }

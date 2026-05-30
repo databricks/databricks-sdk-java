@@ -14,6 +14,8 @@ import com.databricks.sdk.service.apps.AppsAPI;
 import com.databricks.sdk.service.apps.AppsService;
 import com.databricks.sdk.service.apps.AppsSettingsAPI;
 import com.databricks.sdk.service.apps.AppsSettingsService;
+import com.databricks.sdk.service.bundle.BundleAPI;
+import com.databricks.sdk.service.bundle.BundleService;
 import com.databricks.sdk.service.catalog.ArtifactAllowlistsAPI;
 import com.databricks.sdk.service.catalog.ArtifactAllowlistsService;
 import com.databricks.sdk.service.catalog.CatalogsAPI;
@@ -284,6 +286,7 @@ public class WorkspaceClient {
   private AppsAPI appsAPI;
   private AppsSettingsAPI appsSettingsAPI;
   private ArtifactAllowlistsAPI artifactAllowlistsAPI;
+  private BundleAPI bundleAPI;
   private CatalogsAPI catalogsAPI;
   private CleanRoomAssetRevisionsAPI cleanRoomAssetRevisionsAPI;
   private CleanRoomAssetsAPI cleanRoomAssetsAPI;
@@ -423,6 +426,7 @@ public class WorkspaceClient {
     appsAPI = new AppsAPI(apiClient);
     appsSettingsAPI = new AppsSettingsAPI(apiClient);
     artifactAllowlistsAPI = new ArtifactAllowlistsAPI(apiClient);
+    bundleAPI = new BundleAPI(apiClient);
     catalogsAPI = new CatalogsAPI(apiClient);
     cleanRoomAssetRevisionsAPI = new CleanRoomAssetRevisionsAPI(apiClient);
     cleanRoomAssetsAPI = new CleanRoomAssetsAPI(apiClient);
@@ -628,6 +632,11 @@ public class WorkspaceClient {
    */
   public ArtifactAllowlistsAPI artifactAllowlists() {
     return artifactAllowlistsAPI;
+  }
+
+  /** Service for managing bundle deployment metadata. */
+  public BundleAPI bundle() {
+    return bundleAPI;
   }
 
   /**
@@ -1987,17 +1996,14 @@ public class WorkspaceClient {
    * reducing the risk of unauthorized access or misuse. To use the temporary path credentials API,
    * a metastore admin needs to enable the external_access_enabled flag (off by default) at the
    * metastore level. A user needs to be granted the EXTERNAL USE LOCATION permission by external
-   * location owner. For requests on existing external tables, user also needs to be granted the
-   * EXTERNAL USE SCHEMA permission at the schema level by catalog owner.
+   * location owner. For requests on existing external tables and external volumes, user also needs
+   * to be granted the EXTERNAL USE SCHEMA permission at the schema level by catalog owner.
    *
    * <p>Note that EXTERNAL USE SCHEMA is a schema level permission that can only be granted by
    * catalog owner explicitly and is not included in schema ownership or ALL PRIVILEGES on the
    * schema for security reasons. Similarly, EXTERNAL USE LOCATION is an external location level
    * permission that can only be granted by external location owner explicitly and is not included
    * in external location ownership or ALL PRIVILEGES on the external location for security reasons.
-   *
-   * <p>This API only supports temporary path credentials for external locations and external
-   * tables, and volumes will be supported in the future.
    */
   public TemporaryPathCredentialsAPI temporaryPathCredentials() {
     return temporaryPathCredentialsAPI;
@@ -2074,7 +2080,7 @@ public class WorkspaceClient {
     return usersV2API;
   }
 
-  /** **Endpoint**: Represents the compute resources to host vector search indexes. */
+  /** **Endpoint**: Represents the compute resources to host AI Search indexes. */
   public VectorSearchEndpointsAPI vectorSearchEndpoints() {
     return vectorSearchEndpointsAPI;
   }
@@ -2083,11 +2089,11 @@ public class WorkspaceClient {
    * **Index**: An efficient representation of your embedding vectors that supports real-time and
    * efficient approximate nearest neighbor (ANN) search queries.
    *
-   * <p>There are 2 types of Vector Search indexes: - **Delta Sync Index**: An index that
-   * automatically syncs with a source Delta Table, automatically and incrementally updating the
-   * index as the underlying data in the Delta Table changes. - **Direct Vector Access Index**: An
-   * index that supports direct read and write of vectors and metadata through our REST and SDK
-   * APIs. With this model, the user manages index updates.
+   * <p>There are 2 types of AI Search indexes: - **Delta Sync Index**: An index that automatically
+   * syncs with a source Delta Table, automatically and incrementally updating the index as the
+   * underlying data in the Delta Table changes. - **Direct Vector Access Index**: An index that
+   * supports direct read and write of vectors and metadata through our REST and SDK APIs. With this
+   * model, the user manages index updates.
    */
   public VectorSearchIndexesAPI vectorSearchIndexes() {
     return vectorSearchIndexesAPI;
@@ -2312,6 +2318,17 @@ public class WorkspaceClient {
   /** Replace the default ArtifactAllowlistsAPI with a custom implementation. */
   public WorkspaceClient withArtifactAllowlistsAPI(ArtifactAllowlistsAPI artifactAllowlists) {
     this.artifactAllowlistsAPI = artifactAllowlists;
+    return this;
+  }
+
+  /** Replace the default BundleService with a custom implementation. */
+  public WorkspaceClient withBundleImpl(BundleService bundle) {
+    return this.withBundleAPI(new BundleAPI(bundle));
+  }
+
+  /** Replace the default BundleAPI with a custom implementation. */
+  public WorkspaceClient withBundleAPI(BundleAPI bundle) {
+    this.bundleAPI = bundle;
     return this;
   }
 

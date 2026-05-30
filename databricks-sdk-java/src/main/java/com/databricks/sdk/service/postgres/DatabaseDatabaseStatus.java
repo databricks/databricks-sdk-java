@@ -9,16 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class DatabaseDatabaseStatus {
-  /**
-   * The short identifier of the database, suitable for showing to the users. For a database with
-   * name `projects/my-project/branches/my-branch/databases/my-db`, the database_id is `my-db`.
-   *
-   * <p>Use this field when building UI components that display databases to users (e.g., a
-   * drop-down selector). Prefer showing `database_id` instead of the full resource name from
-   * `Database.name`, which follows the
-   * `projects/{project_id}/branches/{branch_id}/databases/{database_id}` format and is not
-   * user-friendly.
-   */
+  /** Part of the resource name. */
   @JsonProperty("database_id")
   private String databaseId;
 

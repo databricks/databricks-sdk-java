@@ -26,8 +26,8 @@ public class CurrentUserAPI {
   }
 
   /** Get details about the current method caller's identity. */
-  public User me() {
-    return impl.me();
+  public User me(MeRequest request) {
+    return impl.me(request);
   }
 
   public CurrentUserService impl() {

@@ -13,10 +13,6 @@ public class RequestedResource {
   @JsonProperty("table_name")
   private String tableName;
 
-  /** */
-  @JsonProperty("unspecified_resource_name")
-  private String unspecifiedResourceName;
-
   public RequestedResource setTableName(String tableName) {
     this.tableName = tableName;
     return this;
@@ -26,34 +22,21 @@ public class RequestedResource {
     return tableName;
   }
 
-  public RequestedResource setUnspecifiedResourceName(String unspecifiedResourceName) {
-    this.unspecifiedResourceName = unspecifiedResourceName;
-    return this;
-  }
-
-  public String getUnspecifiedResourceName() {
-    return unspecifiedResourceName;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     RequestedResource that = (RequestedResource) o;
-    return Objects.equals(tableName, that.tableName)
-        && Objects.equals(unspecifiedResourceName, that.unspecifiedResourceName);
+    return Objects.equals(tableName, that.tableName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(tableName, unspecifiedResourceName);
+    return Objects.hash(tableName);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(RequestedResource.class)
-        .add("tableName", tableName)
-        .add("unspecifiedResourceName", unspecifiedResourceName)
-        .toString();
+    return new ToStringer(RequestedResource.class).add("tableName", tableName).toString();
   }
 }

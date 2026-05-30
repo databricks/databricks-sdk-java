@@ -51,14 +51,7 @@ public class ProjectStatus {
   @JsonProperty("pg_version")
   private Long pgVersion;
 
-  /**
-   * The short identifier of the project, suitable for showing to the users. For a project with name
-   * `projects/my-project`, the project_id is `my-project`.
-   *
-   * <p>Use this field when building UI components that display projects to users (e.g., a drop-down
-   * selector). Prefer showing `project_id` instead of the full resource name from `Project.name`,
-   * which follows the `projects/{project_id}` format and is not user-friendly.
-   */
+  /** Part of the resource name. */
   @JsonProperty("project_id")
   private String projectId;
 

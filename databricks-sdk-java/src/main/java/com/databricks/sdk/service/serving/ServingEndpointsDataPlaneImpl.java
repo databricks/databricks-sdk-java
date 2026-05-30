@@ -64,7 +64,7 @@ class ServingEndpointsDataPlaneImpl implements ServingEndpointsDataPlaneService 
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       RequestOptions options =
           new RequestOptions()

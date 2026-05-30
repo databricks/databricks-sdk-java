@@ -14,8 +14,42 @@ import java.util.Objects;
 @Generated
 public class CustomerFacingIngressNetworkPolicy {
   /** */
+  @JsonProperty("cross_workspace_access")
+  private CustomerFacingIngressNetworkPolicyCrossWorkspaceAccess crossWorkspaceAccess;
+
+  /**
+   * The network policy restrictions for private access to the workspace. Configures how registered
+   * private endpoints are allowed or denied access.
+   */
+  @JsonProperty("private_access")
+  private CustomerFacingIngressNetworkPolicyPrivateAccess privateAccess;
+
+  /**
+   * The network policy restrictions for public access to the workspace. Configures how public
+   * internet traffic is allowed or denied access.
+   */
   @JsonProperty("public_access")
   private CustomerFacingIngressNetworkPolicyPublicAccess publicAccess;
+
+  public CustomerFacingIngressNetworkPolicy setCrossWorkspaceAccess(
+      CustomerFacingIngressNetworkPolicyCrossWorkspaceAccess crossWorkspaceAccess) {
+    this.crossWorkspaceAccess = crossWorkspaceAccess;
+    return this;
+  }
+
+  public CustomerFacingIngressNetworkPolicyCrossWorkspaceAccess getCrossWorkspaceAccess() {
+    return crossWorkspaceAccess;
+  }
+
+  public CustomerFacingIngressNetworkPolicy setPrivateAccess(
+      CustomerFacingIngressNetworkPolicyPrivateAccess privateAccess) {
+    this.privateAccess = privateAccess;
+    return this;
+  }
+
+  public CustomerFacingIngressNetworkPolicyPrivateAccess getPrivateAccess() {
+    return privateAccess;
+  }
 
   public CustomerFacingIngressNetworkPolicy setPublicAccess(
       CustomerFacingIngressNetworkPolicyPublicAccess publicAccess) {
@@ -32,17 +66,21 @@ public class CustomerFacingIngressNetworkPolicy {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CustomerFacingIngressNetworkPolicy that = (CustomerFacingIngressNetworkPolicy) o;
-    return Objects.equals(publicAccess, that.publicAccess);
+    return Objects.equals(crossWorkspaceAccess, that.crossWorkspaceAccess)
+        && Objects.equals(privateAccess, that.privateAccess)
+        && Objects.equals(publicAccess, that.publicAccess);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(publicAccess);
+    return Objects.hash(crossWorkspaceAccess, privateAccess, publicAccess);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CustomerFacingIngressNetworkPolicy.class)
+        .add("crossWorkspaceAccess", crossWorkspaceAccess)
+        .add("privateAccess", privateAccess)
         .add("publicAccess", publicAccess)
         .toString();
   }

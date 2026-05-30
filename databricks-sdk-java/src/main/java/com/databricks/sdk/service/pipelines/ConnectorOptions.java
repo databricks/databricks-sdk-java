@@ -27,6 +27,10 @@ public class ConnectorOptions {
   private JiraConnectorOptions jiraOptions;
 
   /** */
+  @JsonProperty("kafka_options")
+  private KafkaOptions kafkaOptions;
+
+  /** */
   @JsonProperty("meta_ads_options")
   private MetaMarketingOptions metaAdsOptions;
 
@@ -45,6 +49,10 @@ public class ConnectorOptions {
   /** */
   @JsonProperty("tiktok_ads_options")
   private TikTokAdsOptions tiktokAdsOptions;
+
+  /** */
+  @JsonProperty("zendesk_support_options")
+  private ZendeskSupportOptions zendeskSupportOptions;
 
   public ConnectorOptions setConfluenceOptions(ConfluenceConnectorOptions confluenceOptions) {
     this.confluenceOptions = confluenceOptions;
@@ -80,6 +88,15 @@ public class ConnectorOptions {
 
   public JiraConnectorOptions getJiraOptions() {
     return jiraOptions;
+  }
+
+  public ConnectorOptions setKafkaOptions(KafkaOptions kafkaOptions) {
+    this.kafkaOptions = kafkaOptions;
+    return this;
+  }
+
+  public KafkaOptions getKafkaOptions() {
+    return kafkaOptions;
   }
 
   public ConnectorOptions setMetaAdsOptions(MetaMarketingOptions metaAdsOptions) {
@@ -127,6 +144,15 @@ public class ConnectorOptions {
     return tiktokAdsOptions;
   }
 
+  public ConnectorOptions setZendeskSupportOptions(ZendeskSupportOptions zendeskSupportOptions) {
+    this.zendeskSupportOptions = zendeskSupportOptions;
+    return this;
+  }
+
+  public ZendeskSupportOptions getZendeskSupportOptions() {
+    return zendeskSupportOptions;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -136,11 +162,13 @@ public class ConnectorOptions {
         && Objects.equals(gdriveOptions, that.gdriveOptions)
         && Objects.equals(googleAdsOptions, that.googleAdsOptions)
         && Objects.equals(jiraOptions, that.jiraOptions)
+        && Objects.equals(kafkaOptions, that.kafkaOptions)
         && Objects.equals(metaAdsOptions, that.metaAdsOptions)
         && Objects.equals(outlookOptions, that.outlookOptions)
         && Objects.equals(sharepointOptions, that.sharepointOptions)
         && Objects.equals(smartsheetOptions, that.smartsheetOptions)
-        && Objects.equals(tiktokAdsOptions, that.tiktokAdsOptions);
+        && Objects.equals(tiktokAdsOptions, that.tiktokAdsOptions)
+        && Objects.equals(zendeskSupportOptions, that.zendeskSupportOptions);
   }
 
   @Override
@@ -150,11 +178,13 @@ public class ConnectorOptions {
         gdriveOptions,
         googleAdsOptions,
         jiraOptions,
+        kafkaOptions,
         metaAdsOptions,
         outlookOptions,
         sharepointOptions,
         smartsheetOptions,
-        tiktokAdsOptions);
+        tiktokAdsOptions,
+        zendeskSupportOptions);
   }
 
   @Override
@@ -164,11 +194,13 @@ public class ConnectorOptions {
         .add("gdriveOptions", gdriveOptions)
         .add("googleAdsOptions", googleAdsOptions)
         .add("jiraOptions", jiraOptions)
+        .add("kafkaOptions", kafkaOptions)
         .add("metaAdsOptions", metaAdsOptions)
         .add("outlookOptions", outlookOptions)
         .add("sharepointOptions", sharepointOptions)
         .add("smartsheetOptions", smartsheetOptions)
         .add("tiktokAdsOptions", tiktokAdsOptions)
+        .add("zendeskSupportOptions", zendeskSupportOptions)
         .toString();
   }
 }

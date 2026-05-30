@@ -11,5 +11,6 @@ public enum ServedModelInputWorkloadType {
   GPU_LARGE,
   GPU_MEDIUM,
   GPU_SMALL,
+  GPU_XLARGE,
   MULTIGPU_MEDIUM,
 }

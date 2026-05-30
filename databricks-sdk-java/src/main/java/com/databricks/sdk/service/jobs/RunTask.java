@@ -100,6 +100,13 @@ public class RunTask {
   private Boolean disableAutoOptimization;
 
   /**
+   * An optional flag to disable the task. If set to true, the task will not run even if it is part
+   * of a job.
+   */
+  @JsonProperty("disabled")
+  private Boolean disabled;
+
+  /**
    * The actual performance target used by the serverless run during execution. This can differ from
    * the client-set performance target on the request depending on whether the performance mode is
    * supported by the job type.
@@ -229,6 +236,10 @@ public class RunTask {
    */
   @JsonProperty("power_bi_task")
   private PowerBiTask powerBiTask;
+
+  /** The task runs a Python operator task. */
+  @JsonProperty("python_operator_task")
+  private PythonOperatorTask pythonOperatorTask;
 
   /** The task runs a Python wheel when the `python_wheel_task` field is present. */
   @JsonProperty("python_wheel_task")
@@ -468,6 +479,15 @@ public class RunTask {
     return disableAutoOptimization;
   }
 
+  public RunTask setDisabled(Boolean disabled) {
+    this.disabled = disabled;
+    return this;
+  }
+
+  public Boolean getDisabled() {
+    return disabled;
+  }
+
   public RunTask setEffectivePerformanceTarget(PerformanceTarget effectivePerformanceTarget) {
     this.effectivePerformanceTarget = effectivePerformanceTarget;
     return this;
@@ -628,6 +648,15 @@ public class RunTask {
 
   public PowerBiTask getPowerBiTask() {
     return powerBiTask;
+  }
+
+  public RunTask setPythonOperatorTask(PythonOperatorTask pythonOperatorTask) {
+    this.pythonOperatorTask = pythonOperatorTask;
+    return this;
+  }
+
+  public PythonOperatorTask getPythonOperatorTask() {
+    return pythonOperatorTask;
   }
 
   public RunTask setPythonWheelTask(PythonWheelTask pythonWheelTask) {
@@ -829,6 +858,7 @@ public class RunTask {
         && Objects.equals(dependsOn, that.dependsOn)
         && Objects.equals(description, that.description)
         && Objects.equals(disableAutoOptimization, that.disableAutoOptimization)
+        && Objects.equals(disabled, that.disabled)
         && Objects.equals(effectivePerformanceTarget, that.effectivePerformanceTarget)
         && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(endTime, that.endTime)
@@ -847,6 +877,7 @@ public class RunTask {
         && Objects.equals(notificationSettings, that.notificationSettings)
         && Objects.equals(pipelineTask, that.pipelineTask)
         && Objects.equals(powerBiTask, that.powerBiTask)
+        && Objects.equals(pythonOperatorTask, that.pythonOperatorTask)
         && Objects.equals(pythonWheelTask, that.pythonWheelTask)
         && Objects.equals(queueDuration, that.queueDuration)
         && Objects.equals(resolvedValues, that.resolvedValues)
@@ -886,6 +917,7 @@ public class RunTask {
         dependsOn,
         description,
         disableAutoOptimization,
+        disabled,
         effectivePerformanceTarget,
         emailNotifications,
         endTime,
@@ -904,6 +936,7 @@ public class RunTask {
         notificationSettings,
         pipelineTask,
         powerBiTask,
+        pythonOperatorTask,
         pythonWheelTask,
         queueDuration,
         resolvedValues,
@@ -943,6 +976,7 @@ public class RunTask {
         .add("dependsOn", dependsOn)
         .add("description", description)
         .add("disableAutoOptimization", disableAutoOptimization)
+        .add("disabled", disabled)
         .add("effectivePerformanceTarget", effectivePerformanceTarget)
         .add("emailNotifications", emailNotifications)
         .add("endTime", endTime)
@@ -961,6 +995,7 @@ public class RunTask {
         .add("notificationSettings", notificationSettings)
         .add("pipelineTask", pipelineTask)
         .add("powerBiTask", powerBiTask)
+        .add("pythonOperatorTask", pythonOperatorTask)
         .add("pythonWheelTask", pythonWheelTask)
         .add("queueDuration", queueDuration)
         .add("resolvedValues", resolvedValues)

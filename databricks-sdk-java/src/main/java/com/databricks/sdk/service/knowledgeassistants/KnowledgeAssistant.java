@@ -49,7 +49,7 @@ public class KnowledgeAssistant {
   @JsonProperty("experiment_id")
   private String experimentId;
 
-  /** The universally unique identifier (UUID) of the Knowledge Assistant. */
+  /** Deprecated: use knowledge_assistant_id instead. */
   @JsonProperty("id")
   private String id;
 

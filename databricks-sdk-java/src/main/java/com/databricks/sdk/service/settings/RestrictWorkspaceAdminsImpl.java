@@ -26,7 +26,7 @@ class RestrictWorkspaceAdminsImpl implements RestrictWorkspaceAdminsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, DeleteRestrictWorkspaceAdminsSettingResponse.class);
     } catch (IOException e) {
@@ -43,7 +43,7 @@ class RestrictWorkspaceAdminsImpl implements RestrictWorkspaceAdminsService {
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, RestrictWorkspaceAdminsSetting.class);
     } catch (IOException e) {
@@ -62,7 +62,7 @@ class RestrictWorkspaceAdminsImpl implements RestrictWorkspaceAdminsService {
       req.withHeader("Accept", "application/json");
       req.withHeader("Content-Type", "application/json");
       if (apiClient.workspaceId() != null) {
-        req.withHeader("X-Databricks-Org-Id", apiClient.workspaceId());
+        req.withHeader("X-Databricks-Workspace-Id", apiClient.workspaceId());
       }
       return apiClient.execute(req, RestrictWorkspaceAdminsSetting.class);
     } catch (IOException e) {
