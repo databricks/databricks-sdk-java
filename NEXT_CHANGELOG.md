@@ -23,3 +23,4 @@
 * Add `autoscopeEnabled` field for `com.databricks.sdk.service.settings.CreateTokenRequest`.
 * Add `autoscopeState`, `backfillScopes`, `inferredScopes` and `scopes` fields for `com.databricks.sdk.service.settings.PublicTokenInfo`.
 * Add `autoscopeState`, `backfillScopes`, `inferredScopes` and `scopes` fields for `com.databricks.sdk.service.settings.TokenInfo`.
+* Add `resourceType` field for `com.databricks.sdk.service.bundle.Operation`.

@@ -49,6 +49,13 @@ public class Operation {
   @JsonProperty("resource_key")
   private String resourceKey;
 
+  /**
+   * The type of the deployment resource this operation applies to. Derived from the `resource_key`
+   * prefix (e.g. "jobs" → JOB); the caller does not set this field.
+   */
+  @JsonProperty("resource_type")
+  private DeploymentResourceType resourceType;
+
   /** Serialized local config state after the operation. Should be unset for delete operations. */
   @JsonProperty("state")
   private JsonNode state;
@@ -111,6 +118,15 @@ public class Operation {
     return resourceKey;
   }
 
+  public Operation setResourceType(DeploymentResourceType resourceType) {
+    this.resourceType = resourceType;
+    return this;
+  }
+
+  public DeploymentResourceType getResourceType() {
+    return resourceType;
+  }
+
   public Operation setState(JsonNode state) {
     this.state = state;
     return this;
@@ -140,6 +156,7 @@ public class Operation {
         && Objects.equals(name, that.name)
         && Objects.equals(resourceId, that.resourceId)
         && Objects.equals(resourceKey, that.resourceKey)
+        && Objects.equals(resourceType, that.resourceType)
         && Objects.equals(state, that.state)
         && Objects.equals(status, that.status);
   }
@@ -147,7 +164,15 @@ public class Operation {
   @Override
   public int hashCode() {
     return Objects.hash(
-        actionType, createTime, errorMessage, name, resourceId, resourceKey, state, status);
+        actionType,
+        createTime,
+        errorMessage,
+        name,
+        resourceId,
+        resourceKey,
+        resourceType,
+        state,
+        status);
   }
 
   @Override
@@ -159,6 +184,7 @@ public class Operation {
         .add("name", name)
         .add("resourceId", resourceId)
         .add("resourceKey", resourceKey)
+        .add("resourceType", resourceType)
         .add("state", state)
         .add("status", status)
         .toString();
