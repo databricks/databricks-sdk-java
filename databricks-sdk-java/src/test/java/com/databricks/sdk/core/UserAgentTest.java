@@ -309,7 +309,7 @@ public class UserAgentTest {
   @Test
   public void testAgentProviderAgentEnvCursor() {
     // AGENT=cursor with no cursor-specific env var. Falls through to the
-    // AGENT fallback and matches "cursor" as a known product name.
+    // AGENT fallback and is passed through unchanged.
     setupAgentEnv(
         new HashMap<String, String>() {
           {
@@ -362,23 +362,142 @@ public class UserAgentTest {
   }
 
   @Test
-  public void testAgentProviderAgentEnvUnknown() {
+  public void testAgentProviderAgentEnvUnrecognizedPassthrough() {
+    // An unrecognized AGENT value is passed through as-is (no longer coerced
+    // to "unknown"), after sanitization.
     setupAgentEnv(
         new HashMap<String, String>() {
           {
             put("AGENT", "someweirdthing");
           }
         });
-    Assertions.assertTrue(UserAgent.asString().contains("agent/unknown"));
+    Assertions.assertTrue(UserAgent.asString().contains("agent/someweirdthing"));
+    Assertions.assertFalse(UserAgent.asString().contains("agent/unknown"));
+  }
+
+  @Test
+  public void testAgentProviderAgentEnvVersionedPassthrough() {
+    // A versioned variant whose characters are all in the allowlist
+    // ([0-9A-Za-z_.+-]) is passed through unchanged.
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("AGENT", "my-tool-1.2.3");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/my-tool-1.2.3"));
+  }
+
+  @Test
+  public void testAgentProviderAgentEnvSanitized() {
+    // Characters outside the user agent allowlist [0-9A-Za-z_.+-] become
+    // hyphens.
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("AGENT", "weird agent!@#name");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/weird-agent---name"));
+  }
+
+  @Test
+  public void testAgentProviderAgentEnvTruncated() {
+    // Values longer than 64 characters are truncated to 64.
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < 100; i++) {
+      sb.append("a");
+    }
+    String longValue = sb.toString();
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("AGENT", longValue);
+          }
+        });
+    StringBuilder expected = new StringBuilder("agent/");
+    for (int i = 0; i < 64; i++) {
+      expected.append("a");
+    }
+    String userAgent = UserAgent.asString();
+    Assertions.assertTrue(userAgent.contains(expected.toString()));
+    // Must not contain a 65th 'a' after the prefix.
+    Assertions.assertFalse(userAgent.contains(expected.toString() + "a"));
   }
 
   @Test
   public void testAgentProviderAgentEnvEmpty() {
-    // AGENT="" should not trigger the unknown fallback.
+    // AGENT="" should not trigger the fallback.
     setupAgentEnv(
         new HashMap<String, String>() {
           {
             put("AGENT", "");
+          }
+        });
+    Assertions.assertFalse(UserAgent.asString().contains("agent/"));
+  }
+
+  @Test
+  public void testAgentProviderAiAgentFallback() {
+    // AI_AGENT is consulted when AGENT is unset.
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("AI_AGENT", "vercel-agent");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/vercel-agent"));
+  }
+
+  @Test
+  public void testAgentProviderAgentWinsOverAiAgent() {
+    // AGENT takes precedence over AI_AGENT when both are non-empty.
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("AGENT", "primary");
+            put("AI_AGENT", "secondary");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/primary"));
+    Assertions.assertFalse(UserAgent.asString().contains("agent/secondary"));
+  }
+
+  @Test
+  public void testAgentProviderEmptyAgentFallsBackToAiAgent() {
+    // AGENT="" falls back to AI_AGENT.
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("AGENT", "");
+            put("AI_AGENT", "secondary");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/secondary"));
+  }
+
+  @Test
+  public void testAgentProviderExplicitMatcherWinsOverAiAgent() {
+    // An explicit matcher wins over AI_AGENT.
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("AI_AGENT", "vercel-agent");
+            put("CLAUDECODE", "1");
+          }
+        });
+    Assertions.assertTrue(UserAgent.asString().contains("agent/claude-code"));
+    Assertions.assertFalse(UserAgent.asString().contains("agent/vercel-agent"));
+  }
+
+  @Test
+  public void testAgentProviderBothEmptyReturnsNone() {
+    // Both AGENT and AI_AGENT empty yields no agent segment.
+    setupAgentEnv(
+        new HashMap<String, String>() {
+          {
+            put("AGENT", "");
+            put("AI_AGENT", "");
           }
         });
     Assertions.assertFalse(UserAgent.asString().contains("agent/"));

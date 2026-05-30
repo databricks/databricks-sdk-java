@@ -3,6 +3,7 @@
 ## Release v0.114.0
 
 ### New Features and Improvements
+* Detect the `AI_AGENT` environment variable (Vercel `@vercel/detect-agent` convention) as a secondary fallback for the AI agent reported in the user agent, consulted only when the agents.md `AGENT` variable is unset or empty. An unrecognized `AGENT` or `AI_AGENT` value is now passed through as-is (sanitized to the user agent allowlist and capped at 64 characters) instead of being reported as `unknown`. Mirrors [databricks/databricks-sdk-go#1683](https://github.com/databricks/databricks-sdk-go/pull/1683).
 
 ### Breaking Changes
 
