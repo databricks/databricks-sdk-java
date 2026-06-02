@@ -1,6 +1,6 @@
 # NEXT CHANGELOG
 
-## Release v0.115.0
+## Release v0.116.0
 
 ### New Features and Improvements
 
@@ -15,6 +15,3 @@
 ### Internal Changes
 
 ### API Changes
-* Add `deploymentMode` field for `com.databricks.sdk.service.bundle.Deployment`.
-* Add `deploymentMode` field for `com.databricks.sdk.service.bundle.Version`.
-* Add `collaborationPlatformConnectivity` and `effectiveCollaborationPlatformConnectivity` fields for `com.databricks.sdk.service.settingsv2.Setting`.
