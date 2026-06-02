@@ -13,7 +13,10 @@ public class CustomerFacingIngressNetworkPolicyRequestDestination {
   @JsonProperty("account_api")
   private CustomerFacingIngressNetworkPolicyAccountApiDestination accountApi;
 
-  /** */
+  /**
+   * Account DatabricksOne destination is not supported. DO NOT change the stage of this destination
+   * past PRIVATE_PREVIEW.
+   */
   @JsonProperty("account_databricks_one")
   private CustomerFacingIngressNetworkPolicyAccountDatabricksOneDestination accountDatabricksOne;
 

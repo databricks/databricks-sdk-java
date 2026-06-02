@@ -233,6 +233,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/bundle/CreateOperat
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/bundle/CreateVersionRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/bundle/DeleteDeploymentRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/bundle/Deployment.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/bundle/DeploymentMode.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/bundle/DeploymentResourceType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/bundle/DeploymentStatus.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/bundle/GetDeploymentRequest.java linguist-generated=true
@@ -3141,6 +3142,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/ClusterA
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/ClusterAutoRestartMessageMaintenanceWindowWeekDayBasedSchedule.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/ClusterAutoRestartMessageMaintenanceWindowWeekDayFrequency.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/ClusterAutoRestartMessageMaintenanceWindowWindowStartTime.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/CollaborationPlatformConnectivityMessage.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/CollaborationPlatformConnectivityMessageConnectivity.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/GetPublicAccountSettingRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/GetPublicAccountUserPreferenceRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settingsv2/GetPublicWorkspaceSettingRequest.java linguist-generated=true
