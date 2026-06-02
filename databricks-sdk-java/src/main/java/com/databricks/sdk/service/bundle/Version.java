@@ -44,6 +44,13 @@ public class Version {
   @JsonProperty("created_by")
   private String createdBy;
 
+  /**
+   * Bundle target deployment mode (development or production), captured at the time of this
+   * version.
+   */
+  @JsonProperty("deployment_mode")
+  private DeploymentMode deploymentMode;
+
   /** Display name for the deployment, captured at the time of this version. */
   @JsonProperty("display_name")
   private String displayName;
@@ -125,6 +132,15 @@ public class Version {
     return createdBy;
   }
 
+  public Version setDeploymentMode(DeploymentMode deploymentMode) {
+    this.deploymentMode = deploymentMode;
+    return this;
+  }
+
+  public DeploymentMode getDeploymentMode() {
+    return deploymentMode;
+  }
+
   public Version setDisplayName(String displayName) {
     this.displayName = displayName;
     return this;
@@ -190,6 +206,7 @@ public class Version {
         && Objects.equals(completionReason, that.completionReason)
         && Objects.equals(createTime, that.createTime)
         && Objects.equals(createdBy, that.createdBy)
+        && Objects.equals(deploymentMode, that.deploymentMode)
         && Objects.equals(displayName, that.displayName)
         && Objects.equals(name, that.name)
         && Objects.equals(status, that.status)
@@ -207,6 +224,7 @@ public class Version {
         completionReason,
         createTime,
         createdBy,
+        deploymentMode,
         displayName,
         name,
         status,
@@ -224,6 +242,7 @@ public class Version {
         .add("completionReason", completionReason)
         .add("createTime", createTime)
         .add("createdBy", createdBy)
+        .add("deploymentMode", deploymentMode)
         .add("displayName", displayName)
         .add("name", name)
         .add("status", status)
