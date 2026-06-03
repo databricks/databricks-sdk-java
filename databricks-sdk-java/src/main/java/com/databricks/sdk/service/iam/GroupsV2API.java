@@ -68,6 +68,9 @@ public class GroupsV2API {
         impl::list,
         ListGroupsResponse::getResources,
         response -> {
+          if (response.getResources() == null || response.getResources().isEmpty()) {
+            return null;
+          }
           Long offset = request.getStartIndex();
           if (offset == null) {
             offset = 0L;

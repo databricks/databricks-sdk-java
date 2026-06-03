@@ -1,6 +1,7 @@
 package com.databricks.sdk.support;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.function.Function;
 
@@ -52,19 +53,27 @@ public class Paginator<RQ, RS, T> implements Iterable<T> {
   }
 
   private boolean flipNextPage(RQ request, boolean firstRequest) {
-    if (!firstRequest && request == null) {
-      return false;
+    // A page may be empty while still carrying a next-page token (e.g. when
+    // leading items are filtered out server-side), so an empty page must not
+    // stop iteration on its own. Termination is governed solely by nextPageFn
+    // returning null, which signals that no further pages exist.
+    while (firstRequest || request != null) {
+      response = requestFn.apply(request);
+      if (response == null) {
+        return false;
+      }
+      Collection<T> results = itemsFn.apply(response);
+      if (results == null) {
+        results = Collections.emptyList();
+      }
+      currentPage = results.iterator();
+      if (currentPage.hasNext()) {
+        return true;
+      }
+      request = nextPageFn.apply(response);
+      firstRequest = false;
     }
-    response = requestFn.apply(request);
-    if (response == null) {
-      return false;
-    }
-    Collection<T> results = itemsFn.apply(response);
-    if (results == null) {
-      return false;
-    }
-    currentPage = results.iterator();
-    return currentPage.hasNext();
+    return false;
   }
 
   private Iterator<T> outerIterator() {
