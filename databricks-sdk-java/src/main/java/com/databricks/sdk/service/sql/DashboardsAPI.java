@@ -81,7 +81,7 @@ public class DashboardsAPI {
    */
   public Iterable<Dashboard> list(ListDashboardsRequest request) {
     request.setPage(1L);
-    return new Paginator<>(
+    return Paginator.newOffsetPagination(
         request,
         impl::list,
         ListResponse::getResults,

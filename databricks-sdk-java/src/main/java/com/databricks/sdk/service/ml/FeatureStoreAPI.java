@@ -65,7 +65,7 @@ public class FeatureStoreAPI {
 
   /** List Online Feature Stores. */
   public Iterable<OnlineStore> listOnlineStores(ListOnlineStoresRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listOnlineStores,
         ListOnlineStoresResponse::getOnlineStores,

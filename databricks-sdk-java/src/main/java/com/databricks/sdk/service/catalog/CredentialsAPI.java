@@ -90,7 +90,7 @@ public class CredentialsAPI {
    * absent, which is the only indication that the end of results has been reached.
    */
   public Iterable<CredentialInfo> listCredentials(ListCredentialsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listCredentials,
         ListCredentialsResponse::getCredentials,

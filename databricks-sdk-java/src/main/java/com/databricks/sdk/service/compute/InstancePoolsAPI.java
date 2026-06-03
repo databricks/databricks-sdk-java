@@ -97,7 +97,7 @@ public class InstancePoolsAPI {
 
   /** Gets a list of instance pools with their statistics. */
   public Iterable<InstancePoolAndStats> list() {
-    return new Paginator<>(
+    return Paginator.newOffsetPagination(
         null, (Void v) -> impl.list(), ListInstancePools::getInstancePools, response -> null);
   }
 

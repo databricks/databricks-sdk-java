@@ -52,7 +52,7 @@ public class TokensAPI {
 
   /** Lists all the valid tokens for a user-workspace pair. */
   public Iterable<PublicTokenInfo> list() {
-    return new Paginator<>(
+    return Paginator.newOffsetPagination(
         null, (Void v) -> impl.list(), ListPublicTokensResponse::getTokenInfos, response -> null);
   }
 

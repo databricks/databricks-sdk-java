@@ -91,7 +91,7 @@ public class AccountFederationPolicyAPI {
 
   /** List account federation policies. */
   public Iterable<FederationPolicy> list(ListAccountFederationPoliciesRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListFederationPoliciesResponse::getPolicies,

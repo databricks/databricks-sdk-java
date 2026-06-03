@@ -47,7 +47,7 @@ public class ConsumerPersonalizationRequestsAPI {
 
   /** List personalization requests for a consumer across all listings. */
   public Iterable<PersonalizationRequest> list(ListAllPersonalizationRequestsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListAllPersonalizationRequestsResponse::getPersonalizationRequests,

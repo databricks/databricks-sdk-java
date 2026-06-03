@@ -30,7 +30,7 @@ public class OAuthPublishedAppsAPI {
 
   /** Get all the available published OAuth apps in Databricks. */
   public Iterable<PublishedAppOutput> list(ListOAuthPublishedAppsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         GetPublishedAppsOutput::getApps,

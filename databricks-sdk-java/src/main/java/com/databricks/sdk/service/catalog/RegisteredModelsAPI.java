@@ -130,7 +130,7 @@ public class RegisteredModelsAPI {
    * absent, which is the only indication that the end of results has been reached.
    */
   public Iterable<RegisteredModelInfo> list(ListRegisteredModelsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListRegisteredModelsResponse::getRegisteredModels,

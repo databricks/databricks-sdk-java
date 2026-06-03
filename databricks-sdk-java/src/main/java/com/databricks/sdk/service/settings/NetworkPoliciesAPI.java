@@ -59,7 +59,7 @@ public class NetworkPoliciesAPI {
 
   /** Gets an array of network policies. */
   public Iterable<AccountNetworkPolicy> listNetworkPoliciesRpc(ListNetworkPoliciesRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listNetworkPoliciesRpc,
         ListNetworkPoliciesResponse::getItems,

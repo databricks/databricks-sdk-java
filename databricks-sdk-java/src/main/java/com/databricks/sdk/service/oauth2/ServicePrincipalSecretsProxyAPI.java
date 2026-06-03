@@ -65,7 +65,7 @@ public class ServicePrincipalSecretsProxyAPI {
    * information about the secrets themselves and does not include the secret values.
    */
   public Iterable<SecretInfo> list(ListServicePrincipalSecretsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListServicePrincipalSecretsResponse::getSecrets,

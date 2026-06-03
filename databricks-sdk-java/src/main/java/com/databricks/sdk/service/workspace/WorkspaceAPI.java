@@ -121,7 +121,8 @@ public class WorkspaceAPI {
    * does not exist, this call returns an error `RESOURCE_DOES_NOT_EXIST`.
    */
   public Iterable<ObjectInfo> list(ListWorkspaceRequest request) {
-    return new Paginator<>(request, impl::list, ListResponse::getObjects, response -> null);
+    return Paginator.newOffsetPagination(
+        request, impl::list, ListResponse::getObjects, response -> null);
   }
 
   public void mkdirs(String path) {

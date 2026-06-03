@@ -133,7 +133,7 @@ public class VectorSearchEndpointsAPI {
 
   /** List all AI Search endpoints in the workspace. */
   public Iterable<EndpointInfo> listEndpoints(ListEndpointsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listEndpoints,
         ListEndpointResponse::getEndpoints,

@@ -58,7 +58,7 @@ public class GitCredentialsAPI {
 
   /** Lists the calling user's Git credentials. */
   public Iterable<CredentialInfo> list(ListCredentialsRequest request) {
-    return new Paginator<>(
+    return Paginator.newOffsetPagination(
         request, impl::list, ListCredentialsResponse::getCredentials, response -> null);
   }
 

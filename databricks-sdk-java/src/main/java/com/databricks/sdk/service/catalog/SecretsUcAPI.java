@@ -85,7 +85,7 @@ public class SecretsUcAPI {
    * to retrieve subsequent pages.
    */
   public Iterable<Secret> listSecrets(ListSecretsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listSecrets,
         ListSecretsResponse::getSecrets,

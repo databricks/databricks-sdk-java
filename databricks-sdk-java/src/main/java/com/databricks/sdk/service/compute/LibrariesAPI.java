@@ -45,7 +45,7 @@ public class LibrariesAPI {
    * installed on this cluster via the API or the libraries UI.
    */
   public Iterable<ClusterLibraryStatuses> allClusterStatuses() {
-    return new Paginator<>(
+    return Paginator.newOffsetPagination(
         null,
         (Void v) -> impl.allClusterStatuses(),
         ListAllClusterLibraryStatusesResponse::getStatuses,
@@ -64,7 +64,7 @@ public class LibrariesAPI {
    * this cluster or, but are now marked for removal, in no particular order, are returned last.
    */
   public Iterable<LibraryFullStatus> clusterStatus(ClusterStatus request) {
-    return new Paginator<>(
+    return Paginator.newOffsetPagination(
         request, impl::clusterStatus, ClusterLibraryStatuses::getLibraryStatuses, response -> null);
   }
 

@@ -72,7 +72,7 @@ public class MaterializedFeaturesAPI {
 
   /** Lists FeatureTags. */
   public Iterable<FeatureTag> listFeatureTags(ListFeatureTagsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listFeatureTags,
         ListFeatureTagsResponse::getFeatureTags,

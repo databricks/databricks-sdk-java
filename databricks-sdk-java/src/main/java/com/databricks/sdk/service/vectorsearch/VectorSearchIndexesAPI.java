@@ -71,7 +71,7 @@ public class VectorSearchIndexesAPI {
 
   /** List all indexes in the given endpoint. */
   public Iterable<MiniVectorIndex> listIndexes(ListIndexesRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listIndexes,
         ListVectorIndexesResponse::getVectorIndexes,

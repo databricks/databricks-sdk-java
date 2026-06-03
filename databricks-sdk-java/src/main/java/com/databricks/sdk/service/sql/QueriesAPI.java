@@ -62,7 +62,7 @@ public class QueriesAPI {
    * temporary ban.
    */
   public Iterable<ListQueryObjectsResponseQuery> list(ListQueriesRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListQueryObjectsResponse::getResults,
@@ -81,7 +81,7 @@ public class QueriesAPI {
 
   /** Gets a list of visualizations on a query. */
   public Iterable<Visualization> listVisualizations(ListVisualizationsForQueryRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listVisualizations,
         ListVisualizationsForQueryResponse::getResults,

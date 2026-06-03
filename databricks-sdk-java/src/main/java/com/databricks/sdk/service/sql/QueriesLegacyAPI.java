@@ -95,7 +95,7 @@ public class QueriesLegacyAPI {
    */
   public Iterable<LegacyQuery> list(ListQueriesLegacyRequest request) {
     request.setPage(1L);
-    return new Paginator<>(
+    return Paginator.newOffsetPagination(
         request,
         impl::list,
         QueryList::getResults,

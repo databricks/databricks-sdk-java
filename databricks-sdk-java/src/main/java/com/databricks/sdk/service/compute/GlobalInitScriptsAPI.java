@@ -61,7 +61,7 @@ public class GlobalInitScriptsAPI {
    * global init script](:method:globalinitscripts/get) operation.
    */
   public Iterable<GlobalInitScriptDetails> list() {
-    return new Paginator<>(
+    return Paginator.newOffsetPagination(
         null, (Void v) -> impl.list(), ListGlobalInitScriptsResponse::getScripts, response -> null);
   }
 

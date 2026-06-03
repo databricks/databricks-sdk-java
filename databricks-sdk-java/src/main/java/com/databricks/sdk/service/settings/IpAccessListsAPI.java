@@ -84,7 +84,7 @@ public class IpAccessListsAPI {
 
   /** Gets all IP access lists for the specified workspace. */
   public Iterable<IpAccessListInfo> list() {
-    return new Paginator<>(
+    return Paginator.newOffsetPagination(
         null,
         (Void v) -> impl.list(),
         ListIpAccessListResponse::getIpAccessLists,

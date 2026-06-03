@@ -209,7 +209,8 @@ public class SecretsAPI {
    * ``PERMISSION_DENIED`` if the user does not have permission to make this API call.
    */
   public Iterable<AclItem> listAcls(ListAclsRequest request) {
-    return new Paginator<>(request, impl::listAcls, ListAclsResponse::getItems, response -> null);
+    return Paginator.newOffsetPagination(
+        request, impl::listAcls, ListAclsResponse::getItems, response -> null);
   }
 
   /**
@@ -225,7 +226,7 @@ public class SecretsAPI {
    * <p>Throws ``PERMISSION_DENIED`` if the user does not have permission to make this API call.
    */
   public Iterable<SecretScope> listScopes() {
-    return new Paginator<>(
+    return Paginator.newOffsetPagination(
         null, (Void v) -> impl.listScopes(), ListScopesResponse::getScopes, response -> null);
   }
 
@@ -250,7 +251,7 @@ public class SecretsAPI {
    * ``PERMISSION_DENIED`` if the user does not have permission to make this API call.
    */
   public Iterable<SecretMetadata> listSecrets(ListSecretsRequest request) {
-    return new Paginator<>(
+    return Paginator.newOffsetPagination(
         request, impl::listSecrets, ListSecretsResponse::getSecrets, response -> null);
   }
 

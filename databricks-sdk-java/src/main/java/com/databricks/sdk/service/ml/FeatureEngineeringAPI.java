@@ -140,7 +140,7 @@ public class FeatureEngineeringAPI {
 
   /** List Features. */
   public Iterable<Feature> listFeatures(ListFeaturesRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listFeatures,
         ListFeaturesResponse::getFeatures,
@@ -158,7 +158,7 @@ public class FeatureEngineeringAPI {
    * under the entire metastore. Only the creator of the Kafka config can delete it.
    */
   public Iterable<KafkaConfig> listKafkaConfigs(ListKafkaConfigsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listKafkaConfigs,
         ListKafkaConfigsResponse::getKafkaConfigs,
@@ -174,7 +174,7 @@ public class FeatureEngineeringAPI {
   /** List materialized features. */
   public Iterable<MaterializedFeature> listMaterializedFeatures(
       ListMaterializedFeaturesRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listMaterializedFeatures,
         ListMaterializedFeaturesResponse::getMaterializedFeatures,
@@ -189,7 +189,7 @@ public class FeatureEngineeringAPI {
 
   /** List Streams under a given catalog.schema parent. */
   public Iterable<Stream> listStreams(ListStreamsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listStreams,
         ListStreamsResponse::getStreams,

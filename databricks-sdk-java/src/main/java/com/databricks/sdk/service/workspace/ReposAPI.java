@@ -86,7 +86,7 @@ public class ReposAPI {
    * through additional pages.
    */
   public Iterable<RepoInfo> list(ListReposRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListReposResponse::getRepos,

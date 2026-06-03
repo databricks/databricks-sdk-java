@@ -68,7 +68,7 @@ public class PolicyComplianceForJobsAPI {
    * clusters no longer comply with the updated policy.
    */
   public Iterable<JobCompliance> listCompliance(ListJobComplianceRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listCompliance,
         ListJobComplianceForPolicyResponse::getJobs,

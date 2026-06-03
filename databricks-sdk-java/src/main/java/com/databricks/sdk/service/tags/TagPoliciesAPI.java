@@ -91,7 +91,7 @@ public class TagPoliciesAPI {
    * https://registry.terraform.io/providers/databricks/databricks/latest/docs/data-sources/tag_policies
    */
   public Iterable<TagPolicy> listTagPolicies(ListTagPoliciesRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listTagPolicies,
         ListTagPoliciesResponse::getTagPolicies,

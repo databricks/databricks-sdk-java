@@ -102,7 +102,7 @@ public class ModelVersionsAPI {
    * absent, which is the only indication that the end of results has been reached.
    */
   public Iterable<ModelVersionInfo> list(ListModelVersionsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListModelVersionsResponse::getModelVersions,

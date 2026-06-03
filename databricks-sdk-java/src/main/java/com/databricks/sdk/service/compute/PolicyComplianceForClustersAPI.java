@@ -74,7 +74,7 @@ public class PolicyComplianceForClustersAPI {
    * out of compliance if their policy was updated after the cluster was last edited.
    */
   public Iterable<ClusterCompliance> listCompliance(ListClusterCompliancesRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listCompliance,
         ListClusterCompliancesResponse::getClusters,
