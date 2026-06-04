@@ -43,7 +43,7 @@ public class ConsumerInstallationsAPI {
 
   /** List all installations across all listings. */
   public Iterable<InstallationDetail> list(ListAllInstallationsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListAllInstallationsResponse::getInstallations,
@@ -62,7 +62,7 @@ public class ConsumerInstallationsAPI {
 
   /** List all installations for a particular listing. */
   public Iterable<InstallationDetail> listListingInstallations(ListInstallationsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listListingInstallations,
         ListInstallationsResponse::getInstallations,

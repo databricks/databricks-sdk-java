@@ -109,7 +109,7 @@ public class LakeviewAPI {
 
   /** List dashboards. */
   public Iterable<Dashboard> list(ListDashboardsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListDashboardsResponse::getDashboards,
@@ -128,7 +128,7 @@ public class LakeviewAPI {
 
   /** List dashboard schedules. */
   public Iterable<Schedule> listSchedules(ListSchedulesRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listSchedules,
         ListSchedulesResponse::getSchedules,
@@ -148,7 +148,7 @@ public class LakeviewAPI {
 
   /** List schedule subscriptions. */
   public Iterable<Subscription> listSubscriptions(ListSubscriptionsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listSubscriptions,
         ListSubscriptionsResponse::getSubscriptions,

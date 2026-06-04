@@ -215,7 +215,7 @@ public class ClustersAPI {
    * page of events.
    */
   public Iterable<ClusterEvent> events(GetEvents request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request, impl::events, GetEventsResponse::getEvents, response -> response.getNextPage());
   }
 
@@ -255,7 +255,7 @@ public class ClustersAPI {
    * last 30 days. Clusters terminated prior to this period are not included.
    */
   public Iterable<ClusterDetails> list(ListClustersRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListClustersResponse::getClusters,

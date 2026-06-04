@@ -97,7 +97,7 @@ public class EntityTagAssignmentsAPI {
    * absent, which is the only indication that the end of results has been reached.
    */
   public Iterable<EntityTagAssignment> list(ListEntityTagAssignmentsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListEntityTagAssignmentsResponse::getTagAssignments,

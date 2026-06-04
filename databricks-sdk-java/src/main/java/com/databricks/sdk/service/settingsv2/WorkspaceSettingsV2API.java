@@ -43,7 +43,7 @@ public class WorkspaceSettingsV2API {
    */
   public Iterable<SettingsMetadata> listWorkspaceSettingsMetadata(
       ListWorkspaceSettingsMetadataRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listWorkspaceSettingsMetadata,
         ListWorkspaceSettingsMetadataResponse::getSettingsMetadata,

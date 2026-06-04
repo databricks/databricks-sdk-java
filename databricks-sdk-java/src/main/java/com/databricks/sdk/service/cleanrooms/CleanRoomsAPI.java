@@ -123,7 +123,7 @@ public class CleanRoomsAPI {
    * returned.
    */
   public Iterable<CleanRoom> list(ListCleanRoomsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListCleanRoomsResponse::getCleanRooms,

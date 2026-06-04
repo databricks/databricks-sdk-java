@@ -66,7 +66,7 @@ public class SharesAPI extends SharesExtAPI {
     if (request.getMaxResults() == null) {
       request.setMaxResults(0L);
     }
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listShares,
         ListSharesResponse::getShares,

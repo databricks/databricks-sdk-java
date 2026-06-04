@@ -66,7 +66,7 @@ public class EndpointsAPI {
 
   /** Lists all network connectivity endpoints for the account. */
   public Iterable<Endpoint> listEndpoints(ListEndpointsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listEndpoints,
         ListEndpointsResponse::getItems,

@@ -52,7 +52,7 @@ public class ProviderListingsAPI {
 
   /** List listings owned by this provider */
   public Iterable<Listing> list(GetListingsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         GetListingsResponse::getListings,

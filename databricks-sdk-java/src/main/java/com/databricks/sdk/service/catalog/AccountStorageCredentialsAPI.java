@@ -74,7 +74,7 @@ public class AccountStorageCredentialsAPI {
 
   /** Gets a list of all storage credentials that have been assigned to given metastore. */
   public Iterable<StorageCredentialInfo> list(ListAccountStorageCredentialsRequest request) {
-    return new Paginator<>(
+    return Paginator.newOffsetPagination(
         request,
         impl::list,
         ListAccountStorageCredentialsResponse::getStorageCredentials,

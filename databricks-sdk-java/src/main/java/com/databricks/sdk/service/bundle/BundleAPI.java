@@ -135,7 +135,7 @@ public class BundleAPI {
 
   /** Lists deployments in the workspace. */
   public Iterable<Deployment> listDeployments(ListDeploymentsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listDeployments,
         ListDeploymentsResponse::getDeployments,
@@ -154,7 +154,7 @@ public class BundleAPI {
 
   /** Lists resource operations under a version. */
   public Iterable<Operation> listOperations(ListOperationsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listOperations,
         ListOperationsResponse::getOperations,
@@ -173,7 +173,7 @@ public class BundleAPI {
 
   /** Lists resources under a deployment. */
   public Iterable<Resource> listResources(ListResourcesRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listResources,
         ListResourcesResponse::getResources,
@@ -192,7 +192,7 @@ public class BundleAPI {
 
   /** Lists versions under a deployment, ordered by version_id descending (most recent first). */
   public Iterable<Version> listVersions(ListVersionsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listVersions,
         ListVersionsResponse::getVersions,

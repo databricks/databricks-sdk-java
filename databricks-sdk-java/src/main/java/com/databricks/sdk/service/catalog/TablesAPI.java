@@ -133,7 +133,7 @@ public class TablesAPI {
     if (request.getMaxResults() == null) {
       request.setMaxResults(0L);
     }
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListTablesResponse::getTables,
@@ -167,7 +167,7 @@ public class TablesAPI {
    * absent, which is the only indication that the end of results has been reached.
    */
   public Iterable<TableSummary> listSummaries(ListSummariesRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listSummaries,
         ListTableSummariesResponse::getTables,

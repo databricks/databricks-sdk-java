@@ -30,7 +30,7 @@ public class CleanRoomTaskRunsAPI {
 
   /** List all the historical notebook task runs in a clean room. */
   public Iterable<CleanRoomNotebookTaskRun> list(ListCleanRoomNotebookTaskRunsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListCleanRoomNotebookTaskRunsResponse::getRuns,

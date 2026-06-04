@@ -131,7 +131,7 @@ public class NetworkConnectivityAPI {
   /** Gets an array of network connectivity configurations. */
   public Iterable<NetworkConnectivityConfiguration> listNetworkConnectivityConfigurations(
       ListNetworkConnectivityConfigurationsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listNetworkConnectivityConfigurations,
         ListNetworkConnectivityConfigurationsResponse::getItems,
@@ -154,7 +154,7 @@ public class NetworkConnectivityAPI {
   /** Gets an array of private endpoint rules. */
   public Iterable<NccPrivateEndpointRule> listPrivateEndpointRules(
       ListPrivateEndpointRulesRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listPrivateEndpointRules,
         ListPrivateEndpointRulesResponse::getItems,

@@ -69,7 +69,7 @@ public class ExternalLineageAPI {
    */
   public Iterable<ExternalLineageInfo> listExternalLineageRelationships(
       ListExternalLineageRelationshipsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listExternalLineageRelationships,
         ListExternalLineageRelationshipsResponse::getExternalLineageRelationships,

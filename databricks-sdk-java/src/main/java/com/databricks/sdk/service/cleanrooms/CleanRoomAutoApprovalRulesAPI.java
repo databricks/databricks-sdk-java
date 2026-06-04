@@ -62,7 +62,7 @@ public class CleanRoomAutoApprovalRulesAPI {
 
   /** List all auto-approval rules for the caller */
   public Iterable<CleanRoomAutoApprovalRule> list(ListCleanRoomAutoApprovalRulesRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListCleanRoomAutoApprovalRulesResponse::getRules,

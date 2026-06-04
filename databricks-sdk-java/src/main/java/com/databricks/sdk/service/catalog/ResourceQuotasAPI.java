@@ -60,7 +60,7 @@ public class ResourceQuotasAPI {
    * absent, which is the only indication that the end of results has been reached.
    */
   public Iterable<QuotaInfo> listQuotas(ListQuotasRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listQuotas,
         ListQuotasResponse::getQuotas,

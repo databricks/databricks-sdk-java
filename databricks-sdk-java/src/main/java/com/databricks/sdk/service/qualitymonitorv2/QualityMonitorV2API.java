@@ -66,7 +66,7 @@ public class QualityMonitorV2API {
    * (Unimplemented) List quality monitors.
    */
   public Iterable<QualityMonitor> listQualityMonitor(ListQualityMonitorRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listQualityMonitor,
         ListQualityMonitorResponse::getQualityMonitors,

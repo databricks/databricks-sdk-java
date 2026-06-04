@@ -82,7 +82,7 @@ public class PoliciesAPI {
    * absent, which is the only indication that the end of results has been reached.
    */
   public Iterable<PolicyInfo> listPolicies(ListPoliciesRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listPolicies,
         ListPoliciesResponse::getPolicies,

@@ -62,7 +62,7 @@ public class AccountMetastoreAssignmentsAPI {
 
   /** Gets a list of all Databricks workspace IDs that have been assigned to given metastore. */
   public Iterable<Long> list(ListAccountMetastoreAssignmentsRequest request) {
-    return new Paginator<>(
+    return Paginator.newOffsetPagination(
         request,
         impl::list,
         ListAccountMetastoreAssignmentsResponse::getWorkspaceIds,

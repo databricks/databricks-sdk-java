@@ -65,7 +65,7 @@ public class ProviderExchangesAPI {
 
   /** List exchanges visible to provider */
   public Iterable<Exchange> list(ListExchangesRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListExchangesResponse::getExchanges,
@@ -84,7 +84,7 @@ public class ProviderExchangesAPI {
 
   /** List exchanges associated with a listing */
   public Iterable<ExchangeListing> listExchangesForListing(ListExchangesForListingRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listExchangesForListing,
         ListExchangesForListingResponse::getExchangeListing,
@@ -103,7 +103,7 @@ public class ProviderExchangesAPI {
 
   /** List listings associated with an exchange */
   public Iterable<ExchangeListing> listListingsForExchange(ListListingsForExchangeRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listListingsForExchange,
         ListListingsForExchangeResponse::getExchangeListings,

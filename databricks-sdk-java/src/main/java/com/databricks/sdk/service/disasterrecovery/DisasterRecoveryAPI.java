@@ -81,7 +81,7 @@ public class DisasterRecoveryAPI {
 
   /** List failover groups. */
   public Iterable<FailoverGroup> listFailoverGroups(ListFailoverGroupsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listFailoverGroups,
         ListFailoverGroupsResponse::getFailoverGroups,
@@ -100,7 +100,7 @@ public class DisasterRecoveryAPI {
 
   /** List stable URLs for an account. */
   public Iterable<StableUrl> listStableUrls(ListStableUrlsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listStableUrls,
         ListStableUrlsResponse::getStableUrls,

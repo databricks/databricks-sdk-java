@@ -123,7 +123,7 @@ public class LogDeliveryAPI {
 
   /** Gets all Databricks log delivery configurations associated with an account specified by ID. */
   public Iterable<LogDeliveryConfiguration> list(ListLogDeliveryRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         WrappedLogDeliveryConfigurations::getLogDeliveryConfigurations,

@@ -40,7 +40,7 @@ public class ConsumerProvidersAPI {
 
   /** List all providers in the Databricks Marketplace with at least one visible listing. */
   public Iterable<ProviderInfo> list(ListConsumerProvidersRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListProvidersResponse::getProviders,

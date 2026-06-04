@@ -44,7 +44,7 @@ public class ProviderExchangeFiltersAPI {
 
   /** List exchange filter */
   public Iterable<ExchangeFilter> list(ListExchangeFiltersRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListExchangeFiltersResponse::getFilters,

@@ -55,7 +55,7 @@ public class NotificationDestinationsAPI {
   /** Lists notification destinations. */
   public Iterable<ListNotificationDestinationsResult> list(
       ListNotificationDestinationsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListNotificationDestinationsResponse::getResults,

@@ -62,7 +62,7 @@ public class WorkspaceEntityTagAssignmentsAPI {
 
   /** List the tag assignments for an entity */
   public Iterable<TagAssignment> listTagAssignments(ListTagAssignmentsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listTagAssignments,
         ListTagAssignmentsResponse::getTagAssignments,

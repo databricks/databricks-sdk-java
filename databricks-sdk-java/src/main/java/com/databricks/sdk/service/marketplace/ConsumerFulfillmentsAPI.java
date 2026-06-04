@@ -30,7 +30,7 @@ public class ConsumerFulfillmentsAPI {
 
   /** Get a high level preview of the metadata of listing installable content. */
   public Iterable<SharedDataObject> get(GetListingContentMetadataRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::get,
         GetListingContentMetadataResponse::getSharedDataObjects,
@@ -54,7 +54,7 @@ public class ConsumerFulfillmentsAPI {
    * attached share or git repo, as well as the Delta Sharing recipient type.
    */
   public Iterable<ListingFulfillment> list(ListFulfillmentsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListFulfillmentsResponse::getFulfillments,

@@ -107,7 +107,7 @@ public class RecipientFederationPoliciesAPI {
    * non-Databricks recipients. The caller must have read access to the recipient.
    */
   public Iterable<FederationPolicy> list(ListFederationPoliciesRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListFederationPoliciesResponse::getPolicies,

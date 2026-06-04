@@ -231,7 +231,7 @@ public class JobsAPI {
 
   /** Retrieves a list of jobs. */
   public Iterable<BaseJob> list(ListJobsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::list,
         ListJobsResponse::getJobs,
@@ -246,7 +246,7 @@ public class JobsAPI {
 
   /** List runs in descending order by start time. */
   public Iterable<BaseRun> listRuns(ListRunsRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listRuns,
         ListRunsResponse::getRuns,

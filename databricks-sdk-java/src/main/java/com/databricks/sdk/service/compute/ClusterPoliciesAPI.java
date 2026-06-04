@@ -104,7 +104,7 @@ public class ClusterPoliciesAPI {
 
   /** Returns a list of policies accessible by the requesting user. */
   public Iterable<Policy> list(ListClusterPoliciesRequest request) {
-    return new Paginator<>(
+    return Paginator.newOffsetPagination(
         request, impl::list, ListPoliciesResponse::getPolicies, response -> null);
   }
 

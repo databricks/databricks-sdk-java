@@ -49,7 +49,7 @@ public class AppsSettingsAPI {
 
   /** Lists all custom templates in the workspace. */
   public Iterable<CustomTemplate> listCustomTemplates(ListCustomTemplatesRequest request) {
-    return new Paginator<>(
+    return Paginator.newTokenPagination(
         request,
         impl::listCustomTemplates,
         ListCustomTemplatesResponse::getTemplates,
