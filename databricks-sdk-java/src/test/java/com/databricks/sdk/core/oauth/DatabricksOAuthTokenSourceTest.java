@@ -117,6 +117,13 @@ class DatabricksOAuthTokenSourceTest {
       formParams.put("scope", "all-apis");
       FormRequest expectedRequest = new FormRequest(TEST_TOKEN_ENDPOINT, formParams);
 
+      // Expected request for account-wide token federation, where no client ID is provided (e.g.
+      // users authenticated through a web browser OAuth flow). The client_id param is omitted.
+      Map<String, String> formParamsNoClientId = new HashMap<>(formParams);
+      formParamsNoClientId.remove("client_id");
+      FormRequest expectedRequestNoClientId =
+          new FormRequest(TEST_TOKEN_ENDPOINT, formParamsNoClientId);
+
       return Stream.of(
           // Token exchange test cases
           new TestCase(
@@ -198,27 +205,27 @@ class DatabricksOAuthTokenSourceTest {
               DatabricksException.class),
           // Parameter validation test cases
           new TestCase(
-              "Null client ID",
+              "Null client ID performs account-wide token federation",
               null,
               TEST_HOST,
               testEndpoints,
               testIdTokenSource,
-              createMockHttpClient(expectedRequest, 200, successJson),
+              createMockHttpClient(expectedRequestNoClientId, 200, successJson),
               null,
               null,
-              null,
-              NullPointerException.class),
+              TEST_TOKEN_ENDPOINT,
+              null),
           new TestCase(
-              "Empty client ID",
+              "Empty client ID performs account-wide token federation",
               "",
               TEST_HOST,
               testEndpoints,
               testIdTokenSource,
-              createMockHttpClient(expectedRequest, 200, successJson),
+              createMockHttpClient(expectedRequestNoClientId, 200, successJson),
               null,
               null,
-              null,
-              IllegalArgumentException.class),
+              TEST_TOKEN_ENDPOINT,
+              null),
           new TestCase(
               "Null host",
               TEST_CLIENT_ID,
