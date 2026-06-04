@@ -79,7 +79,9 @@ public class DatabricksOAuthTokenSource implements TokenSource {
     /**
      * Creates a new Builder with required parameters.
      *
-     * @param clientId OAuth client ID.
+     * @param clientId OAuth client ID. May be null or empty for account-wide token federation (e.g.
+     *     users authenticated through a web browser OAuth flow whose IdP JWT has no client ID); in
+     *     that case the client_id parameter is omitted from the token exchange request.
      * @param host Databricks host URL.
      * @param endpoints OpenID Connect endpoints configuration.
      * @param idTokenSource Source of ID tokens.
@@ -147,20 +149,17 @@ public class DatabricksOAuthTokenSource implements TokenSource {
    *
    * @return A Token containing the access token and related information.
    * @throws DatabricksException when the token exchange fails.
-   * @throws IllegalArgumentException when the required string parameters are empty.
-   * @throws NullPointerException when any of the required parameters are null.
+   * @throws IllegalArgumentException when the host is empty.
+   * @throws NullPointerException when any of the required parameters (host, endpoints,
+   *     idTokenSource, httpClient) are null. The client ID is optional.
    */
   @Override
   public Token getToken() {
-    Objects.requireNonNull(clientId, "ClientID cannot be null");
     Objects.requireNonNull(host, "Host cannot be null");
     Objects.requireNonNull(endpoints, "Endpoints cannot be null");
     Objects.requireNonNull(idTokenSource, "IDTokenSource cannot be null");
     Objects.requireNonNull(httpClient, "HttpClient cannot be null");
 
-    if (clientId.isEmpty()) {
-      throw new IllegalArgumentException("ClientID cannot be empty");
-    }
     if (host.isEmpty()) {
       throw new IllegalArgumentException("Host cannot be empty");
     }
@@ -173,7 +172,12 @@ public class DatabricksOAuthTokenSource implements TokenSource {
     params.put(SUBJECT_TOKEN_PARAM, idToken.getValue());
     params.put(SUBJECT_TOKEN_TYPE_PARAM, SUBJECT_TOKEN_TYPE);
     params.put(SCOPE_PARAM, String.join(" ", scopes));
-    params.put(CLIENT_ID_PARAM, clientId);
+    // The client ID is optional. Service principals (Workload Identity Federation) send it, but
+    // users authenticated through a web browser OAuth flow have no client ID in their IdP JWT and
+    // perform account-wide token federation without one.
+    if (!Strings.isNullOrEmpty(clientId)) {
+      params.put(CLIENT_ID_PARAM, clientId);
+    }
 
     OAuthResponse response;
     try {
